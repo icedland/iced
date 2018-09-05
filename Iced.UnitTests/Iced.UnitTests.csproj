@@ -35,6 +35,154 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Intel\DecoderConstants.cs" />
+    <Compile Include="Intel\DecoderTests\CodeValueTests.cs" />
+    <Compile Include="Intel\DecoderTests\ConstantOffsetsTests.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTestUtils.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_00_07.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_08_0F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_10_17.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_18_1F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_20_27.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_28_2F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_30_37.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_38_3F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_40_47.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_48_4F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_50_57.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_58_5F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_60_67.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_68_6F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_70_77.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_78_7F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_80_87.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_88_8F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_90_97.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_98_9F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_A0_A7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_A8_AF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_B0_B7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_B8_BF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_C0_C7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_C8_CF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_D0_D7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_D8_DF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_E0_E7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_E8_EF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_F0_F7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_1_F8_FF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F00_0F07.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F08_0F0F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F10_0F17.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F18_0F1F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F20_0F27.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F28_0F2F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F30_0F37.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F38_0F3F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F40_0F47.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F48_0F4F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F50_0F57.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F58_0F5F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F60_0F67.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F68_0F6F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F70_0F77.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F78_0F7F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F80_0F87.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F88_0F8F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F90_0F97.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0F98_0F9F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FA0_0FA7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FA8_0FAF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FB0_0FB7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FB8_0FBF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FC0_0FC7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FC8_0FCF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FD0_0FD7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FD8_0FDF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FE0_0FE7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FE8_0FEF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FF0_0FF7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_2_0FF8_0FFF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3800_0F3807.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3808_0F380F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3810_0F3817.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3818_0F381F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3820_0F3827.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3828_0F382F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3830_0F3837.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3838_0F383F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3840_0F3847.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3848_0F384F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3850_0F3857.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3858_0F385F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3860_0F3867.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3868_0F386F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3870_0F3877.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3878_0F387F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3880_0F3887.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3888_0F388F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3890_0F3897.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3898_0F389F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38A0_0F38A7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38A8_0F38AF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38B0_0F38B7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38B8_0F38BF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38C0_0F38C7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38C8_0F38CF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38D0_0F38D7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38D8_0F38DF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38E0_0F38E7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38E8_0F38EF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38F0_0F38F7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F38F8_0F38FF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A00_0F3A07.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A08_0F3A0F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A10_0F3A17.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A18_0F3A1F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A20_0F3A27.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A28_0F3A2F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A30_0F3A37.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A38_0F3A3F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A40_0F3A47.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A48_0F3A4F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A50_0F3A57.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A58_0F3A5F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A60_0F3A67.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A68_0F3A6F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A70_0F3A77.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A78_0F3A7F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A80_0F3A87.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A88_0F3A8F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A90_0F3A97.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3A98_0F3A9F.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AA0_0F3AA7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AA8_0F3AAF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AB0_0F3AB7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AB8_0F3ABF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AC0_0F3AC7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AC8_0F3ACF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AD0_0F3AD7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AD8_0F3ADF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AE0_0F3AE7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AE8_0F3AEF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AF0_0F3AF7.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AF8_0F3AFF.cs" />
+    <Compile Include="Intel\DecoderTests\MemoryTest16_000.cs" />
+    <Compile Include="Intel\DecoderTests\MemoryTest16_001.cs" />
+    <Compile Include="Intel\DecoderTests\MemoryTest16_002.cs" />
+    <Compile Include="Intel\DecoderTests\MemoryTest32_000.cs" />
+    <Compile Include="Intel\DecoderTests\MemoryTest32_001.cs" />
+    <Compile Include="Intel\DecoderTests\MemoryTest32_002.cs" />
+    <Compile Include="Intel\DecoderTests\MemoryTest64_000.cs" />
+    <Compile Include="Intel\DecoderTests\MemoryTest64_001.cs" />
+    <Compile Include="Intel\DecoderTests\MemoryTest64_002.cs" />
+    <Compile Include="Intel\DecoderTests\MemoryTest64_003.cs" />
+    <Compile Include="Intel\DecoderTests\MemoryTestGen.cs" />
+    <Compile Include="Intel\DecoderTests\MiscTests.cs" />
+    <Compile Include="Intel\DecoderTests\PrefixTests.cs" />
+    <Compile Include="Intel\MemorySizeTests.cs" />
+    <Compile Include="Intel\RegisterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +200,38 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Intel\DecoderTests\MemoryTest16_000.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\DecoderTests\MemoryTest16_001.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\DecoderTests\MemoryTest16_002.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\DecoderTests\MemoryTest32_000.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\DecoderTests\MemoryTest32_001.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\DecoderTests\MemoryTest32_002.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\DecoderTests\MemoryTest64_000.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\DecoderTests\MemoryTest64_001.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\DecoderTests\MemoryTest64_002.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\DecoderTests\MemoryTest64_003.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
