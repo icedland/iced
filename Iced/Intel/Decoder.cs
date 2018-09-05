@@ -962,6 +962,25 @@ after_imm_loop:
 
 			return constantOffsets;
 		}
+
+#if !NO_ENCODER
+		/// <summary>
+		/// Creates an encoder
+		/// </summary>
+		/// <param name="writer">Destination</param>
+		/// <returns></returns>
+		public Encoder CreateEncoder(CodeWriter writer) {
+			switch (defaultCodeSize) {
+			case CodeSize.Code16:	return Encoder.Create16(writer);
+			case CodeSize.Code32:	return Encoder.Create32(writer);
+			case CodeSize.Code64:	return Encoder.Create64(writer);
+
+			case CodeSize.Unknown:
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+#endif
 	}
 }
 #endif

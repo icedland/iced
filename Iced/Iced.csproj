@@ -40,9 +40,23 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Intel\BlockEncoder.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\Block.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\CallInstr.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\CodeUtils.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\CodeWriterImpl.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\Instr.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\IpRelMemOpInstr.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\JccInstr.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\JmpInstr.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\SimpleBranchInstr.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\SimpleInstr.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\TargetInstr.cs" />
+    <Compile Include="Intel\BlockEncoderInternal\XbeginInstr.cs" />
     <Compile Include="Intel\ByteArrayCodeReader.cs" />
     <Compile Include="Intel\Code.cs" />
     <Compile Include="Intel\CodeReader.cs" />
+    <Compile Include="Intel\CodeWriter.cs" />
     <Compile Include="Intel\ConstantOffsets.cs" />
     <Compile Include="Intel\Decoder.32.cs" />
     <Compile Include="Intel\Decoder.64.cs" />
@@ -66,6 +80,10 @@
     <Compile Include="Intel\DecoderInternal\OpCodeHandlersFpu32Tables.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlersFpu64.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlersFpu64Tables.cs" />
+    <Compile Include="Intel\Encoder.cs" />
+    <Compile Include="Intel\EncoderInternal\EncoderOpCodeHandler.cs" />
+    <Compile Include="Intel\EncoderInternal\OpCodeHandlers.cs" />
+    <Compile Include="Intel\EncoderInternal\OpHandlers.cs" />
     <Compile Include="Intel\EncodingKind.cs" />
     <Compile Include="Intel\Features.cs" />
     <Compile Include="Intel\Formatter.cs" />
