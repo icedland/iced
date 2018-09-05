@@ -1107,6 +1107,418 @@ namespace Iced.Intel {
 			}
 		}
 
+#if !NO_INSTR_INFO
+		/// <summary>
+		/// Gets the number of bytes added to SP/ESP/RSP or 0 if it's not an instruction that pushes or pops data. This method
+		/// assumes the instruction doesn't change privilege (eg. iret/d/q). If it's the leave instruction, this method returns 0.
+		/// </summary>
+		/// <returns></returns>
+		public int StackPointerIncrement {
+			get {
+				CodeSize codeSize;
+				switch (Code) {
+				case Code.Pushw_ES:
+				case Code.Pushw_CS:
+				case Code.Pushw_SS:
+				case Code.Pushw_DS:
+				case Code.Push_AX:
+				case Code.Push_R8W:
+				case Code.Push_CX:
+				case Code.Push_R9W:
+				case Code.Push_DX:
+				case Code.Push_R10W:
+				case Code.Push_BX:
+				case Code.Push_R11W:
+				case Code.Push_SP:
+				case Code.Push_R12W:
+				case Code.Push_BP:
+				case Code.Push_R13W:
+				case Code.Push_SI:
+				case Code.Push_R14W:
+				case Code.Push_DI:
+				case Code.Push_R15W:
+				case Code.Push_Iw:
+				case Code.Push_Ib16:
+				case Code.Pushfw:
+				case Code.Push_Ew:
+				case Code.Pushw_FS:
+				case Code.Pushw_GS:
+					return -2;
+
+				case Code.Pushd_ES:
+				case Code.Pushd_CS:
+				case Code.Pushd_SS:
+				case Code.Pushd_DS:
+				case Code.Push_EAX:
+				case Code.Push_ECX:
+				case Code.Push_EDX:
+				case Code.Push_EBX:
+				case Code.Push_ESP:
+				case Code.Push_EBP:
+				case Code.Push_ESI:
+				case Code.Push_EDI:
+				case Code.Push_Id:
+				case Code.Push_Ib32:
+				case Code.Pushfd:
+				case Code.Push_Ed:
+				case Code.Pushd_FS:
+				case Code.Pushd_GS:
+					return -4;
+
+				case Code.Push_RAX:
+				case Code.Push_R8:
+				case Code.Push_RCX:
+				case Code.Push_R9:
+				case Code.Push_RDX:
+				case Code.Push_R10:
+				case Code.Push_RBX:
+				case Code.Push_R11:
+				case Code.Push_RSP:
+				case Code.Push_R12:
+				case Code.Push_RBP:
+				case Code.Push_R13:
+				case Code.Push_RSI:
+				case Code.Push_R14:
+				case Code.Push_RDI:
+				case Code.Push_R15:
+				case Code.Push_Id64:
+				case Code.Push_Ib64:
+				case Code.Pushfq:
+				case Code.Push_Eq:
+				case Code.Pushq_FS:
+				case Code.Pushq_GS:
+					return -8;
+
+				case Code.Pushaw:
+					return -2 * 8;
+
+				case Code.Pushad:
+					return -4 * 8;
+
+				case Code.Popw_ES:
+				case Code.Popw_SS:
+				case Code.Popw_DS:
+				case Code.Pop_AX:
+				case Code.Pop_R8W:
+				case Code.Pop_CX:
+				case Code.Pop_R9W:
+				case Code.Pop_DX:
+				case Code.Pop_R10W:
+				case Code.Pop_BX:
+				case Code.Pop_R11W:
+				case Code.Pop_SP:
+				case Code.Pop_R12W:
+				case Code.Pop_BP:
+				case Code.Pop_R13W:
+				case Code.Pop_SI:
+				case Code.Pop_R14W:
+				case Code.Pop_DI:
+				case Code.Pop_R15W:
+				case Code.Pop_Ew:
+				case Code.Popfw:
+				case Code.Popw_FS:
+				case Code.Popw_GS:
+					return 2;
+
+				case Code.Popd_ES:
+				case Code.Popd_SS:
+				case Code.Popd_DS:
+				case Code.Pop_EAX:
+				case Code.Pop_ECX:
+				case Code.Pop_EDX:
+				case Code.Pop_EBX:
+				case Code.Pop_ESP:
+				case Code.Pop_EBP:
+				case Code.Pop_ESI:
+				case Code.Pop_EDI:
+				case Code.Pop_Ed:
+				case Code.Popfd:
+				case Code.Popd_FS:
+				case Code.Popd_GS:
+					return 4;
+
+				case Code.Pop_RAX:
+				case Code.Pop_R8:
+				case Code.Pop_RCX:
+				case Code.Pop_R9:
+				case Code.Pop_RDX:
+				case Code.Pop_R10:
+				case Code.Pop_RBX:
+				case Code.Pop_R11:
+				case Code.Pop_RSP:
+				case Code.Pop_R12:
+				case Code.Pop_RBP:
+				case Code.Pop_R13:
+				case Code.Pop_RSI:
+				case Code.Pop_R14:
+				case Code.Pop_RDI:
+				case Code.Pop_R15:
+				case Code.Pop_Eq:
+				case Code.Popfq:
+				case Code.Popq_FS:
+				case Code.Popq_GS:
+					return 8;
+
+				case Code.Popaw:
+					return 2 * 8;
+
+				case Code.Popad:
+					return 4 * 8;
+
+				case Code.Call_Aww:
+				case Code.Call_Eww:
+					return -(2 + 2);
+
+				case Code.Call_Adw:
+				case Code.Call_Edw:
+					return -(4 + 4);
+
+				case Code.Call_Eqw:
+					return -(8 + 8);
+
+				case Code.Call_Jw16:
+				case Code.Call_Ew:
+					return -2;
+
+				case Code.Call_Jd32:
+				case Code.Call_Ed:
+					return -4;
+
+				case Code.Call_Jd64:
+				case Code.Call_Eq:
+					return -8;
+
+				case Code.Retnw_Iw:
+					return 2 + Immediate16;
+
+				case Code.Retnd_Iw:
+					return 4 + Immediate16;
+
+				case Code.Retnq_Iw:
+					return 8 + Immediate16;
+
+				case Code.Retnw:
+					return 2;
+
+				case Code.Retnd:
+					return 4;
+
+				case Code.Retnq:
+					return 8;
+
+				case Code.Retfw_Iw:
+					return 2 + 2 + Immediate16;
+
+				case Code.Retfd_Iw:
+					return 4 + 4 + Immediate16;
+
+				case Code.Retfq_Iw:
+					return 8 + 8 + Immediate16;
+
+				case Code.Retfw:
+					return 2 + 2;
+
+				case Code.Retfd:
+					return 4 + 4;
+
+				case Code.Retfq:
+					return 8 + 8;
+
+				case Code.Iretw:
+					codeSize = CodeSize;
+					if (codeSize == CodeSize.Code64 || codeSize == CodeSize.Unknown)
+						return 2 * 5;
+					return 2 * 3;
+
+				case Code.Iretd:
+					codeSize = CodeSize;
+					if (codeSize == CodeSize.Code64 || codeSize == CodeSize.Unknown)
+						return 4 * 5;
+					return 4 * 3;
+
+				case Code.Iretq:
+					return 8 * 5;
+
+				case Code.Enterw_Iw_Ib:
+					return -(2 + (Immediate8_Enter & 0x1F) * 2 + Immediate16);
+
+				case Code.Enterd_Iw_Ib:
+					return -(4 + (Immediate8_Enter & 0x1F) * 4 + Immediate16);
+
+				case Code.Enterq_Iw_Ib:
+					return -(8 + (Immediate8_Enter & 0x1F) * 8 + Immediate16);
+
+				case Code.Leavew:
+				case Code.Leaved:
+				case Code.Leaveq:
+					return 0;
+
+				default:
+					return 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
+		/// 
+		/// Gets instruction info such as which register is read and written etc.
+		/// </summary>
+		/// <returns></returns>
+		public InstructionInfo GetInfo() {
+			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
+			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
+			return InstructionInfoFactory.Create(ref this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.None);
+		}
+
+		/// <summary>
+		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
+		/// 
+		/// Gets instruction info such as which register is read and written etc.
+		/// </summary>
+		/// <param name="options">Options</param>
+		/// <returns></returns>
+		public InstructionInfo GetInfo(InstructionInfoOptions options) {
+			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
+			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
+			return InstructionInfoFactory.Create(ref this, ref usedRegisters, ref usedMemoryLocations, options);
+		}
+
+		/// <summary>
+		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
+		/// 
+		/// Gets a struct iterator that returns all read and written registers. There are some exceptions, this method doesn't return all used registers:
+		/// 
+		/// 1) If <see cref="SaveRestoreInstruction"/> is true, or
+		/// 
+		/// 2) If it's a <see cref="FlowControl.Call"/> or <see cref="FlowControl.Interrupt"/> instruction (call, sysenter, int n etc), it can read and write any register (including RFLAGS).
+		/// </summary>
+		/// <returns></returns>
+		public InstructionInfo.UsedRegisterIterator GetUsedRegisters() {
+			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
+			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
+			return InstructionInfoFactory.Create(ref this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.NoMemoryUsage).GetUsedRegisters();
+		}
+
+		/// <summary>
+		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
+		/// 
+		/// Gets a struct iterator that returns all read and written memory locations
+		/// </summary>
+		/// <returns></returns>
+		public InstructionInfo.UsedMemoryIterator GetUsedMemory() {
+			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
+			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
+			return InstructionInfoFactory.Create(ref this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.NoRegisterUsage).GetUsedMemory();
+		}
+
+		/// <summary>
+		/// Instruction encoding, eg. legacy, VEX, EVEX, ...
+		/// </summary>
+		public EncodingKind Encoding => Code.Encoding();
+
+		/// <summary>
+		/// CPU or CPUID feature flag
+		/// </summary>
+		public CpuidFeature CpuidFeature {
+			get {
+				var code = Code;
+				var cpuidFeature = code.CpuidFeature();
+				if (cpuidFeature == CpuidFeature.AVX && Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_VX_WX || code == Code.VEX_Vbroadcastss_VY_WX || code == Code.VEX_Vbroadcastsd_VY_WX))
+					return CpuidFeature.AVX2;
+				return cpuidFeature;
+			}
+		}
+
+		/// <summary>
+		/// Flow control info
+		/// </summary>
+		public FlowControl FlowControl => Code.FlowControl();
+
+		/// <summary>
+		/// true if the instruction isn't available in real mode or virtual 8086 mode
+		/// </summary>
+		public bool ProtectedMode => Code.ProtectedMode();
+
+		/// <summary>
+		/// true if this is a privileged instruction
+		/// </summary>
+		public bool Privileged => Code.Privileged();
+
+		/// <summary>
+		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
+		/// See also <see cref="StackPointerIncrement"/>
+		/// </summary>
+		public bool StackInstruction => Code.StackInstruction();
+
+		/// <summary>
+		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
+		/// </summary>
+		public bool SaveRestoreInstruction => Code.SaveRestoreInstruction();
+
+		InstructionInfoInternal.RflagsInfo GetRflagsInfo() {
+			var flags1 = InstructionInfoInternal.InfoHandlers.Data[(int)Code << 1];
+			var codeInfo = (InstructionInfoInternal.CodeInfo)((flags1 >> (int)InstructionInfoInternal.InfoFlags1.CodeInfoShift) & (uint)InstructionInfoInternal.InfoFlags1.CodeInfoMask);
+			Debug.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 1 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD11);
+			Debug.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 2 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F);
+			Debug.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 3 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK3F);
+			if ((uint)(codeInfo - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9) <= 3) {
+				switch (codeInfo) {
+				case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
+					if ((Immediate8 & 0x1F) % 9 == 0)
+						return InstructionInfoInternal.RflagsInfo.None;
+					break;
+
+				case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD11:
+					if ((Immediate8 & 0x1F) % 17 == 0)
+						return InstructionInfoInternal.RflagsInfo.None;
+					break;
+
+				case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F:
+					if ((Immediate8 & 0x1F) == 0)
+						return InstructionInfoInternal.RflagsInfo.None;
+					break;
+
+				case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK3F:
+					if ((Immediate8 & 0x3F) == 0)
+						return InstructionInfoInternal.RflagsInfo.None;
+					break;
+				}
+			}
+			return (InstructionInfoInternal.RflagsInfo)((flags1 >> (int)InstructionInfoInternal.InfoFlags1.RflagsInfoShift) & (uint)InstructionInfoInternal.InfoFlags1.RflagsInfoMask);
+		}
+
+		/// <summary>
+		/// All flags that are read by the CPU when executing the instruction
+		/// </summary>
+		public RflagsBits RflagsRead => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsRead[(int)GetRflagsInfo()];
+
+		/// <summary>
+		/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared. See also <see cref="RflagsModified"/>
+		/// </summary>
+		public RflagsBits RflagsWrite => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsWrite[(int)GetRflagsInfo()];
+
+		/// <summary>
+		/// All flags that are always cleared by the CPU
+		/// </summary>
+		public RflagsBits RflagsClear => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsClear[(int)GetRflagsInfo()];
+
+		/// <summary>
+		/// All flags that are always set by the CPU
+		/// </summary>
+		public RflagsBits RflagsSet => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsSet[(int)GetRflagsInfo()];
+
+		/// <summary>
+		/// All flags that are undefined after executing the instruction
+		/// </summary>
+		public RflagsBits RflagsUndefined => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsUndefined[(int)GetRflagsInfo()];
+
+		/// <summary>
+		/// All flags that are modified by the CPU. This is <see cref="RflagsWrite"/> + <see cref="RflagsClear"/> + <see cref="RflagsSet"/> + <see cref="RflagsUndefined"/>
+		/// </summary>
+		public RflagsBits RflagsModified => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsModified[(int)GetRflagsInfo()];
+#endif
+
 		/// <summary>
 		/// Formats the instruction using the default formatter with default formatter options
 		/// </summary>

@@ -58,6 +58,7 @@
     <Compile Include="Intel\CodeReader.cs" />
     <Compile Include="Intel\CodeWriter.cs" />
     <Compile Include="Intel\ConstantOffsets.cs" />
+    <Compile Include="Intel\CpuidFeature.cs" />
     <Compile Include="Intel\Decoder.32.cs" />
     <Compile Include="Intel\Decoder.64.cs" />
     <Compile Include="Intel\Decoder.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Intel\EncoderInternal\OpHandlers.cs" />
     <Compile Include="Intel\EncodingKind.cs" />
     <Compile Include="Intel\Features.cs" />
+    <Compile Include="Intel\FlowControl.cs" />
     <Compile Include="Intel\Formatter.cs" />
     <Compile Include="Intel\FormatterConstants.cs" />
     <Compile Include="Intel\FormatterOptions.cs" />
@@ -99,7 +101,14 @@
     <Compile Include="Intel\GasFormatterInternal\Registers.cs" />
     <Compile Include="Intel\HexUtils.cs" />
     <Compile Include="Intel\Instruction.cs" />
+    <Compile Include="Intel\InstructionInfo.cs" />
     <Compile Include="Intel\InstructionInfoConstants.cs" />
+    <Compile Include="Intel\InstructionInfoExtensions.cs" />
+    <Compile Include="Intel\InstructionInfoFactory.cs" />
+    <Compile Include="Intel\InstructionInfoInternal\InfoHandlerFlags.cs" />
+    <Compile Include="Intel\InstructionInfoInternal\InfoHandlers.cs" />
+    <Compile Include="Intel\InstructionInfoInternal\RflagsInfoConstants.cs" />
+    <Compile Include="Intel\InstructionInfoInternal\SimpleList.cs" />
     <Compile Include="Intel\InstructionUtils.cs" />
     <Compile Include="Intel\IntelFormatter.cs" />
     <Compile Include="Intel\IntelFormatterInternal\InstrInfo.cs" />
@@ -119,12 +128,16 @@
     <Compile Include="Intel\NasmFormatterInternal\MemorySizes.cs" />
     <Compile Include="Intel\NasmFormatterInternal\Registers.cs" />
     <Compile Include="Intel\NumberFormatter.cs" />
+    <Compile Include="Intel\OpAccess.cs" />
     <Compile Include="Intel\OpKind.cs" />
     <Compile Include="Intel\Register.cs" />
+    <Compile Include="Intel\RflagsBits.cs" />
     <Compile Include="Intel\RoundingControl.cs" />
     <Compile Include="Intel\StringBuilderFormatterOutput.cs" />
     <Compile Include="Intel\SymbolResolver.cs" />
     <Compile Include="Intel\TupleType.cs" />
+    <Compile Include="Intel\UsedMemory.cs" />
+    <Compile Include="Intel\UsedRegister.cs" />
     <Compile Include="Intel\VectorLength.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
