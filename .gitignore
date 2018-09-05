@@ -1,0 +1,8 @@
+.vs/
+bin/
+obj/
+*.suo
+*.user
+*.nuget.props
+*.nuget.targets
+project.lock.json
