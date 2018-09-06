@@ -78,8 +78,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(testCase.CpuidFeature, info.CpuidFeature);
 			Assert.Equal(testCase.RflagsRead, info.RflagsRead);
 			Assert.Equal(testCase.RflagsUndefined, info.RflagsUndefined);
-			Assert.Equal(testCase.RflagsWrite, info.RflagsWrite);
-			Assert.Equal(testCase.RflagsClear, info.RflagsClear);
+			Assert.Equal(testCase.RflagsWritten, info.RflagsWritten);
+			Assert.Equal(testCase.RflagsCleared, info.RflagsCleared);
 			Assert.Equal(testCase.RflagsSet, info.RflagsSet);
 			Assert.Equal(testCase.Privileged, info.Privileged);
 			Assert.Equal(testCase.ProtectedMode, info.ProtectedMode);
@@ -126,11 +126,11 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			for (int i = instr.OpCount; i < MAX_OP_COUNT; i++)
 				Assert.Equal(OpAccess.None, info.GetOpAccess(i));
 
-			Assert.Equal(RflagsBits.None, info.RflagsWrite & (info.RflagsClear | info.RflagsSet | info.RflagsUndefined));
-			Assert.Equal(RflagsBits.None, info.RflagsClear & (info.RflagsWrite | info.RflagsSet | info.RflagsUndefined));
-			Assert.Equal(RflagsBits.None, info.RflagsSet & (info.RflagsWrite | info.RflagsClear | info.RflagsUndefined));
-			Assert.Equal(RflagsBits.None, info.RflagsUndefined & (info.RflagsWrite | info.RflagsClear | info.RflagsSet));
-			Assert.Equal(info.RflagsWrite | info.RflagsClear | info.RflagsSet | info.RflagsUndefined, info.RflagsModified);
+			Assert.Equal(RflagsBits.None, info.RflagsWritten & (info.RflagsCleared | info.RflagsSet | info.RflagsUndefined));
+			Assert.Equal(RflagsBits.None, info.RflagsCleared & (info.RflagsWritten | info.RflagsSet | info.RflagsUndefined));
+			Assert.Equal(RflagsBits.None, info.RflagsSet & (info.RflagsWritten | info.RflagsCleared | info.RflagsUndefined));
+			Assert.Equal(RflagsBits.None, info.RflagsUndefined & (info.RflagsWritten | info.RflagsCleared | info.RflagsSet));
+			Assert.Equal(info.RflagsWritten | info.RflagsCleared | info.RflagsSet | info.RflagsUndefined, info.RflagsModified);
 
 			var info2 = new InstructionInfoFactory().GetInfo(ref instr);
 			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: true);
@@ -160,8 +160,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(info.StackInstruction, instr.StackInstruction);
 			Assert.Equal(info.SaveRestoreInstruction, instr.SaveRestoreInstruction);
 			Assert.Equal(info.RflagsRead, instr.RflagsRead);
-			Assert.Equal(info.RflagsWrite, instr.RflagsWrite);
-			Assert.Equal(info.RflagsClear, instr.RflagsClear);
+			Assert.Equal(info.RflagsWritten, instr.RflagsWritten);
+			Assert.Equal(info.RflagsCleared, instr.RflagsCleared);
 			Assert.Equal(info.RflagsSet, instr.RflagsSet);
 			Assert.Equal(info.RflagsUndefined, instr.RflagsUndefined);
 			Assert.Equal(info.RflagsModified, instr.RflagsModified);
@@ -188,8 +188,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(info1.Op2Access, info2.Op2Access);
 			Assert.Equal(info1.Op3Access, info2.Op3Access);
 			Assert.Equal(info1.RflagsRead, info2.RflagsRead);
-			Assert.Equal(info1.RflagsWrite, info2.RflagsWrite);
-			Assert.Equal(info1.RflagsClear, info2.RflagsClear);
+			Assert.Equal(info1.RflagsWritten, info2.RflagsWritten);
+			Assert.Equal(info1.RflagsCleared, info2.RflagsCleared);
 			Assert.Equal(info1.RflagsSet, info2.RflagsSet);
 			Assert.Equal(info1.RflagsUndefined, info2.RflagsUndefined);
 			Assert.Equal(info1.RflagsModified, info2.RflagsModified);
@@ -553,12 +553,12 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 						break;
 
 					case "fw":
-						if (!ParseRflags(value, ref testCase.RflagsWrite))
+						if (!ParseRflags(value, ref testCase.RflagsWritten))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 
 					case "fc":
-						if (!ParseRflags(value, ref testCase.RflagsClear))
+						if (!ParseRflags(value, ref testCase.RflagsCleared))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 

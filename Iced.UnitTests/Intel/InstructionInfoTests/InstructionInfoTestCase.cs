@@ -27,8 +27,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public CpuidFeature CpuidFeature = CpuidFeature.INTEL8086;
 		public RflagsBits RflagsRead = RflagsBits.None;
 		public RflagsBits RflagsUndefined = RflagsBits.None;
-		public RflagsBits RflagsWrite = RflagsBits.None;
-		public RflagsBits RflagsClear = RflagsBits.None;
+		public RflagsBits RflagsWritten = RflagsBits.None;
+		public RflagsBits RflagsCleared = RflagsBits.None;
 		public RflagsBits RflagsSet = RflagsBits.None;
 		public int StackPointerIncrement = 0;
 		public bool Privileged = false;

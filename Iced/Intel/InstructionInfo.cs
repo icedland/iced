@@ -246,12 +246,12 @@ namespace Iced.Intel {
 		/// <summary>
 		/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared. See also <see cref="RflagsModified"/>
 		/// </summary>
-		public RflagsBits RflagsWrite => (RflagsBits)RflagsInfoConstants.flagsWrite[rflagsInfo];
+		public RflagsBits RflagsWritten => (RflagsBits)RflagsInfoConstants.flagsWritten[rflagsInfo];
 
 		/// <summary>
 		/// All flags that are always cleared by the CPU
 		/// </summary>
-		public RflagsBits RflagsClear => (RflagsBits)RflagsInfoConstants.flagsClear[rflagsInfo];
+		public RflagsBits RflagsCleared => (RflagsBits)RflagsInfoConstants.flagsCleared[rflagsInfo];
 
 		/// <summary>
 		/// All flags that are always set by the CPU
@@ -264,7 +264,7 @@ namespace Iced.Intel {
 		public RflagsBits RflagsUndefined => (RflagsBits)RflagsInfoConstants.flagsUndefined[rflagsInfo];
 
 		/// <summary>
-		/// All flags that are modified by the CPU. This is <see cref="RflagsWrite"/> + <see cref="RflagsClear"/> + <see cref="RflagsSet"/> + <see cref="RflagsUndefined"/>
+		/// All flags that are modified by the CPU. This is <see cref="RflagsWritten"/> + <see cref="RflagsCleared"/> + <see cref="RflagsSet"/> + <see cref="RflagsUndefined"/>
 		/// </summary>
 		public RflagsBits RflagsModified => (RflagsBits)RflagsInfoConstants.flagsModified[rflagsInfo];
 	}
