@@ -21,7 +21,7 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Gets the available features
 	/// </summary>
-	public static class Features {
+	public static class IcedFeatures {
 		/// <summary>
 		/// true if the gas (AT&amp;T) formatter is available
 		/// </summary>

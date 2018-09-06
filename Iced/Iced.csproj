@@ -86,7 +86,6 @@
     <Compile Include="Intel\EncoderInternal\OpCodeHandlers.cs" />
     <Compile Include="Intel\EncoderInternal\OpHandlers.cs" />
     <Compile Include="Intel\EncodingKind.cs" />
-    <Compile Include="Intel\Features.cs" />
     <Compile Include="Intel\FlowControl.cs" />
     <Compile Include="Intel\Formatter.cs" />
     <Compile Include="Intel\FormatterConstants.cs" />
@@ -100,6 +99,7 @@
     <Compile Include="Intel\GasFormatterInternal\MemorySizes.cs" />
     <Compile Include="Intel\GasFormatterInternal\Registers.cs" />
     <Compile Include="Intel\HexUtils.cs" />
+    <Compile Include="Intel\IcedFeatures.cs" />
     <Compile Include="Intel\Instruction.cs" />
     <Compile Include="Intel\InstructionInfo.cs" />
     <Compile Include="Intel\InstructionInfoConstants.cs" />
