@@ -32,4 +32,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: InternalsVisibleTo("Iced.UnitTests")]
+[assembly: InternalsVisibleTo("Iced.UnitTests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100d94ac07d6edc1ac1f306b60544bb88927664f05037602c5e994ea52ca5b0aadc4a242d90522f46730c11af657acc3ff5aadfe19a3030e7dbd67b481635eecd7d738950a7de6a78c92715b797dde11e87d967109da659672957fabe3524cd5f90557cd8ab4927333a0dbd32e7e7246ee18a43327806c6721283fc619acca3f2cb")]
