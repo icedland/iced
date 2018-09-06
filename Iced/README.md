@@ -13,7 +13,7 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 
 = Classes
 
-See below for some examples.
+See below for some examples. All classes are in the `Iced.Intel` namespace.
 
 Decoder:
 
@@ -61,4 +61,4 @@ TODO:
 
 = License
 
-LGPL v3 or later (GNU Lesser General Public License v3 or later)
+LGPL v3 or any later version (LGPL = GNU Lesser General Public License)
