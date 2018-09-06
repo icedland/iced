@@ -1025,7 +1025,6 @@ namespace Iced.Intel {
 				xsp = GetXSP(instruction.CodeSize, out xspMask);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, ref usedRegisters, Register.SS, OpAccess.Read);
-					AddRegister(flags, ref usedRegisters, xsp + 1, OpAccess.Read);
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.Write);
 				}
 
@@ -1033,21 +1032,39 @@ namespace Iced.Intel {
 				if (code == Code.Leaveq) {
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp + 1, Register.None, 1, 0, MemorySize.UInt64, OpAccess.Read);
-					if ((flags & Flags.NoRegisterUsage) == 0)
-						AddRegister(flags, ref usedRegisters, Register.RBP, OpAccess.Write);
+					if ((flags & Flags.NoRegisterUsage) == 0) {
+						if (xsp + 1 == Register.RBP)
+							AddRegister(flags, ref usedRegisters, Register.RBP, OpAccess.ReadWrite);
+						else {
+							AddRegister(flags, ref usedRegisters, xsp + 1, OpAccess.Read);
+							AddRegister(flags, ref usedRegisters, Register.RBP, OpAccess.Write);
+						}
+					}
 				}
 				else if (code == Code.Leaved) {
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp + 1, Register.None, 1, 0, MemorySize.UInt32, OpAccess.Read);
-					if ((flags & Flags.NoRegisterUsage) == 0)
-						AddRegister(flags, ref usedRegisters, Register.EBP, OpAccess.Write);
+					if ((flags & Flags.NoRegisterUsage) == 0) {
+						if (xsp + 1 == Register.EBP)
+							AddRegister(flags, ref usedRegisters, Register.EBP, OpAccess.ReadWrite);
+						else {
+							AddRegister(flags, ref usedRegisters, xsp + 1, OpAccess.Read);
+							AddRegister(flags, ref usedRegisters, Register.EBP, OpAccess.Write);
+						}
+					}
 				}
 				else {
 					Debug.Assert(code == Code.Leavew);
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp + 1, Register.None, 1, 0, MemorySize.UInt16, OpAccess.Read);
-					if ((flags & Flags.NoRegisterUsage) == 0)
-						AddRegister(flags, ref usedRegisters, Register.BP, OpAccess.Write);
+					if ((flags & Flags.NoRegisterUsage) == 0) {
+						if (xsp + 1 == Register.BP)
+							AddRegister(flags, ref usedRegisters, Register.BP, OpAccess.ReadWrite);
+						else {
+							AddRegister(flags, ref usedRegisters, xsp + 1, OpAccess.Read);
+							AddRegister(flags, ref usedRegisters, Register.BP, OpAccess.Write);
+						}
+					}
 				}
 				break;
 
