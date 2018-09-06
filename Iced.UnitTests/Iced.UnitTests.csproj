@@ -310,6 +310,11 @@
     <Compile Include="Intel\FormatterTests\SymbolResolverTestInfos.cs" />
     <Compile Include="Intel\FormatterTests\SymbolResolverTests.cs" />
     <Compile Include="Intel\FormatterTests\TestSymbolResolver.cs" />
+    <Compile Include="Intel\InstructionTests\GetVirtualAddressTests.cs" />
+    <Compile Include="Intel\InstructionTests\GetVirtualAddressTests16.cs" />
+    <Compile Include="Intel\InstructionTests\GetVirtualAddressTests32.cs" />
+    <Compile Include="Intel\InstructionTests\GetVirtualAddressTests64.cs" />
+    <Compile Include="Intel\InstructionTests\InstructionTests_Misc.cs" />
     <Compile Include="Intel\MemorySizeTests.cs" />
     <Compile Include="Intel\RegisterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
