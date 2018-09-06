@@ -335,6 +335,12 @@
     <Compile Include="Intel\FormatterTests\SymbolResolverTestInfos.cs" />
     <Compile Include="Intel\FormatterTests\SymbolResolverTests.cs" />
     <Compile Include="Intel\FormatterTests\TestSymbolResolver.cs" />
+    <Compile Include="Intel\InstructionInfoTests\CodeValueTests.cs" />
+    <Compile Include="Intel\InstructionInfoTests\InstructionInfoTest.cs" />
+    <Compile Include="Intel\InstructionInfoTests\InstructionInfoTestCase.cs" />
+    <Compile Include="Intel\InstructionInfoTests\InstructionInfoTest_16.cs" />
+    <Compile Include="Intel\InstructionInfoTests\InstructionInfoTest_32.cs" />
+    <Compile Include="Intel\InstructionInfoTests\InstructionInfoTest_64.cs" />
     <Compile Include="Intel\InstructionTests\GetVirtualAddressTests.cs" />
     <Compile Include="Intel\InstructionTests\GetVirtualAddressTests16.cs" />
     <Compile Include="Intel\InstructionTests\GetVirtualAddressTests32.cs" />
@@ -389,6 +395,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Intel\DecoderTests\MemoryTest64_003.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\InstructionInfoTests\InstructionInfoTest_16.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\InstructionInfoTests\InstructionInfoTest_32.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Intel\InstructionInfoTests\InstructionInfoTest_64.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
