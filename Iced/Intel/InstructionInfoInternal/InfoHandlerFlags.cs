@@ -18,7 +18,10 @@
 */
 
 #if !NO_INSTR_INFO
+using System;
+
 namespace Iced.Intel.InstructionInfoInternal {
+	[Flags]
 	enum InfoFlags1 : uint {
 		// Only used by the test code
 		CodeMask			= (1U << Instruction.TEST_CodeBits) - 1,
@@ -34,6 +37,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		NoSegmentRead		= 0x80000000,
 	}
 
+	[Flags]
 	enum InfoFlags2 : uint {
 		OpInfo0Shift		= 0,
 		OpInfo0Mask			= 0xF,

@@ -38,6 +38,7 @@ namespace Iced.Intel {
 		/// [14:8]	= MemorySize
 		/// [15]	= Not used
 		/// </summary>
+		[Flags]
 		enum MemoryFlags : ushort {
 			ScaleMask				= 3,
 			DisplSizeShift			= 2,
@@ -58,6 +59,7 @@ namespace Iced.Intel {
 		/// [29:20]	= Not used
 		/// [31:30] = CodeSize
 		/// </summary>
+		[Flags]
 		enum OpKindFlags : uint {
 			OpKindBits				= 5,
 			OpKindMask				= (1 << (int)OpKindBits) - 1,
@@ -83,6 +85,7 @@ namespace Iced.Intel {
 		/// [30]	= repne prefix
 		/// [31]	= lock prefix
 		/// </summary>
+		[Flags]
 		enum CodeFlags : uint {
 			CodeBits				= 12,
 			CodeMask				= (1 << (int)CodeBits) - 1,

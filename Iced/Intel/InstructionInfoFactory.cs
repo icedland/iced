@@ -26,6 +26,7 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Instruction info options
 	/// </summary>
+	[Flags]
 	public enum InstructionInfoOptions : uint {
 		/// <summary>
 		/// No option is enabled
