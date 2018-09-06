@@ -1,4 +1,4 @@
-﻿This assembly has all the disassembler unit tests (xUnit).
+﻿This assembly has all the unit tests (xUnit).
 
 It's recommended to run all unit tests from the command line and not use Visual Studio's
 Test Explorer because it's too slow. xUnit's `-noappdomain` option should also be used
