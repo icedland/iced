@@ -2334,7 +2334,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Popw_GS | StackInstruction | CodeInfo_Pop_2, Op0_Write | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Popd_GS | StackInstruction | CodeInfo_Pop_4, Op0_Write | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Popq_GS | StackInstruction | CodeInfo_Pop_8, Op0_Write | CPUID_INTEL386 | Encoding_Legacy,
-			(uint)Code.Rsm | Privileged | SaveRestore, FlowControl_Return | CPUID_INTEL386 | Encoding_Legacy,
+			(uint)Code.Rsm | Privileged | SaveRestore | RflagsInfo_W_acopszidAC, FlowControl_Return | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Bts_Ew_Gw | RflagsInfo_W_c_U_aops, Op0_ReadWrite | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Bts_Ed_Gd | RflagsInfo_W_c_U_aops, Op0_ReadWrite | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Bts_Eq_Gq | RflagsInfo_W_c_U_aops, Op0_ReadWrite | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
