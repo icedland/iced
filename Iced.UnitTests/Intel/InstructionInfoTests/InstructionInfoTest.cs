@@ -498,7 +498,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				if (!toCpuidFeature.TryGetValue(cpuidFeatureString, out testCase.CpuidFeature))
 					throw new Exception($"Invalid {nameof(CpuidFeature)} value, line {lineNo}: '{cpuidFeatureString}' ({filename})");
 
-				bool hasSPInc = false;
 				foreach (var keyValue in elems[4].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
 					string key, value;
 					int index = keyValue.IndexOf('=');
@@ -524,22 +523,16 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 						testCase.Privileged = true;
 						break;
 
-					case "stack":
-						if (value != string.Empty)
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						testCase.StackInstruction = true;
-						break;
-
 					case "saverestore":
 						if (value != string.Empty)
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						testCase.SaveRestoreInstruction = true;
 						break;
 
-					case "spinc":
+					case "stack":
 						if (!int.TryParse(value, out testCase.StackPointerIncrement))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						hasSPInc = true;
+						testCase.StackInstruction = true;
 						break;
 
 					case "fr":
@@ -656,11 +649,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 						throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 					}
 				}
-
-				if (testCase.StackInstruction && !hasSPInc)
-					throw new Exception($"It's a stack instruction but doesn't have 'spinc=xxx', line {lineNo} ({filename})");
-				if (!testCase.StackInstruction && hasSPInc)
-					throw new Exception($"It's not a stack instruction but it has 'spinc=xxx', line {lineNo} ({filename})");
 
 				yield return new object[4] { hexBytes, code, lineNo, testCase };
 			}

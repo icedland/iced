@@ -340,133 +340,133 @@
 # cmp rax,0FFFFFFFFA2345AA5h
 48 3D A55A34A2, Cmp_RAX_Id64, Legacy, INTEL8086, fw=oszacp op0=r op1=r r=rax
 # push ax
-66 50, Push_AX, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=ax wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 50, Push_AX, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ax wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push r8w
-66 41 50, Push_R8W, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r8w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 41 50, Push_R8W, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r8w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push rax
-50, Push_RAX, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rax wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+50, Push_RAX, Legacy, INTEL8086, op0=r r=ss rw=xsp r=rax wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push r8
-41 50, Push_R8, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r8 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+41 50, Push_R8, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r8 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push cx
-66 51, Push_CX, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=cx wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 51, Push_CX, Legacy, INTEL8086, op0=r r=ss rw=xsp r=cx wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push r9w
-66 41 51, Push_R9W, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r9w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 41 51, Push_R9W, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r9w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push rcx
-51, Push_RCX, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rcx wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+51, Push_RCX, Legacy, INTEL8086, op0=r r=ss rw=xsp r=rcx wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push r9
-41 51, Push_R9, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r9 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+41 51, Push_R9, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r9 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push dx
-66 52, Push_DX, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=dx wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 52, Push_DX, Legacy, INTEL8086, op0=r r=ss rw=xsp r=dx wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push r10w
-66 41 52, Push_R10W, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r10w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 41 52, Push_R10W, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r10w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push rdx
-52, Push_RDX, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rdx wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+52, Push_RDX, Legacy, INTEL8086, op0=r r=ss rw=xsp r=rdx wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push r10
-41 52, Push_R10, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r10 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+41 52, Push_R10, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r10 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push bx
-66 53, Push_BX, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=bx wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 53, Push_BX, Legacy, INTEL8086, op0=r r=ss rw=xsp r=bx wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push r11w
-66 41 53, Push_R11W, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r11w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 41 53, Push_R11W, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r11w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push rbx
-53, Push_RBX, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rbx wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+53, Push_RBX, Legacy, INTEL8086, op0=r r=ss rw=xsp r=rbx wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push r11
-41 53, Push_R11, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r11 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+41 53, Push_R11, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r11 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push sp
-66 54, Push_SP, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=sp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 54, Push_SP, Legacy, INTEL8086, op0=r r=ss rw=xsp r=sp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push r12w
-66 41 54, Push_R12W, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r12w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 41 54, Push_R12W, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r12w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push rsp
-54, Push_RSP, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rsp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+54, Push_RSP, Legacy, INTEL8086, op0=r r=ss rw=xsp r=rsp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push r12
-41 54, Push_R12, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r12 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+41 54, Push_R12, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r12 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push bp
-66 55, Push_BP, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=bp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 55, Push_BP, Legacy, INTEL8086, op0=r r=ss rw=xsp r=bp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push r13w
-66 41 55, Push_R13W, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r13w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 41 55, Push_R13W, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r13w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push rbp
-55, Push_RBP, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rbp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+55, Push_RBP, Legacy, INTEL8086, op0=r r=ss rw=xsp r=rbp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push r13
-41 55, Push_R13, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r13 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+41 55, Push_R13, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r13 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push si
-66 56, Push_SI, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=si wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 56, Push_SI, Legacy, INTEL8086, op0=r r=ss rw=xsp r=si wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push r14w
-66 41 56, Push_R14W, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r14w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 41 56, Push_R14W, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r14w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push rsi
-56, Push_RSI, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rsi wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+56, Push_RSI, Legacy, INTEL8086, op0=r r=ss rw=xsp r=rsi wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push r14
-41 56, Push_R14, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r14 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+41 56, Push_R14, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r14 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push di
-66 57, Push_DI, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=di wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 57, Push_DI, Legacy, INTEL8086, op0=r r=ss rw=xsp r=di wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push r15w
-66 41 57, Push_R15W, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r15w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 41 57, Push_R15W, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r15w wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push rdi
-57, Push_RDI, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rdi wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+57, Push_RDI, Legacy, INTEL8086, op0=r r=ss rw=xsp r=rdi wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push r15
-41 57, Push_R15, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=r15 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+41 57, Push_R15, Legacy, INTEL8086, op0=r r=ss rw=xsp r=r15 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # pop ax
-66 58, Pop_AX, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=ax rm=ss:xsp;UInt16 spinc=2
+66 58, Pop_AX, Legacy, INTEL8086, op0=w r=ss rw=xsp w=ax rm=ss:xsp;UInt16 stack=2
 # pop r8w
-66 41 58, Pop_R8W, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r8w rm=ss:xsp;UInt16 spinc=2
+66 41 58, Pop_R8W, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r8w rm=ss:xsp;UInt16 stack=2
 # pop rax
-58, Pop_RAX, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=rax rm=ss:xsp;UInt64 spinc=8
+58, Pop_RAX, Legacy, INTEL8086, op0=w r=ss rw=xsp w=rax rm=ss:xsp;UInt64 stack=8
 # pop r8
-41 58, Pop_R8, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r8 rm=ss:xsp;UInt64 spinc=8
+41 58, Pop_R8, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r8 rm=ss:xsp;UInt64 stack=8
 # pop cx
-66 59, Pop_CX, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=cx rm=ss:xsp;UInt16 spinc=2
+66 59, Pop_CX, Legacy, INTEL8086, op0=w r=ss rw=xsp w=cx rm=ss:xsp;UInt16 stack=2
 # pop r9w
-66 41 59, Pop_R9W, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r9w rm=ss:xsp;UInt16 spinc=2
+66 41 59, Pop_R9W, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r9w rm=ss:xsp;UInt16 stack=2
 # pop rcx
-59, Pop_RCX, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=rcx rm=ss:xsp;UInt64 spinc=8
+59, Pop_RCX, Legacy, INTEL8086, op0=w r=ss rw=xsp w=rcx rm=ss:xsp;UInt64 stack=8
 # pop r9
-41 59, Pop_R9, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r9 rm=ss:xsp;UInt64 spinc=8
+41 59, Pop_R9, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r9 rm=ss:xsp;UInt64 stack=8
 # pop dx
-66 5A, Pop_DX, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=dx rm=ss:xsp;UInt16 spinc=2
+66 5A, Pop_DX, Legacy, INTEL8086, op0=w r=ss rw=xsp w=dx rm=ss:xsp;UInt16 stack=2
 # pop r10w
-66 41 5A, Pop_R10W, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r10w rm=ss:xsp;UInt16 spinc=2
+66 41 5A, Pop_R10W, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r10w rm=ss:xsp;UInt16 stack=2
 # pop rdx
-5A, Pop_RDX, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=rdx rm=ss:xsp;UInt64 spinc=8
+5A, Pop_RDX, Legacy, INTEL8086, op0=w r=ss rw=xsp w=rdx rm=ss:xsp;UInt64 stack=8
 # pop r10
-41 5A, Pop_R10, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r10 rm=ss:xsp;UInt64 spinc=8
+41 5A, Pop_R10, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r10 rm=ss:xsp;UInt64 stack=8
 # pop bx
-66 5B, Pop_BX, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=bx rm=ss:xsp;UInt16 spinc=2
+66 5B, Pop_BX, Legacy, INTEL8086, op0=w r=ss rw=xsp w=bx rm=ss:xsp;UInt16 stack=2
 # pop r11w
-66 41 5B, Pop_R11W, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r11w rm=ss:xsp;UInt16 spinc=2
+66 41 5B, Pop_R11W, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r11w rm=ss:xsp;UInt16 stack=2
 # pop rbx
-5B, Pop_RBX, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=rbx rm=ss:xsp;UInt64 spinc=8
+5B, Pop_RBX, Legacy, INTEL8086, op0=w r=ss rw=xsp w=rbx rm=ss:xsp;UInt64 stack=8
 # pop r11
-41 5B, Pop_R11, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r11 rm=ss:xsp;UInt64 spinc=8
+41 5B, Pop_R11, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r11 rm=ss:xsp;UInt64 stack=8
 # pop sp
-66 5C, Pop_SP, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=sp rm=ss:xsp;UInt16 spinc=2
+66 5C, Pop_SP, Legacy, INTEL8086, op0=w r=ss rw=xsp w=sp rm=ss:xsp;UInt16 stack=2
 # pop r12w
-66 41 5C, Pop_R12W, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r12w rm=ss:xsp;UInt16 spinc=2
+66 41 5C, Pop_R12W, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r12w rm=ss:xsp;UInt16 stack=2
 # pop rsp
-5C, Pop_RSP, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=rsp rm=ss:xsp;UInt64 spinc=8
+5C, Pop_RSP, Legacy, INTEL8086, op0=w r=ss rw=xsp w=rsp rm=ss:xsp;UInt64 stack=8
 # pop r12
-41 5C, Pop_R12, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r12 rm=ss:xsp;UInt64 spinc=8
+41 5C, Pop_R12, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r12 rm=ss:xsp;UInt64 stack=8
 # pop bp
-66 5D, Pop_BP, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=bp rm=ss:xsp;UInt16 spinc=2
+66 5D, Pop_BP, Legacy, INTEL8086, op0=w r=ss rw=xsp w=bp rm=ss:xsp;UInt16 stack=2
 # pop r13w
-66 41 5D, Pop_R13W, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r13w rm=ss:xsp;UInt16 spinc=2
+66 41 5D, Pop_R13W, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r13w rm=ss:xsp;UInt16 stack=2
 # pop rbp
-5D, Pop_RBP, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=rbp rm=ss:xsp;UInt64 spinc=8
+5D, Pop_RBP, Legacy, INTEL8086, op0=w r=ss rw=xsp w=rbp rm=ss:xsp;UInt64 stack=8
 # pop r13
-41 5D, Pop_R13, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r13 rm=ss:xsp;UInt64 spinc=8
+41 5D, Pop_R13, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r13 rm=ss:xsp;UInt64 stack=8
 # pop si
-66 5E, Pop_SI, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=si rm=ss:xsp;UInt16 spinc=2
+66 5E, Pop_SI, Legacy, INTEL8086, op0=w r=ss rw=xsp w=si rm=ss:xsp;UInt16 stack=2
 # pop r14w
-66 41 5E, Pop_R14W, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r14w rm=ss:xsp;UInt16 spinc=2
+66 41 5E, Pop_R14W, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r14w rm=ss:xsp;UInt16 stack=2
 # pop rsi
-5E, Pop_RSI, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=rsi rm=ss:xsp;UInt64 spinc=8
+5E, Pop_RSI, Legacy, INTEL8086, op0=w r=ss rw=xsp w=rsi rm=ss:xsp;UInt64 stack=8
 # pop r14
-41 5E, Pop_R14, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r14 rm=ss:xsp;UInt64 spinc=8
+41 5E, Pop_R14, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r14 rm=ss:xsp;UInt64 stack=8
 # pop di
-66 5F, Pop_DI, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=di rm=ss:xsp;UInt16 spinc=2
+66 5F, Pop_DI, Legacy, INTEL8086, op0=w r=ss rw=xsp w=di rm=ss:xsp;UInt16 stack=2
 # pop r15w
-66 41 5F, Pop_R15W, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r15w rm=ss:xsp;UInt16 spinc=2
+66 41 5F, Pop_R15W, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r15w rm=ss:xsp;UInt16 stack=2
 # pop rdi
-5F, Pop_RDI, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=rdi rm=ss:xsp;UInt64 spinc=8
+5F, Pop_RDI, Legacy, INTEL8086, op0=w r=ss rw=xsp w=rdi rm=ss:xsp;UInt64 stack=8
 # pop r15
-41 5F, Pop_R15, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=r15 rm=ss:xsp;UInt64 spinc=8
+41 5F, Pop_R15, Legacy, INTEL8086, op0=w r=ss rw=xsp w=r15 rm=ss:xsp;UInt64 stack=8
 # movsxd cx,si
 66 63 CE, Movsxd_Gw_Ew, Legacy, X64, op0=w op1=r w=cx r=si
 # movsxd bx,word ptr [rax]
@@ -480,9 +480,9 @@
 # movsxd rbx,dword ptr [rax]
 48 63 18, Movsxd_Gq_Ed, Legacy, X64, op0=w op1=r w=rbx r=ds r=rax rm=ds:rax;Int32
 # pushw 0A55Ah
-66 68 5AA5, Push_Iw, Legacy, INTEL186, stack op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 68 5AA5, Push_Iw, Legacy, INTEL186, op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push 0FFFFFFFFA412A55Ah
-68 5AA512A4, Push_Id64, Legacy, INTEL186, stack op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+68 5AA512A4, Push_Id64, Legacy, INTEL186, op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # imul cx,si,5AA5h
 66 69 CE A55A, Imul_Gw_Ew_Iw, Legacy, INTEL186, fw=oc fu=apsz op0=w op1=r op2=r w=cx r=si
 # imul bx,[rax],0A55Ah
@@ -496,9 +496,9 @@
 # imul rbx,[rax],0FFFFFFFFA412A55Ah
 48 69 18 5AA512A4, Imul_Gq_Eq_Id64, Legacy, INTEL186, fw=oc fu=apsz op0=w op1=r op2=r w=rbx r=ds r=rax rm=ds:rax;Int64
 # pushw 5Ah
-66 6A 5A, Push_Ib16, Legacy, INTEL186, stack op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 6A 5A, Push_Ib16, Legacy, INTEL186, op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push 5Ah
-6A 5A, Push_Ib64, Legacy, INTEL186, stack op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+6A 5A, Push_Ib64, Legacy, INTEL186, op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # imul cx,si,5Ah
 66 6B CE 5A, Imul_Gw_Ew_Ib16, Legacy, INTEL186, fw=oc fu=apsz op0=w op1=r op2=r w=cx r=si
 # imul bx,[rax],5Ah
@@ -874,13 +874,13 @@
 # mov ds,[rax]
 48 8E 18, Mov_Sw_Eq, Legacy, INTEL8086, op0=w op1=r w=ds r=ds r=rax rm=ds:rax;UInt16
 # pop si
-66 8F C6, Pop_Ew, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=si rm=ss:xsp;UInt16 spinc=2
+66 8F C6, Pop_Ew, Legacy, INTEL8086, op0=w r=ss rw=xsp w=si rm=ss:xsp;UInt16 stack=2
 # pop word ptr [rax]
-66 8F 00, Pop_Ew, Legacy, INTEL8086, stack op0=w r=ss rw=xsp r=ds r=rax wm=ds:rax;UInt16 rm=ss:xsp;UInt16 spinc=2
+66 8F 00, Pop_Ew, Legacy, INTEL8086, op0=w r=ss rw=xsp r=ds r=rax wm=ds:rax;UInt16 rm=ss:xsp;UInt16 stack=2
 # pop rsi
-8F C6, Pop_Eq, Legacy, INTEL8086, stack op0=w r=ss rw=xsp w=rsi rm=ss:xsp;UInt64 spinc=8
+8F C6, Pop_Eq, Legacy, INTEL8086, op0=w r=ss rw=xsp w=rsi rm=ss:xsp;UInt64 stack=8
 # pop [rax]
-8F 00, Pop_Eq, Legacy, INTEL8086, stack op0=w r=ss rw=xsp r=ds r=rax wm=ds:rax;UInt64 rm=ss:xsp;UInt64 spinc=8
+8F 00, Pop_Eq, Legacy, INTEL8086, op0=w r=ss rw=xsp r=ds r=rax wm=ds:rax;UInt64 rm=ss:xsp;UInt64 stack=8
 # xchg ax,ax
 66 90, Nopw, Legacy, INTEL8086,
 # xchg r8w,ax
@@ -994,13 +994,13 @@ F3 90, Pause, Legacy, PAUSE,
 # wait
 9B, Wait, Legacy, INTEL8086,
 # pushf
-66 9C, Pushfw, Legacy, INTEL8086, stack fr=oszacpid r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 9C, Pushfw, Legacy, INTEL8086, fr=oszacpid r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushfq
-9C, Pushfq, Legacy, INTEL8086, stack fr=oszacpidA r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+9C, Pushfq, Legacy, INTEL8086, fr=oszacpidA r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # popf
-66 9D, Popfw, Legacy, INTEL8086, stack fw=oszacpid r=ss rw=xsp rm=ss:xsp;UInt16 spinc=2
+66 9D, Popfw, Legacy, INTEL8086, fw=oszacpid r=ss rw=xsp rm=ss:xsp;UInt16 stack=2
 # popfq
-9D, Popfq, Legacy, INTEL8086, stack fw=oszacpidA r=ss rw=xsp rm=ss:xsp;UInt64 spinc=8
+9D, Popfq, Legacy, INTEL8086, fw=oszacpidA r=ss rw=xsp rm=ss:xsp;UInt64 stack=8
 # sahf
 9E, Sahf, Legacy, INTEL8086, fw=szapc r=ah
 # lahf
@@ -1794,9 +1794,9 @@ C1 38 20, Sar_Ed_Ib, Legacy, INTEL186, op0=rw op1=r r=ds r=rax rwm=ds:rax;Int32
 # sar qword ptr [rax],20h
 48 C1 38 20, Sar_Eq_Ib, Legacy, INTEL186, fw=coszp fu=a op0=rw op1=r r=ds r=rax rwm=ds:rax;Int64
 # ret 0A55Ah
-C2 5AA5, Retnq_Iw, Legacy, INTEL8086, stack flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt64 spinc=42338
+C2 5AA5, Retnq_Iw, Legacy, INTEL8086, flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt64 stack=42338
 # ret
-C3, Retnq, Legacy, INTEL8086, stack flow=Return r=ss rw=xsp rm=ss:xsp;UInt64 spinc=8
+C3, Retnq, Legacy, INTEL8086, flow=Return r=ss rw=xsp rm=ss:xsp;UInt64 stack=8
 # mov cl,5Ah
 C6 C1 5A, Mov_Eb_Ib, Legacy, INTEL8086, op0=w op1=r w=cl
 # mov byte ptr [rax],5Ah
@@ -1822,43 +1822,43 @@ C7 F8 5AA51234, Xbegin_Jd32, Legacy, RTM, flow=XbeginXabortXend op0=r
 # xbegin 800000003412A551h
 48 C7 F8 5AA51234, Xbegin_Jd64, Legacy, RTM, flow=XbeginXabortXend op0=r
 # enterw 0A55Ah,0E0h
-66 C8 5AA5 E0, Enterw_Iw_Ib, Legacy, INTEL186, stack op0=r op1=r rw=bp rw=sp r=ss rw=xsp spinc=-42332 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16
+66 C8 5AA5 E0, Enterw_Iw_Ib, Legacy, INTEL186, op0=r op1=r rw=bp rw=sp r=ss rw=xsp stack=-42332 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16
 # enterw 0A55Ah,0E1h
-66 C8 5AA5 E1, Enterw_Iw_Ib, Legacy, INTEL186, stack op0=r op1=r rw=bp rw=sp r=ss rw=xsp spinc=-42334 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16
+66 C8 5AA5 E1, Enterw_Iw_Ib, Legacy, INTEL186, op0=r op1=r rw=bp rw=sp r=ss rw=xsp stack=-42334 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16
 # enterw 0A55Ah,0E2h
-66 C8 5AA5 E2, Enterw_Iw_Ib, Legacy, INTEL186, stack op0=r op1=r rw=bp rw=sp rw=xbp r=ss rw=xsp spinc=-42336 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFA;UInt16 rm=ss:xbp+0xFFFFFFFFFFFFFFFE;UInt16
+66 C8 5AA5 E2, Enterw_Iw_Ib, Legacy, INTEL186, op0=r op1=r rw=bp rw=sp rw=xbp r=ss rw=xsp stack=-42336 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFA;UInt16 rm=ss:xbp+0xFFFFFFFFFFFFFFFE;UInt16
 # enter 0A55Ah,0E0h
-C8 5AA5 E0, Enterq_Iw_Ib, Legacy, INTEL186, stack op0=r op1=r rw=rbp rw=rsp r=ss rw=xsp spinc=-42338 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64
+C8 5AA5 E0, Enterq_Iw_Ib, Legacy, INTEL186, op0=r op1=r rw=rbp rw=rsp r=ss rw=xsp stack=-42338 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64
 # enter 0A55Ah,0E1h
-C8 5AA5 E1, Enterq_Iw_Ib, Legacy, INTEL186, stack op0=r op1=r rw=rbp rw=rsp r=ss rw=xsp spinc=-42346 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF0;UInt64
+C8 5AA5 E1, Enterq_Iw_Ib, Legacy, INTEL186, op0=r op1=r rw=rbp rw=rsp r=ss rw=xsp stack=-42346 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF0;UInt64
 # enter 0A55Ah,0E2h
-C8 5AA5 E2, Enterq_Iw_Ib, Legacy, INTEL186, stack op0=r op1=r rw=rbp rw=rsp rw=xbp r=ss rw=xsp spinc=-42354 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF0;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFE8;UInt64 rm=ss:xbp+0xFFFFFFFFFFFFFFF8;UInt64
+C8 5AA5 E2, Enterq_Iw_Ib, Legacy, INTEL186, op0=r op1=r rw=rbp rw=rsp rw=xbp r=ss rw=xsp stack=-42354 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF0;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFE8;UInt64 rm=ss:xbp+0xFFFFFFFFFFFFFFF8;UInt64
 # leavew
-66 C9, Leavew, Legacy, INTEL186, stack w=xsp r=ss r=xbp w=bp rm=ss:xbp;UInt16 spinc=0
+66 C9, Leavew, Legacy, INTEL186, w=xsp r=ss r=xbp w=bp rm=ss:xbp;UInt16 stack=0
 # leave
-C9, Leaveq, Legacy, INTEL186, stack w=xsp r=ss r=xbp w=rbp rm=ss:xbp;UInt64 spinc=0
+C9, Leaveq, Legacy, INTEL186, w=xsp r=ss r=xbp w=rbp rm=ss:xbp;UInt64 stack=0
 # retfw 0A55Ah
-66 CA 5AA5, Retfw_Iw, Legacy, INTEL8086, stack flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt16 rm=ss:xsp+2;UInt16 spinc=42334
+66 CA 5AA5, Retfw_Iw, Legacy, INTEL8086, flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt16 rm=ss:xsp+2;UInt16 stack=42334
 # retf 0A55Ah
-CA 5AA5, Retfd_Iw, Legacy, INTEL8086, stack flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 spinc=42338
+CA 5AA5, Retfd_Iw, Legacy, INTEL8086, flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 stack=42338
 # retfq 0A55Ah
-48 CA 5AA5, Retfq_Iw, Legacy, INTEL8086, stack flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 spinc=42346
+48 CA 5AA5, Retfq_Iw, Legacy, INTEL8086, flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 stack=42346
 # retfw
-66 CB, Retfw, Legacy, INTEL8086, stack flow=Return r=ss rw=xsp rm=ss:xsp;UInt16 rm=ss:xsp+2;UInt16 spinc=4
+66 CB, Retfw, Legacy, INTEL8086, flow=Return r=ss rw=xsp rm=ss:xsp;UInt16 rm=ss:xsp+2;UInt16 stack=4
 # retf
-CB, Retfd, Legacy, INTEL8086, stack flow=Return r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 spinc=8
+CB, Retfd, Legacy, INTEL8086, flow=Return r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 stack=8
 # retfq
-48 CB, Retfq, Legacy, INTEL8086, stack flow=Return r=ss rw=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 spinc=16
+48 CB, Retfq, Legacy, INTEL8086, flow=Return r=ss rw=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 stack=16
 # int 3
 CC, Int3, Legacy, INTEL8086, flow=Interrupt
 # int 5Ah
 CD 5A, Int_Ib, Legacy, INTEL8086, flow=Interrupt op0=r
 # iret
-66 CF, Iretw, Legacy, INTEL8086, stack flow=Return fw=acopszid w=ss w=sp r=ss rw=xsp rm=ss:xsp;UInt16 rm=ss:xsp+2;UInt16 rm=ss:xsp+4;UInt16 rm=ss:xsp+6;UInt16 rm=ss:xsp+8;UInt16 spinc=10
+66 CF, Iretw, Legacy, INTEL8086, flow=Return fw=acopszid w=ss w=sp r=ss rw=xsp rm=ss:xsp;UInt16 rm=ss:xsp+2;UInt16 rm=ss:xsp+4;UInt16 rm=ss:xsp+6;UInt16 rm=ss:xsp+8;UInt16 stack=10
 # iretd
-CF, Iretd, Legacy, INTEL8086, stack flow=Return fw=acopszidA w=ss w=esp r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 rm=ss:xsp+8;UInt32 rm=ss:xsp+0xC;UInt32 rm=ss:xsp+0x10;UInt32 spinc=20
+CF, Iretd, Legacy, INTEL8086, flow=Return fw=acopszidA w=ss w=esp r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 rm=ss:xsp+8;UInt32 rm=ss:xsp+0xC;UInt32 rm=ss:xsp+0x10;UInt32 stack=20
 # iretq
-48 CF, Iretq, Legacy, INTEL8086, stack flow=Return fw=acopszidA w=ss w=rsp r=ss rw=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 rm=ss:xsp+0x10;UInt64 rm=ss:xsp+0x18;UInt64 rm=ss:xsp+0x20;UInt64 spinc=40
+48 CF, Iretq, Legacy, INTEL8086, flow=Return fw=acopszidA w=ss w=rsp r=ss rw=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 rm=ss:xsp+0x10;UInt64 rm=ss:xsp+0x18;UInt64 rm=ss:xsp+0x20;UInt64 stack=40
 # rol cl,1
 D0 C1, Rol_Eb_1, Legacy, INTEL8086, fw=oc op0=rw op1=r rw=cl
 # rol byte ptr [rax],1
@@ -2386,7 +2386,7 @@ E6 5A, Out_Ib_AL, Legacy, INTEL8086, priv op0=r op1=r r=al
 # out 5Ah,eax
 E7 5A, Out_Ib_EAX, Legacy, INTEL8086, priv op0=r op1=r r=eax
 # call 7FFFFFFFA55A3407h
-E8 12345AA5, Call_Jd64, Legacy, INTEL8086, stack flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+E8 12345AA5, Call_Jd64, Legacy, INTEL8086, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # jmp near ptr 7FFFFFFFA55A3407h
 E9 12345AA5, Jmp_Jd64, Legacy, INTEL8086, flow=UnconditionalBranch op0=r
 # jmp short 800000000000004Ch
@@ -2566,15 +2566,15 @@ FF 08, Dec_Ed, Legacy, INTEL8086, fw=oszap op0=rw r=ds r=rax rwm=ds:rax;UInt32
 # dec qword ptr [rax]
 48 FF 08, Dec_Eq, Legacy, INTEL8086, fw=oszap op0=rw r=ds r=rax rwm=ds:rax;UInt64
 # call rcx
-FF D1, Call_Eq, Legacy, INTEL8086, stack flow=IndirectCall op0=r r=ss rw=xsp r=rcx wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+FF D1, Call_Eq, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=rcx wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # call qword ptr [rax]
-FF 10, Call_Eq, Legacy, INTEL8086, stack flow=IndirectCall op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;QwordOffset wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+FF 10, Call_Eq, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;QwordOffset wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # call dword ptr [rax]
-66 FF 18, Call_Eww, Legacy, INTEL8086, stack flow=IndirectCall op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;SegPtr16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 spinc=-4
+66 FF 18, Call_Eww, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;SegPtr16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 stack=-4
 # call fword ptr [rax]
-FF 18, Call_Edw, Legacy, INTEL8086, stack flow=IndirectCall op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;SegPtr32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 spinc=-8
+FF 18, Call_Edw, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;SegPtr32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
 # call tbyte ptr [rax]
-48 FF 18, Call_Eqw, Legacy, INTEL8086, stack flow=IndirectCall op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;SegPtr64 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF0;UInt64 spinc=-16
+48 FF 18, Call_Eqw, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;SegPtr64 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF0;UInt64 stack=-16
 # jmp rsi
 FF E6, Jmp_Eq, Legacy, INTEL8086, flow=IndirectBranch op0=r r=rsi
 # jmp qword ptr [rax]
@@ -2586,13 +2586,13 @@ FF 28, Jmp_Edw, Legacy, INTEL8086, flow=IndirectBranch op0=r r=ds r=rax rm=ds:ra
 # jmp tbyte ptr [rax]
 48 FF 28, Jmp_Eqw, Legacy, INTEL8086, flow=IndirectBranch op0=r r=ds r=rax rm=ds:rax;SegPtr64
 # push si
-66 FF F6, Push_Ew, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=si wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 FF F6, Push_Ew, Legacy, INTEL8086, op0=r r=ss rw=xsp r=si wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push word ptr [rax]
-66 FF 30, Push_Ew, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 FF 30, Push_Ew, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push rsi
-FF F6, Push_Eq, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rsi wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+FF F6, Push_Eq, Legacy, INTEL8086, op0=r r=ss rw=xsp r=rsi wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # push [rax]
-FF 30, Push_Eq, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+FF 30, Push_Eq, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # sldt cx
 66 0F00 C1, Sldt_Ew, Legacy, INTEL286, pm op0=w w=cx
 # sldt word ptr [rax]
@@ -7140,13 +7140,13 @@ C5F9 99 D3, VEX_Ktestb_VK_RK, VEX, AVX512DQ, fw=cz fc=aops op0=r op1=r r=k2 r=k3
 # ktestd k2,k3
 C4E1F9 99 D3, VEX_Ktestd_VK_RK, VEX, AVX512BW, fw=cz fc=aops op0=r op1=r r=k2 r=k3
 # pushw fs
-66 0FA0, Pushw_FS, Legacy, INTEL386, stack op0=r r=ss rw=xsp r=fs wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 0FA0, Pushw_FS, Legacy, INTEL386, op0=r r=ss rw=xsp r=fs wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push fs
-0FA0, Pushq_FS, Legacy, INTEL386, stack op0=r r=ss rw=xsp r=fs wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+0FA0, Pushq_FS, Legacy, INTEL386, op0=r r=ss rw=xsp r=fs wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # popw fs
-66 0FA1, Popw_FS, Legacy, INTEL386, stack op0=w r=ss rw=xsp w=fs rm=ss:xsp;UInt16 spinc=2
+66 0FA1, Popw_FS, Legacy, INTEL386, op0=w r=ss rw=xsp w=fs rm=ss:xsp;UInt16 stack=2
 # pop fs
-0FA1, Popq_FS, Legacy, INTEL386, stack op0=w r=ss rw=xsp w=fs rm=ss:xsp;UInt64 spinc=8
+0FA1, Popq_FS, Legacy, INTEL386, op0=w r=ss rw=xsp w=fs rm=ss:xsp;UInt64 stack=8
 # cpuid
 0FA2, Cpuid, Legacy, CPUID, r=eax cr=ecx w=rax;rcx;rdx;rbx
 # bt si,cx
@@ -7226,13 +7226,13 @@ C4E1F9 99 D3, VEX_Ktestd_VK_RK, VEX, AVX512BW, fw=cz fc=aops op0=r op1=r r=k2 r=
 # shld [rax],rbx,cl
 48 0FA5 18, Shld_Eq_Gq_CL, Legacy, INTEL386, fw=coszp fu=a op0=rw op1=r op2=r r=ds r=rax r=rbx r=cl rwm=ds:rax;UInt64
 # pushw gs
-66 0FA8, Pushw_GS, Legacy, INTEL386, stack op0=r r=ss rw=xsp r=gs wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 0FA8, Pushw_GS, Legacy, INTEL386, op0=r r=ss rw=xsp r=gs wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push gs
-0FA8, Pushq_GS, Legacy, INTEL386, stack op0=r r=ss rw=xsp r=gs wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+0FA8, Pushq_GS, Legacy, INTEL386, op0=r r=ss rw=xsp r=gs wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # popw gs
-66 0FA9, Popw_GS, Legacy, INTEL386, stack op0=w r=ss rw=xsp w=gs rm=ss:xsp;UInt16 spinc=2
+66 0FA9, Popw_GS, Legacy, INTEL386, op0=w r=ss rw=xsp w=gs rm=ss:xsp;UInt16 stack=2
 # pop gs
-0FA9, Popq_GS, Legacy, INTEL386, stack op0=w r=ss rw=xsp w=gs rm=ss:xsp;UInt64 spinc=8
+0FA9, Popq_GS, Legacy, INTEL386, op0=w r=ss rw=xsp w=gs rm=ss:xsp;UInt64 stack=8
 # rsm
 0FAA, Rsm, Legacy, INTEL386, priv saverestore fw=acopszidA flow=Return
 # bts si,cx
@@ -16128,18 +16128,18 @@ F3 AF, Scasd_EAX_Yd, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=eax rcw=
 # repe scasq
 F3 48 AF, Scasq_RAX_Yq, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=rax rcw=rcx cr=es cr=rdi cw=rdi crm=es:rdi;Unknown
 # push word ptr [rsp+10h]
-66 FF 74 24 10, Push_Ew, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rsp rm=ss:rsp+0x10;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 FF 74 24 10, Push_Ew, Legacy, INTEL8086, op0=r r=ss rw=xsp r=rsp rm=ss:rsp+0x10;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push [rsp+10h]
-FF 74 24 10, Push_Eq, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rsp rm=ss:rsp+0x10;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+FF 74 24 10, Push_Eq, Legacy, INTEL8086, op0=r r=ss rw=xsp r=rsp rm=ss:rsp+0x10;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # pop word ptr [rsp+10h]
-66 8F 44 24 10, Pop_Ew, Legacy, INTEL8086, stack op0=w r=ss rw=xsp r=rsp wm=ss:rsp+0x12;UInt16 rm=ss:xsp;UInt16 spinc=2
+66 8F 44 24 10, Pop_Ew, Legacy, INTEL8086, op0=w r=ss rw=xsp r=rsp wm=ss:rsp+0x12;UInt16 rm=ss:xsp;UInt16 stack=2
 # pop [rsp+10h]
-8F 44 24 10, Pop_Eq, Legacy, INTEL8086, stack op0=w r=ss rw=xsp r=rsp wm=ss:rsp+0x18;UInt64 rm=ss:xsp;UInt64 spinc=8
+8F 44 24 10, Pop_Eq, Legacy, INTEL8086, op0=w r=ss rw=xsp r=rsp wm=ss:rsp+0x18;UInt64 rm=ss:xsp;UInt64 stack=8
 # push word ptr [esp+10h]
-66 67 FF 74 24 10, Push_Ew, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=esp rm=ss:esp+0x10;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
+66 67 FF 74 24 10, Push_Ew, Legacy, INTEL8086, op0=r r=ss rw=xsp r=esp rm=ss:esp+0x10;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push [esp+10h]
-67 FF 74 24 10, Push_Eq, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=esp rm=ss:esp+0x10;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
+67 FF 74 24 10, Push_Eq, Legacy, INTEL8086, op0=r r=ss rw=xsp r=esp rm=ss:esp+0x10;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 stack=-8
 # pop word ptr [esp+10h]
-66 67 8F 44 24 10, Pop_Ew, Legacy, INTEL8086, stack op0=w r=ss rw=xsp r=esp wm=ss:esp+0x12;UInt16 rm=ss:xsp;UInt16 spinc=2
+66 67 8F 44 24 10, Pop_Ew, Legacy, INTEL8086, op0=w r=ss rw=xsp r=esp wm=ss:esp+0x12;UInt16 rm=ss:xsp;UInt16 stack=2
 # pop [esp+10h]
-67 8F 44 24 10, Pop_Eq, Legacy, INTEL8086, stack op0=w r=ss rw=xsp r=esp wm=ss:esp+0x18;UInt64 rm=ss:xsp;UInt64 spinc=8
+67 8F 44 24 10, Pop_Eq, Legacy, INTEL8086, op0=w r=ss rw=xsp r=esp wm=ss:esp+0x18;UInt64 rm=ss:xsp;UInt64 stack=8
