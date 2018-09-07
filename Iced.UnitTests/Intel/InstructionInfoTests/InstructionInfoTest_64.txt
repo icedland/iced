@@ -2593,77 +2593,77 @@ FF F6, Push_Eq, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=rsi wm=ss:xsp+0xFFF
 # push [rax]
 FF 30, Push_Eq, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 spinc=-8
 # sldt cx
-66 0F00 C1, Sldtw_Ew, Legacy, INTEL286, pm op0=w w=cx
+66 0F00 C1, Sldt_Ew, Legacy, INTEL286, pm op0=w w=cx
 # sldt word ptr [rax]
-66 0F00 00, Sldtw_Ew, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
+66 0F00 00, Sldt_Ew, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
 # sldt ecx
-0F00 C1, Sldtd_Ew, Legacy, INTEL286, pm op0=w w=rcx
+0F00 C1, Sldt_RdMw, Legacy, INTEL286, pm op0=w w=rcx
 # sldt word ptr [rax]
-0F00 00, Sldtd_Ew, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
+0F00 00, Sldt_RdMw, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
 # sldt rcx
-48 0F00 C1, Sldtq_Ew, Legacy, INTEL286, pm op0=w w=rcx
+48 0F00 C1, Sldt_RqMw, Legacy, INTEL286, pm op0=w w=rcx
 # sldt word ptr [rax]
-48 0F00 00, Sldtq_Ew, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
+48 0F00 00, Sldt_RqMw, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
 # str dx
-66 0F00 CA, Strw_Ew, Legacy, INTEL286, pm op0=w w=dx
+66 0F00 CA, Str_Ew, Legacy, INTEL286, pm op0=w w=dx
 # str word ptr [rax]
-66 0F00 08, Strw_Ew, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
+66 0F00 08, Str_Ew, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
 # str edx
-0F00 CA, Strd_Ew, Legacy, INTEL286, pm op0=w w=rdx
+0F00 CA, Str_RdMw, Legacy, INTEL286, pm op0=w w=rdx
 # str word ptr [rax]
-0F00 08, Strd_Ew, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
+0F00 08, Str_RdMw, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
 # str rdx
-48 0F00 CA, Strq_Ew, Legacy, INTEL286, pm op0=w w=rdx
+48 0F00 CA, Str_RqMw, Legacy, INTEL286, pm op0=w w=rdx
 # str word ptr [rax]
-48 0F00 08, Strq_Ew, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
+48 0F00 08, Str_RqMw, Legacy, INTEL286, pm op0=w r=ds r=rax wm=ds:rax;UInt16
 # lldt bx
-66 0F00 D3, Lldtw_Ew, Legacy, INTEL286, pm priv op0=r r=bx
+66 0F00 D3, Lldt_Ew, Legacy, INTEL286, pm priv op0=r r=bx
 # lldt word ptr [rax]
-66 0F00 10, Lldtw_Ew, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
+66 0F00 10, Lldt_Ew, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
 # lldt ebx
-0F00 D3, Lldtd_Ew, Legacy, INTEL286, pm priv op0=r r=ebx
+0F00 D3, Lldt_RdMw, Legacy, INTEL286, pm priv op0=r r=ebx
 # lldt word ptr [rax]
-0F00 10, Lldtd_Ew, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
+0F00 10, Lldt_RdMw, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
 # lldt rbx
-48 0F00 D3, Lldtq_Ew, Legacy, INTEL286, pm priv op0=r r=rbx
+48 0F00 D3, Lldt_RqMw, Legacy, INTEL286, pm priv op0=r r=rbx
 # lldt word ptr [rax]
-48 0F00 10, Lldtq_Ew, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
+48 0F00 10, Lldt_RqMw, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
 # ltr sp
-66 0F00 DC, Ltrw_Ew, Legacy, INTEL286, pm priv op0=r r=sp
+66 0F00 DC, Ltr_Ew, Legacy, INTEL286, pm priv op0=r r=sp
 # ltr word ptr [rax]
-66 0F00 18, Ltrw_Ew, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
+66 0F00 18, Ltr_Ew, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
 # ltr esp
-0F00 DC, Ltrd_Ew, Legacy, INTEL286, pm priv op0=r r=esp
+0F00 DC, Ltr_RdMw, Legacy, INTEL286, pm priv op0=r r=esp
 # ltr word ptr [rax]
-0F00 18, Ltrd_Ew, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
+0F00 18, Ltr_RdMw, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
 # ltr rsp
-48 0F00 DC, Ltrq_Ew, Legacy, INTEL286, pm priv op0=r r=rsp
+48 0F00 DC, Ltr_RqMw, Legacy, INTEL286, pm priv op0=r r=rsp
 # ltr word ptr [rax]
-48 0F00 18, Ltrq_Ew, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
+48 0F00 18, Ltr_RqMw, Legacy, INTEL286, pm priv op0=r r=ds r=rax rm=ds:rax;UInt16
 # verr bp
-66 0F00 E5, Verrw_Ew, Legacy, INTEL286, pm fw=z op0=r r=bp
+66 0F00 E5, Verr_Ew, Legacy, INTEL286, pm fw=z op0=r r=bp
 # verr word ptr [rax]
-66 0F00 20, Verrw_Ew, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
+66 0F00 20, Verr_Ew, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
 # verr ebp
-0F00 E5, Verrd_Ew, Legacy, INTEL286, pm fw=z op0=r r=ebp
+0F00 E5, Verr_RdMw, Legacy, INTEL286, pm fw=z op0=r r=ebp
 # verr word ptr [rax]
-0F00 20, Verrd_Ew, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
+0F00 20, Verr_RdMw, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
 # verr rbp
-48 0F00 E5, Verrq_Ew, Legacy, INTEL286, pm fw=z op0=r r=rbp
+48 0F00 E5, Verr_RqMw, Legacy, INTEL286, pm fw=z op0=r r=rbp
 # verr word ptr [rax]
-48 0F00 20, Verrq_Ew, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
+48 0F00 20, Verr_RqMw, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
 # verw si
-66 0F00 EE, Verww_Ew, Legacy, INTEL286, pm fw=z op0=r r=si
+66 0F00 EE, Verw_Ew, Legacy, INTEL286, pm fw=z op0=r r=si
 # verw word ptr [rax]
-66 0F00 28, Verww_Ew, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
+66 0F00 28, Verw_Ew, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
 # verw esi
-0F00 EE, Verwd_Ew, Legacy, INTEL286, pm fw=z op0=r r=esi
+0F00 EE, Verw_RdMw, Legacy, INTEL286, pm fw=z op0=r r=esi
 # verw word ptr [rax]
-0F00 28, Verwd_Ew, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
+0F00 28, Verw_RdMw, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
 # verw rsi
-48 0F00 EE, Verwq_Ew, Legacy, INTEL286, pm fw=z op0=r r=rsi
+48 0F00 EE, Verw_RqMw, Legacy, INTEL286, pm fw=z op0=r r=rsi
 # verw word ptr [rax]
-48 0F00 28, Verwq_Ew, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
+48 0F00 28, Verw_RqMw, Legacy, INTEL286, pm fw=z op0=r r=ds r=rax rm=ds:rax;UInt16
 # sgdt [rax]
 0F01 00, Sgdtq_Ms, Legacy, INTEL286, op0=w r=ds r=rax wm=ds:rax;Fword10
 # sidt [rax]
@@ -2673,29 +2673,29 @@ FF 30, Push_Eq, Legacy, INTEL8086, stack op0=r r=ss rw=xsp r=ds r=rax rm=ds:rax;
 # lidt fword ptr [rax]
 0F01 18, Lidtq_Ms, Legacy, INTEL286, priv op0=r r=ds r=rax rm=ds:rax;Fword10
 # smsw bp
-66 0F01 E5, Smsww_Ew, Legacy, INTEL286, op0=w w=bp r=cr0
+66 0F01 E5, Smsw_Ew, Legacy, INTEL286, op0=w w=bp r=cr0
 # smsw word ptr [rax]
-66 0F01 20, Smsww_Ew, Legacy, INTEL286, op0=w r=cr0 r=ds r=rax wm=ds:rax;UInt16
+66 0F01 20, Smsw_Ew, Legacy, INTEL286, op0=w r=cr0 r=ds r=rax wm=ds:rax;UInt16
 # smsw ebp
-0F01 E5, Smswd_Ew, Legacy, INTEL286, op0=w w=rbp r=cr0
+0F01 E5, Smsw_RdMw, Legacy, INTEL286, op0=w w=rbp r=cr0
 # smsw word ptr [rax]
-0F01 20, Smswd_Ew, Legacy, INTEL286, op0=w r=cr0 r=ds r=rax wm=ds:rax;UInt16
+0F01 20, Smsw_RdMw, Legacy, INTEL286, op0=w r=cr0 r=ds r=rax wm=ds:rax;UInt16
 # smsw rbp
-48 0F01 E5, Smswq_Ew, Legacy, INTEL286, op0=w w=rbp r=cr0
+48 0F01 E5, Smsw_RqMw, Legacy, INTEL286, op0=w w=rbp r=cr0
 # smsw word ptr [rax]
-48 0F01 20, Smswq_Ew, Legacy, INTEL286, op0=w r=cr0 r=ds r=rax wm=ds:rax;UInt16
+48 0F01 20, Smsw_RqMw, Legacy, INTEL286, op0=w r=cr0 r=ds r=rax wm=ds:rax;UInt16
 # lmsw si
-66 0F01 F6, Lmsww_Ew, Legacy, INTEL286, priv op0=r r=si rw=cr0
+66 0F01 F6, Lmsw_Ew, Legacy, INTEL286, priv op0=r r=si rw=cr0
 # lmsw word ptr [rax]
-66 0F01 30, Lmsww_Ew, Legacy, INTEL286, priv op0=r rw=cr0 r=ds r=rax rm=ds:rax;UInt16
+66 0F01 30, Lmsw_Ew, Legacy, INTEL286, priv op0=r rw=cr0 r=ds r=rax rm=ds:rax;UInt16
 # lmsw esi
-0F01 F6, Lmswd_Ew, Legacy, INTEL286, priv op0=r r=esi rw=cr0
+0F01 F6, Lmsw_RdMw, Legacy, INTEL286, priv op0=r r=esi rw=cr0
 # lmsw word ptr [rax]
-0F01 30, Lmswd_Ew, Legacy, INTEL286, priv op0=r rw=cr0 r=ds r=rax rm=ds:rax;UInt16
+0F01 30, Lmsw_RdMw, Legacy, INTEL286, priv op0=r rw=cr0 r=ds r=rax rm=ds:rax;UInt16
 # lmsw rsi
-48 0F01 F6, Lmswq_Ew, Legacy, INTEL286, priv op0=r r=rsi rw=cr0
+48 0F01 F6, Lmsw_RqMw, Legacy, INTEL286, priv op0=r r=rsi rw=cr0
 # lmsw word ptr [rax]
-48 0F01 30, Lmswq_Ew, Legacy, INTEL286, priv op0=r rw=cr0 r=ds r=rax rm=ds:rax;UInt16
+48 0F01 30, Lmsw_RqMw, Legacy, INTEL286, priv op0=r rw=cr0 r=ds r=rax rm=ds:rax;UInt16
 # invlpg [rax]
 0F01 38, Invlpg_M, Legacy, INTEL486, priv op0=nma r=ds r=rax
 # enclv

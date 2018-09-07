@@ -184,12 +184,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			};
 
 			var handlers_Grp_0F00 = new OpCodeHandler[8] {
-				new OpCodeHandler_Evw(Code.Sldtw_Ew, Code.Sldtd_Ew, Code.Sldtq_Ew),
-				new OpCodeHandler_Evw(Code.Strw_Ew, Code.Strd_Ew, Code.Strq_Ew),
-				new OpCodeHandler_Ew(Code.Lldtw_Ew, Code.Lldtd_Ew, Code.Lldtq_Ew),
-				new OpCodeHandler_Ew(Code.Ltrw_Ew, Code.Ltrd_Ew, Code.Ltrq_Ew),
-				new OpCodeHandler_Ew(Code.Verrw_Ew, Code.Verrd_Ew, Code.Verrq_Ew),
-				new OpCodeHandler_Ew(Code.Verww_Ew, Code.Verwd_Ew, Code.Verwq_Ew),
+				new OpCodeHandler_Evw(Code.Sldt_Ew, Code.Sldt_RdMw, Code.Sldt_RqMw),
+				new OpCodeHandler_Evw(Code.Str_Ew, Code.Str_RdMw, Code.Str_RqMw),
+				new OpCodeHandler_Ew(Code.Lldt_Ew, Code.Lldt_RdMw, Code.Lldt_RqMw),
+				new OpCodeHandler_Ew(Code.Ltr_Ew, Code.Ltr_RdMw, Code.Ltr_RqMw),
+				new OpCodeHandler_Ew(Code.Verr_Ew, Code.Verr_RdMw, Code.Verr_RqMw),
+				new OpCodeHandler_Ew(Code.Verw_Ew, Code.Verw_RdMw, Code.Verw_RqMw),
 				invalid,
 				invalid,
 			};
@@ -199,9 +199,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Ms(Code.Sidtw_Ms, Code.Sidtd_Ms, Code.Sidtq_Ms),
 				new OpCodeHandler_Ms(Code.Lgdtw_Ms, Code.Lgdtd_Ms, Code.Lgdtq_Ms),
 				new OpCodeHandler_Ms(Code.Lidtw_Ms, Code.Lidtd_Ms, Code.Lidtq_Ms),
-				new OpCodeHandler_Evw(Code.Smsww_Ew, Code.Smswd_Ew, Code.Smswq_Ew),
+				new OpCodeHandler_Evw(Code.Smsw_Ew, Code.Smsw_RdMw, Code.Smsw_RqMw),
 				invalid,
-				new OpCodeHandler_Evw(Code.Lmsww_Ew, Code.Lmswd_Ew, Code.Lmswq_Ew),
+				new OpCodeHandler_Evw(Code.Lmsw_Ew, Code.Lmsw_RdMw, Code.Lmsw_RqMw),
 				new OpCodeHandler_M(Code.Invlpg_M, MemorySize.Unknown),
 			};
 

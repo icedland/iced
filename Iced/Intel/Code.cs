@@ -1017,24 +1017,24 @@ namespace Iced.Intel {
 
 		// 0Fxx opcodes
 
-		Sldtw_Ew,											// o16 0F00 /0
-		Sldtd_Ew,											// o32 0F00 /0
-		Sldtq_Ew,											// REX.W 0F00 /0
-		Strw_Ew,											// o16 0F00 /1
-		Strd_Ew,											// o32 0F00 /1
-		Strq_Ew,											// REX.W 0F00 /1
-		Lldtw_Ew,											// o16 0F00 /2
-		Lldtd_Ew,											// o32 0F00 /2
-		Lldtq_Ew,											// REX.W 0F00 /2
-		Ltrw_Ew,											// o16 0F00 /3
-		Ltrd_Ew,											// o32 0F00 /3
-		Ltrq_Ew,											// REX.W 0F00 /3
-		Verrw_Ew,											// o16 0F00 /4
-		Verrd_Ew,											// o32 0F00 /4
-		Verrq_Ew,											// REX.W 0F00 /4
-		Verww_Ew,											// o16 0F00 /5
-		Verwd_Ew,											// o32 0F00 /5
-		Verwq_Ew,											// REX.W 0F00 /5
+		Sldt_Ew,											// o16 0F00 /0
+		Sldt_RdMw,											// o32 0F00 /0
+		Sldt_RqMw,											// REX.W 0F00 /0
+		Str_Ew,												// o16 0F00 /1
+		Str_RdMw,											// o32 0F00 /1
+		Str_RqMw,											// REX.W 0F00 /1
+		Lldt_Ew,											// o16 0F00 /2
+		Lldt_RdMw,											// o32 0F00 /2
+		Lldt_RqMw,											// REX.W 0F00 /2
+		Ltr_Ew,												// o16 0F00 /3
+		Ltr_RdMw,											// o32 0F00 /3
+		Ltr_RqMw,											// REX.W 0F00 /3
+		Verr_Ew,											// o16 0F00 /4
+		Verr_RdMw,											// o32 0F00 /4
+		Verr_RqMw,											// REX.W 0F00 /4
+		Verw_Ew,											// o16 0F00 /5
+		Verw_RdMw,											// o32 0F00 /5
+		Verw_RqMw,											// REX.W 0F00 /5
 		Sgdtw_Ms,											// o16 0F01 /0
 		Sgdtd_Ms,											// o32 0F01 /0
 		Sgdtq_Ms,											// 0F01 /0
@@ -1047,12 +1047,12 @@ namespace Iced.Intel {
 		Lidtw_Ms,											// o16 0F01 /3
 		Lidtd_Ms,											// o32 0F01 /3
 		Lidtq_Ms,											// 0F01 /3
-		Smsww_Ew,											// o16 0F01 /4
-		Smswd_Ew,											// o32 0F01 /4
-		Smswq_Ew,											// REX.W 0F01 /4
-		Lmsww_Ew,											// o16 0F01 /6
-		Lmswd_Ew,											// o32 0F01 /6
-		Lmswq_Ew,											// REX.W 0F01 /6
+		Smsw_Ew,											// o16 0F01 /4
+		Smsw_RdMw,											// o32 0F01 /4
+		Smsw_RqMw,											// REX.W 0F01 /4
+		Lmsw_Ew,											// o16 0F01 /6
+		Lmsw_RdMw,											// o32 0F01 /6
+		Lmsw_RqMw,											// REX.W 0F01 /6
 		Invlpg_M,											// 0F01 /7
 		Enclv,												// 0F01 C0
 		Vmcall,												// 0F01 C1
