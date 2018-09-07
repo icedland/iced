@@ -17,13 +17,14 @@
     along with Iced.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#if !NO_INSTR_INFO
 using System;
 using System.Collections.Generic;
 using Iced.Intel;
 using Xunit;
 
-namespace Iced.UnitTests.Intel {
-	public sealed class MemorySizeTests {
+namespace Iced.UnitTests.Intel.InstructionInfoTests {
+	public sealed class MemorySizeExtensionsTests {
 		[Fact]
 		void Verify_MemorySizeInfos() {
 			var infos = MemorySizeExtensions.MemorySizeInfos;
@@ -52,3 +53,4 @@ namespace Iced.UnitTests.Intel {
 		}
 	}
 }
+#endif

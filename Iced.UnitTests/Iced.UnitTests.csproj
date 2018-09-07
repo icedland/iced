@@ -343,13 +343,13 @@
     <Compile Include="Intel\InstructionInfoTests\InstructionInfoTest_16.cs" />
     <Compile Include="Intel\InstructionInfoTests\InstructionInfoTest_32.cs" />
     <Compile Include="Intel\InstructionInfoTests\InstructionInfoTest_64.cs" />
+    <Compile Include="Intel\InstructionInfoTests\MemorySizeExtensionsTests.cs" />
+    <Compile Include="Intel\InstructionInfoTests\RegisterExtensionsTests.cs" />
     <Compile Include="Intel\InstructionTests\GetVirtualAddressTests.cs" />
     <Compile Include="Intel\InstructionTests\GetVirtualAddressTests16.cs" />
     <Compile Include="Intel\InstructionTests\GetVirtualAddressTests32.cs" />
     <Compile Include="Intel\InstructionTests\GetVirtualAddressTests64.cs" />
     <Compile Include="Intel\InstructionTests\InstructionTests_Misc.cs" />
-    <Compile Include="Intel\MemorySizeTests.cs" />
-    <Compile Include="Intel\RegisterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

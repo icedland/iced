@@ -277,6 +277,7 @@ namespace Iced.Intel {
 #pragma warning restore 1591 // Missing XML comment for publicly visible type or member
 	}
 
+#if !NO_INSTR_INFO
 	/// <summary>
 	/// <see cref="Register"/> extension methods
 	/// </summary>
@@ -721,4 +722,5 @@ namespace Iced.Intel {
 			this.size = (byte)size;
 		}
 	}
+#endif
 }

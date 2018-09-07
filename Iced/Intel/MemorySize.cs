@@ -626,6 +626,7 @@ namespace Iced.Intel {
 		Broadcast512_Float64,
 	}
 
+#if !NO_INSTR_INFO
 	/// <summary>
 	/// <see cref="MemorySize"/> extension methods
 	/// </summary>
@@ -899,4 +900,5 @@ namespace Iced.Intel {
 			this.isBroadcast = isBroadcast;
 		}
 	}
+#endif
 }
