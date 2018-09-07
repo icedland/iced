@@ -1088,7 +1088,7 @@ namespace Iced.Intel {
 						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0 * 4, MemorySize.UInt32, OpAccess.Read);
 						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 1 * 4, MemorySize.UInt32, OpAccess.Read);
 						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 2 * 4, MemorySize.UInt32, OpAccess.Read);
-						if ((flags & Flags.Is64Bit) != 0) {
+						if (instruction.CodeSize == CodeSize.Code64) {
 							AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 3 * 4, MemorySize.UInt32, OpAccess.Read);
 							AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 4 * 4, MemorySize.UInt32, OpAccess.Read);
 						}
@@ -1098,7 +1098,7 @@ namespace Iced.Intel {
 						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0 * 2, MemorySize.UInt16, OpAccess.Read);
 						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 1 * 2, MemorySize.UInt16, OpAccess.Read);
 						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 2 * 2, MemorySize.UInt16, OpAccess.Read);
-						if ((flags & Flags.Is64Bit) != 0) {
+						if (instruction.CodeSize == CodeSize.Code64) {
 							AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 3 * 2, MemorySize.UInt16, OpAccess.Read);
 							AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 4 * 2, MemorySize.UInt16, OpAccess.Read);
 						}

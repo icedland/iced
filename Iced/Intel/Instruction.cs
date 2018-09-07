@@ -1118,7 +1118,6 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public int StackPointerIncrement {
 			get {
-				CodeSize codeSize;
 				switch (Code) {
 				case Code.Pushw_ES:
 				case Code.Pushw_CS:
@@ -1328,14 +1327,12 @@ namespace Iced.Intel {
 					return 8 + 8;
 
 				case Code.Iretw:
-					codeSize = CodeSize;
-					if (codeSize == CodeSize.Code64 || codeSize == CodeSize.Unknown)
+					if (CodeSize == CodeSize.Code64)
 						return 2 * 5;
 					return 2 * 3;
 
 				case Code.Iretd:
-					codeSize = CodeSize;
-					if (codeSize == CodeSize.Code64 || codeSize == CodeSize.Unknown)
+					if (CodeSize == CodeSize.Code64)
 						return 4 * 5;
 					return 4 * 3;
 
