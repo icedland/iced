@@ -278,7 +278,8 @@ namespace Iced.Intel {
 		Popad,												// o32 61
 		Bound_Gw_Mw2,										// o16 62
 		Bound_Gd_Md2,										// o32 62
-		Arpl_Ew_Gw,											// 63
+		Arpl_Ew_Gw,											// o16 63
+		Arpl_RdMw_Gd,										// o32 63
 		Movsxd_Gw_Ew,										// o16 63
 		Movsxd_Gd_Ed,										// o32 63
 		Movsxd_Gq_Ed,										// REX.W 63

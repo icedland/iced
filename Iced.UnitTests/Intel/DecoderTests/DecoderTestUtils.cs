@@ -119,6 +119,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Bound_Gw_Mw2;
 			yield return Code.Bound_Gd_Md2;
 			yield return Code.Arpl_Ew_Gw;
+			yield return Code.Arpl_RdMw_Gd;
 			yield return Code.Push_Id;
 			yield return Code.Push_Ib32;
 			yield return Code.Jo_Jb16;

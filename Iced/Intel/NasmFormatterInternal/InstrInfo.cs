@@ -1632,5 +1632,23 @@ namespace Iced.Intel.NasmFormatterInternal {
 			}
 		}
 	}
+
+	sealed class SimpleInstrInfo_Reg16 : InstrInfo {
+		readonly string mnemonic;
+
+		public SimpleInstrInfo_Reg16(Code code, string mnemonic)
+			: base(code) {
+			this.mnemonic = mnemonic;
+		}
+
+		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
+			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D)
+				info.Op0Register = (byte)((Register)info.Op0Register - Register.EAX + Register.AX);
+			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D)
+				info.Op1Register = (byte)((Register)info.Op1Register - Register.EAX + Register.AX);
+		}
+	}
 }
 #endif

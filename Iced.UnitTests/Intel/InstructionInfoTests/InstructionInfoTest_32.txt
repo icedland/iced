@@ -193,9 +193,13 @@
 # bound ebx,qword ptr [eax]
 62 18, Bound_Gd_Md2, Legacy, INTEL186, op0=r op1=r r=ebx r=ds r=eax rm=ds:eax;Bound32_DwordDword
 # arpl dx,si
-63 F2, Arpl_Ew_Gw, Legacy, INTEL286, pm op0=rcw op1=r fw=z rcw=dx r=si
+66 63 F2, Arpl_Ew_Gw, Legacy, INTEL286, pm op0=rcw op1=r fw=z rcw=dx r=si
 # arpl [eax],bx
-63 18, Arpl_Ew_Gw, Legacy, INTEL286, pm op0=rcw op1=r fw=z r=ds r=eax r=bx rcwm=ds:eax;UInt16
+66 63 18, Arpl_Ew_Gw, Legacy, INTEL286, pm op0=rcw op1=r fw=z r=ds r=eax r=bx rcwm=ds:eax;UInt16
+# arpl edx,esi
+63 F2, Arpl_RdMw_Gd, Legacy, INTEL286, pm op0=rcw op1=r fw=z rcw=edx r=esi
+# arpl [eax],ebx
+63 18, Arpl_RdMw_Gd, Legacy, INTEL286, pm op0=rcw op1=r fw=z r=ds r=eax r=ebx rcwm=ds:eax;UInt16
 # pushw 0A55Ah
 66 68 5AA5, Push_Iw, Legacy, INTEL186, stack op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 spinc=-2
 # push 3412A55Ah

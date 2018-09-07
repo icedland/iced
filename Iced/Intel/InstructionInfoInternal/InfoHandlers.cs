@@ -539,6 +539,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Bound_Gw_Mw2, Op0_Read | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Bound_Gd_Md2, Op0_Read | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Arpl_Ew_Gw | RflagsInfo_W_z | ProtectedMode, Op0_ReadCondWrite | Op1_Read | CPUID_INTEL286 | Encoding_Legacy,
+			(uint)Code.Arpl_RdMw_Gd | RflagsInfo_W_z | ProtectedMode, Op0_ReadCondWrite | Op1_Read | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Movsxd_Gw_Ew, Op0_Write | Op1_Read | CPUID_X64 | Encoding_Legacy,
 			(uint)Code.Movsxd_Gd_Ed, Op0_Write | Op1_Read | CPUID_X64 | Encoding_Legacy,
 			(uint)Code.Movsxd_Gq_Ed, Op0_Write | Op1_Read | CPUID_X64 | Encoding_Legacy,

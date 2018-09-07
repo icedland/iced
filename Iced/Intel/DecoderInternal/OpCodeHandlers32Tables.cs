@@ -2873,7 +2873,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Simple2(Code.Pushaw, Code.Pushad, Code.Pushad),
 				new OpCodeHandler_Simple2(Code.Popaw, Code.Popad, Code.Popad),
 				new OpCodeHandler_EVEX(new OpCodeHandler_Gv_Ma(Code.Bound_Gw_Mw2, Code.Bound_Gd_Md2, MemorySize.Bound16_WordWord, MemorySize.Bound32_DwordDword)),
-				new OpCodeHandler_Ew_Gw(Code.Arpl_Ew_Gw),
+				new OpCodeHandler_RvMw_Gw(Code.Arpl_Ew_Gw, Code.Arpl_RdMw_Gd),
 				invalid,// FS:
 				invalid,// GS:
 				invalid,// os

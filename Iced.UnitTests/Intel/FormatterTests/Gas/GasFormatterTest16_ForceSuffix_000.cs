@@ -526,6 +526,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"movb fs:0x1234(di),cl",
 			"movb fs:0x1234(bp),cl",
 			"movb fs:0x1234(bx),cl",
+			"arpl si,dx",
+			"arpl bx,(bx,si)",
 		};
 	}
 }

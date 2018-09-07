@@ -1462,20 +1462,34 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		}
 	}
 
-	sealed class OpCodeHandler_Ew_Gw : OpCodeHandlerModRM {
-		readonly Code code;
+	sealed class OpCodeHandler_RvMw_Gw : OpCodeHandlerModRM {
+		readonly Code code16;
+		readonly Code code32;
 
-		public OpCodeHandler_Ew_Gw(Code code) => this.code = code;
+		public OpCodeHandler_RvMw_Gw(Code code16, Code code32) {
+			this.code16 = code16;
+			this.code32 = code32;
+		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
+			Register baseReg;
+			if (state.operandSize == OpSize.Size16) {
+				instruction.InternalCode = code16;
+				instruction.Op1Register = (int)state.reg + Register.AX;
+				baseReg = Register.AX;
+			}
+			else {
+				instruction.InternalCode = code32;
+				instruction.Op1Register = (int)state.reg + Register.EAX;
+				baseReg = Register.EAX;
+			}
 			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op0Register = Register.AX + (int)state.rm;
+				instruction.Op0Register = (int)state.rm + baseReg;
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
@@ -1484,7 +1498,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp2Kind = OpKind.Register;
-			instruction.Op1Register = Register.AX + (int)state.reg;
 		}
 	}
 

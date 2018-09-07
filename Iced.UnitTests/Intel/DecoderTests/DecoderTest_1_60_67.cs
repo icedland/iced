@@ -240,7 +240,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("63 18", 2)]
-		[InlineData("66 63 18", 3)]
 		void Test16_Arpl_Ew_Gw_1(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -268,7 +267,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("63 F2", 2)]
-		[InlineData("66 63 F2", 3)]
 		void Test16_Arpl_Ew_Gw_2(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -289,7 +287,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("63 18", 2)]
 		[InlineData("66 63 18", 3)]
 		void Test32_Arpl_Ew_Gw_1(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -317,7 +314,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("63 F2", 2)]
 		[InlineData("66 63 F2", 3)]
 		void Test32_Arpl_Ew_Gw_2(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -336,6 +332,102 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(OpKind.Register, instr.Op1Kind);
 			Assert.Equal(Register.SI, instr.Op1Register);
+		}
+
+		[Theory]
+		[InlineData("66 63 18", 3)]
+		void Test16_Arpl_RdMw_Gd_1(string hexBytes, int byteLength) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(Code.Arpl_RdMw_Gd, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Memory, instr.Op0Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.BX, instr.MemoryBase);
+			Assert.Equal(Register.SI, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(Register.EBX, instr.Op1Register);
+		}
+
+		[Theory]
+		[InlineData("66 63 F2", 3)]
+		void Test16_Arpl_RdMw_Gd_2(string hexBytes, int byteLength) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(Code.Arpl_RdMw_Gd, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(Register.EDX, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(Register.ESI, instr.Op1Register);
+		}
+
+		[Theory]
+		[InlineData("63 18", 2)]
+		void Test32_Arpl_RdMw_Gd_1(string hexBytes, int byteLength) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(Code.Arpl_RdMw_Gd, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Memory, instr.Op0Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.EAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(Register.EBX, instr.Op1Register);
+		}
+
+		[Theory]
+		[InlineData("63 F2", 2)]
+		void Test32_Arpl_RdMw_Gd_2(string hexBytes, int byteLength) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(Code.Arpl_RdMw_Gd, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(Register.EDX, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(Register.ESI, instr.Op1Register);
 		}
 
 		[Theory]

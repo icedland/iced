@@ -526,6 +526,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"mov cl,fs:[di+1234h]",
 			"mov cl,fs:[bp+1234h]",
 			"mov cl,fs:[bx+1234h]",
+			"arpl dx,si",
+			"arpl [bx+si],bx",
 		};
 	}
 }

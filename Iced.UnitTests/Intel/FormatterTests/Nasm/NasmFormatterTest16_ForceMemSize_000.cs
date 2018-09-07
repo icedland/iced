@@ -526,6 +526,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"mov cl,byte [fs:di+0x1234]",
 			"mov cl,byte [fs:bp+0x1234]",
 			"mov cl,byte [fs:bx+0x1234]",
+			"arpl dx,si",
+			"arpl word [bx+si],bx",
 		};
 	}
 }
