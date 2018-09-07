@@ -52,7 +52,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -94,7 +94,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -136,7 +136,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -178,7 +178,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -220,7 +220,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -262,7 +262,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);

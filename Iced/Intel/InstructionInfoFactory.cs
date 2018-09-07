@@ -124,7 +124,7 @@ namespace Iced.Intel {
 				break;
 
 			case OpInfo0.Write:
-				if (instruction.HasOpMaskRegister && instruction.MergingMasking)
+				if (instruction.HasOpMask && instruction.MergingMasking)
 					op0Access = OpAccess.ReadWrite;
 				else
 					op0Access = OpAccess.Write;
@@ -250,8 +250,8 @@ namespace Iced.Intel {
 			if (codeInfo != CodeInfo.None)
 				CodeInfoHandler(codeInfo, ref instruction, ref usedRegisters, ref usedMemoryLocations, ref rflagsInfo, flags, accesses);
 
-			if (instruction.HasOpMaskRegister && (flags & Flags.NoRegisterUsage) == 0)
-				AddRegister(flags, ref usedRegisters, instruction.OpMaskRegister, (flags2 & (uint)InfoFlags2.OpMaskRegReadWrite) != 0 ? OpAccess.ReadWrite : OpAccess.Read);
+			if (instruction.HasOpMask && (flags & Flags.NoRegisterUsage) == 0)
+				AddRegister(flags, ref usedRegisters, instruction.OpMask, (flags2 & (uint)InfoFlags2.OpMaskRegReadWrite) != 0 ? OpAccess.ReadWrite : OpAccess.Read);
 
 			uint opMaskFlags = (uint)accesses[0] |
 				((uint)accesses[1] << (int)InstructionInfo.OpMaskFlags.Op1AccessShift) |

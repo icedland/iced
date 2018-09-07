@@ -93,8 +93,8 @@ namespace Iced.Intel {
 			ZeroingMasking			= 0x00002000,
 			RoundingControlMask		= 7,
 			RoundingControlShift	= 14,
-			OpMaskRegisterMask		= 7,
-			OpMaskRegisterShift		= 17,
+			OpMaskMask				= 7,
+			OpMaskShift				= 17,
 			OperandCountMask		= 7,
 			OperandCountShift		= 20,
 			InstrLengthMask			= 0xF,
@@ -785,9 +785,9 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the opmask register (<see cref="Register.K1"/> - <see cref="Register.K7"/>) or <see cref="Register.None"/> if none
 		/// </summary>
-		public Register OpMaskRegister {
+		public Register OpMask {
 			get {
-				int r = (int)(codeFlags >> (int)CodeFlags.OpMaskRegisterShift) & (int)CodeFlags.OpMaskRegisterMask;
+				int r = (int)(codeFlags >> (int)CodeFlags.OpMaskShift) & (int)CodeFlags.OpMaskMask;
 				return r == 0 ? Register.None : r + Register.K0;
 			}
 			set {
@@ -795,20 +795,20 @@ namespace Iced.Intel {
 				if (value == Register.None)
 					r = 0;
 				else
-					r = (uint)((uint)(value - Register.K0) & (uint)CodeFlags.OpMaskRegisterMask);
-				codeFlags = (codeFlags & ~((uint)CodeFlags.OpMaskRegisterMask << (int)CodeFlags.OpMaskRegisterShift)) |
-						(r << (int)CodeFlags.OpMaskRegisterShift);
+					r = (uint)((uint)(value - Register.K0) & (uint)CodeFlags.OpMaskMask);
+				codeFlags = (codeFlags & ~((uint)CodeFlags.OpMaskMask << (int)CodeFlags.OpMaskShift)) |
+						(r << (int)CodeFlags.OpMaskShift);
 			}
 		}
-		internal uint InternalOpMaskRegister {
-			get => (codeFlags >> (int)CodeFlags.OpMaskRegisterShift) & (uint)CodeFlags.OpMaskRegisterMask;
-			set => codeFlags |= value << (int)CodeFlags.OpMaskRegisterShift;
+		internal uint InternalOpMask {
+			get => (codeFlags >> (int)CodeFlags.OpMaskShift) & (uint)CodeFlags.OpMaskMask;
+			set => codeFlags |= value << (int)CodeFlags.OpMaskShift;
 		}
 
 		/// <summary>
-		/// true if there's an opmask register (<see cref="OpMaskRegister"/>)
+		/// true if there's an opmask register (<see cref="OpMask"/>)
 		/// </summary>
-		public bool HasOpMaskRegister => (codeFlags & ((uint)CodeFlags.OpMaskRegisterMask << (int)CodeFlags.OpMaskRegisterShift)) != 0;
+		public bool HasOpMask => (codeFlags & ((uint)CodeFlags.OpMaskMask << (int)CodeFlags.OpMaskShift)) != 0;
 
 		/// <summary>
 		/// true if zeroing-masking, false if merging-masking.

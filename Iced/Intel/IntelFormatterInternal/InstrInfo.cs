@@ -86,7 +86,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 		BranchSizeInfoMask			= 1,
 		BranchSizeInfo_Short		= BranchSizeInfo.Short << (int)BranchSizeInfoShift,
 
-		IgnoreOpMaskRegister		= 0x00000080,
+		IgnoreOpMask				= 0x00000080,
 		FarMnemonic					= 0x00000100,
 		JccNotTaken					= 0x00000200,
 		JccTaken					= 0x00000400,
@@ -674,13 +674,13 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
 			Debug.Assert(instr.OpCount == 1);
-			var kreg = instr.OpMaskRegister;
+			var kreg = instr.OpMask;
 			if (kreg != Register.None) {
 				info.OpCount++;
 				info.Op1Kind = InstrOpKind.Register;
 				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op1Register = (byte)kreg;
-				info.Flags |= InstrOpInfoFlags.IgnoreOpMaskRegister;
+				info.Flags |= InstrOpInfoFlags.IgnoreOpMask;
 			}
 		}
 	}
@@ -700,7 +700,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
 			Debug.Assert(instr.OpCount == 2);
-			var kreg = instr.OpMaskRegister;
+			var kreg = instr.OpMask;
 			if (kreg != Register.None) {
 				info.OpCount++;
 				info.Op2Kind = info.Op1Kind;
@@ -708,7 +708,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 				info.Op1Kind = InstrOpKind.Register;
 				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op1Register = (byte)kreg;
-				info.Flags |= InstrOpInfoFlags.IgnoreOpMaskRegister;
+				info.Flags |= InstrOpInfoFlags.IgnoreOpMask;
 			}
 		}
 	}

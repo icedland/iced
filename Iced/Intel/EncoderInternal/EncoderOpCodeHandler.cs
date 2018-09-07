@@ -784,7 +784,7 @@ namespace Iced.Intel.EncoderInternal {
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
 			encoder.WriteByte((byte)b);
 
-			b = instr.InternalOpMaskRegister;
+			b = instr.InternalOpMask;
 			if (b != 0 && (flags & EvexFlags.k1) == 0)
 				encoder.ErrorMessage = "The instruction doesn't support opmask registers";
 			b |= (encoderFlags >> ((int)EncoderFlags.VvvvvShift + 4 - 3)) & 8;

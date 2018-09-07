@@ -934,7 +934,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -981,7 +981,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -1031,7 +1031,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1078,7 +1078,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -1128,7 +1128,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1175,7 +1175,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -1231,7 +1231,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1282,7 +1282,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1335,7 +1335,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1386,7 +1386,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1439,7 +1439,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1490,7 +1490,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate8, instr.Op3Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);

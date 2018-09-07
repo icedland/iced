@@ -442,9 +442,9 @@ namespace Iced.Intel {
 				throw new InvalidOperationException();
 			}
 
-			if (operand == 0 && instruction.HasOpMaskRegister && (opInfo.Flags & InstrOpInfoFlags.IgnoreOpMaskRegister) == 0) {
+			if (operand == 0 && instruction.HasOpMask && (opInfo.Flags & InstrOpInfoFlags.IgnoreOpMask) == 0) {
 				output.Write("{", FormatterOutputTextKind.Punctuation);
-				FormatRegister(output, instruction.OpMaskRegister);
+				FormatRegister(output, instruction.OpMask);
 				output.Write("}", FormatterOutputTextKind.Punctuation);
 				if (instruction.ZeroingMasking)
 					FormatEvexMisc(output, "z");

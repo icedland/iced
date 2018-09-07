@@ -238,7 +238,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m32(ref instruction, tupleType);
 			}
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -321,7 +321,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m32(ref instruction, tupleType);
 			}
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -416,7 +416,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -492,7 +492,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m32(ref instruction, tupleType);
 			}
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -544,7 +544,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.Op1Register = (int)state.reg + baseReg2;
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -596,7 +596,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m32(ref instruction, tupleType);
 			}
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -674,7 +674,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -752,7 +752,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			instruction.Op1Register = (int)state.reg + baseReg2;
 			instruction.InternalOp3Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -826,7 +826,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -921,7 +921,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			instruction.Op1Register = (int)state.reg + baseReg2;
 			instruction.InternalOp3Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -1284,7 +1284,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			instruction.InternalOp4Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 		}
 	}
 
@@ -1354,7 +1354,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m32(ref instruction, tupleType);
 			}
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -1417,7 +1417,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m32(ref instruction, tupleType);
 			}
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -1491,7 +1491,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			instruction.InternalOp4Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -1579,7 +1579,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			instruction.InternalOp4Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -1635,7 +1635,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m32(ref instruction, tupleType);
 			}
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				decoder.SetInvalidInstruction();
 		}
@@ -1693,7 +1693,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			instruction.InternalOp4Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				decoder.SetInvalidInstruction();
 		}
@@ -1749,7 +1749,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.Op2Register = (int)state.reg + baseReg;
 			Debug.Assert(OpKind.Register == 0);
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -2134,7 +2134,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			else
 				decoder.SetInvalidInstruction();
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -2180,7 +2180,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_VSIB_m32(ref instruction, vsibBase, tupleType);
 			}
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}
@@ -2221,7 +2221,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.Op1Register = (int)state.reg + baseReg;
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 		}
 	}
 
@@ -2258,7 +2258,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.Op1Register = (int)state.reg + Register.K0;
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 		}
 	}
 
@@ -2353,7 +2353,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
-			instruction.InternalOpMaskRegister = state.aaa;
+			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
 		}

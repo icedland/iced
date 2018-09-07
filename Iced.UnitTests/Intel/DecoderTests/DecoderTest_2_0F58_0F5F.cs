@@ -562,7 +562,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -630,7 +630,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -692,7 +692,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -760,7 +760,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -822,7 +822,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -890,7 +890,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1486,7 +1486,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1554,7 +1554,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1616,7 +1616,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1684,7 +1684,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1746,7 +1746,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -1814,7 +1814,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -2554,7 +2554,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -2596,7 +2596,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -2646,7 +2646,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -2688,7 +2688,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -2738,7 +2738,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -2780,7 +2780,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -2827,7 +2827,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -2910,7 +2910,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op1Kind);
 			Assert.Equal(reg2, instr.Op1Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -3019,7 +3019,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -3102,7 +3102,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op1Kind);
 			Assert.Equal(reg2, instr.Op1Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -3211,7 +3211,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -3294,7 +3294,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op1Kind);
 			Assert.Equal(reg2, instr.Op1Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -3940,7 +3940,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -4008,7 +4008,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -4070,7 +4070,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -4138,7 +4138,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -4200,7 +4200,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -4268,7 +4268,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -4864,7 +4864,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -4932,7 +4932,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -4994,7 +4994,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -5062,7 +5062,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -5124,7 +5124,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -5192,7 +5192,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -5788,7 +5788,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -5856,7 +5856,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -5918,7 +5918,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -5986,7 +5986,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -6048,7 +6048,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -6116,7 +6116,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -6712,7 +6712,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -6780,7 +6780,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -6842,7 +6842,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -6910,7 +6910,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
@@ -6972,7 +6972,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(memSize, instr.MemorySize);
 			Assert.Equal(1, instr.MemoryDisplSize);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
 			Assert.False(instr.SuppressAllExceptions);
@@ -7040,7 +7040,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op2Kind);
 			Assert.Equal(reg3, instr.Op2Register);
 
-			Assert.Equal(kreg, instr.OpMaskRegister);
+			Assert.Equal(kreg, instr.OpMask);
 			Assert.Equal(z, instr.ZeroingMasking);
 			Assert.Equal(rc, instr.RoundingControl);
 			Assert.Equal(sae, instr.SuppressAllExceptions);
