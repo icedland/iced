@@ -749,7 +749,7 @@ after_read_prefixes:
 			uint index = ((sib >> 3) & 7) + state.extraIndexRegisterBase;
 			uint @base = sib & 7;
 
-			instruction.InternalMemoryIndexScale = (ushort)(sib >> 6);
+			instruction.InternalMemoryIndexScale = (int)(sib >> 6);
 			if (!isVsib) {
 				if (index != 4)
 					instruction.MemoryIndex = (int)index + indexReg;

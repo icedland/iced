@@ -232,7 +232,7 @@ namespace Iced.Intel {
 						else
 							displ = instruction.MemoryDisplacement;
 						if ((flags & Flags.NoMemoryUsage) == 0)
-							AddMemory(flags, ref usedMemoryLocations, segReg, baseReg, indexReg, 1 << instruction.MemoryIndexScale, displ, instruction.MemorySize, access);
+							AddMemory(flags, ref usedMemoryLocations, segReg, baseReg, indexReg, instruction.MemoryIndexScale, displ, instruction.MemorySize, access);
 						if ((flags & Flags.NoRegisterUsage) == 0) {
 							if (segReg != Register.None)
 								AddRegister(flags, ref usedRegisters, segReg, OpAccess.Read);

@@ -479,7 +479,7 @@ namespace Iced.Intel {
 					displ = (int)instruction.MemoryDisplacement;
 				else
 					displ = instruction.MemoryDisplacement;
-				FormatMemory(output, ref instruction, operand, opInfo.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, baseReg, indexReg, instruction.MemoryIndexScale, displSize, displ, addrSize, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, opInfo.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize, opInfo.Flags);
 				break;
 
 			case InstrOpKind.Sae:

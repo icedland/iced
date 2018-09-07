@@ -817,7 +817,7 @@ namespace Iced.Intel {
 				}
 				return;
 			}
-			var scale = instr.MemoryIndexScale;
+			var scale = instr.InternalMemoryIndexScale;
 			if (baseReg == Register.None && indexReg == Register.None) {
 				if (vsibIndexRegLo != Register.None) {
 					ErrorMessage = $"Operand {operand}: VSIB addressing can't use an offset-only address";

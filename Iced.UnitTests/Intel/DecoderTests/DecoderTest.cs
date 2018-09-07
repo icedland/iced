@@ -85,7 +85,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(baseReg, instr.MemoryBase);
 			Assert.Equal(indexReg, instr.MemoryIndex);
 			Assert.Equal(displ, instr.MemoryDisplacement);
-			Assert.Equal(scale, instr.MemoryIndexScale);
+			Assert.Equal(1 << scale, instr.MemoryIndexScale);
 			Assert.Equal(displSize, instr.MemoryDisplSize);
 
 			Assert.Equal(OpKind.Register, instr.Op1Kind);

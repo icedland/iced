@@ -63,7 +63,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -109,7 +109,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -161,7 +161,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -207,7 +207,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -253,7 +253,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -305,7 +305,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -357,7 +357,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt64, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -403,7 +403,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -449,7 +449,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -501,7 +501,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -547,7 +547,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -593,7 +593,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -645,7 +645,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -697,7 +697,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt64, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -724,7 +724,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -778,7 +778,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -832,7 +832,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -891,7 +891,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -945,7 +945,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -999,7 +999,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -1058,7 +1058,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt64, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -1133,7 +1133,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -1179,7 +1179,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -1231,7 +1231,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -1277,7 +1277,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -1323,7 +1323,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -1375,7 +1375,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -1427,7 +1427,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt64, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 
@@ -1476,7 +1476,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -1522,7 +1522,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -1574,7 +1574,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -1620,7 +1620,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -1666,7 +1666,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -1718,7 +1718,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -1770,7 +1770,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt64, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -1816,7 +1816,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -1862,7 +1862,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -1914,7 +1914,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -1960,7 +1960,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2006,7 +2006,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2058,7 +2058,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2110,7 +2110,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt64, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2156,7 +2156,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2202,7 +2202,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2254,7 +2254,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2300,7 +2300,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2346,7 +2346,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2398,7 +2398,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2450,7 +2450,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt64, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2496,7 +2496,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2542,7 +2542,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2594,7 +2594,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2640,7 +2640,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2686,7 +2686,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2738,7 +2738,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt32, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2790,7 +2790,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.UInt64, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2836,7 +2836,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int8, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2882,7 +2882,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int8, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2936,7 +2936,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int8, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -2982,7 +2982,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int8, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -3028,7 +3028,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int8, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -3082,7 +3082,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int8, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -3134,7 +3134,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int8, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -3180,7 +3180,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -3226,7 +3226,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -3278,7 +3278,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -3324,7 +3324,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.BX, instr.MemoryBase);
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -3370,7 +3370,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.EAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -3422,7 +3422,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
@@ -3474,7 +3474,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.RAX, instr.MemoryBase);
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(0, instr.MemoryIndexScale);
+			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(MemorySize.Int16, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}

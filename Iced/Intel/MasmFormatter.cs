@@ -439,7 +439,7 @@ namespace Iced.Intel {
 					displ = instruction.MemoryDisplacement;
 				if ((opInfo.Flags & InstrOpInfoFlags.IgnoreIndexReg) != 0)
 					indexReg = Register.None;
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, baseReg, indexReg, instruction.MemoryIndexScale, displSize, displ, addrSize, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize, opInfo.Flags);
 				break;
 
 			default:

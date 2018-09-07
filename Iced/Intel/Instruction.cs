@@ -490,14 +490,26 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the index register scale value, valid values are 0, 1, 2, 3 (*1, *2, *4, *8). Use this property if the operand has kind <see cref="OpKind.Memory"/>
+		/// Gets the index register scale value, valid values are *1, *2, *4, *8. Use this property if the operand has kind <see cref="OpKind.Memory"/>
 		/// </summary>
 		public int MemoryIndexScale {
-			get => (int)(memoryFlags & (uint)MemoryFlags.ScaleMask);
-			set => memoryFlags = (ushort)((memoryFlags & ~(uint)MemoryFlags.ScaleMask) | ((uint)value & (uint)MemoryFlags.ScaleMask));
+			get => 1 << (int)(memoryFlags & (uint)MemoryFlags.ScaleMask);
+			set {
+				if (value == 1)
+					memoryFlags &= 0xFFFC;
+				else if (value == 2)
+					memoryFlags = (ushort)((memoryFlags & ~(uint)MemoryFlags.ScaleMask) | 1);
+				else if (value == 4)
+					memoryFlags = (ushort)((memoryFlags & ~(uint)MemoryFlags.ScaleMask) | 2);
+				else {
+					Debug.Assert(value == 8);
+					memoryFlags |= 3;
+				}
+			}
 		}
-		internal ushort InternalMemoryIndexScale {
-			set => memoryFlags |= value;
+		internal int InternalMemoryIndexScale {
+			get => (int)(memoryFlags & (uint)MemoryFlags.ScaleMask);
+			set => memoryFlags |= (ushort)value;
 		}
 
 		/// <summary>
@@ -1095,12 +1107,12 @@ namespace Iced.Intel {
 				if (indexReg != Register.None) {
 					if (TryGetVsib64(out bool vsib64)) {
 						if (vsib64)
-							offset += registerValueProvider.GetRegisterValue(indexReg, elementIndex, 8) << MemoryIndexScale;
+							offset += registerValueProvider.GetRegisterValue(indexReg, elementIndex, 8) << InternalMemoryIndexScale;
 						else
-							offset += (ulong)(uint)registerValueProvider.GetRegisterValue(indexReg, elementIndex, 4) << MemoryIndexScale;
+							offset += (ulong)(uint)registerValueProvider.GetRegisterValue(indexReg, elementIndex, 4) << InternalMemoryIndexScale;
 					}
 					else
-						offset += registerValueProvider.GetRegisterValue(indexReg, elementIndex, 0) << MemoryIndexScale;
+						offset += registerValueProvider.GetRegisterValue(indexReg, elementIndex, 0) << InternalMemoryIndexScale;
 				}
 				offset &= offsetMask;
 				return registerValueProvider.GetRegisterValue(MemorySegment, 0, 0) + offset;
