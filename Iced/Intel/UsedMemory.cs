@@ -18,7 +18,6 @@
 */
 
 #if !NO_INSTR_INFO
-using System;
 using System.Diagnostics;
 using System.Text;
 
@@ -32,14 +31,8 @@ namespace Iced.Intel {
 		readonly byte baseReg;
 		readonly byte indexReg;
 		readonly byte memorySize;
-		readonly byte flags;
-
-		[Flags]
-		enum Flags : byte {
-			ScaleMask		= 0x0F,
-			OpAccessShift	= 4,
-			OpAccessMask	= 7,
-		}
+		readonly byte scale;
+		readonly byte access;
 
 		/// <summary>
 		/// Effective segment register
@@ -59,7 +52,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Index scale (1, 2, 4 or 8)
 		/// </summary>
-		public int Scale => flags & (int)Flags.ScaleMask;
+		public int Scale => scale;
 
 		/// <summary>
 		/// Displacement
@@ -74,7 +67,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Memory access
 		/// </summary>
-		public OpAccess Access => (OpAccess)((flags >> (int)Flags.OpAccessShift) & (int)Flags.OpAccessMask);
+		public OpAccess Access => (OpAccess)access;
 
 		/// <summary>
 		/// Constructor
@@ -97,10 +90,9 @@ namespace Iced.Intel {
 			Debug.Assert((uint)memorySize <= byte.MaxValue);
 			this.memorySize = (byte)memorySize;
 			Debug.Assert(scale == 1 || scale == 2 || scale == 4 || scale == 8);
-			uint flags = (uint)scale;
-			Debug.Assert((uint)access <= (uint)Flags.OpAccessMask);
-			flags |= (uint)access << (int)Flags.OpAccessShift;
-			this.flags = (byte)flags;
+			this.scale = (byte)scale;
+			Debug.Assert((uint)access <= byte.MaxValue);
+			this.access = (byte)access;
 		}
 
 		/// <summary>
@@ -124,10 +116,9 @@ namespace Iced.Intel {
 			Debug.Assert((uint)memorySize <= byte.MaxValue);
 			this.memorySize = (byte)memorySize;
 			Debug.Assert(scale == 1 || scale == 2 || scale == 4 || scale == 8);
-			uint flags = (uint)scale;
-			Debug.Assert((uint)access <= (uint)Flags.OpAccessMask);
-			flags |= (uint)access << (int)Flags.OpAccessShift;
-			this.flags = (byte)flags;
+			this.scale = (byte)scale;
+			Debug.Assert((uint)access <= byte.MaxValue);
+			this.access = (byte)access;
 		}
 
 		/// <summary>
