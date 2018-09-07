@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos64_006 {
-		public const int AllInfos_Length = 1000;
+		public const int AllInfos_Length = 1008;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(64, "C4E24D AE 10", Code.VEX_Vfnmsub213ps_VY_HY_WY),
 			new InstructionInfo(64, "C4E2C9 AE D3", Code.VEX_Vfnmsub213pd_VX_HX_WX),
@@ -947,12 +947,20 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(64, "62 F3CD0B 57 50 01 A5", Code.EVEX_Vreducesd_VX_k1z_HX_WX_Ib_sae),
 			new InstructionInfo(64, "66 0F3A60 CD A5", Code.Pcmpestrm_VX_WX_Ib),
 			new InstructionInfo(64, "66 0F3A60 08 A5", Code.Pcmpestrm_VX_WX_Ib),
+			new InstructionInfo(64, "66 48 0F3A60 CD A5", Code.Pcmpestrm64_VX_WX_Ib),
+			new InstructionInfo(64, "66 48 0F3A60 08 A5", Code.Pcmpestrm64_VX_WX_Ib),
 			new InstructionInfo(64, "C4E379 60 D3 A5", Code.VEX_Vpcmpestrm_VX_WX_Ib),
 			new InstructionInfo(64, "C4E379 60 10 A5", Code.VEX_Vpcmpestrm_VX_WX_Ib),
+			new InstructionInfo(64, "C4E3F9 60 D3 A5", Code.VEX_Vpcmpestrm64_VX_WX_Ib),
+			new InstructionInfo(64, "C4E3F9 60 10 A5", Code.VEX_Vpcmpestrm64_VX_WX_Ib),
 			new InstructionInfo(64, "66 0F3A61 CD A5", Code.Pcmpestri_VX_WX_Ib),
 			new InstructionInfo(64, "66 0F3A61 08 A5", Code.Pcmpestri_VX_WX_Ib),
+			new InstructionInfo(64, "66 48 0F3A61 CD A5", Code.Pcmpestri64_VX_WX_Ib),
+			new InstructionInfo(64, "66 48 0F3A61 08 A5", Code.Pcmpestri64_VX_WX_Ib),
 			new InstructionInfo(64, "C4E379 61 D3 A5", Code.VEX_Vpcmpestri_VX_WX_Ib),
 			new InstructionInfo(64, "C4E379 61 10 A5", Code.VEX_Vpcmpestri_VX_WX_Ib),
+			new InstructionInfo(64, "C4E3F9 61 D3 A5", Code.VEX_Vpcmpestri64_VX_WX_Ib),
+			new InstructionInfo(64, "C4E3F9 61 10 A5", Code.VEX_Vpcmpestri64_VX_WX_Ib),
 			new InstructionInfo(64, "66 0F3A62 CD A5", Code.Pcmpistrm_VX_WX_Ib),
 			new InstructionInfo(64, "66 0F3A62 08 A5", Code.Pcmpistrm_VX_WX_Ib),
 			new InstructionInfo(64, "C4E379 62 D3 A5", Code.VEX_Vpcmpistrm_VX_WX_Ib),

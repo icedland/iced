@@ -193,9 +193,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static IEnumerable<object[]> Test64_VpcmpestrmV_VX_WX_Ib_1_Data {
 			get {
 				yield return new object[] { "66 0F3A60 08 A5", 6, Code.Pcmpestrm_VX_WX_Ib, Register.XMM1, MemorySize.Packed128_UInt8, 0xA5 };
+				yield return new object[] { "66 48 0F3A60 08 A5", 7, Code.Pcmpestrm64_VX_WX_Ib, Register.XMM1, MemorySize.Packed128_UInt8, 0xA5 };
 
 				yield return new object[] { "C4E379 60 10 A5", 6, Code.VEX_Vpcmpestrm_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_UInt8, 0xA5 };
-				yield return new object[] { "C4E3F9 60 10 A5", 6, Code.VEX_Vpcmpestrm_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_UInt8, 0xA5 };
+				yield return new object[] { "C4E3F9 60 10 A5", 6, Code.VEX_Vpcmpestrm64_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_UInt8, 0xA5 };
 			}
 		}
 
@@ -229,9 +230,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "66 41 0F3A60 CD A5", 7, Code.Pcmpestrm_VX_WX_Ib, Register.XMM1, Register.XMM13, 0xA5 };
 				yield return new object[] { "66 45 0F3A60 CD A5", 7, Code.Pcmpestrm_VX_WX_Ib, Register.XMM9, Register.XMM13, 0xA5 };
 
+				yield return new object[] { "66 48 0F3A60 CD A5", 7, Code.Pcmpestrm64_VX_WX_Ib, Register.XMM1, Register.XMM5, 0xA5 };
+				yield return new object[] { "66 4C 0F3A60 CD A5", 7, Code.Pcmpestrm64_VX_WX_Ib, Register.XMM9, Register.XMM5, 0xA5 };
+				yield return new object[] { "66 49 0F3A60 CD A5", 7, Code.Pcmpestrm64_VX_WX_Ib, Register.XMM1, Register.XMM13, 0xA5 };
+				yield return new object[] { "66 4D 0F3A60 CD A5", 7, Code.Pcmpestrm64_VX_WX_Ib, Register.XMM9, Register.XMM13, 0xA5 };
+
 				yield return new object[] { "C4E379 60 D3 A5", 6, Code.VEX_Vpcmpestrm_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
 				yield return new object[] { "C46379 60 D3 A5", 6, Code.VEX_Vpcmpestrm_VX_WX_Ib, Register.XMM10, Register.XMM3, 0xA5 };
 				yield return new object[] { "C4C379 60 D3 A5", 6, Code.VEX_Vpcmpestrm_VX_WX_Ib, Register.XMM2, Register.XMM11, 0xA5 };
+
+				yield return new object[] { "C4E3F9 60 D3 A5", 6, Code.VEX_Vpcmpestrm64_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
+				yield return new object[] { "C463F9 60 D3 A5", 6, Code.VEX_Vpcmpestrm64_VX_WX_Ib, Register.XMM10, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4C3F9 60 D3 A5", 6, Code.VEX_Vpcmpestrm64_VX_WX_Ib, Register.XMM2, Register.XMM11, 0xA5 };
 			}
 		}
 
@@ -405,9 +415,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static IEnumerable<object[]> Test64_VpcmpestriV_VX_WX_Ib_1_Data {
 			get {
 				yield return new object[] { "66 0F3A61 08 A5", 6, Code.Pcmpestri_VX_WX_Ib, Register.XMM1, MemorySize.Packed128_UInt8, 0xA5 };
+				yield return new object[] { "66 48 0F3A61 08 A5", 7, Code.Pcmpestri64_VX_WX_Ib, Register.XMM1, MemorySize.Packed128_UInt8, 0xA5 };
 
 				yield return new object[] { "C4E379 61 10 A5", 6, Code.VEX_Vpcmpestri_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_UInt8, 0xA5 };
-				yield return new object[] { "C4E3F9 61 10 A5", 6, Code.VEX_Vpcmpestri_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_UInt8, 0xA5 };
+				yield return new object[] { "C4E3F9 61 10 A5", 6, Code.VEX_Vpcmpestri64_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_UInt8, 0xA5 };
 			}
 		}
 
@@ -441,9 +452,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "66 41 0F3A61 CD A5", 7, Code.Pcmpestri_VX_WX_Ib, Register.XMM1, Register.XMM13, 0xA5 };
 				yield return new object[] { "66 45 0F3A61 CD A5", 7, Code.Pcmpestri_VX_WX_Ib, Register.XMM9, Register.XMM13, 0xA5 };
 
+				yield return new object[] { "66 48 0F3A61 CD A5", 7, Code.Pcmpestri64_VX_WX_Ib, Register.XMM1, Register.XMM5, 0xA5 };
+				yield return new object[] { "66 4C 0F3A61 CD A5", 7, Code.Pcmpestri64_VX_WX_Ib, Register.XMM9, Register.XMM5, 0xA5 };
+				yield return new object[] { "66 49 0F3A61 CD A5", 7, Code.Pcmpestri64_VX_WX_Ib, Register.XMM1, Register.XMM13, 0xA5 };
+				yield return new object[] { "66 4D 0F3A61 CD A5", 7, Code.Pcmpestri64_VX_WX_Ib, Register.XMM9, Register.XMM13, 0xA5 };
+
 				yield return new object[] { "C4E379 61 D3 A5", 6, Code.VEX_Vpcmpestri_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
 				yield return new object[] { "C46379 61 D3 A5", 6, Code.VEX_Vpcmpestri_VX_WX_Ib, Register.XMM10, Register.XMM3, 0xA5 };
 				yield return new object[] { "C4C379 61 D3 A5", 6, Code.VEX_Vpcmpestri_VX_WX_Ib, Register.XMM2, Register.XMM11, 0xA5 };
+
+				yield return new object[] { "C4E3F9 61 D3 A5", 6, Code.VEX_Vpcmpestri64_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
+				yield return new object[] { "C463F9 61 D3 A5", 6, Code.VEX_Vpcmpestri64_VX_WX_Ib, Register.XMM10, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4C3F9 61 D3 A5", 6, Code.VEX_Vpcmpestri64_VX_WX_Ib, Register.XMM2, Register.XMM11, 0xA5 };
 			}
 		}
 

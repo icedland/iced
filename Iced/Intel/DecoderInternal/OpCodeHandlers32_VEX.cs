@@ -414,6 +414,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			this.memSize = memSize;
 		}
 
+		public OpCodeHandler_VEX_VWIb(Register baseReg, Code codeW0, Code codeW1, MemorySize memSize) {
+			baseReg1 = baseReg;
+			baseReg2 = baseReg;
+			code = codeW0;
+			this.memSize = memSize;
+		}
+
 		public OpCodeHandler_VEX_VWIb(Register baseReg1, Register baseReg2, Code code, MemorySize memSize) {
 			this.baseReg1 = baseReg1;
 			this.baseReg2 = baseReg2;

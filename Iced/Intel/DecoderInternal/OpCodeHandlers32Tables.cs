@@ -1622,13 +1622,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 60
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpestrm_VX_WX_Ib, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpestrm_VX_WX_Ib, Code.Pcmpestrm64_VX_WX_Ib, MemorySize.Packed128_UInt8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpestri_VX_WX_Ib, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpestri_VX_WX_Ib, Code.Pcmpestri64_VX_WX_Ib, MemorySize.Packed128_UInt8),
 					invalid,
 					invalid
 				),

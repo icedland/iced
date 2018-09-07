@@ -2116,7 +2116,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_VEX(
-						new OpCodeHandler_VEX_VWIb(Register.XMM0, Code.VEX_Vpcmpestrm_VX_WX_Ib, MemorySize.Packed128_UInt8),
+						new OpCodeHandler_VEX_VWIb(Register.XMM0, Code.VEX_Vpcmpestrm_VX_WX_Ib, Code.VEX_Vpcmpestrm64_VX_WX_Ib, MemorySize.Packed128_UInt8),
 						invalid
 					),
 					invalid,
@@ -2125,7 +2125,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_VEX(
-						new OpCodeHandler_VEX_VWIb(Register.XMM0, Code.VEX_Vpcmpestri_VX_WX_Ib, MemorySize.Packed128_UInt8),
+						new OpCodeHandler_VEX_VWIb(Register.XMM0, Code.VEX_Vpcmpestri_VX_WX_Ib, Code.VEX_Vpcmpestri64_VX_WX_Ib, MemorySize.Packed128_UInt8),
 						invalid
 					),
 					invalid,

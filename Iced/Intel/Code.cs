@@ -4604,10 +4604,14 @@ namespace Iced.Intel {
 		EVEX_Vreducesd_VX_k1z_HX_WX_Ib_sae,					// EVEX.NDS.LIG.66.0F3A.W1 57
 
 		Pcmpestrm_VX_WX_Ib,									// 66 0F3A60
-		VEX_Vpcmpestrm_VX_WX_Ib,							// VEX.128.66.0F3A.WIG 60
+		Pcmpestrm64_VX_WX_Ib,								// REX.W 66 0F3A60
+		VEX_Vpcmpestrm_VX_WX_Ib,							// VEX.128.66.0F3A.W0 60
+		VEX_Vpcmpestrm64_VX_WX_Ib,							// VEX.128.66.0F3A.W1 60
 
 		Pcmpestri_VX_WX_Ib,									// 66 0F3A61
-		VEX_Vpcmpestri_VX_WX_Ib,							// VEX.128.66.0F3A.WIG 61
+		Pcmpestri64_VX_WX_Ib,								// REX.W 66 0F3A61
+		VEX_Vpcmpestri_VX_WX_Ib,							// VEX.128.66.0F3A.W0 61
+		VEX_Vpcmpestri64_VX_WX_Ib,							// VEX.128.66.0F3A.W1 61
 
 		Pcmpistrm_VX_WX_Ib,									// 66 0F3A62
 		VEX_Vpcmpistrm_VX_WX_Ib,							// VEX.128.66.0F3A.WIG 62

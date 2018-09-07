@@ -15828,18 +15828,34 @@ C4E34D 4C 10 50, VEX_Vpblendvb_VY_HY_WY_Is4Y, VEX, AVX2, op0=w op1=r op2=r op3=r
 66 0F3A60 CD A5, Pcmpestrm_VX_WX_Ib, Legacy, SSE4_2, fw=cosz fc=ap op0=r op1=r op2=r r=xmm1 r=xmm5 r=eax;edx w=xmm0
 # pcmpestrm xmm1,[rax],0A5h
 66 0F3A60 08 A5, Pcmpestrm_VX_WX_Ib, Legacy, SSE4_2, fw=cosz fc=ap op0=r op1=r op2=r r=xmm1 r=ds r=rax rm=ds:rax;Packed128_UInt8 r=eax;edx w=xmm0
+# pcmpestrm64 xmm1,xmm5,0A5h
+66 48 0F3A60 CD A5, Pcmpestrm64_VX_WX_Ib, Legacy, SSE4_2, fw=cosz fc=ap op0=r op1=r op2=r r=xmm1 r=xmm5 r=rax;rdx w=xmm0
+# pcmpestrm64 xmm1,[rax],0A5h
+66 48 0F3A60 08 A5, Pcmpestrm64_VX_WX_Ib, Legacy, SSE4_2, fw=cosz fc=ap op0=r op1=r op2=r r=xmm1 r=ds r=rax rm=ds:rax;Packed128_UInt8 r=rax;rdx w=xmm0
 # vpcmpestrm xmm2,xmm3,0A5h
 C4E379 60 D3 A5, VEX_Vpcmpestrm_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=xmm3 r=eax;edx w=vmm0
 # vpcmpestrm xmm2,[rax],0A5h
 C4E379 60 10 A5, VEX_Vpcmpestrm_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=ds r=rax rm=ds:rax;Packed128_UInt8 r=eax;edx w=vmm0
+# vpcmpestrm64 xmm2,xmm3,0A5h
+C4E3F9 60 D3 A5, VEX_Vpcmpestrm64_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=xmm3 r=rax;rdx w=vmm0
+# vpcmpestrm64 xmm2,[rax],0A5h
+C4E3F9 60 10 A5, VEX_Vpcmpestrm64_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=ds r=rax rm=ds:rax;Packed128_UInt8 r=rax;rdx w=vmm0
 # pcmpestri xmm1,xmm5,0A5h
 66 0F3A61 CD A5, Pcmpestri_VX_WX_Ib, Legacy, SSE4_2, fw=cosz fc=ap op0=r op1=r op2=r r=xmm1 r=xmm5 r=eax;edx w=rcx
 # pcmpestri xmm1,[rax],0A5h
 66 0F3A61 08 A5, Pcmpestri_VX_WX_Ib, Legacy, SSE4_2, fw=cosz fc=ap op0=r op1=r op2=r r=xmm1 r=ds r=rax rm=ds:rax;Packed128_UInt8 r=eax;edx w=rcx
+# pcmpestri64 xmm1,xmm5,0A5h
+66 48 0F3A61 CD A5, Pcmpestri64_VX_WX_Ib, Legacy, SSE4_2, fw=cosz fc=ap op0=r op1=r op2=r r=xmm1 r=xmm5 r=rax;rdx w=rcx
+# pcmpestri64 xmm1,[rax],0A5h
+66 48 0F3A61 08 A5, Pcmpestri64_VX_WX_Ib, Legacy, SSE4_2, fw=cosz fc=ap op0=r op1=r op2=r r=xmm1 r=ds r=rax rm=ds:rax;Packed128_UInt8 r=rax;rdx w=rcx
 # vpcmpestri xmm2,xmm3,0A5h
 C4E379 61 D3 A5, VEX_Vpcmpestri_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=xmm3 r=eax;edx w=rcx
 # vpcmpestri xmm2,[rax],0A5h
 C4E379 61 10 A5, VEX_Vpcmpestri_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=ds r=rax rm=ds:rax;Packed128_UInt8 r=eax;edx w=rcx
+# vpcmpestri64 xmm2,xmm3,0A5h
+C4E3F9 61 D3 A5, VEX_Vpcmpestri64_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=xmm3 r=rax;rdx w=rcx
+# vpcmpestri64 xmm2,[rax],0A5h
+C4E3F9 61 10 A5, VEX_Vpcmpestri64_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=ds r=rax rm=ds:rax;Packed128_UInt8 r=rax;rdx w=rcx
 # pcmpistrm xmm1,xmm5,0A5h
 66 0F3A62 CD A5, Pcmpistrm_VX_WX_Ib, Legacy, SSE4_2, fw=cosz fc=ap op0=r op1=r op2=r r=xmm1 r=xmm5 w=xmm0
 # pcmpistrm xmm1,[rax],0A5h

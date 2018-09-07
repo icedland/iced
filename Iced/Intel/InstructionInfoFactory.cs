@@ -1261,22 +1261,23 @@ namespace Iced.Intel {
 					code = instruction.Code;
 					if (code == Code.Pcmpestrm_VX_WX_Ib || code == Code.VEX_Vpcmpestrm_VX_WX_Ib ||
 						code == Code.Pcmpestri_VX_WX_Ib || code == Code.VEX_Vpcmpestri_VX_WX_Ib) {
-						bool hasRexW = false;//TODO:
-						if (hasRexW) {
-							AddRegister(flags, ref usedRegisters, Register.RAX, OpAccess.Read);
-							AddRegister(flags, ref usedRegisters, Register.RDX, OpAccess.Read);
-						}
-						else {
-							AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.Read);
-							AddRegister(flags, ref usedRegisters, Register.EDX, OpAccess.Read);
-						}
+						AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.Read);
+						AddRegister(flags, ref usedRegisters, Register.EDX, OpAccess.Read);
+					}
+					else if (code == Code.Pcmpestrm64_VX_WX_Ib || code == Code.VEX_Vpcmpestrm64_VX_WX_Ib ||
+						code == Code.Pcmpestri64_VX_WX_Ib || code == Code.VEX_Vpcmpestri64_VX_WX_Ib) {
+						AddRegister(flags, ref usedRegisters, Register.RAX, OpAccess.Read);
+						AddRegister(flags, ref usedRegisters, Register.RDX, OpAccess.Read);
 					}
 
 					if (code == Code.Pcmpestrm_VX_WX_Ib || code == Code.VEX_Vpcmpestrm_VX_WX_Ib ||
-						code == Code.Pcmpistrm_VX_WX_Ib || code == Code.VEX_Vpcmpistrm_VX_WX_Ib)
+						code == Code.Pcmpestrm64_VX_WX_Ib || code == Code.VEX_Vpcmpestrm64_VX_WX_Ib ||
+						code == Code.Pcmpistrm_VX_WX_Ib || code == Code.VEX_Vpcmpistrm_VX_WX_Ib) {
 						AddRegister(flags, ref usedRegisters, Register.XMM0, OpAccess.Write);
+					}
 					else {
 						Debug.Assert(code == Code.Pcmpestri_VX_WX_Ib || code == Code.VEX_Vpcmpestri_VX_WX_Ib ||
+									code == Code.Pcmpestri64_VX_WX_Ib || code == Code.VEX_Vpcmpestri64_VX_WX_Ib ||
 									code == Code.Pcmpistri_VX_WX_Ib || code == Code.VEX_Vpcmpistri_VX_WX_Ib);
 						AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Write);
 					}

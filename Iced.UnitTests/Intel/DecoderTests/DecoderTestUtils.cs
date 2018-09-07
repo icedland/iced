@@ -775,6 +775,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.EVEX_Vpinsrq_VX_HX_Eq_Ib;
 			yield return Code.VEX_Rorx_Gq_Eq_Ib;
 			yield return Code.Monitorq;
+			yield return Code.Pcmpestrm64_VX_WX_Ib;
+			yield return Code.VEX_Vpcmpestrm64_VX_WX_Ib;
+			yield return Code.Pcmpestri64_VX_WX_Ib;
+			yield return Code.VEX_Vpcmpestri64_VX_WX_Ib;
 		}
 
 		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool needHexBytes, bool includeOtherTests) {

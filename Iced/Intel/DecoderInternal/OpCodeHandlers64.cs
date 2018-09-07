@@ -4327,19 +4327,31 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_VWIb : OpCodeHandlerModRM {
 		readonly Register baseReg;
-		readonly Code code;
+		readonly Code codeW0;
+		readonly Code codeW1;
 		readonly MemorySize memSize;
 
 		public OpCodeHandler_VWIb(Register baseReg, Code code, MemorySize memSize) {
 			this.baseReg = baseReg;
-			this.code = code;
+			codeW0 = code;
+			codeW1 = code;
+			this.memSize = memSize;
+		}
+
+		public OpCodeHandler_VWIb(Register baseReg, Code codeW0, Code codeW1, MemorySize memSize) {
+			this.baseReg = baseReg;
+			this.codeW0 = codeW0;
+			this.codeW1 = codeW1;
 			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
+			if ((state.flags & StateFlags.W) != 0)
+				instruction.InternalCode = codeW1;
+			else
+				instruction.InternalCode = codeW0;
 			instruction.InternalOpCount = 3;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
