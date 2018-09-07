@@ -31,10 +31,10 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalCode = code;
 			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp1Kind = OpKind.Register;
+			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = Register.ST0;
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp2Kind = OpKind.Register;
+			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.Op1Register = Register.ST0 + (int)decoder.state.rm;
 		}
 	}
@@ -49,10 +49,10 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalCode = code;
 			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp1Kind = OpKind.Register;
+			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = Register.ST0 + (int)decoder.state.rm;
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp2Kind = OpKind.Register;
+			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.Op1Register = Register.ST0;
 		}
 	}
@@ -67,7 +67,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalCode = code;
 			instruction.InternalOpCount = 1;
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp1Kind = OpKind.Register;
+			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = Register.ST0 + (int)decoder.state.rm;
 		}
 	}

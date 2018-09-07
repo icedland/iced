@@ -76,7 +76,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalCode = code;
 			instruction.InternalOpCount = 1;
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp1Kind = OpKind.Register;
+			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = reg;
 		}
 	}
@@ -94,7 +94,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalCode = code;
 			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp1Kind = OpKind.Register;
+			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = reg;
 			instruction.InternalOp2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
@@ -116,7 +116,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalOp1Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp2Kind = OpKind.Register;
+			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.Op1Register = reg;
 		}
 	}
@@ -130,10 +130,10 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalCode = code;
 			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp1Kind = OpKind.Register;
+			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = Register.AL;
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp2Kind = OpKind.Register;
+			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.Op1Register = Register.DX;
 		}
 	}
@@ -147,10 +147,10 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalCode = code;
 			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp1Kind = OpKind.Register;
+			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = Register.DX;
 			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp2Kind = OpKind.Register;
+			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.Op1Register = Register.AL;
 		}
 	}
@@ -575,7 +575,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
-				//instruction.InternalOp1Kind = OpKind.Register;
+				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.Op0Register = (int)state.rm + Register.MM0;
 			}
 			else
