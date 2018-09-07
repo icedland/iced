@@ -155,5 +155,11 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			var getRegValue = new VARegisterValueProviderImpl((Register.BX, 0x123456789ABCE5D1), (Register.FS, 0x7654321001234567));
 			TestBase(bitness, "64 01 87 5AA5", 0, 0x765432100123D092, getRegValue);
 		}
+
+		[Fact]
+		void Memory_7() {
+			var getRegValue = new VARegisterValueProviderImpl((Register.BX, 0x123456789ABCE5D1), (Register.DS, 0x7654321001234567), (Register.AL, 0x5A));
+			TestBase(bitness, "D7", 0, 0x7654321001242B92, getRegValue);
+		}
 	}
 }
