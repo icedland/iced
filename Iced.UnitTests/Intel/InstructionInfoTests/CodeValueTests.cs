@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Iced.Intel;
+using Iced.Intel.InstructionInfoInternal;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.InstructionInfoTests {
@@ -62,6 +63,14 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				yield return info;
 			foreach (var info in InstructionInfoTest_64.Test64_InstructionInfo_Data)
 				yield return info;
+		}
+
+		[Fact]
+		void Verify_Code_values_in_InfoHandlers_table() {
+			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+				var code = (Code)(InfoHandlers.Data[i * 2] & (uint)InfoFlags1.CodeMask);
+				Assert.Equal((Code)i, code);
+			}
 		}
 	}
 }
