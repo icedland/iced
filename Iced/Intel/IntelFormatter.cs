@@ -175,6 +175,10 @@ namespace Iced.Intel {
 			if (prefix != null)
 				FormatPrefix(output, ref column, prefix);
 
+			var prefixSeg = instruction.PrefixSegment;
+			if (prefixSeg != Register.None && ShowSegmentOverridePrefix(ref opInfo))
+				FormatPrefix(output, ref column, allRegisters[(int)prefixSeg]);
+
 			if (instruction.HasPrefixXacquire)
 				FormatPrefix(output, ref column, "xacquire");
 			if (instruction.HasPrefixXrelease)
@@ -207,6 +211,48 @@ namespace Iced.Intel {
 				FormatKeyword(output, farKeyword);
 				column += farKeyword.Length + 1;
 			}
+		}
+
+		bool ShowSegmentOverridePrefix(ref InstrOpInfo opInfo) {
+			if ((opInfo.Flags & InstrOpInfoFlags.IgnorePrefixSegment) != 0)
+				return false;
+			for (int i = 0; i < opInfo.OpCount; i++) {
+				switch (opInfo.GetOpKind(i)) {
+				case InstrOpKind.Register:
+				case InstrOpKind.NearBranch16:
+				case InstrOpKind.NearBranch32:
+				case InstrOpKind.NearBranch64:
+				case InstrOpKind.FarBranch16:
+				case InstrOpKind.FarBranch32:
+				case InstrOpKind.Immediate8:
+				case InstrOpKind.Immediate8_Enter:
+				case InstrOpKind.Immediate16:
+				case InstrOpKind.Immediate32:
+				case InstrOpKind.Immediate64:
+				case InstrOpKind.Immediate8to16:
+				case InstrOpKind.Immediate8to32:
+				case InstrOpKind.Immediate8to64:
+				case InstrOpKind.Immediate32to64:
+				case InstrOpKind.MemoryESDI:
+				case InstrOpKind.MemoryESEDI:
+				case InstrOpKind.MemoryESRDI:
+					break;
+
+				case InstrOpKind.MemorySegSI:
+				case InstrOpKind.MemorySegESI:
+				case InstrOpKind.MemorySegRSI:
+				case InstrOpKind.MemorySegDI:
+				case InstrOpKind.MemorySegEDI:
+				case InstrOpKind.MemorySegRDI:
+				case InstrOpKind.Memory64:
+				case InstrOpKind.Memory:
+					return false;
+
+				default:
+					throw new InvalidOperationException();
+				}
+			}
+			return true;
 		}
 
 		void FormatPrefix(FormatterOutput output, ref int column, string prefix) {

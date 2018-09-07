@@ -81,11 +81,10 @@ namespace Iced.Intel.GasFormatterInternal {
 		IndirectOperand				= 0x0020,
 		OpSizeIsByteDirective		= 0x0040,
 		KeepOperandOrder			= 0x0080,
-		IgnorePrefixSegment			= 0x0100,
-		JccNotTaken					= 0x0200,
-		JccTaken					= 0x0400,
-		BndPrefix					= 0x0800,
-		IgnoreIndexReg				= 0x1000,
+		JccNotTaken					= 0x0100,
+		JccTaken					= 0x0200,
+		BndPrefix					= 0x0400,
+		IgnoreIndexReg				= 0x0800,
 	}
 
 	struct InstrOpInfo {
@@ -903,9 +902,9 @@ namespace Iced.Intel.GasFormatterInternal {
 			}
 			var prefixSeg = instr.PrefixSegment;
 			if (prefixSeg == Register.CS)
-				flags |= InstrOpInfoFlags.IgnorePrefixSegment | InstrOpInfoFlags.JccNotTaken;
+				flags |= InstrOpInfoFlags.JccNotTaken;
 			else if (prefixSeg == Register.DS)
-				flags |= InstrOpInfoFlags.IgnorePrefixSegment | InstrOpInfoFlags.JccTaken;
+				flags |= InstrOpInfoFlags.JccTaken;
 			if (instr.HasPrefixRepne)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			info = new InstrOpInfo(GetMnemonic(options, ref instr, mnemonic, mnemonic_suffix, flags), ref instr, flags);

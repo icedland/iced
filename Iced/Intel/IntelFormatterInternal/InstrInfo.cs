@@ -92,6 +92,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 		JccTaken					= 0x00000400,
 		BndPrefix					= 0x00000800,
 		IgnoreIndexReg				= 0x00001000,
+		IgnorePrefixSegment			= 0x00002000,
 	}
 
 	struct InstrOpInfo {
@@ -317,7 +318,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public SimpleInstrInfo_maskmovq(Code code, string mnemonic, InstrOpInfoFlags flags)
 			: base(code) {
 			this.mnemonic = mnemonic;
-			this.flags = flags;
+			this.flags = flags | InstrOpInfoFlags.IgnorePrefixSegment;
 		}
 
 		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
@@ -513,9 +514,9 @@ namespace Iced.Intel.IntelFormatterInternal {
 			}
 			var prefixSeg = instr.PrefixSegment;
 			if (prefixSeg == Register.CS)
-				flags |= InstrOpInfoFlags.JccNotTaken;
+				flags |= InstrOpInfoFlags.IgnorePrefixSegment | InstrOpInfoFlags.JccNotTaken;
 			else if (prefixSeg == Register.DS)
-				flags |= InstrOpInfoFlags.JccTaken;
+				flags |= InstrOpInfoFlags.IgnorePrefixSegment | InstrOpInfoFlags.JccTaken;
 			if (instr.HasPrefixRepne)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			info = new InstrOpInfo(mnemonic, ref instr, flags);

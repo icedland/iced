@@ -265,7 +265,7 @@ namespace Iced.Intel {
 		}
 
 		bool ShowSegmentOverridePrefix(ref InstrOpInfo opInfo) {
-			if ((opInfo.Flags & InstrOpInfoFlags.IgnorePrefixSegment) != 0)
+			if ((opInfo.Flags & (InstrOpInfoFlags.JccNotTaken | InstrOpInfoFlags.JccTaken)) != 0)
 				return false;
 			for (int i = 0; i < opInfo.OpCount; i++) {
 				switch (opInfo.GetOpKind(i)) {
