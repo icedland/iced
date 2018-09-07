@@ -346,25 +346,25 @@ D5 0A, Aad_Ib, Legacy, INTEL8086, op0=r rw=ax fw=szp fu=oac
 D6, Salc, Legacy, INTEL8086, fr=c w=al
 # loopnew 004Eh
 66 67 E0 5A, Loopne_Jb16_CX, Legacy, INTEL8086, flow=ConditionalBranch fr=z op0=r rw=cx
-# loopne 8000004Dh
+# loopnew 8000004Dh
 67 E0 5A, Loopne_Jb32_CX, Legacy, INTEL8086, flow=ConditionalBranch fr=z op0=r rw=cx
-# loopnew 004Dh
+# loopne 004Dh
 66 E0 5A, Loopne_Jb16_ECX, Legacy, INTEL8086, flow=ConditionalBranch fr=z op0=r rw=ecx
 # loopne 8000004Ch
 E0 5A, Loopne_Jb32_ECX, Legacy, INTEL8086, flow=ConditionalBranch fr=z op0=r rw=ecx
 # loopew 004Eh
 66 67 E1 5A, Loope_Jb16_CX, Legacy, INTEL8086, flow=ConditionalBranch fr=z op0=r rw=cx
-# loope 8000004Dh
+# loopew 8000004Dh
 67 E1 5A, Loope_Jb32_CX, Legacy, INTEL8086, flow=ConditionalBranch fr=z op0=r rw=cx
-# loopew 004Dh
+# loope 004Dh
 66 E1 5A, Loope_Jb16_ECX, Legacy, INTEL8086, flow=ConditionalBranch fr=z op0=r rw=ecx
 # loope 8000004Ch
 E1 5A, Loope_Jb32_ECX, Legacy, INTEL8086, flow=ConditionalBranch fr=z op0=r rw=ecx
 # loopw 004Eh
 66 67 E2 5A, Loop_Jb16_CX, Legacy, INTEL8086, flow=ConditionalBranch op0=r rw=cx
-# loop 8000004Dh
+# loopw 8000004Dh
 67 E2 5A, Loop_Jb32_CX, Legacy, INTEL8086, flow=ConditionalBranch op0=r rw=cx
-# loopw 004Dh
+# loop 004Dh
 66 E2 5A, Loop_Jb16_ECX, Legacy, INTEL8086, flow=ConditionalBranch op0=r rw=ecx
 # loop 8000004Ch
 E2 5A, Loop_Jb32_ECX, Legacy, INTEL8086, flow=ConditionalBranch op0=r rw=ecx
