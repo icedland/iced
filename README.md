@@ -11,7 +11,7 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 - API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
 - All instructions are tested (decode, encode, format, instruction info)
 
-= Classes
+# Classes
 
 See below for some examples. All classes are in the `Iced.Intel` namespace.
 
@@ -55,7 +55,7 @@ Instruction info:
 - `MemorySizeExtensions`
 - `RegisterExtensions`
 
-= Examples
+# Examples
 
 ```C#
 using System;
@@ -393,6 +393,6 @@ Disassembled code:
 }
 ```
 
-= License
+# License
 
 LGPL v3 or any later version (LGPL = GNU Lesser General Public License)
