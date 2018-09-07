@@ -30,6 +30,11 @@ namespace Iced.Intel {
 		readonly int endPosition;
 
 		/// <summary>
+		/// Checks if it's possible to read another byte
+		/// </summary>
+		public bool CanReadByte => currentPosition < endPosition;
+
+		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="hexData">Hex bytes encoded in a string</param>
