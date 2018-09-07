@@ -112,6 +112,37 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
+		[InlineData("0F98 00", 3, Code.Sets_Eb)]
+		[InlineData("0F99 00", 3, Code.Setns_Eb)]
+		[InlineData("0F9A 00", 3, Code.Setp_Eb)]
+		[InlineData("0F9B 00", 3, Code.Setnp_Eb)]
+		[InlineData("0F9C 00", 3, Code.Setl_Eb)]
+		[InlineData("0F9D 00", 3, Code.Setge_Eb)]
+		[InlineData("0F9E 00", 3, Code.Setle_Eb)]
+		[InlineData("0F9F 00", 3, Code.Setg_Eb)]
+		void Test16_Setcc_Eb_2(string hexBytes, int byteLength, Code code) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Memory, instr.Op0Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.BX, instr.MemoryBase);
+			Assert.Equal(Register.SI, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(MemorySize.UInt8, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
+		}
+
+		[Theory]
 		[InlineData("0F98 C0", 3, Code.Sets_Eb, Register.AL)]
 		[InlineData("0F98 C9", 3, Code.Sets_Eb, Register.CL)]
 		[InlineData("0F98 D2", 3, Code.Sets_Eb, Register.DL)]
@@ -197,6 +228,37 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
+		}
+
+		[Theory]
+		[InlineData("0F98 00", 3, Code.Sets_Eb)]
+		[InlineData("0F99 00", 3, Code.Setns_Eb)]
+		[InlineData("0F9A 00", 3, Code.Setp_Eb)]
+		[InlineData("0F9B 00", 3, Code.Setnp_Eb)]
+		[InlineData("0F9C 00", 3, Code.Setl_Eb)]
+		[InlineData("0F9D 00", 3, Code.Setge_Eb)]
+		[InlineData("0F9E 00", 3, Code.Setle_Eb)]
+		[InlineData("0F9F 00", 3, Code.Setg_Eb)]
+		void Test32_Setcc_Eb_2(string hexBytes, int byteLength, Code code) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Memory, instr.Op0Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.EAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(MemorySize.UInt8, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
 		}
 
 		[Theory]
@@ -421,6 +483,37 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
+		}
+
+		[Theory]
+		[InlineData("0F98 00", 3, Code.Sets_Eb)]
+		[InlineData("0F99 00", 3, Code.Setns_Eb)]
+		[InlineData("0F9A 00", 3, Code.Setp_Eb)]
+		[InlineData("0F9B 00", 3, Code.Setnp_Eb)]
+		[InlineData("0F9C 00", 3, Code.Setl_Eb)]
+		[InlineData("0F9D 00", 3, Code.Setge_Eb)]
+		[InlineData("0F9E 00", 3, Code.Setle_Eb)]
+		[InlineData("0F9F 00", 3, Code.Setg_Eb)]
+		void Test64_Setcc_Eb_2(string hexBytes, int byteLength, Code code) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Memory, instr.Op0Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.RAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(MemorySize.UInt8, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
 		}
 
 		[Theory]

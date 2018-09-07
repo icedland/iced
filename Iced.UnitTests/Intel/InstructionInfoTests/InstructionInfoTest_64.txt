@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Iced.  If not, see <https://www.gnu.org/licenses/>.
 #
+
 # invalid instruction
 26262626262626262626262626262626, INVALID, Legacy, INTEL8086, flow=Exception
 # add dh,cl
@@ -7050,6 +7051,38 @@ C5FE 7F 10, VEX_Vmovdqu_WY_VY, VEX, AVX, op0=w op1=r r=ds r=rax r=ymm2 wm=ds:rax
 0F9E C0, Setle_Eb, Legacy, INTEL386, fr=soz op0=w w=al
 # setg al
 0F9F C0, Setg_Eb, Legacy, INTEL386, fr=soz op0=w w=al
+# seto byte ptr [rax]
+0F90 00, Seto_Eb, Legacy, INTEL386, fr=o op0=w r=ds r=rax wm=ds:rax;UInt8
+# setno byte ptr [rax]
+0F91 00, Setno_Eb, Legacy, INTEL386, fr=o op0=w r=ds r=rax wm=ds:rax;UInt8
+# setb byte ptr [rax]
+0F92 00, Setb_Eb, Legacy, INTEL386, fr=c op0=w r=ds r=rax wm=ds:rax;UInt8
+# setae byte ptr [rax]
+0F93 00, Setae_Eb, Legacy, INTEL386, fr=c op0=w r=ds r=rax wm=ds:rax;UInt8
+# sete byte ptr [rax]
+0F94 00, Sete_Eb, Legacy, INTEL386, fr=z op0=w r=ds r=rax wm=ds:rax;UInt8
+# setne byte ptr [rax]
+0F95 00, Setne_Eb, Legacy, INTEL386, fr=z op0=w r=ds r=rax wm=ds:rax;UInt8
+# setbe byte ptr [rax]
+0F96 00, Setbe_Eb, Legacy, INTEL386, fr=cz op0=w r=ds r=rax wm=ds:rax;UInt8
+# seta byte ptr [rax]
+0F97 00, Seta_Eb, Legacy, INTEL386, fr=cz op0=w r=ds r=rax wm=ds:rax;UInt8
+# sets byte ptr [rax]
+0F98 00, Sets_Eb, Legacy, INTEL386, fr=s op0=w r=ds r=rax wm=ds:rax;UInt8
+# setns byte ptr [rax]
+0F99 00, Setns_Eb, Legacy, INTEL386, fr=s op0=w r=ds r=rax wm=ds:rax;UInt8
+# setp byte ptr [rax]
+0F9A 00, Setp_Eb, Legacy, INTEL386, fr=p op0=w r=ds r=rax wm=ds:rax;UInt8
+# setnp byte ptr [rax]
+0F9B 00, Setnp_Eb, Legacy, INTEL386, fr=p op0=w r=ds r=rax wm=ds:rax;UInt8
+# setl byte ptr [rax]
+0F9C 00, Setl_Eb, Legacy, INTEL386, fr=so op0=w r=ds r=rax wm=ds:rax;UInt8
+# setge byte ptr [rax]
+0F9D 00, Setge_Eb, Legacy, INTEL386, fr=so op0=w r=ds r=rax wm=ds:rax;UInt8
+# setle byte ptr [rax]
+0F9E 00, Setle_Eb, Legacy, INTEL386, fr=soz op0=w r=ds r=rax wm=ds:rax;UInt8
+# setg byte ptr [rax]
+0F9F 00, Setg_Eb, Legacy, INTEL386, fr=soz op0=w r=ds r=rax wm=ds:rax;UInt8
 # kmovw k2,k3
 C5F8 90 D3, VEX_Kmovw_VK_WK, VEX, AVX512F, op0=w op1=r w=k2 r=k3
 # kmovw k1,word ptr [rax]

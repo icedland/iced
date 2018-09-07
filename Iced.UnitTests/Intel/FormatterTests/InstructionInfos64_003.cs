@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos64_003 {
-		public const int AllInfos_Length = 1000;
+		public const int AllInfos_Length = 1016;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(64, "62 F1FD48 7F D3", Code.EVEX_Vmovdqa64_WZ_k1z_VZ),
 			new InstructionInfo(64, "62 F1FD48 7F 50 01", Code.EVEX_Vmovdqa64_WZ_k1z_VZ),
@@ -88,6 +88,22 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(64, "0F9D C0", Code.Setge_Eb),
 			new InstructionInfo(64, "0F9E C0", Code.Setle_Eb),
 			new InstructionInfo(64, "0F9F C0", Code.Setg_Eb),
+			new InstructionInfo(64, "0F90 00", Code.Seto_Eb),
+			new InstructionInfo(64, "0F91 00", Code.Setno_Eb),
+			new InstructionInfo(64, "0F92 00", Code.Setb_Eb),
+			new InstructionInfo(64, "0F93 00", Code.Setae_Eb),
+			new InstructionInfo(64, "0F94 00", Code.Sete_Eb),
+			new InstructionInfo(64, "0F95 00", Code.Setne_Eb),
+			new InstructionInfo(64, "0F96 00", Code.Setbe_Eb),
+			new InstructionInfo(64, "0F97 00", Code.Seta_Eb),
+			new InstructionInfo(64, "0F98 00", Code.Sets_Eb),
+			new InstructionInfo(64, "0F99 00", Code.Setns_Eb),
+			new InstructionInfo(64, "0F9A 00", Code.Setp_Eb),
+			new InstructionInfo(64, "0F9B 00", Code.Setnp_Eb),
+			new InstructionInfo(64, "0F9C 00", Code.Setl_Eb),
+			new InstructionInfo(64, "0F9D 00", Code.Setge_Eb),
+			new InstructionInfo(64, "0F9E 00", Code.Setle_Eb),
+			new InstructionInfo(64, "0F9F 00", Code.Setg_Eb),
 			new InstructionInfo(64, "C5F8 90 D3", Code.VEX_Kmovw_VK_WK),
 			new InstructionInfo(64, "C5F8 90 08", Code.VEX_Kmovw_VK_WK),
 			new InstructionInfo(64, "C4E1F8 90 D3", Code.VEX_Kmovq_VK_WK),
