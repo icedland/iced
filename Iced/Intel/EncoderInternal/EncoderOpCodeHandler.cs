@@ -358,7 +358,7 @@ namespace Iced.Intel.EncoderInternal {
 	sealed class InvalidHandler : EncoderOpCodeHandler {
 		internal const string ERROR_MESSAGE = "Can't encode an invalid instruction";
 
-		public InvalidHandler(Code code) : base(code, 0, 0, Encodable.Any, OperandSize.None, AddressSize.None, null, Array.Empty<Op>()) => Debug.Assert(code == Code.INVALID);
+		public InvalidHandler(Code code) : base(code, 0, 0, Encodable.Any, OperandSize.None, AddressSize.None, null, Array.Empty<Op>()) { }
 
 		public override void Encode(Encoder encoder, ref Instruction instr) =>
 			encoder.ErrorMessage = ERROR_MESSAGE;
