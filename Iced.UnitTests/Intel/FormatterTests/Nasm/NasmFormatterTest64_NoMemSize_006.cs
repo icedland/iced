@@ -369,6 +369,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"crc32 ebx,byte [rax]",
 			"crc32 rcx,sil",
 			"crc32 rbx,byte [rax]",
+			"crc32 ecx,si",
+			"crc32 ebx,word [rax]",
 			"crc32 ecx,esi",
 			"crc32 ebx,dword [rax]",
 			"crc32 rcx,rsi",

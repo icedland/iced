@@ -456,6 +456,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"cmpxchg8b qword ptr [eax]",
 			"crc32 ecx, dh",
 			"crc32 ebx, byte ptr [eax]",
+			"crc32 ecx, si",
+			"crc32 ebx, word ptr [eax]",
 			"crc32 ecx, esi",
 			"crc32 ebx, dword ptr [eax]",
 			"addr16 maskmovq mmx2, mmx3",

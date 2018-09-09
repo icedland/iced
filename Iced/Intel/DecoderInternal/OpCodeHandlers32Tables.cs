@@ -1378,7 +1378,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix_F3_F2(
 					new OpCodeHandler_Mv_Gv(Code.Movbe_Mw_Gw, Code.Movbe_Md_Gd, Code.Movbe_Mq_Gq),
 					invalid,
-					new OpCodeHandler_Gv_Ev_REX(Code.Crc32_Gd_Ed, Code.Crc32_Gq_Eq)
+					new OpCodeHandler_Gdq_Ev(Code.Crc32_Gd_Ew, Code.Crc32_Gd_Ed, Code.Crc32_Gq_Eq)
 				),
 				invalid,
 				invalid,

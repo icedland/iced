@@ -391,6 +391,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"cmpxchg8b (bx,si)",
 			"crc32b dh,ecx",
 			"crc32b (bx,si),ebx",
+			"crc32w si,ecx",
+			"crc32w (bx,si),ebx",
 			"crc32l esi,ecx",
 			"crc32l (bx,si),ebx",
 			"addr32 maskmovq mm3,mm2",

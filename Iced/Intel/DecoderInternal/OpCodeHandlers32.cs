@@ -670,6 +670,44 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		}
 	}
 
+	sealed class OpCodeHandler_Gdq_Ev : OpCodeHandlerModRM {
+		readonly Code code16;
+		readonly Code code32;
+
+		public OpCodeHandler_Gdq_Ev(Code code16, Code code32, Code code64) {
+			this.code16 = code16;
+			this.code32 = code32;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			instruction.InternalOpCount = 2;
+			if (state.operandSize == OpSize.Size16)
+				instruction.InternalCode = code16;
+			else
+				instruction.InternalCode = code32;
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.Op0Register = (int)state.reg + Register.EAX;
+			if (state.mod == 3) {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp1Kind = OpKind.Register;
+				Debug.Assert(state.operandSize == OpSize.Size16 || state.operandSize == OpSize.Size32);
+				instruction.Op1Register = (state.operandSize == OpSize.Size16 ? Register.AX : Register.EAX) + (int)state.rm;
+			}
+			else {
+				instruction.InternalOp2Kind = OpKind.Memory;
+				Debug.Assert(state.operandSize == OpSize.Size16 || state.operandSize == OpSize.Size32);
+				if (state.operandSize == OpSize.Size16)
+					instruction.InternalMemorySize = MemorySize.UInt16;
+				else
+					instruction.InternalMemorySize = MemorySize.UInt32;
+				decoder.ReadOpMem_m32(ref instruction);
+			}
+		}
+	}
+
 	sealed class OpCodeHandler_Gv_Ev3 : OpCodeHandlerModRM {
 		readonly Code code16;
 		readonly Code code32;

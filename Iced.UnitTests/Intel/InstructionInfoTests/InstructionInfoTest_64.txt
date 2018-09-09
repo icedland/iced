@@ -14599,6 +14599,10 @@ F2 0F38F0 18, Crc32_Gd_Eb, Legacy, SSE4_2, op0=rw op1=r w=rbx r=ebx r=ds r=rax r
 F2 48 0F38F0 CE, Crc32_Gq_Eb, Legacy, SSE4_2, op0=rw op1=r rw=rcx r=sil
 # crc32 rbx,byte ptr [rax]
 F2 48 0F38F0 18, Crc32_Gq_Eb, Legacy, SSE4_2, op0=rw op1=r rw=rbx r=ds r=rax rm=ds:rax;UInt8
+# crc32 ecx,si
+66 F2 0F38F1 CE, Crc32_Gd_Ew, Legacy, SSE4_2, op0=rw op1=r w=rcx r=ecx r=si
+# crc32 ebx,word ptr [rax]
+66 F2 0F38F1 18, Crc32_Gd_Ew, Legacy, SSE4_2, op0=rw op1=r w=rbx r=ebx r=ds r=rax rm=ds:rax;UInt16
 # crc32 ecx,esi
 F2 0F38F1 CE, Crc32_Gd_Ed, Legacy, SSE4_2, op0=rw op1=r w=rcx r=ecx r=esi
 # crc32 ebx,dword ptr [rax]

@@ -456,6 +456,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"cmpxchg8b [eax]",
 			"crc32 ecx,dh",
 			"crc32 ebx,byte [eax]",
+			"crc32 ecx,si",
+			"crc32 ebx,word [eax]",
 			"crc32 ecx,esi",
 			"crc32 ebx,dword [eax]",
 			"a16 maskmovq mm2,mm3",

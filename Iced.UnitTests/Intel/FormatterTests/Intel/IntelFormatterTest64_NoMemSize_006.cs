@@ -369,6 +369,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"crc32 ebx, byte ptr [rax]",
 			"crc32 rcx, sil",
 			"crc32 rbx, byte ptr [rax]",
+			"crc32 ecx, si",
+			"crc32 ebx, word ptr [rax]",
 			"crc32 ecx, esi",
 			"crc32 ebx, dword ptr [rax]",
 			"crc32 rcx, rsi",
