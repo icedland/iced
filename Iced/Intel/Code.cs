@@ -1122,6 +1122,8 @@ namespace Iced.Intel {
 		Prefetch_Mb_r5,										// 0F0D /5
 		Prefetch_Mb_r6,										// 0F0D /6
 		Prefetch_Mb_r7,										// 0F0D /7
+		Femms,												// 0F0E
+		// 3DNow! opcode table								// 0F0F
 
 		Movups_VX_WX,										// 0F10
 		VEX_Vmovups_VX_WX,									// VEX.128.0F.WIG 10
@@ -4937,6 +4939,42 @@ namespace Iced.Intel {
 		XOP_Lwpval_Hd_Ed_Id,								// XOP.NDD.L0.XA.W0 12 /1
 		XOP_Lwpval_Hq_Ed_Id,								// XOP.NDD.L0.XA.W1 12 /1
 
+		// 3DNow! opcodes
+		D3NOW_Pi2fw_P_Q,									// 0F0F 0C
+		D3NOW_Pi2fd_P_Q,									// 0F0F 0D
+
+		D3NOW_Pf2iw_P_Q,									// 0F0F 1C
+		D3NOW_Pf2id_P_Q,									// 0F0F 1D
+
+		D3NOW_Pfrcpv_P_Q,									// 0F0F 86
+		D3NOW_Pfrsqrtv_P_Q,									// 0F0F 87
+
+		D3NOW_Pfnacc_P_Q,									// 0F0F 8A
+		D3NOW_Pfpnacc_P_Q,									// 0F0F 8E
+
+		D3NOW_Pfcmpge_P_Q,									// 0F0F 90
+		D3NOW_Pfmin_P_Q,									// 0F0F 94
+		D3NOW_Pfrcp_P_Q,									// 0F0F 96
+		D3NOW_Pfrsqrt_P_Q,									// 0F0F 97
+
+		D3NOW_Pfsub_P_Q,									// 0F0F 9A
+		D3NOW_Pfadd_P_Q,									// 0F0F 9E
+
+		D3NOW_Pfcmpgt_P_Q,									// 0F0F A0
+		D3NOW_Pfmax_P_Q,									// 0F0F A4
+		D3NOW_Pfrcpit1_P_Q,									// 0F0F A6
+		D3NOW_Pfrsqit1_P_Q,									// 0F0F A7
+
+		D3NOW_Pfsubr_P_Q,									// 0F0F AA
+		D3NOW_Pfacc_P_Q,									// 0F0F AE
+
+		D3NOW_Pfcmpeq_P_Q,									// 0F0F B0
+		D3NOW_Pfmul_P_Q,									// 0F0F B4
+		D3NOW_Pfrcpit2_P_Q,									// 0F0F B6
+		D3NOW_Pmulhrw_P_Q,									// 0F0F B7
+
+		D3NOW_Pswapd_P_Q,									// 0F0F BB
+		D3NOW_Pavgusb_P_Q,									// 0F0F BF
 #pragma warning restore 1591 // Missing XML comment for publicly visible type or member
 	}
 }
