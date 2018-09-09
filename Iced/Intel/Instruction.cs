@@ -32,7 +32,7 @@ namespace Iced.Intel {
 		internal const int TEST_RegisterBits = 8;
 
 		/// <summary>
-		/// [1:0]	= scale
+		/// [1:0]	= Scale
 		/// [4:2]	= Size of displacement: 0, 1, 2, 4, 8
 		/// [7:5]	= Segment register prefix: none, es, cs, ss, ds, fs, gs, reserved
 		/// [14:8]	= MemorySize
@@ -56,7 +56,8 @@ namespace Iced.Intel {
 		/// [9:5]	= Operand #1's <see cref="OpKind"/>
 		/// [14:10]	= Operand #2's <see cref="OpKind"/>
 		/// [19:15]	= Operand #3's <see cref="OpKind"/>
-		/// [29:20]	= Not used
+		/// [26:20]	= Not used
+		/// [29:27]	= Number of operands
 		/// [31:30] = CodeSize
 		/// </summary>
 		[Flags]
@@ -67,18 +68,20 @@ namespace Iced.Intel {
 			Op2KindShift			= 10,
 			Op3KindShift			= 15,
 			// Unused bits here
+			OperandCountMask		= 7,
+			OperandCountShift		= 27,
 			CodeSizeMask			= 3,
 			CodeSizeShift			= 30,
 		}
 
 		/// <summary>
-		/// [11:0]	= <see cref="Intel.Code"/>
-		/// [12]	= Suppress all exceptions (EVEX.b)
-		/// [13]	= Zeroing masking (EVEX.z)
-		/// [16:14]	= Rounding control (same as <see cref="Intel.RoundingControl"/>)
-		/// [19:17]	= Opmask register or 0 if none
-		/// [22:20]	= Number of operands
-		/// [26:23]	= instruction length
+		/// [12:0]	= <see cref="Intel.Code"/>
+		/// [15:13]	= Rounding control (same as <see cref="Intel.RoundingControl"/>)
+		/// [18:16]	= Opmask register or 0 if none
+		/// [22:19]	= Instruction length
+		/// [24:23] = Not used
+		/// [25]	= Suppress all exceptions (EVEX.b)
+		/// [26]	= Zeroing masking (EVEX.z)
 		/// [27]	= xacquire prefix
 		/// [28]	= xrelease prefix
 		/// [29]	= repe prefix
@@ -87,18 +90,17 @@ namespace Iced.Intel {
 		/// </summary>
 		[Flags]
 		enum CodeFlags : uint {
-			CodeBits				= 12,
+			CodeBits				= 13,
 			CodeMask				= (1 << (int)CodeBits) - 1,
-			SuppressAllExceptions	= 0x00001000,
-			ZeroingMasking			= 0x00002000,
 			RoundingControlMask		= 7,
-			RoundingControlShift	= 14,
+			RoundingControlShift	= 13,
 			OpMaskMask				= 7,
-			OpMaskShift				= 17,
-			OperandCountMask		= 7,
-			OperandCountShift		= 20,
+			OpMaskShift				= 16,
 			InstrLengthMask			= 0xF,
-			InstrLengthShift		= 23,
+			InstrLengthShift		= 19,
+			// Unused bits here
+			SuppressAllExceptions	= 0x02000000,
+			ZeroingMasking			= 0x04000000,
 			PrefixXacquire			= 0x08000000,
 			PrefixXrelease			= 0x10000000,
 			PrefixRepe				= 0x20000000,
@@ -215,16 +217,16 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the operand count. Up to 4 operands is allowed.
+		/// Gets the operand count. Up to 5 operands is allowed.
 		/// </summary>
 		public int OpCount {
-			get => (int)((codeFlags >> (int)CodeFlags.OperandCountShift) & (uint)CodeFlags.OperandCountMask);
-			set => codeFlags = (codeFlags & ~((uint)CodeFlags.OperandCountMask << (int)CodeFlags.OperandCountShift)) |
-				(((uint)value & (uint)CodeFlags.OperandCountMask) << (int)CodeFlags.OperandCountShift);
+			get => (int)((opKindFlags >> (int)OpKindFlags.OperandCountShift) & (uint)OpKindFlags.OperandCountMask);
+			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OperandCountMask << (int)OpKindFlags.OperandCountShift)) |
+				(((uint)value & (uint)OpKindFlags.OperandCountMask) << (int)OpKindFlags.OperandCountShift);
 		}
 		internal int InternalOpCount {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => codeFlags |= (uint)value << (int)CodeFlags.OperandCountShift;
+			set => opKindFlags |= (uint)value << (int)OpKindFlags.OperandCountShift;
 		}
 
 		/// <summary>
