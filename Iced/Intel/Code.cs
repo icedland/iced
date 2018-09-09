@@ -1073,10 +1073,33 @@ namespace Iced.Intel {
 		Xend,												// 0F01 D5
 		Xtest,												// 0F01 D6
 		Enclu,												// 0F01 D7
+		Vmrunw,												// a16 0F01 D8
+		Vmrund,												// a32 0F01 D8
+		Vmrunq,												// 0F01 D8
+		Vmmcall,											// 0F01 D9
+		Vmloadw,											// a16 0F01 DA
+		Vmloadd,											// a32 0F01 DA
+		Vmloadq,											// 0F01 DA
+		Vmsavew,											// a16 0F01 DB
+		Vmsaved,											// a32 0F01 DB
+		Vmsaveq,											// 0F01 DB
+		Stgi,												// 0F01 DC
+		Clgi,												// 0F01 DD
+		Skinit,												// 0F01 DE
+		Invlpgaw,											// a16 0F01 DF
+		Invlpgad,											// a32 0F01 DF
+		Invlpgaq,											// 0F01 DF
 		Rdpkru,												// 0F01 EE
 		Wrpkru,												// 0F01 EF
 		Swapgs,												// 0F01 F8
 		Rdtscp,												// 0F01 F9
+		Monitorxw,											// a16 0F01 FA
+		Monitorxd,											// a32 0F01 FA
+		Monitorxq,											// 0F01 FA
+		Mwaitx,												// 0F01 FB
+		Clzero_AX,											// o16 0F01 FC
+		Clzero_EAX,											// 0F01 FC
+		Clzero_RAX,											// REX.W 0F01 FC
 		Lar_Gw_Ew,											// o16 0F02
 		Lar_Gd_Ed,											// o32 0F02
 		Lar_Gq_Eq,											// REX.W 0F02
@@ -1091,8 +1114,14 @@ namespace Iced.Intel {
 		Invd,												// 0F08
 		Wbinvd,												// 0F09
 		Ud2,												// 0F0B
+		Prefetch_Mb,										// 0F0D /0
 		Prefetchw_Mb,										// 0F0D /1
 		Prefetchwt1_Mb,										// 0F0D /2
+		Prefetch_Mb_r3,										// 0F0D /3
+		Prefetch_Mb_r4,										// 0F0D /4
+		Prefetch_Mb_r5,										// 0F0D /5
+		Prefetch_Mb_r6,										// 0F0D /6
+		Prefetch_Mb_r7,										// 0F0D /7
 
 		Movups_VX_WX,										// 0F10
 		VEX_Vmovups_VX_WX,									// VEX.128.0F.WIG 10
@@ -4272,7 +4301,8 @@ namespace Iced.Intel {
 		Crc32_Gd_Eb,										// F2 0F38F0
 		Crc32_Gq_Eb,										// F2 REX.W 0F38F0
 
-		Crc32_Gd_Ed,										// F2 0F38F1
+		Crc32_Gd_Ew,										// o16 F2 0F38F1
+		Crc32_Gd_Ed,										// o32 F2 0F38F1
 		Crc32_Gq_Eq,										// F2 REX.W 0F38F1
 
 		VEX_Andn_Gd_Hd_Ed,									// VEX.NDS.L0.0F38.W0 F2
@@ -4636,6 +4666,44 @@ namespace Iced.Intel {
 
 		VEX_Rorx_Gd_Ed_Ib,									// VEX.L0.F2.0F3A.W0 F0
 		VEX_Rorx_Gq_Eq_Ib,									// VEX.L0.F2.0F3A.W1 F0
+
+		// XOP8 opcodes
+
+		// XOP9 opcodes
+		XOP_Blcfill_Hd_Ed,									// XOP.NDD.L0.X9.W0 01 /1
+		XOP_Blcfill_Hq_Eq,									// XOP.NDD.L0.X9.W1 01 /1
+		XOP_Blsfill_Hd_Ed,									// XOP.NDD.L0.X9.W0 01 /2
+		XOP_Blsfill_Hq_Eq,									// XOP.NDD.L0.X9.W1 01 /2
+		XOP_Blcs_Hd_Ed,										// XOP.NDD.L0.X9.W0 01 /3
+		XOP_Blcs_Hq_Eq,										// XOP.NDD.L0.X9.W1 01 /3
+		XOP_Tzmsk_Hd_Ed,									// XOP.NDD.L0.X9.W0 01 /4
+		XOP_Tzmsk_Hq_Eq,									// XOP.NDD.L0.X9.W1 01 /4
+		XOP_Blcic_Hd_Ed,									// XOP.NDD.L0.X9.W0 01 /5
+		XOP_Blcic_Hq_Eq,									// XOP.NDD.L0.X9.W1 01 /5
+		XOP_Blsic_Hd_Ed,									// XOP.NDD.L0.X9.W0 01 /6
+		XOP_Blsic_Hq_Eq,									// XOP.NDD.L0.X9.W1 01 /6
+		XOP_T1mskc_Hd_Ed,									// XOP.NDD.L0.X9.W0 01 /7
+		XOP_T1mskc_Hq_Eq,									// XOP.NDD.L0.X9.W1 01 /7
+
+		XOP_Blcmsk_Hd_Ed,									// XOP.NDD.L0.X9.W0 02 /1
+		XOP_Blcmsk_Hq_Eq,									// XOP.NDD.L0.X9.W1 02 /1
+		XOP_Blci_Hd_Ed,										// XOP.NDD.L0.X9.W0 02 /6
+		XOP_Blci_Hq_Eq,										// XOP.NDD.L0.X9.W1 02 /6
+
+		XOP_Llwpcb_Rd,										// XOP.L0.X9.W0 12 /0
+		XOP_Llwpcb_Rq,										// XOP.L0.X9.W1 12 /0
+		XOP_Slwpcb_Rd,										// XOP.L0.X9.W0 12 /1
+		XOP_Slwpcb_Rq,										// XOP.L0.X9.W1 12 /1
+
+		// XOPA opcodes
+		XOP_Bextr_Gd_Ed_Id,									// XOP.L0.XA.W0 10
+		XOP_Bextr_Gq_Eq_Id,									// XOP.L0.XA.W1 10
+
+		XOP_Lwpins_Hd_Ed_Id,								// XOP.NDD.L0.XA.W0 12 /0
+		XOP_Lwpins_Hq_Ed_Id,								// XOP.NDD.L0.XA.W1 12 /0
+		XOP_Lwpval_Hd_Ed_Id,								// XOP.NDD.L0.XA.W0 12 /1
+		XOP_Lwpval_Hq_Ed_Id,								// XOP.NDD.L0.XA.W1 12 /1
+
 #pragma warning restore 1591 // Missing XML comment for publicly visible type or member
 	}
 }
