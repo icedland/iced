@@ -1,6 +1,7 @@
 ﻿{
 	"dependencies": {
-		"xunit": "2.3.1"
+		"xunit": "2.4.0",
+		"xunit.runner.console": "2.4.0"
 	},
 	"frameworks": {
 		"net471": {}
