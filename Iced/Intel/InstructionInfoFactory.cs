@@ -997,7 +997,7 @@ namespace Iced.Intel {
 				if (rSP != xsp && (flags & Flags.NoRegisterUsage) == 0)
 					AddRegister(flags, ref usedRegisters, rSP, OpAccess.ReadWrite);
 
-				int nestingLevel = instruction.Immediate8_Enter & 0x1F;
+				int nestingLevel = instruction.Immediate8_2nd & 0x1F;
 
 				ulong xspOffset = 0;
 				// push rBP

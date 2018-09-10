@@ -30,7 +30,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 		FarBranch16 = OpKind.FarBranch16,
 		FarBranch32 = OpKind.FarBranch32,
 		Immediate8 = OpKind.Immediate8,
-		Immediate8_Enter = OpKind.Immediate8_Enter,
+		Immediate8_2nd = OpKind.Immediate8_2nd,
 		Immediate16 = OpKind.Immediate16,
 		Immediate32 = OpKind.Immediate32,
 		Immediate64 = OpKind.Immediate64,

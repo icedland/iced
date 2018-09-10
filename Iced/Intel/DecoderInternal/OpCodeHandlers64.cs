@@ -3268,7 +3268,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			instruction.InternalOpCount = 2;
 			instruction.InternalOp0Kind = OpKind.Immediate16;
 			instruction.InternalImmediate16 = decoder.ReadUInt16();
-			instruction.InternalOp1Kind = OpKind.Immediate8_Enter;
+			instruction.InternalOp1Kind = OpKind.Immediate8_2nd;
 			instruction.InternalImmediate8_Enter = decoder.ReadIb();
 		}
 	}

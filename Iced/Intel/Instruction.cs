@@ -548,9 +548,9 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the operand's immediate value. Use this property if the operand has kind <see cref="OpKind.Immediate8_Enter"/>
+		/// Gets the operand's immediate value. Use this property if the operand has kind <see cref="OpKind.Immediate8_2nd"/>
 		/// </summary>
-		public byte Immediate8_Enter {
+		public byte Immediate8_2nd {
 			get => (byte)memDispl;
 			set => memDispl = value;
 		}
@@ -1068,7 +1068,7 @@ namespace Iced.Intel {
 			case OpKind.FarBranch16:
 			case OpKind.FarBranch32:
 			case OpKind.Immediate8:
-			case OpKind.Immediate8_Enter:
+			case OpKind.Immediate8_2nd:
 			case OpKind.Immediate16:
 			case OpKind.Immediate32:
 			case OpKind.Immediate64:
@@ -1380,13 +1380,13 @@ namespace Iced.Intel {
 					return 8 * 5;
 
 				case Code.Enterw_Iw_Ib:
-					return -(2 + (Immediate8_Enter & 0x1F) * 2 + Immediate16);
+					return -(2 + (Immediate8_2nd & 0x1F) * 2 + Immediate16);
 
 				case Code.Enterd_Iw_Ib:
-					return -(4 + (Immediate8_Enter & 0x1F) * 4 + Immediate16);
+					return -(4 + (Immediate8_2nd & 0x1F) * 4 + Immediate16);
 
 				case Code.Enterq_Iw_Ib:
-					return -(8 + (Immediate8_Enter & 0x1F) * 8 + Immediate16);
+					return -(8 + (Immediate8_2nd & 0x1F) * 8 + Immediate16);
 
 				case Code.Leavew:
 				case Code.Leaved:

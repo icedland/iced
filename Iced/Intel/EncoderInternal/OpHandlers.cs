@@ -675,11 +675,11 @@ namespace Iced.Intel.EncoderInternal {
 
 	sealed class OpIb2 : Op {
 		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
-			if (!encoder.Verify(operand, OpKind.Immediate8_Enter, instr.GetOpKind(operand)))
+			if (!encoder.Verify(operand, OpKind.Immediate8_2nd, instr.GetOpKind(operand)))
 				return;
 			Debug.Assert(encoder.ImmSize == ImmSize.Size2);
 			encoder.ImmSize = ImmSize.Size2_1;
-			encoder.ImmediateHi = instr.Immediate8_Enter;
+			encoder.ImmediateHi = instr.Immediate8_2nd;
 		}
 	}
 

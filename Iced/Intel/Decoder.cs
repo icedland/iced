@@ -939,7 +939,7 @@ after_read_prefixes:
 						constantOffsets.ImmediateSize = 8;
 						goto after_imm_loop;
 
-					case OpKind.Immediate8_Enter:
+					case OpKind.Immediate8_2nd:
 						extraImmSub = 1;
 						break;
 					}
