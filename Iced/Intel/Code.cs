@@ -1097,9 +1097,9 @@ namespace Iced.Intel {
 		Monitorxd,											// a32 0F01 FA
 		Monitorxq,											// 0F01 FA
 		Mwaitx,												// 0F01 FB
-		Clzero_AX,											// o16 0F01 FC
-		Clzero_EAX,											// 0F01 FC
-		Clzero_RAX,											// REX.W 0F01 FC
+		Clzerow,											// o16 0F01 FC
+		Clzerod,											// 0F01 FC
+		Clzeroq,											// REX.W 0F01 FC
 		Lar_Gw_Ew,											// o16 0F02
 		Lar_Gd_Ed,											// o32 0F02
 		Lar_Gq_Eq,											// REX.W 0F02
@@ -2125,10 +2125,6 @@ namespace Iced.Intel {
 
 		Vmread_Ed_Gd,										// 0F78
 		Vmread_Eq_Gq,										// REX.W 0F78
-
-		Vmwrite_Gd_Ed,										// 0F79
-		Vmwrite_Gq_Eq,										// REX.W 0F79
-
 		EVEX_Vcvttps2udq_VX_k1z_WX_b,						// EVEX.128.0F.W0 78
 		EVEX_Vcvttps2udq_VY_k1z_WY_b,						// EVEX.256.0F.W0 78
 		EVEX_Vcvttps2udq_VZ_k1z_WZ_sae_b,					// EVEX.512.0F.W0 78
@@ -2151,6 +2147,8 @@ namespace Iced.Intel {
 		EVEX_Vcvttsd2usi_Gd_WX_sae,							// EVEX.LIG.F2.0F.W0 78
 		EVEX_Vcvttsd2usi_Gq_WX_sae,							// EVEX.LIG.F2.0F.W1 78
 
+		Vmwrite_Gd_Ed,										// 0F79
+		Vmwrite_Gq_Eq,										// REX.W 0F79
 		EVEX_Vcvtps2udq_VX_k1z_WX_b,						// EVEX.128.0F.W0 79
 		EVEX_Vcvtps2udq_VY_k1z_WY_b,						// EVEX.256.0F.W0 79
 		EVEX_Vcvtps2udq_VZ_k1z_WZ_er_b,						// EVEX.512.0F.W0 79
