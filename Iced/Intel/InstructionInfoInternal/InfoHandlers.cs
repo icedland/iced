@@ -44,6 +44,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint Encoding_Legacy = (uint)EncodingKind.Legacy << (int)InfoFlags2.EncodingShift;
 		const uint Encoding_VEX = (uint)EncodingKind.VEX << (int)InfoFlags2.EncodingShift;
 		const uint Encoding_EVEX = (uint)EncodingKind.EVEX << (int)InfoFlags2.EncodingShift;
+		const uint Encoding_XOP = (uint)EncodingKind.XOP << (int)InfoFlags2.EncodingShift;
+		const uint Encoding_D3NOW = (uint)EncodingKind.D3NOW << (int)InfoFlags2.EncodingShift;
 
 		const uint RflagsInfo_C_AC = (uint)RflagsInfo.C_AC << (int)InfoFlags1.RflagsInfoShift;
 		const uint RflagsInfo_C_c = (uint)RflagsInfo.C_c << (int)InfoFlags1.RflagsInfoShift;

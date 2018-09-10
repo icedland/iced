@@ -32,8 +32,7 @@ namespace Iced.Intel {
 
 	[Flags]
 	enum StateFlags : uint {
-		EncodingMask			= 3,
-		// bit 2 is available
+		EncodingMask			= 7,
 		HasRex					= 0x00000008,
 		b						= 0x00000010,
 		z						= 0x00000020,

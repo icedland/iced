@@ -48,9 +48,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 		OpInfo3Shift		= 9,
 		OpInfo3Mask			= 1,
 
-		OpMaskRegReadWrite	= 0x00010000,
-		EncodingShift		= 17,
-		EncodingMask		= 3,
+		OpMaskRegReadWrite	= 0x00020000,
+		EncodingShift		= 18,
+		EncodingMask		= 7,
 		FlowControlShift	= 21,
 		FlowControlMask		= 0xF,
 		CpuidFeatureShift	= 25,

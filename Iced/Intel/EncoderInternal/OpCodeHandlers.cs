@@ -4186,6 +4186,12 @@ namespace Iced.Intel.EncoderInternal {
 					handler = new EvexHandler(dword1, info[i + 1], info[i + 2]);
 					break;
 
+				case EncodingKind.XOP:
+					throw new NotImplementedException();
+
+				case EncodingKind.D3NOW:
+					throw new NotImplementedException();
+
 				default:
 					handler = new InvalidHandler((Code)(dword1 & (uint)EncFlags1.CodeMask));
 					break;

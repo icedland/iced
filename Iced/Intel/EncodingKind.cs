@@ -38,6 +38,16 @@ namespace Iced.Intel {
 		/// </summary>
 		EVEX,
 
+		/// <summary>
+		/// XOP encoding
+		/// </summary>
+		XOP,
+
+		/// <summary>
+		/// 3DNow! encoding
+		/// </summary>
+		D3NOW,
+
 		// If you add a new value, verify that all values fit in the following flags:
 		//		StateFlags.EncodingMask
 		//		InfoFlags2.EncodingMask

@@ -40,12 +40,14 @@ namespace Iced.Intel.EncoderInternal {
 	[Flags]
 	enum EncFlags1 : uint {
 		CodeMask			= (1U << Instruction.TEST_CodeBits) - 1,
-		OpCodeShift			= 16,
 		EncodingShift		= 13,
-		EncodingMask		= 3,
+		EncodingMask		= 7,
 		Legacy				= EncodingKind.Legacy << (int)EncodingShift,
 		VEX					= EncodingKind.VEX << (int)EncodingShift,
 		EVEX				= EncodingKind.EVEX << (int)EncodingShift,
+		XOP					= EncodingKind.XOP << (int)EncodingShift,
+		D3NOW				= EncodingKind.D3NOW << (int)EncodingShift,
+		OpCodeShift			= 16,
 	}
 
 	[Flags]

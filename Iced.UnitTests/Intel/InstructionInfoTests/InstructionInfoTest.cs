@@ -756,7 +756,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				if (!toRegister.TryGetValue(regString, out var reg))
 					return false;
 
-				if (testCase.Encoding != EncodingKind.Legacy) {
+				if (testCase.Encoding != EncodingKind.Legacy && testCase.Encoding != EncodingKind.D3NOW) {
 					switch (access) {
 					case OpAccess.None:
 					case OpAccess.Read:
