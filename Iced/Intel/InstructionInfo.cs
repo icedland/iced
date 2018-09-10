@@ -46,6 +46,7 @@ namespace Iced.Intel {
 			Op1AccessShift			= 3,
 			Op2AccessShift			= 6,
 			Op3AccessShift			= 9,
+			Op4AccessShift			= 12,
 		}
 
 		[Flags]
@@ -57,6 +58,7 @@ namespace Iced.Intel {
 		}
 
 		internal InstructionInfo(ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, uint opMaskFlags, RflagsInfo rflagsInfo, uint flags1, uint flags2) {
+			Debug.Assert(DecoderConstants.MaxOpCount == 5);
 			Debug.Assert(usedRegisters.Array != null);
 			this.usedRegisters = usedRegisters.Array;
 			Debug.Assert(usedMemoryLocations.Array != null);
@@ -222,9 +224,14 @@ namespace Iced.Intel {
 		public OpAccess Op3Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op3AccessShift) & (uint)OpMaskFlags.OpAccessMask);
 
 		/// <summary>
+		/// Operand #4 access
+		/// </summary>
+		public OpAccess Op4Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op4AccessShift) & (uint)OpMaskFlags.OpAccessMask);
+
+		/// <summary>
 		/// Gets operand access
 		/// </summary>
-		/// <param name="operand">Operand number, 0-3</param>
+		/// <param name="operand">Operand number, 0-4</param>
 		/// <returns></returns>
 		public OpAccess GetOpAccess(int operand) {
 			switch (operand) {
@@ -232,6 +239,7 @@ namespace Iced.Intel {
 			case 1: return Op1Access;
 			case 2: return Op2Access;
 			case 3: return Op3Access;
+			case 4: return Op4Access;
 			default:
 				ThrowArgumentOutOfRangeException(nameof(operand));
 				return 0;

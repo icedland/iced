@@ -127,6 +127,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		}
 
 		public InstrOpInfo(string mnemonic, ref Instruction instr, InstrOpInfoFlags flags) {
+			Debug.Assert(DecoderConstants.MaxOpCount == 5);
 			Mnemonic = mnemonic;
 			Flags = flags;
 			OpCount = (byte)instr.OpCount;
@@ -136,12 +137,12 @@ namespace Iced.Intel.GasFormatterInternal {
 				Op1Kind = (InstrOpKind)instr.Op1Kind;
 				Op2Kind = (InstrOpKind)instr.Op2Kind;
 				Op3Kind = (InstrOpKind)instr.Op3Kind;
-				Op4Kind = 0;
+				Op4Kind = (InstrOpKind)instr.Op4Kind;
 				Op0Register = (byte)instr.Op0Register;
 				Op1Register = (byte)instr.Op1Register;
 				Op2Register = (byte)instr.Op2Register;
 				Op3Register = (byte)instr.Op3Register;
-				Op4Register = 0;
+				Op4Register = (byte)instr.Op4Register;
 			}
 			else {
 				switch (OpCount) {
@@ -208,6 +209,19 @@ namespace Iced.Intel.GasFormatterInternal {
 					Op2Register = (byte)instr.Op1Register;
 					Op3Register = (byte)instr.Op0Register;
 					Op4Register = 0;
+					break;
+
+				case 5:
+					Op0Kind = (InstrOpKind)instr.Op4Kind;
+					Op1Kind = (InstrOpKind)instr.Op3Kind;
+					Op2Kind = (InstrOpKind)instr.Op2Kind;
+					Op3Kind = (InstrOpKind)instr.Op1Kind;
+					Op4Kind = (InstrOpKind)instr.Op0Kind;;
+					Op0Register = (byte)instr.Op4Register;
+					Op1Register = (byte)instr.Op3Register;
+					Op2Register = (byte)instr.Op2Register;
+					Op3Register = (byte)instr.Op1Register;
+					Op4Register = (byte)instr.Op0Register;
 					break;
 
 				default:

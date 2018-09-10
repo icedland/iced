@@ -41,6 +41,11 @@ namespace Iced.Intel.InstructionInfoInternal {
 			OpAccess.Read,
 		};
 
+		internal static readonly OpAccess[] Op4Accesses = new OpAccess[(int)OpInfo4.Last] {
+			OpAccess.None,
+			OpAccess.Read,
+		};
+
 		const uint Encoding_Legacy = (uint)EncodingKind.Legacy << (int)InfoFlags2.EncodingShift;
 		const uint Encoding_VEX = (uint)EncodingKind.VEX << (int)InfoFlags2.EncodingShift;
 		const uint Encoding_EVEX = (uint)EncodingKind.EVEX << (int)InfoFlags2.EncodingShift;
@@ -204,6 +209,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 
 		const uint Op3_None = (uint)OpInfo3.None << (int)InfoFlags2.OpInfo3Shift;
 		const uint Op3_Read = (uint)OpInfo3.Read << (int)InfoFlags2.OpInfo3Shift;
+
+		const uint Op4_None = (uint)OpInfo4.None << (int)InfoFlags2.OpInfo4Shift;
+		const uint Op4_Read = (uint)OpInfo4.Read << (int)InfoFlags2.OpInfo4Shift;
 
 		const uint CPUID_INTEL8086 = (uint)CpuidFeature.INTEL8086 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INTEL186 = (uint)CpuidFeature.INTEL186 << (int)InfoFlags2.CpuidFeatureShift;

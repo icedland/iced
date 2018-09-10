@@ -150,6 +150,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		public byte Op1Register;
 		public byte Op2Register;
 		public byte Op3Register;
+		public byte Op4Register;
 
 		public MemorySize MemorySize {
 			get => (MemorySize)(((uint)Flags >> (int)InstrOpInfoFlags.MemorySizeShift) & (uint)InstrOpInfoFlags.MemorySizeMask);
@@ -163,7 +164,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			case 1: return (Register)Op1Register;
 			case 2: return (Register)Op2Register;
 			case 3: return (Register)Op3Register;
-			case 4: throw new InvalidOperationException("Reg op5 doesn't exist in any instruction");
+			case 4: return (Register)Op4Register;
 			default: throw new ArgumentOutOfRangeException(nameof(operand));
 			}
 		}
@@ -180,6 +181,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 
 		public InstrOpInfo(string mnemonic, ref Instruction instr, InstrOpInfoFlags flags) {
+			Debug.Assert(DecoderConstants.MaxOpCount == 5);
 			Mnemonic = mnemonic;
 			Flags = flags | (InstrOpInfoFlags)((uint)instr.MemorySize << (int)InstrOpInfoFlags.MemorySizeShift);
 			OpCount = (byte)instr.OpCount;
@@ -188,7 +190,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			Op1Kind = (InstrOpKind)instr.Op1Kind;
 			Op2Kind = (InstrOpKind)instr.Op2Kind;
 			Op3Kind = (InstrOpKind)instr.Op3Kind;
-			Op4Kind = 0;
+			Op4Kind = (InstrOpKind)instr.Op4Kind;
 			Debug.Assert(TEST_RegisterBits == 8);
 			Op0Register = (byte)instr.Op0Register;
 			Debug.Assert(TEST_RegisterBits == 8);
@@ -197,6 +199,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			Op2Register = (byte)instr.Op2Register;
 			Debug.Assert(TEST_RegisterBits == 8);
 			Op3Register = (byte)instr.Op3Register;
+			Debug.Assert(TEST_RegisterBits == 8);
+			Op4Register = (byte)instr.Op4Register;
 		}
 	}
 

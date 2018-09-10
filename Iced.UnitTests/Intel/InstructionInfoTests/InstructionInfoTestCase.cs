@@ -19,10 +19,12 @@
 
 #if !NO_INSTR_INFO
 using System.Collections.Generic;
+using System.Diagnostics;
 using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	public sealed class InstructionInfoTestCase {
+		public InstructionInfoTestCase() => Debug.Assert(Iced.Intel.DecoderConstants.MaxOpCount == 5);
 		public EncodingKind Encoding = EncodingKind.Legacy;
 		public CpuidFeature CpuidFeature = CpuidFeature.INTEL8086;
 		public RflagsBits RflagsRead = RflagsBits.None;
@@ -42,6 +44,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public OpAccess Op1Access = OpAccess.None;
 		public OpAccess Op2Access = OpAccess.None;
 		public OpAccess Op3Access = OpAccess.None;
+		public OpAccess Op4Access = OpAccess.None;
 	}
 }
 #endif

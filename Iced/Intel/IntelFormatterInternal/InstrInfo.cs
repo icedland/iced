@@ -105,10 +105,12 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public InstrOpKind Op1Kind;
 		public InstrOpKind Op2Kind;
 		public InstrOpKind Op3Kind;
+		public InstrOpKind Op4Kind;
 		public byte Op0Register;
 		public byte Op1Register;
 		public byte Op2Register;
 		public byte Op3Register;
+		public byte Op4Register;
 
 		public Register GetOpRegister(int operand) {
 			switch (operand) {
@@ -116,6 +118,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 			case 1: return (Register)Op1Register;
 			case 2: return (Register)Op2Register;
 			case 3: return (Register)Op3Register;
+			case 4: return (Register)Op4Register;
 			default: throw new ArgumentOutOfRangeException(nameof(operand));
 			}
 		}
@@ -126,11 +129,13 @@ namespace Iced.Intel.IntelFormatterInternal {
 			case 1: return Op1Kind;
 			case 2: return Op2Kind;
 			case 3: return Op3Kind;
+			case 4: return Op4Kind;
 			default: throw new ArgumentOutOfRangeException(nameof(operand));
 			}
 		}
 
 		public InstrOpInfo(string mnemonic, ref Instruction instr, InstrOpInfoFlags flags) {
+			Debug.Assert(DecoderConstants.MaxOpCount == 5);
 			Mnemonic = mnemonic;
 			Flags = flags;
 			OpCount = (byte)instr.OpCount;
@@ -139,6 +144,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 			Op1Kind = (InstrOpKind)instr.Op1Kind;
 			Op2Kind = (InstrOpKind)instr.Op2Kind;
 			Op3Kind = (InstrOpKind)instr.Op3Kind;
+			Op4Kind = (InstrOpKind)instr.Op4Kind;
 			Debug.Assert(TEST_RegisterBits == 8);
 			Op0Register = (byte)instr.Op0Register;
 			Debug.Assert(TEST_RegisterBits == 8);
@@ -147,6 +153,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 			Op2Register = (byte)instr.Op2Register;
 			Debug.Assert(TEST_RegisterBits == 8);
 			Op3Register = (byte)instr.Op3Register;
+			Debug.Assert(TEST_RegisterBits == 8);
+			Op4Register = (byte)instr.Op4Register;
 		}
 	}
 

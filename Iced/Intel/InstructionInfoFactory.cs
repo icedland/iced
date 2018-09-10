@@ -168,11 +168,13 @@ namespace Iced.Intel {
 			var rflagsInfo = (RflagsInfo)((flags1 >> (int)InfoFlags1.RflagsInfoShift) & (uint)InfoFlags1.RflagsInfoMask);
 
 			var op1info = (OpInfo1)((flags2 >> (int)InfoFlags2.OpInfo1Shift) & (uint)InfoFlags2.OpInfo1Mask);
-			var accesses = stackalloc OpAccess[4] {
+			Debug.Assert(instruction.OpCount <= DecoderConstants.MaxOpCount);
+			var accesses = stackalloc OpAccess[DecoderConstants.MaxOpCount] {
 				op0Access,
 				InfoHandlers.Op1Accesses[(int)op1info],
 				InfoHandlers.Op2Accesses[(int)((flags2 >> (int)InfoFlags2.OpInfo2Shift) & (uint)InfoFlags2.OpInfo2Mask)],
 				InfoHandlers.Op3Accesses[(int)((flags2 >> (int)InfoFlags2.OpInfo3Shift) & (uint)InfoFlags2.OpInfo3Mask)],
+				InfoHandlers.Op4Accesses[(int)((flags2 >> (int)InfoFlags2.OpInfo4Shift) & (uint)InfoFlags2.OpInfo4Mask)],
 			};
 
 			int opCount = instruction.OpCount;
@@ -256,7 +258,8 @@ namespace Iced.Intel {
 			uint opMaskFlags = (uint)accesses[0] |
 				((uint)accesses[1] << (int)InstructionInfo.OpMaskFlags.Op1AccessShift) |
 				((uint)accesses[2] << (int)InstructionInfo.OpMaskFlags.Op2AccessShift) |
-				((uint)accesses[3] << (int)InstructionInfo.OpMaskFlags.Op3AccessShift);
+				((uint)accesses[3] << (int)InstructionInfo.OpMaskFlags.Op3AccessShift) |
+				((uint)accesses[4] << (int)InstructionInfo.OpMaskFlags.Op4AccessShift);
 
 			return new InstructionInfo(ref usedRegisters, ref usedMemoryLocations, opMaskFlags, rflagsInfo, flags1, flags2);
 		}

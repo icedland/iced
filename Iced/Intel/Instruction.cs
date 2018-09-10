@@ -370,9 +370,20 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Gets operand #4's kind if the operand exists (see <see cref="OpCount"/>)
+		/// </summary>
+		public OpKind Op4Kind {
+			get => OpKind.Immediate8;
+			set {
+				if (value != OpKind.Immediate8)
+					ThrowArgumentOutOfRangeException(nameof(value));
+			}
+		}
+
+		/// <summary>
 		/// Gets an operand's kind if it exists (see <see cref="OpCount"/>)
 		/// </summary>
-		/// <param name="operand">Operand number, 0-3</param>
+		/// <param name="operand">Operand number, 0-4</param>
 		/// <returns></returns>
 		public OpKind GetOpKind(int operand) {
 			switch (operand) {
@@ -380,6 +391,7 @@ namespace Iced.Intel {
 			case 1: return Op1Kind;
 			case 2: return Op2Kind;
 			case 3: return Op3Kind;
+			case 4: return Op4Kind;
 			default:
 				ThrowArgumentOutOfRangeException(nameof(operand));
 				return 0;
@@ -389,7 +401,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Sets an operand's kind
 		/// </summary>
-		/// <param name="operand">Operand number, 0-3</param>
+		/// <param name="operand">Operand number, 0-4</param>
 		/// <param name="opKind">Operand kind</param>
 		public void SetOpKind(int operand, OpKind opKind) {
 			switch (operand) {
@@ -397,6 +409,7 @@ namespace Iced.Intel {
 			case 1: Op1Kind = opKind; break;
 			case 2: Op2Kind = opKind; break;
 			case 3: Op3Kind = opKind; break;
+			case 4: Op4Kind = opKind; break;
 			default: ThrowArgumentOutOfRangeException(nameof(operand)); break;
 			}
 		}
@@ -721,7 +734,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #0's register value. Use this property if operand #1 (<see cref="Op0Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #0's register value. Use this property if operand #0 (<see cref="Op0Kind"/>) has kind <see cref="OpKind.Register"/>
 		/// </summary>
 		public Register Op0Register {
 			get => (Register)reg0;
@@ -729,7 +742,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #1's register value. Use this property if operand #2 (<see cref="Op1Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #1's register value. Use this property if operand #1 (<see cref="Op1Kind"/>) has kind <see cref="OpKind.Register"/>
 		/// </summary>
 		public Register Op1Register {
 			get => (Register)reg1;
@@ -737,7 +750,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #2's register value. Use this property if operand #3 (<see cref="Op2Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #2's register value. Use this property if operand #2 (<see cref="Op2Kind"/>) has kind <see cref="OpKind.Register"/>
 		/// </summary>
 		public Register Op2Register {
 			get => (Register)reg2;
@@ -745,7 +758,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #3's register value. Use this property if operand #4 (<see cref="Op3Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #3's register value. Use this property if operand #3 (<see cref="Op3Kind"/>) has kind <see cref="OpKind.Register"/>
 		/// </summary>
 		public Register Op3Register {
 			get => (Register)reg3;
@@ -753,9 +766,20 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Gets operand #4's register value. Use this property if operand #4 (<see cref="Op4Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// </summary>
+		public Register Op4Register {
+			get => Register.None;
+			set {
+				if (value != Register.None)
+					ThrowArgumentOutOfRangeException(nameof(value));
+			}
+		}
+
+		/// <summary>
 		/// Gets the operand's register value. Use this property if the operand has kind <see cref="OpKind.Register"/>
 		/// </summary>
-		/// <param name="operand">Operand number, 0-3</param>
+		/// <param name="operand">Operand number, 0-4</param>
 		/// <returns></returns>
 		public Register GetOpRegister(int operand) {
 			switch (operand) {
@@ -763,6 +787,7 @@ namespace Iced.Intel {
 			case 1: return Op1Register;
 			case 2: return Op2Register;
 			case 3: return Op3Register;
+			case 4: return Op4Register;
 			default:
 				ThrowArgumentOutOfRangeException(nameof(operand));
 				return 0;
@@ -772,7 +797,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Sets the operand's register value. Use this property if the operand has kind <see cref="OpKind.Register"/>
 		/// </summary>
-		/// <param name="operand">Operand number, 0-3</param>
+		/// <param name="operand">Operand number, 0-4</param>
 		/// <param name="register">Register</param>
 		public void SetOpRegister(int operand, Register register) {
 			switch (operand) {
@@ -780,6 +805,7 @@ namespace Iced.Intel {
 			case 1: Op1Register = register; break;
 			case 2: Op2Register = register; break;
 			case 3: Op3Register = register; break;
+			case 4: Op4Register = register; break;
 			default: ThrowArgumentOutOfRangeException(nameof(operand)); break;
 			}
 		}

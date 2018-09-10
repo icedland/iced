@@ -47,6 +47,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 		OpInfo2Mask			= 3,
 		OpInfo3Shift		= 9,
 		OpInfo3Mask			= 1,
+		OpInfo4Shift		= 10,
+		OpInfo4Mask			= 1,
 
 		OpMaskRegReadWrite	= 0x00020000,
 		EncodingShift		= 18,
@@ -96,6 +98,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 	}
 
 	enum OpInfo3 {
+		None,
+		Read,
+		// If more values are added, update InfoFlags2 if needed
+
+		Last,
+	}
+
+	enum OpInfo4 {
 		None,
 		Read,
 		// If more values are added, update InfoFlags2 if needed
