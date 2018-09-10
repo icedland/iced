@@ -325,7 +325,7 @@ namespace Iced.Intel {
 			get => (OpKind)(opKindFlags & (uint)OpKindFlags.OpKindMask);
 			set => opKindFlags = (opKindFlags & ~(uint)OpKindFlags.OpKindMask) | ((uint)value & (uint)OpKindFlags.OpKindMask);
 		}
-		internal OpKind InternalOp1Kind {
+		internal OpKind InternalOp0Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags |= (uint)value;
 		}
@@ -338,7 +338,7 @@ namespace Iced.Intel {
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op1KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op1KindShift);
 		}
-		internal OpKind InternalOp2Kind {
+		internal OpKind InternalOp1Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags |= (uint)value << (int)OpKindFlags.Op1KindShift;
 		}
@@ -351,7 +351,7 @@ namespace Iced.Intel {
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op2KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op2KindShift);
 		}
-		internal OpKind InternalOp3Kind {
+		internal OpKind InternalOp2Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags |= (uint)value << (int)OpKindFlags.Op2KindShift;
 		}
@@ -364,7 +364,7 @@ namespace Iced.Intel {
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op3KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op3KindShift);
 		}
-		internal OpKind InternalOp4Kind {
+		internal OpKind InternalOp3Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags |= (uint)value << (int)OpKindFlags.Op3KindShift;
 		}

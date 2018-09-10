@@ -96,7 +96,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = reg;
-			instruction.InternalOp2Kind = OpKind.Immediate8;
+			instruction.InternalOp1Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 		}
 	}
@@ -113,7 +113,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			instruction.InternalCode = code;
 			instruction.InternalOpCount = 2;
-			instruction.InternalOp1Kind = OpKind.Immediate8;
+			instruction.InternalOp0Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
@@ -163,7 +163,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			instruction.InternalCode = code;
 			instruction.InternalOpCount = 1;
-			instruction.InternalOp1Kind = OpKind.Immediate8;
+			instruction.InternalOp0Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 		}
 	}
@@ -176,7 +176,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			instruction.InternalCode = code;
 			instruction.InternalOpCount = 1;
-			instruction.InternalOp1Kind = OpKind.Immediate8;
+			instruction.InternalOp0Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 		}
 	}
@@ -580,7 +580,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else
 				decoder.SetInvalidInstruction();
-			instruction.InternalOp2Kind = OpKind.Immediate8;
+			instruction.InternalOp1Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
