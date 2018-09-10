@@ -3269,7 +3269,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			instruction.InternalOp0Kind = OpKind.Immediate16;
 			instruction.InternalImmediate16 = decoder.ReadUInt16();
 			instruction.InternalOp1Kind = OpKind.Immediate8_2nd;
-			instruction.InternalImmediate8_Enter = decoder.ReadIb();
+			instruction.InternalImmediate8_2nd = decoder.ReadIb();
 		}
 	}
 
@@ -3801,6 +3801,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
+				if (memSize == MemorySize.Unknown)
+					decoder.SetInvalidInstruction();
 			}
 		}
 	}
@@ -4425,6 +4427,65 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
+		}
+	}
+
+	sealed class OpCodeHandler_VRIbIb : OpCodeHandlerModRM {
+		readonly Register baseReg;
+		readonly Code code;
+
+		public OpCodeHandler_VRIbIb(Register baseReg, Code code) {
+			this.baseReg = baseReg;
+			this.code = code;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			instruction.InternalCode = code;
+			instruction.InternalOpCount = 4;
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			if (state.mod == 3) {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp1Kind = OpKind.Register;
+				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+			}
+			else
+				decoder.SetInvalidInstruction();
+			instruction.InternalOp2Kind = OpKind.Immediate8;
+			instruction.InternalImmediate8 = decoder.ReadByte();
+			instruction.InternalOp3Kind = OpKind.Immediate8_2nd;
+			instruction.InternalImmediate8_2nd = decoder.ReadByte();
+		}
+	}
+
+	sealed class OpCodeHandler_RIbIb : OpCodeHandlerModRM {
+		readonly Register baseReg;
+		readonly Code code;
+
+		public OpCodeHandler_RIbIb(Register baseReg, Code code) {
+			this.baseReg = baseReg;
+			this.code = code;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			instruction.InternalCode = code;
+			instruction.InternalOpCount = 3;
+			if (state.mod == 3) {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp0Kind = OpKind.Register;
+				instruction.Op0Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+			}
+			else
+				decoder.SetInvalidInstruction();
+			instruction.InternalOp1Kind = OpKind.Immediate8;
+			instruction.InternalImmediate8 = decoder.ReadByte();
+			instruction.InternalOp2Kind = OpKind.Immediate8_2nd;
+			instruction.InternalImmediate8_2nd = decoder.ReadByte();
 		}
 	}
 

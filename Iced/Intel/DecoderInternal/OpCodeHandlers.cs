@@ -360,6 +360,9 @@ namespace Iced.Intel.DecoderInternal {
 	sealed class OpCodeHandler_MandatoryPrefix2 : OpCodeHandlerModRM {
 		readonly OpCodeHandler[] handlers;
 
+		public OpCodeHandler_MandatoryPrefix2(OpCodeHandler handler)
+			: this(handler, OpCodeHandler_Invalid.Instance, OpCodeHandler_Invalid.Instance, OpCodeHandler_Invalid.Instance) { }
+
 		public OpCodeHandler_MandatoryPrefix2(OpCodeHandler handler, OpCodeHandler handler66, OpCodeHandler handlerF3, OpCodeHandler handlerF2) {
 			Debug.Assert((int)MandatoryPrefix.None == 0);
 			Debug.Assert((int)MandatoryPrefix.P66 == 1);
@@ -378,7 +381,10 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.EVEX);
+			Debug.Assert(
+				decoder.state.Encoding == EncodingKind.VEX ||
+				decoder.state.Encoding == EncodingKind.EVEX ||
+				decoder.state.Encoding == EncodingKind.XOP);
 			handlers[(int)decoder.state.mandatoryPrefix].Decode(decoder, ref instruction);
 		}
 	}
@@ -404,7 +410,10 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.EVEX);
+			Debug.Assert(
+				decoder.state.Encoding == EncodingKind.VEX ||
+				decoder.state.Encoding == EncodingKind.EVEX ||
+				decoder.state.Encoding == EncodingKind.XOP);
 			handlers[(int)decoder.state.mandatoryPrefix].Decode(decoder, ref instruction);
 		}
 	}
@@ -454,7 +463,7 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX);
+			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			handlers[(int)decoder.state.vectorLength].Decode(decoder, ref instruction);
 		}
 	}
@@ -478,7 +487,7 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX);
+			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			handlers[(int)decoder.state.vectorLength].Decode(decoder, ref instruction);
 		}
 	}

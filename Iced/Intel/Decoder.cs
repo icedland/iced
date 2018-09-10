@@ -57,6 +57,9 @@ namespace Iced.Intel {
 		readonly OpCodeHandler[] handlers_0FXX_EVEX;
 		readonly OpCodeHandler[] handlers_0F38XX_EVEX;
 		readonly OpCodeHandler[] handlers_0F3AXX_EVEX;
+		readonly OpCodeHandler[] handlers_XOP8;
+		readonly OpCodeHandler[] handlers_XOP9;
+		readonly OpCodeHandler[] handlers_XOPA;
 		readonly OpSize defaultOperandSize, defaultInvertedOperandSize;
 		readonly OpSize defaultAddressSize, defaultInvertedAddressSize;
 		ulong instructionPointer;
@@ -114,6 +117,9 @@ namespace Iced.Intel {
 				handlers_0FXX_EVEX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_EVEX.TwoByteHandlers_0FXX;
 				handlers_0F38XX_EVEX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_EVEX.ThreeByteHandlers_0F38XX;
 				handlers_0F3AXX_EVEX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_EVEX.ThreeByteHandlers_0F3AXX;
+				handlers_XOP8 = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_XOP.XOP8;
+				handlers_XOP9 = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_XOP.XOP9;
+				handlers_XOPA = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_XOP.XOPA;
 #else
 				throw new ArgumentException("64-bit decoder isn't present");
 #endif
@@ -135,6 +141,9 @@ namespace Iced.Intel {
 				handlers_0FXX_EVEX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_EVEX.TwoByteHandlers_0FXX;
 				handlers_0F38XX_EVEX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_EVEX.ThreeByteHandlers_0F38XX;
 				handlers_0F3AXX_EVEX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_EVEX.ThreeByteHandlers_0F3AXX;
+				handlers_XOP8 = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_XOP.XOP8;
+				handlers_XOP9 = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_XOP.XOP9;
+				handlers_XOPA = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_XOP.XOPA;
 #else
 				throw new ArgumentException("16-bit and 32-bit decoders aren't present");
 #endif
@@ -525,6 +534,50 @@ after_read_prefixes:
 				DecodeTable(handlers_0F38XX_VEX, ref instruction);
 			else if (table == 3)
 				DecodeTable(handlers_0F3AXX_VEX, ref instruction);
+			else
+				SetInvalidInstruction();
+		}
+
+		internal void XOP(ref Instruction instruction) {
+			if ((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None)
+				SetInvalidInstruction();
+
+			state.flags |= (StateFlags)EncodingKind.XOP;
+			uint b1 = state.modrm;
+			uint b2 = ReadByte();
+
+			Debug.Assert((int)StateFlags.W == 0x80);
+			state.flags |= (StateFlags)(b2 & 0x80);
+
+			Debug.Assert((int)VectorLength.L128 == 0);
+			Debug.Assert((int)VectorLength.L256 == 1);
+			state.vectorLength = (VectorLength)((b2 >> 2) & 1);
+
+			Debug.Assert((int)MandatoryPrefix.None == 0);
+			Debug.Assert((int)MandatoryPrefix.P66 == 1);
+			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
+			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
+			state.mandatoryPrefix = (MandatoryPrefix)(b2 & 3);
+
+			if (is64Mode) {
+				if ((b2 & 0x80) != 0)
+					state.operandSize = OpSize.Size64;
+				state.vvvv = (~b2 >> 3) & 0x0F;
+				uint b1x = ~b1;
+				state.extraRegisterBase = (b1x >> 4) & 8;
+				state.extraIndexRegisterBase = (b1x >> 3) & 8;
+				state.extraBaseRegisterBase = (b1x >> 2) & 8;
+			}
+			else
+				state.vvvv = (~b2 >> 3) & 0x07;
+
+			int table = (int)(b1 & 0x1F);
+			if (table == 8)
+				DecodeTable(handlers_XOP8, ref instruction);
+			else if (table == 9)
+				DecodeTable(handlers_XOP9, ref instruction);
+			else if (table == 10)
+				DecodeTable(handlers_XOPA, ref instruction);
 			else
 				SetInvalidInstruction();
 		}

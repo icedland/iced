@@ -4770,7 +4770,7 @@ namespace Iced.Intel {
 		VEX_Rorx_Gq_Eq_Ib,									// VEX.L0.F2.0F3A.W1 F0
 
 		// XOP8 opcodes
-		XOP_Vpmacssww_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.WIG 85
+		XOP_Vpmacssww_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.W0 85
 
 		XOP_Vpmacsswd_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.W0 86
 

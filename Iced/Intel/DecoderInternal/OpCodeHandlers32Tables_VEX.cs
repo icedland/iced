@@ -175,7 +175,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_VectorLength_VEX(
-						new OpCodeHandler_VEX_Gv_Ev(Code.VEX_Blsr_Hd_Ed, Code.VEX_Blsr_Hq_Eq),
+						new OpCodeHandler_VEX_Hv_Ev(Code.VEX_Blsr_Hd_Ed, Code.VEX_Blsr_Hq_Eq),
 						invalid
 					),
 					invalid,
@@ -184,7 +184,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_VectorLength_VEX(
-						new OpCodeHandler_VEX_Gv_Ev(Code.VEX_Blsmsk_Hd_Ed, Code.VEX_Blsmsk_Hq_Eq),
+						new OpCodeHandler_VEX_Hv_Ev(Code.VEX_Blsmsk_Hd_Ed, Code.VEX_Blsmsk_Hq_Eq),
 						invalid
 					),
 					invalid,
@@ -193,7 +193,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_VectorLength_VEX(
-						new OpCodeHandler_VEX_Gv_Ev(Code.VEX_Blsi_Hd_Ed, Code.VEX_Blsi_Hq_Eq),
+						new OpCodeHandler_VEX_Hv_Ev(Code.VEX_Blsi_Hd_Ed, Code.VEX_Blsi_Hq_Eq),
 						invalid
 					),
 					invalid,
@@ -2050,8 +2050,36 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 
 				// 48
-				invalid,
-				invalid,
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs5(Register.XMM0, Code.VEX_Vpermil2ps_VX_HX_WX_Is4X_I2, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHWIs5(Register.YMM0, Code.VEX_Vpermil2ps_VY_HY_WY_Is4Y_I2, MemorySize.Packed256_Float32)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs5W(Register.XMM0, Code.VEX_Vpermil2ps_VX_HX_Is4X_WX_I2, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHIs5W(Register.YMM0, Code.VEX_Vpermil2ps_VY_HY_Is4Y_WY_I2, MemorySize.Packed256_Float32)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs5(Register.XMM0, Code.VEX_Vpermil2pd_VX_HX_WX_Is4X_I2, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHWIs5(Register.YMM0, Code.VEX_Vpermil2pd_VY_HY_WY_Is4Y_I2, MemorySize.Packed256_Float64)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs5W(Register.XMM0, Code.VEX_Vpermil2pd_VX_HX_Is4X_WX_I2, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHIs5W(Register.YMM0, Code.VEX_Vpermil2pd_VY_HY_Is4Y_WY_I2, MemorySize.Packed256_Float64)
+						)
+					),
+					invalid,
+					invalid
+				),
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
@@ -2107,10 +2135,66 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 				invalid,
 				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmaddsubps_VX_HX_WX_Is4X, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfmaddsubps_VY_HY_WY_Is4Y, MemorySize.Packed256_Float32)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmaddsubps_VX_HX_Is4X_WX, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfmaddsubps_VY_HY_Is4Y_WY, MemorySize.Packed256_Float32)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmaddsubpd_VX_HX_WX_Is4X, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfmaddsubpd_VY_HY_WY_Is4Y, MemorySize.Packed256_Float64)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmaddsubpd_VX_HX_Is4X_WX, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfmaddsubpd_VY_HY_Is4Y_WY, MemorySize.Packed256_Float64)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmsubaddps_VX_HX_WX_Is4X, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfmsubaddps_VY_HY_WY_Is4Y, MemorySize.Packed256_Float32)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmsubaddps_VX_HX_Is4X_WX, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfmsubaddps_VY_HY_Is4Y_WY, MemorySize.Packed256_Float32)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmsubaddpd_VX_HX_WX_Is4X, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfmsubaddpd_VY_HY_WY_Is4Y, MemorySize.Packed256_Float64)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmsubaddpd_VX_HX_Is4X_WX, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfmsubaddpd_VY_HY_Is4Y_WY, MemorySize.Packed256_Float64)
+						)
+					),
+					invalid,
+					invalid
+				),
 
 				// 60
 				new OpCodeHandler_MandatoryPrefix2(
@@ -2155,14 +2239,102 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 
 				// 68
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmaddps_VX_HX_WX_Is4X, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfmaddps_VY_HY_WY_Is4Y, MemorySize.Packed256_Float32)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmaddps_VX_HX_Is4X_WX, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfmaddps_VY_HY_Is4Y_WY, MemorySize.Packed256_Float32)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmaddpd_VX_HX_WX_Is4X, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfmaddpd_VY_HY_WY_Is4Y, MemorySize.Packed256_Float64)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmaddpd_VX_HX_Is4X_WX, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfmaddpd_VY_HY_Is4Y_WY, MemorySize.Packed256_Float64)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmaddss_VX_HX_WX_Is4X, MemorySize.Float32),
+						new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmaddss_VX_HX_Is4X_WX, MemorySize.Float32)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmaddsd_VX_HX_WX_Is4X, MemorySize.Float64),
+						new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmaddsd_VX_HX_Is4X_WX, MemorySize.Float64)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmsubps_VX_HX_WX_Is4X, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfmsubps_VY_HY_WY_Is4Y, MemorySize.Packed256_Float32)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmsubps_VX_HX_Is4X_WX, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfmsubps_VY_HY_Is4Y_WY, MemorySize.Packed256_Float32)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmsubpd_VX_HX_WX_Is4X, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfmsubpd_VY_HY_WY_Is4Y, MemorySize.Packed256_Float64)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmsubpd_VX_HX_Is4X_WX, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfmsubpd_VY_HY_Is4Y_WY, MemorySize.Packed256_Float64)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmsubss_VX_HX_WX_Is4X, MemorySize.Float32),
+						new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmsubss_VX_HX_Is4X_WX, MemorySize.Float32)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfmsubsd_VX_HX_WX_Is4X, MemorySize.Float64),
+						new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfmsubsd_VX_HX_Is4X_WX, MemorySize.Float64)
+					),
+					invalid,
+					invalid
+				),
 
 				// 70
 				invalid,
@@ -2175,14 +2347,102 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 
 				// 78
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfnmaddps_VX_HX_WX_Is4X, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfnmaddps_VY_HY_WY_Is4Y, MemorySize.Packed256_Float32)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfnmaddps_VX_HX_Is4X_WX, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfnmaddps_VY_HY_Is4Y_WY, MemorySize.Packed256_Float32)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfnmaddpd_VX_HX_WX_Is4X, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfnmaddpd_VY_HY_WY_Is4Y, MemorySize.Packed256_Float64)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfnmaddpd_VX_HX_Is4X_WX, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfnmaddpd_VY_HY_Is4Y_WY, MemorySize.Packed256_Float64)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfnmaddss_VX_HX_WX_Is4X, MemorySize.Float32),
+						new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfnmaddss_VX_HX_Is4X_WX, MemorySize.Float32)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfnmaddsd_VX_HX_WX_Is4X, MemorySize.Float64),
+						new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfnmaddsd_VX_HX_Is4X_WX, MemorySize.Float64)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfnmsubps_VX_HX_WX_Is4X, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfnmsubps_VY_HY_WY_Is4Y, MemorySize.Packed256_Float32)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfnmsubps_VX_HX_Is4X_WX, MemorySize.Packed128_Float32),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfnmsubps_VY_HY_Is4Y_WY, MemorySize.Packed256_Float32)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfnmsubpd_VX_HX_WX_Is4X, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.VEX_Vfnmsubpd_VY_HY_WY_Is4Y, MemorySize.Packed256_Float64)
+						),
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfnmsubpd_VX_HX_Is4X_WX, MemorySize.Packed128_Float64),
+							new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.VEX_Vfnmsubpd_VY_HY_Is4Y_WY, MemorySize.Packed256_Float64)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfnmsubss_VX_HX_WX_Is4X, MemorySize.Float32),
+						new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfnmsubss_VX_HX_Is4X_WX, MemorySize.Float32)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.VEX_Vfnmsubsd_VX_HX_WX_Is4X, MemorySize.Float64),
+						new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.VEX_Vfnmsubsd_VX_HX_Is4X_WX, MemorySize.Float64)
+					),
+					invalid,
+					invalid
+				),
 
 				// 80
 				invalid,

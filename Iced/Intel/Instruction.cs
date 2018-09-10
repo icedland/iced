@@ -554,7 +554,7 @@ namespace Iced.Intel {
 			get => (byte)memDispl;
 			set => memDispl = value;
 		}
-		internal uint InternalImmediate8_Enter {
+		internal uint InternalImmediate8_2nd {
 			set => memDispl = value;
 		}
 

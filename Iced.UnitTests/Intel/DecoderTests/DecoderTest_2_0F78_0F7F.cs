@@ -46,7 +46,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static IEnumerable<object[]> Test16_Vmread_Ed_Gd_1_Data {
 			get {
 				yield return new object[] { "0F78 CE", 3, Code.Vmread_Ed_Gd, Register.ESI, Register.ECX };
-				yield return new object[] { "66 0F78 CE", 4, Code.Vmread_Ed_Gd, Register.ESI, Register.ECX };
 			}
 		}
 
@@ -105,7 +104,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static IEnumerable<object[]> Test32_Vmread_Ed_Gd_1_Data {
 			get {
 				yield return new object[] { "0F78 CE", 3, Code.Vmread_Ed_Gd, Register.ESI, Register.ECX };
-				yield return new object[] { "66 0F78 CE", 4, Code.Vmread_Ed_Gd, Register.ESI, Register.ECX };
 			}
 		}
 
@@ -167,7 +165,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "44 0F78 CE", 4, Code.Vmread_Eq_Gq, Register.RSI, Register.R9 };
 				yield return new object[] { "41 0F78 CE", 4, Code.Vmread_Eq_Gq, Register.R14, Register.RCX };
 				yield return new object[] { "45 0F78 CE", 4, Code.Vmread_Eq_Gq, Register.R14, Register.R9 };
-				yield return new object[] { "66 0F78 CE", 4, Code.Vmread_Eq_Gq, Register.RSI, Register.RCX };
 				yield return new object[] { "4A 0F78 CE", 4, Code.Vmread_Eq_Gq, Register.RSI, Register.RCX };
 			}
 		}
@@ -227,7 +224,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static IEnumerable<object[]> Test16_Vmwrite_Gd_Ed_1_Data {
 			get {
 				yield return new object[] { "0F79 CE", 3, Code.Vmwrite_Gd_Ed, Register.ECX, Register.ESI };
-				yield return new object[] { "66 0F79 CE", 4, Code.Vmwrite_Gd_Ed, Register.ECX, Register.ESI };
 			}
 		}
 
@@ -286,7 +282,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static IEnumerable<object[]> Test32_Vmwrite_Gd_Ed_1_Data {
 			get {
 				yield return new object[] { "0F79 CE", 3, Code.Vmwrite_Gd_Ed, Register.ECX, Register.ESI };
-				yield return new object[] { "66 0F79 CE", 4, Code.Vmwrite_Gd_Ed, Register.ECX, Register.ESI };
 			}
 		}
 
@@ -348,7 +343,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "44 0F79 CE", 4, Code.Vmwrite_Gq_Eq, Register.R9, Register.RSI };
 				yield return new object[] { "41 0F79 CE", 4, Code.Vmwrite_Gq_Eq, Register.RCX, Register.R14 };
 				yield return new object[] { "45 0F79 CE", 4, Code.Vmwrite_Gq_Eq, Register.R9, Register.R14 };
-				yield return new object[] { "66 0F79 CE", 4, Code.Vmwrite_Gq_Eq, Register.RCX, Register.RSI };
 				yield return new object[] { "4A 0F79 CE", 4, Code.Vmwrite_Gq_Eq, Register.RCX, Register.RSI };
 			}
 		}

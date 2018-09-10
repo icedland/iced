@@ -70,12 +70,16 @@
     <Compile Include="Intel\DecoderInternal\OpCodeHandlers32Tables.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlers32Tables_EVEX.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlers32Tables_VEX.cs" />
+    <Compile Include="Intel\DecoderInternal\OpCodeHandlers32Tables_XOP.cs" />
+    <Compile Include="Intel\DecoderInternal\OpCodeHandlers32_D3NOW.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlers32_EVEX.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlers32_VEX.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlers64.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlers64Tables.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlers64Tables_EVEX.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlers64Tables_VEX.cs" />
+    <Compile Include="Intel\DecoderInternal\OpCodeHandlers64Tables_XOP.cs" />
+    <Compile Include="Intel\DecoderInternal\OpCodeHandlers64_D3NOW.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlers64_EVEX.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlers64_VEX.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlersFpu.cs" />
@@ -83,6 +87,7 @@
     <Compile Include="Intel\DecoderInternal\OpCodeHandlersFpu32Tables.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlersFpu64.cs" />
     <Compile Include="Intel\DecoderInternal\OpCodeHandlersFpu64Tables.cs" />
+    <Compile Include="Intel\DecoderInternal\OpCodeHandlers_D3NOW.cs" />
     <Compile Include="Intel\Encoder.cs" />
     <Compile Include="Intel\EncoderInternal\EncoderOpCodeHandler.cs" />
     <Compile Include="Intel\EncoderInternal\OpCodeHandlers.cs" />
