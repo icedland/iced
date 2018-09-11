@@ -19,12 +19,14 @@
     <PackageProjectUrl>https://github.com/0xd4d/iced/</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/0xd4d/iced//blob/master/COPYING.txt</PackageLicenseUrl>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.1' ">1.6.0</NetStandardImplicitPackageVersion>
+    <Features>strict</Features>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!--Add support for sourcelink-->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
     <AssemblyOriginatorKeyFile>../Iced.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>True</SignAssembly>
 
     <LangVersion>7.3</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
