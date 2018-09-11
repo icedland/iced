@@ -7,7 +7,13 @@ build:
   project: Iced.sln
   parallel: true
   verbosity: normal
-test: off
+before_package:
+- cmd: dotnet pack -c Release 
+artifacts:
+- path: Iced\bin\Release\*.nupkg
+  name: Iced NuGet Packages
+test_script:
+  - dotnet test -c Release Iced.UnitTests\Iced.UnitTests.csproj
 notifications:
 - provider: Email
   to:
