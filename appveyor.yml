@@ -1,0 +1,17 @@
+version: x.x.{build}
+image: Visual Studio 2017
+configuration: Release
+before_build:
+- cmd: appveyor-retry nuget restore
+build:
+  project: Iced.sln
+  parallel: true
+  verbosity: normal
+test: off
+notifications:
+- provider: Email
+  to:
+  - de4dot@gmail.com
+  on_build_success: false
+  on_build_failure: true
+  on_build_status_changed: false
