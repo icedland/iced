@@ -1,147 +1,34 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{13F19BFE-FCB6-4E65-BBE9-9C8E60BCB577}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Iced</RootNamespace>
+    <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
+
+    <Description>x86/x64 instruction decoder, encoder, formatter</Description>
+    <Copyright>Copyright (C) 2018 de4dot@gmail.com</Copyright>
+    <AssemblyTitle>Iced</AssemblyTitle>
     <AssemblyName>Iced</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <PackageId>Iced</PackageId>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Version>0.9.0</Version>
+    <Authors>0xd4d</Authors>
+    <PackageId Condition="'$(SignAssembly)' == 'true'">Scriban.Signed</PackageId>
+    <PackageTags>x86;x64;disassembler;encoder;decoder</PackageTags>
+    <!-- <PackageReleaseNotes>https://github.com/0xd4d/iced/blob/master/changelog.md</PackageReleaseNotes> -->
+    <!-- <PackageIconUrl>https://raw.githubusercontent.com/0xd4d/iced/master/img/iced.png</PackageIconUrl> -->
+    <PackageProjectUrl>https://github.com/0xd4d/iced/</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/0xd4d/iced//blob/master/COPYING.txt</PackageLicenseUrl>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.1' ">1.6.0</NetStandardImplicitPackageVersion>
     <Features>strict</Features>
-    <LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!--Add support for sourcelink-->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
+    <AssemblyOriginatorKeyFile>../Iced.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\Iced.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Iced.xml</DocumentationFile>
+
+    <LangVersion>7.3</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Iced.xml</DocumentationFile>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Intel\BlockEncoder.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\Block.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\CallInstr.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\CodeUtils.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\CodeWriterImpl.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\Instr.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\IpRelMemOpInstr.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\JccInstr.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\JmpInstr.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\SimpleBranchInstr.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\SimpleInstr.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\TargetInstr.cs" />
-    <Compile Include="Intel\BlockEncoderInternal\XbeginInstr.cs" />
-    <Compile Include="Intel\ByteArrayCodeReader.cs" />
-    <Compile Include="Intel\Code.cs" />
-    <Compile Include="Intel\CodeReader.cs" />
-    <Compile Include="Intel\CodeWriter.cs" />
-    <Compile Include="Intel\ConstantOffsets.cs" />
-    <Compile Include="Intel\CpuidFeature.cs" />
-    <Compile Include="Intel\Decoder.32.cs" />
-    <Compile Include="Intel\Decoder.64.cs" />
-    <Compile Include="Intel\Decoder.cs" />
-    <Compile Include="Intel\DecoderConstants.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers32.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers32Tables.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers32Tables_EVEX.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers32Tables_VEX.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers32_EVEX.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers32_VEX.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers64.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers64Tables.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers64Tables_EVEX.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers64Tables_VEX.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers64_EVEX.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlers64_VEX.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlersFpu.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlersFPu32.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlersFpu32Tables.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlersFpu64.cs" />
-    <Compile Include="Intel\DecoderInternal\OpCodeHandlersFpu64Tables.cs" />
-    <Compile Include="Intel\Encoder.cs" />
-    <Compile Include="Intel\EncoderInternal\EncoderOpCodeHandler.cs" />
-    <Compile Include="Intel\EncoderInternal\OpCodeHandlers.cs" />
-    <Compile Include="Intel\EncoderInternal\OpHandlers.cs" />
-    <Compile Include="Intel\EncodingKind.cs" />
-    <Compile Include="Intel\FlowControl.cs" />
-    <Compile Include="Intel\Formatter.cs" />
-    <Compile Include="Intel\FormatterConstants.cs" />
-    <Compile Include="Intel\FormatterOptions.cs" />
-    <Compile Include="Intel\FormatterOutput.cs" />
-    <Compile Include="Intel\FormatterOutputTextKind.cs" />
-    <Compile Include="Intel\FormatterUtils.cs" />
-    <Compile Include="Intel\GasFormatter.cs" />
-    <Compile Include="Intel\GasFormatterInternal\InstrInfo.cs" />
-    <Compile Include="Intel\GasFormatterInternal\InstrInfos.cs" />
-    <Compile Include="Intel\GasFormatterInternal\MemorySizes.cs" />
-    <Compile Include="Intel\GasFormatterInternal\Registers.cs" />
-    <Compile Include="Intel\HexUtils.cs" />
-    <Compile Include="Intel\IcedFeatures.cs" />
-    <Compile Include="Intel\Instruction.cs" />
-    <Compile Include="Intel\InstructionInfo.cs" />
-    <Compile Include="Intel\InstructionInfoConstants.cs" />
-    <Compile Include="Intel\InstructionInfoExtensions.cs" />
-    <Compile Include="Intel\InstructionInfoFactory.cs" />
-    <Compile Include="Intel\InstructionInfoInternal\InfoHandlerFlags.cs" />
-    <Compile Include="Intel\InstructionInfoInternal\InfoHandlers.cs" />
-    <Compile Include="Intel\InstructionInfoInternal\RflagsInfoConstants.cs" />
-    <Compile Include="Intel\InstructionInfoInternal\SimpleList.cs" />
-    <Compile Include="Intel\InstructionUtils.cs" />
-    <Compile Include="Intel\IntelFormatter.cs" />
-    <Compile Include="Intel\IntelFormatterInternal\InstrInfo.cs" />
-    <Compile Include="Intel\IntelFormatterInternal\InstrInfos.cs" />
-    <Compile Include="Intel\IntelFormatterInternal\MemorySizes.cs" />
-    <Compile Include="Intel\IntelFormatterInternal\Registers.cs" />
-    <Compile Include="Intel\MandatoryPrefix.cs" />
-    <Compile Include="Intel\MasmFormatter.cs" />
-    <Compile Include="Intel\MasmFormatterInternal\InstrInfo.cs" />
-    <Compile Include="Intel\MasmFormatterInternal\InstrInfos.cs" />
-    <Compile Include="Intel\MasmFormatterInternal\MemorySizes.cs" />
-    <Compile Include="Intel\MasmFormatterInternal\Registers.cs" />
-    <Compile Include="Intel\MemorySize.cs" />
-    <Compile Include="Intel\NasmFormatter.cs" />
-    <Compile Include="Intel\NasmFormatterInternal\InstrInfo.cs" />
-    <Compile Include="Intel\NasmFormatterInternal\InstrInfos.cs" />
-    <Compile Include="Intel\NasmFormatterInternal\MemorySizes.cs" />
-    <Compile Include="Intel\NasmFormatterInternal\Registers.cs" />
-    <Compile Include="Intel\NumberFormatter.cs" />
-    <Compile Include="Intel\OpAccess.cs" />
-    <Compile Include="Intel\OpKind.cs" />
-    <Compile Include="Intel\Register.cs" />
-    <Compile Include="Intel\RflagsBits.cs" />
-    <Compile Include="Intel\RoundingControl.cs" />
-    <Compile Include="Intel\StringBuilderFormatterOutput.cs" />
-    <Compile Include="Intel\SymbolResolver.cs" />
-    <Compile Include="Intel\TupleType.cs" />
-    <Compile Include="Intel\UsedMemory.cs" />
-    <Compile Include="Intel\UsedRegister.cs" />
-    <Compile Include="Intel\VectorLength.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
