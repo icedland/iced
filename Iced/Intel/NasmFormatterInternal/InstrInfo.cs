@@ -185,7 +185,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 			Mnemonic = mnemonic;
 			Flags = flags | (InstrOpInfoFlags)((uint)instr.MemorySize << (int)InstrOpInfoFlags.MemorySizeShift);
 			OpCount = (byte)instr.OpCount;
-			Debug.Assert(instr.OpCount <= 4);
 			Op0Kind = (InstrOpKind)instr.Op0Kind;
 			Op1Kind = (InstrOpKind)instr.Op1Kind;
 			Op2Kind = (InstrOpKind)instr.Op2Kind;

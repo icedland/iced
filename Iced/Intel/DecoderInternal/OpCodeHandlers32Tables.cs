@@ -2004,8 +2004,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix(
 					new OpCodeHandler_MV(Register.XMM0, Code.Movntps_M_VX, MemorySize.Packed128_Float32),
 					new OpCodeHandler_MV(Register.XMM0, Code.Movntpd_M_VX, MemorySize.Packed128_Float64),
-					new OpCodeHandler_MV(Register.XMM0, Code.Movntss_Md_VX, MemorySize.Float32),
-					new OpCodeHandler_MV(Register.XMM0, Code.Movntsd_Mq_VX, MemorySize.Float64)
+					new OpCodeHandler_MV(Register.XMM0, Code.Movntss_M_VX, MemorySize.Float32),
+					new OpCodeHandler_MV(Register.XMM0, Code.Movntsd_M_VX, MemorySize.Float64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					new OpCodeHandler_P_W(Register.XMM0, Code.Cvttps2pi_P_WX, MemorySize.Packed64_Float32),

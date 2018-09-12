@@ -139,7 +139,6 @@ namespace Iced.Intel.IntelFormatterInternal {
 			Mnemonic = mnemonic;
 			Flags = flags;
 			OpCount = (byte)instr.OpCount;
-			Debug.Assert(instr.OpCount <= 4);
 			Op0Kind = (InstrOpKind)instr.Op0Kind;
 			Op1Kind = (InstrOpKind)instr.Op1Kind;
 			Op2Kind = (InstrOpKind)instr.Op2Kind;

@@ -57,6 +57,7 @@ namespace Iced.Intel.EncoderInternal {
 		Size4,
 		Size8,
 		Size2_1,// enter xxxx,yy
+		Size1_1,// extrq/insertq xx,yy
 		Size2_2,// call16 far x:y
 		Size4_2,// call32 far x:y
 		RipRelSize1_Target16,
@@ -68,6 +69,7 @@ namespace Iced.Intel.EncoderInternal {
 		RipRelSize4_Target32,
 		RipRelSize4_Target64,
 		SizeIbReg,
+		Size1OpCode,
 
 		Last,
 	}
@@ -110,6 +112,7 @@ namespace Iced.Intel {
 			4,
 			8,
 			2 + 1,
+			1 + 1,
 			2 + 2,
 			4 + 2,
 			1,
@@ -120,6 +123,7 @@ namespace Iced.Intel {
 			2,
 			4,
 			4,
+			1,
 			1,
 		};
 
@@ -1031,6 +1035,7 @@ namespace Iced.Intel {
 
 			case ImmSize.Size1:
 			case ImmSize.SizeIbReg:
+			case ImmSize.Size1OpCode:
 				WriteByte((byte)Immediate);
 				break;
 
@@ -1065,6 +1070,11 @@ namespace Iced.Intel {
 				value = Immediate;
 				WriteByte((byte)value);
 				WriteByte((byte)(value >> 8));
+				WriteByte((byte)ImmediateHi);
+				break;
+
+			case ImmSize.Size1_1:
+				WriteByte((byte)Immediate);
 				WriteByte((byte)ImmediateHi);
 				break;
 
@@ -1221,9 +1231,11 @@ namespace Iced.Intel {
 			case ImmSize.RipRelSize4_Target32:
 			case ImmSize.RipRelSize4_Target64:
 			case ImmSize.SizeIbReg:
+			case ImmSize.Size1OpCode:
 				break;
 
 			case ImmSize.Size1:
+			case ImmSize.Size1_1:
 				constantOffsets.ImmediateSize = 1;
 				constantOffsets.ImmediateOffset = (byte)(immAddr - eip);
 				break;

@@ -1359,9 +1359,9 @@ namespace Iced.Intel {
 		EVEX_Vmovntpd_M_VY,									// EVEX.256.66.0F.W1 2B
 		EVEX_Vmovntpd_M_VZ,									// EVEX.512.66.0F.W1 2B
 
-		Movntss_Md_VX,										// F3 0F2B
+		Movntss_M_VX,										// F3 0F2B
 
-		Movntsd_Mq_VX,										// F2 0F2B
+		Movntsd_M_VX,										// F2 0F2B
 
 		Cvttps2pi_P_WX,										// 0F2C
 

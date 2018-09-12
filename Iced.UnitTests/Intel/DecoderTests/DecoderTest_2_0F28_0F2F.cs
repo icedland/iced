@@ -2257,9 +2257,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "66 0F2B 08", 4, Code.Movntpd_M_VX, Register.XMM1, MemorySize.Packed128_Float64 };
 
-				yield return new object[] { "F3 0F2B 08", 4, Code.Movntss_Md_VX, Register.XMM1, MemorySize.Float32 };
+				yield return new object[] { "F3 0F2B 08", 4, Code.Movntss_M_VX, Register.XMM1, MemorySize.Float32 };
 
-				yield return new object[] { "F2 0F2B 08", 4, Code.Movntsd_Mq_VX, Register.XMM1, MemorySize.Float64 };
+				yield return new object[] { "F2 0F2B 08", 4, Code.Movntsd_M_VX, Register.XMM1, MemorySize.Float64 };
 
 				yield return new object[] { "C5F8 2B 10", 4, Code.VEX_Vmovntps_M_VX, Register.XMM2, MemorySize.Packed128_Float32 };
 				yield return new object[] { "C4E1F8 2B 10", 5, Code.VEX_Vmovntps_M_VX, Register.XMM2, MemorySize.Packed128_Float32 };
@@ -2307,9 +2307,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "66 0F2B 08", 4, Code.Movntpd_M_VX, Register.XMM1, MemorySize.Packed128_Float64 };
 
-				yield return new object[] { "F3 0F2B 08", 4, Code.Movntss_Md_VX, Register.XMM1, MemorySize.Float32 };
+				yield return new object[] { "F3 0F2B 08", 4, Code.Movntss_M_VX, Register.XMM1, MemorySize.Float32 };
 
-				yield return new object[] { "F2 0F2B 08", 4, Code.Movntsd_Mq_VX, Register.XMM1, MemorySize.Float64 };
+				yield return new object[] { "F2 0F2B 08", 4, Code.Movntsd_M_VX, Register.XMM1, MemorySize.Float64 };
 
 				yield return new object[] { "C5F8 2B 10", 4, Code.VEX_Vmovntps_M_VX, Register.XMM2, MemorySize.Packed128_Float32 };
 				yield return new object[] { "C4E1F8 2B 10", 5, Code.VEX_Vmovntps_M_VX, Register.XMM2, MemorySize.Packed128_Float32 };
@@ -2359,11 +2359,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "66 0F2B 08", 4, Code.Movntpd_M_VX, Register.XMM1, MemorySize.Packed128_Float64 };
 				yield return new object[] { "66 44 0F2B 08", 5, Code.Movntpd_M_VX, Register.XMM9, MemorySize.Packed128_Float64 };
 
-				yield return new object[] { "F3 0F2B 08", 4, Code.Movntss_Md_VX, Register.XMM1, MemorySize.Float32 };
-				yield return new object[] { "F3 44 0F2B 08", 5, Code.Movntss_Md_VX, Register.XMM9, MemorySize.Float32 };
+				yield return new object[] { "F3 0F2B 08", 4, Code.Movntss_M_VX, Register.XMM1, MemorySize.Float32 };
+				yield return new object[] { "F3 44 0F2B 08", 5, Code.Movntss_M_VX, Register.XMM9, MemorySize.Float32 };
 
-				yield return new object[] { "F2 0F2B 08", 4, Code.Movntsd_Mq_VX, Register.XMM1, MemorySize.Float64 };
-				yield return new object[] { "F2 44 0F2B 08", 5, Code.Movntsd_Mq_VX, Register.XMM9, MemorySize.Float64 };
+				yield return new object[] { "F2 0F2B 08", 4, Code.Movntsd_M_VX, Register.XMM1, MemorySize.Float64 };
+				yield return new object[] { "F2 44 0F2B 08", 5, Code.Movntsd_M_VX, Register.XMM9, MemorySize.Float64 };
 
 				yield return new object[] { "C5F8 2B 10", 4, Code.VEX_Vmovntps_M_VX, Register.XMM2, MemorySize.Packed128_Float32 };
 				yield return new object[] { "C4E1F8 2B 10", 5, Code.VEX_Vmovntps_M_VX, Register.XMM2, MemorySize.Packed128_Float32 };
