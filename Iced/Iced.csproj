@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -12,7 +12,6 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <Version>0.9.0</Version>
     <Authors>0xd4d</Authors>
-    <PackageId Condition="'$(SignAssembly)' == 'true'">Scriban.Signed</PackageId>
     <PackageTags>x86;x64;disassembler;encoder;decoder</PackageTags>
     <!-- <PackageReleaseNotes>https://github.com/0xd4d/iced/blob/master/changelog.md</PackageReleaseNotes> -->
     <!-- <PackageIconUrl>https://raw.githubusercontent.com/0xd4d/iced/master/img/iced.png</PackageIconUrl> -->
