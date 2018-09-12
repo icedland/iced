@@ -48,6 +48,17 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			);
 		}
 
+		static OpCodeHandler WL0(OpCodeHandler handlerW0, OpCodeHandler handlerW1) =>
+			new OpCodeHandler_MandatoryPrefix2(
+				new OpCodeHandler_VectorLength_VEX(
+					new OpCodeHandler_W(
+						handlerW0,
+						handlerW1
+					),
+					OpCodeHandler_Invalid.Instance
+				)
+			);
+
 		static OpCodeHandlers32Tables_XOP() {
 			OpCodeHandler[] tbl;
 			var invalid = OpCodeHandler_Invalid.Instance;
@@ -68,11 +79,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			tbl[0xA2] = W(
 				new OpCodeHandler_VectorLength_VEX(
 					new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpcmov_VX_HX_WX_Is4X, MemorySize.UInt128),
-					new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpcmov_VY_HY_WY_Is4Y, MemorySize.UInt256)
+					new OpCodeHandler_VEX_VHWIs4(Register.YMM0, Code.XOP_Vpcmov_VY_HY_WY_Is4Y, MemorySize.UInt256)
 				),
 				new OpCodeHandler_VectorLength_VEX(
 					new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.XOP_Vpcmov_VX_HX_Is4X_WX, MemorySize.UInt128),
-					new OpCodeHandler_VEX_VHIs4W(Register.XMM0, Code.XOP_Vpcmov_VY_HY_Is4Y_WY, MemorySize.UInt256)
+					new OpCodeHandler_VEX_VHIs4W(Register.YMM0, Code.XOP_Vpcmov_VY_HY_Is4Y_WY, MemorySize.UInt256)
 				)
 			);
 			tbl[0xA3] = W(
@@ -87,18 +98,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			);
 			tbl[0xA6] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpmadcsswd_VX_HX_WX_Is4X, MemorySize.Packed128_Int16));
 			tbl[0xB6] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpmadcswd_VX_HX_WX_Is4X, MemorySize.Packed128_Int16));
-			tbl[0xC0] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vprotb_VX_WX_Ib, MemorySize.Packed128_UInt8));
-			tbl[0xC1] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vprotw_VX_WX_Ib, MemorySize.Packed128_UInt16));
-			tbl[0xC2] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vprotd_VX_WX_Ib, MemorySize.Packed128_UInt32));
-			tbl[0xC3] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vprotq_VX_WX_Ib, MemorySize.Packed128_UInt64));
-			tbl[0xCC] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpcomb_VX_HX_WX_Ib, MemorySize.Packed128_Int8));
-			tbl[0xCD] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpcomw_VX_HX_WX_Ib, MemorySize.Packed128_Int16));
-			tbl[0xCE] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpcomd_VX_HX_WX_Ib, MemorySize.Packed128_Int32));
-			tbl[0xCF] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpcomq_VX_HX_WX_Ib, MemorySize.Packed128_Int64));
-			tbl[0xEC] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpcomub_VX_HX_WX_Ib, MemorySize.Packed128_UInt8));
-			tbl[0xED] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpcomuw_VX_HX_WX_Ib, MemorySize.Packed128_UInt16));
-			tbl[0xEE] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpcomud_VX_HX_WX_Ib, MemorySize.Packed128_UInt32));
-			tbl[0xEF] = W0L0(new OpCodeHandler_VEX_VHWIs4(Register.XMM0, Code.XOP_Vpcomuq_VX_HX_WX_Ib, MemorySize.Packed128_UInt64));
+			tbl[0xC0] = W0L0(new OpCodeHandler_VEX_VWIb(Register.XMM0, Code.XOP_Vprotb_VX_WX_Ib, MemorySize.Packed128_UInt8));
+			tbl[0xC1] = W0L0(new OpCodeHandler_VEX_VWIb(Register.XMM0, Code.XOP_Vprotw_VX_WX_Ib, MemorySize.Packed128_UInt16));
+			tbl[0xC2] = W0L0(new OpCodeHandler_VEX_VWIb(Register.XMM0, Code.XOP_Vprotd_VX_WX_Ib, MemorySize.Packed128_UInt32));
+			tbl[0xC3] = W0L0(new OpCodeHandler_VEX_VWIb(Register.XMM0, Code.XOP_Vprotq_VX_WX_Ib, MemorySize.Packed128_UInt64));
+			tbl[0xCC] = W0L0(new OpCodeHandler_VEX_VHWIb(Register.XMM0, Code.XOP_Vpcomb_VX_HX_WX_Ib, MemorySize.Packed128_Int8));
+			tbl[0xCD] = W0L0(new OpCodeHandler_VEX_VHWIb(Register.XMM0, Code.XOP_Vpcomw_VX_HX_WX_Ib, MemorySize.Packed128_Int16));
+			tbl[0xCE] = W0L0(new OpCodeHandler_VEX_VHWIb(Register.XMM0, Code.XOP_Vpcomd_VX_HX_WX_Ib, MemorySize.Packed128_Int32));
+			tbl[0xCF] = W0L0(new OpCodeHandler_VEX_VHWIb(Register.XMM0, Code.XOP_Vpcomq_VX_HX_WX_Ib, MemorySize.Packed128_Int64));
+			tbl[0xEC] = W0L0(new OpCodeHandler_VEX_VHWIb(Register.XMM0, Code.XOP_Vpcomub_VX_HX_WX_Ib, MemorySize.Packed128_UInt8));
+			tbl[0xED] = W0L0(new OpCodeHandler_VEX_VHWIb(Register.XMM0, Code.XOP_Vpcomuw_VX_HX_WX_Ib, MemorySize.Packed128_UInt16));
+			tbl[0xEE] = W0L0(new OpCodeHandler_VEX_VHWIb(Register.XMM0, Code.XOP_Vpcomud_VX_HX_WX_Ib, MemorySize.Packed128_UInt32));
+			tbl[0xEF] = W0L0(new OpCodeHandler_VEX_VHWIb(Register.XMM0, Code.XOP_Vpcomuq_VX_HX_WX_Ib, MemorySize.Packed128_UInt64));
 			XOP8 = tbl;
 
 			tbl = new OpCodeHandler[0x100];
@@ -202,53 +213,53 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			);
 			tbl[0x82] = W0L0(new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vfrczss_VX_WX, MemorySize.Float32));
 			tbl[0x83] = W0L0(new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vfrczsd_VX_WX, MemorySize.Float64));
-			tbl[0x90] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vprotb_VX_WX_HX, MemorySize.Packed128_UInt8),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vprotb_VX_HX_WX, MemorySize.Packed256_UInt8)
+			tbl[0x90] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vprotb_VX_WX_HX, MemorySize.Packed128_UInt8),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vprotb_VX_HX_WX, MemorySize.Packed128_UInt8)
 			);
-			tbl[0x91] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vprotw_VX_WX_HX, MemorySize.Packed128_UInt16),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vprotw_VX_HX_WX, MemorySize.Packed256_UInt16)
+			tbl[0x91] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vprotw_VX_WX_HX, MemorySize.Packed128_UInt16),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vprotw_VX_HX_WX, MemorySize.Packed128_UInt16)
 			);
-			tbl[0x92] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vprotd_VX_WX_HX, MemorySize.Packed128_UInt32),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vprotd_VX_HX_WX, MemorySize.Packed256_UInt32)
+			tbl[0x92] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vprotd_VX_WX_HX, MemorySize.Packed128_UInt32),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vprotd_VX_HX_WX, MemorySize.Packed128_UInt32)
 			);
-			tbl[0x93] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vprotq_VX_WX_HX, MemorySize.Packed128_UInt64),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vprotq_VX_HX_WX, MemorySize.Packed256_UInt64)
+			tbl[0x93] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vprotq_VX_WX_HX, MemorySize.Packed128_UInt64),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vprotq_VX_HX_WX, MemorySize.Packed128_UInt64)
 			);
-			tbl[0x94] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vpshlb_VX_WX_HX, MemorySize.Packed128_UInt8),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vpshlb_VX_HX_WX, MemorySize.Packed256_UInt8)
+			tbl[0x94] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vpshlb_VX_WX_HX, MemorySize.Packed128_UInt8),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vpshlb_VX_HX_WX, MemorySize.Packed128_UInt8)
 			);
-			tbl[0x95] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vpshlw_VX_WX_HX, MemorySize.Packed128_UInt16),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vpshlw_VX_HX_WX, MemorySize.Packed256_UInt16)
+			tbl[0x95] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vpshlw_VX_WX_HX, MemorySize.Packed128_UInt16),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vpshlw_VX_HX_WX, MemorySize.Packed128_UInt16)
 			);
-			tbl[0x96] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vpshld_VX_WX_HX, MemorySize.Packed128_UInt32),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vpshld_VX_HX_WX, MemorySize.Packed256_UInt32)
+			tbl[0x96] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vpshld_VX_WX_HX, MemorySize.Packed128_UInt32),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vpshld_VX_HX_WX, MemorySize.Packed128_UInt32)
 			);
-			tbl[0x97] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vpshlq_VX_WX_HX, MemorySize.Packed128_UInt64),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vpshlq_VX_HX_WX, MemorySize.Packed256_UInt64)
+			tbl[0x97] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vpshlq_VX_WX_HX, MemorySize.Packed128_UInt64),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vpshlq_VX_HX_WX, MemorySize.Packed128_UInt64)
 			);
-			tbl[0x98] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vpshab_VX_WX_HX, MemorySize.Packed128_Int8),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vpshab_VX_HX_WX, MemorySize.Packed256_Int8)
+			tbl[0x98] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vpshab_VX_WX_HX, MemorySize.Packed128_Int8),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vpshab_VX_HX_WX, MemorySize.Packed128_Int8)
 			);
-			tbl[0x99] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vpshaw_VX_WX_HX, MemorySize.Packed128_Int16),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vpshaw_VX_HX_WX, MemorySize.Packed256_Int16)
+			tbl[0x99] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vpshaw_VX_WX_HX, MemorySize.Packed128_Int16),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vpshaw_VX_HX_WX, MemorySize.Packed128_Int16)
 			);
-			tbl[0x9A] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vpshad_VX_WX_HX, MemorySize.Packed128_Int32),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vpshad_VX_HX_WX, MemorySize.Packed256_Int32)
+			tbl[0x9A] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vpshad_VX_WX_HX, MemorySize.Packed128_Int32),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vpshad_VX_HX_WX, MemorySize.Packed128_Int32)
 			);
-			tbl[0x9B] = W0L(
-				new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vpshaq_VX_WX_HX, MemorySize.Packed128_Int64),
-				new OpCodeHandler_VEX_VW(Register.YMM0, Code.XOP_Vpshaq_VX_HX_WX, MemorySize.Packed256_Int64)
+			tbl[0x9B] = WL0(
+				new OpCodeHandler_VEX_VWH(Register.XMM0, Code.XOP_Vpshaq_VX_WX_HX, MemorySize.Packed128_Int64),
+				new OpCodeHandler_VEX_VHW(Register.XMM0, Code.XOP_Vpshaq_VX_HX_WX, MemorySize.Packed128_Int64)
 			);
 			tbl[0xC1] = W0L0(new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vphaddbw_VX_WX, MemorySize.Packed128_Int8));
 			tbl[0xC2] = W0L0(new OpCodeHandler_VEX_VW(Register.XMM0, Code.XOP_Vphaddbd_VX_WX, MemorySize.Packed128_Int8));
@@ -270,7 +281,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			tbl = new OpCodeHandler[0x100];
 			for (int i = 0; i < tbl.Length; i++)
 				tbl[i] = invalid;
-			tbl[0x10] = W0L0(new OpCodeHandler_VEX_Gv_Ev_Id(Code.XOP_Bextr_Gd_Ed_Id, Code.XOP_Bextr_Gq_Eq_Id));
+			tbl[0x10] = new OpCodeHandler_MandatoryPrefix2(
+				new OpCodeHandler_VectorLength_VEX(
+					new OpCodeHandler_VEX_Gv_Ev_Id(Code.XOP_Bextr_Gd_Ed_Id, Code.XOP_Bextr_Gq_Eq_Id),
+					invalid
+				)
+			);
 			var grp_XOPA_12 = new OpCodeHandler[8] {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_VectorLength_VEX(

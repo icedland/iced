@@ -635,6 +635,41 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		}
 	}
 
+	sealed class OpCodeHandler_VEX_VWH : OpCodeHandlerModRM {
+		readonly Register baseReg;
+		readonly Code code;
+		readonly MemorySize memSize;
+
+		public OpCodeHandler_VEX_VWH(Register baseReg, Code code, MemorySize memSize) {
+			this.baseReg = baseReg;
+			this.code = code;
+			this.memSize = memSize;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.VEX || state.Encoding == EncodingKind.XOP);
+			instruction.InternalCode = code;
+			instruction.InternalOpCount = 3;
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.Op0Register = (int)state.reg + baseReg;
+			if (state.mod == 3) {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp1Kind = OpKind.Register;
+				instruction.Op1Register = (int)state.rm + baseReg;
+			}
+			else {
+				instruction.InternalOp1Kind = OpKind.Memory;
+				instruction.InternalMemorySize = memSize;
+				decoder.ReadOpMem_m32(ref instruction);
+			}
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp2Kind = OpKind.Register;
+			instruction.Op2Register = (int)state.vvvv + baseReg;
+		}
+	}
+
 	sealed class OpCodeHandler_VEX_WHV : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code codeR;

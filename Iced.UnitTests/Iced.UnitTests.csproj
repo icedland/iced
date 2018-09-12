@@ -170,6 +170,10 @@
     <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AE8_0F3AEF.cs" />
     <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AF0_0F3AF7.cs" />
     <Compile Include="Intel\DecoderTests\DecoderTest_3_0F3AF8_0F3AFF.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_D3NOW.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_XOP8.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_XOP9.cs" />
+    <Compile Include="Intel\DecoderTests\DecoderTest_XOPA.cs" />
     <Compile Include="Intel\DecoderTests\MemoryTest16_000.cs" />
     <Compile Include="Intel\DecoderTests\MemoryTest16_001.cs" />
     <Compile Include="Intel\DecoderTests\MemoryTest16_002.cs" />
