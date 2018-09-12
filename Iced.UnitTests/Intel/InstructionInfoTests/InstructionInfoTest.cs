@@ -454,7 +454,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			};
 			Assert.Equal(Enum.GetNames(typeof(OpAccess)).Length, toAccess.Count);
 
-			// XSP = SP/ESP/RSP depending on address size, XBP = BP/EBP/ESP depending on address size
+			// XSP = SP/ESP/RSP depending on stack address size, XBP = BP/EBP/RBP depending on stack address size
 			const string XSP = "XSP";
 			const string XBP = "XBP";
 			switch (stackAddressSize) {
