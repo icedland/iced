@@ -295,31 +295,15 @@ namespace Iced.Intel.EncoderInternal {
 		XOP_W1							= 0x80000000,
 
 		XOP_128_W0 = XOP_L128 | XOP_W0,
-		XOP_128_W1 = XOP_L128 | XOP_W1,
 		XOP_256_W0 = XOP_L256 | XOP_W0,
-		XOP_256_W1 = XOP_L256 | XOP_W1,
-		XOP_DDS_128_W0 = XOP_DDS | XOP_L128 | XOP_W0,
-		XOP_DDS_128_W1 = XOP_DDS | XOP_L128 | XOP_W1,
-		XOP_DDS_256_W0 = XOP_DDS | XOP_L256 | XOP_W0,
-		XOP_DDS_256_W1 = XOP_DDS | XOP_L256 | XOP_W1,
-		XOP_DDS_LIG_W0 = XOP_DDS | XOP_LIG | XOP_W0,
-		XOP_DDS_LIG_W1 = XOP_DDS | XOP_LIG | XOP_W1,
 		XOP_L0_W0 = XOP_L0 | XOP_W0,
 		XOP_L0_W1 = XOP_L0 | XOP_W1,
-		XOP_LIG_W0 = XOP_LIG | XOP_W0,
-		XOP_LIG_W1 = XOP_LIG | XOP_W1,
 		XOP_NDD_L0_W0 = XOP_NDD | XOP_L0 | XOP_W0,
 		XOP_NDD_L0_W1 = XOP_NDD | XOP_L0 | XOP_W1,
 		XOP_NDS_128_W0 = XOP_NDS | XOP_L128 | XOP_W0,
 		XOP_NDS_128_W1 = XOP_NDS | XOP_L128 | XOP_W1,
 		XOP_NDS_256_W0 = XOP_NDS | XOP_L256 | XOP_W0,
 		XOP_NDS_256_W1 = XOP_NDS | XOP_L256 | XOP_W1,
-		XOP_NDS_L0_W0 = XOP_NDS | XOP_L0 | XOP_W0,
-		XOP_NDS_L0_W1 = XOP_NDS | XOP_L0 | XOP_W1,
-		XOP_NDS_L1_W0 = XOP_NDS | XOP_L1 | XOP_W0,
-		XOP_NDS_L1_W1 = XOP_NDS | XOP_L1 | XOP_W1,
-		XOP_NDS_LIG_W0 = XOP_NDS | XOP_LIG | XOP_W0,
-		XOP_NDS_LIG_W1 = XOP_NDS | XOP_LIG | XOP_W1,
 	}
 
 	[Flags]
@@ -668,7 +652,6 @@ namespace Iced.Intel.EncoderInternal {
 
 	sealed class XopHandler : EncoderOpCodeHandler {
 		readonly uint opCodeTable;
-		readonly bool W1;
 		readonly uint lastByte;
 
 		static int GetGroupIndex(uint dword2) {
@@ -706,30 +689,29 @@ namespace Iced.Intel.EncoderInternal {
 			Debug.Assert((int)XopOpCodeTable.XOPA == 3);
 			opCodeTable = 7 + ((dword2 >> (int)XopFlags.OpCodeTableShift) & (uint)XopFlags.OpCodeTableMask);
 			Debug.Assert(opCodeTable == 8 || opCodeTable == 9 || opCodeTable == 10);
-			W1 = (dword2 & (uint)XopFlags.XOP_W1) != 0;
 			lastByte = (dword2 >> ((int)XopFlags.XOP_LShift - 2)) & 4;
-			if (W1)
+			if ((dword2 & (uint)XopFlags.XOP_W1) != 0)
 				lastByte |= 0x80;
 			lastByte |= (dword2 >> (int)XopFlags.MandatoryPrefixShift) & (uint)XopFlags.MandatoryPrefixMask;
 		}
 
 		public override void Encode(Encoder encoder, ref Instruction instr) {
-			uint encoderFlags = (uint)encoder.EncoderFlags;
+			encoder.WriteByte(0x8F);
 
+			uint encoderFlags = (uint)encoder.EncoderFlags;
 			Debug.Assert((int)MandatoryPrefix.None == 0);
 			Debug.Assert((int)MandatoryPrefix.P66 == 1);
 			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
 			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
-			uint b = lastByte;
-			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
 
-			encoder.WriteByte(0x8F);
-			uint b2 = opCodeTable;
+			uint b = opCodeTable;
 			Debug.Assert((int)EncoderFlags.B == 1);
 			Debug.Assert((int)EncoderFlags.X == 2);
 			Debug.Assert((int)EncoderFlags.R == 4);
-			b2 |= (~encoderFlags & 7) << 5;
-			encoder.WriteByte((byte)b2);
+			b |= (~encoderFlags & 7) << 5;
+			encoder.WriteByte((byte)b);
+			b = lastByte;
+			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
 			encoder.WriteByte((byte)b);
 		}
 	}
