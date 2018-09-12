@@ -4602,15 +4602,15 @@ namespace Iced.Intel {
 
 		VEX_Vperm2i128_VY_HY_WY_Ib,							// VEX.NDS.256.66.0F3A.W0 46
 
-		VEX_Vpermil2ps_VX_HX_WX_Is4X_I2,					// VEX.NDS.L128.66.0F3A.W0 48
-		VEX_Vpermil2ps_VY_HY_WY_Is4Y_I2,					// VEX.NDS.L256.66.0F3A.W0 48
-		VEX_Vpermil2ps_VX_HX_Is4X_WX_I2,					// VEX.NDS.L128.66.0F3A.W1 48
-		VEX_Vpermil2ps_VY_HY_Is4Y_WY_I2,					// VEX.NDS.L256.66.0F3A.W1 48
+		VEX_Vpermil2ps_VX_HX_WX_Is4X_I2,					// VEX.NDS.128.66.0F3A.W0 48
+		VEX_Vpermil2ps_VY_HY_WY_Is4Y_I2,					// VEX.NDS.256.66.0F3A.W0 48
+		VEX_Vpermil2ps_VX_HX_Is4X_WX_I2,					// VEX.NDS.128.66.0F3A.W1 48
+		VEX_Vpermil2ps_VY_HY_Is4Y_WY_I2,					// VEX.NDS.256.66.0F3A.W1 48
 
-		VEX_Vpermil2pd_VX_HX_WX_Is4X_I2,					// VEX.NDS.L128.66.0F3A.W0 49
-		VEX_Vpermil2pd_VY_HY_WY_Is4Y_I2,					// VEX.NDS.L256.66.0F3A.W0 49
-		VEX_Vpermil2pd_VX_HX_Is4X_WX_I2,					// VEX.NDS.L128.66.0F3A.W1 49
-		VEX_Vpermil2pd_VY_HY_Is4Y_WY_I2,					// VEX.NDS.L256.66.0F3A.W1 49
+		VEX_Vpermil2pd_VX_HX_WX_Is4X_I2,					// VEX.NDS.128.66.0F3A.W0 49
+		VEX_Vpermil2pd_VY_HY_WY_Is4Y_I2,					// VEX.NDS.256.66.0F3A.W0 49
+		VEX_Vpermil2pd_VX_HX_Is4X_WX_I2,					// VEX.NDS.128.66.0F3A.W1 49
+		VEX_Vpermil2pd_VY_HY_Is4Y_WY_I2,					// VEX.NDS.256.66.0F3A.W1 49
 
 		VEX_Vblendvps_VX_HX_WX_Is4X,						// VEX.NDS.128.66.0F3A.W0 4A
 		VEX_Vblendvps_VY_HY_WY_Is4Y,						// VEX.NDS.256.66.0F3A.W0 4A
@@ -4651,25 +4651,25 @@ namespace Iced.Intel {
 		EVEX_Vreducess_VX_k1z_HX_WX_Ib_sae,					// EVEX.NDS.LIG.66.0F3A.W0 57
 		EVEX_Vreducesd_VX_k1z_HX_WX_Ib_sae,					// EVEX.NDS.LIG.66.0F3A.W1 57
 
-		VEX_Vfmaddsubps_VX_HX_WX_Is4X,						// VEX.NDS.L128.66.0F3A.W0 5C
-		VEX_Vfmaddsubps_VY_HY_WY_Is4Y,						// VEX.NDS.L256.66.0F3A.W0 5C
-		VEX_Vfmaddsubps_VX_HX_Is4X_WX,						// VEX.NDS.L128.66.0F3A.W1 5C
-		VEX_Vfmaddsubps_VY_HY_Is4Y_WY,						// VEX.NDS.L256.66.0F3A.W1 5C
+		VEX_Vfmaddsubps_VX_HX_WX_Is4X,						// VEX.NDS.128.66.0F3A.W0 5C
+		VEX_Vfmaddsubps_VY_HY_WY_Is4Y,						// VEX.NDS.256.66.0F3A.W0 5C
+		VEX_Vfmaddsubps_VX_HX_Is4X_WX,						// VEX.NDS.128.66.0F3A.W1 5C
+		VEX_Vfmaddsubps_VY_HY_Is4Y_WY,						// VEX.NDS.256.66.0F3A.W1 5C
 
-		VEX_Vfmaddsubpd_VX_HX_WX_Is4X,						// VEX.NDS.L128.66.0F3A.W0 5D
-		VEX_Vfmaddsubpd_VY_HY_WY_Is4Y,						// VEX.NDS.L256.66.0F3A.W0 5D
-		VEX_Vfmaddsubpd_VX_HX_Is4X_WX,						// VEX.NDS.L128.66.0F3A.W1 5D
-		VEX_Vfmaddsubpd_VY_HY_Is4Y_WY,						// VEX.NDS.L256.66.0F3A.W1 5D
+		VEX_Vfmaddsubpd_VX_HX_WX_Is4X,						// VEX.NDS.128.66.0F3A.W0 5D
+		VEX_Vfmaddsubpd_VY_HY_WY_Is4Y,						// VEX.NDS.256.66.0F3A.W0 5D
+		VEX_Vfmaddsubpd_VX_HX_Is4X_WX,						// VEX.NDS.128.66.0F3A.W1 5D
+		VEX_Vfmaddsubpd_VY_HY_Is4Y_WY,						// VEX.NDS.256.66.0F3A.W1 5D
 
-		VEX_Vfmsubaddps_VX_HX_WX_Is4X,						// VEX.NDS.L128.66.0F3A.W0 5E
-		VEX_Vfmsubaddps_VY_HY_WY_Is4Y,						// VEX.NDS.L256.66.0F3A.W0 5E
-		VEX_Vfmsubaddps_VX_HX_Is4X_WX,						// VEX.NDS.L128.66.0F3A.W1 5E
-		VEX_Vfmsubaddps_VY_HY_Is4Y_WY,						// VEX.NDS.L256.66.0F3A.W1 5E
+		VEX_Vfmsubaddps_VX_HX_WX_Is4X,						// VEX.NDS.128.66.0F3A.W0 5E
+		VEX_Vfmsubaddps_VY_HY_WY_Is4Y,						// VEX.NDS.256.66.0F3A.W0 5E
+		VEX_Vfmsubaddps_VX_HX_Is4X_WX,						// VEX.NDS.128.66.0F3A.W1 5E
+		VEX_Vfmsubaddps_VY_HY_Is4Y_WY,						// VEX.NDS.256.66.0F3A.W1 5E
 
-		VEX_Vfmsubaddpd_VX_HX_WX_Is4X,						// VEX.NDS.L128.66.0F3A.W0 5F
-		VEX_Vfmsubaddpd_VY_HY_WY_Is4Y,						// VEX.NDS.L256.66.0F3A.W0 5F
-		VEX_Vfmsubaddpd_VX_HX_Is4X_WX,						// VEX.NDS.L128.66.0F3A.W1 5F
-		VEX_Vfmsubaddpd_VY_HY_Is4Y_WY,						// VEX.NDS.L256.66.0F3A.W1 5F
+		VEX_Vfmsubaddpd_VX_HX_WX_Is4X,						// VEX.NDS.128.66.0F3A.W0 5F
+		VEX_Vfmsubaddpd_VY_HY_WY_Is4Y,						// VEX.NDS.256.66.0F3A.W0 5F
+		VEX_Vfmsubaddpd_VX_HX_Is4X_WX,						// VEX.NDS.128.66.0F3A.W1 5F
+		VEX_Vfmsubaddpd_VY_HY_Is4Y_WY,						// VEX.NDS.256.66.0F3A.W1 5F
 
 		Pcmpestrm_VX_WX_Ib,									// 66 0F3A60
 		Pcmpestrm64_VX_WX_Ib,								// REX.W 66 0F3A60
@@ -4697,15 +4697,15 @@ namespace Iced.Intel {
 		EVEX_Vfpclassss_VK_k1_WX_Ib,						// EVEX.LIG.66.0F3A.W0 67
 		EVEX_Vfpclasssd_VK_k1_WX_Ib,						// EVEX.LIG.66.0F3A.W1 67
 
-		VEX_Vfmaddps_VX_HX_WX_Is4X,							// VEX.NDS.L128.66.0F3A.W0 68
-		VEX_Vfmaddps_VY_HY_WY_Is4Y,							// VEX.NDS.L256.66.0F3A.W0 68
-		VEX_Vfmaddps_VX_HX_Is4X_WX,							// VEX.NDS.L128.66.0F3A.W1 68
-		VEX_Vfmaddps_VY_HY_Is4Y_WY,							// VEX.NDS.L256.66.0F3A.W1 68
+		VEX_Vfmaddps_VX_HX_WX_Is4X,							// VEX.NDS.128.66.0F3A.W0 68
+		VEX_Vfmaddps_VY_HY_WY_Is4Y,							// VEX.NDS.256.66.0F3A.W0 68
+		VEX_Vfmaddps_VX_HX_Is4X_WX,							// VEX.NDS.128.66.0F3A.W1 68
+		VEX_Vfmaddps_VY_HY_Is4Y_WY,							// VEX.NDS.256.66.0F3A.W1 68
 
-		VEX_Vfmaddpd_VX_HX_WX_Is4X,							// VEX.NDS.L128.66.0F3A.W0 69
-		VEX_Vfmaddpd_VY_HY_WY_Is4Y,							// VEX.NDS.L256.66.0F3A.W0 69
-		VEX_Vfmaddpd_VX_HX_Is4X_WX,							// VEX.NDS.L128.66.0F3A.W1 69
-		VEX_Vfmaddpd_VY_HY_Is4Y_WY,							// VEX.NDS.L256.66.0F3A.W1 69
+		VEX_Vfmaddpd_VX_HX_WX_Is4X,							// VEX.NDS.128.66.0F3A.W0 69
+		VEX_Vfmaddpd_VY_HY_WY_Is4Y,							// VEX.NDS.256.66.0F3A.W0 69
+		VEX_Vfmaddpd_VX_HX_Is4X_WX,							// VEX.NDS.128.66.0F3A.W1 69
+		VEX_Vfmaddpd_VY_HY_Is4Y_WY,							// VEX.NDS.256.66.0F3A.W1 69
 
 		VEX_Vfmaddss_VX_HX_WX_Is4X,							// VEX.NDS.LIG.66.0F3A.W0 6A
 		VEX_Vfmaddss_VX_HX_Is4X_WX,							// VEX.NDS.LIG.66.0F3A.W1 6A
@@ -4713,15 +4713,15 @@ namespace Iced.Intel {
 		VEX_Vfmaddsd_VX_HX_WX_Is4X,							// VEX.NDS.LIG.66.0F3A.W0 6B
 		VEX_Vfmaddsd_VX_HX_Is4X_WX,							// VEX.NDS.LIG.66.0F3A.W1 6B
 
-		VEX_Vfmsubps_VX_HX_WX_Is4X,							// VEX.NDS.L128.66.0F3A.W0 6C
-		VEX_Vfmsubps_VY_HY_WY_Is4Y,							// VEX.NDS.L256.66.0F3A.W0 6C
-		VEX_Vfmsubps_VX_HX_Is4X_WX,							// VEX.NDS.L128.66.0F3A.W1 6C
-		VEX_Vfmsubps_VY_HY_Is4Y_WY,							// VEX.NDS.L256.66.0F3A.W1 6C
+		VEX_Vfmsubps_VX_HX_WX_Is4X,							// VEX.NDS.128.66.0F3A.W0 6C
+		VEX_Vfmsubps_VY_HY_WY_Is4Y,							// VEX.NDS.256.66.0F3A.W0 6C
+		VEX_Vfmsubps_VX_HX_Is4X_WX,							// VEX.NDS.128.66.0F3A.W1 6C
+		VEX_Vfmsubps_VY_HY_Is4Y_WY,							// VEX.NDS.256.66.0F3A.W1 6C
 
-		VEX_Vfmsubpd_VX_HX_WX_Is4X,							// VEX.NDS.L128.66.0F3A.W0 6D
-		VEX_Vfmsubpd_VY_HY_WY_Is4Y,							// VEX.NDS.L256.66.0F3A.W0 6D
-		VEX_Vfmsubpd_VX_HX_Is4X_WX,							// VEX.NDS.L128.66.0F3A.W1 6D
-		VEX_Vfmsubpd_VY_HY_Is4Y_WY,							// VEX.NDS.L256.66.0F3A.W1 6D
+		VEX_Vfmsubpd_VX_HX_WX_Is4X,							// VEX.NDS.128.66.0F3A.W0 6D
+		VEX_Vfmsubpd_VY_HY_WY_Is4Y,							// VEX.NDS.256.66.0F3A.W0 6D
+		VEX_Vfmsubpd_VX_HX_Is4X_WX,							// VEX.NDS.128.66.0F3A.W1 6D
+		VEX_Vfmsubpd_VY_HY_Is4Y_WY,							// VEX.NDS.256.66.0F3A.W1 6D
 
 		VEX_Vfmsubss_VX_HX_WX_Is4X,							// VEX.NDS.LIG.66.0F3A.W0 6E
 		VEX_Vfmsubss_VX_HX_Is4X_WX,							// VEX.NDS.LIG.66.0F3A.W1 6E
@@ -4729,15 +4729,15 @@ namespace Iced.Intel {
 		VEX_Vfmsubsd_VX_HX_WX_Is4X,							// VEX.NDS.LIG.66.0F3A.W0 6F
 		VEX_Vfmsubsd_VX_HX_Is4X_WX,							// VEX.NDS.LIG.66.0F3A.W1 6F
 
-		VEX_Vfnmaddps_VX_HX_WX_Is4X,						// VEX.NDS.L128.66.0F3A.W0 78
-		VEX_Vfnmaddps_VY_HY_WY_Is4Y,						// VEX.NDS.L256.66.0F3A.W0 78
-		VEX_Vfnmaddps_VX_HX_Is4X_WX,						// VEX.NDS.L128.66.0F3A.W1 78
-		VEX_Vfnmaddps_VY_HY_Is4Y_WY,						// VEX.NDS.L256.66.0F3A.W1 78
+		VEX_Vfnmaddps_VX_HX_WX_Is4X,						// VEX.NDS.128.66.0F3A.W0 78
+		VEX_Vfnmaddps_VY_HY_WY_Is4Y,						// VEX.NDS.256.66.0F3A.W0 78
+		VEX_Vfnmaddps_VX_HX_Is4X_WX,						// VEX.NDS.128.66.0F3A.W1 78
+		VEX_Vfnmaddps_VY_HY_Is4Y_WY,						// VEX.NDS.256.66.0F3A.W1 78
 
-		VEX_Vfnmaddpd_VX_HX_WX_Is4X,						// VEX.NDS.L128.66.0F3A.W0 79
-		VEX_Vfnmaddpd_VY_HY_WY_Is4Y,						// VEX.NDS.L256.66.0F3A.W0 79
-		VEX_Vfnmaddpd_VX_HX_Is4X_WX,						// VEX.NDS.L128.66.0F3A.W1 79
-		VEX_Vfnmaddpd_VY_HY_Is4Y_WY,						// VEX.NDS.L256.66.0F3A.W1 79
+		VEX_Vfnmaddpd_VX_HX_WX_Is4X,						// VEX.NDS.128.66.0F3A.W0 79
+		VEX_Vfnmaddpd_VY_HY_WY_Is4Y,						// VEX.NDS.256.66.0F3A.W0 79
+		VEX_Vfnmaddpd_VX_HX_Is4X_WX,						// VEX.NDS.128.66.0F3A.W1 79
+		VEX_Vfnmaddpd_VY_HY_Is4Y_WY,						// VEX.NDS.256.66.0F3A.W1 79
 
 		VEX_Vfnmaddss_VX_HX_WX_Is4X,						// VEX.NDS.LIG.66.0F3A.W0 7A
 		VEX_Vfnmaddss_VX_HX_Is4X_WX,						// VEX.NDS.LIG.66.0F3A.W1 7A
@@ -4745,15 +4745,15 @@ namespace Iced.Intel {
 		VEX_Vfnmaddsd_VX_HX_WX_Is4X,						// VEX.NDS.LIG.66.0F3A.W0 7B
 		VEX_Vfnmaddsd_VX_HX_Is4X_WX,						// VEX.NDS.LIG.66.0F3A.W1 7B
 
-		VEX_Vfnmsubps_VX_HX_WX_Is4X,						// VEX.NDS.L128.66.0F3A.W0 7C
-		VEX_Vfnmsubps_VY_HY_WY_Is4Y,						// VEX.NDS.L256.66.0F3A.W0 7C
-		VEX_Vfnmsubps_VX_HX_Is4X_WX,						// VEX.NDS.L128.66.0F3A.W1 7C
-		VEX_Vfnmsubps_VY_HY_Is4Y_WY,						// VEX.NDS.L256.66.0F3A.W1 7C
+		VEX_Vfnmsubps_VX_HX_WX_Is4X,						// VEX.NDS.128.66.0F3A.W0 7C
+		VEX_Vfnmsubps_VY_HY_WY_Is4Y,						// VEX.NDS.256.66.0F3A.W0 7C
+		VEX_Vfnmsubps_VX_HX_Is4X_WX,						// VEX.NDS.128.66.0F3A.W1 7C
+		VEX_Vfnmsubps_VY_HY_Is4Y_WY,						// VEX.NDS.256.66.0F3A.W1 7C
 
-		VEX_Vfnmsubpd_VX_HX_WX_Is4X,						// VEX.NDS.L128.66.0F3A.W0 7D
-		VEX_Vfnmsubpd_VY_HY_WY_Is4Y,						// VEX.NDS.L256.66.0F3A.W0 7D
-		VEX_Vfnmsubpd_VX_HX_Is4X_WX,						// VEX.NDS.L128.66.0F3A.W1 7D
-		VEX_Vfnmsubpd_VY_HY_Is4Y_WY,						// VEX.NDS.L256.66.0F3A.W1 7D
+		VEX_Vfnmsubpd_VX_HX_WX_Is4X,						// VEX.NDS.128.66.0F3A.W0 7D
+		VEX_Vfnmsubpd_VY_HY_WY_Is4Y,						// VEX.NDS.256.66.0F3A.W0 7D
+		VEX_Vfnmsubpd_VX_HX_Is4X_WX,						// VEX.NDS.128.66.0F3A.W1 7D
+		VEX_Vfnmsubpd_VY_HY_Is4Y_WY,						// VEX.NDS.256.66.0F3A.W1 7D
 
 		VEX_Vfnmsubss_VX_HX_WX_Is4X,						// VEX.NDS.LIG.66.0F3A.W0 7E
 		VEX_Vfnmsubss_VX_HX_Is4X_WX,						// VEX.NDS.LIG.66.0F3A.W1 7E
@@ -4770,61 +4770,61 @@ namespace Iced.Intel {
 		VEX_Rorx_Gq_Eq_Ib,									// VEX.L0.F2.0F3A.W1 F0
 
 		// XOP8 opcodes
-		XOP_Vpmacssww_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.W0 85
+		XOP_Vpmacssww_VX_HX_WX_Is4X,						// XOP.NDS.128.X8.W0 85
 
-		XOP_Vpmacsswd_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.W0 86
+		XOP_Vpmacsswd_VX_HX_WX_Is4X,						// XOP.NDS.128.X8.W0 86
 
-		XOP_Vpmacssdql_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.W0 87
+		XOP_Vpmacssdql_VX_HX_WX_Is4X,						// XOP.NDS.128.X8.W0 87
 
-		XOP_Vpmacssdd_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.W0 8E
+		XOP_Vpmacssdd_VX_HX_WX_Is4X,						// XOP.NDS.128.X8.W0 8E
 
-		XOP_Vpmacssdqh_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.W0 8F
+		XOP_Vpmacssdqh_VX_HX_WX_Is4X,						// XOP.NDS.128.X8.W0 8F
 
-		XOP_Vpmacsww_VX_HX_WX_Is4X,							// XOP.NDS.L128.X8.W0 95
+		XOP_Vpmacsww_VX_HX_WX_Is4X,							// XOP.NDS.128.X8.W0 95
 
-		XOP_Vpmacswd_VX_HX_WX_Is4X,							// XOP.NDS.L128.X8.W0 96
+		XOP_Vpmacswd_VX_HX_WX_Is4X,							// XOP.NDS.128.X8.W0 96
 
-		XOP_Vpmacsdql_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.W0 97
+		XOP_Vpmacsdql_VX_HX_WX_Is4X,						// XOP.NDS.128.X8.W0 97
 
-		XOP_Vpmacsdd_VX_HX_WX_Is4X,							// XOP.NDS.L128.X8.W0 9E
+		XOP_Vpmacsdd_VX_HX_WX_Is4X,							// XOP.NDS.128.X8.W0 9E
 
-		XOP_Vpmacsdqh_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.W0 9F
+		XOP_Vpmacsdqh_VX_HX_WX_Is4X,						// XOP.NDS.128.X8.W0 9F
 
-		XOP_Vpcmov_VX_HX_WX_Is4X,							// XOP.NDS.L128.X8.W0 A2
-		XOP_Vpcmov_VY_HY_WY_Is4Y,							// XOP.NDS.L256.X8.W0 A2
-		XOP_Vpcmov_VX_HX_Is4X_WX,							// XOP.NDS.L128.X8.W1 A2
-		XOP_Vpcmov_VY_HY_Is4Y_WY,							// XOP.NDS.L256.X8.W1 A2
+		XOP_Vpcmov_VX_HX_WX_Is4X,							// XOP.NDS.128.X8.W0 A2
+		XOP_Vpcmov_VY_HY_WY_Is4Y,							// XOP.NDS.256.X8.W0 A2
+		XOP_Vpcmov_VX_HX_Is4X_WX,							// XOP.NDS.128.X8.W1 A2
+		XOP_Vpcmov_VY_HY_Is4Y_WY,							// XOP.NDS.256.X8.W1 A2
 
-		XOP_Vpperm_VX_HX_WX_Is4X,							// XOP.NDS.L128.X8.W0 A3
-		XOP_Vpperm_VX_HX_Is4X_WX,							// XOP.NDS.L128.X8.W1 A3
+		XOP_Vpperm_VX_HX_WX_Is4X,							// XOP.NDS.128.X8.W0 A3
+		XOP_Vpperm_VX_HX_Is4X_WX,							// XOP.NDS.128.X8.W1 A3
 
-		XOP_Vpmadcsswd_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.W0 A6
+		XOP_Vpmadcsswd_VX_HX_WX_Is4X,						// XOP.NDS.128.X8.W0 A6
 
-		XOP_Vpmadcswd_VX_HX_WX_Is4X,						// XOP.NDS.L128.X8.W0 B6
+		XOP_Vpmadcswd_VX_HX_WX_Is4X,						// XOP.NDS.128.X8.W0 B6
 
-		XOP_Vprotb_VX_WX_Ib,								// XOP.L128.X8.W0 C0
+		XOP_Vprotb_VX_WX_Ib,								// XOP.128.X8.W0 C0
 
-		XOP_Vprotw_VX_WX_Ib,								// XOP.L128.X8.W0 C1
+		XOP_Vprotw_VX_WX_Ib,								// XOP.128.X8.W0 C1
 
-		XOP_Vprotd_VX_WX_Ib,								// XOP.L128.X8.W0 C2
+		XOP_Vprotd_VX_WX_Ib,								// XOP.128.X8.W0 C2
 
-		XOP_Vprotq_VX_WX_Ib,								// XOP.L128.X8.W0 C3
+		XOP_Vprotq_VX_WX_Ib,								// XOP.128.X8.W0 C3
 
-		XOP_Vpcomb_VX_HX_WX_Ib,								// XOP.NDS.L128.X8.W0 CC
+		XOP_Vpcomb_VX_HX_WX_Ib,								// XOP.NDS.128.X8.W0 CC
 
-		XOP_Vpcomw_VX_HX_WX_Ib,								// XOP.NDS.L128.X8.W0 CD
+		XOP_Vpcomw_VX_HX_WX_Ib,								// XOP.NDS.128.X8.W0 CD
 
-		XOP_Vpcomd_VX_HX_WX_Ib,								// XOP.NDS.L128.X8.W0 CE
+		XOP_Vpcomd_VX_HX_WX_Ib,								// XOP.NDS.128.X8.W0 CE
 
-		XOP_Vpcomq_VX_HX_WX_Ib,								// XOP.NDS.L128.X8.W0 CF
+		XOP_Vpcomq_VX_HX_WX_Ib,								// XOP.NDS.128.X8.W0 CF
 
-		XOP_Vpcomub_VX_HX_WX_Ib,							// XOP.NDS.L128.X8.W0 EC
+		XOP_Vpcomub_VX_HX_WX_Ib,							// XOP.NDS.128.X8.W0 EC
 
-		XOP_Vpcomuw_VX_HX_WX_Ib,							// XOP.NDS.L128.X8.W0 ED
+		XOP_Vpcomuw_VX_HX_WX_Ib,							// XOP.NDS.128.X8.W0 ED
 
-		XOP_Vpcomud_VX_HX_WX_Ib,							// XOP.NDS.L128.X8.W0 EE
+		XOP_Vpcomud_VX_HX_WX_Ib,							// XOP.NDS.128.X8.W0 EE
 
-		XOP_Vpcomuq_VX_HX_WX_Ib,							// XOP.NDS.L128.X8.W0 EF
+		XOP_Vpcomuq_VX_HX_WX_Ib,							// XOP.NDS.128.X8.W0 EF
 
 		// XOP9 opcodes
 		XOP_Blcfill_Hd_Ed,									// XOP.NDD.L0.X9.W0 01 /1
@@ -4852,81 +4852,81 @@ namespace Iced.Intel {
 		XOP_Slwpcb_Rd,										// XOP.L0.X9.W0 12 /1
 		XOP_Slwpcb_Rq,										// XOP.L0.X9.W1 12 /1
 
-		XOP_Vfrczps_VX_WX,									// XOP.L128.X9.W0 80
-		XOP_Vfrczps_VY_WY,									// XOP.L256.X9.W0 80
+		XOP_Vfrczps_VX_WX,									// XOP.128.X9.W0 80
+		XOP_Vfrczps_VY_WY,									// XOP.256.X9.W0 80
 
-		XOP_Vfrczpd_VX_WX,									// XOP.L128.X9.W0 81
-		XOP_Vfrczpd_VY_WY,									// XOP.L256.X9.W0 81
+		XOP_Vfrczpd_VX_WX,									// XOP.128.X9.W0 81
+		XOP_Vfrczpd_VY_WY,									// XOP.256.X9.W0 81
 
-		XOP_Vfrczss_VX_WX,									// XOP.L128.X9.W0 82
+		XOP_Vfrczss_VX_WX,									// XOP.128.X9.W0 82
 
-		XOP_Vfrczsd_VX_WX,									// XOP.L128.X9.W0 83
+		XOP_Vfrczsd_VX_WX,									// XOP.128.X9.W0 83
 
-		XOP_Vprotb_VX_WX_HX,								// XOP.NDS.L128.X9.W0 90
-		XOP_Vprotb_VX_HX_WX,								// XOP.NDS.L128.X9.W1 90
+		XOP_Vprotb_VX_WX_HX,								// XOP.NDS.128.X9.W0 90
+		XOP_Vprotb_VX_HX_WX,								// XOP.NDS.128.X9.W1 90
 
-		XOP_Vprotw_VX_WX_HX,								// XOP.NDS.L128.X9.W0 91
-		XOP_Vprotw_VX_HX_WX,								// XOP.NDS.L128.X9.W1 91
+		XOP_Vprotw_VX_WX_HX,								// XOP.NDS.128.X9.W0 91
+		XOP_Vprotw_VX_HX_WX,								// XOP.NDS.128.X9.W1 91
 
-		XOP_Vprotd_VX_WX_HX,								// XOP.NDS.L128.X9.W0 92
-		XOP_Vprotd_VX_HX_WX,								// XOP.NDS.L128.X9.W1 92
+		XOP_Vprotd_VX_WX_HX,								// XOP.NDS.128.X9.W0 92
+		XOP_Vprotd_VX_HX_WX,								// XOP.NDS.128.X9.W1 92
 
-		XOP_Vprotq_VX_WX_HX,								// XOP.NDS.L128.X9.W0 93
-		XOP_Vprotq_VX_HX_WX,								// XOP.NDS.L128.X9.W1 93
+		XOP_Vprotq_VX_WX_HX,								// XOP.NDS.128.X9.W0 93
+		XOP_Vprotq_VX_HX_WX,								// XOP.NDS.128.X9.W1 93
 
-		XOP_Vpshlb_VX_WX_HX,								// XOP.NDS.L128.X9.W0 94
-		XOP_Vpshlb_VX_HX_WX,								// XOP.NDS.L128.X9.W1 94
+		XOP_Vpshlb_VX_WX_HX,								// XOP.NDS.128.X9.W0 94
+		XOP_Vpshlb_VX_HX_WX,								// XOP.NDS.128.X9.W1 94
 
-		XOP_Vpshlw_VX_WX_HX,								// XOP.NDS.L128.X9.W0 95
-		XOP_Vpshlw_VX_HX_WX,								// XOP.NDS.L128.X9.W1 95
+		XOP_Vpshlw_VX_WX_HX,								// XOP.NDS.128.X9.W0 95
+		XOP_Vpshlw_VX_HX_WX,								// XOP.NDS.128.X9.W1 95
 
-		XOP_Vpshld_VX_WX_HX,								// XOP.NDS.L128.X9.W0 96
-		XOP_Vpshld_VX_HX_WX,								// XOP.NDS.L128.X9.W1 96
+		XOP_Vpshld_VX_WX_HX,								// XOP.NDS.128.X9.W0 96
+		XOP_Vpshld_VX_HX_WX,								// XOP.NDS.128.X9.W1 96
 
-		XOP_Vpshlq_VX_WX_HX,								// XOP.NDS.L128.X9.W0 97
-		XOP_Vpshlq_VX_HX_WX,								// XOP.NDS.L128.X9.W1 97
+		XOP_Vpshlq_VX_WX_HX,								// XOP.NDS.128.X9.W0 97
+		XOP_Vpshlq_VX_HX_WX,								// XOP.NDS.128.X9.W1 97
 
-		XOP_Vpshab_VX_WX_HX,								// XOP.NDS.L128.X9.W0 98
-		XOP_Vpshab_VX_HX_WX,								// XOP.NDS.L128.X9.W1 98
+		XOP_Vpshab_VX_WX_HX,								// XOP.NDS.128.X9.W0 98
+		XOP_Vpshab_VX_HX_WX,								// XOP.NDS.128.X9.W1 98
 
-		XOP_Vpshaw_VX_WX_HX,								// XOP.NDS.L128.X9.W0 99
-		XOP_Vpshaw_VX_HX_WX,								// XOP.NDS.L128.X9.W1 99
+		XOP_Vpshaw_VX_WX_HX,								// XOP.NDS.128.X9.W0 99
+		XOP_Vpshaw_VX_HX_WX,								// XOP.NDS.128.X9.W1 99
 
-		XOP_Vpshad_VX_WX_HX,								// XOP.NDS.L128.X9.W0 9A
-		XOP_Vpshad_VX_HX_WX,								// XOP.NDS.L128.X9.W1 9A
+		XOP_Vpshad_VX_WX_HX,								// XOP.NDS.128.X9.W0 9A
+		XOP_Vpshad_VX_HX_WX,								// XOP.NDS.128.X9.W1 9A
 
-		XOP_Vpshaq_VX_WX_HX,								// XOP.NDS.L128.X9.W0 9B
-		XOP_Vpshaq_VX_HX_WX,								// XOP.NDS.L128.X9.W1 9B
+		XOP_Vpshaq_VX_WX_HX,								// XOP.NDS.128.X9.W0 9B
+		XOP_Vpshaq_VX_HX_WX,								// XOP.NDS.128.X9.W1 9B
 
-		XOP_Vphaddbw_VX_WX,									// XOP.L128.X9.W0 C1
+		XOP_Vphaddbw_VX_WX,									// XOP.128.X9.W0 C1
 
-		XOP_Vphaddbd_VX_WX,									// XOP.L128.X9.W0 C2
+		XOP_Vphaddbd_VX_WX,									// XOP.128.X9.W0 C2
 
-		XOP_Vphaddbq_VX_WX,									// XOP.L128.X9.W0 C3
+		XOP_Vphaddbq_VX_WX,									// XOP.128.X9.W0 C3
 
-		XOP_Vphaddwd_VX_WX,									// XOP.L128.X9.W0 C6
+		XOP_Vphaddwd_VX_WX,									// XOP.128.X9.W0 C6
 
-		XOP_Vphaddwq_VX_WX,									// XOP.L128.X9.W0 C7
+		XOP_Vphaddwq_VX_WX,									// XOP.128.X9.W0 C7
 
-		XOP_Vphadddq_VX_WX,									// XOP.L128.X9.W0 CB
+		XOP_Vphadddq_VX_WX,									// XOP.128.X9.W0 CB
 
-		XOP_Vphaddubw_VX_WX,								// XOP.L128.X9.W0 D1
+		XOP_Vphaddubw_VX_WX,								// XOP.128.X9.W0 D1
 
-		XOP_Vphaddubd_VX_WX,								// XOP.L128.X9.W0 D2
+		XOP_Vphaddubd_VX_WX,								// XOP.128.X9.W0 D2
 
-		XOP_Vphaddubq_VX_WX,								// XOP.L128.X9.W0 D3
+		XOP_Vphaddubq_VX_WX,								// XOP.128.X9.W0 D3
 
-		XOP_Vphadduwd_VX_WX,								// XOP.L128.X9.W0 D6
+		XOP_Vphadduwd_VX_WX,								// XOP.128.X9.W0 D6
 
-		XOP_Vphadduwq_VX_WX,								// XOP.L128.X9.W0 D7
+		XOP_Vphadduwq_VX_WX,								// XOP.128.X9.W0 D7
 
-		XOP_Vphaddudq_VX_WX,								// XOP.L128.X9.W0 DB
+		XOP_Vphaddudq_VX_WX,								// XOP.128.X9.W0 DB
 
-		XOP_Vphsubbw_VX_WX,									// XOP.L128.X9.W0 E1
+		XOP_Vphsubbw_VX_WX,									// XOP.128.X9.W0 E1
 
-		XOP_Vphsubwd_VX_WX,									// XOP.L128.X9.W0 E2
+		XOP_Vphsubwd_VX_WX,									// XOP.128.X9.W0 E2
 
-		XOP_Vphsubdq_VX_WX,									// XOP.L128.X9.W0 E3
+		XOP_Vphsubdq_VX_WX,									// XOP.128.X9.W0 E3
 
 		// XOPA opcodes
 		XOP_Bextr_Gd_Ed_Id,									// XOP.L0.XA.W0 10
