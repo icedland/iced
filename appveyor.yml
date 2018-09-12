@@ -13,7 +13,7 @@ artifacts:
 - path: Iced\bin\Release\*.nupkg
   name: Iced NuGet Packages
 test_script:
-  - dotnet test -c Release Iced.UnitTests\Iced.UnitTests.csproj
+  - dotnet test -c Release Iced.UnitTests\Iced.UnitTests.csproj -- RunConfiguration.NoAutoReporters=true
 notifications:
 - provider: Email
   to:

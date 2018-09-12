@@ -5,6 +5,5 @@
 	"parallelizeAssembly": false,
 	"parallelizeTestCollections": false,
 	"preEnumerateTheories": true,
-	"shadowCopy": false,
-	"noautoreporters": true
+	"shadowCopy": false
 }
