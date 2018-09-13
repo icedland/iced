@@ -35,8 +35,8 @@ namespace Iced.Intel {
 		/// * This field can be invalid even if the operand has an immediate if it's an immediate that isn't part
 		/// of the instruction stream, eg. 'shl al,1'.
 		/// 
-		/// * If it's the enter instruction, this is the offset of the first immediate. The offset of the second
-		/// immediate is this value + 2 bytes.
+		/// * If it's an instruction with multiple immediates (eg. enter, extrq, insertq), this is the offset of
+		/// the first immediate. The offset of the second immediate is located immediately after the first immediate.
 		/// 
 		/// * If it's a far call/jmp, the selector constant (2 bytes) follows the offset (2 or 4 bytes).
 		/// </summary>
