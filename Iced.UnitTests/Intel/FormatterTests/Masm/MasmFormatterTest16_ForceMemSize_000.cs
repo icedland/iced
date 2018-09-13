@@ -530,6 +530,11 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"mov cl,byte ptr fs:[bx+1234h]",
 			"arpl dx,si",
 			"arpl word ptr [bx+si],bx",
+			"vmrun ax",
+			"vmload ax",
+			"vmsave ax",
+			"invlpga ax,ecx",
+			"monitorx ax,ecx,edx",
 		};
 	}
 }

@@ -1029,7 +1029,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"maskmovq mmword ptr fs:[rdi],mm2,mm3",
 			"maskmovdqu xmmword ptr fs:[rdi],xmm2,xmm3",
 			"vmaskmovdqu xmmword ptr fs:[rdi],xmm2,xmm3",
-			"monitor eax,ecx,edx",
+			"monitor eax,rcx,rdx",
 			"(bad)",
 			"mov al,byte ptr fs:[0F0DEBC9A78563412h]",
 			"mov al,byte ptr fs:[78563412h]",

@@ -530,6 +530,11 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"mov cl,byte [fs:bx+0x1234]",
 			"arpl dx,si",
 			"arpl word [bx+si],bx",
+			"vmrun",
+			"vmload",
+			"vmsave",
+			"invlpga ax,ecx",
+			"monitorx",
 		};
 	}
 }

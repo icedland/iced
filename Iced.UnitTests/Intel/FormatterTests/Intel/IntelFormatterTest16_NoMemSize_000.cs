@@ -530,6 +530,11 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"mov cl, fs:[bx+0x1234]",
 			"arpl dx, si",
 			"arpl [bx+si], bx",
+			"vmrun",
+			"vmload",
+			"vmsave",
+			"invlpga",
+			"monitorx",
 		};
 	}
 }

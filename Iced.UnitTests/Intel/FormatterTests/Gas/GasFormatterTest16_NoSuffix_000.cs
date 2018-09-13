@@ -530,6 +530,11 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"mov %fs:0x1234(%bx),%cl",
 			"arpl %si,%dx",
 			"arpl %bx,(%bx,%si)",
+			"vmrun",
+			"vmload",
+			"vmsave",
+			"invlpga",
+			"monitorx",
 		};
 	}
 }
