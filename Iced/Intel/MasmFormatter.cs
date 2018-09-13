@@ -192,7 +192,7 @@ namespace Iced.Intel {
 			if (options.UpperCaseMnemonics || options.UpperCaseAll)
 				mnemonic = mnemonic.ToUpperInvariant();
 			output.Write(mnemonic, FormatterOutputTextKind.Mnemonic);
-			column += opInfo.Mnemonic.Length;
+			column += mnemonic.Length;
 		}
 
 		bool ShowSegmentOverridePrefix(ref InstrOpInfo opInfo) {
@@ -789,6 +789,9 @@ namespace Iced.Intel {
 					memSizeStrings = MemorySizes.oword_ptr;
 				break;
 			}
+
+			if (memType == InstrOpInfoFlags.MemSize_XmmwordPtr)
+				memSizeStrings = MemorySizes.xmmword_ptr;
 
 			foreach (string name in memSizeStrings) {
 				FormatKeyword(output, name);

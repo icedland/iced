@@ -811,11 +811,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_monitor : InstrInfo {
+	sealed class SimpleInstrInfo_as : InstrInfo {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_monitor(Code code, int codeSize, string mnemonic)
+		public SimpleInstrInfo_as(Code code, int codeSize, string mnemonic)
 			: base(code) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
@@ -1651,6 +1651,68 @@ namespace Iced.Intel.NasmFormatterInternal {
 				info.Op0Register = (byte)((Register)info.Op0Register - Register.EAX + Register.AX);
 			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D)
 				info.Op1Register = (byte)((Register)info.Op1Register - Register.EAX + Register.AX);
+		}
+	}
+
+	sealed class SimpleInstrInfo_invlpga : InstrInfo {
+		readonly int codeSize;
+		readonly string mnemonic;
+
+		public SimpleInstrInfo_invlpga(Code code, int codeSize, string mnemonic)
+			: base(code) {
+			this.codeSize = codeSize;
+			this.mnemonic = mnemonic;
+		}
+
+		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			info = default;
+			info.Mnemonic = mnemonic;
+			info.OpCount = 2;
+			info.Op0Kind = InstrOpKind.Register;
+			info.Op1Kind = InstrOpKind.Register;
+
+			int instrCodeSize = GetCodeSize(instr.CodeSize);
+			if (instrCodeSize == 0)
+				instrCodeSize = codeSize;
+			switch (codeSize) {
+			case 16:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.AX;
+				break;
+
+			case 32:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.EAX;
+				break;
+
+			case 64:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.RAX;
+				break;
+
+			default:
+				throw new InvalidOperationException();
+			}
+
+			switch (instrCodeSize) {
+			case 16:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op1Register = (byte)Register.ECX;
+				break;
+
+			case 32:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op1Register = (byte)Register.ECX;
+				break;
+
+			case 64:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op1Register = (byte)Register.ECX;
+				break;
+
+			default:
+				throw new InvalidOperationException();
+			}
 		}
 	}
 }

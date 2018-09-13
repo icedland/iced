@@ -27,7 +27,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		static readonly string[] dword_ptr = new string[] { "dword", "ptr" };
 		static readonly string[] qword_ptr = new string[] { "qword", "ptr" };
 		internal static readonly string[] mmword_ptr = new string[] { "mmword", "ptr" };
-		static readonly string[] xmmword_ptr = new string[] { "xmmword", "ptr" };
+		internal static readonly string[] xmmword_ptr = new string[] { "xmmword", "ptr" };
 		static readonly string[] ymmword_ptr = new string[] { "ymmword", "ptr" };
 		static readonly string[] zmmword_ptr = new string[] { "zmmword", "ptr" };
 		static readonly string[] fword_ptr = new string[] { "fword", "ptr" };

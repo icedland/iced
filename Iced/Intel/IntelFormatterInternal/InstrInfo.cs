@@ -917,10 +917,37 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
-			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D)
+			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D) {
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op0Register = (byte)((Register)info.Op0Register - Register.EAX + Register.AX);
-			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D)
+			}
+			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D) {
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op1Register = (byte)((Register)info.Op1Register - Register.EAX + Register.AX);
+			}
+		}
+	}
+
+	sealed class SimpleInstrInfo_reg : InstrInfo {
+		readonly string mnemonic;
+		readonly Register register;
+		readonly InstrOpInfoFlags flags;
+
+		public SimpleInstrInfo_reg(Code code, string mnemonic, Register register) : this(code, mnemonic, register, InstrOpInfoFlags.None) { }
+
+		public SimpleInstrInfo_reg(Code code, string mnemonic, Register register, InstrOpInfoFlags flags)
+			: base(code) {
+			this.mnemonic = mnemonic;
+			this.register = register;
+			this.flags = flags;
+		}
+
+		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info.OpCount = 1;
+			info.Op0Kind = InstrOpKind.Register;
+			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			info.Op0Register = (byte)register;
 		}
 	}
 }

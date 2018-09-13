@@ -204,7 +204,7 @@ namespace Iced.Intel {
 			if (options.UpperCaseMnemonics || options.UpperCaseAll)
 				mnemonic = mnemonic.ToUpperInvariant();
 			output.Write(mnemonic, FormatterOutputTextKind.Mnemonic);
-			column += opInfo.Mnemonic.Length;
+			column += mnemonic.Length;
 			if ((opInfo.Flags & InstrOpInfoFlags.FarMnemonic) != 0) {
 				output.Write(" ", FormatterOutputTextKind.Text);
 				var farKeyword = "far";
