@@ -31,12 +31,13 @@ namespace Iced.Intel {
 		/// override the default number formatting options.
 		/// </summary>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.</param>
-		/// <param name="code">Code value</param>
+		/// <param name="instruction">Instruction</param>
 		/// <param name="address">Address</param>
+		/// <param name="addressSize">Size of <paramref name="address"/> in bytes</param>
 		/// <param name="symbol">Updated with symbol information if this method returns true</param>
 		/// <param name="options">Number formatting options if this method returns false</param>
 		/// <returns></returns>
-		protected virtual bool TryGetSymbol(int operand, Code code, ulong address, out SymbolResult symbol, ref NumberFormattingOptions options) {
+		protected virtual bool TryGetSymbol(int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol, ref NumberFormattingOptions options) {
 			symbol = default;
 			return false;
 		}
@@ -46,14 +47,15 @@ namespace Iced.Intel {
 		/// to override the default number formatting options
 		/// </summary>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.</param>
-		/// <param name="code">Code value, eg. a call, jmp, jcc, xbegin</param>
+		/// <param name="instruction">Instruction</param>
 		/// <param name="address">Address</param>
+		/// <param name="addressSize">Size of <paramref name="address"/> in bytes</param>
 		/// <param name="symbol">Updated with symbol information if this method returns true</param>
 		/// <param name="showBranchSize">true if branch info (short, near ptr, far ptr) should be shown</param>
 		/// <param name="options">Number formatting options if this method returns false</param>
 		/// <returns></returns>
-		public virtual bool TryGetBranchSymbol(int operand, Code code, ulong address, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) =>
-			TryGetSymbol(operand, code, address, out symbol, ref options);
+		public virtual bool TryGetBranchSymbol(int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) =>
+			TryGetSymbol(operand, ref instruction, address, addressSize, out symbol, ref options);
 
 		/// <summary>
 		/// Returns true if <paramref name="symbol"/> was updated with a symbol. <paramref name="symbolSelector"/> can be set to default value
@@ -61,17 +63,18 @@ namespace Iced.Intel {
 		/// has the default value.
 		/// </summary>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.</param>
-		/// <param name="code">Code value, eg. a far call or far jmp</param>
+		/// <param name="instruction">Instruction</param>
 		/// <param name="selector">Selector/segment</param>
 		/// <param name="address">Address</param>
+		/// <param name="addressSize">Size of <paramref name="address"/> in bytes</param>
 		/// <param name="symbolSelector">Updated with the selector symbol or with the default value if it should be formatted as a number</param>
 		/// <param name="symbol">Updated with symbol information if this method returns true</param>
 		/// <param name="showBranchSize">true if branch info (short, near ptr, far ptr) should be shown</param>
 		/// <param name="options">Number formatting options if this method returns false or if <paramref name="symbolSelector"/> has the default value</param>
 		/// <returns></returns>
-		public virtual bool TryGetFarBranchSymbol(int operand, Code code, ushort selector, uint address, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) {
+		public virtual bool TryGetFarBranchSymbol(int operand, ref Instruction instruction, ushort selector, uint address, int addressSize, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) {
 			symbolSelector = default;
-			return TryGetSymbol(operand, code, address, out symbol, ref options);
+			return TryGetSymbol(operand, ref instruction, address, addressSize, out symbol, ref options);
 		}
 
 		/// <summary>
@@ -79,13 +82,14 @@ namespace Iced.Intel {
 		/// the default number formatting options.
 		/// </summary>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.</param>
-		/// <param name="code">Code value</param>
+		/// <param name="instruction">Instruction</param>
 		/// <param name="immediate">Immediate value</param>
+		/// <param name="immediateSize">Size of <paramref name="immediate"/> in bytes</param>
 		/// <param name="symbol">Updated with symbol information if this method returns true</param>
 		/// <param name="options">Number formatting options if this method returns false</param>
 		/// <returns></returns>
-		public virtual bool TryGetImmediateSymbol(int operand, Code code, ulong immediate, out SymbolResult symbol, ref NumberFormattingOptions options) =>
-			TryGetSymbol(operand, code, immediate, out symbol, ref options);
+		public virtual bool TryGetImmediateSymbol(int operand, ref Instruction instruction, ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) =>
+			TryGetSymbol(operand, ref instruction, immediate, immediateSize, out symbol, ref options);
 
 		/// <summary>
 		/// Gets a symbol and returns true. If it returns false, <paramref name="options"/> can be updated to override
@@ -94,14 +98,15 @@ namespace Iced.Intel {
 		/// This method gets called even if the memory operand has no displacement, eg. [eax].
 		/// </summary>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.</param>
-		/// <param name="code">Code value</param>
+		/// <param name="instruction">Instruction</param>
 		/// <param name="displacement">Displacement. If it's RIP-relative addressing, this is the absolute address (rip/eip + displ)</param>
+		/// <param name="displacementSize">Size of <paramref name="displacement"/> in bytes</param>
 		/// <param name="ripRelativeAddresses">true to use RIP relative addresses</param>
 		/// <param name="symbol">Updated with symbol information if this method returns true</param>
 		/// <param name="options">Number formatting options if this method returns false</param>
 		/// <returns></returns>
-		public virtual bool TryGetDisplSymbol(int operand, Code code, ulong displacement, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) =>
-			TryGetSymbol(operand, code, displacement, out symbol, ref options);
+		public virtual bool TryGetDisplSymbol(int operand, ref Instruction instruction, ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) =>
+			TryGetSymbol(operand, ref instruction, displacement, displacementSize, out symbol, ref options);
 	}
 
 	/// <summary>

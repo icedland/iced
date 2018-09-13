@@ -22,36 +22,36 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	sealed class TestSymbolResolver : SymbolResolver {
-		public delegate bool TryGetBranchSymbolDelegate(ulong address, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options);
+		public delegate bool TryGetBranchSymbolDelegate(ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options);
 		public TryGetBranchSymbolDelegate tryGetBranchSymbol;
-		public override bool TryGetBranchSymbol(int operand, Code code, ulong address, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) {
+		public override bool TryGetBranchSymbol(int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) {
 			if (tryGetBranchSymbol != null)
-				return tryGetBranchSymbol(address, out symbol, ref showBranchSize, ref options);
-			return base.TryGetBranchSymbol(operand, code, address, out symbol, ref showBranchSize, ref options);
+				return tryGetBranchSymbol(address, addressSize, out symbol, ref showBranchSize, ref options);
+			return base.TryGetBranchSymbol(operand, ref instruction, address, addressSize, out symbol, ref showBranchSize, ref options);
 		}
 
-		public delegate bool TryGetFarBranchSymbolDelegate(ushort selector, uint address, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options);
+		public delegate bool TryGetFarBranchSymbolDelegate(ushort selector, uint address, int addressSize, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options);
 		public TryGetFarBranchSymbolDelegate tryGetFarBranchSymbol;
-		public override bool TryGetFarBranchSymbol(int operand, Code code, ushort selector, uint address, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) {
+		public override bool TryGetFarBranchSymbol(int operand, ref Instruction instruction, ushort selector, uint address, int addressSize, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) {
 			if (tryGetFarBranchSymbol != null)
-				return tryGetFarBranchSymbol(selector, address, out symbolSelector, out symbol, ref showBranchSize, ref options);
-			return base.TryGetFarBranchSymbol(operand, code, selector, address, out symbolSelector, out symbol, ref showBranchSize, ref options);
+				return tryGetFarBranchSymbol(selector, address, addressSize, out symbolSelector, out symbol, ref showBranchSize, ref options);
+			return base.TryGetFarBranchSymbol(operand, ref instruction, selector, address, addressSize, out symbolSelector, out symbol, ref showBranchSize, ref options);
 		}
 
-		public delegate bool TryGetImmediateSymbolDelegate(ulong immediate, out SymbolResult symbol, ref NumberFormattingOptions options);
+		public delegate bool TryGetImmediateSymbolDelegate(ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options);
 		public TryGetImmediateSymbolDelegate tryGetImmediateSymbol;
-		public override bool TryGetImmediateSymbol(int operand, Code code, ulong immediate, out SymbolResult symbol, ref NumberFormattingOptions options) {
+		public override bool TryGetImmediateSymbol(int operand, ref Instruction instruction, ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) {
 			if (tryGetImmediateSymbol != null)
-				return tryGetImmediateSymbol(immediate, out symbol, ref options);
-			return base.TryGetImmediateSymbol(operand, code, immediate, out symbol, ref options);
+				return tryGetImmediateSymbol(immediate, immediateSize, out symbol, ref options);
+			return base.TryGetImmediateSymbol(operand, ref instruction, immediate, immediateSize, out symbol, ref options);
 		}
 
-		public delegate bool TryGetDisplSymbolDelegate(ulong displacement, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options);
+		public delegate bool TryGetDisplSymbolDelegate(ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options);
 		public TryGetDisplSymbolDelegate tryGetDisplSymbol;
-		public override bool TryGetDisplSymbol(int operand, Code code, ulong displacement, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) {
+		public override bool TryGetDisplSymbol(int operand, ref Instruction instruction, ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) {
 			if (tryGetDisplSymbol != null)
-				return tryGetDisplSymbol(displacement, ref ripRelativeAddresses, out symbol, ref options);
-			return base.TryGetDisplSymbol(operand, code, displacement, ref ripRelativeAddresses, out symbol, ref options);
+				return tryGetDisplSymbol(displacement, displacementSize, ref ripRelativeAddresses, out symbol, ref options);
+			return base.TryGetDisplSymbol(operand, ref instruction, displacement, displacementSize, ref ripRelativeAddresses, out symbol, ref options);
 		}
 	}
 }
