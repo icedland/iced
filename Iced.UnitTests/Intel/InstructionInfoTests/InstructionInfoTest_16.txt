@@ -513,3 +513,33 @@ F3 66 AF, Scasd_EAX_Yd, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=eax r
 67 8F 44 24 10, Pop_Ew, Legacy, INTEL8086, op0=w r=ss rw=xsp r=esp wm=ss:esp+0x12;UInt16 rm=ss:xsp;UInt16 stack=2
 # pop dword ptr [esp+10h]
 66 67 8F 44 24 10, Pop_Ed, Legacy, INTEL8086, op0=w r=ss rw=xsp r=esp wm=ss:esp+0x14;UInt32 rm=ss:xsp;UInt32 stack=4
+# vmrun ax
+0F01 D8, Vmrunw, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=ds r=ax rm=ds:ax;Unknown
+# vmrun eax
+67 0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=ds r=eax rm=ds:eax;Unknown
+# vmmcall
+0F01 D9, Vmmcall, Legacy, SVM, flow=Call
+# vmload ax
+0F01 DA, Vmloadw, Legacy, SVM, pm priv saverestore r=ds r=ax rm=ds:ax;Unknown
+# vmload eax
+67 0F01 DA, Vmloadd, Legacy, SVM, pm priv saverestore r=ds r=eax rm=ds:eax;Unknown
+# vmsave ax
+0F01 DB, Vmsavew, Legacy, SVM, pm priv saverestore r=ds r=ax wm=ds:ax;Unknown
+# vmsave eax
+67 0F01 DB, Vmsaved, Legacy, SVM, pm priv saverestore r=ds r=eax wm=ds:eax;Unknown
+# skinit eax
+0F01 DE, Skinit, Legacy, SKINIT_or_SVML, fw=acopszidA pm priv saverestore flow=Return
+# invlpga ax,ecx
+0F01 DF, Invlpgaw, Legacy, SVM, pm priv r=ds;ax;ecx
+# invlpga eax,ecx
+67 0F01 DF, Invlpgad, Legacy, SVM, pm priv r=ds;eax;ecx
+# monitorx ax,ecx,edx
+0F01 FA, Monitorxw, Legacy, MONITORX, r=ds;ax;ecx;edx rm=ds:ax;Unknown
+# monitorx eax,ecx,edx
+67 0F01 FA, Monitorxd, Legacy, MONITORX, r=ds;eax;ecx;edx rm=ds:eax;Unknown
+# mwaitx ax,ecx,ebx
+0F01 FB, Mwaitx, Legacy, MONITORX, r=eax;ecx cr=ebx
+# clzero
+0F01 FC, Clzerow, Legacy, CLZERO, r=ax
+# clzero
+66 0F01 FC, Clzerod, Legacy, CLZERO, r=eax
