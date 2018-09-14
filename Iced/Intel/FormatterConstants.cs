@@ -219,6 +219,94 @@ namespace Iced.Intel {
 			"vpclmullqhqdq",
 			"vpclmulhqhqdq",
 		};
+
+		public static readonly string[] vpcomb_pseudo_ops = new string[8] {
+			"vpcomltb",
+			"vpcomleb",
+			"vpcomgtb",
+			"vpcomgeb",
+			"vpcomeqb",
+			"vpcomneqb",
+			"vpcomfalseb",
+			"vpcomtrueb",
+		};
+
+		public static readonly string[] vpcomw_pseudo_ops = new string[8] {
+			"vpcomltw",
+			"vpcomlew",
+			"vpcomgtw",
+			"vpcomgew",
+			"vpcomeqw",
+			"vpcomneqw",
+			"vpcomfalsew",
+			"vpcomtruew",
+		};
+
+		public static readonly string[] vpcomd_pseudo_ops = new string[8] {
+			"vpcomltd",
+			"vpcomled",
+			"vpcomgtd",
+			"vpcomged",
+			"vpcomeqd",
+			"vpcomneqd",
+			"vpcomfalsed",
+			"vpcomtrued",
+		};
+
+		public static readonly string[] vpcomq_pseudo_ops = new string[8] {
+			"vpcomltq",
+			"vpcomleq",
+			"vpcomgtq",
+			"vpcomgeq",
+			"vpcomeqq",
+			"vpcomneqq",
+			"vpcomfalseq",
+			"vpcomtrueq",
+		};
+
+		public static readonly string[] vpcomub_pseudo_ops = new string[8] {
+			"vpcomltub",
+			"vpcomleub",
+			"vpcomgtub",
+			"vpcomgeub",
+			"vpcomequb",
+			"vpcomnequb",
+			"vpcomfalseub",
+			"vpcomtrueub",
+		};
+
+		public static readonly string[] vpcomuw_pseudo_ops = new string[8] {
+			"vpcomltuw",
+			"vpcomleuw",
+			"vpcomgtuw",
+			"vpcomgeuw",
+			"vpcomequw",
+			"vpcomnequw",
+			"vpcomfalseuw",
+			"vpcomtrueuw",
+		};
+
+		public static readonly string[] vpcomud_pseudo_ops = new string[8] {
+			"vpcomltud",
+			"vpcomleud",
+			"vpcomgtud",
+			"vpcomgeud",
+			"vpcomequd",
+			"vpcomnequd",
+			"vpcomfalseud",
+			"vpcomtrueud",
+		};
+
+		public static readonly string[] vpcomuq_pseudo_ops = new string[8] {
+			"vpcomltuq",
+			"vpcomleuq",
+			"vpcomgtuq",
+			"vpcomgeuq",
+			"vpcomequq",
+			"vpcomnequq",
+			"vpcomfalseuq",
+			"vpcomtrueuq",
+		};
 	}
 }
 #endif
