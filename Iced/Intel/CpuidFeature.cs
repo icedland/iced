@@ -184,6 +184,11 @@ namespace Iced.Intel {
 		CLWB,
 
 		/// <summary>
+		/// CPUID.80000008H:EBX.CLZERO[bit 0]
+		/// </summary>
+		CLZERO,
+
+		/// <summary>
 		/// CPUID.01H:EDX.CMOV[bit 15]
 		/// </summary>
 		CMOV,
@@ -204,6 +209,16 @@ namespace Iced.Intel {
 		CX8,
 
 		/// <summary>
+		/// CPUID.80000001H:EDX.3DNOW[bit 31]
+		/// </summary>
+		D3NOW,
+
+		/// <summary>
+		/// CPUID.80000001H:EDX.3DNOWEXT[bit 30]
+		/// </summary>
+		D3NOWEXT,
+
+		/// <summary>
 		/// CPUID.(EAX=12H, ECX=0H):EAX.OSS[bit 5]
 		/// </summary>
 		ENCLV,
@@ -222,6 +237,11 @@ namespace Iced.Intel {
 		/// CPUID.01H:ECX.FMA[bit 12]
 		/// </summary>
 		FMA,
+
+		/// <summary>
+		/// CPUID.80000001H:ECX.FMA4[bit 16]
+		/// </summary>
+		FMA4,
 
 		/// <summary>
 		/// 8087 or later (CPUID.01H:EDX.FPU[bit 0])
@@ -259,6 +279,11 @@ namespace Iced.Intel {
 		FXSR,
 
 		/// <summary>
+		/// AMD Geode LX/GX CPU
+		/// </summary>
+		GEODE,
+
+		/// <summary>
 		/// CPUID.(EAX=07H, ECX=0H):EBX.HLE[bit 4] or <see cref="RTM"/>
 		/// </summary>
 		HLE_or_RTM,
@@ -279,6 +304,11 @@ namespace Iced.Intel {
 		INVVPID,
 
 		/// <summary>
+		/// CPUID.80000001H:ECX.LWP[bit 15]
+		/// </summary>
+		LWP,
+
+		/// <summary>
 		/// CPUID.80000001H:ECX.LZCNT[bit 5]
 		/// </summary>
 		LZCNT,
@@ -292,6 +322,11 @@ namespace Iced.Intel {
 		/// CPUID.01H:ECX.MONITOR[bit 3]
 		/// </summary>
 		MONITOR,
+
+		/// <summary>
+		/// CPUID.80000001H:ECX.MONITORX[bit 29]
+		/// </summary>
+		MONITORX,
 
 		/// <summary>
 		/// CPUID.01H:ECX.MOVBE[bit 22]
@@ -399,6 +434,11 @@ namespace Iced.Intel {
 		SHA,
 
 		/// <summary>
+		/// CPUID.80000001H:ECX.SKINIT[bit 12] or CPUID.8000000AH:EDX.SVML[bit 2]
+		/// </summary>
+		SKINIT_or_SVML,
+
+		/// <summary>
 		/// CPUID.(EAX=07H, ECX=0H):EBX.SMAP[bit 20]
 		/// </summary>
 		SMAP,
@@ -407,6 +447,11 @@ namespace Iced.Intel {
 		/// CPUID.01H:ECX.SMX[bit 6]
 		/// </summary>
 		SMX,
+
+		/// <summary>
+		/// CPUID.80000001H:ECX.SVM[bit 2]
+		/// </summary>
+		SVM,
 
 		/// <summary>
 		/// CPUID.01H:EDX.SSE[bit 25]
@@ -434,6 +479,11 @@ namespace Iced.Intel {
 		SSE4_2,
 
 		/// <summary>
+		/// CPUID.80000001H:ECX.SSE4A[bit 6]
+		/// </summary>
+		SSE4A,
+
+		/// <summary>
 		/// CPUID.01H:ECX.SSSE3[bit 9]
 		/// </summary>
 		SSSE3,
@@ -444,6 +494,11 @@ namespace Iced.Intel {
 		SYSCALL,
 
 		/// <summary>
+		/// CPUID.80000001H:ECX.TBM[bit 21]
+		/// </summary>
+		TBM,
+
+		/// <summary>
 		/// CPUID.01H:EDX.TSC[bit 4]
 		/// </summary>
 		TSC,
@@ -452,6 +507,11 @@ namespace Iced.Intel {
 		/// CPUID.01H:ECX.VMX[bit 5]
 		/// </summary>
 		VMX,
+
+		/// <summary>
+		/// CPUID.80000001H:ECX.XOP[bit 11]
+		/// </summary>
+		XOP,
 
 		/// <summary>
 		/// CPUID.01H:ECX.XSAVE[bit 26]

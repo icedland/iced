@@ -44,12 +44,12 @@ namespace Iced.Intel {
 		ConditionalBranch,
 
 		/// <summary>
-		/// It's a return instruction: ret near, ret far, iret, sysret, sysexit, rsm, vmlaunch, vmresume
+		/// It's a return instruction: ret near, ret far, iret, sysret, sysexit, rsm, vmlaunch, vmresume, vmrun, skinit
 		/// </summary>
 		Return,
 
 		/// <summary>
-		/// It's a call instruction: call near, call far, syscall, sysenter, vmcall
+		/// It's a call instruction: call near, call far, syscall, sysenter, vmcall, vmmcall
 		/// </summary>
 		Call,
 

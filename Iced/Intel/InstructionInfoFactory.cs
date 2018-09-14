@@ -1208,12 +1208,12 @@ namespace Iced.Intel {
 
 			case CodeInfo.Monitor:
 				code = instruction.Code;
-				if (code == Code.Monitorq)
+				if (code == Code.Monitorq || code == Code.Monitorxq)
 					baseReg = Register.RAX;
-				else if (code == Code.Monitord)
+				else if (code == Code.Monitord || code == Code.Monitorxd)
 					baseReg = Register.EAX;
 				else {
-					Debug.Assert(code == Code.Monitorw);
+					Debug.Assert(code == Code.Monitorw || code == Code.Monitorxw);
 					baseReg = Register.AX;
 				}
 				var seg = instruction.PrefixSegment;
@@ -1244,6 +1244,21 @@ namespace Iced.Intel {
 					else {
 						AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.Read);
 						AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Read);
+					}
+				}
+				break;
+
+			case CodeInfo.Mwaitx:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					if ((flags & Flags.Is64Bit) != 0) {
+						AddRegister(flags, ref usedRegisters, Register.RAX, OpAccess.Read);
+						AddRegister(flags, ref usedRegisters, Register.RCX, OpAccess.Read);
+						AddRegister(flags, ref usedRegisters, Register.RBX, OpAccess.CondRead);
+					}
+					else {
+						AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.Read);
+						AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Read);
+						AddRegister(flags, ref usedRegisters, Register.EBX, OpAccess.CondRead);
 					}
 				}
 				break;
@@ -1399,6 +1414,26 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.Vmload:
+				code = instruction.Code;
+				if (code == Code.Vmloadq || code == Code.Vmsaveq || code == Code.Vmrunq)
+					baseReg = Register.RAX;
+				else if (code == Code.Vmloadd || code == Code.Vmsaved || code == Code.Vmrund)
+					baseReg = Register.EAX;
+				else {
+					Debug.Assert(code == Code.Vmloadw || code == Code.Vmsavew || code == Code.Vmrunw);
+					baseReg = Register.AX;
+				}
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, ref usedRegisters, Register.DS, OpAccess.Read);
+					AddRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
+				}
+				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(flags, ref usedMemoryLocations, Register.DS, baseReg, Register.None, 1, 0,
+						MemorySize.Unknown, code == Code.Vmsaveq || code == Code.Vmsaved || code == Code.Vmsavew ? OpAccess.Write : OpAccess.Read);
+				}
+				break;
+
 			case CodeInfo.R_CR0:
 				if ((flags & Flags.NoRegisterUsage) == 0)
 					AddRegister(flags, ref usedRegisters, Register.CR0, OpAccess.Read);
@@ -1406,8 +1441,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.RW_CR0:
 				if ((flags & Flags.NoRegisterUsage) == 0)
-				AddRegister(flags, ref usedRegisters, Register.CR0, OpAccess.ReadWrite);
-					break;
+					AddRegister(flags, ref usedRegisters, Register.CR0, OpAccess.ReadWrite);
+				break;
 
 			case CodeInfo.RW_ST0:
 				if ((flags & Flags.NoRegisterUsage) == 0)
@@ -1452,6 +1487,46 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.Clzero:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					code = instruction.Code;
+					if (code == Code.Clzeroq)
+						baseReg = Register.RAX;
+					else if (code == Code.Clzerod)
+						baseReg = Register.EAX;
+					else {
+						Debug.Assert(code == Code.Clzerow);
+						baseReg = Register.AX;
+					}
+					AddRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
+				}
+				break;
+
+			case CodeInfo.Invlpga:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					code = instruction.Code;
+					if (code == Code.Invlpgaq)
+						baseReg = Register.RAX;
+					else if (code == Code.Invlpgad)
+						baseReg = Register.EAX;
+					else {
+						Debug.Assert(code == Code.Invlpgaw);
+						baseReg = Register.AX;
+					}
+					AddRegister(flags, ref usedRegisters, Register.DS, OpAccess.Read);
+					AddRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
+					AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Read);
+				}
+				break;
+
+			case CodeInfo.Llwpcb:
+				if ((flags & Flags.NoRegisterUsage) == 0)
+					AddRegister(flags, ref usedRegisters, Register.DS, OpAccess.Read);
+				if ((flags & Flags.NoMemoryUsage) == 0)
+					AddMemory(flags, ref usedMemoryLocations, Register.DS, instruction.Op0Register, Register.None, 1, 0, MemorySize.Unknown, OpAccess.Read);
+				break;
+
+			case CodeInfo.None:
 			default:
 				throw new InvalidOperationException();
 			}

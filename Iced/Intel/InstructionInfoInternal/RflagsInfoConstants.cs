@@ -197,6 +197,10 @@ namespace Iced.Intel.InstructionInfoInternal {
 					flagsWritten[i] = (ushort)RflagsBits.CF;
 					break;
 
+				case RflagsInfo.W_c:
+					flagsWritten[i] = (ushort)RflagsBits.CF;
+					break;
+
 				case RflagsInfo.W_co:
 					flagsWritten[i] = (ushort)(RflagsBits.CF | RflagsBits.OF);
 					break;
