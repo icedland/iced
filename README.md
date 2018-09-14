@@ -1,4 +1,4 @@
-# Iced  [![Build status](https://ci.appveyor.com/api/projects/status/github/0xd4d/iced?svg=true)](https://ci.appveyor.com/project/0xd4d/iced/branch/master)
+# Iced  [![Build status](https://ci.appveyor.com/api/projects/status/xldctwks3we9tcb4/branch/master?svg=true)](https://ci.appveyor.com/project/0xd4d/iced/branch/master)
 
 High performance x86 (16/32/64-bit) instruction decoder, encoder and formatter.
 It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
