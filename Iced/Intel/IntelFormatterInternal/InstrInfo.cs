@@ -30,7 +30,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 		FarBranch16 = OpKind.FarBranch16,
 		FarBranch32 = OpKind.FarBranch32,
 		Immediate8 = OpKind.Immediate8,
-		Immediate8_Enter = OpKind.Immediate8_Enter,
+		Immediate8_2nd = OpKind.Immediate8_2nd,
 		Immediate16 = OpKind.Immediate16,
 		Immediate32 = OpKind.Immediate32,
 		Immediate64 = OpKind.Immediate64,
@@ -105,10 +105,12 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public InstrOpKind Op1Kind;
 		public InstrOpKind Op2Kind;
 		public InstrOpKind Op3Kind;
+		public InstrOpKind Op4Kind;
 		public byte Op0Register;
 		public byte Op1Register;
 		public byte Op2Register;
 		public byte Op3Register;
+		public byte Op4Register;
 
 		public Register GetOpRegister(int operand) {
 			switch (operand) {
@@ -116,6 +118,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 			case 1: return (Register)Op1Register;
 			case 2: return (Register)Op2Register;
 			case 3: return (Register)Op3Register;
+			case 4: return (Register)Op4Register;
 			default: throw new ArgumentOutOfRangeException(nameof(operand));
 			}
 		}
@@ -126,19 +129,21 @@ namespace Iced.Intel.IntelFormatterInternal {
 			case 1: return Op1Kind;
 			case 2: return Op2Kind;
 			case 3: return Op3Kind;
+			case 4: return Op4Kind;
 			default: throw new ArgumentOutOfRangeException(nameof(operand));
 			}
 		}
 
 		public InstrOpInfo(string mnemonic, ref Instruction instr, InstrOpInfoFlags flags) {
+			Debug.Assert(DecoderConstants.MaxOpCount == 5);
 			Mnemonic = mnemonic;
 			Flags = flags;
 			OpCount = (byte)instr.OpCount;
-			Debug.Assert(instr.OpCount <= 4);
 			Op0Kind = (InstrOpKind)instr.Op0Kind;
 			Op1Kind = (InstrOpKind)instr.Op1Kind;
 			Op2Kind = (InstrOpKind)instr.Op2Kind;
 			Op3Kind = (InstrOpKind)instr.Op3Kind;
+			Op4Kind = (InstrOpKind)instr.Op4Kind;
 			Debug.Assert(TEST_RegisterBits == 8);
 			Op0Register = (byte)instr.Op0Register;
 			Debug.Assert(TEST_RegisterBits == 8);
@@ -147,6 +152,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 			Op2Register = (byte)instr.Op2Register;
 			Debug.Assert(TEST_RegisterBits == 8);
 			Op3Register = (byte)instr.Op3Register;
+			Debug.Assert(TEST_RegisterBits == 8);
+			Op4Register = (byte)instr.Op4Register;
 		}
 	}
 
@@ -910,10 +917,37 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
-			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D)
+			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D) {
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op0Register = (byte)((Register)info.Op0Register - Register.EAX + Register.AX);
-			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D)
+			}
+			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D) {
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op1Register = (byte)((Register)info.Op1Register - Register.EAX + Register.AX);
+			}
+		}
+	}
+
+	sealed class SimpleInstrInfo_reg : InstrInfo {
+		readonly string mnemonic;
+		readonly Register register;
+		readonly InstrOpInfoFlags flags;
+
+		public SimpleInstrInfo_reg(Code code, string mnemonic, Register register) : this(code, mnemonic, register, InstrOpInfoFlags.None) { }
+
+		public SimpleInstrInfo_reg(Code code, string mnemonic, Register register, InstrOpInfoFlags flags)
+			: base(code) {
+			this.mnemonic = mnemonic;
+			this.register = register;
+			this.flags = flags;
+		}
+
+		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info.OpCount = 1;
+			info.Op0Kind = InstrOpKind.Register;
+			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			info.Op0Register = (byte)register;
 		}
 	}
 }

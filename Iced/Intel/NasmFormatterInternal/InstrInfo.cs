@@ -30,7 +30,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		FarBranch16 = OpKind.FarBranch16,
 		FarBranch32 = OpKind.FarBranch32,
 		Immediate8 = OpKind.Immediate8,
-		Immediate8_Enter = OpKind.Immediate8_Enter,
+		Immediate8_2nd = OpKind.Immediate8_2nd,
 		Immediate16 = OpKind.Immediate16,
 		Immediate32 = OpKind.Immediate32,
 		Immediate64 = OpKind.Immediate64,
@@ -150,6 +150,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		public byte Op1Register;
 		public byte Op2Register;
 		public byte Op3Register;
+		public byte Op4Register;
 
 		public MemorySize MemorySize {
 			get => (MemorySize)(((uint)Flags >> (int)InstrOpInfoFlags.MemorySizeShift) & (uint)InstrOpInfoFlags.MemorySizeMask);
@@ -163,7 +164,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			case 1: return (Register)Op1Register;
 			case 2: return (Register)Op2Register;
 			case 3: return (Register)Op3Register;
-			case 4: throw new InvalidOperationException("Reg op5 doesn't exist in any instruction");
+			case 4: return (Register)Op4Register;
 			default: throw new ArgumentOutOfRangeException(nameof(operand));
 			}
 		}
@@ -180,15 +181,15 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 
 		public InstrOpInfo(string mnemonic, ref Instruction instr, InstrOpInfoFlags flags) {
+			Debug.Assert(DecoderConstants.MaxOpCount == 5);
 			Mnemonic = mnemonic;
 			Flags = flags | (InstrOpInfoFlags)((uint)instr.MemorySize << (int)InstrOpInfoFlags.MemorySizeShift);
 			OpCount = (byte)instr.OpCount;
-			Debug.Assert(instr.OpCount <= 4);
 			Op0Kind = (InstrOpKind)instr.Op0Kind;
 			Op1Kind = (InstrOpKind)instr.Op1Kind;
 			Op2Kind = (InstrOpKind)instr.Op2Kind;
 			Op3Kind = (InstrOpKind)instr.Op3Kind;
-			Op4Kind = 0;
+			Op4Kind = (InstrOpKind)instr.Op4Kind;
 			Debug.Assert(TEST_RegisterBits == 8);
 			Op0Register = (byte)instr.Op0Register;
 			Debug.Assert(TEST_RegisterBits == 8);
@@ -197,6 +198,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			Op2Register = (byte)instr.Op2Register;
 			Debug.Assert(TEST_RegisterBits == 8);
 			Op3Register = (byte)instr.Op3Register;
+			Debug.Assert(TEST_RegisterBits == 8);
+			Op4Register = (byte)instr.Op4Register;
 		}
 	}
 
@@ -428,7 +431,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			case OpKind.FarBranch16:
 			case OpKind.FarBranch32:
 			case OpKind.Immediate8:
-			case OpKind.Immediate8_Enter:
+			case OpKind.Immediate8_2nd:
 			case OpKind.Immediate16:
 			case OpKind.Immediate32:
 			case OpKind.Immediate64:
@@ -808,11 +811,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_monitor : InstrInfo {
+	sealed class SimpleInstrInfo_as : InstrInfo {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_monitor(Code code, int codeSize, string mnemonic)
+		public SimpleInstrInfo_as(Code code, int codeSize, string mnemonic)
 			: base(code) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
@@ -1648,6 +1651,47 @@ namespace Iced.Intel.NasmFormatterInternal {
 				info.Op0Register = (byte)((Register)info.Op0Register - Register.EAX + Register.AX);
 			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D)
 				info.Op1Register = (byte)((Register)info.Op1Register - Register.EAX + Register.AX);
+		}
+	}
+
+	sealed class SimpleInstrInfo_invlpga : InstrInfo {
+		readonly int codeSize;
+		readonly string mnemonic;
+
+		public SimpleInstrInfo_invlpga(Code code, int codeSize, string mnemonic)
+			: base(code) {
+			this.codeSize = codeSize;
+			this.mnemonic = mnemonic;
+		}
+
+		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			info = default;
+			info.Mnemonic = mnemonic;
+			info.OpCount = 2;
+			info.Op0Kind = InstrOpKind.Register;
+			info.Op1Kind = InstrOpKind.Register;
+			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			info.Op1Register = (byte)Register.ECX;
+
+			switch (codeSize) {
+			case 16:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.AX;
+				break;
+
+			case 32:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.EAX;
+				break;
+
+			case 64:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.RAX;
+				break;
+
+			default:
+				throw new InvalidOperationException();
+			}
 		}
 	}
 }

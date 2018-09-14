@@ -192,7 +192,7 @@ namespace Iced.Intel {
 			if (options.UpperCaseMnemonics || options.UpperCaseAll)
 				mnemonic = mnemonic.ToUpperInvariant();
 			output.Write(mnemonic, FormatterOutputTextKind.Mnemonic);
-			column += opInfo.Mnemonic.Length;
+			column += mnemonic.Length;
 		}
 
 		bool ShowSegmentOverridePrefix(ref InstrOpInfo opInfo) {
@@ -208,7 +208,7 @@ namespace Iced.Intel {
 				case InstrOpKind.FarBranch32:
 				case InstrOpKind.ExtraImmediate8_Value3:
 				case InstrOpKind.Immediate8:
-				case InstrOpKind.Immediate8_Enter:
+				case InstrOpKind.Immediate8_2nd:
 				case InstrOpKind.Immediate16:
 				case InstrOpKind.Immediate32:
 				case InstrOpKind.Immediate64:
@@ -353,14 +353,14 @@ namespace Iced.Intel {
 				break;
 
 			case InstrOpKind.Immediate8:
-			case InstrOpKind.Immediate8_Enter:
+			case InstrOpKind.Immediate8_2nd:
 			case InstrOpKind.ExtraImmediate8_Value3:
 				if (opKind == InstrOpKind.Immediate8)
 					imm8 = instruction.Immediate8;
 				else if (opKind == InstrOpKind.ExtraImmediate8_Value3)
 					imm8 = 3;
 				else
-					imm8 = instruction.Immediate8_Enter;
+					imm8 = instruction.Immediate8_2nd;
 				numberOptions = new NumberFormattingOptions(options, options.ShortNumbers, options.SignedImmediateOperands, false);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetImmediateSymbol(operand, ref instruction, imm8, 1, out symbol, ref numberOptions)) {
 					if ((symbol.Flags & SymbolFlags.Address) != 0) {
@@ -789,6 +789,9 @@ namespace Iced.Intel {
 					memSizeStrings = MemorySizes.oword_ptr;
 				break;
 			}
+
+			if (memType == InstrOpInfoFlags.MemSize_XmmwordPtr)
+				memSizeStrings = MemorySizes.xmmword_ptr;
 
 			foreach (string name in memSizeStrings) {
 				FormatKeyword(output, name);

@@ -391,6 +391,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"cmpxchg8b [bx+si]",
 			"crc32 ecx,dh",
 			"crc32 ebx,byte [bx+si]",
+			"crc32 ecx,si",
+			"crc32 ebx,word [bx+si]",
 			"crc32 ecx,esi",
 			"crc32 ebx,dword [bx+si]",
 			"a32 maskmovq mm2,mm3",
@@ -528,6 +530,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"mov cl,byte [fs:bx+0x1234]",
 			"arpl dx,si",
 			"arpl word [bx+si],bx",
+			"vmrun",
+			"a32 vmrun",
+			"vmload",
+			"a32 vmload",
+			"vmsave",
+			"a32 vmsave",
+			"invlpga ax,ecx",
+			"invlpga eax,ecx",
+			"monitorx",
+			"a32 monitorx",
+			"clzero",
+			"o32 clzero",
 		};
 	}
 }

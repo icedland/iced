@@ -41,9 +41,16 @@ namespace Iced.Intel.InstructionInfoInternal {
 			OpAccess.Read,
 		};
 
+		internal static readonly OpAccess[] Op4Accesses = new OpAccess[(int)OpInfo4.Last] {
+			OpAccess.None,
+			OpAccess.Read,
+		};
+
 		const uint Encoding_Legacy = (uint)EncodingKind.Legacy << (int)InfoFlags2.EncodingShift;
 		const uint Encoding_VEX = (uint)EncodingKind.VEX << (int)InfoFlags2.EncodingShift;
 		const uint Encoding_EVEX = (uint)EncodingKind.EVEX << (int)InfoFlags2.EncodingShift;
+		const uint Encoding_XOP = (uint)EncodingKind.XOP << (int)InfoFlags2.EncodingShift;
+		const uint Encoding_D3NOW = (uint)EncodingKind.D3NOW << (int)InfoFlags2.EncodingShift;
 
 		const uint RflagsInfo_C_AC = (uint)RflagsInfo.C_AC << (int)InfoFlags1.RflagsInfoShift;
 		const uint RflagsInfo_C_c = (uint)RflagsInfo.C_c << (int)InfoFlags1.RflagsInfoShift;
@@ -80,6 +87,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint RflagsInfo_W_aopsz = (uint)RflagsInfo.W_aopsz << (int)InfoFlags1.RflagsInfoShift;
 		const uint RflagsInfo_W_c_C_aopsz = (uint)RflagsInfo.W_c_C_aopsz << (int)InfoFlags1.RflagsInfoShift;
 		const uint RflagsInfo_W_c_U_aops = (uint)RflagsInfo.W_c_U_aops << (int)InfoFlags1.RflagsInfoShift;
+		const uint RflagsInfo_W_c = (uint)RflagsInfo.W_c << (int)InfoFlags1.RflagsInfoShift;
 		const uint RflagsInfo_W_co = (uint)RflagsInfo.W_co << (int)InfoFlags1.RflagsInfoShift;
 		const uint RflagsInfo_W_co_U_apsz = (uint)RflagsInfo.W_co_U_apsz << (int)InfoFlags1.RflagsInfoShift;
 		const uint RflagsInfo_W_copsz_U_a = (uint)RflagsInfo.W_copsz_U_a << (int)InfoFlags1.RflagsInfoShift;
@@ -106,6 +114,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 
 		const uint CodeInfo_Cdq = (uint)CodeInfo.Cdq << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Cdqe = (uint)CodeInfo.Cdqe << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Clzero = (uint)CodeInfo.Clzero << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Cmps = (uint)CodeInfo.Cmps << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Cmpxchg = (uint)CodeInfo.Cmpxchg << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Cmpxchg8b = (uint)CodeInfo.Cmpxchg8b << (int)InfoFlags1.CodeInfoShift;
@@ -117,11 +126,13 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CodeInfo_Encls = (uint)CodeInfo.Encls << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Enter = (uint)CodeInfo.Enter << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Ins = (uint)CodeInfo.Ins << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Invlpga = (uint)CodeInfo.Invlpga << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Iret = (uint)CodeInfo.Iret << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Jrcxz = (uint)CodeInfo.Jrcxz << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Lahf = (uint)CodeInfo.Lahf << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Lds = (uint)CodeInfo.Lds << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Leave = (uint)CodeInfo.Leave << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Llwpcb = (uint)CodeInfo.Llwpcb << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Lods = (uint)CodeInfo.Lods << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Loop = (uint)CodeInfo.Loop << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Maskmovq = (uint)CodeInfo.Maskmovq << (int)InfoFlags1.CodeInfoShift;
@@ -130,6 +141,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CodeInfo_Mul = (uint)CodeInfo.Mul << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Mulx = (uint)CodeInfo.Mulx << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Mwait = (uint)CodeInfo.Mwait << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Mwaitx = (uint)CodeInfo.Mwaitx << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Outs = (uint)CodeInfo.Outs << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_PcmpXstrY = (uint)CodeInfo.PcmpXstrY << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Pop_2 = (uint)CodeInfo.Pop_2 << (int)InfoFlags1.CodeInfoShift;
@@ -172,6 +184,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CodeInfo_Stos = (uint)CodeInfo.Stos << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Syscall = (uint)CodeInfo.Syscall << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Vmfunc = (uint)CodeInfo.Vmfunc << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Vmload = (uint)CodeInfo.Vmload << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Vzeroall = (uint)CodeInfo.Vzeroall << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_W_EAX_ECX_EDX = (uint)CodeInfo.W_EAX_ECX_EDX << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_W_EAX_EDX = (uint)CodeInfo.W_EAX_EDX << (int)InfoFlags1.CodeInfoShift;
@@ -202,6 +215,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 
 		const uint Op3_None = (uint)OpInfo3.None << (int)InfoFlags2.OpInfo3Shift;
 		const uint Op3_Read = (uint)OpInfo3.Read << (int)InfoFlags2.OpInfo3Shift;
+
+		const uint Op4_None = (uint)OpInfo4.None << (int)InfoFlags2.OpInfo4Shift;
+		const uint Op4_Read = (uint)OpInfo4.Read << (int)InfoFlags2.OpInfo4Shift;
 
 		const uint CPUID_INTEL8086 = (uint)CpuidFeature.INTEL8086 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INTEL186 = (uint)CpuidFeature.INTEL186 << (int)InfoFlags2.CpuidFeatureShift;
@@ -235,14 +251,18 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_CLFLUSHOPT = (uint)CpuidFeature.CLFLUSHOPT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CLFSH = (uint)CpuidFeature.CLFSH << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CLWB = (uint)CpuidFeature.CLWB << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_CLZERO = (uint)CpuidFeature.CLZERO << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CMOV = (uint)CpuidFeature.CMOV << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CMPXCHG16B = (uint)CpuidFeature.CMPXCHG16B << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CPUID = (uint)CpuidFeature.CPUID << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CX8 = (uint)CpuidFeature.CX8 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_D3NOW = (uint)CpuidFeature.D3NOW << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_D3NOWEXT = (uint)CpuidFeature.D3NOWEXT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_ENCLV = (uint)CpuidFeature.ENCLV << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_F16C = (uint)CpuidFeature.F16C << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FCOMI = (uint)CpuidFeature.FCOMI << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FMA = (uint)CpuidFeature.FMA << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_FMA4 = (uint)CpuidFeature.FMA4 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FPU = (uint)CpuidFeature.FPU << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FPU_and_CMOV = (uint)CpuidFeature.FPU_and_CMOV << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FPU_and_SSE3 = (uint)CpuidFeature.FPU_and_SSE3 << (int)InfoFlags2.CpuidFeatureShift;
@@ -250,13 +270,16 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_FPU387 = (uint)CpuidFeature.FPU387 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FSGSBASE = (uint)CpuidFeature.FSGSBASE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FXSR = (uint)CpuidFeature.FXSR << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_GEODE = (uint)CpuidFeature.GEODE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_HLE_or_RTM = (uint)CpuidFeature.HLE_or_RTM << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INVEPT = (uint)CpuidFeature.INVEPT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INVPCID = (uint)CpuidFeature.INVPCID << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INVVPID = (uint)CpuidFeature.INVVPID << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_LWP = (uint)CpuidFeature.LWP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_LZCNT = (uint)CpuidFeature.LZCNT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MMX = (uint)CpuidFeature.MMX << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MONITOR = (uint)CpuidFeature.MONITOR << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_MONITORX = (uint)CpuidFeature.MONITORX << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MOVBE = (uint)CpuidFeature.MOVBE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MPX = (uint)CpuidFeature.MPX << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MSR = (uint)CpuidFeature.MSR << (int)InfoFlags2.CpuidFeatureShift;
@@ -278,17 +301,22 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_SEP = (uint)CpuidFeature.SEP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SGX1 = (uint)CpuidFeature.SGX1 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SHA = (uint)CpuidFeature.SHA << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_SKINIT_or_SVML = (uint)CpuidFeature.SKINIT_or_SVML << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SMAP = (uint)CpuidFeature.SMAP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SMX = (uint)CpuidFeature.SMX << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_SVM = (uint)CpuidFeature.SVM << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSE = (uint)CpuidFeature.SSE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSE2 = (uint)CpuidFeature.SSE2 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSE3 = (uint)CpuidFeature.SSE3 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSE4_1 = (uint)CpuidFeature.SSE4_1 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSE4_2 = (uint)CpuidFeature.SSE4_2 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_SSE4A = (uint)CpuidFeature.SSE4A << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSSE3 = (uint)CpuidFeature.SSSE3 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SYSCALL = (uint)CpuidFeature.SYSCALL << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_TBM = (uint)CpuidFeature.TBM << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_TSC = (uint)CpuidFeature.TSC << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_VMX = (uint)CpuidFeature.VMX << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_XOP = (uint)CpuidFeature.XOP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_XSAVE = (uint)CpuidFeature.XSAVE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_XSAVEC = (uint)CpuidFeature.XSAVEC << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_XSAVEOPT = (uint)CpuidFeature.XSAVEOPT << (int)InfoFlags2.CpuidFeatureShift;
@@ -1281,10 +1309,33 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Xend, FlowControl_XbeginXabortXend | CPUID_RTM | Encoding_Legacy,
 			(uint)Code.Xtest | RflagsInfo_W_z_C_acops, CPUID_HLE_or_RTM | Encoding_Legacy,
 			(uint)Code.Enclu | ProtectedMode | RflagsInfo_W_acopsz | CodeInfo_Encls, CPUID_SGX1 | Encoding_Legacy,
+			(uint)Code.Vmrunw | ProtectedMode | Privileged | SaveRestore | RflagsInfo_R_acopszidAC | CodeInfo_Vmload, CPUID_SVM | FlowControl_Return | Encoding_Legacy,
+			(uint)Code.Vmrund | ProtectedMode | Privileged | SaveRestore | RflagsInfo_R_acopszidAC | CodeInfo_Vmload, CPUID_SVM | FlowControl_Return | Encoding_Legacy,
+			(uint)Code.Vmrunq | ProtectedMode | Privileged | SaveRestore | RflagsInfo_R_acopszidAC | CodeInfo_Vmload, CPUID_SVM | FlowControl_Return | Encoding_Legacy,
+			(uint)Code.Vmmcall, CPUID_SVM | FlowControl_Call | Encoding_Legacy,
+			(uint)Code.Vmloadw | ProtectedMode | Privileged | SaveRestore | CodeInfo_Vmload, CPUID_SVM | Encoding_Legacy,
+			(uint)Code.Vmloadd | ProtectedMode | Privileged | SaveRestore | CodeInfo_Vmload, CPUID_SVM | Encoding_Legacy,
+			(uint)Code.Vmloadq | ProtectedMode | Privileged | SaveRestore | CodeInfo_Vmload, CPUID_SVM | Encoding_Legacy,
+			(uint)Code.Vmsavew | ProtectedMode | Privileged | SaveRestore | CodeInfo_Vmload, CPUID_SVM | Encoding_Legacy,
+			(uint)Code.Vmsaved | ProtectedMode | Privileged | SaveRestore | CodeInfo_Vmload, CPUID_SVM | Encoding_Legacy,
+			(uint)Code.Vmsaveq | ProtectedMode | Privileged | SaveRestore | CodeInfo_Vmload, CPUID_SVM | Encoding_Legacy,
+			(uint)Code.Stgi | ProtectedMode | Privileged, CPUID_SKINIT_or_SVML | Encoding_Legacy,
+			(uint)Code.Clgi | ProtectedMode | Privileged, CPUID_SVM | Encoding_Legacy,
+			(uint)Code.Skinit | ProtectedMode | Privileged | SaveRestore | RflagsInfo_W_acopszidAC, CPUID_SKINIT_or_SVML | FlowControl_Return | Encoding_Legacy,
+			(uint)Code.Invlpgaw | ProtectedMode | Privileged | CodeInfo_Invlpga, CPUID_SVM | Encoding_Legacy,
+			(uint)Code.Invlpgad | ProtectedMode | Privileged | CodeInfo_Invlpga, CPUID_SVM | Encoding_Legacy,
+			(uint)Code.Invlpgaq | ProtectedMode | Privileged | CodeInfo_Invlpga, CPUID_SVM | Encoding_Legacy,
 			(uint)Code.Rdpkru | CodeInfo_R_ECX_W_EAX_EDX, CPUID_PKU | Encoding_Legacy,
 			(uint)Code.Wrpkru | CodeInfo_R_EAX_ECX_EDX, CPUID_PKU | Encoding_Legacy,
 			(uint)Code.Swapgs | Privileged, CPUID_X64 | Encoding_Legacy,
 			(uint)Code.Rdtscp | CodeInfo_W_EAX_ECX_EDX, CPUID_RDTSCP | Encoding_Legacy,
+			(uint)Code.Monitorxw | CodeInfo_Monitor, CPUID_MONITORX | Encoding_Legacy,
+			(uint)Code.Monitorxd | CodeInfo_Monitor, CPUID_MONITORX | Encoding_Legacy,
+			(uint)Code.Monitorxq | CodeInfo_Monitor, CPUID_MONITORX | Encoding_Legacy,
+			(uint)Code.Mwaitx | CodeInfo_Mwaitx, CPUID_MONITORX | Encoding_Legacy,
+			(uint)Code.Clzerow | CodeInfo_Clzero, CPUID_CLZERO | Encoding_Legacy,
+			(uint)Code.Clzerod | CodeInfo_Clzero, CPUID_CLZERO | Encoding_Legacy,
+			(uint)Code.Clzeroq | CodeInfo_Clzero, CPUID_CLZERO | Encoding_Legacy,
 			(uint)Code.Lar_Gw_Ew | RflagsInfo_W_z | ProtectedMode, Op0_CondWrite | Op1_Read | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Lar_Gd_Ed | RflagsInfo_W_z | ProtectedMode, Op0_CondWrite | Op1_Read | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Lar_Gq_Eq | RflagsInfo_W_z | ProtectedMode, Op0_CondWrite | Op1_Read | CPUID_INTEL286 | Encoding_Legacy,
@@ -1298,8 +1349,15 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Invd | Privileged, CPUID_INTEL486 | Encoding_Legacy,
 			(uint)Code.Wbinvd | Privileged, CPUID_INTEL486 | Encoding_Legacy,
 			(uint)Code.Ud2, FlowControl_Exception | CPUID_INTEL286 | Encoding_Legacy,
+			(uint)Code.Prefetch_Mb, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
 			(uint)Code.Prefetchw_Mb, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
 			(uint)Code.Prefetchwt1_Mb, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
+			(uint)Code.Prefetch_Mb_r3, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
+			(uint)Code.Prefetch_Mb_r4, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
+			(uint)Code.Prefetch_Mb_r5, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
+			(uint)Code.Prefetch_Mb_r6, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
+			(uint)Code.Prefetch_Mb_r7, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
+			(uint)Code.Femms, CPUID_D3NOW | Encoding_Legacy,
 			(uint)Code.Movups_VX_WX, Op0_Write | Op1_Read | CPUID_SSE | Encoding_Legacy,
 			(uint)Code.VEX_Vmovups_VX_WX, Op0_Write | Op1_Read | CPUID_AVX | Encoding_VEX,
 			(uint)Code.VEX_Vmovups_VY_WY, Op0_Write | Op1_Read | CPUID_AVX | Encoding_VEX,
@@ -1495,6 +1553,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vmovntpd_M_VX, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vmovntpd_M_VY, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vmovntpd_M_VZ, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
+			(uint)Code.Movntss_M_VX, Op0_Write | Op1_Read | CPUID_SSE4A | Encoding_Legacy,
+			(uint)Code.Movntsd_M_VX, Op0_Write | Op1_Read | CPUID_SSE4A | Encoding_Legacy,
 			(uint)Code.Cvttps2pi_P_WX, Op0_Write | Op1_Read | CPUID_SSE | Encoding_Legacy,
 			(uint)Code.Cvttpd2pi_P_WX, Op0_Write | Op1_Read | CPUID_SSE2 | Encoding_Legacy,
 			(uint)Code.Cvttss2si_Gd_WX, Op0_Write | Op1_Read | CPUID_SSE | Encoding_Legacy,
@@ -2114,14 +2174,13 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.VEX_Vzeroall | CodeInfo_Vzeroall, CPUID_AVX | Encoding_VEX,
 			(uint)Code.Vmread_Ed_Gd | Privileged | ProtectedMode | RflagsInfo_W_cz_C_aops, Op0_Write | Op1_Read | CPUID_VMX | Encoding_Legacy,
 			(uint)Code.Vmread_Eq_Gq | Privileged | ProtectedMode | RflagsInfo_W_cz_C_aops, Op0_Write | Op1_Read | CPUID_VMX | Encoding_Legacy,
-			(uint)Code.Vmwrite_Gd_Ed | Privileged | ProtectedMode | RflagsInfo_W_cz_C_aops, Op0_Read | Op1_Read | CPUID_VMX | Encoding_Legacy,
-			(uint)Code.Vmwrite_Gq_Eq | Privileged | ProtectedMode | RflagsInfo_W_cz_C_aops, Op0_Read | Op1_Read | CPUID_VMX | Encoding_Legacy,
 			(uint)Code.EVEX_Vcvttps2udq_VX_k1z_WX_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvttps2udq_VY_k1z_WY_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvttps2udq_VZ_k1z_WZ_sae_b, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvttpd2udq_VX_k1z_WX_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvttpd2udq_VX_k1z_WY_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvttpd2udq_VY_k1z_WZ_sae_b, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
+			(uint)Code.Extrq_RX_Ib_Ib, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_SSE4A | Encoding_Legacy,
 			(uint)Code.EVEX_Vcvttps2uqq_VX_k1z_WX_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvttps2uqq_VY_k1z_WX_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvttps2uqq_VZ_k1z_WY_sae_b, Op0_Write | Op1_Read | CPUID_AVX512DQ | Encoding_EVEX,
@@ -2130,14 +2189,18 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vcvttpd2uqq_VZ_k1z_WZ_sae_b, Op0_Write | Op1_Read | CPUID_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvttss2usi_Gd_WX_sae, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvttss2usi_Gq_WX_sae, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
+			(uint)Code.Insertq_VX_RX_Ib_Ib, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_SSE4A | Encoding_Legacy,
 			(uint)Code.EVEX_Vcvttsd2usi_Gd_WX_sae, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvttsd2usi_Gq_WX_sae, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
+			(uint)Code.Vmwrite_Gd_Ed | Privileged | ProtectedMode | RflagsInfo_W_cz_C_aops, Op0_Read | Op1_Read | CPUID_VMX | Encoding_Legacy,
+			(uint)Code.Vmwrite_Gq_Eq | Privileged | ProtectedMode | RflagsInfo_W_cz_C_aops, Op0_Read | Op1_Read | CPUID_VMX | Encoding_Legacy,
 			(uint)Code.EVEX_Vcvtps2udq_VX_k1z_WX_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvtps2udq_VY_k1z_WY_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvtps2udq_VZ_k1z_WZ_er_b, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvtpd2udq_VX_k1z_WX_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvtpd2udq_VX_k1z_WY_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvtpd2udq_VY_k1z_WZ_er_b, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
+			(uint)Code.Extrq_VX_RX, Op0_ReadWrite | Op1_Read | CPUID_SSE4A | Encoding_Legacy,
 			(uint)Code.EVEX_Vcvtps2uqq_VX_k1z_WX_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvtps2uqq_VY_k1z_WX_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvtps2uqq_VZ_k1z_WY_er_b, Op0_Write | Op1_Read | CPUID_AVX512DQ | Encoding_EVEX,
@@ -2146,6 +2209,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vcvtpd2uqq_VZ_k1z_WZ_er_b, Op0_Write | Op1_Read | CPUID_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvtss2usi_Gd_WX_er, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvtss2usi_Gq_WX_er, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
+			(uint)Code.Insertq_VX_RX, Op0_ReadWrite | Op1_Read | CPUID_SSE4A | Encoding_Legacy,
 			(uint)Code.EVEX_Vcvtsd2usi_Gd_WX_er, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvtsd2usi_Gq_WX_er, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vcvttps2qq_VX_k1z_WX_b, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512DQ | Encoding_EVEX,
@@ -3921,6 +3985,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Movbe_Mq_Gq, Op0_Write | Op1_Read | CPUID_MOVBE | Encoding_Legacy,
 			(uint)Code.Crc32_Gd_Eb, Op0_ReadWrite | Op1_Read | CPUID_SSE4_2 | Encoding_Legacy,
 			(uint)Code.Crc32_Gq_Eb, Op0_ReadWrite | Op1_Read | CPUID_SSE4_2 | Encoding_Legacy,
+			(uint)Code.Crc32_Gd_Ew, Op0_ReadWrite | Op1_Read | CPUID_SSE4_2 | Encoding_Legacy,
 			(uint)Code.Crc32_Gd_Ed, Op0_ReadWrite | Op1_Read | CPUID_SSE4_2 | Encoding_Legacy,
 			(uint)Code.Crc32_Gq_Eq, Op0_ReadWrite | Op1_Read | CPUID_SSE4_2 | Encoding_Legacy,
 			(uint)Code.VEX_Andn_Gd_Hd_Ed | ProtectedMode | RflagsInfo_W_sz_C_co_U_ap, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI1 | Encoding_VEX,
@@ -4150,6 +4215,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Pclmulqdq_VX_WX_Ib, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_PCLMULQDQ | Encoding_Legacy,
 			(uint)Code.VEX_Vpclmulqdq_VX_HX_WX_Ib, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_PCLMULQDQ_and_AVX | Encoding_VEX,
 			(uint)Code.VEX_Vperm2i128_VY_HY_WY_Ib, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX2 | Encoding_VEX,
+			(uint)Code.VEX_Vpermil2ps_VX_HX_WX_Is4X_I2 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | Op4_Read | CPUID_XOP | Encoding_VEX,
+			(uint)Code.VEX_Vpermil2ps_VY_HY_WY_Is4Y_I2 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | Op4_Read | CPUID_XOP | Encoding_VEX,
+			(uint)Code.VEX_Vpermil2ps_VX_HX_Is4X_WX_I2 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | Op4_Read | CPUID_XOP | Encoding_VEX,
+			(uint)Code.VEX_Vpermil2ps_VY_HY_Is4Y_WY_I2 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | Op4_Read | CPUID_XOP | Encoding_VEX,
+			(uint)Code.VEX_Vpermil2pd_VX_HX_WX_Is4X_I2 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | Op4_Read | CPUID_XOP | Encoding_VEX,
+			(uint)Code.VEX_Vpermil2pd_VY_HY_WY_Is4Y_I2 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | Op4_Read | CPUID_XOP | Encoding_VEX,
+			(uint)Code.VEX_Vpermil2pd_VX_HX_Is4X_WX_I2 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | Op4_Read | CPUID_XOP | Encoding_VEX,
+			(uint)Code.VEX_Vpermil2pd_VY_HY_Is4Y_WY_I2 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | Op4_Read | CPUID_XOP | Encoding_VEX,
 			(uint)Code.VEX_Vblendvps_VX_HX_WX_Is4X, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX | Encoding_VEX,
 			(uint)Code.VEX_Vblendvps_VY_HY_WY_Is4Y, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX | Encoding_VEX,
 			(uint)Code.VEX_Vblendvpd_VX_HX_WX_Is4X, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX | Encoding_VEX,
@@ -4180,6 +4253,22 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vreducepd_VZ_k1z_WZ_Ib_sae_b, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vreducess_VX_k1z_HX_WX_Ib_sae, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vreducesd_VX_k1z_HX_WX_Ib_sae, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512DQ | Encoding_EVEX,
+			(uint)Code.VEX_Vfmaddsubps_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddsubps_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddsubps_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddsubps_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddsubpd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddsubpd_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddsubpd_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddsubpd_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubaddps_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubaddps_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubaddps_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubaddps_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubaddpd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubaddpd_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubaddpd_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubaddpd_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
 			(uint)Code.Pcmpestrm_VX_WX_Ib | CodeInfo_PcmpXstrY | RflagsInfo_W_cosz_C_ap, Op0_Read | Op1_Read | Op2_Read | CPUID_SSE4_2 | Encoding_Legacy,
 			(uint)Code.Pcmpestrm64_VX_WX_Ib | CodeInfo_PcmpXstrY | RflagsInfo_W_cosz_C_ap, Op0_Read | Op1_Read | Op2_Read | CPUID_SSE4_2 | Encoding_Legacy,
 			(uint)Code.VEX_Vpcmpestrm_VX_WX_Ib | CodeInfo_PcmpXstrY | RflagsInfo_W_cosz_C_ap, Op0_Read | Op1_Read | Op2_Read | CPUID_AVX | Encoding_VEX,
@@ -4200,11 +4289,188 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vfpclasspd_VK_k1_WZ_Ib_b, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vfpclassss_VK_k1_WX_Ib, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vfpclasssd_VK_k1_WX_Ib, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512DQ | Encoding_EVEX,
+			(uint)Code.VEX_Vfmaddps_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddps_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddps_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddps_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddpd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddpd_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddpd_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddpd_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddss_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddss_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddsd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmaddsd_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubps_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubps_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubps_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubps_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubpd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubpd_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubpd_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubpd_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubss_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubss_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubsd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfmsubsd_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddps_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddps_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddps_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddps_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddpd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddpd_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddpd_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddpd_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddss_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddss_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddsd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmaddsd_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubps_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubps_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubps_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubps_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubpd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubpd_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubpd_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubpd_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubss_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubss_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubsd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.VEX_Vfnmsubsd_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
 			(uint)Code.Sha1rnds4_VX_WX_Ib, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_SHA | Encoding_Legacy,
 			(uint)Code.Aeskeygenassist_VX_WX_Ib, Op0_Write | Op1_Read | Op2_Read | CPUID_AES | Encoding_Legacy,
 			(uint)Code.VEX_Vaeskeygenassist_VX_WX_Ib, Op0_Write | Op1_Read | Op2_Read | CPUID_AES_and_AVX | Encoding_VEX,
 			(uint)Code.VEX_Rorx_Gd_Ed_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,
 			(uint)Code.VEX_Rorx_Gq_Eq_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,
+			(uint)Code.XOP_Vpmacssww_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpmacsswd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpmacssdql_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpmacssdd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpmacssdqh_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpmacsww_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpmacswd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpmacsdql_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpmacsdd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpmacsdqh_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcmov_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcmov_VY_HY_WY_Is4Y | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcmov_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcmov_VY_HY_Is4Y_WY | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpperm_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpperm_VX_HX_Is4X_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpmadcsswd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpmadcswd_VX_HX_WX_Is4X | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotb_VX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotw_VX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotd_VX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotq_VX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcomb_VX_HX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcomw_VX_HX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcomd_VX_HX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcomq_VX_HX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcomub_VX_HX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcomuw_VX_HX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcomud_VX_HX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpcomuq_VX_HX_WX_Ib | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Blcfill_Hd_Ed | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blcfill_Hq_Eq | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blsfill_Hd_Ed | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blsfill_Hq_Eq | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blcs_Hd_Ed | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blcs_Hq_Eq | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Tzmsk_Hd_Ed | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Tzmsk_Hq_Eq | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blcic_Hd_Ed | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blcic_Hq_Eq | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blsic_Hd_Ed | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blsic_Hq_Eq | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_T1mskc_Hd_Ed | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_T1mskc_Hq_Eq | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blcmsk_Hd_Ed | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blcmsk_Hq_Eq | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blci_Hd_Ed | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Blci_Hq_Eq | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Llwpcb_Rd | ProtectedMode | CodeInfo_Llwpcb, Op0_Read | CPUID_LWP | Encoding_XOP,
+			(uint)Code.XOP_Llwpcb_Rq | ProtectedMode | CodeInfo_Llwpcb, Op0_Read | CPUID_LWP | Encoding_XOP,
+			(uint)Code.XOP_Slwpcb_Rd | ProtectedMode, Op0_Write | CPUID_LWP | Encoding_XOP,
+			(uint)Code.XOP_Slwpcb_Rq | ProtectedMode, Op0_Write | CPUID_LWP | Encoding_XOP,
+			(uint)Code.XOP_Vfrczps_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vfrczps_VY_WY | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vfrczpd_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vfrczpd_VY_WY | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vfrczss_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vfrczsd_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotb_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotb_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotw_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotw_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotd_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotd_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotq_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vprotq_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshlb_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshlb_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshlw_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshlw_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshld_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshld_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshlq_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshlq_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshab_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshab_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshaw_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshaw_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshad_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshad_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshaq_VX_WX_HX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vpshaq_VX_HX_WX | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphaddbw_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphaddbd_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphaddbq_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphaddwd_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphaddwq_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphadddq_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphaddubw_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphaddubd_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphaddubq_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphadduwd_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphadduwq_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphaddudq_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphsubbw_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphsubwd_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Vphsubdq_VX_WX | ProtectedMode, Op0_Write | Op1_Read | CPUID_XOP | Encoding_XOP,
+			(uint)Code.XOP_Bextr_Gd_Ed_Id | ProtectedMode | RflagsInfo_W_z_C_co_U_aps, Op0_Write | Op1_Read | Op2_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Bextr_Gq_Eq_Id | ProtectedMode | RflagsInfo_W_z_C_co_U_aps, Op0_Write | Op1_Read | Op2_Read | CPUID_TBM | Encoding_XOP,
+			(uint)Code.XOP_Lwpins_Hd_Ed_Id | ProtectedMode | RflagsInfo_W_c, Op0_Read | Op1_Read | Op2_Read | CPUID_LWP | Encoding_XOP,
+			(uint)Code.XOP_Lwpins_Hq_Ed_Id | ProtectedMode | RflagsInfo_W_c, Op0_Read | Op1_Read | Op2_Read | CPUID_LWP | Encoding_XOP,
+			(uint)Code.XOP_Lwpval_Hd_Ed_Id | ProtectedMode, Op0_Read | Op1_Read | Op2_Read | CPUID_LWP | Encoding_XOP,
+			(uint)Code.XOP_Lwpval_Hq_Ed_Id | ProtectedMode, Op0_Read | Op1_Read | Op2_Read | CPUID_LWP | Encoding_XOP,
+			(uint)Code.D3NOW_Pi2fw_P_Q, Op0_Write | Op1_Read | CPUID_D3NOWEXT | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pi2fd_P_Q, Op0_Write | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pf2iw_P_Q, Op0_Write | Op1_Read | CPUID_D3NOWEXT | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pf2id_P_Q, Op0_Write | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfrcpv_P_Q, Op0_Write | Op1_Read | CPUID_GEODE | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfrsqrtv_P_Q, Op0_Write | Op1_Read | CPUID_GEODE | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfnacc_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOWEXT | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfpnacc_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOWEXT | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfcmpge_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfmin_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfrcp_P_Q, Op0_Write | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfrsqrt_P_Q, Op0_Write | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfsub_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfadd_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfcmpgt_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfmax_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfrcpit1_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfrsqit1_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfsubr_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfacc_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfcmpeq_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfmul_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pfrcpit2_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pmulhrw_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pswapd_P_Q, Op0_Write | Op1_Read | CPUID_D3NOWEXT | Encoding_D3NOW,
+			(uint)Code.D3NOW_Pavgusb_P_Q, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
 		};
 	}
 }

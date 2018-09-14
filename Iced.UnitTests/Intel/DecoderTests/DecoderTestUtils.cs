@@ -263,6 +263,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Lgdtd_Ms;
 			yield return Code.Lidtw_Ms;
 			yield return Code.Lidtd_Ms;
+			yield return Code.Vmrunw;
+			yield return Code.Vmloadw;
+			yield return Code.Vmsavew;
+			yield return Code.Invlpgaw;
+			yield return Code.Monitorxw;
 		}
 
 		static IEnumerable<Code> GetCode64() {
@@ -779,6 +784,26 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.VEX_Vpcmpestrm64_VX_WX_Ib;
 			yield return Code.Pcmpestri64_VX_WX_Ib;
 			yield return Code.VEX_Vpcmpestri64_VX_WX_Ib;
+			yield return Code.Vmrunq;
+			yield return Code.Vmloadq;
+			yield return Code.Vmsaveq;
+			yield return Code.Invlpgaq;
+			yield return Code.Monitorxq;
+			yield return Code.Clzeroq;
+			yield return Code.XOP_Blcfill_Hq_Eq;
+			yield return Code.XOP_Blsfill_Hq_Eq;
+			yield return Code.XOP_Blcs_Hq_Eq;
+			yield return Code.XOP_Tzmsk_Hq_Eq;
+			yield return Code.XOP_Blcic_Hq_Eq;
+			yield return Code.XOP_Blsic_Hq_Eq;
+			yield return Code.XOP_T1mskc_Hq_Eq;
+			yield return Code.XOP_Blcmsk_Hq_Eq;
+			yield return Code.XOP_Blci_Hq_Eq;
+			yield return Code.XOP_Llwpcb_Rq;
+			yield return Code.XOP_Slwpcb_Rq;
+			yield return Code.XOP_Bextr_Gq_Eq_Id;
+			yield return Code.XOP_Lwpins_Hq_Ed_Id;
+			yield return Code.XOP_Lwpval_Hq_Ed_Id;
 		}
 
 		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool needHexBytes, bool includeOtherTests) {

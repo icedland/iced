@@ -456,6 +456,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"cmpxchg8b qword ptr [eax]",
 			"crc32 ecx,dh",
 			"crc32 ebx,byte ptr [eax]",
+			"crc32 ecx,si",
+			"crc32 ebx,word ptr [eax]",
 			"crc32 ecx,esi",
 			"crc32 ebx,dword ptr [eax]",
 			"maskmovq [di],mm2,mm3",
@@ -577,6 +579,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"mov cl,fs:[ebp+ecx*2+12h]",
 			"mov cl,fs:[ebp+ecx*4+12345678h]",
 			"mov cl,fs:[ecx*8+12345678h]",
+			"vmrun ax",
+			"vmrun eax",
+			"vmload ax",
+			"vmload eax",
+			"vmsave ax",
+			"vmsave eax",
+			"invlpga ax,ecx",
+			"invlpga eax,ecx",
+			"monitorx ax,ecx,edx",
+			"monitorx eax,ecx,edx",
+			"clzero",
+			"clzero",
 		};
 	}
 }

@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos16_000 {
-		public const int AllInfos_Length = 498;
+		public const int AllInfos_Length = 512;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(16, "06", Code.Pushw_ES),
 			new InstructionInfo(16, "66 06", Code.Pushd_ES),
@@ -385,8 +385,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(16, "0FC7 08", Code.Cmpxchg8b_Mq),
 			new InstructionInfo(16, "F2 0F38F0 CE", Code.Crc32_Gd_Eb),
 			new InstructionInfo(16, "F2 0F38F0 18", Code.Crc32_Gd_Eb),
-			new InstructionInfo(16, "F2 0F38F1 CE", Code.Crc32_Gd_Ed),
-			new InstructionInfo(16, "F2 0F38F1 18", Code.Crc32_Gd_Ed),
+			new InstructionInfo(16, "F2 0F38F1 CE", Code.Crc32_Gd_Ew),
+			new InstructionInfo(16, "F2 0F38F1 18", Code.Crc32_Gd_Ew),
+			new InstructionInfo(16, "66 F2 0F38F1 CE", Code.Crc32_Gd_Ed),
+			new InstructionInfo(16, "66 F2 0F38F1 18", Code.Crc32_Gd_Ed),
 			new InstructionInfo(16, "67 0FF7 D3", Code.Maskmovq_rDI_P_N),
 			new InstructionInfo(16, "0FF7 D3", Code.Maskmovq_rDI_P_N),
 			new InstructionInfo(16, "67 66 0FF7 D3", Code.Maskmovdqu_rDI_VX_RX),
@@ -522,6 +524,18 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(16, "64 8A 8F 3412", Code.Mov_Gb_Eb),
 			new InstructionInfo(16, "63 F2", Code.Arpl_Ew_Gw),
 			new InstructionInfo(16, "63 18", Code.Arpl_Ew_Gw),
+			new InstructionInfo(16, "0F01 D8", Code.Vmrunw),
+			new InstructionInfo(16, "67 0F01 D8", Code.Vmrund),
+			new InstructionInfo(16, "0F01 DA", Code.Vmloadw),
+			new InstructionInfo(16, "67 0F01 DA", Code.Vmloadd),
+			new InstructionInfo(16, "0F01 DB", Code.Vmsavew),
+			new InstructionInfo(16, "67 0F01 DB", Code.Vmsaved),
+			new InstructionInfo(16, "0F01 DF", Code.Invlpgaw),
+			new InstructionInfo(16, "67 0F01 DF", Code.Invlpgad),
+			new InstructionInfo(16, "0F01 FA", Code.Monitorxw),
+			new InstructionInfo(16, "67 0F01 FA", Code.Monitorxd),
+			new InstructionInfo(16, "0F01 FC", Code.Clzerow),
+			new InstructionInfo(16, "66 0F01 FC", Code.Clzerod),
 		};
 	}
 }

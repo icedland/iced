@@ -369,6 +369,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"crc32b (rax),ebx",
 			"crc32b sil,rcx",
 			"crc32b (rax),rbx",
+			"crc32w si,ecx",
+			"crc32w (rax),ebx",
 			"crc32l esi,ecx",
 			"crc32l (rax),ebx",
 			"crc32q rsi,rcx",

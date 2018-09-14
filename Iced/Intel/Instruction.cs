@@ -32,7 +32,7 @@ namespace Iced.Intel {
 		internal const int TEST_RegisterBits = 8;
 
 		/// <summary>
-		/// [1:0]	= scale
+		/// [1:0]	= Scale
 		/// [4:2]	= Size of displacement: 0, 1, 2, 4, 8
 		/// [7:5]	= Segment register prefix: none, es, cs, ss, ds, fs, gs, reserved
 		/// [14:8]	= MemorySize
@@ -56,7 +56,8 @@ namespace Iced.Intel {
 		/// [9:5]	= Operand #1's <see cref="OpKind"/>
 		/// [14:10]	= Operand #2's <see cref="OpKind"/>
 		/// [19:15]	= Operand #3's <see cref="OpKind"/>
-		/// [29:20]	= Not used
+		/// [26:20]	= Not used
+		/// [29:27]	= Number of operands
 		/// [31:30] = CodeSize
 		/// </summary>
 		[Flags]
@@ -67,18 +68,20 @@ namespace Iced.Intel {
 			Op2KindShift			= 10,
 			Op3KindShift			= 15,
 			// Unused bits here
+			OperandCountMask		= 7,
+			OperandCountShift		= 27,
 			CodeSizeMask			= 3,
 			CodeSizeShift			= 30,
 		}
 
 		/// <summary>
-		/// [11:0]	= <see cref="Intel.Code"/>
-		/// [12]	= Suppress all exceptions (EVEX.b)
-		/// [13]	= Zeroing masking (EVEX.z)
-		/// [16:14]	= Rounding control (same as <see cref="Intel.RoundingControl"/>)
-		/// [19:17]	= Opmask register or 0 if none
-		/// [22:20]	= Number of operands
-		/// [26:23]	= instruction length
+		/// [12:0]	= <see cref="Intel.Code"/>
+		/// [15:13]	= Rounding control (same as <see cref="Intel.RoundingControl"/>)
+		/// [18:16]	= Opmask register or 0 if none
+		/// [22:19]	= Instruction length
+		/// [24:23] = Not used
+		/// [25]	= Suppress all exceptions (EVEX.b)
+		/// [26]	= Zeroing masking (EVEX.z)
 		/// [27]	= xacquire prefix
 		/// [28]	= xrelease prefix
 		/// [29]	= repe prefix
@@ -87,18 +90,17 @@ namespace Iced.Intel {
 		/// </summary>
 		[Flags]
 		enum CodeFlags : uint {
-			CodeBits				= 12,
+			CodeBits				= 13,
 			CodeMask				= (1 << (int)CodeBits) - 1,
-			SuppressAllExceptions	= 0x00001000,
-			ZeroingMasking			= 0x00002000,
 			RoundingControlMask		= 7,
-			RoundingControlShift	= 14,
+			RoundingControlShift	= 13,
 			OpMaskMask				= 7,
-			OpMaskShift				= 17,
-			OperandCountMask		= 7,
-			OperandCountShift		= 20,
+			OpMaskShift				= 16,
 			InstrLengthMask			= 0xF,
-			InstrLengthShift		= 23,
+			InstrLengthShift		= 19,
+			// Unused bits here
+			SuppressAllExceptions	= 0x02000000,
+			ZeroingMasking			= 0x04000000,
 			PrefixXacquire			= 0x08000000,
 			PrefixXrelease			= 0x10000000,
 			PrefixRepe				= 0x20000000,
@@ -215,16 +217,16 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the operand count. Up to 4 operands is allowed.
+		/// Gets the operand count. Up to 5 operands is allowed.
 		/// </summary>
 		public int OpCount {
-			get => (int)((codeFlags >> (int)CodeFlags.OperandCountShift) & (uint)CodeFlags.OperandCountMask);
-			set => codeFlags = (codeFlags & ~((uint)CodeFlags.OperandCountMask << (int)CodeFlags.OperandCountShift)) |
-				(((uint)value & (uint)CodeFlags.OperandCountMask) << (int)CodeFlags.OperandCountShift);
+			get => (int)((opKindFlags >> (int)OpKindFlags.OperandCountShift) & (uint)OpKindFlags.OperandCountMask);
+			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OperandCountMask << (int)OpKindFlags.OperandCountShift)) |
+				(((uint)value & (uint)OpKindFlags.OperandCountMask) << (int)OpKindFlags.OperandCountShift);
 		}
 		internal int InternalOpCount {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => codeFlags |= (uint)value << (int)CodeFlags.OperandCountShift;
+			set => opKindFlags |= (uint)value << (int)OpKindFlags.OperandCountShift;
 		}
 
 		/// <summary>
@@ -323,7 +325,7 @@ namespace Iced.Intel {
 			get => (OpKind)(opKindFlags & (uint)OpKindFlags.OpKindMask);
 			set => opKindFlags = (opKindFlags & ~(uint)OpKindFlags.OpKindMask) | ((uint)value & (uint)OpKindFlags.OpKindMask);
 		}
-		internal OpKind InternalOp1Kind {
+		internal OpKind InternalOp0Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags |= (uint)value;
 		}
@@ -336,7 +338,7 @@ namespace Iced.Intel {
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op1KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op1KindShift);
 		}
-		internal OpKind InternalOp2Kind {
+		internal OpKind InternalOp1Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags |= (uint)value << (int)OpKindFlags.Op1KindShift;
 		}
@@ -349,7 +351,7 @@ namespace Iced.Intel {
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op2KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op2KindShift);
 		}
-		internal OpKind InternalOp3Kind {
+		internal OpKind InternalOp2Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags |= (uint)value << (int)OpKindFlags.Op2KindShift;
 		}
@@ -362,15 +364,26 @@ namespace Iced.Intel {
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op3KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op3KindShift);
 		}
-		internal OpKind InternalOp4Kind {
+		internal OpKind InternalOp3Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags |= (uint)value << (int)OpKindFlags.Op3KindShift;
 		}
 
 		/// <summary>
+		/// Gets operand #4's kind if the operand exists (see <see cref="OpCount"/>)
+		/// </summary>
+		public OpKind Op4Kind {
+			get => OpKind.Immediate8;
+			set {
+				if (value != OpKind.Immediate8)
+					ThrowArgumentOutOfRangeException(nameof(value));
+			}
+		}
+
+		/// <summary>
 		/// Gets an operand's kind if it exists (see <see cref="OpCount"/>)
 		/// </summary>
-		/// <param name="operand">Operand number, 0-3</param>
+		/// <param name="operand">Operand number, 0-4</param>
 		/// <returns></returns>
 		public OpKind GetOpKind(int operand) {
 			switch (operand) {
@@ -378,6 +391,7 @@ namespace Iced.Intel {
 			case 1: return Op1Kind;
 			case 2: return Op2Kind;
 			case 3: return Op3Kind;
+			case 4: return Op4Kind;
 			default:
 				ThrowArgumentOutOfRangeException(nameof(operand));
 				return 0;
@@ -387,7 +401,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Sets an operand's kind
 		/// </summary>
-		/// <param name="operand">Operand number, 0-3</param>
+		/// <param name="operand">Operand number, 0-4</param>
 		/// <param name="opKind">Operand kind</param>
 		public void SetOpKind(int operand, OpKind opKind) {
 			switch (operand) {
@@ -395,6 +409,7 @@ namespace Iced.Intel {
 			case 1: Op1Kind = opKind; break;
 			case 2: Op2Kind = opKind; break;
 			case 3: Op3Kind = opKind; break;
+			case 4: Op4Kind = opKind; break;
 			default: ThrowArgumentOutOfRangeException(nameof(operand)); break;
 			}
 		}
@@ -533,13 +548,13 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the operand's immediate value. Use this property if the operand has kind <see cref="OpKind.Immediate8_Enter"/>
+		/// Gets the operand's immediate value. Use this property if the operand has kind <see cref="OpKind.Immediate8_2nd"/>
 		/// </summary>
-		public byte Immediate8_Enter {
+		public byte Immediate8_2nd {
 			get => (byte)memDispl;
 			set => memDispl = value;
 		}
-		internal uint InternalImmediate8_Enter {
+		internal uint InternalImmediate8_2nd {
 			set => memDispl = value;
 		}
 
@@ -719,7 +734,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #0's register value. Use this property if operand #1 (<see cref="Op0Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #0's register value. Use this property if operand #0 (<see cref="Op0Kind"/>) has kind <see cref="OpKind.Register"/>
 		/// </summary>
 		public Register Op0Register {
 			get => (Register)reg0;
@@ -727,7 +742,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #1's register value. Use this property if operand #2 (<see cref="Op1Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #1's register value. Use this property if operand #1 (<see cref="Op1Kind"/>) has kind <see cref="OpKind.Register"/>
 		/// </summary>
 		public Register Op1Register {
 			get => (Register)reg1;
@@ -735,7 +750,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #2's register value. Use this property if operand #3 (<see cref="Op2Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #2's register value. Use this property if operand #2 (<see cref="Op2Kind"/>) has kind <see cref="OpKind.Register"/>
 		/// </summary>
 		public Register Op2Register {
 			get => (Register)reg2;
@@ -743,7 +758,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #3's register value. Use this property if operand #4 (<see cref="Op3Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #3's register value. Use this property if operand #3 (<see cref="Op3Kind"/>) has kind <see cref="OpKind.Register"/>
 		/// </summary>
 		public Register Op3Register {
 			get => (Register)reg3;
@@ -751,9 +766,20 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Gets operand #4's register value. Use this property if operand #4 (<see cref="Op4Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// </summary>
+		public Register Op4Register {
+			get => Register.None;
+			set {
+				if (value != Register.None)
+					ThrowArgumentOutOfRangeException(nameof(value));
+			}
+		}
+
+		/// <summary>
 		/// Gets the operand's register value. Use this property if the operand has kind <see cref="OpKind.Register"/>
 		/// </summary>
-		/// <param name="operand">Operand number, 0-3</param>
+		/// <param name="operand">Operand number, 0-4</param>
 		/// <returns></returns>
 		public Register GetOpRegister(int operand) {
 			switch (operand) {
@@ -761,6 +787,7 @@ namespace Iced.Intel {
 			case 1: return Op1Register;
 			case 2: return Op2Register;
 			case 3: return Op3Register;
+			case 4: return Op4Register;
 			default:
 				ThrowArgumentOutOfRangeException(nameof(operand));
 				return 0;
@@ -770,7 +797,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Sets the operand's register value. Use this property if the operand has kind <see cref="OpKind.Register"/>
 		/// </summary>
-		/// <param name="operand">Operand number, 0-3</param>
+		/// <param name="operand">Operand number, 0-4</param>
 		/// <param name="register">Register</param>
 		public void SetOpRegister(int operand, Register register) {
 			switch (operand) {
@@ -778,6 +805,7 @@ namespace Iced.Intel {
 			case 1: Op1Register = register; break;
 			case 2: Op2Register = register; break;
 			case 3: Op3Register = register; break;
+			case 4: Op4Register = register; break;
 			default: ThrowArgumentOutOfRangeException(nameof(operand)); break;
 			}
 		}
@@ -1040,7 +1068,7 @@ namespace Iced.Intel {
 			case OpKind.FarBranch16:
 			case OpKind.FarBranch32:
 			case OpKind.Immediate8:
-			case OpKind.Immediate8_Enter:
+			case OpKind.Immediate8_2nd:
 			case OpKind.Immediate16:
 			case OpKind.Immediate32:
 			case OpKind.Immediate64:
@@ -1352,13 +1380,13 @@ namespace Iced.Intel {
 					return 8 * 5;
 
 				case Code.Enterw_Iw_Ib:
-					return -(2 + (Immediate8_Enter & 0x1F) * 2 + Immediate16);
+					return -(2 + (Immediate8_2nd & 0x1F) * 2 + Immediate16);
 
 				case Code.Enterd_Iw_Ib:
-					return -(4 + (Immediate8_Enter & 0x1F) * 4 + Immediate16);
+					return -(4 + (Immediate8_2nd & 0x1F) * 4 + Immediate16);
 
 				case Code.Enterq_Iw_Ib:
-					return -(8 + (Immediate8_Enter & 0x1F) * 8 + Immediate16);
+					return -(8 + (Immediate8_2nd & 0x1F) * 8 + Immediate16);
 
 				case Code.Leavew:
 				case Code.Leaved:

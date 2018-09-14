@@ -391,6 +391,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"cmpxchg8b [bx+si]",
 			"crc32 ecx, dh",
 			"crc32 ebx, byte ptr [bx+si]",
+			"crc32 ecx, si",
+			"crc32 ebx, word ptr [bx+si]",
 			"crc32 ecx, esi",
 			"crc32 ebx, dword ptr [bx+si]",
 			"addr32 maskmovq mmx2, mmx3",
@@ -528,6 +530,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"mov cl, fs:[bx+0x1234]",
 			"arpl dx, si",
 			"arpl [bx+si], bx",
+			"vmrun",
+			"addr32 vmrun",
+			"vmload",
+			"addr32 vmload",
+			"vmsave",
+			"addr32 vmsave",
+			"invlpga",
+			"addr32 invlpga",
+			"monitorx",
+			"addr32 monitorx",
+			"clzero ax",
+			"clzero eax",
 		};
 	}
 }

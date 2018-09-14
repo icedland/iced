@@ -47,10 +47,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 		OpInfo2Mask			= 3,
 		OpInfo3Shift		= 9,
 		OpInfo3Mask			= 1,
+		OpInfo4Shift		= 10,
+		OpInfo4Mask			= 1,
 
-		OpMaskRegReadWrite	= 0x00010000,
-		EncodingShift		= 17,
-		EncodingMask		= 3,
+		OpMaskRegReadWrite	= 0x00020000,
+		EncodingShift		= 18,
+		EncodingMask		= 7,
 		FlowControlShift	= 21,
 		FlowControlMask		= 0xF,
 		CpuidFeatureShift	= 25,
@@ -103,10 +105,19 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Last,
 	}
 
+	enum OpInfo4 {
+		None,
+		Read,
+		// If more values are added, update InfoFlags2 if needed
+
+		Last,
+	}
+
 	enum CodeInfo {
 		None,
 		Cdq,
 		Cdqe,
+		Clzero,
 		Cmps,
 		Cmpxchg,
 		Cmpxchg8b,
@@ -118,11 +129,13 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Encls,
 		Enter,
 		Ins,
+		Invlpga,
 		Iret,
 		Jrcxz,
 		Lahf,
 		Lds,
 		Leave,
+		Llwpcb,
 		Lods,
 		Loop,
 		Maskmovq,
@@ -131,6 +144,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Mul,
 		Mulx,
 		Mwait,
+		Mwaitx,
 		Outs,
 		PcmpXstrY,
 		Pop_2,
@@ -173,6 +187,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Stos,
 		Syscall,
 		Vmfunc,
+		Vmload,
 		Vzeroall,
 		W_EAX_ECX_EDX,
 		W_EAX_EDX,
@@ -216,6 +231,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		W_aopsz,
 		W_c_C_aopsz,
 		W_c_U_aops,
+		W_c,
 		W_co,
 		W_co_U_apsz,
 		W_copsz_U_a,

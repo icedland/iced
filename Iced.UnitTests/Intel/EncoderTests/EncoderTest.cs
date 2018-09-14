@@ -50,7 +50,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			int encodedInstrLen = encoder.Encode(ref origInstr, origRip, out string errorMessage);
 			Assert.Null(errorMessage);
 			var encodedConstantOffsets = encoder.GetConstantOffsets();
-			FixCA(ref encodedConstantOffsets, origInstr.ByteLength, encodedInstrLen);
+			FixConstantOffsets(ref encodedConstantOffsets, origInstr.ByteLength, encodedInstrLen);
 			Assert.True(Equals(ref origConstantOffsets, ref encodedConstantOffsets));
 			var encodedBytes = writer.ToArray();
 			Assert.Equal(encodedBytes.Length, encodedInstrLen);
@@ -73,7 +73,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(encodedBytes.Length <= origBytes.Length);
 		}
 
-		static void FixCA(ref ConstantOffsets ca, int origInstrLen, int newInstrLen) {
+		static void FixConstantOffsets(ref ConstantOffsets ca, int origInstrLen, int newInstrLen) {
 			byte diff = (byte)(origInstrLen - newInstrLen);
 			if (ca.HasDisplacement)
 				ca.DisplacementOffset += diff;

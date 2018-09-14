@@ -977,3 +977,33 @@ C4E379 62 10 A5, VEX_Vpcmpistrm_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op
 C4E379 63 D3 A5, VEX_Vpcmpistri_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=xmm3 w=ecx
 # vpcmpistri xmm2,[eax],0A5h
 C4E379 63 10 A5, VEX_Vpcmpistri_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=ds r=eax rm=ds:eax;Packed128_UInt8 w=ecx
+# vmrun ax
+67 0F01 D8, Vmrunw, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=ds r=ax rm=ds:ax;Unknown
+# vmrun eax
+0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=ds r=eax rm=ds:eax;Unknown
+# vmmcall
+0F01 D9, Vmmcall, Legacy, SVM, flow=Call
+# vmload ax
+67 0F01 DA, Vmloadw, Legacy, SVM, pm priv saverestore r=ds r=ax rm=ds:ax;Unknown
+# vmload eax
+0F01 DA, Vmloadd, Legacy, SVM, pm priv saverestore r=ds r=eax rm=ds:eax;Unknown
+# vmsave ax
+67 0F01 DB, Vmsavew, Legacy, SVM, pm priv saverestore r=ds r=ax wm=ds:ax;Unknown
+# vmsave eax
+0F01 DB, Vmsaved, Legacy, SVM, pm priv saverestore r=ds r=eax wm=ds:eax;Unknown
+# skinit eax
+0F01 DE, Skinit, Legacy, SKINIT_or_SVML, fw=acopszidA pm priv saverestore flow=Return
+# invlpga ax,ecx
+67 0F01 DF, Invlpgaw, Legacy, SVM, pm priv r=ds;ax;ecx
+# invlpga eax,ecx
+0F01 DF, Invlpgad, Legacy, SVM, pm priv r=ds;eax;ecx
+# monitorx ax,ecx,edx
+67 0F01 FA, Monitorxw, Legacy, MONITORX, r=ds;ax;ecx;edx rm=ds:ax;Unknown
+# monitorx eax,ecx,edx
+0F01 FA, Monitorxd, Legacy, MONITORX, r=ds;eax;ecx;edx rm=ds:eax;Unknown
+# mwaitx eax,ecx,ebx
+0F01 FB, Mwaitx, Legacy, MONITORX, r=eax;ecx cr=ebx
+# clzero
+66 0F01 FC, Clzerow, Legacy, CLZERO, r=ax
+# clzero
+0F01 FC, Clzerod, Legacy, CLZERO, r=eax

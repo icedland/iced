@@ -391,6 +391,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"cmpxchg8b (bx,si)",
 			"crc32b dh,ecx",
 			"crc32b (bx,si),ebx",
+			"crc32w si,ecx",
+			"crc32w (bx,si),ebx",
 			"crc32l esi,ecx",
 			"crc32l (bx,si),ebx",
 			"addr32 maskmovq mm3,mm2",
@@ -528,6 +530,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"movb fs:0x1234(bx),cl",
 			"arpl si,dx",
 			"arpl bx,(bx,si)",
+			"vmrun",
+			"addr32 vmrun",
+			"vmload",
+			"addr32 vmload",
+			"vmsave",
+			"addr32 vmsave",
+			"invlpga",
+			"addr32 invlpga",
+			"monitorx",
+			"addr32 monitorx",
+			"clzero",
+			"data32 clzero",
 		};
 	}
 }

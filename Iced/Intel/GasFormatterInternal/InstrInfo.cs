@@ -30,7 +30,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		FarBranch16 = OpKind.FarBranch16,
 		FarBranch32 = OpKind.FarBranch32,
 		Immediate8 = OpKind.Immediate8,
-		Immediate8_Enter = OpKind.Immediate8_Enter,
+		Immediate8_2nd = OpKind.Immediate8_2nd,
 		Immediate16 = OpKind.Immediate16,
 		Immediate32 = OpKind.Immediate32,
 		Immediate64 = OpKind.Immediate64,
@@ -127,21 +127,21 @@ namespace Iced.Intel.GasFormatterInternal {
 		}
 
 		public InstrOpInfo(string mnemonic, ref Instruction instr, InstrOpInfoFlags flags) {
+			Debug.Assert(DecoderConstants.MaxOpCount == 5);
 			Mnemonic = mnemonic;
 			Flags = flags;
 			OpCount = (byte)instr.OpCount;
-			Debug.Assert(instr.OpCount <= 4);
 			if ((flags & InstrOpInfoFlags.KeepOperandOrder) != 0) {
 				Op0Kind = (InstrOpKind)instr.Op0Kind;
 				Op1Kind = (InstrOpKind)instr.Op1Kind;
 				Op2Kind = (InstrOpKind)instr.Op2Kind;
 				Op3Kind = (InstrOpKind)instr.Op3Kind;
-				Op4Kind = 0;
+				Op4Kind = (InstrOpKind)instr.Op4Kind;
 				Op0Register = (byte)instr.Op0Register;
 				Op1Register = (byte)instr.Op1Register;
 				Op2Register = (byte)instr.Op2Register;
 				Op3Register = (byte)instr.Op3Register;
-				Op4Register = 0;
+				Op4Register = (byte)instr.Op4Register;
 			}
 			else {
 				switch (OpCount) {
@@ -208,6 +208,19 @@ namespace Iced.Intel.GasFormatterInternal {
 					Op2Register = (byte)instr.Op1Register;
 					Op3Register = (byte)instr.Op0Register;
 					Op4Register = 0;
+					break;
+
+				case 5:
+					Op0Kind = (InstrOpKind)instr.Op4Kind;
+					Op1Kind = (InstrOpKind)instr.Op3Kind;
+					Op2Kind = (InstrOpKind)instr.Op2Kind;
+					Op3Kind = (InstrOpKind)instr.Op1Kind;
+					Op4Kind = (InstrOpKind)instr.Op0Kind;;
+					Op0Register = (byte)instr.Op4Register;
+					Op1Register = (byte)instr.Op3Register;
+					Op2Register = (byte)instr.Op2Register;
+					Op3Register = (byte)instr.Op1Register;
+					Op4Register = (byte)instr.Op0Register;
 					break;
 
 				default:
@@ -412,11 +425,11 @@ namespace Iced.Intel.GasFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_monitor : InstrInfo {
+	sealed class SimpleInstrInfo_as : InstrInfo {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_monitor(Code code, int codeSize, string mnemonic)
+		public SimpleInstrInfo_as(Code code, int codeSize, string mnemonic)
 			: base(code) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
@@ -781,6 +794,31 @@ namespace Iced.Intel.GasFormatterInternal {
 			else
 				mnemonic = this.mnemonic;
 			info = new InstrOpInfo(mnemonic, ref instr, InstrOpInfoFlags.None);
+		}
+	}
+
+	sealed class SimpleInstrInfo_os_mem3 : InstrInfo {
+		readonly InstrOpInfoFlags flags;
+		readonly int codeSize;
+		readonly string mnemonic;
+
+		public SimpleInstrInfo_os_mem3(Code code, int codeSize, string mnemonic, InstrOpInfoFlags flags)
+			: base(code) {
+			this.flags = flags;
+			this.codeSize = codeSize;
+			this.mnemonic = mnemonic;
+		}
+
+		public override void GetOpInfo(GasFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			var flags = this.flags;
+			int instrCodeSize = GetCodeSize(instr.CodeSize);
+			if (instrCodeSize != 0 && (instrCodeSize & codeSize) == 0) {
+				if (instrCodeSize != 16)
+					flags |= InstrOpInfoFlags.OpSize16;
+				else
+					flags |= InstrOpInfoFlags.OpSize32;
+			}
+			info = new InstrOpInfo(mnemonic, ref instr, flags);
 		}
 	}
 

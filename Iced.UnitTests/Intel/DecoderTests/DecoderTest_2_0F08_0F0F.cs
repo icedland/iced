@@ -26,6 +26,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("0F08", 2, Code.Invd)]
 		[InlineData("0F09", 2, Code.Wbinvd)]
 		[InlineData("0F0B", 2, Code.Ud2)]
+		[InlineData("0F0E", 2, Code.Femms)]
 		void Test16_Simple_1(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -43,6 +44,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("0F08", 2, Code.Invd)]
 		[InlineData("0F09", 2, Code.Wbinvd)]
 		[InlineData("0F0B", 2, Code.Ud2)]
+		[InlineData("0F0E", 2, Code.Femms)]
 		void Test32_Simple_1(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -60,6 +62,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("0F08", 2, Code.Invd)]
 		[InlineData("0F09", 2, Code.Wbinvd)]
 		[InlineData("0F0B", 2, Code.Ud2)]
+		[InlineData("0F0E", 2, Code.Femms)]
 		void Test64_Simple_1(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -73,14 +76,22 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.PrefixSegment);
 		}
 
-		[Fact]
-		void Test16_Prefetchw_Mb_1() {
-			var decoder = CreateDecoder16("0F0D 08");
+		[Theory]
+		[InlineData("0F0D 00", 3, Code.Prefetch_Mb)]
+		[InlineData("0F0D 08", 3, Code.Prefetchw_Mb)]
+		[InlineData("0F0D 10", 3, Code.Prefetchwt1_Mb)]
+		[InlineData("0F0D 18", 3, Code.Prefetch_Mb_r3)]
+		[InlineData("0F0D 20", 3, Code.Prefetch_Mb_r4)]
+		[InlineData("0F0D 28", 3, Code.Prefetch_Mb_r5)]
+		[InlineData("0F0D 30", 3, Code.Prefetch_Mb_r6)]
+		[InlineData("0F0D 38", 3, Code.Prefetch_Mb_r7)]
+		void Test16_PrefetchX_Mb_1(string hexBytes, int byteLength, Code code) {
+			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Prefetchw_Mb, instr.Code);
+			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
-			Assert.Equal(3, instr.ByteLength);
+			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
 			Assert.False(instr.HasPrefixRepne);
 			Assert.False(instr.HasPrefixLock);
@@ -96,14 +107,22 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
 
-		[Fact]
-		void Test32_Prefetchw_Mb_1() {
-			var decoder = CreateDecoder32("0F0D 08");
+		[Theory]
+		[InlineData("0F0D 00", 3, Code.Prefetch_Mb)]
+		[InlineData("0F0D 08", 3, Code.Prefetchw_Mb)]
+		[InlineData("0F0D 10", 3, Code.Prefetchwt1_Mb)]
+		[InlineData("0F0D 18", 3, Code.Prefetch_Mb_r3)]
+		[InlineData("0F0D 20", 3, Code.Prefetch_Mb_r4)]
+		[InlineData("0F0D 28", 3, Code.Prefetch_Mb_r5)]
+		[InlineData("0F0D 30", 3, Code.Prefetch_Mb_r6)]
+		[InlineData("0F0D 38", 3, Code.Prefetch_Mb_r7)]
+		void Test32_PrefetchX_Mb_1(string hexBytes, int byteLength, Code code) {
+			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Prefetchw_Mb, instr.Code);
+			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
-			Assert.Equal(3, instr.ByteLength);
+			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
 			Assert.False(instr.HasPrefixRepne);
 			Assert.False(instr.HasPrefixLock);
@@ -119,83 +138,22 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
 
-		[Fact]
-		void Test64_Prefetchw_Mb_1() {
-			var decoder = CreateDecoder64("0F0D 08");
+		[Theory]
+		[InlineData("0F0D 00", 3, Code.Prefetch_Mb)]
+		[InlineData("0F0D 08", 3, Code.Prefetchw_Mb)]
+		[InlineData("0F0D 10", 3, Code.Prefetchwt1_Mb)]
+		[InlineData("0F0D 18", 3, Code.Prefetch_Mb_r3)]
+		[InlineData("0F0D 20", 3, Code.Prefetch_Mb_r4)]
+		[InlineData("0F0D 28", 3, Code.Prefetch_Mb_r5)]
+		[InlineData("0F0D 30", 3, Code.Prefetch_Mb_r6)]
+		[InlineData("0F0D 38", 3, Code.Prefetch_Mb_r7)]
+		void Test64_PrefetchX_Mb_1(string hexBytes, int byteLength, Code code) {
+			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Prefetchw_Mb, instr.Code);
+			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
-			Assert.Equal(3, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
-
-			Assert.Equal(OpKind.Memory, instr.Op0Kind);
-			Assert.Equal(Register.DS, instr.MemorySegment);
-			Assert.Equal(Register.RAX, instr.MemoryBase);
-			Assert.Equal(Register.None, instr.MemoryIndex);
-			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(1, instr.MemoryIndexScale);
-			Assert.Equal(MemorySize.UInt8, instr.MemorySize);
-			Assert.Equal(0, instr.MemoryDisplSize);
-		}
-
-		[Fact]
-		void Test16_Prefetchwt1_Mb_1() {
-			var decoder = CreateDecoder16("0F0D 10");
-			var instr = decoder.Decode();
-
-			Assert.Equal(Code.Prefetchwt1_Mb, instr.Code);
-			Assert.Equal(1, instr.OpCount);
-			Assert.Equal(3, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
-
-			Assert.Equal(OpKind.Memory, instr.Op0Kind);
-			Assert.Equal(Register.DS, instr.MemorySegment);
-			Assert.Equal(Register.BX, instr.MemoryBase);
-			Assert.Equal(Register.SI, instr.MemoryIndex);
-			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(1, instr.MemoryIndexScale);
-			Assert.Equal(MemorySize.UInt8, instr.MemorySize);
-			Assert.Equal(0, instr.MemoryDisplSize);
-		}
-
-		[Fact]
-		void Test32_Prefetchwt1_Mb_1() {
-			var decoder = CreateDecoder32("0F0D 10");
-			var instr = decoder.Decode();
-
-			Assert.Equal(Code.Prefetchwt1_Mb, instr.Code);
-			Assert.Equal(1, instr.OpCount);
-			Assert.Equal(3, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
-
-			Assert.Equal(OpKind.Memory, instr.Op0Kind);
-			Assert.Equal(Register.DS, instr.MemorySegment);
-			Assert.Equal(Register.EAX, instr.MemoryBase);
-			Assert.Equal(Register.None, instr.MemoryIndex);
-			Assert.Equal(0U, instr.MemoryDisplacement);
-			Assert.Equal(1, instr.MemoryIndexScale);
-			Assert.Equal(MemorySize.UInt8, instr.MemorySize);
-			Assert.Equal(0, instr.MemoryDisplSize);
-		}
-
-		[Fact]
-		void Test64_Prefetchwt1_Mb_1() {
-			var decoder = CreateDecoder64("0F0D 10");
-			var instr = decoder.Decode();
-
-			Assert.Equal(Code.Prefetchwt1_Mb, instr.Code);
-			Assert.Equal(1, instr.OpCount);
-			Assert.Equal(3, instr.ByteLength);
+			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
 			Assert.False(instr.HasPrefixRepne);
 			Assert.False(instr.HasPrefixLock);

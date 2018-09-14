@@ -30,7 +30,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		FarBranch16 = OpKind.FarBranch16,
 		FarBranch32 = OpKind.FarBranch32,
 		Immediate8 = OpKind.Immediate8,
-		Immediate8_Enter = OpKind.Immediate8_Enter,
+		Immediate8_2nd = OpKind.Immediate8_2nd,
 		Immediate16 = OpKind.Immediate16,
 		Immediate32 = OpKind.Immediate32,
 		Immediate64 = OpKind.Immediate64,
@@ -58,7 +58,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	enum InstrOpInfoFlags : byte {
 		None						= 0,
 
-		MemSize_Mask				= 3,
+		MemSize_Mask				= 7,
 		// Use xmmword ptr etc
 		MemSize_Sse					= 0,
 		// Use mmword ptr etc
@@ -67,14 +67,15 @@ namespace Iced.Intel.MasmFormatterInternal {
 		MemSize_Normal				= 2,
 		// show no mem size
 		MemSize_Nothing				= 3,
+		MemSize_XmmwordPtr			= 4,
 
 		// AlwaysShowMemorySize is disabled: always show memory size
-		ShowNoMemSize_ForceSize		= 4,
+		ShowNoMemSize_ForceSize		= 8,
 
-		JccNotTaken					= 8,
-		JccTaken					= 0x10,
-		BndPrefix					= 0x20,
-		IgnoreIndexReg				= 0x40,
+		JccNotTaken					= 0x10,
+		JccTaken					= 0x20,
+		BndPrefix					= 0x40,
+		IgnoreIndexReg				= 0x80,
 	}
 
 	struct InstrOpInfo {
@@ -87,10 +88,12 @@ namespace Iced.Intel.MasmFormatterInternal {
 		public InstrOpKind Op1Kind;
 		public InstrOpKind Op2Kind;
 		public InstrOpKind Op3Kind;
+		public InstrOpKind Op4Kind;
 		public byte Op0Register;
 		public byte Op1Register;
 		public byte Op2Register;
 		public byte Op3Register;
+		public byte Op4Register;
 
 		public Register GetOpRegister(int operand) {
 			switch (operand) {
@@ -98,6 +101,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			case 1: return (Register)Op1Register;
 			case 2: return (Register)Op2Register;
 			case 3: return (Register)Op3Register;
+			case 4: return (Register)Op4Register;
 			default: throw new ArgumentOutOfRangeException(nameof(operand));
 			}
 		}
@@ -108,19 +112,21 @@ namespace Iced.Intel.MasmFormatterInternal {
 			case 1: return Op1Kind;
 			case 2: return Op2Kind;
 			case 3: return Op3Kind;
+			case 4: return Op4Kind;
 			default: throw new ArgumentOutOfRangeException(nameof(operand));
 			}
 		}
 
 		public InstrOpInfo(string mnemonic, ref Instruction instr, InstrOpInfoFlags flags) {
+			Debug.Assert(DecoderConstants.MaxOpCount == 5);
 			Mnemonic = mnemonic;
 			Flags = flags;
 			OpCount = (byte)instr.OpCount;
-			Debug.Assert(instr.OpCount <= 4);
 			Op0Kind = (InstrOpKind)instr.Op0Kind;
 			Op1Kind = (InstrOpKind)instr.Op1Kind;
 			Op2Kind = (InstrOpKind)instr.Op2Kind;
 			Op3Kind = (InstrOpKind)instr.Op3Kind;
+			Op4Kind = (InstrOpKind)instr.Op4Kind;
 			Debug.Assert(TEST_RegisterBits == 8);
 			Op0Register = (byte)instr.Op0Register;
 			Debug.Assert(TEST_RegisterBits == 8);
@@ -129,12 +135,24 @@ namespace Iced.Intel.MasmFormatterInternal {
 			Op2Register = (byte)instr.Op2Register;
 			Debug.Assert(TEST_RegisterBits == 8);
 			Op3Register = (byte)instr.Op3Register;
+			Debug.Assert(TEST_RegisterBits == 8);
+			Op4Register = (byte)instr.Op4Register;
 		}
 	}
 
 	abstract class InstrInfo {
 		internal readonly Code TEST_Code;
 		protected InstrInfo(Code code) => TEST_Code = code;
+
+		protected static int GetCodeSize(CodeSize codeSize) {
+			switch (codeSize) {
+			case CodeSize.Code16:	return 16;
+			case CodeSize.Code32:	return 32;
+			case CodeSize.Code64:	return 64;
+			default:
+			case CodeSize.Unknown:	return 0;
+			}
+		}
 
 		public abstract void GetOpInfo(MasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info);
 	}
@@ -176,16 +194,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_memsize : InstrInfo {
 		readonly int codeSize;
 		readonly string mnemonic;
-
-		static int GetCodeSize(CodeSize codeSize) {
-			switch (codeSize) {
-			case CodeSize.Code16:	return 16;
-			case CodeSize.Code32:	return 32;
-			case CodeSize.Code64:	return 64;
-			default:
-			case CodeSize.Unknown:	return 0;
-			}
-		}
 
 		public SimpleInstrInfo_memsize(Code code, int codeSize, string mnemonic)
 			: base(code) {
@@ -588,16 +596,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.register = register;
 		}
 
-		static int GetCodeSize(CodeSize codeSize) {
-			switch (codeSize) {
-			case CodeSize.Code16:	return 16;
-			case CodeSize.Code32:	return 32;
-			case CodeSize.Code64:	return 64;
-			default:
-			case CodeSize.Unknown:	return 0;
-			}
-		}
-
 		public override void GetOpInfo(MasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			if (instrCodeSize == 0 || (instrCodeSize & codeSize) != 0)
@@ -733,6 +731,10 @@ namespace Iced.Intel.MasmFormatterInternal {
 			info.Op2Kind = InstrOpKind.Register;
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op2Register = (byte)reg3;
+			if ((instr.CodeSize == CodeSize.Code64 || instr.CodeSize == CodeSize.Unknown) && (Register.EAX <= reg2 && reg2 <= Register.R15D)) {
+				info.Op1Register += 0x10;
+				info.Op2Register += 0x10;
+			}
 		}
 	}
 
@@ -749,12 +751,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 			info.Op1Kind = InstrOpKind.Register;
 
 			switch (instr.CodeSize) {
-			case CodeSize.Unknown:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
-				info.Op0Register = (byte)Register.EAX;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
-				info.Op1Register = (byte)Register.ECX;
-				break;
 			case CodeSize.Code16:
 				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op0Register = (byte)Register.AX;
@@ -767,11 +763,55 @@ namespace Iced.Intel.MasmFormatterInternal {
 				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op1Register = (byte)Register.ECX;
 				break;
+			case CodeSize.Unknown:
 			case CodeSize.Code64:
 				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op0Register = (byte)Register.RAX;
 				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op1Register = (byte)Register.RCX;
+				break;
+			}
+		}
+	}
+
+	sealed class SimpleInstrInfo_mwaitx : InstrInfo {
+		readonly string mnemonic;
+
+		public SimpleInstrInfo_mwaitx(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+
+		public override void GetOpInfo(MasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			info = default;
+			info.Mnemonic = mnemonic;
+			info.OpCount = 3;
+			info.Op0Kind = InstrOpKind.Register;
+			info.Op1Kind = InstrOpKind.Register;
+			info.Op2Kind = InstrOpKind.Register;
+
+			switch (instr.CodeSize) {
+			case CodeSize.Code16:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.AX;
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op1Register = (byte)Register.ECX;
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op2Register = (byte)Register.EBX;
+				break;
+			case CodeSize.Code32:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.EAX;
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op1Register = (byte)Register.ECX;
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op2Register = (byte)Register.EBX;
+				break;
+			case CodeSize.Unknown:
+			case CodeSize.Code64:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.RAX;
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op1Register = (byte)Register.RCX;
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op2Register = (byte)Register.RBX;
 				break;
 			}
 		}
@@ -1103,10 +1143,75 @@ namespace Iced.Intel.MasmFormatterInternal {
 		public override void GetOpInfo(MasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
-			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D)
+			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D) {
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op0Register = (byte)((Register)info.Op0Register - Register.EAX + Register.AX);
-			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D)
+			}
+			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D) {
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op1Register = (byte)((Register)info.Op1Register - Register.EAX + Register.AX);
+			}
+		}
+	}
+
+	sealed class SimpleInstrInfo_reg : InstrInfo {
+		readonly string mnemonic;
+		readonly Register register;
+
+		public SimpleInstrInfo_reg(Code code, string mnemonic, Register register)
+			: base(code) {
+			this.mnemonic = mnemonic;
+			this.register = register;
+		}
+
+		public override void GetOpInfo(MasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			info = default;
+			info.Mnemonic = mnemonic;
+			info.OpCount = 1;
+			info.Op0Kind = InstrOpKind.Register;
+			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			info.Op0Register = (byte)register;
+		}
+	}
+
+	sealed class SimpleInstrInfo_invlpga : InstrInfo {
+		readonly int codeSize;
+		readonly string mnemonic;
+
+		public SimpleInstrInfo_invlpga(Code code, int codeSize, string mnemonic)
+			: base(code) {
+			this.codeSize = codeSize;
+			this.mnemonic = mnemonic;
+		}
+
+		public override void GetOpInfo(MasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			info = default;
+			info.Mnemonic = mnemonic;
+			info.OpCount = 2;
+			info.Op0Kind = InstrOpKind.Register;
+			info.Op1Kind = InstrOpKind.Register;
+			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			info.Op1Register = (byte)Register.ECX;
+
+			switch (codeSize) {
+			case 16:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.AX;
+				break;
+
+			case 32:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.EAX;
+				break;
+
+			case 64:
+				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				info.Op0Register = (byte)Register.RAX;
+				break;
+
+			default:
+				throw new InvalidOperationException();
+			}
 		}
 	}
 }

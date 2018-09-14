@@ -3,7 +3,7 @@
 High performance x86 (16/32/64-bit) instruction decoder, encoder and formatter.
 It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
 
-- Supports all Intel and AMD instructions (WIP: [#1](https://github.com/0xd4d/iced/issues/1), [#2](https://github.com/0xd4d/iced/issues/2))
+- Supports all Intel and AMD instructions
 - The decoder doesn't allocate any memory and is 2x-5x+ faster than other similar libraries written in C or C#
 - Small decoded instructions, only 32 bytes (compared to other libraries that have up to 1KB-sized decoded instructions)
 - The formatter supports masm, nasm, gas (AT&T) and Intel (xed) and there are many options to customize the output

@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos32_000 {
-		public const int AllInfos_Length = 547;
+		public const int AllInfos_Length = 561;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(32, "66 06", Code.Pushw_ES),
 			new InstructionInfo(32, "06", Code.Pushd_ES),
@@ -450,6 +450,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(32, "0FC7 08", Code.Cmpxchg8b_Mq),
 			new InstructionInfo(32, "F2 0F38F0 CE", Code.Crc32_Gd_Eb),
 			new InstructionInfo(32, "F2 0F38F0 18", Code.Crc32_Gd_Eb),
+			new InstructionInfo(32, "66 F2 0F38F1 CE", Code.Crc32_Gd_Ew),
+			new InstructionInfo(32, "66 F2 0F38F1 18", Code.Crc32_Gd_Ew),
 			new InstructionInfo(32, "F2 0F38F1 CE", Code.Crc32_Gd_Ed),
 			new InstructionInfo(32, "F2 0F38F1 18", Code.Crc32_Gd_Ed),
 			new InstructionInfo(32, "67 0FF7 D3", Code.Maskmovq_rDI_P_N),
@@ -571,6 +573,18 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(32, "64 8A 4C 4D 12", Code.Mov_Gb_Eb),
 			new InstructionInfo(32, "64 8A 8C 8D 78563412", Code.Mov_Gb_Eb),
 			new InstructionInfo(32, "64 8A 0C CD 78563412", Code.Mov_Gb_Eb),
+			new InstructionInfo(32, "67 0F01 D8", Code.Vmrunw),
+			new InstructionInfo(32, "0F01 D8", Code.Vmrund),
+			new InstructionInfo(32, "67 0F01 DA", Code.Vmloadw),
+			new InstructionInfo(32, "0F01 DA", Code.Vmloadd),
+			new InstructionInfo(32, "67 0F01 DB", Code.Vmsavew),
+			new InstructionInfo(32, "0F01 DB", Code.Vmsaved),
+			new InstructionInfo(32, "67 0F01 DF", Code.Invlpgaw),
+			new InstructionInfo(32, "0F01 DF", Code.Invlpgad),
+			new InstructionInfo(32, "67 0F01 FA", Code.Monitorxw),
+			new InstructionInfo(32, "0F01 FA", Code.Monitorxd),
+			new InstructionInfo(32, "66 0F01 FC", Code.Clzerow),
+			new InstructionInfo(32, "0F01 FC", Code.Clzerod),
 		};
 	}
 }

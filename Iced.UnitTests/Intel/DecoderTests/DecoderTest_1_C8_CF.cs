@@ -40,8 +40,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate16, instr.Op0Kind);
 			Assert.Equal(immediate16, instr.Immediate16);
 
-			Assert.Equal(OpKind.Immediate8_Enter, instr.Op1Kind);
-			Assert.Equal(immediate8, instr.Immediate8_Enter);
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op1Kind);
+			Assert.Equal(immediate8, instr.Immediate8_2nd);
 		}
 
 		[Theory]
@@ -62,8 +62,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate16, instr.Op0Kind);
 			Assert.Equal(immediate16, instr.Immediate16);
 
-			Assert.Equal(OpKind.Immediate8_Enter, instr.Op1Kind);
-			Assert.Equal(immediate8, instr.Immediate8_Enter);
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op1Kind);
+			Assert.Equal(immediate8, instr.Immediate8_2nd);
 		}
 
 		[Theory]
@@ -86,8 +86,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate16, instr.Op0Kind);
 			Assert.Equal(immediate16, instr.Immediate16);
 
-			Assert.Equal(OpKind.Immediate8_Enter, instr.Op1Kind);
-			Assert.Equal(immediate8, instr.Immediate8_Enter);
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op1Kind);
+			Assert.Equal(immediate8, instr.Immediate8_2nd);
 		}
 
 		[Theory]
@@ -108,8 +108,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate16, instr.Op0Kind);
 			Assert.Equal(immediate16, instr.Immediate16);
 
-			Assert.Equal(OpKind.Immediate8_Enter, instr.Op1Kind);
-			Assert.Equal(immediate8, instr.Immediate8_Enter);
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op1Kind);
+			Assert.Equal(immediate8, instr.Immediate8_2nd);
 		}
 
 		[Theory]
@@ -130,8 +130,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate16, instr.Op0Kind);
 			Assert.Equal(immediate16, instr.Immediate16);
 
-			Assert.Equal(OpKind.Immediate8_Enter, instr.Op1Kind);
-			Assert.Equal(immediate8, instr.Immediate8_Enter);
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op1Kind);
+			Assert.Equal(immediate8, instr.Immediate8_2nd);
 		}
 
 		[Theory]
@@ -156,8 +156,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Immediate16, instr.Op0Kind);
 			Assert.Equal(immediate16, instr.Immediate16);
 
-			Assert.Equal(OpKind.Immediate8_Enter, instr.Op1Kind);
-			Assert.Equal(immediate8, instr.Immediate8_Enter);
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op1Kind);
+			Assert.Equal(immediate8, instr.Immediate8_2nd);
 		}
 
 		[Fact]

@@ -46,7 +46,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static IEnumerable<object[]> Test16_Vmread_Ed_Gd_1_Data {
 			get {
 				yield return new object[] { "0F78 CE", 3, Code.Vmread_Ed_Gd, Register.ESI, Register.ECX };
-				yield return new object[] { "66 0F78 CE", 4, Code.Vmread_Ed_Gd, Register.ESI, Register.ECX };
 			}
 		}
 
@@ -105,7 +104,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static IEnumerable<object[]> Test32_Vmread_Ed_Gd_1_Data {
 			get {
 				yield return new object[] { "0F78 CE", 3, Code.Vmread_Ed_Gd, Register.ESI, Register.ECX };
-				yield return new object[] { "66 0F78 CE", 4, Code.Vmread_Ed_Gd, Register.ESI, Register.ECX };
 			}
 		}
 
@@ -167,7 +165,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "44 0F78 CE", 4, Code.Vmread_Eq_Gq, Register.RSI, Register.R9 };
 				yield return new object[] { "41 0F78 CE", 4, Code.Vmread_Eq_Gq, Register.R14, Register.RCX };
 				yield return new object[] { "45 0F78 CE", 4, Code.Vmread_Eq_Gq, Register.R14, Register.R9 };
-				yield return new object[] { "66 0F78 CE", 4, Code.Vmread_Eq_Gq, Register.RSI, Register.RCX };
 				yield return new object[] { "4A 0F78 CE", 4, Code.Vmread_Eq_Gq, Register.RSI, Register.RCX };
 			}
 		}
@@ -227,7 +224,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static IEnumerable<object[]> Test16_Vmwrite_Gd_Ed_1_Data {
 			get {
 				yield return new object[] { "0F79 CE", 3, Code.Vmwrite_Gd_Ed, Register.ECX, Register.ESI };
-				yield return new object[] { "66 0F79 CE", 4, Code.Vmwrite_Gd_Ed, Register.ECX, Register.ESI };
 			}
 		}
 
@@ -286,7 +282,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static IEnumerable<object[]> Test32_Vmwrite_Gd_Ed_1_Data {
 			get {
 				yield return new object[] { "0F79 CE", 3, Code.Vmwrite_Gd_Ed, Register.ECX, Register.ESI };
-				yield return new object[] { "66 0F79 CE", 4, Code.Vmwrite_Gd_Ed, Register.ECX, Register.ESI };
 			}
 		}
 
@@ -348,7 +343,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "44 0F79 CE", 4, Code.Vmwrite_Gq_Eq, Register.R9, Register.RSI };
 				yield return new object[] { "41 0F79 CE", 4, Code.Vmwrite_Gq_Eq, Register.RCX, Register.R14 };
 				yield return new object[] { "45 0F79 CE", 4, Code.Vmwrite_Gq_Eq, Register.R9, Register.R14 };
-				yield return new object[] { "66 0F79 CE", 4, Code.Vmwrite_Gq_Eq, Register.RCX, Register.RSI };
 				yield return new object[] { "4A 0F79 CE", 4, Code.Vmwrite_Gq_Eq, Register.RCX, Register.RSI };
 			}
 		}
@@ -382,6 +376,283 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static IEnumerable<object[]> Test64_Vmwrite_Gd_Ed_2_Data {
 			get {
 				yield return new object[] { "0F79 18", 3, Code.Vmwrite_Gq_Eq, Register.RBX, MemorySize.UInt64 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_Extrq_RX_Ib_Ib_Data))]
+		void Test16_Extrq_RX_Ib_Ib_1(string hexBytes, int byteLength, Code code, Register reg1, byte imm1, byte imm2) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Immediate8, instr.Op1Kind);
+			Assert.Equal(imm1, instr.Immediate8);
+
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op2Kind);
+			Assert.Equal(imm2, instr.Immediate8_2nd);
+		}
+		public static IEnumerable<object[]> Test16_Extrq_RX_Ib_Ib_Data {
+			get {
+				yield return new object[] { "66 0F78 C1 A5 FD", 6, Code.Extrq_RX_Ib_Ib, Register.XMM1, 0xA5, 0xFD };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_Extrq_RX_Ib_Ib_Data))]
+		void Test32_Extrq_RX_Ib_Ib_1(string hexBytes, int byteLength, Code code, Register reg1, byte imm1, byte imm2) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Immediate8, instr.Op1Kind);
+			Assert.Equal(imm1, instr.Immediate8);
+
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op2Kind);
+			Assert.Equal(imm2, instr.Immediate8_2nd);
+		}
+		public static IEnumerable<object[]> Test32_Extrq_RX_Ib_Ib_Data {
+			get {
+				yield return new object[] { "66 0F78 C1 A5 FD", 6, Code.Extrq_RX_Ib_Ib, Register.XMM1, 0xA5, 0xFD };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_Extrq_RX_Ib_Ib_Data))]
+		void Test64_Extrq_RX_Ib_Ib_1(string hexBytes, int byteLength, Code code, Register reg1, byte imm1, byte imm2) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Immediate8, instr.Op1Kind);
+			Assert.Equal(imm1, instr.Immediate8);
+
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op2Kind);
+			Assert.Equal(imm2, instr.Immediate8_2nd);
+		}
+		public static IEnumerable<object[]> Test64_Extrq_RX_Ib_Ib_Data {
+			get {
+				yield return new object[] { "66 0F78 C1 A5 FD", 6, Code.Extrq_RX_Ib_Ib, Register.XMM1, 0xA5, 0xFD };
+				yield return new object[] { "66 41 0F78 C1 5A 34", 7, Code.Extrq_RX_Ib_Ib, Register.XMM9, 0x5A, 0x34 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_Insertq_VX_RX_Ib_Ib_Data))]
+		void Test16_Insertq_VX_RX_Ib_Ib_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, byte imm1, byte imm2) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(4, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Immediate8, instr.Op2Kind);
+			Assert.Equal(imm1, instr.Immediate8);
+
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op3Kind);
+			Assert.Equal(imm2, instr.Immediate8_2nd);
+		}
+		public static IEnumerable<object[]> Test16_Insertq_VX_RX_Ib_Ib_Data {
+			get {
+				yield return new object[] { "F2 0F78 D1 A5 FD", 6, Code.Insertq_VX_RX_Ib_Ib, Register.XMM2, Register.XMM1, 0xA5, 0xFD };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_Insertq_VX_RX_Ib_Ib_Data))]
+		void Test32_Insertq_VX_RX_Ib_Ib_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, byte imm1, byte imm2) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(4, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Immediate8, instr.Op2Kind);
+			Assert.Equal(imm1, instr.Immediate8);
+
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op3Kind);
+			Assert.Equal(imm2, instr.Immediate8_2nd);
+		}
+		public static IEnumerable<object[]> Test32_Insertq_VX_RX_Ib_Ib_Data {
+			get {
+				yield return new object[] { "F2 0F78 D1 A5 FD", 6, Code.Insertq_VX_RX_Ib_Ib, Register.XMM2, Register.XMM1, 0xA5, 0xFD };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_Insertq_VX_RX_Ib_Ib_Data))]
+		void Test64_Insertq_VX_RX_Ib_Ib_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, byte imm1, byte imm2) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(4, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Immediate8, instr.Op2Kind);
+			Assert.Equal(imm1, instr.Immediate8);
+
+			Assert.Equal(OpKind.Immediate8_2nd, instr.Op3Kind);
+			Assert.Equal(imm2, instr.Immediate8_2nd);
+		}
+		public static IEnumerable<object[]> Test64_Insertq_VX_RX_Ib_Ib_Data {
+			get {
+				yield return new object[] { "F2 0F78 D1 A5 FD", 6, Code.Insertq_VX_RX_Ib_Ib, Register.XMM2, Register.XMM1, 0xA5, 0xFD };
+				yield return new object[] { "F2 44 0F78 D1 5A 34", 7, Code.Insertq_VX_RX_Ib_Ib, Register.XMM10, Register.XMM1, 0x5A, 0x34 };
+				yield return new object[] { "F2 41 0F78 D1 A5 FD", 7, Code.Insertq_VX_RX_Ib_Ib, Register.XMM2, Register.XMM9, 0xA5, 0xFD };
+				yield return new object[] { "F2 45 0F78 D1 5A 34", 7, Code.Insertq_VX_RX_Ib_Ib, Register.XMM10, Register.XMM9, 0x5A, 0x34 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_Extrq_VX_RX_Data))]
+		void Test16_Extrq_VX_RX_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+		}
+		public static IEnumerable<object[]> Test16_Extrq_VX_RX_Data {
+			get {
+				yield return new object[] { "66 0F79 D1", 4, Code.Extrq_VX_RX, Register.XMM2, Register.XMM1 };
+
+				yield return new object[] { "F2 0F79 D1", 4, Code.Insertq_VX_RX, Register.XMM2, Register.XMM1 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_Extrq_VX_RX_Data))]
+		void Test32_Extrq_VX_RX_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+		}
+		public static IEnumerable<object[]> Test32_Extrq_VX_RX_Data {
+			get {
+				yield return new object[] { "66 0F79 D1", 4, Code.Extrq_VX_RX, Register.XMM2, Register.XMM1 };
+
+				yield return new object[] { "F2 0F79 D1", 4, Code.Insertq_VX_RX, Register.XMM2, Register.XMM1 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_Extrq_VX_RX_Data))]
+		void Test64_Extrq_VX_RX_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+		}
+		public static IEnumerable<object[]> Test64_Extrq_VX_RX_Data {
+			get {
+				yield return new object[] { "66 0F79 D1", 4, Code.Extrq_VX_RX, Register.XMM2, Register.XMM1 };
+				yield return new object[] { "66 44 0F79 D1", 5, Code.Extrq_VX_RX, Register.XMM10, Register.XMM1 };
+				yield return new object[] { "66 41 0F79 D1", 5, Code.Extrq_VX_RX, Register.XMM2, Register.XMM9 };
+				yield return new object[] { "66 45 0F79 D1", 5, Code.Extrq_VX_RX, Register.XMM10, Register.XMM9 };
+
+				yield return new object[] { "F2 0F79 D1", 4, Code.Insertq_VX_RX, Register.XMM2, Register.XMM1 };
+				yield return new object[] { "F2 44 0F79 D1", 5, Code.Insertq_VX_RX, Register.XMM10, Register.XMM1 };
+				yield return new object[] { "F2 41 0F79 D1", 5, Code.Insertq_VX_RX, Register.XMM2, Register.XMM9 };
+				yield return new object[] { "F2 45 0F79 D1", 5, Code.Insertq_VX_RX, Register.XMM10, Register.XMM9 };
 			}
 		}
 

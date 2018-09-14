@@ -62,9 +62,9 @@ namespace Iced.Intel {
 		Immediate8,
 
 		/// <summary>
-		/// 8-bit constant used by the enter instruction. This operand kind uses <see cref="Instruction.Immediate8_Enter"/>
+		/// 8-bit constant used by the enter, extrq, insertq instructions. This operand kind uses <see cref="Instruction.Immediate8_2nd"/>
 		/// </summary>
-		Immediate8_Enter,
+		Immediate8_2nd,
 
 		/// <summary>
 		/// 16-bit constant. This operand kind uses <see cref="Instruction.Immediate16"/>

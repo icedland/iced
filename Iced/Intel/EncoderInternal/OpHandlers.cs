@@ -79,7 +79,8 @@ namespace Iced.Intel.EncoderInternal {
 		Id,
 		Id64,
 		Iq,
-		Ib2,
+		Ib21,
+		Ib11,
 		Xb,
 		Xw,
 		Xd,
@@ -255,7 +256,8 @@ namespace Iced.Intel.EncoderInternal {
 			new OpId(OpKind.Immediate32),
 			new OpId(OpKind.Immediate32to64),
 			new OpIq(),
-			new OpIb2(),
+			new OpIb21(),
+			new OpIb11(),
 			new OpX(),
 			new OpX(),
 			new OpX(),
@@ -389,8 +391,11 @@ namespace Iced.Intel.EncoderInternal {
 		HX,
 		HY,
 		Ib,
+		I2,
 		Is4X,
 		Is4Y,
+		Is5X,
+		Is5Y,
 		M,
 		Md,
 		MK,
@@ -431,6 +436,9 @@ namespace Iced.Intel.EncoderInternal {
 			new OpHx(Register.XMM0, Register.XMM15),
 			new OpHx(Register.YMM0, Register.YMM15),
 			new OpIb(OpKind.Immediate8),
+			new OpI2(),
+			new OpIs4x(Register.XMM0, Register.XMM15),
+			new OpIs4x(Register.YMM0, Register.YMM15),
 			new OpIs4x(Register.XMM0, Register.XMM15),
 			new OpIs4x(Register.YMM0, Register.YMM15),
 			new OpModRM_rm_mem_only(),
@@ -448,6 +456,54 @@ namespace Iced.Intel.EncoderInternal {
 			new OpModRM_reg(Register.XMM0, Register.XMM15),
 			new OpModRM_reg(Register.YMM0, Register.YMM15),
 			new OpModRM_rm(Register.K0, Register.K7),
+			new OpModRM_rm(Register.XMM0, Register.XMM15),
+			new OpModRM_rm(Register.YMM0, Register.YMM15),
+		};
+	}
+
+	enum XopOpKind : byte {
+		None,
+		Ed,
+		Eq,
+		Gd,
+		Gq,
+		Rd,
+		Rq,
+		Hd,
+		Hq,
+		HX,
+		HY,
+		Ib,
+		Id,
+		Is4X,
+		Is4Y,
+		VX,
+		VY,
+		WX,
+		WY,
+
+		Last,
+	}
+
+	static class XopOps {
+		public static readonly Op[] Ops = new Op[(int)XopOpKind.Last] {
+			null,
+			new OpModRM_rm(Register.EAX, Register.R15D),
+			new OpModRM_rm(Register.RAX, Register.R15),
+			new OpModRM_reg(Register.EAX, Register.R15D),
+			new OpModRM_reg(Register.RAX, Register.R15),
+			new OpModRM_rm_reg_only(Register.EAX, Register.R15D),
+			new OpModRM_rm_reg_only(Register.RAX, Register.R15),
+			new OpHx(Register.EAX, Register.R15D),
+			new OpHx(Register.RAX, Register.R15),
+			new OpHx(Register.XMM0, Register.XMM15),
+			new OpHx(Register.YMM0, Register.YMM15),
+			new OpIb(OpKind.Immediate8),
+			new OpId(OpKind.Immediate32),
+			new OpIs4x(Register.XMM0, Register.XMM15),
+			new OpIs4x(Register.YMM0, Register.YMM15),
+			new OpModRM_reg(Register.XMM0, Register.XMM15),
+			new OpModRM_reg(Register.YMM0, Register.YMM15),
 			new OpModRM_rm(Register.XMM0, Register.XMM15),
 			new OpModRM_rm(Register.YMM0, Register.YMM15),
 		};
@@ -673,13 +729,39 @@ namespace Iced.Intel.EncoderInternal {
 		}
 	}
 
-	sealed class OpIb2 : Op {
+	sealed class OpIb21 : Op {
 		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
-			if (!encoder.Verify(operand, OpKind.Immediate8_Enter, instr.GetOpKind(operand)))
+			if (!encoder.Verify(operand, OpKind.Immediate8_2nd, instr.GetOpKind(operand)))
 				return;
 			Debug.Assert(encoder.ImmSize == ImmSize.Size2);
 			encoder.ImmSize = ImmSize.Size2_1;
-			encoder.ImmediateHi = instr.Immediate8_Enter;
+			encoder.ImmediateHi = instr.Immediate8_2nd;
+		}
+	}
+
+	sealed class OpIb11 : Op {
+		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+			if (!encoder.Verify(operand, OpKind.Immediate8_2nd, instr.GetOpKind(operand)))
+				return;
+			Debug.Assert(encoder.ImmSize == ImmSize.Size1);
+			encoder.ImmSize = ImmSize.Size1_1;
+			encoder.ImmediateHi = instr.Immediate8_2nd;
+		}
+	}
+
+	sealed class OpI2 : Op {
+		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+			var opImmKind = instr.GetOpKind(operand);
+			if (!encoder.Verify(operand, OpKind.Immediate8, opImmKind))
+				return;
+			Debug.Assert(encoder.ImmSize == ImmSize.SizeIbReg);
+			Debug.Assert((encoder.Immediate & 3) == 0);
+			if (instr.Immediate8 > 3) {
+				encoder.ErrorMessage = $"Operand {operand}: Immediate value must be 0-3, but value is 0x{instr.Immediate8:X2}";
+				return;
+			}
+			encoder.ImmSize = ImmSize.Size1;
+			encoder.Immediate |= instr.Immediate8;
 		}
 	}
 

@@ -90,6 +90,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(testCase.Op1Access, info.Op1Access);
 			Assert.Equal(testCase.Op2Access, info.Op2Access);
 			Assert.Equal(testCase.Op3Access, info.Op3Access);
+			Assert.Equal(testCase.Op4Access, info.Op4Access);
 			Assert.Equal(
 				new HashSet<UsedMemory>(testCase.UsedMemory, UsedMemoryEqualityComparer.Instance),
 				new HashSet<UsedMemory>(info.GetUsedMemory(), UsedMemoryEqualityComparer.Instance));
@@ -99,8 +100,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(info.GetUsedMemory(), instr.GetUsedMemory(), UsedMemoryEqualityComparer.Instance);
 			Assert.Equal(info.GetUsedRegisters(), instr.GetUsedRegisters(), UsedRegisterEqualityComparer.Instance);
 
-			const int MAX_OP_COUNT = 4;
-			Debug.Assert(instr.OpCount <= MAX_OP_COUNT);
+			Debug.Assert(Iced.Intel.DecoderConstants.MaxOpCount == 5);
+			Debug.Assert(instr.OpCount <= Iced.Intel.DecoderConstants.MaxOpCount);
 			for (int i = 0; i < instr.OpCount; i++) {
 				switch (i) {
 				case 0:
@@ -119,11 +120,15 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					Assert.Equal(testCase.Op3Access, info.GetOpAccess(i));
 					break;
 
+				case 4:
+					Assert.Equal(testCase.Op4Access, info.GetOpAccess(i));
+					break;
+
 				default:
 					throw new InvalidOperationException();
 				}
 			}
-			for (int i = instr.OpCount; i < MAX_OP_COUNT; i++)
+			for (int i = instr.OpCount; i < Iced.Intel.DecoderConstants.MaxOpCount; i++)
 				Assert.Equal(OpAccess.None, info.GetOpAccess(i));
 
 			Assert.Equal(RflagsBits.None, info.RflagsWritten & (info.RflagsCleared | info.RflagsSet | info.RflagsUndefined));
@@ -187,6 +192,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(info1.Op1Access, info2.Op1Access);
 			Assert.Equal(info1.Op2Access, info2.Op2Access);
 			Assert.Equal(info1.Op3Access, info2.Op3Access);
+			Assert.Equal(info1.Op4Access, info2.Op4Access);
 			Assert.Equal(info1.RflagsRead, info2.RflagsRead);
 			Assert.Equal(info1.RflagsWritten, info2.RflagsWritten);
 			Assert.Equal(info1.RflagsCleared, info2.RflagsCleared);
@@ -448,7 +454,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			};
 			Assert.Equal(Enum.GetNames(typeof(OpAccess)).Length, toAccess.Count);
 
-			// XSP = SP/ESP/RSP depending on address size, XBP = BP/EBP/ESP depending on address size
+			// XSP = SP/ESP/RSP depending on stack address size, XBP = BP/EBP/RBP depending on stack address size
 			const string XSP = "XSP";
 			const string XBP = "XBP";
 			switch (stackAddressSize) {
@@ -582,6 +588,11 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 					case "op3":
 						if (!toAccess.TryGetValue(value, out testCase.Op3Access))
+							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
+						break;
+
+					case "op4":
+						if (!toAccess.TryGetValue(value, out testCase.Op4Access))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 
@@ -756,7 +767,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				if (!toRegister.TryGetValue(regString, out var reg))
 					return false;
 
-				if (testCase.Encoding != EncodingKind.Legacy) {
+				if (testCase.Encoding != EncodingKind.Legacy && testCase.Encoding != EncodingKind.D3NOW) {
 					switch (access) {
 					case OpAccess.None:
 					case OpAccess.Read:
