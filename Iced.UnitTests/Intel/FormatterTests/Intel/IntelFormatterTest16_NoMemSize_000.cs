@@ -531,10 +531,17 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"arpl dx, si",
 			"arpl [bx+si], bx",
 			"vmrun",
+			"addr32 vmrun",
 			"vmload",
+			"addr32 vmload",
 			"vmsave",
+			"addr32 vmsave",
 			"invlpga",
+			"addr32 invlpga",
 			"monitorx",
+			"addr32 monitorx",
+			"clzero ax",
+			"clzero eax",
 		};
 	}
 }

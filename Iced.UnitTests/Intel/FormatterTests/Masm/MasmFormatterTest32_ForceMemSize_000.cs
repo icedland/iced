@@ -579,6 +579,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"mov cl,byte ptr fs:[ebp+ecx*2+12h]",
 			"mov cl,byte ptr fs:[ebp+ecx*4+12345678h]",
 			"mov cl,byte ptr fs:[ecx*8+12345678h]",
+			"vmrun ax",
+			"vmrun eax",
+			"vmload ax",
+			"vmload eax",
+			"vmsave ax",
+			"vmsave eax",
+			"invlpga ax,ecx",
+			"invlpga eax,ecx",
+			"monitorx ax,ecx,edx",
+			"monitorx eax,ecx,edx",
+			"clzero",
+			"clzero",
 		};
 	}
 }

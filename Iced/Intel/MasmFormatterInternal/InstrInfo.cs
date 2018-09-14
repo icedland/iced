@@ -1190,10 +1190,9 @@ namespace Iced.Intel.MasmFormatterInternal {
 			info.OpCount = 2;
 			info.Op0Kind = InstrOpKind.Register;
 			info.Op1Kind = InstrOpKind.Register;
+			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			info.Op1Register = (byte)Register.ECX;
 
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			if (instrCodeSize == 0)
-				instrCodeSize = codeSize;
 			switch (codeSize) {
 			case 16:
 				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
@@ -1208,26 +1207,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 			case 64:
 				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op0Register = (byte)Register.RAX;
-				break;
-
-			default:
-				throw new InvalidOperationException();
-			}
-
-			switch (instrCodeSize) {
-			case 16:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
-				info.Op1Register = (byte)Register.ECX;
-				break;
-
-			case 32:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
-				info.Op1Register = (byte)Register.ECX;
-				break;
-
-			case 64:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
-				info.Op1Register = (byte)Register.ECX;
 				break;
 
 			default:

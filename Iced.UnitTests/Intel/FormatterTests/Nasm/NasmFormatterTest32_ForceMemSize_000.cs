@@ -579,6 +579,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"mov cl,byte [fs:ebp+ecx*2+0x12]",
 			"mov cl,byte [fs:ebp+ecx*4+0x12345678]",
 			"mov cl,byte [fs:ecx*8+0x12345678]",
+			"a16 vmrun",
+			"vmrun",
+			"a16 vmload",
+			"vmload",
+			"a16 vmsave",
+			"vmsave",
+			"invlpga ax,ecx",
+			"invlpga eax,ecx",
+			"a16 monitorx",
+			"monitorx",
+			"o16 clzero",
+			"clzero",
 		};
 	}
 }

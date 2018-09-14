@@ -579,6 +579,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"mov cl, fs:[ebp+ecx*2+0x12]",
 			"mov cl, fs:[ebp+ecx*4+0x12345678]",
 			"mov cl, fs:[ecx*8+0x12345678]",
+			"addr16 vmrun",
+			"vmrun",
+			"addr16 vmload",
+			"vmload",
+			"addr16 vmsave",
+			"vmsave",
+			"addr16 invlpga",
+			"invlpga",
+			"addr16 monitorx",
+			"monitorx",
+			"clzero ax",
+			"clzero eax",
 		};
 	}
 }

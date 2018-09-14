@@ -531,10 +531,17 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"arpl dx,si",
 			"arpl [bx+si],bx",
 			"vmrun",
+			"a32 vmrun",
 			"vmload",
+			"a32 vmload",
 			"vmsave",
+			"a32 vmsave",
 			"invlpga ax,ecx",
+			"invlpga eax,ecx",
 			"monitorx",
+			"a32 monitorx",
+			"clzero",
+			"o32 clzero",
 		};
 	}
 }
