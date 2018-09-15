@@ -220,7 +220,6 @@ Disassembled code:
     FlowControl: Next
     Op0Access: Write
     Op1Access: Read
-    SS:Read
     RSP:Read
     RBX:Read
     SS:RSP+0x10;UInt64;Write
@@ -230,7 +229,6 @@ Disassembled code:
     FlowControl: Next
     Op0Access: Write
     Op1Access: Read
-    SS:Read
     RSP:Read
     RSI:Read
     SS:RSP+0x18;UInt64;Write
@@ -241,7 +239,6 @@ Disassembled code:
     SP Increment: -8
     Op0Access: Read
     RBP:Read
-    SS:Read
     RSP:ReadWrite
     SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write
 00007FFAC46ACDAF push rdi
@@ -251,7 +248,6 @@ Disassembled code:
     SP Increment: -8
     Op0Access: Read
     RDI:Read
-    SS:Read
     RSP:ReadWrite
     SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write
 00007FFAC46ACDB0 push r14
@@ -261,7 +257,6 @@ Disassembled code:
     SP Increment: -8
     Op0Access: Read
     R14:Read
-    SS:Read
     RSP:ReadWrite
     SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write
 00007FFAC46ACDB2 lea rbp,[rsp-100h]
@@ -288,7 +283,6 @@ Disassembled code:
     Op0Access: Write
     Op1Access: Read
     RAX:Write
-    DS:Read
     DS:0x7FFAC47524E0;UInt64;Read
 00007FFAC46ACDC8 xor rax,rsp
     Encoding: Legacy
@@ -308,7 +302,6 @@ Disassembled code:
     FlowControl: Next
     Op0Access: Write
     Op1Access: Read
-    SS:Read
     RBP:Read
     RAX:Read
     SS:RBP+0xF0;UInt64;Write
@@ -319,7 +312,6 @@ Disassembled code:
     Op0Access: Write
     Op1Access: Read
     R8:Write
-    DS:Read
     DS:0x7FFAC474F208;UInt64;Read
 00007FFAC46ACDD9 lea rax,[7FFAC46F4A58h]
     Encoding: Legacy

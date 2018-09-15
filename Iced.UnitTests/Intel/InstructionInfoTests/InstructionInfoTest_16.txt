@@ -543,3 +543,15 @@ F3 66 AF, Scasd_EAX_Yd, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=eax r
 0F01 FC, Clzerow, Legacy, CLZERO, r=ax
 # clzero
 66 0F01 FC, Clzerod, Legacy, CLZERO, r=eax
+# add es:[bx+si],bh
+26 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=es r=bx;si r=bh rwm=es:bx+si;UInt8
+# add cs:[bx+si],bh
+2E 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=cs r=bx;si r=bh rwm=cs:bx+si;UInt8
+# add ss:[bx+si],bh
+36 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=ss r=bx;si r=bh rwm=ss:bx+si;UInt8
+# add ds:[bx+si],bh
+3E 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=ds r=bx;si r=bh rwm=ds:bx+si;UInt8
+# add fs:[bx+si],bh
+64 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=fs r=bx;si r=bh rwm=fs:bx+si;UInt8
+# add gs:[bx+si],bh
+65 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=gs r=bx;si r=bh rwm=gs:bx+si;UInt8

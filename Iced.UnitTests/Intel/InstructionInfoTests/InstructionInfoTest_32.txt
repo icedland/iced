@@ -1007,3 +1007,15 @@ C4E379 63 10 A5, VEX_Vpcmpistri_VX_WX_Ib, VEX, AVX, fw=cosz fc=ap op0=r op1=r op
 66 0F01 FC, Clzerow, Legacy, CLZERO, r=ax
 # clzero
 0F01 FC, Clzerod, Legacy, CLZERO, r=eax
+# add es:[eax],bh
+26 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=es r=eax r=bh rwm=es:eax;UInt8
+# add cs:[eax],bh
+2E 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=cs r=eax r=bh rwm=cs:eax;UInt8
+# add ss:[eax],bh
+36 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=ss r=eax r=bh rwm=ss:eax;UInt8
+# add ds:[eax],bh
+3E 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=ds r=eax r=bh rwm=ds:eax;UInt8
+# add fs:[eax],bh
+64 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=fs r=eax r=bh rwm=fs:eax;UInt8
+# add gs:[eax],bh
+65 00 38, Add_Eb_Gb, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=gs r=eax r=bh rwm=gs:eax;UInt8

@@ -4177,7 +4177,7 @@ namespace Iced.Intel.EncoderInternal {
 					else
 						handler = new LegacyHandler(dword1, info[i + 1], info[i + 2]);
 					break;
-				
+
 				case EncodingKind.VEX:
 					handler = new VexHandler(dword1, info[i + 1], info[i + 2]);
 					break;
