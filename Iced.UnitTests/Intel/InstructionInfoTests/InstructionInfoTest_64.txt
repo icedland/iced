@@ -7312,17 +7312,17 @@ C4E1F9 99 D3, VEX_Ktestd_k_k, VEX, AVX512BW, fw=cz fc=aops op0=r op1=r r=k2 r=k3
 # shrd [rax],rbx,cl
 48 0FAD 18, Shrd_rm64_r64_CL, Legacy, INTEL386, fw=coszp fu=a op0=rw op1=r op2=r r=rax r=rbx r=cl rwm=ds:rax;UInt64
 # fxsave [rax]
-0FAE 00, Fxsave_m4096, Legacy, FXSR, saverestore op0=w r=rax wm=ds:rax;Fxsave_512Byte
+0FAE 00, Fxsave_m512byte, Legacy, FXSR, saverestore op0=w r=rax wm=ds:rax;Fxsave_512Byte
 # fxsave64 [rax]
-48 0FAE 00, Fxsave64_m4096, Legacy, FXSR, saverestore op0=w r=rax wm=ds:rax;Fxsave64_512Byte
+48 0FAE 00, Fxsave64_m512byte, Legacy, FXSR, saverestore op0=w r=rax wm=ds:rax;Fxsave64_512Byte
 # rdfsbase ebp
 F3 0FAE C5, Rdfsbase_r32, Legacy, FSGSBASE, op0=w w=rbp
 # rdfsbase rbp
 F3 48 0FAE C5, Rdfsbase_r64, Legacy, FSGSBASE, op0=w w=rbp
 # fxrstor [rax]
-0FAE 08, Fxrstor_m4096, Legacy, FXSR, saverestore op0=r r=rax rm=ds:rax;Fxsave_512Byte
+0FAE 08, Fxrstor_m512byte, Legacy, FXSR, saverestore op0=r r=rax rm=ds:rax;Fxsave_512Byte
 # fxrstor64 [rax]
-48 0FAE 08, Fxrstor64_m4096, Legacy, FXSR, saverestore op0=r r=rax rm=ds:rax;Fxsave64_512Byte
+48 0FAE 08, Fxrstor64_m512byte, Legacy, FXSR, saverestore op0=r r=rax rm=ds:rax;Fxsave64_512Byte
 # rdgsbase ebp
 F3 0FAE CD, Rdgsbase_r32, Legacy, FSGSBASE, op0=w w=rbp
 # rdgsbase rbp

@@ -696,8 +696,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.EVEX_Vcvtsd2usi_r64_xmmm64_er;
 			yield return Code.EVEX_Vcvtusi2ss_xmm_xmm_rm64_er;
 			yield return Code.EVEX_Vcvtusi2sd_xmm_xmm_rm64_er;
-			yield return Code.Fxsave64_m4096;
-			yield return Code.Fxrstor64_m4096;
+			yield return Code.Fxsave64_m512byte;
+			yield return Code.Fxrstor64_m512byte;
 			yield return Code.Xsave64_m0;
 			yield return Code.Xrstor64_m0;
 			yield return Code.Ptwrite_rm64;

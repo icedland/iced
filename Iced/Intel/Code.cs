@@ -2404,12 +2404,12 @@ namespace Iced.Intel {
 		Shrd_rm32_r32_CL,									// o32 0FAD
 		Shrd_rm64_r64_CL,									// REX.W 0FAD
 
-		Fxsave_m4096,										// 0FAE /0
-		Fxsave64_m4096,										// REX.W 0FAE /0
+		Fxsave_m512byte,									// 0FAE /0
+		Fxsave64_m512byte,									// REX.W 0FAE /0
 		Rdfsbase_r32,										// F3 0FAE /0
 		Rdfsbase_r64,										// F3 REX.W 0FAE /0
-		Fxrstor_m4096,										// 0FAE /1
-		Fxrstor64_m4096,									// REX.W 0FAE /1
+		Fxrstor_m512byte,									// 0FAE /1
+		Fxrstor64_m512byte,									// REX.W 0FAE /1
 		Rdgsbase_r32,										// F3 0FAE /1
 		Rdgsbase_r64,										// F3 REX.W 0FAE /1
 		Ldmxcsr_m32,										// 0FAE /2

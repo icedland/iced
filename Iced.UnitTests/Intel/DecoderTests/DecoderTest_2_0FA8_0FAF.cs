@@ -1497,9 +1497,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Grp_RM_1_Data {
 			get {
-				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m4096, MemorySize.Fxsave_512Byte };
+				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m512byte, MemorySize.Fxsave_512Byte };
 
-				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m4096, MemorySize.Fxsave_512Byte };
+				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m512byte, MemorySize.Fxsave_512Byte };
 
 				yield return new object[] { "0FAE 10", 3, Code.Ldmxcsr_m32, MemorySize.UInt32 };
 
@@ -1575,9 +1575,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Grp_RM_1_Data {
 			get {
-				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m4096, MemorySize.Fxsave_512Byte };
+				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m512byte, MemorySize.Fxsave_512Byte };
 
-				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m4096, MemorySize.Fxsave_512Byte };
+				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m512byte, MemorySize.Fxsave_512Byte };
 
 				yield return new object[] { "0FAE 10", 3, Code.Ldmxcsr_m32, MemorySize.UInt32 };
 
@@ -1653,11 +1653,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Grp_RM_1_Data {
 			get {
-				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m4096, MemorySize.Fxsave_512Byte };
-				yield return new object[] { "48 0FAE 00", 4, Code.Fxsave64_m4096, MemorySize.Fxsave64_512Byte };
+				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m512byte, MemorySize.Fxsave_512Byte };
+				yield return new object[] { "48 0FAE 00", 4, Code.Fxsave64_m512byte, MemorySize.Fxsave64_512Byte };
 
-				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m4096, MemorySize.Fxsave_512Byte };
-				yield return new object[] { "48 0FAE 08", 4, Code.Fxrstor64_m4096, MemorySize.Fxsave64_512Byte };
+				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m512byte, MemorySize.Fxsave_512Byte };
+				yield return new object[] { "48 0FAE 08", 4, Code.Fxrstor64_m512byte, MemorySize.Fxsave64_512Byte };
 
 				yield return new object[] { "0FAE 10", 3, Code.Ldmxcsr_m32, MemorySize.UInt32 };
 				yield return new object[] { "48 0FAE 10", 4, Code.Ldmxcsr_m32, MemorySize.UInt32 };

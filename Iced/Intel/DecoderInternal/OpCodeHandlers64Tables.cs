@@ -626,13 +626,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 			var handlers_Grp_0FAE_lo = new OpCodeHandler[8] {
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Fxsave_m4096, Code.Fxsave64_m4096, MemorySize.Fxsave_512Byte, MemorySize.Fxsave64_512Byte),
+					new OpCodeHandler_M(Code.Fxsave_m512byte, Code.Fxsave64_m512byte, MemorySize.Fxsave_512Byte, MemorySize.Fxsave64_512Byte),
 					invalid,
 					new OpCodeHandler_Ev_REXW(Code.Rdfsbase_r32, Code.Rdfsbase_r64),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Fxrstor_m4096, Code.Fxrstor64_m4096, MemorySize.Fxsave_512Byte, MemorySize.Fxsave64_512Byte),
+					new OpCodeHandler_M(Code.Fxrstor_m512byte, Code.Fxrstor64_m512byte, MemorySize.Fxsave_512Byte, MemorySize.Fxsave64_512Byte),
 					invalid,
 					new OpCodeHandler_Ev_REXW(Code.Rdgsbase_r32, Code.Rdgsbase_r64),
 					invalid
