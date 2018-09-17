@@ -57,7 +57,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			(MemorySize.Float128, null),
 			(MemorySize.FpuEnv14, null),
 			(MemorySize.FpuEnv28, null),
-			(MemorySize.FpuState98, null),
+			(MemorySize.FpuState94, null),
 			(MemorySize.FpuState108, null),
 			(MemorySize.Fxsave_512Byte, null),
 			(MemorySize.Fxsave64_512Byte, null),

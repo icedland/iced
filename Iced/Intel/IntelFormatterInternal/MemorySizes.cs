@@ -69,7 +69,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 			(MemorySize.Float128, xmmword_ptr, null),
 			(MemorySize.FpuEnv14, "fpuenv14 ptr".Split(' '), null),
 			(MemorySize.FpuEnv28, "fpuenv28 ptr".Split(' '), null),
-			(MemorySize.FpuState98, "fpustate98 ptr".Split(' '), null),
+			(MemorySize.FpuState94, "fpustate94 ptr".Split(' '), null),
 			(MemorySize.FpuState108, "fpustate108 ptr".Split(' '), null),
 			(MemorySize.Fxsave_512Byte, Array.Empty<string>(), null),
 			(MemorySize.Fxsave64_512Byte, Array.Empty<string>(), null),

@@ -57,7 +57,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			(MemorySize.Float128, 16, "oword", null),
 			(MemorySize.FpuEnv14, 14, "fpuenv14", null),
 			(MemorySize.FpuEnv28, 28, "fpuenv28", null),
-			(MemorySize.FpuState98, 98, "fpustate98", null),
+			(MemorySize.FpuState94, 94, "fpustate94", null),
 			(MemorySize.FpuState108, 108, "fpustate108", null),
 			(MemorySize.Fxsave_512Byte, 512, null, null),
 			(MemorySize.Fxsave64_512Byte, 512, null, null),

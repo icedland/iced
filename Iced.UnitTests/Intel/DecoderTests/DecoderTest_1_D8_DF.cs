@@ -5245,7 +5245,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
 			Assert.Equal(1, instr.MemoryIndexScale);
-			Assert.Equal(MemorySize.FpuState98, instr.MemorySize);
+			Assert.Equal(MemorySize.FpuState94, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
 
@@ -5269,7 +5269,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
 			Assert.Equal(1, instr.MemoryIndexScale);
-			Assert.Equal(MemorySize.FpuState98, instr.MemorySize);
+			Assert.Equal(MemorySize.FpuState94, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
 
@@ -5294,7 +5294,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
 			Assert.Equal(1, instr.MemoryIndexScale);
-			Assert.Equal(MemorySize.FpuState98, instr.MemorySize);
+			Assert.Equal(MemorySize.FpuState94, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
 
@@ -5392,7 +5392,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.SI, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
 			Assert.Equal(1, instr.MemoryIndexScale);
-			Assert.Equal(MemorySize.FpuState98, instr.MemorySize);
+			Assert.Equal(MemorySize.FpuState94, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
 
@@ -5416,7 +5416,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
 			Assert.Equal(1, instr.MemoryIndexScale);
-			Assert.Equal(MemorySize.FpuState98, instr.MemorySize);
+			Assert.Equal(MemorySize.FpuState94, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
 
@@ -5441,7 +5441,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
 			Assert.Equal(1, instr.MemoryIndexScale);
-			Assert.Equal(MemorySize.FpuState98, instr.MemorySize);
+			Assert.Equal(MemorySize.FpuState94, instr.MemorySize);
 			Assert.Equal(0, instr.MemoryDisplSize);
 		}
 

@@ -206,9 +206,9 @@ namespace Iced.Intel {
 		FpuEnv28,
 
 		/// <summary>
-		/// Memory location contains a 98-byte FPU environment (16-bit fsave/frstor)
+		/// Memory location contains a 94-byte FPU environment (16-bit fsave/frstor)
 		/// </summary>
-		FpuState98,
+		FpuState94,
 
 		/// <summary>
 		/// Memory location contains a 108-byte FPU environment (32/64-bit fsave/frstor)
@@ -668,7 +668,7 @@ namespace Iced.Intel {
 			new MemorySizeInfo(MemorySize.Float128, 16, 16, MemorySize.Float128, true, false),
 			new MemorySizeInfo(MemorySize.FpuEnv14, 14, 14, MemorySize.FpuEnv14, false, false),
 			new MemorySizeInfo(MemorySize.FpuEnv28, 28, 28, MemorySize.FpuEnv28, false, false),
-			new MemorySizeInfo(MemorySize.FpuState98, 98, 98, MemorySize.FpuState98, false, false),
+			new MemorySizeInfo(MemorySize.FpuState94, 94, 94, MemorySize.FpuState94, false, false),
 			new MemorySizeInfo(MemorySize.FpuState108, 108, 108, MemorySize.FpuState108, false, false),
 			new MemorySizeInfo(MemorySize.Fxsave_512Byte, 512, 512, MemorySize.Fxsave_512Byte, false, false),
 			new MemorySizeInfo(MemorySize.Fxsave64_512Byte, 512, 512, MemorySize.Fxsave64_512Byte, false, false),

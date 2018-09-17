@@ -2285,12 +2285,12 @@ DD 08, Fisttp_Mf64, Legacy, FPU_and_SSE3, op0=w r=rax wm=ds:rax;Float64 r=st0
 DD 10, Fst_Mf64, Legacy, FPU, op0=w r=rax wm=ds:rax;Float64 r=st0
 # fstp qword ptr [rax]
 DD 18, Fstp_Mf64, Legacy, FPU, op0=w r=rax wm=ds:rax;Float64 r=st0
-# frstor fpustate98 ptr [rax]
-66 DD 20, Frstor_M98, Legacy, FPU, saverestore op0=r r=rax rm=ds:rax;FpuState98
+# frstor fpustate94 ptr [rax]
+66 DD 20, Frstor_M98, Legacy, FPU, saverestore op0=r r=rax rm=ds:rax;FpuState94
 # frstor [rax]
 DD 20, Frstor_M108, Legacy, FPU, saverestore op0=r r=rax rm=ds:rax;FpuState108
-# fnsave fpustate98 ptr [rax]
-66 DD 30, Fnsave_M98, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState98
+# fnsave fpustate94 ptr [rax]
+66 DD 30, Fnsave_M98, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState94
 # fnsave [rax]
 DD 30, Fnsave_M108, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState108
 # fnstsw [rax]

@@ -371,9 +371,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Mf64(Code.Fisttp_Mf64),
 				new OpCodeHandler_Mf64(Code.Fst_Mf64),
 				new OpCodeHandler_Mf64(Code.Fstp_Mf64),
-				new OpCodeHandler_Mf(Code.Frstor_M98, Code.Frstor_M108, MemorySize.FpuState98, MemorySize.FpuState108),
+				new OpCodeHandler_Mf(Code.Frstor_M98, Code.Frstor_M108, MemorySize.FpuState94, MemorySize.FpuState108),
 				invalid,
-				new OpCodeHandler_Mf(Code.Fnsave_M98, Code.Fnsave_M108, MemorySize.FpuState98, MemorySize.FpuState108),
+				new OpCodeHandler_Mf(Code.Fnsave_M98, Code.Fnsave_M108, MemorySize.FpuState94, MemorySize.FpuState108),
 				new OpCodeHandler_Mf2(Code.Fnstsw_Mw, MemorySize.UInt16),
 			};
 
