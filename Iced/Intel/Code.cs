@@ -643,8 +643,8 @@ namespace Iced.Intel {
 		Shr_rm16_imm8,										// o16 C1 /5
 		Shr_rm32_imm8,										// o32 C1 /5
 		Shr_rm64_imm8,										// REX.W C1 /5
-		// Shl_rm16_imm8										// C1 /6 => mapped to C1 /4
-		// Shl_rm32_imm8										// C1 /6 => mapped to C1 /4
+		// Shl_rm16_imm8									// C1 /6 => mapped to C1 /4
+		// Shl_rm32_imm8									// C1 /6 => mapped to C1 /4
 		Sar_rm16_imm8,										// o16 C1 /7
 		Sar_rm32_imm8,										// o32 C1 /7
 		Sar_rm64_imm8,										// REX.W C1 /7
@@ -664,8 +664,8 @@ namespace Iced.Intel {
 		Mov_rm32_imm32,										// o32 C7 /0
 		Mov_rm64_imm32,										// REX.W C7 /0
 		Xbegin_rel16,										// o16 C7 F8
-		Xbegin_rel32_32,									// o32 C7 F8
-		Xbegin_rel32_64,									// REX.W C7 F8
+		Xbegin_rel32,										// o32 C7 F8
+		Xbegin_rel32_REXW,									// REX.W C7 F8
 
 		Enterw_imm16_imm8,									// o16 C8
 		Enterd_imm16_imm8,									// o32 C8
@@ -692,7 +692,7 @@ namespace Iced.Intel {
 		Rcr_rm8_1,											// D0 /3
 		Shl_rm8_1,											// D0 /4
 		Shr_rm8_1,											// D0 /5
-		// Shl_rm8_1											// D0 /6 => mapped to D0 /4
+		// Shl_rm8_1										// D0 /6 => mapped to D0 /4
 		Sar_rm8_1,											// D0 /7
 		Rol_rm16_1,											// o16 D1 /0
 		Rol_rm32_1,											// o32 D1 /0
@@ -712,8 +712,8 @@ namespace Iced.Intel {
 		Shr_rm16_1,											// o16 D1 /5
 		Shr_rm32_1,											// o32 D1 /5
 		Shr_rm64_1,											// REX.W D1 /5
-		// Shl_rm16_1											// D1 /6 => mapped to D1 /4
-		// Shl_rm32_1											// D1 /6 => mapped to D1 /4
+		// Shl_rm16_1										// D1 /6 => mapped to D1 /4
+		// Shl_rm32_1										// D1 /6 => mapped to D1 /4
 		Sar_rm16_1,											// o16 D1 /7
 		Sar_rm32_1,											// o32 D1 /7
 		Sar_rm64_1,											// REX.W D1 /7
@@ -954,7 +954,7 @@ namespace Iced.Intel {
 		Hlt,												// F4
 		Cmc,												// F5
 		Test_rm8_imm8,										// F6 /0
-		// Test_rm8_imm8										// F6 /1 => mapped to F6 /0
+		// Test_rm8_imm8									// F6 /1 => mapped to F6 /0
 		Not_rm8,											// F6 /2
 		Neg_rm8,											// F6 /3
 		Mul_rm8,											// F6 /4
@@ -964,8 +964,8 @@ namespace Iced.Intel {
 		Test_rm16_imm16,									// o16 F7 /0
 		Test_rm32_imm32,									// o32 F7 /0
 		Test_rm64_imm32,									// REX.W F7 /0
-		// Test_rm16_imm16,										// F7 /1 => mapped to F7 /0
-		// Test_rm32_imm32,										// F7 /1 => mapped to F7 /0
+		// Test_rm16_imm16,									// F7 /1 => mapped to F7 /0
+		// Test_rm32_imm32,									// F7 /1 => mapped to F7 /0
 		// Test_rm64_imm32,									// F7 /1 => mapped to F7 /0
 		Not_rm16,											// o16 F7 /2
 		Not_rm32,											// o32 F7 /2

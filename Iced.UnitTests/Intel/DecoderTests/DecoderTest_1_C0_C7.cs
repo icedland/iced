@@ -1704,9 +1704,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 C7 F8 5AA51234", 7, Code.Xbegin_rel32_32, DecoderConstants.DEFAULT_IP16 + 7 + 0x3412A55A)]
-		[InlineData("66 C7 F8 A56789AB", 7, Code.Xbegin_rel32_32, DecoderConstants.DEFAULT_IP16 + 7 + 0xAB8967A5)]
-		void Test16_Xbegin_rel32_32_1(string hexBytes, int byteLength, Code code, ulong target) {
+		[InlineData("66 C7 F8 5AA51234", 7, Code.Xbegin_rel32, DecoderConstants.DEFAULT_IP16 + 7 + 0x3412A55A)]
+		[InlineData("66 C7 F8 A56789AB", 7, Code.Xbegin_rel32, DecoderConstants.DEFAULT_IP16 + 7 + 0xAB8967A5)]
+		void Test16_Xbegin_rel32_1(string hexBytes, int byteLength, Code code, ulong target) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
@@ -1723,9 +1723,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("C7 F8 5AA51234", 6, Code.Xbegin_rel32_32, DecoderConstants.DEFAULT_IP32 + 6 + 0x3412A55A)]
-		[InlineData("C7 F8 A56789AB", 6, Code.Xbegin_rel32_32, DecoderConstants.DEFAULT_IP32 + 6 + 0xAB8967A5)]
-		void Test32_Xbegin_rel32_32_1(string hexBytes, int byteLength, Code code, ulong target) {
+		[InlineData("C7 F8 5AA51234", 6, Code.Xbegin_rel32, DecoderConstants.DEFAULT_IP32 + 6 + 0x3412A55A)]
+		[InlineData("C7 F8 A56789AB", 6, Code.Xbegin_rel32, DecoderConstants.DEFAULT_IP32 + 6 + 0xAB8967A5)]
+		void Test32_Xbegin_rel32_1(string hexBytes, int byteLength, Code code, ulong target) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
@@ -1742,9 +1742,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("C7 F8 5AA51234", 6, Code.Xbegin_rel32_32, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A)]
-		[InlineData("C7 F8 A56789AB", 6, Code.Xbegin_rel32_32, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B)]
-		void Test64_Xbegin_rel32_32_1(string hexBytes, int byteLength, Code code, ulong target) {
+		[InlineData("C7 F8 5AA51234", 6, Code.Xbegin_rel32, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A)]
+		[InlineData("C7 F8 A56789AB", 6, Code.Xbegin_rel32, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B)]
+		void Test64_Xbegin_rel32_1(string hexBytes, int byteLength, Code code, ulong target) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
@@ -1761,12 +1761,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("48 C7 F8 5AA51234", 7, Code.Xbegin_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("48 C7 F8 A56789AB", 7, Code.Xbegin_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
+		[InlineData("48 C7 F8 5AA51234", 7, Code.Xbegin_rel32_REXW, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
+		[InlineData("48 C7 F8 A56789AB", 7, Code.Xbegin_rel32_REXW, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
 
-		[InlineData("66 4F C7 F8 5AA51234", 8, Code.Xbegin_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A)]
-		[InlineData("66 4F C7 F8 A56789AB", 8, Code.Xbegin_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B)]
-		void Test64_Xbegin_rel32_64_1(string hexBytes, int byteLength, Code code, ulong target) {
+		[InlineData("66 4F C7 F8 5AA51234", 8, Code.Xbegin_rel32_REXW, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A)]
+		[InlineData("66 4F C7 F8 A56789AB", 8, Code.Xbegin_rel32_REXW, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B)]
+		void Test64_Xbegin_rel32_REXW_1(string hexBytes, int byteLength, Code code, ulong target) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 

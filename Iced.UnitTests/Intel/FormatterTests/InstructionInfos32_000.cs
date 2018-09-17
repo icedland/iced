@@ -312,7 +312,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(32, "67 AF", Code.Scasd_EAX_m32),
 			new InstructionInfo(32, "AF", Code.Scasd_EAX_m32),
 			new InstructionInfo(32, "66 C7 F8 5AA5", Code.Xbegin_rel16),
-			new InstructionInfo(32, "C7 F8 5AA51234", Code.Xbegin_rel32_32),
+			new InstructionInfo(32, "C7 F8 5AA51234", Code.Xbegin_rel32),
 			new InstructionInfo(32, "66 C8 5AA5 A6", Code.Enterw_imm16_imm8),
 			new InstructionInfo(32, "66 C9", Code.Leavew),
 			new InstructionInfo(32, "66 CA 5AA5", Code.Retfw_imm16),

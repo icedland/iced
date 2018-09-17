@@ -265,8 +265,8 @@ namespace Iced.Intel {
 				return FormatterFlowControl.FarBranch;
 
 			case Code.Xbegin_rel16:
-			case Code.Xbegin_rel32_32:
-			case Code.Xbegin_rel32_64:
+			case Code.Xbegin_rel32:
+			case Code.Xbegin_rel32_REXW:
 				return FormatterFlowControl.Xbegin;
 
 			default:

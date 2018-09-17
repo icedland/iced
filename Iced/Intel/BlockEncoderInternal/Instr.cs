@@ -196,8 +196,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 				return new JmpInstr(blockEncoder, ref instruction);
 
 			case Code.Xbegin_rel16:
-			case Code.Xbegin_rel32_32:
-			case Code.Xbegin_rel32_64:
+			case Code.Xbegin_rel32:
+			case Code.Xbegin_rel32_REXW:
 				return new XbeginInstr(blockEncoder, ref instruction);
 			}
 

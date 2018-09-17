@@ -658,7 +658,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Movq_rm64_xmm;
 			yield return Code.VEX_Vmovq_rm64_xmm;
 			yield return Code.EVEX_Vmovq_rm64_xmm;
-			yield return Code.Xbegin_rel32_64;
+			yield return Code.Xbegin_rel32_REXW;
 			yield return Code.Swapgs;
 			yield return Code.Bndmov_bnd_bndm128;
 			yield return Code.Bndcl_bnd_rm64;

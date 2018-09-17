@@ -46,7 +46,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 					this.instruction.Code = Code.Xbegin_rel16;
 				else {
 					Debug.Assert(blockEncoder.Bitness == 32 || blockEncoder.Bitness == 64);
-					this.instruction.Code = Code.Xbegin_rel32_32;
+					this.instruction.Code = Code.Xbegin_rel32;
 				}
 			}
 			Size = (uint)blockEncoder.NullEncoder.Encode(ref this.instruction, instruction.IP64, out var errorMessage);
