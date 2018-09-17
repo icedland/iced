@@ -23,11 +23,11 @@ using Xunit;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class DecoderTest_1_E8_EF : DecoderTest {
 		[Theory]
-		[InlineData("E8 5AA5", 3, Code.Call_Jw16, DecoderConstants.DEFAULT_IP16 + 3 + 0xA55A)]
-		[InlineData("E8 A55A", 3, Code.Call_Jw16, DecoderConstants.DEFAULT_IP16 + 3 + 0x5AA5)]
+		[InlineData("E8 5AA5", 3, Code.Call_rel16, DecoderConstants.DEFAULT_IP16 + 3 + 0xA55A)]
+		[InlineData("E8 A55A", 3, Code.Call_rel16, DecoderConstants.DEFAULT_IP16 + 3 + 0x5AA5)]
 
-		[InlineData("E9 5AA5", 3, Code.Jmp_Jw16, DecoderConstants.DEFAULT_IP16 + 3 + 0xA55A)]
-		[InlineData("E9 A55A", 3, Code.Jmp_Jw16, DecoderConstants.DEFAULT_IP16 + 3 + 0x5AA5)]
+		[InlineData("E9 5AA5", 3, Code.Jmp_rel16, DecoderConstants.DEFAULT_IP16 + 3 + 0xA55A)]
+		[InlineData("E9 A55A", 3, Code.Jmp_rel16, DecoderConstants.DEFAULT_IP16 + 3 + 0x5AA5)]
 		void Test16_CallwJmp_1(string hexBytes, int byteLength, Code code, ulong target) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -45,11 +45,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 E8 5AA5", 4, Code.Call_Jw16, DecoderConstants.DEFAULT_IP32 + 4 + 0xA55A)]
-		[InlineData("66 E8 A55A", 4, Code.Call_Jw16, DecoderConstants.DEFAULT_IP32 + 4 + 0x5AA5)]
+		[InlineData("66 E8 5AA5", 4, Code.Call_rel16, DecoderConstants.DEFAULT_IP32 + 4 + 0xA55A)]
+		[InlineData("66 E8 A55A", 4, Code.Call_rel16, DecoderConstants.DEFAULT_IP32 + 4 + 0x5AA5)]
 
-		[InlineData("66 E9 5AA5", 4, Code.Jmp_Jw16, DecoderConstants.DEFAULT_IP32 + 4 + 0xA55A)]
-		[InlineData("66 E9 A55A", 4, Code.Jmp_Jw16, DecoderConstants.DEFAULT_IP32 + 4 + 0x5AA5)]
+		[InlineData("66 E9 5AA5", 4, Code.Jmp_rel16, DecoderConstants.DEFAULT_IP32 + 4 + 0xA55A)]
+		[InlineData("66 E9 A55A", 4, Code.Jmp_rel16, DecoderConstants.DEFAULT_IP32 + 4 + 0x5AA5)]
 		void Test32_CallwJmp_1(string hexBytes, int byteLength, Code code, ulong target) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -67,11 +67,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 E8 12345AA5", 6, Code.Call_Jd32, DecoderConstants.DEFAULT_IP16 + 6 + 0xA55A3412)]
-		[InlineData("66 E8 5678A55A", 6, Code.Call_Jd32, DecoderConstants.DEFAULT_IP16 + 6 + 0x5AA57856)]
+		[InlineData("66 E8 12345AA5", 6, Code.Call_rel32_32, DecoderConstants.DEFAULT_IP16 + 6 + 0xA55A3412)]
+		[InlineData("66 E8 5678A55A", 6, Code.Call_rel32_32, DecoderConstants.DEFAULT_IP16 + 6 + 0x5AA57856)]
 
-		[InlineData("66 E9 12345AA5", 6, Code.Jmp_Jd32, DecoderConstants.DEFAULT_IP16 + 6 + 0xA55A3412)]
-		[InlineData("66 E9 5678A55A", 6, Code.Jmp_Jd32, DecoderConstants.DEFAULT_IP16 + 6 + 0x5AA57856)]
+		[InlineData("66 E9 12345AA5", 6, Code.Jmp_rel32_32, DecoderConstants.DEFAULT_IP16 + 6 + 0xA55A3412)]
+		[InlineData("66 E9 5678A55A", 6, Code.Jmp_rel32_32, DecoderConstants.DEFAULT_IP16 + 6 + 0x5AA57856)]
 		void Test16_CalldJmp_1(string hexBytes, int byteLength, Code code, ulong target) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -89,11 +89,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("E8 12345AA5", 5, Code.Call_Jd32, DecoderConstants.DEFAULT_IP32 + 5 + 0xA55A3412)]
-		[InlineData("E8 5678A55A", 5, Code.Call_Jd32, DecoderConstants.DEFAULT_IP32 + 5 + 0x5AA57856)]
+		[InlineData("E8 12345AA5", 5, Code.Call_rel32_32, DecoderConstants.DEFAULT_IP32 + 5 + 0xA55A3412)]
+		[InlineData("E8 5678A55A", 5, Code.Call_rel32_32, DecoderConstants.DEFAULT_IP32 + 5 + 0x5AA57856)]
 
-		[InlineData("E9 12345AA5", 5, Code.Jmp_Jd32, DecoderConstants.DEFAULT_IP32 + 5 + 0xA55A3412)]
-		[InlineData("E9 5678A55A", 5, Code.Jmp_Jd32, DecoderConstants.DEFAULT_IP32 + 5 + 0x5AA57856)]
+		[InlineData("E9 12345AA5", 5, Code.Jmp_rel32_32, DecoderConstants.DEFAULT_IP32 + 5 + 0xA55A3412)]
+		[InlineData("E9 5678A55A", 5, Code.Jmp_rel32_32, DecoderConstants.DEFAULT_IP32 + 5 + 0x5AA57856)]
 		void Test32_CalldJmp_1(string hexBytes, int byteLength, Code code, ulong target) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -111,17 +111,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("E8 12345AA5", 5, Code.Call_Jd64, DecoderConstants.DEFAULT_IP64 + 5 - 0x5AA5CBEE)]
-		[InlineData("E8 5678A55A", 5, Code.Call_Jd64, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA57856)]
-		[InlineData("66 E8 5678A55A", 6, Code.Call_Jd64, DecoderConstants.DEFAULT_IP64 + 6 + 0x5AA57856)]
-		[InlineData("4F E8 5678A55A", 6, Code.Call_Jd64, DecoderConstants.DEFAULT_IP64 + 6 + 0x5AA57856)]
-		[InlineData("66 4F E8 5678A55A", 7, Code.Call_Jd64, DecoderConstants.DEFAULT_IP64 + 7 + 0x5AA57856)]
+		[InlineData("E8 12345AA5", 5, Code.Call_rel32_64, DecoderConstants.DEFAULT_IP64 + 5 - 0x5AA5CBEE)]
+		[InlineData("E8 5678A55A", 5, Code.Call_rel32_64, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA57856)]
+		[InlineData("66 E8 5678A55A", 6, Code.Call_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x5AA57856)]
+		[InlineData("4F E8 5678A55A", 6, Code.Call_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x5AA57856)]
+		[InlineData("66 4F E8 5678A55A", 7, Code.Call_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x5AA57856)]
 
-		[InlineData("E9 12345AA5", 5, Code.Jmp_Jd64, DecoderConstants.DEFAULT_IP64 + 5 - 0x5AA5CBEE)]
-		[InlineData("E9 5678A55A", 5, Code.Jmp_Jd64, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA57856)]
-		[InlineData("66 E9 5678A55A", 6, Code.Jmp_Jd64, DecoderConstants.DEFAULT_IP64 + 6 + 0x5AA57856)]
-		[InlineData("4F E9 5678A55A", 6, Code.Jmp_Jd64, DecoderConstants.DEFAULT_IP64 + 6 + 0x5AA57856)]
-		[InlineData("66 4F E9 5678A55A", 7, Code.Jmp_Jd64, DecoderConstants.DEFAULT_IP64 + 7 + 0x5AA57856)]
+		[InlineData("E9 12345AA5", 5, Code.Jmp_rel32_64, DecoderConstants.DEFAULT_IP64 + 5 - 0x5AA5CBEE)]
+		[InlineData("E9 5678A55A", 5, Code.Jmp_rel32_64, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA57856)]
+		[InlineData("66 E9 5678A55A", 6, Code.Jmp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x5AA57856)]
+		[InlineData("4F E9 5678A55A", 6, Code.Jmp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x5AA57856)]
+		[InlineData("66 4F E9 5678A55A", 7, Code.Jmp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x5AA57856)]
 		void Test64_CalldJmp_1(string hexBytes, int byteLength, Code code, ulong target) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -139,11 +139,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Jmp_Aww_1() {
+		void Test16_Jmp_ptr1616_1() {
 			var decoder = CreateDecoder16("EA 1234 5678");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Jmp_Aww, instr.Code);
+			Assert.Equal(Code.Jmp_ptr1616, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -157,11 +157,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Jmp_Aww_1() {
+		void Test32_Jmp_ptr1616_1() {
 			var decoder = CreateDecoder32("66 EA 1234 5678");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Jmp_Aww, instr.Code);
+			Assert.Equal(Code.Jmp_ptr1616, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(6, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -175,11 +175,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Jmp_Adw_1() {
+		void Test16_Jmp_ptr3216_1() {
 			var decoder = CreateDecoder16("66 EA 12345678 EABC");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Jmp_Adw, instr.Code);
+			Assert.Equal(Code.Jmp_ptr3216, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(8, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -193,11 +193,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Jmp_Adw_1() {
+		void Test32_Jmp_ptr3216_1() {
 			var decoder = CreateDecoder32("EA 12345678 EABC");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Jmp_Adw, instr.Code);
+			Assert.Equal(Code.Jmp_ptr3216, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(7, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -213,11 +213,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("EB 5A", 2, DecoderConstants.DEFAULT_IP16 + 2 + 0x5A)]
 		[InlineData("EB A5", 2, DecoderConstants.DEFAULT_IP16 + 2 + 0xFFA5)]
-		void Test16_Jmp_Jb16_1(string hexBytes, int byteLength, ulong target) {
+		void Test16_Jmp_rel8_16_1(string hexBytes, int byteLength, ulong target) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Jmp_Jb16, instr.Code);
+			Assert.Equal(Code.Jmp_rel8_16, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -232,11 +232,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("66 EB 5A", 3, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A)]
 		[InlineData("66 EB A5", 3, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5)]
-		void Test32_Jmp_Jb16_1(string hexBytes, int byteLength, ulong target) {
+		void Test32_Jmp_rel8_16_1(string hexBytes, int byteLength, ulong target) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Jmp_Jb16, instr.Code);
+			Assert.Equal(Code.Jmp_rel8_16, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -251,11 +251,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("66 EB 5A", 3, DecoderConstants.DEFAULT_IP16 + 3 + 0x5A)]
 		[InlineData("66 EB A5", 3, DecoderConstants.DEFAULT_IP16 + 3 + 0xFFFFFFA5)]
-		void Test16_Jmp_Jb32_1(string hexBytes, int byteLength, ulong target) {
+		void Test16_Jmp_rel8_32_1(string hexBytes, int byteLength, ulong target) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Jmp_Jb32, instr.Code);
+			Assert.Equal(Code.Jmp_rel8_32, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -270,11 +270,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("EB 5A", 2, DecoderConstants.DEFAULT_IP32 + 2 + 0x5A)]
 		[InlineData("EB A5", 2, DecoderConstants.DEFAULT_IP32 + 2 + 0xFFFFFFA5)]
-		void Test32_Jmp_Jb32_1(string hexBytes, int byteLength, ulong target) {
+		void Test32_Jmp_rel8_32_1(string hexBytes, int byteLength, ulong target) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Jmp_Jb32, instr.Code);
+			Assert.Equal(Code.Jmp_rel8_32, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -295,11 +295,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("4F EB A5", 3, DecoderConstants.DEFAULT_IP64 + 3 - 0x5B)]
 		[InlineData("66 4F EB 5A", 4, DecoderConstants.DEFAULT_IP64 + 4 + 0x5A)]
 		[InlineData("66 4F EB A5", 4, DecoderConstants.DEFAULT_IP64 + 4 - 0x5B)]
-		void Test64_Jmp_Jb64_1(string hexBytes, int byteLength, ulong target) {
+		void Test64_Jmp_rel8_64_1(string hexBytes, int byteLength, ulong target) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Jmp_Jb64, instr.Code);
+			Assert.Equal(Code.Jmp_rel8_64, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);

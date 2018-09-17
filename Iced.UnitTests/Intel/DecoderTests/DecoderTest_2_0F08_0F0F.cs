@@ -77,14 +77,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F0D 00", 3, Code.Prefetch_Mb)]
-		[InlineData("0F0D 08", 3, Code.Prefetchw_Mb)]
-		[InlineData("0F0D 10", 3, Code.Prefetchwt1_Mb)]
-		[InlineData("0F0D 18", 3, Code.Prefetch_Mb_r3)]
-		[InlineData("0F0D 20", 3, Code.Prefetch_Mb_r4)]
-		[InlineData("0F0D 28", 3, Code.Prefetch_Mb_r5)]
-		[InlineData("0F0D 30", 3, Code.Prefetch_Mb_r6)]
-		[InlineData("0F0D 38", 3, Code.Prefetch_Mb_r7)]
+		[InlineData("0F0D 00", 3, Code.Prefetch_m8)]
+		[InlineData("0F0D 08", 3, Code.Prefetchw_m8)]
+		[InlineData("0F0D 10", 3, Code.Prefetchwt1_m8)]
+		[InlineData("0F0D 18", 3, Code.Prefetch_m8_r3)]
+		[InlineData("0F0D 20", 3, Code.Prefetch_m8_r4)]
+		[InlineData("0F0D 28", 3, Code.Prefetch_m8_r5)]
+		[InlineData("0F0D 30", 3, Code.Prefetch_m8_r6)]
+		[InlineData("0F0D 38", 3, Code.Prefetch_m8_r7)]
 		void Test16_PrefetchX_Mb_1(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -108,14 +108,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F0D 00", 3, Code.Prefetch_Mb)]
-		[InlineData("0F0D 08", 3, Code.Prefetchw_Mb)]
-		[InlineData("0F0D 10", 3, Code.Prefetchwt1_Mb)]
-		[InlineData("0F0D 18", 3, Code.Prefetch_Mb_r3)]
-		[InlineData("0F0D 20", 3, Code.Prefetch_Mb_r4)]
-		[InlineData("0F0D 28", 3, Code.Prefetch_Mb_r5)]
-		[InlineData("0F0D 30", 3, Code.Prefetch_Mb_r6)]
-		[InlineData("0F0D 38", 3, Code.Prefetch_Mb_r7)]
+		[InlineData("0F0D 00", 3, Code.Prefetch_m8)]
+		[InlineData("0F0D 08", 3, Code.Prefetchw_m8)]
+		[InlineData("0F0D 10", 3, Code.Prefetchwt1_m8)]
+		[InlineData("0F0D 18", 3, Code.Prefetch_m8_r3)]
+		[InlineData("0F0D 20", 3, Code.Prefetch_m8_r4)]
+		[InlineData("0F0D 28", 3, Code.Prefetch_m8_r5)]
+		[InlineData("0F0D 30", 3, Code.Prefetch_m8_r6)]
+		[InlineData("0F0D 38", 3, Code.Prefetch_m8_r7)]
 		void Test32_PrefetchX_Mb_1(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -139,14 +139,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F0D 00", 3, Code.Prefetch_Mb)]
-		[InlineData("0F0D 08", 3, Code.Prefetchw_Mb)]
-		[InlineData("0F0D 10", 3, Code.Prefetchwt1_Mb)]
-		[InlineData("0F0D 18", 3, Code.Prefetch_Mb_r3)]
-		[InlineData("0F0D 20", 3, Code.Prefetch_Mb_r4)]
-		[InlineData("0F0D 28", 3, Code.Prefetch_Mb_r5)]
-		[InlineData("0F0D 30", 3, Code.Prefetch_Mb_r6)]
-		[InlineData("0F0D 38", 3, Code.Prefetch_Mb_r7)]
+		[InlineData("0F0D 00", 3, Code.Prefetch_m8)]
+		[InlineData("0F0D 08", 3, Code.Prefetchw_m8)]
+		[InlineData("0F0D 10", 3, Code.Prefetchwt1_m8)]
+		[InlineData("0F0D 18", 3, Code.Prefetch_m8_r3)]
+		[InlineData("0F0D 20", 3, Code.Prefetch_m8_r4)]
+		[InlineData("0F0D 28", 3, Code.Prefetch_m8_r5)]
+		[InlineData("0F0D 30", 3, Code.Prefetch_m8_r6)]
+		[InlineData("0F0D 38", 3, Code.Prefetch_m8_r7)]
 		void Test64_PrefetchX_Mb_1(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();

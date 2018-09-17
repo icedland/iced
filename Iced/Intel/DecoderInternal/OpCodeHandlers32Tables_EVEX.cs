@@ -37,9 +37,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsrlw_HX_k1z_WX_Ib, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-						new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsrlw_HY_k1z_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-						new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsrlw_HZ_k1z_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+						new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsrlw_xmm_k1z_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+						new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsrlw_ymm_k1z_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+						new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsrlw_zmm_k1z_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 					),
 					invalid,
 					invalid
@@ -48,9 +48,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsraw_HX_k1z_WX_Ib, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsraw_HY_k1z_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsraw_HZ_k1z_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsraw_xmm_k1z_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsraw_ymm_k1z_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsraw_zmm_k1z_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -59,9 +59,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsllw_HX_k1z_WX_Ib, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-						new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsllw_HY_k1z_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-						new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsllw_HZ_k1z_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+						new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsllw_xmm_k1z_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+						new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsllw_ymm_k1z_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+						new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsllw_zmm_k1z_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 					),
 					invalid,
 					invalid
@@ -74,14 +74,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vprord_HX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vprord_HY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vprord_HZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vprord_xmm_k1z_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vprord_ymm_k1z_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vprord_zmm_k1z_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vprorq_HX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vprorq_HY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vprorq_HZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vprorq_xmm_k1z_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vprorq_ymm_k1z_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vprorq_zmm_k1z_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -91,14 +91,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vprold_HX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vprold_HY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vprold_HZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vprold_xmm_k1z_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vprold_ymm_k1z_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vprold_zmm_k1z_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vprolq_HX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vprolq_HY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vprolq_HZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vprolq_xmm_k1z_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vprolq_ymm_k1z_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vprolq_zmm_k1z_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -108,9 +108,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsrld_HX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsrld_HY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsrld_HZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsrld_xmm_k1z_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsrld_ymm_k1z_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsrld_zmm_k1z_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						invalid
 					),
@@ -122,14 +122,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsrad_HX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsrad_HY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsrad_HZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsrad_xmm_k1z_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsrad_ymm_k1z_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsrad_zmm_k1z_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsraq_HX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsraq_HY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsraq_HZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsraq_xmm_k1z_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsraq_ymm_k1z_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsraq_zmm_k1z_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -140,9 +140,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpslld_HX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpslld_HY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpslld_HZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpslld_xmm_k1z_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpslld_ymm_k1z_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpslld_zmm_k1z_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						invalid
 					),
@@ -160,9 +160,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsrlq_HX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsrlq_HY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsrlq_HZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsrlq_ymm_k1z_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsrlq_zmm_k1z_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -171,9 +171,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsrldq_HX_WX_Ib, TupleType.Full_Mem_128, MemorySize.UInt128),
-						new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsrldq_HY_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_UInt128),
-						new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsrldq_HZ_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_UInt128)
+						new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsrldq_xmm_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.UInt128),
+						new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsrldq_ymm_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_UInt128),
+						new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsrldq_zmm_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_UInt128)
 					),
 					invalid,
 					invalid
@@ -185,9 +185,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsllq_HX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsllq_HY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsllq_HZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpsllq_xmm_k1z_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpsllq_ymm_k1z_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpsllq_zmm_k1z_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -196,9 +196,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpslldq_HX_WX_Ib, TupleType.Full_Mem_128, MemorySize.UInt128),
-						new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpslldq_HY_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_UInt128),
-						new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpslldq_HZ_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_UInt128)
+						new OpCodeHandler_EVEX_HkWIb(Register.XMM0, Code.EVEX_Vpslldq_xmm_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.UInt128),
+						new OpCodeHandler_EVEX_HkWIb(Register.YMM0, Code.EVEX_Vpslldq_ymm_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_UInt128),
+						new OpCodeHandler_EVEX_HkWIb(Register.ZMM0, Code.EVEX_Vpslldq_zmm_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_UInt128)
 					),
 					invalid,
 					invalid
@@ -213,12 +213,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf0dps_VM32Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf0dps_vm32z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.YMM0, Code.EVEX_Vgatherpf0dpd_VM32Y_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.YMM0, Code.EVEX_Vgatherpf0dpd_vm32y_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -230,12 +230,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf1dps_VM32Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf1dps_vm32z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.YMM0, Code.EVEX_Vgatherpf1dpd_VM32Y_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.YMM0, Code.EVEX_Vgatherpf1dpd_vm32y_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -249,12 +249,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf0dps_VM32Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf0dps_vm32z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.YMM0, Code.EVEX_Vscatterpf0dpd_VM32Y_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.YMM0, Code.EVEX_Vscatterpf0dpd_vm32y_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -266,12 +266,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf1dps_VM32Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf1dps_vm32z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.YMM0, Code.EVEX_Vscatterpf1dpd_VM32Y_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.YMM0, Code.EVEX_Vscatterpf1dpd_vm32y_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -288,12 +288,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf0qps_VM64Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf0qps_vm64z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf0qpd_VM64Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf0qpd_vm64z_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -305,12 +305,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf1qps_VM64Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf1qps_vm64z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf1qpd_VM64Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vgatherpf1qpd_vm64z_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -324,12 +324,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf0qps_VM64Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf0qps_vm64z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf0qpd_VM64Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf0qpd_vm64z_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -341,12 +341,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf1qps_VM64Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf1qps_vm64z_k1, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf1qpd_VM64Z_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VSIB_k1(Register.ZMM0, Code.EVEX_Vscatterpf1qpd_vm64z_k1, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -360,9 +360,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpshufb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpshufb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpshufb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpshufb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpshufb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpshufb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
 					),
 					invalid,
 					invalid
@@ -373,9 +373,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaddubsw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaddubsw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaddubsw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaddubsw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaddubsw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaddubsw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -391,9 +391,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmulhrsw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmulhrsw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmulhrsw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmulhrsw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmulhrsw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmulhrsw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -402,9 +402,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermilps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermilps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermilps_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermilps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermilps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermilps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						invalid
 					),
@@ -416,9 +416,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermilpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermilpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermilpd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermilpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermilpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermilpd_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -433,16 +433,16 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsrlvw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsrlvw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsrlvw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsrlvw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsrlvw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsrlvw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovuswb_WX_k1z_VX, TupleType.Half_Mem_128, MemorySize.Packed64_UInt8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovuswb_WX_k1z_VY, TupleType.Half_Mem_256, MemorySize.Packed128_UInt8),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovuswb_WY_k1z_VZ, TupleType.Half_Mem_512, MemorySize.Packed256_UInt8)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovuswb_xmmm64_k1z_xmm, TupleType.Half_Mem_128, MemorySize.Packed64_UInt8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovuswb_xmmm128_k1z_ymm, TupleType.Half_Mem_256, MemorySize.Packed128_UInt8),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovuswb_ymmm256_k1z_zmm, TupleType.Half_Mem_512, MemorySize.Packed256_UInt8)
 						),
 						invalid
 					),
@@ -453,16 +453,16 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsravw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsravw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsravw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsravw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsravw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsravw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovusdb_WX_k1z_VX, TupleType.Quarter_Mem_128, MemorySize.Packed32_UInt8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovusdb_WX_k1z_VY, TupleType.Quarter_Mem_256, MemorySize.Packed64_UInt8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovusdb_WX_k1z_VZ, TupleType.Quarter_Mem_512, MemorySize.Packed128_UInt8)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovusdb_xmmm32_k1z_xmm, TupleType.Quarter_Mem_128, MemorySize.Packed32_UInt8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovusdb_xmmm64_k1z_ymm, TupleType.Quarter_Mem_256, MemorySize.Packed64_UInt8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovusdb_xmmm128_k1z_zmm, TupleType.Quarter_Mem_512, MemorySize.Packed128_UInt8)
 						),
 						invalid
 					),
@@ -473,16 +473,16 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsllvw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsllvw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsllvw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsllvw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsllvw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsllvw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovusqb_WX_k1z_VX, TupleType.Eighth_Mem_128, MemorySize.Packed16_UInt8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovusqb_WX_k1z_VY, TupleType.Eighth_Mem_256, MemorySize.Packed32_UInt8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovusqb_WX_k1z_VZ, TupleType.Eighth_Mem_512, MemorySize.Packed64_UInt8)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovusqb_xmmm16_k1z_xmm, TupleType.Eighth_Mem_128, MemorySize.Packed16_UInt8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovusqb_xmmm32_k1z_ymm, TupleType.Eighth_Mem_256, MemorySize.Packed32_UInt8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovusqb_xmmm64_k1z_zmm, TupleType.Eighth_Mem_512, MemorySize.Packed64_UInt8)
 						),
 						invalid
 					),
@@ -492,41 +492,17 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtph2ps_VX_k1z_WX, TupleType.Half_Mem_128, MemorySize.Packed64_Float16, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtph2ps_VY_k1z_WX, TupleType.Half_Mem_256, MemorySize.Packed128_Float16, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtph2ps_VZ_k1z_WY_sae, TupleType.Half_Mem_512, MemorySize.Packed256_Float16, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtph2ps_xmm_k1z_xmmm64, TupleType.Half_Mem_128, MemorySize.Packed64_Float16, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtph2ps_ymm_k1z_xmmm128, TupleType.Half_Mem_256, MemorySize.Packed128_Float16, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae, TupleType.Half_Mem_512, MemorySize.Packed256_Float16, onlySAE: true)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovusdw_WX_k1z_VX, TupleType.Half_Mem_128, MemorySize.Packed64_UInt16),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovusdw_WX_k1z_VY, TupleType.Half_Mem_256, MemorySize.Packed128_UInt16),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovusdw_WY_k1z_VZ, TupleType.Half_Mem_512, MemorySize.Packed256_UInt16)
-						),
-						invalid
-					),
-					invalid
-				),
-				new OpCodeHandler_MandatoryPrefix2(
-					invalid,
-					new OpCodeHandler_W(
-						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vprorvd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vprorvd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vprorvd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
-						),
-						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vprorvq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vprorvq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vprorvq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
-						)
-					),
-					new OpCodeHandler_W(
-						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovusqw_WX_k1z_VX, TupleType.Quarter_Mem_128, MemorySize.Packed32_UInt16),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovusqw_WX_k1z_VY, TupleType.Quarter_Mem_256, MemorySize.Packed64_UInt16),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovusqw_WX_k1z_VZ, TupleType.Quarter_Mem_512, MemorySize.Packed128_UInt16)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovusdw_xmmm64_k1z_xmm, TupleType.Half_Mem_128, MemorySize.Packed64_UInt16),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovusdw_xmmm128_k1z_ymm, TupleType.Half_Mem_256, MemorySize.Packed128_UInt16),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovusdw_ymmm256_k1z_zmm, TupleType.Half_Mem_512, MemorySize.Packed256_UInt16)
 						),
 						invalid
 					),
@@ -536,21 +512,45 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vprolvd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vprolvd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vprolvd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vprorvd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vprorvd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vprorvd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vprolvq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vprolvq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vprolvq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vprorvq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vprorvq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vprorvq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovusqd_WX_k1z_VX, TupleType.Half_Mem_128, MemorySize.Packed64_UInt32),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovusqd_WX_k1z_VY, TupleType.Half_Mem_256, MemorySize.Packed128_UInt32),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovusqd_WY_k1z_VZ, TupleType.Half_Mem_512, MemorySize.Packed256_UInt32)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovusqw_xmmm32_k1z_xmm, TupleType.Quarter_Mem_128, MemorySize.Packed32_UInt16),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovusqw_xmmm64_k1z_ymm, TupleType.Quarter_Mem_256, MemorySize.Packed64_UInt16),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovusqw_xmmm128_k1z_zmm, TupleType.Quarter_Mem_512, MemorySize.Packed128_UInt16)
+						),
+						invalid
+					),
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vprolvd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vprolvd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vprolvd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+						),
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vprolvq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vprolvq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vprolvq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+						)
+					),
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovusqd_xmmm64_k1z_xmm, TupleType.Half_Mem_128, MemorySize.Packed64_UInt32),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovusqd_xmmm128_k1z_ymm, TupleType.Half_Mem_256, MemorySize.Packed128_UInt32),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovusqd_ymmm256_k1z_zmm, TupleType.Half_Mem_512, MemorySize.Packed256_UInt32)
 						),
 						invalid
 					),
@@ -561,13 +561,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermps_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermpd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermpd_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -580,9 +580,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vbroadcastss_VX_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vbroadcastss_VY_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vbroadcastss_VZ_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vbroadcastss_xmm_k1z_xmmm32, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vbroadcastss_ymm_k1z_xmmm32, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vbroadcastss_zmm_k1z_xmmm32, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						invalid
 					),
@@ -594,13 +594,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vbroadcastf32x2_VY_k1z_WX, TupleType.Tuple2, MemorySize.Packed64_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vbroadcastf32x2_VZ_k1z_WX, TupleType.Tuple2, MemorySize.Packed64_Float32)
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64, TupleType.Tuple2, MemorySize.Packed64_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64, TupleType.Tuple2, MemorySize.Packed64_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vbroadcastsd_VY_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Float64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vbroadcastsd_VZ_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vbroadcastsd_ymm_k1z_xmmm64, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vbroadcastsd_zmm_k1z_xmmm64, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -611,13 +611,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkM(Register.YMM0, Code.EVEX_Vbroadcastf32x4_VY_k1z_M, TupleType.Tuple4, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcastf32x4_VZ_k1z_M, TupleType.Tuple4, MemorySize.Packed128_Float32)
+							new OpCodeHandler_EVEX_VkM(Register.YMM0, Code.EVEX_Vbroadcastf32x4_ymm_k1z_m128, TupleType.Tuple4, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcastf32x4_zmm_k1z_m128, TupleType.Tuple4, MemorySize.Packed128_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkM(Register.YMM0, Code.EVEX_Vbroadcastf64x2_VY_k1z_M, TupleType.Tuple2, MemorySize.Packed128_Float64),
-							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcastf64x2_VZ_k1z_M, TupleType.Tuple2, MemorySize.Packed128_Float64)
+							new OpCodeHandler_EVEX_VkM(Register.YMM0, Code.EVEX_Vbroadcastf64x2_ymm_k1z_m128, TupleType.Tuple2, MemorySize.Packed128_Float64),
+							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcastf64x2_zmm_k1z_m128, TupleType.Tuple2, MemorySize.Packed128_Float64)
 						)
 					),
 					invalid,
@@ -629,12 +629,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcastf32x8_VZ_k1z_M, TupleType.Tuple8, MemorySize.Packed256_Float32)
+							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcastf32x8_zmm_k1z_m256, TupleType.Tuple8, MemorySize.Packed256_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcastf64x4_VZ_k1z_M, TupleType.Tuple4, MemorySize.Packed256_Float64)
+							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcastf64x4_zmm_k1z_m256, TupleType.Tuple4, MemorySize.Packed256_Float64)
 						)
 					),
 					invalid,
@@ -643,9 +643,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpabsb_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpabsb_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpabsb_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpabsb_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpabsb_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpabsb_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -653,9 +653,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpabsw_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpabsw_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpabsw_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpabsw_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpabsw_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpabsw_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -664,9 +664,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpabsd_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpabsd_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpabsd_VZ_k1z_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpabsd_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpabsd_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpabsd_zmm_k1z_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						invalid
 					),
@@ -678,9 +678,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpabsq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpabsq_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpabsq_VZ_k1z_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpabsq_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpabsq_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpabsq_zmm_k1z_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -691,15 +691,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxbw_VX_k1z_WX, TupleType.Half_Mem_128, MemorySize.Packed64_Int8),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxbw_VY_k1z_WX, TupleType.Half_Mem_256, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovsxbw_VZ_k1z_WY, TupleType.Half_Mem_512, MemorySize.Packed256_Int8)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxbw_xmm_k1z_xmmm64, TupleType.Half_Mem_128, MemorySize.Packed64_Int8),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxbw_ymm_k1z_xmmm128, TupleType.Half_Mem_256, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovsxbw_zmm_k1z_ymmm256, TupleType.Half_Mem_512, MemorySize.Packed256_Int8)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovswb_WX_k1z_VX, TupleType.Half_Mem_128, MemorySize.Packed64_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovswb_WX_k1z_VY, TupleType.Half_Mem_256, MemorySize.Packed128_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovswb_WY_k1z_VZ, TupleType.Half_Mem_512, MemorySize.Packed256_Int8)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovswb_xmmm64_k1z_xmm, TupleType.Half_Mem_128, MemorySize.Packed64_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovswb_xmmm128_k1z_ymm, TupleType.Half_Mem_256, MemorySize.Packed128_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovswb_ymmm256_k1z_zmm, TupleType.Half_Mem_512, MemorySize.Packed256_Int8)
 						),
 						invalid
 					),
@@ -708,15 +708,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxbd_VX_k1z_WX, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int8),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxbd_VY_k1z_WX, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int8),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovsxbd_VZ_k1z_WX, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int8)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxbd_xmm_k1z_xmmm32, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int8),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxbd_ymm_k1z_xmmm64, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int8),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovsxbd_zmm_k1z_xmmm128, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int8)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsdb_WX_k1z_VX, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovsdb_WX_k1z_VY, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovsdb_WX_k1z_VZ, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int8)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsdb_xmmm32_k1z_xmm, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovsdb_xmmm64_k1z_ymm, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovsdb_xmmm128_k1z_zmm, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int8)
 						),
 						invalid
 					),
@@ -725,15 +725,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxbq_VX_k1z_WX, TupleType.Eighth_Mem_128, MemorySize.Packed16_Int8),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxbq_VY_k1z_WX, TupleType.Eighth_Mem_256, MemorySize.Packed32_Int8),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovsxbq_VZ_k1z_WX, TupleType.Eighth_Mem_512, MemorySize.Packed64_Int8)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxbq_xmm_k1z_xmmm16, TupleType.Eighth_Mem_128, MemorySize.Packed16_Int8),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxbq_ymm_k1z_xmmm32, TupleType.Eighth_Mem_256, MemorySize.Packed32_Int8),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovsxbq_zmm_k1z_xmmm64, TupleType.Eighth_Mem_512, MemorySize.Packed64_Int8)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsqb_WX_k1z_VX, TupleType.Eighth_Mem_128, MemorySize.Packed16_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovsqb_WX_k1z_VY, TupleType.Eighth_Mem_256, MemorySize.Packed32_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovsqb_WX_k1z_VZ, TupleType.Eighth_Mem_512, MemorySize.Packed64_Int8)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsqb_xmmm16_k1z_xmm, TupleType.Eighth_Mem_128, MemorySize.Packed16_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovsqb_xmmm32_k1z_ymm, TupleType.Eighth_Mem_256, MemorySize.Packed32_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovsqb_xmmm64_k1z_zmm, TupleType.Eighth_Mem_512, MemorySize.Packed64_Int8)
 						),
 						invalid
 					),
@@ -742,15 +742,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxwd_VX_k1z_WX, TupleType.Half_Mem_128, MemorySize.Packed64_Int16),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxwd_VY_k1z_WX, TupleType.Half_Mem_256, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovsxwd_VZ_k1z_WY, TupleType.Half_Mem_512, MemorySize.Packed256_Int16)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxwd_xmm_k1z_xmmm64, TupleType.Half_Mem_128, MemorySize.Packed64_Int16),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxwd_ymm_k1z_xmmm128, TupleType.Half_Mem_256, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovsxwd_zmm_k1z_ymmm256, TupleType.Half_Mem_512, MemorySize.Packed256_Int16)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsdw_WX_k1z_VX, TupleType.Half_Mem_128, MemorySize.Packed64_Int16),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovsdw_WX_k1z_VY, TupleType.Half_Mem_256, MemorySize.Packed128_Int16),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovsdw_WY_k1z_VZ, TupleType.Half_Mem_512, MemorySize.Packed256_Int16)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsdw_xmmm64_k1z_xmm, TupleType.Half_Mem_128, MemorySize.Packed64_Int16),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovsdw_xmmm128_k1z_ymm, TupleType.Half_Mem_256, MemorySize.Packed128_Int16),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovsdw_ymmm256_k1z_zmm, TupleType.Half_Mem_512, MemorySize.Packed256_Int16)
 						),
 						invalid
 					),
@@ -759,15 +759,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxwq_VX_k1z_WX, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int16),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxwq_VY_k1z_WX, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int16),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovsxwq_VZ_k1z_WX, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int16)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxwq_xmm_k1z_xmmm32, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int16),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxwq_ymm_k1z_xmmm64, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int16),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovsxwq_zmm_k1z_xmmm128, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int16)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsqw_WX_k1z_VX, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int16),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovsqw_WX_k1z_VY, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int16),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovsqw_WX_k1z_VZ, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int16)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsqw_xmmm32_k1z_xmm, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int16),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovsqw_xmmm64_k1z_ymm, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int16),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovsqw_xmmm128_k1z_zmm, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int16)
 						),
 						invalid
 					),
@@ -777,17 +777,17 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxdq_VX_k1z_WX, TupleType.Half_Mem_128, MemorySize.Packed64_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxdq_VY_k1z_WX, TupleType.Half_Mem_256, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovsxdq_VZ_k1z_WY, TupleType.Half_Mem_512, MemorySize.Packed256_Int32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsxdq_xmm_k1z_xmmm64, TupleType.Half_Mem_128, MemorySize.Packed64_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovsxdq_ymm_k1z_xmmm128, TupleType.Half_Mem_256, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovsxdq_zmm_k1z_ymmm256, TupleType.Half_Mem_512, MemorySize.Packed256_Int32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsqd_WX_k1z_VX, TupleType.Half_Mem_128, MemorySize.Packed64_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovsqd_WX_k1z_VY, TupleType.Half_Mem_256, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovsqd_WY_k1z_VZ, TupleType.Half_Mem_512, MemorySize.Packed256_Int32)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovsqd_xmmm64_k1z_xmm, TupleType.Half_Mem_128, MemorySize.Packed64_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovsqd_xmmm128_k1z_ymm, TupleType.Half_Mem_256, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovsqd_ymmm256_k1z_zmm, TupleType.Half_Mem_512, MemorySize.Packed256_Int32)
 						),
 						invalid
 					),
@@ -797,26 +797,26 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestmb_VK_k1_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestmb_VK_k1_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestmb_VK_k1_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestmb_k_k1_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestmb_k_k1_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestmb_k_k1_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestmw_VK_k1_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestmw_VK_k1_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestmw_VK_k1_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestmw_k_k1_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestmw_k_k1_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestmw_k_k1_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestnmb_VK_k1_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestnmb_VK_k1_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestnmb_VK_k1_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestnmb_k_k1_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestnmb_k_k1_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestnmb_k_k1_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestnmw_VK_k1_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestnmw_VK_k1_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestnmw_VK_k1_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestnmw_k_k1_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestnmw_k_k1_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestnmw_k_k1_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 						)
 					),
 					invalid
@@ -825,26 +825,26 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestmd_VK_k1_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestmd_VK_k1_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestmd_VK_k1_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestmd_k_k1_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestmd_k_k1_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestmd_k_k1_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestmq_VK_k1_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestmq_VK_k1_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestmq_VK_k1_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestmq_k_k1_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestmq_k_k1_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestmq_k_k1_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestnmd_VK_k1_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestnmd_VK_k1_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestnmd_VK_k1_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestnmd_k_k1_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestnmd_k_k1_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestnmd_k_k1_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestnmq_VK_k1_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestnmq_VK_k1_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestnmq_VK_k1_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vptestnmq_k_k1_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vptestnmq_k_k1_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vptestnmq_k_k1_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid
@@ -856,21 +856,21 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmuldq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmuldq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmuldq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmuldq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int64)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpmovm2b_VX_RK),
-							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpmovm2b_VY_RK),
-							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpmovm2b_VZ_RK)
+							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpmovm2b_xmm_k),
+							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpmovm2b_ymm_k),
+							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpmovm2b_zmm_k)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpmovm2w_VX_RK),
-							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpmovm2w_VY_RK),
-							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpmovm2w_VZ_RK)
+							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpmovm2w_xmm_k),
+							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpmovm2w_ymm_k),
+							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpmovm2w_zmm_k)
 						)
 					),
 					invalid
@@ -880,21 +880,21 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpeqq_VK_k1_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpeqq_VK_k1_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpeqq_VK_k1_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KR(Register.XMM0, Code.EVEX_Vpmovb2m_VK_RX),
-							new OpCodeHandler_EVEX_KR(Register.YMM0, Code.EVEX_Vpmovb2m_VK_RY),
-							new OpCodeHandler_EVEX_KR(Register.ZMM0, Code.EVEX_Vpmovb2m_VK_RZ)
+							new OpCodeHandler_EVEX_KR(Register.XMM0, Code.EVEX_Vpmovb2m_k_xmm),
+							new OpCodeHandler_EVEX_KR(Register.YMM0, Code.EVEX_Vpmovb2m_k_ymm),
+							new OpCodeHandler_EVEX_KR(Register.ZMM0, Code.EVEX_Vpmovb2m_k_zmm)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KR(Register.XMM0, Code.EVEX_Vpmovw2m_VK_RX),
-							new OpCodeHandler_EVEX_KR(Register.YMM0, Code.EVEX_Vpmovw2m_VK_RY),
-							new OpCodeHandler_EVEX_KR(Register.ZMM0, Code.EVEX_Vpmovw2m_VK_RZ)
+							new OpCodeHandler_EVEX_KR(Register.XMM0, Code.EVEX_Vpmovw2m_k_xmm),
+							new OpCodeHandler_EVEX_KR(Register.YMM0, Code.EVEX_Vpmovw2m_k_ymm),
+							new OpCodeHandler_EVEX_KR(Register.ZMM0, Code.EVEX_Vpmovw2m_k_zmm)
 						)
 					),
 					invalid
@@ -903,18 +903,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VM(Register.XMM0, Code.EVEX_Vmovntdqa_VX_M, TupleType.Full_Mem_128, MemorySize.UInt128),
-							new OpCodeHandler_EVEX_VM(Register.YMM0, Code.EVEX_Vmovntdqa_VY_M, TupleType.Full_Mem_256, MemorySize.UInt256),
-							new OpCodeHandler_EVEX_VM(Register.ZMM0, Code.EVEX_Vmovntdqa_VZ_M, TupleType.Full_Mem_512, MemorySize.UInt512)
+							new OpCodeHandler_EVEX_VM(Register.XMM0, Code.EVEX_Vmovntdqa_xmm_m128, TupleType.Full_Mem_128, MemorySize.UInt128),
+							new OpCodeHandler_EVEX_VM(Register.YMM0, Code.EVEX_Vmovntdqa_ymm_m256, TupleType.Full_Mem_256, MemorySize.UInt256),
+							new OpCodeHandler_EVEX_VM(Register.ZMM0, Code.EVEX_Vmovntdqa_zmm_m512, TupleType.Full_Mem_512, MemorySize.UInt512)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpbroadcastmb2q_VX_RK),
-							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpbroadcastmb2q_VY_RK),
-							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpbroadcastmb2q_VZ_RK)
+							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpbroadcastmb2q_xmm_k),
+							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpbroadcastmb2q_ymm_k),
+							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpbroadcastmb2q_zmm_k)
 						)
 					),
 					invalid
@@ -923,9 +923,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpackusdw_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpackusdw_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpackusdw_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpackusdw_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpackusdw_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpackusdw_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						invalid
 					),
@@ -936,14 +936,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vscalefps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vscalefps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vscalefps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vscalefps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vscalefps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vscalefps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vscalefpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vscalefpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vscalefpd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vscalefpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vscalefpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vscalefpd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -952,8 +952,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vscalefss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vscalefsd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					invalid
@@ -965,15 +965,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxbw_VX_k1z_WX, TupleType.Half_Mem_128, MemorySize.Packed64_UInt8),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxbw_VY_k1z_WX, TupleType.Half_Mem_256, MemorySize.Packed128_UInt8),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovzxbw_VZ_k1z_WY, TupleType.Half_Mem_512, MemorySize.Packed256_UInt8)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxbw_xmm_k1z_xmmm64, TupleType.Half_Mem_128, MemorySize.Packed64_UInt8),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxbw_ymm_k1z_xmmm128, TupleType.Half_Mem_256, MemorySize.Packed128_UInt8),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovzxbw_zmm_k1z_ymmm256, TupleType.Half_Mem_512, MemorySize.Packed256_UInt8)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovwb_WX_k1z_VX, TupleType.Half_Mem_128, MemorySize.Packed64_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovwb_WX_k1z_VY, TupleType.Half_Mem_256, MemorySize.Packed128_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovwb_WY_k1z_VZ, TupleType.Half_Mem_512, MemorySize.Packed256_Int8)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovwb_xmmm64_k1z_xmm, TupleType.Half_Mem_128, MemorySize.Packed64_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovwb_xmmm128_k1z_ymm, TupleType.Half_Mem_256, MemorySize.Packed128_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovwb_ymmm256_k1z_zmm, TupleType.Half_Mem_512, MemorySize.Packed256_Int8)
 						),
 						invalid
 					),
@@ -982,15 +982,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxbd_VX_k1z_WX, TupleType.Quarter_Mem_128, MemorySize.Packed32_UInt8),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxbd_VY_k1z_WX, TupleType.Quarter_Mem_256, MemorySize.Packed64_UInt8),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovzxbd_VZ_k1z_WX, TupleType.Quarter_Mem_512, MemorySize.Packed128_UInt8)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxbd_xmm_k1z_xmmm32, TupleType.Quarter_Mem_128, MemorySize.Packed32_UInt8),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxbd_ymm_k1z_xmmm64, TupleType.Quarter_Mem_256, MemorySize.Packed64_UInt8),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovzxbd_zmm_k1z_xmmm128, TupleType.Quarter_Mem_512, MemorySize.Packed128_UInt8)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovdb_WX_k1z_VX, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovdb_WX_k1z_VY, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovdb_WX_k1z_VZ, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int8)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovdb_xmmm32_k1z_xmm, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovdb_xmmm64_k1z_ymm, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovdb_xmmm128_k1z_zmm, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int8)
 						),
 						invalid
 					),
@@ -999,15 +999,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxbq_VX_k1z_WX, TupleType.Eighth_Mem_128, MemorySize.Packed16_UInt8),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxbq_VY_k1z_WX, TupleType.Eighth_Mem_256, MemorySize.Packed32_UInt8),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovzxbq_VZ_k1z_WX, TupleType.Eighth_Mem_512, MemorySize.Packed64_UInt8)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxbq_xmm_k1z_xmmm16, TupleType.Eighth_Mem_128, MemorySize.Packed16_UInt8),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxbq_ymm_k1z_xmmm32, TupleType.Eighth_Mem_256, MemorySize.Packed32_UInt8),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovzxbq_zmm_k1z_xmmm64, TupleType.Eighth_Mem_512, MemorySize.Packed64_UInt8)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovqb_WX_k1z_VX, TupleType.Eighth_Mem_128, MemorySize.Packed16_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovqb_WX_k1z_VY, TupleType.Eighth_Mem_256, MemorySize.Packed32_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovqb_WX_k1z_VZ, TupleType.Eighth_Mem_512, MemorySize.Packed64_Int8)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovqb_xmmm16_k1z_xmm, TupleType.Eighth_Mem_128, MemorySize.Packed16_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovqb_xmmm32_k1z_ymm, TupleType.Eighth_Mem_256, MemorySize.Packed32_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovqb_xmmm64_k1z_zmm, TupleType.Eighth_Mem_512, MemorySize.Packed64_Int8)
 						),
 						invalid
 					),
@@ -1016,15 +1016,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxwd_VX_k1z_WX, TupleType.Half_Mem_128, MemorySize.Packed64_UInt16),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxwd_VY_k1z_WX, TupleType.Half_Mem_256, MemorySize.Packed128_UInt16),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovzxwd_VZ_k1z_WY, TupleType.Half_Mem_512, MemorySize.Packed256_UInt16)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxwd_xmm_k1z_xmmm64, TupleType.Half_Mem_128, MemorySize.Packed64_UInt16),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxwd_ymm_k1z_xmmm128, TupleType.Half_Mem_256, MemorySize.Packed128_UInt16),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovzxwd_zmm_k1z_ymmm256, TupleType.Half_Mem_512, MemorySize.Packed256_UInt16)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovdw_WX_k1z_VX, TupleType.Half_Mem_128, MemorySize.Packed64_Int16),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovdw_WX_k1z_VY, TupleType.Half_Mem_256, MemorySize.Packed128_Int16),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovdw_WY_k1z_VZ, TupleType.Half_Mem_512, MemorySize.Packed256_Int16)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovdw_xmmm64_k1z_xmm, TupleType.Half_Mem_128, MemorySize.Packed64_Int16),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovdw_xmmm128_k1z_ymm, TupleType.Half_Mem_256, MemorySize.Packed128_Int16),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovdw_ymmm256_k1z_zmm, TupleType.Half_Mem_512, MemorySize.Packed256_Int16)
 						),
 						invalid
 					),
@@ -1033,15 +1033,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxwq_VX_k1z_WX, TupleType.Quarter_Mem_128, MemorySize.Packed32_UInt16),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxwq_VY_k1z_WX, TupleType.Quarter_Mem_256, MemorySize.Packed64_UInt16),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovzxwq_VZ_k1z_WX, TupleType.Quarter_Mem_512, MemorySize.Packed128_UInt16)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxwq_xmm_k1z_xmmm32, TupleType.Quarter_Mem_128, MemorySize.Packed32_UInt16),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxwq_ymm_k1z_xmmm64, TupleType.Quarter_Mem_256, MemorySize.Packed64_UInt16),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpmovzxwq_zmm_k1z_xmmm128, TupleType.Quarter_Mem_512, MemorySize.Packed128_UInt16)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovqw_WX_k1z_VX, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int16),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovqw_WX_k1z_VY, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int16),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovqw_WX_k1z_VZ, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int16)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovqw_xmmm32_k1z_xmm, TupleType.Quarter_Mem_128, MemorySize.Packed32_Int16),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovqw_xmmm64_k1z_ymm, TupleType.Quarter_Mem_256, MemorySize.Packed64_Int16),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.ZMM0, Code.EVEX_Vpmovqw_xmmm128_k1z_zmm, TupleType.Quarter_Mem_512, MemorySize.Packed128_Int16)
 						),
 						invalid
 					),
@@ -1050,15 +1050,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxdq_VX_k1z_WX, TupleType.Half_Mem_128, MemorySize.Packed64_UInt32),
-						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxdq_VY_k1z_WX, TupleType.Half_Mem_256, MemorySize.Packed128_UInt32),
-						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovzxdq_VZ_k1z_WY, TupleType.Half_Mem_512, MemorySize.Packed256_UInt32)
+						new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovzxdq_xmm_k1z_xmmm64, TupleType.Half_Mem_128, MemorySize.Packed64_UInt32),
+						new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpmovzxdq_ymm_k1z_xmmm128, TupleType.Half_Mem_256, MemorySize.Packed128_UInt32),
+						new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vpmovzxdq_zmm_k1z_ymmm256, TupleType.Half_Mem_512, MemorySize.Packed256_UInt32)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovqd_WX_k1z_VX, TupleType.Half_Mem_128, MemorySize.Packed64_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovqd_WX_k1z_VY, TupleType.Half_Mem_256, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovqd_WY_k1z_VZ, TupleType.Half_Mem_512, MemorySize.Packed256_Int32)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.XMM0, Code.EVEX_Vpmovqd_xmmm64_k1z_xmm, TupleType.Half_Mem_128, MemorySize.Packed64_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Register.YMM0, Code.EVEX_Vpmovqd_xmmm128_k1z_ymm, TupleType.Half_Mem_256, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Register.ZMM0, Code.EVEX_Vpmovqd_ymmm256_k1z_zmm, TupleType.Half_Mem_512, MemorySize.Packed256_Int32)
 						),
 						invalid
 					),
@@ -1069,13 +1069,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -1086,9 +1086,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpgtq_VK_k1_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpgtq_VK_k1_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpgtq_VK_k1_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -1099,20 +1099,20 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminsb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminsb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminsb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminsb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminsb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminsb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpmovm2d_VX_RK),
-							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpmovm2d_VY_RK),
-							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpmovm2d_VZ_RK)
+							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpmovm2d_xmm_k),
+							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpmovm2d_ymm_k),
+							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpmovm2d_zmm_k)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpmovm2q_VX_RK),
-							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpmovm2q_VY_RK),
-							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpmovm2q_VZ_RK)
+							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpmovm2q_xmm_k),
+							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpmovm2q_ymm_k),
+							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpmovm2q_zmm_k)
 						)
 					),
 					invalid
@@ -1121,26 +1121,26 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminsd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminsd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminsd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminsd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminsd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminsd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminsq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminsq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminsq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminsq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminsq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminsq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KR(Register.XMM0, Code.EVEX_Vpmovd2m_VK_RX),
-							new OpCodeHandler_EVEX_KR(Register.YMM0, Code.EVEX_Vpmovd2m_VK_RY),
-							new OpCodeHandler_EVEX_KR(Register.ZMM0, Code.EVEX_Vpmovd2m_VK_RZ)
+							new OpCodeHandler_EVEX_KR(Register.XMM0, Code.EVEX_Vpmovd2m_k_xmm),
+							new OpCodeHandler_EVEX_KR(Register.YMM0, Code.EVEX_Vpmovd2m_k_ymm),
+							new OpCodeHandler_EVEX_KR(Register.ZMM0, Code.EVEX_Vpmovd2m_k_zmm)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KR(Register.XMM0, Code.EVEX_Vpmovq2m_VK_RX),
-							new OpCodeHandler_EVEX_KR(Register.YMM0, Code.EVEX_Vpmovq2m_VK_RY),
-							new OpCodeHandler_EVEX_KR(Register.ZMM0, Code.EVEX_Vpmovq2m_VK_RZ)
+							new OpCodeHandler_EVEX_KR(Register.XMM0, Code.EVEX_Vpmovq2m_k_xmm),
+							new OpCodeHandler_EVEX_KR(Register.YMM0, Code.EVEX_Vpmovq2m_k_ymm),
+							new OpCodeHandler_EVEX_KR(Register.ZMM0, Code.EVEX_Vpmovq2m_k_zmm)
 						)
 					),
 					invalid
@@ -1148,15 +1148,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminuw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminuw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminuw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminuw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminuw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminuw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpbroadcastmw2d_VX_RK),
-							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpbroadcastmw2d_VY_RK),
-							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpbroadcastmw2d_VZ_RK)
+							new OpCodeHandler_EVEX_VK(Register.XMM0, Code.EVEX_Vpbroadcastmw2d_xmm_k),
+							new OpCodeHandler_EVEX_VK(Register.YMM0, Code.EVEX_Vpbroadcastmw2d_ymm_k),
+							new OpCodeHandler_EVEX_VK(Register.ZMM0, Code.EVEX_Vpbroadcastmw2d_zmm_k)
 						),
 						invalid
 					),
@@ -1166,14 +1166,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminud_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminud_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminud_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminud_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminud_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminud_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminuq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminuq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminuq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminuq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminuq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminuq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -1182,9 +1182,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxsb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxsb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxsb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxsb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxsb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxsb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -1193,14 +1193,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxsd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxsd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxsd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxsd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxsd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxsd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxsq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxsq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxsq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxsq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxsq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxsq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -1209,9 +1209,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxuw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxuw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxuw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxuw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxuw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxuw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 					),
 					invalid,
 					invalid
@@ -1220,14 +1220,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxud_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxud_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxud_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxud_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxud_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxud_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxuq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxuq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxuq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxuq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxuq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxuq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -1239,14 +1239,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmulld_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmulld_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmulld_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmulld_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmulld_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmulld_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmullq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmullq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmullq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmullq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmullq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmullq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -1257,14 +1257,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vgetexpps_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vgetexpps_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vgetexpps_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vgetexpps_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vgetexpps_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vgetexppd_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vgetexppd_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vgetexppd_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vgetexppd_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vgetexppd_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					invalid,
@@ -1273,8 +1273,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vgetexpss_VX_k1z_HX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vgetexpsd_VX_k1z_HX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
 					),
 					invalid,
 					invalid
@@ -1283,31 +1283,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vplzcntd_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vplzcntd_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vplzcntd_VZ_k1z_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vplzcntd_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vplzcntd_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vplzcntd_zmm_k1z_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vplzcntq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vplzcntq_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vplzcntq_VZ_k1z_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
-						)
-					),
-					invalid,
-					invalid
-				),
-				new OpCodeHandler_MandatoryPrefix2(
-					invalid,
-					new OpCodeHandler_W(
-						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsrlvd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsrlvd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsrlvd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
-						),
-						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsrlvq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsrlvq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsrlvq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vplzcntq_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vplzcntq_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vplzcntq_zmm_k1z_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -1317,14 +1300,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsravd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsravd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsravd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsrlvd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsravq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsravq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsravq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsrlvq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -1334,14 +1317,31 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsllvd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsllvd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsllvd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsravd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsravd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsravd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsllvq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsllvq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsllvq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsravq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsravq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsravq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsllvd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+						),
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsllvq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -1357,14 +1357,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vrcp14ps_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vrcp14ps_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vrcp14ps_VZ_k1z_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vrcp14ps_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vrcp14ps_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vrcp14ps_zmm_k1z_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vrcp14pd_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vrcp14pd_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vrcp14pd_VZ_k1z_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vrcp14pd_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vrcp14pd_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vrcp14pd_zmm_k1z_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -1373,8 +1373,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vrcp14ss_VX_k1z_HX_WX, TupleType.Tuple1_Scalar, MemorySize.Float32),
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vrcp14sd_VX_k1z_HX_WX, TupleType.Tuple1_Scalar, MemorySize.Float64)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32, TupleType.Tuple1_Scalar, MemorySize.Float32),
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64, TupleType.Tuple1_Scalar, MemorySize.Float64)
 					),
 					invalid,
 					invalid
@@ -1383,14 +1383,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vrsqrt14ps_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vrsqrt14ps_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vrsqrt14ps_VZ_k1z_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vrsqrt14ps_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vrsqrt14ps_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vrsqrt14ps_zmm_k1z_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vrsqrt14pd_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vrsqrt14pd_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vrsqrt14pd_VZ_k1z_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vrsqrt14pd_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vrsqrt14pd_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vrsqrt14pd_zmm_k1z_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -1399,8 +1399,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vrsqrt14ss_VX_k1z_HX_WX, TupleType.Tuple1_Scalar, MemorySize.Float32),
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vrsqrt14sd_VX_k1z_HX_WX, TupleType.Tuple1_Scalar, MemorySize.Float64)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32, TupleType.Tuple1_Scalar, MemorySize.Float32),
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64, TupleType.Tuple1_Scalar, MemorySize.Float64)
 					),
 					invalid,
 					invalid
@@ -1414,7 +1414,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHM(Register.ZMM0, Code.EVEX_Vp4dpwssd_VZ_k1z_HZP3_M, TupleType.Tuple1_4X, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHM(Register.ZMM0, Code.EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128, TupleType.Tuple1_4X, MemorySize.Packed128_Int16),
 						invalid
 					)
 				),
@@ -1423,7 +1423,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHM(Register.ZMM0, Code.EVEX_Vp4dpwssds_VZ_k1z_HZP3_M, TupleType.Tuple1_4X, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHM(Register.ZMM0, Code.EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128, TupleType.Tuple1_4X, MemorySize.Packed128_Int16),
 						invalid
 					)
 				),
@@ -1437,9 +1437,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpbroadcastd_VX_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Int32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpbroadcastd_VY_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Int32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpbroadcastd_VZ_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Int32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpbroadcastd_xmm_k1z_xmmm32, TupleType.Tuple1_Scalar, MemorySize.Int32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpbroadcastd_ymm_k1z_xmmm32, TupleType.Tuple1_Scalar, MemorySize.Int32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpbroadcastd_zmm_k1z_xmmm32, TupleType.Tuple1_Scalar, MemorySize.Int32)
 						),
 						invalid
 					),
@@ -1450,14 +1450,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vbroadcasti32x2_VX_k1z_WX, TupleType.Tuple2, MemorySize.Packed64_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vbroadcasti32x2_VY_k1z_WX, TupleType.Tuple2, MemorySize.Packed64_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vbroadcasti32x2_VZ_k1z_WX, TupleType.Tuple2, MemorySize.Packed64_Int32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vbroadcasti32x2_xmm_k1z_xmmm64, TupleType.Tuple2, MemorySize.Packed64_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vbroadcasti32x2_ymm_k1z_xmmm64, TupleType.Tuple2, MemorySize.Packed64_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vbroadcasti32x2_zmm_k1z_xmmm64, TupleType.Tuple2, MemorySize.Packed64_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpbroadcastq_VX_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Int64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpbroadcastq_VY_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Int64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpbroadcastq_VZ_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Int64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpbroadcastq_xmm_k1z_xmmm64, TupleType.Tuple1_Scalar, MemorySize.Int64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpbroadcastq_ymm_k1z_xmmm64, TupleType.Tuple1_Scalar, MemorySize.Int64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpbroadcastq_zmm_k1z_xmmm64, TupleType.Tuple1_Scalar, MemorySize.Int64)
 						)
 					),
 					invalid,
@@ -1468,13 +1468,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkM(Register.YMM0, Code.EVEX_Vbroadcasti32x4_VY_k1z_M, TupleType.Tuple4, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcasti32x4_VZ_k1z_M, TupleType.Tuple4, MemorySize.Packed128_Int32)
+							new OpCodeHandler_EVEX_VkM(Register.YMM0, Code.EVEX_Vbroadcasti32x4_ymm_k1z_m128, TupleType.Tuple4, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcasti32x4_zmm_k1z_m128, TupleType.Tuple4, MemorySize.Packed128_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkM(Register.YMM0, Code.EVEX_Vbroadcasti64x2_VY_k1z_M, TupleType.Tuple2, MemorySize.Packed128_Int64),
-							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcasti64x2_VZ_k1z_M, TupleType.Tuple2, MemorySize.Packed128_Int64)
+							new OpCodeHandler_EVEX_VkM(Register.YMM0, Code.EVEX_Vbroadcasti64x2_ymm_k1z_m128, TupleType.Tuple2, MemorySize.Packed128_Int64),
+							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcasti64x2_zmm_k1z_m128, TupleType.Tuple2, MemorySize.Packed128_Int64)
 						)
 					),
 					invalid,
@@ -1486,12 +1486,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcasti32x8_VZ_k1z_M, TupleType.Tuple8, MemorySize.Packed256_Int32)
+							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcasti32x8_zmm_k1z_m256, TupleType.Tuple8, MemorySize.Packed256_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcasti64x4_VZ_k1z_M, TupleType.Tuple4, MemorySize.Packed256_Int64)
+							new OpCodeHandler_EVEX_VkM(Register.ZMM0, Code.EVEX_Vbroadcasti64x4_zmm_k1z_m256, TupleType.Tuple4, MemorySize.Packed256_Int64)
 						)
 					),
 					invalid,
@@ -1511,14 +1511,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpblendmd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpblendmd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpblendmd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpblendmd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpblendmd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpblendmd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpblendmq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpblendmq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpblendmq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpblendmq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpblendmq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpblendmq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -1528,14 +1528,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vblendmps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vblendmps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vblendmps_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vblendmps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vblendmps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vblendmps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vblendmpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vblendmpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vblendmpd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vblendmpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vblendmpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vblendmpd_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -1545,14 +1545,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpblendmb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpblendmb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpblendmb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpblendmb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpblendmb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpblendmb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpblendmw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpblendmw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpblendmw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 						)
 					),
 					invalid,
@@ -1580,14 +1580,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2b_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2b_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2b_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2b_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2b_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2b_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2w_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2w_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2w_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2w_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2w_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2w_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 						)
 					),
 					invalid,
@@ -1597,14 +1597,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2d_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2d_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2d_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2d_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2d_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2d_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2q_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2q_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2q_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2q_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2q_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2q_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -1614,14 +1614,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2ps_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2ps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2pd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermi2pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermi2pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermi2pd_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -1633,9 +1633,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpbroadcastb_VX_k1z_WX, TupleType.Tuple1_Scalar_1, MemorySize.Int8),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpbroadcastb_VY_k1z_WX, TupleType.Tuple1_Scalar_1, MemorySize.Int8),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpbroadcastb_VZ_k1z_WX, TupleType.Tuple1_Scalar_1, MemorySize.Int8)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpbroadcastb_xmm_k1z_xmmm8, TupleType.Tuple1_Scalar_1, MemorySize.Int8),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpbroadcastb_ymm_k1z_xmmm8, TupleType.Tuple1_Scalar_1, MemorySize.Int8),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpbroadcastb_zmm_k1z_xmmm8, TupleType.Tuple1_Scalar_1, MemorySize.Int8)
 						),
 						invalid
 					),
@@ -1646,9 +1646,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpbroadcastw_VX_k1z_WX, TupleType.Tuple1_Scalar_2, MemorySize.Int16),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpbroadcastw_VY_k1z_WX, TupleType.Tuple1_Scalar_2, MemorySize.Int16),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpbroadcastw_VZ_k1z_WX, TupleType.Tuple1_Scalar_2, MemorySize.Int16)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vpbroadcastw_xmm_k1z_xmmm16, TupleType.Tuple1_Scalar_2, MemorySize.Int16),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vpbroadcastw_ymm_k1z_xmmm16, TupleType.Tuple1_Scalar_2, MemorySize.Int16),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.XMM0, Code.EVEX_Vpbroadcastw_zmm_k1z_xmmm16, TupleType.Tuple1_Scalar_2, MemorySize.Int16)
 						),
 						invalid
 					),
@@ -1658,9 +1658,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkEv_REXW(Register.XMM0, Code.EVEX_Vpbroadcastb_VX_k1z_Rd),
-						new OpCodeHandler_EVEX_VkEv_REXW(Register.YMM0, Code.EVEX_Vpbroadcastb_VY_k1z_Rd),
-						new OpCodeHandler_EVEX_VkEv_REXW(Register.ZMM0, Code.EVEX_Vpbroadcastb_VZ_k1z_Rd)
+						new OpCodeHandler_EVEX_VkEv_REXW(Register.XMM0, Code.EVEX_Vpbroadcastb_xmm_k1z_r32),
+						new OpCodeHandler_EVEX_VkEv_REXW(Register.YMM0, Code.EVEX_Vpbroadcastb_ymm_k1z_r32),
+						new OpCodeHandler_EVEX_VkEv_REXW(Register.ZMM0, Code.EVEX_Vpbroadcastb_zmm_k1z_r32)
 					),
 					invalid,
 					invalid
@@ -1668,9 +1668,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkEv_REXW(Register.XMM0, Code.EVEX_Vpbroadcastw_VX_k1z_Rd),
-						new OpCodeHandler_EVEX_VkEv_REXW(Register.YMM0, Code.EVEX_Vpbroadcastw_VY_k1z_Rd),
-						new OpCodeHandler_EVEX_VkEv_REXW(Register.ZMM0, Code.EVEX_Vpbroadcastw_VZ_k1z_Rd)
+						new OpCodeHandler_EVEX_VkEv_REXW(Register.XMM0, Code.EVEX_Vpbroadcastw_xmm_k1z_r32),
+						new OpCodeHandler_EVEX_VkEv_REXW(Register.YMM0, Code.EVEX_Vpbroadcastw_ymm_k1z_r32),
+						new OpCodeHandler_EVEX_VkEv_REXW(Register.ZMM0, Code.EVEX_Vpbroadcastw_zmm_k1z_r32)
 					),
 					invalid,
 					invalid
@@ -1678,9 +1678,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkEv_REXW(Register.XMM0, Code.EVEX_Vpbroadcastd_VX_k1z_Rd, Code.EVEX_Vpbroadcastq_VX_k1z_Rq),
-						new OpCodeHandler_EVEX_VkEv_REXW(Register.YMM0, Code.EVEX_Vpbroadcastd_VY_k1z_Rd, Code.EVEX_Vpbroadcastq_VY_k1z_Rq),
-						new OpCodeHandler_EVEX_VkEv_REXW(Register.ZMM0, Code.EVEX_Vpbroadcastd_VZ_k1z_Rd, Code.EVEX_Vpbroadcastq_VZ_k1z_Rq)
+						new OpCodeHandler_EVEX_VkEv_REXW(Register.XMM0, Code.EVEX_Vpbroadcastd_xmm_k1z_r32, Code.EVEX_Vpbroadcastq_xmm_k1z_r64),
+						new OpCodeHandler_EVEX_VkEv_REXW(Register.YMM0, Code.EVEX_Vpbroadcastd_ymm_k1z_r32, Code.EVEX_Vpbroadcastq_ymm_k1z_r64),
+						new OpCodeHandler_EVEX_VkEv_REXW(Register.ZMM0, Code.EVEX_Vpbroadcastd_zmm_k1z_r32, Code.EVEX_Vpbroadcastq_zmm_k1z_r64)
 					),
 					invalid,
 					invalid
@@ -1689,14 +1689,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2b_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2b_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2b_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2b_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2b_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2b_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2w_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2w_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2w_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2w_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2w_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2w_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 						)
 					),
 					invalid,
@@ -1706,14 +1706,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2d_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2d_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2d_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2d_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2d_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2d_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2q_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2q_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2q_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2q_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2q_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2q_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -1723,14 +1723,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2ps_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2ps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2pd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermt2pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermt2pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermt2pd_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -1746,9 +1746,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmultishiftqb_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmultishiftqb_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmultishiftqb_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmultishiftqb_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmultishiftqb_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmultishiftqb_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -1764,14 +1764,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vexpandps_VX_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vexpandps_VY_k1z_WY, TupleType.Tuple1_Scalar, MemorySize.Packed256_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vexpandps_VZ_k1z_WZ, TupleType.Tuple1_Scalar, MemorySize.Packed512_Float32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vexpandps_xmm_k1z_xmmm128, TupleType.Tuple1_Scalar, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vexpandps_ymm_k1z_ymmm256, TupleType.Tuple1_Scalar, MemorySize.Packed256_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vexpandps_zmm_k1z_zmmm512, TupleType.Tuple1_Scalar, MemorySize.Packed512_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vexpandpd_VX_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Packed128_Float64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vexpandpd_VY_k1z_WY, TupleType.Tuple1_Scalar, MemorySize.Packed256_Float64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vexpandpd_VZ_k1z_WZ, TupleType.Tuple1_Scalar, MemorySize.Packed512_Float64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vexpandpd_xmm_k1z_xmmm128, TupleType.Tuple1_Scalar, MemorySize.Packed128_Float64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vexpandpd_ymm_k1z_ymmm256, TupleType.Tuple1_Scalar, MemorySize.Packed256_Float64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vexpandpd_zmm_k1z_zmmm512, TupleType.Tuple1_Scalar, MemorySize.Packed512_Float64)
 						)
 					),
 					invalid,
@@ -1781,14 +1781,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpexpandd_VX_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpexpandd_VY_k1z_WY, TupleType.Tuple1_Scalar, MemorySize.Packed256_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpexpandd_VZ_k1z_WZ, TupleType.Tuple1_Scalar, MemorySize.Packed512_Int32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpexpandd_xmm_k1z_xmmm128, TupleType.Tuple1_Scalar, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpexpandd_ymm_k1z_ymmm256, TupleType.Tuple1_Scalar, MemorySize.Packed256_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpexpandd_zmm_k1z_zmmm512, TupleType.Tuple1_Scalar, MemorySize.Packed512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpexpandq_VX_k1z_WX, TupleType.Tuple1_Scalar, MemorySize.Packed128_Int64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpexpandq_VY_k1z_WY, TupleType.Tuple1_Scalar, MemorySize.Packed256_Int64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpexpandq_VZ_k1z_WZ, TupleType.Tuple1_Scalar, MemorySize.Packed512_Int64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpexpandq_xmm_k1z_xmmm128, TupleType.Tuple1_Scalar, MemorySize.Packed128_Int64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpexpandq_ymm_k1z_ymmm256, TupleType.Tuple1_Scalar, MemorySize.Packed256_Int64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpexpandq_zmm_k1z_zmmm512, TupleType.Tuple1_Scalar, MemorySize.Packed512_Int64)
 						)
 					),
 					invalid,
@@ -1798,14 +1798,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vcompressps_WX_k1z_VX, TupleType.Tuple1_Scalar, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vcompressps_WY_k1z_VY, TupleType.Tuple1_Scalar, MemorySize.Packed256_Float32),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vcompressps_WZ_k1z_VZ, TupleType.Tuple1_Scalar, MemorySize.Packed512_Float32)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vcompressps_xmmm128_k1z_xmm, TupleType.Tuple1_Scalar, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vcompressps_ymmm256_k1z_ymm, TupleType.Tuple1_Scalar, MemorySize.Packed256_Float32),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vcompressps_zmmm512_k1z_zmm, TupleType.Tuple1_Scalar, MemorySize.Packed512_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vcompresspd_WX_k1z_VX, TupleType.Tuple1_Scalar, MemorySize.Packed128_Float64),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vcompresspd_WY_k1z_VY, TupleType.Tuple1_Scalar, MemorySize.Packed256_Float64),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vcompresspd_WZ_k1z_VZ, TupleType.Tuple1_Scalar, MemorySize.Packed512_Float64)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vcompresspd_xmmm128_k1z_xmm, TupleType.Tuple1_Scalar, MemorySize.Packed128_Float64),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vcompresspd_ymmm256_k1z_ymm, TupleType.Tuple1_Scalar, MemorySize.Packed256_Float64),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vcompresspd_zmmm512_k1z_zmm, TupleType.Tuple1_Scalar, MemorySize.Packed512_Float64)
 						)
 					),
 					invalid,
@@ -1815,14 +1815,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vpcompressd_WX_k1z_VX, TupleType.Tuple1_Scalar, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vpcompressd_WY_k1z_VY, TupleType.Tuple1_Scalar, MemorySize.Packed256_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vpcompressd_WZ_k1z_VZ, TupleType.Tuple1_Scalar, MemorySize.Packed512_Int32)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vpcompressd_xmmm128_k1z_xmm, TupleType.Tuple1_Scalar, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vpcompressd_ymmm256_k1z_ymm, TupleType.Tuple1_Scalar, MemorySize.Packed256_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vpcompressd_zmmm512_k1z_zmm, TupleType.Tuple1_Scalar, MemorySize.Packed512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vpcompressq_WX_k1z_VX, TupleType.Tuple1_Scalar, MemorySize.Packed128_Int64),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vpcompressq_WY_k1z_VY, TupleType.Tuple1_Scalar, MemorySize.Packed256_Int64),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vpcompressq_WZ_k1z_VZ, TupleType.Tuple1_Scalar, MemorySize.Packed512_Int64)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vpcompressq_xmmm128_k1z_xmm, TupleType.Tuple1_Scalar, MemorySize.Packed128_Int64),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vpcompressq_ymmm256_k1z_ymm, TupleType.Tuple1_Scalar, MemorySize.Packed256_Int64),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vpcompressq_zmmm512_k1z_zmm, TupleType.Tuple1_Scalar, MemorySize.Packed512_Int64)
 						)
 					),
 					invalid,
@@ -1833,14 +1833,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpermw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpermw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpermw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 						)
 					),
 					invalid,
@@ -1854,14 +1854,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vpgatherdd_VX_k1_VM32X, TupleType.Tuple1_Scalar, MemorySize.Int32),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.YMM0, Code.EVEX_Vpgatherdd_VY_k1_VM32Y, TupleType.Tuple1_Scalar, MemorySize.Int32),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.ZMM0, Code.EVEX_Vpgatherdd_VZ_k1_VM32Z, TupleType.Tuple1_Scalar, MemorySize.Int32)
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vpgatherdd_xmm_k1_vm32x, TupleType.Tuple1_Scalar, MemorySize.Int32),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.YMM0, Code.EVEX_Vpgatherdd_ymm_k1_vm32y, TupleType.Tuple1_Scalar, MemorySize.Int32),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.ZMM0, Code.EVEX_Vpgatherdd_zmm_k1_vm32z, TupleType.Tuple1_Scalar, MemorySize.Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vpgatherdq_VX_k1_VM32X, TupleType.Tuple1_Scalar, MemorySize.Int64),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.XMM0, Code.EVEX_Vpgatherdq_VY_k1_VM32X, TupleType.Tuple1_Scalar, MemorySize.Int64),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.YMM0, Code.EVEX_Vpgatherdq_VZ_k1_VM32Y, TupleType.Tuple1_Scalar, MemorySize.Int64)
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vpgatherdq_xmm_k1_vm32x, TupleType.Tuple1_Scalar, MemorySize.Int64),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.XMM0, Code.EVEX_Vpgatherdq_ymm_k1_vm32x, TupleType.Tuple1_Scalar, MemorySize.Int64),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.YMM0, Code.EVEX_Vpgatherdq_zmm_k1_vm32y, TupleType.Tuple1_Scalar, MemorySize.Int64)
 						)
 					),
 					invalid,
@@ -1871,14 +1871,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vpgatherqd_VX_k1_VM64X, TupleType.Tuple1_Scalar, MemorySize.Int32),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.YMM0, Code.EVEX_Vpgatherqd_VX_k1_VM64Y, TupleType.Tuple1_Scalar, MemorySize.Int32),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.ZMM0, Code.EVEX_Vpgatherqd_VY_k1_VM64Z, TupleType.Tuple1_Scalar, MemorySize.Int32)
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vpgatherqd_xmm_k1_vm64x, TupleType.Tuple1_Scalar, MemorySize.Int32),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.YMM0, Code.EVEX_Vpgatherqd_xmm_k1_vm64y, TupleType.Tuple1_Scalar, MemorySize.Int32),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.ZMM0, Code.EVEX_Vpgatherqd_ymm_k1_vm64z, TupleType.Tuple1_Scalar, MemorySize.Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vpgatherqq_VX_k1_VM64X, TupleType.Tuple1_Scalar, MemorySize.Int64),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.YMM0, Code.EVEX_Vpgatherqq_VY_k1_VM64Y, TupleType.Tuple1_Scalar, MemorySize.Int64),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.ZMM0, Code.EVEX_Vpgatherqq_VZ_k1_VM64Z, TupleType.Tuple1_Scalar, MemorySize.Int64)
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vpgatherqq_xmm_k1_vm64x, TupleType.Tuple1_Scalar, MemorySize.Int64),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.YMM0, Code.EVEX_Vpgatherqq_ymm_k1_vm64y, TupleType.Tuple1_Scalar, MemorySize.Int64),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.ZMM0, Code.EVEX_Vpgatherqq_zmm_k1_vm64z, TupleType.Tuple1_Scalar, MemorySize.Int64)
 						)
 					),
 					invalid,
@@ -1888,14 +1888,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vgatherdps_VX_k1_VM32X, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.YMM0, Code.EVEX_Vgatherdps_VY_k1_VM32Y, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.ZMM0, Code.EVEX_Vgatherdps_VZ_k1_VM32Z, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vgatherdps_xmm_k1_vm32x, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.YMM0, Code.EVEX_Vgatherdps_ymm_k1_vm32y, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.ZMM0, Code.EVEX_Vgatherdps_zmm_k1_vm32z, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vgatherdpd_VX_k1_VM32X, TupleType.Tuple1_Scalar, MemorySize.Float64),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.XMM0, Code.EVEX_Vgatherdpd_VY_k1_VM32X, TupleType.Tuple1_Scalar, MemorySize.Float64),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.YMM0, Code.EVEX_Vgatherdpd_VZ_k1_VM32Y, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vgatherdpd_xmm_k1_vm32x, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.XMM0, Code.EVEX_Vgatherdpd_ymm_k1_vm32x, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.YMM0, Code.EVEX_Vgatherdpd_zmm_k1_vm32y, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -1905,14 +1905,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vgatherqps_VX_k1_VM64X, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.YMM0, Code.EVEX_Vgatherqps_VX_k1_VM64Y, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.ZMM0, Code.EVEX_Vgatherqps_VY_k1_VM64Z, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vgatherqps_xmm_k1_vm64x, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.YMM0, Code.EVEX_Vgatherqps_xmm_k1_vm64y, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.ZMM0, Code.EVEX_Vgatherqps_ymm_k1_vm64z, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vgatherqpd_VX_k1_VM64X, TupleType.Tuple1_Scalar, MemorySize.Float64),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.YMM0, Code.EVEX_Vgatherqpd_VY_k1_VM64Y, TupleType.Tuple1_Scalar, MemorySize.Float64),
-							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.ZMM0, Code.EVEX_Vgatherqpd_VZ_k1_VM64Z, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.XMM0, Register.XMM0, Code.EVEX_Vgatherqpd_xmm_k1_vm64x, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.YMM0, Register.YMM0, Code.EVEX_Vgatherqpd_ymm_k1_vm64y, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_Vk_VSIB(Register.ZMM0, Register.ZMM0, Code.EVEX_Vgatherqpd_zmm_k1_vm64z, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -1924,14 +1924,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub132ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub132ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub132ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub132ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub132pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub132pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub132pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub132pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -1941,14 +1941,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd132ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd132ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd132ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd132ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd132pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd132pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd132pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd132pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -1960,14 +1960,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd132ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd132ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd132ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd132ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd132pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd132pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd132pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd132pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -1976,8 +1976,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd132ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd132sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					invalid
@@ -1986,31 +1986,31 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub132ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub132ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub132ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub132ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub132pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub132pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub132pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub132pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHM(Register.ZMM0, Code.EVEX_V4fmaddps_VZ_k1z_HZP3_M, TupleType.Tuple1_4X, MemorySize.Packed128_Float32),
+						new OpCodeHandler_EVEX_VkHM(Register.ZMM0, Code.EVEX_V4fmaddps_zmm_k1z_zmmp3_m128, TupleType.Tuple1_4X, MemorySize.Packed128_Float32),
 						invalid
 					)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub132ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub132sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHM(Register.XMM0, Code.EVEX_V4fmaddss_VX_k1z_HXP3_M, TupleType.Tuple1_4X, MemorySize.Packed128_Float32),
+						new OpCodeHandler_EVEX_VkHM(Register.XMM0, Code.EVEX_V4fmaddss_xmm_k1z_xmmp3_m128, TupleType.Tuple1_4X, MemorySize.Packed128_Float32),
 						invalid
 					)
 				),
@@ -2018,14 +2018,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd132ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd132ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd132ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd132ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd132pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd132pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd132pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd132pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2034,8 +2034,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd132ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd132sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					invalid
@@ -2044,14 +2044,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub132ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub132ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub132ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub132ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub132pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub132pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub132pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub132pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2060,8 +2060,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub132ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub132sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					invalid
@@ -2072,14 +2072,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vpscatterdd_VM32X_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Int32),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.YMM0, Code.EVEX_Vpscatterdd_VM32Y_k1_VY, TupleType.Tuple1_Scalar, MemorySize.Int32),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.ZMM0, Code.EVEX_Vpscatterdd_VM32Z_k1_VZ, TupleType.Tuple1_Scalar, MemorySize.Int32)
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vpscatterdd_vm32x_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Int32),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.YMM0, Code.EVEX_Vpscatterdd_vm32y_k1_ymm, TupleType.Tuple1_Scalar, MemorySize.Int32),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.ZMM0, Code.EVEX_Vpscatterdd_vm32z_k1_zmm, TupleType.Tuple1_Scalar, MemorySize.Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vpscatterdq_VM32X_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Int64),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.YMM0, Code.EVEX_Vpscatterdq_VM32X_k1_VY, TupleType.Tuple1_Scalar, MemorySize.Int64),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.ZMM0, Code.EVEX_Vpscatterdq_VM32Y_k1_VZ, TupleType.Tuple1_Scalar, MemorySize.Int64)
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vpscatterdq_vm32x_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Int64),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.YMM0, Code.EVEX_Vpscatterdq_vm32x_k1_ymm, TupleType.Tuple1_Scalar, MemorySize.Int64),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.ZMM0, Code.EVEX_Vpscatterdq_vm32y_k1_zmm, TupleType.Tuple1_Scalar, MemorySize.Int64)
 						)
 					),
 					invalid,
@@ -2089,14 +2089,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vpscatterqd_VM64X_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Int32),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.XMM0, Code.EVEX_Vpscatterqd_VM64Y_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Int32),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.YMM0, Code.EVEX_Vpscatterqd_VM64Z_k1_VY, TupleType.Tuple1_Scalar, MemorySize.Int32)
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vpscatterqd_vm64x_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Int32),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.XMM0, Code.EVEX_Vpscatterqd_vm64y_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Int32),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.YMM0, Code.EVEX_Vpscatterqd_vm64z_k1_ymm, TupleType.Tuple1_Scalar, MemorySize.Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vpscatterqq_VM64X_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Int64),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.YMM0, Code.EVEX_Vpscatterqq_VM64Y_k1_VY, TupleType.Tuple1_Scalar, MemorySize.Int64),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.ZMM0, Code.EVEX_Vpscatterqq_VM64Z_k1_VZ, TupleType.Tuple1_Scalar, MemorySize.Int64)
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vpscatterqq_vm64x_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Int64),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.YMM0, Code.EVEX_Vpscatterqq_vm64y_k1_ymm, TupleType.Tuple1_Scalar, MemorySize.Int64),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.ZMM0, Code.EVEX_Vpscatterqq_vm64z_k1_zmm, TupleType.Tuple1_Scalar, MemorySize.Int64)
 						)
 					),
 					invalid,
@@ -2106,14 +2106,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vscatterdps_VM32X_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.YMM0, Code.EVEX_Vscatterdps_VM32Y_k1_VY, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.ZMM0, Code.EVEX_Vscatterdps_VM32Z_k1_VZ, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vscatterdps_vm32x_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.YMM0, Code.EVEX_Vscatterdps_vm32y_k1_ymm, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.ZMM0, Code.EVEX_Vscatterdps_vm32z_k1_zmm, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vscatterdpd_VM32X_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Float64),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.YMM0, Code.EVEX_Vscatterdpd_VM32X_k1_VY, TupleType.Tuple1_Scalar, MemorySize.Float64),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.ZMM0, Code.EVEX_Vscatterdpd_VM32Y_k1_VZ, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vscatterdpd_vm32x_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.YMM0, Code.EVEX_Vscatterdpd_vm32x_k1_ymm, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.ZMM0, Code.EVEX_Vscatterdpd_vm32y_k1_zmm, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -2123,14 +2123,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vscatterqps_VM64X_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.XMM0, Code.EVEX_Vscatterqps_VM64Y_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.YMM0, Code.EVEX_Vscatterqps_VM64Z_k1_VY, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vscatterqps_vm64x_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.XMM0, Code.EVEX_Vscatterqps_vm64y_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.YMM0, Code.EVEX_Vscatterqps_vm64z_k1_ymm, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vscatterqpd_VM64X_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Float64),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.YMM0, Code.EVEX_Vscatterqpd_VM64Y_k1_VY, TupleType.Tuple1_Scalar, MemorySize.Float64),
-							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.ZMM0, Code.EVEX_Vscatterqpd_VM64Z_k1_VZ, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.XMM0, Register.XMM0, Code.EVEX_Vscatterqpd_vm64x_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.YMM0, Register.YMM0, Code.EVEX_Vscatterqpd_vm64y_k1_ymm, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_VSIB_k1_VX(Register.ZMM0, Register.ZMM0, Code.EVEX_Vscatterqpd_vm64z_k1_zmm, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					),
 					invalid,
@@ -2142,14 +2142,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub213ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub213ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub213ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub213ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub213pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub213pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub213pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub213pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2159,14 +2159,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd213ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd213ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd213ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd213ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd213pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd213pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd213pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd213pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2178,14 +2178,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd213ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd213ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd213ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd213ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd213pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd213pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd213pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd213pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2194,8 +2194,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd213ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd213sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					invalid
@@ -2204,31 +2204,31 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub213ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub213ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub213ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub213ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub213pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub213pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub213pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub213pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHM(Register.ZMM0, Code.EVEX_V4fnmaddps_VZ_k1z_HZP3_M, TupleType.Tuple1_4X, MemorySize.Packed128_Float32),
+						new OpCodeHandler_EVEX_VkHM(Register.ZMM0, Code.EVEX_V4fnmaddps_zmm_k1z_zmmp3_m128, TupleType.Tuple1_4X, MemorySize.Packed128_Float32),
 						invalid
 					)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub213ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub213sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHM(Register.XMM0, Code.EVEX_V4fnmaddss_VX_k1z_HXP3_M, TupleType.Tuple1_4X, MemorySize.Packed128_Float32),
+						new OpCodeHandler_EVEX_VkHM(Register.XMM0, Code.EVEX_V4fnmaddss_xmm_k1z_xmmp3_m128, TupleType.Tuple1_4X, MemorySize.Packed128_Float32),
 						invalid
 					)
 				),
@@ -2236,14 +2236,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd213ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd213ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd213ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd213ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd213pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd213pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd213pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd213pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2252,8 +2252,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd213ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd213sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					invalid
@@ -2262,14 +2262,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub213ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub213ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub213ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub213pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub213pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub213pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub213pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2278,8 +2278,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub213ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub213sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					invalid
@@ -2295,9 +2295,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmadd52luq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt52, MemorySize.Broadcast128_UInt52),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmadd52luq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt52, MemorySize.Broadcast256_UInt52),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmadd52luq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt52, MemorySize.Broadcast512_UInt52)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt52, MemorySize.Broadcast128_UInt52),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt52, MemorySize.Broadcast256_UInt52),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmadd52luq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt52, MemorySize.Broadcast512_UInt52)
 						)
 					),
 					invalid,
@@ -2308,9 +2308,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmadd52huq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt52, MemorySize.Broadcast128_UInt52),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmadd52huq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt52, MemorySize.Broadcast256_UInt52),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmadd52huq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt52, MemorySize.Broadcast512_UInt52)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt52, MemorySize.Broadcast128_UInt52),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt52, MemorySize.Broadcast256_UInt52),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmadd52huq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt52, MemorySize.Broadcast512_UInt52)
 						)
 					),
 					invalid,
@@ -2320,14 +2320,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub231ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub231ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub231ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub231ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub231pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub231pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub231pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmaddsub231pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2337,14 +2337,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd231ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd231ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd231ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd231ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd231pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd231pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd231pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsubadd231pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2356,14 +2356,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd231ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd231ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd231ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd231ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd231pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd231pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd231pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmadd231pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2372,8 +2372,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd231ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd231sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					invalid
@@ -2382,14 +2382,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub231ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub231ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub231ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub231ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub231pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub231pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub231pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfmsub231pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2398,8 +2398,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub231ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub231sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					invalid
@@ -2408,14 +2408,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd231ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd231ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd231ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd231pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd231pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd231pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmadd231pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2424,8 +2424,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd231ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd231sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					invalid
@@ -2434,14 +2434,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub231ps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub231ps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub231ps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub231ps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub231pd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub231pd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub231pd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vfnmsub231pd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					invalid,
@@ -2450,8 +2450,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub231ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub231sd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					),
 					invalid,
 					invalid
@@ -2466,14 +2466,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpconflictd_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpconflictd_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpconflictd_VZ_k1z_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpconflictd_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpconflictd_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpconflictd_zmm_k1z_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpconflictq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpconflictq_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpconflictq_VZ_k1z_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vpconflictq_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vpconflictq_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vpconflictq_zmm_k1z_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -2490,12 +2490,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX_er(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vexp2ps_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vexp2pd_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					invalid,
@@ -2508,12 +2508,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX_er(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vrcp28ps_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vrcp28pd_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					invalid,
@@ -2522,8 +2522,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vrcp28ss_VX_k1z_HX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vrcp28sd_VX_k1z_HX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
 					),
 					invalid,
 					invalid
@@ -2534,12 +2534,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX_er(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vrsqrt28ps_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vrsqrt28pd_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					invalid,
@@ -2548,8 +2548,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vrsqrt28ss_VX_k1z_HX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vrsqrt28sd_VX_k1z_HX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
 					),
 					invalid,
 					invalid
@@ -2626,8 +2626,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -2639,8 +2639,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -2651,14 +2651,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -2668,9 +2668,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkWIb(Register.XMM0, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkWIb(Register.XMM0, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						invalid
 					),
@@ -2682,9 +2682,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkWIb(Register.XMM0, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkWIb(Register.XMM0, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -2698,9 +2698,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vrndscaleps_VX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vrndscaleps_VY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vrndscaleps_VZ_k1z_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vrndscaleps_xmm_k1z_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vrndscaleps_ymm_k1z_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						invalid
 					),
@@ -2712,9 +2712,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vrndscalepd_VX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vrndscalepd_VY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vrndscalepd_VZ_k1z_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vrndscalepd_xmm_k1z_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vrndscalepd_ymm_k1z_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					invalid,
@@ -2723,7 +2723,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrndscaless_VX_k1z_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
 						invalid
 					),
 					invalid,
@@ -2733,7 +2733,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrndscalesd_VX_k1z_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
 					),
 					invalid,
 					invalid
@@ -2744,9 +2744,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vpalignr_VX_k1z_HX_WX_Ib, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vpalignr_VY_k1z_HY_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vpalignr_VZ_k1z_HZ_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vpalignr_zmm_k1z_zmm_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -2760,7 +2760,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_GvM_VX_Ib(Register.XMM0, Code.EVEX_Vpextrb_RdMb_VX_Ib, Code.EVEX_Vpextrb_RqMb_VX_Ib, TupleType.Tuple1_Scalar_1, TupleType.Tuple1_Scalar_1, MemorySize.UInt8, MemorySize.UInt8),
+						new OpCodeHandler_EVEX_GvM_VX_Ib(Register.XMM0, Code.EVEX_Vpextrb_r32m8_xmm_imm8, Code.EVEX_Vpextrb_r64m8_xmm_imm8, TupleType.Tuple1_Scalar_1, TupleType.Tuple1_Scalar_1, MemorySize.UInt8, MemorySize.UInt8),
 						invalid,
 						invalid
 					),
@@ -2770,7 +2770,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_GvM_VX_Ib(Register.XMM0, Code.EVEX_Vpextrw_RdMw_VX_Ib, Code.EVEX_Vpextrw_RqMw_VX_Ib, TupleType.Tuple1_Scalar_2, TupleType.Tuple1_Scalar_2, MemorySize.UInt16, MemorySize.UInt16),
+						new OpCodeHandler_EVEX_GvM_VX_Ib(Register.XMM0, Code.EVEX_Vpextrw_r32m16_xmm_imm8, Code.EVEX_Vpextrw_r64m16_xmm_imm8, TupleType.Tuple1_Scalar_2, TupleType.Tuple1_Scalar_2, MemorySize.UInt16, MemorySize.UInt16),
 						invalid,
 						invalid
 					),
@@ -2780,7 +2780,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_GvM_VX_Ib(Register.XMM0, Code.EVEX_Vpextrd_Ed_VX_Ib, Code.EVEX_Vpextrq_Eq_VX_Ib, TupleType.Tuple1_Scalar_4, TupleType.Tuple1_Scalar_8, MemorySize.UInt32, MemorySize.UInt64),
+						new OpCodeHandler_EVEX_GvM_VX_Ib(Register.XMM0, Code.EVEX_Vpextrd_rm32_xmm_imm8, Code.EVEX_Vpextrq_rm64_xmm_imm8, TupleType.Tuple1_Scalar_4, TupleType.Tuple1_Scalar_8, MemorySize.UInt32, MemorySize.UInt64),
 						invalid,
 						invalid
 					),
@@ -2790,7 +2790,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_Ed_V_Ib(Register.XMM0, Code.EVEX_Vextractps_Ed_VX_Ib, Code.EVEX_Vextractps_Eq_VX_Ib, TupleType.Tuple1_Scalar_4, TupleType.Tuple1_Scalar_4, MemorySize.Float32, MemorySize.Float32),
+						new OpCodeHandler_EVEX_Ed_V_Ib(Register.XMM0, Code.EVEX_Vextractps_rm32_xmm_imm8, Code.EVEX_Vextractps_rm64_xmm_imm8, TupleType.Tuple1_Scalar_4, TupleType.Tuple1_Scalar_4, MemorySize.Float32, MemorySize.Float32),
 						invalid,
 						invalid
 					),
@@ -2804,13 +2804,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vinsertf32x4_VY_k1z_HY_WX_Ib, TupleType.Tuple4, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vinsertf32x4_VZ_k1z_HZ_WX_Ib, TupleType.Tuple4, MemorySize.Packed128_Float32)
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8, TupleType.Tuple4, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8, TupleType.Tuple4, MemorySize.Packed128_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vinsertf64x2_VY_k1z_HY_WX_Ib, TupleType.Tuple2, MemorySize.Packed128_Float64),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vinsertf64x2_VZ_k1z_HZ_WX_Ib, TupleType.Tuple2, MemorySize.Packed128_Float64)
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vinsertf64x2_ymm_k1z_ymm_xmmm128_imm8, TupleType.Tuple2, MemorySize.Packed128_Float64),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vinsertf64x2_zmm_k1z_zmm_xmmm128_imm8, TupleType.Tuple2, MemorySize.Packed128_Float64)
 						)
 					),
 					invalid,
@@ -2821,30 +2821,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.YMM0, Code.EVEX_Vextractf32x4_WX_k1z_VY_Ib, TupleType.Tuple4, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.ZMM0, Code.EVEX_Vextractf32x4_WX_k1z_VZ_Ib, TupleType.Tuple4, MemorySize.Packed128_Float32)
+							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.YMM0, Code.EVEX_Vextractf32x4_xmmm128_k1z_ymm_imm8, TupleType.Tuple4, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.ZMM0, Code.EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8, TupleType.Tuple4, MemorySize.Packed128_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.YMM0, Code.EVEX_Vextractf64x2_WX_k1z_VY_Ib, TupleType.Tuple2, MemorySize.Packed128_Float64),
-							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.ZMM0, Code.EVEX_Vextractf64x2_WX_k1z_VZ_Ib, TupleType.Tuple2, MemorySize.Packed128_Float64)
-						)
-					),
-					invalid,
-					invalid
-				),
-				new OpCodeHandler_MandatoryPrefix2(
-					invalid,
-					new OpCodeHandler_W(
-						new OpCodeHandler_VectorLength_EVEX(
-							invalid,
-							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.YMM0, Code.EVEX_Vinsertf32x8_VZ_k1z_HZ_WY_Ib, TupleType.Tuple8, MemorySize.Packed256_Float32)
-						),
-						new OpCodeHandler_VectorLength_EVEX(
-							invalid,
-							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.YMM0, Code.EVEX_Vinsertf64x4_VZ_k1z_HZ_WY_Ib, TupleType.Tuple4, MemorySize.Packed256_Float64)
+							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.YMM0, Code.EVEX_Vextractf64x2_xmmm128_k1z_ymm_imm8, TupleType.Tuple2, MemorySize.Packed128_Float64),
+							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.ZMM0, Code.EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8, TupleType.Tuple2, MemorySize.Packed128_Float64)
 						)
 					),
 					invalid,
@@ -2856,12 +2839,29 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_WkVIb(Register.YMM0, Register.ZMM0, Code.EVEX_Vextractf32x8_WY_k1z_VZ_Ib, TupleType.Tuple8, MemorySize.Packed256_Float32)
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.YMM0, Code.EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8, TupleType.Tuple8, MemorySize.Packed256_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_WkVIb(Register.YMM0, Register.ZMM0, Code.EVEX_Vextractf64x4_WY_k1z_VZ_Ib, TupleType.Tuple4, MemorySize.Packed256_Float64)
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.YMM0, Code.EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8, TupleType.Tuple4, MemorySize.Packed256_Float64)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_EVEX(
+							invalid,
+							invalid,
+							new OpCodeHandler_EVEX_WkVIb(Register.YMM0, Register.ZMM0, Code.EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8, TupleType.Tuple8, MemorySize.Packed256_Float32)
+						),
+						new OpCodeHandler_VectorLength_EVEX(
+							invalid,
+							invalid,
+							new OpCodeHandler_EVEX_WkVIb(Register.YMM0, Register.ZMM0, Code.EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8, TupleType.Tuple4, MemorySize.Packed256_Float64)
 						)
 					),
 					invalid,
@@ -2872,9 +2872,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_WkVIb_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtps2ph_WX_k1z_VX_Ib, TupleType.Half_Mem_128, MemorySize.Packed64_Float16, onlySAE: true),
-							new OpCodeHandler_EVEX_WkVIb_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtps2ph_WX_k1z_VY_Ib, TupleType.Half_Mem_256, MemorySize.Packed128_Float16, onlySAE: true),
-							new OpCodeHandler_EVEX_WkVIb_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtps2ph_WY_k1z_VZ_Ib_sae, TupleType.Half_Mem_512, MemorySize.Packed256_Float16, onlySAE: true)
+							new OpCodeHandler_EVEX_WkVIb_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8, TupleType.Half_Mem_128, MemorySize.Packed64_Float16, onlySAE: true),
+							new OpCodeHandler_EVEX_WkVIb_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8, TupleType.Half_Mem_256, MemorySize.Packed128_Float16, onlySAE: true),
+							new OpCodeHandler_EVEX_WkVIb_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae, TupleType.Half_Mem_512, MemorySize.Packed256_Float16, onlySAE: true)
 						),
 						invalid
 					),
@@ -2885,14 +2885,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpud_VK_k1_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpud_VK_k1_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpud_VK_k1_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpuq_VK_k1_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpuq_VK_k1_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpuq_VK_k1_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -2902,14 +2902,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpd_VK_k1_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpd_VK_k1_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpd_VK_k1_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpq_VK_k1_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpq_VK_k1_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpq_VK_k1_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -2920,7 +2920,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_V_H_Ev_Ib(Register.XMM0, Code.EVEX_Vpinsrb_VX_HX_RdMb_Ib, Code.EVEX_Vpinsrb_VX_HX_RqMb_Ib, TupleType.Tuple1_Scalar_1, TupleType.Tuple1_Scalar_1, MemorySize.UInt8, MemorySize.UInt8),
+						new OpCodeHandler_EVEX_V_H_Ev_Ib(Register.XMM0, Code.EVEX_Vpinsrb_xmm_xmm_r32m8_imm8, Code.EVEX_Vpinsrb_xmm_xmm_r64m8_imm8, TupleType.Tuple1_Scalar_1, TupleType.Tuple1_Scalar_1, MemorySize.UInt8, MemorySize.UInt8),
 						invalid,
 						invalid
 					),
@@ -2931,7 +2931,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VHWIb(Register.XMM0, Code.EVEX_Vinsertps_VX_HX_WX_Ib, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_VHWIb(Register.XMM0, Code.EVEX_Vinsertps_xmm_xmm_xmmm32_imm8, TupleType.Tuple1_Scalar, MemorySize.Float32),
 							invalid,
 							invalid
 						),
@@ -2943,7 +2943,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_V_H_Ev_Ib(Register.XMM0, Code.EVEX_Vpinsrd_VX_HX_Ed_Ib, Code.EVEX_Vpinsrq_VX_HX_Eq_Ib, TupleType.Tuple1_Scalar_4, TupleType.Tuple1_Scalar_8, MemorySize.UInt32, MemorySize.UInt64),
+						new OpCodeHandler_EVEX_V_H_Ev_Ib(Register.XMM0, Code.EVEX_Vpinsrd_xmm_xmm_rm32_imm8, Code.EVEX_Vpinsrq_xmm_xmm_rm64_imm8, TupleType.Tuple1_Scalar_4, TupleType.Tuple1_Scalar_8, MemorySize.UInt32, MemorySize.UInt64),
 						invalid,
 						invalid
 					),
@@ -2955,13 +2955,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshuff32x4_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshuff32x4_VZ_k1z_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshuff32x4_ymm_k1z_ymm_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshuff32x4_zmm_k1z_zmm_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshuff64x2_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshuff64x2_VZ_k1z_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshuff64x2_ymm_k1z_ymm_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshuff64x2_zmm_k1z_zmm_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -2972,14 +2972,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vpternlogd_VX_k1z_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vpternlogd_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vpternlogd_VZ_k1z_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vpternlogd_xmm_k1z_xmm_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vpternlogd_ymm_k1z_ymm_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vpternlogd_zmm_k1z_zmm_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vpternlogq_VX_k1z_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vpternlogq_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vpternlogq_VZ_k1z_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vpternlogq_xmm_k1z_xmm_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vpternlogq_ymm_k1z_ymm_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vpternlogq_zmm_k1z_zmm_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -2989,14 +2989,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vgetmantps_VX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vgetmantps_VY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vgetmantps_VZ_k1z_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vgetmantps_xmm_k1z_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vgetmantps_ymm_k1z_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vgetmantpd_VX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vgetmantpd_VY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vgetmantpd_VZ_k1z_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vgetmantpd_xmm_k1z_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vgetmantpd_ymm_k1z_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					invalid,
@@ -3005,8 +3005,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vgetmantss_VX_k1z_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
-						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vgetmantsd_VX_k1z_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
 					),
 					invalid,
 					invalid
@@ -3038,13 +3038,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vinserti32x4_VY_k1z_HY_WX_Ib, TupleType.Tuple4, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vinserti32x4_VZ_k1z_HZ_WX_Ib, TupleType.Tuple4, MemorySize.Packed128_Int32)
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8, TupleType.Tuple4, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8, TupleType.Tuple4, MemorySize.Packed128_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vinserti64x2_VY_k1z_HY_WX_Ib, TupleType.Tuple2, MemorySize.Packed128_Int64),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vinserti64x2_VZ_k1z_HZ_WX_Ib, TupleType.Tuple2, MemorySize.Packed128_Int64)
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vinserti64x2_ymm_k1z_ymm_xmmm128_imm8, TupleType.Tuple2, MemorySize.Packed128_Int64),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vinserti64x2_zmm_k1z_zmm_xmmm128_imm8, TupleType.Tuple2, MemorySize.Packed128_Int64)
 						)
 					),
 					invalid,
@@ -3055,30 +3055,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.YMM0, Code.EVEX_Vextracti32x4_WX_k1z_VY_Ib, TupleType.Tuple4, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.ZMM0, Code.EVEX_Vextracti32x4_WX_k1z_VZ_Ib, TupleType.Tuple4, MemorySize.Packed128_Int32)
+							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.YMM0, Code.EVEX_Vextracti32x4_xmmm128_k1z_ymm_imm8, TupleType.Tuple4, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.ZMM0, Code.EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8, TupleType.Tuple4, MemorySize.Packed128_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.YMM0, Code.EVEX_Vextracti64x2_WX_k1z_VY_Ib, TupleType.Tuple2, MemorySize.Packed128_Int64),
-							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.ZMM0, Code.EVEX_Vextracti64x2_WX_k1z_VZ_Ib, TupleType.Tuple2, MemorySize.Packed128_Int64)
-						)
-					),
-					invalid,
-					invalid
-				),
-				new OpCodeHandler_MandatoryPrefix2(
-					invalid,
-					new OpCodeHandler_W(
-						new OpCodeHandler_VectorLength_EVEX(
-							invalid,
-							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.YMM0, Code.EVEX_Vinserti32x8_VZ_k1z_HZ_WY_Ib, TupleType.Tuple8, MemorySize.Packed256_Int32)
-						),
-						new OpCodeHandler_VectorLength_EVEX(
-							invalid,
-							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.YMM0, Code.EVEX_Vinserti64x4_VZ_k1z_HZ_WY_Ib, TupleType.Tuple4, MemorySize.Packed256_Int64)
+							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.YMM0, Code.EVEX_Vextracti64x2_xmmm128_k1z_ymm_imm8, TupleType.Tuple2, MemorySize.Packed128_Int64),
+							new OpCodeHandler_EVEX_WkVIb(Register.XMM0, Register.ZMM0, Code.EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8, TupleType.Tuple2, MemorySize.Packed128_Int64)
 						)
 					),
 					invalid,
@@ -3090,12 +3073,29 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_WkVIb(Register.YMM0, Register.ZMM0, Code.EVEX_Vextracti32x8_WY_k1z_VZ_Ib, TupleType.Tuple8, MemorySize.Packed256_Int32)
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.YMM0, Code.EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8, TupleType.Tuple8, MemorySize.Packed256_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
 							invalid,
-							new OpCodeHandler_EVEX_WkVIb(Register.YMM0, Register.ZMM0, Code.EVEX_Vextracti64x4_WY_k1z_VZ_Ib, TupleType.Tuple4, MemorySize.Packed256_Int64)
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Register.ZMM0, Register.YMM0, Code.EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8, TupleType.Tuple4, MemorySize.Packed256_Int64)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_EVEX(
+							invalid,
+							invalid,
+							new OpCodeHandler_EVEX_WkVIb(Register.YMM0, Register.ZMM0, Code.EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8, TupleType.Tuple8, MemorySize.Packed256_Int32)
+						),
+						new OpCodeHandler_VectorLength_EVEX(
+							invalid,
+							invalid,
+							new OpCodeHandler_EVEX_WkVIb(Register.YMM0, Register.ZMM0, Code.EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8, TupleType.Tuple4, MemorySize.Packed256_Int64)
 						)
 					),
 					invalid,
@@ -3107,14 +3107,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpub_VK_k1_HX_WX_Ib, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
-							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpub_VK_k1_HY_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
-							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpub_VK_k1_HZ_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
+							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
+							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
+							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpuw_VK_k1_HX_WX_Ib, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpuw_VK_k1_HY_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpuw_VK_k1_HZ_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 						)
 					),
 					invalid,
@@ -3124,14 +3124,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpb_VK_k1_HX_WX_Ib, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpb_VK_k1_HY_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpb_VK_k1_HZ_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpw_VK_k1_HX_WX_Ib, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpw_VK_k1_HY_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpw_VK_k1_HZ_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+							new OpCodeHandler_EVEX_KkHWIb(Register.XMM0, Code.EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+							new OpCodeHandler_EVEX_KkHWIb(Register.YMM0, Code.EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+							new OpCodeHandler_EVEX_KkHWIb(Register.ZMM0, Code.EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 						)
 					),
 					invalid,
@@ -3145,9 +3145,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vdbpsadbw_VX_k1z_HX_WX_Ib, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vdbpsadbw_VY_k1z_HY_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vdbpsadbw_VZ_k1z_HZ_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
+							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vdbpsadbw_xmm_k1z_xmm_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vdbpsadbw_ymm_k1z_ymm_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vdbpsadbw_zmm_k1z_zmm_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
 						),
 						invalid
 					),
@@ -3159,13 +3159,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshufi32x4_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshufi32x4_VZ_k1z_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshufi32x4_ymm_k1z_ymm_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshufi32x4_zmm_k1z_zmm_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
 							invalid,
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshufi64x2_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshufi64x2_VZ_k1z_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshufi64x2_ymm_k1z_ymm_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -3191,14 +3191,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrangeps_VX_k1z_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.YMM0, Code.EVEX_Vrangeps_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.ZMM0, Code.EVEX_Vrangeps_VZ_k1z_HZ_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrangeps_xmm_k1z_xmm_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.YMM0, Code.EVEX_Vrangeps_ymm_k1z_ymm_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.ZMM0, Code.EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrangepd_VX_k1z_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.YMM0, Code.EVEX_Vrangepd_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.ZMM0, Code.EVEX_Vrangepd_VZ_k1z_HZ_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrangepd_xmm_k1z_xmm_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.YMM0, Code.EVEX_Vrangepd_ymm_k1z_ymm_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.ZMM0, Code.EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					invalid,
@@ -3207,8 +3207,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrangess_VX_k1z_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
-						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrangesd_VX_k1z_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
 					),
 					invalid,
 					invalid
@@ -3219,14 +3219,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vfixupimmps_VX_k1z_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.YMM0, Code.EVEX_Vfixupimmps_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.ZMM0, Code.EVEX_Vfixupimmps_VZ_k1z_HZ_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vfixupimmps_xmm_k1z_xmm_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.YMM0, Code.EVEX_Vfixupimmps_ymm_k1z_ymm_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.ZMM0, Code.EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vfixupimmpd_VX_k1z_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.YMM0, Code.EVEX_Vfixupimmpd_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHWIb_er(Register.ZMM0, Code.EVEX_Vfixupimmpd_VZ_k1z_HZ_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vfixupimmpd_xmm_k1z_xmm_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.YMM0, Code.EVEX_Vfixupimmpd_ymm_k1z_ymm_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHWIb_er(Register.ZMM0, Code.EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					invalid,
@@ -3235,8 +3235,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vfixupimmss_VX_k1z_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
-						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vfixupimmsd_VX_k1z_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
 					),
 					invalid,
 					invalid
@@ -3245,14 +3245,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vreduceps_VX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vreduceps_VY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vreduceps_VZ_k1z_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vreduceps_xmm_k1z_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vreduceps_ymm_k1z_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vreducepd_VX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vreducepd_VY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vreducepd_VZ_k1z_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkWIb_er(Register.XMM0, Code.EVEX_Vreducepd_xmm_k1z_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.YMM0, Code.EVEX_Vreducepd_ymm_k1z_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkWIb_er(Register.ZMM0, Code.EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					invalid,
@@ -3261,8 +3261,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vreducess_VX_k1z_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
-						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vreducesd_VX_k1z_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VkHWIb_er(Register.XMM0, Code.EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
 					),
 					invalid,
 					invalid
@@ -3289,14 +3289,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkWIb(Register.XMM0, Code.EVEX_Vfpclassps_VK_k1_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_KkWIb(Register.YMM0, Code.EVEX_Vfpclassps_VK_k1_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_KkWIb(Register.ZMM0, Code.EVEX_Vfpclassps_VK_k1_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_KkWIb(Register.XMM0, Code.EVEX_Vfpclassps_k_k1_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_KkWIb(Register.YMM0, Code.EVEX_Vfpclassps_k_k1_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_KkWIb(Register.ZMM0, Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkWIb(Register.XMM0, Code.EVEX_Vfpclasspd_VK_k1_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_KkWIb(Register.YMM0, Code.EVEX_Vfpclasspd_VK_k1_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_KkWIb(Register.ZMM0, Code.EVEX_Vfpclasspd_VK_k1_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_KkWIb(Register.XMM0, Code.EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_KkWIb(Register.YMM0, Code.EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_KkWIb(Register.ZMM0, Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -3305,8 +3305,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_KkWIb(Register.XMM0, Code.EVEX_Vfpclassss_VK_k1_WX_Ib, TupleType.Tuple1_Scalar, MemorySize.Float32),
-						new OpCodeHandler_EVEX_KkWIb(Register.XMM0, Code.EVEX_Vfpclasssd_VK_k1_WX_Ib, TupleType.Tuple1_Scalar, MemorySize.Float64)
+						new OpCodeHandler_EVEX_KkWIb(Register.XMM0, Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8, TupleType.Tuple1_Scalar, MemorySize.Float32),
+						new OpCodeHandler_EVEX_KkWIb(Register.XMM0, Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8, TupleType.Tuple1_Scalar, MemorySize.Float64)
 					),
 					invalid,
 					invalid
@@ -3528,71 +3528,71 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovups_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovups_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovups_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovups_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovups_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovups_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovupd_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Float64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovupd_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Float64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovupd_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovupd_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Float64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovupd_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Float64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovupd_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Float64)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_RM(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vmovss_VX_k1z_HX_RX, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovss_VX_k1z_M, TupleType.Tuple1_Scalar, MemorySize.Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vmovss_xmm_k1z_xmm_xmm, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovss_xmm_k1z_m32, TupleType.Tuple1_Scalar, MemorySize.Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_RM(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vmovsd_VX_k1z_HX_RX, TupleType.Tuple1_Scalar, MemorySize.Float64),
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovsd_VX_k1z_M, TupleType.Tuple1_Scalar, MemorySize.Float64)
-						)
-					)
-				),
-				new OpCodeHandler_MandatoryPrefix2(
-					new OpCodeHandler_W(
-						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovups_WX_k1z_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovups_WY_k1z_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovups_WZ_k1z_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
-						),
-						invalid
-					),
-					new OpCodeHandler_W(
-						invalid,
-						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovupd_WX_k1z_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Float64),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovupd_WY_k1z_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Float64),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovupd_WZ_k1z_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float64)
-						)
-					),
-					new OpCodeHandler_W(
-						new OpCodeHandler_RM(
-							new OpCodeHandler_EVEX_WkHV(Register.XMM0, Code.EVEX_Vmovss_RX_k1z_HX_VX, TupleType.Tuple1_Scalar, MemorySize.Float32),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovss_M_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Float32)
-						),
-						invalid
-					),
-					new OpCodeHandler_W(
-						invalid,
-						new OpCodeHandler_RM(
-							new OpCodeHandler_EVEX_WkHV(Register.XMM0, Code.EVEX_Vmovsd_RX_k1z_HX_VX, TupleType.Tuple1_Scalar, MemorySize.Float64),
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovsd_M_k1_VX, TupleType.Tuple1_Scalar, MemorySize.Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vmovsd_xmm_k1z_xmm_xmm, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovsd_xmm_k1z_m64, TupleType.Tuple1_Scalar, MemorySize.Float64)
 						)
 					)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VHW(Register.XMM0, Code.EVEX_Vmovhlps_VX_HX_RX, Code.EVEX_Vmovlps_VX_HX_M, TupleType.Tuple2, MemorySize.Packed64_Float32),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovups_xmmm128_k1z_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovups_ymmm256_k1z_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovups_zmmm512_k1z_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
+						),
+						invalid
+					),
+					new OpCodeHandler_W(
+						invalid,
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovupd_xmmm128_k1z_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Float64),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovupd_ymmm256_k1z_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Float64),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovupd_zmmm512_k1z_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Float64)
+						)
+					),
+					new OpCodeHandler_W(
+						new OpCodeHandler_RM(
+							new OpCodeHandler_EVEX_WkHV(Register.XMM0, Code.EVEX_Vmovss_xmm_k1z_xmm_xmm_0F11, TupleType.Tuple1_Scalar, MemorySize.Float32),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovss_m32_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Float32)
+						),
+						invalid
+					),
+					new OpCodeHandler_W(
+						invalid,
+						new OpCodeHandler_RM(
+							new OpCodeHandler_EVEX_WkHV(Register.XMM0, Code.EVEX_Vmovsd_xmm_k1z_xmm_xmm_0F11, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovsd_m64_k1_xmm, TupleType.Tuple1_Scalar, MemorySize.Float64)
+						)
+					)
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_VHW(Register.XMM0, Code.EVEX_Vmovhlps_xmm_xmm_xmm, Code.EVEX_Vmovlps_xmm_xmm_m64, TupleType.Tuple2, MemorySize.Packed64_Float32),
 							invalid,
 							invalid
 						),
@@ -3601,32 +3601,32 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VHM(Register.XMM0, Code.EVEX_Vmovlpd_VX_HX_M, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_VHM(Register.XMM0, Code.EVEX_Vmovlpd_xmm_xmm_m64, TupleType.Tuple1_Scalar, MemorySize.Float64),
 							invalid,
 							invalid
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovsldup_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovsldup_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovsldup_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovsldup_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovsldup_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovsldup_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovddup_VX_k1z_WX, TupleType.MOVDDUP_128, MemorySize.Float64, MemorySize.Float64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovddup_VY_k1z_WY, TupleType.MOVDDUP_256, MemorySize.Packed256_Float64, MemorySize.Packed256_Float64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovddup_VZ_k1z_WZ, TupleType.MOVDDUP_512, MemorySize.Packed512_Float64, MemorySize.Packed512_Float64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovddup_xmm_k1z_xmmm64, TupleType.MOVDDUP_128, MemorySize.Float64, MemorySize.Float64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovddup_ymm_k1z_ymmm256, TupleType.MOVDDUP_256, MemorySize.Packed256_Float64, MemorySize.Packed256_Float64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovddup_zmm_k1z_zmmm512, TupleType.MOVDDUP_512, MemorySize.Packed512_Float64, MemorySize.Packed512_Float64)
 						)
 					)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovlps_M_VX, TupleType.Tuple2, MemorySize.Packed64_Float32),
+							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovlps_m64_xmm, TupleType.Tuple2, MemorySize.Packed64_Float32),
 							invalid,
 							invalid
 						),
@@ -3635,7 +3635,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovlpd_M_VX, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovlpd_m64_xmm, TupleType.Tuple1_Scalar, MemorySize.Float64),
 							invalid,
 							invalid
 						)
@@ -3646,18 +3646,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vunpcklps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vunpcklps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vunpcklps_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vunpcklps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vunpcklps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vunpcklpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vunpcklpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vunpcklpd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vunpcklpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vunpcklpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vunpcklpd_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -3666,18 +3666,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vunpckhps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vunpckhps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vunpckhps_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vunpckhps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vunpckhps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vunpckhps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vunpckhpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vunpckhpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vunpckhpd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vunpckhpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vunpckhpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vunpckhpd_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -3686,7 +3686,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VHW(Register.XMM0, Code.EVEX_Vmovlhps_VX_HX_RX, Code.EVEX_Vmovhps_VX_HX_M, TupleType.Tuple2, MemorySize.Packed64_Float32),
+							new OpCodeHandler_EVEX_VHW(Register.XMM0, Code.EVEX_Vmovlhps_xmm_xmm_xmm, Code.EVEX_Vmovhps_xmm_xmm_m64, TupleType.Tuple2, MemorySize.Packed64_Float32),
 							invalid,
 							invalid
 						),
@@ -3695,16 +3695,16 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VHM(Register.XMM0, Code.EVEX_Vmovhpd_VX_HX_M, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_VHM(Register.XMM0, Code.EVEX_Vmovhpd_xmm_xmm_m64, TupleType.Tuple1_Scalar, MemorySize.Float64),
 							invalid,
 							invalid
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovshdup_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovshdup_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovshdup_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovshdup_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovshdup_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovshdup_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
 						),
 						invalid
 					),
@@ -3713,7 +3713,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovhps_M_VX, TupleType.Tuple2, MemorySize.Packed64_Float32),
+							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovhps_m64_xmm, TupleType.Tuple2, MemorySize.Packed64_Float32),
 							invalid,
 							invalid
 						),
@@ -3722,7 +3722,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovhpd_M_VX, TupleType.Tuple1_Scalar, MemorySize.Float64),
+							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovhpd_m64_xmm, TupleType.Tuple1_Scalar, MemorySize.Float64),
 							invalid,
 							invalid
 						)
@@ -3755,18 +3755,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovaps_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovaps_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovaps_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovaps_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovaps_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovaps_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovapd_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Float64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovapd_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Float64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovapd_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovapd_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Float64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovapd_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Float64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovapd_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Float64)
 						)
 					),
 					invalid,
@@ -3775,18 +3775,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovaps_WX_k1z_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovaps_WY_k1z_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovaps_WZ_k1z_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovaps_xmmm128_k1z_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovaps_ymmm256_k1z_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovaps_zmmm512_k1z_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovapd_WX_k1z_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Float64),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovapd_WY_k1z_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Float64),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovapd_WZ_k1z_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float64)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovapd_xmmm128_k1z_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Float64),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovapd_ymmm256_k1z_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Float64),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovapd_zmmm512_k1z_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Float64)
 						)
 					),
 					invalid,
@@ -3795,24 +3795,24 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					invalid,
-					new OpCodeHandler_EVEX_V_H_Ev_er(Register.XMM0, Code.EVEX_Vcvtsi2ss_VX_HX_Ed_er, Code.EVEX_Vcvtsi2ss_VX_HX_Eq_er, TupleType.Tuple1_Scalar, MemorySize.Int32, MemorySize.Int64, onlySAE: false),
-					new OpCodeHandler_EVEX_V_H_Ev_er(Register.XMM0, Code.EVEX_Vcvtsi2sd_VX_HX_Ed, Code.EVEX_Vcvtsi2sd_VX_HX_Eq_er, TupleType.Tuple1_Scalar, MemorySize.Int32, MemorySize.Int64, onlySAE: false, noERd: true)
+					new OpCodeHandler_EVEX_V_H_Ev_er(Register.XMM0, Code.EVEX_Vcvtsi2ss_xmm_xmm_rm32_er, Code.EVEX_Vcvtsi2ss_xmm_xmm_rm64_er, TupleType.Tuple1_Scalar, MemorySize.Int32, MemorySize.Int64, onlySAE: false),
+					new OpCodeHandler_EVEX_V_H_Ev_er(Register.XMM0, Code.EVEX_Vcvtsi2sd_xmm_xmm_rm32, Code.EVEX_Vcvtsi2sd_xmm_xmm_rm64_er, TupleType.Tuple1_Scalar, MemorySize.Int32, MemorySize.Int64, onlySAE: false, noERd: true)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovntps_M_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
-							new OpCodeHandler_EVEX_MV(Register.YMM0, Code.EVEX_Vmovntps_M_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
-							new OpCodeHandler_EVEX_MV(Register.ZMM0, Code.EVEX_Vmovntps_M_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
+							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovntps_m128_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Float32),
+							new OpCodeHandler_EVEX_MV(Register.YMM0, Code.EVEX_Vmovntps_m256_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Float32),
+							new OpCodeHandler_EVEX_MV(Register.ZMM0, Code.EVEX_Vmovntps_m512_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovntpd_M_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Float64),
-							new OpCodeHandler_EVEX_MV(Register.YMM0, Code.EVEX_Vmovntpd_M_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Float64),
-							new OpCodeHandler_EVEX_MV(Register.ZMM0, Code.EVEX_Vmovntpd_M_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Float64)
+							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovntpd_m128_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Float64),
+							new OpCodeHandler_EVEX_MV(Register.YMM0, Code.EVEX_Vmovntpd_m256_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Float64),
+							new OpCodeHandler_EVEX_MV(Register.ZMM0, Code.EVEX_Vmovntpd_m512_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Float64)
 						)
 					),
 					invalid,
@@ -3821,35 +3821,35 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					invalid,
-					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvttss2si_Gd_WX_sae, Code.EVEX_Vcvttss2si_Gq_WX_sae, TupleType.Tuple1_Scalar_4, MemorySize.Float32, onlySAE: true),
-					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvttsd2si_Gd_WX_sae, Code.EVEX_Vcvttsd2si_Gq_WX_sae, TupleType.Tuple1_Scalar_8, MemorySize.Float64, onlySAE: true)
+					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvttss2si_r32_xmmm32_sae, Code.EVEX_Vcvttss2si_r64_xmmm32_sae, TupleType.Tuple1_Scalar_4, MemorySize.Float32, onlySAE: true),
+					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvttsd2si_r32_xmmm64_sae, Code.EVEX_Vcvttsd2si_r64_xmmm64_sae, TupleType.Tuple1_Scalar_8, MemorySize.Float64, onlySAE: true)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					invalid,
-					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvtss2si_Gd_WX_er, Code.EVEX_Vcvtss2si_Gq_WX_er, TupleType.Tuple1_Scalar_4, MemorySize.Float32, onlySAE: false),
-					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvtsd2si_Gd_WX_er, Code.EVEX_Vcvtsd2si_Gq_WX_er, TupleType.Tuple1_Scalar_8, MemorySize.Float64, onlySAE: false)
+					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvtss2si_r32_xmmm32_er, Code.EVEX_Vcvtss2si_r64_xmmm32_er, TupleType.Tuple1_Scalar_4, MemorySize.Float32, onlySAE: false),
+					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvtsd2si_r32_xmmm64_er, Code.EVEX_Vcvtsd2si_r64_xmmm64_er, TupleType.Tuple1_Scalar_8, MemorySize.Float64, onlySAE: false)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VW_er(Register.XMM0, Code.EVEX_Vucomiss_VX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VW_er(Register.XMM0, Code.EVEX_Vucomiss_xmm_xmmm32_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, MemorySize.Float32, onlySAE: true),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_VW_er(Register.XMM0, Code.EVEX_Vucomisd_VX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VW_er(Register.XMM0, Code.EVEX_Vucomisd_xmm_xmmm64_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, MemorySize.Float64, onlySAE: true)
 					),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VW_er(Register.XMM0, Code.EVEX_Vcomiss_VX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VW_er(Register.XMM0, Code.EVEX_Vcomiss_xmm_xmmm32_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, MemorySize.Float32, onlySAE: true),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_VW_er(Register.XMM0, Code.EVEX_Vcomisd_VX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VW_er(Register.XMM0, Code.EVEX_Vcomisd_xmm_xmmm64_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, MemorySize.Float64, onlySAE: true)
 					),
 					invalid,
 					invalid
@@ -3900,27 +3900,27 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vsqrtps_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vsqrtps_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vsqrtps_VZ_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vsqrtps_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vsqrtps_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vsqrtps_zmm_k1z_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vsqrtpd_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vsqrtpd_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vsqrtpd_VZ_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vsqrtpd_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vsqrtpd_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vsqrtpd_zmm_k1z_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsqrtss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsqrtsd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					)
 				),
 				invalid,
@@ -3928,18 +3928,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vandps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vandps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vandps_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vandps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vandps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vandps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vandpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vandpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vandpd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vandpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vandpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vandpd_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -3948,18 +3948,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vandnps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vandnps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vandnps_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vandnps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vandnps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vandnps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vandnpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vandnpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vandnpd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vandnpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vandnpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vandnpd_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -3968,18 +3968,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vorps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vorps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vorps_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vorps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vorps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vorps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vorpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vorpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vorpd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vorpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vorpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vorpd_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -3988,18 +3988,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vxorps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vxorps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vxorps_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vxorps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vxorps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vxorps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vxorpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vxorpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vxorpd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vxorpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vxorpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vxorpd_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -4010,107 +4010,107 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vaddps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vaddps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vaddps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vaddps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vaddps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vaddps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vaddpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vaddpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vaddpd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vaddpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vaddpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vaddss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vaddsd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmulps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vmulps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vmulps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmulps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vmulps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vmulps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmulpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vmulpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vmulpd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmulpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vmulpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vmulpd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmulss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmulsd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtps2pd_VX_k1z_WX_b, TupleType.Half_128, MemorySize.Packed64_Float32, MemorySize.Broadcast64_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtps2pd_VY_k1z_WX_b, TupleType.Half_256, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtps2pd_VZ_k1z_WY_sae_b, TupleType.Half_512, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtps2pd_xmm_k1z_xmmm64b32, TupleType.Half_128, MemorySize.Packed64_Float32, MemorySize.Broadcast64_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtps2pd_ymm_k1z_xmmm128b32, TupleType.Half_256, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtps2pd_zmm_k1z_ymmm256b32_sae, TupleType.Half_512, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtpd2ps_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtpd2ps_VX_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtpd2ps_VY_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtpd2ps_ymm_k1z_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vcvtss2sd_VX_k1z_HX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vcvtsd2ss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vcvtdq2ps_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vcvtdq2ps_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vcvtdq2ps_VZ_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vcvtdq2ps_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vcvtdq2ps_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vcvtdq2ps_zmm_k1z_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtqq2ps_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtqq2ps_VX_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtqq2ps_VY_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtqq2ps_xmm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64, onlySAE: false)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vcvtps2dq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vcvtps2dq_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vcvtps2dq_VZ_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vcvtps2dq_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vcvtps2dq_zmm_k1z_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vcvttps2dq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vcvttps2dq_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vcvttps2dq_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Code.EVEX_Vcvttps2dq_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Code.EVEX_Vcvttps2dq_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Code.EVEX_Vcvttps2dq_zmm_k1z_zmmm512b32_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						invalid
 					),
@@ -4119,105 +4119,105 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsubps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vsubps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vsubps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsubpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vsubpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vsubpd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsubss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsubsd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vminps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vminps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vminps_VZ_k1z_HZ_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vminps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vminps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vminps_zmm_k1z_zmm_zmmm512b32_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vminpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vminpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vminpd_VZ_k1z_HZ_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vminpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vminpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vminpd_zmm_k1z_zmm_zmmm512b64_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vminss_VX_k1z_HX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vminsd_VX_k1z_HX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
 					)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vdivps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vdivps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vdivps_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vdivps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vdivps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vdivps_zmm_k1z_zmm_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vdivpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vdivpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vdivpd_VZ_k1z_HZ_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vdivpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vdivpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vdivpd_zmm_k1z_zmm_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vdivss_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: false),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vdivsd_VX_k1z_HX_WX_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: false)
 					)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmaxps_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vmaxps_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vmaxps_VZ_k1z_HZ_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmaxps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vmaxps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vmaxps_zmm_k1z_zmm_zmmm512b32_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmaxpd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vmaxpd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vmaxpd_VZ_k1z_HZ_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmaxpd_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHW_er(Register.YMM0, Code.EVEX_Vmaxpd_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkHW_er(Register.ZMM0, Code.EVEX_Vmaxpd_zmm_k1z_zmm_zmmm512b64_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmaxss_VX_k1z_HX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, onlySAE: true),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmaxsd_VX_k1z_HX_WX_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
+						new OpCodeHandler_EVEX_VkHW_er(Register.XMM0, Code.EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, onlySAE: true)
 					)
 				),
 
@@ -4225,9 +4225,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpcklbw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpcklbw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpcklbw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpcklbw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpcklbw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -4235,9 +4235,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpcklwd_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpcklwd_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpcklwd_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpcklwd_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpcklwd_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpcklwd_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -4246,9 +4246,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpckldq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpckldq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpckldq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpckldq_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpckldq_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpckldq_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						invalid
 					),
@@ -4258,9 +4258,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpacksswb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpacksswb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpacksswb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpacksswb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpacksswb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpacksswb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -4268,9 +4268,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpgtb_VK_k1_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpgtb_VK_k1_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpgtb_VK_k1_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpgtb_k_k1_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpgtb_k_k1_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpgtb_k_k1_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -4278,9 +4278,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpgtw_VK_k1_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpgtw_VK_k1_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpgtw_VK_k1_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpgtw_k_k1_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpgtw_k_k1_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpgtw_k_k1_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -4289,9 +4289,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpgtd_VK_k1_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpgtd_VK_k1_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpgtd_VK_k1_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						invalid
 					),
@@ -4301,9 +4301,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpackuswb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpackuswb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpackuswb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpackuswb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpackuswb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpackuswb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -4313,9 +4313,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpckhbw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpckhbw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpckhbw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpckhbw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpckhbw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpckhbw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -4323,9 +4323,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpckhwd_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpckhwd_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpckhwd_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpckhwd_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpckhwd_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpckhwd_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -4334,9 +4334,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpckhdq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpckhdq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpckhdq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpckhdq_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpckhdq_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpckhdq_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						invalid
 					),
@@ -4347,9 +4347,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpackssdw_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpackssdw_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpackssdw_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpackssdw_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpackssdw_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpackssdw_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						invalid
 					),
@@ -4361,9 +4361,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpcklqdq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpcklqdq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpcklqdq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpcklqdq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpcklqdq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpcklqdq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -4374,9 +4374,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpckhqdq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpckhqdq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpckhqdq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpunpckhqdq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpunpckhqdq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpunpckhqdq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -4385,7 +4385,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VX_Ev(Code.EVEX_Vmovd_VX_Ed, Code.EVEX_Vmovq_VX_Eq, TupleType.Tuple1_Scalar),
+						new OpCodeHandler_EVEX_VX_Ev(Code.EVEX_Vmovd_xmm_rm32, Code.EVEX_Vmovq_xmm_rm64, TupleType.Tuple1_Scalar),
 						invalid,
 						invalid
 					),
@@ -4396,38 +4396,38 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqa32_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqa32_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqa32_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqa32_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqa32_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqa32_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqa64_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqa64_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqa64_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqa64_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqa64_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqa64_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqu32_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqu32_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqu32_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqu32_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqu32_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqu32_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqu64_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int64),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqu64_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int64),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqu64_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int64)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqu64_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int64),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqu64_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int64),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqu64_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int64)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqu8_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqu8_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqu8_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqu8_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqu8_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqu8_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqu16_VX_k1z_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqu16_VY_k1z_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqu16_VZ_k1z_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Code.EVEX_Vmovdqu16_xmm_k1z_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Code.EVEX_Vmovdqu16_ymm_k1z_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Code.EVEX_Vmovdqu16_zmm_k1z_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 						)
 					)
 				),
@@ -4437,21 +4437,21 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkWIb(Register.XMM0, Code.EVEX_Vpshufd_VX_k1z_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpshufd_VY_k1z_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpshufd_VZ_k1z_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkWIb(Register.XMM0, Code.EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpshufd_zmm_k1z_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						invalid
 					),
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkWIb(Register.XMM0, Code.EVEX_Vpshufhw_VX_k1z_WX_Ib, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpshufhw_VY_k1z_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpshufhw_VZ_k1z_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkWIb(Register.XMM0, Code.EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpshufhw_zmm_k1z_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkWIb(Register.XMM0, Code.EVEX_Vpshuflw_VX_k1z_WX_Ib, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpshuflw_VY_k1z_WY_Ib, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpshuflw_VZ_k1z_WZ_Ib, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkWIb(Register.XMM0, Code.EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkWIb(Register.YMM0, Code.EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkWIb(Register.ZMM0, Code.EVEX_Vpshuflw_zmm_k1z_zmmm512_imm8, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					)
 				),
 				new OpCodeHandler_Group(handlers_Grp_0F71),
@@ -4460,9 +4460,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpeqb_VK_k1_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpeqb_VK_k1_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpeqb_VK_k1_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpeqb_k_k1_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpeqb_k_k1_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpeqb_k_k1_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -4470,9 +4470,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpeqw_VK_k1_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpeqw_VK_k1_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpeqw_VK_k1_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpeqw_k_k1_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpeqw_k_k1_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpeqw_k_k1_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -4481,9 +4481,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpeqd_VK_k1_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpeqd_VK_k1_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpeqd_VK_k1_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_KkHW(Register.XMM0, Code.EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_KkHW(Register.YMM0, Code.EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_KkHW(Register.ZMM0, Code.EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						invalid
 					),
@@ -4496,95 +4496,95 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttps2udq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvttps2udq_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvttps2udq_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttps2udq_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvttps2udq_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: true)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttpd2udq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvttpd2udq_VX_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvttpd2udq_VY_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvttpd2udq_xmm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttps2uqq_VX_k1z_WX_b, TupleType.Half_128, MemorySize.Packed64_Float32, MemorySize.Broadcast64_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvttps2uqq_VY_k1z_WX_b, TupleType.Half_256, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvttps2uqq_VZ_k1z_WY_sae_b, TupleType.Half_512, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttps2uqq_xmm_k1z_xmmm64b32, TupleType.Half_128, MemorySize.Packed64_Float32, MemorySize.Broadcast64_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvttps2uqq_ymm_k1z_xmmm128b32, TupleType.Half_256, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae, TupleType.Half_512, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttpd2uqq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvttpd2uqq_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvttpd2uqq_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttpd2uqq_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvttpd2uqq_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
-					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvttss2usi_Gd_WX_sae, Code.EVEX_Vcvttss2usi_Gq_WX_sae, TupleType.Tuple1_Fixed_4, MemorySize.Float32, onlySAE: true),
-					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvttsd2usi_Gd_WX_sae, Code.EVEX_Vcvttsd2usi_Gq_WX_sae, TupleType.Tuple1_Fixed_8, MemorySize.Float64, onlySAE: true)
+					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvttss2usi_r32_xmmm32_sae, Code.EVEX_Vcvttss2usi_r64_xmmm32_sae, TupleType.Tuple1_Fixed_4, MemorySize.Float32, onlySAE: true),
+					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvttsd2usi_r32_xmmm64_sae, Code.EVEX_Vcvttsd2usi_r64_xmmm64_sae, TupleType.Tuple1_Fixed_8, MemorySize.Float64, onlySAE: true)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtps2udq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtps2udq_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtps2udq_VZ_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtps2udq_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtps2udq_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtpd2udq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtpd2udq_VX_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtpd2udq_VY_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtpd2udq_xmm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtps2uqq_VX_k1z_WX_b, TupleType.Half_128, MemorySize.Packed64_Float32, MemorySize.Broadcast64_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtps2uqq_VY_k1z_WX_b, TupleType.Half_256, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtps2uqq_VZ_k1z_WY_er_b, TupleType.Half_512, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtps2uqq_xmm_k1z_xmmm64b32, TupleType.Half_128, MemorySize.Packed64_Float32, MemorySize.Broadcast64_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtps2uqq_ymm_k1z_xmmm128b32, TupleType.Half_256, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtps2uqq_zmm_k1z_ymmm256b32_er, TupleType.Half_512, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtpd2uqq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtpd2uqq_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtpd2uqq_VZ_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtpd2uqq_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtpd2uqq_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtpd2uqq_zmm_k1z_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
-					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvtss2usi_Gd_WX_er, Code.EVEX_Vcvtss2usi_Gq_WX_er, TupleType.Tuple1_Fixed_4, MemorySize.Float32, onlySAE: false),
-					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvtsd2usi_Gd_WX_er, Code.EVEX_Vcvtsd2usi_Gq_WX_er, TupleType.Tuple1_Fixed_8, MemorySize.Float64, onlySAE: false)
+					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvtss2usi_r32_xmmm32_er, Code.EVEX_Vcvtss2usi_r64_xmmm32_er, TupleType.Tuple1_Fixed_4, MemorySize.Float32, onlySAE: false),
+					new OpCodeHandler_EVEX_Gv_W_er(Register.XMM0, Code.EVEX_Vcvtsd2usi_r32_xmmm64_er, Code.EVEX_Vcvtsd2usi_r64_xmmm64_er, TupleType.Tuple1_Fixed_8, MemorySize.Float64, onlySAE: false)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttps2qq_VX_k1z_WX_b, TupleType.Half_128, MemorySize.Packed64_Float32, MemorySize.Broadcast64_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvttps2qq_VY_k1z_WX_b, TupleType.Half_256, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvttps2qq_VZ_k1z_WY_sae_b, TupleType.Half_512, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttps2qq_xmm_k1z_xmmm64b32, TupleType.Half_128, MemorySize.Packed64_Float32, MemorySize.Broadcast64_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvttps2qq_ymm_k1z_xmmm128b32, TupleType.Half_256, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae, TupleType.Half_512, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: true)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttpd2qq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvttpd2qq_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvttpd2qq_VZ_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttpd2qq_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvttpd2qq_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtudq2pd_VX_k1z_WX_b, TupleType.Half_128, MemorySize.Packed64_UInt32, MemorySize.Broadcast64_UInt32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtudq2pd_VY_k1z_WX_b, TupleType.Half_256, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtudq2pd_VZ_k1z_WY_b, TupleType.Half_512, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32, TupleType.Half_128, MemorySize.Packed64_UInt32, MemorySize.Broadcast64_UInt32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32, TupleType.Half_256, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32, TupleType.Half_512, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtuqq2pd_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtuqq2pd_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtuqq2pd_VZ_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64, onlySAE: false)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtudq2ps_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtudq2ps_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtudq2ps_VZ_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtudq2ps_xmm_k1z_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtudq2ps_ymm_k1z_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtudq2ps_zmm_k1z_zmmm512b32_er, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtuqq2ps_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtuqq2ps_VX_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtuqq2ps_VY_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtuqq2ps_xmm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64, onlySAE: false)
 						)
 					)
 				),
@@ -4592,32 +4592,32 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtps2qq_VX_k1z_WX_b, TupleType.Half_128, MemorySize.Packed64_Float32, MemorySize.Broadcast64_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtps2qq_VY_k1z_WX_b, TupleType.Half_256, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtps2qq_VZ_k1z_WY_er_b, TupleType.Half_512, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtps2qq_xmm_k1z_xmmm64b32, TupleType.Half_128, MemorySize.Packed64_Float32, MemorySize.Broadcast64_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtps2qq_ymm_k1z_xmmm128b32, TupleType.Half_256, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er, TupleType.Half_512, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32, onlySAE: false)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtpd2qq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtpd2qq_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtpd2qq_VZ_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtpd2qq_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtpd2qq_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					),
-					new OpCodeHandler_EVEX_V_H_Ev_er(Register.XMM0, Code.EVEX_Vcvtusi2ss_VX_HX_Ed_er, Code.EVEX_Vcvtusi2ss_VX_HX_Eq_er, TupleType.Tuple1_Fixed, MemorySize.UInt32, MemorySize.UInt64, onlySAE: false),
-					new OpCodeHandler_EVEX_V_H_Ev_er(Register.XMM0, Code.EVEX_Vcvtusi2sd_VX_HX_Ed, Code.EVEX_Vcvtusi2sd_VX_HX_Eq_er, TupleType.Tuple1_Fixed, MemorySize.UInt32, MemorySize.UInt64, onlySAE: false, noERd: true)
+					new OpCodeHandler_EVEX_V_H_Ev_er(Register.XMM0, Code.EVEX_Vcvtusi2ss_xmm_xmm_rm32_er, Code.EVEX_Vcvtusi2ss_xmm_xmm_rm64_er, TupleType.Tuple1_Fixed, MemorySize.UInt32, MemorySize.UInt64, onlySAE: false),
+					new OpCodeHandler_EVEX_V_H_Ev_er(Register.XMM0, Code.EVEX_Vcvtusi2sd_xmm_xmm_rm32, Code.EVEX_Vcvtusi2sd_xmm_xmm_rm64_er, TupleType.Tuple1_Fixed, MemorySize.UInt32, MemorySize.UInt64, onlySAE: false, noERd: true)
 				),
 				invalid,
 				invalid,
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_Ev_VX(Code.EVEX_Vmovd_Ed_VX, Code.EVEX_Vmovq_Eq_VX, TupleType.Tuple1_Scalar),
+						new OpCodeHandler_EVEX_Ev_VX(Code.EVEX_Vmovd_rm32_xmm, Code.EVEX_Vmovq_rm64_xmm, TupleType.Tuple1_Scalar),
 						invalid,
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VW(Register.XMM0, Code.EVEX_Vmovq_VX_WX, TupleType.Tuple1_Scalar, MemorySize.UInt64),
+							new OpCodeHandler_EVEX_VW(Register.XMM0, Code.EVEX_Vmovq_xmm_xmmm64, TupleType.Tuple1_Scalar, MemorySize.UInt64),
 							invalid,
 							invalid
 						)
@@ -4628,38 +4628,38 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqa32_WX_k1z_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqa32_WY_k1z_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqa32_WZ_k1z_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqa32_xmmm128_k1z_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqa32_ymmm256_k1z_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqa32_zmmm512_k1z_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqa64_WX_k1z_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqa64_WY_k1z_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqa64_WZ_k1z_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqa64_xmmm128_k1z_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqa64_ymmm256_k1z_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqa64_zmmm512_k1z_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqu32_WX_k1z_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqu32_WY_k1z_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqu32_WZ_k1z_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqu32_xmmm128_k1z_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqu32_ymmm256_k1z_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqu32_zmmm512_k1z_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqu64_WX_k1z_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Int64),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqu64_WY_k1z_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Int64),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqu64_WZ_k1z_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int64)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqu64_xmmm128_k1z_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Int64),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqu64_ymmm256_k1z_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Int64),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqu64_zmmm512_k1z_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Int64)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqu8_WX_k1z_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqu8_WY_k1z_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqu8_WZ_k1z_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqu8_xmmm128_k1z_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqu8_ymmm256_k1z_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqu8_zmmm512_k1z_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqu16_WX_k1z_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqu16_WY_k1z_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqu16_WZ_k1z_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+							new OpCodeHandler_EVEX_WkV(Register.XMM0, Code.EVEX_Vmovdqu16_xmmm128_k1z_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+							new OpCodeHandler_EVEX_WkV(Register.YMM0, Code.EVEX_Vmovdqu16_ymmm256_k1z_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+							new OpCodeHandler_EVEX_WkV(Register.ZMM0, Code.EVEX_Vmovdqu16_zmmm512_k1z_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 						)
 					)
 				),
@@ -4750,27 +4750,27 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_kkHWIb(Register.XMM0, Code.EVEX_Vcmpps_VK_k1_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_kkHWIb(Register.YMM0, Code.EVEX_Vcmpps_VK_k1_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_kkHWIb(Register.ZMM0, Code.EVEX_Vcmpps_VK_k1_HZ_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_kkHWIb(Register.XMM0, Code.EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_kkHWIb(Register.YMM0, Code.EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_kkHWIb(Register.ZMM0, Code.EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_kkHWIb(Register.XMM0, Code.EVEX_Vcmppd_VK_k1_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_kkHWIb(Register.YMM0, Code.EVEX_Vcmppd_VK_k1_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_kkHWIb(Register.ZMM0, Code.EVEX_Vcmppd_VK_k1_HZ_WZ_Ib_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_kkHWIb(Register.XMM0, Code.EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_kkHWIb(Register.YMM0, Code.EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_kkHWIb(Register.ZMM0, Code.EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					new OpCodeHandler_W(
-						new OpCodeHandler_EVEX_kkHWIb(Register.XMM0, Code.EVEX_Vcmpss_VK_k1_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, MemorySize.Float32),
+						new OpCodeHandler_EVEX_kkHWIb(Register.XMM0, Code.EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float32, MemorySize.Float32),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
-						new OpCodeHandler_EVEX_kkHWIb(Register.XMM0, Code.EVEX_Vcmpsd_VK_k1_HX_WX_Ib_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, MemorySize.Float64)
+						new OpCodeHandler_EVEX_kkHWIb(Register.XMM0, Code.EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, TupleType.Tuple1_Scalar, MemorySize.Float64, MemorySize.Float64)
 					)
 				),
 				invalid,
@@ -4778,12 +4778,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_V_H_Ev_Ib(Register.XMM0, Code.EVEX_Vpinsrw_VX_HX_RdMw_Ib, Code.EVEX_Vpinsrw_VX_HX_RqMw_Ib, TupleType.Tuple1_Scalar_2, TupleType.Tuple1_Scalar_2, MemorySize.UInt16, MemorySize.UInt16),
+							new OpCodeHandler_EVEX_V_H_Ev_Ib(Register.XMM0, Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Code.EVEX_Vpinsrw_xmm_xmm_r64m16_imm8, TupleType.Tuple1_Scalar_2, TupleType.Tuple1_Scalar_2, MemorySize.UInt16, MemorySize.UInt16),
 							invalid,
 							invalid
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_V_H_Ev_Ib(Register.XMM0, Code.EVEX_Vpinsrw_VX_HX_RdMw_Ib, Code.EVEX_Vpinsrw_VX_HX_RqMw_Ib, TupleType.Tuple1_Scalar_2, TupleType.Tuple1_Scalar_2, MemorySize.UInt16, MemorySize.UInt16),
+							new OpCodeHandler_EVEX_V_H_Ev_Ib(Register.XMM0, Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Code.EVEX_Vpinsrw_xmm_xmm_r64m16_imm8, TupleType.Tuple1_Scalar_2, TupleType.Tuple1_Scalar_2, MemorySize.UInt16, MemorySize.UInt16),
 							invalid,
 							invalid
 						)
@@ -4795,12 +4795,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_Ev_VX_Ib(Register.XMM0, Code.EVEX_Vpextrw_Gd_RX_Ib, Code.EVEX_Vpextrw_Gq_RX_Ib),
+							new OpCodeHandler_EVEX_Ev_VX_Ib(Register.XMM0, Code.EVEX_Vpextrw_r32_xmm_imm8, Code.EVEX_Vpextrw_r64_xmm_imm8),
 							invalid,
 							invalid
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_Ev_VX_Ib(Register.XMM0, Code.EVEX_Vpextrw_Gd_RX_Ib, Code.EVEX_Vpextrw_Gq_RX_Ib),
+							new OpCodeHandler_EVEX_Ev_VX_Ib(Register.XMM0, Code.EVEX_Vpextrw_r32_xmm_imm8, Code.EVEX_Vpextrw_r64_xmm_imm8),
 							invalid,
 							invalid
 						)
@@ -4811,18 +4811,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vshufps_VX_k1z_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshufps_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshufps_VZ_k1z_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
+							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8, TupleType.Full_128, MemorySize.Packed128_Float32, MemorySize.Broadcast128_Float32),
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8, TupleType.Full_256, MemorySize.Packed256_Float32, MemorySize.Broadcast256_Float32),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshufps_zmm_k1z_zmm_zmmm512b32_imm8, TupleType.Full_512, MemorySize.Packed512_Float32, MemorySize.Broadcast512_Float32)
 						),
 						invalid
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vshufpd_VX_k1z_HX_WX_Ib_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
-							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshufpd_VY_k1z_HY_WY_Ib_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
-							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshufpd_VZ_k1z_HZ_WZ_Ib_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
+							new OpCodeHandler_EVEX_VkHWIb(Register.XMM0, Code.EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64),
+							new OpCodeHandler_EVEX_VkHWIb(Register.YMM0, Code.EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64),
+							new OpCodeHandler_EVEX_VkHWIb(Register.ZMM0, Code.EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64)
 						)
 					),
 					invalid,
@@ -4845,9 +4845,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsrlw_VX_k1z_HX_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsrlw_VY_k1z_HY_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsrlw_VZ_k1z_HZ_WX, TupleType.Mem128, MemorySize.Packed128_UInt64)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsrlw_xmm_k1z_xmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsrlw_ymm_k1z_ymm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsrlw_zmm_k1z_zmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64)
 					),
 					invalid,
 					invalid
@@ -4856,9 +4856,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsrld_VX_k1z_HX_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsrld_VY_k1z_HY_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsrld_VZ_k1z_HZ_WX, TupleType.Mem128, MemorySize.Packed128_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsrld_xmm_k1z_xmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsrld_ymm_k1z_ymm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsrld_zmm_k1z_zmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64)
 						),
 						invalid
 					),
@@ -4870,9 +4870,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsrlq_VX_k1z_HX_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsrlq_VY_k1z_HY_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsrlq_VZ_k1z_HZ_WX, TupleType.Mem128, MemorySize.Packed128_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsrlq_xmm_k1z_xmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsrlq_ymm_k1z_ymm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsrlq_zmm_k1z_zmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64)
 						)
 					),
 					invalid,
@@ -4883,9 +4883,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -4894,9 +4894,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmullw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmullw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmullw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmullw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmullw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmullw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -4906,7 +4906,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_WV(Register.XMM0, Code.EVEX_Vmovq_WX_VX, TupleType.Tuple1_Scalar, MemorySize.UInt64),
+							new OpCodeHandler_EVEX_WV(Register.XMM0, Code.EVEX_Vmovq_xmmm64_xmm, TupleType.Tuple1_Scalar, MemorySize.UInt64),
 							invalid,
 							invalid
 						)
@@ -4920,9 +4920,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubusb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubusb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubusb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubusb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubusb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubusb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
 					),
 					invalid,
 					invalid
@@ -4930,9 +4930,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubusw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubusw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubusw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubusw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubusw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubusw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 					),
 					invalid,
 					invalid
@@ -4940,9 +4940,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminub_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminub_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminub_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminub_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminub_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminub_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
 					),
 					invalid,
 					invalid
@@ -4951,14 +4951,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpandd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpandd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpandd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpandd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpandd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpandd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpandq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpandq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpandq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpandq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpandq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpandq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -4967,9 +4967,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddusb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddusb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddusb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddusb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddusb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddusb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
 					),
 					invalid,
 					invalid
@@ -4977,9 +4977,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddusw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddusw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddusw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddusw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddusw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddusw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 					),
 					invalid,
 					invalid
@@ -4987,9 +4987,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxub_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxub_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxub_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxub_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxub_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxub_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
 					),
 					invalid,
 					invalid
@@ -4998,14 +4998,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpandnd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpandnd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpandnd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpandnd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpandnd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpandnd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpandnq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpandnq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpandnq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpandnq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpandnq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpandnq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -5016,9 +5016,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpavgb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpavgb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpavgb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpavgb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpavgb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpavgb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
 					),
 					invalid,
 					invalid
@@ -5026,9 +5026,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsraw_VX_k1z_HX_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsraw_VY_k1z_HY_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsraw_VZ_k1z_HZ_WX, TupleType.Mem128, MemorySize.Packed128_UInt64)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsraw_xmm_k1z_xmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsraw_ymm_k1z_ymm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsraw_zmm_k1z_zmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64)
 					),
 					invalid,
 					invalid
@@ -5037,14 +5037,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsrad_VX_k1z_HX_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsrad_VY_k1z_HY_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsrad_VZ_k1z_HZ_WX, TupleType.Mem128, MemorySize.Packed128_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsrad_xmm_k1z_xmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsrad_ymm_k1z_ymm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsrad_zmm_k1z_zmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsraq_VX_k1z_HX_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsraq_VY_k1z_HY_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsraq_VZ_k1z_HZ_WX, TupleType.Mem128, MemorySize.Packed128_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsraq_xmm_k1z_xmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsraq_ymm_k1z_ymm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsraq_zmm_k1z_zmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64)
 						)
 					),
 					invalid,
@@ -5053,9 +5053,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpavgw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpavgw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpavgw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpavgw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpavgw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpavgw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 					),
 					invalid,
 					invalid
@@ -5063,9 +5063,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmulhuw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmulhuw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmulhuw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmulhuw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmulhuw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmulhuw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt16)
 					),
 					invalid,
 					invalid
@@ -5073,9 +5073,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmulhw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmulhw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmulhw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmulhw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmulhw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmulhw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -5085,29 +5085,29 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttpd2dq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvttpd2dq_VX_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvttpd2dq_VY_k1z_WZ_sae_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: true),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvttpd2dq_ymm_k1z_zmmm512b64_sae, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: true)
 						)
 					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtdq2pd_VX_k1z_WX_b, TupleType.Half_128, MemorySize.Packed64_Int32, MemorySize.Broadcast64_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtdq2pd_VY_k1z_WX_b, TupleType.Half_256, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtdq2pd_VZ_k1z_WY_b, TupleType.Half_512, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32)
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32, TupleType.Half_128, MemorySize.Packed64_Int32, MemorySize.Broadcast64_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.XMM0, Code.EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32, TupleType.Half_256, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkW(Register.ZMM0, Register.YMM0, Code.EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32, TupleType.Half_512, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32)
 						),
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtqq2pd_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtqq2pd_VY_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtqq2pd_VZ_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.YMM0, Code.EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.ZMM0, Register.ZMM0, Code.EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64, onlySAE: false)
 						)
 					),
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX_er(
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtpd2dq_VX_k1z_WX_b, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtpd2dq_VX_k1z_WY_b, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
-							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtpd2dq_VY_k1z_WZ_er_b, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Float64, MemorySize.Broadcast128_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Float64, MemorySize.Broadcast256_Float64, onlySAE: false),
+							new OpCodeHandler_EVEX_VkW_er(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtpd2dq_ymm_k1z_zmmm512b64_er, TupleType.Full_512, MemorySize.Packed512_Float64, MemorySize.Broadcast512_Float64, onlySAE: false)
 						)
 					)
 				),
@@ -5115,9 +5115,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovntdq_M_VX, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
-							new OpCodeHandler_EVEX_MV(Register.YMM0, Code.EVEX_Vmovntdq_M_VY, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
-							new OpCodeHandler_EVEX_MV(Register.ZMM0, Code.EVEX_Vmovntdq_M_VZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
+							new OpCodeHandler_EVEX_MV(Register.XMM0, Code.EVEX_Vmovntdq_m128_xmm, TupleType.Full_Mem_128, MemorySize.Packed128_Int32),
+							new OpCodeHandler_EVEX_MV(Register.YMM0, Code.EVEX_Vmovntdq_m256_ymm, TupleType.Full_Mem_256, MemorySize.Packed256_Int32),
+							new OpCodeHandler_EVEX_MV(Register.ZMM0, Code.EVEX_Vmovntdq_m512_zmm, TupleType.Full_Mem_512, MemorySize.Packed512_Int32)
 						),
 						invalid
 					),
@@ -5129,9 +5129,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubsb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubsb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubsb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubsb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubsb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubsb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -5139,9 +5139,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubsw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubsw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubsw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubsw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubsw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubsw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -5149,9 +5149,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminsw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminsw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminsw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpminsw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpminsw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpminsw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -5160,14 +5160,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpord_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpord_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpord_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpord_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpord_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpord_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vporq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vporq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vporq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vporq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vporq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vporq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -5176,9 +5176,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddsb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddsb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddsb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddsb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddsb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddsb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -5186,9 +5186,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddsw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddsw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddsw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddsw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddsw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddsw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -5196,9 +5196,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxsw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxsw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxsw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaxsw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaxsw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaxsw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -5207,14 +5207,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpxord_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpxord_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpxord_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpxord_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_UInt32, MemorySize.Broadcast128_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpxord_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_UInt32, MemorySize.Broadcast256_UInt32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpxord_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_UInt32, MemorySize.Broadcast512_UInt32)
 						),
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpxorq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpxorq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpxorq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpxorq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpxorq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpxorq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -5226,9 +5226,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsllw_VX_k1z_HX_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsllw_VY_k1z_HY_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsllw_VZ_k1z_HZ_WX, TupleType.Mem128, MemorySize.Packed128_UInt64)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsllw_xmm_k1z_xmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsllw_ymm_k1z_ymm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsllw_zmm_k1z_zmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64)
 					),
 					invalid,
 					invalid
@@ -5237,9 +5237,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpslld_VX_k1z_HX_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpslld_VY_k1z_HY_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpslld_VZ_k1z_HZ_WX, TupleType.Mem128, MemorySize.Packed128_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpslld_xmm_k1z_xmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpslld_ymm_k1z_ymm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpslld_zmm_k1z_zmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64)
 						),
 						invalid
 					),
@@ -5251,9 +5251,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsllq_VX_k1z_HX_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsllq_VY_k1z_HY_WX, TupleType.Mem128, MemorySize.Packed128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsllq_VZ_k1z_HZ_WX, TupleType.Mem128, MemorySize.Packed128_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Register.XMM0, Register.XMM0, Code.EVEX_Vpsllq_xmm_k1z_xmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Register.YMM0, Register.XMM0, Code.EVEX_Vpsllq_ymm_k1z_ymm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Register.ZMM0, Register.XMM0, Code.EVEX_Vpsllq_zmm_k1z_zmm_xmmm128, TupleType.Mem128, MemorySize.Packed128_UInt64)
 						)
 					),
 					invalid,
@@ -5264,9 +5264,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmuludq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmuludq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmuludq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmuludq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_UInt64, MemorySize.Broadcast128_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmuludq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_UInt64, MemorySize.Broadcast256_UInt64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmuludq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_UInt64, MemorySize.Broadcast512_UInt64)
 						)
 					),
 					invalid,
@@ -5275,9 +5275,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaddwd_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaddwd_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaddwd_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpmaddwd_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpmaddwd_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpmaddwd_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -5285,9 +5285,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VHW(Register.XMM0, Code.EVEX_Vpsadbw_VX_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
-						new OpCodeHandler_EVEX_VHW(Register.YMM0, Code.EVEX_Vpsadbw_VY_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
-						new OpCodeHandler_EVEX_VHW(Register.ZMM0, Code.EVEX_Vpsadbw_VZ_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
+						new OpCodeHandler_EVEX_VHW(Register.XMM0, Code.EVEX_Vpsadbw_xmm_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_UInt8),
+						new OpCodeHandler_EVEX_VHW(Register.YMM0, Code.EVEX_Vpsadbw_ymm_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_UInt8),
+						new OpCodeHandler_EVEX_VHW(Register.ZMM0, Code.EVEX_Vpsadbw_zmm_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_UInt8)
 					),
 					invalid,
 					invalid
@@ -5298,9 +5298,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -5308,9 +5308,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -5319,9 +5319,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						invalid
 					),
@@ -5333,9 +5333,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_W(
 						invalid,
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubq_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubq_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubq_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpsubq_xmm_k1z_xmm_xmmm128b64, TupleType.Full_128, MemorySize.Packed128_Int64, MemorySize.Broadcast128_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpsubq_ymm_k1z_ymm_ymmm256b64, TupleType.Full_256, MemorySize.Packed256_Int64, MemorySize.Broadcast256_Int64),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64, TupleType.Full_512, MemorySize.Packed512_Int64, MemorySize.Broadcast512_Int64)
 						)
 					),
 					invalid,
@@ -5344,9 +5344,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddb_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddb_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddb_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddb_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddb_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int8),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddb_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int8)
 					),
 					invalid,
 					invalid
@@ -5354,9 +5354,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,
 					new OpCodeHandler_VectorLength_EVEX(
-						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddw_VX_k1z_HX_WX, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddw_VY_k1z_HY_WY, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
-						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddw_VZ_k1z_HZ_WZ, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
+						new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddw_xmm_k1z_xmm_xmmm128, TupleType.Full_Mem_128, MemorySize.Packed128_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddw_ymm_k1z_ymm_ymmm256, TupleType.Full_Mem_256, MemorySize.Packed256_Int16),
+						new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512, MemorySize.Packed512_Int16)
 					),
 					invalid,
 					invalid
@@ -5365,9 +5365,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					new OpCodeHandler_W(
 						new OpCodeHandler_VectorLength_EVEX(
-							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddd_VX_k1z_HX_WX_b, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddd_VY_k1z_HY_WY_b, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
-							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddd_VZ_k1z_HZ_WZ_b, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vpaddd_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128, MemorySize.Packed128_Int32, MemorySize.Broadcast128_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vpaddd_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256, MemorySize.Packed256_Int32, MemorySize.Broadcast256_Int32),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpaddd_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512, MemorySize.Packed512_Int32, MemorySize.Broadcast512_Int32)
 						),
 						invalid
 					),

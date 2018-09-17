@@ -54,10 +54,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_AesV_VX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "66 0F3ADF 08 A5", 6, Code.Aeskeygenassist_VX_WX_Ib, Register.XMM1, MemorySize.UInt128, 0xA5 };
+				yield return new object[] { "66 0F3ADF 08 A5", 6, Code.Aeskeygenassist_xmm_xmmm128_imm8, Register.XMM1, MemorySize.UInt128, 0xA5 };
 
-				yield return new object[] { "C4E379 DF 10 A5", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM2, MemorySize.UInt128, 0xA5 };
-				yield return new object[] { "C4E3F9 DF 10 5A", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM2, MemorySize.UInt128, 0x5A };
+				yield return new object[] { "C4E379 DF 10 A5", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM2, MemorySize.UInt128, 0xA5 };
+				yield return new object[] { "C4E3F9 DF 10 5A", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM2, MemorySize.UInt128, 0x5A };
 			}
 		}
 
@@ -86,9 +86,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_AesV_VX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "66 0F3ADF CD 5A", 6, Code.Aeskeygenassist_VX_WX_Ib, Register.XMM1, Register.XMM5, 0x5A };
+				yield return new object[] { "66 0F3ADF CD 5A", 6, Code.Aeskeygenassist_xmm_xmmm128_imm8, Register.XMM1, Register.XMM5, 0x5A };
 
-				yield return new object[] { "C4E379 DF D3 5A", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM2, Register.XMM3, 0x5A };
+				yield return new object[] { "C4E379 DF D3 5A", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, 0x5A };
 			}
 		}
 
@@ -123,10 +123,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_AesV_VX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "66 0F3ADF 08 5A", 6, Code.Aeskeygenassist_VX_WX_Ib, Register.XMM1, MemorySize.UInt128, 0x5A };
+				yield return new object[] { "66 0F3ADF 08 5A", 6, Code.Aeskeygenassist_xmm_xmmm128_imm8, Register.XMM1, MemorySize.UInt128, 0x5A };
 
-				yield return new object[] { "C4E379 DF 10 5A", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM2, MemorySize.UInt128, 0x5A };
-				yield return new object[] { "C4E3F9 DF 10 A5", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM2, MemorySize.UInt128, 0xA5 };
+				yield return new object[] { "C4E379 DF 10 5A", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM2, MemorySize.UInt128, 0x5A };
+				yield return new object[] { "C4E3F9 DF 10 A5", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM2, MemorySize.UInt128, 0xA5 };
 			}
 		}
 
@@ -155,9 +155,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_AesV_VX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "66 0F3ADF CD A5", 6, Code.Aeskeygenassist_VX_WX_Ib, Register.XMM1, Register.XMM5, 0xA5 };
+				yield return new object[] { "66 0F3ADF CD A5", 6, Code.Aeskeygenassist_xmm_xmmm128_imm8, Register.XMM1, Register.XMM5, 0xA5 };
 
-				yield return new object[] { "C4E379 DF D3 A5", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4E379 DF D3 A5", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, 0xA5 };
 			}
 		}
 
@@ -192,10 +192,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_AesV_VX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "66 0F3ADF 08 5A", 6, Code.Aeskeygenassist_VX_WX_Ib, Register.XMM1, MemorySize.UInt128, 0x5A };
+				yield return new object[] { "66 0F3ADF 08 5A", 6, Code.Aeskeygenassist_xmm_xmmm128_imm8, Register.XMM1, MemorySize.UInt128, 0x5A };
 
-				yield return new object[] { "C4E379 DF 10 5A", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM2, MemorySize.UInt128, 0x5A };
-				yield return new object[] { "C4E3F9 DF 10 A5", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM2, MemorySize.UInt128, 0xA5 };
+				yield return new object[] { "C4E379 DF 10 5A", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM2, MemorySize.UInt128, 0x5A };
+				yield return new object[] { "C4E3F9 DF 10 A5", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM2, MemorySize.UInt128, 0xA5 };
 			}
 		}
 
@@ -224,15 +224,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_AesV_VX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "66 0F3ADF CD A5", 6, Code.Aeskeygenassist_VX_WX_Ib, Register.XMM1, Register.XMM5, 0xA5 };
-				yield return new object[] { "66 44 0F3ADF CD 5A", 7, Code.Aeskeygenassist_VX_WX_Ib, Register.XMM9, Register.XMM5, 0x5A };
-				yield return new object[] { "66 41 0F3ADF CD A5", 7, Code.Aeskeygenassist_VX_WX_Ib, Register.XMM1, Register.XMM13, 0xA5 };
-				yield return new object[] { "66 45 0F3ADF CD 5A", 7, Code.Aeskeygenassist_VX_WX_Ib, Register.XMM9, Register.XMM13, 0x5A };
+				yield return new object[] { "66 0F3ADF CD A5", 6, Code.Aeskeygenassist_xmm_xmmm128_imm8, Register.XMM1, Register.XMM5, 0xA5 };
+				yield return new object[] { "66 44 0F3ADF CD 5A", 7, Code.Aeskeygenassist_xmm_xmmm128_imm8, Register.XMM9, Register.XMM5, 0x5A };
+				yield return new object[] { "66 41 0F3ADF CD A5", 7, Code.Aeskeygenassist_xmm_xmmm128_imm8, Register.XMM1, Register.XMM13, 0xA5 };
+				yield return new object[] { "66 45 0F3ADF CD 5A", 7, Code.Aeskeygenassist_xmm_xmmm128_imm8, Register.XMM9, Register.XMM13, 0x5A };
 
-				yield return new object[] { "C4E379 DF D3 A5", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
-				yield return new object[] { "C46379 DF D3 5A", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM10, Register.XMM3, 0x5A };
-				yield return new object[] { "C4C379 DF D3 A5", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM2, Register.XMM11, 0xA5 };
-				yield return new object[] { "C44379 DF D3 5A", 6, Code.VEX_Vaeskeygenassist_VX_WX_Ib, Register.XMM10, Register.XMM11, 0x5A };
+				yield return new object[] { "C4E379 DF D3 A5", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, 0xA5 };
+				yield return new object[] { "C46379 DF D3 5A", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM10, Register.XMM3, 0x5A };
+				yield return new object[] { "C4C379 DF D3 A5", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM2, Register.XMM11, 0xA5 };
+				yield return new object[] { "C44379 DF D3 5A", 6, Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Register.XMM10, Register.XMM11, 0x5A };
 			}
 		}
 	}

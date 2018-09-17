@@ -793,10 +793,10 @@ namespace Iced.Intel.EncoderInternal {
 				return;
 			}
 			switch (instr.Code) {
-			case Code.Movsb_Yb_Xb:
-			case Code.Movsw_Yw_Xw:
-			case Code.Movsd_Yd_Xd:
-			case Code.Movsq_Yq_Xq:
+			case Code.Movsb_m8_m8:
+			case Code.Movsw_m16_m16:
+			case Code.Movsd_m32_m32:
+			case Code.Movsq_m64_m64:
 				var regYSize = GetYRegSize(instr.Op0Kind);
 				if (regXSize != regYSize) {
 					encoder.ErrorMessage = $"Same sized register must be used: reg #1 size = {regYSize * 8}, reg #2 size = {regXSize * 8}";
@@ -816,10 +816,10 @@ namespace Iced.Intel.EncoderInternal {
 				return;
 			}
 			switch (instr.Code) {
-			case Code.Cmpsb_Xb_Yb:
-			case Code.Cmpsw_Xw_Yw:
-			case Code.Cmpsd_Xd_Yd:
-			case Code.Cmpsq_Xq_Yq:
+			case Code.Cmpsb_m8_m8:
+			case Code.Cmpsw_m16_m16:
+			case Code.Cmpsd_m32_m32:
+			case Code.Cmpsq_m64_m64:
 				var regXSize = OpX.GetXRegSize(instr.Op0Kind);
 				if (regXSize != regYSize) {
 					encoder.ErrorMessage = $"Same sized register must be used: reg #1 size = {regXSize * 8}, reg #2 size = {regYSize * 8}";

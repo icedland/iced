@@ -16,792 +16,792 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Iced.  If not, see <https://www.gnu.org/licenses/>.
 #
-67 01 30, 3, Add_Ew_Gw, SI, None, DS, EAX, None, 0, 0, 0
-67 01 31, 3, Add_Ew_Gw, SI, None, DS, ECX, None, 0, 0, 0
-67 01 32, 3, Add_Ew_Gw, SI, None, DS, EDX, None, 0, 0, 0
-67 01 33, 3, Add_Ew_Gw, SI, None, DS, EBX, None, 0, 0, 0
-67 01 35 34125AA5, 7, Add_Ew_Gw, SI, None, DS, None, None, 0, 0xA55A1234, 4
-67 01 36, 3, Add_Ew_Gw, SI, None, DS, ESI, None, 0, 0, 0
-67 01 37, 3, Add_Ew_Gw, SI, None, DS, EDI, None, 0, 0, 0
-67 01 70 A5, 4, Add_Ew_Gw, SI, None, DS, EAX, None, 0, 0xFFFFFFA5, 1
-67 01 71 A5, 4, Add_Ew_Gw, SI, None, DS, ECX, None, 0, 0xFFFFFFA5, 1
-67 01 72 A5, 4, Add_Ew_Gw, SI, None, DS, EDX, None, 0, 0xFFFFFFA5, 1
-67 01 73 A5, 4, Add_Ew_Gw, SI, None, DS, EBX, None, 0, 0xFFFFFFA5, 1
-67 01 75 A5, 4, Add_Ew_Gw, SI, None, SS, EBP, None, 0, 0xFFFFFFA5, 1
-67 01 76 A5, 4, Add_Ew_Gw, SI, None, DS, ESI, None, 0, 0xFFFFFFA5, 1
-67 01 77 A5, 4, Add_Ew_Gw, SI, None, DS, EDI, None, 0, 0xFFFFFFA5, 1
-67 01 B0 34125AA5, 7, Add_Ew_Gw, SI, None, DS, EAX, None, 0, 0xA55A1234, 4
-67 01 B1 34125AA5, 7, Add_Ew_Gw, SI, None, DS, ECX, None, 0, 0xA55A1234, 4
-67 01 B2 34125AA5, 7, Add_Ew_Gw, SI, None, DS, EDX, None, 0, 0xA55A1234, 4
-67 01 B3 34125AA5, 7, Add_Ew_Gw, SI, None, DS, EBX, None, 0, 0xA55A1234, 4
-67 01 B5 34125AA5, 7, Add_Ew_Gw, SI, None, SS, EBP, None, 0, 0xA55A1234, 4
-67 01 B6 34125AA5, 7, Add_Ew_Gw, SI, None, DS, ESI, None, 0, 0xA55A1234, 4
-67 01 B7 34125AA5, 7, Add_Ew_Gw, SI, None, DS, EDI, None, 0, 0xA55A1234, 4
-67 01 34 00, 4, Add_Ew_Gw, SI, None, DS, EAX, EAX, 0, 0, 0
-67 01 34 01, 4, Add_Ew_Gw, SI, None, DS, ECX, EAX, 0, 0, 0
-67 01 34 02, 4, Add_Ew_Gw, SI, None, DS, EDX, EAX, 0, 0, 0
-67 01 34 03, 4, Add_Ew_Gw, SI, None, DS, EBX, EAX, 0, 0, 0
-67 01 34 04, 4, Add_Ew_Gw, SI, None, SS, ESP, EAX, 0, 0, 0
-67 01 34 05 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, EAX, 0, 0xA55A1234, 4
-67 01 34 06, 4, Add_Ew_Gw, SI, None, DS, ESI, EAX, 0, 0, 0
-67 01 34 07, 4, Add_Ew_Gw, SI, None, DS, EDI, EAX, 0, 0, 0
-67 01 34 08, 4, Add_Ew_Gw, SI, None, DS, EAX, ECX, 0, 0, 0
-67 01 34 09, 4, Add_Ew_Gw, SI, None, DS, ECX, ECX, 0, 0, 0
-67 01 34 0A, 4, Add_Ew_Gw, SI, None, DS, EDX, ECX, 0, 0, 0
-67 01 34 0B, 4, Add_Ew_Gw, SI, None, DS, EBX, ECX, 0, 0, 0
-67 01 34 0C, 4, Add_Ew_Gw, SI, None, SS, ESP, ECX, 0, 0, 0
-67 01 34 0D 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, ECX, 0, 0x5AA56789, 4
-67 01 34 0E, 4, Add_Ew_Gw, SI, None, DS, ESI, ECX, 0, 0, 0
-67 01 34 0F, 4, Add_Ew_Gw, SI, None, DS, EDI, ECX, 0, 0, 0
-67 01 34 10, 4, Add_Ew_Gw, SI, None, DS, EAX, EDX, 0, 0, 0
-67 01 34 11, 4, Add_Ew_Gw, SI, None, DS, ECX, EDX, 0, 0, 0
-67 01 34 12, 4, Add_Ew_Gw, SI, None, DS, EDX, EDX, 0, 0, 0
-67 01 34 13, 4, Add_Ew_Gw, SI, None, DS, EBX, EDX, 0, 0, 0
-67 01 34 14, 4, Add_Ew_Gw, SI, None, SS, ESP, EDX, 0, 0, 0
-67 01 34 15 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, EDX, 0, 0xA55A1234, 4
-67 01 34 16, 4, Add_Ew_Gw, SI, None, DS, ESI, EDX, 0, 0, 0
-67 01 34 17, 4, Add_Ew_Gw, SI, None, DS, EDI, EDX, 0, 0, 0
-67 01 34 18, 4, Add_Ew_Gw, SI, None, DS, EAX, EBX, 0, 0, 0
-67 01 34 19, 4, Add_Ew_Gw, SI, None, DS, ECX, EBX, 0, 0, 0
-67 01 34 1A, 4, Add_Ew_Gw, SI, None, DS, EDX, EBX, 0, 0, 0
-67 01 34 1B, 4, Add_Ew_Gw, SI, None, DS, EBX, EBX, 0, 0, 0
-67 01 34 1C, 4, Add_Ew_Gw, SI, None, SS, ESP, EBX, 0, 0, 0
-67 01 34 1D 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EBX, 0, 0x5AA56789, 4
-67 01 34 1E, 4, Add_Ew_Gw, SI, None, DS, ESI, EBX, 0, 0, 0
-67 01 34 1F, 4, Add_Ew_Gw, SI, None, DS, EDI, EBX, 0, 0, 0
-67 01 34 20, 4, Add_Ew_Gw, SI, None, DS, EAX, None, 0, 0, 0
-67 01 34 21, 4, Add_Ew_Gw, SI, None, DS, ECX, None, 0, 0, 0
-67 01 34 22, 4, Add_Ew_Gw, SI, None, DS, EDX, None, 0, 0, 0
-67 01 34 23, 4, Add_Ew_Gw, SI, None, DS, EBX, None, 0, 0, 0
-67 01 34 24, 4, Add_Ew_Gw, SI, None, SS, ESP, None, 0, 0, 0
-67 01 34 25 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, None, 0, 0xA55A1234, 4
-67 01 34 26, 4, Add_Ew_Gw, SI, None, DS, ESI, None, 0, 0, 0
-67 01 34 27, 4, Add_Ew_Gw, SI, None, DS, EDI, None, 0, 0, 0
-67 01 34 28, 4, Add_Ew_Gw, SI, None, DS, EAX, EBP, 0, 0, 0
-67 01 34 29, 4, Add_Ew_Gw, SI, None, DS, ECX, EBP, 0, 0, 0
-67 01 34 2A, 4, Add_Ew_Gw, SI, None, DS, EDX, EBP, 0, 0, 0
-67 01 34 2B, 4, Add_Ew_Gw, SI, None, DS, EBX, EBP, 0, 0, 0
-67 01 34 2C, 4, Add_Ew_Gw, SI, None, SS, ESP, EBP, 0, 0, 0
-67 01 34 2D 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EBP, 0, 0x5AA56789, 4
-67 01 34 2E, 4, Add_Ew_Gw, SI, None, DS, ESI, EBP, 0, 0, 0
-67 01 34 2F, 4, Add_Ew_Gw, SI, None, DS, EDI, EBP, 0, 0, 0
-67 01 34 30, 4, Add_Ew_Gw, SI, None, DS, EAX, ESI, 0, 0, 0
-67 01 34 31, 4, Add_Ew_Gw, SI, None, DS, ECX, ESI, 0, 0, 0
-67 01 34 32, 4, Add_Ew_Gw, SI, None, DS, EDX, ESI, 0, 0, 0
-67 01 34 33, 4, Add_Ew_Gw, SI, None, DS, EBX, ESI, 0, 0, 0
-67 01 34 34, 4, Add_Ew_Gw, SI, None, SS, ESP, ESI, 0, 0, 0
-67 01 34 35 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, ESI, 0, 0xA55A1234, 4
-67 01 34 36, 4, Add_Ew_Gw, SI, None, DS, ESI, ESI, 0, 0, 0
-67 01 34 37, 4, Add_Ew_Gw, SI, None, DS, EDI, ESI, 0, 0, 0
-67 01 34 38, 4, Add_Ew_Gw, SI, None, DS, EAX, EDI, 0, 0, 0
-67 01 34 39, 4, Add_Ew_Gw, SI, None, DS, ECX, EDI, 0, 0, 0
-67 01 34 3A, 4, Add_Ew_Gw, SI, None, DS, EDX, EDI, 0, 0, 0
-67 01 34 3B, 4, Add_Ew_Gw, SI, None, DS, EBX, EDI, 0, 0, 0
-67 01 34 3C, 4, Add_Ew_Gw, SI, None, SS, ESP, EDI, 0, 0, 0
-67 01 34 3D 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EDI, 0, 0x5AA56789, 4
-67 01 34 3E, 4, Add_Ew_Gw, SI, None, DS, ESI, EDI, 0, 0, 0
-67 01 34 3F, 4, Add_Ew_Gw, SI, None, DS, EDI, EDI, 0, 0, 0
-67 01 34 40, 4, Add_Ew_Gw, SI, None, DS, EAX, EAX, 1, 0, 0
-67 01 34 41, 4, Add_Ew_Gw, SI, None, DS, ECX, EAX, 1, 0, 0
-67 01 34 42, 4, Add_Ew_Gw, SI, None, DS, EDX, EAX, 1, 0, 0
-67 01 34 43, 4, Add_Ew_Gw, SI, None, DS, EBX, EAX, 1, 0, 0
-67 01 34 44, 4, Add_Ew_Gw, SI, None, SS, ESP, EAX, 1, 0, 0
-67 01 34 45 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, EAX, 1, 0xA55A1234, 4
-67 01 34 46, 4, Add_Ew_Gw, SI, None, DS, ESI, EAX, 1, 0, 0
-67 01 34 47, 4, Add_Ew_Gw, SI, None, DS, EDI, EAX, 1, 0, 0
-67 01 34 48, 4, Add_Ew_Gw, SI, None, DS, EAX, ECX, 1, 0, 0
-67 01 34 49, 4, Add_Ew_Gw, SI, None, DS, ECX, ECX, 1, 0, 0
-67 01 34 4A, 4, Add_Ew_Gw, SI, None, DS, EDX, ECX, 1, 0, 0
-67 01 34 4B, 4, Add_Ew_Gw, SI, None, DS, EBX, ECX, 1, 0, 0
-67 01 34 4C, 4, Add_Ew_Gw, SI, None, SS, ESP, ECX, 1, 0, 0
-67 01 34 4D 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, ECX, 1, 0x5AA56789, 4
-67 01 34 4E, 4, Add_Ew_Gw, SI, None, DS, ESI, ECX, 1, 0, 0
-67 01 34 4F, 4, Add_Ew_Gw, SI, None, DS, EDI, ECX, 1, 0, 0
-67 01 34 50, 4, Add_Ew_Gw, SI, None, DS, EAX, EDX, 1, 0, 0
-67 01 34 51, 4, Add_Ew_Gw, SI, None, DS, ECX, EDX, 1, 0, 0
-67 01 34 52, 4, Add_Ew_Gw, SI, None, DS, EDX, EDX, 1, 0, 0
-67 01 34 53, 4, Add_Ew_Gw, SI, None, DS, EBX, EDX, 1, 0, 0
-67 01 34 54, 4, Add_Ew_Gw, SI, None, SS, ESP, EDX, 1, 0, 0
-67 01 34 55 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, EDX, 1, 0xA55A1234, 4
-67 01 34 56, 4, Add_Ew_Gw, SI, None, DS, ESI, EDX, 1, 0, 0
-67 01 34 57, 4, Add_Ew_Gw, SI, None, DS, EDI, EDX, 1, 0, 0
-67 01 34 58, 4, Add_Ew_Gw, SI, None, DS, EAX, EBX, 1, 0, 0
-67 01 34 59, 4, Add_Ew_Gw, SI, None, DS, ECX, EBX, 1, 0, 0
-67 01 34 5A, 4, Add_Ew_Gw, SI, None, DS, EDX, EBX, 1, 0, 0
-67 01 34 5B, 4, Add_Ew_Gw, SI, None, DS, EBX, EBX, 1, 0, 0
-67 01 34 5C, 4, Add_Ew_Gw, SI, None, SS, ESP, EBX, 1, 0, 0
-67 01 34 5D 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EBX, 1, 0x5AA56789, 4
-67 01 34 5E, 4, Add_Ew_Gw, SI, None, DS, ESI, EBX, 1, 0, 0
-67 01 34 5F, 4, Add_Ew_Gw, SI, None, DS, EDI, EBX, 1, 0, 0
-67 01 34 60, 4, Add_Ew_Gw, SI, None, DS, EAX, None, 1, 0, 0
-67 01 34 61, 4, Add_Ew_Gw, SI, None, DS, ECX, None, 1, 0, 0
-67 01 34 62, 4, Add_Ew_Gw, SI, None, DS, EDX, None, 1, 0, 0
-67 01 34 63, 4, Add_Ew_Gw, SI, None, DS, EBX, None, 1, 0, 0
-67 01 34 64, 4, Add_Ew_Gw, SI, None, SS, ESP, None, 1, 0, 0
-67 01 34 65 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, None, 1, 0xA55A1234, 4
-67 01 34 66, 4, Add_Ew_Gw, SI, None, DS, ESI, None, 1, 0, 0
-67 01 34 67, 4, Add_Ew_Gw, SI, None, DS, EDI, None, 1, 0, 0
-67 01 34 68, 4, Add_Ew_Gw, SI, None, DS, EAX, EBP, 1, 0, 0
-67 01 34 69, 4, Add_Ew_Gw, SI, None, DS, ECX, EBP, 1, 0, 0
-67 01 34 6A, 4, Add_Ew_Gw, SI, None, DS, EDX, EBP, 1, 0, 0
-67 01 34 6B, 4, Add_Ew_Gw, SI, None, DS, EBX, EBP, 1, 0, 0
-67 01 34 6C, 4, Add_Ew_Gw, SI, None, SS, ESP, EBP, 1, 0, 0
-67 01 34 6D 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EBP, 1, 0x5AA56789, 4
-67 01 34 6E, 4, Add_Ew_Gw, SI, None, DS, ESI, EBP, 1, 0, 0
-67 01 34 6F, 4, Add_Ew_Gw, SI, None, DS, EDI, EBP, 1, 0, 0
-67 01 34 70, 4, Add_Ew_Gw, SI, None, DS, EAX, ESI, 1, 0, 0
-67 01 34 71, 4, Add_Ew_Gw, SI, None, DS, ECX, ESI, 1, 0, 0
-67 01 34 72, 4, Add_Ew_Gw, SI, None, DS, EDX, ESI, 1, 0, 0
-67 01 34 73, 4, Add_Ew_Gw, SI, None, DS, EBX, ESI, 1, 0, 0
-67 01 34 74, 4, Add_Ew_Gw, SI, None, SS, ESP, ESI, 1, 0, 0
-67 01 34 75 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, ESI, 1, 0xA55A1234, 4
-67 01 34 76, 4, Add_Ew_Gw, SI, None, DS, ESI, ESI, 1, 0, 0
-67 01 34 77, 4, Add_Ew_Gw, SI, None, DS, EDI, ESI, 1, 0, 0
-67 01 34 78, 4, Add_Ew_Gw, SI, None, DS, EAX, EDI, 1, 0, 0
-67 01 34 79, 4, Add_Ew_Gw, SI, None, DS, ECX, EDI, 1, 0, 0
-67 01 34 7A, 4, Add_Ew_Gw, SI, None, DS, EDX, EDI, 1, 0, 0
-67 01 34 7B, 4, Add_Ew_Gw, SI, None, DS, EBX, EDI, 1, 0, 0
-67 01 34 7C, 4, Add_Ew_Gw, SI, None, SS, ESP, EDI, 1, 0, 0
-67 01 34 7D 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EDI, 1, 0x5AA56789, 4
-67 01 34 7E, 4, Add_Ew_Gw, SI, None, DS, ESI, EDI, 1, 0, 0
-67 01 34 7F, 4, Add_Ew_Gw, SI, None, DS, EDI, EDI, 1, 0, 0
-67 01 34 80, 4, Add_Ew_Gw, SI, None, DS, EAX, EAX, 2, 0, 0
-67 01 34 81, 4, Add_Ew_Gw, SI, None, DS, ECX, EAX, 2, 0, 0
-67 01 34 82, 4, Add_Ew_Gw, SI, None, DS, EDX, EAX, 2, 0, 0
-67 01 34 83, 4, Add_Ew_Gw, SI, None, DS, EBX, EAX, 2, 0, 0
-67 01 34 84, 4, Add_Ew_Gw, SI, None, SS, ESP, EAX, 2, 0, 0
-67 01 34 85 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, EAX, 2, 0xA55A1234, 4
-67 01 34 86, 4, Add_Ew_Gw, SI, None, DS, ESI, EAX, 2, 0, 0
-67 01 34 87, 4, Add_Ew_Gw, SI, None, DS, EDI, EAX, 2, 0, 0
-67 01 34 88, 4, Add_Ew_Gw, SI, None, DS, EAX, ECX, 2, 0, 0
-67 01 34 89, 4, Add_Ew_Gw, SI, None, DS, ECX, ECX, 2, 0, 0
-67 01 34 8A, 4, Add_Ew_Gw, SI, None, DS, EDX, ECX, 2, 0, 0
-67 01 34 8B, 4, Add_Ew_Gw, SI, None, DS, EBX, ECX, 2, 0, 0
-67 01 34 8C, 4, Add_Ew_Gw, SI, None, SS, ESP, ECX, 2, 0, 0
-67 01 34 8D 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, ECX, 2, 0x5AA56789, 4
-67 01 34 8E, 4, Add_Ew_Gw, SI, None, DS, ESI, ECX, 2, 0, 0
-67 01 34 8F, 4, Add_Ew_Gw, SI, None, DS, EDI, ECX, 2, 0, 0
-67 01 34 90, 4, Add_Ew_Gw, SI, None, DS, EAX, EDX, 2, 0, 0
-67 01 34 91, 4, Add_Ew_Gw, SI, None, DS, ECX, EDX, 2, 0, 0
-67 01 34 92, 4, Add_Ew_Gw, SI, None, DS, EDX, EDX, 2, 0, 0
-67 01 34 93, 4, Add_Ew_Gw, SI, None, DS, EBX, EDX, 2, 0, 0
-67 01 34 94, 4, Add_Ew_Gw, SI, None, SS, ESP, EDX, 2, 0, 0
-67 01 34 95 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, EDX, 2, 0xA55A1234, 4
-67 01 34 96, 4, Add_Ew_Gw, SI, None, DS, ESI, EDX, 2, 0, 0
-67 01 34 97, 4, Add_Ew_Gw, SI, None, DS, EDI, EDX, 2, 0, 0
-67 01 34 98, 4, Add_Ew_Gw, SI, None, DS, EAX, EBX, 2, 0, 0
-67 01 34 99, 4, Add_Ew_Gw, SI, None, DS, ECX, EBX, 2, 0, 0
-67 01 34 9A, 4, Add_Ew_Gw, SI, None, DS, EDX, EBX, 2, 0, 0
-67 01 34 9B, 4, Add_Ew_Gw, SI, None, DS, EBX, EBX, 2, 0, 0
-67 01 34 9C, 4, Add_Ew_Gw, SI, None, SS, ESP, EBX, 2, 0, 0
-67 01 34 9D 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EBX, 2, 0x5AA56789, 4
-67 01 34 9E, 4, Add_Ew_Gw, SI, None, DS, ESI, EBX, 2, 0, 0
-67 01 34 9F, 4, Add_Ew_Gw, SI, None, DS, EDI, EBX, 2, 0, 0
-67 01 34 A0, 4, Add_Ew_Gw, SI, None, DS, EAX, None, 2, 0, 0
-67 01 34 A1, 4, Add_Ew_Gw, SI, None, DS, ECX, None, 2, 0, 0
-67 01 34 A2, 4, Add_Ew_Gw, SI, None, DS, EDX, None, 2, 0, 0
-67 01 34 A3, 4, Add_Ew_Gw, SI, None, DS, EBX, None, 2, 0, 0
-67 01 34 A4, 4, Add_Ew_Gw, SI, None, SS, ESP, None, 2, 0, 0
-67 01 34 A5 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, None, 2, 0xA55A1234, 4
-67 01 34 A6, 4, Add_Ew_Gw, SI, None, DS, ESI, None, 2, 0, 0
-67 01 34 A7, 4, Add_Ew_Gw, SI, None, DS, EDI, None, 2, 0, 0
-67 01 34 A8, 4, Add_Ew_Gw, SI, None, DS, EAX, EBP, 2, 0, 0
-67 01 34 A9, 4, Add_Ew_Gw, SI, None, DS, ECX, EBP, 2, 0, 0
-67 01 34 AA, 4, Add_Ew_Gw, SI, None, DS, EDX, EBP, 2, 0, 0
-67 01 34 AB, 4, Add_Ew_Gw, SI, None, DS, EBX, EBP, 2, 0, 0
-67 01 34 AC, 4, Add_Ew_Gw, SI, None, SS, ESP, EBP, 2, 0, 0
-67 01 34 AD 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EBP, 2, 0x5AA56789, 4
-67 01 34 AE, 4, Add_Ew_Gw, SI, None, DS, ESI, EBP, 2, 0, 0
-67 01 34 AF, 4, Add_Ew_Gw, SI, None, DS, EDI, EBP, 2, 0, 0
-67 01 34 B0, 4, Add_Ew_Gw, SI, None, DS, EAX, ESI, 2, 0, 0
-67 01 34 B1, 4, Add_Ew_Gw, SI, None, DS, ECX, ESI, 2, 0, 0
-67 01 34 B2, 4, Add_Ew_Gw, SI, None, DS, EDX, ESI, 2, 0, 0
-67 01 34 B3, 4, Add_Ew_Gw, SI, None, DS, EBX, ESI, 2, 0, 0
-67 01 34 B4, 4, Add_Ew_Gw, SI, None, SS, ESP, ESI, 2, 0, 0
-67 01 34 B5 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, ESI, 2, 0xA55A1234, 4
-67 01 34 B6, 4, Add_Ew_Gw, SI, None, DS, ESI, ESI, 2, 0, 0
-67 01 34 B7, 4, Add_Ew_Gw, SI, None, DS, EDI, ESI, 2, 0, 0
-67 01 34 B8, 4, Add_Ew_Gw, SI, None, DS, EAX, EDI, 2, 0, 0
-67 01 34 B9, 4, Add_Ew_Gw, SI, None, DS, ECX, EDI, 2, 0, 0
-67 01 34 BA, 4, Add_Ew_Gw, SI, None, DS, EDX, EDI, 2, 0, 0
-67 01 34 BB, 4, Add_Ew_Gw, SI, None, DS, EBX, EDI, 2, 0, 0
-67 01 34 BC, 4, Add_Ew_Gw, SI, None, SS, ESP, EDI, 2, 0, 0
-67 01 34 BD 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EDI, 2, 0x5AA56789, 4
-67 01 34 BE, 4, Add_Ew_Gw, SI, None, DS, ESI, EDI, 2, 0, 0
-67 01 34 BF, 4, Add_Ew_Gw, SI, None, DS, EDI, EDI, 2, 0, 0
-67 01 34 C0, 4, Add_Ew_Gw, SI, None, DS, EAX, EAX, 3, 0, 0
-67 01 34 C1, 4, Add_Ew_Gw, SI, None, DS, ECX, EAX, 3, 0, 0
-67 01 34 C2, 4, Add_Ew_Gw, SI, None, DS, EDX, EAX, 3, 0, 0
-67 01 34 C3, 4, Add_Ew_Gw, SI, None, DS, EBX, EAX, 3, 0, 0
-67 01 34 C4, 4, Add_Ew_Gw, SI, None, SS, ESP, EAX, 3, 0, 0
-67 01 34 C5 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, EAX, 3, 0xA55A1234, 4
-67 01 34 C6, 4, Add_Ew_Gw, SI, None, DS, ESI, EAX, 3, 0, 0
-67 01 34 C7, 4, Add_Ew_Gw, SI, None, DS, EDI, EAX, 3, 0, 0
-67 01 34 C8, 4, Add_Ew_Gw, SI, None, DS, EAX, ECX, 3, 0, 0
-67 01 34 C9, 4, Add_Ew_Gw, SI, None, DS, ECX, ECX, 3, 0, 0
-67 01 34 CA, 4, Add_Ew_Gw, SI, None, DS, EDX, ECX, 3, 0, 0
-67 01 34 CB, 4, Add_Ew_Gw, SI, None, DS, EBX, ECX, 3, 0, 0
-67 01 34 CC, 4, Add_Ew_Gw, SI, None, SS, ESP, ECX, 3, 0, 0
-67 01 34 CD 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, ECX, 3, 0x5AA56789, 4
-67 01 34 CE, 4, Add_Ew_Gw, SI, None, DS, ESI, ECX, 3, 0, 0
-67 01 34 CF, 4, Add_Ew_Gw, SI, None, DS, EDI, ECX, 3, 0, 0
-67 01 34 D0, 4, Add_Ew_Gw, SI, None, DS, EAX, EDX, 3, 0, 0
-67 01 34 D1, 4, Add_Ew_Gw, SI, None, DS, ECX, EDX, 3, 0, 0
-67 01 34 D2, 4, Add_Ew_Gw, SI, None, DS, EDX, EDX, 3, 0, 0
-67 01 34 D3, 4, Add_Ew_Gw, SI, None, DS, EBX, EDX, 3, 0, 0
-67 01 34 D4, 4, Add_Ew_Gw, SI, None, SS, ESP, EDX, 3, 0, 0
-67 01 34 D5 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, EDX, 3, 0xA55A1234, 4
-67 01 34 D6, 4, Add_Ew_Gw, SI, None, DS, ESI, EDX, 3, 0, 0
-67 01 34 D7, 4, Add_Ew_Gw, SI, None, DS, EDI, EDX, 3, 0, 0
-67 01 34 D8, 4, Add_Ew_Gw, SI, None, DS, EAX, EBX, 3, 0, 0
-67 01 34 D9, 4, Add_Ew_Gw, SI, None, DS, ECX, EBX, 3, 0, 0
-67 01 34 DA, 4, Add_Ew_Gw, SI, None, DS, EDX, EBX, 3, 0, 0
-67 01 34 DB, 4, Add_Ew_Gw, SI, None, DS, EBX, EBX, 3, 0, 0
-67 01 34 DC, 4, Add_Ew_Gw, SI, None, SS, ESP, EBX, 3, 0, 0
-67 01 34 DD 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EBX, 3, 0x5AA56789, 4
-67 01 34 DE, 4, Add_Ew_Gw, SI, None, DS, ESI, EBX, 3, 0, 0
-67 01 34 DF, 4, Add_Ew_Gw, SI, None, DS, EDI, EBX, 3, 0, 0
-67 01 34 E0, 4, Add_Ew_Gw, SI, None, DS, EAX, None, 3, 0, 0
-67 01 34 E1, 4, Add_Ew_Gw, SI, None, DS, ECX, None, 3, 0, 0
-67 01 34 E2, 4, Add_Ew_Gw, SI, None, DS, EDX, None, 3, 0, 0
-67 01 34 E3, 4, Add_Ew_Gw, SI, None, DS, EBX, None, 3, 0, 0
-67 01 34 E4, 4, Add_Ew_Gw, SI, None, SS, ESP, None, 3, 0, 0
-67 01 34 E5 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, None, 3, 0xA55A1234, 4
-67 01 34 E6, 4, Add_Ew_Gw, SI, None, DS, ESI, None, 3, 0, 0
-67 01 34 E7, 4, Add_Ew_Gw, SI, None, DS, EDI, None, 3, 0, 0
-67 01 34 E8, 4, Add_Ew_Gw, SI, None, DS, EAX, EBP, 3, 0, 0
-67 01 34 E9, 4, Add_Ew_Gw, SI, None, DS, ECX, EBP, 3, 0, 0
-67 01 34 EA, 4, Add_Ew_Gw, SI, None, DS, EDX, EBP, 3, 0, 0
-67 01 34 EB, 4, Add_Ew_Gw, SI, None, DS, EBX, EBP, 3, 0, 0
-67 01 34 EC, 4, Add_Ew_Gw, SI, None, SS, ESP, EBP, 3, 0, 0
-67 01 34 ED 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EBP, 3, 0x5AA56789, 4
-67 01 34 EE, 4, Add_Ew_Gw, SI, None, DS, ESI, EBP, 3, 0, 0
-67 01 34 EF, 4, Add_Ew_Gw, SI, None, DS, EDI, EBP, 3, 0, 0
-67 01 34 F0, 4, Add_Ew_Gw, SI, None, DS, EAX, ESI, 3, 0, 0
-67 01 34 F1, 4, Add_Ew_Gw, SI, None, DS, ECX, ESI, 3, 0, 0
-67 01 34 F2, 4, Add_Ew_Gw, SI, None, DS, EDX, ESI, 3, 0, 0
-67 01 34 F3, 4, Add_Ew_Gw, SI, None, DS, EBX, ESI, 3, 0, 0
-67 01 34 F4, 4, Add_Ew_Gw, SI, None, SS, ESP, ESI, 3, 0, 0
-67 01 34 F5 34125AA5, 8, Add_Ew_Gw, SI, None, DS, None, ESI, 3, 0xA55A1234, 4
-67 01 34 F6, 4, Add_Ew_Gw, SI, None, DS, ESI, ESI, 3, 0, 0
-67 01 34 F7, 4, Add_Ew_Gw, SI, None, DS, EDI, ESI, 3, 0, 0
-67 01 34 F8, 4, Add_Ew_Gw, SI, None, DS, EAX, EDI, 3, 0, 0
-67 01 34 F9, 4, Add_Ew_Gw, SI, None, DS, ECX, EDI, 3, 0, 0
-67 01 34 FA, 4, Add_Ew_Gw, SI, None, DS, EDX, EDI, 3, 0, 0
-67 01 34 FB, 4, Add_Ew_Gw, SI, None, DS, EBX, EDI, 3, 0, 0
-67 01 34 FC, 4, Add_Ew_Gw, SI, None, SS, ESP, EDI, 3, 0, 0
-67 01 34 FD 8967A55A, 8, Add_Ew_Gw, SI, None, DS, None, EDI, 3, 0x5AA56789, 4
-67 01 34 FE, 4, Add_Ew_Gw, SI, None, DS, ESI, EDI, 3, 0, 0
-67 01 34 FF, 4, Add_Ew_Gw, SI, None, DS, EDI, EDI, 3, 0, 0
-67 01 74 00 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, EAX, 0, 0xFFFFFFA5, 1
-67 01 74 01 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, EAX, 0, 0xFFFFFFA5, 1
-67 01 74 02 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, EAX, 0, 0xFFFFFFA5, 1
-67 01 74 03 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, EAX, 0, 0xFFFFFFA5, 1
-67 01 74 04 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, EAX, 0, 0xFFFFFFA5, 1
-67 01 74 05 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, EAX, 0, 0xFFFFFFA5, 1
-67 01 74 06 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, EAX, 0, 0xFFFFFFA5, 1
-67 01 74 07 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, EAX, 0, 0xFFFFFFA5, 1
-67 01 74 08 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, ECX, 0, 0x0000005A, 1
-67 01 74 09 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, ECX, 0, 0x0000005A, 1
-67 01 74 0A 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, ECX, 0, 0x0000005A, 1
-67 01 74 0B 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, ECX, 0, 0x0000005A, 1
-67 01 74 0C 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, ECX, 0, 0x0000005A, 1
-67 01 74 0D 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, ECX, 0, 0x0000005A, 1
-67 01 74 0E 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, ECX, 0, 0x0000005A, 1
-67 01 74 0F 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, ECX, 0, 0x0000005A, 1
-67 01 74 10 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, EDX, 0, 0xFFFFFFA5, 1
-67 01 74 11 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, EDX, 0, 0xFFFFFFA5, 1
-67 01 74 12 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, EDX, 0, 0xFFFFFFA5, 1
-67 01 74 13 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, EDX, 0, 0xFFFFFFA5, 1
-67 01 74 14 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, EDX, 0, 0xFFFFFFA5, 1
-67 01 74 15 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, EDX, 0, 0xFFFFFFA5, 1
-67 01 74 16 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, EDX, 0, 0xFFFFFFA5, 1
-67 01 74 17 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, EDX, 0, 0xFFFFFFA5, 1
-67 01 74 18 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EBX, 0, 0x0000005A, 1
-67 01 74 19 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EBX, 0, 0x0000005A, 1
-67 01 74 1A 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EBX, 0, 0x0000005A, 1
-67 01 74 1B 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EBX, 0, 0x0000005A, 1
-67 01 74 1C 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EBX, 0, 0x0000005A, 1
-67 01 74 1D 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EBX, 0, 0x0000005A, 1
-67 01 74 1E 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EBX, 0, 0x0000005A, 1
-67 01 74 1F 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EBX, 0, 0x0000005A, 1
-67 01 74 20 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, None, 0, 0xFFFFFFA5, 1
-67 01 74 21 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, None, 0, 0xFFFFFFA5, 1
-67 01 74 22 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, None, 0, 0xFFFFFFA5, 1
-67 01 74 23 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, None, 0, 0xFFFFFFA5, 1
-67 01 74 24 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, None, 0, 0xFFFFFFA5, 1
-67 01 74 25 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, None, 0, 0xFFFFFFA5, 1
-67 01 74 26 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, None, 0, 0xFFFFFFA5, 1
-67 01 74 27 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, None, 0, 0xFFFFFFA5, 1
-67 01 74 28 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EBP, 0, 0x0000005A, 1
-67 01 74 29 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EBP, 0, 0x0000005A, 1
-67 01 74 2A 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EBP, 0, 0x0000005A, 1
-67 01 74 2B 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EBP, 0, 0x0000005A, 1
-67 01 74 2C 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EBP, 0, 0x0000005A, 1
-67 01 74 2D 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EBP, 0, 0x0000005A, 1
-67 01 74 2E 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EBP, 0, 0x0000005A, 1
-67 01 74 2F 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EBP, 0, 0x0000005A, 1
-67 01 74 30 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, ESI, 0, 0xFFFFFFA5, 1
-67 01 74 31 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, ESI, 0, 0xFFFFFFA5, 1
-67 01 74 32 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, ESI, 0, 0xFFFFFFA5, 1
-67 01 74 33 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, ESI, 0, 0xFFFFFFA5, 1
-67 01 74 34 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, ESI, 0, 0xFFFFFFA5, 1
-67 01 74 35 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, ESI, 0, 0xFFFFFFA5, 1
-67 01 74 36 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, ESI, 0, 0xFFFFFFA5, 1
-67 01 74 37 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, ESI, 0, 0xFFFFFFA5, 1
-67 01 74 38 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EDI, 0, 0x0000005A, 1
-67 01 74 39 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EDI, 0, 0x0000005A, 1
-67 01 74 3A 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EDI, 0, 0x0000005A, 1
-67 01 74 3B 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EDI, 0, 0x0000005A, 1
-67 01 74 3C 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EDI, 0, 0x0000005A, 1
-67 01 74 3D 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EDI, 0, 0x0000005A, 1
-67 01 74 3E 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EDI, 0, 0x0000005A, 1
-67 01 74 3F 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EDI, 0, 0x0000005A, 1
-67 01 74 40 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, EAX, 1, 0xFFFFFFA5, 1
-67 01 74 41 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, EAX, 1, 0xFFFFFFA5, 1
-67 01 74 42 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, EAX, 1, 0xFFFFFFA5, 1
-67 01 74 43 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, EAX, 1, 0xFFFFFFA5, 1
-67 01 74 44 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, EAX, 1, 0xFFFFFFA5, 1
-67 01 74 45 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, EAX, 1, 0xFFFFFFA5, 1
-67 01 74 46 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, EAX, 1, 0xFFFFFFA5, 1
-67 01 74 47 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, EAX, 1, 0xFFFFFFA5, 1
-67 01 74 48 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, ECX, 1, 0x0000005A, 1
-67 01 74 49 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, ECX, 1, 0x0000005A, 1
-67 01 74 4A 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, ECX, 1, 0x0000005A, 1
-67 01 74 4B 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, ECX, 1, 0x0000005A, 1
-67 01 74 4C 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, ECX, 1, 0x0000005A, 1
-67 01 74 4D 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, ECX, 1, 0x0000005A, 1
-67 01 74 4E 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, ECX, 1, 0x0000005A, 1
-67 01 74 4F 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, ECX, 1, 0x0000005A, 1
-67 01 74 50 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, EDX, 1, 0xFFFFFFA5, 1
-67 01 74 51 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, EDX, 1, 0xFFFFFFA5, 1
-67 01 74 52 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, EDX, 1, 0xFFFFFFA5, 1
-67 01 74 53 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, EDX, 1, 0xFFFFFFA5, 1
-67 01 74 54 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, EDX, 1, 0xFFFFFFA5, 1
-67 01 74 55 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, EDX, 1, 0xFFFFFFA5, 1
-67 01 74 56 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, EDX, 1, 0xFFFFFFA5, 1
-67 01 74 57 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, EDX, 1, 0xFFFFFFA5, 1
-67 01 74 58 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EBX, 1, 0x0000005A, 1
-67 01 74 59 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EBX, 1, 0x0000005A, 1
-67 01 74 5A 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EBX, 1, 0x0000005A, 1
-67 01 74 5B 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EBX, 1, 0x0000005A, 1
-67 01 74 5C 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EBX, 1, 0x0000005A, 1
-67 01 74 5D 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EBX, 1, 0x0000005A, 1
-67 01 74 5E 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EBX, 1, 0x0000005A, 1
-67 01 74 5F 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EBX, 1, 0x0000005A, 1
-67 01 74 60 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, None, 1, 0xFFFFFFA5, 1
-67 01 74 61 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, None, 1, 0xFFFFFFA5, 1
-67 01 74 62 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, None, 1, 0xFFFFFFA5, 1
-67 01 74 63 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, None, 1, 0xFFFFFFA5, 1
-67 01 74 64 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, None, 1, 0xFFFFFFA5, 1
-67 01 74 65 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, None, 1, 0xFFFFFFA5, 1
-67 01 74 66 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, None, 1, 0xFFFFFFA5, 1
-67 01 74 67 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, None, 1, 0xFFFFFFA5, 1
-67 01 74 68 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EBP, 1, 0x0000005A, 1
-67 01 74 69 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EBP, 1, 0x0000005A, 1
-67 01 74 6A 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EBP, 1, 0x0000005A, 1
-67 01 74 6B 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EBP, 1, 0x0000005A, 1
-67 01 74 6C 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EBP, 1, 0x0000005A, 1
-67 01 74 6D 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EBP, 1, 0x0000005A, 1
-67 01 74 6E 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EBP, 1, 0x0000005A, 1
-67 01 74 6F 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EBP, 1, 0x0000005A, 1
-67 01 74 70 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, ESI, 1, 0xFFFFFFA5, 1
-67 01 74 71 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, ESI, 1, 0xFFFFFFA5, 1
-67 01 74 72 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, ESI, 1, 0xFFFFFFA5, 1
-67 01 74 73 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, ESI, 1, 0xFFFFFFA5, 1
-67 01 74 74 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, ESI, 1, 0xFFFFFFA5, 1
-67 01 74 75 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, ESI, 1, 0xFFFFFFA5, 1
-67 01 74 76 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, ESI, 1, 0xFFFFFFA5, 1
-67 01 74 77 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, ESI, 1, 0xFFFFFFA5, 1
-67 01 74 78 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EDI, 1, 0x0000005A, 1
-67 01 74 79 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EDI, 1, 0x0000005A, 1
-67 01 74 7A 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EDI, 1, 0x0000005A, 1
-67 01 74 7B 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EDI, 1, 0x0000005A, 1
-67 01 74 7C 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EDI, 1, 0x0000005A, 1
-67 01 74 7D 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EDI, 1, 0x0000005A, 1
-67 01 74 7E 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EDI, 1, 0x0000005A, 1
-67 01 74 7F 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EDI, 1, 0x0000005A, 1
-67 01 74 80 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, EAX, 2, 0xFFFFFFA5, 1
-67 01 74 81 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, EAX, 2, 0xFFFFFFA5, 1
-67 01 74 82 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, EAX, 2, 0xFFFFFFA5, 1
-67 01 74 83 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, EAX, 2, 0xFFFFFFA5, 1
-67 01 74 84 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, EAX, 2, 0xFFFFFFA5, 1
-67 01 74 85 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, EAX, 2, 0xFFFFFFA5, 1
-67 01 74 86 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, EAX, 2, 0xFFFFFFA5, 1
-67 01 74 87 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, EAX, 2, 0xFFFFFFA5, 1
-67 01 74 88 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, ECX, 2, 0x0000005A, 1
-67 01 74 89 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, ECX, 2, 0x0000005A, 1
-67 01 74 8A 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, ECX, 2, 0x0000005A, 1
-67 01 74 8B 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, ECX, 2, 0x0000005A, 1
-67 01 74 8C 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, ECX, 2, 0x0000005A, 1
-67 01 74 8D 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, ECX, 2, 0x0000005A, 1
-67 01 74 8E 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, ECX, 2, 0x0000005A, 1
-67 01 74 8F 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, ECX, 2, 0x0000005A, 1
-67 01 74 90 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, EDX, 2, 0xFFFFFFA5, 1
-67 01 74 91 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, EDX, 2, 0xFFFFFFA5, 1
-67 01 74 92 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, EDX, 2, 0xFFFFFFA5, 1
-67 01 74 93 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, EDX, 2, 0xFFFFFFA5, 1
-67 01 74 94 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, EDX, 2, 0xFFFFFFA5, 1
-67 01 74 95 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, EDX, 2, 0xFFFFFFA5, 1
-67 01 74 96 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, EDX, 2, 0xFFFFFFA5, 1
-67 01 74 97 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, EDX, 2, 0xFFFFFFA5, 1
-67 01 74 98 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EBX, 2, 0x0000005A, 1
-67 01 74 99 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EBX, 2, 0x0000005A, 1
-67 01 74 9A 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EBX, 2, 0x0000005A, 1
-67 01 74 9B 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EBX, 2, 0x0000005A, 1
-67 01 74 9C 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EBX, 2, 0x0000005A, 1
-67 01 74 9D 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EBX, 2, 0x0000005A, 1
-67 01 74 9E 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EBX, 2, 0x0000005A, 1
-67 01 74 9F 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EBX, 2, 0x0000005A, 1
-67 01 74 A0 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, None, 2, 0xFFFFFFA5, 1
-67 01 74 A1 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, None, 2, 0xFFFFFFA5, 1
-67 01 74 A2 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, None, 2, 0xFFFFFFA5, 1
-67 01 74 A3 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, None, 2, 0xFFFFFFA5, 1
-67 01 74 A4 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, None, 2, 0xFFFFFFA5, 1
-67 01 74 A5 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, None, 2, 0xFFFFFFA5, 1
-67 01 74 A6 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, None, 2, 0xFFFFFFA5, 1
-67 01 74 A7 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, None, 2, 0xFFFFFFA5, 1
-67 01 74 A8 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EBP, 2, 0x0000005A, 1
-67 01 74 A9 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EBP, 2, 0x0000005A, 1
-67 01 74 AA 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EBP, 2, 0x0000005A, 1
-67 01 74 AB 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EBP, 2, 0x0000005A, 1
-67 01 74 AC 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EBP, 2, 0x0000005A, 1
-67 01 74 AD 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EBP, 2, 0x0000005A, 1
-67 01 74 AE 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EBP, 2, 0x0000005A, 1
-67 01 74 AF 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EBP, 2, 0x0000005A, 1
-67 01 74 B0 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, ESI, 2, 0xFFFFFFA5, 1
-67 01 74 B1 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, ESI, 2, 0xFFFFFFA5, 1
-67 01 74 B2 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, ESI, 2, 0xFFFFFFA5, 1
-67 01 74 B3 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, ESI, 2, 0xFFFFFFA5, 1
-67 01 74 B4 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, ESI, 2, 0xFFFFFFA5, 1
-67 01 74 B5 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, ESI, 2, 0xFFFFFFA5, 1
-67 01 74 B6 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, ESI, 2, 0xFFFFFFA5, 1
-67 01 74 B7 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, ESI, 2, 0xFFFFFFA5, 1
-67 01 74 B8 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EDI, 2, 0x0000005A, 1
-67 01 74 B9 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EDI, 2, 0x0000005A, 1
-67 01 74 BA 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EDI, 2, 0x0000005A, 1
-67 01 74 BB 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EDI, 2, 0x0000005A, 1
-67 01 74 BC 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EDI, 2, 0x0000005A, 1
-67 01 74 BD 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EDI, 2, 0x0000005A, 1
-67 01 74 BE 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EDI, 2, 0x0000005A, 1
-67 01 74 BF 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EDI, 2, 0x0000005A, 1
-67 01 74 C0 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, EAX, 3, 0xFFFFFFA5, 1
-67 01 74 C1 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, EAX, 3, 0xFFFFFFA5, 1
-67 01 74 C2 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, EAX, 3, 0xFFFFFFA5, 1
-67 01 74 C3 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, EAX, 3, 0xFFFFFFA5, 1
-67 01 74 C4 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, EAX, 3, 0xFFFFFFA5, 1
-67 01 74 C5 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, EAX, 3, 0xFFFFFFA5, 1
-67 01 74 C6 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, EAX, 3, 0xFFFFFFA5, 1
-67 01 74 C7 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, EAX, 3, 0xFFFFFFA5, 1
-67 01 74 C8 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, ECX, 3, 0x0000005A, 1
-67 01 74 C9 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, ECX, 3, 0x0000005A, 1
-67 01 74 CA 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, ECX, 3, 0x0000005A, 1
-67 01 74 CB 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, ECX, 3, 0x0000005A, 1
-67 01 74 CC 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, ECX, 3, 0x0000005A, 1
-67 01 74 CD 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, ECX, 3, 0x0000005A, 1
-67 01 74 CE 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, ECX, 3, 0x0000005A, 1
-67 01 74 CF 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, ECX, 3, 0x0000005A, 1
-67 01 74 D0 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, EDX, 3, 0xFFFFFFA5, 1
-67 01 74 D1 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, EDX, 3, 0xFFFFFFA5, 1
-67 01 74 D2 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, EDX, 3, 0xFFFFFFA5, 1
-67 01 74 D3 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, EDX, 3, 0xFFFFFFA5, 1
-67 01 74 D4 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, EDX, 3, 0xFFFFFFA5, 1
-67 01 74 D5 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, EDX, 3, 0xFFFFFFA5, 1
-67 01 74 D6 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, EDX, 3, 0xFFFFFFA5, 1
-67 01 74 D7 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, EDX, 3, 0xFFFFFFA5, 1
-67 01 74 D8 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EBX, 3, 0x0000005A, 1
-67 01 74 D9 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EBX, 3, 0x0000005A, 1
-67 01 74 DA 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EBX, 3, 0x0000005A, 1
-67 01 74 DB 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EBX, 3, 0x0000005A, 1
-67 01 74 DC 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EBX, 3, 0x0000005A, 1
-67 01 74 DD 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EBX, 3, 0x0000005A, 1
-67 01 74 DE 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EBX, 3, 0x0000005A, 1
-67 01 74 DF 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EBX, 3, 0x0000005A, 1
-67 01 74 E0 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, None, 3, 0xFFFFFFA5, 1
-67 01 74 E1 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, None, 3, 0xFFFFFFA5, 1
-67 01 74 E2 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, None, 3, 0xFFFFFFA5, 1
-67 01 74 E3 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, None, 3, 0xFFFFFFA5, 1
-67 01 74 E4 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, None, 3, 0xFFFFFFA5, 1
-67 01 74 E5 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, None, 3, 0xFFFFFFA5, 1
-67 01 74 E6 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, None, 3, 0xFFFFFFA5, 1
-67 01 74 E7 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, None, 3, 0xFFFFFFA5, 1
-67 01 74 E8 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EBP, 3, 0x0000005A, 1
-67 01 74 E9 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EBP, 3, 0x0000005A, 1
-67 01 74 EA 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EBP, 3, 0x0000005A, 1
-67 01 74 EB 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EBP, 3, 0x0000005A, 1
-67 01 74 EC 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EBP, 3, 0x0000005A, 1
-67 01 74 ED 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EBP, 3, 0x0000005A, 1
-67 01 74 EE 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EBP, 3, 0x0000005A, 1
-67 01 74 EF 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EBP, 3, 0x0000005A, 1
-67 01 74 F0 A5, 5, Add_Ew_Gw, SI, None, DS, EAX, ESI, 3, 0xFFFFFFA5, 1
-67 01 74 F1 A5, 5, Add_Ew_Gw, SI, None, DS, ECX, ESI, 3, 0xFFFFFFA5, 1
-67 01 74 F2 A5, 5, Add_Ew_Gw, SI, None, DS, EDX, ESI, 3, 0xFFFFFFA5, 1
-67 01 74 F3 A5, 5, Add_Ew_Gw, SI, None, DS, EBX, ESI, 3, 0xFFFFFFA5, 1
-67 01 74 F4 A5, 5, Add_Ew_Gw, SI, None, SS, ESP, ESI, 3, 0xFFFFFFA5, 1
-67 01 74 F5 A5, 5, Add_Ew_Gw, SI, None, SS, EBP, ESI, 3, 0xFFFFFFA5, 1
-67 01 74 F6 A5, 5, Add_Ew_Gw, SI, None, DS, ESI, ESI, 3, 0xFFFFFFA5, 1
-67 01 74 F7 A5, 5, Add_Ew_Gw, SI, None, DS, EDI, ESI, 3, 0xFFFFFFA5, 1
-67 01 74 F8 5A, 5, Add_Ew_Gw, SI, None, DS, EAX, EDI, 3, 0x0000005A, 1
-67 01 74 F9 5A, 5, Add_Ew_Gw, SI, None, DS, ECX, EDI, 3, 0x0000005A, 1
-67 01 74 FA 5A, 5, Add_Ew_Gw, SI, None, DS, EDX, EDI, 3, 0x0000005A, 1
-67 01 74 FB 5A, 5, Add_Ew_Gw, SI, None, DS, EBX, EDI, 3, 0x0000005A, 1
-67 01 74 FC 5A, 5, Add_Ew_Gw, SI, None, SS, ESP, EDI, 3, 0x0000005A, 1
-67 01 74 FD 5A, 5, Add_Ew_Gw, SI, None, SS, EBP, EDI, 3, 0x0000005A, 1
-67 01 74 FE 5A, 5, Add_Ew_Gw, SI, None, DS, ESI, EDI, 3, 0x0000005A, 1
-67 01 74 FF 5A, 5, Add_Ew_Gw, SI, None, DS, EDI, EDI, 3, 0x0000005A, 1
-67 01 B4 00 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, EAX, 0, 0xA55A1234, 4
-67 01 B4 01 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, EAX, 0, 0xA55A1234, 4
-67 01 B4 02 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, EAX, 0, 0xA55A1234, 4
-67 01 B4 03 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, EAX, 0, 0xA55A1234, 4
-67 01 B4 04 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, EAX, 0, 0xA55A1234, 4
-67 01 B4 05 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, EAX, 0, 0xA55A1234, 4
-67 01 B4 06 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, EAX, 0, 0xA55A1234, 4
-67 01 B4 07 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, EAX, 0, 0xA55A1234, 4
-67 01 B4 08 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, ECX, 0, 0x5AA56789, 4
-67 01 B4 09 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, ECX, 0, 0x5AA56789, 4
-67 01 B4 0A 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, ECX, 0, 0x5AA56789, 4
-67 01 B4 0B 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, ECX, 0, 0x5AA56789, 4
-67 01 B4 0C 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, ECX, 0, 0x5AA56789, 4
-67 01 B4 0D 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, ECX, 0, 0x5AA56789, 4
-67 01 B4 0E 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, ECX, 0, 0x5AA56789, 4
-67 01 B4 0F 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, ECX, 0, 0x5AA56789, 4
-67 01 B4 10 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, EDX, 0, 0xA55A1234, 4
-67 01 B4 11 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, EDX, 0, 0xA55A1234, 4
-67 01 B4 12 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, EDX, 0, 0xA55A1234, 4
-67 01 B4 13 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, EDX, 0, 0xA55A1234, 4
-67 01 B4 14 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, EDX, 0, 0xA55A1234, 4
-67 01 B4 15 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, EDX, 0, 0xA55A1234, 4
-67 01 B4 16 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, EDX, 0, 0xA55A1234, 4
-67 01 B4 17 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, EDX, 0, 0xA55A1234, 4
-67 01 B4 18 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EBX, 0, 0x5AA56789, 4
-67 01 B4 19 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EBX, 0, 0x5AA56789, 4
-67 01 B4 1A 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EBX, 0, 0x5AA56789, 4
-67 01 B4 1B 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EBX, 0, 0x5AA56789, 4
-67 01 B4 1C 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EBX, 0, 0x5AA56789, 4
-67 01 B4 1D 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EBX, 0, 0x5AA56789, 4
-67 01 B4 1E 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EBX, 0, 0x5AA56789, 4
-67 01 B4 1F 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EBX, 0, 0x5AA56789, 4
-67 01 B4 20 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, None, 0, 0xA55A1234, 4
-67 01 B4 21 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, None, 0, 0xA55A1234, 4
-67 01 B4 22 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, None, 0, 0xA55A1234, 4
-67 01 B4 23 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, None, 0, 0xA55A1234, 4
-67 01 B4 24 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, None, 0, 0xA55A1234, 4
-67 01 B4 25 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, None, 0, 0xA55A1234, 4
-67 01 B4 26 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, None, 0, 0xA55A1234, 4
-67 01 B4 27 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, None, 0, 0xA55A1234, 4
-67 01 B4 28 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EBP, 0, 0x5AA56789, 4
-67 01 B4 29 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EBP, 0, 0x5AA56789, 4
-67 01 B4 2A 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EBP, 0, 0x5AA56789, 4
-67 01 B4 2B 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EBP, 0, 0x5AA56789, 4
-67 01 B4 2C 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EBP, 0, 0x5AA56789, 4
-67 01 B4 2D 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EBP, 0, 0x5AA56789, 4
-67 01 B4 2E 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EBP, 0, 0x5AA56789, 4
-67 01 B4 2F 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EBP, 0, 0x5AA56789, 4
-67 01 B4 30 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, ESI, 0, 0xA55A1234, 4
-67 01 B4 31 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, ESI, 0, 0xA55A1234, 4
-67 01 B4 32 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, ESI, 0, 0xA55A1234, 4
-67 01 B4 33 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, ESI, 0, 0xA55A1234, 4
-67 01 B4 34 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, ESI, 0, 0xA55A1234, 4
-67 01 B4 35 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, ESI, 0, 0xA55A1234, 4
-67 01 B4 36 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, ESI, 0, 0xA55A1234, 4
-67 01 B4 37 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, ESI, 0, 0xA55A1234, 4
-67 01 B4 38 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EDI, 0, 0x5AA56789, 4
-67 01 B4 39 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EDI, 0, 0x5AA56789, 4
-67 01 B4 3A 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EDI, 0, 0x5AA56789, 4
-67 01 B4 3B 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EDI, 0, 0x5AA56789, 4
-67 01 B4 3C 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EDI, 0, 0x5AA56789, 4
-67 01 B4 3D 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EDI, 0, 0x5AA56789, 4
-67 01 B4 3E 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EDI, 0, 0x5AA56789, 4
-67 01 B4 3F 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EDI, 0, 0x5AA56789, 4
-67 01 B4 40 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, EAX, 1, 0xA55A1234, 4
-67 01 B4 41 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, EAX, 1, 0xA55A1234, 4
-67 01 B4 42 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, EAX, 1, 0xA55A1234, 4
-67 01 B4 43 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, EAX, 1, 0xA55A1234, 4
-67 01 B4 44 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, EAX, 1, 0xA55A1234, 4
-67 01 B4 45 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, EAX, 1, 0xA55A1234, 4
-67 01 B4 46 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, EAX, 1, 0xA55A1234, 4
-67 01 B4 47 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, EAX, 1, 0xA55A1234, 4
-67 01 B4 48 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, ECX, 1, 0x5AA56789, 4
-67 01 B4 49 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, ECX, 1, 0x5AA56789, 4
-67 01 B4 4A 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, ECX, 1, 0x5AA56789, 4
-67 01 B4 4B 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, ECX, 1, 0x5AA56789, 4
-67 01 B4 4C 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, ECX, 1, 0x5AA56789, 4
-67 01 B4 4D 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, ECX, 1, 0x5AA56789, 4
-67 01 B4 4E 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, ECX, 1, 0x5AA56789, 4
-67 01 B4 4F 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, ECX, 1, 0x5AA56789, 4
-67 01 B4 50 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, EDX, 1, 0xA55A1234, 4
-67 01 B4 51 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, EDX, 1, 0xA55A1234, 4
-67 01 B4 52 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, EDX, 1, 0xA55A1234, 4
-67 01 B4 53 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, EDX, 1, 0xA55A1234, 4
-67 01 B4 54 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, EDX, 1, 0xA55A1234, 4
-67 01 B4 55 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, EDX, 1, 0xA55A1234, 4
-67 01 B4 56 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, EDX, 1, 0xA55A1234, 4
-67 01 B4 57 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, EDX, 1, 0xA55A1234, 4
-67 01 B4 58 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EBX, 1, 0x5AA56789, 4
-67 01 B4 59 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EBX, 1, 0x5AA56789, 4
-67 01 B4 5A 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EBX, 1, 0x5AA56789, 4
-67 01 B4 5B 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EBX, 1, 0x5AA56789, 4
-67 01 B4 5C 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EBX, 1, 0x5AA56789, 4
-67 01 B4 5D 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EBX, 1, 0x5AA56789, 4
-67 01 B4 5E 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EBX, 1, 0x5AA56789, 4
-67 01 B4 5F 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EBX, 1, 0x5AA56789, 4
-67 01 B4 60 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, None, 1, 0xA55A1234, 4
-67 01 B4 61 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, None, 1, 0xA55A1234, 4
-67 01 B4 62 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, None, 1, 0xA55A1234, 4
-67 01 B4 63 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, None, 1, 0xA55A1234, 4
-67 01 B4 64 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, None, 1, 0xA55A1234, 4
-67 01 B4 65 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, None, 1, 0xA55A1234, 4
-67 01 B4 66 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, None, 1, 0xA55A1234, 4
-67 01 B4 67 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, None, 1, 0xA55A1234, 4
-67 01 B4 68 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EBP, 1, 0x5AA56789, 4
-67 01 B4 69 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EBP, 1, 0x5AA56789, 4
-67 01 B4 6A 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EBP, 1, 0x5AA56789, 4
-67 01 B4 6B 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EBP, 1, 0x5AA56789, 4
-67 01 B4 6C 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EBP, 1, 0x5AA56789, 4
-67 01 B4 6D 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EBP, 1, 0x5AA56789, 4
-67 01 B4 6E 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EBP, 1, 0x5AA56789, 4
-67 01 B4 6F 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EBP, 1, 0x5AA56789, 4
-67 01 B4 70 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, ESI, 1, 0xA55A1234, 4
-67 01 B4 71 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, ESI, 1, 0xA55A1234, 4
-67 01 B4 72 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, ESI, 1, 0xA55A1234, 4
-67 01 B4 73 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, ESI, 1, 0xA55A1234, 4
-67 01 B4 74 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, ESI, 1, 0xA55A1234, 4
-67 01 B4 75 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, ESI, 1, 0xA55A1234, 4
-67 01 B4 76 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, ESI, 1, 0xA55A1234, 4
-67 01 B4 77 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, ESI, 1, 0xA55A1234, 4
-67 01 B4 78 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EDI, 1, 0x5AA56789, 4
-67 01 B4 79 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EDI, 1, 0x5AA56789, 4
-67 01 B4 7A 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EDI, 1, 0x5AA56789, 4
-67 01 B4 7B 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EDI, 1, 0x5AA56789, 4
-67 01 B4 7C 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EDI, 1, 0x5AA56789, 4
-67 01 B4 7D 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EDI, 1, 0x5AA56789, 4
-67 01 B4 7E 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EDI, 1, 0x5AA56789, 4
-67 01 B4 7F 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EDI, 1, 0x5AA56789, 4
-67 01 B4 80 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, EAX, 2, 0xA55A1234, 4
-67 01 B4 81 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, EAX, 2, 0xA55A1234, 4
-67 01 B4 82 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, EAX, 2, 0xA55A1234, 4
-67 01 B4 83 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, EAX, 2, 0xA55A1234, 4
-67 01 B4 84 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, EAX, 2, 0xA55A1234, 4
-67 01 B4 85 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, EAX, 2, 0xA55A1234, 4
-67 01 B4 86 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, EAX, 2, 0xA55A1234, 4
-67 01 B4 87 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, EAX, 2, 0xA55A1234, 4
-67 01 B4 88 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, ECX, 2, 0x5AA56789, 4
-67 01 B4 89 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, ECX, 2, 0x5AA56789, 4
-67 01 B4 8A 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, ECX, 2, 0x5AA56789, 4
-67 01 B4 8B 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, ECX, 2, 0x5AA56789, 4
-67 01 B4 8C 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, ECX, 2, 0x5AA56789, 4
-67 01 B4 8D 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, ECX, 2, 0x5AA56789, 4
-67 01 B4 8E 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, ECX, 2, 0x5AA56789, 4
-67 01 B4 8F 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, ECX, 2, 0x5AA56789, 4
-67 01 B4 90 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, EDX, 2, 0xA55A1234, 4
-67 01 B4 91 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, EDX, 2, 0xA55A1234, 4
-67 01 B4 92 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, EDX, 2, 0xA55A1234, 4
-67 01 B4 93 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, EDX, 2, 0xA55A1234, 4
-67 01 B4 94 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, EDX, 2, 0xA55A1234, 4
-67 01 B4 95 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, EDX, 2, 0xA55A1234, 4
-67 01 B4 96 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, EDX, 2, 0xA55A1234, 4
-67 01 B4 97 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, EDX, 2, 0xA55A1234, 4
-67 01 B4 98 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EBX, 2, 0x5AA56789, 4
-67 01 B4 99 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EBX, 2, 0x5AA56789, 4
-67 01 B4 9A 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EBX, 2, 0x5AA56789, 4
-67 01 B4 9B 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EBX, 2, 0x5AA56789, 4
-67 01 B4 9C 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EBX, 2, 0x5AA56789, 4
-67 01 B4 9D 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EBX, 2, 0x5AA56789, 4
-67 01 B4 9E 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EBX, 2, 0x5AA56789, 4
-67 01 B4 9F 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EBX, 2, 0x5AA56789, 4
-67 01 B4 A0 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, None, 2, 0xA55A1234, 4
-67 01 B4 A1 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, None, 2, 0xA55A1234, 4
-67 01 B4 A2 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, None, 2, 0xA55A1234, 4
-67 01 B4 A3 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, None, 2, 0xA55A1234, 4
-67 01 B4 A4 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, None, 2, 0xA55A1234, 4
-67 01 B4 A5 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, None, 2, 0xA55A1234, 4
-67 01 B4 A6 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, None, 2, 0xA55A1234, 4
-67 01 B4 A7 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, None, 2, 0xA55A1234, 4
-67 01 B4 A8 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EBP, 2, 0x5AA56789, 4
-67 01 B4 A9 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EBP, 2, 0x5AA56789, 4
-67 01 B4 AA 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EBP, 2, 0x5AA56789, 4
-67 01 B4 AB 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EBP, 2, 0x5AA56789, 4
-67 01 B4 AC 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EBP, 2, 0x5AA56789, 4
-67 01 B4 AD 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EBP, 2, 0x5AA56789, 4
-67 01 B4 AE 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EBP, 2, 0x5AA56789, 4
-67 01 B4 AF 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EBP, 2, 0x5AA56789, 4
-67 01 B4 B0 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, ESI, 2, 0xA55A1234, 4
-67 01 B4 B1 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, ESI, 2, 0xA55A1234, 4
-67 01 B4 B2 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, ESI, 2, 0xA55A1234, 4
-67 01 B4 B3 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, ESI, 2, 0xA55A1234, 4
-67 01 B4 B4 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, ESI, 2, 0xA55A1234, 4
-67 01 B4 B5 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, ESI, 2, 0xA55A1234, 4
-67 01 B4 B6 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, ESI, 2, 0xA55A1234, 4
-67 01 B4 B7 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, ESI, 2, 0xA55A1234, 4
-67 01 B4 B8 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EDI, 2, 0x5AA56789, 4
-67 01 B4 B9 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EDI, 2, 0x5AA56789, 4
-67 01 B4 BA 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EDI, 2, 0x5AA56789, 4
-67 01 B4 BB 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EDI, 2, 0x5AA56789, 4
-67 01 B4 BC 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EDI, 2, 0x5AA56789, 4
-67 01 B4 BD 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EDI, 2, 0x5AA56789, 4
-67 01 B4 BE 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EDI, 2, 0x5AA56789, 4
-67 01 B4 BF 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EDI, 2, 0x5AA56789, 4
-67 01 B4 C0 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, EAX, 3, 0xA55A1234, 4
-67 01 B4 C1 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, EAX, 3, 0xA55A1234, 4
-67 01 B4 C2 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, EAX, 3, 0xA55A1234, 4
-67 01 B4 C3 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, EAX, 3, 0xA55A1234, 4
-67 01 B4 C4 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, EAX, 3, 0xA55A1234, 4
-67 01 B4 C5 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, EAX, 3, 0xA55A1234, 4
-67 01 B4 C6 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, EAX, 3, 0xA55A1234, 4
-67 01 B4 C7 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, EAX, 3, 0xA55A1234, 4
-67 01 B4 C8 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, ECX, 3, 0x5AA56789, 4
-67 01 B4 C9 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, ECX, 3, 0x5AA56789, 4
-67 01 B4 CA 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, ECX, 3, 0x5AA56789, 4
-67 01 B4 CB 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, ECX, 3, 0x5AA56789, 4
-67 01 B4 CC 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, ECX, 3, 0x5AA56789, 4
-67 01 B4 CD 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, ECX, 3, 0x5AA56789, 4
-67 01 B4 CE 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, ECX, 3, 0x5AA56789, 4
-67 01 B4 CF 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, ECX, 3, 0x5AA56789, 4
-67 01 B4 D0 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, EDX, 3, 0xA55A1234, 4
-67 01 B4 D1 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, EDX, 3, 0xA55A1234, 4
-67 01 B4 D2 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, EDX, 3, 0xA55A1234, 4
-67 01 B4 D3 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, EDX, 3, 0xA55A1234, 4
-67 01 B4 D4 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, EDX, 3, 0xA55A1234, 4
-67 01 B4 D5 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, EDX, 3, 0xA55A1234, 4
-67 01 B4 D6 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, EDX, 3, 0xA55A1234, 4
-67 01 B4 D7 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, EDX, 3, 0xA55A1234, 4
-67 01 B4 D8 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EBX, 3, 0x5AA56789, 4
-67 01 B4 D9 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EBX, 3, 0x5AA56789, 4
-67 01 B4 DA 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EBX, 3, 0x5AA56789, 4
-67 01 B4 DB 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EBX, 3, 0x5AA56789, 4
-67 01 B4 DC 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EBX, 3, 0x5AA56789, 4
-67 01 B4 DD 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EBX, 3, 0x5AA56789, 4
-67 01 B4 DE 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EBX, 3, 0x5AA56789, 4
-67 01 B4 DF 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EBX, 3, 0x5AA56789, 4
-67 01 B4 E0 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, None, 3, 0xA55A1234, 4
-67 01 B4 E1 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, None, 3, 0xA55A1234, 4
-67 01 B4 E2 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, None, 3, 0xA55A1234, 4
-67 01 B4 E3 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, None, 3, 0xA55A1234, 4
-67 01 B4 E4 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, None, 3, 0xA55A1234, 4
-67 01 B4 E5 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, None, 3, 0xA55A1234, 4
-67 01 B4 E6 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, None, 3, 0xA55A1234, 4
-67 01 B4 E7 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, None, 3, 0xA55A1234, 4
-67 01 B4 E8 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EBP, 3, 0x5AA56789, 4
-67 01 B4 E9 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EBP, 3, 0x5AA56789, 4
-67 01 B4 EA 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EBP, 3, 0x5AA56789, 4
-67 01 B4 EB 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EBP, 3, 0x5AA56789, 4
-67 01 B4 EC 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EBP, 3, 0x5AA56789, 4
-67 01 B4 ED 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EBP, 3, 0x5AA56789, 4
-67 01 B4 EE 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EBP, 3, 0x5AA56789, 4
-67 01 B4 EF 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EBP, 3, 0x5AA56789, 4
-67 01 B4 F0 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EAX, ESI, 3, 0xA55A1234, 4
-67 01 B4 F1 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ECX, ESI, 3, 0xA55A1234, 4
-67 01 B4 F2 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDX, ESI, 3, 0xA55A1234, 4
-67 01 B4 F3 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EBX, ESI, 3, 0xA55A1234, 4
-67 01 B4 F4 34125AA5, 8, Add_Ew_Gw, SI, None, SS, ESP, ESI, 3, 0xA55A1234, 4
-67 01 B4 F5 34125AA5, 8, Add_Ew_Gw, SI, None, SS, EBP, ESI, 3, 0xA55A1234, 4
-67 01 B4 F6 34125AA5, 8, Add_Ew_Gw, SI, None, DS, ESI, ESI, 3, 0xA55A1234, 4
-67 01 B4 F7 34125AA5, 8, Add_Ew_Gw, SI, None, DS, EDI, ESI, 3, 0xA55A1234, 4
-67 01 B4 F8 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EAX, EDI, 3, 0x5AA56789, 4
-67 01 B4 F9 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ECX, EDI, 3, 0x5AA56789, 4
-67 01 B4 FA 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDX, EDI, 3, 0x5AA56789, 4
-67 01 B4 FB 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EBX, EDI, 3, 0x5AA56789, 4
-67 01 B4 FC 8967A55A, 8, Add_Ew_Gw, SI, None, SS, ESP, EDI, 3, 0x5AA56789, 4
-67 01 B4 FD 8967A55A, 8, Add_Ew_Gw, SI, None, SS, EBP, EDI, 3, 0x5AA56789, 4
-67 01 B4 FE 8967A55A, 8, Add_Ew_Gw, SI, None, DS, ESI, EDI, 3, 0x5AA56789, 4
-67 01 B4 FF 8967A55A, 8, Add_Ew_Gw, SI, None, DS, EDI, EDI, 3, 0x5AA56789, 4
+67 01 30, 3, Add_rm16_r16, SI, None, DS, EAX, None, 0, 0, 0
+67 01 31, 3, Add_rm16_r16, SI, None, DS, ECX, None, 0, 0, 0
+67 01 32, 3, Add_rm16_r16, SI, None, DS, EDX, None, 0, 0, 0
+67 01 33, 3, Add_rm16_r16, SI, None, DS, EBX, None, 0, 0, 0
+67 01 35 34125AA5, 7, Add_rm16_r16, SI, None, DS, None, None, 0, 0xA55A1234, 4
+67 01 36, 3, Add_rm16_r16, SI, None, DS, ESI, None, 0, 0, 0
+67 01 37, 3, Add_rm16_r16, SI, None, DS, EDI, None, 0, 0, 0
+67 01 70 A5, 4, Add_rm16_r16, SI, None, DS, EAX, None, 0, 0xFFFFFFA5, 1
+67 01 71 A5, 4, Add_rm16_r16, SI, None, DS, ECX, None, 0, 0xFFFFFFA5, 1
+67 01 72 A5, 4, Add_rm16_r16, SI, None, DS, EDX, None, 0, 0xFFFFFFA5, 1
+67 01 73 A5, 4, Add_rm16_r16, SI, None, DS, EBX, None, 0, 0xFFFFFFA5, 1
+67 01 75 A5, 4, Add_rm16_r16, SI, None, SS, EBP, None, 0, 0xFFFFFFA5, 1
+67 01 76 A5, 4, Add_rm16_r16, SI, None, DS, ESI, None, 0, 0xFFFFFFA5, 1
+67 01 77 A5, 4, Add_rm16_r16, SI, None, DS, EDI, None, 0, 0xFFFFFFA5, 1
+67 01 B0 34125AA5, 7, Add_rm16_r16, SI, None, DS, EAX, None, 0, 0xA55A1234, 4
+67 01 B1 34125AA5, 7, Add_rm16_r16, SI, None, DS, ECX, None, 0, 0xA55A1234, 4
+67 01 B2 34125AA5, 7, Add_rm16_r16, SI, None, DS, EDX, None, 0, 0xA55A1234, 4
+67 01 B3 34125AA5, 7, Add_rm16_r16, SI, None, DS, EBX, None, 0, 0xA55A1234, 4
+67 01 B5 34125AA5, 7, Add_rm16_r16, SI, None, SS, EBP, None, 0, 0xA55A1234, 4
+67 01 B6 34125AA5, 7, Add_rm16_r16, SI, None, DS, ESI, None, 0, 0xA55A1234, 4
+67 01 B7 34125AA5, 7, Add_rm16_r16, SI, None, DS, EDI, None, 0, 0xA55A1234, 4
+67 01 34 00, 4, Add_rm16_r16, SI, None, DS, EAX, EAX, 0, 0, 0
+67 01 34 01, 4, Add_rm16_r16, SI, None, DS, ECX, EAX, 0, 0, 0
+67 01 34 02, 4, Add_rm16_r16, SI, None, DS, EDX, EAX, 0, 0, 0
+67 01 34 03, 4, Add_rm16_r16, SI, None, DS, EBX, EAX, 0, 0, 0
+67 01 34 04, 4, Add_rm16_r16, SI, None, SS, ESP, EAX, 0, 0, 0
+67 01 34 05 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, EAX, 0, 0xA55A1234, 4
+67 01 34 06, 4, Add_rm16_r16, SI, None, DS, ESI, EAX, 0, 0, 0
+67 01 34 07, 4, Add_rm16_r16, SI, None, DS, EDI, EAX, 0, 0, 0
+67 01 34 08, 4, Add_rm16_r16, SI, None, DS, EAX, ECX, 0, 0, 0
+67 01 34 09, 4, Add_rm16_r16, SI, None, DS, ECX, ECX, 0, 0, 0
+67 01 34 0A, 4, Add_rm16_r16, SI, None, DS, EDX, ECX, 0, 0, 0
+67 01 34 0B, 4, Add_rm16_r16, SI, None, DS, EBX, ECX, 0, 0, 0
+67 01 34 0C, 4, Add_rm16_r16, SI, None, SS, ESP, ECX, 0, 0, 0
+67 01 34 0D 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, ECX, 0, 0x5AA56789, 4
+67 01 34 0E, 4, Add_rm16_r16, SI, None, DS, ESI, ECX, 0, 0, 0
+67 01 34 0F, 4, Add_rm16_r16, SI, None, DS, EDI, ECX, 0, 0, 0
+67 01 34 10, 4, Add_rm16_r16, SI, None, DS, EAX, EDX, 0, 0, 0
+67 01 34 11, 4, Add_rm16_r16, SI, None, DS, ECX, EDX, 0, 0, 0
+67 01 34 12, 4, Add_rm16_r16, SI, None, DS, EDX, EDX, 0, 0, 0
+67 01 34 13, 4, Add_rm16_r16, SI, None, DS, EBX, EDX, 0, 0, 0
+67 01 34 14, 4, Add_rm16_r16, SI, None, SS, ESP, EDX, 0, 0, 0
+67 01 34 15 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, EDX, 0, 0xA55A1234, 4
+67 01 34 16, 4, Add_rm16_r16, SI, None, DS, ESI, EDX, 0, 0, 0
+67 01 34 17, 4, Add_rm16_r16, SI, None, DS, EDI, EDX, 0, 0, 0
+67 01 34 18, 4, Add_rm16_r16, SI, None, DS, EAX, EBX, 0, 0, 0
+67 01 34 19, 4, Add_rm16_r16, SI, None, DS, ECX, EBX, 0, 0, 0
+67 01 34 1A, 4, Add_rm16_r16, SI, None, DS, EDX, EBX, 0, 0, 0
+67 01 34 1B, 4, Add_rm16_r16, SI, None, DS, EBX, EBX, 0, 0, 0
+67 01 34 1C, 4, Add_rm16_r16, SI, None, SS, ESP, EBX, 0, 0, 0
+67 01 34 1D 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EBX, 0, 0x5AA56789, 4
+67 01 34 1E, 4, Add_rm16_r16, SI, None, DS, ESI, EBX, 0, 0, 0
+67 01 34 1F, 4, Add_rm16_r16, SI, None, DS, EDI, EBX, 0, 0, 0
+67 01 34 20, 4, Add_rm16_r16, SI, None, DS, EAX, None, 0, 0, 0
+67 01 34 21, 4, Add_rm16_r16, SI, None, DS, ECX, None, 0, 0, 0
+67 01 34 22, 4, Add_rm16_r16, SI, None, DS, EDX, None, 0, 0, 0
+67 01 34 23, 4, Add_rm16_r16, SI, None, DS, EBX, None, 0, 0, 0
+67 01 34 24, 4, Add_rm16_r16, SI, None, SS, ESP, None, 0, 0, 0
+67 01 34 25 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, None, 0, 0xA55A1234, 4
+67 01 34 26, 4, Add_rm16_r16, SI, None, DS, ESI, None, 0, 0, 0
+67 01 34 27, 4, Add_rm16_r16, SI, None, DS, EDI, None, 0, 0, 0
+67 01 34 28, 4, Add_rm16_r16, SI, None, DS, EAX, EBP, 0, 0, 0
+67 01 34 29, 4, Add_rm16_r16, SI, None, DS, ECX, EBP, 0, 0, 0
+67 01 34 2A, 4, Add_rm16_r16, SI, None, DS, EDX, EBP, 0, 0, 0
+67 01 34 2B, 4, Add_rm16_r16, SI, None, DS, EBX, EBP, 0, 0, 0
+67 01 34 2C, 4, Add_rm16_r16, SI, None, SS, ESP, EBP, 0, 0, 0
+67 01 34 2D 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EBP, 0, 0x5AA56789, 4
+67 01 34 2E, 4, Add_rm16_r16, SI, None, DS, ESI, EBP, 0, 0, 0
+67 01 34 2F, 4, Add_rm16_r16, SI, None, DS, EDI, EBP, 0, 0, 0
+67 01 34 30, 4, Add_rm16_r16, SI, None, DS, EAX, ESI, 0, 0, 0
+67 01 34 31, 4, Add_rm16_r16, SI, None, DS, ECX, ESI, 0, 0, 0
+67 01 34 32, 4, Add_rm16_r16, SI, None, DS, EDX, ESI, 0, 0, 0
+67 01 34 33, 4, Add_rm16_r16, SI, None, DS, EBX, ESI, 0, 0, 0
+67 01 34 34, 4, Add_rm16_r16, SI, None, SS, ESP, ESI, 0, 0, 0
+67 01 34 35 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, ESI, 0, 0xA55A1234, 4
+67 01 34 36, 4, Add_rm16_r16, SI, None, DS, ESI, ESI, 0, 0, 0
+67 01 34 37, 4, Add_rm16_r16, SI, None, DS, EDI, ESI, 0, 0, 0
+67 01 34 38, 4, Add_rm16_r16, SI, None, DS, EAX, EDI, 0, 0, 0
+67 01 34 39, 4, Add_rm16_r16, SI, None, DS, ECX, EDI, 0, 0, 0
+67 01 34 3A, 4, Add_rm16_r16, SI, None, DS, EDX, EDI, 0, 0, 0
+67 01 34 3B, 4, Add_rm16_r16, SI, None, DS, EBX, EDI, 0, 0, 0
+67 01 34 3C, 4, Add_rm16_r16, SI, None, SS, ESP, EDI, 0, 0, 0
+67 01 34 3D 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EDI, 0, 0x5AA56789, 4
+67 01 34 3E, 4, Add_rm16_r16, SI, None, DS, ESI, EDI, 0, 0, 0
+67 01 34 3F, 4, Add_rm16_r16, SI, None, DS, EDI, EDI, 0, 0, 0
+67 01 34 40, 4, Add_rm16_r16, SI, None, DS, EAX, EAX, 1, 0, 0
+67 01 34 41, 4, Add_rm16_r16, SI, None, DS, ECX, EAX, 1, 0, 0
+67 01 34 42, 4, Add_rm16_r16, SI, None, DS, EDX, EAX, 1, 0, 0
+67 01 34 43, 4, Add_rm16_r16, SI, None, DS, EBX, EAX, 1, 0, 0
+67 01 34 44, 4, Add_rm16_r16, SI, None, SS, ESP, EAX, 1, 0, 0
+67 01 34 45 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, EAX, 1, 0xA55A1234, 4
+67 01 34 46, 4, Add_rm16_r16, SI, None, DS, ESI, EAX, 1, 0, 0
+67 01 34 47, 4, Add_rm16_r16, SI, None, DS, EDI, EAX, 1, 0, 0
+67 01 34 48, 4, Add_rm16_r16, SI, None, DS, EAX, ECX, 1, 0, 0
+67 01 34 49, 4, Add_rm16_r16, SI, None, DS, ECX, ECX, 1, 0, 0
+67 01 34 4A, 4, Add_rm16_r16, SI, None, DS, EDX, ECX, 1, 0, 0
+67 01 34 4B, 4, Add_rm16_r16, SI, None, DS, EBX, ECX, 1, 0, 0
+67 01 34 4C, 4, Add_rm16_r16, SI, None, SS, ESP, ECX, 1, 0, 0
+67 01 34 4D 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, ECX, 1, 0x5AA56789, 4
+67 01 34 4E, 4, Add_rm16_r16, SI, None, DS, ESI, ECX, 1, 0, 0
+67 01 34 4F, 4, Add_rm16_r16, SI, None, DS, EDI, ECX, 1, 0, 0
+67 01 34 50, 4, Add_rm16_r16, SI, None, DS, EAX, EDX, 1, 0, 0
+67 01 34 51, 4, Add_rm16_r16, SI, None, DS, ECX, EDX, 1, 0, 0
+67 01 34 52, 4, Add_rm16_r16, SI, None, DS, EDX, EDX, 1, 0, 0
+67 01 34 53, 4, Add_rm16_r16, SI, None, DS, EBX, EDX, 1, 0, 0
+67 01 34 54, 4, Add_rm16_r16, SI, None, SS, ESP, EDX, 1, 0, 0
+67 01 34 55 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, EDX, 1, 0xA55A1234, 4
+67 01 34 56, 4, Add_rm16_r16, SI, None, DS, ESI, EDX, 1, 0, 0
+67 01 34 57, 4, Add_rm16_r16, SI, None, DS, EDI, EDX, 1, 0, 0
+67 01 34 58, 4, Add_rm16_r16, SI, None, DS, EAX, EBX, 1, 0, 0
+67 01 34 59, 4, Add_rm16_r16, SI, None, DS, ECX, EBX, 1, 0, 0
+67 01 34 5A, 4, Add_rm16_r16, SI, None, DS, EDX, EBX, 1, 0, 0
+67 01 34 5B, 4, Add_rm16_r16, SI, None, DS, EBX, EBX, 1, 0, 0
+67 01 34 5C, 4, Add_rm16_r16, SI, None, SS, ESP, EBX, 1, 0, 0
+67 01 34 5D 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EBX, 1, 0x5AA56789, 4
+67 01 34 5E, 4, Add_rm16_r16, SI, None, DS, ESI, EBX, 1, 0, 0
+67 01 34 5F, 4, Add_rm16_r16, SI, None, DS, EDI, EBX, 1, 0, 0
+67 01 34 60, 4, Add_rm16_r16, SI, None, DS, EAX, None, 1, 0, 0
+67 01 34 61, 4, Add_rm16_r16, SI, None, DS, ECX, None, 1, 0, 0
+67 01 34 62, 4, Add_rm16_r16, SI, None, DS, EDX, None, 1, 0, 0
+67 01 34 63, 4, Add_rm16_r16, SI, None, DS, EBX, None, 1, 0, 0
+67 01 34 64, 4, Add_rm16_r16, SI, None, SS, ESP, None, 1, 0, 0
+67 01 34 65 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, None, 1, 0xA55A1234, 4
+67 01 34 66, 4, Add_rm16_r16, SI, None, DS, ESI, None, 1, 0, 0
+67 01 34 67, 4, Add_rm16_r16, SI, None, DS, EDI, None, 1, 0, 0
+67 01 34 68, 4, Add_rm16_r16, SI, None, DS, EAX, EBP, 1, 0, 0
+67 01 34 69, 4, Add_rm16_r16, SI, None, DS, ECX, EBP, 1, 0, 0
+67 01 34 6A, 4, Add_rm16_r16, SI, None, DS, EDX, EBP, 1, 0, 0
+67 01 34 6B, 4, Add_rm16_r16, SI, None, DS, EBX, EBP, 1, 0, 0
+67 01 34 6C, 4, Add_rm16_r16, SI, None, SS, ESP, EBP, 1, 0, 0
+67 01 34 6D 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EBP, 1, 0x5AA56789, 4
+67 01 34 6E, 4, Add_rm16_r16, SI, None, DS, ESI, EBP, 1, 0, 0
+67 01 34 6F, 4, Add_rm16_r16, SI, None, DS, EDI, EBP, 1, 0, 0
+67 01 34 70, 4, Add_rm16_r16, SI, None, DS, EAX, ESI, 1, 0, 0
+67 01 34 71, 4, Add_rm16_r16, SI, None, DS, ECX, ESI, 1, 0, 0
+67 01 34 72, 4, Add_rm16_r16, SI, None, DS, EDX, ESI, 1, 0, 0
+67 01 34 73, 4, Add_rm16_r16, SI, None, DS, EBX, ESI, 1, 0, 0
+67 01 34 74, 4, Add_rm16_r16, SI, None, SS, ESP, ESI, 1, 0, 0
+67 01 34 75 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, ESI, 1, 0xA55A1234, 4
+67 01 34 76, 4, Add_rm16_r16, SI, None, DS, ESI, ESI, 1, 0, 0
+67 01 34 77, 4, Add_rm16_r16, SI, None, DS, EDI, ESI, 1, 0, 0
+67 01 34 78, 4, Add_rm16_r16, SI, None, DS, EAX, EDI, 1, 0, 0
+67 01 34 79, 4, Add_rm16_r16, SI, None, DS, ECX, EDI, 1, 0, 0
+67 01 34 7A, 4, Add_rm16_r16, SI, None, DS, EDX, EDI, 1, 0, 0
+67 01 34 7B, 4, Add_rm16_r16, SI, None, DS, EBX, EDI, 1, 0, 0
+67 01 34 7C, 4, Add_rm16_r16, SI, None, SS, ESP, EDI, 1, 0, 0
+67 01 34 7D 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EDI, 1, 0x5AA56789, 4
+67 01 34 7E, 4, Add_rm16_r16, SI, None, DS, ESI, EDI, 1, 0, 0
+67 01 34 7F, 4, Add_rm16_r16, SI, None, DS, EDI, EDI, 1, 0, 0
+67 01 34 80, 4, Add_rm16_r16, SI, None, DS, EAX, EAX, 2, 0, 0
+67 01 34 81, 4, Add_rm16_r16, SI, None, DS, ECX, EAX, 2, 0, 0
+67 01 34 82, 4, Add_rm16_r16, SI, None, DS, EDX, EAX, 2, 0, 0
+67 01 34 83, 4, Add_rm16_r16, SI, None, DS, EBX, EAX, 2, 0, 0
+67 01 34 84, 4, Add_rm16_r16, SI, None, SS, ESP, EAX, 2, 0, 0
+67 01 34 85 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, EAX, 2, 0xA55A1234, 4
+67 01 34 86, 4, Add_rm16_r16, SI, None, DS, ESI, EAX, 2, 0, 0
+67 01 34 87, 4, Add_rm16_r16, SI, None, DS, EDI, EAX, 2, 0, 0
+67 01 34 88, 4, Add_rm16_r16, SI, None, DS, EAX, ECX, 2, 0, 0
+67 01 34 89, 4, Add_rm16_r16, SI, None, DS, ECX, ECX, 2, 0, 0
+67 01 34 8A, 4, Add_rm16_r16, SI, None, DS, EDX, ECX, 2, 0, 0
+67 01 34 8B, 4, Add_rm16_r16, SI, None, DS, EBX, ECX, 2, 0, 0
+67 01 34 8C, 4, Add_rm16_r16, SI, None, SS, ESP, ECX, 2, 0, 0
+67 01 34 8D 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, ECX, 2, 0x5AA56789, 4
+67 01 34 8E, 4, Add_rm16_r16, SI, None, DS, ESI, ECX, 2, 0, 0
+67 01 34 8F, 4, Add_rm16_r16, SI, None, DS, EDI, ECX, 2, 0, 0
+67 01 34 90, 4, Add_rm16_r16, SI, None, DS, EAX, EDX, 2, 0, 0
+67 01 34 91, 4, Add_rm16_r16, SI, None, DS, ECX, EDX, 2, 0, 0
+67 01 34 92, 4, Add_rm16_r16, SI, None, DS, EDX, EDX, 2, 0, 0
+67 01 34 93, 4, Add_rm16_r16, SI, None, DS, EBX, EDX, 2, 0, 0
+67 01 34 94, 4, Add_rm16_r16, SI, None, SS, ESP, EDX, 2, 0, 0
+67 01 34 95 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, EDX, 2, 0xA55A1234, 4
+67 01 34 96, 4, Add_rm16_r16, SI, None, DS, ESI, EDX, 2, 0, 0
+67 01 34 97, 4, Add_rm16_r16, SI, None, DS, EDI, EDX, 2, 0, 0
+67 01 34 98, 4, Add_rm16_r16, SI, None, DS, EAX, EBX, 2, 0, 0
+67 01 34 99, 4, Add_rm16_r16, SI, None, DS, ECX, EBX, 2, 0, 0
+67 01 34 9A, 4, Add_rm16_r16, SI, None, DS, EDX, EBX, 2, 0, 0
+67 01 34 9B, 4, Add_rm16_r16, SI, None, DS, EBX, EBX, 2, 0, 0
+67 01 34 9C, 4, Add_rm16_r16, SI, None, SS, ESP, EBX, 2, 0, 0
+67 01 34 9D 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EBX, 2, 0x5AA56789, 4
+67 01 34 9E, 4, Add_rm16_r16, SI, None, DS, ESI, EBX, 2, 0, 0
+67 01 34 9F, 4, Add_rm16_r16, SI, None, DS, EDI, EBX, 2, 0, 0
+67 01 34 A0, 4, Add_rm16_r16, SI, None, DS, EAX, None, 2, 0, 0
+67 01 34 A1, 4, Add_rm16_r16, SI, None, DS, ECX, None, 2, 0, 0
+67 01 34 A2, 4, Add_rm16_r16, SI, None, DS, EDX, None, 2, 0, 0
+67 01 34 A3, 4, Add_rm16_r16, SI, None, DS, EBX, None, 2, 0, 0
+67 01 34 A4, 4, Add_rm16_r16, SI, None, SS, ESP, None, 2, 0, 0
+67 01 34 A5 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, None, 2, 0xA55A1234, 4
+67 01 34 A6, 4, Add_rm16_r16, SI, None, DS, ESI, None, 2, 0, 0
+67 01 34 A7, 4, Add_rm16_r16, SI, None, DS, EDI, None, 2, 0, 0
+67 01 34 A8, 4, Add_rm16_r16, SI, None, DS, EAX, EBP, 2, 0, 0
+67 01 34 A9, 4, Add_rm16_r16, SI, None, DS, ECX, EBP, 2, 0, 0
+67 01 34 AA, 4, Add_rm16_r16, SI, None, DS, EDX, EBP, 2, 0, 0
+67 01 34 AB, 4, Add_rm16_r16, SI, None, DS, EBX, EBP, 2, 0, 0
+67 01 34 AC, 4, Add_rm16_r16, SI, None, SS, ESP, EBP, 2, 0, 0
+67 01 34 AD 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EBP, 2, 0x5AA56789, 4
+67 01 34 AE, 4, Add_rm16_r16, SI, None, DS, ESI, EBP, 2, 0, 0
+67 01 34 AF, 4, Add_rm16_r16, SI, None, DS, EDI, EBP, 2, 0, 0
+67 01 34 B0, 4, Add_rm16_r16, SI, None, DS, EAX, ESI, 2, 0, 0
+67 01 34 B1, 4, Add_rm16_r16, SI, None, DS, ECX, ESI, 2, 0, 0
+67 01 34 B2, 4, Add_rm16_r16, SI, None, DS, EDX, ESI, 2, 0, 0
+67 01 34 B3, 4, Add_rm16_r16, SI, None, DS, EBX, ESI, 2, 0, 0
+67 01 34 B4, 4, Add_rm16_r16, SI, None, SS, ESP, ESI, 2, 0, 0
+67 01 34 B5 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, ESI, 2, 0xA55A1234, 4
+67 01 34 B6, 4, Add_rm16_r16, SI, None, DS, ESI, ESI, 2, 0, 0
+67 01 34 B7, 4, Add_rm16_r16, SI, None, DS, EDI, ESI, 2, 0, 0
+67 01 34 B8, 4, Add_rm16_r16, SI, None, DS, EAX, EDI, 2, 0, 0
+67 01 34 B9, 4, Add_rm16_r16, SI, None, DS, ECX, EDI, 2, 0, 0
+67 01 34 BA, 4, Add_rm16_r16, SI, None, DS, EDX, EDI, 2, 0, 0
+67 01 34 BB, 4, Add_rm16_r16, SI, None, DS, EBX, EDI, 2, 0, 0
+67 01 34 BC, 4, Add_rm16_r16, SI, None, SS, ESP, EDI, 2, 0, 0
+67 01 34 BD 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EDI, 2, 0x5AA56789, 4
+67 01 34 BE, 4, Add_rm16_r16, SI, None, DS, ESI, EDI, 2, 0, 0
+67 01 34 BF, 4, Add_rm16_r16, SI, None, DS, EDI, EDI, 2, 0, 0
+67 01 34 C0, 4, Add_rm16_r16, SI, None, DS, EAX, EAX, 3, 0, 0
+67 01 34 C1, 4, Add_rm16_r16, SI, None, DS, ECX, EAX, 3, 0, 0
+67 01 34 C2, 4, Add_rm16_r16, SI, None, DS, EDX, EAX, 3, 0, 0
+67 01 34 C3, 4, Add_rm16_r16, SI, None, DS, EBX, EAX, 3, 0, 0
+67 01 34 C4, 4, Add_rm16_r16, SI, None, SS, ESP, EAX, 3, 0, 0
+67 01 34 C5 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, EAX, 3, 0xA55A1234, 4
+67 01 34 C6, 4, Add_rm16_r16, SI, None, DS, ESI, EAX, 3, 0, 0
+67 01 34 C7, 4, Add_rm16_r16, SI, None, DS, EDI, EAX, 3, 0, 0
+67 01 34 C8, 4, Add_rm16_r16, SI, None, DS, EAX, ECX, 3, 0, 0
+67 01 34 C9, 4, Add_rm16_r16, SI, None, DS, ECX, ECX, 3, 0, 0
+67 01 34 CA, 4, Add_rm16_r16, SI, None, DS, EDX, ECX, 3, 0, 0
+67 01 34 CB, 4, Add_rm16_r16, SI, None, DS, EBX, ECX, 3, 0, 0
+67 01 34 CC, 4, Add_rm16_r16, SI, None, SS, ESP, ECX, 3, 0, 0
+67 01 34 CD 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, ECX, 3, 0x5AA56789, 4
+67 01 34 CE, 4, Add_rm16_r16, SI, None, DS, ESI, ECX, 3, 0, 0
+67 01 34 CF, 4, Add_rm16_r16, SI, None, DS, EDI, ECX, 3, 0, 0
+67 01 34 D0, 4, Add_rm16_r16, SI, None, DS, EAX, EDX, 3, 0, 0
+67 01 34 D1, 4, Add_rm16_r16, SI, None, DS, ECX, EDX, 3, 0, 0
+67 01 34 D2, 4, Add_rm16_r16, SI, None, DS, EDX, EDX, 3, 0, 0
+67 01 34 D3, 4, Add_rm16_r16, SI, None, DS, EBX, EDX, 3, 0, 0
+67 01 34 D4, 4, Add_rm16_r16, SI, None, SS, ESP, EDX, 3, 0, 0
+67 01 34 D5 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, EDX, 3, 0xA55A1234, 4
+67 01 34 D6, 4, Add_rm16_r16, SI, None, DS, ESI, EDX, 3, 0, 0
+67 01 34 D7, 4, Add_rm16_r16, SI, None, DS, EDI, EDX, 3, 0, 0
+67 01 34 D8, 4, Add_rm16_r16, SI, None, DS, EAX, EBX, 3, 0, 0
+67 01 34 D9, 4, Add_rm16_r16, SI, None, DS, ECX, EBX, 3, 0, 0
+67 01 34 DA, 4, Add_rm16_r16, SI, None, DS, EDX, EBX, 3, 0, 0
+67 01 34 DB, 4, Add_rm16_r16, SI, None, DS, EBX, EBX, 3, 0, 0
+67 01 34 DC, 4, Add_rm16_r16, SI, None, SS, ESP, EBX, 3, 0, 0
+67 01 34 DD 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EBX, 3, 0x5AA56789, 4
+67 01 34 DE, 4, Add_rm16_r16, SI, None, DS, ESI, EBX, 3, 0, 0
+67 01 34 DF, 4, Add_rm16_r16, SI, None, DS, EDI, EBX, 3, 0, 0
+67 01 34 E0, 4, Add_rm16_r16, SI, None, DS, EAX, None, 3, 0, 0
+67 01 34 E1, 4, Add_rm16_r16, SI, None, DS, ECX, None, 3, 0, 0
+67 01 34 E2, 4, Add_rm16_r16, SI, None, DS, EDX, None, 3, 0, 0
+67 01 34 E3, 4, Add_rm16_r16, SI, None, DS, EBX, None, 3, 0, 0
+67 01 34 E4, 4, Add_rm16_r16, SI, None, SS, ESP, None, 3, 0, 0
+67 01 34 E5 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, None, 3, 0xA55A1234, 4
+67 01 34 E6, 4, Add_rm16_r16, SI, None, DS, ESI, None, 3, 0, 0
+67 01 34 E7, 4, Add_rm16_r16, SI, None, DS, EDI, None, 3, 0, 0
+67 01 34 E8, 4, Add_rm16_r16, SI, None, DS, EAX, EBP, 3, 0, 0
+67 01 34 E9, 4, Add_rm16_r16, SI, None, DS, ECX, EBP, 3, 0, 0
+67 01 34 EA, 4, Add_rm16_r16, SI, None, DS, EDX, EBP, 3, 0, 0
+67 01 34 EB, 4, Add_rm16_r16, SI, None, DS, EBX, EBP, 3, 0, 0
+67 01 34 EC, 4, Add_rm16_r16, SI, None, SS, ESP, EBP, 3, 0, 0
+67 01 34 ED 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EBP, 3, 0x5AA56789, 4
+67 01 34 EE, 4, Add_rm16_r16, SI, None, DS, ESI, EBP, 3, 0, 0
+67 01 34 EF, 4, Add_rm16_r16, SI, None, DS, EDI, EBP, 3, 0, 0
+67 01 34 F0, 4, Add_rm16_r16, SI, None, DS, EAX, ESI, 3, 0, 0
+67 01 34 F1, 4, Add_rm16_r16, SI, None, DS, ECX, ESI, 3, 0, 0
+67 01 34 F2, 4, Add_rm16_r16, SI, None, DS, EDX, ESI, 3, 0, 0
+67 01 34 F3, 4, Add_rm16_r16, SI, None, DS, EBX, ESI, 3, 0, 0
+67 01 34 F4, 4, Add_rm16_r16, SI, None, SS, ESP, ESI, 3, 0, 0
+67 01 34 F5 34125AA5, 8, Add_rm16_r16, SI, None, DS, None, ESI, 3, 0xA55A1234, 4
+67 01 34 F6, 4, Add_rm16_r16, SI, None, DS, ESI, ESI, 3, 0, 0
+67 01 34 F7, 4, Add_rm16_r16, SI, None, DS, EDI, ESI, 3, 0, 0
+67 01 34 F8, 4, Add_rm16_r16, SI, None, DS, EAX, EDI, 3, 0, 0
+67 01 34 F9, 4, Add_rm16_r16, SI, None, DS, ECX, EDI, 3, 0, 0
+67 01 34 FA, 4, Add_rm16_r16, SI, None, DS, EDX, EDI, 3, 0, 0
+67 01 34 FB, 4, Add_rm16_r16, SI, None, DS, EBX, EDI, 3, 0, 0
+67 01 34 FC, 4, Add_rm16_r16, SI, None, SS, ESP, EDI, 3, 0, 0
+67 01 34 FD 8967A55A, 8, Add_rm16_r16, SI, None, DS, None, EDI, 3, 0x5AA56789, 4
+67 01 34 FE, 4, Add_rm16_r16, SI, None, DS, ESI, EDI, 3, 0, 0
+67 01 34 FF, 4, Add_rm16_r16, SI, None, DS, EDI, EDI, 3, 0, 0
+67 01 74 00 A5, 5, Add_rm16_r16, SI, None, DS, EAX, EAX, 0, 0xFFFFFFA5, 1
+67 01 74 01 A5, 5, Add_rm16_r16, SI, None, DS, ECX, EAX, 0, 0xFFFFFFA5, 1
+67 01 74 02 A5, 5, Add_rm16_r16, SI, None, DS, EDX, EAX, 0, 0xFFFFFFA5, 1
+67 01 74 03 A5, 5, Add_rm16_r16, SI, None, DS, EBX, EAX, 0, 0xFFFFFFA5, 1
+67 01 74 04 A5, 5, Add_rm16_r16, SI, None, SS, ESP, EAX, 0, 0xFFFFFFA5, 1
+67 01 74 05 A5, 5, Add_rm16_r16, SI, None, SS, EBP, EAX, 0, 0xFFFFFFA5, 1
+67 01 74 06 A5, 5, Add_rm16_r16, SI, None, DS, ESI, EAX, 0, 0xFFFFFFA5, 1
+67 01 74 07 A5, 5, Add_rm16_r16, SI, None, DS, EDI, EAX, 0, 0xFFFFFFA5, 1
+67 01 74 08 5A, 5, Add_rm16_r16, SI, None, DS, EAX, ECX, 0, 0x0000005A, 1
+67 01 74 09 5A, 5, Add_rm16_r16, SI, None, DS, ECX, ECX, 0, 0x0000005A, 1
+67 01 74 0A 5A, 5, Add_rm16_r16, SI, None, DS, EDX, ECX, 0, 0x0000005A, 1
+67 01 74 0B 5A, 5, Add_rm16_r16, SI, None, DS, EBX, ECX, 0, 0x0000005A, 1
+67 01 74 0C 5A, 5, Add_rm16_r16, SI, None, SS, ESP, ECX, 0, 0x0000005A, 1
+67 01 74 0D 5A, 5, Add_rm16_r16, SI, None, SS, EBP, ECX, 0, 0x0000005A, 1
+67 01 74 0E 5A, 5, Add_rm16_r16, SI, None, DS, ESI, ECX, 0, 0x0000005A, 1
+67 01 74 0F 5A, 5, Add_rm16_r16, SI, None, DS, EDI, ECX, 0, 0x0000005A, 1
+67 01 74 10 A5, 5, Add_rm16_r16, SI, None, DS, EAX, EDX, 0, 0xFFFFFFA5, 1
+67 01 74 11 A5, 5, Add_rm16_r16, SI, None, DS, ECX, EDX, 0, 0xFFFFFFA5, 1
+67 01 74 12 A5, 5, Add_rm16_r16, SI, None, DS, EDX, EDX, 0, 0xFFFFFFA5, 1
+67 01 74 13 A5, 5, Add_rm16_r16, SI, None, DS, EBX, EDX, 0, 0xFFFFFFA5, 1
+67 01 74 14 A5, 5, Add_rm16_r16, SI, None, SS, ESP, EDX, 0, 0xFFFFFFA5, 1
+67 01 74 15 A5, 5, Add_rm16_r16, SI, None, SS, EBP, EDX, 0, 0xFFFFFFA5, 1
+67 01 74 16 A5, 5, Add_rm16_r16, SI, None, DS, ESI, EDX, 0, 0xFFFFFFA5, 1
+67 01 74 17 A5, 5, Add_rm16_r16, SI, None, DS, EDI, EDX, 0, 0xFFFFFFA5, 1
+67 01 74 18 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EBX, 0, 0x0000005A, 1
+67 01 74 19 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EBX, 0, 0x0000005A, 1
+67 01 74 1A 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EBX, 0, 0x0000005A, 1
+67 01 74 1B 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EBX, 0, 0x0000005A, 1
+67 01 74 1C 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EBX, 0, 0x0000005A, 1
+67 01 74 1D 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EBX, 0, 0x0000005A, 1
+67 01 74 1E 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EBX, 0, 0x0000005A, 1
+67 01 74 1F 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EBX, 0, 0x0000005A, 1
+67 01 74 20 A5, 5, Add_rm16_r16, SI, None, DS, EAX, None, 0, 0xFFFFFFA5, 1
+67 01 74 21 A5, 5, Add_rm16_r16, SI, None, DS, ECX, None, 0, 0xFFFFFFA5, 1
+67 01 74 22 A5, 5, Add_rm16_r16, SI, None, DS, EDX, None, 0, 0xFFFFFFA5, 1
+67 01 74 23 A5, 5, Add_rm16_r16, SI, None, DS, EBX, None, 0, 0xFFFFFFA5, 1
+67 01 74 24 A5, 5, Add_rm16_r16, SI, None, SS, ESP, None, 0, 0xFFFFFFA5, 1
+67 01 74 25 A5, 5, Add_rm16_r16, SI, None, SS, EBP, None, 0, 0xFFFFFFA5, 1
+67 01 74 26 A5, 5, Add_rm16_r16, SI, None, DS, ESI, None, 0, 0xFFFFFFA5, 1
+67 01 74 27 A5, 5, Add_rm16_r16, SI, None, DS, EDI, None, 0, 0xFFFFFFA5, 1
+67 01 74 28 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EBP, 0, 0x0000005A, 1
+67 01 74 29 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EBP, 0, 0x0000005A, 1
+67 01 74 2A 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EBP, 0, 0x0000005A, 1
+67 01 74 2B 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EBP, 0, 0x0000005A, 1
+67 01 74 2C 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EBP, 0, 0x0000005A, 1
+67 01 74 2D 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EBP, 0, 0x0000005A, 1
+67 01 74 2E 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EBP, 0, 0x0000005A, 1
+67 01 74 2F 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EBP, 0, 0x0000005A, 1
+67 01 74 30 A5, 5, Add_rm16_r16, SI, None, DS, EAX, ESI, 0, 0xFFFFFFA5, 1
+67 01 74 31 A5, 5, Add_rm16_r16, SI, None, DS, ECX, ESI, 0, 0xFFFFFFA5, 1
+67 01 74 32 A5, 5, Add_rm16_r16, SI, None, DS, EDX, ESI, 0, 0xFFFFFFA5, 1
+67 01 74 33 A5, 5, Add_rm16_r16, SI, None, DS, EBX, ESI, 0, 0xFFFFFFA5, 1
+67 01 74 34 A5, 5, Add_rm16_r16, SI, None, SS, ESP, ESI, 0, 0xFFFFFFA5, 1
+67 01 74 35 A5, 5, Add_rm16_r16, SI, None, SS, EBP, ESI, 0, 0xFFFFFFA5, 1
+67 01 74 36 A5, 5, Add_rm16_r16, SI, None, DS, ESI, ESI, 0, 0xFFFFFFA5, 1
+67 01 74 37 A5, 5, Add_rm16_r16, SI, None, DS, EDI, ESI, 0, 0xFFFFFFA5, 1
+67 01 74 38 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EDI, 0, 0x0000005A, 1
+67 01 74 39 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EDI, 0, 0x0000005A, 1
+67 01 74 3A 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EDI, 0, 0x0000005A, 1
+67 01 74 3B 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EDI, 0, 0x0000005A, 1
+67 01 74 3C 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EDI, 0, 0x0000005A, 1
+67 01 74 3D 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EDI, 0, 0x0000005A, 1
+67 01 74 3E 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EDI, 0, 0x0000005A, 1
+67 01 74 3F 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EDI, 0, 0x0000005A, 1
+67 01 74 40 A5, 5, Add_rm16_r16, SI, None, DS, EAX, EAX, 1, 0xFFFFFFA5, 1
+67 01 74 41 A5, 5, Add_rm16_r16, SI, None, DS, ECX, EAX, 1, 0xFFFFFFA5, 1
+67 01 74 42 A5, 5, Add_rm16_r16, SI, None, DS, EDX, EAX, 1, 0xFFFFFFA5, 1
+67 01 74 43 A5, 5, Add_rm16_r16, SI, None, DS, EBX, EAX, 1, 0xFFFFFFA5, 1
+67 01 74 44 A5, 5, Add_rm16_r16, SI, None, SS, ESP, EAX, 1, 0xFFFFFFA5, 1
+67 01 74 45 A5, 5, Add_rm16_r16, SI, None, SS, EBP, EAX, 1, 0xFFFFFFA5, 1
+67 01 74 46 A5, 5, Add_rm16_r16, SI, None, DS, ESI, EAX, 1, 0xFFFFFFA5, 1
+67 01 74 47 A5, 5, Add_rm16_r16, SI, None, DS, EDI, EAX, 1, 0xFFFFFFA5, 1
+67 01 74 48 5A, 5, Add_rm16_r16, SI, None, DS, EAX, ECX, 1, 0x0000005A, 1
+67 01 74 49 5A, 5, Add_rm16_r16, SI, None, DS, ECX, ECX, 1, 0x0000005A, 1
+67 01 74 4A 5A, 5, Add_rm16_r16, SI, None, DS, EDX, ECX, 1, 0x0000005A, 1
+67 01 74 4B 5A, 5, Add_rm16_r16, SI, None, DS, EBX, ECX, 1, 0x0000005A, 1
+67 01 74 4C 5A, 5, Add_rm16_r16, SI, None, SS, ESP, ECX, 1, 0x0000005A, 1
+67 01 74 4D 5A, 5, Add_rm16_r16, SI, None, SS, EBP, ECX, 1, 0x0000005A, 1
+67 01 74 4E 5A, 5, Add_rm16_r16, SI, None, DS, ESI, ECX, 1, 0x0000005A, 1
+67 01 74 4F 5A, 5, Add_rm16_r16, SI, None, DS, EDI, ECX, 1, 0x0000005A, 1
+67 01 74 50 A5, 5, Add_rm16_r16, SI, None, DS, EAX, EDX, 1, 0xFFFFFFA5, 1
+67 01 74 51 A5, 5, Add_rm16_r16, SI, None, DS, ECX, EDX, 1, 0xFFFFFFA5, 1
+67 01 74 52 A5, 5, Add_rm16_r16, SI, None, DS, EDX, EDX, 1, 0xFFFFFFA5, 1
+67 01 74 53 A5, 5, Add_rm16_r16, SI, None, DS, EBX, EDX, 1, 0xFFFFFFA5, 1
+67 01 74 54 A5, 5, Add_rm16_r16, SI, None, SS, ESP, EDX, 1, 0xFFFFFFA5, 1
+67 01 74 55 A5, 5, Add_rm16_r16, SI, None, SS, EBP, EDX, 1, 0xFFFFFFA5, 1
+67 01 74 56 A5, 5, Add_rm16_r16, SI, None, DS, ESI, EDX, 1, 0xFFFFFFA5, 1
+67 01 74 57 A5, 5, Add_rm16_r16, SI, None, DS, EDI, EDX, 1, 0xFFFFFFA5, 1
+67 01 74 58 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EBX, 1, 0x0000005A, 1
+67 01 74 59 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EBX, 1, 0x0000005A, 1
+67 01 74 5A 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EBX, 1, 0x0000005A, 1
+67 01 74 5B 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EBX, 1, 0x0000005A, 1
+67 01 74 5C 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EBX, 1, 0x0000005A, 1
+67 01 74 5D 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EBX, 1, 0x0000005A, 1
+67 01 74 5E 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EBX, 1, 0x0000005A, 1
+67 01 74 5F 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EBX, 1, 0x0000005A, 1
+67 01 74 60 A5, 5, Add_rm16_r16, SI, None, DS, EAX, None, 1, 0xFFFFFFA5, 1
+67 01 74 61 A5, 5, Add_rm16_r16, SI, None, DS, ECX, None, 1, 0xFFFFFFA5, 1
+67 01 74 62 A5, 5, Add_rm16_r16, SI, None, DS, EDX, None, 1, 0xFFFFFFA5, 1
+67 01 74 63 A5, 5, Add_rm16_r16, SI, None, DS, EBX, None, 1, 0xFFFFFFA5, 1
+67 01 74 64 A5, 5, Add_rm16_r16, SI, None, SS, ESP, None, 1, 0xFFFFFFA5, 1
+67 01 74 65 A5, 5, Add_rm16_r16, SI, None, SS, EBP, None, 1, 0xFFFFFFA5, 1
+67 01 74 66 A5, 5, Add_rm16_r16, SI, None, DS, ESI, None, 1, 0xFFFFFFA5, 1
+67 01 74 67 A5, 5, Add_rm16_r16, SI, None, DS, EDI, None, 1, 0xFFFFFFA5, 1
+67 01 74 68 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EBP, 1, 0x0000005A, 1
+67 01 74 69 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EBP, 1, 0x0000005A, 1
+67 01 74 6A 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EBP, 1, 0x0000005A, 1
+67 01 74 6B 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EBP, 1, 0x0000005A, 1
+67 01 74 6C 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EBP, 1, 0x0000005A, 1
+67 01 74 6D 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EBP, 1, 0x0000005A, 1
+67 01 74 6E 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EBP, 1, 0x0000005A, 1
+67 01 74 6F 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EBP, 1, 0x0000005A, 1
+67 01 74 70 A5, 5, Add_rm16_r16, SI, None, DS, EAX, ESI, 1, 0xFFFFFFA5, 1
+67 01 74 71 A5, 5, Add_rm16_r16, SI, None, DS, ECX, ESI, 1, 0xFFFFFFA5, 1
+67 01 74 72 A5, 5, Add_rm16_r16, SI, None, DS, EDX, ESI, 1, 0xFFFFFFA5, 1
+67 01 74 73 A5, 5, Add_rm16_r16, SI, None, DS, EBX, ESI, 1, 0xFFFFFFA5, 1
+67 01 74 74 A5, 5, Add_rm16_r16, SI, None, SS, ESP, ESI, 1, 0xFFFFFFA5, 1
+67 01 74 75 A5, 5, Add_rm16_r16, SI, None, SS, EBP, ESI, 1, 0xFFFFFFA5, 1
+67 01 74 76 A5, 5, Add_rm16_r16, SI, None, DS, ESI, ESI, 1, 0xFFFFFFA5, 1
+67 01 74 77 A5, 5, Add_rm16_r16, SI, None, DS, EDI, ESI, 1, 0xFFFFFFA5, 1
+67 01 74 78 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EDI, 1, 0x0000005A, 1
+67 01 74 79 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EDI, 1, 0x0000005A, 1
+67 01 74 7A 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EDI, 1, 0x0000005A, 1
+67 01 74 7B 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EDI, 1, 0x0000005A, 1
+67 01 74 7C 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EDI, 1, 0x0000005A, 1
+67 01 74 7D 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EDI, 1, 0x0000005A, 1
+67 01 74 7E 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EDI, 1, 0x0000005A, 1
+67 01 74 7F 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EDI, 1, 0x0000005A, 1
+67 01 74 80 A5, 5, Add_rm16_r16, SI, None, DS, EAX, EAX, 2, 0xFFFFFFA5, 1
+67 01 74 81 A5, 5, Add_rm16_r16, SI, None, DS, ECX, EAX, 2, 0xFFFFFFA5, 1
+67 01 74 82 A5, 5, Add_rm16_r16, SI, None, DS, EDX, EAX, 2, 0xFFFFFFA5, 1
+67 01 74 83 A5, 5, Add_rm16_r16, SI, None, DS, EBX, EAX, 2, 0xFFFFFFA5, 1
+67 01 74 84 A5, 5, Add_rm16_r16, SI, None, SS, ESP, EAX, 2, 0xFFFFFFA5, 1
+67 01 74 85 A5, 5, Add_rm16_r16, SI, None, SS, EBP, EAX, 2, 0xFFFFFFA5, 1
+67 01 74 86 A5, 5, Add_rm16_r16, SI, None, DS, ESI, EAX, 2, 0xFFFFFFA5, 1
+67 01 74 87 A5, 5, Add_rm16_r16, SI, None, DS, EDI, EAX, 2, 0xFFFFFFA5, 1
+67 01 74 88 5A, 5, Add_rm16_r16, SI, None, DS, EAX, ECX, 2, 0x0000005A, 1
+67 01 74 89 5A, 5, Add_rm16_r16, SI, None, DS, ECX, ECX, 2, 0x0000005A, 1
+67 01 74 8A 5A, 5, Add_rm16_r16, SI, None, DS, EDX, ECX, 2, 0x0000005A, 1
+67 01 74 8B 5A, 5, Add_rm16_r16, SI, None, DS, EBX, ECX, 2, 0x0000005A, 1
+67 01 74 8C 5A, 5, Add_rm16_r16, SI, None, SS, ESP, ECX, 2, 0x0000005A, 1
+67 01 74 8D 5A, 5, Add_rm16_r16, SI, None, SS, EBP, ECX, 2, 0x0000005A, 1
+67 01 74 8E 5A, 5, Add_rm16_r16, SI, None, DS, ESI, ECX, 2, 0x0000005A, 1
+67 01 74 8F 5A, 5, Add_rm16_r16, SI, None, DS, EDI, ECX, 2, 0x0000005A, 1
+67 01 74 90 A5, 5, Add_rm16_r16, SI, None, DS, EAX, EDX, 2, 0xFFFFFFA5, 1
+67 01 74 91 A5, 5, Add_rm16_r16, SI, None, DS, ECX, EDX, 2, 0xFFFFFFA5, 1
+67 01 74 92 A5, 5, Add_rm16_r16, SI, None, DS, EDX, EDX, 2, 0xFFFFFFA5, 1
+67 01 74 93 A5, 5, Add_rm16_r16, SI, None, DS, EBX, EDX, 2, 0xFFFFFFA5, 1
+67 01 74 94 A5, 5, Add_rm16_r16, SI, None, SS, ESP, EDX, 2, 0xFFFFFFA5, 1
+67 01 74 95 A5, 5, Add_rm16_r16, SI, None, SS, EBP, EDX, 2, 0xFFFFFFA5, 1
+67 01 74 96 A5, 5, Add_rm16_r16, SI, None, DS, ESI, EDX, 2, 0xFFFFFFA5, 1
+67 01 74 97 A5, 5, Add_rm16_r16, SI, None, DS, EDI, EDX, 2, 0xFFFFFFA5, 1
+67 01 74 98 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EBX, 2, 0x0000005A, 1
+67 01 74 99 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EBX, 2, 0x0000005A, 1
+67 01 74 9A 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EBX, 2, 0x0000005A, 1
+67 01 74 9B 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EBX, 2, 0x0000005A, 1
+67 01 74 9C 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EBX, 2, 0x0000005A, 1
+67 01 74 9D 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EBX, 2, 0x0000005A, 1
+67 01 74 9E 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EBX, 2, 0x0000005A, 1
+67 01 74 9F 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EBX, 2, 0x0000005A, 1
+67 01 74 A0 A5, 5, Add_rm16_r16, SI, None, DS, EAX, None, 2, 0xFFFFFFA5, 1
+67 01 74 A1 A5, 5, Add_rm16_r16, SI, None, DS, ECX, None, 2, 0xFFFFFFA5, 1
+67 01 74 A2 A5, 5, Add_rm16_r16, SI, None, DS, EDX, None, 2, 0xFFFFFFA5, 1
+67 01 74 A3 A5, 5, Add_rm16_r16, SI, None, DS, EBX, None, 2, 0xFFFFFFA5, 1
+67 01 74 A4 A5, 5, Add_rm16_r16, SI, None, SS, ESP, None, 2, 0xFFFFFFA5, 1
+67 01 74 A5 A5, 5, Add_rm16_r16, SI, None, SS, EBP, None, 2, 0xFFFFFFA5, 1
+67 01 74 A6 A5, 5, Add_rm16_r16, SI, None, DS, ESI, None, 2, 0xFFFFFFA5, 1
+67 01 74 A7 A5, 5, Add_rm16_r16, SI, None, DS, EDI, None, 2, 0xFFFFFFA5, 1
+67 01 74 A8 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EBP, 2, 0x0000005A, 1
+67 01 74 A9 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EBP, 2, 0x0000005A, 1
+67 01 74 AA 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EBP, 2, 0x0000005A, 1
+67 01 74 AB 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EBP, 2, 0x0000005A, 1
+67 01 74 AC 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EBP, 2, 0x0000005A, 1
+67 01 74 AD 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EBP, 2, 0x0000005A, 1
+67 01 74 AE 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EBP, 2, 0x0000005A, 1
+67 01 74 AF 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EBP, 2, 0x0000005A, 1
+67 01 74 B0 A5, 5, Add_rm16_r16, SI, None, DS, EAX, ESI, 2, 0xFFFFFFA5, 1
+67 01 74 B1 A5, 5, Add_rm16_r16, SI, None, DS, ECX, ESI, 2, 0xFFFFFFA5, 1
+67 01 74 B2 A5, 5, Add_rm16_r16, SI, None, DS, EDX, ESI, 2, 0xFFFFFFA5, 1
+67 01 74 B3 A5, 5, Add_rm16_r16, SI, None, DS, EBX, ESI, 2, 0xFFFFFFA5, 1
+67 01 74 B4 A5, 5, Add_rm16_r16, SI, None, SS, ESP, ESI, 2, 0xFFFFFFA5, 1
+67 01 74 B5 A5, 5, Add_rm16_r16, SI, None, SS, EBP, ESI, 2, 0xFFFFFFA5, 1
+67 01 74 B6 A5, 5, Add_rm16_r16, SI, None, DS, ESI, ESI, 2, 0xFFFFFFA5, 1
+67 01 74 B7 A5, 5, Add_rm16_r16, SI, None, DS, EDI, ESI, 2, 0xFFFFFFA5, 1
+67 01 74 B8 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EDI, 2, 0x0000005A, 1
+67 01 74 B9 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EDI, 2, 0x0000005A, 1
+67 01 74 BA 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EDI, 2, 0x0000005A, 1
+67 01 74 BB 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EDI, 2, 0x0000005A, 1
+67 01 74 BC 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EDI, 2, 0x0000005A, 1
+67 01 74 BD 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EDI, 2, 0x0000005A, 1
+67 01 74 BE 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EDI, 2, 0x0000005A, 1
+67 01 74 BF 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EDI, 2, 0x0000005A, 1
+67 01 74 C0 A5, 5, Add_rm16_r16, SI, None, DS, EAX, EAX, 3, 0xFFFFFFA5, 1
+67 01 74 C1 A5, 5, Add_rm16_r16, SI, None, DS, ECX, EAX, 3, 0xFFFFFFA5, 1
+67 01 74 C2 A5, 5, Add_rm16_r16, SI, None, DS, EDX, EAX, 3, 0xFFFFFFA5, 1
+67 01 74 C3 A5, 5, Add_rm16_r16, SI, None, DS, EBX, EAX, 3, 0xFFFFFFA5, 1
+67 01 74 C4 A5, 5, Add_rm16_r16, SI, None, SS, ESP, EAX, 3, 0xFFFFFFA5, 1
+67 01 74 C5 A5, 5, Add_rm16_r16, SI, None, SS, EBP, EAX, 3, 0xFFFFFFA5, 1
+67 01 74 C6 A5, 5, Add_rm16_r16, SI, None, DS, ESI, EAX, 3, 0xFFFFFFA5, 1
+67 01 74 C7 A5, 5, Add_rm16_r16, SI, None, DS, EDI, EAX, 3, 0xFFFFFFA5, 1
+67 01 74 C8 5A, 5, Add_rm16_r16, SI, None, DS, EAX, ECX, 3, 0x0000005A, 1
+67 01 74 C9 5A, 5, Add_rm16_r16, SI, None, DS, ECX, ECX, 3, 0x0000005A, 1
+67 01 74 CA 5A, 5, Add_rm16_r16, SI, None, DS, EDX, ECX, 3, 0x0000005A, 1
+67 01 74 CB 5A, 5, Add_rm16_r16, SI, None, DS, EBX, ECX, 3, 0x0000005A, 1
+67 01 74 CC 5A, 5, Add_rm16_r16, SI, None, SS, ESP, ECX, 3, 0x0000005A, 1
+67 01 74 CD 5A, 5, Add_rm16_r16, SI, None, SS, EBP, ECX, 3, 0x0000005A, 1
+67 01 74 CE 5A, 5, Add_rm16_r16, SI, None, DS, ESI, ECX, 3, 0x0000005A, 1
+67 01 74 CF 5A, 5, Add_rm16_r16, SI, None, DS, EDI, ECX, 3, 0x0000005A, 1
+67 01 74 D0 A5, 5, Add_rm16_r16, SI, None, DS, EAX, EDX, 3, 0xFFFFFFA5, 1
+67 01 74 D1 A5, 5, Add_rm16_r16, SI, None, DS, ECX, EDX, 3, 0xFFFFFFA5, 1
+67 01 74 D2 A5, 5, Add_rm16_r16, SI, None, DS, EDX, EDX, 3, 0xFFFFFFA5, 1
+67 01 74 D3 A5, 5, Add_rm16_r16, SI, None, DS, EBX, EDX, 3, 0xFFFFFFA5, 1
+67 01 74 D4 A5, 5, Add_rm16_r16, SI, None, SS, ESP, EDX, 3, 0xFFFFFFA5, 1
+67 01 74 D5 A5, 5, Add_rm16_r16, SI, None, SS, EBP, EDX, 3, 0xFFFFFFA5, 1
+67 01 74 D6 A5, 5, Add_rm16_r16, SI, None, DS, ESI, EDX, 3, 0xFFFFFFA5, 1
+67 01 74 D7 A5, 5, Add_rm16_r16, SI, None, DS, EDI, EDX, 3, 0xFFFFFFA5, 1
+67 01 74 D8 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EBX, 3, 0x0000005A, 1
+67 01 74 D9 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EBX, 3, 0x0000005A, 1
+67 01 74 DA 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EBX, 3, 0x0000005A, 1
+67 01 74 DB 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EBX, 3, 0x0000005A, 1
+67 01 74 DC 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EBX, 3, 0x0000005A, 1
+67 01 74 DD 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EBX, 3, 0x0000005A, 1
+67 01 74 DE 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EBX, 3, 0x0000005A, 1
+67 01 74 DF 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EBX, 3, 0x0000005A, 1
+67 01 74 E0 A5, 5, Add_rm16_r16, SI, None, DS, EAX, None, 3, 0xFFFFFFA5, 1
+67 01 74 E1 A5, 5, Add_rm16_r16, SI, None, DS, ECX, None, 3, 0xFFFFFFA5, 1
+67 01 74 E2 A5, 5, Add_rm16_r16, SI, None, DS, EDX, None, 3, 0xFFFFFFA5, 1
+67 01 74 E3 A5, 5, Add_rm16_r16, SI, None, DS, EBX, None, 3, 0xFFFFFFA5, 1
+67 01 74 E4 A5, 5, Add_rm16_r16, SI, None, SS, ESP, None, 3, 0xFFFFFFA5, 1
+67 01 74 E5 A5, 5, Add_rm16_r16, SI, None, SS, EBP, None, 3, 0xFFFFFFA5, 1
+67 01 74 E6 A5, 5, Add_rm16_r16, SI, None, DS, ESI, None, 3, 0xFFFFFFA5, 1
+67 01 74 E7 A5, 5, Add_rm16_r16, SI, None, DS, EDI, None, 3, 0xFFFFFFA5, 1
+67 01 74 E8 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EBP, 3, 0x0000005A, 1
+67 01 74 E9 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EBP, 3, 0x0000005A, 1
+67 01 74 EA 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EBP, 3, 0x0000005A, 1
+67 01 74 EB 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EBP, 3, 0x0000005A, 1
+67 01 74 EC 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EBP, 3, 0x0000005A, 1
+67 01 74 ED 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EBP, 3, 0x0000005A, 1
+67 01 74 EE 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EBP, 3, 0x0000005A, 1
+67 01 74 EF 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EBP, 3, 0x0000005A, 1
+67 01 74 F0 A5, 5, Add_rm16_r16, SI, None, DS, EAX, ESI, 3, 0xFFFFFFA5, 1
+67 01 74 F1 A5, 5, Add_rm16_r16, SI, None, DS, ECX, ESI, 3, 0xFFFFFFA5, 1
+67 01 74 F2 A5, 5, Add_rm16_r16, SI, None, DS, EDX, ESI, 3, 0xFFFFFFA5, 1
+67 01 74 F3 A5, 5, Add_rm16_r16, SI, None, DS, EBX, ESI, 3, 0xFFFFFFA5, 1
+67 01 74 F4 A5, 5, Add_rm16_r16, SI, None, SS, ESP, ESI, 3, 0xFFFFFFA5, 1
+67 01 74 F5 A5, 5, Add_rm16_r16, SI, None, SS, EBP, ESI, 3, 0xFFFFFFA5, 1
+67 01 74 F6 A5, 5, Add_rm16_r16, SI, None, DS, ESI, ESI, 3, 0xFFFFFFA5, 1
+67 01 74 F7 A5, 5, Add_rm16_r16, SI, None, DS, EDI, ESI, 3, 0xFFFFFFA5, 1
+67 01 74 F8 5A, 5, Add_rm16_r16, SI, None, DS, EAX, EDI, 3, 0x0000005A, 1
+67 01 74 F9 5A, 5, Add_rm16_r16, SI, None, DS, ECX, EDI, 3, 0x0000005A, 1
+67 01 74 FA 5A, 5, Add_rm16_r16, SI, None, DS, EDX, EDI, 3, 0x0000005A, 1
+67 01 74 FB 5A, 5, Add_rm16_r16, SI, None, DS, EBX, EDI, 3, 0x0000005A, 1
+67 01 74 FC 5A, 5, Add_rm16_r16, SI, None, SS, ESP, EDI, 3, 0x0000005A, 1
+67 01 74 FD 5A, 5, Add_rm16_r16, SI, None, SS, EBP, EDI, 3, 0x0000005A, 1
+67 01 74 FE 5A, 5, Add_rm16_r16, SI, None, DS, ESI, EDI, 3, 0x0000005A, 1
+67 01 74 FF 5A, 5, Add_rm16_r16, SI, None, DS, EDI, EDI, 3, 0x0000005A, 1
+67 01 B4 00 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, EAX, 0, 0xA55A1234, 4
+67 01 B4 01 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, EAX, 0, 0xA55A1234, 4
+67 01 B4 02 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, EAX, 0, 0xA55A1234, 4
+67 01 B4 03 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, EAX, 0, 0xA55A1234, 4
+67 01 B4 04 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, EAX, 0, 0xA55A1234, 4
+67 01 B4 05 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, EAX, 0, 0xA55A1234, 4
+67 01 B4 06 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, EAX, 0, 0xA55A1234, 4
+67 01 B4 07 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, EAX, 0, 0xA55A1234, 4
+67 01 B4 08 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, ECX, 0, 0x5AA56789, 4
+67 01 B4 09 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, ECX, 0, 0x5AA56789, 4
+67 01 B4 0A 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, ECX, 0, 0x5AA56789, 4
+67 01 B4 0B 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, ECX, 0, 0x5AA56789, 4
+67 01 B4 0C 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, ECX, 0, 0x5AA56789, 4
+67 01 B4 0D 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, ECX, 0, 0x5AA56789, 4
+67 01 B4 0E 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, ECX, 0, 0x5AA56789, 4
+67 01 B4 0F 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, ECX, 0, 0x5AA56789, 4
+67 01 B4 10 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, EDX, 0, 0xA55A1234, 4
+67 01 B4 11 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, EDX, 0, 0xA55A1234, 4
+67 01 B4 12 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, EDX, 0, 0xA55A1234, 4
+67 01 B4 13 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, EDX, 0, 0xA55A1234, 4
+67 01 B4 14 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, EDX, 0, 0xA55A1234, 4
+67 01 B4 15 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, EDX, 0, 0xA55A1234, 4
+67 01 B4 16 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, EDX, 0, 0xA55A1234, 4
+67 01 B4 17 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, EDX, 0, 0xA55A1234, 4
+67 01 B4 18 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EBX, 0, 0x5AA56789, 4
+67 01 B4 19 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EBX, 0, 0x5AA56789, 4
+67 01 B4 1A 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EBX, 0, 0x5AA56789, 4
+67 01 B4 1B 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EBX, 0, 0x5AA56789, 4
+67 01 B4 1C 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EBX, 0, 0x5AA56789, 4
+67 01 B4 1D 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EBX, 0, 0x5AA56789, 4
+67 01 B4 1E 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EBX, 0, 0x5AA56789, 4
+67 01 B4 1F 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EBX, 0, 0x5AA56789, 4
+67 01 B4 20 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, None, 0, 0xA55A1234, 4
+67 01 B4 21 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, None, 0, 0xA55A1234, 4
+67 01 B4 22 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, None, 0, 0xA55A1234, 4
+67 01 B4 23 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, None, 0, 0xA55A1234, 4
+67 01 B4 24 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, None, 0, 0xA55A1234, 4
+67 01 B4 25 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, None, 0, 0xA55A1234, 4
+67 01 B4 26 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, None, 0, 0xA55A1234, 4
+67 01 B4 27 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, None, 0, 0xA55A1234, 4
+67 01 B4 28 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EBP, 0, 0x5AA56789, 4
+67 01 B4 29 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EBP, 0, 0x5AA56789, 4
+67 01 B4 2A 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EBP, 0, 0x5AA56789, 4
+67 01 B4 2B 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EBP, 0, 0x5AA56789, 4
+67 01 B4 2C 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EBP, 0, 0x5AA56789, 4
+67 01 B4 2D 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EBP, 0, 0x5AA56789, 4
+67 01 B4 2E 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EBP, 0, 0x5AA56789, 4
+67 01 B4 2F 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EBP, 0, 0x5AA56789, 4
+67 01 B4 30 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, ESI, 0, 0xA55A1234, 4
+67 01 B4 31 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, ESI, 0, 0xA55A1234, 4
+67 01 B4 32 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, ESI, 0, 0xA55A1234, 4
+67 01 B4 33 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, ESI, 0, 0xA55A1234, 4
+67 01 B4 34 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, ESI, 0, 0xA55A1234, 4
+67 01 B4 35 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, ESI, 0, 0xA55A1234, 4
+67 01 B4 36 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, ESI, 0, 0xA55A1234, 4
+67 01 B4 37 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, ESI, 0, 0xA55A1234, 4
+67 01 B4 38 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EDI, 0, 0x5AA56789, 4
+67 01 B4 39 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EDI, 0, 0x5AA56789, 4
+67 01 B4 3A 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EDI, 0, 0x5AA56789, 4
+67 01 B4 3B 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EDI, 0, 0x5AA56789, 4
+67 01 B4 3C 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EDI, 0, 0x5AA56789, 4
+67 01 B4 3D 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EDI, 0, 0x5AA56789, 4
+67 01 B4 3E 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EDI, 0, 0x5AA56789, 4
+67 01 B4 3F 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EDI, 0, 0x5AA56789, 4
+67 01 B4 40 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, EAX, 1, 0xA55A1234, 4
+67 01 B4 41 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, EAX, 1, 0xA55A1234, 4
+67 01 B4 42 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, EAX, 1, 0xA55A1234, 4
+67 01 B4 43 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, EAX, 1, 0xA55A1234, 4
+67 01 B4 44 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, EAX, 1, 0xA55A1234, 4
+67 01 B4 45 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, EAX, 1, 0xA55A1234, 4
+67 01 B4 46 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, EAX, 1, 0xA55A1234, 4
+67 01 B4 47 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, EAX, 1, 0xA55A1234, 4
+67 01 B4 48 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, ECX, 1, 0x5AA56789, 4
+67 01 B4 49 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, ECX, 1, 0x5AA56789, 4
+67 01 B4 4A 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, ECX, 1, 0x5AA56789, 4
+67 01 B4 4B 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, ECX, 1, 0x5AA56789, 4
+67 01 B4 4C 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, ECX, 1, 0x5AA56789, 4
+67 01 B4 4D 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, ECX, 1, 0x5AA56789, 4
+67 01 B4 4E 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, ECX, 1, 0x5AA56789, 4
+67 01 B4 4F 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, ECX, 1, 0x5AA56789, 4
+67 01 B4 50 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, EDX, 1, 0xA55A1234, 4
+67 01 B4 51 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, EDX, 1, 0xA55A1234, 4
+67 01 B4 52 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, EDX, 1, 0xA55A1234, 4
+67 01 B4 53 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, EDX, 1, 0xA55A1234, 4
+67 01 B4 54 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, EDX, 1, 0xA55A1234, 4
+67 01 B4 55 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, EDX, 1, 0xA55A1234, 4
+67 01 B4 56 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, EDX, 1, 0xA55A1234, 4
+67 01 B4 57 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, EDX, 1, 0xA55A1234, 4
+67 01 B4 58 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EBX, 1, 0x5AA56789, 4
+67 01 B4 59 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EBX, 1, 0x5AA56789, 4
+67 01 B4 5A 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EBX, 1, 0x5AA56789, 4
+67 01 B4 5B 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EBX, 1, 0x5AA56789, 4
+67 01 B4 5C 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EBX, 1, 0x5AA56789, 4
+67 01 B4 5D 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EBX, 1, 0x5AA56789, 4
+67 01 B4 5E 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EBX, 1, 0x5AA56789, 4
+67 01 B4 5F 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EBX, 1, 0x5AA56789, 4
+67 01 B4 60 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, None, 1, 0xA55A1234, 4
+67 01 B4 61 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, None, 1, 0xA55A1234, 4
+67 01 B4 62 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, None, 1, 0xA55A1234, 4
+67 01 B4 63 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, None, 1, 0xA55A1234, 4
+67 01 B4 64 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, None, 1, 0xA55A1234, 4
+67 01 B4 65 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, None, 1, 0xA55A1234, 4
+67 01 B4 66 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, None, 1, 0xA55A1234, 4
+67 01 B4 67 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, None, 1, 0xA55A1234, 4
+67 01 B4 68 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EBP, 1, 0x5AA56789, 4
+67 01 B4 69 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EBP, 1, 0x5AA56789, 4
+67 01 B4 6A 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EBP, 1, 0x5AA56789, 4
+67 01 B4 6B 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EBP, 1, 0x5AA56789, 4
+67 01 B4 6C 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EBP, 1, 0x5AA56789, 4
+67 01 B4 6D 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EBP, 1, 0x5AA56789, 4
+67 01 B4 6E 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EBP, 1, 0x5AA56789, 4
+67 01 B4 6F 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EBP, 1, 0x5AA56789, 4
+67 01 B4 70 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, ESI, 1, 0xA55A1234, 4
+67 01 B4 71 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, ESI, 1, 0xA55A1234, 4
+67 01 B4 72 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, ESI, 1, 0xA55A1234, 4
+67 01 B4 73 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, ESI, 1, 0xA55A1234, 4
+67 01 B4 74 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, ESI, 1, 0xA55A1234, 4
+67 01 B4 75 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, ESI, 1, 0xA55A1234, 4
+67 01 B4 76 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, ESI, 1, 0xA55A1234, 4
+67 01 B4 77 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, ESI, 1, 0xA55A1234, 4
+67 01 B4 78 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EDI, 1, 0x5AA56789, 4
+67 01 B4 79 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EDI, 1, 0x5AA56789, 4
+67 01 B4 7A 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EDI, 1, 0x5AA56789, 4
+67 01 B4 7B 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EDI, 1, 0x5AA56789, 4
+67 01 B4 7C 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EDI, 1, 0x5AA56789, 4
+67 01 B4 7D 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EDI, 1, 0x5AA56789, 4
+67 01 B4 7E 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EDI, 1, 0x5AA56789, 4
+67 01 B4 7F 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EDI, 1, 0x5AA56789, 4
+67 01 B4 80 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, EAX, 2, 0xA55A1234, 4
+67 01 B4 81 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, EAX, 2, 0xA55A1234, 4
+67 01 B4 82 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, EAX, 2, 0xA55A1234, 4
+67 01 B4 83 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, EAX, 2, 0xA55A1234, 4
+67 01 B4 84 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, EAX, 2, 0xA55A1234, 4
+67 01 B4 85 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, EAX, 2, 0xA55A1234, 4
+67 01 B4 86 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, EAX, 2, 0xA55A1234, 4
+67 01 B4 87 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, EAX, 2, 0xA55A1234, 4
+67 01 B4 88 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, ECX, 2, 0x5AA56789, 4
+67 01 B4 89 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, ECX, 2, 0x5AA56789, 4
+67 01 B4 8A 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, ECX, 2, 0x5AA56789, 4
+67 01 B4 8B 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, ECX, 2, 0x5AA56789, 4
+67 01 B4 8C 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, ECX, 2, 0x5AA56789, 4
+67 01 B4 8D 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, ECX, 2, 0x5AA56789, 4
+67 01 B4 8E 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, ECX, 2, 0x5AA56789, 4
+67 01 B4 8F 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, ECX, 2, 0x5AA56789, 4
+67 01 B4 90 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, EDX, 2, 0xA55A1234, 4
+67 01 B4 91 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, EDX, 2, 0xA55A1234, 4
+67 01 B4 92 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, EDX, 2, 0xA55A1234, 4
+67 01 B4 93 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, EDX, 2, 0xA55A1234, 4
+67 01 B4 94 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, EDX, 2, 0xA55A1234, 4
+67 01 B4 95 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, EDX, 2, 0xA55A1234, 4
+67 01 B4 96 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, EDX, 2, 0xA55A1234, 4
+67 01 B4 97 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, EDX, 2, 0xA55A1234, 4
+67 01 B4 98 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EBX, 2, 0x5AA56789, 4
+67 01 B4 99 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EBX, 2, 0x5AA56789, 4
+67 01 B4 9A 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EBX, 2, 0x5AA56789, 4
+67 01 B4 9B 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EBX, 2, 0x5AA56789, 4
+67 01 B4 9C 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EBX, 2, 0x5AA56789, 4
+67 01 B4 9D 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EBX, 2, 0x5AA56789, 4
+67 01 B4 9E 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EBX, 2, 0x5AA56789, 4
+67 01 B4 9F 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EBX, 2, 0x5AA56789, 4
+67 01 B4 A0 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, None, 2, 0xA55A1234, 4
+67 01 B4 A1 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, None, 2, 0xA55A1234, 4
+67 01 B4 A2 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, None, 2, 0xA55A1234, 4
+67 01 B4 A3 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, None, 2, 0xA55A1234, 4
+67 01 B4 A4 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, None, 2, 0xA55A1234, 4
+67 01 B4 A5 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, None, 2, 0xA55A1234, 4
+67 01 B4 A6 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, None, 2, 0xA55A1234, 4
+67 01 B4 A7 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, None, 2, 0xA55A1234, 4
+67 01 B4 A8 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EBP, 2, 0x5AA56789, 4
+67 01 B4 A9 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EBP, 2, 0x5AA56789, 4
+67 01 B4 AA 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EBP, 2, 0x5AA56789, 4
+67 01 B4 AB 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EBP, 2, 0x5AA56789, 4
+67 01 B4 AC 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EBP, 2, 0x5AA56789, 4
+67 01 B4 AD 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EBP, 2, 0x5AA56789, 4
+67 01 B4 AE 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EBP, 2, 0x5AA56789, 4
+67 01 B4 AF 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EBP, 2, 0x5AA56789, 4
+67 01 B4 B0 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, ESI, 2, 0xA55A1234, 4
+67 01 B4 B1 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, ESI, 2, 0xA55A1234, 4
+67 01 B4 B2 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, ESI, 2, 0xA55A1234, 4
+67 01 B4 B3 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, ESI, 2, 0xA55A1234, 4
+67 01 B4 B4 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, ESI, 2, 0xA55A1234, 4
+67 01 B4 B5 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, ESI, 2, 0xA55A1234, 4
+67 01 B4 B6 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, ESI, 2, 0xA55A1234, 4
+67 01 B4 B7 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, ESI, 2, 0xA55A1234, 4
+67 01 B4 B8 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EDI, 2, 0x5AA56789, 4
+67 01 B4 B9 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EDI, 2, 0x5AA56789, 4
+67 01 B4 BA 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EDI, 2, 0x5AA56789, 4
+67 01 B4 BB 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EDI, 2, 0x5AA56789, 4
+67 01 B4 BC 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EDI, 2, 0x5AA56789, 4
+67 01 B4 BD 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EDI, 2, 0x5AA56789, 4
+67 01 B4 BE 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EDI, 2, 0x5AA56789, 4
+67 01 B4 BF 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EDI, 2, 0x5AA56789, 4
+67 01 B4 C0 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, EAX, 3, 0xA55A1234, 4
+67 01 B4 C1 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, EAX, 3, 0xA55A1234, 4
+67 01 B4 C2 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, EAX, 3, 0xA55A1234, 4
+67 01 B4 C3 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, EAX, 3, 0xA55A1234, 4
+67 01 B4 C4 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, EAX, 3, 0xA55A1234, 4
+67 01 B4 C5 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, EAX, 3, 0xA55A1234, 4
+67 01 B4 C6 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, EAX, 3, 0xA55A1234, 4
+67 01 B4 C7 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, EAX, 3, 0xA55A1234, 4
+67 01 B4 C8 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, ECX, 3, 0x5AA56789, 4
+67 01 B4 C9 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, ECX, 3, 0x5AA56789, 4
+67 01 B4 CA 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, ECX, 3, 0x5AA56789, 4
+67 01 B4 CB 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, ECX, 3, 0x5AA56789, 4
+67 01 B4 CC 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, ECX, 3, 0x5AA56789, 4
+67 01 B4 CD 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, ECX, 3, 0x5AA56789, 4
+67 01 B4 CE 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, ECX, 3, 0x5AA56789, 4
+67 01 B4 CF 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, ECX, 3, 0x5AA56789, 4
+67 01 B4 D0 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, EDX, 3, 0xA55A1234, 4
+67 01 B4 D1 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, EDX, 3, 0xA55A1234, 4
+67 01 B4 D2 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, EDX, 3, 0xA55A1234, 4
+67 01 B4 D3 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, EDX, 3, 0xA55A1234, 4
+67 01 B4 D4 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, EDX, 3, 0xA55A1234, 4
+67 01 B4 D5 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, EDX, 3, 0xA55A1234, 4
+67 01 B4 D6 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, EDX, 3, 0xA55A1234, 4
+67 01 B4 D7 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, EDX, 3, 0xA55A1234, 4
+67 01 B4 D8 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EBX, 3, 0x5AA56789, 4
+67 01 B4 D9 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EBX, 3, 0x5AA56789, 4
+67 01 B4 DA 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EBX, 3, 0x5AA56789, 4
+67 01 B4 DB 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EBX, 3, 0x5AA56789, 4
+67 01 B4 DC 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EBX, 3, 0x5AA56789, 4
+67 01 B4 DD 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EBX, 3, 0x5AA56789, 4
+67 01 B4 DE 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EBX, 3, 0x5AA56789, 4
+67 01 B4 DF 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EBX, 3, 0x5AA56789, 4
+67 01 B4 E0 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, None, 3, 0xA55A1234, 4
+67 01 B4 E1 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, None, 3, 0xA55A1234, 4
+67 01 B4 E2 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, None, 3, 0xA55A1234, 4
+67 01 B4 E3 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, None, 3, 0xA55A1234, 4
+67 01 B4 E4 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, None, 3, 0xA55A1234, 4
+67 01 B4 E5 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, None, 3, 0xA55A1234, 4
+67 01 B4 E6 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, None, 3, 0xA55A1234, 4
+67 01 B4 E7 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, None, 3, 0xA55A1234, 4
+67 01 B4 E8 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EBP, 3, 0x5AA56789, 4
+67 01 B4 E9 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EBP, 3, 0x5AA56789, 4
+67 01 B4 EA 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EBP, 3, 0x5AA56789, 4
+67 01 B4 EB 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EBP, 3, 0x5AA56789, 4
+67 01 B4 EC 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EBP, 3, 0x5AA56789, 4
+67 01 B4 ED 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EBP, 3, 0x5AA56789, 4
+67 01 B4 EE 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EBP, 3, 0x5AA56789, 4
+67 01 B4 EF 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EBP, 3, 0x5AA56789, 4
+67 01 B4 F0 34125AA5, 8, Add_rm16_r16, SI, None, DS, EAX, ESI, 3, 0xA55A1234, 4
+67 01 B4 F1 34125AA5, 8, Add_rm16_r16, SI, None, DS, ECX, ESI, 3, 0xA55A1234, 4
+67 01 B4 F2 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDX, ESI, 3, 0xA55A1234, 4
+67 01 B4 F3 34125AA5, 8, Add_rm16_r16, SI, None, DS, EBX, ESI, 3, 0xA55A1234, 4
+67 01 B4 F4 34125AA5, 8, Add_rm16_r16, SI, None, SS, ESP, ESI, 3, 0xA55A1234, 4
+67 01 B4 F5 34125AA5, 8, Add_rm16_r16, SI, None, SS, EBP, ESI, 3, 0xA55A1234, 4
+67 01 B4 F6 34125AA5, 8, Add_rm16_r16, SI, None, DS, ESI, ESI, 3, 0xA55A1234, 4
+67 01 B4 F7 34125AA5, 8, Add_rm16_r16, SI, None, DS, EDI, ESI, 3, 0xA55A1234, 4
+67 01 B4 F8 8967A55A, 8, Add_rm16_r16, SI, None, DS, EAX, EDI, 3, 0x5AA56789, 4
+67 01 B4 F9 8967A55A, 8, Add_rm16_r16, SI, None, DS, ECX, EDI, 3, 0x5AA56789, 4
+67 01 B4 FA 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDX, EDI, 3, 0x5AA56789, 4
+67 01 B4 FB 8967A55A, 8, Add_rm16_r16, SI, None, DS, EBX, EDI, 3, 0x5AA56789, 4
+67 01 B4 FC 8967A55A, 8, Add_rm16_r16, SI, None, SS, ESP, EDI, 3, 0x5AA56789, 4
+67 01 B4 FD 8967A55A, 8, Add_rm16_r16, SI, None, SS, EBP, EDI, 3, 0x5AA56789, 4
+67 01 B4 FE 8967A55A, 8, Add_rm16_r16, SI, None, DS, ESI, EDI, 3, 0x5AA56789, 4
+67 01 B4 FF 8967A55A, 8, Add_rm16_r16, SI, None, DS, EDI, EDI, 3, 0x5AA56789, 4

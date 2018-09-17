@@ -51,10 +51,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_AesimcV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "66 0F38DB 08", 5, Code.Aesimc_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DB 08", 5, Code.Aesimc_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E279 DB 10", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM2, MemorySize.UInt128 };
-				yield return new object[] { "C4E2F9 DB 10", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM2, MemorySize.UInt128 };
+				yield return new object[] { "C4E279 DB 10", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM2, MemorySize.UInt128 };
+				yield return new object[] { "C4E2F9 DB 10", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM2, MemorySize.UInt128 };
 			}
 		}
 
@@ -80,9 +80,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_AesimcV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "66 0F38DB CD", 5, Code.Aesimc_VX_WX, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 0F38DB CD", 5, Code.Aesimc_xmm_xmmm128, Register.XMM1, Register.XMM5 };
 
-				yield return new object[] { "C4E279 DB D3", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM2, Register.XMM3 };
+				yield return new object[] { "C4E279 DB D3", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM2, Register.XMM3 };
 			}
 		}
 
@@ -114,10 +114,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_AesimcV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "66 0F38DB 08", 5, Code.Aesimc_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DB 08", 5, Code.Aesimc_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E279 DB 10", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM2, MemorySize.UInt128 };
-				yield return new object[] { "C4E2F9 DB 10", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM2, MemorySize.UInt128 };
+				yield return new object[] { "C4E279 DB 10", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM2, MemorySize.UInt128 };
+				yield return new object[] { "C4E2F9 DB 10", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM2, MemorySize.UInt128 };
 			}
 		}
 
@@ -143,9 +143,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_AesimcV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "66 0F38DB CD", 5, Code.Aesimc_VX_WX, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 0F38DB CD", 5, Code.Aesimc_xmm_xmmm128, Register.XMM1, Register.XMM5 };
 
-				yield return new object[] { "C4E279 DB D3", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM2, Register.XMM3 };
+				yield return new object[] { "C4E279 DB D3", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM2, Register.XMM3 };
 			}
 		}
 
@@ -177,10 +177,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_AesimcV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "66 0F38DB 08", 5, Code.Aesimc_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DB 08", 5, Code.Aesimc_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E279 DB 10", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM2, MemorySize.UInt128 };
-				yield return new object[] { "C4E2F9 DB 10", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM2, MemorySize.UInt128 };
+				yield return new object[] { "C4E279 DB 10", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM2, MemorySize.UInt128 };
+				yield return new object[] { "C4E2F9 DB 10", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM2, MemorySize.UInt128 };
 			}
 		}
 
@@ -206,15 +206,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_AesimcV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "66 0F38DB CD", 5, Code.Aesimc_VX_WX, Register.XMM1, Register.XMM5 };
-				yield return new object[] { "66 44 0F38DB CD", 6, Code.Aesimc_VX_WX, Register.XMM9, Register.XMM5 };
-				yield return new object[] { "66 41 0F38DB CD", 6, Code.Aesimc_VX_WX, Register.XMM1, Register.XMM13 };
-				yield return new object[] { "66 45 0F38DB CD", 6, Code.Aesimc_VX_WX, Register.XMM9, Register.XMM13 };
+				yield return new object[] { "66 0F38DB CD", 5, Code.Aesimc_xmm_xmmm128, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 44 0F38DB CD", 6, Code.Aesimc_xmm_xmmm128, Register.XMM9, Register.XMM5 };
+				yield return new object[] { "66 41 0F38DB CD", 6, Code.Aesimc_xmm_xmmm128, Register.XMM1, Register.XMM13 };
+				yield return new object[] { "66 45 0F38DB CD", 6, Code.Aesimc_xmm_xmmm128, Register.XMM9, Register.XMM13 };
 
-				yield return new object[] { "C4E279 DB D3", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM2, Register.XMM3 };
-				yield return new object[] { "C46279 DB D3", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM10, Register.XMM3 };
-				yield return new object[] { "C4C279 DB D3", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM2, Register.XMM11 };
-				yield return new object[] { "C44279 DB D3", 5, Code.VEX_Vaesimc_VX_WX, Register.XMM10, Register.XMM11 };
+				yield return new object[] { "C4E279 DB D3", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM2, Register.XMM3 };
+				yield return new object[] { "C46279 DB D3", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM10, Register.XMM3 };
+				yield return new object[] { "C4C279 DB D3", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM2, Register.XMM11 };
+				yield return new object[] { "C44279 DB D3", 5, Code.VEX_Vaesimc_xmm_xmmm128, Register.XMM10, Register.XMM11 };
 			}
 		}
 
@@ -246,13 +246,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_AesEncDecV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "66 0F38DC 08", 5, Code.Aesenc_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DC 08", 5, Code.Aesenc_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "66 0F38DD 08", 5, Code.Aesenclast_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DD 08", 5, Code.Aesenclast_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "66 0F38DE 08", 5, Code.Aesdec_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DE 08", 5, Code.Aesdec_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "66 0F38DF 08", 5, Code.Aesdeclast_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DF 08", 5, Code.Aesdeclast_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 			}
 		}
 
@@ -278,13 +278,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_AesEncDecV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "66 0F38DC CD", 5, Code.Aesenc_VX_WX, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 0F38DC CD", 5, Code.Aesenc_xmm_xmmm128, Register.XMM1, Register.XMM5 };
 
-				yield return new object[] { "66 0F38DD CD", 5, Code.Aesenclast_VX_WX, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 0F38DD CD", 5, Code.Aesenclast_xmm_xmmm128, Register.XMM1, Register.XMM5 };
 
-				yield return new object[] { "66 0F38DE CD", 5, Code.Aesdec_VX_WX, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 0F38DE CD", 5, Code.Aesdec_xmm_xmmm128, Register.XMM1, Register.XMM5 };
 
-				yield return new object[] { "66 0F38DF CD", 5, Code.Aesdeclast_VX_WX, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 0F38DF CD", 5, Code.Aesdeclast_xmm_xmmm128, Register.XMM1, Register.XMM5 };
 			}
 		}
 
@@ -316,13 +316,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_AesEncDecV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "66 0F38DC 08", 5, Code.Aesenc_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DC 08", 5, Code.Aesenc_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "66 0F38DD 08", 5, Code.Aesenclast_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DD 08", 5, Code.Aesenclast_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "66 0F38DE 08", 5, Code.Aesdec_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DE 08", 5, Code.Aesdec_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "66 0F38DF 08", 5, Code.Aesdeclast_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DF 08", 5, Code.Aesdeclast_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 			}
 		}
 
@@ -348,13 +348,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_AesEncDecV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "66 0F38DC CD", 5, Code.Aesenc_VX_WX, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 0F38DC CD", 5, Code.Aesenc_xmm_xmmm128, Register.XMM1, Register.XMM5 };
 
-				yield return new object[] { "66 0F38DD CD", 5, Code.Aesenclast_VX_WX, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 0F38DD CD", 5, Code.Aesenclast_xmm_xmmm128, Register.XMM1, Register.XMM5 };
 
-				yield return new object[] { "66 0F38DE CD", 5, Code.Aesdec_VX_WX, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 0F38DE CD", 5, Code.Aesdec_xmm_xmmm128, Register.XMM1, Register.XMM5 };
 
-				yield return new object[] { "66 0F38DF CD", 5, Code.Aesdeclast_VX_WX, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 0F38DF CD", 5, Code.Aesdeclast_xmm_xmmm128, Register.XMM1, Register.XMM5 };
 			}
 		}
 
@@ -386,13 +386,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_AesEncDecV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "66 0F38DC 08", 5, Code.Aesenc_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DC 08", 5, Code.Aesenc_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "66 0F38DD 08", 5, Code.Aesenclast_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DD 08", 5, Code.Aesenclast_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "66 0F38DE 08", 5, Code.Aesdec_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DE 08", 5, Code.Aesdec_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 
-				yield return new object[] { "66 0F38DF 08", 5, Code.Aesdeclast_VX_WX, Register.XMM1, MemorySize.UInt128 };
+				yield return new object[] { "66 0F38DF 08", 5, Code.Aesdeclast_xmm_xmmm128, Register.XMM1, MemorySize.UInt128 };
 			}
 		}
 
@@ -418,25 +418,25 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_AesEncDecV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "66 0F38DC CD", 5, Code.Aesenc_VX_WX, Register.XMM1, Register.XMM5 };
-				yield return new object[] { "66 44 0F38DC CD", 6, Code.Aesenc_VX_WX, Register.XMM9, Register.XMM5 };
-				yield return new object[] { "66 41 0F38DC CD", 6, Code.Aesenc_VX_WX, Register.XMM1, Register.XMM13 };
-				yield return new object[] { "66 45 0F38DC CD", 6, Code.Aesenc_VX_WX, Register.XMM9, Register.XMM13 };
+				yield return new object[] { "66 0F38DC CD", 5, Code.Aesenc_xmm_xmmm128, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 44 0F38DC CD", 6, Code.Aesenc_xmm_xmmm128, Register.XMM9, Register.XMM5 };
+				yield return new object[] { "66 41 0F38DC CD", 6, Code.Aesenc_xmm_xmmm128, Register.XMM1, Register.XMM13 };
+				yield return new object[] { "66 45 0F38DC CD", 6, Code.Aesenc_xmm_xmmm128, Register.XMM9, Register.XMM13 };
 
-				yield return new object[] { "66 0F38DD CD", 5, Code.Aesenclast_VX_WX, Register.XMM1, Register.XMM5 };
-				yield return new object[] { "66 44 0F38DD CD", 6, Code.Aesenclast_VX_WX, Register.XMM9, Register.XMM5 };
-				yield return new object[] { "66 41 0F38DD CD", 6, Code.Aesenclast_VX_WX, Register.XMM1, Register.XMM13 };
-				yield return new object[] { "66 45 0F38DD CD", 6, Code.Aesenclast_VX_WX, Register.XMM9, Register.XMM13 };
+				yield return new object[] { "66 0F38DD CD", 5, Code.Aesenclast_xmm_xmmm128, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 44 0F38DD CD", 6, Code.Aesenclast_xmm_xmmm128, Register.XMM9, Register.XMM5 };
+				yield return new object[] { "66 41 0F38DD CD", 6, Code.Aesenclast_xmm_xmmm128, Register.XMM1, Register.XMM13 };
+				yield return new object[] { "66 45 0F38DD CD", 6, Code.Aesenclast_xmm_xmmm128, Register.XMM9, Register.XMM13 };
 
-				yield return new object[] { "66 0F38DE CD", 5, Code.Aesdec_VX_WX, Register.XMM1, Register.XMM5 };
-				yield return new object[] { "66 44 0F38DE CD", 6, Code.Aesdec_VX_WX, Register.XMM9, Register.XMM5 };
-				yield return new object[] { "66 41 0F38DE CD", 6, Code.Aesdec_VX_WX, Register.XMM1, Register.XMM13 };
-				yield return new object[] { "66 45 0F38DE CD", 6, Code.Aesdec_VX_WX, Register.XMM9, Register.XMM13 };
+				yield return new object[] { "66 0F38DE CD", 5, Code.Aesdec_xmm_xmmm128, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 44 0F38DE CD", 6, Code.Aesdec_xmm_xmmm128, Register.XMM9, Register.XMM5 };
+				yield return new object[] { "66 41 0F38DE CD", 6, Code.Aesdec_xmm_xmmm128, Register.XMM1, Register.XMM13 };
+				yield return new object[] { "66 45 0F38DE CD", 6, Code.Aesdec_xmm_xmmm128, Register.XMM9, Register.XMM13 };
 
-				yield return new object[] { "66 0F38DF CD", 5, Code.Aesdeclast_VX_WX, Register.XMM1, Register.XMM5 };
-				yield return new object[] { "66 44 0F38DF CD", 6, Code.Aesdeclast_VX_WX, Register.XMM9, Register.XMM5 };
-				yield return new object[] { "66 41 0F38DF CD", 6, Code.Aesdeclast_VX_WX, Register.XMM1, Register.XMM13 };
-				yield return new object[] { "66 45 0F38DF CD", 6, Code.Aesdeclast_VX_WX, Register.XMM9, Register.XMM13 };
+				yield return new object[] { "66 0F38DF CD", 5, Code.Aesdeclast_xmm_xmmm128, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 44 0F38DF CD", 6, Code.Aesdeclast_xmm_xmmm128, Register.XMM9, Register.XMM5 };
+				yield return new object[] { "66 41 0F38DF CD", 6, Code.Aesdeclast_xmm_xmmm128, Register.XMM1, Register.XMM13 };
+				yield return new object[] { "66 45 0F38DF CD", 6, Code.Aesdeclast_xmm_xmmm128, Register.XMM9, Register.XMM13 };
 			}
 		}
 
@@ -471,17 +471,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VaesdecV_VX_HX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E249 DC 10", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DC 10", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DC 10", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DC 10", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E249 DD 10", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DD 10", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DD 10", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DD 10", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E249 DE 10", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DE 10", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DE 10", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DE 10", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E249 DF 10", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DF 10", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DF 10", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DF 10", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 			}
 		}
 
@@ -510,13 +510,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VaesdecV_VX_HX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E249 DC D3", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4E249 DC D3", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
 
-				yield return new object[] { "C4E249 DD D3", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4E249 DD D3", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
 
-				yield return new object[] { "C4E249 DE D3", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4E249 DE D3", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
 
-				yield return new object[] { "C4E249 DF D3", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4E249 DF D3", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
 			}
 		}
 
@@ -551,17 +551,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VaesdecV_VX_HX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E249 DC 10", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DC 10", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DC 10", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DC 10", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E249 DD 10", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DD 10", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DD 10", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DD 10", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E249 DE 10", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DE 10", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DE 10", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DE 10", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E249 DF 10", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DF 10", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DF 10", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DF 10", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 			}
 		}
 
@@ -590,13 +590,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VaesdecV_VX_HX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E249 DC D3", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4E249 DC D3", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
 
-				yield return new object[] { "C4E249 DD D3", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4E249 DD D3", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
 
-				yield return new object[] { "C4E249 DE D3", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4E249 DE D3", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
 
-				yield return new object[] { "C4E249 DF D3", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4E249 DF D3", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
 			}
 		}
 
@@ -631,17 +631,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VaesdecV_VX_HX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E249 DC 10", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DC 10", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DC 10", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DC 10", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E249 DD 10", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DD 10", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DD 10", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DD 10", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E249 DE 10", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DE 10", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DE 10", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DE 10", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 
-				yield return new object[] { "C4E249 DF 10", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
-				yield return new object[] { "C4E2C9 DF 10", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E249 DF 10", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
+				yield return new object[] { "C4E2C9 DF 10", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.UInt128 };
 			}
 		}
 
@@ -670,25 +670,25 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VaesdecV_VX_HX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E249 DC D3", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
-				yield return new object[] { "C46249 DC D3", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM10, Register.XMM6, Register.XMM3 };
-				yield return new object[] { "C4C289 DC D3", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM2, Register.XMM14, Register.XMM11 };
-				yield return new object[] { "C44249 DC D3", 5, Code.VEX_Vaesenc_VX_HX_WX, Register.XMM10, Register.XMM6, Register.XMM11 };
+				yield return new object[] { "C4E249 DC D3", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C46249 DC D3", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM10, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4C289 DC D3", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM2, Register.XMM14, Register.XMM11 };
+				yield return new object[] { "C44249 DC D3", 5, Code.VEX_Vaesenc_xmm_xmm_xmmm128, Register.XMM10, Register.XMM6, Register.XMM11 };
 
-				yield return new object[] { "C4E249 DD D3", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
-				yield return new object[] { "C46249 DD D3", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM10, Register.XMM6, Register.XMM3 };
-				yield return new object[] { "C4C289 DD D3", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM2, Register.XMM14, Register.XMM11 };
-				yield return new object[] { "C44249 DD D3", 5, Code.VEX_Vaesenclast_VX_HX_WX, Register.XMM10, Register.XMM6, Register.XMM11 };
+				yield return new object[] { "C4E249 DD D3", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C46249 DD D3", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM10, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4C289 DD D3", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM14, Register.XMM11 };
+				yield return new object[] { "C44249 DD D3", 5, Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Register.XMM10, Register.XMM6, Register.XMM11 };
 
-				yield return new object[] { "C4E249 DE D3", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
-				yield return new object[] { "C46249 DE D3", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM10, Register.XMM6, Register.XMM3 };
-				yield return new object[] { "C4C289 DE D3", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM2, Register.XMM14, Register.XMM11 };
-				yield return new object[] { "C44249 DE D3", 5, Code.VEX_Vaesdec_VX_HX_WX, Register.XMM10, Register.XMM6, Register.XMM11 };
+				yield return new object[] { "C4E249 DE D3", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C46249 DE D3", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM10, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4C289 DE D3", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM2, Register.XMM14, Register.XMM11 };
+				yield return new object[] { "C44249 DE D3", 5, Code.VEX_Vaesdec_xmm_xmm_xmmm128, Register.XMM10, Register.XMM6, Register.XMM11 };
 
-				yield return new object[] { "C4E249 DF D3", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM2, Register.XMM6, Register.XMM3 };
-				yield return new object[] { "C46249 DF D3", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM10, Register.XMM6, Register.XMM3 };
-				yield return new object[] { "C4C289 DF D3", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM2, Register.XMM14, Register.XMM11 };
-				yield return new object[] { "C44249 DF D3", 5, Code.VEX_Vaesdeclast_VX_HX_WX, Register.XMM10, Register.XMM6, Register.XMM11 };
+				yield return new object[] { "C4E249 DF D3", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C46249 DF D3", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM10, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4C289 DF D3", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM2, Register.XMM14, Register.XMM11 };
+				yield return new object[] { "C44249 DF D3", 5, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Register.XMM10, Register.XMM6, Register.XMM11 };
 			}
 		}
 	}

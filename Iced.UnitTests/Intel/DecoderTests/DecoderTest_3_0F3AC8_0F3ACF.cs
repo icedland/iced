@@ -54,7 +54,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Sha1rnds4V_VX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "0F3ACC 08 A5", 5, Code.Sha1rnds4_VX_WX_Ib, Register.XMM1, MemorySize.Packed128_UInt32, 0xA5 };
+				yield return new object[] { "0F3ACC 08 A5", 5, Code.Sha1rnds4_xmm_xmmm128_imm8, Register.XMM1, MemorySize.Packed128_UInt32, 0xA5 };
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Sha1rnds4V_VX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "0F3ACC CD A5", 5, Code.Sha1rnds4_VX_WX_Ib, Register.XMM1, Register.XMM5, 0xA5 };
+				yield return new object[] { "0F3ACC CD A5", 5, Code.Sha1rnds4_xmm_xmmm128_imm8, Register.XMM1, Register.XMM5, 0xA5 };
 			}
 		}
 
@@ -118,7 +118,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Sha1rnds4V_VX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "0F3ACC 08 A5", 5, Code.Sha1rnds4_VX_WX_Ib, Register.XMM1, MemorySize.Packed128_UInt32, 0xA5 };
+				yield return new object[] { "0F3ACC 08 A5", 5, Code.Sha1rnds4_xmm_xmmm128_imm8, Register.XMM1, MemorySize.Packed128_UInt32, 0xA5 };
 
 			}
 		}
@@ -148,7 +148,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Sha1rnds4V_VX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "0F3ACC CD A5", 5, Code.Sha1rnds4_VX_WX_Ib, Register.XMM1, Register.XMM5, 0xA5 };
+				yield return new object[] { "0F3ACC CD A5", 5, Code.Sha1rnds4_xmm_xmmm128_imm8, Register.XMM1, Register.XMM5, 0xA5 };
 			}
 		}
 
@@ -183,7 +183,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Sha1rnds4V_VX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "0F3ACC 08 A5", 5, Code.Sha1rnds4_VX_WX_Ib, Register.XMM1, MemorySize.Packed128_UInt32, 0xA5 };
+				yield return new object[] { "0F3ACC 08 A5", 5, Code.Sha1rnds4_xmm_xmmm128_imm8, Register.XMM1, MemorySize.Packed128_UInt32, 0xA5 };
 			}
 		}
 
@@ -212,10 +212,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Sha1rnds4V_VX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "0F3ACC CD A5", 5, Code.Sha1rnds4_VX_WX_Ib, Register.XMM1, Register.XMM5, 0xA5 };
-				yield return new object[] { "44 0F3ACC CD A5", 6, Code.Sha1rnds4_VX_WX_Ib, Register.XMM9, Register.XMM5, 0xA5 };
-				yield return new object[] { "41 0F3ACC CD A5", 6, Code.Sha1rnds4_VX_WX_Ib, Register.XMM1, Register.XMM13, 0xA5 };
-				yield return new object[] { "45 0F3ACC CD A5", 6, Code.Sha1rnds4_VX_WX_Ib, Register.XMM9, Register.XMM13, 0xA5 };
+				yield return new object[] { "0F3ACC CD A5", 5, Code.Sha1rnds4_xmm_xmmm128_imm8, Register.XMM1, Register.XMM5, 0xA5 };
+				yield return new object[] { "44 0F3ACC CD A5", 6, Code.Sha1rnds4_xmm_xmmm128_imm8, Register.XMM9, Register.XMM5, 0xA5 };
+				yield return new object[] { "41 0F3ACC CD A5", 6, Code.Sha1rnds4_xmm_xmmm128_imm8, Register.XMM1, Register.XMM13, 0xA5 };
+				yield return new object[] { "45 0F3ACC CD A5", 6, Code.Sha1rnds4_xmm_xmmm128_imm8, Register.XMM9, Register.XMM13, 0xA5 };
 			}
 		}
 	}

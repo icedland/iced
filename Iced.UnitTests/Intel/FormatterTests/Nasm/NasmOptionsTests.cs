@@ -1773,12 +1773,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			get {
 				yield return new object[] {
 					0,
-					new OptionsInstructionInfo(64, "48 83 CA A5", Code.Or_Eq_Ib64, a => ((NasmFormatterOptions)a).ShowSignExtendedImmediateSize = true),
+					new OptionsInstructionInfo(64, "48 83 CA A5", Code.Or_rm64_imm8, a => ((NasmFormatterOptions)a).ShowSignExtendedImmediateSize = true),
 					"or rdx,byte 0xffffffffffffffa5",
 				};
 				yield return new object[] {
 					1,
-					new OptionsInstructionInfo(64, "48 83 CA A5", Code.Or_Eq_Ib64, a => ((NasmFormatterOptions)a).ShowSignExtendedImmediateSize = false),
+					new OptionsInstructionInfo(64, "48 83 CA A5", Code.Or_rm64_imm8, a => ((NasmFormatterOptions)a).ShowSignExtendedImmediateSize = false),
 					"or rdx,0xffffffffffffffa5",
 				};
 			}

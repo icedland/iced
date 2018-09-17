@@ -23,14 +23,14 @@ using Xunit;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class DecoderTest_1_D0_D7 : DecoderTest {
 		[Theory]
-		[InlineData("D0 00", 2, Code.Rol_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 08", 2, Code.Ror_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 10", 2, Code.Rcl_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 18", 2, Code.Rcr_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 20", 2, Code.Shl_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 28", 2, Code.Shr_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 30", 2, Code.Shl_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 38", 2, Code.Sar_Eb_1, MemorySize.Int8)]
+		[InlineData("D0 00", 2, Code.Rol_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 08", 2, Code.Ror_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 10", 2, Code.Rcl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 18", 2, Code.Rcr_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 20", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 28", 2, Code.Shr_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 30", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 38", 2, Code.Sar_rm8_1, MemorySize.Int8)]
 		void Test16_Grp2_Eb_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -57,14 +57,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D0 C1", 2, Code.Rol_Eb_1, Register.CL)]
-		[InlineData("D0 CA", 2, Code.Ror_Eb_1, Register.DL)]
-		[InlineData("D0 D3", 2, Code.Rcl_Eb_1, Register.BL)]
-		[InlineData("D0 DC", 2, Code.Rcr_Eb_1, Register.AH)]
-		[InlineData("D0 E5", 2, Code.Shl_Eb_1, Register.CH)]
-		[InlineData("D0 EE", 2, Code.Shr_Eb_1, Register.DH)]
-		[InlineData("D0 F7", 2, Code.Shl_Eb_1, Register.BH)]
-		[InlineData("D0 F8", 2, Code.Sar_Eb_1, Register.AL)]
+		[InlineData("D0 C1", 2, Code.Rol_rm8_1, Register.CL)]
+		[InlineData("D0 CA", 2, Code.Ror_rm8_1, Register.DL)]
+		[InlineData("D0 D3", 2, Code.Rcl_rm8_1, Register.BL)]
+		[InlineData("D0 DC", 2, Code.Rcr_rm8_1, Register.AH)]
+		[InlineData("D0 E5", 2, Code.Shl_rm8_1, Register.CH)]
+		[InlineData("D0 EE", 2, Code.Shr_rm8_1, Register.DH)]
+		[InlineData("D0 F7", 2, Code.Shl_rm8_1, Register.BH)]
+		[InlineData("D0 F8", 2, Code.Sar_rm8_1, Register.AL)]
 		void Test16_Grp2_Eb_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -85,14 +85,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D0 00", 2, Code.Rol_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 08", 2, Code.Ror_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 10", 2, Code.Rcl_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 18", 2, Code.Rcr_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 20", 2, Code.Shl_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 28", 2, Code.Shr_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 30", 2, Code.Shl_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 38", 2, Code.Sar_Eb_1, MemorySize.Int8)]
+		[InlineData("D0 00", 2, Code.Rol_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 08", 2, Code.Ror_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 10", 2, Code.Rcl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 18", 2, Code.Rcr_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 20", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 28", 2, Code.Shr_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 30", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 38", 2, Code.Sar_rm8_1, MemorySize.Int8)]
 		void Test32_Grp2_Eb_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -119,14 +119,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D0 C1", 2, Code.Rol_Eb_1, Register.CL)]
-		[InlineData("D0 CA", 2, Code.Ror_Eb_1, Register.DL)]
-		[InlineData("D0 D3", 2, Code.Rcl_Eb_1, Register.BL)]
-		[InlineData("D0 DC", 2, Code.Rcr_Eb_1, Register.AH)]
-		[InlineData("D0 E5", 2, Code.Shl_Eb_1, Register.CH)]
-		[InlineData("D0 EE", 2, Code.Shr_Eb_1, Register.DH)]
-		[InlineData("D0 F7", 2, Code.Shl_Eb_1, Register.BH)]
-		[InlineData("D0 F8", 2, Code.Sar_Eb_1, Register.AL)]
+		[InlineData("D0 C1", 2, Code.Rol_rm8_1, Register.CL)]
+		[InlineData("D0 CA", 2, Code.Ror_rm8_1, Register.DL)]
+		[InlineData("D0 D3", 2, Code.Rcl_rm8_1, Register.BL)]
+		[InlineData("D0 DC", 2, Code.Rcr_rm8_1, Register.AH)]
+		[InlineData("D0 E5", 2, Code.Shl_rm8_1, Register.CH)]
+		[InlineData("D0 EE", 2, Code.Shr_rm8_1, Register.DH)]
+		[InlineData("D0 F7", 2, Code.Shl_rm8_1, Register.BH)]
+		[InlineData("D0 F8", 2, Code.Sar_rm8_1, Register.AL)]
 		void Test32_Grp2_Eb_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -147,23 +147,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D0 00", 2, Code.Rol_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 08", 2, Code.Ror_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 10", 2, Code.Rcl_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 18", 2, Code.Rcr_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 20", 2, Code.Shl_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 28", 2, Code.Shr_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 30", 2, Code.Shl_Eb_1, MemorySize.UInt8)]
-		[InlineData("D0 38", 2, Code.Sar_Eb_1, MemorySize.Int8)]
+		[InlineData("D0 00", 2, Code.Rol_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 08", 2, Code.Ror_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 10", 2, Code.Rcl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 18", 2, Code.Rcr_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 20", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 28", 2, Code.Shr_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 30", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 38", 2, Code.Sar_rm8_1, MemorySize.Int8)]
 
-		[InlineData("44 D0 00", 3, Code.Rol_Eb_1, MemorySize.UInt8)]
-		[InlineData("44 D0 08", 3, Code.Ror_Eb_1, MemorySize.UInt8)]
-		[InlineData("44 D0 10", 3, Code.Rcl_Eb_1, MemorySize.UInt8)]
-		[InlineData("44 D0 18", 3, Code.Rcr_Eb_1, MemorySize.UInt8)]
-		[InlineData("44 D0 20", 3, Code.Shl_Eb_1, MemorySize.UInt8)]
-		[InlineData("44 D0 28", 3, Code.Shr_Eb_1, MemorySize.UInt8)]
-		[InlineData("44 D0 30", 3, Code.Shl_Eb_1, MemorySize.UInt8)]
-		[InlineData("44 D0 38", 3, Code.Sar_Eb_1, MemorySize.Int8)]
+		[InlineData("44 D0 00", 3, Code.Rol_rm8_1, MemorySize.UInt8)]
+		[InlineData("44 D0 08", 3, Code.Ror_rm8_1, MemorySize.UInt8)]
+		[InlineData("44 D0 10", 3, Code.Rcl_rm8_1, MemorySize.UInt8)]
+		[InlineData("44 D0 18", 3, Code.Rcr_rm8_1, MemorySize.UInt8)]
+		[InlineData("44 D0 20", 3, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("44 D0 28", 3, Code.Shr_rm8_1, MemorySize.UInt8)]
+		[InlineData("44 D0 30", 3, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("44 D0 38", 3, Code.Sar_rm8_1, MemorySize.Int8)]
 		void Test64_Grp2_Eb_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -190,31 +190,31 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D0 C1", 2, Code.Rol_Eb_1, Register.CL)]
-		[InlineData("D0 CA", 2, Code.Ror_Eb_1, Register.DL)]
-		[InlineData("D0 D3", 2, Code.Rcl_Eb_1, Register.BL)]
-		[InlineData("D0 DC", 2, Code.Rcr_Eb_1, Register.AH)]
-		[InlineData("D0 E5", 2, Code.Shl_Eb_1, Register.CH)]
-		[InlineData("D0 EE", 2, Code.Shr_Eb_1, Register.DH)]
-		[InlineData("D0 F7", 2, Code.Shl_Eb_1, Register.BH)]
-		[InlineData("D0 F8", 2, Code.Sar_Eb_1, Register.AL)]
+		[InlineData("D0 C1", 2, Code.Rol_rm8_1, Register.CL)]
+		[InlineData("D0 CA", 2, Code.Ror_rm8_1, Register.DL)]
+		[InlineData("D0 D3", 2, Code.Rcl_rm8_1, Register.BL)]
+		[InlineData("D0 DC", 2, Code.Rcr_rm8_1, Register.AH)]
+		[InlineData("D0 E5", 2, Code.Shl_rm8_1, Register.CH)]
+		[InlineData("D0 EE", 2, Code.Shr_rm8_1, Register.DH)]
+		[InlineData("D0 F7", 2, Code.Shl_rm8_1, Register.BH)]
+		[InlineData("D0 F8", 2, Code.Sar_rm8_1, Register.AL)]
 
-		[InlineData("40 D0 C1", 3, Code.Rol_Eb_1, Register.CL)]
-		[InlineData("40 D0 CA", 3, Code.Ror_Eb_1, Register.DL)]
-		[InlineData("40 D0 D3", 3, Code.Rcl_Eb_1, Register.BL)]
-		[InlineData("40 D0 DC", 3, Code.Rcr_Eb_1, Register.SPL)]
-		[InlineData("40 D0 E5", 3, Code.Shl_Eb_1, Register.BPL)]
-		[InlineData("40 D0 EE", 3, Code.Shr_Eb_1, Register.SIL)]
-		[InlineData("40 D0 F7", 3, Code.Shl_Eb_1, Register.DIL)]
-		[InlineData("41 D0 F8", 3, Code.Sar_Eb_1, Register.R8L)]
-		[InlineData("41 D0 C1", 3, Code.Rol_Eb_1, Register.R9L)]
-		[InlineData("41 D0 CA", 3, Code.Ror_Eb_1, Register.R10L)]
-		[InlineData("41 D0 D3", 3, Code.Rcl_Eb_1, Register.R11L)]
-		[InlineData("41 D0 DC", 3, Code.Rcr_Eb_1, Register.R12L)]
-		[InlineData("41 D0 E5", 3, Code.Shl_Eb_1, Register.R13L)]
-		[InlineData("41 D0 EE", 3, Code.Shr_Eb_1, Register.R14L)]
-		[InlineData("41 D0 F7", 3, Code.Shl_Eb_1, Register.R15L)]
-		[InlineData("40 D0 F8", 3, Code.Sar_Eb_1, Register.AL)]
+		[InlineData("40 D0 C1", 3, Code.Rol_rm8_1, Register.CL)]
+		[InlineData("40 D0 CA", 3, Code.Ror_rm8_1, Register.DL)]
+		[InlineData("40 D0 D3", 3, Code.Rcl_rm8_1, Register.BL)]
+		[InlineData("40 D0 DC", 3, Code.Rcr_rm8_1, Register.SPL)]
+		[InlineData("40 D0 E5", 3, Code.Shl_rm8_1, Register.BPL)]
+		[InlineData("40 D0 EE", 3, Code.Shr_rm8_1, Register.SIL)]
+		[InlineData("40 D0 F7", 3, Code.Shl_rm8_1, Register.DIL)]
+		[InlineData("41 D0 F8", 3, Code.Sar_rm8_1, Register.R8L)]
+		[InlineData("41 D0 C1", 3, Code.Rol_rm8_1, Register.R9L)]
+		[InlineData("41 D0 CA", 3, Code.Ror_rm8_1, Register.R10L)]
+		[InlineData("41 D0 D3", 3, Code.Rcl_rm8_1, Register.R11L)]
+		[InlineData("41 D0 DC", 3, Code.Rcr_rm8_1, Register.R12L)]
+		[InlineData("41 D0 E5", 3, Code.Shl_rm8_1, Register.R13L)]
+		[InlineData("41 D0 EE", 3, Code.Shr_rm8_1, Register.R14L)]
+		[InlineData("41 D0 F7", 3, Code.Shl_rm8_1, Register.R15L)]
+		[InlineData("40 D0 F8", 3, Code.Sar_rm8_1, Register.AL)]
 		void Test64_Grp2_Eb_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -235,14 +235,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D1 00", 2, Code.Rol_Ew_1, MemorySize.UInt16)]
-		[InlineData("D1 08", 2, Code.Ror_Ew_1, MemorySize.UInt16)]
-		[InlineData("D1 10", 2, Code.Rcl_Ew_1, MemorySize.UInt16)]
-		[InlineData("D1 18", 2, Code.Rcr_Ew_1, MemorySize.UInt16)]
-		[InlineData("D1 20", 2, Code.Shl_Ew_1, MemorySize.UInt16)]
-		[InlineData("D1 28", 2, Code.Shr_Ew_1, MemorySize.UInt16)]
-		[InlineData("D1 30", 2, Code.Shl_Ew_1, MemorySize.UInt16)]
-		[InlineData("D1 38", 2, Code.Sar_Ew_1, MemorySize.Int16)]
+		[InlineData("D1 00", 2, Code.Rol_rm16_1, MemorySize.UInt16)]
+		[InlineData("D1 08", 2, Code.Ror_rm16_1, MemorySize.UInt16)]
+		[InlineData("D1 10", 2, Code.Rcl_rm16_1, MemorySize.UInt16)]
+		[InlineData("D1 18", 2, Code.Rcr_rm16_1, MemorySize.UInt16)]
+		[InlineData("D1 20", 2, Code.Shl_rm16_1, MemorySize.UInt16)]
+		[InlineData("D1 28", 2, Code.Shr_rm16_1, MemorySize.UInt16)]
+		[InlineData("D1 30", 2, Code.Shl_rm16_1, MemorySize.UInt16)]
+		[InlineData("D1 38", 2, Code.Sar_rm16_1, MemorySize.Int16)]
 		void Test16_Grp2_Ew_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -269,14 +269,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D1 C1", 2, Code.Rol_Ew_1, Register.CX)]
-		[InlineData("D1 CA", 2, Code.Ror_Ew_1, Register.DX)]
-		[InlineData("D1 D3", 2, Code.Rcl_Ew_1, Register.BX)]
-		[InlineData("D1 DC", 2, Code.Rcr_Ew_1, Register.SP)]
-		[InlineData("D1 E5", 2, Code.Shl_Ew_1, Register.BP)]
-		[InlineData("D1 EE", 2, Code.Shr_Ew_1, Register.SI)]
-		[InlineData("D1 F7", 2, Code.Shl_Ew_1, Register.DI)]
-		[InlineData("D1 F8", 2, Code.Sar_Ew_1, Register.AX)]
+		[InlineData("D1 C1", 2, Code.Rol_rm16_1, Register.CX)]
+		[InlineData("D1 CA", 2, Code.Ror_rm16_1, Register.DX)]
+		[InlineData("D1 D3", 2, Code.Rcl_rm16_1, Register.BX)]
+		[InlineData("D1 DC", 2, Code.Rcr_rm16_1, Register.SP)]
+		[InlineData("D1 E5", 2, Code.Shl_rm16_1, Register.BP)]
+		[InlineData("D1 EE", 2, Code.Shr_rm16_1, Register.SI)]
+		[InlineData("D1 F7", 2, Code.Shl_rm16_1, Register.DI)]
+		[InlineData("D1 F8", 2, Code.Sar_rm16_1, Register.AX)]
 		void Test16_Grp2_Ew_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -297,14 +297,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D1 00", 3, Code.Rol_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 08", 3, Code.Ror_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 10", 3, Code.Rcl_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 18", 3, Code.Rcr_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 20", 3, Code.Shl_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 28", 3, Code.Shr_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 30", 3, Code.Shl_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 38", 3, Code.Sar_Ew_1, MemorySize.Int16)]
+		[InlineData("66 D1 00", 3, Code.Rol_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 08", 3, Code.Ror_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 10", 3, Code.Rcl_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 18", 3, Code.Rcr_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 20", 3, Code.Shl_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 28", 3, Code.Shr_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 30", 3, Code.Shl_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 38", 3, Code.Sar_rm16_1, MemorySize.Int16)]
 		void Test32_Grp2_Ew_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -331,14 +331,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D1 C1", 3, Code.Rol_Ew_1, Register.CX)]
-		[InlineData("66 D1 CA", 3, Code.Ror_Ew_1, Register.DX)]
-		[InlineData("66 D1 D3", 3, Code.Rcl_Ew_1, Register.BX)]
-		[InlineData("66 D1 DC", 3, Code.Rcr_Ew_1, Register.SP)]
-		[InlineData("66 D1 E5", 3, Code.Shl_Ew_1, Register.BP)]
-		[InlineData("66 D1 EE", 3, Code.Shr_Ew_1, Register.SI)]
-		[InlineData("66 D1 F7", 3, Code.Shl_Ew_1, Register.DI)]
-		[InlineData("66 D1 F8", 3, Code.Sar_Ew_1, Register.AX)]
+		[InlineData("66 D1 C1", 3, Code.Rol_rm16_1, Register.CX)]
+		[InlineData("66 D1 CA", 3, Code.Ror_rm16_1, Register.DX)]
+		[InlineData("66 D1 D3", 3, Code.Rcl_rm16_1, Register.BX)]
+		[InlineData("66 D1 DC", 3, Code.Rcr_rm16_1, Register.SP)]
+		[InlineData("66 D1 E5", 3, Code.Shl_rm16_1, Register.BP)]
+		[InlineData("66 D1 EE", 3, Code.Shr_rm16_1, Register.SI)]
+		[InlineData("66 D1 F7", 3, Code.Shl_rm16_1, Register.DI)]
+		[InlineData("66 D1 F8", 3, Code.Sar_rm16_1, Register.AX)]
 		void Test32_Grp2_Ew_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -359,14 +359,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D1 00", 3, Code.Rol_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 08", 3, Code.Ror_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 10", 3, Code.Rcl_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 18", 3, Code.Rcr_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 20", 3, Code.Shl_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 28", 3, Code.Shr_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 30", 3, Code.Shl_Ew_1, MemorySize.UInt16)]
-		[InlineData("66 D1 38", 3, Code.Sar_Ew_1, MemorySize.Int16)]
+		[InlineData("66 D1 00", 3, Code.Rol_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 08", 3, Code.Ror_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 10", 3, Code.Rcl_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 18", 3, Code.Rcr_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 20", 3, Code.Shl_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 28", 3, Code.Shr_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 30", 3, Code.Shl_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 38", 3, Code.Sar_rm16_1, MemorySize.Int16)]
 		void Test64_Grp2_Ew_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -393,23 +393,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D1 C1", 3, Code.Rol_Ew_1, Register.CX)]
-		[InlineData("66 D1 CA", 3, Code.Ror_Ew_1, Register.DX)]
-		[InlineData("66 D1 D3", 3, Code.Rcl_Ew_1, Register.BX)]
-		[InlineData("66 D1 DC", 3, Code.Rcr_Ew_1, Register.SP)]
-		[InlineData("66 D1 E5", 3, Code.Shl_Ew_1, Register.BP)]
-		[InlineData("66 D1 EE", 3, Code.Shr_Ew_1, Register.SI)]
-		[InlineData("66 D1 F7", 3, Code.Shl_Ew_1, Register.DI)]
-		[InlineData("66 41 D1 F8", 4, Code.Sar_Ew_1, Register.R8W)]
+		[InlineData("66 D1 C1", 3, Code.Rol_rm16_1, Register.CX)]
+		[InlineData("66 D1 CA", 3, Code.Ror_rm16_1, Register.DX)]
+		[InlineData("66 D1 D3", 3, Code.Rcl_rm16_1, Register.BX)]
+		[InlineData("66 D1 DC", 3, Code.Rcr_rm16_1, Register.SP)]
+		[InlineData("66 D1 E5", 3, Code.Shl_rm16_1, Register.BP)]
+		[InlineData("66 D1 EE", 3, Code.Shr_rm16_1, Register.SI)]
+		[InlineData("66 D1 F7", 3, Code.Shl_rm16_1, Register.DI)]
+		[InlineData("66 41 D1 F8", 4, Code.Sar_rm16_1, Register.R8W)]
 
-		[InlineData("66 41 D1 C1", 4, Code.Rol_Ew_1, Register.R9W)]
-		[InlineData("66 41 D1 CA", 4, Code.Ror_Ew_1, Register.R10W)]
-		[InlineData("66 41 D1 D3", 4, Code.Rcl_Ew_1, Register.R11W)]
-		[InlineData("66 41 D1 DC", 4, Code.Rcr_Ew_1, Register.R12W)]
-		[InlineData("66 41 D1 E5", 4, Code.Shl_Ew_1, Register.R13W)]
-		[InlineData("66 41 D1 EE", 4, Code.Shr_Ew_1, Register.R14W)]
-		[InlineData("66 41 D1 F7", 4, Code.Shl_Ew_1, Register.R15W)]
-		[InlineData("66 D1 F8", 3, Code.Sar_Ew_1, Register.AX)]
+		[InlineData("66 41 D1 C1", 4, Code.Rol_rm16_1, Register.R9W)]
+		[InlineData("66 41 D1 CA", 4, Code.Ror_rm16_1, Register.R10W)]
+		[InlineData("66 41 D1 D3", 4, Code.Rcl_rm16_1, Register.R11W)]
+		[InlineData("66 41 D1 DC", 4, Code.Rcr_rm16_1, Register.R12W)]
+		[InlineData("66 41 D1 E5", 4, Code.Shl_rm16_1, Register.R13W)]
+		[InlineData("66 41 D1 EE", 4, Code.Shr_rm16_1, Register.R14W)]
+		[InlineData("66 41 D1 F7", 4, Code.Shl_rm16_1, Register.R15W)]
+		[InlineData("66 D1 F8", 3, Code.Sar_rm16_1, Register.AX)]
 		void Test64_Grp2_Ew_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -430,14 +430,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D1 00", 3, Code.Rol_Ed_1, MemorySize.UInt32)]
-		[InlineData("66 D1 08", 3, Code.Ror_Ed_1, MemorySize.UInt32)]
-		[InlineData("66 D1 10", 3, Code.Rcl_Ed_1, MemorySize.UInt32)]
-		[InlineData("66 D1 18", 3, Code.Rcr_Ed_1, MemorySize.UInt32)]
-		[InlineData("66 D1 20", 3, Code.Shl_Ed_1, MemorySize.UInt32)]
-		[InlineData("66 D1 28", 3, Code.Shr_Ed_1, MemorySize.UInt32)]
-		[InlineData("66 D1 30", 3, Code.Shl_Ed_1, MemorySize.UInt32)]
-		[InlineData("66 D1 38", 3, Code.Sar_Ed_1, MemorySize.Int32)]
+		[InlineData("66 D1 00", 3, Code.Rol_rm32_1, MemorySize.UInt32)]
+		[InlineData("66 D1 08", 3, Code.Ror_rm32_1, MemorySize.UInt32)]
+		[InlineData("66 D1 10", 3, Code.Rcl_rm32_1, MemorySize.UInt32)]
+		[InlineData("66 D1 18", 3, Code.Rcr_rm32_1, MemorySize.UInt32)]
+		[InlineData("66 D1 20", 3, Code.Shl_rm32_1, MemorySize.UInt32)]
+		[InlineData("66 D1 28", 3, Code.Shr_rm32_1, MemorySize.UInt32)]
+		[InlineData("66 D1 30", 3, Code.Shl_rm32_1, MemorySize.UInt32)]
+		[InlineData("66 D1 38", 3, Code.Sar_rm32_1, MemorySize.Int32)]
 		void Test16_Grp2_Ed_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -464,14 +464,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D1 C1", 3, Code.Rol_Ed_1, Register.ECX)]
-		[InlineData("66 D1 CA", 3, Code.Ror_Ed_1, Register.EDX)]
-		[InlineData("66 D1 D3", 3, Code.Rcl_Ed_1, Register.EBX)]
-		[InlineData("66 D1 DC", 3, Code.Rcr_Ed_1, Register.ESP)]
-		[InlineData("66 D1 E5", 3, Code.Shl_Ed_1, Register.EBP)]
-		[InlineData("66 D1 EE", 3, Code.Shr_Ed_1, Register.ESI)]
-		[InlineData("66 D1 F7", 3, Code.Shl_Ed_1, Register.EDI)]
-		[InlineData("66 D1 F8", 3, Code.Sar_Ed_1, Register.EAX)]
+		[InlineData("66 D1 C1", 3, Code.Rol_rm32_1, Register.ECX)]
+		[InlineData("66 D1 CA", 3, Code.Ror_rm32_1, Register.EDX)]
+		[InlineData("66 D1 D3", 3, Code.Rcl_rm32_1, Register.EBX)]
+		[InlineData("66 D1 DC", 3, Code.Rcr_rm32_1, Register.ESP)]
+		[InlineData("66 D1 E5", 3, Code.Shl_rm32_1, Register.EBP)]
+		[InlineData("66 D1 EE", 3, Code.Shr_rm32_1, Register.ESI)]
+		[InlineData("66 D1 F7", 3, Code.Shl_rm32_1, Register.EDI)]
+		[InlineData("66 D1 F8", 3, Code.Sar_rm32_1, Register.EAX)]
 		void Test16_Grp2_Ed_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -492,14 +492,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D1 00", 2, Code.Rol_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 08", 2, Code.Ror_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 10", 2, Code.Rcl_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 18", 2, Code.Rcr_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 20", 2, Code.Shl_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 28", 2, Code.Shr_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 30", 2, Code.Shl_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 38", 2, Code.Sar_Ed_1, MemorySize.Int32)]
+		[InlineData("D1 00", 2, Code.Rol_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 08", 2, Code.Ror_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 10", 2, Code.Rcl_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 18", 2, Code.Rcr_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 20", 2, Code.Shl_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 28", 2, Code.Shr_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 30", 2, Code.Shl_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 38", 2, Code.Sar_rm32_1, MemorySize.Int32)]
 		void Test32_Grp2_Ed_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -526,14 +526,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D1 C1", 2, Code.Rol_Ed_1, Register.ECX)]
-		[InlineData("D1 CA", 2, Code.Ror_Ed_1, Register.EDX)]
-		[InlineData("D1 D3", 2, Code.Rcl_Ed_1, Register.EBX)]
-		[InlineData("D1 DC", 2, Code.Rcr_Ed_1, Register.ESP)]
-		[InlineData("D1 E5", 2, Code.Shl_Ed_1, Register.EBP)]
-		[InlineData("D1 EE", 2, Code.Shr_Ed_1, Register.ESI)]
-		[InlineData("D1 F7", 2, Code.Shl_Ed_1, Register.EDI)]
-		[InlineData("D1 F8", 2, Code.Sar_Ed_1, Register.EAX)]
+		[InlineData("D1 C1", 2, Code.Rol_rm32_1, Register.ECX)]
+		[InlineData("D1 CA", 2, Code.Ror_rm32_1, Register.EDX)]
+		[InlineData("D1 D3", 2, Code.Rcl_rm32_1, Register.EBX)]
+		[InlineData("D1 DC", 2, Code.Rcr_rm32_1, Register.ESP)]
+		[InlineData("D1 E5", 2, Code.Shl_rm32_1, Register.EBP)]
+		[InlineData("D1 EE", 2, Code.Shr_rm32_1, Register.ESI)]
+		[InlineData("D1 F7", 2, Code.Shl_rm32_1, Register.EDI)]
+		[InlineData("D1 F8", 2, Code.Sar_rm32_1, Register.EAX)]
 		void Test32_Grp2_Ed_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -554,14 +554,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D1 00", 2, Code.Rol_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 08", 2, Code.Ror_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 10", 2, Code.Rcl_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 18", 2, Code.Rcr_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 20", 2, Code.Shl_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 28", 2, Code.Shr_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 30", 2, Code.Shl_Ed_1, MemorySize.UInt32)]
-		[InlineData("D1 38", 2, Code.Sar_Ed_1, MemorySize.Int32)]
+		[InlineData("D1 00", 2, Code.Rol_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 08", 2, Code.Ror_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 10", 2, Code.Rcl_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 18", 2, Code.Rcr_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 20", 2, Code.Shl_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 28", 2, Code.Shr_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 30", 2, Code.Shl_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 38", 2, Code.Sar_rm32_1, MemorySize.Int32)]
 		void Test64_Grp2_Ed_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -588,23 +588,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D1 C1", 2, Code.Rol_Ed_1, Register.ECX)]
-		[InlineData("D1 CA", 2, Code.Ror_Ed_1, Register.EDX)]
-		[InlineData("D1 D3", 2, Code.Rcl_Ed_1, Register.EBX)]
-		[InlineData("D1 DC", 2, Code.Rcr_Ed_1, Register.ESP)]
-		[InlineData("D1 E5", 2, Code.Shl_Ed_1, Register.EBP)]
-		[InlineData("D1 EE", 2, Code.Shr_Ed_1, Register.ESI)]
-		[InlineData("D1 F7", 2, Code.Shl_Ed_1, Register.EDI)]
-		[InlineData("41 D1 F8", 3, Code.Sar_Ed_1, Register.R8D)]
+		[InlineData("D1 C1", 2, Code.Rol_rm32_1, Register.ECX)]
+		[InlineData("D1 CA", 2, Code.Ror_rm32_1, Register.EDX)]
+		[InlineData("D1 D3", 2, Code.Rcl_rm32_1, Register.EBX)]
+		[InlineData("D1 DC", 2, Code.Rcr_rm32_1, Register.ESP)]
+		[InlineData("D1 E5", 2, Code.Shl_rm32_1, Register.EBP)]
+		[InlineData("D1 EE", 2, Code.Shr_rm32_1, Register.ESI)]
+		[InlineData("D1 F7", 2, Code.Shl_rm32_1, Register.EDI)]
+		[InlineData("41 D1 F8", 3, Code.Sar_rm32_1, Register.R8D)]
 
-		[InlineData("41 D1 C1", 3, Code.Rol_Ed_1, Register.R9D)]
-		[InlineData("41 D1 CA", 3, Code.Ror_Ed_1, Register.R10D)]
-		[InlineData("41 D1 D3", 3, Code.Rcl_Ed_1, Register.R11D)]
-		[InlineData("41 D1 DC", 3, Code.Rcr_Ed_1, Register.R12D)]
-		[InlineData("41 D1 E5", 3, Code.Shl_Ed_1, Register.R13D)]
-		[InlineData("41 D1 EE", 3, Code.Shr_Ed_1, Register.R14D)]
-		[InlineData("41 D1 F7", 3, Code.Shl_Ed_1, Register.R15D)]
-		[InlineData("D1 F8", 2, Code.Sar_Ed_1, Register.EAX)]
+		[InlineData("41 D1 C1", 3, Code.Rol_rm32_1, Register.R9D)]
+		[InlineData("41 D1 CA", 3, Code.Ror_rm32_1, Register.R10D)]
+		[InlineData("41 D1 D3", 3, Code.Rcl_rm32_1, Register.R11D)]
+		[InlineData("41 D1 DC", 3, Code.Rcr_rm32_1, Register.R12D)]
+		[InlineData("41 D1 E5", 3, Code.Shl_rm32_1, Register.R13D)]
+		[InlineData("41 D1 EE", 3, Code.Shr_rm32_1, Register.R14D)]
+		[InlineData("41 D1 F7", 3, Code.Shl_rm32_1, Register.R15D)]
+		[InlineData("D1 F8", 2, Code.Sar_rm32_1, Register.EAX)]
 		void Test64_Grp2_Ed_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -625,14 +625,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("48 D1 00", 3, Code.Rol_Eq_1, MemorySize.UInt64)]
-		[InlineData("48 D1 08", 3, Code.Ror_Eq_1, MemorySize.UInt64)]
-		[InlineData("48 D1 10", 3, Code.Rcl_Eq_1, MemorySize.UInt64)]
-		[InlineData("48 D1 18", 3, Code.Rcr_Eq_1, MemorySize.UInt64)]
-		[InlineData("48 D1 20", 3, Code.Shl_Eq_1, MemorySize.UInt64)]
-		[InlineData("48 D1 28", 3, Code.Shr_Eq_1, MemorySize.UInt64)]
-		[InlineData("48 D1 30", 3, Code.Shl_Eq_1, MemorySize.UInt64)]
-		[InlineData("48 D1 38", 3, Code.Sar_Eq_1, MemorySize.Int64)]
+		[InlineData("48 D1 00", 3, Code.Rol_rm64_1, MemorySize.UInt64)]
+		[InlineData("48 D1 08", 3, Code.Ror_rm64_1, MemorySize.UInt64)]
+		[InlineData("48 D1 10", 3, Code.Rcl_rm64_1, MemorySize.UInt64)]
+		[InlineData("48 D1 18", 3, Code.Rcr_rm64_1, MemorySize.UInt64)]
+		[InlineData("48 D1 20", 3, Code.Shl_rm64_1, MemorySize.UInt64)]
+		[InlineData("48 D1 28", 3, Code.Shr_rm64_1, MemorySize.UInt64)]
+		[InlineData("48 D1 30", 3, Code.Shl_rm64_1, MemorySize.UInt64)]
+		[InlineData("48 D1 38", 3, Code.Sar_rm64_1, MemorySize.Int64)]
 		void Test64_Grp2_Eq_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -659,23 +659,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("48 D1 C1", 3, Code.Rol_Eq_1, Register.RCX)]
-		[InlineData("48 D1 CA", 3, Code.Ror_Eq_1, Register.RDX)]
-		[InlineData("48 D1 D3", 3, Code.Rcl_Eq_1, Register.RBX)]
-		[InlineData("48 D1 DC", 3, Code.Rcr_Eq_1, Register.RSP)]
-		[InlineData("48 D1 E5", 3, Code.Shl_Eq_1, Register.RBP)]
-		[InlineData("48 D1 EE", 3, Code.Shr_Eq_1, Register.RSI)]
-		[InlineData("48 D1 F7", 3, Code.Shl_Eq_1, Register.RDI)]
-		[InlineData("49 D1 F8", 3, Code.Sar_Eq_1, Register.R8)]
+		[InlineData("48 D1 C1", 3, Code.Rol_rm64_1, Register.RCX)]
+		[InlineData("48 D1 CA", 3, Code.Ror_rm64_1, Register.RDX)]
+		[InlineData("48 D1 D3", 3, Code.Rcl_rm64_1, Register.RBX)]
+		[InlineData("48 D1 DC", 3, Code.Rcr_rm64_1, Register.RSP)]
+		[InlineData("48 D1 E5", 3, Code.Shl_rm64_1, Register.RBP)]
+		[InlineData("48 D1 EE", 3, Code.Shr_rm64_1, Register.RSI)]
+		[InlineData("48 D1 F7", 3, Code.Shl_rm64_1, Register.RDI)]
+		[InlineData("49 D1 F8", 3, Code.Sar_rm64_1, Register.R8)]
 
-		[InlineData("49 D1 C1", 3, Code.Rol_Eq_1, Register.R9)]
-		[InlineData("49 D1 CA", 3, Code.Ror_Eq_1, Register.R10)]
-		[InlineData("49 D1 D3", 3, Code.Rcl_Eq_1, Register.R11)]
-		[InlineData("49 D1 DC", 3, Code.Rcr_Eq_1, Register.R12)]
-		[InlineData("49 D1 E5", 3, Code.Shl_Eq_1, Register.R13)]
-		[InlineData("49 D1 EE", 3, Code.Shr_Eq_1, Register.R14)]
-		[InlineData("49 D1 F7", 3, Code.Shl_Eq_1, Register.R15)]
-		[InlineData("48 D1 F8", 3, Code.Sar_Eq_1, Register.RAX)]
+		[InlineData("49 D1 C1", 3, Code.Rol_rm64_1, Register.R9)]
+		[InlineData("49 D1 CA", 3, Code.Ror_rm64_1, Register.R10)]
+		[InlineData("49 D1 D3", 3, Code.Rcl_rm64_1, Register.R11)]
+		[InlineData("49 D1 DC", 3, Code.Rcr_rm64_1, Register.R12)]
+		[InlineData("49 D1 E5", 3, Code.Shl_rm64_1, Register.R13)]
+		[InlineData("49 D1 EE", 3, Code.Shr_rm64_1, Register.R14)]
+		[InlineData("49 D1 F7", 3, Code.Shl_rm64_1, Register.R15)]
+		[InlineData("48 D1 F8", 3, Code.Sar_rm64_1, Register.RAX)]
 		void Test64_Grp2_Eq_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -696,14 +696,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D2 00", 2, Code.Rol_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 08", 2, Code.Ror_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 10", 2, Code.Rcl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 18", 2, Code.Rcr_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 20", 2, Code.Shl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 28", 2, Code.Shr_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 30", 2, Code.Shl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 38", 2, Code.Sar_Eb_CL, MemorySize.Int8)]
+		[InlineData("D2 00", 2, Code.Rol_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 08", 2, Code.Ror_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 10", 2, Code.Rcl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 18", 2, Code.Rcr_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 20", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 28", 2, Code.Shr_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 30", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 38", 2, Code.Sar_rm8_CL, MemorySize.Int8)]
 		void Test16_Grp2_Eb_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -730,14 +730,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D2 C1", 2, Code.Rol_Eb_CL, Register.CL)]
-		[InlineData("D2 CA", 2, Code.Ror_Eb_CL, Register.DL)]
-		[InlineData("D2 D3", 2, Code.Rcl_Eb_CL, Register.BL)]
-		[InlineData("D2 DC", 2, Code.Rcr_Eb_CL, Register.AH)]
-		[InlineData("D2 E5", 2, Code.Shl_Eb_CL, Register.CH)]
-		[InlineData("D2 EE", 2, Code.Shr_Eb_CL, Register.DH)]
-		[InlineData("D2 F7", 2, Code.Shl_Eb_CL, Register.BH)]
-		[InlineData("D2 F8", 2, Code.Sar_Eb_CL, Register.AL)]
+		[InlineData("D2 C1", 2, Code.Rol_rm8_CL, Register.CL)]
+		[InlineData("D2 CA", 2, Code.Ror_rm8_CL, Register.DL)]
+		[InlineData("D2 D3", 2, Code.Rcl_rm8_CL, Register.BL)]
+		[InlineData("D2 DC", 2, Code.Rcr_rm8_CL, Register.AH)]
+		[InlineData("D2 E5", 2, Code.Shl_rm8_CL, Register.CH)]
+		[InlineData("D2 EE", 2, Code.Shr_rm8_CL, Register.DH)]
+		[InlineData("D2 F7", 2, Code.Shl_rm8_CL, Register.BH)]
+		[InlineData("D2 F8", 2, Code.Sar_rm8_CL, Register.AL)]
 		void Test16_Grp2_Eb_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -758,14 +758,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D2 00", 2, Code.Rol_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 08", 2, Code.Ror_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 10", 2, Code.Rcl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 18", 2, Code.Rcr_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 20", 2, Code.Shl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 28", 2, Code.Shr_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 30", 2, Code.Shl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 38", 2, Code.Sar_Eb_CL, MemorySize.Int8)]
+		[InlineData("D2 00", 2, Code.Rol_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 08", 2, Code.Ror_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 10", 2, Code.Rcl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 18", 2, Code.Rcr_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 20", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 28", 2, Code.Shr_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 30", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 38", 2, Code.Sar_rm8_CL, MemorySize.Int8)]
 		void Test32_Grp2_Eb_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -792,14 +792,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D2 C1", 2, Code.Rol_Eb_CL, Register.CL)]
-		[InlineData("D2 CA", 2, Code.Ror_Eb_CL, Register.DL)]
-		[InlineData("D2 D3", 2, Code.Rcl_Eb_CL, Register.BL)]
-		[InlineData("D2 DC", 2, Code.Rcr_Eb_CL, Register.AH)]
-		[InlineData("D2 E5", 2, Code.Shl_Eb_CL, Register.CH)]
-		[InlineData("D2 EE", 2, Code.Shr_Eb_CL, Register.DH)]
-		[InlineData("D2 F7", 2, Code.Shl_Eb_CL, Register.BH)]
-		[InlineData("D2 F8", 2, Code.Sar_Eb_CL, Register.AL)]
+		[InlineData("D2 C1", 2, Code.Rol_rm8_CL, Register.CL)]
+		[InlineData("D2 CA", 2, Code.Ror_rm8_CL, Register.DL)]
+		[InlineData("D2 D3", 2, Code.Rcl_rm8_CL, Register.BL)]
+		[InlineData("D2 DC", 2, Code.Rcr_rm8_CL, Register.AH)]
+		[InlineData("D2 E5", 2, Code.Shl_rm8_CL, Register.CH)]
+		[InlineData("D2 EE", 2, Code.Shr_rm8_CL, Register.DH)]
+		[InlineData("D2 F7", 2, Code.Shl_rm8_CL, Register.BH)]
+		[InlineData("D2 F8", 2, Code.Sar_rm8_CL, Register.AL)]
 		void Test32_Grp2_Eb_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -820,23 +820,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D2 00", 2, Code.Rol_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 08", 2, Code.Ror_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 10", 2, Code.Rcl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 18", 2, Code.Rcr_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 20", 2, Code.Shl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 28", 2, Code.Shr_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 30", 2, Code.Shl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("D2 38", 2, Code.Sar_Eb_CL, MemorySize.Int8)]
+		[InlineData("D2 00", 2, Code.Rol_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 08", 2, Code.Ror_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 10", 2, Code.Rcl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 18", 2, Code.Rcr_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 20", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 28", 2, Code.Shr_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 30", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 38", 2, Code.Sar_rm8_CL, MemorySize.Int8)]
 
-		[InlineData("44 D2 00", 3, Code.Rol_Eb_CL, MemorySize.UInt8)]
-		[InlineData("44 D2 08", 3, Code.Ror_Eb_CL, MemorySize.UInt8)]
-		[InlineData("44 D2 10", 3, Code.Rcl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("44 D2 18", 3, Code.Rcr_Eb_CL, MemorySize.UInt8)]
-		[InlineData("44 D2 20", 3, Code.Shl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("44 D2 28", 3, Code.Shr_Eb_CL, MemorySize.UInt8)]
-		[InlineData("44 D2 30", 3, Code.Shl_Eb_CL, MemorySize.UInt8)]
-		[InlineData("44 D2 38", 3, Code.Sar_Eb_CL, MemorySize.Int8)]
+		[InlineData("44 D2 00", 3, Code.Rol_rm8_CL, MemorySize.UInt8)]
+		[InlineData("44 D2 08", 3, Code.Ror_rm8_CL, MemorySize.UInt8)]
+		[InlineData("44 D2 10", 3, Code.Rcl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("44 D2 18", 3, Code.Rcr_rm8_CL, MemorySize.UInt8)]
+		[InlineData("44 D2 20", 3, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("44 D2 28", 3, Code.Shr_rm8_CL, MemorySize.UInt8)]
+		[InlineData("44 D2 30", 3, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("44 D2 38", 3, Code.Sar_rm8_CL, MemorySize.Int8)]
 		void Test64_Grp2_Eb_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -863,31 +863,31 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D2 C1", 2, Code.Rol_Eb_CL, Register.CL)]
-		[InlineData("D2 CA", 2, Code.Ror_Eb_CL, Register.DL)]
-		[InlineData("D2 D3", 2, Code.Rcl_Eb_CL, Register.BL)]
-		[InlineData("D2 DC", 2, Code.Rcr_Eb_CL, Register.AH)]
-		[InlineData("D2 E5", 2, Code.Shl_Eb_CL, Register.CH)]
-		[InlineData("D2 EE", 2, Code.Shr_Eb_CL, Register.DH)]
-		[InlineData("D2 F7", 2, Code.Shl_Eb_CL, Register.BH)]
-		[InlineData("D2 F8", 2, Code.Sar_Eb_CL, Register.AL)]
+		[InlineData("D2 C1", 2, Code.Rol_rm8_CL, Register.CL)]
+		[InlineData("D2 CA", 2, Code.Ror_rm8_CL, Register.DL)]
+		[InlineData("D2 D3", 2, Code.Rcl_rm8_CL, Register.BL)]
+		[InlineData("D2 DC", 2, Code.Rcr_rm8_CL, Register.AH)]
+		[InlineData("D2 E5", 2, Code.Shl_rm8_CL, Register.CH)]
+		[InlineData("D2 EE", 2, Code.Shr_rm8_CL, Register.DH)]
+		[InlineData("D2 F7", 2, Code.Shl_rm8_CL, Register.BH)]
+		[InlineData("D2 F8", 2, Code.Sar_rm8_CL, Register.AL)]
 
-		[InlineData("40 D2 C1", 3, Code.Rol_Eb_CL, Register.CL)]
-		[InlineData("40 D2 CA", 3, Code.Ror_Eb_CL, Register.DL)]
-		[InlineData("40 D2 D3", 3, Code.Rcl_Eb_CL, Register.BL)]
-		[InlineData("40 D2 DC", 3, Code.Rcr_Eb_CL, Register.SPL)]
-		[InlineData("40 D2 E5", 3, Code.Shl_Eb_CL, Register.BPL)]
-		[InlineData("40 D2 EE", 3, Code.Shr_Eb_CL, Register.SIL)]
-		[InlineData("40 D2 F7", 3, Code.Shl_Eb_CL, Register.DIL)]
-		[InlineData("41 D2 F8", 3, Code.Sar_Eb_CL, Register.R8L)]
-		[InlineData("41 D2 C1", 3, Code.Rol_Eb_CL, Register.R9L)]
-		[InlineData("41 D2 CA", 3, Code.Ror_Eb_CL, Register.R10L)]
-		[InlineData("41 D2 D3", 3, Code.Rcl_Eb_CL, Register.R11L)]
-		[InlineData("41 D2 DC", 3, Code.Rcr_Eb_CL, Register.R12L)]
-		[InlineData("41 D2 E5", 3, Code.Shl_Eb_CL, Register.R13L)]
-		[InlineData("41 D2 EE", 3, Code.Shr_Eb_CL, Register.R14L)]
-		[InlineData("41 D2 F7", 3, Code.Shl_Eb_CL, Register.R15L)]
-		[InlineData("40 D2 F8", 3, Code.Sar_Eb_CL, Register.AL)]
+		[InlineData("40 D2 C1", 3, Code.Rol_rm8_CL, Register.CL)]
+		[InlineData("40 D2 CA", 3, Code.Ror_rm8_CL, Register.DL)]
+		[InlineData("40 D2 D3", 3, Code.Rcl_rm8_CL, Register.BL)]
+		[InlineData("40 D2 DC", 3, Code.Rcr_rm8_CL, Register.SPL)]
+		[InlineData("40 D2 E5", 3, Code.Shl_rm8_CL, Register.BPL)]
+		[InlineData("40 D2 EE", 3, Code.Shr_rm8_CL, Register.SIL)]
+		[InlineData("40 D2 F7", 3, Code.Shl_rm8_CL, Register.DIL)]
+		[InlineData("41 D2 F8", 3, Code.Sar_rm8_CL, Register.R8L)]
+		[InlineData("41 D2 C1", 3, Code.Rol_rm8_CL, Register.R9L)]
+		[InlineData("41 D2 CA", 3, Code.Ror_rm8_CL, Register.R10L)]
+		[InlineData("41 D2 D3", 3, Code.Rcl_rm8_CL, Register.R11L)]
+		[InlineData("41 D2 DC", 3, Code.Rcr_rm8_CL, Register.R12L)]
+		[InlineData("41 D2 E5", 3, Code.Shl_rm8_CL, Register.R13L)]
+		[InlineData("41 D2 EE", 3, Code.Shr_rm8_CL, Register.R14L)]
+		[InlineData("41 D2 F7", 3, Code.Shl_rm8_CL, Register.R15L)]
+		[InlineData("40 D2 F8", 3, Code.Sar_rm8_CL, Register.AL)]
 		void Test64_Grp2_Eb_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -908,14 +908,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D3 00", 2, Code.Rol_Ew_CL, MemorySize.UInt16)]
-		[InlineData("D3 08", 2, Code.Ror_Ew_CL, MemorySize.UInt16)]
-		[InlineData("D3 10", 2, Code.Rcl_Ew_CL, MemorySize.UInt16)]
-		[InlineData("D3 18", 2, Code.Rcr_Ew_CL, MemorySize.UInt16)]
-		[InlineData("D3 20", 2, Code.Shl_Ew_CL, MemorySize.UInt16)]
-		[InlineData("D3 28", 2, Code.Shr_Ew_CL, MemorySize.UInt16)]
-		[InlineData("D3 30", 2, Code.Shl_Ew_CL, MemorySize.UInt16)]
-		[InlineData("D3 38", 2, Code.Sar_Ew_CL, MemorySize.Int16)]
+		[InlineData("D3 00", 2, Code.Rol_rm16_CL, MemorySize.UInt16)]
+		[InlineData("D3 08", 2, Code.Ror_rm16_CL, MemorySize.UInt16)]
+		[InlineData("D3 10", 2, Code.Rcl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("D3 18", 2, Code.Rcr_rm16_CL, MemorySize.UInt16)]
+		[InlineData("D3 20", 2, Code.Shl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("D3 28", 2, Code.Shr_rm16_CL, MemorySize.UInt16)]
+		[InlineData("D3 30", 2, Code.Shl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("D3 38", 2, Code.Sar_rm16_CL, MemorySize.Int16)]
 		void Test16_Grp2_Ew_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -942,14 +942,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D3 C1", 2, Code.Rol_Ew_CL, Register.CX)]
-		[InlineData("D3 CA", 2, Code.Ror_Ew_CL, Register.DX)]
-		[InlineData("D3 D3", 2, Code.Rcl_Ew_CL, Register.BX)]
-		[InlineData("D3 DC", 2, Code.Rcr_Ew_CL, Register.SP)]
-		[InlineData("D3 E5", 2, Code.Shl_Ew_CL, Register.BP)]
-		[InlineData("D3 EE", 2, Code.Shr_Ew_CL, Register.SI)]
-		[InlineData("D3 F7", 2, Code.Shl_Ew_CL, Register.DI)]
-		[InlineData("D3 F8", 2, Code.Sar_Ew_CL, Register.AX)]
+		[InlineData("D3 C1", 2, Code.Rol_rm16_CL, Register.CX)]
+		[InlineData("D3 CA", 2, Code.Ror_rm16_CL, Register.DX)]
+		[InlineData("D3 D3", 2, Code.Rcl_rm16_CL, Register.BX)]
+		[InlineData("D3 DC", 2, Code.Rcr_rm16_CL, Register.SP)]
+		[InlineData("D3 E5", 2, Code.Shl_rm16_CL, Register.BP)]
+		[InlineData("D3 EE", 2, Code.Shr_rm16_CL, Register.SI)]
+		[InlineData("D3 F7", 2, Code.Shl_rm16_CL, Register.DI)]
+		[InlineData("D3 F8", 2, Code.Sar_rm16_CL, Register.AX)]
 		void Test16_Grp2_Ew_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -970,14 +970,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D3 00", 3, Code.Rol_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 08", 3, Code.Ror_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 10", 3, Code.Rcl_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 18", 3, Code.Rcr_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 20", 3, Code.Shl_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 28", 3, Code.Shr_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 30", 3, Code.Shl_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 38", 3, Code.Sar_Ew_CL, MemorySize.Int16)]
+		[InlineData("66 D3 00", 3, Code.Rol_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 08", 3, Code.Ror_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 10", 3, Code.Rcl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 18", 3, Code.Rcr_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 20", 3, Code.Shl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 28", 3, Code.Shr_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 30", 3, Code.Shl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 38", 3, Code.Sar_rm16_CL, MemorySize.Int16)]
 		void Test32_Grp2_Ew_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -1004,14 +1004,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D3 C1", 3, Code.Rol_Ew_CL, Register.CX)]
-		[InlineData("66 D3 CA", 3, Code.Ror_Ew_CL, Register.DX)]
-		[InlineData("66 D3 D3", 3, Code.Rcl_Ew_CL, Register.BX)]
-		[InlineData("66 D3 DC", 3, Code.Rcr_Ew_CL, Register.SP)]
-		[InlineData("66 D3 E5", 3, Code.Shl_Ew_CL, Register.BP)]
-		[InlineData("66 D3 EE", 3, Code.Shr_Ew_CL, Register.SI)]
-		[InlineData("66 D3 F7", 3, Code.Shl_Ew_CL, Register.DI)]
-		[InlineData("66 D3 F8", 3, Code.Sar_Ew_CL, Register.AX)]
+		[InlineData("66 D3 C1", 3, Code.Rol_rm16_CL, Register.CX)]
+		[InlineData("66 D3 CA", 3, Code.Ror_rm16_CL, Register.DX)]
+		[InlineData("66 D3 D3", 3, Code.Rcl_rm16_CL, Register.BX)]
+		[InlineData("66 D3 DC", 3, Code.Rcr_rm16_CL, Register.SP)]
+		[InlineData("66 D3 E5", 3, Code.Shl_rm16_CL, Register.BP)]
+		[InlineData("66 D3 EE", 3, Code.Shr_rm16_CL, Register.SI)]
+		[InlineData("66 D3 F7", 3, Code.Shl_rm16_CL, Register.DI)]
+		[InlineData("66 D3 F8", 3, Code.Sar_rm16_CL, Register.AX)]
 		void Test32_Grp2_Ew_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -1032,14 +1032,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D3 00", 3, Code.Rol_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 08", 3, Code.Ror_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 10", 3, Code.Rcl_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 18", 3, Code.Rcr_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 20", 3, Code.Shl_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 28", 3, Code.Shr_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 30", 3, Code.Shl_Ew_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 38", 3, Code.Sar_Ew_CL, MemorySize.Int16)]
+		[InlineData("66 D3 00", 3, Code.Rol_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 08", 3, Code.Ror_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 10", 3, Code.Rcl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 18", 3, Code.Rcr_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 20", 3, Code.Shl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 28", 3, Code.Shr_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 30", 3, Code.Shl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 38", 3, Code.Sar_rm16_CL, MemorySize.Int16)]
 		void Test64_Grp2_Ew_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -1066,23 +1066,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D3 C1", 3, Code.Rol_Ew_CL, Register.CX)]
-		[InlineData("66 D3 CA", 3, Code.Ror_Ew_CL, Register.DX)]
-		[InlineData("66 D3 D3", 3, Code.Rcl_Ew_CL, Register.BX)]
-		[InlineData("66 D3 DC", 3, Code.Rcr_Ew_CL, Register.SP)]
-		[InlineData("66 D3 E5", 3, Code.Shl_Ew_CL, Register.BP)]
-		[InlineData("66 D3 EE", 3, Code.Shr_Ew_CL, Register.SI)]
-		[InlineData("66 D3 F7", 3, Code.Shl_Ew_CL, Register.DI)]
-		[InlineData("66 41 D3 F8", 4, Code.Sar_Ew_CL, Register.R8W)]
+		[InlineData("66 D3 C1", 3, Code.Rol_rm16_CL, Register.CX)]
+		[InlineData("66 D3 CA", 3, Code.Ror_rm16_CL, Register.DX)]
+		[InlineData("66 D3 D3", 3, Code.Rcl_rm16_CL, Register.BX)]
+		[InlineData("66 D3 DC", 3, Code.Rcr_rm16_CL, Register.SP)]
+		[InlineData("66 D3 E5", 3, Code.Shl_rm16_CL, Register.BP)]
+		[InlineData("66 D3 EE", 3, Code.Shr_rm16_CL, Register.SI)]
+		[InlineData("66 D3 F7", 3, Code.Shl_rm16_CL, Register.DI)]
+		[InlineData("66 41 D3 F8", 4, Code.Sar_rm16_CL, Register.R8W)]
 
-		[InlineData("66 41 D3 C1", 4, Code.Rol_Ew_CL, Register.R9W)]
-		[InlineData("66 41 D3 CA", 4, Code.Ror_Ew_CL, Register.R10W)]
-		[InlineData("66 41 D3 D3", 4, Code.Rcl_Ew_CL, Register.R11W)]
-		[InlineData("66 41 D3 DC", 4, Code.Rcr_Ew_CL, Register.R12W)]
-		[InlineData("66 41 D3 E5", 4, Code.Shl_Ew_CL, Register.R13W)]
-		[InlineData("66 41 D3 EE", 4, Code.Shr_Ew_CL, Register.R14W)]
-		[InlineData("66 41 D3 F7", 4, Code.Shl_Ew_CL, Register.R15W)]
-		[InlineData("66 D3 F8", 3, Code.Sar_Ew_CL, Register.AX)]
+		[InlineData("66 41 D3 C1", 4, Code.Rol_rm16_CL, Register.R9W)]
+		[InlineData("66 41 D3 CA", 4, Code.Ror_rm16_CL, Register.R10W)]
+		[InlineData("66 41 D3 D3", 4, Code.Rcl_rm16_CL, Register.R11W)]
+		[InlineData("66 41 D3 DC", 4, Code.Rcr_rm16_CL, Register.R12W)]
+		[InlineData("66 41 D3 E5", 4, Code.Shl_rm16_CL, Register.R13W)]
+		[InlineData("66 41 D3 EE", 4, Code.Shr_rm16_CL, Register.R14W)]
+		[InlineData("66 41 D3 F7", 4, Code.Shl_rm16_CL, Register.R15W)]
+		[InlineData("66 D3 F8", 3, Code.Sar_rm16_CL, Register.AX)]
 		void Test64_Grp2_Ew_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -1103,14 +1103,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D3 00", 3, Code.Rol_Ed_CL, MemorySize.UInt32)]
-		[InlineData("66 D3 08", 3, Code.Ror_Ed_CL, MemorySize.UInt32)]
-		[InlineData("66 D3 10", 3, Code.Rcl_Ed_CL, MemorySize.UInt32)]
-		[InlineData("66 D3 18", 3, Code.Rcr_Ed_CL, MemorySize.UInt32)]
-		[InlineData("66 D3 20", 3, Code.Shl_Ed_CL, MemorySize.UInt32)]
-		[InlineData("66 D3 28", 3, Code.Shr_Ed_CL, MemorySize.UInt32)]
-		[InlineData("66 D3 30", 3, Code.Shl_Ed_CL, MemorySize.UInt32)]
-		[InlineData("66 D3 38", 3, Code.Sar_Ed_CL, MemorySize.Int32)]
+		[InlineData("66 D3 00", 3, Code.Rol_rm32_CL, MemorySize.UInt32)]
+		[InlineData("66 D3 08", 3, Code.Ror_rm32_CL, MemorySize.UInt32)]
+		[InlineData("66 D3 10", 3, Code.Rcl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("66 D3 18", 3, Code.Rcr_rm32_CL, MemorySize.UInt32)]
+		[InlineData("66 D3 20", 3, Code.Shl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("66 D3 28", 3, Code.Shr_rm32_CL, MemorySize.UInt32)]
+		[InlineData("66 D3 30", 3, Code.Shl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("66 D3 38", 3, Code.Sar_rm32_CL, MemorySize.Int32)]
 		void Test16_Grp2_Ed_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -1137,14 +1137,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 D3 C1", 3, Code.Rol_Ed_CL, Register.ECX)]
-		[InlineData("66 D3 CA", 3, Code.Ror_Ed_CL, Register.EDX)]
-		[InlineData("66 D3 D3", 3, Code.Rcl_Ed_CL, Register.EBX)]
-		[InlineData("66 D3 DC", 3, Code.Rcr_Ed_CL, Register.ESP)]
-		[InlineData("66 D3 E5", 3, Code.Shl_Ed_CL, Register.EBP)]
-		[InlineData("66 D3 EE", 3, Code.Shr_Ed_CL, Register.ESI)]
-		[InlineData("66 D3 F7", 3, Code.Shl_Ed_CL, Register.EDI)]
-		[InlineData("66 D3 F8", 3, Code.Sar_Ed_CL, Register.EAX)]
+		[InlineData("66 D3 C1", 3, Code.Rol_rm32_CL, Register.ECX)]
+		[InlineData("66 D3 CA", 3, Code.Ror_rm32_CL, Register.EDX)]
+		[InlineData("66 D3 D3", 3, Code.Rcl_rm32_CL, Register.EBX)]
+		[InlineData("66 D3 DC", 3, Code.Rcr_rm32_CL, Register.ESP)]
+		[InlineData("66 D3 E5", 3, Code.Shl_rm32_CL, Register.EBP)]
+		[InlineData("66 D3 EE", 3, Code.Shr_rm32_CL, Register.ESI)]
+		[InlineData("66 D3 F7", 3, Code.Shl_rm32_CL, Register.EDI)]
+		[InlineData("66 D3 F8", 3, Code.Sar_rm32_CL, Register.EAX)]
 		void Test16_Grp2_Ed_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -1165,14 +1165,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D3 00", 2, Code.Rol_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 08", 2, Code.Ror_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 10", 2, Code.Rcl_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 18", 2, Code.Rcr_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 20", 2, Code.Shl_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 28", 2, Code.Shr_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 30", 2, Code.Shl_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 38", 2, Code.Sar_Ed_CL, MemorySize.Int32)]
+		[InlineData("D3 00", 2, Code.Rol_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 08", 2, Code.Ror_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 10", 2, Code.Rcl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 18", 2, Code.Rcr_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 20", 2, Code.Shl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 28", 2, Code.Shr_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 30", 2, Code.Shl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 38", 2, Code.Sar_rm32_CL, MemorySize.Int32)]
 		void Test32_Grp2_Ed_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -1199,14 +1199,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D3 C1", 2, Code.Rol_Ed_CL, Register.ECX)]
-		[InlineData("D3 CA", 2, Code.Ror_Ed_CL, Register.EDX)]
-		[InlineData("D3 D3", 2, Code.Rcl_Ed_CL, Register.EBX)]
-		[InlineData("D3 DC", 2, Code.Rcr_Ed_CL, Register.ESP)]
-		[InlineData("D3 E5", 2, Code.Shl_Ed_CL, Register.EBP)]
-		[InlineData("D3 EE", 2, Code.Shr_Ed_CL, Register.ESI)]
-		[InlineData("D3 F7", 2, Code.Shl_Ed_CL, Register.EDI)]
-		[InlineData("D3 F8", 2, Code.Sar_Ed_CL, Register.EAX)]
+		[InlineData("D3 C1", 2, Code.Rol_rm32_CL, Register.ECX)]
+		[InlineData("D3 CA", 2, Code.Ror_rm32_CL, Register.EDX)]
+		[InlineData("D3 D3", 2, Code.Rcl_rm32_CL, Register.EBX)]
+		[InlineData("D3 DC", 2, Code.Rcr_rm32_CL, Register.ESP)]
+		[InlineData("D3 E5", 2, Code.Shl_rm32_CL, Register.EBP)]
+		[InlineData("D3 EE", 2, Code.Shr_rm32_CL, Register.ESI)]
+		[InlineData("D3 F7", 2, Code.Shl_rm32_CL, Register.EDI)]
+		[InlineData("D3 F8", 2, Code.Sar_rm32_CL, Register.EAX)]
 		void Test32_Grp2_Ed_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -1227,14 +1227,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D3 00", 2, Code.Rol_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 08", 2, Code.Ror_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 10", 2, Code.Rcl_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 18", 2, Code.Rcr_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 20", 2, Code.Shl_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 28", 2, Code.Shr_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 30", 2, Code.Shl_Ed_CL, MemorySize.UInt32)]
-		[InlineData("D3 38", 2, Code.Sar_Ed_CL, MemorySize.Int32)]
+		[InlineData("D3 00", 2, Code.Rol_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 08", 2, Code.Ror_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 10", 2, Code.Rcl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 18", 2, Code.Rcr_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 20", 2, Code.Shl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 28", 2, Code.Shr_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 30", 2, Code.Shl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 38", 2, Code.Sar_rm32_CL, MemorySize.Int32)]
 		void Test64_Grp2_Ed_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -1261,23 +1261,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D3 C1", 2, Code.Rol_Ed_CL, Register.ECX)]
-		[InlineData("D3 CA", 2, Code.Ror_Ed_CL, Register.EDX)]
-		[InlineData("D3 D3", 2, Code.Rcl_Ed_CL, Register.EBX)]
-		[InlineData("D3 DC", 2, Code.Rcr_Ed_CL, Register.ESP)]
-		[InlineData("D3 E5", 2, Code.Shl_Ed_CL, Register.EBP)]
-		[InlineData("D3 EE", 2, Code.Shr_Ed_CL, Register.ESI)]
-		[InlineData("D3 F7", 2, Code.Shl_Ed_CL, Register.EDI)]
-		[InlineData("41 D3 F8", 3, Code.Sar_Ed_CL, Register.R8D)]
+		[InlineData("D3 C1", 2, Code.Rol_rm32_CL, Register.ECX)]
+		[InlineData("D3 CA", 2, Code.Ror_rm32_CL, Register.EDX)]
+		[InlineData("D3 D3", 2, Code.Rcl_rm32_CL, Register.EBX)]
+		[InlineData("D3 DC", 2, Code.Rcr_rm32_CL, Register.ESP)]
+		[InlineData("D3 E5", 2, Code.Shl_rm32_CL, Register.EBP)]
+		[InlineData("D3 EE", 2, Code.Shr_rm32_CL, Register.ESI)]
+		[InlineData("D3 F7", 2, Code.Shl_rm32_CL, Register.EDI)]
+		[InlineData("41 D3 F8", 3, Code.Sar_rm32_CL, Register.R8D)]
 
-		[InlineData("41 D3 C1", 3, Code.Rol_Ed_CL, Register.R9D)]
-		[InlineData("41 D3 CA", 3, Code.Ror_Ed_CL, Register.R10D)]
-		[InlineData("41 D3 D3", 3, Code.Rcl_Ed_CL, Register.R11D)]
-		[InlineData("41 D3 DC", 3, Code.Rcr_Ed_CL, Register.R12D)]
-		[InlineData("41 D3 E5", 3, Code.Shl_Ed_CL, Register.R13D)]
-		[InlineData("41 D3 EE", 3, Code.Shr_Ed_CL, Register.R14D)]
-		[InlineData("41 D3 F7", 3, Code.Shl_Ed_CL, Register.R15D)]
-		[InlineData("D3 F8", 2, Code.Sar_Ed_CL, Register.EAX)]
+		[InlineData("41 D3 C1", 3, Code.Rol_rm32_CL, Register.R9D)]
+		[InlineData("41 D3 CA", 3, Code.Ror_rm32_CL, Register.R10D)]
+		[InlineData("41 D3 D3", 3, Code.Rcl_rm32_CL, Register.R11D)]
+		[InlineData("41 D3 DC", 3, Code.Rcr_rm32_CL, Register.R12D)]
+		[InlineData("41 D3 E5", 3, Code.Shl_rm32_CL, Register.R13D)]
+		[InlineData("41 D3 EE", 3, Code.Shr_rm32_CL, Register.R14D)]
+		[InlineData("41 D3 F7", 3, Code.Shl_rm32_CL, Register.R15D)]
+		[InlineData("D3 F8", 2, Code.Sar_rm32_CL, Register.EAX)]
 		void Test64_Grp2_Ed_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -1298,14 +1298,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("48 D3 00", 3, Code.Rol_Eq_CL, MemorySize.UInt64)]
-		[InlineData("48 D3 08", 3, Code.Ror_Eq_CL, MemorySize.UInt64)]
-		[InlineData("48 D3 10", 3, Code.Rcl_Eq_CL, MemorySize.UInt64)]
-		[InlineData("48 D3 18", 3, Code.Rcr_Eq_CL, MemorySize.UInt64)]
-		[InlineData("48 D3 20", 3, Code.Shl_Eq_CL, MemorySize.UInt64)]
-		[InlineData("48 D3 28", 3, Code.Shr_Eq_CL, MemorySize.UInt64)]
-		[InlineData("48 D3 30", 3, Code.Shl_Eq_CL, MemorySize.UInt64)]
-		[InlineData("48 D3 38", 3, Code.Sar_Eq_CL, MemorySize.Int64)]
+		[InlineData("48 D3 00", 3, Code.Rol_rm64_CL, MemorySize.UInt64)]
+		[InlineData("48 D3 08", 3, Code.Ror_rm64_CL, MemorySize.UInt64)]
+		[InlineData("48 D3 10", 3, Code.Rcl_rm64_CL, MemorySize.UInt64)]
+		[InlineData("48 D3 18", 3, Code.Rcr_rm64_CL, MemorySize.UInt64)]
+		[InlineData("48 D3 20", 3, Code.Shl_rm64_CL, MemorySize.UInt64)]
+		[InlineData("48 D3 28", 3, Code.Shr_rm64_CL, MemorySize.UInt64)]
+		[InlineData("48 D3 30", 3, Code.Shl_rm64_CL, MemorySize.UInt64)]
+		[InlineData("48 D3 38", 3, Code.Sar_rm64_CL, MemorySize.Int64)]
 		void Test64_Grp2_Eq_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -1332,23 +1332,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("48 D3 C1", 3, Code.Rol_Eq_CL, Register.RCX)]
-		[InlineData("48 D3 CA", 3, Code.Ror_Eq_CL, Register.RDX)]
-		[InlineData("48 D3 D3", 3, Code.Rcl_Eq_CL, Register.RBX)]
-		[InlineData("48 D3 DC", 3, Code.Rcr_Eq_CL, Register.RSP)]
-		[InlineData("48 D3 E5", 3, Code.Shl_Eq_CL, Register.RBP)]
-		[InlineData("48 D3 EE", 3, Code.Shr_Eq_CL, Register.RSI)]
-		[InlineData("48 D3 F7", 3, Code.Shl_Eq_CL, Register.RDI)]
-		[InlineData("49 D3 F8", 3, Code.Sar_Eq_CL, Register.R8)]
+		[InlineData("48 D3 C1", 3, Code.Rol_rm64_CL, Register.RCX)]
+		[InlineData("48 D3 CA", 3, Code.Ror_rm64_CL, Register.RDX)]
+		[InlineData("48 D3 D3", 3, Code.Rcl_rm64_CL, Register.RBX)]
+		[InlineData("48 D3 DC", 3, Code.Rcr_rm64_CL, Register.RSP)]
+		[InlineData("48 D3 E5", 3, Code.Shl_rm64_CL, Register.RBP)]
+		[InlineData("48 D3 EE", 3, Code.Shr_rm64_CL, Register.RSI)]
+		[InlineData("48 D3 F7", 3, Code.Shl_rm64_CL, Register.RDI)]
+		[InlineData("49 D3 F8", 3, Code.Sar_rm64_CL, Register.R8)]
 
-		[InlineData("49 D3 C1", 3, Code.Rol_Eq_CL, Register.R9)]
-		[InlineData("49 D3 CA", 3, Code.Ror_Eq_CL, Register.R10)]
-		[InlineData("49 D3 D3", 3, Code.Rcl_Eq_CL, Register.R11)]
-		[InlineData("49 D3 DC", 3, Code.Rcr_Eq_CL, Register.R12)]
-		[InlineData("49 D3 E5", 3, Code.Shl_Eq_CL, Register.R13)]
-		[InlineData("49 D3 EE", 3, Code.Shr_Eq_CL, Register.R14)]
-		[InlineData("49 D3 F7", 3, Code.Shl_Eq_CL, Register.R15)]
-		[InlineData("48 D3 F8", 3, Code.Sar_Eq_CL, Register.RAX)]
+		[InlineData("49 D3 C1", 3, Code.Rol_rm64_CL, Register.R9)]
+		[InlineData("49 D3 CA", 3, Code.Ror_rm64_CL, Register.R10)]
+		[InlineData("49 D3 D3", 3, Code.Rcl_rm64_CL, Register.R11)]
+		[InlineData("49 D3 DC", 3, Code.Rcr_rm64_CL, Register.R12)]
+		[InlineData("49 D3 E5", 3, Code.Shl_rm64_CL, Register.R13)]
+		[InlineData("49 D3 EE", 3, Code.Shr_rm64_CL, Register.R14)]
+		[InlineData("49 D3 F7", 3, Code.Shl_rm64_CL, Register.R15)]
+		[InlineData("48 D3 F8", 3, Code.Sar_rm64_CL, Register.RAX)]
 		void Test64_Grp2_Eq_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -1372,11 +1372,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D4 0A", 2, 0x0A)]
 		[InlineData("D4 A5", 2, 0xA5)]
 		[InlineData("D4 5A", 2, 0x5A)]
-		void Test16_Aam_Ib_1(string hexBytes, int byteLength, byte immediate8) {
+		void Test16_Aam_imm8_1(string hexBytes, int byteLength, byte immediate8) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Aam_Ib, instr.Code);
+			Assert.Equal(Code.Aam_imm8, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1392,11 +1392,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D4 0A", 2, 0x0A)]
 		[InlineData("D4 A5", 2, 0xA5)]
 		[InlineData("D4 5A", 2, 0x5A)]
-		void Test32_Aam_Ib_1(string hexBytes, int byteLength, byte immediate8) {
+		void Test32_Aam_imm8_1(string hexBytes, int byteLength, byte immediate8) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Aam_Ib, instr.Code);
+			Assert.Equal(Code.Aam_imm8, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1412,11 +1412,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D5 0A", 2, 0x0A)]
 		[InlineData("D5 A5", 2, 0xA5)]
 		[InlineData("D5 5A", 2, 0x5A)]
-		void Test16_Aad_Ib_1(string hexBytes, int byteLength, byte immediate8) {
+		void Test16_Aad_imm8_1(string hexBytes, int byteLength, byte immediate8) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Aad_Ib, instr.Code);
+			Assert.Equal(Code.Aad_imm8, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1432,11 +1432,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D5 0A", 2, 0x0A)]
 		[InlineData("D5 A5", 2, 0xA5)]
 		[InlineData("D5 5A", 2, 0x5A)]
-		void Test32_Aad_Ib_1(string hexBytes, int byteLength, byte immediate8) {
+		void Test32_Aad_imm8_1(string hexBytes, int byteLength, byte immediate8) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Aad_Ib, instr.Code);
+			Assert.Equal(Code.Aad_imm8, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);

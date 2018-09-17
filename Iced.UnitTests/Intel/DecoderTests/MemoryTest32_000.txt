@@ -16,195 +16,195 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Iced.  If not, see <https://www.gnu.org/licenses/>.
 #
-67 01 00, 3, Add_Ed_Gd, EAX, None, DS, BX, SI, 0, 0, 0
-67 01 01, 3, Add_Ed_Gd, EAX, None, DS, BX, DI, 0, 0, 0
-67 01 02, 3, Add_Ed_Gd, EAX, None, SS, BP, SI, 0, 0, 0
-67 01 03, 3, Add_Ed_Gd, EAX, None, SS, BP, DI, 0, 0, 0
-67 01 04, 3, Add_Ed_Gd, EAX, None, DS, SI, None, 0, 0, 0
-67 01 05, 3, Add_Ed_Gd, EAX, None, DS, DI, None, 0, 0, 0
-67 01 06 5AA5, 5, Add_Ed_Gd, EAX, None, DS, None, None, 0, 0xA55A, 2
-67 01 07, 3, Add_Ed_Gd, EAX, None, DS, BX, None, 0, 0, 0
-67 01 08, 3, Add_Ed_Gd, ECX, None, DS, BX, SI, 0, 0, 0
-67 01 09, 3, Add_Ed_Gd, ECX, None, DS, BX, DI, 0, 0, 0
-67 01 0A, 3, Add_Ed_Gd, ECX, None, SS, BP, SI, 0, 0, 0
-67 01 0B, 3, Add_Ed_Gd, ECX, None, SS, BP, DI, 0, 0, 0
-67 01 0C, 3, Add_Ed_Gd, ECX, None, DS, SI, None, 0, 0, 0
-67 01 0D, 3, Add_Ed_Gd, ECX, None, DS, DI, None, 0, 0, 0
-67 01 0E A55A, 5, Add_Ed_Gd, ECX, None, DS, None, None, 0, 0x5AA5, 2
-67 01 0F, 3, Add_Ed_Gd, ECX, None, DS, BX, None, 0, 0, 0
-67 01 10, 3, Add_Ed_Gd, EDX, None, DS, BX, SI, 0, 0, 0
-67 01 11, 3, Add_Ed_Gd, EDX, None, DS, BX, DI, 0, 0, 0
-67 01 12, 3, Add_Ed_Gd, EDX, None, SS, BP, SI, 0, 0, 0
-67 01 13, 3, Add_Ed_Gd, EDX, None, SS, BP, DI, 0, 0, 0
-67 01 14, 3, Add_Ed_Gd, EDX, None, DS, SI, None, 0, 0, 0
-67 01 15, 3, Add_Ed_Gd, EDX, None, DS, DI, None, 0, 0, 0
-67 01 16 5AA5, 5, Add_Ed_Gd, EDX, None, DS, None, None, 0, 0xA55A, 2
-67 01 17, 3, Add_Ed_Gd, EDX, None, DS, BX, None, 0, 0, 0
-67 01 18, 3, Add_Ed_Gd, EBX, None, DS, BX, SI, 0, 0, 0
-67 01 19, 3, Add_Ed_Gd, EBX, None, DS, BX, DI, 0, 0, 0
-67 01 1A, 3, Add_Ed_Gd, EBX, None, SS, BP, SI, 0, 0, 0
-67 01 1B, 3, Add_Ed_Gd, EBX, None, SS, BP, DI, 0, 0, 0
-67 01 1C, 3, Add_Ed_Gd, EBX, None, DS, SI, None, 0, 0, 0
-67 01 1D, 3, Add_Ed_Gd, EBX, None, DS, DI, None, 0, 0, 0
-67 01 1E A55A, 5, Add_Ed_Gd, EBX, None, DS, None, None, 0, 0x5AA5, 2
-67 01 1F, 3, Add_Ed_Gd, EBX, None, DS, BX, None, 0, 0, 0
-67 01 20, 3, Add_Ed_Gd, ESP, None, DS, BX, SI, 0, 0, 0
-67 01 21, 3, Add_Ed_Gd, ESP, None, DS, BX, DI, 0, 0, 0
-67 01 22, 3, Add_Ed_Gd, ESP, None, SS, BP, SI, 0, 0, 0
-67 01 23, 3, Add_Ed_Gd, ESP, None, SS, BP, DI, 0, 0, 0
-67 01 24, 3, Add_Ed_Gd, ESP, None, DS, SI, None, 0, 0, 0
-67 01 25, 3, Add_Ed_Gd, ESP, None, DS, DI, None, 0, 0, 0
-67 01 26 5AA5, 5, Add_Ed_Gd, ESP, None, DS, None, None, 0, 0xA55A, 2
-67 01 27, 3, Add_Ed_Gd, ESP, None, DS, BX, None, 0, 0, 0
-67 01 28, 3, Add_Ed_Gd, EBP, None, DS, BX, SI, 0, 0, 0
-67 01 29, 3, Add_Ed_Gd, EBP, None, DS, BX, DI, 0, 0, 0
-67 01 2A, 3, Add_Ed_Gd, EBP, None, SS, BP, SI, 0, 0, 0
-67 01 2B, 3, Add_Ed_Gd, EBP, None, SS, BP, DI, 0, 0, 0
-67 01 2C, 3, Add_Ed_Gd, EBP, None, DS, SI, None, 0, 0, 0
-67 01 2D, 3, Add_Ed_Gd, EBP, None, DS, DI, None, 0, 0, 0
-67 01 2E A55A, 5, Add_Ed_Gd, EBP, None, DS, None, None, 0, 0x5AA5, 2
-67 01 2F, 3, Add_Ed_Gd, EBP, None, DS, BX, None, 0, 0, 0
-67 01 30, 3, Add_Ed_Gd, ESI, None, DS, BX, SI, 0, 0, 0
-67 01 31, 3, Add_Ed_Gd, ESI, None, DS, BX, DI, 0, 0, 0
-67 01 32, 3, Add_Ed_Gd, ESI, None, SS, BP, SI, 0, 0, 0
-67 01 33, 3, Add_Ed_Gd, ESI, None, SS, BP, DI, 0, 0, 0
-67 01 34, 3, Add_Ed_Gd, ESI, None, DS, SI, None, 0, 0, 0
-67 01 35, 3, Add_Ed_Gd, ESI, None, DS, DI, None, 0, 0, 0
-67 01 36 5AA5, 5, Add_Ed_Gd, ESI, None, DS, None, None, 0, 0xA55A, 2
-67 01 37, 3, Add_Ed_Gd, ESI, None, DS, BX, None, 0, 0, 0
-67 01 38, 3, Add_Ed_Gd, EDI, None, DS, BX, SI, 0, 0, 0
-67 01 39, 3, Add_Ed_Gd, EDI, None, DS, BX, DI, 0, 0, 0
-67 01 3A, 3, Add_Ed_Gd, EDI, None, SS, BP, SI, 0, 0, 0
-67 01 3B, 3, Add_Ed_Gd, EDI, None, SS, BP, DI, 0, 0, 0
-67 01 3C, 3, Add_Ed_Gd, EDI, None, DS, SI, None, 0, 0, 0
-67 01 3D, 3, Add_Ed_Gd, EDI, None, DS, DI, None, 0, 0, 0
-67 01 3E A55A, 5, Add_Ed_Gd, EDI, None, DS, None, None, 0, 0x5AA5, 2
-67 01 3F, 3, Add_Ed_Gd, EDI, None, DS, BX, None, 0, 0, 0
-67 01 40 A5, 4, Add_Ed_Gd, EAX, None, DS, BX, SI, 0, 0xFFA5, 1
-67 01 41 A5, 4, Add_Ed_Gd, EAX, None, DS, BX, DI, 0, 0xFFA5, 1
-67 01 42 A5, 4, Add_Ed_Gd, EAX, None, SS, BP, SI, 0, 0xFFA5, 1
-67 01 43 A5, 4, Add_Ed_Gd, EAX, None, SS, BP, DI, 0, 0xFFA5, 1
-67 01 44 A5, 4, Add_Ed_Gd, EAX, None, DS, SI, None, 0, 0xFFA5, 1
-67 01 45 A5, 4, Add_Ed_Gd, EAX, None, DS, DI, None, 0, 0xFFA5, 1
-67 01 46 A5, 4, Add_Ed_Gd, EAX, None, SS, BP, None, 0, 0xFFA5, 1
-67 01 47 A5, 4, Add_Ed_Gd, EAX, None, DS, BX, None, 0, 0xFFA5, 1
-67 01 48 5A, 4, Add_Ed_Gd, ECX, None, DS, BX, SI, 0, 0x005A, 1
-67 01 49 5A, 4, Add_Ed_Gd, ECX, None, DS, BX, DI, 0, 0x005A, 1
-67 01 4A 5A, 4, Add_Ed_Gd, ECX, None, SS, BP, SI, 0, 0x005A, 1
-67 01 4B 5A, 4, Add_Ed_Gd, ECX, None, SS, BP, DI, 0, 0x005A, 1
-67 01 4C 5A, 4, Add_Ed_Gd, ECX, None, DS, SI, None, 0, 0x005A, 1
-67 01 4D 5A, 4, Add_Ed_Gd, ECX, None, DS, DI, None, 0, 0x005A, 1
-67 01 4E 5A, 4, Add_Ed_Gd, ECX, None, SS, BP, None, 0, 0x005A, 1
-67 01 4F 5A, 4, Add_Ed_Gd, ECX, None, DS, BX, None, 0, 0x005A, 1
-67 01 50 A5, 4, Add_Ed_Gd, EDX, None, DS, BX, SI, 0, 0xFFA5, 1
-67 01 51 A5, 4, Add_Ed_Gd, EDX, None, DS, BX, DI, 0, 0xFFA5, 1
-67 01 52 A5, 4, Add_Ed_Gd, EDX, None, SS, BP, SI, 0, 0xFFA5, 1
-67 01 53 A5, 4, Add_Ed_Gd, EDX, None, SS, BP, DI, 0, 0xFFA5, 1
-67 01 54 A5, 4, Add_Ed_Gd, EDX, None, DS, SI, None, 0, 0xFFA5, 1
-67 01 55 A5, 4, Add_Ed_Gd, EDX, None, DS, DI, None, 0, 0xFFA5, 1
-67 01 56 A5, 4, Add_Ed_Gd, EDX, None, SS, BP, None, 0, 0xFFA5, 1
-67 01 57 A5, 4, Add_Ed_Gd, EDX, None, DS, BX, None, 0, 0xFFA5, 1
-67 01 58 5A, 4, Add_Ed_Gd, EBX, None, DS, BX, SI, 0, 0x005A, 1
-67 01 59 5A, 4, Add_Ed_Gd, EBX, None, DS, BX, DI, 0, 0x005A, 1
-67 01 5A 5A, 4, Add_Ed_Gd, EBX, None, SS, BP, SI, 0, 0x005A, 1
-67 01 5B 5A, 4, Add_Ed_Gd, EBX, None, SS, BP, DI, 0, 0x005A, 1
-67 01 5C 5A, 4, Add_Ed_Gd, EBX, None, DS, SI, None, 0, 0x005A, 1
-67 01 5D 5A, 4, Add_Ed_Gd, EBX, None, DS, DI, None, 0, 0x005A, 1
-67 01 5E 5A, 4, Add_Ed_Gd, EBX, None, SS, BP, None, 0, 0x005A, 1
-67 01 5F 5A, 4, Add_Ed_Gd, EBX, None, DS, BX, None, 0, 0x005A, 1
-67 01 60 A5, 4, Add_Ed_Gd, ESP, None, DS, BX, SI, 0, 0xFFA5, 1
-67 01 61 A5, 4, Add_Ed_Gd, ESP, None, DS, BX, DI, 0, 0xFFA5, 1
-67 01 62 A5, 4, Add_Ed_Gd, ESP, None, SS, BP, SI, 0, 0xFFA5, 1
-67 01 63 A5, 4, Add_Ed_Gd, ESP, None, SS, BP, DI, 0, 0xFFA5, 1
-67 01 64 A5, 4, Add_Ed_Gd, ESP, None, DS, SI, None, 0, 0xFFA5, 1
-67 01 65 A5, 4, Add_Ed_Gd, ESP, None, DS, DI, None, 0, 0xFFA5, 1
-67 01 66 A5, 4, Add_Ed_Gd, ESP, None, SS, BP, None, 0, 0xFFA5, 1
-67 01 67 A5, 4, Add_Ed_Gd, ESP, None, DS, BX, None, 0, 0xFFA5, 1
-67 01 68 5A, 4, Add_Ed_Gd, EBP, None, DS, BX, SI, 0, 0x005A, 1
-67 01 69 5A, 4, Add_Ed_Gd, EBP, None, DS, BX, DI, 0, 0x005A, 1
-67 01 6A 5A, 4, Add_Ed_Gd, EBP, None, SS, BP, SI, 0, 0x005A, 1
-67 01 6B 5A, 4, Add_Ed_Gd, EBP, None, SS, BP, DI, 0, 0x005A, 1
-67 01 6C 5A, 4, Add_Ed_Gd, EBP, None, DS, SI, None, 0, 0x005A, 1
-67 01 6D 5A, 4, Add_Ed_Gd, EBP, None, DS, DI, None, 0, 0x005A, 1
-67 01 6E 5A, 4, Add_Ed_Gd, EBP, None, SS, BP, None, 0, 0x005A, 1
-67 01 6F 5A, 4, Add_Ed_Gd, EBP, None, DS, BX, None, 0, 0x005A, 1
-67 01 70 A5, 4, Add_Ed_Gd, ESI, None, DS, BX, SI, 0, 0xFFA5, 1
-67 01 71 A5, 4, Add_Ed_Gd, ESI, None, DS, BX, DI, 0, 0xFFA5, 1
-67 01 72 A5, 4, Add_Ed_Gd, ESI, None, SS, BP, SI, 0, 0xFFA5, 1
-67 01 73 A5, 4, Add_Ed_Gd, ESI, None, SS, BP, DI, 0, 0xFFA5, 1
-67 01 74 A5, 4, Add_Ed_Gd, ESI, None, DS, SI, None, 0, 0xFFA5, 1
-67 01 75 A5, 4, Add_Ed_Gd, ESI, None, DS, DI, None, 0, 0xFFA5, 1
-67 01 76 A5, 4, Add_Ed_Gd, ESI, None, SS, BP, None, 0, 0xFFA5, 1
-67 01 77 A5, 4, Add_Ed_Gd, ESI, None, DS, BX, None, 0, 0xFFA5, 1
-67 01 78 5A, 4, Add_Ed_Gd, EDI, None, DS, BX, SI, 0, 0x005A, 1
-67 01 79 5A, 4, Add_Ed_Gd, EDI, None, DS, BX, DI, 0, 0x005A, 1
-67 01 7A 5A, 4, Add_Ed_Gd, EDI, None, SS, BP, SI, 0, 0x005A, 1
-67 01 7B 5A, 4, Add_Ed_Gd, EDI, None, SS, BP, DI, 0, 0x005A, 1
-67 01 7C 5A, 4, Add_Ed_Gd, EDI, None, DS, SI, None, 0, 0x005A, 1
-67 01 7D 5A, 4, Add_Ed_Gd, EDI, None, DS, DI, None, 0, 0x005A, 1
-67 01 7E 5A, 4, Add_Ed_Gd, EDI, None, SS, BP, None, 0, 0x005A, 1
-67 01 7F 5A, 4, Add_Ed_Gd, EDI, None, DS, BX, None, 0, 0x005A, 1
-67 01 80 5AA5, 5, Add_Ed_Gd, EAX, None, DS, BX, SI, 0, 0xA55A, 2
-67 01 81 5AA5, 5, Add_Ed_Gd, EAX, None, DS, BX, DI, 0, 0xA55A, 2
-67 01 82 5AA5, 5, Add_Ed_Gd, EAX, None, SS, BP, SI, 0, 0xA55A, 2
-67 01 83 5AA5, 5, Add_Ed_Gd, EAX, None, SS, BP, DI, 0, 0xA55A, 2
-67 01 84 5AA5, 5, Add_Ed_Gd, EAX, None, DS, SI, None, 0, 0xA55A, 2
-67 01 85 5AA5, 5, Add_Ed_Gd, EAX, None, DS, DI, None, 0, 0xA55A, 2
-67 01 86 5AA5, 5, Add_Ed_Gd, EAX, None, SS, BP, None, 0, 0xA55A, 2
-67 01 87 5AA5, 5, Add_Ed_Gd, EAX, None, DS, BX, None, 0, 0xA55A, 2
-67 01 88 A55A, 5, Add_Ed_Gd, ECX, None, DS, BX, SI, 0, 0x5AA5, 2
-67 01 89 A55A, 5, Add_Ed_Gd, ECX, None, DS, BX, DI, 0, 0x5AA5, 2
-67 01 8A A55A, 5, Add_Ed_Gd, ECX, None, SS, BP, SI, 0, 0x5AA5, 2
-67 01 8B A55A, 5, Add_Ed_Gd, ECX, None, SS, BP, DI, 0, 0x5AA5, 2
-67 01 8C A55A, 5, Add_Ed_Gd, ECX, None, DS, SI, None, 0, 0x5AA5, 2
-67 01 8D A55A, 5, Add_Ed_Gd, ECX, None, DS, DI, None, 0, 0x5AA5, 2
-67 01 8E A55A, 5, Add_Ed_Gd, ECX, None, SS, BP, None, 0, 0x5AA5, 2
-67 01 8F A55A, 5, Add_Ed_Gd, ECX, None, DS, BX, None, 0, 0x5AA5, 2
-67 01 90 5AA5, 5, Add_Ed_Gd, EDX, None, DS, BX, SI, 0, 0xA55A, 2
-67 01 91 5AA5, 5, Add_Ed_Gd, EDX, None, DS, BX, DI, 0, 0xA55A, 2
-67 01 92 5AA5, 5, Add_Ed_Gd, EDX, None, SS, BP, SI, 0, 0xA55A, 2
-67 01 93 5AA5, 5, Add_Ed_Gd, EDX, None, SS, BP, DI, 0, 0xA55A, 2
-67 01 94 5AA5, 5, Add_Ed_Gd, EDX, None, DS, SI, None, 0, 0xA55A, 2
-67 01 95 5AA5, 5, Add_Ed_Gd, EDX, None, DS, DI, None, 0, 0xA55A, 2
-67 01 96 5AA5, 5, Add_Ed_Gd, EDX, None, SS, BP, None, 0, 0xA55A, 2
-67 01 97 5AA5, 5, Add_Ed_Gd, EDX, None, DS, BX, None, 0, 0xA55A, 2
-67 01 98 A55A, 5, Add_Ed_Gd, EBX, None, DS, BX, SI, 0, 0x5AA5, 2
-67 01 99 A55A, 5, Add_Ed_Gd, EBX, None, DS, BX, DI, 0, 0x5AA5, 2
-67 01 9A A55A, 5, Add_Ed_Gd, EBX, None, SS, BP, SI, 0, 0x5AA5, 2
-67 01 9B A55A, 5, Add_Ed_Gd, EBX, None, SS, BP, DI, 0, 0x5AA5, 2
-67 01 9C A55A, 5, Add_Ed_Gd, EBX, None, DS, SI, None, 0, 0x5AA5, 2
-67 01 9D A55A, 5, Add_Ed_Gd, EBX, None, DS, DI, None, 0, 0x5AA5, 2
-67 01 9E A55A, 5, Add_Ed_Gd, EBX, None, SS, BP, None, 0, 0x5AA5, 2
-67 01 9F A55A, 5, Add_Ed_Gd, EBX, None, DS, BX, None, 0, 0x5AA5, 2
-67 01 A0 5AA5, 5, Add_Ed_Gd, ESP, None, DS, BX, SI, 0, 0xA55A, 2
-67 01 A1 5AA5, 5, Add_Ed_Gd, ESP, None, DS, BX, DI, 0, 0xA55A, 2
-67 01 A2 5AA5, 5, Add_Ed_Gd, ESP, None, SS, BP, SI, 0, 0xA55A, 2
-67 01 A3 5AA5, 5, Add_Ed_Gd, ESP, None, SS, BP, DI, 0, 0xA55A, 2
-67 01 A4 5AA5, 5, Add_Ed_Gd, ESP, None, DS, SI, None, 0, 0xA55A, 2
-67 01 A5 5AA5, 5, Add_Ed_Gd, ESP, None, DS, DI, None, 0, 0xA55A, 2
-67 01 A6 5AA5, 5, Add_Ed_Gd, ESP, None, SS, BP, None, 0, 0xA55A, 2
-67 01 A7 5AA5, 5, Add_Ed_Gd, ESP, None, DS, BX, None, 0, 0xA55A, 2
-67 01 A8 A55A, 5, Add_Ed_Gd, EBP, None, DS, BX, SI, 0, 0x5AA5, 2
-67 01 A9 A55A, 5, Add_Ed_Gd, EBP, None, DS, BX, DI, 0, 0x5AA5, 2
-67 01 AA A55A, 5, Add_Ed_Gd, EBP, None, SS, BP, SI, 0, 0x5AA5, 2
-67 01 AB A55A, 5, Add_Ed_Gd, EBP, None, SS, BP, DI, 0, 0x5AA5, 2
-67 01 AC A55A, 5, Add_Ed_Gd, EBP, None, DS, SI, None, 0, 0x5AA5, 2
-67 01 AD A55A, 5, Add_Ed_Gd, EBP, None, DS, DI, None, 0, 0x5AA5, 2
-67 01 AE A55A, 5, Add_Ed_Gd, EBP, None, SS, BP, None, 0, 0x5AA5, 2
-67 01 AF A55A, 5, Add_Ed_Gd, EBP, None, DS, BX, None, 0, 0x5AA5, 2
-67 01 B0 5AA5, 5, Add_Ed_Gd, ESI, None, DS, BX, SI, 0, 0xA55A, 2
-67 01 B1 5AA5, 5, Add_Ed_Gd, ESI, None, DS, BX, DI, 0, 0xA55A, 2
-67 01 B2 5AA5, 5, Add_Ed_Gd, ESI, None, SS, BP, SI, 0, 0xA55A, 2
-67 01 B3 5AA5, 5, Add_Ed_Gd, ESI, None, SS, BP, DI, 0, 0xA55A, 2
-67 01 B4 5AA5, 5, Add_Ed_Gd, ESI, None, DS, SI, None, 0, 0xA55A, 2
-67 01 B5 5AA5, 5, Add_Ed_Gd, ESI, None, DS, DI, None, 0, 0xA55A, 2
-67 01 B6 5AA5, 5, Add_Ed_Gd, ESI, None, SS, BP, None, 0, 0xA55A, 2
-67 01 B7 5AA5, 5, Add_Ed_Gd, ESI, None, DS, BX, None, 0, 0xA55A, 2
-67 01 B8 A55A, 5, Add_Ed_Gd, EDI, None, DS, BX, SI, 0, 0x5AA5, 2
-67 01 B9 A55A, 5, Add_Ed_Gd, EDI, None, DS, BX, DI, 0, 0x5AA5, 2
-67 01 BA A55A, 5, Add_Ed_Gd, EDI, None, SS, BP, SI, 0, 0x5AA5, 2
-67 01 BB A55A, 5, Add_Ed_Gd, EDI, None, SS, BP, DI, 0, 0x5AA5, 2
-67 01 BC A55A, 5, Add_Ed_Gd, EDI, None, DS, SI, None, 0, 0x5AA5, 2
-67 01 BD A55A, 5, Add_Ed_Gd, EDI, None, DS, DI, None, 0, 0x5AA5, 2
-67 01 BE A55A, 5, Add_Ed_Gd, EDI, None, SS, BP, None, 0, 0x5AA5, 2
-67 01 BF A55A, 5, Add_Ed_Gd, EDI, None, DS, BX, None, 0, 0x5AA5, 2
+67 01 00, 3, Add_rm32_r32, EAX, None, DS, BX, SI, 0, 0, 0
+67 01 01, 3, Add_rm32_r32, EAX, None, DS, BX, DI, 0, 0, 0
+67 01 02, 3, Add_rm32_r32, EAX, None, SS, BP, SI, 0, 0, 0
+67 01 03, 3, Add_rm32_r32, EAX, None, SS, BP, DI, 0, 0, 0
+67 01 04, 3, Add_rm32_r32, EAX, None, DS, SI, None, 0, 0, 0
+67 01 05, 3, Add_rm32_r32, EAX, None, DS, DI, None, 0, 0, 0
+67 01 06 5AA5, 5, Add_rm32_r32, EAX, None, DS, None, None, 0, 0xA55A, 2
+67 01 07, 3, Add_rm32_r32, EAX, None, DS, BX, None, 0, 0, 0
+67 01 08, 3, Add_rm32_r32, ECX, None, DS, BX, SI, 0, 0, 0
+67 01 09, 3, Add_rm32_r32, ECX, None, DS, BX, DI, 0, 0, 0
+67 01 0A, 3, Add_rm32_r32, ECX, None, SS, BP, SI, 0, 0, 0
+67 01 0B, 3, Add_rm32_r32, ECX, None, SS, BP, DI, 0, 0, 0
+67 01 0C, 3, Add_rm32_r32, ECX, None, DS, SI, None, 0, 0, 0
+67 01 0D, 3, Add_rm32_r32, ECX, None, DS, DI, None, 0, 0, 0
+67 01 0E A55A, 5, Add_rm32_r32, ECX, None, DS, None, None, 0, 0x5AA5, 2
+67 01 0F, 3, Add_rm32_r32, ECX, None, DS, BX, None, 0, 0, 0
+67 01 10, 3, Add_rm32_r32, EDX, None, DS, BX, SI, 0, 0, 0
+67 01 11, 3, Add_rm32_r32, EDX, None, DS, BX, DI, 0, 0, 0
+67 01 12, 3, Add_rm32_r32, EDX, None, SS, BP, SI, 0, 0, 0
+67 01 13, 3, Add_rm32_r32, EDX, None, SS, BP, DI, 0, 0, 0
+67 01 14, 3, Add_rm32_r32, EDX, None, DS, SI, None, 0, 0, 0
+67 01 15, 3, Add_rm32_r32, EDX, None, DS, DI, None, 0, 0, 0
+67 01 16 5AA5, 5, Add_rm32_r32, EDX, None, DS, None, None, 0, 0xA55A, 2
+67 01 17, 3, Add_rm32_r32, EDX, None, DS, BX, None, 0, 0, 0
+67 01 18, 3, Add_rm32_r32, EBX, None, DS, BX, SI, 0, 0, 0
+67 01 19, 3, Add_rm32_r32, EBX, None, DS, BX, DI, 0, 0, 0
+67 01 1A, 3, Add_rm32_r32, EBX, None, SS, BP, SI, 0, 0, 0
+67 01 1B, 3, Add_rm32_r32, EBX, None, SS, BP, DI, 0, 0, 0
+67 01 1C, 3, Add_rm32_r32, EBX, None, DS, SI, None, 0, 0, 0
+67 01 1D, 3, Add_rm32_r32, EBX, None, DS, DI, None, 0, 0, 0
+67 01 1E A55A, 5, Add_rm32_r32, EBX, None, DS, None, None, 0, 0x5AA5, 2
+67 01 1F, 3, Add_rm32_r32, EBX, None, DS, BX, None, 0, 0, 0
+67 01 20, 3, Add_rm32_r32, ESP, None, DS, BX, SI, 0, 0, 0
+67 01 21, 3, Add_rm32_r32, ESP, None, DS, BX, DI, 0, 0, 0
+67 01 22, 3, Add_rm32_r32, ESP, None, SS, BP, SI, 0, 0, 0
+67 01 23, 3, Add_rm32_r32, ESP, None, SS, BP, DI, 0, 0, 0
+67 01 24, 3, Add_rm32_r32, ESP, None, DS, SI, None, 0, 0, 0
+67 01 25, 3, Add_rm32_r32, ESP, None, DS, DI, None, 0, 0, 0
+67 01 26 5AA5, 5, Add_rm32_r32, ESP, None, DS, None, None, 0, 0xA55A, 2
+67 01 27, 3, Add_rm32_r32, ESP, None, DS, BX, None, 0, 0, 0
+67 01 28, 3, Add_rm32_r32, EBP, None, DS, BX, SI, 0, 0, 0
+67 01 29, 3, Add_rm32_r32, EBP, None, DS, BX, DI, 0, 0, 0
+67 01 2A, 3, Add_rm32_r32, EBP, None, SS, BP, SI, 0, 0, 0
+67 01 2B, 3, Add_rm32_r32, EBP, None, SS, BP, DI, 0, 0, 0
+67 01 2C, 3, Add_rm32_r32, EBP, None, DS, SI, None, 0, 0, 0
+67 01 2D, 3, Add_rm32_r32, EBP, None, DS, DI, None, 0, 0, 0
+67 01 2E A55A, 5, Add_rm32_r32, EBP, None, DS, None, None, 0, 0x5AA5, 2
+67 01 2F, 3, Add_rm32_r32, EBP, None, DS, BX, None, 0, 0, 0
+67 01 30, 3, Add_rm32_r32, ESI, None, DS, BX, SI, 0, 0, 0
+67 01 31, 3, Add_rm32_r32, ESI, None, DS, BX, DI, 0, 0, 0
+67 01 32, 3, Add_rm32_r32, ESI, None, SS, BP, SI, 0, 0, 0
+67 01 33, 3, Add_rm32_r32, ESI, None, SS, BP, DI, 0, 0, 0
+67 01 34, 3, Add_rm32_r32, ESI, None, DS, SI, None, 0, 0, 0
+67 01 35, 3, Add_rm32_r32, ESI, None, DS, DI, None, 0, 0, 0
+67 01 36 5AA5, 5, Add_rm32_r32, ESI, None, DS, None, None, 0, 0xA55A, 2
+67 01 37, 3, Add_rm32_r32, ESI, None, DS, BX, None, 0, 0, 0
+67 01 38, 3, Add_rm32_r32, EDI, None, DS, BX, SI, 0, 0, 0
+67 01 39, 3, Add_rm32_r32, EDI, None, DS, BX, DI, 0, 0, 0
+67 01 3A, 3, Add_rm32_r32, EDI, None, SS, BP, SI, 0, 0, 0
+67 01 3B, 3, Add_rm32_r32, EDI, None, SS, BP, DI, 0, 0, 0
+67 01 3C, 3, Add_rm32_r32, EDI, None, DS, SI, None, 0, 0, 0
+67 01 3D, 3, Add_rm32_r32, EDI, None, DS, DI, None, 0, 0, 0
+67 01 3E A55A, 5, Add_rm32_r32, EDI, None, DS, None, None, 0, 0x5AA5, 2
+67 01 3F, 3, Add_rm32_r32, EDI, None, DS, BX, None, 0, 0, 0
+67 01 40 A5, 4, Add_rm32_r32, EAX, None, DS, BX, SI, 0, 0xFFA5, 1
+67 01 41 A5, 4, Add_rm32_r32, EAX, None, DS, BX, DI, 0, 0xFFA5, 1
+67 01 42 A5, 4, Add_rm32_r32, EAX, None, SS, BP, SI, 0, 0xFFA5, 1
+67 01 43 A5, 4, Add_rm32_r32, EAX, None, SS, BP, DI, 0, 0xFFA5, 1
+67 01 44 A5, 4, Add_rm32_r32, EAX, None, DS, SI, None, 0, 0xFFA5, 1
+67 01 45 A5, 4, Add_rm32_r32, EAX, None, DS, DI, None, 0, 0xFFA5, 1
+67 01 46 A5, 4, Add_rm32_r32, EAX, None, SS, BP, None, 0, 0xFFA5, 1
+67 01 47 A5, 4, Add_rm32_r32, EAX, None, DS, BX, None, 0, 0xFFA5, 1
+67 01 48 5A, 4, Add_rm32_r32, ECX, None, DS, BX, SI, 0, 0x005A, 1
+67 01 49 5A, 4, Add_rm32_r32, ECX, None, DS, BX, DI, 0, 0x005A, 1
+67 01 4A 5A, 4, Add_rm32_r32, ECX, None, SS, BP, SI, 0, 0x005A, 1
+67 01 4B 5A, 4, Add_rm32_r32, ECX, None, SS, BP, DI, 0, 0x005A, 1
+67 01 4C 5A, 4, Add_rm32_r32, ECX, None, DS, SI, None, 0, 0x005A, 1
+67 01 4D 5A, 4, Add_rm32_r32, ECX, None, DS, DI, None, 0, 0x005A, 1
+67 01 4E 5A, 4, Add_rm32_r32, ECX, None, SS, BP, None, 0, 0x005A, 1
+67 01 4F 5A, 4, Add_rm32_r32, ECX, None, DS, BX, None, 0, 0x005A, 1
+67 01 50 A5, 4, Add_rm32_r32, EDX, None, DS, BX, SI, 0, 0xFFA5, 1
+67 01 51 A5, 4, Add_rm32_r32, EDX, None, DS, BX, DI, 0, 0xFFA5, 1
+67 01 52 A5, 4, Add_rm32_r32, EDX, None, SS, BP, SI, 0, 0xFFA5, 1
+67 01 53 A5, 4, Add_rm32_r32, EDX, None, SS, BP, DI, 0, 0xFFA5, 1
+67 01 54 A5, 4, Add_rm32_r32, EDX, None, DS, SI, None, 0, 0xFFA5, 1
+67 01 55 A5, 4, Add_rm32_r32, EDX, None, DS, DI, None, 0, 0xFFA5, 1
+67 01 56 A5, 4, Add_rm32_r32, EDX, None, SS, BP, None, 0, 0xFFA5, 1
+67 01 57 A5, 4, Add_rm32_r32, EDX, None, DS, BX, None, 0, 0xFFA5, 1
+67 01 58 5A, 4, Add_rm32_r32, EBX, None, DS, BX, SI, 0, 0x005A, 1
+67 01 59 5A, 4, Add_rm32_r32, EBX, None, DS, BX, DI, 0, 0x005A, 1
+67 01 5A 5A, 4, Add_rm32_r32, EBX, None, SS, BP, SI, 0, 0x005A, 1
+67 01 5B 5A, 4, Add_rm32_r32, EBX, None, SS, BP, DI, 0, 0x005A, 1
+67 01 5C 5A, 4, Add_rm32_r32, EBX, None, DS, SI, None, 0, 0x005A, 1
+67 01 5D 5A, 4, Add_rm32_r32, EBX, None, DS, DI, None, 0, 0x005A, 1
+67 01 5E 5A, 4, Add_rm32_r32, EBX, None, SS, BP, None, 0, 0x005A, 1
+67 01 5F 5A, 4, Add_rm32_r32, EBX, None, DS, BX, None, 0, 0x005A, 1
+67 01 60 A5, 4, Add_rm32_r32, ESP, None, DS, BX, SI, 0, 0xFFA5, 1
+67 01 61 A5, 4, Add_rm32_r32, ESP, None, DS, BX, DI, 0, 0xFFA5, 1
+67 01 62 A5, 4, Add_rm32_r32, ESP, None, SS, BP, SI, 0, 0xFFA5, 1
+67 01 63 A5, 4, Add_rm32_r32, ESP, None, SS, BP, DI, 0, 0xFFA5, 1
+67 01 64 A5, 4, Add_rm32_r32, ESP, None, DS, SI, None, 0, 0xFFA5, 1
+67 01 65 A5, 4, Add_rm32_r32, ESP, None, DS, DI, None, 0, 0xFFA5, 1
+67 01 66 A5, 4, Add_rm32_r32, ESP, None, SS, BP, None, 0, 0xFFA5, 1
+67 01 67 A5, 4, Add_rm32_r32, ESP, None, DS, BX, None, 0, 0xFFA5, 1
+67 01 68 5A, 4, Add_rm32_r32, EBP, None, DS, BX, SI, 0, 0x005A, 1
+67 01 69 5A, 4, Add_rm32_r32, EBP, None, DS, BX, DI, 0, 0x005A, 1
+67 01 6A 5A, 4, Add_rm32_r32, EBP, None, SS, BP, SI, 0, 0x005A, 1
+67 01 6B 5A, 4, Add_rm32_r32, EBP, None, SS, BP, DI, 0, 0x005A, 1
+67 01 6C 5A, 4, Add_rm32_r32, EBP, None, DS, SI, None, 0, 0x005A, 1
+67 01 6D 5A, 4, Add_rm32_r32, EBP, None, DS, DI, None, 0, 0x005A, 1
+67 01 6E 5A, 4, Add_rm32_r32, EBP, None, SS, BP, None, 0, 0x005A, 1
+67 01 6F 5A, 4, Add_rm32_r32, EBP, None, DS, BX, None, 0, 0x005A, 1
+67 01 70 A5, 4, Add_rm32_r32, ESI, None, DS, BX, SI, 0, 0xFFA5, 1
+67 01 71 A5, 4, Add_rm32_r32, ESI, None, DS, BX, DI, 0, 0xFFA5, 1
+67 01 72 A5, 4, Add_rm32_r32, ESI, None, SS, BP, SI, 0, 0xFFA5, 1
+67 01 73 A5, 4, Add_rm32_r32, ESI, None, SS, BP, DI, 0, 0xFFA5, 1
+67 01 74 A5, 4, Add_rm32_r32, ESI, None, DS, SI, None, 0, 0xFFA5, 1
+67 01 75 A5, 4, Add_rm32_r32, ESI, None, DS, DI, None, 0, 0xFFA5, 1
+67 01 76 A5, 4, Add_rm32_r32, ESI, None, SS, BP, None, 0, 0xFFA5, 1
+67 01 77 A5, 4, Add_rm32_r32, ESI, None, DS, BX, None, 0, 0xFFA5, 1
+67 01 78 5A, 4, Add_rm32_r32, EDI, None, DS, BX, SI, 0, 0x005A, 1
+67 01 79 5A, 4, Add_rm32_r32, EDI, None, DS, BX, DI, 0, 0x005A, 1
+67 01 7A 5A, 4, Add_rm32_r32, EDI, None, SS, BP, SI, 0, 0x005A, 1
+67 01 7B 5A, 4, Add_rm32_r32, EDI, None, SS, BP, DI, 0, 0x005A, 1
+67 01 7C 5A, 4, Add_rm32_r32, EDI, None, DS, SI, None, 0, 0x005A, 1
+67 01 7D 5A, 4, Add_rm32_r32, EDI, None, DS, DI, None, 0, 0x005A, 1
+67 01 7E 5A, 4, Add_rm32_r32, EDI, None, SS, BP, None, 0, 0x005A, 1
+67 01 7F 5A, 4, Add_rm32_r32, EDI, None, DS, BX, None, 0, 0x005A, 1
+67 01 80 5AA5, 5, Add_rm32_r32, EAX, None, DS, BX, SI, 0, 0xA55A, 2
+67 01 81 5AA5, 5, Add_rm32_r32, EAX, None, DS, BX, DI, 0, 0xA55A, 2
+67 01 82 5AA5, 5, Add_rm32_r32, EAX, None, SS, BP, SI, 0, 0xA55A, 2
+67 01 83 5AA5, 5, Add_rm32_r32, EAX, None, SS, BP, DI, 0, 0xA55A, 2
+67 01 84 5AA5, 5, Add_rm32_r32, EAX, None, DS, SI, None, 0, 0xA55A, 2
+67 01 85 5AA5, 5, Add_rm32_r32, EAX, None, DS, DI, None, 0, 0xA55A, 2
+67 01 86 5AA5, 5, Add_rm32_r32, EAX, None, SS, BP, None, 0, 0xA55A, 2
+67 01 87 5AA5, 5, Add_rm32_r32, EAX, None, DS, BX, None, 0, 0xA55A, 2
+67 01 88 A55A, 5, Add_rm32_r32, ECX, None, DS, BX, SI, 0, 0x5AA5, 2
+67 01 89 A55A, 5, Add_rm32_r32, ECX, None, DS, BX, DI, 0, 0x5AA5, 2
+67 01 8A A55A, 5, Add_rm32_r32, ECX, None, SS, BP, SI, 0, 0x5AA5, 2
+67 01 8B A55A, 5, Add_rm32_r32, ECX, None, SS, BP, DI, 0, 0x5AA5, 2
+67 01 8C A55A, 5, Add_rm32_r32, ECX, None, DS, SI, None, 0, 0x5AA5, 2
+67 01 8D A55A, 5, Add_rm32_r32, ECX, None, DS, DI, None, 0, 0x5AA5, 2
+67 01 8E A55A, 5, Add_rm32_r32, ECX, None, SS, BP, None, 0, 0x5AA5, 2
+67 01 8F A55A, 5, Add_rm32_r32, ECX, None, DS, BX, None, 0, 0x5AA5, 2
+67 01 90 5AA5, 5, Add_rm32_r32, EDX, None, DS, BX, SI, 0, 0xA55A, 2
+67 01 91 5AA5, 5, Add_rm32_r32, EDX, None, DS, BX, DI, 0, 0xA55A, 2
+67 01 92 5AA5, 5, Add_rm32_r32, EDX, None, SS, BP, SI, 0, 0xA55A, 2
+67 01 93 5AA5, 5, Add_rm32_r32, EDX, None, SS, BP, DI, 0, 0xA55A, 2
+67 01 94 5AA5, 5, Add_rm32_r32, EDX, None, DS, SI, None, 0, 0xA55A, 2
+67 01 95 5AA5, 5, Add_rm32_r32, EDX, None, DS, DI, None, 0, 0xA55A, 2
+67 01 96 5AA5, 5, Add_rm32_r32, EDX, None, SS, BP, None, 0, 0xA55A, 2
+67 01 97 5AA5, 5, Add_rm32_r32, EDX, None, DS, BX, None, 0, 0xA55A, 2
+67 01 98 A55A, 5, Add_rm32_r32, EBX, None, DS, BX, SI, 0, 0x5AA5, 2
+67 01 99 A55A, 5, Add_rm32_r32, EBX, None, DS, BX, DI, 0, 0x5AA5, 2
+67 01 9A A55A, 5, Add_rm32_r32, EBX, None, SS, BP, SI, 0, 0x5AA5, 2
+67 01 9B A55A, 5, Add_rm32_r32, EBX, None, SS, BP, DI, 0, 0x5AA5, 2
+67 01 9C A55A, 5, Add_rm32_r32, EBX, None, DS, SI, None, 0, 0x5AA5, 2
+67 01 9D A55A, 5, Add_rm32_r32, EBX, None, DS, DI, None, 0, 0x5AA5, 2
+67 01 9E A55A, 5, Add_rm32_r32, EBX, None, SS, BP, None, 0, 0x5AA5, 2
+67 01 9F A55A, 5, Add_rm32_r32, EBX, None, DS, BX, None, 0, 0x5AA5, 2
+67 01 A0 5AA5, 5, Add_rm32_r32, ESP, None, DS, BX, SI, 0, 0xA55A, 2
+67 01 A1 5AA5, 5, Add_rm32_r32, ESP, None, DS, BX, DI, 0, 0xA55A, 2
+67 01 A2 5AA5, 5, Add_rm32_r32, ESP, None, SS, BP, SI, 0, 0xA55A, 2
+67 01 A3 5AA5, 5, Add_rm32_r32, ESP, None, SS, BP, DI, 0, 0xA55A, 2
+67 01 A4 5AA5, 5, Add_rm32_r32, ESP, None, DS, SI, None, 0, 0xA55A, 2
+67 01 A5 5AA5, 5, Add_rm32_r32, ESP, None, DS, DI, None, 0, 0xA55A, 2
+67 01 A6 5AA5, 5, Add_rm32_r32, ESP, None, SS, BP, None, 0, 0xA55A, 2
+67 01 A7 5AA5, 5, Add_rm32_r32, ESP, None, DS, BX, None, 0, 0xA55A, 2
+67 01 A8 A55A, 5, Add_rm32_r32, EBP, None, DS, BX, SI, 0, 0x5AA5, 2
+67 01 A9 A55A, 5, Add_rm32_r32, EBP, None, DS, BX, DI, 0, 0x5AA5, 2
+67 01 AA A55A, 5, Add_rm32_r32, EBP, None, SS, BP, SI, 0, 0x5AA5, 2
+67 01 AB A55A, 5, Add_rm32_r32, EBP, None, SS, BP, DI, 0, 0x5AA5, 2
+67 01 AC A55A, 5, Add_rm32_r32, EBP, None, DS, SI, None, 0, 0x5AA5, 2
+67 01 AD A55A, 5, Add_rm32_r32, EBP, None, DS, DI, None, 0, 0x5AA5, 2
+67 01 AE A55A, 5, Add_rm32_r32, EBP, None, SS, BP, None, 0, 0x5AA5, 2
+67 01 AF A55A, 5, Add_rm32_r32, EBP, None, DS, BX, None, 0, 0x5AA5, 2
+67 01 B0 5AA5, 5, Add_rm32_r32, ESI, None, DS, BX, SI, 0, 0xA55A, 2
+67 01 B1 5AA5, 5, Add_rm32_r32, ESI, None, DS, BX, DI, 0, 0xA55A, 2
+67 01 B2 5AA5, 5, Add_rm32_r32, ESI, None, SS, BP, SI, 0, 0xA55A, 2
+67 01 B3 5AA5, 5, Add_rm32_r32, ESI, None, SS, BP, DI, 0, 0xA55A, 2
+67 01 B4 5AA5, 5, Add_rm32_r32, ESI, None, DS, SI, None, 0, 0xA55A, 2
+67 01 B5 5AA5, 5, Add_rm32_r32, ESI, None, DS, DI, None, 0, 0xA55A, 2
+67 01 B6 5AA5, 5, Add_rm32_r32, ESI, None, SS, BP, None, 0, 0xA55A, 2
+67 01 B7 5AA5, 5, Add_rm32_r32, ESI, None, DS, BX, None, 0, 0xA55A, 2
+67 01 B8 A55A, 5, Add_rm32_r32, EDI, None, DS, BX, SI, 0, 0x5AA5, 2
+67 01 B9 A55A, 5, Add_rm32_r32, EDI, None, DS, BX, DI, 0, 0x5AA5, 2
+67 01 BA A55A, 5, Add_rm32_r32, EDI, None, SS, BP, SI, 0, 0x5AA5, 2
+67 01 BB A55A, 5, Add_rm32_r32, EDI, None, SS, BP, DI, 0, 0x5AA5, 2
+67 01 BC A55A, 5, Add_rm32_r32, EDI, None, DS, SI, None, 0, 0x5AA5, 2
+67 01 BD A55A, 5, Add_rm32_r32, EDI, None, DS, DI, None, 0, 0x5AA5, 2
+67 01 BE A55A, 5, Add_rm32_r32, EDI, None, SS, BP, None, 0, 0x5AA5, 2
+67 01 BF A55A, 5, Add_rm32_r32, EDI, None, DS, BX, None, 0, 0x5AA5, 2

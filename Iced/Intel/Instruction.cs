@@ -903,97 +903,97 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public bool TryGetVsib64(out bool vsib64) {
 			switch (Code) {
-			case Code.VEX_Vpgatherdd_VX_VM32X_HX:
-			case Code.VEX_Vpgatherdd_VY_VM32Y_HY:
-			case Code.VEX_Vpgatherdq_VX_VM32X_HX:
-			case Code.VEX_Vpgatherdq_VY_VM32X_HY:
-			case Code.EVEX_Vpgatherdd_VX_k1_VM32X:
-			case Code.EVEX_Vpgatherdd_VY_k1_VM32Y:
-			case Code.EVEX_Vpgatherdd_VZ_k1_VM32Z:
-			case Code.EVEX_Vpgatherdq_VX_k1_VM32X:
-			case Code.EVEX_Vpgatherdq_VY_k1_VM32X:
-			case Code.EVEX_Vpgatherdq_VZ_k1_VM32Y:
+			case Code.VEX_Vpgatherdd_xmm_vm32x_xmm:
+			case Code.VEX_Vpgatherdd_ymm_vm32y_ymm:
+			case Code.VEX_Vpgatherdq_xmm_vm32x_xmm:
+			case Code.VEX_Vpgatherdq_ymm_vm32x_ymm:
+			case Code.EVEX_Vpgatherdd_xmm_k1_vm32x:
+			case Code.EVEX_Vpgatherdd_ymm_k1_vm32y:
+			case Code.EVEX_Vpgatherdd_zmm_k1_vm32z:
+			case Code.EVEX_Vpgatherdq_xmm_k1_vm32x:
+			case Code.EVEX_Vpgatherdq_ymm_k1_vm32x:
+			case Code.EVEX_Vpgatherdq_zmm_k1_vm32y:
 
-			case Code.VEX_Vgatherdps_VX_VM32X_HX:
-			case Code.VEX_Vgatherdps_VY_VM32Y_HY:
-			case Code.VEX_Vgatherdpd_VX_VM32X_HX:
-			case Code.VEX_Vgatherdpd_VY_VM32X_HY:
-			case Code.EVEX_Vgatherdps_VX_k1_VM32X:
-			case Code.EVEX_Vgatherdps_VY_k1_VM32Y:
-			case Code.EVEX_Vgatherdps_VZ_k1_VM32Z:
-			case Code.EVEX_Vgatherdpd_VX_k1_VM32X:
-			case Code.EVEX_Vgatherdpd_VY_k1_VM32X:
-			case Code.EVEX_Vgatherdpd_VZ_k1_VM32Y:
+			case Code.VEX_Vgatherdps_xmm_vm32x_xmm:
+			case Code.VEX_Vgatherdps_ymm_vm32y_ymm:
+			case Code.VEX_Vgatherdpd_xmm_vm32x_xmm:
+			case Code.VEX_Vgatherdpd_ymm_vm32x_ymm:
+			case Code.EVEX_Vgatherdps_xmm_k1_vm32x:
+			case Code.EVEX_Vgatherdps_ymm_k1_vm32y:
+			case Code.EVEX_Vgatherdps_zmm_k1_vm32z:
+			case Code.EVEX_Vgatherdpd_xmm_k1_vm32x:
+			case Code.EVEX_Vgatherdpd_ymm_k1_vm32x:
+			case Code.EVEX_Vgatherdpd_zmm_k1_vm32y:
 
-			case Code.EVEX_Vpscatterdd_VM32X_k1_VX:
-			case Code.EVEX_Vpscatterdd_VM32Y_k1_VY:
-			case Code.EVEX_Vpscatterdd_VM32Z_k1_VZ:
-			case Code.EVEX_Vpscatterdq_VM32X_k1_VX:
-			case Code.EVEX_Vpscatterdq_VM32X_k1_VY:
-			case Code.EVEX_Vpscatterdq_VM32Y_k1_VZ:
+			case Code.EVEX_Vpscatterdd_vm32x_k1_xmm:
+			case Code.EVEX_Vpscatterdd_vm32y_k1_ymm:
+			case Code.EVEX_Vpscatterdd_vm32z_k1_zmm:
+			case Code.EVEX_Vpscatterdq_vm32x_k1_xmm:
+			case Code.EVEX_Vpscatterdq_vm32x_k1_ymm:
+			case Code.EVEX_Vpscatterdq_vm32y_k1_zmm:
 
-			case Code.EVEX_Vscatterdps_VM32X_k1_VX:
-			case Code.EVEX_Vscatterdps_VM32Y_k1_VY:
-			case Code.EVEX_Vscatterdps_VM32Z_k1_VZ:
-			case Code.EVEX_Vscatterdpd_VM32X_k1_VX:
-			case Code.EVEX_Vscatterdpd_VM32X_k1_VY:
-			case Code.EVEX_Vscatterdpd_VM32Y_k1_VZ:
+			case Code.EVEX_Vscatterdps_vm32x_k1_xmm:
+			case Code.EVEX_Vscatterdps_vm32y_k1_ymm:
+			case Code.EVEX_Vscatterdps_vm32z_k1_zmm:
+			case Code.EVEX_Vscatterdpd_vm32x_k1_xmm:
+			case Code.EVEX_Vscatterdpd_vm32x_k1_ymm:
+			case Code.EVEX_Vscatterdpd_vm32y_k1_zmm:
 
-			case Code.EVEX_Vgatherpf0dps_VM32Z_k1:
-			case Code.EVEX_Vgatherpf0dpd_VM32Y_k1:
-			case Code.EVEX_Vgatherpf1dps_VM32Z_k1:
-			case Code.EVEX_Vgatherpf1dpd_VM32Y_k1:
-			case Code.EVEX_Vscatterpf0dps_VM32Z_k1:
-			case Code.EVEX_Vscatterpf0dpd_VM32Y_k1:
-			case Code.EVEX_Vscatterpf1dps_VM32Z_k1:
-			case Code.EVEX_Vscatterpf1dpd_VM32Y_k1:
+			case Code.EVEX_Vgatherpf0dps_vm32z_k1:
+			case Code.EVEX_Vgatherpf0dpd_vm32y_k1:
+			case Code.EVEX_Vgatherpf1dps_vm32z_k1:
+			case Code.EVEX_Vgatherpf1dpd_vm32y_k1:
+			case Code.EVEX_Vscatterpf0dps_vm32z_k1:
+			case Code.EVEX_Vscatterpf0dpd_vm32y_k1:
+			case Code.EVEX_Vscatterpf1dps_vm32z_k1:
+			case Code.EVEX_Vscatterpf1dpd_vm32y_k1:
 				vsib64 = false;
 				return true;
 
-			case Code.VEX_Vpgatherqd_VX_VM64X_HX:
-			case Code.VEX_Vpgatherqd_VX_VM64Y_HX:
-			case Code.VEX_Vpgatherqq_VX_VM64X_HX:
-			case Code.VEX_Vpgatherqq_VY_VM64Y_HY:
-			case Code.EVEX_Vpgatherqd_VX_k1_VM64X:
-			case Code.EVEX_Vpgatherqd_VX_k1_VM64Y:
-			case Code.EVEX_Vpgatherqd_VY_k1_VM64Z:
-			case Code.EVEX_Vpgatherqq_VX_k1_VM64X:
-			case Code.EVEX_Vpgatherqq_VY_k1_VM64Y:
-			case Code.EVEX_Vpgatherqq_VZ_k1_VM64Z:
+			case Code.VEX_Vpgatherqd_xmm_vm64x_xmm:
+			case Code.VEX_Vpgatherqd_xmm_vm64y_xmm:
+			case Code.VEX_Vpgatherqq_xmm_vm64x_xmm:
+			case Code.VEX_Vpgatherqq_ymm_vm64y_ymm:
+			case Code.EVEX_Vpgatherqd_xmm_k1_vm64x:
+			case Code.EVEX_Vpgatherqd_xmm_k1_vm64y:
+			case Code.EVEX_Vpgatherqd_ymm_k1_vm64z:
+			case Code.EVEX_Vpgatherqq_xmm_k1_vm64x:
+			case Code.EVEX_Vpgatherqq_ymm_k1_vm64y:
+			case Code.EVEX_Vpgatherqq_zmm_k1_vm64z:
 
-			case Code.VEX_Vgatherqps_VX_VM64X_HX:
-			case Code.VEX_Vgatherqps_VX_VM64Y_HX:
-			case Code.VEX_Vgatherqpd_VX_VM64X_HX:
-			case Code.VEX_Vgatherqpd_VY_VM64Y_HY:
-			case Code.EVEX_Vgatherqps_VX_k1_VM64X:
-			case Code.EVEX_Vgatherqps_VX_k1_VM64Y:
-			case Code.EVEX_Vgatherqps_VY_k1_VM64Z:
-			case Code.EVEX_Vgatherqpd_VX_k1_VM64X:
-			case Code.EVEX_Vgatherqpd_VY_k1_VM64Y:
-			case Code.EVEX_Vgatherqpd_VZ_k1_VM64Z:
+			case Code.VEX_Vgatherqps_xmm_vm64x_xmm:
+			case Code.VEX_Vgatherqps_xmm_vm64y_xmm:
+			case Code.VEX_Vgatherqpd_xmm_vm64x_xmm:
+			case Code.VEX_Vgatherqpd_ymm_vm64y_ymm:
+			case Code.EVEX_Vgatherqps_xmm_k1_vm64x:
+			case Code.EVEX_Vgatherqps_xmm_k1_vm64y:
+			case Code.EVEX_Vgatherqps_ymm_k1_vm64z:
+			case Code.EVEX_Vgatherqpd_xmm_k1_vm64x:
+			case Code.EVEX_Vgatherqpd_ymm_k1_vm64y:
+			case Code.EVEX_Vgatherqpd_zmm_k1_vm64z:
 
-			case Code.EVEX_Vpscatterqd_VM64X_k1_VX:
-			case Code.EVEX_Vpscatterqd_VM64Y_k1_VX:
-			case Code.EVEX_Vpscatterqd_VM64Z_k1_VY:
-			case Code.EVEX_Vpscatterqq_VM64X_k1_VX:
-			case Code.EVEX_Vpscatterqq_VM64Y_k1_VY:
-			case Code.EVEX_Vpscatterqq_VM64Z_k1_VZ:
+			case Code.EVEX_Vpscatterqd_vm64x_k1_xmm:
+			case Code.EVEX_Vpscatterqd_vm64y_k1_xmm:
+			case Code.EVEX_Vpscatterqd_vm64z_k1_ymm:
+			case Code.EVEX_Vpscatterqq_vm64x_k1_xmm:
+			case Code.EVEX_Vpscatterqq_vm64y_k1_ymm:
+			case Code.EVEX_Vpscatterqq_vm64z_k1_zmm:
 
-			case Code.EVEX_Vscatterqps_VM64X_k1_VX:
-			case Code.EVEX_Vscatterqps_VM64Y_k1_VX:
-			case Code.EVEX_Vscatterqps_VM64Z_k1_VY:
-			case Code.EVEX_Vscatterqpd_VM64X_k1_VX:
-			case Code.EVEX_Vscatterqpd_VM64Y_k1_VY:
-			case Code.EVEX_Vscatterqpd_VM64Z_k1_VZ:
+			case Code.EVEX_Vscatterqps_vm64x_k1_xmm:
+			case Code.EVEX_Vscatterqps_vm64y_k1_xmm:
+			case Code.EVEX_Vscatterqps_vm64z_k1_ymm:
+			case Code.EVEX_Vscatterqpd_vm64x_k1_xmm:
+			case Code.EVEX_Vscatterqpd_vm64y_k1_ymm:
+			case Code.EVEX_Vscatterqpd_vm64z_k1_zmm:
 
-			case Code.EVEX_Vgatherpf0qps_VM64Z_k1:
-			case Code.EVEX_Vgatherpf0qpd_VM64Z_k1:
-			case Code.EVEX_Vgatherpf1qps_VM64Z_k1:
-			case Code.EVEX_Vgatherpf1qpd_VM64Z_k1:
-			case Code.EVEX_Vscatterpf0qps_VM64Z_k1:
-			case Code.EVEX_Vscatterpf0qpd_VM64Z_k1:
-			case Code.EVEX_Vscatterpf1qps_VM64Z_k1:
-			case Code.EVEX_Vscatterpf1qpd_VM64Z_k1:
+			case Code.EVEX_Vgatherpf0qps_vm64z_k1:
+			case Code.EVEX_Vgatherpf0qpd_vm64z_k1:
+			case Code.EVEX_Vgatherpf1qps_vm64z_k1:
+			case Code.EVEX_Vgatherpf1qpd_vm64z_k1:
+			case Code.EVEX_Vscatterpf0qps_vm64z_k1:
+			case Code.EVEX_Vscatterpf0qpd_vm64z_k1:
+			case Code.EVEX_Vscatterpf1qps_vm64z_k1:
+			case Code.EVEX_Vscatterpf1qpd_vm64z_k1:
 				vsib64 = true;
 				return true;
 
@@ -1179,10 +1179,10 @@ namespace Iced.Intel {
 				case Code.Push_R14W:
 				case Code.Push_DI:
 				case Code.Push_R15W:
-				case Code.Push_Iw:
-				case Code.Push_Ib16:
+				case Code.Push_imm16:
+				case Code.Pushw_imm8:
 				case Code.Pushfw:
-				case Code.Push_Ew:
+				case Code.Push_rm16:
 				case Code.Pushw_FS:
 				case Code.Pushw_GS:
 					return -2;
@@ -1199,10 +1199,10 @@ namespace Iced.Intel {
 				case Code.Push_EBP:
 				case Code.Push_ESI:
 				case Code.Push_EDI:
-				case Code.Push_Id:
-				case Code.Push_Ib32:
+				case Code.Pushd_imm32:
+				case Code.Pushd_imm8:
 				case Code.Pushfd:
-				case Code.Push_Ed:
+				case Code.Push_rm32:
 				case Code.Pushd_FS:
 				case Code.Pushd_GS:
 					return -4;
@@ -1223,10 +1223,10 @@ namespace Iced.Intel {
 				case Code.Push_R14:
 				case Code.Push_RDI:
 				case Code.Push_R15:
-				case Code.Push_Id64:
-				case Code.Push_Ib64:
+				case Code.Pushq_imm32:
+				case Code.Pushq_imm8:
 				case Code.Pushfq:
-				case Code.Push_Eq:
+				case Code.Push_rm64:
 				case Code.Pushq_FS:
 				case Code.Pushq_GS:
 					return -8;
@@ -1256,7 +1256,7 @@ namespace Iced.Intel {
 				case Code.Pop_R14W:
 				case Code.Pop_DI:
 				case Code.Pop_R15W:
-				case Code.Pop_Ew:
+				case Code.Pop_rm16:
 				case Code.Popfw:
 				case Code.Popw_FS:
 				case Code.Popw_GS:
@@ -1273,7 +1273,7 @@ namespace Iced.Intel {
 				case Code.Pop_EBP:
 				case Code.Pop_ESI:
 				case Code.Pop_EDI:
-				case Code.Pop_Ed:
+				case Code.Pop_rm32:
 				case Code.Popfd:
 				case Code.Popd_FS:
 				case Code.Popd_GS:
@@ -1295,7 +1295,7 @@ namespace Iced.Intel {
 				case Code.Pop_R14:
 				case Code.Pop_RDI:
 				case Code.Pop_R15:
-				case Code.Pop_Eq:
+				case Code.Pop_rm64:
 				case Code.Popfq:
 				case Code.Popq_FS:
 				case Code.Popq_GS:
@@ -1307,36 +1307,36 @@ namespace Iced.Intel {
 				case Code.Popad:
 					return 4 * 8;
 
-				case Code.Call_Aww:
-				case Code.Call_Eww:
+				case Code.Call_ptr1616:
+				case Code.Call_m1616:
 					return -(2 + 2);
 
-				case Code.Call_Adw:
-				case Code.Call_Edw:
+				case Code.Call_ptr3216:
+				case Code.Call_m3216:
 					return -(4 + 4);
 
-				case Code.Call_Eqw:
+				case Code.Call_m6416:
 					return -(8 + 8);
 
-				case Code.Call_Jw16:
-				case Code.Call_Ew:
+				case Code.Call_rel16:
+				case Code.Call_rm16:
 					return -2;
 
-				case Code.Call_Jd32:
-				case Code.Call_Ed:
+				case Code.Call_rel32_32:
+				case Code.Call_rm32:
 					return -4;
 
-				case Code.Call_Jd64:
-				case Code.Call_Eq:
+				case Code.Call_rel32_64:
+				case Code.Call_rm64:
 					return -8;
 
-				case Code.Retnw_Iw:
+				case Code.Retnw_imm16:
 					return 2 + Immediate16;
 
-				case Code.Retnd_Iw:
+				case Code.Retnd_imm16:
 					return 4 + Immediate16;
 
-				case Code.Retnq_Iw:
+				case Code.Retnq_imm16:
 					return 8 + Immediate16;
 
 				case Code.Retnw:
@@ -1348,13 +1348,13 @@ namespace Iced.Intel {
 				case Code.Retnq:
 					return 8;
 
-				case Code.Retfw_Iw:
+				case Code.Retfw_imm16:
 					return 2 + 2 + Immediate16;
 
-				case Code.Retfd_Iw:
+				case Code.Retfd_imm16:
 					return 4 + 4 + Immediate16;
 
-				case Code.Retfq_Iw:
+				case Code.Retfq_imm16:
 					return 8 + 8 + Immediate16;
 
 				case Code.Retfw:
@@ -1379,13 +1379,13 @@ namespace Iced.Intel {
 				case Code.Iretq:
 					return 8 * 5;
 
-				case Code.Enterw_Iw_Ib:
+				case Code.Enterw_imm16_imm8:
 					return -(2 + (Immediate8_2nd & 0x1F) * 2 + Immediate16);
 
-				case Code.Enterd_Iw_Ib:
+				case Code.Enterd_imm16_imm8:
 					return -(4 + (Immediate8_2nd & 0x1F) * 4 + Immediate16);
 
-				case Code.Enterq_Iw_Ib:
+				case Code.Enterq_imm16_imm8:
 					return -(8 + (Immediate8_2nd & 0x1F) * 8 + Immediate16);
 
 				case Code.Leavew:
@@ -1464,7 +1464,7 @@ namespace Iced.Intel {
 			get {
 				var code = Code;
 				var cpuidFeature = code.CpuidFeature();
-				if (cpuidFeature == CpuidFeature.AVX && Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_VX_WX || code == Code.VEX_Vbroadcastss_VY_WX || code == Code.VEX_Vbroadcastsd_VY_WX))
+				if (cpuidFeature == CpuidFeature.AVX && Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64))
 					return CpuidFeature.AVX2;
 				return cpuidFeature;
 			}

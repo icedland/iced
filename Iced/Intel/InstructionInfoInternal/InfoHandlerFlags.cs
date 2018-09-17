@@ -63,7 +63,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		None,
 		Read,
 		Write,
-		// Don't convert Write to ReadWrite, eg. EVEX_Vblendmpd_VX_k1z_HX_WX_b since it always overwrites dest
+		// Don't convert Write to ReadWrite, eg. EVEX_Vblendmpd_xmm_k1z_xmm_xmmm128b64 since it always overwrites dest
 		WriteForce,
 		CondWrite,
 		// CMOVcc with GPR32 dest in 64-bit mode: upper 32 bits of full 64-bit reg are always cleared.

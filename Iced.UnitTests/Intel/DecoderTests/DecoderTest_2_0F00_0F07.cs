@@ -23,12 +23,12 @@ using Xunit;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class DecoderTest_2_0F00_0F07 : DecoderTest {
 		[Theory]
-		[InlineData("0F00 C1", 3, Code.Sldt_Ew, Register.CX)]
-		[InlineData("0F00 CA", 3, Code.Str_Ew, Register.DX)]
-		[InlineData("0F00 D3", 3, Code.Lldt_Ew, Register.BX)]
-		[InlineData("0F00 DC", 3, Code.Ltr_Ew, Register.SP)]
-		[InlineData("0F00 E5", 3, Code.Verr_Ew, Register.BP)]
-		[InlineData("0F00 EE", 3, Code.Verw_Ew, Register.SI)]
+		[InlineData("0F00 C1", 3, Code.Sldt_rm16, Register.CX)]
+		[InlineData("0F00 CA", 3, Code.Str_rm16, Register.DX)]
+		[InlineData("0F00 D3", 3, Code.Lldt_rm16, Register.BX)]
+		[InlineData("0F00 DC", 3, Code.Ltr_rm16, Register.SP)]
+		[InlineData("0F00 E5", 3, Code.Verr_rm16, Register.BP)]
+		[InlineData("0F00 EE", 3, Code.Verw_rm16, Register.SI)]
 		void Test16_Grp6_Ew_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -46,12 +46,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F00 00", 3, Code.Sldt_Ew)]
-		[InlineData("0F00 08", 3, Code.Str_Ew)]
-		[InlineData("0F00 10", 3, Code.Lldt_Ew)]
-		[InlineData("0F00 18", 3, Code.Ltr_Ew)]
-		[InlineData("0F00 20", 3, Code.Verr_Ew)]
-		[InlineData("0F00 28", 3, Code.Verw_Ew)]
+		[InlineData("0F00 00", 3, Code.Sldt_rm16)]
+		[InlineData("0F00 08", 3, Code.Str_rm16)]
+		[InlineData("0F00 10", 3, Code.Lldt_rm16)]
+		[InlineData("0F00 18", 3, Code.Ltr_rm16)]
+		[InlineData("0F00 20", 3, Code.Verr_rm16)]
+		[InlineData("0F00 28", 3, Code.Verw_rm16)]
 		void Test16_Grp6_Ew_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -75,12 +75,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F00 C1", 4, Code.Sldt_Ew, Register.CX)]
-		[InlineData("66 0F00 CA", 4, Code.Str_Ew, Register.DX)]
-		[InlineData("66 0F00 D3", 4, Code.Lldt_Ew, Register.BX)]
-		[InlineData("66 0F00 DC", 4, Code.Ltr_Ew, Register.SP)]
-		[InlineData("66 0F00 E5", 4, Code.Verr_Ew, Register.BP)]
-		[InlineData("66 0F00 EE", 4, Code.Verw_Ew, Register.SI)]
+		[InlineData("66 0F00 C1", 4, Code.Sldt_rm16, Register.CX)]
+		[InlineData("66 0F00 CA", 4, Code.Str_rm16, Register.DX)]
+		[InlineData("66 0F00 D3", 4, Code.Lldt_rm16, Register.BX)]
+		[InlineData("66 0F00 DC", 4, Code.Ltr_rm16, Register.SP)]
+		[InlineData("66 0F00 E5", 4, Code.Verr_rm16, Register.BP)]
+		[InlineData("66 0F00 EE", 4, Code.Verw_rm16, Register.SI)]
 		void Test32_Grp6_Ew_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -98,12 +98,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F00 00", 4, Code.Sldt_Ew)]
-		[InlineData("66 0F00 08", 4, Code.Str_Ew)]
-		[InlineData("66 0F00 10", 4, Code.Lldt_Ew)]
-		[InlineData("66 0F00 18", 4, Code.Ltr_Ew)]
-		[InlineData("66 0F00 20", 4, Code.Verr_Ew)]
-		[InlineData("66 0F00 28", 4, Code.Verw_Ew)]
+		[InlineData("66 0F00 00", 4, Code.Sldt_rm16)]
+		[InlineData("66 0F00 08", 4, Code.Str_rm16)]
+		[InlineData("66 0F00 10", 4, Code.Lldt_rm16)]
+		[InlineData("66 0F00 18", 4, Code.Ltr_rm16)]
+		[InlineData("66 0F00 20", 4, Code.Verr_rm16)]
+		[InlineData("66 0F00 28", 4, Code.Verw_rm16)]
 		void Test32_Grp6_Ew_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -127,19 +127,19 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F00 C1", 4, Code.Sldt_Ew, Register.CX)]
-		[InlineData("66 0F00 CA", 4, Code.Str_Ew, Register.DX)]
-		[InlineData("66 0F00 D3", 4, Code.Lldt_Ew, Register.BX)]
-		[InlineData("66 0F00 DC", 4, Code.Ltr_Ew, Register.SP)]
-		[InlineData("66 0F00 E5", 4, Code.Verr_Ew, Register.BP)]
-		[InlineData("66 0F00 EE", 4, Code.Verw_Ew, Register.SI)]
+		[InlineData("66 0F00 C1", 4, Code.Sldt_rm16, Register.CX)]
+		[InlineData("66 0F00 CA", 4, Code.Str_rm16, Register.DX)]
+		[InlineData("66 0F00 D3", 4, Code.Lldt_rm16, Register.BX)]
+		[InlineData("66 0F00 DC", 4, Code.Ltr_rm16, Register.SP)]
+		[InlineData("66 0F00 E5", 4, Code.Verr_rm16, Register.BP)]
+		[InlineData("66 0F00 EE", 4, Code.Verw_rm16, Register.SI)]
 
-		[InlineData("66 41 0F00 C1", 5, Code.Sldt_Ew, Register.R9W)]
-		[InlineData("66 41 0F00 CA", 5, Code.Str_Ew, Register.R10W)]
-		[InlineData("66 41 0F00 D3", 5, Code.Lldt_Ew, Register.R11W)]
-		[InlineData("66 41 0F00 DC", 5, Code.Ltr_Ew, Register.R12W)]
-		[InlineData("66 41 0F00 E5", 5, Code.Verr_Ew, Register.R13W)]
-		[InlineData("66 41 0F00 EE", 5, Code.Verw_Ew, Register.R14W)]
+		[InlineData("66 41 0F00 C1", 5, Code.Sldt_rm16, Register.R9W)]
+		[InlineData("66 41 0F00 CA", 5, Code.Str_rm16, Register.R10W)]
+		[InlineData("66 41 0F00 D3", 5, Code.Lldt_rm16, Register.R11W)]
+		[InlineData("66 41 0F00 DC", 5, Code.Ltr_rm16, Register.R12W)]
+		[InlineData("66 41 0F00 E5", 5, Code.Verr_rm16, Register.R13W)]
+		[InlineData("66 41 0F00 EE", 5, Code.Verw_rm16, Register.R14W)]
 		void Test64_Grp6_Ew_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -157,12 +157,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F00 00", 4, Code.Sldt_Ew)]
-		[InlineData("66 0F00 08", 4, Code.Str_Ew)]
-		[InlineData("66 0F00 10", 4, Code.Lldt_Ew)]
-		[InlineData("66 0F00 18", 4, Code.Ltr_Ew)]
-		[InlineData("66 0F00 20", 4, Code.Verr_Ew)]
-		[InlineData("66 0F00 28", 4, Code.Verw_Ew)]
+		[InlineData("66 0F00 00", 4, Code.Sldt_rm16)]
+		[InlineData("66 0F00 08", 4, Code.Str_rm16)]
+		[InlineData("66 0F00 10", 4, Code.Lldt_rm16)]
+		[InlineData("66 0F00 18", 4, Code.Ltr_rm16)]
+		[InlineData("66 0F00 20", 4, Code.Verr_rm16)]
+		[InlineData("66 0F00 28", 4, Code.Verw_rm16)]
 		void Test64_Grp6_Ew_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -186,12 +186,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F00 C1", 4, Code.Sldt_RdMw, Register.ECX)]
-		[InlineData("66 0F00 CA", 4, Code.Str_RdMw, Register.EDX)]
-		[InlineData("66 0F00 D3", 4, Code.Lldt_RdMw, Register.EBX)]
-		[InlineData("66 0F00 DC", 4, Code.Ltr_RdMw, Register.ESP)]
-		[InlineData("66 0F00 E5", 4, Code.Verr_RdMw, Register.EBP)]
-		[InlineData("66 0F00 EE", 4, Code.Verw_RdMw, Register.ESI)]
+		[InlineData("66 0F00 C1", 4, Code.Sldt_r32m16, Register.ECX)]
+		[InlineData("66 0F00 CA", 4, Code.Str_r32m16, Register.EDX)]
+		[InlineData("66 0F00 D3", 4, Code.Lldt_r32m16, Register.EBX)]
+		[InlineData("66 0F00 DC", 4, Code.Ltr_r32m16, Register.ESP)]
+		[InlineData("66 0F00 E5", 4, Code.Verr_r32m16, Register.EBP)]
+		[InlineData("66 0F00 EE", 4, Code.Verw_r32m16, Register.ESI)]
 		void Test16_Grp6_Ed_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -209,12 +209,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F00 00", 4, Code.Sldt_RdMw)]
-		[InlineData("66 0F00 08", 4, Code.Str_RdMw)]
-		[InlineData("66 0F00 10", 4, Code.Lldt_RdMw)]
-		[InlineData("66 0F00 18", 4, Code.Ltr_RdMw)]
-		[InlineData("66 0F00 20", 4, Code.Verr_RdMw)]
-		[InlineData("66 0F00 28", 4, Code.Verw_RdMw)]
+		[InlineData("66 0F00 00", 4, Code.Sldt_r32m16)]
+		[InlineData("66 0F00 08", 4, Code.Str_r32m16)]
+		[InlineData("66 0F00 10", 4, Code.Lldt_r32m16)]
+		[InlineData("66 0F00 18", 4, Code.Ltr_r32m16)]
+		[InlineData("66 0F00 20", 4, Code.Verr_r32m16)]
+		[InlineData("66 0F00 28", 4, Code.Verw_r32m16)]
 		void Test16_Grp6_Ed_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -238,12 +238,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F00 C1", 3, Code.Sldt_RdMw, Register.ECX)]
-		[InlineData("0F00 CA", 3, Code.Str_RdMw, Register.EDX)]
-		[InlineData("0F00 D3", 3, Code.Lldt_RdMw, Register.EBX)]
-		[InlineData("0F00 DC", 3, Code.Ltr_RdMw, Register.ESP)]
-		[InlineData("0F00 E5", 3, Code.Verr_RdMw, Register.EBP)]
-		[InlineData("0F00 EE", 3, Code.Verw_RdMw, Register.ESI)]
+		[InlineData("0F00 C1", 3, Code.Sldt_r32m16, Register.ECX)]
+		[InlineData("0F00 CA", 3, Code.Str_r32m16, Register.EDX)]
+		[InlineData("0F00 D3", 3, Code.Lldt_r32m16, Register.EBX)]
+		[InlineData("0F00 DC", 3, Code.Ltr_r32m16, Register.ESP)]
+		[InlineData("0F00 E5", 3, Code.Verr_r32m16, Register.EBP)]
+		[InlineData("0F00 EE", 3, Code.Verw_r32m16, Register.ESI)]
 		void Test32_Grp6_Ed_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -261,12 +261,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F00 00", 3, Code.Sldt_RdMw)]
-		[InlineData("0F00 08", 3, Code.Str_RdMw)]
-		[InlineData("0F00 10", 3, Code.Lldt_RdMw)]
-		[InlineData("0F00 18", 3, Code.Ltr_RdMw)]
-		[InlineData("0F00 20", 3, Code.Verr_RdMw)]
-		[InlineData("0F00 28", 3, Code.Verw_RdMw)]
+		[InlineData("0F00 00", 3, Code.Sldt_r32m16)]
+		[InlineData("0F00 08", 3, Code.Str_r32m16)]
+		[InlineData("0F00 10", 3, Code.Lldt_r32m16)]
+		[InlineData("0F00 18", 3, Code.Ltr_r32m16)]
+		[InlineData("0F00 20", 3, Code.Verr_r32m16)]
+		[InlineData("0F00 28", 3, Code.Verw_r32m16)]
 		void Test32_Grp6_Ed_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -290,19 +290,19 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F00 C1", 3, Code.Sldt_RdMw, Register.ECX)]
-		[InlineData("0F00 CA", 3, Code.Str_RdMw, Register.EDX)]
-		[InlineData("0F00 D3", 3, Code.Lldt_RdMw, Register.EBX)]
-		[InlineData("0F00 DC", 3, Code.Ltr_RdMw, Register.ESP)]
-		[InlineData("0F00 E5", 3, Code.Verr_RdMw, Register.EBP)]
-		[InlineData("0F00 EE", 3, Code.Verw_RdMw, Register.ESI)]
+		[InlineData("0F00 C1", 3, Code.Sldt_r32m16, Register.ECX)]
+		[InlineData("0F00 CA", 3, Code.Str_r32m16, Register.EDX)]
+		[InlineData("0F00 D3", 3, Code.Lldt_r32m16, Register.EBX)]
+		[InlineData("0F00 DC", 3, Code.Ltr_r32m16, Register.ESP)]
+		[InlineData("0F00 E5", 3, Code.Verr_r32m16, Register.EBP)]
+		[InlineData("0F00 EE", 3, Code.Verw_r32m16, Register.ESI)]
 
-		[InlineData("41 0F00 C1", 4, Code.Sldt_RdMw, Register.R9D)]
-		[InlineData("41 0F00 CA", 4, Code.Str_RdMw, Register.R10D)]
-		[InlineData("41 0F00 D3", 4, Code.Lldt_RdMw, Register.R11D)]
-		[InlineData("41 0F00 DC", 4, Code.Ltr_RdMw, Register.R12D)]
-		[InlineData("41 0F00 E5", 4, Code.Verr_RdMw, Register.R13D)]
-		[InlineData("41 0F00 EE", 4, Code.Verw_RdMw, Register.R14D)]
+		[InlineData("41 0F00 C1", 4, Code.Sldt_r32m16, Register.R9D)]
+		[InlineData("41 0F00 CA", 4, Code.Str_r32m16, Register.R10D)]
+		[InlineData("41 0F00 D3", 4, Code.Lldt_r32m16, Register.R11D)]
+		[InlineData("41 0F00 DC", 4, Code.Ltr_r32m16, Register.R12D)]
+		[InlineData("41 0F00 E5", 4, Code.Verr_r32m16, Register.R13D)]
+		[InlineData("41 0F00 EE", 4, Code.Verw_r32m16, Register.R14D)]
 		void Test64_Grp6_Ed_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -320,12 +320,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F00 00", 3, Code.Sldt_RdMw)]
-		[InlineData("0F00 08", 3, Code.Str_RdMw)]
-		[InlineData("0F00 10", 3, Code.Lldt_RdMw)]
-		[InlineData("0F00 18", 3, Code.Ltr_RdMw)]
-		[InlineData("0F00 20", 3, Code.Verr_RdMw)]
-		[InlineData("0F00 28", 3, Code.Verw_RdMw)]
+		[InlineData("0F00 00", 3, Code.Sldt_r32m16)]
+		[InlineData("0F00 08", 3, Code.Str_r32m16)]
+		[InlineData("0F00 10", 3, Code.Lldt_r32m16)]
+		[InlineData("0F00 18", 3, Code.Ltr_r32m16)]
+		[InlineData("0F00 20", 3, Code.Verr_r32m16)]
+		[InlineData("0F00 28", 3, Code.Verw_r32m16)]
 		void Test64_Grp6_Ed_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -349,19 +349,19 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("48 0F00 C1", 4, Code.Sldt_RqMw, Register.RCX)]
-		[InlineData("48 0F00 CA", 4, Code.Str_RqMw, Register.RDX)]
-		[InlineData("48 0F00 D3", 4, Code.Lldt_RqMw, Register.RBX)]
-		[InlineData("48 0F00 DC", 4, Code.Ltr_RqMw, Register.RSP)]
-		[InlineData("48 0F00 E5", 4, Code.Verr_RqMw, Register.RBP)]
-		[InlineData("48 0F00 EE", 4, Code.Verw_RqMw, Register.RSI)]
+		[InlineData("48 0F00 C1", 4, Code.Sldt_r64m16, Register.RCX)]
+		[InlineData("48 0F00 CA", 4, Code.Str_r64m16, Register.RDX)]
+		[InlineData("48 0F00 D3", 4, Code.Lldt_r64m16, Register.RBX)]
+		[InlineData("48 0F00 DC", 4, Code.Ltr_r64m16, Register.RSP)]
+		[InlineData("48 0F00 E5", 4, Code.Verr_r64m16, Register.RBP)]
+		[InlineData("48 0F00 EE", 4, Code.Verw_r64m16, Register.RSI)]
 
-		[InlineData("49 0F00 C1", 4, Code.Sldt_RqMw, Register.R9)]
-		[InlineData("49 0F00 CA", 4, Code.Str_RqMw, Register.R10)]
-		[InlineData("49 0F00 D3", 4, Code.Lldt_RqMw, Register.R11)]
-		[InlineData("49 0F00 DC", 4, Code.Ltr_RqMw, Register.R12)]
-		[InlineData("49 0F00 E5", 4, Code.Verr_RqMw, Register.R13)]
-		[InlineData("49 0F00 EE", 4, Code.Verw_RqMw, Register.R14)]
+		[InlineData("49 0F00 C1", 4, Code.Sldt_r64m16, Register.R9)]
+		[InlineData("49 0F00 CA", 4, Code.Str_r64m16, Register.R10)]
+		[InlineData("49 0F00 D3", 4, Code.Lldt_r64m16, Register.R11)]
+		[InlineData("49 0F00 DC", 4, Code.Ltr_r64m16, Register.R12)]
+		[InlineData("49 0F00 E5", 4, Code.Verr_r64m16, Register.R13)]
+		[InlineData("49 0F00 EE", 4, Code.Verw_r64m16, Register.R14)]
 		void Test64_Grp6_Eq_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -379,12 +379,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("48 0F00 00", 4, Code.Sldt_RqMw)]
-		[InlineData("48 0F00 08", 4, Code.Str_RqMw)]
-		[InlineData("48 0F00 10", 4, Code.Lldt_RqMw)]
-		[InlineData("48 0F00 18", 4, Code.Ltr_RqMw)]
-		[InlineData("48 0F00 20", 4, Code.Verr_RqMw)]
-		[InlineData("48 0F00 28", 4, Code.Verw_RqMw)]
+		[InlineData("48 0F00 00", 4, Code.Sldt_r64m16)]
+		[InlineData("48 0F00 08", 4, Code.Str_r64m16)]
+		[InlineData("48 0F00 10", 4, Code.Lldt_r64m16)]
+		[InlineData("48 0F00 18", 4, Code.Ltr_r64m16)]
+		[InlineData("48 0F00 20", 4, Code.Verr_r64m16)]
+		[InlineData("48 0F00 28", 4, Code.Verw_r64m16)]
 		void Test64_Grp6_Eq_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -408,10 +408,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F01 00", 3, Code.Sgdtw_Ms)]
-		[InlineData("0F01 08", 3, Code.Sidtw_Ms)]
-		[InlineData("0F01 10", 3, Code.Lgdtw_Ms)]
-		[InlineData("0F01 18", 3, Code.Lidtw_Ms)]
+		[InlineData("0F01 00", 3, Code.Sgdt_m40)]
+		[InlineData("0F01 08", 3, Code.Sidt_m40)]
+		[InlineData("0F01 10", 3, Code.Lgdt_m40)]
+		[InlineData("0F01 18", 3, Code.Lidt_m40)]
 		void Test16_Grp7_Ms_Ew_1(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -435,10 +435,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F01 00", 4, Code.Sgdtw_Ms)]
-		[InlineData("66 0F01 08", 4, Code.Sidtw_Ms)]
-		[InlineData("66 0F01 10", 4, Code.Lgdtw_Ms)]
-		[InlineData("66 0F01 18", 4, Code.Lidtw_Ms)]
+		[InlineData("66 0F01 00", 4, Code.Sgdt_m40)]
+		[InlineData("66 0F01 08", 4, Code.Sidt_m40)]
+		[InlineData("66 0F01 10", 4, Code.Lgdt_m40)]
+		[InlineData("66 0F01 18", 4, Code.Lidt_m40)]
 		void Test32_Grp7_Ms_Ew_1(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -462,10 +462,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F01 00", 4, Code.Sgdtd_Ms)]
-		[InlineData("66 0F01 08", 4, Code.Sidtd_Ms)]
-		[InlineData("66 0F01 10", 4, Code.Lgdtd_Ms)]
-		[InlineData("66 0F01 18", 4, Code.Lidtd_Ms)]
+		[InlineData("66 0F01 00", 4, Code.Sgdt_m48)]
+		[InlineData("66 0F01 08", 4, Code.Sidt_m48)]
+		[InlineData("66 0F01 10", 4, Code.Lgdt_m48)]
+		[InlineData("66 0F01 18", 4, Code.Lidt_m48)]
 		void Test16_Grp7_Ms_Ed_1(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -489,10 +489,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F01 00", 3, Code.Sgdtd_Ms)]
-		[InlineData("0F01 08", 3, Code.Sidtd_Ms)]
-		[InlineData("0F01 10", 3, Code.Lgdtd_Ms)]
-		[InlineData("0F01 18", 3, Code.Lidtd_Ms)]
+		[InlineData("0F01 00", 3, Code.Sgdt_m48)]
+		[InlineData("0F01 08", 3, Code.Sidt_m48)]
+		[InlineData("0F01 10", 3, Code.Lgdt_m48)]
+		[InlineData("0F01 18", 3, Code.Lidt_m48)]
 		void Test32_Grp7_Ms_Ed_1(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -516,20 +516,20 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F01 00", 3, Code.Sgdtq_Ms)]
-		[InlineData("0F01 08", 3, Code.Sidtq_Ms)]
-		[InlineData("0F01 10", 3, Code.Lgdtq_Ms)]
-		[InlineData("0F01 18", 3, Code.Lidtq_Ms)]
+		[InlineData("0F01 00", 3, Code.Sgdt_m80)]
+		[InlineData("0F01 08", 3, Code.Sidt_m80)]
+		[InlineData("0F01 10", 3, Code.Lgdt_m80)]
+		[InlineData("0F01 18", 3, Code.Lidt_m80)]
 
-		[InlineData("66 0F01 00", 4, Code.Sgdtq_Ms)]
-		[InlineData("66 0F01 08", 4, Code.Sidtq_Ms)]
-		[InlineData("66 0F01 10", 4, Code.Lgdtq_Ms)]
-		[InlineData("66 0F01 18", 4, Code.Lidtq_Ms)]
+		[InlineData("66 0F01 00", 4, Code.Sgdt_m80)]
+		[InlineData("66 0F01 08", 4, Code.Sidt_m80)]
+		[InlineData("66 0F01 10", 4, Code.Lgdt_m80)]
+		[InlineData("66 0F01 18", 4, Code.Lidt_m80)]
 
-		[InlineData("48 0F01 00", 4, Code.Sgdtq_Ms)]
-		[InlineData("48 0F01 08", 4, Code.Sidtq_Ms)]
-		[InlineData("48 0F01 10", 4, Code.Lgdtq_Ms)]
-		[InlineData("48 0F01 18", 4, Code.Lidtq_Ms)]
+		[InlineData("48 0F01 00", 4, Code.Sgdt_m80)]
+		[InlineData("48 0F01 08", 4, Code.Sidt_m80)]
+		[InlineData("48 0F01 10", 4, Code.Lgdt_m80)]
+		[InlineData("48 0F01 18", 4, Code.Lidt_m80)]
 		void Test64_Grp7_Ms_Eq_1(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -555,11 +555,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("0F01 38", 3)]
 		[InlineData("66 0F01 38", 4)]
-		void Test16_Invlpg_M_1(string hexBytes, int byteLength) {
+		void Test16_Invlpg_m_1(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Invlpg_M, instr.Code);
+			Assert.Equal(Code.Invlpg_m, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -580,11 +580,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("0F01 38", 3)]
 		[InlineData("66 0F01 38", 4)]
-		void Test32_Invlpg_M_1(string hexBytes, int byteLength) {
+		void Test32_Invlpg_m_1(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Invlpg_M, instr.Code);
+			Assert.Equal(Code.Invlpg_m, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -607,11 +607,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("48 0F01 38", 4)]
 		[InlineData("66 0F01 38", 4)]
 		[InlineData("66 48 0F01 38", 5)]
-		void Test64_Invlpg_M_1(string hexBytes, int byteLength) {
+		void Test64_Invlpg_m_1(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Invlpg_M, instr.Code);
+			Assert.Equal(Code.Invlpg_m, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -630,8 +630,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F01 E5", 3, Code.Smsw_Ew, Register.BP)]
-		[InlineData("0F01 F6", 3, Code.Lmsw_Ew, Register.SI)]
+		[InlineData("0F01 E5", 3, Code.Smsw_rm16, Register.BP)]
+		[InlineData("0F01 F6", 3, Code.Lmsw_rm16, Register.SI)]
 		void Test16_Grp7_Ew_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -649,8 +649,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F01 20", 3, Code.Smsw_Ew)]
-		[InlineData("0F01 30", 3, Code.Lmsw_Ew)]
+		[InlineData("0F01 20", 3, Code.Smsw_rm16)]
+		[InlineData("0F01 30", 3, Code.Lmsw_rm16)]
 		void Test16_Grp7_Ew_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -674,8 +674,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F01 E5", 4, Code.Smsw_Ew, Register.BP)]
-		[InlineData("66 0F01 F6", 4, Code.Lmsw_Ew, Register.SI)]
+		[InlineData("66 0F01 E5", 4, Code.Smsw_rm16, Register.BP)]
+		[InlineData("66 0F01 F6", 4, Code.Lmsw_rm16, Register.SI)]
 		void Test32_Grp7_Ew_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -693,8 +693,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F01 20", 4, Code.Smsw_Ew)]
-		[InlineData("66 0F01 30", 4, Code.Lmsw_Ew)]
+		[InlineData("66 0F01 20", 4, Code.Smsw_rm16)]
+		[InlineData("66 0F01 30", 4, Code.Lmsw_rm16)]
 		void Test32_Grp7_Ew_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -718,11 +718,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F01 E5", 4, Code.Smsw_Ew, Register.BP)]
-		[InlineData("66 0F01 F6", 4, Code.Lmsw_Ew, Register.SI)]
+		[InlineData("66 0F01 E5", 4, Code.Smsw_rm16, Register.BP)]
+		[InlineData("66 0F01 F6", 4, Code.Lmsw_rm16, Register.SI)]
 
-		[InlineData("66 41 0F01 E5", 5, Code.Smsw_Ew, Register.R13W)]
-		[InlineData("66 41 0F01 F6", 5, Code.Lmsw_Ew, Register.R14W)]
+		[InlineData("66 41 0F01 E5", 5, Code.Smsw_rm16, Register.R13W)]
+		[InlineData("66 41 0F01 F6", 5, Code.Lmsw_rm16, Register.R14W)]
 		void Test64_Grp7_Ew_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -740,8 +740,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F01 20", 4, Code.Smsw_Ew)]
-		[InlineData("66 0F01 30", 4, Code.Lmsw_Ew)]
+		[InlineData("66 0F01 20", 4, Code.Smsw_rm16)]
+		[InlineData("66 0F01 30", 4, Code.Lmsw_rm16)]
 		void Test64_Grp7_Ew_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -765,8 +765,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F01 E5", 4, Code.Smsw_RdMw, Register.EBP)]
-		[InlineData("66 0F01 F6", 4, Code.Lmsw_RdMw, Register.ESI)]
+		[InlineData("66 0F01 E5", 4, Code.Smsw_r32m16, Register.EBP)]
+		[InlineData("66 0F01 F6", 4, Code.Lmsw_r32m16, Register.ESI)]
 		void Test16_Grp7_Ed_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -784,8 +784,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 0F01 20", 4, Code.Smsw_RdMw)]
-		[InlineData("66 0F01 30", 4, Code.Lmsw_RdMw)]
+		[InlineData("66 0F01 20", 4, Code.Smsw_r32m16)]
+		[InlineData("66 0F01 30", 4, Code.Lmsw_r32m16)]
 		void Test16_Grp7_Ed_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -809,8 +809,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F01 E5", 3, Code.Smsw_RdMw, Register.EBP)]
-		[InlineData("0F01 F6", 3, Code.Lmsw_RdMw, Register.ESI)]
+		[InlineData("0F01 E5", 3, Code.Smsw_r32m16, Register.EBP)]
+		[InlineData("0F01 F6", 3, Code.Lmsw_r32m16, Register.ESI)]
 		void Test32_Grp7_Ed_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -828,8 +828,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F01 20", 3, Code.Smsw_RdMw)]
-		[InlineData("0F01 30", 3, Code.Lmsw_RdMw)]
+		[InlineData("0F01 20", 3, Code.Smsw_r32m16)]
+		[InlineData("0F01 30", 3, Code.Lmsw_r32m16)]
 		void Test32_Grp7_Ed_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -853,11 +853,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F01 E5", 3, Code.Smsw_RdMw, Register.EBP)]
-		[InlineData("0F01 F6", 3, Code.Lmsw_RdMw, Register.ESI)]
+		[InlineData("0F01 E5", 3, Code.Smsw_r32m16, Register.EBP)]
+		[InlineData("0F01 F6", 3, Code.Lmsw_r32m16, Register.ESI)]
 
-		[InlineData("41 0F01 E5", 4, Code.Smsw_RdMw, Register.R13D)]
-		[InlineData("41 0F01 F6", 4, Code.Lmsw_RdMw, Register.R14D)]
+		[InlineData("41 0F01 E5", 4, Code.Smsw_r32m16, Register.R13D)]
+		[InlineData("41 0F01 F6", 4, Code.Lmsw_r32m16, Register.R14D)]
 		void Test64_Grp7_Ed_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -875,8 +875,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F01 20", 3, Code.Smsw_RdMw)]
-		[InlineData("0F01 30", 3, Code.Lmsw_RdMw)]
+		[InlineData("0F01 20", 3, Code.Smsw_r32m16)]
+		[InlineData("0F01 30", 3, Code.Lmsw_r32m16)]
 		void Test64_Grp7_Ed_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -900,11 +900,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("48 0F01 E5", 4, Code.Smsw_RqMw, Register.RBP)]
-		[InlineData("48 0F01 F6", 4, Code.Lmsw_RqMw, Register.RSI)]
+		[InlineData("48 0F01 E5", 4, Code.Smsw_r64m16, Register.RBP)]
+		[InlineData("48 0F01 F6", 4, Code.Lmsw_r64m16, Register.RSI)]
 
-		[InlineData("49 0F01 E5", 4, Code.Smsw_RqMw, Register.R13)]
-		[InlineData("49 0F01 F6", 4, Code.Lmsw_RqMw, Register.R14)]
+		[InlineData("49 0F01 E5", 4, Code.Smsw_r64m16, Register.R13)]
+		[InlineData("49 0F01 F6", 4, Code.Lmsw_r64m16, Register.R14)]
 		void Test64_Grp7_Eq_1(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -922,8 +922,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("48 0F01 20", 4, Code.Smsw_RqMw)]
-		[InlineData("48 0F01 30", 4, Code.Lmsw_RqMw)]
+		[InlineData("48 0F01 20", 4, Code.Smsw_r64m16)]
+		[InlineData("48 0F01 30", 4, Code.Lmsw_r64m16)]
 		void Test64_Grp7_Eq_2(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -947,11 +947,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Lar_Gw_Ew_1() {
+		void Test16_Lar_r16_rm16_1() {
 			var decoder = CreateDecoder16("0F02 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lar_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -967,11 +967,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Lar_Gw_Ew_2() {
+		void Test16_Lar_r16_rm16_2() {
 			var decoder = CreateDecoder16("0F02 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lar_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -993,11 +993,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Lar_Gw_Ew_1() {
+		void Test32_Lar_r16_rm16_1() {
 			var decoder = CreateDecoder32("66 0F02 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lar_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1013,11 +1013,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Lar_Gw_Ew_2() {
+		void Test32_Lar_r16_rm16_2() {
 			var decoder = CreateDecoder32("66 0F02 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lar_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1045,11 +1045,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 45 0F02 D0", 5, Register.R10W, Register.R8W)]
 		[InlineData("66 41 0F02 D9", 5, Register.BX, Register.R9W)]
 		[InlineData("66 44 0F02 EC", 5, Register.R13W, Register.SP)]
-		void Test64_Lar_Gw_Ew_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Lar_r16_rm16_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lar_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1065,11 +1065,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Lar_Gw_Ew_2() {
+		void Test64_Lar_r16_rm16_2() {
 			var decoder = CreateDecoder64("66 0F02 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lar_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1091,11 +1091,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Lar_Gd_Ed_1() {
+		void Test16_Lar_r32_rm32_1() {
 			var decoder = CreateDecoder16("66 0F02 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lar_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1111,11 +1111,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Lar_Gd_Ed_2() {
+		void Test16_Lar_r32_rm32_2() {
 			var decoder = CreateDecoder16("66 0F02 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lar_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1137,11 +1137,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Lar_Gd_Ed_1() {
+		void Test32_Lar_r32_rm32_1() {
 			var decoder = CreateDecoder32("0F02 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lar_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1157,11 +1157,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Lar_Gd_Ed_2() {
+		void Test32_Lar_r32_rm32_2() {
 			var decoder = CreateDecoder32("0F02 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lar_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1189,11 +1189,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("45 0F02 D0", 4, Register.R10D, Register.R8D)]
 		[InlineData("41 0F02 D9", 4, Register.EBX, Register.R9D)]
 		[InlineData("44 0F02 EC", 4, Register.R13D, Register.ESP)]
-		void Test64_Lar_Gd_Ed_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Lar_r32_rm32_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lar_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1209,11 +1209,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Lar_Gd_Ed_2() {
+		void Test64_Lar_r32_rm32_2() {
 			var decoder = CreateDecoder64("0F02 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lar_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1241,11 +1241,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("4D 0F02 D0", 4, Register.R10, Register.R8)]
 		[InlineData("49 0F02 D9", 4, Register.RBX, Register.R9)]
 		[InlineData("4C 0F02 EC", 4, Register.R13, Register.RSP)]
-		void Test64_Lar_Gq_Eq_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Lar_r64_rm64_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gq_Eq, instr.Code);
+			Assert.Equal(Code.Lar_r64_rm64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1261,11 +1261,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Lar_Gq_Eq_2() {
+		void Test64_Lar_r64_rm64_2() {
 			var decoder = CreateDecoder64("48 0F02 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lar_Gq_Eq, instr.Code);
+			Assert.Equal(Code.Lar_r64_rm64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1287,11 +1287,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Lsl_Gw_Ew_1() {
+		void Test16_Lsl_r16_rm16_1() {
 			var decoder = CreateDecoder16("0F03 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lsl_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1307,11 +1307,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Lsl_Gw_Ew_2() {
+		void Test16_Lsl_r16_rm16_2() {
 			var decoder = CreateDecoder16("0F03 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lsl_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1333,11 +1333,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Lsl_Gw_Ew_1() {
+		void Test32_Lsl_r16_rm16_1() {
 			var decoder = CreateDecoder32("66 0F03 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lsl_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1353,11 +1353,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Lsl_Gw_Ew_2() {
+		void Test32_Lsl_r16_rm16_2() {
 			var decoder = CreateDecoder32("66 0F03 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lsl_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1385,11 +1385,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 45 0F03 D0", 5, Register.R10W, Register.R8W)]
 		[InlineData("66 41 0F03 D9", 5, Register.BX, Register.R9W)]
 		[InlineData("66 44 0F03 EC", 5, Register.R13W, Register.SP)]
-		void Test64_Lsl_Gw_Ew_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Lsl_r16_rm16_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lsl_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1405,11 +1405,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Lsl_Gw_Ew_2() {
+		void Test64_Lsl_r16_rm16_2() {
 			var decoder = CreateDecoder64("66 0F03 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Lsl_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1431,11 +1431,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Lsl_Gd_Ed_1() {
+		void Test16_Lsl_r32_rm32_1() {
 			var decoder = CreateDecoder16("66 0F03 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lsl_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1451,11 +1451,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Lsl_Gd_Ed_2() {
+		void Test16_Lsl_r32_rm32_2() {
 			var decoder = CreateDecoder16("66 0F03 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lsl_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1477,11 +1477,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Lsl_Gd_Ed_1() {
+		void Test32_Lsl_r32_rm32_1() {
 			var decoder = CreateDecoder32("0F03 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lsl_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1497,11 +1497,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Lsl_Gd_Ed_2() {
+		void Test32_Lsl_r32_rm32_2() {
 			var decoder = CreateDecoder32("0F03 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lsl_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1529,11 +1529,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("45 0F03 D0", 4, Register.R10D, Register.R8D)]
 		[InlineData("41 0F03 D9", 4, Register.EBX, Register.R9D)]
 		[InlineData("44 0F03 EC", 4, Register.R13D, Register.ESP)]
-		void Test64_Lsl_Gd_Ed_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Lsl_r32_rm32_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lsl_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1549,11 +1549,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Lsl_Gd_Ed_2() {
+		void Test64_Lsl_r32_rm32_2() {
 			var decoder = CreateDecoder64("0F03 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Lsl_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1581,11 +1581,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("4D 0F03 D0", 4, Register.R10, Register.R8)]
 		[InlineData("49 0F03 D9", 4, Register.RBX, Register.R9)]
 		[InlineData("4C 0F03 EC", 4, Register.R13, Register.RSP)]
-		void Test64_Lsl_Gq_Eq_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Lsl_r64_rm64_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gq_Eq, instr.Code);
+			Assert.Equal(Code.Lsl_r64_rm64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -1601,11 +1601,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Lsl_Gq_Eq_2() {
+		void Test64_Lsl_r64_rm64_2() {
 			var decoder = CreateDecoder64("48 0F03 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Lsl_Gq_Eq, instr.Code);
+			Assert.Equal(Code.Lsl_r64_rm64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);

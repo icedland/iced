@@ -24,11 +24,11 @@ using Xunit;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class DecoderTest_3_0F38F0_0F38F7 : DecoderTest {
 		[Fact]
-		void Test16_Movbe_Gw_Mw_2() {
+		void Test16_Movbe_r16_m16_2() {
 			var decoder = CreateDecoder16("0F38F0 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Gw_Mw, instr.Code);
+			Assert.Equal(Code.Movbe_r16_m16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -50,11 +50,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Movbe_Gw_Mw_2() {
+		void Test32_Movbe_r16_m16_2() {
 			var decoder = CreateDecoder32("66 0F38F0 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Gw_Mw, instr.Code);
+			Assert.Equal(Code.Movbe_r16_m16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -78,11 +78,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("66 0F38F0 18", 5, Register.BX)]
 		[InlineData("66 44 0F38F0 18", 6, Register.R11W)]
-		void Test64_Movbe_Gw_Mw_2(string hexBytes, int byteLength, Register reg) {
+		void Test64_Movbe_r16_m16_2(string hexBytes, int byteLength, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Gw_Mw, instr.Code);
+			Assert.Equal(Code.Movbe_r16_m16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -104,11 +104,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Movbe_Gd_Md_2() {
+		void Test16_Movbe_r32_m32_2() {
 			var decoder = CreateDecoder16("66 0F38F0 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Gd_Md, instr.Code);
+			Assert.Equal(Code.Movbe_r32_m32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -130,11 +130,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Movbe_Gd_Md_2() {
+		void Test32_Movbe_r32_m32_2() {
 			var decoder = CreateDecoder32("0F38F0 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Gd_Md, instr.Code);
+			Assert.Equal(Code.Movbe_r32_m32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -158,11 +158,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("0F38F0 18", 4, Register.EBX)]
 		[InlineData("44 0F38F0 18", 5, Register.R11D)]
-		void Test64_Movbe_Gd_Md_2(string hexBytes, int byteLength, Register reg) {
+		void Test64_Movbe_r32_m32_2(string hexBytes, int byteLength, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Gd_Md, instr.Code);
+			Assert.Equal(Code.Movbe_r32_m32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -186,11 +186,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("48 0F38F0 18", 5, Register.RBX)]
 		[InlineData("4C 0F38F0 18", 5, Register.R11)]
-		void Test64_Movbe_Gq_Mq_2(string hexBytes, int byteLength, Register reg) {
+		void Test64_Movbe_r64_m64_2(string hexBytes, int byteLength, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Gq_Mq, instr.Code);
+			Assert.Equal(Code.Movbe_r64_m64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -212,11 +212,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Movbe_Mw_Gw_2() {
+		void Test16_Movbe_m16_r16_2() {
 			var decoder = CreateDecoder16("0F38F1 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Mw_Gw, instr.Code);
+			Assert.Equal(Code.Movbe_m16_r16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -238,11 +238,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Movbe_Mw_Gw_2() {
+		void Test32_Movbe_m16_r16_2() {
 			var decoder = CreateDecoder32("66 0F38F1 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Mw_Gw, instr.Code);
+			Assert.Equal(Code.Movbe_m16_r16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -266,11 +266,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("66 0F38F1 18", 5, Register.BX)]
 		[InlineData("66 44 0F38F1 18", 6, Register.R11W)]
-		void Test64_Movbe_Mw_Gw_2(string hexBytes, int byteLength, Register reg) {
+		void Test64_Movbe_m16_r16_2(string hexBytes, int byteLength, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Mw_Gw, instr.Code);
+			Assert.Equal(Code.Movbe_m16_r16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -292,11 +292,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Movbe_Md_Gd_2() {
+		void Test16_Movbe_m32_r32_2() {
 			var decoder = CreateDecoder16("66 0F38F1 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Md_Gd, instr.Code);
+			Assert.Equal(Code.Movbe_m32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -318,11 +318,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Movbe_Md_Gd_2() {
+		void Test32_Movbe_m32_r32_2() {
 			var decoder = CreateDecoder32("0F38F1 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Md_Gd, instr.Code);
+			Assert.Equal(Code.Movbe_m32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(4, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -346,11 +346,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("0F38F1 18", 4, Register.EBX)]
 		[InlineData("44 0F38F1 18", 5, Register.R11D)]
-		void Test64_Movbe_Md_Gd_2(string hexBytes, int byteLength, Register reg) {
+		void Test64_Movbe_m32_r32_2(string hexBytes, int byteLength, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Md_Gd, instr.Code);
+			Assert.Equal(Code.Movbe_m32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -374,11 +374,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("48 0F38F1 18", 5, Register.RBX)]
 		[InlineData("4C 0F38F1 18", 5, Register.R11)]
-		void Test64_Movbe_Mq_Gq_2(string hexBytes, int byteLength, Register reg) {
+		void Test64_Movbe_m64_r64_2(string hexBytes, int byteLength, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movbe_Mq_Gq, instr.Code);
+			Assert.Equal(Code.Movbe_m64_r64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -400,11 +400,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Crc32_Gd_Eb_1() {
+		void Test16_Crc32_r32_rm8_1() {
 			var decoder = CreateDecoder16("F2 0F38F0 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Eb, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -420,11 +420,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Crc32_Gd_Eb_2() {
+		void Test16_Crc32_r32_rm8_2() {
 			var decoder = CreateDecoder16("F2 0F38F0 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Eb, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -446,11 +446,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Crc32_Gd_Eb_1() {
+		void Test32_Crc32_r32_rm8_1() {
 			var decoder = CreateDecoder32("F2 0F38F0 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Eb, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -466,11 +466,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Crc32_Gd_Eb_2() {
+		void Test32_Crc32_r32_rm8_2() {
 			var decoder = CreateDecoder32("F2 0F38F0 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Eb, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -500,11 +500,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("F2 45 0F38F0 D0", 6, Register.R10D, Register.R8L)]
 		[InlineData("F2 41 0F38F0 D9", 6, Register.EBX, Register.R9L)]
 		[InlineData("F2 44 0F38F0 EC", 6, Register.R13D, Register.SPL)]
-		void Test64_Crc32_Gd_Eb_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Crc32_r32_rm8_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Eb, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -520,11 +520,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Crc32_Gd_Eb_2() {
+		void Test64_Crc32_r32_rm8_2() {
 			var decoder = CreateDecoder64("F2 0F38F0 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Eb, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -552,11 +552,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("F2 4D 0F38F0 D0", 6, Register.R10, Register.R8L)]
 		[InlineData("F2 49 0F38F0 D9", 6, Register.RBX, Register.R9L)]
 		[InlineData("F2 4C 0F38F0 EC", 6, Register.R13, Register.SPL)]
-		void Test64_Crc32_Gq_Eb_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Crc32_r64_rm8_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gq_Eb, instr.Code);
+			Assert.Equal(Code.Crc32_r64_rm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -572,11 +572,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Crc32_Gq_Eb_2() {
+		void Test64_Crc32_r64_rm8_2() {
 			var decoder = CreateDecoder64("F2 48 0F38F0 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gq_Eb, instr.Code);
+			Assert.Equal(Code.Crc32_r64_rm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(6, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -598,11 +598,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Crc32_Gd_Ew_1() {
+		void Test16_Crc32_r32_rm16_1() {
 			var decoder = CreateDecoder16("F2 0F38F1 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ew, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -618,11 +618,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Crc32_Gd_Ew_2() {
+		void Test16_Crc32_r32_rm16_2() {
 			var decoder = CreateDecoder16("F2 0F38F1 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ew, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -644,11 +644,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Crc32_Gd_Ew_1() {
+		void Test32_Crc32_r32_rm16_1() {
 			var decoder = CreateDecoder32("66 F2 0F38F1 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ew, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(6, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -664,11 +664,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Crc32_Gd_Ew_2() {
+		void Test32_Crc32_r32_rm16_2() {
 			var decoder = CreateDecoder32("66 F2 0F38F1 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ew, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(6, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -696,11 +696,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 F2 45 0F38F1 D0", 7, Register.R10D, Register.R8W)]
 		[InlineData("66 F2 41 0F38F1 D9", 7, Register.EBX, Register.R9W)]
 		[InlineData("66 F2 44 0F38F1 EC", 7, Register.R13D, Register.SP)]
-		void Test64_Crc32_Gd_Ew_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Crc32_r32_rm16_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ew, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -716,11 +716,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Crc32_Gd_Ew_2() {
+		void Test64_Crc32_r32_rm16_2() {
 			var decoder = CreateDecoder64("66 F2 0F38F1 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ew, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(6, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -742,11 +742,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Crc32_Gd_Ed_1() {
+		void Test16_Crc32_r32_rm32_1() {
 			var decoder = CreateDecoder16("66 F2 0F38F1 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(6, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -762,11 +762,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Crc32_Gd_Ed_2() {
+		void Test16_Crc32_r32_rm32_2() {
 			var decoder = CreateDecoder16("66 F2 0F38F1 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(6, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -788,11 +788,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Crc32_Gd_Ed_1() {
+		void Test32_Crc32_r32_rm32_1() {
 			var decoder = CreateDecoder32("F2 0F38F1 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -808,11 +808,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Crc32_Gd_Ed_2() {
+		void Test32_Crc32_r32_rm32_2() {
 			var decoder = CreateDecoder32("F2 0F38F1 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -840,11 +840,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("F2 45 0F38F1 D0", 6, Register.R10D, Register.R8D)]
 		[InlineData("F2 41 0F38F1 D9", 6, Register.EBX, Register.R9D)]
 		[InlineData("F2 44 0F38F1 EC", 6, Register.R13D, Register.ESP)]
-		void Test64_Crc32_Gd_Ed_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Crc32_r32_rm32_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -860,11 +860,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Crc32_Gd_Ed_2() {
+		void Test64_Crc32_r32_rm32_2() {
 			var decoder = CreateDecoder64("F2 0F38F1 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Crc32_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -892,11 +892,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("F2 4D 0F38F1 D0", 6, Register.R10, Register.R8)]
 		[InlineData("F2 49 0F38F1 D9", 6, Register.RBX, Register.R9)]
 		[InlineData("F2 4C 0F38F1 EC", 6, Register.R13, Register.RSP)]
-		void Test64_Crc32_Gq_Eq_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Crc32_r64_rm64_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gq_Eq, instr.Code);
+			Assert.Equal(Code.Crc32_r64_rm64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -912,11 +912,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Crc32_Gq_Eq_2() {
+		void Test64_Crc32_r64_rm64_2() {
 			var decoder = CreateDecoder64("F2 48 0F38F1 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Crc32_Gq_Eq, instr.Code);
+			Assert.Equal(Code.Crc32_r64_rm64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(6, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -968,8 +968,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Andn_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E248 F2 10", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F2 10", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F2 10", 5, Code.VEX_Andn_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F2 10", 5, Code.VEX_Andn_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -998,8 +998,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Andn_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E248 F2 D3", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2C8 F2 D3", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E248 F2 D3", 5, Code.VEX_Andn_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2C8 F2 D3", 5, Code.VEX_Andn_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
 			}
 		}
 
@@ -1034,8 +1034,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Andn_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E248 F2 10", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F2 10", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F2 10", 5, Code.VEX_Andn_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F2 10", 5, Code.VEX_Andn_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -1064,8 +1064,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Andn_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E248 F2 D3", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2C8 F2 D3", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E248 F2 D3", 5, Code.VEX_Andn_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2C8 F2 D3", 5, Code.VEX_Andn_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
 			}
 		}
 
@@ -1100,8 +1100,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Andn_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E248 F2 10", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F2 10", 5, Code.VEX_Andn_Gq_Hq_Eq, Register.RDX, Register.RSI, MemorySize.UInt64 };
+				yield return new object[] { "C4E248 F2 10", 5, Code.VEX_Andn_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F2 10", 5, Code.VEX_Andn_r64_r64_rm64, Register.RDX, Register.RSI, MemorySize.UInt64 };
 			}
 		}
 
@@ -1130,15 +1130,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Andn_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E248 F2 D3", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C46248 F2 D3", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.R10D, Register.ESI, Register.EBX };
-				yield return new object[] { "C4C208 F2 D3", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.EDX, Register.R14D, Register.R11D };
-				yield return new object[] { "C44248 F2 D3", 5, Code.VEX_Andn_Gd_Hd_Ed, Register.R10D, Register.ESI, Register.R11D };
+				yield return new object[] { "C4E248 F2 D3", 5, Code.VEX_Andn_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C46248 F2 D3", 5, Code.VEX_Andn_r32_r32_rm32, Register.R10D, Register.ESI, Register.EBX };
+				yield return new object[] { "C4C208 F2 D3", 5, Code.VEX_Andn_r32_r32_rm32, Register.EDX, Register.R14D, Register.R11D };
+				yield return new object[] { "C44248 F2 D3", 5, Code.VEX_Andn_r32_r32_rm32, Register.R10D, Register.ESI, Register.R11D };
 
-				yield return new object[] { "C4E2C8 F2 D3", 5, Code.VEX_Andn_Gq_Hq_Eq, Register.RDX, Register.RSI, Register.RBX };
-				yield return new object[] { "C462C8 F2 D3", 5, Code.VEX_Andn_Gq_Hq_Eq, Register.R10, Register.RSI, Register.RBX };
-				yield return new object[] { "C4C288 F2 D3", 5, Code.VEX_Andn_Gq_Hq_Eq, Register.RDX, Register.R14, Register.R11 };
-				yield return new object[] { "C442C8 F2 D3", 5, Code.VEX_Andn_Gq_Hq_Eq, Register.R10, Register.RSI, Register.R11 };
+				yield return new object[] { "C4E2C8 F2 D3", 5, Code.VEX_Andn_r64_r64_rm64, Register.RDX, Register.RSI, Register.RBX };
+				yield return new object[] { "C462C8 F2 D3", 5, Code.VEX_Andn_r64_r64_rm64, Register.R10, Register.RSI, Register.RBX };
+				yield return new object[] { "C4C288 F2 D3", 5, Code.VEX_Andn_r64_r64_rm64, Register.RDX, Register.R14, Register.R11 };
+				yield return new object[] { "C442C8 F2 D3", 5, Code.VEX_Andn_r64_r64_rm64, Register.R10, Register.RSI, Register.R11 };
 			}
 		}
 
@@ -1170,14 +1170,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Blsr_Gd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E248 F3 08", 5, Code.VEX_Blsr_Hd_Ed, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F3 08", 5, Code.VEX_Blsr_Hd_Ed, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F3 08", 5, Code.VEX_Blsr_r32_rm32, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F3 08", 5, Code.VEX_Blsr_r32_rm32, Register.ESI, MemorySize.UInt32 };
 
-				yield return new object[] { "C4E248 F3 10", 5, Code.VEX_Blsmsk_Hd_Ed, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F3 10", 5, Code.VEX_Blsmsk_Hd_Ed, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F3 10", 5, Code.VEX_Blsmsk_r32_rm32, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F3 10", 5, Code.VEX_Blsmsk_r32_rm32, Register.ESI, MemorySize.UInt32 };
 
-				yield return new object[] { "C4E248 F3 18", 5, Code.VEX_Blsi_Hd_Ed, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F3 18", 5, Code.VEX_Blsi_Hd_Ed, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F3 18", 5, Code.VEX_Blsi_r32_rm32, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F3 18", 5, Code.VEX_Blsi_r32_rm32, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -1203,14 +1203,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Blsr_Gd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E248 F3 CB", 5, Code.VEX_Blsr_Hd_Ed, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2C8 F3 CB", 5, Code.VEX_Blsr_Hd_Ed, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E248 F3 CB", 5, Code.VEX_Blsr_r32_rm32, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2C8 F3 CB", 5, Code.VEX_Blsr_r32_rm32, Register.ESI, Register.EBX };
 
-				yield return new object[] { "C4E248 F3 D3", 5, Code.VEX_Blsmsk_Hd_Ed, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2C8 F3 D3", 5, Code.VEX_Blsmsk_Hd_Ed, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E248 F3 D3", 5, Code.VEX_Blsmsk_r32_rm32, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2C8 F3 D3", 5, Code.VEX_Blsmsk_r32_rm32, Register.ESI, Register.EBX };
 
-				yield return new object[] { "C4E248 F3 DB", 5, Code.VEX_Blsi_Hd_Ed, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2C8 F3 DB", 5, Code.VEX_Blsi_Hd_Ed, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E248 F3 DB", 5, Code.VEX_Blsi_r32_rm32, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2C8 F3 DB", 5, Code.VEX_Blsi_r32_rm32, Register.ESI, Register.EBX };
 			}
 		}
 
@@ -1242,14 +1242,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Blsr_Gd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E248 F3 08", 5, Code.VEX_Blsr_Hd_Ed, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F3 08", 5, Code.VEX_Blsr_Hd_Ed, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F3 08", 5, Code.VEX_Blsr_r32_rm32, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F3 08", 5, Code.VEX_Blsr_r32_rm32, Register.ESI, MemorySize.UInt32 };
 
-				yield return new object[] { "C4E248 F3 10", 5, Code.VEX_Blsmsk_Hd_Ed, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F3 10", 5, Code.VEX_Blsmsk_Hd_Ed, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F3 10", 5, Code.VEX_Blsmsk_r32_rm32, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F3 10", 5, Code.VEX_Blsmsk_r32_rm32, Register.ESI, MemorySize.UInt32 };
 
-				yield return new object[] { "C4E248 F3 18", 5, Code.VEX_Blsi_Hd_Ed, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F3 18", 5, Code.VEX_Blsi_Hd_Ed, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F3 18", 5, Code.VEX_Blsi_r32_rm32, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F3 18", 5, Code.VEX_Blsi_r32_rm32, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -1275,14 +1275,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Blsr_Gd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E248 F3 CB", 5, Code.VEX_Blsr_Hd_Ed, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2C8 F3 CB", 5, Code.VEX_Blsr_Hd_Ed, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E248 F3 CB", 5, Code.VEX_Blsr_r32_rm32, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2C8 F3 CB", 5, Code.VEX_Blsr_r32_rm32, Register.ESI, Register.EBX };
 
-				yield return new object[] { "C4E248 F3 D3", 5, Code.VEX_Blsmsk_Hd_Ed, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2C8 F3 D3", 5, Code.VEX_Blsmsk_Hd_Ed, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E248 F3 D3", 5, Code.VEX_Blsmsk_r32_rm32, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2C8 F3 D3", 5, Code.VEX_Blsmsk_r32_rm32, Register.ESI, Register.EBX };
 
-				yield return new object[] { "C4E248 F3 DB", 5, Code.VEX_Blsi_Hd_Ed, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2C8 F3 DB", 5, Code.VEX_Blsi_Hd_Ed, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E248 F3 DB", 5, Code.VEX_Blsi_r32_rm32, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2C8 F3 DB", 5, Code.VEX_Blsi_r32_rm32, Register.ESI, Register.EBX };
 			}
 		}
 
@@ -1314,17 +1314,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Blsr_Gd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E248 F3 08", 5, Code.VEX_Blsr_Hd_Ed, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F3 08", 5, Code.VEX_Blsr_r32_rm32, Register.ESI, MemorySize.UInt32 };
 
-				yield return new object[] { "C4E2C8 F3 08", 5, Code.VEX_Blsr_Hq_Eq, Register.RSI, MemorySize.UInt64 };
+				yield return new object[] { "C4E2C8 F3 08", 5, Code.VEX_Blsr_r64_rm64, Register.RSI, MemorySize.UInt64 };
 
-				yield return new object[] { "C4E248 F3 10", 5, Code.VEX_Blsmsk_Hd_Ed, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F3 10", 5, Code.VEX_Blsmsk_r32_rm32, Register.ESI, MemorySize.UInt32 };
 
-				yield return new object[] { "C4E2C8 F3 10", 5, Code.VEX_Blsmsk_Hq_Eq, Register.RSI, MemorySize.UInt64 };
+				yield return new object[] { "C4E2C8 F3 10", 5, Code.VEX_Blsmsk_r64_rm64, Register.RSI, MemorySize.UInt64 };
 
-				yield return new object[] { "C4E248 F3 18", 5, Code.VEX_Blsi_Hd_Ed, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F3 18", 5, Code.VEX_Blsi_r32_rm32, Register.ESI, MemorySize.UInt32 };
 
-				yield return new object[] { "C4E2C8 F3 18", 5, Code.VEX_Blsi_Hq_Eq, Register.RSI, MemorySize.UInt64 };
+				yield return new object[] { "C4E2C8 F3 18", 5, Code.VEX_Blsi_r64_rm64, Register.RSI, MemorySize.UInt64 };
 			}
 		}
 
@@ -1350,29 +1350,29 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Blsr_Gd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E248 F3 CB", 5, Code.VEX_Blsr_Hd_Ed, Register.ESI, Register.EBX };
-				yield return new object[] { "C4C208 F3 CB", 5, Code.VEX_Blsr_Hd_Ed, Register.R14D, Register.R11D };
-				yield return new object[] { "C44248 F3 CB", 5, Code.VEX_Blsr_Hd_Ed, Register.ESI, Register.R11D };
+				yield return new object[] { "C4E248 F3 CB", 5, Code.VEX_Blsr_r32_rm32, Register.ESI, Register.EBX };
+				yield return new object[] { "C4C208 F3 CB", 5, Code.VEX_Blsr_r32_rm32, Register.R14D, Register.R11D };
+				yield return new object[] { "C44248 F3 CB", 5, Code.VEX_Blsr_r32_rm32, Register.ESI, Register.R11D };
 
-				yield return new object[] { "C4E2C8 F3 CB", 5, Code.VEX_Blsr_Hq_Eq, Register.RSI, Register.RBX };
-				yield return new object[] { "C4C288 F3 CB", 5, Code.VEX_Blsr_Hq_Eq, Register.R14, Register.R11 };
-				yield return new object[] { "C442C8 F3 CB", 5, Code.VEX_Blsr_Hq_Eq, Register.RSI, Register.R11 };
+				yield return new object[] { "C4E2C8 F3 CB", 5, Code.VEX_Blsr_r64_rm64, Register.RSI, Register.RBX };
+				yield return new object[] { "C4C288 F3 CB", 5, Code.VEX_Blsr_r64_rm64, Register.R14, Register.R11 };
+				yield return new object[] { "C442C8 F3 CB", 5, Code.VEX_Blsr_r64_rm64, Register.RSI, Register.R11 };
 
-				yield return new object[] { "C4E248 F3 D3", 5, Code.VEX_Blsmsk_Hd_Ed, Register.ESI, Register.EBX };
-				yield return new object[] { "C4C208 F3 D3", 5, Code.VEX_Blsmsk_Hd_Ed, Register.R14D, Register.R11D };
-				yield return new object[] { "C44248 F3 D3", 5, Code.VEX_Blsmsk_Hd_Ed, Register.ESI, Register.R11D };
+				yield return new object[] { "C4E248 F3 D3", 5, Code.VEX_Blsmsk_r32_rm32, Register.ESI, Register.EBX };
+				yield return new object[] { "C4C208 F3 D3", 5, Code.VEX_Blsmsk_r32_rm32, Register.R14D, Register.R11D };
+				yield return new object[] { "C44248 F3 D3", 5, Code.VEX_Blsmsk_r32_rm32, Register.ESI, Register.R11D };
 
-				yield return new object[] { "C4E2C8 F3 D3", 5, Code.VEX_Blsmsk_Hq_Eq, Register.RSI, Register.RBX };
-				yield return new object[] { "C4C288 F3 D3", 5, Code.VEX_Blsmsk_Hq_Eq, Register.R14, Register.R11 };
-				yield return new object[] { "C442C8 F3 D3", 5, Code.VEX_Blsmsk_Hq_Eq, Register.RSI, Register.R11 };
+				yield return new object[] { "C4E2C8 F3 D3", 5, Code.VEX_Blsmsk_r64_rm64, Register.RSI, Register.RBX };
+				yield return new object[] { "C4C288 F3 D3", 5, Code.VEX_Blsmsk_r64_rm64, Register.R14, Register.R11 };
+				yield return new object[] { "C442C8 F3 D3", 5, Code.VEX_Blsmsk_r64_rm64, Register.RSI, Register.R11 };
 
-				yield return new object[] { "C4E248 F3 DB", 5, Code.VEX_Blsi_Hd_Ed, Register.ESI, Register.EBX };
-				yield return new object[] { "C4C208 F3 DB", 5, Code.VEX_Blsi_Hd_Ed, Register.R14D, Register.R11D };
-				yield return new object[] { "C44248 F3 DB", 5, Code.VEX_Blsi_Hd_Ed, Register.ESI, Register.R11D };
+				yield return new object[] { "C4E248 F3 DB", 5, Code.VEX_Blsi_r32_rm32, Register.ESI, Register.EBX };
+				yield return new object[] { "C4C208 F3 DB", 5, Code.VEX_Blsi_r32_rm32, Register.R14D, Register.R11D };
+				yield return new object[] { "C44248 F3 DB", 5, Code.VEX_Blsi_r32_rm32, Register.ESI, Register.R11D };
 
-				yield return new object[] { "C4E2C8 F3 DB", 5, Code.VEX_Blsi_Hq_Eq, Register.RSI, Register.RBX };
-				yield return new object[] { "C4C288 F3 DB", 5, Code.VEX_Blsi_Hq_Eq, Register.R14, Register.R11 };
-				yield return new object[] { "C442C8 F3 DB", 5, Code.VEX_Blsi_Hq_Eq, Register.RSI, Register.R11 };
+				yield return new object[] { "C4E2C8 F3 DB", 5, Code.VEX_Blsi_r64_rm64, Register.RSI, Register.RBX };
+				yield return new object[] { "C4C288 F3 DB", 5, Code.VEX_Blsi_r64_rm64, Register.R14, Register.R11 };
+				yield return new object[] { "C442C8 F3 DB", 5, Code.VEX_Blsi_r64_rm64, Register.RSI, Register.R11 };
 			}
 		}
 
@@ -1407,8 +1407,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Bzhi_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E248 F5 10", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F5 10", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F5 10", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F5 10", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -1437,8 +1437,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Bzhi_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E248 F5 D3", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4E2C8 F5 D3", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E248 F5 D3", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E2C8 F5 D3", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
 			}
 		}
 
@@ -1473,8 +1473,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Bzhi_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E248 F5 10", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F5 10", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F5 10", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F5 10", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -1503,8 +1503,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Bzhi_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E248 F5 D3", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4E2C8 F5 D3", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E248 F5 D3", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E2C8 F5 D3", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
 			}
 		}
 
@@ -1539,8 +1539,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Bzhi_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E248 F5 10", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F5 10", 5, Code.VEX_Bzhi_Gq_Eq_Hq, Register.RDX, Register.RSI, MemorySize.UInt64 };
+				yield return new object[] { "C4E248 F5 10", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F5 10", 5, Code.VEX_Bzhi_r64_rm64_r64, Register.RDX, Register.RSI, MemorySize.UInt64 };
 			}
 		}
 
@@ -1569,15 +1569,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Bzhi_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E248 F5 D3", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C46248 F5 D3", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.R10D, Register.EBX, Register.ESI };
-				yield return new object[] { "C4C208 F5 D3", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.EDX, Register.R11D, Register.R14D };
-				yield return new object[] { "C44248 F5 D3", 5, Code.VEX_Bzhi_Gd_Ed_Hd, Register.R10D, Register.R11D, Register.ESI };
+				yield return new object[] { "C4E248 F5 D3", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C46248 F5 D3", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.R10D, Register.EBX, Register.ESI };
+				yield return new object[] { "C4C208 F5 D3", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.EDX, Register.R11D, Register.R14D };
+				yield return new object[] { "C44248 F5 D3", 5, Code.VEX_Bzhi_r32_rm32_r32, Register.R10D, Register.R11D, Register.ESI };
 
-				yield return new object[] { "C4E2C8 F5 D3", 5, Code.VEX_Bzhi_Gq_Eq_Hq, Register.RDX, Register.RBX, Register.RSI };
-				yield return new object[] { "C462C8 F5 D3", 5, Code.VEX_Bzhi_Gq_Eq_Hq, Register.R10, Register.RBX, Register.RSI };
-				yield return new object[] { "C4C288 F5 D3", 5, Code.VEX_Bzhi_Gq_Eq_Hq, Register.RDX, Register.R11, Register.R14 };
-				yield return new object[] { "C442C8 F5 D3", 5, Code.VEX_Bzhi_Gq_Eq_Hq, Register.R10, Register.R11, Register.RSI };
+				yield return new object[] { "C4E2C8 F5 D3", 5, Code.VEX_Bzhi_r64_rm64_r64, Register.RDX, Register.RBX, Register.RSI };
+				yield return new object[] { "C462C8 F5 D3", 5, Code.VEX_Bzhi_r64_rm64_r64, Register.R10, Register.RBX, Register.RSI };
+				yield return new object[] { "C4C288 F5 D3", 5, Code.VEX_Bzhi_r64_rm64_r64, Register.RDX, Register.R11, Register.R14 };
+				yield return new object[] { "C442C8 F5 D3", 5, Code.VEX_Bzhi_r64_rm64_r64, Register.R10, Register.R11, Register.RSI };
 			}
 		}
 
@@ -1612,8 +1612,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Pext_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E24A F5 10", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CA F5 10", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E24A F5 10", 5, Code.VEX_Pext_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CA F5 10", 5, Code.VEX_Pext_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -1642,8 +1642,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Pext_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E24A F5 D3", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2CA F5 D3", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E24A F5 D3", 5, Code.VEX_Pext_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2CA F5 D3", 5, Code.VEX_Pext_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
 			}
 		}
 
@@ -1678,8 +1678,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Pext_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E24A F5 10", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CA F5 10", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E24A F5 10", 5, Code.VEX_Pext_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CA F5 10", 5, Code.VEX_Pext_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -1708,8 +1708,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Pext_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E24A F5 D3", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2CA F5 D3", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E24A F5 D3", 5, Code.VEX_Pext_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2CA F5 D3", 5, Code.VEX_Pext_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
 			}
 		}
 
@@ -1744,8 +1744,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Pext_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E24A F5 10", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CA F5 10", 5, Code.VEX_Pext_Gq_Hq_Eq, Register.RDX, Register.RSI, MemorySize.UInt64 };
+				yield return new object[] { "C4E24A F5 10", 5, Code.VEX_Pext_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CA F5 10", 5, Code.VEX_Pext_r64_r64_rm64, Register.RDX, Register.RSI, MemorySize.UInt64 };
 			}
 		}
 
@@ -1774,15 +1774,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Pext_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E24A F5 D3", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C4624A F5 D3", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.R10D, Register.ESI, Register.EBX };
-				yield return new object[] { "C4C20A F5 D3", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.EDX, Register.R14D, Register.R11D };
-				yield return new object[] { "C4424A F5 D3", 5, Code.VEX_Pext_Gd_Hd_Ed, Register.R10D, Register.ESI, Register.R11D };
+				yield return new object[] { "C4E24A F5 D3", 5, Code.VEX_Pext_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4624A F5 D3", 5, Code.VEX_Pext_r32_r32_rm32, Register.R10D, Register.ESI, Register.EBX };
+				yield return new object[] { "C4C20A F5 D3", 5, Code.VEX_Pext_r32_r32_rm32, Register.EDX, Register.R14D, Register.R11D };
+				yield return new object[] { "C4424A F5 D3", 5, Code.VEX_Pext_r32_r32_rm32, Register.R10D, Register.ESI, Register.R11D };
 
-				yield return new object[] { "C4E2CA F5 D3", 5, Code.VEX_Pext_Gq_Hq_Eq, Register.RDX, Register.RSI, Register.RBX };
-				yield return new object[] { "C462CA F5 D3", 5, Code.VEX_Pext_Gq_Hq_Eq, Register.R10, Register.RSI, Register.RBX };
-				yield return new object[] { "C4C28A F5 D3", 5, Code.VEX_Pext_Gq_Hq_Eq, Register.RDX, Register.R14, Register.R11 };
-				yield return new object[] { "C442CA F5 D3", 5, Code.VEX_Pext_Gq_Hq_Eq, Register.R10, Register.RSI, Register.R11 };
+				yield return new object[] { "C4E2CA F5 D3", 5, Code.VEX_Pext_r64_r64_rm64, Register.RDX, Register.RSI, Register.RBX };
+				yield return new object[] { "C462CA F5 D3", 5, Code.VEX_Pext_r64_r64_rm64, Register.R10, Register.RSI, Register.RBX };
+				yield return new object[] { "C4C28A F5 D3", 5, Code.VEX_Pext_r64_r64_rm64, Register.RDX, Register.R14, Register.R11 };
+				yield return new object[] { "C442CA F5 D3", 5, Code.VEX_Pext_r64_r64_rm64, Register.R10, Register.RSI, Register.R11 };
 			}
 		}
 
@@ -1817,8 +1817,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Pdep_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E24B F5 10", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CB F5 10", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E24B F5 10", 5, Code.VEX_Pdep_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CB F5 10", 5, Code.VEX_Pdep_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -1847,8 +1847,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Pdep_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E24B F5 D3", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2CB F5 D3", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E24B F5 D3", 5, Code.VEX_Pdep_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2CB F5 D3", 5, Code.VEX_Pdep_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
 			}
 		}
 
@@ -1883,8 +1883,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Pdep_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E24B F5 10", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CB F5 10", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E24B F5 10", 5, Code.VEX_Pdep_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CB F5 10", 5, Code.VEX_Pdep_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -1913,8 +1913,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Pdep_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E24B F5 D3", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2CB F5 D3", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E24B F5 D3", 5, Code.VEX_Pdep_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2CB F5 D3", 5, Code.VEX_Pdep_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
 			}
 		}
 
@@ -1949,8 +1949,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Pdep_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E24B F5 10", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CB F5 10", 5, Code.VEX_Pdep_Gq_Hq_Eq, Register.RDX, Register.RSI, MemorySize.UInt64 };
+				yield return new object[] { "C4E24B F5 10", 5, Code.VEX_Pdep_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CB F5 10", 5, Code.VEX_Pdep_r64_r64_rm64, Register.RDX, Register.RSI, MemorySize.UInt64 };
 			}
 		}
 
@@ -1979,24 +1979,24 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Pdep_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E24B F5 D3", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C4624B F5 D3", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.R10D, Register.ESI, Register.EBX };
-				yield return new object[] { "C4C20B F5 D3", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.EDX, Register.R14D, Register.R11D };
-				yield return new object[] { "C4424B F5 D3", 5, Code.VEX_Pdep_Gd_Hd_Ed, Register.R10D, Register.ESI, Register.R11D };
+				yield return new object[] { "C4E24B F5 D3", 5, Code.VEX_Pdep_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4624B F5 D3", 5, Code.VEX_Pdep_r32_r32_rm32, Register.R10D, Register.ESI, Register.EBX };
+				yield return new object[] { "C4C20B F5 D3", 5, Code.VEX_Pdep_r32_r32_rm32, Register.EDX, Register.R14D, Register.R11D };
+				yield return new object[] { "C4424B F5 D3", 5, Code.VEX_Pdep_r32_r32_rm32, Register.R10D, Register.ESI, Register.R11D };
 
-				yield return new object[] { "C4E2CB F5 D3", 5, Code.VEX_Pdep_Gq_Hq_Eq, Register.RDX, Register.RSI, Register.RBX };
-				yield return new object[] { "C462CB F5 D3", 5, Code.VEX_Pdep_Gq_Hq_Eq, Register.R10, Register.RSI, Register.RBX };
-				yield return new object[] { "C4C28B F5 D3", 5, Code.VEX_Pdep_Gq_Hq_Eq, Register.RDX, Register.R14, Register.R11 };
-				yield return new object[] { "C442CB F5 D3", 5, Code.VEX_Pdep_Gq_Hq_Eq, Register.R10, Register.RSI, Register.R11 };
+				yield return new object[] { "C4E2CB F5 D3", 5, Code.VEX_Pdep_r64_r64_rm64, Register.RDX, Register.RSI, Register.RBX };
+				yield return new object[] { "C462CB F5 D3", 5, Code.VEX_Pdep_r64_r64_rm64, Register.R10, Register.RSI, Register.RBX };
+				yield return new object[] { "C4C28B F5 D3", 5, Code.VEX_Pdep_r64_r64_rm64, Register.RDX, Register.R14, Register.R11 };
+				yield return new object[] { "C442CB F5 D3", 5, Code.VEX_Pdep_r64_r64_rm64, Register.R10, Register.RSI, Register.R11 };
 			}
 		}
 
 		[Fact]
-		void Test16_Adcx_Gd_Ed_1() {
+		void Test16_Adcx_r32_rm32_1() {
 			var decoder = CreateDecoder16("66 0F38F6 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adcx_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adcx_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2012,11 +2012,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Adcx_Gd_Ed_2() {
+		void Test16_Adcx_r32_rm32_2() {
 			var decoder = CreateDecoder16("66 0F38F6 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adcx_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adcx_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2038,11 +2038,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Adcx_Gd_Ed_1() {
+		void Test32_Adcx_r32_rm32_1() {
 			var decoder = CreateDecoder32("66 0F38F6 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adcx_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adcx_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2058,11 +2058,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Adcx_Gd_Ed_2() {
+		void Test32_Adcx_r32_rm32_2() {
 			var decoder = CreateDecoder32("66 0F38F6 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adcx_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adcx_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2090,11 +2090,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 45 0F38F6 D0", 6, Register.R10D, Register.R8D)]
 		[InlineData("66 41 0F38F6 D9", 6, Register.EBX, Register.R9D)]
 		[InlineData("66 44 0F38F6 EC", 6, Register.R13D, Register.ESP)]
-		void Test64_Adcx_Gd_Ed_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Adcx_r32_rm32_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adcx_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adcx_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2110,11 +2110,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Adcx_Gd_Ed_2() {
+		void Test64_Adcx_r32_rm32_2() {
 			var decoder = CreateDecoder64("66 0F38F6 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adcx_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adcx_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2142,11 +2142,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 4D 0F38F6 D0", 6, Register.R10, Register.R8)]
 		[InlineData("66 49 0F38F6 D9", 6, Register.RBX, Register.R9)]
 		[InlineData("66 4C 0F38F6 EC", 6, Register.R13, Register.RSP)]
-		void Test64_Adcx_Gq_Eq_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Adcx_r64_rm64_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adcx_Gq_Eq, instr.Code);
+			Assert.Equal(Code.Adcx_r64_rm64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2162,11 +2162,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Adcx_Gq_Eq_2() {
+		void Test64_Adcx_r64_rm64_2() {
 			var decoder = CreateDecoder64("66 48 0F38F6 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adcx_Gq_Eq, instr.Code);
+			Assert.Equal(Code.Adcx_r64_rm64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(6, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2188,11 +2188,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Adox_Gd_Ed_1() {
+		void Test16_Adox_r32_rm32_1() {
 			var decoder = CreateDecoder16("F3 0F38F6 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adox_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adox_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2208,11 +2208,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Adox_Gd_Ed_2() {
+		void Test16_Adox_r32_rm32_2() {
 			var decoder = CreateDecoder16("F3 0F38F6 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adox_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adox_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2234,11 +2234,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Adox_Gd_Ed_1() {
+		void Test32_Adox_r32_rm32_1() {
 			var decoder = CreateDecoder32("F3 0F38F6 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adox_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adox_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2254,11 +2254,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Adox_Gd_Ed_2() {
+		void Test32_Adox_r32_rm32_2() {
 			var decoder = CreateDecoder32("F3 0F38F6 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adox_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adox_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2286,11 +2286,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("F3 45 0F38F6 D0", 6, Register.R10D, Register.R8D)]
 		[InlineData("F3 41 0F38F6 D9", 6, Register.EBX, Register.R9D)]
 		[InlineData("F3 44 0F38F6 EC", 6, Register.R13D, Register.ESP)]
-		void Test64_Adox_Gd_Ed_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Adox_r32_rm32_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adox_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adox_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2306,11 +2306,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Adox_Gd_Ed_2() {
+		void Test64_Adox_r32_rm32_2() {
 			var decoder = CreateDecoder64("F3 0F38F6 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adox_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Adox_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2338,11 +2338,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("F3 4D 0F38F6 D0", 6, Register.R10, Register.R8)]
 		[InlineData("F3 49 0F38F6 D9", 6, Register.RBX, Register.R9)]
 		[InlineData("F3 4C 0F38F6 EC", 6, Register.R13, Register.RSP)]
-		void Test64_Adox_Gq_Eq_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Adox_r64_rm64_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adox_Gq_Eq, instr.Code);
+			Assert.Equal(Code.Adox_r64_rm64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2358,11 +2358,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Adox_Gq_Eq_2() {
+		void Test64_Adox_r64_rm64_2() {
 			var decoder = CreateDecoder64("F3 48 0F38F6 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Adox_Gq_Eq, instr.Code);
+			Assert.Equal(Code.Adox_r64_rm64, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(6, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -2414,8 +2414,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Mulx_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E24B F6 10", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CB F6 10", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E24B F6 10", 5, Code.VEX_Mulx_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CB F6 10", 5, Code.VEX_Mulx_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -2444,8 +2444,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Mulx_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E24B F6 D3", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2CB F6 D3", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E24B F6 D3", 5, Code.VEX_Mulx_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2CB F6 D3", 5, Code.VEX_Mulx_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
 			}
 		}
 
@@ -2480,8 +2480,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Mulx_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E24B F6 10", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CB F6 10", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E24B F6 10", 5, Code.VEX_Mulx_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CB F6 10", 5, Code.VEX_Mulx_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -2510,8 +2510,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Mulx_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E24B F6 D3", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C4E2CB F6 D3", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E24B F6 D3", 5, Code.VEX_Mulx_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4E2CB F6 D3", 5, Code.VEX_Mulx_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
 			}
 		}
 
@@ -2546,8 +2546,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Mulx_GdGd_Ed_1_Data {
 			get {
-				yield return new object[] { "C4E24B F6 10", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CB F6 10", 5, Code.VEX_Mulx_Gq_Hq_Eq, Register.RDX, Register.RSI, MemorySize.UInt64 };
+				yield return new object[] { "C4E24B F6 10", 5, Code.VEX_Mulx_r32_r32_rm32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CB F6 10", 5, Code.VEX_Mulx_r64_r64_rm64, Register.RDX, Register.RSI, MemorySize.UInt64 };
 			}
 		}
 
@@ -2576,15 +2576,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Mulx_GdGd_Ed_2_Data {
 			get {
-				yield return new object[] { "C4E24B F6 D3", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.EDX, Register.ESI, Register.EBX };
-				yield return new object[] { "C4624B F6 D3", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.R10D, Register.ESI, Register.EBX };
-				yield return new object[] { "C4C20B F6 D3", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.EDX, Register.R14D, Register.R11D };
-				yield return new object[] { "C4424B F6 D3", 5, Code.VEX_Mulx_Gd_Hd_Ed, Register.R10D, Register.ESI, Register.R11D };
+				yield return new object[] { "C4E24B F6 D3", 5, Code.VEX_Mulx_r32_r32_rm32, Register.EDX, Register.ESI, Register.EBX };
+				yield return new object[] { "C4624B F6 D3", 5, Code.VEX_Mulx_r32_r32_rm32, Register.R10D, Register.ESI, Register.EBX };
+				yield return new object[] { "C4C20B F6 D3", 5, Code.VEX_Mulx_r32_r32_rm32, Register.EDX, Register.R14D, Register.R11D };
+				yield return new object[] { "C4424B F6 D3", 5, Code.VEX_Mulx_r32_r32_rm32, Register.R10D, Register.ESI, Register.R11D };
 
-				yield return new object[] { "C4E2CB F6 D3", 5, Code.VEX_Mulx_Gq_Hq_Eq, Register.RDX, Register.RSI, Register.RBX };
-				yield return new object[] { "C462CB F6 D3", 5, Code.VEX_Mulx_Gq_Hq_Eq, Register.R10, Register.RSI, Register.RBX };
-				yield return new object[] { "C4C28B F6 D3", 5, Code.VEX_Mulx_Gq_Hq_Eq, Register.RDX, Register.R14, Register.R11 };
-				yield return new object[] { "C442CB F6 D3", 5, Code.VEX_Mulx_Gq_Hq_Eq, Register.R10, Register.RSI, Register.R11 };
+				yield return new object[] { "C4E2CB F6 D3", 5, Code.VEX_Mulx_r64_r64_rm64, Register.RDX, Register.RSI, Register.RBX };
+				yield return new object[] { "C462CB F6 D3", 5, Code.VEX_Mulx_r64_r64_rm64, Register.R10, Register.RSI, Register.RBX };
+				yield return new object[] { "C4C28B F6 D3", 5, Code.VEX_Mulx_r64_r64_rm64, Register.RDX, Register.R14, Register.R11 };
+				yield return new object[] { "C442CB F6 D3", 5, Code.VEX_Mulx_r64_r64_rm64, Register.R10, Register.RSI, Register.R11 };
 			}
 		}
 
@@ -2619,8 +2619,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Bextr_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E248 F7 10", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F7 10", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F7 10", 5, Code.VEX_Bextr_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F7 10", 5, Code.VEX_Bextr_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -2649,8 +2649,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Bextr_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E248 F7 D3", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4E2C8 F7 D3", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E248 F7 D3", 5, Code.VEX_Bextr_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E2C8 F7 D3", 5, Code.VEX_Bextr_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
 			}
 		}
 
@@ -2685,8 +2685,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Bextr_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E248 F7 10", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F7 10", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E248 F7 10", 5, Code.VEX_Bextr_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F7 10", 5, Code.VEX_Bextr_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -2715,8 +2715,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Bextr_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E248 F7 D3", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4E2C8 F7 D3", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E248 F7 D3", 5, Code.VEX_Bextr_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E2C8 F7 D3", 5, Code.VEX_Bextr_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
 			}
 		}
 
@@ -2751,8 +2751,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Bextr_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E248 F7 10", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C8 F7 10", 5, Code.VEX_Bextr_Gq_Eq_Hq, Register.RDX, Register.RSI, MemorySize.UInt64 };
+				yield return new object[] { "C4E248 F7 10", 5, Code.VEX_Bextr_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C8 F7 10", 5, Code.VEX_Bextr_r64_rm64_r64, Register.RDX, Register.RSI, MemorySize.UInt64 };
 			}
 		}
 
@@ -2781,15 +2781,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Bextr_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E248 F7 D3", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C46248 F7 D3", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.R10D, Register.EBX, Register.ESI };
-				yield return new object[] { "C4C208 F7 D3", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.EDX, Register.R11D, Register.R14D };
-				yield return new object[] { "C44248 F7 D3", 5, Code.VEX_Bextr_Gd_Ed_Hd, Register.R10D, Register.R11D, Register.ESI };
+				yield return new object[] { "C4E248 F7 D3", 5, Code.VEX_Bextr_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C46248 F7 D3", 5, Code.VEX_Bextr_r32_rm32_r32, Register.R10D, Register.EBX, Register.ESI };
+				yield return new object[] { "C4C208 F7 D3", 5, Code.VEX_Bextr_r32_rm32_r32, Register.EDX, Register.R11D, Register.R14D };
+				yield return new object[] { "C44248 F7 D3", 5, Code.VEX_Bextr_r32_rm32_r32, Register.R10D, Register.R11D, Register.ESI };
 
-				yield return new object[] { "C4E2C8 F7 D3", 5, Code.VEX_Bextr_Gq_Eq_Hq, Register.RDX, Register.RBX, Register.RSI };
-				yield return new object[] { "C462C8 F7 D3", 5, Code.VEX_Bextr_Gq_Eq_Hq, Register.R10, Register.RBX, Register.RSI };
-				yield return new object[] { "C4C288 F7 D3", 5, Code.VEX_Bextr_Gq_Eq_Hq, Register.RDX, Register.R11, Register.R14 };
-				yield return new object[] { "C442C8 F7 D3", 5, Code.VEX_Bextr_Gq_Eq_Hq, Register.R10, Register.R11, Register.RSI };
+				yield return new object[] { "C4E2C8 F7 D3", 5, Code.VEX_Bextr_r64_rm64_r64, Register.RDX, Register.RBX, Register.RSI };
+				yield return new object[] { "C462C8 F7 D3", 5, Code.VEX_Bextr_r64_rm64_r64, Register.R10, Register.RBX, Register.RSI };
+				yield return new object[] { "C4C288 F7 D3", 5, Code.VEX_Bextr_r64_rm64_r64, Register.RDX, Register.R11, Register.R14 };
+				yield return new object[] { "C442C8 F7 D3", 5, Code.VEX_Bextr_r64_rm64_r64, Register.R10, Register.R11, Register.RSI };
 			}
 		}
 
@@ -2824,8 +2824,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Shlx_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E249 F7 10", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C9 F7 10", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E249 F7 10", 5, Code.VEX_Shlx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C9 F7 10", 5, Code.VEX_Shlx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -2854,8 +2854,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Shlx_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E249 F7 D3", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4E2C9 F7 D3", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E249 F7 D3", 5, Code.VEX_Shlx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E2C9 F7 D3", 5, Code.VEX_Shlx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
 			}
 		}
 
@@ -2890,8 +2890,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Shlx_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E249 F7 10", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C9 F7 10", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E249 F7 10", 5, Code.VEX_Shlx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C9 F7 10", 5, Code.VEX_Shlx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -2920,8 +2920,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Shlx_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E249 F7 D3", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4E2C9 F7 D3", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E249 F7 D3", 5, Code.VEX_Shlx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E2C9 F7 D3", 5, Code.VEX_Shlx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
 			}
 		}
 
@@ -2956,8 +2956,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Shlx_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E249 F7 10", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2C9 F7 10", 5, Code.VEX_Shlx_Gq_Eq_Hq, Register.RDX, Register.RSI, MemorySize.UInt64 };
+				yield return new object[] { "C4E249 F7 10", 5, Code.VEX_Shlx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2C9 F7 10", 5, Code.VEX_Shlx_r64_rm64_r64, Register.RDX, Register.RSI, MemorySize.UInt64 };
 			}
 		}
 
@@ -2986,15 +2986,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Shlx_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E249 F7 D3", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C46249 F7 D3", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.R10D, Register.EBX, Register.ESI };
-				yield return new object[] { "C4C209 F7 D3", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.EDX, Register.R11D, Register.R14D };
-				yield return new object[] { "C44249 F7 D3", 5, Code.VEX_Shlx_Gd_Ed_Hd, Register.R10D, Register.R11D, Register.ESI };
+				yield return new object[] { "C4E249 F7 D3", 5, Code.VEX_Shlx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C46249 F7 D3", 5, Code.VEX_Shlx_r32_rm32_r32, Register.R10D, Register.EBX, Register.ESI };
+				yield return new object[] { "C4C209 F7 D3", 5, Code.VEX_Shlx_r32_rm32_r32, Register.EDX, Register.R11D, Register.R14D };
+				yield return new object[] { "C44249 F7 D3", 5, Code.VEX_Shlx_r32_rm32_r32, Register.R10D, Register.R11D, Register.ESI };
 
-				yield return new object[] { "C4E2C9 F7 D3", 5, Code.VEX_Shlx_Gq_Eq_Hq, Register.RDX, Register.RBX, Register.RSI };
-				yield return new object[] { "C462C9 F7 D3", 5, Code.VEX_Shlx_Gq_Eq_Hq, Register.R10, Register.RBX, Register.RSI };
-				yield return new object[] { "C4C289 F7 D3", 5, Code.VEX_Shlx_Gq_Eq_Hq, Register.RDX, Register.R11, Register.R14 };
-				yield return new object[] { "C442C9 F7 D3", 5, Code.VEX_Shlx_Gq_Eq_Hq, Register.R10, Register.R11, Register.RSI };
+				yield return new object[] { "C4E2C9 F7 D3", 5, Code.VEX_Shlx_r64_rm64_r64, Register.RDX, Register.RBX, Register.RSI };
+				yield return new object[] { "C462C9 F7 D3", 5, Code.VEX_Shlx_r64_rm64_r64, Register.R10, Register.RBX, Register.RSI };
+				yield return new object[] { "C4C289 F7 D3", 5, Code.VEX_Shlx_r64_rm64_r64, Register.RDX, Register.R11, Register.R14 };
+				yield return new object[] { "C442C9 F7 D3", 5, Code.VEX_Shlx_r64_rm64_r64, Register.R10, Register.R11, Register.RSI };
 			}
 		}
 
@@ -3029,8 +3029,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Sarx_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E24A F7 10", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.Int32 };
-				yield return new object[] { "C4E2CA F7 10", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.Int32 };
+				yield return new object[] { "C4E24A F7 10", 5, Code.VEX_Sarx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.Int32 };
+				yield return new object[] { "C4E2CA F7 10", 5, Code.VEX_Sarx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.Int32 };
 			}
 		}
 
@@ -3059,8 +3059,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Sarx_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E24A F7 D3", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4E2CA F7 D3", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E24A F7 D3", 5, Code.VEX_Sarx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E2CA F7 D3", 5, Code.VEX_Sarx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
 			}
 		}
 
@@ -3095,8 +3095,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Sarx_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E24A F7 10", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.Int32 };
-				yield return new object[] { "C4E2CA F7 10", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.Int32 };
+				yield return new object[] { "C4E24A F7 10", 5, Code.VEX_Sarx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.Int32 };
+				yield return new object[] { "C4E2CA F7 10", 5, Code.VEX_Sarx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.Int32 };
 			}
 		}
 
@@ -3125,8 +3125,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Sarx_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E24A F7 D3", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4E2CA F7 D3", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E24A F7 D3", 5, Code.VEX_Sarx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E2CA F7 D3", 5, Code.VEX_Sarx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
 			}
 		}
 
@@ -3161,8 +3161,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Sarx_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E24A F7 10", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.Int32 };
-				yield return new object[] { "C4E2CA F7 10", 5, Code.VEX_Sarx_Gq_Eq_Hq, Register.RDX, Register.RSI, MemorySize.Int64 };
+				yield return new object[] { "C4E24A F7 10", 5, Code.VEX_Sarx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.Int32 };
+				yield return new object[] { "C4E2CA F7 10", 5, Code.VEX_Sarx_r64_rm64_r64, Register.RDX, Register.RSI, MemorySize.Int64 };
 			}
 		}
 
@@ -3191,15 +3191,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Sarx_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E24A F7 D3", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4624A F7 D3", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.R10D, Register.EBX, Register.ESI };
-				yield return new object[] { "C4C20A F7 D3", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.EDX, Register.R11D, Register.R14D };
-				yield return new object[] { "C4424A F7 D3", 5, Code.VEX_Sarx_Gd_Ed_Hd, Register.R10D, Register.R11D, Register.ESI };
+				yield return new object[] { "C4E24A F7 D3", 5, Code.VEX_Sarx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4624A F7 D3", 5, Code.VEX_Sarx_r32_rm32_r32, Register.R10D, Register.EBX, Register.ESI };
+				yield return new object[] { "C4C20A F7 D3", 5, Code.VEX_Sarx_r32_rm32_r32, Register.EDX, Register.R11D, Register.R14D };
+				yield return new object[] { "C4424A F7 D3", 5, Code.VEX_Sarx_r32_rm32_r32, Register.R10D, Register.R11D, Register.ESI };
 
-				yield return new object[] { "C4E2CA F7 D3", 5, Code.VEX_Sarx_Gq_Eq_Hq, Register.RDX, Register.RBX, Register.RSI };
-				yield return new object[] { "C462CA F7 D3", 5, Code.VEX_Sarx_Gq_Eq_Hq, Register.R10, Register.RBX, Register.RSI };
-				yield return new object[] { "C4C28A F7 D3", 5, Code.VEX_Sarx_Gq_Eq_Hq, Register.RDX, Register.R11, Register.R14 };
-				yield return new object[] { "C442CA F7 D3", 5, Code.VEX_Sarx_Gq_Eq_Hq, Register.R10, Register.R11, Register.RSI };
+				yield return new object[] { "C4E2CA F7 D3", 5, Code.VEX_Sarx_r64_rm64_r64, Register.RDX, Register.RBX, Register.RSI };
+				yield return new object[] { "C462CA F7 D3", 5, Code.VEX_Sarx_r64_rm64_r64, Register.R10, Register.RBX, Register.RSI };
+				yield return new object[] { "C4C28A F7 D3", 5, Code.VEX_Sarx_r64_rm64_r64, Register.RDX, Register.R11, Register.R14 };
+				yield return new object[] { "C442CA F7 D3", 5, Code.VEX_Sarx_r64_rm64_r64, Register.R10, Register.R11, Register.RSI };
 			}
 		}
 
@@ -3234,8 +3234,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Shrx_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E24B F7 10", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CB F7 10", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E24B F7 10", 5, Code.VEX_Shrx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CB F7 10", 5, Code.VEX_Shrx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -3264,8 +3264,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Shrx_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E24B F7 D3", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4E2CB F7 D3", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E24B F7 D3", 5, Code.VEX_Shrx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E2CB F7 D3", 5, Code.VEX_Shrx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
 			}
 		}
 
@@ -3300,8 +3300,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Shrx_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E24B F7 10", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CB F7 10", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E24B F7 10", 5, Code.VEX_Shrx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CB F7 10", 5, Code.VEX_Shrx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
 			}
 		}
 
@@ -3330,8 +3330,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Shrx_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E24B F7 D3", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4E2CB F7 D3", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E24B F7 D3", 5, Code.VEX_Shrx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4E2CB F7 D3", 5, Code.VEX_Shrx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
 			}
 		}
 
@@ -3366,8 +3366,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Shrx_Gd_Ed_Gd_1_Data {
 			get {
-				yield return new object[] { "C4E24B F7 10", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.EDX, Register.ESI, MemorySize.UInt32 };
-				yield return new object[] { "C4E2CB F7 10", 5, Code.VEX_Shrx_Gq_Eq_Hq, Register.RDX, Register.RSI, MemorySize.UInt64 };
+				yield return new object[] { "C4E24B F7 10", 5, Code.VEX_Shrx_r32_rm32_r32, Register.EDX, Register.ESI, MemorySize.UInt32 };
+				yield return new object[] { "C4E2CB F7 10", 5, Code.VEX_Shrx_r64_rm64_r64, Register.RDX, Register.RSI, MemorySize.UInt64 };
 			}
 		}
 
@@ -3396,15 +3396,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Shrx_Gd_Ed_Gd_2_Data {
 			get {
-				yield return new object[] { "C4E24B F7 D3", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.EDX, Register.EBX, Register.ESI };
-				yield return new object[] { "C4624B F7 D3", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.R10D, Register.EBX, Register.ESI };
-				yield return new object[] { "C4C20B F7 D3", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.EDX, Register.R11D, Register.R14D };
-				yield return new object[] { "C4424B F7 D3", 5, Code.VEX_Shrx_Gd_Ed_Hd, Register.R10D, Register.R11D, Register.ESI };
+				yield return new object[] { "C4E24B F7 D3", 5, Code.VEX_Shrx_r32_rm32_r32, Register.EDX, Register.EBX, Register.ESI };
+				yield return new object[] { "C4624B F7 D3", 5, Code.VEX_Shrx_r32_rm32_r32, Register.R10D, Register.EBX, Register.ESI };
+				yield return new object[] { "C4C20B F7 D3", 5, Code.VEX_Shrx_r32_rm32_r32, Register.EDX, Register.R11D, Register.R14D };
+				yield return new object[] { "C4424B F7 D3", 5, Code.VEX_Shrx_r32_rm32_r32, Register.R10D, Register.R11D, Register.ESI };
 
-				yield return new object[] { "C4E2CB F7 D3", 5, Code.VEX_Shrx_Gq_Eq_Hq, Register.RDX, Register.RBX, Register.RSI };
-				yield return new object[] { "C462CB F7 D3", 5, Code.VEX_Shrx_Gq_Eq_Hq, Register.R10, Register.RBX, Register.RSI };
-				yield return new object[] { "C4C28B F7 D3", 5, Code.VEX_Shrx_Gq_Eq_Hq, Register.RDX, Register.R11, Register.R14 };
-				yield return new object[] { "C442CB F7 D3", 5, Code.VEX_Shrx_Gq_Eq_Hq, Register.R10, Register.R11, Register.RSI };
+				yield return new object[] { "C4E2CB F7 D3", 5, Code.VEX_Shrx_r64_rm64_r64, Register.RDX, Register.RBX, Register.RSI };
+				yield return new object[] { "C462CB F7 D3", 5, Code.VEX_Shrx_r64_rm64_r64, Register.R10, Register.RBX, Register.RSI };
+				yield return new object[] { "C4C28B F7 D3", 5, Code.VEX_Shrx_r64_rm64_r64, Register.RDX, Register.R11, Register.R14 };
+				yield return new object[] { "C442CB F7 D3", 5, Code.VEX_Shrx_r64_rm64_r64, Register.R10, Register.R11, Register.RSI };
 			}
 		}
 	}
