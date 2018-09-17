@@ -1505,13 +1505,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "0FAE 18", 3, Code.Stmxcsr_m32, MemorySize.UInt32 };
 
-				yield return new object[] { "0FAE 20", 3, Code.Xsave_m0, MemorySize.Xsave };
+				yield return new object[] { "0FAE 20", 3, Code.Xsave_m, MemorySize.Xsave };
 
 				yield return new object[] { "F3 0FAE 20", 4, Code.Ptwrite_rm32, MemorySize.UInt32 };
 
-				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m0, MemorySize.Xsave };
+				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m, MemorySize.Xsave };
 
-				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m0, MemorySize.Xsave };
+				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m, MemorySize.Xsave };
 
 				yield return new object[] { "66 0FAE 30", 4, Code.Clwb_m8, MemorySize.UInt8 };
 
@@ -1583,13 +1583,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "0FAE 18", 3, Code.Stmxcsr_m32, MemorySize.UInt32 };
 
-				yield return new object[] { "0FAE 20", 3, Code.Xsave_m0, MemorySize.Xsave };
+				yield return new object[] { "0FAE 20", 3, Code.Xsave_m, MemorySize.Xsave };
 
 				yield return new object[] { "F3 0FAE 20", 4, Code.Ptwrite_rm32, MemorySize.UInt32 };
 
-				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m0, MemorySize.Xsave };
+				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m, MemorySize.Xsave };
 
-				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m0, MemorySize.Xsave };
+				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m, MemorySize.Xsave };
 
 				yield return new object[] { "66 0FAE 30", 4, Code.Clwb_m8, MemorySize.UInt8 };
 
@@ -1665,17 +1665,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "0FAE 18", 3, Code.Stmxcsr_m32, MemorySize.UInt32 };
 				yield return new object[] { "48 0FAE 18", 4, Code.Stmxcsr_m32, MemorySize.UInt32 };
 
-				yield return new object[] { "0FAE 20", 3, Code.Xsave_m0, MemorySize.Xsave };
-				yield return new object[] { "48 0FAE 20", 4, Code.Xsave64_m0, MemorySize.Xsave64 };
+				yield return new object[] { "0FAE 20", 3, Code.Xsave_m, MemorySize.Xsave };
+				yield return new object[] { "48 0FAE 20", 4, Code.Xsave64_m, MemorySize.Xsave64 };
 
 				yield return new object[] { "F3 0FAE 20", 4, Code.Ptwrite_rm32, MemorySize.UInt32 };
 				yield return new object[] { "F3 48 0FAE 20", 5, Code.Ptwrite_rm64, MemorySize.UInt64 };
 
-				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m0, MemorySize.Xsave };
-				yield return new object[] { "48 0FAE 28", 4, Code.Xrstor64_m0, MemorySize.Xsave64 };
+				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m, MemorySize.Xsave };
+				yield return new object[] { "48 0FAE 28", 4, Code.Xrstor64_m, MemorySize.Xsave64 };
 
-				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m0, MemorySize.Xsave };
-				yield return new object[] { "48 0FAE 30", 4, Code.Xsaveopt64_m0, MemorySize.Xsave64 };
+				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m, MemorySize.Xsave };
+				yield return new object[] { "48 0FAE 30", 4, Code.Xsaveopt64_m, MemorySize.Xsave64 };
 
 				yield return new object[] { "66 0FAE 30", 4, Code.Clwb_m8, MemorySize.UInt8 };
 

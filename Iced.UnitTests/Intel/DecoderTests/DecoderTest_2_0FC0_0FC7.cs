@@ -3468,11 +3468,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			get {
 				yield return new object[] { "0FC7 08", 3, Code.Cmpxchg8b_m64, MemorySize.UInt64 };
 
-				yield return new object[] { "0FC7 18", 3, Code.Xrstors_m0, MemorySize.Xsave };
+				yield return new object[] { "0FC7 18", 3, Code.Xrstors_m, MemorySize.Xsave };
 
-				yield return new object[] { "0FC7 20", 3, Code.Xsavec_m0, MemorySize.Xsave };
+				yield return new object[] { "0FC7 20", 3, Code.Xsavec_m, MemorySize.Xsave };
 
-				yield return new object[] { "0FC7 28", 3, Code.Xsaves_m0, MemorySize.Xsave };
+				yield return new object[] { "0FC7 28", 3, Code.Xsaves_m, MemorySize.Xsave };
 
 				yield return new object[] { "0FC7 30", 3, Code.Vmptrld_m64, MemorySize.UInt64 };
 
@@ -3544,11 +3544,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			get {
 				yield return new object[] { "0FC7 08", 3, Code.Cmpxchg8b_m64, MemorySize.UInt64 };
 
-				yield return new object[] { "0FC7 18", 3, Code.Xrstors_m0, MemorySize.Xsave };
+				yield return new object[] { "0FC7 18", 3, Code.Xrstors_m, MemorySize.Xsave };
 
-				yield return new object[] { "0FC7 20", 3, Code.Xsavec_m0, MemorySize.Xsave };
+				yield return new object[] { "0FC7 20", 3, Code.Xsavec_m, MemorySize.Xsave };
 
-				yield return new object[] { "0FC7 28", 3, Code.Xsaves_m0, MemorySize.Xsave };
+				yield return new object[] { "0FC7 28", 3, Code.Xsaves_m, MemorySize.Xsave };
 
 				yield return new object[] { "0FC7 30", 3, Code.Vmptrld_m64, MemorySize.UInt64 };
 
@@ -3623,14 +3623,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "48 0FC7 08", 4, Code.Cmpxchg16b_m128, MemorySize.UInt128 };
 				yield return new object[] { "66 48 0FC7 08", 5, Code.Cmpxchg16b_m128, MemorySize.UInt128 };
 
-				yield return new object[] { "0FC7 18", 3, Code.Xrstors_m0, MemorySize.Xsave };
-				yield return new object[] { "48 0FC7 18", 4, Code.Xrstors64_m0, MemorySize.Xsave64 };
+				yield return new object[] { "0FC7 18", 3, Code.Xrstors_m, MemorySize.Xsave };
+				yield return new object[] { "48 0FC7 18", 4, Code.Xrstors64_m, MemorySize.Xsave64 };
 
-				yield return new object[] { "0FC7 20", 3, Code.Xsavec_m0, MemorySize.Xsave };
-				yield return new object[] { "48 0FC7 20", 4, Code.Xsavec64_m0, MemorySize.Xsave64 };
+				yield return new object[] { "0FC7 20", 3, Code.Xsavec_m, MemorySize.Xsave };
+				yield return new object[] { "48 0FC7 20", 4, Code.Xsavec64_m, MemorySize.Xsave64 };
 
-				yield return new object[] { "0FC7 28", 3, Code.Xsaves_m0, MemorySize.Xsave };
-				yield return new object[] { "48 0FC7 28", 4, Code.Xsaves64_m0, MemorySize.Xsave64 };
+				yield return new object[] { "0FC7 28", 3, Code.Xsaves_m, MemorySize.Xsave };
+				yield return new object[] { "48 0FC7 28", 4, Code.Xsaves64_m, MemorySize.Xsave64 };
 
 				yield return new object[] { "0FC7 30", 3, Code.Vmptrld_m64, MemorySize.UInt64 };
 				yield return new object[] { "48 0FC7 30", 4, Code.Vmptrld_m64, MemorySize.UInt64 };

@@ -2420,14 +2420,14 @@ namespace Iced.Intel {
 		Wrgsbase_r32,										// F3 0FAE /3
 		Wrgsbase_r64,										// F3 REX.W 0FAE /3
 		VEX_Vstmxcsr_m32,									// VEX.L0.0F.WIG AE /3
-		Xsave_m0,											// 0FAE /4
-		Xsave64_m0,											// REX.W 0FAE /4
+		Xsave_m,											// 0FAE /4
+		Xsave64_m,											// REX.W 0FAE /4
 		Ptwrite_rm32,										// F3 0FAE /4
 		Ptwrite_rm64,										// F3 REX.W 0FAE /4
-		Xrstor_m0,											// 0FAE /5
-		Xrstor64_m0,										// REX.W 0FAE /5
-		Xsaveopt_m0,										// 0FAE /6
-		Xsaveopt64_m0,										// REX.W 0FAE /6
+		Xrstor_m,											// 0FAE /5
+		Xrstor64_m,											// REX.W 0FAE /5
+		Xsaveopt_m,											// 0FAE /6
+		Xsaveopt64_m,										// REX.W 0FAE /6
 		Clwb_m8,											// 66 0FAE /6
 		Clflush_m8,											// 0FAE /7
 		Clflushopt_m8,										// 66 0FAE /7
@@ -2570,12 +2570,12 @@ namespace Iced.Intel {
 
 		Cmpxchg8b_m64,										// 0FC7 /1
 		Cmpxchg16b_m128,									// REX.W 0FC7 /1
-		Xrstors_m0,											// 0FC7 /3
-		Xrstors64_m0,										// REX.W 0FC7 /3
-		Xsavec_m0,											// 0FC7 /4
-		Xsavec64_m0,										// REX.W 0FC7 /4
-		Xsaves_m0,											// 0FC7 /5
-		Xsaves64_m0,										// REX.W 0FC7 /5
+		Xrstors_m,											// 0FC7 /3
+		Xrstors64_m,										// REX.W 0FC7 /3
+		Xsavec_m,											// 0FC7 /4
+		Xsavec64_m,											// REX.W 0FC7 /4
+		Xsaves_m,											// 0FC7 /5
+		Xsaves64_m,											// REX.W 0FC7 /5
 		Vmptrld_m64,										// 0FC7 /6
 		Vmclear_m64,										// 66 0FC7 /6
 		Vmxon_m64,											// F3 0FC7 /6

@@ -314,19 +314,19 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_M_REXW(Code.Cmpxchg8b_m64, Code.Cmpxchg16b_m128, MemorySize.UInt64, MemorySize.UInt128, HandlerFlags.XacquireRelease, HandlerFlags.None),
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M_REXW(Code.Xrstors_m0, Code.Xrstors64_m0, MemorySize.Xsave, MemorySize.Xsave64),
+					new OpCodeHandler_M_REXW(Code.Xrstors_m, Code.Xrstors64_m, MemorySize.Xsave, MemorySize.Xsave64),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M_REXW(Code.Xsavec_m0, Code.Xsavec64_m0, MemorySize.Xsave, MemorySize.Xsave64),
+					new OpCodeHandler_M_REXW(Code.Xsavec_m, Code.Xsavec64_m, MemorySize.Xsave, MemorySize.Xsave64),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Ev_REXW(Code.Xsaves_m0, Code.Xsaves64_m0, MemorySize.Xsave, MemorySize.Xsave64),
+					new OpCodeHandler_Ev_REXW(Code.Xsaves_m, Code.Xsaves64_m, MemorySize.Xsave, MemorySize.Xsave64),
 					invalid,
 					invalid,
 					invalid
@@ -650,19 +650,19 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Xsave_m0, Code.Xsave64_m0, MemorySize.Xsave, MemorySize.Xsave64),
+					new OpCodeHandler_M(Code.Xsave_m, Code.Xsave64_m, MemorySize.Xsave, MemorySize.Xsave64),
 					invalid,
 					new OpCodeHandler_Ev_REXW(Code.Ptwrite_rm32, Code.Ptwrite_rm64, MemorySize.UInt32, MemorySize.UInt64),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Xrstor_m0, Code.Xrstor64_m0, MemorySize.Xsave, MemorySize.Xsave64),
+					new OpCodeHandler_M(Code.Xrstor_m, Code.Xrstor64_m, MemorySize.Xsave, MemorySize.Xsave64),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Xsaveopt_m0, Code.Xsaveopt64_m0, MemorySize.Xsave, MemorySize.Xsave64),
+					new OpCodeHandler_M(Code.Xsaveopt_m, Code.Xsaveopt64_m, MemorySize.Xsave, MemorySize.Xsave64),
 					new OpCodeHandler_M(Code.Clwb_m8, MemorySize.UInt8),
 					invalid,
 					invalid

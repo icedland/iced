@@ -698,10 +698,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.EVEX_Vcvtusi2sd_xmm_xmm_rm64_er;
 			yield return Code.Fxsave64_m512byte;
 			yield return Code.Fxrstor64_m512byte;
-			yield return Code.Xsave64_m0;
-			yield return Code.Xrstor64_m0;
+			yield return Code.Xsave64_m;
+			yield return Code.Xrstor64_m;
 			yield return Code.Ptwrite_rm64;
-			yield return Code.Xsaveopt64_m0;
+			yield return Code.Xsaveopt64_m;
 			yield return Code.Rdfsbase_r32;
 			yield return Code.Rdfsbase_r64;
 			yield return Code.Rdgsbase_r32;
@@ -723,9 +723,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.VEX_Vpextrw_r64_xmm_imm8;
 			yield return Code.EVEX_Vpextrw_r64_xmm_imm8;
 			yield return Code.Cmpxchg16b_m128;
-			yield return Code.Xrstors64_m0;
-			yield return Code.Xsavec64_m0;
-			yield return Code.Xsaves64_m0;
+			yield return Code.Xrstors64_m;
+			yield return Code.Xsavec64_m;
+			yield return Code.Xsaves64_m;
 			yield return Code.Rdrand_r64;
 			yield return Code.Rdseed_r64;
 			yield return Code.Rdpid_r64;
