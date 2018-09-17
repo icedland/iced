@@ -163,7 +163,6 @@ namespace Iced.Intel.BlockEncoderInternal {
 				pointerData.Data = targetInstr.GetAddress();
 				var instr = new Instruction();
 				instr.Code = instruction.Code.ToNegatedJcc().ToShortBranchCode().ShortJccToNativeJcc(encoder.Bitness);
-				instr.OpCount = 1;
 				instr.Op0Kind = OpKind.NearBranch64;
 				Debug.Assert(encoder.Bitness == 64);
 				Debug.Assert(longInstructionSize64 <= sbyte.MaxValue);

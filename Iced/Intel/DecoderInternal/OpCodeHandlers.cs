@@ -74,7 +74,6 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = reg;
@@ -92,7 +91,6 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = reg;
@@ -112,7 +110,6 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			instruction.InternalOp0Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 			Debug.Assert(OpKind.Register == 0);
@@ -128,7 +125,6 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = Register.AL;
@@ -145,7 +141,6 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = Register.DX;
@@ -162,7 +157,6 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			instruction.InternalOp0Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 		}
@@ -175,7 +169,6 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			instruction.InternalOp0Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 		}
@@ -581,7 +574,6 @@ namespace Iced.Intel.DecoderInternal {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;

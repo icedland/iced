@@ -220,7 +220,6 @@ namespace Iced.Intel.BlockEncoderInternal {
 				throw new ArgumentOutOfRangeException(nameof(minSize));
 
 			var instr = new Instruction();
-			instr.OpCount = 1;
 			instr.Op0Kind = OpKind.Memory;
 			instr.MemoryDisplSize = encoder.Bitness / 8;
 			RelocKind relocKind;

@@ -29,7 +29,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -48,7 +47,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -67,7 +65,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -86,7 +83,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -105,7 +101,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -124,7 +119,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -143,7 +137,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -174,7 +167,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalCode = code32;
 			else
 				instruction.InternalCode = code16;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -197,7 +189,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {

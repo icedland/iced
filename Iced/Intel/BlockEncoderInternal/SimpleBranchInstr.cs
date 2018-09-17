@@ -282,7 +282,6 @@ namespace Iced.Intel.BlockEncoderInternal {
 					return CreateErrorMessage(errorMessage, ref instruction);
 
 				instr = new Instruction();
-				instr.OpCount = 1;
 				instr.NearBranch64Target = IP + nearInstructionSize;
 				Code codeNear;
 				switch (encoder.Bitness) {
@@ -340,7 +339,6 @@ namespace Iced.Intel.BlockEncoderInternal {
 					return CreateErrorMessage(errorMessage, ref instruction);
 
 				instr = new Instruction();
-				instr.OpCount = 1;
 				instr.NearBranch64Target = IP + longInstructionSize;
 				switch (encoder.Bitness) {
 				case 16:

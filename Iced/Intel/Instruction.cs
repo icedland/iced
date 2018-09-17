@@ -56,8 +56,7 @@ namespace Iced.Intel {
 		/// [9:5]	= Operand #1's <see cref="OpKind"/>
 		/// [14:10]	= Operand #2's <see cref="OpKind"/>
 		/// [19:15]	= Operand #3's <see cref="OpKind"/>
-		/// [26:20]	= Not used
-		/// [29:27]	= Number of operands
+		/// [29:20]	= Not used
 		/// [31:30] = CodeSize
 		/// </summary>
 		[Flags]
@@ -68,8 +67,6 @@ namespace Iced.Intel {
 			Op2KindShift			= 10,
 			Op3KindShift			= 15,
 			// Unused bits here
-			OperandCountMask		= 7,
-			OperandCountShift		= 27,
 			CodeSizeMask			= 3,
 			CodeSizeShift			= 30,
 		}
@@ -219,15 +216,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the operand count. Up to 5 operands is allowed.
 		/// </summary>
-		public int OpCount {
-			get => (int)((opKindFlags >> (int)OpKindFlags.OperandCountShift) & (uint)OpKindFlags.OperandCountMask);
-			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OperandCountMask << (int)OpKindFlags.OperandCountShift)) |
-				(((uint)value & (uint)OpKindFlags.OperandCountMask) << (int)OpKindFlags.OperandCountShift);
-		}
-		internal int InternalOpCount {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => opKindFlags |= (uint)value << (int)OpKindFlags.OperandCountShift;
-		}
+		public int OpCount => InstructionUtils.InstructionOpCount[(int)(codeFlags & (uint)CodeFlags.CodeMask)];
 
 		/// <summary>
 		/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction

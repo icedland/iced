@@ -44,7 +44,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -96,7 +95,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -157,7 +155,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -212,7 +209,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -266,7 +262,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -335,7 +330,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -390,7 +384,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				Debug.Assert(state.operandSize == OpSize.Size16 || state.operandSize == OpSize.Size32);
 				instruction.Op0Register = (int)state.rm + Register.EAX;
 			}
-			instruction.InternalOpCount = 1;
 			if (state.mod != 3)
 				decoder.SetInvalidInstruction();
 		}
@@ -405,7 +398,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -434,7 +426,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -466,7 +457,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -501,7 +491,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -532,7 +521,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -563,7 +551,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -596,7 +583,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -631,7 +617,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalCode = code16;
 				Debug.Assert(OpKind.Register == 0);
@@ -682,7 +667,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			if (state.operandSize == OpSize.Size16)
 				instruction.InternalCode = code16;
 			else
@@ -720,7 +704,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalCode = code16;
 				Debug.Assert(OpKind.Register == 0);
@@ -761,7 +744,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.rm + Register.EAX;
@@ -784,7 +766,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + baseReg;
@@ -810,7 +791,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalOp0Kind = OpKind.NearBranch16;
 				instruction.InternalNearBranch16Target = (ushort)((uint)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer32());
@@ -834,7 +814,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 1;
 			if (decoder.defaultCodeSize == CodeSize.Code32) {
 				if (state.operandSize == OpSize.Size32) {
 					instruction.InternalCode = code32;
@@ -877,7 +856,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 1;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalCode = code16;
 				instruction.InternalOp0Kind = OpKind.NearBranch16;
@@ -908,7 +886,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = GetCode(ref state);
-			instruction.InternalOpCount = 1;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalOp0Kind = OpKind.NearBranch16;
 				instruction.InternalNearBranch16Target = (ushort)((uint)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer32());
@@ -948,7 +925,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = reg;
@@ -986,7 +962,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.Op1Register = (int)state.reg + Register.EAX;
 			}
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -1016,7 +991,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -1057,7 +1031,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.Op1Register = (int)state.reg + Register.EAX;
 			}
-			instruction.InternalOpCount = 3;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -1102,7 +1075,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.Op1Register = (int)state.reg + Register.EAX;
 			}
-			instruction.InternalOpCount = 3;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -1153,7 +1125,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.Op0Register = (int)state.reg + Register.EAX;
 			}
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -1200,7 +1171,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.Op0Register = (int)state.reg + Register.EAX;
 			}
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
@@ -1246,7 +1216,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.Op0Register = (int)state.reg + Register.EAX;
 			}
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
@@ -1324,7 +1293,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			if (state.operandSize == OpSize.Size16)
@@ -1409,7 +1377,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = codes[sizeIndex, index];
 				var reg = registers[sizeIndex, index];
 				if (reg != Register.None) {
-					instruction.InternalOpCount = 2;
 					Debug.Assert(OpKind.Register == 0);
 					//instruction.InternalOp0Kind = OpKind.Register;
 					instruction.Op0Register = reg;
@@ -1437,7 +1404,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalCode = code16;
 				Debug.Assert(OpKind.Register == 0);
@@ -1485,7 +1451,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.Op0Register = (int)state.reg + Register.EAX;
 			}
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -1523,7 +1488,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.Op1Register = (int)state.reg + Register.EAX;
 				baseReg = Register.EAX;
 			}
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -1555,7 +1519,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalOp0Kind = OpKind.Immediate8to16;
 				instruction.InternalImmediate8 = decoder.ReadIb();
@@ -1583,7 +1546,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalOp0Kind = OpKind.Immediate16;
 				instruction.InternalImmediate16 = decoder.ReadUInt16();
@@ -1619,7 +1581,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.Op0Register = (int)state.reg + Register.EAX;
 			}
-			instruction.InternalOpCount = 3;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
@@ -1661,7 +1622,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 3;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.EAX;
@@ -1700,7 +1660,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.EAX;
@@ -1731,7 +1690,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 3;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
@@ -1779,7 +1737,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.addressSize == OpSize.Size32)
 				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
 			else
@@ -1807,7 +1764,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			if (state.addressSize == OpSize.Size32)
 				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
 			else
@@ -1842,7 +1798,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = reg;
@@ -1874,7 +1829,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.addressSize == OpSize.Size32)
 				instruction.InternalOp1Kind = OpKind.MemorySegESI;
 			else
@@ -1907,7 +1861,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = reg;
@@ -1939,7 +1892,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.addressSize == OpSize.Size32)
 				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
 			else
@@ -1968,7 +1920,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.addressSize == OpSize.Size32) {
 				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
 				instruction.InternalOp1Kind = OpKind.MemorySegESI;
@@ -1997,7 +1948,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.addressSize == OpSize.Size32) {
 				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
 				instruction.InternalOp1Kind = OpKind.MemorySegESI;
@@ -2022,7 +1972,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.addressSize == OpSize.Size32) {
 				instruction.InternalOp0Kind = OpKind.MemorySegESI;
 				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
@@ -2051,7 +2000,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.addressSize == OpSize.Size32) {
 				instruction.InternalOp0Kind = OpKind.MemorySegESI;
 				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
@@ -2083,7 +2031,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -2125,7 +2072,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.Op0Register = (int)state.reg + Register.EAX;
 			}
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -2152,7 +2098,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = decoder.ReadOpSw();
@@ -2186,7 +2131,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			state.flags |= StateFlags.SpecialImm;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalOp0Kind = OpKind.FarBranch16;
@@ -2213,7 +2157,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = reg;
@@ -2248,7 +2191,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(state.addressSize == OpSize.Size16 || state.addressSize == OpSize.Size32);
 			decoder.displIndex = state.instructionLength;
 			if (state.addressSize == OpSize.Size32) {
@@ -2286,7 +2228,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			Debug.Assert(state.addressSize == OpSize.Size16 || state.addressSize == OpSize.Size32);
 			decoder.displIndex = state.instructionLength;
 			if (state.addressSize == OpSize.Size32) {
@@ -2334,7 +2275,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			Debug.Assert(state.addressSize == OpSize.Size16 || state.addressSize == OpSize.Size32);
 			decoder.displIndex = state.instructionLength;
 			if (state.addressSize == OpSize.Size32) {
@@ -2382,7 +2322,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			instruction.InternalOp0Kind = OpKind.Immediate16;
 			instruction.InternalImmediate16 = decoder.ReadUInt16();
 		}
@@ -2404,7 +2343,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			instruction.InternalOp0Kind = OpKind.Immediate16;
 			instruction.InternalImmediate16 = decoder.ReadUInt16();
 			instruction.InternalOp1Kind = OpKind.Immediate8_2nd;
@@ -2428,7 +2366,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			if (state.operandSize == OpSize.Size16) {
@@ -2460,7 +2397,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			instruction.InternalOp0Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 			if (state.operandSize == OpSize.Size16) {
@@ -2490,7 +2426,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			if (state.operandSize == OpSize.Size16) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -2521,7 +2456,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = Register.DX;
@@ -2565,7 +2499,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -2601,7 +2534,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -2636,7 +2568,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -2684,7 +2615,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -2715,7 +2645,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -2743,7 +2672,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = Register.AL + (int)state.reg;
@@ -2778,7 +2706,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = codeW0;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -2809,7 +2736,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 1;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -2831,7 +2757,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 1;
 			Debug.Assert(state.addressSize == OpSize.Size16 || state.addressSize == OpSize.Size32);
 			//instruction.MemoryDisplacement = 0;
 			//instruction.InternalMemoryIndexScale = 0;
@@ -2869,7 +2794,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + baseReg;
@@ -2905,7 +2829,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -2937,7 +2860,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 3;
 			Debug.Assert(state.addressSize == OpSize.Size16 || state.addressSize == OpSize.Size32);
 			if (state.addressSize == OpSize.Size32)
 				instruction.InternalOp0Kind = OpKind.MemorySegEDI;
@@ -2970,7 +2892,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 3;
 			Debug.Assert(state.addressSize == OpSize.Size16 || state.addressSize == OpSize.Size32);
 			if (state.addressSize == OpSize.Size32)
 				instruction.InternalOp0Kind = OpKind.MemorySegEDI;
@@ -3005,7 +2926,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + baseReg;
@@ -3034,7 +2954,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -3063,7 +2982,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + baseReg;
@@ -3093,7 +3011,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.MM0;
@@ -3123,7 +3040,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -3153,7 +3069,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -3180,7 +3095,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 3;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.MM0;
@@ -3214,7 +3128,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.MM0;
@@ -3244,7 +3157,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.MM0;
@@ -3267,7 +3179,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.MM0;
@@ -3297,7 +3208,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 3;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.MM0;
@@ -3325,7 +3235,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -3357,7 +3266,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = codeW0;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.EAX;
@@ -3387,7 +3295,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + baseReg;
@@ -3425,7 +3332,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = codeW0;
-			instruction.InternalOpCount = 3;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + baseReg;
@@ -3457,7 +3363,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 4;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + baseReg;
@@ -3488,7 +3393,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 3;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -3516,7 +3420,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
@@ -3544,7 +3447,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 3;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -3572,7 +3474,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.XMM0;
@@ -3598,7 +3499,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -3630,7 +3530,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 3;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + baseReg;
@@ -3662,7 +3561,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.EAX;
@@ -3685,7 +3583,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(state.reg & 3) + Register.BND0;
@@ -3710,7 +3607,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				// Should never be reached
 				decoder.SetInvalidInstruction();
@@ -3739,7 +3635,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(state.reg & 3) + Register.BND0;
@@ -3769,7 +3664,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -3795,7 +3689,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(state.reg & 3) + Register.BND0;
@@ -3825,7 +3718,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -3848,7 +3740,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 3;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.EAX;
@@ -3873,7 +3764,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.EAX;
@@ -3900,7 +3790,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + baseReg;
@@ -3938,7 +3827,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.Op0Register = (int)state.reg + Register.EAX;
 			}
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -3977,7 +3865,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.Op1Register = (int)state.reg + Register.EAX;
 			}
-			instruction.InternalOpCount = 2;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -4001,7 +3888,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.EAX;
@@ -4027,7 +3913,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 2;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.Op0Register = (int)state.reg + Register.EAX;
@@ -4059,7 +3944,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code32;
-			instruction.InternalOpCount = 3;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
