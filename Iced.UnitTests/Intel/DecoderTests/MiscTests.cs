@@ -43,7 +43,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var decoder = CreateDecoder16("26 26 26 26 26 26 26 26 26 26 26 26 66 01 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Add_Ed_Gd, instr.Code);
+			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -77,7 +77,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var decoder = CreateDecoder32("26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Add_Ed_Gd, instr.Code);
+			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -111,7 +111,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var decoder = CreateDecoder64("26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Add_Ed_Gd, instr.Code);
+			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -242,46 +242,46 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test_all_mandatory_prefixes_Data {
 			get {
-				yield return new object[] { "0F10 08", 3, Code.Movups_VX_WX };
-				yield return new object[] { "66 0F10 08", 4, Code.Movupd_VX_WX };
-				yield return new object[] { "F2 0F10 08", 4, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 0F10 08", 4, Code.Movss_VX_WX };
-				yield return new object[] { "66 66 0F10 08", 5, Code.Movupd_VX_WX };
-				yield return new object[] { "66 F2 0F10 08", 5, Code.Movsd_VX_WX };
-				yield return new object[] { "66 F3 0F10 08", 5, Code.Movss_VX_WX };
-				yield return new object[] { "F2 66 0F10 08", 5, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 F2 0F10 08", 5, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 F3 0F10 08", 5, Code.Movss_VX_WX };
-				yield return new object[] { "F3 66 0F10 08", 5, Code.Movss_VX_WX };
-				yield return new object[] { "F3 F2 0F10 08", 5, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 F3 0F10 08", 5, Code.Movss_VX_WX };
-				yield return new object[] { "66 66 66 0F10 08", 6, Code.Movupd_VX_WX };
-				yield return new object[] { "66 66 F2 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "66 66 F3 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "66 F2 66 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "66 F2 F2 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "66 F2 F3 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "66 F3 66 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "66 F3 F2 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "66 F3 F3 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F2 66 66 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 66 F2 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 66 F3 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F2 F2 66 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 F2 F2 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 F2 F3 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F2 F3 66 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F2 F3 F2 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 F3 F3 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F3 66 66 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F3 66 F2 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 66 F3 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F3 F2 66 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 F2 F2 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 F2 F3 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F3 F3 66 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F3 F3 F2 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 F3 F3 0F10 08", 6, Code.Movss_VX_WX };
+				yield return new object[] { "0F10 08", 3, Code.Movups_xmm_xmmm128 };
+				yield return new object[] { "66 0F10 08", 4, Code.Movupd_xmm_xmmm128 };
+				yield return new object[] { "F2 0F10 08", 4, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 0F10 08", 4, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "66 66 0F10 08", 5, Code.Movupd_xmm_xmmm128 };
+				yield return new object[] { "66 F2 0F10 08", 5, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "66 F3 0F10 08", 5, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F2 66 0F10 08", 5, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 F2 0F10 08", 5, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 F3 0F10 08", 5, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 66 0F10 08", 5, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 F2 0F10 08", 5, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 F3 0F10 08", 5, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "66 66 66 0F10 08", 6, Code.Movupd_xmm_xmmm128 };
+				yield return new object[] { "66 66 F2 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "66 66 F3 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "66 F2 66 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "66 F2 F2 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "66 F2 F3 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "66 F3 66 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "66 F3 F2 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "66 F3 F3 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F2 66 66 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 66 F2 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 66 F3 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F2 F2 66 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 F2 F2 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 F2 F3 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F2 F3 66 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F2 F3 F2 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 F3 F3 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 66 66 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 66 F2 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 66 F3 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 F2 66 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 F2 F2 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 F2 F3 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 F3 66 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 F3 F2 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 F3 F3 0F10 08", 6, Code.Movss_xmm_xmmm32 };
 			}
 		}
 
@@ -295,46 +295,46 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_all_mandatory_prefixes_segoverride_Data {
 			get {
-				yield return new object[] { "64 0F10 08", 4, Code.Movups_VX_WX };
-				yield return new object[] { "66 64 0F10 08", 5, Code.Movupd_VX_WX };
-				yield return new object[] { "F2 64 0F10 08", 5, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 64 0F10 08", 5, Code.Movss_VX_WX };
-				yield return new object[] { "66 66 64 0F10 08", 6, Code.Movupd_VX_WX };
-				yield return new object[] { "66 F2 64 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "66 F3 64 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F2 66 64 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 F2 64 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 F3 64 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F3 66 64 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "F3 F2 64 0F10 08", 6, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 F3 64 0F10 08", 6, Code.Movss_VX_WX };
-				yield return new object[] { "66 66 66 64 0F10 08", 7, Code.Movupd_VX_WX };
-				yield return new object[] { "66 66 F2 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "66 66 F3 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "66 F2 66 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "66 F2 F2 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "66 F2 F3 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "66 F3 66 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "66 F3 F2 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "66 F3 F3 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "F2 66 66 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 66 F2 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 66 F3 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "F2 F2 66 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 F2 F2 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 F2 F3 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "F2 F3 66 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "F2 F3 F2 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "F2 F3 F3 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "F3 66 66 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "F3 66 F2 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 66 F3 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "F3 F2 66 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 F2 F2 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 F2 F3 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "F3 F3 66 64 0F10 08", 7, Code.Movss_VX_WX };
-				yield return new object[] { "F3 F3 F2 64 0F10 08", 7, Code.Movsd_VX_WX };
-				yield return new object[] { "F3 F3 F3 64 0F10 08", 7, Code.Movss_VX_WX };
+				yield return new object[] { "64 0F10 08", 4, Code.Movups_xmm_xmmm128 };
+				yield return new object[] { "66 64 0F10 08", 5, Code.Movupd_xmm_xmmm128 };
+				yield return new object[] { "F2 64 0F10 08", 5, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 64 0F10 08", 5, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "66 66 64 0F10 08", 6, Code.Movupd_xmm_xmmm128 };
+				yield return new object[] { "66 F2 64 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "66 F3 64 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F2 66 64 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 F2 64 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 F3 64 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 66 64 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 F2 64 0F10 08", 6, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 F3 64 0F10 08", 6, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "66 66 66 64 0F10 08", 7, Code.Movupd_xmm_xmmm128 };
+				yield return new object[] { "66 66 F2 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "66 66 F3 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "66 F2 66 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "66 F2 F2 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "66 F2 F3 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "66 F3 66 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "66 F3 F2 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "66 F3 F3 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F2 66 66 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 66 F2 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 66 F3 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F2 F2 66 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 F2 F2 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 F2 F3 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F2 F3 66 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F2 F3 F2 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F2 F3 F3 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 66 66 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 66 F2 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 66 F3 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 F2 66 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 F2 F2 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 F2 F3 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 F3 66 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
+				yield return new object[] { "F3 F3 F2 64 0F10 08", 7, Code.Movsd_xmm_xmmm64 };
+				yield return new object[] { "F3 F3 F3 64 0F10 08", 7, Code.Movss_xmm_xmmm32 };
 			}
 		}
 	}

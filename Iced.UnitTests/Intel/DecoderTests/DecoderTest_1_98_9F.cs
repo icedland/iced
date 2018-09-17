@@ -231,11 +231,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Call_Aww_1() {
+		void Test16_Call_ptr1616_1() {
 			var decoder = CreateDecoder16("9A 1234 5678");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Call_Aww, instr.Code);
+			Assert.Equal(Code.Call_ptr1616, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(5, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -249,11 +249,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Call_Aww_1() {
+		void Test32_Call_ptr1616_1() {
 			var decoder = CreateDecoder32("66 9A 1234 5678");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Call_Aww, instr.Code);
+			Assert.Equal(Code.Call_ptr1616, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(6, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -267,11 +267,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Call_Adw_1() {
+		void Test16_Call_ptr3216_1() {
 			var decoder = CreateDecoder16("66 9A 12345678 9ABC");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Call_Adw, instr.Code);
+			Assert.Equal(Code.Call_ptr3216, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(8, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -285,11 +285,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Call_Adw_1() {
+		void Test32_Call_ptr3216_1() {
 			var decoder = CreateDecoder32("9A 12345678 9ABC");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Call_Adw, instr.Code);
+			Assert.Equal(Code.Call_ptr3216, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(7, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);

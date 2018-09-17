@@ -54,7 +54,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VpermqV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E3FD 00 10 A5", 6, Code.VEX_Vpermq_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Int64, 0xA5 };
+				yield return new object[] { "C4E3FD 00 10 A5", 6, Code.VEX_Vpermq_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Int64, 0xA5 };
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VpermqV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E3FD 00 D3 A5", 6, Code.VEX_Vpermq_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E3FD 00 D3 A5", 6, Code.VEX_Vpermq_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -118,7 +118,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VpermqV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E3FD 00 10 A5", 6, Code.VEX_Vpermq_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Int64, 0xA5 };
+				yield return new object[] { "C4E3FD 00 10 A5", 6, Code.VEX_Vpermq_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Int64, 0xA5 };
 			}
 		}
 
@@ -147,7 +147,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VpermqV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E3FD 00 D3 A5", 6, Code.VEX_Vpermq_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E3FD 00 D3 A5", 6, Code.VEX_Vpermq_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -182,7 +182,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VpermqV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E3FD 00 10 A5", 6, Code.VEX_Vpermq_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Int64, 0xA5 };
+				yield return new object[] { "C4E3FD 00 10 A5", 6, Code.VEX_Vpermq_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Int64, 0xA5 };
 			}
 		}
 
@@ -211,9 +211,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VpermqV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E3FD 00 D3 A5", 6, Code.VEX_Vpermq_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
-				yield return new object[] { "C463FD 00 D3 A5", 6, Code.VEX_Vpermq_VY_WY_Ib, Register.YMM10, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4C3FD 00 D3 A5", 6, Code.VEX_Vpermq_VY_WY_Ib, Register.YMM2, Register.YMM11, 0xA5 };
+				yield return new object[] { "C4E3FD 00 D3 A5", 6, Code.VEX_Vpermq_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C463FD 00 D3 A5", 6, Code.VEX_Vpermq_ymm_ymmm256_imm8, Register.YMM10, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4C3FD 00 D3 A5", 6, Code.VEX_Vpermq_ymm_ymmm256_imm8, Register.YMM2, Register.YMM11, 0xA5 };
 			}
 		}
 
@@ -253,13 +253,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Vpermq_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 00 50 01 A5", 8, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Int64, 32, true, 0xA5 };
-				yield return new object[] { "62 F3FD3D 00 50 01 A5", 8, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Int64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD28 00 50 01 A5", 8, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 00 50 01 A5", 8, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Int64, 32, true, 0xA5 };
+				yield return new object[] { "62 F3FD3D 00 50 01 A5", 8, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Int64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD28 00 50 01 A5", 8, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 00 50 01 A5", 8, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Int64, 64, true, 0xA5 };
-				yield return new object[] { "62 F3FD5D 00 50 01 A5", 8, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Int64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD48 00 50 01 A5", 8, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 00 50 01 A5", 8, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Int64, 64, true, 0xA5 };
+				yield return new object[] { "62 F3FD5D 00 50 01 A5", 8, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Int64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD48 00 50 01 A5", 8, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
 			}
 		}
 
@@ -293,11 +293,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Vpermq_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 00 D3 A5", 7, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD28 00 D3 A5", 7, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 00 D3 A5", 7, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD28 00 D3 A5", 7, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 00 D3 A5", 7, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD48 00 D3 A5", 7, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 00 D3 A5", 7, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD48 00 D3 A5", 7, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -337,13 +337,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Vpermq_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 00 50 01 A5", 8, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Int64, 32, true, 0xA5 };
-				yield return new object[] { "62 F3FD3D 00 50 01 A5", 8, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Int64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD28 00 50 01 A5", 8, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 00 50 01 A5", 8, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Int64, 32, true, 0xA5 };
+				yield return new object[] { "62 F3FD3D 00 50 01 A5", 8, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Int64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD28 00 50 01 A5", 8, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 00 50 01 A5", 8, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Int64, 64, true, 0xA5 };
-				yield return new object[] { "62 F3FD5D 00 50 01 A5", 8, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Int64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD48 00 50 01 A5", 8, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 00 50 01 A5", 8, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Int64, 64, true, 0xA5 };
+				yield return new object[] { "62 F3FD5D 00 50 01 A5", 8, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Int64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD48 00 50 01 A5", 8, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
 			}
 		}
 
@@ -377,11 +377,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Vpermq_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 00 D3 A5", 7, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD28 00 D3 A5", 7, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 00 D3 A5", 7, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD28 00 D3 A5", 7, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 00 D3 A5", 7, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD48 00 D3 A5", 7, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 00 D3 A5", 7, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD48 00 D3 A5", 7, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -421,13 +421,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Vpermq_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 00 50 01 A5", 8, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Int64, 32, true, 0xA5 };
-				yield return new object[] { "62 F3FD3D 00 50 01 A5", 8, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Int64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD28 00 50 01 A5", 8, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 00 50 01 A5", 8, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Int64, 32, true, 0xA5 };
+				yield return new object[] { "62 F3FD3D 00 50 01 A5", 8, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Int64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD28 00 50 01 A5", 8, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 00 50 01 A5", 8, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Int64, 64, true, 0xA5 };
-				yield return new object[] { "62 F3FD5D 00 50 01 A5", 8, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Int64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD48 00 50 01 A5", 8, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 00 50 01 A5", 8, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Int64, 64, true, 0xA5 };
+				yield return new object[] { "62 F3FD5D 00 50 01 A5", 8, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Int64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD48 00 50 01 A5", 8, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
 			}
 		}
 
@@ -461,15 +461,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Vpermq_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 00 D3 A5", 7, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 E3FD2B 00 D3 A5", 7, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM18, Register.YMM3, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 13FD2B 00 D3 A5", 7, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM10, Register.YMM27, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 B3FD28 00 D3 A5", 7, Code.EVEX_Vpermq_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM19, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 00 D3 A5", 7, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 E3FD2B 00 D3 A5", 7, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM18, Register.YMM3, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 13FD2B 00 D3 A5", 7, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM10, Register.YMM27, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 B3FD28 00 D3 A5", 7, Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM19, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 00 D3 A5", 7, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 E3FD4B 00 D3 A5", 7, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM18, Register.ZMM3, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 13FD4B 00 D3 A5", 7, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM10, Register.ZMM27, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 B3FD48 00 D3 A5", 7, Code.EVEX_Vpermq_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM19, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 00 D3 A5", 7, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 E3FD4B 00 D3 A5", 7, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM18, Register.ZMM3, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 13FD4B 00 D3 A5", 7, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM10, Register.ZMM27, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 B3FD48 00 D3 A5", 7, Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM19, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -504,7 +504,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VpermpdV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E3FD 01 10 A5", 6, Code.VEX_Vpermpd_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
+				yield return new object[] { "C4E3FD 01 10 A5", 6, Code.VEX_Vpermpd_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
 			}
 		}
 
@@ -533,7 +533,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VpermpdV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E3FD 01 D3 A5", 6, Code.VEX_Vpermpd_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E3FD 01 D3 A5", 6, Code.VEX_Vpermpd_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -568,7 +568,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VpermpdV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E3FD 01 10 A5", 6, Code.VEX_Vpermpd_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
+				yield return new object[] { "C4E3FD 01 10 A5", 6, Code.VEX_Vpermpd_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
 			}
 		}
 
@@ -597,7 +597,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VpermpdV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E3FD 01 D3 A5", 6, Code.VEX_Vpermpd_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E3FD 01 D3 A5", 6, Code.VEX_Vpermpd_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -632,7 +632,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VpermpdV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E3FD 01 10 A5", 6, Code.VEX_Vpermpd_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
+				yield return new object[] { "C4E3FD 01 10 A5", 6, Code.VEX_Vpermpd_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
 			}
 		}
 
@@ -661,9 +661,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VpermpdV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E3FD 01 D3 A5", 6, Code.VEX_Vpermpd_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
-				yield return new object[] { "C463FD 01 D3 A5", 6, Code.VEX_Vpermpd_VY_WY_Ib, Register.YMM10, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4C3FD 01 D3 A5", 6, Code.VEX_Vpermpd_VY_WY_Ib, Register.YMM2, Register.YMM11, 0xA5 };
+				yield return new object[] { "C4E3FD 01 D3 A5", 6, Code.VEX_Vpermpd_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C463FD 01 D3 A5", 6, Code.VEX_Vpermpd_ymm_ymmm256_imm8, Register.YMM10, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4C3FD 01 D3 A5", 6, Code.VEX_Vpermpd_ymm_ymmm256_imm8, Register.YMM2, Register.YMM11, 0xA5 };
 			}
 		}
 
@@ -703,13 +703,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Vpermpd_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 01 50 01 A5", 8, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
-				yield return new object[] { "62 F3FD3D 01 50 01 A5", 8, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD28 01 50 01 A5", 8, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 01 50 01 A5", 8, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
+				yield return new object[] { "62 F3FD3D 01 50 01 A5", 8, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD28 01 50 01 A5", 8, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 01 50 01 A5", 8, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
-				yield return new object[] { "62 F3FD5D 01 50 01 A5", 8, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD48 01 50 01 A5", 8, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 01 50 01 A5", 8, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
+				yield return new object[] { "62 F3FD5D 01 50 01 A5", 8, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD48 01 50 01 A5", 8, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
 			}
 		}
 
@@ -743,11 +743,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Vpermpd_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 01 D3 A5", 7, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD28 01 D3 A5", 7, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 01 D3 A5", 7, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD28 01 D3 A5", 7, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 01 D3 A5", 7, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD48 01 D3 A5", 7, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 01 D3 A5", 7, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD48 01 D3 A5", 7, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -787,13 +787,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Vpermpd_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 01 50 01 A5", 8, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
-				yield return new object[] { "62 F3FD3D 01 50 01 A5", 8, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD28 01 50 01 A5", 8, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 01 50 01 A5", 8, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
+				yield return new object[] { "62 F3FD3D 01 50 01 A5", 8, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD28 01 50 01 A5", 8, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 01 50 01 A5", 8, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
-				yield return new object[] { "62 F3FD5D 01 50 01 A5", 8, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD48 01 50 01 A5", 8, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 01 50 01 A5", 8, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
+				yield return new object[] { "62 F3FD5D 01 50 01 A5", 8, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD48 01 50 01 A5", 8, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
 			}
 		}
 
@@ -827,11 +827,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Vpermpd_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 01 D3 A5", 7, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD28 01 D3 A5", 7, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 01 D3 A5", 7, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD28 01 D3 A5", 7, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 01 D3 A5", 7, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD48 01 D3 A5", 7, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 01 D3 A5", 7, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD48 01 D3 A5", 7, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -871,13 +871,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Vpermpd_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 01 50 01 A5", 8, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
-				yield return new object[] { "62 F3FD3D 01 50 01 A5", 8, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD28 01 50 01 A5", 8, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 01 50 01 A5", 8, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
+				yield return new object[] { "62 F3FD3D 01 50 01 A5", 8, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD28 01 50 01 A5", 8, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 01 50 01 A5", 8, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
-				yield return new object[] { "62 F3FD5D 01 50 01 A5", 8, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD48 01 50 01 A5", 8, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 01 50 01 A5", 8, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
+				yield return new object[] { "62 F3FD5D 01 50 01 A5", 8, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD48 01 50 01 A5", 8, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
 			}
 		}
 
@@ -911,15 +911,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Vpermpd_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F3FDAB 01 D3 A5", 7, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 E3FD2B 01 D3 A5", 7, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM18, Register.YMM3, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 13FD2B 01 D3 A5", 7, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM10, Register.YMM27, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 B3FD28 01 D3 A5", 7, Code.EVEX_Vpermpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM19, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 01 D3 A5", 7, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 E3FD2B 01 D3 A5", 7, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM18, Register.YMM3, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 13FD2B 01 D3 A5", 7, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM10, Register.YMM27, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 B3FD28 01 D3 A5", 7, Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM19, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 01 D3 A5", 7, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 E3FD4B 01 D3 A5", 7, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM18, Register.ZMM3, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 13FD4B 01 D3 A5", 7, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM10, Register.ZMM27, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 B3FD48 01 D3 A5", 7, Code.EVEX_Vpermpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM19, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 01 D3 A5", 7, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 E3FD4B 01 D3 A5", 7, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM18, Register.ZMM3, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 13FD4B 01 D3 A5", 7, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM10, Register.ZMM27, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 B3FD48 01 D3 A5", 7, Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM19, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -957,9 +957,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VpblenddV_VX_HX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "C4E349 02 10 A5", 6, Code.VEX_Vpblendd_VX_HX_WX_Ib, Register.XMM2, Register.XMM6, MemorySize.Packed128_Int32, 0xA5 };
+				yield return new object[] { "C4E349 02 10 A5", 6, Code.VEX_Vpblendd_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM6, MemorySize.Packed128_Int32, 0xA5 };
 
-				yield return new object[] { "C4E34D 02 10 A5", 6, Code.VEX_Vpblendd_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, MemorySize.Packed256_Int32, 0xA5 };
+				yield return new object[] { "C4E34D 02 10 A5", 6, Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, MemorySize.Packed256_Int32, 0xA5 };
 			}
 		}
 
@@ -991,9 +991,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VpblenddV_VX_HX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "C4E349 02 D3 A5", 6, Code.VEX_Vpblendd_VX_HX_WX_Ib, Register.XMM2, Register.XMM6, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4E349 02 D3 A5", 6, Code.VEX_Vpblendd_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM6, Register.XMM3, 0xA5 };
 
-				yield return new object[] { "C4E34D 02 D3 A5", 6, Code.VEX_Vpblendd_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E34D 02 D3 A5", 6, Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -1031,9 +1031,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VpblenddV_VX_HX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "C4E349 02 10 A5", 6, Code.VEX_Vpblendd_VX_HX_WX_Ib, Register.XMM2, Register.XMM6, MemorySize.Packed128_Int32, 0xA5 };
+				yield return new object[] { "C4E349 02 10 A5", 6, Code.VEX_Vpblendd_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM6, MemorySize.Packed128_Int32, 0xA5 };
 
-				yield return new object[] { "C4E34D 02 10 A5", 6, Code.VEX_Vpblendd_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, MemorySize.Packed256_Int32, 0xA5 };
+				yield return new object[] { "C4E34D 02 10 A5", 6, Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, MemorySize.Packed256_Int32, 0xA5 };
 			}
 		}
 
@@ -1065,9 +1065,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VpblenddV_VX_HX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "C4E349 02 D3 A5", 6, Code.VEX_Vpblendd_VX_HX_WX_Ib, Register.XMM2, Register.XMM6, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4E349 02 D3 A5", 6, Code.VEX_Vpblendd_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM6, Register.XMM3, 0xA5 };
 
-				yield return new object[] { "C4E34D 02 D3 A5", 6, Code.VEX_Vpblendd_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E34D 02 D3 A5", 6, Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -1105,9 +1105,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VpblenddV_VX_HX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "C4E349 02 10 A5", 6, Code.VEX_Vpblendd_VX_HX_WX_Ib, Register.XMM2, Register.XMM6, MemorySize.Packed128_Int32, 0xA5 };
+				yield return new object[] { "C4E349 02 10 A5", 6, Code.VEX_Vpblendd_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM6, MemorySize.Packed128_Int32, 0xA5 };
 
-				yield return new object[] { "C4E34D 02 10 A5", 6, Code.VEX_Vpblendd_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, MemorySize.Packed256_Int32, 0xA5 };
+				yield return new object[] { "C4E34D 02 10 A5", 6, Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, MemorySize.Packed256_Int32, 0xA5 };
 			}
 		}
 
@@ -1139,15 +1139,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VpblenddV_VX_HX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "C4E349 02 D3 A5", 6, Code.VEX_Vpblendd_VX_HX_WX_Ib, Register.XMM2, Register.XMM6, Register.XMM3, 0xA5 };
-				yield return new object[] { "C46349 02 D3 A5", 6, Code.VEX_Vpblendd_VX_HX_WX_Ib, Register.XMM10, Register.XMM6, Register.XMM3, 0xA5 };
-				yield return new object[] { "C4E309 02 D3 A5", 6, Code.VEX_Vpblendd_VX_HX_WX_Ib, Register.XMM2, Register.XMM14, Register.XMM3, 0xA5 };
-				yield return new object[] { "C4C349 02 D3 A5", 6, Code.VEX_Vpblendd_VX_HX_WX_Ib, Register.XMM2, Register.XMM6, Register.XMM11, 0xA5 };
+				yield return new object[] { "C4E349 02 D3 A5", 6, Code.VEX_Vpblendd_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM6, Register.XMM3, 0xA5 };
+				yield return new object[] { "C46349 02 D3 A5", 6, Code.VEX_Vpblendd_xmm_xmm_xmmm128_imm8, Register.XMM10, Register.XMM6, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4E309 02 D3 A5", 6, Code.VEX_Vpblendd_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM14, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4C349 02 D3 A5", 6, Code.VEX_Vpblendd_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM6, Register.XMM11, 0xA5 };
 
-				yield return new object[] { "C4E34D 02 D3 A5", 6, Code.VEX_Vpblendd_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4634D 02 D3 A5", 6, Code.VEX_Vpblendd_VY_HY_WY_Ib, Register.YMM10, Register.YMM6, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4E30D 02 D3 A5", 6, Code.VEX_Vpblendd_VY_HY_WY_Ib, Register.YMM2, Register.YMM14, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4C34D 02 D3 A5", 6, Code.VEX_Vpblendd_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, Register.YMM11, 0xA5 };
+				yield return new object[] { "C4E34D 02 D3 A5", 6, Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4634D 02 D3 A5", 6, Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8, Register.YMM10, Register.YMM6, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E30D 02 D3 A5", 6, Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM14, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4C34D 02 D3 A5", 6, Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, Register.YMM11, 0xA5 };
 			}
 		}
 
@@ -1190,29 +1190,29 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_ValigndV_VX_k1z_HX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F34D0B 03 50 01 A5", 8, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int32, 16, false, 0xA5 };
-				yield return new object[] { "62 F34D9D 03 50 01 A5", 8, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int32, 4, true, 0xA5 };
-				yield return new object[] { "62 F34D08 03 50 01 A5", 8, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int32, 16, false, 0xA5 };
+				yield return new object[] { "62 F34D0B 03 50 01 A5", 8, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int32, 16, false, 0xA5 };
+				yield return new object[] { "62 F34D9D 03 50 01 A5", 8, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int32, 4, true, 0xA5 };
+				yield return new object[] { "62 F34D08 03 50 01 A5", 8, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int32, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F34D2B 03 50 01 A5", 8, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int32, 32, false, 0xA5 };
-				yield return new object[] { "62 F34DBD 03 50 01 A5", 8, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int32, 4, true, 0xA5 };
-				yield return new object[] { "62 F34D28 03 50 01 A5", 8, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int32, 32, false, 0xA5 };
+				yield return new object[] { "62 F34D2B 03 50 01 A5", 8, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int32, 32, false, 0xA5 };
+				yield return new object[] { "62 F34DBD 03 50 01 A5", 8, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int32, 4, true, 0xA5 };
+				yield return new object[] { "62 F34D28 03 50 01 A5", 8, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int32, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F34D4B 03 50 01 A5", 8, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int32, 64, false, 0xA5 };
-				yield return new object[] { "62 F34DDD 03 50 01 A5", 8, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int32, 4, true, 0xA5 };
-				yield return new object[] { "62 F34D48 03 50 01 A5", 8, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int32, 64, false, 0xA5 };
+				yield return new object[] { "62 F34D4B 03 50 01 A5", 8, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int32, 64, false, 0xA5 };
+				yield return new object[] { "62 F34DDD 03 50 01 A5", 8, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int32, 4, true, 0xA5 };
+				yield return new object[] { "62 F34D48 03 50 01 A5", 8, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int32, 64, false, 0xA5 };
 
-				yield return new object[] { "62 F3CD0B 03 50 01 A5", 8, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int64, 16, false, 0xA5 };
-				yield return new object[] { "62 F3CD9D 03 50 01 A5", 8, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int64, 8, true, 0xA5 };
-				yield return new object[] { "62 F3CD08 03 50 01 A5", 8, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int64, 16, false, 0xA5 };
+				yield return new object[] { "62 F3CD0B 03 50 01 A5", 8, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int64, 16, false, 0xA5 };
+				yield return new object[] { "62 F3CD9D 03 50 01 A5", 8, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int64, 8, true, 0xA5 };
+				yield return new object[] { "62 F3CD08 03 50 01 A5", 8, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int64, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F3CD2B 03 50 01 A5", 8, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int64, 32, false, 0xA5 };
-				yield return new object[] { "62 F3CDBD 03 50 01 A5", 8, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int64, 8, true, 0xA5 };
-				yield return new object[] { "62 F3CD28 03 50 01 A5", 8, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3CD2B 03 50 01 A5", 8, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3CDBD 03 50 01 A5", 8, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int64, 8, true, 0xA5 };
+				yield return new object[] { "62 F3CD28 03 50 01 A5", 8, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3CD4B 03 50 01 A5", 8, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int64, 64, false, 0xA5 };
-				yield return new object[] { "62 F3CDDD 03 50 01 A5", 8, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int64, 8, true, 0xA5 };
-				yield return new object[] { "62 F3CD48 03 50 01 A5", 8, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3CD4B 03 50 01 A5", 8, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3CDDD 03 50 01 A5", 8, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int64, 8, true, 0xA5 };
+				yield return new object[] { "62 F3CD48 03 50 01 A5", 8, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
 			}
 		}
 
@@ -1249,23 +1249,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_ValigndV_VX_k1z_HX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F34D0B 03 D3 A5", 7, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F34D8B 03 D3 A5", 7, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F34D0B 03 D3 A5", 7, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F34D8B 03 D3 A5", 7, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
 
-				yield return new object[] { "62 F34D2B 03 D3 A5", 7, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F34DAB 03 D3 A5", 7, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F34D2B 03 D3 A5", 7, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F34DAB 03 D3 A5", 7, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
 
-				yield return new object[] { "62 F34D4B 03 D3 A5", 7, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F34DCB 03 D3 A5", 7, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F34D4B 03 D3 A5", 7, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F34DCB 03 D3 A5", 7, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
 
-				yield return new object[] { "62 F3CD8B 03 D3 A5", 7, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
-				yield return new object[] { "62 F3CD0B 03 D3 A5", 7, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CD8B 03 D3 A5", 7, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F3CD0B 03 D3 A5", 7, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
 
-				yield return new object[] { "62 F3CDAB 03 D3 A5", 7, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
-				yield return new object[] { "62 F3CD2B 03 D3 A5", 7, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CDAB 03 D3 A5", 7, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F3CD2B 03 D3 A5", 7, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
 
-				yield return new object[] { "62 F3CDCB 03 D3 A5", 7, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
-				yield return new object[] { "62 F3CD4B 03 D3 A5", 7, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CDCB 03 D3 A5", 7, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F3CD4B 03 D3 A5", 7, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
 			}
 		}
 
@@ -1308,29 +1308,29 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_ValigndV_VX_k1z_HX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F34D0B 03 50 01 A5", 8, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int32, 16, false, 0xA5 };
-				yield return new object[] { "62 F34D9D 03 50 01 A5", 8, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int32, 4, true, 0xA5 };
-				yield return new object[] { "62 F34D08 03 50 01 A5", 8, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int32, 16, false, 0xA5 };
+				yield return new object[] { "62 F34D0B 03 50 01 A5", 8, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int32, 16, false, 0xA5 };
+				yield return new object[] { "62 F34D9D 03 50 01 A5", 8, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int32, 4, true, 0xA5 };
+				yield return new object[] { "62 F34D08 03 50 01 A5", 8, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int32, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F34D2B 03 50 01 A5", 8, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int32, 32, false, 0xA5 };
-				yield return new object[] { "62 F34DBD 03 50 01 A5", 8, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int32, 4, true, 0xA5 };
-				yield return new object[] { "62 F34D28 03 50 01 A5", 8, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int32, 32, false, 0xA5 };
+				yield return new object[] { "62 F34D2B 03 50 01 A5", 8, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int32, 32, false, 0xA5 };
+				yield return new object[] { "62 F34DBD 03 50 01 A5", 8, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int32, 4, true, 0xA5 };
+				yield return new object[] { "62 F34D28 03 50 01 A5", 8, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int32, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F34D4B 03 50 01 A5", 8, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int32, 64, false, 0xA5 };
-				yield return new object[] { "62 F34DDD 03 50 01 A5", 8, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int32, 4, true, 0xA5 };
-				yield return new object[] { "62 F34D48 03 50 01 A5", 8, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int32, 64, false, 0xA5 };
+				yield return new object[] { "62 F34D4B 03 50 01 A5", 8, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int32, 64, false, 0xA5 };
+				yield return new object[] { "62 F34DDD 03 50 01 A5", 8, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int32, 4, true, 0xA5 };
+				yield return new object[] { "62 F34D48 03 50 01 A5", 8, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int32, 64, false, 0xA5 };
 
-				yield return new object[] { "62 F3CD0B 03 50 01 A5", 8, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int64, 16, false, 0xA5 };
-				yield return new object[] { "62 F3CD9D 03 50 01 A5", 8, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int64, 8, true, 0xA5 };
-				yield return new object[] { "62 F3CD08 03 50 01 A5", 8, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int64, 16, false, 0xA5 };
+				yield return new object[] { "62 F3CD0B 03 50 01 A5", 8, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int64, 16, false, 0xA5 };
+				yield return new object[] { "62 F3CD9D 03 50 01 A5", 8, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int64, 8, true, 0xA5 };
+				yield return new object[] { "62 F3CD08 03 50 01 A5", 8, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int64, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F3CD2B 03 50 01 A5", 8, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int64, 32, false, 0xA5 };
-				yield return new object[] { "62 F3CDBD 03 50 01 A5", 8, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int64, 8, true, 0xA5 };
-				yield return new object[] { "62 F3CD28 03 50 01 A5", 8, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3CD2B 03 50 01 A5", 8, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3CDBD 03 50 01 A5", 8, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int64, 8, true, 0xA5 };
+				yield return new object[] { "62 F3CD28 03 50 01 A5", 8, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3CD4B 03 50 01 A5", 8, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int64, 64, false, 0xA5 };
-				yield return new object[] { "62 F3CDDD 03 50 01 A5", 8, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int64, 8, true, 0xA5 };
-				yield return new object[] { "62 F3CD48 03 50 01 A5", 8, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3CD4B 03 50 01 A5", 8, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3CDDD 03 50 01 A5", 8, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int64, 8, true, 0xA5 };
+				yield return new object[] { "62 F3CD48 03 50 01 A5", 8, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
 			}
 		}
 
@@ -1367,23 +1367,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_ValigndV_VX_k1z_HX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F34D0B 03 D3 A5", 7, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F34D8B 03 D3 A5", 7, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F34D0B 03 D3 A5", 7, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F34D8B 03 D3 A5", 7, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
 
-				yield return new object[] { "62 F34D2B 03 D3 A5", 7, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F34DAB 03 D3 A5", 7, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F34D2B 03 D3 A5", 7, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F34DAB 03 D3 A5", 7, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
 
-				yield return new object[] { "62 F34D4B 03 D3 A5", 7, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F34DCB 03 D3 A5", 7, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F34D4B 03 D3 A5", 7, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F34DCB 03 D3 A5", 7, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
 
-				yield return new object[] { "62 F3CD8B 03 D3 A5", 7, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
-				yield return new object[] { "62 F3CD0B 03 D3 A5", 7, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CD8B 03 D3 A5", 7, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F3CD0B 03 D3 A5", 7, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
 
-				yield return new object[] { "62 F3CDAB 03 D3 A5", 7, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
-				yield return new object[] { "62 F3CD2B 03 D3 A5", 7, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CDAB 03 D3 A5", 7, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F3CD2B 03 D3 A5", 7, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
 
-				yield return new object[] { "62 F3CDCB 03 D3 A5", 7, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
-				yield return new object[] { "62 F3CD4B 03 D3 A5", 7, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CDCB 03 D3 A5", 7, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F3CD4B 03 D3 A5", 7, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
 			}
 		}
 
@@ -1426,29 +1426,29 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_ValigndV_VX_k1z_HX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F34D0B 03 50 01 A5", 8, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int32, 16, false, 0xA5 };
-				yield return new object[] { "62 F34D9D 03 50 01 A5", 8, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int32, 4, true, 0xA5 };
-				yield return new object[] { "62 F34D08 03 50 01 A5", 8, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int32, 16, false, 0xA5 };
+				yield return new object[] { "62 F34D0B 03 50 01 A5", 8, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int32, 16, false, 0xA5 };
+				yield return new object[] { "62 F34D9D 03 50 01 A5", 8, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int32, 4, true, 0xA5 };
+				yield return new object[] { "62 F34D08 03 50 01 A5", 8, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int32, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F34D2B 03 50 01 A5", 8, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int32, 32, false, 0xA5 };
-				yield return new object[] { "62 F34DBD 03 50 01 A5", 8, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int32, 4, true, 0xA5 };
-				yield return new object[] { "62 F34D28 03 50 01 A5", 8, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int32, 32, false, 0xA5 };
+				yield return new object[] { "62 F34D2B 03 50 01 A5", 8, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int32, 32, false, 0xA5 };
+				yield return new object[] { "62 F34DBD 03 50 01 A5", 8, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int32, 4, true, 0xA5 };
+				yield return new object[] { "62 F34D28 03 50 01 A5", 8, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int32, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F34D4B 03 50 01 A5", 8, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int32, 64, false, 0xA5 };
-				yield return new object[] { "62 F34DDD 03 50 01 A5", 8, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int32, 4, true, 0xA5 };
-				yield return new object[] { "62 F34D48 03 50 01 A5", 8, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int32, 64, false, 0xA5 };
+				yield return new object[] { "62 F34D4B 03 50 01 A5", 8, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int32, 64, false, 0xA5 };
+				yield return new object[] { "62 F34DDD 03 50 01 A5", 8, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int32, 4, true, 0xA5 };
+				yield return new object[] { "62 F34D48 03 50 01 A5", 8, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int32, 64, false, 0xA5 };
 
-				yield return new object[] { "62 F3CD0B 03 50 01 A5", 8, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int64, 16, false, 0xA5 };
-				yield return new object[] { "62 F3CD9D 03 50 01 A5", 8, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int64, 8, true, 0xA5 };
-				yield return new object[] { "62 F3CD08 03 50 01 A5", 8, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int64, 16, false, 0xA5 };
+				yield return new object[] { "62 F3CD0B 03 50 01 A5", 8, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_Int64, 16, false, 0xA5 };
+				yield return new object[] { "62 F3CD9D 03 50 01 A5", 8, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Broadcast128_Int64, 8, true, 0xA5 };
+				yield return new object[] { "62 F3CD08 03 50 01 A5", 8, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_Int64, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F3CD2B 03 50 01 A5", 8, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int64, 32, false, 0xA5 };
-				yield return new object[] { "62 F3CDBD 03 50 01 A5", 8, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int64, 8, true, 0xA5 };
-				yield return new object[] { "62 F3CD28 03 50 01 A5", 8, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3CD2B 03 50 01 A5", 8, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_Int64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3CDBD 03 50 01 A5", 8, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Broadcast256_Int64, 8, true, 0xA5 };
+				yield return new object[] { "62 F3CD28 03 50 01 A5", 8, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_Int64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3CD4B 03 50 01 A5", 8, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int64, 64, false, 0xA5 };
-				yield return new object[] { "62 F3CDDD 03 50 01 A5", 8, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int64, 8, true, 0xA5 };
-				yield return new object[] { "62 F3CD48 03 50 01 A5", 8, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3CD4B 03 50 01 A5", 8, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_Int64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3CDDD 03 50 01 A5", 8, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Broadcast512_Int64, 8, true, 0xA5 };
+				yield return new object[] { "62 F3CD48 03 50 01 A5", 8, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_Int64, 64, false, 0xA5 };
 			}
 		}
 
@@ -1485,41 +1485,41 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_ValigndV_VX_k1z_HX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F34D0B 03 D3 A5", 7, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 E30D0B 03 D3 A5", 7, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM18, Register.XMM14, Register.XMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 134D03 03 D3 A5", 7, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM10, Register.XMM22, Register.XMM27, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 B34D0B 03 D3 A5", 7, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM19, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F34D8B 03 D3 A5", 7, Code.EVEX_Valignd_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F34D0B 03 D3 A5", 7, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 E30D0B 03 D3 A5", 7, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM18, Register.XMM14, Register.XMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 134D03 03 D3 A5", 7, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM10, Register.XMM22, Register.XMM27, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 B34D0B 03 D3 A5", 7, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.XMM19, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F34D8B 03 D3 A5", 7, Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
 
-				yield return new object[] { "62 F34D2B 03 D3 A5", 7, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 E30D2B 03 D3 A5", 7, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM18, Register.YMM14, Register.YMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 134D23 03 D3 A5", 7, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM10, Register.YMM22, Register.YMM27, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 B34D2B 03 D3 A5", 7, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM19, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F34DAB 03 D3 A5", 7, Code.EVEX_Valignd_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F34D2B 03 D3 A5", 7, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 E30D2B 03 D3 A5", 7, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM18, Register.YMM14, Register.YMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 134D23 03 D3 A5", 7, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM10, Register.YMM22, Register.YMM27, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 B34D2B 03 D3 A5", 7, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.YMM19, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F34DAB 03 D3 A5", 7, Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
 
-				yield return new object[] { "62 F34D4B 03 D3 A5", 7, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 E30D4B 03 D3 A5", 7, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM18, Register.ZMM14, Register.ZMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 134D43 03 D3 A5", 7, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM10, Register.ZMM22, Register.ZMM27, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 B34D4B 03 D3 A5", 7, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM19, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F34DCB 03 D3 A5", 7, Code.EVEX_Valignd_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 F34D4B 03 D3 A5", 7, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 E30D4B 03 D3 A5", 7, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM18, Register.ZMM14, Register.ZMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 134D43 03 D3 A5", 7, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM10, Register.ZMM22, Register.ZMM27, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 B34D4B 03 D3 A5", 7, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM19, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F34DCB 03 D3 A5", 7, Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
 
-				yield return new object[] { "62 F3CD8B 03 D3 A5", 7, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
-				yield return new object[] { "62 E38D0B 03 D3 A5", 7, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM18, Register.XMM14, Register.XMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 13CD03 03 D3 A5", 7, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM10, Register.XMM22, Register.XMM27, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 B3CD0B 03 D3 A5", 7, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM19, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F3CD0B 03 D3 A5", 7, Code.EVEX_Valignq_VX_k1z_HX_WX_Ib_b, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CD8B 03 D3 A5", 7, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 E38D0B 03 D3 A5", 7, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM18, Register.XMM14, Register.XMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 13CD03 03 D3 A5", 7, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM10, Register.XMM22, Register.XMM27, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 B3CD0B 03 D3 A5", 7, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.XMM19, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CD0B 03 D3 A5", 7, Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, false, 0xA5 };
 
-				yield return new object[] { "62 F3CDAB 03 D3 A5", 7, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
-				yield return new object[] { "62 E38D2B 03 D3 A5", 7, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM18, Register.YMM14, Register.YMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 13CD23 03 D3 A5", 7, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM10, Register.YMM22, Register.YMM27, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 B3CD2B 03 D3 A5", 7, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM19, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F3CD2B 03 D3 A5", 7, Code.EVEX_Valignq_VY_k1z_HY_WY_Ib_b, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CDAB 03 D3 A5", 7, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 E38D2B 03 D3 A5", 7, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM18, Register.YMM14, Register.YMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 13CD23 03 D3 A5", 7, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM10, Register.YMM22, Register.YMM27, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 B3CD2B 03 D3 A5", 7, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.YMM19, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CD2B 03 D3 A5", 7, Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, false, 0xA5 };
 
-				yield return new object[] { "62 F3CDCB 03 D3 A5", 7, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
-				yield return new object[] { "62 E38D4B 03 D3 A5", 7, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM18, Register.ZMM14, Register.ZMM3, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 13CD43 03 D3 A5", 7, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM10, Register.ZMM22, Register.ZMM27, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 B3CD4B 03 D3 A5", 7, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM19, Register.K3, false, 0xA5 };
-				yield return new object[] { "62 F3CD4B 03 D3 A5", 7, Code.EVEX_Valignq_VZ_k1z_HZ_WZ_Ib_b, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CDCB 03 D3 A5", 7, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, true, 0xA5 };
+				yield return new object[] { "62 E38D4B 03 D3 A5", 7, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM18, Register.ZMM14, Register.ZMM3, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 13CD43 03 D3 A5", 7, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM10, Register.ZMM22, Register.ZMM27, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 B3CD4B 03 D3 A5", 7, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM19, Register.K3, false, 0xA5 };
+				yield return new object[] { "62 F3CD4B 03 D3 A5", 7, Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, false, 0xA5 };
 			}
 		}
 
@@ -1554,9 +1554,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VpermilpsV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E379 04 10 A5", 6, Code.VEX_Vpermilps_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_Float32, 0xA5 };
+				yield return new object[] { "C4E379 04 10 A5", 6, Code.VEX_Vpermilps_xmm_xmmm128_imm8, Register.XMM2, MemorySize.Packed128_Float32, 0xA5 };
 
-				yield return new object[] { "C4E37D 04 10 A5", 6, Code.VEX_Vpermilps_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Float32, 0xA5 };
+				yield return new object[] { "C4E37D 04 10 A5", 6, Code.VEX_Vpermilps_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Float32, 0xA5 };
 			}
 		}
 
@@ -1585,9 +1585,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VpermilpsV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E379 04 D3 A5", 6, Code.VEX_Vpermilps_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4E379 04 D3 A5", 6, Code.VEX_Vpermilps_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, 0xA5 };
 
-				yield return new object[] { "C4E37D 04 D3 A5", 6, Code.VEX_Vpermilps_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E37D 04 D3 A5", 6, Code.VEX_Vpermilps_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -1622,9 +1622,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VpermilpsV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E379 04 10 A5", 6, Code.VEX_Vpermilps_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_Float32, 0xA5 };
+				yield return new object[] { "C4E379 04 10 A5", 6, Code.VEX_Vpermilps_xmm_xmmm128_imm8, Register.XMM2, MemorySize.Packed128_Float32, 0xA5 };
 
-				yield return new object[] { "C4E37D 04 10 A5", 6, Code.VEX_Vpermilps_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Float32, 0xA5 };
+				yield return new object[] { "C4E37D 04 10 A5", 6, Code.VEX_Vpermilps_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Float32, 0xA5 };
 			}
 		}
 
@@ -1653,9 +1653,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VpermilpsV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E379 04 D3 A5", 6, Code.VEX_Vpermilps_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4E379 04 D3 A5", 6, Code.VEX_Vpermilps_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, 0xA5 };
 
-				yield return new object[] { "C4E37D 04 D3 A5", 6, Code.VEX_Vpermilps_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E37D 04 D3 A5", 6, Code.VEX_Vpermilps_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -1690,9 +1690,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VpermilpsV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E379 04 10 A5", 6, Code.VEX_Vpermilps_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_Float32, 0xA5 };
+				yield return new object[] { "C4E379 04 10 A5", 6, Code.VEX_Vpermilps_xmm_xmmm128_imm8, Register.XMM2, MemorySize.Packed128_Float32, 0xA5 };
 
-				yield return new object[] { "C4E37D 04 10 A5", 6, Code.VEX_Vpermilps_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Float32, 0xA5 };
+				yield return new object[] { "C4E37D 04 10 A5", 6, Code.VEX_Vpermilps_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Float32, 0xA5 };
 			}
 		}
 
@@ -1721,13 +1721,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VpermilpsV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E379 04 D3 A5", 6, Code.VEX_Vpermilps_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
-				yield return new object[] { "C46379 04 D3 A5", 6, Code.VEX_Vpermilps_VX_WX_Ib, Register.XMM10, Register.XMM3, 0xA5 };
-				yield return new object[] { "C4C379 04 D3 A5", 6, Code.VEX_Vpermilps_VX_WX_Ib, Register.XMM2, Register.XMM11, 0xA5 };
+				yield return new object[] { "C4E379 04 D3 A5", 6, Code.VEX_Vpermilps_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, 0xA5 };
+				yield return new object[] { "C46379 04 D3 A5", 6, Code.VEX_Vpermilps_xmm_xmmm128_imm8, Register.XMM10, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4C379 04 D3 A5", 6, Code.VEX_Vpermilps_xmm_xmmm128_imm8, Register.XMM2, Register.XMM11, 0xA5 };
 
-				yield return new object[] { "C4E37D 04 D3 A5", 6, Code.VEX_Vpermilps_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4637D 04 D3 A5", 6, Code.VEX_Vpermilps_VY_WY_Ib, Register.YMM10, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4C37D 04 D3 A5", 6, Code.VEX_Vpermilps_VY_WY_Ib, Register.YMM2, Register.YMM11, 0xA5 };
+				yield return new object[] { "C4E37D 04 D3 A5", 6, Code.VEX_Vpermilps_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4637D 04 D3 A5", 6, Code.VEX_Vpermilps_ymm_ymmm256_imm8, Register.YMM10, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4C37D 04 D3 A5", 6, Code.VEX_Vpermilps_ymm_ymmm256_imm8, Register.YMM2, Register.YMM11, 0xA5 };
 			}
 		}
 
@@ -1767,17 +1767,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Vpermilps_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F37D8B 04 50 01 A5", 8, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.K3, MemorySize.Packed128_Float32, 16, true, 0xA5 };
-				yield return new object[] { "62 F37D1D 04 50 01 A5", 8, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float32, 4, false, 0xA5 };
-				yield return new object[] { "62 F37D08 04 50 01 A5", 8, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.None, MemorySize.Packed128_Float32, 16, false, 0xA5 };
+				yield return new object[] { "62 F37D8B 04 50 01 A5", 8, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.K3, MemorySize.Packed128_Float32, 16, true, 0xA5 };
+				yield return new object[] { "62 F37D1D 04 50 01 A5", 8, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float32, 4, false, 0xA5 };
+				yield return new object[] { "62 F37D08 04 50 01 A5", 8, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.None, MemorySize.Packed128_Float32, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F37DAB 04 50 01 A5", 8, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Float32, 32, true, 0xA5 };
-				yield return new object[] { "62 F37D3D 04 50 01 A5", 8, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float32, 4, false, 0xA5 };
-				yield return new object[] { "62 F37D28 04 50 01 A5", 8, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Float32, 32, false, 0xA5 };
+				yield return new object[] { "62 F37DAB 04 50 01 A5", 8, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Float32, 32, true, 0xA5 };
+				yield return new object[] { "62 F37D3D 04 50 01 A5", 8, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float32, 4, false, 0xA5 };
+				yield return new object[] { "62 F37D28 04 50 01 A5", 8, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Float32, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F37DCB 04 50 01 A5", 8, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Float32, 64, true, 0xA5 };
-				yield return new object[] { "62 F37D5D 04 50 01 A5", 8, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float32, 4, false, 0xA5 };
-				yield return new object[] { "62 F37D48 04 50 01 A5", 8, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Float32, 64, false, 0xA5 };
+				yield return new object[] { "62 F37DCB 04 50 01 A5", 8, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Float32, 64, true, 0xA5 };
+				yield return new object[] { "62 F37D5D 04 50 01 A5", 8, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float32, 4, false, 0xA5 };
+				yield return new object[] { "62 F37D48 04 50 01 A5", 8, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Float32, 64, false, 0xA5 };
 			}
 		}
 
@@ -1811,14 +1811,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Vpermilps_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F37D8B 04 D3 A5", 7, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F37D08 04 D3 A5", 7, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F37D8B 04 D3 A5", 7, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F37D08 04 D3 A5", 7, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F37DAB 04 D3 A5", 7, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F37D28 04 D3 A5", 7, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F37DAB 04 D3 A5", 7, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F37D28 04 D3 A5", 7, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F37DCB 04 D3 A5", 7, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F37D48 04 D3 A5", 7, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F37DCB 04 D3 A5", 7, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F37D48 04 D3 A5", 7, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -1858,17 +1858,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Vpermilps_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F37D8B 04 50 01 A5", 8, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.K3, MemorySize.Packed128_Float32, 16, true, 0xA5 };
-				yield return new object[] { "62 F37D1D 04 50 01 A5", 8, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float32, 4, false, 0xA5 };
-				yield return new object[] { "62 F37D08 04 50 01 A5", 8, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.None, MemorySize.Packed128_Float32, 16, false, 0xA5 };
+				yield return new object[] { "62 F37D8B 04 50 01 A5", 8, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.K3, MemorySize.Packed128_Float32, 16, true, 0xA5 };
+				yield return new object[] { "62 F37D1D 04 50 01 A5", 8, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float32, 4, false, 0xA5 };
+				yield return new object[] { "62 F37D08 04 50 01 A5", 8, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.None, MemorySize.Packed128_Float32, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F37DAB 04 50 01 A5", 8, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Float32, 32, true, 0xA5 };
-				yield return new object[] { "62 F37D3D 04 50 01 A5", 8, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float32, 4, false, 0xA5 };
-				yield return new object[] { "62 F37D28 04 50 01 A5", 8, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Float32, 32, false, 0xA5 };
+				yield return new object[] { "62 F37DAB 04 50 01 A5", 8, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Float32, 32, true, 0xA5 };
+				yield return new object[] { "62 F37D3D 04 50 01 A5", 8, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float32, 4, false, 0xA5 };
+				yield return new object[] { "62 F37D28 04 50 01 A5", 8, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Float32, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F37DCB 04 50 01 A5", 8, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Float32, 64, true, 0xA5 };
-				yield return new object[] { "62 F37D5D 04 50 01 A5", 8, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float32, 4, false, 0xA5 };
-				yield return new object[] { "62 F37D48 04 50 01 A5", 8, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Float32, 64, false, 0xA5 };
+				yield return new object[] { "62 F37DCB 04 50 01 A5", 8, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Float32, 64, true, 0xA5 };
+				yield return new object[] { "62 F37D5D 04 50 01 A5", 8, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float32, 4, false, 0xA5 };
+				yield return new object[] { "62 F37D48 04 50 01 A5", 8, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Float32, 64, false, 0xA5 };
 			}
 		}
 
@@ -1902,14 +1902,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Vpermilps_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F37D8B 04 D3 A5", 7, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F37D08 04 D3 A5", 7, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F37D8B 04 D3 A5", 7, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F37D08 04 D3 A5", 7, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F37DAB 04 D3 A5", 7, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F37D28 04 D3 A5", 7, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F37DAB 04 D3 A5", 7, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F37D28 04 D3 A5", 7, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F37DCB 04 D3 A5", 7, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F37D48 04 D3 A5", 7, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F37DCB 04 D3 A5", 7, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F37D48 04 D3 A5", 7, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -1949,17 +1949,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Vpermilps_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F37D8B 04 50 01 A5", 8, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.K3, MemorySize.Packed128_Float32, 16, true, 0xA5 };
-				yield return new object[] { "62 F37D1D 04 50 01 A5", 8, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float32, 4, false, 0xA5 };
-				yield return new object[] { "62 F37D08 04 50 01 A5", 8, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.None, MemorySize.Packed128_Float32, 16, false, 0xA5 };
+				yield return new object[] { "62 F37D8B 04 50 01 A5", 8, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.K3, MemorySize.Packed128_Float32, 16, true, 0xA5 };
+				yield return new object[] { "62 F37D1D 04 50 01 A5", 8, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float32, 4, false, 0xA5 };
+				yield return new object[] { "62 F37D08 04 50 01 A5", 8, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.None, MemorySize.Packed128_Float32, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F37DAB 04 50 01 A5", 8, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Float32, 32, true, 0xA5 };
-				yield return new object[] { "62 F37D3D 04 50 01 A5", 8, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float32, 4, false, 0xA5 };
-				yield return new object[] { "62 F37D28 04 50 01 A5", 8, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Float32, 32, false, 0xA5 };
+				yield return new object[] { "62 F37DAB 04 50 01 A5", 8, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Float32, 32, true, 0xA5 };
+				yield return new object[] { "62 F37D3D 04 50 01 A5", 8, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float32, 4, false, 0xA5 };
+				yield return new object[] { "62 F37D28 04 50 01 A5", 8, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Float32, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F37DCB 04 50 01 A5", 8, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Float32, 64, true, 0xA5 };
-				yield return new object[] { "62 F37D5D 04 50 01 A5", 8, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float32, 4, false, 0xA5 };
-				yield return new object[] { "62 F37D48 04 50 01 A5", 8, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Float32, 64, false, 0xA5 };
+				yield return new object[] { "62 F37DCB 04 50 01 A5", 8, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Float32, 64, true, 0xA5 };
+				yield return new object[] { "62 F37D5D 04 50 01 A5", 8, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float32, 4, false, 0xA5 };
+				yield return new object[] { "62 F37D48 04 50 01 A5", 8, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Float32, 64, false, 0xA5 };
 			}
 		}
 
@@ -1993,20 +1993,20 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Vpermilps_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F37D8B 04 D3 A5", 7, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 E37D0B 04 D3 A5", 7, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM18, Register.XMM3, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 137D0B 04 D3 A5", 7, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM10, Register.XMM27, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 B37D08 04 D3 A5", 7, Code.EVEX_Vpermilps_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM19, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F37D8B 04 D3 A5", 7, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 E37D0B 04 D3 A5", 7, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM18, Register.XMM3, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 137D0B 04 D3 A5", 7, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM10, Register.XMM27, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 B37D08 04 D3 A5", 7, Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register.XMM2, Register.XMM19, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F37DAB 04 D3 A5", 7, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 E37D2B 04 D3 A5", 7, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM18, Register.YMM3, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 137D2B 04 D3 A5", 7, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM10, Register.YMM27, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 B37D28 04 D3 A5", 7, Code.EVEX_Vpermilps_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM19, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F37DAB 04 D3 A5", 7, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 E37D2B 04 D3 A5", 7, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM18, Register.YMM3, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 137D2B 04 D3 A5", 7, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM10, Register.YMM27, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 B37D28 04 D3 A5", 7, Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register.YMM2, Register.YMM19, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F37DCB 04 D3 A5", 7, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 E37D4B 04 D3 A5", 7, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM18, Register.ZMM3, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 137D4B 04 D3 A5", 7, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM10, Register.ZMM27, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 B37D48 04 D3 A5", 7, Code.EVEX_Vpermilps_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM19, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F37DCB 04 D3 A5", 7, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 E37D4B 04 D3 A5", 7, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM18, Register.ZMM3, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 137D4B 04 D3 A5", 7, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM10, Register.ZMM27, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 B37D48 04 D3 A5", 7, Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8, Register.ZMM2, Register.ZMM19, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -2041,9 +2041,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VpermilpdV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E379 05 10 A5", 6, Code.VEX_Vpermilpd_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_Float64, 0xA5 };
+				yield return new object[] { "C4E379 05 10 A5", 6, Code.VEX_Vpermilpd_xmm_xmmm128_imm8, Register.XMM2, MemorySize.Packed128_Float64, 0xA5 };
 
-				yield return new object[] { "C4E37D 05 10 A5", 6, Code.VEX_Vpermilpd_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
+				yield return new object[] { "C4E37D 05 10 A5", 6, Code.VEX_Vpermilpd_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
 			}
 		}
 
@@ -2072,9 +2072,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_VpermilpdV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E379 05 D3 A5", 6, Code.VEX_Vpermilpd_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4E379 05 D3 A5", 6, Code.VEX_Vpermilpd_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, 0xA5 };
 
-				yield return new object[] { "C4E37D 05 D3 A5", 6, Code.VEX_Vpermilpd_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E37D 05 D3 A5", 6, Code.VEX_Vpermilpd_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -2109,9 +2109,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VpermilpdV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E379 05 10 A5", 6, Code.VEX_Vpermilpd_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_Float64, 0xA5 };
+				yield return new object[] { "C4E379 05 10 A5", 6, Code.VEX_Vpermilpd_xmm_xmmm128_imm8, Register.XMM2, MemorySize.Packed128_Float64, 0xA5 };
 
-				yield return new object[] { "C4E37D 05 10 A5", 6, Code.VEX_Vpermilpd_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
+				yield return new object[] { "C4E37D 05 10 A5", 6, Code.VEX_Vpermilpd_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
 			}
 		}
 
@@ -2140,9 +2140,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_VpermilpdV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E379 05 D3 A5", 6, Code.VEX_Vpermilpd_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4E379 05 D3 A5", 6, Code.VEX_Vpermilpd_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, 0xA5 };
 
-				yield return new object[] { "C4E37D 05 D3 A5", 6, Code.VEX_Vpermilpd_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E37D 05 D3 A5", 6, Code.VEX_Vpermilpd_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -2177,9 +2177,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VpermilpdV_VX_WX_1_Data {
 			get {
-				yield return new object[] { "C4E379 05 10 A5", 6, Code.VEX_Vpermilpd_VX_WX_Ib, Register.XMM2, MemorySize.Packed128_Float64, 0xA5 };
+				yield return new object[] { "C4E379 05 10 A5", 6, Code.VEX_Vpermilpd_xmm_xmmm128_imm8, Register.XMM2, MemorySize.Packed128_Float64, 0xA5 };
 
-				yield return new object[] { "C4E37D 05 10 A5", 6, Code.VEX_Vpermilpd_VY_WY_Ib, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
+				yield return new object[] { "C4E37D 05 10 A5", 6, Code.VEX_Vpermilpd_ymm_ymmm256_imm8, Register.YMM2, MemorySize.Packed256_Float64, 0xA5 };
 			}
 		}
 
@@ -2208,13 +2208,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_VpermilpdV_VX_WX_2_Data {
 			get {
-				yield return new object[] { "C4E379 05 D3 A5", 6, Code.VEX_Vpermilpd_VX_WX_Ib, Register.XMM2, Register.XMM3, 0xA5 };
-				yield return new object[] { "C46379 05 D3 A5", 6, Code.VEX_Vpermilpd_VX_WX_Ib, Register.XMM10, Register.XMM3, 0xA5 };
-				yield return new object[] { "C4C379 05 D3 A5", 6, Code.VEX_Vpermilpd_VX_WX_Ib, Register.XMM2, Register.XMM11, 0xA5 };
+				yield return new object[] { "C4E379 05 D3 A5", 6, Code.VEX_Vpermilpd_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, 0xA5 };
+				yield return new object[] { "C46379 05 D3 A5", 6, Code.VEX_Vpermilpd_xmm_xmmm128_imm8, Register.XMM10, Register.XMM3, 0xA5 };
+				yield return new object[] { "C4C379 05 D3 A5", 6, Code.VEX_Vpermilpd_xmm_xmmm128_imm8, Register.XMM2, Register.XMM11, 0xA5 };
 
-				yield return new object[] { "C4E37D 05 D3 A5", 6, Code.VEX_Vpermilpd_VY_WY_Ib, Register.YMM2, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4637D 05 D3 A5", 6, Code.VEX_Vpermilpd_VY_WY_Ib, Register.YMM10, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4C37D 05 D3 A5", 6, Code.VEX_Vpermilpd_VY_WY_Ib, Register.YMM2, Register.YMM11, 0xA5 };
+				yield return new object[] { "C4E37D 05 D3 A5", 6, Code.VEX_Vpermilpd_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4637D 05 D3 A5", 6, Code.VEX_Vpermilpd_ymm_ymmm256_imm8, Register.YMM10, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4C37D 05 D3 A5", 6, Code.VEX_Vpermilpd_ymm_ymmm256_imm8, Register.YMM2, Register.YMM11, 0xA5 };
 			}
 		}
 
@@ -2254,17 +2254,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Vpermilpd_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F3FD8B 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.K3, MemorySize.Packed128_Float64, 16, true, 0xA5 };
-				yield return new object[] { "62 F3FD1D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD08 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.None, MemorySize.Packed128_Float64, 16, false, 0xA5 };
+				yield return new object[] { "62 F3FD8B 05 50 01 A5", 8, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.K3, MemorySize.Packed128_Float64, 16, true, 0xA5 };
+				yield return new object[] { "62 F3FD1D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD08 05 50 01 A5", 8, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.None, MemorySize.Packed128_Float64, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDAB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
-				yield return new object[] { "62 F3FD3D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD28 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
+				yield return new object[] { "62 F3FD3D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD28 05 50 01 A5", 8, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
-				yield return new object[] { "62 F3FD5D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD48 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
+				yield return new object[] { "62 F3FD5D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD48 05 50 01 A5", 8, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
 			}
 		}
 
@@ -2298,14 +2298,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Vpermilpd_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F3FD8B 05 D3 A5", 7, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD08 05 D3 A5", 7, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FD8B 05 D3 A5", 7, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD08 05 D3 A5", 7, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDAB 05 D3 A5", 7, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD28 05 D3 A5", 7, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 05 D3 A5", 7, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD28 05 D3 A5", 7, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 05 D3 A5", 7, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD48 05 D3 A5", 7, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 05 D3 A5", 7, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD48 05 D3 A5", 7, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -2345,17 +2345,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Vpermilpd_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F3FD8B 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.K3, MemorySize.Packed128_Float64, 16, true, 0xA5 };
-				yield return new object[] { "62 F3FD1D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD08 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.None, MemorySize.Packed128_Float64, 16, false, 0xA5 };
+				yield return new object[] { "62 F3FD8B 05 50 01 A5", 8, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.K3, MemorySize.Packed128_Float64, 16, true, 0xA5 };
+				yield return new object[] { "62 F3FD1D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD08 05 50 01 A5", 8, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.None, MemorySize.Packed128_Float64, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDAB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
-				yield return new object[] { "62 F3FD3D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD28 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
+				yield return new object[] { "62 F3FD3D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD28 05 50 01 A5", 8, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
-				yield return new object[] { "62 F3FD5D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD48 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
+				yield return new object[] { "62 F3FD5D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD48 05 50 01 A5", 8, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
 			}
 		}
 
@@ -2389,14 +2389,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Vpermilpd_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F3FD8B 05 D3 A5", 7, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD08 05 D3 A5", 7, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FD8B 05 D3 A5", 7, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD08 05 D3 A5", 7, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDAB 05 D3 A5", 7, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD28 05 D3 A5", 7, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 05 D3 A5", 7, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD28 05 D3 A5", 7, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 05 D3 A5", 7, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 F3FD48 05 D3 A5", 7, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 05 D3 A5", 7, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 F3FD48 05 D3 A5", 7, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -2436,17 +2436,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Vpermilpd_VX_k1z_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "62 F3FD8B 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.K3, MemorySize.Packed128_Float64, 16, true, 0xA5 };
-				yield return new object[] { "62 F3FD1D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD08 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.None, MemorySize.Packed128_Float64, 16, false, 0xA5 };
+				yield return new object[] { "62 F3FD8B 05 50 01 A5", 8, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.K3, MemorySize.Packed128_Float64, 16, true, 0xA5 };
+				yield return new object[] { "62 F3FD1D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.K5, MemorySize.Broadcast128_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD08 05 50 01 A5", 8, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.None, MemorySize.Packed128_Float64, 16, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDAB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
-				yield return new object[] { "62 F3FD3D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD28 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K3, MemorySize.Packed256_Float64, 32, true, 0xA5 };
+				yield return new object[] { "62 F3FD3D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.K5, MemorySize.Broadcast256_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD28 05 50 01 A5", 8, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.None, MemorySize.Packed256_Float64, 32, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
-				yield return new object[] { "62 F3FD5D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
-				yield return new object[] { "62 F3FD48 05 50 01 A5", 8, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 05 50 01 A5", 8, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K3, MemorySize.Packed512_Float64, 64, true, 0xA5 };
+				yield return new object[] { "62 F3FD5D 05 50 01 A5", 8, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.K5, MemorySize.Broadcast512_Float64, 8, false, 0xA5 };
+				yield return new object[] { "62 F3FD48 05 50 01 A5", 8, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.None, MemorySize.Packed512_Float64, 64, false, 0xA5 };
 			}
 		}
 
@@ -2480,20 +2480,20 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Vpermilpd_VX_k1z_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "62 F3FD8B 05 D3 A5", 7, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 E3FD0B 05 D3 A5", 7, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM18, Register.XMM3, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 13FD0B 05 D3 A5", 7, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM10, Register.XMM27, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 B3FD08 05 D3 A5", 7, Code.EVEX_Vpermilpd_VX_k1z_WX_Ib_b, Register.XMM2, Register.XMM19, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FD8B 05 D3 A5", 7, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 E3FD0B 05 D3 A5", 7, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM18, Register.XMM3, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 13FD0B 05 D3 A5", 7, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM10, Register.XMM27, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 B3FD08 05 D3 A5", 7, Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register.XMM2, Register.XMM19, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDAB 05 D3 A5", 7, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 E3FD2B 05 D3 A5", 7, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM18, Register.YMM3, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 13FD2B 05 D3 A5", 7, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM10, Register.YMM27, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 B3FD28 05 D3 A5", 7, Code.EVEX_Vpermilpd_VY_k1z_WY_Ib_b, Register.YMM2, Register.YMM19, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDAB 05 D3 A5", 7, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 E3FD2B 05 D3 A5", 7, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM18, Register.YMM3, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 13FD2B 05 D3 A5", 7, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM10, Register.YMM27, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 B3FD28 05 D3 A5", 7, Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register.YMM2, Register.YMM19, Register.None, RoundingControl.None, false, 0xA5 };
 
-				yield return new object[] { "62 F3FDCB 05 D3 A5", 7, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
-				yield return new object[] { "62 E3FD4B 05 D3 A5", 7, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM18, Register.ZMM3, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 13FD4B 05 D3 A5", 7, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM10, Register.ZMM27, Register.K3, RoundingControl.None, false, 0xA5 };
-				yield return new object[] { "62 B3FD48 05 D3 A5", 7, Code.EVEX_Vpermilpd_VZ_k1z_WZ_Ib_b, Register.ZMM2, Register.ZMM19, Register.None, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 F3FDCB 05 D3 A5", 7, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, 0xA5 };
+				yield return new object[] { "62 E3FD4B 05 D3 A5", 7, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM18, Register.ZMM3, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 13FD4B 05 D3 A5", 7, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM10, Register.ZMM27, Register.K3, RoundingControl.None, false, 0xA5 };
+				yield return new object[] { "62 B3FD48 05 D3 A5", 7, Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8, Register.ZMM2, Register.ZMM19, Register.None, RoundingControl.None, false, 0xA5 };
 			}
 		}
 
@@ -2531,7 +2531,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Vperm2f128V_VX_HX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "C4E34D 06 10 A5", 6, Code.VEX_Vperm2f128_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, MemorySize.Packed256_Float128, 0xA5 };
+				yield return new object[] { "C4E34D 06 10 A5", 6, Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, MemorySize.Packed256_Float128, 0xA5 };
 			}
 		}
 
@@ -2563,7 +2563,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Vperm2f128V_VX_HX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "C4E34D 06 D3 A5", 6, Code.VEX_Vperm2f128_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E34D 06 D3 A5", 6, Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -2601,7 +2601,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Vperm2f128V_VX_HX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "C4E34D 06 10 A5", 6, Code.VEX_Vperm2f128_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, MemorySize.Packed256_Float128, 0xA5 };
+				yield return new object[] { "C4E34D 06 10 A5", 6, Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, MemorySize.Packed256_Float128, 0xA5 };
 			}
 		}
 
@@ -2633,7 +2633,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Vperm2f128V_VX_HX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "C4E34D 06 D3 A5", 6, Code.VEX_Vperm2f128_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E34D 06 D3 A5", 6, Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
 			}
 		}
 
@@ -2671,7 +2671,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Vperm2f128V_VX_HX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "C4E34D 06 10 A5", 6, Code.VEX_Vperm2f128_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, MemorySize.Packed256_Float128, 0xA5 };
+				yield return new object[] { "C4E34D 06 10 A5", 6, Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, MemorySize.Packed256_Float128, 0xA5 };
 			}
 		}
 
@@ -2703,10 +2703,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Vperm2f128V_VX_HX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "C4E34D 06 D3 A5", 6, Code.VEX_Vperm2f128_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4634D 06 D3 A5", 6, Code.VEX_Vperm2f128_VY_HY_WY_Ib, Register.YMM10, Register.YMM6, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4E30D 06 D3 A5", 6, Code.VEX_Vperm2f128_VY_HY_WY_Ib, Register.YMM2, Register.YMM14, Register.YMM3, 0xA5 };
-				yield return new object[] { "C4C34D 06 D3 A5", 6, Code.VEX_Vperm2f128_VY_HY_WY_Ib, Register.YMM2, Register.YMM6, Register.YMM11, 0xA5 };
+				yield return new object[] { "C4E34D 06 D3 A5", 6, Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4634D 06 D3 A5", 6, Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8, Register.YMM10, Register.YMM6, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4E30D 06 D3 A5", 6, Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM14, Register.YMM3, 0xA5 };
+				yield return new object[] { "C4C34D 06 D3 A5", 6, Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM6, Register.YMM11, 0xA5 };
 			}
 		}
 	}

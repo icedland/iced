@@ -48,15 +48,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Mask_VK_RK_1_Data {
 			get {
-				yield return new object[] { "C4E3F9 30 D3 A5", 6, Code.VEX_Kshiftrw_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 30 D3 A5", 6, Code.VEX_Kshiftrb_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E3F9 31 D3 A5", 6, Code.VEX_Kshiftrq_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 31 D3 A5", 6, Code.VEX_Kshiftrd_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 30 D3 A5", 6, Code.VEX_Kshiftrw_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 30 D3 A5", 6, Code.VEX_Kshiftrb_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 31 D3 A5", 6, Code.VEX_Kshiftrq_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 31 D3 A5", 6, Code.VEX_Kshiftrd_k_k_imm8, Register.K2, Register.K3, 0xA5 };
 
-				yield return new object[] { "C4E3F9 32 D3 A5", 6, Code.VEX_Kshiftlw_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 32 D3 A5", 6, Code.VEX_Kshiftlb_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E3F9 33 D3 A5", 6, Code.VEX_Kshiftlq_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 33 D3 A5", 6, Code.VEX_Kshiftld_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 32 D3 A5", 6, Code.VEX_Kshiftlw_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 32 D3 A5", 6, Code.VEX_Kshiftlb_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 33 D3 A5", 6, Code.VEX_Kshiftlq_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 33 D3 A5", 6, Code.VEX_Kshiftld_k_k_imm8, Register.K2, Register.K3, 0xA5 };
 			}
 		}
 
@@ -85,15 +85,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Mask_VK_RK_1_Data {
 			get {
-				yield return new object[] { "C4E3F9 30 D3 A5", 6, Code.VEX_Kshiftrw_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 30 D3 A5", 6, Code.VEX_Kshiftrb_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E3F9 31 D3 A5", 6, Code.VEX_Kshiftrq_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 31 D3 A5", 6, Code.VEX_Kshiftrd_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 30 D3 A5", 6, Code.VEX_Kshiftrw_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 30 D3 A5", 6, Code.VEX_Kshiftrb_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 31 D3 A5", 6, Code.VEX_Kshiftrq_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 31 D3 A5", 6, Code.VEX_Kshiftrd_k_k_imm8, Register.K2, Register.K3, 0xA5 };
 
-				yield return new object[] { "C4E3F9 32 D3 A5", 6, Code.VEX_Kshiftlw_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 32 D3 A5", 6, Code.VEX_Kshiftlb_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E3F9 33 D3 A5", 6, Code.VEX_Kshiftlq_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 33 D3 A5", 6, Code.VEX_Kshiftld_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 32 D3 A5", 6, Code.VEX_Kshiftlw_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 32 D3 A5", 6, Code.VEX_Kshiftlb_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 33 D3 A5", 6, Code.VEX_Kshiftlq_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 33 D3 A5", 6, Code.VEX_Kshiftld_k_k_imm8, Register.K2, Register.K3, 0xA5 };
 			}
 		}
 
@@ -122,15 +122,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Mask_VK_RK_1_Data {
 			get {
-				yield return new object[] { "C4E3F9 30 D3 A5", 6, Code.VEX_Kshiftrw_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 30 D3 A5", 6, Code.VEX_Kshiftrb_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E3F9 31 D3 A5", 6, Code.VEX_Kshiftrq_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 31 D3 A5", 6, Code.VEX_Kshiftrd_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 30 D3 A5", 6, Code.VEX_Kshiftrw_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 30 D3 A5", 6, Code.VEX_Kshiftrb_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 31 D3 A5", 6, Code.VEX_Kshiftrq_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 31 D3 A5", 6, Code.VEX_Kshiftrd_k_k_imm8, Register.K2, Register.K3, 0xA5 };
 
-				yield return new object[] { "C4E3F9 32 D3 A5", 6, Code.VEX_Kshiftlw_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 32 D3 A5", 6, Code.VEX_Kshiftlb_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E3F9 33 D3 A5", 6, Code.VEX_Kshiftlq_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
-				yield return new object[] { "C4E379 33 D3 A5", 6, Code.VEX_Kshiftld_VK_RK_Ib, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 32 D3 A5", 6, Code.VEX_Kshiftlw_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 32 D3 A5", 6, Code.VEX_Kshiftlb_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E3F9 33 D3 A5", 6, Code.VEX_Kshiftlq_k_k_imm8, Register.K2, Register.K3, 0xA5 };
+				yield return new object[] { "C4E379 33 D3 A5", 6, Code.VEX_Kshiftld_k_k_imm8, Register.K2, Register.K3, 0xA5 };
 			}
 		}
 	}

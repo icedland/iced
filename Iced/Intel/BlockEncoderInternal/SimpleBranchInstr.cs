@@ -106,88 +106,88 @@ namespace Iced.Intel.BlockEncoderInternal {
 		static Code ToNativeBranchCode(Code code, int bitness) {
 			Code c16, c32, c64;
 			switch (code) {
-			case Code.Loopne_Jb16_CX:
-			case Code.Loopne_Jb32_CX:
-				c16 = Code.Loopne_Jb16_CX;
-				c32 = Code.Loopne_Jb32_CX;
+			case Code.Loopne_rel8_16_CX:
+			case Code.Loopne_rel8_32_CX:
+				c16 = Code.Loopne_rel8_16_CX;
+				c32 = Code.Loopne_rel8_32_CX;
 				c64 = Code.INVALID;
 				break;
 
-			case Code.Loopne_Jb16_ECX:
-			case Code.Loopne_Jb32_ECX:
-			case Code.Loopne_Jb64_ECX:
-				c16 = Code.Loopne_Jb16_ECX;
-				c32 = Code.Loopne_Jb32_ECX;
-				c64 = Code.Loopne_Jb64_ECX;
+			case Code.Loopne_rel8_16_ECX:
+			case Code.Loopne_rel8_32_ECX:
+			case Code.Loopne_rel8_64_ECX:
+				c16 = Code.Loopne_rel8_16_ECX;
+				c32 = Code.Loopne_rel8_32_ECX;
+				c64 = Code.Loopne_rel8_64_ECX;
 				break;
 
-			case Code.Loopne_Jb64_RCX:
+			case Code.Loopne_rel8_64_RCX:
 				c16 = Code.INVALID;
 				c32 = Code.INVALID;
-				c64 = Code.Loopne_Jb64_RCX;
+				c64 = Code.Loopne_rel8_64_RCX;
 				break;
 
-			case Code.Loope_Jb16_CX:
-			case Code.Loope_Jb32_CX:
-				c16 = Code.Loope_Jb16_CX;
-				c32 = Code.Loope_Jb32_CX;
+			case Code.Loope_rel8_16_CX:
+			case Code.Loope_rel8_32_CX:
+				c16 = Code.Loope_rel8_16_CX;
+				c32 = Code.Loope_rel8_32_CX;
 				c64 = Code.INVALID;
 				break;
 
-			case Code.Loope_Jb16_ECX:
-			case Code.Loope_Jb32_ECX:
-			case Code.Loope_Jb64_ECX:
-				c16 = Code.Loope_Jb16_ECX;
-				c32 = Code.Loope_Jb32_ECX;
-				c64 = Code.Loope_Jb64_ECX;
+			case Code.Loope_rel8_16_ECX:
+			case Code.Loope_rel8_32_ECX:
+			case Code.Loope_rel8_64_ECX:
+				c16 = Code.Loope_rel8_16_ECX;
+				c32 = Code.Loope_rel8_32_ECX;
+				c64 = Code.Loope_rel8_64_ECX;
 				break;
 
-			case Code.Loope_Jb64_RCX:
+			case Code.Loope_rel8_64_RCX:
 				c16 = Code.INVALID;
 				c32 = Code.INVALID;
-				c64 = Code.Loope_Jb64_RCX;
+				c64 = Code.Loope_rel8_64_RCX;
 				break;
 
-			case Code.Loop_Jb16_CX:
-			case Code.Loop_Jb32_CX:
-				c16 = Code.Loop_Jb16_CX;
-				c32 = Code.Loop_Jb32_CX;
+			case Code.Loop_rel8_16_CX:
+			case Code.Loop_rel8_32_CX:
+				c16 = Code.Loop_rel8_16_CX;
+				c32 = Code.Loop_rel8_32_CX;
 				c64 = Code.INVALID;
 				break;
 
-			case Code.Loop_Jb16_ECX:
-			case Code.Loop_Jb32_ECX:
-			case Code.Loop_Jb64_ECX:
-				c16 = Code.Loop_Jb16_ECX;
-				c32 = Code.Loop_Jb32_ECX;
-				c64 = Code.Loop_Jb64_ECX;
+			case Code.Loop_rel8_16_ECX:
+			case Code.Loop_rel8_32_ECX:
+			case Code.Loop_rel8_64_ECX:
+				c16 = Code.Loop_rel8_16_ECX;
+				c32 = Code.Loop_rel8_32_ECX;
+				c64 = Code.Loop_rel8_64_ECX;
 				break;
 
-			case Code.Loop_Jb64_RCX:
+			case Code.Loop_rel8_64_RCX:
 				c16 = Code.INVALID;
 				c32 = Code.INVALID;
-				c64 = Code.Loop_Jb64_RCX;
+				c64 = Code.Loop_rel8_64_RCX;
 				break;
 
-			case Code.Jcxz_Jb16:
-			case Code.Jcxz_Jb32:
-				c16 = Code.Jcxz_Jb16;
-				c32 = Code.Jcxz_Jb32;
+			case Code.Jcxz_rel8_16:
+			case Code.Jcxz_rel8_32:
+				c16 = Code.Jcxz_rel8_16;
+				c32 = Code.Jcxz_rel8_32;
 				c64 = Code.INVALID;
 				break;
 
-			case Code.Jecxz_Jb16:
-			case Code.Jecxz_Jb32:
-			case Code.Jecxz_Jb64:
-				c16 = Code.Jecxz_Jb16;
-				c32 = Code.Jecxz_Jb32;
-				c64 = Code.Jecxz_Jb64;
+			case Code.Jecxz_rel8_16:
+			case Code.Jecxz_rel8_32:
+			case Code.Jecxz_rel8_64:
+				c16 = Code.Jecxz_rel8_16;
+				c32 = Code.Jecxz_rel8_32;
+				c64 = Code.Jecxz_rel8_64;
 				break;
 
-			case Code.Jrcxz_Jb64:
+			case Code.Jrcxz_rel8_64:
 				c16 = Code.INVALID;
 				c32 = Code.INVALID;
-				c64 = Code.Jrcxz_Jb64;
+				c64 = Code.Jrcxz_rel8_64;
 				break;
 
 			default:
@@ -287,20 +287,20 @@ namespace Iced.Intel.BlockEncoderInternal {
 				Code codeNear;
 				switch (encoder.Bitness) {
 				case 16:
-					instr.Code = Code.Jmp_Jb16;
-					codeNear = Code.Jmp_Jw16;
+					instr.Code = Code.Jmp_rel8_16;
+					codeNear = Code.Jmp_rel16;
 					instr.Op0Kind = OpKind.NearBranch16;
 					break;
 
 				case 32:
-					instr.Code = Code.Jmp_Jb32;
-					codeNear = Code.Jmp_Jd32;
+					instr.Code = Code.Jmp_rel8_32;
+					codeNear = Code.Jmp_rel32_32;
 					instr.Op0Kind = OpKind.NearBranch32;
 					break;
 
 				case 64:
-					instr.Code = Code.Jmp_Jb64;
-					codeNear = Code.Jmp_Jd64;
+					instr.Code = Code.Jmp_rel8_64;
+					codeNear = Code.Jmp_rel32_64;
 					instr.Op0Kind = OpKind.NearBranch64;
 					break;
 
@@ -344,17 +344,17 @@ namespace Iced.Intel.BlockEncoderInternal {
 				instr.NearBranch64Target = IP + longInstructionSize;
 				switch (encoder.Bitness) {
 				case 16:
-					instr.Code = Code.Jmp_Jb16;
+					instr.Code = Code.Jmp_rel8_16;
 					instr.Op0Kind = OpKind.NearBranch16;
 					break;
 
 				case 32:
-					instr.Code = Code.Jmp_Jb32;
+					instr.Code = Code.Jmp_rel8_32;
 					instr.Op0Kind = OpKind.NearBranch32;
 					break;
 
 				case 64:
-					instr.Code = Code.Jmp_Jb64;
+					instr.Code = Code.Jmp_rel8_64;
 					instr.Op0Kind = OpKind.NearBranch64;
 					break;
 

@@ -25,11 +25,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("C8 5AA5 A6", 4, 0xA55A, 0xA6)]
 		[InlineData("C8 A55A 6A", 4, 0x5AA5, 0x6A)]
-		void Test16_Enterw_Iw_Ib_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
+		void Test16_Enterw_imm16_imm8_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Enterw_Iw_Ib, instr.Code);
+			Assert.Equal(Code.Enterw_imm16_imm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -47,11 +47,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("66 C8 5AA5 A6", 5, 0xA55A, 0xA6)]
 		[InlineData("66 C8 A55A 6A", 5, 0x5AA5, 0x6A)]
-		void Test32_Enterw_Iw_Ib_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
+		void Test32_Enterw_imm16_imm8_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Enterw_Iw_Ib, instr.Code);
+			Assert.Equal(Code.Enterw_imm16_imm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -71,11 +71,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 C8 A55A 6A", 5, 0x5AA5, 0x6A)]
 		[InlineData("66 47 C8 5AA5 A6", 6, 0xA55A, 0xA6)]
 		[InlineData("66 47 C8 A55A 6A", 6, 0x5AA5, 0x6A)]
-		void Test64_Enterw_Iw_Ib_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
+		void Test64_Enterw_imm16_imm8_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Enterw_Iw_Ib, instr.Code);
+			Assert.Equal(Code.Enterw_imm16_imm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -93,11 +93,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("66 C8 5AA5 A6", 5, 0xA55A, 0xA6)]
 		[InlineData("66 C8 A55A 6A", 5, 0x5AA5, 0x6A)]
-		void Test16_Enterd_Iw_Ib_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
+		void Test16_Enterd_imm16_imm8_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Enterd_Iw_Ib, instr.Code);
+			Assert.Equal(Code.Enterd_imm16_imm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -115,11 +115,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("C8 5AA5 A6", 4, 0xA55A, 0xA6)]
 		[InlineData("C8 A55A 6A", 4, 0x5AA5, 0x6A)]
-		void Test32_Enterd_Iw_Ib_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
+		void Test32_Enterd_imm16_imm8_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Enterd_Iw_Ib, instr.Code);
+			Assert.Equal(Code.Enterd_imm16_imm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -141,11 +141,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("47 C8 A55A 6A", 5, 0x5AA5, 0x6A)]
 		[InlineData("4F C8 5AA5 A6", 5, 0xA55A, 0xA6)]
 		[InlineData("4F C8 A55A 6A", 5, 0x5AA5, 0x6A)]
-		void Test64_Enterq_Iw_Ib_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
+		void Test64_Enterq_imm16_imm8_1(string hexBytes, int byteLength, ushort immediate16, byte immediate8) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Enterq_Iw_Ib, instr.Code);
+			Assert.Equal(Code.Enterq_imm16_imm8, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -252,11 +252,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("CA 5AA5", 3, 0xA55A)]
 		[InlineData("CA A55A", 3, 0x5AA5)]
-		void Test16_Retfw_Iw_1(string hexBytes, int byteLength, ushort immediate) {
+		void Test16_Retfw_imm16_1(string hexBytes, int byteLength, ushort immediate) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Retfw_Iw, instr.Code);
+			Assert.Equal(Code.Retfw_imm16, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -271,11 +271,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("66 CA 5AA5", 4, 0xA55A)]
 		[InlineData("66 CA A55A", 4, 0x5AA5)]
-		void Test32_Retfw_Iw_1(string hexBytes, int byteLength, ushort immediate) {
+		void Test32_Retfw_imm16_1(string hexBytes, int byteLength, ushort immediate) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Retfw_Iw, instr.Code);
+			Assert.Equal(Code.Retfw_imm16, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -292,11 +292,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 CA A55A", 4, 0x5AA5)]
 		[InlineData("66 47 CA 5AA5", 5, 0xA55A)]
 		[InlineData("66 47 CA A55A", 5, 0x5AA5)]
-		void Test64_Retfw_Iw_1(string hexBytes, int byteLength, ushort immediate) {
+		void Test64_Retfw_imm16_1(string hexBytes, int byteLength, ushort immediate) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Retfw_Iw, instr.Code);
+			Assert.Equal(Code.Retfw_imm16, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -311,11 +311,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("66 CA 5AA5", 4, 0xA55A)]
 		[InlineData("66 CA A55A", 4, 0x5AA5)]
-		void Test16_Retfd_Iw_1(string hexBytes, int byteLength, ushort immediate) {
+		void Test16_Retfd_imm16_1(string hexBytes, int byteLength, ushort immediate) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Retfd_Iw, instr.Code);
+			Assert.Equal(Code.Retfd_imm16, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -330,11 +330,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("CA 5AA5", 3, 0xA55A)]
 		[InlineData("CA A55A", 3, 0x5AA5)]
-		void Test32_Retfd_Iw_1(string hexBytes, int byteLength, ushort immediate) {
+		void Test32_Retfd_imm16_1(string hexBytes, int byteLength, ushort immediate) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Retfd_Iw, instr.Code);
+			Assert.Equal(Code.Retfd_imm16, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -351,11 +351,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("CA A55A", 3, 0x5AA5)]
 		[InlineData("47 CA 5AA5", 4, 0xA55A)]
 		[InlineData("47 CA A55A", 4, 0x5AA5)]
-		void Test64_Retfd_Iw_1(string hexBytes, int byteLength, ushort immediate) {
+		void Test64_Retfd_imm16_1(string hexBytes, int byteLength, ushort immediate) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Retfd_Iw, instr.Code);
+			Assert.Equal(Code.Retfd_imm16, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -372,11 +372,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("48 CA A55A", 4, 0x5AA5)]
 		[InlineData("4F CA 5AA5", 4, 0xA55A)]
 		[InlineData("4F CA A55A", 4, 0x5AA5)]
-		void Test64_Retfq_Iw_1(string hexBytes, int byteLength, ushort immediate) {
+		void Test64_Retfq_imm16_1(string hexBytes, int byteLength, ushort immediate) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Retfq_Iw, instr.Code);
+			Assert.Equal(Code.Retfq_imm16, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -537,11 +537,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("CD 5A", 2, 0x5A)]
 		[InlineData("CD A5", 2, 0xA5)]
-		void Test16_Int_Ib_1(string hexBytes, int byteLength, byte immediate8) {
+		void Test16_Int_imm8_1(string hexBytes, int byteLength, byte immediate8) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Int_Ib, instr.Code);
+			Assert.Equal(Code.Int_imm8, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -556,11 +556,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("CD 5A", 2, 0x5A)]
 		[InlineData("CD A5", 2, 0xA5)]
-		void Test32_Int_Ib_1(string hexBytes, int byteLength, byte immediate8) {
+		void Test32_Int_imm8_1(string hexBytes, int byteLength, byte immediate8) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Int_Ib, instr.Code);
+			Assert.Equal(Code.Int_imm8, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -575,11 +575,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("CD 5A", 2, 0x5A)]
 		[InlineData("CD A5", 2, 0xA5)]
-		void Test64_Int_Ib_1(string hexBytes, int byteLength, byte immediate8) {
+		void Test64_Int_imm8_1(string hexBytes, int byteLength, byte immediate8) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Int_Ib, instr.Code);
+			Assert.Equal(Code.Int_imm8, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);

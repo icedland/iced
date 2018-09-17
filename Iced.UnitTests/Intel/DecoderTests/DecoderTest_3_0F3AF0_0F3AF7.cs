@@ -54,8 +54,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_AesV_VX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "C4E37B F0 10 5A", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.EDX, MemorySize.UInt32, 0x5A };
-				yield return new object[] { "C4E3FB F0 10 5A", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.EDX, MemorySize.UInt32, 0x5A };
+				yield return new object[] { "C4E37B F0 10 5A", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.EDX, MemorySize.UInt32, 0x5A };
+				yield return new object[] { "C4E3FB F0 10 5A", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.EDX, MemorySize.UInt32, 0x5A };
 			}
 		}
 
@@ -84,8 +84,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_AesV_VX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "C4E37B F0 D3 A5", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.EDX, Register.EBX, 0xA5 };
-				yield return new object[] { "C4E3FB F0 D3 A5", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.EDX, Register.EBX, 0xA5 };
+				yield return new object[] { "C4E37B F0 D3 A5", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.EDX, Register.EBX, 0xA5 };
+				yield return new object[] { "C4E3FB F0 D3 A5", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.EDX, Register.EBX, 0xA5 };
 			}
 		}
 
@@ -120,8 +120,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_AesV_VX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "C4E37B F0 10 5A", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.EDX, MemorySize.UInt32, 0x5A };
-				yield return new object[] { "C4E3FB F0 10 5A", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.EDX, MemorySize.UInt32, 0x5A };
+				yield return new object[] { "C4E37B F0 10 5A", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.EDX, MemorySize.UInt32, 0x5A };
+				yield return new object[] { "C4E3FB F0 10 5A", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.EDX, MemorySize.UInt32, 0x5A };
 			}
 		}
 
@@ -150,8 +150,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_AesV_VX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "C4E37B F0 D3 A5", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.EDX, Register.EBX, 0xA5 };
-				yield return new object[] { "C4E3FB F0 D3 A5", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.EDX, Register.EBX, 0xA5 };
+				yield return new object[] { "C4E37B F0 D3 A5", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.EDX, Register.EBX, 0xA5 };
+				yield return new object[] { "C4E3FB F0 D3 A5", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.EDX, Register.EBX, 0xA5 };
 			}
 		}
 
@@ -186,9 +186,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_AesV_VX_WX_Ib_1_Data {
 			get {
-				yield return new object[] { "C4E37B F0 10 5A", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.EDX, MemorySize.UInt32, 0x5A };
+				yield return new object[] { "C4E37B F0 10 5A", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.EDX, MemorySize.UInt32, 0x5A };
 
-				yield return new object[] { "C4E3FB F0 10 A5", 6, Code.VEX_Rorx_Gq_Eq_Ib, Register.RDX, MemorySize.UInt64, 0xA5 };
+				yield return new object[] { "C4E3FB F0 10 A5", 6, Code.VEX_Rorx_r64_rm64_imm8, Register.RDX, MemorySize.UInt64, 0xA5 };
 			}
 		}
 
@@ -217,15 +217,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_AesV_VX_WX_Ib_2_Data {
 			get {
-				yield return new object[] { "C4E37B F0 D3 A5", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.EDX, Register.EBX, 0xA5 };
-				yield return new object[] { "C4637B F0 D3 5A", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.R10D, Register.EBX, 0x5A };
-				yield return new object[] { "C4C37B F0 D3 A5", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.EDX, Register.R11D, 0xA5 };
-				yield return new object[] { "C4437B F0 D3 5A", 6, Code.VEX_Rorx_Gd_Ed_Ib, Register.R10D, Register.R11D, 0x5A };
+				yield return new object[] { "C4E37B F0 D3 A5", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.EDX, Register.EBX, 0xA5 };
+				yield return new object[] { "C4637B F0 D3 5A", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.R10D, Register.EBX, 0x5A };
+				yield return new object[] { "C4C37B F0 D3 A5", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.EDX, Register.R11D, 0xA5 };
+				yield return new object[] { "C4437B F0 D3 5A", 6, Code.VEX_Rorx_r32_rm32_imm8, Register.R10D, Register.R11D, 0x5A };
 
-				yield return new object[] { "C4E3FB F0 D3 A5", 6, Code.VEX_Rorx_Gq_Eq_Ib, Register.RDX, Register.RBX, 0xA5 };
-				yield return new object[] { "C463FB F0 D3 5A", 6, Code.VEX_Rorx_Gq_Eq_Ib, Register.R10, Register.RBX, 0x5A };
-				yield return new object[] { "C4C3FB F0 D3 A5", 6, Code.VEX_Rorx_Gq_Eq_Ib, Register.RDX, Register.R11, 0xA5 };
-				yield return new object[] { "C443FB F0 D3 5A", 6, Code.VEX_Rorx_Gq_Eq_Ib, Register.R10, Register.R11, 0x5A };
+				yield return new object[] { "C4E3FB F0 D3 A5", 6, Code.VEX_Rorx_r64_rm64_imm8, Register.RDX, Register.RBX, 0xA5 };
+				yield return new object[] { "C463FB F0 D3 5A", 6, Code.VEX_Rorx_r64_rm64_imm8, Register.R10, Register.RBX, 0x5A };
+				yield return new object[] { "C4C3FB F0 D3 A5", 6, Code.VEX_Rorx_r64_rm64_imm8, Register.RDX, Register.R11, 0xA5 };
+				yield return new object[] { "C443FB F0 D3 5A", 6, Code.VEX_Rorx_r64_rm64_imm8, Register.R10, Register.R11, 0x5A };
 			}
 		}
 	}

@@ -999,12 +999,12 @@ after_read_prefixes:
 				}
 				if ((state.flags & StateFlags.SpecialImm) != 0) {
 					var code = instruction.Code;
-					if (code == Code.Call_Adw || code == Code.Jmp_Adw) {
+					if (code == Code.Call_ptr3216 || code == Code.Jmp_ptr3216) {
 						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (4 + 2));
 						constantOffsets.ImmediateSize = 4;
 					}
 					else {
-						Debug.Assert(code == Code.Call_Aww || code == Code.Jmp_Aww);
+						Debug.Assert(code == Code.Call_ptr1616 || code == Code.Jmp_ptr1616);
 						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (2 + 2));
 						constantOffsets.ImmediateSize = 2;
 					}

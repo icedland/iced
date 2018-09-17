@@ -99,7 +99,7 @@ namespace Iced.Intel {
 			var flags1 = InfoHandlers.Data[index];
 			var flags2 = InfoHandlers.Data[index + 1];
 
-			if (instruction.Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_VX_WX || code == Code.VEX_Vbroadcastss_VY_WX || code == Code.VEX_Vbroadcastsd_VY_WX)) {
+			if (instruction.Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64)) {
 				flags2 = (flags2 & ~((uint)InfoFlags2.CpuidFeatureMask << (int)InfoFlags2.CpuidFeatureShift)) |
 					((uint)CpuidFeature.AVX2 << (int)InfoFlags2.CpuidFeatureShift);
 			}
@@ -511,16 +511,16 @@ namespace Iced.Intel {
 				if ((flags & Flags.NoMemoryUsage) == 0) {
 					code = instruction.Code;
 					uint size;
-					if (code == Code.Pop_Eq) {
+					if (code == Code.Pop_rm64) {
 						memSize = MemorySize.UInt64;
 						size = 8;
 					}
-					else if (code == Code.Pop_Ed) {
+					else if (code == Code.Pop_rm32) {
 						memSize = MemorySize.UInt32;
 						size = 4;
 					}
 					else {
-						Debug.Assert(instruction.Code == Code.Pop_Ew);
+						Debug.Assert(instruction.Code == Code.Pop_rm16);
 						memSize = MemorySize.UInt16;
 						size = 2;
 					}
@@ -907,14 +907,14 @@ namespace Iced.Intel {
 			case CodeInfo.Cmpxchg:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (code == Code.Cmpxchg_Eq_Gq)
+					if (code == Code.Cmpxchg_rm64_r64)
 						AddRegister(flags, ref usedRegisters, Register.RAX, OpAccess.ReadCondWrite);
-					else if (code == Code.Cmpxchg_Ed_Gd)
+					else if (code == Code.Cmpxchg_rm32_r32)
 						AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.ReadCondWrite);
-					else if (code == Code.Cmpxchg_Ew_Gw)
+					else if (code == Code.Cmpxchg_rm16_r16)
 						AddRegister(flags, ref usedRegisters, Register.AX, OpAccess.ReadCondWrite);
 					else {
-						Debug.Assert(code == Code.Cmpxchg_Eb_Gb);
+						Debug.Assert(code == Code.Cmpxchg_rm8_r8);
 						AddRegister(flags, ref usedRegisters, Register.AL, OpAccess.ReadCondWrite);
 					}
 				}
@@ -922,14 +922,14 @@ namespace Iced.Intel {
 
 			case CodeInfo.Cmpxchg8b:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if (instruction.Code == Code.Cmpxchg16b_Mo) {
+					if (instruction.Code == Code.Cmpxchg16b_m128) {
 						AddRegister(flags, ref usedRegisters, Register.RDX, OpAccess.ReadCondWrite);
 						AddRegister(flags, ref usedRegisters, Register.RAX, OpAccess.ReadCondWrite);
 						AddRegister(flags, ref usedRegisters, Register.RCX, OpAccess.CondRead);
 						AddRegister(flags, ref usedRegisters, Register.RBX, OpAccess.CondRead);
 					}
 					else {
-						Debug.Assert(instruction.Code == Code.Cmpxchg8b_Mq);
+						Debug.Assert(instruction.Code == Code.Cmpxchg8b_m64);
 						AddRegister(flags, ref usedRegisters, Register.EDX, OpAccess.ReadCondWrite);
 						AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.ReadCondWrite);
 						AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.CondRead);
@@ -951,20 +951,20 @@ namespace Iced.Intel {
 			case CodeInfo.Div:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (code == Code.Idiv_Eq || code == Code.Div_Eq) {
+					if (code == Code.Idiv_rm64 || code == Code.Div_rm64) {
 						AddRegister(flags, ref usedRegisters, Register.RDX, OpAccess.ReadWrite);
 						AddRegister(flags, ref usedRegisters, Register.RAX, OpAccess.ReadWrite);
 					}
-					else if (code == Code.Idiv_Ed || code == Code.Div_Ed) {
+					else if (code == Code.Idiv_rm32 || code == Code.Div_rm32) {
 						AddRegister(flags, ref usedRegisters, Register.EDX, OpAccess.ReadWrite);
 						AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.ReadWrite);
 					}
-					else if (code == Code.Idiv_Ew || code == Code.Div_Ew) {
+					else if (code == Code.Idiv_rm16 || code == Code.Div_rm16) {
 						AddRegister(flags, ref usedRegisters, Register.DX, OpAccess.ReadWrite);
 						AddRegister(flags, ref usedRegisters, Register.AX, OpAccess.ReadWrite);
 					}
 					else {
-						Debug.Assert(code == Code.Idiv_Eb || code == Code.Div_Eb);
+						Debug.Assert(code == Code.Idiv_rm8 || code == Code.Div_rm8);
 						AddRegister(flags, ref usedRegisters, Register.AX, OpAccess.ReadWrite);
 					}
 				}
@@ -973,20 +973,20 @@ namespace Iced.Intel {
 			case CodeInfo.Mul:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (code == Code.Imul_Eq || code == Code.Mul_Eq) {
+					if (code == Code.Imul_rm64 || code == Code.Mul_rm64) {
 						AddRegister(flags, ref usedRegisters, Register.RAX, OpAccess.ReadWrite);
 						AddRegister(flags, ref usedRegisters, Register.RDX, OpAccess.Write);
 					}
-					else if (code == Code.Imul_Ed || code == Code.Mul_Ed) {
+					else if (code == Code.Imul_rm32 || code == Code.Mul_rm32) {
 						AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.ReadWrite);
 						AddRegister(flags, ref usedRegisters, Register.EDX, OpAccess.Write);
 					}
-					else if (code == Code.Imul_Ew || code == Code.Mul_Ew) {
+					else if (code == Code.Imul_rm16 || code == Code.Mul_rm16) {
 						AddRegister(flags, ref usedRegisters, Register.AX, OpAccess.ReadWrite);
 						AddRegister(flags, ref usedRegisters, Register.DX, OpAccess.Write);
 					}
 					else {
-						Debug.Assert(code == Code.Imul_Eb || code == Code.Mul_Eb);
+						Debug.Assert(code == Code.Imul_rm8 || code == Code.Mul_rm8);
 						AddRegister(flags, ref usedRegisters, Register.AL, OpAccess.Read);
 						AddRegister(flags, ref usedRegisters, Register.AX, OpAccess.Write);
 					}
@@ -1004,18 +1004,18 @@ namespace Iced.Intel {
 				uint opSize;
 				code = instruction.Code;
 				Register rSP;
-				if (code == Code.Enterq_Iw_Ib) {
+				if (code == Code.Enterq_imm16_imm8) {
 					opSize = 8;
 					memSize = MemorySize.UInt64;
 					rSP = Register.RSP;
 				}
-				else if (code == Code.Enterd_Iw_Ib) {
+				else if (code == Code.Enterd_imm16_imm8) {
 					opSize = 4;
 					memSize = MemorySize.UInt32;
 					rSP = Register.ESP;
 				}
 				else {
-					Debug.Assert(code == Code.Enterw_Iw_Ib);
+					Debug.Assert(code == Code.Enterw_imm16_imm8);
 					opSize = 2;
 					memSize = MemorySize.UInt16;
 					rSP = Register.SP;
@@ -1159,12 +1159,12 @@ namespace Iced.Intel {
 			case CodeInfo.Jrcxz:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (code == Code.Jrcxz_Jb64)
+					if (code == Code.Jrcxz_rel8_64)
 						AddRegister(flags, ref usedRegisters, Register.RCX, OpAccess.Read);
-					else if (code == Code.Jecxz_Jb64 || code == Code.Jecxz_Jb32 || code == Code.Jecxz_Jb16)
+					else if (code == Code.Jecxz_rel8_64 || code == Code.Jecxz_rel8_32 || code == Code.Jecxz_rel8_16)
 						AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Read);
 					else {
-						Debug.Assert(code == Code.Jcxz_Jb32 || code == Code.Jcxz_Jb16);
+						Debug.Assert(code == Code.Jcxz_rel8_32 || code == Code.Jcxz_rel8_16);
 						AddRegister(flags, ref usedRegisters, Register.CX, OpAccess.Read);
 					}
 				}
@@ -1173,16 +1173,16 @@ namespace Iced.Intel {
 			case CodeInfo.Loop:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (code == Code.Loopne_Jb64_RCX || code == Code.Loope_Jb64_RCX || code == Code.Loop_Jb64_RCX)
+					if (code == Code.Loopne_rel8_64_RCX || code == Code.Loope_rel8_64_RCX || code == Code.Loop_rel8_64_RCX)
 						AddRegister(flags, ref usedRegisters, Register.RCX, OpAccess.ReadWrite);
-					else if (code == Code.Loopne_Jb16_ECX || code == Code.Loopne_Jb32_ECX || code == Code.Loopne_Jb64_ECX ||
-						code == Code.Loope_Jb16_ECX || code == Code.Loope_Jb32_ECX || code == Code.Loope_Jb64_ECX ||
-						code == Code.Loop_Jb16_ECX || code == Code.Loop_Jb32_ECX || code == Code.Loop_Jb64_ECX)
+					else if (code == Code.Loopne_rel8_16_ECX || code == Code.Loopne_rel8_32_ECX || code == Code.Loopne_rel8_64_ECX ||
+						code == Code.Loope_rel8_16_ECX || code == Code.Loope_rel8_32_ECX || code == Code.Loope_rel8_64_ECX ||
+						code == Code.Loop_rel8_16_ECX || code == Code.Loop_rel8_32_ECX || code == Code.Loop_rel8_64_ECX)
 						AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.ReadWrite);
 					else {
-						Debug.Assert(code == Code.Loopne_Jb16_CX || code == Code.Loopne_Jb32_CX ||
-									code == Code.Loope_Jb16_CX || code == Code.Loope_Jb32_CX ||
-									code == Code.Loop_Jb16_CX || code == Code.Loop_Jb32_CX);
+						Debug.Assert(code == Code.Loopne_rel8_16_CX || code == Code.Loopne_rel8_32_CX ||
+									code == Code.Loope_rel8_16_CX || code == Code.Loope_rel8_32_CX ||
+									code == Code.Loop_rel8_16_CX || code == Code.Loop_rel8_32_CX);
 						AddRegister(flags, ref usedRegisters, Register.CX, OpAccess.ReadWrite);
 					}
 				}
@@ -1196,16 +1196,16 @@ namespace Iced.Intel {
 			case CodeInfo.Lds:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (Code.Lfs_Gw_Mp <= code && code <= Code.Lfs_Gq_Mp)
+					if (Code.Lfs_r16_m32 <= code && code <= Code.Lfs_r64_m80)
 						AddRegister(flags, ref usedRegisters, Register.FS, OpAccess.Write);
-					else if (Code.Lgs_Gw_Mp <= code && code <= Code.Lgs_Gq_Mp)
+					else if (Code.Lgs_r16_m32 <= code && code <= Code.Lgs_r64_m80)
 						AddRegister(flags, ref usedRegisters, Register.GS, OpAccess.Write);
-					else if (Code.Lss_Gw_Mp <= code && code <= Code.Lss_Gq_Mp)
+					else if (Code.Lss_r16_m32 <= code && code <= Code.Lss_r64_m80)
 						AddRegister(flags, ref usedRegisters, Register.SS, OpAccess.Write);
-					else if (Code.Lds_Gw_Mp <= code && code <= Code.Lds_Gd_Mp)
+					else if (Code.Lds_r16_m32 <= code && code <= Code.Lds_r32_m48)
 						AddRegister(flags, ref usedRegisters, Register.DS, OpAccess.Write);
 					else {
-						Debug.Assert(Code.Les_Gw_Mp <= code && code <= Code.Les_Gd_Mp);
+						Debug.Assert(Code.Les_r16_m32 <= code && code <= Code.Les_r32_m48);
 						AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Write);
 					}
 				}
@@ -1293,10 +1293,10 @@ namespace Iced.Intel {
 
 			case CodeInfo.Mulx:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if (instruction.Code == Code.VEX_Mulx_Gd_Hd_Ed)
+					if (instruction.Code == Code.VEX_Mulx_r32_r32_rm32)
 						AddRegister(flags, ref usedRegisters, Register.EDX, OpAccess.Read);
 					else {
-						Debug.Assert(instruction.Code == Code.VEX_Mulx_Gq_Hq_Eq);
+						Debug.Assert(instruction.Code == Code.VEX_Mulx_r64_r64_rm64);
 						AddRegister(flags, ref usedRegisters, Register.RDX, OpAccess.Read);
 					}
 				}
@@ -1305,26 +1305,26 @@ namespace Iced.Intel {
 			case CodeInfo.PcmpXstrY:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (code == Code.Pcmpestrm_VX_WX_Ib || code == Code.VEX_Vpcmpestrm_VX_WX_Ib ||
-						code == Code.Pcmpestri_VX_WX_Ib || code == Code.VEX_Vpcmpestri_VX_WX_Ib) {
+					if (code == Code.Pcmpestrm_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8 ||
+						code == Code.Pcmpestri_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri_xmm_xmmm128_imm8) {
 						AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.Read);
 						AddRegister(flags, ref usedRegisters, Register.EDX, OpAccess.Read);
 					}
-					else if (code == Code.Pcmpestrm64_VX_WX_Ib || code == Code.VEX_Vpcmpestrm64_VX_WX_Ib ||
-						code == Code.Pcmpestri64_VX_WX_Ib || code == Code.VEX_Vpcmpestri64_VX_WX_Ib) {
+					else if (code == Code.Pcmpestrm64_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8 ||
+						code == Code.Pcmpestri64_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8) {
 						AddRegister(flags, ref usedRegisters, Register.RAX, OpAccess.Read);
 						AddRegister(flags, ref usedRegisters, Register.RDX, OpAccess.Read);
 					}
 
-					if (code == Code.Pcmpestrm_VX_WX_Ib || code == Code.VEX_Vpcmpestrm_VX_WX_Ib ||
-						code == Code.Pcmpestrm64_VX_WX_Ib || code == Code.VEX_Vpcmpestrm64_VX_WX_Ib ||
-						code == Code.Pcmpistrm_VX_WX_Ib || code == Code.VEX_Vpcmpistrm_VX_WX_Ib) {
+					if (code == Code.Pcmpestrm_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8 ||
+						code == Code.Pcmpestrm64_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8 ||
+						code == Code.Pcmpistrm_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpistrm_xmm_xmmm128_imm8) {
 						AddRegister(flags, ref usedRegisters, Register.XMM0, OpAccess.Write);
 					}
 					else {
-						Debug.Assert(code == Code.Pcmpestri_VX_WX_Ib || code == Code.VEX_Vpcmpestri_VX_WX_Ib ||
-									code == Code.Pcmpestri64_VX_WX_Ib || code == Code.VEX_Vpcmpestri64_VX_WX_Ib ||
-									code == Code.Pcmpistri_VX_WX_Ib || code == Code.VEX_Vpcmpistri_VX_WX_Ib);
+						Debug.Assert(code == Code.Pcmpestri_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri_xmm_xmmm128_imm8 ||
+									code == Code.Pcmpestri64_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8 ||
+									code == Code.Pcmpistri_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpistri_xmm_xmmm128_imm8);
 						AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Write);
 					}
 				}

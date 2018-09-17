@@ -1773,72 +1773,72 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			get {
 				yield return new object[] {
 					0,
-					new OptionsInstructionInfo(64, "48 01 CE", Code.Add_Eq_Gq, a => ((GasFormatterOptions)a).NakedRegisters = true),
+					new OptionsInstructionInfo(64, "48 01 CE", Code.Add_rm64_r64, a => ((GasFormatterOptions)a).NakedRegisters = true),
 					"add rcx,rsi",
 				};
 				yield return new object[] {
 					1,
-					new OptionsInstructionInfo(64, "48 01 CE", Code.Add_Eq_Gq, a => ((GasFormatterOptions)a).NakedRegisters = false),
+					new OptionsInstructionInfo(64, "48 01 CE", Code.Add_rm64_r64, a => ((GasFormatterOptions)a).NakedRegisters = false),
 					"add %rcx,%rsi",
 				};
 				yield return new object[] {
 					2,
-					new OptionsInstructionInfo(64, "48 01 CE", Code.Add_Eq_Gq, a => ((GasFormatterOptions)a).ShowMnemonicSizeSuffix = true),
+					new OptionsInstructionInfo(64, "48 01 CE", Code.Add_rm64_r64, a => ((GasFormatterOptions)a).ShowMnemonicSizeSuffix = true),
 					"addq %rcx,%rsi",
 				};
 				yield return new object[] {
 					3,
-					new OptionsInstructionInfo(64, "48 01 CE", Code.Add_Eq_Gq, a => ((GasFormatterOptions)a).ShowMnemonicSizeSuffix = false),
+					new OptionsInstructionInfo(64, "48 01 CE", Code.Add_rm64_r64, a => ((GasFormatterOptions)a).ShowMnemonicSizeSuffix = false),
 					"add %rcx,%rsi",
 				};
 				yield return new object[] {
 					4,
-					new OptionsInstructionInfo(32, "66 67 E0 5A", Code.Loopne_Jb16_CX, a => a.UpperCaseKeywords = true),
+					new OptionsInstructionInfo(32, "66 67 E0 5A", Code.Loopne_rel8_16_CX, a => a.UpperCaseKeywords = true),
 					".BYTE 0x66; loopnew 0x004e",
 				};
 				yield return new object[] {
 					5,
-					new OptionsInstructionInfo(32, "66 67 E0 5A", Code.Loopne_Jb16_CX, a => a.UpperCaseKeywords = false),
+					new OptionsInstructionInfo(32, "66 67 E0 5A", Code.Loopne_rel8_16_CX, a => a.UpperCaseKeywords = false),
 					".byte 0x66; loopnew 0x004e",
 				};
 				yield return new object[] {
 					6,
-					new OptionsInstructionInfo(32, "66 67 E0 5A", Code.Loopne_Jb16_CX, a => a.UpperCaseAll = true),
+					new OptionsInstructionInfo(32, "66 67 E0 5A", Code.Loopne_rel8_16_CX, a => a.UpperCaseAll = true),
 					".BYTE 0x66; LOOPNEW 0x004e",
 				};
 				yield return new object[] {
 					7,
-					new OptionsInstructionInfo(32, "66 67 E0 5A", Code.Loopne_Jb16_CX, a => a.UpperCaseAll = false),
+					new OptionsInstructionInfo(32, "66 67 E0 5A", Code.Loopne_rel8_16_CX, a => a.UpperCaseAll = false),
 					".byte 0x66; loopnew 0x004e",
 				};
 				yield return new object[] {
 					8,
-					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_Jb64, a => a.UpperCaseKeywords = true),
+					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_rel8_64, a => a.UpperCaseKeywords = true),
 					"jo,PN 0x7ffffffffffffff3",
 				};
 				yield return new object[] {
 					9,
-					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_Jb64, a => a.UpperCaseKeywords = false),
+					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_rel8_64, a => a.UpperCaseKeywords = false),
 					"jo,pn 0x7ffffffffffffff3",
 				};
 				yield return new object[] {
 					10,
-					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_Jb64, a => a.UpperCaseAll = true),
+					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_rel8_64, a => a.UpperCaseAll = true),
 					"JO,PN 0x7ffffffffffffff3",
 				};
 				yield return new object[] {
 					11,
-					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_Jb64, a => a.UpperCaseAll = false),
+					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_rel8_64, a => a.UpperCaseAll = false),
 					"jo,pn 0x7ffffffffffffff3",
 				};
 				yield return new object[] {
 					12,
-					new OptionsInstructionInfo(64, "48 8B 0C 90", Code.Mov_Gq_Eq, a => ((GasFormatterOptions)a).SpaceAfterMemoryOperandComma = true),
+					new OptionsInstructionInfo(64, "48 8B 0C 90", Code.Mov_r64_rm64, a => ((GasFormatterOptions)a).SpaceAfterMemoryOperandComma = true),
 					"mov (%rax, %rdx, 4),%rcx",
 				};
 				yield return new object[] {
 					13,
-					new OptionsInstructionInfo(64, "48 8B 0C 90", Code.Mov_Gq_Eq, a => ((GasFormatterOptions)a).SpaceAfterMemoryOperandComma = false),
+					new OptionsInstructionInfo(64, "48 8B 0C 90", Code.Mov_r64_rm64, a => ((GasFormatterOptions)a).SpaceAfterMemoryOperandComma = false),
 					"mov (%rax,%rdx,4),%rcx",
 				};
 			}

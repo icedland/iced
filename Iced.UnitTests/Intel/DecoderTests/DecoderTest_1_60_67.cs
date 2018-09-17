@@ -135,11 +135,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Bound_Gw_Mw2_1() {
+		void Test16_Bound_r16_m1616_1() {
 			var decoder = CreateDecoder16("62 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Bound_Gw_Mw2, instr.Code);
+			Assert.Equal(Code.Bound_r16_m1616, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(2, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -161,11 +161,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Bound_Gw_Mw2_1() {
+		void Test32_Bound_r16_m1616_1() {
 			var decoder = CreateDecoder32("66 62 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Bound_Gw_Mw2, instr.Code);
+			Assert.Equal(Code.Bound_r16_m1616, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -187,11 +187,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test16_Bound_Gd_Md2_1() {
+		void Test16_Bound_r32_m3232_1() {
 			var decoder = CreateDecoder16("66 62 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Bound_Gd_Md2, instr.Code);
+			Assert.Equal(Code.Bound_r32_m3232, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -213,11 +213,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test32_Bound_Gd_Md2_1() {
+		void Test32_Bound_r32_m3232_1() {
 			var decoder = CreateDecoder32("62 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Bound_Gd_Md2, instr.Code);
+			Assert.Equal(Code.Bound_r32_m3232, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(2, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -240,11 +240,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("63 18", 2)]
-		void Test16_Arpl_Ew_Gw_1(string hexBytes, int byteLength) {
+		void Test16_Arpl_rm16_r16_1(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Arpl_Ew_Gw, instr.Code);
+			Assert.Equal(Code.Arpl_rm16_r16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -267,11 +267,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("63 F2", 2)]
-		void Test16_Arpl_Ew_Gw_2(string hexBytes, int byteLength) {
+		void Test16_Arpl_rm16_r16_2(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Arpl_Ew_Gw, instr.Code);
+			Assert.Equal(Code.Arpl_rm16_r16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -288,11 +288,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("66 63 18", 3)]
-		void Test32_Arpl_Ew_Gw_1(string hexBytes, int byteLength) {
+		void Test32_Arpl_rm16_r16_1(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Arpl_Ew_Gw, instr.Code);
+			Assert.Equal(Code.Arpl_rm16_r16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -315,11 +315,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("66 63 F2", 3)]
-		void Test32_Arpl_Ew_Gw_2(string hexBytes, int byteLength) {
+		void Test32_Arpl_rm16_r16_2(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Arpl_Ew_Gw, instr.Code);
+			Assert.Equal(Code.Arpl_rm16_r16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -336,11 +336,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("66 63 18", 3)]
-		void Test16_Arpl_RdMw_Gd_1(string hexBytes, int byteLength) {
+		void Test16_Arpl_r32m16_r32_1(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Arpl_RdMw_Gd, instr.Code);
+			Assert.Equal(Code.Arpl_r32m16_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -363,11 +363,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("66 63 F2", 3)]
-		void Test16_Arpl_RdMw_Gd_2(string hexBytes, int byteLength) {
+		void Test16_Arpl_r32m16_r32_2(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Arpl_RdMw_Gd, instr.Code);
+			Assert.Equal(Code.Arpl_r32m16_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -384,11 +384,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("63 18", 2)]
-		void Test32_Arpl_RdMw_Gd_1(string hexBytes, int byteLength) {
+		void Test32_Arpl_r32m16_r32_1(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Arpl_RdMw_Gd, instr.Code);
+			Assert.Equal(Code.Arpl_r32m16_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -411,11 +411,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("63 F2", 2)]
-		void Test32_Arpl_RdMw_Gd_2(string hexBytes, int byteLength) {
+		void Test32_Arpl_r32m16_r32_2(string hexBytes, int byteLength) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Arpl_RdMw_Gd, instr.Code);
+			Assert.Equal(Code.Arpl_r32m16_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -437,11 +437,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 45 63 D0", 4, Register.R10W, Register.R8W)]
 		[InlineData("66 41 63 D9", 4, Register.BX, Register.R9W)]
 		[InlineData("66 44 63 EC", 4, Register.R13W, Register.SP)]
-		void Test64_Movsxd_Gw_Ew_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Movsxd_r16_rm16_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movsxd_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Movsxd_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -457,11 +457,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Movsxd_Gw_Ew_2() {
+		void Test64_Movsxd_r16_rm16_2() {
 			var decoder = CreateDecoder64("66 63 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movsxd_Gw_Ew, instr.Code);
+			Assert.Equal(Code.Movsxd_r16_rm16, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -489,11 +489,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("45 63 D0", 3, Register.R10D, Register.R8D)]
 		[InlineData("41 63 D9", 3, Register.EBX, Register.R9D)]
 		[InlineData("44 63 EC", 3, Register.R13D, Register.ESP)]
-		void Test64_Movsxd_Gd_Ed_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Movsxd_r32_rm32_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movsxd_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Movsxd_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -509,11 +509,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Movsxd_Gd_Ed_2() {
+		void Test64_Movsxd_r32_rm32_2() {
 			var decoder = CreateDecoder64("63 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movsxd_Gd_Ed, instr.Code);
+			Assert.Equal(Code.Movsxd_r32_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(2, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -541,11 +541,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("4D 63 D0", 3, Register.R10, Register.R8D)]
 		[InlineData("49 63 D9", 3, Register.RBX, Register.R9D)]
 		[InlineData("4C 63 EC", 3, Register.R13, Register.ESP)]
-		void Test64_Movsxd_Gq_Ed_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
+		void Test64_Movsxd_r64_rm32_1(string hexBytes, int byteLength, Register reg1, Register reg2) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movsxd_Gq_Ed, instr.Code);
+			Assert.Equal(Code.Movsxd_r64_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);
@@ -561,11 +561,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test64_Movsxd_Gq_Ed_2() {
+		void Test64_Movsxd_r64_rm32_2() {
 			var decoder = CreateDecoder64("48 63 18");
 			var instr = decoder.Decode();
 
-			Assert.Equal(Code.Movsxd_Gq_Ed, instr.Code);
+			Assert.Equal(Code.Movsxd_r64_rm32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(3, instr.ByteLength);
 			Assert.False(instr.HasPrefixRepe);

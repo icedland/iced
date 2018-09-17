@@ -86,15 +86,15 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 	class Program {
 		static void Main2(string[] args) => new Program().DoIt();
 
-		const string Legacy_Code_16 = nameof(Code.Add_Ew_Gw);
-		const string Legacy_Code_32 = nameof(Code.Add_Ed_Gd);
-		const string Legacy_Code_64 = nameof(Code.Add_Ed_Gd);
+		const string Legacy_Code_16 = nameof(Code.Add_rm16_r16);
+		const string Legacy_Code_32 = nameof(Code.Add_rm32_r32);
+		const string Legacy_Code_64 = nameof(Code.Add_rm32_r32);
 		const Register Legacy_Register_16 = Register.AX;
 		const Register Legacy_Register_32 = Register.EAX;
 		const Register Legacy_Register_64 = Register.EAX;
 		const byte Legacy_OpCode = 0x01;
 
-		const string EVEX_Code = nameof(Code.EVEX_Vpscatterdd_VM32X_k1_VX);
+		const string EVEX_Code = nameof(Code.EVEX_Vpscatterdd_vm32x_k1_xmm);
 		const int EVEX_LL = 0;
 		const int EVEX_pp = 1;
 		const int EVEX_mm = 2;

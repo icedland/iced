@@ -148,7 +148,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			Assert.Equal(info.Encoding, instr.Code.Encoding());
 			var cf = instr.Code.CpuidFeature();
-			if (cf == CpuidFeature.AVX && instr.Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_VX_WX || code == Code.VEX_Vbroadcastss_VY_WX || code == Code.VEX_Vbroadcastsd_VY_WX))
+			if (cf == CpuidFeature.AVX && instr.Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64))
 				cf = CpuidFeature.AVX2;
 			Assert.Equal(info.CpuidFeature, cf);
 			Assert.Equal(info.FlowControl, instr.Code.FlowControl());
