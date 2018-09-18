@@ -712,8 +712,8 @@ after_read_prefixes:
 				break;
 			}
 
-			instruction.MemoryBase = baseReg;
-			instruction.MemoryIndex = indexReg;
+			instruction.InternalMemoryBase = baseReg;
+			instruction.InternalMemoryIndex = indexReg;
 		}
 
 		// Returns true if the SIB byte was read
@@ -738,15 +738,15 @@ after_read_prefixes:
 					instruction.MemoryDisplacement = ReadUInt32();
 					if (is64Mode) {
 						if (state.addressSize == OpSize.Size64)
-							instruction.MemoryBase = Register.RIP;
+							instruction.InternalMemoryBase = Register.RIP;
 						else
-							instruction.MemoryBase = Register.EIP;
+							instruction.InternalMemoryBase = Register.EIP;
 					}
 					return false;
 				}
 				else {
 					Debug.Assert(0 <= state.rm && state.rm <= 7 && state.rm != 4 && state.rm != 5);
-					instruction.MemoryBase = (int)(state.extraBaseRegisterBase + state.rm) + baseReg;
+					instruction.InternalMemoryBase = (int)(state.extraBaseRegisterBase + state.rm) + baseReg;
 					return false;
 				}
 
@@ -769,7 +769,7 @@ after_read_prefixes:
 						instruction.MemoryDisplacement = (uint)(sbyte)ReadByte();
 					else
 						instruction.MemoryDisplacement = GetDisp8N(tupleType) * (uint)(sbyte)ReadByte();
-					instruction.MemoryBase = (int)(state.extraBaseRegisterBase + state.rm) + baseReg;
+					instruction.InternalMemoryBase = (int)(state.extraBaseRegisterBase + state.rm) + baseReg;
 					return false;
 				}
 
@@ -789,7 +789,7 @@ after_read_prefixes:
 						instruction.InternalSetMemoryDisplSize(3);
 					displIndex = state.instructionLength;
 					instruction.MemoryDisplacement = ReadUInt32();
-					instruction.MemoryBase = (int)(state.extraBaseRegisterBase + state.rm) + baseReg;
+					instruction.InternalMemoryBase = (int)(state.extraBaseRegisterBase + state.rm) + baseReg;
 					return false;
 				}
 
@@ -804,10 +804,10 @@ after_read_prefixes:
 			instruction.InternalMemoryIndexScale = (int)(sib >> 6);
 			if (!isVsib) {
 				if (index != 4)
-					instruction.MemoryIndex = (int)index + indexReg;
+					instruction.InternalMemoryIndex = (int)index + indexReg;
 			}
 			else
-				instruction.MemoryIndex = (int)(index + state.extraIndexRegisterBaseVSIB) + indexReg;
+				instruction.InternalMemoryIndex = (int)(index + state.extraIndexRegisterBaseVSIB) + indexReg;
 
 			if (@base == 5 && state.mod == 0) {
 				if (state.addressSize == OpSize.Size64)
@@ -818,7 +818,7 @@ after_read_prefixes:
 				instruction.MemoryDisplacement = ReadUInt32();
 			}
 			else {
-				instruction.MemoryBase = (int)(@base + state.extraBaseRegisterBase) + baseReg;
+				instruction.InternalMemoryBase = (int)(@base + state.extraBaseRegisterBase) + baseReg;
 				instruction.InternalSetMemoryDisplSize(displSizeScale);
 				instruction.MemoryDisplacement = displ;
 			}

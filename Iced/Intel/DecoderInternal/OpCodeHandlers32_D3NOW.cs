@@ -30,12 +30,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.MM0;
+			instruction.InternalOp0Register = (int)state.reg + Register.MM0;
 			uint ib;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + Register.MM0;
+				instruction.InternalOp1Register = (int)state.rm + Register.MM0;
 				ib = decoder.ReadByte();
 			}
 			else {

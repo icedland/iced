@@ -20,19 +20,19 @@
 namespace Iced.Intel {
 	static class InstructionUtils {
 		public static int GetAddressSizeInBytes(Register baseReg, Register indexReg, int displSize, CodeSize codeSize) {
-			if ((Register.EAX <= baseReg && baseReg <= Register.R15D) || (Register.EAX <= indexReg && indexReg <= Register.R15D) || baseReg == Register.EIP)
-				return 4;
 			if ((Register.RAX <= baseReg && baseReg <= Register.R15) || (Register.RAX <= indexReg && indexReg <= Register.R15) || baseReg == Register.RIP)
 				return 8;
+			if ((Register.EAX <= baseReg && baseReg <= Register.R15D) || (Register.EAX <= indexReg && indexReg <= Register.R15D) || baseReg == Register.EIP)
+				return 4;
 			if (baseReg == Register.BX || baseReg == Register.BP || baseReg == Register.SI || baseReg == Register.DI || indexReg == Register.SI || indexReg == Register.DI)
 				return 2;
 			if (displSize == 2 || displSize == 4 || displSize == 8)
 				return displSize;
 
-			if (codeSize == CodeSize.Code32)
-				return 4;
 			if (codeSize == CodeSize.Code64)
 				return 8;
+			if (codeSize == CodeSize.Code32)
+				return 4;
 			if (codeSize == CodeSize.Code16)
 				return 2;
 			return 8;

@@ -35,7 +35,7 @@ namespace Iced.Intel {
 		/// [1:0]	= Scale
 		/// [4:2]	= Size of displacement: 0, 1, 2, 4, 8
 		/// [7:5]	= Segment register prefix: none, es, cs, ss, ds, fs, gs, reserved
-		/// [14:8]	= MemorySize
+		/// [14:8]	= <see cref="MemorySize"/>
 		/// [15]	= Not used
 		/// </summary>
 		[Flags]
@@ -73,12 +73,12 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// [12:0]	= <see cref="Intel.Code"/>
-		/// [15:13]	= Rounding control (same as <see cref="Intel.RoundingControl"/>)
+		/// [15:13]	= <see cref="Intel.RoundingControl"/>
 		/// [18:16]	= Opmask register or 0 if none
 		/// [22:19]	= Instruction length
 		/// [24:23] = Not used
-		/// [25]	= Suppress all exceptions (EVEX.b)
-		/// [26]	= Zeroing masking (EVEX.z)
+		/// [25]	= Suppress all exceptions
+		/// [26]	= Zeroing masking
 		/// [27]	= xacquire prefix
 		/// [28]	= xrelease prefix
 		/// [29]	= repe prefix
@@ -118,6 +118,9 @@ namespace Iced.Intel {
 		ushort memoryFlags;// MemoryFlags
 		byte memBaseReg;// Register
 		byte memIndexReg;// Register
+		// If a Register will need 9 bits in the future, it's probably best to turn this into a
+		// uint (and move it below the other uint fields above). The remaining 4 bits of 'reg3'
+		// can be stored in some other field (it's rarely used)
 		byte reg0, reg1, reg2, reg3;// Register
 
 		internal static bool TEST_BitByBitEquals(ref Instruction a, ref Instruction b) =>
@@ -713,12 +716,18 @@ namespace Iced.Intel {
 			get => (Register)memBaseReg;
 			set => memBaseReg = (byte)value;
 		}
+		internal Register InternalMemoryBase {
+			set => memBaseReg = (byte)value;
+		}
 
 		/// <summary>
 		/// Gets the memory operand's index register or <see cref="Register.None"/> if none. Use this property if the operand has kind <see cref="OpKind.Memory"/>
 		/// </summary>
 		public Register MemoryIndex {
 			get => (Register)memIndexReg;
+			set => memIndexReg = (byte)value;
+		}
+		internal Register InternalMemoryIndex {
 			set => memIndexReg = (byte)value;
 		}
 
@@ -729,12 +738,18 @@ namespace Iced.Intel {
 			get => (Register)reg0;
 			set => reg0 = (byte)value;
 		}
+		internal Register InternalOp0Register {
+			set => reg0 = (byte)value;
+		}
 
 		/// <summary>
 		/// Gets operand #1's register value. Use this property if operand #1 (<see cref="Op1Kind"/>) has kind <see cref="OpKind.Register"/>
 		/// </summary>
 		public Register Op1Register {
 			get => (Register)reg1;
+			set => reg1 = (byte)value;
+		}
+		internal Register InternalOp1Register {
 			set => reg1 = (byte)value;
 		}
 
@@ -745,12 +760,18 @@ namespace Iced.Intel {
 			get => (Register)reg2;
 			set => reg2 = (byte)value;
 		}
+		internal Register InternalOp2Register {
+			set => reg2 = (byte)value;
+		}
 
 		/// <summary>
 		/// Gets operand #3's register value. Use this property if operand #3 (<see cref="Op3Kind"/>) has kind <see cref="OpKind.Register"/>
 		/// </summary>
 		public Register Op3Register {
 			get => (Register)reg3;
+			set => reg3 = (byte)value;
+		}
+		internal Register InternalOp3Register {
 			set => reg3 = (byte)value;
 		}
 

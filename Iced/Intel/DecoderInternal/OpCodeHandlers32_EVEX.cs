@@ -66,14 +66,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			instruction.InternalCode = codeW0;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg;
+			instruction.InternalOp0Register = (int)state.reg + baseReg;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
-				instruction.Op2Register = (int)state.rm + Register.EAX;
+				instruction.InternalOp2Register = (int)state.rm + Register.EAX;
 				if ((state.flags & StateFlags.b) != 0 && !noERd) {
 					if (onlySAE)
 						instruction.InternalSetSuppressAllExceptions();
@@ -114,14 +114,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			instruction.InternalCode = codeW0;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg;
+			instruction.InternalOp0Register = (int)state.reg + baseReg;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
-				instruction.Op2Register = (int)state.rm + Register.EAX;
+				instruction.InternalOp2Register = (int)state.rm + Register.EAX;
 			}
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
@@ -157,7 +157,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.Op0Register = (int)state.rm + Register.EAX;
+				instruction.InternalOp0Register = (int)state.rm + Register.EAX;
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
@@ -166,7 +166,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.reg + baseReg;
+			instruction.InternalOp1Register = (int)state.reg + baseReg;
 			instruction.InternalOp2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
@@ -205,14 +205,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg;
+			instruction.InternalOp0Register = (int)state.reg + baseReg;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
-				instruction.Op2Register = (int)state.rm + baseReg;
+				instruction.InternalOp2Register = (int)state.rm + baseReg;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (onlySAE)
 						instruction.InternalSetSuppressAllExceptions();
@@ -290,11 +290,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg1;
+			instruction.InternalOp0Register = (int)state.reg + baseReg1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + baseReg2;
+				instruction.InternalOp1Register = (int)state.rm + baseReg2;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (onlySAE)
 						instruction.InternalSetSuppressAllExceptions();
@@ -382,11 +382,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg1;
+			instruction.InternalOp0Register = (int)state.reg + baseReg1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + baseReg2;
+				instruction.InternalOp1Register = (int)state.rm + baseReg2;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (onlySAE)
 						instruction.InternalSetSuppressAllExceptions();
@@ -471,11 +471,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg1;
+			instruction.InternalOp0Register = (int)state.reg + baseReg1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + baseReg2;
+				instruction.InternalOp1Register = (int)state.rm + baseReg2;
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
@@ -526,7 +526,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.Op0Register = (int)state.rm + baseReg1;
+				instruction.InternalOp0Register = (int)state.rm + baseReg1;
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
@@ -535,7 +535,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.reg + baseReg2;
+			instruction.InternalOp1Register = (int)state.reg + baseReg2;
 			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
 				instruction.InternalSetZeroingMasking();
@@ -576,7 +576,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg;
+			instruction.InternalOp0Register = (int)state.reg + baseReg;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -648,11 +648,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg1;
+			instruction.InternalOp0Register = (int)state.reg + baseReg1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + baseReg2;
+				instruction.InternalOp1Register = (int)state.rm + baseReg2;
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
@@ -726,7 +726,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.Op0Register = (int)state.rm + baseReg1;
+				instruction.InternalOp0Register = (int)state.rm + baseReg1;
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
@@ -738,7 +738,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.reg + baseReg2;
+			instruction.InternalOp1Register = (int)state.reg + baseReg2;
 			instruction.InternalOp2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 			instruction.InternalOpMask = state.aaa;
@@ -798,11 +798,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.vvvv + baseReg1;
+			instruction.InternalOp0Register = (int)state.vvvv + baseReg1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + baseReg2;
+				instruction.InternalOp1Register = (int)state.rm + baseReg2;
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
@@ -881,7 +881,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.Op0Register = (int)state.rm + baseReg1;
+				instruction.InternalOp0Register = (int)state.rm + baseReg1;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (onlySAE)
 						instruction.InternalSetSuppressAllExceptions();
@@ -905,7 +905,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.reg + baseReg2;
+			instruction.InternalOp1Register = (int)state.reg + baseReg2;
 			instruction.InternalOp2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 			instruction.InternalOpMask = state.aaa;
@@ -954,11 +954,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg1;
+			instruction.InternalOp0Register = (int)state.reg + baseReg1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + baseReg2;
+				instruction.InternalOp1Register = (int)state.rm + baseReg2;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (onlySAE)
 						instruction.InternalSetSuppressAllExceptions();
@@ -1031,11 +1031,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg1;
+			instruction.InternalOp0Register = (int)state.reg + baseReg1;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + baseReg2;
+				instruction.InternalOp1Register = (int)state.rm + baseReg2;
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
@@ -1095,7 +1095,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.Op0Register = (int)state.rm + baseReg2;
+				instruction.InternalOp0Register = (int)state.rm + baseReg2;
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
@@ -1107,7 +1107,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.reg + baseReg1;
+			instruction.InternalOp1Register = (int)state.reg + baseReg1;
 		}
 	}
 
@@ -1145,7 +1145,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg;
+			instruction.InternalOp0Register = (int)state.reg + baseReg;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -1179,11 +1179,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg;
+			instruction.InternalOp0Register = (int)state.reg + baseReg;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + Register.K0;
+				instruction.InternalOp1Register = (int)state.rm + Register.K0;
 			}
 			else
 				decoder.SetInvalidInstruction();
@@ -1210,11 +1210,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.K0;
+			instruction.InternalOp0Register = (int)state.reg + Register.K0;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + baseReg;
+				instruction.InternalOp1Register = (int)state.rm + baseReg;
 			}
 			else
 				decoder.SetInvalidInstruction();
@@ -1243,14 +1243,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.K0;
+			instruction.InternalOp0Register = (int)state.reg + Register.K0;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
-				instruction.Op2Register = (int)state.rm + baseReg;
+				instruction.InternalOp2Register = (int)state.rm + baseReg;
 				if ((state.flags & StateFlags.b) != 0)
 					instruction.InternalSetSuppressAllExceptions();
 			}
@@ -1314,14 +1314,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg1;
+			instruction.InternalOp0Register = (int)state.reg + baseReg1;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg2;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
-				instruction.Op2Register = (int)state.rm + baseReg3;
+				instruction.InternalOp2Register = (int)state.rm + baseReg3;
 				if ((state.flags & StateFlags.b) != 0)
 					decoder.SetInvalidInstruction();
 			}
@@ -1381,10 +1381,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg1;
+			instruction.InternalOp0Register = (int)state.reg + baseReg1;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg2;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg2;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -1447,14 +1447,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg1;
+			instruction.InternalOp0Register = (int)state.reg + baseReg1;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg2;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
-				instruction.Op2Register = (int)state.rm + baseReg3;
+				instruction.InternalOp2Register = (int)state.rm + baseReg3;
 				if ((state.flags & StateFlags.b) != 0)
 					decoder.SetInvalidInstruction();
 			}
@@ -1524,14 +1524,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg1;
+			instruction.InternalOp0Register = (int)state.reg + baseReg1;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg2;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg2;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
-				instruction.Op2Register = (int)state.rm + baseReg3;
+				instruction.InternalOp2Register = (int)state.rm + baseReg3;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (onlySAE)
 						instruction.InternalSetSuppressAllExceptions();
@@ -1591,14 +1591,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.K0;
+			instruction.InternalOp0Register = (int)state.reg + Register.K0;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
-				instruction.Op2Register = (int)state.rm + baseReg;
+				instruction.InternalOp2Register = (int)state.rm + baseReg;
 				if ((state.flags & StateFlags.b) != 0)
 					decoder.SetInvalidInstruction();
 			}
@@ -1646,14 +1646,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.K0;
+			instruction.InternalOp0Register = (int)state.reg + Register.K0;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
-				instruction.Op2Register = (int)state.rm + baseReg;
+				instruction.InternalOp2Register = (int)state.rm + baseReg;
 				if ((state.flags & StateFlags.b) != 0)
 					decoder.SetInvalidInstruction();
 			}
@@ -1704,7 +1704,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.Op0Register = (int)state.rm + baseReg;
+				instruction.InternalOp0Register = (int)state.rm + baseReg;
 				if ((state.flags & StateFlags.b) != 0)
 					decoder.SetInvalidInstruction();
 			}
@@ -1718,9 +1718,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg;
 			//instruction.InternalOp2Kind = OpKind.Register;
-			instruction.Op2Register = (int)state.reg + baseReg;
+			instruction.InternalOp2Register = (int)state.reg + baseReg;
 			Debug.Assert(OpKind.Register == 0);
 			instruction.InternalOpMask = state.aaa;
 			if ((state.flags & StateFlags.z) != 0)
@@ -1748,14 +1748,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg;
+			instruction.InternalOp0Register = (int)state.reg + baseReg;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
-				instruction.Op2Register = (int)state.rm + baseReg;
+				instruction.InternalOp2Register = (int)state.rm + baseReg;
 			}
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
@@ -1812,15 +1812,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg1;
+			instruction.InternalOp0Register = (int)state.reg + baseReg1;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg2;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg2;
 			if (state.mod == 3) {
 				instruction.InternalCode = codeR;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
-				instruction.Op2Register = (int)state.rm + baseReg3;
+				instruction.InternalOp2Register = (int)state.rm + baseReg3;
 			}
 			else {
 				instruction.InternalCode = codeM;
@@ -1851,10 +1851,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg;
+			instruction.InternalOp0Register = (int)state.reg + baseReg;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + baseReg;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -1890,11 +1890,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			instruction.InternalCode = codeW0;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.EAX;
+			instruction.InternalOp0Register = (int)state.reg + Register.EAX;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + baseReg;
+				instruction.InternalOp1Register = (int)state.rm + baseReg;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (onlySAE)
 						instruction.InternalSetSuppressAllExceptions();
@@ -1935,11 +1935,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			instruction.InternalCode = code32;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.XMM0;
+			instruction.InternalOp0Register = (int)state.reg + Register.XMM0;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + Register.EAX;
+				instruction.InternalOp1Register = (int)state.rm + Register.EAX;
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
@@ -1969,7 +1969,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.Op0Register = (int)state.rm + Register.EAX;
+				instruction.InternalOp0Register = (int)state.rm + Register.EAX;
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
@@ -1978,7 +1978,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.reg + Register.XMM0;
+			instruction.InternalOp1Register = (int)state.reg + Register.XMM0;
 		}
 	}
 
@@ -2012,11 +2012,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			instruction.InternalCode = code32;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.EAX;
+			instruction.InternalOp0Register = (int)state.reg + Register.EAX;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + baseReg;
+				instruction.InternalOp1Register = (int)state.rm + baseReg;
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
@@ -2061,7 +2061,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.reg + baseReg;
+			instruction.InternalOp1Register = (int)state.reg + baseReg;
 		}
 	}
 
@@ -2090,11 +2090,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg;
+			instruction.InternalOp0Register = (int)state.reg + baseReg;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + Register.EAX;
+				instruction.InternalOp1Register = (int)state.rm + Register.EAX;
 			}
 			else
 				decoder.SetInvalidInstruction();
@@ -2132,7 +2132,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + baseReg;
+			instruction.InternalOp0Register = (int)state.reg + baseReg;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -2182,7 +2182,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.reg + baseReg;
+			instruction.InternalOp1Register = (int)state.reg + baseReg;
 			instruction.InternalOpMask = state.aaa;
 		}
 	}
@@ -2218,7 +2218,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.reg + Register.K0;
+			instruction.InternalOp1Register = (int)state.reg + Register.K0;
 			instruction.InternalOpMask = state.aaa;
 		}
 	}
@@ -2247,7 +2247,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.Op0Register = (int)state.rm + Register.EAX;
+				instruction.InternalOp0Register = (int)state.rm + Register.EAX;
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
@@ -2256,7 +2256,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.reg + baseReg;
+			instruction.InternalOp1Register = (int)state.reg + baseReg;
 			instruction.InternalOp2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
@@ -2296,11 +2296,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.K0;
+			instruction.InternalOp0Register = (int)state.reg + Register.K0;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + baseReg;
+				instruction.InternalOp1Register = (int)state.rm + baseReg;
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;

@@ -76,7 +76,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalCode = code;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = reg;
+			instruction.InternalOp0Register = reg;
 		}
 	}
 
@@ -93,7 +93,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalCode = code;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = reg;
+			instruction.InternalOp0Register = reg;
 			instruction.InternalOp1Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 		}
@@ -114,7 +114,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalImmediate8 = decoder.ReadIb();
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = reg;
+			instruction.InternalOp1Register = reg;
 		}
 	}
 
@@ -127,10 +127,10 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalCode = code;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = Register.AL;
+			instruction.InternalOp0Register = Register.AL;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = Register.DX;
+			instruction.InternalOp1Register = Register.DX;
 		}
 	}
 
@@ -143,10 +143,10 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalCode = code;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.Op0Register = Register.DX;
+			instruction.InternalOp0Register = Register.DX;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.Op1Register = Register.AL;
+			instruction.InternalOp1Register = Register.AL;
 		}
 	}
 
@@ -577,7 +577,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.Op0Register = (int)state.rm + Register.MM0;
+				instruction.InternalOp0Register = (int)state.rm + Register.MM0;
 			}
 			else
 				decoder.SetInvalidInstruction();
