@@ -591,6 +591,24 @@ namespace Iced.Intel.EncoderInternal {
 
 	abstract class Op {
 		public abstract void Encode(Encoder encoder, ref Instruction instr, int operand);
+
+		/// <summary>
+		/// If this is an immediate operand, it returns the <see cref="OpKind"/> value, else it returns -1
+		/// </summary>
+		/// <returns></returns>
+		public virtual OpKind GetImmediateOpKind() => (OpKind)(-1);
+
+		/// <summary>
+		/// If this is a near branch operand, it returns the <see cref="OpKind"/> value, else it returns -1
+		/// </summary>
+		/// <returns></returns>
+		public virtual OpKind GetNearBranchOpKind() => (OpKind)(-1);
+
+		/// <summary>
+		/// If this is a far branch operand, it returns the <see cref="OpKind"/> value, else it returns -1
+		/// </summary>
+		/// <returns></returns>
+		public virtual OpKind GetFarBranchOpKind() => (OpKind)(-1);
 	}
 
 	sealed class OpModRM_rm_mem_only : Op {
@@ -693,6 +711,8 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.ImmSize = ImmSize.Size1;
 			encoder.Immediate = instr.Immediate8;
 		}
+
+		public override OpKind GetImmediateOpKind() => opKind;
 	}
 
 	sealed class OpIw : Op {
@@ -702,6 +722,8 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.ImmSize = ImmSize.Size2;
 			encoder.Immediate = instr.Immediate16;
 		}
+
+		public override OpKind GetImmediateOpKind() => OpKind.Immediate16;
 	}
 
 	sealed class OpId : Op {
@@ -716,6 +738,8 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.ImmSize = ImmSize.Size4;
 			encoder.Immediate = instr.Immediate32;
 		}
+
+		public override OpKind GetImmediateOpKind() => opKind;
 	}
 
 	sealed class OpIq : Op {
@@ -727,6 +751,8 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.Immediate = (uint)imm;
 			encoder.ImmediateHi = (uint)(imm >> 32);
 		}
+
+		public override OpKind GetImmediateOpKind() => OpKind.Immediate64;
 	}
 
 	sealed class OpIb21 : Op {
@@ -737,6 +763,8 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.ImmSize = ImmSize.Size2_1;
 			encoder.ImmediateHi = instr.Immediate8_2nd;
 		}
+
+		public override OpKind GetImmediateOpKind() => OpKind.Immediate8_2nd;
 	}
 
 	sealed class OpIb11 : Op {
@@ -747,6 +775,8 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.ImmSize = ImmSize.Size1_1;
 			encoder.ImmediateHi = instr.Immediate8_2nd;
 		}
+
+		public override OpKind GetImmediateOpKind() => OpKind.Immediate8_2nd;
 	}
 
 	sealed class OpI2 : Op {
@@ -763,6 +793,8 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.ImmSize = ImmSize.Size1;
 			encoder.Immediate |= instr.Immediate8;
 		}
+
+		public override OpKind GetImmediateOpKind() => OpKind.Immediate8;
 	}
 
 	sealed class OpX : Op {
@@ -864,6 +896,8 @@ namespace Iced.Intel.EncoderInternal {
 
 		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
 			encoder.AddBranch(opKind, immSize, ref instr, operand);
+
+		public override OpKind GetNearBranchOpKind() => opKind;
 	}
 
 	sealed class OpJx: Op {
@@ -873,6 +907,11 @@ namespace Iced.Intel.EncoderInternal {
 
 		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
 			encoder.AddBranchX(immSize, ref instr, operand);
+
+		public override OpKind GetNearBranchOpKind() {
+			// xbegin is special and doesn't mask the target IP. We need to know the code size to return the correct value
+			return base.GetNearBranchOpKind();
+		}
 	}
 
 	sealed class OpA : Op {
@@ -885,6 +924,11 @@ namespace Iced.Intel.EncoderInternal {
 
 		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
 			encoder.AddFarBranch(ref instr, operand, size);
+
+		public override OpKind GetFarBranchOpKind() {
+			Debug.Assert(size == 2 || size == 4);
+			return size == 2 ? OpKind.FarBranch16 : OpKind.FarBranch32;
+		}
 	}
 
 	sealed class OpO : Op {
@@ -905,6 +949,8 @@ namespace Iced.Intel.EncoderInternal {
 				return;
 			}
 		}
+
+		public override OpKind GetImmediateOpKind() => OpKind.Immediate8;
 	}
 
 	sealed class OpHx : Op {

@@ -35,7 +35,7 @@ namespace Iced.Intel {
 		/// [1:0]	= Scale
 		/// [4:2]	= Size of displacement: 0, 1, 2, 4, 8
 		/// [7:5]	= Segment register prefix: none, es, cs, ss, ds, fs, gs, reserved
-		/// [14:8]	= <see cref="MemorySize"/>
+		/// [14:8]	= <see cref="Intel.MemorySize"/>
 		/// [15]	= Not used
 		/// </summary>
 		[Flags]
@@ -366,6 +366,13 @@ namespace Iced.Intel {
 		/// </summary>
 		public OpKind Op4Kind {
 			get => OpKind.Immediate8;
+			set {
+				if (value != OpKind.Immediate8)
+					ThrowArgumentOutOfRangeException(nameof(value));
+			}
+		}
+		internal OpKind InternalOp4Kind {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set {
 				if (value != OpKind.Immediate8)
 					ThrowArgumentOutOfRangeException(nameof(value));
@@ -1567,6 +1574,1250 @@ namespace Iced.Intel {
 		/// All flags that are modified by the CPU. This is <see cref="RflagsWritten"/> + <see cref="RflagsCleared"/> + <see cref="RflagsSet"/> + <see cref="RflagsUndefined"/>
 		/// </summary>
 		public RflagsBits RflagsModified => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsModified[(int)GetRflagsInfo()];
+#endif
+
+#if !NO_ENCODER
+		static OpKind GetImmediateOpKind(Code code, int operand) {
+			var handlers = EncoderInternal.OpCodeHandlers.Handlers;
+			if ((uint)code >= (uint)handlers.Length)
+				throw new ArgumentOutOfRangeException(nameof(code));
+			var operands = handlers[(int)code].Operands;
+			if ((uint)operand >= (uint)operands.Length)
+				throw new ArgumentOutOfRangeException(nameof(operand), $"{code} doesn't have at least {operand + 1} operands");
+			var opKind = operands[operand].GetImmediateOpKind();
+			if (opKind == (OpKind)(-1))
+				throw new ArgumentException($"{code}'s op{operand} isn't an immediate operand");
+			return opKind;
+		}
+
+		static OpKind GetNearBranchOpKind(Code code, int operand) {
+			var handlers = EncoderInternal.OpCodeHandlers.Handlers;
+			if ((uint)code >= (uint)handlers.Length)
+				throw new ArgumentOutOfRangeException(nameof(code));
+			var operands = handlers[(int)code].Operands;
+			if ((uint)operand >= (uint)operands.Length)
+				throw new ArgumentOutOfRangeException(nameof(operand), $"{code} doesn't have at least {operand + 1} operands");
+			var opKind = operands[operand].GetNearBranchOpKind();
+			if (opKind == (OpKind)(-1))
+				throw new ArgumentException($"{code}'s op{operand} isn't a near branch operand");
+			return opKind;
+		}
+
+		static OpKind GetFarBranchOpKind(Code code, int operand) {
+			var handlers = EncoderInternal.OpCodeHandlers.Handlers;
+			if ((uint)code >= (uint)handlers.Length)
+				throw new ArgumentOutOfRangeException(nameof(code));
+			var operands = handlers[(int)code].Operands;
+			if ((uint)operand >= (uint)operands.Length)
+				throw new ArgumentOutOfRangeException(nameof(operand), $"{code} doesn't have at least {operand + 1} operands");
+			var opKind = operands[operand].GetFarBranchOpKind();
+			if (opKind == (OpKind)(-1))
+				throw new ArgumentException($"{code}'s op{operand} isn't a far branch operand");
+			return opKind;
+		}
+
+		static MemorySize GetMemorySize(Code code) {
+			switch (code) {
+			case Code.Movsb_m8_m8:
+			case Code.Cmpsb_m8_m8:
+			case Code.Stosb_m8_AL:
+			case Code.Lodsb_AL_m8:
+			case Code.Scasb_AL_m8:
+			case Code.Insb_m8_DX:
+			case Code.Outsb_DX_m8:
+				return MemorySize.UInt8;
+
+			case Code.Movsw_m16_m16:
+			case Code.Cmpsw_m16_m16:
+			case Code.Stosw_m16_AX:
+			case Code.Lodsw_AX_m16:
+			case Code.Scasw_AX_m16:
+			case Code.Insw_m16_DX:
+			case Code.Outsw_DX_m16:
+				return MemorySize.UInt16;
+
+			case Code.Movsd_m32_m32:
+			case Code.Cmpsd_m32_m32:
+			case Code.Stosd_m32_EAX:
+			case Code.Lodsd_EAX_m32:
+			case Code.Scasd_EAX_m32:
+			case Code.Insd_m32_DX:
+			case Code.Outsd_DX_m32:
+				return MemorySize.UInt32;
+
+			case Code.Movsq_m64_m64:
+			case Code.Cmpsq_m64_m64:
+			case Code.Stosq_m64_RAX:
+			case Code.Lodsq_RAX_m64:
+			case Code.Scasq_RAX_m64:
+				return MemorySize.UInt64;
+
+			case Code.Maskmovq_rDI_mm_mm:
+				return MemorySize.UInt64;
+
+			case Code.Maskmovdqu_rDI_xmm_xmm:
+			case Code.VEX_Vmaskmovdqu_rDI_xmm_xmm:
+				return MemorySize.UInt128;
+
+			default:
+				throw new ArgumentOutOfRangeException(nameof(code));
+			}
+		}
+
+		/// <summary>
+		/// Creates a new <see cref="Instruction"/> with no operands
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates a new near/short branch <see cref="Instruction"/>
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="target">Target address</param>
+		/// <returns></returns>
+		public static Instruction CreateBranch(Code code, ulong target) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			instruction.Op0Kind = GetNearBranchOpKind(code, 0);
+			instruction.NearBranch64Target = target;
+
+			Debug.Assert(instruction.OpCount == 1);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates a new far branch <see cref="Instruction"/>
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="selector">Selector/segment value</param>
+		/// <param name="offset">Offset</param>
+		/// <returns></returns>
+		public static Instruction CreateBranch(Code code, ushort selector, uint offset) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			instruction.Op0Kind = GetFarBranchOpKind(code, 0);
+			instruction.FarBranchSelector = selector;
+			instruction.FarBranch32Target = offset;
+
+			Debug.Assert(instruction.OpCount == 1);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction with a 64-bit memory offset as the second operand, eg. 'mov al,[123456789ABCDEF0]'
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register (al, ax, eax, rax)</param>
+		/// <param name="address">64-bit address</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateMemory64(Code code, Register register, ulong address, Register prefixSegment = Register.None) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			instruction.InternalOp1Kind = OpKind.Memory64;
+			instruction.MemoryAddress64 = address;
+			if (register == Register.AL)
+				instruction.InternalMemorySize = MemorySize.UInt8;
+			else if (register == Register.AX)
+				instruction.InternalMemorySize = MemorySize.UInt16;
+			else if (register == Register.EAX)
+				instruction.InternalMemorySize = MemorySize.UInt32;
+			else if (register == Register.RAX)
+				instruction.InternalMemorySize = MemorySize.UInt64;
+			else
+				throw new ArgumentOutOfRangeException(nameof(register));
+			instruction.InternalSetMemoryDisplSize(4);
+			instruction.PrefixSegment = prefixSegment;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction with a 64-bit memory offset as the first operand, eg. 'mov [123456789ABCDEF0],al'
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="address">64-bit address</param>
+		/// <param name="register">Register (al, ax, eax, rax)</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateMemory64(Code code, ulong address, Register register, Register prefixSegment = Register.None) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			instruction.InternalOp0Kind = OpKind.Memory64;
+			instruction.MemoryAddress64 = address;
+			if (register == Register.AL)
+				instruction.InternalMemorySize = MemorySize.UInt8;
+			else if (register == Register.AX)
+				instruction.InternalMemorySize = MemorySize.UInt16;
+			else if (register == Register.EAX)
+				instruction.InternalMemorySize = MemorySize.UInt32;
+			else if (register == Register.RAX)
+				instruction.InternalMemorySize = MemorySize.UInt64;
+			else
+				throw new ArgumentOutOfRangeException(nameof(register));
+			instruction.InternalSetMemoryDisplSize(4);
+			instruction.PrefixSegment = prefixSegment;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			Debug.Assert(instruction.OpCount == 1);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, int immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			instruction.InternalOp0Kind = GetImmediateOpKind(code, 0);
+			instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(instruction.OpCount == 1);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="memory">Memory operand</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, in MemoryOperand memory) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			instruction.InternalOp0Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			Debug.Assert(instruction.OpCount == 1);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register, int immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			var opKind = GetImmediateOpKind(code, 1);
+			instruction.InternalOp1Kind = opKind;
+			if (opKind == OpKind.Immediate64)
+				instruction.Immediate64 = (ulong)immediate;
+			else
+				instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction with a 64-bit immediate value
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register</param>
+		/// <param name="immediate">64-bit immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register, long immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			instruction.InternalOp1Kind = OpKind.Immediate64;
+			instruction.Immediate64 = (ulong)immediate;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register (eg. dx, al, ax, eax, rax)</param>
+		/// <param name="rSI">si, esi, or rsi</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateString_Reg_SegRSI(Code code, Register register, Register rSI, Register prefixSegment = Register.None) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			if (rSI == Register.RSI)
+				instruction.InternalOp1Kind = OpKind.MemorySegRSI;
+			else if (rSI == Register.ESI)
+				instruction.InternalOp1Kind = OpKind.MemorySegESI;
+			else if (rSI == Register.SI)
+				instruction.InternalOp1Kind = OpKind.MemorySegSI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(rSI));
+
+			instruction.PrefixSegment = prefixSegment;
+
+			instruction.InternalMemorySize = GetMemorySize(code);
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register (eg. al, ax, eax, rax)</param>
+		/// <param name="rDI">di, edi, or rdi</param>
+		/// <returns></returns>
+		public static Instruction CreateString_Reg_ESRDI(Code code, Register register, Register rDI) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			if (rDI == Register.RDI)
+				instruction.InternalOp1Kind = OpKind.MemoryESRDI;
+			else if (rDI == Register.EDI)
+				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
+			else if (rDI == Register.DI)
+				instruction.InternalOp1Kind = OpKind.MemoryESDI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(rDI));
+
+			instruction.InternalMemorySize = GetMemorySize(code);
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register, in MemoryOperand memory) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			instruction.InternalOp1Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="immediate">Immediate</param>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, int immediate, Register register) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			instruction.InternalOp0Kind = GetImmediateOpKind(code, 0);
+			instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="immediate">Immediate</param>
+		/// <param name="immediate2">Second immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, int immediate, byte immediate2) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			instruction.InternalOp0Kind = GetImmediateOpKind(code, 0);
+			instruction.Immediate32 = (uint)immediate;
+
+			instruction.InternalOp1Kind = OpKind.Immediate8_2nd;
+			instruction.Immediate8_2nd = immediate2;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="rSI">si, esi, or rsi</param>
+		/// <param name="rDI">di, edi, or rdi</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateString_SegRSI_ESRDI(Code code, Register rSI, Register rDI, Register prefixSegment = Register.None) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			if (rSI == Register.RSI)
+				instruction.InternalOp0Kind = OpKind.MemorySegRSI;
+			else if (rSI == Register.ESI)
+				instruction.InternalOp0Kind = OpKind.MemorySegESI;
+			else if (rSI == Register.SI)
+				instruction.InternalOp0Kind = OpKind.MemorySegSI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(rSI));
+
+			if (rDI == Register.RDI)
+				instruction.InternalOp1Kind = OpKind.MemoryESRDI;
+			else if (rDI == Register.EDI)
+				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
+			else if (rDI == Register.DI)
+				instruction.InternalOp1Kind = OpKind.MemoryESDI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(rDI));
+
+			instruction.PrefixSegment = prefixSegment;
+
+			instruction.InternalMemorySize = GetMemorySize(code);
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="rDI">di, edi, or rdi</param>
+		/// <param name="register">Register (eg. dx, al, ax, eax, rax)</param>
+		/// <returns></returns>
+		public static Instruction CreateString_ESRDI_Reg(Code code, Register rDI, Register register) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			if (rDI == Register.RDI)
+				instruction.InternalOp0Kind = OpKind.MemoryESRDI;
+			else if (rDI == Register.EDI)
+				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
+			else if (rDI == Register.DI)
+				instruction.InternalOp0Kind = OpKind.MemoryESDI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(rDI));
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register;
+
+			instruction.InternalMemorySize = GetMemorySize(code);
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="rDI">di, edi, or rdi</param>
+		/// <param name="rSI">si, esi, or rsi</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateString_ESRDI_SegRSI(Code code, Register rDI, Register rSI, Register prefixSegment = Register.None) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			if (rDI == Register.RDI)
+				instruction.InternalOp0Kind = OpKind.MemoryESRDI;
+			else if (rDI == Register.EDI)
+				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
+			else if (rDI == Register.DI)
+				instruction.InternalOp0Kind = OpKind.MemoryESDI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(rDI));
+
+			if (rSI == Register.RSI)
+				instruction.InternalOp1Kind = OpKind.MemorySegRSI;
+			else if (rSI == Register.ESI)
+				instruction.InternalOp1Kind = OpKind.MemorySegESI;
+			else if (rSI == Register.SI)
+				instruction.InternalOp1Kind = OpKind.MemorySegSI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(rSI));
+
+			instruction.PrefixSegment = prefixSegment;
+
+			instruction.InternalMemorySize = GetMemorySize(code);
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, in MemoryOperand memory, Register register) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			instruction.InternalOp0Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, in MemoryOperand memory, int immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			instruction.InternalOp0Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			instruction.InternalOp1Kind = GetImmediateOpKind(code, 1);
+			instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="register3">Register</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp2Kind = OpKind.Register;
+			instruction.InternalOp2Register = register3;
+
+			Debug.Assert(instruction.OpCount == 3);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, int immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			instruction.InternalOp2Kind = GetImmediateOpKind(code, 2);
+			instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(instruction.OpCount == 3);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			instruction.InternalOp2Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			Debug.Assert(instruction.OpCount == 3);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <param name="immediate2">Second immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register, int immediate, byte immediate2) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			instruction.InternalOp1Kind = GetImmediateOpKind(code, 1);
+			instruction.Immediate32 = (uint)immediate;
+
+			instruction.InternalOp2Kind = OpKind.Immediate8_2nd;
+			instruction.Immediate8_2nd = immediate2;
+
+			Debug.Assert(instruction.OpCount == 3);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="register2">Register</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, in MemoryOperand memory, Register register2) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			instruction.InternalOp1Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp2Kind = OpKind.Register;
+			instruction.InternalOp2Register = register2;
+
+			Debug.Assert(instruction.OpCount == 3);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register, in MemoryOperand memory, int immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			instruction.InternalOp1Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			instruction.InternalOp2Kind = GetImmediateOpKind(code, 2);
+			instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(instruction.OpCount == 3);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="rDI">di, edi, or rdi</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateMaskmov_SegRDI_Reg_Reg(Code code, Register rDI, Register register1, Register register2, Register prefixSegment = Register.None) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			if (rDI == Register.RDI)
+				instruction.InternalOp0Kind = OpKind.MemorySegRDI;
+			else if (rDI == Register.EDI)
+				instruction.InternalOp0Kind = OpKind.MemorySegEDI;
+			else if (rDI == Register.DI)
+				instruction.InternalOp0Kind = OpKind.MemorySegDI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(rDI));
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp2Kind = OpKind.Register;
+			instruction.InternalOp2Register = register2;
+
+			instruction.PrefixSegment = prefixSegment;
+
+			instruction.InternalMemorySize = GetMemorySize(code);
+
+			Debug.Assert(instruction.OpCount == 3);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, in MemoryOperand memory, Register register1, Register register2) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			instruction.InternalOp0Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp2Kind = OpKind.Register;
+			instruction.InternalOp2Register = register2;
+
+			Debug.Assert(instruction.OpCount == 3);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="register">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, in MemoryOperand memory, Register register, int immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			instruction.InternalOp0Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register;
+
+			instruction.InternalOp2Kind = GetImmediateOpKind(code, 2);
+			instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(instruction.OpCount == 3);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="register3">Register</param>
+		/// <param name="register4">Register</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3, Register register4) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp2Kind = OpKind.Register;
+			instruction.InternalOp2Register = register3;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp3Kind = OpKind.Register;
+			instruction.InternalOp3Register = register4;
+
+			Debug.Assert(instruction.OpCount == 4);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="register3">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3, int immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp2Kind = OpKind.Register;
+			instruction.InternalOp2Register = register3;
+
+			instruction.InternalOp3Kind = GetImmediateOpKind(code, 3);
+			instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(instruction.OpCount == 4);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="register3">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3, in MemoryOperand memory) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp2Kind = OpKind.Register;
+			instruction.InternalOp2Register = register3;
+
+			instruction.InternalOp3Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			Debug.Assert(instruction.OpCount == 4);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <param name="immediate2">Second immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, int immediate, byte immediate2) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			instruction.InternalOp2Kind = GetImmediateOpKind(code, 2);
+			instruction.Immediate32 = (uint)immediate;
+
+			instruction.InternalOp3Kind = OpKind.Immediate8_2nd;
+			instruction.Immediate8_2nd = immediate2;
+
+			Debug.Assert(instruction.OpCount == 4);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="register3">Register</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, Register register3) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			instruction.InternalOp2Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp3Kind = OpKind.Register;
+			instruction.InternalOp3Register = register3;
+
+			Debug.Assert(instruction.OpCount == 4);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, int immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			instruction.InternalOp2Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			instruction.InternalOp3Kind = GetImmediateOpKind(code, 3);
+			instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(instruction.OpCount == 4);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="register3">Register</param>
+		/// <param name="register4">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3, Register register4, int immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp2Kind = OpKind.Register;
+			instruction.InternalOp2Register = register3;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp3Kind = OpKind.Register;
+			instruction.InternalOp3Register = register4;
+
+			instruction.InternalOp4Kind = GetImmediateOpKind(code, 4);
+			instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(instruction.OpCount == 5);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="register3">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3, in MemoryOperand memory, int immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp2Kind = OpKind.Register;
+			instruction.InternalOp2Register = register3;
+
+			instruction.InternalOp3Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			instruction.InternalOp4Kind = GetImmediateOpKind(code, 4);
+			instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(instruction.OpCount == 5);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="register3">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, Register register3, int immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register2;
+
+			instruction.InternalOp2Kind = OpKind.Memory;
+			instruction.InternalMemoryBase = memory.Base;
+			instruction.InternalMemoryIndex = memory.Index;
+			instruction.MemoryIndexScale = memory.Scale;
+			instruction.MemoryDisplSize = memory.DisplSize;
+			instruction.MemoryDisplacement = (uint)memory.Displacement;
+			instruction.InternalMemorySize = memory.Size;
+			instruction.PrefixSegment = memory.PrefixSegment;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp3Kind = OpKind.Register;
+			instruction.InternalOp3Register = register3;
+
+			instruction.InternalOp4Kind = GetImmediateOpKind(code, 4);
+			instruction.Immediate32 = (uint)immediate;
+
+			Debug.Assert(instruction.OpCount == 5);
+			return instruction;
+		}
 #endif
 
 		/// <summary>
