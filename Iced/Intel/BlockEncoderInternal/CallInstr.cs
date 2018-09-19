@@ -91,7 +91,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public override string TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
 			if (useOrigInstruction) {
 				isOriginalInstruction = true;
-				instruction.NearBranch64Target = targetInstr.GetAddress();
+				instruction.NearBranch64 = targetInstr.GetAddress();
 				if (!encoder.TryEncode(ref instruction, IP, out _, out var errorMessage)) {
 					constantOffsets = default;
 					return CreateErrorMessage(errorMessage, ref instruction);

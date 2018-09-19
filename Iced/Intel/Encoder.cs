@@ -382,19 +382,19 @@ namespace Iced.Intel {
 					if (defaultCodeSize != 16)
 						EncoderFlags |= EncoderFlags.P66;
 					ImmSize = ImmSize.RipRelSize1_Target16;
-					Immediate = instr.NearBranch16Target;
+					Immediate = instr.NearBranch16;
 					break;
 
 				case OpKind.NearBranch32:
 					if (defaultCodeSize == 16)
 						EncoderFlags |= EncoderFlags.P66;
 					ImmSize = ImmSize.RipRelSize1_Target32;
-					Immediate = instr.NearBranch32Target;
+					Immediate = instr.NearBranch32;
 					break;
 
 				case OpKind.NearBranch64:
 					ImmSize = ImmSize.RipRelSize1_Target64;
-					target = instr.NearBranch64Target;
+					target = instr.NearBranch64;
 					Immediate = (uint)target;
 					ImmediateHi = (uint)(target >> 32);
 					break;
@@ -410,7 +410,7 @@ namespace Iced.Intel {
 					if (defaultCodeSize != 16)
 						EncoderFlags |= EncoderFlags.P66;
 					ImmSize = ImmSize.RipRelSize2_Target16;
-					Immediate = instr.NearBranch16Target;
+					Immediate = instr.NearBranch16;
 					break;
 
 				default:
@@ -424,12 +424,12 @@ namespace Iced.Intel {
 					if (defaultCodeSize == 16)
 						EncoderFlags |= EncoderFlags.P66;
 					ImmSize = ImmSize.RipRelSize4_Target32;
-					Immediate = instr.NearBranch32Target;
+					Immediate = instr.NearBranch32;
 					break;
 
 				case OpKind.NearBranch64:
 					ImmSize = ImmSize.RipRelSize4_Target64;
-					target = instr.NearBranch64Target;
+					target = instr.NearBranch64;
 					Immediate = (uint)target;
 					ImmediateHi = (uint)(target >> 32);
 					break;
@@ -449,7 +449,7 @@ namespace Iced.Intel {
 				if (!Verify(operand, OpKind.NearBranch64, instr.GetOpKind(operand)))
 					return;
 
-				var target = instr.NearBranch64Target;
+				var target = instr.NearBranch64;
 				switch (immSize) {
 				case 2:
 					EncoderFlags |= EncoderFlags.P66;
@@ -483,12 +483,12 @@ namespace Iced.Intel {
 				case 2:
 					EncoderFlags |= EncoderFlags.P66;
 					ImmSize = ImmSize.RipRelSize2_Target32;
-					Immediate = instr.NearBranch32Target;
+					Immediate = instr.NearBranch32;
 					break;
 
 				case 4:
 					ImmSize = ImmSize.RipRelSize4_Target32;
-					Immediate = instr.NearBranch32Target;
+					Immediate = instr.NearBranch32;
 					break;
 
 				case 8:
@@ -504,13 +504,13 @@ namespace Iced.Intel {
 				switch (immSize) {
 				case 2:
 					ImmSize = ImmSize.RipRelSize2_Target16;
-					Immediate = instr.NearBranch16Target;
+					Immediate = instr.NearBranch16;
 					break;
 
 				case 4:
 					EncoderFlags |= EncoderFlags.P66;
 					ImmSize = ImmSize.RipRelSize4_Target32;
-					Immediate = instr.NearBranch16Target;
+					Immediate = instr.NearBranch16;
 					break;
 
 				case 8:
@@ -525,7 +525,7 @@ namespace Iced.Intel {
 				if (!Verify(operand, OpKind.FarBranch16, instr.GetOpKind(operand)))
 					return;
 				ImmSize = ImmSize.Size2_2;
-				Immediate = instr.FarBranch16Target;
+				Immediate = instr.FarBranch16;
 				ImmediateHi = instr.FarBranchSelector;
 			}
 			else {
@@ -533,7 +533,7 @@ namespace Iced.Intel {
 				if (!Verify(operand, OpKind.FarBranch32, instr.GetOpKind(operand)))
 					return;
 				ImmSize = ImmSize.Size4_2;
-				Immediate = instr.FarBranch32Target;
+				Immediate = instr.FarBranch32;
 				ImmediateHi = instr.FarBranchSelector;
 			}
 			if (defaultCodeSize != size * 8)

@@ -55,7 +55,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.PrefixSegment);
 
 			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
-			Assert.Equal((ushort)target, instr.NearBranch16Target);
+			Assert.Equal((ushort)target, instr.NearBranch16);
 		}
 
 		[Theory]
@@ -91,7 +91,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.PrefixSegment);
 
 			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
-			Assert.Equal((ushort)target, instr.NearBranch16Target);
+			Assert.Equal((ushort)target, instr.NearBranch16);
 		}
 
 		[Theory]
@@ -127,7 +127,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.PrefixSegment);
 
 			Assert.Equal(OpKind.NearBranch32, instr.Op0Kind);
-			Assert.Equal((uint)target, instr.NearBranch32Target);
+			Assert.Equal((uint)target, instr.NearBranch32);
 		}
 
 		[Theory]
@@ -163,7 +163,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.PrefixSegment);
 
 			Assert.Equal(OpKind.NearBranch32, instr.Op0Kind);
-			Assert.Equal((uint)target, instr.NearBranch32Target);
+			Assert.Equal((uint)target, instr.NearBranch32);
 		}
 
 		[Theory]
@@ -199,7 +199,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.PrefixSegment);
 
 			Assert.Equal(OpKind.NearBranch64, instr.Op0Kind);
-			Assert.Equal(target, instr.NearBranch64Target);
+			Assert.Equal(target, instr.NearBranch64);
 		}
 
 		[Theory]

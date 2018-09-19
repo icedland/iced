@@ -244,7 +244,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.PrefixSegment);
 
 			Assert.Equal(OpKind.FarBranch16, instr.Op0Kind);
-			Assert.Equal(0x3412, instr.FarBranch16Target);
+			Assert.Equal(0x3412, instr.FarBranch16);
 			Assert.Equal(0x7856, instr.FarBranchSelector);
 		}
 
@@ -262,7 +262,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.PrefixSegment);
 
 			Assert.Equal(OpKind.FarBranch16, instr.Op0Kind);
-			Assert.Equal(0x3412, instr.FarBranch16Target);
+			Assert.Equal(0x3412, instr.FarBranch16);
 			Assert.Equal(0x7856, instr.FarBranchSelector);
 		}
 
@@ -280,7 +280,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.PrefixSegment);
 
 			Assert.Equal(OpKind.FarBranch32, instr.Op0Kind);
-			Assert.Equal(0x78563412U, instr.FarBranch32Target);
+			Assert.Equal(0x78563412U, instr.FarBranch32);
 			Assert.Equal(0xBC9A, instr.FarBranchSelector);
 		}
 
@@ -298,7 +298,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.PrefixSegment);
 
 			Assert.Equal(OpKind.FarBranch32, instr.Op0Kind);
-			Assert.Equal(0x78563412U, instr.FarBranch32Target);
+			Assert.Equal(0x78563412U, instr.FarBranch32);
 			Assert.Equal(0xBC9A, instr.FarBranchSelector);
 		}
 

@@ -32,27 +32,27 @@ namespace Iced.Intel {
 		Register = 0,// Code assumes this is 0
 
 		/// <summary>
-		/// Near 16-bit branch. This operand kind uses <see cref="Instruction.NearBranch16Target"/>
+		/// Near 16-bit branch. This operand kind uses <see cref="Instruction.NearBranch16"/>
 		/// </summary>
 		NearBranch16,
 
 		/// <summary>
-		/// Near 32-bit branch. This operand kind uses <see cref="Instruction.NearBranch32Target"/>
+		/// Near 32-bit branch. This operand kind uses <see cref="Instruction.NearBranch32"/>
 		/// </summary>
 		NearBranch32,
 
 		/// <summary>
-		/// Near 64-bit branch. This operand kind uses <see cref="Instruction.NearBranch64Target"/>
+		/// Near 64-bit branch. This operand kind uses <see cref="Instruction.NearBranch64"/>
 		/// </summary>
 		NearBranch64,
 
 		/// <summary>
-		/// Far 16-bit branch. This operand kind uses <see cref="Instruction.FarBranch16Target"/> and <see cref="Instruction.FarBranchSelector"/>
+		/// Far 16-bit branch. This operand kind uses <see cref="Instruction.FarBranch16"/> and <see cref="Instruction.FarBranchSelector"/>
 		/// </summary>
 		FarBranch16,
 
 		/// <summary>
-		/// Far 32-bit branch. This operand kind uses <see cref="Instruction.FarBranch32Target"/> and <see cref="Instruction.FarBranchSelector"/>
+		/// Far 32-bit branch. This operand kind uses <see cref="Instruction.FarBranch32"/> and <see cref="Instruction.FarBranchSelector"/>
 		/// </summary>
 		FarBranch32,
 

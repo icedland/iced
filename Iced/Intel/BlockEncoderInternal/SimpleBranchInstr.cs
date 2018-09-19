@@ -64,7 +64,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				Instruction instrCopy;
 
 				instrCopy = instruction;
-				instrCopy.NearBranch64Target = 0;
+				instrCopy.NearBranch64 = 0;
 				if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, 0, out instrLen, out errorMessage))
 					instrLen = DecoderConstants.MaxInstructionLength;
 				shortInstructionSize = (uint)instrLen;
@@ -75,7 +75,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				else {
 					instrCopy = instruction;
 					instrCopy.Code = nativeCode;
-					instrCopy.NearBranch64Target = 0;
+					instrCopy.NearBranch64 = 0;
 					if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, 0, out instrLen, out errorMessage))
 						instrLen = DecoderConstants.MaxInstructionLength;
 					nativeInstructionSize = (uint)instrLen;
@@ -256,7 +256,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case InstrKind.Unchanged:
 			case InstrKind.Short:
 				isOriginalInstruction = true;
-				instruction.NearBranch64Target = targetInstr.GetAddress();
+				instruction.NearBranch64 = targetInstr.GetAddress();
 				if (!encoder.TryEncode(ref instruction, IP, out instrLen, out errorMessage)) {
 					constantOffsets = default;
 					return CreateErrorMessage(errorMessage, ref instruction);
@@ -277,13 +277,13 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 				instr = instruction;
 				instr.Code = nativeCode;
-				instr.NearBranch64Target = IP + nativeInstructionSize + 2;
+				instr.NearBranch64 = IP + nativeInstructionSize + 2;
 				if (!encoder.TryEncode(ref instr, IP, out instrLen, out errorMessage))
 					return CreateErrorMessage(errorMessage, ref instruction);
 				size = (uint)instrLen;
 
 				instr = new Instruction();
-				instr.NearBranch64Target = IP + nearInstructionSize;
+				instr.NearBranch64 = IP + nearInstructionSize;
 				Code codeNear;
 				switch (encoder.Bitness) {
 				case 16:
@@ -312,7 +312,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				size += (uint)instrLen;
 
 				instr.Code = codeNear;
-				instr.NearBranch64Target = targetInstr.GetAddress();
+				instr.NearBranch64 = targetInstr.GetAddress();
 				encoder.TryEncode(ref instr, IP + size, out instrLen, out errorMessage);
 				if (errorMessage != null)
 					return CreateErrorMessage(errorMessage, ref instruction);
@@ -334,13 +334,13 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 				instr = instruction;
 				instr.Code = nativeCode;
-				instr.NearBranch64Target = IP + nativeInstructionSize + 2;
+				instr.NearBranch64 = IP + nativeInstructionSize + 2;
 				if (!encoder.TryEncode(ref instr, IP, out instrLen, out errorMessage))
 					return CreateErrorMessage(errorMessage, ref instruction);
 				size = (uint)instrLen;
 
 				instr = new Instruction();
-				instr.NearBranch64Target = IP + longInstructionSize;
+				instr.NearBranch64 = IP + longInstructionSize;
 				switch (encoder.Bitness) {
 				case 16:
 					instr.Code = Code.Jmp_rel8_16;

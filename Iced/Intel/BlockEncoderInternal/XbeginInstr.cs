@@ -35,9 +35,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 			this.instruction = instruction;
 
 			switch (blockEncoder.Bitness) {
-			case 16: targetAddr = instruction.NearBranch16Target; break;
-			case 32: targetAddr = instruction.NearBranch32Target; break;
-			case 64: targetAddr = instruction.NearBranch64Target; break;
+			case 16: targetAddr = instruction.NearBranch16; break;
+			case 32: targetAddr = instruction.NearBranch32; break;
+			case 64: targetAddr = instruction.NearBranch64; break;
 			default: throw new InvalidOperationException();
 			}
 
@@ -60,7 +60,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public override string TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
 			isOriginalInstruction = true;
-			instruction.NearBranch64Target = targetInstr.GetAddress();
+			instruction.NearBranch64 = targetInstr.GetAddress();
 			if (!encoder.TryEncode(ref instruction, IP, out _, out var errorMessage)) {
 				constantOffsets = default;
 				return CreateErrorMessage(errorMessage, ref instruction);

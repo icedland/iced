@@ -980,7 +980,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
 			instruction.InternalOp0Kind = OpKind.NearBranch64;
-			instruction.NearBranch64Target = (ulong)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer64();
+			instruction.NearBranch64 = (ulong)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer64();
 		}
 	}
 
@@ -1001,18 +1001,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			if (state.operandSize == OpSize.Size32) {
 				instruction.InternalCode = code32;
 				instruction.InternalOp0Kind = OpKind.NearBranch64;
-				instruction.NearBranch64Target = (ulong)(int)decoder.ReadUInt32() + decoder.GetCurrentInstructionPointer64();
+				instruction.NearBranch64 = (ulong)(int)decoder.ReadUInt32() + decoder.GetCurrentInstructionPointer64();
 			}
 			else if (state.operandSize == OpSize.Size64) {
 				instruction.InternalCode = code64;
 				instruction.InternalOp0Kind = OpKind.NearBranch64;
-				instruction.NearBranch64Target = (ulong)(int)decoder.ReadUInt32() + decoder.GetCurrentInstructionPointer64();
+				instruction.NearBranch64 = (ulong)(int)decoder.ReadUInt32() + decoder.GetCurrentInstructionPointer64();
 			}
 			else {
 				Debug.Assert(state.operandSize == OpSize.Size16);
 				instruction.InternalCode = code16;
 				instruction.InternalOp0Kind = OpKind.NearBranch64;
-				instruction.NearBranch64Target = (ulong)(short)decoder.ReadUInt16() + decoder.GetCurrentInstructionPointer64();
+				instruction.NearBranch64 = (ulong)(short)decoder.ReadUInt16() + decoder.GetCurrentInstructionPointer64();
 			}
 		}
 	}
@@ -1027,7 +1027,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
 			instruction.InternalOp0Kind = OpKind.NearBranch64;
-			instruction.NearBranch64Target = (ulong)(int)decoder.ReadUInt32() + decoder.GetCurrentInstructionPointer64();
+			instruction.NearBranch64 = (ulong)(int)decoder.ReadUInt32() + decoder.GetCurrentInstructionPointer64();
 		}
 	}
 
@@ -1048,7 +1048,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			else
 				instruction.InternalCode = code64_32;
 			instruction.InternalOp0Kind = OpKind.NearBranch64;
-			instruction.NearBranch64Target = (ulong)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer64();
+			instruction.NearBranch64 = (ulong)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer64();
 		}
 	}
 
