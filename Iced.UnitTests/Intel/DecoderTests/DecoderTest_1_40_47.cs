@@ -23,14 +23,14 @@ using Xunit;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class DecoderTest_1_40_47 : DecoderTest {
 		[Theory]
-		[InlineData("40", 1, Code.Inc_AX, Register.AX)]
-		[InlineData("41", 1, Code.Inc_CX, Register.CX)]
-		[InlineData("42", 1, Code.Inc_DX, Register.DX)]
-		[InlineData("43", 1, Code.Inc_BX, Register.BX)]
-		[InlineData("44", 1, Code.Inc_SP, Register.SP)]
-		[InlineData("45", 1, Code.Inc_BP, Register.BP)]
-		[InlineData("46", 1, Code.Inc_SI, Register.SI)]
-		[InlineData("47", 1, Code.Inc_DI, Register.DI)]
+		[InlineData("40", 1, Code.Inc_r16, Register.AX)]
+		[InlineData("41", 1, Code.Inc_r16, Register.CX)]
+		[InlineData("42", 1, Code.Inc_r16, Register.DX)]
+		[InlineData("43", 1, Code.Inc_r16, Register.BX)]
+		[InlineData("44", 1, Code.Inc_r16, Register.SP)]
+		[InlineData("45", 1, Code.Inc_r16, Register.BP)]
+		[InlineData("46", 1, Code.Inc_r16, Register.SI)]
+		[InlineData("47", 1, Code.Inc_r16, Register.DI)]
 		void Test16_Inc_R16_1(string hexBytes, int byteLength, Code code, Register register) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -48,14 +48,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 40", 2, Code.Inc_AX, Register.AX)]
-		[InlineData("66 41", 2, Code.Inc_CX, Register.CX)]
-		[InlineData("66 42", 2, Code.Inc_DX, Register.DX)]
-		[InlineData("66 43", 2, Code.Inc_BX, Register.BX)]
-		[InlineData("66 44", 2, Code.Inc_SP, Register.SP)]
-		[InlineData("66 45", 2, Code.Inc_BP, Register.BP)]
-		[InlineData("66 46", 2, Code.Inc_SI, Register.SI)]
-		[InlineData("66 47", 2, Code.Inc_DI, Register.DI)]
+		[InlineData("66 40", 2, Code.Inc_r16, Register.AX)]
+		[InlineData("66 41", 2, Code.Inc_r16, Register.CX)]
+		[InlineData("66 42", 2, Code.Inc_r16, Register.DX)]
+		[InlineData("66 43", 2, Code.Inc_r16, Register.BX)]
+		[InlineData("66 44", 2, Code.Inc_r16, Register.SP)]
+		[InlineData("66 45", 2, Code.Inc_r16, Register.BP)]
+		[InlineData("66 46", 2, Code.Inc_r16, Register.SI)]
+		[InlineData("66 47", 2, Code.Inc_r16, Register.DI)]
 		void Test32_Inc_R16_1(string hexBytes, int byteLength, Code code, Register register) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -73,14 +73,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("66 40", 2, Code.Inc_EAX, Register.EAX)]
-		[InlineData("66 41", 2, Code.Inc_ECX, Register.ECX)]
-		[InlineData("66 42", 2, Code.Inc_EDX, Register.EDX)]
-		[InlineData("66 43", 2, Code.Inc_EBX, Register.EBX)]
-		[InlineData("66 44", 2, Code.Inc_ESP, Register.ESP)]
-		[InlineData("66 45", 2, Code.Inc_EBP, Register.EBP)]
-		[InlineData("66 46", 2, Code.Inc_ESI, Register.ESI)]
-		[InlineData("66 47", 2, Code.Inc_EDI, Register.EDI)]
+		[InlineData("66 40", 2, Code.Inc_r32, Register.EAX)]
+		[InlineData("66 41", 2, Code.Inc_r32, Register.ECX)]
+		[InlineData("66 42", 2, Code.Inc_r32, Register.EDX)]
+		[InlineData("66 43", 2, Code.Inc_r32, Register.EBX)]
+		[InlineData("66 44", 2, Code.Inc_r32, Register.ESP)]
+		[InlineData("66 45", 2, Code.Inc_r32, Register.EBP)]
+		[InlineData("66 46", 2, Code.Inc_r32, Register.ESI)]
+		[InlineData("66 47", 2, Code.Inc_r32, Register.EDI)]
 		void Test16_Dec_R32_1(string hexBytes, int byteLength, Code code, Register register) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -98,14 +98,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("40", 1, Code.Inc_EAX, Register.EAX)]
-		[InlineData("41", 1, Code.Inc_ECX, Register.ECX)]
-		[InlineData("42", 1, Code.Inc_EDX, Register.EDX)]
-		[InlineData("43", 1, Code.Inc_EBX, Register.EBX)]
-		[InlineData("44", 1, Code.Inc_ESP, Register.ESP)]
-		[InlineData("45", 1, Code.Inc_EBP, Register.EBP)]
-		[InlineData("46", 1, Code.Inc_ESI, Register.ESI)]
-		[InlineData("47", 1, Code.Inc_EDI, Register.EDI)]
+		[InlineData("40", 1, Code.Inc_r32, Register.EAX)]
+		[InlineData("41", 1, Code.Inc_r32, Register.ECX)]
+		[InlineData("42", 1, Code.Inc_r32, Register.EDX)]
+		[InlineData("43", 1, Code.Inc_r32, Register.EBX)]
+		[InlineData("44", 1, Code.Inc_r32, Register.ESP)]
+		[InlineData("45", 1, Code.Inc_r32, Register.EBP)]
+		[InlineData("46", 1, Code.Inc_r32, Register.ESI)]
+		[InlineData("47", 1, Code.Inc_r32, Register.EDI)]
 		void Test32_Inc_R32_1(string hexBytes, int byteLength, Code code, Register register) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();

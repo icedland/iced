@@ -156,121 +156,19 @@ namespace Iced.Intel {
 		// DS:												// 3E
 		Aas,												// 3F
 
-		Inc_AX,												// o16 40
-		Inc_EAX,											// o32 40
-		Inc_CX,												// o16 41
-		Inc_ECX,											// o32 41
-		Inc_DX,												// o16 42
-		Inc_EDX,											// o32 42
-		Inc_BX,												// o16 43
-		Inc_EBX,											// o32 43
-		Inc_SP,												// o16 44
-		Inc_ESP,											// o32 44
-		Inc_BP,												// o16 45
-		Inc_EBP,											// o32 45
-		Inc_SI,												// o16 46
-		Inc_ESI,											// o32 46
-		Inc_DI,												// o16 47
-		Inc_EDI,											// o32 47
+		Inc_r16,										    // o16 40
+		Inc_r32,											// o32 40
 
-		Dec_AX,												// o16 48
-		Dec_EAX,											// o32 48
-		Dec_CX,												// o16 49
-		Dec_ECX,											// o32 49
-		Dec_DX,												// o16 4A
-		Dec_EDX,											// o32 4A
-		Dec_BX,												// o16 4B
-		Dec_EBX,											// o32 4B
-		Dec_SP,												// o16 4C
-		Dec_ESP,											// o32 4C
-		Dec_BP,												// o16 4D
-		Dec_EBP,											// o32 4D
-		Dec_SI,												// o16 4E
-		Dec_ESI,											// o32 4E
-		Dec_DI,												// o16 4F
-		Dec_EDI,											// o32 4F
+		Dec_r16,										      // o16 48
+		Dec_r32,											// o32 48
 
-		Push_AX,											// o16 50
-		Push_R8W,											// o16 REX.B 50
-		Push_EAX,											// o32 50
-		Push_RAX,											// 50
-		Push_R8,											// REX.B 50
-		Push_CX,											// o16 51
-		Push_R9W,											// o16 REX.B 51
-		Push_ECX,											// o32 51
-		Push_RCX,											// 51
-		Push_R9,											// REX.B 51
-		Push_DX,											// o16 52
-		Push_R10W,											// o16 REX.B 52
-		Push_EDX,											// o32 52
-		Push_RDX,											// 52
-		Push_R10,											// REX.B 52
-		Push_BX,											// o16 53
-		Push_R11W,											// o16 REX.B 53
-		Push_EBX,											// o32 53
-		Push_RBX,											// 53
-		Push_R11,											// REX.B 53
-		Push_SP,											// o16 54
-		Push_R12W,											// o16 REX.B 54
-		Push_ESP,											// o32 54
-		Push_RSP,											// 54
-		Push_R12,											// REX.B 54
-		Push_BP,											// o16 55
-		Push_R13W,											// o16 REX.B 55
-		Push_EBP,											// o32 55
-		Push_RBP,											// 55
-		Push_R13,											// REX.B 55
-		Push_SI,											// o16 56
-		Push_R14W,											// o16 REX.B 56
-		Push_ESI,											// o32 56
-		Push_RSI,											// 56
-		Push_R14,											// REX.B 56
-		Push_DI,											// o16 57
-		Push_R15W,											// o16 REX.B 57
-		Push_EDI,											// o32 57
-		Push_RDI,											// 57
-		Push_R15,											// REX.B 57
+		Push_r16,											// o16 50
+		Push_r32,											// o32 50
+		Push_r64,											// 50
 
-		Pop_AX,												// o16 58
-		Pop_R8W,											// o16 REX.B 58
-		Pop_EAX,											// o32 58
-		Pop_RAX,											// 58
-		Pop_R8,												// REX.B 58
-		Pop_CX,												// o16 59
-		Pop_R9W,											// o16 REX.B 59
-		Pop_ECX,											// o32 59
-		Pop_RCX,											// 59
-		Pop_R9,												// REX.B 59
-		Pop_DX,												// o16 5A
-		Pop_R10W,											// o16 REX.B 5A
-		Pop_EDX,											// o32 5A
-		Pop_RDX,											// 5A
-		Pop_R10,											// REX.B 5A
-		Pop_BX,												// o16 5B
-		Pop_R11W,											// o16 REX.B 5B
-		Pop_EBX,											// o32 5B
-		Pop_RBX,											// 5B
-		Pop_R11,											// REX.B 5B
-		Pop_SP,												// o16 5C
-		Pop_R12W,											// o16 REX.B 5C
-		Pop_ESP,											// o32 5C
-		Pop_RSP,											// 5C
-		Pop_R12,											// REX.B 5C
-		Pop_BP,												// o16 5D
-		Pop_R13W,											// o16 REX.B 5D
-		Pop_EBP,											// o32 5D
-		Pop_RBP,											// 5D
-		Pop_R13,											// REX.B 5D
-		Pop_SI,												// o16 5E
-		Pop_R14W,											// o16 REX.B 5E
-		Pop_ESI,											// o32 5E
-		Pop_RSI,											// 5E
-		Pop_R14,											// REX.B 5E
-		Pop_DI,												// o16 5F
-		Pop_R15W,											// o16 REX.B 5F
-		Pop_EDI,											// o32 5F
-		Pop_RDI,											// 5F
-		Pop_R15,											// REX.B 5F
+		Pop_r16,										    // o16 58
+		Pop_r32,											// o32 58
+		Pop_r64,											// 58
 
 		Pushaw,												// o16 60
 		Pushad,												// o32 60

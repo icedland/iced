@@ -54,7 +54,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		void Code_is_not_too_big() {
 			int maxValue = GetEnumSize(typeof(Code)) - 1;
 			Assert.True(maxValue < (1 << Instruction.TEST_CodeBits));
-			Assert.True(maxValue >= (1 << (Instruction.TEST_CodeBits - 1)));
+			Assert.True(maxValue >= (1 << (Instruction.TEST_CodeBits - 2)));
 		}
 
 		[Fact]

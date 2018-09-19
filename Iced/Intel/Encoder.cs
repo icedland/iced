@@ -613,6 +613,43 @@ namespace Iced.Intel {
 			EncoderFlags |= (EncoderFlags)((regNum & 0x10) << (9 - 4));
 		}
 
+		internal void AddReg(ref Instruction instr, int operand, Register regLo, Register regHi) {
+			var opKind = instr.GetOpKind(operand);
+			if (opKind != OpKind.Register) {
+				ErrorMessage = $"Operand {operand}: Expected a register, but opKind is {opKind}";
+				return;
+			}
+
+			var reg = instr.GetOpRegister(operand);
+			uint regNum = (uint)(reg - regLo);
+			if (reg >= Register.R8W && reg <= Register.R15W) {
+				if (defaultCodeSize != 64) {
+					ErrorMessage = ERROR_ONLY_64_BIT_MODE;
+					return;
+				}
+				EncoderFlags |= EncoderFlags.P66 | EncoderFlags.REX | EncoderFlags.B;
+				regNum = (uint)(reg - Register.R8W);
+			}
+			else if (reg >= Register.R8 && reg <= Register.R15) {
+				if (defaultCodeSize != 64) {
+					ErrorMessage = ERROR_ONLY_64_BIT_MODE;
+					return;
+				}
+				EncoderFlags |= EncoderFlags.REX | EncoderFlags.B;
+				regNum = (uint)(reg - Register.R8);
+			}
+			else if (reg >= Register.AX && reg <= Register.DI && defaultCodeSize != 16) {
+				EncoderFlags |= EncoderFlags.P66;
+			}
+
+			// Verify after decoding to output ERROR_ONLY_64_BIT_MODE before register errors
+			if (!Verify(operand, reg, regLo, regHi))
+				return;
+
+			Debug.Assert(regNum <= 7);
+			OpCode = OpCode + regNum;
+		}
+
 		internal void AddRegOrMem(ref Instruction instr, int operand, Register regLo, Register regHi, bool allowMemOp, bool allowRegOp) =>
 			AddRegOrMem(ref instr, operand, regLo, regHi, Register.None, Register.None, allowMemOp, allowRegOp);
 

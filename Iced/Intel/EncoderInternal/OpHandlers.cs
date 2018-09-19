@@ -193,6 +193,9 @@ namespace Iced.Intel.EncoderInternal {
 		R15,
 		ST,
 		STi,
+		r16_rw,
+		r32_rd,
+		r64_ro,
 
 		Last,
 	}
@@ -370,6 +373,9 @@ namespace Iced.Intel.EncoderInternal {
 			new OpReg(Register.R15),
 			new OpReg(Register.ST0),
 			new OpRegSTi(),
+			new OpRegEmbed8(Register.AX, Register.R15W),
+			new OpRegEmbed8(Register.EAX, Register.EDI),
+			new OpRegEmbed8(Register.RAX, Register.R15),
 		};
 	}
 
@@ -627,6 +633,20 @@ namespace Iced.Intel.EncoderInternal {
 
 		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
 			encoder.AddRegOrMem(ref instr, operand, regLo, regHi, allowMemOp: true, allowRegOp: true);
+	}
+
+	sealed class OpRegEmbed8: Op {
+		readonly Register regLo;
+		readonly Register regHi;
+
+		public OpRegEmbed8(Register regLo, Register regHi) {
+			this.regLo = regLo;
+			this.regHi = regHi;
+		}
+
+		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+			encoder.AddReg(ref instr, operand, regLo, regHi);
+		}			
 	}
 
 	sealed class OpModRM_rm_reg_only : Op {
