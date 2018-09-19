@@ -17,6 +17,7 @@
     along with Iced.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#if !NO_ENCODER
 using System;
 using System.Collections.Generic;
 using Iced.Intel;
@@ -148,3 +149,4 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 	}
 }
+#endif
