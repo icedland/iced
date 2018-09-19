@@ -242,9 +242,11 @@ namespace Iced.Intel.BlockEncoderInternal {
 				throw new InvalidOperationException();
 			}
 
-			size = (uint)encoder.Encode(ref instr, ip, out var errorMessage);
-			if (errorMessage != null)
+			if (!encoder.TryEncode(ref instr, ip, out int instrLen, out var errorMessage)) {
+				size = 0;
 				return errorMessage;
+			}
+			size = (uint)instrLen;
 			if (Block.CanAddRelocInfos && relocKind != RelocKind.Offset64) {
 				var constantOffsets = encoder.GetConstantOffsets();
 				if (!constantOffsets.HasDisplacement)

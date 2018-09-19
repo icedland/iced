@@ -53,8 +53,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 			var writer = new CodeWriterImpl();
 			var encoder = decoder.CreateEncoder(writer);
-			encoder.Encode(ref createdInstr, origRip, out var errorMessage);
+			bool result = encoder.TryEncode(ref createdInstr, origRip, out _, out var errorMessage);
 			Assert.Null(errorMessage);
+			Assert.True(result);
 			Assert.Equal(bytes, writer.ToArray());
 		}
 		public static IEnumerable<object[]> CreateTest_Data {

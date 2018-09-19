@@ -204,13 +204,27 @@ namespace Iced.Intel {
 		public static Encoder Create64(CodeWriter writer) => new Encoder(writer, 64);
 
 		/// <summary>
-		/// Encodes an instruction and returns the size of the encoded instruction
+		/// Encodes an instruction and returns the size of the encoded instruction.
+		/// A <see cref="EncoderException"/> is thrown if it failed to encode the instruction.
 		/// </summary>
 		/// <param name="instruction">Instruction to encode</param>
 		/// <param name="rip">RIP of the encoded instruction</param>
+		/// <returns></returns>
+		public int Encode(ref Instruction instruction, ulong rip) {
+			if (!TryEncode(ref instruction, rip, out int result, out var errorMessage))
+				throw new EncoderException(errorMessage);
+			return result;
+		}
+
+		/// <summary>
+		/// Encodes an instruction
+		/// </summary>
+		/// <param name="instruction">Instruction to encode</param>
+		/// <param name="rip">RIP of the encoded instruction</param>
+		/// <param name="encodedLength">Updated with length of encoded instruction if successful</param>
 		/// <param name="errorMessage">Set to the error message if we couldn't encode the instruction</param>
 		/// <returns></returns>
-		public int Encode(ref Instruction instruction, ulong rip, out string errorMessage) {
+		public bool TryEncode(ref Instruction instruction, ulong rip, out int encodedLength, out string errorMessage) {
 			currentRip = rip;
 			eip = (uint)rip;
 			this.errorMessage = null;
@@ -314,7 +328,12 @@ namespace Iced.Intel {
 			if (instrLen > DecoderConstants.MaxInstructionLength)
 				ErrorMessage = $"Instruction length > {DecoderConstants.MaxInstructionLength} bytes";
 			errorMessage = this.errorMessage;
-			return instrLen;
+			if (errorMessage != null) {
+				encodedLength = 0;
+				return false;
+			}
+			encodedLength = instrLen;
+			return true;
 		}
 
 		internal string ErrorMessage {
