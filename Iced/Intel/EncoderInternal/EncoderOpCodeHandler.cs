@@ -545,7 +545,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		public override void Encode(Encoder encoder, ref Instruction instr) {
-			byte b;
+			uint b;
 			if ((b = mandatoryPrefix) != 0)
 				encoder.WriteByte(b);
 
@@ -559,7 +559,7 @@ namespace Iced.Intel.EncoderInternal {
 				if ((encoder.EncoderFlags & EncoderFlags.HighLegacy8BitRegs) != 0)
 					encoder.ErrorMessage = "Registers AH, CH, DH, BH can't be used if there's a REX prefix. Use AL, CL, DL, BL, SPL, BPL, SIL, DIL, R8L-R15L instead.";
 				rex |= 0x40;
-				encoder.WriteByte((byte)rex);
+				encoder.WriteByte(rex);
 			}
 
 			if ((b = tableByte1) != 0) {
@@ -638,14 +638,14 @@ namespace Iced.Intel.EncoderInternal {
 				Debug.Assert((int)EncoderFlags.X == 2);
 				Debug.Assert((int)EncoderFlags.R == 4);
 				b2 |= (~encoderFlags & 7) << 5;
-				encoder.WriteByte((byte)b2);
-				encoder.WriteByte((byte)b);
+				encoder.WriteByte(b2);
+				encoder.WriteByte(b);
 			}
 			else {
 				encoder.WriteByte(0xC5);
 				Debug.Assert((int)EncoderFlags.R == 4);
 				b |= (~encoderFlags & 4) << 5;
-				encoder.WriteByte((byte)b);
+				encoder.WriteByte(b);
 			}
 		}
 	}
@@ -709,10 +709,10 @@ namespace Iced.Intel.EncoderInternal {
 			Debug.Assert((int)EncoderFlags.X == 2);
 			Debug.Assert((int)EncoderFlags.R == 4);
 			b |= (~encoderFlags & 7) << 5;
-			encoder.WriteByte((byte)b);
+			encoder.WriteByte(b);
 			b = lastByte;
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
-			encoder.WriteByte((byte)b);
+			encoder.WriteByte(b);
 		}
 	}
 
@@ -954,11 +954,11 @@ namespace Iced.Intel.EncoderInternal {
 			Debug.Assert((int)EncoderFlags.R2 == 0x00000200);
 			b |= (encoderFlags >> (9 - 4)) & 0x10;
 			b ^= ~0xFU;
-			encoder.WriteByte((byte)b);
+			encoder.WriteByte(b);
 
 			b = p1Bits;
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
-			encoder.WriteByte((byte)b);
+			encoder.WriteByte(b);
 
 			b = instr.InternalOpMask;
 			if (b != 0 && (flags & EvexFlags.k1) == 0)
@@ -993,7 +993,7 @@ namespace Iced.Intel.EncoderInternal {
 				b |= 0x80;
 			}
 			b ^= 8;
-			encoder.WriteByte((byte)b);
+			encoder.WriteByte(b);
 		}
 	}
 
@@ -1002,7 +1002,7 @@ namespace Iced.Intel.EncoderInternal {
 			new OpModRM_reg(Register.MM0, Register.MM7),
 			new OpModRM_rm(Register.MM0, Register.MM7),
 		};
-		uint immediate;
+		readonly uint immediate;
 
 		public D3nowHandler(uint dword1, uint dword2, uint dword3)
 			: base(GetCode(dword1), 0x0F, -1, (Encodable)((dword2 >> (int)D3nowFlags.EncodableShift) & (uint)D3nowFlags.EncodableMask), OperandSize.None, AddressSize.None, null, operands) {
