@@ -449,11 +449,6 @@ namespace Iced.Intel {
 		SMX,
 
 		/// <summary>
-		/// CPUID.80000001H:ECX.SVM[bit 2]
-		/// </summary>
-		SVM,
-
-		/// <summary>
 		/// CPUID.01H:EDX.SSE[bit 25]
 		/// </summary>
 		SSE,
@@ -487,6 +482,11 @@ namespace Iced.Intel {
 		/// CPUID.01H:ECX.SSSE3[bit 9]
 		/// </summary>
 		SSSE3,
+
+		/// <summary>
+		/// CPUID.80000001H:ECX.SVM[bit 2]
+		/// </summary>
+		SVM,
 
 		/// <summary>
 		/// CPUID.80000001H:EDX.SYSCALL[bit 11]
