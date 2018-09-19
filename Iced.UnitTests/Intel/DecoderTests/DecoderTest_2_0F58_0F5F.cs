@@ -1931,6 +1931,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "C5FC 5B 10", 4, Code.VEX_Vcvtdq2ps_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Int32 };
 				yield return new object[] { "C4E1FC 5B 10", 5, Code.VEX_Vcvtdq2ps_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Int32 };
 
+				yield return new object[] { "C5F9 5B 10", 4, Code.VEX_Vcvtps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };
+				yield return new object[] { "C4E1F9 5B 10", 5, Code.VEX_Vcvtps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };
+
+				yield return new object[] { "C5FD 5B 10", 4, Code.VEX_Vcvtps2dq_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Float32 };
+				yield return new object[] { "C4E1FD 5B 10", 5, Code.VEX_Vcvtps2dq_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Float32 };
+
 				yield return new object[] { "C5FA 5B 10", 4, Code.VEX_Vcvttps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };
 				yield return new object[] { "C4E1FA 5B 10", 5, Code.VEX_Vcvttps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };
 
@@ -2052,6 +2058,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "C5FC 5B 10", 4, Code.VEX_Vcvtdq2ps_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Int32 };
 				yield return new object[] { "C4E1FC 5B 10", 5, Code.VEX_Vcvtdq2ps_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Int32 };
 
+				yield return new object[] { "C5F9 5B 10", 4, Code.VEX_Vcvtps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };
+				yield return new object[] { "C4E1F9 5B 10", 5, Code.VEX_Vcvtps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };
+
+				yield return new object[] { "C5FD 5B 10", 4, Code.VEX_Vcvtps2dq_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Float32 };
+				yield return new object[] { "C4E1FD 5B 10", 5, Code.VEX_Vcvtps2dq_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Float32 };
+
 				yield return new object[] { "C5FA 5B 10", 4, Code.VEX_Vcvttps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };
 				yield return new object[] { "C4E1FA 5B 10", 5, Code.VEX_Vcvttps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };
 
@@ -2172,6 +2184,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "C5FC 5B 10", 4, Code.VEX_Vcvtdq2ps_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Int32 };
 				yield return new object[] { "C4E1FC 5B 10", 5, Code.VEX_Vcvtdq2ps_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Int32 };
+
+				yield return new object[] { "C5F9 5B 10", 4, Code.VEX_Vcvtps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };
+				yield return new object[] { "C4E1F9 5B 10", 5, Code.VEX_Vcvtps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };
+
+				yield return new object[] { "C5FD 5B 10", 4, Code.VEX_Vcvtps2dq_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Float32 };
+				yield return new object[] { "C4E1FD 5B 10", 5, Code.VEX_Vcvtps2dq_ymm_ymmm256, Register.YMM2, MemorySize.Packed256_Float32 };
 
 				yield return new object[] { "C5FA 5B 10", 4, Code.VEX_Vcvttps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };
 				yield return new object[] { "C4E1FA 5B 10", 5, Code.VEX_Vcvttps2dq_xmm_xmmm128, Register.XMM2, MemorySize.Packed128_Float32 };

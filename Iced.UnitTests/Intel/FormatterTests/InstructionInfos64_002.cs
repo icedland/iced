@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos64_002 {
-		public const int AllInfos_Length = 1000;
+		public const int AllInfos_Length = 1002;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(64, "62 F1FD0B 5A D3", Code.EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64),
 			new InstructionInfo(64, "62 F1FD08 5A 50 01", Code.EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64),
@@ -72,7 +72,9 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(64, "66 0F5B CD", Code.Cvtps2dq_xmm_xmmm128),
 			new InstructionInfo(64, "66 0F5B 08", Code.Cvtps2dq_xmm_xmmm128),
 			new InstructionInfo(64, "C5F9 5B CD", Code.VEX_Vcvtps2dq_xmm_xmmm128),
+			new InstructionInfo(64, "C5F9 5B 10", Code.VEX_Vcvtps2dq_xmm_xmmm128),
 			new InstructionInfo(64, "C5FD 5B CD", Code.VEX_Vcvtps2dq_ymm_ymmm256),
+			new InstructionInfo(64, "C5FD 5B 10", Code.VEX_Vcvtps2dq_ymm_ymmm256),
 			new InstructionInfo(64, "62 F17D0B 5B D3", Code.EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32),
 			new InstructionInfo(64, "62 F17D08 5B 50 01", Code.EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32),
 			new InstructionInfo(64, "62 F17D9B 5B 50 01", Code.EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32),
