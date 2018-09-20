@@ -73,7 +73,8 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// [12:0]	= <see cref="Intel.Code"/>
+		/// [11:0]	= <see cref="Intel.Code"/>
+		/// [12]    = Not used
 		/// [15:13]	= <see cref="Intel.RoundingControl"/>
 		/// [18:16]	= Opmask register or 0 if none
 		/// [22:19]	= Instruction length
@@ -88,7 +89,7 @@ namespace Iced.Intel {
 		/// </summary>
 		[Flags]
 		enum CodeFlags : uint {
-			CodeBits				= 13,
+			CodeBits				= 12,
 			CodeMask				= (1 << (int)CodeBits) - 1,
 			RoundingControlMask		= 7,
 			RoundingControlShift	= 13,
