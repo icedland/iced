@@ -108,7 +108,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var encoder = CreateEncoder(invalidCodeSize, writer);
 			var origInstrCopy = origInstr;
 			bool result = encoder.TryEncode(ref origInstr, origRip, out int encodedInstrLen, out string errorMessage);
-			Assert.True(errorMessage == Encoder.ERROR_ONLY_1632_BIT_MODE || errorMessage == Encoder.ERROR_ONLY_64_BIT_MODE, "Unexpected error Message: " + errorMessage ?? "null");
+			Assert.True(errorMessage == Encoder.ERROR_ONLY_1632_BIT_MODE || errorMessage == Encoder.ERROR_ONLY_64_BIT_MODE, "Unexpected error Message: " + (errorMessage ?? "null"));
 			Assert.False(result);
 			Assert.True(Instruction.TEST_BitByBitEquals(ref origInstr, ref origInstrCopy), "Instruction are differing: " + Instruction.TEST_DumpDiff(ref origInstr, ref origInstrCopy));
 			Assert.True(encodedInstrLen >= 0);
