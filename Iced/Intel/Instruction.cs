@@ -1779,6 +1779,16 @@ namespace Iced.Intel {
 		/// Creates an instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, uint immediate) {
+			return Create(code, (int)immediate);
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
 		/// <param name="memory">Memory operand</param>
 		/// <returns></returns>
 		public static Instruction Create(Code code, in MemoryOperand memory) {
@@ -1848,6 +1858,17 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register, uint immediate) {
+			return Create(code, register, (int)immediate);
+		}
+
+		/// <summary>
 		/// Creates an instruction with a 64-bit immediate value
 		/// </summary>
 		/// <param name="code">Code value</param>
@@ -1867,6 +1888,17 @@ namespace Iced.Intel {
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction with a 64-bit immediate value
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register</param>
+		/// <param name="immediate">64-bit immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register, ulong immediate) {
+			return Create(code, register, (long)immediate);
 		}
 
 		/// <summary>
@@ -1987,6 +2019,17 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <param name="immediate">Immediate</param>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, uint immediate, Register register) {
+			return Create(code, (int)immediate, register);
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="immediate">Immediate</param>
 		/// <param name="immediate2">Second immediate</param>
 		/// <returns></returns>
 		public static Instruction Create(Code code, int immediate, byte immediate2) {
@@ -2001,6 +2044,17 @@ namespace Iced.Intel {
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="immediate">Immediate</param>
+		/// <param name="immediate2">Second immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, uint immediate, byte immediate2) {
+			return Create(code, (int)immediate, immediate2);
 		}
 
 		/// <summary>
@@ -2168,6 +2222,17 @@ namespace Iced.Intel {
 		/// Creates an instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, in MemoryOperand memory, uint immediate) {
+			return Create(code, memory, (int)immediate);
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
 		/// <param name="register1">Register</param>
 		/// <param name="register2">Register</param>
 		/// <param name="register3">Register</param>
@@ -2217,6 +2282,18 @@ namespace Iced.Intel {
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, uint immediate) {
+			return Create(code, register1, register2, (int)immediate);
 		}
 
 		/// <summary>
@@ -2282,6 +2359,18 @@ namespace Iced.Intel {
 		/// Creates an instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
+		/// <param name="register">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <param name="immediate2">Second immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register, uint immediate, byte immediate2) {
+			return Create(code, register, (int)immediate, immediate2);
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
 		/// <param name="register1">Register</param>
 		/// <param name="memory">Memory operand</param>
 		/// <param name="register2">Register</param>
@@ -2341,6 +2430,18 @@ namespace Iced.Intel {
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register, in MemoryOperand memory, uint immediate) {
+			return Create(code, register, memory, (int)immediate);
 		}
 
 		/// <summary>
@@ -2450,6 +2551,18 @@ namespace Iced.Intel {
 		/// Creates an instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="register">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, in MemoryOperand memory, Register register, uint immediate) {
+			return Create(code, memory, register, (int)immediate);
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
 		/// <param name="register1">Register</param>
 		/// <param name="register2">Register</param>
 		/// <param name="register3">Register</param>
@@ -2509,6 +2622,19 @@ namespace Iced.Intel {
 
 			Debug.Assert(instruction.OpCount == 4);
 			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="register3">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3, uint immediate) {
+			return Create(code, register1, register2, register3, (int)immediate);
 		}
 
 		/// <summary>
@@ -2578,6 +2704,19 @@ namespace Iced.Intel {
 
 			Debug.Assert(instruction.OpCount == 4);
 			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <param name="immediate2">Second immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, uint immediate, byte immediate2) {
+			return Create(code, register1, register2, (int)immediate, immediate2);
 		}
 
 		/// <summary>
@@ -2661,6 +2800,19 @@ namespace Iced.Intel {
 		/// <param name="code">Code value</param>
 		/// <param name="register1">Register</param>
 		/// <param name="register2">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, uint immediate) {
+			return Create(code, register1, register2, memory, (int)immediate);
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
 		/// <param name="register3">Register</param>
 		/// <param name="register4">Register</param>
 		/// <param name="immediate">Immediate</param>
@@ -2690,6 +2842,20 @@ namespace Iced.Intel {
 
 			Debug.Assert(instruction.OpCount == 5);
 			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="register3">Register</param>
+		/// <param name="register4">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3, Register register4, uint immediate) {
+			return Create(code, register1, register2, register3, register4, (int)immediate);
 		}
 
 		/// <summary>
@@ -2740,6 +2906,20 @@ namespace Iced.Intel {
 		/// <param name="code">Code value</param>
 		/// <param name="register1">Register</param>
 		/// <param name="register2">Register</param>
+		/// <param name="register3">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3, in MemoryOperand memory, uint immediate) {
+			return Create(code, register1, register2, register3, memory, (int)immediate);
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
 		/// <param name="memory">Memory operand</param>
 		/// <param name="register3">Register</param>
 		/// <param name="immediate">Immediate</param>
@@ -2774,6 +2954,20 @@ namespace Iced.Intel {
 
 			Debug.Assert(instruction.OpCount == 5);
 			return instruction;
+		}
+
+		/// <summary>
+		/// Creates an instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="memory">Memory operand</param>
+		/// <param name="register3">Register</param>
+		/// <param name="immediate">Immediate</param>
+		/// <returns></returns>
+		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, Register register3, uint immediate) {
+			return Create(code, register1, register2, memory, register3, (int)immediate);
 		}
 #endif
 
