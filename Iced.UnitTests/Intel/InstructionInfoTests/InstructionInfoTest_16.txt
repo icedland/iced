@@ -370,9 +370,9 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
 # popd gs
 66 0FA9, Popd_GS, Legacy, INTEL386, op0=w r=ss rw=xsp w=gs rm=ss:xsp;UInt32 stack=4
 # bswap dx
-0FCA, Bswap_DX, Legacy, INTEL486, op0=rw rw=dx
+0FCA, Bswap_r16, Legacy, INTEL486, op0=rw rw=dx
 # bswap edx
-66 0FCA, Bswap_EDX, Legacy, INTEL486, op0=rw rw=edx
+66 0FCA, Bswap_r32, Legacy, INTEL486, op0=rw rw=edx
 # insb
 6C, Insb_m8_DX, Legacy, INTEL186, priv fr=d op0=w op1=r r=es rw=di r=dx wm=es:di;UInt8
 # insw

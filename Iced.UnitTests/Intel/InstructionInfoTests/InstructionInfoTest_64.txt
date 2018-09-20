@@ -7856,101 +7856,101 @@ F3 0FC7 30, Vmxon_m64, Legacy, VMX, fw=cz fc=aops priv pm op0=r r=rax rm=ds:rax;
 # rdpid rdx
 F3 0FC7 FA, Rdpid_r64, Legacy, RDPID, op0=w w=rdx
 # bswap ax
-66 0FC8, Bswap_AX, Legacy, INTEL486, op0=rw rw=ax
+66 0FC8, Bswap_r16, Legacy, INTEL486, op0=rw rw=ax
 # bswap r8w
-66 41 0FC8, Bswap_R8W, Legacy, INTEL486, op0=rw rw=r8w
+66 41 0FC8, Bswap_r16, Legacy, INTEL486, op0=rw rw=r8w
 # bswap eax
-0FC8, Bswap_EAX, Legacy, INTEL486, op0=rw w=rax r=eax
+0FC8, Bswap_r32, Legacy, INTEL486, op0=rw w=rax r=eax
 # bswap r8d
-41 0FC8, Bswap_R8D, Legacy, INTEL486, op0=rw w=r8 r=r8d
+41 0FC8, Bswap_r32, Legacy, INTEL486, op0=rw w=r8 r=r8d
 # bswap rax
-48 0FC8, Bswap_RAX, Legacy, INTEL486, op0=rw rw=rax
+48 0FC8, Bswap_r64, Legacy, INTEL486, op0=rw rw=rax
 # bswap r8
-49 0FC8, Bswap_R8, Legacy, INTEL486, op0=rw rw=r8
+49 0FC8, Bswap_r64, Legacy, INTEL486, op0=rw rw=r8
 # bswap cx
-66 0FC9, Bswap_CX, Legacy, INTEL486, op0=rw rw=cx
+66 0FC9, Bswap_r16, Legacy, INTEL486, op0=rw rw=cx
 # bswap r9w
-66 41 0FC9, Bswap_R9W, Legacy, INTEL486, op0=rw rw=r9w
+66 41 0FC9, Bswap_r16, Legacy, INTEL486, op0=rw rw=r9w
 # bswap ecx
-0FC9, Bswap_ECX, Legacy, INTEL486, op0=rw w=rcx r=ecx
+0FC9, Bswap_r32, Legacy, INTEL486, op0=rw w=rcx r=ecx
 # bswap r9d
-41 0FC9, Bswap_R9D, Legacy, INTEL486, op0=rw w=r9 r=r9d
+41 0FC9, Bswap_r32, Legacy, INTEL486, op0=rw w=r9 r=r9d
 # bswap rcx
-48 0FC9, Bswap_RCX, Legacy, INTEL486, op0=rw rw=rcx
+48 0FC9, Bswap_r64, Legacy, INTEL486, op0=rw rw=rcx
 # bswap r9
-49 0FC9, Bswap_R9, Legacy, INTEL486, op0=rw rw=r9
+49 0FC9, Bswap_r64, Legacy, INTEL486, op0=rw rw=r9
 # bswap dx
-66 0FCA, Bswap_DX, Legacy, INTEL486, op0=rw rw=dx
+66 0FCA, Bswap_r16, Legacy, INTEL486, op0=rw rw=dx
 # bswap r10w
-66 41 0FCA, Bswap_R10W, Legacy, INTEL486, op0=rw rw=r10w
+66 41 0FCA, Bswap_r16, Legacy, INTEL486, op0=rw rw=r10w
 # bswap edx
-0FCA, Bswap_EDX, Legacy, INTEL486, op0=rw w=rdx r=edx
+0FCA, Bswap_r32, Legacy, INTEL486, op0=rw w=rdx r=edx
 # bswap r10d
-41 0FCA, Bswap_R10D, Legacy, INTEL486, op0=rw w=r10 r=r10d
+41 0FCA, Bswap_r32, Legacy, INTEL486, op0=rw w=r10 r=r10d
 # bswap rdx
-48 0FCA, Bswap_RDX, Legacy, INTEL486, op0=rw rw=rdx
+48 0FCA, Bswap_r64, Legacy, INTEL486, op0=rw rw=rdx
 # bswap r10
-49 0FCA, Bswap_R10, Legacy, INTEL486, op0=rw rw=r10
+49 0FCA, Bswap_r64, Legacy, INTEL486, op0=rw rw=r10
 # bswap bx
-66 0FCB, Bswap_BX, Legacy, INTEL486, op0=rw rw=bx
+66 0FCB, Bswap_r16, Legacy, INTEL486, op0=rw rw=bx
 # bswap r11w
-66 41 0FCB, Bswap_R11W, Legacy, INTEL486, op0=rw rw=r11w
+66 41 0FCB, Bswap_r16, Legacy, INTEL486, op0=rw rw=r11w
 # bswap ebx
-0FCB, Bswap_EBX, Legacy, INTEL486, op0=rw w=rbx r=ebx
+0FCB, Bswap_r32, Legacy, INTEL486, op0=rw w=rbx r=ebx
 # bswap r11d
-41 0FCB, Bswap_R11D, Legacy, INTEL486, op0=rw w=r11 r=r11d
+41 0FCB, Bswap_r32, Legacy, INTEL486, op0=rw w=r11 r=r11d
 # bswap rbx
-48 0FCB, Bswap_RBX, Legacy, INTEL486, op0=rw rw=rbx
+48 0FCB, Bswap_r64, Legacy, INTEL486, op0=rw rw=rbx
 # bswap r11
-49 0FCB, Bswap_R11, Legacy, INTEL486, op0=rw rw=r11
+49 0FCB, Bswap_r64, Legacy, INTEL486, op0=rw rw=r11
 # bswap sp
-66 0FCC, Bswap_SP, Legacy, INTEL486, op0=rw rw=sp
+66 0FCC, Bswap_r16, Legacy, INTEL486, op0=rw rw=sp
 # bswap r12w
-66 41 0FCC, Bswap_R12W, Legacy, INTEL486, op0=rw rw=r12w
+66 41 0FCC, Bswap_r16, Legacy, INTEL486, op0=rw rw=r12w
 # bswap esp
-0FCC, Bswap_ESP, Legacy, INTEL486, op0=rw w=rsp r=esp
+0FCC, Bswap_r32, Legacy, INTEL486, op0=rw w=rsp r=esp
 # bswap r12d
-41 0FCC, Bswap_R12D, Legacy, INTEL486, op0=rw w=r12 r=r12d
+41 0FCC, Bswap_r32, Legacy, INTEL486, op0=rw w=r12 r=r12d
 # bswap rsp
-48 0FCC, Bswap_RSP, Legacy, INTEL486, op0=rw rw=rsp
+48 0FCC, Bswap_r64, Legacy, INTEL486, op0=rw rw=rsp
 # bswap r12
-49 0FCC, Bswap_R12, Legacy, INTEL486, op0=rw rw=r12
+49 0FCC, Bswap_r64, Legacy, INTEL486, op0=rw rw=r12
 # bswap bp
-66 0FCD, Bswap_BP, Legacy, INTEL486, op0=rw rw=bp
+66 0FCD, Bswap_r16, Legacy, INTEL486, op0=rw rw=bp
 # bswap r13w
-66 41 0FCD, Bswap_R13W, Legacy, INTEL486, op0=rw rw=r13w
+66 41 0FCD, Bswap_r16, Legacy, INTEL486, op0=rw rw=r13w
 # bswap ebp
-0FCD, Bswap_EBP, Legacy, INTEL486, op0=rw w=rbp r=ebp
+0FCD, Bswap_r32, Legacy, INTEL486, op0=rw w=rbp r=ebp
 # bswap r13d
-41 0FCD, Bswap_R13D, Legacy, INTEL486, op0=rw w=r13 r=r13d
+41 0FCD, Bswap_r32, Legacy, INTEL486, op0=rw w=r13 r=r13d
 # bswap rbp
-48 0FCD, Bswap_RBP, Legacy, INTEL486, op0=rw rw=rbp
+48 0FCD, Bswap_r64, Legacy, INTEL486, op0=rw rw=rbp
 # bswap r13
-49 0FCD, Bswap_R13, Legacy, INTEL486, op0=rw rw=r13
+49 0FCD, Bswap_r64, Legacy, INTEL486, op0=rw rw=r13
 # bswap si
-66 0FCE, Bswap_SI, Legacy, INTEL486, op0=rw rw=si
+66 0FCE, Bswap_r16, Legacy, INTEL486, op0=rw rw=si
 # bswap r14w
-66 41 0FCE, Bswap_R14W, Legacy, INTEL486, op0=rw rw=r14w
+66 41 0FCE, Bswap_r16, Legacy, INTEL486, op0=rw rw=r14w
 # bswap esi
-0FCE, Bswap_ESI, Legacy, INTEL486, op0=rw w=rsi r=esi
+0FCE, Bswap_r32, Legacy, INTEL486, op0=rw w=rsi r=esi
 # bswap r14d
-41 0FCE, Bswap_R14D, Legacy, INTEL486, op0=rw w=r14 r=r14d
+41 0FCE, Bswap_r32, Legacy, INTEL486, op0=rw w=r14 r=r14d
 # bswap rsi
-48 0FCE, Bswap_RSI, Legacy, INTEL486, op0=rw rw=rsi
+48 0FCE, Bswap_r64, Legacy, INTEL486, op0=rw rw=rsi
 # bswap r14
-49 0FCE, Bswap_R14, Legacy, INTEL486, op0=rw rw=r14
+49 0FCE, Bswap_r64, Legacy, INTEL486, op0=rw rw=r14
 # bswap di
-66 0FCF, Bswap_DI, Legacy, INTEL486, op0=rw rw=di
+66 0FCF, Bswap_r16, Legacy, INTEL486, op0=rw rw=di
 # bswap r15w
-66 41 0FCF, Bswap_R15W, Legacy, INTEL486, op0=rw rw=r15w
+66 41 0FCF, Bswap_r16, Legacy, INTEL486, op0=rw rw=r15w
 # bswap edi
-0FCF, Bswap_EDI, Legacy, INTEL486, op0=rw w=rdi r=edi
+0FCF, Bswap_r32, Legacy, INTEL486, op0=rw w=rdi r=edi
 # bswap r15d
-41 0FCF, Bswap_R15D, Legacy, INTEL486, op0=rw w=r15 r=r15d
+41 0FCF, Bswap_r32, Legacy, INTEL486, op0=rw w=r15 r=r15d
 # bswap rdi
-48 0FCF, Bswap_RDI, Legacy, INTEL486, op0=rw rw=rdi
+48 0FCF, Bswap_r64, Legacy, INTEL486, op0=rw rw=rdi
 # bswap r15
-49 0FCF, Bswap_R15, Legacy, INTEL486, op0=rw rw=r15
+49 0FCF, Bswap_r64, Legacy, INTEL486, op0=rw rw=r15
 # addsubpd xmm1,xmm5
 66 0FD0 CD, Addsubpd_xmm_xmmm128, Legacy, SSE3, op0=rw op1=r rw=xmm1 r=xmm5
 # addsubpd xmm1,[rax]

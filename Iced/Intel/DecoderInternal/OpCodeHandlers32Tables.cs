@@ -2475,14 +2475,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Group(handlers_Grp_0FC7),
 
 				// C8
-				new OpCodeHandler_SimpleReg(Code.Bswap_AX, Code.Bswap_EAX, Register.AX, Register.EAX),
-				new OpCodeHandler_SimpleReg(Code.Bswap_CX, Code.Bswap_ECX, Register.CX, Register.ECX),
-				new OpCodeHandler_SimpleReg(Code.Bswap_DX, Code.Bswap_EDX, Register.DX, Register.EDX),
-				new OpCodeHandler_SimpleReg(Code.Bswap_BX, Code.Bswap_EBX, Register.BX, Register.EBX),
-				new OpCodeHandler_SimpleReg(Code.Bswap_SP, Code.Bswap_ESP, Register.SP, Register.ESP),
-				new OpCodeHandler_SimpleReg(Code.Bswap_BP, Code.Bswap_EBP, Register.BP, Register.EBP),
-				new OpCodeHandler_SimpleReg(Code.Bswap_SI, Code.Bswap_ESI, Register.SI, Register.ESI),
-				new OpCodeHandler_SimpleReg(Code.Bswap_DI, Code.Bswap_EDI, Register.DI, Register.EDI),
+				new OpCodeHandler_SimpleReg(Code.Bswap_r16, Code.Bswap_r32, Register.AX, Register.EAX),
+				new OpCodeHandler_SimpleReg(Code.Bswap_r16, Code.Bswap_r32, Register.CX, Register.ECX),
+				new OpCodeHandler_SimpleReg(Code.Bswap_r16, Code.Bswap_r32, Register.DX, Register.EDX),
+				new OpCodeHandler_SimpleReg(Code.Bswap_r16, Code.Bswap_r32, Register.BX, Register.EBX),
+				new OpCodeHandler_SimpleReg(Code.Bswap_r16, Code.Bswap_r32, Register.SP, Register.ESP),
+				new OpCodeHandler_SimpleReg(Code.Bswap_r16, Code.Bswap_r32, Register.BP, Register.EBP),
+				new OpCodeHandler_SimpleReg(Code.Bswap_r16, Code.Bswap_r32, Register.SI, Register.ESI),
+				new OpCodeHandler_SimpleReg(Code.Bswap_r16, Code.Bswap_r32, Register.DI, Register.EDI),
 
 				// D0
 				new OpCodeHandler_MandatoryPrefix(

@@ -675,7 +675,7 @@ namespace Iced.Intel {
 					return;
 				}
 				EncoderFlags |= EncoderFlags.REX | EncoderFlags.B;
-				if (instr.Code == Code.Xchg_RAX_r64)
+				if (instr.Code == Code.Xchg_RAX_r64 || instr.Code == Code.Bswap_r64)
 					EncoderFlags |= EncoderFlags.W;
 				regNum = (uint)(reg - Register.R8);
 			}

@@ -2072,54 +2072,9 @@ namespace Iced.Intel {
 			1,// Rdseed_r64
 			1,// Rdpid_r32
 			1,// Rdpid_r64
-			1,// Bswap_AX
-			1,// Bswap_R8W
-			1,// Bswap_EAX
-			1,// Bswap_R8D
-			1,// Bswap_RAX
-			1,// Bswap_R8
-			1,// Bswap_CX
-			1,// Bswap_R9W
-			1,// Bswap_ECX
-			1,// Bswap_R9D
-			1,// Bswap_RCX
-			1,// Bswap_R9
-			1,// Bswap_DX
-			1,// Bswap_R10W
-			1,// Bswap_EDX
-			1,// Bswap_R10D
-			1,// Bswap_RDX
-			1,// Bswap_R10
-			1,// Bswap_BX
-			1,// Bswap_R11W
-			1,// Bswap_EBX
-			1,// Bswap_R11D
-			1,// Bswap_RBX
-			1,// Bswap_R11
-			1,// Bswap_SP
-			1,// Bswap_R12W
-			1,// Bswap_ESP
-			1,// Bswap_R12D
-			1,// Bswap_RSP
-			1,// Bswap_R12
-			1,// Bswap_BP
-			1,// Bswap_R13W
-			1,// Bswap_EBP
-			1,// Bswap_R13D
-			1,// Bswap_RBP
-			1,// Bswap_R13
-			1,// Bswap_SI
-			1,// Bswap_R14W
-			1,// Bswap_ESI
-			1,// Bswap_R14D
-			1,// Bswap_RSI
-			1,// Bswap_R14
-			1,// Bswap_DI
-			1,// Bswap_R15W
-			1,// Bswap_EDI
-			1,// Bswap_R15D
-			1,// Bswap_RDI
-			1,// Bswap_R15
+			1,// Bswap_r16
+			1,// Bswap_r32
+			1,// Bswap_r64
 			2,// Addsubpd_xmm_xmmm128
 			3,// VEX_Vaddsubpd_xmm_xmm_xmmm128
 			3,// VEX_Vaddsubpd_ymm_ymm_ymmm256

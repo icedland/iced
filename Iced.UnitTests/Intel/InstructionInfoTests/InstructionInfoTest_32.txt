@@ -706,9 +706,9 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
 # rdpid edx
 F3 0FC7 FA, Rdpid_r32, Legacy, RDPID, op0=w w=edx
 # bswap dx
-66 0FCA, Bswap_DX, Legacy, INTEL486, op0=rw rw=dx
+66 0FCA, Bswap_r16, Legacy, INTEL486, op0=rw rw=dx
 # bswap edx
-0FCA, Bswap_EDX, Legacy, INTEL486, op0=rw rw=edx
+0FCA, Bswap_r32, Legacy, INTEL486, op0=rw rw=edx
 # invept edx,oword ptr [eax]
 66 0F3880 10, Invept_r32_m128, Legacy, INVEPT, fw=cz fc=aops priv pm op0=r op1=r r=edx r=ds r=eax rm=ds:eax;UInt128
 # invvpid edx,oword ptr [eax]

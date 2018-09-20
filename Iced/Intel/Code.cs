@@ -2381,54 +2381,9 @@ namespace Iced.Intel {
 		Rdpid_r32,											// F3 0FC7 /7
 		Rdpid_r64,											// F3 0FC7 /7
 
-		Bswap_AX,											// o16 0FC8
-		Bswap_R8W,											// o16 REX.B 0FC8
-		Bswap_EAX,											// o32 0FC8
-		Bswap_R8D,											// o32 REX.B 0FC8
-		Bswap_RAX,											// REX.W 0FC8
-		Bswap_R8,											// REX.W REX.B 0FC8
-		Bswap_CX,											// o16 0FC9
-		Bswap_R9W,											// o16 REX.B 0FC9
-		Bswap_ECX,											// o32 0FC9
-		Bswap_R9D,											// o32 REX.B 0FC9
-		Bswap_RCX,											// REX.W 0FC9
-		Bswap_R9,											// REX.W REX.B 0FC9
-		Bswap_DX,											// o16 0FCA
-		Bswap_R10W,											// o16 REX.B 0FCA
-		Bswap_EDX,											// o32 0FCA
-		Bswap_R10D,											// o32 REX.B 0FCA
-		Bswap_RDX,											// REX.W 0FCA
-		Bswap_R10,											// REX.W REX.B 0FCA
-		Bswap_BX,											// o16 0FCB
-		Bswap_R11W,											// o16 REX.B 0FCB
-		Bswap_EBX,											// o32 0FCB
-		Bswap_R11D,											// o32 REX.B 0FCB
-		Bswap_RBX,											// REX.W 0FCB
-		Bswap_R11,											// REX.W REX.B 0FCB
-		Bswap_SP,											// o16 0FCC
-		Bswap_R12W,											// o16 REX.B 0FCC
-		Bswap_ESP,											// o32 0FCC
-		Bswap_R12D,											// o32 REX.B 0FCC
-		Bswap_RSP,											// REX.W 0FCC
-		Bswap_R12,											// REX.W REX.B 0FCC
-		Bswap_BP,											// o16 0FCD
-		Bswap_R13W,											// o16 REX.B 0FCD
-		Bswap_EBP,											// o32 0FCD
-		Bswap_R13D,											// o32 REX.B 0FCD
-		Bswap_RBP,											// REX.W 0FCD
-		Bswap_R13,											// REX.W REX.B 0FCD
-		Bswap_SI,											// o16 0FCE
-		Bswap_R14W,											// o16 REX.B 0FCE
-		Bswap_ESI,											// o32 0FCE
-		Bswap_R14D,											// o32 REX.B 0FCE
-		Bswap_RSI,											// REX.W 0FCE
-		Bswap_R14,											// REX.W REX.B 0FCE
-		Bswap_DI,											// o16 0FCF
-		Bswap_R15W,											// o16 REX.B 0FCF
-		Bswap_EDI,											// o32 0FCF
-		Bswap_R15D,											// o32 REX.B 0FCF
-		Bswap_RDI,											// REX.W 0FCF
-		Bswap_R15,											// REX.W REX.B 0FCF
+		Bswap_r16,											// o16 0FC8
+		Bswap_r32,											// o32 0FC8
+		Bswap_r64,											// REX.W 0FC8
 
 		Addsubpd_xmm_xmmm128,								// 66 0FD0
 		VEX_Vaddsubpd_xmm_xmm_xmmm128,						// VEX.NDS.128.66.0F.WIG D0
