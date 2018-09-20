@@ -663,14 +663,9 @@ namespace Iced.Intel {
 
 					if (regLo64 == Register.R8 && (instr.Code == Code.Xchg_r64_RAX || instr.Code == Code.Bswap_r64))
 						EncoderFlags |= EncoderFlags.W;
-					else if (regLo64 == Register.R8W)
-						EncoderFlags |= EncoderFlags.P66;
 				}
 
 				regLo = regLo64;
-			}
-			else if (reg >= Register.AX && reg <= Register.DI && defaultCodeSize != 16) {
-				EncoderFlags |= EncoderFlags.P66;
 			}
 
 			// Verify after decoding to output ERROR_ONLY_64_BIT_MODE before register errors
