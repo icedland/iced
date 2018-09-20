@@ -884,99 +884,99 @@
 # xchg ax,ax
 66 90, Nopw, Legacy, INTEL8086,
 # xchg r8w,ax
-66 41 90, Xchg_R8W_AX, Legacy, INTEL8086, op0=rw op1=rw rw=r8w rw=ax
+66 41 90, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=r8w rw=ax
 # nop
 90, Nopd, Legacy, INTEL8086,
 # xchg r8d,eax
-41 90, Xchg_R8D_EAX, Legacy, INTEL8086, op0=rw op1=rw w=r8 r=r8d w=rax r=eax
+41 90, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=r8 r=r8d w=rax r=eax
 # xchg rax,rax
 48 90, Nopq, Legacy, INTEL8086,
 # xchg r8,rax
-49 90, Xchg_R8_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=r8 rw=rax
+49 90, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=r8 rw=rax
 # xchg cx,ax
-66 91, Xchg_CX_AX, Legacy, INTEL8086, op0=rw op1=rw rw=cx rw=ax
+66 91, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=cx rw=ax
 # xchg r9w,ax
-66 41 91, Xchg_R9W_AX, Legacy, INTEL8086, op0=rw op1=rw rw=r9w rw=ax
+66 41 91, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=r9w rw=ax
 # xchg ecx,eax
-91, Xchg_ECX_EAX, Legacy, INTEL8086, op0=rw op1=rw w=rcx r=ecx w=rax r=eax
+91, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=rcx r=ecx w=rax r=eax
 # xchg r9d,eax
-41 91, Xchg_R9D_EAX, Legacy, INTEL8086, op0=rw op1=rw w=r9 r=r9d w=rax r=eax
+41 91, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=r9 r=r9d w=rax r=eax
 # xchg rcx,rax
-48 91, Xchg_RCX_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=rcx rw=rax
+48 91, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=rcx rw=rax
 # xchg r9,rax
-49 91, Xchg_R9_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=r9 rw=rax
+49 91, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=r9 rw=rax
 # xchg dx,ax
-66 92, Xchg_DX_AX, Legacy, INTEL8086, op0=rw op1=rw rw=dx rw=ax
+66 92, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=dx rw=ax
 # xchg r10w,ax
-66 41 92, Xchg_R10W_AX, Legacy, INTEL8086, op0=rw op1=rw rw=r10w rw=ax
+66 41 92, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=r10w rw=ax
 # xchg edx,eax
-92, Xchg_EDX_EAX, Legacy, INTEL8086, op0=rw op1=rw w=rdx r=edx w=rax r=eax
+92, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=rdx r=edx w=rax r=eax
 # xchg r10d,eax
-41 92, Xchg_R10D_EAX, Legacy, INTEL8086, op0=rw op1=rw w=r10 r=r10d w=rax r=eax
+41 92, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=r10 r=r10d w=rax r=eax
 # xchg rdx,rax
-48 92, Xchg_RDX_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=rdx rw=rax
+48 92, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=rdx rw=rax
 # xchg r10,rax
-49 92, Xchg_R10_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=r10 rw=rax
+49 92, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=r10 rw=rax
 # xchg bx,ax
-66 93, Xchg_BX_AX, Legacy, INTEL8086, op0=rw op1=rw rw=bx rw=ax
+66 93, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=bx rw=ax
 # xchg r11w,ax
-66 41 93, Xchg_R11W_AX, Legacy, INTEL8086, op0=rw op1=rw rw=r11w rw=ax
+66 41 93, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=r11w rw=ax
 # xchg ebx,eax
-93, Xchg_EBX_EAX, Legacy, INTEL8086, op0=rw op1=rw w=rbx r=ebx w=rax r=eax
+93, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=rbx r=ebx w=rax r=eax
 # xchg r11d,eax
-41 93, Xchg_R11D_EAX, Legacy, INTEL8086, op0=rw op1=rw w=r11 r=r11d w=rax r=eax
+41 93, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=r11 r=r11d w=rax r=eax
 # xchg rbx,rax
-48 93, Xchg_RBX_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=rbx rw=rax
+48 93, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=rbx rw=rax
 # xchg r11,rax
-49 93, Xchg_R11_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=r11 rw=rax
+49 93, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=r11 rw=rax
 # xchg sp,ax
-66 94, Xchg_SP_AX, Legacy, INTEL8086, op0=rw op1=rw rw=sp rw=ax
+66 94, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=sp rw=ax
 # xchg r12w,ax
-66 41 94, Xchg_R12W_AX, Legacy, INTEL8086, op0=rw op1=rw rw=r12w rw=ax
+66 41 94, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=r12w rw=ax
 # xchg esp,eax
-94, Xchg_ESP_EAX, Legacy, INTEL8086, op0=rw op1=rw w=rsp r=esp w=rax r=eax
+94, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=rsp r=esp w=rax r=eax
 # xchg r12d,eax
-41 94, Xchg_R12D_EAX, Legacy, INTEL8086, op0=rw op1=rw w=r12 r=r12d w=rax r=eax
+41 94, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=r12 r=r12d w=rax r=eax
 # xchg rsp,rax
-48 94, Xchg_RSP_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=rsp rw=rax
+48 94, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=rsp rw=rax
 # xchg r12,rax
-49 94, Xchg_R12_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=r12 rw=rax
+49 94, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=r12 rw=rax
 # xchg bp,ax
-66 95, Xchg_BP_AX, Legacy, INTEL8086, op0=rw op1=rw rw=bp rw=ax
+66 95, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=bp rw=ax
 # xchg r13w,ax
-66 41 95, Xchg_R13W_AX, Legacy, INTEL8086, op0=rw op1=rw rw=r13w rw=ax
+66 41 95, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=r13w rw=ax
 # xchg ebp,eax
-95, Xchg_EBP_EAX, Legacy, INTEL8086, op0=rw op1=rw w=rbp r=ebp w=rax r=eax
+95, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=rbp r=ebp w=rax r=eax
 # xchg r13d,eax
-41 95, Xchg_R13D_EAX, Legacy, INTEL8086, op0=rw op1=rw w=r13 r=r13d w=rax r=eax
+41 95, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=r13 r=r13d w=rax r=eax
 # xchg rbp,rax
-48 95, Xchg_RBP_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=rbp rw=rax
+48 95, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=rbp rw=rax
 # xchg r13,rax
-49 95, Xchg_R13_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=r13 rw=rax
+49 95, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=r13 rw=rax
 # xchg si,ax
-66 96, Xchg_SI_AX, Legacy, INTEL8086, op0=rw op1=rw rw=si rw=ax
+66 96, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=si rw=ax
 # xchg r14w,ax
-66 41 96, Xchg_R14W_AX, Legacy, INTEL8086, op0=rw op1=rw rw=r14w rw=ax
+66 41 96, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=r14w rw=ax
 # xchg esi,eax
-96, Xchg_ESI_EAX, Legacy, INTEL8086, op0=rw op1=rw w=rsi r=esi w=rax r=eax
+96, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=rsi r=esi w=rax r=eax
 # xchg r14d,eax
-41 96, Xchg_R14D_EAX, Legacy, INTEL8086, op0=rw op1=rw w=r14 r=r14d w=rax r=eax
+41 96, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=r14 r=r14d w=rax r=eax
 # xchg rsi,rax
-48 96, Xchg_RSI_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=rsi rw=rax
+48 96, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=rsi rw=rax
 # xchg r14,rax
-49 96, Xchg_R14_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=r14 rw=rax
+49 96, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=r14 rw=rax
 # xchg di,ax
-66 97, Xchg_DI_AX, Legacy, INTEL8086, op0=rw op1=rw rw=di rw=ax
+66 97, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=di rw=ax
 # xchg r15w,ax
-66 41 97, Xchg_R15W_AX, Legacy, INTEL8086, op0=rw op1=rw rw=r15w rw=ax
+66 41 97, Xchg_AX_r16, Legacy, INTEL8086, op0=rw op1=rw rw=r15w rw=ax
 # xchg edi,eax
-97, Xchg_EDI_EAX, Legacy, INTEL8086, op0=rw op1=rw w=rdi r=edi w=rax r=eax
+97, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=rdi r=edi w=rax r=eax
 # xchg r15d,eax
-41 97, Xchg_R15D_EAX, Legacy, INTEL8086, op0=rw op1=rw w=r15 r=r15d w=rax r=eax
+41 97, Xchg_EAX_r32, Legacy, INTEL8086, op0=rw op1=rw w=r15 r=r15d w=rax r=eax
 # xchg rdi,rax
-48 97, Xchg_RDI_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=rdi rw=rax
+48 97, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=rdi rw=rax
 # xchg r15,rax
-49 97, Xchg_R15_RAX, Legacy, INTEL8086, op0=rw op1=rw rw=r15 rw=rax
+49 97, Xchg_RAX_r64, Legacy, INTEL8086, op0=rw op1=rw rw=r15 rw=rax
 # pause
 F3 90, Pause, Legacy, PAUSE,
 # cbw

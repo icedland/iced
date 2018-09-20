@@ -343,53 +343,11 @@ namespace Iced.Intel {
 		Pop_rm64,											// REX.W 8F /0
 
 		Nopw,												// o16 90
-		Xchg_R8W_AX,										// o16 REX.B 90
+		Xchg_AX_r16,										// o16 REX.B 90
 		Nopd,												// o32 90
-		Xchg_R8D_EAX,										// o32 REX.B 90
+		Xchg_EAX_r32,										// o32 REX.B 90
 		Nopq,												// REX.W 90
-		Xchg_R8_RAX,										// REX.W REX.B 90
-		Xchg_CX_AX,											// o16 91
-		Xchg_R9W_AX,										// o16 REX.B 91
-		Xchg_ECX_EAX,										// o32 91
-		Xchg_R9D_EAX,										// o32 REX.B 91
-		Xchg_RCX_RAX,										// REX.W 91
-		Xchg_R9_RAX,										// REX.W REX.B 91
-		Xchg_DX_AX,											// o16 92
-		Xchg_R10W_AX,										// o16 REX.B 92
-		Xchg_EDX_EAX,										// o32 92
-		Xchg_R10D_EAX,										// o32 REX.B 92
-		Xchg_RDX_RAX,										// REX.W 92
-		Xchg_R10_RAX,										// REX.W REX.B 92
-		Xchg_BX_AX,											// o16 93
-		Xchg_R11W_AX,										// o16 REX.B 93
-		Xchg_EBX_EAX,										// o32 93
-		Xchg_R11D_EAX,										// o32 REX.B 93
-		Xchg_RBX_RAX,										// REX.W 93
-		Xchg_R11_RAX,										// REX.W REX.B 93
-		Xchg_SP_AX,											// o16 94
-		Xchg_R12W_AX,										// o16 REX.B 94
-		Xchg_ESP_EAX,										// o32 94
-		Xchg_R12D_EAX,										// o32 REX.B 94
-		Xchg_RSP_RAX,										// REX.W 94
-		Xchg_R12_RAX,										// REX.W REX.B 94
-		Xchg_BP_AX,											// o16 95
-		Xchg_R13W_AX,										// o16 REX.B 95
-		Xchg_EBP_EAX,										// o32 95
-		Xchg_R13D_EAX,										// o32 REX.B 95
-		Xchg_RBP_RAX,										// REX.W 95
-		Xchg_R13_RAX,										// REX.W REX.B 95
-		Xchg_SI_AX,											// o16 96
-		Xchg_R14W_AX,										// o16 REX.B 96
-		Xchg_ESI_EAX,										// o32 96
-		Xchg_R14D_EAX,										// o32 REX.B 96
-		Xchg_RSI_RAX,										// REX.W 96
-		Xchg_R14_RAX,										// REX.W REX.B 96
-		Xchg_DI_AX,											// o16 97
-		Xchg_R15W_AX,										// o16 REX.B 97
-		Xchg_EDI_EAX,										// o32 97
-		Xchg_R15D_EAX,										// o32 REX.B 97
-		Xchg_RDI_RAX,										// REX.W 97
-		Xchg_R15_RAX,										// REX.W REX.B 97
+		Xchg_RAX_r64,										// REX.W REX.B 90
 
 		Pause,												// F3 90
 

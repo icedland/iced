@@ -326,53 +326,11 @@ namespace Iced.Intel {
 			1,// Pop_rm32
 			1,// Pop_rm64
 			0,// Nopw
-			2,// Xchg_R8W_AX
+			2,// Xchg_AX_r16
 			0,// Nopd
-			2,// Xchg_R8D_EAX
+			2,// Xchg_EAX_r32
 			0,// Nopq
-			2,// Xchg_R8_RAX
-			2,// Xchg_CX_AX
-			2,// Xchg_R9W_AX
-			2,// Xchg_ECX_EAX
-			2,// Xchg_R9D_EAX
-			2,// Xchg_RCX_RAX
-			2,// Xchg_R9_RAX
-			2,// Xchg_DX_AX
-			2,// Xchg_R10W_AX
-			2,// Xchg_EDX_EAX
-			2,// Xchg_R10D_EAX
-			2,// Xchg_RDX_RAX
-			2,// Xchg_R10_RAX
-			2,// Xchg_BX_AX
-			2,// Xchg_R11W_AX
-			2,// Xchg_EBX_EAX
-			2,// Xchg_R11D_EAX
-			2,// Xchg_RBX_RAX
-			2,// Xchg_R11_RAX
-			2,// Xchg_SP_AX
-			2,// Xchg_R12W_AX
-			2,// Xchg_ESP_EAX
-			2,// Xchg_R12D_EAX
-			2,// Xchg_RSP_RAX
-			2,// Xchg_R12_RAX
-			2,// Xchg_BP_AX
-			2,// Xchg_R13W_AX
-			2,// Xchg_EBP_EAX
-			2,// Xchg_R13D_EAX
-			2,// Xchg_RBP_RAX
-			2,// Xchg_R13_RAX
-			2,// Xchg_SI_AX
-			2,// Xchg_R14W_AX
-			2,// Xchg_ESI_EAX
-			2,// Xchg_R14D_EAX
-			2,// Xchg_RSI_RAX
-			2,// Xchg_R14_RAX
-			2,// Xchg_DI_AX
-			2,// Xchg_R15W_AX
-			2,// Xchg_EDI_EAX
-			2,// Xchg_R15D_EAX
-			2,// Xchg_RDI_RAX
-			2,// Xchg_R15_RAX
+			2,// Xchg_RAX_r64
 			0,// Pause
 			0,// Cbw
 			0,// Cwde
