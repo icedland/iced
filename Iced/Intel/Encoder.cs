@@ -210,8 +210,8 @@ namespace Iced.Intel {
 		/// <param name="instruction">Instruction to encode</param>
 		/// <param name="rip">RIP of the encoded instruction</param>
 		/// <returns></returns>
-		public int Encode(ref Instruction instruction, ulong rip) {
-			if (!TryEncode(ref instruction, rip, out int result, out var errorMessage))
+		public uint Encode(ref Instruction instruction, ulong rip) {
+			if (!TryEncode(ref instruction, rip, out uint result, out var errorMessage))
 				throw new EncoderException(errorMessage);
 			return result;
 		}
@@ -224,7 +224,7 @@ namespace Iced.Intel {
 		/// <param name="encodedLength">Updated with length of encoded instruction if successful</param>
 		/// <param name="errorMessage">Set to the error message if we couldn't encode the instruction</param>
 		/// <returns></returns>
-		public bool TryEncode(ref Instruction instruction, ulong rip, out int encodedLength, out string errorMessage) {
+		public bool TryEncode(ref Instruction instruction, ulong rip, out uint encodedLength, out string errorMessage) {
 			currentRip = rip;
 			eip = (uint)rip;
 			this.errorMessage = null;
@@ -324,7 +324,7 @@ namespace Iced.Intel {
 
 			WriteImmediate();
 
-			int instrLen = (int)currentRip - (int)rip;
+			uint instrLen = (uint)currentRip - (uint)rip;
 			if (instrLen > DecoderConstants.MaxInstructionLength)
 				ErrorMessage = $"Instruction length > {DecoderConstants.MaxInstructionLength} bytes";
 			errorMessage = this.errorMessage;

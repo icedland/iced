@@ -49,14 +49,12 @@ namespace Iced.Intel.BlockEncoderInternal {
 			string errorMessage;
 
 			instruction.MemoryBase = Register.RIP;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out int instrLen, out errorMessage))
-				instrLen = DecoderConstants.MaxInstructionLength;
-			ripInstructionSize = (uint)instrLen;
+			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out ripInstructionSize, out errorMessage))
+				ripInstructionSize = DecoderConstants.MaxInstructionLength;
 
 			instruction.MemoryBase = Register.EIP;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out instrLen, out errorMessage))
-				instrLen = DecoderConstants.MaxInstructionLength;
-			eipInstructionSize = (uint)instrLen;
+			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out eipInstructionSize, out errorMessage))
+				eipInstructionSize = DecoderConstants.MaxInstructionLength;
 
 			Debug.Assert(eipInstructionSize >= ripInstructionSize);
 			Size = eipInstructionSize;

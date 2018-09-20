@@ -49,9 +49,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 					this.instruction.Code = Code.Xbegin_rel32;
 				}
 			}
-			if (!blockEncoder.NullEncoder.TryEncode(ref this.instruction, instruction.IP64, out int instrLen, out var errorMessage))
-				instrLen = DecoderConstants.MaxInstructionLength;
-			Size = (uint)instrLen;
+			if (!blockEncoder.NullEncoder.TryEncode(ref this.instruction, instruction.IP64, out Size, out var errorMessage))
+				Size = DecoderConstants.MaxInstructionLength;
 		}
 
 		public override void Initialize() => targetInstr = blockEncoder.GetTarget(targetAddr);

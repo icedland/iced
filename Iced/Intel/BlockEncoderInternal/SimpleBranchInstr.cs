@@ -52,22 +52,19 @@ namespace Iced.Intel.BlockEncoderInternal {
 			instrKind = InstrKind.Uninitialized;
 
 			string errorMessage;
-			int instrLen;
 
 			if (!blockEncoder.FixBranches) {
 				instrKind = InstrKind.Unchanged;
-				if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out instrLen, out errorMessage))
-					instrLen = DecoderConstants.MaxInstructionLength;
-				Size = (uint)instrLen;
+				if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out Size, out errorMessage))
+					Size = DecoderConstants.MaxInstructionLength;
 			}
 			else {
 				Instruction instrCopy;
 
 				instrCopy = instruction;
 				instrCopy.NearBranch64 = 0;
-				if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, 0, out instrLen, out errorMessage))
-					instrLen = DecoderConstants.MaxInstructionLength;
-				shortInstructionSize = (uint)instrLen;
+				if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, 0, out shortInstructionSize, out errorMessage))
+					shortInstructionSize = DecoderConstants.MaxInstructionLength;
 
 				nativeCode = ToNativeBranchCode(instruction.Code, blockEncoder.Bitness);
 				if (nativeCode == instruction.Code)
@@ -76,9 +73,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 					instrCopy = instruction;
 					instrCopy.Code = nativeCode;
 					instrCopy.NearBranch64 = 0;
-					if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, 0, out instrLen, out errorMessage))
-						instrLen = DecoderConstants.MaxInstructionLength;
-					nativeInstructionSize = (uint)instrLen;
+					if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, 0, out nativeInstructionSize, out errorMessage))
+						nativeInstructionSize = DecoderConstants.MaxInstructionLength;
 				}
 
 				switch (blockEncoder.Bitness) {
@@ -251,7 +247,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			string errorMessage;
 			Instruction instr;
 			uint size;
-			int instrLen;
+			uint instrLen;
 			switch (instrKind) {
 			case InstrKind.Unchanged:
 			case InstrKind.Short:
@@ -278,9 +274,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 				instr = instruction;
 				instr.Code = nativeCode;
 				instr.NearBranch64 = IP + nativeInstructionSize + 2;
-				if (!encoder.TryEncode(ref instr, IP, out instrLen, out errorMessage))
+				if (!encoder.TryEncode(ref instr, IP, out size, out errorMessage))
 					return CreateErrorMessage(errorMessage, ref instruction);
-				size = (uint)instrLen;
 
 				instr = new Instruction();
 				instr.NearBranch64 = IP + nearInstructionSize;
@@ -309,7 +304,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				}
 				if (!encoder.TryEncode(ref instr, IP + size, out instrLen, out errorMessage))
 					return CreateErrorMessage(errorMessage, ref instruction);
-				size += (uint)instrLen;
+				size += instrLen;
 
 				instr.Code = codeNear;
 				instr.NearBranch64 = targetInstr.GetAddress();

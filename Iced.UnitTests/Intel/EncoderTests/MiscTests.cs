@@ -37,25 +37,25 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var instr = new Instruction { Code = Code.INVALID };
 			string errorMessage;
 			bool result;
-			int instrLen;
+			uint instrLen;
 
 			encoder = Encoder.Create16(new CodeWriterImpl());
 			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
 			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
-			Assert.Equal(0, instrLen);
+			Assert.Equal(0U, instrLen);
 
 			encoder = Encoder.Create32(new CodeWriterImpl());
 			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
 			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
-			Assert.Equal(0, instrLen);
+			Assert.Equal(0U, instrLen);
 
 			encoder = Encoder.Create64(new CodeWriterImpl());
 			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
 			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
-			Assert.Equal(0, instrLen);
+			Assert.Equal(0U, instrLen);
 		}
 
 		[Fact]

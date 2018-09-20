@@ -28,9 +28,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public SimpleInstr(BlockEncoder blockEncoder, ref Instruction instruction)
 			: base(blockEncoder, instruction.IP64) {
 			this.instruction = instruction;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out int instrLen, out var errorMessage))
-				instrLen = DecoderConstants.MaxInstructionLength;
-			Size = (uint)instrLen;
+			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out Size, out var errorMessage))
+				Size = DecoderConstants.MaxInstructionLength;
 		}
 
 		public override void Initialize() { }
