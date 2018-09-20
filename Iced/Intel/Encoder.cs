@@ -632,6 +632,51 @@ namespace Iced.Intel {
 			EncoderFlags |= (EncoderFlags)((regNum & 0x10) << (9 - 4));
 		}
 
+		internal void AddReg(ref Instruction instr, int operand, Register regLo, Register regHi) {
+			var opKind = instr.GetOpKind(operand);
+			if (opKind != OpKind.Register) {
+				ErrorMessage = $"Operand {operand}: Expected a register, but opKind is {opKind}";
+				return;
+			}
+
+			var reg = instr.GetOpRegister(operand);
+
+			var regLo64 = reg >= Register.SPL && reg <= Register.R15L ? Register.R8L :
+						reg >= Register.R8W && reg <= Register.R15W ? Register.R8W :
+						reg >= Register.R8D && reg <= Register.R15D ? Register.R8D :
+						reg >= Register.R8 && reg <= Register.R15 ? Register.R8 : Register.None;
+
+			// For r64 register, we need to dispatch between the various REX.W/B modes
+			if (regLo64 != Register.None) {
+				if (defaultCodeSize != 64) {
+					ErrorMessage = ERROR_ONLY_64_BIT_MODE;
+					return;
+				}
+
+				EncoderFlags |= EncoderFlags.REX;
+
+				// Registers from SPL to DIL are encoded starting from AH
+				if (regLo64 == Register.R8L && reg < Register.R8L)
+					regLo64 = Register.AH;
+				else {
+					EncoderFlags |= EncoderFlags.B;
+
+					if (regLo64 == Register.R8 && (instr.Code == Code.Xchg_r64_RAX || instr.Code == Code.Bswap_r64))
+						EncoderFlags |= EncoderFlags.W;
+				}
+
+				regLo = regLo64;
+			}
+
+			// Verify after decoding to output ERROR_ONLY_64_BIT_MODE before register errors
+			if (!Verify(operand, reg, regLo, regHi))
+				return;
+
+			uint regNum = (uint)(reg - regLo);
+			Debug.Assert(regNum <= 7);
+			OpCode = OpCode + regNum;
+		}
+
 		internal void AddRegOrMem(ref Instruction instr, int operand, Register regLo, Register regHi, bool allowMemOp, bool allowRegOp) =>
 			AddRegOrMem(ref instr, operand, regLo, regHi, Register.None, Register.None, allowMemOp, allowRegOp);
 

@@ -217,7 +217,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_CL_imm8, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(1, immediateSize);
 					Assert.Equal(0xA5UL, immediate);
@@ -225,7 +225,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_CL_imm8, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(1, immediateSize);
 					Assert.Equal(0xA5UL, immediate);
@@ -233,7 +233,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_CL_imm8, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(1, immediateSize);
 					Assert.Equal(0xA5UL, immediate);
@@ -241,7 +241,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_CL_imm8, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(1, immediateSize);
 					Assert.Equal(0xA5UL, immediate);
@@ -309,7 +309,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					}
 				},
 			}),
-			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_CX_imm16, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_r16_imm16, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(2, immediateSize);
 					Assert.Equal(0xA55AUL, immediate);
@@ -317,7 +317,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_CX_imm16, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_r16_imm16, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(2, immediateSize);
 					Assert.Equal(0xA55AUL, immediate);
@@ -325,7 +325,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_CX_imm16, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_r16_imm16, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(2, immediateSize);
 					Assert.Equal(0xA55AUL, immediate);
@@ -333,7 +333,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_CX_imm16, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_r16_imm16, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(2, immediateSize);
 					Assert.Equal(0xA55AUL, immediate);
@@ -341,7 +341,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_ECX_imm32, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_r32_imm32, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(4, immediateSize);
 					Assert.Equal(0xFEDCBA98, immediate);
@@ -349,7 +349,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_ECX_imm32, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_r32_imm32, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(4, immediateSize);
 					Assert.Equal(0xFEDCBA98, immediate);
@@ -357,7 +357,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_ECX_imm32, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_r32_imm32, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(4, immediateSize);
 					Assert.Equal(0xFEDCBA98, immediate);
@@ -365,7 +365,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_ECX_imm32, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_r32_imm32, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(4, immediateSize);
 					Assert.Equal(0xFEDCBA98, immediate);
@@ -373,7 +373,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_RCX_imm64, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_r64_imm64, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(8, immediateSize);
 					Assert.Equal(0xFEDCBA983412A55A, immediate);
@@ -381,7 +381,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_RCX_imm64, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_r64_imm64, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(8, immediateSize);
 					Assert.Equal(0xFEDCBA983412A55A, immediate);
@@ -389,7 +389,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_RCX_imm64, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_r64_imm64, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(8, immediateSize);
 					Assert.Equal(0xFEDCBA983412A55A, immediate);
@@ -397,7 +397,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_RCX_imm64, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_r64_imm64, new TestSymbolResolver {
 				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(8, immediateSize);
 					Assert.Equal(0xFEDCBA983412A55A, immediate);

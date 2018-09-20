@@ -20,6 +20,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Iced.Intel {
 	/// <summary>
@@ -72,7 +73,8 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// [12:0]	= <see cref="Intel.Code"/>
+		/// [11:0]	= <see cref="Intel.Code"/>
+		/// [12]    = Not used
 		/// [15:13]	= <see cref="Intel.RoundingControl"/>
 		/// [18:16]	= Opmask register or 0 if none
 		/// [22:19]	= Instruction length
@@ -87,7 +89,7 @@ namespace Iced.Intel {
 		/// </summary>
 		[Flags]
 		enum CodeFlags : uint {
-			CodeBits				= 13,
+			CodeBits				= 12,
 			CodeMask				= (1 << (int)CodeBits) - 1,
 			RoundingControlMask		= 7,
 			RoundingControlShift	= 13,
@@ -136,6 +138,35 @@ namespace Iced.Intel {
 			a.reg1 == b.reg1 &&
 			a.reg2 == b.reg2 &&
 			a.reg3 == b.reg3;
+
+		internal static string TEST_DumpDiff(ref Instruction a, ref Instruction b) {
+			var builder = new StringBuilder();
+			if (a.nextRip != b.nextRip)
+				builder.AppendLine("a.nextRip=" + a.nextRip + " b.nextRip=" + b.nextRip);
+			if (a.codeFlags != b.codeFlags)
+				builder.AppendLine("a.codeFlags=" + a.codeFlags + " b.codeFlags=" + b.codeFlags);
+			if (a.opKindFlags != b.opKindFlags)
+				builder.AppendLine("a.opKindFlags=" + a.opKindFlags + " b.opKindFlags=" + b.opKindFlags);
+			if (a.immediate != b.immediate)
+				builder.AppendLine("a.immediate=" + a.immediate + " b.immediate=" + b.immediate);
+			if (a.memDispl != b.memDispl)
+				builder.AppendLine("a.memDispl=" + a.memDispl + " b.memDispl=" + b.memDispl);
+			if (a.memoryFlags != b.memoryFlags)
+				builder.AppendLine("a.memoryFlags=" + a.memoryFlags + " b.memoryFlags=" + b.memoryFlags);
+			if (a.MemoryBase != b.MemoryBase)
+				builder.AppendLine("a.MemoryBase=" + a.MemoryBase + " b.MemoryBase=" + b.MemoryBase);
+			if (a.MemoryIndex != b.MemoryIndex)
+				builder.AppendLine("a.MemoryIndex=" + a.MemoryIndex + " b.MemoryIndex=" + b.MemoryIndex);
+			if (a.Op0Register != b.Op0Register)
+				builder.AppendLine("a.Op0Register=" + a.Op0Register + " b.Op0Register=" + b.Op0Register);
+			if (a.Op1Register != b.Op1Register)
+				builder.AppendLine("a.Op1Register=" + a.Op1Register + " b.Op1Register=" + b.Op1Register);
+			if (a.Op2Register != b.Op2Register)
+				builder.AppendLine("a.Op2Register=" + a.Op2Register + " b.Op2Register=" + b.Op2Register);
+			if (a.Op3Register != b.Op3Register)
+				builder.AppendLine("a.Op3Register=" + a.Op3Register + " b.Op3Register=" + b.Op3Register);
+			return builder.ToString();
+		}
 
 		void ThrowArgumentOutOfRangeException(string paramName) => throw new ArgumentOutOfRangeException(paramName);
 		void ThrowArgumentNullException(string paramName) => throw new ArgumentNullException(paramName);
@@ -1180,22 +1211,7 @@ namespace Iced.Intel {
 				case Code.Pushw_CS:
 				case Code.Pushw_SS:
 				case Code.Pushw_DS:
-				case Code.Push_AX:
-				case Code.Push_R8W:
-				case Code.Push_CX:
-				case Code.Push_R9W:
-				case Code.Push_DX:
-				case Code.Push_R10W:
-				case Code.Push_BX:
-				case Code.Push_R11W:
-				case Code.Push_SP:
-				case Code.Push_R12W:
-				case Code.Push_BP:
-				case Code.Push_R13W:
-				case Code.Push_SI:
-				case Code.Push_R14W:
-				case Code.Push_DI:
-				case Code.Push_R15W:
+				case Code.Push_r16:
 				case Code.Push_imm16:
 				case Code.Pushw_imm8:
 				case Code.Pushfw:
@@ -1208,14 +1224,7 @@ namespace Iced.Intel {
 				case Code.Pushd_CS:
 				case Code.Pushd_SS:
 				case Code.Pushd_DS:
-				case Code.Push_EAX:
-				case Code.Push_ECX:
-				case Code.Push_EDX:
-				case Code.Push_EBX:
-				case Code.Push_ESP:
-				case Code.Push_EBP:
-				case Code.Push_ESI:
-				case Code.Push_EDI:
+				case Code.Push_r32:
 				case Code.Pushd_imm32:
 				case Code.Pushd_imm8:
 				case Code.Pushfd:
@@ -1224,22 +1233,7 @@ namespace Iced.Intel {
 				case Code.Pushd_GS:
 					return -4;
 
-				case Code.Push_RAX:
-				case Code.Push_R8:
-				case Code.Push_RCX:
-				case Code.Push_R9:
-				case Code.Push_RDX:
-				case Code.Push_R10:
-				case Code.Push_RBX:
-				case Code.Push_R11:
-				case Code.Push_RSP:
-				case Code.Push_R12:
-				case Code.Push_RBP:
-				case Code.Push_R13:
-				case Code.Push_RSI:
-				case Code.Push_R14:
-				case Code.Push_RDI:
-				case Code.Push_R15:
+				case Code.Push_r64:
 				case Code.Pushq_imm32:
 				case Code.Pushq_imm8:
 				case Code.Pushfq:
@@ -1257,22 +1251,7 @@ namespace Iced.Intel {
 				case Code.Popw_ES:
 				case Code.Popw_SS:
 				case Code.Popw_DS:
-				case Code.Pop_AX:
-				case Code.Pop_R8W:
-				case Code.Pop_CX:
-				case Code.Pop_R9W:
-				case Code.Pop_DX:
-				case Code.Pop_R10W:
-				case Code.Pop_BX:
-				case Code.Pop_R11W:
-				case Code.Pop_SP:
-				case Code.Pop_R12W:
-				case Code.Pop_BP:
-				case Code.Pop_R13W:
-				case Code.Pop_SI:
-				case Code.Pop_R14W:
-				case Code.Pop_DI:
-				case Code.Pop_R15W:
+				case Code.Pop_r16:
 				case Code.Pop_rm16:
 				case Code.Popfw:
 				case Code.Popw_FS:
@@ -1282,36 +1261,14 @@ namespace Iced.Intel {
 				case Code.Popd_ES:
 				case Code.Popd_SS:
 				case Code.Popd_DS:
-				case Code.Pop_EAX:
-				case Code.Pop_ECX:
-				case Code.Pop_EDX:
-				case Code.Pop_EBX:
-				case Code.Pop_ESP:
-				case Code.Pop_EBP:
-				case Code.Pop_ESI:
-				case Code.Pop_EDI:
+				case Code.Pop_r32:
 				case Code.Pop_rm32:
 				case Code.Popfd:
 				case Code.Popd_FS:
 				case Code.Popd_GS:
 					return 4;
 
-				case Code.Pop_RAX:
-				case Code.Pop_R8:
-				case Code.Pop_RCX:
-				case Code.Pop_R9:
-				case Code.Pop_RDX:
-				case Code.Pop_R10:
-				case Code.Pop_RBX:
-				case Code.Pop_R11:
-				case Code.Pop_RSP:
-				case Code.Pop_R12:
-				case Code.Pop_RBP:
-				case Code.Pop_R13:
-				case Code.Pop_RSI:
-				case Code.Pop_R14:
-				case Code.Pop_RDI:
-				case Code.Pop_R15:
+				case Code.Pop_r64:
 				case Code.Pop_rm64:
 				case Code.Popfq:
 				case Code.Popq_FS:
