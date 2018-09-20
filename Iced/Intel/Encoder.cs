@@ -640,44 +640,34 @@ namespace Iced.Intel {
 			}
 
 			var reg = instr.GetOpRegister(operand);
-			uint regNum = (uint)(reg - regLo);
-			if (reg >= Register.SPL && reg <= Register.R15L) {
+
+			var regLo64 = reg >= Register.SPL && reg <= Register.R15L ? Register.R8L :
+						reg >= Register.R8W && reg <= Register.R15W ? Register.R8W :
+						reg >= Register.R8D && reg <= Register.R15D ? Register.R8D :
+						reg >= Register.R8 && reg <= Register.R15 ? Register.R8 : Register.None;
+
+			// For r64 register, we need to dispatch between the various REX.W/B modes
+			if (regLo64 != Register.None) {
 				if (defaultCodeSize != 64) {
 					ErrorMessage = ERROR_ONLY_64_BIT_MODE;
 					return;
 				}
 
-				bool isSpl = reg < Register.R8L;
 				EncoderFlags |= EncoderFlags.REX;
-				if (!isSpl)
+
+				// Registers from SPL to DIL are encoded starting from AH
+				if (regLo64 == Register.R8L && reg < Register.R8L)
+					regLo64 = Register.AH;
+				else {
 					EncoderFlags |= EncoderFlags.B;
-				regNum = (uint)(reg - (isSpl ? Register.AH : Register.R8L));
-			}
-			else if (reg >= Register.R8D && reg <= Register.R15D) {
-				if (defaultCodeSize != 64) {
-					ErrorMessage = ERROR_ONLY_64_BIT_MODE;
-					return;
+
+					if (regLo64 == Register.R8 && (instr.Code == Code.Xchg_RAX_r64 || instr.Code == Code.Bswap_r64))
+						EncoderFlags |= EncoderFlags.W;
+					else if (regLo64 == Register.R8W)
+						EncoderFlags |= EncoderFlags.P66;
 				}
-				EncoderFlags |= EncoderFlags.REX | EncoderFlags.B;
-				regNum = (uint)(reg - Register.R8D);
-			}
-			else if (reg >= Register.R8W && reg <= Register.R15W) {
-				if (defaultCodeSize != 64) {
-					ErrorMessage = ERROR_ONLY_64_BIT_MODE;
-					return;
-				}
-				EncoderFlags |= EncoderFlags.P66 | EncoderFlags.REX | EncoderFlags.B;
-				regNum = (uint)(reg - Register.R8W);
-			}
-			else if (reg >= Register.R8 && reg <= Register.R15) {
-				if (defaultCodeSize != 64) {
-					ErrorMessage = ERROR_ONLY_64_BIT_MODE;
-					return;
-				}
-				EncoderFlags |= EncoderFlags.REX | EncoderFlags.B;
-				if (instr.Code == Code.Xchg_RAX_r64 || instr.Code == Code.Bswap_r64)
-					EncoderFlags |= EncoderFlags.W;
-				regNum = (uint)(reg - Register.R8);
+
+				regLo = regLo64;
 			}
 			else if (reg >= Register.AX && reg <= Register.DI && defaultCodeSize != 16) {
 				EncoderFlags |= EncoderFlags.P66;
@@ -687,6 +677,7 @@ namespace Iced.Intel {
 			if (!Verify(operand, reg, regLo, regHi))
 				return;
 
+			uint regNum = (uint)(reg - regLo);
 			Debug.Assert(regNum <= 7);
 			OpCode = OpCode + regNum;
 		}
