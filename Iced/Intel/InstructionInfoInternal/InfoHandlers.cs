@@ -304,7 +304,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_SKINIT_or_SVML = (uint)CpuidFeature.SKINIT_or_SVML << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SMAP = (uint)CpuidFeature.SMAP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SMX = (uint)CpuidFeature.SMX << (int)InfoFlags2.CpuidFeatureShift;
-		const uint CPUID_SVM = (uint)CpuidFeature.SVM << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSE = (uint)CpuidFeature.SSE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSE2 = (uint)CpuidFeature.SSE2 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSE3 = (uint)CpuidFeature.SSE3 << (int)InfoFlags2.CpuidFeatureShift;
@@ -312,6 +311,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_SSE4_2 = (uint)CpuidFeature.SSE4_2 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSE4A = (uint)CpuidFeature.SSE4A << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSSE3 = (uint)CpuidFeature.SSSE3 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_SVM = (uint)CpuidFeature.SVM << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SYSCALL = (uint)CpuidFeature.SYSCALL << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_TBM = (uint)CpuidFeature.TBM << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_TSC = (uint)CpuidFeature.TSC << (int)InfoFlags2.CpuidFeatureShift;

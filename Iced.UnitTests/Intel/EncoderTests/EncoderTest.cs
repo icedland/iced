@@ -47,8 +47,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var encoder = decoder.CreateEncoder(writer);
 			Assert.Equal(codeSize, encoder.Bitness);
 			var origInstrCopy = origInstr;
-			int encodedInstrLen = encoder.Encode(ref origInstr, origRip, out string errorMessage);
+			bool result = encoder.TryEncode(ref origInstr, origRip, out int encodedInstrLen, out string errorMessage);
 			Assert.Null(errorMessage);
+			Assert.True(result);
 			var encodedConstantOffsets = encoder.GetConstantOffsets();
 			FixConstantOffsets(ref encodedConstantOffsets, origInstr.ByteLength, encodedInstrLen);
 			Assert.True(Equals(ref origConstantOffsets, ref encodedConstantOffsets));
@@ -106,8 +107,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var writer = new CodeWriterImpl();
 			var encoder = CreateEncoder(invalidCodeSize, writer);
 			var origInstrCopy = origInstr;
-			int encodedInstrLen = encoder.Encode(ref origInstr, origRip, out string errorMessage);
+			bool result = encoder.TryEncode(ref origInstr, origRip, out int encodedInstrLen, out string errorMessage);
 			Assert.True(errorMessage == Encoder.ERROR_ONLY_1632_BIT_MODE || errorMessage == Encoder.ERROR_ONLY_64_BIT_MODE, "Unexpected error Message: " + errorMessage ?? "null");
+			Assert.False(result);
 			Assert.True(Instruction.TEST_BitByBitEquals(ref origInstr, ref origInstrCopy), "Instruction are differing: " + Instruction.TEST_DumpDiff(ref origInstr, ref origInstrCopy));
 			Assert.True(encodedInstrLen >= 0);
 		}

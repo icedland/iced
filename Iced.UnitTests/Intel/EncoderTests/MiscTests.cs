@@ -36,18 +36,36 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Encoder encoder;
 			var instr = new Instruction { Code = Code.INVALID };
 			string errorMessage;
+			bool result;
+			int instrLen;
 
 			encoder = Encoder.Create16(new CodeWriterImpl());
-			encoder.Encode(ref instr, 0, out errorMessage);
+			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
+			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
+			Assert.Equal(0, instrLen);
 
 			encoder = Encoder.Create32(new CodeWriterImpl());
-			encoder.Encode(ref instr, 0, out errorMessage);
+			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
+			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
+			Assert.Equal(0, instrLen);
 
 			encoder = Encoder.Create64(new CodeWriterImpl());
-			encoder.Encode(ref instr, 0, out errorMessage);
+			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
+			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
+			Assert.Equal(0, instrLen);
+		}
+
+		[Fact]
+		void Encode_throws() {
+			var instr = new Instruction { Code = Code.INVALID };
+			var encoder = Encoder.Create64(new CodeWriterImpl());
+			Assert.Throws<EncoderException>(() => {
+				var instrCopy = instr;
+				encoder.Encode(ref instrCopy, 0);
+			});
 		}
 	}
 }

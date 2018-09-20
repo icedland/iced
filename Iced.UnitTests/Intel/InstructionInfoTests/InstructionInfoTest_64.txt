@@ -4709,8 +4709,12 @@ C5FC 5B 10, VEX_Vcvtdq2ps_ymm_ymmm256, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:
 66 0F5B 08, Cvtps2dq_xmm_xmmm128, Legacy, SSE2, op0=w op1=r w=xmm1 r=rax rm=ds:rax;Packed128_Float32
 # vcvtps2dq xmm1,xmm5
 C5F9 5B CD, VEX_Vcvtps2dq_xmm_xmmm128, VEX, AVX, op0=w op1=r w=vmm1 r=xmm5
+# vcvtps2dq xmm2,xmmword ptr [rax]
+C5F9 5B 10, VEX_Vcvtps2dq_xmm_xmmm128, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:rax;Packed128_Float32
 # vcvtps2dq ymm1,ymm5
 C5FD 5B CD, VEX_Vcvtps2dq_ymm_ymmm256, VEX, AVX, op0=w op1=r w=vmm1 r=ymm5
+# vcvtps2dq ymm2,ymmword ptr [rax]
+C5FD 5B 10, VEX_Vcvtps2dq_ymm_ymmm256, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:rax;Packed256_Float32
 # vcvtps2dq xmm2,xmmword ptr [rax+10h]
 62 F17D08 5B 50 01, EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32, EVEX, AVX512VL_or_AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float32
 # vcvtps2dq xmm2{k3},xmm3

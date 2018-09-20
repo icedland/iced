@@ -49,14 +49,14 @@ namespace Iced.Intel.BlockEncoderInternal {
 			string errorMessage;
 
 			instruction.MemoryBase = Register.RIP;
-			ripInstructionSize = (uint)blockEncoder.NullEncoder.Encode(ref instruction, instruction.IP64, out errorMessage);
-			if (errorMessage != null)
-				ripInstructionSize = DecoderConstants.MaxInstructionLength;
+			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out int instrLen, out errorMessage))
+				instrLen = DecoderConstants.MaxInstructionLength;
+			ripInstructionSize = (uint)instrLen;
 
 			instruction.MemoryBase = Register.EIP;
-			eipInstructionSize = (uint)blockEncoder.NullEncoder.Encode(ref instruction, instruction.IP64, out errorMessage);
-			if (errorMessage != null)
-				eipInstructionSize = DecoderConstants.MaxInstructionLength;
+			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out instrLen, out errorMessage))
+				instrLen = DecoderConstants.MaxInstructionLength;
+			eipInstructionSize = (uint)instrLen;
 
 			Debug.Assert(eipInstructionSize >= ripInstructionSize);
 			Size = eipInstructionSize;
@@ -124,7 +124,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				var nextRip = IP + instrSize;
 				instruction.NextIP64 = nextRip;
 				instruction.MemoryDisplacement = (uint)targetAddress - (uint)nextRip;
-				encoder.Encode(ref instruction, IP, out var errorMessage);
+				encoder.TryEncode(ref instruction, IP, out _, out var errorMessage);
 				bool b = instruction.IPRelativeMemoryAddress == (instruction.MemoryBase == Register.EIP ? (uint)targetAddress : targetAddress);
 				Debug.Assert(b);
 				if (!b)

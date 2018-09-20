@@ -675,18 +675,18 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.NearBranch16"/>
 		/// </summary>
-		public ushort NearBranch16Target {
+		public ushort NearBranch16 {
 			get => (ushort)immediate;
 			set => immediate = value;
 		}
-		internal uint InternalNearBranch16Target {
+		internal uint InternalNearBranch16 {
 			set => immediate = value;
 		}
 
 		/// <summary>
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.NearBranch32"/>
 		/// </summary>
-		public uint NearBranch32Target {
+		public uint NearBranch32 {
 			get => immediate;
 			set => immediate = value;
 		}
@@ -694,7 +694,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.NearBranch64"/>
 		/// </summary>
-		public ulong NearBranch64Target {
+		public ulong NearBranch64 {
 			get => ((ulong)memDispl << 32) | immediate;
 			set {
 				immediate = (uint)value;
@@ -708,9 +708,9 @@ namespace Iced.Intel {
 		public ulong NearBranchTarget {
 			get {
 				switch (Op0Kind) {
-				case OpKind.NearBranch16:	return NearBranch16Target;
-				case OpKind.NearBranch32:	return NearBranch32Target;
-				case OpKind.NearBranch64:	return NearBranch64Target;
+				case OpKind.NearBranch16:	return NearBranch16;
+				case OpKind.NearBranch32:	return NearBranch32;
+				case OpKind.NearBranch64:	return NearBranch64;
 				default:					return 0;
 				}
 			}
@@ -719,18 +719,18 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.FarBranch16"/>
 		/// </summary>
-		public ushort FarBranch16Target {
+		public ushort FarBranch16 {
 			get => (ushort)immediate;
 			set => immediate = value;
 		}
-		internal uint InternalFarBranch16Target {
+		internal uint InternalFarBranch16 {
 			set => immediate = value;
 		}
 
 		/// <summary>
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.FarBranch32"/>
 		/// </summary>
-		public uint FarBranch32Target {
+		public uint FarBranch32 {
 			get => immediate;
 			set => immediate = value;
 		}
@@ -1644,7 +1644,7 @@ namespace Iced.Intel {
 			instruction.InternalCode = code;
 
 			instruction.Op0Kind = GetNearBranchOpKind(code, 0);
-			instruction.NearBranch64Target = target;
+			instruction.NearBranch64 = target;
 
 			Debug.Assert(instruction.OpCount == 1);
 			return instruction;
@@ -1663,7 +1663,7 @@ namespace Iced.Intel {
 
 			instruction.Op0Kind = GetFarBranchOpKind(code, 0);
 			instruction.FarBranchSelector = selector;
-			instruction.FarBranch32Target = offset;
+			instruction.FarBranch32 = offset;
 
 			Debug.Assert(instruction.OpCount == 1);
 			return instruction;

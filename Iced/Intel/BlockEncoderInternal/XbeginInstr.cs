@@ -35,9 +35,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 			this.instruction = instruction;
 
 			switch (blockEncoder.Bitness) {
-			case 16: targetAddr = instruction.NearBranch16Target; break;
-			case 32: targetAddr = instruction.NearBranch32Target; break;
-			case 64: targetAddr = instruction.NearBranch64Target; break;
+			case 16: targetAddr = instruction.NearBranch16; break;
+			case 32: targetAddr = instruction.NearBranch32; break;
+			case 64: targetAddr = instruction.NearBranch64; break;
 			default: throw new InvalidOperationException();
 			}
 
@@ -49,9 +49,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 					this.instruction.Code = Code.Xbegin_rel32;
 				}
 			}
-			Size = (uint)blockEncoder.NullEncoder.Encode(ref this.instruction, instruction.IP64, out var errorMessage);
-			if (errorMessage != null)
-				Size = DecoderConstants.MaxInstructionLength;
+			if (!blockEncoder.NullEncoder.TryEncode(ref this.instruction, instruction.IP64, out int instrLen, out var errorMessage))
+				instrLen = DecoderConstants.MaxInstructionLength;
+			Size = (uint)instrLen;
 		}
 
 		public override void Initialize() => targetInstr = blockEncoder.GetTarget(targetAddr);
@@ -60,9 +60,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public override string TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
 			isOriginalInstruction = true;
-			instruction.NearBranch64Target = targetInstr.GetAddress();
-			encoder.Encode(ref instruction, IP, out var errorMessage);
-			if (errorMessage != null) {
+			instruction.NearBranch64 = targetInstr.GetAddress();
+			if (!encoder.TryEncode(ref instruction, IP, out _, out var errorMessage)) {
 				constantOffsets = default;
 				return CreateErrorMessage(errorMessage, ref instruction);
 			}

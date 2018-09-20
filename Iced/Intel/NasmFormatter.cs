@@ -302,15 +302,15 @@ namespace Iced.Intel {
 			case InstrOpKind.NearBranch64:
 				if (opKind == InstrOpKind.NearBranch64) {
 					immSize = 8;
-					imm64 = instruction.NearBranch64Target;
+					imm64 = instruction.NearBranch64;
 				}
 				else if (opKind == InstrOpKind.NearBranch32) {
 					immSize = 4;
-					imm64 = instruction.NearBranch32Target;
+					imm64 = instruction.NearBranch32;
 				}
 				else {
 					immSize = 2;
-					imm64 = instruction.NearBranch16Target;
+					imm64 = instruction.NearBranch16;
 				}
 				numberOptions = new NumberFormattingOptions(options, options.ShortBranchNumbers, false, false);
 				showBranchSize = options.ShowBranchSize;
@@ -322,11 +322,11 @@ namespace Iced.Intel {
 					flowControl = FormatterUtils.GetFlowControl(ref instruction);
 					FormatFlowControl(output, opInfo.Flags, showBranchSize);
 					if (opKind == InstrOpKind.NearBranch32)
-						s = numberFormatter.FormatUInt32(ref numberOptions, instruction.NearBranch32Target, numberOptions.ShortNumbers);
+						s = numberFormatter.FormatUInt32(ref numberOptions, instruction.NearBranch32, numberOptions.ShortNumbers);
 					else if (opKind == InstrOpKind.NearBranch64)
-						s = numberFormatter.FormatUInt64(ref numberOptions, instruction.NearBranch64Target, numberOptions.ShortNumbers);
+						s = numberFormatter.FormatUInt64(ref numberOptions, instruction.NearBranch64, numberOptions.ShortNumbers);
 					else
-						s = numberFormatter.FormatUInt16(ref numberOptions, instruction.NearBranch16Target, numberOptions.ShortNumbers);
+						s = numberFormatter.FormatUInt16(ref numberOptions, instruction.NearBranch16, numberOptions.ShortNumbers);
 					output.Write(s, FormatterUtils.IsCall(flowControl) ? FormatterOutputTextKind.FunctionAddress : FormatterOutputTextKind.LabelAddress);
 				}
 				break;
@@ -335,11 +335,11 @@ namespace Iced.Intel {
 			case InstrOpKind.FarBranch32:
 				if (opKind == InstrOpKind.FarBranch32) {
 					immSize = 4;
-					imm64 = instruction.FarBranch32Target;
+					imm64 = instruction.FarBranch32;
 				}
 				else {
 					immSize = 2;
-					imm64 = instruction.FarBranch16Target;
+					imm64 = instruction.FarBranch16;
 				}
 				numberOptions = new NumberFormattingOptions(options, options.ShortBranchNumbers, false, false);
 				showBranchSize = options.ShowBranchSize;
@@ -361,9 +361,9 @@ namespace Iced.Intel {
 					output.Write(s, FormatterOutputTextKind.SelectorValue);
 					output.Write(":", FormatterOutputTextKind.Punctuation);
 					if (opKind == InstrOpKind.FarBranch32)
-						s = numberFormatter.FormatUInt32(ref numberOptions, instruction.FarBranch32Target, numberOptions.ShortNumbers);
+						s = numberFormatter.FormatUInt32(ref numberOptions, instruction.FarBranch32, numberOptions.ShortNumbers);
 					else
-						s = numberFormatter.FormatUInt16(ref numberOptions, instruction.FarBranch16Target, numberOptions.ShortNumbers);
+						s = numberFormatter.FormatUInt16(ref numberOptions, instruction.FarBranch16, numberOptions.ShortNumbers);
 					output.Write(s, FormatterUtils.IsCall(flowControl) ? FormatterOutputTextKind.FunctionAddress : FormatterOutputTextKind.LabelAddress);
 				}
 				break;
