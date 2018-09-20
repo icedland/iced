@@ -1669,61 +1669,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			this.index = index;
 		}
 
-		static readonly Code[,] codes = new Code[3, 16] {
-			{
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-				Code.Bswap_r16,
-			},
-			{
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-				Code.Bswap_r32,
-			},
-			{
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-				Code.Bswap_r64,
-			},
+		static readonly Code[] codes = new Code[3] {
+			Code.Bswap_r16,
+			Code.Bswap_r32,
+			Code.Bswap_r64,
 		};
 
 		static readonly Register[,] registers = new Register[3, 16] {
@@ -1792,7 +1741,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			int sizeIndex = (int)state.operandSize;
 			int codeIndex = index + (int)state.extraBaseRegisterBase;
 
-			instruction.InternalCode = codes[sizeIndex, codeIndex];
+			instruction.InternalCode = codes[sizeIndex];
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = registers[sizeIndex, codeIndex];
@@ -2011,48 +1960,50 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			this.index = index;
 		}
 
-		static readonly (Code code, Register register)[] noRexPrefix = new(Code code, Register register)[8] {
-			(Code.Mov_r8_imm8, Register.AL),
-			(Code.Mov_r8_imm8, Register.CL),
-			(Code.Mov_r8_imm8, Register.DL),
-			(Code.Mov_r8_imm8, Register.BL),
-			(Code.Mov_r8_imm8, Register.AH),
-			(Code.Mov_r8_imm8, Register.CH),
-			(Code.Mov_r8_imm8, Register.DH),
-			(Code.Mov_r8_imm8, Register.BH),
+		// Code.Mov_r8_imm8
+		static readonly Register[] noRexPrefix = new Register[8] {
+			Register.AL,
+			Register.CL,
+			Register.DL,
+			Register.BL,
+			Register.AH,
+			Register.CH,
+			Register.DH,
+			Register.BH,
 		};
 
-		static readonly (Code code, Register register)[] withRexPrefix = new(Code code, Register register)[16] {
-			(Code.Mov_r8_imm8, Register.AL),
-			(Code.Mov_r8_imm8, Register.CL),
-			(Code.Mov_r8_imm8, Register.DL),
-			(Code.Mov_r8_imm8, Register.BL),
-			(Code.Mov_r8_imm8, Register.SPL),
-			(Code.Mov_r8_imm8, Register.BPL),
-			(Code.Mov_r8_imm8, Register.SIL),
-			(Code.Mov_r8_imm8, Register.DIL),
-			(Code.Mov_r8_imm8, Register.R8L),
-			(Code.Mov_r8_imm8, Register.R9L),
-			(Code.Mov_r8_imm8, Register.R10L),
-			(Code.Mov_r8_imm8, Register.R11L),
-			(Code.Mov_r8_imm8, Register.R12L),
-			(Code.Mov_r8_imm8, Register.R13L),
-			(Code.Mov_r8_imm8, Register.R14L),
-			(Code.Mov_r8_imm8, Register.R15L),
+		// Code.Mov_r8_imm8
+		static readonly Register[] withRexPrefix = new Register[16] {
+			Register.AL,
+			Register.CL,
+			Register.DL,
+			Register.BL,
+			Register.SPL,
+			Register.BPL,
+			Register.SIL,
+			Register.DIL,
+			Register.R8L,
+			Register.R9L,
+			Register.R10L,
+			Register.R11L,
+			Register.R12L,
+			Register.R13L,
+			Register.R14L,
+			Register.R15L,
 		};
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			(Code code, Register register) info;
+			Register register;
 			if ((state.flags & StateFlags.HasRex) != 0)
-				info = withRexPrefix[index + (int)state.extraBaseRegisterBase];
+				register = withRexPrefix[index + (int)state.extraBaseRegisterBase];
 			else
-				info = noRexPrefix[index];
-			instruction.InternalCode = info.code;
+				register = noRexPrefix[index];
+			instruction.InternalCode = Code.Mov_r8_imm8;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = info.register;
+			instruction.InternalOp0Register = register;
 			instruction.InternalOp1Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 		}
@@ -2066,93 +2017,96 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			this.index = index;
 		}
 
-		static readonly (Code code, Register register)[] info16 = new(Code code, Register register)[16] {
-			(Code.Mov_r16_imm16, Register.AX),
-			(Code.Mov_r16_imm16, Register.CX),
-			(Code.Mov_r16_imm16, Register.DX),
-			(Code.Mov_r16_imm16, Register.BX),
-			(Code.Mov_r16_imm16, Register.SP),
-			(Code.Mov_r16_imm16, Register.BP),
-			(Code.Mov_r16_imm16, Register.SI),
-			(Code.Mov_r16_imm16, Register.DI),
-			(Code.Mov_r16_imm16, Register.R8W),
-			(Code.Mov_r16_imm16, Register.R9W),
-			(Code.Mov_r16_imm16, Register.R10W),
-			(Code.Mov_r16_imm16, Register.R11W),
-			(Code.Mov_r16_imm16, Register.R12W),
-			(Code.Mov_r16_imm16, Register.R13W),
-			(Code.Mov_r16_imm16, Register.R14W),
-			(Code.Mov_r16_imm16, Register.R15W),
+		// Code.Mov_r16_imm16
+		static readonly Register[] info16 = new Register[16] {
+			Register.AX,
+			Register.CX,
+			Register.DX,
+			Register.BX,
+			Register.SP,
+			Register.BP,
+			Register.SI,
+			Register.DI,
+			Register.R8W,
+			Register.R9W,
+			Register.R10W,
+			Register.R11W,
+			Register.R12W,
+			Register.R13W,
+			Register.R14W,
+			Register.R15W,
 		};
 
-		static readonly (Code code, Register register)[] info32 = new(Code code, Register register)[16] {
-			(Code.Mov_r32_imm32, Register.EAX),
-			(Code.Mov_r32_imm32, Register.ECX),
-			(Code.Mov_r32_imm32, Register.EDX),
-			(Code.Mov_r32_imm32, Register.EBX),
-			(Code.Mov_r32_imm32, Register.ESP),
-			(Code.Mov_r32_imm32, Register.EBP),
-			(Code.Mov_r32_imm32, Register.ESI),
-			(Code.Mov_r32_imm32, Register.EDI),
-			(Code.Mov_r32_imm32, Register.R8D),
-			(Code.Mov_r32_imm32, Register.R9D),
-			(Code.Mov_r32_imm32, Register.R10D),
-			(Code.Mov_r32_imm32, Register.R11D),
-			(Code.Mov_r32_imm32, Register.R12D),
-			(Code.Mov_r32_imm32, Register.R13D),
-			(Code.Mov_r32_imm32, Register.R14D),
-			(Code.Mov_r32_imm32, Register.R15D),
+		// Code.Mov_r32_imm32
+		static readonly Register[] info32 = new Register[16] {
+			Register.EAX,
+			Register.ECX,
+			Register.EDX,
+			Register.EBX,
+			Register.ESP,
+			Register.EBP,
+			Register.ESI,
+			Register.EDI,
+			Register.R8D,
+			Register.R9D,
+			Register.R10D,
+			Register.R11D,
+			Register.R12D,
+			Register.R13D,
+			Register.R14D,
+			Register.R15D,
 		};
 
-		static readonly (Code code, Register register)[] info64 = new(Code code, Register register)[16] {
-			(Code.Mov_r64_imm64, Register.RAX),
-			(Code.Mov_r64_imm64, Register.RCX),
-			(Code.Mov_r64_imm64, Register.RDX),
-			(Code.Mov_r64_imm64, Register.RBX),
-			(Code.Mov_r64_imm64, Register.RSP),
-			(Code.Mov_r64_imm64, Register.RBP),
-			(Code.Mov_r64_imm64, Register.RSI),
-			(Code.Mov_r64_imm64, Register.RDI),
-			(Code.Mov_r64_imm64, Register.R8),
-			(Code.Mov_r64_imm64, Register.R9),
-			(Code.Mov_r64_imm64, Register.R10),
-			(Code.Mov_r64_imm64, Register.R11),
-			(Code.Mov_r64_imm64, Register.R12),
-			(Code.Mov_r64_imm64, Register.R13),
-			(Code.Mov_r64_imm64, Register.R14),
-			(Code.Mov_r64_imm64, Register.R15),
+		// Code.Mov_r64_imm64
+		static readonly Register[] info64 = new Register[16] {
+			Register.RAX,
+			Register.RCX,
+			Register.RDX,
+			Register.RBX,
+			Register.RSP,
+			Register.RBP,
+			Register.RSI,
+			Register.RDI,
+			Register.R8,
+			Register.R9,
+			Register.R10,
+			Register.R11,
+			Register.R12,
+			Register.R13,
+			Register.R14,
+			Register.R15,
 		};
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			(Code code, Register register) info;
+			Register register;
 			int index = this.index + (int)state.extraBaseRegisterBase;
 			if (state.operandSize == OpSize.Size32) {
-				info = info32[index];
-				instruction.InternalCode = info.code;
+				register = info32[index];
+				instruction.InternalCode = Code.Mov_r32_imm32;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.InternalOp0Register = info.register;
+				instruction.InternalOp0Register = register;
 				instruction.InternalOp1Kind = OpKind.Immediate32;
 				instruction.Immediate32 = decoder.ReadUInt32();
 			}
 			else if (state.operandSize == OpSize.Size64) {
-				info = info64[index];
-				instruction.InternalCode = info.code;
+				register = info64[index];
+				instruction.InternalCode = Code.Mov_r64_imm64;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.InternalOp0Register = info.register;
+				instruction.InternalOp0Register = register;
 				instruction.InternalOp1Kind = OpKind.Immediate64;
 				instruction.InternalImmediate64_lo = decoder.ReadUInt32();
 				instruction.InternalImmediate64_hi = decoder.ReadUInt32();
 			}
 			else {
-				info = info16[index];
-				instruction.InternalCode = info.code;
+				register = info16[index];
+				instruction.InternalCode = Code.Mov_r16_imm16;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.InternalOp0Register = info.register;
+				instruction.InternalOp0Register = register;
 				instruction.InternalOp1Kind = OpKind.Immediate16;
 				instruction.InternalImmediate16 = decoder.ReadUInt16();
 			}
