@@ -300,7 +300,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Mov_Sreg_rm64;
 			yield return Code.Pop_rm64;
 			yield return Code.Nopq;
-			yield return Code.Xchg_RAX_r64;
+			yield return Code.Xchg_r64_RAX;
 			yield return Code.Cdqe;
 			yield return Code.Cqo;
 			yield return Code.Pushfq;

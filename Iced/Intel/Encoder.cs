@@ -661,7 +661,7 @@ namespace Iced.Intel {
 				else {
 					EncoderFlags |= EncoderFlags.B;
 
-					if (regLo64 == Register.R8 && (instr.Code == Code.Xchg_RAX_r64 || instr.Code == Code.Bswap_r64))
+					if (regLo64 == Register.R8 && (instr.Code == Code.Xchg_r64_RAX || instr.Code == Code.Bswap_r64))
 						EncoderFlags |= EncoderFlags.W;
 					else if (regLo64 == Register.R8W)
 						EncoderFlags |= EncoderFlags.P66;

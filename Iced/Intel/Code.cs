@@ -343,11 +343,11 @@ namespace Iced.Intel {
 		Pop_rm64,											// REX.W 8F /0
 
 		Nopw,												// o16 90
-		Xchg_AX_r16,										// o16 REX.B 90
+		Xchg_r16_AX,										// o16 REX.B 90
 		Nopd,												// o32 90
-		Xchg_EAX_r32,										// o32 REX.B 90
+		Xchg_r32_EAX,										// o32 REX.B 90
 		Nopq,												// REX.W 90
-		Xchg_RAX_r64,										// REX.W REX.B 90
+		Xchg_r64_RAX,										// REX.W REX.B 90
 
 		Pause,												// F3 90
 
