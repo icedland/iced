@@ -19,6 +19,7 @@
 
 #if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
 using System;
+using System.Text;
 
 namespace Iced.Intel {
 	static class HexUtils {
@@ -50,6 +51,21 @@ namespace Iced.Intel {
 			if (w != data.Length)
 				Array.Resize(ref data, w);
 			return data;
+		}
+
+		public static string ToString(byte[] hexData) {
+			if (hexData == null)
+				throw new ArgumentNullException(nameof(hexData));
+			if (hexData.Length == 0)
+				return string.Empty;
+
+			var builder = new StringBuilder(hexData.Length * 3 - 1);
+			for(int i = 0; i < hexData.Length; i++) {
+				builder.Append(hexData[i].ToString("2X"));
+				if (i + 1 < hexData.Length)
+					builder.Append(' ');
+			}
+			return builder.ToString();
 		}
 
 		static int TryParseHexChar(char c) {

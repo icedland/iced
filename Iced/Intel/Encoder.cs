@@ -641,7 +641,27 @@ namespace Iced.Intel {
 
 			var reg = instr.GetOpRegister(operand);
 			uint regNum = (uint)(reg - regLo);
-			if (reg >= Register.R8W && reg <= Register.R15W) {
+			if (reg >= Register.SPL && reg <= Register.R15L) {
+				if (defaultCodeSize != 64) {
+					ErrorMessage = ERROR_ONLY_64_BIT_MODE;
+					return;
+				}
+
+				bool isSpl = reg < Register.R8L;
+				EncoderFlags |= EncoderFlags.REX;
+				if (!isSpl)
+					EncoderFlags |= EncoderFlags.B;
+				regNum = (uint)(reg - (isSpl ? Register.AH : Register.R8L));
+			}
+			else if (reg >= Register.R8D && reg <= Register.R15D) {
+				if (defaultCodeSize != 64) {
+					ErrorMessage = ERROR_ONLY_64_BIT_MODE;
+					return;
+				}
+				EncoderFlags |= EncoderFlags.REX | EncoderFlags.B;
+				regNum = (uint)(reg - Register.R8D);
+			}
+			else if (reg >= Register.R8W && reg <= Register.R15W) {
 				if (defaultCodeSize != 64) {
 					ErrorMessage = ERROR_ONLY_64_BIT_MODE;
 					return;

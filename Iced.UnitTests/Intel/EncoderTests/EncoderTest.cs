@@ -48,8 +48,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(codeSize, encoder.Bitness);
 			var origInstrCopy = origInstr;
 			bool result = encoder.TryEncode(ref origInstr, origRip, out int encodedInstrLen, out string errorMessage);
-			Assert.Null(errorMessage);
-			Assert.True(result);
+			Assert.True(errorMessage == null, "Unexpected ErrorMessage: " + errorMessage);
+			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
 			var encodedConstantOffsets = encoder.GetConstantOffsets();
 			FixConstantOffsets(ref encodedConstantOffsets, origInstr.ByteLength, encodedInstrLen);
 			Assert.True(Equals(ref origConstantOffsets, ref encodedConstantOffsets));
@@ -71,7 +71,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			newInstr.NextIP64 = origInstr.NextIP64;
 			Assert.True(Instruction.TEST_BitByBitEquals(ref origInstr, ref newInstr), "Instruction are differing: " + Instruction.TEST_DumpDiff(ref origInstr, ref newInstr));
 			// Some tests use useless or extra prefixes, so we can't verify the exact length
-			Assert.True(encodedBytes.Length <= origBytes.Length);
+			Assert.True(encodedBytes.Length <= origBytes.Length, "Unexpected encoded prefixes: " + HexUtils.ToString(encodedBytes));
 		}
 
 		static void FixConstantOffsets(ref ConstantOffsets ca, int origInstrLen, int newInstrLen) {

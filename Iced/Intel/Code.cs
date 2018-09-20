@@ -445,75 +445,11 @@ namespace Iced.Intel {
 		Scasd_EAX_m32,										// o32 AF
 		Scasq_RAX_m64,										// REX.W AF
 
-		Mov_AL_imm8,										// B0
-		Mov_R8L_imm8,										// REX.B B0
-		Mov_CL_imm8,										// B1
-		Mov_R9L_imm8,										// REX.B B1
-		Mov_DL_imm8,										// B2
-		Mov_R10L_imm8,										// REX.B B2
-		Mov_BL_imm8,										// B3
-		Mov_R11L_imm8,										// REX.B B3
-		Mov_AH_imm8,										// B4
-		Mov_SPL_imm8,										// REX B4
-		Mov_R12L_imm8,										// REX.B B4
-		Mov_CH_imm8,										// B5
-		Mov_BPL_imm8,										// REX B5
-		Mov_R13L_imm8,										// REX.B B5
-		Mov_DH_imm8,										// B6
-		Mov_SIL_imm8,										// REX B6
-		Mov_R14L_imm8,										// REX.B B6
-		Mov_BH_imm8,										// B7
-		Mov_DIL_imm8,										// REX B7
-		Mov_R15L_imm8,										// REX.B B7
+		Mov_r8_imm8,										// B0
 
-		Mov_AX_imm16,										// o16 B8
-		Mov_R8W_imm16,										// o16 REX.B B8
-		Mov_EAX_imm32,										// o32 B8
-		Mov_R8D_imm32,										// o32 REX.B B8
-		Mov_RAX_imm64,										// REX.W B8
-		Mov_R8_imm64,										// REX.W REX.B B8
-		Mov_CX_imm16,										// o16 B9
-		Mov_R9W_imm16,										// o16 REX.B B9
-		Mov_ECX_imm32,										// o32 B9
-		Mov_R9D_imm32,										// o32 REX.B B9
-		Mov_RCX_imm64,										// REX.W B9
-		Mov_R9_imm64,										// REX.W REX.B B9
-		Mov_DX_imm16,										// o16 BA
-		Mov_R10W_imm16,										// o16 REX.B BA
-		Mov_EDX_imm32,										// o32 BA
-		Mov_R10D_imm32,										// o32 REX.B BA
-		Mov_RDX_imm64,										// REX.W BA
-		Mov_R10_imm64,										// REX.W REX.B BA
-		Mov_BX_imm16,										// o16 BB
-		Mov_R11W_imm16,										// o16 REX.B BB
-		Mov_EBX_imm32,										// o32 BB
-		Mov_R11D_imm32,										// o32 REX.B BB
-		Mov_RBX_imm64,										// REX.W BB
-		Mov_R11_imm64,										// REX.W REX.B BB
-		Mov_SP_imm16,										// o16 BC
-		Mov_R12W_imm16,										// o16 REX.B BC
-		Mov_ESP_imm32,										// o32 BC
-		Mov_R12D_imm32,										// o32 REX.B BC
-		Mov_RSP_imm64,										// REX.W BC
-		Mov_R12_imm64,										// REX.W REX.B BC
-		Mov_BP_imm16,										// o16 BD
-		Mov_R13W_imm16,										// o16 REX.B BD
-		Mov_EBP_imm32,										// o32 BD
-		Mov_R13D_imm32,										// o32 REX.B BD
-		Mov_RBP_imm64,										// REX.W BD
-		Mov_R13_imm64,										// REX.W REX.B BD
-		Mov_SI_imm16,										// o16 BE
-		Mov_R14W_imm16,										// o16 REX.B BE
-		Mov_ESI_imm32,										// o32 BE
-		Mov_R14D_imm32,										// o32 REX.B BE
-		Mov_RSI_imm64,										// REX.W BE
-		Mov_R14_imm64,										// REX.W REX.B BE
-		Mov_DI_imm16,										// o16 BF
-		Mov_R15W_imm16,										// o16 REX.B BF
-		Mov_EDI_imm32,										// o32 BF
-		Mov_R15D_imm32,										// o32 REX.B BF
-		Mov_RDI_imm64,										// REX.W BF
-		Mov_R15_imm64,										// REX.W REX.B BF
+		Mov_r16_imm16,										// o16 B8
+		Mov_r32_imm32,										// o32 B8
+		Mov_r64_imm64,										// REX.W B8
 
 		Rol_rm8_imm8,										// C0 /0
 		Ror_rm8_imm8,										// C0 /1

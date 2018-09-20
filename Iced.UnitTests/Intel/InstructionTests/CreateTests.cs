@@ -61,8 +61,8 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		public static IEnumerable<object[]> CreateTest_Data {
 			get {
 				yield return new object[] { 64, "90", new Func<Instruction>(() => Instruction.Create(Code.Nopd)) };
-				yield return new object[] { 64, "48B9FFFFFFFFFFFFFFFF", new Func<Instruction>(() => Instruction.Create(Code.Mov_RCX_imm64, Register.RCX, -1)) };
-				yield return new object[] { 64, "48B9123456789ABCDE31", new Func<Instruction>(() => Instruction.Create(Code.Mov_RCX_imm64, Register.RCX, 0x31DEBC9A78563412)) };
+				yield return new object[] { 64, "48B9FFFFFFFFFFFFFFFF", new Func<Instruction>(() => Instruction.Create(Code.Mov_r64_imm64, Register.RCX, -1)) };
+				yield return new object[] { 64, "48B9123456789ABCDE31", new Func<Instruction>(() => Instruction.Create(Code.Mov_r64_imm64, Register.RCX, 0x31DEBC9A78563412)) };
 				yield return new object[] { 64, "8FC1", new Func<Instruction>(() => Instruction.Create(Code.Pop_rm64, Register.RCX)) };
 				yield return new object[] { 64, "648F847501EFCDAB", new Func<Instruction>(() => Instruction.Create(Code.Pop_rm64, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, MemorySize.UInt64, Register.FS))) };
 				yield return new object[] { 64, "C6F85A", new Func<Instruction>(() => Instruction.Create(Code.Xabort_imm8, 0x5A)) };
@@ -82,7 +82,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "80C15A", new Func<Instruction>(() => Instruction.Create(Code.Add_rm8_imm8, Register.CL, 0x5A)) };
 				yield return new object[] { 64, "6681C15AA5", new Func<Instruction>(() => Instruction.Create(Code.Add_rm16_imm16, Register.CX, 0xA55A)) };
 				yield return new object[] { 64, "81C15AA51234", new Func<Instruction>(() => Instruction.Create(Code.Add_rm32_imm32, Register.ECX, 0x3412A55A)) };
-				yield return new object[] { 64, "48B904152637A55A5678", new Func<Instruction>(() => Instruction.Create(Code.Mov_RCX_imm64, Register.RCX, 0x78565AA537261504)) };
+				yield return new object[] { 64, "48B904152637A55A5678", new Func<Instruction>(() => Instruction.Create(Code.Mov_r64_imm64, Register.RCX, 0x78565AA537261504)) };
 				yield return new object[] { 64, "6683C15A", new Func<Instruction>(() => Instruction.Create(Code.Add_rm16_imm8, Register.CX, 0x5A)) };
 				yield return new object[] { 64, "83C15A", new Func<Instruction>(() => Instruction.Create(Code.Add_rm32_imm8, Register.ECX, 0x5A)) };
 				yield return new object[] { 64, "4883C15A", new Func<Instruction>(() => Instruction.Create(Code.Add_rm64_imm8, Register.RCX, 0x5A)) };

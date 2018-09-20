@@ -193,6 +193,7 @@ namespace Iced.Intel.EncoderInternal {
 		R15,
 		ST,
 		STi,
+		r8_rb,
 		r16_rw,
 		r32_rd,
 		r64_ro,
@@ -373,8 +374,9 @@ namespace Iced.Intel.EncoderInternal {
 			new OpReg(Register.R15),
 			new OpReg(Register.ST0),
 			new OpRegSTi(),
+			new OpRegEmbed8(Register.AL, Register.R15L),
 			new OpRegEmbed8(Register.AX, Register.R15W),
-			new OpRegEmbed8(Register.EAX, Register.EDI),
+			new OpRegEmbed8(Register.EAX, Register.R15D),
 			new OpRegEmbed8(Register.RAX, Register.R15),
 		};
 	}
