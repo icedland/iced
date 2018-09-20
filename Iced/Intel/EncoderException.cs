@@ -28,10 +28,16 @@ namespace Iced.Intel {
 	[Serializable]
 	public class EncoderException : Exception {
 		/// <summary>
+		/// The instruction that couldn't be encoded
+		/// </summary>
+		public Instruction Instruction { get; }
+
+		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="message">Exception message</param>
-		public EncoderException(string message) : base(message) { }
+		/// <param name="instruction">Instruction</param>
+		public EncoderException(string message, ref Instruction instruction) : base(message) => Instruction = instruction;
 
 		/// <summary>
 		/// Constructor
