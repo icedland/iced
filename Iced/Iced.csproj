@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
 
     <Description>x86/x64 instruction decoder, encoder, formatter</Description>
     <Copyright>Copyright (C) 2018 de4dot@gmail.com</Copyright>
