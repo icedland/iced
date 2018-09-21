@@ -646,9 +646,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
 			encoder.AddReg(ref instr, operand, regLo, regHi);
-		}			
 	}
 
 	sealed class OpModRM_rm_reg_only : Op {
