@@ -54,9 +54,9 @@ namespace Iced.Intel {
 		public readonly int DisplSize;
 
 		/// <summary>
-		/// Memory size. The encoder uses this to check if it's broadcasted memory. The formatters use it to show the memory size info
+		/// true if it's broadcasted memory (EVEX instructions)
 		/// </summary>
-		public readonly MemorySize Size;
+		public readonly bool IsBroadcast;
 
 		/// <summary>
 		/// Constructor
@@ -66,16 +66,16 @@ namespace Iced.Intel {
 		/// <param name="scale">Index register scale (1, 2, 4, or 8)</param>
 		/// <param name="displacement">Memory displacement, or ignored if <paramref name="displSize"/> is 0</param>
 		/// <param name="displSize">0 if no <paramref name="displacement"/>, else 1 (16/32/64-bit), 2 (16-bit), 4 (32-bit) or 8 (64-bit)</param>
-		/// <param name="size">Memory size. The encoder uses this to check if it's broadcasted memory. The formatters use it to show the memory size info</param>
+		/// <param name="isBroadcast">true if it's broadcasted memory (EVEX instructions)</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		public MemoryOperand(Register @base, Register index, int scale, int displacement, int displSize, MemorySize size, Register prefixSegment) {
+		public MemoryOperand(Register @base, Register index, int scale, int displacement, int displSize, bool isBroadcast, Register prefixSegment) {
 			PrefixSegment = prefixSegment;
 			Base = @base;
 			Index = index;
 			Scale = scale;
 			Displacement = displacement;
 			DisplSize = displSize;
-			Size = size;
+			IsBroadcast = isBroadcast;
 		}
 
 		/// <summary>
@@ -84,16 +84,16 @@ namespace Iced.Intel {
 		/// <param name="base">Base register or <see cref="Register.None"/></param>
 		/// <param name="index">Index register or <see cref="Register.None"/></param>
 		/// <param name="scale">Index register scale (1, 2, 4, or 8)</param>
-		/// <param name="size">Memory size. The encoder uses this to check if it's broadcasted memory. The formatters use it to show the memory size info</param>
+		/// <param name="isBroadcast">true if it's broadcasted memory (EVEX instructions)</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		public MemoryOperand(Register @base, Register index, int scale, MemorySize size, Register prefixSegment) {
+		public MemoryOperand(Register @base, Register index, int scale, bool isBroadcast, Register prefixSegment) {
 			PrefixSegment = prefixSegment;
 			Base = @base;
 			Index = index;
 			Scale = scale;
 			Displacement = 0;
 			DisplSize = 0;
-			Size = size;
+			IsBroadcast = isBroadcast;
 		}
 
 		/// <summary>
@@ -102,16 +102,16 @@ namespace Iced.Intel {
 		/// <param name="base">Base register or <see cref="Register.None"/></param>
 		/// <param name="displacement">Memory displacement, or ignored if <paramref name="displSize"/> is 0</param>
 		/// <param name="displSize">0 if no <paramref name="displacement"/>, else 1 (16/32/64-bit), 2 (16-bit), 4 (32-bit) or 8 (64-bit)</param>
-		/// <param name="size">Memory size. The encoder uses this to check if it's broadcasted memory. The formatters use it to show the memory size info</param>
+		/// <param name="isBroadcast">true if it's broadcasted memory (EVEX instructions)</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		public MemoryOperand(Register @base, int displacement, int displSize, MemorySize size, Register prefixSegment) {
+		public MemoryOperand(Register @base, int displacement, int displSize, bool isBroadcast, Register prefixSegment) {
 			PrefixSegment = prefixSegment;
 			Base = @base;
 			Index = Register.None;
 			Scale = 1;
 			Displacement = displacement;
 			DisplSize = displSize;
-			Size = size;
+			IsBroadcast = isBroadcast;
 		}
 
 		/// <summary>
@@ -121,16 +121,16 @@ namespace Iced.Intel {
 		/// <param name="scale">Index register scale (1, 2, 4, or 8)</param>
 		/// <param name="displacement">Memory displacement, or ignored if <paramref name="displSize"/> is 0</param>
 		/// <param name="displSize">0 if no <paramref name="displacement"/>, else 1 (16/32/64-bit), 2 (16-bit), 4 (32-bit) or 8 (64-bit)</param>
-		/// <param name="size">Memory size. The encoder uses this to check if it's broadcasted memory. The formatters use it to show the memory size info</param>
+		/// <param name="isBroadcast">true if it's broadcasted memory (EVEX instructions)</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		public MemoryOperand(Register index, int scale, int displacement, int displSize, MemorySize size, Register prefixSegment) {
+		public MemoryOperand(Register index, int scale, int displacement, int displSize, bool isBroadcast, Register prefixSegment) {
 			PrefixSegment = prefixSegment;
 			Base = Register.None;
 			Index = index;
 			Scale = scale;
 			Displacement = displacement;
 			DisplSize = displSize;
-			Size = size;
+			IsBroadcast = isBroadcast;
 		}
 
 		/// <summary>
@@ -138,16 +138,16 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="base">Base register or <see cref="Register.None"/></param>
 		/// <param name="displacement">Memory displacement</param>
-		/// <param name="size">Memory size. The encoder uses this to check if it's broadcasted memory. The formatters use it to show the memory size info</param>
+		/// <param name="isBroadcast">true if it's broadcasted memory (EVEX instructions)</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		public MemoryOperand(Register @base, int displacement, MemorySize size, Register prefixSegment) {
+		public MemoryOperand(Register @base, int displacement, bool isBroadcast, Register prefixSegment) {
 			PrefixSegment = prefixSegment;
 			Base = @base;
 			Index = Register.None;
 			Scale = 1;
 			Displacement = displacement;
 			DisplSize = 1;
-			Size = size;
+			IsBroadcast = isBroadcast;
 		}
 
 		/// <summary>
@@ -165,7 +165,7 @@ namespace Iced.Intel {
 			Scale = scale;
 			Displacement = displacement;
 			DisplSize = displSize;
-			Size = MemorySize.Unknown;
+			IsBroadcast = false;
 		}
 
 		/// <summary>
@@ -181,7 +181,7 @@ namespace Iced.Intel {
 			Scale = scale;
 			Displacement = 0;
 			DisplSize = 0;
-			Size = MemorySize.Unknown;
+			IsBroadcast = false;
 		}
 
 		/// <summary>
@@ -197,7 +197,7 @@ namespace Iced.Intel {
 			Scale = 1;
 			Displacement = displacement;
 			DisplSize = displSize;
-			Size = MemorySize.Unknown;
+			IsBroadcast = false;
 		}
 
 		/// <summary>
@@ -214,7 +214,7 @@ namespace Iced.Intel {
 			Scale = scale;
 			Displacement = displacement;
 			DisplSize = displSize;
-			Size = MemorySize.Unknown;
+			IsBroadcast = false;
 		}
 
 		/// <summary>
@@ -229,7 +229,7 @@ namespace Iced.Intel {
 			Scale = 1;
 			Displacement = displacement;
 			DisplSize = 1;
-			Size = MemorySize.Unknown;
+			IsBroadcast = false;
 		}
 	}
 }

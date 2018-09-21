@@ -81,7 +81,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Eb_Ib(Code.Shl_rm8_imm8),
 				new OpCodeHandler_Eb_Ib(Code.Shr_rm8_imm8),
 				new OpCodeHandler_Eb_Ib(Code.Shl_rm8_imm8),
-				new OpCodeHandler_Eb_Ib(Code.Sar_rm8_imm8, MemorySize.Int8),
+				new OpCodeHandler_Eb_Ib(Code.Sar_rm8_imm8),
 			};
 
 			var handlers_Grp_C1 = new OpCodeHandler[8] {
@@ -92,7 +92,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Ev_Ib2(Code.Shl_rm16_imm8, Code.Shl_rm32_imm8, Code.Shl_rm64_imm8),
 				new OpCodeHandler_Ev_Ib2(Code.Shr_rm16_imm8, Code.Shr_rm32_imm8, Code.Shr_rm64_imm8),
 				new OpCodeHandler_Ev_Ib2(Code.Shl_rm16_imm8, Code.Shl_rm32_imm8, Code.Shl_rm64_imm8),
-				new OpCodeHandler_Ev_Ib2(Code.Sar_rm16_imm8, Code.Sar_rm32_imm8, Code.Sar_rm64_imm8, true),
+				new OpCodeHandler_Ev_Ib2(Code.Sar_rm16_imm8, Code.Sar_rm32_imm8, Code.Sar_rm64_imm8),
 			};
 
 			var handlers_Grp_D0 = new OpCodeHandler[8] {
@@ -103,7 +103,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Eb_1(Code.Shl_rm8_1),
 				new OpCodeHandler_Eb_1(Code.Shr_rm8_1),
 				new OpCodeHandler_Eb_1(Code.Shl_rm8_1),
-				new OpCodeHandler_Eb_1(Code.Sar_rm8_1, MemorySize.Int8),
+				new OpCodeHandler_Eb_1(Code.Sar_rm8_1),
 			};
 
 			var handlers_Grp_D1 = new OpCodeHandler[8] {
@@ -114,7 +114,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Ev_1(Code.Shl_rm16_1, Code.Shl_rm32_1, Code.Shl_rm64_1),
 				new OpCodeHandler_Ev_1(Code.Shr_rm16_1, Code.Shr_rm32_1, Code.Shr_rm64_1),
 				new OpCodeHandler_Ev_1(Code.Shl_rm16_1, Code.Shl_rm32_1, Code.Shl_rm64_1),
-				new OpCodeHandler_Ev_1(Code.Sar_rm16_1, Code.Sar_rm32_1, Code.Sar_rm64_1, true),
+				new OpCodeHandler_Ev_1(Code.Sar_rm16_1, Code.Sar_rm32_1, Code.Sar_rm64_1),
 			};
 
 			var handlers_Grp_D2 = new OpCodeHandler[8] {
@@ -125,7 +125,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Eb_CL(Code.Shl_rm8_CL),
 				new OpCodeHandler_Eb_CL(Code.Shr_rm8_CL),
 				new OpCodeHandler_Eb_CL(Code.Shl_rm8_CL),
-				new OpCodeHandler_Eb_CL(Code.Sar_rm8_CL, MemorySize.Int8),
+				new OpCodeHandler_Eb_CL(Code.Sar_rm8_CL),
 			};
 
 			var handlers_Grp_D3 = new OpCodeHandler[8] {
@@ -136,29 +136,29 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Ev_CL(Code.Shl_rm16_CL, Code.Shl_rm32_CL, Code.Shl_rm64_CL),
 				new OpCodeHandler_Ev_CL(Code.Shr_rm16_CL, Code.Shr_rm32_CL, Code.Shr_rm64_CL),
 				new OpCodeHandler_Ev_CL(Code.Shl_rm16_CL, Code.Shl_rm32_CL, Code.Shl_rm64_CL),
-				new OpCodeHandler_Ev_CL(Code.Sar_rm16_CL, Code.Sar_rm32_CL, Code.Sar_rm64_CL, true),
+				new OpCodeHandler_Ev_CL(Code.Sar_rm16_CL, Code.Sar_rm32_CL, Code.Sar_rm64_CL),
 			};
 
 			var handlers_Grp_F6 = new OpCodeHandler[8] {
 				new OpCodeHandler_Eb_Ib(Code.Test_rm8_imm8),
 				new OpCodeHandler_Eb_Ib(Code.Test_rm8_imm8),
 				new OpCodeHandler_Eb(Code.Not_rm8, HandlerFlags.XacquireRelease),
-				new OpCodeHandler_Eb(Code.Neg_rm8, MemorySize.Int8, HandlerFlags.XacquireRelease),
+				new OpCodeHandler_Eb(Code.Neg_rm8, HandlerFlags.XacquireRelease),
 				new OpCodeHandler_Eb(Code.Mul_rm8),
-				new OpCodeHandler_Eb(Code.Imul_rm8, MemorySize.Int8),
+				new OpCodeHandler_Eb(Code.Imul_rm8),
 				new OpCodeHandler_Eb(Code.Div_rm8),
-				new OpCodeHandler_Eb(Code.Idiv_rm8, MemorySize.Int8),
+				new OpCodeHandler_Eb(Code.Idiv_rm8),
 			};
 
 			var handlers_Grp_F7 = new OpCodeHandler[8] {
 				new OpCodeHandler_Ev_Iz(Code.Test_rm16_imm16, Code.Test_rm32_imm32, Code.Test_rm64_imm32),
 				new OpCodeHandler_Ev_Iz(Code.Test_rm16_imm16, Code.Test_rm32_imm32, Code.Test_rm64_imm32),
 				new OpCodeHandler_Ev(Code.Not_rm16, Code.Not_rm32, Code.Not_rm64, HandlerFlags.XacquireRelease),
-				new OpCodeHandler_Ev(Code.Neg_rm16, Code.Neg_rm32, Code.Neg_rm64, true, HandlerFlags.XacquireRelease),
+				new OpCodeHandler_Ev(Code.Neg_rm16, Code.Neg_rm32, Code.Neg_rm64, HandlerFlags.XacquireRelease),
 				new OpCodeHandler_Ev(Code.Mul_rm16, Code.Mul_rm32, Code.Mul_rm64),
-				new OpCodeHandler_Ev(Code.Imul_rm16, Code.Imul_rm32, Code.Imul_rm64, true),
+				new OpCodeHandler_Ev(Code.Imul_rm16, Code.Imul_rm32, Code.Imul_rm64),
 				new OpCodeHandler_Ev(Code.Div_rm16, Code.Div_rm32, Code.Div_rm64),
-				new OpCodeHandler_Ev(Code.Idiv_rm16, Code.Idiv_rm32, Code.Idiv_rm64, true),
+				new OpCodeHandler_Ev(Code.Idiv_rm16, Code.Idiv_rm32, Code.Idiv_rm64),
 			};
 
 			var handlers_Grp_FE = new OpCodeHandler[8] {
@@ -202,7 +202,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Evw(Code.Smsw_rm16, Code.Smsw_r32m16, Code.Smsw_r64m16),
 				invalid,
 				new OpCodeHandler_Evw(Code.Lmsw_rm16, Code.Lmsw_r32m16, Code.Lmsw_r64m16),
-				new OpCodeHandler_M(Code.Invlpg_m, MemorySize.Unknown),
+				new OpCodeHandler_M(Code.Invlpg_m),
 			};
 
 			var handlers_Grp_0F01_hi = new OpCodeHandler[0x40] {
@@ -311,40 +311,40 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			var handlers_Grp_0FC7 = new OpCodeHandler[8] {
 				invalid,
-				new OpCodeHandler_M_REXW(Code.Cmpxchg8b_m64, Code.Cmpxchg16b_m128, MemorySize.UInt64, MemorySize.UInt128, HandlerFlags.XacquireRelease, HandlerFlags.None),
+				new OpCodeHandler_M_REXW(Code.Cmpxchg8b_m64, Code.Cmpxchg16b_m128, HandlerFlags.XacquireRelease, HandlerFlags.None),
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M_REXW(Code.Xrstors_m, Code.Xrstors64_m, MemorySize.Xsave, MemorySize.Xsave64),
+					new OpCodeHandler_M_REXW(Code.Xrstors_m, Code.Xrstors64_m),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M_REXW(Code.Xsavec_m, Code.Xsavec64_m, MemorySize.Xsave, MemorySize.Xsave64),
+					new OpCodeHandler_M_REXW(Code.Xsavec_m, Code.Xsavec64_m),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Ev_REXW(Code.Xsaves_m, Code.Xsaves64_m, MemorySize.Xsave, MemorySize.Xsave64),
+					new OpCodeHandler_Ev_REXW(Code.Xsaves_m, Code.Xsaves64_m, allowReg: false, allowMem: true),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix3(
 					new OpCodeHandler_Rv(Code.Rdrand_r16, Code.Rdrand_r32, Code.Rdrand_r64),
-					new OpCodeHandler_M(Code.Vmptrld_m64, MemorySize.UInt64),
+					new OpCodeHandler_M(Code.Vmptrld_m64),
 					new OpCodeHandler_Rv(Code.Rdrand_r16, Code.Rdrand_r32, Code.Rdrand_r64),
-					new OpCodeHandler_M(Code.Vmclear_m64, MemorySize.UInt64),
+					new OpCodeHandler_M(Code.Vmclear_m64),
 					invalid,
-					new OpCodeHandler_M(Code.Vmxon_m64, MemorySize.UInt64),
+					new OpCodeHandler_M(Code.Vmxon_m64),
 					invalid,
 					invalid,
 					LegacyHandlerFlags.HandlerReg | LegacyHandlerFlags.Handler66Reg
 				),
 				new OpCodeHandler_MandatoryPrefix3(
 					new OpCodeHandler_Rv(Code.Rdseed_r16, Code.Rdseed_r32, Code.Rdseed_r64),
-					new OpCodeHandler_M(Code.Vmptrst_m64, MemorySize.UInt64),
+					new OpCodeHandler_M(Code.Vmptrst_m64),
 					new OpCodeHandler_Rv(Code.Rdseed_r16, Code.Rdseed_r32, Code.Rdseed_r64),
 					invalid,
 					new OpCodeHandler_Rv_32_64(Code.Rdpid_r32, Code.Rdpid_r64),
@@ -626,50 +626,50 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			var handlers_Grp_0FAE_lo = new OpCodeHandler[8] {
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Fxsave_m512byte, Code.Fxsave64_m512byte, MemorySize.Fxsave_512Byte, MemorySize.Fxsave64_512Byte),
+					new OpCodeHandler_M(Code.Fxsave_m512byte, Code.Fxsave64_m512byte),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Fxrstor_m512byte, Code.Fxrstor64_m512byte, MemorySize.Fxsave_512Byte, MemorySize.Fxsave64_512Byte),
+					new OpCodeHandler_M(Code.Fxrstor_m512byte, Code.Fxrstor64_m512byte),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Ldmxcsr_m32, MemorySize.UInt32),
+					new OpCodeHandler_M(Code.Ldmxcsr_m32),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Stmxcsr_m32, MemorySize.UInt32),
+					new OpCodeHandler_M(Code.Stmxcsr_m32),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Xsave_m, Code.Xsave64_m, MemorySize.Xsave, MemorySize.Xsave64),
+					new OpCodeHandler_M(Code.Xsave_m, Code.Xsave64_m),
 					invalid,
-					new OpCodeHandler_Ev_REXW(Code.Ptwrite_rm32, Code.Ptwrite_rm64, MemorySize.UInt32, MemorySize.UInt64),
+					new OpCodeHandler_Ev_REXW(Code.Ptwrite_rm32, Code.Ptwrite_rm64, allowReg: true, allowMem: true),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Xrstor_m, Code.Xrstor64_m, MemorySize.Xsave, MemorySize.Xsave64),
+					new OpCodeHandler_M(Code.Xrstor_m, Code.Xrstor64_m),
 					invalid,
-					invalid,
-					invalid
-				),
-				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Xsaveopt_m, Code.Xsaveopt64_m, MemorySize.Xsave, MemorySize.Xsave64),
-					new OpCodeHandler_M(Code.Clwb_m8, MemorySize.UInt8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_M(Code.Clflush_m8, MemorySize.UInt8),
-					new OpCodeHandler_M(Code.Clflushopt_m8, MemorySize.UInt8),
+					new OpCodeHandler_M(Code.Xsaveopt_m, Code.Xsaveopt64_m),
+					new OpCodeHandler_M(Code.Clwb_m8),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_M(Code.Clflush_m8),
+					new OpCodeHandler_M(Code.Clflushopt_m8),
 					invalid,
 					invalid
 				),
@@ -758,10 +758,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			};
 
 			var handlers_Grp_0F18 = new OpCodeHandler[8] {
-				new OpCodeHandler_M(Code.Prefetchnta_m8, MemorySize.UInt8),
-				new OpCodeHandler_M(Code.Prefetcht0_m8, MemorySize.UInt8),
-				new OpCodeHandler_M(Code.Prefetcht1_m8, MemorySize.UInt8),
-				new OpCodeHandler_M(Code.Prefetcht2_m8, MemorySize.UInt8),
+				new OpCodeHandler_M(Code.Prefetchnta_m8),
+				new OpCodeHandler_M(Code.Prefetcht0_m8),
+				new OpCodeHandler_M(Code.Prefetcht1_m8),
+				new OpCodeHandler_M(Code.Prefetcht2_m8),
 				invalid,
 				invalid,
 				invalid,
@@ -769,14 +769,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			};
 
 			var handlers_Grp_0F0D = new OpCodeHandler[8] {
-				new OpCodeHandler_M(Code.Prefetch_m8, MemorySize.UInt8),
-				new OpCodeHandler_M(Code.Prefetchw_m8, MemorySize.UInt8),
-				new OpCodeHandler_M(Code.Prefetchwt1_m8, MemorySize.UInt8),
-				new OpCodeHandler_M(Code.Prefetch_m8_r3, MemorySize.UInt8),
-				new OpCodeHandler_M(Code.Prefetch_m8_r4, MemorySize.UInt8),
-				new OpCodeHandler_M(Code.Prefetch_m8_r5, MemorySize.UInt8),
-				new OpCodeHandler_M(Code.Prefetch_m8_r6, MemorySize.UInt8),
-				new OpCodeHandler_M(Code.Prefetch_m8_r7, MemorySize.UInt8),
+				new OpCodeHandler_M(Code.Prefetch_m8),
+				new OpCodeHandler_M(Code.Prefetchw_m8),
+				new OpCodeHandler_M(Code.Prefetchwt1_m8),
+				new OpCodeHandler_M(Code.Prefetch_m8_r3),
+				new OpCodeHandler_M(Code.Prefetch_m8_r4),
+				new OpCodeHandler_M(Code.Prefetch_m8_r5),
+				new OpCodeHandler_M(Code.Prefetch_m8_r6),
+				new OpCodeHandler_M(Code.Prefetch_m8_r7),
 			};
 
 			var handlers_Grp_660F78 = new OpCodeHandler[8] {
@@ -793,76 +793,76 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			var ThreeByteHandlers_0F38XX = new OpCodeHandler[0x100] {
 				// 00
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pshufb_mm_mmm64, MemorySize.Packed64_UInt8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pshufb_xmm_xmmm128, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_P_Q(Code.Pshufb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pshufb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Phaddw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Phaddw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Phaddw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Phaddw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Phaddd_mm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Phaddd_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_P_Q(Code.Phaddd_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Phaddd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Phaddsw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Phaddsw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Phaddsw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Phaddsw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pmaddubsw_mm_mmm64, MemorySize.Packed64_Int8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmaddubsw_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q(Code.Pmaddubsw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmaddubsw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Phsubw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Phsubw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Phsubw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Phsubw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Phsubd_mm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Phsubd_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_P_Q(Code.Phsubd_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Phsubd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Phsubsw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Phsubsw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Phsubsw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Phsubsw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 
 				// 08
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psignb_mm_mmm64, MemorySize.Packed64_Int8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psignb_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q(Code.Psignb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psignb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psignw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psignw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Psignw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psignw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psignd_mm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psignd_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_P_Q(Code.Psignd_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psignd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pmulhrsw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmulhrsw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Pmulhrsw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmulhrsw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -874,7 +874,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 10
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pblendvb_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pblendvb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -883,20 +883,20 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Blendvps_xmm_xmmm128, MemorySize.Packed128_Float32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Blendvps_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Blendvpd_xmm_xmmm128, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Blendvpd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Ptest_xmm_xmmm128, MemorySize.UInt128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Ptest_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -907,20 +907,20 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pabsb_mm_mmm64, MemorySize.Packed64_Int8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pabsb_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q(Code.Pabsb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pabsb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pabsw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pabsw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Pabsw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pabsw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pabsd_mm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pabsd_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_P_Q(Code.Pabsd_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pabsd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -929,37 +929,37 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 20
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxbw_xmm_xmmm64, MemorySize.Packed64_Int8),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxbw_xmm_xmmm64),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxbd_xmm_xmmm32, MemorySize.Packed32_Int8),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxbd_xmm_xmmm32),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxbq_xmm_xmmm16, MemorySize.Packed16_Int8),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxbq_xmm_xmmm16),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxwd_xmm_xmmm64, MemorySize.Packed64_Int16),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxwd_xmm_xmmm64),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxwq_xmm_xmmm32, MemorySize.Packed32_Int16),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxwq_xmm_xmmm32),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxdq_xmm_xmmm64, MemorySize.Packed64_Int32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovsxdq_xmm_xmmm64),
 					invalid,
 					invalid
 				),
@@ -969,25 +969,25 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 28
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmuldq_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmuldq_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpeqq_xmm_xmmm128, MemorySize.Packed128_Int64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpeqq_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VM(Register.XMM0, Code.Movntdqa_xmm_m128, MemorySize.UInt128),
+					new OpCodeHandler_VM(Register.XMM0, Code.Movntdqa_xmm_m128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Packusdw_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Packusdw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -999,44 +999,44 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 30
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxbw_xmm_xmmm64, MemorySize.Packed64_UInt8),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxbw_xmm_xmmm64),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxbd_xmm_xmmm32, MemorySize.Packed32_UInt8),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxbd_xmm_xmmm32),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxbq_xmm_xmmm16, MemorySize.Packed16_UInt8),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxbq_xmm_xmmm16),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxwd_xmm_xmmm64, MemorySize.Packed64_UInt16),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxwd_xmm_xmmm64),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxwq_xmm_xmmm32, MemorySize.Packed32_UInt16),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxwq_xmm_xmmm32),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxdq_xmm_xmmm64, MemorySize.Packed64_UInt32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmovzxdq_xmm_xmmm64),
 					invalid,
 					invalid
 				),
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpgtq_xmm_xmmm128, MemorySize.Packed128_Int64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpgtq_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -1044,49 +1044,49 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 38
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pminsb_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pminsb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pminsd_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pminsd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pminuw_xmm_xmmm128, MemorySize.Packed128_UInt16),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pminuw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pminud_xmm_xmmm128, MemorySize.Packed128_UInt32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pminud_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxsb_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxsb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxsd_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxsd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxuw_xmm_xmmm128, MemorySize.Packed128_UInt16),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxuw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxud_xmm_xmmm128, MemorySize.Packed128_UInt32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxud_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -1094,13 +1094,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 40
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmulld_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmulld_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Phminposuw_xmm_xmmm128, MemorySize.Packed128_UInt16),
+					new OpCodeHandler_VW(Register.XMM0, Code.Phminposuw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -1184,19 +1184,19 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 80
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_Gv_Ev_32_64(Code.Invept_r32_m128, Code.Invept_r64_m128, MemorySize.UInt128, MemorySize.UInt128),
+					new OpCodeHandler_Gv_Ev_32_64(Code.Invept_r32_m128, Code.Invept_r64_m128, allowReg: false, allowMem: true),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_Gv_Ev_32_64(Code.Invvpid_r32_m128, Code.Invvpid_r64_m128, MemorySize.UInt128, MemorySize.UInt128),
+					new OpCodeHandler_Gv_Ev_32_64(Code.Invvpid_r32_m128, Code.Invvpid_r64_m128, allowReg: false, allowMem: true),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_Gv_Ev_32_64(Code.Invpcid_r32_m128, Code.Invpcid_r64_m128, MemorySize.UInt128, MemorySize.UInt128),
+					new OpCodeHandler_Gv_Ev_32_64(Code.Invpcid_r32_m128, Code.Invpcid_r64_m128, allowReg: false, allowMem: true),
 					invalid,
 					invalid
 				),
@@ -1288,37 +1288,37 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 				// C8
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Sha1nexte_xmm_xmmm128, MemorySize.Packed128_UInt32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Sha1nexte_xmm_xmmm128),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Sha1msg1_xmm_xmmm128, MemorySize.Packed128_UInt32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Sha1msg1_xmm_xmmm128),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Sha1msg2_xmm_xmmm128, MemorySize.Packed128_UInt32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Sha1msg2_xmm_xmmm128),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Sha256rnds2_xmm_xmmm128, MemorySize.Packed128_UInt32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Sha256rnds2_xmm_xmmm128),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Sha256msg1_xmm_xmmm128, MemorySize.Packed128_UInt32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Sha256msg1_xmm_xmmm128),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Sha256msg2_xmm_xmmm128, MemorySize.Packed128_UInt32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Sha256msg2_xmm_xmmm128),
 					invalid,
 					invalid,
 					invalid
@@ -1342,31 +1342,31 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Aesimc_xmm_xmmm128, MemorySize.UInt128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Aesimc_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Aesenc_xmm_xmmm128, MemorySize.UInt128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Aesenc_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Aesenclast_xmm_xmmm128, MemorySize.UInt128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Aesenclast_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Aesdec_xmm_xmmm128, MemorySize.UInt128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Aesdec_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Aesdeclast_xmm_xmmm128, MemorySize.UInt128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Aesdeclast_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -1439,49 +1439,49 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 08
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Roundps_xmm_xmmm128_imm8, MemorySize.Packed128_Float32),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Roundps_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Roundpd_xmm_xmmm128_imm8, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Roundpd_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Roundss_xmm_xmmm32_imm8, MemorySize.Float32),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Roundss_xmm_xmmm32_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Roundsd_xmm_xmmm64_imm8, MemorySize.Float64),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Roundsd_xmm_xmmm64_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Blendps_xmm_xmmm128_imm8, MemorySize.Packed128_Float32),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Blendps_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Blendpd_xmm_xmmm128_imm8, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Blendpd_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Pblendw_xmm_xmmm128_imm8, MemorySize.Packed128_Int16),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Pblendw_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q_Ib(Code.Palignr_mm_mmm64_imm8, MemorySize.Packed64_Int8),
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Palignr_xmm_xmmm128_imm8, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q_Ib(Code.Palignr_mm_mmm64_imm8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Palignr_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
@@ -1493,25 +1493,25 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_GvM_VX_Ib(Register.XMM0, Code.Pextrb_r32m8_xmm_imm8, Code.Pextrb_r64m8_xmm_imm8, MemorySize.UInt8, MemorySize.UInt8),
+					new OpCodeHandler_GvM_VX_Ib(Register.XMM0, Code.Pextrb_r32m8_xmm_imm8, Code.Pextrb_r64m8_xmm_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_GvM_VX_Ib(Register.XMM0, Code.Pextrw_r32m16_xmm_imm8, Code.Pextrw_r64m16_xmm_imm8, MemorySize.UInt16, MemorySize.UInt16),
+					new OpCodeHandler_GvM_VX_Ib(Register.XMM0, Code.Pextrw_r32m16_xmm_imm8, Code.Pextrw_r64m16_xmm_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_GvM_VX_Ib(Register.XMM0, Code.Pextrd_rm32_xmm_imm8, Code.Pextrq_rm64_xmm_imm8, MemorySize.UInt32, MemorySize.UInt64),
+					new OpCodeHandler_GvM_VX_Ib(Register.XMM0, Code.Pextrd_rm32_xmm_imm8, Code.Pextrq_rm64_xmm_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_Ed_V_Ib(Register.XMM0, Code.Extractps_rm32_xmm_imm8, Code.Extractps_rm64_xmm_imm8, MemorySize.Float32, MemorySize.Float32),
+					new OpCodeHandler_Ed_V_Ib(Register.XMM0, Code.Extractps_rm32_xmm_imm8, Code.Extractps_rm64_xmm_imm8),
 					invalid,
 					invalid
 				),
@@ -1529,19 +1529,19 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 20
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VX_E_Ib(Register.XMM0, Code.Pinsrb_xmm_r32m8_imm8, Code.Pinsrb_xmm_r64m8_imm8, MemorySize.UInt8, MemorySize.UInt8),
+					new OpCodeHandler_VX_E_Ib(Register.XMM0, Code.Pinsrb_xmm_r32m8_imm8, Code.Pinsrb_xmm_r64m8_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Insertps_xmm_xmmm32_imm8, MemorySize.Float32),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Insertps_xmm_xmmm32_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VX_E_Ib(Register.XMM0, Code.Pinsrd_xmm_rm32_imm8, Code.Pinsrq_xmm_rm64_imm8, MemorySize.UInt32, MemorySize.UInt64),
+					new OpCodeHandler_VX_E_Ib(Register.XMM0, Code.Pinsrd_xmm_rm32_imm8, Code.Pinsrq_xmm_rm64_imm8),
 					invalid,
 					invalid
 				),
@@ -1584,26 +1584,26 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 40
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Dpps_xmm_xmmm128_imm8, MemorySize.Packed128_Float32),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Dpps_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Dppd_xmm_xmmm128_imm8, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Dppd_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Mpsadbw_xmm_xmmm128_imm8, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Mpsadbw_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Pclmulqdq_xmm_xmmm128_imm8, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Pclmulqdq_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
@@ -1644,25 +1644,25 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 60
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpestrm_xmm_xmmm128_imm8, Code.Pcmpestrm64_xmm_xmmm128_imm8, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpestrm_xmm_xmmm128_imm8, Code.Pcmpestrm64_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpestri_xmm_xmmm128_imm8, Code.Pcmpestri64_xmm_xmmm128_imm8, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpestri_xmm_xmmm128_imm8, Code.Pcmpestri64_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpistrm_xmm_xmmm128_imm8, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpistrm_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpistri_xmm_xmmm128_imm8, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Pcmpistri_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
@@ -1797,7 +1797,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Sha1rnds4_xmm_xmmm128_imm8, MemorySize.Packed128_UInt32),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Sha1rnds4_xmm_xmmm128_imm8),
 					invalid,
 					invalid,
 					invalid
@@ -1826,7 +1826,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Aeskeygenassist_xmm_xmmm128_imm8, MemorySize.UInt128),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Aeskeygenassist_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
@@ -1895,50 +1895,50 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 				// 10
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Movups_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Movupd_xmm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Movss_xmm_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Movsd_xmm_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_VW(Register.XMM0, Code.Movups_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movupd_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movss_xmm_xmmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movsd_xmm_xmmm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_WV(Register.XMM0, Code.Movups_xmmm128_xmm, MemorySize.Packed128_Float32),
-					new OpCodeHandler_WV(Register.XMM0, Code.Movupd_xmmm128_xmm, MemorySize.Packed128_Float64),
-					new OpCodeHandler_WV(Register.XMM0, Code.Movss_xmmm32_xmm, MemorySize.Float32),
-					new OpCodeHandler_WV(Register.XMM0, Code.Movsd_xmmm64_xmm, MemorySize.Float64)
+					new OpCodeHandler_WV(Register.XMM0, Code.Movups_xmmm128_xmm),
+					new OpCodeHandler_WV(Register.XMM0, Code.Movupd_xmmm128_xmm),
+					new OpCodeHandler_WV(Register.XMM0, Code.Movss_xmmm32_xmm),
+					new OpCodeHandler_WV(Register.XMM0, Code.Movsd_xmmm64_xmm)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Movhlps_xmm_xmm, Code.Movlps_xmm_m64, MemorySize.Packed64_Float32),
-					new OpCodeHandler_VM(Register.XMM0, Code.Movlpd_xmm_m64, MemorySize.Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Movsldup_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Movddup_xmm_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_VW(Register.XMM0, Code.Movhlps_xmm_xmm, Code.Movlps_xmm_m64),
+					new OpCodeHandler_VM(Register.XMM0, Code.Movlpd_xmm_m64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movsldup_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movddup_xmm_xmmm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_MV(Register.XMM0, Code.Movlps_m64_xmm, MemorySize.Packed64_Float32),
-					new OpCodeHandler_MV(Register.XMM0, Code.Movlpd_m64_xmm, MemorySize.Float64),
+					new OpCodeHandler_MV(Register.XMM0, Code.Movlps_m64_xmm),
+					new OpCodeHandler_MV(Register.XMM0, Code.Movlpd_m64_xmm),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Unpcklps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Unpcklpd_xmm_xmmm128, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Unpcklps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Unpcklpd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Unpckhps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Unpckhpd_xmm_xmmm128, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Unpckhps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Unpckhpd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Movlhps_xmm_xmm, Code.Movhps_xmm_m64, MemorySize.Packed64_Float32),
-					new OpCodeHandler_VM(Register.XMM0, Code.Movhpd_xmm_m64, MemorySize.Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Movshdup_xmm_xmmm128, MemorySize.Packed128_Float32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movlhps_xmm_xmm, Code.Movhps_xmm_m64),
+					new OpCodeHandler_VM(Register.XMM0, Code.Movhpd_xmm_m64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movshdup_xmm_xmmm128),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_MV(Register.XMM0, Code.Movhps_m64_xmm, MemorySize.Packed64_Float32),
-					new OpCodeHandler_MV(Register.XMM0, Code.Movhpd_m64_xmm, MemorySize.Float64),
+					new OpCodeHandler_MV(Register.XMM0, Code.Movhps_m64_xmm),
+					new OpCodeHandler_MV(Register.XMM0, Code.Movhpd_m64_xmm),
 					invalid,
 					invalid
 				),
@@ -1951,7 +1951,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						invalid,
 						new OpCodeHandler_B_MIB(Code.Bndldx_bnd_mib)
 					),
-					new OpCodeHandler_B_BM(Code.Bndmov_bnd_bndm64, Code.Bndmov_bnd_bndm128, MemorySize.Bnd32, MemorySize.Bnd64),
+					new OpCodeHandler_B_BM(Code.Bndmov_bnd_bndm64, Code.Bndmov_bnd_bndm128),
 					new OpCodeHandler_B_Ev(Code.Bndcl_bnd_rm32, Code.Bndcl_bnd_rm64),
 					new OpCodeHandler_B_Ev(Code.Bndcu_bnd_rm32, Code.Bndcu_bnd_rm64)
 				),
@@ -1960,7 +1960,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						invalid,
 						new OpCodeHandler_MIB_B(Code.Bndstx_mib_bnd)
 					),
-					new OpCodeHandler_BM_B(Code.Bndmov_bndm64_bnd, Code.Bndmov_bndm128_bnd, MemorySize.Bnd32, MemorySize.Bnd64),
+					new OpCodeHandler_BM_B(Code.Bndmov_bndm64_bnd, Code.Bndmov_bndm128_bnd),
 					new OpCodeHandler_RM(
 						invalid,
 						new OpCodeHandler_B_Ev(Code.Bndmk_bnd_m32, Code.Bndmk_bnd_m64)
@@ -1984,50 +1984,50 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 				// 28
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Movaps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Movapd_xmm_xmmm128, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movaps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movapd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_WV(Register.XMM0, Code.Movaps_xmmm128_xmm, MemorySize.Packed128_Float32),
-					new OpCodeHandler_WV(Register.XMM0, Code.Movapd_xmmm128_xmm, MemorySize.Packed128_Float64),
+					new OpCodeHandler_WV(Register.XMM0, Code.Movaps_xmmm128_xmm),
+					new OpCodeHandler_WV(Register.XMM0, Code.Movapd_xmmm128_xmm),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VQ(Register.XMM0, Code.Cvtpi2ps_xmm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VQ(Register.XMM0, Code.Cvtpi2pd_xmm_mmm64, MemorySize.Packed64_Int32),
+					new OpCodeHandler_VQ(Register.XMM0, Code.Cvtpi2ps_xmm_mmm64),
+					new OpCodeHandler_VQ(Register.XMM0, Code.Cvtpi2pd_xmm_mmm64),
 					new OpCodeHandler_V_Ev(Register.XMM0, Code.Cvtsi2ss_xmm_rm32, Code.Cvtsi2ss_xmm_rm64),
 					new OpCodeHandler_V_Ev(Register.XMM0, Code.Cvtsi2sd_xmm_rm32, Code.Cvtsi2sd_xmm_rm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_MV(Register.XMM0, Code.Movntps_m128_xmm, MemorySize.Packed128_Float32),
-					new OpCodeHandler_MV(Register.XMM0, Code.Movntpd_m128_xmm, MemorySize.Packed128_Float64),
-					new OpCodeHandler_MV(Register.XMM0, Code.Movntss_m32_xmm, MemorySize.Float32),
-					new OpCodeHandler_MV(Register.XMM0, Code.Movntsd_m64_xmm, MemorySize.Float64)
+					new OpCodeHandler_MV(Register.XMM0, Code.Movntps_m128_xmm),
+					new OpCodeHandler_MV(Register.XMM0, Code.Movntpd_m128_xmm),
+					new OpCodeHandler_MV(Register.XMM0, Code.Movntss_m32_xmm),
+					new OpCodeHandler_MV(Register.XMM0, Code.Movntsd_m64_xmm)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_W(Register.XMM0, Code.Cvttps2pi_mm_xmmm64, MemorySize.Packed64_Float32),
-					new OpCodeHandler_P_W(Register.XMM0, Code.Cvttpd2pi_mm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_Gv_W(Register.XMM0, Code.Cvttss2si_r32_xmmm32, Code.Cvttss2si_r64_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_Gv_W(Register.XMM0, Code.Cvttsd2si_r32_xmmm64, Code.Cvttsd2si_r64_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_P_W(Register.XMM0, Code.Cvttps2pi_mm_xmmm64),
+					new OpCodeHandler_P_W(Register.XMM0, Code.Cvttpd2pi_mm_xmmm128),
+					new OpCodeHandler_Gv_W(Register.XMM0, Code.Cvttss2si_r32_xmmm32, Code.Cvttss2si_r64_xmmm32),
+					new OpCodeHandler_Gv_W(Register.XMM0, Code.Cvttsd2si_r32_xmmm64, Code.Cvttsd2si_r64_xmmm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_W(Register.XMM0, Code.Cvtps2pi_mm_xmmm64, MemorySize.Packed64_Float32),
-					new OpCodeHandler_P_W(Register.XMM0, Code.Cvtpd2pi_mm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_Gv_W(Register.XMM0, Code.Cvtss2si_r32_xmmm32, Code.Cvtss2si_r64_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_Gv_W(Register.XMM0, Code.Cvtsd2si_r32_xmmm64, Code.Cvtsd2si_r64_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_P_W(Register.XMM0, Code.Cvtps2pi_mm_xmmm64),
+					new OpCodeHandler_P_W(Register.XMM0, Code.Cvtpd2pi_mm_xmmm128),
+					new OpCodeHandler_Gv_W(Register.XMM0, Code.Cvtss2si_r32_xmmm32, Code.Cvtss2si_r64_xmmm32),
+					new OpCodeHandler_Gv_W(Register.XMM0, Code.Cvtsd2si_r32_xmmm64, Code.Cvtsd2si_r64_xmmm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Ucomiss_xmm_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Ucomisd_xmm_xmmm64, MemorySize.Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Ucomiss_xmm_xmmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Ucomisd_xmm_xmmm64),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Comiss_xmm_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Comisd_xmm_xmmm64, MemorySize.Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Comiss_xmm_xmmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Comisd_xmm_xmmm64),
 					invalid,
 					invalid
 				),
@@ -2080,182 +2080,182 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Sqrtps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Sqrtpd_xmm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Sqrtss_xmm_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Sqrtsd_xmm_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_VW(Register.XMM0, Code.Sqrtps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Sqrtpd_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Sqrtss_xmm_xmmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Sqrtsd_xmm_xmmm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Rsqrtps_xmm_xmmm128, MemorySize.Packed128_Float32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Rsqrtps_xmm_xmmm128),
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Rsqrtss_xmm_xmmm32, MemorySize.Float32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Rsqrtss_xmm_xmmm32),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Rcpps_xmm_xmmm128, MemorySize.Packed128_Float32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Rcpps_xmm_xmmm128),
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Rcpss_xmm_xmmm32, MemorySize.Float32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Rcpss_xmm_xmmm32),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Andps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Andpd_xmm_xmmm128, MemorySize.Packed128_Float64),
-					invalid,
-					invalid
-				),
-				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Andnps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Andnpd_xmm_xmmm128, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Andps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Andpd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Orps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Orpd_xmm_xmmm128, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Andnps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Andnpd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Xorps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Xorpd_xmm_xmmm128, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Orps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Orpd_xmm_xmmm128),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_VW(Register.XMM0, Code.Xorps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Xorpd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 
 				// 58
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Addps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Addpd_xmm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Addss_xmm_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Addsd_xmm_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_VW(Register.XMM0, Code.Addps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Addpd_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Addss_xmm_xmmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Addsd_xmm_xmmm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Mulps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Mulpd_xmm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Mulss_xmm_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Mulsd_xmm_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_VW(Register.XMM0, Code.Mulps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Mulpd_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Mulss_xmm_xmmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Mulsd_xmm_xmmm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Cvtps2pd_xmm_xmmm64, MemorySize.Packed64_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Cvtpd2ps_xmm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Cvtss2sd_xmm_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Cvtsd2ss_xmm_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_VW(Register.XMM0, Code.Cvtps2pd_xmm_xmmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Cvtpd2ps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Cvtss2sd_xmm_xmmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Cvtsd2ss_xmm_xmmm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Cvtdq2ps_xmm_xmmm128, MemorySize.Packed128_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Cvtps2dq_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Cvttps2dq_xmm_xmmm128, MemorySize.Packed128_Float32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Cvtdq2ps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Cvtps2dq_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Cvttps2dq_xmm_xmmm128),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Subps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Subpd_xmm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Subss_xmm_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Subsd_xmm_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_VW(Register.XMM0, Code.Subps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Subpd_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Subss_xmm_xmmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Subsd_xmm_xmmm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Minps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Minpd_xmm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Minss_xmm_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Minsd_xmm_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_VW(Register.XMM0, Code.Minps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Minpd_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Minss_xmm_xmmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Minsd_xmm_xmmm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Divps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Divpd_xmm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Divss_xmm_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Divsd_xmm_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_VW(Register.XMM0, Code.Divps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Divpd_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Divss_xmm_xmmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Divsd_xmm_xmmm64)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VW(Register.XMM0, Code.Maxps_xmm_xmmm128, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Maxpd_xmm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Maxss_xmm_xmmm32, MemorySize.Float32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Maxsd_xmm_xmmm64, MemorySize.Float64)
+					new OpCodeHandler_VW(Register.XMM0, Code.Maxps_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Maxpd_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Maxss_xmm_xmmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Maxsd_xmm_xmmm64)
 				),
 
 				// 60
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Punpcklbw_mm_mmm32, MemorySize.Packed32_Int8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Punpcklbw_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q(Code.Punpcklbw_mm_mmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Punpcklbw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Punpcklwd_mm_mmm32, MemorySize.Packed32_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Punpcklwd_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Punpcklwd_mm_mmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Punpcklwd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Punpckldq_mm_mmm32, MemorySize.Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Punpckldq_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_P_Q(Code.Punpckldq_mm_mmm32),
+					new OpCodeHandler_VW(Register.XMM0, Code.Punpckldq_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Packsswb_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Packsswb_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Packsswb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Packsswb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pcmpgtb_mm_mmm64, MemorySize.Packed64_Int8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpgtb_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q(Code.Pcmpgtb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpgtb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pcmpgtw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpgtw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Pcmpgtw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpgtw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pcmpgtd_mm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpgtd_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_P_Q(Code.Pcmpgtd_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpgtd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Packuswb_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Packuswb_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Packuswb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Packuswb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 
 				// 68
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Punpckhbw_mm_mmm64, MemorySize.Packed64_Int8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Punpckhbw_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q(Code.Punpckhbw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Punpckhbw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Punpckhwd_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Punpckhwd_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Punpckhwd_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Punpckhwd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Punpckhdq_mm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Punpckhdq_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_P_Q(Code.Punpckhdq_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Punpckhdq_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Packssdw_mm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Packssdw_xmm_xmmm128, MemorySize.Packed128_Int32),
-					invalid,
-					invalid
-				),
-				new OpCodeHandler_MandatoryPrefix(
-					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Punpcklqdq_xmm_xmmm128, MemorySize.Packed128_Int64),
+					new OpCodeHandler_P_Q(Code.Packssdw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Packssdw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Punpckhqdq_xmm_xmmm128, MemorySize.Packed128_Int64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Punpcklqdq_xmm_xmmm128),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					invalid,
+					new OpCodeHandler_VW(Register.XMM0, Code.Punpckhqdq_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -2266,37 +2266,37 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Movq_mm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Movdqa_xmm_xmmm128, MemorySize.Packed128_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Movdqu_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_P_Q(Code.Movq_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movdqa_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movdqu_xmm_xmmm128),
 					invalid
 				),
 
 				// 70
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q_Ib(Code.Pshufw_mm_mmm64_imm8, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Pshufd_xmm_xmmm128_imm8, MemorySize.Packed128_Int32),
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Pshufhw_xmm_xmmm128_imm8, MemorySize.Packed128_Int16),
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Pshuflw_xmm_xmmm128_imm8, MemorySize.Packed128_Int16)
+					new OpCodeHandler_P_Q_Ib(Code.Pshufw_mm_mmm64_imm8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Pshufd_xmm_xmmm128_imm8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Pshufhw_xmm_xmmm128_imm8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Pshuflw_xmm_xmmm128_imm8)
 				),
 				new OpCodeHandler_Group(handlers_Grp_0F71),
 				new OpCodeHandler_Group(handlers_Grp_0F72),
 				new OpCodeHandler_Group(handlers_Grp_0F73),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pcmpeqb_mm_mmm64, MemorySize.Packed64_Int8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpeqb_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q(Code.Pcmpeqb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpeqb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pcmpeqw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpeqw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Pcmpeqw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpeqw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pcmpeqd_mm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpeqd_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_P_Q(Code.Pcmpeqd_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pcmpeqd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -2315,35 +2315,35 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_VRIbIb(Register.XMM0, Code.Insertq_xmm_xmm_imm8_imm8)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Gv_Ev_32_64(Code.Vmwrite_r32_rm32, Code.Vmwrite_r64_rm64, MemorySize.UInt32, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Extrq_xmm_xmm, Code.INVALID, MemorySize.Unknown),
+					new OpCodeHandler_Gv_Ev_32_64(Code.Vmwrite_r32_rm32, Code.Vmwrite_r64_rm64, allowReg: true, allowMem: true),
+					new OpCodeHandler_VW(Register.XMM0, Code.Extrq_xmm_xmm, Code.INVALID),
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Insertq_xmm_xmm, Code.INVALID, MemorySize.Unknown)
+					new OpCodeHandler_VW(Register.XMM0, Code.Insertq_xmm_xmm, Code.INVALID)
 				),
 				invalid,
 				invalid,
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Haddpd_xmm_xmmm128, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Haddpd_xmm_xmmm128),
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Haddps_xmm_xmmm128, MemorySize.Packed128_Float32)
+					new OpCodeHandler_VW(Register.XMM0, Code.Haddps_xmm_xmmm128)
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Hsubpd_xmm_xmmm128, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Hsubpd_xmm_xmmm128),
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Hsubps_xmm_xmmm128, MemorySize.Packed128_Float32)
+					new OpCodeHandler_VW(Register.XMM0, Code.Hsubps_xmm_xmmm128)
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					new OpCodeHandler_Ev_P(Code.Movd_rm32_mm, Code.Movq_rm64_mm),
 					new OpCodeHandler_Ev_VX(Code.Movd_rm32_xmm, Code.Movq_rm64_xmm),
-					new OpCodeHandler_VW(Register.XMM0, Code.Movq_xmm_xmmm64, MemorySize.UInt64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Movq_xmm_xmmm64),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Q_P(Code.Movq_mmm64_mm, MemorySize.Packed64_Int32),
-					new OpCodeHandler_WV(Register.XMM0, Code.Movdqa_xmmm128_xmm, MemorySize.Packed128_Int32),
-					new OpCodeHandler_WV(Register.XMM0, Code.Movdqu_xmmm128_xmm, MemorySize.Packed128_Int32),
+					new OpCodeHandler_Q_P(Code.Movq_mmm64_mm),
+					new OpCodeHandler_WV(Register.XMM0, Code.Movdqa_xmmm128_xmm),
+					new OpCodeHandler_WV(Register.XMM0, Code.Movdqu_xmmm128_xmm),
 					invalid
 				),
 
@@ -2405,7 +2405,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Ev_Gv_Ib(Code.Shrd_rm16_r16_imm8, Code.Shrd_rm32_r32_imm8, Code.Shrd_rm64_r64_imm8),
 				new OpCodeHandler_Ev_Gv_CL(Code.Shrd_rm16_r16_CL, Code.Shrd_rm32_r32_CL, Code.Shrd_rm64_r64_CL),
 				new OpCodeHandler_Group8x64(handlers_Grp_0FAE_lo, handlers_Grp_0FAE_hi),
-				new OpCodeHandler_Gv_Ev(Code.Imul_r16_rm16, Code.Imul_r32_rm32, Code.Imul_r64_rm64, true),
+				new OpCodeHandler_Gv_Ev(Code.Imul_r16_rm16, Code.Imul_r32_rm32, Code.Imul_r64_rm64),
 
 				// B0
 				new OpCodeHandler_Eb_Gb(Code.Cmpxchg_rm8_r8, HandlerFlags.XacquireRelease),
@@ -2436,39 +2436,39 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_Gv_Ev(Code.Lzcnt_r16_rm16, Code.Lzcnt_r32_rm32, Code.Lzcnt_r64_rm64),
 					invalid
 				),
-				new OpCodeHandler_Gv_Eb(Code.Movsx_r16_rm8, Code.Movsx_r32_rm8, Code.Movsx_r64_rm8, MemorySize.Int8),
-				new OpCodeHandler_Gv_Ew(Code.Movsx_r16_rm16, Code.Movsx_r32_rm16, Code.Movsx_r64_rm16, MemorySize.Int16),
+				new OpCodeHandler_Gv_Eb(Code.Movsx_r16_rm8, Code.Movsx_r32_rm8, Code.Movsx_r64_rm8),
+				new OpCodeHandler_Gv_Ew(Code.Movsx_r16_rm16, Code.Movsx_r32_rm16, Code.Movsx_r64_rm16),
 
 				// C0
 				new OpCodeHandler_Eb_Gb(Code.Xadd_rm8_r8, HandlerFlags.XacquireRelease),
 				new OpCodeHandler_Ev_Gv(Code.Xadd_rm16_r16, Code.Xadd_rm32_r32, Code.Xadd_rm64_r64, HandlerFlags.XacquireRelease),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Cmpps_xmm_xmmm128_imm8, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Cmppd_xmm_xmmm128_imm8, MemorySize.Packed128_Float64),
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Cmpss_xmm_xmmm32_imm8, MemorySize.Float32),
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Cmpsd_xmm_xmmm64_imm8, MemorySize.Float64)
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Cmpps_xmm_xmmm128_imm8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Cmppd_xmm_xmmm128_imm8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Cmpss_xmm_xmmm32_imm8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Cmpsd_xmm_xmmm64_imm8)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Mv_Gv_REXW(Code.Movnti_m32_r32, Code.Movnti_m64_r64, MemorySize.UInt32, MemorySize.UInt64),
+					new OpCodeHandler_Mv_Gv_REXW(Code.Movnti_m32_r32, Code.Movnti_m64_r64),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Ev_Ib(Code.Pinsrw_mm_r32m16_imm8, Code.Pinsrw_mm_r64m16_imm8, MemorySize.UInt16, MemorySize.UInt16),
-					new OpCodeHandler_VX_E_Ib(Register.XMM0, Code.Pinsrw_xmm_r32m16_imm8, Code.Pinsrw_xmm_r64m16_imm8, MemorySize.UInt16, MemorySize.UInt16),
+					new OpCodeHandler_P_Ev_Ib(Code.Pinsrw_mm_r32m16_imm8, Code.Pinsrw_mm_r64m16_imm8),
+					new OpCodeHandler_VX_E_Ib(Register.XMM0, Code.Pinsrw_xmm_r32m16_imm8, Code.Pinsrw_xmm_r64m16_imm8),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					new OpCodeHandler_Gv_N_Ib_REX(Code.Pextrw_r32_mm_imm8, Code.Pextrw_r64_mm_imm8),
-					new OpCodeHandler_Gv_Ev_Ib_REX(Register.XMM0, Code.Pextrw_r32_xmm_imm8, Code.Pextrw_r64_xmm_imm8),
+					new OpCodeHandler_Gv_Ev_Ib_REX(Register.XMM0, Code.Pextrw_r32_xmm_imm8, Code.Pextrw_r64_xmm_imm8, allowMem: false),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Shufps_xmm_xmmm128_imm8, MemorySize.Packed128_Float32),
-					new OpCodeHandler_VWIb(Register.XMM0, Code.Shufpd_xmm_xmmm128_imm8, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Shufps_xmm_xmmm128_imm8),
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Shufpd_xmm_xmmm128_imm8),
 					invalid,
 					invalid
 				),
@@ -2487,43 +2487,43 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// D0
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Addsubpd_xmm_xmmm128, MemorySize.Packed128_Float64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Addsubpd_xmm_xmmm128),
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Addsubps_xmm_xmmm128, MemorySize.Packed128_Float32)
+					new OpCodeHandler_VW(Register.XMM0, Code.Addsubps_xmm_xmmm128)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psrlw_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psrlw_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Psrlw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psrlw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psrld_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psrld_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Psrld_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psrld_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psrlq_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psrlq_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Psrlq_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psrlq_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Paddq_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Paddq_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Paddq_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Paddq_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pmullw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmullw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Pmullw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmullw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_WV(Register.XMM0, Code.Movq_xmmm64_xmm, MemorySize.UInt64),
+					new OpCodeHandler_WV(Register.XMM0, Code.Movq_xmmm64_xmm),
 					new OpCodeHandler_VN(Register.XMM0, Code.Movq2dq_xmm_mm),
 					new OpCodeHandler_P_R(Register.XMM0, Code.Movdq2q_mm_xmm)
 				),
@@ -2536,150 +2536,150 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 				// D8
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psubusb_mm_mmm64, MemorySize.Packed64_UInt8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psubusb_xmm_xmmm128, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_P_Q(Code.Psubusb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psubusb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psubusw_mm_mmm64, MemorySize.Packed64_UInt16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psubusw_xmm_xmmm128, MemorySize.Packed128_UInt16),
+					new OpCodeHandler_P_Q(Code.Psubusw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psubusw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pminub_mm_mmm64, MemorySize.Packed64_UInt8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pminub_xmm_xmmm128, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_P_Q(Code.Pminub_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pminub_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pand_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pand_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Pand_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pand_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Paddusb_mm_mmm64, MemorySize.Packed64_UInt8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Paddusb_xmm_xmmm128, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_P_Q(Code.Paddusb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Paddusb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Paddusw_mm_mmm64, MemorySize.Packed64_UInt16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Paddusw_xmm_xmmm128, MemorySize.Packed128_UInt16),
+					new OpCodeHandler_P_Q(Code.Paddusw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Paddusw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pmaxub_mm_mmm64, MemorySize.Packed64_UInt8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxub_xmm_xmmm128, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_P_Q(Code.Pmaxub_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxub_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pandn_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pandn_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Pandn_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pandn_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 
 				// E0
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pavgb_mm_mmm64, MemorySize.Packed64_UInt8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pavgb_xmm_xmmm128, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_P_Q(Code.Pavgb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pavgb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psraw_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psraw_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Psraw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psraw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psrad_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psrad_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Psrad_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psrad_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pavgw_mm_mmm64, MemorySize.Packed64_UInt16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pavgw_xmm_xmmm128, MemorySize.Packed128_UInt16),
+					new OpCodeHandler_P_Q(Code.Pavgw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pavgw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pmulhuw_mm_mmm64, MemorySize.Packed64_UInt16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmulhuw_xmm_xmmm128, MemorySize.Packed128_UInt16),
+					new OpCodeHandler_P_Q(Code.Pmulhuw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmulhuw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pmulhw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmulhw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Pmulhw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmulhw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
-					new OpCodeHandler_VW(Register.XMM0, Code.Cvttpd2dq_xmm_xmmm128, MemorySize.Packed128_Float64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Cvtdq2pd_xmm_xmmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Cvtpd2dq_xmm_xmmm128, MemorySize.Packed128_Float64)
+					new OpCodeHandler_VW(Register.XMM0, Code.Cvttpd2dq_xmm_xmmm128),
+					new OpCodeHandler_VW(Register.XMM0, Code.Cvtdq2pd_xmm_xmmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Cvtpd2dq_xmm_xmmm128)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_MP(Code.Movntq_m64_mm, MemorySize.Packed64_Int32),
-					new OpCodeHandler_MV(Register.XMM0, Code.Movntdq_m128_xmm, MemorySize.Packed128_Int32),
+					new OpCodeHandler_MP(Code.Movntq_m64_mm),
+					new OpCodeHandler_MV(Register.XMM0, Code.Movntdq_m128_xmm),
 					invalid,
 					invalid
 				),
 
 				// E8
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psubsb_mm_mmm64, MemorySize.Packed64_Int8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psubsb_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q(Code.Psubsb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psubsb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psubsw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psubsw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Psubsw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psubsw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pminsw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pminsw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Pminsw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pminsw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Por_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Por_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Por_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Por_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Paddsb_mm_mmm64, MemorySize.Packed64_Int8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Paddsb_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q(Code.Paddsb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Paddsb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Paddsw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Paddsw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Paddsw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Paddsw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pmaxsw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxsw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Pmaxsw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmaxsw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pxor_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pxor_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Pxor_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pxor_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -2689,91 +2689,91 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					invalid,
 					invalid,
 					invalid,
-					new OpCodeHandler_VM(Register.XMM0, Code.Lddqu_xmm_m128, MemorySize.UInt128)
+					new OpCodeHandler_VM(Register.XMM0, Code.Lddqu_xmm_m128)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psllw_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psllw_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Psllw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psllw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pslld_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pslld_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Pslld_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pslld_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psllq_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psllq_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Psllq_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psllq_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pmuludq_mm_mmm64, MemorySize.UInt64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmuludq_xmm_xmmm128, MemorySize.Packed128_UInt64),
+					new OpCodeHandler_P_Q(Code.Pmuludq_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmuludq_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Pmaddwd_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Pmaddwd_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Pmaddwd_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Pmaddwd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psadbw_mm_mmm64, MemorySize.Packed64_UInt8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psadbw_xmm_xmmm128, MemorySize.Packed128_UInt8),
+					new OpCodeHandler_P_Q(Code.Psadbw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psadbw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_rDI_P_N(Code.Maskmovq_rDI_mm_mm, MemorySize.UInt64),
-					new OpCodeHandler_rDI_VX_RX(Register.XMM0, Code.Maskmovdqu_rDI_xmm_xmm, MemorySize.UInt128),
+					new OpCodeHandler_rDI_P_N(Code.Maskmovq_rDI_mm_mm),
+					new OpCodeHandler_rDI_VX_RX(Register.XMM0, Code.Maskmovdqu_rDI_xmm_xmm),
 					invalid,
 					invalid
 				),
 
 				// F8
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psubb_mm_mmm64, MemorySize.Packed64_Int8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psubb_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q(Code.Psubb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psubb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psubw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psubw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Psubw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psubw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psubd_mm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psubd_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_P_Q(Code.Psubd_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psubd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Psubq_mm_mmm64, MemorySize.Int64),
-					new OpCodeHandler_VW(Register.XMM0, Code.Psubq_xmm_xmmm128, MemorySize.Packed128_Int64),
+					new OpCodeHandler_P_Q(Code.Psubq_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Psubq_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Paddb_mm_mmm64, MemorySize.Packed64_Int8),
-					new OpCodeHandler_VW(Register.XMM0, Code.Paddb_xmm_xmmm128, MemorySize.Packed128_Int8),
+					new OpCodeHandler_P_Q(Code.Paddb_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Paddb_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Paddw_mm_mmm64, MemorySize.Packed64_Int16),
-					new OpCodeHandler_VW(Register.XMM0, Code.Paddw_xmm_xmmm128, MemorySize.Packed128_Int16),
+					new OpCodeHandler_P_Q(Code.Paddw_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Paddw_xmm_xmmm128),
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_P_Q(Code.Paddd_mm_mmm64, MemorySize.Packed64_Int32),
-					new OpCodeHandler_VW(Register.XMM0, Code.Paddd_xmm_xmmm128, MemorySize.Packed128_Int32),
+					new OpCodeHandler_P_Q(Code.Paddd_mm_mmm64),
+					new OpCodeHandler_VW(Register.XMM0, Code.Paddd_xmm_xmmm128),
 					invalid,
 					invalid
 				),
@@ -2904,7 +2904,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 60
 				new OpCodeHandler_Simple2(Code.Pushaw, Code.Pushad, Code.Pushad),
 				new OpCodeHandler_Simple2(Code.Popaw, Code.Popad, Code.Popad),
-				new OpCodeHandler_EVEX(new OpCodeHandler_Gv_Ma(Code.Bound_r16_m1616, Code.Bound_r32_m3232, MemorySize.Bound16_WordWord, MemorySize.Bound32_DwordDword)),
+				new OpCodeHandler_EVEX(new OpCodeHandler_Gv_Ma(Code.Bound_r16_m1616, Code.Bound_r32_m3232)),
 				new OpCodeHandler_RvMw_Gw(Code.Arpl_rm16_r16, Code.Arpl_r32m16_r32),
 				invalid,// FS:
 				invalid,// GS:

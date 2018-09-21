@@ -56,12 +56,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.UInt32;
-				else if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
@@ -119,12 +113,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.UInt32;
-				else if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
@@ -151,28 +139,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Code code16;
 		readonly Code code32;
 		readonly Code code64;
-		readonly bool isSigned;
 		readonly HandlerFlags flags;
 
 		public OpCodeHandler_Ev_Ib2(Code code16, Code code32, Code code64) {
 			this.code16 = code16;
 			this.code32 = code32;
 			this.code64 = code64;
-			isSigned = false;
-		}
-
-		public OpCodeHandler_Ev_Ib2(Code code16, Code code32, Code code64, bool isSigned) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-			this.isSigned = isSigned;
 		}
 
 		public OpCodeHandler_Ev_Ib2(Code code16, Code code32, Code code64, HandlerFlags flags) {
 			this.code16 = code16;
 			this.code32 = code32;
 			this.code64 = code64;
-			isSigned = false;
 			this.flags = flags;
 		}
 
@@ -198,22 +176,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (isSigned) {
-					if (state.operandSize == OpSize.Size32)
-						instruction.InternalMemorySize = MemorySize.Int32;
-					else if (state.operandSize == OpSize.Size64)
-						instruction.InternalMemorySize = MemorySize.Int64;
-					else
-						instruction.InternalMemorySize = MemorySize.Int16;
-				}
-				else {
-					if (state.operandSize == OpSize.Size32)
-						instruction.InternalMemorySize = MemorySize.UInt32;
-					else if (state.operandSize == OpSize.Size64)
-						instruction.InternalMemorySize = MemorySize.UInt64;
-					else
-						instruction.InternalMemorySize = MemorySize.UInt16;
-				}
 				decoder.ReadOpMem_m64(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
@@ -227,20 +189,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Code code16;
 		readonly Code code32;
 		readonly Code code64;
-		readonly bool isSigned;
 
 		public OpCodeHandler_Ev_1(Code code16, Code code32, Code code64) {
 			this.code16 = code16;
 			this.code32 = code32;
 			this.code64 = code64;
-			isSigned = false;
-		}
-
-		public OpCodeHandler_Ev_1(Code code16, Code code32, Code code64, bool isSigned) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-			this.isSigned = isSigned;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -265,22 +218,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (isSigned) {
-					if (state.operandSize == OpSize.Size32)
-						instruction.InternalMemorySize = MemorySize.Int32;
-					else if (state.operandSize == OpSize.Size64)
-						instruction.InternalMemorySize = MemorySize.Int64;
-					else
-						instruction.InternalMemorySize = MemorySize.Int16;
-				}
-				else {
-					if (state.operandSize == OpSize.Size32)
-						instruction.InternalMemorySize = MemorySize.UInt32;
-					else if (state.operandSize == OpSize.Size64)
-						instruction.InternalMemorySize = MemorySize.UInt64;
-					else
-						instruction.InternalMemorySize = MemorySize.UInt16;
-				}
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			instruction.InternalOp1Kind = OpKind.Immediate8;
@@ -293,20 +230,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Code code16;
 		readonly Code code32;
 		readonly Code code64;
-		readonly bool isSigned;
 
 		public OpCodeHandler_Ev_CL(Code code16, Code code32, Code code64) {
 			this.code16 = code16;
 			this.code32 = code32;
 			this.code64 = code64;
-			isSigned = false;
-		}
-
-		public OpCodeHandler_Ev_CL(Code code16, Code code32, Code code64, bool isSigned) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-			this.isSigned = isSigned;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -331,22 +259,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (isSigned) {
-					if (state.operandSize == OpSize.Size32)
-						instruction.InternalMemorySize = MemorySize.Int32;
-					else if (state.operandSize == OpSize.Size64)
-						instruction.InternalMemorySize = MemorySize.Int64;
-					else
-						instruction.InternalMemorySize = MemorySize.Int16;
-				}
-				else {
-					if (state.operandSize == OpSize.Size32)
-						instruction.InternalMemorySize = MemorySize.UInt32;
-					else if (state.operandSize == OpSize.Size64)
-						instruction.InternalMemorySize = MemorySize.UInt64;
-					else
-						instruction.InternalMemorySize = MemorySize.UInt16;
-				}
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -359,36 +271,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Code code16;
 		readonly Code code32;
 		readonly Code code64;
-		readonly bool isSigned;
 		readonly HandlerFlags flags;
 
 		public OpCodeHandler_Ev(Code code16, Code code32, Code code64) {
 			this.code16 = code16;
 			this.code32 = code32;
 			this.code64 = code64;
-			isSigned = false;
-		}
-
-		public OpCodeHandler_Ev(Code code16, Code code32, Code code64, bool isSigned) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-			this.isSigned = isSigned;
 		}
 
 		public OpCodeHandler_Ev(Code code16, Code code32, Code code64, HandlerFlags flags) {
 			this.code16 = code16;
 			this.code32 = code32;
 			this.code64 = code64;
-			isSigned = false;
-			this.flags = flags;
-		}
-
-		public OpCodeHandler_Ev(Code code16, Code code32, Code code64, bool isSigned, HandlerFlags flags) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-			this.isSigned = isSigned;
 			this.flags = flags;
 		}
 
@@ -414,22 +308,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (isSigned) {
-					if (state.operandSize == OpSize.Size32)
-						instruction.InternalMemorySize = MemorySize.Int32;
-					else if (state.operandSize == OpSize.Size64)
-						instruction.InternalMemorySize = MemorySize.Int64;
-					else
-						instruction.InternalMemorySize = MemorySize.Int16;
-				}
-				else {
-					if (state.operandSize == OpSize.Size32)
-						instruction.InternalMemorySize = MemorySize.UInt32;
-					else if (state.operandSize == OpSize.Size64)
-						instruction.InternalMemorySize = MemorySize.UInt64;
-					else
-						instruction.InternalMemorySize = MemorySize.UInt16;
-				}
 				decoder.ReadOpMem_m64(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
@@ -496,21 +374,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_Ev_REXW : OpCodeHandlerModRM {
 		readonly Code code32;
 		readonly Code code64;
-		readonly MemorySize memSize32;
-		readonly MemorySize memSize64;
+		readonly bool allowReg;
+		readonly bool allowMem;
 
-		public OpCodeHandler_Ev_REXW(Code code32, Code code64) {
+		public OpCodeHandler_Ev_REXW(Code code32, Code code64, bool allowReg, bool allowMem) {
 			this.code32 = code32;
 			this.code64 = code64;
-			memSize32 = MemorySize.Unknown;
-			memSize64 = MemorySize.Unknown;
-		}
-
-		public OpCodeHandler_Ev_REXW(Code code32, Code code64, MemorySize memSize32, MemorySize memSize64) {
-			this.code32 = code32;
-			this.code64 = code64;
-			this.memSize32 = memSize32;
-			this.memSize64 = memSize64;
+			this.allowReg = allowReg;
+			this.allowMem = allowMem;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -524,15 +395,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + ((state.flags & StateFlags.W) != 0 ? Register.RAX : Register.EAX);
+				if (!allowReg)
+					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = memSize64;
-				else
-					instruction.InternalMemorySize = memSize32;
 				decoder.ReadOpMem_m64(ref instruction);
-				if (memSize32 == MemorySize.Unknown)
+				if (!allowMem)
 					decoder.SetInvalidInstruction();
 			}
 		}
@@ -554,7 +423,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.QwordOffset;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -584,12 +452,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.SegPtr64;
-				else if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.SegPtr32;
-				else
-					instruction.InternalMemorySize = MemorySize.SegPtr16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -628,7 +490,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -667,7 +528,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -686,7 +546,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.Fword10;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -696,20 +555,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Code code16;
 		readonly Code code32;
 		readonly Code code64;
-		readonly bool isSigned;
 
 		public OpCodeHandler_Gv_Ev(Code code16, Code code32, Code code64) {
 			this.code16 = code16;
 			this.code32 = code32;
 			this.code64 = code64;
-			isSigned = false;
-		}
-
-		public OpCodeHandler_Gv_Ev(Code code16, Code code32, Code code64, bool isSigned) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-			this.isSigned = isSigned;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -746,22 +596,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if (isSigned) {
-					if (state.operandSize == OpSize.Size32)
-						instruction.InternalMemorySize = MemorySize.Int32;
-					else if (state.operandSize == OpSize.Size64)
-						instruction.InternalMemorySize = MemorySize.Int64;
-					else
-						instruction.InternalMemorySize = MemorySize.Int16;
-				}
-				else {
-					if (state.operandSize == OpSize.Size32)
-						instruction.InternalMemorySize = MemorySize.UInt32;
-					else if (state.operandSize == OpSize.Size64)
-						instruction.InternalMemorySize = MemorySize.UInt64;
-					else
-						instruction.InternalMemorySize = MemorySize.UInt16;
-				}
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -812,12 +646,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.UInt32;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -868,7 +696,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -917,10 +744,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size16)
-					instruction.InternalMemorySize = MemorySize.Int16;
-				else
-					instruction.InternalMemorySize = MemorySize.Int32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -1103,10 +926,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (state.operandSize != OpSize.Size16)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -1147,12 +966,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.UInt32;
-				else if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
@@ -1193,7 +1006,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt64;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			instruction.InternalCode = code64;
@@ -1230,12 +1042,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.UInt32;
-				else if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			if (state.operandSize == OpSize.Size32) {
@@ -1288,12 +1094,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.UInt32;
-				else if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			if (state.operandSize == OpSize.Size32) {
@@ -1356,12 +1156,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.SegPtr32;
-				else if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.SegPtr64;
-				else
-					instruction.InternalMemorySize = MemorySize.SegPtr16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -1371,20 +1165,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Code code16;
 		readonly Code code32;
 		readonly Code code64;
-		readonly MemorySize memSize;
 
 		public OpCodeHandler_Gv_Eb(Code code16, Code code32, Code code64) {
 			this.code16 = code16;
 			this.code32 = code32;
 			this.code64 = code64;
-			memSize = MemorySize.UInt8;
-		}
-
-		public OpCodeHandler_Gv_Eb(Code code16, Code code32, Code code64, MemorySize memSize) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1418,7 +1203,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -1428,20 +1212,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Code code16;
 		readonly Code code32;
 		readonly Code code64;
-		readonly MemorySize memSize;
 
 		public OpCodeHandler_Gv_Ew(Code code16, Code code32, Code code64) {
 			this.code16 = code16;
 			this.code32 = code32;
 			this.code64 = code64;
-			memSize = MemorySize.UInt16;
-		}
-
-		public OpCodeHandler_Gv_Ew(Code code16, Code code32, Code code64, MemorySize memSize) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1472,7 +1247,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -2190,12 +1964,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.Int32;
-				else if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.Int64;
-				else
-					instruction.InternalMemorySize = MemorySize.Int16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			if (state.operandSize == OpSize.Size32) {
@@ -2229,15 +1997,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Register baseReg;
 		readonly Code code32;
 		readonly Code code64;
-		readonly MemorySize memSize32;
-		readonly MemorySize memSize64;
+		readonly bool allowMem;
 
-		public OpCodeHandler_Gv_Ev_Ib_REX(Register baseReg, Code code32, Code code64) {
+		public OpCodeHandler_Gv_Ev_Ib_REX(Register baseReg, Code code32, Code code64, bool allowMem) {
 			this.baseReg = baseReg;
 			this.code32 = code32;
 			this.code64 = code64;
-			memSize32 = MemorySize.Unknown;
-			memSize64 = MemorySize.Unknown;
+			this.allowMem = allowMem;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -2262,12 +2028,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = memSize64;
-				else
-					instruction.InternalMemorySize = memSize32;
 				decoder.ReadOpMem_m64(ref instruction);
-				if (memSize32 == MemorySize.Unknown)
+				if (!allowMem)
 					decoder.SetInvalidInstruction();
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
@@ -2277,16 +2039,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_Gv_Ev_32_64 : OpCodeHandlerModRM {
 		readonly Code code;
-		readonly MemorySize memSize;
+		readonly bool allowReg;
+		readonly bool allowMem;
 
-		public OpCodeHandler_Gv_Ev_32_64(Code code32, Code code64) {
+		public OpCodeHandler_Gv_Ev_32_64(Code code32, Code code64, bool allowReg, bool allowMem) {
 			code = code64;
-			memSize = MemorySize.Unknown;
-		}
-
-		public OpCodeHandler_Gv_Ev_32_64(Code code32, Code code64, MemorySize memSize32, MemorySize memSize64) {
-			code = code64;
-			memSize = memSize64;
+			this.allowReg = allowReg;
+			this.allowMem = allowMem;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -2300,12 +2059,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.RAX;
+				if (!allowReg)
+					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
-				if (memSize == MemorySize.Unknown)
+				if (!allowMem)
 					decoder.SetInvalidInstruction();
 			}
 		}
@@ -2338,12 +2098,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.Int32;
-				else if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.Int64;
-				else
-					instruction.InternalMemorySize = MemorySize.Int16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			if (state.operandSize == OpSize.Size32) {
@@ -2390,7 +2144,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalOp0Kind = OpKind.MemoryESRDI;
 			else
 				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
-			instruction.InternalMemorySize = MemorySize.UInt8;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = reg;
@@ -2423,21 +2176,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
 			if (state.operandSize == OpSize.Size32) {
 				instruction.InternalCode = code32;
-				instruction.InternalMemorySize = MemorySize.UInt32;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = reg32;
 			}
 			else if (state.operandSize == OpSize.Size64) {
 				instruction.InternalCode = code64;
-				instruction.InternalMemorySize = MemorySize.UInt64;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = reg64;
 			}
 			else {
 				instruction.InternalCode = code16;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = reg16;
@@ -2470,14 +2220,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = reg16;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 			}
 			else {
 				instruction.InternalCode = code32;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = reg32;
-				instruction.InternalMemorySize = MemorySize.UInt32;
 			}
 		}
 	}
@@ -2502,7 +2250,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalOp1Kind = OpKind.MemorySegRSI;
 			else
 				instruction.InternalOp1Kind = OpKind.MemorySegESI;
-			instruction.InternalMemorySize = MemorySize.UInt8;
 		}
 	}
 
@@ -2535,21 +2282,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg32;
-				instruction.InternalMemorySize = MemorySize.UInt32;
 			}
 			else if (state.operandSize == OpSize.Size64) {
 				instruction.InternalCode = code64;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg64;
-				instruction.InternalMemorySize = MemorySize.UInt64;
 			}
 			else {
 				instruction.InternalCode = code16;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg16;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 			}
 		}
 	}
@@ -2583,21 +2327,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg32;
-				instruction.InternalMemorySize = MemorySize.UInt32;
 			}
 			else if (state.operandSize == OpSize.Size64) {
 				instruction.InternalCode = code64;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg64;
-				instruction.InternalMemorySize = MemorySize.UInt32;
 			}
 			else {
 				instruction.InternalCode = code16;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg16;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 			}
 		}
 	}
@@ -2622,7 +2363,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalOp1Kind = OpKind.MemoryESRDI;
 			else
 				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
-			instruction.InternalMemorySize = MemorySize.UInt8;
 		}
 	}
 
@@ -2655,21 +2395,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg32;
-				instruction.InternalMemorySize = MemorySize.UInt32;
 			}
 			else if (state.operandSize == OpSize.Size64) {
 				instruction.InternalCode = code64;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg64;
-				instruction.InternalMemorySize = MemorySize.UInt64;
 			}
 			else {
 				instruction.InternalCode = code16;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg16;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 			}
 		}
 	}
@@ -2691,7 +2428,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
 				instruction.InternalOp1Kind = OpKind.MemorySegESI;
 			}
-			instruction.InternalMemorySize = MemorySize.UInt8;
 		}
 	}
 
@@ -2719,15 +2455,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			if (state.operandSize == OpSize.Size32) {
 				instruction.InternalCode = code32;
-				instruction.InternalMemorySize = MemorySize.UInt32;
 			}
 			else if (state.operandSize == OpSize.Size64) {
 				instruction.InternalCode = code64;
-				instruction.InternalMemorySize = MemorySize.UInt64;
 			}
 			else {
 				instruction.InternalCode = code16;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 			}
 		}
 	}
@@ -2749,7 +2482,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalOp0Kind = OpKind.MemorySegESI;
 				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
 			}
-			instruction.InternalMemorySize = MemorySize.UInt8;
 		}
 	}
 
@@ -2775,18 +2507,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalOp0Kind = OpKind.MemorySegESI;
 				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
 			}
-			if (state.operandSize == OpSize.Size32) {
+			if (state.operandSize == OpSize.Size32)
 				instruction.InternalCode = code32;
-				instruction.InternalMemorySize = MemorySize.UInt32;
-			}
-			else if (state.operandSize == OpSize.Size64) {
+			else if (state.operandSize == OpSize.Size64)
 				instruction.InternalCode = code64;
-				instruction.InternalMemorySize = MemorySize.UInt64;
-			}
-			else {
+			else
 				instruction.InternalCode = code16;
-				instruction.InternalMemorySize = MemorySize.UInt16;
-			}
 		}
 	}
 
@@ -2823,7 +2549,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -2868,7 +2593,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.Unknown;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -2910,7 +2634,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -2949,7 +2672,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				//instruction.InternalMemoryIndex = Register.None;
 				instruction.InternalOp1Kind = OpKind.Memory;
 			}
-			instruction.InternalMemorySize = MemorySize.UInt8;
 		}
 	}
 
@@ -2983,7 +2705,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				//instruction.InternalMemoryIndex = Register.None;
 				instruction.InternalOp0Kind = OpKind.Memory;
 			}
-			instruction.InternalMemorySize = MemorySize.UInt8;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = reg;
@@ -3032,21 +2753,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg32;
-				instruction.InternalMemorySize = MemorySize.UInt32;
 			}
 			else if (state.operandSize == OpSize.Size64) {
 				instruction.InternalCode = code64;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg64;
-				instruction.InternalMemorySize = MemorySize.UInt64;
 			}
 			else {
 				instruction.InternalCode = code16;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = reg16;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 			}
 		}
 	}
@@ -3089,21 +2807,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			if (state.operandSize == OpSize.Size32) {
 				instruction.InternalCode = code32;
-				instruction.InternalMemorySize = MemorySize.UInt32;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = reg32;
 			}
 			else if (state.operandSize == OpSize.Size64) {
 				instruction.InternalCode = code64;
-				instruction.InternalMemorySize = MemorySize.UInt64;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = reg64;
 			}
 			else {
 				instruction.InternalCode = code16;
-				instruction.InternalMemorySize = MemorySize.UInt16;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = reg16;
@@ -3283,22 +2998,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_Eb_Ib : OpCodeHandlerModRM {
 		readonly Code code;
-		readonly MemorySize memSize;
 		readonly HandlerFlags flags;
 
-		public OpCodeHandler_Eb_Ib(Code code) {
-			this.code = code;
-			memSize = MemorySize.UInt8;
-		}
-
-		public OpCodeHandler_Eb_Ib(Code code, MemorySize memSize) {
-			this.code = code;
-			this.memSize = memSize;
-		}
+		public OpCodeHandler_Eb_Ib(Code code) => this.code = code;
 
 		public OpCodeHandler_Eb_Ib(Code code, HandlerFlags flags) {
 			this.code = code;
-			memSize = MemorySize.UInt8;
 			this.flags = flags;
 		}
 
@@ -3316,7 +3021,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
@@ -3328,17 +3032,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_Eb_1 : OpCodeHandlerModRM {
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_Eb_1(Code code) {
-			this.code = code;
-			memSize = MemorySize.UInt8;
-		}
-
-		public OpCodeHandler_Eb_1(Code code, MemorySize memSize) {
-			this.code = code;
-			this.memSize = memSize;
-		}
+		public OpCodeHandler_Eb_1(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -3354,7 +3049,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			instruction.InternalOp1Kind = OpKind.Immediate8;
@@ -3365,17 +3059,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_Eb_CL : OpCodeHandlerModRM {
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_Eb_CL(Code code) {
-			this.code = code;
-			memSize = MemorySize.UInt8;
-		}
-
-		public OpCodeHandler_Eb_CL(Code code, MemorySize memSize) {
-			this.code = code;
-			this.memSize = memSize;
-		}
+		public OpCodeHandler_Eb_CL(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -3391,7 +3076,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -3402,28 +3086,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_Eb : OpCodeHandlerModRM {
 		readonly Code code;
-		readonly MemorySize memSize;
 		readonly HandlerFlags flags;
 
-		public OpCodeHandler_Eb(Code code) {
-			this.code = code;
-			memSize = MemorySize.UInt8;
-		}
-
-		public OpCodeHandler_Eb(Code code, MemorySize memSize) {
-			this.code = code;
-			this.memSize = memSize;
-		}
+		public OpCodeHandler_Eb(Code code) => this.code = code;
 
 		public OpCodeHandler_Eb(Code code, HandlerFlags flags) {
 			this.code = code;
-			memSize = MemorySize.UInt8;
-			this.flags = flags;
-		}
-
-		public OpCodeHandler_Eb(Code code, MemorySize memSize, HandlerFlags flags) {
-			this.code = code;
-			this.memSize = memSize;
 			this.flags = flags;
 		}
 
@@ -3441,7 +3109,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
@@ -3475,7 +3142,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt8;
 				decoder.ReadOpMem_m64(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
@@ -3515,7 +3181,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt8;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -3524,21 +3189,15 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_M : OpCodeHandlerModRM {
 		readonly Code codeW0;
 		readonly Code codeW1;
-		readonly MemorySize memorySizeW0;
-		readonly MemorySize memorySizeW1;
 
-		public OpCodeHandler_M(Code codeW0, Code codeW1, MemorySize memorySizeW0, MemorySize memorySizeW1) {
+		public OpCodeHandler_M(Code codeW0, Code codeW1) {
 			this.codeW0 = codeW0;
 			this.codeW1 = codeW1;
-			this.memorySizeW0 = memorySizeW0;
-			this.memorySizeW1 = memorySizeW1;
 		}
 
-		public OpCodeHandler_M(Code codeW0, MemorySize memorySizeW0) {
+		public OpCodeHandler_M(Code codeW0) {
 			this.codeW0 = codeW0;
 			codeW1 = codeW0;
-			this.memorySizeW0 = memorySizeW0;
-			memorySizeW1 = memorySizeW0;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3552,10 +3211,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = memorySizeW1;
-				else
-					instruction.InternalMemorySize = memorySizeW0;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -3564,23 +3219,17 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_M_REXW : OpCodeHandlerModRM {
 		readonly Code code32;
 		readonly Code code64;
-		readonly MemorySize memSize32;
-		readonly MemorySize memSize64;
 		readonly HandlerFlags flags32;
 		readonly HandlerFlags flags64;
 
-		public OpCodeHandler_M_REXW(Code code32, Code code64, MemorySize memSize32, MemorySize memSize64) {
+		public OpCodeHandler_M_REXW(Code code32, Code code64) {
 			this.code32 = code32;
 			this.code64 = code64;
-			this.memSize32 = memSize32;
-			this.memSize64 = memSize64;
 		}
 
-		public OpCodeHandler_M_REXW(Code code32, Code code64, MemorySize memSize32, MemorySize memSize64, HandlerFlags flags32, HandlerFlags flags64) {
+		public OpCodeHandler_M_REXW(Code code32, Code code64, HandlerFlags flags32, HandlerFlags flags64) {
 			this.code32 = code32;
 			this.code64 = code64;
-			this.memSize32 = memSize32;
-			this.memSize64 = memSize64;
 			this.flags32 = flags32;
 			this.flags64 = flags64;
 		}
@@ -3597,14 +3246,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				HandlerFlags flags;
-				if ((state.flags & StateFlags.W) != 0) {
-					instruction.InternalMemorySize = memSize64;
+				if ((state.flags & StateFlags.W) != 0)
 					flags = flags64;
-				}
-				else {
-					instruction.InternalMemorySize = memSize32;
+				else
 					flags = flags32;
-				}
 				decoder.ReadOpMem_m64(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
@@ -3631,7 +3276,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			else
 				instruction.InternalMemoryBase = Register.BX;
 			instruction.InternalMemoryIndex = Register.AL;
-			instruction.InternalMemorySize = MemorySize.UInt8;
 			instruction.InternalOp0Kind = OpKind.Memory;
 		}
 	}
@@ -3640,20 +3284,17 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Register baseReg;
 		readonly Code codeR;
 		readonly Code codeM;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_VW(Register baseReg, Code codeR, Code codeM, MemorySize memSize) {
+		public OpCodeHandler_VW(Register baseReg, Code codeR, Code codeM) {
 			this.baseReg = baseReg;
 			this.codeR = codeR;
 			this.codeM = codeM;
-			this.memSize = memSize;
 		}
 
-		public OpCodeHandler_VW(Register baseReg, Code code, MemorySize memSize) {
+		public OpCodeHandler_VW(Register baseReg, Code code) {
 			this.baseReg = baseReg;
 			codeR = code;
 			codeM = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3671,9 +3312,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			else {
 				instruction.InternalCode = codeM;
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
-				if (memSize == MemorySize.Unknown)
+				if (codeM == Code.INVALID)
 					decoder.SetInvalidInstruction();
 			}
 		}
@@ -3682,12 +3322,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_WV : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_WV(Register baseReg, Code code, MemorySize memSize) {
+		public OpCodeHandler_WV(Register baseReg, Code code) {
 			this.baseReg = baseReg;
 			this.code = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3701,7 +3339,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -3713,12 +3350,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_rDI_VX_RX : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_rDI_VX_RX(Register baseReg, Code code, MemorySize memSize) {
+		public OpCodeHandler_rDI_VX_RX(Register baseReg, Code code) {
 			this.baseReg = baseReg;
 			this.code = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3730,7 +3365,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalOp0Kind = OpKind.MemorySegRDI;
 			else
 				instruction.InternalOp0Kind = OpKind.MemorySegEDI;
-			instruction.InternalMemorySize = memSize;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
@@ -3746,11 +3380,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_rDI_P_N : OpCodeHandlerModRM {
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_rDI_P_N(Code code, MemorySize memSize) {
+		public OpCodeHandler_rDI_P_N(Code code) {
 			this.code = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3762,7 +3394,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalOp0Kind = OpKind.MemorySegRDI;
 			else
 				instruction.InternalOp0Kind = OpKind.MemorySegEDI;
-			instruction.InternalMemorySize = memSize;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = (int)state.reg + Register.MM0;
@@ -3779,12 +3410,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_VM : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_VM(Register baseReg, Code code, MemorySize memSize) {
+		public OpCodeHandler_VM(Register baseReg, Code code) {
 			this.baseReg = baseReg;
 			this.code = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3798,7 +3427,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -3807,12 +3435,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_MV : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_MV(Register baseReg, Code code, MemorySize memSize) {
+		public OpCodeHandler_MV(Register baseReg, Code code) {
 			this.baseReg = baseReg;
 			this.code = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3823,7 +3449,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -3835,12 +3460,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_VQ : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_VQ(Register baseReg, Code code, MemorySize memSize) {
+		public OpCodeHandler_VQ(Register baseReg, Code code) {
 			this.baseReg = baseReg;
 			this.code = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3857,7 +3480,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -3865,11 +3487,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_P_Q : OpCodeHandlerModRM {
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_P_Q(Code code, MemorySize memSize) {
+		public OpCodeHandler_P_Q(Code code) {
 			this.code = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3886,7 +3506,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -3894,11 +3513,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_Q_P : OpCodeHandlerModRM {
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_Q_P(Code code, MemorySize memSize) {
+		public OpCodeHandler_Q_P(Code code) {
 			this.code = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3912,7 +3529,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -3923,11 +3539,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_MP : OpCodeHandlerModRM {
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_MP(Code code, MemorySize memSize) {
+		public OpCodeHandler_MP(Code code) {
 			this.code = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3938,7 +3552,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -3949,11 +3562,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_P_Q_Ib : OpCodeHandlerModRM {
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_P_Q_Ib(Code code, MemorySize memSize) {
+		public OpCodeHandler_P_Q_Ib(Code code) {
 			this.code = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -3970,7 +3581,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
@@ -3981,12 +3591,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_P_W : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code code;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_P_W(Register baseReg, Code code, MemorySize memSize) {
+		public OpCodeHandler_P_W(Register baseReg, Code code) {
 			this.baseReg = baseReg;
 			this.code = code;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -4003,7 +3611,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -4066,10 +3673,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -4078,14 +3681,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_P_Ev_Ib : OpCodeHandlerModRM {
 		readonly Code code32;
 		readonly Code code64;
-		readonly MemorySize memSize32;
-		readonly MemorySize memSize64;
 
-		public OpCodeHandler_P_Ev_Ib(Code code32, Code code64, MemorySize memSize32, MemorySize memSize64) {
+		public OpCodeHandler_P_Ev_Ib(Code code32, Code code64) {
 			this.code32 = code32;
 			this.code64 = code64;
-			this.memSize32 = memSize32;
-			this.memSize64 = memSize64;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -4110,10 +3709,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = memSize64;
-				else
-					instruction.InternalMemorySize = memSize32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
@@ -4149,10 +3744,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -4165,13 +3756,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Register baseReg;
 		readonly Code codeW0;
 		readonly Code codeW1;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_Gv_W(Register baseReg, Code codeW0, Code codeW1, MemorySize memSize) {
+		public OpCodeHandler_Gv_W(Register baseReg, Code codeW0, Code codeW1) {
 			this.baseReg = baseReg;
 			this.codeW0 = codeW0;
 			this.codeW1 = codeW1;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -4196,7 +3785,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -4230,10 +3818,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.Int64;
-				else
-					instruction.InternalMemorySize = MemorySize.Int32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -4243,20 +3827,17 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Register baseReg;
 		readonly Code codeW0;
 		readonly Code codeW1;
-		readonly MemorySize memSize;
 
-		public OpCodeHandler_VWIb(Register baseReg, Code code, MemorySize memSize) {
+		public OpCodeHandler_VWIb(Register baseReg, Code code) {
 			this.baseReg = baseReg;
 			codeW0 = code;
 			codeW1 = code;
-			this.memSize = memSize;
 		}
 
-		public OpCodeHandler_VWIb(Register baseReg, Code codeW0, Code codeW1, MemorySize memSize) {
+		public OpCodeHandler_VWIb(Register baseReg, Code codeW0, Code codeW1) {
 			this.baseReg = baseReg;
 			this.codeW0 = codeW0;
 			this.codeW1 = codeW1;
-			this.memSize = memSize;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -4276,7 +3857,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
@@ -4370,15 +3950,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Register baseReg;
 		readonly Code code32;
 		readonly Code code64;
-		readonly MemorySize memSize32;
-		readonly MemorySize memSize64;
 
-		public OpCodeHandler_Ed_V_Ib(Register baseReg, Code code32, Code code64, MemorySize memSize32, MemorySize memSize64) {
+		public OpCodeHandler_Ed_V_Ib(Register baseReg, Code code32, Code code64) {
 			this.baseReg = baseReg;
 			this.code32 = code32;
 			this.code64 = code64;
-			this.memSize32 = memSize32;
-			this.memSize64 = memSize64;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -4400,10 +3976,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = memSize64;
-				else
-					instruction.InternalMemorySize = memSize32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -4445,10 +4017,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -4482,10 +4050,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -4498,15 +4062,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Register baseReg;
 		readonly Code code32;
 		readonly Code code64;
-		readonly MemorySize memSize32;
-		readonly MemorySize memSize64;
 
-		public OpCodeHandler_VX_E_Ib(Register baseReg, Code code32, Code code64, MemorySize memSize32, MemorySize memSize64) {
+		public OpCodeHandler_VX_E_Ib(Register baseReg, Code code32, Code code64) {
 			this.baseReg = baseReg;
 			this.code32 = code32;
 			this.code64 = code64;
-			this.memSize32 = memSize32;
-			this.memSize64 = memSize64;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -4531,10 +4091,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = memSize64;
-				else
-					instruction.InternalMemorySize = memSize32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
@@ -4591,8 +4147,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				Debug.Assert(MemorySize.Unknown == 0);
-				//instruction.InternalMemorySize = MemorySize.Unknown;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -4613,8 +4167,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				Debug.Assert(MemorySize.Unknown == 0);
-				//instruction.InternalMemorySize = MemorySize.Unknown;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -4625,11 +4177,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_B_BM : OpCodeHandlerModRM {
 		readonly Code code64;
-		readonly MemorySize memSize64;
 
-		public OpCodeHandler_B_BM(Code code32, Code code64, MemorySize memSize32, MemorySize memSize64) {
+		public OpCodeHandler_B_BM(Code code32, Code code64) {
 			this.code64 = code64;
-			this.memSize64 = memSize64;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -4646,7 +4196,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize64;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -4654,11 +4203,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_BM_B : OpCodeHandlerModRM {
 		readonly Code code64;
-		readonly MemorySize memSize64;
 
-		public OpCodeHandler_BM_B(Code code32, Code code64, MemorySize memSize32, MemorySize memSize64) {
+		public OpCodeHandler_BM_B(Code code32, Code code64) {
 			this.code64 = code64;
-			this.memSize64 = memSize64;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -4672,7 +4219,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = memSize64;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -4700,7 +4246,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt64;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -4709,14 +4254,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_Mv_Gv_REXW : OpCodeHandlerModRM {
 		readonly Code code32;
 		readonly Code code64;
-		readonly MemorySize memSize32;
-		readonly MemorySize memSize64;
 
-		public OpCodeHandler_Mv_Gv_REXW(Code code32, Code code64, MemorySize memSize32, MemorySize memSize64) {
+		public OpCodeHandler_Mv_Gv_REXW(Code code32, Code code64) {
 			this.code32 = code32;
 			this.code64 = code64;
-			this.memSize32 = memSize32;
-			this.memSize64 = memSize64;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -4726,10 +4267,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = memSize64;
-				else
-					instruction.InternalMemorySize = memSize32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			if ((state.flags & StateFlags.W) != 0) {
@@ -4869,12 +4406,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.UInt32;
-				else if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -4898,12 +4429,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (state.operandSize == OpSize.Size32)
-					instruction.InternalMemorySize = MemorySize.UInt32;
-				else if (state.operandSize == OpSize.Size64)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt16;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			if (state.operandSize == OpSize.Size32) {
@@ -4961,7 +4486,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt8;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -4998,10 +4522,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = MemorySize.UInt64;
-				else
-					instruction.InternalMemorySize = MemorySize.UInt32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -5011,15 +4531,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Register baseReg;
 		readonly Code code32;
 		readonly Code code64;
-		readonly MemorySize memSize32;
-		readonly MemorySize memSize64;
 
-		public OpCodeHandler_GvM_VX_Ib(Register baseReg, Code code32, Code code64, MemorySize memSize32, MemorySize memSize64) {
+		public OpCodeHandler_GvM_VX_Ib(Register baseReg, Code code32, Code code64) {
 			this.baseReg = baseReg;
 			this.code32 = code32;
 			this.code64 = code64;
-			this.memSize32 = memSize32;
-			this.memSize64 = memSize64;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -5041,10 +4557,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0)
-					instruction.InternalMemorySize = memSize64;
-				else
-					instruction.InternalMemorySize = memSize32;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);

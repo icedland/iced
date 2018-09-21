@@ -23,7 +23,6 @@ using System.Diagnostics;
 namespace Iced.Intel.DecoderInternal {
 	static class OpCodeHandlers_D3NOW {
 		internal static readonly Code[] CodeValues = CreateCodeValues();
-		internal static readonly MemorySize[] MemorySizes = CreateMemorySizes();
 
 		static Code[] CreateCodeValues() {
 			var result = new Code[0x100];
@@ -54,37 +53,6 @@ namespace Iced.Intel.DecoderInternal {
 			result[0xB7] = Code.D3NOW_Pmulhrw_mm_mmm64;
 			result[0xBB] = Code.D3NOW_Pswapd_mm_mmm64;
 			result[0xBF] = Code.D3NOW_Pavgusb_mm_mmm64;
-			return result;
-		}
-
-		static MemorySize[] CreateMemorySizes() {
-			var result = new MemorySize[0x100];
-			result[0x0C] = MemorySize.Packed64_Int16;
-			result[0x0D] = MemorySize.Packed64_Int32;
-			result[0x1C] = MemorySize.Packed64_Float32;
-			result[0x1D] = MemorySize.Packed64_Float32;
-			result[0x86] = MemorySize.Packed64_Float32;
-			result[0x87] = MemorySize.Packed64_Float32;
-			result[0x8A] = MemorySize.Packed64_Float32;
-			result[0x8E] = MemorySize.Packed64_Float32;
-			result[0x90] = MemorySize.Packed64_Float32;
-			result[0x94] = MemorySize.Packed64_Float32;
-			result[0x96] = MemorySize.Packed64_Float32;
-			result[0x97] = MemorySize.Packed64_Float32;
-			result[0x9A] = MemorySize.Packed64_Float32;
-			result[0x9E] = MemorySize.Packed64_Float32;
-			result[0xA0] = MemorySize.Packed64_Float32;
-			result[0xA4] = MemorySize.Packed64_Float32;
-			result[0xA6] = MemorySize.Packed64_Float32;
-			result[0xA7] = MemorySize.Packed64_Float32;
-			result[0xAA] = MemorySize.Packed64_Float32;
-			result[0xAE] = MemorySize.Packed64_Float32;
-			result[0xB0] = MemorySize.Packed64_Float32;
-			result[0xB4] = MemorySize.Packed64_Float32;
-			result[0xB6] = MemorySize.Packed64_Float32;
-			result[0xB7] = MemorySize.Packed64_Int16;
-			result[0xBB] = MemorySize.Packed64_UInt32;
-			result[0xBF] = MemorySize.Packed64_UInt8;
 			return result;
 		}
 	}

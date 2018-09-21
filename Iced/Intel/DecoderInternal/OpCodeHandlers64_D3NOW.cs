@@ -23,7 +23,6 @@ using System.Diagnostics;
 namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 	sealed class OpCodeHandler_D3NOW : OpCodeHandlerModRM {
 		readonly Code[] codeValues = OpCodeHandlers_D3NOW.CodeValues;
-		readonly MemorySize[] memorySizes = OpCodeHandlers_D3NOW.MemorySizes;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -42,7 +41,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem_m64(ref instruction);
 				ib = decoder.ReadByte();
-				instruction.InternalMemorySize = memorySizes[(int)ib];
 			}
 			var code = codeValues[(int)ib];
 			instruction.InternalCode = code;

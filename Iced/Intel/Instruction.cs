@@ -27,7 +27,6 @@ namespace Iced.Intel {
 	/// A 16/32/64-bit instruction
 	/// </summary>
 	public struct Instruction {
-		internal const int TEST_MemorySizeBits = (int)MemoryFlags.MemorySizeBits;
 		internal const int TEST_OpKindBits = (int)OpKindFlags.OpKindBits;
 		internal const int TEST_CodeBits = (int)CodeFlags.CodeBits;
 		internal const int TEST_RegisterBits = 8;
@@ -36,8 +35,8 @@ namespace Iced.Intel {
 		/// [1:0]	= Scale
 		/// [4:2]	= Size of displacement: 0, 1, 2, 4, 8
 		/// [7:5]	= Segment register prefix: none, es, cs, ss, ds, fs, gs, reserved
-		/// [14:8]	= <see cref="Intel.MemorySize"/>
-		/// [15]	= Not used
+		/// [14:8]	= Not used
+		/// [15]	= Broadcasted memory
 		/// </summary>
 		[Flags]
 		enum MemoryFlags : ushort {
@@ -47,9 +46,8 @@ namespace Iced.Intel {
 			PrefixSegmentShift		= 5,
 			PrefixSegmentMask		= 7,
 			MemorySizeBits			= 7,
-			MemorySizeShift			= 8,
-			MemorySizeMask			= (1 << (int)MemorySizeBits) - 1,
 			// Unused bits here
+			BroadcastedMemory		= 0x8000,
 		}
 
 		/// <summary>
@@ -74,7 +72,7 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// [11:0]	= <see cref="Intel.Code"/>
-		/// [12]    = Not used
+		/// [12]	= Not used
 		/// [15:13]	= <see cref="Intel.RoundingControl"/>
 		/// [18:16]	= Opmask register or 0 if none
 		/// [22:19]	= Instruction length
@@ -262,6 +260,7 @@ namespace Iced.Intel {
 				(((uint)value & (uint)CodeFlags.InstrLengthMask) << (int)CodeFlags.InstrLengthShift);
 		}
 		internal uint InternalByteLength {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => codeFlags |= (value << (int)CodeFlags.InstrLengthShift);
 		}
 
@@ -519,19 +518,32 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the size of the memory location that is referenced by the operand.
+		/// true if the data is broadcasted (EVEX instructions only)
+		/// </summary>
+		public bool IsBroadcast {
+			get => (memoryFlags & (uint)MemoryFlags.BroadcastedMemory) != 0;
+			set {
+				if (value)
+					memoryFlags |= (ushort)MemoryFlags.BroadcastedMemory;
+				else
+					memoryFlags &= unchecked((ushort)~(ushort)MemoryFlags.BroadcastedMemory);
+			}
+		}
+		internal void SetIsBroadcast() => memoryFlags |= (ushort)MemoryFlags.BroadcastedMemory;
+
+		/// <summary>
+		/// Gets the size of the memory location that is referenced by the operand. See also <see cref="IsBroadcast"/>.
 		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>, <see cref="OpKind.Memory64"/>,
 		/// <see cref="OpKind.MemorySegSI"/>, <see cref="OpKind.MemorySegESI"/>, <see cref="OpKind.MemorySegRSI"/>,
 		/// <see cref="OpKind.MemoryESDI"/>, <see cref="OpKind.MemoryESEDI"/>, <see cref="OpKind.MemoryESRDI"/>
 		/// </summary>
 		public MemorySize MemorySize {
-			get => (MemorySize)(((uint)memoryFlags >> (int)MemoryFlags.MemorySizeShift) & (uint)MemoryFlags.MemorySizeMask);
-			set => memoryFlags = (ushort)((memoryFlags & ~((uint)MemoryFlags.MemorySizeMask << (int)MemoryFlags.MemorySizeShift)) |
-				(((uint)value & (uint)MemoryFlags.MemorySizeMask) << (int)MemoryFlags.MemorySizeShift));
-		}
-		internal MemorySize InternalMemorySize {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => memoryFlags |= (ushort)((uint)value << (int)MemoryFlags.MemorySizeShift);
+			get {
+				int index = (int)Code * 2;
+				if (IsBroadcast)
+					index++;
+				return (MemorySize)InstructionMemorySizes.Sizes[index];
+			}
 		}
 
 		/// <summary>
@@ -877,7 +889,9 @@ namespace Iced.Intel {
 			}
 		}
 		internal uint InternalOpMask {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (codeFlags >> (int)CodeFlags.OpMaskShift) & (uint)CodeFlags.OpMaskMask;
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => codeFlags |= value << (int)CodeFlags.OpMaskShift;
 		}
 
@@ -925,6 +939,7 @@ namespace Iced.Intel {
 				(((uint)value & (uint)CodeFlags.RoundingControlMask) << (int)CodeFlags.RoundingControlShift);
 		}
 		internal uint InternalRoundingControl {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => codeFlags |= value << (int)CodeFlags.RoundingControlShift;
 		}
 
@@ -1573,54 +1588,6 @@ namespace Iced.Intel {
 			return opKind;
 		}
 
-		static MemorySize GetMemorySize(Code code) {
-			switch (code) {
-			case Code.Movsb_m8_m8:
-			case Code.Cmpsb_m8_m8:
-			case Code.Stosb_m8_AL:
-			case Code.Lodsb_AL_m8:
-			case Code.Scasb_AL_m8:
-			case Code.Insb_m8_DX:
-			case Code.Outsb_DX_m8:
-				return MemorySize.UInt8;
-
-			case Code.Movsw_m16_m16:
-			case Code.Cmpsw_m16_m16:
-			case Code.Stosw_m16_AX:
-			case Code.Lodsw_AX_m16:
-			case Code.Scasw_AX_m16:
-			case Code.Insw_m16_DX:
-			case Code.Outsw_DX_m16:
-				return MemorySize.UInt16;
-
-			case Code.Movsd_m32_m32:
-			case Code.Cmpsd_m32_m32:
-			case Code.Stosd_m32_EAX:
-			case Code.Lodsd_EAX_m32:
-			case Code.Scasd_EAX_m32:
-			case Code.Insd_m32_DX:
-			case Code.Outsd_DX_m32:
-				return MemorySize.UInt32;
-
-			case Code.Movsq_m64_m64:
-			case Code.Cmpsq_m64_m64:
-			case Code.Stosq_m64_RAX:
-			case Code.Lodsq_RAX_m64:
-			case Code.Scasq_RAX_m64:
-				return MemorySize.UInt64;
-
-			case Code.Maskmovq_rDI_mm_mm:
-				return MemorySize.UInt64;
-
-			case Code.Maskmovdqu_rDI_xmm_xmm:
-			case Code.VEX_Vmaskmovdqu_rDI_xmm_xmm:
-				return MemorySize.UInt128;
-
-			default:
-				throw new ArgumentOutOfRangeException(nameof(code));
-			}
-		}
-
 		/// <summary>
 		/// Creates a new <see cref="Instruction"/> with no operands
 		/// </summary>
@@ -1688,16 +1655,6 @@ namespace Iced.Intel {
 
 			instruction.InternalOp1Kind = OpKind.Memory64;
 			instruction.MemoryAddress64 = address;
-			if (register == Register.AL)
-				instruction.InternalMemorySize = MemorySize.UInt8;
-			else if (register == Register.AX)
-				instruction.InternalMemorySize = MemorySize.UInt16;
-			else if (register == Register.EAX)
-				instruction.InternalMemorySize = MemorySize.UInt32;
-			else if (register == Register.RAX)
-				instruction.InternalMemorySize = MemorySize.UInt64;
-			else
-				throw new ArgumentOutOfRangeException(nameof(register));
 			instruction.InternalSetMemoryDisplSize(4);
 			instruction.PrefixSegment = prefixSegment;
 
@@ -1719,16 +1676,6 @@ namespace Iced.Intel {
 
 			instruction.InternalOp0Kind = OpKind.Memory64;
 			instruction.MemoryAddress64 = address;
-			if (register == Register.AL)
-				instruction.InternalMemorySize = MemorySize.UInt8;
-			else if (register == Register.AX)
-				instruction.InternalMemorySize = MemorySize.UInt16;
-			else if (register == Register.EAX)
-				instruction.InternalMemorySize = MemorySize.UInt32;
-			else if (register == Register.RAX)
-				instruction.InternalMemorySize = MemorySize.UInt64;
-			else
-				throw new ArgumentOutOfRangeException(nameof(register));
 			instruction.InternalSetMemoryDisplSize(4);
 			instruction.PrefixSegment = prefixSegment;
 
@@ -1781,9 +1728,8 @@ namespace Iced.Intel {
 		/// <param name="code">Code value</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, uint immediate) {
-			return Create(code, (int)immediate);
-		}
+		public static Instruction Create(Code code, uint immediate) =>
+			Create(code, (int)immediate);
 
 		/// <summary>
 		/// Creates an instruction
@@ -1801,7 +1747,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			Debug.Assert(instruction.OpCount == 1);
@@ -1864,9 +1810,8 @@ namespace Iced.Intel {
 		/// <param name="register">Register</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register, uint immediate) {
-			return Create(code, register, (int)immediate);
-		}
+		public static Instruction Create(Code code, Register register, uint immediate) =>
+			Create(code, register, (int)immediate);
 
 		/// <summary>
 		/// Creates an instruction with a 64-bit immediate value
@@ -1897,9 +1842,8 @@ namespace Iced.Intel {
 		/// <param name="register">Register</param>
 		/// <param name="immediate">64-bit immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register, ulong immediate) {
-			return Create(code, register, (long)immediate);
-		}
+		public static Instruction Create(Code code, Register register, ulong immediate) =>
+			Create(code, register, (long)immediate);
 
 		/// <summary>
 		/// Creates an instruction
@@ -1927,8 +1871,6 @@ namespace Iced.Intel {
 				throw new ArgumentOutOfRangeException(nameof(rSI));
 
 			instruction.PrefixSegment = prefixSegment;
-
-			instruction.InternalMemorySize = GetMemorySize(code);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -1958,8 +1900,6 @@ namespace Iced.Intel {
 			else
 				throw new ArgumentOutOfRangeException(nameof(rDI));
 
-			instruction.InternalMemorySize = GetMemorySize(code);
-
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
 		}
@@ -1985,7 +1925,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			Debug.Assert(instruction.OpCount == 2);
@@ -2021,9 +1961,8 @@ namespace Iced.Intel {
 		/// <param name="immediate">Immediate</param>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, uint immediate, Register register) {
-			return Create(code, (int)immediate, register);
-		}
+		public static Instruction Create(Code code, uint immediate, Register register) =>
+			Create(code, (int)immediate, register);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2053,9 +1992,8 @@ namespace Iced.Intel {
 		/// <param name="immediate">Immediate</param>
 		/// <param name="immediate2">Second immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, uint immediate, byte immediate2) {
-			return Create(code, (int)immediate, immediate2);
-		}
+		public static Instruction Create(Code code, uint immediate, byte immediate2) =>
+			Create(code, (int)immediate, immediate2);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2089,8 +2027,6 @@ namespace Iced.Intel {
 
 			instruction.PrefixSegment = prefixSegment;
 
-			instruction.InternalMemorySize = GetMemorySize(code);
-
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
 		}
@@ -2118,8 +2054,6 @@ namespace Iced.Intel {
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register;
-
-			instruction.InternalMemorySize = GetMemorySize(code);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -2157,8 +2091,6 @@ namespace Iced.Intel {
 
 			instruction.PrefixSegment = prefixSegment;
 
-			instruction.InternalMemorySize = GetMemorySize(code);
-
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
 		}
@@ -2180,7 +2112,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			Debug.Assert(OpKind.Register == 0);
@@ -2208,7 +2140,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			instruction.InternalOp1Kind = GetImmediateOpKind(code, 1);
@@ -2225,9 +2157,8 @@ namespace Iced.Intel {
 		/// <param name="memory">Memory operand</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, in MemoryOperand memory, uint immediate) {
-			return Create(code, memory, (int)immediate);
-		}
+		public static Instruction Create(Code code, in MemoryOperand memory, uint immediate) =>
+			Create(code, memory, (int)immediate);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2292,9 +2223,8 @@ namespace Iced.Intel {
 		/// <param name="register2">Register</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register1, Register register2, uint immediate) {
-			return Create(code, register1, register2, (int)immediate);
-		}
+		public static Instruction Create(Code code, Register register1, Register register2, uint immediate) =>
+			Create(code, register1, register2, (int)immediate);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2322,7 +2252,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			Debug.Assert(instruction.OpCount == 3);
@@ -2363,9 +2293,8 @@ namespace Iced.Intel {
 		/// <param name="immediate">Immediate</param>
 		/// <param name="immediate2">Second immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register, uint immediate, byte immediate2) {
-			return Create(code, register, (int)immediate, immediate2);
-		}
+		public static Instruction Create(Code code, Register register, uint immediate, byte immediate2) =>
+			Create(code, register, (int)immediate, immediate2);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2389,7 +2318,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			Debug.Assert(OpKind.Register == 0);
@@ -2422,7 +2351,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			instruction.InternalOp2Kind = GetImmediateOpKind(code, 2);
@@ -2440,9 +2369,8 @@ namespace Iced.Intel {
 		/// <param name="memory">Memory operand</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register, in MemoryOperand memory, uint immediate) {
-			return Create(code, register, memory, (int)immediate);
-		}
+		public static Instruction Create(Code code, Register register, in MemoryOperand memory, uint immediate) =>
+			Create(code, register, memory, (int)immediate);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2476,8 +2404,6 @@ namespace Iced.Intel {
 
 			instruction.PrefixSegment = prefixSegment;
 
-			instruction.InternalMemorySize = GetMemorySize(code);
-
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
 		}
@@ -2500,7 +2426,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			Debug.Assert(OpKind.Register == 0);
@@ -2533,7 +2459,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			Debug.Assert(OpKind.Register == 0);
@@ -2555,9 +2481,8 @@ namespace Iced.Intel {
 		/// <param name="register">Register</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, in MemoryOperand memory, Register register, uint immediate) {
-			return Create(code, memory, register, (int)immediate);
-		}
+		public static Instruction Create(Code code, in MemoryOperand memory, Register register, uint immediate) =>
+			Create(code, memory, register, (int)immediate);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2633,9 +2558,8 @@ namespace Iced.Intel {
 		/// <param name="register3">Register</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register1, Register register2, Register register3, uint immediate) {
-			return Create(code, register1, register2, register3, (int)immediate);
-		}
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3, uint immediate) =>
+			Create(code, register1, register2, register3, (int)immediate);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2668,7 +2592,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			Debug.Assert(instruction.OpCount == 4);
@@ -2715,9 +2639,8 @@ namespace Iced.Intel {
 		/// <param name="immediate">Immediate</param>
 		/// <param name="immediate2">Second immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register1, Register register2, uint immediate, byte immediate2) {
-			return Create(code, register1, register2, (int)immediate, immediate2);
-		}
+		public static Instruction Create(Code code, Register register1, Register register2, uint immediate, byte immediate2) =>
+			Create(code, register1, register2, (int)immediate, immediate2);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2746,7 +2669,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			Debug.Assert(OpKind.Register == 0);
@@ -2784,7 +2707,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			instruction.InternalOp3Kind = GetImmediateOpKind(code, 3);
@@ -2803,9 +2726,8 @@ namespace Iced.Intel {
 		/// <param name="memory">Memory operand</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, uint immediate) {
-			return Create(code, register1, register2, memory, (int)immediate);
-		}
+		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, uint immediate) =>
+			Create(code, register1, register2, memory, (int)immediate);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2854,9 +2776,8 @@ namespace Iced.Intel {
 		/// <param name="register4">Register</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register1, Register register2, Register register3, Register register4, uint immediate) {
-			return Create(code, register1, register2, register3, register4, (int)immediate);
-		}
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3, Register register4, uint immediate) =>
+			Create(code, register1, register2, register3, register4, (int)immediate);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2890,7 +2811,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			instruction.InternalOp4Kind = GetImmediateOpKind(code, 4);
@@ -2910,9 +2831,8 @@ namespace Iced.Intel {
 		/// <param name="memory">Memory operand</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register1, Register register2, Register register3, in MemoryOperand memory, uint immediate) {
-			return Create(code, register1, register2, register3, memory, (int)immediate);
-		}
+		public static Instruction Create(Code code, Register register1, Register register2, Register register3, in MemoryOperand memory, uint immediate) =>
+			Create(code, register1, register2, register3, memory, (int)immediate);
 
 		/// <summary>
 		/// Creates an instruction
@@ -2942,7 +2862,7 @@ namespace Iced.Intel {
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
-			instruction.InternalMemorySize = memory.Size;
+			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.PrefixSegment = memory.PrefixSegment;
 
 			Debug.Assert(OpKind.Register == 0);
@@ -2966,9 +2886,8 @@ namespace Iced.Intel {
 		/// <param name="register3">Register</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, Register register3, uint immediate) {
-			return Create(code, register1, register2, memory, register3, (int)immediate);
-		}
+		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, Register register3, uint immediate) =>
+			Create(code, register1, register2, memory, register3, (int)immediate);
 #endif
 
 		/// <summary>

@@ -37,13 +37,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 
 		[Fact]
-		void MemorySize_is_not_too_big() {
-			int maxValue = GetEnumSize(typeof(MemorySize)) - 1;
-			Assert.True(maxValue < (1 << Instruction.TEST_MemorySizeBits));
-			Assert.True(maxValue >= (1 << (Instruction.TEST_MemorySizeBits - 1)));
-		}
-
-		[Fact]
 		void OpKind_is_not_too_big() {
 			int maxValue = GetEnumSize(typeof(OpKind)) - 1;
 			Assert.True(maxValue < (1 << Instruction.TEST_OpKindBits));

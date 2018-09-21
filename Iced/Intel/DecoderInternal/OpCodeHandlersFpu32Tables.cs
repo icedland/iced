@@ -70,10 +70,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 				new OpCodeHandler_Mf32(Code.Fst_m32fp),
 				new OpCodeHandler_Mf32(Code.Fstp_m32fp),
-				new OpCodeHandler_Mf(Code.Fldenv_m14byte, Code.Fldenv_m28byte, MemorySize.FpuEnv14, MemorySize.FpuEnv28),
-				new OpCodeHandler_Mf2(Code.Fldcw_m16, MemorySize.UInt16),
-				new OpCodeHandler_Mf(Code.Fnstenv_m14byte, Code.Fnstenv_m28byte, MemorySize.FpuEnv14, MemorySize.FpuEnv28),
-				new OpCodeHandler_Mf2(Code.Fnstcw_m16, MemorySize.UInt16),
+				new OpCodeHandler_Mf(Code.Fldenv_m14byte, Code.Fldenv_m28byte),
+				new OpCodeHandler_Mf2(Code.Fldcw_m16),
+				new OpCodeHandler_Mf(Code.Fnstenv_m14byte, Code.Fnstenv_m28byte),
+				new OpCodeHandler_Mf2(Code.Fnstcw_m16),
 			};
 
 			handlers_FPU_D9_high = new OpCodeHandler[0x40] {
@@ -371,10 +371,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Mf64(Code.Fisttp_m64fp),
 				new OpCodeHandler_Mf64(Code.Fst_m64fp),
 				new OpCodeHandler_Mf64(Code.Fstp_m64fp),
-				new OpCodeHandler_Mf(Code.Frstor_m94byte, Code.Frstor_m108byte, MemorySize.FpuState94, MemorySize.FpuState108),
+				new OpCodeHandler_Mf(Code.Frstor_m94byte, Code.Frstor_m108byte),
 				invalid,
-				new OpCodeHandler_Mf(Code.Fnsave_m94byte, Code.Fnsave_m108byte, MemorySize.FpuState94, MemorySize.FpuState108),
-				new OpCodeHandler_Mf2(Code.Fnstsw_m16, MemorySize.UInt16),
+				new OpCodeHandler_Mf(Code.Fnsave_m94byte, Code.Fnsave_m108byte),
+				new OpCodeHandler_Mf2(Code.Fnstsw_m16),
 			};
 
 			handlers_FPU_DD_high = new OpCodeHandler[8] {
