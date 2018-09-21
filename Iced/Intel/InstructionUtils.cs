@@ -326,10 +326,10 @@ namespace Iced.Intel {
 			1,// Pop_rm32
 			1,// Pop_rm64
 			0,// Nopw
-			2,// Xchg_r16_AX
 			0,// Nopd
-			2,// Xchg_r32_EAX
 			0,// Nopq
+			2,// Xchg_r16_AX
+			2,// Xchg_r32_EAX
 			2,// Xchg_r64_RAX
 			0,// Pause
 			0,// Cbw

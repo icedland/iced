@@ -60,7 +60,7 @@ namespace Iced.Intel {
 				return string.Empty;
 
 			var builder = new StringBuilder(hexData.Length * 3 - 1);
-			for(int i = 0; i < hexData.Length; i++) {
+			for (int i = 0; i < hexData.Length; i++) {
 				builder.Append(hexData[i].ToString("X2"));
 				if (i + 1 < hexData.Length)
 					builder.Append(' ');

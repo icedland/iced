@@ -156,17 +156,17 @@ namespace Iced.Intel {
 		// DS:												// 3E
 		Aas,												// 3F
 
-		Inc_r16,										    // o16 40
+		Inc_r16,											// o16 40
 		Inc_r32,											// o32 40
 
-		Dec_r16,										      // o16 48
+		Dec_r16,											// o16 48
 		Dec_r32,											// o32 48
 
 		Push_r16,											// o16 50
 		Push_r32,											// o32 50
 		Push_r64,											// 50
 
-		Pop_r16,										    // o16 58
+		Pop_r16,											// o16 58
 		Pop_r32,											// o32 58
 		Pop_r64,											// 58
 
@@ -343,10 +343,10 @@ namespace Iced.Intel {
 		Pop_rm64,											// REX.W 8F /0
 
 		Nopw,												// o16 90
-		Xchg_r16_AX,										// o16 REX.B 90
 		Nopd,												// o32 90
-		Xchg_r32_EAX,										// o32 REX.B 90
 		Nopq,												// REX.W 90
+		Xchg_r16_AX,										// o16 REX.B 90
+		Xchg_r32_EAX,										// o32 REX.B 90
 		Xchg_r64_RAX,										// REX.W REX.B 90
 
 		Pause,												// F3 90
