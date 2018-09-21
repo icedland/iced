@@ -147,7 +147,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_BND_Reg_RegMem_Reg_RegMem_1_Data {
 			get {
-				yield return new object[] { "0F1A 08", 3, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.UInt32 };
+				yield return new object[] { "0F1A 08", 3, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.Unknown };
 
 				yield return new object[] { "66 0F1A 08", 4, Code.Bndmov_bnd_bndm64, Register.BND1, MemorySize.Bnd32 };
 
@@ -221,7 +221,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_BND_Reg_RegMem_Reg_RegMem_1_Data {
 			get {
-				yield return new object[] { "0F1A 08", 3, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.UInt32 };
+				yield return new object[] { "0F1A 08", 3, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.Unknown };
 
 				yield return new object[] { "66 0F1A 08", 4, Code.Bndmov_bnd_bndm64, Register.BND1, MemorySize.Bnd32 };
 
@@ -295,8 +295,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_BND_Reg_RegMem_Reg_RegMem_1_Data {
 			get {
-				yield return new object[] { "0F1A 08", 3, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.UInt64 };
-				yield return new object[] { "48 0F1A 08", 4, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.UInt64 };
+				yield return new object[] { "0F1A 08", 3, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.Unknown };
+				yield return new object[] { "48 0F1A 08", 4, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.Unknown };
 
 				yield return new object[] { "66 0F1A 08", 4, Code.Bndmov_bnd_bndm128, Register.BND1, MemorySize.Bnd64 };
 				yield return new object[] { "66 48 0F1A 08", 5, Code.Bndmov_bnd_bndm128, Register.BND1, MemorySize.Bnd64 };
@@ -382,7 +382,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_BND_RegMem_Reg_RegMem_Reg_1_Data {
 			get {
-				yield return new object[] { "0F1B 08", 3, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.UInt32 };
+				yield return new object[] { "0F1B 08", 3, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.Unknown };
 
 				yield return new object[] { "66 0F1B 08", 4, Code.Bndmov_bndm64_bnd, Register.BND1, MemorySize.Bnd32 };
 			}
@@ -442,7 +442,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_BND_RegMem_Reg_RegMem_Reg_1_Data {
 			get {
-				yield return new object[] { "0F1B 08", 3, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.UInt32 };
+				yield return new object[] { "0F1B 08", 3, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.Unknown };
 
 				yield return new object[] { "66 0F1B 08", 4, Code.Bndmov_bndm64_bnd, Register.BND1, MemorySize.Bnd32 };
 			}
@@ -502,8 +502,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_BND_RegMem_Reg_RegMem_Reg_1_Data {
 			get {
-				yield return new object[] { "0F1B 08", 3, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.UInt64 };
-				yield return new object[] { "48 0F1B 08", 4, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.UInt64 };
+				yield return new object[] { "0F1B 08", 3, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.Unknown };
+				yield return new object[] { "48 0F1B 08", 4, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.Unknown };
 
 				yield return new object[] { "66 0F1B 08", 4, Code.Bndmov_bndm128_bnd, Register.BND1, MemorySize.Bnd64 };
 				yield return new object[] { "66 48 0F1B 08", 5, Code.Bndmov_bndm128_bnd, Register.BND1, MemorySize.Bnd64 };

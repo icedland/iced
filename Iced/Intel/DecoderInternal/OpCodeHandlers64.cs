@@ -4591,7 +4591,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt64;
+				Debug.Assert(MemorySize.Unknown == 0);
+				//instruction.InternalMemorySize = MemorySize.Unknown;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 		}
@@ -4612,7 +4613,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				instruction.InternalMemorySize = MemorySize.UInt64;
+				Debug.Assert(MemorySize.Unknown == 0);
+				//instruction.InternalMemorySize = MemorySize.Unknown;
 				decoder.ReadOpMem_m64(ref instruction);
 			}
 			Debug.Assert(OpKind.Register == 0);

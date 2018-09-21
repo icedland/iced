@@ -779,6 +779,15 @@ namespace Iced.Intel {
 			var memSizeStrings = memInfo.names;
 
 			switch (memInfo.size) {
+			case 0:
+				if (memType == InstrOpInfoFlags.MemSize_DwordOrQword) {
+					if (instr.CodeSize == CodeSize.Code16 || instr.CodeSize == CodeSize.Code32)
+						memSizeStrings = MemorySizes.dword_ptr;
+					else
+						memSizeStrings = MemorySizes.qword_ptr;
+				}
+				break;
+
 			case 8:
 				if (memType == InstrOpInfoFlags.MemSize_Mmx)
 					memSizeStrings = MemorySizes.mmword_ptr;

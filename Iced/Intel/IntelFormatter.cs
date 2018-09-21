@@ -777,6 +777,12 @@ namespace Iced.Intel {
 		void FormatMemorySize(FormatterOutput output, ref Instruction instr, MemorySize memSize, InstrOpInfoFlags flags) {
 			if ((flags & InstrOpInfoFlags.MemSize_Nothing) != 0)
 				return;
+			if ((flags & InstrOpInfoFlags.ForceMemSizeDwordOrQword) != 0) {
+				if (instr.CodeSize == CodeSize.Code16 || instr.CodeSize == CodeSize.Code32)
+					memSize = MemorySize.UInt32;
+				else
+					memSize = MemorySize.UInt64;
+			}
 
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
 			var memInfo = allMemorySizes[(int)memSize];

@@ -24,8 +24,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 	static class MemorySizes {
 		static readonly string[] byte_ptr = new string[] { "byte", "ptr" };
 		static readonly string[] word_ptr = new string[] { "word", "ptr" };
-		static readonly string[] dword_ptr = new string[] { "dword", "ptr" };
-		static readonly string[] qword_ptr = new string[] { "qword", "ptr" };
+		internal static readonly string[] dword_ptr = new string[] { "dword", "ptr" };
+		internal static readonly string[] qword_ptr = new string[] { "qword", "ptr" };
 		internal static readonly string[] mmword_ptr = new string[] { "mmword", "ptr" };
 		internal static readonly string[] xmmword_ptr = new string[] { "xmmword", "ptr" };
 		static readonly string[] ymmword_ptr = new string[] { "ymmword", "ptr" };

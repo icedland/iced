@@ -68,6 +68,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		// show no mem size
 		MemSize_Nothing				= 3,
 		MemSize_XmmwordPtr			= 4,
+		MemSize_DwordOrQword		= 5,
 
 		// AlwaysShowMemorySize is disabled: always show memory size
 		ShowNoMemSize_ForceSize		= 8,
