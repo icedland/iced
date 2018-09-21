@@ -13,7 +13,7 @@ artifacts:
 - path: Iced\bin\Release\*.nupkg
   name: Iced NuGet Packages
 test_script:
-  - dotnet test -c Release Iced.UnitTests\Iced.UnitTests.csproj -- RunConfiguration.NoAutoReporters=true
+  - dotnet test -c Release --no-build Iced.UnitTests\Iced.UnitTests.csproj -- RunConfiguration.NoAutoReporters=true
 notifications:
 - provider: Email
   to:
@@ -21,3 +21,9 @@ notifications:
   on_build_success: false
   on_build_failure: true
   on_build_status_changed: false
+deploy:
+- provider: NuGet
+  on:
+    APPVEYOR_REPO_TAG: true
+  api_key:
+    secure: en/ChGrnyp08i9CgI/8WXLKhl0OHCpPsuBSRv9wt286kvKlI9P4732egbzq+ycfx
