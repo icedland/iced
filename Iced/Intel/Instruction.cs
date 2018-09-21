@@ -579,6 +579,83 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Gets an operand's immediate value
+		/// </summary>
+		/// <param name="operand">Operand number, 0-4</param>
+		/// <returns></returns>
+		public ulong GetImmediate(int operand) {
+			switch (GetOpKind(operand)) {
+			case OpKind.Immediate8:			return Immediate8;
+			case OpKind.Immediate8_2nd:		return Immediate8_2nd;
+			case OpKind.Immediate16:		return Immediate16;
+			case OpKind.Immediate32:		return Immediate32;
+			case OpKind.Immediate64:		return Immediate64;
+			case OpKind.Immediate8to16:		return (ulong)Immediate8to16;
+			case OpKind.Immediate8to32:		return (ulong)Immediate8to32;
+			case OpKind.Immediate8to64:		return (ulong)Immediate8to64;
+			case OpKind.Immediate32to64:	return (ulong)Immediate32to64;
+			default:
+				throw new ArgumentException($"Op{operand} isn't an immediate operand", nameof(operand));
+			}
+		}
+
+		/// <summary>
+		/// Sets an operand's immediate value
+		/// </summary>
+		/// <param name="operand">Operand number, 0-4</param>
+		/// <param name="immediate">New immediate</param>
+		/// <returns></returns>
+		public void SetImmediate(int operand, int immediate) => SetImmediate(operand, (ulong)immediate);
+
+		/// <summary>
+		/// Sets an operand's immediate value
+		/// </summary>
+		/// <param name="operand">Operand number, 0-4</param>
+		/// <param name="immediate">New immediate</param>
+		/// <returns></returns>
+		public void SetImmediate(int operand, uint immediate) => SetImmediate(operand, (ulong)immediate);
+
+		/// <summary>
+		/// Sets an operand's immediate value
+		/// </summary>
+		/// <param name="operand">Operand number, 0-4</param>
+		/// <param name="immediate">New immediate</param>
+		/// <returns></returns>
+		public void SetImmediate(int operand, long immediate) => SetImmediate(operand, (ulong)immediate);
+
+		/// <summary>
+		/// Sets an operand's immediate value
+		/// </summary>
+		/// <param name="operand">Operand number, 0-4</param>
+		/// <param name="immediate">New immediate</param>
+		/// <returns></returns>
+		public void SetImmediate(int operand, ulong immediate) {
+			switch (GetOpKind(operand)) {
+			case OpKind.Immediate8:
+			case OpKind.Immediate8to16:
+			case OpKind.Immediate8to32:
+			case OpKind.Immediate8to64:
+				this.immediate = (byte)immediate;
+				break;
+			case OpKind.Immediate8_2nd:
+				memDispl = (byte)immediate;
+				break;
+			case OpKind.Immediate16:
+				this.immediate = (ushort)immediate;
+				break;
+			case OpKind.Immediate32to64:
+			case OpKind.Immediate32:
+				this.immediate = (uint)immediate;
+				break;
+			case OpKind.Immediate64:
+				Immediate64 = immediate;
+				break;
+			default:
+				throw new ArgumentException($"Op{operand} isn't an immediate operand", nameof(operand));
+			}
+		}
+
+		/// <summary>
 		/// Gets the operand's immediate value. Use this property if the operand has kind <see cref="OpKind.Immediate8"/>
 		/// </summary>
 		public byte Immediate8 {
