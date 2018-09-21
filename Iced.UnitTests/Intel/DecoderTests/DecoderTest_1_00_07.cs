@@ -189,7 +189,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test16_Add_rm16_r16_2() {
-			var decoder = CreateDecoder16("01 18");
+			// Add an extra space here to prevent duplicate test case warning. The modrm tests have the same test case,
+			// and all of these tests are used by the encoder.
+			var decoder = CreateDecoder16("01 18 ");
 			var instr = decoder.Decode();
 
 			Assert.Equal(Code.Add_rm16_r16, instr.Code);
