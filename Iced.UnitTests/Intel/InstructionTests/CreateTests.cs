@@ -63,6 +63,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "90", new Func<Instruction>(() => Instruction.Create(Code.Nopd)) };
 				yield return new object[] { 64, "48B9FFFFFFFFFFFFFFFF", new Func<Instruction>(() => Instruction.Create(Code.Mov_r64_imm64, Register.RCX, -1)) };
 				yield return new object[] { 64, "48B9123456789ABCDE31", new Func<Instruction>(() => Instruction.Create(Code.Mov_r64_imm64, Register.RCX, 0x31DEBC9A78563412)) };
+				yield return new object[] { 64, "48B9FFFFFFFF00000000", new Func<Instruction>(() => Instruction.Create(Code.Mov_r64_imm64, Register.RCX, 0xFFFFFFFFU)) };
 				yield return new object[] { 64, "8FC1", new Func<Instruction>(() => Instruction.Create(Code.Pop_rm64, Register.RCX)) };
 				yield return new object[] { 64, "648F847501EFCDAB", new Func<Instruction>(() => Instruction.Create(Code.Pop_rm64, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS))) };
 				yield return new object[] { 64, "C6F85A", new Func<Instruction>(() => Instruction.Create(Code.Xabort_imm8, 0x5A)) };

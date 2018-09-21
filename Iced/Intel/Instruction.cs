@@ -1810,8 +1810,24 @@ namespace Iced.Intel {
 		/// <param name="register">Register</param>
 		/// <param name="immediate">Immediate</param>
 		/// <returns></returns>
-		public static Instruction Create(Code code, Register register, uint immediate) =>
-			Create(code, register, (int)immediate);
+		public static Instruction Create(Code code, Register register, uint immediate) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			var opKind = GetImmediateOpKind(code, 1);
+			instruction.InternalOp1Kind = opKind;
+			if (opKind == OpKind.Immediate64)
+				instruction.Immediate64 = immediate;
+			else
+				instruction.Immediate32 = immediate;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
 
 		/// <summary>
 		/// Creates an instruction with a 64-bit immediate value
