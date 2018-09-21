@@ -5,31 +5,51 @@
     <TargetFramework>netstandard2.0</TargetFramework>
 
     <Description>x86/x64 instruction decoder, encoder, formatter</Description>
+    <Title>$(Description)</Title>
     <Copyright>Copyright (C) 2018 de4dot@gmail.com</Copyright>
     <AssemblyTitle>Iced</AssemblyTitle>
     <AssemblyName>Iced</AssemblyName>
     <PackageId>Iced</PackageId>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Version>0.9.0</Version>
+    <InformationalVersion>$(Version)</InformationalVersion>
     <Authors>0xd4d</Authors>
-    <PackageTags>x86;x64;disassembler;encoder;decoder</PackageTags>
-    <!-- <PackageReleaseNotes>https://github.com/0xd4d/iced/blob/master/changelog.md</PackageReleaseNotes> -->
     <!-- <PackageIconUrl>https://raw.githubusercontent.com/0xd4d/iced/master/img/iced.png</PackageIconUrl> -->
     <PackageProjectUrl>https://github.com/0xd4d/iced/</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/0xd4d/iced//blob/master/COPYING.txt</PackageLicenseUrl>
-    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.1' ">1.6.0</NetStandardImplicitPackageVersion>
+    <PackageVersion>$(InformationalVersion)</PackageVersion>
+    <PackageTags>x86;x64;encoder;decoder;formatter;disassembler</PackageTags>
     <Features>strict</Features>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!--Add support for sourcelink-->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
-    <AssemblyOriginatorKeyFile>../Iced.snk</AssemblyOriginatorKeyFile>
+    <!-- From the README -->
+    <PackageDescription>
+High performance x86 (16/32/64-bit) instruction decoder, encoder and formatter.
+It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
+
+- Supports all Intel and AMD instructions
+- The decoder doesn't allocate any memory and is 2x-5x+ faster than other similar libraries written in C or C#
+- Small decoded instructions, only 32 bytes
+- The formatter supports masm, nasm, gas (AT&amp;T) and Intel (xed) and there are many options to customize the output
+- The encoder can be used to re-encode decoded instructions at any address
+- The block encoder encodes a list of instructions and optimizes branches to short, near or 'long' (64-bit: 1 or more instructions)
+- API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
+- All instructions are tested (decode, encode, format, instruction info)
+
+License: LGPL v3 or any later version (LGPL = GNU Lesser General Public License)
+</PackageDescription>
+    <PackageReleaseNotes></PackageReleaseNotes>
+
+    <AssemblyOriginatorKeyFile>..\Iced.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>True</SignAssembly>
 
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
