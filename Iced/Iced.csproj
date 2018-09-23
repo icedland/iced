@@ -14,7 +14,7 @@
     <Version>0.9.0</Version>
     <InformationalVersion>$(Version)</InformationalVersion>
     <Authors>0xd4d</Authors>
-    <PackageIconUrl>https://raw.githubusercontent.com/0xd4d/iced/master/logo.png</PackageIconUrl>    
+    <PackageIconUrl>https://raw.githubusercontent.com/0xd4d/iced/master/logo.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/0xd4d/iced/</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/0xd4d/iced//blob/master/COPYING.txt</PackageLicenseUrl>
     <PackageVersion>$(InformationalVersion)</PackageVersion>

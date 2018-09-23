@@ -219,19 +219,19 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case Code.Jg_rel8_64:
 				return code;
 
-			case Code.Jo_rel16:	return Code.Jo_rel8_16;
+			case Code.Jo_rel16:		return Code.Jo_rel8_16;
 			case Code.Jo_rel32_32:	return Code.Jo_rel8_32;
 			case Code.Jo_rel32_64:	return Code.Jo_rel8_64;
 			case Code.Jno_rel16:	return Code.Jno_rel8_16;
 			case Code.Jno_rel32_32:	return Code.Jno_rel8_32;
 			case Code.Jno_rel32_64:	return Code.Jno_rel8_64;
-			case Code.Jb_rel16:	return Code.Jb_rel8_16;
+			case Code.Jb_rel16:		return Code.Jb_rel8_16;
 			case Code.Jb_rel32_32:	return Code.Jb_rel8_32;
 			case Code.Jb_rel32_64:	return Code.Jb_rel8_64;
 			case Code.Jae_rel16:	return Code.Jae_rel8_16;
 			case Code.Jae_rel32_32:	return Code.Jae_rel8_32;
 			case Code.Jae_rel32_64:	return Code.Jae_rel8_64;
-			case Code.Je_rel16:	return Code.Je_rel8_16;
+			case Code.Je_rel16:		return Code.Je_rel8_16;
 			case Code.Je_rel32_32:	return Code.Je_rel8_32;
 			case Code.Je_rel32_64:	return Code.Je_rel8_64;
 			case Code.Jne_rel16:	return Code.Jne_rel8_16;
@@ -240,23 +240,23 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case Code.Jbe_rel16:	return Code.Jbe_rel8_16;
 			case Code.Jbe_rel32_32:	return Code.Jbe_rel8_32;
 			case Code.Jbe_rel32_64:	return Code.Jbe_rel8_64;
-			case Code.Ja_rel16:	return Code.Ja_rel8_16;
+			case Code.Ja_rel16:		return Code.Ja_rel8_16;
 			case Code.Ja_rel32_32:	return Code.Ja_rel8_32;
 			case Code.Ja_rel32_64:	return Code.Ja_rel8_64;
 
-			case Code.Js_rel16:	return Code.Js_rel8_16;
+			case Code.Js_rel16:		return Code.Js_rel8_16;
 			case Code.Js_rel32_32:	return Code.Js_rel8_32;
 			case Code.Js_rel32_64:	return Code.Js_rel8_64;
 			case Code.Jns_rel16:	return Code.Jns_rel8_16;
 			case Code.Jns_rel32_32:	return Code.Jns_rel8_32;
 			case Code.Jns_rel32_64:	return Code.Jns_rel8_64;
-			case Code.Jp_rel16:	return Code.Jp_rel8_16;
+			case Code.Jp_rel16:		return Code.Jp_rel8_16;
 			case Code.Jp_rel32_32:	return Code.Jp_rel8_32;
 			case Code.Jp_rel32_64:	return Code.Jp_rel8_64;
 			case Code.Jnp_rel16:	return Code.Jnp_rel8_16;
 			case Code.Jnp_rel32_32:	return Code.Jnp_rel8_32;
 			case Code.Jnp_rel32_64:	return Code.Jnp_rel8_64;
-			case Code.Jl_rel16:	return Code.Jl_rel8_16;
+			case Code.Jl_rel16:		return Code.Jl_rel8_16;
 			case Code.Jl_rel32_32:	return Code.Jl_rel8_32;
 			case Code.Jl_rel32_64:	return Code.Jl_rel8_64;
 			case Code.Jge_rel16:	return Code.Jge_rel8_16;
@@ -265,7 +265,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case Code.Jle_rel16:	return Code.Jle_rel8_16;
 			case Code.Jle_rel32_32:	return Code.Jle_rel8_32;
 			case Code.Jle_rel32_64:	return Code.Jle_rel8_64;
-			case Code.Jg_rel16:	return Code.Jg_rel8_16;
+			case Code.Jg_rel16:		return Code.Jg_rel8_16;
 			case Code.Jg_rel32_32:	return Code.Jg_rel8_32;
 			case Code.Jg_rel32_64:	return Code.Jg_rel8_64;
 
@@ -452,19 +452,19 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case Code.Jg_rel8_32:	return Code.Jle_rel8_32;
 			case Code.Jg_rel8_64:	return Code.Jle_rel8_64;
 
-			case Code.Jo_rel16:	return Code.Jno_rel16;
+			case Code.Jo_rel16:		return Code.Jno_rel16;
 			case Code.Jo_rel32_32:	return Code.Jno_rel32_32;
 			case Code.Jo_rel32_64:	return Code.Jno_rel32_64;
 			case Code.Jno_rel16:	return Code.Jo_rel16;
 			case Code.Jno_rel32_32:	return Code.Jo_rel32_32;
 			case Code.Jno_rel32_64:	return Code.Jo_rel32_64;
-			case Code.Jb_rel16:	return Code.Jae_rel16;
+			case Code.Jb_rel16:		return Code.Jae_rel16;
 			case Code.Jb_rel32_32:	return Code.Jae_rel32_32;
 			case Code.Jb_rel32_64:	return Code.Jae_rel32_64;
 			case Code.Jae_rel16:	return Code.Jb_rel16;
 			case Code.Jae_rel32_32:	return Code.Jb_rel32_32;
 			case Code.Jae_rel32_64:	return Code.Jb_rel32_64;
-			case Code.Je_rel16:	return Code.Jne_rel16;
+			case Code.Je_rel16:		return Code.Jne_rel16;
 			case Code.Je_rel32_32:	return Code.Jne_rel32_32;
 			case Code.Je_rel32_64:	return Code.Jne_rel32_64;
 			case Code.Jne_rel16:	return Code.Je_rel16;
@@ -473,23 +473,23 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case Code.Jbe_rel16:	return Code.Ja_rel16;
 			case Code.Jbe_rel32_32:	return Code.Ja_rel32_32;
 			case Code.Jbe_rel32_64:	return Code.Ja_rel32_64;
-			case Code.Ja_rel16:	return Code.Jbe_rel16;
+			case Code.Ja_rel16:		return Code.Jbe_rel16;
 			case Code.Ja_rel32_32:	return Code.Jbe_rel32_32;
 			case Code.Ja_rel32_64:	return Code.Jbe_rel32_64;
 
-			case Code.Js_rel16:	return Code.Jns_rel16;
+			case Code.Js_rel16:		return Code.Jns_rel16;
 			case Code.Js_rel32_32:	return Code.Jns_rel32_32;
 			case Code.Js_rel32_64:	return Code.Jns_rel32_64;
 			case Code.Jns_rel16:	return Code.Js_rel16;
 			case Code.Jns_rel32_32:	return Code.Js_rel32_32;
 			case Code.Jns_rel32_64:	return Code.Js_rel32_64;
-			case Code.Jp_rel16:	return Code.Jnp_rel16;
+			case Code.Jp_rel16:		return Code.Jnp_rel16;
 			case Code.Jp_rel32_32:	return Code.Jnp_rel32_32;
 			case Code.Jp_rel32_64:	return Code.Jnp_rel32_64;
 			case Code.Jnp_rel16:	return Code.Jp_rel16;
 			case Code.Jnp_rel32_32:	return Code.Jp_rel32_32;
 			case Code.Jnp_rel32_64:	return Code.Jp_rel32_64;
-			case Code.Jl_rel16:	return Code.Jge_rel16;
+			case Code.Jl_rel16:		return Code.Jge_rel16;
 			case Code.Jl_rel32_32:	return Code.Jge_rel32_32;
 			case Code.Jl_rel32_64:	return Code.Jge_rel32_64;
 			case Code.Jge_rel16:	return Code.Jl_rel16;
@@ -498,7 +498,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case Code.Jle_rel16:	return Code.Jg_rel16;
 			case Code.Jle_rel32_32:	return Code.Jg_rel32_32;
 			case Code.Jle_rel32_64:	return Code.Jg_rel32_64;
-			case Code.Jg_rel16:	return Code.Jle_rel16;
+			case Code.Jg_rel16:		return Code.Jle_rel16;
 			case Code.Jg_rel32_32:	return Code.Jle_rel32_32;
 			case Code.Jg_rel32_64:	return Code.Jle_rel32_64;
 
