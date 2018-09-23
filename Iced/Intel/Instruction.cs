@@ -140,29 +140,29 @@ namespace Iced.Intel {
 		internal static string TEST_DumpDiff(ref Instruction a, ref Instruction b) {
 			var builder = new StringBuilder();
 			if (a.nextRip != b.nextRip)
-				builder.AppendLine("a.nextRip=" + a.nextRip + " b.nextRip=" + b.nextRip);
+				builder.AppendLine($"a.nextRip={a.nextRip:X16} b.nextRip={b.nextRip:X16}");
 			if (a.codeFlags != b.codeFlags)
-				builder.AppendLine("a.codeFlags=" + a.codeFlags + " b.codeFlags=" + b.codeFlags);
+				builder.AppendLine($"a.codeFlags={a.codeFlags:X} b.codeFlags={b.codeFlags:X}");
 			if (a.opKindFlags != b.opKindFlags)
-				builder.AppendLine("a.opKindFlags=" + a.opKindFlags + " b.opKindFlags=" + b.opKindFlags);
+				builder.AppendLine($"a.opKindFlags={a.opKindFlags:X} b.opKindFlags={b.opKindFlags:X}");
 			if (a.immediate != b.immediate)
-				builder.AppendLine("a.immediate=" + a.immediate + " b.immediate=" + b.immediate);
+				builder.AppendLine($"a.immediate={a.immediate:X} b.immediate={b.immediate:X}");
 			if (a.memDispl != b.memDispl)
-				builder.AppendLine("a.memDispl=" + a.memDispl + " b.memDispl=" + b.memDispl);
+				builder.AppendLine($"a.memDispl={a.memDispl:X} b.memDispl={b.memDispl:X}");
 			if (a.memoryFlags != b.memoryFlags)
-				builder.AppendLine("a.memoryFlags=" + a.memoryFlags + " b.memoryFlags=" + b.memoryFlags);
+				builder.AppendLine($"a.memoryFlags={a.memoryFlags:X} b.memoryFlags={b.memoryFlags:X}");
 			if (a.MemoryBase != b.MemoryBase)
-				builder.AppendLine("a.MemoryBase=" + a.MemoryBase + " b.MemoryBase=" + b.MemoryBase);
+				builder.AppendLine($"a.MemoryBase={a.MemoryBase} b.MemoryBase={b.MemoryBase}");
 			if (a.MemoryIndex != b.MemoryIndex)
-				builder.AppendLine("a.MemoryIndex=" + a.MemoryIndex + " b.MemoryIndex=" + b.MemoryIndex);
+				builder.AppendLine($"a.MemoryIndex={a.MemoryIndex} b.MemoryIndex={b.MemoryIndex}");
 			if (a.Op0Register != b.Op0Register)
-				builder.AppendLine("a.Op0Register=" + a.Op0Register + " b.Op0Register=" + b.Op0Register);
+				builder.AppendLine($"a.Op0Register={a.Op0Register} b.Op0Register={b.Op0Register}");
 			if (a.Op1Register != b.Op1Register)
-				builder.AppendLine("a.Op1Register=" + a.Op1Register + " b.Op1Register=" + b.Op1Register);
+				builder.AppendLine($"a.Op1Register={a.Op1Register} b.Op1Register={b.Op1Register}");
 			if (a.Op2Register != b.Op2Register)
-				builder.AppendLine("a.Op2Register=" + a.Op2Register + " b.Op2Register=" + b.Op2Register);
+				builder.AppendLine($"a.Op2Register={a.Op2Register} b.Op2Register={b.Op2Register}");
 			if (a.Op3Register != b.Op3Register)
-				builder.AppendLine("a.Op3Register=" + a.Op3Register + " b.Op3Register=" + b.Op3Register);
+				builder.AppendLine($"a.Op3Register={a.Op3Register} b.Op3Register={b.Op3Register}");
 			return builder.ToString();
 		}
 
