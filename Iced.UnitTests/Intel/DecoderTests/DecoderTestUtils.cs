@@ -39,11 +39,45 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 	}
 
 	public static class DecoderTestUtils {
+		static readonly HashSet<Code> notDecoded = new HashSet<Code>(GetNotDecoded());
 		static readonly HashSet<Code> code32Only = new HashSet<Code>(GetCode32());
 		static readonly HashSet<Code> code64Only = new HashSet<Code>(GetCode64());
 
+		public static HashSet<Code> NotDecoded => notDecoded;
 		public static HashSet<Code> Code32Only => code32Only;
 		public static HashSet<Code> Code64Only => code64Only;
+
+		static IEnumerable<Code> GetNotDecoded() {
+			yield return Code.Popw_CS;
+			yield return Code.Fstenv_m14byte;
+			yield return Code.Fstenv_m28byte;
+			yield return Code.Fstcw_m16;
+			yield return Code.Feni;
+			yield return Code.Fdisi;
+			yield return Code.Fclex;
+			yield return Code.Finit;
+			yield return Code.Fsetpm;
+			yield return Code.Fsave_m94byte;
+			yield return Code.Fsave_m108byte;
+			yield return Code.Fstsw_m16;
+			yield return Code.Cflsh;
+			yield return Code.Umov_rm8_r8;
+			yield return Code.Umov_rm16_r16;
+			yield return Code.Umov_rm32_r32;
+			yield return Code.Umov_r8_rm8;
+			yield return Code.Umov_r16_rm16;
+			yield return Code.Umov_r32_rm32;
+			yield return Code.Wrecr;
+			yield return Code.Rdecr;
+			yield return Code.Xbts_r16_rm16;
+			yield return Code.Xbts_r32_rm32;
+			yield return Code.Ibts_rm16_r16;
+			yield return Code.Ibts_rm32_r32;
+			yield return Code.Cmpxchg486_rm8_r8;
+			yield return Code.Cmpxchg486_rm16_r16;
+			yield return Code.Cmpxchg486_rm32_r32;
+			yield return Code.Zalloc_m256;
+		}
 
 		static IEnumerable<Code> GetCode32() {
 			yield return Code.Pushw_ES;
@@ -226,6 +260,44 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Vmsavew;
 			yield return Code.Invlpgaw;
 			yield return Code.Monitorxw;
+			yield return Code.Popw_CS;
+			yield return Code.Add_rm8_imm8_82;
+			yield return Code.Or_rm8_imm8_82;
+			yield return Code.Adc_rm8_imm8_82;
+			yield return Code.Sbb_rm8_imm8_82;
+			yield return Code.And_rm8_imm8_82;
+			yield return Code.Sub_rm8_imm8_82;
+			yield return Code.Xor_rm8_imm8_82;
+			yield return Code.Cmp_rm8_imm8_82;
+			yield return Code.Frstpm;
+			yield return Code.Fstdw_AX;
+			yield return Code.Fstsg_AX;
+			yield return Code.Jmpe_rm16;
+			yield return Code.Jmpe_rm32;
+			yield return Code.Loadall286;
+			yield return Code.Loadall386;
+			yield return Code.Cflsh;
+			yield return Code.Umov_rm8_r8;
+			yield return Code.Umov_rm16_r16;
+			yield return Code.Umov_rm32_r32;
+			yield return Code.Umov_r8_rm8;
+			yield return Code.Umov_r16_rm16;
+			yield return Code.Umov_r32_rm32;
+			yield return Code.Mov_r32_tr;
+			yield return Code.Mov_tr_r32;
+			yield return Code.Wrecr;
+			yield return Code.Rdecr;
+			yield return Code.Xbts_r16_rm16;
+			yield return Code.Xbts_r32_rm32;
+			yield return Code.Ibts_rm16_r16;
+			yield return Code.Ibts_rm32_r32;
+			yield return Code.Cmpxchg486_rm8_r8;
+			yield return Code.Cmpxchg486_rm16_r16;
+			yield return Code.Cmpxchg486_rm32_r32;
+			yield return Code.Zalloc_m256;
+			yield return Code.Jmpe_disp16;
+			yield return Code.Jmpe_disp32;
+			yield return Code.Umonitor_r16;
 		}
 
 		static IEnumerable<Code> GetCode64() {
@@ -612,6 +684,24 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.XOP_Bextr_r64_rm64_imm32;
 			yield return Code.XOP_Lwpins_r64_rm32_imm32;
 			yield return Code.XOP_Lwpval_r64_rm32_imm32;
+			yield return Code.ReservedNop_rm64_r64_0F0D;
+			yield return Code.ReservedNop_rm64_r64_0F18;
+			yield return Code.ReservedNop_rm64_r64_0F19;
+			yield return Code.ReservedNop_rm64_r64_0F1A;
+			yield return Code.ReservedNop_rm64_r64_0F1B;
+			yield return Code.ReservedNop_rm64_r64_0F1C;
+			yield return Code.ReservedNop_rm64_r64_0F1D;
+			yield return Code.ReservedNop_rm64_r64_0F1E;
+			yield return Code.ReservedNop_rm64_r64_0F1F;
+			yield return Code.Rdsspq_r64;
+			yield return Code.Incsspq_r64;
+			yield return Code.Tpause_r64;
+			yield return Code.Umonitor_r64;
+			yield return Code.Umwait_r64;
+			yield return Code.Wrussq_m64_r64;
+			yield return Code.Wrssq_m64_r64;
+			yield return Code.Movdir64b_r64_m512;
+			yield return Code.Movdiri_m64_r64;
 		}
 
 		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool needHexBytes, bool includeOtherTests) {
