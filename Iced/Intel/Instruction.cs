@@ -247,7 +247,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the operand count. Up to 5 operands is allowed.
 		/// </summary>
-		public int OpCount => InstructionUtils.InstructionOpCount[(int)(codeFlags & (uint)CodeFlags.CodeMask)];
+		public int OpCount => InstructionOpCounts.OpCount[(int)(codeFlags & (uint)CodeFlags.CodeMask)];
 
 		/// <summary>
 		/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
