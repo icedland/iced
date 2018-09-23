@@ -656,8 +656,8 @@ namespace Iced.Intel {
 		Fdivr_m64fp,										// DC /7
 		Fadd_sti_st0,										// DC C0+i
 		Fmul_sti_st0,										// DC C8+i
-		Fcom2_st0_sti,										// DC D0+i
-		Fcomp2_st0_sti,										// DC D8+i
+		Fcom_st0_sti_DCD0,									// DC D0+i
+		Fcomp_st0_sti_DCD8,									// DC D8+i
 		Fsubr_sti_st0,										// DC E0+i
 		Fsub_sti_st0,										// DC E8+i
 		Fdivr_sti_st0,										// DC F0+i
@@ -676,7 +676,7 @@ namespace Iced.Intel {
 		Fnstsw_m16,											// DD /7
 		Fstsw_m16,											// 9B DD /7
 		Ffree_sti,											// DD C0+i
-		Fxch2_st0_sti,										// DD C8+i
+		Fxch_st0_sti_DDC8,									// DD C8+i
 		Fst_sti,											// DD D0+i
 		Fstp_sti,											// DD D8+i
 		Fucom_st0_sti,										// DD E0+i
@@ -692,7 +692,7 @@ namespace Iced.Intel {
 		Fidivr_m16int,										// DE /7
 		Faddp_sti_st0,										// DE C0+i
 		Fmulp_sti_st0,										// DE C8+i
-		Fcomp3_st0_sti,										// DE D0+i
+		Fcomp_st0_sti_DED0,									// DE D0+i
 		Fcompp,												// DE D9
 		Fsubrp_sti_st0,										// DE E0+i
 		Fsubp_sti_st0,										// DE E8+i
@@ -708,9 +708,9 @@ namespace Iced.Intel {
 		Fbstp_m80bcd,										// DF /6
 		Fistp_m64int,										// DF /7
 		Ffreep_sti,											// DF C0+i
-		Fxch3_st0_sti,										// DF C8+i
-		Fstp2_sti,											// DF D0+i
-		Fstp3_sti,											// DF D8+i
+		Fxch_st0_sti_DFC8,									// DF C8+i
+		Fstp_sti_DFD0,										// DF D0+i
+		Fstp_sti_DFD8,										// DF D8+i
 		Fnstsw_AX,											// DF E0
 		Fstsw_AX,											// 9B DF E0
 		Fstdw_AX,											// DF E1
@@ -771,7 +771,7 @@ namespace Iced.Intel {
 		Hlt,												// F4
 		Cmc,												// F5
 		Test_rm8_imm8,										// F6 /0
-		Test2_rm8_imm8,										// F6 /1
+		Test_rm8_imm8_F6r1,									// F6 /1
 		Not_rm8,											// F6 /2
 		Neg_rm8,											// F6 /3
 		Mul_rm8,											// F6 /4
@@ -781,9 +781,9 @@ namespace Iced.Intel {
 		Test_rm16_imm16,									// o16 F7 /0
 		Test_rm32_imm32,									// o32 F7 /0
 		Test_rm64_imm32,									// REX.W F7 /0
-		Test2_rm16_imm16,									// o16 F7 /1
-		Test2_rm32_imm32,									// o32 F7 /1
-		Test2_rm64_imm32,									// REX.W F7 /1
+		Test_rm16_imm16_F7r1,								// o16 F7 /1
+		Test_rm32_imm32_F7r1,								// o32 F7 /1
+		Test_rm64_imm32_F7r1,								// REX.W F7 /1
 		Not_rm16,											// o16 F7 /2
 		Not_rm32,											// o32 F7 /2
 		Not_rm64,											// REX.W F7 /2

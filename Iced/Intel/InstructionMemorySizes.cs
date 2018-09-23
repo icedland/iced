@@ -1214,10 +1214,10 @@ namespace Iced.Intel {
 			0,// Fadd_sti_st0
 			0,// Fmul_sti_st0
 			0,// Fmul_sti_st0
-			0,// Fcom2_st0_sti
-			0,// Fcom2_st0_sti
-			0,// Fcomp2_st0_sti
-			0,// Fcomp2_st0_sti
+			0,// Fcom_st0_sti_DCD0
+			0,// Fcom_st0_sti_DCD0
+			0,// Fcomp_st0_sti_DCD8
+			0,// Fcomp_st0_sti_DCD8
 			0,// Fsubr_sti_st0
 			0,// Fsubr_sti_st0
 			0,// Fsub_sti_st0
@@ -1252,8 +1252,8 @@ namespace Iced.Intel {
 			0,// Fstsw_m16
 			0,// Ffree_sti
 			0,// Ffree_sti
-			0,// Fxch2_st0_sti
-			0,// Fxch2_st0_sti
+			0,// Fxch_st0_sti_DDC8
+			0,// Fxch_st0_sti_DDC8
 			0,// Fst_sti
 			0,// Fst_sti
 			0,// Fstp_sti
@@ -1282,8 +1282,8 @@ namespace Iced.Intel {
 			0,// Faddp_sti_st0
 			0,// Fmulp_sti_st0
 			0,// Fmulp_sti_st0
-			0,// Fcomp2_st0_sti
-			0,// Fcomp2_st0_sti
+			0,// Fcomp_st0_sti_DCD8
+			0,// Fcomp_st0_sti_DCD8
 			0,// Fcompp
 			0,// Fcompp
 			0,// Fsubrp_sti_st0
@@ -1312,12 +1312,12 @@ namespace Iced.Intel {
 			0,// Fistp_m64int
 			0,// Ffreep_sti
 			0,// Ffreep_sti
-			0,// Fxch3_st0_sti
-			0,// Fxch3_st0_sti
-			0,// Fstp2_sti
-			0,// Fstp2_sti
-			0,// Fstp3_sti
-			0,// Fstp3_sti
+			0,// Fxch_st0_sti_DFC8
+			0,// Fxch_st0_sti_DFC8
+			0,// Fstp_sti_DFD0
+			0,// Fstp_sti_DFD0
+			0,// Fstp_sti_DFD8
+			0,// Fstp_sti_DFD8
 			0,// Fnstsw_AX
 			0,// Fnstsw_AX
 			0,// Fstsw_AX
@@ -1432,8 +1432,8 @@ namespace Iced.Intel {
 			0,// Cmc
 			(byte)MemorySize.UInt8,// Test_rm8_imm8
 			0,// Test_rm8_imm8
-			(byte)MemorySize.UInt8,// Test2_rm8_imm8
-			0,// Test2_rm8_imm8
+			(byte)MemorySize.UInt8,// Test_rm8_imm8_F6r1
+			0,// Test_rm8_imm8_F6r1
 			(byte)MemorySize.UInt8,// Not_rm8
 			0,// Not_rm8
 			(byte)MemorySize.Int8,// Neg_rm8
@@ -1452,12 +1452,12 @@ namespace Iced.Intel {
 			0,// Test_rm32_imm32
 			(byte)MemorySize.UInt64,// Test_rm64_imm32
 			0,// Test_rm64_imm32
-			(byte)MemorySize.UInt16,// Test2_rm16_imm16
-			0,// Test2_rm16_imm16
-			(byte)MemorySize.UInt32,// Test2_rm32_imm32
-			0,// Test2_rm32_imm32
-			(byte)MemorySize.UInt64,// Test2_rm64_imm32
-			0,// Test2_rm64_imm32
+			(byte)MemorySize.UInt16,// Test_rm16_imm16_F7r1
+			0,// Test_rm16_imm16_F7r1
+			(byte)MemorySize.UInt32,// Test_rm32_imm32_F7r1
+			0,// Test_rm32_imm32_F7r1
+			(byte)MemorySize.UInt64,// Test_rm64_imm32_F7r1
+			0,// Test_rm64_imm32_F7r1
 			(byte)MemorySize.UInt16,// Not_rm16
 			0,// Not_rm16
 			(byte)MemorySize.UInt32,// Not_rm32

@@ -616,8 +616,8 @@ namespace Iced.Intel {
 			1,// Fdivr_m64fp
 			2,// Fadd_sti_st0
 			2,// Fmul_sti_st0
-			2,// Fcom2_st0_sti
-			2,// Fcomp2_st0_sti
+			2,// Fcom_st0_sti_DCD0
+			2,// Fcomp_st0_sti_DCD8
 			2,// Fsubr_sti_st0
 			2,// Fsub_sti_st0
 			2,// Fdivr_sti_st0
@@ -635,7 +635,7 @@ namespace Iced.Intel {
 			1,// Fnstsw_m16
 			1,// Fstsw_m16
 			1,// Ffree_sti
-			2,// Fxch2_st0_sti
+			2,// Fxch_st0_sti_DDC8
 			1,// Fst_sti
 			1,// Fstp_sti
 			2,// Fucom_st0_sti
@@ -650,7 +650,7 @@ namespace Iced.Intel {
 			1,// Fidivr_m16int
 			2,// Faddp_sti_st0
 			2,// Fmulp_sti_st0
-			2,// Fcomp2_st0_sti
+			2,// Fcomp_st0_sti_DCD8
 			0,// Fcompp
 			2,// Fsubrp_sti_st0
 			2,// Fsubp_sti_st0
@@ -665,9 +665,9 @@ namespace Iced.Intel {
 			1,// Fbstp_m80bcd
 			1,// Fistp_m64int
 			1,// Ffreep_sti
-			2,// Fxch3_st0_sti
-			1,// Fstp2_sti
-			1,// Fstp3_sti
+			2,// Fxch_st0_sti_DFC8
+			1,// Fstp_sti_DFD0
+			1,// Fstp_sti_DFD8
 			1,// Fnstsw_AX
 			1,// Fstsw_AX
 			1,// Fstdw_AX
@@ -725,7 +725,7 @@ namespace Iced.Intel {
 			0,// Hlt
 			0,// Cmc
 			2,// Test_rm8_imm8
-			2,// Test2_rm8_imm8
+			2,// Test_rm8_imm8_F6r1
 			1,// Not_rm8
 			1,// Neg_rm8
 			1,// Mul_rm8
@@ -735,9 +735,9 @@ namespace Iced.Intel {
 			2,// Test_rm16_imm16
 			2,// Test_rm32_imm32
 			2,// Test_rm64_imm32
-			2,// Test2_rm16_imm16
-			2,// Test2_rm32_imm32
-			2,// Test2_rm64_imm32
+			2,// Test_rm16_imm16_F7r1
+			2,// Test_rm32_imm32_F7r1
+			2,// Test_rm64_imm32_F7r1
 			1,// Not_rm16
 			1,// Not_rm32
 			1,// Not_rm64
