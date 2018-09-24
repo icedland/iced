@@ -71,6 +71,7 @@ namespace Iced.Intel.EncoderInternal {
 		Cq,
 		Dd,
 		Dq,
+		Td,
 		Ib,
 		Ib16,
 		Ib32,
@@ -99,6 +100,8 @@ namespace Iced.Intel.EncoderInternal {
 		Jxw,
 		Jxd,
 		Jxq,
+		Jdisp16,
+		Jdisp32,
 		Ob,
 		Ow,
 		Od,
@@ -252,6 +255,7 @@ namespace Iced.Intel.EncoderInternal {
 			new OpModRM_reg(Register.CR0, Register.CR15),
 			new OpModRM_reg(Register.DR0, Register.DR15),
 			new OpModRM_reg(Register.DR0, Register.DR15),
+			new OpModRM_reg(Register.TR0, Register.TR7),
 			new OpIb(OpKind.Immediate8),
 			new OpIb(OpKind.Immediate8to16),
 			new OpIb(OpKind.Immediate8to32),
@@ -280,6 +284,8 @@ namespace Iced.Intel.EncoderInternal {
 			new OpJx(2),
 			new OpJx(4),
 			new OpJx(8),
+			new OpJdisp(2),
+			new OpJdisp(4),
 			new OpO(),
 			new OpO(),
 			new OpO(),
@@ -921,7 +927,7 @@ namespace Iced.Intel.EncoderInternal {
 		public override OpKind GetNearBranchOpKind() => opKind;
 	}
 
-	sealed class OpJx: Op {
+	sealed class OpJx : Op {
 		readonly int immSize;
 
 		public OpJx(int immSize) => this.immSize = immSize;
@@ -933,6 +939,17 @@ namespace Iced.Intel.EncoderInternal {
 			// xbegin is special and doesn't mask the target IP. We need to know the code size to return the correct value
 			return base.GetNearBranchOpKind();
 		}
+	}
+
+	sealed class OpJdisp : Op {
+		readonly int displSize;
+
+		public OpJdisp(int displSize) => this.displSize = displSize;
+
+		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
+			encoder.AddBranchDisp(displSize, ref instr, operand);
+
+		public override OpKind GetNearBranchOpKind() => displSize == 2 ? OpKind.NearBranch16 : OpKind.NearBranch32;
 	}
 
 	sealed class OpA : Op {
