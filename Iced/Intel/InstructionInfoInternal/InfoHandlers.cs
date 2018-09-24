@@ -133,10 +133,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CodeInfo_Lds = (uint)CodeInfo.Lds << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Leave = (uint)CodeInfo.Leave << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Llwpcb = (uint)CodeInfo.Llwpcb << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Loadall386 = (uint)CodeInfo.Loadall386 << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Lods = (uint)CodeInfo.Lods << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Loop = (uint)CodeInfo.Loop << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Maskmovq = (uint)CodeInfo.Maskmovq << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Monitor = (uint)CodeInfo.Monitor << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Movdir64b = (uint)CodeInfo.Movdir64b << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Movs = (uint)CodeInfo.Movs << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Mul = (uint)CodeInfo.Mul << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Mulx = (uint)CodeInfo.Mulx << (int)InfoFlags1.CodeInfoShift;
@@ -144,6 +146,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CodeInfo_Mwaitx = (uint)CodeInfo.Mwaitx << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Outs = (uint)CodeInfo.Outs << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_PcmpXstrY = (uint)CodeInfo.PcmpXstrY << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Pconfig = (uint)CodeInfo.Pconfig << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Pop_2 = (uint)CodeInfo.Pop_2 << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Pop_2_2 = (uint)CodeInfo.Pop_2_2 << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Pop_4 = (uint)CodeInfo.Pop_4 << (int)InfoFlags1.CodeInfoShift;
@@ -183,12 +186,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CodeInfo_Shift_Ib_MASK3F = (uint)CodeInfo.Shift_Ib_MASK3F << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Stos = (uint)CodeInfo.Stos << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Syscall = (uint)CodeInfo.Syscall << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Umonitor = (uint)CodeInfo.Umonitor << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Vmfunc = (uint)CodeInfo.Vmfunc << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Vmload = (uint)CodeInfo.Vmload << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Vzeroall = (uint)CodeInfo.Vzeroall << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_W_EAX_ECX_EDX = (uint)CodeInfo.W_EAX_ECX_EDX << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_W_EAX_EDX = (uint)CodeInfo.W_EAX_EDX << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_W_ST0 = (uint)CodeInfo.W_ST0 << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Xbts = (uint)CodeInfo.Xbts << (int)InfoFlags1.CodeInfoShift;
 
 		const uint Op0_None = (uint)OpInfo0.None << (int)InfoFlags2.OpInfo0Shift;
 		const uint Op0_Read = (uint)OpInfo0.Read << (int)InfoFlags2.OpInfo0Shift;
@@ -220,26 +225,49 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint Op4_Read = (uint)OpInfo4.Read << (int)InfoFlags2.OpInfo4Shift;
 
 		const uint CPUID_INTEL8086 = (uint)CpuidFeature.INTEL8086 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_INTEL8086_ONLY = (uint)CpuidFeature.INTEL8086_ONLY << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INTEL186 = (uint)CpuidFeature.INTEL186 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INTEL286 = (uint)CpuidFeature.INTEL286 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_INTEL286_ONLY = (uint)CpuidFeature.INTEL286_ONLY << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INTEL386 = (uint)CpuidFeature.INTEL386 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_INTEL386_ONLY = (uint)CpuidFeature.INTEL386_ONLY << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_INTEL386_A0_ONLY = (uint)CpuidFeature.INTEL386_A0_ONLY << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INTEL486 = (uint)CpuidFeature.INTEL486 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_INTEL486_A_ONLY = (uint)CpuidFeature.INTEL486_A_ONLY << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_INTEL386_486_ONLY = (uint)CpuidFeature.INTEL386_486_ONLY << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_IA64 = (uint)CpuidFeature.IA64 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_X64 = (uint)CpuidFeature.X64 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_ADX = (uint)CpuidFeature.ADX << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AES = (uint)CpuidFeature.AES << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AES_and_AVX = (uint)CpuidFeature.AES_and_AVX << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX = (uint)CpuidFeature.AVX << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX_and_GFNI = (uint)CpuidFeature.AVX_and_GFNI << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX2 = (uint)CpuidFeature.AVX2 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512_4FMAPS = (uint)CpuidFeature.AVX512_4FMAPS << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512_4VNNIW = (uint)CpuidFeature.AVX512_4VNNIW << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512_BITALG = (uint)CpuidFeature.AVX512_BITALG << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512_IFMA = (uint)CpuidFeature.AVX512_IFMA << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512_VBMI = (uint)CpuidFeature.AVX512_VBMI << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512_VBMI2 = (uint)CpuidFeature.AVX512_VBMI2 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512_VNNI = (uint)CpuidFeature.AVX512_VNNI << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512_VPOPCNTDQ = (uint)CpuidFeature.AVX512_VPOPCNTDQ << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512BW = (uint)CpuidFeature.AVX512BW << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512CD = (uint)CpuidFeature.AVX512CD << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512DQ = (uint)CpuidFeature.AVX512DQ << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512ER = (uint)CpuidFeature.AVX512ER << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512F = (uint)CpuidFeature.AVX512F << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512F_and_GFNI = (uint)CpuidFeature.AVX512F_and_GFNI << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512F_and_VAES = (uint)CpuidFeature.AVX512F_and_VAES << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512F_and_VPCLMULQDQ = (uint)CpuidFeature.AVX512F_and_VPCLMULQDQ << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512PF = (uint)CpuidFeature.AVX512PF << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512VL = (uint)CpuidFeature.AVX512VL << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512VL_and_AVX512_BITALG = (uint)CpuidFeature.AVX512VL_and_AVX512_BITALG << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512VL_and_AVX512_VBMI2 = (uint)CpuidFeature.AVX512VL_and_AVX512_VBMI2 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512VL_and_AVX512_VNNI = (uint)CpuidFeature.AVX512VL_and_AVX512_VNNI << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512VL_and_AVX512_VPOPCNTDQ = (uint)CpuidFeature.AVX512VL_and_AVX512_VPOPCNTDQ << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512VL_and_GFNI = (uint)CpuidFeature.AVX512VL_and_GFNI << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512VL_and_VAES = (uint)CpuidFeature.AVX512VL_and_VAES << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512VL_and_VPCLMULQDQ = (uint)CpuidFeature.AVX512VL_and_VPCLMULQDQ << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512VL_or_AVX512_IFMA = (uint)CpuidFeature.AVX512VL_or_AVX512_IFMA << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512VL_or_AVX512_VBMI = (uint)CpuidFeature.AVX512VL_or_AVX512_VBMI << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512VL_or_AVX512BW = (uint)CpuidFeature.AVX512VL_or_AVX512BW << (int)InfoFlags2.CpuidFeatureShift;
@@ -248,6 +276,11 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_AVX512VL_or_AVX512F = (uint)CpuidFeature.AVX512VL_or_AVX512F << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_BMI1 = (uint)CpuidFeature.BMI1 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_BMI2 = (uint)CpuidFeature.BMI2 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_CET_IBT = (uint)CpuidFeature.CET_IBT << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_CET_SS = (uint)CpuidFeature.CET_SS << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_CFLSH = (uint)CpuidFeature.CFLSH << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_CL1INVMB = (uint)CpuidFeature.CL1INVMB << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_CLDEMOTE = (uint)CpuidFeature.CLDEMOTE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CLFLUSHOPT = (uint)CpuidFeature.CLFLUSHOPT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CLFSH = (uint)CpuidFeature.CLFSH << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CLWB = (uint)CpuidFeature.CLWB << (int)InfoFlags2.CpuidFeatureShift;
@@ -258,6 +291,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_CX8 = (uint)CpuidFeature.CX8 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_D3NOW = (uint)CpuidFeature.D3NOW << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_D3NOWEXT = (uint)CpuidFeature.D3NOWEXT << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_ECR = (uint)CpuidFeature.ECR << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_ENCLV = (uint)CpuidFeature.ENCLV << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_F16C = (uint)CpuidFeature.F16C << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FCOMI = (uint)CpuidFeature.FCOMI << (int)InfoFlags2.CpuidFeatureShift;
@@ -267,10 +301,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_FPU_and_CMOV = (uint)CpuidFeature.FPU_and_CMOV << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FPU_and_SSE3 = (uint)CpuidFeature.FPU_and_SSE3 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FPU287 = (uint)CpuidFeature.FPU287 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_FPU287XL_ONLY = (uint)CpuidFeature.FPU287XL_ONLY << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FPU387 = (uint)CpuidFeature.FPU387 << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_FPU387SL_ONLY = (uint)CpuidFeature.FPU387SL_ONLY << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FSGSBASE = (uint)CpuidFeature.FSGSBASE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FXSR = (uint)CpuidFeature.FXSR << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_GEODE = (uint)CpuidFeature.GEODE << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_GFNI = (uint)CpuidFeature.GFNI << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_HLE = (uint)CpuidFeature.HLE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_HLE_or_RTM = (uint)CpuidFeature.HLE_or_RTM << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INVEPT = (uint)CpuidFeature.INVEPT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INVPCID = (uint)CpuidFeature.INVPCID << (int)InfoFlags2.CpuidFeatureShift;
@@ -281,12 +319,16 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_MONITOR = (uint)CpuidFeature.MONITOR << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MONITORX = (uint)CpuidFeature.MONITORX << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MOVBE = (uint)CpuidFeature.MOVBE << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_MOVDIR64B = (uint)CpuidFeature.MOVDIR64B << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_MOVDIRI = (uint)CpuidFeature.MOVDIRI << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MPX = (uint)CpuidFeature.MPX << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MSR = (uint)CpuidFeature.MSR << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MULTIBYTENOP = (uint)CpuidFeature.MULTIBYTENOP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_PAUSE = (uint)CpuidFeature.PAUSE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_PCLMULQDQ = (uint)CpuidFeature.PCLMULQDQ << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_PCLMULQDQ_and_AVX = (uint)CpuidFeature.PCLMULQDQ_and_AVX << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_PCOMMIT = (uint)CpuidFeature.PCOMMIT << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_PCONFIG = (uint)CpuidFeature.PCONFIG << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_PKU = (uint)CpuidFeature.PKU << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_POPCNT = (uint)CpuidFeature.POPCNT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_PREFETCHW = (uint)CpuidFeature.PREFETCHW << (int)InfoFlags2.CpuidFeatureShift;
@@ -301,6 +343,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_SEP = (uint)CpuidFeature.SEP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SGX1 = (uint)CpuidFeature.SGX1 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SHA = (uint)CpuidFeature.SHA << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_SKINIT = (uint)CpuidFeature.SKINIT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SKINIT_or_SVML = (uint)CpuidFeature.SKINIT_or_SVML << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SMAP = (uint)CpuidFeature.SMAP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SMX = (uint)CpuidFeature.SMX << (int)InfoFlags2.CpuidFeatureShift;
@@ -312,15 +355,21 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_SSE4A = (uint)CpuidFeature.SSE4A << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSSE3 = (uint)CpuidFeature.SSSE3 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SVM = (uint)CpuidFeature.SVM << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_SVML = (uint)CpuidFeature.SVML << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SYSCALL = (uint)CpuidFeature.SYSCALL << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_TBM = (uint)CpuidFeature.TBM << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_TSC = (uint)CpuidFeature.TSC << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_VAES = (uint)CpuidFeature.VAES << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_VMX = (uint)CpuidFeature.VMX << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_VPCLMULQDQ = (uint)CpuidFeature.VPCLMULQDQ << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_WAITPKG = (uint)CpuidFeature.WAITPKG << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_WBNOINVD = (uint)CpuidFeature.WBNOINVD << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_XOP = (uint)CpuidFeature.XOP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_XSAVE = (uint)CpuidFeature.XSAVE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_XSAVEC = (uint)CpuidFeature.XSAVEC << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_XSAVEOPT = (uint)CpuidFeature.XSAVEOPT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_XSAVES = (uint)CpuidFeature.XSAVES << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_ZALLOC = (uint)CpuidFeature.ZALLOC << (int)InfoFlags2.CpuidFeatureShift;
 
 		const uint FlowControl_Unconditional = (uint)FlowControl.UnconditionalBranch << (int)InfoFlags2.FlowControlShift;
 		const uint FlowControl_IndirectBranch = (uint)FlowControl.IndirectBranch << (int)InfoFlags2.FlowControlShift;
@@ -364,6 +413,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Or_RAX_imm32 | RflagsInfo_W_psz_C_co_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Pushw_CS | StackInstruction | CodeInfo_Push_2, Op0_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Pushd_CS | StackInstruction | CodeInfo_Push_4, Op0_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Popw_CS | StackInstruction | CodeInfo_Pop_2, Op0_Write | CPUID_INTEL8086_ONLY | Encoding_Legacy,
 			(uint)Code.Adc_rm8_r8 | RflagsInfo_R_c_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Adc_rm16_r16 | RflagsInfo_R_c_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Adc_rm32_r32 | RflagsInfo_R_c_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
@@ -567,6 +617,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Cmp_rm16_imm16 | RflagsInfo_W_acopsz, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Cmp_rm32_imm32 | RflagsInfo_W_acopsz, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Cmp_rm64_imm32 | RflagsInfo_W_acopsz, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Add_rm8_imm8_82 | RflagsInfo_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Or_rm8_imm8_82 | RflagsInfo_W_psz_C_co_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Adc_rm8_imm8_82 | RflagsInfo_R_c_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Sbb_rm8_imm8_82 | RflagsInfo_R_c_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.And_rm8_imm8_82 | RflagsInfo_W_psz_C_co_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Sub_rm8_imm8_82 | RflagsInfo_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Xor_rm8_imm8_82 | RflagsInfo_W_psz_C_co_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Cmp_rm8_imm8_82 | RflagsInfo_W_acopsz, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Add_rm16_imm8 | RflagsInfo_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Add_rm32_imm8 | RflagsInfo_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Add_rm64_imm8 | RflagsInfo_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
@@ -685,6 +743,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Rcr_rm8_imm8 | RflagsInfo_R_c_W_co | CodeInfo_Shift_Ib_MASK1FMOD9, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Shl_rm8_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Shr_rm8_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
+			(uint)Code.Sal_rm8_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Sar_rm8_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Rol_rm16_imm8 | RflagsInfo_W_co | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Rol_rm32_imm8 | RflagsInfo_W_co | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
@@ -704,6 +763,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Shr_rm16_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Shr_rm32_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Shr_rm64_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK3F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
+			(uint)Code.Sal_rm16_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
+			(uint)Code.Sal_rm32_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
+			(uint)Code.Sal_rm64_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK3F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Sar_rm16_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Sar_rm32_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK1F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Sar_rm64_imm8 | RflagsInfo_W_copsz_U_a | CodeInfo_Shift_Ib_MASK3F, Op0_ReadWrite | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
@@ -749,6 +811,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Rcr_rm8_1 | RflagsInfo_R_c_W_co, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Shl_rm8_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Shr_rm8_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Sal_rm8_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Sar_rm8_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Rol_rm16_1 | RflagsInfo_W_co, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Rol_rm32_1 | RflagsInfo_W_co, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
@@ -768,6 +831,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Shr_rm16_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Shr_rm32_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Shr_rm64_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Sal_rm16_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Sal_rm32_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Sal_rm64_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Sar_rm16_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Sar_rm32_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Sar_rm64_1 | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
@@ -777,6 +843,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Rcr_rm8_CL | RflagsInfo_R_c_W_co, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Shl_rm8_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Shr_rm8_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Sal_rm8_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Sar_rm8_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Rol_rm16_CL | RflagsInfo_W_co, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Rol_rm32_CL | RflagsInfo_W_co, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
@@ -796,6 +863,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Shr_rm16_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Shr_rm32_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Shr_rm64_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Sal_rm16_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Sal_rm32_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Sal_rm64_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Sar_rm16_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Sar_rm32_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Sar_rm64_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
@@ -826,11 +896,15 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Fldenv_m28byte, Op0_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fldcw_m16, Op0_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fnstenv_m14byte, Op0_Write | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fstenv_m14byte, Op0_Write | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fnstenv_m28byte, Op0_Write | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fstenv_m28byte, Op0_Write | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fnstcw_m16, Op0_Write | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fstcw_m16, Op0_Write | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fld_st0_sti, Op0_Write | Op1_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fxch_st0_sti, Op0_ReadWrite | Op1_ReadWrite | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fnop, CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fstpnce_sti | CodeInfo_R_ST0, Op0_Write | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fchs | CodeInfo_RW_ST0, CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fabs | CodeInfo_RW_ST0, CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Ftst | CodeInfo_R_ST0, CPUID_FPU | Encoding_Legacy,
@@ -881,8 +955,17 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Fcmovne_st0_sti | RflagsInfo_R_z, Op0_CondWrite | Op1_CondRead | CPUID_FPU_and_CMOV | Encoding_Legacy,
 			(uint)Code.Fcmovnbe_st0_sti | RflagsInfo_R_cz, Op0_CondWrite | Op1_CondRead | CPUID_FPU_and_CMOV | Encoding_Legacy,
 			(uint)Code.Fcmovnu_st0_sti | RflagsInfo_R_p, Op0_CondWrite | Op1_CondRead | CPUID_FPU_and_CMOV | Encoding_Legacy,
+			(uint)Code.Fneni, CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Feni, CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fndisi, CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fdisi, CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fnclex, CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fclex, CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fninit, CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Finit, CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fnsetpm, CPUID_FPU287 | Encoding_Legacy,
+			(uint)Code.Fsetpm, CPUID_FPU287 | Encoding_Legacy,
+			(uint)Code.Frstpm, CPUID_FPU287XL_ONLY | Encoding_Legacy,
 			(uint)Code.Fucomi_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FCOMI | Encoding_Legacy,
 			(uint)Code.Fcomi_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FCOMI | Encoding_Legacy,
 			(uint)Code.Fadd_m64fp | CodeInfo_RW_ST0, Op0_Read | CPUID_FPU | Encoding_Legacy,
@@ -895,6 +978,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Fdivr_m64fp | CodeInfo_RW_ST0, Op0_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fadd_sti_st0, Op0_ReadWrite | Op1_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fmul_sti_st0, Op0_ReadWrite | Op1_Read | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fcom_st0_sti_DCD0, Op0_Read | Op1_Read | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fcomp_st0_sti_DCD8, Op0_Read | Op1_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fsubr_sti_st0, Op0_ReadWrite | Op1_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fsub_sti_st0, Op0_ReadWrite | Op1_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fdivr_sti_st0, Op0_ReadWrite | Op1_Read | CPUID_FPU | Encoding_Legacy,
@@ -906,9 +991,13 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Frstor_m94byte | SaveRestore, Op0_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Frstor_m108byte | SaveRestore, Op0_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fnsave_m94byte | SaveRestore, Op0_Write | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fsave_m94byte | SaveRestore, Op0_Write | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fnsave_m108byte | SaveRestore, Op0_Write | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fsave_m108byte | SaveRestore, Op0_Write | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fnstsw_m16, Op0_Write | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fstsw_m16, Op0_Write | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Ffree_sti, Op0_None | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fxch_st0_sti_DDC8, Op0_ReadWrite | Op1_ReadWrite | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fst_sti | CodeInfo_R_ST0, Op0_Write | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fstp_sti | CodeInfo_R_ST0, Op0_Write | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fucom_st0_sti, Op0_Read | Op1_Read | CPUID_FPU | Encoding_Legacy,
@@ -923,6 +1012,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Fidivr_m16int | CodeInfo_RW_ST0, Op0_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Faddp_sti_st0, Op0_ReadWrite | Op1_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fmulp_sti_st0, Op0_ReadWrite | Op1_Read | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fcomp_st0_sti_DED0, Op0_Read | Op1_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fcompp | CodeInfo_R_ST0_ST1, CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fsubrp_sti_st0, Op0_ReadWrite | Op1_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fsubp_sti_st0, Op0_ReadWrite | Op1_Read | CPUID_FPU | Encoding_Legacy,
@@ -936,7 +1026,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Fild_m64int | CodeInfo_W_ST0, Op0_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fbstp_m80bcd | CodeInfo_R_ST0, Op0_Write | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fistp_m64int | CodeInfo_R_ST0, Op0_Write | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Ffreep_sti, Op0_None | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fxch_st0_sti_DFC8, Op0_ReadWrite | Op1_ReadWrite | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fstp_sti_DFD0 | CodeInfo_R_ST0, Op0_Write | CPUID_FPU | Encoding_Legacy,
+			(uint)Code.Fstp_sti_DFD8 | CodeInfo_R_ST0, Op0_Write | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fnstsw_AX, Op0_Write | CPUID_FPU287 | Encoding_Legacy,
+			(uint)Code.Fstsw_AX, Op0_Write | CPUID_FPU287 | Encoding_Legacy,
+			(uint)Code.Fstdw_AX, Op0_Write | CPUID_FPU387SL_ONLY | Encoding_Legacy,
+			(uint)Code.Fstsg_AX, Op0_Write | CPUID_FPU387SL_ONLY | Encoding_Legacy,
 			(uint)Code.Fucomip_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FCOMI | Encoding_Legacy,
 			(uint)Code.Fcomip_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FCOMI | Encoding_Legacy,
 			(uint)Code.Loopne_rel8_16_CX | RflagsInfo_R_z | CodeInfo_Loop, Op0_Read | FlowControl_Conditional | CPUID_INTEL8086 | Encoding_Legacy,
@@ -990,6 +1087,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Hlt | Privileged, CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Cmc | RflagsInfo_R_c_W_c, CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Test_rm8_imm8 | RflagsInfo_W_psz_C_co_U_a, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Test_rm8_imm8_F6r1 | RflagsInfo_W_psz_C_co_U_a, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Not_rm8, Op0_ReadWrite | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Neg_rm8 | RflagsInfo_W_acopsz, Op0_ReadWrite | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Mul_rm8 | RflagsInfo_W_co_U_apsz | CodeInfo_Mul, Op0_Read | CPUID_INTEL8086 | Encoding_Legacy,
@@ -999,6 +1097,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Test_rm16_imm16 | RflagsInfo_W_psz_C_co_U_a, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Test_rm32_imm32 | RflagsInfo_W_psz_C_co_U_a, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Test_rm64_imm32 | RflagsInfo_W_psz_C_co_U_a, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Test_rm16_imm16_F7r1 | RflagsInfo_W_psz_C_co_U_a, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Test_rm32_imm32_F7r1 | RflagsInfo_W_psz_C_co_U_a, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.Test_rm64_imm32_F7r1 | RflagsInfo_W_psz_C_co_U_a, Op0_Read | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Not_rm16, Op0_ReadWrite | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Not_rm32, Op0_ReadWrite | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Not_rm64, Op0_ReadWrite | CPUID_INTEL8086 | Encoding_Legacy,
@@ -1064,6 +1165,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Verw_rm16 | ProtectedMode | RflagsInfo_W_z, Op0_Read | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Verw_r32m16 | ProtectedMode | RflagsInfo_W_z, Op0_Read | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Verw_r64m16 | ProtectedMode | RflagsInfo_W_z, Op0_Read | CPUID_INTEL286 | Encoding_Legacy,
+			(uint)Code.Jmpe_rm16, Op0_Read | FlowControl_IndirectBranch | CPUID_IA64 | Encoding_Legacy,
+			(uint)Code.Jmpe_rm32, Op0_Read | FlowControl_IndirectBranch | CPUID_IA64 | Encoding_Legacy,
 			(uint)Code.Sgdt_m40, Op0_Write | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Sgdt_m48, Op0_Write | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Sgdt_m80, Op0_Write | CPUID_INTEL286 | Encoding_Legacy,
@@ -1079,6 +1182,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Smsw_rm16 | CodeInfo_R_CR0, Op0_Write | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Smsw_r32m16 | CodeInfo_R_CR0, Op0_Write | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Smsw_r64m16 | CodeInfo_R_CR0, Op0_Write | CPUID_INTEL286 | Encoding_Legacy,
+			(uint)Code.Rstorssp_m64 | RflagsInfo_W_c_C_aopsz | ProtectedMode, Op0_Read | CPUID_CET_SS | Encoding_Legacy,
 			(uint)Code.Lmsw_rm16 | Privileged | CodeInfo_RW_CR0, Op0_Read | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Lmsw_r32m16 | Privileged | CodeInfo_RW_CR0, Op0_Read | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Lmsw_r64m16 | Privileged | CodeInfo_RW_CR0, Op0_Read | CPUID_INTEL286 | Encoding_Legacy,
@@ -1088,6 +1192,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Vmlaunch | Privileged | ProtectedMode | RflagsInfo_W_acopszidAC, FlowControl_Return | CPUID_VMX | Encoding_Legacy,
 			(uint)Code.Vmresume | Privileged | ProtectedMode | RflagsInfo_W_acopszidAC, FlowControl_Return | CPUID_VMX | Encoding_Legacy,
 			(uint)Code.Vmxoff | Privileged | ProtectedMode | RflagsInfo_W_cz_C_aops, CPUID_VMX | Encoding_Legacy,
+			(uint)Code.Pconfig | Privileged | RflagsInfo_W_z_C_acops | CodeInfo_Pconfig, CPUID_PCONFIG | Encoding_Legacy,
 			(uint)Code.Monitorw | Privileged | CodeInfo_Monitor, CPUID_MONITOR | Encoding_Legacy,
 			(uint)Code.Monitord | Privileged | CodeInfo_Monitor, CPUID_MONITOR | Encoding_Legacy,
 			(uint)Code.Monitorq | Privileged | CodeInfo_Monitor, CPUID_MONITOR | Encoding_Legacy,
@@ -1117,6 +1222,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Invlpgaw | ProtectedMode | Privileged | CodeInfo_Invlpga, CPUID_SVM | Encoding_Legacy,
 			(uint)Code.Invlpgad | ProtectedMode | Privileged | CodeInfo_Invlpga, CPUID_SVM | Encoding_Legacy,
 			(uint)Code.Invlpgaq | ProtectedMode | Privileged | CodeInfo_Invlpga, CPUID_SVM | Encoding_Legacy,
+			(uint)Code.Setssbsy | ProtectedMode | Privileged, CPUID_CET_SS | Encoding_Legacy,
+			(uint)Code.Saveprevssp | RflagsInfo_R_c | ProtectedMode, CPUID_CET_SS | Encoding_Legacy,
 			(uint)Code.Rdpkru | CodeInfo_R_ECX_W_EAX_EDX, CPUID_PKU | Encoding_Legacy,
 			(uint)Code.Wrpkru | CodeInfo_R_EAX_ECX_EDX, CPUID_PKU | Encoding_Legacy,
 			(uint)Code.Swapgs | Privileged, CPUID_X64 | Encoding_Legacy,
@@ -1134,13 +1241,22 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Lsl_r16_rm16 | RflagsInfo_W_z | ProtectedMode, Op0_CondWrite | Op1_Read | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Lsl_r32_rm32 | RflagsInfo_W_z | ProtectedMode, Op0_CondWrite | Op1_Read | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Lsl_r64_rm64 | RflagsInfo_W_z | ProtectedMode, Op0_CondWrite | Op1_Read | CPUID_INTEL286 | Encoding_Legacy,
+			(uint)Code.Loadallreset286 | Privileged | SaveRestore, CPUID_INTEL286_ONLY | Encoding_Legacy,
+			(uint)Code.Loadall286 | Privileged | SaveRestore, CPUID_INTEL286_ONLY | Encoding_Legacy,
 			(uint)Code.Syscall | RflagsInfo_R_acopszidAC | CodeInfo_Syscall, FlowControl_Call | CPUID_SYSCALL | Encoding_Legacy,
 			(uint)Code.Clts | Privileged | CodeInfo_RW_CR0, CPUID_INTEL286 | Encoding_Legacy,
+			(uint)Code.Loadall386 | Privileged | SaveRestore | CodeInfo_Loadall386, CPUID_INTEL386_ONLY | Encoding_Legacy,
 			(uint)Code.Sysretd | RflagsInfo_W_acopszidAC | Privileged | CodeInfo_Syscall, FlowControl_Return | CPUID_SYSCALL | Encoding_Legacy,
 			(uint)Code.Sysretq | RflagsInfo_W_acopszidAC | Privileged | CodeInfo_Syscall, FlowControl_Return | CPUID_SYSCALL | Encoding_Legacy,
 			(uint)Code.Invd | Privileged, CPUID_INTEL486 | Encoding_Legacy,
 			(uint)Code.Wbinvd | Privileged, CPUID_INTEL486 | Encoding_Legacy,
+			(uint)Code.Wbnoinvd | Privileged, CPUID_WBNOINVD | Encoding_Legacy,
+			(uint)Code.Cflsh, CPUID_CFLSH | Encoding_Legacy,
+			(uint)Code.Cl1invmb | Privileged, CPUID_CL1INVMB | Encoding_Legacy,
 			(uint)Code.Ud2, FlowControl_Exception | CPUID_INTEL286 | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm16_r16_0F0D, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm32_r32_0F0D, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm64_r64_0F0D, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
 			(uint)Code.Prefetch_m8, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
 			(uint)Code.Prefetchw_m8, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
 			(uint)Code.Prefetchwt1_m8, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
@@ -1150,6 +1266,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Prefetch_m8_r6, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
 			(uint)Code.Prefetch_m8_r7, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
 			(uint)Code.Femms, CPUID_D3NOW | Encoding_Legacy,
+			(uint)Code.Umov_rm8_r8, Op0_Write | Op1_Read | CPUID_INTEL386_486_ONLY | Encoding_Legacy,
+			(uint)Code.Umov_rm16_r16, Op0_Write | Op1_Read | CPUID_INTEL386_486_ONLY | Encoding_Legacy,
+			(uint)Code.Umov_rm32_r32, Op0_Write | Op1_Read | CPUID_INTEL386_486_ONLY | Encoding_Legacy,
+			(uint)Code.Umov_r8_rm8, Op0_Write | Op1_Read | CPUID_INTEL386_486_ONLY | Encoding_Legacy,
+			(uint)Code.Umov_r16_rm16, Op0_Write | Op1_Read | CPUID_INTEL386_486_ONLY | Encoding_Legacy,
+			(uint)Code.Umov_r32_rm32, Op0_Write | Op1_Read | CPUID_INTEL386_486_ONLY | Encoding_Legacy,
 			(uint)Code.Movups_xmm_xmmm128, Op0_Write | Op1_Read | CPUID_SSE | Encoding_Legacy,
 			(uint)Code.VEX_Vmovups_xmm_xmmm128, Op0_Write | Op1_Read | CPUID_AVX | Encoding_VEX,
 			(uint)Code.VEX_Vmovups_ymm_ymmm256, Op0_Write | Op1_Read | CPUID_AVX | Encoding_VEX,
@@ -1266,6 +1388,30 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Movhpd_m64_xmm, Op0_Write | Op1_Read | CPUID_SSE2 | Encoding_Legacy,
 			(uint)Code.VEX_Vmovhpd_m64_xmm, Op0_Write | Op1_Read | CPUID_AVX | Encoding_VEX,
 			(uint)Code.EVEX_Vmovhpd_m64_xmm, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
+			(uint)Code.ReservedNop_rm16_r16_0F18, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm32_r32_0F18, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm64_r64_0F18, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm16_r16_0F19, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm32_r32_0F19, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm64_r64_0F19, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm16_r16_0F1A, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm32_r32_0F1A, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm64_r64_0F1A, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm16_r16_0F1B, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm32_r32_0F1B, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm64_r64_0F1B, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm16_r16_0F1C, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm32_r32_0F1C, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm64_r64_0F1C, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm16_r16_0F1D, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm32_r32_0F1D, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm64_r64_0F1D, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm16_r16_0F1E, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm32_r32_0F1E, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm64_r64_0F1E, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm16_r16_0F1F, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm32_r32_0F1F, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
+			(uint)Code.ReservedNop_rm64_r64_0F1F, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
 			(uint)Code.Prefetchnta_m8, Op0_NoMemAccess | CPUID_SSE | Encoding_Legacy,
 			(uint)Code.Prefetcht0_m8, Op0_NoMemAccess | CPUID_SSE | Encoding_Legacy,
 			(uint)Code.Prefetcht1_m8, Op0_NoMemAccess | CPUID_SSE | Encoding_Legacy,
@@ -1284,6 +1430,11 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Bndmk_bnd_m64 | NoSegmentRead, Op0_Write | Op1_NoMemAccess | CPUID_MPX | Encoding_Legacy,
 			(uint)Code.Bndcn_bnd_rm32 | NoSegmentRead, Op0_Read | Op1_NoMemAccess | CPUID_MPX | Encoding_Legacy,
 			(uint)Code.Bndcn_bnd_rm64 | NoSegmentRead, Op0_Read | Op1_NoMemAccess | CPUID_MPX | Encoding_Legacy,
+			(uint)Code.Cldemote_m8, Op0_NoMemAccess | CPUID_CLDEMOTE | Encoding_Legacy,
+			(uint)Code.Rdsspd_r32, Op0_Write | CPUID_CET_SS | Encoding_Legacy,
+			(uint)Code.Rdsspq_r64, Op0_Write | CPUID_CET_SS | Encoding_Legacy,
+			(uint)Code.Endbr64, CPUID_CET_IBT | Encoding_Legacy,
+			(uint)Code.Endbr32, CPUID_CET_IBT | Encoding_Legacy,
 			(uint)Code.Nop_rm16, Op0_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
 			(uint)Code.Nop_rm32, Op0_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
 			(uint)Code.Nop_rm64, Op0_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
@@ -1295,6 +1446,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Mov_cr_r64 | Privileged | RflagsInfo_U_acopsz, Op0_Write | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Mov_dr_r32 | Privileged | RflagsInfo_U_acopsz, Op0_Write | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Mov_dr_r64 | Privileged | RflagsInfo_U_acopsz, Op0_Write | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
+			(uint)Code.Mov_r32_tr | Privileged | RflagsInfo_U_acopsz, Op0_Write | Op1_Read | CPUID_INTEL386_486_ONLY | Encoding_Legacy,
+			(uint)Code.Mov_tr_r32 | Privileged | RflagsInfo_U_acopsz, Op0_Write | Op1_Read | CPUID_INTEL386_486_ONLY | Encoding_Legacy,
 			(uint)Code.Movaps_xmm_xmmm128, Op0_Write | Op1_Read | CPUID_SSE | Encoding_Legacy,
 			(uint)Code.VEX_Vmovaps_xmm_xmmm128, Op0_Write | Op1_Read | CPUID_AVX | Encoding_VEX,
 			(uint)Code.VEX_Vmovaps_ymm_ymmm256, Op0_Write | Op1_Read | CPUID_AVX | Encoding_VEX,
@@ -1391,9 +1544,11 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Rdtsc | CodeInfo_W_EAX_EDX, CPUID_TSC | Encoding_Legacy,
 			(uint)Code.Rdmsr | Privileged | CodeInfo_R_ECX_W_EAX_EDX, CPUID_MSR | Encoding_Legacy,
 			(uint)Code.Rdpmc | CodeInfo_R_ECX_W_EAX_EDX, CPUID_RDPMC | Encoding_Legacy,
+			(uint)Code.Wrecr | Privileged | CodeInfo_R_EAX_ECX_EDX, CPUID_ECR | Encoding_Legacy,
 			(uint)Code.Sysenter | RflagsInfo_C_i | CodeInfo_Syscall, FlowControl_Call | CPUID_SEP | Encoding_Legacy,
 			(uint)Code.Sysexitd | Privileged | CodeInfo_Syscall, FlowControl_Return | CPUID_SEP | Encoding_Legacy,
 			(uint)Code.Sysexitq | Privileged | CodeInfo_Syscall, FlowControl_Return | CPUID_SEP | Encoding_Legacy,
+			(uint)Code.Rdecr | Privileged | CodeInfo_R_ECX_W_EAX_EDX, CPUID_ECR | Encoding_Legacy,
 			(uint)Code.Getsec | SaveRestore, CPUID_SMX | Encoding_Legacy,
 			(uint)Code.Cmovo_r16_rm16 | RflagsInfo_R_o, Op0_CondWrite | Op1_Read | CPUID_CMOV | Encoding_Legacy,
 			(uint)Code.Cmovo_r32_rm32 | RflagsInfo_R_o, Op0_CondWrite32_ReadWrite64 | Op1_Read | CPUID_CMOV | Encoding_Legacy,
@@ -2184,6 +2339,13 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Shld_rm16_r16_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Shld_rm32_r32_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Shld_rm64_r64_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
+			(uint)Code.Xbts_r16_rm16 | CodeInfo_Xbts, Op0_ReadWrite | Op1_Read | CPUID_INTEL386_A0_ONLY | Encoding_Legacy,
+			(uint)Code.Xbts_r32_rm32 | CodeInfo_Xbts, Op0_ReadWrite | Op1_Read | CPUID_INTEL386_A0_ONLY | Encoding_Legacy,
+			(uint)Code.Ibts_rm16_r16 | CodeInfo_Xbts, Op0_ReadWrite | Op1_Read | CPUID_INTEL386_A0_ONLY | Encoding_Legacy,
+			(uint)Code.Ibts_rm32_r32 | CodeInfo_Xbts, Op0_ReadWrite | Op1_Read | CPUID_INTEL386_A0_ONLY | Encoding_Legacy,
+			(uint)Code.Cmpxchg486_rm8_r8 | RflagsInfo_W_acopsz | CodeInfo_Cmpxchg, Op0_ReadWrite | Op1_Read | CPUID_INTEL486_A_ONLY | Encoding_Legacy,
+			(uint)Code.Cmpxchg486_rm16_r16 | RflagsInfo_W_acopsz | CodeInfo_Cmpxchg, Op0_ReadWrite | Op1_Read | CPUID_INTEL486_A_ONLY | Encoding_Legacy,
+			(uint)Code.Cmpxchg486_rm32_r32 | RflagsInfo_W_acopsz | CodeInfo_Cmpxchg, Op0_ReadWrite | Op1_Read | CPUID_INTEL486_A_ONLY | Encoding_Legacy,
 			(uint)Code.Pushw_GS | StackInstruction | CodeInfo_Push_2, Op0_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Pushd_GS | StackInstruction | CodeInfo_Push_4, Op0_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Pushq_GS | StackInstruction | CodeInfo_Push_8, Op0_Read | CPUID_INTEL386 | Encoding_Legacy,
@@ -2200,6 +2362,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Shrd_rm16_r16_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Shrd_rm32_r32_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Shrd_rm64_r64_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
+			(uint)Code.Zalloc_m256, CPUID_ZALLOC | Encoding_Legacy,
 			(uint)Code.Fxsave_m512byte | SaveRestore, Op0_Write | CPUID_FXSR | Encoding_Legacy,
 			(uint)Code.Fxsave64_m512byte | SaveRestore, Op0_Write | CPUID_FXSR | Encoding_Legacy,
 			(uint)Code.Rdfsbase_r32, Op0_Write | CPUID_FSGSBASE | Encoding_Legacy,
@@ -2222,14 +2385,46 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Ptwrite_rm64, Op0_Read | CPUID_PTWRITE | Encoding_Legacy,
 			(uint)Code.Xrstor_m | SaveRestore | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_XSAVE | Encoding_Legacy,
 			(uint)Code.Xrstor64_m | SaveRestore | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_XSAVE | Encoding_Legacy,
+			(uint)Code.Incsspd_r32 | ProtectedMode, Op0_Read | CPUID_CET_SS | Encoding_Legacy,
+			(uint)Code.Incsspq_r64 | ProtectedMode, Op0_Read | CPUID_CET_SS | Encoding_Legacy,
 			(uint)Code.Xsaveopt_m | SaveRestore | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_XSAVEOPT | Encoding_Legacy,
 			(uint)Code.Xsaveopt64_m | SaveRestore | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_XSAVEOPT | Encoding_Legacy,
 			(uint)Code.Clwb_m8, Op0_NoMemAccess | CPUID_CLWB | Encoding_Legacy,
+			(uint)Code.Tpause_r32 | RflagsInfo_W_c_C_aopsz | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_WAITPKG | Encoding_Legacy,
+			(uint)Code.Tpause_r64 | RflagsInfo_W_c_C_aopsz | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_WAITPKG | Encoding_Legacy,
+			(uint)Code.Clrssbsy_m64 | ProtectedMode | Privileged | RflagsInfo_W_c_C_aopsz, Op0_ReadWrite | CPUID_CET_SS | Encoding_Legacy,
+			(uint)Code.Umonitor_r16 | CodeInfo_Umonitor, Op0_Read | CPUID_WAITPKG | Encoding_Legacy,
+			(uint)Code.Umonitor_r32 | CodeInfo_Umonitor, Op0_Read | CPUID_WAITPKG | Encoding_Legacy,
+			(uint)Code.Umonitor_r64 | CodeInfo_Umonitor, Op0_Read | CPUID_WAITPKG | Encoding_Legacy,
+			(uint)Code.Umwait_r32 | RflagsInfo_W_c_C_aopsz | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_WAITPKG | Encoding_Legacy,
+			(uint)Code.Umwait_r64 | RflagsInfo_W_c_C_aopsz | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_WAITPKG | Encoding_Legacy,
 			(uint)Code.Clflush_m8, Op0_NoMemAccess | CPUID_CLFSH | Encoding_Legacy,
 			(uint)Code.Clflushopt_m8, Op0_NoMemAccess | CPUID_CLFLUSHOPT | Encoding_Legacy,
 			(uint)Code.Lfence, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Lfence_E9, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Lfence_EA, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Lfence_EB, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Lfence_EC, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Lfence_ED, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Lfence_EE, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Lfence_EF, CPUID_SSE2 | Encoding_Legacy,
 			(uint)Code.Mfence, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Mfence_F1, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Mfence_F2, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Mfence_F3, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Mfence_F4, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Mfence_F5, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Mfence_F6, CPUID_SSE2 | Encoding_Legacy,
+			(uint)Code.Mfence_F7, CPUID_SSE2 | Encoding_Legacy,
 			(uint)Code.Sfence, CPUID_SSE | Encoding_Legacy,
+			(uint)Code.Sfence_F9, CPUID_SSE | Encoding_Legacy,
+			(uint)Code.Sfence_FA, CPUID_SSE | Encoding_Legacy,
+			(uint)Code.Sfence_FB, CPUID_SSE | Encoding_Legacy,
+			(uint)Code.Sfence_FC, CPUID_SSE | Encoding_Legacy,
+			(uint)Code.Sfence_FD, CPUID_SSE | Encoding_Legacy,
+			(uint)Code.Sfence_FE, CPUID_SSE | Encoding_Legacy,
+			(uint)Code.Sfence_FF, CPUID_SSE | Encoding_Legacy,
+			(uint)Code.Pcommit, CPUID_PCOMMIT | Encoding_Legacy,
 			(uint)Code.Imul_r16_rm16 | RflagsInfo_W_co_U_apsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Imul_r32_rm32 | RflagsInfo_W_co_U_apsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Imul_r64_rm64 | RflagsInfo_W_co_U_apsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
@@ -2255,6 +2450,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Movzx_r16_rm16, Op0_Write | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Movzx_r32_rm16, Op0_Write | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Movzx_r64_rm16, Op0_Write | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
+			(uint)Code.Jmpe_disp16, Op0_Read | FlowControl_Unconditional | CPUID_IA64 | Encoding_Legacy,
+			(uint)Code.Jmpe_disp32, Op0_Read | FlowControl_Unconditional | CPUID_IA64 | Encoding_Legacy,
 			(uint)Code.Popcnt_r16_rm16 | RflagsInfo_W_z_C_acops, Op0_Write | Op1_Read | CPUID_POPCNT | Encoding_Legacy,
 			(uint)Code.Popcnt_r32_rm32 | RflagsInfo_W_z_C_acops, Op0_Write | Op1_Read | CPUID_POPCNT | Encoding_Legacy,
 			(uint)Code.Popcnt_r64_rm64 | RflagsInfo_W_z_C_acops, Op0_Write | Op1_Read | CPUID_POPCNT | Encoding_Legacy,
@@ -3229,8 +3426,32 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vrsqrt14pd_zmm_k1z_zmmm512b64, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512F | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpbusd_zmm_k1z_zmm_zmmm512b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VNNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VNNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VNNI | Encoding_EVEX,
 			(uint)Code.EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128, Op0_ReadWrite | Op1_ReadP3 | Op2_Read | CPUID_AVX512_4VNNIW | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vpdpwssds_zmm_k1z_zmm_zmmm512b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VNNI | Encoding_EVEX,
 			(uint)Code.EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128, Op0_ReadWrite | Op1_ReadP3 | Op2_Read | CPUID_AVX512_4VNNIW | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntb_xmm_k1z_xmmm128, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_BITALG | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntb_ymm_k1z_ymmm256, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_BITALG | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntb_zmm_k1z_zmmm512, Op0_Write | Op1_Read | CPUID_AVX512_BITALG | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntw_xmm_k1z_xmmm128, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_BITALG | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntw_ymm_k1z_ymmm256, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_BITALG | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntw_zmm_k1z_zmmm512, Op0_Write | Op1_Read | CPUID_AVX512_BITALG | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntd_xmm_k1z_xmmm128b32, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VPOPCNTDQ | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntd_ymm_k1z_ymmm256b32, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VPOPCNTDQ | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntd_zmm_k1z_zmmm512b32, Op0_Write | Op1_Read | CPUID_AVX512_VPOPCNTDQ | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntq_xmm_k1z_xmmm128b64, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VPOPCNTDQ | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntq_ymm_k1z_ymmm256b64, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VPOPCNTDQ | Encoding_EVEX,
+			(uint)Code.EVEX_Vpopcntq_zmm_k1z_zmmm512b64, Op0_Write | Op1_Read | CPUID_AVX512_VPOPCNTDQ | Encoding_EVEX,
 			(uint)Code.VEX_Vpbroadcastd_xmm_xmmm32, Op0_Write | Op1_Read | CPUID_AVX2 | Encoding_VEX,
 			(uint)Code.VEX_Vpbroadcastd_ymm_xmmm32, Op0_Write | Op1_Read | CPUID_AVX2 | Encoding_VEX,
 			(uint)Code.EVEX_Vpbroadcastd_xmm_k1z_xmmm32, Op0_Write | Op1_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
@@ -3251,6 +3472,18 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vbroadcasti64x2_zmm_k1z_m128, Op0_Write | Op1_Read | CPUID_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vbroadcasti32x8_zmm_k1z_m256, Op0_Write | Op1_Read | CPUID_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vbroadcasti64x4_zmm_k1z_m256, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
+			(uint)Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Op0_Write | Op1_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Op0_Write | Op1_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Op0_Write | Op1_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Op0_Write | Op1_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
 			(uint)Code.EVEX_Vpblendmd_xmm_k1z_xmm_xmmm128b32, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vpblendmd_ymm_k1z_ymm_ymmm256b32, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vpblendmd_zmm_k1z_zmm_zmmm512b32, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512F | Encoding_EVEX,
@@ -3269,6 +3502,24 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_or_AVX512BW | Encoding_EVEX,
 			(uint)Code.EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_or_AVX512BW | Encoding_EVEX,
 			(uint)Code.EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512BW | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldvd_xmm_k1z_xmm_xmmm128b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldvd_ymm_k1z_ymm_ymmm256b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldvd_zmm_k1z_zmm_zmmm512b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldvq_xmm_k1z_xmm_xmmm128b64, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldvq_ymm_k1z_ymm_ymmm256b64, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldvq_zmm_k1z_zmm_zmmm512b64, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdvq_xmm_k1z_xmm_xmmm128b64, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdvq_ymm_k1z_ymm_ymmm256b64, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdvq_zmm_k1z_zmm_zmmm512b64, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
 			(uint)Code.EVEX_Vpermi2b_xmm_k1z_xmm_xmmm128, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_or_AVX512_VBMI | Encoding_EVEX,
 			(uint)Code.EVEX_Vpermi2b_ymm_k1z_ymm_ymmm256, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_or_AVX512_VBMI | Encoding_EVEX,
 			(uint)Code.EVEX_Vpermi2b_zmm_k1z_zmm_zmmm512, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VBMI | Encoding_EVEX,
@@ -3374,6 +3625,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.VEX_Vpmaskmovd_m256_ymm_ymm, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX2 | Encoding_VEX,
 			(uint)Code.VEX_Vpmaskmovq_m128_xmm_xmm, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX2 | Encoding_VEX,
 			(uint)Code.VEX_Vpmaskmovq_m256_ymm_ymm, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX2 | Encoding_VEX,
+			(uint)Code.EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_BITALG | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_BITALG | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512_BITALG | Encoding_EVEX,
 			(uint)Code.VEX_Vpgatherdd_xmm_vm32x_xmm, Op0_ReadWrite | Op1_Read | Op2_ReadWrite | CPUID_AVX2 | Encoding_VEX,
 			(uint)Code.VEX_Vpgatherdd_ymm_vm32y_ymm, Op0_ReadWrite | Op1_Read | Op2_ReadWrite | CPUID_AVX2 | Encoding_VEX,
 			(uint)Code.VEX_Vpgatherdq_xmm_vm32x_xmm, Op0_ReadWrite | Op1_Read | Op2_ReadWrite | CPUID_AVX2 | Encoding_VEX,
@@ -3714,16 +3968,38 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae, Op0_Write | Op1_Read | CPUID_AVX512ER | Encoding_EVEX,
 			(uint)Code.EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512ER | Encoding_EVEX,
 			(uint)Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512ER | Encoding_EVEX,
+			(uint)Code.Gf2p8mulb_xmm_xmmm128, Op0_ReadWrite | Op1_Read | CPUID_GFNI | Encoding_Legacy,
+			(uint)Code.VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX_and_GFNI | Encoding_VEX,
+			(uint)Code.VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX_and_GFNI | Encoding_VEX,
+			(uint)Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_GFNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_GFNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512F_and_GFNI | Encoding_EVEX,
 			(uint)Code.Aesimc_xmm_xmmm128, Op0_Write | Op1_Read | CPUID_AES | Encoding_Legacy,
 			(uint)Code.VEX_Vaesimc_xmm_xmmm128, Op0_Write | Op1_Read | CPUID_AES_and_AVX | Encoding_VEX,
 			(uint)Code.Aesenc_xmm_xmmm128, Op0_ReadWrite | Op1_Read | CPUID_AES | Encoding_Legacy,
 			(uint)Code.VEX_Vaesenc_xmm_xmm_xmmm128, Op0_Write | Op1_Read | Op2_Read | CPUID_AES_and_AVX | Encoding_VEX,
+			(uint)Code.VEX_Vaesenc_ymm_ymm_ymmm256, Op0_Write | Op1_Read | Op2_Read | CPUID_VAES | Encoding_VEX,
+			(uint)Code.EVEX_Vaesenc_xmm_xmm_xmmm128, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_VAES | Encoding_EVEX,
+			(uint)Code.EVEX_Vaesenc_ymm_ymm_ymmm256, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_VAES | Encoding_EVEX,
+			(uint)Code.EVEX_Vaesenc_zmm_zmm_zmmm512, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512F_and_VAES | Encoding_EVEX,
 			(uint)Code.Aesenclast_xmm_xmmm128, Op0_ReadWrite | Op1_Read | CPUID_AES | Encoding_Legacy,
 			(uint)Code.VEX_Vaesenclast_xmm_xmm_xmmm128, Op0_Write | Op1_Read | Op2_Read | CPUID_AES_and_AVX | Encoding_VEX,
+			(uint)Code.VEX_Vaesenclast_ymm_ymm_ymmm256, Op0_Write | Op1_Read | Op2_Read | CPUID_VAES | Encoding_VEX,
+			(uint)Code.EVEX_Vaesenclast_xmm_xmm_xmmm128, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_VAES | Encoding_EVEX,
+			(uint)Code.EVEX_Vaesenclast_ymm_ymm_ymmm256, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_VAES | Encoding_EVEX,
+			(uint)Code.EVEX_Vaesenclast_zmm_zmm_zmmm512, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512F_and_VAES | Encoding_EVEX,
 			(uint)Code.Aesdec_xmm_xmmm128, Op0_ReadWrite | Op1_Read | CPUID_AES | Encoding_Legacy,
 			(uint)Code.VEX_Vaesdec_xmm_xmm_xmmm128, Op0_Write | Op1_Read | Op2_Read | CPUID_AES_and_AVX | Encoding_VEX,
+			(uint)Code.VEX_Vaesdec_ymm_ymm_ymmm256, Op0_Write | Op1_Read | Op2_Read | CPUID_VAES | Encoding_VEX,
+			(uint)Code.EVEX_Vaesdec_xmm_xmm_xmmm128, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_VAES | Encoding_EVEX,
+			(uint)Code.EVEX_Vaesdec_ymm_ymm_ymmm256, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_VAES | Encoding_EVEX,
+			(uint)Code.EVEX_Vaesdec_zmm_zmm_zmmm512, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512F_and_VAES | Encoding_EVEX,
 			(uint)Code.Aesdeclast_xmm_xmmm128, Op0_ReadWrite | Op1_Read | CPUID_AES | Encoding_Legacy,
 			(uint)Code.VEX_Vaesdeclast_xmm_xmm_xmmm128, Op0_Write | Op1_Read | Op2_Read | CPUID_AES_and_AVX | Encoding_VEX,
+			(uint)Code.VEX_Vaesdeclast_ymm_ymm_ymmm256, Op0_Write | Op1_Read | Op2_Read | CPUID_VAES | Encoding_VEX,
+			(uint)Code.EVEX_Vaesdeclast_xmm_xmm_xmmm128, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_VAES | Encoding_EVEX,
+			(uint)Code.EVEX_Vaesdeclast_ymm_ymm_ymmm256, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_VAES | Encoding_EVEX,
+			(uint)Code.EVEX_Vaesdeclast_zmm_zmm_zmmm512, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512F_and_VAES | Encoding_EVEX,
 			(uint)Code.Movbe_r16_m16, Op0_Write | Op1_Read | CPUID_MOVBE | Encoding_Legacy,
 			(uint)Code.Movbe_r32_m32, Op0_Write | Op1_Read | CPUID_MOVBE | Encoding_Legacy,
 			(uint)Code.Movbe_r64_m64, Op0_Write | Op1_Read | CPUID_MOVBE | Encoding_Legacy,
@@ -3745,10 +4021,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.VEX_Blsi_r64_rm64 | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | CPUID_BMI1 | Encoding_VEX,
 			(uint)Code.VEX_Bzhi_r32_rm32_r32 | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,
 			(uint)Code.VEX_Bzhi_r64_rm64_r64 | ProtectedMode | RflagsInfo_W_csz_C_o_U_ap, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,
+			(uint)Code.Wrussd_m32_r32 | ProtectedMode | Privileged, Op0_Write | Op1_Read | CPUID_CET_SS | Encoding_Legacy,
+			(uint)Code.Wrussq_m64_r64 | ProtectedMode | Privileged, Op0_Write | Op1_Read | CPUID_CET_SS | Encoding_Legacy,
 			(uint)Code.VEX_Pext_r32_r32_rm32 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,
 			(uint)Code.VEX_Pext_r64_r64_rm64 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,
 			(uint)Code.VEX_Pdep_r32_r32_rm32 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,
 			(uint)Code.VEX_Pdep_r64_r64_rm64 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,
+			(uint)Code.Wrssd_m32_r32 | ProtectedMode, Op0_Write | Op1_Read | CPUID_CET_SS | Encoding_Legacy,
+			(uint)Code.Wrssq_m64_r64 | ProtectedMode, Op0_Write | Op1_Read | CPUID_CET_SS | Encoding_Legacy,
 			(uint)Code.Adcx_r32_rm32 | RflagsInfo_R_c_W_c, Op0_ReadWrite | Op1_Read | CPUID_ADX | Encoding_Legacy,
 			(uint)Code.Adcx_r64_rm64 | RflagsInfo_R_c_W_c, Op0_ReadWrite | Op1_Read | CPUID_ADX | Encoding_Legacy,
 			(uint)Code.Adox_r32_rm32 | RflagsInfo_R_o_W_o, Op0_ReadWrite | Op1_Read | CPUID_ADX | Encoding_Legacy,
@@ -3763,6 +4043,11 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.VEX_Sarx_r64_rm64_r64 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,
 			(uint)Code.VEX_Shrx_r32_rm32_r32 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,
 			(uint)Code.VEX_Shrx_r64_rm64_r64 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,
+			(uint)Code.Movdir64b_r16_m512 | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_MOVDIR64B | Encoding_Legacy,
+			(uint)Code.Movdir64b_r32_m512 | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_MOVDIR64B | Encoding_Legacy,
+			(uint)Code.Movdir64b_r64_m512 | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_MOVDIR64B | Encoding_Legacy,
+			(uint)Code.Movdiri_m32_r32, Op0_Write | Op1_Read | CPUID_MOVDIRI | Encoding_Legacy,
+			(uint)Code.Movdiri_m64_r64, Op0_Write | Op1_Read | CPUID_MOVDIRI | Encoding_Legacy,
 			(uint)Code.VEX_Vpermq_ymm_ymmm256_imm8, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX2 | Encoding_VEX,
 			(uint)Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_or_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512F | Encoding_EVEX,
@@ -3961,6 +4246,10 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512F | Encoding_EVEX,
 			(uint)Code.Pclmulqdq_xmm_xmmm128_imm8, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_PCLMULQDQ | Encoding_Legacy,
 			(uint)Code.VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_PCLMULQDQ_and_AVX | Encoding_VEX,
+			(uint)Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_VPCLMULQDQ | Encoding_VEX,
+			(uint)Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_VPCLMULQDQ | Encoding_EVEX,
+			(uint)Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_VPCLMULQDQ | Encoding_EVEX,
+			(uint)Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512F_and_VPCLMULQDQ | Encoding_EVEX,
 			(uint)Code.VEX_Vperm2i128_ymm_ymm_ymmm256_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX2 | Encoding_VEX,
 			(uint)Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | Op4_Read | CPUID_XOP | Encoding_VEX,
 			(uint)Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm8 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | Op4_Read | CPUID_XOP | Encoding_VEX,
@@ -4060,6 +4349,24 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.VEX_Vfmsubss_xmm_xmm_xmm_xmmm32 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
 			(uint)Code.VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
 			(uint)Code.VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
+			(uint)Code.EVEX_Vpshldw_xmm_k1z_xmm_xmmm128_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldw_ymm_k1z_ymm_ymmm256_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldw_zmm_k1z_zmm_zmmm512_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldd_xmm_k1z_xmm_xmmm128b32_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldd_ymm_k1z_ymm_ymmm256b32_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldd_zmm_k1z_zmm_zmmm512b32_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldq_xmm_k1z_xmm_xmmm128b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldq_ymm_k1z_ymm_ymmm256b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshldq_zmm_k1z_zmm_zmmm512b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdw_xmm_k1z_xmm_xmmm128_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdw_ymm_k1z_ymm_ymmm256_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdw_zmm_k1z_zmm_zmmm512_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdd_xmm_k1z_xmm_xmmm128b32_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdd_ymm_k1z_ymm_ymmm256b32_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdd_zmm_k1z_zmm_zmmm512b32_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdq_xmm_k1z_xmm_xmmm128b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdq_ymm_k1z_ymm_ymmm256b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vpshrdq_zmm_k1z_zmm_zmmm512b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
 			(uint)Code.VEX_Vfnmaddps_xmm_xmm_xmmm128_xmm | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
 			(uint)Code.VEX_Vfnmaddps_ymm_ymm_ymmm256_ymm | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
 			(uint)Code.VEX_Vfnmaddps_xmm_xmm_xmm_xmmm128 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
@@ -4085,6 +4392,18 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
 			(uint)Code.VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_FMA4 | Encoding_VEX,
 			(uint)Code.Sha1rnds4_xmm_xmmm128_imm8, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_SHA | Encoding_Legacy,
+			(uint)Code.Gf2p8affineqb_xmm_xmmm128_imm8, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_GFNI | Encoding_Legacy,
+			(uint)Code.VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX_and_GFNI | Encoding_VEX,
+			(uint)Code.VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX_and_GFNI | Encoding_VEX,
+			(uint)Code.EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_GFNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_GFNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512F_and_GFNI | Encoding_EVEX,
+			(uint)Code.Gf2p8affineinvqb_xmm_xmmm128_imm8, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_GFNI | Encoding_Legacy,
+			(uint)Code.VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX_and_GFNI | Encoding_VEX,
+			(uint)Code.VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX_and_GFNI | Encoding_VEX,
+			(uint)Code.EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_GFNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512VL_and_GFNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8, Op0_Write | Op1_Read | Op2_Read | Op3_Read | CPUID_AVX512F_and_GFNI | Encoding_EVEX,
 			(uint)Code.Aeskeygenassist_xmm_xmmm128_imm8, Op0_Write | Op1_Read | Op2_Read | CPUID_AES | Encoding_Legacy,
 			(uint)Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8, Op0_Write | Op1_Read | Op2_Read | CPUID_AES_and_AVX | Encoding_VEX,
 			(uint)Code.VEX_Rorx_r32_rm32_imm8 | ProtectedMode, Op0_Write | Op1_Read | Op2_Read | CPUID_BMI2 | Encoding_VEX,

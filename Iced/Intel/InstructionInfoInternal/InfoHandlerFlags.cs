@@ -50,13 +50,13 @@ namespace Iced.Intel.InstructionInfoInternal {
 		OpInfo4Shift		= 10,
 		OpInfo4Mask			= 1,
 
-		OpMaskRegReadWrite	= 0x00020000,
-		EncodingShift		= 18,
+		OpMaskRegReadWrite	= 0x00010000,
+		EncodingShift		= 17,
 		EncodingMask		= 7,
-		FlowControlShift	= 21,
+		FlowControlShift	= 20,
 		FlowControlMask		= 0xF,
-		CpuidFeatureShift	= 25,
-		CpuidFeatureMask	= 0x7F,
+		CpuidFeatureShift	= 24,
+		CpuidFeatureMask	= 0xFF,
 	}
 
 	enum OpInfo0 {
@@ -136,10 +136,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Lds,
 		Leave,
 		Llwpcb,
+		Loadall386,
 		Lods,
 		Loop,
 		Maskmovq,
 		Monitor,
+		Movdir64b,
 		Movs,
 		Mul,
 		Mulx,
@@ -147,6 +149,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Mwaitx,
 		Outs,
 		PcmpXstrY,
+		Pconfig,
 		Pop_2,
 		Pop_2_2,
 		Pop_4,
@@ -186,12 +189,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Shift_Ib_MASK3F,
 		Stos,
 		Syscall,
+		Umonitor,
 		Vmfunc,
 		Vmload,
 		Vzeroall,
 		W_EAX_ECX_EDX,
 		W_EAX_EDX,
 		W_ST0,
+		Xbts,
 	}
 
 	enum RflagsInfo {
