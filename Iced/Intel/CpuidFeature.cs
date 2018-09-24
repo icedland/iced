@@ -214,6 +214,16 @@ namespace Iced.Intel {
 		AVX512VL_and_AVX512_BITALG,
 
 		/// <summary>
+		/// <see cref="AVX512VL"/> and <see cref="AVX512_IFMA"/>
+		/// </summary>
+		AVX512VL_and_AVX512_IFMA,
+
+		/// <summary>
+		/// <see cref="AVX512VL"/> and <see cref="AVX512_VBMI"/>
+		/// </summary>
+		AVX512VL_and_AVX512_VBMI,
+
+		/// <summary>
 		/// <see cref="AVX512VL"/> and <see cref="AVX512_VBMI2"/>
 		/// </summary>
 		AVX512VL_and_AVX512_VBMI2,
@@ -229,6 +239,26 @@ namespace Iced.Intel {
 		AVX512VL_and_AVX512_VPOPCNTDQ,
 
 		/// <summary>
+		/// <see cref="AVX512VL"/> and <see cref="AVX512BW"/>
+		/// </summary>
+		AVX512VL_and_AVX512BW,
+
+		/// <summary>
+		/// <see cref="AVX512VL"/> and <see cref="AVX512CD"/>
+		/// </summary>
+		AVX512VL_and_AVX512CD,
+
+		/// <summary>
+		/// <see cref="AVX512VL"/> and <see cref="AVX512DQ"/>
+		/// </summary>
+		AVX512VL_and_AVX512DQ,
+
+		/// <summary>
+		/// <see cref="AVX512VL"/> and <see cref="AVX512F"/>
+		/// </summary>
+		AVX512VL_and_AVX512F,
+
+		/// <summary>
 		/// <see cref="AVX512VL"/> and <see cref="GFNI"/>
 		/// </summary>
 		AVX512VL_and_GFNI,
@@ -242,36 +272,6 @@ namespace Iced.Intel {
 		/// <see cref="AVX512VL"/> and <see cref="VPCLMULQDQ"/>
 		/// </summary>
 		AVX512VL_and_VPCLMULQDQ,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> or <see cref="AVX512_IFMA"/>
-		/// </summary>
-		AVX512VL_or_AVX512_IFMA,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> or <see cref="AVX512_VBMI"/>
-		/// </summary>
-		AVX512VL_or_AVX512_VBMI,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> or <see cref="AVX512BW"/>
-		/// </summary>
-		AVX512VL_or_AVX512BW,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> or <see cref="AVX512CD"/>
-		/// </summary>
-		AVX512VL_or_AVX512CD,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> or <see cref="AVX512DQ"/>
-		/// </summary>
-		AVX512VL_or_AVX512DQ,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> or <see cref="AVX512F"/>
-		/// </summary>
-		AVX512VL_or_AVX512F,
 
 		/// <summary>
 		/// CPUID.(EAX=07H, ECX=0H):EBX.BMI1[bit 3]

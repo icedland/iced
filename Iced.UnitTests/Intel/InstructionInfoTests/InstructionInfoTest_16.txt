@@ -420,7 +420,7 @@ D7, Xlatb, Legacy, INTEL8086, op0=r rw=al r=ds r=bx rm=ds:bx+al;UInt8
 # vmovups xmm1,xmm5
 C5F8 10 CD, VEX_Vmovups_xmm_xmmm128, VEX, AVX, op0=w op1=r w=vmm1 r=xmm5
 # vmovups xmm2,xmm3
-62 F17C08 10 D3, EVEX_Vmovups_xmm_k1z_xmmm128, EVEX, AVX512VL_or_AVX512F, op0=w op1=r w=vmm2 r=xmm3
+62 F17C08 10 D3, EVEX_Vmovups_xmm_k1z_xmmm128, EVEX, AVX512VL_and_AVX512F, op0=w op1=r w=vmm2 r=xmm3
 # repne insb
 F2 6C, Insb_m8_DX, Legacy, INTEL186, priv fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=dx cwm=es:di;Unknown
 # repne insw
