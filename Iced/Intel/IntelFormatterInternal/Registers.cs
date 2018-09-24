@@ -256,6 +256,14 @@ namespace Iced.Intel.IntelFormatterInternal {
 			"mmx5",
 			"mmx6",
 			"mmx7",
+			"tr0",
+			"tr1",
+			"tr2",
+			"tr3",
+			"tr4",
+			"tr5",
+			"tr6",
+			"tr7",
 			"st",
 		};
 	}

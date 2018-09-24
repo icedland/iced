@@ -272,6 +272,14 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					new object[] { Register.MM5, false },
 					new object[] { Register.MM6, false },
 					new object[] { Register.MM7, false },
+					new object[] { Register.TR0, false },
+					new object[] { Register.TR1, false },
+					new object[] { Register.TR2, false },
+					new object[] { Register.TR3, false },
+					new object[] { Register.TR4, false },
+					new object[] { Register.TR5, false },
+					new object[] { Register.TR6, false },
+					new object[] { Register.TR7, false },
 				};
 				for (int i = 0; i < res.Length; i++)
 					Assert.Equal((Register)i, (Register)res[i][0]);
@@ -521,6 +529,14 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					new object[] { Register.MM5, false },
 					new object[] { Register.MM6, false },
 					new object[] { Register.MM7, false },
+					new object[] { Register.TR0, false },
+					new object[] { Register.TR1, false },
+					new object[] { Register.TR2, false },
+					new object[] { Register.TR3, false },
+					new object[] { Register.TR4, false },
+					new object[] { Register.TR5, false },
+					new object[] { Register.TR6, false },
+					new object[] { Register.TR7, false },
 				};
 				for (int i = 0; i < res.Length; i++)
 					Assert.Equal((Register)i, (Register)res[i][0]);
@@ -769,6 +785,14 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					new object[] { Register.MM5, Register.MM5 },
 					new object[] { Register.MM6, Register.MM6 },
 					new object[] { Register.MM7, Register.MM7 },
+					new object[] { Register.TR0, Register.TR0 },
+					new object[] { Register.TR1, Register.TR1 },
+					new object[] { Register.TR2, Register.TR2 },
+					new object[] { Register.TR3, Register.TR3 },
+					new object[] { Register.TR4, Register.TR4 },
+					new object[] { Register.TR5, Register.TR5 },
+					new object[] { Register.TR6, Register.TR6 },
+					new object[] { Register.TR7, Register.TR7 },
 				};
 				for (int i = 0; i < res.Length; i++)
 					Assert.Equal((Register)i, (Register)res[i][0]);
