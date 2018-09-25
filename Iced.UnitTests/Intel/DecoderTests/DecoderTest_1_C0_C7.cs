@@ -734,6 +734,25 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
+		[InlineData("66 C2 5AA5", 4, 0xA55A, DecoderOptions.AMD)]
+		[InlineData("66 C2 A55A", 4, 0x5AA5, DecoderOptions.AMD)]
+		void Test64_Retnw_imm16_1(string hexBytes, int byteLength, ushort immediate, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(Code.Retnw_imm16, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Immediate16, instr.Op0Kind);
+			Assert.Equal(immediate, instr.Immediate16);
+		}
+
+		[Theory]
 		[InlineData("66 C2 5AA5", 4, 0xA55A)]
 		[InlineData("66 C2 A55A", 4, 0x5AA5)]
 		void Test16_Retnd_imm16_1(string hexBytes, int byteLength, ushort immediate) {
@@ -772,13 +791,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("C2 5AA5", 3, 0xA55A)]
-		[InlineData("C2 A55A", 3, 0x5AA5)]
-		[InlineData("66 C2 5AA5", 4, 0xA55A)]
-		[InlineData("48 C2 A55A", 4, 0x5AA5)]
-		[InlineData("66 48 C2 5AA5", 5, 0xA55A)]
-		void Test64_Retnq_imm16_1(string hexBytes, int byteLength, ushort immediate) {
-			var decoder = CreateDecoder64(hexBytes);
+		[InlineData("C2 5AA5", 3, 0xA55A, DecoderOptions.None)]
+		[InlineData("C2 A55A", 3, 0x5AA5, DecoderOptions.None)]
+		[InlineData("66 C2 5AA5", 4, 0xA55A, DecoderOptions.None)]
+		[InlineData("48 C2 A55A", 4, 0x5AA5, DecoderOptions.None)]
+		[InlineData("66 48 C2 5AA5", 5, 0xA55A, DecoderOptions.None)]
+		[InlineData("C2 5AA5", 3, 0xA55A, DecoderOptions.AMD)]
+		void Test64_Retnq_imm16_1(string hexBytes, int byteLength, ushort immediate, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(Code.Retnq_imm16, instr.Code);
@@ -821,6 +841,21 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Register.None, instr.PrefixSegment);
 		}
 
+		[Theory]
+		[InlineData("66 C3", 2, DecoderOptions.AMD)]
+		void Test64_Retnw_1(string hexBytes, int byteLength, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(Code.Retnw, instr.Code);
+			Assert.Equal(0, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+		}
+
 		[Fact]
 		void Test16_Retnd_1() {
 			var decoder = CreateDecoder16("66 C3");
@@ -850,12 +885,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("C3", 1)]
-		[InlineData("66 C3", 2)]
-		[InlineData("48 C3", 2)]
-		[InlineData("66 48 C3", 3)]
-		void Test64_Retnq_1(string hexBytes, int byteLength) {
-			var decoder = CreateDecoder64(hexBytes);
+		[InlineData("C3", 1, DecoderOptions.None)]
+		[InlineData("66 C3", 2, DecoderOptions.None)]
+		[InlineData("48 C3", 2, DecoderOptions.None)]
+		[InlineData("66 48 C3", 3, DecoderOptions.None)]
+		[InlineData("C3", 1, DecoderOptions.AMD)]
+		void Test64_Retnq_1(string hexBytes, int byteLength, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(Code.Retnq, instr.Code);

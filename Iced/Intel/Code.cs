@@ -837,7 +837,7 @@ namespace Iced.Intel {
 		Push_rm32,													// o32 FF /6
 		Push_rm64,													// REX.W FF /6
 
-				// 0Fxx opcodes
+		// 0Fxx opcodes
 
 		Sldt_rm16,													// o16 0F00 /0
 		Sldt_r32m16,												// o32 0F00 /0
@@ -2962,7 +2962,7 @@ namespace Iced.Intel {
 		Ud0_r32_rm32,												// o32 0FFF
 		Ud0_r64_rm64,												// REX.W 0FFF
 
-				// 0F38xx opcodes
+		// 0F38xx opcodes
 
 		Pshufb_mm_mmm64,											// 0F3800
 
@@ -4336,7 +4336,7 @@ namespace Iced.Intel {
 		Movdiri_m32_r32,											// 0F38F9
 		Movdiri_m64_r64,											// REX.W 0F38F9
 
-				// 0F3Axx opcodes
+		// 0F3Axx opcodes
 
 		VEX_Vpermq_ymm_ymmm256_imm8,								// VEX.256.66.0F3A.W1 00
 		EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8,						// EVEX.256.66.0F3A.W1 00
@@ -4792,7 +4792,7 @@ namespace Iced.Intel {
 		VEX_Rorx_r32_rm32_imm8,										// VEX.L0.F2.0F3A.W0 F0
 		VEX_Rorx_r64_rm64_imm8,										// VEX.L0.F2.0F3A.W1 F0
 
-				// XOP8 opcodes
+		// XOP8 opcodes
 		XOP_Vpmacssww_xmm_xmm_xmmm128_xmm,							// XOP.NDS.128.X8.W0 85
 
 		XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm,							// XOP.NDS.128.X8.W0 86
@@ -4849,7 +4849,7 @@ namespace Iced.Intel {
 
 		XOP_Vpcomuq_xmm_xmm_xmmm128_imm8,							// XOP.NDS.128.X8.W0 EF
 
-				// XOP9 opcodes
+		// XOP9 opcodes
 		XOP_Blcfill_r32_rm32,										// XOP.NDD.L0.X9.W0 01 /1
 		XOP_Blcfill_r64_rm64,										// XOP.NDD.L0.X9.W1 01 /1
 		XOP_Blsfill_r32_rm32,										// XOP.NDD.L0.X9.W0 01 /2
@@ -4951,7 +4951,7 @@ namespace Iced.Intel {
 
 		XOP_Vphsubdq_xmm_xmmm128,									// XOP.128.X9.W0 E3
 
-				// XOPA opcodes
+		// XOPA opcodes
 		XOP_Bextr_r32_rm32_imm32,									// XOP.L0.XA.W0 10
 		XOP_Bextr_r64_rm64_imm32,									// XOP.L0.XA.W1 10
 
@@ -4960,7 +4960,7 @@ namespace Iced.Intel {
 		XOP_Lwpval_r32_rm32_imm32,									// XOP.NDD.L0.XA.W0 12 /1
 		XOP_Lwpval_r64_rm32_imm32,									// XOP.NDD.L0.XA.W1 12 /1
 
-				// 3DNow! opcodes
+		// 3DNow! opcodes
 		D3NOW_Pi2fw_mm_mmm64,										// 0F0F 0C
 		D3NOW_Pi2fd_mm_mmm64,										// 0F0F 0D
 

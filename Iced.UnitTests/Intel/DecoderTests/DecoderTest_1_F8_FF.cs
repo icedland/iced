@@ -625,6 +625,50 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
+		[InlineData("66 FF 10", 3, Code.Call_rm16, DecoderOptions.AMD)]
+		[InlineData("66 FF 20", 3, Code.Jmp_rm16, DecoderOptions.AMD)]
+		void Test64_Grp5_CallEw_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Memory, instr.Op0Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.RAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(MemorySize.WordOffset, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
+		}
+
+		[Theory]
+		[InlineData("66 FF D1", 3, Code.Call_rm16, Register.CX, DecoderOptions.AMD)]
+		[InlineData("66 FF E2", 3, Code.Jmp_rm16, Register.DX, DecoderOptions.AMD)]
+		void Test64_Grp5_CallEw_2(string hexBytes, int byteLength, Code code, Register reg, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg, instr.Op0Register);
+		}
+
+		[Theory]
 		[InlineData("66 FF 10", 3, Code.Call_rm32)]
 		[InlineData("66 FF 20", 3, Code.Jmp_rm32)]
 		void Test16_Grp5_CallEd_1(string hexBytes, int byteLength, Code code) {
@@ -713,16 +757,19 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("FF 10", 2, Code.Call_rm64)]
-		[InlineData("FF 20", 2, Code.Jmp_rm64)]
+		[InlineData("FF 10", 2, Code.Call_rm64, DecoderOptions.None)]
+		[InlineData("FF 20", 2, Code.Jmp_rm64, DecoderOptions.None)]
 
-		[InlineData("66 FF 10", 3, Code.Call_rm64)]
-		[InlineData("66 FF 20", 3, Code.Jmp_rm64)]
+		[InlineData("66 FF 10", 3, Code.Call_rm64, DecoderOptions.None)]
+		[InlineData("66 FF 20", 3, Code.Jmp_rm64, DecoderOptions.None)]
 
-		[InlineData("48 FF 10", 3, Code.Call_rm64)]
-		[InlineData("48 FF 20", 3, Code.Jmp_rm64)]
-		void Test64_Grp5_CallEq_1(string hexBytes, int byteLength, Code code) {
-			var decoder = CreateDecoder64(hexBytes);
+		[InlineData("48 FF 10", 3, Code.Call_rm64, DecoderOptions.None)]
+		[InlineData("48 FF 20", 3, Code.Jmp_rm64, DecoderOptions.None)]
+
+		[InlineData("FF 10", 2, Code.Call_rm64, DecoderOptions.AMD)]
+		[InlineData("FF 20", 2, Code.Jmp_rm64, DecoderOptions.AMD)]
+		void Test64_Grp5_CallEq_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -744,22 +791,25 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("FF D1", 2, Code.Call_rm64, Register.RCX)]
-		[InlineData("FF E6", 2, Code.Jmp_rm64, Register.RSI)]
-		[InlineData("41 FF D1", 3, Code.Call_rm64, Register.R9)]
-		[InlineData("41 FF E6", 3, Code.Jmp_rm64, Register.R14)]
+		[InlineData("FF D1", 2, Code.Call_rm64, Register.RCX, DecoderOptions.None)]
+		[InlineData("FF E6", 2, Code.Jmp_rm64, Register.RSI, DecoderOptions.None)]
+		[InlineData("41 FF D1", 3, Code.Call_rm64, Register.R9, DecoderOptions.None)]
+		[InlineData("41 FF E6", 3, Code.Jmp_rm64, Register.R14, DecoderOptions.None)]
 
-		[InlineData("66 FF D1", 3, Code.Call_rm64, Register.RCX)]
-		[InlineData("66 FF E6", 3, Code.Jmp_rm64, Register.RSI)]
-		[InlineData("66 41 FF D1", 4, Code.Call_rm64, Register.R9)]
-		[InlineData("66 41 FF E6", 4, Code.Jmp_rm64, Register.R14)]
+		[InlineData("66 FF D1", 3, Code.Call_rm64, Register.RCX, DecoderOptions.None)]
+		[InlineData("66 FF E6", 3, Code.Jmp_rm64, Register.RSI, DecoderOptions.None)]
+		[InlineData("66 41 FF D1", 4, Code.Call_rm64, Register.R9, DecoderOptions.None)]
+		[InlineData("66 41 FF E6", 4, Code.Jmp_rm64, Register.R14, DecoderOptions.None)]
 
-		[InlineData("48 FF D1", 3, Code.Call_rm64, Register.RCX)]
-		[InlineData("48 FF E6", 3, Code.Jmp_rm64, Register.RSI)]
-		[InlineData("49 FF D1", 3, Code.Call_rm64, Register.R9)]
-		[InlineData("49 FF E6", 3, Code.Jmp_rm64, Register.R14)]
-		void Test64_Grp5_CallEq_2(string hexBytes, int byteLength, Code code, Register reg) {
-			var decoder = CreateDecoder64(hexBytes);
+		[InlineData("48 FF D1", 3, Code.Call_rm64, Register.RCX, DecoderOptions.None)]
+		[InlineData("48 FF E6", 3, Code.Jmp_rm64, Register.RSI, DecoderOptions.None)]
+		[InlineData("49 FF D1", 3, Code.Call_rm64, Register.R9, DecoderOptions.None)]
+		[InlineData("49 FF E6", 3, Code.Jmp_rm64, Register.R14, DecoderOptions.None)]
+
+		[InlineData("FF D1", 2, Code.Call_rm64, Register.RCX, DecoderOptions.AMD)]
+		[InlineData("FF E6", 2, Code.Jmp_rm64, Register.RSI, DecoderOptions.AMD)]
+		void Test64_Grp5_CallEq_2(string hexBytes, int byteLength, Code code, Register reg, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);

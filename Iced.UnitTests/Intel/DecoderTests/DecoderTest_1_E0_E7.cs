@@ -95,6 +95,42 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
+		[InlineData("66 67 E0 5A", 4, Code.Loopne_rel8_16_ECX, DecoderConstants.DEFAULT_IP64 + 4 + 0x005A, DecoderOptions.AMD)]
+		[InlineData("66 67 E0 A5", 4, Code.Loopne_rel8_16_ECX, DecoderConstants.DEFAULT_IP64 + 4 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 E0 5A", 3, Code.Loopne_rel8_16_RCX, DecoderConstants.DEFAULT_IP64 + 3 + 0x005A, DecoderOptions.AMD)]
+		[InlineData("66 E0 A5", 3, Code.Loopne_rel8_16_RCX, DecoderConstants.DEFAULT_IP64 + 3 + 0xFFA5, DecoderOptions.AMD)]
+
+		[InlineData("66 67 E1 5A", 4, Code.Loope_rel8_16_ECX, DecoderConstants.DEFAULT_IP64 + 4 + 0x005A, DecoderOptions.AMD)]
+		[InlineData("66 67 E1 A5", 4, Code.Loope_rel8_16_ECX, DecoderConstants.DEFAULT_IP64 + 4 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 E1 5A", 3, Code.Loope_rel8_16_RCX, DecoderConstants.DEFAULT_IP64 + 3 + 0x005A, DecoderOptions.AMD)]
+		[InlineData("66 E1 A5", 3, Code.Loope_rel8_16_RCX, DecoderConstants.DEFAULT_IP64 + 3 + 0xFFA5, DecoderOptions.AMD)]
+
+		[InlineData("66 67 E2 5A", 4, Code.Loop_rel8_16_ECX, DecoderConstants.DEFAULT_IP64 + 4 + 0x005A, DecoderOptions.AMD)]
+		[InlineData("66 67 E2 A5", 4, Code.Loop_rel8_16_ECX, DecoderConstants.DEFAULT_IP64 + 4 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 E2 5A", 3, Code.Loop_rel8_16_RCX, DecoderConstants.DEFAULT_IP64 + 3 + 0x005A, DecoderOptions.AMD)]
+		[InlineData("66 E2 A5", 3, Code.Loop_rel8_16_RCX, DecoderConstants.DEFAULT_IP64 + 3 + 0xFFA5, DecoderOptions.AMD)]
+
+		[InlineData("66 67 E3 5A", 4, Code.Jecxz_rel8_16, DecoderConstants.DEFAULT_IP64 + 4 + 0x005A, DecoderOptions.AMD)]
+		[InlineData("66 67 E3 A5", 4, Code.Jecxz_rel8_16, DecoderConstants.DEFAULT_IP64 + 4 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 E3 5A", 3, Code.Jrcxz_rel8_16, DecoderConstants.DEFAULT_IP64 + 3 + 0x005A, DecoderOptions.AMD)]
+		[InlineData("66 E3 A5", 3, Code.Jrcxz_rel8_16, DecoderConstants.DEFAULT_IP64 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		void Test64_Loopw_1(string hexBytes, int byteLength, Code code, ulong target, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
+			Assert.Equal((ushort)target, instr.NearBranch16);
+		}
+
+		[Theory]
 		[InlineData("66 67 E0 5A", 4, Code.Loopne_rel8_32_ECX, DecoderConstants.DEFAULT_IP16 + 4 + 0x0000005A)]
 		[InlineData("66 67 E0 A5", 4, Code.Loopne_rel8_32_ECX, DecoderConstants.DEFAULT_IP16 + 4 + 0xFFFFFFA5)]
 		[InlineData("66 E0 5A", 3, Code.Loopne_rel8_32_CX, DecoderConstants.DEFAULT_IP16 + 3 + 0x0000005A)]
@@ -167,27 +203,36 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("E0 5A", 2, Code.Loopne_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A)]
-		[InlineData("E0 A5", 2, Code.Loopne_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 - 0x5B)]
-		[InlineData("67 E0 5A", 3, Code.Loopne_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A)]
-		[InlineData("67 E0 A5", 3, Code.Loopne_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 - 0x5B)]
+		[InlineData("E0 5A", 2, Code.Loopne_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A, DecoderOptions.None)]
+		[InlineData("E0 A5", 2, Code.Loopne_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 - 0x5B, DecoderOptions.None)]
+		[InlineData("67 E0 5A", 3, Code.Loopne_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A, DecoderOptions.None)]
+		[InlineData("67 E0 A5", 3, Code.Loopne_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 - 0x5B, DecoderOptions.None)]
 
-		[InlineData("E1 5A", 2, Code.Loope_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A)]
-		[InlineData("E1 A5", 2, Code.Loope_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 - 0x5B)]
-		[InlineData("67 E1 5A", 3, Code.Loope_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A)]
-		[InlineData("67 E1 A5", 3, Code.Loope_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 - 0x5B)]
+		[InlineData("E1 5A", 2, Code.Loope_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A, DecoderOptions.None)]
+		[InlineData("E1 A5", 2, Code.Loope_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 - 0x5B, DecoderOptions.None)]
+		[InlineData("67 E1 5A", 3, Code.Loope_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A, DecoderOptions.None)]
+		[InlineData("67 E1 A5", 3, Code.Loope_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 - 0x5B, DecoderOptions.None)]
 
-		[InlineData("E2 5A", 2, Code.Loop_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A)]
-		[InlineData("E2 A5", 2, Code.Loop_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 - 0x5B)]
-		[InlineData("67 E2 5A", 3, Code.Loop_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A)]
-		[InlineData("67 E2 A5", 3, Code.Loop_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 - 0x5B)]
+		[InlineData("E2 5A", 2, Code.Loop_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A, DecoderOptions.None)]
+		[InlineData("E2 A5", 2, Code.Loop_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 - 0x5B, DecoderOptions.None)]
+		[InlineData("67 E2 5A", 3, Code.Loop_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A, DecoderOptions.None)]
+		[InlineData("67 E2 A5", 3, Code.Loop_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 - 0x5B, DecoderOptions.None)]
 
-		[InlineData("E3 5A", 2, Code.Jrcxz_rel8_64, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A)]
-		[InlineData("E3 A5", 2, Code.Jrcxz_rel8_64, DecoderConstants.DEFAULT_IP64 + 2 - 0x5B)]
-		[InlineData("67 E3 5A", 3, Code.Jecxz_rel8_64, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A)]
-		[InlineData("67 E3 A5", 3, Code.Jecxz_rel8_64, DecoderConstants.DEFAULT_IP64 + 3 - 0x5B)]
-		void Test64_Loopq_1(string hexBytes, int byteLength, Code code, ulong target) {
-			var decoder = CreateDecoder64(hexBytes);
+		[InlineData("E3 5A", 2, Code.Jrcxz_rel8_64, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A, DecoderOptions.None)]
+		[InlineData("E3 A5", 2, Code.Jrcxz_rel8_64, DecoderConstants.DEFAULT_IP64 + 2 - 0x5B, DecoderOptions.None)]
+		[InlineData("67 E3 5A", 3, Code.Jecxz_rel8_64, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A, DecoderOptions.None)]
+		[InlineData("67 E3 A5", 3, Code.Jecxz_rel8_64, DecoderConstants.DEFAULT_IP64 + 3 - 0x5B, DecoderOptions.None)]
+
+		[InlineData("E0 5A", 2, Code.Loopne_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("67 E0 5A", 3, Code.Loopne_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("E1 5A", 2, Code.Loope_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("67 E1 5A", 3, Code.Loope_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("E2 5A", 2, Code.Loop_rel8_64_RCX, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("67 E2 5A", 3, Code.Loop_rel8_64_ECX, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("E3 5A", 2, Code.Jrcxz_rel8_64, DecoderConstants.DEFAULT_IP64 + 2 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("67 E3 5A", 3, Code.Jecxz_rel8_64, DecoderConstants.DEFAULT_IP64 + 3 + 0x5A, DecoderOptions.AMD)]
+		void Test64_Loopq_1(string hexBytes, int byteLength, Code code, ulong target, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
