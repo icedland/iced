@@ -48,6 +48,7 @@ namespace Iced.Intel {
 	/// </summary>
 	public sealed partial class Decoder {
 		readonly CodeReader reader;
+		internal readonly DecoderOptions options;
 		internal readonly bool is64Mode;
 		internal readonly CodeSize defaultCodeSize;
 		readonly OpCodeHandler[] handlers_XX;
@@ -99,8 +100,9 @@ namespace Iced.Intel {
 		/// </summary>
 		public int Bitness { get; }
 
-		Decoder(CodeReader reader, OpSize defaultOpSize) {
+		Decoder(CodeReader reader, DecoderOptions options, OpSize defaultOpSize) {
 			this.reader = reader ?? throw new ArgumentNullException(nameof(reader));
+			this.options = options;
 			if (defaultOpSize == OpSize.Size64) {
 #if !NO_DECODER64
 				is64Mode = true;
@@ -161,12 +163,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="bitness">16, 32 or 64</param>
 		/// <param name="reader">Code reader</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create(int bitness, CodeReader reader) {
+		public static Decoder Create(int bitness, CodeReader reader, DecoderOptions options = DecoderOptions.None) {
 			switch (bitness) {
-			case 16: return Create16(reader);
-			case 32: return Create32(reader);
-			case 64: return Create64(reader);
+			case 16: return Create16(reader, options);
+			case 32: return Create32(reader, options);
+			case 64: return Create64(reader, options);
 			default: throw new ArgumentOutOfRangeException(nameof(bitness));
 			}
 		}
@@ -175,51 +178,58 @@ namespace Iced.Intel {
 		/// Creates a decoder that decodes 16-bit code
 		/// </summary>
 		/// <param name="reader">Code reader</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create16(CodeReader reader) => new Decoder(reader, OpSize.Size16);
+		public static Decoder Create16(CodeReader reader, DecoderOptions options = DecoderOptions.None) => new Decoder(reader, options, OpSize.Size16);
 
 		/// <summary>
 		/// Creates a decoder that decodes 32-bit code
 		/// </summary>
 		/// <param name="reader">Code reader</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create32(CodeReader reader) => new Decoder(reader, OpSize.Size32);
+		public static Decoder Create32(CodeReader reader, DecoderOptions options = DecoderOptions.None) => new Decoder(reader, options, OpSize.Size32);
 
 		/// <summary>
 		/// Creates a decoder that decodes 64-bit code
 		/// </summary>
 		/// <param name="reader">Code reader</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create64(CodeReader reader) => new Decoder(reader, OpSize.Size64);
+		public static Decoder Create64(CodeReader reader, DecoderOptions options = DecoderOptions.None) => new Decoder(reader, options, OpSize.Size64);
 
 		/// <summary>
 		/// Creates a decoder
 		/// </summary>
 		/// <param name="bitness">16, 32 or 64</param>
 		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create(int bitness, Func<int> readByte) => Create(bitness, new DelegateCodeReader(readByte));
+		public static Decoder Create(int bitness, Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create(bitness, new DelegateCodeReader(readByte), options);
 
 		/// <summary>
 		/// Creates a decoder that decodes 16-bit code
 		/// </summary>
 		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create16(Func<int> readByte) => Create16(new DelegateCodeReader(readByte));
+		public static Decoder Create16(Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create16(new DelegateCodeReader(readByte), options);
 
 		/// <summary>
 		/// Creates a decoder that decodes 32-bit code
 		/// </summary>
 		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create32(Func<int> readByte) => Create32(new DelegateCodeReader(readByte));
+		public static Decoder Create32(Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create32(new DelegateCodeReader(readByte), options);
 
 		/// <summary>
 		/// Creates a decoder that decodes 64-bit code
 		/// </summary>
 		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create64(Func<int> readByte) => Create64(new DelegateCodeReader(readByte));
+		public static Decoder Create64(Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create64(new DelegateCodeReader(readByte), options);
 
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;

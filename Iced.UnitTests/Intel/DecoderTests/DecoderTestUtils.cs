@@ -60,23 +60,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Fsave_m94byte;
 			yield return Code.Fsave_m108byte;
 			yield return Code.Fstsw_m16;
-			yield return Code.Cflsh;
-			yield return Code.Umov_rm8_r8;
-			yield return Code.Umov_rm16_r16;
-			yield return Code.Umov_rm32_r32;
-			yield return Code.Umov_r8_rm8;
-			yield return Code.Umov_r16_rm16;
-			yield return Code.Umov_r32_rm32;
-			yield return Code.Wrecr;
-			yield return Code.Rdecr;
-			yield return Code.Xbts_r16_rm16;
-			yield return Code.Xbts_r32_rm32;
-			yield return Code.Ibts_rm16_r16;
-			yield return Code.Ibts_rm32_r32;
-			yield return Code.Cmpxchg486_rm8_r8;
-			yield return Code.Cmpxchg486_rm16_r16;
-			yield return Code.Cmpxchg486_rm32_r32;
-			yield return Code.Zalloc_m256;
 		}
 
 		static IEnumerable<Code> GetCode32() {
@@ -280,6 +263,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Jmpe_disp16;
 			yield return Code.Jmpe_disp32;
 			yield return Code.Umonitor_r16;
+			yield return Code.Cflsh;
+			yield return Code.Umov_rm8_r8;
+			yield return Code.Umov_rm16_r16;
+			yield return Code.Umov_rm32_r32;
+			yield return Code.Umov_r8_rm8;
+			yield return Code.Umov_r16_rm16;
+			yield return Code.Umov_r32_rm32;
+			yield return Code.Wrecr;
+			yield return Code.Rdecr;
+			yield return Code.Xbts_r16_rm16;
+			yield return Code.Xbts_r32_rm32;
+			yield return Code.Ibts_rm16_r16;
+			yield return Code.Ibts_rm32_r32;
+			yield return Code.Cmpxchg486_rm8_r8;
+			yield return Code.Cmpxchg486_rm16_r16;
+			yield return Code.Cmpxchg486_rm32_r32;
+			yield return Code.Zalloc_m256;
 		}
 
 		static IEnumerable<Code> GetCode64() {
