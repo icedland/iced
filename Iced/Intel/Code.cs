@@ -723,24 +723,28 @@ namespace Iced.Intel {
 		Loopne_rel8_16_ECX,											// a32 o16 E0
 		Loopne_rel8_32_ECX,											// a32 o32 E0
 		Loopne_rel8_64_ECX,											// a32 E0
+		Loopne_rel8_16_RCX,											// a64 o16 E0
 		Loopne_rel8_64_RCX,											// a64 E0
 		Loope_rel8_16_CX,											// a16 o16 E1
 		Loope_rel8_32_CX,											// a16 o32 E1
 		Loope_rel8_16_ECX,											// a32 o16 E1
 		Loope_rel8_32_ECX,											// a32 o32 E1
 		Loope_rel8_64_ECX,											// a32 E1
+		Loope_rel8_16_RCX,											// a64 o16 E1
 		Loope_rel8_64_RCX,											// a64 E1
 		Loop_rel8_16_CX,											// a16 o16 E2
 		Loop_rel8_32_CX,											// a16 o32 E2
 		Loop_rel8_16_ECX,											// a32 o16 E2
 		Loop_rel8_32_ECX,											// a32 o32 E2
 		Loop_rel8_64_ECX,											// a32 E2
+		Loop_rel8_16_RCX,											// a64 o16 E2
 		Loop_rel8_64_RCX,											// a64 E2
 		Jcxz_rel8_16,												// a16 o16 E3
 		Jcxz_rel8_32,												// a16 o32 E3
 		Jecxz_rel8_16,												// a32 o16 E3
 		Jecxz_rel8_32,												// a32 o32 E3
 		Jecxz_rel8_64,												// a32 E3
+		Jrcxz_rel8_16,												// a64 o16 E3
 		Jrcxz_rel8_64,												// a64 E3
 		In_AL_imm8,													// E4
 		In_AX_imm8,													// o16 E5

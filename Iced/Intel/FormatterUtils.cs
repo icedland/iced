@@ -175,24 +175,28 @@ namespace Iced.Intel {
 			case Code.Loopne_rel8_16_ECX:
 			case Code.Loopne_rel8_32_ECX:
 			case Code.Loopne_rel8_64_ECX:
+			case Code.Loopne_rel8_16_RCX:
 			case Code.Loopne_rel8_64_RCX:
 			case Code.Loope_rel8_16_CX:
 			case Code.Loope_rel8_32_CX:
 			case Code.Loope_rel8_16_ECX:
 			case Code.Loope_rel8_32_ECX:
 			case Code.Loope_rel8_64_ECX:
+			case Code.Loope_rel8_16_RCX:
 			case Code.Loope_rel8_64_RCX:
 			case Code.Loop_rel8_16_CX:
 			case Code.Loop_rel8_32_CX:
 			case Code.Loop_rel8_16_ECX:
 			case Code.Loop_rel8_32_ECX:
 			case Code.Loop_rel8_64_ECX:
+			case Code.Loop_rel8_16_RCX:
 			case Code.Loop_rel8_64_RCX:
 			case Code.Jcxz_rel8_16:
 			case Code.Jcxz_rel8_32:
 			case Code.Jecxz_rel8_16:
 			case Code.Jecxz_rel8_32:
 			case Code.Jecxz_rel8_64:
+			case Code.Jrcxz_rel8_16:
 			case Code.Jrcxz_rel8_64:
 				return FormatterFlowControl.AlwaysShortBranch;
 

@@ -679,24 +679,28 @@ namespace Iced.Intel {
 			1,// Loopne_rel8_16_ECX
 			1,// Loopne_rel8_32_ECX
 			1,// Loopne_rel8_64_ECX
+			1,// Loopne_rel8_16_RCX
 			1,// Loopne_rel8_64_RCX
 			1,// Loope_rel8_16_CX
 			1,// Loope_rel8_32_CX
 			1,// Loope_rel8_16_ECX
 			1,// Loope_rel8_32_ECX
 			1,// Loope_rel8_64_ECX
+			1,// Loope_rel8_16_RCX
 			1,// Loope_rel8_64_RCX
 			1,// Loop_rel8_16_CX
 			1,// Loop_rel8_32_CX
 			1,// Loop_rel8_16_ECX
 			1,// Loop_rel8_32_ECX
 			1,// Loop_rel8_64_ECX
+			1,// Loop_rel8_16_RCX
 			1,// Loop_rel8_64_RCX
 			1,// Jcxz_rel8_16
 			1,// Jcxz_rel8_32
 			1,// Jecxz_rel8_16
 			1,// Jecxz_rel8_32
 			1,// Jecxz_rel8_64
+			1,// Jrcxz_rel8_16
 			1,// Jrcxz_rel8_64
 			2,// In_AL_imm8
 			2,// In_AX_imm8

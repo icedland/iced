@@ -1340,6 +1340,8 @@ namespace Iced.Intel {
 			0,// Loopne_rel8_32_ECX
 			0,// Loopne_rel8_64_ECX
 			0,// Loopne_rel8_64_ECX
+			0,// Loopne_rel8_16_RCX
+			0,// Loopne_rel8_16_RCX
 			0,// Loopne_rel8_64_RCX
 			0,// Loopne_rel8_64_RCX
 			0,// Loope_rel8_16_CX
@@ -1352,6 +1354,8 @@ namespace Iced.Intel {
 			0,// Loope_rel8_32_ECX
 			0,// Loope_rel8_64_ECX
 			0,// Loope_rel8_64_ECX
+			0,// Loope_rel8_16_RCX
+			0,// Loope_rel8_16_RCX
 			0,// Loope_rel8_64_RCX
 			0,// Loope_rel8_64_RCX
 			0,// Loop_rel8_16_CX
@@ -1364,6 +1368,8 @@ namespace Iced.Intel {
 			0,// Loop_rel8_32_ECX
 			0,// Loop_rel8_64_ECX
 			0,// Loop_rel8_64_ECX
+			0,// Loop_rel8_16_RCX
+			0,// Loop_rel8_16_RCX
 			0,// Loop_rel8_64_RCX
 			0,// Loop_rel8_64_RCX
 			0,// Jcxz_rel8_16
@@ -1376,6 +1382,8 @@ namespace Iced.Intel {
 			0,// Jecxz_rel8_32
 			0,// Jecxz_rel8_64
 			0,// Jecxz_rel8_64
+			0,// Jrcxz_rel8_16
+			0,// Jrcxz_rel8_16
 			0,// Jrcxz_rel8_64
 			0,// Jrcxz_rel8_64
 			0,// In_AL_imm8

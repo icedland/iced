@@ -3062,10 +3062,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Group8x64(OpCodeHandlersFpu32Tables.handlers_FPU_DF_low, OpCodeHandlersFpu32Tables.handlers_FPU_DF_high),
 
 				// E0
-				new OpCodeHandler_Jb2(Code.Loopne_rel8_16_CX, Code.Loopne_rel8_32_CX, Code.Loopne_rel8_16_ECX, Code.Loopne_rel8_32_ECX),
-				new OpCodeHandler_Jb2(Code.Loope_rel8_16_CX, Code.Loope_rel8_32_CX, Code.Loope_rel8_16_ECX, Code.Loope_rel8_32_ECX),
-				new OpCodeHandler_Jb2(Code.Loop_rel8_16_CX, Code.Loop_rel8_32_CX, Code.Loop_rel8_16_ECX, Code.Loop_rel8_32_ECX),
-				new OpCodeHandler_Jb2(Code.Jcxz_rel8_16, Code.Jcxz_rel8_32, Code.Jecxz_rel8_16, Code.Jecxz_rel8_32),
+				new OpCodeHandler_Jb2(Code.Loopne_rel8_16_CX, Code.Loopne_rel8_16_ECX, Code.Loopne_rel8_32_CX, Code.Loopne_rel8_32_ECX),
+				new OpCodeHandler_Jb2(Code.Loope_rel8_16_CX, Code.Loope_rel8_16_ECX, Code.Loope_rel8_32_CX, Code.Loope_rel8_32_ECX),
+				new OpCodeHandler_Jb2(Code.Loop_rel8_16_CX, Code.Loop_rel8_16_ECX, Code.Loop_rel8_32_CX, Code.Loop_rel8_32_ECX),
+				new OpCodeHandler_Jb2(Code.Jcxz_rel8_16, Code.Jecxz_rel8_16, Code.Jcxz_rel8_32, Code.Jecxz_rel8_32),
 				new OpCodeHandler_RegIb(Code.In_AL_imm8, Register.AL),
 				new OpCodeHandler_Reg_Ib2(Code.In_AX_imm8, Code.In_EAX_imm8, Register.AX, Register.EAX),
 				new OpCodeHandler_IbReg(Code.Out_imm8_AL, Register.AL),

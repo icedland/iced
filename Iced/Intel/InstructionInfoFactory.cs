@@ -1159,7 +1159,7 @@ namespace Iced.Intel {
 			case CodeInfo.Jrcxz:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (code == Code.Jrcxz_rel8_64)
+					if (code == Code.Jrcxz_rel8_64 || code == Code.Jrcxz_rel8_16)
 						AddRegister(flags, ref usedRegisters, Register.RCX, OpAccess.Read);
 					else if (code == Code.Jecxz_rel8_64 || code == Code.Jecxz_rel8_32 || code == Code.Jecxz_rel8_16)
 						AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Read);
@@ -1173,7 +1173,8 @@ namespace Iced.Intel {
 			case CodeInfo.Loop:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (code == Code.Loopne_rel8_64_RCX || code == Code.Loope_rel8_64_RCX || code == Code.Loop_rel8_64_RCX)
+					if (code == Code.Loopne_rel8_64_RCX || code == Code.Loope_rel8_64_RCX || code == Code.Loop_rel8_64_RCX ||
+						code == Code.Loopne_rel8_16_RCX || code == Code.Loope_rel8_16_RCX || code == Code.Loop_rel8_16_RCX)
 						AddRegister(flags, ref usedRegisters, Register.RCX, OpAccess.ReadWrite);
 					else if (code == Code.Loopne_rel8_16_ECX || code == Code.Loopne_rel8_32_ECX || code == Code.Loopne_rel8_64_ECX ||
 						code == Code.Loope_rel8_16_ECX || code == Code.Loope_rel8_32_ECX || code == Code.Loope_rel8_64_ECX ||

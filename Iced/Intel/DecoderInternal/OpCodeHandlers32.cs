@@ -733,21 +733,32 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 	sealed class OpCodeHandler_Jb2 : OpCodeHandler {
 		readonly Code code16_16;
-		readonly Code code16_32;
 		readonly Code code32_16;
+		readonly Code code16_32;
 		readonly Code code32_32;
 
 		public OpCodeHandler_Jb2(Code code16_16, Code code16_32, Code code32_16, Code code32_32) {
 			this.code16_16 = code16_16;
-			this.code16_32 = code16_32;
 			this.code32_16 = code32_16;
+			this.code16_32 = code16_32;
 			this.code32_32 = code32_32;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = GetCode(ref state);
+			if (state.operandSize == OpSize.Size32) {
+				if (state.addressSize == OpSize.Size32)
+					instruction.InternalCode = code32_32;
+				else
+					instruction.InternalCode = code32_16;
+			}
+			else {
+				if (state.addressSize == OpSize.Size32)
+					instruction.InternalCode = code16_32;
+				else
+					instruction.InternalCode = code16_16;
+			}
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalOp0Kind = OpKind.NearBranch16;
 				instruction.InternalNearBranch16 = (ushort)((uint)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer32());
@@ -756,16 +767,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalOp0Kind = OpKind.NearBranch32;
 				instruction.NearBranch32 = (uint)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer32();
 			}
-		}
-
-		Code GetCode(ref Decoder.State state) {
-			var operandSize = state.operandSize;
-			var addressSize = state.addressSize;
-			Debug.Assert(operandSize == OpSize.Size16 || operandSize == OpSize.Size32);
-			Debug.Assert(addressSize == OpSize.Size16 || addressSize == OpSize.Size32);
-			if (addressSize == OpSize.Size16)
-				return operandSize == OpSize.Size16 ? code16_16 : code16_32;
-			return operandSize == OpSize.Size16 ? code32_16 : code32_32;
 		}
 	}
 
