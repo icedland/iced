@@ -25,8 +25,10 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.EncoderTests {
 	public abstract class BlockEncoderTest {
-		internal static Instruction[] Decode(int bitness, ulong rip, byte[] data) {
-			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(data));
+		protected const DecoderOptions decoderOptions = DecoderOptions.None;
+
+		internal static Instruction[] Decode(int bitness, ulong rip, byte[] data, DecoderOptions options) {
+			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(data), options);
 			decoder.InstructionPointer = rip;
 			var list = new List<Instruction>();
 			while ((decoder.InstructionPointer - rip) < (uint)data.Length)
@@ -59,8 +61,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			}
 		}
 
-		protected void EncodeBase(int bitness, ulong origRip, byte[] originalData, ulong newRip, byte[] newData, BlockEncoderOptions options, uint[] expectedInstructionOffsets, RelocInfo[] expectedRelocInfos) {
-			var origInstrs = Decode(bitness, origRip, originalData);
+		protected void EncodeBase(int bitness, ulong origRip, byte[] originalData, ulong newRip, byte[] newData, BlockEncoderOptions options, DecoderOptions decoderOptions, uint[] expectedInstructionOffsets, RelocInfo[] expectedRelocInfos) {
+			var origInstrs = Decode(bitness, origRip, originalData, decoderOptions);
 			var codeWriter = new CodeWriterImpl();
 			var relocInfos = new List<RelocInfo>();
 			var newInstructionOffsets = new uint[origInstrs.Length];
@@ -81,7 +83,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 			var expectedConstantOffsets = new ConstantOffsets[constantOffsets.Length];
 			var reader = new CodeReaderImpl(codeWriter.ToArray());
-			var decoder = Decoder.Create(bitness, reader);
+			var decoder = Decoder.Create(bitness, reader, decoderOptions);
 			for (int i = 0; i < newInstructionOffsets.Length; i++) {
 				if (newInstructionOffsets[i] == uint.MaxValue)
 					expectedConstantOffsets[i] = default;

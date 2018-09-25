@@ -30,11 +30,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public readonly int Bitness;
 		public readonly Code Code;
 		public readonly string HexBytes;
+		public readonly DecoderOptions Options;
 
-		public DecoderTestInfo(int bitness, Code code, string hexBytes) {
+		public DecoderTestInfo(int bitness, Code code, string hexBytes, DecoderOptions options) {
 			Bitness = bitness;
 			Code = code;
 			HexBytes = hexBytes;
+			Options = options;
 		}
 	}
 
@@ -680,6 +682,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					continue;
 
 				foreach (var method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)) {
+					DecoderOptions options;
 					var name = method.Name;
 					if (!name.StartsWith("Test", StringComparison.Ordinal))
 						continue;
@@ -728,8 +731,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 								Assert.True(hasCodeInMethodName);
 								code = (Code)codeValueIndex;
 							}
+							int last = values.Count - 1;
+							if (values[last].ArgumentType == typeof(DecoderOptions))
+								options = (DecoderOptions)(uint)values[last].Value;
+							else
+								options = DecoderOptions.None;
 							hadInlineCodeValue = true;
-							yield return new DecoderTestInfo(bitness, code, (string)values[0].Value);
+							yield return new DecoderTestInfo(bitness, code, (string)values[0].Value, options);
 						}
 						else if (ca.AttributeType == typeof(MemberDataAttribute)) {
 							Assert.Equal(2, ca.ConstructorArguments.Count);
@@ -741,14 +749,22 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 									Assert.True(tc.Length >= 2);
 									Assert.True(tc[0] is string);
 									Assert.True(tc[1] is Code);
-									yield return new DecoderTestInfo(bitness, (Code)tc[1], (string)tc[0]);
+									if (tc[tc.Length - 1] is DecoderOptions optionsTemp)
+										options = optionsTemp;
+									else
+										options = DecoderOptions.None;
+									yield return new DecoderTestInfo(bitness, (Code)tc[1], (string)tc[0], options);
 								}
 								else {
 									Assert.True(tc.Length >= 3);
 									Assert.True(tc[0] is string);
 									Assert.True(tc[1] is int);
 									Assert.True(tc[2] is Code);
-									yield return new DecoderTestInfo(bitness, (Code)tc[2], (string)tc[0]);
+									if (tc[tc.Length - 1] is DecoderOptions optionsTemp)
+										options = optionsTemp;
+									else
+										options = DecoderOptions.None;
+									yield return new DecoderTestInfo(bitness, (Code)tc[2], (string)tc[0], options);
 								}
 								hadInlineCodeValue = true;
 							}
@@ -764,7 +780,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 							hexBytes = GetHexBytes(method);
 							Assert.NotNull(hexBytes);
 						}
-						yield return new DecoderTestInfo(bitness, (Code)codeValueIndex, hexBytes);
+						options = DecoderOptions.None;
+						yield return new DecoderTestInfo(bitness, (Code)codeValueIndex, hexBytes, options);
 					}
 				}
 			}

@@ -66,8 +66,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	}
 
 	public abstract class InstructionInfoTest {
-		protected void TestInstructionInfo(int bitness, string hexBytes, Code code, int lineNo, InstructionInfoTestCase testCase) {
-			var decoder = CreateDecoder(bitness, hexBytes);
+		protected void TestInstructionInfo(int bitness, string hexBytes, Code code, DecoderOptions options, int lineNo, InstructionInfoTestCase testCase) {
+			var decoder = CreateDecoder(bitness, hexBytes, options);
 			var instr = decoder.Decode();
 			Assert.Equal(code, instr.Code);
 
@@ -343,9 +343,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			return -1;
 		}
 
-		Decoder CreateDecoder(int codeSize, string hexBytes) {
+		Decoder CreateDecoder(int codeSize, string hexBytes, DecoderOptions options) {
 			var codeReader = new ByteArrayCodeReader(hexBytes);
-			var decoder = Decoder.Create(codeSize, codeReader);
+			var decoder = Decoder.Create(codeSize, codeReader, options);
 
 			switch (codeSize) {
 			case 16:
@@ -504,6 +504,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				if (!toCpuidFeature.TryGetValue(cpuidFeatureString, out testCase.CpuidFeature))
 					throw new Exception($"Invalid {nameof(CpuidFeature)} value, line {lineNo}: '{cpuidFeatureString}' ({filename})");
 
+				var options = DecoderOptions.None;
 				foreach (var keyValue in elems[4].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
 					string key, value;
 					int index = keyValue.IndexOf('=');
@@ -656,13 +657,73 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 
+					case "decopt":
+						if (!TryParseDecoderOptions(value.Split(semicolonSeparator), ref options))
+							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
+						break;
+
 					default:
 						throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 					}
 				}
 
-				yield return new object[4] { hexBytes, code, lineNo, testCase };
+				yield return new object[5] { hexBytes, code, options, lineNo, testCase };
 			}
+		}
+
+		static bool TryParseDecoderOptions(string[] stringOptions, ref DecoderOptions options) {
+			foreach (var opt in stringOptions) {
+				switch (opt.Trim().ToLowerInvariant()) {
+				case "amd":
+					options |= DecoderOptions.AMD;
+					break;
+				case "noprefetchw":
+					options |= DecoderOptions.NoPrefetchw;
+					break;
+				case "noprefetchsse":
+					options |= DecoderOptions.NoPrefetchSSE;
+					break;
+				case "nompx":
+					options |= DecoderOptions.NoMPX;
+					break;
+				case "nocldemote":
+					options |= DecoderOptions.NoCldemote;
+					break;
+				case "nocetss":
+					options |= DecoderOptions.NoCetSS;
+					break;
+				case "nocetibt":
+					options |= DecoderOptions.NoCetIBT;
+					break;
+				case "nomultibytenop":
+					options |= DecoderOptions.NoMultibyteNop;
+					break;
+				case "forcereservednop":
+					options |= DecoderOptions.ForceReservedNop;
+					break;
+				case "cflsh":
+					options |= DecoderOptions.Cflsh;
+					break;
+				case "umov":
+					options |= DecoderOptions.Umov;
+					break;
+				case "ecr":
+					options |= DecoderOptions.Ecr;
+					break;
+				case "xbts":
+					options |= DecoderOptions.Xbts;
+					break;
+				case "cmpxchg486a":
+					options |= DecoderOptions.Cmpxchg486A;
+					break;
+				case "zalloc":
+					options |= DecoderOptions.Zalloc;
+					break;
+				default:
+					return false;
+				}
+			}
+			return true;
 		}
 
 		static bool AddMemory(int bitness, Dictionary<string, MemorySize> toMemorySize, Dictionary<string, Register> toRegister, string value, OpAccess access, InstructionInfoTestCase testCase) {

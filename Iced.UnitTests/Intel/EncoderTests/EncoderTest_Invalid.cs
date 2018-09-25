@@ -27,15 +27,15 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 	public sealed class EncoderTest_Invalid : EncoderTest {
 		[Theory]
 		[MemberData(nameof(EncodeInvalid_Data))]
-		void EncodeInvalid(int codeSize, Code code, string hexBytes, int invalidCodeSize) => EncodeInvalidBase(codeSize, code, hexBytes, invalidCodeSize);
+		void EncodeInvalid(int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidCodeSize) => EncodeInvalidBase(codeSize, code, hexBytes, options, invalidCodeSize);
 		public static IEnumerable<object[]> EncodeInvalid_Data {
 			get {
 				foreach (var info in DecoderTestUtils.GetDecoderTests(needHexBytes: true, includeOtherTests: false)) {
 					if (DecoderTestUtils.Code32Only.Contains(info.Code))
-						yield return new object[] { info.Bitness, info.Code, info.HexBytes, 64 };
+						yield return new object[] { info.Bitness, info.Code, info.HexBytes, info.Options, 64 };
 					if (DecoderTestUtils.Code64Only.Contains(info.Code)) {
-						yield return new object[] { info.Bitness, info.Code, info.HexBytes, 16 };
-						yield return new object[] { info.Bitness, info.Code, info.HexBytes, 32 };
+						yield return new object[] { info.Bitness, info.Code, info.HexBytes, info.Options, 16 };
+						yield return new object[] { info.Bitness, info.Code, info.HexBytes, info.Options, 32 };
 					}
 				}
 			}

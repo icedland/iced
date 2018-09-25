@@ -56,7 +56,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			};
 			var expectedRelocInfos = Array.Empty<RelocInfo>();
 			const BlockEncoderOptions options = BlockEncoderOptions.None;
-			EncodeBase(bitness, origRip, originalData, newRip, newData, options, expectedInstructionOffsets, expectedRelocInfos);
+			EncodeBase(bitness, origRip, originalData, newRip, newData, options, decoderOptions, expectedInstructionOffsets, expectedRelocInfos);
 		}
 
 		[Fact]
@@ -87,7 +87,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			};
 			var expectedRelocInfos = Array.Empty<RelocInfo>();
 			const BlockEncoderOptions options = BlockEncoderOptions.None;
-			EncodeBase(bitness, origRip, originalData, newRip, newData, options, expectedInstructionOffsets, expectedRelocInfos);
+			EncodeBase(bitness, origRip, originalData, newRip, newData, options, decoderOptions, expectedInstructionOffsets, expectedRelocInfos);
 		}
 	}
 }

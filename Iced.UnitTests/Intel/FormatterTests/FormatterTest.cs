@@ -21,17 +21,24 @@
 using System;
 using System.Collections.Generic;
 using Iced.Intel;
-using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public readonly struct InstructionInfo {
 		public readonly int CodeSize;
 		public readonly string HexBytes;
 		public readonly Code Code;
+		public readonly DecoderOptions Options;
 		public InstructionInfo(int codeSize, string hexBytes, Code code) {
 			CodeSize = codeSize;
 			HexBytes = hexBytes;
 			Code = code;
+			Options = DecoderOptions.None;
+		}
+		public InstructionInfo(int codeSize, string hexBytes, Code code, DecoderOptions options) {
+			CodeSize = codeSize;
+			HexBytes = hexBytes;
+			Code = code;
+			Options = options;
 		}
 	}
 
@@ -46,7 +53,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		}
 
 		protected void FormatBase(int index, InstructionInfo info, string formattedString, Formatter formatter) =>
-			FormatterTestUtils.FormatTest(info.CodeSize, info.HexBytes, info.Code, formattedString, formatter);
+			FormatterTestUtils.FormatTest(info.CodeSize, info.HexBytes, info.Code, info.Options, formattedString, formatter);
 	}
 }
 #endif

@@ -198,28 +198,31 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var reader16 = new DecodeMultipleCodeReader();
 			var reader32 = new DecodeMultipleCodeReader();
 			var reader64 = new DecodeMultipleCodeReader();
-			var decoderAll16 = Decoder.Create16(reader16);
-			var decoderAll32 = Decoder.Create32(reader32);
-			var decoderAll64 = Decoder.Create64(reader64);
+			var decoderDict16 = new Dictionary<DecoderOptions, Decoder>();
+			var decoderDict32 = new Dictionary<DecoderOptions, Decoder>();
+			var decoderDict64 = new Dictionary<DecoderOptions, Decoder>();
 			foreach (var info in DecoderTestUtils.GetDecoderTests(needHexBytes: true, includeOtherTests: false)) {
 				var data = HexUtils.ToByteArray(info.HexBytes);
-				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(data));
+				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(data), info.Options);
 				Decoder decoderAll;
 				switch (info.Bitness) {
 				case 16:
 					decoder.InstructionPointer = DecoderConstants.DEFAULT_IP16;
 					reader16.SetArray(data);
-					decoderAll = decoderAll16;
+					if (!decoderDict16.TryGetValue(info.Options, out decoderAll))
+						decoderDict16.Add(info.Options, decoderAll = Decoder.Create16(reader16, info.Options));
 					break;
 				case 32:
 					decoder.InstructionPointer = DecoderConstants.DEFAULT_IP32;
 					reader32.SetArray(data);
-					decoderAll = decoderAll32;
+					if (!decoderDict32.TryGetValue(info.Options, out decoderAll))
+						decoderDict32.Add(info.Options, decoderAll = Decoder.Create32(reader32, info.Options));
 					break;
 				case 64:
 					decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64;
 					reader64.SetArray(data);
-					decoderAll = decoderAll64;
+					if (!decoderDict64.TryGetValue(info.Options, out decoderAll))
+						decoderDict64.Add(info.Options, decoderAll = Decoder.Create64(reader64, info.Options));
 					break;
 				default:
 					throw new InvalidOperationException();
