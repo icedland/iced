@@ -696,14 +696,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("82 00 5A", 3, Code.Add_rm8_imm8, 0x5A)]
-		[InlineData("82 08 A5", 3, Code.Or_rm8_imm8, 0xA5)]
-		[InlineData("82 10 5A", 3, Code.Adc_rm8_imm8, 0x5A)]
-		[InlineData("82 18 A5", 3, Code.Sbb_rm8_imm8, 0xA5)]
-		[InlineData("82 20 5A", 3, Code.And_rm8_imm8, 0x5A)]
-		[InlineData("82 28 A5", 3, Code.Sub_rm8_imm8, 0xA5)]
-		[InlineData("82 30 5A", 3, Code.Xor_rm8_imm8, 0x5A)]
-		[InlineData("82 38 A5", 3, Code.Cmp_rm8_imm8, 0xA5)]
+		[InlineData("82 00 5A", 3, Code.Add_rm8_imm8_82, 0x5A)]
+		[InlineData("82 08 A5", 3, Code.Or_rm8_imm8_82, 0xA5)]
+		[InlineData("82 10 5A", 3, Code.Adc_rm8_imm8_82, 0x5A)]
+		[InlineData("82 18 A5", 3, Code.Sbb_rm8_imm8_82, 0xA5)]
+		[InlineData("82 20 5A", 3, Code.And_rm8_imm8_82, 0x5A)]
+		[InlineData("82 28 A5", 3, Code.Sub_rm8_imm8_82, 0xA5)]
+		[InlineData("82 30 5A", 3, Code.Xor_rm8_imm8_82, 0x5A)]
+		[InlineData("82 38 A5", 3, Code.Cmp_rm8_imm8_82, 0xA5)]
 		void Test16_Grp1_82_Eb_Ib_1(string hexBytes, int byteLength, Code code, byte immediate8) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -730,14 +730,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("82 C1 5A", 3, Code.Add_rm8_imm8, Register.CL, 0x5A)]
-		[InlineData("82 CA A5", 3, Code.Or_rm8_imm8, Register.DL, 0xA5)]
-		[InlineData("82 D3 5A", 3, Code.Adc_rm8_imm8, Register.BL, 0x5A)]
-		[InlineData("82 DC A5", 3, Code.Sbb_rm8_imm8, Register.AH, 0xA5)]
-		[InlineData("82 E5 5A", 3, Code.And_rm8_imm8, Register.CH, 0x5A)]
-		[InlineData("82 EE A5", 3, Code.Sub_rm8_imm8, Register.DH, 0xA5)]
-		[InlineData("82 F7 5A", 3, Code.Xor_rm8_imm8, Register.BH, 0x5A)]
-		[InlineData("82 F8 A5", 3, Code.Cmp_rm8_imm8, Register.AL, 0xA5)]
+		[InlineData("82 C1 5A", 3, Code.Add_rm8_imm8_82, Register.CL, 0x5A)]
+		[InlineData("82 CA A5", 3, Code.Or_rm8_imm8_82, Register.DL, 0xA5)]
+		[InlineData("82 D3 5A", 3, Code.Adc_rm8_imm8_82, Register.BL, 0x5A)]
+		[InlineData("82 DC A5", 3, Code.Sbb_rm8_imm8_82, Register.AH, 0xA5)]
+		[InlineData("82 E5 5A", 3, Code.And_rm8_imm8_82, Register.CH, 0x5A)]
+		[InlineData("82 EE A5", 3, Code.Sub_rm8_imm8_82, Register.DH, 0xA5)]
+		[InlineData("82 F7 5A", 3, Code.Xor_rm8_imm8_82, Register.BH, 0x5A)]
+		[InlineData("82 F8 A5", 3, Code.Cmp_rm8_imm8_82, Register.AL, 0xA5)]
 		void Test16_Grp1_82_Eb_Ib_2(string hexBytes, int byteLength, Code code, Register reg, byte immediate8) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -758,14 +758,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("82 00 5A", 3, Code.Add_rm8_imm8, 0x5A)]
-		[InlineData("82 08 A5", 3, Code.Or_rm8_imm8, 0xA5)]
-		[InlineData("82 10 5A", 3, Code.Adc_rm8_imm8, 0x5A)]
-		[InlineData("82 18 A5", 3, Code.Sbb_rm8_imm8, 0xA5)]
-		[InlineData("82 20 5A", 3, Code.And_rm8_imm8, 0x5A)]
-		[InlineData("82 28 A5", 3, Code.Sub_rm8_imm8, 0xA5)]
-		[InlineData("82 30 5A", 3, Code.Xor_rm8_imm8, 0x5A)]
-		[InlineData("82 38 A5", 3, Code.Cmp_rm8_imm8, 0xA5)]
+		[InlineData("82 00 5A", 3, Code.Add_rm8_imm8_82, 0x5A)]
+		[InlineData("82 08 A5", 3, Code.Or_rm8_imm8_82, 0xA5)]
+		[InlineData("82 10 5A", 3, Code.Adc_rm8_imm8_82, 0x5A)]
+		[InlineData("82 18 A5", 3, Code.Sbb_rm8_imm8_82, 0xA5)]
+		[InlineData("82 20 5A", 3, Code.And_rm8_imm8_82, 0x5A)]
+		[InlineData("82 28 A5", 3, Code.Sub_rm8_imm8_82, 0xA5)]
+		[InlineData("82 30 5A", 3, Code.Xor_rm8_imm8_82, 0x5A)]
+		[InlineData("82 38 A5", 3, Code.Cmp_rm8_imm8_82, 0xA5)]
 		void Test32_Grp1_82_Eb_Ib_1(string hexBytes, int byteLength, Code code, byte immediate8) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -792,14 +792,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("82 C1 5A", 3, Code.Add_rm8_imm8, Register.CL, 0x5A)]
-		[InlineData("82 CA A5", 3, Code.Or_rm8_imm8, Register.DL, 0xA5)]
-		[InlineData("82 D3 5A", 3, Code.Adc_rm8_imm8, Register.BL, 0x5A)]
-		[InlineData("82 DC A5", 3, Code.Sbb_rm8_imm8, Register.AH, 0xA5)]
-		[InlineData("82 E5 5A", 3, Code.And_rm8_imm8, Register.CH, 0x5A)]
-		[InlineData("82 EE A5", 3, Code.Sub_rm8_imm8, Register.DH, 0xA5)]
-		[InlineData("82 F7 5A", 3, Code.Xor_rm8_imm8, Register.BH, 0x5A)]
-		[InlineData("82 F8 A5", 3, Code.Cmp_rm8_imm8, Register.AL, 0xA5)]
+		[InlineData("82 C1 5A", 3, Code.Add_rm8_imm8_82, Register.CL, 0x5A)]
+		[InlineData("82 CA A5", 3, Code.Or_rm8_imm8_82, Register.DL, 0xA5)]
+		[InlineData("82 D3 5A", 3, Code.Adc_rm8_imm8_82, Register.BL, 0x5A)]
+		[InlineData("82 DC A5", 3, Code.Sbb_rm8_imm8_82, Register.AH, 0xA5)]
+		[InlineData("82 E5 5A", 3, Code.And_rm8_imm8_82, Register.CH, 0x5A)]
+		[InlineData("82 EE A5", 3, Code.Sub_rm8_imm8_82, Register.DH, 0xA5)]
+		[InlineData("82 F7 5A", 3, Code.Xor_rm8_imm8_82, Register.BH, 0x5A)]
+		[InlineData("82 F8 A5", 3, Code.Cmp_rm8_imm8_82, Register.AL, 0xA5)]
 		void Test32_Grp1_82_Eb_Ib_2(string hexBytes, int byteLength, Code code, Register reg, byte immediate8) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();

@@ -51,6 +51,17 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Ev_Iz(Code.Cmp_rm16_imm16, Code.Cmp_rm32_imm32, Code.Cmp_rm64_imm32),
 			};
 
+			var handlers_Grp_82 = new OpCodeHandler[8] {
+				new OpCodeHandler_Eb_Ib(Code.Add_rm8_imm8_82, HandlerFlags.XacquireRelease),
+				new OpCodeHandler_Eb_Ib(Code.Or_rm8_imm8_82, HandlerFlags.XacquireRelease),
+				new OpCodeHandler_Eb_Ib(Code.Adc_rm8_imm8_82, HandlerFlags.XacquireRelease),
+				new OpCodeHandler_Eb_Ib(Code.Sbb_rm8_imm8_82, HandlerFlags.XacquireRelease),
+				new OpCodeHandler_Eb_Ib(Code.And_rm8_imm8_82, HandlerFlags.XacquireRelease),
+				new OpCodeHandler_Eb_Ib(Code.Sub_rm8_imm8_82, HandlerFlags.XacquireRelease),
+				new OpCodeHandler_Eb_Ib(Code.Xor_rm8_imm8_82, HandlerFlags.XacquireRelease),
+				new OpCodeHandler_Eb_Ib(Code.Cmp_rm8_imm8_82),
+			};
+
 			var handlers_Grp_83 = new OpCodeHandler[8] {
 				new OpCodeHandler_Ev_Ib(Code.Add_rm16_imm8, Code.Add_rm32_imm8, Code.Add_rm64_imm8, HandlerFlags.XacquireRelease),
 				new OpCodeHandler_Ev_Ib(Code.Or_rm16_imm8, Code.Or_rm32_imm8, Code.Or_rm64_imm8, HandlerFlags.XacquireRelease),
@@ -2944,7 +2955,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				// 80
 				new OpCodeHandler_Group(handlers_Grp_80),
 				new OpCodeHandler_Group(handlers_Grp_81),
-				new OpCodeHandler_Group(handlers_Grp_80),
+				new OpCodeHandler_Group(handlers_Grp_82),
 				new OpCodeHandler_Group(handlers_Grp_83),
 				new OpCodeHandler_Eb_Gb(Code.Test_rm8_r8),
 				new OpCodeHandler_Ev_Gv(Code.Test_rm16_r16, Code.Test_rm32_r32, Code.Test_rm64_r64),
