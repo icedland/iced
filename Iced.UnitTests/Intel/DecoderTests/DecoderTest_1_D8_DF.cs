@@ -23,44 +23,44 @@ using Xunit;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class DecoderTest_1_D8_DF : DecoderTest {
 		[Theory]
-		[InlineData("D9 D0", 2, Code.Fnop)]
-		[InlineData("D9 E0", 2, Code.Fchs)]
-		[InlineData("D9 E1", 2, Code.Fabs)]
-		[InlineData("D9 E4", 2, Code.Ftst)]
-		[InlineData("D9 E5", 2, Code.Fxam)]
-		[InlineData("D9 E8", 2, Code.Fld1)]
-		[InlineData("D9 E9", 2, Code.Fldl2t)]
-		[InlineData("D9 EA", 2, Code.Fldl2e)]
-		[InlineData("D9 EB", 2, Code.Fldpi)]
-		[InlineData("D9 EC", 2, Code.Fldlg2)]
-		[InlineData("D9 ED", 2, Code.Fldln2)]
-		[InlineData("D9 EE", 2, Code.Fldz)]
-		[InlineData("D9 F0", 2, Code.F2xm1)]
-		[InlineData("D9 F1", 2, Code.Fyl2x)]
-		[InlineData("D9 F2", 2, Code.Fptan)]
-		[InlineData("D9 F3", 2, Code.Fpatan)]
-		[InlineData("D9 F4", 2, Code.Fxtract)]
-		[InlineData("D9 F5", 2, Code.Fprem1)]
-		[InlineData("D9 F6", 2, Code.Fdecstp)]
-		[InlineData("D9 F7", 2, Code.Fincstp)]
-		[InlineData("D9 F8", 2, Code.Fprem)]
-		[InlineData("D9 F9", 2, Code.Fyl2xp1)]
-		[InlineData("D9 FA", 2, Code.Fsqrt)]
-		[InlineData("D9 FB", 2, Code.Fsincos)]
-		[InlineData("D9 FC", 2, Code.Frndint)]
-		[InlineData("D9 FD", 2, Code.Fscale)]
-		[InlineData("D9 FE", 2, Code.Fsin)]
-		[InlineData("D9 FF", 2, Code.Fcos)]
-		[InlineData("DA E9", 2, Code.Fucompp)]
-		[InlineData("DB E0", 2, Code.Fneni)]
-		[InlineData("DB E1", 2, Code.Fndisi)]
-		[InlineData("DB E2", 2, Code.Fnclex)]
-		[InlineData("DB E3", 2, Code.Fninit)]
-		[InlineData("DB E4", 2, Code.Fnsetpm)]
-		[InlineData("DB E5", 2, Code.Frstpm)]
-		[InlineData("DE D9", 2, Code.Fcompp)]
-		void Test16_FpuSimple_1(string hexBytes, int byteLength, Code code) {
-			var decoder = CreateDecoder16(hexBytes);
+		[InlineData("D9 D0", 2, Code.Fnop, DecoderOptions.None)]
+		[InlineData("D9 E0", 2, Code.Fchs, DecoderOptions.None)]
+		[InlineData("D9 E1", 2, Code.Fabs, DecoderOptions.None)]
+		[InlineData("D9 E4", 2, Code.Ftst, DecoderOptions.None)]
+		[InlineData("D9 E5", 2, Code.Fxam, DecoderOptions.None)]
+		[InlineData("D9 E8", 2, Code.Fld1, DecoderOptions.None)]
+		[InlineData("D9 E9", 2, Code.Fldl2t, DecoderOptions.None)]
+		[InlineData("D9 EA", 2, Code.Fldl2e, DecoderOptions.None)]
+		[InlineData("D9 EB", 2, Code.Fldpi, DecoderOptions.None)]
+		[InlineData("D9 EC", 2, Code.Fldlg2, DecoderOptions.None)]
+		[InlineData("D9 ED", 2, Code.Fldln2, DecoderOptions.None)]
+		[InlineData("D9 EE", 2, Code.Fldz, DecoderOptions.None)]
+		[InlineData("D9 F0", 2, Code.F2xm1, DecoderOptions.None)]
+		[InlineData("D9 F1", 2, Code.Fyl2x, DecoderOptions.None)]
+		[InlineData("D9 F2", 2, Code.Fptan, DecoderOptions.None)]
+		[InlineData("D9 F3", 2, Code.Fpatan, DecoderOptions.None)]
+		[InlineData("D9 F4", 2, Code.Fxtract, DecoderOptions.None)]
+		[InlineData("D9 F5", 2, Code.Fprem1, DecoderOptions.None)]
+		[InlineData("D9 F6", 2, Code.Fdecstp, DecoderOptions.None)]
+		[InlineData("D9 F7", 2, Code.Fincstp, DecoderOptions.None)]
+		[InlineData("D9 F8", 2, Code.Fprem, DecoderOptions.None)]
+		[InlineData("D9 F9", 2, Code.Fyl2xp1, DecoderOptions.None)]
+		[InlineData("D9 FA", 2, Code.Fsqrt, DecoderOptions.None)]
+		[InlineData("D9 FB", 2, Code.Fsincos, DecoderOptions.None)]
+		[InlineData("D9 FC", 2, Code.Frndint, DecoderOptions.None)]
+		[InlineData("D9 FD", 2, Code.Fscale, DecoderOptions.None)]
+		[InlineData("D9 FE", 2, Code.Fsin, DecoderOptions.None)]
+		[InlineData("D9 FF", 2, Code.Fcos, DecoderOptions.None)]
+		[InlineData("DA E9", 2, Code.Fucompp, DecoderOptions.None)]
+		[InlineData("DB E0", 2, Code.Fneni, DecoderOptions.None)]
+		[InlineData("DB E1", 2, Code.Fndisi, DecoderOptions.None)]
+		[InlineData("DB E2", 2, Code.Fnclex, DecoderOptions.None)]
+		[InlineData("DB E3", 2, Code.Fninit, DecoderOptions.None)]
+		[InlineData("DB E4", 2, Code.Fnsetpm, DecoderOptions.None)]
+		[InlineData("DB E5", 2, Code.Frstpm, DecoderOptions.OldFpu)]
+		[InlineData("DE D9", 2, Code.Fcompp, DecoderOptions.None)]
+		void Test16_FpuSimple_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
+			var decoder = CreateDecoder16(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -73,44 +73,44 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D9 D0", 2, Code.Fnop)]
-		[InlineData("D9 E0", 2, Code.Fchs)]
-		[InlineData("D9 E1", 2, Code.Fabs)]
-		[InlineData("D9 E4", 2, Code.Ftst)]
-		[InlineData("D9 E5", 2, Code.Fxam)]
-		[InlineData("D9 E8", 2, Code.Fld1)]
-		[InlineData("D9 E9", 2, Code.Fldl2t)]
-		[InlineData("D9 EA", 2, Code.Fldl2e)]
-		[InlineData("D9 EB", 2, Code.Fldpi)]
-		[InlineData("D9 EC", 2, Code.Fldlg2)]
-		[InlineData("D9 ED", 2, Code.Fldln2)]
-		[InlineData("D9 EE", 2, Code.Fldz)]
-		[InlineData("D9 F0", 2, Code.F2xm1)]
-		[InlineData("D9 F1", 2, Code.Fyl2x)]
-		[InlineData("D9 F2", 2, Code.Fptan)]
-		[InlineData("D9 F3", 2, Code.Fpatan)]
-		[InlineData("D9 F4", 2, Code.Fxtract)]
-		[InlineData("D9 F5", 2, Code.Fprem1)]
-		[InlineData("D9 F6", 2, Code.Fdecstp)]
-		[InlineData("D9 F7", 2, Code.Fincstp)]
-		[InlineData("D9 F8", 2, Code.Fprem)]
-		[InlineData("D9 F9", 2, Code.Fyl2xp1)]
-		[InlineData("D9 FA", 2, Code.Fsqrt)]
-		[InlineData("D9 FB", 2, Code.Fsincos)]
-		[InlineData("D9 FC", 2, Code.Frndint)]
-		[InlineData("D9 FD", 2, Code.Fscale)]
-		[InlineData("D9 FE", 2, Code.Fsin)]
-		[InlineData("D9 FF", 2, Code.Fcos)]
-		[InlineData("DA E9", 2, Code.Fucompp)]
-		[InlineData("DB E0", 2, Code.Fneni)]
-		[InlineData("DB E1", 2, Code.Fndisi)]
-		[InlineData("DB E2", 2, Code.Fnclex)]
-		[InlineData("DB E3", 2, Code.Fninit)]
-		[InlineData("DB E4", 2, Code.Fnsetpm)]
-		[InlineData("DB E5", 2, Code.Frstpm)]
-		[InlineData("DE D9", 2, Code.Fcompp)]
-		void Test32_FpuSimple_1(string hexBytes, int byteLength, Code code) {
-			var decoder = CreateDecoder32(hexBytes);
+		[InlineData("D9 D0", 2, Code.Fnop, DecoderOptions.None)]
+		[InlineData("D9 E0", 2, Code.Fchs, DecoderOptions.None)]
+		[InlineData("D9 E1", 2, Code.Fabs, DecoderOptions.None)]
+		[InlineData("D9 E4", 2, Code.Ftst, DecoderOptions.None)]
+		[InlineData("D9 E5", 2, Code.Fxam, DecoderOptions.None)]
+		[InlineData("D9 E8", 2, Code.Fld1, DecoderOptions.None)]
+		[InlineData("D9 E9", 2, Code.Fldl2t, DecoderOptions.None)]
+		[InlineData("D9 EA", 2, Code.Fldl2e, DecoderOptions.None)]
+		[InlineData("D9 EB", 2, Code.Fldpi, DecoderOptions.None)]
+		[InlineData("D9 EC", 2, Code.Fldlg2, DecoderOptions.None)]
+		[InlineData("D9 ED", 2, Code.Fldln2, DecoderOptions.None)]
+		[InlineData("D9 EE", 2, Code.Fldz, DecoderOptions.None)]
+		[InlineData("D9 F0", 2, Code.F2xm1, DecoderOptions.None)]
+		[InlineData("D9 F1", 2, Code.Fyl2x, DecoderOptions.None)]
+		[InlineData("D9 F2", 2, Code.Fptan, DecoderOptions.None)]
+		[InlineData("D9 F3", 2, Code.Fpatan, DecoderOptions.None)]
+		[InlineData("D9 F4", 2, Code.Fxtract, DecoderOptions.None)]
+		[InlineData("D9 F5", 2, Code.Fprem1, DecoderOptions.None)]
+		[InlineData("D9 F6", 2, Code.Fdecstp, DecoderOptions.None)]
+		[InlineData("D9 F7", 2, Code.Fincstp, DecoderOptions.None)]
+		[InlineData("D9 F8", 2, Code.Fprem, DecoderOptions.None)]
+		[InlineData("D9 F9", 2, Code.Fyl2xp1, DecoderOptions.None)]
+		[InlineData("D9 FA", 2, Code.Fsqrt, DecoderOptions.None)]
+		[InlineData("D9 FB", 2, Code.Fsincos, DecoderOptions.None)]
+		[InlineData("D9 FC", 2, Code.Frndint, DecoderOptions.None)]
+		[InlineData("D9 FD", 2, Code.Fscale, DecoderOptions.None)]
+		[InlineData("D9 FE", 2, Code.Fsin, DecoderOptions.None)]
+		[InlineData("D9 FF", 2, Code.Fcos, DecoderOptions.None)]
+		[InlineData("DA E9", 2, Code.Fucompp, DecoderOptions.None)]
+		[InlineData("DB E0", 2, Code.Fneni, DecoderOptions.None)]
+		[InlineData("DB E1", 2, Code.Fndisi, DecoderOptions.None)]
+		[InlineData("DB E2", 2, Code.Fnclex, DecoderOptions.None)]
+		[InlineData("DB E3", 2, Code.Fninit, DecoderOptions.None)]
+		[InlineData("DB E4", 2, Code.Fnsetpm, DecoderOptions.None)]
+		[InlineData("DB E5", 2, Code.Frstpm, DecoderOptions.OldFpu)]
+		[InlineData("DE D9", 2, Code.Fcompp, DecoderOptions.None)]
+		void Test32_FpuSimple_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
+			var decoder = CreateDecoder32(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -123,44 +123,43 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("D9 D0", 2, Code.Fnop)]
-		[InlineData("D9 E0", 2, Code.Fchs)]
-		[InlineData("D9 E1", 2, Code.Fabs)]
-		[InlineData("D9 E4", 2, Code.Ftst)]
-		[InlineData("D9 E5", 2, Code.Fxam)]
-		[InlineData("D9 E8", 2, Code.Fld1)]
-		[InlineData("D9 E9", 2, Code.Fldl2t)]
-		[InlineData("D9 EA", 2, Code.Fldl2e)]
-		[InlineData("D9 EB", 2, Code.Fldpi)]
-		[InlineData("D9 EC", 2, Code.Fldlg2)]
-		[InlineData("D9 ED", 2, Code.Fldln2)]
-		[InlineData("D9 EE", 2, Code.Fldz)]
-		[InlineData("D9 F0", 2, Code.F2xm1)]
-		[InlineData("D9 F1", 2, Code.Fyl2x)]
-		[InlineData("D9 F2", 2, Code.Fptan)]
-		[InlineData("D9 F3", 2, Code.Fpatan)]
-		[InlineData("D9 F4", 2, Code.Fxtract)]
-		[InlineData("D9 F5", 2, Code.Fprem1)]
-		[InlineData("D9 F6", 2, Code.Fdecstp)]
-		[InlineData("D9 F7", 2, Code.Fincstp)]
-		[InlineData("D9 F8", 2, Code.Fprem)]
-		[InlineData("D9 F9", 2, Code.Fyl2xp1)]
-		[InlineData("D9 FA", 2, Code.Fsqrt)]
-		[InlineData("D9 FB", 2, Code.Fsincos)]
-		[InlineData("D9 FC", 2, Code.Frndint)]
-		[InlineData("D9 FD", 2, Code.Fscale)]
-		[InlineData("D9 FE", 2, Code.Fsin)]
-		[InlineData("D9 FF", 2, Code.Fcos)]
-		[InlineData("DA E9", 2, Code.Fucompp)]
-		[InlineData("DB E0", 2, Code.Fneni)]
-		[InlineData("DB E1", 2, Code.Fndisi)]
-		[InlineData("DB E2", 2, Code.Fnclex)]
-		[InlineData("DB E3", 2, Code.Fninit)]
-		[InlineData("DB E4", 2, Code.Fnsetpm)]
-		[InlineData("DB E5", 2, Code.Frstpm)]
-		[InlineData("DE D9", 2, Code.Fcompp)]
-		void Test64_FpuSimple_1(string hexBytes, int byteLength, Code code) {
-			var decoder = CreateDecoder64(hexBytes);
+		[InlineData("D9 D0", 2, Code.Fnop, DecoderOptions.None)]
+		[InlineData("D9 E0", 2, Code.Fchs, DecoderOptions.None)]
+		[InlineData("D9 E1", 2, Code.Fabs, DecoderOptions.None)]
+		[InlineData("D9 E4", 2, Code.Ftst, DecoderOptions.None)]
+		[InlineData("D9 E5", 2, Code.Fxam, DecoderOptions.None)]
+		[InlineData("D9 E8", 2, Code.Fld1, DecoderOptions.None)]
+		[InlineData("D9 E9", 2, Code.Fldl2t, DecoderOptions.None)]
+		[InlineData("D9 EA", 2, Code.Fldl2e, DecoderOptions.None)]
+		[InlineData("D9 EB", 2, Code.Fldpi, DecoderOptions.None)]
+		[InlineData("D9 EC", 2, Code.Fldlg2, DecoderOptions.None)]
+		[InlineData("D9 ED", 2, Code.Fldln2, DecoderOptions.None)]
+		[InlineData("D9 EE", 2, Code.Fldz, DecoderOptions.None)]
+		[InlineData("D9 F0", 2, Code.F2xm1, DecoderOptions.None)]
+		[InlineData("D9 F1", 2, Code.Fyl2x, DecoderOptions.None)]
+		[InlineData("D9 F2", 2, Code.Fptan, DecoderOptions.None)]
+		[InlineData("D9 F3", 2, Code.Fpatan, DecoderOptions.None)]
+		[InlineData("D9 F4", 2, Code.Fxtract, DecoderOptions.None)]
+		[InlineData("D9 F5", 2, Code.Fprem1, DecoderOptions.None)]
+		[InlineData("D9 F6", 2, Code.Fdecstp, DecoderOptions.None)]
+		[InlineData("D9 F7", 2, Code.Fincstp, DecoderOptions.None)]
+		[InlineData("D9 F8", 2, Code.Fprem, DecoderOptions.None)]
+		[InlineData("D9 F9", 2, Code.Fyl2xp1, DecoderOptions.None)]
+		[InlineData("D9 FA", 2, Code.Fsqrt, DecoderOptions.None)]
+		[InlineData("D9 FB", 2, Code.Fsincos, DecoderOptions.None)]
+		[InlineData("D9 FC", 2, Code.Frndint, DecoderOptions.None)]
+		[InlineData("D9 FD", 2, Code.Fscale, DecoderOptions.None)]
+		[InlineData("D9 FE", 2, Code.Fsin, DecoderOptions.None)]
+		[InlineData("D9 FF", 2, Code.Fcos, DecoderOptions.None)]
+		[InlineData("DA E9", 2, Code.Fucompp, DecoderOptions.None)]
+		[InlineData("DB E0", 2, Code.Fneni, DecoderOptions.None)]
+		[InlineData("DB E1", 2, Code.Fndisi, DecoderOptions.None)]
+		[InlineData("DB E2", 2, Code.Fnclex, DecoderOptions.None)]
+		[InlineData("DB E3", 2, Code.Fninit, DecoderOptions.None)]
+		[InlineData("DB E4", 2, Code.Fnsetpm, DecoderOptions.None)]
+		[InlineData("DE D9", 2, Code.Fcompp, DecoderOptions.None)]
+		void Test64_FpuSimple_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -8197,10 +8196,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("DF E1", 2)]
-		[InlineData("66 DF E1", 3)]
-		void Test16_Fstdw_AX_1(string hexBytes, int byteLength) {
-			var decoder = CreateDecoder16(hexBytes);
+		[InlineData("DF E1", 2, DecoderOptions.OldFpu)]
+		[InlineData("66 DF E1", 3, DecoderOptions.OldFpu)]
+		void Test16_Fstdw_AX_1(string hexBytes, int byteLength, DecoderOptions options) {
+			var decoder = CreateDecoder16(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(Code.Fstdw_AX, instr.Code);
@@ -8216,10 +8215,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("DF E1", 2)]
-		[InlineData("66 DF E1", 3)]
-		void Test32_Fstdw_AX_1(string hexBytes, int byteLength) {
-			var decoder = CreateDecoder32(hexBytes);
+		[InlineData("DF E1", 2, DecoderOptions.OldFpu)]
+		[InlineData("66 DF E1", 3, DecoderOptions.OldFpu)]
+		void Test32_Fstdw_AX_1(string hexBytes, int byteLength, DecoderOptions options) {
+			var decoder = CreateDecoder32(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(Code.Fstdw_AX, instr.Code);
@@ -8235,31 +8234,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("DF E1", 2)]
-		[InlineData("66 DF E1", 3)]
-		[InlineData("4F DF E1", 3)]
-		[InlineData("66 4F DF E1", 4)]
-		void Test64_Fstdw_AX_1(string hexBytes, int byteLength) {
-			var decoder = CreateDecoder64(hexBytes);
-			var instr = decoder.Decode();
-
-			Assert.Equal(Code.Fstdw_AX, instr.Code);
-			Assert.Equal(1, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
-
-			Assert.Equal(OpKind.Register, instr.Op0Kind);
-			Assert.Equal(Register.AX, instr.Op0Register);
-		}
-
-		[Theory]
-		[InlineData("DF E2", 2)]
-		[InlineData("66 DF E2", 3)]
-		void Test16_Fstsg_AX_1(string hexBytes, int byteLength) {
-			var decoder = CreateDecoder16(hexBytes);
+		[InlineData("DF E2", 2, DecoderOptions.OldFpu)]
+		[InlineData("66 DF E2", 3, DecoderOptions.OldFpu)]
+		void Test16_Fstsg_AX_1(string hexBytes, int byteLength, DecoderOptions options) {
+			var decoder = CreateDecoder16(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(Code.Fstsg_AX, instr.Code);
@@ -8275,31 +8253,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("DF E2", 2)]
-		[InlineData("66 DF E2", 3)]
-		void Test32_Fstsg_AX_1(string hexBytes, int byteLength) {
-			var decoder = CreateDecoder32(hexBytes);
-			var instr = decoder.Decode();
-
-			Assert.Equal(Code.Fstsg_AX, instr.Code);
-			Assert.Equal(1, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
-
-			Assert.Equal(OpKind.Register, instr.Op0Kind);
-			Assert.Equal(Register.AX, instr.Op0Register);
-		}
-
-		[Theory]
-		[InlineData("DF E2", 2)]
-		[InlineData("66 DF E2", 3)]
-		[InlineData("4F DF E2", 3)]
-		[InlineData("66 4F DF E2", 4)]
-		void Test64_Fstsg_AX_1(string hexBytes, int byteLength) {
-			var decoder = CreateDecoder64(hexBytes);
+		[InlineData("DF E2", 2, DecoderOptions.OldFpu)]
+		[InlineData("66 DF E2", 3, DecoderOptions.OldFpu)]
+		void Test32_Fstsg_AX_1(string hexBytes, int byteLength, DecoderOptions options) {
+			var decoder = CreateDecoder32(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(Code.Fstsg_AX, instr.Code);

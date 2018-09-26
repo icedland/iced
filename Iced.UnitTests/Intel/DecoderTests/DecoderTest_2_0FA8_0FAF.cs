@@ -246,31 +246,31 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "0FAA", 2, Code.Rsm };
 
 				yield return new object[] { "0FAE E8", 3, Code.Lfence };
-				yield return new object[] { "0FAE E9", 3, Code.Lfence };
-				yield return new object[] { "0FAE EA", 3, Code.Lfence };
-				yield return new object[] { "0FAE EB", 3, Code.Lfence };
-				yield return new object[] { "0FAE EC", 3, Code.Lfence };
-				yield return new object[] { "0FAE ED", 3, Code.Lfence };
-				yield return new object[] { "0FAE EE", 3, Code.Lfence };
-				yield return new object[] { "0FAE EF", 3, Code.Lfence };
+				yield return new object[] { "0FAE E9", 3, Code.Lfence_E9 };
+				yield return new object[] { "0FAE EA", 3, Code.Lfence_EA };
+				yield return new object[] { "0FAE EB", 3, Code.Lfence_EB };
+				yield return new object[] { "0FAE EC", 3, Code.Lfence_EC };
+				yield return new object[] { "0FAE ED", 3, Code.Lfence_ED };
+				yield return new object[] { "0FAE EE", 3, Code.Lfence_EE };
+				yield return new object[] { "0FAE EF", 3, Code.Lfence_EF };
 
 				yield return new object[] { "0FAE F0", 3, Code.Mfence };
-				yield return new object[] { "0FAE F1", 3, Code.Mfence };
-				yield return new object[] { "0FAE F2", 3, Code.Mfence };
-				yield return new object[] { "0FAE F3", 3, Code.Mfence };
-				yield return new object[] { "0FAE F4", 3, Code.Mfence };
-				yield return new object[] { "0FAE F5", 3, Code.Mfence };
-				yield return new object[] { "0FAE F6", 3, Code.Mfence };
-				yield return new object[] { "0FAE F7", 3, Code.Mfence };
+				yield return new object[] { "0FAE F1", 3, Code.Mfence_F1 };
+				yield return new object[] { "0FAE F2", 3, Code.Mfence_F2 };
+				yield return new object[] { "0FAE F3", 3, Code.Mfence_F3 };
+				yield return new object[] { "0FAE F4", 3, Code.Mfence_F4 };
+				yield return new object[] { "0FAE F5", 3, Code.Mfence_F5 };
+				yield return new object[] { "0FAE F6", 3, Code.Mfence_F6 };
+				yield return new object[] { "0FAE F7", 3, Code.Mfence_F7 };
 
 				yield return new object[] { "0FAE F8", 3, Code.Sfence };
-				yield return new object[] { "0FAE F9", 3, Code.Sfence };
-				yield return new object[] { "0FAE FA", 3, Code.Sfence };
-				yield return new object[] { "0FAE FB", 3, Code.Sfence };
-				yield return new object[] { "0FAE FC", 3, Code.Sfence };
-				yield return new object[] { "0FAE FD", 3, Code.Sfence };
-				yield return new object[] { "0FAE FE", 3, Code.Sfence };
-				yield return new object[] { "0FAE FF", 3, Code.Sfence };
+				yield return new object[] { "0FAE F9", 3, Code.Sfence_F9 };
+				yield return new object[] { "0FAE FA", 3, Code.Sfence_FA };
+				yield return new object[] { "0FAE FB", 3, Code.Sfence_FB };
+				yield return new object[] { "0FAE FC", 3, Code.Sfence_FC };
+				yield return new object[] { "0FAE FD", 3, Code.Sfence_FD };
+				yield return new object[] { "0FAE FE", 3, Code.Sfence_FE };
+				yield return new object[] { "0FAE FF", 3, Code.Sfence_FF };
 			}
 		}
 
@@ -293,31 +293,31 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "0FAA", 2, Code.Rsm };
 
 				yield return new object[] { "0FAE E8", 3, Code.Lfence };
-				yield return new object[] { "0FAE E9", 3, Code.Lfence };
-				yield return new object[] { "0FAE EA", 3, Code.Lfence };
-				yield return new object[] { "0FAE EB", 3, Code.Lfence };
-				yield return new object[] { "0FAE EC", 3, Code.Lfence };
-				yield return new object[] { "0FAE ED", 3, Code.Lfence };
-				yield return new object[] { "0FAE EE", 3, Code.Lfence };
-				yield return new object[] { "0FAE EF", 3, Code.Lfence };
+				yield return new object[] { "0FAE E9", 3, Code.Lfence_E9 };
+				yield return new object[] { "0FAE EA", 3, Code.Lfence_EA };
+				yield return new object[] { "0FAE EB", 3, Code.Lfence_EB };
+				yield return new object[] { "0FAE EC", 3, Code.Lfence_EC };
+				yield return new object[] { "0FAE ED", 3, Code.Lfence_ED };
+				yield return new object[] { "0FAE EE", 3, Code.Lfence_EE };
+				yield return new object[] { "0FAE EF", 3, Code.Lfence_EF };
 
 				yield return new object[] { "0FAE F0", 3, Code.Mfence };
-				yield return new object[] { "0FAE F1", 3, Code.Mfence };
-				yield return new object[] { "0FAE F2", 3, Code.Mfence };
-				yield return new object[] { "0FAE F3", 3, Code.Mfence };
-				yield return new object[] { "0FAE F4", 3, Code.Mfence };
-				yield return new object[] { "0FAE F5", 3, Code.Mfence };
-				yield return new object[] { "0FAE F6", 3, Code.Mfence };
-				yield return new object[] { "0FAE F7", 3, Code.Mfence };
+				yield return new object[] { "0FAE F1", 3, Code.Mfence_F1 };
+				yield return new object[] { "0FAE F2", 3, Code.Mfence_F2 };
+				yield return new object[] { "0FAE F3", 3, Code.Mfence_F3 };
+				yield return new object[] { "0FAE F4", 3, Code.Mfence_F4 };
+				yield return new object[] { "0FAE F5", 3, Code.Mfence_F5 };
+				yield return new object[] { "0FAE F6", 3, Code.Mfence_F6 };
+				yield return new object[] { "0FAE F7", 3, Code.Mfence_F7 };
 
 				yield return new object[] { "0FAE F8", 3, Code.Sfence };
-				yield return new object[] { "0FAE F9", 3, Code.Sfence };
-				yield return new object[] { "0FAE FA", 3, Code.Sfence };
-				yield return new object[] { "0FAE FB", 3, Code.Sfence };
-				yield return new object[] { "0FAE FC", 3, Code.Sfence };
-				yield return new object[] { "0FAE FD", 3, Code.Sfence };
-				yield return new object[] { "0FAE FE", 3, Code.Sfence };
-				yield return new object[] { "0FAE FF", 3, Code.Sfence };
+				yield return new object[] { "0FAE F9", 3, Code.Sfence_F9 };
+				yield return new object[] { "0FAE FA", 3, Code.Sfence_FA };
+				yield return new object[] { "0FAE FB", 3, Code.Sfence_FB };
+				yield return new object[] { "0FAE FC", 3, Code.Sfence_FC };
+				yield return new object[] { "0FAE FD", 3, Code.Sfence_FD };
+				yield return new object[] { "0FAE FE", 3, Code.Sfence_FE };
+				yield return new object[] { "0FAE FF", 3, Code.Sfence_FF };
 			}
 		}
 
@@ -340,31 +340,31 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "0FAA", 2, Code.Rsm };
 
 				yield return new object[] { "0FAE E8", 3, Code.Lfence };
-				yield return new object[] { "0FAE E9", 3, Code.Lfence };
-				yield return new object[] { "0FAE EA", 3, Code.Lfence };
-				yield return new object[] { "0FAE EB", 3, Code.Lfence };
-				yield return new object[] { "0FAE EC", 3, Code.Lfence };
-				yield return new object[] { "0FAE ED", 3, Code.Lfence };
-				yield return new object[] { "0FAE EE", 3, Code.Lfence };
-				yield return new object[] { "0FAE EF", 3, Code.Lfence };
+				yield return new object[] { "0FAE E9", 3, Code.Lfence_E9 };
+				yield return new object[] { "0FAE EA", 3, Code.Lfence_EA };
+				yield return new object[] { "0FAE EB", 3, Code.Lfence_EB };
+				yield return new object[] { "0FAE EC", 3, Code.Lfence_EC };
+				yield return new object[] { "0FAE ED", 3, Code.Lfence_ED };
+				yield return new object[] { "0FAE EE", 3, Code.Lfence_EE };
+				yield return new object[] { "0FAE EF", 3, Code.Lfence_EF };
 
 				yield return new object[] { "0FAE F0", 3, Code.Mfence };
-				yield return new object[] { "0FAE F1", 3, Code.Mfence };
-				yield return new object[] { "0FAE F2", 3, Code.Mfence };
-				yield return new object[] { "0FAE F3", 3, Code.Mfence };
-				yield return new object[] { "0FAE F4", 3, Code.Mfence };
-				yield return new object[] { "0FAE F5", 3, Code.Mfence };
-				yield return new object[] { "0FAE F6", 3, Code.Mfence };
-				yield return new object[] { "0FAE F7", 3, Code.Mfence };
+				yield return new object[] { "0FAE F1", 3, Code.Mfence_F1 };
+				yield return new object[] { "0FAE F2", 3, Code.Mfence_F2 };
+				yield return new object[] { "0FAE F3", 3, Code.Mfence_F3 };
+				yield return new object[] { "0FAE F4", 3, Code.Mfence_F4 };
+				yield return new object[] { "0FAE F5", 3, Code.Mfence_F5 };
+				yield return new object[] { "0FAE F6", 3, Code.Mfence_F6 };
+				yield return new object[] { "0FAE F7", 3, Code.Mfence_F7 };
 
 				yield return new object[] { "0FAE F8", 3, Code.Sfence };
-				yield return new object[] { "0FAE F9", 3, Code.Sfence };
-				yield return new object[] { "0FAE FA", 3, Code.Sfence };
-				yield return new object[] { "0FAE FB", 3, Code.Sfence };
-				yield return new object[] { "0FAE FC", 3, Code.Sfence };
-				yield return new object[] { "0FAE FD", 3, Code.Sfence };
-				yield return new object[] { "0FAE FE", 3, Code.Sfence };
-				yield return new object[] { "0FAE FF", 3, Code.Sfence };
+				yield return new object[] { "0FAE F9", 3, Code.Sfence_F9 };
+				yield return new object[] { "0FAE FA", 3, Code.Sfence_FA };
+				yield return new object[] { "0FAE FB", 3, Code.Sfence_FB };
+				yield return new object[] { "0FAE FC", 3, Code.Sfence_FC };
+				yield return new object[] { "0FAE FD", 3, Code.Sfence_FD };
+				yield return new object[] { "0FAE FE", 3, Code.Sfence_FE };
+				yield return new object[] { "0FAE FF", 3, Code.Sfence_FF };
 			}
 		}
 

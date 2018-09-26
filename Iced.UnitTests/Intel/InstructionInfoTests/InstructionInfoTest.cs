@@ -677,27 +677,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				case "amd":
 					options |= DecoderOptions.AMD;
 					break;
-				case "noprefetchw":
-					options |= DecoderOptions.NoPrefetchw;
-					break;
-				case "noprefetchsse":
-					options |= DecoderOptions.NoPrefetchSSE;
-					break;
-				case "nompx":
-					options |= DecoderOptions.NoMPX;
-					break;
-				case "nocldemote":
-					options |= DecoderOptions.NoCldemote;
-					break;
-				case "nocetss":
-					options |= DecoderOptions.NoCetSS;
-					break;
-				case "nocetibt":
-					options |= DecoderOptions.NoCetIBT;
-					break;
-				case "nomultibytenop":
-					options |= DecoderOptions.NoMultibyteNop;
-					break;
 				case "forcereservednop":
 					options |= DecoderOptions.ForceReservedNop;
 					break;
@@ -718,6 +697,24 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					break;
 				case "zalloc":
 					options |= DecoderOptions.Zalloc;
+					break;
+				case "oldfpu":
+					options |= DecoderOptions.OldFpu;
+					break;
+				case "pcommit":
+					options |= DecoderOptions.Pcommit;
+					break;
+				case "loadall286":
+					options |= DecoderOptions.Loadall286;
+					break;
+				case "loadall386":
+					options |= DecoderOptions.Loadall386;
+					break;
+				case "cl1invmb":
+					options |= DecoderOptions.Cl1invmb;
+					break;
+				case "movtr":
+					options |= DecoderOptions.MovTr;
 					break;
 				default:
 					return false;

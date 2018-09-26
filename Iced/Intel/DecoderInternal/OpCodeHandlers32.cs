@@ -522,6 +522,40 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		}
 	}
 
+	sealed class OpCodeHandler_Gv_M_as : OpCodeHandlerModRM {
+		readonly Code code16;
+		readonly Code code32;
+
+		public OpCodeHandler_Gv_M_as(Code code16, Code code32, Code code64) {
+			this.code16 = code16;
+			this.code32 = code32;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			if (state.addressSize == OpSize.Size16) {
+				instruction.InternalCode = code16;
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp0Kind = OpKind.Register;
+				instruction.InternalOp0Register = (int)state.reg + Register.AX;
+			}
+			else {
+				instruction.InternalCode = code32;
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp0Kind = OpKind.Register;
+				instruction.InternalOp0Register = (int)state.reg + Register.EAX;
+			}
+			if (state.mod == 3)
+				decoder.SetInvalidInstruction();
+			else {
+				instruction.InternalOp1Kind = OpKind.Memory;
+				Debug.Assert(state.operandSize == OpSize.Size16 || state.operandSize == OpSize.Size32);
+				decoder.ReadOpMem_m32(ref instruction);
+			}
+		}
+	}
+
 	sealed class OpCodeHandler_Gdq_Ev : OpCodeHandlerModRM {
 		readonly Code code16;
 		readonly Code code32;
@@ -766,6 +800,31 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			else {
 				instruction.InternalOp0Kind = OpKind.NearBranch32;
 				instruction.NearBranch32 = (uint)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer32();
+			}
+		}
+	}
+
+	sealed class OpCodeHandler_Jdisp : OpCodeHandler {
+		readonly Code code16;
+		readonly Code code32;
+
+		public OpCodeHandler_Jdisp(Code code16, Code code32) {
+			this.code16 = code16;
+			this.code32 = code32;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			if (state.operandSize == OpSize.Size16) {
+				instruction.InternalCode = code16;
+				instruction.InternalOp0Kind = OpKind.NearBranch16;
+				instruction.InternalNearBranch16 = decoder.ReadUInt16();
+			}
+			else {
+				instruction.InternalCode = code32;
+				instruction.InternalOp0Kind = OpKind.NearBranch32;
+				instruction.NearBranch32 = decoder.ReadUInt32();
 			}
 		}
 	}
@@ -1080,6 +1139,24 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		readonly Code code32;
 
 		public OpCodeHandler_Simple5(Code code16, Code code32, Code code64) {
+			this.code16 = code16;
+			this.code32 = code32;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			if (decoder.state.addressSize == OpSize.Size16)
+				instruction.InternalCode = code16;
+			else
+				instruction.InternalCode = code32;
+		}
+	}
+
+	sealed class OpCodeHandler_Simple5_ModRM : OpCodeHandlerModRM {
+		readonly Code code16;
+		readonly Code code32;
+
+		public OpCodeHandler_Simple5_ModRM(Code code16, Code code32, Code code64) {
 			this.code16 = code16;
 			this.code32 = code32;
 		}
@@ -3562,6 +3639,30 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem_m32(ref instruction);
 			}
+		}
+	}
+
+	sealed class OpCodeHandler_Ev_Gv_REX : OpCodeHandlerModRM {
+		readonly Code code32;
+
+		public OpCodeHandler_Ev_Gv_REX(Code code32, Code code64) => this.code32 = code32;
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			instruction.InternalCode = code32;
+			if (state.mod == 3) {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp0Kind = OpKind.Register;
+				instruction.InternalOp0Register = (int)state.rm + Register.EAX;
+			}
+			else {
+				instruction.InternalOp0Kind = OpKind.Memory;
+				decoder.ReadOpMem_m32(ref instruction);
+			}
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = (int)state.reg + Register.EAX;
 		}
 	}
 

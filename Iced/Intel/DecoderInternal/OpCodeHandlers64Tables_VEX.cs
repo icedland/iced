@@ -1486,7 +1486,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				invalid,
 				invalid,
 				invalid,
-				invalid,
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHW(Register.XMM0, Code.VEX_Vgf2p8mulb_xmm_xmm_xmmm128),
+							new OpCodeHandler_VEX_VHW(Register.YMM0, Code.VEX_Vgf2p8mulb_ymm_ymm_ymmm256)
+						),
+						invalid
+					),
+					invalid,
+					invalid
+				),
 
 				// D0
 				invalid,
@@ -1515,7 +1526,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 					invalid,
 					new OpCodeHandler_VectorLength_VEX(
 						new OpCodeHandler_VEX_VHW(Register.XMM0, Code.VEX_Vaesenc_xmm_xmm_xmmm128),
-						invalid
+						new OpCodeHandler_VEX_VHW(Register.YMM0, Code.VEX_Vaesenc_ymm_ymm_ymmm256)
 					),
 					invalid,
 					invalid
@@ -1524,7 +1535,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 					invalid,
 					new OpCodeHandler_VectorLength_VEX(
 						new OpCodeHandler_VEX_VHW(Register.XMM0, Code.VEX_Vaesenclast_xmm_xmm_xmmm128),
-						invalid
+						new OpCodeHandler_VEX_VHW(Register.YMM0, Code.VEX_Vaesenclast_ymm_ymm_ymmm256)
 					),
 					invalid,
 					invalid
@@ -1533,7 +1544,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 					invalid,
 					new OpCodeHandler_VectorLength_VEX(
 						new OpCodeHandler_VEX_VHW(Register.XMM0, Code.VEX_Vaesdec_xmm_xmm_xmmm128),
-						invalid
+						new OpCodeHandler_VEX_VHW(Register.YMM0, Code.VEX_Vaesdec_ymm_ymm_ymmm256)
 					),
 					invalid,
 					invalid
@@ -1542,7 +1553,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 					invalid,
 					new OpCodeHandler_VectorLength_VEX(
 						new OpCodeHandler_VEX_VHW(Register.XMM0, Code.VEX_Vaesdeclast_xmm_xmm_xmmm128),
-						invalid
+						new OpCodeHandler_VEX_VHW(Register.YMM0, Code.VEX_Vaesdeclast_ymm_ymm_ymmm256)
 					),
 					invalid,
 					invalid
@@ -2029,7 +2040,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 					invalid,
 					new OpCodeHandler_VectorLength_VEX(
 						new OpCodeHandler_VEX_VHWIb(Register.XMM0, Code.VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8),
-						invalid
+						new OpCodeHandler_VEX_VHWIb(Register.YMM0, Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8)
 					),
 					invalid,
 					invalid
@@ -2541,8 +2552,30 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				invalid,
 				invalid,
 				invalid,
-				invalid,
-				invalid,
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						invalid,
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIb(Register.XMM0, Code.VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8),
+							new OpCodeHandler_VEX_VHWIb(Register.YMM0, Code.VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8)
+						)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					new OpCodeHandler_W(
+						invalid,
+						new OpCodeHandler_VectorLength_VEX(
+							new OpCodeHandler_VEX_VHWIb(Register.XMM0, Code.VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8),
+							new OpCodeHandler_VEX_VHWIb(Register.YMM0, Code.VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8)
+						)
+					),
+					invalid,
+					invalid
+				),
 
 				// D0
 				invalid,

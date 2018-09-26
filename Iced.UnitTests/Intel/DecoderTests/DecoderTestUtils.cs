@@ -236,6 +236,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Cmpxchg486_rm16_r16;
 			yield return Code.Cmpxchg486_rm32_r32;
 			yield return Code.Zalloc_m256;
+			yield return Code.Frstpm;
+			yield return Code.Fstdw_AX;
+			yield return Code.Fstsg_AX;
 		}
 
 		static IEnumerable<Code> GetCode64() {

@@ -611,6 +611,47 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		}
 	}
 
+	sealed class OpCodeHandler_Gv_M_as : OpCodeHandlerModRM {
+		readonly Code code16;
+		readonly Code code32;
+		readonly Code code64;
+
+		public OpCodeHandler_Gv_M_as(Code code16, Code code32, Code code64) {
+			this.code16 = code16;
+			this.code32 = code32;
+			this.code64 = code64;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			if (state.addressSize == OpSize.Size64) {
+				instruction.InternalCode = code64;
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp0Kind = OpKind.Register;
+				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.RAX;
+			}
+			else if (state.addressSize == OpSize.Size32) {
+				instruction.InternalCode = code32;
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp0Kind = OpKind.Register;
+				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.EAX;
+			}
+			else {
+				instruction.InternalCode = code16;
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp0Kind = OpKind.Register;
+				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.AX;
+			}
+			if (state.mod == 3)
+				decoder.SetInvalidInstruction();
+			else {
+				instruction.InternalOp1Kind = OpKind.Memory;
+				decoder.ReadOpMem_m64(ref instruction);
+			}
+		}
+	}
+
 	sealed class OpCodeHandler_Gdq_Ev : OpCodeHandlerModRM {
 		readonly Code code16;
 		readonly Code code32;
@@ -1390,6 +1431,29 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Code code64;
 
 		public OpCodeHandler_Simple5(Code code16, Code code32, Code code64) {
+			this.code16 = code16;
+			this.code32 = code32;
+			this.code64 = code64;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			if (state.addressSize == OpSize.Size64)
+				instruction.InternalCode = code64;
+			else if (state.addressSize == OpSize.Size32)
+				instruction.InternalCode = code32;
+			else
+				instruction.InternalCode = code16;
+		}
+	}
+
+	sealed class OpCodeHandler_Simple5_ModRM : OpCodeHandlerModRM {
+		readonly Code code16;
+		readonly Code code32;
+		readonly Code code64;
+
+		public OpCodeHandler_Simple5_ModRM(Code code16, Code code32, Code code64) {
 			this.code16 = code16;
 			this.code32 = code32;
 			this.code64 = code64;
@@ -4583,6 +4647,42 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem_m64(ref instruction);
+			}
+		}
+	}
+
+	sealed class OpCodeHandler_Ev_Gv_REX : OpCodeHandlerModRM {
+		readonly Code code32;
+		readonly Code code64;
+
+		public OpCodeHandler_Ev_Gv_REX(Code code32, Code code64) {
+			this.code32 = code32;
+			this.code64 = code64;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			if (state.mod == 3) {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp0Kind = OpKind.Register;
+				instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + ((state.flags & StateFlags.W) != 0 ? Register.RAX : Register.EAX);
+			}
+			else {
+				instruction.InternalOp0Kind = OpKind.Memory;
+				decoder.ReadOpMem_m64(ref instruction);
+			}
+			if ((state.flags & StateFlags.W) != 0) {
+				instruction.InternalCode = code64;
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp1Kind = OpKind.Register;
+				instruction.InternalOp1Register = (int)(state.reg + state.extraRegisterBase) + Register.RAX;
+			}
+			else {
+				instruction.InternalCode = code32;
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp1Kind = OpKind.Register;
+				instruction.InternalOp1Register = (int)(state.reg + state.extraRegisterBase) + Register.EAX;
 			}
 		}
 	}

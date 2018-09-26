@@ -57,9 +57,13 @@ namespace Iced.Intel.DecoderInternal {
 
 	sealed class OpCodeHandler_Simple : OpCodeHandler {
 		readonly Code code;
-
 		public OpCodeHandler_Simple(Code code) => this.code = code;
+		public override void Decode(Decoder decoder, ref Instruction instruction) => instruction.InternalCode = code;
+	}
 
+	sealed class OpCodeHandler_Simple_ModRM : OpCodeHandlerModRM {
+		readonly Code code;
+		public OpCodeHandler_Simple_ModRM(Code code) => this.code = code;
 		public override void Decode(Decoder decoder, ref Instruction instruction) => instruction.InternalCode = code;
 	}
 
@@ -316,7 +320,7 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
-	sealed class OpCodeHandler_MandatoryPrefix_F3_F2 : OpCodeHandlerModRM {
+	sealed class OpCodeHandler_MandatoryPrefix_F3_F2 : OpCodeHandler {
 		readonly OpCodeHandler handlerNormal;
 		readonly OpCodeHandler handlerF3;
 		readonly OpCodeHandler handlerF2;
@@ -325,9 +329,6 @@ namespace Iced.Intel.DecoderInternal {
 			this.handlerNormal = handlerNormal ?? throw new ArgumentNullException(nameof(handlerNormal));
 			this.handlerF3 = handlerF3 ?? throw new ArgumentNullException(nameof(handlerF3));
 			this.handlerF2 = handlerF2 ?? throw new ArgumentNullException(nameof(handlerF2));
-			Debug.Assert(handlerNormal.HasModRM == HasModRM);
-			Debug.Assert(handlerF3.HasModRM == HasModRM);
-			Debug.Assert(handlerF2.HasModRM == HasModRM);
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -346,6 +347,8 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(prefix == MandatoryPrefix.None || prefix == MandatoryPrefix.P66);
 				handler = handlerNormal;
 			}
+			if (handler.HasModRM)
+				decoder.ReadModRM();
 			handler.Decode(decoder, ref instruction);
 		}
 	}
@@ -402,13 +405,8 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(handlerF2.HasModRM == HasModRM);
 		}
 
-		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(
-				decoder.state.Encoding == EncodingKind.VEX ||
-				decoder.state.Encoding == EncodingKind.EVEX ||
-				decoder.state.Encoding == EncodingKind.XOP);
+		public override void Decode(Decoder decoder, ref Instruction instruction) =>
 			handlers[(int)decoder.state.mandatoryPrefix].Decode(decoder, ref instruction);
-		}
 	}
 
 	sealed class OpCodeHandler_MandatoryPrefix_MaybeModRM : OpCodeHandler {
@@ -584,6 +582,85 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalOp1Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
+	}
+
+	sealed class OpCodeHandler_Options : OpCodeHandler {
+		readonly OpCodeHandler defaultHandler;
+		readonly (OpCodeHandler handler, DecoderOptions options)[] infos;
+
+		public OpCodeHandler_Options(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1) {
+			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
+			infos = new (OpCodeHandler, DecoderOptions ptions)[] {
+				(handler1, options1),
+			};
+		}
+
+		public OpCodeHandler_Options(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1, OpCodeHandler handler2, DecoderOptions options2) {
+			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
+			infos = new (OpCodeHandler, DecoderOptions ptions)[] {
+				(handler1 ?? throw new ArgumentNullException(nameof(handler1)), options1),
+				(handler2 ?? throw new ArgumentNullException(nameof(handler2)), options2),
+			};
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			var handler = defaultHandler;
+			var options = decoder.options;
+			foreach (var info in infos) {
+				if ((options & info.options) != 0) {
+					handler = info.handler;
+					break;
+				}
+			}
+			if (handler.HasModRM)
+				decoder.ReadModRM();
+			handler.Decode(decoder, ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_Options_DontReadModRM : OpCodeHandlerModRM {
+		readonly OpCodeHandler defaultHandler;
+		readonly (OpCodeHandler handler, DecoderOptions options)[] infos;
+
+		public OpCodeHandler_Options_DontReadModRM(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1) {
+			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
+			infos = new (OpCodeHandler, DecoderOptions ptions)[] {
+				(handler1, options1),
+			};
+		}
+
+		public OpCodeHandler_Options_DontReadModRM(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1, OpCodeHandler handler2, DecoderOptions options2) {
+			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
+			infos = new (OpCodeHandler, DecoderOptions ptions)[] {
+				(handler1 ?? throw new ArgumentNullException(nameof(handler1)), options1),
+				(handler2 ?? throw new ArgumentNullException(nameof(handler2)), options2),
+			};
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			var handler = defaultHandler;
+			var options = decoder.options;
+			foreach (var info in infos) {
+				if ((options & info.options) != 0) {
+					handler = info.handler;
+					break;
+				}
+			}
+			handler.Decode(decoder, ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_ReservedNop : OpCodeHandlerModRM {
+		readonly OpCodeHandler reservedNopHandler;
+		readonly OpCodeHandler otherHandler;
+
+		public OpCodeHandler_ReservedNop(OpCodeHandler reservedNopHandler, OpCodeHandler otherHandler) {
+			this.reservedNopHandler = reservedNopHandler ?? throw new ArgumentNullException(nameof(reservedNopHandler));
+			this.otherHandler = otherHandler ?? throw new ArgumentNullException(nameof(otherHandler));
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) =>
+			((decoder.options & DecoderOptions.ForceReservedNop) != 0 ? reservedNopHandler : otherHandler).Decode(decoder, ref instruction);
 	}
 }
 #endif

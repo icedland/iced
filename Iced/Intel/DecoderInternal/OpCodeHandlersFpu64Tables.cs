@@ -309,7 +309,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Simple(Code.Fnclex),
 				new OpCodeHandler_Simple(Code.Fninit),
 				new OpCodeHandler_Simple(Code.Fnsetpm),
-				new OpCodeHandler_Simple(Code.Frstpm),
+				invalid,
 				invalid,
 				invalid,
 
@@ -535,8 +535,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 				// E0
 				new OpCodeHandler_Reg(Code.Fnstsw_AX, Register.AX),
-				new OpCodeHandler_Reg(Code.Fstdw_AX, Register.AX),
-				new OpCodeHandler_Reg(Code.Fstsg_AX, Register.AX),
+				invalid,
+				invalid,
 				invalid,
 				invalid,
 				invalid,
