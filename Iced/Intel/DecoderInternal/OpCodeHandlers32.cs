@@ -816,6 +816,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			state.flags |= StateFlags.SpecialImm;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalCode = code16;
 				instruction.InternalOp0Kind = OpKind.NearBranch16;

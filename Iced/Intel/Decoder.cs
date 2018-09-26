@@ -1013,11 +1013,20 @@ after_read_prefixes:
 						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (4 + 2));
 						constantOffsets.ImmediateSize = 4;
 					}
-					else {
-						Debug.Assert(code == Code.Call_ptr1616 || code == Code.Jmp_ptr1616);
+					else if (code == Code.Call_ptr1616 || code == Code.Jmp_ptr1616) {
 						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (2 + 2));
 						constantOffsets.ImmediateSize = 2;
 					}
+					else if (code == Code.Jmpe_disp32) {
+						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 4);
+						constantOffsets.ImmediateSize = 4;
+					}
+					else if (code == Code.Jmpe_disp16) {
+						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 2);
+						constantOffsets.ImmediateSize = 2;
+					}
+					else
+						Debug.Fail("Unreachable");
 				}
 			}
 after_imm_loop:
