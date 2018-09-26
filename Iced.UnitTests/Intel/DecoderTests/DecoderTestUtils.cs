@@ -210,9 +210,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Sub_rm8_imm8_82;
 			yield return Code.Xor_rm8_imm8_82;
 			yield return Code.Cmp_rm8_imm8_82;
-			yield return Code.Frstpm;
-			yield return Code.Fstdw_AX;
-			yield return Code.Fstsg_AX;
 			yield return Code.Jmpe_rm16;
 			yield return Code.Jmpe_rm32;
 			yield return Code.Loadall286;
