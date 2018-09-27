@@ -130,7 +130,7 @@ namespace Iced.Intel {
 			instruction.InternalOp1Kind = OpKind.Memory64;
 			instruction.MemoryAddress64 = address;
 			instruction.InternalSetMemoryDisplSize(4);
-			instruction.PrefixSegment = prefixSegment;
+			instruction.SegmentPrefix = prefixSegment;
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -151,7 +151,7 @@ namespace Iced.Intel {
 			instruction.InternalOp0Kind = OpKind.Memory64;
 			instruction.MemoryAddress64 = address;
 			instruction.InternalSetMemoryDisplSize(4);
-			instruction.PrefixSegment = prefixSegment;
+			instruction.SegmentPrefix = prefixSegment;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
@@ -222,7 +222,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			Debug.Assert(instruction.OpCount == 1);
 			return instruction;
@@ -360,7 +360,7 @@ namespace Iced.Intel {
 			else
 				throw new ArgumentOutOfRangeException(nameof(rSI));
 
-			instruction.PrefixSegment = prefixSegment;
+			instruction.SegmentPrefix = prefixSegment;
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -416,7 +416,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -515,7 +515,7 @@ namespace Iced.Intel {
 			else
 				throw new ArgumentOutOfRangeException(nameof(rDI));
 
-			instruction.PrefixSegment = prefixSegment;
+			instruction.SegmentPrefix = prefixSegment;
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -579,7 +579,7 @@ namespace Iced.Intel {
 			else
 				throw new ArgumentOutOfRangeException(nameof(rSI));
 
-			instruction.PrefixSegment = prefixSegment;
+			instruction.SegmentPrefix = prefixSegment;
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -603,7 +603,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
@@ -631,7 +631,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			instruction.InternalOp1Kind = GetImmediateOpKind(code, 1);
 			instruction.Immediate32 = (uint)immediate;
@@ -743,7 +743,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
@@ -809,7 +809,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp2Kind = OpKind.Register;
@@ -842,7 +842,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			instruction.InternalOp2Kind = GetImmediateOpKind(code, 2);
 			instruction.Immediate32 = (uint)immediate;
@@ -892,7 +892,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register2;
 
-			instruction.PrefixSegment = prefixSegment;
+			instruction.SegmentPrefix = prefixSegment;
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
@@ -917,7 +917,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
@@ -950,7 +950,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
@@ -1083,7 +1083,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			Debug.Assert(instruction.OpCount == 4);
 			return instruction;
@@ -1160,7 +1160,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp3Kind = OpKind.Register;
@@ -1198,7 +1198,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			instruction.InternalOp3Kind = GetImmediateOpKind(code, 3);
 			instruction.Immediate32 = (uint)immediate;
@@ -1302,7 +1302,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			instruction.InternalOp4Kind = GetImmediateOpKind(code, 4);
 			instruction.Immediate32 = (uint)immediate;
@@ -1353,7 +1353,7 @@ namespace Iced.Intel {
 			instruction.MemoryDisplSize = memory.DisplSize;
 			instruction.MemoryDisplacement = (uint)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
-			instruction.PrefixSegment = memory.PrefixSegment;
+			instruction.SegmentPrefix = memory.SegmentPrefix;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp3Kind = OpKind.Register;

@@ -32,10 +32,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.ESI, instr.Op0Register);
@@ -53,10 +53,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.SI, instr.Op0Register);
@@ -74,10 +74,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.SI, instr.Op0Register);
@@ -95,10 +95,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.BX, instr.Op0Register);
@@ -122,10 +122,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.EBX, instr.Op0Register);
@@ -149,10 +149,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.EBX, instr.Op0Register);
@@ -216,10 +216,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(segReg, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(segReg, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -283,10 +283,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(segReg, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(segReg, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -350,10 +350,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(segReg, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(segReg, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -377,10 +377,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.RSI, instr.Op0Register);
@@ -403,10 +403,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -425,10 +425,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.SI, instr.Op0Register);
@@ -446,10 +446,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -473,10 +473,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.True(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.True(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -500,10 +500,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.True(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.True(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -527,10 +527,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.True(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.True(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -559,10 +559,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(segReg, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(segReg, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -584,12 +584,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.True(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.True(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -719,12 +719,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.True(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.True(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -854,12 +854,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.True(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.True(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1017,12 +1017,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.True(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.True(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1156,12 +1156,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.True(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.True(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1295,12 +1295,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.True(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.True(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1462,12 +1462,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.True(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.True(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1609,12 +1609,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.True(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.True(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1756,12 +1756,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.True(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.True(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1933,12 +1933,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.Equal(repe, instr.HasPrefixRepe);
-			Assert.Equal(repne, instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.Equal(repe, instr.HasRepePrefix);
+			Assert.Equal(repne, instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 		public static IEnumerable<object[]> Test16_RepPrefix_Data {
 			get {
@@ -1979,12 +1979,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.Equal(repe, instr.HasPrefixRepe);
-			Assert.Equal(repne, instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.Equal(repe, instr.HasRepePrefix);
+			Assert.Equal(repne, instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 		public static IEnumerable<object[]> Test32_RepPrefix_Data {
 			get {
@@ -2025,12 +2025,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.Equal(repe, instr.HasPrefixRepe);
-			Assert.Equal(repne, instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.Equal(repe, instr.HasRepePrefix);
+			Assert.Equal(repne, instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 		public static IEnumerable<object[]> Test64_RepPrefix_Data {
 			get {

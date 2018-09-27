@@ -92,7 +92,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 		JccTaken					= 0x00000400,
 		BndPrefix					= 0x00000800,
 		IgnoreIndexReg				= 0x00001000,
-		IgnorePrefixSegment			= 0x00002000,
+		IgnoreSegmentPrefix			= 0x00002000,
 		ForceMemSizeDwordOrQword	= 0x00004000,
 	}
 
@@ -326,7 +326,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public SimpleInstrInfo_maskmovq(Code code, string mnemonic, InstrOpInfoFlags flags)
 			: base(code) {
 			this.mnemonic = mnemonic;
-			this.flags = flags | InstrOpInfoFlags.IgnorePrefixSegment;
+			this.flags = flags | InstrOpInfoFlags.IgnoreSegmentPrefix;
 		}
 
 		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
@@ -370,7 +370,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 			info.Op1Kind = (InstrOpKind)instr.Op2Kind;
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op1Register = (byte)instr.Op2Register;
-			var segReg = instr.PrefixSegment;
+			var segReg = instr.SegmentPrefix;
 			if (segReg != Register.None) {
 				info.OpCount = 3;
 				info.Op2Kind = InstrOpKind.Register;
@@ -425,7 +425,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = this.flags;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
@@ -520,12 +520,12 @@ namespace Iced.Intel.IntelFormatterInternal {
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
-			var prefixSeg = instr.PrefixSegment;
+			var prefixSeg = instr.SegmentPrefix;
 			if (prefixSeg == Register.CS)
-				flags |= InstrOpInfoFlags.IgnorePrefixSegment | InstrOpInfoFlags.JccNotTaken;
+				flags |= InstrOpInfoFlags.IgnoreSegmentPrefix | InstrOpInfoFlags.JccNotTaken;
 			else if (prefixSeg == Register.DS)
-				flags |= InstrOpInfoFlags.IgnorePrefixSegment | InstrOpInfoFlags.JccTaken;
-			if (instr.HasPrefixRepne)
+				flags |= InstrOpInfoFlags.IgnoreSegmentPrefix | InstrOpInfoFlags.JccTaken;
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
 		}
@@ -736,7 +736,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = this.flags;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
 		}

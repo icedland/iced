@@ -268,7 +268,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				throw new InvalidOperationException();
 			}
 
-			bool shortForm = instr.Op0Kind == shortFormOpKind && instr.PrefixSegment == Register.None;
+			bool shortForm = instr.Op0Kind == shortFormOpKind && instr.SegmentPrefix == Register.None;
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic_args, ref instr, flags);
 			else {
@@ -310,7 +310,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				throw new InvalidOperationException();
 			}
 
-			bool shortForm = instr.Op1Kind == shortFormOpKind && instr.PrefixSegment == Register.None;
+			bool shortForm = instr.Op1Kind == shortFormOpKind && instr.SegmentPrefix == Register.None;
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic_args, ref instr, flags);
 			else {
@@ -352,7 +352,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				throw new InvalidOperationException();
 			}
 
-			bool shortForm = instr.Op0Kind == shortFormOpKind && instr.PrefixSegment == Register.None;
+			bool shortForm = instr.Op0Kind == shortFormOpKind && instr.SegmentPrefix == Register.None;
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic_args, ref instr, flags);
 			else {
@@ -394,7 +394,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				throw new InvalidOperationException();
 			}
 
-			bool shortForm = instr.Op1Kind == shortFormOpKind && instr.PrefixSegment == Register.None;
+			bool shortForm = instr.Op1Kind == shortFormOpKind && instr.SegmentPrefix == Register.None;
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic_args, ref instr, flags);
 			else {
@@ -436,7 +436,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				throw new InvalidOperationException();
 			}
 
-			bool shortForm = instr.Op0Kind == shortFormOpKind && instr.PrefixSegment == Register.None;
+			bool shortForm = instr.Op0Kind == shortFormOpKind && instr.SegmentPrefix == Register.None;
 			if (!shortForm) {
 				info = default;
 				info.Flags = flags;
@@ -483,7 +483,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				throw new InvalidOperationException();
 			}
 
-			bool shortForm = instr.Op1Kind == shortFormOpKind && instr.PrefixSegment == Register.None;
+			bool shortForm = instr.Op1Kind == shortFormOpKind && instr.SegmentPrefix == Register.None;
 			if (!shortForm) {
 				info = default;
 				info.Flags = flags;
@@ -530,7 +530,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				throw new InvalidOperationException();
 			}
 
-			bool shortForm = instr.Op1Kind == shortFormOpKind && instr.PrefixSegment == Register.None;
+			bool shortForm = instr.Op1Kind == shortFormOpKind && instr.SegmentPrefix == Register.None;
 			if (!shortForm) {
 				info = default;
 				info.Flags = flags;
@@ -575,7 +575,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				throw new InvalidOperationException();
 			}
 
-			bool shortForm = instr.MemoryBase == baseReg && instr.PrefixSegment == Register.None;
+			bool shortForm = instr.MemoryBase == baseReg && instr.SegmentPrefix == Register.None;
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic_args, ref instr, InstrOpInfoFlags.ShowNoMemSize_ForceSize | InstrOpInfoFlags.IgnoreIndexReg);
 			else {
@@ -849,7 +849,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				throw new InvalidOperationException();
 			}
 
-			bool shortForm = instr.Op0Kind == shortFormOpKind && instr.PrefixSegment == Register.None;
+			bool shortForm = instr.Op0Kind == shortFormOpKind && instr.SegmentPrefix == Register.None;
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic, ref instr, flags);
 			else {
@@ -964,7 +964,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		public override void GetOpInfo(MasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			var mnemonic = mnemonics[(int)instr.CodeSize];
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
@@ -1023,12 +1023,12 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		public override void GetOpInfo(MasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			var prefixSeg = instr.PrefixSegment;
+			var prefixSeg = instr.SegmentPrefix;
 			if (prefixSeg == Register.CS)
 				flags |= InstrOpInfoFlags.JccNotTaken;
 			else if (prefixSeg == Register.DS)
 				flags |= InstrOpInfoFlags.JccTaken;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
 		}
@@ -1048,7 +1048,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		public override void GetOpInfo(MasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = this.flags;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
 		}

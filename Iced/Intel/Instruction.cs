@@ -43,8 +43,8 @@ namespace Iced.Intel {
 			ScaleMask				= 3,
 			DisplSizeShift			= 2,
 			DisplSizeMask			= 7,
-			PrefixSegmentShift		= 5,
-			PrefixSegmentMask		= 7,
+			SegmentPrefixShift		= 5,
+			SegmentPrefixMask		= 7,
 			MemorySizeBits			= 7,
 			// Unused bits here
 			BroadcastedMemory		= 0x8000,
@@ -97,11 +97,11 @@ namespace Iced.Intel {
 			// Unused bits here
 			SuppressAllExceptions	= 0x02000000,
 			ZeroingMasking			= 0x04000000,
-			PrefixXacquire			= 0x08000000,
-			PrefixXrelease			= 0x10000000,
-			PrefixRepe				= 0x20000000,
-			PrefixRepne				= 0x40000000,
-			PrefixLock				= 0x80000000,
+			XacquirePrefix			= 0x08000000,
+			XreleasePrefix			= 0x10000000,
+			RepePrefix				= 0x20000000,
+			RepnePrefix				= 0x40000000,
+			LockPrefix				= 0x80000000,
 		}
 
 		// All fields, size: 32 bytes with bits to spare
@@ -263,81 +263,81 @@ namespace Iced.Intel {
 			set => codeFlags |= (value << (int)CodeFlags.InstrLengthShift);
 		}
 
-		internal bool Internal_HasPrefixRepe_HasPrefixXrelease => (codeFlags & (uint)(CodeFlags.PrefixRepe | CodeFlags.PrefixXrelease)) != 0;
-		internal bool Internal_HasPrefixRepne_HasPrefixXacquire => (codeFlags & (uint)(CodeFlags.PrefixRepne | CodeFlags.PrefixXacquire)) != 0;
-		internal bool Internal_HasPrefixRepeOrRepne => (codeFlags & (uint)(CodeFlags.PrefixRepe | CodeFlags.PrefixRepne)) != 0;
+		internal bool Internal_HasRepePrefix_HasXreleasePrefix => (codeFlags & (uint)(CodeFlags.RepePrefix | CodeFlags.XreleasePrefix)) != 0;
+		internal bool Internal_HasRepnePrefix_HasXacquirePrefix => (codeFlags & (uint)(CodeFlags.RepnePrefix | CodeFlags.XacquirePrefix)) != 0;
+		internal bool Internal_HasRepeOrRepnePrefix => (codeFlags & (uint)(CodeFlags.RepePrefix | CodeFlags.RepnePrefix)) != 0;
 
 		/// <summary>
 		/// Checks if the instruction has the XACQUIRE prefix (F2)
 		/// </summary>
-		public bool HasPrefixXacquire {
-			get => (codeFlags & (uint)CodeFlags.PrefixXacquire) != 0;
+		public bool HasXacquirePrefix {
+			get => (codeFlags & (uint)CodeFlags.XacquirePrefix) != 0;
 			set {
 				if (value)
-					codeFlags |= (uint)CodeFlags.PrefixXacquire;
+					codeFlags |= (uint)CodeFlags.XacquirePrefix;
 				else
-					codeFlags &= ~(uint)CodeFlags.PrefixXacquire;
+					codeFlags &= ~(uint)CodeFlags.XacquirePrefix;
 			}
 		}
-		internal void InternalSetHasPrefixXacquire() => codeFlags |= (uint)CodeFlags.PrefixXacquire;
+		internal void InternalSetHasXacquirePrefix() => codeFlags |= (uint)CodeFlags.XacquirePrefix;
 
 		/// <summary>
 		/// Checks if the instruction has the XACQUIRE prefix (F3)
 		/// </summary>
-		public bool HasPrefixXrelease {
-			get => (codeFlags & (uint)CodeFlags.PrefixXrelease) != 0;
+		public bool HasXreleasePrefix {
+			get => (codeFlags & (uint)CodeFlags.XreleasePrefix) != 0;
 			set {
 				if (value)
-					codeFlags |= (uint)CodeFlags.PrefixXrelease;
+					codeFlags |= (uint)CodeFlags.XreleasePrefix;
 				else
-					codeFlags &= ~(uint)CodeFlags.PrefixXrelease;
+					codeFlags &= ~(uint)CodeFlags.XreleasePrefix;
 			}
 		}
-		internal void InternalSetHasPrefixXrelease() => codeFlags |= (uint)CodeFlags.PrefixXrelease;
+		internal void InternalSetHasXreleasePrefix() => codeFlags |= (uint)CodeFlags.XreleasePrefix;
 
 		/// <summary>
 		/// Checks if the instruction has the REPE prefix (F3)
 		/// </summary>
-		public bool HasPrefixRepe {
-			get => (codeFlags & (uint)CodeFlags.PrefixRepe) != 0;
+		public bool HasRepePrefix {
+			get => (codeFlags & (uint)CodeFlags.RepePrefix) != 0;
 			set {
 				if (value)
-					codeFlags |= (uint)CodeFlags.PrefixRepe;
+					codeFlags |= (uint)CodeFlags.RepePrefix;
 				else
-					codeFlags &= ~(uint)CodeFlags.PrefixRepe;
+					codeFlags &= ~(uint)CodeFlags.RepePrefix;
 			}
 		}
-		internal void InternalSetHasPrefixRepe() => codeFlags |= (uint)CodeFlags.PrefixRepe;
-		internal void InternalClearHasPrefixRepe() => codeFlags &= ~(uint)CodeFlags.PrefixRepe;
+		internal void InternalSetHasRepePrefix() => codeFlags |= (uint)CodeFlags.RepePrefix;
+		internal void InternalClearHasRepePrefix() => codeFlags &= ~(uint)CodeFlags.RepePrefix;
 
 		/// <summary>
 		/// Checks if the instruction has the REPNE prefix (F2)
 		/// </summary>
-		public bool HasPrefixRepne {
-			get => (codeFlags & (uint)CodeFlags.PrefixRepne) != 0;
+		public bool HasRepnePrefix {
+			get => (codeFlags & (uint)CodeFlags.RepnePrefix) != 0;
 			set {
 				if (value)
-					codeFlags |= (uint)CodeFlags.PrefixRepne;
+					codeFlags |= (uint)CodeFlags.RepnePrefix;
 				else
-					codeFlags &= ~(uint)CodeFlags.PrefixRepne;
+					codeFlags &= ~(uint)CodeFlags.RepnePrefix;
 			}
 		}
-		internal void InternalSetHasPrefixRepne() => codeFlags |= (uint)CodeFlags.PrefixRepne;
-		internal void InternalClearHasPrefixRepne() => codeFlags &= ~(uint)CodeFlags.PrefixRepne;
+		internal void InternalSetHasRepnePrefix() => codeFlags |= (uint)CodeFlags.RepnePrefix;
+		internal void InternalClearHasRepnePrefix() => codeFlags &= ~(uint)CodeFlags.RepnePrefix;
 
 		/// <summary>
 		/// Checks if the instruction has the LOCK prefix (F0)
 		/// </summary>
-		public bool HasPrefixLock {
-			get => (codeFlags & (uint)CodeFlags.PrefixLock) != 0;
+		public bool HasLockPrefix {
+			get => (codeFlags & (uint)CodeFlags.LockPrefix) != 0;
 			set {
 				if (value)
-					codeFlags |= (uint)CodeFlags.PrefixLock;
+					codeFlags |= (uint)CodeFlags.LockPrefix;
 				else
-					codeFlags &= ~(uint)CodeFlags.PrefixLock;
+					codeFlags &= ~(uint)CodeFlags.LockPrefix;
 			}
 		}
-		internal void InternalSetHasPrefixLock() => codeFlags |= (uint)CodeFlags.PrefixLock;
+		internal void InternalSetHasLockPrefix() => codeFlags |= (uint)CodeFlags.LockPrefix;
 
 		/// <summary>
 		/// Gets operand #0's kind if the operand exists (see <see cref="OpCount"/>)
@@ -447,9 +447,9 @@ namespace Iced.Intel {
 		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>, <see cref="OpKind.Memory64"/>,
 		/// <see cref="OpKind.MemorySegSI"/>, <see cref="OpKind.MemorySegESI"/>, <see cref="OpKind.MemorySegRSI"/>
 		/// </summary>
-		public Register PrefixSegment {
+		public Register SegmentPrefix {
 			get {
-				uint index = (((uint)memoryFlags >> (int)MemoryFlags.PrefixSegmentShift) & (uint)MemoryFlags.PrefixSegmentMask) - 1;
+				uint index = (((uint)memoryFlags >> (int)MemoryFlags.SegmentPrefixShift) & (uint)MemoryFlags.SegmentPrefixMask) - 1;
 				return index < 6 ? Register.ES + (int)index : Register.None;
 			}
 			set {
@@ -457,9 +457,9 @@ namespace Iced.Intel {
 				if (value == Register.None)
 					encValue = 0;
 				else
-					encValue = (((uint)value - (uint)Register.ES) + 1) & (uint)MemoryFlags.PrefixSegmentMask;
-				memoryFlags = (ushort)((memoryFlags & ~((uint)MemoryFlags.PrefixSegmentMask << (int)MemoryFlags.PrefixSegmentShift)) |
-					(encValue << (int)MemoryFlags.PrefixSegmentShift));
+					encValue = (((uint)value - (uint)Register.ES) + 1) & (uint)MemoryFlags.SegmentPrefixMask;
+				memoryFlags = (ushort)((memoryFlags & ~((uint)MemoryFlags.SegmentPrefixMask << (int)MemoryFlags.SegmentPrefixShift)) |
+					(encValue << (int)MemoryFlags.SegmentPrefixShift));
 			}
 		}
 
@@ -470,7 +470,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public Register MemorySegment {
 			get {
-				var segReg = PrefixSegment;
+				var segReg = SegmentPrefix;
 				if (segReg != Register.None)
 					return segReg;
 				var baseReg = MemoryBase;

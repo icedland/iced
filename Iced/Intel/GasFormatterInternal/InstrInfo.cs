@@ -577,7 +577,7 @@ namespace Iced.Intel.GasFormatterInternal {
 
 		public override void GetOpInfo(GasFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			int codeSize = (int)instr.CodeSize;
 			if (options.ShowMnemonicSizeSuffix)
@@ -692,7 +692,7 @@ namespace Iced.Intel.GasFormatterInternal {
 
 		public override void GetOpInfo(GasFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = this.flags;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			string mnemonic;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
@@ -724,7 +724,7 @@ namespace Iced.Intel.GasFormatterInternal {
 
 		public override void GetOpInfo(GasFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = this.flags;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
@@ -938,12 +938,12 @@ namespace Iced.Intel.GasFormatterInternal {
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
-			var prefixSeg = instr.PrefixSegment;
+			var prefixSeg = instr.SegmentPrefix;
 			if (prefixSeg == Register.CS)
 				flags |= InstrOpInfoFlags.JccNotTaken;
 			else if (prefixSeg == Register.DS)
 				flags |= InstrOpInfoFlags.JccTaken;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			info = new InstrOpInfo(GetMnemonic(options, ref instr, mnemonic, mnemonic_suffix, flags), ref instr, flags);
 		}
@@ -1195,7 +1195,7 @@ namespace Iced.Intel.GasFormatterInternal {
 
 		public override void GetOpInfo(GasFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = this.flags;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			info = new InstrOpInfo(GetMnemonic(options, ref instr, mnemonic, mnemonic_suffix, flags), ref instr, flags);
 		}

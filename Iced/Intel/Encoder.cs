@@ -978,20 +978,20 @@ namespace Iced.Intel {
 
 		static readonly byte[] segmentOverrides = new byte[6] { 0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65 };
 		void WritePrefixes(ref Instruction instr) {
-			var seg = instr.PrefixSegment;
+			var seg = instr.SegmentPrefix;
 			if (seg != Register.None) {
 				Debug.Assert((uint)(seg - Register.ES) < (uint)segmentOverrides.Length);
 				WriteByte(segmentOverrides[seg - Register.ES]);
 			}
-			if (instr.HasPrefixLock)
+			if (instr.HasLockPrefix)
 				WriteByte(0xF0);
 			if ((EncoderFlags & EncoderFlags.P66) != 0)
 				WriteByte(0x66);
 			if ((EncoderFlags & EncoderFlags.P67) != 0)
 				WriteByte(0x67);
-			if (instr.Internal_HasPrefixRepe_HasPrefixXrelease)
+			if (instr.Internal_HasRepePrefix_HasXreleasePrefix)
 				WriteByte(0xF3);
-			if (instr.Internal_HasPrefixRepne_HasPrefixXacquire)
+			if (instr.Internal_HasRepnePrefix_HasXacquirePrefix)
 				WriteByte(0xF2);
 		}
 

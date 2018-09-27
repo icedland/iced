@@ -594,7 +594,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Ins:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
@@ -633,7 +633,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Outs:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondRead;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
@@ -670,7 +670,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Movs:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
@@ -730,7 +730,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Cmps:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondRead;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
@@ -790,7 +790,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Stos:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
@@ -829,7 +829,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Lods:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
@@ -866,7 +866,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Scas:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondRead;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
@@ -1245,7 +1245,7 @@ namespace Iced.Intel {
 					Debug.Assert(code == Code.Monitorw || code == Code.Monitorxw);
 					baseReg = Register.AX;
 				}
-				var seg = instruction.PrefixSegment;
+				var seg = instruction.SegmentPrefix;
 				if (seg == Register.None)
 					seg = Register.DS;
 				if ((flags & Flags.NoMemoryUsage) == 0)
@@ -1589,7 +1589,7 @@ namespace Iced.Intel {
 
 			case CodeInfo.Umonitor:
 				if ((flags & Flags.NoMemoryUsage) == 0) {
-					baseReg = instruction.PrefixSegment;
+					baseReg = instruction.SegmentPrefix;
 					if (baseReg == Register.None)
 						baseReg = Register.DS;
 					AddMemorySegmentRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);

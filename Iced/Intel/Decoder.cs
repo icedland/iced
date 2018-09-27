@@ -294,7 +294,7 @@ namespace Iced.Intel {
 				switch (b) {
 				case 0x26:
 					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
-						instruction.PrefixSegment = Register.ES;
+						instruction.SegmentPrefix = Register.ES;
 						state.defaultDsSegment = (byte)Register.ES;
 					}
 					rexPrefix = 0;
@@ -302,7 +302,7 @@ namespace Iced.Intel {
 
 				case 0x2E:
 					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
-						instruction.PrefixSegment = Register.CS;
+						instruction.SegmentPrefix = Register.CS;
 						state.defaultDsSegment = (byte)Register.CS;
 					}
 					rexPrefix = 0;
@@ -310,7 +310,7 @@ namespace Iced.Intel {
 
 				case 0x36:
 					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
-						instruction.PrefixSegment = Register.SS;
+						instruction.SegmentPrefix = Register.SS;
 						state.defaultDsSegment = (byte)Register.SS;
 					}
 					rexPrefix = 0;
@@ -318,20 +318,20 @@ namespace Iced.Intel {
 
 				case 0x3E:
 					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
-						instruction.PrefixSegment = Register.DS;
+						instruction.SegmentPrefix = Register.DS;
 						state.defaultDsSegment = (byte)Register.DS;
 					}
 					rexPrefix = 0;
 					break;
 
 				case 0x64:
-					instruction.PrefixSegment = Register.FS;
+					instruction.SegmentPrefix = Register.FS;
 					state.defaultDsSegment = (byte)Register.FS;
 					rexPrefix = 0;
 					break;
 
 				case 0x65:
-					instruction.PrefixSegment = Register.GS;
+					instruction.SegmentPrefix = Register.GS;
 					state.defaultDsSegment = (byte)Register.GS;
 					rexPrefix = 0;
 					break;
@@ -349,18 +349,18 @@ namespace Iced.Intel {
 					break;
 
 				case 0xF0:
-					instruction.InternalSetHasPrefixLock();
+					instruction.InternalSetHasLockPrefix();
 					rexPrefix = 0;
 					break;
 
 				case 0xF2:
-					instruction.InternalSetHasPrefixRepne();
+					instruction.InternalSetHasRepnePrefix();
 					rexPrefix = 0;
 					state.mandatoryPrefix = MandatoryPrefix.PF2;
 					break;
 
 				case 0xF3:
-					instruction.InternalSetHasPrefixRepe();
+					instruction.InternalSetHasRepePrefix();
 					rexPrefix = 0;
 					state.mandatoryPrefix = MandatoryPrefix.PF3;
 					break;
@@ -410,30 +410,30 @@ after_read_prefixes:
 				state.operandSize = defaultOperandSize;
 				break;
 			case MandatoryPrefix.PF3:
-				instruction.InternalClearHasPrefixRepe();
+				instruction.InternalClearHasRepePrefix();
 				break;
 			case MandatoryPrefix.PF2:
-				instruction.InternalClearHasPrefixRepne();
+				instruction.InternalClearHasRepnePrefix();
 				break;
 			}
 		}
 
 		internal void SetXacquireRelease(ref Instruction instruction, HandlerFlags flags) {
-			if ((flags & HandlerFlags.XacquireReleaseNoLock) == 0 && !instruction.HasPrefixLock)
+			if ((flags & HandlerFlags.XacquireReleaseNoLock) == 0 && !instruction.HasLockPrefix)
 				return;
 
 			switch (state.mandatoryPrefix) {
 			case MandatoryPrefix.PF2:
 				if ((flags & HandlerFlags.Xacquire) != 0) {
 					ClearMandatoryPrefixF2(ref instruction);
-					instruction.InternalSetHasPrefixXacquire();
+					instruction.InternalSetHasXacquirePrefix();
 				}
 				break;
 
 			case MandatoryPrefix.PF3:
 				if ((flags & HandlerFlags.Xrelease) != 0) {
 					ClearMandatoryPrefixF3(ref instruction);
-					instruction.InternalSetHasPrefixXrelease();
+					instruction.InternalSetHasXreleasePrefix();
 				}
 				break;
 			}
@@ -442,13 +442,13 @@ after_read_prefixes:
 		internal void ClearMandatoryPrefixF3(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			Debug.Assert(state.mandatoryPrefix == MandatoryPrefix.PF3);
-			instruction.InternalClearHasPrefixRepe();
+			instruction.InternalClearHasRepePrefix();
 		}
 
 		internal void ClearMandatoryPrefixF2(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			Debug.Assert(state.mandatoryPrefix == MandatoryPrefix.PF2);
-			instruction.InternalClearHasPrefixRepne();
+			instruction.InternalClearHasRepnePrefix();
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
