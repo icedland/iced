@@ -26,48 +26,6 @@ using Xunit;
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public sealed class MiscTests {
 		[Fact]
-		void Verify_FormatterConstants_NumberOfCodeValues() {
-			int numValues = -1;
-			foreach (var f in typeof(Code).GetFields()) {
-				if (f.IsLiteral) {
-					int value = (int)f.GetValue(null);
-					Assert.Equal(numValues + 1, value);
-					numValues = value;
-				}
-			}
-			numValues++;
-			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfCodeValues, numValues);
-		}
-
-		[Fact]
-		void Verify_FormatterConstants_NumberOfRegisters() {
-			int numValues = -1;
-			foreach (var f in typeof(Register).GetFields()) {
-				if (f.IsLiteral) {
-					int value = (int)f.GetValue(null);
-					Assert.Equal(numValues + 1, value);
-					numValues = value;
-				}
-			}
-			numValues++;
-			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfRegisters, numValues);
-		}
-
-		[Fact]
-		void Verify_FormatterConstants_NumberOfMemorySizes() {
-			int numValues = -1;
-			foreach (var f in typeof(MemorySize).GetFields()) {
-				if (f.IsLiteral) {
-					int value = (int)f.GetValue(null);
-					Assert.Equal(numValues + 1, value);
-					numValues = value;
-				}
-			}
-			numValues++;
-			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfMemorySizes, numValues);
-		}
-
-		[Fact]
 		void Make_sure_all_Code_values_are_formatted() {
 			int numCodeValues = -1;
 			foreach (var f in typeof(Code).GetFields()) {

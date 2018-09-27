@@ -25,6 +25,48 @@ using Xunit;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class MiscTests : DecoderTest {
 		[Fact]
+		void Verify_NumberOfCodeValues() {
+			int numValues = -1;
+			foreach (var f in typeof(Code).GetFields()) {
+				if (f.IsLiteral) {
+					int value = (int)f.GetValue(null);
+					Assert.Equal(numValues + 1, value);
+					numValues = value;
+				}
+			}
+			numValues++;
+			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfCodeValues, numValues);
+		}
+
+		[Fact]
+		void Verify_NumberOfRegisters() {
+			int numValues = -1;
+			foreach (var f in typeof(Register).GetFields()) {
+				if (f.IsLiteral) {
+					int value = (int)f.GetValue(null);
+					Assert.Equal(numValues + 1, value);
+					numValues = value;
+				}
+			}
+			numValues++;
+			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfRegisters, numValues);
+		}
+
+		[Fact]
+		void Verify_NumberOfMemorySizes() {
+			int numValues = -1;
+			foreach (var f in typeof(MemorySize).GetFields()) {
+				if (f.IsLiteral) {
+					int value = (int)f.GetValue(null);
+					Assert.Equal(numValues + 1, value);
+					numValues = value;
+				}
+			}
+			numValues++;
+			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfMemorySizes, numValues);
+		}
+
+		[Fact]
 		void Test16_too_long_instruction() {
 			var decoder = CreateDecoder16("26 26 26 26 26 26 26 26 26 26 26 26 26 66 01 CE");
 			var instr = decoder.Decode();
