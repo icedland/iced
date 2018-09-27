@@ -57,11 +57,29 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				tested[(int)info.Code] |= testedFlags;
 			}
 
+			foreach (var info in NonDecodedInstructions.GetTests()) {
+				byte testedFlags;
+				if (info.bitness == 16)
+					testedFlags = T16;
+				else if (info.bitness == 32)
+					testedFlags = T32;
+				else if (info.bitness == 64)
+					testedFlags = T64;
+				else
+					continue;
+
+				tested[(int)info.instruction.Code] |= testedFlags;
+			}
+
 			foreach (var c in DecoderTestUtils.NotDecoded) {
 				Assert.DoesNotContain(c, DecoderTestUtils.Code32Only);
 				Assert.DoesNotContain(c, DecoderTestUtils.Code64Only);
-				tested[(int)c] ^= T16 | T32 | T64;
 			}
+
+			foreach (var c in DecoderTestUtils.NotDecoded32Only)
+				tested[(int)c] ^= T64;
+			foreach (var c in DecoderTestUtils.NotDecoded64Only)
+				tested[(int)c] ^= T16 | T32;
 
 			foreach (var c in DecoderTestUtils.Code32Only) {
 				Assert.DoesNotContain(c, DecoderTestUtils.Code64Only);

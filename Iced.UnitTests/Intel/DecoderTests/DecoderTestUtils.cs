@@ -42,10 +42,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 	public static class DecoderTestUtils {
 		static readonly HashSet<Code> notDecoded = new HashSet<Code>(GetNotDecoded());
+		static readonly HashSet<Code> notDecoded32Only = new HashSet<Code>(GetNotDecoded32());
+		static readonly HashSet<Code> notDecoded64Only = new HashSet<Code>(GetNotDecoded64());
 		static readonly HashSet<Code> code32Only = new HashSet<Code>(GetCode32());
 		static readonly HashSet<Code> code64Only = new HashSet<Code>(GetCode64());
 
 		public static HashSet<Code> NotDecoded => notDecoded;
+		public static HashSet<Code> NotDecoded32Only => notDecoded32Only;
+		public static HashSet<Code> NotDecoded64Only => notDecoded64Only;
 		public static HashSet<Code> Code32Only => code32Only;
 		public static HashSet<Code> Code64Only => code64Only;
 
@@ -63,6 +67,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Fsave_m108byte;
 			yield return Code.Fstsw_m16;
 			yield return Code.Fstsw_AX;
+		}
+
+		static IEnumerable<Code> GetNotDecoded32() {
+			yield return Code.Popw_CS;
+		}
+
+		static IEnumerable<Code> GetNotDecoded64() {
+			yield break;
 		}
 
 		static IEnumerable<Code> GetCode32() {
