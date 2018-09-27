@@ -88,6 +88,24 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			a.DisplacementSize == b.DisplacementSize &&
 			a.ImmediateSize == b.ImmediateSize;
 
+		protected void NonDecodeEncodeBase(int codeSize, ref Instruction instr, string hexBytes, ulong rip) {
+			var expectedBytes = HexUtils.ToByteArray(hexBytes);
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create(codeSize, writer);
+			Assert.Equal(codeSize, encoder.Bitness);
+			var origInstrCopy = instr;
+			bool result = encoder.TryEncode(ref instr, rip, out uint encodedInstrLen, out string errorMessage);
+			Assert.True(errorMessage == null, "Unexpected ErrorMessage: " + errorMessage);
+			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
+			var encodedBytes = writer.ToArray();
+			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);
+			Assert.True(Instruction.TEST_BitByBitEquals(ref instr, ref origInstrCopy), "Instruction are differing: " + Instruction.TEST_DumpDiff(ref instr, ref origInstrCopy));
+#pragma warning disable xUnit2006 // Do not use invalid string equality check
+			// Show the full string without ellipses by using Equal<string>() instead of Equal()
+			Assert.Equal<string>(HexUtils.ToString(expectedBytes), HexUtils.ToString(encodedBytes));
+#pragma warning restore xUnit2006 // Do not use invalid string equality check
+		}
+
 		protected void EncodeInvalidBase(int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidCodeSize) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
 			var decoder = CreateDecoder(codeSize, origBytes, options);
@@ -151,6 +169,15 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				if (codeSize != info.Bitness)
 					continue;
 				yield return new object[] { info.Bitness, info.Code, info.HexBytes, info.Options };
+			}
+		}
+
+		protected static IEnumerable<object[]> GetNonDecodedEncodeData(int codeSize) {
+			foreach (var info in NonDecodedInstructions.GetTests()) {
+				if (codeSize != info.bitness)
+					continue;
+				ulong rip = 0;
+				yield return new object[] { info.bitness, info.instruction, info.hexBytes, rip };
 			}
 		}
 	}
