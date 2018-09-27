@@ -89,6 +89,39 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
+		[InlineData("66 70 5A", 3, Code.Jo_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 70 A5", 3, Code.Jo_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 71 5A", 3, Code.Jno_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 71 A5", 3, Code.Jno_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 72 5A", 3, Code.Jb_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 72 A5", 3, Code.Jb_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 73 5A", 3, Code.Jae_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 73 A5", 3, Code.Jae_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 74 5A", 3, Code.Je_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 74 A5", 3, Code.Je_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 75 5A", 3, Code.Jne_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 75 A5", 3, Code.Jne_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 76 5A", 3, Code.Jbe_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 76 A5", 3, Code.Jbe_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 77 5A", 3, Code.Ja_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 77 A5", 3, Code.Ja_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		void Test64_Jcc_Jb16_1(string hexBytes, int byteLength, Code code, ulong target, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
+			Assert.Equal((ushort)target, instr.NearBranch16);
+		}
+
+		[Theory]
 		[InlineData("66 70 5A", 3, Code.Jo_rel8_32, DecoderConstants.DEFAULT_IP16 + 3 + 0x5A)]
 		[InlineData("66 70 A5", 3, Code.Jo_rel8_32, DecoderConstants.DEFAULT_IP16 + 3 + 0xFFFFFFA5)]
 		[InlineData("66 71 5A", 3, Code.Jno_rel8_32, DecoderConstants.DEFAULT_IP16 + 3 + 0x5A)]

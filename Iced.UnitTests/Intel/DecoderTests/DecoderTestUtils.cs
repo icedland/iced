@@ -62,6 +62,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Fsave_m94byte;
 			yield return Code.Fsave_m108byte;
 			yield return Code.Fstsw_m16;
+			yield return Code.Fstsw_AX;
 		}
 
 		static IEnumerable<Code> GetCode32() {
@@ -212,6 +213,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Cmp_rm8_imm8_82;
 			yield return Code.Jmpe_rm16;
 			yield return Code.Jmpe_rm32;
+			yield return Code.Loadallreset286;
 			yield return Code.Loadall286;
 			yield return Code.Loadall386;
 			yield return Code.Mov_r32_tr;
@@ -239,6 +241,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Frstpm;
 			yield return Code.Fstdw_AX;
 			yield return Code.Fstsg_AX;
+			yield return Code.Movdir64b_r16_m512;
 		}
 
 		static IEnumerable<Code> GetCode64() {
@@ -647,6 +650,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Loope_rel8_16_RCX;
 			yield return Code.Loop_rel8_16_RCX;
 			yield return Code.Jrcxz_rel8_16;
+			yield return Code.Sal_rm64_imm8;
+			yield return Code.Sal_rm64_1;
+			yield return Code.Sal_rm64_CL;
+			yield return Code.Test_rm64_imm32_F7r1;
 		}
 
 		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool needHexBytes, bool includeOtherTests) {

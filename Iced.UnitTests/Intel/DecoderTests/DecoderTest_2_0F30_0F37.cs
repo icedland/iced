@@ -23,15 +23,17 @@ using Xunit;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class DecoderTest_2_0F30_0F37 : DecoderTest {
 		[Theory]
-		[InlineData("0F30", 2, Code.Wrmsr)]
-		[InlineData("0F31", 2, Code.Rdtsc)]
-		[InlineData("0F32", 2, Code.Rdmsr)]
-		[InlineData("0F33", 2, Code.Rdpmc)]
-		[InlineData("0F34", 2, Code.Sysenter)]
-		[InlineData("0F35", 2, Code.Sysexitd)]
-		[InlineData("0F37", 2, Code.Getsec)]
-		void Test16_Simple_1(string hexBytes, int byteLength, Code code) {
-			var decoder = CreateDecoder16(hexBytes);
+		[InlineData("0F30", 2, Code.Wrmsr, DecoderOptions.None)]
+		[InlineData("0F31", 2, Code.Rdtsc, DecoderOptions.None)]
+		[InlineData("0F32", 2, Code.Rdmsr, DecoderOptions.None)]
+		[InlineData("0F33", 2, Code.Rdpmc, DecoderOptions.None)]
+		[InlineData("0F34", 2, Code.Sysenter, DecoderOptions.None)]
+		[InlineData("0F34", 2, Code.Wrecr, DecoderOptions.Ecr)]
+		[InlineData("0F35", 2, Code.Sysexitd, DecoderOptions.None)]
+		[InlineData("0F36", 2, Code.Rdecr, DecoderOptions.Ecr)]
+		[InlineData("0F37", 2, Code.Getsec, DecoderOptions.None)]
+		void Test16_Simple_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
+			var decoder = CreateDecoder16(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -44,15 +46,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F30", 2, Code.Wrmsr)]
-		[InlineData("0F31", 2, Code.Rdtsc)]
-		[InlineData("0F32", 2, Code.Rdmsr)]
-		[InlineData("0F33", 2, Code.Rdpmc)]
-		[InlineData("0F34", 2, Code.Sysenter)]
-		[InlineData("0F35", 2, Code.Sysexitd)]
-		[InlineData("0F37", 2, Code.Getsec)]
-		void Test32_Simple_1(string hexBytes, int byteLength, Code code) {
-			var decoder = CreateDecoder32(hexBytes);
+		[InlineData("0F30", 2, Code.Wrmsr, DecoderOptions.None)]
+		[InlineData("0F31", 2, Code.Rdtsc, DecoderOptions.None)]
+		[InlineData("0F32", 2, Code.Rdmsr, DecoderOptions.None)]
+		[InlineData("0F33", 2, Code.Rdpmc, DecoderOptions.None)]
+		[InlineData("0F34", 2, Code.Sysenter, DecoderOptions.None)]
+		[InlineData("0F34", 2, Code.Wrecr, DecoderOptions.Ecr)]
+		[InlineData("0F35", 2, Code.Sysexitd, DecoderOptions.None)]
+		[InlineData("0F36", 2, Code.Rdecr, DecoderOptions.Ecr)]
+		[InlineData("0F37", 2, Code.Getsec, DecoderOptions.None)]
+		void Test32_Simple_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
+			var decoder = CreateDecoder32(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -65,16 +69,16 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[InlineData("0F30", 2, Code.Wrmsr)]
-		[InlineData("0F31", 2, Code.Rdtsc)]
-		[InlineData("0F32", 2, Code.Rdmsr)]
-		[InlineData("0F33", 2, Code.Rdpmc)]
-		[InlineData("0F34", 2, Code.Sysenter)]
-		[InlineData("0F35", 2, Code.Sysexitd)]
-		[InlineData("48 0F35", 3, Code.Sysexitq)]
-		[InlineData("0F37", 2, Code.Getsec)]
-		void Test64_Simple_1(string hexBytes, int byteLength, Code code) {
-			var decoder = CreateDecoder64(hexBytes);
+		[InlineData("0F30", 2, Code.Wrmsr, DecoderOptions.None)]
+		[InlineData("0F31", 2, Code.Rdtsc, DecoderOptions.None)]
+		[InlineData("0F32", 2, Code.Rdmsr, DecoderOptions.None)]
+		[InlineData("0F33", 2, Code.Rdpmc, DecoderOptions.None)]
+		[InlineData("0F34", 2, Code.Sysenter, DecoderOptions.None)]
+		[InlineData("0F35", 2, Code.Sysexitd, DecoderOptions.None)]
+		[InlineData("48 0F35", 3, Code.Sysexitq, DecoderOptions.None)]
+		[InlineData("0F37", 2, Code.Getsec, DecoderOptions.None)]
+		void Test64_Simple_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);

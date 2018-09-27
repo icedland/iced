@@ -229,8 +229,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[MemberData(nameof(Test16_Simple_1_Data))]
-		void Test16_Simple_1(string hexBytes, int byteLength, Code code) {
-			var decoder = CreateDecoder16(hexBytes);
+		void Test16_Simple_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
+			var decoder = CreateDecoder16(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -243,41 +243,43 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Simple_1_Data {
 			get {
-				yield return new object[] { "0FAA", 2, Code.Rsm };
+				yield return new object[] { "0FAA", 2, Code.Rsm, DecoderOptions.None };
 
-				yield return new object[] { "0FAE E8", 3, Code.Lfence };
-				yield return new object[] { "0FAE E9", 3, Code.Lfence_E9 };
-				yield return new object[] { "0FAE EA", 3, Code.Lfence_EA };
-				yield return new object[] { "0FAE EB", 3, Code.Lfence_EB };
-				yield return new object[] { "0FAE EC", 3, Code.Lfence_EC };
-				yield return new object[] { "0FAE ED", 3, Code.Lfence_ED };
-				yield return new object[] { "0FAE EE", 3, Code.Lfence_EE };
-				yield return new object[] { "0FAE EF", 3, Code.Lfence_EF };
+				yield return new object[] { "0FAE E8", 3, Code.Lfence, DecoderOptions.None };
+				yield return new object[] { "0FAE E9", 3, Code.Lfence_E9, DecoderOptions.None };
+				yield return new object[] { "0FAE EA", 3, Code.Lfence_EA, DecoderOptions.None };
+				yield return new object[] { "0FAE EB", 3, Code.Lfence_EB, DecoderOptions.None };
+				yield return new object[] { "0FAE EC", 3, Code.Lfence_EC, DecoderOptions.None };
+				yield return new object[] { "0FAE ED", 3, Code.Lfence_ED, DecoderOptions.None };
+				yield return new object[] { "0FAE EE", 3, Code.Lfence_EE, DecoderOptions.None };
+				yield return new object[] { "0FAE EF", 3, Code.Lfence_EF, DecoderOptions.None };
 
-				yield return new object[] { "0FAE F0", 3, Code.Mfence };
-				yield return new object[] { "0FAE F1", 3, Code.Mfence_F1 };
-				yield return new object[] { "0FAE F2", 3, Code.Mfence_F2 };
-				yield return new object[] { "0FAE F3", 3, Code.Mfence_F3 };
-				yield return new object[] { "0FAE F4", 3, Code.Mfence_F4 };
-				yield return new object[] { "0FAE F5", 3, Code.Mfence_F5 };
-				yield return new object[] { "0FAE F6", 3, Code.Mfence_F6 };
-				yield return new object[] { "0FAE F7", 3, Code.Mfence_F7 };
+				yield return new object[] { "0FAE F0", 3, Code.Mfence, DecoderOptions.None };
+				yield return new object[] { "0FAE F1", 3, Code.Mfence_F1, DecoderOptions.None };
+				yield return new object[] { "0FAE F2", 3, Code.Mfence_F2, DecoderOptions.None };
+				yield return new object[] { "0FAE F3", 3, Code.Mfence_F3, DecoderOptions.None };
+				yield return new object[] { "0FAE F4", 3, Code.Mfence_F4, DecoderOptions.None };
+				yield return new object[] { "0FAE F5", 3, Code.Mfence_F5, DecoderOptions.None };
+				yield return new object[] { "0FAE F6", 3, Code.Mfence_F6, DecoderOptions.None };
+				yield return new object[] { "0FAE F7", 3, Code.Mfence_F7, DecoderOptions.None };
 
-				yield return new object[] { "0FAE F8", 3, Code.Sfence };
-				yield return new object[] { "0FAE F9", 3, Code.Sfence_F9 };
-				yield return new object[] { "0FAE FA", 3, Code.Sfence_FA };
-				yield return new object[] { "0FAE FB", 3, Code.Sfence_FB };
-				yield return new object[] { "0FAE FC", 3, Code.Sfence_FC };
-				yield return new object[] { "0FAE FD", 3, Code.Sfence_FD };
-				yield return new object[] { "0FAE FE", 3, Code.Sfence_FE };
-				yield return new object[] { "0FAE FF", 3, Code.Sfence_FF };
+				yield return new object[] { "0FAE F8", 3, Code.Sfence, DecoderOptions.None };
+				yield return new object[] { "0FAE F9", 3, Code.Sfence_F9, DecoderOptions.None };
+				yield return new object[] { "0FAE FA", 3, Code.Sfence_FA, DecoderOptions.None };
+				yield return new object[] { "0FAE FB", 3, Code.Sfence_FB, DecoderOptions.None };
+				yield return new object[] { "0FAE FC", 3, Code.Sfence_FC, DecoderOptions.None };
+				yield return new object[] { "0FAE FD", 3, Code.Sfence_FD, DecoderOptions.None };
+				yield return new object[] { "0FAE FE", 3, Code.Sfence_FE, DecoderOptions.None };
+				yield return new object[] { "0FAE FF", 3, Code.Sfence_FF, DecoderOptions.None };
+
+				yield return new object[] { "66 0FAE F8", 4, Code.Pcommit, DecoderOptions.Pcommit };
 			}
 		}
 
 		[Theory]
 		[MemberData(nameof(Test32_Simple_1_Data))]
-		void Test32_Simple_1(string hexBytes, int byteLength, Code code) {
-			var decoder = CreateDecoder32(hexBytes);
+		void Test32_Simple_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
+			var decoder = CreateDecoder32(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -290,41 +292,43 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Simple_1_Data {
 			get {
-				yield return new object[] { "0FAA", 2, Code.Rsm };
+				yield return new object[] { "0FAA", 2, Code.Rsm, DecoderOptions.None };
 
-				yield return new object[] { "0FAE E8", 3, Code.Lfence };
-				yield return new object[] { "0FAE E9", 3, Code.Lfence_E9 };
-				yield return new object[] { "0FAE EA", 3, Code.Lfence_EA };
-				yield return new object[] { "0FAE EB", 3, Code.Lfence_EB };
-				yield return new object[] { "0FAE EC", 3, Code.Lfence_EC };
-				yield return new object[] { "0FAE ED", 3, Code.Lfence_ED };
-				yield return new object[] { "0FAE EE", 3, Code.Lfence_EE };
-				yield return new object[] { "0FAE EF", 3, Code.Lfence_EF };
+				yield return new object[] { "0FAE E8", 3, Code.Lfence, DecoderOptions.None };
+				yield return new object[] { "0FAE E9", 3, Code.Lfence_E9, DecoderOptions.None };
+				yield return new object[] { "0FAE EA", 3, Code.Lfence_EA, DecoderOptions.None };
+				yield return new object[] { "0FAE EB", 3, Code.Lfence_EB, DecoderOptions.None };
+				yield return new object[] { "0FAE EC", 3, Code.Lfence_EC, DecoderOptions.None };
+				yield return new object[] { "0FAE ED", 3, Code.Lfence_ED, DecoderOptions.None };
+				yield return new object[] { "0FAE EE", 3, Code.Lfence_EE, DecoderOptions.None };
+				yield return new object[] { "0FAE EF", 3, Code.Lfence_EF, DecoderOptions.None };
 
-				yield return new object[] { "0FAE F0", 3, Code.Mfence };
-				yield return new object[] { "0FAE F1", 3, Code.Mfence_F1 };
-				yield return new object[] { "0FAE F2", 3, Code.Mfence_F2 };
-				yield return new object[] { "0FAE F3", 3, Code.Mfence_F3 };
-				yield return new object[] { "0FAE F4", 3, Code.Mfence_F4 };
-				yield return new object[] { "0FAE F5", 3, Code.Mfence_F5 };
-				yield return new object[] { "0FAE F6", 3, Code.Mfence_F6 };
-				yield return new object[] { "0FAE F7", 3, Code.Mfence_F7 };
+				yield return new object[] { "0FAE F0", 3, Code.Mfence, DecoderOptions.None };
+				yield return new object[] { "0FAE F1", 3, Code.Mfence_F1, DecoderOptions.None };
+				yield return new object[] { "0FAE F2", 3, Code.Mfence_F2, DecoderOptions.None };
+				yield return new object[] { "0FAE F3", 3, Code.Mfence_F3, DecoderOptions.None };
+				yield return new object[] { "0FAE F4", 3, Code.Mfence_F4, DecoderOptions.None };
+				yield return new object[] { "0FAE F5", 3, Code.Mfence_F5, DecoderOptions.None };
+				yield return new object[] { "0FAE F6", 3, Code.Mfence_F6, DecoderOptions.None };
+				yield return new object[] { "0FAE F7", 3, Code.Mfence_F7, DecoderOptions.None };
 
-				yield return new object[] { "0FAE F8", 3, Code.Sfence };
-				yield return new object[] { "0FAE F9", 3, Code.Sfence_F9 };
-				yield return new object[] { "0FAE FA", 3, Code.Sfence_FA };
-				yield return new object[] { "0FAE FB", 3, Code.Sfence_FB };
-				yield return new object[] { "0FAE FC", 3, Code.Sfence_FC };
-				yield return new object[] { "0FAE FD", 3, Code.Sfence_FD };
-				yield return new object[] { "0FAE FE", 3, Code.Sfence_FE };
-				yield return new object[] { "0FAE FF", 3, Code.Sfence_FF };
+				yield return new object[] { "0FAE F8", 3, Code.Sfence, DecoderOptions.None };
+				yield return new object[] { "0FAE F9", 3, Code.Sfence_F9, DecoderOptions.None };
+				yield return new object[] { "0FAE FA", 3, Code.Sfence_FA, DecoderOptions.None };
+				yield return new object[] { "0FAE FB", 3, Code.Sfence_FB, DecoderOptions.None };
+				yield return new object[] { "0FAE FC", 3, Code.Sfence_FC, DecoderOptions.None };
+				yield return new object[] { "0FAE FD", 3, Code.Sfence_FD, DecoderOptions.None };
+				yield return new object[] { "0FAE FE", 3, Code.Sfence_FE, DecoderOptions.None };
+				yield return new object[] { "0FAE FF", 3, Code.Sfence_FF, DecoderOptions.None };
+
+				yield return new object[] { "66 0FAE F8", 4, Code.Pcommit, DecoderOptions.Pcommit };
 			}
 		}
 
 		[Theory]
 		[MemberData(nameof(Test64_Simple_1_Data))]
-		void Test64_Simple_1(string hexBytes, int byteLength, Code code) {
-			var decoder = CreateDecoder64(hexBytes);
+		void Test64_Simple_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -337,34 +341,36 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Simple_1_Data {
 			get {
-				yield return new object[] { "0FAA", 2, Code.Rsm };
+				yield return new object[] { "0FAA", 2, Code.Rsm, DecoderOptions.None };
 
-				yield return new object[] { "0FAE E8", 3, Code.Lfence };
-				yield return new object[] { "0FAE E9", 3, Code.Lfence_E9 };
-				yield return new object[] { "0FAE EA", 3, Code.Lfence_EA };
-				yield return new object[] { "0FAE EB", 3, Code.Lfence_EB };
-				yield return new object[] { "0FAE EC", 3, Code.Lfence_EC };
-				yield return new object[] { "0FAE ED", 3, Code.Lfence_ED };
-				yield return new object[] { "0FAE EE", 3, Code.Lfence_EE };
-				yield return new object[] { "0FAE EF", 3, Code.Lfence_EF };
+				yield return new object[] { "0FAE E8", 3, Code.Lfence, DecoderOptions.None };
+				yield return new object[] { "0FAE E9", 3, Code.Lfence_E9, DecoderOptions.None };
+				yield return new object[] { "0FAE EA", 3, Code.Lfence_EA, DecoderOptions.None };
+				yield return new object[] { "0FAE EB", 3, Code.Lfence_EB, DecoderOptions.None };
+				yield return new object[] { "0FAE EC", 3, Code.Lfence_EC, DecoderOptions.None };
+				yield return new object[] { "0FAE ED", 3, Code.Lfence_ED, DecoderOptions.None };
+				yield return new object[] { "0FAE EE", 3, Code.Lfence_EE, DecoderOptions.None };
+				yield return new object[] { "0FAE EF", 3, Code.Lfence_EF, DecoderOptions.None };
 
-				yield return new object[] { "0FAE F0", 3, Code.Mfence };
-				yield return new object[] { "0FAE F1", 3, Code.Mfence_F1 };
-				yield return new object[] { "0FAE F2", 3, Code.Mfence_F2 };
-				yield return new object[] { "0FAE F3", 3, Code.Mfence_F3 };
-				yield return new object[] { "0FAE F4", 3, Code.Mfence_F4 };
-				yield return new object[] { "0FAE F5", 3, Code.Mfence_F5 };
-				yield return new object[] { "0FAE F6", 3, Code.Mfence_F6 };
-				yield return new object[] { "0FAE F7", 3, Code.Mfence_F7 };
+				yield return new object[] { "0FAE F0", 3, Code.Mfence, DecoderOptions.None };
+				yield return new object[] { "0FAE F1", 3, Code.Mfence_F1, DecoderOptions.None };
+				yield return new object[] { "0FAE F2", 3, Code.Mfence_F2, DecoderOptions.None };
+				yield return new object[] { "0FAE F3", 3, Code.Mfence_F3, DecoderOptions.None };
+				yield return new object[] { "0FAE F4", 3, Code.Mfence_F4, DecoderOptions.None };
+				yield return new object[] { "0FAE F5", 3, Code.Mfence_F5, DecoderOptions.None };
+				yield return new object[] { "0FAE F6", 3, Code.Mfence_F6, DecoderOptions.None };
+				yield return new object[] { "0FAE F7", 3, Code.Mfence_F7, DecoderOptions.None };
 
-				yield return new object[] { "0FAE F8", 3, Code.Sfence };
-				yield return new object[] { "0FAE F9", 3, Code.Sfence_F9 };
-				yield return new object[] { "0FAE FA", 3, Code.Sfence_FA };
-				yield return new object[] { "0FAE FB", 3, Code.Sfence_FB };
-				yield return new object[] { "0FAE FC", 3, Code.Sfence_FC };
-				yield return new object[] { "0FAE FD", 3, Code.Sfence_FD };
-				yield return new object[] { "0FAE FE", 3, Code.Sfence_FE };
-				yield return new object[] { "0FAE FF", 3, Code.Sfence_FF };
+				yield return new object[] { "0FAE F8", 3, Code.Sfence, DecoderOptions.None };
+				yield return new object[] { "0FAE F9", 3, Code.Sfence_F9, DecoderOptions.None };
+				yield return new object[] { "0FAE FA", 3, Code.Sfence_FA, DecoderOptions.None };
+				yield return new object[] { "0FAE FB", 3, Code.Sfence_FB, DecoderOptions.None };
+				yield return new object[] { "0FAE FC", 3, Code.Sfence_FC, DecoderOptions.None };
+				yield return new object[] { "0FAE FD", 3, Code.Sfence_FD, DecoderOptions.None };
+				yield return new object[] { "0FAE FE", 3, Code.Sfence_FE, DecoderOptions.None };
+				yield return new object[] { "0FAE FF", 3, Code.Sfence_FF, DecoderOptions.None };
+
+				yield return new object[] { "66 0FAE F8", 4, Code.Pcommit, DecoderOptions.Pcommit };
 			}
 		}
 
@@ -1474,8 +1480,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[MemberData(nameof(Test16_Grp_RM_1_Data))]
-		void Test16_Grp_RM_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
-			var decoder = CreateDecoder16(hexBytes);
+		void Test16_Grp_RM_1(string hexBytes, int byteLength, Code code, MemorySize memSize, DecoderOptions options) {
+			var decoder = CreateDecoder16(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -1497,40 +1503,44 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Grp_RM_1_Data {
 			get {
-				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m512byte, MemorySize.Fxsave_512Byte };
+				yield return new object[] { "0FAE 00", 3, Code.Zalloc_m256, MemorySize.UInt256, DecoderOptions.Zalloc };
 
-				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m512byte, MemorySize.Fxsave_512Byte };
+				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m512byte, MemorySize.Fxsave_512Byte, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 10", 3, Code.Ldmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m512byte, MemorySize.Fxsave_512Byte, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 18", 3, Code.Stmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "0FAE 10", 3, Code.Ldmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 20", 3, Code.Xsave_m, MemorySize.Xsave };
+				yield return new object[] { "0FAE 18", 3, Code.Stmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
 
-				yield return new object[] { "F3 0FAE 20", 4, Code.Ptwrite_rm32, MemorySize.UInt32 };
+				yield return new object[] { "0FAE 20", 3, Code.Xsave_m, MemorySize.Xsave, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m, MemorySize.Xsave };
+				yield return new object[] { "F3 0FAE 20", 4, Code.Ptwrite_rm32, MemorySize.UInt32, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m, MemorySize.Xsave };
+				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m, MemorySize.Xsave, DecoderOptions.None };
 
-				yield return new object[] { "66 0FAE 30", 4, Code.Clwb_m8, MemorySize.UInt8 };
+				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m, MemorySize.Xsave, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 38", 3, Code.Clflush_m8, MemorySize.UInt8 };
+				yield return new object[] { "F3 0FAE 30", 4, Code.Clrssbsy_m64, MemorySize.UInt64, DecoderOptions.None };
 
-				yield return new object[] { "66 0FAE 38", 4, Code.Clflushopt_m8, MemorySize.UInt8 };
+				yield return new object[] { "66 0FAE 30", 4, Code.Clwb_m8, MemorySize.UInt8, DecoderOptions.None };
 
-				yield return new object[] { "C5F8 AE 10", 4, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32 };
-				yield return new object[] { "C4E1F8 AE 10", 5, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "0FAE 38", 3, Code.Clflush_m8, MemorySize.UInt8, DecoderOptions.None };
 
-				yield return new object[] { "C5F8 AE 18", 4, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32 };
-				yield return new object[] { "C4E1F8 AE 18", 5, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "66 0FAE 38", 4, Code.Clflushopt_m8, MemorySize.UInt8, DecoderOptions.None };
+
+				yield return new object[] { "C5F8 AE 10", 4, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
+				yield return new object[] { "C4E1F8 AE 10", 5, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
+
+				yield return new object[] { "C5F8 AE 18", 4, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
+				yield return new object[] { "C4E1F8 AE 18", 5, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
 			}
 		}
 
 		[Theory]
 		[MemberData(nameof(Test16_Grp_RM_2_Data))]
-		void Test16_Grp_RM_2(string hexBytes, int byteLength, Code code, Register reg1) {
-			var decoder = CreateDecoder16(hexBytes);
+		void Test16_Grp_RM_2(string hexBytes, int byteLength, Code code, Register reg1, DecoderOptions options) {
+			var decoder = CreateDecoder16(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -1546,14 +1556,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_Grp_RM_2_Data {
 			get {
-				yield return new object[] { "F3 0FAE E5", 4, Code.Ptwrite_rm32, Register.EBP };
+				yield return new object[] { "F3 0FAE E5", 4, Code.Ptwrite_rm32, Register.EBP, DecoderOptions.None };
+
+				yield return new object[] { "F3 0FAE ED", 4, Code.Incsspd_r32, Register.EBP, DecoderOptions.None };
+
+				yield return new object[] { "66 0FAE F5", 4, Code.Tpause_r32, Register.EBP, DecoderOptions.None };
+
+				yield return new object[] { "F3 0FAE F5", 4, Code.Umonitor_r16, Register.BP, DecoderOptions.None };
+				yield return new object[] { "67 F3 0FAE F5", 5, Code.Umonitor_r32, Register.EBP, DecoderOptions.None };
+
+				yield return new object[] { "F2 0FAE F5", 4, Code.Umwait_r32, Register.EBP, DecoderOptions.None };
 			}
 		}
 
 		[Theory]
 		[MemberData(nameof(Test32_Grp_RM_1_Data))]
-		void Test32_Grp_RM_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
-			var decoder = CreateDecoder32(hexBytes);
+		void Test32_Grp_RM_1(string hexBytes, int byteLength, Code code, MemorySize memSize, DecoderOptions options) {
+			var decoder = CreateDecoder32(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -1575,40 +1594,44 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Grp_RM_1_Data {
 			get {
-				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m512byte, MemorySize.Fxsave_512Byte };
+				yield return new object[] { "0FAE 00", 3, Code.Zalloc_m256, MemorySize.UInt256, DecoderOptions.Zalloc };
 
-				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m512byte, MemorySize.Fxsave_512Byte };
+				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m512byte, MemorySize.Fxsave_512Byte, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 10", 3, Code.Ldmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m512byte, MemorySize.Fxsave_512Byte, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 18", 3, Code.Stmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "0FAE 10", 3, Code.Ldmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 20", 3, Code.Xsave_m, MemorySize.Xsave };
+				yield return new object[] { "0FAE 18", 3, Code.Stmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
 
-				yield return new object[] { "F3 0FAE 20", 4, Code.Ptwrite_rm32, MemorySize.UInt32 };
+				yield return new object[] { "0FAE 20", 3, Code.Xsave_m, MemorySize.Xsave, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m, MemorySize.Xsave };
+				yield return new object[] { "F3 0FAE 20", 4, Code.Ptwrite_rm32, MemorySize.UInt32, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m, MemorySize.Xsave };
+				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m, MemorySize.Xsave, DecoderOptions.None };
 
-				yield return new object[] { "66 0FAE 30", 4, Code.Clwb_m8, MemorySize.UInt8 };
+				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m, MemorySize.Xsave, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 38", 3, Code.Clflush_m8, MemorySize.UInt8 };
+				yield return new object[] { "F3 0FAE 30", 4, Code.Clrssbsy_m64, MemorySize.UInt64, DecoderOptions.None };
 
-				yield return new object[] { "66 0FAE 38", 4, Code.Clflushopt_m8, MemorySize.UInt8 };
+				yield return new object[] { "66 0FAE 30", 4, Code.Clwb_m8, MemorySize.UInt8, DecoderOptions.None };
 
-				yield return new object[] { "C5F8 AE 10", 4, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32 };
-				yield return new object[] { "C4E1F8 AE 10", 5, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "0FAE 38", 3, Code.Clflush_m8, MemorySize.UInt8, DecoderOptions.None };
 
-				yield return new object[] { "C5F8 AE 18", 4, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32 };
-				yield return new object[] { "C4E1F8 AE 18", 5, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "66 0FAE 38", 4, Code.Clflushopt_m8, MemorySize.UInt8, DecoderOptions.None };
+
+				yield return new object[] { "C5F8 AE 10", 4, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
+				yield return new object[] { "C4E1F8 AE 10", 5, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
+
+				yield return new object[] { "C5F8 AE 18", 4, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
+				yield return new object[] { "C4E1F8 AE 18", 5, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
 			}
 		}
 
 		[Theory]
 		[MemberData(nameof(Test32_Grp_RM_2_Data))]
-		void Test32_Grp_RM_2(string hexBytes, int byteLength, Code code, Register reg1) {
-			var decoder = CreateDecoder32(hexBytes);
+		void Test32_Grp_RM_2(string hexBytes, int byteLength, Code code, Register reg1, DecoderOptions options) {
+			var decoder = CreateDecoder32(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -1624,14 +1647,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test32_Grp_RM_2_Data {
 			get {
-				yield return new object[] { "F3 0FAE E5", 4, Code.Ptwrite_rm32, Register.EBP };
+				yield return new object[] { "F3 0FAE E5", 4, Code.Ptwrite_rm32, Register.EBP, DecoderOptions.None };
+
+				yield return new object[] { "F3 0FAE ED", 4, Code.Incsspd_r32, Register.EBP, DecoderOptions.None };
+
+				yield return new object[] { "66 0FAE F5", 4, Code.Tpause_r32, Register.EBP, DecoderOptions.None };
+
+				yield return new object[] { "67 F3 0FAE F5", 5, Code.Umonitor_r16, Register.BP, DecoderOptions.None };
+				yield return new object[] { "F3 0FAE F5", 4, Code.Umonitor_r32, Register.EBP, DecoderOptions.None };
+
+				yield return new object[] { "F2 0FAE F5", 4, Code.Umwait_r32, Register.EBP, DecoderOptions.None };
 			}
 		}
 
 		[Theory]
 		[MemberData(nameof(Test64_Grp_RM_1_Data))]
-		void Test64_Grp_RM_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
-			var decoder = CreateDecoder64(hexBytes);
+		void Test64_Grp_RM_1(string hexBytes, int byteLength, Code code, MemorySize memSize, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -1653,48 +1685,50 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Grp_RM_1_Data {
 			get {
-				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m512byte, MemorySize.Fxsave_512Byte };
-				yield return new object[] { "48 0FAE 00", 4, Code.Fxsave64_m512byte, MemorySize.Fxsave64_512Byte };
+				yield return new object[] { "0FAE 00", 3, Code.Fxsave_m512byte, MemorySize.Fxsave_512Byte, DecoderOptions.None };
+				yield return new object[] { "48 0FAE 00", 4, Code.Fxsave64_m512byte, MemorySize.Fxsave64_512Byte, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m512byte, MemorySize.Fxsave_512Byte };
-				yield return new object[] { "48 0FAE 08", 4, Code.Fxrstor64_m512byte, MemorySize.Fxsave64_512Byte };
+				yield return new object[] { "0FAE 08", 3, Code.Fxrstor_m512byte, MemorySize.Fxsave_512Byte, DecoderOptions.None };
+				yield return new object[] { "48 0FAE 08", 4, Code.Fxrstor64_m512byte, MemorySize.Fxsave64_512Byte, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 10", 3, Code.Ldmxcsr_m32, MemorySize.UInt32 };
-				yield return new object[] { "48 0FAE 10", 4, Code.Ldmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "0FAE 10", 3, Code.Ldmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
+				yield return new object[] { "48 0FAE 10", 4, Code.Ldmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 18", 3, Code.Stmxcsr_m32, MemorySize.UInt32 };
-				yield return new object[] { "48 0FAE 18", 4, Code.Stmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "0FAE 18", 3, Code.Stmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
+				yield return new object[] { "48 0FAE 18", 4, Code.Stmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 20", 3, Code.Xsave_m, MemorySize.Xsave };
-				yield return new object[] { "48 0FAE 20", 4, Code.Xsave64_m, MemorySize.Xsave64 };
+				yield return new object[] { "0FAE 20", 3, Code.Xsave_m, MemorySize.Xsave, DecoderOptions.None };
+				yield return new object[] { "48 0FAE 20", 4, Code.Xsave64_m, MemorySize.Xsave64, DecoderOptions.None };
 
-				yield return new object[] { "F3 0FAE 20", 4, Code.Ptwrite_rm32, MemorySize.UInt32 };
-				yield return new object[] { "F3 48 0FAE 20", 5, Code.Ptwrite_rm64, MemorySize.UInt64 };
+				yield return new object[] { "F3 0FAE 20", 4, Code.Ptwrite_rm32, MemorySize.UInt32, DecoderOptions.None };
+				yield return new object[] { "F3 48 0FAE 20", 5, Code.Ptwrite_rm64, MemorySize.UInt64, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m, MemorySize.Xsave };
-				yield return new object[] { "48 0FAE 28", 4, Code.Xrstor64_m, MemorySize.Xsave64 };
+				yield return new object[] { "0FAE 28", 3, Code.Xrstor_m, MemorySize.Xsave, DecoderOptions.None };
+				yield return new object[] { "48 0FAE 28", 4, Code.Xrstor64_m, MemorySize.Xsave64, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m, MemorySize.Xsave };
-				yield return new object[] { "48 0FAE 30", 4, Code.Xsaveopt64_m, MemorySize.Xsave64 };
+				yield return new object[] { "0FAE 30", 3, Code.Xsaveopt_m, MemorySize.Xsave, DecoderOptions.None };
+				yield return new object[] { "48 0FAE 30", 4, Code.Xsaveopt64_m, MemorySize.Xsave64, DecoderOptions.None };
 
-				yield return new object[] { "66 0FAE 30", 4, Code.Clwb_m8, MemorySize.UInt8 };
+				yield return new object[] { "F3 0FAE 30", 4, Code.Clrssbsy_m64, MemorySize.UInt64, DecoderOptions.None };
 
-				yield return new object[] { "0FAE 38", 3, Code.Clflush_m8, MemorySize.UInt8 };
+				yield return new object[] { "66 0FAE 30", 4, Code.Clwb_m8, MemorySize.UInt8, DecoderOptions.None };
 
-				yield return new object[] { "66 0FAE 38", 4, Code.Clflushopt_m8, MemorySize.UInt8 };
+				yield return new object[] { "0FAE 38", 3, Code.Clflush_m8, MemorySize.UInt8, DecoderOptions.None };
 
-				yield return new object[] { "C5F8 AE 10", 4, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32 };
-				yield return new object[] { "C4E1F8 AE 10", 5, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "66 0FAE 38", 4, Code.Clflushopt_m8, MemorySize.UInt8, DecoderOptions.None };
 
-				yield return new object[] { "C5F8 AE 18", 4, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32 };
-				yield return new object[] { "C4E1F8 AE 18", 5, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32 };
+				yield return new object[] { "C5F8 AE 10", 4, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
+				yield return new object[] { "C4E1F8 AE 10", 5, Code.VEX_Vldmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
+
+				yield return new object[] { "C5F8 AE 18", 4, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
+				yield return new object[] { "C4E1F8 AE 18", 5, Code.VEX_Vstmxcsr_m32, MemorySize.UInt32, DecoderOptions.None };
 			}
 		}
 
 		[Theory]
 		[MemberData(nameof(Test64_Grp_RM_2_Data))]
-		void Test64_Grp_RM_2(string hexBytes, int byteLength, Code code, Register reg1) {
-			var decoder = CreateDecoder64(hexBytes);
+		void Test64_Grp_RM_2(string hexBytes, int byteLength, Code code, Register reg1, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -1710,35 +1744,58 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test64_Grp_RM_2_Data {
 			get {
-				yield return new object[] { "F3 0FAE C5", 4, Code.Rdfsbase_r32, Register.EBP };
-				yield return new object[] { "F3 41 0FAE C5", 5, Code.Rdfsbase_r32, Register.R13D };
+				yield return new object[] { "F3 0FAE C5", 4, Code.Rdfsbase_r32, Register.EBP, DecoderOptions.None };
+				yield return new object[] { "F3 41 0FAE C5", 5, Code.Rdfsbase_r32, Register.R13D, DecoderOptions.None };
 
-				yield return new object[] { "F3 48 0FAE C5", 5, Code.Rdfsbase_r64, Register.RBP };
-				yield return new object[] { "F3 49 0FAE C5", 5, Code.Rdfsbase_r64, Register.R13 };
+				yield return new object[] { "F3 48 0FAE C5", 5, Code.Rdfsbase_r64, Register.RBP, DecoderOptions.None };
+				yield return new object[] { "F3 49 0FAE C5", 5, Code.Rdfsbase_r64, Register.R13, DecoderOptions.None };
 
-				yield return new object[] { "F3 0FAE CD", 4, Code.Rdgsbase_r32, Register.EBP };
-				yield return new object[] { "F3 41 0FAE CD", 5, Code.Rdgsbase_r32, Register.R13D };
+				yield return new object[] { "F3 0FAE CD", 4, Code.Rdgsbase_r32, Register.EBP, DecoderOptions.None };
+				yield return new object[] { "F3 41 0FAE CD", 5, Code.Rdgsbase_r32, Register.R13D, DecoderOptions.None };
 
-				yield return new object[] { "F3 48 0FAE CD", 5, Code.Rdgsbase_r64, Register.RBP };
-				yield return new object[] { "F3 49 0FAE CD", 5, Code.Rdgsbase_r64, Register.R13 };
+				yield return new object[] { "F3 48 0FAE CD", 5, Code.Rdgsbase_r64, Register.RBP, DecoderOptions.None };
+				yield return new object[] { "F3 49 0FAE CD", 5, Code.Rdgsbase_r64, Register.R13, DecoderOptions.None };
 
-				yield return new object[] { "F3 0FAE D5", 4, Code.Wrfsbase_r32, Register.EBP };
-				yield return new object[] { "F3 41 0FAE D5", 5, Code.Wrfsbase_r32, Register.R13D };
+				yield return new object[] { "F3 0FAE D5", 4, Code.Wrfsbase_r32, Register.EBP, DecoderOptions.None };
+				yield return new object[] { "F3 41 0FAE D5", 5, Code.Wrfsbase_r32, Register.R13D, DecoderOptions.None };
 
-				yield return new object[] { "F3 48 0FAE D5", 5, Code.Wrfsbase_r64, Register.RBP };
-				yield return new object[] { "F3 49 0FAE D5", 5, Code.Wrfsbase_r64, Register.R13 };
+				yield return new object[] { "F3 48 0FAE D5", 5, Code.Wrfsbase_r64, Register.RBP, DecoderOptions.None };
+				yield return new object[] { "F3 49 0FAE D5", 5, Code.Wrfsbase_r64, Register.R13, DecoderOptions.None };
 
-				yield return new object[] { "F3 0FAE DD", 4, Code.Wrgsbase_r32, Register.EBP };
-				yield return new object[] { "F3 41 0FAE DD", 5, Code.Wrgsbase_r32, Register.R13D };
+				yield return new object[] { "F3 0FAE DD", 4, Code.Wrgsbase_r32, Register.EBP, DecoderOptions.None };
+				yield return new object[] { "F3 41 0FAE DD", 5, Code.Wrgsbase_r32, Register.R13D, DecoderOptions.None };
 
-				yield return new object[] { "F3 48 0FAE DD", 5, Code.Wrgsbase_r64, Register.RBP };
-				yield return new object[] { "F3 49 0FAE DD", 5, Code.Wrgsbase_r64, Register.R13 };
+				yield return new object[] { "F3 48 0FAE DD", 5, Code.Wrgsbase_r64, Register.RBP, DecoderOptions.None };
+				yield return new object[] { "F3 49 0FAE DD", 5, Code.Wrgsbase_r64, Register.R13, DecoderOptions.None };
 
-				yield return new object[] { "F3 0FAE E5", 4, Code.Ptwrite_rm32, Register.EBP };
-				yield return new object[] { "F3 41 0FAE E5", 5, Code.Ptwrite_rm32, Register.R13D };
+				yield return new object[] { "F3 0FAE E5", 4, Code.Ptwrite_rm32, Register.EBP, DecoderOptions.None };
+				yield return new object[] { "F3 41 0FAE E5", 5, Code.Ptwrite_rm32, Register.R13D, DecoderOptions.None };
 
-				yield return new object[] { "F3 48 0FAE E5", 5, Code.Ptwrite_rm64, Register.RBP };
-				yield return new object[] { "F3 49 0FAE E5", 5, Code.Ptwrite_rm64, Register.R13 };
+				yield return new object[] { "F3 48 0FAE E5", 5, Code.Ptwrite_rm64, Register.RBP, DecoderOptions.None };
+				yield return new object[] { "F3 49 0FAE E5", 5, Code.Ptwrite_rm64, Register.R13, DecoderOptions.None };
+
+				yield return new object[] { "F3 0FAE ED", 4, Code.Incsspd_r32, Register.EBP, DecoderOptions.None };
+				yield return new object[] { "F3 41 0FAE ED", 5, Code.Incsspd_r32, Register.R13D, DecoderOptions.None };
+
+				yield return new object[] { "F3 48 0FAE ED", 5, Code.Incsspq_r64, Register.RBP, DecoderOptions.None };
+				yield return new object[] { "F3 49 0FAE ED", 5, Code.Incsspq_r64, Register.R13, DecoderOptions.None };
+
+				yield return new object[] { "66 0FAE F5", 4, Code.Tpause_r32, Register.EBP, DecoderOptions.None };
+				yield return new object[] { "66 41 0FAE F5", 5, Code.Tpause_r32, Register.R13D, DecoderOptions.None };
+
+				yield return new object[] { "66 48 0FAE F5", 5, Code.Tpause_r64, Register.RBP, DecoderOptions.None };
+				yield return new object[] { "66 49 0FAE F5", 5, Code.Tpause_r64, Register.R13, DecoderOptions.None };
+
+				yield return new object[] { "67 F3 0FAE F5", 5, Code.Umonitor_r32, Register.EBP, DecoderOptions.None };
+				yield return new object[] { "67 F3 41 0FAE F5", 6, Code.Umonitor_r32, Register.R13D, DecoderOptions.None };
+				yield return new object[] { "F3 0FAE F5", 4, Code.Umonitor_r64, Register.RBP, DecoderOptions.None };
+				yield return new object[] { "F3 41 0FAE F5", 5, Code.Umonitor_r64, Register.R13, DecoderOptions.None };
+
+				yield return new object[] { "F2 0FAE F5", 4, Code.Umwait_r32, Register.EBP, DecoderOptions.None };
+				yield return new object[] { "F2 41 0FAE F5", 5, Code.Umwait_r32, Register.R13D, DecoderOptions.None };
+
+				yield return new object[] { "F2 48 0FAE F5", 5, Code.Umwait_r64, Register.RBP, DecoderOptions.None };
+				yield return new object[] { "F2 49 0FAE F5", 5, Code.Umwait_r64, Register.R13, DecoderOptions.None };
 			}
 		}
 

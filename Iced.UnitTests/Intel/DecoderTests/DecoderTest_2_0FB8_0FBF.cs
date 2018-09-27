@@ -22,6 +22,78 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class DecoderTest_2_0FB8_0FBF : DecoderTest {
+		[Theory]
+		[InlineData("0FB8 5AA5", 4, Code.Jmpe_disp16, 0xA55A)]
+		void Test16_Jmpe_disp16_1(string hexBytes, int byteLength, Code code, uint target) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
+			Assert.Equal(target, instr.NearBranch16);
+		}
+
+		[Theory]
+		[InlineData("66 0FB8 5AA5", 5, Code.Jmpe_disp16, 0xA55A)]
+		void Test32_Jmpe_disp16_1(string hexBytes, int byteLength, Code code, uint target) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
+			Assert.Equal(target, instr.NearBranch16);
+		}
+
+		[Theory]
+		[InlineData("66 0FB8 12345AA5", 7, Code.Jmpe_disp32, 0xA55A3412)]
+		void Test16_Jmpe_disp32_1(string hexBytes, int byteLength, Code code, uint target) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.NearBranch32, instr.Op0Kind);
+			Assert.Equal(target, instr.NearBranch32);
+		}
+
+		[Theory]
+		[InlineData("0FB8 12345AA5", 6, Code.Jmpe_disp32, 0xA55A3412)]
+		void Test32_Jmpe_disp32_1(string hexBytes, int byteLength, Code code, uint target) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.NearBranch32, instr.Op0Kind);
+			Assert.Equal(target, instr.NearBranch32);
+		}
+
 		[Fact]
 		void Test16_Popcnt_r16_rm16_1() {
 			var decoder = CreateDecoder16("F3 0FB8 CE");

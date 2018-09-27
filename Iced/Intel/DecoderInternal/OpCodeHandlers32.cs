@@ -1153,21 +1153,26 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		}
 	}
 
-	sealed class OpCodeHandler_Simple5_ModRM : OpCodeHandlerModRM {
+	sealed class OpCodeHandler_Simple5_ModRM_as : OpCodeHandlerModRM {
 		readonly Code code16;
 		readonly Code code32;
 
-		public OpCodeHandler_Simple5_ModRM(Code code16, Code code32, Code code64) {
+		public OpCodeHandler_Simple5_ModRM_as(Code code16, Code code32, Code code64) {
 			this.code16 = code16;
 			this.code32 = code32;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.addressSize == OpSize.Size16)
+			if (decoder.state.addressSize == OpSize.Size16) {
 				instruction.InternalCode = code16;
-			else
+				instruction.InternalOp0Register = (int)state.rm + Register.AX;
+			}
+			else {
 				instruction.InternalCode = code32;
+				instruction.InternalOp0Register = (int)state.rm + Register.EAX;
+			}
 		}
 	}
 

@@ -24,6 +24,654 @@ using Xunit;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class DecoderTest_3_0F3860_0F3867 : DecoderTest {
 		[Theory]
+		[MemberData(nameof(Test16_VpexpandV_Reg_RegMem_EVEX_1_Data))]
+		void Test16_VpexpandV_Reg_RegMem_EVEX_1(string hexBytes, int byteLength, Code code, Register reg1, Register kreg, MemorySize memSize, uint displ, bool z) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op1Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.BX, instr.MemoryBase);
+			Assert.Equal(Register.SI, instr.MemoryIndex);
+			Assert.Equal(displ, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(1, instr.MemoryDisplSize);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(RoundingControl.None, instr.RoundingControl);
+			Assert.False(instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test16_VpexpandV_Reg_RegMem_EVEX_1_Data {
+			get {
+				yield return new object[] { "62 F27D08 62 50 01", 7, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.None, MemorySize.Packed128_UInt8, 1, false };
+				yield return new object[] { "62 F27D8B 62 50 01", 7, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.K3, MemorySize.Packed128_UInt8, 1, true };
+
+				yield return new object[] { "62 F27D28 62 50 01", 7, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.None, MemorySize.Packed256_UInt8, 1, false };
+				yield return new object[] { "62 F27DAB 62 50 01", 7, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.K3, MemorySize.Packed256_UInt8, 1, true };
+
+				yield return new object[] { "62 F27D48 62 50 01", 7, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.None, MemorySize.Packed512_UInt8, 1, false };
+				yield return new object[] { "62 F27DCB 62 50 01", 7, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt8, 1, true };
+
+				yield return new object[] { "62 F2FD08 62 50 01", 7, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.None, MemorySize.Packed128_UInt16, 2, false };
+				yield return new object[] { "62 F2FD8B 62 50 01", 7, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.K3, MemorySize.Packed128_UInt16, 2, true };
+
+				yield return new object[] { "62 F2FD28 62 50 01", 7, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.None, MemorySize.Packed256_UInt16, 2, false };
+				yield return new object[] { "62 F2FDAB 62 50 01", 7, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.K3, MemorySize.Packed256_UInt16, 2, true };
+
+				yield return new object[] { "62 F2FD48 62 50 01", 7, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.None, MemorySize.Packed512_UInt16, 2, false };
+				yield return new object[] { "62 F2FDCB 62 50 01", 7, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt16, 2, true };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_VpexpandV_Reg_RegMem_EVEX_2_Data))]
+		void Test16_VpexpandV_Reg_RegMem_EVEX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register kreg, RoundingControl rc, bool z, bool sae) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(rc, instr.RoundingControl);
+			Assert.Equal(sae, instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test16_VpexpandV_Reg_RegMem_EVEX_2_Data {
+			get {
+				yield return new object[] { "62 F27D08 62 D3", 6, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D0B 62 D3", 6, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D8B 62 D3", 6, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D28 62 D3", 6, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D2B 62 D3", 6, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27DAB 62 D3", 6, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D48 62 D3", 6, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D4B 62 D3", 6, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27DCB 62 D3", 6, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD08 62 D3", 6, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD0B 62 D3", 6, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD8B 62 D3", 6, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD28 62 D3", 6, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD2B 62 D3", 6, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FDAB 62 D3", 6, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD48 62 D3", 6, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD4B 62 D3", 6, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FDCB 62 D3", 6, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_VpexpandV_Reg_RegMem_EVEX_1_Data))]
+		void Test32_VpexpandV_Reg_RegMem_EVEX_1(string hexBytes, int byteLength, Code code, Register reg1, Register kreg, MemorySize memSize, uint displ, bool z) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op1Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.EAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(displ, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(1, instr.MemoryDisplSize);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(RoundingControl.None, instr.RoundingControl);
+			Assert.False(instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test32_VpexpandV_Reg_RegMem_EVEX_1_Data {
+			get {
+				yield return new object[] { "62 F27D08 62 50 01", 7, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.None, MemorySize.Packed128_UInt8, 1, false };
+				yield return new object[] { "62 F27D8B 62 50 01", 7, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.K3, MemorySize.Packed128_UInt8, 1, true };
+
+				yield return new object[] { "62 F27D28 62 50 01", 7, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.None, MemorySize.Packed256_UInt8, 1, false };
+				yield return new object[] { "62 F27DAB 62 50 01", 7, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.K3, MemorySize.Packed256_UInt8, 1, true };
+
+				yield return new object[] { "62 F27D48 62 50 01", 7, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.None, MemorySize.Packed512_UInt8, 1, false };
+				yield return new object[] { "62 F27DCB 62 50 01", 7, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt8, 1, true };
+
+				yield return new object[] { "62 F2FD08 62 50 01", 7, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.None, MemorySize.Packed128_UInt16, 2, false };
+				yield return new object[] { "62 F2FD8B 62 50 01", 7, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.K3, MemorySize.Packed128_UInt16, 2, true };
+
+				yield return new object[] { "62 F2FD28 62 50 01", 7, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.None, MemorySize.Packed256_UInt16, 2, false };
+				yield return new object[] { "62 F2FDAB 62 50 01", 7, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.K3, MemorySize.Packed256_UInt16, 2, true };
+
+				yield return new object[] { "62 F2FD48 62 50 01", 7, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.None, MemorySize.Packed512_UInt16, 2, false };
+				yield return new object[] { "62 F2FDCB 62 50 01", 7, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt16, 2, true };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_VpexpandV_Reg_RegMem_EVEX_2_Data))]
+		void Test32_VpexpandV_Reg_RegMem_EVEX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register kreg, RoundingControl rc, bool z, bool sae) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(rc, instr.RoundingControl);
+			Assert.Equal(sae, instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test32_VpexpandV_Reg_RegMem_EVEX_2_Data {
+			get {
+				yield return new object[] { "62 F27D08 62 D3", 6, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D0B 62 D3", 6, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D8B 62 D3", 6, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D28 62 D3", 6, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D2B 62 D3", 6, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27DAB 62 D3", 6, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D48 62 D3", 6, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D4B 62 D3", 6, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27DCB 62 D3", 6, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD08 62 D3", 6, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD0B 62 D3", 6, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD8B 62 D3", 6, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD28 62 D3", 6, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD2B 62 D3", 6, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FDAB 62 D3", 6, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD48 62 D3", 6, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD4B 62 D3", 6, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FDCB 62 D3", 6, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, true, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_VpexpandV_Reg_RegMem_EVEX_1_Data))]
+		void Test64_VpexpandV_Reg_RegMem_EVEX_1(string hexBytes, int byteLength, Code code, Register reg1, Register kreg, MemorySize memSize, uint displ, bool z) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op1Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.RAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(displ, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(1, instr.MemoryDisplSize);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(RoundingControl.None, instr.RoundingControl);
+			Assert.False(instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test64_VpexpandV_Reg_RegMem_EVEX_1_Data {
+			get {
+				yield return new object[] { "62 F27D08 62 50 01", 7, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.None, MemorySize.Packed128_UInt8, 1, false };
+				yield return new object[] { "62 F27D8B 62 50 01", 7, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.K3, MemorySize.Packed128_UInt8, 1, true };
+
+				yield return new object[] { "62 F27D28 62 50 01", 7, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.None, MemorySize.Packed256_UInt8, 1, false };
+				yield return new object[] { "62 F27DAB 62 50 01", 7, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.K3, MemorySize.Packed256_UInt8, 1, true };
+
+				yield return new object[] { "62 F27D48 62 50 01", 7, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.None, MemorySize.Packed512_UInt8, 1, false };
+				yield return new object[] { "62 F27DCB 62 50 01", 7, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt8, 1, true };
+
+				yield return new object[] { "62 F2FD08 62 50 01", 7, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.None, MemorySize.Packed128_UInt16, 2, false };
+				yield return new object[] { "62 F2FD8B 62 50 01", 7, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.K3, MemorySize.Packed128_UInt16, 2, true };
+
+				yield return new object[] { "62 F2FD28 62 50 01", 7, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.None, MemorySize.Packed256_UInt16, 2, false };
+				yield return new object[] { "62 F2FDAB 62 50 01", 7, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.K3, MemorySize.Packed256_UInt16, 2, true };
+
+				yield return new object[] { "62 F2FD48 62 50 01", 7, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.None, MemorySize.Packed512_UInt16, 2, false };
+				yield return new object[] { "62 F2FDCB 62 50 01", 7, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt16, 2, true };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_VpexpandV_Reg_RegMem_EVEX_2_Data))]
+		void Test64_VpexpandV_Reg_RegMem_EVEX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register kreg, RoundingControl rc, bool z, bool sae) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(rc, instr.RoundingControl);
+			Assert.Equal(sae, instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test64_VpexpandV_Reg_RegMem_EVEX_2_Data {
+			get {
+				yield return new object[] { "62 F27D08 62 D3", 6, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D0B 62 D3", 6, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 327D8B 62 D3", 6, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM10, Register.XMM19, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C27D8B 62 D3", 6, Code.EVEX_Vpexpandb_xmm_k1z_xmmm128, Register.XMM18, Register.XMM11, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D28 62 D3", 6, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D2B 62 D3", 6, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 327DAB 62 D3", 6, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM10, Register.YMM19, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C27DAB 62 D3", 6, Code.EVEX_Vpexpandb_ymm_k1z_ymmm256, Register.YMM18, Register.YMM11, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D48 62 D3", 6, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D4B 62 D3", 6, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 327DCB 62 D3", 6, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM10, Register.ZMM19, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C27DCB 62 D3", 6, Code.EVEX_Vpexpandb_zmm_k1z_zmmm512, Register.ZMM18, Register.ZMM11, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD08 62 D3", 6, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD0B 62 D3", 6, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM2, Register.XMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 32FD8B 62 D3", 6, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM10, Register.XMM19, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C2FD8B 62 D3", 6, Code.EVEX_Vpexpandw_xmm_k1z_xmmm128, Register.XMM18, Register.XMM11, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD28 62 D3", 6, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD2B 62 D3", 6, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM2, Register.YMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 32FDAB 62 D3", 6, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM10, Register.YMM19, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C2FDAB 62 D3", 6, Code.EVEX_Vpexpandw_ymm_k1z_ymmm256, Register.YMM18, Register.YMM11, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD48 62 D3", 6, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD4B 62 D3", 6, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM2, Register.ZMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 32FDCB 62 D3", 6, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM10, Register.ZMM19, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C2FDCB 62 D3", 6, Code.EVEX_Vpexpandw_zmm_k1z_zmmm512, Register.ZMM18, Register.ZMM11, Register.K3, RoundingControl.None, true, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_VpcompressV_RegMem_Reg_EVEX_1_Data))]
+		void Test16_VpcompressV_RegMem_Reg_EVEX_1(string hexBytes, int byteLength, Code code, Register reg2, Register kreg, MemorySize memSize, uint displ, bool z) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Memory, instr.Op0Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.BX, instr.MemoryBase);
+			Assert.Equal(Register.SI, instr.MemoryIndex);
+			Assert.Equal(displ, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(1, instr.MemoryDisplSize);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(RoundingControl.None, instr.RoundingControl);
+			Assert.False(instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test16_VpcompressV_RegMem_Reg_EVEX_1_Data {
+			get {
+				yield return new object[] { "62 F27D08 63 50 01", 7, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM2, Register.None, MemorySize.Packed128_UInt8, 1, false };
+				yield return new object[] { "62 F27D0B 63 50 01", 7, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM2, Register.K3, MemorySize.Packed128_UInt8, 1, false };
+
+				yield return new object[] { "62 F27D28 63 50 01", 7, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM2, Register.None, MemorySize.Packed256_UInt8, 1, false };
+				yield return new object[] { "62 F27D2B 63 50 01", 7, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM2, Register.K3, MemorySize.Packed256_UInt8, 1, false };
+
+				yield return new object[] { "62 F27D48 63 50 01", 7, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM2, Register.None, MemorySize.Packed512_UInt8, 1, false };
+				yield return new object[] { "62 F27D4B 63 50 01", 7, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt8, 1, false };
+
+				yield return new object[] { "62 F2FD08 63 50 01", 7, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM2, Register.None, MemorySize.Packed128_UInt16, 2, false };
+				yield return new object[] { "62 F2FD0B 63 50 01", 7, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM2, Register.K3, MemorySize.Packed128_UInt16, 2, false };
+
+				yield return new object[] { "62 F2FD28 63 50 01", 7, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM2, Register.None, MemorySize.Packed256_UInt16, 2, false };
+				yield return new object[] { "62 F2FD2B 63 50 01", 7, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM2, Register.K3, MemorySize.Packed256_UInt16, 2, false };
+
+				yield return new object[] { "62 F2FD48 63 50 01", 7, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM2, Register.None, MemorySize.Packed512_UInt16, 2, false };
+				yield return new object[] { "62 F2FD4B 63 50 01", 7, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt16, 2, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_VpcompressV_RegMem_Reg_EVEX_2_Data))]
+		void Test16_VpcompressV_RegMem_Reg_EVEX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register kreg, RoundingControl rc, bool z, bool sae) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(rc, instr.RoundingControl);
+			Assert.Equal(sae, instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test16_VpcompressV_RegMem_Reg_EVEX_2_Data {
+			get {
+				yield return new object[] { "62 F27D08 63 D3", 6, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D0B 63 D3", 6, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D8B 63 D3", 6, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D28 63 D3", 6, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D2B 63 D3", 6, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27DAB 63 D3", 6, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D48 63 D3", 6, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D4B 63 D3", 6, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27DCB 63 D3", 6, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD08 63 D3", 6, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD0B 63 D3", 6, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD8B 63 D3", 6, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD28 63 D3", 6, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD2B 63 D3", 6, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FDAB 63 D3", 6, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD48 63 D3", 6, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD4B 63 D3", 6, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FDCB 63 D3", 6, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.K3, RoundingControl.None, true, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_VpcompressV_RegMem_Reg_EVEX_1_Data))]
+		void Test32_VpcompressV_RegMem_Reg_EVEX_1(string hexBytes, int byteLength, Code code, Register reg2, Register kreg, MemorySize memSize, uint displ, bool z) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Memory, instr.Op0Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.EAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(displ, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(1, instr.MemoryDisplSize);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(RoundingControl.None, instr.RoundingControl);
+			Assert.False(instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test32_VpcompressV_RegMem_Reg_EVEX_1_Data {
+			get {
+				yield return new object[] { "62 F27D08 63 50 01", 7, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM2, Register.None, MemorySize.Packed128_UInt8, 1, false };
+				yield return new object[] { "62 F27D0B 63 50 01", 7, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM2, Register.K3, MemorySize.Packed128_UInt8, 1, false };
+
+				yield return new object[] { "62 F27D28 63 50 01", 7, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM2, Register.None, MemorySize.Packed256_UInt8, 1, false };
+				yield return new object[] { "62 F27D2B 63 50 01", 7, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM2, Register.K3, MemorySize.Packed256_UInt8, 1, false };
+
+				yield return new object[] { "62 F27D48 63 50 01", 7, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM2, Register.None, MemorySize.Packed512_UInt8, 1, false };
+				yield return new object[] { "62 F27D4B 63 50 01", 7, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt8, 1, false };
+
+				yield return new object[] { "62 F2FD08 63 50 01", 7, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM2, Register.None, MemorySize.Packed128_UInt16, 2, false };
+				yield return new object[] { "62 F2FD0B 63 50 01", 7, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM2, Register.K3, MemorySize.Packed128_UInt16, 2, false };
+
+				yield return new object[] { "62 F2FD28 63 50 01", 7, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM2, Register.None, MemorySize.Packed256_UInt16, 2, false };
+				yield return new object[] { "62 F2FD2B 63 50 01", 7, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM2, Register.K3, MemorySize.Packed256_UInt16, 2, false };
+
+				yield return new object[] { "62 F2FD48 63 50 01", 7, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM2, Register.None, MemorySize.Packed512_UInt16, 2, false };
+				yield return new object[] { "62 F2FD4B 63 50 01", 7, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt16, 2, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_VpcompressV_RegMem_Reg_EVEX_2_Data))]
+		void Test32_VpcompressV_RegMem_Reg_EVEX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register kreg, RoundingControl rc, bool z, bool sae) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(rc, instr.RoundingControl);
+			Assert.Equal(sae, instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test32_VpcompressV_RegMem_Reg_EVEX_2_Data {
+			get {
+				yield return new object[] { "62 F27D08 63 D3", 6, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D0B 63 D3", 6, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D8B 63 D3", 6, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D28 63 D3", 6, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D2B 63 D3", 6, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27DAB 63 D3", 6, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D48 63 D3", 6, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D4B 63 D3", 6, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27DCB 63 D3", 6, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD08 63 D3", 6, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD0B 63 D3", 6, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD8B 63 D3", 6, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD28 63 D3", 6, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD2B 63 D3", 6, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FDAB 63 D3", 6, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD48 63 D3", 6, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD4B 63 D3", 6, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FDCB 63 D3", 6, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.K3, RoundingControl.None, true, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_VpcompressV_RegMem_Reg_EVEX_1_Data))]
+		void Test64_VpcompressV_RegMem_Reg_EVEX_1(string hexBytes, int byteLength, Code code, Register reg2, Register kreg, MemorySize memSize, uint displ, bool z) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Memory, instr.Op0Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.RAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(displ, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(1, instr.MemoryDisplSize);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(RoundingControl.None, instr.RoundingControl);
+			Assert.False(instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test64_VpcompressV_RegMem_Reg_EVEX_1_Data {
+			get {
+				yield return new object[] { "62 F27D08 63 50 01", 7, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM2, Register.None, MemorySize.Packed128_UInt8, 1, false };
+				yield return new object[] { "62 F27D0B 63 50 01", 7, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM2, Register.K3, MemorySize.Packed128_UInt8, 1, false };
+
+				yield return new object[] { "62 F27D28 63 50 01", 7, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM2, Register.None, MemorySize.Packed256_UInt8, 1, false };
+				yield return new object[] { "62 F27D2B 63 50 01", 7, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM2, Register.K3, MemorySize.Packed256_UInt8, 1, false };
+
+				yield return new object[] { "62 F27D48 63 50 01", 7, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM2, Register.None, MemorySize.Packed512_UInt8, 1, false };
+				yield return new object[] { "62 F27D4B 63 50 01", 7, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt8, 1, false };
+
+				yield return new object[] { "62 F2FD08 63 50 01", 7, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM2, Register.None, MemorySize.Packed128_UInt16, 2, false };
+				yield return new object[] { "62 F2FD0B 63 50 01", 7, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM2, Register.K3, MemorySize.Packed128_UInt16, 2, false };
+
+				yield return new object[] { "62 F2FD28 63 50 01", 7, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM2, Register.None, MemorySize.Packed256_UInt16, 2, false };
+				yield return new object[] { "62 F2FD2B 63 50 01", 7, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM2, Register.K3, MemorySize.Packed256_UInt16, 2, false };
+
+				yield return new object[] { "62 F2FD48 63 50 01", 7, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM2, Register.None, MemorySize.Packed512_UInt16, 2, false };
+				yield return new object[] { "62 F2FD4B 63 50 01", 7, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM2, Register.K3, MemorySize.Packed512_UInt16, 2, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_VpcompressV_RegMem_Reg_EVEX_2_Data))]
+		void Test64_VpcompressV_RegMem_Reg_EVEX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register kreg, RoundingControl rc, bool z, bool sae) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(rc, instr.RoundingControl);
+			Assert.Equal(sae, instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test64_VpcompressV_RegMem_Reg_EVEX_2_Data {
+			get {
+				yield return new object[] { "62 F27D08 63 D3", 6, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D0B 63 D3", 6, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 327D8B 63 D3", 6, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM19, Register.XMM10, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C27D8B 63 D3", 6, Code.EVEX_Vpcompressb_xmmm128_k1z_xmm, Register.XMM11, Register.XMM18, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D28 63 D3", 6, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D2B 63 D3", 6, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 327DAB 63 D3", 6, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM19, Register.YMM10, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C27DAB 63 D3", 6, Code.EVEX_Vpcompressb_ymmm256_k1z_ymm, Register.YMM11, Register.YMM18, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F27D48 63 D3", 6, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F27D4B 63 D3", 6, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 327DCB 63 D3", 6, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM19, Register.ZMM10, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C27DCB 63 D3", 6, Code.EVEX_Vpcompressb_zmmm512_k1z_zmm, Register.ZMM11, Register.ZMM18, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD08 63 D3", 6, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD0B 63 D3", 6, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM3, Register.XMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 32FD8B 63 D3", 6, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM19, Register.XMM10, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C2FD8B 63 D3", 6, Code.EVEX_Vpcompressw_xmmm128_k1z_xmm, Register.XMM11, Register.XMM18, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD28 63 D3", 6, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD2B 63 D3", 6, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM3, Register.YMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 32FDAB 63 D3", 6, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM19, Register.YMM10, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C2FDAB 63 D3", 6, Code.EVEX_Vpcompressw_ymmm256_k1z_ymm, Register.YMM11, Register.YMM18, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F2FD48 63 D3", 6, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.None, RoundingControl.None, false, false };
+				yield return new object[] { "62 F2FD4B 63 D3", 6, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM3, Register.ZMM2, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 32FDCB 63 D3", 6, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM19, Register.ZMM10, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 C2FDCB 63 D3", 6, Code.EVEX_Vpcompressw_zmmm512_k1z_zmm, Register.ZMM11, Register.ZMM18, Register.K3, RoundingControl.None, true, false };
+			}
+		}
+
+		[Theory]
 		[MemberData(nameof(Test16_VpblendmdV_VX_k1_HX_WX_1_Data))]
 		void Test16_VpblendmdV_VX_k1_HX_WX_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register kreg, MemorySize memSize, uint displ, bool z) {
 			var decoder = CreateDecoder16(hexBytes);

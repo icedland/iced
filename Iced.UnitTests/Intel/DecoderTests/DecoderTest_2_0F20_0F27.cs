@@ -569,5 +569,121 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(OpKind.Register, instr.Op1Kind);
 			Assert.Equal(gpReg, instr.Op1Register);
 		}
+
+		[Theory]
+		[InlineData("0F24 DE", 3, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("0F24 B1", 3, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		[InlineData("0F24 5E", 3, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("0F24 31", 3, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+
+		[InlineData("66 0F24 DE", 4, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("66 0F24 B1", 4, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		[InlineData("66 0F24 5E", 4, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("66 0F24 31", 4, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		void Test16_Mov_r32_tr_1(string hexBytes, int byteLength, Register gpReg, Register trReg, DecoderOptions options) {
+			var decoder = CreateDecoder16(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(Code.Mov_r32_tr, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(gpReg, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(trReg, instr.Op1Register);
+		}
+
+		[Theory]
+		[InlineData("0F24 DE", 3, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("0F24 B1", 3, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		[InlineData("0F24 5E", 3, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("0F24 31", 3, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+
+		[InlineData("66 0F24 DE", 4, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("66 0F24 B1", 4, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		[InlineData("66 0F24 5E", 4, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("66 0F24 31", 4, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		void Test32_Mov_r32_tr_1(string hexBytes, int byteLength, Register gpReg, Register trReg, DecoderOptions options) {
+			var decoder = CreateDecoder32(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(Code.Mov_r32_tr, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(gpReg, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(trReg, instr.Op1Register);
+		}
+
+		[Theory]
+		[InlineData("0F26 DE", 3, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("0F26 B1", 3, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		[InlineData("0F26 5E", 3, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("0F26 31", 3, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+
+		[InlineData("66 0F26 DE", 4, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("66 0F26 B1", 4, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		[InlineData("66 0F26 5E", 4, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("66 0F26 31", 4, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		void Test16_Mov_tr_r32_1(string hexBytes, int byteLength, Register gpReg, Register trReg, DecoderOptions options) {
+			var decoder = CreateDecoder16(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(Code.Mov_tr_r32, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(trReg, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(gpReg, instr.Op1Register);
+		}
+
+		[Theory]
+		[InlineData("0F26 DE", 3, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("0F26 B1", 3, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		[InlineData("0F26 5E", 3, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("0F26 31", 3, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+
+		[InlineData("66 0F26 DE", 4, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("66 0F26 B1", 4, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		[InlineData("66 0F26 5E", 4, Register.ESI, Register.TR3, DecoderOptions.MovTr)]
+		[InlineData("66 0F26 31", 4, Register.ECX, Register.TR6, DecoderOptions.MovTr)]
+		void Test32_Mov_tr_r32_1(string hexBytes, int byteLength, Register gpReg, Register trReg, DecoderOptions options) {
+			var decoder = CreateDecoder32(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(Code.Mov_tr_r32, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasPrefixRepe);
+			Assert.False(instr.HasPrefixRepne);
+			Assert.False(instr.HasPrefixLock);
+			Assert.Equal(Register.None, instr.PrefixSegment);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(trReg, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(gpReg, instr.Op1Register);
+		}
 	}
 }
