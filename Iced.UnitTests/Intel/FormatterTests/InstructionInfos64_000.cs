@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos64_000 {
-		public const int AllInfos_Length = 1000;
+		public const int AllInfos_Length = 1008;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(64, "00 CE", Code.Add_rm8_r8),
 			new InstructionInfo(64, "00 38", Code.Add_rm8_r8),
@@ -985,13 +985,21 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(64, "DF E0", Code.Fnstsw_AX),
 			new InstructionInfo(64, "DF EB", Code.Fucomip_st0_sti),
 			new InstructionInfo(64, "DF F3", Code.Fcomip_st0_sti),
+			new InstructionInfo(64, "66 67 E0 5A", Code.Loopne_rel8_16_ECX, DecoderOptions.AMD),
 			new InstructionInfo(64, "67 E0 5A", Code.Loopne_rel8_64_ECX),
+			new InstructionInfo(64, "66 E0 5A", Code.Loopne_rel8_16_RCX, DecoderOptions.AMD),
 			new InstructionInfo(64, "E0 5A", Code.Loopne_rel8_64_RCX),
+			new InstructionInfo(64, "66 67 E1 5A", Code.Loope_rel8_16_ECX, DecoderOptions.AMD),
 			new InstructionInfo(64, "67 E1 5A", Code.Loope_rel8_64_ECX),
+			new InstructionInfo(64, "66 E1 5A", Code.Loope_rel8_16_RCX, DecoderOptions.AMD),
 			new InstructionInfo(64, "E1 5A", Code.Loope_rel8_64_RCX),
+			new InstructionInfo(64, "66 67 E2 5A", Code.Loop_rel8_16_ECX, DecoderOptions.AMD),
 			new InstructionInfo(64, "67 E2 5A", Code.Loop_rel8_64_ECX),
+			new InstructionInfo(64, "66 E2 5A", Code.Loop_rel8_16_RCX, DecoderOptions.AMD),
 			new InstructionInfo(64, "E2 5A", Code.Loop_rel8_64_RCX),
+			new InstructionInfo(64, "66 67 E3 5A", Code.Jecxz_rel8_16, DecoderOptions.AMD),
 			new InstructionInfo(64, "67 E3 5A", Code.Jecxz_rel8_64),
+			new InstructionInfo(64, "66 E3 5A", Code.Jrcxz_rel8_16, DecoderOptions.AMD),
 			new InstructionInfo(64, "E3 5A", Code.Jrcxz_rel8_64),
 			new InstructionInfo(64, "E4 5A", Code.In_AL_imm8),
 			new InstructionInfo(64, "66 E5 5A", Code.In_AX_imm8),

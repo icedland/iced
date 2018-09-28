@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
-	static class NonDecodedInstructions {
+	public static class NonDecodedInstructions {
 		public static IEnumerable<(int bitness, string hexBytes, Instruction instruction)> GetTests() {
 			foreach (var info in Infos16)
 				yield return (16, info.hexBytes, info.instruction);

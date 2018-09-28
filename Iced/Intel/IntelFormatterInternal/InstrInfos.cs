@@ -543,7 +543,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 			new SimpleInstrInfo_ST_STi(Code.Fld_st0_sti, "fld"),
 			new SimpleInstrInfo_fpu_ST_STi(Code.Fxch_st0_sti, "fxch"),
 			new SimpleInstrInfo(Code.Fnop, "fnop"),
-			new SimpleInstrInfo(Code.Fstpnce_sti, "fstpnce"),
+			new SimpleInstrInfo_ST2(Code.Fstpnce_sti, "fstpnce", InstrOpInfoFlags.None),
 			new SimpleInstrInfo(Code.Fchs, "fchs"),
 			new SimpleInstrInfo(Code.Fabs, "fabs"),
 			new SimpleInstrInfo(Code.Ftst, "ftst"),

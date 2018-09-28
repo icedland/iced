@@ -258,6 +258,9 @@ namespace Iced.Intel {
 			case Code.Jmp_rel16:
 			case Code.Jmp_rel32_32:
 			case Code.Jmp_rel32_64:
+
+			case Code.Jmpe_disp16:
+			case Code.Jmpe_disp32:
 				return FormatterFlowControl.NearBranch;
 
 			case Code.Call_ptr3216:

@@ -19,6 +19,7 @@
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
+using System.Linq;
 using System.Text;
 using Iced.Intel;
 using Xunit;
@@ -38,18 +39,9 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			numCodeValues++;
 			var tested = new byte[numCodeValues];
 
-			var types = new Type[] {
-				typeof(InstructionInfos16_000),
-				typeof(InstructionInfos32_000),
-				typeof(InstructionInfos64_000),
-				typeof(InstructionInfos64_001),
-				typeof(InstructionInfos64_002),
-				typeof(InstructionInfos64_003),
-				typeof(InstructionInfos64_004),
-				typeof(InstructionInfos64_005),
-				typeof(InstructionInfos64_006),
-				typeof(InstructionInfos64_007),
-			};
+			var types = GetType().Assembly.GetTypes().Where(a =>
+					a.Namespace == GetType().Namespace &&
+					(a.Name.StartsWith("InstructionInfos16_") || a.Name.StartsWith("InstructionInfos32_") || a.Name.StartsWith("InstructionInfos64_"))).ToArray();
 			foreach (var type in types) {
 				var fieldInfo = type.GetField("AllInfos");
 				Assert.NotNull(fieldInfo);
