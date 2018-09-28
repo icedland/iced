@@ -29,6 +29,8 @@
 0E, Pushw_CS, Legacy, INTEL8086, op0=r r=ss rw=xsp r=cs wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushd cs
 66 0E, Pushd_CS, Legacy, INTEL8086, op0=r r=ss rw=xsp r=cs wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+# pop cs
+0F, Popw_CS, Legacy, INTEL8086_ONLY, op0=w r=ss rw=xsp w=cs rm=ss:xsp;UInt16 stack=2
 # push ss
 16, Pushw_SS, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ss wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushd ss
@@ -555,3 +557,23 @@ F3 66 AF, Scasd_EAX_m32, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=eax 
 64 00 38, Add_rm8_r8, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=fs r=bx;si r=bh rwm=fs:bx+si;UInt8
 # add gs:[bx+si],bh
 65 00 38, Add_rm8_r8, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=gs r=bx;si r=bh rwm=gs:bx+si;UInt8
+# fstenv [bx+si]
+9B D9 30, Fstenv_m14byte, Legacy, FPU, op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv14
+# fstenv [bx+si]
+9B 66 D9 30, Fstenv_m28byte, Legacy, FPU, op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv28
+# fsave [bx+si]
+9B DD 30, Fsave_m94byte, Legacy, FPU, saverestore op0=w r=ds r=bx r=si wm=ds:bx+si;FpuState94
+# fsave [bx+si]
+9B 66 DD 30, Fsave_m108byte, Legacy, FPU, saverestore op0=w r=ds r=bx r=si wm=ds:bx+si;FpuState108
+# umonitor bp
+F3 0FAE F5, Umonitor_r16, Legacy, WAITPKG, op0=r r=ds;bp rm=ds:bp;UInt8
+# umonitor ebp
+67 F3 0FAE F5, Umonitor_r32, Legacy, WAITPKG, op0=r r=ds;ebp rm=ds:ebp;UInt8
+# umonitor bp
+64 F3 0FAE F5, Umonitor_r16, Legacy, WAITPKG, op0=r r=fs;bp rm=fs:bp;UInt8
+# umonitor ebp
+64 67 F3 0FAE F5, Umonitor_r32, Legacy, WAITPKG, op0=r r=fs;ebp rm=fs:ebp;UInt8
+# movdir64b bx,[bx+si]
+66 0F38F8 18, Movdir64b_r16_m512, Legacy, MOVDIR64B, op0=r op1=r r=bx r=ds r=es;bx r=si rm=ds:bx+si;UInt512 wm=es:bx;UInt512
+# movdir64b ebx,[eax]
+67 66 0F38F8 18, Movdir64b_r32_m512, Legacy, MOVDIR64B, op0=r op1=r r=es;ebx r=ds r=eax rm=ds:eax;UInt512 wm=es:ebx;UInt512

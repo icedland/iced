@@ -67,8 +67,37 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 	public abstract class InstructionInfoTest {
 		protected void TestInstructionInfo(int bitness, string hexBytes, Code code, DecoderOptions options, int lineNo, InstructionInfoTestCase testCase) {
-			var decoder = CreateDecoder(bitness, hexBytes, options);
-			var instr = decoder.Decode();
+			var codeBytes = HexUtils.ToByteArray(hexBytes);
+			Instruction instr;
+			if (bitness == 16 && code == Code.Popw_CS && hexBytes == "0F") {
+				instr = Instruction.Create(Code.Popw_CS, Register.CS);
+				instr.CodeSize = CodeSize.Code16;
+				instr.ByteLength = 1;
+			}
+			else {
+				var decoder = CreateDecoder(bitness, codeBytes, options);
+				instr = decoder.Decode();
+				if (codeBytes.Length != 1 && codeBytes[0] == 0x9B && instr.ByteLength == 1) {
+					instr = decoder.Decode();
+					switch (instr.Code) {
+					case Code.Fnstenv_m14byte: instr.Code = Code.Fstenv_m14byte; break;
+					case Code.Fnstenv_m28byte: instr.Code = Code.Fstenv_m28byte; break;
+					case Code.Fnstcw_m16: instr.Code = Code.Fstcw_m16; break;
+					case Code.Fneni: instr.Code = Code.Feni; break;
+					case Code.Fndisi: instr.Code = Code.Fdisi; break;
+					case Code.Fnclex: instr.Code = Code.Fclex; break;
+					case Code.Fninit: instr.Code = Code.Finit; break;
+					case Code.Fnsetpm: instr.Code = Code.Fsetpm; break;
+					case Code.Fnsave_m94byte: instr.Code = Code.Fsave_m94byte; break;
+					case Code.Fnsave_m108byte: instr.Code = Code.Fsave_m108byte; break;
+					case Code.Fnstsw_m16: instr.Code = Code.Fstsw_m16; break;
+					case Code.Fnstsw_AX: instr.Code = Code.Fstsw_AX; break;
+					default:
+						Assert.False(true, $"Invalid FPU instr Code value: {instr.Code}");
+						break;
+					}
+				}
+			}
 			Assert.Equal(code, instr.Code);
 
 			Assert.Equal(testCase.StackPointerIncrement, instr.StackPointerIncrement);
@@ -343,8 +372,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			return -1;
 		}
 
-		Decoder CreateDecoder(int codeSize, string hexBytes, DecoderOptions options) {
-			var codeReader = new ByteArrayCodeReader(hexBytes);
+		Decoder CreateDecoder(int codeSize, byte[] codeBytes, DecoderOptions options) {
+			var codeReader = new ByteArrayCodeReader(codeBytes);
 			var decoder = Decoder.Create(codeSize, codeReader, options);
 
 			switch (codeSize) {

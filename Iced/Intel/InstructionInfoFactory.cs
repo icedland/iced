@@ -909,12 +909,12 @@ namespace Iced.Intel {
 					code = instruction.Code;
 					if (code == Code.Cmpxchg_rm64_r64)
 						AddRegister(flags, ref usedRegisters, Register.RAX, OpAccess.ReadCondWrite);
-					else if (code == Code.Cmpxchg_rm32_r32)
+					else if (code == Code.Cmpxchg_rm32_r32 || code == Code.Cmpxchg486_rm32_r32)
 						AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.ReadCondWrite);
-					else if (code == Code.Cmpxchg_rm16_r16)
+					else if (code == Code.Cmpxchg_rm16_r16 || code == Code.Cmpxchg486_rm16_r16)
 						AddRegister(flags, ref usedRegisters, Register.AX, OpAccess.ReadCondWrite);
 					else {
-						Debug.Assert(code == Code.Cmpxchg_rm8_r8);
+						Debug.Assert(code == Code.Cmpxchg_rm8_r8 || code == Code.Cmpxchg486_rm8_r8);
 						AddRegister(flags, ref usedRegisters, Register.AL, OpAccess.ReadCondWrite);
 					}
 				}
@@ -1588,21 +1588,20 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Umonitor:
-				if ((flags & Flags.NoMemoryUsage) == 0) {
-					baseReg = instruction.SegmentPrefix;
-					if (baseReg == Register.None)
-						baseReg = Register.DS;
+				baseReg = instruction.SegmentPrefix;
+				if (baseReg == Register.None)
+					baseReg = Register.DS;
+				if ((flags & Flags.NoRegisterUsage) == 0)
 					AddMemorySegmentRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
+				if ((flags & Flags.NoMemoryUsage) == 0)
 					AddMemory(flags, ref usedMemoryLocations, baseReg, instruction.Op0Register, Register.None, 1, 0, MemorySize.UInt8, OpAccess.Read);
-				}
 				break;
 
 			case CodeInfo.Movdir64b:
-				if ((flags & Flags.NoMemoryUsage) == 0) {
-					if ((flags & Flags.Is64Bit) == 0)
-						AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
+				if ((flags & Flags.Is64Bit) == 0 && (flags & Flags.NoRegisterUsage) == 0)
+					AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
+				if ((flags & Flags.NoMemoryUsage) == 0)
 					AddMemory(flags, ref usedMemoryLocations, Register.ES, instruction.Op0Register, Register.None, 1, 0, MemorySize.UInt512, OpAccess.Write);
-				}
 				break;
 
 			case CodeInfo.None:

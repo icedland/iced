@@ -2366,7 +2366,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Shrd_rm16_r16_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Shrd_rm32_r32_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Shrd_rm64_r64_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
-			(uint)Code.Zalloc_m256, CPUID_ZALLOC | Encoding_Legacy,
+			(uint)Code.Zalloc_m256, Op0_NoMemAccess | CPUID_ZALLOC | Encoding_Legacy,
 			(uint)Code.Fxsave_m512byte | SaveRestore, Op0_Write | CPUID_FXSR | Encoding_Legacy,
 			(uint)Code.Fxsave64_m512byte | SaveRestore, Op0_Write | CPUID_FXSR | Encoding_Legacy,
 			(uint)Code.Rdfsbase_r32, Op0_Write | CPUID_FSGSBASE | Encoding_Legacy,
