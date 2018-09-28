@@ -31,7 +31,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return (64, info.hexBytes, info.instruction);
 		}
 
-		static readonly (string hexBytes, Instruction instruction)[] Infos16 = new (string hexBytes, Instruction instruction)[] {
+		public const int Infos16_Count = 19;
+		public const int Infos32_Count = 19;
+		public const int Infos64_Count = 18;
+
+		public static readonly (string hexBytes, Instruction instruction)[] Infos16 = new (string hexBytes, Instruction instruction)[Infos16_Count] {
 			("0F", Instruction.Create(Code.Popw_CS, Register.CS)),
 			("9B D9 30", Instruction.Create(Code.Fstenv_m14byte, new MemoryOperand(Register.BX, Register.SI, 1, 0, 0, false, Register.None))),
 			("9B 64 D9 30", Instruction.Create(Code.Fstenv_m14byte, new MemoryOperand(Register.BX, Register.SI, 1, 0, 0, false, Register.FS))),
@@ -53,7 +57,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			("9B DF E0", Instruction.Create(Code.Fstsw_AX, Register.AX)),
 		};
 
-		static readonly (string hexBytes, Instruction instruction)[] Infos32 = new (string hexBytes, Instruction instruction)[] {
+		public static readonly (string hexBytes, Instruction instruction)[] Infos32 = new (string hexBytes, Instruction instruction)[Infos32_Count] {
 			("66 0F", Instruction.Create(Code.Popw_CS, Register.CS)),
 			("9B 66 D9 30", Instruction.Create(Code.Fstenv_m14byte, new MemoryOperand(Register.EAX, Register.None, 1, 0, 0, false, Register.None))),
 			("9B 64 66 D9 30", Instruction.Create(Code.Fstenv_m14byte, new MemoryOperand(Register.EAX, Register.None, 1, 0, 0, false, Register.FS))),
@@ -75,7 +79,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			("9B DF E0", Instruction.Create(Code.Fstsw_AX, Register.AX)),
 		};
 
-		static readonly (string hexBytes, Instruction instruction)[] Infos64 = new (string hexBytes, Instruction instruction)[] {
+		public static readonly (string hexBytes, Instruction instruction)[] Infos64 = new (string hexBytes, Instruction instruction)[Infos64_Count] {
 			("9B 66 D9 30", Instruction.Create(Code.Fstenv_m14byte, new MemoryOperand(Register.RAX, Register.None, 1, 0, 0, false, Register.None))),
 			("9B 64 66 D9 30", Instruction.Create(Code.Fstenv_m14byte, new MemoryOperand(Register.RAX, Register.None, 1, 0, 0, false, Register.FS))),
 			("9B D9 30", Instruction.Create(Code.Fstenv_m28byte, new MemoryOperand(Register.RAX, Register.None, 1, 0, 0, false, Register.None))),

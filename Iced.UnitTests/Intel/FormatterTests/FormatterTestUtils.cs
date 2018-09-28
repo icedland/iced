@@ -36,7 +36,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Equal((ushort)nextRip, instr.NextIP16);
 			Assert.Equal((uint)nextRip, instr.NextIP32);
 			Assert.Equal(nextRip, instr.NextIP64);
+			FormatTest(ref instr, formattedString, formatter);
+		}
 
+		public static void FormatTest(ref Instruction instr, string formattedString, Formatter formatter) {
 			var output = new StringBuilderFormatterOutput();
 
 			formatter.Format(ref instr, output);

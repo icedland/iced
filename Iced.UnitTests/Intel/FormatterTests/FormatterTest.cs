@@ -52,8 +52,20 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			return res;
 		}
 
+		protected static IEnumerable<object[]> GetFormatData((string hexBytes, Instruction instruction)[] infos, string[] formattedStrings) {
+			if (infos.Length != formattedStrings.Length)
+				throw new ArgumentException($"(infos.Length) {infos.Length} != (formattedStrings.Length) {formattedStrings.Length} . infos[0].hexBytes = {(infos.Length == 0 ? "<EMPTY>" : infos[0].hexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
+			var res = new object[infos.Length][];
+			for (int i = 0; i < infos.Length; i++)
+				res[i] = new object[3] { i, infos[i].instruction, formattedStrings[i] };
+			return res;
+		}
+
 		protected void FormatBase(int index, InstructionInfo info, string formattedString, Formatter formatter) =>
 			FormatterTestUtils.FormatTest(info.CodeSize, info.HexBytes, info.Code, info.Options, formattedString, formatter);
+
+		protected void FormatBase(int index, Instruction instr, string formattedString, Formatter formatter) =>
+			FormatterTestUtils.FormatTest(ref instr, formattedString, formatter);
 	}
 }
 #endif

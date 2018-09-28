@@ -22,6 +22,7 @@ using System;
 using System.Linq;
 using System.Text;
 using Iced.Intel;
+using Iced.UnitTests.Intel.DecoderTests;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
@@ -50,6 +51,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				foreach (var info in infos)
 					tested[(int)info.Code] = 1;
 			}
+			foreach (var info in NonDecodedInstructions.GetTests())
+				tested[(int)info.instruction.Code] = 1;
 
 			var sb = new StringBuilder();
 			int missing = 0;
