@@ -134,6 +134,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"bnd call *%eax",
 			"bnd ret $0",
 			"bnd ret",
+			"notrack calll *%ds:(%eax)",
+			"notrack calll *%ds:0x11(%ebp)",
+			"notrack call *%ecx",
+			"notrack jmpl *%ds:(%eax)",
+			"notrack jmpl *%ds:0x11(%ebp)",
+			"notrack jmp *%ecx",
+			"notrack bnd call *%ecx",
+			"notrack calll *%ds:(%eax)",
+			"calll *%fs:(%eax)",
+			"notrack bnd jmp *%ecx",
+			"notrack jmpl *%ds:(%eax)",
+			"jmpl *%fs:(%eax)",
 		};
 	}
 }

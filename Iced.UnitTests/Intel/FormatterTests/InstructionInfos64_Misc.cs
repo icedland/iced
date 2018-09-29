@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos64_Misc {
-		public const int AllInfos_Length = 527;
+		public const int AllInfos_Length = 539;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(64, "F0 10 08", Code.Adc_rm8_r8),
 			new InstructionInfo(64, "F0 80 10 A5", Code.Adc_rm8_imm8),
@@ -551,6 +551,18 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(64, "F2 FF D0", Code.Call_rm64),
 			new InstructionInfo(64, "F2 C2 00 00", Code.Retnq_imm16),
 			new InstructionInfo(64, "F2 C3", Code.Retnq),
+			new InstructionInfo(64, "3E FF 10", Code.Call_rm64),
+			new InstructionInfo(64, "3E FF 55 11", Code.Call_rm64),
+			new InstructionInfo(64, "3E FF D1", Code.Call_rm64),
+			new InstructionInfo(64, "3E FF 20", Code.Jmp_rm64),
+			new InstructionInfo(64, "3E FF 65 11", Code.Jmp_rm64),
+			new InstructionInfo(64, "3E FF E1", Code.Jmp_rm64),
+			new InstructionInfo(64, "3E F2 FF D1", Code.Call_rm64),
+			new InstructionInfo(64, "64 3E FF 10", Code.Call_rm64),
+			new InstructionInfo(64, "3E 64 FF 10", Code.Call_rm64),
+			new InstructionInfo(64, "3E F2 FF E1", Code.Jmp_rm64),
+			new InstructionInfo(64, "64 3E FF 20", Code.Jmp_rm64),
+			new InstructionInfo(64, "3E 64 FF 20", Code.Jmp_rm64),
 		};
 	}
 }

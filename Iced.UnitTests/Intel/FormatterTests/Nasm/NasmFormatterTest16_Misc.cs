@@ -134,6 +134,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"bnd call ax",
 			"bnd ret 0",
 			"bnd ret",
+			"notrack call word [ds:bx+si]",
+			"notrack call word [ds:bp+0x11]",
+			"notrack call cx",
+			"notrack jmp word [ds:bx+si]",
+			"notrack jmp word [ds:bp+0x11]",
+			"notrack jmp cx",
+			"notrack bnd call cx",
+			"notrack call word [ds:bx+si]",
+			"call word [fs:bx+si]",
+			"notrack bnd jmp cx",
+			"notrack jmp word [ds:bx+si]",
+			"jmp word [fs:bx+si]",
 		};
 	}
 }

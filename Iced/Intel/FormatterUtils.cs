@@ -19,6 +19,7 @@
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
+using System.Diagnostics;
 
 namespace Iced.Intel {
 	enum FormatterFlowControl {
@@ -296,6 +297,14 @@ namespace Iced.Intel {
 			default:
 				return false;
 			}
+		}
+
+		public static bool IsNoTrackPrefixBranch(Code code) {
+			Debug.Assert(Code.Jmp_rm16 + 1 == Code.Jmp_rm32);
+			Debug.Assert(Code.Jmp_rm16 + 2 == Code.Jmp_rm64);
+			Debug.Assert(Code.Call_rm16 + 1 == Code.Call_rm32);
+			Debug.Assert(Code.Call_rm16 + 2 == Code.Call_rm64);
+			return (uint)code - (uint)Code.Jmp_rm16 <= 2 || (uint)code - (uint)Code.Call_rm16 <= 2;
 		}
 	}
 }

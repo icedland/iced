@@ -164,7 +164,8 @@ namespace Iced.Intel {
 
 		void FormatMnemonic(ref Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo, ref int column) {
 			var prefixSeg = instruction.SegmentPrefix;
-			if (prefixSeg != Register.None && ShowSegmentPrefix(ref opInfo))
+			bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNoTrackPrefixBranch(instruction.Code);
+			if (!hasNoTrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(ref opInfo))
 				FormatPrefix(output, ref column, allRegisters[(int)prefixSeg]);
 
 			if (instruction.HasXacquirePrefix)
@@ -184,6 +185,9 @@ namespace Iced.Intel {
 				FormatPrefix(output, ref column, FormatterUtils.IsRepeOrRepneInstruction(instruction.Code) ? "repe" : "rep");
 			if (instruction.HasRepnePrefix && !hasBnd)
 				FormatPrefix(output, ref column, "repne");
+
+			if (hasNoTrackPrefix)
+				FormatPrefix(output, ref column, "notrack");
 
 			if (hasBnd)
 				FormatPrefix(output, ref column, "bnd");
