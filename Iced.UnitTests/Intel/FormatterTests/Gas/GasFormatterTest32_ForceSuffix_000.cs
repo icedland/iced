@@ -655,6 +655,14 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"jmpe 0xa55a3412",
 			"movdir64b (bx,si),bx",
 			"movdir64b (eax),ebx",
+			"movl tr0,eax",
+			"movl tr1,eax",
+			"movl tr2,eax",
+			"movl tr3,eax",
+			"movl tr4,eax",
+			"movl tr5,eax",
+			"movl tr6,eax",
+			"movl tr7,eax",
 		};
 	}
 }

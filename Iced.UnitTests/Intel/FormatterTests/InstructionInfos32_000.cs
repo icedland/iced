@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos32_000 {
-		public const int AllInfos_Length = 625;
+		public const int AllInfos_Length = 633;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(32, "66 06", Code.Pushw_ES),
 			new InstructionInfo(32, "06", Code.Pushd_ES),
@@ -649,6 +649,14 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(32, "0FB8 12345AA5", Code.Jmpe_disp32),
 			new InstructionInfo(32, "67 66 0F38F8 18", Code.Movdir64b_r16_m512),
 			new InstructionInfo(32, "66 0F38F8 18", Code.Movdir64b_r32_m512),
+			new InstructionInfo(32, "0F24 C0", Code.Mov_r32_tr, DecoderOptions.MovTr),
+			new InstructionInfo(32, "0F24 C8", Code.Mov_r32_tr, DecoderOptions.MovTr),
+			new InstructionInfo(32, "0F24 D0", Code.Mov_r32_tr, DecoderOptions.MovTr),
+			new InstructionInfo(32, "0F24 D8", Code.Mov_r32_tr, DecoderOptions.MovTr),
+			new InstructionInfo(32, "0F24 E0", Code.Mov_r32_tr, DecoderOptions.MovTr),
+			new InstructionInfo(32, "0F24 E8", Code.Mov_r32_tr, DecoderOptions.MovTr),
+			new InstructionInfo(32, "0F24 F0", Code.Mov_r32_tr, DecoderOptions.MovTr),
+			new InstructionInfo(32, "0F24 F8", Code.Mov_r32_tr, DecoderOptions.MovTr),
 		};
 	}
 }

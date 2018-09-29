@@ -655,6 +655,14 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"jmpe 0xa55a3412",
 			"movdir64b bx, zmmword ptr [bx+si]",
 			"movdir64b ebx, zmmword ptr [eax]",
+			"mov eax, tr0",
+			"mov eax, tr1",
+			"mov eax, tr2",
+			"mov eax, tr3",
+			"mov eax, tr4",
+			"mov eax, tr5",
+			"mov eax, tr6",
+			"mov eax, tr7",
 		};
 	}
 }
