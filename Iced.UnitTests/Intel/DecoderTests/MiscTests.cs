@@ -25,6 +25,48 @@ using Xunit;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class MiscTests : DecoderTest {
 		[Fact]
+		void Verify_NumberOfCodeValues() {
+			int numValues = -1;
+			foreach (var f in typeof(Code).GetFields()) {
+				if (f.IsLiteral) {
+					int value = (int)f.GetValue(null);
+					Assert.Equal(numValues + 1, value);
+					numValues = value;
+				}
+			}
+			numValues++;
+			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfCodeValues, numValues);
+		}
+
+		[Fact]
+		void Verify_NumberOfRegisters() {
+			int numValues = -1;
+			foreach (var f in typeof(Register).GetFields()) {
+				if (f.IsLiteral) {
+					int value = (int)f.GetValue(null);
+					Assert.Equal(numValues + 1, value);
+					numValues = value;
+				}
+			}
+			numValues++;
+			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfRegisters, numValues);
+		}
+
+		[Fact]
+		void Verify_NumberOfMemorySizes() {
+			int numValues = -1;
+			foreach (var f in typeof(MemorySize).GetFields()) {
+				if (f.IsLiteral) {
+					int value = (int)f.GetValue(null);
+					Assert.Equal(numValues + 1, value);
+					numValues = value;
+				}
+			}
+			numValues++;
+			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfMemorySizes, numValues);
+		}
+
+		[Fact]
 		void Test16_too_long_instruction() {
 			var decoder = CreateDecoder16("26 26 26 26 26 26 26 26 26 26 26 26 26 66 01 CE");
 			var instr = decoder.Decode();
@@ -32,10 +74,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 
 		[Fact]
@@ -46,10 +88,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.ES, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.ES, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.ESI, instr.Op0Register);
@@ -66,10 +108,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 
 		[Fact]
@@ -80,10 +122,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.ES, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.ES, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.ESI, instr.Op0Register);
@@ -100,10 +142,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 
 		[Fact]
@@ -114,10 +156,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.ES, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.ES, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.ESI, instr.Op0Register);
@@ -137,10 +179,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 
 		[Theory]
@@ -154,10 +196,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 
 		[Theory]
@@ -171,10 +213,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 
 		sealed class DecodeMultipleCodeReader : CodeReader {
@@ -198,28 +240,31 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var reader16 = new DecodeMultipleCodeReader();
 			var reader32 = new DecodeMultipleCodeReader();
 			var reader64 = new DecodeMultipleCodeReader();
-			var decoderAll16 = Decoder.Create16(reader16);
-			var decoderAll32 = Decoder.Create32(reader32);
-			var decoderAll64 = Decoder.Create64(reader64);
+			var decoderDict16 = new Dictionary<DecoderOptions, Decoder>();
+			var decoderDict32 = new Dictionary<DecoderOptions, Decoder>();
+			var decoderDict64 = new Dictionary<DecoderOptions, Decoder>();
 			foreach (var info in DecoderTestUtils.GetDecoderTests(needHexBytes: true, includeOtherTests: false)) {
 				var data = HexUtils.ToByteArray(info.HexBytes);
-				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(data));
+				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(data), info.Options);
 				Decoder decoderAll;
 				switch (info.Bitness) {
 				case 16:
 					decoder.InstructionPointer = DecoderConstants.DEFAULT_IP16;
 					reader16.SetArray(data);
-					decoderAll = decoderAll16;
+					if (!decoderDict16.TryGetValue(info.Options, out decoderAll))
+						decoderDict16.Add(info.Options, decoderAll = Decoder.Create16(reader16, info.Options));
 					break;
 				case 32:
 					decoder.InstructionPointer = DecoderConstants.DEFAULT_IP32;
 					reader32.SetArray(data);
-					decoderAll = decoderAll32;
+					if (!decoderDict32.TryGetValue(info.Options, out decoderAll))
+						decoderDict32.Add(info.Options, decoderAll = Decoder.Create32(reader32, info.Options));
 					break;
 				case 64:
 					decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64;
 					reader64.SetArray(data);
-					decoderAll = decoderAll64;
+					if (!decoderDict64.TryGetValue(info.Options, out decoderAll))
+						decoderDict64.Add(info.Options, decoderAll = Decoder.Create64(reader64, info.Options));
 					break;
 				default:
 					throw new InvalidOperationException();

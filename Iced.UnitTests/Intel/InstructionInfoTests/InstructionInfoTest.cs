@@ -66,9 +66,38 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	}
 
 	public abstract class InstructionInfoTest {
-		protected void TestInstructionInfo(int bitness, string hexBytes, Code code, int lineNo, InstructionInfoTestCase testCase) {
-			var decoder = CreateDecoder(bitness, hexBytes);
-			var instr = decoder.Decode();
+		protected void TestInstructionInfo(int bitness, string hexBytes, Code code, DecoderOptions options, int lineNo, InstructionInfoTestCase testCase) {
+			var codeBytes = HexUtils.ToByteArray(hexBytes);
+			Instruction instr;
+			if (bitness == 16 && code == Code.Popw_CS && hexBytes == "0F") {
+				instr = Instruction.Create(Code.Popw_CS, Register.CS);
+				instr.CodeSize = CodeSize.Code16;
+				instr.ByteLength = 1;
+			}
+			else {
+				var decoder = CreateDecoder(bitness, codeBytes, options);
+				instr = decoder.Decode();
+				if (codeBytes.Length != 1 && codeBytes[0] == 0x9B && instr.ByteLength == 1) {
+					instr = decoder.Decode();
+					switch (instr.Code) {
+					case Code.Fnstenv_m14byte: instr.Code = Code.Fstenv_m14byte; break;
+					case Code.Fnstenv_m28byte: instr.Code = Code.Fstenv_m28byte; break;
+					case Code.Fnstcw_m16: instr.Code = Code.Fstcw_m16; break;
+					case Code.Fneni: instr.Code = Code.Feni; break;
+					case Code.Fndisi: instr.Code = Code.Fdisi; break;
+					case Code.Fnclex: instr.Code = Code.Fclex; break;
+					case Code.Fninit: instr.Code = Code.Finit; break;
+					case Code.Fnsetpm: instr.Code = Code.Fsetpm; break;
+					case Code.Fnsave_m94byte: instr.Code = Code.Fsave_m94byte; break;
+					case Code.Fnsave_m108byte: instr.Code = Code.Fsave_m108byte; break;
+					case Code.Fnstsw_m16: instr.Code = Code.Fstsw_m16; break;
+					case Code.Fnstsw_AX: instr.Code = Code.Fstsw_AX; break;
+					default:
+						Assert.False(true, $"Invalid FPU instr Code value: {instr.Code}");
+						break;
+					}
+				}
+			}
 			Assert.Equal(code, instr.Code);
 
 			Assert.Equal(testCase.StackPointerIncrement, instr.StackPointerIncrement);
@@ -343,9 +372,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			return -1;
 		}
 
-		Decoder CreateDecoder(int codeSize, string hexBytes) {
-			var codeReader = new ByteArrayCodeReader(hexBytes);
-			var decoder = Decoder.Create(codeSize, codeReader);
+		Decoder CreateDecoder(int codeSize, byte[] codeBytes, DecoderOptions options) {
+			var codeReader = new ByteArrayCodeReader(codeBytes);
+			var decoder = Decoder.Create(codeSize, codeReader, options);
 
 			switch (codeSize) {
 			case 16:
@@ -504,6 +533,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				if (!toCpuidFeature.TryGetValue(cpuidFeatureString, out testCase.CpuidFeature))
 					throw new Exception($"Invalid {nameof(CpuidFeature)} value, line {lineNo}: '{cpuidFeatureString}' ({filename})");
 
+				var options = DecoderOptions.None;
 				foreach (var keyValue in elems[4].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
 					string key, value;
 					int index = keyValue.IndexOf('=');
@@ -656,13 +686,70 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 
+					case "decopt":
+						if (!TryParseDecoderOptions(value.Split(semicolonSeparator), ref options))
+							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
+						break;
+
 					default:
 						throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 					}
 				}
 
-				yield return new object[4] { hexBytes, code, lineNo, testCase };
+				yield return new object[5] { hexBytes, code, options, lineNo, testCase };
 			}
+		}
+
+		static bool TryParseDecoderOptions(string[] stringOptions, ref DecoderOptions options) {
+			foreach (var opt in stringOptions) {
+				switch (opt.Trim().ToLowerInvariant()) {
+				case "amd":
+					options |= DecoderOptions.AMD;
+					break;
+				case "forcereservednop":
+					options |= DecoderOptions.ForceReservedNop;
+					break;
+				case "cflsh":
+					options |= DecoderOptions.Cflsh;
+					break;
+				case "umov":
+					options |= DecoderOptions.Umov;
+					break;
+				case "ecr":
+					options |= DecoderOptions.Ecr;
+					break;
+				case "xbts":
+					options |= DecoderOptions.Xbts;
+					break;
+				case "cmpxchg486a":
+					options |= DecoderOptions.Cmpxchg486A;
+					break;
+				case "zalloc":
+					options |= DecoderOptions.Zalloc;
+					break;
+				case "oldfpu":
+					options |= DecoderOptions.OldFpu;
+					break;
+				case "pcommit":
+					options |= DecoderOptions.Pcommit;
+					break;
+				case "loadall286":
+					options |= DecoderOptions.Loadall286;
+					break;
+				case "loadall386":
+					options |= DecoderOptions.Loadall386;
+					break;
+				case "cl1invmb":
+					options |= DecoderOptions.Cl1invmb;
+					break;
+				case "movtr":
+					options |= DecoderOptions.MovTr;
+					break;
+				default:
+					return false;
+				}
+			}
+			return true;
 		}
 
 		static bool AddMemory(int bitness, Dictionary<string, MemorySize> toMemorySize, Dictionary<string, Register> toRegister, string value, OpAccess access, InstructionInfoTestCase testCase) {

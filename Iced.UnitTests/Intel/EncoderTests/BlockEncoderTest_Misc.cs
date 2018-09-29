@@ -81,7 +81,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				/*0006*/ 0xE9, 0x03, 0x00, 0x00, 0x00,// jmp near ptr 123456789ABCDE0Eh
 				/*000B*/ 0xB0, 0x02,// mov al,2
 			};
-			var instructions = BlockEncoderTest.Decode(bitness, origRip, originalData);
+			var instructions = BlockEncoderTest.Decode(bitness, origRip, originalData, DecoderOptions.None);
 			var codeWriter = new CodeWriterImpl();
 			var errorMessage = BlockEncoder.Encode(bitness, new InstructionBlock(codeWriter, instructions, newRip));
 			Assert.Null(errorMessage);

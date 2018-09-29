@@ -72,6 +72,7 @@ namespace Iced.Intel {
 					return -4 * 8;
 
 				case Code.Popw_ES:
+				case Code.Popw_CS:
 				case Code.Popw_SS:
 				case Code.Popw_DS:
 				case Code.Pop_r16:

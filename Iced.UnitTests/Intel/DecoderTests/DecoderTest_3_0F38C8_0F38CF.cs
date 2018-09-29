@@ -32,10 +32,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -74,10 +74,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -110,10 +110,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -152,10 +152,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -188,10 +188,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -230,10 +230,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -284,10 +284,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -325,10 +325,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -368,10 +368,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -409,10 +409,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -452,10 +452,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -493,10 +493,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -536,10 +536,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -577,10 +577,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -620,10 +620,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -661,10 +661,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -704,10 +704,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -745,10 +745,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -788,10 +788,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -840,10 +840,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -878,10 +878,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -930,10 +930,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -968,10 +968,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1020,10 +1020,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1064,10 +1064,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1105,10 +1105,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1148,10 +1148,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1189,10 +1189,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1232,10 +1232,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1273,10 +1273,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1316,10 +1316,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1368,10 +1368,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1406,10 +1406,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1458,10 +1458,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1496,10 +1496,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1548,10 +1548,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(3, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -1580,6 +1580,666 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "62 12CD03 CD D3", 6, Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae, Register.XMM10, Register.XMM22, Register.XMM27, Register.K3, RoundingControl.None, false, false };
 				yield return new object[] { "62 B2CD0B CD D3", 6, Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae, Register.XMM2, Register.XMM6, Register.XMM19, Register.K3, RoundingControl.None, false, false };
 				yield return new object[] { "62 F2CD7B CD D3", 6, Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, RoundingControl.None, false, true };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_Gf2p8mulbV_VX_WX_1_Data))]
+		void Test16_Gf2p8mulbV_VX_WX_1(string hexBytes, int byteLength, Code code, Register reg, MemorySize memSize) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg, instr.Op0Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op1Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.BX, instr.MemoryBase);
+			Assert.Equal(Register.SI, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
+		}
+		public static IEnumerable<object[]> Test16_Gf2p8mulbV_VX_WX_1_Data {
+			get {
+				yield return new object[] { "66 0F38CF 08", 5, Code.Gf2p8mulb_xmm_xmmm128, Register.XMM1, MemorySize.Packed128_UInt8 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_Gf2p8mulbV_VX_WX_2_Data))]
+		void Test16_Gf2p8mulbV_VX_WX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+		}
+		public static IEnumerable<object[]> Test16_Gf2p8mulbV_VX_WX_2_Data {
+			get {
+				yield return new object[] { "66 0F38CF CD", 5, Code.Gf2p8mulb_xmm_xmmm128, Register.XMM1, Register.XMM5 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_Gf2p8mulbV_VX_WX_1_Data))]
+		void Test32_Gf2p8mulbV_VX_WX_1(string hexBytes, int byteLength, Code code, Register reg, MemorySize memSize) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg, instr.Op0Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op1Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.EAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
+		}
+		public static IEnumerable<object[]> Test32_Gf2p8mulbV_VX_WX_1_Data {
+			get {
+				yield return new object[] { "66 0F38CF 08", 5, Code.Gf2p8mulb_xmm_xmmm128, Register.XMM1, MemorySize.Packed128_UInt8 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_Gf2p8mulbV_VX_WX_2_Data))]
+		void Test32_Gf2p8mulbV_VX_WX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+		}
+		public static IEnumerable<object[]> Test32_Gf2p8mulbV_VX_WX_2_Data {
+			get {
+				yield return new object[] { "66 0F38CF CD", 5, Code.Gf2p8mulb_xmm_xmmm128, Register.XMM1, Register.XMM5 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_Gf2p8mulbV_VX_WX_1_Data))]
+		void Test64_Gf2p8mulbV_VX_WX_1(string hexBytes, int byteLength, Code code, Register reg, MemorySize memSize) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg, instr.Op0Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op1Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.RAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
+		}
+		public static IEnumerable<object[]> Test64_Gf2p8mulbV_VX_WX_1_Data {
+			get {
+				yield return new object[] { "66 0F38CF 08", 5, Code.Gf2p8mulb_xmm_xmmm128, Register.XMM1, MemorySize.Packed128_UInt8 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_Gf2p8mulbV_VX_WX_2_Data))]
+		void Test64_Gf2p8mulbV_VX_WX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(2, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+		}
+		public static IEnumerable<object[]> Test64_Gf2p8mulbV_VX_WX_2_Data {
+			get {
+				yield return new object[] { "66 0F38CF CD", 5, Code.Gf2p8mulb_xmm_xmmm128, Register.XMM1, Register.XMM5 };
+				yield return new object[] { "66 44 0F38CF CD", 6, Code.Gf2p8mulb_xmm_xmmm128, Register.XMM9, Register.XMM5 };
+				yield return new object[] { "66 41 0F38CF CD", 6, Code.Gf2p8mulb_xmm_xmmm128, Register.XMM1, Register.XMM13 };
+				yield return new object[] { "66 45 0F38CF CD", 6, Code.Gf2p8mulb_xmm_xmmm128, Register.XMM9, Register.XMM13 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_Vgf2p8mulbV_VX_HX_WX_1_Data))]
+		void Test16_Vgf2p8mulbV_VX_HX_WX_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, MemorySize memSize) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op2Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.BX, instr.MemoryBase);
+			Assert.Equal(Register.SI, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
+		}
+		public static IEnumerable<object[]> Test16_Vgf2p8mulbV_VX_HX_WX_1_Data {
+			get {
+				yield return new object[] { "C4E249 CF 10", 5, Code.VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.Packed128_UInt8 };
+				yield return new object[] { "C4E24D CF 10", 5, Code.VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Register.YMM2, Register.YMM6, MemorySize.Packed256_UInt8 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_Vgf2p8mulbV_VX_HX_WX_2_Data))]
+		void Test16_Vgf2p8mulbV_VX_HX_WX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register reg3) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Register, instr.Op2Kind);
+			Assert.Equal(reg3, instr.Op2Register);
+		}
+		public static IEnumerable<object[]> Test16_Vgf2p8mulbV_VX_HX_WX_2_Data {
+			get {
+				yield return new object[] { "C4E249 CF D3", 5, Code.VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4E24D CF D3", 5, Code.VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.YMM3 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_Vgf2p8mulbV_VX_HX_WX_1_Data))]
+		void Test32_Vgf2p8mulbV_VX_HX_WX_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, MemorySize memSize) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op2Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.EAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
+		}
+		public static IEnumerable<object[]> Test32_Vgf2p8mulbV_VX_HX_WX_1_Data {
+			get {
+				yield return new object[] { "C4E249 CF 10", 5, Code.VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.Packed128_UInt8 };
+				yield return new object[] { "C4E24D CF 10", 5, Code.VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Register.YMM2, Register.YMM6, MemorySize.Packed256_UInt8 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_Vgf2p8mulbV_VX_HX_WX_2_Data))]
+		void Test32_Vgf2p8mulbV_VX_HX_WX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register reg3) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Register, instr.Op2Kind);
+			Assert.Equal(reg3, instr.Op2Register);
+		}
+		public static IEnumerable<object[]> Test32_Vgf2p8mulbV_VX_HX_WX_2_Data {
+			get {
+				yield return new object[] { "C4E249 CF D3", 5, Code.VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4E24D CF D3", 5, Code.VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.YMM3 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_Vgf2p8mulbV_VX_HX_WX_1_Data))]
+		void Test64_Vgf2p8mulbV_VX_HX_WX_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, MemorySize memSize) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op2Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.RAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(0U, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(0, instr.MemoryDisplSize);
+		}
+		public static IEnumerable<object[]> Test64_Vgf2p8mulbV_VX_HX_WX_1_Data {
+			get {
+				yield return new object[] { "C4E249 CF 10", 5, Code.VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, MemorySize.Packed128_UInt8 };
+				yield return new object[] { "C4E24D CF 10", 5, Code.VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Register.YMM2, Register.YMM6, MemorySize.Packed256_UInt8 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_Vgf2p8mulbV_VX_HX_WX_2_Data))]
+		void Test64_Vgf2p8mulbV_VX_HX_WX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register reg3) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Register, instr.Op2Kind);
+			Assert.Equal(reg3, instr.Op2Register);
+		}
+		public static IEnumerable<object[]> Test64_Vgf2p8mulbV_VX_HX_WX_2_Data {
+			get {
+				yield return new object[] { "C4E249 CF D3", 5, Code.VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4E24D CF D3", 5, Code.VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.YMM3 };
+				yield return new object[] { "C46249 CF D3", 5, Code.VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Register.XMM10, Register.XMM6, Register.XMM3 };
+				yield return new object[] { "C4624D CF D3", 5, Code.VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Register.YMM10, Register.YMM6, Register.YMM3 };
+				yield return new object[] { "C4E209 CF D3", 5, Code.VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Register.XMM2, Register.XMM14, Register.XMM3 };
+				yield return new object[] { "C4E20D CF D3", 5, Code.VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Register.YMM2, Register.YMM14, Register.YMM3 };
+				yield return new object[] { "C4C249 CF D3", 5, Code.VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM11 };
+				yield return new object[] { "C4C24D CF D3", 5, Code.VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.YMM11 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_Vgf2p8mulbV_VX_k1_HX_WX_1_Data))]
+		void Test16_Vgf2p8mulbV_VX_k1_HX_WX_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register kreg, MemorySize memSize, uint displ, bool z) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op2Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.BX, instr.MemoryBase);
+			Assert.Equal(Register.SI, instr.MemoryIndex);
+			Assert.Equal(displ, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(1, instr.MemoryDisplSize);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(RoundingControl.None, instr.RoundingControl);
+			Assert.False(instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test16_Vgf2p8mulbV_VX_k1_HX_WX_1_Data {
+			get {
+				yield return new object[] { "62 F24D0B CF 50 01", 7, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_UInt8, 16, false };
+				yield return new object[] { "62 F24D8D CF 50 01", 7, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Packed128_UInt8, 16, true };
+				yield return new object[] { "62 F24D08 CF 50 01", 7, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_UInt8, 16, false };
+
+				yield return new object[] { "62 F24D2B CF 50 01", 7, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_UInt8, 32, false };
+				yield return new object[] { "62 F24DAD CF 50 01", 7, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Packed256_UInt8, 32, true };
+				yield return new object[] { "62 F24D28 CF 50 01", 7, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_UInt8, 32, false };
+
+				yield return new object[] { "62 F24D4B CF 50 01", 7, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_UInt8, 64, false };
+				yield return new object[] { "62 F24DCD CF 50 01", 7, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Packed512_UInt8, 64, true };
+				yield return new object[] { "62 F24D48 CF 50 01", 7, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_UInt8, 64, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test16_Vgf2p8mulbV_VX_k1_HX_WX_2_Data))]
+		void Test16_Vgf2p8mulbV_VX_k1_HX_WX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register reg3, Register kreg, RoundingControl rc, bool z, bool sae) {
+			var decoder = CreateDecoder16(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Register, instr.Op2Kind);
+			Assert.Equal(reg3, instr.Op2Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(rc, instr.RoundingControl);
+			Assert.Equal(sae, instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test16_Vgf2p8mulbV_VX_k1_HX_WX_2_Data {
+			get {
+				yield return new object[] { "62 F24D0B CF D3", 6, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F24D8B CF D3", 6, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F24D2B CF D3", 6, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F24DAB CF D3", 6, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F24D4B CF D3", 6, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F24DCB CF D3", 6, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, RoundingControl.None, true, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_Vgf2p8mulbV_VX_k1_HX_WX_1_Data))]
+		void Test32_Vgf2p8mulbV_VX_k1_HX_WX_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register kreg, MemorySize memSize, uint displ, bool z) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op2Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.EAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(displ, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(1, instr.MemoryDisplSize);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(RoundingControl.None, instr.RoundingControl);
+			Assert.False(instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test32_Vgf2p8mulbV_VX_k1_HX_WX_1_Data {
+			get {
+				yield return new object[] { "62 F24D0B CF 50 01", 7, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_UInt8, 16, false };
+				yield return new object[] { "62 F24D8D CF 50 01", 7, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Packed128_UInt8, 16, true };
+				yield return new object[] { "62 F24D08 CF 50 01", 7, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_UInt8, 16, false };
+
+				yield return new object[] { "62 F24D2B CF 50 01", 7, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_UInt8, 32, false };
+				yield return new object[] { "62 F24DAD CF 50 01", 7, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Packed256_UInt8, 32, true };
+				yield return new object[] { "62 F24D28 CF 50 01", 7, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_UInt8, 32, false };
+
+				yield return new object[] { "62 F24D4B CF 50 01", 7, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_UInt8, 64, false };
+				yield return new object[] { "62 F24DCD CF 50 01", 7, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Packed512_UInt8, 64, true };
+				yield return new object[] { "62 F24D48 CF 50 01", 7, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_UInt8, 64, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test32_Vgf2p8mulbV_VX_k1_HX_WX_2_Data))]
+		void Test32_Vgf2p8mulbV_VX_k1_HX_WX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register reg3, Register kreg, RoundingControl rc, bool z, bool sae) {
+			var decoder = CreateDecoder32(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Register, instr.Op2Kind);
+			Assert.Equal(reg3, instr.Op2Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(rc, instr.RoundingControl);
+			Assert.Equal(sae, instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test32_Vgf2p8mulbV_VX_k1_HX_WX_2_Data {
+			get {
+				yield return new object[] { "62 F24D0B CF D3", 6, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F24D8B CF D3", 6, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F24D2B CF D3", 6, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F24DAB CF D3", 6, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, RoundingControl.None, true, false };
+
+				yield return new object[] { "62 F24D4B CF D3", 6, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 F24DCB CF D3", 6, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, RoundingControl.None, true, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_Vgf2p8mulbV_VX_k1_HX_WX_1_Data))]
+		void Test64_Vgf2p8mulbV_VX_k1_HX_WX_1(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register kreg, MemorySize memSize, uint displ, bool z) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Memory, instr.Op2Kind);
+			Assert.Equal(Register.DS, instr.MemorySegment);
+			Assert.Equal(Register.RAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
+			Assert.Equal(displ, instr.MemoryDisplacement);
+			Assert.Equal(1, instr.MemoryIndexScale);
+			Assert.Equal(memSize, instr.MemorySize);
+			Assert.Equal(1, instr.MemoryDisplSize);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(RoundingControl.None, instr.RoundingControl);
+			Assert.False(instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test64_Vgf2p8mulbV_VX_k1_HX_WX_1_Data {
+			get {
+				yield return new object[] { "62 F24D0B CF 50 01", 7, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.K3, MemorySize.Packed128_UInt8, 16, false };
+				yield return new object[] { "62 F24D8D CF 50 01", 7, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.K5, MemorySize.Packed128_UInt8, 16, true };
+				yield return new object[] { "62 F24D08 CF 50 01", 7, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.None, MemorySize.Packed128_UInt8, 16, false };
+
+				yield return new object[] { "62 F24D2B CF 50 01", 7, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.K3, MemorySize.Packed256_UInt8, 32, false };
+				yield return new object[] { "62 F24DAD CF 50 01", 7, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.K5, MemorySize.Packed256_UInt8, 32, true };
+				yield return new object[] { "62 F24D28 CF 50 01", 7, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.None, MemorySize.Packed256_UInt8, 32, false };
+
+				yield return new object[] { "62 F24D4B CF 50 01", 7, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.K3, MemorySize.Packed512_UInt8, 64, false };
+				yield return new object[] { "62 F24DCD CF 50 01", 7, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.K5, MemorySize.Packed512_UInt8, 64, true };
+				yield return new object[] { "62 F24D48 CF 50 01", 7, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.None, MemorySize.Packed512_UInt8, 64, false };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Test64_Vgf2p8mulbV_VX_k1_HX_WX_2_Data))]
+		void Test64_Vgf2p8mulbV_VX_k1_HX_WX_2(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, Register reg3, Register kreg, RoundingControl rc, bool z, bool sae) {
+			var decoder = CreateDecoder64(hexBytes);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(3, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.Register, instr.Op0Kind);
+			Assert.Equal(reg1, instr.Op0Register);
+
+			Assert.Equal(OpKind.Register, instr.Op1Kind);
+			Assert.Equal(reg2, instr.Op1Register);
+
+			Assert.Equal(OpKind.Register, instr.Op2Kind);
+			Assert.Equal(reg3, instr.Op2Register);
+
+			Assert.Equal(kreg, instr.OpMask);
+			Assert.Equal(z, instr.ZeroingMasking);
+			Assert.Equal(rc, instr.RoundingControl);
+			Assert.Equal(sae, instr.SuppressAllExceptions);
+		}
+		public static IEnumerable<object[]> Test64_Vgf2p8mulbV_VX_k1_HX_WX_2_Data {
+			get {
+				yield return new object[] { "62 F24D0B CF D3", 6, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 E20D8B CF D3", 6, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM18, Register.XMM14, Register.XMM3, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 124D03 CF D3", 6, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM10, Register.XMM22, Register.XMM27, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 B24D0B CF D3", 6, Code.EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128, Register.XMM2, Register.XMM6, Register.XMM19, Register.K3, RoundingControl.None, false, false };
+
+				yield return new object[] { "62 F24D2B CF D3", 6, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.YMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 E20DAB CF D3", 6, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM18, Register.YMM14, Register.YMM3, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 124D23 CF D3", 6, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM10, Register.YMM22, Register.YMM27, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 B24D2B CF D3", 6, Code.EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256, Register.YMM2, Register.YMM6, Register.YMM19, Register.K3, RoundingControl.None, false, false };
+
+				yield return new object[] { "62 F24D4B CF D3", 6, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.ZMM3, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 E20DCB CF D3", 6, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM18, Register.ZMM14, Register.ZMM3, Register.K3, RoundingControl.None, true, false };
+				yield return new object[] { "62 124D43 CF D3", 6, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM10, Register.ZMM22, Register.ZMM27, Register.K3, RoundingControl.None, false, false };
+				yield return new object[] { "62 B24D4B CF D3", 6, Code.EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512, Register.ZMM2, Register.ZMM6, Register.ZMM19, Register.K3, RoundingControl.None, false, false };
 			}
 		}
 	}

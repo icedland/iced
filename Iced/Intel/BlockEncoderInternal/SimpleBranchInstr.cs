@@ -118,8 +118,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 				c64 = Code.Loopne_rel8_64_ECX;
 				break;
 
+			case Code.Loopne_rel8_16_RCX:
 			case Code.Loopne_rel8_64_RCX:
-				c16 = Code.INVALID;
+				c16 = Code.Loopne_rel8_16_RCX;
 				c32 = Code.INVALID;
 				c64 = Code.Loopne_rel8_64_RCX;
 				break;
@@ -139,8 +140,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 				c64 = Code.Loope_rel8_64_ECX;
 				break;
 
+			case Code.Loope_rel8_16_RCX:
 			case Code.Loope_rel8_64_RCX:
-				c16 = Code.INVALID;
+				c16 = Code.Loope_rel8_16_RCX;
 				c32 = Code.INVALID;
 				c64 = Code.Loope_rel8_64_RCX;
 				break;
@@ -160,8 +162,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 				c64 = Code.Loop_rel8_64_ECX;
 				break;
 
+			case Code.Loop_rel8_16_RCX:
 			case Code.Loop_rel8_64_RCX:
-				c16 = Code.INVALID;
+				c16 = Code.Loop_rel8_16_RCX;
 				c32 = Code.INVALID;
 				c64 = Code.Loop_rel8_64_RCX;
 				break;
@@ -181,8 +184,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 				c64 = Code.Jecxz_rel8_64;
 				break;
 
+			case Code.Jrcxz_rel8_16:
 			case Code.Jrcxz_rel8_64:
-				c16 = Code.INVALID;
+				c16 = Code.Jrcxz_rel8_16;
 				c32 = Code.INVALID;
 				c64 = Code.Jrcxz_rel8_64;
 				break;

@@ -24,8 +24,8 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class FormatterTestUtils {
-		public static void FormatTest(int codeSize, string hexBytes, Code code, string formattedString, Formatter formatter) {
-			var decoder = CreateDecoder(codeSize, hexBytes, out ulong nextRip);
+		public static void FormatTest(int codeSize, string hexBytes, Code code, DecoderOptions options, string formattedString, Formatter formatter) {
+			var decoder = CreateDecoder(codeSize, hexBytes, options, out ulong nextRip);
 			var instr = decoder.Decode();
 			Assert.Equal(code, instr.Code);
 			Assert.Equal((ushort)nextRip, instr.IP16);
@@ -36,7 +36,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Equal((ushort)nextRip, instr.NextIP16);
 			Assert.Equal((uint)nextRip, instr.NextIP32);
 			Assert.Equal(nextRip, instr.NextIP64);
+			FormatTest(ref instr, formattedString, formatter);
+		}
 
+		public static void FormatTest(ref Instruction instr, string formattedString, Formatter formatter) {
 			var output = new StringBuilderFormatterOutput();
 
 			formatter.Format(ref instr, output);
@@ -72,8 +75,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Equal(formattedString, actualFormattedString);
 		}
 
-		public static void SimpleFormatTest(int codeSize, string hexBytes, Code code, string formattedString, Formatter formatter, Action<Decoder> initDecoder) {
-			var decoder = CreateDecoder(codeSize, hexBytes, out _);
+		public static void SimpleFormatTest(int codeSize, string hexBytes, Code code, DecoderOptions options, string formattedString, Formatter formatter, Action<Decoder> initDecoder) {
+			var decoder = CreateDecoder(codeSize, hexBytes, options, out _);
 			initDecoder?.Invoke(decoder);
 			var nextRip = decoder.InstructionPointer;
 			var instr = decoder.Decode();
@@ -97,22 +100,22 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 		}
 
-		static Decoder CreateDecoder(int codeSize, string hexBytes, out ulong rip) {
+		static Decoder CreateDecoder(int codeSize, string hexBytes, DecoderOptions options, out ulong rip) {
 			Decoder decoder;
 			var codeReader = new ByteArrayCodeReader(hexBytes);
 			switch (codeSize) {
 			case 16:
-				decoder = Decoder.Create16(codeReader);
+				decoder = Decoder.Create16(codeReader, options);
 				rip = DecoderConstants.DEFAULT_IP16;
 				break;
 
 			case 32:
-				decoder = Decoder.Create32(codeReader);
+				decoder = Decoder.Create32(codeReader, options);
 				rip = DecoderConstants.DEFAULT_IP32;
 				break;
 
 			case 64:
-				decoder = Decoder.Create64(codeReader);
+				decoder = Decoder.Create64(codeReader, options);
 				rip = DecoderConstants.DEFAULT_IP64;
 				break;
 

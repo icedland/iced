@@ -134,6 +134,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"bnd call eax",
 			"bnd ret 0",
 			"bnd ret",
+			"notrack call dword ptr ds:[eax]",
+			"notrack call dword ptr ds:[ebp+0x11]",
+			"notrack call ecx",
+			"notrack jmp dword ptr ds:[eax]",
+			"notrack jmp dword ptr ds:[ebp+0x11]",
+			"notrack jmp ecx",
+			"notrack bnd call ecx",
+			"notrack call dword ptr ds:[eax]",
+			"call dword ptr fs:[eax]",
+			"notrack bnd jmp ecx",
+			"notrack jmp dword ptr ds:[eax]",
+			"jmp dword ptr fs:[eax]",
 		};
 	}
 }

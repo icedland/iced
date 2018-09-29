@@ -274,6 +274,15 @@ namespace Iced.Intel {
 		MM5,
 		MM6,
 		MM7,
+
+		TR0,
+		TR1,
+		TR2,
+		TR3,
+		TR4,
+		TR5,
+		TR6,
+		TR7,
 #pragma warning restore 1591 // Missing XML comment for publicly visible type or member
 	}
 
@@ -531,6 +540,15 @@ namespace Iced.Intel {
 			new RegisterInfo(Register.MM5, Register.MM0, Register.MM5, 8),
 			new RegisterInfo(Register.MM6, Register.MM0, Register.MM6, 8),
 			new RegisterInfo(Register.MM7, Register.MM0, Register.MM7, 8),
+
+			new RegisterInfo(Register.TR0, Register.TR0, Register.TR0, 4),
+			new RegisterInfo(Register.TR1, Register.TR0, Register.TR1, 4),
+			new RegisterInfo(Register.TR2, Register.TR0, Register.TR2, 4),
+			new RegisterInfo(Register.TR3, Register.TR0, Register.TR3, 4),
+			new RegisterInfo(Register.TR4, Register.TR0, Register.TR4, 4),
+			new RegisterInfo(Register.TR5, Register.TR0, Register.TR5, 4),
+			new RegisterInfo(Register.TR6, Register.TR0, Register.TR6, 4),
+			new RegisterInfo(Register.TR7, Register.TR0, Register.TR7, 4),
 		};
 
 		/// <summary>

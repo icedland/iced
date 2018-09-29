@@ -102,32 +102,32 @@ namespace Iced.Intel {
 		Immediate32to64,
 
 		/// <summary>
-		/// seg:[si]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.PrefixSegment"/>
+		/// seg:[si]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/>
 		/// </summary>
 		MemorySegSI,
 
 		/// <summary>
-		/// seg:[esi]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.PrefixSegment"/>
+		/// seg:[esi]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/>
 		/// </summary>
 		MemorySegESI,
 
 		/// <summary>
-		/// seg:[rsi]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.PrefixSegment"/>
+		/// seg:[rsi]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/>
 		/// </summary>
 		MemorySegRSI,
 
 		/// <summary>
-		/// seg:[di]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.PrefixSegment"/>
+		/// seg:[di]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/>
 		/// </summary>
 		MemorySegDI,
 
 		/// <summary>
-		/// seg:[edi]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.PrefixSegment"/>
+		/// seg:[edi]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/>
 		/// </summary>
 		MemorySegEDI,
 
 		/// <summary>
-		/// seg:[rdi]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.PrefixSegment"/>
+		/// seg:[rdi]. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/>
 		/// </summary>
 		MemorySegRDI,
 
@@ -148,7 +148,7 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// 64-bit offset [xxxxxxxxxxxxxxxx]. This operand kind uses <see cref="Instruction.MemoryAddress64"/>,
-		/// <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.PrefixSegment"/>, <see cref="Instruction.MemorySize"/>
+		/// <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/>, <see cref="Instruction.MemorySize"/>
 		/// </summary>
 		Memory64,
 
@@ -158,7 +158,7 @@ namespace Iced.Intel {
 		/// This operand kind uses <see cref="Instruction.MemoryDisplSize"/>, <see cref="Instruction.MemorySize"/>,
 		/// <see cref="Instruction.MemoryIndexScale"/>, <see cref="Instruction.MemoryDisplacement"/>,
 		/// <see cref="Instruction.MemoryBase"/>, <see cref="Instruction.MemoryIndex"/>, <see cref="Instruction.MemorySegment"/>,
-		/// <see cref="Instruction.PrefixSegment"/>
+		/// <see cref="Instruction.SegmentPrefix"/>
 		/// </summary>
 		Memory,
 	}

@@ -594,7 +594,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Ins:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
@@ -633,7 +633,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Outs:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondRead;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
@@ -670,7 +670,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Movs:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
@@ -730,7 +730,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Cmps:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondRead;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
@@ -790,7 +790,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Stos:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
@@ -829,7 +829,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Lods:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
@@ -866,7 +866,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Scas:
-				if (instruction.Internal_HasPrefixRepeOrRepne) {
+				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondRead;
 					accesses[1] = OpAccess.CondRead;
 					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
@@ -909,12 +909,12 @@ namespace Iced.Intel {
 					code = instruction.Code;
 					if (code == Code.Cmpxchg_rm64_r64)
 						AddRegister(flags, ref usedRegisters, Register.RAX, OpAccess.ReadCondWrite);
-					else if (code == Code.Cmpxchg_rm32_r32)
+					else if (code == Code.Cmpxchg_rm32_r32 || code == Code.Cmpxchg486_rm32_r32)
 						AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.ReadCondWrite);
-					else if (code == Code.Cmpxchg_rm16_r16)
+					else if (code == Code.Cmpxchg_rm16_r16 || code == Code.Cmpxchg486_rm16_r16)
 						AddRegister(flags, ref usedRegisters, Register.AX, OpAccess.ReadCondWrite);
 					else {
-						Debug.Assert(code == Code.Cmpxchg_rm8_r8);
+						Debug.Assert(code == Code.Cmpxchg_rm8_r8 || code == Code.Cmpxchg486_rm8_r8);
 						AddRegister(flags, ref usedRegisters, Register.AL, OpAccess.ReadCondWrite);
 					}
 				}
@@ -1159,7 +1159,7 @@ namespace Iced.Intel {
 			case CodeInfo.Jrcxz:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (code == Code.Jrcxz_rel8_64)
+					if (code == Code.Jrcxz_rel8_64 || code == Code.Jrcxz_rel8_16)
 						AddRegister(flags, ref usedRegisters, Register.RCX, OpAccess.Read);
 					else if (code == Code.Jecxz_rel8_64 || code == Code.Jecxz_rel8_32 || code == Code.Jecxz_rel8_16)
 						AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Read);
@@ -1173,7 +1173,8 @@ namespace Iced.Intel {
 			case CodeInfo.Loop:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (code == Code.Loopne_rel8_64_RCX || code == Code.Loope_rel8_64_RCX || code == Code.Loop_rel8_64_RCX)
+					if (code == Code.Loopne_rel8_64_RCX || code == Code.Loope_rel8_64_RCX || code == Code.Loop_rel8_64_RCX ||
+						code == Code.Loopne_rel8_16_RCX || code == Code.Loope_rel8_16_RCX || code == Code.Loop_rel8_16_RCX)
 						AddRegister(flags, ref usedRegisters, Register.RCX, OpAccess.ReadWrite);
 					else if (code == Code.Loopne_rel8_16_ECX || code == Code.Loopne_rel8_32_ECX || code == Code.Loopne_rel8_64_ECX ||
 						code == Code.Loope_rel8_16_ECX || code == Code.Loope_rel8_32_ECX || code == Code.Loope_rel8_64_ECX ||
@@ -1244,7 +1245,7 @@ namespace Iced.Intel {
 					Debug.Assert(code == Code.Monitorw || code == Code.Monitorxw);
 					baseReg = Register.AX;
 				}
-				var seg = instruction.PrefixSegment;
+				var seg = instruction.SegmentPrefix;
 				if (seg == Register.None)
 					seg = Register.DS;
 				if ((flags & Flags.NoMemoryUsage) == 0)
@@ -1385,6 +1386,16 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.Write);
 					AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Write);
 					AddRegister(flags, ref usedRegisters, Register.EDX, OpAccess.Write);
+				}
+				break;
+
+			case CodeInfo.Pconfig:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.ReadWrite);
+					baseReg = (flags & Flags.Is64Bit) != 0 ? Register.RAX : Register.EAX;
+					AddRegister(flags, ref usedRegisters, baseReg + 1, OpAccess.CondRead);
+					AddRegister(flags, ref usedRegisters, baseReg + 2, OpAccess.CondRead);
+					AddRegister(flags, ref usedRegisters, baseReg + 3, OpAccess.CondRead);
 				}
 				break;
 
@@ -1554,6 +1565,43 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, Register.DS, OpAccess.Read);
 				if ((flags & Flags.NoMemoryUsage) == 0)
 					AddMemory(flags, ref usedMemoryLocations, Register.DS, instruction.Op0Register, Register.None, 1, 0, MemorySize.Unknown, OpAccess.Read);
+				break;
+
+			case CodeInfo.Loadall386:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
+					AddRegister(flags, ref usedRegisters, Register.EDI, OpAccess.Read);
+				}
+				break;
+
+			case CodeInfo.Xbts:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					code = instruction.Code;
+					if (code == Code.Xbts_r32_rm32 || code == Code.Ibts_rm32_r32)
+						AddRegister(flags, ref usedRegisters, Register.EAX, OpAccess.Read);
+					else {
+						Debug.Assert(code == Code.Xbts_r16_rm16 || code == Code.Ibts_rm16_r16);
+						AddRegister(flags, ref usedRegisters, Register.AX, OpAccess.Read);
+					}
+					AddRegister(flags, ref usedRegisters, Register.CL, OpAccess.Read);
+				}
+				break;
+
+			case CodeInfo.Umonitor:
+				baseReg = instruction.SegmentPrefix;
+				if (baseReg == Register.None)
+					baseReg = Register.DS;
+				if ((flags & Flags.NoRegisterUsage) == 0)
+					AddMemorySegmentRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
+				if ((flags & Flags.NoMemoryUsage) == 0)
+					AddMemory(flags, ref usedMemoryLocations, baseReg, instruction.Op0Register, Register.None, 1, 0, MemorySize.UInt8, OpAccess.Read);
+				break;
+
+			case CodeInfo.Movdir64b:
+				if ((flags & Flags.Is64Bit) == 0 && (flags & Flags.NoRegisterUsage) == 0)
+					AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
+				if ((flags & Flags.NoMemoryUsage) == 0)
+					AddMemory(flags, ref usedMemoryLocations, Register.ES, instruction.Op0Register, Register.None, 1, 0, MemorySize.UInt512, OpAccess.Write);
 				break;
 
 			case CodeInfo.None:

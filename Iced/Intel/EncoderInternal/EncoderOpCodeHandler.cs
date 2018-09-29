@@ -133,6 +133,8 @@ namespace Iced.Intel.EncoderInternal {
 		Group6							= HasGroupIndex | (6 << (int)GroupShift),
 		Group7							= HasGroupIndex | (7 << (int)GroupShift),
 
+		Fwait							= 0x00000400,
+
 		Legacy_OpSizeShift				= 26,
 		Legacy_OperandSizeMask			= 3,
 		Legacy_OpSize16					= OperandSize.Size16 << (int)Legacy_OpSizeShift,
@@ -433,21 +435,29 @@ namespace Iced.Intel.EncoderInternal {
 		Encodable_Only64				= Encodable.Only64 << (int)EncodableShift,
 	}
 
-	delegate bool TryConvertToDisp8N(Encoder encoder, ref Instruction instr, EncoderOpCodeHandler handler, int displ, out sbyte compressedValue);
+	delegate bool TryConvertToDisp8N(Encoder encoder, ref Instruction instr, OpCodeHandler handler, int displ, out sbyte compressedValue);
 
-	abstract class EncoderOpCodeHandler {
+	[Flags]
+	enum OpCodeHandlerFlags : uint {
+		None					= 0,
+		Fwait					= 0x00000001,
+	}
+
+	abstract class OpCodeHandler {
 		internal readonly Code TEST_Code;
 		internal readonly uint OpCode;
 		internal readonly int GroupIndex;
-		internal Encodable Encodable;
-		internal OperandSize OpSize;
-		internal AddressSize AddrSize;
+		internal readonly OpCodeHandlerFlags Flags;
+		internal readonly Encodable Encodable;
+		internal readonly OperandSize OpSize;
+		internal readonly AddressSize AddrSize;
 		internal readonly TryConvertToDisp8N TryConvertToDisp8N;
 		internal readonly Op[] Operands;
-		protected EncoderOpCodeHandler(Code code, uint opCode, int groupIndex, Encodable encodable, OperandSize opSize, AddressSize addrSize, TryConvertToDisp8N tryConvertToDisp8N, Op[] operands) {
+		protected OpCodeHandler(Code code, uint opCode, int groupIndex, OpCodeHandlerFlags flags, Encodable encodable, OperandSize opSize, AddressSize addrSize, TryConvertToDisp8N tryConvertToDisp8N, Op[] operands) {
 			TEST_Code = code;
 			OpCode = opCode;
 			GroupIndex = groupIndex;
+			Flags = flags;
 			Encodable = encodable;
 			OpSize = opSize;
 			AddrSize = addrSize;
@@ -460,16 +470,16 @@ namespace Iced.Intel.EncoderInternal {
 		public abstract void Encode(Encoder encoder, ref Instruction instr);
 	}
 
-	sealed class InvalidHandler : EncoderOpCodeHandler {
+	sealed class InvalidHandler : OpCodeHandler {
 		internal const string ERROR_MESSAGE = "Can't encode an invalid instruction";
 
-		public InvalidHandler(Code code) : base(code, 0, 0, Encodable.Any, OperandSize.None, AddressSize.None, null, Array.Empty<Op>()) { }
+		public InvalidHandler(Code code) : base(code, 0, 0, OpCodeHandlerFlags.None, Encodable.Any, OperandSize.None, AddressSize.None, null, Array.Empty<Op>()) { }
 
 		public override void Encode(Encoder encoder, ref Instruction instr) =>
 			encoder.ErrorMessage = ERROR_MESSAGE;
 	}
 
-	sealed class LegacyHandler : EncoderOpCodeHandler {
+	sealed class LegacyHandler : OpCodeHandler {
 		readonly byte tableByte1, tableByte2;
 		readonly byte mandatoryPrefix;
 		readonly uint rexBits;
@@ -502,8 +512,15 @@ namespace Iced.Intel.EncoderInternal {
 			return Array.Empty<Op>();
 		}
 
+		static OpCodeHandlerFlags GetFlags(uint dword2) {
+			var flags = OpCodeHandlerFlags.None;
+			if ((dword2 & (uint)LegacyFlags.Fwait) != 0)
+				flags |= OpCodeHandlerFlags.Fwait;
+			return flags;
+		}
+
 		public LegacyHandler(uint dword1, uint dword2, uint dword3)
-			: base(GetCode(dword1), GetOpCode(dword1), GetGroupIndex(dword2), (Encodable)((dword2 >> (int)LegacyFlags.EncodableShift) & (uint)LegacyFlags.EncodableMask), (OperandSize)((dword2 >> (int)LegacyFlags.Legacy_OpSizeShift) & (uint)LegacyFlags.Legacy_OperandSizeMask), (AddressSize)((dword2 >> (int)LegacyFlags.Legacy_AddrSizeShift) & (uint)LegacyFlags.Legacy_AddressSizeMask), null, CreateOps(dword3)) {
+			: base(GetCode(dword1), GetOpCode(dword1), GetGroupIndex(dword2), GetFlags(dword2), (Encodable)((dword2 >> (int)LegacyFlags.EncodableShift) & (uint)LegacyFlags.EncodableMask), (OperandSize)((dword2 >> (int)LegacyFlags.Legacy_OpSizeShift) & (uint)LegacyFlags.Legacy_OperandSizeMask), (AddressSize)((dword2 >> (int)LegacyFlags.Legacy_AddrSizeShift) & (uint)LegacyFlags.Legacy_AddressSizeMask), null, CreateOps(dword3)) {
 			switch ((LegacyOpCodeTable)((dword2 >> (int)LegacyFlags.OpCodeTableShift) & (uint)LegacyFlags.OpCodeTableMask)) {
 			case LegacyOpCodeTable.Normal:
 				tableByte1 = 0;
@@ -570,7 +587,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 	}
 
-	sealed class VexHandler : EncoderOpCodeHandler {
+	sealed class VexHandler : OpCodeHandler {
 		readonly VexOpCodeTable opCodeTable;
 		readonly bool W1;
 		readonly uint lastByte;
@@ -609,7 +626,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		public VexHandler(uint dword1, uint dword2, uint dword3)
-			: base(GetCode(dword1), GetOpCode(dword1), GetGroupIndex(dword2), (Encodable)((dword2 >> (int)VexFlags.EncodableShift) & (uint)VexFlags.EncodableMask), OperandSize.None, AddressSize.None, null, CreateOps(dword3)) {
+			: base(GetCode(dword1), GetOpCode(dword1), GetGroupIndex(dword2), OpCodeHandlerFlags.None, (Encodable)((dword2 >> (int)VexFlags.EncodableShift) & (uint)VexFlags.EncodableMask), OperandSize.None, AddressSize.None, null, CreateOps(dword3)) {
 			opCodeTable = (VexOpCodeTable)((dword2 >> (int)VexFlags.OpCodeTableShift) & (uint)VexFlags.OpCodeTableMask);
 			W1 = (dword2 & (uint)VexFlags.VEX_W1) != 0;
 			lastByte = (dword2 >> ((int)VexFlags.VEX_LShift - 2)) & 4;
@@ -650,7 +667,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 	}
 
-	sealed class XopHandler : EncoderOpCodeHandler {
+	sealed class XopHandler : OpCodeHandler {
 		readonly uint opCodeTable;
 		readonly uint lastByte;
 
@@ -683,7 +700,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		public XopHandler(uint dword1, uint dword2, uint dword3)
-			: base(GetCode(dword1), GetOpCode(dword1), GetGroupIndex(dword2), (Encodable)((dword2 >> (int)XopFlags.EncodableShift) & (uint)XopFlags.EncodableMask), OperandSize.None, AddressSize.None, null, CreateOps(dword3)) {
+			: base(GetCode(dword1), GetOpCode(dword1), GetGroupIndex(dword2), OpCodeHandlerFlags.None, (Encodable)((dword2 >> (int)XopFlags.EncodableShift) & (uint)XopFlags.EncodableMask), OperandSize.None, AddressSize.None, null, CreateOps(dword3)) {
 			Debug.Assert((int)XopOpCodeTable.XOP8 == 1);
 			Debug.Assert((int)XopOpCodeTable.XOP9 == 2);
 			Debug.Assert((int)XopOpCodeTable.XOPA == 3);
@@ -716,7 +733,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 	}
 
-	sealed class EvexHandler : EncoderOpCodeHandler {
+	sealed class EvexHandler : OpCodeHandler {
 		readonly EvexFlags flags;
 		readonly TupleType tupleType;
 		readonly EvexOpCodeTable opCodeTable;
@@ -754,7 +771,7 @@ namespace Iced.Intel.EncoderInternal {
 		static readonly TryConvertToDisp8N tryConvertToDisp8N = new TryConvertToDisp8NImpl().TryConvertToDisp8N;
 
 		public EvexHandler(uint dword1, uint dword2, uint dword3)
-			: base(GetCode(dword1), GetOpCode(dword1), GetGroupIndex(dword2), (Encodable)((dword2 >> (int)EvexFlags.EncodableShift) & (uint)EvexFlags.EncodableMask), OperandSize.None, AddressSize.None, tryConvertToDisp8N, CreateOps(dword3)) {
+			: base(GetCode(dword1), GetOpCode(dword1), GetGroupIndex(dword2), OpCodeHandlerFlags.None, (Encodable)((dword2 >> (int)EvexFlags.EncodableShift) & (uint)EvexFlags.EncodableMask), OperandSize.None, AddressSize.None, tryConvertToDisp8N, CreateOps(dword3)) {
 			flags = (EvexFlags)dword2;
 			tupleType = (TupleType)((dword2 >> (int)EvexFlags.TupleTypeShift) & (uint)EvexFlags.TupleTypeMask);
 			opCodeTable = (EvexOpCodeTable)((dword2 >> (int)EvexFlags.OpCodeTableShift) & (uint)EvexFlags.OpCodeTableMask);
@@ -769,7 +786,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		sealed class TryConvertToDisp8NImpl {
-			public bool TryConvertToDisp8N(Encoder encoder, ref Instruction instr, EncoderOpCodeHandler handler, int displ, out sbyte compressedValue) {
+			public bool TryConvertToDisp8N(Encoder encoder, ref Instruction instr, OpCodeHandler handler, int displ, out sbyte compressedValue) {
 				var evexHandler = (EvexHandler)handler;
 				int n;
 				switch (evexHandler.tupleType) {
@@ -997,7 +1014,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 	}
 
-	sealed class D3nowHandler : EncoderOpCodeHandler {
+	sealed class D3nowHandler : OpCodeHandler {
 		static readonly Op[] operands = new Op[] {
 			new OpModRM_reg(Register.MM0, Register.MM7),
 			new OpModRM_rm(Register.MM0, Register.MM7),
@@ -1005,7 +1022,7 @@ namespace Iced.Intel.EncoderInternal {
 		readonly uint immediate;
 
 		public D3nowHandler(uint dword1, uint dword2, uint dword3)
-			: base(GetCode(dword1), 0x0F, -1, (Encodable)((dword2 >> (int)D3nowFlags.EncodableShift) & (uint)D3nowFlags.EncodableMask), OperandSize.None, AddressSize.None, null, operands) {
+			: base(GetCode(dword1), 0x0F, -1, OpCodeHandlerFlags.None, (Encodable)((dword2 >> (int)D3nowFlags.EncodableShift) & (uint)D3nowFlags.EncodableMask), OperandSize.None, AddressSize.None, null, operands) {
 			immediate = GetOpCode(dword1);
 			Debug.Assert(immediate <= byte.MaxValue);
 		}

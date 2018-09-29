@@ -255,6 +255,14 @@ namespace Iced.Intel.NasmFormatterInternal {
 			"mm5",
 			"mm6",
 			"mm7",
+			"tr0",
+			"tr1",
+			"tr2",
+			"tr3",
+			"tr4",
+			"tr5",
+			"tr6",
+			"tr7",
 		};
 	}
 }

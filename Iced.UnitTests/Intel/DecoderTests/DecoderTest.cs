@@ -30,33 +30,40 @@ using Xunit;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public abstract class DecoderTest {
 		protected Decoder CreateDecoder16(string hexBytes, [CallerMemberName] string callerName = null) =>
-			CreateDecoder(16, callerName, hexBytes);
+			CreateDecoder(16, callerName, hexBytes, DecoderOptions.None);
 		protected Decoder CreateDecoder32(string hexBytes, [CallerMemberName] string callerName = null) =>
-			CreateDecoder(32, callerName, hexBytes);
+			CreateDecoder(32, callerName, hexBytes, DecoderOptions.None);
 		protected Decoder CreateDecoder64(string hexBytes, [CallerMemberName] string callerName = null) =>
-			CreateDecoder(64, callerName, hexBytes);
+			CreateDecoder(64, callerName, hexBytes, DecoderOptions.None);
 
-		Decoder CreateDecoder(int codeSize, string callerName, string hexBytes) {
+		protected Decoder CreateDecoder16(string hexBytes, DecoderOptions options, [CallerMemberName] string callerName = null) =>
+			CreateDecoder(16, callerName, hexBytes, options);
+		protected Decoder CreateDecoder32(string hexBytes, DecoderOptions options, [CallerMemberName] string callerName = null) =>
+			CreateDecoder(32, callerName, hexBytes, options);
+		protected Decoder CreateDecoder64(string hexBytes, DecoderOptions options, [CallerMemberName] string callerName = null) =>
+			CreateDecoder(64, callerName, hexBytes, options);
+
+		Decoder CreateDecoder(int codeSize, string callerName, string hexBytes, DecoderOptions options) {
 			Assert.StartsWith("Test" + codeSize.ToString(), callerName);
-			return CreateDecoder(codeSize, hexBytes);
+			return CreateDecoder(codeSize, hexBytes, options);
 		}
 
-		Decoder CreateDecoder(int codeSize, string hexBytes) {
+		Decoder CreateDecoder(int codeSize, string hexBytes, DecoderOptions options) {
 			Decoder decoder;
 			var codeReader = new ByteArrayCodeReader(hexBytes);
 			switch (codeSize) {
 			case 16:
-				decoder = Decoder.Create16(codeReader);
+				decoder = Decoder.Create16(codeReader, options);
 				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP16;
 				break;
 
 			case 32:
-				decoder = Decoder.Create32(codeReader);
+				decoder = Decoder.Create32(codeReader, options);
 				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP32;
 				break;
 
 			case 64:
-				decoder = Decoder.Create64(codeReader);
+				decoder = Decoder.Create64(codeReader, options);
 				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64;
 				break;
 
@@ -69,16 +76,16 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		protected void DecodeMemOpsBase(int bitness, string hexBytes, int byteLength, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize) {
-			var decoder = CreateDecoder(bitness, hexBytes);
+			var decoder = CreateDecoder(bitness, hexBytes, DecoderOptions.None);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(prefixSeg, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(prefixSeg, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);

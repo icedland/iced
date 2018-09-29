@@ -29,7 +29,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D0 18", 2, Code.Rcr_rm8_1, MemorySize.UInt8)]
 		[InlineData("D0 20", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
 		[InlineData("D0 28", 2, Code.Shr_rm8_1, MemorySize.UInt8)]
-		[InlineData("D0 30", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 30", 2, Code.Sal_rm8_1, MemorySize.UInt8)]
 		[InlineData("D0 38", 2, Code.Sar_rm8_1, MemorySize.Int8)]
 		void Test16_Grp2_Eb_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -38,10 +38,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -63,7 +63,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D0 DC", 2, Code.Rcr_rm8_1, Register.AH)]
 		[InlineData("D0 E5", 2, Code.Shl_rm8_1, Register.CH)]
 		[InlineData("D0 EE", 2, Code.Shr_rm8_1, Register.DH)]
-		[InlineData("D0 F7", 2, Code.Shl_rm8_1, Register.BH)]
+		[InlineData("D0 F7", 2, Code.Sal_rm8_1, Register.BH)]
 		[InlineData("D0 F8", 2, Code.Sar_rm8_1, Register.AL)]
 		void Test16_Grp2_Eb_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -72,10 +72,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -91,7 +91,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D0 18", 2, Code.Rcr_rm8_1, MemorySize.UInt8)]
 		[InlineData("D0 20", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
 		[InlineData("D0 28", 2, Code.Shr_rm8_1, MemorySize.UInt8)]
-		[InlineData("D0 30", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 30", 2, Code.Sal_rm8_1, MemorySize.UInt8)]
 		[InlineData("D0 38", 2, Code.Sar_rm8_1, MemorySize.Int8)]
 		void Test32_Grp2_Eb_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -100,10 +100,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -125,7 +125,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D0 DC", 2, Code.Rcr_rm8_1, Register.AH)]
 		[InlineData("D0 E5", 2, Code.Shl_rm8_1, Register.CH)]
 		[InlineData("D0 EE", 2, Code.Shr_rm8_1, Register.DH)]
-		[InlineData("D0 F7", 2, Code.Shl_rm8_1, Register.BH)]
+		[InlineData("D0 F7", 2, Code.Sal_rm8_1, Register.BH)]
 		[InlineData("D0 F8", 2, Code.Sar_rm8_1, Register.AL)]
 		void Test32_Grp2_Eb_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -134,10 +134,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -153,7 +153,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D0 18", 2, Code.Rcr_rm8_1, MemorySize.UInt8)]
 		[InlineData("D0 20", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
 		[InlineData("D0 28", 2, Code.Shr_rm8_1, MemorySize.UInt8)]
-		[InlineData("D0 30", 2, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("D0 30", 2, Code.Sal_rm8_1, MemorySize.UInt8)]
 		[InlineData("D0 38", 2, Code.Sar_rm8_1, MemorySize.Int8)]
 
 		[InlineData("44 D0 00", 3, Code.Rol_rm8_1, MemorySize.UInt8)]
@@ -162,7 +162,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("44 D0 18", 3, Code.Rcr_rm8_1, MemorySize.UInt8)]
 		[InlineData("44 D0 20", 3, Code.Shl_rm8_1, MemorySize.UInt8)]
 		[InlineData("44 D0 28", 3, Code.Shr_rm8_1, MemorySize.UInt8)]
-		[InlineData("44 D0 30", 3, Code.Shl_rm8_1, MemorySize.UInt8)]
+		[InlineData("44 D0 30", 3, Code.Sal_rm8_1, MemorySize.UInt8)]
 		[InlineData("44 D0 38", 3, Code.Sar_rm8_1, MemorySize.Int8)]
 		void Test64_Grp2_Eb_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -171,10 +171,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -196,7 +196,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D0 DC", 2, Code.Rcr_rm8_1, Register.AH)]
 		[InlineData("D0 E5", 2, Code.Shl_rm8_1, Register.CH)]
 		[InlineData("D0 EE", 2, Code.Shr_rm8_1, Register.DH)]
-		[InlineData("D0 F7", 2, Code.Shl_rm8_1, Register.BH)]
+		[InlineData("D0 F7", 2, Code.Sal_rm8_1, Register.BH)]
 		[InlineData("D0 F8", 2, Code.Sar_rm8_1, Register.AL)]
 
 		[InlineData("40 D0 C1", 3, Code.Rol_rm8_1, Register.CL)]
@@ -205,7 +205,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("40 D0 DC", 3, Code.Rcr_rm8_1, Register.SPL)]
 		[InlineData("40 D0 E5", 3, Code.Shl_rm8_1, Register.BPL)]
 		[InlineData("40 D0 EE", 3, Code.Shr_rm8_1, Register.SIL)]
-		[InlineData("40 D0 F7", 3, Code.Shl_rm8_1, Register.DIL)]
+		[InlineData("40 D0 F7", 3, Code.Sal_rm8_1, Register.DIL)]
 		[InlineData("41 D0 F8", 3, Code.Sar_rm8_1, Register.R8L)]
 		[InlineData("41 D0 C1", 3, Code.Rol_rm8_1, Register.R9L)]
 		[InlineData("41 D0 CA", 3, Code.Ror_rm8_1, Register.R10L)]
@@ -213,7 +213,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("41 D0 DC", 3, Code.Rcr_rm8_1, Register.R12L)]
 		[InlineData("41 D0 E5", 3, Code.Shl_rm8_1, Register.R13L)]
 		[InlineData("41 D0 EE", 3, Code.Shr_rm8_1, Register.R14L)]
-		[InlineData("41 D0 F7", 3, Code.Shl_rm8_1, Register.R15L)]
+		[InlineData("41 D0 F7", 3, Code.Sal_rm8_1, Register.R15L)]
 		[InlineData("40 D0 F8", 3, Code.Sar_rm8_1, Register.AL)]
 		void Test64_Grp2_Eb_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -222,10 +222,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -241,7 +241,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D1 18", 2, Code.Rcr_rm16_1, MemorySize.UInt16)]
 		[InlineData("D1 20", 2, Code.Shl_rm16_1, MemorySize.UInt16)]
 		[InlineData("D1 28", 2, Code.Shr_rm16_1, MemorySize.UInt16)]
-		[InlineData("D1 30", 2, Code.Shl_rm16_1, MemorySize.UInt16)]
+		[InlineData("D1 30", 2, Code.Sal_rm16_1, MemorySize.UInt16)]
 		[InlineData("D1 38", 2, Code.Sar_rm16_1, MemorySize.Int16)]
 		void Test16_Grp2_Ew_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -250,10 +250,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -275,7 +275,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D1 DC", 2, Code.Rcr_rm16_1, Register.SP)]
 		[InlineData("D1 E5", 2, Code.Shl_rm16_1, Register.BP)]
 		[InlineData("D1 EE", 2, Code.Shr_rm16_1, Register.SI)]
-		[InlineData("D1 F7", 2, Code.Shl_rm16_1, Register.DI)]
+		[InlineData("D1 F7", 2, Code.Sal_rm16_1, Register.DI)]
 		[InlineData("D1 F8", 2, Code.Sar_rm16_1, Register.AX)]
 		void Test16_Grp2_Ew_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -284,10 +284,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -303,7 +303,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D1 18", 3, Code.Rcr_rm16_1, MemorySize.UInt16)]
 		[InlineData("66 D1 20", 3, Code.Shl_rm16_1, MemorySize.UInt16)]
 		[InlineData("66 D1 28", 3, Code.Shr_rm16_1, MemorySize.UInt16)]
-		[InlineData("66 D1 30", 3, Code.Shl_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 30", 3, Code.Sal_rm16_1, MemorySize.UInt16)]
 		[InlineData("66 D1 38", 3, Code.Sar_rm16_1, MemorySize.Int16)]
 		void Test32_Grp2_Ew_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -312,10 +312,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -337,7 +337,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D1 DC", 3, Code.Rcr_rm16_1, Register.SP)]
 		[InlineData("66 D1 E5", 3, Code.Shl_rm16_1, Register.BP)]
 		[InlineData("66 D1 EE", 3, Code.Shr_rm16_1, Register.SI)]
-		[InlineData("66 D1 F7", 3, Code.Shl_rm16_1, Register.DI)]
+		[InlineData("66 D1 F7", 3, Code.Sal_rm16_1, Register.DI)]
 		[InlineData("66 D1 F8", 3, Code.Sar_rm16_1, Register.AX)]
 		void Test32_Grp2_Ew_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -346,10 +346,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -365,7 +365,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D1 18", 3, Code.Rcr_rm16_1, MemorySize.UInt16)]
 		[InlineData("66 D1 20", 3, Code.Shl_rm16_1, MemorySize.UInt16)]
 		[InlineData("66 D1 28", 3, Code.Shr_rm16_1, MemorySize.UInt16)]
-		[InlineData("66 D1 30", 3, Code.Shl_rm16_1, MemorySize.UInt16)]
+		[InlineData("66 D1 30", 3, Code.Sal_rm16_1, MemorySize.UInt16)]
 		[InlineData("66 D1 38", 3, Code.Sar_rm16_1, MemorySize.Int16)]
 		void Test64_Grp2_Ew_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -374,10 +374,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -399,7 +399,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D1 DC", 3, Code.Rcr_rm16_1, Register.SP)]
 		[InlineData("66 D1 E5", 3, Code.Shl_rm16_1, Register.BP)]
 		[InlineData("66 D1 EE", 3, Code.Shr_rm16_1, Register.SI)]
-		[InlineData("66 D1 F7", 3, Code.Shl_rm16_1, Register.DI)]
+		[InlineData("66 D1 F7", 3, Code.Sal_rm16_1, Register.DI)]
 		[InlineData("66 41 D1 F8", 4, Code.Sar_rm16_1, Register.R8W)]
 
 		[InlineData("66 41 D1 C1", 4, Code.Rol_rm16_1, Register.R9W)]
@@ -408,7 +408,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 41 D1 DC", 4, Code.Rcr_rm16_1, Register.R12W)]
 		[InlineData("66 41 D1 E5", 4, Code.Shl_rm16_1, Register.R13W)]
 		[InlineData("66 41 D1 EE", 4, Code.Shr_rm16_1, Register.R14W)]
-		[InlineData("66 41 D1 F7", 4, Code.Shl_rm16_1, Register.R15W)]
+		[InlineData("66 41 D1 F7", 4, Code.Sal_rm16_1, Register.R15W)]
 		[InlineData("66 D1 F8", 3, Code.Sar_rm16_1, Register.AX)]
 		void Test64_Grp2_Ew_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -417,10 +417,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -436,7 +436,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D1 18", 3, Code.Rcr_rm32_1, MemorySize.UInt32)]
 		[InlineData("66 D1 20", 3, Code.Shl_rm32_1, MemorySize.UInt32)]
 		[InlineData("66 D1 28", 3, Code.Shr_rm32_1, MemorySize.UInt32)]
-		[InlineData("66 D1 30", 3, Code.Shl_rm32_1, MemorySize.UInt32)]
+		[InlineData("66 D1 30", 3, Code.Sal_rm32_1, MemorySize.UInt32)]
 		[InlineData("66 D1 38", 3, Code.Sar_rm32_1, MemorySize.Int32)]
 		void Test16_Grp2_Ed_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -445,10 +445,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -470,7 +470,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D1 DC", 3, Code.Rcr_rm32_1, Register.ESP)]
 		[InlineData("66 D1 E5", 3, Code.Shl_rm32_1, Register.EBP)]
 		[InlineData("66 D1 EE", 3, Code.Shr_rm32_1, Register.ESI)]
-		[InlineData("66 D1 F7", 3, Code.Shl_rm32_1, Register.EDI)]
+		[InlineData("66 D1 F7", 3, Code.Sal_rm32_1, Register.EDI)]
 		[InlineData("66 D1 F8", 3, Code.Sar_rm32_1, Register.EAX)]
 		void Test16_Grp2_Ed_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -479,10 +479,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -498,7 +498,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D1 18", 2, Code.Rcr_rm32_1, MemorySize.UInt32)]
 		[InlineData("D1 20", 2, Code.Shl_rm32_1, MemorySize.UInt32)]
 		[InlineData("D1 28", 2, Code.Shr_rm32_1, MemorySize.UInt32)]
-		[InlineData("D1 30", 2, Code.Shl_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 30", 2, Code.Sal_rm32_1, MemorySize.UInt32)]
 		[InlineData("D1 38", 2, Code.Sar_rm32_1, MemorySize.Int32)]
 		void Test32_Grp2_Ed_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -507,10 +507,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -532,7 +532,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D1 DC", 2, Code.Rcr_rm32_1, Register.ESP)]
 		[InlineData("D1 E5", 2, Code.Shl_rm32_1, Register.EBP)]
 		[InlineData("D1 EE", 2, Code.Shr_rm32_1, Register.ESI)]
-		[InlineData("D1 F7", 2, Code.Shl_rm32_1, Register.EDI)]
+		[InlineData("D1 F7", 2, Code.Sal_rm32_1, Register.EDI)]
 		[InlineData("D1 F8", 2, Code.Sar_rm32_1, Register.EAX)]
 		void Test32_Grp2_Ed_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -541,10 +541,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -560,7 +560,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D1 18", 2, Code.Rcr_rm32_1, MemorySize.UInt32)]
 		[InlineData("D1 20", 2, Code.Shl_rm32_1, MemorySize.UInt32)]
 		[InlineData("D1 28", 2, Code.Shr_rm32_1, MemorySize.UInt32)]
-		[InlineData("D1 30", 2, Code.Shl_rm32_1, MemorySize.UInt32)]
+		[InlineData("D1 30", 2, Code.Sal_rm32_1, MemorySize.UInt32)]
 		[InlineData("D1 38", 2, Code.Sar_rm32_1, MemorySize.Int32)]
 		void Test64_Grp2_Ed_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -569,10 +569,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -594,7 +594,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D1 DC", 2, Code.Rcr_rm32_1, Register.ESP)]
 		[InlineData("D1 E5", 2, Code.Shl_rm32_1, Register.EBP)]
 		[InlineData("D1 EE", 2, Code.Shr_rm32_1, Register.ESI)]
-		[InlineData("D1 F7", 2, Code.Shl_rm32_1, Register.EDI)]
+		[InlineData("D1 F7", 2, Code.Sal_rm32_1, Register.EDI)]
 		[InlineData("41 D1 F8", 3, Code.Sar_rm32_1, Register.R8D)]
 
 		[InlineData("41 D1 C1", 3, Code.Rol_rm32_1, Register.R9D)]
@@ -603,7 +603,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("41 D1 DC", 3, Code.Rcr_rm32_1, Register.R12D)]
 		[InlineData("41 D1 E5", 3, Code.Shl_rm32_1, Register.R13D)]
 		[InlineData("41 D1 EE", 3, Code.Shr_rm32_1, Register.R14D)]
-		[InlineData("41 D1 F7", 3, Code.Shl_rm32_1, Register.R15D)]
+		[InlineData("41 D1 F7", 3, Code.Sal_rm32_1, Register.R15D)]
 		[InlineData("D1 F8", 2, Code.Sar_rm32_1, Register.EAX)]
 		void Test64_Grp2_Ed_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -612,10 +612,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -631,7 +631,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("48 D1 18", 3, Code.Rcr_rm64_1, MemorySize.UInt64)]
 		[InlineData("48 D1 20", 3, Code.Shl_rm64_1, MemorySize.UInt64)]
 		[InlineData("48 D1 28", 3, Code.Shr_rm64_1, MemorySize.UInt64)]
-		[InlineData("48 D1 30", 3, Code.Shl_rm64_1, MemorySize.UInt64)]
+		[InlineData("48 D1 30", 3, Code.Sal_rm64_1, MemorySize.UInt64)]
 		[InlineData("48 D1 38", 3, Code.Sar_rm64_1, MemorySize.Int64)]
 		void Test64_Grp2_Eq_1_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -640,10 +640,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -665,7 +665,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("48 D1 DC", 3, Code.Rcr_rm64_1, Register.RSP)]
 		[InlineData("48 D1 E5", 3, Code.Shl_rm64_1, Register.RBP)]
 		[InlineData("48 D1 EE", 3, Code.Shr_rm64_1, Register.RSI)]
-		[InlineData("48 D1 F7", 3, Code.Shl_rm64_1, Register.RDI)]
+		[InlineData("48 D1 F7", 3, Code.Sal_rm64_1, Register.RDI)]
 		[InlineData("49 D1 F8", 3, Code.Sar_rm64_1, Register.R8)]
 
 		[InlineData("49 D1 C1", 3, Code.Rol_rm64_1, Register.R9)]
@@ -674,7 +674,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("49 D1 DC", 3, Code.Rcr_rm64_1, Register.R12)]
 		[InlineData("49 D1 E5", 3, Code.Shl_rm64_1, Register.R13)]
 		[InlineData("49 D1 EE", 3, Code.Shr_rm64_1, Register.R14)]
-		[InlineData("49 D1 F7", 3, Code.Shl_rm64_1, Register.R15)]
+		[InlineData("49 D1 F7", 3, Code.Sal_rm64_1, Register.R15)]
 		[InlineData("48 D1 F8", 3, Code.Sar_rm64_1, Register.RAX)]
 		void Test64_Grp2_Eq_1_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -683,10 +683,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -702,7 +702,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D2 18", 2, Code.Rcr_rm8_CL, MemorySize.UInt8)]
 		[InlineData("D2 20", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
 		[InlineData("D2 28", 2, Code.Shr_rm8_CL, MemorySize.UInt8)]
-		[InlineData("D2 30", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 30", 2, Code.Sal_rm8_CL, MemorySize.UInt8)]
 		[InlineData("D2 38", 2, Code.Sar_rm8_CL, MemorySize.Int8)]
 		void Test16_Grp2_Eb_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -711,10 +711,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -736,7 +736,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D2 DC", 2, Code.Rcr_rm8_CL, Register.AH)]
 		[InlineData("D2 E5", 2, Code.Shl_rm8_CL, Register.CH)]
 		[InlineData("D2 EE", 2, Code.Shr_rm8_CL, Register.DH)]
-		[InlineData("D2 F7", 2, Code.Shl_rm8_CL, Register.BH)]
+		[InlineData("D2 F7", 2, Code.Sal_rm8_CL, Register.BH)]
 		[InlineData("D2 F8", 2, Code.Sar_rm8_CL, Register.AL)]
 		void Test16_Grp2_Eb_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -745,10 +745,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -764,7 +764,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D2 18", 2, Code.Rcr_rm8_CL, MemorySize.UInt8)]
 		[InlineData("D2 20", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
 		[InlineData("D2 28", 2, Code.Shr_rm8_CL, MemorySize.UInt8)]
-		[InlineData("D2 30", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 30", 2, Code.Sal_rm8_CL, MemorySize.UInt8)]
 		[InlineData("D2 38", 2, Code.Sar_rm8_CL, MemorySize.Int8)]
 		void Test32_Grp2_Eb_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -773,10 +773,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -798,7 +798,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D2 DC", 2, Code.Rcr_rm8_CL, Register.AH)]
 		[InlineData("D2 E5", 2, Code.Shl_rm8_CL, Register.CH)]
 		[InlineData("D2 EE", 2, Code.Shr_rm8_CL, Register.DH)]
-		[InlineData("D2 F7", 2, Code.Shl_rm8_CL, Register.BH)]
+		[InlineData("D2 F7", 2, Code.Sal_rm8_CL, Register.BH)]
 		[InlineData("D2 F8", 2, Code.Sar_rm8_CL, Register.AL)]
 		void Test32_Grp2_Eb_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -807,10 +807,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -826,7 +826,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D2 18", 2, Code.Rcr_rm8_CL, MemorySize.UInt8)]
 		[InlineData("D2 20", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
 		[InlineData("D2 28", 2, Code.Shr_rm8_CL, MemorySize.UInt8)]
-		[InlineData("D2 30", 2, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("D2 30", 2, Code.Sal_rm8_CL, MemorySize.UInt8)]
 		[InlineData("D2 38", 2, Code.Sar_rm8_CL, MemorySize.Int8)]
 
 		[InlineData("44 D2 00", 3, Code.Rol_rm8_CL, MemorySize.UInt8)]
@@ -835,7 +835,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("44 D2 18", 3, Code.Rcr_rm8_CL, MemorySize.UInt8)]
 		[InlineData("44 D2 20", 3, Code.Shl_rm8_CL, MemorySize.UInt8)]
 		[InlineData("44 D2 28", 3, Code.Shr_rm8_CL, MemorySize.UInt8)]
-		[InlineData("44 D2 30", 3, Code.Shl_rm8_CL, MemorySize.UInt8)]
+		[InlineData("44 D2 30", 3, Code.Sal_rm8_CL, MemorySize.UInt8)]
 		[InlineData("44 D2 38", 3, Code.Sar_rm8_CL, MemorySize.Int8)]
 		void Test64_Grp2_Eb_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -844,10 +844,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -869,7 +869,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D2 DC", 2, Code.Rcr_rm8_CL, Register.AH)]
 		[InlineData("D2 E5", 2, Code.Shl_rm8_CL, Register.CH)]
 		[InlineData("D2 EE", 2, Code.Shr_rm8_CL, Register.DH)]
-		[InlineData("D2 F7", 2, Code.Shl_rm8_CL, Register.BH)]
+		[InlineData("D2 F7", 2, Code.Sal_rm8_CL, Register.BH)]
 		[InlineData("D2 F8", 2, Code.Sar_rm8_CL, Register.AL)]
 
 		[InlineData("40 D2 C1", 3, Code.Rol_rm8_CL, Register.CL)]
@@ -878,7 +878,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("40 D2 DC", 3, Code.Rcr_rm8_CL, Register.SPL)]
 		[InlineData("40 D2 E5", 3, Code.Shl_rm8_CL, Register.BPL)]
 		[InlineData("40 D2 EE", 3, Code.Shr_rm8_CL, Register.SIL)]
-		[InlineData("40 D2 F7", 3, Code.Shl_rm8_CL, Register.DIL)]
+		[InlineData("40 D2 F7", 3, Code.Sal_rm8_CL, Register.DIL)]
 		[InlineData("41 D2 F8", 3, Code.Sar_rm8_CL, Register.R8L)]
 		[InlineData("41 D2 C1", 3, Code.Rol_rm8_CL, Register.R9L)]
 		[InlineData("41 D2 CA", 3, Code.Ror_rm8_CL, Register.R10L)]
@@ -886,7 +886,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("41 D2 DC", 3, Code.Rcr_rm8_CL, Register.R12L)]
 		[InlineData("41 D2 E5", 3, Code.Shl_rm8_CL, Register.R13L)]
 		[InlineData("41 D2 EE", 3, Code.Shr_rm8_CL, Register.R14L)]
-		[InlineData("41 D2 F7", 3, Code.Shl_rm8_CL, Register.R15L)]
+		[InlineData("41 D2 F7", 3, Code.Sal_rm8_CL, Register.R15L)]
 		[InlineData("40 D2 F8", 3, Code.Sar_rm8_CL, Register.AL)]
 		void Test64_Grp2_Eb_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -895,10 +895,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -914,7 +914,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D3 18", 2, Code.Rcr_rm16_CL, MemorySize.UInt16)]
 		[InlineData("D3 20", 2, Code.Shl_rm16_CL, MemorySize.UInt16)]
 		[InlineData("D3 28", 2, Code.Shr_rm16_CL, MemorySize.UInt16)]
-		[InlineData("D3 30", 2, Code.Shl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("D3 30", 2, Code.Sal_rm16_CL, MemorySize.UInt16)]
 		[InlineData("D3 38", 2, Code.Sar_rm16_CL, MemorySize.Int16)]
 		void Test16_Grp2_Ew_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -923,10 +923,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -948,7 +948,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D3 DC", 2, Code.Rcr_rm16_CL, Register.SP)]
 		[InlineData("D3 E5", 2, Code.Shl_rm16_CL, Register.BP)]
 		[InlineData("D3 EE", 2, Code.Shr_rm16_CL, Register.SI)]
-		[InlineData("D3 F7", 2, Code.Shl_rm16_CL, Register.DI)]
+		[InlineData("D3 F7", 2, Code.Sal_rm16_CL, Register.DI)]
 		[InlineData("D3 F8", 2, Code.Sar_rm16_CL, Register.AX)]
 		void Test16_Grp2_Ew_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -957,10 +957,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -976,7 +976,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D3 18", 3, Code.Rcr_rm16_CL, MemorySize.UInt16)]
 		[InlineData("66 D3 20", 3, Code.Shl_rm16_CL, MemorySize.UInt16)]
 		[InlineData("66 D3 28", 3, Code.Shr_rm16_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 30", 3, Code.Shl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 30", 3, Code.Sal_rm16_CL, MemorySize.UInt16)]
 		[InlineData("66 D3 38", 3, Code.Sar_rm16_CL, MemorySize.Int16)]
 		void Test32_Grp2_Ew_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -985,10 +985,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -1010,7 +1010,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D3 DC", 3, Code.Rcr_rm16_CL, Register.SP)]
 		[InlineData("66 D3 E5", 3, Code.Shl_rm16_CL, Register.BP)]
 		[InlineData("66 D3 EE", 3, Code.Shr_rm16_CL, Register.SI)]
-		[InlineData("66 D3 F7", 3, Code.Shl_rm16_CL, Register.DI)]
+		[InlineData("66 D3 F7", 3, Code.Sal_rm16_CL, Register.DI)]
 		[InlineData("66 D3 F8", 3, Code.Sar_rm16_CL, Register.AX)]
 		void Test32_Grp2_Ew_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -1019,10 +1019,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -1038,7 +1038,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D3 18", 3, Code.Rcr_rm16_CL, MemorySize.UInt16)]
 		[InlineData("66 D3 20", 3, Code.Shl_rm16_CL, MemorySize.UInt16)]
 		[InlineData("66 D3 28", 3, Code.Shr_rm16_CL, MemorySize.UInt16)]
-		[InlineData("66 D3 30", 3, Code.Shl_rm16_CL, MemorySize.UInt16)]
+		[InlineData("66 D3 30", 3, Code.Sal_rm16_CL, MemorySize.UInt16)]
 		[InlineData("66 D3 38", 3, Code.Sar_rm16_CL, MemorySize.Int16)]
 		void Test64_Grp2_Ew_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -1047,10 +1047,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -1072,7 +1072,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D3 DC", 3, Code.Rcr_rm16_CL, Register.SP)]
 		[InlineData("66 D3 E5", 3, Code.Shl_rm16_CL, Register.BP)]
 		[InlineData("66 D3 EE", 3, Code.Shr_rm16_CL, Register.SI)]
-		[InlineData("66 D3 F7", 3, Code.Shl_rm16_CL, Register.DI)]
+		[InlineData("66 D3 F7", 3, Code.Sal_rm16_CL, Register.DI)]
 		[InlineData("66 41 D3 F8", 4, Code.Sar_rm16_CL, Register.R8W)]
 
 		[InlineData("66 41 D3 C1", 4, Code.Rol_rm16_CL, Register.R9W)]
@@ -1081,7 +1081,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 41 D3 DC", 4, Code.Rcr_rm16_CL, Register.R12W)]
 		[InlineData("66 41 D3 E5", 4, Code.Shl_rm16_CL, Register.R13W)]
 		[InlineData("66 41 D3 EE", 4, Code.Shr_rm16_CL, Register.R14W)]
-		[InlineData("66 41 D3 F7", 4, Code.Shl_rm16_CL, Register.R15W)]
+		[InlineData("66 41 D3 F7", 4, Code.Sal_rm16_CL, Register.R15W)]
 		[InlineData("66 D3 F8", 3, Code.Sar_rm16_CL, Register.AX)]
 		void Test64_Grp2_Ew_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -1090,10 +1090,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -1109,7 +1109,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D3 18", 3, Code.Rcr_rm32_CL, MemorySize.UInt32)]
 		[InlineData("66 D3 20", 3, Code.Shl_rm32_CL, MemorySize.UInt32)]
 		[InlineData("66 D3 28", 3, Code.Shr_rm32_CL, MemorySize.UInt32)]
-		[InlineData("66 D3 30", 3, Code.Shl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("66 D3 30", 3, Code.Sal_rm32_CL, MemorySize.UInt32)]
 		[InlineData("66 D3 38", 3, Code.Sar_rm32_CL, MemorySize.Int32)]
 		void Test16_Grp2_Ed_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -1118,10 +1118,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -1143,7 +1143,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 D3 DC", 3, Code.Rcr_rm32_CL, Register.ESP)]
 		[InlineData("66 D3 E5", 3, Code.Shl_rm32_CL, Register.EBP)]
 		[InlineData("66 D3 EE", 3, Code.Shr_rm32_CL, Register.ESI)]
-		[InlineData("66 D3 F7", 3, Code.Shl_rm32_CL, Register.EDI)]
+		[InlineData("66 D3 F7", 3, Code.Sal_rm32_CL, Register.EDI)]
 		[InlineData("66 D3 F8", 3, Code.Sar_rm32_CL, Register.EAX)]
 		void Test16_Grp2_Ed_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder16(hexBytes);
@@ -1152,10 +1152,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -1171,7 +1171,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D3 18", 2, Code.Rcr_rm32_CL, MemorySize.UInt32)]
 		[InlineData("D3 20", 2, Code.Shl_rm32_CL, MemorySize.UInt32)]
 		[InlineData("D3 28", 2, Code.Shr_rm32_CL, MemorySize.UInt32)]
-		[InlineData("D3 30", 2, Code.Shl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 30", 2, Code.Sal_rm32_CL, MemorySize.UInt32)]
 		[InlineData("D3 38", 2, Code.Sar_rm32_CL, MemorySize.Int32)]
 		void Test32_Grp2_Ed_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -1180,10 +1180,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -1205,7 +1205,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D3 DC", 2, Code.Rcr_rm32_CL, Register.ESP)]
 		[InlineData("D3 E5", 2, Code.Shl_rm32_CL, Register.EBP)]
 		[InlineData("D3 EE", 2, Code.Shr_rm32_CL, Register.ESI)]
-		[InlineData("D3 F7", 2, Code.Shl_rm32_CL, Register.EDI)]
+		[InlineData("D3 F7", 2, Code.Sal_rm32_CL, Register.EDI)]
 		[InlineData("D3 F8", 2, Code.Sar_rm32_CL, Register.EAX)]
 		void Test32_Grp2_Ed_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder32(hexBytes);
@@ -1214,10 +1214,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -1233,7 +1233,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D3 18", 2, Code.Rcr_rm32_CL, MemorySize.UInt32)]
 		[InlineData("D3 20", 2, Code.Shl_rm32_CL, MemorySize.UInt32)]
 		[InlineData("D3 28", 2, Code.Shr_rm32_CL, MemorySize.UInt32)]
-		[InlineData("D3 30", 2, Code.Shl_rm32_CL, MemorySize.UInt32)]
+		[InlineData("D3 30", 2, Code.Sal_rm32_CL, MemorySize.UInt32)]
 		[InlineData("D3 38", 2, Code.Sar_rm32_CL, MemorySize.Int32)]
 		void Test64_Grp2_Ed_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -1242,10 +1242,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -1267,7 +1267,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("D3 DC", 2, Code.Rcr_rm32_CL, Register.ESP)]
 		[InlineData("D3 E5", 2, Code.Shl_rm32_CL, Register.EBP)]
 		[InlineData("D3 EE", 2, Code.Shr_rm32_CL, Register.ESI)]
-		[InlineData("D3 F7", 2, Code.Shl_rm32_CL, Register.EDI)]
+		[InlineData("D3 F7", 2, Code.Sal_rm32_CL, Register.EDI)]
 		[InlineData("41 D3 F8", 3, Code.Sar_rm32_CL, Register.R8D)]
 
 		[InlineData("41 D3 C1", 3, Code.Rol_rm32_CL, Register.R9D)]
@@ -1276,7 +1276,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("41 D3 DC", 3, Code.Rcr_rm32_CL, Register.R12D)]
 		[InlineData("41 D3 E5", 3, Code.Shl_rm32_CL, Register.R13D)]
 		[InlineData("41 D3 EE", 3, Code.Shr_rm32_CL, Register.R14D)]
-		[InlineData("41 D3 F7", 3, Code.Shl_rm32_CL, Register.R15D)]
+		[InlineData("41 D3 F7", 3, Code.Sal_rm32_CL, Register.R15D)]
 		[InlineData("D3 F8", 2, Code.Sar_rm32_CL, Register.EAX)]
 		void Test64_Grp2_Ed_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -1285,10 +1285,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -1304,7 +1304,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("48 D3 18", 3, Code.Rcr_rm64_CL, MemorySize.UInt64)]
 		[InlineData("48 D3 20", 3, Code.Shl_rm64_CL, MemorySize.UInt64)]
 		[InlineData("48 D3 28", 3, Code.Shr_rm64_CL, MemorySize.UInt64)]
-		[InlineData("48 D3 30", 3, Code.Shl_rm64_CL, MemorySize.UInt64)]
+		[InlineData("48 D3 30", 3, Code.Sal_rm64_CL, MemorySize.UInt64)]
 		[InlineData("48 D3 38", 3, Code.Sar_rm64_CL, MemorySize.Int64)]
 		void Test64_Grp2_Eq_CL_1(string hexBytes, int byteLength, Code code, MemorySize memSize) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -1313,10 +1313,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -1338,7 +1338,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("48 D3 DC", 3, Code.Rcr_rm64_CL, Register.RSP)]
 		[InlineData("48 D3 E5", 3, Code.Shl_rm64_CL, Register.RBP)]
 		[InlineData("48 D3 EE", 3, Code.Shr_rm64_CL, Register.RSI)]
-		[InlineData("48 D3 F7", 3, Code.Shl_rm64_CL, Register.RDI)]
+		[InlineData("48 D3 F7", 3, Code.Sal_rm64_CL, Register.RDI)]
 		[InlineData("49 D3 F8", 3, Code.Sar_rm64_CL, Register.R8)]
 
 		[InlineData("49 D3 C1", 3, Code.Rol_rm64_CL, Register.R9)]
@@ -1347,7 +1347,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("49 D3 DC", 3, Code.Rcr_rm64_CL, Register.R12)]
 		[InlineData("49 D3 E5", 3, Code.Shl_rm64_CL, Register.R13)]
 		[InlineData("49 D3 EE", 3, Code.Shr_rm64_CL, Register.R14)]
-		[InlineData("49 D3 F7", 3, Code.Shl_rm64_CL, Register.R15)]
+		[InlineData("49 D3 F7", 3, Code.Sal_rm64_CL, Register.R15)]
 		[InlineData("48 D3 F8", 3, Code.Sar_rm64_CL, Register.RAX)]
 		void Test64_Grp2_Eq_CL_2(string hexBytes, int byteLength, Code code, Register reg) {
 			var decoder = CreateDecoder64(hexBytes);
@@ -1356,10 +1356,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg, instr.Op0Register);
@@ -1379,10 +1379,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Aam_imm8, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Immediate8, instr.Op0Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
@@ -1399,10 +1399,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Aam_imm8, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Immediate8, instr.Op0Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
@@ -1419,10 +1419,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Aad_imm8, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Immediate8, instr.Op0Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
@@ -1439,10 +1439,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Aad_imm8, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Immediate8, instr.Op0Kind);
 			Assert.Equal(immediate8, instr.Immediate8);
@@ -1458,10 +1458,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Salc, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 
 		[Theory]
@@ -1474,10 +1474,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Salc, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 
 		[Theory]
@@ -1505,10 +1505,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Xlatb, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(segPrefix, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(segPrefix, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(seg, instr.MemorySegment);
@@ -1545,10 +1545,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Xlatb, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(segPrefix, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(segPrefix, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(seg, instr.MemorySegment);
@@ -1585,10 +1585,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Xlatb, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(segPrefix, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(segPrefix, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(seg, instr.MemorySegment);

@@ -26,9 +26,9 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.EncoderTests {
 	public abstract class EncoderTest {
-		protected void EncodeBase(int codeSize, Code code, string hexBytes) {
+		protected void EncodeBase(int codeSize, Code code, string hexBytes, DecoderOptions options) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
-			var decoder = CreateDecoder(codeSize, origBytes);
+			var decoder = CreateDecoder(codeSize, origBytes, options);
 			var origRip = decoder.InstructionPointer;
 			var origInstr = decoder.Decode();
 			var origConstantOffsets = decoder.GetConstantOffsets(ref origInstr);
@@ -64,7 +64,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			// The instruction is decoded again and then it's compared against the old one to
 			// make sure it matches exactly, bit by bit.
 
-			var newInstr = CreateDecoder(codeSize, encodedBytes).Decode();
+			var newInstr = CreateDecoder(codeSize, encodedBytes, options).Decode();
 			Assert.Equal(code, newInstr.Code);
 			Assert.Equal(encodedBytes.Length, newInstr.ByteLength);
 			newInstr.ByteLength = origInstr.ByteLength;
@@ -88,9 +88,27 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			a.DisplacementSize == b.DisplacementSize &&
 			a.ImmediateSize == b.ImmediateSize;
 
-		protected void EncodeInvalidBase(int codeSize, Code code, string hexBytes, int invalidCodeSize) {
+		protected void NonDecodeEncodeBase(int codeSize, ref Instruction instr, string hexBytes, ulong rip) {
+			var expectedBytes = HexUtils.ToByteArray(hexBytes);
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create(codeSize, writer);
+			Assert.Equal(codeSize, encoder.Bitness);
+			var origInstrCopy = instr;
+			bool result = encoder.TryEncode(ref instr, rip, out uint encodedInstrLen, out string errorMessage);
+			Assert.True(errorMessage == null, "Unexpected ErrorMessage: " + errorMessage);
+			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
+			var encodedBytes = writer.ToArray();
+			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);
+			Assert.True(Instruction.TEST_BitByBitEquals(ref instr, ref origInstrCopy), "Instruction are differing: " + Instruction.TEST_DumpDiff(ref instr, ref origInstrCopy));
+#pragma warning disable xUnit2006 // Do not use invalid string equality check
+			// Show the full string without ellipses by using Equal<string>() instead of Equal()
+			Assert.Equal<string>(HexUtils.ToString(expectedBytes), HexUtils.ToString(encodedBytes));
+#pragma warning restore xUnit2006 // Do not use invalid string equality check
+		}
+
+		protected void EncodeInvalidBase(int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidCodeSize) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
-			var decoder = CreateDecoder(codeSize, origBytes);
+			var decoder = CreateDecoder(codeSize, origBytes, options);
 			var origRip = decoder.InstructionPointer;
 			var origInstr = decoder.Decode();
 			Assert.Equal(code, origInstr.Code);
@@ -119,22 +137,22 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			return encoder;
 		}
 
-		Decoder CreateDecoder(int codeSize, byte[] hexBytes) {
+		Decoder CreateDecoder(int codeSize, byte[] hexBytes, DecoderOptions options) {
 			Decoder decoder;
 			var codeReader = new ByteArrayCodeReader(hexBytes);
 			switch (codeSize) {
 			case 16:
-				decoder = Decoder.Create16(codeReader);
+				decoder = Decoder.Create16(codeReader, options);
 				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP16;
 				break;
 
 			case 32:
-				decoder = Decoder.Create32(codeReader);
+				decoder = Decoder.Create32(codeReader, options);
 				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP32;
 				break;
 
 			case 64:
-				decoder = Decoder.Create64(codeReader);
+				decoder = Decoder.Create64(codeReader, options);
 				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64;
 				break;
 
@@ -150,7 +168,16 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			foreach (var info in DecoderTestUtils.GetDecoderTests(needHexBytes: true, includeOtherTests: true)) {
 				if (codeSize != info.Bitness)
 					continue;
-				yield return new object[] { info.Bitness, info.Code, info.HexBytes };
+				yield return new object[] { info.Bitness, info.Code, info.HexBytes, info.Options };
+			}
+		}
+
+		protected static IEnumerable<object[]> GetNonDecodedEncodeData(int codeSize) {
+			foreach (var info in NonDecodedInstructions.GetTests()) {
+				if (codeSize != info.bitness)
+					continue;
+				ulong rip = 0;
+				yield return new object[] { info.bitness, info.instruction, info.hexBytes, rip };
 			}
 		}
 	}

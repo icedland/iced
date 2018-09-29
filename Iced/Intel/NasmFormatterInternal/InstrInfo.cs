@@ -992,7 +992,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			var mnemonic = mnemonics[(int)instr.CodeSize];
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
@@ -1194,7 +1194,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				}
 				flags |= (InstrOpInfoFlags)((int)branchInfo << (int)InstrOpInfoFlags.BranchSizeInfoShift);
 			}
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
 		}
@@ -1264,7 +1264,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			var branchInfo = BranchSizeInfo.None;
@@ -1516,7 +1516,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = this.flags;
-			if (instr.HasPrefixRepne)
+			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
 		}

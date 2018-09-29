@@ -557,6 +557,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"bnd call rax",
 			"bnd ret 0",
 			"bnd ret",
+			"notrack call qword ptr ds:[rax]",
+			"notrack call qword ptr ds:[rbp+0x11]",
+			"notrack call rcx",
+			"notrack jmp qword ptr ds:[rax]",
+			"notrack jmp qword ptr ds:[rbp+0x11]",
+			"notrack jmp rcx",
+			"notrack bnd call rcx",
+			"call qword ptr fs:[rax]",
+			"call qword ptr fs:[rax]",
+			"notrack bnd jmp rcx",
+			"jmp qword ptr fs:[rax]",
+			"jmp qword ptr fs:[rax]",
 		};
 	}
 }

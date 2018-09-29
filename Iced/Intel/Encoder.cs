@@ -132,11 +132,11 @@ namespace Iced.Intel {
 
 		readonly CodeWriter writer;
 		readonly int defaultCodeSize;
-		readonly EncoderOpCodeHandler[] handlers;
+		readonly OpCodeHandler[] handlers;
 
 		ulong currentRip;
 		string errorMessage;
-		EncoderOpCodeHandler handler;
+		OpCodeHandler handler;
 		uint eip;
 		uint displAddr;
 		uint immAddr;
@@ -312,6 +312,9 @@ namespace Iced.Intel {
 				ErrorMessage = $"Expected {ops.Length} operand(s) but the instruction has {instruction.OpCount} operand(s)";
 			for (int i = 0; i < ops.Length; i++)
 				ops[i].Encode(this, ref instruction, i);
+
+			if ((handler.Flags & OpCodeHandlerFlags.Fwait) != 0)
+				WriteByte(0x9B);
 
 			WritePrefixes(ref instruction);
 
@@ -518,6 +521,29 @@ namespace Iced.Intel {
 					throw new InvalidOperationException();
 				}
 			}
+		}
+
+		internal void AddBranchDisp(int displSize, ref Instruction instr, int operand) {
+			Debug.Assert(displSize == 2 || displSize == 4);
+			OpKind opKind;
+			switch (displSize) {
+			case 2:
+				opKind = OpKind.NearBranch16;
+				ImmSize = ImmSize.Size2;
+				Immediate = instr.NearBranch16;
+				break;
+
+			case 4:
+				opKind = OpKind.NearBranch32;
+				ImmSize = ImmSize.Size4;
+				Immediate = instr.NearBranch32;
+				break;
+
+			default:
+				throw new InvalidOperationException();
+			}
+			if (!Verify(operand, opKind, instr.GetOpKind(operand)))
+				return;
 		}
 
 		internal void AddFarBranch(ref Instruction instr, int operand, int size) {
@@ -952,20 +978,20 @@ namespace Iced.Intel {
 
 		static readonly byte[] segmentOverrides = new byte[6] { 0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65 };
 		void WritePrefixes(ref Instruction instr) {
-			var seg = instr.PrefixSegment;
+			var seg = instr.SegmentPrefix;
 			if (seg != Register.None) {
 				Debug.Assert((uint)(seg - Register.ES) < (uint)segmentOverrides.Length);
 				WriteByte(segmentOverrides[seg - Register.ES]);
 			}
-			if (instr.HasPrefixLock)
+			if (instr.HasLockPrefix)
 				WriteByte(0xF0);
 			if ((EncoderFlags & EncoderFlags.P66) != 0)
 				WriteByte(0x66);
 			if ((EncoderFlags & EncoderFlags.P67) != 0)
 				WriteByte(0x67);
-			if (instr.Internal_HasPrefixRepe_HasPrefixXrelease)
+			if (instr.Internal_HasRepePrefix_HasXreleasePrefix)
 				WriteByte(0xF3);
-			if (instr.Internal_HasPrefixRepne_HasPrefixXacquire)
+			if (instr.Internal_HasRepnePrefix_HasXacquirePrefix)
 				WriteByte(0xF2);
 		}
 

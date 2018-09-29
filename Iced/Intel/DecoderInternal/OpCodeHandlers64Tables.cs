@@ -80,7 +80,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Eb_Ib(Code.Rcr_rm8_imm8),
 				new OpCodeHandler_Eb_Ib(Code.Shl_rm8_imm8),
 				new OpCodeHandler_Eb_Ib(Code.Shr_rm8_imm8),
-				new OpCodeHandler_Eb_Ib(Code.Shl_rm8_imm8),
+				new OpCodeHandler_Eb_Ib(Code.Sal_rm8_imm8),
 				new OpCodeHandler_Eb_Ib(Code.Sar_rm8_imm8),
 			};
 
@@ -91,7 +91,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Ev_Ib2(Code.Rcr_rm16_imm8, Code.Rcr_rm32_imm8, Code.Rcr_rm64_imm8),
 				new OpCodeHandler_Ev_Ib2(Code.Shl_rm16_imm8, Code.Shl_rm32_imm8, Code.Shl_rm64_imm8),
 				new OpCodeHandler_Ev_Ib2(Code.Shr_rm16_imm8, Code.Shr_rm32_imm8, Code.Shr_rm64_imm8),
-				new OpCodeHandler_Ev_Ib2(Code.Shl_rm16_imm8, Code.Shl_rm32_imm8, Code.Shl_rm64_imm8),
+				new OpCodeHandler_Ev_Ib2(Code.Sal_rm16_imm8, Code.Sal_rm32_imm8, Code.Sal_rm64_imm8),
 				new OpCodeHandler_Ev_Ib2(Code.Sar_rm16_imm8, Code.Sar_rm32_imm8, Code.Sar_rm64_imm8),
 			};
 
@@ -102,7 +102,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Eb_1(Code.Rcr_rm8_1),
 				new OpCodeHandler_Eb_1(Code.Shl_rm8_1),
 				new OpCodeHandler_Eb_1(Code.Shr_rm8_1),
-				new OpCodeHandler_Eb_1(Code.Shl_rm8_1),
+				new OpCodeHandler_Eb_1(Code.Sal_rm8_1),
 				new OpCodeHandler_Eb_1(Code.Sar_rm8_1),
 			};
 
@@ -113,7 +113,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Ev_1(Code.Rcr_rm16_1, Code.Rcr_rm32_1, Code.Rcr_rm64_1),
 				new OpCodeHandler_Ev_1(Code.Shl_rm16_1, Code.Shl_rm32_1, Code.Shl_rm64_1),
 				new OpCodeHandler_Ev_1(Code.Shr_rm16_1, Code.Shr_rm32_1, Code.Shr_rm64_1),
-				new OpCodeHandler_Ev_1(Code.Shl_rm16_1, Code.Shl_rm32_1, Code.Shl_rm64_1),
+				new OpCodeHandler_Ev_1(Code.Sal_rm16_1, Code.Sal_rm32_1, Code.Sal_rm64_1),
 				new OpCodeHandler_Ev_1(Code.Sar_rm16_1, Code.Sar_rm32_1, Code.Sar_rm64_1),
 			};
 
@@ -124,7 +124,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Eb_CL(Code.Rcr_rm8_CL),
 				new OpCodeHandler_Eb_CL(Code.Shl_rm8_CL),
 				new OpCodeHandler_Eb_CL(Code.Shr_rm8_CL),
-				new OpCodeHandler_Eb_CL(Code.Shl_rm8_CL),
+				new OpCodeHandler_Eb_CL(Code.Sal_rm8_CL),
 				new OpCodeHandler_Eb_CL(Code.Sar_rm8_CL),
 			};
 
@@ -135,13 +135,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Ev_CL(Code.Rcr_rm16_CL, Code.Rcr_rm32_CL, Code.Rcr_rm64_CL),
 				new OpCodeHandler_Ev_CL(Code.Shl_rm16_CL, Code.Shl_rm32_CL, Code.Shl_rm64_CL),
 				new OpCodeHandler_Ev_CL(Code.Shr_rm16_CL, Code.Shr_rm32_CL, Code.Shr_rm64_CL),
-				new OpCodeHandler_Ev_CL(Code.Shl_rm16_CL, Code.Shl_rm32_CL, Code.Shl_rm64_CL),
+				new OpCodeHandler_Ev_CL(Code.Sal_rm16_CL, Code.Sal_rm32_CL, Code.Sal_rm64_CL),
 				new OpCodeHandler_Ev_CL(Code.Sar_rm16_CL, Code.Sar_rm32_CL, Code.Sar_rm64_CL),
 			};
 
 			var handlers_Grp_F6 = new OpCodeHandler[8] {
 				new OpCodeHandler_Eb_Ib(Code.Test_rm8_imm8),
-				new OpCodeHandler_Eb_Ib(Code.Test_rm8_imm8),
+				new OpCodeHandler_Eb_Ib(Code.Test_rm8_imm8_F6r1),
 				new OpCodeHandler_Eb(Code.Not_rm8, HandlerFlags.XacquireRelease),
 				new OpCodeHandler_Eb(Code.Neg_rm8, HandlerFlags.XacquireRelease),
 				new OpCodeHandler_Eb(Code.Mul_rm8),
@@ -152,7 +152,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 			var handlers_Grp_F7 = new OpCodeHandler[8] {
 				new OpCodeHandler_Ev_Iz(Code.Test_rm16_imm16, Code.Test_rm32_imm32, Code.Test_rm64_imm32),
-				new OpCodeHandler_Ev_Iz(Code.Test_rm16_imm16, Code.Test_rm32_imm32, Code.Test_rm64_imm32),
+				new OpCodeHandler_Ev_Iz(Code.Test_rm16_imm16_F7r1, Code.Test_rm32_imm32_F7r1, Code.Test_rm64_imm32_F7r1),
 				new OpCodeHandler_Ev(Code.Not_rm16, Code.Not_rm32, Code.Not_rm64, HandlerFlags.XacquireRelease),
 				new OpCodeHandler_Ev(Code.Neg_rm16, Code.Neg_rm32, Code.Neg_rm64, HandlerFlags.XacquireRelease),
 				new OpCodeHandler_Ev(Code.Mul_rm16, Code.Mul_rm32, Code.Mul_rm64),
@@ -175,9 +175,9 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			var handlers_Grp_FF = new OpCodeHandler[8] {
 				new OpCodeHandler_Ev(Code.Inc_rm16, Code.Inc_rm32, Code.Inc_rm64, HandlerFlags.XacquireRelease),
 				new OpCodeHandler_Ev(Code.Dec_rm16, Code.Dec_rm32, Code.Dec_rm64, HandlerFlags.XacquireRelease),
-				new OpCodeHandler_Evj(Code.Call_rm64),
+				new OpCodeHandler_Evj(Code.Call_rm16, Code.Call_rm64),
 				new OpCodeHandler_Ep(Code.Call_m1616, Code.Call_m3216, Code.Call_m6416),
-				new OpCodeHandler_Evj(Code.Jmp_rm64),
+				new OpCodeHandler_Evj(Code.Jmp_rm16, Code.Jmp_rm64),
 				new OpCodeHandler_Ep(Code.Jmp_m1616, Code.Jmp_m3216, Code.Jmp_m6416),
 				new OpCodeHandler_PushEv(Code.Push_rm16, Code.Push_rm64),
 				invalid,
@@ -200,7 +200,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Ms(Code.Lgdt_m40, Code.Lgdt_m48, Code.Lgdt_m80),
 				new OpCodeHandler_Ms(Code.Lidt_m40, Code.Lidt_m48, Code.Lidt_m80),
 				new OpCodeHandler_Evw(Code.Smsw_rm16, Code.Smsw_r32m16, Code.Smsw_r64m16),
-				invalid,
+				new OpCodeHandler_MandatoryPrefix(
+					invalid,
+					invalid,
+					new OpCodeHandler_M(Code.Rstorssp_m64),
+					invalid
+				),
 				new OpCodeHandler_Evw(Code.Lmsw_rm16, Code.Lmsw_r32m16, Code.Lmsw_r64m16),
 				new OpCodeHandler_M(Code.Invlpg_m),
 			};
@@ -212,7 +217,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Simple(Code.Vmlaunch),
 				new OpCodeHandler_Simple(Code.Vmresume),
 				new OpCodeHandler_Simple(Code.Vmxoff),
-				null,
+				new OpCodeHandler_Simple(Code.Pconfig),
 				null,
 				null,
 
@@ -257,9 +262,19 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				null,
 
 				// E8
+				new OpCodeHandler_MandatoryPrefix(
+					invalid,
+					invalid,
+					new OpCodeHandler_Simple_ModRM(Code.Setssbsy),
+					invalid
+				),
 				null,
-				null,
-				null,
+				new OpCodeHandler_MandatoryPrefix(
+					invalid,
+					invalid,
+					new OpCodeHandler_Simple_ModRM(Code.Saveprevssp),
+					invalid
+				),
 				null,
 				null,
 				null,
@@ -285,17 +300,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				null,
 				null,
 				null,
-			};
-
-			var handlers_Grp_0F1F = new OpCodeHandler[8] {
-				new OpCodeHandler_Ev(Code.Nop_rm16, Code.Nop_rm32, Code.Nop_rm64),
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-				invalid,
 			};
 
 			var handlers_Grp_0FBA = new OpCodeHandler[8] {
@@ -664,7 +668,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_MandatoryPrefix(
 					new OpCodeHandler_M(Code.Xsaveopt_m, Code.Xsaveopt64_m),
 					new OpCodeHandler_M(Code.Clwb_m8),
-					invalid,
+					new OpCodeHandler_M(Code.Clrssbsy_m64),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
@@ -727,48 +731,170 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				null,
 
 				// E8
-				new OpCodeHandler_Simple(Code.Lfence),
-				new OpCodeHandler_Simple(Code.Lfence),
-				new OpCodeHandler_Simple(Code.Lfence),
-				new OpCodeHandler_Simple(Code.Lfence),
-				new OpCodeHandler_Simple(Code.Lfence),
-				new OpCodeHandler_Simple(Code.Lfence),
-				new OpCodeHandler_Simple(Code.Lfence),
-				new OpCodeHandler_Simple(Code.Lfence),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Lfence),
+					invalid,
+					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Lfence_E9),
+					invalid,
+					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Lfence_EA),
+					invalid,
+					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Lfence_EB),
+					invalid,
+					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Lfence_EC),
+					invalid,
+					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Lfence_ED),
+					invalid,
+					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Lfence_EE),
+					invalid,
+					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Lfence_EF),
+					invalid,
+					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
+					invalid
+				),
 
 				// F0
-				new OpCodeHandler_Simple(Code.Mfence),
-				new OpCodeHandler_Simple(Code.Mfence),
-				new OpCodeHandler_Simple(Code.Mfence),
-				new OpCodeHandler_Simple(Code.Mfence),
-				new OpCodeHandler_Simple(Code.Mfence),
-				new OpCodeHandler_Simple(Code.Mfence),
-				new OpCodeHandler_Simple(Code.Mfence),
-				new OpCodeHandler_Simple(Code.Mfence),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Mfence),
+					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
+					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
+					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Mfence_F1),
+					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
+					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
+					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Mfence_F2),
+					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
+					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
+					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Mfence_F3),
+					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
+					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
+					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Mfence_F4),
+					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
+					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
+					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Mfence_F5),
+					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
+					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
+					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Mfence_F6),
+					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
+					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
+					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Mfence_F7),
+					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
+					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
+					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
+				),
 
 				// F8
-				new OpCodeHandler_Simple(Code.Sfence),
-				new OpCodeHandler_Simple(Code.Sfence),
-				new OpCodeHandler_Simple(Code.Sfence),
-				new OpCodeHandler_Simple(Code.Sfence),
-				new OpCodeHandler_Simple(Code.Sfence),
-				new OpCodeHandler_Simple(Code.Sfence),
-				new OpCodeHandler_Simple(Code.Sfence),
-				new OpCodeHandler_Simple(Code.Sfence),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Sfence),
+					new OpCodeHandler_Options_DontReadModRM(
+						invalid,
+						new OpCodeHandler_Simple_ModRM(Code.Pcommit), DecoderOptions.Pcommit
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Sfence_F9),
+					invalid,
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Sfence_FA),
+					invalid,
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Sfence_FB),
+					invalid,
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Sfence_FC),
+					invalid,
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Sfence_FD),
+					invalid,
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Sfence_FE),
+					invalid,
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_Simple_ModRM(Code.Sfence_FF),
+					invalid,
+					invalid,
+					invalid
+				),
 			};
 
-			var handlers_Grp_0F18 = new OpCodeHandler[8] {
-				new OpCodeHandler_M(Code.Prefetchnta_m8),
-				new OpCodeHandler_M(Code.Prefetcht0_m8),
-				new OpCodeHandler_M(Code.Prefetcht1_m8),
-				new OpCodeHandler_M(Code.Prefetcht2_m8),
-				invalid,
-				invalid,
-				invalid,
-				invalid,
-			};
+			var reservedNop_0F0D = new OpCodeHandler_Ev_Gv(Code.ReservedNop_rm16_r16_0F0D, Code.ReservedNop_rm32_r32_0F0D, Code.ReservedNop_rm64_r64_0F0D);
+			var reservedNop_0F18 = new OpCodeHandler_Ev_Gv(Code.ReservedNop_rm16_r16_0F18, Code.ReservedNop_rm32_r32_0F18, Code.ReservedNop_rm64_r64_0F18);
+			var reservedNop_0F19 = new OpCodeHandler_Ev_Gv(Code.ReservedNop_rm16_r16_0F19, Code.ReservedNop_rm32_r32_0F19, Code.ReservedNop_rm64_r64_0F19);
+			var reservedNop_0F1A = new OpCodeHandler_Ev_Gv(Code.ReservedNop_rm16_r16_0F1A, Code.ReservedNop_rm32_r32_0F1A, Code.ReservedNop_rm64_r64_0F1A);
+			var reservedNop_0F1B = new OpCodeHandler_Ev_Gv(Code.ReservedNop_rm16_r16_0F1B, Code.ReservedNop_rm32_r32_0F1B, Code.ReservedNop_rm64_r64_0F1B);
+			var reservedNop_0F1C = new OpCodeHandler_Ev_Gv(Code.ReservedNop_rm16_r16_0F1C, Code.ReservedNop_rm32_r32_0F1C, Code.ReservedNop_rm64_r64_0F1C);
+			var reservedNop_0F1D = new OpCodeHandler_Ev_Gv(Code.ReservedNop_rm16_r16_0F1D, Code.ReservedNop_rm32_r32_0F1D, Code.ReservedNop_rm64_r64_0F1D);
+			var reservedNop_0F1E = new OpCodeHandler_Ev_Gv(Code.ReservedNop_rm16_r16_0F1E, Code.ReservedNop_rm32_r32_0F1E, Code.ReservedNop_rm64_r64_0F1E);
+			var reservedNop_0F1F = new OpCodeHandler_Ev_Gv(Code.ReservedNop_rm16_r16_0F1F, Code.ReservedNop_rm32_r32_0F1F, Code.ReservedNop_rm64_r64_0F1F);
 
-			var handlers_Grp_0F0D = new OpCodeHandler[8] {
+			var handlers_Grp_0F0D_mem = new OpCodeHandler[8] {
 				new OpCodeHandler_M(Code.Prefetch_m8),
 				new OpCodeHandler_M(Code.Prefetchw_m8),
 				new OpCodeHandler_M(Code.Prefetchwt1_m8),
@@ -778,6 +904,189 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_M(Code.Prefetch_m8_r6),
 				new OpCodeHandler_M(Code.Prefetch_m8_r7),
 			};
+			var grp0F0D = new OpCodeHandler_RM(
+				reservedNop_0F0D,
+				new OpCodeHandler_RM(reservedNop_0F0D, new OpCodeHandler_Group(handlers_Grp_0F0D_mem))
+			);
+
+			var handlers_Grp_0F18_mem = new OpCodeHandler[8] {
+				new OpCodeHandler_M(Code.Prefetchnta_m8),
+				new OpCodeHandler_M(Code.Prefetcht0_m8),
+				new OpCodeHandler_M(Code.Prefetcht1_m8),
+				new OpCodeHandler_M(Code.Prefetcht2_m8),
+				reservedNop_0F18,
+				reservedNop_0F18,
+				reservedNop_0F18,
+				reservedNop_0F18,
+			};
+			var grp0F18 = new OpCodeHandler_ReservedNop(
+				reservedNop_0F18,
+				new OpCodeHandler_RM(
+					reservedNop_0F18,
+					new OpCodeHandler_RM(reservedNop_0F18, new OpCodeHandler_Group(handlers_Grp_0F18_mem))
+				)
+			);
+
+			var handlers_Grp_0F1C_mem = new OpCodeHandler[8] {
+				new OpCodeHandler_M(Code.Cldemote_m8),
+				reservedNop_0F1C,
+				reservedNop_0F1C,
+				reservedNop_0F1C,
+				reservedNop_0F1C,
+				reservedNop_0F1C,
+				reservedNop_0F1C,
+				reservedNop_0F1C,
+			};
+			var grp0F1C = new OpCodeHandler_ReservedNop(
+				reservedNop_0F1C,
+				new OpCodeHandler_RM(
+					reservedNop_0F1C,
+					new OpCodeHandler_RM(reservedNop_0F1C, new OpCodeHandler_Group(handlers_Grp_0F1C_mem))
+				)
+			);
+
+			var handlers_Grp_0F1E_mem = new OpCodeHandler[8] {
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+			};
+			var handlers_Grp_0F1E_reg_lo = new OpCodeHandler[8] {
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+			};
+			var grp0F1E_1 = new OpCodeHandler_MandatoryPrefix(
+				reservedNop_0F1E,
+				reservedNop_0F1E,
+				new OpCodeHandler_RM(
+					new OpCodeHandler_Ev_REXW(Code.Rdsspd_r32, Code.Rdsspq_r64, allowReg: true, allowMem: false),
+					reservedNop_0F1E
+				),
+				reservedNop_0F1E
+			);
+			var handlers_Grp_0F1E_reg_hi = new OpCodeHandler[0x40] {
+				// C0
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// C8
+				grp0F1E_1,
+				grp0F1E_1,
+				grp0F1E_1,
+				grp0F1E_1,
+				grp0F1E_1,
+				grp0F1E_1,
+				grp0F1E_1,
+				grp0F1E_1,
+
+				// D0
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// D8
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// E0
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// E8
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// F0
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// F8
+				null,
+				null,
+				new OpCodeHandler_MandatoryPrefix(
+					invalid,
+					invalid,
+					new OpCodeHandler_Simple_ModRM(Code.Endbr64),
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					invalid,
+					invalid,
+					new OpCodeHandler_Simple_ModRM(Code.Endbr32),
+					invalid
+				),
+				null,
+				null,
+				null,
+				null,
+			};
+			var grp0F1E = new OpCodeHandler_ReservedNop(
+				reservedNop_0F1E,
+				new OpCodeHandler_RM(
+					new OpCodeHandler_Group8x64(handlers_Grp_0F1E_reg_lo, handlers_Grp_0F1E_reg_hi),
+					reservedNop_0F1E
+				)
+			);
+
+			var handlers_Grp_0F1F = new OpCodeHandler[8] {
+				new OpCodeHandler_Ev(Code.Nop_rm16, Code.Nop_rm32, Code.Nop_rm64),
+				reservedNop_0F1F,
+				reservedNop_0F1F,
+				reservedNop_0F1F,
+				reservedNop_0F1F,
+				reservedNop_0F1F,
+				reservedNop_0F1F,
+				reservedNop_0F1F,
+			};
+			var grp0F1F = new OpCodeHandler_ReservedNop(
+				reservedNop_0F1F,
+				new OpCodeHandler_Group(handlers_Grp_0F1F)
+			);
 
 			var handlers_Grp_660F78 = new OpCodeHandler[8] {
 				new OpCodeHandler_RIbIb(Register.XMM0, Code.Extrq_xmm_imm8_imm8),
@@ -1324,7 +1633,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 					invalid
 				),
 				invalid,
-				invalid,
+				new OpCodeHandler_MandatoryPrefix(
+					invalid,
+					new OpCodeHandler_VW(Register.XMM0, Code.Gf2p8mulb_xmm_xmmm128),
+					invalid,
+					invalid
+				),
 
 				// D0
 				invalid,
@@ -1405,9 +1719,20 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				invalid,
 				invalid,
 				invalid,
-				invalid,
 				new OpCodeHandler_MandatoryPrefix(
 					invalid,
+					new OpCodeHandler_RM(
+						invalid,
+						new OpCodeHandler_Ev_Gv_REX(Code.Wrussd_m32_r32, Code.Wrussq_m64_r64)
+					),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_RM(
+						invalid,
+						new OpCodeHandler_Ev_Gv_REX(Code.Wrssd_m32_r32, Code.Wrssq_m64_r64)
+					),
 					new OpCodeHandler_Gv_Ev_REX(Code.Adcx_r32_rm32, Code.Adcx_r64_rm64),
 					new OpCodeHandler_Gv_Ev_REX(Code.Adox_r32_rm32, Code.Adox_r64_rm64),
 					invalid
@@ -1415,8 +1740,16 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				invalid,
 
 				// F8
-				invalid,
-				invalid,
+				new OpCodeHandler_Gv_M_as(Code.Movdir64b_r16_m512, Code.Movdir64b_r32_m512, Code.Movdir64b_r64_m512),
+				new OpCodeHandler_MandatoryPrefix(
+					new OpCodeHandler_RM(
+						invalid,
+						new OpCodeHandler_Ev_Gv_REX(Code.Movdiri_m32_r32, Code.Movdiri_m64_r64)
+					),
+					invalid,
+					invalid,
+					invalid
+				),
 				invalid,
 				invalid,
 				invalid,
@@ -1803,8 +2136,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 					invalid
 				),
 				invalid,
-				invalid,
-				invalid,
+				new OpCodeHandler_MandatoryPrefix(
+					invalid,
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Gf2p8affineqb_xmm_xmmm128_imm8),
+					invalid,
+					invalid
+				),
+				new OpCodeHandler_MandatoryPrefix(
+					invalid,
+					new OpCodeHandler_VWIb(Register.XMM0, Code.Gf2p8affineinvqb_xmm_xmmm128_imm8),
+					invalid,
+					invalid
+				),
 
 				// D0
 				invalid,
@@ -1885,11 +2228,22 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 				// 08
 				new OpCodeHandler_Simple(Code.Invd),
-				new OpCodeHandler_Simple(Code.Wbinvd),
-				invalid,
+				new OpCodeHandler_MandatoryPrefix_NoModRM(
+					new OpCodeHandler_Simple(Code.Wbinvd),
+					new OpCodeHandler_Simple(Code.Wbinvd),
+					new OpCodeHandler_Simple(Code.Wbnoinvd),
+					new OpCodeHandler_Simple(Code.Wbinvd)
+				),
+				new OpCodeHandler_Options(
+					invalid,
+					new OpCodeHandler_Simple(Code.Cl1invmb), DecoderOptions.Cl1invmb
+				),
 				new OpCodeHandler_Simple(Code.Ud2),
 				invalid,
-				new OpCodeHandler_Group(handlers_Grp_0F0D),
+				new OpCodeHandler_ReservedNop(
+					reservedNop_0F0D,
+					grp0F0D
+				),
 				new OpCodeHandler_Simple(Code.Femms),
 				new OpCodeHandler_D3NOW(),
 
@@ -1944,33 +2298,39 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				),
 
 				// 18
-				new OpCodeHandler_Group(handlers_Grp_0F18),
-				invalid,
-				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_RM(
-						invalid,
-						new OpCodeHandler_B_MIB(Code.Bndldx_bnd_mib)
-					),
-					new OpCodeHandler_B_BM(Code.Bndmov_bnd_bndm64, Code.Bndmov_bnd_bndm128),
-					new OpCodeHandler_B_Ev(Code.Bndcl_bnd_rm32, Code.Bndcl_bnd_rm64),
-					new OpCodeHandler_B_Ev(Code.Bndcu_bnd_rm32, Code.Bndcu_bnd_rm64)
+				grp0F18,
+				reservedNop_0F19,
+				new OpCodeHandler_ReservedNop(
+					reservedNop_0F1A,
+					new OpCodeHandler_MandatoryPrefix(
+						new OpCodeHandler_RM(
+							reservedNop_0F1A,
+							new OpCodeHandler_B_MIB(Code.Bndldx_bnd_mib)
+						),
+						new OpCodeHandler_B_BM(Code.Bndmov_bnd_bndm64, Code.Bndmov_bnd_bndm128),
+						new OpCodeHandler_B_Ev(Code.Bndcl_bnd_rm32, Code.Bndcl_bnd_rm64),
+						new OpCodeHandler_B_Ev(Code.Bndcu_bnd_rm32, Code.Bndcu_bnd_rm64)
+					)
 				),
-				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_RM(
-						invalid,
-						new OpCodeHandler_MIB_B(Code.Bndstx_mib_bnd)
-					),
-					new OpCodeHandler_BM_B(Code.Bndmov_bndm64_bnd, Code.Bndmov_bndm128_bnd),
-					new OpCodeHandler_RM(
-						invalid,
-						new OpCodeHandler_B_Ev(Code.Bndmk_bnd_m32, Code.Bndmk_bnd_m64)
-					),
-					new OpCodeHandler_B_Ev(Code.Bndcn_bnd_rm32, Code.Bndcn_bnd_rm64)
+				new OpCodeHandler_ReservedNop(
+					reservedNop_0F1B,
+					new OpCodeHandler_MandatoryPrefix(
+						new OpCodeHandler_RM(
+							reservedNop_0F1B,
+							new OpCodeHandler_MIB_B(Code.Bndstx_mib_bnd)
+						),
+						new OpCodeHandler_BM_B(Code.Bndmov_bndm64_bnd, Code.Bndmov_bndm128_bnd),
+						new OpCodeHandler_RM(
+							reservedNop_0F1B,
+							new OpCodeHandler_B_Ev(Code.Bndmk_bnd_m32, Code.Bndmk_bnd_m64)
+						),
+						new OpCodeHandler_B_Ev(Code.Bndcn_bnd_rm32, Code.Bndcn_bnd_rm64)
+					)
 				),
-				invalid,
-				invalid,
-				invalid,
-				new OpCodeHandler_Group(handlers_Grp_0F1F),
+				grp0F1C,
+				reservedNop_0F1D,
+				grp0F1E,
+				grp0F1F,
 
 				// 20
 				new OpCodeHandler_Rq_Cq(Code.Mov_r64_cr, Register.CR0),
@@ -2348,24 +2708,24 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				),
 
 				// 80
-				new OpCodeHandler_Jz(Code.Jo_rel32_64),
-				new OpCodeHandler_Jz(Code.Jno_rel32_64),
-				new OpCodeHandler_Jz(Code.Jb_rel32_64),
-				new OpCodeHandler_Jz(Code.Jae_rel32_64),
-				new OpCodeHandler_Jz(Code.Je_rel32_64),
-				new OpCodeHandler_Jz(Code.Jne_rel32_64),
-				new OpCodeHandler_Jz(Code.Jbe_rel32_64),
-				new OpCodeHandler_Jz(Code.Ja_rel32_64),
+				new OpCodeHandler_Jz(Code.Jo_rel16, Code.Jo_rel32_64),
+				new OpCodeHandler_Jz(Code.Jno_rel16, Code.Jno_rel32_64),
+				new OpCodeHandler_Jz(Code.Jb_rel16, Code.Jb_rel32_64),
+				new OpCodeHandler_Jz(Code.Jae_rel16, Code.Jae_rel32_64),
+				new OpCodeHandler_Jz(Code.Je_rel16, Code.Je_rel32_64),
+				new OpCodeHandler_Jz(Code.Jne_rel16, Code.Jne_rel32_64),
+				new OpCodeHandler_Jz(Code.Jbe_rel16, Code.Jbe_rel32_64),
+				new OpCodeHandler_Jz(Code.Ja_rel16, Code.Ja_rel32_64),
 
 				// 88
-				new OpCodeHandler_Jz(Code.Js_rel32_64),
-				new OpCodeHandler_Jz(Code.Jns_rel32_64),
-				new OpCodeHandler_Jz(Code.Jp_rel32_64),
-				new OpCodeHandler_Jz(Code.Jnp_rel32_64),
-				new OpCodeHandler_Jz(Code.Jl_rel32_64),
-				new OpCodeHandler_Jz(Code.Jge_rel32_64),
-				new OpCodeHandler_Jz(Code.Jle_rel32_64),
-				new OpCodeHandler_Jz(Code.Jg_rel32_64),
+				new OpCodeHandler_Jz(Code.Js_rel16, Code.Js_rel32_64),
+				new OpCodeHandler_Jz(Code.Jns_rel16, Code.Jns_rel32_64),
+				new OpCodeHandler_Jz(Code.Jp_rel16, Code.Jp_rel32_64),
+				new OpCodeHandler_Jz(Code.Jnp_rel16, Code.Jnp_rel32_64),
+				new OpCodeHandler_Jz(Code.Jl_rel16, Code.Jl_rel32_64),
+				new OpCodeHandler_Jz(Code.Jge_rel16, Code.Jge_rel32_64),
+				new OpCodeHandler_Jz(Code.Jle_rel16, Code.Jle_rel32_64),
+				new OpCodeHandler_Jz(Code.Jg_rel16, Code.Jg_rel32_64),
 
 				// 90
 				new OpCodeHandler_Eb(Code.Seto_rm8),
@@ -2922,24 +3282,24 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Reg_Xv2(Code.Outsw_DX_m16, Code.Outsd_DX_m32, Code.Outsd_DX_m32, Register.DX, Register.DX, Register.DX),
 
 				// 70
-				new OpCodeHandler_Jb(Code.Jo_rel8_64),
-				new OpCodeHandler_Jb(Code.Jno_rel8_64),
-				new OpCodeHandler_Jb(Code.Jb_rel8_64),
-				new OpCodeHandler_Jb(Code.Jae_rel8_64),
-				new OpCodeHandler_Jb(Code.Je_rel8_64),
-				new OpCodeHandler_Jb(Code.Jne_rel8_64),
-				new OpCodeHandler_Jb(Code.Jbe_rel8_64),
-				new OpCodeHandler_Jb(Code.Ja_rel8_64),
+				new OpCodeHandler_Jb(Code.Jo_rel8_16, Code.Jo_rel8_64),
+				new OpCodeHandler_Jb(Code.Jno_rel8_16, Code.Jno_rel8_64),
+				new OpCodeHandler_Jb(Code.Jb_rel8_16, Code.Jb_rel8_64),
+				new OpCodeHandler_Jb(Code.Jae_rel8_16, Code.Jae_rel8_64),
+				new OpCodeHandler_Jb(Code.Je_rel8_16, Code.Je_rel8_64),
+				new OpCodeHandler_Jb(Code.Jne_rel8_16, Code.Jne_rel8_64),
+				new OpCodeHandler_Jb(Code.Jbe_rel8_16, Code.Jbe_rel8_64),
+				new OpCodeHandler_Jb(Code.Ja_rel8_16, Code.Ja_rel8_64),
 
 				// 78
-				new OpCodeHandler_Jb(Code.Js_rel8_64),
-				new OpCodeHandler_Jb(Code.Jns_rel8_64),
-				new OpCodeHandler_Jb(Code.Jp_rel8_64),
-				new OpCodeHandler_Jb(Code.Jnp_rel8_64),
-				new OpCodeHandler_Jb(Code.Jl_rel8_64),
-				new OpCodeHandler_Jb(Code.Jge_rel8_64),
-				new OpCodeHandler_Jb(Code.Jle_rel8_64),
-				new OpCodeHandler_Jb(Code.Jg_rel8_64),
+				new OpCodeHandler_Jb(Code.Js_rel8_16, Code.Js_rel8_64),
+				new OpCodeHandler_Jb(Code.Jns_rel8_16, Code.Jns_rel8_64),
+				new OpCodeHandler_Jb(Code.Jp_rel8_16, Code.Jp_rel8_64),
+				new OpCodeHandler_Jb(Code.Jnp_rel8_16, Code.Jnp_rel8_64),
+				new OpCodeHandler_Jb(Code.Jl_rel8_16, Code.Jl_rel8_64),
+				new OpCodeHandler_Jb(Code.Jge_rel8_16, Code.Jge_rel8_64),
+				new OpCodeHandler_Jb(Code.Jle_rel8_16, Code.Jle_rel8_64),
+				new OpCodeHandler_Jb(Code.Jg_rel8_16, Code.Jg_rel8_64),
 
 				// 80
 				new OpCodeHandler_Group(handlers_Grp_80),
@@ -3024,8 +3384,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				// C0
 				new OpCodeHandler_Group(handlers_Grp_C0),
 				new OpCodeHandler_Group(handlers_Grp_C1),
-				new OpCodeHandler_BranchIw(Code.Retnq_imm16),
-				new OpCodeHandler_BranchSimple(Code.Retnq),
+				new OpCodeHandler_BranchIw(Code.Retnw_imm16, Code.Retnq_imm16),
+				new OpCodeHandler_BranchSimple(Code.Retnw, Code.Retnq),
 				new OpCodeHandler_VEX3(),
 				new OpCodeHandler_VEX2(),
 				new OpCodeHandler_Group8x64(handlers_Grp_C6_lo, handlers_Grp_C6_hi),
@@ -3062,20 +3422,20 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_Group8x64(OpCodeHandlersFpu64Tables.handlers_FPU_DF_low, OpCodeHandlersFpu64Tables.handlers_FPU_DF_high),
 
 				// E0
-				new OpCodeHandler_Jb2(Code.Loopne_rel8_64_ECX, Code.Loopne_rel8_64_RCX),
-				new OpCodeHandler_Jb2(Code.Loope_rel8_64_ECX, Code.Loope_rel8_64_RCX),
-				new OpCodeHandler_Jb2(Code.Loop_rel8_64_ECX, Code.Loop_rel8_64_RCX),
-				new OpCodeHandler_Jb2(Code.Jecxz_rel8_64, Code.Jrcxz_rel8_64),
+				new OpCodeHandler_Jb2(Code.Loopne_rel8_16_ECX, Code.Loopne_rel8_16_RCX, Code.Loopne_rel8_64_ECX, Code.Loopne_rel8_64_RCX),
+				new OpCodeHandler_Jb2(Code.Loope_rel8_16_ECX, Code.Loope_rel8_16_RCX, Code.Loope_rel8_64_ECX, Code.Loope_rel8_64_RCX),
+				new OpCodeHandler_Jb2(Code.Loop_rel8_16_ECX, Code.Loop_rel8_16_RCX, Code.Loop_rel8_64_ECX, Code.Loop_rel8_64_RCX),
+				new OpCodeHandler_Jb2(Code.Jecxz_rel8_16, Code.Jrcxz_rel8_16, Code.Jecxz_rel8_64, Code.Jrcxz_rel8_64),
 				new OpCodeHandler_RegIb(Code.In_AL_imm8, Register.AL),
 				new OpCodeHandler_Reg_Ib2(Code.In_AX_imm8, Code.In_EAX_imm8, Register.AX, Register.EAX),
 				new OpCodeHandler_IbReg(Code.Out_imm8_AL, Register.AL),
 				new OpCodeHandler_IbReg2(Code.Out_imm8_AX, Code.Out_imm8_EAX, Register.AX, Register.EAX),
 
 				// E8
-				new OpCodeHandler_Jz(Code.Call_rel32_64),
-				new OpCodeHandler_Jz(Code.Jmp_rel32_64),
+				new OpCodeHandler_Jz(Code.Call_rel16, Code.Call_rel32_64),
+				new OpCodeHandler_Jz(Code.Jmp_rel16, Code.Jmp_rel32_64),
 				invalid,
-				new OpCodeHandler_Jb(Code.Jmp_rel8_64),
+				new OpCodeHandler_Jb(Code.Jmp_rel8_16, Code.Jmp_rel8_64),
 				new OpCodeHandler_AL_DX(Code.In_AL_DX),
 				new OpCodeHandler_eAX_DX(Code.In_AX_DX, Code.In_EAX_DX),
 				new OpCodeHandler_DX_AL(Code.Out_DX_AL),

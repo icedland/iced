@@ -82,8 +82,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "67 81 87 5AA5 22334455", Code.Add_rm32_imm32, 5, 4, 3, 2 };
 
 				yield return new object[] { "80 80 78563412 9A", Code.Add_rm8_imm8, 6, 1, 2, 4 };
+				yield return new object[] { "82 80 78563412 9A", Code.Add_rm8_imm8_82, 6, 1, 2, 4 };
 				yield return new object[] { "66 81 40 12 5634", Code.Add_rm16_imm16, 4, 2, 3, 1 };
 				yield return new object[] { "81 40 12 9A785634", Code.Add_rm32_imm32, 3, 4, 2, 1 };
+
+				yield return new object[] { "82 C1 5A", Code.Add_rm8_imm8_82, 2, 1, 0, 0 };
+				yield return new object[] { "82 CA A5", Code.Or_rm8_imm8_82, 2, 1, 0, 0 };
+				yield return new object[] { "82 D3 5A", Code.Adc_rm8_imm8_82, 2, 1, 0, 0 };
+				yield return new object[] { "82 DC A5", Code.Sbb_rm8_imm8_82, 2, 1, 0, 0 };
+				yield return new object[] { "82 E5 5A", Code.And_rm8_imm8_82, 2, 1, 0, 0 };
+				yield return new object[] { "82 EE A5", Code.Sub_rm8_imm8_82, 2, 1, 0, 0 };
+				yield return new object[] { "82 F7 5A", Code.Xor_rm8_imm8_82, 2, 1, 0, 0 };
+				yield return new object[] { "82 F8 A5", Code.Cmp_rm8_imm8_82, 2, 1, 0, 0 };
 
 				yield return new object[] { "CC", Code.Int3, 0, 0, 0, 0 };
 				yield return new object[] { "F1", Code.Int1, 0, 0, 0, 0 };
@@ -93,6 +103,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "D0 DC", Code.Rcr_rm8_1, 0, 0, 0, 0 };
 				yield return new object[] { "D0 E5", Code.Shl_rm8_1, 0, 0, 0, 0 };
 				yield return new object[] { "D0 EE", Code.Shr_rm8_1, 0, 0, 0, 0 };
+				yield return new object[] { "D0 F5", Code.Sal_rm8_1, 0, 0, 0, 0 };
 				yield return new object[] { "D0 F8", Code.Sar_rm8_1, 0, 0, 0, 0 };
 				yield return new object[] { "66 D1 C1", Code.Rol_rm16_1, 0, 0, 0, 0 };
 				yield return new object[] { "D1 C1", Code.Rol_rm32_1, 0, 0, 0, 0 };
@@ -106,8 +117,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "D1 E5", Code.Shl_rm32_1, 0, 0, 0, 0 };
 				yield return new object[] { "66 D1 EE", Code.Shr_rm16_1, 0, 0, 0, 0 };
 				yield return new object[] { "D1 EE", Code.Shr_rm32_1, 0, 0, 0, 0 };
+				yield return new object[] { "66 D1 F5", Code.Sal_rm16_1, 0, 0, 0, 0 };
+				yield return new object[] { "D1 F5", Code.Sal_rm32_1, 0, 0, 0, 0 };
 				yield return new object[] { "66 D1 F8", Code.Sar_rm16_1, 0, 0, 0, 0 };
 				yield return new object[] { "D1 F8", Code.Sar_rm32_1, 0, 0, 0, 0 };
+
+				yield return new object[] { "66 0FB8 55AA", Code.Jmpe_disp16, 3, 2, 0, 0 };
+				yield return new object[] { "0FB8 123455AA", Code.Jmpe_disp32, 2, 4, 0, 0 };
 			}
 		}
 
@@ -303,6 +319,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "C0 DC A5", Code.Rcr_rm8_imm8, 2, 1, 0, 0 };
 				yield return new object[] { "C0 E5 5A", Code.Shl_rm8_imm8, 2, 1, 0, 0 };
 				yield return new object[] { "C0 EE A5", Code.Shr_rm8_imm8, 2, 1, 0, 0 };
+				yield return new object[] { "C0 F5 5A", Code.Sal_rm8_imm8, 2, 1, 0, 0 };
 				yield return new object[] { "C0 F8 A5", Code.Sar_rm8_imm8, 2, 1, 0, 0 };
 				yield return new object[] { "66 C1 C1 5A", Code.Rol_rm16_imm8, 3, 1, 0, 0 };
 				yield return new object[] { "C1 C1 5A", Code.Rol_rm32_imm8, 2, 1, 0, 0 };
@@ -322,6 +339,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "66 C1 EE A5", Code.Shr_rm16_imm8, 3, 1, 0, 0 };
 				yield return new object[] { "C1 EE A5", Code.Shr_rm32_imm8, 2, 1, 0, 0 };
 				yield return new object[] { "48 C1 EE A5", Code.Shr_rm64_imm8, 3, 1, 0, 0 };
+				yield return new object[] { "66 C1 F5 5A", Code.Sal_rm16_imm8, 3, 1, 0, 0 };
+				yield return new object[] { "C1 F5 5A", Code.Sal_rm32_imm8, 2, 1, 0, 0 };
+				yield return new object[] { "48 C1 F5 5A", Code.Sal_rm64_imm8, 3, 1, 0, 0 };
 				yield return new object[] { "66 C1 F8 A5", Code.Sar_rm16_imm8, 3, 1, 0, 0 };
 				yield return new object[] { "C1 F8 A5", Code.Sar_rm32_imm8, 2, 1, 0, 0 };
 				yield return new object[] { "49 C1 F8 A5", Code.Sar_rm64_imm8, 3, 1, 0, 0 };
@@ -347,6 +367,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "66 F7 C1 5AA5", Code.Test_rm16_imm16, 3, 2, 0, 0 };
 				yield return new object[] { "F7 C1 5AA51234", Code.Test_rm32_imm32, 2, 4, 0, 0 };
 				yield return new object[] { "48 F7 C1 5AA51284", Code.Test_rm64_imm32, 3, 4, 0, 0 };
+				yield return new object[] { "F6 C9 5A", Code.Test_rm8_imm8_F6r1, 2, 1, 0, 0 };
+				yield return new object[] { "66 F7 C9 5AA5", Code.Test_rm16_imm16_F7r1, 3, 2, 0, 0 };
+				yield return new object[] { "F7 C9 5AA51234", Code.Test_rm32_imm32_F7r1, 2, 4, 0, 0 };
+				yield return new object[] { "48 F7 C9 5AA51284", Code.Test_rm64_imm32_F7r1, 3, 4, 0, 0 };
 				yield return new object[] { "0F70 CD A5", Code.Pshufw_mm_mmm64_imm8, 3, 1, 0, 0 };
 				yield return new object[] { "66 0F70 CD A5", Code.Pshufd_xmm_xmmm128_imm8, 4, 1, 0, 0 };
 				yield return new object[] { "C5F9 70 D3 A5", Code.VEX_Vpshufd_xmm_xmmm128_imm8, 4, 1, 0, 0 };
@@ -423,6 +447,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "D0 DC", Code.Rcr_rm8_1, 0, 0, 0, 0 };
 				yield return new object[] { "D0 E5", Code.Shl_rm8_1, 0, 0, 0, 0 };
 				yield return new object[] { "D0 EE", Code.Shr_rm8_1, 0, 0, 0, 0 };
+				yield return new object[] { "D0 F5", Code.Sal_rm8_1, 0, 0, 0, 0 };
 				yield return new object[] { "D0 F8", Code.Sar_rm8_1, 0, 0, 0, 0 };
 				yield return new object[] { "66 D1 C1", Code.Rol_rm16_1, 0, 0, 0, 0 };
 				yield return new object[] { "D1 C1", Code.Rol_rm32_1, 0, 0, 0, 0 };
@@ -442,6 +467,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[] { "66 D1 EE", Code.Shr_rm16_1, 0, 0, 0, 0 };
 				yield return new object[] { "D1 EE", Code.Shr_rm32_1, 0, 0, 0, 0 };
 				yield return new object[] { "48 D1 EE", Code.Shr_rm64_1, 0, 0, 0, 0 };
+				yield return new object[] { "66 D1 F5", Code.Sal_rm16_1, 0, 0, 0, 0 };
+				yield return new object[] { "D1 F5", Code.Sal_rm32_1, 0, 0, 0, 0 };
+				yield return new object[] { "48 D1 F5", Code.Sal_rm64_1, 0, 0, 0, 0 };
 				yield return new object[] { "66 D1 F8", Code.Sar_rm16_1, 0, 0, 0, 0 };
 				yield return new object[] { "D1 F8", Code.Sar_rm32_1, 0, 0, 0, 0 };
 				yield return new object[] { "49 D1 F8", Code.Sar_rm64_1, 0, 0, 0, 0 };

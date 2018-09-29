@@ -42,6 +42,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			tested[(int)Code.INVALID] = T16 | T32 | T64;
 
 			foreach (var info in DecoderTestUtils.GetDecoderTests(needHexBytes: false, includeOtherTests: false)) {
+				Assert.False(DecoderTestUtils.NotDecoded.Contains(info.Code), $"{info.Code} has a decoder test but it shouldn't be decoded");
+
 				byte testedFlags;
 				if (info.Bitness == 16)
 					testedFlags = T16;
@@ -55,11 +57,39 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				tested[(int)info.Code] |= testedFlags;
 			}
 
-			foreach (var c in DecoderTestUtils.Code32Only)
-				tested[(int)c] ^= T64;
+			foreach (var info in NonDecodedInstructions.GetTests()) {
+				byte testedFlags;
+				if (info.bitness == 16)
+					testedFlags = T16;
+				else if (info.bitness == 32)
+					testedFlags = T32;
+				else if (info.bitness == 64)
+					testedFlags = T64;
+				else
+					continue;
 
-			foreach (var c in DecoderTestUtils.Code64Only)
+				tested[(int)info.instruction.Code] |= testedFlags;
+			}
+
+			foreach (var c in DecoderTestUtils.NotDecoded) {
+				Assert.DoesNotContain(c, DecoderTestUtils.Code32Only);
+				Assert.DoesNotContain(c, DecoderTestUtils.Code64Only);
+			}
+
+			foreach (var c in DecoderTestUtils.NotDecoded32Only)
+				tested[(int)c] ^= T64;
+			foreach (var c in DecoderTestUtils.NotDecoded64Only)
 				tested[(int)c] ^= T16 | T32;
+
+			foreach (var c in DecoderTestUtils.Code32Only) {
+				Assert.DoesNotContain(c, DecoderTestUtils.Code64Only);
+				tested[(int)c] ^= T64;
+			}
+
+			foreach (var c in DecoderTestUtils.Code64Only) {
+				Assert.DoesNotContain(c, DecoderTestUtils.Code32Only);
+				tested[(int)c] ^= T16 | T32;
+			}
 
 			var sb16 = new StringBuilder();
 			var sb32 = new StringBuilder();

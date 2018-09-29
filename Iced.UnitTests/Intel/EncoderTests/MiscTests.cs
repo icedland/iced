@@ -29,6 +29,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var handlers = OpCodeHandlers.Handlers;
 			for (int i = 0; i < handlers.Length; i++)
 				Assert.Equal((Code)i, handlers[i].TEST_Code);
+			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfCodeValues, handlers.Length);
 		}
 
 		[Fact]

@@ -21,17 +21,24 @@
 using System;
 using System.Collections.Generic;
 using Iced.Intel;
-using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public readonly struct InstructionInfo {
 		public readonly int CodeSize;
 		public readonly string HexBytes;
 		public readonly Code Code;
+		public readonly DecoderOptions Options;
 		public InstructionInfo(int codeSize, string hexBytes, Code code) {
 			CodeSize = codeSize;
 			HexBytes = hexBytes;
 			Code = code;
+			Options = DecoderOptions.None;
+		}
+		public InstructionInfo(int codeSize, string hexBytes, Code code, DecoderOptions options) {
+			CodeSize = codeSize;
+			HexBytes = hexBytes;
+			Code = code;
+			Options = options;
 		}
 	}
 
@@ -45,8 +52,20 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			return res;
 		}
 
+		protected static IEnumerable<object[]> GetFormatData((string hexBytes, Instruction instruction)[] infos, string[] formattedStrings) {
+			if (infos.Length != formattedStrings.Length)
+				throw new ArgumentException($"(infos.Length) {infos.Length} != (formattedStrings.Length) {formattedStrings.Length} . infos[0].hexBytes = {(infos.Length == 0 ? "<EMPTY>" : infos[0].hexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
+			var res = new object[infos.Length][];
+			for (int i = 0; i < infos.Length; i++)
+				res[i] = new object[3] { i, infos[i].instruction, formattedStrings[i] };
+			return res;
+		}
+
 		protected void FormatBase(int index, InstructionInfo info, string formattedString, Formatter formatter) =>
-			FormatterTestUtils.FormatTest(info.CodeSize, info.HexBytes, info.Code, formattedString, formatter);
+			FormatterTestUtils.FormatTest(info.CodeSize, info.HexBytes, info.Code, info.Options, formattedString, formatter);
+
+		protected void FormatBase(int index, Instruction instr, string formattedString, Formatter formatter) =>
+			FormatterTestUtils.FormatTest(ref instr, formattedString, formatter);
 	}
 }
 #endif

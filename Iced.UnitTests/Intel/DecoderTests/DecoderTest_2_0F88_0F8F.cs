@@ -46,10 +46,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
 			Assert.Equal((ushort)target, instr.NearBranch16);
@@ -79,10 +79,43 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
+			Assert.Equal((ushort)target, instr.NearBranch16);
+		}
+
+		[Theory]
+		[InlineData("66 0F88 5AA5", 5, Code.Js_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0xA55A, DecoderOptions.AMD)]
+		[InlineData("66 0F88 A55A", 5, Code.Js_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA5, DecoderOptions.AMD)]
+		[InlineData("66 0F89 5AA5", 5, Code.Jns_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0xA55A, DecoderOptions.AMD)]
+		[InlineData("66 0F89 A55A", 5, Code.Jns_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA5, DecoderOptions.AMD)]
+		[InlineData("66 0F8A 5AA5", 5, Code.Jp_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0xA55A, DecoderOptions.AMD)]
+		[InlineData("66 0F8A A55A", 5, Code.Jp_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA5, DecoderOptions.AMD)]
+		[InlineData("66 0F8B 5AA5", 5, Code.Jnp_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0xA55A, DecoderOptions.AMD)]
+		[InlineData("66 0F8B A55A", 5, Code.Jnp_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA5, DecoderOptions.AMD)]
+		[InlineData("66 0F8C 5AA5", 5, Code.Jl_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0xA55A, DecoderOptions.AMD)]
+		[InlineData("66 0F8C A55A", 5, Code.Jl_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA5, DecoderOptions.AMD)]
+		[InlineData("66 0F8D 5AA5", 5, Code.Jge_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0xA55A, DecoderOptions.AMD)]
+		[InlineData("66 0F8D A55A", 5, Code.Jge_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA5, DecoderOptions.AMD)]
+		[InlineData("66 0F8E 5AA5", 5, Code.Jle_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0xA55A, DecoderOptions.AMD)]
+		[InlineData("66 0F8E A55A", 5, Code.Jle_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA5, DecoderOptions.AMD)]
+		[InlineData("66 0F8F 5AA5", 5, Code.Jg_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0xA55A, DecoderOptions.AMD)]
+		[InlineData("66 0F8F A55A", 5, Code.Jg_rel16, DecoderConstants.DEFAULT_IP64 + 5 + 0x5AA5, DecoderOptions.AMD)]
+		void Test64_Jcc_Jw16_1(string hexBytes, int byteLength, Code code, ulong target, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
 			Assert.Equal((ushort)target, instr.NearBranch16);
@@ -112,10 +145,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.NearBranch32, instr.Op0Kind);
 			Assert.Equal((uint)target, instr.NearBranch32);
@@ -145,94 +178,103 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.NearBranch32, instr.Op0Kind);
 			Assert.Equal((uint)target, instr.NearBranch32);
 		}
 
 		[Theory]
-		[InlineData("0F88 5AA51234", 6, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A)]
-		[InlineData("0F88 A56789AB", 6, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B)]
-		[InlineData("0F89 5AA51234", 6, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A)]
-		[InlineData("0F89 A56789AB", 6, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B)]
-		[InlineData("0F8A 5AA51234", 6, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A)]
-		[InlineData("0F8A A56789AB", 6, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B)]
-		[InlineData("0F8B 5AA51234", 6, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A)]
-		[InlineData("0F8B A56789AB", 6, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B)]
-		[InlineData("0F8C 5AA51234", 6, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A)]
-		[InlineData("0F8C A56789AB", 6, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B)]
-		[InlineData("0F8D 5AA51234", 6, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A)]
-		[InlineData("0F8D A56789AB", 6, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B)]
-		[InlineData("0F8E 5AA51234", 6, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A)]
-		[InlineData("0F8E A56789AB", 6, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B)]
-		[InlineData("0F8F 5AA51234", 6, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A)]
-		[InlineData("0F8F A56789AB", 6, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B)]
+		[InlineData("0F88 5AA51234", 6, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("0F88 A56789AB", 6, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("0F89 5AA51234", 6, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("0F89 A56789AB", 6, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("0F8A 5AA51234", 6, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("0F8A A56789AB", 6, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("0F8B 5AA51234", 6, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("0F8B A56789AB", 6, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("0F8C 5AA51234", 6, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("0F8C A56789AB", 6, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("0F8D 5AA51234", 6, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("0F8D A56789AB", 6, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("0F8E 5AA51234", 6, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("0F8E A56789AB", 6, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("0F8F 5AA51234", 6, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("0F8F A56789AB", 6, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 - 0x5476985B, DecoderOptions.None)]
 
-		[InlineData("66 0F88 5AA51234", 7, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("66 0F88 A56789AB", 7, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("66 0F89 5AA51234", 7, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("66 0F89 A56789AB", 7, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("66 0F8A 5AA51234", 7, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("66 0F8A A56789AB", 7, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("66 0F8B 5AA51234", 7, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("66 0F8B A56789AB", 7, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("66 0F8C 5AA51234", 7, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("66 0F8C A56789AB", 7, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("66 0F8D 5AA51234", 7, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("66 0F8D A56789AB", 7, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("66 0F8E 5AA51234", 7, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("66 0F8E A56789AB", 7, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("66 0F8F 5AA51234", 7, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("66 0F8F A56789AB", 7, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
+		[InlineData("66 0F88 5AA51234", 7, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 0F88 A56789AB", 7, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 0F89 5AA51234", 7, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 0F89 A56789AB", 7, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 0F8A 5AA51234", 7, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 0F8A A56789AB", 7, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 0F8B 5AA51234", 7, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 0F8B A56789AB", 7, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 0F8C 5AA51234", 7, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 0F8C A56789AB", 7, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 0F8D 5AA51234", 7, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 0F8D A56789AB", 7, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 0F8E 5AA51234", 7, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 0F8E A56789AB", 7, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 0F8F 5AA51234", 7, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 0F8F A56789AB", 7, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
 
-		[InlineData("4F 0F88 5AA51234", 7, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("4F 0F88 A56789AB", 7, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("4F 0F89 5AA51234", 7, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("4F 0F89 A56789AB", 7, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("4F 0F8A 5AA51234", 7, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("4F 0F8A A56789AB", 7, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("4F 0F8B 5AA51234", 7, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("4F 0F8B A56789AB", 7, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("4F 0F8C 5AA51234", 7, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("4F 0F8C A56789AB", 7, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("4F 0F8D 5AA51234", 7, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("4F 0F8D A56789AB", 7, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("4F 0F8E 5AA51234", 7, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("4F 0F8E A56789AB", 7, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
-		[InlineData("4F 0F8F 5AA51234", 7, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A)]
-		[InlineData("4F 0F8F A56789AB", 7, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B)]
+		[InlineData("4F 0F88 5AA51234", 7, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("4F 0F88 A56789AB", 7, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("4F 0F89 5AA51234", 7, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("4F 0F89 A56789AB", 7, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("4F 0F8A 5AA51234", 7, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("4F 0F8A A56789AB", 7, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("4F 0F8B 5AA51234", 7, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("4F 0F8B A56789AB", 7, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("4F 0F8C 5AA51234", 7, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("4F 0F8C A56789AB", 7, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("4F 0F8D 5AA51234", 7, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("4F 0F8D A56789AB", 7, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("4F 0F8E 5AA51234", 7, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("4F 0F8E A56789AB", 7, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("4F 0F8F 5AA51234", 7, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("4F 0F8F A56789AB", 7, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 7 - 0x5476985B, DecoderOptions.None)]
 
-		[InlineData("66 4F 0F88 5AA51234", 8, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A)]
-		[InlineData("66 4F 0F88 A56789AB", 8, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B)]
-		[InlineData("66 4F 0F89 5AA51234", 8, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A)]
-		[InlineData("66 4F 0F89 A56789AB", 8, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B)]
-		[InlineData("66 4F 0F8A 5AA51234", 8, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A)]
-		[InlineData("66 4F 0F8A A56789AB", 8, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B)]
-		[InlineData("66 4F 0F8B 5AA51234", 8, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A)]
-		[InlineData("66 4F 0F8B A56789AB", 8, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B)]
-		[InlineData("66 4F 0F8C 5AA51234", 8, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A)]
-		[InlineData("66 4F 0F8C A56789AB", 8, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B)]
-		[InlineData("66 4F 0F8D 5AA51234", 8, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A)]
-		[InlineData("66 4F 0F8D A56789AB", 8, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B)]
-		[InlineData("66 4F 0F8E 5AA51234", 8, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A)]
-		[InlineData("66 4F 0F8E A56789AB", 8, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B)]
-		[InlineData("66 4F 0F8F 5AA51234", 8, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A)]
-		[InlineData("66 4F 0F8F A56789AB", 8, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B)]
-		void Test64_Jcc_Jd64_1(string hexBytes, int byteLength, Code code, ulong target) {
-			var decoder = CreateDecoder64(hexBytes);
+		[InlineData("66 4F 0F88 5AA51234", 8, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 4F 0F88 A56789AB", 8, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 4F 0F89 5AA51234", 8, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 4F 0F89 A56789AB", 8, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 4F 0F8A 5AA51234", 8, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 4F 0F8A A56789AB", 8, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 4F 0F8B 5AA51234", 8, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 4F 0F8B A56789AB", 8, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 4F 0F8C 5AA51234", 8, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 4F 0F8C A56789AB", 8, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 4F 0F8D 5AA51234", 8, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 4F 0F8D A56789AB", 8, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 4F 0F8E 5AA51234", 8, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 4F 0F8E A56789AB", 8, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B, DecoderOptions.None)]
+		[InlineData("66 4F 0F8F 5AA51234", 8, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 + 0x3412A55A, DecoderOptions.None)]
+		[InlineData("66 4F 0F8F A56789AB", 8, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 8 - 0x5476985B, DecoderOptions.None)]
+
+		[InlineData("0F88 5AA51234", 6, Code.Js_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.AMD)]
+		[InlineData("0F89 5AA51234", 6, Code.Jns_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.AMD)]
+		[InlineData("0F8A 5AA51234", 6, Code.Jp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.AMD)]
+		[InlineData("0F8B 5AA51234", 6, Code.Jnp_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.AMD)]
+		[InlineData("0F8C 5AA51234", 6, Code.Jl_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.AMD)]
+		[InlineData("0F8D 5AA51234", 6, Code.Jge_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.AMD)]
+		[InlineData("0F8E 5AA51234", 6, Code.Jle_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.AMD)]
+		[InlineData("0F8F 5AA51234", 6, Code.Jg_rel32_64, DecoderConstants.DEFAULT_IP64 + 6 + 0x3412A55A, DecoderOptions.AMD)]
+		void Test64_Jcc_Jd64_1(string hexBytes, int byteLength, Code code, ulong target, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.NearBranch64, instr.Op0Kind);
 			Assert.Equal(target, instr.NearBranch64);

@@ -19,6 +19,7 @@
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
+using System.Diagnostics;
 
 namespace Iced.Intel {
 	enum FormatterFlowControl {
@@ -175,24 +176,28 @@ namespace Iced.Intel {
 			case Code.Loopne_rel8_16_ECX:
 			case Code.Loopne_rel8_32_ECX:
 			case Code.Loopne_rel8_64_ECX:
+			case Code.Loopne_rel8_16_RCX:
 			case Code.Loopne_rel8_64_RCX:
 			case Code.Loope_rel8_16_CX:
 			case Code.Loope_rel8_32_CX:
 			case Code.Loope_rel8_16_ECX:
 			case Code.Loope_rel8_32_ECX:
 			case Code.Loope_rel8_64_ECX:
+			case Code.Loope_rel8_16_RCX:
 			case Code.Loope_rel8_64_RCX:
 			case Code.Loop_rel8_16_CX:
 			case Code.Loop_rel8_32_CX:
 			case Code.Loop_rel8_16_ECX:
 			case Code.Loop_rel8_32_ECX:
 			case Code.Loop_rel8_64_ECX:
+			case Code.Loop_rel8_16_RCX:
 			case Code.Loop_rel8_64_RCX:
 			case Code.Jcxz_rel8_16:
 			case Code.Jcxz_rel8_32:
 			case Code.Jecxz_rel8_16:
 			case Code.Jecxz_rel8_32:
 			case Code.Jecxz_rel8_64:
+			case Code.Jrcxz_rel8_16:
 			case Code.Jrcxz_rel8_64:
 				return FormatterFlowControl.AlwaysShortBranch;
 
@@ -254,6 +259,9 @@ namespace Iced.Intel {
 			case Code.Jmp_rel16:
 			case Code.Jmp_rel32_32:
 			case Code.Jmp_rel32_64:
+
+			case Code.Jmpe_disp16:
+			case Code.Jmpe_disp32:
 				return FormatterFlowControl.NearBranch;
 
 			case Code.Call_ptr3216:
@@ -289,6 +297,14 @@ namespace Iced.Intel {
 			default:
 				return false;
 			}
+		}
+
+		public static bool IsNoTrackPrefixBranch(Code code) {
+			Debug.Assert(Code.Jmp_rm16 + 1 == Code.Jmp_rm32);
+			Debug.Assert(Code.Jmp_rm16 + 2 == Code.Jmp_rm64);
+			Debug.Assert(Code.Call_rm16 + 1 == Code.Call_rm32);
+			Debug.Assert(Code.Call_rm16 + 2 == Code.Call_rm64);
+			return (uint)code - (uint)Code.Jmp_rm16 <= 2 || (uint)code - (uint)Code.Call_rm16 <= 2;
 		}
 	}
 }

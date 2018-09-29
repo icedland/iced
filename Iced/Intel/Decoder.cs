@@ -48,6 +48,7 @@ namespace Iced.Intel {
 	/// </summary>
 	public sealed partial class Decoder {
 		readonly CodeReader reader;
+		internal readonly DecoderOptions options;
 		internal readonly bool is64Mode;
 		internal readonly CodeSize defaultCodeSize;
 		readonly OpCodeHandler[] handlers_XX;
@@ -99,8 +100,9 @@ namespace Iced.Intel {
 		/// </summary>
 		public int Bitness { get; }
 
-		Decoder(CodeReader reader, OpSize defaultOpSize) {
+		Decoder(CodeReader reader, DecoderOptions options, OpSize defaultOpSize) {
 			this.reader = reader ?? throw new ArgumentNullException(nameof(reader));
+			this.options = options;
 			if (defaultOpSize == OpSize.Size64) {
 #if !NO_DECODER64
 				is64Mode = true;
@@ -161,12 +163,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="bitness">16, 32 or 64</param>
 		/// <param name="reader">Code reader</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create(int bitness, CodeReader reader) {
+		public static Decoder Create(int bitness, CodeReader reader, DecoderOptions options = DecoderOptions.None) {
 			switch (bitness) {
-			case 16: return Create16(reader);
-			case 32: return Create32(reader);
-			case 64: return Create64(reader);
+			case 16: return Create16(reader, options);
+			case 32: return Create32(reader, options);
+			case 64: return Create64(reader, options);
 			default: throw new ArgumentOutOfRangeException(nameof(bitness));
 			}
 		}
@@ -175,51 +178,58 @@ namespace Iced.Intel {
 		/// Creates a decoder that decodes 16-bit code
 		/// </summary>
 		/// <param name="reader">Code reader</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create16(CodeReader reader) => new Decoder(reader, OpSize.Size16);
+		public static Decoder Create16(CodeReader reader, DecoderOptions options = DecoderOptions.None) => new Decoder(reader, options, OpSize.Size16);
 
 		/// <summary>
 		/// Creates a decoder that decodes 32-bit code
 		/// </summary>
 		/// <param name="reader">Code reader</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create32(CodeReader reader) => new Decoder(reader, OpSize.Size32);
+		public static Decoder Create32(CodeReader reader, DecoderOptions options = DecoderOptions.None) => new Decoder(reader, options, OpSize.Size32);
 
 		/// <summary>
 		/// Creates a decoder that decodes 64-bit code
 		/// </summary>
 		/// <param name="reader">Code reader</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create64(CodeReader reader) => new Decoder(reader, OpSize.Size64);
+		public static Decoder Create64(CodeReader reader, DecoderOptions options = DecoderOptions.None) => new Decoder(reader, options, OpSize.Size64);
 
 		/// <summary>
 		/// Creates a decoder
 		/// </summary>
 		/// <param name="bitness">16, 32 or 64</param>
 		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create(int bitness, Func<int> readByte) => Create(bitness, new DelegateCodeReader(readByte));
+		public static Decoder Create(int bitness, Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create(bitness, new DelegateCodeReader(readByte), options);
 
 		/// <summary>
 		/// Creates a decoder that decodes 16-bit code
 		/// </summary>
 		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create16(Func<int> readByte) => Create16(new DelegateCodeReader(readByte));
+		public static Decoder Create16(Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create16(new DelegateCodeReader(readByte), options);
 
 		/// <summary>
 		/// Creates a decoder that decodes 32-bit code
 		/// </summary>
 		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create32(Func<int> readByte) => Create32(new DelegateCodeReader(readByte));
+		public static Decoder Create32(Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create32(new DelegateCodeReader(readByte), options);
 
 		/// <summary>
 		/// Creates a decoder that decodes 64-bit code
 		/// </summary>
 		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
+		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create64(Func<int> readByte) => Create64(new DelegateCodeReader(readByte));
+		public static Decoder Create64(Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create64(new DelegateCodeReader(readByte), options);
 
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;
@@ -284,7 +294,7 @@ namespace Iced.Intel {
 				switch (b) {
 				case 0x26:
 					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
-						instruction.PrefixSegment = Register.ES;
+						instruction.SegmentPrefix = Register.ES;
 						state.defaultDsSegment = (byte)Register.ES;
 					}
 					rexPrefix = 0;
@@ -292,7 +302,7 @@ namespace Iced.Intel {
 
 				case 0x2E:
 					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
-						instruction.PrefixSegment = Register.CS;
+						instruction.SegmentPrefix = Register.CS;
 						state.defaultDsSegment = (byte)Register.CS;
 					}
 					rexPrefix = 0;
@@ -300,7 +310,7 @@ namespace Iced.Intel {
 
 				case 0x36:
 					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
-						instruction.PrefixSegment = Register.SS;
+						instruction.SegmentPrefix = Register.SS;
 						state.defaultDsSegment = (byte)Register.SS;
 					}
 					rexPrefix = 0;
@@ -308,20 +318,20 @@ namespace Iced.Intel {
 
 				case 0x3E:
 					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
-						instruction.PrefixSegment = Register.DS;
+						instruction.SegmentPrefix = Register.DS;
 						state.defaultDsSegment = (byte)Register.DS;
 					}
 					rexPrefix = 0;
 					break;
 
 				case 0x64:
-					instruction.PrefixSegment = Register.FS;
+					instruction.SegmentPrefix = Register.FS;
 					state.defaultDsSegment = (byte)Register.FS;
 					rexPrefix = 0;
 					break;
 
 				case 0x65:
-					instruction.PrefixSegment = Register.GS;
+					instruction.SegmentPrefix = Register.GS;
 					state.defaultDsSegment = (byte)Register.GS;
 					rexPrefix = 0;
 					break;
@@ -339,18 +349,18 @@ namespace Iced.Intel {
 					break;
 
 				case 0xF0:
-					instruction.InternalSetHasPrefixLock();
+					instruction.InternalSetHasLockPrefix();
 					rexPrefix = 0;
 					break;
 
 				case 0xF2:
-					instruction.InternalSetHasPrefixRepne();
+					instruction.InternalSetHasRepnePrefix();
 					rexPrefix = 0;
 					state.mandatoryPrefix = MandatoryPrefix.PF2;
 					break;
 
 				case 0xF3:
-					instruction.InternalSetHasPrefixRepe();
+					instruction.InternalSetHasRepePrefix();
 					rexPrefix = 0;
 					state.mandatoryPrefix = MandatoryPrefix.PF3;
 					break;
@@ -400,30 +410,30 @@ after_read_prefixes:
 				state.operandSize = defaultOperandSize;
 				break;
 			case MandatoryPrefix.PF3:
-				instruction.InternalClearHasPrefixRepe();
+				instruction.InternalClearHasRepePrefix();
 				break;
 			case MandatoryPrefix.PF2:
-				instruction.InternalClearHasPrefixRepne();
+				instruction.InternalClearHasRepnePrefix();
 				break;
 			}
 		}
 
 		internal void SetXacquireRelease(ref Instruction instruction, HandlerFlags flags) {
-			if ((flags & HandlerFlags.XacquireReleaseNoLock) == 0 && !instruction.HasPrefixLock)
+			if ((flags & HandlerFlags.XacquireReleaseNoLock) == 0 && !instruction.HasLockPrefix)
 				return;
 
 			switch (state.mandatoryPrefix) {
 			case MandatoryPrefix.PF2:
 				if ((flags & HandlerFlags.Xacquire) != 0) {
 					ClearMandatoryPrefixF2(ref instruction);
-					instruction.InternalSetHasPrefixXacquire();
+					instruction.InternalSetHasXacquirePrefix();
 				}
 				break;
 
 			case MandatoryPrefix.PF3:
 				if ((flags & HandlerFlags.Xrelease) != 0) {
 					ClearMandatoryPrefixF3(ref instruction);
-					instruction.InternalSetHasPrefixXrelease();
+					instruction.InternalSetHasXreleasePrefix();
 				}
 				break;
 			}
@@ -432,13 +442,13 @@ after_read_prefixes:
 		internal void ClearMandatoryPrefixF3(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			Debug.Assert(state.mandatoryPrefix == MandatoryPrefix.PF3);
-			instruction.InternalClearHasPrefixRepe();
+			instruction.InternalClearHasRepePrefix();
 		}
 
 		internal void ClearMandatoryPrefixF2(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			Debug.Assert(state.mandatoryPrefix == MandatoryPrefix.PF2);
-			instruction.InternalClearHasPrefixRepne();
+			instruction.InternalClearHasRepnePrefix();
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1003,11 +1013,20 @@ after_read_prefixes:
 						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (4 + 2));
 						constantOffsets.ImmediateSize = 4;
 					}
-					else {
-						Debug.Assert(code == Code.Call_ptr1616 || code == Code.Jmp_ptr1616);
+					else if (code == Code.Call_ptr1616 || code == Code.Jmp_ptr1616) {
 						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (2 + 2));
 						constantOffsets.ImmediateSize = 2;
 					}
+					else if (code == Code.Jmpe_disp32) {
+						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 4);
+						constantOffsets.ImmediateSize = 4;
+					}
+					else if (code == Code.Jmpe_disp16) {
+						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 2);
+						constantOffsets.ImmediateSize = 2;
+					}
+					else
+						Debug.Fail("Unreachable");
 				}
 			}
 after_imm_loop:

@@ -175,15 +175,16 @@ namespace Iced.Intel {
 			if (prefix != null)
 				FormatPrefix(output, ref column, prefix);
 
-			var prefixSeg = instruction.PrefixSegment;
-			if (prefixSeg != Register.None && ShowSegmentOverridePrefix(ref opInfo))
+			var prefixSeg = instruction.SegmentPrefix;
+			bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNoTrackPrefixBranch(instruction.Code);
+			if (!hasNoTrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(ref opInfo))
 				FormatPrefix(output, ref column, allRegisters[(int)prefixSeg]);
 
-			if (instruction.HasPrefixXacquire)
+			if (instruction.HasXacquirePrefix)
 				FormatPrefix(output, ref column, "xacquire");
-			if (instruction.HasPrefixXrelease)
+			if (instruction.HasXreleasePrefix)
 				FormatPrefix(output, ref column, "xrelease");
-			if (instruction.HasPrefixLock)
+			if (instruction.HasLockPrefix)
 				FormatPrefix(output, ref column, "lock");
 
 			if ((opInfo.Flags & InstrOpInfoFlags.JccNotTaken) != 0)
@@ -192,10 +193,13 @@ namespace Iced.Intel {
 				FormatPrefix(output, ref column, "hint-taken");
 
 			bool hasBnd = (opInfo.Flags & InstrOpInfoFlags.BndPrefix) != 0;
-			if (instruction.HasPrefixRepe)
+			if (instruction.HasRepePrefix)
 				FormatPrefix(output, ref column, FormatterUtils.IsRepeOrRepneInstruction(instruction.Code) ? "repe" : "rep");
-			if (instruction.HasPrefixRepne && !hasBnd)
+			if (instruction.HasRepnePrefix && !hasBnd)
 				FormatPrefix(output, ref column, "repne");
+
+			if (hasNoTrackPrefix)
+				FormatPrefix(output, ref column, "notrack");
 
 			if (hasBnd)
 				FormatPrefix(output, ref column, "bnd");
@@ -213,8 +217,8 @@ namespace Iced.Intel {
 			}
 		}
 
-		bool ShowSegmentOverridePrefix(ref InstrOpInfo opInfo) {
-			if ((opInfo.Flags & InstrOpInfoFlags.IgnorePrefixSegment) != 0)
+		bool ShowSegmentPrefix(ref InstrOpInfo opInfo) {
+			if ((opInfo.Flags & InstrOpInfoFlags.IgnoreSegmentPrefix) != 0)
 				return false;
 			for (int i = 0; i < opInfo.OpCount; i++) {
 				switch (opInfo.GetOpKind(i)) {
@@ -451,43 +455,43 @@ namespace Iced.Intel {
 				break;
 
 			case InstrOpKind.MemorySegSI:
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, Register.SI, Register.None, 0, 0, 0, 2, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.SI, Register.None, 0, 0, 0, 2, opInfo.Flags);
 				break;
 
 			case InstrOpKind.MemorySegESI:
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, Register.ESI, Register.None, 0, 0, 0, 4, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.ESI, Register.None, 0, 0, 0, 4, opInfo.Flags);
 				break;
 
 			case InstrOpKind.MemorySegRSI:
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, Register.RSI, Register.None, 0, 0, 0, 8, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.RSI, Register.None, 0, 0, 0, 8, opInfo.Flags);
 				break;
 
 			case InstrOpKind.MemorySegDI:
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, Register.DI, Register.None, 0, 0, 0, 2, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.DI, Register.None, 0, 0, 0, 2, opInfo.Flags);
 				break;
 
 			case InstrOpKind.MemorySegEDI:
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, Register.EDI, Register.None, 0, 0, 0, 4, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.EDI, Register.None, 0, 0, 0, 4, opInfo.Flags);
 				break;
 
 			case InstrOpKind.MemorySegRDI:
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, Register.RDI, Register.None, 0, 0, 0, 8, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.RDI, Register.None, 0, 0, 0, 8, opInfo.Flags);
 				break;
 
 			case InstrOpKind.MemoryESDI:
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, Register.ES, Register.DI, Register.None, 0, 0, 0, 2, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, Register.ES, Register.DI, Register.None, 0, 0, 0, 2, opInfo.Flags);
 				break;
 
 			case InstrOpKind.MemoryESEDI:
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, Register.ES, Register.EDI, Register.None, 0, 0, 0, 4, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, Register.ES, Register.EDI, Register.None, 0, 0, 0, 4, opInfo.Flags);
 				break;
 
 			case InstrOpKind.MemoryESRDI:
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, Register.ES, Register.RDI, Register.None, 0, 0, 0, 8, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, Register.ES, Register.RDI, Register.None, 0, 0, 0, 8, opInfo.Flags);
 				break;
 
 			case InstrOpKind.Memory64:
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, Register.None, Register.None, 0, 8, (long)instruction.MemoryAddress64, 8, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.None, Register.None, 0, 8, (long)instruction.MemoryAddress64, 8, opInfo.Flags);
 				break;
 
 			case InstrOpKind.Memory:
@@ -502,7 +506,7 @@ namespace Iced.Intel {
 					displ = instruction.MemoryDisplacement;
 				if ((opInfo.Flags & InstrOpInfoFlags.IgnoreIndexReg) != 0)
 					indexReg = Register.None;
-				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.PrefixSegment, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize, opInfo.Flags);
+				FormatMemory(output, ref instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize, opInfo.Flags);
 				break;
 
 			default:

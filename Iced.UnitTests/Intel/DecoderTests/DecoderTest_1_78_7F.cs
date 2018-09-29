@@ -46,10 +46,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
 			Assert.Equal((ushort)target, instr.NearBranch16);
@@ -79,10 +79,43 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
+
+			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
+			Assert.Equal((ushort)target, instr.NearBranch16);
+		}
+
+		[Theory]
+		[InlineData("66 78 5A", 3, Code.Js_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 78 A5", 3, Code.Js_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 79 5A", 3, Code.Jns_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 79 A5", 3, Code.Jns_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 7A 5A", 3, Code.Jp_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 7A A5", 3, Code.Jp_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 7B 5A", 3, Code.Jnp_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 7B A5", 3, Code.Jnp_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 7C 5A", 3, Code.Jl_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 7C A5", 3, Code.Jl_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 7D 5A", 3, Code.Jge_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 7D A5", 3, Code.Jge_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 7E 5A", 3, Code.Jle_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 7E A5", 3, Code.Jle_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		[InlineData("66 7F 5A", 3, Code.Jg_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0x5A, DecoderOptions.AMD)]
+		[InlineData("66 7F A5", 3, Code.Jg_rel8_16, DecoderConstants.DEFAULT_IP32 + 3 + 0xFFA5, DecoderOptions.AMD)]
+		void Test64_Jcc_Jb16_1(string hexBytes, int byteLength, Code code, ulong target, DecoderOptions options) {
+			var decoder = CreateDecoder64(hexBytes, options);
+			var instr = decoder.Decode();
+
+			Assert.Equal(code, instr.Code);
+			Assert.Equal(1, instr.OpCount);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.NearBranch16, instr.Op0Kind);
 			Assert.Equal((ushort)target, instr.NearBranch16);
@@ -112,10 +145,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.NearBranch32, instr.Op0Kind);
 			Assert.Equal((uint)target, instr.NearBranch32);
@@ -145,10 +178,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.NearBranch32, instr.Op0Kind);
 			Assert.Equal((uint)target, instr.NearBranch32);
@@ -210,10 +243,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(1, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.NearBranch64, instr.Op0Kind);
 			Assert.Equal(target, instr.NearBranch64);

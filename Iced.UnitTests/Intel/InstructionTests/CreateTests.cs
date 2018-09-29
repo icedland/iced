@@ -147,6 +147,8 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "C4E36948CB40", new Func<Instruction>(() => Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0)) };
 				yield return new object[] { 64, "64C4E3E9488C7501EFCDAB31", new Func<Instruction>(() => Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm8, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x1)) };
 				yield return new object[] { 64, "64C4E369488C7501EFCDAB41", new Func<Instruction>(() => Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4, 0x1)) };
+				yield return new object[] { 16, "0FB8 55AA", new Func<Instruction>(() => Instruction.CreateBranch(Code.Jmpe_disp16, 0xAA55)) };
+				yield return new object[] { 32, "0FB8 123455AA", new Func<Instruction>(() => Instruction.CreateBranch(Code.Jmpe_disp32, 0xAA553412)) };
 			}
 		}
 	}

@@ -92,7 +92,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			};
 			var expectedRelocInfos = Array.Empty<RelocInfo>();
 			const BlockEncoderOptions options = BlockEncoderOptions.None;
-			EncodeBase(bitness, origRip, originalData, newRip, newData, options, expectedInstructionOffsets, expectedRelocInfos);
+			EncodeBase(bitness, origRip, originalData, newRip, newData, options, decoderOptions, expectedInstructionOffsets, expectedRelocInfos);
 		}
 
 		[Fact]
@@ -159,7 +159,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			};
 			var expectedRelocInfos = Array.Empty<RelocInfo>();
 			const BlockEncoderOptions options = BlockEncoderOptions.None;
-			EncodeBase(bitness, origRip, originalData, newRip, newData, options, expectedInstructionOffsets, expectedRelocInfos);
+			EncodeBase(bitness, origRip, originalData, newRip, newData, options, decoderOptions, expectedInstructionOffsets, expectedRelocInfos);
 		}
 
 		[Fact]
@@ -223,7 +223,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			};
 			var expectedRelocInfos = Array.Empty<RelocInfo>();
 			const BlockEncoderOptions options = BlockEncoderOptions.None;
-			EncodeBase(bitness, origRip, originalData, origRip - 1, newData, options, expectedInstructionOffsets, expectedRelocInfos);
+			EncodeBase(bitness, origRip, originalData, origRip - 1, newData, options, decoderOptions, expectedInstructionOffsets, expectedRelocInfos);
 		}
 
 		[Fact]
@@ -303,7 +303,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			};
 			var expectedRelocInfos = Array.Empty<RelocInfo>();
 			const BlockEncoderOptions options = BlockEncoderOptions.None;
-			EncodeBase(bitness, origRip, originalData, origRip + 0x1000, newData, options, expectedInstructionOffsets, expectedRelocInfos);
+			EncodeBase(bitness, origRip, originalData, origRip + 0x1000, newData, options, decoderOptions, expectedInstructionOffsets, expectedRelocInfos);
 		}
 
 		[Fact]
@@ -402,7 +402,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			};
 			const BlockEncoderOptions options = BlockEncoderOptions.None;
 			const ulong origRip = 0x123456789ABCDE00;
-			EncodeBase(bitness, origRip, originalData, newRip, newData, options, expectedInstructionOffsets, expectedRelocInfos);
+			EncodeBase(bitness, origRip, originalData, newRip, newData, options, decoderOptions, expectedInstructionOffsets, expectedRelocInfos);
 		}
 	}
 }

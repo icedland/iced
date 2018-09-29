@@ -26,8 +26,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	public sealed class InstructionInfoTest_16 : InstructionInfoTest {
 		[Theory]
 		[MemberData(nameof(Test16_InstructionInfo_Data))]
-		void Test16_InstructionInfo(string hexBytes, Code code, int lineNo, InstructionInfoTestCase testCase) =>
-			TestInstructionInfo(16, hexBytes, code, lineNo, testCase);
+		void Test16_InstructionInfo(string hexBytes, Code code, DecoderOptions options, int lineNo, InstructionInfoTestCase testCase) =>
+			TestInstructionInfo(16, hexBytes, code, options, lineNo, testCase);
 		public static IEnumerable<object[]> Test16_InstructionInfo_Data => GetTestCases(16, nameof(InstructionInfoTest_16));
 	}
 }

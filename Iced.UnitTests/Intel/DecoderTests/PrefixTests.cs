@@ -32,10 +32,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.ESI, instr.Op0Register);
@@ -53,10 +53,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.SI, instr.Op0Register);
@@ -74,10 +74,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.SI, instr.Op0Register);
@@ -95,10 +95,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.BX, instr.Op0Register);
@@ -122,10 +122,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.EBX, instr.Op0Register);
@@ -149,10 +149,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.EBX, instr.Op0Register);
@@ -216,10 +216,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(segReg, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(segReg, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -283,10 +283,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(segReg, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(segReg, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -350,10 +350,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(segReg, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(segReg, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -377,10 +377,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.RSI, instr.Op0Register);
@@ -403,10 +403,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -425,10 +425,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.SI, instr.Op0Register);
@@ -446,10 +446,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -473,10 +473,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.True(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.True(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -500,10 +500,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.True(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.True(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -527,10 +527,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.True(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.True(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -559,10 +559,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.Equal(segReg, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.Equal(segReg, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -584,12 +584,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.True(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.True(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -597,6 +597,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			get {
 				yield return new object[] { "F0 10 08", Code.Adc_rm8_r8 };
 				yield return new object[] { "F0 80 10 A5", Code.Adc_rm8_imm8 };
+				yield return new object[] { "F0 82 10 A5", Code.Adc_rm8_imm8_82 };
 				yield return new object[] { "F0 11 08", Code.Adc_rm16_r16 };
 				yield return new object[] { "F0 83 10 A5", Code.Adc_rm16_imm8 };
 				yield return new object[] { "F0 81 10 5AA5", Code.Adc_rm16_imm16 };
@@ -606,6 +607,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 00 08", Code.Add_rm8_r8 };
 				yield return new object[] { "F0 80 00 A5", Code.Add_rm8_imm8 };
+				yield return new object[] { "F0 82 00 A5", Code.Add_rm8_imm8_82 };
 				yield return new object[] { "F0 01 08", Code.Add_rm16_r16 };
 				yield return new object[] { "F0 83 00 A5", Code.Add_rm16_imm8 };
 				yield return new object[] { "F0 81 00 5AA5", Code.Add_rm16_imm16 };
@@ -615,6 +617,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 20 08", Code.And_rm8_r8 };
 				yield return new object[] { "F0 80 20 A5", Code.And_rm8_imm8 };
+				yield return new object[] { "F0 82 20 A5", Code.And_rm8_imm8_82 };
 				yield return new object[] { "F0 21 08", Code.And_rm16_r16 };
 				yield return new object[] { "F0 83 20 A5", Code.And_rm16_imm8 };
 				yield return new object[] { "F0 81 20 5AA5", Code.And_rm16_imm16 };
@@ -624,6 +627,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 08 08", Code.Or_rm8_r8 };
 				yield return new object[] { "F0 80 08 A5", Code.Or_rm8_imm8 };
+				yield return new object[] { "F0 82 08 A5", Code.Or_rm8_imm8_82 };
 				yield return new object[] { "F0 09 08", Code.Or_rm16_r16 };
 				yield return new object[] { "F0 83 08 A5", Code.Or_rm16_imm8 };
 				yield return new object[] { "F0 81 08 5AA5", Code.Or_rm16_imm16 };
@@ -633,6 +637,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 18 08", Code.Sbb_rm8_r8 };
 				yield return new object[] { "F0 80 18 A5", Code.Sbb_rm8_imm8 };
+				yield return new object[] { "F0 82 18 A5", Code.Sbb_rm8_imm8_82 };
 				yield return new object[] { "F0 19 08", Code.Sbb_rm16_r16 };
 				yield return new object[] { "F0 83 18 A5", Code.Sbb_rm16_imm8 };
 				yield return new object[] { "F0 81 18 5AA5", Code.Sbb_rm16_imm16 };
@@ -642,6 +647,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 28 08", Code.Sub_rm8_r8 };
 				yield return new object[] { "F0 80 28 A5", Code.Sub_rm8_imm8 };
+				yield return new object[] { "F0 82 28 A5", Code.Sub_rm8_imm8_82 };
 				yield return new object[] { "F0 29 08", Code.Sub_rm16_r16 };
 				yield return new object[] { "F0 83 28 A5", Code.Sub_rm16_imm8 };
 				yield return new object[] { "F0 81 28 5AA5", Code.Sub_rm16_imm16 };
@@ -651,6 +657,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 30 08", Code.Xor_rm8_r8 };
 				yield return new object[] { "F0 80 30 A5", Code.Xor_rm8_imm8 };
+				yield return new object[] { "F0 82 30 A5", Code.Xor_rm8_imm8_82 };
 				yield return new object[] { "F0 31 08", Code.Xor_rm16_r16 };
 				yield return new object[] { "F0 83 30 A5", Code.Xor_rm16_imm8 };
 				yield return new object[] { "F0 81 30 5AA5", Code.Xor_rm16_imm16 };
@@ -712,12 +719,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.True(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.True(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -725,6 +732,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			get {
 				yield return new object[] { "F0 10 08", Code.Adc_rm8_r8 };
 				yield return new object[] { "F0 80 10 A5", Code.Adc_rm8_imm8 };
+				yield return new object[] { "F0 82 10 A5", Code.Adc_rm8_imm8_82 };
 				yield return new object[] { "F0 66 11 08", Code.Adc_rm16_r16 };
 				yield return new object[] { "F0 66 83 10 A5", Code.Adc_rm16_imm8 };
 				yield return new object[] { "F0 66 81 10 5AA5", Code.Adc_rm16_imm16 };
@@ -734,6 +742,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 00 08", Code.Add_rm8_r8 };
 				yield return new object[] { "F0 80 00 A5", Code.Add_rm8_imm8 };
+				yield return new object[] { "F0 82 00 A5", Code.Add_rm8_imm8_82 };
 				yield return new object[] { "F0 66 01 08", Code.Add_rm16_r16 };
 				yield return new object[] { "F0 66 83 00 A5", Code.Add_rm16_imm8 };
 				yield return new object[] { "F0 66 81 00 5AA5", Code.Add_rm16_imm16 };
@@ -743,6 +752,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 20 08", Code.And_rm8_r8 };
 				yield return new object[] { "F0 80 20 A5", Code.And_rm8_imm8 };
+				yield return new object[] { "F0 82 20 A5", Code.And_rm8_imm8_82 };
 				yield return new object[] { "F0 66 21 08", Code.And_rm16_r16 };
 				yield return new object[] { "F0 66 83 20 A5", Code.And_rm16_imm8 };
 				yield return new object[] { "F0 66 81 20 5AA5", Code.And_rm16_imm16 };
@@ -752,6 +762,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 08 08", Code.Or_rm8_r8 };
 				yield return new object[] { "F0 80 08 A5", Code.Or_rm8_imm8 };
+				yield return new object[] { "F0 82 08 A5", Code.Or_rm8_imm8_82 };
 				yield return new object[] { "F0 66 09 08", Code.Or_rm16_r16 };
 				yield return new object[] { "F0 66 83 08 A5", Code.Or_rm16_imm8 };
 				yield return new object[] { "F0 66 81 08 5AA5", Code.Or_rm16_imm16 };
@@ -761,6 +772,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 18 08", Code.Sbb_rm8_r8 };
 				yield return new object[] { "F0 80 18 A5", Code.Sbb_rm8_imm8 };
+				yield return new object[] { "F0 82 18 A5", Code.Sbb_rm8_imm8_82 };
 				yield return new object[] { "F0 66 19 08", Code.Sbb_rm16_r16 };
 				yield return new object[] { "F0 66 83 18 A5", Code.Sbb_rm16_imm8 };
 				yield return new object[] { "F0 66 81 18 5AA5", Code.Sbb_rm16_imm16 };
@@ -770,6 +782,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 28 08", Code.Sub_rm8_r8 };
 				yield return new object[] { "F0 80 28 A5", Code.Sub_rm8_imm8 };
+				yield return new object[] { "F0 82 28 A5", Code.Sub_rm8_imm8_82 };
 				yield return new object[] { "F0 66 29 08", Code.Sub_rm16_r16 };
 				yield return new object[] { "F0 66 83 28 A5", Code.Sub_rm16_imm8 };
 				yield return new object[] { "F0 66 81 28 5AA5", Code.Sub_rm16_imm16 };
@@ -779,6 +792,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F0 30 08", Code.Xor_rm8_r8 };
 				yield return new object[] { "F0 80 30 A5", Code.Xor_rm8_imm8 };
+				yield return new object[] { "F0 82 30 A5", Code.Xor_rm8_imm8_82 };
 				yield return new object[] { "F0 66 31 08", Code.Xor_rm16_r16 };
 				yield return new object[] { "F0 66 83 30 A5", Code.Xor_rm16_imm8 };
 				yield return new object[] { "F0 66 81 30 5AA5", Code.Xor_rm16_imm16 };
@@ -840,12 +854,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.True(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.True(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1003,12 +1017,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.True(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.True(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1016,6 +1030,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			get {
 				yield return new object[] { "F2 F0 10 08", Code.Adc_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 10 A5", Code.Adc_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 10 A5", Code.Adc_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 11 08", Code.Adc_rm16_r16, true };
 				yield return new object[] { "F2 F0 83 10 A5", Code.Adc_rm16_imm8, true };
 				yield return new object[] { "F2 F0 81 10 5AA5", Code.Adc_rm16_imm16, true };
@@ -1025,6 +1040,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 00 08", Code.Add_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 00 A5", Code.Add_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 00 A5", Code.Add_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 01 08", Code.Add_rm16_r16, true };
 				yield return new object[] { "F2 F0 83 00 A5", Code.Add_rm16_imm8, true };
 				yield return new object[] { "F2 F0 81 00 5AA5", Code.Add_rm16_imm16, true };
@@ -1034,6 +1050,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 20 08", Code.And_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 20 A5", Code.And_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 20 A5", Code.And_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 21 08", Code.And_rm16_r16, true };
 				yield return new object[] { "F2 F0 83 20 A5", Code.And_rm16_imm8, true };
 				yield return new object[] { "F2 F0 81 20 5AA5", Code.And_rm16_imm16, true };
@@ -1043,6 +1060,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 08 08", Code.Or_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 08 A5", Code.Or_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 08 A5", Code.Or_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 09 08", Code.Or_rm16_r16, true };
 				yield return new object[] { "F2 F0 83 08 A5", Code.Or_rm16_imm8, true };
 				yield return new object[] { "F2 F0 81 08 5AA5", Code.Or_rm16_imm16, true };
@@ -1052,6 +1070,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 18 08", Code.Sbb_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 18 A5", Code.Sbb_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 18 A5", Code.Sbb_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 19 08", Code.Sbb_rm16_r16, true };
 				yield return new object[] { "F2 F0 83 18 A5", Code.Sbb_rm16_imm8, true };
 				yield return new object[] { "F2 F0 81 18 5AA5", Code.Sbb_rm16_imm16, true };
@@ -1061,6 +1080,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 28 08", Code.Sub_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 28 A5", Code.Sub_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 28 A5", Code.Sub_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 29 08", Code.Sub_rm16_r16, true };
 				yield return new object[] { "F2 F0 83 28 A5", Code.Sub_rm16_imm8, true };
 				yield return new object[] { "F2 F0 81 28 5AA5", Code.Sub_rm16_imm16, true };
@@ -1070,6 +1090,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 30 08", Code.Xor_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 30 A5", Code.Xor_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 30 A5", Code.Xor_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 31 08", Code.Xor_rm16_r16, true };
 				yield return new object[] { "F2 F0 83 30 A5", Code.Xor_rm16_imm8, true };
 				yield return new object[] { "F2 F0 81 30 5AA5", Code.Xor_rm16_imm16, true };
@@ -1135,12 +1156,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.True(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.True(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1148,6 +1169,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			get {
 				yield return new object[] { "F2 F0 10 08", Code.Adc_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 10 A5", Code.Adc_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 10 A5", Code.Adc_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 66 11 08", Code.Adc_rm16_r16, true };
 				yield return new object[] { "F2 F0 66 83 10 A5", Code.Adc_rm16_imm8, true };
 				yield return new object[] { "F2 F0 66 81 10 5AA5", Code.Adc_rm16_imm16, true };
@@ -1157,6 +1179,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 00 08", Code.Add_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 00 A5", Code.Add_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 00 A5", Code.Add_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 66 01 08", Code.Add_rm16_r16, true };
 				yield return new object[] { "F2 F0 66 83 00 A5", Code.Add_rm16_imm8, true };
 				yield return new object[] { "F2 F0 66 81 00 5AA5", Code.Add_rm16_imm16, true };
@@ -1166,6 +1189,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 20 08", Code.And_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 20 A5", Code.And_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 20 A5", Code.And_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 66 21 08", Code.And_rm16_r16, true };
 				yield return new object[] { "F2 F0 66 83 20 A5", Code.And_rm16_imm8, true };
 				yield return new object[] { "F2 F0 66 81 20 5AA5", Code.And_rm16_imm16, true };
@@ -1175,6 +1199,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 08 08", Code.Or_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 08 A5", Code.Or_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 08 A5", Code.Or_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 66 09 08", Code.Or_rm16_r16, true };
 				yield return new object[] { "F2 F0 66 83 08 A5", Code.Or_rm16_imm8, true };
 				yield return new object[] { "F2 F0 66 81 08 5AA5", Code.Or_rm16_imm16, true };
@@ -1184,6 +1209,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 18 08", Code.Sbb_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 18 A5", Code.Sbb_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 18 A5", Code.Sbb_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 66 19 08", Code.Sbb_rm16_r16, true };
 				yield return new object[] { "F2 F0 66 83 18 A5", Code.Sbb_rm16_imm8, true };
 				yield return new object[] { "F2 F0 66 81 18 5AA5", Code.Sbb_rm16_imm16, true };
@@ -1193,6 +1219,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 28 08", Code.Sub_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 28 A5", Code.Sub_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 28 A5", Code.Sub_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 66 29 08", Code.Sub_rm16_r16, true };
 				yield return new object[] { "F2 F0 66 83 28 A5", Code.Sub_rm16_imm8, true };
 				yield return new object[] { "F2 F0 66 81 28 5AA5", Code.Sub_rm16_imm16, true };
@@ -1202,6 +1229,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 F0 30 08", Code.Xor_rm8_r8, true };
 				yield return new object[] { "F2 F0 80 30 A5", Code.Xor_rm8_imm8, true };
+				yield return new object[] { "F2 F0 82 30 A5", Code.Xor_rm8_imm8_82, true };
 				yield return new object[] { "F2 F0 66 31 08", Code.Xor_rm16_r16, true };
 				yield return new object[] { "F2 F0 66 83 30 A5", Code.Xor_rm16_imm8, true };
 				yield return new object[] { "F2 F0 66 81 30 5AA5", Code.Xor_rm16_imm16, true };
@@ -1267,12 +1295,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.True(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.True(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1434,12 +1462,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.True(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.True(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1447,6 +1475,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			get {
 				yield return new object[] { "F3 F0 10 08", Code.Adc_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 10 A5", Code.Adc_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 10 A5", Code.Adc_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 11 08", Code.Adc_rm16_r16, true };
 				yield return new object[] { "F3 F0 83 10 A5", Code.Adc_rm16_imm8, true };
 				yield return new object[] { "F3 F0 81 10 5AA5", Code.Adc_rm16_imm16, true };
@@ -1456,6 +1485,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 00 08", Code.Add_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 00 A5", Code.Add_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 00 A5", Code.Add_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 01 08", Code.Add_rm16_r16, true };
 				yield return new object[] { "F3 F0 83 00 A5", Code.Add_rm16_imm8, true };
 				yield return new object[] { "F3 F0 81 00 5AA5", Code.Add_rm16_imm16, true };
@@ -1465,6 +1495,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 20 08", Code.And_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 20 A5", Code.And_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 20 A5", Code.And_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 21 08", Code.And_rm16_r16, true };
 				yield return new object[] { "F3 F0 83 20 A5", Code.And_rm16_imm8, true };
 				yield return new object[] { "F3 F0 81 20 5AA5", Code.And_rm16_imm16, true };
@@ -1474,6 +1505,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 08 08", Code.Or_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 08 A5", Code.Or_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 08 A5", Code.Or_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 09 08", Code.Or_rm16_r16, true };
 				yield return new object[] { "F3 F0 83 08 A5", Code.Or_rm16_imm8, true };
 				yield return new object[] { "F3 F0 81 08 5AA5", Code.Or_rm16_imm16, true };
@@ -1483,6 +1515,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 18 08", Code.Sbb_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 18 A5", Code.Sbb_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 18 A5", Code.Sbb_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 19 08", Code.Sbb_rm16_r16, true };
 				yield return new object[] { "F3 F0 83 18 A5", Code.Sbb_rm16_imm8, true };
 				yield return new object[] { "F3 F0 81 18 5AA5", Code.Sbb_rm16_imm16, true };
@@ -1492,6 +1525,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 28 08", Code.Sub_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 28 A5", Code.Sub_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 28 A5", Code.Sub_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 29 08", Code.Sub_rm16_r16, true };
 				yield return new object[] { "F3 F0 83 28 A5", Code.Sub_rm16_imm8, true };
 				yield return new object[] { "F3 F0 81 28 5AA5", Code.Sub_rm16_imm16, true };
@@ -1501,6 +1535,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 30 08", Code.Xor_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 30 A5", Code.Xor_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 30 A5", Code.Xor_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 31 08", Code.Xor_rm16_r16, true };
 				yield return new object[] { "F3 F0 83 30 A5", Code.Xor_rm16_imm8, true };
 				yield return new object[] { "F3 F0 81 30 5AA5", Code.Xor_rm16_imm16, true };
@@ -1574,12 +1609,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.True(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.True(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1587,6 +1622,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			get {
 				yield return new object[] { "F3 F0 10 08", Code.Adc_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 10 A5", Code.Adc_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 10 A5", Code.Adc_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 66 11 08", Code.Adc_rm16_r16, true };
 				yield return new object[] { "F3 F0 66 83 10 A5", Code.Adc_rm16_imm8, true };
 				yield return new object[] { "F3 F0 66 81 10 5AA5", Code.Adc_rm16_imm16, true };
@@ -1596,6 +1632,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 00 08", Code.Add_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 00 A5", Code.Add_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 00 A5", Code.Add_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 66 01 08", Code.Add_rm16_r16, true };
 				yield return new object[] { "F3 F0 66 83 00 A5", Code.Add_rm16_imm8, true };
 				yield return new object[] { "F3 F0 66 81 00 5AA5", Code.Add_rm16_imm16, true };
@@ -1605,6 +1642,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 20 08", Code.And_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 20 A5", Code.And_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 20 A5", Code.And_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 66 21 08", Code.And_rm16_r16, true };
 				yield return new object[] { "F3 F0 66 83 20 A5", Code.And_rm16_imm8, true };
 				yield return new object[] { "F3 F0 66 81 20 5AA5", Code.And_rm16_imm16, true };
@@ -1614,6 +1652,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 08 08", Code.Or_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 08 A5", Code.Or_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 08 A5", Code.Or_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 66 09 08", Code.Or_rm16_r16, true };
 				yield return new object[] { "F3 F0 66 83 08 A5", Code.Or_rm16_imm8, true };
 				yield return new object[] { "F3 F0 66 81 08 5AA5", Code.Or_rm16_imm16, true };
@@ -1623,6 +1662,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 18 08", Code.Sbb_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 18 A5", Code.Sbb_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 18 A5", Code.Sbb_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 66 19 08", Code.Sbb_rm16_r16, true };
 				yield return new object[] { "F3 F0 66 83 18 A5", Code.Sbb_rm16_imm8, true };
 				yield return new object[] { "F3 F0 66 81 18 5AA5", Code.Sbb_rm16_imm16, true };
@@ -1632,6 +1672,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 28 08", Code.Sub_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 28 A5", Code.Sub_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 28 A5", Code.Sub_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 66 29 08", Code.Sub_rm16_r16, true };
 				yield return new object[] { "F3 F0 66 83 28 A5", Code.Sub_rm16_imm8, true };
 				yield return new object[] { "F3 F0 66 81 28 5AA5", Code.Sub_rm16_imm16, true };
@@ -1641,6 +1682,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F3 F0 30 08", Code.Xor_rm8_r8, true };
 				yield return new object[] { "F3 F0 80 30 A5", Code.Xor_rm8_imm8, true };
+				yield return new object[] { "F3 F0 82 30 A5", Code.Xor_rm8_imm8_82, true };
 				yield return new object[] { "F3 F0 66 31 08", Code.Xor_rm16_r16, true };
 				yield return new object[] { "F3 F0 66 83 30 A5", Code.Xor_rm16_imm8, true };
 				yield return new object[] { "F3 F0 66 81 30 5AA5", Code.Xor_rm16_imm16, true };
@@ -1714,12 +1756,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasPrefixRepe);
-			Assert.False(instr.HasPrefixRepne);
-			Assert.Equal(hasLock, instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.True(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.False(instr.HasRepePrefix);
+			Assert.False(instr.HasRepnePrefix);
+			Assert.Equal(hasLock, instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.True(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 		}
@@ -1891,12 +1933,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.Equal(repe, instr.HasPrefixRepe);
-			Assert.Equal(repne, instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.Equal(repe, instr.HasRepePrefix);
+			Assert.Equal(repne, instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 		public static IEnumerable<object[]> Test16_RepPrefix_Data {
 			get {
@@ -1937,12 +1979,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.Equal(repe, instr.HasPrefixRepe);
-			Assert.Equal(repne, instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.Equal(repe, instr.HasRepePrefix);
+			Assert.Equal(repne, instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 		public static IEnumerable<object[]> Test32_RepPrefix_Data {
 			get {
@@ -1983,12 +2025,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
-			Assert.Equal(repe, instr.HasPrefixRepe);
-			Assert.Equal(repne, instr.HasPrefixRepne);
-			Assert.False(instr.HasPrefixLock);
-			Assert.False(instr.HasPrefixXacquire);
-			Assert.False(instr.HasPrefixXrelease);
-			Assert.Equal(Register.None, instr.PrefixSegment);
+			Assert.Equal(repe, instr.HasRepePrefix);
+			Assert.Equal(repne, instr.HasRepnePrefix);
+			Assert.False(instr.HasLockPrefix);
+			Assert.False(instr.HasXacquirePrefix);
+			Assert.False(instr.HasXreleasePrefix);
+			Assert.Equal(Register.None, instr.SegmentPrefix);
 		}
 		public static IEnumerable<object[]> Test64_RepPrefix_Data {
 			get {
