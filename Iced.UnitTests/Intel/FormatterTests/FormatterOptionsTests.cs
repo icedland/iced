@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class FormatterOptionsTests {
-		public const int AllInfos_Length = 1733;
+		public const int AllInfos_Length = 1773;
 		public static readonly OptionsInstructionInfo[] AllInfos = new OptionsInstructionInfo[AllInfos_Length] {
 			new OptionsInstructionInfo(64, "64 F3 A4", Code.Movsb_m8_m8, a => a.UpperCasePrefixes = true),
 			new OptionsInstructionInfo(64, "64 F3 A4", Code.Movsb_m8_m8, a => a.UpperCasePrefixes = false),
@@ -1872,6 +1872,54 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new OptionsInstructionInfo(64, "C4E369 44 F4 10", Code.VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = true),
 			new OptionsInstructionInfo(64, "C4E369 44 F4 11", Code.VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = true),
 			new OptionsInstructionInfo(64, "C4E369 44 F4 FF", Code.VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = true),
+
+			new OptionsInstructionInfo(64, "C4E36D 44 F4 00", Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "C4E36D 44 F4 01", Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "C4E36D 44 F4 10", Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "C4E36D 44 F4 11", Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "C4E36D 44 F4 FF", Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = false),
+
+			new OptionsInstructionInfo(64, "C4E36D 44 F4 00", Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "C4E36D 44 F4 01", Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "C4E36D 44 F4 10", Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "C4E36D 44 F4 11", Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "C4E36D 44 F4 FF", Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = true),
+
+			new OptionsInstructionInfo(64, "62 F36D08 44 F4 00", Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D08 44 F4 01", Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D08 44 F4 10", Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D08 44 F4 11", Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D08 44 F4 FF", Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = false),
+
+			new OptionsInstructionInfo(64, "62 F36D08 44 F4 00", Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D08 44 F4 01", Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D08 44 F4 10", Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D08 44 F4 11", Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D08 44 F4 FF", Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, a => a.UsePseudoOps = true),
+
+			new OptionsInstructionInfo(64, "62 F36D28 44 F4 00", Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D28 44 F4 01", Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D28 44 F4 10", Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D28 44 F4 11", Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D28 44 F4 FF", Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = false),
+
+			new OptionsInstructionInfo(64, "62 F36D28 44 F4 00", Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D28 44 F4 01", Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D28 44 F4 10", Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D28 44 F4 11", Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D28 44 F4 FF", Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, a => a.UsePseudoOps = true),
+
+			new OptionsInstructionInfo(64, "62 F36D48 44 F4 00", Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D48 44 F4 01", Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D48 44 F4 10", Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D48 44 F4 11", Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, a => a.UsePseudoOps = false),
+			new OptionsInstructionInfo(64, "62 F36D48 44 F4 FF", Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, a => a.UsePseudoOps = false),
+
+			new OptionsInstructionInfo(64, "62 F36D48 44 F4 00", Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D48 44 F4 01", Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D48 44 F4 10", Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D48 44 F4 11", Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, a => a.UsePseudoOps = true),
+			new OptionsInstructionInfo(64, "62 F36D48 44 F4 FF", Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, a => a.UsePseudoOps = true),
 		};
 	}
 }
