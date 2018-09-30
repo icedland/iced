@@ -4190,13 +4190,6 @@ namespace Iced.Intel {
 		EVEX_Vpconflictq_ymm_k1z_ymmm256b64,						// EVEX.256.66.0F38.W1 C4
 		EVEX_Vpconflictq_zmm_k1z_zmmm512b64,						// EVEX.512.66.0F38.W1 C4
 
-		Sha1nexte_xmm_xmmm128,										// 0F38C8
-		Sha1msg1_xmm_xmmm128,										// 0F38C9
-		Sha1msg2_xmm_xmmm128,										// 0F38CA
-		Sha256rnds2_xmm_xmmm128,									// 0F38CB
-		Sha256msg1_xmm_xmmm128,										// 0F38CC
-		Sha256msg2_xmm_xmmm128,										// 0F38CD
-
 		EVEX_Vgatherpf0dps_vm32z_k1,								// EVEX.512.66.0F38.W0 C6 /1
 		EVEX_Vgatherpf0dpd_vm32y_k1,								// EVEX.512.66.0F38.W1 C6 /1
 		EVEX_Vgatherpf1dps_vm32z_k1,								// EVEX.512.66.0F38.W0 C6 /2
@@ -4215,17 +4208,29 @@ namespace Iced.Intel {
 		EVEX_Vscatterpf1qps_vm64z_k1,								// EVEX.512.66.0F38.W0 C7 /6
 		EVEX_Vscatterpf1qpd_vm64z_k1,								// EVEX.512.66.0F38.W1 C7 /6
 
+		Sha1nexte_xmm_xmmm128,										// 0F38C8
+
 		EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae,						// EVEX.512.66.0F38.W0 C8
 		EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae,						// EVEX.512.66.0F38.W1 C8
+
+		Sha1msg1_xmm_xmmm128,										// 0F38C9
+
+		Sha1msg2_xmm_xmmm128,										// 0F38CA
 
 		EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae,						// EVEX.512.66.0F38.W0 CA
 		EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae,						// EVEX.512.66.0F38.W1 CA
 
+		Sha256rnds2_xmm_xmmm128,									// 0F38CB
+
 		EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae,						// EVEX.NDS.LIG.66.0F38.W0 CB
 		EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae,						// EVEX.NDS.LIG.66.0F38.W1 CB
 
+		Sha256msg1_xmm_xmmm128,										// 0F38CC
+
 		EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae,						// EVEX.512.66.0F38.W0 CC
 		EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae,						// EVEX.512.66.0F38.W1 CC
+
+		Sha256msg2_xmm_xmmm128,										// 0F38CD
 
 		EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae,						// EVEX.NDS.LIG.66.0F38.W0 CD
 		EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae,						// EVEX.NDS.LIG.66.0F38.W1 CD

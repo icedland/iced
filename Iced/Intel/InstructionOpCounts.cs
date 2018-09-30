@@ -3578,12 +3578,6 @@ namespace Iced.Intel {
 			2,// EVEX_Vpconflictq_xmm_k1z_xmmm128b64
 			2,// EVEX_Vpconflictq_ymm_k1z_ymmm256b64
 			2,// EVEX_Vpconflictq_zmm_k1z_zmmm512b64
-			2,// Sha1nexte_xmm_xmmm128
-			2,// Sha1msg1_xmm_xmmm128
-			2,// Sha1msg2_xmm_xmmm128
-			2,// Sha256rnds2_xmm_xmmm128
-			2,// Sha256msg1_xmm_xmmm128
-			2,// Sha256msg2_xmm_xmmm128
 			1,// EVEX_Vgatherpf0dps_vm32z_k1
 			1,// EVEX_Vgatherpf0dpd_vm32y_k1
 			1,// EVEX_Vgatherpf1dps_vm32z_k1
@@ -3600,14 +3594,20 @@ namespace Iced.Intel {
 			1,// EVEX_Vscatterpf0qpd_vm64z_k1
 			1,// EVEX_Vscatterpf1qps_vm64z_k1
 			1,// EVEX_Vscatterpf1qpd_vm64z_k1
+			2,// Sha1nexte_xmm_xmmm128
 			2,// EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae
 			2,// EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae
+			2,// Sha1msg1_xmm_xmmm128
+			2,// Sha1msg2_xmm_xmmm128
 			2,// EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae
 			2,// EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae
+			2,// Sha256rnds2_xmm_xmmm128
 			3,// EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae
 			3,// EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae
+			2,// Sha256msg1_xmm_xmmm128
 			2,// EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae
 			2,// EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae
+			2,// Sha256msg2_xmm_xmmm128
 			3,// EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae
 			3,// EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae
 			2,// Gf2p8mulb_xmm_xmmm128
