@@ -25,6 +25,7 @@ Decoder:
 - `Instruction`
 - `CodeReader`
 	- `ByteArrayCodeReader`
+- `InstructionList`
 - `ConstantOffsets`
 
 Formatters:
@@ -76,7 +77,6 @@ namespace Iced.Examples {
 
         const int exampleCodeBitness = 64;
         const ulong exampleCodeRIP = 0x00007FFAC46ACDA4;
-        const int exampleCodeNumInstructions = 13;
         static readonly byte[] exampleCode = new byte[] {
             0x48, 0x89, 0x5C, 0x24, 0x10, 0x48, 0x89, 0x74, 0x24, 0x18, 0x55, 0x57, 0x41, 0x56, 0x48, 0x8D,
             0xAC, 0x24, 0x00, 0xFF, 0xFF, 0xFF, 0x48, 0x81, 0xEC, 0x00, 0x02, 0x00, 0x00, 0x48, 0x8B, 0x05,
@@ -108,15 +108,25 @@ namespace Iced.Examples {
             decoder.InstructionPointer = exampleCodeRIP;
             ulong endRip = decoder.InstructionPointer + (uint)exampleCode.Length;
 
+            // This list is faster than List<Instruction> since it uses refs to the Instructions
+            // instead of copying them (each Instruction is 32 bytes in size). It has a ref indexer,
+            // and a ref iterator. Add() uses 'in' (ref readonly).
+            var instructions = new InstructionList();
+            while (decoder.InstructionPointer < endRip) {
+                // The method allocates an uninitialized element at the end of the list and
+                // returns a reference to it which is initialized by Decode().
+                decoder.Decode(out instructions.AllocUninitializedElement());
+            }
+
             // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (Intel XED)
             var formatter = new NasmFormatter();
             formatter.Options.AddDigitSeparators = true;
             formatter.Options.DigitSeparator = "`";
             formatter.Options.FirstOperandCharIndex = 10;
             var output = new StringBuilderFormatterOutput();
-            while (decoder.InstructionPointer < endRip) {
-                decoder.Decode(out var instr);
-                // Don't use instr.ToString(), it allocates more, only shows masm syntax and you can't change any options
+            // Use InstructionList's ref iterator (C# 7.3) to prevent copying 32 bytes every iteration
+            foreach (ref var instr in instructions) {
+                // Don't use instr.ToString(), it allocates more, uses masm syntax and default options
                 formatter.Format(ref instr, output);
                 Console.WriteLine($"{instr.IP64:X16} {output.ToStringAndReset()}");
             }
@@ -150,12 +160,9 @@ Disassembled code:
             decoder.InstructionPointer = exampleCodeRIP;
             ulong endRip = decoder.InstructionPointer + (uint)exampleCode.Length;
 
-            var instructions = new Instruction[exampleCodeNumInstructions];
-            int instructionsIndex = 0;
-            while (decoder.InstructionPointer < endRip) {
-                decoder.Decode(out instructions[instructionsIndex]);
-                instructionsIndex++;
-            }
+            var instructions = new InstructionList();
+            while (decoder.InstructionPointer < endRip)
+                decoder.Decode(out instructions.AllocUninitializedElement());
 
             // Relocate the code to some new location. It can fix short/near branches and
             // convert them to short/near/long forms if needed. This also works even if it's a
@@ -208,7 +215,8 @@ Disassembled code:
                 Console.WriteLine($"{instr.IP64:X16} {output.ToStringAndReset()}");
             }
         }
-        // Simple and inefficient code writer that stores the data in a List<byte>, with a ToArray() method to get the data
+        // Simple and inefficient code writer that stores the data in a List<byte>, with a ToArray() method
+        // to get the data
         sealed class CodeWriterImpl : CodeWriter {
             readonly List<byte> allBytes = new List<byte>();
             public override void WriteByte(byte value) => allBytes.Add(value);
