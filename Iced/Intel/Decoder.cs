@@ -152,12 +152,6 @@ namespace Iced.Intel {
 			}
 		}
 
-		sealed class DelegateCodeReader : CodeReader {
-			readonly Func<int> readByte;
-			public DelegateCodeReader(Func<int> readByte) => this.readByte = readByte ?? throw new ArgumentNullException(nameof(readByte));
-			public override int ReadByte() => readByte();
-		}
-
 		/// <summary>
 		/// Creates a decoder
 		/// </summary>
@@ -197,39 +191,6 @@ namespace Iced.Intel {
 		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
 		public static Decoder Create64(CodeReader reader, DecoderOptions options = DecoderOptions.None) => new Decoder(reader, options, OpSize.Size64);
-
-		/// <summary>
-		/// Creates a decoder
-		/// </summary>
-		/// <param name="bitness">16, 32 or 64</param>
-		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
-		/// <param name="options">Decoder options</param>
-		/// <returns></returns>
-		public static Decoder Create(int bitness, Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create(bitness, new DelegateCodeReader(readByte), options);
-
-		/// <summary>
-		/// Creates a decoder that decodes 16-bit code
-		/// </summary>
-		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
-		/// <param name="options">Decoder options</param>
-		/// <returns></returns>
-		public static Decoder Create16(Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create16(new DelegateCodeReader(readByte), options);
-
-		/// <summary>
-		/// Creates a decoder that decodes 32-bit code
-		/// </summary>
-		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
-		/// <param name="options">Decoder options</param>
-		/// <returns></returns>
-		public static Decoder Create32(Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create32(new DelegateCodeReader(readByte), options);
-
-		/// <summary>
-		/// Creates a decoder that decodes 64-bit code
-		/// </summary>
-		/// <param name="readByte">Reads the next byte or returns less than 0 if there are no more bytes</param>
-		/// <param name="options">Decoder options</param>
-		/// <returns></returns>
-		public static Decoder Create64(Func<int> readByte, DecoderOptions options = DecoderOptions.None) => Create64(new DelegateCodeReader(readByte), options);
 
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;
@@ -530,9 +491,7 @@ after_read_prefixes:
 				uint b1x = ~b1;
 				state.extraRegisterBase = (b1x >> 4) & 8;
 				state.extraIndexRegisterBase = (b1x >> 3) & 8;
-				b1x >>= 2;
-				b1x &= 8;
-				state.extraBaseRegisterBase = b1x;
+				state.extraBaseRegisterBase = (b1x >> 2) & 8;
 			}
 			else
 				state.vvvv = (~b2 >> 3) & 0x07;
@@ -649,8 +608,7 @@ after_read_prefixes:
 					state.extraIndexRegisterBase = (p0x & 0x40) >> 3;
 					state.extraBaseRegisterBaseEVEX = (p0x & 0x40) >> 2;
 					state.extraBaseRegisterBase = (p0x >> 2) & 8;
-					p0x &= 0x10;
-					state.extraRegisterBaseEVEX = p0x;
+					state.extraRegisterBaseEVEX = p0x & 0x10;
 				}
 				else
 					state.vvvv = (~p1 >> 3) & 0x07;
@@ -975,8 +933,7 @@ after_read_prefixes:
 
 			if ((state.flags & StateFlags.NoImm) == 0) {
 				uint extraImmSub = 0;
-				int opCount = instruction.OpCount;
-				for (int i = opCount - 1; i >= 0; i--) {
+				for (int i = instruction.OpCount - 1; i >= 0; i--) {
 					switch (instruction.GetOpKind(i)) {
 					case OpKind.Immediate8:
 					case OpKind.Immediate8to16:
