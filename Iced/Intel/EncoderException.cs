@@ -37,7 +37,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="message">Exception message</param>
 		/// <param name="instruction">Instruction</param>
-		public EncoderException(string message, ref Instruction instruction) : base(message) => Instruction = instruction;
+		public EncoderException(string message, in Instruction instruction) : base(message) => Instruction = instruction;
 
 		/// <summary>
 		/// Constructor

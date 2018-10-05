@@ -212,7 +212,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public uint Encode(ref Instruction instruction, ulong rip) {
 			if (!TryEncode(ref instruction, rip, out uint result, out var errorMessage))
-				throw new EncoderException(errorMessage, ref instruction);
+				throw new EncoderException(errorMessage, instruction);
 			return result;
 		}
 
