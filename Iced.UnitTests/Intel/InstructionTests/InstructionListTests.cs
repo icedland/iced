@@ -346,19 +346,28 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Theory]
 		[MemberData(nameof(ToArray_works_Data))]
-		void ToArray_works(Instruction[] instructions) {
+		void ToArray_works(Instruction[] instructions, bool addExtraElem) {
 			var list = new InstructionList(instructions);
+			if (addExtraElem) {
+				var instr = Instruction.Create(Code.Nopw);
+				list.Add(instr);
+				Array.Resize(ref instructions, instructions.Length + 1);
+				instructions[instructions.Length - 1] = instr;
+			}
 			Assert.Equal(instructions.Length, list.Count);
-			Assert.Equal(instructions.Length, list.Capacity);
+			Assert.True(instructions.Length <= list.Capacity);
 			var array = list.ToArray();
 			Assert.Equal(list.Count, array.Length);
 			AssertEqual(instructions, array);
 		}
 		public static IEnumerable<object[]> ToArray_works_Data {
 			get {
-				yield return new object[] { Array.Empty<Instruction>() };
-				yield return new object[] { new Instruction[] { Instruction.Create(Code.Nopd) } };
-				yield return new object[] { GetInstructions() };
+				for (int i = 0; i < 2; i++) {
+					bool addExtraElem = i == 1;
+					yield return new object[] { Array.Empty<Instruction>(), addExtraElem };
+					yield return new object[] { new Instruction[] { Instruction.Create(Code.Nopd) }, addExtraElem };
+					yield return new object[] { GetInstructions(), addExtraElem };
+				}
 			}
 		}
 
