@@ -273,7 +273,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				var instr1 = decoder.Decode();
 				var instr2 = decoderAll.Decode();
 				Assert.Equal(info.Code, instr1.Code);
-				Assert.True(Instruction.TEST_BitByBitEquals(ref instr1, ref instr2));
+				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
 			}
 		}
 

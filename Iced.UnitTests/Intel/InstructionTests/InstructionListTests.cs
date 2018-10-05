@@ -56,7 +56,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			for (int i = 0; i < elems; i++) {
 				var expInstr = expected[i];
 				var actualInstr = actual[i];
-				Assert.True(Instruction.TEST_BitByBitEquals(ref expInstr, ref actualInstr), $"Index [{i}]: " + Instruction.TEST_DumpDiff(ref expInstr, ref actualInstr));
+				Assert.True(Instruction.TEST_BitByBitEquals(expInstr, actualInstr), $"Index [{i}]: " + Instruction.TEST_DumpDiff(expInstr, actualInstr));
 			}
 		}
 
@@ -160,7 +160,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			var list = new InstructionList(instructions);
 			Assert.Equal(instructions.Length, list.Count);
 			for (int i = 0; i < instructions.Length; i++)
-				Assert.True(Instruction.TEST_BitByBitEquals(ref instructions[i], ref list[i]), $"Index [{i}]: " + Instruction.TEST_DumpDiff(ref instructions[i], ref list[i]));
+				Assert.True(Instruction.TEST_BitByBitEquals(instructions[i], list[i]), $"Index [{i}]: " + Instruction.TEST_DumpDiff(instructions[i], list[i]));
 		}
 
 		[Fact]
@@ -331,7 +331,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			int index = 0;
 			foreach (ref var instr in list) {
 				Assert.True(index < instructions.Length);
-				Assert.True(Instruction.TEST_BitByBitEquals(ref instructions[index], ref instr), Instruction.TEST_DumpDiff(ref instructions[index], ref instr));
+				Assert.True(Instruction.TEST_BitByBitEquals(instructions[index], instr), Instruction.TEST_DumpDiff(instructions[index], instr));
 				index++;
 			}
 			Assert.Equal(instructions.Length, index);

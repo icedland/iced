@@ -26,7 +26,7 @@ namespace Iced.Intel {
 	/// <summary>
 	/// A 16/32/64-bit instruction
 	/// </summary>
-	public partial struct Instruction {
+	public partial struct Instruction : IEquatable<Instruction> {
 		internal const int TEST_OpKindBits = (int)OpKindFlags.OpKindBits;
 		internal const int TEST_CodeBits = (int)CodeFlags.CodeBits;
 		internal const int TEST_RegisterBits = 8;
@@ -45,7 +45,6 @@ namespace Iced.Intel {
 			DisplSizeMask			= 7,
 			SegmentPrefixShift		= 5,
 			SegmentPrefixMask		= 7,
-			MemorySizeBits			= 7,
 			// Unused bits here
 			BroadcastedMemory		= 0x8000,
 		}
@@ -68,6 +67,9 @@ namespace Iced.Intel {
 			// Unused bits here
 			CodeSizeMask			= 3,
 			CodeSizeShift			= 30,
+
+			// Bits ignored by Equals()
+			EqualsIgnoreMask		= CodeSizeMask << (int)CodeSizeShift,
 		}
 
 		/// <summary>
@@ -102,6 +104,9 @@ namespace Iced.Intel {
 			RepePrefix				= 0x20000000,
 			RepnePrefix				= 0x40000000,
 			LockPrefix				= 0x80000000,
+
+			// Bits ignored by Equals()
+			EqualsIgnoreMask		= InstrLengthMask << (int)InstrLengthShift,
 		}
 
 		// All fields, size: 32 bytes with bits to spare
@@ -122,10 +127,22 @@ namespace Iced.Intel {
 		// can be stored in some other field (it's rarely used)
 		byte reg0, reg1, reg2, reg3;// Register
 
-		internal static bool TEST_BitByBitEquals(ref Instruction a, ref Instruction b) =>
-			a.nextRip == b.nextRip &&
-			a.codeFlags == b.codeFlags &&
-			a.opKindFlags == b.opKindFlags &&
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+		public static bool operator ==(in Instruction left, in Instruction right) => EqualsInternal(left, right);
+		public static bool operator !=(in Instruction left, in Instruction right) => !EqualsInternal(left, right);
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+		/// <summary>
+		/// Checks if this instance equals <paramref name="other"/>
+		/// </summary>
+		/// <param name="other">Other instruction</param>
+		/// <returns></returns>
+		public bool Equals(in Instruction other) => EqualsInternal(this, other);
+		bool IEquatable<Instruction>.Equals(Instruction other) => EqualsInternal(this, other);
+
+		static bool EqualsInternal(in Instruction a, in Instruction b) =>
+			(a.codeFlags & ~(uint)CodeFlags.EqualsIgnoreMask) == (b.codeFlags & ~(uint)CodeFlags.EqualsIgnoreMask) &&
+			(a.opKindFlags & ~(uint)OpKindFlags.EqualsIgnoreMask) == (b.opKindFlags & ~(uint)OpKindFlags.EqualsIgnoreMask) &&
 			a.immediate == b.immediate &&
 			a.memDispl == b.memDispl &&
 			a.memoryFlags == b.memoryFlags &&
@@ -136,7 +153,55 @@ namespace Iced.Intel {
 			a.reg2 == b.reg2 &&
 			a.reg3 == b.reg3;
 
-		internal static string TEST_DumpDiff(ref Instruction a, ref Instruction b) {
+		/// <summary>
+		/// Gets the hash code
+		/// </summary>
+		/// <returns></returns>
+		public override int GetHashCode() {
+			uint c = codeFlags & ~(uint)CodeFlags.EqualsIgnoreMask;
+			c ^= opKindFlags & ~(uint)OpKindFlags.EqualsIgnoreMask;
+			c ^= immediate;
+			c ^= memDispl;
+			c ^= memoryFlags;
+			c ^= (uint)memBaseReg << 16;
+			c ^= (uint)memIndexReg << 24;
+			c ^= reg3;
+			c ^= (uint)reg2 << 8;
+			c ^= (uint)reg1 << 16;
+			c ^= (uint)reg0 << 24;
+			return (int)c;
+		}
+
+		/// <summary>
+		/// Checks if this instance equals <paramref name="obj"/>
+		/// </summary>
+		/// <param name="obj">Other instruction</param>
+		/// <returns></returns>
+		public override bool Equals(object obj) => obj is Instruction other && EqualsInternal(this, other);
+
+		/// <summary>
+		/// Checks if two instructions are equal, comparing all bits, not ignoring anything
+		/// </summary>
+		/// <param name="a">Instruction #1</param>
+		/// <param name="b">Instruction #2</param>
+		/// <returns></returns>
+		public static bool EqualsAllBits(in Instruction a, in Instruction b) =>
+			a.codeFlags == b.codeFlags &&
+			a.opKindFlags == b.opKindFlags &&
+			a.immediate == b.immediate &&
+			a.memDispl == b.memDispl &&
+			a.memoryFlags == b.memoryFlags &&
+			a.memBaseReg == b.memBaseReg &&
+			a.memIndexReg == b.memIndexReg &&
+			a.reg0 == b.reg0 &&
+			a.reg1 == b.reg1 &&
+			a.reg2 == b.reg2 &&
+			a.reg3 == b.reg3 &&
+			a.nextRip == b.nextRip;
+
+		internal static bool TEST_BitByBitEquals(in Instruction a, in Instruction b) => EqualsAllBits(a, b);
+
+		internal static string TEST_DumpDiff(in Instruction a, in Instruction b) {
 			var builder = new StringBuilder();
 			if (a.nextRip != b.nextRip)
 				builder.AppendLine($"a.nextRip={a.nextRip:X16} b.nextRip={b.nextRip:X16}");
@@ -150,18 +215,18 @@ namespace Iced.Intel {
 				builder.AppendLine($"a.memDispl={a.memDispl:X} b.memDispl={b.memDispl:X}");
 			if (a.memoryFlags != b.memoryFlags)
 				builder.AppendLine($"a.memoryFlags={a.memoryFlags:X} b.memoryFlags={b.memoryFlags:X}");
-			if (a.MemoryBase != b.MemoryBase)
-				builder.AppendLine($"a.MemoryBase={a.MemoryBase} b.MemoryBase={b.MemoryBase}");
-			if (a.MemoryIndex != b.MemoryIndex)
-				builder.AppendLine($"a.MemoryIndex={a.MemoryIndex} b.MemoryIndex={b.MemoryIndex}");
-			if (a.Op0Register != b.Op0Register)
-				builder.AppendLine($"a.Op0Register={a.Op0Register} b.Op0Register={b.Op0Register}");
-			if (a.Op1Register != b.Op1Register)
-				builder.AppendLine($"a.Op1Register={a.Op1Register} b.Op1Register={b.Op1Register}");
-			if (a.Op2Register != b.Op2Register)
-				builder.AppendLine($"a.Op2Register={a.Op2Register} b.Op2Register={b.Op2Register}");
-			if (a.Op3Register != b.Op3Register)
-				builder.AppendLine($"a.Op3Register={a.Op3Register} b.Op3Register={b.Op3Register}");
+			if (a.memBaseReg != b.memBaseReg)
+				builder.AppendLine($"a.MemoryBase={(Register)a.memBaseReg} b.MemoryBase={(Register)b.memBaseReg}");
+			if (a.memIndexReg != b.memIndexReg)
+				builder.AppendLine($"a.MemoryIndex={(Register)a.memIndexReg} b.MemoryIndex={(Register)b.memIndexReg}");
+			if (a.reg0 != b.reg0)
+				builder.AppendLine($"a.Op0Register={(Register)a.reg0} b.Op0Register={(Register)b.reg0}");
+			if (a.reg1 != b.reg1)
+				builder.AppendLine($"a.Op1Register={(Register)a.reg1} b.Op1Register={(Register)b.reg1}");
+			if (a.reg2 != b.reg2)
+				builder.AppendLine($"a.Op2Register={(Register)a.reg2} b.Op2Register={(Register)b.reg2}");
+			if (a.reg3 != b.reg3)
+				builder.AppendLine($"a.Op3Register={(Register)a.reg3} b.Op3Register={(Register)b.reg3}");
 			return builder.ToString();
 		}
 

@@ -49,7 +49,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			decodedInstr.NextIP64 = 0;
 
 			var createdInstr = create();
-			Assert.True(Instruction.TEST_BitByBitEquals(ref decodedInstr, ref createdInstr));
+			Assert.True(Instruction.TEST_BitByBitEquals(decodedInstr, createdInstr));
 
 			var writer = new CodeWriterImpl();
 			var encoder = decoder.CreateEncoder(writer);
