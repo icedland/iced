@@ -679,5 +679,226 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			list.CopyTo(0, array, 0, array.Length);
 			Assert.Equal(i, array);
 		}
+
+		[Theory]
+		[MemberData(nameof(Contains_works_Data))]
+		void Contains_works(Instruction[] data, Instruction instr, bool expected) {
+			var list = new InstructionList(data);
+			var result = list.Contains(instr);
+			Assert.Equal(expected, result);
+		}
+		public static IEnumerable<object[]> Contains_works_Data {
+			get {
+				var i = GetInstructions();
+
+				yield return new object[] { Array.Empty<Instruction>(), i[0], false };
+				yield return new object[] { new Instruction[] { i[1] }, i[0], false };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], true };
+				yield return new object[] { new Instruction[] { i[0], i[1] }, i[0], true };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], true };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], true };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(IndexOf1_works_Data))]
+		void IndexOf1_works(Instruction[] data, Instruction instr, int expected) {
+			var list = new InstructionList(data);
+			var result = list.IndexOf(instr);
+			Assert.Equal(expected, result);
+		}
+		public static IEnumerable<object[]> IndexOf1_works_Data {
+			get {
+				var i = GetInstructions();
+
+				yield return new object[] { Array.Empty<Instruction>(), i[0], -1 };
+				yield return new object[] { new Instruction[] { i[1] }, i[0], -1 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 0 };
+				yield return new object[] { new Instruction[] { i[0], i[1] }, i[0], 0 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 2 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(IndexOf2_works_Data))]
+		void IndexOf2_works(Instruction[] data, Instruction instr, int index, int expected) {
+			var list = new InstructionList(data);
+			var result = list.IndexOf(instr, index);
+			Assert.Equal(expected, result);
+		}
+		public static IEnumerable<object[]> IndexOf2_works_Data {
+			get {
+				var i = GetInstructions();
+
+				yield return new object[] { Array.Empty<Instruction>(), i[0], 0, -1 };
+				yield return new object[] { new Instruction[] { i[1] }, i[0], 0, -1 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 0, 0 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 1, -1 };
+				yield return new object[] { new Instruction[] { i[0], i[1] }, i[0], 0, 0 };
+				yield return new object[] { new Instruction[] { i[0], i[1] }, i[0], 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 0, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 1, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 2, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 0, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 1, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 2, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 0, 2 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 2, 2 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 3, 4 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 4, 4 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 5, -1 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(IndexOf3_works_Data))]
+		void IndexOf3_works(Instruction[] data, Instruction instr, int index, int count, int expected) {
+			var list = new InstructionList(data);
+			var result = list.IndexOf(instr, index, count);
+			Assert.Equal(expected, result);
+		}
+		public static IEnumerable<object[]> IndexOf3_works_Data {
+			get {
+				var i = GetInstructions();
+
+				yield return new object[] { Array.Empty<Instruction>(), i[0], 0, 0, -1 };
+				yield return new object[] { new Instruction[] { i[1] }, i[0], 0, 1, -1 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 0, 1, 0 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 0, 0, -1 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 1, 0, -1 };
+				yield return new object[] { new Instruction[] { i[0], i[1] }, i[0], 0, 1, 0 };
+				yield return new object[] { new Instruction[] { i[0], i[1] }, i[0], 1, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 0, 2, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 0, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 1, 1, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 0, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 2, 0, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 0, 2, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 1, 1, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 2, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 0, 5, 2 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 0, 3, 2 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 0, 2, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 2, 3, 2 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 3, 2, 4 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 3, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 4, 1, 4 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 5, 0, -1 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(LastIndexOf1_works_Data))]
+		void LastIndexOf1_works(Instruction[] data, Instruction instr, int expected) {
+			var list = new InstructionList(data);
+			var result = list.LastIndexOf(instr);
+			Assert.Equal(expected, result);
+		}
+		public static IEnumerable<object[]> LastIndexOf1_works_Data {
+			get {
+				var i = GetInstructions();
+
+				yield return new object[] { Array.Empty<Instruction>(), i[0], -1 };
+				yield return new object[] { new Instruction[] { i[1] }, i[0], -1 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 0 };
+				yield return new object[] { new Instruction[] { i[0], i[1] }, i[0], 0 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 4 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(LastIndexOf2_works_Data))]
+		void LastIndexOf2_works(Instruction[] data, Instruction instr, int index, int expected) {
+			var list = new InstructionList(data);
+			var result = list.LastIndexOf(instr, index);
+			Assert.Equal(expected, result);
+		}
+		public static IEnumerable<object[]> LastIndexOf2_works_Data {
+			get {
+				var i = GetInstructions();
+
+				yield return new object[] { Array.Empty<Instruction>(), i[0], 0, -1 };
+				yield return new object[] { new Instruction[] { i[1] }, i[0], 0, -1 };
+				yield return new object[] { new Instruction[] { i[1] }, i[0], 1, -1 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 0, 0 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 1, -1 };
+				yield return new object[] { new Instruction[] { i[0], i[1] }, i[0], 0, 0 };
+				yield return new object[] { new Instruction[] { i[0], i[1] }, i[0], 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 0, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 1, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 2, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 0, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 1, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 2, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 0, 4 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 1, 4 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 2, 4 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 3, 4 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 4, 4 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 5, -1 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(LastIndexOf3_works_Data))]
+		void LastIndexOf3_works(Instruction[] data, Instruction instr, int index, int count, int expected) {
+			var list = new InstructionList(data);
+			var result = list.LastIndexOf(instr, index, count);
+			Assert.Equal(expected, result);
+		}
+		public static IEnumerable<object[]> LastIndexOf3_works_Data {
+			get {
+				var i = GetInstructions();
+
+				yield return new object[] { Array.Empty<Instruction>(), i[0], 0, 0, -1 };
+				yield return new object[] { new Instruction[] { i[1] }, i[0], 0, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1] }, i[0], 1, 0, -1 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 0, 1, 0 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 0, 0, -1 };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], 1, 0, -1 };
+				yield return new object[] { new Instruction[] { i[0], i[1] }, i[0], 0, 1, 0 };
+				yield return new object[] { new Instruction[] { i[0], i[1] }, i[0], 1, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 0, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 0, 2, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 1, 1, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0] }, i[0], 2, 0, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 0, 2, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 0, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 2, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 1, 1, 1 };
+				yield return new object[] { new Instruction[] { i[1], i[0], i[3] }, i[0], 2, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 0, 2, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 1, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 3, 1, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 5, 0, -1 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 0, 5, 4 };
+				yield return new object[] { new Instruction[] { i[1], i[4], i[0], i[3], i[0] }, i[0], 0, 4, 2 };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(Remove_works_Data))]
+		void Remove_works(Instruction[] data, Instruction instr, bool expected, Instruction[] expectedData) {
+			var list = new InstructionList(data);
+			var result = list.Remove(instr);
+			Assert.Equal(expected, result);
+			var listElems = new Instruction[list.Count];
+			list.CopyTo(listElems);
+			AssertEqual(expectedData, listElems);
+		}
+		public static IEnumerable<object[]> Remove_works_Data {
+			get {
+				var i = GetInstructions();
+
+				yield return new object[] { Array.Empty<Instruction>(), i[0], false, Array.Empty<Instruction>() };
+				yield return new object[] { new Instruction[] { i[0] }, i[1], false, new Instruction[] { i[0] } };
+				yield return new object[] { new Instruction[] { i[0] }, i[0], true, Array.Empty<Instruction>() };
+				yield return new object[] { new Instruction[] { i[0], i[1], i[2], i[0], i[4], i[5], i[0] }, i[0], true, new Instruction[] { i[1], i[2], i[0], i[4], i[5], i[0] } };
+			}
+		}
 	}
 }

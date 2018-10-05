@@ -288,12 +288,12 @@ namespace Iced.Intel {
 				ThrowArgumentOutOfRangeException(nameof(count));
 			var newCount = this.count;
 			newCount -= count;
+			this.count = newCount;
 			int copyCount = newCount - index;
 			if (copyCount != 0) {
 				var elements = this.elements;
 				Array.Copy(elements, index + count, elements, index, copyCount);
 			}
-			this.count = newCount;
 		}
 
 		/// <summary>
@@ -328,13 +328,151 @@ namespace Iced.Intel {
 		void ICollection<Instruction>.Clear() => Clear();
 		void IList.Clear() => Clear();
 
-		// If these ever get supported, create public methods with 'in' args
-		int IList<Instruction>.IndexOf(Instruction instruction) => throw new NotSupportedException("IList<Instruction>.IndexOf() isn't supported");
-		int IList.IndexOf(object value) => throw new NotSupportedException("IList.IndexOf() isn't supported");
-		bool ICollection<Instruction>.Contains(Instruction instruction) => throw new NotSupportedException("ICollection<Instruction>.Contains() isn't supported");
-		bool IList.Contains(object value) => throw new NotSupportedException("IList.Contains() isn't supported");
-		bool ICollection<Instruction>.Remove(Instruction instruction) => throw new NotSupportedException("ICollection<Instruction>.Remove() isn't supported");
-		void IList.Remove(object value) => throw new NotSupportedException("IList.Remove() isn't supported");
+		/// <summary>
+		/// Checks if <paramref name="instruction"/> exists in the list
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <returns></returns>
+		public bool Contains(in Instruction instruction) => IndexOf(instruction) >= 0;
+		bool ICollection<Instruction>.Contains(Instruction instruction) => Contains(instruction);
+		bool IList.Contains(object value) {
+			if (value is Instruction)
+				return Contains((Instruction)value);
+			return false;
+		}
+
+		/// <summary>
+		/// Gets the index of <paramref name="instruction"/> or -1 if it doesn't exist in the list
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <returns></returns>
+		public int IndexOf(in Instruction instruction) {
+			var elements = this.elements;
+			int count = this.count;
+			for (int i = 0; i < count; i++) {
+				if (elements[i] == instruction)
+					return i;
+			}
+			return -1;
+		}
+		int IList<Instruction>.IndexOf(Instruction instruction) => IndexOf(instruction);
+		int IList.IndexOf(object value) {
+			if (value is Instruction)
+				return IndexOf((Instruction)value);
+			return -1;
+		}
+
+		/// <summary>
+		/// Gets the index of <paramref name="instruction"/> or -1 if it doesn't exist in the list
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="index">Start index</param>
+		/// <returns></returns>
+		public int IndexOf(in Instruction instruction, int index) {
+			int count = this.count;
+			if ((uint)index > (uint)count)
+				ThrowArgumentOutOfRangeException(nameof(index));
+			var elements = this.elements;
+			for (int i = index; i < count; i++) {
+				if (elements[i] == instruction)
+					return i;
+			}
+			return -1;
+		}
+
+		/// <summary>
+		/// Gets the index of <paramref name="instruction"/> or -1 if it doesn't exist in the list
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="index">Start index</param>
+		/// <param name="count">Number of instructions to check</param>
+		/// <returns></returns>
+		public int IndexOf(in Instruction instruction, int index, int count) {
+			if (index < 0)
+				ThrowArgumentOutOfRangeException(nameof(index));
+			if (count < 0)
+				ThrowArgumentOutOfRangeException(nameof(count));
+			int end = index + count;
+			if ((uint)end > (uint)this.count)
+				ThrowArgumentOutOfRangeException(nameof(count));
+			var elements = this.elements;
+			for (int i = index; i < end; i++) {
+				if (elements[i] == instruction)
+					return i;
+			}
+			return -1;
+		}
+
+		/// <summary>
+		/// Gets the last index of <paramref name="instruction"/> or -1 if it doesn't exist in the list
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <returns></returns>
+		public int LastIndexOf(in Instruction instruction) {
+			for (int i = count - 1; i >= 0; i--) {
+				if (elements[i] == instruction)
+					return i;
+			}
+			return -1;
+		}
+
+		/// <summary>
+		/// Gets the last index of <paramref name="instruction"/> or -1 if it doesn't exist in the list
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="index">Start index</param>
+		/// <returns></returns>
+		public int LastIndexOf(in Instruction instruction, int index) {
+			int count = this.count;
+			if ((uint)index > (uint)count)
+				ThrowArgumentOutOfRangeException(nameof(index));
+			var elements = this.elements;
+			for (int i = count - 1; i >= index; i--) {
+				if (elements[i] == instruction)
+					return i;
+			}
+			return -1;
+		}
+
+		/// <summary>
+		/// Gets the last index of <paramref name="instruction"/> or -1 if it doesn't exist in the list
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="index">Start index</param>
+		/// <param name="count">Number of instructions to check</param>
+		/// <returns></returns>
+		public int LastIndexOf(in Instruction instruction, int index, int count) {
+			if (index < 0)
+				ThrowArgumentOutOfRangeException(nameof(index));
+			if (count < 0)
+				ThrowArgumentOutOfRangeException(nameof(count));
+			int end = index + count;
+			if ((uint)end > (uint)this.count)
+				ThrowArgumentOutOfRangeException(nameof(count));
+			var elements = this.elements;
+			for (int i = end - 1; i >= index; i--) {
+				if (elements[i] == instruction)
+					return i;
+			}
+			return -1;
+		}
+
+		/// <summary>
+		/// Removes the first copy of <paramref name="instruction"/> and returns true if it was removed
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <returns></returns>
+		public bool Remove(in Instruction instruction) {
+			int index = IndexOf(instruction);
+			if (index >= 0)
+				RemoveAt(index);
+			return index >= 0;
+		}
+		bool ICollection<Instruction>.Remove(Instruction instruction) => Remove(instruction);
+		void IList.Remove(object value) {
+			if (value is Instruction)
+				Remove((Instruction)value);
+		}
 
 		/// <summary>
 		/// Copies this collection to <paramref name="array"/>
