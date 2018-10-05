@@ -27,7 +27,25 @@ namespace Iced.Intel {
 	public sealed class ByteArrayCodeReader : CodeReader {
 		readonly byte[] data;
 		int currentPosition;
+		readonly int startPosition;
 		readonly int endPosition;
+
+		/// <summary>
+		/// Current position
+		/// </summary>
+		public int Position {
+			get => currentPosition - startPosition;
+			set {
+				if ((uint)value > (uint)Count)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				currentPosition = startPosition + value;
+			}
+		}
+
+		/// <summary>
+		/// Number of bytes that can be read
+		/// </summary>
+		public int Count => endPosition - startPosition;
 
 		/// <summary>
 		/// Checks if it's possible to read another byte
@@ -49,6 +67,7 @@ namespace Iced.Intel {
 		public ByteArrayCodeReader(byte[] data) {
 			this.data = data ?? throw new ArgumentNullException(nameof(data));
 			currentPosition = 0;
+			startPosition = 0;
 			endPosition = data.Length;
 		}
 
@@ -67,6 +86,7 @@ namespace Iced.Intel {
 			if ((ulong)(uint)index + (uint)count > (uint)data.Length)
 				throw new ArgumentOutOfRangeException(nameof(count));
 			currentPosition = index;
+			startPosition = index;
 			endPosition = index + count;
 		}
 
