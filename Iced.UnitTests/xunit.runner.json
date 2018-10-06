@@ -3,7 +3,7 @@
 	"diagnosticMessages": false,
 	"methodDisplay": "classAndMethod",
 	"parallelizeAssembly": false,
-	"parallelizeTestCollections": false,
+	"parallelizeTestCollections": true,
 	"preEnumerateTheories": true,
 	"shadowCopy": false
 }
