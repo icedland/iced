@@ -47,10 +47,8 @@ namespace Iced.Intel {
 	/// Decodes 16/32/64-bit x86 instructions
 	/// </summary>
 	public sealed partial class Decoder {
+		ulong instructionPointer;
 		readonly CodeReader reader;
-		internal readonly DecoderOptions options;
-		internal readonly bool is64Mode;
-		internal readonly CodeSize defaultCodeSize;
 		readonly OpCodeHandler[] handlers_XX;
 		readonly OpCodeHandler[] handlers_0FXX_VEX;
 		readonly OpCodeHandler[] handlers_0F38XX_VEX;
@@ -61,9 +59,13 @@ namespace Iced.Intel {
 		readonly OpCodeHandler[] handlers_XOP8;
 		readonly OpCodeHandler[] handlers_XOP9;
 		readonly OpCodeHandler[] handlers_XOPA;
+		internal State state;
+		internal uint displIndex;
+		internal readonly DecoderOptions options;
+		internal readonly CodeSize defaultCodeSize;
 		readonly OpSize defaultOperandSize, defaultInvertedOperandSize;
 		readonly OpSize defaultAddressSize, defaultInvertedAddressSize;
-		ulong instructionPointer;
+		internal readonly bool is64Mode;
 
 		internal struct State {
 			public uint instructionLength;
@@ -84,8 +86,6 @@ namespace Iced.Intel {
 			public OpSize addressSize;
 			public EncodingKind Encoding => (EncodingKind)(flags & StateFlags.EncodingMask);
 		}
-		internal State state;
-		internal uint displIndex;
 
 		/// <summary>
 		/// Current IP/EIP/RIP value
