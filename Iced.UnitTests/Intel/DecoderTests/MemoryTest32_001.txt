@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Iced.  If not, see <https://www.gnu.org/licenses/>.
 #
+
 01 30, 2, Add_rm32_r32, ESI, None, DS, EAX, None, 0, 0, 0
 01 31, 2, Add_rm32_r32, ESI, None, DS, ECX, None, 0, 0, 0
 01 32, 2, Add_rm32_r32, ESI, None, DS, EDX, None, 0, 0, 0

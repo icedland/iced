@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Iced.  If not, see <https://www.gnu.org/licenses/>.
 #
+
 67 62 F27D09 A0 34 00, 8, EVEX_Vpscatterdd_vm32x_k1_xmm, XMM6, None, DS, EAX, XMM0, 0, 0, 0
 67 62 F27D09 A0 34 01, 8, EVEX_Vpscatterdd_vm32x_k1_xmm, XMM6, None, DS, ECX, XMM0, 0, 0, 0
 67 62 F27D09 A0 34 02, 8, EVEX_Vpscatterdd_vm32x_k1_xmm, XMM6, None, DS, EDX, XMM0, 0, 0, 0

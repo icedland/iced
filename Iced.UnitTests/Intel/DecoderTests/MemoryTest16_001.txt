@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Iced.  If not, see <https://www.gnu.org/licenses/>.
 #
+
 67 01 30, 3, Add_rm16_r16, SI, None, DS, EAX, None, 0, 0, 0
 67 01 31, 3, Add_rm16_r16, SI, None, DS, ECX, None, 0, 0, 0
 67 01 32, 3, Add_rm16_r16, SI, None, DS, EDX, None, 0, 0, 0
