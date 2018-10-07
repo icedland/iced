@@ -2118,21 +2118,21 @@ namespace Iced.Intel {
 			2,// Bsf_r16_rm16
 			2,// Bsf_r32_rm32
 			2,// Bsf_r64_rm64
+			2,// Tzcnt_r16_rm16
+			2,// Tzcnt_r32_rm32
+			2,// Tzcnt_r64_rm64
 			2,// Bsr_r16_rm16
 			2,// Bsr_r32_rm32
 			2,// Bsr_r64_rm64
+			2,// Lzcnt_r16_rm16
+			2,// Lzcnt_r32_rm32
+			2,// Lzcnt_r64_rm64
 			2,// Movsx_r16_rm8
 			2,// Movsx_r32_rm8
 			2,// Movsx_r64_rm8
 			2,// Movsx_r16_rm16
 			2,// Movsx_r32_rm16
 			2,// Movsx_r64_rm16
-			2,// Tzcnt_r16_rm16
-			2,// Tzcnt_r32_rm32
-			2,// Tzcnt_r64_rm64
-			2,// Lzcnt_r16_rm16
-			2,// Lzcnt_r32_rm32
-			2,// Lzcnt_r64_rm64
 			2,// Xadd_rm8_r8
 			2,// Xadd_rm16_r16
 			2,// Xadd_rm32_r32

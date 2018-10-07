@@ -2408,23 +2408,21 @@ namespace Iced.Intel {
 		Bsf_r16_rm16,												// o16 0FBC
 		Bsf_r32_rm32,												// o32 0FBC
 		Bsf_r64_rm64,												// REX.W 0FBC
+		Tzcnt_r16_rm16,												// o16 F3 0FBC
+		Tzcnt_r32_rm32,												// o32 F3 0FBC
+		Tzcnt_r64_rm64,												// F3 REX.W 0FBC
 		Bsr_r16_rm16,												// o16 0FBD
 		Bsr_r32_rm32,												// o32 0FBD
 		Bsr_r64_rm64,												// REX.W 0FBD
+		Lzcnt_r16_rm16,												// o16 F3 0FBD
+		Lzcnt_r32_rm32,												// o32 F3 0FBD
+		Lzcnt_r64_rm64,												// F3 REX.W 0FBD
 		Movsx_r16_rm8,												// o16 0FBE
 		Movsx_r32_rm8,												// o32 0FBE
 		Movsx_r64_rm8,												// REX.W 0FBE
 		Movsx_r16_rm16,												// o16 0FBF
 		Movsx_r32_rm16,												// o32 0FBF
 		Movsx_r64_rm16,												// REX.W 0FBF
-
-		Tzcnt_r16_rm16,												// o16 F3 0FBC
-		Tzcnt_r32_rm32,												// o32 F3 0FBC
-		Tzcnt_r64_rm64,												// F3 REX.W 0FBC
-
-		Lzcnt_r16_rm16,												// o16 F3 0FBD
-		Lzcnt_r32_rm32,												// o32 F3 0FBD
-		Lzcnt_r64_rm64,												// F3 REX.W 0FBD
 
 		Xadd_rm8_r8,												// 0FC0
 		Xadd_rm16_r16,												// o16 0FC1
