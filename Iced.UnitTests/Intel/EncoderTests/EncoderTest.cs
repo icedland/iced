@@ -126,7 +126,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var encoder = CreateEncoder(invalidCodeSize, writer);
 			var origInstrCopy = origInstr;
 			bool result = encoder.TryEncode(ref origInstr, origRip, out uint encodedInstrLen, out string errorMessage);
-			Assert.True(errorMessage == Encoder.ERROR_ONLY_1632_BIT_MODE || errorMessage == Encoder.ERROR_ONLY_64_BIT_MODE, "Unexpected error Message: " + (errorMessage ?? "null"));
+			Assert.Equal(invalidCodeSize == 64 ? Encoder.ERROR_ONLY_1632_BIT_MODE : Encoder.ERROR_ONLY_64_BIT_MODE, errorMessage);
 			Assert.False(result);
 			Assert.True(Instruction.TEST_BitByBitEquals(origInstr, origInstrCopy), "Instruction are differing: " + Instruction.TEST_DumpDiff(origInstr, origInstrCopy));
 		}
