@@ -18,6 +18,7 @@
 */
 
 using System;
+using System.Runtime.CompilerServices;
 using Iced.Intel;
 using Xunit;
 
@@ -73,5 +74,23 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Equal(Code.INVALID, instr2.Code);
 			Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
 		}
+
+		[Fact]
+		void Equals_and_GetHashCode_ignore_some_fields() {
+			var instr1 = Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RCX, Register.R14, 8, 0x12345678, 8, false, Register.FS), Register.XMM10, 0xA5);
+			var instr2 = instr1;
+			Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+			instr1.CodeSize = CodeSize.Code32;
+			instr2.CodeSize = CodeSize.Code64;
+			Assert.False(Instruction.EqualsAllBits(instr1, instr2));
+			instr1.ByteLength = 10;
+			instr2.ByteLength = 5;
+			Assert.True(instr1.Equals(instr2));
+			Assert.True(instr1.Equals(ToObject(instr2)));
+			Assert.Equal(instr1, instr2);
+			Assert.Equal(instr1.GetHashCode(), instr2.GetHashCode());
+		}
+		[MethodImpl(MethodImplOptions.NoInlining)]
+		static object ToObject<T>(T value) => value;
 	}
 }
