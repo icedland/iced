@@ -339,65 +339,6 @@ namespace Iced.Intel {
 		/// Creates an instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
-		/// <param name="register">Register (eg. dx, al, ax, eax, rax)</param>
-		/// <param name="rSI">si, esi, or rsi</param>
-		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		/// <returns></returns>
-		public static Instruction CreateString_Reg_SegRSI(Code code, Register register, Register rSI, Register prefixSegment = Register.None) {
-			Instruction instruction = default;
-			instruction.InternalCode = code;
-
-			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = register;
-
-			if (rSI == Register.RSI)
-				instruction.InternalOp1Kind = OpKind.MemorySegRSI;
-			else if (rSI == Register.ESI)
-				instruction.InternalOp1Kind = OpKind.MemorySegESI;
-			else if (rSI == Register.SI)
-				instruction.InternalOp1Kind = OpKind.MemorySegSI;
-			else
-				throw new ArgumentOutOfRangeException(nameof(rSI));
-
-			instruction.SegmentPrefix = prefixSegment;
-
-			Debug.Assert(instruction.OpCount == 2);
-			return instruction;
-		}
-
-		/// <summary>
-		/// Creates an instruction
-		/// </summary>
-		/// <param name="code">Code value</param>
-		/// <param name="register">Register (eg. al, ax, eax, rax)</param>
-		/// <param name="rDI">di, edi, or rdi</param>
-		/// <returns></returns>
-		public static Instruction CreateString_Reg_ESRDI(Code code, Register register, Register rDI) {
-			Instruction instruction = default;
-			instruction.InternalCode = code;
-
-			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = register;
-
-			if (rDI == Register.RDI)
-				instruction.InternalOp1Kind = OpKind.MemoryESRDI;
-			else if (rDI == Register.EDI)
-				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
-			else if (rDI == Register.DI)
-				instruction.InternalOp1Kind = OpKind.MemoryESDI;
-			else
-				throw new ArgumentOutOfRangeException(nameof(rDI));
-
-			Debug.Assert(instruction.OpCount == 2);
-			return instruction;
-		}
-
-		/// <summary>
-		/// Creates an instruction
-		/// </summary>
-		/// <param name="code">Code value</param>
 		/// <param name="register">Register</param>
 		/// <param name="memory">Memory operand</param>
 		/// <returns></returns>
@@ -484,106 +425,6 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, uint immediate, byte immediate2) =>
 			Create(code, (int)immediate, immediate2);
-
-		/// <summary>
-		/// Creates an instruction
-		/// </summary>
-		/// <param name="code">Code value</param>
-		/// <param name="rSI">si, esi, or rsi</param>
-		/// <param name="rDI">di, edi, or rdi</param>
-		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		/// <returns></returns>
-		public static Instruction CreateString_SegRSI_ESRDI(Code code, Register rSI, Register rDI, Register prefixSegment = Register.None) {
-			Instruction instruction = default;
-			instruction.InternalCode = code;
-
-			if (rSI == Register.RSI)
-				instruction.InternalOp0Kind = OpKind.MemorySegRSI;
-			else if (rSI == Register.ESI)
-				instruction.InternalOp0Kind = OpKind.MemorySegESI;
-			else if (rSI == Register.SI)
-				instruction.InternalOp0Kind = OpKind.MemorySegSI;
-			else
-				throw new ArgumentOutOfRangeException(nameof(rSI));
-
-			if (rDI == Register.RDI)
-				instruction.InternalOp1Kind = OpKind.MemoryESRDI;
-			else if (rDI == Register.EDI)
-				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
-			else if (rDI == Register.DI)
-				instruction.InternalOp1Kind = OpKind.MemoryESDI;
-			else
-				throw new ArgumentOutOfRangeException(nameof(rDI));
-
-			instruction.SegmentPrefix = prefixSegment;
-
-			Debug.Assert(instruction.OpCount == 2);
-			return instruction;
-		}
-
-		/// <summary>
-		/// Creates an instruction
-		/// </summary>
-		/// <param name="code">Code value</param>
-		/// <param name="rDI">di, edi, or rdi</param>
-		/// <param name="register">Register (eg. dx, al, ax, eax, rax)</param>
-		/// <returns></returns>
-		public static Instruction CreateString_ESRDI_Reg(Code code, Register rDI, Register register) {
-			Instruction instruction = default;
-			instruction.InternalCode = code;
-
-			if (rDI == Register.RDI)
-				instruction.InternalOp0Kind = OpKind.MemoryESRDI;
-			else if (rDI == Register.EDI)
-				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
-			else if (rDI == Register.DI)
-				instruction.InternalOp0Kind = OpKind.MemoryESDI;
-			else
-				throw new ArgumentOutOfRangeException(nameof(rDI));
-
-			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.InternalOp1Register = register;
-
-			Debug.Assert(instruction.OpCount == 2);
-			return instruction;
-		}
-
-		/// <summary>
-		/// Creates an instruction
-		/// </summary>
-		/// <param name="code">Code value</param>
-		/// <param name="rDI">di, edi, or rdi</param>
-		/// <param name="rSI">si, esi, or rsi</param>
-		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		/// <returns></returns>
-		public static Instruction CreateString_ESRDI_SegRSI(Code code, Register rDI, Register rSI, Register prefixSegment = Register.None) {
-			Instruction instruction = default;
-			instruction.InternalCode = code;
-
-			if (rDI == Register.RDI)
-				instruction.InternalOp0Kind = OpKind.MemoryESRDI;
-			else if (rDI == Register.EDI)
-				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
-			else if (rDI == Register.DI)
-				instruction.InternalOp0Kind = OpKind.MemoryESDI;
-			else
-				throw new ArgumentOutOfRangeException(nameof(rDI));
-
-			if (rSI == Register.RSI)
-				instruction.InternalOp1Kind = OpKind.MemorySegRSI;
-			else if (rSI == Register.ESI)
-				instruction.InternalOp1Kind = OpKind.MemorySegESI;
-			else if (rSI == Register.SI)
-				instruction.InternalOp1Kind = OpKind.MemorySegSI;
-			else
-				throw new ArgumentOutOfRangeException(nameof(rSI));
-
-			instruction.SegmentPrefix = prefixSegment;
-
-			Debug.Assert(instruction.OpCount == 2);
-			return instruction;
-		}
 
 		/// <summary>
 		/// Creates an instruction
@@ -861,42 +702,6 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register, in MemoryOperand memory, uint immediate) =>
 			Create(code, register, memory, (int)immediate);
-
-		/// <summary>
-		/// Creates an instruction
-		/// </summary>
-		/// <param name="code">Code value</param>
-		/// <param name="rDI">di, edi, or rdi</param>
-		/// <param name="register1">Register</param>
-		/// <param name="register2">Register</param>
-		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		/// <returns></returns>
-		public static Instruction CreateMaskmov_SegRDI_Reg_Reg(Code code, Register rDI, Register register1, Register register2, Register prefixSegment = Register.None) {
-			Instruction instruction = default;
-			instruction.InternalCode = code;
-
-			if (rDI == Register.RDI)
-				instruction.InternalOp0Kind = OpKind.MemorySegRDI;
-			else if (rDI == Register.EDI)
-				instruction.InternalOp0Kind = OpKind.MemorySegEDI;
-			else if (rDI == Register.DI)
-				instruction.InternalOp0Kind = OpKind.MemorySegDI;
-			else
-				throw new ArgumentOutOfRangeException(nameof(rDI));
-
-			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.InternalOp1Register = register1;
-
-			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp2Kind = OpKind.Register;
-			instruction.InternalOp2Register = register2;
-
-			instruction.SegmentPrefix = prefixSegment;
-
-			Debug.Assert(instruction.OpCount == 3);
-			return instruction;
-		}
 
 		/// <summary>
 		/// Creates an instruction
@@ -1378,6 +1183,404 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, Register register3, uint immediate) =>
 			Create(code, register1, register2, memory, register3, (int)immediate);
+
+		/// <summary>
+		/// Creates an outsb instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateOutsb(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_Reg_SegRSI(Code.Outsb_DX_m8, addressSize, Register.DX, prefixSegment);
+
+		/// <summary>
+		/// Creates an outsw instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateOutsw(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_Reg_SegRSI(Code.Outsw_DX_m16, addressSize, Register.DX, prefixSegment);
+
+		/// <summary>
+		/// Creates an outsd instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateOutsd(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_Reg_SegRSI(Code.Outsd_DX_m32, addressSize, Register.DX, prefixSegment);
+
+		/// <summary>
+		/// Creates a lodsb instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateLodsb(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_Reg_SegRSI(Code.Lodsb_AL_m8, addressSize, Register.AL, prefixSegment);
+
+		/// <summary>
+		/// Creates a lodsw instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateLodsw(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_Reg_SegRSI(Code.Lodsw_AX_m16, addressSize, Register.AX, prefixSegment);
+
+		/// <summary>
+		/// Creates a lodsd instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateLodsd(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_Reg_SegRSI(Code.Lodsd_EAX_m32, addressSize, Register.EAX, prefixSegment);
+
+		/// <summary>
+		/// Creates a lodsq instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateLodsq(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_Reg_SegRSI(Code.Lodsq_RAX_m64, addressSize, Register.RAX, prefixSegment);
+
+		static Instruction CreateString_Reg_SegRSI(Code code, int addressSize, Register register, Register prefixSegment) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			if (addressSize == 64)
+				instruction.InternalOp1Kind = OpKind.MemorySegRSI;
+			else if (addressSize == 32)
+				instruction.InternalOp1Kind = OpKind.MemorySegESI;
+			else if (addressSize == 16)
+				instruction.InternalOp1Kind = OpKind.MemorySegSI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(addressSize));
+
+			instruction.SegmentPrefix = prefixSegment;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates a scasb instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <returns></returns>
+		public static Instruction CreateScasb(int addressSize) =>
+			CreateString_Reg_ESRDI(Code.Scasb_AL_m8, addressSize, Register.AL);
+
+		/// <summary>
+		/// Creates a scasw instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <returns></returns>
+		public static Instruction CreateScasw(int addressSize) =>
+			CreateString_Reg_ESRDI(Code.Scasw_AX_m16, addressSize, Register.AX);
+
+		/// <summary>
+		/// Creates a scasd instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <returns></returns>
+		public static Instruction CreateScasd(int addressSize) =>
+			CreateString_Reg_ESRDI(Code.Scasd_EAX_m32, addressSize, Register.EAX);
+
+		/// <summary>
+		/// Creates a scasq instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <returns></returns>
+		public static Instruction CreateScasq(int addressSize) =>
+			CreateString_Reg_ESRDI(Code.Scasq_RAX_m64, addressSize, Register.RAX);
+
+		static Instruction CreateString_Reg_ESRDI(Code code, int addressSize, Register register) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = register;
+
+			if (addressSize == 64)
+				instruction.InternalOp1Kind = OpKind.MemoryESRDI;
+			else if (addressSize == 32)
+				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
+			else if (addressSize == 16)
+				instruction.InternalOp1Kind = OpKind.MemoryESDI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(addressSize));
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates a insb instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <returns></returns>
+		public static Instruction CreateInsb(int addressSize) =>
+			CreateString_ESRDI_Reg(Code.Insb_m8_DX, addressSize, Register.DX);
+
+		/// <summary>
+		/// Creates a insw instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <returns></returns>
+		public static Instruction CreateInsw(int addressSize) =>
+			CreateString_ESRDI_Reg(Code.Insw_m16_DX, addressSize, Register.DX);
+
+		/// <summary>
+		/// Creates a insd instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <returns></returns>
+		public static Instruction CreateInsd(int addressSize) =>
+			CreateString_ESRDI_Reg(Code.Insd_m32_DX, addressSize, Register.DX);
+
+		/// <summary>
+		/// Creates a stosb instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <returns></returns>
+		public static Instruction CreateStosb(int addressSize) =>
+			CreateString_ESRDI_Reg(Code.Stosb_m8_AL, addressSize, Register.AL);
+
+		/// <summary>
+		/// Creates a stosw instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <returns></returns>
+		public static Instruction CreateStosw(int addressSize) =>
+			CreateString_ESRDI_Reg(Code.Stosw_m16_AX, addressSize, Register.AX);
+
+		/// <summary>
+		/// Creates a stosd instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <returns></returns>
+		public static Instruction CreateStosd(int addressSize) =>
+			CreateString_ESRDI_Reg(Code.Stosd_m32_EAX, addressSize, Register.EAX);
+
+		/// <summary>
+		/// Creates a stosq instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <returns></returns>
+		public static Instruction CreateStosq(int addressSize) =>
+			CreateString_ESRDI_Reg(Code.Stosq_m64_RAX, addressSize, Register.RAX);
+
+		static Instruction CreateString_ESRDI_Reg(Code code, int addressSize, Register register) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			if (addressSize == 64)
+				instruction.InternalOp0Kind = OpKind.MemoryESRDI;
+			else if (addressSize == 32)
+				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
+			else if (addressSize == 16)
+				instruction.InternalOp0Kind = OpKind.MemoryESDI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(addressSize));
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates a cmpsb instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateCmpsb(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_SegRSI_ESRDI(Code.Cmpsb_m8_m8, addressSize, prefixSegment);
+
+		/// <summary>
+		/// Creates a cmpsw instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateCmpsw(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_SegRSI_ESRDI(Code.Cmpsw_m16_m16, addressSize, prefixSegment);
+
+		/// <summary>
+		/// Creates a cmpsd instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateCmpsd(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_SegRSI_ESRDI(Code.Cmpsd_m32_m32, addressSize, prefixSegment);
+
+		/// <summary>
+		/// Creates a cmpsq instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateCmpsq(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_SegRSI_ESRDI(Code.Cmpsq_m64_m64, addressSize, prefixSegment);
+
+		static Instruction CreateString_SegRSI_ESRDI(Code code, int addressSize, Register prefixSegment) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			if (addressSize == 64) {
+				instruction.InternalOp0Kind = OpKind.MemorySegRSI;
+				instruction.InternalOp1Kind = OpKind.MemoryESRDI;
+			}
+			else if (addressSize == 32) {
+				instruction.InternalOp0Kind = OpKind.MemorySegESI;
+				instruction.InternalOp1Kind = OpKind.MemoryESEDI;
+			}
+			else if (addressSize == 16) {
+				instruction.InternalOp0Kind = OpKind.MemorySegSI;
+				instruction.InternalOp1Kind = OpKind.MemoryESDI;
+			}
+			else
+				throw new ArgumentOutOfRangeException(nameof(addressSize));
+
+			instruction.SegmentPrefix = prefixSegment;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates a movsb instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateMovsb(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_ESRDI_SegRSI(Code.Movsb_m8_m8, addressSize, prefixSegment);
+
+		/// <summary>
+		/// Creates a movsw instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateMovsw(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_ESRDI_SegRSI(Code.Movsw_m16_m16, addressSize, prefixSegment);
+
+		/// <summary>
+		/// Creates a movsd instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateMovsd(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_ESRDI_SegRSI(Code.Movsd_m32_m32, addressSize, prefixSegment);
+
+		/// <summary>
+		/// Creates a movsq instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateMovsq(int addressSize, Register prefixSegment = Register.None) =>
+			CreateString_ESRDI_SegRSI(Code.Movsq_m64_m64, addressSize, prefixSegment);
+
+		static Instruction CreateString_ESRDI_SegRSI(Code code, int addressSize, Register prefixSegment) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			if (addressSize == 64) {
+				instruction.InternalOp0Kind = OpKind.MemoryESRDI;
+				instruction.InternalOp1Kind = OpKind.MemorySegRSI;
+			}
+			else if (addressSize == 32) {
+				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
+				instruction.InternalOp1Kind = OpKind.MemorySegESI;
+			}
+			else if (addressSize == 16) {
+				instruction.InternalOp0Kind = OpKind.MemoryESDI;
+				instruction.InternalOp1Kind = OpKind.MemorySegSI;
+			}
+			else
+				throw new ArgumentOutOfRangeException(nameof(addressSize));
+
+			instruction.SegmentPrefix = prefixSegment;
+
+			Debug.Assert(instruction.OpCount == 2);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Creates a maskmovq instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateMaskmovq(int addressSize, Register register1, Register register2, Register prefixSegment = Register.None) =>
+			CreateMaskmov(Code.Maskmovq_rDI_mm_mm, addressSize, register1, register2, prefixSegment);
+
+		/// <summary>
+		/// Creates a maskmovdqu instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateMaskmovdqu(int addressSize, Register register1, Register register2, Register prefixSegment = Register.None) =>
+			CreateMaskmov(Code.Maskmovdqu_rDI_xmm_xmm, addressSize, register1, register2, prefixSegment);
+
+		/// <summary>
+		/// Creates a vmaskmovdqu instruction
+		/// </summary>
+		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="register1">Register</param>
+		/// <param name="register2">Register</param>
+		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <returns></returns>
+		public static Instruction CreateVmaskmovdqu(int addressSize, Register register1, Register register2, Register prefixSegment = Register.None) =>
+			CreateMaskmov(Code.VEX_Vmaskmovdqu_rDI_xmm_xmm, addressSize, register1, register2, prefixSegment);
+
+		static Instruction CreateMaskmov(Code code, int addressSize, Register register1, Register register2, Register prefixSegment) {
+			Instruction instruction = default;
+			instruction.InternalCode = code;
+
+			if (addressSize == 64)
+				instruction.InternalOp0Kind = OpKind.MemorySegRDI;
+			else if (addressSize == 32)
+				instruction.InternalOp0Kind = OpKind.MemorySegEDI;
+			else if (addressSize == 16)
+				instruction.InternalOp0Kind = OpKind.MemorySegDI;
+			else
+				throw new ArgumentOutOfRangeException(nameof(addressSize));
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = register1;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp2Kind = OpKind.Register;
+			instruction.InternalOp2Register = register2;
+
+			instruction.SegmentPrefix = prefixSegment;
+
+			Debug.Assert(instruction.OpCount == 3);
+			return instruction;
+		}
 	}
 }
 #endif
