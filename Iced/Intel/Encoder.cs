@@ -752,12 +752,12 @@ namespace Iced.Intel {
 			var tryConvertToDisp8N = handler.TryConvertToDisp8N;
 			if (tryConvertToDisp8N != null)
 				return tryConvertToDisp8N(this, ref instr, handler, displ, out compressedValue);
-
-			// The instruction doesn't support compressed values. The value is truncated since
-			// it's the responsibility of the user not to add a value that doesn't fit in 1 byte
-			// if DisplSize == 1.
-			compressedValue = (sbyte)displ;
-			return true;
+			if (sbyte.MinValue <= displ && displ <= sbyte.MaxValue) {
+				compressedValue = (sbyte)displ;
+				return true;
+			}
+			compressedValue = 0;
+			return false;
 		}
 
 		void AddMemOp16(ref Instruction instr, int operand) {
