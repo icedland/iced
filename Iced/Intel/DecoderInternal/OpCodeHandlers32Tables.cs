@@ -2240,12 +2240,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 					new OpCodeHandler_Simple(Code.Loadallreset286), DecoderOptions.Loadall286
 				),
 				new OpCodeHandler_Options(
-					invalid,
+					new OpCodeHandler_Simple(Code.Syscall),
 					new OpCodeHandler_Simple(Code.Loadall286), DecoderOptions.Loadall286
 				),
 				new OpCodeHandler_Simple(Code.Clts),
 				new OpCodeHandler_Options(
-					invalid,
+					new OpCodeHandler_Simple2(Code.Sysretd, Code.Sysretd, Code.Sysretq),
 					new OpCodeHandler_Simple(Code.Loadall386), DecoderOptions.Loadall386
 				),
 

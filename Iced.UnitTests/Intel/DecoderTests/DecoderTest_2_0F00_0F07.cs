@@ -1521,8 +1521,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("0F01 FC", 3, Code.Clzerow, DecoderOptions.None)]
 		[InlineData("66 0F01 FC", 4, Code.Clzerod, DecoderOptions.None)]
 		[InlineData("0F04", 2, Code.Loadallreset286, DecoderOptions.Loadall286)]
+		[InlineData("0F05", 2, Code.Syscall, DecoderOptions.None)]
 		[InlineData("0F05", 2, Code.Loadall286, DecoderOptions.Loadall286)]
 		[InlineData("0F06", 2, Code.Clts, DecoderOptions.None)]
+		[InlineData("0F07", 2, Code.Sysretd, DecoderOptions.None)]
 		[InlineData("0F07", 2, Code.Loadall386, DecoderOptions.Loadall386)]
 		void Test16_Simple_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
 			var decoder = CreateDecoder16(hexBytes, options);
@@ -1579,8 +1581,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 0F01 FC", 4, Code.Clzerow, DecoderOptions.None)]
 		[InlineData("0F01 FC", 3, Code.Clzerod, DecoderOptions.None)]
 		[InlineData("0F04", 2, Code.Loadallreset286, DecoderOptions.Loadall286)]
+		[InlineData("0F05", 2, Code.Syscall, DecoderOptions.None)]
 		[InlineData("0F05", 2, Code.Loadall286, DecoderOptions.Loadall286)]
 		[InlineData("0F06", 2, Code.Clts, DecoderOptions.None)]
+		[InlineData("0F07", 2, Code.Sysretd, DecoderOptions.None)]
 		[InlineData("0F07", 2, Code.Loadall386, DecoderOptions.Loadall386)]
 		void Test32_Simple_1(string hexBytes, int byteLength, Code code, DecoderOptions options) {
 			var decoder = CreateDecoder32(hexBytes, options);

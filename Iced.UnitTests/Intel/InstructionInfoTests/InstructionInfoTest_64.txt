@@ -2902,9 +2902,9 @@ FF 30, Push_rm64, Legacy, INTEL8086, op0=r rw=xsp r=rax rm=ds:rax;UInt64 wm=ss:x
 # clts
 0F06, Clts, Legacy, INTEL286, priv rw=cr0
 # sysret
-0F07, Sysretd, Legacy, SYSCALL, fw=acopszidA priv flow=Return r=ecx;r11
+0F07, Sysretd, Legacy, SYSCALL, fw=acopszidA priv pm flow=Return r=ecx;r11
 # sysretq
-48 0F07, Sysretq, Legacy, SYSCALL, fw=acopszidA priv flow=Return r=rcx;r11
+48 0F07, Sysretq, Legacy, SYSCALL, fw=acopszidA priv pm flow=Return r=rcx;r11
 # invd
 0F08, Invd, Legacy, INTEL486, priv
 # wbinvd
@@ -3868,9 +3868,9 @@ C5F9 2F 10, VEX_Vcomisd_xmm_xmmm64, VEX, AVX, fw=zpc fc=oas op0=r op1=r r=xmm2 r
 # sysenter
 0F34, Sysenter, Legacy, SEP, fc=i flow=Call w=rsp
 # sysexit
-0F35, Sysexitd, Legacy, SEP, priv flow=Return r=ecx;edx w=rsp
+0F35, Sysexitd, Legacy, SEP, priv pm flow=Return r=ecx;edx w=rsp
 # sysexitq
-48 0F35, Sysexitq, Legacy, SEP, priv flow=Return r=rcx;rdx w=rsp
+48 0F35, Sysexitq, Legacy, SEP, priv pm flow=Return r=rcx;rdx w=rsp
 # getsec
 0F37, Getsec, Legacy, SMX, saverestore
 # cmovo cx,si

@@ -1403,8 +1403,9 @@ namespace Iced.Intel {
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
 					if (code == Code.Syscall) {
-						AddRegister(flags, ref usedRegisters, Register.RCX, OpAccess.Write);
-						AddRegister(flags, ref usedRegisters, Register.R11, OpAccess.Write);
+						AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Write);
+						if ((flags & Flags.Is64Bit) != 0)
+							AddRegister(flags, ref usedRegisters, Register.R11, OpAccess.Write);
 					}
 					else if (code == Code.Sysenter)
 						AddRegister(flags, ref usedRegisters, (flags & Flags.Is64Bit) != 0 ? Register.RSP : Register.ESP, OpAccess.Write);
@@ -1419,7 +1420,8 @@ namespace Iced.Intel {
 					}
 					else if (code == Code.Sysretd) {
 						AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Read);
-						AddRegister(flags, ref usedRegisters, Register.R11, OpAccess.Read);
+						if ((flags & Flags.Is64Bit) != 0)
+							AddRegister(flags, ref usedRegisters, Register.R11, OpAccess.Read);
 					}
 					else {
 						Debug.Assert(code == Code.Sysexitd);

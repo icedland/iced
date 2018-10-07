@@ -818,7 +818,7 @@ F7 28, Imul_rm32, Legacy, INTEL8086, fw=oc fu=apsz op0=r r=ds r=eax rm=ds:eax;In
 # sysenter
 0F34, Sysenter, Legacy, SEP, fc=i flow=Call w=esp
 # sysexit
-0F35, Sysexitd, Legacy, SEP, priv flow=Return r=ecx;edx w=esp
+0F35, Sysexitd, Legacy, SEP, priv pm flow=Return r=ecx;edx w=esp
 # getsec
 0F37, Getsec, Legacy, SMX, saverestore
 # enclv
@@ -1165,3 +1165,7 @@ F3 0FAE F5, Umonitor_r32, Legacy, WAITPKG, op0=r r=ds;ebp rm=ds:ebp;UInt8
 66 0FAE F5, Tpause_r32, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=ebp r=eax;edx
 # umwait ebp
 F2 0FAE F5, Umwait_r32, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=ebp r=eax;edx
+# syscall
+0F05, Syscall, Legacy, SYSCALL, fr=acopszidA flow=Call w=ecx
+# sysret
+0F07, Sysretd, Legacy, SYSCALL, fw=acopszidA priv pm flow=Return r=ecx

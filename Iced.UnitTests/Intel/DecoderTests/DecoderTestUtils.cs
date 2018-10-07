@@ -463,8 +463,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Movsxd_r16_rm16;
 			yield return Code.Movsxd_r32_rm32;
 			yield return Code.Movsxd_r64_rm32;
-			yield return Code.Syscall;
-			yield return Code.Sysretd;
 			yield return Code.Sysretq;
 			yield return Code.Cvtsi2ss_xmm_rm64;
 			yield return Code.Cvtsi2sd_xmm_rm64;

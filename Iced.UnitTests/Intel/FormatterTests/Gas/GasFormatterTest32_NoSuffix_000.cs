@@ -663,6 +663,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"mov %tr5,%eax",
 			"mov %tr6,%eax",
 			"mov %tr7,%eax",
+			"syscall",
+			"sysret",
 		};
 	}
 }

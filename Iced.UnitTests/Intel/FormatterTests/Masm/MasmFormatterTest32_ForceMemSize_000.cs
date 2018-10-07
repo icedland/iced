@@ -663,6 +663,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"mov eax,tr5",
 			"mov eax,tr6",
 			"mov eax,tr7",
+			"syscall",
+			"sysret",
 		};
 	}
 }
