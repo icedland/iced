@@ -260,12 +260,12 @@ namespace Iced.Intel {
 				FormatBranchHint(output, ref column, "pt");
 		}
 
-		void FormatBranchHint(FormatterOutput output, ref int column, string keyword) {
+		void FormatBranchHint(FormatterOutput output, ref int column, string brHint) {
 			output.Write(",", FormatterOutputTextKind.Text);
-			if (options.UpperCaseKeywords || options.UpperCaseAll)
-				keyword = keyword.ToUpperInvariant();
-			output.Write(keyword, FormatterOutputTextKind.Keyword);
-			column += 1 + keyword.Length;
+			if (options.UpperCasePrefixes || options.UpperCaseAll)
+				brHint = brHint.ToUpperInvariant();
+			output.Write(brHint, FormatterOutputTextKind.Keyword);
+			column += 1 + brHint.Length;
 		}
 
 		bool ShowSegmentPrefix(ref InstrOpInfo opInfo) {

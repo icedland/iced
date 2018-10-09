@@ -1851,12 +1851,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 				};
 				yield return new object[] {
 					8,
-					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_rel8_64, a => a.UpperCaseKeywords = true),
+					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_rel8_64, a => a.UpperCasePrefixes = true),
 					"jo,PN 0x7ffffffffffffff3",
 				};
 				yield return new object[] {
 					9,
-					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_rel8_64, a => a.UpperCaseKeywords = false),
+					new OptionsInstructionInfo(64, "2E 70 00", Code.Jo_rel8_64, a => a.UpperCasePrefixes = false),
 					"jo,pn 0x7ffffffffffffff3",
 				};
 				yield return new object[] {
