@@ -1189,67 +1189,81 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateOutsb(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_Reg_SegRSI(Code.Outsb_DX_m8, addressSize, Register.DX, prefixSegment);
+		public static Instruction CreateOutsb(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_Reg_SegRSI(Code.Outsb_DX_m8, addressSize, Register.DX, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates an outsw instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateOutsw(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_Reg_SegRSI(Code.Outsw_DX_m16, addressSize, Register.DX, prefixSegment);
+		public static Instruction CreateOutsw(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_Reg_SegRSI(Code.Outsw_DX_m16, addressSize, Register.DX, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates an outsd instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateOutsd(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_Reg_SegRSI(Code.Outsd_DX_m32, addressSize, Register.DX, prefixSegment);
+		public static Instruction CreateOutsd(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_Reg_SegRSI(Code.Outsd_DX_m32, addressSize, Register.DX, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates a lodsb instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateLodsb(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_Reg_SegRSI(Code.Lodsb_AL_m8, addressSize, Register.AL, prefixSegment);
+		public static Instruction CreateLodsb(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_Reg_SegRSI(Code.Lodsb_AL_m8, addressSize, Register.AL, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates a lodsw instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateLodsw(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_Reg_SegRSI(Code.Lodsw_AX_m16, addressSize, Register.AX, prefixSegment);
+		public static Instruction CreateLodsw(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_Reg_SegRSI(Code.Lodsw_AX_m16, addressSize, Register.AX, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates a lodsd instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateLodsd(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_Reg_SegRSI(Code.Lodsd_EAX_m32, addressSize, Register.EAX, prefixSegment);
+		public static Instruction CreateLodsd(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_Reg_SegRSI(Code.Lodsd_EAX_m32, addressSize, Register.EAX, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates a lodsq instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateLodsq(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_Reg_SegRSI(Code.Lodsq_RAX_m64, addressSize, Register.RAX, prefixSegment);
+		public static Instruction CreateLodsq(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_Reg_SegRSI(Code.Lodsq_RAX_m64, addressSize, Register.RAX, prefixSegment, repPrefix);
 
-		static Instruction CreateString_Reg_SegRSI(Code code, int addressSize, Register register, Register prefixSegment) {
+		static Instruction CreateString_Reg_SegRSI(Code code, int addressSize, Register register, Register prefixSegment, RepPrefixKind repPrefix) {
 			Instruction instruction = default;
 			instruction.InternalCode = code;
+
+			if (repPrefix == RepPrefixKind.Repe)
+				instruction.InternalSetHasRepePrefix();
+			else if (repPrefix == RepPrefixKind.Repne)
+				instruction.InternalSetHasRepnePrefix();
+			else
+				Debug.Assert(repPrefix == RepPrefixKind.None);
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -1274,37 +1288,48 @@ namespace Iced.Intel {
 		/// Creates a scasb instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateScasb(int addressSize) =>
-			CreateString_Reg_ESRDI(Code.Scasb_AL_m8, addressSize, Register.AL);
+		public static Instruction CreateScasb(int addressSize, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_Reg_ESRDI(Code.Scasb_AL_m8, addressSize, Register.AL, repPrefix);
 
 		/// <summary>
 		/// Creates a scasw instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateScasw(int addressSize) =>
-			CreateString_Reg_ESRDI(Code.Scasw_AX_m16, addressSize, Register.AX);
+		public static Instruction CreateScasw(int addressSize, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_Reg_ESRDI(Code.Scasw_AX_m16, addressSize, Register.AX, repPrefix);
 
 		/// <summary>
 		/// Creates a scasd instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateScasd(int addressSize) =>
-			CreateString_Reg_ESRDI(Code.Scasd_EAX_m32, addressSize, Register.EAX);
+		public static Instruction CreateScasd(int addressSize, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_Reg_ESRDI(Code.Scasd_EAX_m32, addressSize, Register.EAX, repPrefix);
 
 		/// <summary>
 		/// Creates a scasq instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateScasq(int addressSize) =>
-			CreateString_Reg_ESRDI(Code.Scasq_RAX_m64, addressSize, Register.RAX);
+		public static Instruction CreateScasq(int addressSize, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_Reg_ESRDI(Code.Scasq_RAX_m64, addressSize, Register.RAX, repPrefix);
 
-		static Instruction CreateString_Reg_ESRDI(Code code, int addressSize, Register register) {
+		static Instruction CreateString_Reg_ESRDI(Code code, int addressSize, Register register, RepPrefixKind repPrefix) {
 			Instruction instruction = default;
 			instruction.InternalCode = code;
+
+			if (repPrefix == RepPrefixKind.Repe)
+				instruction.InternalSetHasRepePrefix();
+			else if (repPrefix == RepPrefixKind.Repne)
+				instruction.InternalSetHasRepnePrefix();
+			else
+				Debug.Assert(repPrefix == RepPrefixKind.None);
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -1327,61 +1352,75 @@ namespace Iced.Intel {
 		/// Creates a insb instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateInsb(int addressSize) =>
-			CreateString_ESRDI_Reg(Code.Insb_m8_DX, addressSize, Register.DX);
+		public static Instruction CreateInsb(int addressSize, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_ESRDI_Reg(Code.Insb_m8_DX, addressSize, Register.DX, repPrefix);
 
 		/// <summary>
 		/// Creates a insw instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateInsw(int addressSize) =>
-			CreateString_ESRDI_Reg(Code.Insw_m16_DX, addressSize, Register.DX);
+		public static Instruction CreateInsw(int addressSize, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_ESRDI_Reg(Code.Insw_m16_DX, addressSize, Register.DX, repPrefix);
 
 		/// <summary>
 		/// Creates a insd instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateInsd(int addressSize) =>
-			CreateString_ESRDI_Reg(Code.Insd_m32_DX, addressSize, Register.DX);
+		public static Instruction CreateInsd(int addressSize, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_ESRDI_Reg(Code.Insd_m32_DX, addressSize, Register.DX, repPrefix);
 
 		/// <summary>
 		/// Creates a stosb instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateStosb(int addressSize) =>
-			CreateString_ESRDI_Reg(Code.Stosb_m8_AL, addressSize, Register.AL);
+		public static Instruction CreateStosb(int addressSize, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_ESRDI_Reg(Code.Stosb_m8_AL, addressSize, Register.AL, repPrefix);
 
 		/// <summary>
 		/// Creates a stosw instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateStosw(int addressSize) =>
-			CreateString_ESRDI_Reg(Code.Stosw_m16_AX, addressSize, Register.AX);
+		public static Instruction CreateStosw(int addressSize, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_ESRDI_Reg(Code.Stosw_m16_AX, addressSize, Register.AX, repPrefix);
 
 		/// <summary>
 		/// Creates a stosd instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateStosd(int addressSize) =>
-			CreateString_ESRDI_Reg(Code.Stosd_m32_EAX, addressSize, Register.EAX);
+		public static Instruction CreateStosd(int addressSize, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_ESRDI_Reg(Code.Stosd_m32_EAX, addressSize, Register.EAX, repPrefix);
 
 		/// <summary>
 		/// Creates a stosq instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateStosq(int addressSize) =>
-			CreateString_ESRDI_Reg(Code.Stosq_m64_RAX, addressSize, Register.RAX);
+		public static Instruction CreateStosq(int addressSize, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_ESRDI_Reg(Code.Stosq_m64_RAX, addressSize, Register.RAX, repPrefix);
 
-		static Instruction CreateString_ESRDI_Reg(Code code, int addressSize, Register register) {
+		static Instruction CreateString_ESRDI_Reg(Code code, int addressSize, Register register, RepPrefixKind repPrefix) {
 			Instruction instruction = default;
 			instruction.InternalCode = code;
+
+			if (repPrefix == RepPrefixKind.Repe)
+				instruction.InternalSetHasRepePrefix();
+			else if (repPrefix == RepPrefixKind.Repne)
+				instruction.InternalSetHasRepnePrefix();
+			else
+				Debug.Assert(repPrefix == RepPrefixKind.None);
 
 			if (addressSize == 64)
 				instruction.InternalOp0Kind = OpKind.MemoryESRDI;
@@ -1405,40 +1444,51 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateCmpsb(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_SegRSI_ESRDI(Code.Cmpsb_m8_m8, addressSize, prefixSegment);
+		public static Instruction CreateCmpsb(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_SegRSI_ESRDI(Code.Cmpsb_m8_m8, addressSize, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates a cmpsw instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateCmpsw(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_SegRSI_ESRDI(Code.Cmpsw_m16_m16, addressSize, prefixSegment);
+		public static Instruction CreateCmpsw(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_SegRSI_ESRDI(Code.Cmpsw_m16_m16, addressSize, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates a cmpsd instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateCmpsd(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_SegRSI_ESRDI(Code.Cmpsd_m32_m32, addressSize, prefixSegment);
+		public static Instruction CreateCmpsd(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_SegRSI_ESRDI(Code.Cmpsd_m32_m32, addressSize, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates a cmpsq instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateCmpsq(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_SegRSI_ESRDI(Code.Cmpsq_m64_m64, addressSize, prefixSegment);
+		public static Instruction CreateCmpsq(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_SegRSI_ESRDI(Code.Cmpsq_m64_m64, addressSize, prefixSegment, repPrefix);
 
-		static Instruction CreateString_SegRSI_ESRDI(Code code, int addressSize, Register prefixSegment) {
+		static Instruction CreateString_SegRSI_ESRDI(Code code, int addressSize, Register prefixSegment, RepPrefixKind repPrefix) {
 			Instruction instruction = default;
 			instruction.InternalCode = code;
+
+			if (repPrefix == RepPrefixKind.Repe)
+				instruction.InternalSetHasRepePrefix();
+			else if (repPrefix == RepPrefixKind.Repne)
+				instruction.InternalSetHasRepnePrefix();
+			else
+				Debug.Assert(repPrefix == RepPrefixKind.None);
 
 			if (addressSize == 64) {
 				instruction.InternalOp0Kind = OpKind.MemorySegRSI;
@@ -1466,40 +1516,51 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateMovsb(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_ESRDI_SegRSI(Code.Movsb_m8_m8, addressSize, prefixSegment);
+		public static Instruction CreateMovsb(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_ESRDI_SegRSI(Code.Movsb_m8_m8, addressSize, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates a movsw instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateMovsw(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_ESRDI_SegRSI(Code.Movsw_m16_m16, addressSize, prefixSegment);
+		public static Instruction CreateMovsw(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_ESRDI_SegRSI(Code.Movsw_m16_m16, addressSize, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates a movsd instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateMovsd(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_ESRDI_SegRSI(Code.Movsd_m32_m32, addressSize, prefixSegment);
+		public static Instruction CreateMovsd(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_ESRDI_SegRSI(Code.Movsd_m32_m32, addressSize, prefixSegment, repPrefix);
 
 		/// <summary>
 		/// Creates a movsq instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>
 		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
+		/// <param name="repPrefix">Rep prefix</param>
 		/// <returns></returns>
-		public static Instruction CreateMovsq(int addressSize, Register prefixSegment = Register.None) =>
-			CreateString_ESRDI_SegRSI(Code.Movsq_m64_m64, addressSize, prefixSegment);
+		public static Instruction CreateMovsq(int addressSize, Register prefixSegment = Register.None, RepPrefixKind repPrefix = RepPrefixKind.None) =>
+			CreateString_ESRDI_SegRSI(Code.Movsq_m64_m64, addressSize, prefixSegment, repPrefix);
 
-		static Instruction CreateString_ESRDI_SegRSI(Code code, int addressSize, Register prefixSegment) {
+		static Instruction CreateString_ESRDI_SegRSI(Code code, int addressSize, Register prefixSegment, RepPrefixKind repPrefix) {
 			Instruction instruction = default;
 			instruction.InternalCode = code;
+
+			if (repPrefix == RepPrefixKind.Repe)
+				instruction.InternalSetHasRepePrefix();
+			else if (repPrefix == RepPrefixKind.Repne)
+				instruction.InternalSetHasRepnePrefix();
+			else
+				Debug.Assert(repPrefix == RepPrefixKind.None);
 
 			if (addressSize == 64) {
 				instruction.InternalOp0Kind = OpKind.MemoryESRDI;
@@ -1581,6 +1642,31 @@ namespace Iced.Intel {
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
 		}
+	}
+
+	/// <summary>
+	/// rep/repe/repne prefix
+	/// </summary>
+	public enum RepPrefixKind {
+		/// <summary>
+		/// No rep/repe/repne prefix
+		/// </summary>
+		None,
+
+		/// <summary>
+		/// repe prefix
+		/// </summary>
+		Repe,
+
+		/// <summary>
+		/// repne prefix
+		/// </summary>
+		Repne,
+
+		/// <summary>
+		/// rep prefix
+		/// </summary>
+		Rep = Repe,
 	}
 }
 #endif
