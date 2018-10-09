@@ -118,7 +118,7 @@ namespace Iced.Intel {
 		public string HexSuffix { get; set; }
 
 		/// <summary>
-		/// Size of a digit group. Used if <see cref="AddDigitSeparators"/> is true
+		/// Size of a digit group
 		/// </summary>
 		public int HexDigitGroupSize { get; set; } = 4;
 
@@ -133,7 +133,7 @@ namespace Iced.Intel {
 		public string DecimalSuffix { get; set; }
 
 		/// <summary>
-		/// Size of a digit group. Used if <see cref="AddDigitSeparators"/> is true
+		/// Size of a digit group
 		/// </summary>
 		public int DecimalDigitGroupSize { get; set; } = 3;
 
@@ -148,7 +148,7 @@ namespace Iced.Intel {
 		public string OctalSuffix { get; set; }
 
 		/// <summary>
-		/// Size of a digit group. Used if <see cref="AddDigitSeparators"/> is true
+		/// Size of a digit group
 		/// </summary>
 		public int OctalDigitGroupSize { get; set; } = 4;
 
@@ -163,19 +163,14 @@ namespace Iced.Intel {
 		public string BinarySuffix { get; set; }
 
 		/// <summary>
-		/// Size of a digit group. Used if <see cref="AddDigitSeparators"/> is true
+		/// Size of a digit group
 		/// </summary>
 		public int BinaryDigitGroupSize { get; set; } = 4;
 
 		/// <summary>
 		/// Digit separator or null/empty string
 		/// </summary>
-		public string DigitSeparator { get; set; } = "_";
-
-		/// <summary>
-		/// Enables digit separators, see <see cref="DigitSeparator"/>, <see cref="HexDigitGroupSize"/>, <see cref="DecimalDigitGroupSize"/>, <see cref="OctalDigitGroupSize"/>, <see cref="BinaryDigitGroupSize"/>
-		/// </summary>
-		public bool AddDigitSeparators { get; set; }
+		public string DigitSeparator { get; set; }
 
 		/// <summary>
 		/// Use shortest possible hexadecimal/octal/binary numbers, eg. 0xA/0Ah instead of eg. 0x0000000A/0000000Ah.

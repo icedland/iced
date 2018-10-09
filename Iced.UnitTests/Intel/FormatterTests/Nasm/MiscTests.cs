@@ -102,8 +102,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			Assert.Null(options.BinaryPrefix);
 			Assert.Equal("b", options.BinarySuffix);
 			Assert.Equal(4, options.BinaryDigitGroupSize);
-			Assert.Equal("_", options.DigitSeparator);
-			Assert.False(options.AddDigitSeparators);
+			Assert.Null(options.DigitSeparator);
 			Assert.True(options.ShortNumbers);
 			Assert.True(options.UpperCaseHex);
 			Assert.True(options.SmallHexNumbersInDecimal);

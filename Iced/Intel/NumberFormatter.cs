@@ -204,7 +204,7 @@ namespace Iced.Intel {
 				throw new InvalidOperationException();
 			}
 
-			if (options.AddDigitSeparators && digitGroupSize > 0 && !string.IsNullOrEmpty(digitSeparator))
+			if (digitGroupSize > 0 && !string.IsNullOrEmpty(digitSeparator))
 				rawNumber = AddDigitSeparators(rawNumber, digitGroupSize, digitSeparator);
 
 			if (!string.IsNullOrEmpty(prefix)) {

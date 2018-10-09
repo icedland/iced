@@ -120,7 +120,6 @@ namespace Iced.Examples {
 
             // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (Intel XED)
             var formatter = new NasmFormatter();
-            formatter.Options.AddDigitSeparators = true;
             formatter.Options.DigitSeparator = "`";
             formatter.Options.FirstOperandCharIndex = 10;
             var output = new StringBuilderFormatterOutput();
@@ -202,7 +201,6 @@ Disassembled code:
             // the RIP relative instructions have been updated.
             Console.WriteLine("Disassembled code:");
             var formatter = new NasmFormatter();
-            formatter.Options.AddDigitSeparators = true;
             formatter.Options.DigitSeparator = "`";
             formatter.Options.FirstOperandCharIndex = 10;
             var output = new StringBuilderFormatterOutput();

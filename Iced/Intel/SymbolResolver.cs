@@ -129,7 +129,7 @@ namespace Iced.Intel {
 		public string Suffix;
 
 		/// <summary>
-		/// Size of a digit group. Used if <see cref="AddDigitSeparators"/> is true
+		/// Size of a digit group
 		/// </summary>
 		public byte DigitGroupSize;
 
@@ -141,11 +141,6 @@ namespace Iced.Intel {
 			set => numberBaseByteValue = (byte)value;
 		}
 		internal byte numberBaseByteValue;
-
-		/// <summary>
-		/// Enables digit separators, see <see cref="DigitSeparator"/>, <see cref="DigitGroupSize"/>
-		/// </summary>
-		public bool AddDigitSeparators;
 
 		/// <summary>
 		/// Use upper case hex digits
@@ -192,7 +187,6 @@ namespace Iced.Intel {
 			SignExtendImmediate = signExtendImmediate;
 			numberBaseByteValue = (byte)options.NumberBase;
 			DigitSeparator = options.DigitSeparator;
-			AddDigitSeparators = options.AddDigitSeparators;
 			UpperCaseHex = options.UpperCaseHex;
 			SmallHexNumbersInDecimal = options.SmallHexNumbersInDecimal;
 			AddLeadingZeroToHexNumbers = options.AddLeadingZeroToHexNumbers;
