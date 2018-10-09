@@ -671,7 +671,7 @@ namespace Iced.Intel {
 					baseReg = Register.None;
 					displ = (long)absAddr;
 					displSize = 8;
-					flags &= ~InstrOpInfoFlags.MemorySizeInfoMask;
+					flags &= ~(InstrOpInfoFlags)((uint)InstrOpInfoFlags.MemorySizeInfoMask << (int)InstrOpInfoFlags.MemorySizeInfoShift);
 					addRelKeyword = true;
 				}
 				else if (baseReg == Register.EIP) {
@@ -679,7 +679,7 @@ namespace Iced.Intel {
 					baseReg = Register.None;
 					displ = (long)absAddr;
 					displSize = 4;
-					flags = (flags & ~InstrOpInfoFlags.MemorySizeInfoMask) | (InstrOpInfoFlags)((int)NasmFormatterInternal.MemorySizeInfo.Dword << (int)InstrOpInfoFlags.MemorySizeInfoShift);
+					flags = (flags & ~(InstrOpInfoFlags)((uint)InstrOpInfoFlags.MemorySizeInfoMask << (int)InstrOpInfoFlags.MemorySizeInfoShift)) | (InstrOpInfoFlags)((int)NasmFormatterInternal.MemorySizeInfo.Dword << (int)InstrOpInfoFlags.MemorySizeInfoShift);
 					addRelKeyword = true;
 				}
 			}
