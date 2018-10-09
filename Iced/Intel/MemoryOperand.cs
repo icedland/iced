@@ -231,6 +231,20 @@ namespace Iced.Intel {
 			DisplSize = 1;
 			IsBroadcast = false;
 		}
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="base">Base register or <see cref="Register.None"/></param>
+		public MemoryOperand(Register @base) {
+			SegmentPrefix = Register.None;
+			Base = @base;
+			Index = Register.None;
+			Scale = 1;
+			Displacement = 0;
+			DisplSize = 0;
+			IsBroadcast = false;
+		}
 	}
 }
 #endif
