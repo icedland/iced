@@ -739,7 +739,7 @@ namespace Iced.Intel {
 
 			if (hasBaseOrIndexReg) {
 				output.Write("(", FormatterOutputTextKind.Punctuation);
-				if (options.SpaceAfterMemoryOpenBracket)
+				if (options.SpaceAfterMemoryBracket)
 					output.Write(" ", FormatterOutputTextKind.Text);
 
 				if (baseReg != Register.None && indexReg == Register.None && !useScale)
@@ -764,7 +764,7 @@ namespace Iced.Intel {
 					}
 				}
 
-				if (options.SpaceBeforeMemoryCloseBracket)
+				if (options.SpaceAfterMemoryBracket)
 					output.Write(" ", FormatterOutputTextKind.Text);
 				output.Write(")", FormatterOutputTextKind.Punctuation);
 			}
@@ -773,12 +773,6 @@ namespace Iced.Intel {
 			var bcstTo = allMemorySizes[(int)memSize].bcstTo;
 			if (bcstTo != null)
 				FormatEvexMisc(output, bcstTo);
-		}
-
-		void FormatKeyword(FormatterOutput output, string keyword) {
-			if (options.UpperCaseKeywords || options.UpperCaseAll)
-				keyword = keyword.ToUpperInvariant();
-			output.Write(keyword, FormatterOutputTextKind.Keyword);
 		}
 	}
 }

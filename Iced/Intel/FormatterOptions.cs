@@ -72,24 +72,19 @@ namespace Iced.Intel {
 		public bool SpaceAfterOperandSeparator { get; set; }
 
 		/// <summary>
-		/// Add a space after the open memory bracket, eg. "[ rax]" vs "[rax]"
+		/// Add a space between the memory expression and the brackets, eg. "[ rax ]" vs "[rax]"
 		/// </summary>
-		public bool SpaceAfterMemoryOpenBracket { get; set; }
-
-		/// <summary>
-		/// Add a space before the close memory bracket, eg. "[rax ]" vs "[rax]"
-		/// </summary>
-		public bool SpaceBeforeMemoryCloseBracket { get; set; }
+		public bool SpaceAfterMemoryBracket { get; set; }
 
 		/// <summary>
 		/// Add spaces between memory operand "+" and "-" operators, eg. "[rax + rcx]" vs "[rax+rcx]"
 		/// </summary>
-		public bool SpacesBetweenMemoryAddOperators { get; set; }
+		public bool SpaceBetweenMemoryAddOperators { get; set; }
 
 		/// <summary>
 		/// Add spaces between memory operand "*" operator, eg. "[rax * 4]" vs "[rax*4]"
 		/// </summary>
-		public bool SpacesBetweenMemoryMulOperators { get; set; }
+		public bool SpaceBetweenMemoryMulOperators { get; set; }
 
 		/// <summary>
 		/// Show memory operand scale value before the index register, eg. "[4*rax]" vs "[rax*4]"
@@ -207,14 +202,14 @@ namespace Iced.Intel {
 		/// Number base
 		/// </summary>
 		public NumberBase NumberBase {
-			get => (NumberBase)numberBase;
+			get => numberBase;
 			set {
-				if (value < 0 || value > NumberBase.Binary)
+				if ((uint)value > (uint)NumberBase.Binary)
 					throw new ArgumentOutOfRangeException(nameof(value));
-				numberBase = (byte)value;
+				numberBase = value;
 			}
 		}
-		byte numberBase = (byte)NumberBase.Hexadecimal;
+		NumberBase numberBase = NumberBase.Hexadecimal;
 
 		/// <summary>
 		/// Don't add leading zeroes to branch offsets, eg. 'je 123h' vs 'je 00000123h'. Used by call near, call far, jmp near, jmp far, jcc, loop, loopcc, xbegin

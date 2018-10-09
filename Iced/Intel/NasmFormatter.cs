@@ -696,7 +696,7 @@ namespace Iced.Intel {
 			FormatMemorySize(output, ref instr, memSize, flags);
 
 			output.Write("[", FormatterOutputTextKind.Punctuation);
-			if (options.SpaceAfterMemoryOpenBracket)
+			if (options.SpaceAfterMemoryBracket)
 				output.Write(" ", FormatterOutputTextKind.Text);
 
 			var memSizeName = memSizeInfos[((int)flags >> (int)InstrOpInfoFlags.MemorySizeInfoShift) & (int)InstrOpInfoFlags.MemorySizeInfoMask];
@@ -723,10 +723,10 @@ namespace Iced.Intel {
 
 			if (indexReg != Register.None) {
 				if (needPlus) {
-					if (options.SpacesBetweenMemoryAddOperators)
+					if (options.SpaceBetweenMemoryAddOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
 					output.Write("+", FormatterOutputTextKind.Operator);
-					if (options.SpacesBetweenMemoryAddOperators)
+					if (options.SpaceBetweenMemoryAddOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
 				}
 				needPlus = true;
@@ -735,19 +735,19 @@ namespace Iced.Intel {
 					FormatRegister(output, indexReg);
 				else if (options.ScaleBeforeIndex) {
 					output.Write(scaleNumbers[scale], FormatterOutputTextKind.Number);
-					if (options.SpacesBetweenMemoryMulOperators)
+					if (options.SpaceBetweenMemoryMulOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
 					output.Write("*", FormatterOutputTextKind.Operator);
-					if (options.SpacesBetweenMemoryMulOperators)
+					if (options.SpaceBetweenMemoryMulOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
 					FormatRegister(output, indexReg);
 				}
 				else {
 					FormatRegister(output, indexReg);
-					if (options.SpacesBetweenMemoryMulOperators)
+					if (options.SpaceBetweenMemoryMulOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
 					output.Write("*", FormatterOutputTextKind.Operator);
-					if (options.SpacesBetweenMemoryMulOperators)
+					if (options.SpaceBetweenMemoryMulOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
 					output.Write(scaleNumbers[scale], FormatterOutputTextKind.Number);
 				}
@@ -755,13 +755,13 @@ namespace Iced.Intel {
 
 			if (useSymbol) {
 				if (needPlus) {
-					if (options.SpacesBetweenMemoryAddOperators)
+					if (options.SpaceBetweenMemoryAddOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
 					if ((symbol.Flags & SymbolFlags.Signed) != 0)
 						output.Write("-", FormatterOutputTextKind.Operator);
 					else
 						output.Write("+", FormatterOutputTextKind.Operator);
-					if (options.SpacesBetweenMemoryAddOperators)
+					if (options.SpaceBetweenMemoryAddOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
 				}
 				else if ((symbol.Flags & SymbolFlags.Signed) != 0)
@@ -771,7 +771,7 @@ namespace Iced.Intel {
 			}
 			else if (!needPlus || (displSize != 0 && (options.ShowZeroDisplacements || displ != 0))) {
 				if (needPlus) {
-					if (options.SpacesBetweenMemoryAddOperators)
+					if (options.SpaceBetweenMemoryAddOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
 
 					if (addrSize == 4) {
@@ -817,7 +817,7 @@ namespace Iced.Intel {
 							displSize = 2;
 						}
 					}
-					if (options.SpacesBetweenMemoryAddOperators)
+					if (options.SpaceBetweenMemoryAddOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
 				}
 
@@ -835,7 +835,7 @@ namespace Iced.Intel {
 				output.Write(s, FormatterOutputTextKind.Number);
 			}
 
-			if (options.SpaceBeforeMemoryCloseBracket)
+			if (options.SpaceAfterMemoryBracket)
 				output.Write(" ", FormatterOutputTextKind.Text);
 			output.Write("]", FormatterOutputTextKind.Punctuation);
 

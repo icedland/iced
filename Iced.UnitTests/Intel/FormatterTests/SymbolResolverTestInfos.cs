@@ -861,7 +861,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpacesBetweenMemoryAddOperators = true, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpaceBetweenMemoryAddOperators = true, new TestSymbolResolver {
 				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(8, displacementSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
@@ -869,7 +869,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpacesBetweenMemoryAddOperators = true, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpaceBetweenMemoryAddOperators = true, new TestSymbolResolver {
 				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(8, displacementSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
@@ -877,7 +877,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpacesBetweenMemoryAddOperators = false, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpaceBetweenMemoryAddOperators = false, new TestSymbolResolver {
 				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(8, displacementSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
@@ -885,7 +885,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpacesBetweenMemoryAddOperators = false, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpaceBetweenMemoryAddOperators = false, new TestSymbolResolver {
 				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
 					Assert.Equal(8, displacementSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);

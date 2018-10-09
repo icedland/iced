@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class FormatterOptionsTests {
-		public const int AllInfos_Length = 1773;
+		public const int AllInfos_Length = 1771;
 		public static readonly OptionsInstructionInfo[] AllInfos = new OptionsInstructionInfo[AllInfos_Length] {
 			new OptionsInstructionInfo(64, "64 F3 A4", Code.Movsb_m8_m8, a => a.UpperCasePrefixes = true),
 			new OptionsInstructionInfo(64, "64 F3 A4", Code.Movsb_m8_m8, a => a.UpperCasePrefixes = false),
@@ -216,23 +216,20 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new OptionsInstructionInfo(64, "62 F24DDB AE D3", Code.EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, a => a.SpaceAfterOperandSeparator = true),
 			new OptionsInstructionInfo(64, "62 F24DDB AE D3", Code.EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, a => a.SpaceAfterOperandSeparator = false),
 
-			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => a.SpaceAfterMemoryOpenBracket = true),
-			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => a.SpaceAfterMemoryOpenBracket = false),
+			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => a.SpaceAfterMemoryBracket = true),
+			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => a.SpaceAfterMemoryBracket = false),
 
-			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => a.SpaceBeforeMemoryCloseBracket = true),
-			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => a.SpaceBeforeMemoryCloseBracket = false),
+			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => a.SpaceBetweenMemoryAddOperators = true),
+			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => a.SpaceBetweenMemoryAddOperators = false),
 
-			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => a.SpacesBetweenMemoryAddOperators = true),
-			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => a.SpacesBetweenMemoryAddOperators = false),
+			new OptionsInstructionInfo(64, "C7 44 48 12 88A9CBED", Code.Mov_rm32_imm32, a => a.SpaceBetweenMemoryAddOperators = true),
+			new OptionsInstructionInfo(64, "C7 44 48 12 88A9CBED", Code.Mov_rm32_imm32, a => a.SpaceBetweenMemoryAddOperators = false),
 
-			new OptionsInstructionInfo(64, "C7 44 48 12 88A9CBED", Code.Mov_rm32_imm32, a => a.SpacesBetweenMemoryAddOperators = true),
-			new OptionsInstructionInfo(64, "C7 44 48 12 88A9CBED", Code.Mov_rm32_imm32, a => a.SpacesBetweenMemoryAddOperators = false),
+			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => { a.ScaleBeforeIndex = false; a.SpaceBetweenMemoryMulOperators = true; }),
+			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => { a.ScaleBeforeIndex = false; a.SpaceBetweenMemoryMulOperators = false; }),
 
-			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => { a.ScaleBeforeIndex = false; a.SpacesBetweenMemoryMulOperators = true; }),
-			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => { a.ScaleBeforeIndex = false; a.SpacesBetweenMemoryMulOperators = false; }),
-
-			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => { a.ScaleBeforeIndex = true; a.SpacesBetweenMemoryMulOperators = true; }),
-			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => { a.ScaleBeforeIndex = true; a.SpacesBetweenMemoryMulOperators = false; }),
+			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => { a.ScaleBeforeIndex = true; a.SpaceBetweenMemoryMulOperators = true; }),
+			new OptionsInstructionInfo(64, "C7 44 48 EE 88A9CBED", Code.Mov_rm32_imm32, a => { a.ScaleBeforeIndex = true; a.SpaceBetweenMemoryMulOperators = false; }),
 
 			new OptionsInstructionInfo(64, "8B 0C 10", Code.Mov_r32_rm32, a => a.AlwaysShowScale = true),
 			new OptionsInstructionInfo(64, "8B 0C 10", Code.Mov_r32_rm32, a => a.AlwaysShowScale = false),

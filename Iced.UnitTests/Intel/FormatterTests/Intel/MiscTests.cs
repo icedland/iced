@@ -76,10 +76,9 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			Assert.Equal(0, options.FirstOperandCharIndex);
 			Assert.Equal(0, options.TabSize);
 			Assert.False(options.SpaceAfterOperandSeparator);
-			Assert.False(options.SpaceAfterMemoryOpenBracket);
-			Assert.False(options.SpaceBeforeMemoryCloseBracket);
-			Assert.False(options.SpacesBetweenMemoryAddOperators);
-			Assert.False(options.SpacesBetweenMemoryMulOperators);
+			Assert.False(options.SpaceAfterMemoryBracket);
+			Assert.False(options.SpaceBetweenMemoryAddOperators);
+			Assert.False(options.SpaceBetweenMemoryMulOperators);
 			Assert.False(options.ScaleBeforeIndex);
 			Assert.False(options.AlwaysShowScale);
 			Assert.False(options.AlwaysShowSegmentRegister);
