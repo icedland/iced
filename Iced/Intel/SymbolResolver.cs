@@ -267,6 +267,15 @@ namespace Iced.Intel {
 		/// Constructor
 		/// </summary>
 		/// <param name="text">Symbol</param>
+		public SymbolResult(string text) {
+			Text = new TextInfo(text, FormatterOutputTextKind.Label);
+			Flags = 0;
+		}
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="text">Symbol</param>
 		/// <param name="color">Color</param>
 		public SymbolResult(string text, FormatterOutputTextKind color) {
 			Text = new TextInfo(text, color);
