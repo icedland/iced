@@ -82,6 +82,21 @@ namespace Iced.Intel {
 		/// Function address (eg. CALL XXXXX)
 		/// </summary>
 		FunctionAddress,
+
+		/// <summary>
+		/// Data symbol
+		/// </summary>
+		Data,
+
+		/// <summary>
+		/// Label symbol
+		/// </summary>
+		Label,
+
+		/// <summary>
+		/// Function symbol
+		/// </summary>
+		Function,
 	}
 }
 #endif
