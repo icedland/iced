@@ -91,6 +91,18 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="data">Data</param>
+		public ByteArrayCodeReader(ArraySegment<byte> data) {
+			this.data = data.Array ?? throw new ArgumentException();
+			int offset = data.Offset;
+			currentPosition = offset;
+			startPosition = offset;
+			endPosition = offset + data.Count;
+		}
+
+		/// <summary>
 		/// Reads the next byte or returns less than 0 if there are no more bytes
 		/// </summary>
 		/// <returns></returns>
