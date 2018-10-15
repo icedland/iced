@@ -18,6 +18,7 @@
 */
 
 #if !NO_INSTR_INFO
+using System.Runtime.CompilerServices;
 using Iced.Intel.InstructionInfoInternal;
 
 namespace Iced.Intel {
@@ -30,40 +31,45 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static EncodingKind Encoding(this Code code) =>
-			(EncodingKind)((InfoHandlers.Data[((int)code << 1) + 1] >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask);
+			(EncodingKind)((InfoHandlers.Data[(int)code * 2 + 1] >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask);
 
 		/// <summary>
 		/// Gets the CPU or CPUID feature flag
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static CpuidFeature CpuidFeature(this Code code) =>
-			(CpuidFeature)((InfoHandlers.Data[((int)code << 1) + 1] >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask);
+			(CpuidFeature)((InfoHandlers.Data[(int)code * 2 + 1] >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask);
 
 		/// <summary>
 		/// Gets flow control info
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static FlowControl FlowControl(this Code code) =>
-			(FlowControl)((InfoHandlers.Data[((int)code << 1) + 1] >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask);
+			(FlowControl)((InfoHandlers.Data[(int)code * 2 + 1] >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask);
 
 		/// <summary>
 		/// Checks if the instruction isn't available in real mode or virtual 8086 mode
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool ProtectedMode(this Code code) =>
-			(InfoHandlers.Data[(int)code << 1] & (uint)InfoFlags1.ProtectedMode) != 0;
+			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.ProtectedMode) != 0;
 
 		/// <summary>
 		/// Checks if this is a privileged instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool Privileged(this Code code) =>
-			(InfoHandlers.Data[(int)code << 1] & (uint)InfoFlags1.Privileged) != 0;
+			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.Privileged) != 0;
 
 		/// <summary>
 		/// Checks if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
@@ -71,16 +77,18 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool StackInstruction(this Code code) =>
-			(InfoHandlers.Data[(int)code << 1] & (uint)InfoFlags1.StackInstruction) != 0;
+			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.StackInstruction) != 0;
 
 		/// <summary>
 		/// Checks if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool SaveRestoreInstruction(this Code code) =>
-			(InfoHandlers.Data[(int)code << 1] & (uint)InfoFlags1.SaveRestore) != 0;
+			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.SaveRestore) != 0;
 	}
 }
 #endif

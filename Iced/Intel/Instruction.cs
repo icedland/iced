@@ -141,8 +141,8 @@ namespace Iced.Intel {
 		bool IEquatable<Instruction>.Equals(Instruction other) => EqualsInternal(this, other);
 
 		static bool EqualsInternal(in Instruction a, in Instruction b) =>
-			(a.codeFlags & ~(uint)CodeFlags.EqualsIgnoreMask) == (b.codeFlags & ~(uint)CodeFlags.EqualsIgnoreMask) &&
-			(a.opKindFlags & ~(uint)OpKindFlags.EqualsIgnoreMask) == (b.opKindFlags & ~(uint)OpKindFlags.EqualsIgnoreMask) &&
+			((a.codeFlags ^ b.codeFlags) & ~(uint)CodeFlags.EqualsIgnoreMask) == 0 &&
+			((a.opKindFlags ^ b.opKindFlags) & ~(uint)OpKindFlags.EqualsIgnoreMask) == 0 &&
 			a.immediate == b.immediate &&
 			a.memDispl == b.memDispl &&
 			a.memoryFlags == b.memoryFlags &&

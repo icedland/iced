@@ -19,6 +19,7 @@
 
 #if !NO_INSTR_INFO
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
 	partial struct Instruction {
@@ -329,32 +330,76 @@ namespace Iced.Intel {
 		/// <summary>
 		/// All flags that are read by the CPU when executing the instruction
 		/// </summary>
-		public RflagsBits RflagsRead => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsRead[(int)GetRflagsInfo()];
+		public RflagsBits RflagsRead {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get {
+				// If the method call is used without a temp index, the jitter generates worse code.
+				// It stores the array in a temp local, then it calls the method, and then it reads
+				// the temp local and checks if we can read the array.
+				int index = (int)GetRflagsInfo();
+				return (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsRead[index];
+			}
+		}
 
 		/// <summary>
 		/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared. See also <see cref="RflagsModified"/>
 		/// </summary>
-		public RflagsBits RflagsWritten => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsWritten[(int)GetRflagsInfo()];
+		public RflagsBits RflagsWritten {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get {
+				// See RflagsRead for the reason why a temp index is used here
+				int index = (int)GetRflagsInfo();
+				return (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsWritten[index];
+			}
+		}
 
 		/// <summary>
 		/// All flags that are always cleared by the CPU
 		/// </summary>
-		public RflagsBits RflagsCleared => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsCleared[(int)GetRflagsInfo()];
+		public RflagsBits RflagsCleared {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get {
+				// See RflagsRead for the reason why a temp index is used here
+				int index = (int)GetRflagsInfo();
+				return (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsCleared[index];
+			}
+		}
 
 		/// <summary>
 		/// All flags that are always set by the CPU
 		/// </summary>
-		public RflagsBits RflagsSet => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsSet[(int)GetRflagsInfo()];
+		public RflagsBits RflagsSet {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get {
+				// See RflagsRead for the reason why a temp index is used here
+				int index = (int)GetRflagsInfo();
+				return (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsSet[index];
+			}
+		}
 
 		/// <summary>
 		/// All flags that are undefined after executing the instruction
 		/// </summary>
-		public RflagsBits RflagsUndefined => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsUndefined[(int)GetRflagsInfo()];
+		public RflagsBits RflagsUndefined {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get {
+				// See RflagsRead for the reason why a temp index is used here
+				int index = (int)GetRflagsInfo();
+				return (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsUndefined[index];
+			}
+		}
 
 		/// <summary>
 		/// All flags that are modified by the CPU. This is <see cref="RflagsWritten"/> + <see cref="RflagsCleared"/> + <see cref="RflagsSet"/> + <see cref="RflagsUndefined"/>
 		/// </summary>
-		public RflagsBits RflagsModified => (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsModified[(int)GetRflagsInfo()];
+		public RflagsBits RflagsModified {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get {
+				// See RflagsRead for the reason why a temp index is used here
+				int index = (int)GetRflagsInfo();
+				return (RflagsBits)InstructionInfoInternal.RflagsInfoConstants.flagsModified[index];
+			}
+		}
 	}
 }
 #endif
