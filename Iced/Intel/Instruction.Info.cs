@@ -301,7 +301,8 @@ namespace Iced.Intel {
 			Debug.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 1 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD11);
 			Debug.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 2 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F);
 			Debug.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 3 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK3F);
-			if ((uint)(codeInfo - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9) <= 3) {
+			Debug.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 4 == InstructionInfoInternal.CodeInfo.Clear_rflags);
+			if ((uint)(codeInfo - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9) <= 4) {
 				switch (codeInfo) {
 				case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
 					if ((Immediate8 & 0x1F) % 9 == 0)
@@ -322,6 +323,19 @@ namespace Iced.Intel {
 					if ((Immediate8 & 0x3F) == 0)
 						return InstructionInfoInternal.RflagsInfo.None;
 					break;
+
+				case InstructionInfoInternal.CodeInfo.Clear_rflags:
+					if (Op0Register != Op1Register)
+						break;
+					if (Op0Kind != OpKind.Register || Op1Kind != OpKind.Register)
+						break;
+					return InstructionInfoInternal.RflagsInfo.C_cos_S_pz_U_a;
+
+#if DEBUG
+				default:
+					Debug.Fail($"Invalid codeInfo: {codeInfo}");
+					break;
+#endif
 				}
 			}
 			return (InstructionInfoInternal.RflagsInfo)((flags1 >> (int)InstructionInfoInternal.InfoFlags1.RflagsInfoShift) & (uint)InstructionInfoInternal.InfoFlags1.RflagsInfoMask);

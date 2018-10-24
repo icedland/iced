@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netcoreapp2.1;netstandard2.0</TargetFrameworks>
 
     <Description>x86/x64 instruction decoder, encoder, formatter</Description>
     <Title>$(Description)</Title>

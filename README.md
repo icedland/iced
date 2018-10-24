@@ -333,15 +333,13 @@ Disassembled code:
     Encoding: Legacy
     CpuidFeature: INTEL8086
     FlowControl: Next
-    RFLAGS Written: SF, ZF, PF
-    RFLAGS Cleared: OF, CF
+    RFLAGS Cleared: OF, SF, CF
+    RFLAGS Set: ZF, PF
     RFLAGS Undefined: AF
     RFLAGS Modified: OF, SF, ZF, AF, CF, PF
-    Op0Access: ReadWrite
-    Op1Access: Read
-    EDI:Read
+    Op0Access: Write
+    Op1Access: None
     RDI:Write
-    EDI:Read
          */
         static void InstructionInfoExample() {
             var codeReader = new ByteArrayCodeReader(exampleCode);

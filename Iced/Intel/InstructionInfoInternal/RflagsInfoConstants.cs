@@ -50,6 +50,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 					flagsCleared[i] = (ushort)RflagsBits.AC;
 					break;
 
+				case RflagsInfo.C_cos_S_pz_U_a:
+					flagsCleared[i] = (ushort)(RflagsBits.CF | RflagsBits.OF | RflagsBits.SF);
+					flagsSet[i] = (ushort)(RflagsBits.PF | RflagsBits.ZF);
+					flagsUndefined[i] = (ushort)RflagsBits.AF;
+					break;
+
 				case RflagsInfo.C_c:
 					flagsCleared[i] = (ushort)RflagsBits.CF;
 					break;

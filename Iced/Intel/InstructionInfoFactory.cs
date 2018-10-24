@@ -18,6 +18,10 @@
 */
 
 #if !NO_INSTR_INFO
+#if NETCOREAPP || NETSTANDARD2_1
+#define HAS_SPAN
+#endif
+
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -90,7 +94,10 @@ namespace Iced.Intel {
 		public InstructionInfo GetInfo(ref Instruction instruction, InstructionInfoOptions options) =>
 			Create(ref instruction, ref usedRegisters, ref usedMemoryLocations, options);
 
-		internal unsafe static InstructionInfo Create(ref Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, InstructionInfoOptions options) {
+#if !HAS_SPAN
+		unsafe
+#endif
+		internal static InstructionInfo Create(ref Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, InstructionInfoOptions options) {
 			usedRegisters.ValidLength = 0;
 			usedMemoryLocations.ValidLength = 0;
 
@@ -170,7 +177,11 @@ namespace Iced.Intel {
 
 			var op1info = (OpInfo1)((flags2 >> (int)InfoFlags2.OpInfo1Shift) & (uint)InfoFlags2.OpInfo1Mask);
 			Debug.Assert(instruction.OpCount <= DecoderConstants.MaxOpCount);
+#if HAS_SPAN
+			Span<OpAccess> accesses = stackalloc OpAccess[DecoderConstants.MaxOpCount] {
+#else
 			var accesses = stackalloc OpAccess[DecoderConstants.MaxOpCount] {
+#endif
 				op0Access,
 				InfoHandlers.Op1Accesses[(int)op1info],
 				InfoHandlers.Op2Accesses[(int)((flags2 >> (int)InfoFlags2.OpInfo2Shift) & (uint)InfoFlags2.OpInfo2Mask)],
@@ -279,7 +290,11 @@ namespace Iced.Intel {
 			return Register.SP;
 		}
 
+#if HAS_SPAN
+		static void CodeInfoHandler(CodeInfo codeInfo, ref Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, ref RflagsInfo rflagsInfo, Flags flags, Span<OpAccess> accesses) {
+#else
 		static unsafe void CodeInfoHandler(CodeInfo codeInfo, ref Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, ref RflagsInfo rflagsInfo, Flags flags, OpAccess* accesses) {
+#endif
 			Debug.Assert(codeInfo != CodeInfo.None);
 			ulong xspMask;
 			ulong displ;
@@ -1604,6 +1619,50 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
 				if ((flags & Flags.NoMemoryUsage) == 0)
 					AddMemory(flags, ref usedMemoryLocations, Register.ES, instruction.Op0Register, Register.None, 1, 0, MemorySize.UInt512, OpAccess.Write);
+				break;
+
+			case CodeInfo.Clear_rflags:
+				if (instruction.Op0Register != instruction.Op1Register)
+					break;
+				if (instruction.Op0Kind != OpKind.Register || instruction.Op1Kind != OpKind.Register)
+					break;
+				accesses[0] = OpAccess.Write;
+				accesses[1] = OpAccess.None;
+				rflagsInfo = RflagsInfo.C_cos_S_pz_U_a;
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					Debug.Assert(usedRegisters.ValidLength == 2 || usedRegisters.ValidLength == 3);
+					usedRegisters.ValidLength = 0;
+					AddRegister(flags, ref usedRegisters, instruction.Op0Register, OpAccess.Write);
+				}
+				break;
+
+			case CodeInfo.Clear_reg_regmem:
+				if (instruction.Op0Register != instruction.Op1Register)
+					break;
+				if (instruction.Op1Kind != OpKind.Register)
+					break;
+				accesses[0] = OpAccess.Write;
+				accesses[1] = OpAccess.None;
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					Debug.Assert(usedRegisters.ValidLength == 2 || usedRegisters.ValidLength == 3);
+					usedRegisters.Array[0] = new UsedRegister(instruction.Op0Register, OpAccess.Write);
+					usedRegisters.ValidLength = 1;
+				}
+				break;
+
+			case CodeInfo.Clear_reg_reg_regmem:
+				if (instruction.Op1Register != instruction.Op2Register)
+					break;
+				if (instruction.Op2Kind != OpKind.Register)
+					break;
+				accesses[1] = OpAccess.None;
+				accesses[2] = OpAccess.None;
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					Debug.Assert(usedRegisters.ValidLength == 3 || usedRegisters.ValidLength == 4);
+					Debug.Assert(usedRegisters.Array[usedRegisters.ValidLength - 2].Register == instruction.Op1Register);
+					Debug.Assert(usedRegisters.Array[usedRegisters.ValidLength - 1].Register == instruction.Op2Register);
+					usedRegisters.ValidLength -= 2;
+				}
 				break;
 
 			case CodeInfo.None:

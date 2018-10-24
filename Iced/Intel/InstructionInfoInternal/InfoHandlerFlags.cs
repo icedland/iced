@@ -187,6 +187,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Shift_Ib_MASK1FMOD11,
 		Shift_Ib_MASK1F,
 		Shift_Ib_MASK3F,
+		Clear_rflags,
+		Clear_reg_regmem,
+		Clear_reg_reg_regmem,
 		Stos,
 		Syscall,
 		Umonitor,
@@ -202,6 +205,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 	enum RflagsInfo {
 		None,
 		C_AC,
+		C_cos_S_pz_U_a,
 		C_c,
 		C_d,
 		C_i,
