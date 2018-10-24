@@ -433,8 +433,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new OptionsInstructionInfo(64, "48 B8 1032547698BADCFE", Code.Mov_r64_imm64, a => { a.NumberBase = NumberBase.Hexadecimal; a.HexPrefix = ""; a.HexSuffix = ""; a.AddLeadingZeroToHexNumbers = true; }),
 			new OptionsInstructionInfo(64, "48 B8 1032547698BADCFE", Code.Mov_r64_imm64, a => { a.NumberBase = NumberBase.Hexadecimal; a.HexPrefix = ""; a.HexSuffix = ""; a.AddLeadingZeroToHexNumbers = false; }),
 
-			new OptionsInstructionInfo(64, "8A 40 01", Code.Mov_r8_rm8, a => a.AlwaysShowMemorySize = true),
-			new OptionsInstructionInfo(64, "8A 40 01", Code.Mov_r8_rm8, a => a.AlwaysShowMemorySize = false),
+			new OptionsInstructionInfo(64, "8A 40 01", Code.Mov_r8_rm8, a => a.MemorySizeOptions = MemorySizeOptions.Always),
+			new OptionsInstructionInfo(64, "8A 40 01", Code.Mov_r8_rm8, a => a.MemorySizeOptions = MemorySizeOptions.Default),
 
 			new OptionsInstructionInfo(64, "8A 0D 78563412", Code.Mov_r8_rm8, a => a.RipRelativeAddresses = false),
 			new OptionsInstructionInfo(64, "67 8A 0D 78563412", Code.Mov_r8_rm8, a => a.RipRelativeAddresses = false),

@@ -112,7 +112,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			Assert.False(options.SignedImmediateOperands);
 			Assert.True(options.SignedMemoryDisplacements);
 			Assert.False(options.SignExtendMemoryDisplacements);
-			Assert.False(options.AlwaysShowMemorySize);
+			Assert.Equal(MemorySizeOptions.Default, options.MemorySizeOptions);
 			Assert.False(options.RipRelativeAddresses);
 			Assert.True(options.ShowBranchSize);
 			Assert.True(options.UsePseudoOps);

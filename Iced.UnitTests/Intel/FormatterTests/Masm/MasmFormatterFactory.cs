@@ -26,7 +26,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 
 		public static MasmFormatter Create_NoMemSize() {
 			var options = CreateOptions();
-			options.AlwaysShowMemorySize = false;
+			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			options.SignedImmediateOperands = false;
@@ -35,7 +35,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 
 		public static MasmFormatter Create_ForceMemSize() {
 			var options = CreateOptions();
-			options.AlwaysShowMemorySize = true;
+			options.MemorySizeOptions = MemorySizeOptions.Always;
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;
@@ -44,7 +44,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 
 		public static MasmFormatter Create() {
 			var options = CreateOptions();
-			options.AlwaysShowMemorySize = true;
+			options.MemorySizeOptions = MemorySizeOptions.Always;
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;
 			return new MasmFormatter(options);
@@ -52,7 +52,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 
 		public static MasmFormatter Create_Options() {
 			var options = CreateOptions();
-			options.AlwaysShowMemorySize = false;
+			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			return new MasmFormatter(options);
@@ -60,7 +60,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 
 		public static MasmFormatter Create_Resolver(SymbolResolver symbolResolver) {
 			var options = CreateOptions();
-			options.AlwaysShowMemorySize = false;
+			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			return new MasmFormatter(options, symbolResolver);

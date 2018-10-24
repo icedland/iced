@@ -26,7 +26,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		public const int AllInfos_Length = 113;
 		public static readonly SymbolInstructionInfo[] AllInfos = new SymbolInstructionInfo[AllInfos_Length] {
 			new SymbolInstructionInfo(16, "70 00", Code.Jo_rel8_16, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP16 + 2, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
@@ -34,7 +34,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				},
 			}),
 			new SymbolInstructionInfo(16, "70 00", Code.Jo_rel8_16, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP16 + 2, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
@@ -42,27 +42,23 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				},
 			}),
 			new SymbolInstructionInfo(16, "70 00", Code.Jo_rel8_16, a => a.ShowBranchSize = true, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP16 + 2, address);
-					Assert.True(showBranchSize);
-					showBranchSize = false;
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "70 00", Code.Jo_rel8_16, a => a.ShowBranchSize = false, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP16 + 2, address);
-					Assert.False(showBranchSize);
-					showBranchSize = true;
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "70 00", Code.Jo_rel8_32, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP32 + 2, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
@@ -70,7 +66,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				},
 			}),
 			new SymbolInstructionInfo(32, "70 00", Code.Jo_rel8_32, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP32 + 2, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
@@ -78,27 +74,23 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				},
 			}),
 			new SymbolInstructionInfo(32, "70 00", Code.Jo_rel8_32, a => a.ShowBranchSize = true, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP32 + 2, address);
-					Assert.True(showBranchSize);
-					showBranchSize = false;
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "70 00", Code.Jo_rel8_32, a => a.ShowBranchSize = false, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP32 + 2, address);
-					Assert.False(showBranchSize);
-					showBranchSize = true;
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "70 00", Code.Jo_rel8_64, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 2, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
@@ -106,7 +98,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				},
 			}),
 			new SymbolInstructionInfo(64, "70 00", Code.Jo_rel8_64, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 2, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
@@ -114,885 +106,917 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				},
 			}),
 			new SymbolInstructionInfo(64, "70 00", Code.Jo_rel8_64, a => a.ShowBranchSize = true, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 2, address);
-					Assert.True(showBranchSize);
-					showBranchSize = false;
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "70 00", Code.Jo_rel8_64, a => a.ShowBranchSize = false, new TestSymbolResolver {
-				tryGetBranchSymbol = (ulong address, int addressSize, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 2, address);
-					Assert.False(showBranchSize);
-					showBranchSize = true;
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "9A DCFE 5AA5", Code.Call_ptr1616, new TestSymbolResolver {
-				tryGetFarBranchSymbol = (ushort selector, uint address, int addressSize, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
-					Assert.Equal(0xA55A, selector);
-					Assert.Equal(0xFEDCU, address);
-					symbolSelector = new SymbolResult(new TextInfo("selsym", FormatterOutputTextKind.Text), SymbolFlags.Signed);
-					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
+					if (operand == 0) {
+						Assert.Equal(0xFEDCU, address);
+						symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
+					}
+					else {
+						Assert.Equal(1, operand);
+						Assert.Equal(0xA55AU, address);
+						symbol = new SymbolResult(new TextInfo("selsym", FormatterOutputTextKind.Text), SymbolFlags.Signed);
+					}
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "9A DCFE 5AA5", Code.Call_ptr1616, new TestSymbolResolver {
-				tryGetFarBranchSymbol = (ushort selector, uint address, int addressSize, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
-					Assert.Equal(0xA55A, selector);
-					Assert.Equal(0xFEDCU, address);
-					symbolSelector = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("selsym", FormatterOutputTextKind.Text), new TextPart("extra", FormatterOutputTextKind.Text) }));
-					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("symbol", FormatterOutputTextKind.Text), new TextPart("more", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					if (operand == 0) {
+						Assert.Equal(0xFEDCU, address);
+						symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("symbol", FormatterOutputTextKind.Text), new TextPart("more", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					}
+					else {
+						Assert.Equal(1, operand);
+						Assert.Equal(0xA55AU, address);
+						symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("selsym", FormatterOutputTextKind.Text), new TextPart("extra", FormatterOutputTextKind.Text) }));
+					}
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "9A DCFE 5AA5", Code.Call_ptr1616, a => a.ShowBranchSize = true, new TestSymbolResolver {
-				tryGetFarBranchSymbol = (ushort selector, uint address, int addressSize, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
-					Assert.Equal(0xA55A, selector);
-					Assert.Equal(0xFEDCU, address);
-					Assert.True(showBranchSize);
-					symbolSelector = default;
-					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
-					return true;
+					if (operand == 0) {
+						Assert.Equal(0xFEDCU, address);
+						symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
+						return true;
+					}
+					else {
+						Assert.Equal(1, operand);
+						Assert.Equal(0xA55AU, address);
+						symbol = default;
+						return false;
+					}
 				},
 			}),
 			new SymbolInstructionInfo(16, "9A DCFE 5AA5", Code.Call_ptr1616, a => a.ShowBranchSize = false, new TestSymbolResolver {
-				tryGetFarBranchSymbol = (ushort selector, uint address, int addressSize, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
-					Assert.Equal(0xA55A, selector);
-					Assert.Equal(0xFEDCU, address);
-					Assert.False(showBranchSize);
-					symbolSelector = default;
-					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
+					if (operand == 0) {
+						Assert.Equal(0xFEDCU, address);
+						symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
+						return true;
+					}
+					else {
+						Assert.Equal(1, operand);
+						Assert.Equal(0xA55AU, address);
+						symbol = default;
+						return false;
+					}
+				},
+			}),
+			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr3216, new TestSymbolResolver {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					if (operand == 0) {
+						Assert.Equal(0xFEDCBA98, address);
+						Assert.Equal(4, addressSize);
+						symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
+					}
+					else {
+						Assert.Equal(1, operand);
+						Assert.Equal(2, addressSize);
+						Assert.Equal(0xA55AU, address);
+						symbol = new SymbolResult(new TextInfo("selsym", FormatterOutputTextKind.Text), SymbolFlags.Signed);
+					}
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr3216, new TestSymbolResolver {
-				tryGetFarBranchSymbol = (ushort selector, uint address, int addressSize, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, addressSize);
-					Assert.Equal(0xA55A, selector);
-					Assert.Equal(0xFEDCBA98, address);
-					symbolSelector = new SymbolResult(new TextInfo("selsym", FormatterOutputTextKind.Text), SymbolFlags.Signed);
-					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
-					return true;
-				},
-			}),
-			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr3216, new TestSymbolResolver {
-				tryGetFarBranchSymbol = (ushort selector, uint address, int addressSize, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, addressSize);
-					Assert.Equal(0xA55A, selector);
-					Assert.Equal(0xFEDCBA98, address);
-					symbolSelector = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("selsym", FormatterOutputTextKind.Text), new TextPart("extra", FormatterOutputTextKind.Text) }));
-					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("symbol", FormatterOutputTextKind.Text), new TextPart("more", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					if (operand == 0) {
+						Assert.Equal(0xFEDCBA98, address);
+						Assert.Equal(4, addressSize);
+						symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("symbol", FormatterOutputTextKind.Text), new TextPart("more", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					}
+					else {
+						Assert.Equal(1, operand);
+						Assert.Equal(2, addressSize);
+						Assert.Equal(0xA55AU, address);
+						symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("selsym", FormatterOutputTextKind.Text), new TextPart("extra", FormatterOutputTextKind.Text) }));
+					}
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr3216, a => a.ShowBranchSize = true, new TestSymbolResolver {
-				tryGetFarBranchSymbol = (ushort selector, uint address, int addressSize, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, addressSize);
-					Assert.Equal(0xA55A, selector);
-					Assert.Equal(0xFEDCBA98, address);
-					Assert.True(showBranchSize);
-					symbolSelector = default;
-					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
-					return true;
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					if (operand == 0) {
+						Assert.Equal(0xFEDCBA98, address);
+						Assert.Equal(4, addressSize);
+						symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
+						return true;
+					}
+					else {
+						Assert.Equal(1, operand);
+						Assert.Equal(2, addressSize);
+						Assert.Equal(0xA55AU, address);
+						symbol = default;
+						return false;
+					}
 				},
 			}),
 			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr3216, a => a.ShowBranchSize = false, new TestSymbolResolver {
-				tryGetFarBranchSymbol = (ushort selector, uint address, int addressSize, out SymbolResult symbolSelector, out SymbolResult symbol, ref bool showBranchSize, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, addressSize);
-					Assert.Equal(0xA55A, selector);
-					Assert.Equal(0xFEDCBA98, address);
-					Assert.False(showBranchSize);
-					symbolSelector = default;
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					if (operand == 0) {
+						Assert.Equal(0xFEDCBA98, address);
+						Assert.Equal(4, addressSize);
+						symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
+						return true;
+					}
+					else {
+						Assert.Equal(1, operand);
+						Assert.Equal(2, addressSize);
+						Assert.Equal(0xA55AU, address);
+						symbol = default;
+						return false;
+					}
+				},
+			}),
+			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, new TestSymbolResolver {
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(1, addressSize);
+					Assert.Equal(0xA5UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(1, immediateSize);
-					Assert.Equal(0xA5UL, immediate);
-					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
-					return true;
-				},
-			}),
-			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(1, immediateSize);
-					Assert.Equal(0xA5UL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(1, addressSize);
+					Assert.Equal(0xA5UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(1, immediateSize);
-					Assert.Equal(0xA5UL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(1, addressSize);
+					Assert.Equal(0xA5UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(1, immediateSize);
-					Assert.Equal(0xA5UL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(1, addressSize);
+					Assert.Equal(0xA5UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "C8 5AA5 A5", Code.Enterq_imm16_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					if (immediate == 0xA55A) {
-						Assert.Equal(2, immediateSize);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					if (address == 0xA55A) {
+						Assert.Equal(2, addressSize);
 						symbol = default;
 						return false;
 					}
 					else {
-						Assert.Equal(1, immediateSize);
-						Assert.Equal(0xA5UL, immediate);
+						Assert.Equal(1, addressSize);
+						Assert.Equal(0xA5UL, address);
 						symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 						return true;
 					}
 				},
 			}),
 			new SymbolInstructionInfo(64, "C8 5AA5 A5", Code.Enterq_imm16_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					if (immediate == 0xA55A) {
-						Assert.Equal(2, immediateSize);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					if (address == 0xA55A) {
+						Assert.Equal(2, addressSize);
 						symbol = default;
 						return false;
 					}
 					else {
-						Assert.Equal(1, immediateSize);
-						Assert.Equal(0xA5UL, immediate);
+						Assert.Equal(1, addressSize);
+						Assert.Equal(0xA5UL, address);
 						symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 						return true;
 					}
 				},
 			}),
 			new SymbolInstructionInfo(64, "C8 5AA5 A5", Code.Enterq_imm16_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					if (immediate == 0xA55A) {
-						Assert.Equal(2, immediateSize);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					if (address == 0xA55A) {
+						Assert.Equal(2, addressSize);
 						symbol = default;
 						return false;
 					}
 					else {
-						Assert.Equal(1, immediateSize);
-						Assert.Equal(0xA5UL, immediate);
+						Assert.Equal(1, addressSize);
+						Assert.Equal(0xA5UL, address);
 						symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 						return true;
 					}
 				},
 			}),
 			new SymbolInstructionInfo(64, "C8 5AA5 A5", Code.Enterq_imm16_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					if (immediate == 0xA55A) {
-						Assert.Equal(2, immediateSize);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					if (address == 0xA55A) {
+						Assert.Equal(2, addressSize);
 						symbol = default;
 						return false;
 					}
 					else {
-						Assert.Equal(1, immediateSize);
-						Assert.Equal(0xA5UL, immediate);
+						Assert.Equal(1, addressSize);
+						Assert.Equal(0xA5UL, address);
 						symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 						return true;
 					}
 				},
 			}),
 			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_r16_imm16, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, immediateSize);
-					Assert.Equal(0xA55AUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xA55AUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_r16_imm16, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, immediateSize);
-					Assert.Equal(0xA55AUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xA55AUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_r16_imm16, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, immediateSize);
-					Assert.Equal(0xA55AUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xA55AUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "66 B9 5AA5", Code.Mov_r16_imm16, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, immediateSize);
-					Assert.Equal(0xA55AUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xA55AUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_r32_imm32, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, immediateSize);
-					Assert.Equal(0xFEDCBA98, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFEDCBA98, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_r32_imm32, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, immediateSize);
-					Assert.Equal(0xFEDCBA98, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFEDCBA98, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_r32_imm32, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, immediateSize);
-					Assert.Equal(0xFEDCBA98, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFEDCBA98, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_r32_imm32, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, immediateSize);
-					Assert.Equal(0xFEDCBA98, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFEDCBA98, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_r64_imm64, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, immediateSize);
-					Assert.Equal(0xFEDCBA983412A55A, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFEDCBA983412A55A, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_r64_imm64, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, immediateSize);
-					Assert.Equal(0xFEDCBA983412A55A, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFEDCBA983412A55A, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_r64_imm64, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, immediateSize);
-					Assert.Equal(0xFEDCBA983412A55A, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFEDCBA983412A55A, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "48 B9 5AA5123498BADCFE", Code.Mov_r64_imm64, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, immediateSize);
-					Assert.Equal(0xFEDCBA983412A55A, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFEDCBA983412A55A, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "CC", Code.Int3, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(1, immediateSize);
-					Assert.Equal(3UL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(1, addressSize);
+					Assert.Equal(3UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "CC", Code.Int3, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(1, immediateSize);
-					Assert.Equal(3UL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(1, addressSize);
+					Assert.Equal(3UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "CC", Code.Int3, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(1, immediateSize);
-					Assert.Equal(3UL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(1, addressSize);
+					Assert.Equal(3UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "CC", Code.Int3, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(1, immediateSize);
-					Assert.Equal(3UL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(1, addressSize);
+					Assert.Equal(3UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "66 83 C9 FF", Code.Or_rm16_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, immediateSize);
-					Assert.Equal(0xFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "66 83 C9 FF", Code.Or_rm16_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, immediateSize);
-					Assert.Equal(0xFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "66 83 C9 FF", Code.Or_rm16_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, immediateSize);
-					Assert.Equal(0xFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "66 83 C9 FF", Code.Or_rm16_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, immediateSize);
-					Assert.Equal(0xFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "83 C9 FF", Code.Or_rm32_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, immediateSize);
-					Assert.Equal(0xFFFFFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "83 C9 FF", Code.Or_rm32_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, immediateSize);
-					Assert.Equal(0xFFFFFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "83 C9 FF", Code.Or_rm32_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, immediateSize);
-					Assert.Equal(0xFFFFFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "83 C9 FF", Code.Or_rm32_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, immediateSize);
-					Assert.Equal(0xFFFFFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "48 83 C9 FF", Code.Or_rm64_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, immediateSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "48 83 C9 FF", Code.Or_rm64_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, immediateSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "48 83 C9 FF", Code.Or_rm64_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, immediateSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "48 83 C9 FF", Code.Or_rm64_imm8, new TestSymbolResolver {
-				tryGetImmediateSymbol = (ulong immediate, int immediateSize, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, immediateSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, immediate);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "64 A4", Code.Movsb_m8_m8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "A0 123456789ABCDEF0", Code.Mov_AL_moffs8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xF0DEBC9A78563412UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xF0DEBC9A78563412UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text));
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "A0 123456789ABCDEF0", Code.Mov_AL_moffs8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xF0DEBC9A78563412UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xF0DEBC9A78563412UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "A0 123456789ABCDEF0", Code.Mov_AL_moffs8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xF0DEBC9A78563412UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xF0DEBC9A78563412UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "A0 123456789ABCDEF0", Code.Mov_AL_moffs8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xF0DEBC9A78563412UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xF0DEBC9A78563412UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 0D 78563412", Code.Mov_r8_rm8, a => a.RipRelativeAddresses = false, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 6 + 0x12345678, displacement);
-					Assert.False(ripRelativeAddresses);
-					ripRelativeAddresses = true;
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 6 + 0x12345678, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "67 8A 0D 78563412", Code.Mov_r8_rm8, a => a.RipRelativeAddresses = false, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal((DecoderConstants.DEFAULT_IP64 + 7 + 0x12345678) & 0xFFFFFFFFUL, displacement);
-					Assert.False(ripRelativeAddresses);
-					ripRelativeAddresses = true;
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal((DecoderConstants.DEFAULT_IP64 + 7 + 0x12345678) & 0xFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 0D 78563412", Code.Mov_r8_rm8, a => a.RipRelativeAddresses = true, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 6 + 0x12345678, displacement);
-					Assert.True(ripRelativeAddresses);
-					ripRelativeAddresses = false;
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 6 + 0x12345678, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "67 8A 0D 78563412", Code.Mov_r8_rm8, a => a.RipRelativeAddresses = true, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal((DecoderConstants.DEFAULT_IP64 + 7 + 0x12345678) & 0xFFFFFFFFUL, displacement);
-					Assert.True(ripRelativeAddresses);
-					ripRelativeAddresses = false;
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal((DecoderConstants.DEFAULT_IP64 + 7 + 0x12345678) & 0xFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "8A 06 FFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0xFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "8A 06 FFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0xFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "8A 06 FFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0xFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "8A 06 FFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0xFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "8A 05 FFFFFFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0xFFFFFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "8A 05 FFFFFFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0xFFFFFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "8A 05 FFFFFFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0xFFFFFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "8A 05 FFFFFFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0xFFFFFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 04 25 FFFFFFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 04 25 FFFFFFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 04 25 FFFFFFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 04 25 FFFFFFFF", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 00", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 00", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 00", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 00", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Address);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Address | SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpaceBetweenMemoryAddOperators = true, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpaceBetweenMemoryAddOperators = true, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpaceBetweenMemoryAddOperators = false, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, a => a.SpaceBetweenMemoryAddOperators = false, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "8A 80 5AA5", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0xA55AUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xA55AUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "8A 80 5AA5", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0xA55AUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xA55AUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "8A 80 5AA5", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0xA55AUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xA55AUL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(16, "8A 80 5AA5", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(2, displacementSize);
-					Assert.Equal(0xA55AUL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(2, addressSize);
+					Assert.Equal(0xA55AUL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "8A 80 88A9CBED", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0xEDCBA988UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xEDCBA988UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "8A 80 88A9CBED", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0xEDCBA988UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xEDCBA988UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "8A 80 88A9CBED", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0xEDCBA988UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xEDCBA988UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(32, "8A 80 88A9CBED", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(4, displacementSize);
-					Assert.Equal(0xEDCBA988UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(4, addressSize);
+					Assert.Equal(0xEDCBA988UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 80 88A9CBED", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFEDCBA988UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFEDCBA988UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 80 88A9CBED", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFEDCBA988UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFEDCBA988UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 80 88A9CBED", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFEDCBA988UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFEDCBA988UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 80 88A9CBED", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFEDCBA988UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFEDCBA988UL, address);
 					symbol = new SymbolResult(new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "8A 40 A5", Code.Mov_r8_rm8, new TestSymbolResolver {
-				tryGetDisplSymbol = (ulong displacement, int displacementSize, ref bool ripRelativeAddresses, out SymbolResult symbol, ref NumberFormattingOptions options) => {
-					Assert.Equal(8, displacementSize);
-					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, displacement);
+				tryGetSymbol = (int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
 					symbol = new SymbolResult(new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return false;
 				},

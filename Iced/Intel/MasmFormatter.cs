@@ -53,6 +53,7 @@ namespace Iced.Intel {
 
 		readonly MasmFormatterOptions options;
 		readonly SymbolResolver symbolResolver;
+		readonly FormatterOptionsProvider optionsProvider;
 		readonly string[] allRegisters;
 		readonly InstrInfo[] instrInfos;
 		readonly (MemorySize memorySize, bool isBroadcast, int size, string[] names)[] allMemorySizes;
@@ -68,9 +69,11 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="options">Formatter options</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
-		public MasmFormatter(MasmFormatterOptions options, SymbolResolver symbolResolver = null) {
+		/// <param name="optionsProvider">Operand options provider or null</param>
+		public MasmFormatter(MasmFormatterOptions options, SymbolResolver symbolResolver = null, FormatterOptionsProvider optionsProvider = null) {
 			this.options = options ?? throw new ArgumentNullException(nameof(options));
 			this.symbolResolver = symbolResolver;
+			this.optionsProvider = optionsProvider;
 			allRegisters = Registers.AllRegisters;
 			instrInfos = InstrInfos.AllInfos;
 			allMemorySizes = MemorySizes.AllMemorySizes;
@@ -272,10 +275,10 @@ namespace Iced.Intel {
 			uint imm32;
 			ulong imm64;
 			int immSize;
-			bool showBranchSize;
 			NumberFormattingOptions numberOptions;
-			SymbolResult symbol, symbolSelector;
+			SymbolResult symbol;
 			SymbolResolver symbolResolver;
+			FormatterOperandOptions operandOptions;
 			const string offsetKeyword = "offset";
 			var opKind = opInfo.GetOpKind(operand);
 			switch (opKind) {
@@ -299,15 +302,15 @@ namespace Iced.Intel {
 					imm64 = instruction.NearBranch16;
 				}
 				numberOptions = new NumberFormattingOptions(options, options.ShortBranchNumbers, false, false);
-				showBranchSize = options.ShowBranchSize;
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetBranchSymbol(operand, ref instruction, imm64, immSize, out symbol, ref showBranchSize, ref numberOptions)) {
-					if (showBranchSize)
-						FormatFlowControl(output, FormatterUtils.GetFlowControl(ref instruction), showBranchSize);
+				operandOptions = options.ShowBranchSize ? FormatterOperandOptions.None : FormatterOperandOptions.NoBranchSize;
+				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, imm64, immSize, out symbol)) {
+					FormatFlowControl(output, FormatterUtils.GetFlowControl(ref instruction), operandOptions);
 					output.Write(symbol);
 				}
 				else {
 					flowControl = FormatterUtils.GetFlowControl(ref instruction);
-					FormatFlowControl(output, flowControl, showBranchSize);
+					FormatFlowControl(output, flowControl, operandOptions);
 					if (opKind == InstrOpKind.NearBranch32)
 						s = numberFormatter.FormatUInt32(ref numberOptions, instruction.NearBranch32, numberOptions.ShortNumbers);
 					else if (opKind == InstrOpKind.NearBranch64)
@@ -329,22 +332,23 @@ namespace Iced.Intel {
 					imm64 = instruction.FarBranch16;
 				}
 				numberOptions = new NumberFormattingOptions(options, options.ShortBranchNumbers, false, false);
-				showBranchSize = options.ShowBranchSize;
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetFarBranchSymbol(operand, ref instruction, instruction.FarBranchSelector, (uint)imm64, immSize, out symbolSelector, out symbol, ref showBranchSize, ref numberOptions)) {
-					if (showBranchSize)
-						FormatFlowControl(output, FormatterUtils.GetFlowControl(ref instruction), showBranchSize);
-					if (symbolSelector.Text.IsDefault) {
+				operandOptions = options.ShowBranchSize ? FormatterOperandOptions.None : FormatterOperandOptions.NoBranchSize;
+				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, (uint)imm64, immSize, out symbol)) {
+					FormatFlowControl(output, FormatterUtils.GetFlowControl(ref instruction), operandOptions);
+					Debug.Assert(operand + 1 == 1);
+					if (!symbolResolver.TryGetSymbol(operand + 1, ref instruction, instruction.FarBranchSelector, 2, out var selectorSymbol)) {
 						s = numberFormatter.FormatUInt16(ref numberOptions, instruction.FarBranchSelector, numberOptions.ShortNumbers);
 						output.Write(s, FormatterOutputTextKind.SelectorValue);
 					}
 					else
-						output.Write(symbolSelector);
+						output.Write(selectorSymbol);
 					output.Write(":", FormatterOutputTextKind.Punctuation);
 					output.Write(symbol);
 				}
 				else {
 					flowControl = FormatterUtils.GetFlowControl(ref instruction);
-					FormatFlowControl(output, flowControl, showBranchSize);
+					FormatFlowControl(output, flowControl, operandOptions);
 					s = numberFormatter.FormatUInt16(ref numberOptions, instruction.FarBranchSelector, numberOptions.ShortNumbers);
 					output.Write(s, FormatterOutputTextKind.SelectorValue);
 					output.Write(":", FormatterOutputTextKind.Punctuation);
@@ -366,7 +370,9 @@ namespace Iced.Intel {
 				else
 					imm8 = instruction.Immediate8_2nd;
 				numberOptions = new NumberFormattingOptions(options, options.ShortNumbers, options.SignedImmediateOperands, false);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetImmediateSymbol(operand, ref instruction, imm8, 1, out symbol, ref numberOptions)) {
+				operandOptions = FormatterOperandOptions.None;
+				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, imm8, 1, out symbol)) {
 					if ((symbol.Flags & SymbolFlags.Address) != 0) {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
@@ -390,7 +396,9 @@ namespace Iced.Intel {
 				else
 					imm16 = (ushort)instruction.Immediate8to16;
 				numberOptions = new NumberFormattingOptions(options, options.ShortNumbers, options.SignedImmediateOperands, false);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetImmediateSymbol(operand, ref instruction, imm16, 2, out symbol, ref numberOptions)) {
+				operandOptions = FormatterOperandOptions.None;
+				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, imm16, 2, out symbol)) {
 					if ((symbol.Flags & SymbolFlags.Address) != 0) {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
@@ -414,7 +422,9 @@ namespace Iced.Intel {
 				else
 					imm32 = (uint)instruction.Immediate8to32;
 				numberOptions = new NumberFormattingOptions(options, options.ShortNumbers, options.SignedImmediateOperands, false);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetImmediateSymbol(operand, ref instruction, imm32, 4, out symbol, ref numberOptions)) {
+				operandOptions = FormatterOperandOptions.None;
+				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, imm32, 4, out symbol)) {
 					if ((symbol.Flags & SymbolFlags.Address) != 0) {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
@@ -441,7 +451,9 @@ namespace Iced.Intel {
 				else
 					imm64 = instruction.Immediate64;
 				numberOptions = new NumberFormattingOptions(options, options.ShortNumbers, options.SignedImmediateOperands, false);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetImmediateSymbol(operand, ref instruction, imm64, 8, out symbol, ref numberOptions)) {
+				operandOptions = FormatterOperandOptions.None;
+				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, imm64, 8, out symbol)) {
 					if ((symbol.Flags & SymbolFlags.Address) != 0) {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
@@ -582,31 +594,35 @@ namespace Iced.Intel {
 			var numberOptions = new NumberFormattingOptions(options, options.ShortNumbers, options.SignedMemoryDisplacements, options.SignExtendMemoryDisplacements);
 			SymbolResult symbol;
 			bool useSymbol;
-			bool ripRelativeAddresses;
+
+			var operandOptions = (FormatterOperandOptions)((uint)options.MemorySizeOptions << (int)FormatterOperandOptions.MemorySizeShift);
+			optionsProvider?.GetOperandOptions(operand, ref instr, ref operandOptions, ref numberOptions);
 
 			ulong absAddr;
 			if (baseReg == Register.RIP) {
 				absAddr = (ulong)((long)instr.NextIP64 + (int)displ);
-				ripRelativeAddresses = options.RipRelativeAddresses;
+				if (options.RipRelativeAddresses)
+					operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
 			}
 			else if (baseReg == Register.EIP) {
 				absAddr = instr.NextIP32 + (uint)displ;
-				ripRelativeAddresses = options.RipRelativeAddresses;
+				if (options.RipRelativeAddresses)
+					operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
 			}
 			else {
 				absAddr = (ulong)displ;
-				ripRelativeAddresses = true;
+				operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
 			}
 
 			var symbolResolver = this.symbolResolver;
 			if (symbolResolver != null)
-				useSymbol = symbolResolver.TryGetDisplSymbol(operand, ref instr, absAddr, addrSize, ref ripRelativeAddresses, out symbol, ref numberOptions);
+				useSymbol = symbolResolver.TryGetSymbol(operand, ref instr, absAddr, addrSize, out symbol);
 			else {
 				useSymbol = false;
 				symbol = default;
 			}
 
-			if (!ripRelativeAddresses) {
+			if ((operandOptions & FormatterOperandOptions.RipRelativeAddresses) == 0) {
 				if (baseReg == Register.RIP) {
 					Debug.Assert(indexReg == Register.None);
 					baseReg = Register.None;
@@ -630,7 +646,7 @@ namespace Iced.Intel {
 			if (addrSize == 16)
 				useScale = false;
 
-			FormatMemorySize(output, ref instr, memSize, flags);
+			FormatMemorySize(output, ref instr, memSize, flags, operandOptions);
 
 			CodeSize codeSize;
 			if (options.AlwaysShowSegmentRegister || segOverride != Register.None ||
@@ -767,7 +783,11 @@ namespace Iced.Intel {
 			output.Write("]", FormatterOutputTextKind.Punctuation);
 		}
 
-		void FormatMemorySize(FormatterOutput output, ref Instruction instr, MemorySize memSize, InstrOpInfoFlags flags) {
+		void FormatMemorySize(FormatterOutput output, ref Instruction instr, MemorySize memSize, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions) {
+			var memSizeOptions = (MemorySizeOptions)(((uint)operandOptions >> (int)FormatterOperandOptions.MemorySizeShift) & ((uint)FormatterOperandOptions.MemorySizeMask >> (int)FormatterOperandOptions.MemorySizeShift));
+			if (memSizeOptions == MemorySizeOptions.Never)
+				return;
+
 			var memType = flags & InstrOpInfoFlags.MemSize_Mask;
 			if (memType == InstrOpInfoFlags.MemSize_Nothing)
 				return;
@@ -775,10 +795,16 @@ namespace Iced.Intel {
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
 			var memInfo = allMemorySizes[(int)memSize];
 
-			if (!options.AlwaysShowMemorySize) {
+			if (memSizeOptions == MemorySizeOptions.Default) {
 				if ((flags & InstrOpInfoFlags.ShowNoMemSize_ForceSize) == 0 && !memInfo.isBroadcast)
 					return;
 			}
+			else if (memSizeOptions == MemorySizeOptions.Minimum) {
+				if ((flags & InstrOpInfoFlags.ShowMinMemSize_ForceSize) == 0 && !memInfo.isBroadcast)
+					return;
+			}
+			else
+				Debug.Assert(memSizeOptions == MemorySizeOptions.Always);
 
 			var memSizeStrings = memInfo.names;
 
@@ -818,8 +844,8 @@ namespace Iced.Intel {
 			output.Write(keyword, FormatterOutputTextKind.Keyword);
 		}
 
-		void FormatFlowControl(FormatterOutput output, FormatterFlowControl kind, bool showBranchSize) {
-			if (!showBranchSize)
+		void FormatFlowControl(FormatterOutput output, FormatterFlowControl kind, FormatterOperandOptions operandOptions) {
+			if ((operandOptions & FormatterOperandOptions.NoBranchSize) != 0)
 				return;
 
 			switch (kind) {

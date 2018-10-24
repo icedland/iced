@@ -227,10 +227,10 @@ namespace Iced.Intel {
 		public bool SignExtendMemoryDisplacements { get; set; }
 
 		/// <summary>
-		/// Always show the memory size, even when not needed eg. "mov al,[rax]" vs "mov al,byte ptr [rax]".
+		/// Options that control if the memory size (eg. dword ptr) is shown or not.
 		/// This is ignored by the GAS (AT&amp;T) formatter.
 		/// </summary>
-		public bool AlwaysShowMemorySize { get; set; }
+		public MemorySizeOptions MemorySizeOptions { get; set; } = MemorySizeOptions.Default;
 
 		/// <summary>
 		/// true to show RIP relative addresses as '[rip+12345678h]', false to show RIP relative addresses as '[1029384756AFBECDh]'
@@ -271,6 +271,31 @@ namespace Iced.Intel {
 		/// Binary numbers (base 2)
 		/// </summary>
 		Binary,
+	}
+
+	/// <summary>
+	/// Memory size options used by the formatters
+	/// </summary>
+	public enum MemorySizeOptions {
+		/// <summary>
+		/// Show memory size if the assembler requires it, else don't show any
+		/// </summary>
+		Default,
+
+		/// <summary>
+		/// Always show the memory size, even if the assembler doesn't need it
+		/// </summary>
+		Always,
+
+		/// <summary>
+		/// Show memory size if a human can't figure out the size of the operand
+		/// </summary>
+		Minimum,
+
+		/// <summary>
+		/// Never show memory size
+		/// </summary>
+		Never,
 	}
 }
 #endif

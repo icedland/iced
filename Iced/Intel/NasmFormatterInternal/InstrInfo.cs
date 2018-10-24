@@ -132,6 +132,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		MemorySizeBits				= 7,
 		MemorySizeShift				= 18,
 		MemorySizeMask				= (1 << (int)MemorySizeBits) - 1,
+		ShowMinMemSize_ForceSize	= 0x02000000,
 	}
 
 	struct InstrOpInfo {

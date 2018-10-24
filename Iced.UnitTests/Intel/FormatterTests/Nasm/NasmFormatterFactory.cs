@@ -34,7 +34,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 
 		public static NasmFormatter Create_NoMemSize() {
 			var options = CreateOptions();
-			options.AlwaysShowMemorySize = false;
+			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowSignExtendedImmediateSize = true;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
@@ -44,7 +44,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 
 		public static NasmFormatter Create_ForceMemSize() {
 			var options = CreateOptions();
-			options.AlwaysShowMemorySize = true;
+			options.MemorySizeOptions = MemorySizeOptions.Always;
 			options.ShowSignExtendedImmediateSize = true;
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;
@@ -54,7 +54,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 
 		public static NasmFormatter Create() {
 			var options = CreateOptions();
-			options.AlwaysShowMemorySize = false;
+			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowSignExtendedImmediateSize = true;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
@@ -63,7 +63,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 
 		public static NasmFormatter Create_Options() {
 			var options = CreateOptions();
-			options.AlwaysShowMemorySize = false;
+			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowSignExtendedImmediateSize = false;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
@@ -72,7 +72,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 
 		public static NasmFormatter Create_Resolver(SymbolResolver symbolResolver) {
 			var options = CreateOptions();
-			options.AlwaysShowMemorySize = false;
+			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowSignExtendedImmediateSize = false;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;

@@ -55,7 +55,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	}
 
 	[Flags]
-	enum InstrOpInfoFlags : byte {
+	enum InstrOpInfoFlags : ushort {
 		None						= 0,
 
 		MemSize_Mask				= 7,
@@ -73,10 +73,11 @@ namespace Iced.Intel.MasmFormatterInternal {
 		// AlwaysShowMemorySize is disabled: always show memory size
 		ShowNoMemSize_ForceSize		= 8,
 
-		JccNotTaken					= 0x10,
-		JccTaken					= 0x20,
-		BndPrefix					= 0x40,
-		IgnoreIndexReg				= 0x80,
+		JccNotTaken					= 0x0010,
+		JccTaken					= 0x0020,
+		BndPrefix					= 0x0040,
+		IgnoreIndexReg				= 0x0080,
+		ShowMinMemSize_ForceSize	= 0x0100,
 	}
 
 	struct InstrOpInfo {

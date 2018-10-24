@@ -94,6 +94,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 		IgnoreIndexReg				= 0x00001000,
 		IgnoreSegmentPrefix			= 0x00002000,
 		ForceMemSizeDwordOrQword	= 0x00004000,
+		ShowMinMemSize_ForceSize	= 0x00008000,
 	}
 
 	struct InstrOpInfo {
