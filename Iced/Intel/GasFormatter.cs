@@ -337,6 +337,7 @@ namespace Iced.Intel {
 			}
 		}
 
+		const int instructionOperand = -1;//TODO:
 		void FormatOperand(ref Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo, int operand) {
 			Debug.Assert((uint)operand < (uint)opInfo.OpCount);
 
@@ -379,8 +380,8 @@ namespace Iced.Intel {
 				}
 				numberOptions = new NumberFormattingOptions(options, options.ShortBranchNumbers, false, false);
 				operandOptions = FormatterOperandOptions.None;
-				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, imm64, immSize, out symbol))
+				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm64, immSize, out symbol))
 					output.Write(symbol);
 				else {
 					flowControl = FormatterUtils.GetFlowControl(ref instruction);
@@ -406,11 +407,11 @@ namespace Iced.Intel {
 				}
 				numberOptions = new NumberFormattingOptions(options, options.ShortBranchNumbers, false, false);
 				operandOptions = FormatterOperandOptions.None;
-				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, (uint)imm64, immSize, out symbol)) {
+				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, (uint)imm64, immSize, out symbol)) {
 					output.Write(ImmediateValuePrefix, FormatterOutputTextKind.Operator);
 					Debug.Assert(operand + 1 == 1);
-					if (!symbolResolver.TryGetSymbol(operand + 1, ref instruction, instruction.FarBranchSelector, 2, out var selectorSymbol)) {
+					if (!symbolResolver.TryGetSymbol(operand + 1, instructionOperand, ref instruction, instruction.FarBranchSelector, 2, out var selectorSymbol)) {
 						s = numberFormatter.FormatUInt16(ref numberOptions, instruction.FarBranchSelector, numberOptions.ShortNumbers);
 						output.Write(s, FormatterOutputTextKind.SelectorValue);
 					}
@@ -448,8 +449,8 @@ namespace Iced.Intel {
 					imm8 = instruction.Immediate8_2nd;
 				numberOptions = new NumberFormattingOptions(options, options.ShortNumbers, options.SignedImmediateOperands, false);
 				operandOptions = FormatterOperandOptions.None;
-				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, imm8, 1, out symbol))
+				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm8, 1, out symbol))
 					output.Write(symbol);
 				else {
 					if (numberOptions.SignedNumber && (sbyte)imm8 < 0) {
@@ -470,8 +471,8 @@ namespace Iced.Intel {
 					imm16 = (ushort)instruction.Immediate8to16;
 				numberOptions = new NumberFormattingOptions(options, options.ShortNumbers, options.SignedImmediateOperands, false);
 				operandOptions = FormatterOperandOptions.None;
-				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, imm16, 2, out symbol))
+				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm16, 2, out symbol))
 					output.Write(symbol);
 				else {
 					if (numberOptions.SignedNumber && (short)imm16 < 0) {
@@ -492,8 +493,8 @@ namespace Iced.Intel {
 					imm32 = (uint)instruction.Immediate8to32;
 				numberOptions = new NumberFormattingOptions(options, options.ShortNumbers, options.SignedImmediateOperands, false);
 				operandOptions = FormatterOperandOptions.None;
-				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, imm32, 4, out symbol))
+				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm32, 4, out symbol))
 					output.Write(symbol);
 				else {
 					if (numberOptions.SignedNumber && (int)imm32 < 0) {
@@ -517,8 +518,8 @@ namespace Iced.Intel {
 					imm64 = instruction.Immediate64;
 				numberOptions = new NumberFormattingOptions(options, options.ShortNumbers, options.SignedImmediateOperands, false);
 				operandOptions = FormatterOperandOptions.None;
-				optionsProvider?.GetOperandOptions(operand, ref instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, ref instruction, imm64, 8, out symbol))
+				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
+				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm64, 8, out symbol))
 					output.Write(symbol);
 				else {
 					if (numberOptions.SignedNumber && (long)imm64 < 0) {
@@ -650,7 +651,7 @@ namespace Iced.Intel {
 			bool useSymbol;
 
 			var operandOptions = (FormatterOperandOptions)((uint)options.MemorySizeOptions << (int)FormatterOperandOptions.MemorySizeShift);
-			optionsProvider?.GetOperandOptions(operand, ref instr, ref operandOptions, ref numberOptions);
+			optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instr, ref operandOptions, ref numberOptions);
 
 			ulong absAddr;
 			if (baseReg == Register.RIP) {
@@ -670,7 +671,7 @@ namespace Iced.Intel {
 
 			var symbolResolver = this.symbolResolver;
 			if (symbolResolver != null)
-				useSymbol = symbolResolver.TryGetSymbol(operand, ref instr, absAddr, addrSize, out symbol);
+				useSymbol = symbolResolver.TryGetSymbol(operand, instructionOperand, ref instr, absAddr, addrSize, out symbol);
 			else {
 				useSymbol = false;
 				symbol = default;
