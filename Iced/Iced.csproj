@@ -51,6 +51,11 @@ License: LGPL v3 or any later version (LGPL = GNU Lesser General Public License)
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\COPYING.txt" Pack="true" PackagePath="COPYING.txt"/>
+    <None Include="..\COPYING.LESSER" Pack="true" PackagePath="COPYING.LESSER"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All"/>
   </ItemGroup>
 
