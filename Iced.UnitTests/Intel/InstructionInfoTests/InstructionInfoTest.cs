@@ -70,7 +70,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var codeBytes = HexUtils.ToByteArray(hexBytes);
 			Instruction instr;
 			if (bitness == 16 && code == Code.Popw_CS && hexBytes == "0F") {
-				instr = Instruction.Create(Code.Popw_CS, Register.CS);
+				instr = default;
+				instr.Code = Code.Popw_CS;
+				instr.Op0Kind = OpKind.Register;
+				instr.Op0Register = Register.CS;
 				instr.CodeSize = CodeSize.Code16;
 				instr.ByteLength = 1;
 			}

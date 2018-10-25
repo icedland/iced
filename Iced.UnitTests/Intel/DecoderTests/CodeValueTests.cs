@@ -57,6 +57,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				tested[(int)info.Code] |= testedFlags;
 			}
 
+#if !NO_ENCODER
 			foreach (var info in NonDecodedInstructions.GetTests()) {
 				byte testedFlags;
 				if (info.bitness == 16)
@@ -70,6 +71,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				tested[(int)info.instruction.Code] |= testedFlags;
 			}
+#endif
 
 			foreach (var c in DecoderTestUtils.NotDecoded) {
 				Assert.DoesNotContain(c, DecoderTestUtils.Code32Only);

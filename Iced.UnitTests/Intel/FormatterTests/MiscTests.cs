@@ -51,8 +51,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				foreach (var info in infos)
 					tested[(int)info.Code] = 1;
 			}
+#if !NO_ENCODER
 			foreach (var info in NonDecodedInstructions.GetTests())
 				tested[(int)info.instruction.Code] = 1;
+#endif
 
 			var sb = new StringBuilder();
 			int missing = 0;

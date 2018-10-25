@@ -17,7 +17,7 @@
     along with Iced.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#if !NO_GAS_FORMATTER && !NO_FORMATTER
+#if !NO_INTEL_FORMATTER && !NO_FORMATTER && !NO_ENCODER
 using System.Collections.Generic;
 using Iced.Intel;
 using Iced.UnitTests.Intel.DecoderTests;

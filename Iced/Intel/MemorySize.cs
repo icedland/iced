@@ -626,11 +626,26 @@ namespace Iced.Intel {
 		Broadcast512_Float64,
 	}
 
+#if !NO_INSTR_INFO || !NO_ENCODER
+	/// <summary>
+	/// <see cref="MemorySize"/> extension methods
+	/// </summary>
+	public static partial class MemorySizeExtensions {
+		/// <summary>
+		/// Checks if <paramref name="memorySize"/> is a broadcast memory type
+		/// </summary>
+		/// <param name="memorySize">Memory size</param>
+		/// <returns></returns>
+		public static bool IsBroadcast(this MemorySize memorySize) => memorySize >= FirstBroadcastMemorySize;
+		const MemorySize FirstBroadcastMemorySize = MemorySize.Broadcast64_UInt32;
+	}
+#endif
+
 #if !NO_INSTR_INFO
 	/// <summary>
 	/// <see cref="MemorySize"/> extension methods
 	/// </summary>
-	public static class MemorySizeExtensions {
+	public static partial class MemorySizeExtensions {
 		internal static readonly MemorySizeInfo[] MemorySizeInfos = new MemorySizeInfo[DecoderConstants.NumberOfMemorySizes] {
 			new MemorySizeInfo(MemorySize.Unknown, 0, 0, MemorySize.Unknown, false, false),
 			new MemorySizeInfo(MemorySize.UInt8, 1, 1, MemorySize.UInt8, false, false),
@@ -795,14 +810,6 @@ namespace Iced.Intel {
 		/// <param name="memorySize">Memory size</param>
 		/// <returns></returns>
 		public static bool IsSigned(this MemorySize memorySize) => memorySize.GetInfo().IsSigned;
-
-		/// <summary>
-		/// Checks if <paramref name="memorySize"/> is a broadcast memory type
-		/// </summary>
-		/// <param name="memorySize">Memory size</param>
-		/// <returns></returns>
-		public static bool IsBroadcast(this MemorySize memorySize) => memorySize >= FirstBroadcastMemorySize;
-		const MemorySize FirstBroadcastMemorySize = MemorySize.Broadcast64_UInt32;
 
 		/// <summary>
 		/// true if this is a packed data type, eg. <see cref="MemorySize.Packed128_Float32"/>

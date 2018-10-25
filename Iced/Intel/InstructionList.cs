@@ -167,7 +167,7 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// Allocates an uninitialized element at the end of the list and returns a reference to it.
-		/// The return value can be passed to eg. <see cref="Decoder.Decode(out Instruction)"/>.
+		/// The return value can be passed to eg. Decoder.Decode(out Instruction).
 		/// The returned reference is valid until the internal array is resized.
 		/// </summary>
 		/// <returns></returns>
