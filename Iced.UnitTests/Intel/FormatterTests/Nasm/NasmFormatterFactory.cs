@@ -70,6 +70,16 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			return new NasmFormatter(options);
 		}
 
+		public static NasmFormatter Create_Registers() {
+			var options = CreateOptions();
+			return new NasmFormatter(options);
+		}
+
+		public static NasmFormatter Create_Numbers() {
+			var options = CreateOptions();
+			return new NasmFormatter(options);
+		}
+
 		public static (Formatter formatter, ISymbolResolver symbolResolver) Create_Resolver<T>(T symbolResolver) where T : ISymbolResolver {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;

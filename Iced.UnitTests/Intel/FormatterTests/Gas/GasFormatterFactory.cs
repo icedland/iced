@@ -70,6 +70,17 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			options.RipRelativeAddresses = true;
 			return (new GasFormatter(options, symbolResolver), symbolResolver);
 		}
+
+		public static GasFormatter Create_Registers(bool nakedRegisters) {
+			var options = CreateOptions();
+			options.NakedRegisters = nakedRegisters;
+			return new GasFormatter(options);
+		}
+
+		public static GasFormatter Create_Numbers() {
+			var options = CreateOptions();
+			return new GasFormatter(options);
+		}
 	}
 }
 #endif

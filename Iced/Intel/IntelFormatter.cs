@@ -20,6 +20,7 @@
 #if !NO_INTEL_FORMATTER && !NO_FORMATTER
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Iced.Intel.IntelFormatterInternal;
 
 namespace Iced.Intel {
@@ -585,14 +586,18 @@ namespace Iced.Intel {
 			output.Write("}", FormatterOutputTextKind.Punctuation);
 		}
 
-		void FormatRegister(FormatterOutput output, Register reg) {
-			Debug.Assert(reg != Register.None);
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		string ToString(Register reg) {
 			Debug.Assert((uint)reg < (uint)allRegisters.Length);
 			var regStr = allRegisters[(int)reg];
 			if (options.UpperCaseRegisters || options.UpperCaseAll)
 				regStr = regStr.ToUpperInvariant();
-			output.Write(regStr, FormatterOutputTextKind.Register);
+			return regStr;
 		}
+
+		[MethodImpl(MethodImplOptions.NoInlining)]
+		void FormatRegister(FormatterOutput output, Register reg) =>
+			output.Write(ToString(reg), FormatterOutputTextKind.Register);
 
 		static readonly string[] scaleNumbers = new string[4] {
 			"1", "2", "4", "8",
@@ -837,6 +842,101 @@ namespace Iced.Intel {
 				keyword = keyword.ToUpperInvariant();
 			output.Write(keyword, FormatterOutputTextKind.Keyword);
 		}
+
+		/// <summary>
+		/// Formats a register
+		/// </summary>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public override string Format(Register register) => ToString(register);
+
+		/// <summary>
+		/// Formats a <see cref="sbyte"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public override string FormatInt8(sbyte value, in NumberFormattingOptions numberOptions) {
+			if (value < 0)
+				return "-" + numberFormatter.FormatUInt8(numberOptions, (byte)-value);
+			else
+				return numberFormatter.FormatUInt8(numberOptions, (byte)value);
+		}
+
+		/// <summary>
+		/// Formats a <see cref="short"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public override string FormatInt16(short value, in NumberFormattingOptions numberOptions) {
+			if (value < 0)
+				return "-" + numberFormatter.FormatUInt16(numberOptions, (ushort)-value);
+			else
+				return numberFormatter.FormatUInt16(numberOptions, (ushort)value);
+		}
+
+		/// <summary>
+		/// Formats a <see cref="int"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public override string FormatInt32(int value, in NumberFormattingOptions numberOptions) {
+			if (value < 0)
+				return "-" + numberFormatter.FormatUInt32(numberOptions, (uint)-value);
+			else
+				return numberFormatter.FormatUInt32(numberOptions, (uint)value);
+		}
+
+		/// <summary>
+		/// Formats a <see cref="long"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public override string FormatInt64(long value, in NumberFormattingOptions numberOptions) {
+			if (value < 0)
+				return "-" + numberFormatter.FormatUInt64(numberOptions, (ulong)-value);
+			else
+				return numberFormatter.FormatUInt64(numberOptions, (ulong)value);
+		}
+
+		/// <summary>
+		/// Formats a <see cref="byte"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public override string FormatUInt8(byte value, in NumberFormattingOptions numberOptions) =>
+			numberFormatter.FormatUInt8(numberOptions, value);
+
+		/// <summary>
+		/// Formats a <see cref="ushort"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public override string FormatUInt16(ushort value, in NumberFormattingOptions numberOptions) =>
+			numberFormatter.FormatUInt16(numberOptions, value);
+
+		/// <summary>
+		/// Formats a <see cref="uint"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public override string FormatUInt32(uint value, in NumberFormattingOptions numberOptions) =>
+			numberFormatter.FormatUInt32(numberOptions, value);
+
+		/// <summary>
+		/// Formats a <see cref="ulong"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public override string FormatUInt64(ulong value, in NumberFormattingOptions numberOptions) =>
+			numberFormatter.FormatUInt64(numberOptions, value);
 	}
 }
 #endif

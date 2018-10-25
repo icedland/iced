@@ -79,6 +79,133 @@ namespace Iced.Intel {
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>
 		public void Format(Instruction instruction, FormatterOutput output) => Format(ref instruction, output);
+
+		/// <summary>
+		/// Formats a register
+		/// </summary>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public abstract string Format(Register register);
+
+		/// <summary>
+		/// Formats a <see cref="sbyte"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <returns></returns>
+		public string FormatInt8(sbyte value) => FormatInt8(value, NumberFormattingOptions.CreateImmediate(Options));
+
+		/// <summary>
+		/// Formats a <see cref="short"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <returns></returns>
+		public string FormatInt16(short value) => FormatInt16(value, NumberFormattingOptions.CreateImmediate(Options));
+
+		/// <summary>
+		/// Formats a <see cref="int"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <returns></returns>
+		public string FormatInt32(int value) => FormatInt32(value, NumberFormattingOptions.CreateImmediate(Options));
+
+		/// <summary>
+		/// Formats a <see cref="long"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <returns></returns>
+		public string FormatInt64(long value) => FormatInt64(value, NumberFormattingOptions.CreateImmediate(Options));
+
+		/// <summary>
+		/// Formats a <see cref="byte"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <returns></returns>
+		public string FormatUInt8(byte value) => FormatUInt8(value, NumberFormattingOptions.CreateImmediate(Options));
+
+		/// <summary>
+		/// Formats a <see cref="ushort"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <returns></returns>
+		public string FormatUInt16(ushort value) => FormatUInt16(value, NumberFormattingOptions.CreateImmediate(Options));
+
+		/// <summary>
+		/// Formats a <see cref="uint"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <returns></returns>
+		public string FormatUInt32(uint value) => FormatUInt32(value, NumberFormattingOptions.CreateImmediate(Options));
+
+		/// <summary>
+		/// Formats a <see cref="ulong"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <returns></returns>
+		public string FormatUInt64(ulong value) => FormatUInt64(value, NumberFormattingOptions.CreateImmediate(Options));
+
+		/// <summary>
+		/// Formats a <see cref="sbyte"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public abstract string FormatInt8(sbyte value, in NumberFormattingOptions numberOptions);
+
+		/// <summary>
+		/// Formats a <see cref="short"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public abstract string FormatInt16(short value, in NumberFormattingOptions numberOptions);
+
+		/// <summary>
+		/// Formats a <see cref="int"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public abstract string FormatInt32(int value, in NumberFormattingOptions numberOptions);
+
+		/// <summary>
+		/// Formats a <see cref="long"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public abstract string FormatInt64(long value, in NumberFormattingOptions numberOptions);
+
+		/// <summary>
+		/// Formats a <see cref="byte"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public abstract string FormatUInt8(byte value, in NumberFormattingOptions numberOptions);
+
+		/// <summary>
+		/// Formats a <see cref="ushort"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public abstract string FormatUInt16(ushort value, in NumberFormattingOptions numberOptions);
+
+		/// <summary>
+		/// Formats a <see cref="uint"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public abstract string FormatUInt32(uint value, in NumberFormattingOptions numberOptions);
+
+		/// <summary>
+		/// Formats a <see cref="ulong"/>
+		/// </summary>
+		/// <param name="value">Value</param>
+		/// <param name="numberOptions">Options</param>
+		/// <returns></returns>
+		public abstract string FormatUInt64(ulong value, in NumberFormattingOptions numberOptions);
 	}
 }
 #endif
