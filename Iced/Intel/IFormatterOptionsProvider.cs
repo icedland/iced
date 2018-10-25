@@ -19,6 +19,7 @@
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
 	/// <summary>
@@ -150,6 +151,44 @@ namespace Iced.Intel {
 		/// </summary>
 		public bool SignExtendImmediate;
 
+		static void ThrowArgumentNullException_options() => throw new ArgumentNullException("options");
+
+		/// <summary>
+		/// Creates options used when formatting immediate values
+		/// </summary>
+		/// <param name="options">Options</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static NumberFormattingOptions CreateImmediate(FormatterOptions options) {
+			if (options == null)
+				ThrowArgumentNullException_options();
+			return new NumberFormattingOptions(options, options.ShortNumbers, options.SignedImmediateOperands, false);
+		}
+
+		/// <summary>
+		/// Creates options used when formatting displacements
+		/// </summary>
+		/// <param name="options">Options</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static NumberFormattingOptions CreateDisplacement(FormatterOptions options) {
+			if (options == null)
+				ThrowArgumentNullException_options();
+			return new NumberFormattingOptions(options, options.ShortNumbers, options.SignedMemoryDisplacements, options.SignExtendMemoryDisplacements);
+		}
+
+		/// <summary>
+		/// Creates options used when formatting branch operands
+		/// </summary>
+		/// <param name="options">Options</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static NumberFormattingOptions CreateBranch(FormatterOptions options) {
+			if (options == null)
+				ThrowArgumentNullException_options();
+			return new NumberFormattingOptions(options, options.ShortBranchNumbers, false, false);
+		}
+
 		/// <summary>
 		/// Constructor
 		/// </summary>
@@ -159,7 +198,7 @@ namespace Iced.Intel {
 		/// <param name="signExtendImmediate">Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. 'mov al,[eax+12h]' vs 'mov al,[eax+00000012h]'</param>
 		public NumberFormattingOptions(FormatterOptions options, bool shortNumbers, bool signedNumber, bool signExtendImmediate) {
 			if (options == null)
-				throw new ArgumentNullException(nameof(options));
+				ThrowArgumentNullException_options();
 			ShortNumbers = shortNumbers;
 			SignedNumber = signedNumber;
 			SignExtendImmediate = signExtendImmediate;
