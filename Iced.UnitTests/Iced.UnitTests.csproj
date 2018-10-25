@@ -19,6 +19,8 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DefineConstants>TRACE</DefineConstants>
+    <!-- Also disabled in the normal project -->
+    <DefineConstants>$(DefineConstants);NO_INTEL_FORMATTER</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
