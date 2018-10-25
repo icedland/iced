@@ -22,11 +22,17 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	sealed class TestSymbolResolver : ISymbolResolver {
+		public TestSymbolResolver Clone() => new TestSymbolResolver() { tryGetSymbol = tryGetSymbol };
 		public delegate bool TryGetSymbolDelegate(int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol);
 		public TryGetSymbolDelegate tryGetSymbol;
+		public int resultDispl;
 		public bool TryGetSymbol(int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) {
-			if (tryGetSymbol != null)
-				return tryGetSymbol(operand, instructionOperand, ref instruction, address, addressSize, out symbol);
+			if (tryGetSymbol != null) {
+				if (!tryGetSymbol(operand, instructionOperand, ref instruction, address, addressSize, out symbol))
+					return false;
+				symbol = new SymbolResult(address + (ulong)resultDispl, symbol.Text, symbol.Flags);
+				return true;
+			}
 			symbol = default;
 			return false;
 		}

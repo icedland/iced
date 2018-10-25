@@ -29,8 +29,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		public readonly Code Code;
 		public readonly Action<FormatterOptions> InitOptions;
 		public readonly Action<Decoder> InitDecoder;
-		public readonly ISymbolResolver SymbolResolver;
-		public SymbolInstructionInfo(int codeSize, string hexBytes, Code code, ISymbolResolver symbolResolver) {
+		internal readonly TestSymbolResolver SymbolResolver;
+		internal SymbolInstructionInfo(int codeSize, string hexBytes, Code code, TestSymbolResolver symbolResolver) {
 			CodeSize = codeSize;
 			HexBytes = hexBytes;
 			Code = code;
@@ -38,29 +38,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			InitDecoder = initDecoderDefault;
 			SymbolResolver = symbolResolver;
 		}
-		public SymbolInstructionInfo(int codeSize, string hexBytes, Code code, Action<FormatterOptions> enableOption, ISymbolResolver symbolResolver) {
+		internal SymbolInstructionInfo(int codeSize, string hexBytes, Code code, Action<FormatterOptions> enableOption, TestSymbolResolver symbolResolver) {
 			CodeSize = codeSize;
 			HexBytes = hexBytes;
 			Code = code;
 			InitOptions = enableOption;
 			InitDecoder = initDecoderDefault;
 			SymbolResolver = symbolResolver;
-		}
-		public SymbolInstructionInfo(int codeSize, string hexBytes, Code code, Action<FormatterOptions> enableOption) {
-			CodeSize = codeSize;
-			HexBytes = hexBytes;
-			Code = code;
-			InitOptions = enableOption;
-			InitDecoder = initDecoderDefault;
-			SymbolResolver = null;
-		}
-		public SymbolInstructionInfo(int codeSize, string hexBytes, Code code, Action<FormatterOptions> enableOption, Action<Decoder> initDecoder) {
-			CodeSize = codeSize;
-			HexBytes = hexBytes;
-			Code = code;
-			InitOptions = enableOption;
-			InitDecoder = initDecoder;
-			SymbolResolver = null;
 		}
 		static readonly Action<FormatterOptions> initOptionsDefault = a => { };
 		static readonly Action<Decoder> initDecoderDefault = a => { };
@@ -72,11 +56,24 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				throw new ArgumentException($"(infos.Length) {infos.Length} != (formattedStrings.Length) {formattedStrings.Length} . infos[0].HexBytes = {(infos.Length == 0 ? "<EMPTY>" : infos[0].HexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
 			var res = new object[infos.Length][];
 			for (int i = 0; i < infos.Length; i++)
-				res[i] = new object[3] { i, infos[i], formattedStrings[i] };
+				res[i] = new object[4] { i, GetSymDispl(i), infos[i], formattedStrings[i] };
 			return res;
 		}
 
-		protected void FormatBase(int index, SymbolInstructionInfo info, string formattedString, Formatter formatter) {
+		static int GetSymDispl(int i) {
+			const int DISPL = 0x123;
+			switch (i % 3) {
+			case 0: return 0;
+			case 1: return -DISPL;
+			case 2: return DISPL;
+			default: throw new InvalidOperationException();
+			}
+		}
+
+		protected void FormatBase(int index, int resultDispl, in SymbolInstructionInfo info, string formattedString, (Formatter formatter, ISymbolResolver symbolResolver) formatterInfo) {
+			var symbolResolver = (TestSymbolResolver)formatterInfo.symbolResolver;
+			var formatter = formatterInfo.formatter;
+			symbolResolver.resultDispl = resultDispl;
 			info.InitOptions(formatter.Options);
 			FormatterTestUtils.SimpleFormatTest(info.CodeSize, info.HexBytes, info.Code, DecoderOptions.None, formattedString, formatter, info.InitDecoder);
 		}

@@ -38,10 +38,31 @@ namespace Iced.Intel {
 		/// <param name="begin">true if we're about to format the operand, false if we've formatted it</param>
 		public virtual void OnOperand(int operand, bool begin) { }
 
-		internal void Write(in SymbolResult text) {
-			if ((text.Flags & SymbolFlags.Signed) != 0)
-				Write("-", FormatterOutputTextKind.Operator);
-			Write(text.Text);
+		internal void Write(in NumberFormatter numberFormatter, ref NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol) =>
+			Write(numberFormatter, ref numberOptions, address, symbol, true, false);
+
+		internal void Write(in NumberFormatter numberFormatter, ref NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool writeMinusIfSigned, bool spacesBetweenOp) {
+			long displ = (long)(address - symbol.Address);
+			if ((symbol.Flags & SymbolFlags.Signed) != 0) {
+				if (writeMinusIfSigned)
+					Write("-", FormatterOutputTextKind.Operator);
+				displ = -displ;
+			}
+			Write(symbol.Text);
+			if (displ != 0) {
+				if (spacesBetweenOp)
+					Write(" ", FormatterOutputTextKind.Text);
+				if (displ < 0) {
+					Write("-", FormatterOutputTextKind.Operator);
+					displ = -displ;
+				}
+				else
+					Write("+", FormatterOutputTextKind.Operator);
+				if (spacesBetweenOp)
+					Write(" ", FormatterOutputTextKind.Text);
+				var s = numberFormatter.FormatUInt64(ref numberOptions, (ulong)displ, shortNumbers: true);
+				Write(s, FormatterOutputTextKind.Number);
+			}
 		}
 
 		internal void Write(in TextInfo text) {

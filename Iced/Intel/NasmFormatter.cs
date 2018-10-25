@@ -325,7 +325,7 @@ namespace Iced.Intel {
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm64, immSize, out symbol)) {
 					FormatFlowControl(output, opInfo.Flags, operandOptions);
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm64, symbol);
 				}
 				else {
 					operandOptions = options.ShowBranchSize ? FormatterOperandOptions.None : FormatterOperandOptions.NoBranchSize;
@@ -363,9 +363,9 @@ namespace Iced.Intel {
 						output.Write(s, FormatterOutputTextKind.SelectorValue);
 					}
 					else
-						output.Write(selectorSymbol);
+						output.Write(numberFormatter, ref numberOptions, instruction.FarBranchSelector, selectorSymbol);
 					output.Write(":", FormatterOutputTextKind.Punctuation);
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm64, symbol);
 				}
 				else {
 					flowControl = FormatterUtils.GetFlowControl(ref instruction);
@@ -391,7 +391,7 @@ namespace Iced.Intel {
 				operandOptions = FormatterOperandOptions.None;
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm8, 1, out symbol))
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm8, symbol);
 				else {
 					if (numberOptions.SignedNumber && (sbyte)imm8 < 0) {
 						output.Write("-", FormatterOutputTextKind.Operator);
@@ -413,7 +413,7 @@ namespace Iced.Intel {
 				operandOptions = FormatterOperandOptions.None;
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm16, 2, out symbol))
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm16, symbol);
 				else {
 					if (numberOptions.SignedNumber && (short)imm16 < 0) {
 						output.Write("-", FormatterOutputTextKind.Operator);
@@ -435,7 +435,7 @@ namespace Iced.Intel {
 				operandOptions = FormatterOperandOptions.None;
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm32, 4, out symbol))
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm32, symbol);
 				else {
 					if (numberOptions.SignedNumber && (int)imm32 < 0) {
 						output.Write("-", FormatterOutputTextKind.Operator);
@@ -460,7 +460,7 @@ namespace Iced.Intel {
 				operandOptions = FormatterOperandOptions.None;
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm64, 8, out symbol))
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm64, symbol);
 				else {
 					if (numberOptions.SignedNumber && (long)imm64 < 0) {
 						output.Write("-", FormatterOutputTextKind.Operator);
@@ -788,7 +788,7 @@ namespace Iced.Intel {
 				else if ((symbol.Flags & SymbolFlags.Signed) != 0)
 					output.Write("-", FormatterOutputTextKind.Operator);
 
-				output.Write(symbol.Text);
+				output.Write(numberFormatter, ref numberOptions, absAddr, symbol, false, Options.SpaceBetweenMemoryAddOperators);
 			}
 			else if (!needPlus || (displSize != 0 && (options.ShowZeroDisplacements || displ != 0))) {
 				if (needPlus) {

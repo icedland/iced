@@ -58,12 +58,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			return new MasmFormatter(options);
 		}
 
-		public static MasmFormatter Create_Resolver(ISymbolResolver symbolResolver) {
+		public static (Formatter formatter, ISymbolResolver symbolResolver) Create_Resolver<T>(T symbolResolver) where T : ISymbolResolver {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
-			return new MasmFormatter(options, symbolResolver);
+			return (new MasmFormatter(options, symbolResolver), symbolResolver);
 		}
 	}
 }

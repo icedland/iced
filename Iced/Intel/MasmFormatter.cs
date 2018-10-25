@@ -307,7 +307,7 @@ namespace Iced.Intel {
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm64, immSize, out symbol)) {
 					FormatFlowControl(output, FormatterUtils.GetFlowControl(ref instruction), operandOptions);
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm64, symbol);
 				}
 				else {
 					flowControl = FormatterUtils.GetFlowControl(ref instruction);
@@ -343,9 +343,9 @@ namespace Iced.Intel {
 						output.Write(s, FormatterOutputTextKind.SelectorValue);
 					}
 					else
-						output.Write(selectorSymbol);
+						output.Write(numberFormatter, ref numberOptions, instruction.FarBranchSelector, selectorSymbol);
 					output.Write(":", FormatterOutputTextKind.Punctuation);
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm64, symbol);
 				}
 				else {
 					flowControl = FormatterUtils.GetFlowControl(ref instruction);
@@ -378,7 +378,7 @@ namespace Iced.Intel {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
 					}
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm8, symbol);
 				}
 				else {
 					if (numberOptions.SignedNumber && (sbyte)imm8 < 0) {
@@ -404,7 +404,7 @@ namespace Iced.Intel {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
 					}
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm16, symbol);
 				}
 				else {
 					if (numberOptions.SignedNumber && (short)imm16 < 0) {
@@ -430,7 +430,7 @@ namespace Iced.Intel {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
 					}
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm32, symbol);
 				}
 				else {
 					if (numberOptions.SignedNumber && (int)imm32 < 0) {
@@ -459,7 +459,7 @@ namespace Iced.Intel {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
 					}
-					output.Write(symbol);
+					output.Write(numberFormatter, ref numberOptions, imm64, symbol);
 				}
 				else {
 					if (numberOptions.SignedNumber && (long)imm64 < 0) {
@@ -711,7 +711,7 @@ namespace Iced.Intel {
 				else if ((symbol.Flags & SymbolFlags.Signed) != 0)
 					output.Write("-", FormatterOutputTextKind.Operator);
 
-				output.Write(symbol.Text);
+				output.Write(numberFormatter, ref numberOptions, absAddr, symbol, false, Options.SpaceBetweenMemoryAddOperators);
 			}
 			else if (!needPlus || (displSize != 0 && (options.ShowZeroDisplacements || displ != 0))) {
 				if (needPlus) {

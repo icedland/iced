@@ -68,13 +68,13 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			return new IntelFormatter(options);
 		}
 
-		public static IntelFormatter Create_Resolver(ISymbolResolver symbolResolver) {
+		public static (Formatter formatter, ISymbolResolver symbolResolver) Create_Resolver<T>(T symbolResolver) where T : ISymbolResolver {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			options.SpaceAfterOperandSeparator = false;
-			return new IntelFormatter(options, symbolResolver);
+			return (new IntelFormatter(options, symbolResolver), symbolResolver);
 		}
 	}
 }

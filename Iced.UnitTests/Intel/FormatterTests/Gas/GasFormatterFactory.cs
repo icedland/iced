@@ -62,13 +62,13 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			return new GasFormatter(options);
 		}
 
-		public static GasFormatter Create_Resolver(ISymbolResolver symbolResolver) {
+		public static (Formatter formatter, ISymbolResolver symbolResolver) Create_Resolver<T>(T symbolResolver) where T : ISymbolResolver {
 			var options = CreateOptions();
 			options.ShowMnemonicSizeSuffix = false;
 			options.NakedRegisters = false;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
-			return new GasFormatter(options, symbolResolver);
+			return (new GasFormatter(options, symbolResolver), symbolResolver);
 		}
 	}
 }

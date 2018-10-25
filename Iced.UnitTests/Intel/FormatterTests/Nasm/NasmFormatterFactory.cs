@@ -70,13 +70,13 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			return new NasmFormatter(options);
 		}
 
-		public static NasmFormatter Create_Resolver(ISymbolResolver symbolResolver) {
+		public static (Formatter formatter, ISymbolResolver symbolResolver) Create_Resolver<T>(T symbolResolver) where T : ISymbolResolver {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowSignExtendedImmediateSize = false;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
-			return new NasmFormatter(options, symbolResolver);
+			return (new NasmFormatter(options, symbolResolver), symbolResolver);
 		}
 	}
 }

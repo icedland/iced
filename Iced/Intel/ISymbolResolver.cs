@@ -64,6 +64,11 @@ namespace Iced.Intel {
 	/// </summary>
 	public readonly struct SymbolResult {
 		/// <summary>
+		/// The address of the symbol
+		/// </summary>
+		public readonly ulong Address;
+
+		/// <summary>
 		/// Contains the symbol
 		/// </summary>
 		public readonly TextInfo Text;
@@ -76,8 +81,10 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
+		/// <param name="address">The address of the symbol</param>
 		/// <param name="text">Symbol</param>
-		public SymbolResult(string text) {
+		public SymbolResult(ulong address, string text) {
+			Address = address;
 			Text = new TextInfo(text, FormatterOutputTextKind.Label);
 			Flags = 0;
 		}
@@ -85,9 +92,11 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
+		/// <param name="address">The address of the symbol</param>
 		/// <param name="text">Symbol</param>
 		/// <param name="color">Color</param>
-		public SymbolResult(string text, FormatterOutputTextKind color) {
+		public SymbolResult(ulong address, string text, FormatterOutputTextKind color) {
+			Address = address;
 			Text = new TextInfo(text, color);
 			Flags = 0;
 		}
@@ -95,10 +104,12 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
+		/// <param name="address">The address of the symbol</param>
 		/// <param name="text">Symbol</param>
 		/// <param name="color">Color</param>
 		/// <param name="flags">Symbol flags</param>
-		public SymbolResult(string text, FormatterOutputTextKind color, SymbolFlags flags) {
+		public SymbolResult(ulong address, string text, FormatterOutputTextKind color, SymbolFlags flags) {
+			Address = address;
 			Text = new TextInfo(text, color);
 			Flags = flags;
 		}
@@ -106,8 +117,10 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
+		/// <param name="address">The address of the symbol</param>
 		/// <param name="text">Symbol</param>
-		public SymbolResult(TextInfo text) {
+		public SymbolResult(ulong address, TextInfo text) {
+			Address = address;
 			Text = text;
 			Flags = 0;
 		}
@@ -115,9 +128,11 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
+		/// <param name="address">The address of the symbol</param>
 		/// <param name="text">Symbol</param>
 		/// <param name="flags">Symbol flags</param>
-		public SymbolResult(TextInfo text, SymbolFlags flags) {
+		public SymbolResult(ulong address, TextInfo text, SymbolFlags flags) {
+			Address = address;
 			Text = text;
 			Flags = flags;
 		}
