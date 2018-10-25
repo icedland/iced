@@ -58,7 +58,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			return new MasmFormatter(options);
 		}
 
-		public static MasmFormatter Create_Resolver(SymbolResolver symbolResolver) {
+		public static MasmFormatter Create_Resolver(ISymbolResolver symbolResolver) {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowBranchSize = false;

@@ -68,8 +68,8 @@ namespace Iced.Intel {
 
 		const string ImmediateValuePrefix = "$";
 		readonly GasFormatterOptions options;
-		readonly SymbolResolver symbolResolver;
-		readonly FormatterOptionsProvider optionsProvider;
+		readonly ISymbolResolver symbolResolver;
+		readonly IFormatterOptionsProvider optionsProvider;
 		readonly string[] allRegisters;
 		readonly string[] allRegistersNaked;
 		readonly InstrInfo[] instrInfos;
@@ -89,7 +89,7 @@ namespace Iced.Intel {
 		/// <param name="options">Formatter options</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
-		public GasFormatter(GasFormatterOptions options, SymbolResolver symbolResolver = null, FormatterOptionsProvider optionsProvider = null) {
+		public GasFormatter(GasFormatterOptions options, ISymbolResolver symbolResolver = null, IFormatterOptionsProvider optionsProvider = null) {
 			this.options = options ?? throw new ArgumentNullException(nameof(options));
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
@@ -354,7 +354,7 @@ namespace Iced.Intel {
 			int immSize;
 			NumberFormattingOptions numberOptions;
 			SymbolResult symbol;
-			SymbolResolver symbolResolver;
+			ISymbolResolver symbolResolver;
 			FormatterOperandOptions operandOptions;
 			var opKind = opInfo.GetOpKind(operand);
 			switch (opKind) {

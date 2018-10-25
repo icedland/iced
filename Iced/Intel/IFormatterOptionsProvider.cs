@@ -24,7 +24,7 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Can override options used by a <see cref="Formatter"/>
 	/// </summary>
-	public abstract class FormatterOptionsProvider {
+	public interface IFormatterOptionsProvider {
 		/// <summary>
 		/// Called by the formatter. The method can override any options before the formatter uses them.
 		/// </summary>
@@ -32,7 +32,7 @@ namespace Iced.Intel {
 		/// <param name="instruction">Instruction</param>
 		/// <param name="options">Options. Only those options that will be used by the formatter are initialized.</param>
 		/// <param name="numberOptions">Number formatting options</param>
-		public virtual void GetOperandOptions(int operand, ref Instruction instruction, ref FormatterOperandOptions options, ref NumberFormattingOptions numberOptions) { }
+		void GetOperandOptions(int operand, ref Instruction instruction, ref FormatterOperandOptions options, ref NumberFormattingOptions numberOptions);
 	}
 
 	/// <summary>
@@ -87,7 +87,7 @@ namespace Iced.Intel {
 	}
 
 	/// <summary>
-	/// Gets initialized with the default options and can be overridden by a <see cref="FormatterOptionsProvider"/>
+	/// Gets initialized with the default options and can be overridden by a <see cref="IFormatterOptionsProvider"/>
 	/// </summary>
 	public struct NumberFormattingOptions {
 		/// <summary>

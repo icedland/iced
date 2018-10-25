@@ -29,8 +29,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		public readonly Code Code;
 		public readonly Action<FormatterOptions> InitOptions;
 		public readonly Action<Decoder> InitDecoder;
-		public readonly SymbolResolver SymbolResolver;
-		public SymbolInstructionInfo(int codeSize, string hexBytes, Code code, SymbolResolver symbolResolver) {
+		public readonly ISymbolResolver SymbolResolver;
+		public SymbolInstructionInfo(int codeSize, string hexBytes, Code code, ISymbolResolver symbolResolver) {
 			CodeSize = codeSize;
 			HexBytes = hexBytes;
 			Code = code;
@@ -38,7 +38,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			InitDecoder = initDecoderDefault;
 			SymbolResolver = symbolResolver;
 		}
-		public SymbolInstructionInfo(int codeSize, string hexBytes, Code code, Action<FormatterOptions> enableOption, SymbolResolver symbolResolver) {
+		public SymbolInstructionInfo(int codeSize, string hexBytes, Code code, Action<FormatterOptions> enableOption, ISymbolResolver symbolResolver) {
 			CodeSize = codeSize;
 			HexBytes = hexBytes;
 			Code = code;

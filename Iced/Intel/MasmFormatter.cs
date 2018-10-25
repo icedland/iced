@@ -52,8 +52,8 @@ namespace Iced.Intel {
 		public MasmFormatterOptions MasmOptions => options;
 
 		readonly MasmFormatterOptions options;
-		readonly SymbolResolver symbolResolver;
-		readonly FormatterOptionsProvider optionsProvider;
+		readonly ISymbolResolver symbolResolver;
+		readonly IFormatterOptionsProvider optionsProvider;
 		readonly string[] allRegisters;
 		readonly InstrInfo[] instrInfos;
 		readonly (MemorySize memorySize, bool isBroadcast, int size, string[] names)[] allMemorySizes;
@@ -70,7 +70,7 @@ namespace Iced.Intel {
 		/// <param name="options">Formatter options</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
-		public MasmFormatter(MasmFormatterOptions options, SymbolResolver symbolResolver = null, FormatterOptionsProvider optionsProvider = null) {
+		public MasmFormatter(MasmFormatterOptions options, ISymbolResolver symbolResolver = null, IFormatterOptionsProvider optionsProvider = null) {
 			this.options = options ?? throw new ArgumentNullException(nameof(options));
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
@@ -277,7 +277,7 @@ namespace Iced.Intel {
 			int immSize;
 			NumberFormattingOptions numberOptions;
 			SymbolResult symbol;
-			SymbolResolver symbolResolver;
+			ISymbolResolver symbolResolver;
 			FormatterOperandOptions operandOptions;
 			const string offsetKeyword = "offset";
 			var opKind = opInfo.GetOpKind(operand);

@@ -68,7 +68,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			return new IntelFormatter(options);
 		}
 
-		public static IntelFormatter Create_Resolver(SymbolResolver symbolResolver) {
+		public static IntelFormatter Create_Resolver(ISymbolResolver symbolResolver) {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowBranchSize = false;

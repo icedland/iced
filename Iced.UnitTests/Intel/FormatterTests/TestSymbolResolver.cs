@@ -21,10 +21,10 @@
 using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
-	sealed class TestSymbolResolver : SymbolResolver {
+	sealed class TestSymbolResolver : ISymbolResolver {
 		public delegate bool TryGetSymbolDelegate(int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol);
 		public TryGetSymbolDelegate tryGetSymbol;
-		public override bool TryGetSymbol(int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) {
+		public bool TryGetSymbol(int operand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) {
 			if (tryGetSymbol != null)
 				return tryGetSymbol(operand, ref instruction, address, addressSize, out symbol);
 			symbol = default;

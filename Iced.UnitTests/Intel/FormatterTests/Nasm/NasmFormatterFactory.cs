@@ -70,7 +70,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			return new NasmFormatter(options);
 		}
 
-		public static NasmFormatter Create_Resolver(SymbolResolver symbolResolver) {
+		public static NasmFormatter Create_Resolver(ISymbolResolver symbolResolver) {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;
 			options.ShowSignExtendedImmediateSize = false;
