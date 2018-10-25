@@ -131,20 +131,20 @@ namespace Iced.Intel {
 			return new string(array, 0, digits);
 		}
 
-		public string FormatUInt8(ref NumberFormattingOptions options, byte value) => FormatUnsignedInteger(ref options, value, 8, options.ShortNumbers, options.SmallHexNumbersInDecimal);
-		public string FormatUInt16(ref NumberFormattingOptions options, ushort value) => FormatUnsignedInteger(ref options, value, 16, options.ShortNumbers, options.SmallHexNumbersInDecimal);
-		public string FormatUInt32(ref NumberFormattingOptions options, uint value) => FormatUnsignedInteger(ref options, value, 32, options.ShortNumbers, options.SmallHexNumbersInDecimal);
-		public string FormatUInt64(ref NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(ref options, value, 64, options.ShortNumbers, options.SmallHexNumbersInDecimal);
+		public string FormatUInt8(in NumberFormattingOptions options, byte value) => FormatUnsignedInteger(options, value, 8, options.ShortNumbers, options.SmallHexNumbersInDecimal);
+		public string FormatUInt16(in NumberFormattingOptions options, ushort value) => FormatUnsignedInteger(options, value, 16, options.ShortNumbers, options.SmallHexNumbersInDecimal);
+		public string FormatUInt32(in NumberFormattingOptions options, uint value) => FormatUnsignedInteger(options, value, 32, options.ShortNumbers, options.SmallHexNumbersInDecimal);
+		public string FormatUInt64(in NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(options, value, 64, options.ShortNumbers, options.SmallHexNumbersInDecimal);
 
-		public string FormatUInt16(ref NumberFormattingOptions options, ushort value, bool shortNumbers) => FormatUnsignedInteger(ref options, value, 16, shortNumbers, options.SmallHexNumbersInDecimal);
-		public string FormatUInt32(ref NumberFormattingOptions options, uint value, bool shortNumbers) => FormatUnsignedInteger(ref options, value, 32, shortNumbers, options.SmallHexNumbersInDecimal);
-		public string FormatUInt64(ref NumberFormattingOptions options, ulong value, bool shortNumbers) => FormatUnsignedInteger(ref options, value, 64, shortNumbers, options.SmallHexNumbersInDecimal);
+		public string FormatUInt16(in NumberFormattingOptions options, ushort value, bool shortNumbers) => FormatUnsignedInteger(options, value, 16, shortNumbers, options.SmallHexNumbersInDecimal);
+		public string FormatUInt32(in NumberFormattingOptions options, uint value, bool shortNumbers) => FormatUnsignedInteger(options, value, 32, shortNumbers, options.SmallHexNumbersInDecimal);
+		public string FormatUInt64(in NumberFormattingOptions options, ulong value, bool shortNumbers) => FormatUnsignedInteger(options, value, 64, shortNumbers, options.SmallHexNumbersInDecimal);
 
 		static readonly string[] smallDecimalValues = new string[SmallPositiveNumber + 1] {
 			"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
 		};
 
-		string FormatUnsignedInteger(ref NumberFormattingOptions options, ulong value, int valueSize, bool shortNumbers, bool smallHexNumbersInDecimal) {
+		string FormatUnsignedInteger(in NumberFormattingOptions options, ulong value, int valueSize, bool shortNumbers, bool smallHexNumbersInDecimal) {
 			string rawNumber;
 			string prefix, suffix;
 			int digitGroupSize;
