@@ -62,7 +62,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			return new GasFormatter(options);
 		}
 
-		public static (Formatter formatter, ISymbolResolver symbolResolver) Create_Resolver<T>(T symbolResolver) where T : ISymbolResolver {
+		public static (Formatter formatter, ISymbolResolver symbolResolver) Create_Resolver(ISymbolResolver symbolResolver) {
 			var options = CreateOptions();
 			options.ShowMnemonicSizeSuffix = false;
 			options.NakedRegisters = false;
