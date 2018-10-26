@@ -127,6 +127,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public override string ToString() {
 			var sb = new StringBuilder();
+			sb.Append('[');
 			sb.Append(Segment.ToString());
 			sb.Append(':');
 			bool needPlus = false;
@@ -158,6 +159,7 @@ namespace Iced.Intel {
 			sb.Append(MemorySize.ToString());
 			sb.Append(';');
 			sb.Append(Access.ToString());
+			sb.Append(']');
 			return sb.ToString();
 		}
 	}

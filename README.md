@@ -229,7 +229,7 @@ Disassembled code:
     Op1Access: Read
     RSP:Read
     RBX:Read
-    SS:RSP+0x10;UInt64;Write
+    [SS:RSP+0x10;UInt64;Write]
 00007FFAC46ACDA9 mov [rsp+18h],rsi
     Encoding: Legacy
     CpuidFeature: INTEL8086
@@ -238,7 +238,7 @@ Disassembled code:
     Op1Access: Read
     RSP:Read
     RSI:Read
-    SS:RSP+0x18;UInt64;Write
+    [SS:RSP+0x18;UInt64;Write]
 00007FFAC46ACDAE push rbp
     Encoding: Legacy
     CpuidFeature: INTEL8086
@@ -247,7 +247,7 @@ Disassembled code:
     Op0Access: Read
     RBP:Read
     RSP:ReadWrite
-    SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write
+    [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDAF push rdi
     Encoding: Legacy
     CpuidFeature: INTEL8086
@@ -256,7 +256,7 @@ Disassembled code:
     Op0Access: Read
     RDI:Read
     RSP:ReadWrite
-    SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write
+    [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDB0 push r14
     Encoding: Legacy
     CpuidFeature: INTEL8086
@@ -265,7 +265,7 @@ Disassembled code:
     Op0Access: Read
     R14:Read
     RSP:ReadWrite
-    SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write
+    [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDB2 lea rbp,[rsp-100h]
     Encoding: Legacy
     CpuidFeature: INTEL8086
@@ -290,7 +290,7 @@ Disassembled code:
     Op0Access: Write
     Op1Access: Read
     RAX:Write
-    DS:0x7FFAC47524E0;UInt64;Read
+    [DS:0x7FFAC47524E0;UInt64;Read]
 00007FFAC46ACDC8 xor rax,rsp
     Encoding: Legacy
     CpuidFeature: INTEL8086
@@ -311,7 +311,7 @@ Disassembled code:
     Op1Access: Read
     RBP:Read
     RAX:Read
-    SS:RBP+0xF0;UInt64;Write
+    [SS:RBP+0xF0;UInt64;Write]
 00007FFAC46ACDD2 mov r8,[7FFAC474F208h]
     Encoding: Legacy
     CpuidFeature: INTEL8086
@@ -319,7 +319,7 @@ Disassembled code:
     Op0Access: Write
     Op1Access: Read
     R8:Write
-    DS:0x7FFAC474F208;UInt64;Read
+    [DS:0x7FFAC474F208;UInt64;Read]
 00007FFAC46ACDD9 lea rax,[7FFAC46F4A58h]
     Encoding: Legacy
     CpuidFeature: INTEL8086
