@@ -89,6 +89,20 @@ namespace Iced.Intel {
 	}
 
 	/// <summary>
+	/// Extension methods
+	/// </summary>
+	public static class FormatterOperandOptionsExtensions {
+		/// <summary>
+		/// Returns new options with a new <see cref="MemorySizeOptions"/> value
+		/// </summary>
+		/// <param name="self">Operand options</param>
+		/// <param name="options">Memory size options</param>
+		/// <returns></returns>
+		public static FormatterOperandOptions WithMemorySize(this FormatterOperandOptions self, MemorySizeOptions options) =>
+			(self & ~FormatterOperandOptions.MemorySizeMask) | (FormatterOperandOptions)((uint)options << (int)FormatterOperandOptions.MemorySizeShift);
+	}
+
+	/// <summary>
 	/// Gets initialized with the default options and can be overridden by a <see cref="IFormatterOptionsProvider"/>
 	/// </summary>
 	public struct NumberFormattingOptions {

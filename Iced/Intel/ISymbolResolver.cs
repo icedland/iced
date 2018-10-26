@@ -22,7 +22,7 @@ using System;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// Used by a <see cref="Formatter"/> to resolve symbols. It can also override number formatting options
+	/// Used by a <see cref="Formatter"/> to resolve symbols
 	/// </summary>
 	public interface ISymbolResolver {
 		/// <summary>
