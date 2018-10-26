@@ -111,6 +111,53 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			Assert.True(options.UsePseudoOps);
 			Assert.False(options.ShowSymbolAddress);
 		}
+
+		[Theory]
+		[InlineData("10 08", Code.Adc_rm8_r8, 64, "adc", FormatMnemonicOptions.None)]
+		[InlineData("10 08", Code.Adc_rm8_r8, 64, "adc", FormatMnemonicOptions.NoPrefixes)]
+		[InlineData("10 08", Code.Adc_rm8_r8, 64, "", FormatMnemonicOptions.NoMnemonic)]
+		[InlineData("10 08", Code.Adc_rm8_r8, 64, "", FormatMnemonicOptions.NoPrefixes | FormatMnemonicOptions.NoMnemonic)]
+
+		[InlineData("F0 10 08", Code.Adc_rm8_r8, 64, "lock adc", FormatMnemonicOptions.None)]
+		[InlineData("F0 10 08", Code.Adc_rm8_r8, 64, "adc", FormatMnemonicOptions.NoPrefixes)]
+		[InlineData("F0 10 08", Code.Adc_rm8_r8, 64, "lock", FormatMnemonicOptions.NoMnemonic)]
+
+		[InlineData("F3 6C", Code.Insb_m8_DX, 64, "rep insb", FormatMnemonicOptions.None)]
+		[InlineData("F3 6C", Code.Insb_m8_DX, 64, "insb", FormatMnemonicOptions.NoPrefixes)]
+		[InlineData("F3 6C", Code.Insb_m8_DX, 64, "rep", FormatMnemonicOptions.NoMnemonic)]
+
+		[InlineData("F2 A6", Code.Cmpsb_m8_m8, 64, "repne cmpsb", FormatMnemonicOptions.None)]
+		[InlineData("F2 A6", Code.Cmpsb_m8_m8, 64, "cmpsb", FormatMnemonicOptions.NoPrefixes)]
+		[InlineData("F2 A6", Code.Cmpsb_m8_m8, 64, "repne", FormatMnemonicOptions.NoMnemonic)]
+
+		[InlineData("F2 F0 10 08", Code.Adc_rm8_r8, 64, "xacquire lock adc", FormatMnemonicOptions.None)]
+		[InlineData("F2 F0 10 08", Code.Adc_rm8_r8, 64, "adc", FormatMnemonicOptions.NoPrefixes)]
+		[InlineData("F2 F0 10 08", Code.Adc_rm8_r8, 64, "xacquire lock", FormatMnemonicOptions.NoMnemonic)]
+
+		[InlineData("2E 70 00", Code.Jo_rel8_64, 64, "hnt jo", FormatMnemonicOptions.None)]
+		[InlineData("2E 70 00", Code.Jo_rel8_64, 64, "jo", FormatMnemonicOptions.NoPrefixes)]
+		[InlineData("2E 70 00", Code.Jo_rel8_64, 64, "hnt", FormatMnemonicOptions.NoMnemonic)]
+
+		[InlineData("F2 70 00", Code.Jo_rel8_64, 64, "bnd jo", FormatMnemonicOptions.None)]
+		[InlineData("F2 70 00", Code.Jo_rel8_64, 64, "jo", FormatMnemonicOptions.NoPrefixes)]
+		[InlineData("F2 70 00", Code.Jo_rel8_64, 64, "bnd", FormatMnemonicOptions.NoMnemonic)]
+
+		[InlineData("3E FF 10", Code.Call_rm64, 64, "notrack call", FormatMnemonicOptions.None)]
+		[InlineData("3E FF 10", Code.Call_rm64, 64, "call", FormatMnemonicOptions.NoPrefixes)]
+		[InlineData("3E FF 10", Code.Call_rm64, 64, "notrack", FormatMnemonicOptions.NoMnemonic)]
+		void FormatMnemonicOptions1(string hexBytes, Code code, int bitness, string formattedString, FormatMnemonicOptions options) {
+			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(hexBytes));
+			decoder.Decode(out var instr);
+			Assert.Equal(code, instr.Code);
+			var formatter = MasmFormatterFactory.Create();
+			var output = new StringBuilderFormatterOutput();
+			formatter.FormatMnemonic(ref instr, output, options);
+			var actualFormattedString = output.ToStringAndReset();
+#pragma warning disable xUnit2006 // Do not use invalid string equality check
+			// Show the full string without ellipses by using Equal<string>() instead of Equal()
+			Assert.Equal<string>(formattedString, actualFormattedString);
+#pragma warning restore xUnit2006 // Do not use invalid string equality check
+		}
 	}
 }
 #endif

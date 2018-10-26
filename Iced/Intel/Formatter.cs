@@ -33,7 +33,16 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>
-		public abstract void FormatMnemonic(ref Instruction instruction, FormatterOutput output);
+		public void FormatMnemonic(ref Instruction instruction, FormatterOutput output) =>
+			FormatMnemonic(ref instruction, output, FormatMnemonicOptions.None);
+
+		/// <summary>
+		/// Formats the mnemonic and any prefixes
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="output">Output</param>
+		/// <param name="options">Options</param>
+		public abstract void FormatMnemonic(ref Instruction instruction, FormatterOutput output, FormatMnemonicOptions options);
 
 		/// <summary>
 		/// Gets the number of operands that will be formatted. A formatter can add and remove operands
@@ -237,6 +246,26 @@ namespace Iced.Intel {
 		/// <param name="numberOptions">Options</param>
 		/// <returns></returns>
 		public abstract string FormatUInt64(ulong value, in NumberFormattingOptions numberOptions);
+	}
+
+	/// <summary>
+	/// Options used by <see cref="Formatter.FormatMnemonic(ref Instruction, FormatterOutput)"/>
+	/// </summary>
+	public enum FormatMnemonicOptions : uint {
+		/// <summary>
+		/// No option is set
+		/// </summary>
+		None				= 0,
+
+		/// <summary>
+		/// Don't add any prefixes
+		/// </summary>
+		NoPrefixes			= 0x00000001,
+
+		/// <summary>
+		/// Don't add the mnemonic
+		/// </summary>
+		NoMnemonic			= 0x00000002,
 	}
 }
 #endif

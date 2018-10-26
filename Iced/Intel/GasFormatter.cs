@@ -106,12 +106,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>
-		public override void FormatMnemonic(ref Instruction instruction, FormatterOutput output) {
+		/// <param name="options">Options</param>
+		public override void FormatMnemonic(ref Instruction instruction, FormatterOutput output, FormatMnemonicOptions options) {
 			Debug.Assert((uint)instruction.Code < (uint)instrInfos.Length);
 			var instrInfo = instrInfos[(int)instruction.Code];
-			instrInfo.GetOpInfo(options, ref instruction, out var opInfo);
+			instrInfo.GetOpInfo(this.options, ref instruction, out var opInfo);
 			int column = 0;
-			FormatMnemonic(ref instruction, output, ref opInfo, ref column);
+			FormatMnemonic(ref instruction, output, ref opInfo, ref column, options);
 		}
 
 		/// <summary>
@@ -225,7 +226,7 @@ namespace Iced.Intel {
 			instrInfo.GetOpInfo(options, ref instruction, out var opInfo);
 
 			int column = 0;
-			FormatMnemonic(ref instruction, output, ref opInfo, ref column);
+			FormatMnemonic(ref instruction, output, ref opInfo, ref column, FormatMnemonicOptions.None);
 
 			if (opInfo.OpCount != 0) {
 				FormatterUtils.AddTabs(output, column, options.FirstOperandCharIndex, options.TabSize);
@@ -235,80 +236,91 @@ namespace Iced.Intel {
 
 		static readonly string[] opSizeStrings = new string[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "data16", "data32", "rex.w" };
 		static readonly string[] addrSizeStrings = new string[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "addr16", "addr32", "addr64" };
-		void FormatMnemonic(ref Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo, ref int column) {
-			string prefix;
+		void FormatMnemonic(ref Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo, ref int column, FormatMnemonicOptions mnemonicOptions) {
+			bool needSpace = false;
+			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0) {
+				string prefix;
 
-			if ((opInfo.Flags & InstrOpInfoFlags.OpSizeIsByteDirective) != 0) {
-				switch ((SizeOverride)(((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask)) {
-				case SizeOverride.None:
-					break;
+				if ((opInfo.Flags & InstrOpInfoFlags.OpSizeIsByteDirective) != 0) {
+					switch ((SizeOverride)(((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask)) {
+					case SizeOverride.None:
+						break;
 
-				case SizeOverride.Size16:
-				case SizeOverride.Size32:
-					var byteDirective = ".byte";
-					if (options.UpperCaseKeywords || options.UpperCaseAll)
-						byteDirective = byteDirective.ToUpperInvariant();
-					output.Write(byteDirective, FormatterOutputTextKind.Directive);
-					output.Write(" ", FormatterOutputTextKind.Text);
-					var numberOptions = NumberFormattingOptions.CreateImmediate(options);
-					var s = numberFormatter.FormatUInt8(numberOptions, 0x66);
-					output.Write(s, FormatterOutputTextKind.Number);
-					output.Write(";", FormatterOutputTextKind.Punctuation);
-					output.Write(" ", FormatterOutputTextKind.Text);
-					column += byteDirective.Length + 1 + s.Length + 1 + 1;
-					break;
+					case SizeOverride.Size16:
+					case SizeOverride.Size32:
+						var byteDirective = ".byte";
+						if (options.UpperCaseKeywords || options.UpperCaseAll)
+							byteDirective = byteDirective.ToUpperInvariant();
+						output.Write(byteDirective, FormatterOutputTextKind.Directive);
+						output.Write(" ", FormatterOutputTextKind.Text);
+						var numberOptions = NumberFormattingOptions.CreateImmediate(options);
+						var s = numberFormatter.FormatUInt8(numberOptions, 0x66);
+						output.Write(s, FormatterOutputTextKind.Number);
+						output.Write(";", FormatterOutputTextKind.Punctuation);
+						output.Write(" ", FormatterOutputTextKind.Text);
+						column += byteDirective.Length + 1 + s.Length + 1 + 1;
+						break;
 
-				case SizeOverride.Size64:
-					FormatPrefix(output, ref column, "rex.w");
-					break;
+					case SizeOverride.Size64:
+						FormatPrefix(output, ref column, "rex.w", ref needSpace);
+						break;
 
-				default:
-					throw new InvalidOperationException();
+					default:
+						throw new InvalidOperationException();
+					}
 				}
-			}
-			else {
-				prefix = opSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
+				else {
+					prefix = opSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
+					if (prefix != null)
+						FormatPrefix(output, ref column, prefix, ref needSpace);
+				}
+
+				prefix = addrSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.AddrSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
 				if (prefix != null)
-					FormatPrefix(output, ref column, prefix);
+					FormatPrefix(output, ref column, prefix, ref needSpace);
+
+				var prefixSeg = instruction.SegmentPrefix;
+				bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNoTrackPrefixBranch(instruction.Code);
+				if (!hasNoTrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(ref opInfo))
+					FormatPrefix(output, ref column, allRegistersNaked[(int)prefixSeg], ref needSpace);
+
+				if (instruction.HasXacquirePrefix)
+					FormatPrefix(output, ref column, "xacquire", ref needSpace);
+				if (instruction.HasXreleasePrefix)
+					FormatPrefix(output, ref column, "xrelease", ref needSpace);
+				if (instruction.HasLockPrefix)
+					FormatPrefix(output, ref column, "lock", ref needSpace);
+
+				bool hasBnd = (opInfo.Flags & InstrOpInfoFlags.BndPrefix) != 0;
+				if (instruction.HasRepePrefix)
+					FormatPrefix(output, ref column, FormatterUtils.IsRepeOrRepneInstruction(instruction.Code) ? "repe" : "rep", ref needSpace);
+				if (instruction.HasRepnePrefix && !hasBnd)
+					FormatPrefix(output, ref column, "repne", ref needSpace);
+
+				if (hasNoTrackPrefix)
+					FormatPrefix(output, ref column, "notrack", ref needSpace);
+
+				if (hasBnd)
+					FormatPrefix(output, ref column, "bnd", ref needSpace);
 			}
 
-			prefix = addrSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.AddrSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
-			if (prefix != null)
-				FormatPrefix(output, ref column, prefix);
-
-			var prefixSeg = instruction.SegmentPrefix;
-			bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNoTrackPrefixBranch(instruction.Code);
-			if (!hasNoTrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(ref opInfo))
-				FormatPrefix(output, ref column, allRegistersNaked[(int)prefixSeg]);
-
-			if (instruction.HasXacquirePrefix)
-				FormatPrefix(output, ref column, "xacquire");
-			if (instruction.HasXreleasePrefix)
-				FormatPrefix(output, ref column, "xrelease");
-			if (instruction.HasLockPrefix)
-				FormatPrefix(output, ref column, "lock");
-
-			bool hasBnd = (opInfo.Flags & InstrOpInfoFlags.BndPrefix) != 0;
-			if (instruction.HasRepePrefix)
-				FormatPrefix(output, ref column, FormatterUtils.IsRepeOrRepneInstruction(instruction.Code) ? "repe" : "rep");
-			if (instruction.HasRepnePrefix && !hasBnd)
-				FormatPrefix(output, ref column, "repne");
-
-			if (hasNoTrackPrefix)
-				FormatPrefix(output, ref column, "notrack");
-
-			if (hasBnd)
-				FormatPrefix(output, ref column, "bnd");
-
-			var mnemonic = opInfo.Mnemonic;
-			if (options.UpperCaseMnemonics || options.UpperCaseAll)
-				mnemonic = mnemonic.ToUpperInvariant();
-			output.Write(mnemonic, FormatterOutputTextKind.Mnemonic);
-			column += mnemonic.Length;
-			if ((opInfo.Flags & InstrOpInfoFlags.JccNotTaken) != 0)
-				FormatBranchHint(output, ref column, "pn");
-			else if ((opInfo.Flags & InstrOpInfoFlags.JccTaken) != 0)
-				FormatBranchHint(output, ref column, "pt");
+			if ((mnemonicOptions & FormatMnemonicOptions.NoMnemonic) == 0) {
+				if (needSpace) {
+					output.Write(" ", FormatterOutputTextKind.Text);
+					column++;
+				}
+				var mnemonic = opInfo.Mnemonic;
+				if (options.UpperCaseMnemonics || options.UpperCaseAll)
+					mnemonic = mnemonic.ToUpperInvariant();
+				output.Write(mnemonic, FormatterOutputTextKind.Mnemonic);
+				column += mnemonic.Length;
+			}
+			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0) {
+				if ((opInfo.Flags & InstrOpInfoFlags.JccNotTaken) != 0)
+					FormatBranchHint(output, ref column, "pn");
+				else if ((opInfo.Flags & InstrOpInfoFlags.JccTaken) != 0)
+					FormatBranchHint(output, ref column, "pt");
+			}
 		}
 
 		void FormatBranchHint(FormatterOutput output, ref int column, string brHint) {
@@ -366,12 +378,16 @@ namespace Iced.Intel {
 			return true;
 		}
 
-		void FormatPrefix(FormatterOutput output, ref int column, string prefix) {
+		void FormatPrefix(FormatterOutput output, ref int column, string prefix, ref bool needSpace) {
+			if (needSpace) {
+				column++;
+				output.Write(" ", FormatterOutputTextKind.Text);
+			}
 			if (options.UpperCasePrefixes || options.UpperCaseAll)
 				prefix = prefix.ToUpperInvariant();
 			output.Write(prefix, FormatterOutputTextKind.Prefix);
-			output.Write(" ", FormatterOutputTextKind.Text);
-			column += prefix.Length + 1;
+			column += prefix.Length;
+			needSpace = true;
 		}
 
 		void FormatOperands(ref Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo) {
