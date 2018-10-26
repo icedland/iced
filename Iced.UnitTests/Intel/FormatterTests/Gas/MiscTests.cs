@@ -83,17 +83,17 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			Assert.False(options.AlwaysShowScale);
 			Assert.False(options.AlwaysShowSegmentRegister);
 			Assert.False(options.ShowZeroDisplacements);
-			Assert.Equal("0x", options.HexPrefix);
 			Assert.Null(options.HexSuffix);
+			Assert.Equal("0x", options.HexPrefix);
 			Assert.Equal(4, options.HexDigitGroupSize);
 			Assert.Null(options.DecimalPrefix);
 			Assert.Null(options.DecimalSuffix);
 			Assert.Equal(3, options.DecimalDigitGroupSize);
-			Assert.Equal("0", options.OctalPrefix);
 			Assert.Null(options.OctalSuffix);
+			Assert.Equal("0", options.OctalPrefix);
 			Assert.Equal(4, options.OctalDigitGroupSize);
-			Assert.Equal("0b", options.BinaryPrefix);
 			Assert.Null(options.BinarySuffix);
+			Assert.Equal("0b", options.BinaryPrefix);
 			Assert.Equal(4, options.BinaryDigitGroupSize);
 			Assert.Null(options.DigitSeparator);
 			Assert.True(options.ShortNumbers);
@@ -109,6 +109,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			Assert.False(options.RipRelativeAddresses);
 			Assert.True(options.ShowBranchSize);
 			Assert.True(options.UsePseudoOps);
+			Assert.False(options.ShowSymbolAddress);
 			Assert.False(options.NakedRegisters);
 			Assert.False(options.ShowMnemonicSizeSuffix);
 			Assert.False(options.SpaceAfterMemoryOperandComma);

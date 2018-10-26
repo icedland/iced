@@ -38,10 +38,10 @@ namespace Iced.Intel {
 		/// <param name="begin">true if we're about to format the operand, false if we've formatted it</param>
 		public virtual void OnOperand(int operand, bool begin) { }
 
-		internal void Write(in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol) =>
-			Write(numberFormatter, numberOptions, address, symbol, true, false);
+		internal void Write(in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool showSymbolAddress) =>
+			Write(numberFormatter, numberOptions, address, symbol, showSymbolAddress, true, false);
 
-		internal void Write(in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool writeMinusIfSigned, bool spacesBetweenOp) {
+		internal void Write(in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool showSymbolAddress, bool writeMinusIfSigned, bool spacesBetweenOp) {
 			long displ = (long)(address - symbol.Address);
 			if ((symbol.Flags & SymbolFlags.Signed) != 0) {
 				if (writeMinusIfSigned)
@@ -62,6 +62,19 @@ namespace Iced.Intel {
 					Write(" ", FormatterOutputTextKind.Text);
 				var s = numberFormatter.FormatUInt64(numberOptions, (ulong)displ, shortNumbers: true);
 				Write(s, FormatterOutputTextKind.Number);
+			}
+			if (showSymbolAddress) {
+				Write(" ", FormatterOutputTextKind.Text);
+				Write("(", FormatterOutputTextKind.Punctuation);
+				string s;
+				if (address <= ushort.MaxValue)
+					s = numberFormatter.FormatUInt16(numberOptions, (ushort)address, shortNumbers: false);
+				else if (address <= uint.MaxValue)
+					s = numberFormatter.FormatUInt32(numberOptions, (uint)address, shortNumbers: false);
+				else
+					s = numberFormatter.FormatUInt64(numberOptions, address, shortNumbers: false);
+				Write(s, FormatterOutputTextKind.Number);
+				Write(")", FormatterOutputTextKind.Punctuation);
 			}
 		}
 

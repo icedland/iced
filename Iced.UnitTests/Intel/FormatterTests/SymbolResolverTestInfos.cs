@@ -33,7 +33,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(16, "70 00", Code.Jo_rel8_16, new TestSymbolResolver {
+			new SymbolInstructionInfo(16, "70 00", Code.Jo_rel8_16, a => a.ShowSymbolAddress = true, new TestSymbolResolver {
 				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP16 + 2, address);
@@ -65,7 +65,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(32, "70 00", Code.Jo_rel8_32, new TestSymbolResolver {
+			new SymbolInstructionInfo(32, "70 00", Code.Jo_rel8_32, a => a.ShowSymbolAddress = true, new TestSymbolResolver {
 				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP32 + 2, address);
@@ -97,7 +97,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "70 00", Code.Jo_rel8_64, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "70 00", Code.Jo_rel8_64, a => a.ShowSymbolAddress = true, new TestSymbolResolver {
 				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 2, address);
@@ -136,7 +136,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(16, "9A DCFE 5AA5", Code.Call_ptr1616, new TestSymbolResolver {
+			new SymbolInstructionInfo(16, "9A DCFE 5AA5", Code.Call_ptr1616, a => a.ShowSymbolAddress = true, new TestSymbolResolver {
 				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					if (operand == 0) {
@@ -199,7 +199,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr3216, new TestSymbolResolver {
+			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr3216, a => a.ShowSymbolAddress = true, new TestSymbolResolver {
 				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (operand == 0) {
 						Assert.Equal(0xFEDCBA98, address);
@@ -257,7 +257,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, a => a.ShowSymbolAddress = true, new TestSymbolResolver {
 				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(1, addressSize);
 					Assert.Equal(0xA5UL, address);
@@ -381,7 +381,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_r32_imm32, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "B9 98BADCFE", Code.Mov_r32_imm32, a => a.ShowSymbolAddress = true, new TestSymbolResolver {
 				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFEDCBA98, address);
@@ -669,7 +669,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(64, "A0 123456789ABCDEF0", Code.Mov_AL_moffs8, new TestSymbolResolver {
+			new SymbolInstructionInfo(64, "A0 123456789ABCDEF0", Code.Mov_AL_moffs8, a => a.ShowSymbolAddress = true, new TestSymbolResolver {
 				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xF0DEBC9A78563412UL, address);

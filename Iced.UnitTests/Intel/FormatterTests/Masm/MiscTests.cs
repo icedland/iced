@@ -109,6 +109,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			Assert.False(options.RipRelativeAddresses);
 			Assert.True(options.ShowBranchSize);
 			Assert.True(options.UsePseudoOps);
+			Assert.False(options.ShowSymbolAddress);
 		}
 	}
 }

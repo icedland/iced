@@ -374,7 +374,7 @@ namespace Iced.Intel {
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm64, immSize, out symbol)) {
 					FormatFlowControl(output, opInfo.Flags, operandOptions);
-					output.Write(numberFormatter, numberOptions, imm64, symbol);
+					output.Write(numberFormatter, numberOptions, imm64, symbol, options.ShowSymbolAddress);
 				}
 				else {
 					operandOptions = options.ShowBranchSize ? FormatterOperandOptions.None : FormatterOperandOptions.NoBranchSize;
@@ -413,9 +413,9 @@ namespace Iced.Intel {
 						output.Write(s, FormatterOutputTextKind.SelectorValue);
 					}
 					else
-						output.Write(numberFormatter, numberOptions, instruction.FarBranchSelector, selectorSymbol);
+						output.Write(numberFormatter, numberOptions, instruction.FarBranchSelector, selectorSymbol, options.ShowSymbolAddress);
 					output.Write(":", FormatterOutputTextKind.Punctuation);
-					output.Write(numberFormatter, numberOptions, imm64, symbol);
+					output.Write(numberFormatter, numberOptions, imm64, symbol, options.ShowSymbolAddress);
 				}
 				else {
 					flowControl = FormatterUtils.GetFlowControl(ref instruction);
@@ -442,7 +442,7 @@ namespace Iced.Intel {
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm8, 1, out symbol))
-					output.Write(numberFormatter, numberOptions, imm8, symbol);
+					output.Write(numberFormatter, numberOptions, imm8, symbol, options.ShowSymbolAddress);
 				else {
 					if (numberOptions.SignedNumber && (sbyte)imm8 < 0) {
 						output.Write("-", FormatterOutputTextKind.Operator);
@@ -465,7 +465,7 @@ namespace Iced.Intel {
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm16, 2, out symbol))
-					output.Write(numberFormatter, numberOptions, imm16, symbol);
+					output.Write(numberFormatter, numberOptions, imm16, symbol, options.ShowSymbolAddress);
 				else {
 					if (numberOptions.SignedNumber && (short)imm16 < 0) {
 						output.Write("-", FormatterOutputTextKind.Operator);
@@ -488,7 +488,7 @@ namespace Iced.Intel {
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm32, 4, out symbol))
-					output.Write(numberFormatter, numberOptions, imm32, symbol);
+					output.Write(numberFormatter, numberOptions, imm32, symbol, options.ShowSymbolAddress);
 				else {
 					if (numberOptions.SignedNumber && (int)imm32 < 0) {
 						output.Write("-", FormatterOutputTextKind.Operator);
@@ -514,7 +514,7 @@ namespace Iced.Intel {
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
 				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, ref instruction, imm64, 8, out symbol))
-					output.Write(numberFormatter, numberOptions, imm64, symbol);
+					output.Write(numberFormatter, numberOptions, imm64, symbol, options.ShowSymbolAddress);
 				else {
 					if (numberOptions.SignedNumber && (long)imm64 < 0) {
 						output.Write("-", FormatterOutputTextKind.Operator);
@@ -846,7 +846,7 @@ namespace Iced.Intel {
 				else if ((symbol.Flags & SymbolFlags.Signed) != 0)
 					output.Write("-", FormatterOutputTextKind.Operator);
 
-				output.Write(numberFormatter, numberOptions, absAddr, symbol, false, Options.SpaceBetweenMemoryAddOperators);
+				output.Write(numberFormatter, numberOptions, absAddr, symbol, options.ShowSymbolAddress, false, options.SpaceBetweenMemoryAddOperators);
 			}
 			else if (!needPlus || (displSize != 0 && (options.ShowZeroDisplacements || displ != 0))) {
 				if (needPlus) {

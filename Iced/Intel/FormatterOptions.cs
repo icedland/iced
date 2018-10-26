@@ -246,6 +246,11 @@ namespace Iced.Intel {
 		/// Use pseudo instructions, eg. vcmpngesd vs vcmpsd+imm8
 		/// </summary>
 		public bool UsePseudoOps { get; set; } = true;
+
+		/// <summary>
+		/// Show the original value after the symbol name, eg. 'mov eax,[myfield (12345678)]' vs 'mov eax,[myfield]'
+		/// </summary>
+		public bool ShowSymbolAddress { get; set; }
 	}
 
 	/// <summary>
