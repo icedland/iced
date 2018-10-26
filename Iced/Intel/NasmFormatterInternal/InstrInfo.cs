@@ -152,6 +152,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 		public byte Op2Register;
 		public byte Op3Register;
 		public byte Op4Register;
+		public sbyte Op0Index;
+		public sbyte Op1Index;
+		public sbyte Op2Index;
+		public sbyte Op3Index;
+		public sbyte Op4Index;
 
 		public MemorySize MemorySize {
 			get => (MemorySize)(((uint)Flags >> (int)InstrOpInfoFlags.MemorySizeShift) & (uint)InstrOpInfoFlags.MemorySizeMask);
@@ -181,11 +186,57 @@ namespace Iced.Intel.NasmFormatterInternal {
 			}
 		}
 
+		public int GetInstructionIndex(int operand) {
+			int instructionOperand;
+			switch (operand) {
+			case 0: instructionOperand = Op0Index; break;
+			case 1: instructionOperand = Op1Index; break;
+			case 2: instructionOperand = Op2Index; break;
+			case 3: instructionOperand = Op3Index; break;
+			case 4: instructionOperand = Op4Index; break;
+			default: throw new ArgumentOutOfRangeException(nameof(operand));
+			}
+			return instructionOperand < 0 ? -1 : instructionOperand;
+		}
+
+#if !NO_INSTR_INFO
+		public bool TryGetOpAccess(int operand, out OpAccess access) {
+			int instructionOperand;
+			switch (operand) {
+			case 0: instructionOperand = Op0Index; break;
+			case 1: instructionOperand = Op1Index; break;
+			case 2: instructionOperand = Op2Index; break;
+			case 3: instructionOperand = Op3Index; break;
+			case 4: instructionOperand = Op4Index; break;
+			default: throw new ArgumentOutOfRangeException(nameof(operand));
+			}
+			if (instructionOperand < InstrInfo.OpAccess_INVALID) {
+				access = (OpAccess)(-instructionOperand - 2);
+				return true;
+			}
+			access = OpAccess.None;
+			return false;
+		}
+#endif
+
+		public int GetOperandIndex(int instructionOperand) {
+			if (instructionOperand == Op0Index)
+				return 0;
+			if (instructionOperand == Op1Index)
+				return 1;
+			if (instructionOperand == Op2Index)
+				return 2;
+			if (instructionOperand == Op3Index)
+				return 3;
+			if (instructionOperand == Op4Index)
+				return 4;
+			return -1;
+		}
+
 		public InstrOpInfo(string mnemonic, ref Instruction instr, InstrOpInfoFlags flags) {
 			Debug.Assert(DecoderConstants.MaxOpCount == 5);
 			Mnemonic = mnemonic;
 			Flags = flags | (InstrOpInfoFlags)((uint)instr.MemorySize << (int)InstrOpInfoFlags.MemorySizeShift);
-			OpCount = (byte)instr.OpCount;
 			Op0Kind = (InstrOpKind)instr.Op0Kind;
 			Op1Kind = (InstrOpKind)instr.Op1Kind;
 			Op2Kind = (InstrOpKind)instr.Op2Kind;
@@ -201,10 +252,85 @@ namespace Iced.Intel.NasmFormatterInternal {
 			Op3Register = (byte)instr.Op3Register;
 			Debug.Assert(TEST_RegisterBits == 8);
 			Op4Register = (byte)instr.Op4Register;
+			int opCount = instr.OpCount;
+			OpCount = (byte)opCount;
+			switch (opCount) {
+			case 0:
+				Op0Index = InstrInfo.OpAccess_INVALID;
+				Op1Index = InstrInfo.OpAccess_INVALID;
+				Op2Index = InstrInfo.OpAccess_INVALID;
+				Op3Index = InstrInfo.OpAccess_INVALID;
+				Op4Index = InstrInfo.OpAccess_INVALID;
+				break;
+
+			case 1:
+				Op0Index = 0;
+				Op1Index = InstrInfo.OpAccess_INVALID;
+				Op2Index = InstrInfo.OpAccess_INVALID;
+				Op3Index = InstrInfo.OpAccess_INVALID;
+				Op4Index = InstrInfo.OpAccess_INVALID;
+				break;
+
+			case 2:
+				Op0Index = 0;
+				Op1Index = 1;
+				Op2Index = InstrInfo.OpAccess_INVALID;
+				Op3Index = InstrInfo.OpAccess_INVALID;
+				Op4Index = InstrInfo.OpAccess_INVALID;
+				break;
+
+			case 3:
+				Op0Index = 0;
+				Op1Index = 1;
+				Op2Index = 2;
+				Op3Index = InstrInfo.OpAccess_INVALID;
+				Op4Index = InstrInfo.OpAccess_INVALID;
+				break;
+
+			case 4:
+				Op0Index = 0;
+				Op1Index = 1;
+				Op2Index = 2;
+				Op3Index = 3;
+				Op4Index = InstrInfo.OpAccess_INVALID;
+				break;
+
+			case 5:
+				Op0Index = 0;
+				Op1Index = 1;
+				Op2Index = 2;
+				Op3Index = 3;
+				Op4Index = 4;
+				break;
+
+			default:
+				throw new InvalidOperationException();
+			}
 		}
 	}
 
 	abstract class InstrInfo {
+		public const int OpAccess_INVALID = -1;
+#if !NO_INSTR_INFO
+		public const int OpAccess_None = -(int)(OpAccess.None + 2);
+		public const int OpAccess_Read = -(int)(OpAccess.Read + 2);
+		public const int OpAccess_CondRead = -(int)(OpAccess.CondRead + 2);
+		public const int OpAccess_Write = -(int)(OpAccess.Write + 2);
+		public const int OpAccess_CondWrite = -(int)(OpAccess.CondWrite + 2);
+		public const int OpAccess_ReadWrite = -(int)(OpAccess.ReadWrite + 2);
+		public const int OpAccess_ReadCondWrite = -(int)(OpAccess.ReadCondWrite + 2);
+		public const int OpAccess_NoMemAccess = -(int)(OpAccess.NoMemAccess + 2);
+#else
+		public const int OpAccess_None = OpAccess_INVALID;
+		public const int OpAccess_Read = OpAccess_INVALID;
+		public const int OpAccess_CondRead = OpAccess_INVALID;
+		public const int OpAccess_Write = OpAccess_INVALID;
+		public const int OpAccess_CondWrite = OpAccess_INVALID;
+		public const int OpAccess_ReadWrite = OpAccess_INVALID;
+		public const int OpAccess_ReadCondWrite = OpAccess_INVALID;
+		public const int OpAccess_NoMemAccess = OpAccess_INVALID;
+#endif
+
 		internal readonly Code TEST_Code;
 		protected InstrInfo(Code code) => TEST_Code = code;
 
@@ -388,6 +514,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			if (options.UsePseudoOps && info.Op0Kind == InstrOpKind.Register && info.Op1Kind == InstrOpKind.Register && info.Op0Register == info.Op1Register) {
 				info.OpCount--;
 				info.Op1Kind = info.Op2Kind;
+				info.Op1Index = 2;
+				info.Op2Index = OpAccess_INVALID;
 			}
 		}
 	}
@@ -749,6 +877,14 @@ namespace Iced.Intel.NasmFormatterInternal {
 				info.Op0Register = (byte)register;
 				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op1Register = (byte)register;
+				if (instr.Op0Register == instr.Op1Register) {
+					info.Op0Index = OpAccess_None;
+					info.Op1Index = OpAccess_None;
+				}
+				else {
+					info.Op0Index = OpAccess_ReadWrite;
+					info.Op1Index = OpAccess_ReadWrite;
+				}
 			}
 		}
 	}
@@ -776,6 +912,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				//info.Op0Kind = InstrOpKind.Register;
 				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op0Register = (byte)instr.Op1Register;
+				info.Op0Index = 1;
 			}
 		}
 	}
@@ -870,9 +1007,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 			info.Mnemonic = mnemonic;
 			info.OpCount = 2;
 			info.Op0Kind = (InstrOpKind)instr.Op1Kind;
+			info.Op0Index = 1;
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op0Register = (byte)instr.Op1Register;
 			info.Op1Kind = (InstrOpKind)instr.Op2Kind;
+			info.Op1Index = 2;
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op1Register = (byte)instr.Op2Register;
 			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
@@ -907,6 +1046,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op0Register = (byte)instr.Op0Register;
 			info.Op1Kind = (InstrOpKind)instr.Op1Kind;
+			info.Op1Index = 1;
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op1Register = (byte)instr.Op1Register;
 			Debug.Assert(InstrOpKind.Register == 0);
@@ -914,6 +1054,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op2Register = (byte)Register.XMM0;
 			info.MemorySize = memSize;
+			info.Op2Index = OpAccess_Read;
 		}
 	}
 
@@ -928,6 +1069,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			Debug.Assert(instr.OpCount == 2);
 			info.OpCount = 2;
 			info.Op0Kind = (InstrOpKind)instr.Op1Kind;
+			info.Op0Index = 1;
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op0Register = (byte)instr.Op1Register;
 			info.Op1Kind = (InstrOpKind)instr.Op0Kind;
@@ -1247,6 +1389,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				Debug.Assert(info.OpCount == 1);
 				info.OpCount = 2;
 				info.Op1Kind = InstrOpKind.Register;
+				info.Op1Index = OpAccess_ReadWrite;
 				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 				info.Op1Register = (byte)reg;
 			}
@@ -1447,6 +1590,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				info.Op3Kind = info.Op2Kind;
 				info.Op3Register = info.Op2Register;
 				info.Op2Kind = newOpKind;
+				info.Op4Index = info.Op3Index;
+				info.Op3Index = info.Op2Index;
+				info.Op2Index = OpAccess_None;
 				info.OpCount++;
 				break;
 
@@ -1454,6 +1600,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 				Debug.Assert(info.OpCount < 4 || info.Op3Kind != InstrOpKind.Register);
 				info.Op4Kind = info.Op3Kind;
 				info.Op3Kind = newOpKind;
+				info.Op4Index = info.Op3Index;
+				info.Op3Index = OpAccess_None;
 				info.OpCount++;
 				break;
 
@@ -1541,9 +1689,26 @@ namespace Iced.Intel.NasmFormatterInternal {
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
 			int imm = instr.Immediate8;
 			if (options.UsePseudoOps && (uint)imm < (uint)pseudo_ops.Length) {
-				info.OpCount--;
 				info.Mnemonic = pseudo_ops[imm];
+				RemoveLastOp(ref info);
 			}
+		}
+
+		internal static void RemoveLastOp(ref InstrOpInfo info) {
+			switch (info.OpCount) {
+			case 5:
+				info.Op4Index = OpAccess_INVALID;
+				break;
+			case 4:
+				info.Op3Index = OpAccess_INVALID;
+				break;
+			case 3:
+				info.Op2Index = OpAccess_INVALID;
+				break;
+			default:
+				throw new InvalidOperationException();
+			}
+			info.OpCount--;
 		}
 	}
 
@@ -1569,8 +1734,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 				SimpleInstrInfo_er.MoveOperands(ref info, saeIndex, InstrOpKind.Sae);
 			int imm = instr.Immediate8;
 			if (options.UsePseudoOps && (uint)imm < (uint)pseudo_ops.Length) {
-				info.OpCount--;
 				info.Mnemonic = pseudo_ops[imm];
+				SimpleInstrInfo_pops.RemoveLastOp(ref info);
 			}
 		}
 	}
@@ -1580,9 +1745,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string[] pseudo_ops;
 		readonly InstrOpInfoFlags flags;
 		readonly MemorySize memSize;
-
-		public SimpleInstrInfo_ms_pops(Code code, string mnemonic, string[] pseudo_ops) : this(code, mnemonic, pseudo_ops, InstrOpInfoFlags.None, MemorySize.Unknown) { }
-		public SimpleInstrInfo_ms_pops(Code code, string mnemonic, string[] pseudo_ops, InstrOpInfoFlags flags) : this(code, mnemonic, pseudo_ops, flags, MemorySize.Unknown) { }
 
 		public SimpleInstrInfo_ms_pops(Code code, string mnemonic, string[] pseudo_ops, InstrOpInfoFlags flags, MemorySize memSize)
 			: base(code) {
@@ -1598,8 +1760,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 				info.MemorySize = memSize;
 			int imm = instr.Immediate8;
 			if (options.UsePseudoOps && (uint)imm < (uint)pseudo_ops.Length) {
-				info.OpCount--;
 				info.Mnemonic = pseudo_ops[imm];
+				SimpleInstrInfo_pops.RemoveLastOp(ref info);
 			}
 		}
 	}
@@ -1631,7 +1793,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 					index = -1;
 				if (index >= 0) {
 					info.Mnemonic = pseudo_ops[index];
-					info.OpCount--;
+					SimpleInstrInfo_pops.RemoveLastOp(ref info);
 				}
 			}
 		}
@@ -1673,6 +1835,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			info.Op1Kind = InstrOpKind.Register;
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op1Register = (byte)Register.ECX;
+			info.Op0Index = OpAccess_Read;
+			info.Op1Index = OpAccess_Read;
 
 			switch (codeSize) {
 			case 16:

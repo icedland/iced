@@ -30,7 +30,7 @@ namespace Iced.Intel {
 		/// Called by the formatter. The method can override any options before the formatter uses them.
 		/// </summary>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.</param>
-		/// <param name="instructionOperand">NYI: Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.</param>
+		/// <param name="instructionOperand">Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.</param>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="options">Options. Only those options that will be used by the formatter are initialized.</param>
 		/// <param name="numberOptions">Number formatting options</param>

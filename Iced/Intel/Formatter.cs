@@ -42,6 +42,37 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public abstract int GetOperandCount(ref Instruction instruction);
 
+#if !NO_INSTR_INFO
+		/// <summary>
+		/// Returns the operand access but only if it's an operand added by the formatter. If it's an
+		/// operand that is part of <see cref="Instruction"/>, you should call eg.
+		/// <see cref="Instruction.GetInfo()"/> or <see cref="InstructionInfoFactory.GetInfo(ref Instruction)"/>.
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.
+		/// See <see cref="GetOperandCount(ref Instruction)"/></param>
+		/// <param name="access">Updated with operand access if successful</param>
+		/// <returns></returns>
+		public abstract bool TryGetOpAccess(ref Instruction instruction, int operand, out OpAccess access);
+#endif
+
+		/// <summary>
+		/// Converts a formatter operand index to an instruction operand index. Returns -1 if it's an operand added by the formatter
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.
+		/// See <see cref="GetOperandCount(ref Instruction)"/></param>
+		/// <returns></returns>
+		public abstract int GetInstructionOperand(ref Instruction instruction, int operand);
+
+		/// <summary>
+		/// Converts an instruction operand index to a formatter operand index. Returns -1 if the instruction operand isn't used by the formatter
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="instructionOperand">Instruction operand</param>
+		/// <returns></returns>
+		public abstract int GetFormatterOperand(ref Instruction instruction, int instructionOperand);
+
 		/// <summary>
 		/// Formats an operand. This is a formatter operand and not necessarily a real instruction operand.
 		/// A formatter can add and remove operands.
