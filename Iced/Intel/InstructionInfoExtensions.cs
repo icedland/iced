@@ -89,6 +89,125 @@ namespace Iced.Intel {
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool SaveRestoreInstruction(this Code code) =>
 			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.SaveRestore) != 0;
+
+		/// <summary>
+		/// Checks if it's a jcc short or jcc near instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJccShortOrNear(this Code code) =>
+			(uint)(code - Code.Jo_rel8_16) <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16) ||
+			(uint)(code - Code.Jo_rel16) <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16);
+
+		/// <summary>
+		/// Checks if it's a jcc near instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJccNear(this Code code) =>
+			(uint)(code - Code.Jo_rel16) <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16);
+
+		/// <summary>
+		/// Checks if it's a jcc short instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJccShort(this Code code) =>
+			(uint)(code - Code.Jo_rel8_16) <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16);
+
+		/// <summary>
+		/// Checks if it's a jmp short instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJmpShort(this Code code) =>
+			(uint)(code - Code.Jmp_rel8_16) <= (uint)(Code.Jmp_rel8_64 - Code.Jmp_rel8_16);
+
+		/// <summary>
+		/// Checks if it's a jmp near instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJmpNear(this Code code) =>
+			(uint)(code - Code.Jmp_rel16) <= (uint)(Code.Jmp_rel32_64 - Code.Jmp_rel16);
+
+		/// <summary>
+		/// Checks if it's a jmp short or a jmp near instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJmpShortOrNear(this Code code) =>
+			(uint)(code - Code.Jmp_rel8_16) <= (uint)(Code.Jmp_rel8_64 - Code.Jmp_rel8_16) ||
+			(uint)(code - Code.Jmp_rel16) <= (uint)(Code.Jmp_rel32_64 - Code.Jmp_rel16);
+
+		/// <summary>
+		/// Checks if it's a jmp far instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJmpFar(this Code code) =>
+			(uint)(code - Code.Jmp_ptr1616) <= (uint)(Code.Jmp_ptr3216 - Code.Jmp_ptr1616);
+
+		/// <summary>
+		/// Checks if it's a call near instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsCallNear(this Code code) =>
+			(uint)(code - Code.Call_rel16) <= (uint)(Code.Call_rel32_64 - Code.Call_rel16);
+
+		/// <summary>
+		/// Checks if it's a call far instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsCallFar(this Code code) =>
+			(uint)(code - Code.Call_ptr1616) <= (uint)(Code.Call_ptr3216 - Code.Call_ptr1616);
+
+		/// <summary>
+		/// Checks if it's a jmp near reg/[mem] instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJmpNearIndirect(this Code code) =>
+			(uint)(code - Code.Jmp_rm16) <= (uint)(Code.Jmp_rm64 - Code.Jmp_rm16);
+
+		/// <summary>
+		/// Checks if it's a jmp far [mem] instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJmpFarIndirect(this Code code) =>
+			(uint)(code - Code.Jmp_m1616) <= (uint)(Code.Jmp_m6416 - Code.Jmp_m1616);
+
+		/// <summary>
+		/// Checks if it's a call near reg/[mem] instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsCallNearIndirect(this Code code) =>
+			(uint)(code - Code.Call_rm16) <= (uint)(Code.Call_rm64 - Code.Call_rm16);
+
+		/// <summary>
+		/// Checks if it's a call far [mem] instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsCallFarIndirect(this Code code) =>
+			(uint)(code - Code.Call_m1616) <= (uint)(Code.Call_m6416 - Code.Call_m1616);
 	}
 }
 #endif

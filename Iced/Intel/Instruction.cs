@@ -299,6 +299,7 @@ namespace Iced.Intel {
 		/// Instruction code
 		/// </summary>
 		public Code Code {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (Code)(codeFlags & (uint)CodeFlags.CodeMask);
 			set => codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | ((uint)value & (uint)CodeFlags.CodeMask);
 		}
@@ -312,7 +313,10 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the operand count. Up to 5 operands is allowed.
 		/// </summary>
-		public int OpCount => InstructionOpCounts.OpCount[(int)(codeFlags & (uint)CodeFlags.CodeMask)];
+		public int OpCount {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => InstructionOpCounts.OpCount[(int)(codeFlags & (uint)CodeFlags.CodeMask)];
+		}
 
 		/// <summary>
 		/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
@@ -408,6 +412,7 @@ namespace Iced.Intel {
 		/// Gets operand #0's kind if the operand exists (see <see cref="OpCount"/>)
 		/// </summary>
 		public OpKind Op0Kind {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (OpKind)(opKindFlags & (uint)OpKindFlags.OpKindMask);
 			set => opKindFlags = (opKindFlags & ~(uint)OpKindFlags.OpKindMask) | ((uint)value & (uint)OpKindFlags.OpKindMask);
 		}
@@ -420,6 +425,7 @@ namespace Iced.Intel {
 		/// Gets operand #1's kind if the operand exists (see <see cref="OpCount"/>)
 		/// </summary>
 		public OpKind Op1Kind {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (OpKind)((opKindFlags >> (int)OpKindFlags.Op1KindShift) & (uint)OpKindFlags.OpKindMask);
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op1KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op1KindShift);
@@ -433,6 +439,7 @@ namespace Iced.Intel {
 		/// Gets operand #2's kind if the operand exists (see <see cref="OpCount"/>)
 		/// </summary>
 		public OpKind Op2Kind {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (OpKind)((opKindFlags >> (int)OpKindFlags.Op2KindShift) & (uint)OpKindFlags.OpKindMask);
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op2KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op2KindShift);
@@ -446,6 +453,7 @@ namespace Iced.Intel {
 		/// Gets operand #3's kind if the operand exists (see <see cref="OpCount"/>)
 		/// </summary>
 		public OpKind Op3Kind {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (OpKind)((opKindFlags >> (int)OpKindFlags.Op3KindShift) & (uint)OpKindFlags.OpKindMask);
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op3KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op3KindShift);
@@ -1075,6 +1083,7 @@ namespace Iced.Intel {
 		/// or <see cref="RoundingControl.None"/> if the instruction doesn't use it.
 		/// </summary>
 		public RoundingControl RoundingControl {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (RoundingControl)((codeFlags >> (int)CodeFlags.RoundingControlShift) & (int)CodeFlags.RoundingControlMask);
 			set => codeFlags = (codeFlags & ~((uint)CodeFlags.RoundingControlMask << (int)CodeFlags.RoundingControlShift)) |
 				(((uint)value & (uint)CodeFlags.RoundingControlMask) << (int)CodeFlags.RoundingControlShift);
