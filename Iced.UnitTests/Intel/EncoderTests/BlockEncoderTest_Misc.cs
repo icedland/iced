@@ -26,46 +26,54 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 	public sealed class BlockEncoderTest_Misc {
 		[Fact]
 		void Encode_zero_blocks() {
+			bool b;
 			string errorMessage;
 
-			errorMessage = BlockEncoder.Encode(16, new InstructionBlock[0], BlockEncoderOptions.None);
+			b = BlockEncoder.TryEncode(16, new InstructionBlock[0], out errorMessage, BlockEncoderOptions.None);
+			Assert.True(b);
 			Assert.Null(errorMessage);
 
-			errorMessage = BlockEncoder.Encode(32, new InstructionBlock[0], BlockEncoderOptions.None);
+			b = BlockEncoder.TryEncode(32, new InstructionBlock[0], out errorMessage, BlockEncoderOptions.None);
+			Assert.True(b);
 			Assert.Null(errorMessage);
 
-			errorMessage = BlockEncoder.Encode(64, new InstructionBlock[0], BlockEncoderOptions.None);
+			b = BlockEncoder.TryEncode(64, new InstructionBlock[0], out errorMessage, BlockEncoderOptions.None);
+			Assert.True(b);
 			Assert.Null(errorMessage);
 		}
 
 		[Fact]
 		void Encode_zero_instructions() {
+			bool b;
 			string errorMessage;
 			var codeWriter = new CodeWriterImpl();
 
-			errorMessage = BlockEncoder.Encode(16, new InstructionBlock(codeWriter, Array.Empty<Instruction>(), 0, Array.Empty<RelocInfo>(), Array.Empty<uint>(), Array.Empty<ConstantOffsets>()), BlockEncoderOptions.None);
+			b = BlockEncoder.TryEncode(16, new InstructionBlock(codeWriter, Array.Empty<Instruction>(), 0, Array.Empty<RelocInfo>(), Array.Empty<uint>(), Array.Empty<ConstantOffsets>()), out errorMessage, BlockEncoderOptions.None);
+			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.Empty(codeWriter.ToArray());
 
-			errorMessage = BlockEncoder.Encode(32, new InstructionBlock(codeWriter, Array.Empty<Instruction>(), 0, Array.Empty<RelocInfo>(), Array.Empty<uint>(), Array.Empty<ConstantOffsets>()), BlockEncoderOptions.None);
+			b = BlockEncoder.TryEncode(32, new InstructionBlock(codeWriter, Array.Empty<Instruction>(), 0, Array.Empty<RelocInfo>(), Array.Empty<uint>(), Array.Empty<ConstantOffsets>()), out errorMessage, BlockEncoderOptions.None);
+			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.Empty(codeWriter.ToArray());
 
-			errorMessage = BlockEncoder.Encode(64, new InstructionBlock(codeWriter, Array.Empty<Instruction>(), 0, Array.Empty<RelocInfo>(), Array.Empty<uint>(), Array.Empty<ConstantOffsets>()), BlockEncoderOptions.None);
+			b = BlockEncoder.TryEncode(64, new InstructionBlock(codeWriter, Array.Empty<Instruction>(), 0, Array.Empty<RelocInfo>(), Array.Empty<uint>(), Array.Empty<ConstantOffsets>()), out errorMessage, BlockEncoderOptions.None);
+			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.Empty(codeWriter.ToArray());
 		}
 
 		[Fact]
 		void Invalid_NewInstructionOffsets_Throws() {
-			Assert.Throws<ArgumentException>(() => BlockEncoder.Encode(64, new InstructionBlock(new CodeWriterImpl(), new Instruction[0], 0, Array.Empty<RelocInfo>(), new uint[1], null), BlockEncoderOptions.None));
-			Assert.Throws<ArgumentException>(() => BlockEncoder.Encode(64, new InstructionBlock(new CodeWriterImpl(), new Instruction[1], 0, Array.Empty<RelocInfo>(), new uint[0], null), BlockEncoderOptions.None));
+			Assert.Throws<ArgumentException>(() => BlockEncoder.TryEncode(64, new InstructionBlock(new CodeWriterImpl(), new Instruction[0], 0, Array.Empty<RelocInfo>(), new uint[1], null), out _, BlockEncoderOptions.None));
+			Assert.Throws<ArgumentException>(() => BlockEncoder.TryEncode(64, new InstructionBlock(new CodeWriterImpl(), new Instruction[1], 0, Array.Empty<RelocInfo>(), new uint[0], null), out _, BlockEncoderOptions.None));
 		}
 
 		[Fact]
 		void Invalid_ConstantOffsets_Throws() {
-			Assert.Throws<ArgumentException>(() => BlockEncoder.Encode(64, new InstructionBlock(new CodeWriterImpl(), new Instruction[0], 0, Array.Empty<RelocInfo>(), null, new ConstantOffsets[1]), BlockEncoderOptions.None));
-			Assert.Throws<ArgumentException>(() => BlockEncoder.Encode(64, new InstructionBlock(new CodeWriterImpl(), new Instruction[1], 0, Array.Empty<RelocInfo>(), null, new ConstantOffsets[0]), BlockEncoderOptions.None));
+			Assert.Throws<ArgumentException>(() => BlockEncoder.TryEncode(64, new InstructionBlock(new CodeWriterImpl(), new Instruction[0], 0, Array.Empty<RelocInfo>(), null, new ConstantOffsets[1]), out _, BlockEncoderOptions.None));
+			Assert.Throws<ArgumentException>(() => BlockEncoder.TryEncode(64, new InstructionBlock(new CodeWriterImpl(), new Instruction[1], 0, Array.Empty<RelocInfo>(), null, new ConstantOffsets[0]), out _, BlockEncoderOptions.None));
 		}
 
 		[Fact]
@@ -83,7 +91,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			};
 			var instructions = BlockEncoderTest.Decode(bitness, origRip, originalData, DecoderOptions.None);
 			var codeWriter = new CodeWriterImpl();
-			var errorMessage = BlockEncoder.Encode(bitness, new InstructionBlock(codeWriter, instructions, newRip));
+			bool b = BlockEncoder.TryEncode(bitness, new InstructionBlock(codeWriter, instructions, newRip), out var errorMessage);
+			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.Equal(0x28, codeWriter.ToArray().Length);
 		}

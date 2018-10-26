@@ -76,7 +76,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					ImmediateSize = byte.MaxValue,
 				};
 			}
-			var errorMessage = BlockEncoder.Encode(bitness, new InstructionBlock(codeWriter, origInstrs, newRip, relocInfos, newInstructionOffsets, constantOffsets), options);
+			bool b = BlockEncoder.TryEncode(bitness, new InstructionBlock(codeWriter, origInstrs, newRip, relocInfos, newInstructionOffsets, constantOffsets), out var errorMessage, options);
+			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.Equal(Sort(new List<RelocInfo>(expectedRelocInfos)), Sort(relocInfos));
 			Assert.Equal(expectedInstructionOffsets, newInstructionOffsets);

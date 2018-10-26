@@ -227,22 +227,24 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="bitness">16, 32 or 64</param>
 		/// <param name="block">All instructions</param>
+		/// <param name="errorMessage">Updated with an error message if the method failed</param>
 		/// <param name="options">Encoder options</param>
 		/// <returns></returns>
-		public static string Encode(int bitness, InstructionBlock block, BlockEncoderOptions options = BlockEncoderOptions.None) =>
-			Encode(bitness, new[] { block }, options);
+		public static bool TryEncode(int bitness, InstructionBlock block, out string errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
+			TryEncode(bitness, new[] { block }, out errorMessage, options);
 
 		/// <summary>
 		/// Encodes instructions. Returns null or an error message
 		/// </summary>
 		/// <param name="bitness">16, 32 or 64</param>
 		/// <param name="blocks">All instructions</param>
+		/// <param name="errorMessage">Updated with an error message if the method failed</param>
 		/// <param name="options">Encoder options</param>
 		/// <returns></returns>
-		public static string Encode(int bitness, InstructionBlock[] blocks, BlockEncoderOptions options = BlockEncoderOptions.None) =>
-			new BlockEncoder(bitness, blocks, options).Encode();
+		public static bool TryEncode(int bitness, InstructionBlock[] blocks, out string errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
+			new BlockEncoder(bitness, blocks, options).Encode(out errorMessage);
 
-		string Encode() {
+		bool Encode(out string errorMessage) {
 			const int MAX_ITERS = 1000;
 			for (int iter = 0; iter < MAX_ITERS; iter++) {
 				bool updated = false;
@@ -252,13 +254,17 @@ namespace Iced.Intel {
 						instr.IP = ip;
 						var oldSize = instr.Size;
 						if (instr.Optimize()) {
-							if (instr.Size > oldSize)
-								return "Internal error: new size > old size";
+							if (instr.Size > oldSize) {
+								errorMessage = "Internal error: new size > old size";
+								return false;
+							}
 							if (instr.Size < oldSize)
 								updated = true;
 						}
-						else if (instr.Size != oldSize)
-							return "Internal error: new size != old size";
+						else if (instr.Size != oldSize) {
+							errorMessage = "Internal error: new size != old size";
+							return false;
+						}
 						ip += instr.Size;
 					}
 				}
@@ -278,17 +284,18 @@ namespace Iced.Intel {
 				for (int i = 0; i < instructions.Length; i++) {
 					var instr = instructions[i];
 					uint bytesWritten = block.CodeWriter.BytesWritten;
-					string errorMessage;
 					bool isOriginalInstruction;
 					if (constantOffsets != null)
 						errorMessage = instr.TryEncode(encoder, out constantOffsets[i], out isOriginalInstruction);
 					else
 						errorMessage = instr.TryEncode(encoder, out _, out isOriginalInstruction);
 					if (errorMessage != null)
-						return errorMessage;
+						return false;
 					uint size = block.CodeWriter.BytesWritten - bytesWritten;
-					if (size != instr.Size)
-						return "Internal error: didn't write all bytes";
+					if (size != instr.Size) {
+						errorMessage = "Internal error: didn't write all bytes";
+						return false;
+					}
 					if (newInstructionOffsets != null) {
 						if (isOriginalInstruction)
 							newInstructionOffsets[i] = (uint)(ip - block.RIP);
@@ -300,7 +307,8 @@ namespace Iced.Intel {
 				block.WriteData();
 			}
 
-			return null;
+			errorMessage = null;
+			return true;
 		}
 
 		internal TargetInstr GetTarget(ulong address) {

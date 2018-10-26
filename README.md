@@ -178,8 +178,8 @@ Disassembled code:
             ulong relocatedBaseAddress = exampleCodeRIP + 0x200000;
             var block = new InstructionBlock(codeWriter, instructions, relocatedBaseAddress);
             // This method can also encode more than one block but that's rarely needed, see above comment.
-            var errorMessage = BlockEncoder.Encode(decoder.Bitness, block);
-            if (errorMessage != null) {
+            bool success = BlockEncoder.TryEncode(decoder.Bitness, block, out var errorMessage);
+            if (!success) {
                 Console.WriteLine($"ERROR: {errorMessage}");
                 return;
             }
