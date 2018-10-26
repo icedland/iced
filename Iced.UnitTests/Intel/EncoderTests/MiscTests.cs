@@ -121,6 +121,66 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				}
 			}
 		}
+
+		[Fact]
+		void Encode_BP_with_no_displ() {
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create16(writer);
+			var instr = Instruction.Create(Code.Mov_r16_rm16, Register.AX, new MemoryOperand(Register.BP));
+			uint len = encoder.Encode(ref instr, 0);
+			var expected = new byte[] { 0x8B, 0x46, 0x00 };
+			var actual = writer.ToArray();
+			Assert.Equal(actual.Length, (int)len);
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		void Encode_EBP_with_no_displ() {
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create32(writer);
+			var instr = Instruction.Create(Code.Mov_r32_rm32, Register.EAX, new MemoryOperand(Register.EBP));
+			uint len = encoder.Encode(ref instr, 0);
+			var expected = new byte[] { 0x8B, 0x45, 0x00 };
+			var actual = writer.ToArray();
+			Assert.Equal(actual.Length, (int)len);
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		void Encode_R13D_with_no_displ() {
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create64(writer);
+			var instr = Instruction.Create(Code.Mov_r32_rm32, Register.EAX, new MemoryOperand(Register.R13D));
+			uint len = encoder.Encode(ref instr, 0);
+			var expected = new byte[] { 0x67, 0x41, 0x8B, 0x45, 0x00 };
+			var actual = writer.ToArray();
+			Assert.Equal(actual.Length, (int)len);
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		void Encode_RBP_with_no_displ() {
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create64(writer);
+			var instr = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, new MemoryOperand(Register.RBP));
+			uint len = encoder.Encode(ref instr, 0);
+			var expected = new byte[] { 0x48, 0x8B, 0x45, 0x00 };
+			var actual = writer.ToArray();
+			Assert.Equal(actual.Length, (int)len);
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		void Encode_R13_with_no_displ() {
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create64(writer);
+			var instr = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, new MemoryOperand(Register.R13));
+			uint len = encoder.Encode(ref instr, 0);
+			var expected = new byte[] { 0x49, 0x8B, 0x45, 0x00 };
+			var actual = writer.ToArray();
+			Assert.Equal(actual.Length, (int)len);
+			Assert.Equal(expected, actual);
+		}
 	}
 }
 #endif
