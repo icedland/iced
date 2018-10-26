@@ -374,11 +374,6 @@ namespace Iced.Intel {
 		F16C,
 
 		/// <summary>
-		/// FCOMI/FCOMIP/FUCOMI/FUCOMIP instructions (<see cref="FPU"/> and Pentium Pro or later)
-		/// </summary>
-		FCOMI,
-
-		/// <summary>
 		/// CPUID.01H:ECX.FMA[bit 12]
 		/// </summary>
 		FMA,

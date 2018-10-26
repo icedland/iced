@@ -2362,9 +2362,9 @@ DB E2, Fnclex, Legacy, FPU,
 # fninit
 DB E3, Fninit, Legacy, FPU,
 # fucomi st,st(3)
-DB EB, Fucomi_st0_sti, Legacy, FCOMI, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
+DB EB, Fucomi_st0_sti, Legacy, FPU_and_CMOV, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
 # fcomi st,st(3)
-DB F3, Fcomi_st0_sti, Legacy, FCOMI, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
+DB F3, Fcomi_st0_sti, Legacy, FPU_and_CMOV, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
 # fadd qword ptr [rax]
 DC 00, Fadd_m64fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float64 rw=st0
 # fmul qword ptr [rax]
@@ -2470,9 +2470,9 @@ DF 38, Fistp_m64int, Legacy, FPU, op0=w r=rax wm=ds:rax;Int64 r=st0
 # fnstsw ax
 DF E0, Fnstsw_AX, Legacy, FPU287, op0=w w=ax
 # fucomip st,st(3)
-DF EB, Fucomip_st0_sti, Legacy, FCOMI, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
+DF EB, Fucomip_st0_sti, Legacy, FPU_and_CMOV, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
 # fcomip st,st(3)
-DF F3, Fcomip_st0_sti, Legacy, FCOMI, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
+DF F3, Fcomip_st0_sti, Legacy, FPU_and_CMOV, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
 # loopned 800000000000004Dh
 67 E0 5A, Loopne_rel8_64_ECX, Legacy, INTEL8086, flow=ConditionalBranch fr=z op0=r r=ecx w=rcx
 # loopne 800000000000004Ch

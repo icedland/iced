@@ -297,7 +297,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_ECR = (uint)CpuidFeature.ECR << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_ENCLV = (uint)CpuidFeature.ENCLV << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_F16C = (uint)CpuidFeature.F16C << (int)InfoFlags2.CpuidFeatureShift;
-		const uint CPUID_FCOMI = (uint)CpuidFeature.FCOMI << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FMA = (uint)CpuidFeature.FMA << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FMA4 = (uint)CpuidFeature.FMA4 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FPU = (uint)CpuidFeature.FPU << (int)InfoFlags2.CpuidFeatureShift;
@@ -969,8 +968,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Fnsetpm, CPUID_FPU287 | Encoding_Legacy,
 			(uint)Code.Fsetpm, CPUID_FPU287 | Encoding_Legacy,
 			(uint)Code.Frstpm, CPUID_FPU287XL_ONLY | Encoding_Legacy,
-			(uint)Code.Fucomi_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FCOMI | Encoding_Legacy,
-			(uint)Code.Fcomi_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FCOMI | Encoding_Legacy,
+			(uint)Code.Fucomi_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FPU_and_CMOV | Encoding_Legacy,
+			(uint)Code.Fcomi_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FPU_and_CMOV | Encoding_Legacy,
 			(uint)Code.Fadd_m64fp | CodeInfo_RW_ST0, Op0_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fmul_m64fp | CodeInfo_RW_ST0, Op0_Read | CPUID_FPU | Encoding_Legacy,
 			(uint)Code.Fcom_m64fp | CodeInfo_R_ST0, Op0_Read | CPUID_FPU | Encoding_Legacy,
@@ -1037,8 +1036,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Fstsw_AX, Op0_Write | CPUID_FPU287 | Encoding_Legacy,
 			(uint)Code.Fstdw_AX, Op0_Write | CPUID_FPU387SL_ONLY | Encoding_Legacy,
 			(uint)Code.Fstsg_AX, Op0_Write | CPUID_FPU387SL_ONLY | Encoding_Legacy,
-			(uint)Code.Fucomip_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FCOMI | Encoding_Legacy,
-			(uint)Code.Fcomip_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FCOMI | Encoding_Legacy,
+			(uint)Code.Fucomip_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FPU_and_CMOV | Encoding_Legacy,
+			(uint)Code.Fcomip_st0_sti | RflagsInfo_W_cpz_C_aos, Op0_Read | Op1_Read | CPUID_FPU_and_CMOV | Encoding_Legacy,
 			(uint)Code.Loopne_rel8_16_CX | RflagsInfo_R_z | CodeInfo_Loop, Op0_Read | FlowControl_Conditional | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Loopne_rel8_32_CX | RflagsInfo_R_z | CodeInfo_Loop, Op0_Read | FlowControl_Conditional | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Loopne_rel8_16_ECX | RflagsInfo_R_z | CodeInfo_Loop, Op0_Read | FlowControl_Conditional | CPUID_INTEL8086 | Encoding_Legacy,
