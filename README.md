@@ -40,7 +40,8 @@ Formatters:
 	- `GasFormatterOptions`
 - `FormatterOutput`
 	- `StringBuilderFormatterOutput`
-- `SymbolResolver`
+- `ISymbolResolver`
+- `IFormatterOptionsProvider`
 
 Encoder:
 
