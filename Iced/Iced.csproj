@@ -11,7 +11,7 @@
     <AssemblyName>Iced</AssemblyName>
     <PackageId>Iced</PackageId>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <InformationalVersion>$(Version)</InformationalVersion>
     <Authors>0xd4d</Authors>
     <PackageIconUrl>https://raw.githubusercontent.com/0xd4d/iced/master/logo.png</PackageIconUrl>
