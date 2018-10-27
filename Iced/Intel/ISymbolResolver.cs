@@ -49,9 +49,10 @@ namespace Iced.Intel {
 		None				= 0,
 
 		/// <summary>
-		/// If set it's the address of a symbol, else it's a symbol relative to the base and index registers (eg. a struct field offset)
+		/// It's a symbol relative to a register, eg. a struct offset `[ebx+some_struct.field1]`. If this is
+		/// cleared, it's the address of a symbol.
 		/// </summary>
-		Address				= 0x00000001,
+		Relative			= 0x00000001,
 
 		/// <summary>
 		/// It's a signed symbol and it should be displayed as '-symbol' or 'reg-symbol' instead of 'symbol' or 'reg+symbol'
