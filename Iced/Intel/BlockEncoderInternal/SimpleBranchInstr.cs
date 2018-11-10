@@ -52,15 +52,16 @@ namespace Iced.Intel.BlockEncoderInternal {
 			instrKind = InstrKind.Uninitialized;
 
 			string errorMessage;
+			Instruction instrCopy;
 
 			if (!blockEncoder.FixBranches) {
 				instrKind = InstrKind.Unchanged;
-				if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out Size, out errorMessage))
+				instrCopy = instruction;
+				instrCopy.NearBranch64 = 0;
+				if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, 0, out Size, out errorMessage))
 					Size = DecoderConstants.MaxInstructionLength;
 			}
 			else {
-				Instruction instrCopy;
-
 				instrCopy = instruction;
 				instrCopy.NearBranch64 = 0;
 				if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, 0, out shortInstructionSize, out errorMessage))

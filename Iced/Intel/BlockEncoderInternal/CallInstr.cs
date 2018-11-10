@@ -38,7 +38,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 			: base(blockEncoder, instruction.IP64) {
 			bitness = blockEncoder.Bitness;
 			this.instruction = instruction;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP64, out origInstructionSize, out var errorMessage))
+			var instrCopy = instruction;
+			instrCopy.NearBranch64 = 0;
+			if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, 0, out origInstructionSize, out var errorMessage))
 				origInstructionSize = DecoderConstants.MaxInstructionLength;
 			if (!blockEncoder.FixBranches) {
 				Size = origInstructionSize;
