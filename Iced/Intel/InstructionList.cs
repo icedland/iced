@@ -124,6 +124,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="collection">Collection that will be copied to this instance</param>
 		public InstructionList(IEnumerable<Instruction> collection) {
+			if (collection == null)
+				ThrowArgumentNullException(nameof(collection));
 			if (collection is ICollection<Instruction> coll) {
 				int count = coll.Count;
 				if (count == 0)
@@ -136,8 +138,6 @@ namespace Iced.Intel {
 				}
 			}
 			else {
-				if (collection == null)
-					ThrowArgumentNullException(nameof(collection));
 				elements = Array.Empty<Instruction>();
 				foreach (var elem in collection)
 					Add(elem);
@@ -171,6 +171,7 @@ namespace Iced.Intel {
 		/// The returned reference is valid until the internal array is resized.
 		/// </summary>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]// Add() is inlined, and this method does almost the same thing
 		public ref Instruction AllocUninitializedElement() {
 			var count = this.count;
 			var elements = this.elements;
@@ -248,6 +249,8 @@ namespace Iced.Intel {
 		public void InsertRange(int index, IEnumerable<Instruction> collection) {
 			if ((uint)index > (uint)count)
 				ThrowArgumentOutOfRangeException(nameof(index));
+			if (collection == null)
+				ThrowArgumentNullException(nameof(collection));
 			if (collection is InstructionList list) {
 				int list_count = list.count;
 				if (list_count != 0) {
@@ -267,8 +270,6 @@ namespace Iced.Intel {
 				}
 			}
 			else {
-				if (collection == null)
-					ThrowArgumentNullException(nameof(collection));
 				foreach (var instruction in collection)
 					Insert(index++, instruction);
 			}
@@ -489,10 +490,10 @@ namespace Iced.Intel {
 			Array.Copy(elements, 0, array, arrayIndex, count);
 		void ICollection<Instruction>.CopyTo(Instruction[] array, int arrayIndex) => CopyTo(array, arrayIndex);
 		void ICollection.CopyTo(Array array, int index) {
-			if (array is Instruction[] elemArray)
-				CopyTo(elemArray, index);
-			else if (array == null)
+			if (array == null)
 				ThrowArgumentNullException(nameof(array));
+			else if (array is Instruction[] elemArray)
+				CopyTo(elemArray, index);
 			else
 				ThrowArgumentException();
 		}
