@@ -67,5 +67,8 @@ License: LGPL v3 or any later version (LGPL = GNU Lesser General Public License)
     <!-- Also disabled in the test project -->
     <DefineConstants>$(DefineConstants);NO_INTEL_FORMATTER</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants Condition=" $(TargetFramework.StartsWith(netcoreapp)) OR ($(TargetFramework.StartsWith(netstandard)) AND '$(TargetFramework)' != 'netstandard2.0') ">$(DefineConstants);HAS_SPAN</DefineConstants>
+  </PropertyGroup>
 
 </Project>

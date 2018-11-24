@@ -18,9 +18,6 @@
 */
 
 #if !NO_INSTR_INFO
-#if NETCOREAPP || NETSTANDARD2_1
-#define HAS_SPAN
-#endif
 
 using System;
 using System.Diagnostics;

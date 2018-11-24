@@ -17,7 +17,7 @@
     along with Iced.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#if NETCOREAPP || NETSTANDARD2_1
+#if HAS_SPAN
 #if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
 using System;
 
