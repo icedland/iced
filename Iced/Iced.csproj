@@ -15,8 +15,8 @@
     <InformationalVersion>$(Version)</InformationalVersion>
     <Authors>0xd4d</Authors>
     <PackageIconUrl>https://raw.githubusercontent.com/0xd4d/iced/master/logo.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/0xd4d/iced/</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/0xd4d/iced//blob/master/COPYING.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/0xd4d/iced</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/0xd4d/iced/blob/master/COPYING.txt</PackageLicenseUrl>
     <PackageVersion>$(InformationalVersion)</PackageVersion>
     <PackageTags>x86;x64;encoder;decoder;formatter;disassembler</PackageTags>
     <Features>strict</Features>
