@@ -29,6 +29,11 @@ namespace Iced.Intel {
 	/// </summary>
 	public sealed class MasmFormatterOptions : FormatterOptions {
 		/// <summary>
+		/// Add a DS segment override even if it's not present. Used if it's 16/32-bit code and mem op is a displ, eg. 'mov eax,[12345678]' vs 'mov eax,ds:[12345678]'
+		/// </summary>
+		public bool AddDs32Prefix { get; set; } = true;
+
+		/// <summary>
 		/// Constructor
 		/// </summary>
 		public MasmFormatterOptions() {
@@ -723,7 +728,7 @@ namespace Iced.Intel {
 
 			CodeSize codeSize;
 			if (options.AlwaysShowSegmentRegister || segOverride != Register.None ||
-				(baseReg == Register.None && indexReg == Register.None && !useSymbol && ((codeSize = instr.CodeSize) == CodeSize.Code16 || codeSize == CodeSize.Code32))) {
+				(options.AddDs32Prefix && baseReg == Register.None && indexReg == Register.None && !useSymbol && ((codeSize = instr.CodeSize) == CodeSize.Code16 || codeSize == CodeSize.Code32))) {
 				FormatRegister(output, segReg);
 				output.Write(":", FormatterOutputTextKind.Punctuation);
 			}

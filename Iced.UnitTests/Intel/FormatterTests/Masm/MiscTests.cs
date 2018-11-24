@@ -110,6 +110,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			Assert.True(options.ShowBranchSize);
 			Assert.True(options.UsePseudoOps);
 			Assert.False(options.ShowSymbolAddress);
+			Assert.True(options.AddDs32Prefix);
 		}
 
 		[Theory]

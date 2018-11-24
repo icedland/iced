@@ -19,6 +19,7 @@
 
 #if !NO_MASM_FORMATTER && !NO_FORMATTER
 using System.Collections.Generic;
+using Iced.Intel;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests.Masm {
@@ -1802,6 +1803,24 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"vpclmulhqhqdq zmm6,zmm2,zmm4",
 			"vpclmulqdq zmm6,zmm2,zmm4,0FFh",
 		};
+
+		[Theory]
+		[MemberData(nameof(Format2_Data))]
+		void Format2(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, MasmFormatterFactory.Create_Options());
+		public static IEnumerable<object[]> Format2_Data {
+			get {
+				yield return new object[] {
+					0,
+					new OptionsInstructionInfo(32, "8B 0D 78563412", Code.Mov_r32_rm32, a => ((MasmFormatterOptions)a).AddDs32Prefix = true),
+					"mov ecx,ds:[12345678h]",
+				};
+				yield return new object[] {
+					0,
+					new OptionsInstructionInfo(32, "8B 0D 78563412", Code.Mov_r32_rm32, a => ((MasmFormatterOptions)a).AddDs32Prefix = false),
+					"mov ecx,[12345678h]",
+				};
+			}
+		}
 	}
 }
 #endif
