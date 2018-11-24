@@ -25,6 +25,7 @@ Decoder:
 - `Instruction`
 - `CodeReader`
 	- `ByteArrayCodeReader`
+	- `MemoryCodeReader` (.NET Core 2.1+ or netstandard2.1+)
 - `InstructionList`
 - `ConstantOffsets`
 
