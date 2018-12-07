@@ -1811,12 +1811,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			get {
 				yield return new object[] {
 					0,
-					new OptionsInstructionInfo(32, "8B 0D 78563412", Code.Mov_r32_rm32, a => ((MasmFormatterOptions)a).AddDs32Prefix = true),
+					new OptionsInstructionInfo(32, "8B 0D 78563412", Code.Mov_r32_rm32, a => ((MasmFormatterOptions)a).AddDsPrefix32 = true),
 					"mov ecx,ds:[12345678h]",
 				};
 				yield return new object[] {
-					0,
-					new OptionsInstructionInfo(32, "8B 0D 78563412", Code.Mov_r32_rm32, a => ((MasmFormatterOptions)a).AddDs32Prefix = false),
+					1,
+					new OptionsInstructionInfo(32, "8B 0D 78563412", Code.Mov_r32_rm32, a => ((MasmFormatterOptions)a).AddDsPrefix32 = false),
 					"mov ecx,[12345678h]",
 				};
 			}
