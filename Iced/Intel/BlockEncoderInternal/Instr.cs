@@ -209,7 +209,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				int ops = instruction.OpCount;
 				for (int i = 0; i < ops; i++) {
 					if (instruction.GetOpKind(i) == OpKind.Memory) {
-						if (instruction.IsIPRelativeMemoryOp)
+						if (instruction.IsIPRelativeMemoryOperand)
 							return new IpRelMemOpInstr(blockEncoder, ref instruction);
 						break;
 					}

@@ -42,7 +42,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public IpRelMemOpInstr(BlockEncoder blockEncoder, ref Instruction instruction)
 			: base(blockEncoder, instruction.IP64) {
-			Debug.Assert(instruction.IsIPRelativeMemoryOp);
+			Debug.Assert(instruction.IsIPRelativeMemoryOperand);
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 

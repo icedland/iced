@@ -1234,16 +1234,29 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Checks if the memory operand is RIP/EIP relative
 		/// </summary>
-		public bool IsIPRelativeMemoryOp => MemoryBase == Register.RIP || MemoryBase == Register.EIP;
+		[Obsolete("Use " + nameof(IsIPRelativeMemoryOperand) + " instead of this property", false)]
+		public bool IsIPRelativeMemoryOp {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => MemoryBase == Register.RIP || MemoryBase == Register.EIP;
+		}
+
+		/// <summary>
+		/// Checks if the memory operand is RIP/EIP relative
+		/// </summary>
+		public bool IsIPRelativeMemoryOperand {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => MemoryBase == Register.RIP || MemoryBase == Register.EIP;
+		}
 
 		/// <summary>
 		/// Gets the RIP/EIP releative address ((<see cref="NextIP64"/> or <see cref="NextIP32"/>) + <see cref="MemoryDisplacement"/>). This property is only valid if there's a memory operand with RIP/EIP relative addressing.
 		/// </summary>
 		public ulong IPRelativeMemoryAddress {
 			get {
+				ulong result = NextIP64 + (ulong)(int)MemoryDisplacement;
 				if (MemoryBase == Register.EIP)
-					return NextIP32 + MemoryDisplacement;// 32-bit result
-				return NextIP64 + (ulong)(int)MemoryDisplacement;// 64-bit result
+					result = (uint)result;
+				return result;
 			}
 		}
 
