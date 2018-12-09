@@ -8,7 +8,7 @@ build:
   parallel: true
   verbosity: normal
 before_package:
-- cmd: dotnet pack -c Release 
+- cmd: dotnet pack -c Release
 artifacts:
 - path: Iced\bin\Release\*.nupkg
   name: Iced NuGet Packages

@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
     <TargetFrameworks>netcoreapp2.1;netstandard2.0</TargetFrameworks>
 
     <Description>x86/x64 instruction decoder, encoder, formatter</Description>
@@ -21,7 +20,6 @@
     <PackageTags>x86;x64;encoder;decoder;formatter;disassembler</PackageTags>
     <Features>strict</Features>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <!--Add support for sourcelink-->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
@@ -44,7 +42,7 @@ License: LGPL v3 or any later version (LGPL = GNU Lesser General Public License)
     <PackageReleaseNotes></PackageReleaseNotes>
 
     <AssemblyOriginatorKeyFile>..\Iced.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>True</SignAssembly>
+    <SignAssembly>true</SignAssembly>
 
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
