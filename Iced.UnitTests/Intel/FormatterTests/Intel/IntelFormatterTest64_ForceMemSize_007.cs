@@ -394,7 +394,6 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"addr32 monitorx",
 			"monitorx",
 			"mwaitx",
-			"clzero ax",
 			"clzero eax",
 			"clzero rax",
 			"prefetch_exclusive byte ptr [rax]",

@@ -396,7 +396,6 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"mwaitx rax,rcx,rbx",
 			"clzero",
 			"clzero",
-			"clzero",
 			"prefetch byte ptr [rax]",
 			"prefetch-r3 byte ptr [rax]",
 			"prefetch-r4 byte ptr [rax]",

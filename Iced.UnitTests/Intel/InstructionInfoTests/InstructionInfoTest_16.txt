@@ -544,7 +544,7 @@ F3 66 AF, Scasd_EAX_m32, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=eax 
 # clzero
 0F01 FC, Clzerow, Legacy, CLZERO, r=ax
 # clzero
-66 0F01 FC, Clzerod, Legacy, CLZERO, r=eax
+67 0F01 FC, Clzerod, Legacy, CLZERO, r=eax
 # add es:[bx+si],bh
 26 00 38, Add_rm8_r8, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=es r=bx;si r=bh rwm=es:bx+si;UInt8
 # add cs:[bx+si],bh

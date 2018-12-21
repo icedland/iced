@@ -307,7 +307,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Simple(Code.Rdtscp),
 				new OpCodeHandler_Simple5(Code.Monitorxw, Code.Monitorxd, Code.Monitorxq),
 				new OpCodeHandler_Simple(Code.Mwaitx),
-				new OpCodeHandler_Simple2(Code.Clzerow, Code.Clzerod, Code.Clzeroq),
+				new OpCodeHandler_Simple5(Code.Clzerow, Code.Clzerod, Code.Clzeroq),
 				null,
 				null,
 				null,

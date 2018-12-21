@@ -16314,11 +16314,9 @@ FF 74 24 10, Push_rm64, Legacy, INTEL8086, op0=r rw=xsp r=rsp rm=ss:rsp+0x10;UIn
 # mwaitx rax,rcx,rbx
 0F01 FB, Mwaitx, Legacy, MONITORX, r=rax;rcx cr=rbx
 # clzero
-66 0F01 FC, Clzerow, Legacy, CLZERO, r=ax
+67 0F01 FC, Clzerod, Legacy, CLZERO, r=eax
 # clzero
-0F01 FC, Clzerod, Legacy, CLZERO, r=eax
-# clzero
-48 0F01 FC, Clzeroq, Legacy, CLZERO, r=rax
+0F01 FC, Clzeroq, Legacy, CLZERO, r=rax
 # prefetch [rax]
 0F0D 00, Prefetch_m8, Legacy, PREFETCHW, op0=nma r=rax
 # prefetch-r3 [rax]

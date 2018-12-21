@@ -541,7 +541,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"monitorx",
 			"a32 monitorx",
 			"clzero",
-			"o32 clzero",
+			"a32 clzero",
 		};
 	}
 }

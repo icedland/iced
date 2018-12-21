@@ -1004,7 +1004,7 @@ C4E379 63 10 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, VEX, AVX, fw=cosz fc=ap op0=r 
 # mwaitx eax,ecx,ebx
 0F01 FB, Mwaitx, Legacy, MONITORX, r=eax;ecx cr=ebx
 # clzero
-66 0F01 FC, Clzerow, Legacy, CLZERO, r=ax
+67 0F01 FC, Clzerow, Legacy, CLZERO, r=ax
 # clzero
 0F01 FC, Clzerod, Legacy, CLZERO, r=eax
 # add es:[eax],bh

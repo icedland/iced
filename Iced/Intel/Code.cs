@@ -924,9 +924,9 @@ namespace Iced.Intel {
 		Monitorxd,													// a32 0F01 FA
 		Monitorxq,													// a64 0F01 FA
 		Mwaitx,														// 0F01 FB
-		Clzerow,													// o16 0F01 FC
-		Clzerod,													// 0F01 FC
-		Clzeroq,													// REX.W 0F01 FC
+		Clzerow,													// a16 0F01 FC
+		Clzerod,													// a32 0F01 FC
+		Clzeroq,													// a64 0F01 FC
 		Lar_r16_rm16,												// o16 0F02
 		Lar_r32_rm32,												// o32 0F02
 		Lar_r64_rm64,												// REX.W 0F02

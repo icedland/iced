@@ -535,7 +535,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(16, "0F01 FA", Code.Monitorxw),
 			new InstructionInfo(16, "67 0F01 FA", Code.Monitorxd),
 			new InstructionInfo(16, "0F01 FC", Code.Clzerow),
-			new InstructionInfo(16, "66 0F01 FC", Code.Clzerod),
+			new InstructionInfo(16, "67 0F01 FC", Code.Clzerod),
 		};
 	}
 }

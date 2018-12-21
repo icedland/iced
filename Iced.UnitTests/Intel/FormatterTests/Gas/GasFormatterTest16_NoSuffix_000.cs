@@ -541,7 +541,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"monitorx",
 			"addr32 monitorx",
 			"clzero",
-			"data32 clzero",
+			"addr32 clzero",
 		};
 	}
 }

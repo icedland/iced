@@ -589,7 +589,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"invlpga",
 			"addr16 monitorx",
 			"monitorx",
-			"data16 clzero",
+			"addr16 clzero",
 			"clzero",
 			"addb $0x5a,cl",
 			"addb $0x5a,(eax)",

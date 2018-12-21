@@ -935,31 +935,6 @@ namespace Iced.Intel.GasFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_os_mem3 : InstrInfo {
-		readonly InstrOpInfoFlags flags;
-		readonly int codeSize;
-		readonly string mnemonic;
-
-		public SimpleInstrInfo_os_mem3(Code code, int codeSize, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
-			this.flags = flags;
-			this.codeSize = codeSize;
-			this.mnemonic = mnemonic;
-		}
-
-		public override void GetOpInfo(GasFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
-			var flags = this.flags;
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			if (instrCodeSize != 0 && (instrCodeSize & codeSize) == 0) {
-				if (instrCodeSize != 16)
-					flags |= InstrOpInfoFlags.OpSize16;
-				else
-					flags |= InstrOpInfoFlags.OpSize32;
-			}
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
-		}
-	}
-
 	sealed class SimpleInstrInfo_os_mem_reg16 : InstrInfo {
 		readonly int codeSize;
 		readonly string mnemonic;

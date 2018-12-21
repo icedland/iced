@@ -589,7 +589,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"invlpga eax,ecx",
 			"a16 monitorx",
 			"monitorx",
-			"o16 clzero",
+			"a16 clzero",
 			"clzero",
 			"add cl,0x5a",
 			"add byte [eax],0x5a",

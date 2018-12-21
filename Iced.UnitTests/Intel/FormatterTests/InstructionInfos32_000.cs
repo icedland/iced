@@ -583,7 +583,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(32, "0F01 DF", Code.Invlpgad),
 			new InstructionInfo(32, "67 0F01 FA", Code.Monitorxw),
 			new InstructionInfo(32, "0F01 FA", Code.Monitorxd),
-			new InstructionInfo(32, "66 0F01 FC", Code.Clzerow),
+			new InstructionInfo(32, "67 0F01 FC", Code.Clzerow),
 			new InstructionInfo(32, "0F01 FC", Code.Clzerod),
 			new InstructionInfo(32, "82 C1 5A", Code.Add_rm8_imm8_82),
 			new InstructionInfo(32, "82 00 5A", Code.Add_rm8_imm8_82),

@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos64_007 {
-		public const int AllInfos_Length = 1000;
+		public const int AllInfos_Length = 999;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(64, "64 67 A2 12345678", Code.Mov_moffs8_AL),
 			new InstructionInfo(64, "64 66 A3 123456789ABCDEF0", Code.Mov_moffs16_AX),
@@ -388,9 +388,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(64, "67 0F01 FA", Code.Monitorxd),
 			new InstructionInfo(64, "0F01 FA", Code.Monitorxq),
 			new InstructionInfo(64, "0F01 FB", Code.Mwaitx),
-			new InstructionInfo(64, "66 0F01 FC", Code.Clzerow),
-			new InstructionInfo(64, "0F01 FC", Code.Clzerod),
-			new InstructionInfo(64, "48 0F01 FC", Code.Clzeroq),
+			new InstructionInfo(64, "67 0F01 FC", Code.Clzerod),
+			new InstructionInfo(64, "0F01 FC", Code.Clzeroq),
 			new InstructionInfo(64, "0F0D 00", Code.Prefetch_m8),
 			new InstructionInfo(64, "0F0D 18", Code.Prefetch_m8_r3),
 			new InstructionInfo(64, "0F0D 20", Code.Prefetch_m8_r4),

@@ -215,6 +215,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Vmsavew;
 			yield return Code.Invlpgaw;
 			yield return Code.Monitorxw;
+			yield return Code.Clzerow;
 			yield return Code.Add_rm8_imm8_82;
 			yield return Code.Or_rm8_imm8_82;
 			yield return Code.Adc_rm8_imm8_82;
