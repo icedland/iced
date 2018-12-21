@@ -153,6 +153,12 @@ namespace Iced.Intel.IntelFormatterInternal {
 			(MemorySize.Broadcast512_Int64, qword_ptr, "1to8"),
 			(MemorySize.Broadcast512_Float32, dword_ptr, "1to16"),
 			(MemorySize.Broadcast512_Float64, qword_ptr, "1to8"),
+			(MemorySize.Broadcast128_2xUInt32, qword_ptr, "1to2"),
+			(MemorySize.Broadcast256_2xUInt32, qword_ptr, "1to4"),
+			(MemorySize.Broadcast512_2xUInt32, qword_ptr, "1to8"),
+			(MemorySize.Broadcast128_2xInt32, qword_ptr, "1to2"),
+			(MemorySize.Broadcast256_2xInt32, qword_ptr, "1to4"),
+			(MemorySize.Broadcast512_2xInt32, qword_ptr, "1to8"),
 		};
 	}
 }

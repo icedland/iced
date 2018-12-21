@@ -157,6 +157,12 @@ namespace Iced.Intel.MasmFormatterInternal {
 			(MemorySize.Broadcast512_Int64, true, 8, qword_bcst),
 			(MemorySize.Broadcast512_Float32, true, 4, dword_bcst),
 			(MemorySize.Broadcast512_Float64, true, 8, qword_bcst),
+			(MemorySize.Broadcast128_2xUInt32, true, 8, qword_bcst),
+			(MemorySize.Broadcast256_2xUInt32, true, 8, qword_bcst),
+			(MemorySize.Broadcast512_2xUInt32, true, 8, qword_bcst),
+			(MemorySize.Broadcast128_2xInt32, true, 8, qword_bcst),
+			(MemorySize.Broadcast256_2xInt32, true, 8, qword_bcst),
+			(MemorySize.Broadcast512_2xInt32, true, 8, qword_bcst),
 		};
 	}
 }

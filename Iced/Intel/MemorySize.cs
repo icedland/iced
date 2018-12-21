@@ -624,6 +624,36 @@ namespace Iced.Intel {
 		/// Broadcast float64 to 512 bits
 		/// </summary>
 		Broadcast512_Float64,
+
+		/// <summary>
+		/// Broadcast 2 x uint32 to 128 bits
+		/// </summary>
+		Broadcast128_2xUInt32,
+
+		/// <summary>
+		/// Broadcast 2 x uint32 to 256 bits
+		/// </summary>
+		Broadcast256_2xUInt32,
+
+		/// <summary>
+		/// Broadcast 2 x uint32 to 512 bits
+		/// </summary>
+		Broadcast512_2xUInt32,
+
+		/// <summary>
+		/// Broadcast 2 x int32 to 128 bits
+		/// </summary>
+		Broadcast128_2xInt32,
+
+		/// <summary>
+		/// Broadcast 2 x int32 to 256 bits
+		/// </summary>
+		Broadcast256_2xInt32,
+
+		/// <summary>
+		/// Broadcast 2 x int32 to 512 bits
+		/// </summary>
+		Broadcast512_2xInt32,
 	}
 
 #if !NO_INSTR_INFO || !NO_ENCODER
@@ -767,6 +797,12 @@ namespace Iced.Intel {
 			new MemorySizeInfo(MemorySize.Broadcast512_Int64, 64, 8, MemorySize.Int64, true, true),
 			new MemorySizeInfo(MemorySize.Broadcast512_Float32, 64, 4, MemorySize.Float32, true, true),
 			new MemorySizeInfo(MemorySize.Broadcast512_Float64, 64, 8, MemorySize.Float64, true, true),
+			new MemorySizeInfo(MemorySize.Broadcast128_2xUInt32, 16, 8, MemorySize.Packed64_UInt32, false, true),
+			new MemorySizeInfo(MemorySize.Broadcast256_2xUInt32, 32, 8, MemorySize.Packed64_UInt32, false, true),
+			new MemorySizeInfo(MemorySize.Broadcast512_2xUInt32, 64, 8, MemorySize.Packed64_UInt32, false, true),
+			new MemorySizeInfo(MemorySize.Broadcast128_2xInt32, 16, 8, MemorySize.Packed64_Int32, true, true),
+			new MemorySizeInfo(MemorySize.Broadcast256_2xInt32, 32, 8, MemorySize.Packed64_Int32, true, true),
+			new MemorySizeInfo(MemorySize.Broadcast512_2xInt32, 64, 8, MemorySize.Packed64_Int32, true, true),
 		};
 
 		/// <summary>

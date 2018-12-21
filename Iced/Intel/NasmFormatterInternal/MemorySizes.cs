@@ -141,6 +141,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 			(MemorySize.Broadcast512_Int64, 8, "qword", "1to8"),
 			(MemorySize.Broadcast512_Float32, 4, "dword", "1to16"),
 			(MemorySize.Broadcast512_Float64, 8, "qword", "1to8"),
+			(MemorySize.Broadcast128_2xUInt32, 8, "qword", "1to2"),
+			(MemorySize.Broadcast256_2xUInt32, 8, "qword", "1to4"),
+			(MemorySize.Broadcast512_2xUInt32, 8, "qword", "1to8"),
+			(MemorySize.Broadcast128_2xInt32, 8, "qword", "1to2"),
+			(MemorySize.Broadcast256_2xInt32, 8, "qword", "1to4"),
+			(MemorySize.Broadcast512_2xInt32, 8, "qword", "1to8"),
 		};
 	}
 }

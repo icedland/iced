@@ -141,6 +141,12 @@ namespace Iced.Intel.GasFormatterInternal {
 			(MemorySize.Broadcast512_Int64, "1to8"),
 			(MemorySize.Broadcast512_Float32, "1to16"),
 			(MemorySize.Broadcast512_Float64, "1to8"),
+			(MemorySize.Broadcast128_2xUInt32, "1to2"),
+			(MemorySize.Broadcast256_2xUInt32, "1to4"),
+			(MemorySize.Broadcast512_2xUInt32, "1to8"),
+			(MemorySize.Broadcast128_2xInt32, "1to2"),
+			(MemorySize.Broadcast256_2xInt32, "1to4"),
+			(MemorySize.Broadcast512_2xInt32, "1to8"),
 		};
 	}
 }
