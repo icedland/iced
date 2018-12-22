@@ -155,8 +155,7 @@ namespace Iced.Intel {
 			Debug.Assert((uint)instruction.Code < (uint)instrInfos.Length);
 			var instrInfo = instrInfos[(int)instruction.Code];
 			instrInfo.GetOpInfo(options, ref instruction, out var opInfo);
-			int operand = opInfo.GetOperandIndex(instructionOperand);
-			return operand < opInfo.OpCount ? operand : -1;
+			return opInfo.GetOperandIndex(instructionOperand);
 		}
 
 		/// <summary>

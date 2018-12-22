@@ -175,17 +175,20 @@ namespace Iced.Intel.IntelFormatterInternal {
 #endif
 
 		public int GetOperandIndex(int instructionOperand) {
+			int index;
 			if (instructionOperand == Op0Index)
-				return 0;
-			if (instructionOperand == Op1Index)
-				return 1;
-			if (instructionOperand == Op2Index)
-				return 2;
-			if (instructionOperand == Op3Index)
-				return 3;
-			if (instructionOperand == Op4Index)
-				return 4;
-			return -1;
+				index = 0;
+			else if (instructionOperand == Op1Index)
+				index = 1;
+			else if (instructionOperand == Op2Index)
+				index = 2;
+			else if (instructionOperand == Op3Index)
+				index = 3;
+			else if (instructionOperand == Op4Index)
+				index = 4;
+			else
+				index = -1;
+			return index < OpCount ? index : -1;
 		}
 
 		public InstrOpInfo(string mnemonic, ref Instruction instr, InstrOpInfoFlags flags) {
