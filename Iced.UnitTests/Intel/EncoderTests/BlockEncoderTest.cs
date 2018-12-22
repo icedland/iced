@@ -72,8 +72,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				constantOffsets[i] = new ConstantOffsets {
 					DisplacementOffset = byte.MaxValue,
 					ImmediateOffset = byte.MaxValue,
+					ImmediateOffset2 = byte.MaxValue,
 					DisplacementSize = byte.MaxValue,
 					ImmediateSize = byte.MaxValue,
+					ImmediateSize2 = byte.MaxValue,
 				};
 			}
 			bool b = BlockEncoder.TryEncode(bitness, new InstructionBlock(codeWriter, origInstrs, newRip, relocInfos, newInstructionOffsets, constantOffsets), out var errorMessage, options);

@@ -1302,22 +1302,46 @@ namespace Iced.Intel {
 				break;
 
 			case ImmSize.Size1:
-			case ImmSize.Size1_1:
 				constantOffsets.ImmediateSize = 1;
 				constantOffsets.ImmediateOffset = (byte)(immAddr - eip);
 				break;
 
+			case ImmSize.Size1_1:
+				constantOffsets.ImmediateSize = 1;
+				constantOffsets.ImmediateOffset = (byte)(immAddr - eip);
+				constantOffsets.ImmediateSize2 = 1;
+				constantOffsets.ImmediateOffset2 = (byte)(immAddr - eip + 1);
+				break;
+
 			case ImmSize.Size2:
-			case ImmSize.Size2_1:
-			case ImmSize.Size2_2:
 				constantOffsets.ImmediateSize = 2;
 				constantOffsets.ImmediateOffset = (byte)(immAddr - eip);
 				break;
 
+			case ImmSize.Size2_1:
+				constantOffsets.ImmediateSize = 2;
+				constantOffsets.ImmediateOffset = (byte)(immAddr - eip);
+				constantOffsets.ImmediateSize2 = 1;
+				constantOffsets.ImmediateOffset2 = (byte)(immAddr - eip + 2);
+				break;
+
+			case ImmSize.Size2_2:
+				constantOffsets.ImmediateSize = 2;
+				constantOffsets.ImmediateOffset = (byte)(immAddr - eip);
+				constantOffsets.ImmediateSize2 = 2;
+				constantOffsets.ImmediateOffset2 = (byte)(immAddr - eip + 2);
+				break;
+
 			case ImmSize.Size4:
+				constantOffsets.ImmediateSize = 4;
+				constantOffsets.ImmediateOffset = (byte)(immAddr - eip);
+				break;
+
 			case ImmSize.Size4_2:
 				constantOffsets.ImmediateSize = 4;
 				constantOffsets.ImmediateOffset = (byte)(immAddr - eip);
+				constantOffsets.ImmediateSize2 = 2;
+				constantOffsets.ImmediateOffset2 = (byte)(immAddr - eip + 4);
 				break;
 
 			case ImmSize.Size8:

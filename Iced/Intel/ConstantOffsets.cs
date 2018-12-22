@@ -32,15 +32,15 @@ namespace Iced.Intel {
 		/// <summary>
 		/// The offset of the first immediate, if any.
 		/// 
-		/// * This field can be invalid even if the operand has an immediate if it's an immediate that isn't part
+		/// This field can be invalid even if the operand has an immediate if it's an immediate that isn't part
 		/// of the instruction stream, eg. 'shl al,1'.
-		/// 
-		/// * If it's an instruction with multiple immediates (eg. enter, extrq, insertq), this is the offset of
-		/// the first immediate. The offset of the second immediate is located immediately after the first immediate.
-		/// 
-		/// * If it's a far call/jmp, the selector constant (2 bytes) follows the offset (2 or 4 bytes).
 		/// </summary>
 		public byte ImmediateOffset;
+
+		/// <summary>
+		/// The offset of the second immediate, if any.
+		/// </summary>
+		public byte ImmediateOffset2;
 
 		/// <summary>
 		/// Size of the displacement in bytes, or 0 if there's no displacement
@@ -48,9 +48,14 @@ namespace Iced.Intel {
 		public byte DisplacementSize;
 
 		/// <summary>
-		/// Size of the immediate in bytes, or 0 if there's no immediate
+		/// Size of the first immediate in bytes, or 0 if there's no immediate
 		/// </summary>
 		public byte ImmediateSize;
+
+		/// <summary>
+		/// Size of the second immediate in bytes, or 0 if there's no second immediate
+		/// </summary>
+		public byte ImmediateSize2;
 
 		/// <summary>
 		/// true if <see cref="DisplacementOffset"/> is valid
@@ -61,6 +66,11 @@ namespace Iced.Intel {
 		/// true if <see cref="ImmediateOffset"/> is valid
 		/// </summary>
 		public bool HasImmediate => ImmediateSize != 0;
+
+		/// <summary>
+		/// true if <see cref="ImmediateOffset2"/> is valid
+		/// </summary>
+		public bool HasImmediate2 => ImmediateSize2 != 0;
 	}
 }
 #endif

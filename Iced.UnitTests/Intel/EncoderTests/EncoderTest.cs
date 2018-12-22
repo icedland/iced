@@ -80,13 +80,17 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				ca.DisplacementOffset += diff;
 			if (ca.HasImmediate)
 				ca.ImmediateOffset += diff;
+			if (ca.HasImmediate2)
+				ca.ImmediateOffset2 += diff;
 		}
 
 		static bool Equals(ref ConstantOffsets a, ref ConstantOffsets b) =>
 			a.DisplacementOffset == b.DisplacementOffset &&
 			a.ImmediateOffset == b.ImmediateOffset &&
+			a.ImmediateOffset2 == b.ImmediateOffset2 &&
 			a.DisplacementSize == b.DisplacementSize &&
-			a.ImmediateSize == b.ImmediateSize;
+			a.ImmediateSize == b.ImmediateSize &&
+			a.ImmediateSize2 == b.ImmediateSize2;
 
 		protected void NonDecodeEncodeBase(int codeSize, ref Instruction instr, string hexBytes, ulong rip) {
 			var expectedBytes = HexUtils.ToByteArray(hexBytes);

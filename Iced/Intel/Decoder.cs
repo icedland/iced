@@ -932,34 +932,36 @@ after_read_prefixes:
 			}
 
 			if ((state.flags & StateFlags.NoImm) == 0) {
-				uint extraImmSub = 0;
+				int extraImmSub = 0;
 				for (int i = instruction.OpCount - 1; i >= 0; i--) {
 					switch (instruction.GetOpKind(i)) {
 					case OpKind.Immediate8:
 					case OpKind.Immediate8to16:
 					case OpKind.Immediate8to32:
 					case OpKind.Immediate8to64:
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (int)extraImmSub - 1);
+						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - extraImmSub - 1);
 						constantOffsets.ImmediateSize = 1;
 						goto after_imm_loop;
 
 					case OpKind.Immediate16:
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (int)extraImmSub - 2);
+						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - extraImmSub - 2);
 						constantOffsets.ImmediateSize = 2;
 						goto after_imm_loop;
 
 					case OpKind.Immediate32:
 					case OpKind.Immediate32to64:
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (int)extraImmSub - 4);
+						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - extraImmSub - 4);
 						constantOffsets.ImmediateSize = 4;
 						goto after_imm_loop;
 
 					case OpKind.Immediate64:
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (int)extraImmSub - 8);
+						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - extraImmSub - 8);
 						constantOffsets.ImmediateSize = 8;
 						goto after_imm_loop;
 
 					case OpKind.Immediate8_2nd:
+						constantOffsets.ImmediateOffset2 = (byte)(instruction.ByteLength - 1);
+						constantOffsets.ImmediateSize2 = 1;
 						extraImmSub = 1;
 						break;
 					}
@@ -969,10 +971,14 @@ after_read_prefixes:
 					if (code == Code.Call_ptr3216 || code == Code.Jmp_ptr3216) {
 						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (4 + 2));
 						constantOffsets.ImmediateSize = 4;
+						constantOffsets.ImmediateOffset2 = (byte)(instruction.ByteLength - 2);
+						constantOffsets.ImmediateSize2 = 2;
 					}
 					else if (code == Code.Call_ptr1616 || code == Code.Jmp_ptr1616) {
 						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (2 + 2));
 						constantOffsets.ImmediateSize = 2;
+						constantOffsets.ImmediateOffset2 = (byte)(instruction.ByteLength - 2);
+						constantOffsets.ImmediateSize2 = 2;
 					}
 					else if (code == Code.Jmpe_disp32) {
 						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 4);
