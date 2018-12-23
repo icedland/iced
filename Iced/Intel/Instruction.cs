@@ -18,6 +18,7 @@
 */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -1235,6 +1236,7 @@ namespace Iced.Intel {
 		/// Checks if the memory operand is RIP/EIP relative
 		/// </summary>
 		[Obsolete("Use " + nameof(IsIPRelativeMemoryOperand) + " instead of this property", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool IsIPRelativeMemoryOp {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => MemoryBase == Register.RIP || MemoryBase == Register.EIP;
