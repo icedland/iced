@@ -644,8 +644,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(OpKind.Memory, instr.Op1Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
-			Assert.Equal(Register.BX, instr.MemoryBase);
-			Assert.Equal(Register.SI, instr.MemoryIndex);
+			Assert.Equal(Register.EAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
 			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(memSize, instr.MemorySize);
@@ -653,17 +653,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_BND_Reg_RegMem_Reg_RegMem_1_Data {
 			get {
-				yield return new object[] { "0F1A 08", 3, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.Unknown };
+				yield return new object[] { "67 0F1A 08", 4, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.Unknown };
 
-				yield return new object[] { "66 0F1A 08", 4, Code.Bndmov_bnd_bndm64, Register.BND1, MemorySize.Bnd32 };
+				yield return new object[] { "67 66 0F1A 08", 5, Code.Bndmov_bnd_bndm64, Register.BND1, MemorySize.Bnd32 };
 
-				yield return new object[] { "F3 0F1A 08", 4, Code.Bndcl_bnd_rm32, Register.BND1, MemorySize.UInt32 };
+				yield return new object[] { "67 F3 0F1A 08", 5, Code.Bndcl_bnd_rm32, Register.BND1, MemorySize.UInt32 };
 
-				yield return new object[] { "F2 0F1A 08", 4, Code.Bndcu_bnd_rm32, Register.BND1, MemorySize.UInt32 };
+				yield return new object[] { "67 F2 0F1A 08", 5, Code.Bndcu_bnd_rm32, Register.BND1, MemorySize.UInt32 };
 
-				yield return new object[] { "F3 0F1B 08", 4, Code.Bndmk_bnd_m32, Register.BND1, MemorySize.UInt32 };
+				yield return new object[] { "67 F3 0F1B 08", 5, Code.Bndmk_bnd_m32, Register.BND1, MemorySize.UInt32 };
 
-				yield return new object[] { "F2 0F1B 08", 4, Code.Bndcn_bnd_rm32, Register.BND1, MemorySize.UInt32 };
+				yield return new object[] { "67 F2 0F1B 08", 5, Code.Bndcn_bnd_rm32, Register.BND1, MemorySize.UInt32 };
 			}
 		}
 
@@ -818,6 +818,24 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "F2 0F1B 08", 4, Code.Bndcn_bnd_rm64, Register.BND1, MemorySize.UInt64 };
 				yield return new object[] { "F2 48 0F1B 08", 5, Code.Bndcn_bnd_rm64, Register.BND1, MemorySize.UInt64 };
+
+				yield return new object[] { "67 0F1A 08", 4, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.Unknown };
+				yield return new object[] { "67 48 0F1A 08", 5, Code.Bndldx_bnd_mib, Register.BND1, MemorySize.Unknown };
+
+				yield return new object[] { "67 66 0F1A 08", 5, Code.Bndmov_bnd_bndm128, Register.BND1, MemorySize.Bnd64 };
+				yield return new object[] { "67 66 48 0F1A 08", 6, Code.Bndmov_bnd_bndm128, Register.BND1, MemorySize.Bnd64 };
+
+				yield return new object[] { "67 F3 0F1A 08", 5, Code.Bndcl_bnd_rm64, Register.BND1, MemorySize.UInt64 };
+				yield return new object[] { "67 F3 48 0F1A 08", 6, Code.Bndcl_bnd_rm64, Register.BND1, MemorySize.UInt64 };
+
+				yield return new object[] { "67 F2 0F1A 08", 5, Code.Bndcu_bnd_rm64, Register.BND1, MemorySize.UInt64 };
+				yield return new object[] { "67 F2 48 0F1A 08", 6, Code.Bndcu_bnd_rm64, Register.BND1, MemorySize.UInt64 };
+
+				yield return new object[] { "67 F3 0F1B 08", 5, Code.Bndmk_bnd_m64, Register.BND1, MemorySize.UInt64 };
+				yield return new object[] { "67 F3 48 0F1B 08", 6, Code.Bndmk_bnd_m64, Register.BND1, MemorySize.UInt64 };
+
+				yield return new object[] { "67 F2 0F1B 08", 5, Code.Bndcn_bnd_rm64, Register.BND1, MemorySize.UInt64 };
+				yield return new object[] { "67 F2 48 0F1B 08", 6, Code.Bndcn_bnd_rm64, Register.BND1, MemorySize.UInt64 };
 			}
 		}
 
@@ -876,8 +894,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
-			Assert.Equal(Register.BX, instr.MemoryBase);
-			Assert.Equal(Register.SI, instr.MemoryIndex);
+			Assert.Equal(Register.EAX, instr.MemoryBase);
+			Assert.Equal(Register.None, instr.MemoryIndex);
 			Assert.Equal(0U, instr.MemoryDisplacement);
 			Assert.Equal(1, instr.MemoryIndexScale);
 			Assert.Equal(memSize, instr.MemorySize);
@@ -888,9 +906,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		public static IEnumerable<object[]> Test16_BND_RegMem_Reg_RegMem_Reg_1_Data {
 			get {
-				yield return new object[] { "0F1B 08", 3, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.Unknown };
+				yield return new object[] { "67 0F1B 08", 4, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.Unknown };
 
-				yield return new object[] { "66 0F1B 08", 4, Code.Bndmov_bndm64_bnd, Register.BND1, MemorySize.Bnd32 };
+				yield return new object[] { "67 66 0F1B 08", 5, Code.Bndmov_bndm64_bnd, Register.BND1, MemorySize.Bnd32 };
 			}
 		}
 
@@ -1013,6 +1031,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				yield return new object[] { "66 0F1B 08", 4, Code.Bndmov_bndm128_bnd, Register.BND1, MemorySize.Bnd64 };
 				yield return new object[] { "66 48 0F1B 08", 5, Code.Bndmov_bndm128_bnd, Register.BND1, MemorySize.Bnd64 };
+
+				yield return new object[] { "67 0F1B 08", 4, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.Unknown };
+				yield return new object[] { "67 48 0F1B 08", 5, Code.Bndstx_mib_bnd, Register.BND1, MemorySize.Unknown };
+
+				yield return new object[] { "67 66 0F1B 08", 5, Code.Bndmov_bndm128_bnd, Register.BND1, MemorySize.Bnd64 };
+				yield return new object[] { "67 66 48 0F1B 08", 6, Code.Bndmov_bndm128_bnd, Register.BND1, MemorySize.Bnd64 };
 			}
 		}
 

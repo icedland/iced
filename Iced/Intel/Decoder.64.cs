@@ -34,6 +34,16 @@ namespace Iced.Intel {
 				ReadOpMem32Or64(ref instruction, Register.EAX, Register.EAX, TupleType.None, false);
 		}
 
+		// All MPX instructions in 64-bit mode force 64-bit addressing (see SDM Vol 1, 17.5.1 Intel MPX and Operating Modes)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal void ReadOpMem_m64_FORCE64(ref Instruction instruction) {
+			Debug.Assert(is64Mode);
+			Debug.Assert(state.addressSize == OpSize.Size32 || state.addressSize == OpSize.Size64);
+			Debug.Assert(state.Encoding != EncodingKind.EVEX);
+			state.addressSize = OpSize.Size64;
+			ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.None, false);
+		}
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMem_m64(ref Instruction instruction, TupleType tupleType) {
 			Debug.Assert(is64Mode);
