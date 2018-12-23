@@ -299,6 +299,7 @@ namespace Iced.Intel {
 				case InstrOpKind.Memory64:
 				case InstrOpKind.Memory:
 					return false;
+
 				default:
 					throw new InvalidOperationException();
 				}

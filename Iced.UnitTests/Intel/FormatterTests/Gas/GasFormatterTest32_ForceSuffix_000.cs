@@ -665,6 +665,10 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"movl tr7,eax",
 			"syscall",
 			"sysret",
+			"addr16 fs monitor",
+			"addr16 fs monitorx",
+			"addr16 fs clzero",
+			"fs umonitor bp",
 		};
 	}
 }

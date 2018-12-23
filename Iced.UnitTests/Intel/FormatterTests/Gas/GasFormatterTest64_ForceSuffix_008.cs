@@ -230,6 +230,14 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"vgf2p8affineinvqb $-0x5b,zmm3,zmm14,zmm18{k3}",
 			"vgf2p8affineinvqb $-0x5b,0x40(rax),zmm6,zmm2",
 			"vgf2p8affineinvqb $-0x5b,8(rax){1to8},zmm6,zmm2{k5}{z}",
+			"addr32 fs monitor",
+			"fs monitor",
+			"addr32 fs monitorx",
+			"fs monitorx",
+			"addr32 fs clzero",
+			"fs clzero",
+			"fs umonitor ebp",
+			"fs umonitor rbp",
 		};
 	}
 }

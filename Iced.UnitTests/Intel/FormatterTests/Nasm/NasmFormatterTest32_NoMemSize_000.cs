@@ -665,6 +665,10 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"mov eax,tr7",
 			"syscall",
 			"sysret",
+			"a16 fs monitor",
+			"a16 fs monitorx",
+			"a16 fs clzero",
+			"fs umonitor bp",
 		};
 	}
 }

@@ -665,6 +665,10 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"mov eax,tr7",
 			"syscall",
 			"sysret",
+			"fs monitor ax,ecx,edx",
+			"fs monitorx ax,ecx,edx",
+			"fs clzero",
+			"fs umonitor bp",
 		};
 	}
 }

@@ -22,7 +22,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos64_008 {
-		public const int AllInfos_Length = 200;
+		public const int AllInfos_Length = 208;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(64, "62 327DCB 63 D3", Code.EVEX_Vpcompressb_zmmm512_k1z_zmm),
 			new InstructionInfo(64, "62 F27D48 63 50 01", Code.EVEX_Vpcompressb_zmmm512_k1z_zmm),
@@ -224,6 +224,14 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(64, "62 E38D4B CF D3 A5", Code.EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8),
 			new InstructionInfo(64, "62 F3CD48 CF 50 01 A5", Code.EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8),
 			new InstructionInfo(64, "62 F3CDDD CF 50 01 A5", Code.EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8),
+			new InstructionInfo(64, "64 67 0F01 C8", Code.Monitord),
+			new InstructionInfo(64, "64 0F01 C8", Code.Monitorq),
+			new InstructionInfo(64, "64 67 0F01 FA", Code.Monitorxd),
+			new InstructionInfo(64, "64 0F01 FA", Code.Monitorxq),
+			new InstructionInfo(64, "64 67 0F01 FC", Code.Clzerod),
+			new InstructionInfo(64, "64 0F01 FC", Code.Clzeroq),
+			new InstructionInfo(64, "64 67 F3 0FAE F5", Code.Umonitor_r32),
+			new InstructionInfo(64, "64 F3 0FAE F5", Code.Umonitor_r64),
 		};
 	}
 }

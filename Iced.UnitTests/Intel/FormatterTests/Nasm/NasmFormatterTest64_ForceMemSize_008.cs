@@ -230,6 +230,14 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"vgf2p8affineinvqb zmm18{k3},zmm14,zmm3,-0x5b",
 			"vgf2p8affineinvqb zmm2,zmm6,zword [rax+0x40],-0x5b",
 			"vgf2p8affineinvqb zmm2{k5}{z},zmm6,qword [rax+8]{1to8},-0x5b",
+			"a32 fs monitor",
+			"fs monitor",
+			"a32 fs monitorx",
+			"fs monitorx",
+			"a32 fs clzero",
+			"fs clzero",
+			"fs umonitor ebp",
+			"fs umonitor rbp",
 		};
 	}
 }

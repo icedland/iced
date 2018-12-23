@@ -230,6 +230,14 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"vgf2p8affineinvqb zmm18{k3},zmm14,zmm3,0A5h",
 			"vgf2p8affineinvqb zmm2,zmm6,[rax+40h],0A5h",
 			"vgf2p8affineinvqb zmm2{k5}{z},zmm6,qword bcst [rax+8],0A5h",
+			"fs monitor eax,rcx,rdx",
+			"fs monitor rax,rcx,rdx",
+			"fs monitorx eax,rcx,rdx",
+			"fs monitorx rax,rcx,rdx",
+			"fs clzero",
+			"fs clzero",
+			"fs umonitor ebp",
+			"fs umonitor rbp",
  		};
 	}
 }
