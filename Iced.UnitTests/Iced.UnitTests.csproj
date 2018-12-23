@@ -3,33 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <IsPackable>false</IsPackable>
-
-    <Copyright>Copyright (C) 2018 de4dot@gmail.com</Copyright>
-
-    <LangVersion>latest</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-
-    <Features>strict</Features>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\Iced.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DefineConstants>TRACE</DefineConstants>
-    <!-- Also disabled in the normal project -->
-    <DefineConstants>$(DefineConstants);NO_INTEL_FORMATTER</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="Intel\**\*.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="xunit.runner.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -46,4 +25,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Iced\Iced.csproj" />
   </ItemGroup>
+
 </Project>

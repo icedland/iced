@@ -1,0 +1,25 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <Copyright>Copyright (C) 2018 de4dot@gmail.com</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Version>1.0.2</Version>
+    <Authors>0xd4d</Authors>
+    <InformationalVersion>$(Version)</InformationalVersion>
+
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Features>strict</Features>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Iced.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>$(DefineConstants);NO_INTEL_FORMATTER</DefineConstants>
+  </PropertyGroup>
+
+</Project>

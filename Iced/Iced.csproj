@@ -5,20 +5,14 @@
 
     <Description>x86/x64 instruction decoder, encoder, formatter</Description>
     <Title>$(Description)</Title>
-    <Copyright>Copyright (C) 2018 de4dot@gmail.com</Copyright>
     <AssemblyTitle>Iced</AssemblyTitle>
     <AssemblyName>Iced</AssemblyName>
     <PackageId>Iced</PackageId>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>1.0.2</Version>
-    <InformationalVersion>$(Version)</InformationalVersion>
-    <Authors>0xd4d</Authors>
     <PackageIconUrl>https://raw.githubusercontent.com/0xd4d/iced/master/logo.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/0xd4d/iced</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/0xd4d/iced/blob/master/COPYING.txt</PackageLicenseUrl>
     <PackageVersion>$(InformationalVersion)</PackageVersion>
     <PackageTags>x86;x64;encoder;decoder;formatter;disassembler</PackageTags>
-    <Features>strict</Features>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
@@ -40,12 +34,6 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 License: LGPL v3 or any later version (LGPL = GNU Lesser General Public License)
 </PackageDescription>
     <PackageReleaseNotes></PackageReleaseNotes>
-
-    <AssemblyOriginatorKeyFile>..\Iced.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
-
-    <LangVersion>latest</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -57,14 +45,6 @@ License: LGPL v3 or any later version (LGPL = GNU Lesser General Public License)
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All"/>
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DefineConstants>TRACE</DefineConstants>
-    <!-- Also disabled in the test project -->
-    <DefineConstants>$(DefineConstants);NO_INTEL_FORMATTER</DefineConstants>
-  </PropertyGroup>
   <PropertyGroup>
     <DefineConstants Condition=" $(TargetFramework.StartsWith(netcoreapp)) OR ($(TargetFramework.StartsWith(netstandard)) AND '$(TargetFramework)' != 'netstandard2.0') ">$(DefineConstants);HAS_SPAN</DefineConstants>
   </PropertyGroup>
