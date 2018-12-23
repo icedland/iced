@@ -19,6 +19,7 @@
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
+using System.ComponentModel;
 
 namespace Iced.Intel {
 	/// <summary>
@@ -176,7 +177,18 @@ namespace Iced.Intel {
 		/// Use shortest possible hexadecimal/octal/binary numbers, eg. 0xA/0Ah instead of eg. 0x0000000A/0000000Ah.
 		/// This option has no effect on branch targets, use <see cref="ShortBranchNumbers"/>.
 		/// </summary>
-		public bool ShortNumbers { get; set; } = true;
+		[Obsolete("Use " + nameof(LeadingZeroes) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool ShortNumbers {
+			get => !LeadingZeroes;
+			set => LeadingZeroes = !value;
+		}
+
+		/// <summary>
+		/// Add leading zeroes to hexadecimal/octal/binary numbers, eg. 0x0000000A/0000000Ah vs 0xA/0Ah.
+		/// This option has no effect on branch targets, use <see cref="BranchLeadingZeroes"/>.
+		/// </summary>
+		public bool LeadingZeroes { get; set; }
 
 		/// <summary>
 		/// Use upper case hex digits
@@ -189,7 +201,7 @@ namespace Iced.Intel {
 		public bool SmallHexNumbersInDecimal { get; set; } = true;
 
 		/// <summary>
-		/// Add a leading zero to numbers if there's no prefix and the number begins with hex digits A-F, eg. Ah vs 0Ah
+		/// Add a leading zero to numbers if there's no prefix and the number starts with hex digits A-F, eg. Ah vs 0Ah
 		/// </summary>
 		public bool AddLeadingZeroToHexNumbers { get; set; } = true;
 
@@ -209,7 +221,17 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Don't add leading zeroes to branch offsets, eg. 'je 123h' vs 'je 00000123h'. Used by call near, call far, jmp near, jmp far, jcc, loop, loopcc, xbegin
 		/// </summary>
-		public bool ShortBranchNumbers { get; set; }
+		[Obsolete("Use " + nameof(BranchLeadingZeroes) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool ShortBranchNumbers {
+			get => !BranchLeadingZeroes;
+			set => BranchLeadingZeroes = !value;
+		}
+
+		/// <summary>
+		/// Add leading zeroes to branch offsets, eg. 'je 00000123h' vs 'je 123h'. Used by call near, call far, jmp near, jmp far, jcc, loop, loopcc, xbegin
+		/// </summary>
+		public bool BranchLeadingZeroes { get; set; } = true;
 
 		/// <summary>
 		/// Show immediate operands as signed numbers, eg. 'mov eax,FFFFFFFF' vs 'mov eax,-1'

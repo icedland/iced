@@ -19,6 +19,7 @@
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
@@ -153,7 +154,14 @@ namespace Iced.Intel {
 		/// <summary>
 		/// If true, use short numbers, and if false, add leading zeroes, eg. '1h' vs '00000001h'
 		/// </summary>
+		[Obsolete("Use " + nameof(LeadingZeroes) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool ShortNumbers;
+
+		/// <summary>
+		/// If true, add leading zeroes to numbers, eg. '1h' vs '00000001h'
+		/// </summary>
+		public bool LeadingZeroes;
 
 		/// <summary>
 		/// If true, the number is signed, and if false it's an unsigned number
@@ -176,7 +184,7 @@ namespace Iced.Intel {
 		public static NumberFormattingOptions CreateImmediate(FormatterOptions options) {
 			if (options == null)
 				ThrowArgumentNullException_options();
-			return new NumberFormattingOptions(options, options.ShortNumbers, options.SignedImmediateOperands, false);
+			return new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedImmediateOperands, false);
 		}
 
 		/// <summary>
@@ -188,7 +196,7 @@ namespace Iced.Intel {
 		public static NumberFormattingOptions CreateDisplacement(FormatterOptions options) {
 			if (options == null)
 				ThrowArgumentNullException_options();
-			return new NumberFormattingOptions(options, options.ShortNumbers, options.SignedMemoryDisplacements, options.SignExtendMemoryDisplacements);
+			return new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedMemoryDisplacements, options.SignExtendMemoryDisplacements);
 		}
 
 		/// <summary>
@@ -200,20 +208,23 @@ namespace Iced.Intel {
 		public static NumberFormattingOptions CreateBranch(FormatterOptions options) {
 			if (options == null)
 				ThrowArgumentNullException_options();
-			return new NumberFormattingOptions(options, options.ShortBranchNumbers, false, false);
+			return new NumberFormattingOptions(options, options.BranchLeadingZeroes, false, false);
 		}
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="options">Options</param>
-		/// <param name="shortNumbers">If true, use short numbers, and if false, add leading zeroes, eg. '1h' vs '00000001h'</param>
+		/// <param name="leadingZeroes">Add leading zeroes to numbers, eg. '1h' vs '00000001h'</param>
 		/// <param name="signedNumber">Signed numbers if true, and unsigned numbers if false</param>
 		/// <param name="signExtendImmediate">Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. 'mov al,[eax+12h]' vs 'mov al,[eax+00000012h]'</param>
-		public NumberFormattingOptions(FormatterOptions options, bool shortNumbers, bool signedNumber, bool signExtendImmediate) {
+		public NumberFormattingOptions(FormatterOptions options, bool leadingZeroes, bool signedNumber, bool signExtendImmediate) {
 			if (options == null)
 				ThrowArgumentNullException_options();
-			ShortNumbers = shortNumbers;
+#pragma warning disable CS0618 // Type or member is obsolete
+			ShortNumbers = !leadingZeroes;
+#pragma warning restore CS0618 // Type or member is obsolete
+			LeadingZeroes = leadingZeroes;
 			SignedNumber = signedNumber;
 			SignExtendImmediate = signExtendImmediate;
 			numberBaseByteValue = (byte)options.NumberBase;

@@ -60,7 +60,7 @@ namespace Iced.Intel {
 					Write("+", FormatterOutputTextKind.Operator);
 				if (spacesBetweenOp)
 					Write(" ", FormatterOutputTextKind.Text);
-				var s = numberFormatter.FormatUInt64(numberOptions, (ulong)displ, shortNumbers: true);
+				var s = numberFormatter.FormatUInt64(numberOptions, (ulong)displ, leadingZeroes: false);
 				Write(s, FormatterOutputTextKind.Number);
 			}
 			if (showSymbolAddress) {
@@ -68,11 +68,11 @@ namespace Iced.Intel {
 				Write("(", FormatterOutputTextKind.Punctuation);
 				string s;
 				if (address <= ushort.MaxValue)
-					s = numberFormatter.FormatUInt16(numberOptions, (ushort)address, shortNumbers: false);
+					s = numberFormatter.FormatUInt16(numberOptions, (ushort)address, leadingZeroes: true);
 				else if (address <= uint.MaxValue)
-					s = numberFormatter.FormatUInt32(numberOptions, (uint)address, shortNumbers: false);
+					s = numberFormatter.FormatUInt32(numberOptions, (uint)address, leadingZeroes: true);
 				else
-					s = numberFormatter.FormatUInt64(numberOptions, address, shortNumbers: false);
+					s = numberFormatter.FormatUInt64(numberOptions, address, leadingZeroes: true);
 				Write(s, FormatterOutputTextKind.Number);
 				Write(")", FormatterOutputTextKind.Punctuation);
 			}

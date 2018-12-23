@@ -395,11 +395,11 @@ namespace Iced.Intel {
 					flowControl = FormatterUtils.GetFlowControl(ref instruction);
 					FormatFlowControl(output, opInfo.Flags, operandOptions);
 					if (opKind == InstrOpKind.NearBranch32)
-						s = numberFormatter.FormatUInt32(numberOptions, instruction.NearBranch32, numberOptions.ShortNumbers);
+						s = numberFormatter.FormatUInt32(numberOptions, instruction.NearBranch32, numberOptions.LeadingZeroes);
 					else if (opKind == InstrOpKind.NearBranch64)
-						s = numberFormatter.FormatUInt64(numberOptions, instruction.NearBranch64, numberOptions.ShortNumbers);
+						s = numberFormatter.FormatUInt64(numberOptions, instruction.NearBranch64, numberOptions.LeadingZeroes);
 					else
-						s = numberFormatter.FormatUInt16(numberOptions, instruction.NearBranch16, numberOptions.ShortNumbers);
+						s = numberFormatter.FormatUInt16(numberOptions, instruction.NearBranch16, numberOptions.LeadingZeroes);
 					output.Write(s, FormatterUtils.IsCall(flowControl) ? FormatterOutputTextKind.FunctionAddress : FormatterOutputTextKind.LabelAddress);
 				}
 				break;
@@ -422,7 +422,7 @@ namespace Iced.Intel {
 					FormatFlowControl(output, opInfo.Flags, operandOptions);
 					Debug.Assert(operand + 1 == 1);
 					if (!symbolResolver.TryGetSymbol(operand + 1, instructionOperand, ref instruction, instruction.FarBranchSelector, 2, out var selectorSymbol)) {
-						s = numberFormatter.FormatUInt16(numberOptions, instruction.FarBranchSelector, numberOptions.ShortNumbers);
+						s = numberFormatter.FormatUInt16(numberOptions, instruction.FarBranchSelector, numberOptions.LeadingZeroes);
 						output.Write(s, FormatterOutputTextKind.SelectorValue);
 					}
 					else
@@ -433,13 +433,13 @@ namespace Iced.Intel {
 				else {
 					flowControl = FormatterUtils.GetFlowControl(ref instruction);
 					FormatFlowControl(output, opInfo.Flags, operandOptions);
-					s = numberFormatter.FormatUInt16(numberOptions, instruction.FarBranchSelector, numberOptions.ShortNumbers);
+					s = numberFormatter.FormatUInt16(numberOptions, instruction.FarBranchSelector, numberOptions.LeadingZeroes);
 					output.Write(s, FormatterOutputTextKind.SelectorValue);
 					output.Write(":", FormatterOutputTextKind.Punctuation);
 					if (opKind == InstrOpKind.FarBranch32)
-						s = numberFormatter.FormatUInt32(numberOptions, instruction.FarBranch32, numberOptions.ShortNumbers);
+						s = numberFormatter.FormatUInt32(numberOptions, instruction.FarBranch32, numberOptions.LeadingZeroes);
 					else
-						s = numberFormatter.FormatUInt16(numberOptions, instruction.FarBranch16, numberOptions.ShortNumbers);
+						s = numberFormatter.FormatUInt16(numberOptions, instruction.FarBranch16, numberOptions.LeadingZeroes);
 					output.Write(s, FormatterUtils.IsCall(flowControl) ? FormatterOutputTextKind.FunctionAddress : FormatterOutputTextKind.LabelAddress);
 				}
 				break;

@@ -131,20 +131,20 @@ namespace Iced.Intel {
 			return new string(array, 0, digits);
 		}
 
-		public string FormatUInt8(in NumberFormattingOptions options, byte value) => FormatUnsignedInteger(options, value, 8, options.ShortNumbers, options.SmallHexNumbersInDecimal);
-		public string FormatUInt16(in NumberFormattingOptions options, ushort value) => FormatUnsignedInteger(options, value, 16, options.ShortNumbers, options.SmallHexNumbersInDecimal);
-		public string FormatUInt32(in NumberFormattingOptions options, uint value) => FormatUnsignedInteger(options, value, 32, options.ShortNumbers, options.SmallHexNumbersInDecimal);
-		public string FormatUInt64(in NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(options, value, 64, options.ShortNumbers, options.SmallHexNumbersInDecimal);
+		public string FormatUInt8(in NumberFormattingOptions options, byte value) => FormatUnsignedInteger(options, value, 8, options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+		public string FormatUInt16(in NumberFormattingOptions options, ushort value) => FormatUnsignedInteger(options, value, 16, options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+		public string FormatUInt32(in NumberFormattingOptions options, uint value) => FormatUnsignedInteger(options, value, 32, options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+		public string FormatUInt64(in NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(options, value, 64, options.LeadingZeroes, options.SmallHexNumbersInDecimal);
 
-		public string FormatUInt16(in NumberFormattingOptions options, ushort value, bool shortNumbers) => FormatUnsignedInteger(options, value, 16, shortNumbers, options.SmallHexNumbersInDecimal);
-		public string FormatUInt32(in NumberFormattingOptions options, uint value, bool shortNumbers) => FormatUnsignedInteger(options, value, 32, shortNumbers, options.SmallHexNumbersInDecimal);
-		public string FormatUInt64(in NumberFormattingOptions options, ulong value, bool shortNumbers) => FormatUnsignedInteger(options, value, 64, shortNumbers, options.SmallHexNumbersInDecimal);
+		public string FormatUInt16(in NumberFormattingOptions options, ushort value, bool leadingZeroes) => FormatUnsignedInteger(options, value, 16, leadingZeroes, options.SmallHexNumbersInDecimal);
+		public string FormatUInt32(in NumberFormattingOptions options, uint value, bool leadingZeroes) => FormatUnsignedInteger(options, value, 32, leadingZeroes, options.SmallHexNumbersInDecimal);
+		public string FormatUInt64(in NumberFormattingOptions options, ulong value, bool leadingZeroes) => FormatUnsignedInteger(options, value, 64, leadingZeroes, options.SmallHexNumbersInDecimal);
 
 		static readonly string[] smallDecimalValues = new string[SmallPositiveNumber + 1] {
 			"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
 		};
 
-		string FormatUnsignedInteger(in NumberFormattingOptions options, ulong value, int valueSize, bool shortNumbers, bool smallHexNumbersInDecimal) {
+		string FormatUnsignedInteger(in NumberFormattingOptions options, ulong value, int valueSize, bool leadingZeroes, bool smallHexNumbersInDecimal) {
 			string rawNumber;
 			string prefix, suffix;
 			int digitGroupSize;
@@ -163,7 +163,7 @@ namespace Iced.Intel {
 					digitSeparator = options.DigitSeparator;
 					prefix = options.Prefix;
 					suffix = options.Suffix;
-					rawNumber = ToHexadecimal(value, shortNumbers ? 0 : (valueSize + 3) >> 2, options.UpperCaseHex, options.AddLeadingZeroToHexNumbers && string.IsNullOrEmpty(prefix));
+					rawNumber = ToHexadecimal(value, leadingZeroes ? (valueSize + 3) >> 2 : 0, options.UpperCaseHex, options.AddLeadingZeroToHexNumbers && string.IsNullOrEmpty(prefix));
 				}
 				break;
 
@@ -180,7 +180,7 @@ namespace Iced.Intel {
 				digitSeparator = options.DigitSeparator;
 				prefix = options.Prefix;
 				suffix = options.Suffix;
-				rawNumber = ToOctal(value, shortNumbers ? 0 : (valueSize + 2) / 3);
+				rawNumber = ToOctal(value, leadingZeroes ? (valueSize + 2) / 3 : 0);
 				if (prefix == "0") {
 					// The prefix is part of the number so that a digit separator can be placed
 					// between the "prefix" and the rest of the number, eg. "0" + "1234" with
@@ -197,7 +197,7 @@ namespace Iced.Intel {
 				digitSeparator = options.DigitSeparator;
 				prefix = options.Prefix;
 				suffix = options.Suffix;
-				rawNumber = ToBinary(value, shortNumbers ? 0 : valueSize);
+				rawNumber = ToBinary(value, leadingZeroes ? valueSize : 0);
 				break;
 
 			default:
