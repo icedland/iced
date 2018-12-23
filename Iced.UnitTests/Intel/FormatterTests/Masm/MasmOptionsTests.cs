@@ -1871,6 +1871,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 				};
 			}
 		}
+
+		[Fact]
+		public void TestOptions() {
+			var options = new MasmFormatterOptions();
+			TestOptionsBase(options);
+		}
 	}
 }
 #endif

@@ -19,6 +19,7 @@
 
 #if !NO_INTEL_FORMATTER && !NO_FORMATTER
 using System.Collections.Generic;
+using Iced.Intel;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests.Intel {
@@ -1802,6 +1803,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"vpclmulhqhqdq zmm6,zmm2,zmm4",
 			"vpclmulqdq zmm6,zmm2,zmm4,0xff",
 		};
+
+		[Fact]
+		public void TestOptions() {
+			var options = new IntelFormatterOptions();
+			TestOptionsBase(options);
+		}
 	}
 }
 #endif

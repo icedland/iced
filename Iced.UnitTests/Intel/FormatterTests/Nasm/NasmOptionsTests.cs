@@ -1821,6 +1821,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 				};
 			}
 		}
+
+		[Fact]
+		public void TestOptions() {
+			var options = new NasmFormatterOptions();
+			TestOptionsBase(options);
+		}
 	}
 }
 #endif

@@ -1881,6 +1881,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 				};
 			}
 		}
+
+		[Fact]
+		public void TestOptions() {
+			var options = new GasFormatterOptions();
+			TestOptionsBase(options);
+		}
 	}
 }
 #endif

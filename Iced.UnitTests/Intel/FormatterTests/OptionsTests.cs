@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 using Iced.Intel;
+using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public readonly struct OptionsInstructionInfo {
@@ -59,6 +60,42 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		protected void FormatBase(int index, OptionsInstructionInfo info, string formattedString, Formatter formatter) {
 			info.InitOptions(formatter.Options);
 			FormatterTestUtils.SimpleFormatTest(info.CodeSize, info.HexBytes, info.Code, DecoderOptions.None, formattedString, formatter, info.InitDecoder);
+		}
+
+		static IEnumerable<T> GetEnumValues<T>() where T : struct {
+			var t = typeof(T);
+			if (!t.IsEnum)
+				throw new InvalidOperationException();
+			foreach (var value in Enum.GetValues(t))
+				yield return (T)value;
+		}
+
+		protected void TestOptionsBase(FormatterOptions options) {
+			{
+				int min = int.MaxValue, max = int.MinValue;
+				foreach (var value in GetEnumValues<NumberBase>()) {
+					min = Math.Min(min, (int)value);
+					max = Math.Max(max, (int)value);
+					options.NumberBase = value;
+				}
+				Assert.Throws<ArgumentOutOfRangeException>(() => options.NumberBase = (NumberBase)(min - 1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => options.NumberBase = (NumberBase)(max + 1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => options.NumberBase = (NumberBase)int.MinValue);
+				Assert.Throws<ArgumentOutOfRangeException>(() => options.NumberBase = (NumberBase)int.MaxValue);
+			}
+
+			{
+				int min = int.MaxValue, max = int.MinValue;
+				foreach (var value in GetEnumValues<MemorySizeOptions>()) {
+					min = Math.Min(min, (int)value);
+					max = Math.Max(max, (int)value);
+					options.MemorySizeOptions = value;
+				}
+				Assert.Throws<ArgumentOutOfRangeException>(() => options.MemorySizeOptions = (MemorySizeOptions)(min - 1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => options.MemorySizeOptions = (MemorySizeOptions)(max + 1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => options.MemorySizeOptions = (MemorySizeOptions)int.MinValue);
+				Assert.Throws<ArgumentOutOfRangeException>(() => options.MemorySizeOptions = (MemorySizeOptions)int.MaxValue);
+			}
 		}
 	}
 }
