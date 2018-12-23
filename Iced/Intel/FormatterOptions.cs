@@ -252,7 +252,15 @@ namespace Iced.Intel {
 		/// Options that control if the memory size (eg. dword ptr) is shown or not.
 		/// This is ignored by the GAS (AT&amp;T) formatter.
 		/// </summary>
-		public MemorySizeOptions MemorySizeOptions { get; set; } = MemorySizeOptions.Default;
+		public MemorySizeOptions MemorySizeOptions {
+			get => memorySizeOptions;
+			set {
+				if ((uint)value > (uint)MemorySizeOptions.Never)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				memorySizeOptions = value;
+			}
+		}
+		MemorySizeOptions memorySizeOptions = MemorySizeOptions.Default;
 
 		/// <summary>
 		/// true to show RIP relative addresses as '[rip+12345678h]', false to show RIP relative addresses as '[1029384756AFBECDh]'
