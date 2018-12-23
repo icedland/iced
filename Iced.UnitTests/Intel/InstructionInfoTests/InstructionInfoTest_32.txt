@@ -1541,3 +1541,73 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 62 F1ED4B FB CA, EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512F, op0=rw op1=n op2=n r=zmm1 w=vmm1 r=k3
 # vpsubq zmm1{k3}{z},zmm2,zmm2
 62 F1EDCB FB CA, EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
+# invlpg [eax]
+0F01 38, Invlpg_m, Legacy, INTEL486, priv op0=nma r=eax;ds
+# prefetch [eax]
+0F0D 00, Prefetch_m8, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetchw [eax]
+0F0D 08, Prefetchw_m8, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetchwt1 [eax]
+0F0D 10, Prefetchwt1_m8, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetch-r3 [eax]
+0F0D 18, Prefetch_m8_r3, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetch-r4 [eax]
+0F0D 20, Prefetch_m8_r4, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetch-r5 [eax]
+0F0D 28, Prefetch_m8_r5, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetch-r6 [eax]
+0F0D 30, Prefetch_m8_r6, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetch-r7 [eax]
+0F0D 38, Prefetch_m8_r7, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetchnta [eax]
+0F18 00, Prefetchnta_m8, Legacy, SSE, op0=nma r=eax;ds
+# prefetcht0 [eax]
+0F18 08, Prefetcht0_m8, Legacy, SSE, op0=nma r=eax;ds
+# prefetcht1 [eax]
+0F18 10, Prefetcht1_m8, Legacy, SSE, op0=nma r=eax;ds
+# prefetcht2 [eax]
+0F18 18, Prefetcht2_m8, Legacy, SSE, op0=nma r=eax;ds
+# bndldx bnd1,qword ptr [eax]
+0F1A 08, Bndldx_bnd_mib, Legacy, MPX, op0=w op1=nma w=bnd1 r=eax;ds
+# bndstx qword ptr [eax],bnd1
+0F1B 08, Bndstx_mib_bnd, Legacy, MPX, op0=nma op1=r r=eax;ds r=bnd1
+# cldemote byte ptr [eax]
+0F1C 00, Cldemote_m8, Legacy, CLDEMOTE, op0=nma r=eax;ds
+# clwb [eax]
+66 0FAE 30, Clwb_m8, Legacy, CLWB, op0=nma r=eax;ds
+# clflush [eax]
+0FAE 38, Clflush_m8, Legacy, CLFSH, op0=nma r=eax;ds
+# clflushopt [eax]
+66 0FAE 38, Clflushopt_m8, Legacy, CLFLUSHOPT, op0=nma r=eax;ds
+# vgatherpf0dps [ecx+zmm4*4+4]{k3}
+62 F27D4B C6 4C A1 01, EVEX_Vgatherpf0dps_vm32z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# vgatherpf0dpd [ecx+ymm4*4+8]{k3}
+62 F2FD4B C6 4C A1 01, EVEX_Vgatherpf0dpd_vm32y_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=ymm4 r=k3
+# vgatherpf1dps [ecx+zmm4*4+4]{k3}
+62 F27D4B C6 54 A1 01, EVEX_Vgatherpf1dps_vm32z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# vgatherpf1dpd [ecx+ymm4*4+8]{k3}
+62 F2FD4B C6 54 A1 01, EVEX_Vgatherpf1dpd_vm32y_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=ymm4 r=k3
+# vscatterpf0dps [ecx+zmm4*4+4]{k3}
+62 F27D4B C6 6C A1 01, EVEX_Vscatterpf0dps_vm32z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# vscatterpf0dpd [ecx+ymm4*4+8]{k3}
+62 F2FD4B C6 6C A1 01, EVEX_Vscatterpf0dpd_vm32y_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=ymm4 r=k3
+# vscatterpf1dps [ecx+zmm4*4+4]{k3}
+62 F27D4B C6 74 A1 01, EVEX_Vscatterpf1dps_vm32z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# vscatterpf1dpd [ecx+ymm4*4+8]{k3}
+62 F2FD4B C6 74 A1 01, EVEX_Vscatterpf1dpd_vm32y_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=ymm4 r=k3
+# vgatherpf0qps [ecx+zmm4*4+4]{k3}
+62 F27D4B C7 4C A1 01, EVEX_Vgatherpf0qps_vm64z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# vgatherpf0qpd [ecx+zmm4*4+8]{k3}
+62 F2FD4B C7 4C A1 01, EVEX_Vgatherpf0qpd_vm64z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# vgatherpf1qps [ecx+zmm4*4+4]{k3}
+62 F27D4B C7 54 A1 01, EVEX_Vgatherpf1qps_vm64z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# vgatherpf1qpd [ecx+zmm4*4+8]{k3}
+62 F2FD4B C7 54 A1 01, EVEX_Vgatherpf1qpd_vm64z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# vscatterpf0qps [ecx+zmm4*4+4]{k3}
+62 F27D4B C7 6C A1 01, EVEX_Vscatterpf0qps_vm64z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# vscatterpf0qpd [ecx+zmm4*4+8]{k3}
+62 F2FD4B C7 6C A1 01, EVEX_Vscatterpf0qpd_vm64z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# vscatterpf1qps [ecx+zmm4*4+4]{k3}
+62 F27D4B C7 74 A1 01, EVEX_Vscatterpf1qps_vm64z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# vscatterpf1qpd [ecx+zmm4*4+8]{k3}
+62 F2FD4B C7 74 A1 01, EVEX_Vscatterpf1qpd_vm64z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
