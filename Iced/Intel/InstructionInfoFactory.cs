@@ -103,7 +103,7 @@ namespace Iced.Intel {
 			var flags1 = InfoHandlers.Data[index];
 			var flags2 = InfoHandlers.Data[index + 1];
 
-			if (instruction.Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64)) {
+			if ((flags2 & (uint)InfoFlags2.AVX2_Check) != 0 && instruction.Op1Kind == OpKind.Register) {
 				flags2 = (flags2 & ~((uint)InfoFlags2.CpuidFeatureMask << (int)InfoFlags2.CpuidFeatureShift)) |
 					((uint)CpuidFeature.AVX2 << (int)InfoFlags2.CpuidFeatureShift);
 			}

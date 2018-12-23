@@ -50,6 +50,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		OpInfo4Shift		= 10,
 		OpInfo4Mask			= 1,
 
+		AVX2_Check			= 0x00008000,
 		OpMaskRegReadWrite	= 0x00010000,
 		EncodingShift		= 17,
 		EncodingMask		= 7,

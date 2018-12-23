@@ -111,6 +111,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint ProtectedMode = (uint)InfoFlags1.ProtectedMode;
 		const uint Privileged = (uint)InfoFlags1.Privileged;
 		const uint OpMaskRegReadWrite = (uint)InfoFlags2.OpMaskRegReadWrite;
+		const uint AVX2_Check = (uint)InfoFlags2.AVX2_Check;
 
 		const uint CodeInfo_Cdq = (uint)CodeInfo.Cdq << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Cdqe = (uint)CodeInfo.Cdqe << (int)InfoFlags1.CodeInfoShift;
@@ -3049,12 +3050,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Ptest_xmm_xmmm128 | RflagsInfo_W_cz_C_aops, Op0_Read | Op1_Read | CPUID_SSE4_1 | Encoding_Legacy,
 			(uint)Code.VEX_Vptest_xmm_xmmm128 | RflagsInfo_W_cz_C_aops, Op0_Read | Op1_Read | CPUID_AVX | Encoding_VEX,
 			(uint)Code.VEX_Vptest_ymm_ymmm256 | RflagsInfo_W_cz_C_aops, Op0_Read | Op1_Read | CPUID_AVX | Encoding_VEX,
-			(uint)Code.VEX_Vbroadcastss_xmm_xmmm32, Op0_Write | Op1_Read | CPUID_AVX | Encoding_VEX,
-			(uint)Code.VEX_Vbroadcastss_ymm_xmmm32, Op0_Write | Op1_Read | CPUID_AVX | Encoding_VEX,
+			(uint)Code.VEX_Vbroadcastss_xmm_xmmm32, Op0_Write | Op1_Read | AVX2_Check | CPUID_AVX | Encoding_VEX,
+			(uint)Code.VEX_Vbroadcastss_ymm_xmmm32, Op0_Write | Op1_Read | AVX2_Check | CPUID_AVX | Encoding_VEX,
 			(uint)Code.EVEX_Vbroadcastss_xmm_k1z_xmmm32, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vbroadcastss_ymm_k1z_xmmm32, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512F | Encoding_EVEX,
 			(uint)Code.EVEX_Vbroadcastss_zmm_k1z_xmmm32, Op0_Write | Op1_Read | CPUID_AVX512F | Encoding_EVEX,
-			(uint)Code.VEX_Vbroadcastsd_ymm_xmmm64, Op0_Write | Op1_Read | CPUID_AVX | Encoding_VEX,
+			(uint)Code.VEX_Vbroadcastsd_ymm_xmmm64, Op0_Write | Op1_Read | AVX2_Check | CPUID_AVX | Encoding_VEX,
 			(uint)Code.EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64, Op0_Write | Op1_Read | CPUID_AVX512DQ | Encoding_EVEX,
 			(uint)Code.EVEX_Vbroadcastsd_ymm_k1z_xmmm64, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512F | Encoding_EVEX,

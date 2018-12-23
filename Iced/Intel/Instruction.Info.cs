@@ -262,9 +262,10 @@ namespace Iced.Intel {
 		public CpuidFeature CpuidFeature {
 			get {
 				var code = Code;
-				var cpuidFeature = code.CpuidFeature();
-				if (cpuidFeature == CpuidFeature.AVX && Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64))
-					return CpuidFeature.AVX2;
+				uint flags2 = InstructionInfoInternal.InfoHandlers.Data[(int)code * 2 + 1];
+				var cpuidFeature = (CpuidFeature)(flags2 >> (int)InstructionInfoInternal.InfoFlags2.CpuidFeatureShift & (uint)InstructionInfoInternal.InfoFlags2.CpuidFeatureMask);
+				if ((flags2 & (uint)InstructionInfoInternal.InfoFlags2.AVX2_Check) != 0 && Op1Kind == OpKind.Register)
+					cpuidFeature = CpuidFeature.AVX2;
 				return cpuidFeature;
 			}
 		}
