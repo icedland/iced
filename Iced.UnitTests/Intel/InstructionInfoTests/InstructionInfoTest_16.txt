@@ -516,25 +516,25 @@ F3 66 AF, Scasd_EAX_m32, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=eax 
 # pop dword ptr [esp+10h]
 66 67 8F 44 24 10, Pop_rm32, Legacy, INTEL8086, op0=w r=ss rw=xsp r=esp wm=ss:esp+0x14;UInt32 rm=ss:xsp;UInt32 stack=4
 # vmrun ax
-0F01 D8, Vmrunw, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=ds r=ax rm=ds:ax;Unknown
+0F01 D8, Vmrunw, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=ax
 # vmrun eax
-67 0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=ds r=eax rm=ds:eax;Unknown
+67 0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=eax
 # vmmcall
 0F01 D9, Vmmcall, Legacy, SVM, flow=Call
 # vmload ax
-0F01 DA, Vmloadw, Legacy, SVM, pm priv saverestore r=ds r=ax rm=ds:ax;Unknown
+0F01 DA, Vmloadw, Legacy, SVM, pm priv saverestore r=ax
 # vmload eax
-67 0F01 DA, Vmloadd, Legacy, SVM, pm priv saverestore r=ds r=eax rm=ds:eax;Unknown
+67 0F01 DA, Vmloadd, Legacy, SVM, pm priv saverestore r=eax
 # vmsave ax
-0F01 DB, Vmsavew, Legacy, SVM, pm priv saverestore r=ds r=ax wm=ds:ax;Unknown
+0F01 DB, Vmsavew, Legacy, SVM, pm priv saverestore r=ax
 # vmsave eax
-67 0F01 DB, Vmsaved, Legacy, SVM, pm priv saverestore r=ds r=eax wm=ds:eax;Unknown
+67 0F01 DB, Vmsaved, Legacy, SVM, pm priv saverestore r=eax
 # skinit eax
 0F01 DE, Skinit, Legacy, SKINIT_or_SVML, fw=acopszidA pm priv saverestore flow=Return
 # invlpga ax,ecx
-0F01 DF, Invlpgaw, Legacy, SVM, pm priv r=ds;ax;ecx
+0F01 DF, Invlpgaw, Legacy, SVM, pm priv r=ax;ecx
 # invlpga eax,ecx
-67 0F01 DF, Invlpgad, Legacy, SVM, pm priv r=ds;eax;ecx
+67 0F01 DF, Invlpgad, Legacy, SVM, pm priv r=eax;ecx
 # monitorx ax,ecx,edx
 0F01 FA, Monitorxw, Legacy, MONITORX, r=ds;ax;ecx;edx rm=ds:ax;Unknown
 # monitorx eax,ecx,edx
@@ -542,9 +542,9 @@ F3 66 AF, Scasd_EAX_m32, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=eax 
 # mwaitx ax,ecx,ebx
 0F01 FB, Mwaitx, Legacy, MONITORX, r=eax;ecx cr=ebx
 # clzero
-0F01 FC, Clzerow, Legacy, CLZERO, r=ax
+0F01 FC, Clzerow, Legacy, CLZERO, r=ax;ds
 # clzero
-67 0F01 FC, Clzerod, Legacy, CLZERO, r=eax
+67 0F01 FC, Clzerod, Legacy, CLZERO, r=eax;ds
 # add es:[bx+si],bh
 26 00 38, Add_rm8_r8, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=es r=bx;si r=bh rwm=es:bx+si;UInt8
 # add cs:[bx+si],bh
@@ -577,3 +577,15 @@ F3 0FAE F5, Umonitor_r16, Legacy, WAITPKG, op0=r r=ds;bp rm=ds:bp;UInt8
 66 0F38F8 18, Movdir64b_r16_m512, Legacy, MOVDIR64B, op0=r op1=r r=bx r=ds r=es;bx r=si rm=ds:bx+si;UInt512 wm=es:bx;UInt512
 # movdir64b ebx,[eax]
 67 66 0F38F8 18, Movdir64b_r32_m512, Legacy, MOVDIR64B, op0=r op1=r r=es;ebx r=ds r=eax rm=ds:eax;UInt512 wm=es:ebx;UInt512
+# monitor ax,ecx,edx
+64 0F01 C8, Monitorw, Legacy, MONITOR, priv r=fs;ax;ecx;edx rm=fs:ax;Unknown
+# monitor eax,ecx,edx
+64 67 0F01 C8, Monitord, Legacy, MONITOR, priv r=fs;eax;ecx;edx rm=fs:eax;Unknown
+# monitorx ax,ecx,edx
+64 0F01 FA, Monitorxw, Legacy, MONITORX, r=fs;ax;ecx;edx rm=fs:ax;Unknown
+# monitorx eax,ecx,edx
+64 67 0F01 FA, Monitorxd, Legacy, MONITORX, r=fs;eax;ecx;edx rm=fs:eax;Unknown
+# clzero
+64 0F01 FC, Clzerow, Legacy, CLZERO, r=ax;fs
+# clzero
+64 67 0F01 FC, Clzerod, Legacy, CLZERO, r=eax;fs

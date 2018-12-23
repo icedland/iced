@@ -16284,19 +16284,19 @@ FF 74 24 10, Push_rm64, Legacy, INTEL8086, op0=r rw=xsp r=rsp rm=ss:rsp+0x10;UIn
 # pop [esp+10h]
 67 8F 44 24 10, Pop_rm64, Legacy, INTEL8086, op0=w rw=xsp r=esp wm=ss:esp+0x18;UInt64 rm=ss:xsp;UInt64 stack=8
 # vmrun eax
-67 0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=eax rm=ds:eax;Unknown
+67 0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=eax
 # vmrun rax
-0F01 D8, Vmrunq, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=rax rm=ds:rax;Unknown
+0F01 D8, Vmrunq, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=rax
 # vmmcall
 0F01 D9, Vmmcall, Legacy, SVM, flow=Call
 # vmload eax
-67 0F01 DA, Vmloadd, Legacy, SVM, pm priv saverestore r=eax rm=ds:eax;Unknown
+67 0F01 DA, Vmloadd, Legacy, SVM, pm priv saverestore r=eax
 # vmload rax
-0F01 DA, Vmloadq, Legacy, SVM, pm priv saverestore r=rax rm=ds:rax;Unknown
+0F01 DA, Vmloadq, Legacy, SVM, pm priv saverestore r=rax
 # vmsave eax
-67 0F01 DB, Vmsaved, Legacy, SVM, pm priv saverestore r=eax wm=ds:eax;Unknown
+67 0F01 DB, Vmsaved, Legacy, SVM, pm priv saverestore r=eax
 # vmsave rax
-0F01 DB, Vmsaveq, Legacy, SVM, pm priv saverestore r=rax wm=ds:rax;Unknown
+0F01 DB, Vmsaveq, Legacy, SVM, pm priv saverestore r=rax
 # stgi
 0F01 DC, Stgi, Legacy, SKINIT_or_SVML, pm priv
 # clgi
@@ -18457,3 +18457,15 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 62 F1ED4B FB CA, EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512F, op0=rw op1=n op2=n r=zmm1 w=vmm1 r=k3
 # vpsubq zmm1{k3}{z},zmm2,zmm2
 62 F1EDCB FB CA, EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
+# monitor eax,ecx,edx
+64 67 0F01 C8, Monitord, Legacy, MONITOR, priv r=eax;rcx;rdx;fs rm=fs:eax;Unknown
+# monitor rax,rcx,rdx
+64 0F01 C8, Monitorq, Legacy, MONITOR, priv r=rax;rcx;rdx;fs rm=fs:rax;Unknown
+# monitorx eax,rcx,rdx
+64 67 0F01 FA, Monitorxd, Legacy, MONITORX, r=eax;rcx;rdx;fs rm=fs:eax;Unknown
+# monitorx rax,rcx,rdx
+64 0F01 FA, Monitorxq, Legacy, MONITORX, r=rax;rcx;rdx;fs rm=fs:rax;Unknown
+# clzero
+64 67 0F01 FC, Clzerod, Legacy, CLZERO, r=eax;fs
+# clzero
+64 0F01 FC, Clzeroq, Legacy, CLZERO, r=rax;fs

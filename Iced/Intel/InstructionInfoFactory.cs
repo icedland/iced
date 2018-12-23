@@ -1477,15 +1477,8 @@ namespace Iced.Intel {
 					Debug.Assert(code == Code.Vmloadw || code == Code.Vmsavew || code == Code.Vmrunw);
 					baseReg = Register.AX;
 				}
-				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if ((flags & Flags.Is64Bit) == 0)
-						AddRegister(flags, ref usedRegisters, Register.DS, OpAccess.Read);
+				if ((flags & Flags.NoRegisterUsage) == 0)
 					AddRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
-				}
-				if ((flags & Flags.NoMemoryUsage) == 0) {
-					AddMemory(flags, ref usedMemoryLocations, Register.DS, baseReg, Register.None, 1, 0,
-						MemorySize.Unknown, code == Code.Vmsaveq || code == Code.Vmsaved || code == Code.Vmsavew ? OpAccess.Write : OpAccess.Read);
-				}
 				break;
 
 			case CodeInfo.R_CR0:
@@ -1553,6 +1546,12 @@ namespace Iced.Intel {
 						baseReg = Register.AX;
 					}
 					AddRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
+					if ((flags & Flags.NoRegisterUsage) == 0) {
+						baseReg = instruction.SegmentPrefix;
+						if (baseReg == Register.None)
+							baseReg = Register.DS;
+						AddMemorySegmentRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
+					}
 				}
 				break;
 
@@ -1567,8 +1566,6 @@ namespace Iced.Intel {
 						Debug.Assert(code == Code.Invlpgaw);
 						baseReg = Register.AX;
 					}
-					if ((flags & Flags.Is64Bit) == 0)
-						AddRegister(flags, ref usedRegisters, Register.DS, OpAccess.Read);
 					AddRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
 					AddRegister(flags, ref usedRegisters, Register.ECX, OpAccess.Read);
 				}

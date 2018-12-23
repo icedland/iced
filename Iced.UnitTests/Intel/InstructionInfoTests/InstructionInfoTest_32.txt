@@ -978,25 +978,25 @@ C4E379 63 D3 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, VEX, AVX, fw=cosz fc=ap op0=r 
 # vpcmpistri xmm2,[eax],0A5h
 C4E379 63 10 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=ds r=eax rm=ds:eax;Packed128_UInt8 w=ecx
 # vmrun ax
-67 0F01 D8, Vmrunw, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=ds r=ax rm=ds:ax;Unknown
+67 0F01 D8, Vmrunw, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=ax
 # vmrun eax
-0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=ds r=eax rm=ds:eax;Unknown
+0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=eax
 # vmmcall
 0F01 D9, Vmmcall, Legacy, SVM, flow=Call
 # vmload ax
-67 0F01 DA, Vmloadw, Legacy, SVM, pm priv saverestore r=ds r=ax rm=ds:ax;Unknown
+67 0F01 DA, Vmloadw, Legacy, SVM, pm priv saverestore r=ax
 # vmload eax
-0F01 DA, Vmloadd, Legacy, SVM, pm priv saverestore r=ds r=eax rm=ds:eax;Unknown
+0F01 DA, Vmloadd, Legacy, SVM, pm priv saverestore r=eax
 # vmsave ax
-67 0F01 DB, Vmsavew, Legacy, SVM, pm priv saverestore r=ds r=ax wm=ds:ax;Unknown
+67 0F01 DB, Vmsavew, Legacy, SVM, pm priv saverestore r=ax
 # vmsave eax
-0F01 DB, Vmsaved, Legacy, SVM, pm priv saverestore r=ds r=eax wm=ds:eax;Unknown
+0F01 DB, Vmsaved, Legacy, SVM, pm priv saverestore r=eax
 # skinit eax
 0F01 DE, Skinit, Legacy, SKINIT_or_SVML, fw=acopszidA pm priv saverestore flow=Return
 # invlpga ax,ecx
-67 0F01 DF, Invlpgaw, Legacy, SVM, pm priv r=ds;ax;ecx
+67 0F01 DF, Invlpgaw, Legacy, SVM, pm priv r=ax;ecx
 # invlpga eax,ecx
-0F01 DF, Invlpgad, Legacy, SVM, pm priv r=ds;eax;ecx
+0F01 DF, Invlpgad, Legacy, SVM, pm priv r=eax;ecx
 # monitorx ax,ecx,edx
 67 0F01 FA, Monitorxw, Legacy, MONITORX, r=ds;ax;ecx;edx rm=ds:ax;Unknown
 # monitorx eax,ecx,edx
@@ -1004,9 +1004,9 @@ C4E379 63 10 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, VEX, AVX, fw=cosz fc=ap op0=r 
 # mwaitx eax,ecx,ebx
 0F01 FB, Mwaitx, Legacy, MONITORX, r=eax;ecx cr=ebx
 # clzero
-67 0F01 FC, Clzerow, Legacy, CLZERO, r=ax
+67 0F01 FC, Clzerow, Legacy, CLZERO, r=ax;ds
 # clzero
-0F01 FC, Clzerod, Legacy, CLZERO, r=eax
+0F01 FC, Clzerod, Legacy, CLZERO, r=eax;ds
 # add es:[eax],bh
 26 00 38, Add_rm8_r8, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=es r=eax r=bh rwm=es:eax;UInt8
 # add cs:[eax],bh
@@ -1611,3 +1611,15 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 62 F27D4B C7 74 A1 01, EVEX_Vscatterpf1qps_vm64z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
 # vscatterpf1qpd [ecx+zmm4*4+8]{k3}
 62 F2FD4B C7 74 A1 01, EVEX_Vscatterpf1qpd_vm64z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
+# monitor ax,ecx,edx
+64 67 0F01 C8, Monitorw, Legacy, MONITOR, priv r=ax;ecx;edx;fs rm=fs:ax;Unknown
+# monitor eax,ecx,edx
+64 0F01 C8, Monitord, Legacy, MONITOR, priv r=eax;ecx;edx;fs rm=fs:eax;Unknown
+# monitorx ax,ecx,edx
+64 67 0F01 FA, Monitorxw, Legacy, MONITORX, r=ax;ecx;edx;fs rm=fs:ax;Unknown
+# monitorx eax,ecx,edx
+64 0F01 FA, Monitorxd, Legacy, MONITORX, r=eax;ecx;edx;fs rm=fs:eax;Unknown
+# clzero
+64 67 0F01 FC, Clzerow, Legacy, CLZERO, r=ax;fs
+# clzero
+64 0F01 FC, Clzerod, Legacy, CLZERO, r=eax;fs
