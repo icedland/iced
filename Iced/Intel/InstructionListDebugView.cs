@@ -28,12 +28,6 @@ namespace Iced.Intel {
 			this.list = list ?? throw new ArgumentNullException(nameof(list));
 
 		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
-		public Instruction[] Items {
-			get {
-				var instructions = new Instruction[list.Count];
-				list.CopyTo(instructions, 0);
-				return instructions;
-			}
-		}
+		public Instruction[] Items => list.ToArray();
 	}
 }
