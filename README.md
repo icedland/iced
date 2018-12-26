@@ -397,6 +397,6 @@ Disassembled code:
 LGPL v3 or any later version (LGPL = GNU Lesser General Public License)
 
 
-# Credits
+# Icon
 
 Logo `processor` by [Creative Stall](https://thenounproject.com/creativestall/) from the Noun Project
