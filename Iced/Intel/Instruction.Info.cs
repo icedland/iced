@@ -254,7 +254,10 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Instruction encoding, eg. legacy, VEX, EVEX, ...
 		/// </summary>
-		public EncodingKind Encoding => Code.Encoding();
+		public EncodingKind Encoding {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.Encoding();
+		}
 
 		/// <summary>
 		/// CPU or CPUID feature flag
@@ -273,28 +276,43 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Flow control info
 		/// </summary>
-		public FlowControl FlowControl => Code.FlowControl();
+		public FlowControl FlowControl {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.FlowControl();
+		}
 
 		/// <summary>
 		/// true if the instruction isn't available in real mode or virtual 8086 mode
 		/// </summary>
-		public bool ProtectedMode => Code.ProtectedMode();
+		public bool ProtectedMode {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.ProtectedMode();
+		}
 
 		/// <summary>
 		/// true if this is a privileged instruction
 		/// </summary>
-		public bool Privileged => Code.Privileged();
+		public bool Privileged {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.Privileged();
+		}
 
 		/// <summary>
 		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
 		/// See also <see cref="StackPointerIncrement"/>
 		/// </summary>
-		public bool StackInstruction => Code.StackInstruction();
+		public bool StackInstruction {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.StackInstruction();
+		}
 
 		/// <summary>
 		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
 		/// </summary>
-		public bool SaveRestoreInstruction => Code.SaveRestoreInstruction();
+		public bool SaveRestoreInstruction {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.SaveRestoreInstruction();
+		}
 
 		InstructionInfoInternal.RflagsInfo GetRflagsInfo() {
 			var flags1 = InstructionInfoInternal.InfoHandlers.Data[(int)Code << 1];
