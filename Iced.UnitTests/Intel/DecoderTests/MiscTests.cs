@@ -243,7 +243,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var decoderDict16 = new Dictionary<DecoderOptions, Decoder>();
 			var decoderDict32 = new Dictionary<DecoderOptions, Decoder>();
 			var decoderDict64 = new Dictionary<DecoderOptions, Decoder>();
-			foreach (var info in DecoderTestUtils.GetDecoderTests(needHexBytes: true, includeOtherTests: false)) {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false)) {
 				var data = HexUtils.ToByteArray(info.HexBytes);
 				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(data), info.Options);
 				Decoder decoderAll;

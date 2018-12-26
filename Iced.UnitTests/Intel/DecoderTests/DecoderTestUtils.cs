@@ -667,36 +667,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Test_rm64_imm32_F7r1;
 		}
 
-		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool needHexBytes, bool includeOtherTests) {
-#if DEBUG
-			needHexBytes = true;
-#endif
-			var codeNames = Enum.GetNames(typeof(Code));
-			var nameToIndex = new Dictionary<string, int>(codeNames.Length, StringComparer.Ordinal);
-			for (int i = 0; i < codeNames.Length; i++) {
-				if ((Code)i == Code.INVALID)
-					continue;
-				nameToIndex.Add(codeNames[i], i);
-			}
+		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool includeOtherTests) {
+			foreach (var tc in DecoderTestCases.TestCases16)
+				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.DecoderOptions);
+			foreach (var tc in DecoderTestCases.TestCases32)
+				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.DecoderOptions);
+			foreach (var tc in DecoderTestCases.TestCases64)
+				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.DecoderOptions);
 
+			if (!includeOtherTests)
+				yield break;
 			var otherTests = new HashSet<string>(StringComparer.Ordinal);
 			otherTests.Add(nameof(PrefixTests));
-
 			var thisType = typeof(DecoderTestUtils);
 			foreach (var type in thisType.Assembly.GetTypes()) {
 				if (!type.IsPublic || type.Namespace != "Iced.UnitTests.Intel.DecoderTests")
 					continue;
-				bool isDecoderTest;
-				// Only instruction tests have this prefix
-				if (type.Name.StartsWith("DecoderTest_"))
-					isDecoderTest = true;
-				else if (type.Name.StartsWith("MemoryTest"))
-					isDecoderTest = false;
-				else if (otherTests.Contains(type.Name))
-					isDecoderTest = false;
-				else
-					continue;
-				if (!isDecoderTest && !includeOtherTests)
+				if (!type.Name.StartsWith("MemoryTest") && !otherTests.Contains(type.Name))
 					continue;
 
 				foreach (var method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)) {
@@ -715,47 +702,20 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						continue;
 					Assert.True(method.IsDefined(typeof(FactAttribute), inherit: false));
 
-					bool hasCodeInMethodName;
-					int codeValueIndex;
-					if (isDecoderTest) {
-						// Verify that name matches pattern Test{16,32,64}_{OptionalCodeValue}_{number}
-						int index = name.LastIndexOf('_');
-						Assert.False(index < 0);
-						for (int i = index + 1; i < name.Length; i++)
-							Assert.True(char.IsNumber(name[i]));
-						var codeName = name.Substring("Test16_".Length, index - "Test16_".Length);
-						hasCodeInMethodName = nameToIndex.TryGetValue(codeName, out codeValueIndex);
-						Assert.True(!hasCodeInMethodName || (Code)codeValueIndex != Code.INVALID);
-					}
-					else {
-						hasCodeInMethodName = false;
-						codeValueIndex = 0;
-					}
-
-					bool hadInlineCodeValue = false;
 					foreach (var ca in method.GetCustomAttributesData()) {
 						if (ca.AttributeType == typeof(InlineDataAttribute)) {
 							Assert.Equal(1, ca.ConstructorArguments.Count);
 							var values = (IList<CustomAttributeTypedArgument>)ca.ConstructorArguments[0].Value;
-							Assert.True(values.Count >= 2);
+							Assert.True(values.Count >= 3);
 							Assert.True(values[0].ArgumentType == typeof(string));
 							Assert.True(values[1].ArgumentType == typeof(int));
-							Code code;
-							if (values.Count >= 3 && values[2].ArgumentType == typeof(Code)) {
-								code = (Code)(int)values[2].Value;
-								Assert.True(!hasCodeInMethodName || (Code)codeValueIndex == code);
-							}
-							else {
-								Assert.True(hasCodeInMethodName);
-								code = (Code)codeValueIndex;
-							}
+							Assert.True(values[2].ArgumentType == typeof(Code));
 							int last = values.Count - 1;
 							if (values[last].ArgumentType == typeof(DecoderOptions))
 								options = (DecoderOptions)(uint)values[last].Value;
 							else
 								options = DecoderOptions.None;
-							hadInlineCodeValue = true;
-							yield return new DecoderTestInfo(bitness, code, (string)values[0].Value, options);
+							yield return new DecoderTestInfo(bitness, (Code)(int)values[2].Value, (string)values[0].Value, options);
 						}
 						else if (ca.AttributeType == typeof(MemberDataAttribute)) {
 							Assert.Equal(2, ca.ConstructorArguments.Count);
@@ -763,7 +723,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 							var testCaseValues = (IEnumerable<object[]>)type.GetProperty(propertyName).GetGetMethod().Invoke(null, Array.Empty<object>());
 							foreach (var tc in testCaseValues) {
 								Assert.True(tc.Length >= 2);
-								if (!isDecoderTest && tc[1] is Code) {
+								if (tc[1] is Code) {
 									Assert.True(tc.Length >= 2);
 									Assert.True(tc[0] is string);
 									Assert.True(tc[1] is Code);
@@ -784,22 +744,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 										options = DecoderOptions.None;
 									yield return new DecoderTestInfo(bitness, (Code)tc[2], (string)tc[0], options);
 								}
-								hadInlineCodeValue = true;
 							}
 						}
-					}
-
-					if (!hadInlineCodeValue) {
-						Assert.True(hasCodeInMethodName);
-						string hexBytes;
-						if (!needHexBytes)
-							hexBytes = null;
-						else {
-							hexBytes = GetHexBytes(method);
-							Assert.NotNull(hexBytes);
-						}
-						options = DecoderOptions.None;
-						yield return new DecoderTestInfo(bitness, (Code)codeValueIndex, hexBytes, options);
 					}
 				}
 			}

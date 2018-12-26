@@ -169,7 +169,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		}
 
 		protected static IEnumerable<object[]> GetEncodeData(int codeSize) {
-			foreach (var info in DecoderTestUtils.GetDecoderTests(needHexBytes: true, includeOtherTests: true)) {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: true)) {
 				if (codeSize != info.Bitness)
 					continue;
 				yield return new object[] { info.Bitness, info.Code, info.HexBytes, info.Options };

@@ -36,19 +36,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		protected Decoder CreateDecoder64(string hexBytes, [CallerMemberName] string callerName = null) =>
 			CreateDecoder(64, callerName, hexBytes, DecoderOptions.None);
 
-		protected Decoder CreateDecoder16(string hexBytes, DecoderOptions options, [CallerMemberName] string callerName = null) =>
-			CreateDecoder(16, callerName, hexBytes, options);
-		protected Decoder CreateDecoder32(string hexBytes, DecoderOptions options, [CallerMemberName] string callerName = null) =>
-			CreateDecoder(32, callerName, hexBytes, options);
-		protected Decoder CreateDecoder64(string hexBytes, DecoderOptions options, [CallerMemberName] string callerName = null) =>
-			CreateDecoder(64, callerName, hexBytes, options);
-
 		Decoder CreateDecoder(int codeSize, string callerName, string hexBytes, DecoderOptions options) {
 			Assert.StartsWith("Test" + codeSize.ToString(), callerName);
-			return CreateDecoder(codeSize, hexBytes, options);
+			return CreateDecoder(codeSize, hexBytes, options).decoder;
 		}
 
-		Decoder CreateDecoder(int codeSize, string hexBytes, DecoderOptions options) {
+		(Decoder decoder, int byteLength) CreateDecoder(int codeSize, string hexBytes, DecoderOptions options) {
 			Decoder decoder;
 			var codeReader = new ByteArrayCodeReader(hexBytes);
 			switch (codeSize) {
@@ -72,11 +65,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			}
 
 			Assert.Equal(codeSize, decoder.Bitness);
-			return decoder;
+			return (decoder, codeReader.Count);
 		}
 
-		protected void DecodeMemOpsBase(int bitness, string hexBytes, int byteLength, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize) {
-			var decoder = CreateDecoder(bitness, hexBytes, DecoderOptions.None);
+		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize) {
+			var (decoder, byteLength) = CreateDecoder(bitness, hexBytes, DecoderOptions.None);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -134,20 +127,19 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				if (line.Length == 0 || line[0] == '#')
 					continue;
 				var parts = line.Split(colSep, StringSplitOptions.None);
-				if (parts.Length != 11)
+				if (parts.Length != 10)
 					throw new InvalidOperationException();
 				string hexBytes = parts[0].Trim();
-				int byteLength = (int)ParseUInt32(parts[1].Trim());
-				var code = toCode[parts[2].Trim()];
-				var register = toRegister[parts[3].Trim()];
-				var prefixSeg = toRegister[parts[4].Trim()];
-				var segReg = toRegister[parts[5].Trim()];
-				var baseReg = toRegister[parts[6].Trim()];
-				var indexReg = toRegister[parts[7].Trim()];
-				int scale = (int)ParseUInt32(parts[8].Trim());
-				uint displ = ParseUInt32(parts[9].Trim());
-				int displSize = (int)ParseUInt32(parts[10].Trim());
-				yield return new object[11] { hexBytes, byteLength, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize };
+				var code = toCode[parts[1].Trim()];
+				var register = toRegister[parts[2].Trim()];
+				var prefixSeg = toRegister[parts[3].Trim()];
+				var segReg = toRegister[parts[4].Trim()];
+				var baseReg = toRegister[parts[5].Trim()];
+				var indexReg = toRegister[parts[6].Trim()];
+				int scale = (int)ParseUInt32(parts[7].Trim());
+				uint displ = ParseUInt32(parts[8].Trim());
+				int displSize = (int)ParseUInt32(parts[9].Trim());
+				yield return new object[10] { hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize };
 			}
 
 			uint ParseUInt32(string s) {
@@ -160,6 +152,199 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				}
 
 				throw new InvalidOperationException();
+			}
+		}
+
+		protected static IEnumerable<object[]> GetDecoderTestData(int bitness, int index) {
+			var allTestCases = DecoderTestCases.GetTestCases(bitness);
+			const int TotalClasses = 8;
+			if ((uint)index >= (uint)TotalClasses)
+				throw new InvalidOperationException();
+			int countPerClass = (allTestCases.Length + TotalClasses - 1) / TotalClasses;
+			int startIndex = index * countPerClass;
+			int endIndex = Math.Min(allTestCases.Length, startIndex + countPerClass);
+			object boxedBitness = bitness;
+			while (startIndex < endIndex) {
+				var tc = allTestCases[startIndex++];
+				Debug.Assert(bitness == tc.Bitness);
+				yield return new object[4] { boxedBitness, tc.LineNumber, tc.HexBytes, tc };
+			}
+		}
+
+		internal void DecoderTestBase(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) {
+			var (decoder, byteLength) = CreateDecoder(bitness, hexBytes, tc.DecoderOptions);
+			ulong rip = decoder.InstructionPointer;
+			decoder.Decode(out var instr);
+			Assert.Equal(tc.Code, instr.Code);
+			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(rip, instr.IP64);
+			Assert.Equal(decoder.InstructionPointer, instr.NextIP64);
+			Assert.Equal(tc.OpCount, instr.OpCount);
+			Assert.Equal(tc.ZeroingMasking, instr.ZeroingMasking);
+			Assert.Equal(!tc.ZeroingMasking, instr.MergingMasking);
+			Assert.Equal(tc.SuppressAllExceptions, instr.SuppressAllExceptions);
+			Assert.Equal(tc.IsBroadcast, instr.IsBroadcast);
+			Assert.Equal(tc.HasXacquirePrefix, instr.HasXacquirePrefix);
+			Assert.Equal(tc.HasXreleasePrefix, instr.HasXreleasePrefix);
+			Assert.Equal(tc.HasRepePrefix, instr.HasRepePrefix);
+			Assert.Equal(tc.HasRepnePrefix, instr.HasRepnePrefix);
+			Assert.Equal(tc.HasLockPrefix, instr.HasLockPrefix);
+			switch (tc.VsibBitness) {
+			case 0:
+				Assert.False(instr.IsVsib);
+				Assert.False(instr.IsVsib32);
+				Assert.False(instr.IsVsib64);
+				Assert.False(instr.TryGetVsib64(out _));
+				break;
+
+			case 32:
+				Assert.True(instr.IsVsib);
+				Assert.True(instr.IsVsib32);
+				Assert.False(instr.IsVsib64);
+				Assert.True(instr.TryGetVsib64(out bool vsib64) && !vsib64);
+				break;
+
+			case 64:
+				Assert.True(instr.IsVsib);
+				Assert.False(instr.IsVsib32);
+				Assert.True(instr.IsVsib64);
+				Assert.True(instr.TryGetVsib64(out vsib64) && vsib64);
+				break;
+
+			default:
+				throw new InvalidOperationException();
+			}
+			Assert.Equal(tc.OpMask, instr.OpMask);
+			Assert.Equal(tc.OpMask != Register.None, instr.HasOpMask);
+			Assert.Equal(tc.RoundingControl, instr.RoundingControl);
+			Assert.Equal(tc.SegmentPrefix, instr.SegmentPrefix);
+			for (int i = 0; i < tc.OpCount; i++) {
+				var opKind = tc.GetOpKind(i);
+				Assert.Equal(opKind, instr.GetOpKind(i));
+				switch (opKind) {
+				case OpKind.Register:
+					Assert.Equal(tc.GetOpRegister(i), instr.GetOpRegister(i));
+					break;
+
+				case OpKind.NearBranch16:
+					Assert.Equal(tc.NearBranch, instr.NearBranch16);
+					break;
+
+				case OpKind.NearBranch32:
+					Assert.Equal(tc.NearBranch, instr.NearBranch32);
+					break;
+
+				case OpKind.NearBranch64:
+					Assert.Equal(tc.NearBranch, instr.NearBranch64);
+					break;
+
+				case OpKind.FarBranch16:
+					Assert.Equal(tc.FarBranch, instr.FarBranch16);
+					Assert.Equal(tc.FarBranchSelector, instr.FarBranchSelector);
+					break;
+
+				case OpKind.FarBranch32:
+					Assert.Equal(tc.FarBranch, instr.FarBranch32);
+					Assert.Equal(tc.FarBranchSelector, instr.FarBranchSelector);
+					break;
+
+				case OpKind.Immediate8:
+					Assert.Equal((byte)tc.Immediate, instr.Immediate8);
+					break;
+
+				case OpKind.Immediate8_2nd:
+					Assert.Equal(tc.Immediate_2nd, instr.Immediate8_2nd);
+					break;
+
+				case OpKind.Immediate16:
+					Assert.Equal((ushort)tc.Immediate, instr.Immediate16);
+					break;
+
+				case OpKind.Immediate32:
+					Assert.Equal((uint)tc.Immediate, instr.Immediate32);
+					break;
+
+				case OpKind.Immediate64:
+					Assert.Equal(tc.Immediate, instr.Immediate64);
+					break;
+
+				case OpKind.Immediate8to16:
+					Assert.Equal((short)tc.Immediate, instr.Immediate8to16);
+					break;
+
+				case OpKind.Immediate8to32:
+					Assert.Equal((int)tc.Immediate, instr.Immediate8to32);
+					break;
+
+				case OpKind.Immediate8to64:
+					Assert.Equal((long)tc.Immediate, instr.Immediate8to64);
+					break;
+
+				case OpKind.Immediate32to64:
+					Assert.Equal((long)tc.Immediate, instr.Immediate32to64);
+					break;
+
+				case OpKind.MemorySegSI:
+				case OpKind.MemorySegESI:
+				case OpKind.MemorySegRSI:
+				case OpKind.MemorySegDI:
+				case OpKind.MemorySegEDI:
+				case OpKind.MemorySegRDI:
+					Assert.Equal(tc.MemorySegment, instr.MemorySegment);
+					Assert.Equal(tc.MemorySize, instr.MemorySize);
+					break;
+
+				case OpKind.MemoryESDI:
+				case OpKind.MemoryESEDI:
+				case OpKind.MemoryESRDI:
+					Assert.Equal(tc.MemorySize, instr.MemorySize);
+					break;
+
+				case OpKind.Memory64:
+					Assert.Equal(tc.MemorySegment, instr.MemorySegment);
+					Assert.Equal(tc.MemoryAddress64, instr.MemoryAddress64);
+					Assert.Equal(tc.MemorySize, instr.MemorySize);
+					break;
+
+				case OpKind.Memory:
+					Assert.Equal(tc.MemorySegment, instr.MemorySegment);
+					Assert.Equal(tc.MemoryBase, instr.MemoryBase);
+					Assert.Equal(tc.MemoryIndex, instr.MemoryIndex);
+					Assert.Equal(tc.MemoryIndexScale, instr.MemoryIndexScale);
+					Assert.Equal(tc.MemoryDisplacement, instr.MemoryDisplacement);
+					Assert.Equal(tc.MemoryDisplSize, instr.MemoryDisplSize);
+					Assert.Equal(tc.MemorySize, instr.MemorySize);
+					break;
+
+				default:
+					throw new InvalidOperationException();
+				}
+			}
+			if (tc.OpCount >= 1) {
+				Assert.Equal(tc.Op0Kind, instr.Op0Kind);
+				if (tc.Op0Kind == OpKind.Register)
+					Assert.Equal(tc.Op0Register, instr.Op0Register);
+				if (tc.OpCount >= 2) {
+					Assert.Equal(tc.Op1Kind, instr.Op1Kind);
+					if (tc.Op1Kind == OpKind.Register)
+						Assert.Equal(tc.Op1Register, instr.Op1Register);
+					if (tc.OpCount >= 3) {
+						Assert.Equal(tc.Op2Kind, instr.Op2Kind);
+						if (tc.Op2Kind == OpKind.Register)
+							Assert.Equal(tc.Op2Register, instr.Op2Register);
+						if (tc.OpCount >= 4) {
+							Assert.Equal(tc.Op3Kind, instr.Op3Kind);
+							if (tc.Op3Kind == OpKind.Register)
+								Assert.Equal(tc.Op3Register, instr.Op3Register);
+							if (tc.OpCount >= 5) {
+								Assert.Equal(tc.Op4Kind, instr.Op4Kind);
+								if (tc.Op4Kind == OpKind.Register)
+									Assert.Equal(tc.Op4Register, instr.Op4Register);
+								Assert.Equal(5, tc.OpCount);
+							}
+						}
+					}
+				}
 			}
 		}
 	}

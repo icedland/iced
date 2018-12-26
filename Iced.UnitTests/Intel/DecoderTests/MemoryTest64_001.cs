@@ -25,8 +25,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class MemoryTest64_001 : DecoderTest {
 		[Theory]
 		[MemberData(nameof(Test64_DecodeMemOps_as64_1_Data))]
-		void Test64_DecodeMemOps_as64_1(string hexBytes, int byteLength, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize) =>
-			DecodeMemOpsBase(64, hexBytes, byteLength, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize);
+		void Test64_DecodeMemOps_as64_1(string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize) =>
+			DecodeMemOpsBase(64, hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize);
 		public static IEnumerable<object[]> Test64_DecodeMemOps_as64_1_Data => GetMemOpsData(nameof(MemoryTest64_001));
 	}
 }

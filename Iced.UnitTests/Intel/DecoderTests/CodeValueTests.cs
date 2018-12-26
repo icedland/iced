@@ -41,7 +41,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var tested = new byte[numCodeValues];
 			tested[(int)Code.INVALID] = T16 | T32 | T64;
 
-			foreach (var info in DecoderTestUtils.GetDecoderTests(needHexBytes: false, includeOtherTests: false)) {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false)) {
 				Assert.False(DecoderTestUtils.NotDecoded.Contains(info.Code), $"{info.Code} has a decoder test but it shouldn't be decoded");
 
 				byte testedFlags;
