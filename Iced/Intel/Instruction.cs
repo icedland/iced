@@ -234,8 +234,8 @@ namespace Iced.Intel {
 			return builder.ToString();
 		}
 
-		void ThrowArgumentOutOfRangeException(string paramName) => throw new ArgumentOutOfRangeException(paramName);
-		void ThrowArgumentNullException(string paramName) => throw new ArgumentNullException(paramName);
+		static void ThrowArgumentOutOfRangeException(string paramName) => throw new ArgumentOutOfRangeException(paramName);
+		static void ThrowArgumentNullException(string paramName) => throw new ArgumentNullException(paramName);
 
 		/// <summary>
 		/// 16-bit IP of the instruction
