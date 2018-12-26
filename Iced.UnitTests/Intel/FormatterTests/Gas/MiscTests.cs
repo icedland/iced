@@ -96,12 +96,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			Assert.Equal("0b", options.BinaryPrefix);
 			Assert.Equal(4, options.BinaryDigitGroupSize);
 			Assert.Null(options.DigitSeparator);
-			Assert.True(!options.LeadingZeroes);
+			Assert.False(options.LeadingZeroes);
 			Assert.True(options.UpperCaseHex);
 			Assert.True(options.SmallHexNumbersInDecimal);
 			Assert.True(options.AddLeadingZeroToHexNumbers);
 			Assert.Equal(NumberBase.Hexadecimal, options.NumberBase);
-			Assert.False(!options.BranchLeadingZeroes);
+			Assert.True(options.BranchLeadingZeroes);
 			Assert.False(options.SignedImmediateOperands);
 			Assert.True(options.SignedMemoryDisplacements);
 			Assert.False(options.SignExtendMemoryDisplacements);
