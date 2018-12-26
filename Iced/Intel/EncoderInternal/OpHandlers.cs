@@ -251,7 +251,7 @@ namespace Iced.Intel.EncoderInternal {
 			new OpModRM_rm_reg_only(Register.EAX, Register.R15D),
 			new OpModRM_rm_reg_only(Register.RAX, Register.R15),
 			new OpModRM_reg(Register.ES, Register.GS),
-			new OpModRM_reg(Register.CR0, Register.CR15),
+			new OpModRM_regF0(Register.CR0, Register.CR15),
 			new OpModRM_reg(Register.CR0, Register.CR15),
 			new OpModRM_reg(Register.DR0, Register.DR15),
 			new OpModRM_reg(Register.DR0, Register.DR15),
@@ -680,6 +680,25 @@ namespace Iced.Intel.EncoderInternal {
 
 		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
 			encoder.AddModRMRegister(ref instr, operand, regLo, regHi);
+	}
+
+	sealed class OpModRM_regF0 : Op {
+		readonly Register regLo;
+		readonly Register regHi;
+
+		public OpModRM_regF0(Register regLo, Register regHi) {
+			this.regLo = regLo;
+			this.regHi = regHi;
+		}
+
+		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+			if (encoder.Bitness != 64 && instr.GetOpKind(operand) == OpKind.Register && instr.GetOpRegister(operand) == regLo + 8) {
+				encoder.EncoderFlags |= EncoderFlags.PF0;
+				encoder.AddModRMRegister(ref instr, operand, regLo + 8, regLo + 8);
+			}
+			else
+				encoder.AddModRMRegister(ref instr, operand, regLo, regHi);
+		}
 	}
 
 	sealed class OpReg : Op {

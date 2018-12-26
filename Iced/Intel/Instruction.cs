@@ -408,6 +408,7 @@ namespace Iced.Intel {
 			}
 		}
 		internal void InternalSetHasLockPrefix() => codeFlags |= (uint)CodeFlags.LockPrefix;
+		internal void InternalClearHasLockPrefix() => codeFlags &= ~(uint)CodeFlags.LockPrefix;
 
 		/// <summary>
 		/// Gets operand #0's kind if the operand exists (see <see cref="OpCount"/>)

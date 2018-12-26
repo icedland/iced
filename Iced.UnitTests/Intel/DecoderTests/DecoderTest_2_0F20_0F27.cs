@@ -32,6 +32,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 0F20 B1", 4, Register.ECX, Register.CR6)]
 		[InlineData("66 0F20 5E", 4, Register.ESI, Register.CR3)]
 		[InlineData("66 0F20 31", 4, Register.ECX, Register.CR6)]
+
+		[InlineData("F0 0F20 C1", 4, Register.ECX, Register.CR8)]
 		void Test16_Mov_r32_cr_1(string hexBytes, int byteLength, Register gpReg, Register crReg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -61,6 +63,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 0F20 B1", 4, Register.ECX, Register.CR6)]
 		[InlineData("66 0F20 5E", 4, Register.ESI, Register.CR3)]
 		[InlineData("66 0F20 31", 4, Register.ECX, Register.CR6)]
+
+		[InlineData("F0 0F20 C1", 4, Register.ECX, Register.CR8)]
 		void Test32_Mov_r32_cr_1(string hexBytes, int byteLength, Register gpReg, Register crReg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -140,6 +144,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 4F 0F20 5E", 5, Register.R14, Register.CR11)]
 		[InlineData("66 4F 0F20 B1", 5, Register.R9, Register.CR14)]
 		[InlineData("66 4F 0F20 DE", 5, Register.R14, Register.CR11)]
+
+		[InlineData("F0 0F20 C1", 4, Register.RCX, Register.CR8)]
 		void Test64_Mov_r64_cr_1(string hexBytes, int byteLength, Register gpReg, Register crReg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
@@ -169,6 +175,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 0F22 B1", 4, Register.ECX, Register.CR6)]
 		[InlineData("66 0F22 5E", 4, Register.ESI, Register.CR3)]
 		[InlineData("66 0F22 31", 4, Register.ECX, Register.CR6)]
+
+		[InlineData("F0 0F22 C1", 4, Register.ECX, Register.CR8)]
 		void Test16_Mov_cr_r32_1(string hexBytes, int byteLength, Register gpReg, Register crReg) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
@@ -198,6 +206,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 0F22 B1", 4, Register.ECX, Register.CR6)]
 		[InlineData("66 0F22 5E", 4, Register.ESI, Register.CR3)]
 		[InlineData("66 0F22 31", 4, Register.ECX, Register.CR6)]
+
+		[InlineData("F0 0F22 C1", 4, Register.ECX, Register.CR8)]
 		void Test32_Mov_cr_r32_1(string hexBytes, int byteLength, Register gpReg, Register crReg) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
@@ -277,6 +287,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("66 4F 0F22 5E", 5, Register.R14, Register.CR11)]
 		[InlineData("66 4F 0F22 B1", 5, Register.R9, Register.CR14)]
 		[InlineData("66 4F 0F22 DE", 5, Register.R14, Register.CR11)]
+
+		[InlineData("F0 0F22 C1", 4, Register.RCX, Register.CR8)]
 		void Test64_Mov_cr_r64_1(string hexBytes, int byteLength, Register gpReg, Register crReg) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();

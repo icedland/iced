@@ -643,9 +643,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = (int)state.rm + Register.EAX;
-			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.InternalOp1Register = (int)state.reg + baseReg;
+			// LOCK MOV CR0 is supported by some AMD CPUs
+			if (baseReg == Register.CR0 && state.reg == 0 && instruction.HasLockPrefix) {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp1Kind = OpKind.Register;
+				instruction.InternalOp1Register = Register.CR8;
+				instruction.InternalClearHasLockPrefix();
+			}
+			else {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp1Kind = OpKind.Register;
+				instruction.InternalOp1Register = (int)state.reg + baseReg;
+			}
 		}
 	}
 
@@ -662,9 +671,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			Debug.Assert(OpKind.Register == 0);
-			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = (int)state.reg + baseReg;
+			// LOCK MOV CR0 is supported by some AMD CPUs
+			if (baseReg == Register.CR0 && state.reg == 0 && instruction.HasLockPrefix) {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp0Kind = OpKind.Register;
+				instruction.InternalOp0Register = Register.CR8;
+				instruction.InternalClearHasLockPrefix();
+			}
+			else {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp0Kind = OpKind.Register;
+				instruction.InternalOp0Register = (int)state.reg + baseReg;
+			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = (int)state.rm + Register.EAX;

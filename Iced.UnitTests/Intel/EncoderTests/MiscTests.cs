@@ -181,6 +181,24 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(actual.Length, (int)len);
 			Assert.Equal(expected, actual);
 		}
+
+		// Some AMD CPUs support LOCK MOV CR0 = MOV CR8. Make sure we never encode MOV CR8 in 64-bit mode with a LOCK prefix
+		[Theory]
+		[InlineData("44 0F20 C1", Code.Mov_r64_cr, "44 0F20 C1")]
+		[InlineData("44 0F22 C1", Code.Mov_cr_r64, "44 0F22 C1")]
+		[InlineData("F0 0F20 C1", Code.Mov_r64_cr, "44 0F20 C1")]
+		[InlineData("F0 0F22 C1", Code.Mov_cr_r64, "44 0F22 C1")]
+		void Encode_MOV_CR8_in_64bit_mode_does_not_add_LOCK(string hexBytes, Code code, string encodedBytes) {
+			var decoder = Decoder.Create64(new ByteArrayCodeReader(HexUtils.ToByteArray(hexBytes)));
+			decoder.Decode(out var instr);
+			Assert.Equal(code, instr.Code);
+			var writer = new CodeWriterImpl();
+			var encoder = decoder.CreateEncoder(writer);
+			encoder.Encode(ref instr, 0);
+			var expectedBytes = HexUtils.ToByteArray(encodedBytes);
+			var actualBytes = writer.ToArray();
+			Assert.Equal(expectedBytes, actualBytes);
+		}
 	}
 }
 #endif

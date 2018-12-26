@@ -92,8 +92,9 @@ namespace Iced.Intel.EncoderInternal {
 		b					= 0x00000400,
 		HighLegacy8BitRegs	= 0x00000800,
 		Displ				= 0x00001000,
+		PF0					= 0x00002000,
 
-		VvvvvShift			= 12,// 5 bits
+		VvvvvShift			= 27,// 5 bits
 		VvvvvMask			= 0x1F,
 		// Make sure all bits fit in the enum (static assert)
 		VvvvvMax			= VvvvvMask << (int)VvvvvShift,
@@ -983,7 +984,7 @@ namespace Iced.Intel {
 				Debug.Assert((uint)(seg - Register.ES) < (uint)segmentOverrides.Length);
 				WriteByte(segmentOverrides[seg - Register.ES]);
 			}
-			if (instr.HasLockPrefix)
+			if ((EncoderFlags & EncoderFlags.PF0) != 0 || instr.HasLockPrefix)
 				WriteByte(0xF0);
 			if ((EncoderFlags & EncoderFlags.P66) != 0)
 				WriteByte(0x66);
