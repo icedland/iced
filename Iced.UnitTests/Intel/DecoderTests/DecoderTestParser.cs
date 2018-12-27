@@ -241,31 +241,31 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				case Op0Kind:
 					if (tc.OpCount < 1)
 						throw new InvalidOperationException($"Invalid OpCount: {tc.OpCount} < 1");
-					RedOpKind(tc, 0, value, out tc.Op0Kind, ref tc.Op0Register);
+					ReadOpKind(tc, 0, value, out tc.Op0Kind, ref tc.Op0Register);
 					break;
 
 				case Op1Kind:
 					if (tc.OpCount < 2)
 						throw new InvalidOperationException($"Invalid OpCount: {tc.OpCount} < 2");
-					RedOpKind(tc, 1, value, out tc.Op1Kind, ref tc.Op1Register);
+					ReadOpKind(tc, 1, value, out tc.Op1Kind, ref tc.Op1Register);
 					break;
 
 				case Op2Kind:
 					if (tc.OpCount < 3)
 						throw new InvalidOperationException($"Invalid OpCount: {tc.OpCount} < 3");
-					RedOpKind(tc, 2, value, out tc.Op2Kind, ref tc.Op2Register);
+					ReadOpKind(tc, 2, value, out tc.Op2Kind, ref tc.Op2Register);
 					break;
 
 				case Op3Kind:
 					if (tc.OpCount < 4)
 						throw new InvalidOperationException($"Invalid OpCount: {tc.OpCount} < 4");
-					RedOpKind(tc, 3, value, out tc.Op3Kind, ref tc.Op3Register);
+					ReadOpKind(tc, 3, value, out tc.Op3Kind, ref tc.Op3Register);
 					break;
 
 				case Op4Kind:
 					if (tc.OpCount < 5)
 						throw new InvalidOperationException($"Invalid OpCount: {tc.OpCount} < 5");
-					RedOpKind(tc, 4, value, out tc.Op4Kind, ref tc.Op4Register);
+					ReadOpKind(tc, 4, value, out tc.Op4Kind, ref tc.Op4Register);
 					break;
 
 				case DecoderOptions_AMD:
@@ -385,7 +385,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		static readonly char[] opKindSeps = new char[] { ';' };
-		static void RedOpKind(DecoderTestCase tc, int operand, string value, out OpKind opKind, ref Register opRegister) {
+		static void ReadOpKind(DecoderTestCase tc, int operand, string value, out OpKind opKind, ref Register opRegister) {
 			var parts = value.Split(opKindSeps);
 			switch (parts[0]) {
 			case OpKind_Register:
