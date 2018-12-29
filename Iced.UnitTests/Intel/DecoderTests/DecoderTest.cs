@@ -155,13 +155,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			}
 		}
 
-		protected static IEnumerable<object[]> GetDecoderTestData(int bitness, int index) {
+		protected static IEnumerable<object[]> GetDecoderTestData(int bitness, int classIndex) {
 			var allTestCases = DecoderTestCases.GetTestCases(bitness);
 			const int TotalClasses = 8;
-			if ((uint)index >= (uint)TotalClasses)
+			if ((uint)classIndex >= (uint)TotalClasses)
 				throw new InvalidOperationException();
 			int countPerClass = (allTestCases.Length + TotalClasses - 1) / TotalClasses;
-			int startIndex = index * countPerClass;
+			int startIndex = classIndex * countPerClass;
 			int endIndex = Math.Min(allTestCases.Length, startIndex + countPerClass);
 			object boxedBitness = bitness;
 			while (startIndex < endIndex) {
