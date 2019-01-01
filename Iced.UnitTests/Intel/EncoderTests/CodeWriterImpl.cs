@@ -1,4 +1,4 @@
-﻿/*
+/*
     Copyright (C) 2018-2019 de4dot@gmail.com
 
     This file is part of Iced.
