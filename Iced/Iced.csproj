@@ -10,7 +10,7 @@
     <PackageId>Iced</PackageId>
     <PackageIconUrl>https://raw.githubusercontent.com/0xd4d/iced/master/logo.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/0xd4d/iced</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/0xd4d/iced/blob/master/COPYING.txt</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/0xd4d/iced/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageVersion>$(InformationalVersion)</PackageVersion>
     <PackageTags>x86;x64;encoder;decoder;formatter;disassembler</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -31,14 +31,13 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 - API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
 - All instructions are tested (decode, encode, format, instruction info)
 
-License: LGPL v3 or any later version (LGPL = GNU Lesser General Public License)
+License: MIT
 </PackageDescription>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\COPYING.txt" Pack="true" PackagePath="COPYING.txt"/>
-    <None Include="..\COPYING.LESSER" Pack="true" PackagePath="COPYING.LESSER"/>
+    <None Include="..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
   </ItemGroup>
 
   <ItemGroup>

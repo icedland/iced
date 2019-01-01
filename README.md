@@ -394,7 +394,7 @@ Disassembled code:
 
 # License
 
-LGPL v3 or any later version (LGPL = GNU Lesser General Public License)
+MIT
 
 
 # Icon
