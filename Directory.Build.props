@@ -1,7 +1,7 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <Copyright>Copyright (C) 2018 de4dot@gmail.com</Copyright>
+    <Copyright>Copyright (C) 2018-2019 de4dot@gmail.com</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Version>1.0.2</Version>
     <Authors>0xd4d</Authors>
