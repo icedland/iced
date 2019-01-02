@@ -1600,9 +1600,9 @@ namespace Iced.Intel {
 			0,// Verw_r32m16
 			(byte)MemorySize.UInt16,// Verw_r64m16
 			0,// Verw_r64m16
-			(byte)MemorySize.UInt16,// Jmpe_rm16
+			(byte)MemorySize.WordOffset,// Jmpe_rm16
 			0,// Jmpe_rm16
-			(byte)MemorySize.UInt32,// Jmpe_rm32
+			(byte)MemorySize.DwordOffset,// Jmpe_rm32
 			0,// Jmpe_rm32
 			(byte)MemorySize.Fword5,// Sgdt_m40
 			0,// Sgdt_m40

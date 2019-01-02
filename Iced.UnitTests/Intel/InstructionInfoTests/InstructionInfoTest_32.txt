@@ -1072,11 +1072,11 @@ DF E2, Fstsg_AX, Legacy, FPU387SL_ONLY, decopt=oldfpu op0=w w=ax
 # jmpe cx
 66 0F00 F1, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=cx
 # jmpe word ptr [eax]
-66 0F00 30, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;UInt16
+66 0F00 30, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;WordOffset
 # jmpe edx
 0F00 F2, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=edx
 # jmpe dword ptr [eax]
-0F00 30, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;UInt32
+0F00 30, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;DwordOffset
 # loadallreset286
 0F04, Loadallreset286, Legacy, INTEL286_ONLY, decopt=loadall286 priv saverestore
 # loadall286

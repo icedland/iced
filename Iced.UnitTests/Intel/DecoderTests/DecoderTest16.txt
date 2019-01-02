@@ -2009,10 +2009,10 @@ FF 30, Push_rm16, 1, op0=m;ds;bx;si;1;0;0;UInt16
 66 0F00 28, Verw_r32m16, 1, op0=m;ds;bx;si;1;0;0;UInt16
 
 0F00 F1, Jmpe_rm16, 1, op0=r;cx
-0F00 30, Jmpe_rm16, 1, op0=m;ds;bx;si;1;0;0;UInt16
+0F00 30, Jmpe_rm16, 1, op0=m;ds;bx;si;1;0;0;WordOffset
 
 66 0F00 F2, Jmpe_rm32, 1, op0=r;edx
-66 0F00 30, Jmpe_rm32, 1, op0=m;ds;bx;si;1;0;0;UInt32
+66 0F00 30, Jmpe_rm32, 1, op0=m;ds;bx;si;1;0;0;DwordOffset
 
 0F01 00, Sgdt_m40, 1, op0=m;ds;bx;si;1;0;0;Fword5
 
