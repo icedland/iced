@@ -136,21 +136,6 @@ namespace Iced.Intel {
 		MemorySegRDI,
 
 		/// <summary>
-		/// es:[si]. This operand kind uses <see cref="Instruction.MemorySize"/>
-		/// </summary>
-		MemoryESSI,
-
-		/// <summary>
-		/// es:[esi]. This operand kind uses <see cref="Instruction.MemorySize"/>
-		/// </summary>
-		MemoryESESI,
-
-		/// <summary>
-		/// es:[rsi]. This operand kind uses <see cref="Instruction.MemorySize"/>
-		/// </summary>
-		MemoryESRSI,
-
-		/// <summary>
 		/// es:[di]. This operand kind uses <see cref="Instruction.MemorySize"/>
 		/// </summary>
 		MemoryESDI,

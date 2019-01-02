@@ -48,9 +48,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 		MemorySegDI = OpKind.MemorySegDI,
 		MemorySegEDI = OpKind.MemorySegEDI,
 		MemorySegRDI = OpKind.MemorySegRDI,
-		MemoryESSI = OpKind.MemoryESSI,
-		MemoryESESI = OpKind.MemoryESESI,
-		MemoryESRSI = OpKind.MemoryESRSI,
 		MemoryESDI = OpKind.MemoryESDI,
 		MemoryESEDI = OpKind.MemoryESEDI,
 		MemoryESRDI = OpKind.MemoryESRDI,
@@ -550,19 +547,16 @@ namespace Iced.Intel.NasmFormatterInternal {
 			switch (opKind) {
 			case OpKind.MemorySegSI:
 			case OpKind.MemorySegDI:
-			case OpKind.MemoryESSI:
 			case OpKind.MemoryESDI:
 				return InstrOpInfoFlags.AddrSize16;
 
 			case OpKind.MemorySegESI:
 			case OpKind.MemorySegEDI:
-			case OpKind.MemoryESESI:
 			case OpKind.MemoryESEDI:
 				return InstrOpInfoFlags.AddrSize32;
 
 			case OpKind.MemorySegRSI:
 			case OpKind.MemorySegRDI:
-			case OpKind.MemoryESRSI:
 			case OpKind.MemoryESRDI:
 				return InstrOpInfoFlags.AddrSize64;
 
@@ -1870,49 +1864,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 			default:
 				throw new InvalidOperationException();
 			}
-		}
-	}
-
-	sealed class SimpleInstrInfo_padlock : InstrInfo {
-		readonly string mnemonic;
-
-		public SimpleInstrInfo_padlock(Code code, string mnemonic)
-			: base(code) => this.mnemonic = mnemonic;
-
-		static int GetAddressSize(OpKind opKind) {
-			switch (opKind) {
-			case OpKind.MemoryESSI:
-			case OpKind.MemoryESDI:
-				return 16;
-
-			case OpKind.MemoryESESI:
-			case OpKind.MemoryESEDI:
-				return 32;
-
-			case OpKind.MemoryESRSI:
-			case OpKind.MemoryESRDI:
-				return 64;
-
-			default:
-				throw new InvalidOperationException();
-			}
-		}
-
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
-			InstrOpInfoFlags flags = 0;
-			var instrCodeSize = GetCodeSize(instr.CodeSize);
-			var addrSize = GetAddressSize(instr.Op0Kind);
-			if (instrCodeSize != 0 && instrCodeSize != addrSize) {
-				if (addrSize == 16)
-					flags |= InstrOpInfoFlags.AddrSize16;
-				else if (addrSize == 32)
-					flags |= InstrOpInfoFlags.AddrSize32;
-				else
-					flags |= InstrOpInfoFlags.AddrSize64;
-			}
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
-			Debug.Assert(info.OpCount == 1);
-			info.OpCount = 0;
 		}
 	}
 }

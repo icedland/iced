@@ -26,7 +26,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos32_000 {
-		public const int AllInfos_Length = 639;
+		public const int AllInfos_Length = 675;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(32, "66 06", Code.Pushw_ES),
 			new InstructionInfo(32, "06", Code.Pushd_ES),
@@ -667,6 +667,42 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(32, "64 67 0F01 FA", Code.Monitorxw),
 			new InstructionInfo(32, "64 67 0F01 FC", Code.Clzerow),
 			new InstructionInfo(32, "64 67 F3 0FAE F5", Code.Umonitor_r16),
+			new InstructionInfo(32, "F3 0FA6 C0", Code.Montmul_32),
+			new InstructionInfo(32, "67 F3 0FA6 C0", Code.Montmul_16),
+			new InstructionInfo(32, "0FA6 C0", Code.Montmul_32),
+			new InstructionInfo(32, "67 0FA6 C0", Code.Montmul_16),
+			new InstructionInfo(32, "F3 0FA6 C8", Code.Xsha1_32),
+			new InstructionInfo(32, "67 F3 0FA6 C8", Code.Xsha1_16),
+			new InstructionInfo(32, "0FA6 C8", Code.Xsha1_32),
+			new InstructionInfo(32, "67 0FA6 C8", Code.Xsha1_16),
+			new InstructionInfo(32, "F3 0FA6 D0", Code.Xsha256_32),
+			new InstructionInfo(32, "67 F3 0FA6 D0", Code.Xsha256_16),
+			new InstructionInfo(32, "0FA6 D0", Code.Xsha256_32),
+			new InstructionInfo(32, "67 0FA6 D0", Code.Xsha256_16),
+			new InstructionInfo(32, "F3 0FA7 C0", Code.Xstore_32),
+			new InstructionInfo(32, "67 F3 0FA7 C0", Code.Xstore_16),
+			new InstructionInfo(32, "0FA7 C0", Code.Xstore_32),
+			new InstructionInfo(32, "67 0FA7 C0", Code.Xstore_16),
+			new InstructionInfo(32, "F3 0FA7 C8", Code.XcryptEcb_32),
+			new InstructionInfo(32, "67 F3 0FA7 C8", Code.XcryptEcb_16),
+			new InstructionInfo(32, "0FA7 C8", Code.XcryptEcb_32),
+			new InstructionInfo(32, "67 0FA7 C8", Code.XcryptEcb_16),
+			new InstructionInfo(32, "F3 0FA7 D0", Code.XcryptCbc_32),
+			new InstructionInfo(32, "67 F3 0FA7 D0", Code.XcryptCbc_16),
+			new InstructionInfo(32, "0FA7 D0", Code.XcryptCbc_32),
+			new InstructionInfo(32, "67 0FA7 D0", Code.XcryptCbc_16),
+			new InstructionInfo(32, "F3 0FA7 D8", Code.XcryptCtr_32),
+			new InstructionInfo(32, "67 F3 0FA7 D8", Code.XcryptCtr_16),
+			new InstructionInfo(32, "0FA7 D8", Code.XcryptCtr_32),
+			new InstructionInfo(32, "67 0FA7 D8", Code.XcryptCtr_16),
+			new InstructionInfo(32, "F3 0FA7 E0", Code.XcryptCfb_32),
+			new InstructionInfo(32, "67 F3 0FA7 E0", Code.XcryptCfb_16),
+			new InstructionInfo(32, "0FA7 E0", Code.XcryptCfb_32),
+			new InstructionInfo(32, "67 0FA7 E0", Code.XcryptCfb_16),
+			new InstructionInfo(32, "F3 0FA7 E8", Code.XcryptOfb_32),
+			new InstructionInfo(32, "67 F3 0FA7 E8", Code.XcryptOfb_16),
+			new InstructionInfo(32, "0FA7 E8", Code.XcryptOfb_32),
+			new InstructionInfo(32, "67 0FA7 E8", Code.XcryptOfb_16),
 		};
 	}
 }

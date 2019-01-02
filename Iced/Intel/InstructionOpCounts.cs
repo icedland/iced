@@ -1985,17 +1985,35 @@ namespace Iced.Intel {
 			3,// Shld_rm16_r16_CL
 			3,// Shld_rm32_r32_CL
 			3,// Shld_rm64_r64_CL
-			1,// Montmul_m
-			1,// Xsha1_m
-			1,// Xsha256_m
+			0,// Montmul_16
+			0,// Montmul_32
+			0,// Montmul_64
+			0,// Xsha1_16
+			0,// Xsha1_32
+			0,// Xsha1_64
+			0,// Xsha256_16
+			0,// Xsha256_32
+			0,// Xsha256_64
 			2,// Xbts_r16_rm16
 			2,// Xbts_r32_rm32
-			1,// Xstore_m
-			1,// XcryptEcb_m
-			1,// XcryptCbc_m
-			1,// XcryptCtr_m
-			1,// XcryptCfb_m
-			1,// XcryptOfb_m
+			0,// Xstore_16
+			0,// Xstore_32
+			0,// Xstore_64
+			0,// XcryptEcb_16
+			0,// XcryptEcb_32
+			0,// XcryptEcb_64
+			0,// XcryptCbc_16
+			0,// XcryptCbc_32
+			0,// XcryptCbc_64
+			0,// XcryptCtr_16
+			0,// XcryptCtr_32
+			0,// XcryptCtr_64
+			0,// XcryptCfb_16
+			0,// XcryptCfb_32
+			0,// XcryptCfb_64
+			0,// XcryptOfb_16
+			0,// XcryptOfb_32
+			0,// XcryptOfb_64
 			2,// Ibts_rm16_r16
 			2,// Ibts_rm32_r32
 			2,// Cmpxchg486_rm8_r8

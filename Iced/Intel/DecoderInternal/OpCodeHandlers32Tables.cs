@@ -330,7 +330,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			var handlers_Grp_0FA6_hi = new OpCodeHandler[0x40] {
 				// C0
-				new OpCodeHandler_ESrSI(Code.Montmul_m),
+				new OpCodeHandler_Simple5(Code.Montmul_16, Code.Montmul_32, Code.Montmul_64),
 				null,
 				null,
 				null,
@@ -340,7 +340,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				null,
 
 				// C8
-				new OpCodeHandler_ESrSI(Code.Xsha1_m),
+				new OpCodeHandler_Simple5(Code.Xsha1_16, Code.Xsha1_32, Code.Xsha1_64),
 				null,
 				null,
 				null,
@@ -350,7 +350,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				null,
 
 				// D0
-				new OpCodeHandler_ESrSI(Code.Xsha256_m),
+				new OpCodeHandler_Simple5(Code.Xsha256_16, Code.Xsha256_32, Code.Xsha256_64),
 				null,
 				null,
 				null,
@@ -423,7 +423,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 			var handlers_Grp_0FA7_hi = new OpCodeHandler[0x40] {
 				// C0
-				new OpCodeHandler_ESrDI(Code.Xstore_m),
+				new OpCodeHandler_Simple5(Code.Xstore_16, Code.Xstore_32, Code.Xstore_64),
 				null,
 				null,
 				null,
@@ -433,7 +433,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				null,
 
 				// C8
-				new OpCodeHandler_ESrDI(Code.XcryptEcb_m),
+				new OpCodeHandler_Simple5(Code.XcryptEcb_16, Code.XcryptEcb_32, Code.XcryptEcb_64),
 				null,
 				null,
 				null,
@@ -443,7 +443,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				null,
 
 				// D0
-				new OpCodeHandler_ESrDI(Code.XcryptCbc_m),
+				new OpCodeHandler_Simple5(Code.XcryptCbc_16, Code.XcryptCbc_32, Code.XcryptCbc_64),
 				null,
 				null,
 				null,
@@ -453,7 +453,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				null,
 
 				// D8
-				new OpCodeHandler_ESrDI(Code.XcryptCtr_m),
+				new OpCodeHandler_Simple5(Code.XcryptCtr_16, Code.XcryptCtr_32, Code.XcryptCtr_64),
 				null,
 				null,
 				null,
@@ -463,7 +463,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				null,
 
 				// E0
-				new OpCodeHandler_ESrDI(Code.XcryptCfb_m),
+				new OpCodeHandler_Simple5(Code.XcryptCfb_16, Code.XcryptCfb_32, Code.XcryptCfb_64),
 				null,
 				null,
 				null,
@@ -473,7 +473,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				null,
 
 				// E8
-				new OpCodeHandler_ESrDI(Code.XcryptOfb_m),
+				new OpCodeHandler_Simple5(Code.XcryptOfb_16, Code.XcryptOfb_32, Code.XcryptOfb_64),
 				null,
 				null,
 				null,

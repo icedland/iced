@@ -3948,28 +3948,64 @@ namespace Iced.Intel {
 			0,// Shld_rm32_r32_CL
 			(byte)MemorySize.UInt64,// Shld_rm64_r64_CL
 			0,// Shld_rm64_r64_CL
-			(byte)MemorySize.Unknown,// Montmul_m
-			0,// Montmul_m
-			(byte)MemorySize.Unknown,// Xsha1_m
-			0,// Xsha1_m
-			(byte)MemorySize.Unknown,// Xsha256_m
-			0,// Xsha256_m
+			0,// Montmul_16
+			0,// Montmul_16
+			0,// Montmul_32
+			0,// Montmul_32
+			0,// Montmul_64
+			0,// Montmul_64
+			0,// Xsha1_16
+			0,// Xsha1_16
+			0,// Xsha1_32
+			0,// Xsha1_32
+			0,// Xsha1_64
+			0,// Xsha1_64
+			0,// Xsha256_16
+			0,// Xsha256_16
+			0,// Xsha256_32
+			0,// Xsha256_32
+			0,// Xsha256_64
+			0,// Xsha256_64
 			(byte)MemorySize.UInt16,// Xbts_r16_rm16
 			0,// Xbts_r16_rm16
 			(byte)MemorySize.UInt32,// Xbts_r32_rm32
 			0,// Xbts_r32_rm32
-			(byte)MemorySize.Unknown,// Xstore_m
-			0,// Xstore_m
-			(byte)MemorySize.Unknown,// XcryptEcb_m
-			0,// XcryptEcb_m
-			(byte)MemorySize.Unknown,// XcryptCbc_m
-			0,// XcryptCbc_m
-			(byte)MemorySize.Unknown,// XcryptCtr_m
-			0,// XcryptCtr_m
-			(byte)MemorySize.Unknown,// XcryptCfb_m
-			0,// XcryptCfb_m
-			(byte)MemorySize.Unknown,// XcryptOfb_m
-			0,// XcryptOfb_m
+			0,// Xstore_16
+			0,// Xstore_16
+			0,// Xstore_32
+			0,// Xstore_32
+			0,// Xstore_64
+			0,// Xstore_64
+			0,// XcryptEcb_16
+			0,// XcryptEcb_16
+			0,// XcryptEcb_32
+			0,// XcryptEcb_32
+			0,// XcryptEcb_64
+			0,// XcryptEcb_64
+			0,// XcryptCbc_16
+			0,// XcryptCbc_16
+			0,// XcryptCbc_32
+			0,// XcryptCbc_32
+			0,// XcryptCbc_64
+			0,// XcryptCbc_64
+			0,// XcryptCtr_16
+			0,// XcryptCtr_16
+			0,// XcryptCtr_32
+			0,// XcryptCtr_32
+			0,// XcryptCtr_64
+			0,// XcryptCtr_64
+			0,// XcryptCfb_16
+			0,// XcryptCfb_16
+			0,// XcryptCfb_32
+			0,// XcryptCfb_32
+			0,// XcryptCfb_64
+			0,// XcryptCfb_64
+			0,// XcryptOfb_16
+			0,// XcryptOfb_16
+			0,// XcryptOfb_32
+			0,// XcryptOfb_32
+			0,// XcryptOfb_64
+			0,// XcryptOfb_64
 			(byte)MemorySize.UInt16,// Ibts_rm16_r16
 			0,// Ibts_rm16_r16
 			(byte)MemorySize.UInt32,// Ibts_rm32_r32

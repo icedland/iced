@@ -18474,74 +18474,74 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 # clzero
 64 0F01 FC, Clzeroq, Legacy, CLZERO, r=rax;fs
 # rep montmul
-F3 0FA6 C0, Montmul_m, Legacy, PADLOCK_PMM, op0=cr crm=es:rsi;Unknown cr=rsi cw=rdx r=rcx cr=eax cw=rax;rcx
+F3 0FA6 C0, Montmul_64, Legacy, PADLOCK_PMM, crm=es:rsi;Unknown cr=rsi cw=rdx r=rcx cr=eax cw=rax;rcx
 # rep montmul
-67 F3 0FA6 C0, Montmul_m, Legacy, PADLOCK_PMM, op0=cr crm=es:esi;Unknown cr=esi cw=rdx r=ecx cr=eax cw=rax;rcx
+67 F3 0FA6 C0, Montmul_32, Legacy, PADLOCK_PMM, crm=es:esi;Unknown cr=esi cw=rdx r=ecx cr=eax cw=rax;rcx
 # montmul
-0FA6 C0, Montmul_m, Legacy, PADLOCK_PMM, op0=r rm=es:rsi;Unknown r=rsi r=eax w=rax;rdx
+0FA6 C0, Montmul_64, Legacy, PADLOCK_PMM, rm=es:rsi;Unknown r=rsi r=eax w=rax;rdx
 # montmul
-67 0FA6 C0, Montmul_m, Legacy, PADLOCK_PMM, op0=r rm=es:esi;Unknown r=esi r=eax w=rax;rdx
+67 0FA6 C0, Montmul_32, Legacy, PADLOCK_PMM, rm=es:esi;Unknown r=esi r=eax w=rax;rdx
 # rep xsha1
-F3 0FA6 C8, Xsha1_m, Legacy, PADLOCK_PHE, op0=cr crm=es:rdi;Unknown cwm=es:rdi;Unknown crm=es:rsi;Unknown cr=rsi;rdi cw=rsi;rdi cr=rax cw=rax r=rcx cw=rcx
+F3 0FA6 C8, Xsha1_64, Legacy, PADLOCK_PHE, crm=es:rdi;Unknown cwm=es:rdi;Unknown crm=es:rsi;Unknown cr=rsi;rdi cw=rsi;rdi cr=rax cw=rax r=rcx cw=rcx
 # rep xsha1
-67 F3 0FA6 C8, Xsha1_m, Legacy, PADLOCK_PHE, op0=cr crm=es:edi;Unknown cwm=es:edi;Unknown crm=es:esi;Unknown cr=esi;edi cw=rsi;rdi cr=eax cw=rax r=ecx cw=rcx
+67 F3 0FA6 C8, Xsha1_32, Legacy, PADLOCK_PHE, crm=es:edi;Unknown cwm=es:edi;Unknown crm=es:esi;Unknown cr=esi;edi cw=rsi;rdi cr=eax cw=rax r=ecx cw=rcx
 # xsha1
-0FA6 C8, Xsha1_m, Legacy, PADLOCK_PHE, op0=r rwm=es:rdi;Unknown rm=es:rsi;Unknown rw=rsi;rdi
+0FA6 C8, Xsha1_64, Legacy, PADLOCK_PHE, rwm=es:rdi;Unknown rm=es:rsi;Unknown rw=rsi;rdi
 # xsha1
-67 0FA6 C8, Xsha1_m, Legacy, PADLOCK_PHE, op0=r rwm=es:edi;Unknown rm=es:esi;Unknown r=esi;edi w=rsi;rdi
+67 0FA6 C8, Xsha1_32, Legacy, PADLOCK_PHE, rwm=es:edi;Unknown rm=es:esi;Unknown r=esi;edi w=rsi;rdi
 # rep xsha256
-F3 0FA6 D0, Xsha256_m, Legacy, PADLOCK_PHE, op0=cr crm=es:rdi;Unknown cwm=es:rdi;Unknown crm=es:rsi;Unknown cr=rsi;rdi cw=rsi;rdi cr=rax cw=rax r=rcx cw=rcx
+F3 0FA6 D0, Xsha256_64, Legacy, PADLOCK_PHE, crm=es:rdi;Unknown cwm=es:rdi;Unknown crm=es:rsi;Unknown cr=rsi;rdi cw=rsi;rdi cr=rax cw=rax r=rcx cw=rcx
 # rep xsha256
-67 F3 0FA6 D0, Xsha256_m, Legacy, PADLOCK_PHE, op0=cr crm=es:edi;Unknown cwm=es:edi;Unknown crm=es:esi;Unknown cr=esi;edi cw=rsi;rdi cr=eax cw=rax r=ecx cw=rcx
+67 F3 0FA6 D0, Xsha256_32, Legacy, PADLOCK_PHE, crm=es:edi;Unknown cwm=es:edi;Unknown crm=es:esi;Unknown cr=esi;edi cw=rsi;rdi cr=eax cw=rax r=ecx cw=rcx
 # xsha256
-0FA6 D0, Xsha256_m, Legacy, PADLOCK_PHE, op0=r rwm=es:rdi;Unknown rm=es:rsi;Unknown rw=rsi;rdi
+0FA6 D0, Xsha256_64, Legacy, PADLOCK_PHE, rwm=es:rdi;Unknown rm=es:rsi;Unknown rw=rsi;rdi
 # xsha256
-67 0FA6 D0, Xsha256_m, Legacy, PADLOCK_PHE, op0=r rwm=es:edi;Unknown rm=es:esi;Unknown r=esi;edi w=rsi;rdi
+67 0FA6 D0, Xsha256_32, Legacy, PADLOCK_PHE, rwm=es:edi;Unknown rm=es:esi;Unknown r=esi;edi w=rsi;rdi
 # rep xstore
-F3 0FA7 C0, Xstore_m, Legacy, PADLOCK_RNG, op0=cw cwm=es:rdi;Unknown cr=rdi cw=rdi cr=edx cw=rax r=rcx cw=rcx
+F3 0FA7 C0, Xstore_64, Legacy, PADLOCK_RNG, cwm=es:rdi;Unknown cr=rdi cw=rdi cr=edx cw=rax r=rcx cw=rcx
 # rep xstore
-67 F3 0FA7 C0, Xstore_m, Legacy, PADLOCK_RNG, op0=cw cwm=es:edi;Unknown cr=edi cw=rdi cr=edx cw=rax r=ecx cw=rcx
+67 F3 0FA7 C0, Xstore_32, Legacy, PADLOCK_RNG, cwm=es:edi;Unknown cr=edi cw=rdi cr=edx cw=rax r=ecx cw=rcx
 # xstore
-0FA7 C0, Xstore_m, Legacy, PADLOCK_RNG, op0=w wm=es:rdi;Unknown rw=rdi r=edx w=rax
+0FA7 C0, Xstore_64, Legacy, PADLOCK_RNG, wm=es:rdi;Unknown rw=rdi r=edx w=rax
 # xstore
-67 0FA7 C0, Xstore_m, Legacy, PADLOCK_RNG, op0=w wm=es:edi;Unknown r=edi w=rdi r=edx w=rax
+67 0FA7 C0, Xstore_32, Legacy, PADLOCK_RNG, wm=es:edi;Unknown r=edi w=rdi r=edx w=rax
 # rep xcryptecb
-F3 0FA7 C8, XcryptEcb_m, Legacy, PADLOCK_ACE, op0=cw cwm=es:rdi;Unknown crm=es:rdx;Unknown crm=es:rbx;Unknown crm=es:rsi;Unknown cr=rdx;rbx;rsi;rdi cw=rsi;rdi r=rcx cw=rcx
+F3 0FA7 C8, XcryptEcb_64, Legacy, PADLOCK_ACE, cwm=es:rdi;Unknown crm=es:rdx;Unknown crm=es:rbx;Unknown crm=es:rsi;Unknown cr=rdx;rbx;rsi;rdi cw=rsi;rdi r=rcx cw=rcx
 # rep xcryptecbs
-67 F3 0FA7 C8, XcryptEcb_m, Legacy, PADLOCK_ACE, op0=cw cwm=es:edi;Unknown crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cr=edx;ebx;esi;edi cw=rsi;rdi r=ecx cw=rcx
+67 F3 0FA7 C8, XcryptEcb_32, Legacy, PADLOCK_ACE, cwm=es:edi;Unknown crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cr=edx;ebx;esi;edi cw=rsi;rdi r=ecx cw=rcx
 # xcryptecb
-0FA7 C8, XcryptEcb_m, Legacy, PADLOCK_ACE, op0=w wm=es:rdi;Unknown rm=es:rdx;Unknown rm=es:rbx;Unknown rm=es:rsi;Unknown r=rdx;rbx;rsi;rdi w=rsi;rdi
+0FA7 C8, XcryptEcb_64, Legacy, PADLOCK_ACE, wm=es:rdi;Unknown rm=es:rdx;Unknown rm=es:rbx;Unknown rm=es:rsi;Unknown r=rdx;rbx;rsi;rdi w=rsi;rdi
 # xcryptecb
-67 0FA7 C8, XcryptEcb_m, Legacy, PADLOCK_ACE, op0=w wm=es:edi;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=edx;ebx;esi;edi w=rsi;rdi
+67 0FA7 C8, XcryptEcb_32, Legacy, PADLOCK_ACE, wm=es:edi;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=edx;ebx;esi;edi w=rsi;rdi
 # rep xcryptcbc
-F3 0FA7 D0, XcryptCbc_m, Legacy, PADLOCK_ACE, op0=cw cwm=es:rdi;Unknown crm=es:rax;Unknown cwm=es:rax;Unknown crm=es:rdx;Unknown crm=es:rbx;Unknown crm=es:rsi;Unknown cr=rax;rdx;rbx;rsi;rdi cw=rax;rsi;rdi r=rcx cw=rcx
+F3 0FA7 D0, XcryptCbc_64, Legacy, PADLOCK_ACE, cwm=es:rdi;Unknown crm=es:rax;Unknown cwm=es:rax;Unknown crm=es:rdx;Unknown crm=es:rbx;Unknown crm=es:rsi;Unknown cr=rax;rdx;rbx;rsi;rdi cw=rax;rsi;rdi r=rcx cw=rcx
 # rep xcryptcbc
-67 F3 0FA7 D0, XcryptCbc_m, Legacy, PADLOCK_ACE, op0=cw cwm=es:edi;Unknown crm=es:eax;Unknown cwm=es:eax;Unknown crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cr=eax;edx;ebx;esi;edi cw=rax;rsi;rdi r=ecx cw=rcx
+67 F3 0FA7 D0, XcryptCbc_32, Legacy, PADLOCK_ACE, cwm=es:edi;Unknown crm=es:eax;Unknown cwm=es:eax;Unknown crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cr=eax;edx;ebx;esi;edi cw=rax;rsi;rdi r=ecx cw=rcx
 # xcryptcbc
-0FA7 D0, XcryptCbc_m, Legacy, PADLOCK_ACE, op0=w wm=es:rdi;Unknown rwm=es:rax;Unknown rm=es:rdx;Unknown rm=es:rbx;Unknown rm=es:rsi;Unknown r=rax;rdx;rbx;rsi;rdi w=rax;rsi;rdi
+0FA7 D0, XcryptCbc_64, Legacy, PADLOCK_ACE, wm=es:rdi;Unknown rwm=es:rax;Unknown rm=es:rdx;Unknown rm=es:rbx;Unknown rm=es:rsi;Unknown r=rax;rdx;rbx;rsi;rdi w=rax;rsi;rdi
 # xcryptcbc
-67 0FA7 D0, XcryptCbc_m, Legacy, PADLOCK_ACE, op0=w wm=es:edi;Unknown rwm=es:eax;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=eax;edx;ebx;esi;edi w=rax;rsi;rdi
+67 0FA7 D0, XcryptCbc_32, Legacy, PADLOCK_ACE, wm=es:edi;Unknown rwm=es:eax;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=eax;edx;ebx;esi;edi w=rax;rsi;rdi
 # rep xcryptctr
-F3 0FA7 D8, XcryptCtr_m, Legacy, PADLOCK_ACE, op0=cw cwm=es:rdi;Unknown crm=es:rax;Unknown cwm=es:rax;Unknown crm=es:rdx;Unknown crm=es:rbx;Unknown crm=es:rsi;Unknown cr=rax;rdx;rbx;rsi;rdi cw=rax;rsi;rdi r=rcx cw=rcx
+F3 0FA7 D8, XcryptCtr_64, Legacy, PADLOCK_ACE, cwm=es:rdi;Unknown crm=es:rax;Unknown cwm=es:rax;Unknown crm=es:rdx;Unknown crm=es:rbx;Unknown crm=es:rsi;Unknown cr=rax;rdx;rbx;rsi;rdi cw=rax;rsi;rdi r=rcx cw=rcx
 # rep xcryptctr
-67 F3 0FA7 D8, XcryptCtr_m, Legacy, PADLOCK_ACE, op0=cw cwm=es:edi;Unknown crm=es:eax;Unknown cwm=es:eax;Unknown crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cr=eax;edx;ebx;esi;edi cw=rax;rsi;rdi r=ecx cw=rcx
+67 F3 0FA7 D8, XcryptCtr_32, Legacy, PADLOCK_ACE, cwm=es:edi;Unknown crm=es:eax;Unknown cwm=es:eax;Unknown crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cr=eax;edx;ebx;esi;edi cw=rax;rsi;rdi r=ecx cw=rcx
 # xcryptctr
-0FA7 D8, XcryptCtr_m, Legacy, PADLOCK_ACE, op0=w wm=es:rdi;Unknown rwm=es:rax;Unknown rm=es:rdx;Unknown rm=es:rbx;Unknown rm=es:rsi;Unknown r=rax;rdx;rbx;rsi;rdi w=rax;rsi;rdi
+0FA7 D8, XcryptCtr_64, Legacy, PADLOCK_ACE, wm=es:rdi;Unknown rwm=es:rax;Unknown rm=es:rdx;Unknown rm=es:rbx;Unknown rm=es:rsi;Unknown r=rax;rdx;rbx;rsi;rdi w=rax;rsi;rdi
 # xcryptctr
-67 0FA7 D8, XcryptCtr_m, Legacy, PADLOCK_ACE, op0=w wm=es:edi;Unknown rwm=es:eax;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=eax;edx;ebx;esi;edi w=rax;rsi;rdi
+67 0FA7 D8, XcryptCtr_32, Legacy, PADLOCK_ACE, wm=es:edi;Unknown rwm=es:eax;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=eax;edx;ebx;esi;edi w=rax;rsi;rdi
 # rep xcryptcfb
-F3 0FA7 E0, XcryptCfb_m, Legacy, PADLOCK_ACE, op0=cw cwm=es:rdi;Unknown crm=es:rax;Unknown cwm=es:rax;Unknown crm=es:rdx;Unknown crm=es:rbx;Unknown crm=es:rsi;Unknown cr=rax;rdx;rbx;rsi;rdi cw=rax;rsi;rdi r=rcx cw=rcx
+F3 0FA7 E0, XcryptCfb_64, Legacy, PADLOCK_ACE, cwm=es:rdi;Unknown crm=es:rax;Unknown cwm=es:rax;Unknown crm=es:rdx;Unknown crm=es:rbx;Unknown crm=es:rsi;Unknown cr=rax;rdx;rbx;rsi;rdi cw=rax;rsi;rdi r=rcx cw=rcx
 # rep xcryptcfb
-67 F3 0FA7 E0, XcryptCfb_m, Legacy, PADLOCK_ACE, op0=cw cwm=es:edi;Unknown crm=es:eax;Unknown cwm=es:eax;Unknown crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cr=eax;edx;ebx;esi;edi cw=rax;rsi;rdi r=ecx cw=rcx
+67 F3 0FA7 E0, XcryptCfb_32, Legacy, PADLOCK_ACE, cwm=es:edi;Unknown crm=es:eax;Unknown cwm=es:eax;Unknown crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cr=eax;edx;ebx;esi;edi cw=rax;rsi;rdi r=ecx cw=rcx
 # xcryptcfb
-0FA7 E0, XcryptCfb_m, Legacy, PADLOCK_ACE, op0=w wm=es:rdi;Unknown rwm=es:rax;Unknown rm=es:rdx;Unknown rm=es:rbx;Unknown rm=es:rsi;Unknown r=rax;rdx;rbx;rsi;rdi w=rax;rsi;rdi
+0FA7 E0, XcryptCfb_64, Legacy, PADLOCK_ACE, wm=es:rdi;Unknown rwm=es:rax;Unknown rm=es:rdx;Unknown rm=es:rbx;Unknown rm=es:rsi;Unknown r=rax;rdx;rbx;rsi;rdi w=rax;rsi;rdi
 # xcryptcfb
-67 0FA7 E0, XcryptCfb_m, Legacy, PADLOCK_ACE, op0=w wm=es:edi;Unknown rwm=es:eax;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=eax;edx;ebx;esi;edi w=rax;rsi;rdi
+67 0FA7 E0, XcryptCfb_32, Legacy, PADLOCK_ACE, wm=es:edi;Unknown rwm=es:eax;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=eax;edx;ebx;esi;edi w=rax;rsi;rdi
 # rep xcryptofb
-F3 0FA7 E8, XcryptOfb_m, Legacy, PADLOCK_ACE, op0=cw cwm=es:rdi;Unknown crm=es:rax;Unknown cwm=es:rax;Unknown crm=es:rdx;Unknown crm=es:rbx;Unknown crm=es:rsi;Unknown cr=rax;rdx;rbx;rsi;rdi cw=rax;rsi;rdi r=rcx cw=rcx
+F3 0FA7 E8, XcryptOfb_64, Legacy, PADLOCK_ACE, cwm=es:rdi;Unknown crm=es:rax;Unknown cwm=es:rax;Unknown crm=es:rdx;Unknown crm=es:rbx;Unknown crm=es:rsi;Unknown cr=rax;rdx;rbx;rsi;rdi cw=rax;rsi;rdi r=rcx cw=rcx
 # rep xcryptofb
-67 F3 0FA7 E8, XcryptOfb_m, Legacy, PADLOCK_ACE, op0=cw cwm=es:edi;Unknown crm=es:eax;Unknown cwm=es:eax;Unknown crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cr=eax;edx;ebx;esi;edi cw=rax;rsi;rdi r=ecx cw=rcx
+67 F3 0FA7 E8, XcryptOfb_32, Legacy, PADLOCK_ACE, cwm=es:edi;Unknown crm=es:eax;Unknown cwm=es:eax;Unknown crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cr=eax;edx;ebx;esi;edi cw=rax;rsi;rdi r=ecx cw=rcx
 # xcryptofb
-0FA7 E8, XcryptOfb_m, Legacy, PADLOCK_ACE, op0=w wm=es:rdi;Unknown rwm=es:rax;Unknown rm=es:rdx;Unknown rm=es:rbx;Unknown rm=es:rsi;Unknown r=rax;rdx;rbx;rsi;rdi w=rax;rsi;rdi
+0FA7 E8, XcryptOfb_64, Legacy, PADLOCK_ACE, wm=es:rdi;Unknown rwm=es:rax;Unknown rm=es:rdx;Unknown rm=es:rbx;Unknown rm=es:rsi;Unknown r=rax;rdx;rbx;rsi;rdi w=rax;rsi;rdi
 # xcryptofb
-67 0FA7 E8, XcryptOfb_m, Legacy, PADLOCK_ACE, op0=w wm=es:edi;Unknown rwm=es:eax;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=eax;edx;ebx;esi;edi w=rax;rsi;rdi
+67 0FA7 E8, XcryptOfb_32, Legacy, PADLOCK_ACE, wm=es:edi;Unknown rwm=es:eax;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=eax;edx;ebx;esi;edi w=rax;rsi;rdi

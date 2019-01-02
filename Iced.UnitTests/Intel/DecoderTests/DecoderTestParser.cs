@@ -97,9 +97,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		const string OpKind_MemorySegDI = "segdi";
 		const string OpKind_MemorySegEDI = "segedi";
 		const string OpKind_MemorySegRDI = "segrdi";
-		const string OpKind_MemoryESSI = "essi";
-		const string OpKind_MemoryESESI = "esesi";
-		const string OpKind_MemoryESRSI = "esrsi";
 		const string OpKind_MemoryESDI = "esdi";
 		const string OpKind_MemoryESEDI = "esedi";
 		const string OpKind_MemoryESRDI = "esrdi";
@@ -548,27 +545,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				opKind = OpKind.MemorySegRDI;
 				tc.MemorySegment = ToRegister(parts[1]);
 				tc.MemorySize = ToMemorySize(parts[2]);
-				break;
-
-			case OpKind_MemoryESSI:
-				if (parts.Length != 2)
-					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
-				opKind = OpKind.MemoryESSI;
-				tc.MemorySize = ToMemorySize(parts[1]);
-				break;
-
-			case OpKind_MemoryESESI:
-				if (parts.Length != 2)
-					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
-				opKind = OpKind.MemoryESESI;
-				tc.MemorySize = ToMemorySize(parts[1]);
-				break;
-
-			case OpKind_MemoryESRSI:
-				if (parts.Length != 2)
-					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
-				opKind = OpKind.MemoryESRSI;
-				tc.MemorySize = ToMemorySize(parts[1]);
 				break;
 
 			case OpKind_MemoryESDI:

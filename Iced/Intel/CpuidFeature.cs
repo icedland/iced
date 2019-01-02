@@ -523,22 +523,22 @@ namespace Iced.Intel {
 		MULTIBYTENOP,
 
 		/// <summary>
-		/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.ACE[bits 7-6] = 11B ([6] = exists, [7] = enabled)
+		/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.ACE[Bits 7:6] = 11B ([6] = exists, [7] = enabled)
 		/// </summary>
 		PADLOCK_ACE,
 
 		/// <summary>
-		/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.PHE[bits 11-10] = 11B ([10] = exists, [11] = enabled)
+		/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.PHE[Bits 11:10] = 11B ([10] = exists, [11] = enabled)
 		/// </summary>
 		PADLOCK_PHE,
 
 		/// <summary>
-		/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.PMM[bits 13-12] = 11B ([12] = exists, [13] = enabled)
+		/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.PMM[Bits 13:12] = 11B ([12] = exists, [13] = enabled)
 		/// </summary>
 		PADLOCK_PMM,
 
 		/// <summary>
-		/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.RNG[bits 3-2] = 11B ([2] = exists, [3] = enabled)
+		/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.RNG[Bits 3:2] = 11B ([2] = exists, [3] = enabled)
 		/// </summary>
 		PADLOCK_RNG,
 

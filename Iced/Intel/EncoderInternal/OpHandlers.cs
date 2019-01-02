@@ -204,7 +204,6 @@ namespace Iced.Intel.EncoderInternal {
 		r16_rw,
 		r32_rd,
 		r64_ro,
-		Mx,
 
 		Last,
 	}
@@ -389,7 +388,6 @@ namespace Iced.Intel.EncoderInternal {
 			new OpRegEmbed8(Register.AX, Register.R15W),
 			new OpRegEmbed8(Register.EAX, Register.R15D),
 			new OpRegEmbed8(Register.RAX, Register.R15),
-			new OpPadLockMem(),
 		};
 	}
 
@@ -912,50 +910,6 @@ namespace Iced.Intel.EncoderInternal {
 				break;
 			}
 			encoder.SetAddrSize(regYSize);
-		}
-	}
-
-	sealed class OpPadLockMem : Op {
-		static int GetRegSize_ESrSI(OpKind opKind) {
-			if (opKind == OpKind.MemoryESRSI)
-				return 8;
-			if (opKind == OpKind.MemoryESESI)
-				return 4;
-			if (opKind == OpKind.MemoryESSI)
-				return 2;
-			return 0;
-		}
-
-		static int GetRegSize_ESrDI(OpKind opKind) {
-			if (opKind == OpKind.MemoryESRDI)
-				return 8;
-			if (opKind == OpKind.MemoryESEDI)
-				return 4;
-			if (opKind == OpKind.MemoryESDI)
-				return 2;
-			return 0;
-		}
-
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
-			int regSize;
-			Debug.Assert(Code.Montmul_m + 1 == Code.Xsha1_m);
-			Debug.Assert(Code.Montmul_m + 2 == Code.Xsha256_m);
-			if ((uint)(instr.Code - Code.Montmul_m) <= 2) {
-				regSize = GetRegSize_ESrSI(instr.GetOpKind(operand));
-				if (regSize == 0) {
-					encoder.ErrorMessage = $"Operand {operand}: expected OpKind = {nameof(OpKind.MemoryESSI)}, {nameof(OpKind.MemoryESESI)} or {nameof(OpKind.MemoryESRSI)}";
-					return;
-				}
-			}
-			else {
-				regSize = GetRegSize_ESrDI(instr.GetOpKind(operand));
-				if (regSize == 0) {
-					encoder.ErrorMessage = $"Operand {operand}: expected OpKind = {nameof(OpKind.MemoryESDI)}, {nameof(OpKind.MemoryESEDI)} or {nameof(OpKind.MemoryESRDI)}";
-					return;
-				}
-			}
-			encoder.SetAddrSize(regSize);
-			encoder.ModRM |= 0xC0;
 		}
 	}
 

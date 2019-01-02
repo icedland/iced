@@ -259,6 +259,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Fstdw_AX;
 			yield return Code.Fstsg_AX;
 			yield return Code.Movdir64b_r16_m512;
+			yield return Code.Montmul_16;
+			yield return Code.Xsha1_16;
+			yield return Code.Xsha256_16;
+			yield return Code.Xstore_16;
+			yield return Code.XcryptEcb_16;
+			yield return Code.XcryptCbc_16;
+			yield return Code.XcryptCtr_16;
+			yield return Code.XcryptCfb_16;
+			yield return Code.XcryptOfb_16;
 		}
 
 		static IEnumerable<Code> GetCode64() {
@@ -669,6 +678,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Sal_rm64_1;
 			yield return Code.Sal_rm64_CL;
 			yield return Code.Test_rm64_imm32_F7r1;
+			yield return Code.Montmul_64;
+			yield return Code.Xsha1_64;
+			yield return Code.Xsha256_64;
+			yield return Code.Xstore_64;
+			yield return Code.XcryptEcb_64;
+			yield return Code.XcryptCbc_64;
+			yield return Code.XcryptCtr_64;
+			yield return Code.XcryptCfb_64;
+			yield return Code.XcryptOfb_64;
 		}
 
 		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool includeOtherTests) {

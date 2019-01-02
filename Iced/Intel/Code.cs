@@ -2268,18 +2268,35 @@ namespace Iced.Intel {
 		Shld_rm16_r16_CL,											// o16 0FA5
 		Shld_rm32_r32_CL,											// o32 0FA5
 		Shld_rm64_r64_CL,											// REX.W 0FA5
-
-		Montmul_m,													// 0FA6 C0
-		Xsha1_m,													// 0FA6 C8
-		Xsha256_m,													// 0FA6 D0
+		Montmul_16,													// a16 0FA6 C0
+		Montmul_32,													// a32 0FA6 C0
+		Montmul_64,													// a64 0FA6 C0
+		Xsha1_16,													// a16 0FA6 C8
+		Xsha1_32,													// a32 0FA6 C8
+		Xsha1_64,													// a64 0FA6 C8
+		Xsha256_16,													// a16 0FA6 D0
+		Xsha256_32,													// a32 0FA6 D0
+		Xsha256_64,													// a64 0FA6 D0
 		Xbts_r16_rm16,												// o16 0FA6
 		Xbts_r32_rm32,												// o32 0FA6
-		Xstore_m,													// 0FA7 C0
-		XcryptEcb_m,												// 0FA7 C8
-		XcryptCbc_m,												// 0FA7 D0
-		XcryptCtr_m,												// 0FA7 D8
-		XcryptCfb_m,												// 0FA7 E0
-		XcryptOfb_m,												// 0FA7 E8
+		Xstore_16,													// a16 0FA7 C0
+		Xstore_32,													// a32 0FA7 C0
+		Xstore_64,													// a64 0FA7 C0
+		XcryptEcb_16,												// a16 0FA7 C8
+		XcryptEcb_32,												// a32 0FA7 C8
+		XcryptEcb_64,												// a64 0FA7 C8
+		XcryptCbc_16,												// a16 0FA7 D0
+		XcryptCbc_32,												// a32 0FA7 D0
+		XcryptCbc_64,												// a64 0FA7 D0
+		XcryptCtr_16,												// a16 0FA7 D8
+		XcryptCtr_32,												// a32 0FA7 D8
+		XcryptCtr_64,												// a64 0FA7 D8
+		XcryptCfb_16,												// a16 0FA7 E0
+		XcryptCfb_32,												// a32 0FA7 E0
+		XcryptCfb_64,												// a64 0FA7 E0
+		XcryptOfb_16,												// a16 0FA7 E8
+		XcryptOfb_32,												// a32 0FA7 E8
+		XcryptOfb_64,												// a64 0FA7 E8
 		Ibts_rm16_r16,												// o16 0FA7
 		Ibts_rm32_r32,												// o32 0FA7
 		Cmpxchg486_rm8_r8,											// 0FA6
