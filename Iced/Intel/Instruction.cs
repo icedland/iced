@@ -641,7 +641,8 @@ namespace Iced.Intel {
 		/// Gets the size of the memory location that is referenced by the operand. See also <see cref="IsBroadcast"/>.
 		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>, <see cref="OpKind.Memory64"/>,
 		/// <see cref="OpKind.MemorySegSI"/>, <see cref="OpKind.MemorySegESI"/>, <see cref="OpKind.MemorySegRSI"/>,
-		/// <see cref="OpKind.MemoryESDI"/>, <see cref="OpKind.MemoryESEDI"/>, <see cref="OpKind.MemoryESRDI"/>
+		/// <see cref="OpKind.MemoryESDI"/>, <see cref="OpKind.MemoryESEDI"/>, <see cref="OpKind.MemoryESRDI"/>,
+		/// <see cref="OpKind.MemoryESSI"/>, <see cref="OpKind.MemoryESESI"/>, <see cref="OpKind.MemoryESRSI"/>
 		/// </summary>
 		public MemorySize MemorySize {
 			get {

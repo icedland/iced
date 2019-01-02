@@ -4739,5 +4739,37 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			instruction.InternalImmediate8 = decoder.ReadIb();
 		}
 	}
+
+	sealed class OpCodeHandler_ESrSI : OpCodeHandlerModRM {
+		readonly Code code;
+
+		public OpCodeHandler_ESrSI(Code code) => this.code = code;
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			instruction.InternalCode = code;
+			if (state.addressSize == OpSize.Size64)
+				instruction.InternalOp0Kind = OpKind.MemoryESRSI;
+			else
+				instruction.InternalOp0Kind = OpKind.MemoryESESI;
+		}
+	}
+
+	sealed class OpCodeHandler_ESrDI : OpCodeHandlerModRM {
+		readonly Code code;
+
+		public OpCodeHandler_ESrDI(Code code) => this.code = code;
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			instruction.InternalCode = code;
+			if (state.addressSize == OpSize.Size64)
+				instruction.InternalOp0Kind = OpKind.MemoryESRDI;
+			else
+				instruction.InternalOp0Kind = OpKind.MemoryESEDI;
+		}
+	}
 }
 #endif

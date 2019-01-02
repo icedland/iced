@@ -88,6 +88,15 @@ namespace Iced.Intel {
 			case OpKind.MemorySegRDI:
 				return registerValueProvider.GetRegisterValue(MemorySegment, 0, 0) + registerValueProvider.GetRegisterValue(Register.RDI, 0, 0);
 
+			case OpKind.MemoryESSI:
+				return registerValueProvider.GetRegisterValue(Register.ES, 0, 0) + (ushort)registerValueProvider.GetRegisterValue(Register.SI, 0, 0);
+
+			case OpKind.MemoryESESI:
+				return registerValueProvider.GetRegisterValue(Register.ES, 0, 0) + (uint)registerValueProvider.GetRegisterValue(Register.ESI, 0, 0);
+
+			case OpKind.MemoryESRSI:
+				return registerValueProvider.GetRegisterValue(Register.ES, 0, 0) + registerValueProvider.GetRegisterValue(Register.RSI, 0, 0);
+
 			case OpKind.MemoryESDI:
 				return registerValueProvider.GetRegisterValue(Register.ES, 0, 0) + (ushort)registerValueProvider.GetRegisterValue(Register.DI, 0, 0);
 

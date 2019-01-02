@@ -317,6 +317,192 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				null,
 			};
 
+			var handlers_Grp_0FA6_lo = new OpCodeHandler[8] {
+				invalid,
+				invalid,
+				invalid,
+				invalid,
+				invalid,
+				invalid,
+				invalid,
+				invalid,
+			};
+
+			var handlers_Grp_0FA6_hi = new OpCodeHandler[0x40] {
+				// C0
+				new OpCodeHandler_ESrSI(Code.Montmul_m),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// C8
+				new OpCodeHandler_ESrSI(Code.Xsha1_m),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// D0
+				new OpCodeHandler_ESrSI(Code.Xsha256_m),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// D8
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// E0
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// E8
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// F0
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// F8
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			};
+
+			var handlers_Grp_0FA7_lo = new OpCodeHandler[8] {
+				invalid,
+				invalid,
+				invalid,
+				invalid,
+				invalid,
+				invalid,
+				invalid,
+				invalid,
+			};
+
+			var handlers_Grp_0FA7_hi = new OpCodeHandler[0x40] {
+				// C0
+				new OpCodeHandler_ESrDI(Code.Xstore_m),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// C8
+				new OpCodeHandler_ESrDI(Code.XcryptEcb_m),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// D0
+				new OpCodeHandler_ESrDI(Code.XcryptCbc_m),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// D8
+				new OpCodeHandler_ESrDI(Code.XcryptCtr_m),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// E0
+				new OpCodeHandler_ESrDI(Code.XcryptCfb_m),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// E8
+				new OpCodeHandler_ESrDI(Code.XcryptOfb_m),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// F0
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+
+				// F8
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+			};
+
 			var handlers_Grp_0FBA = new OpCodeHandler[8] {
 				invalid,
 				invalid,
@@ -2807,12 +2993,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Ev_Gv_Ib(Code.Shld_rm16_r16_imm8, Code.Shld_rm32_r32_imm8, Code.Shld_rm64_r64_imm8),
 				new OpCodeHandler_Ev_Gv_CL(Code.Shld_rm16_r16_CL, Code.Shld_rm32_r32_CL, Code.Shld_rm64_r64_CL),
 				new OpCodeHandler_Options(
-					invalid,
+					new OpCodeHandler_Group8x64(handlers_Grp_0FA6_lo, handlers_Grp_0FA6_hi),
 					new OpCodeHandler_Gv_Ev(Code.Xbts_r16_rm16, Code.Xbts_r32_rm32, Code.INVALID), DecoderOptions.Xbts,
 					new OpCodeHandler_Eb_Gb(Code.Cmpxchg486_rm8_r8), DecoderOptions.Cmpxchg486A
 				),
 				new OpCodeHandler_Options(
-					invalid,
+					new OpCodeHandler_Group8x64(handlers_Grp_0FA7_lo, handlers_Grp_0FA7_hi),
 					new OpCodeHandler_Ev_Gv(Code.Ibts_rm16_r16, Code.Ibts_rm32_r32, Code.INVALID), DecoderOptions.Xbts,
 					new OpCodeHandler_Ev_Gv(Code.Cmpxchg486_rm16_r16, Code.Cmpxchg486_rm32_r32, Code.INVALID), DecoderOptions.Cmpxchg486A
 				),

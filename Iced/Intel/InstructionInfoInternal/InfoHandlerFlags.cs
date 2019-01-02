@@ -146,6 +146,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Loop,
 		Maskmovq,
 		Monitor,
+		Montmul,
 		Movdir64b,
 		Movs,
 		Mul,
@@ -205,6 +206,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 		W_EAX_EDX,
 		W_ST0,
 		Xbts,
+		Xcrypt,
+		Xsha,
+		Xstore,
 	}
 
 	enum RflagsInfo {

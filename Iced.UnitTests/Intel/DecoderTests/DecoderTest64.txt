@@ -11412,6 +11412,60 @@ C4E1F9 99 D3, VEX_Ktestd_k_k, 2, op0=r;k2 op1=r;k3
 4C 0FA5 EC, Shld_rm64_r64_CL, 3, op0=r;rsp op1=r;r13 op2=r;cl
 48 0FA5 18, Shld_rm64_r64_CL, 3, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx op2=r;cl
 
+F3 0FA6 C0, Montmul_m, 1, op0=esrsi;Unknown rep
+F3 67 0FA6 C0, Montmul_m, 1, op0=esesi;Unknown rep
+67 F3 0FA6 C0, Montmul_m, 1, op0=esesi;Unknown rep
+0FA6 C0, Montmul_m, 1, op0=esrsi;Unknown
+67 0FA6 C0, Montmul_m, 1, op0=esesi;Unknown
+
+F3 0FA6 C8, Xsha1_m, 1, op0=esrsi;Unknown rep
+F3 67 0FA6 C8, Xsha1_m, 1, op0=esesi;Unknown rep
+67 F3 0FA6 C8, Xsha1_m, 1, op0=esesi;Unknown rep
+0FA6 C8, Xsha1_m, 1, op0=esrsi;Unknown
+67 0FA6 C8, Xsha1_m, 1, op0=esesi;Unknown
+
+F3 0FA6 D0, Xsha256_m, 1, op0=esrsi;Unknown rep
+F3 67 0FA6 D0, Xsha256_m, 1, op0=esesi;Unknown rep
+67 F3 0FA6 D0, Xsha256_m, 1, op0=esesi;Unknown rep
+0FA6 D0, Xsha256_m, 1, op0=esrsi;Unknown
+67 0FA6 D0, Xsha256_m, 1, op0=esesi;Unknown
+
+F3 0FA7 C0, Xstore_m, 1, op0=esrdi;Unknown rep
+F3 67 0FA7 C0, Xstore_m, 1, op0=esedi;Unknown rep
+67 F3 0FA7 C0, Xstore_m, 1, op0=esedi;Unknown rep
+0FA7 C0, Xstore_m, 1, op0=esrdi;Unknown
+67 0FA7 C0, Xstore_m, 1, op0=esedi;Unknown
+
+F3 0FA7 C8, XcryptEcb_m, 1, op0=esrdi;Unknown rep
+F3 67 0FA7 C8, XcryptEcb_m, 1, op0=esedi;Unknown rep
+67 F3 0FA7 C8, XcryptEcb_m, 1, op0=esedi;Unknown rep
+0FA7 C8, XcryptEcb_m, 1, op0=esrdi;Unknown
+67 0FA7 C8, XcryptEcb_m, 1, op0=esedi;Unknown
+
+F3 0FA7 D0, XcryptCbc_m, 1, op0=esrdi;Unknown rep
+F3 67 0FA7 D0, XcryptCbc_m, 1, op0=esedi;Unknown rep
+67 F3 0FA7 D0, XcryptCbc_m, 1, op0=esedi;Unknown rep
+0FA7 D0, XcryptCbc_m, 1, op0=esrdi;Unknown
+67 0FA7 D0, XcryptCbc_m, 1, op0=esedi;Unknown
+
+F3 0FA7 D8, XcryptCtr_m, 1, op0=esrdi;Unknown rep
+F3 67 0FA7 D8, XcryptCtr_m, 1, op0=esedi;Unknown rep
+67 F3 0FA7 D8, XcryptCtr_m, 1, op0=esedi;Unknown rep
+0FA7 D8, XcryptCtr_m, 1, op0=esrdi;Unknown
+67 0FA7 D8, XcryptCtr_m, 1, op0=esedi;Unknown
+
+F3 0FA7 E0, XcryptCfb_m, 1, op0=esrdi;Unknown rep
+F3 67 0FA7 E0, XcryptCfb_m, 1, op0=esedi;Unknown rep
+67 F3 0FA7 E0, XcryptCfb_m, 1, op0=esedi;Unknown rep
+0FA7 E0, XcryptCfb_m, 1, op0=esrdi;Unknown
+67 0FA7 E0, XcryptCfb_m, 1, op0=esedi;Unknown
+
+F3 0FA7 E8, XcryptOfb_m, 1, op0=esrdi;Unknown rep
+F3 67 0FA7 E8, XcryptOfb_m, 1, op0=esedi;Unknown rep
+67 F3 0FA7 E8, XcryptOfb_m, 1, op0=esedi;Unknown rep
+0FA7 E8, XcryptOfb_m, 1, op0=esrdi;Unknown
+67 0FA7 E8, XcryptOfb_m, 1, op0=esedi;Unknown
+
 66 0FA8, Pushw_GS, 1, op0=r;gs
 
 0FA8, Pushq_GS, 1, op0=r;gs

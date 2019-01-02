@@ -146,6 +146,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CodeInfo_Loop = (uint)CodeInfo.Loop << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Maskmovq = (uint)CodeInfo.Maskmovq << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Monitor = (uint)CodeInfo.Monitor << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Montmul = (uint)CodeInfo.Montmul << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Movdir64b = (uint)CodeInfo.Movdir64b << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Movs = (uint)CodeInfo.Movs << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Mul = (uint)CodeInfo.Mul << (int)InfoFlags1.CodeInfoShift;
@@ -202,6 +203,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CodeInfo_W_EAX_EDX = (uint)CodeInfo.W_EAX_EDX << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_W_ST0 = (uint)CodeInfo.W_ST0 << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Xbts = (uint)CodeInfo.Xbts << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Xcrypt = (uint)CodeInfo.Xcrypt << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Xsha = (uint)CodeInfo.Xsha << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Xstore = (uint)CodeInfo.Xstore << (int)InfoFlags1.CodeInfoShift;
 
 		const uint Op0_None = (uint)OpInfo0.None << (int)InfoFlags2.OpInfo0Shift;
 		const uint Op0_Read = (uint)OpInfo0.Read << (int)InfoFlags2.OpInfo0Shift;
@@ -331,6 +335,10 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_MPX = (uint)CpuidFeature.MPX << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MSR = (uint)CpuidFeature.MSR << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MULTIBYTENOP = (uint)CpuidFeature.MULTIBYTENOP << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_PADLOCK_ACE = (uint)CpuidFeature.PADLOCK_ACE << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_PADLOCK_PHE = (uint)CpuidFeature.PADLOCK_PHE << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_PADLOCK_PMM = (uint)CpuidFeature.PADLOCK_PMM << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_PADLOCK_RNG = (uint)CpuidFeature.PADLOCK_RNG << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_PAUSE = (uint)CpuidFeature.PAUSE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_PCLMULQDQ = (uint)CpuidFeature.PCLMULQDQ << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_PCLMULQDQ_and_AVX = (uint)CpuidFeature.PCLMULQDQ_and_AVX << (int)InfoFlags2.CpuidFeatureShift;
@@ -2350,8 +2358,17 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Shld_rm16_r16_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Shld_rm32_r32_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Shld_rm64_r64_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
+			(uint)Code.Montmul_m | CodeInfo_Montmul, Op0_Read | CPUID_PADLOCK_PMM | Encoding_Legacy,
+			(uint)Code.Xsha1_m | CodeInfo_Xsha, Op0_Read | CPUID_PADLOCK_PHE | Encoding_Legacy,
+			(uint)Code.Xsha256_m | CodeInfo_Xsha, Op0_Read | CPUID_PADLOCK_PHE | Encoding_Legacy,
 			(uint)Code.Xbts_r16_rm16 | CodeInfo_Xbts, Op0_ReadWrite | Op1_Read | CPUID_INTEL386_A0_ONLY | Encoding_Legacy,
 			(uint)Code.Xbts_r32_rm32 | CodeInfo_Xbts, Op0_ReadWrite | Op1_Read | CPUID_INTEL386_A0_ONLY | Encoding_Legacy,
+			(uint)Code.Xstore_m | CodeInfo_Xstore, Op0_Write | CPUID_PADLOCK_RNG | Encoding_Legacy,
+			(uint)Code.XcryptEcb_m | CodeInfo_Xcrypt, Op0_Write | CPUID_PADLOCK_ACE | Encoding_Legacy,
+			(uint)Code.XcryptCbc_m | CodeInfo_Xcrypt, Op0_Write | CPUID_PADLOCK_ACE | Encoding_Legacy,
+			(uint)Code.XcryptCtr_m | CodeInfo_Xcrypt, Op0_Write | CPUID_PADLOCK_ACE | Encoding_Legacy,
+			(uint)Code.XcryptCfb_m | CodeInfo_Xcrypt, Op0_Write | CPUID_PADLOCK_ACE | Encoding_Legacy,
+			(uint)Code.XcryptOfb_m | CodeInfo_Xcrypt, Op0_Write | CPUID_PADLOCK_ACE | Encoding_Legacy,
 			(uint)Code.Ibts_rm16_r16 | CodeInfo_Xbts, Op0_ReadWrite | Op1_Read | CPUID_INTEL386_A0_ONLY | Encoding_Legacy,
 			(uint)Code.Ibts_rm32_r32 | CodeInfo_Xbts, Op0_ReadWrite | Op1_Read | CPUID_INTEL386_A0_ONLY | Encoding_Legacy,
 			(uint)Code.Cmpxchg486_rm8_r8 | RflagsInfo_W_acopsz | CodeInfo_Cmpxchg, Op0_ReadWrite | Op1_Read | CPUID_INTEL486_A_ONLY | Encoding_Legacy,

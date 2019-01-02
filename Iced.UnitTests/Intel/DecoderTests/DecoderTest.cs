@@ -298,6 +298,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					Assert.Equal(tc.MemorySize, instr.MemorySize);
 					break;
 
+				case OpKind.MemoryESSI:
+				case OpKind.MemoryESESI:
+				case OpKind.MemoryESRSI:
 				case OpKind.MemoryESDI:
 				case OpKind.MemoryESEDI:
 				case OpKind.MemoryESRDI:

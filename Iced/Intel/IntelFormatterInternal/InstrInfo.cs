@@ -48,6 +48,9 @@ namespace Iced.Intel.IntelFormatterInternal {
 		MemorySegDI = OpKind.MemorySegDI,
 		MemorySegEDI = OpKind.MemorySegEDI,
 		MemorySegRDI = OpKind.MemorySegRDI,
+		MemoryESSI = OpKind.MemoryESSI,
+		MemoryESESI = OpKind.MemoryESESI,
+		MemoryESRSI = OpKind.MemoryESRSI,
 		MemoryESDI = OpKind.MemoryESDI,
 		MemoryESEDI = OpKind.MemoryESEDI,
 		MemoryESRDI = OpKind.MemoryESRDI,
@@ -1128,6 +1131,49 @@ namespace Iced.Intel.IntelFormatterInternal {
 				info.Op0Index = OpAccess_ReadWrite;
 			else
 				info.Op0Index = OpAccess_Read;
+		}
+	}
+
+	sealed class SimpleInstrInfo_padlock : InstrInfo {
+		readonly string mnemonic;
+
+		public SimpleInstrInfo_padlock(Code code, string mnemonic)
+			: base(code) => this.mnemonic = mnemonic;
+
+		static int GetAddressSize(OpKind opKind) {
+			switch (opKind) {
+			case OpKind.MemoryESSI:
+			case OpKind.MemoryESDI:
+				return 16;
+
+			case OpKind.MemoryESESI:
+			case OpKind.MemoryESEDI:
+				return 32;
+
+			case OpKind.MemoryESRSI:
+			case OpKind.MemoryESRDI:
+				return 64;
+
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+
+		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			InstrOpInfoFlags flags = 0;
+			var instrCodeSize = GetCodeSize(instr.CodeSize);
+			var addrSize = GetAddressSize(instr.Op0Kind);
+			if (instrCodeSize != 0 && instrCodeSize != addrSize) {
+				if (addrSize == 16)
+					flags |= InstrOpInfoFlags.AddrSize16;
+				else if (addrSize == 32)
+					flags |= InstrOpInfoFlags.AddrSize32;
+				else
+					flags |= InstrOpInfoFlags.AddrSize64;
+			}
+			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			Debug.Assert(info.OpCount == 1);
+			info.OpCount = 0;
 		}
 	}
 }

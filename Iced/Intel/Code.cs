@@ -2269,8 +2269,17 @@ namespace Iced.Intel {
 		Shld_rm32_r32_CL,											// o32 0FA5
 		Shld_rm64_r64_CL,											// REX.W 0FA5
 
+		Montmul_m,													// 0FA6 C0
+		Xsha1_m,													// 0FA6 C8
+		Xsha256_m,													// 0FA6 D0
 		Xbts_r16_rm16,												// o16 0FA6
 		Xbts_r32_rm32,												// o32 0FA6
+		Xstore_m,													// 0FA7 C0
+		XcryptEcb_m,												// 0FA7 C8
+		XcryptCbc_m,												// 0FA7 D0
+		XcryptCtr_m,												// 0FA7 D8
+		XcryptCfb_m,												// 0FA7 E0
+		XcryptOfb_m,												// 0FA7 E8
 		Ibts_rm16_r16,												// o16 0FA7
 		Ibts_rm32_r32,												// o32 0FA7
 		Cmpxchg486_rm8_r8,											// 0FA6

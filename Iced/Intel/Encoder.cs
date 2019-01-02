@@ -157,7 +157,7 @@ namespace Iced.Intel {
 		internal EncoderFlags EncoderFlags;
 		DisplSize DisplSize;
 		internal ImmSize ImmSize;
-		byte ModRM;
+		internal byte ModRM;
 		byte Sib;
 
 		/// <summary>

@@ -48,6 +48,9 @@ namespace Iced.Intel.MasmFormatterInternal {
 		MemorySegDI = OpKind.MemorySegDI,
 		MemorySegEDI = OpKind.MemorySegEDI,
 		MemorySegRDI = OpKind.MemorySegRDI,
+		MemoryESSI = OpKind.MemoryESSI,
+		MemoryESESI = OpKind.MemoryESESI,
+		MemoryESRSI = OpKind.MemoryESRSI,
 		MemoryESDI = OpKind.MemoryESDI,
 		MemoryESEDI = OpKind.MemoryESEDI,
 		MemoryESRDI = OpKind.MemoryESRDI,
@@ -1391,6 +1394,20 @@ namespace Iced.Intel.MasmFormatterInternal {
 			default:
 				throw new InvalidOperationException();
 			}
+		}
+	}
+
+	sealed class SimpleInstrInfo_padlock : InstrInfo {
+		readonly string mnemonic;
+
+		public SimpleInstrInfo_padlock(Code code, string mnemonic)
+			: base(code) => this.mnemonic = mnemonic;
+
+		public override void GetOpInfo(MasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			const InstrOpInfoFlags flags = 0;
+			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			Debug.Assert(info.OpCount == 1);
+			info.OpCount = 0;
 		}
 	}
 }

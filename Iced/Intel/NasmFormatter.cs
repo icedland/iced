@@ -293,6 +293,9 @@ namespace Iced.Intel {
 				case InstrOpKind.Immediate8to32:
 				case InstrOpKind.Immediate8to64:
 				case InstrOpKind.Immediate32to64:
+				case InstrOpKind.MemoryESSI:
+				case InstrOpKind.MemoryESESI:
+				case InstrOpKind.MemoryESRSI:
 				case InstrOpKind.MemoryESDI:
 				case InstrOpKind.MemoryESEDI:
 				case InstrOpKind.MemoryESRDI:
@@ -564,6 +567,18 @@ namespace Iced.Intel {
 
 			case InstrOpKind.MemorySegRDI:
 				FormatMemory(output, ref instruction, operand, opInfo.GetInstructionIndex(operand), opInfo.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.RDI, Register.None, 0, 0, 0, 8, opInfo.Flags);
+				break;
+
+			case InstrOpKind.MemoryESSI:
+				FormatMemory(output, ref instruction, operand, opInfo.GetInstructionIndex(operand), opInfo.MemorySize, instruction.SegmentPrefix, Register.ES, Register.SI, Register.None, 0, 0, 0, 2, opInfo.Flags);
+				break;
+
+			case InstrOpKind.MemoryESESI:
+				FormatMemory(output, ref instruction, operand, opInfo.GetInstructionIndex(operand), opInfo.MemorySize, instruction.SegmentPrefix, Register.ES, Register.ESI, Register.None, 0, 0, 0, 4, opInfo.Flags);
+				break;
+
+			case InstrOpKind.MemoryESRSI:
+				FormatMemory(output, ref instruction, operand, opInfo.GetInstructionIndex(operand), opInfo.MemorySize, instruction.SegmentPrefix, Register.ES, Register.RSI, Register.None, 0, 0, 0, 8, opInfo.Flags);
 				break;
 
 			case InstrOpKind.MemoryESDI:
