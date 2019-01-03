@@ -98,5 +98,359 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[MethodImpl(MethodImplOptions.NoInlining)]
 		static object ToObject<T>(T value) => value;
 #endif
+
+		[Fact]
+		void Write_all_properties() {
+			Instruction instr = default;
+
+			instr.IP16 = ushort.MinValue;
+			Assert.Equal(ushort.MinValue, instr.IP16);
+			instr.IP16 = ushort.MaxValue;
+			Assert.Equal(ushort.MaxValue, instr.IP16);
+
+			instr.IP32 = uint.MinValue;
+			Assert.Equal(uint.MinValue, instr.IP32);
+			instr.IP32 = uint.MaxValue;
+			Assert.Equal(uint.MaxValue, instr.IP32);
+
+			instr.IP64 = ulong.MinValue;
+			Assert.Equal(ulong.MinValue, instr.IP64);
+			instr.IP64 = ulong.MaxValue;
+			Assert.Equal(ulong.MaxValue, instr.IP64);
+
+			instr.NextIP16 = ushort.MinValue;
+			Assert.Equal(ushort.MinValue, instr.NextIP16);
+			instr.NextIP16 = ushort.MaxValue;
+			Assert.Equal(ushort.MaxValue, instr.NextIP16);
+
+			instr.NextIP32 = uint.MinValue;
+			Assert.Equal(uint.MinValue, instr.NextIP32);
+			instr.NextIP32 = uint.MaxValue;
+			Assert.Equal(uint.MaxValue, instr.NextIP32);
+
+			instr.NextIP64 = ulong.MinValue;
+			Assert.Equal(ulong.MinValue, instr.NextIP64);
+			instr.NextIP64 = ulong.MaxValue;
+			Assert.Equal(ulong.MaxValue, instr.NextIP64);
+
+			instr.MemoryDisplacement = uint.MinValue;
+			Assert.Equal(uint.MinValue, instr.MemoryDisplacement);
+			instr.MemoryDisplacement = uint.MaxValue;
+			Assert.Equal(uint.MaxValue, instr.MemoryDisplacement);
+
+			instr.Immediate8 = byte.MinValue;
+			Assert.Equal(byte.MinValue, instr.Immediate8);
+			instr.Immediate8 = byte.MaxValue;
+			Assert.Equal(byte.MaxValue, instr.Immediate8);
+
+			instr.Immediate8_2nd = byte.MinValue;
+			Assert.Equal(byte.MinValue, instr.Immediate8_2nd);
+			instr.Immediate8_2nd = byte.MaxValue;
+			Assert.Equal(byte.MaxValue, instr.Immediate8_2nd);
+
+			instr.Immediate16 = ushort.MinValue;
+			Assert.Equal(ushort.MinValue, instr.Immediate16);
+			instr.Immediate16 = ushort.MaxValue;
+			Assert.Equal(ushort.MaxValue, instr.Immediate16);
+
+			instr.Immediate32 = uint.MinValue;
+			Assert.Equal(uint.MinValue, instr.Immediate32);
+			instr.Immediate32 = uint.MaxValue;
+			Assert.Equal(uint.MaxValue, instr.Immediate32);
+
+			instr.Immediate64 = ulong.MinValue;
+			Assert.Equal(ulong.MinValue, instr.Immediate64);
+			instr.Immediate64 = ulong.MaxValue;
+			Assert.Equal(ulong.MaxValue, instr.Immediate64);
+
+			instr.Immediate8to32 = sbyte.MinValue;
+			Assert.Equal(sbyte.MinValue, instr.Immediate8to32);
+			instr.Immediate8to32 = sbyte.MaxValue;
+			Assert.Equal(sbyte.MaxValue, instr.Immediate8to32);
+
+			instr.Immediate8to64 = sbyte.MinValue;
+			Assert.Equal(sbyte.MinValue, instr.Immediate8to64);
+			instr.Immediate8to64 = sbyte.MaxValue;
+			Assert.Equal(sbyte.MaxValue, instr.Immediate8to64);
+
+			instr.Immediate32to64 = int.MinValue;
+			Assert.Equal(int.MinValue, instr.Immediate32to64);
+			instr.Immediate32to64 = int.MaxValue;
+			Assert.Equal(int.MaxValue, instr.Immediate32to64);
+
+			instr.MemoryAddress64 = ulong.MinValue;
+			Assert.Equal(ulong.MinValue, instr.MemoryAddress64);
+			instr.MemoryAddress64 = ulong.MaxValue;
+			Assert.Equal(ulong.MaxValue, instr.MemoryAddress64);
+
+			instr.Op0Kind = OpKind.NearBranch16;
+			instr.NearBranch16 = ushort.MinValue;
+			Assert.Equal(ushort.MinValue, instr.NearBranch16);
+			Assert.Equal(ushort.MinValue, instr.NearBranchTarget);
+			instr.NearBranch16 = ushort.MaxValue;
+			Assert.Equal(ushort.MaxValue, instr.NearBranch16);
+			Assert.Equal(ushort.MaxValue, instr.NearBranchTarget);
+
+			instr.Op0Kind = OpKind.NearBranch32;
+			instr.NearBranch32 = uint.MinValue;
+			Assert.Equal(uint.MinValue, instr.NearBranch32);
+			Assert.Equal(uint.MinValue, instr.NearBranchTarget);
+			instr.NearBranch32 = uint.MaxValue;
+			Assert.Equal(uint.MaxValue, instr.NearBranch32);
+			Assert.Equal(uint.MaxValue, instr.NearBranchTarget);
+
+			instr.Op0Kind = OpKind.NearBranch64;
+			instr.NearBranch64 = ulong.MinValue;
+			Assert.Equal(ulong.MinValue, instr.NearBranch64);
+			Assert.Equal(ulong.MinValue, instr.NearBranchTarget);
+			instr.NearBranch64 = ulong.MaxValue;
+			Assert.Equal(ulong.MaxValue, instr.NearBranch64);
+			Assert.Equal(ulong.MaxValue, instr.NearBranchTarget);
+
+			instr.FarBranch16 = ushort.MinValue;
+			Assert.Equal(ushort.MinValue, instr.FarBranch16);
+			instr.FarBranch16 = ushort.MaxValue;
+			Assert.Equal(ushort.MaxValue, instr.FarBranch16);
+
+			instr.FarBranch32 = uint.MinValue;
+			Assert.Equal(uint.MinValue, instr.FarBranch32);
+			instr.FarBranch32 = uint.MaxValue;
+			Assert.Equal(uint.MaxValue, instr.FarBranch32);
+
+			instr.FarBranchSelector = ushort.MinValue;
+			Assert.Equal(ushort.MinValue, instr.FarBranchSelector);
+			instr.FarBranchSelector = ushort.MaxValue;
+			Assert.Equal(ushort.MaxValue, instr.FarBranchSelector);
+
+			instr.HasXacquirePrefix = false;
+			Assert.False(instr.HasXacquirePrefix);
+			instr.HasXacquirePrefix = true;
+			Assert.True(instr.HasXacquirePrefix);
+
+			instr.HasXreleasePrefix = false;
+			Assert.False(instr.HasXreleasePrefix);
+			instr.HasXreleasePrefix = true;
+			Assert.True(instr.HasXreleasePrefix);
+
+			instr.HasRepePrefix = false;
+			Assert.False(instr.HasRepePrefix);
+			instr.HasRepePrefix = true;
+			Assert.True(instr.HasRepePrefix);
+
+			instr.HasRepnePrefix = false;
+			Assert.False(instr.HasRepnePrefix);
+			instr.HasRepnePrefix = true;
+			Assert.True(instr.HasRepnePrefix);
+
+			instr.HasLockPrefix = false;
+			Assert.False(instr.HasLockPrefix);
+			instr.HasLockPrefix = true;
+			Assert.True(instr.HasLockPrefix);
+
+			instr.IsBroadcast = false;
+			Assert.False(instr.IsBroadcast);
+			instr.IsBroadcast = true;
+			Assert.True(instr.IsBroadcast);
+
+			instr.SuppressAllExceptions = false;
+			Assert.False(instr.SuppressAllExceptions);
+			instr.SuppressAllExceptions = true;
+			Assert.True(instr.SuppressAllExceptions);
+
+			for (int i = 0; i <= Iced.Intel.DecoderConstants.MaxInstructionLength; i++) {
+				instr.ByteLength = i;
+				Assert.Equal(i, instr.ByteLength);
+			}
+
+			foreach (var codeSize in GetEnumValues<CodeSize>()) {
+				instr.CodeSize = codeSize;
+				Assert.Equal(codeSize, instr.CodeSize);
+			}
+
+			foreach (var code in GetEnumValues<Code>()) {
+				instr.Code = code;
+				Assert.Equal(code, instr.Code);
+			}
+
+			Assert.Equal(5, Iced.Intel.DecoderConstants.MaxOpCount);
+			foreach (var opKind in GetEnumValues<OpKind>()) {
+				instr.Op0Kind = opKind;
+				Assert.Equal(opKind, instr.Op0Kind);
+
+				instr.Op1Kind = opKind;
+				Assert.Equal(opKind, instr.Op1Kind);
+
+				instr.Op2Kind = opKind;
+				Assert.Equal(opKind, instr.Op2Kind);
+
+				instr.Op3Kind = opKind;
+				Assert.Equal(opKind, instr.Op3Kind);
+
+				if (opKind == OpKind.Immediate8) {
+					instr.Op4Kind = opKind;
+					Assert.Equal(opKind, instr.Op4Kind);
+				}
+				else
+					Assert.Throws<ArgumentOutOfRangeException>(() => instr.Op4Kind = opKind);
+			}
+
+			foreach (var opKind in GetEnumValues<OpKind>()) {
+				instr.SetOpKind(0, opKind);
+				Assert.Equal(opKind, instr.Op0Kind);
+				Assert.Equal(opKind, instr.GetOpKind(0));
+
+				instr.SetOpKind(1, opKind);
+				Assert.Equal(opKind, instr.Op1Kind);
+				Assert.Equal(opKind, instr.GetOpKind(1));
+
+				instr.SetOpKind(2, opKind);
+				Assert.Equal(opKind, instr.Op2Kind);
+				Assert.Equal(opKind, instr.GetOpKind(2));
+
+				instr.SetOpKind(3, opKind);
+				Assert.Equal(opKind, instr.Op3Kind);
+				Assert.Equal(opKind, instr.GetOpKind(3));
+
+				if (opKind == OpKind.Immediate8) {
+					instr.SetOpKind(4, opKind);
+					Assert.Equal(opKind, instr.Op4Kind);
+					Assert.Equal(opKind, instr.GetOpKind(4));
+				}
+				else
+					Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpKind(4, opKind));
+			}
+
+			var segValues = new Register[] {
+				Register.ES,
+				Register.CS,
+				Register.SS,
+				Register.DS,
+				Register.FS,
+				Register.GS,
+				Register.None,
+			};
+			foreach (var seg in segValues) {
+				instr.SegmentPrefix = seg;
+				Assert.Equal(seg, instr.SegmentPrefix);
+			}
+
+			var displSizes = new int[] { 8, 4, 2, 1, 0 };
+			foreach (var displSize in displSizes) {
+				instr.MemoryDisplSize = displSize;
+				Assert.Equal(displSize, instr.MemoryDisplSize);
+			}
+
+			var scaleValues = new int[] { 8, 4, 2, 1 };
+			foreach (var scaleValue in scaleValues) {
+				instr.MemoryIndexScale = scaleValue;
+				Assert.Equal(scaleValue, instr.MemoryIndexScale);
+			}
+
+			foreach (var reg in GetEnumValues<Register>()) {
+				instr.MemoryBase = reg;
+				Assert.Equal(reg, instr.MemoryBase);
+
+				instr.MemoryIndex = reg;
+				Assert.Equal(reg, instr.MemoryIndex);
+
+				instr.Op0Register = reg;
+				Assert.Equal(reg, instr.Op0Register);
+
+				instr.Op1Register = reg;
+				Assert.Equal(reg, instr.Op1Register);
+
+				instr.Op2Register = reg;
+				Assert.Equal(reg, instr.Op2Register);
+
+				instr.Op3Register = reg;
+				Assert.Equal(reg, instr.Op3Register);
+
+				if (reg == Register.None) {
+					instr.Op4Register = reg;
+					Assert.Equal(reg, instr.Op4Register);
+				}
+				else
+					Assert.Throws<ArgumentOutOfRangeException>(() => instr.Op4Register = reg);
+			}
+
+			foreach (var reg in GetEnumValues<Register>()) {
+				instr.SetOpRegister(0, reg);
+				Assert.Equal(reg, instr.Op0Register);
+				Assert.Equal(reg, instr.GetOpRegister(0));
+
+				instr.SetOpRegister(1, reg);
+				Assert.Equal(reg, instr.Op1Register);
+				Assert.Equal(reg, instr.GetOpRegister(1));
+
+				instr.SetOpRegister(2, reg);
+				Assert.Equal(reg, instr.Op2Register);
+				Assert.Equal(reg, instr.GetOpRegister(2));
+
+				instr.SetOpRegister(3, reg);
+				Assert.Equal(reg, instr.Op3Register);
+				Assert.Equal(reg, instr.GetOpRegister(3));
+
+				if (reg == Register.None) {
+					instr.SetOpRegister(4, reg);
+					Assert.Equal(reg, instr.Op4Register);
+					Assert.Equal(reg, instr.GetOpRegister(4));
+				}
+				else
+					Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpRegister(4, reg));
+			}
+
+			var opMasks = new Register[] {
+				Register.K1,
+				Register.K2,
+				Register.K3,
+				Register.K4,
+				Register.K5,
+				Register.K6,
+				Register.K7,
+				Register.None,
+			};
+			foreach (var opMask in opMasks) {
+				instr.OpMask = opMask;
+				Assert.Equal(opMask, instr.OpMask);
+				Assert.Equal(opMask != Register.None, instr.HasOpMask);
+			}
+
+			instr.ZeroingMasking = false;
+			Assert.False(instr.ZeroingMasking);
+			Assert.True(instr.MergingMasking);
+			instr.ZeroingMasking = true;
+			Assert.True(instr.ZeroingMasking);
+			Assert.False(instr.MergingMasking);
+			instr.MergingMasking = false;
+			Assert.False(instr.MergingMasking);
+			Assert.True(instr.ZeroingMasking);
+			instr.MergingMasking = true;
+			Assert.True(instr.MergingMasking);
+			Assert.False(instr.ZeroingMasking);
+
+			foreach (var rc in GetEnumValues<RoundingControl>()) {
+				instr.RoundingControl = rc;
+				Assert.Equal(rc, instr.RoundingControl);
+			}
+
+			foreach (var reg in GetEnumValues<Register>()) {
+				instr.MemoryBase = reg;
+				Assert.Equal(reg == Register.RIP || reg == Register.EIP, instr.IsIPRelativeMemoryOperand);
+			}
+
+			instr.MemoryBase = Register.EIP;
+			instr.NextIP64 = 0x123456789ABCDEF1;
+			instr.MemoryDisplacement = 0x87654321;
+			Assert.True(instr.IsIPRelativeMemoryOperand);
+			Assert.Equal(0x22222212UL, instr.IPRelativeMemoryAddress);
+
+			instr.MemoryBase = Register.RIP;
+			instr.NextIP64 = 0x123456789ABCDEF1;
+			instr.MemoryDisplacement = 0x87654321;
+			Assert.True(instr.IsIPRelativeMemoryOperand);
+			Assert.Equal(0x1234567822222212UL, instr.IPRelativeMemoryAddress);
+		}
+
+		static T[] GetEnumValues<T>() => (T[])Enum.GetValues(typeof(T));
 	}
 }
