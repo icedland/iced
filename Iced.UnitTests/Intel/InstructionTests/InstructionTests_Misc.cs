@@ -276,16 +276,24 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var opKind in GetEnumValues<OpKind>()) {
 				instr.Op0Kind = opKind;
 				Assert.Equal(opKind, instr.Op0Kind);
+			}
 
+			foreach (var opKind in GetEnumValues<OpKind>()) {
 				instr.Op1Kind = opKind;
 				Assert.Equal(opKind, instr.Op1Kind);
+			}
 
+			foreach (var opKind in GetEnumValues<OpKind>()) {
 				instr.Op2Kind = opKind;
 				Assert.Equal(opKind, instr.Op2Kind);
+			}
 
+			foreach (var opKind in GetEnumValues<OpKind>()) {
 				instr.Op3Kind = opKind;
 				Assert.Equal(opKind, instr.Op3Kind);
+			}
 
+			foreach (var opKind in GetEnumValues<OpKind>()) {
 				if (opKind == OpKind.Immediate8) {
 					instr.Op4Kind = opKind;
 					Assert.Equal(opKind, instr.Op4Kind);
@@ -298,19 +306,27 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				instr.SetOpKind(0, opKind);
 				Assert.Equal(opKind, instr.Op0Kind);
 				Assert.Equal(opKind, instr.GetOpKind(0));
+			}
 
+			foreach (var opKind in GetEnumValues<OpKind>()) {
 				instr.SetOpKind(1, opKind);
 				Assert.Equal(opKind, instr.Op1Kind);
 				Assert.Equal(opKind, instr.GetOpKind(1));
+			}
 
+			foreach (var opKind in GetEnumValues<OpKind>()) {
 				instr.SetOpKind(2, opKind);
 				Assert.Equal(opKind, instr.Op2Kind);
 				Assert.Equal(opKind, instr.GetOpKind(2));
+			}
 
+			foreach (var opKind in GetEnumValues<OpKind>()) {
 				instr.SetOpKind(3, opKind);
 				Assert.Equal(opKind, instr.Op3Kind);
 				Assert.Equal(opKind, instr.GetOpKind(3));
+			}
 
+			foreach (var opKind in GetEnumValues<OpKind>()) {
 				if (opKind == OpKind.Immediate8) {
 					instr.SetOpKind(4, opKind);
 					Assert.Equal(opKind, instr.Op4Kind);
@@ -349,22 +365,34 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var reg in GetEnumValues<Register>()) {
 				instr.MemoryBase = reg;
 				Assert.Equal(reg, instr.MemoryBase);
+			}
 
+			foreach (var reg in GetEnumValues<Register>()) {
 				instr.MemoryIndex = reg;
 				Assert.Equal(reg, instr.MemoryIndex);
+			}
 
+			foreach (var reg in GetEnumValues<Register>()) {
 				instr.Op0Register = reg;
 				Assert.Equal(reg, instr.Op0Register);
+			}
 
+			foreach (var reg in GetEnumValues<Register>()) {
 				instr.Op1Register = reg;
 				Assert.Equal(reg, instr.Op1Register);
+			}
 
+			foreach (var reg in GetEnumValues<Register>()) {
 				instr.Op2Register = reg;
 				Assert.Equal(reg, instr.Op2Register);
+			}
 
+			foreach (var reg in GetEnumValues<Register>()) {
 				instr.Op3Register = reg;
 				Assert.Equal(reg, instr.Op3Register);
+			}
 
+			foreach (var reg in GetEnumValues<Register>()) {
 				if (reg == Register.None) {
 					instr.Op4Register = reg;
 					Assert.Equal(reg, instr.Op4Register);
@@ -377,19 +405,27 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				instr.SetOpRegister(0, reg);
 				Assert.Equal(reg, instr.Op0Register);
 				Assert.Equal(reg, instr.GetOpRegister(0));
+			}
 
+			foreach (var reg in GetEnumValues<Register>()) {
 				instr.SetOpRegister(1, reg);
 				Assert.Equal(reg, instr.Op1Register);
 				Assert.Equal(reg, instr.GetOpRegister(1));
+			}
 
+			foreach (var reg in GetEnumValues<Register>()) {
 				instr.SetOpRegister(2, reg);
 				Assert.Equal(reg, instr.Op2Register);
 				Assert.Equal(reg, instr.GetOpRegister(2));
+			}
 
+			foreach (var reg in GetEnumValues<Register>()) {
 				instr.SetOpRegister(3, reg);
 				Assert.Equal(reg, instr.Op3Register);
 				Assert.Equal(reg, instr.GetOpRegister(3));
+			}
 
+			foreach (var reg in GetEnumValues<Register>()) {
 				if (reg == Register.None) {
 					instr.SetOpRegister(4, reg);
 					Assert.Equal(reg, instr.Op4Register);
