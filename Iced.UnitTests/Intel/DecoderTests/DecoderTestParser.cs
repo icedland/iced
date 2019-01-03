@@ -75,6 +75,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		const string OpMask_k5 = "k5";
 		const string OpMask_k6 = "k6";
 		const string OpMask_k7 = "k7";
+		const string ConstantOffsets = "co";
 
 		const string OpKind_Register = "r";
 		const string OpKind_NearBranch16 = "nb16";
@@ -380,12 +381,35 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					tc.OpMask = Register.K7;
 					break;
 
+				case ConstantOffsets:
+					if (!TryParseConstantOffsets(value, out tc.ConstantOffsets))
+						throw new InvalidOperationException($"Invalid ConstantOffsets: '{value}'");
+					break;
+
 				default:
 					throw new InvalidOperationException($"Invalid key '{key}'");
 				}
 			}
 
 			return tc;
+		}
+
+		static readonly char[] coSeps = new char[] { ';' };
+		static bool TryParseConstantOffsets(string value, out ConstantOffsets constantOffsets) {
+			constantOffsets = default;
+			if (value == null)
+				return false;
+
+			var parts = value.Split(coSeps);
+			if (parts.Length != 6)
+				return false;
+			constantOffsets.ImmediateOffset = ToUInt8(parts[0]);
+			constantOffsets.ImmediateSize = ToUInt8(parts[1]);
+			constantOffsets.ImmediateOffset2 = ToUInt8(parts[2]);
+			constantOffsets.ImmediateSize2 = ToUInt8(parts[3]);
+			constantOffsets.DisplacementOffset = ToUInt8(parts[4]);
+			constantOffsets.DisplacementSize = ToUInt8(parts[5]);
+			return true;
 		}
 
 		static readonly char[] opKindSeps = new char[] { ';' };

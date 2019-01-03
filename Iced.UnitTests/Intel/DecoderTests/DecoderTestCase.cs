@@ -59,6 +59,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public uint FarBranch;
 		public ushort FarBranchSelector;
 		public Register Op0Register, Op1Register, Op2Register, Op3Register, Op4Register;
+		public ConstantOffsets ConstantOffsets;
 
 		public OpKind GetOpKind(int operand) {
 			switch (operand) {

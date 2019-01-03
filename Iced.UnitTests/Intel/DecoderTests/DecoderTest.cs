@@ -72,7 +72,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			return (decoder, codeReader.Count);
 		}
 
-		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize) {
+		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, in ConstantOffsets constantOffsets) {
 			var (decoder, byteLength) = CreateDecoder(bitness, hexBytes, DecoderOptions.None);
 			var instr = decoder.Decode();
 
@@ -94,6 +94,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(OpKind.Register, instr.Op1Kind);
 			Assert.Equal(register, instr.Op1Register);
+			VerifyConstantOffsets(constantOffsets, decoder.GetConstantOffsets(ref instr));
 		}
 
 		static readonly Dictionary<string, Code> toCode = CreateToCode();
@@ -131,7 +132,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				if (line.Length == 0 || line[0] == '#')
 					continue;
 				var parts = line.Split(colSep, StringSplitOptions.None);
-				if (parts.Length != 10)
+				if (parts.Length != 11)
 					throw new InvalidOperationException();
 				string hexBytes = parts[0].Trim();
 				var code = toCode[parts[1].Trim()];
@@ -143,7 +144,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				int scale = (int)ParseUInt32(parts[7].Trim());
 				uint displ = ParseUInt32(parts[8].Trim());
 				int displSize = (int)ParseUInt32(parts[9].Trim());
-				yield return new object[10] { hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize };
+				var constantOffsets = ParseConstantOffsets(parts[10].Trim());
+				yield return new object[11] { hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize, constantOffsets };
 			}
 
 			uint ParseUInt32(string s) {
@@ -157,7 +159,22 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				throw new InvalidOperationException();
 			}
+
+			ConstantOffsets ParseConstantOffsets(string s) {
+				var vs = s.Split(coSeps);
+				if (vs.Length != 6)
+					throw new InvalidOperationException();
+				ConstantOffsets co;
+				co.ImmediateOffset = byte.Parse(vs[0]);
+				co.ImmediateSize = byte.Parse(vs[1]);
+				co.ImmediateOffset2 = byte.Parse(vs[2]);
+				co.ImmediateSize2 = byte.Parse(vs[3]);
+				co.DisplacementOffset = byte.Parse(vs[4]);
+				co.DisplacementSize = byte.Parse(vs[5]);
+				return co;
+			}
 		}
+		static char[] coSeps = new char[] { ';' };
 
 		protected static IEnumerable<object[]> GetDecoderTestData(int bitness, int classIndex) {
 			var allTestCases = DecoderTestCases.GetTestCases(bitness);
@@ -350,6 +367,16 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					}
 				}
 			}
+			VerifyConstantOffsets(tc.ConstantOffsets, decoder.GetConstantOffsets(ref instr));
+		}
+
+		static void VerifyConstantOffsets(in ConstantOffsets expectedConstantOffsets, in ConstantOffsets actualConstantOffsets) {
+			Assert.Equal(expectedConstantOffsets.ImmediateOffset, actualConstantOffsets.ImmediateOffset);
+			Assert.Equal(expectedConstantOffsets.ImmediateSize, actualConstantOffsets.ImmediateSize);
+			Assert.Equal(expectedConstantOffsets.ImmediateOffset2, actualConstantOffsets.ImmediateOffset2);
+			Assert.Equal(expectedConstantOffsets.ImmediateSize2, actualConstantOffsets.ImmediateSize2);
+			Assert.Equal(expectedConstantOffsets.DisplacementOffset, actualConstantOffsets.DisplacementOffset);
+			Assert.Equal(expectedConstantOffsets.DisplacementSize, actualConstantOffsets.DisplacementSize);
 		}
 	}
 }
