@@ -475,16 +475,16 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			}
 
 			instr.MemoryBase = Register.EIP;
-			instr.NextIP64 = 0x123456789ABCDEF1;
+			instr.NextIP64 = 0x123456701EDCBA98;
 			instr.MemoryDisplacement = 0x87654321;
 			Assert.True(instr.IsIPRelativeMemoryOperand);
-			Assert.Equal(0x22222212UL, instr.IPRelativeMemoryAddress);
+			Assert.Equal(0xA641FDB9UL, instr.IPRelativeMemoryAddress);
 
 			instr.MemoryBase = Register.RIP;
-			instr.NextIP64 = 0x123456789ABCDEF1;
+			instr.NextIP64 = 0x123456701EDCBA98;
 			instr.MemoryDisplacement = 0x87654321;
 			Assert.True(instr.IsIPRelativeMemoryOperand);
-			Assert.Equal(0x1234567822222212UL, instr.IPRelativeMemoryAddress);
+			Assert.Equal(0x1234566FA641FDB9UL, instr.IPRelativeMemoryAddress);
 		}
 
 		static T[] GetEnumValues<T>() => (T[])Enum.GetValues(typeof(T));
