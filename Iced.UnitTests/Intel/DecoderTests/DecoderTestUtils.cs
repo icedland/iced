@@ -23,9 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
-using System.Reflection.Emit;
 using Iced.Intel;
 using Xunit;
 
@@ -771,83 +769,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					}
 				}
 			}
-		}
-
-		static string GetHexBytes(MethodBase method) {
-			var ilCode = method.GetMethodBody().GetILAsByteArray();
-			var stream = new MemoryStream(ilCode);
-			var reader = new BinaryReader(stream);
-			const int Ldstr = 0x0072;
-			string prevStr = null;
-			for (;;) {
-				int opc = reader.ReadByte();
-				if (opc == 0xFE)
-					opc = (opc << 8) + reader.ReadByte();
-				if (!toOpCode.TryGetValue(opc, out var opCode))
-					throw new InvalidOperationException();
-
-				var operand = ReadOperand(reader, opCode);
-
-				string currStr = null;
-				if (opCode.Value == Ldstr) {
-					currStr = method.Module.ResolveString((int)operand);
-					Assert.NotNull(currStr);
-					if (prevStr != null) {
-						if (currStr == method.Name)
-							return prevStr;
-					}
-				}
-				prevStr = currStr;
-			}
-		}
-
-		static ulong ReadOperand(BinaryReader reader, OpCode opCode) {
-			switch (opCode.OperandType) {
-			case OperandType.InlineBrTarget:
-			case OperandType.InlineField:
-			case OperandType.InlineI:
-			case OperandType.InlineMethod:
-			case OperandType.InlineSig:
-			case OperandType.InlineString:
-			case OperandType.InlineTok:
-			case OperandType.InlineType:
-			case OperandType.ShortInlineR:
-				return reader.ReadUInt32();
-
-			case OperandType.InlineI8:
-			case OperandType.InlineR:
-				return reader.ReadUInt64();
-
-			case OperandType.InlineNone:
-				return 0;
-
-			case OperandType.InlineSwitch:
-				uint count = reader.ReadUInt32();
-				reader.BaseStream.Position += (long)count * 4;
-				return count;
-
-			case OperandType.InlineVar:
-				return reader.ReadUInt16();
-
-			case OperandType.ShortInlineBrTarget:
-			case OperandType.ShortInlineI:
-			case OperandType.ShortInlineVar:
-				return reader.ReadByte();
-
-			default:
-				return 0;
-			}
-		}
-
-		static readonly Dictionary<int, OpCode> toOpCode = CreateToOpCodes();
-
-		static Dictionary<int, OpCode> CreateToOpCodes() {
-			var dict = new Dictionary<int, OpCode>();
-			foreach (var info in typeof(OpCodes).GetFields(BindingFlags.Public | BindingFlags.Static)) {
-				var sreOpCode = (OpCode)info.GetValue(null);
-				dict[sreOpCode.Value] = sreOpCode;
-			}
-			return dict;
 		}
 	}
 }
