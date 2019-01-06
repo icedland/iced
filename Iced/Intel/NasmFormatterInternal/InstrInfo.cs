@@ -1492,20 +1492,19 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			if (instrCodeSize == 0)
-				instrCodeSize = codeSize;
 			var branchInfo = BranchSizeInfo.None;
-			if (instrCodeSize == 64) {
-				if (codeSize == 16)
-					flags |= InstrOpInfoFlags.OpSize16;
-				else if (codeSize == 64)
-					flags |= InstrOpInfoFlags.OpSize64;
+			int instrCodeSize = GetCodeSize(instr.CodeSize);
+			if (instrCodeSize == 0) {
+				// Nothing
 			}
-			else if (instrCodeSize != codeSize) {
-				if (codeSize == 16)
+			else if (instrCodeSize == 64) {
+				if ((codeSize & 16) != 0)
+					flags |= InstrOpInfoFlags.OpSize16;
+			}
+			else if ((instrCodeSize & codeSize) == 0) {
+				if ((codeSize & 16) != 0)
 					branchInfo = BranchSizeInfo.Word;
-				else if (codeSize == 32)
+				else if ((codeSize & 32) != 0)
 					branchInfo = BranchSizeInfo.Dword;
 			}
 			flags |= (InstrOpInfoFlags)((int)branchInfo << (int)InstrOpInfoFlags.BranchSizeInfoShift);

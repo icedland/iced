@@ -786,15 +786,18 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			if (instrCodeSize == 64)
-				instrCodeSize = 32;
-			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
-				if (codeSize == 16)
+			if (instrCodeSize == 0) {
+				// Nothing
+			}
+			else if (instrCodeSize == 64) {
+				if ((codeSize & 16) != 0)
 					flags |= InstrOpInfoFlags.OpSize16;
-				else if (codeSize == 32)
+			}
+			else if ((instrCodeSize & codeSize) == 0) {
+				if ((codeSize & 16) != 0)
+					flags |= InstrOpInfoFlags.OpSize16;
+				else if ((codeSize & 32) != 0)
 					flags |= InstrOpInfoFlags.OpSize32;
-				else
-					flags |= InstrOpInfoFlags.OpSize64;
 			}
 			info = new InstrOpInfo(mnemonic, ref instr, flags);
 		}

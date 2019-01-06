@@ -1907,8 +1907,6 @@ C7 00 5AA51234, Mov_rm32_imm32, Legacy, INTEL8086, op0=w op1=r r=rax wm=ds:rax;U
 66 C7 F8 5AA5, Xbegin_rel16, Legacy, RTM, flow=XbeginXabortXend op0=r
 # xbegin 800000003412A550h
 C7 F8 5AA51234, Xbegin_rel32, Legacy, RTM, flow=XbeginXabortXend op0=r
-# xbegin 800000003412A551h
-48 C7 F8 5AA51234, Xbegin_rel32_REXW, Legacy, RTM, flow=XbeginXabortXend op0=r
 # enterw 0A55Ah,0E0h
 66 C8 5AA5 E0, Enterw_imm16_imm8, Legacy, INTEL186, op0=r op1=r rw=bp rw=sp rw=xsp stack=-42332 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16
 # enterw 0A55Ah,0E1h

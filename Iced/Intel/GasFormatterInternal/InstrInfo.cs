@@ -1082,18 +1082,17 @@ namespace Iced.Intel.GasFormatterInternal {
 		public override void GetOpInfo(GasFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			if (instrCodeSize == 0)
-				instrCodeSize = codeSize;
-			if (instrCodeSize == 64) {
-				if (codeSize == 16)
-					flags |= InstrOpInfoFlags.OpSize16;
-				else if (codeSize == 64)
-					flags |= InstrOpInfoFlags.OpSize64;
+			if (instrCodeSize == 0) {
+				// Nothing
 			}
-			else if (instrCodeSize != codeSize) {
-				if (codeSize == 16)
+			else if (instrCodeSize == 64) {
+				if ((codeSize & 16) != 0)
 					flags |= InstrOpInfoFlags.OpSize16;
-				else if (codeSize == 32)
+			}
+			else if ((instrCodeSize & codeSize) == 0) {
+				if ((codeSize & 16) != 0)
+					flags |= InstrOpInfoFlags.OpSize16;
+				else if ((codeSize & 32) != 0)
 					flags |= InstrOpInfoFlags.OpSize32;
 			}
 			info = new InstrOpInfo(mnemonic, ref instr, flags);

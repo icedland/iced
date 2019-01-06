@@ -472,13 +472,6 @@ namespace Iced.Intel {
 					ImmediateHi = (uint)(target >> 32);
 					break;
 
-				case 8:
-					EncoderFlags |= EncoderFlags.W;
-					ImmSize = ImmSize.RipRelSize4_Target64;
-					Immediate = (uint)target;
-					ImmediateHi = (uint)(target >> 32);
-					break;
-
 				default:
 					throw new InvalidOperationException();
 				}

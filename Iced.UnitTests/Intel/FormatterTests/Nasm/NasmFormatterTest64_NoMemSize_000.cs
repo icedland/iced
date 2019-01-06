@@ -730,7 +730,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"mov qword [rax],qword 0xffffffff8412a55a",
 			"o16 xbegin 0x7fffffffffffa54f",
 			"xbegin 0x800000003412a550",
-			"o64 xbegin 0x800000003412a551",
+			"xbegin 0x800000003412a551",
 			"o16 enter 0xa55a,0xa6",
 			"enter 0xa55a,0xa6",
 			"o16 leave",

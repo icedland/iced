@@ -730,7 +730,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"mov qword ptr [rax], 0xffffffff8412a55a",
 			"data16 xbegin 0x7fffffffffffa54f",
 			"xbegin 0x800000003412a550",
-			"data64 xbegin 0x800000003412a551",
+			"xbegin 0x800000003412a551",
 			"data16 enter 0xa55a, 0xa6",
 			"enter 0xa55a, 0xa6",
 			"data16 leave",

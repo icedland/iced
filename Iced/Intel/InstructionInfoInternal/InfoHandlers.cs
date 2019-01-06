@@ -801,7 +801,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Mov_rm64_imm32, Op0_Write | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Xbegin_rel16, Op0_Read | FlowControl_XbeginXabortXend | CPUID_RTM | Encoding_Legacy,
 			(uint)Code.Xbegin_rel32, Op0_Read | FlowControl_XbeginXabortXend | CPUID_RTM | Encoding_Legacy,
-			(uint)Code.Xbegin_rel32_REXW, Op0_Read | FlowControl_XbeginXabortXend | CPUID_RTM | Encoding_Legacy,
 			(uint)Code.Enterw_imm16_imm8 | StackInstruction | CodeInfo_Enter, Op0_Read | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Enterd_imm16_imm8 | StackInstruction | CodeInfo_Enter, Op0_Read | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,
 			(uint)Code.Enterq_imm16_imm8 | StackInstruction | CodeInfo_Enter, Op0_Read | Op1_Read | CPUID_INTEL186 | Encoding_Legacy,

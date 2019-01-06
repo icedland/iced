@@ -278,7 +278,6 @@ namespace Iced.Intel {
 
 			case Code.Xbegin_rel16:
 			case Code.Xbegin_rel32:
-			case Code.Xbegin_rel32_REXW:
 				return FormatterFlowControl.Xbegin;
 
 			default:

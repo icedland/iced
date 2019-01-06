@@ -461,7 +461,6 @@ namespace Iced.Intel {
 		Mov_rm64_imm32,												// REX.W C7 /0
 		Xbegin_rel16,												// o16 C7 F8
 		Xbegin_rel32,												// o32 C7 F8
-		Xbegin_rel32_REXW,											// REX.W C7 F8
 
 		Enterw_imm16_imm8,											// o16 C8
 		Enterd_imm16_imm8,											// o32 C8

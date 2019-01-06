@@ -730,7 +730,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"movq $-0x7bed5aa6,(rax)",
 			"data16 xbegin 0x7fffffffffffa54f",
 			"xbegin 0x800000003412a550",
-			"rex.w xbegin 0x800000003412a551",
+			"xbegin 0x800000003412a551",
 			"enterw $-0x5aa6,$-0x5a",
 			"enterq $-0x5aa6,$-0x5a",
 			"leavew",

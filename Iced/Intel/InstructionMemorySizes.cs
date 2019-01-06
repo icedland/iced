@@ -834,8 +834,6 @@ namespace Iced.Intel {
 			0,// Xbegin_rel16
 			0,// Xbegin_rel32
 			0,// Xbegin_rel32
-			0,// Xbegin_rel32_REXW
-			0,// Xbegin_rel32_REXW
 			0,// Enterw_imm16_imm8
 			0,// Enterw_imm16_imm8
 			0,// Enterd_imm16_imm8

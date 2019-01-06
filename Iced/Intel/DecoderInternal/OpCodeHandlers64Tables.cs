@@ -725,7 +725,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				null,
 
 				// F8
-				new OpCodeHandler_Jx(Code.Xbegin_rel16, Code.Xbegin_rel32, Code.Xbegin_rel32_REXW),
+				new OpCodeHandler_Jx(Code.Xbegin_rel16, Code.Xbegin_rel32, Code.Xbegin_rel32),
 				null,
 				null,
 				null,
