@@ -105,21 +105,18 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		}
 
 		static Decoder CreateDecoder(int codeSize, string hexBytes, DecoderOptions options, out ulong rip) {
-			Decoder decoder;
 			var codeReader = new ByteArrayCodeReader(hexBytes);
+			var decoder = Decoder.Create(codeSize, codeReader, options);
 			switch (codeSize) {
 			case 16:
-				decoder = Decoder.Create16(codeReader, options);
 				rip = DecoderConstants.DEFAULT_IP16;
 				break;
 
 			case 32:
-				decoder = Decoder.Create32(codeReader, options);
 				rip = DecoderConstants.DEFAULT_IP32;
 				break;
 
 			case 64:
-				decoder = Decoder.Create64(codeReader, options);
 				rip = DecoderConstants.DEFAULT_IP64;
 				break;
 

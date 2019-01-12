@@ -46,21 +46,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		(Decoder decoder, int byteLength) CreateDecoder(int codeSize, string hexBytes, DecoderOptions options) {
-			Decoder decoder;
 			var codeReader = new ByteArrayCodeReader(hexBytes);
+			var decoder = Decoder.Create(codeSize, codeReader, options);
 			switch (codeSize) {
 			case 16:
-				decoder = Decoder.Create16(codeReader, options);
 				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP16;
 				break;
 
 			case 32:
-				decoder = Decoder.Create32(codeReader, options);
 				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP32;
 				break;
 
 			case 64:
-				decoder = Decoder.Create64(codeReader, options);
 				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64;
 				break;
 

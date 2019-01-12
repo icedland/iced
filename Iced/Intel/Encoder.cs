@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_ENCODER
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Iced.Intel.EncoderInternal;
@@ -180,10 +181,12 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Encoder Create(int bitness, CodeWriter writer) {
 			switch (bitness) {
-			case 16: return Create16(writer);
-			case 32: return Create32(writer);
-			case 64: return Create64(writer);
-			default: throw new ArgumentOutOfRangeException(nameof(bitness));
+			case 16:
+			case 32:
+			case 64:
+				return new Encoder(writer, bitness);
+			default:
+				throw new ArgumentOutOfRangeException(nameof(bitness));
 			}
 		}
 
@@ -192,21 +195,27 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="writer">Destination</param>
 		/// <returns></returns>
-		public static Encoder Create16(CodeWriter writer) => new Encoder(writer, 16);
+		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public static Encoder Create16(CodeWriter writer) => Create(16, writer);
 
 		/// <summary>
 		/// Creates a 32-bit encoder
 		/// </summary>
 		/// <param name="writer">Destination</param>
 		/// <returns></returns>
-		public static Encoder Create32(CodeWriter writer) => new Encoder(writer, 32);
+		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public static Encoder Create32(CodeWriter writer) => Create(32, writer);
 
 		/// <summary>
 		/// Creates a 64-bit encoder
 		/// </summary>
 		/// <param name="writer">Destination</param>
 		/// <returns></returns>
-		public static Encoder Create64(CodeWriter writer) => new Encoder(writer, 64);
+		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public static Encoder Create64(CodeWriter writer) => Create(64, writer);
 
 		/// <summary>
 		/// Encodes an instruction and returns the size of the encoded instruction.

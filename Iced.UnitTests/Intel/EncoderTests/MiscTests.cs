@@ -45,19 +45,19 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			bool result;
 			uint instrLen;
 
-			encoder = Encoder.Create16(new CodeWriterImpl());
+			encoder = Encoder.Create(16, new CodeWriterImpl());
 			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
 			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
 			Assert.Equal(0U, instrLen);
 
-			encoder = Encoder.Create32(new CodeWriterImpl());
+			encoder = Encoder.Create(32, new CodeWriterImpl());
 			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
 			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
 			Assert.Equal(0U, instrLen);
 
-			encoder = Encoder.Create64(new CodeWriterImpl());
+			encoder = Encoder.Create(64, new CodeWriterImpl());
 			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
 			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
@@ -67,7 +67,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void Encode_throws() {
 			var instr = new Instruction { Code = Code.INVALID };
-			var encoder = Encoder.Create64(new CodeWriterImpl());
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
 			Assert.Throws<EncoderException>(() => {
 				var instrCopy = instr;
 				encoder.Encode(ref instrCopy, 0);
@@ -129,7 +129,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void Encode_BP_with_no_displ() {
 			var writer = new CodeWriterImpl();
-			var encoder = Encoder.Create16(writer);
+			var encoder = Encoder.Create(16, writer);
 			var instr = Instruction.Create(Code.Mov_r16_rm16, Register.AX, new MemoryOperand(Register.BP));
 			uint len = encoder.Encode(ref instr, 0);
 			var expected = new byte[] { 0x8B, 0x46, 0x00 };
@@ -141,7 +141,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void Encode_EBP_with_no_displ() {
 			var writer = new CodeWriterImpl();
-			var encoder = Encoder.Create32(writer);
+			var encoder = Encoder.Create(32, writer);
 			var instr = Instruction.Create(Code.Mov_r32_rm32, Register.EAX, new MemoryOperand(Register.EBP));
 			uint len = encoder.Encode(ref instr, 0);
 			var expected = new byte[] { 0x8B, 0x45, 0x00 };
@@ -153,7 +153,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void Encode_R13D_with_no_displ() {
 			var writer = new CodeWriterImpl();
-			var encoder = Encoder.Create64(writer);
+			var encoder = Encoder.Create(64, writer);
 			var instr = Instruction.Create(Code.Mov_r32_rm32, Register.EAX, new MemoryOperand(Register.R13D));
 			uint len = encoder.Encode(ref instr, 0);
 			var expected = new byte[] { 0x67, 0x41, 0x8B, 0x45, 0x00 };
@@ -165,7 +165,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void Encode_RBP_with_no_displ() {
 			var writer = new CodeWriterImpl();
-			var encoder = Encoder.Create64(writer);
+			var encoder = Encoder.Create(64, writer);
 			var instr = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, new MemoryOperand(Register.RBP));
 			uint len = encoder.Encode(ref instr, 0);
 			var expected = new byte[] { 0x48, 0x8B, 0x45, 0x00 };
@@ -177,7 +177,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void Encode_R13_with_no_displ() {
 			var writer = new CodeWriterImpl();
-			var encoder = Encoder.Create64(writer);
+			var encoder = Encoder.Create(64, writer);
 			var instr = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, new MemoryOperand(Register.R13));
 			uint len = encoder.Encode(ref instr, 0);
 			var expected = new byte[] { 0x49, 0x8B, 0x45, 0x00 };
@@ -193,7 +193,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[InlineData("F0 0F20 C1", Code.Mov_r64_cr, "44 0F20 C1")]
 		[InlineData("F0 0F22 C1", Code.Mov_cr_r64, "44 0F22 C1")]
 		void Encode_MOV_CR8_in_64bit_mode_does_not_add_LOCK(string hexBytes, Code code, string encodedBytes) {
-			var decoder = Decoder.Create64(new ByteArrayCodeReader(hexBytes));
+			var decoder = Decoder.Create(64, new ByteArrayCodeReader(hexBytes));
 			decoder.Decode(out var instr);
 			Assert.Equal(code, instr.Code);
 			var writer = new CodeWriterImpl();

@@ -45,7 +45,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			0x05, 0x2F, 0x24, 0x0A, 0x00, 0x48, 0x8D, 0x05, 0x78, 0x7C, 0x04, 0x00, 0x33, 0xFF
 		};
 		static Instruction[] GetInstructions() {
-			var decoder = Decoder.Create64(new ByteArrayCodeReader(testCode));
+			var decoder = Decoder.Create(64, new ByteArrayCodeReader(testCode));
 			var endRip = decoder.InstructionPointer + (uint)testCode.Length;
 			var list = new List<Instruction>();
 			while (decoder.InstructionPointer < endRip)

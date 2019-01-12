@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Iced.Intel.DecoderInternal;
@@ -165,9 +166,9 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Decoder Create(int bitness, CodeReader reader, DecoderOptions options = DecoderOptions.None) {
 			switch (bitness) {
-			case 16: return Create16(reader, options);
-			case 32: return Create32(reader, options);
-			case 64: return Create64(reader, options);
+			case 16: return new Decoder(reader, options, OpSize.Size16);
+			case 32: return new Decoder(reader, options, OpSize.Size32);
+			case 64: return new Decoder(reader, options, OpSize.Size64);
 			default: throw new ArgumentOutOfRangeException(nameof(bitness));
 			}
 		}
@@ -178,7 +179,9 @@ namespace Iced.Intel {
 		/// <param name="reader">Code reader</param>
 		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create16(CodeReader reader, DecoderOptions options = DecoderOptions.None) => new Decoder(reader, options, OpSize.Size16);
+		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public static Decoder Create16(CodeReader reader, DecoderOptions options = DecoderOptions.None) => Create(16, reader, options);
 
 		/// <summary>
 		/// Creates a decoder that decodes 32-bit code
@@ -186,7 +189,9 @@ namespace Iced.Intel {
 		/// <param name="reader">Code reader</param>
 		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create32(CodeReader reader, DecoderOptions options = DecoderOptions.None) => new Decoder(reader, options, OpSize.Size32);
+		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public static Decoder Create32(CodeReader reader, DecoderOptions options = DecoderOptions.None) => Create(32, reader, options);
 
 		/// <summary>
 		/// Creates a decoder that decodes 64-bit code
@@ -194,7 +199,9 @@ namespace Iced.Intel {
 		/// <param name="reader">Code reader</param>
 		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create64(CodeReader reader, DecoderOptions options = DecoderOptions.None) => new Decoder(reader, options, OpSize.Size64);
+		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public static Decoder Create64(CodeReader reader, DecoderOptions options = DecoderOptions.None) => Create(64, reader, options);
 
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;
@@ -1009,9 +1016,9 @@ after_imm_loop:
 		/// <returns></returns>
 		public Encoder CreateEncoder(CodeWriter writer) {
 			switch (defaultCodeSize) {
-			case CodeSize.Code16:	return Encoder.Create16(writer);
-			case CodeSize.Code32:	return Encoder.Create32(writer);
-			case CodeSize.Code64:	return Encoder.Create64(writer);
+			case CodeSize.Code16:	return Encoder.Create(16, writer);
+			case CodeSize.Code32:	return Encoder.Create(32, writer);
+			case CodeSize.Code64:	return Encoder.Create(64, writer);
 
 			case CodeSize.Unknown:
 			default:
