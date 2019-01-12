@@ -34,6 +34,11 @@ namespace Iced.Intel {
 		public byte DisplacementOffset;
 
 		/// <summary>
+		/// Size of the displacement in bytes, or 0 if there's no displacement
+		/// </summary>
+		public byte DisplacementSize;
+
+		/// <summary>
 		/// The offset of the first immediate, if any.
 		/// 
 		/// This field can be invalid even if the operand has an immediate if it's an immediate that isn't part
@@ -42,19 +47,14 @@ namespace Iced.Intel {
 		public byte ImmediateOffset;
 
 		/// <summary>
-		/// The offset of the second immediate, if any.
-		/// </summary>
-		public byte ImmediateOffset2;
-
-		/// <summary>
-		/// Size of the displacement in bytes, or 0 if there's no displacement
-		/// </summary>
-		public byte DisplacementSize;
-
-		/// <summary>
 		/// Size of the first immediate in bytes, or 0 if there's no immediate
 		/// </summary>
 		public byte ImmediateSize;
+
+		/// <summary>
+		/// The offset of the second immediate, if any.
+		/// </summary>
+		public byte ImmediateOffset2;
 
 		/// <summary>
 		/// Size of the second immediate in bytes, or 0 if there's no second immediate
