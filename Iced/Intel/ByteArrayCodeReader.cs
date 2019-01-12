@@ -87,7 +87,7 @@ namespace Iced.Intel {
 				throw new ArgumentOutOfRangeException(nameof(index));
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count));
-			if ((ulong)(uint)index + (uint)count > (uint)data.Length)
+			if ((uint)index + (uint)count > (uint)data.Length)
 				throw new ArgumentOutOfRangeException(nameof(count));
 			currentPosition = index;
 			startPosition = index;
