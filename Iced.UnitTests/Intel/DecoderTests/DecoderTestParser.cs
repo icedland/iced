@@ -48,6 +48,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		const string Op2Kind = "op2";
 		const string Op3Kind = "op3";
 		const string Op4Kind = "op4";
+		const string EncodedHexBytes = "enc";
 		const string DecoderOptions_AMD = "amd";
 		const string DecoderOptions_ForceReservedNop = "resnop";
 		const string DecoderOptions_Cflsh = "cflsh";
@@ -169,6 +170,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			tc.LineNumber = lineNo;
 			tc.Bitness = bitness;
 			tc.HexBytes = ToHexBytes(parts[0].Trim());
+			tc.EncodedHexBytes = tc.HexBytes;
 			tc.Code = ToCode(parts[1].Trim());
 			tc.OpCount = ToInt32(parts[2].Trim());
 
@@ -271,6 +273,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					if (tc.OpCount < 5)
 						throw new InvalidOperationException($"Invalid OpCount: {tc.OpCount} < 5");
 					ReadOpKind(tc, 4, value, out tc.Op4Kind, ref tc.Op4Register);
+					break;
+
+				case EncodedHexBytes:
+					if (string.IsNullOrWhiteSpace(value))
+						throw new InvalidOperationException($"Invalid encoded hex bytes: '{value}'");
+					tc.EncodedHexBytes = value;
 					break;
 
 				case DecoderOptions_AMD:

@@ -32,12 +32,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public readonly int Bitness;
 		public readonly Code Code;
 		public readonly string HexBytes;
+		public readonly string EncodedHexBytes;
 		public readonly DecoderOptions Options;
 
-		public DecoderTestInfo(int bitness, Code code, string hexBytes, DecoderOptions options) {
+		public DecoderTestInfo(int bitness, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) {
 			Bitness = bitness;
 			Code = code;
 			HexBytes = hexBytes;
+			EncodedHexBytes = encodedHexBytes;
 			Options = options;
 		}
 	}
@@ -688,11 +690,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool includeOtherTests) {
 			foreach (var tc in DecoderTestCases.TestCases16)
-				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.DecoderOptions);
+				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions);
 			foreach (var tc in DecoderTestCases.TestCases32)
-				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.DecoderOptions);
+				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions);
 			foreach (var tc in DecoderTestCases.TestCases64)
-				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.DecoderOptions);
+				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions);
 
 			if (!includeOtherTests)
 				yield break;
@@ -730,11 +732,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 							Assert.True(values[1].ArgumentType == typeof(int));
 							Assert.True(values[2].ArgumentType == typeof(Code));
 							int last = values.Count - 1;
-							if (values[last].ArgumentType == typeof(DecoderOptions))
+							if (values[last].ArgumentType == typeof(DecoderOptions)) {
 								options = (DecoderOptions)(uint)values[last].Value;
+								last--;
+							}
 							else
 								options = DecoderOptions.None;
-							yield return new DecoderTestInfo(bitness, (Code)(int)values[2].Value, (string)values[0].Value, options);
+							Assert.True(values[last].ArgumentType == typeof(string));
+							yield return new DecoderTestInfo(bitness, (Code)(int)values[2].Value, (string)values[0].Value, (string)values[last].Value, options);
 						}
 						else if (ca.AttributeType == typeof(MemberDataAttribute)) {
 							Assert.Equal(2, ca.ConstructorArguments.Count);
@@ -742,27 +747,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 							var testCaseValues = (IEnumerable<object[]>)type.GetProperty(propertyName).GetGetMethod().Invoke(null, Array.Empty<object>());
 							foreach (var tc in testCaseValues) {
 								Assert.True(tc.Length >= 2);
-								if (tc[1] is Code) {
-									Assert.True(tc.Length >= 2);
-									Assert.True(tc[0] is string);
-									Assert.True(tc[1] is Code);
-									if (tc[tc.Length - 1] is DecoderOptions optionsTemp)
-										options = optionsTemp;
-									else
-										options = DecoderOptions.None;
-									yield return new DecoderTestInfo(bitness, (Code)tc[1], (string)tc[0], options);
+								Assert.True(tc[0] is string);
+								Assert.IsType<Code>(tc[1]);
+								int last = tc.Length - 1;
+								if (tc[last] is DecoderOptions optionsTemp) {
+									options = optionsTemp;
+									last--;
 								}
-								else {
-									Assert.True(tc.Length >= 3);
-									Assert.True(tc[0] is string);
-									Assert.True(tc[1] is int);
-									Assert.True(tc[2] is Code);
-									if (tc[tc.Length - 1] is DecoderOptions optionsTemp)
-										options = optionsTemp;
-									else
-										options = DecoderOptions.None;
-									yield return new DecoderTestInfo(bitness, (Code)tc[2], (string)tc[0], options);
-								}
+								else
+									options = DecoderOptions.None;
+								Assert.True(tc[last] is string);
+								yield return new DecoderTestInfo(bitness, (Code)tc[1], (string)tc[0], (string)tc[last], options);
 							}
 						}
 					}

@@ -29,8 +29,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class MemoryTest32_002 : DecoderTest {
 		[Theory]
 		[MemberData(nameof(Test32_DecodeMemOps_as32_vsib_Data))]
-		void Test32_DecodeMemOps_as32_vsib(string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, ConstantOffsets constantOffsets) =>
-			DecodeMemOpsBase(32, hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize, constantOffsets);
+		void Test32_DecodeMemOps_as32_vsib(string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, ConstantOffsets constantOffsets, string encodedHexBytes) =>
+			DecodeMemOpsBase(32, hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize, constantOffsets, encodedHexBytes);
 		public static IEnumerable<object[]> Test32_DecodeMemOps_as32_vsib_Data => GetMemOpsData(nameof(MemoryTest32_002));
 	}
 }

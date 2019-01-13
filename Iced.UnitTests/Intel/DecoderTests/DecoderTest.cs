@@ -69,7 +69,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			return (decoder, codeReader.Count);
 		}
 
-		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, in ConstantOffsets constantOffsets) {
+		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, in ConstantOffsets constantOffsets, string encodedHexBytes) {
 			var (decoder, byteLength) = CreateDecoder(bitness, hexBytes, DecoderOptions.None);
 			var instr = decoder.Decode();
 
@@ -129,7 +129,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				if (line.Length == 0 || line[0] == '#')
 					continue;
 				var parts = line.Split(colSep, StringSplitOptions.None);
-				if (parts.Length != 11)
+				if (parts.Length != 11 && parts.Length != 12)
 					throw new InvalidOperationException();
 				string hexBytes = parts[0].Trim();
 				var code = toCode[parts[1].Trim()];
@@ -142,7 +142,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				uint displ = ParseUInt32(parts[8].Trim());
 				int displSize = (int)ParseUInt32(parts[9].Trim());
 				var constantOffsets = ParseConstantOffsets(parts[10].Trim());
-				yield return new object[11] { hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize, constantOffsets };
+				string encodedHexBytes = parts.Length > 11 ? parts[11].Trim() : hexBytes;
+				yield return new object[12] { hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize, constantOffsets, encodedHexBytes };
 			}
 
 			uint ParseUInt32(string s) {

@@ -30,6 +30,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public DecoderOptions DecoderOptions;
 		public int Bitness;
 		public string HexBytes;
+		public string EncodedHexBytes;
 		public Code Code;
 		public int OpCount;
 		public bool ZeroingMasking;

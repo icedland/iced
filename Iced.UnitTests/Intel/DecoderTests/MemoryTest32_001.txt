@@ -74,14 +74,14 @@
 01 34 1D 8967A55A, Add_rm32_r32, ESI, None, DS, None, EBX, 0, 0x5AA56789, 4, 0;0;0;0;3;4
 01 34 1E, Add_rm32_r32, ESI, None, DS, ESI, EBX, 0, 0, 0, 0;0;0;0;0;0
 01 34 1F, Add_rm32_r32, ESI, None, DS, EDI, EBX, 0, 0, 0, 0;0;0;0;0;0
-01 34 20, Add_rm32_r32, ESI, None, DS, EAX, None, 0, 0, 0, 0;0;0;0;0;0
-01 34 21, Add_rm32_r32, ESI, None, DS, ECX, None, 0, 0, 0, 0;0;0;0;0;0
-01 34 22, Add_rm32_r32, ESI, None, DS, EDX, None, 0, 0, 0, 0;0;0;0;0;0
-01 34 23, Add_rm32_r32, ESI, None, DS, EBX, None, 0, 0, 0, 0;0;0;0;0;0
+01 34 20, Add_rm32_r32, ESI, None, DS, EAX, None, 0, 0, 0, 0;0;0;0;0;0, 0130
+01 34 21, Add_rm32_r32, ESI, None, DS, ECX, None, 0, 0, 0, 0;0;0;0;0;0, 0131
+01 34 22, Add_rm32_r32, ESI, None, DS, EDX, None, 0, 0, 0, 0;0;0;0;0;0, 0132
+01 34 23, Add_rm32_r32, ESI, None, DS, EBX, None, 0, 0, 0, 0;0;0;0;0;0, 0133
 01 34 24, Add_rm32_r32, ESI, None, SS, ESP, None, 0, 0, 0, 0;0;0;0;0;0
-01 34 25 34125AA5, Add_rm32_r32, ESI, None, DS, None, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4
-01 34 26, Add_rm32_r32, ESI, None, DS, ESI, None, 0, 0, 0, 0;0;0;0;0;0
-01 34 27, Add_rm32_r32, ESI, None, DS, EDI, None, 0, 0, 0, 0;0;0;0;0;0
+01 34 25 34125AA5, Add_rm32_r32, ESI, None, DS, None, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4, 013534125AA5
+01 34 26, Add_rm32_r32, ESI, None, DS, ESI, None, 0, 0, 0, 0;0;0;0;0;0, 0136
+01 34 27, Add_rm32_r32, ESI, None, DS, EDI, None, 0, 0, 0, 0;0;0;0;0;0, 0137
 01 34 28, Add_rm32_r32, ESI, None, DS, EAX, EBP, 0, 0, 0, 0;0;0;0;0;0
 01 34 29, Add_rm32_r32, ESI, None, DS, ECX, EBP, 0, 0, 0, 0;0;0;0;0;0
 01 34 2A, Add_rm32_r32, ESI, None, DS, EDX, EBP, 0, 0, 0, 0;0;0;0;0;0
@@ -330,14 +330,14 @@
 01 74 1D 5A, Add_rm32_r32, ESI, None, SS, EBP, EBX, 0, 0x0000005A, 1, 0;0;0;0;3;1
 01 74 1E 5A, Add_rm32_r32, ESI, None, DS, ESI, EBX, 0, 0x0000005A, 1, 0;0;0;0;3;1
 01 74 1F 5A, Add_rm32_r32, ESI, None, DS, EDI, EBX, 0, 0x0000005A, 1, 0;0;0;0;3;1
-01 74 20 A5, Add_rm32_r32, ESI, None, DS, EAX, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
-01 74 21 A5, Add_rm32_r32, ESI, None, DS, ECX, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
-01 74 22 A5, Add_rm32_r32, ESI, None, DS, EDX, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
-01 74 23 A5, Add_rm32_r32, ESI, None, DS, EBX, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
+01 74 20 A5, Add_rm32_r32, ESI, None, DS, EAX, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1, 0170A5
+01 74 21 A5, Add_rm32_r32, ESI, None, DS, ECX, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1, 0171A5
+01 74 22 A5, Add_rm32_r32, ESI, None, DS, EDX, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1, 0172A5
+01 74 23 A5, Add_rm32_r32, ESI, None, DS, EBX, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1, 0173A5
 01 74 24 A5, Add_rm32_r32, ESI, None, SS, ESP, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
-01 74 25 A5, Add_rm32_r32, ESI, None, SS, EBP, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
-01 74 26 A5, Add_rm32_r32, ESI, None, DS, ESI, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
-01 74 27 A5, Add_rm32_r32, ESI, None, DS, EDI, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
+01 74 25 A5, Add_rm32_r32, ESI, None, SS, EBP, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1, 0175A5
+01 74 26 A5, Add_rm32_r32, ESI, None, DS, ESI, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1, 0176A5
+01 74 27 A5, Add_rm32_r32, ESI, None, DS, EDI, None, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1, 0177A5
 01 74 28 5A, Add_rm32_r32, ESI, None, DS, EAX, EBP, 0, 0x0000005A, 1, 0;0;0;0;3;1
 01 74 29 5A, Add_rm32_r32, ESI, None, DS, ECX, EBP, 0, 0x0000005A, 1, 0;0;0;0;3;1
 01 74 2A 5A, Add_rm32_r32, ESI, None, DS, EDX, EBP, 0, 0x0000005A, 1, 0;0;0;0;3;1
@@ -586,14 +586,14 @@
 01 B4 1D 8967A55A, Add_rm32_r32, ESI, None, SS, EBP, EBX, 0, 0x5AA56789, 4, 0;0;0;0;3;4
 01 B4 1E 8967A55A, Add_rm32_r32, ESI, None, DS, ESI, EBX, 0, 0x5AA56789, 4, 0;0;0;0;3;4
 01 B4 1F 8967A55A, Add_rm32_r32, ESI, None, DS, EDI, EBX, 0, 0x5AA56789, 4, 0;0;0;0;3;4
-01 B4 20 34125AA5, Add_rm32_r32, ESI, None, DS, EAX, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4
-01 B4 21 34125AA5, Add_rm32_r32, ESI, None, DS, ECX, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4
-01 B4 22 34125AA5, Add_rm32_r32, ESI, None, DS, EDX, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4
-01 B4 23 34125AA5, Add_rm32_r32, ESI, None, DS, EBX, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4
+01 B4 20 34125AA5, Add_rm32_r32, ESI, None, DS, EAX, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4, 01B034125AA5
+01 B4 21 34125AA5, Add_rm32_r32, ESI, None, DS, ECX, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4, 01B134125AA5
+01 B4 22 34125AA5, Add_rm32_r32, ESI, None, DS, EDX, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4, 01B234125AA5
+01 B4 23 34125AA5, Add_rm32_r32, ESI, None, DS, EBX, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4, 01B334125AA5
 01 B4 24 34125AA5, Add_rm32_r32, ESI, None, SS, ESP, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4
-01 B4 25 34125AA5, Add_rm32_r32, ESI, None, SS, EBP, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4
-01 B4 26 34125AA5, Add_rm32_r32, ESI, None, DS, ESI, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4
-01 B4 27 34125AA5, Add_rm32_r32, ESI, None, DS, EDI, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4
+01 B4 25 34125AA5, Add_rm32_r32, ESI, None, SS, EBP, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4, 01B534125AA5
+01 B4 26 34125AA5, Add_rm32_r32, ESI, None, DS, ESI, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4, 01B634125AA5
+01 B4 27 34125AA5, Add_rm32_r32, ESI, None, DS, EDI, None, 0, 0xA55A1234, 4, 0;0;0;0;3;4, 01B734125AA5
 01 B4 28 8967A55A, Add_rm32_r32, ESI, None, DS, EAX, EBP, 0, 0x5AA56789, 4, 0;0;0;0;3;4
 01 B4 29 8967A55A, Add_rm32_r32, ESI, None, DS, ECX, EBP, 0, 0x5AA56789, 4, 0;0;0;0;3;4
 01 B4 2A 8967A55A, Add_rm32_r32, ESI, None, DS, EDX, EBP, 0, 0x5AA56789, 4, 0;0;0;0;3;4

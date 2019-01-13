@@ -30,7 +30,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 	public sealed class EncoderTest32 : EncoderTest {
 		[Theory]
 		[MemberData(nameof(Encode_Data))]
-		void Encode(int codeSize, Code code, string hexBytes, DecoderOptions options) => EncodeBase(codeSize, code, hexBytes, options);
+		void Encode(int codeSize, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) => EncodeBase(codeSize, code, hexBytes, encodedHexBytes, options);
 		public static IEnumerable<object[]> Encode_Data => GetEncodeData(32);
 
 		[Theory]
