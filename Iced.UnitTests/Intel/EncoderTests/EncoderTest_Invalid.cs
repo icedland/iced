@@ -34,7 +34,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		void EncodeInvalid(int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidCodeSize) => EncodeInvalidBase(codeSize, code, hexBytes, options, invalidCodeSize);
 		public static IEnumerable<object[]> EncodeInvalid_Data {
 			get {
-				foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false)) {
+				foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 					if (DecoderTestUtils.Code32Only.Contains(info.Code))
 						yield return new object[] { info.Bitness, info.Code, info.HexBytes, info.Options, 64 };
 					if (DecoderTestUtils.Code64Only.Contains(info.Code)) {

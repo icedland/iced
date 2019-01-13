@@ -688,7 +688,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.XcryptOfb_64;
 		}
 
-		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool includeOtherTests) {
+		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool includeOtherTests, bool includeInvalid) {
+			foreach (var info in GetDecoderTests(includeOtherTests)) {
+				if (includeInvalid || info.Code != Code.INVALID)
+					yield return info;
+			}
+		}
+
+		static IEnumerable<DecoderTestInfo> GetDecoderTests(bool includeOtherTests) {
 			foreach (var tc in DecoderTestCases.TestCases16)
 				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions);
 			foreach (var tc in DecoderTestCases.TestCases32)

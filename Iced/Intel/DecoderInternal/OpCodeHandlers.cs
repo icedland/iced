@@ -626,14 +626,14 @@ namespace Iced.Intel.DecoderInternal {
 
 		public OpCodeHandler_Options(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1) {
 			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
-			infos = new (OpCodeHandler, DecoderOptions ptions)[] {
+			infos = new (OpCodeHandler, DecoderOptions options)[] {
 				(handler1, options1),
 			};
 		}
 
 		public OpCodeHandler_Options(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1, OpCodeHandler handler2, DecoderOptions options2) {
 			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
-			infos = new (OpCodeHandler, DecoderOptions ptions)[] {
+			infos = new (OpCodeHandler, DecoderOptions options)[] {
 				(handler1 ?? throw new ArgumentNullException(nameof(handler1)), options1),
 				(handler2 ?? throw new ArgumentNullException(nameof(handler2)), options2),
 			};
@@ -660,14 +660,14 @@ namespace Iced.Intel.DecoderInternal {
 
 		public OpCodeHandler_Options_DontReadModRM(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1) {
 			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
-			infos = new (OpCodeHandler, DecoderOptions ptions)[] {
+			infos = new (OpCodeHandler, DecoderOptions options)[] {
 				(handler1, options1),
 			};
 		}
 
 		public OpCodeHandler_Options_DontReadModRM(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1, OpCodeHandler handler2, DecoderOptions options2) {
 			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
-			infos = new (OpCodeHandler, DecoderOptions ptions)[] {
+			infos = new (OpCodeHandler, DecoderOptions options)[] {
 				(handler1 ?? throw new ArgumentNullException(nameof(handler1)), options1),
 				(handler2 ?? throw new ArgumentNullException(nameof(handler2)), options2),
 			};

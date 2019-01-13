@@ -29,7 +29,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	public abstract class OpIndexTests {
 		protected void TestBase(Formatter formatter) {
 			var instrToFormatter = new int[Iced.Intel.DecoderConstants.MaxOpCount];
-			foreach (var info in DecoderTests.DecoderTestUtils.GetDecoderTests(includeOtherTests: true)) {
+			foreach (var info in DecoderTests.DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: false)) {
 				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(info.HexBytes), info.Options);
 				decoder.Decode(out var instr);
 				Assert.Equal(info.Code, instr.Code);

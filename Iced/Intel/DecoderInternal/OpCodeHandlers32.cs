@@ -648,7 +648,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = (int)state.rm + Register.EAX;
 			// LOCK MOV CR0 is supported by some AMD CPUs
-			if (baseReg == Register.CR0 && state.reg == 0 && instruction.HasLockPrefix) {
+			if (baseReg == Register.CR0 && state.reg == 0 && instruction.HasLockPrefix && (decoder.options & DecoderOptions.NoLockMovCR0) == 0) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = Register.CR8;
@@ -676,7 +676,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
 			// LOCK MOV CR0 is supported by some AMD CPUs
-			if (baseReg == Register.CR0 && state.reg == 0 && instruction.HasLockPrefix) {
+			if (baseReg == Register.CR0 && state.reg == 0 && instruction.HasLockPrefix && (decoder.options & DecoderOptions.NoLockMovCR0) == 0) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = Register.CR8;
@@ -1298,7 +1298,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 
-			if (index == 0 && state.mandatoryPrefix == MandatoryPrefix.PF3) {
+			if (index == 0 && state.mandatoryPrefix == MandatoryPrefix.PF3 && (decoder.options & DecoderOptions.NoPause) == 0) {
 				decoder.ClearMandatoryPrefixF3(ref instruction);
 				instruction.InternalCode = Code.Pause;
 			}

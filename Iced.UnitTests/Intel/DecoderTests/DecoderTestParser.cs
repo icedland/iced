@@ -63,6 +63,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		const string DecoderOptions_Loadall386 = "loadall386";
 		const string DecoderOptions_Cl1invmb = "cl1invmb";
 		const string DecoderOptions_MovTr = "movtr";
+		const string DecoderOptions_NoPause = "nopause";
+		const string DecoderOptions_NoWbnoinvd = "nowbnoinvd";
+		const string DecoderOptions_NoLockMovCR0 = "nolockmovcr0";
+		const string DecoderOptions_NoMPFX_0FB8 = "nompfx_0fb8";
+		const string DecoderOptions_NoMPFX_0FBC = "nompfx_0fbc";
+		const string DecoderOptions_NoMPFX_0FBD = "nompfx_0fbd";
+		const string DecoderOptions_NoLahfSahf64 = "nolahfsahf64";
 		const string SegmentPrefix_ES = "es:";
 		const string SegmentPrefix_CS = "cs:";
 		const string SegmentPrefix_SS = "ss:";
@@ -335,6 +342,34 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				case DecoderOptions_MovTr:
 					tc.DecoderOptions |= DecoderOptions.MovTr;
+					break;
+
+				case DecoderOptions_NoPause:
+					tc.DecoderOptions |= DecoderOptions.NoPause;
+					break;
+
+				case DecoderOptions_NoWbnoinvd:
+					tc.DecoderOptions |= DecoderOptions.NoWbnoinvd;
+					break;
+
+				case DecoderOptions_NoLockMovCR0:
+					tc.DecoderOptions |= DecoderOptions.NoLockMovCR0;
+					break;
+
+				case DecoderOptions_NoMPFX_0FB8:
+					tc.DecoderOptions |= DecoderOptions.NoMPFX_0FB8;
+					break;
+
+				case DecoderOptions_NoMPFX_0FBC:
+					tc.DecoderOptions |= DecoderOptions.NoMPFX_0FBC;
+					break;
+
+				case DecoderOptions_NoMPFX_0FBD:
+					tc.DecoderOptions |= DecoderOptions.NoMPFX_0FBD;
+					break;
+
+				case DecoderOptions_NoLahfSahf64:
+					tc.DecoderOptions |= DecoderOptions.NoLahfSahf64;
 					break;
 
 				case SegmentPrefix_ES:

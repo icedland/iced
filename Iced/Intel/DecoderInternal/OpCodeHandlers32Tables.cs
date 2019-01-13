@@ -2444,7 +2444,10 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_MandatoryPrefix_NoModRM(
 					new OpCodeHandler_Simple(Code.Wbinvd),
 					new OpCodeHandler_Simple(Code.Wbinvd),
-					new OpCodeHandler_Simple(Code.Wbnoinvd),
+					new OpCodeHandler_Options(
+						new OpCodeHandler_Simple(Code.Wbnoinvd),
+						new OpCodeHandler_Simple(Code.Wbinvd), DecoderOptions.NoWbnoinvd
+					),
 					new OpCodeHandler_Simple(Code.Wbinvd)
 				),
 				new OpCodeHandler_Options(
@@ -3024,23 +3027,32 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_Gv_Ew(Code.Movzx_r16_rm16, Code.Movzx_r32_rm16, Code.Movzx_r64_rm16),
 
 				// B8
-				new OpCodeHandler_MandatoryPrefix_F3_F2(
-					new OpCodeHandler_Jdisp(Code.Jmpe_disp16, Code.Jmpe_disp32),
-					new OpCodeHandler_Gv_Ev(Code.Popcnt_r16_rm16, Code.Popcnt_r32_rm32, Code.Popcnt_r64_rm64),
-					invalid
+				new OpCodeHandler_Options(
+					new OpCodeHandler_MandatoryPrefix_F3_F2(
+						new OpCodeHandler_Jdisp(Code.Jmpe_disp16, Code.Jmpe_disp32),
+						new OpCodeHandler_Gv_Ev(Code.Popcnt_r16_rm16, Code.Popcnt_r32_rm32, Code.Popcnt_r64_rm64),
+						invalid
+					),
+					new OpCodeHandler_Jdisp(Code.Jmpe_disp16, Code.Jmpe_disp32), DecoderOptions.NoMPFX_0FB8
 				),
 				new OpCodeHandler_Gv_Ev(Code.Ud1_r16_rm16, Code.Ud1_r32_rm32, Code.Ud1_r64_rm64),
 				new OpCodeHandler_Group(handlers_Grp_0FBA),
 				new OpCodeHandler_Ev_Gv(Code.Btc_rm16_r16, Code.Btc_rm32_r32, Code.Btc_rm64_r64, HandlerFlags.XacquireRelease),
-				new OpCodeHandler_MandatoryPrefix_F3_F2(
-					new OpCodeHandler_Gv_Ev(Code.Bsf_r16_rm16, Code.Bsf_r32_rm32, Code.Bsf_r64_rm64),
-					new OpCodeHandler_Gv_Ev(Code.Tzcnt_r16_rm16, Code.Tzcnt_r32_rm32, Code.Tzcnt_r64_rm64),
-					invalid
+				new OpCodeHandler_Options(
+					new OpCodeHandler_MandatoryPrefix_F3_F2(
+						new OpCodeHandler_Gv_Ev(Code.Bsf_r16_rm16, Code.Bsf_r32_rm32, Code.Bsf_r64_rm64),
+						new OpCodeHandler_Gv_Ev(Code.Tzcnt_r16_rm16, Code.Tzcnt_r32_rm32, Code.Tzcnt_r64_rm64),
+						invalid
+					),
+					new OpCodeHandler_Gv_Ev(Code.Bsf_r16_rm16, Code.Bsf_r32_rm32, Code.Bsf_r64_rm64), DecoderOptions.NoMPFX_0FBC
 				),
-				new OpCodeHandler_MandatoryPrefix_F3_F2(
-					new OpCodeHandler_Gv_Ev(Code.Bsr_r16_rm16, Code.Bsr_r32_rm32, Code.Bsr_r64_rm64),
-					new OpCodeHandler_Gv_Ev(Code.Lzcnt_r16_rm16, Code.Lzcnt_r32_rm32, Code.Lzcnt_r64_rm64),
-					invalid
+				new OpCodeHandler_Options(
+					new OpCodeHandler_MandatoryPrefix_F3_F2(
+						new OpCodeHandler_Gv_Ev(Code.Bsr_r16_rm16, Code.Bsr_r32_rm32, Code.Bsr_r64_rm64),
+						new OpCodeHandler_Gv_Ev(Code.Lzcnt_r16_rm16, Code.Lzcnt_r32_rm32, Code.Lzcnt_r64_rm64),
+						invalid
+					),
+					new OpCodeHandler_Gv_Ev(Code.Bsr_r16_rm16, Code.Bsr_r32_rm32, Code.Bsr_r64_rm64), DecoderOptions.NoMPFX_0FBD
 				),
 				new OpCodeHandler_Gv_Eb(Code.Movsx_r16_rm8, Code.Movsx_r32_rm8, Code.Movsx_r64_rm8),
 				new OpCodeHandler_Gv_Ew(Code.Movsx_r16_rm16, Code.Movsx_r32_rm16, Code.Movsx_r64_rm16),

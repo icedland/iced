@@ -104,6 +104,41 @@ namespace Iced.Intel {
 		/// Decode <see cref="Code.Mov_r32_tr"/> and <see cref="Code.Mov_tr_r32"/>
 		/// </summary>
 		MovTr						= 0x00002000,
+
+		/// <summary>
+		/// Don't decode <see cref="Code.Pause"/>, decode <see cref="Code.Nopd"/>/etc instead
+		/// </summary>
+		NoPause						= 0x00004000,
+
+		/// <summary>
+		/// Don't decode <see cref="Code.Wbnoinvd"/>, decode <see cref="Code.Wbinvd"/> instead
+		/// </summary>
+		NoWbnoinvd					= 0x00008000,
+
+		/// <summary>
+		/// Don't decode LOCK MOV CR0 as MOV CR8
+		/// </summary>
+		NoLockMovCR0				= 0x00010000,
+
+		/// <summary>
+		/// Don't decode <see cref="Code.Popcnt_r32_rm32"/>/etc, decode eg. <see cref="Code.Jmpe_disp32"/>/etc instead
+		/// </summary>
+		NoMPFX_0FB8					= 0x00020000,
+
+		/// <summary>
+		/// Don't decode <see cref="Code.Tzcnt_r32_rm32"/>/etc, decode <see cref="Code.Bsf_r32_rm32"/>/etc instead
+		/// </summary>
+		NoMPFX_0FBC					= 0x00040000,
+
+		/// <summary>
+		/// Don't decode <see cref="Code.Lzcnt_r32_rm32"/>/etc, decode <see cref="Code.Bsr_r32_rm32"/>/etc instead
+		/// </summary>
+		NoMPFX_0FBD					= 0x00080000,
+
+		/// <summary>
+		/// Don't decode <see cref="Code.Lahf"/> and <see cref="Code.Sahf"/> in 64-bit mode
+		/// </summary>
+		NoLahfSahf64				= 0x00100000,
 	}
 }
 #endif
