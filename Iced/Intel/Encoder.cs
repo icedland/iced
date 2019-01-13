@@ -133,6 +133,11 @@ namespace Iced.Intel {
 			1,
 		};
 
+		/// <summary>
+		/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
+		/// </summary>
+		public bool PreventVEX2 { get; set; }
+
 		internal const string ERROR_ONLY_1632_BIT_MODE = "The instruction can only be used in 16/32-bit mode";
 		internal const string ERROR_ONLY_64_BIT_MODE = "The instruction can only be used in 64-bit mode";
 

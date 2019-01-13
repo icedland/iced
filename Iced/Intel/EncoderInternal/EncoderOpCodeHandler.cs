@@ -584,7 +584,7 @@ namespace Iced.Intel.EncoderInternal {
 			uint b = lastByte;
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
 
-			if (W1 || opCodeTable != VexOpCodeTable.Table0F || (encoderFlags & (uint)(EncoderFlags.X | EncoderFlags.B | EncoderFlags.W)) != 0) {
+			if (encoder.PreventVEX2 || W1 || opCodeTable != VexOpCodeTable.Table0F || (encoderFlags & (uint)(EncoderFlags.X | EncoderFlags.B | EncoderFlags.W)) != 0) {
 				encoder.WriteByte(0xC4);
 				Debug.Assert((int)VexOpCodeTable.Table0F == 1);
 				Debug.Assert((int)VexOpCodeTable.Table0F38 == 2);

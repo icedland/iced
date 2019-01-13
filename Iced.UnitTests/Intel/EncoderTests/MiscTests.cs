@@ -203,6 +203,32 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var actualBytes = writer.ToArray();
 			Assert.Equal(expectedBytes, actualBytes);
 		}
+
+		[Theory]
+		[InlineData(16)]
+		[InlineData(32)]
+		[InlineData(64)]
+		void Verify_encoder_options(int bitness) {
+			var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+			Assert.False(encoder.PreventVEX2);
+		}
+
+		[Theory]
+		[InlineData("C5FC 10 10", "C4E17C 10 10", Code.VEX_Vmovups_ymm_ymmm256, true)]
+		[InlineData("C5FC 10 10", "C5FC 10 10", Code.VEX_Vmovups_ymm_ymmm256, false)]
+		void Prevent_VEX2_encoding(string hexBytes, string expectedBytes, Code code, bool preventVEX2) {
+			var decoder = Decoder.Create(64, new ByteArrayCodeReader(hexBytes));
+			decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64;
+			decoder.Decode(out var instr);
+			Assert.Equal(code, instr.Code);
+			var codeWriter = new CodeWriterImpl();
+			var encoder = decoder.CreateEncoder(codeWriter);
+			encoder.PreventVEX2 = preventVEX2;
+			encoder.Encode(ref instr, DecoderConstants.DEFAULT_IP64);
+			var encodedBytes = codeWriter.ToArray();
+			var expectedBytesArray = HexUtils.ToByteArray(expectedBytes);
+			Assert.Equal(expectedBytesArray, encodedBytes);
+		}
 	}
 }
 #endif
