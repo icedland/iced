@@ -205,18 +205,16 @@ namespace Iced.Intel {
 
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;
-			if (instrLen >= DecoderConstants.MaxInstructionLength) {
-				state.flags |= StateFlags.IsInvalid;
-				return 0;
+			if (instrLen < DecoderConstants.MaxInstructionLength) {
+				uint b = (uint)reader.ReadByte();
+				Debug.Assert(b <= byte.MaxValue || b > int.MaxValue);
+				if (b <= byte.MaxValue) {
+					state.instructionLength = instrLen + 1;
+					return b;
+				}
 			}
-			uint b = (uint)reader.ReadByte();
-			Debug.Assert(b <= byte.MaxValue || b > int.MaxValue);
-			if (b > byte.MaxValue) {
-				state.flags |= StateFlags.IsInvalid;
-				return 0;
-			}
-			state.instructionLength = instrLen + 1;
-			return b;
+			state.flags |= StateFlags.IsInvalid;
+			return 0;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
