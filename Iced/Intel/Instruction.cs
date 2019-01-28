@@ -894,7 +894,9 @@ namespace Iced.Intel {
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.NearBranch64"/>
 		/// </summary>
 		public ulong NearBranch64 {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => ((ulong)memDispl << 32) | immediate;
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set {
 				immediate = (uint)value;
 				memDispl = (uint)(value >> 32);

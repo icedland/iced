@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
 using System;
-using System.Text;
 
 namespace Iced.Intel {
 	static class HexUtils {

@@ -390,10 +390,14 @@ after_read_prefixes:
 			}
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void SetXacquireRelease(ref Instruction instruction, HandlerFlags flags) {
-			if ((flags & HandlerFlags.XacquireReleaseNoLock) == 0 && !instruction.HasLockPrefix)
-				return;
+			if ((flags & HandlerFlags.XacquireReleaseNoLock) != 0 || instruction.HasLockPrefix)
+				SetXacquireReleaseCore(ref instruction, flags);
+		}
 
+		void SetXacquireReleaseCore(ref Instruction instruction, HandlerFlags flags) {
+			Debug.Assert(!((flags & HandlerFlags.XacquireReleaseNoLock) == 0 && !instruction.HasLockPrefix));
 			switch (state.mandatoryPrefix) {
 			case MandatoryPrefix.PF2:
 				if ((flags & HandlerFlags.Xacquire) != 0) {
