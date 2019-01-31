@@ -309,6 +309,7 @@ namespace Iced.Intel {
 		public Code Code {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (Code)(codeFlags & (uint)CodeFlags.CodeMask);
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | ((uint)value & (uint)CodeFlags.CodeMask);
 		}
 		internal Code InternalCode {
@@ -445,6 +446,7 @@ namespace Iced.Intel {
 		public OpKind Op0Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (OpKind)(opKindFlags & (uint)OpKindFlags.OpKindMask);
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags = (opKindFlags & ~(uint)OpKindFlags.OpKindMask) | ((uint)value & (uint)OpKindFlags.OpKindMask);
 		}
 		internal OpKind InternalOp0Kind {
@@ -458,6 +460,7 @@ namespace Iced.Intel {
 		public OpKind Op1Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (OpKind)((opKindFlags >> (int)OpKindFlags.Op1KindShift) & (uint)OpKindFlags.OpKindMask);
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op1KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op1KindShift);
 		}
@@ -472,6 +475,7 @@ namespace Iced.Intel {
 		public OpKind Op2Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (OpKind)((opKindFlags >> (int)OpKindFlags.Op2KindShift) & (uint)OpKindFlags.OpKindMask);
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op2KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op2KindShift);
 		}
@@ -486,6 +490,7 @@ namespace Iced.Intel {
 		public OpKind Op3Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (OpKind)((opKindFlags >> (int)OpKindFlags.Op3KindShift) & (uint)OpKindFlags.OpKindMask);
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op3KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op3KindShift);
 		}
@@ -809,7 +814,9 @@ namespace Iced.Intel {
 		/// Gets the operand's immediate value. Use this property if the operand has kind <see cref="OpKind.Immediate64"/>
 		/// </summary>
 		public ulong Immediate64 {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => ((ulong)memDispl << 32) | immediate;
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set {
 				immediate = (uint)value;
 				memDispl = (uint)(value >> 32);
@@ -858,7 +865,9 @@ namespace Iced.Intel {
 		/// Gets the operand's 64-bit address value. Use this property if the operand has kind <see cref="OpKind.Memory64"/>
 		/// </summary>
 		public ulong MemoryAddress64 {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => ((ulong)memDispl << 32) | immediate;
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set {
 				immediate = (uint)value;
 				memDispl = (uint)(value >> 32);
