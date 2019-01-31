@@ -10,7 +10,7 @@ build:
 before_package:
 - cmd: dotnet pack -c Release
 artifacts:
-- path: Iced\bin\Release\*.nupkg
+- path: Iced\bin\Release\*.*nupkg
   name: Iced NuGet Packages
 test_script:
   - dotnet test -c Release --no-build Iced.UnitTests\Iced.UnitTests.csproj -- RunConfiguration.NoAutoReporters=true
