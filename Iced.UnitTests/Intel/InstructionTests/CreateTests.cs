@@ -41,16 +41,16 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			var bytes = HexUtils.ToByteArray(hexBytes);
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(bytes));
 			switch (bitness) {
-			case 16: decoder.InstructionPointer = DecoderConstants.DEFAULT_IP16; break;
-			case 32: decoder.InstructionPointer = DecoderConstants.DEFAULT_IP32; break;
-			case 64: decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64; break;
+			case 16: decoder.IP = DecoderConstants.DEFAULT_IP16; break;
+			case 32: decoder.IP = DecoderConstants.DEFAULT_IP32; break;
+			case 64: decoder.IP = DecoderConstants.DEFAULT_IP64; break;
 			default: throw new InvalidOperationException();
 			}
-			var origRip = decoder.InstructionPointer;
+			var origRip = decoder.IP;
 			decoder.Decode(out var decodedInstr);
 			decodedInstr.CodeSize = 0;
 			decodedInstr.ByteLength = 0;
-			decodedInstr.NextIP64 = 0;
+			decodedInstr.NextIP = 0;
 
 			var createdInstr = create();
 			Assert.True(Instruction.TEST_BitByBitEquals(decodedInstr, createdInstr));

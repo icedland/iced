@@ -95,7 +95,17 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Current IP/EIP/RIP value
 		/// </summary>
+		[Obsolete("Use " + nameof(IP) + " instead of this property", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public ulong InstructionPointer {
+			get => instructionPointer;
+			set => instructionPointer = value;
+		}
+
+		/// <summary>
+		/// Current IP/EIP/RIP value
+		/// </summary>
+		public ulong IP {
 			get => instructionPointer;
 			set => instructionPointer = value;
 		}
@@ -367,7 +377,7 @@ after_read_prefixes:
 			var ip = instructionPointer;
 			ip += instrLen;
 			instructionPointer = ip;
-			instruction.NextIP64 = ip;
+			instruction.NextIP = ip;
 		}
 
 		internal uint GetCurrentInstructionPointer32() => (uint)instructionPointer + state.instructionLength;

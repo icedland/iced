@@ -39,7 +39,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		bool done;
 
 		public CallInstr(BlockEncoder blockEncoder, ref Instruction instruction)
-			: base(blockEncoder, instruction.IP64) {
+			: base(blockEncoder, instruction.IP) {
 			bitness = blockEncoder.Bitness;
 			this.instruction = instruction;
 			var instrCopy = instruction;

@@ -35,7 +35,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		TargetInstr targetInstr;
 
 		public XbeginInstr(BlockEncoder blockEncoder, ref Instruction instruction)
-			: base(blockEncoder, instruction.IP64) {
+			: base(blockEncoder, instruction.IP) {
 			this.instruction = instruction;
 
 			switch (blockEncoder.Bitness) {

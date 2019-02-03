@@ -34,12 +34,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal((ushort)nextRip, instr.IP16);
 			Assert.Equal((uint)nextRip, instr.IP32);
-			Assert.Equal(nextRip, instr.IP64);
+			Assert.Equal(nextRip, instr.IP);
 			nextRip += (uint)instr.ByteLength;
-			Assert.Equal(nextRip, decoder.InstructionPointer);
+			Assert.Equal(nextRip, decoder.IP);
 			Assert.Equal((ushort)nextRip, instr.NextIP16);
 			Assert.Equal((uint)nextRip, instr.NextIP32);
-			Assert.Equal(nextRip, instr.NextIP64);
+			Assert.Equal(nextRip, instr.NextIP);
 			FormatTest(ref instr, formattedString, formatter);
 		}
 
@@ -82,17 +82,17 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		public static void SimpleFormatTest(int codeSize, string hexBytes, Code code, DecoderOptions options, string formattedString, Formatter formatter, Action<Decoder> initDecoder) {
 			var decoder = CreateDecoder(codeSize, hexBytes, options, out _);
 			initDecoder?.Invoke(decoder);
-			var nextRip = decoder.InstructionPointer;
+			var nextRip = decoder.IP;
 			var instr = decoder.Decode();
 			Assert.Equal(code, instr.Code);
 			Assert.Equal((ushort)nextRip, instr.IP16);
 			Assert.Equal((uint)nextRip, instr.IP32);
-			Assert.Equal(nextRip, instr.IP64);
+			Assert.Equal(nextRip, instr.IP);
 			nextRip += (uint)instr.ByteLength;
-			Assert.Equal(nextRip, decoder.InstructionPointer);
+			Assert.Equal(nextRip, decoder.IP);
 			Assert.Equal((ushort)nextRip, instr.NextIP16);
 			Assert.Equal((uint)nextRip, instr.NextIP32);
-			Assert.Equal(nextRip, instr.NextIP64);
+			Assert.Equal(nextRip, instr.NextIP);
 
 			var output = new StringBuilderFormatterOutput();
 
@@ -125,7 +125,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			}
 
 			Assert.Equal(codeSize, decoder.Bitness);
-			decoder.InstructionPointer = rip;
+			decoder.IP = rip;
 			return decoder;
 		}
 	}

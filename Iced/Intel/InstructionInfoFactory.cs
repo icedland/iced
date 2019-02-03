@@ -228,7 +228,7 @@ namespace Iced.Intel {
 					var baseReg = instruction.MemoryBase;
 					if (baseReg == Register.RIP) {
 						if ((flags & Flags.NoMemoryUsage) == 0)
-							AddMemory(flags, ref usedMemoryLocations, segReg, Register.None, Register.None, 1, instruction.NextIP64 + (ulong)(int)instruction.MemoryDisplacement, instruction.MemorySize, access);
+							AddMemory(flags, ref usedMemoryLocations, segReg, Register.None, Register.None, 1, instruction.NextIP + (ulong)(int)instruction.MemoryDisplacement, instruction.MemorySize, access);
 						if ((flags & Flags.NoRegisterUsage) == 0 && segReg != Register.None)
 							AddMemorySegmentRegister(flags, ref usedRegisters, segReg, OpAccess.Read);
 					}

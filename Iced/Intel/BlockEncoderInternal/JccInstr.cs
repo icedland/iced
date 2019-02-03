@@ -52,7 +52,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		}
 
 		public JccInstr(BlockEncoder blockEncoder, ref Instruction instruction)
-			: base(blockEncoder, instruction.IP64) {
+			: base(blockEncoder, instruction.IP) {
 			bitness = blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;

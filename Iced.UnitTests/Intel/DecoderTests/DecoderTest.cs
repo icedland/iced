@@ -50,15 +50,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var decoder = Decoder.Create(codeSize, codeReader, options);
 			switch (codeSize) {
 			case 16:
-				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP16;
+				decoder.IP = DecoderConstants.DEFAULT_IP16;
 				break;
 
 			case 32:
-				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP32;
+				decoder.IP = DecoderConstants.DEFAULT_IP32;
 				break;
 
 			case 64:
-				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64;
+				decoder.IP = DecoderConstants.DEFAULT_IP64;
 				break;
 
 			default:
@@ -192,12 +192,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		internal void DecoderTestBase(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) {
 			var (decoder, byteLength) = CreateDecoder(bitness, hexBytes, tc.DecoderOptions);
-			ulong rip = decoder.InstructionPointer;
+			ulong rip = decoder.IP;
 			decoder.Decode(out var instr);
 			Assert.Equal(tc.Code, instr.Code);
 			Assert.Equal(byteLength, instr.ByteLength);
-			Assert.Equal(rip, instr.IP64);
-			Assert.Equal(decoder.InstructionPointer, instr.NextIP64);
+			Assert.Equal(rip, instr.IP);
+			Assert.Equal(decoder.IP, instr.NextIP);
 			Assert.Equal(tc.OpCount, instr.OpCount);
 			Assert.Equal(tc.ZeroingMasking, instr.ZeroingMasking);
 			Assert.Equal(!tc.ZeroingMasking, instr.MergingMasking);

@@ -50,7 +50,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		}
 
 		public SimpleBranchInstr(BlockEncoder blockEncoder, ref Instruction instruction)
-			: base(blockEncoder, instruction.IP64) {
+			: base(blockEncoder, instruction.IP) {
 			bitness = blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;

@@ -260,7 +260,17 @@ namespace Iced.Intel {
 		/// <summary>
 		/// 64-bit IP of the instruction
 		/// </summary>
+		[Obsolete("Use " + nameof(IP) + " instead of this property", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public ulong IP64 {
+			get => nextRip - (uint)ByteLength;
+			set => nextRip = value + (uint)ByteLength;
+		}
+
+		/// <summary>
+		/// 64-bit IP of the instruction
+		/// </summary>
+		public ulong IP {
 			get => nextRip - (uint)ByteLength;
 			set => nextRip = value + (uint)ByteLength;
 		}
@@ -284,7 +294,17 @@ namespace Iced.Intel {
 		/// <summary>
 		/// 64-bit IP of the next instruction
 		/// </summary>
+		[Obsolete("Use " + nameof(NextIP) + " instead of this property", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public ulong NextIP64 {
+			get => nextRip;
+			set => nextRip = value;
+		}
+
+		/// <summary>
+		/// 64-bit IP of the next instruction
+		/// </summary>
+		public ulong NextIP {
 			get => nextRip;
 			set => nextRip = value;
 		}
@@ -1306,11 +1326,11 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the RIP/EIP releative address ((<see cref="NextIP64"/> or <see cref="NextIP32"/>) + <see cref="MemoryDisplacement"/>). This property is only valid if there's a memory operand with RIP/EIP relative addressing.
+		/// Gets the RIP/EIP releative address ((<see cref="NextIP"/> or <see cref="NextIP32"/>) + <see cref="MemoryDisplacement"/>). This property is only valid if there's a memory operand with RIP/EIP relative addressing.
 		/// </summary>
 		public ulong IPRelativeMemoryAddress {
 			get {
-				ulong result = NextIP64 + (ulong)(int)MemoryDisplacement;
+				ulong result = NextIP + (ulong)(int)MemoryDisplacement;
 				if (MemoryBase == Register.EIP)
 					result = (uint)result;
 				return result;

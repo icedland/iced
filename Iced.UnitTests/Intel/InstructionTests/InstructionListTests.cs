@@ -46,9 +46,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		};
 		static Instruction[] GetInstructions() {
 			var decoder = Decoder.Create(64, new ByteArrayCodeReader(testCode));
-			var endRip = decoder.InstructionPointer + (uint)testCode.Length;
+			var endRip = decoder.IP + (uint)testCode.Length;
 			var list = new List<Instruction>();
-			while (decoder.InstructionPointer < endRip)
+			while (decoder.IP < endRip)
 				list.Add(decoder.Decode());
 			return list.ToArray();
 		}

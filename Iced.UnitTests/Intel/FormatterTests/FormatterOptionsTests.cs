@@ -451,8 +451,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new OptionsInstructionInfo(64, "48 B8 1032547698BADCFE", Code.Mov_r64_imm64, a => { a.NumberBase = NumberBase.Hexadecimal; a.UpperCaseHex = false; a.HexPrefix = "ppp"; a.HexSuffix = "sss"; a.UpperCaseAll = true; }),
 			new OptionsInstructionInfo(64, "48 B8 1032547698BADCFE", Code.Mov_r64_imm64, a => { a.NumberBase = NumberBase.Hexadecimal; a.UpperCaseHex = false; a.HexPrefix = "ppp"; a.HexSuffix = "sss"; a.UpperCaseAll = false; }),
 
-			new OptionsInstructionInfo(64, "70 00", Code.Jo_rel8_64, a => { a.SmallHexNumbersInDecimal = false; a.BranchLeadingZeroes = false; }, a => a.InstructionPointer = 0),
-			new OptionsInstructionInfo(64, "70 00", Code.Jo_rel8_64, a => { a.SmallHexNumbersInDecimal = false; a.BranchLeadingZeroes = true; }, a => a.InstructionPointer = 0),
+			new OptionsInstructionInfo(64, "70 00", Code.Jo_rel8_64, a => { a.SmallHexNumbersInDecimal = false; a.BranchLeadingZeroes = false; }, a => a.IP = 0),
+			new OptionsInstructionInfo(64, "70 00", Code.Jo_rel8_64, a => { a.SmallHexNumbersInDecimal = false; a.BranchLeadingZeroes = true; }, a => a.IP = 0),
 
 			new OptionsInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, a => a.SignedImmediateOperands = true),
 			new OptionsInstructionInfo(64, "B1 A5", Code.Mov_r8_imm8, a => a.SignedImmediateOperands = false),
@@ -489,10 +489,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new OptionsInstructionInfo(32, "8A 44 40 00", Code.Mov_r8_rm8, a => a.ShowZeroDisplacements = false),
 			new OptionsInstructionInfo(32, "8A 84 40 00000000", Code.Mov_r8_rm8, a => a.ShowZeroDisplacements = true),
 			new OptionsInstructionInfo(32, "8A 84 40 00000000", Code.Mov_r8_rm8, a => a.ShowZeroDisplacements = false),
-			new OptionsInstructionInfo(64, "8A 05 00000000", Code.Mov_r8_rm8, a => { a.ShowZeroDisplacements = true; a.RipRelativeAddresses = true; }, a => a.InstructionPointer = ulong.MaxValue - 6 + 1),
-			new OptionsInstructionInfo(64, "8A 05 00000000", Code.Mov_r8_rm8, a => { a.ShowZeroDisplacements = false; a.RipRelativeAddresses = true; }, a => a.InstructionPointer = ulong.MaxValue - 6 + 1),
-			new OptionsInstructionInfo(64, "8A 05 00000000", Code.Mov_r8_rm8, a => { a.ShowZeroDisplacements = true; a.RipRelativeAddresses = false; }, a => a.InstructionPointer = ulong.MaxValue - 6 + 1),
-			new OptionsInstructionInfo(64, "8A 05 00000000", Code.Mov_r8_rm8, a => { a.ShowZeroDisplacements = false; a.RipRelativeAddresses = false; }, a => a.InstructionPointer = ulong.MaxValue - 6 + 1),
+			new OptionsInstructionInfo(64, "8A 05 00000000", Code.Mov_r8_rm8, a => { a.ShowZeroDisplacements = true; a.RipRelativeAddresses = true; }, a => a.IP = ulong.MaxValue - 6 + 1),
+			new OptionsInstructionInfo(64, "8A 05 00000000", Code.Mov_r8_rm8, a => { a.ShowZeroDisplacements = false; a.RipRelativeAddresses = true; }, a => a.IP = ulong.MaxValue - 6 + 1),
+			new OptionsInstructionInfo(64, "8A 05 00000000", Code.Mov_r8_rm8, a => { a.ShowZeroDisplacements = true; a.RipRelativeAddresses = false; }, a => a.IP = ulong.MaxValue - 6 + 1),
+			new OptionsInstructionInfo(64, "8A 05 00000000", Code.Mov_r8_rm8, a => { a.ShowZeroDisplacements = false; a.RipRelativeAddresses = false; }, a => a.IP = ulong.MaxValue - 6 + 1),
 
 			new OptionsInstructionInfo(64, "B1 00", Code.Mov_r8_imm8, a => { a.NumberBase = NumberBase.Hexadecimal; a.SmallHexNumbersInDecimal = false; a.LeadingZeroes = false; }),
 			new OptionsInstructionInfo(64, "B1 00", Code.Mov_r8_imm8, a => { a.NumberBase = NumberBase.Hexadecimal; a.SmallHexNumbersInDecimal = false; a.LeadingZeroes = true; }),

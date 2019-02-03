@@ -253,19 +253,19 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				Decoder decoderAll;
 				switch (info.Bitness) {
 				case 16:
-					decoder.InstructionPointer = DecoderConstants.DEFAULT_IP16;
+					decoder.IP = DecoderConstants.DEFAULT_IP16;
 					reader16.SetArray(data);
 					if (!decoderDict16.TryGetValue(info.Options, out decoderAll))
 						decoderDict16.Add(info.Options, decoderAll = Decoder.Create(info.Bitness, reader16, info.Options));
 					break;
 				case 32:
-					decoder.InstructionPointer = DecoderConstants.DEFAULT_IP32;
+					decoder.IP = DecoderConstants.DEFAULT_IP32;
 					reader32.SetArray(data);
 					if (!decoderDict32.TryGetValue(info.Options, out decoderAll))
 						decoderDict32.Add(info.Options, decoderAll = Decoder.Create(info.Bitness, reader32, info.Options));
 					break;
 				case 64:
-					decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64;
+					decoder.IP = DecoderConstants.DEFAULT_IP64;
 					reader64.SetArray(data);
 					if (!decoderDict64.TryGetValue(info.Options, out decoderAll))
 						decoderDict64.Add(info.Options, decoderAll = Decoder.Create(info.Bitness, reader64, info.Options));
@@ -273,7 +273,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				default:
 					throw new InvalidOperationException();
 				}
-				decoderAll.InstructionPointer = decoder.InstructionPointer;
+				decoderAll.IP = decoder.IP;
 				var instr1 = decoder.Decode();
 				var instr2 = decoderAll.Decode();
 				Assert.Equal(info.Code, instr1.Code);

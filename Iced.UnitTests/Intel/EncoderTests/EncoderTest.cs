@@ -55,7 +55,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		protected void EncodeBase(int codeSize, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
 			var decoder = CreateDecoder(codeSize, origBytes, options);
-			var origRip = decoder.InstructionPointer;
+			var origRip = decoder.IP;
 			var origInstr = decoder.Decode();
 			var origConstantOffsets = decoder.GetConstantOffsets(ref origInstr);
 			Assert.Equal(code, origInstr.Code);
@@ -63,11 +63,11 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(origInstr.ByteLength <= Iced.Intel.DecoderConstants.MaxInstructionLength);
 			Assert.Equal((ushort)origRip, origInstr.IP16);
 			Assert.Equal((uint)origRip, origInstr.IP32);
-			Assert.Equal(origRip, origInstr.IP64);
-			var afterRip = decoder.InstructionPointer;
+			Assert.Equal(origRip, origInstr.IP);
+			var afterRip = decoder.IP;
 			Assert.Equal((ushort)afterRip, origInstr.NextIP16);
 			Assert.Equal((uint)afterRip, origInstr.NextIP32);
-			Assert.Equal(afterRip, origInstr.NextIP64);
+			Assert.Equal(afterRip, origInstr.NextIP);
 
 			var writer = new CodeWriterImpl();
 			var encoder = decoder.CreateEncoder(writer);
@@ -96,7 +96,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(code, newInstr.Code);
 			Assert.Equal(encodedBytes.Length, newInstr.ByteLength);
 			newInstr.ByteLength = origInstr.ByteLength;
-			newInstr.NextIP64 = origInstr.NextIP64;
+			newInstr.NextIP = origInstr.NextIP;
 			Assert.True(Instruction.TEST_BitByBitEquals(origInstr, newInstr), "Instructions are differing: " + Instruction.TEST_DumpDiff(origInstr, newInstr));
 			// Some tests use useless or extra prefixes, so we can't verify the exact length
 			Assert.True(encodedBytes.Length <= origBytes.Length, "Unexpected encoded prefixes: " + ToString(encodedBytes));
@@ -144,18 +144,18 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		protected void EncodeInvalidBase(int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidCodeSize) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
 			var decoder = CreateDecoder(codeSize, origBytes, options);
-			var origRip = decoder.InstructionPointer;
+			var origRip = decoder.IP;
 			var origInstr = decoder.Decode();
 			Assert.Equal(code, origInstr.Code);
 			Assert.Equal(origBytes.Length, origInstr.ByteLength);
 			Assert.True(origInstr.ByteLength <= Iced.Intel.DecoderConstants.MaxInstructionLength);
 			Assert.Equal((ushort)origRip, origInstr.IP16);
 			Assert.Equal((uint)origRip, origInstr.IP32);
-			Assert.Equal(origRip, origInstr.IP64);
-			var afterRip = decoder.InstructionPointer;
+			Assert.Equal(origRip, origInstr.IP);
+			var afterRip = decoder.IP;
 			Assert.Equal((ushort)afterRip, origInstr.NextIP16);
 			Assert.Equal((uint)afterRip, origInstr.NextIP32);
-			Assert.Equal(afterRip, origInstr.NextIP64);
+			Assert.Equal(afterRip, origInstr.NextIP);
 
 			var writer = new CodeWriterImpl();
 			var encoder = CreateEncoder(invalidCodeSize, writer);
@@ -177,15 +177,15 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var decoder = Decoder.Create(codeSize, codeReader, options);
 			switch (codeSize) {
 			case 16:
-				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP16;
+				decoder.IP = DecoderConstants.DEFAULT_IP16;
 				break;
 
 			case 32:
-				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP32;
+				decoder.IP = DecoderConstants.DEFAULT_IP32;
 				break;
 
 			case 64:
-				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64;
+				decoder.IP = DecoderConstants.DEFAULT_IP64;
 				break;
 
 			default:

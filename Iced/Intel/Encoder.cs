@@ -890,7 +890,7 @@ namespace Iced.Intel {
 				ModRM |= 5;
 				if (baseReg == Register.RIP) {
 					DisplSize = DisplSize.RipRelSize4_Target64;
-					ulong target = instr.NextIP64 + (ulong)(int)Displ;
+					ulong target = instr.NextIP + (ulong)(int)Displ;
 					Displ = (uint)target;
 					DisplHi = (uint)(target >> 32);
 				}

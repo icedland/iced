@@ -376,9 +376,9 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 		void DisplInBrackets(string hexBytes, int bitness, string formattedString, Flags flags) {
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(hexBytes));
 			switch (bitness) {
-			case 16: decoder.InstructionPointer = DecoderConstants.DEFAULT_IP16; break;
-			case 32: decoder.InstructionPointer = DecoderConstants.DEFAULT_IP32; break;
-			case 64: decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64; break;
+			case 16: decoder.IP = DecoderConstants.DEFAULT_IP16; break;
+			case 32: decoder.IP = DecoderConstants.DEFAULT_IP32; break;
+			case 64: decoder.IP = DecoderConstants.DEFAULT_IP64; break;
 			default: throw new InvalidOperationException();
 			}
 			decoder.Decode(out var instr);

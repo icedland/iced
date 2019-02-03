@@ -690,7 +690,7 @@ namespace Iced.Intel {
 
 			ulong absAddr;
 			if (baseReg == Register.RIP) {
-				absAddr = (ulong)((long)instr.NextIP64 + (int)displ);
+				absAddr = (ulong)((long)instr.NextIP + (int)displ);
 				if (options.RipRelativeAddresses)
 					operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
 			}

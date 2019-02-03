@@ -118,7 +118,7 @@ namespace Iced.Intel {
 				}
 				if (baseReg != Register.None) {
 					if (baseReg == Register.RIP)
-						offset += NextIP64;
+						offset += NextIP;
 					else if (baseReg == Register.EIP)
 						offset += NextIP32;
 					else

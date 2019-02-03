@@ -109,14 +109,14 @@ namespace Iced.Examples {
             var codeBytes = exampleCode;
             var codeReader = new ByteArrayCodeReader(codeBytes);
             var decoder = Decoder.Create(exampleCodeBitness, codeReader);
-            decoder.InstructionPointer = exampleCodeRIP;
-            ulong endRip = decoder.InstructionPointer + (uint)codeBytes.Length;
+            decoder.IP = exampleCodeRIP;
+            ulong endRip = decoder.IP + (uint)codeBytes.Length;
 
             // This list is faster than List<Instruction> since it uses refs to the Instructions
             // instead of copying them (each Instruction is 32 bytes in size). It has a ref indexer,
             // and a ref iterator. Add() uses 'in' (ref readonly).
             var instructions = new InstructionList();
-            while (decoder.InstructionPointer < endRip) {
+            while (decoder.IP < endRip) {
                 // The method allocates an uninitialized element at the end of the list and
                 // returns a reference to it which is initialized by Decode().
                 decoder.Decode(out instructions.AllocUninitializedElement());
@@ -131,10 +131,10 @@ namespace Iced.Examples {
             foreach (ref var instr in instructions) {
                 // Don't use instr.ToString(), it allocates more, uses masm syntax and default options
                 formatter.Format(ref instr, output);
-                Console.Write(instr.IP64.ToString("X16"));
+                Console.Write(instr.IP.ToString("X16"));
                 Console.Write(" ");
                 int instrLen = instr.ByteLength;
-                int byteBaseIndex = (int)(instr.IP64 - exampleCodeRIP);
+                int byteBaseIndex = (int)(instr.IP - exampleCodeRIP);
                 for (int i = 0; i < instrLen; i++)
                     Console.Write(codeBytes[byteBaseIndex + i].ToString("X2"));
                 int missingBytes = HEXBYTES_COLUMN_BYTE_LENGTH - instrLen;
@@ -170,11 +170,11 @@ Disassembled code:
         static void EncoderExample() {
             var codeReader = new ByteArrayCodeReader(exampleCode);
             var decoder = Decoder.Create(exampleCodeBitness, codeReader);
-            decoder.InstructionPointer = exampleCodeRIP;
-            ulong endRip = decoder.InstructionPointer + (uint)exampleCode.Length;
+            decoder.IP = exampleCodeRIP;
+            ulong endRip = decoder.IP + (uint)exampleCode.Length;
 
             var instructions = new InstructionList();
-            while (decoder.InstructionPointer < endRip)
+            while (decoder.IP < endRip)
                 decoder.Decode(out instructions.AllocUninitializedElement());
 
             // Relocate the code to some new location. It can fix short/near branches and
@@ -219,12 +219,12 @@ Disassembled code:
             formatter.Options.FirstOperandCharIndex = 10;
             var output = new StringBuilderFormatterOutput();
             var newDecoder = Decoder.Create(decoder.Bitness, new ByteArrayCodeReader(newCode));
-            newDecoder.InstructionPointer = block.RIP;
-            endRip = newDecoder.InstructionPointer + (uint)newCode.Length;
-            while (newDecoder.InstructionPointer < endRip) {
+            newDecoder.IP = block.RIP;
+            endRip = newDecoder.IP + (uint)newCode.Length;
+            while (newDecoder.IP < endRip) {
                 newDecoder.Decode(out var instr);
                 formatter.Format(ref instr, output);
-                Console.WriteLine($"{instr.IP64:X16} {output.ToStringAndReset()}");
+                Console.WriteLine($"{instr.IP:X16} {output.ToStringAndReset()}");
             }
         }
         // Simple and inefficient code writer that stores the data in a List<byte>, with a ToArray() method
@@ -366,8 +366,8 @@ Disassembled code:
         static void InstructionInfoExample() {
             var codeReader = new ByteArrayCodeReader(exampleCode);
             var decoder = Decoder.Create(exampleCodeBitness, codeReader);
-            decoder.InstructionPointer = exampleCodeRIP;
-            ulong endRip = decoder.InstructionPointer + (uint)exampleCode.Length;
+            decoder.IP = exampleCodeRIP;
+            ulong endRip = decoder.IP + (uint)exampleCode.Length;
 
             // For PERF, use a factory to create the instruction info if you need register
             // and memory usage. If it's something else, eg. encoding, flags, etc, there
@@ -375,7 +375,7 @@ Disassembled code:
             // The factory only allocates once and reuses the internal arrays; calling
             // Instruction.GetInfo() allocates every single call.
             var instrInfoFactory = new InstructionInfoFactory();
-            while (decoder.InstructionPointer < endRip) {
+            while (decoder.IP < endRip) {
                 decoder.Decode(out var instr);
 
                 // Gets offsets in the instruction of the displacement and immediates and their sizes.
@@ -387,7 +387,7 @@ Disassembled code:
                 // A formatter is recommended since this ToString() method defaults to masm syntax,
                 // uses default options, and allocates every single time it's called.
                 var disasmStr = instr.ToString();
-                Console.WriteLine($"{instr.IP64:X16} {disasmStr}");
+                Console.WriteLine($"{instr.IP:X16} {disasmStr}");
 
                 var info = instrInfoFactory.GetInfo(ref instr);
                 const string tab = "    ";

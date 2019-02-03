@@ -218,7 +218,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[InlineData("C5FC 10 10", "C5FC 10 10", Code.VEX_Vmovups_ymm_ymmm256, false)]
 		void Prevent_VEX2_encoding(string hexBytes, string expectedBytes, Code code, bool preventVEX2) {
 			var decoder = Decoder.Create(64, new ByteArrayCodeReader(hexBytes));
-			decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64;
+			decoder.IP = DecoderConstants.DEFAULT_IP64;
 			decoder.Decode(out var instr);
 			Assert.Equal(code, instr.Code);
 			var codeWriter = new CodeWriterImpl();

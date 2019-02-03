@@ -33,11 +33,11 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		internal static Instruction[] Decode(int bitness, ulong rip, byte[] data, DecoderOptions options) {
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(data), options);
-			decoder.InstructionPointer = rip;
+			decoder.IP = rip;
 			var list = new List<Instruction>();
-			while ((decoder.InstructionPointer - rip) < (uint)data.Length)
+			while ((decoder.IP - rip) < (uint)data.Length)
 				list.Add(decoder.Decode());
-			if (decoder.InstructionPointer - rip != (uint)data.Length)
+			if (decoder.IP - rip != (uint)data.Length)
 				throw new InvalidOperationException();
 			return list.ToArray();
 		}
@@ -96,7 +96,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					expectedConstantOffsets[i] = default;
 				else {
 					reader.Index = (int)newInstructionOffsets[i];
-					decoder.InstructionPointer = newRip + newInstructionOffsets[i];
+					decoder.IP = newRip + newInstructionOffsets[i];
 					decoder.Decode(out var instr);
 					expectedConstantOffsets[i] = decoder.GetConstantOffsets(ref instr);
 				}

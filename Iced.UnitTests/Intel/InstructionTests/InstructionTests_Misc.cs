@@ -113,10 +113,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr.IP32 = uint.MaxValue;
 			Assert.Equal(uint.MaxValue, instr.IP32);
 
-			instr.IP64 = ulong.MinValue;
-			Assert.Equal(ulong.MinValue, instr.IP64);
-			instr.IP64 = ulong.MaxValue;
-			Assert.Equal(ulong.MaxValue, instr.IP64);
+			instr.IP = ulong.MinValue;
+			Assert.Equal(ulong.MinValue, instr.IP);
+			instr.IP = ulong.MaxValue;
+			Assert.Equal(ulong.MaxValue, instr.IP);
 
 			instr.NextIP16 = ushort.MinValue;
 			Assert.Equal(ushort.MinValue, instr.NextIP16);
@@ -128,10 +128,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr.NextIP32 = uint.MaxValue;
 			Assert.Equal(uint.MaxValue, instr.NextIP32);
 
-			instr.NextIP64 = ulong.MinValue;
-			Assert.Equal(ulong.MinValue, instr.NextIP64);
-			instr.NextIP64 = ulong.MaxValue;
-			Assert.Equal(ulong.MaxValue, instr.NextIP64);
+			instr.NextIP = ulong.MinValue;
+			Assert.Equal(ulong.MinValue, instr.NextIP);
+			instr.NextIP = ulong.MaxValue;
+			Assert.Equal(ulong.MaxValue, instr.NextIP);
 
 			instr.MemoryDisplacement = uint.MinValue;
 			Assert.Equal(uint.MinValue, instr.MemoryDisplacement);
@@ -475,13 +475,13 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			}
 
 			instr.MemoryBase = Register.EIP;
-			instr.NextIP64 = 0x123456701EDCBA98;
+			instr.NextIP = 0x123456701EDCBA98;
 			instr.MemoryDisplacement = 0x87654321;
 			Assert.True(instr.IsIPRelativeMemoryOperand);
 			Assert.Equal(0xA641FDB9UL, instr.IPRelativeMemoryAddress);
 
 			instr.MemoryBase = Register.RIP;
-			instr.NextIP64 = 0x123456701EDCBA98;
+			instr.NextIP = 0x123456701EDCBA98;
 			instr.MemoryDisplacement = 0x87654321;
 			Assert.True(instr.IsIPRelativeMemoryOperand);
 			Assert.Equal(0x1234566FA641FDB9UL, instr.IPRelativeMemoryAddress);

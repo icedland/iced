@@ -55,7 +55,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public abstract string TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction);
 
 		protected string CreateErrorMessage(string errorMessage, ref Instruction instruction) =>
-			$"{errorMessage} : 0x{instruction.IP64:X} {instruction.ToString()}";
+			$"{errorMessage} : 0x{instruction.IP:X} {instruction.ToString()}";
 
 		public static Instr Create(BlockEncoder blockEncoder, ref Instruction instruction) {
 			switch (instruction.Code) {
@@ -235,7 +235,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				instr.Code = isCall ? Code.Call_rm64 : Code.Jmp_rm64;
 				instr.MemoryBase = Register.RIP;
 				var nextRip = ip + CallOrJmpPointerDataInstructionSize64;
-				instr.NextIP64 = nextRip;
+				instr.NextIP = nextRip;
 				long diff = (long)(pointerData.Address - nextRip);
 				instr.MemoryDisplacement = (uint)diff;
 				if (!(int.MinValue <= diff && diff <= int.MaxValue)) {

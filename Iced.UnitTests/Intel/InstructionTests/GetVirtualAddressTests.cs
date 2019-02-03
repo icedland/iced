@@ -57,13 +57,13 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(hexBytes));
 			switch (bitness) {
 			case 16:
-				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP16;
+				decoder.IP = DecoderConstants.DEFAULT_IP16;
 				break;
 			case 32:
-				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP32;
+				decoder.IP = DecoderConstants.DEFAULT_IP32;
 				break;
 			case 64:
-				decoder.InstructionPointer = DecoderConstants.DEFAULT_IP64;
+				decoder.IP = DecoderConstants.DEFAULT_IP64;
 				break;
 			default:
 				throw new InvalidOperationException();
