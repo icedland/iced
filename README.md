@@ -61,6 +61,8 @@ Instruction info:
 
 # Examples
 
+For another example, see [JitDasm](https://github.com/0xd4d/JitDasm).
+
 ```C#
 using System;
 using System.Collections.Generic;
@@ -68,6 +70,8 @@ using Iced.Intel;
 
 namespace Iced.Examples {
     static class Program {
+        const int HEXBYTES_COLUMN_BYTE_LENGTH = 10;
+
         static void Main(string[] args) {
             DecoderFormatterExample();
             EncoderExample();
@@ -85,27 +89,28 @@ namespace Iced.Examples {
 
         /*
          * This method produces the following output:
-00007FFAC46ACDA4 mov       [rsp+10h],rbx
-00007FFAC46ACDA9 mov       [rsp+18h],rsi
-00007FFAC46ACDAE push      rbp
-00007FFAC46ACDAF push      rdi
-00007FFAC46ACDB0 push      r14
-00007FFAC46ACDB2 lea       rbp,[rsp-100h]
-00007FFAC46ACDBA sub       rsp,200h
-00007FFAC46ACDC1 mov       rax,[rel 7FFA`C475`24E0h]
-00007FFAC46ACDC8 xor       rax,rsp
-00007FFAC46ACDCB mov       [rbp+0F0h],rax
-00007FFAC46ACDD2 mov       r8,[rel 7FFA`C474`F208h]
-00007FFAC46ACDD9 lea       rax,[rel 7FFA`C46F`4A58h]
-00007FFAC46ACDE0 xor       edi,edi
+00007FFAC46ACDA4 48895C2410           mov       [rsp+10h],rbx
+00007FFAC46ACDA9 4889742418           mov       [rsp+18h],rsi
+00007FFAC46ACDAE 55                   push      rbp
+00007FFAC46ACDAF 57                   push      rdi
+00007FFAC46ACDB0 4156                 push      r14
+00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]
+00007FFAC46ACDBA 4881EC00020000       sub       rsp,200h
+00007FFAC46ACDC1 488B0518570A00       mov       rax,[rel 7FFA`C475`24E0h]
+00007FFAC46ACDC8 4833C4               xor       rax,rsp
+00007FFAC46ACDCB 488985F0000000       mov       [rbp+0F0h],rax
+00007FFAC46ACDD2 4C8B052F240A00       mov       r8,[rel 7FFA`C474`F208h]
+00007FFAC46ACDD9 488D05787C0400       lea       rax,[rel 7FFA`C46F`4A58h]
+00007FFAC46ACDE0 33FF                 xor       edi,edi
         */
         static void DecoderFormatterExample() {
             // You can also pass in a hex string, eg. "90 91 929394", or you can use your own CodeReader
             // reading data from a file or memory etc
-            var codeReader = new ByteArrayCodeReader(exampleCode);
+            var codeBytes = exampleCode;
+            var codeReader = new ByteArrayCodeReader(codeBytes);
             var decoder = Decoder.Create(exampleCodeBitness, codeReader);
             decoder.InstructionPointer = exampleCodeRIP;
-            ulong endRip = decoder.InstructionPointer + (uint)exampleCode.Length;
+            ulong endRip = decoder.InstructionPointer + (uint)codeBytes.Length;
 
             // This list is faster than List<Instruction> since it uses refs to the Instructions
             // instead of copying them (each Instruction is 32 bytes in size). It has a ref indexer,
@@ -126,7 +131,17 @@ namespace Iced.Examples {
             foreach (ref var instr in instructions) {
                 // Don't use instr.ToString(), it allocates more, uses masm syntax and default options
                 formatter.Format(ref instr, output);
-                Console.WriteLine($"{instr.IP64:X16} {output.ToStringAndReset()}");
+                Console.Write(instr.IP64.ToString("X16"));
+                Console.Write(" ");
+                int instrLen = instr.ByteLength;
+                int byteBaseIndex = (int)(instr.IP64 - exampleCodeRIP);
+                for (int i = 0; i < instrLen; i++)
+                    Console.Write(codeBytes[byteBaseIndex + i].ToString("X2"));
+                int missingBytes = HEXBYTES_COLUMN_BYTE_LENGTH - instrLen;
+                for (int i = 0; i < missingBytes; i++)
+                    Console.Write("  ");
+                Console.Write(" ");
+                Console.WriteLine(output.ToStringAndReset());
             }
         }
 
@@ -226,6 +241,7 @@ Disassembled code:
     Encoding: Legacy
     CpuidFeature: INTEL8086
     FlowControl: Next
+    Displacement offset = 4, size = 1
     Op0Access: Write
     Op1Access: Read
     RSP:Read
@@ -235,6 +251,7 @@ Disassembled code:
     Encoding: Legacy
     CpuidFeature: INTEL8086
     FlowControl: Next
+    Displacement offset = 4, size = 1
     Op0Access: Write
     Op1Access: Read
     RSP:Read
@@ -271,6 +288,7 @@ Disassembled code:
     Encoding: Legacy
     CpuidFeature: INTEL8086
     FlowControl: Next
+    Displacement offset = 4, size = 4
     Op0Access: Write
     Op1Access: NoMemAccess
     RBP:Write
@@ -279,6 +297,7 @@ Disassembled code:
     Encoding: Legacy
     CpuidFeature: INTEL8086
     FlowControl: Next
+    Immediate offset = 3, size = 4
     RFLAGS Written: OF, SF, ZF, AF, CF, PF
     RFLAGS Modified: OF, SF, ZF, AF, CF, PF
     Op0Access: ReadWrite
@@ -288,6 +307,7 @@ Disassembled code:
     Encoding: Legacy
     CpuidFeature: INTEL8086
     FlowControl: Next
+    Displacement offset = 3, size = 4
     Op0Access: Write
     Op1Access: Read
     RAX:Write
@@ -308,6 +328,7 @@ Disassembled code:
     Encoding: Legacy
     CpuidFeature: INTEL8086
     FlowControl: Next
+    Displacement offset = 3, size = 4
     Op0Access: Write
     Op1Access: Read
     RBP:Read
@@ -317,6 +338,7 @@ Disassembled code:
     Encoding: Legacy
     CpuidFeature: INTEL8086
     FlowControl: Next
+    Displacement offset = 3, size = 4
     Op0Access: Write
     Op1Access: Read
     R8:Write
@@ -325,6 +347,7 @@ Disassembled code:
     Encoding: Legacy
     CpuidFeature: INTEL8086
     FlowControl: Next
+    Displacement offset = 3, size = 4
     Op0Access: Write
     Op1Access: NoMemAccess
     RAX:Write
@@ -355,6 +378,12 @@ Disassembled code:
             while (decoder.InstructionPointer < endRip) {
                 decoder.Decode(out var instr);
 
+                // Gets offsets in the instruction of the displacement and immediates and their sizes.
+                // This can be useful if there are relocations in the binary. The encoder has a similar
+                // method. This method must be called after Decode() and you must pass in the last
+                // instruction Decode() returned.
+                var offsets = decoder.GetConstantOffsets(ref instr);
+
                 // A formatter is recommended since this ToString() method defaults to masm syntax,
                 // uses default options, and allocates every single time it's called.
                 var disasmStr = instr.ToString();
@@ -365,6 +394,12 @@ Disassembled code:
                 Console.WriteLine($"{tab}Encoding: {info.Encoding}");
                 Console.WriteLine($"{tab}CpuidFeature: {info.CpuidFeature}");
                 Console.WriteLine($"{tab}FlowControl: {info.FlowControl}");
+                if (offsets.HasDisplacement)
+                    Console.WriteLine($"{tab}Displacement offset = {offsets.DisplacementOffset}, size = {offsets.DisplacementSize}");
+                if (offsets.HasImmediate)
+                    Console.WriteLine($"{tab}Immediate offset = {offsets.ImmediateOffset}, size = {offsets.ImmediateSize}");
+                if (offsets.HasImmediate2)
+                    Console.WriteLine($"{tab}Immediate #2 offset = {offsets.ImmediateOffset2}, size = {offsets.ImmediateSize2}");
                 if (info.StackInstruction)
                     Console.WriteLine($"{tab}SP Increment: {instr.StackPointerIncrement}");
                 if (instr.RflagsRead != RflagsBits.None)
