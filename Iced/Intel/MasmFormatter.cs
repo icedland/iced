@@ -38,6 +38,16 @@ namespace Iced.Intel {
 		public bool AddDsPrefix32 { get; set; } = true;
 
 		/// <summary>
+		/// Show symbols in brackets, eg. '[ecx+symbol]' vs 'symbol[ecx]' and '[symbol]' vs 'symbol'
+		/// </summary>
+		public bool SymbolDisplInBrackets { get; set; } = true;
+
+		/// <summary>
+		/// Show displacements in brackets, eg. '[ecx+1234h]' vs '1234h[ecx]'
+		/// </summary>
+		public bool DisplInBrackets { get; set; } = true;
+
+		/// <summary>
 		/// Constructor
 		/// </summary>
 		public MasmFormatterOptions() {
@@ -728,17 +738,28 @@ namespace Iced.Intel {
 			if (addrSize == 16)
 				useScale = false;
 
+			CodeSize codeSize;
+			bool is1632 = ((codeSize = instr.CodeSize) == CodeSize.Code16 || codeSize == CodeSize.Code32);
+			bool hasMemReg = baseReg != Register.None || indexReg != Register.None;
+			bool displInBrackets = useSymbol ? options.SymbolDisplInBrackets : options.DisplInBrackets;
+			if ((!is1632 && !hasMemReg && !useSymbol) || (is1632 && !hasMemReg && !useSymbol && !options.AddDsPrefix32 && segOverride == Register.None))
+				displInBrackets = true;
+			bool needBrackets = hasMemReg || displInBrackets;
+
 			FormatMemorySize(output, ref instr, memSize, flags, operandOptions);
 
-			CodeSize codeSize;
 			if (options.AlwaysShowSegmentRegister || segOverride != Register.None ||
-				(options.AddDsPrefix32 && baseReg == Register.None && indexReg == Register.None && !useSymbol && ((codeSize = instr.CodeSize) == CodeSize.Code16 || codeSize == CodeSize.Code32))) {
+				(is1632 && !hasMemReg && !useSymbol && options.AddDsPrefix32)) {
 				FormatRegister(output, segReg);
 				output.Write(":", FormatterOutputTextKind.Punctuation);
 			}
-			output.Write("[", FormatterOutputTextKind.Punctuation);
-			if (options.SpaceAfterMemoryBracket)
-				output.Write(" ", FormatterOutputTextKind.Text);
+			if (!displInBrackets)
+				FormatMemoryDispl(output, symbol, ref numberOptions, absAddr, displ, displSize, addrSize, useSymbol, needPlus: false, forceDispl: !hasMemReg);
+			if (needBrackets) {
+				output.Write("[", FormatterOutputTextKind.Punctuation);
+				if (options.SpaceAfterMemoryBracket)
+					output.Write(" ", FormatterOutputTextKind.Text);
+			}
 
 			bool needPlus = false;
 			if (baseReg != Register.None) {
@@ -778,6 +799,17 @@ namespace Iced.Intel {
 				}
 			}
 
+			if (displInBrackets)
+				FormatMemoryDispl(output, symbol, ref numberOptions, absAddr, displ, displSize, addrSize, useSymbol, needPlus, forceDispl: !needPlus);
+
+			if (needBrackets) {
+				if (options.SpaceAfterMemoryBracket)
+					output.Write(" ", FormatterOutputTextKind.Text);
+				output.Write("]", FormatterOutputTextKind.Punctuation);
+			}
+		}
+
+		void FormatMemoryDispl(FormatterOutput output, in SymbolResult symbol, ref NumberFormattingOptions numberOptions, ulong absAddr, long displ, int displSize, int addrSize, bool useSymbol, bool needPlus, bool forceDispl) {
 			if (useSymbol) {
 				if (needPlus) {
 					if (options.SpaceBetweenMemoryAddOperators)
@@ -794,7 +826,7 @@ namespace Iced.Intel {
 
 				output.Write(numberFormatter, numberOptions, absAddr, symbol, options.ShowSymbolAddress, false, options.SpaceBetweenMemoryAddOperators);
 			}
-			else if (!needPlus || (displSize != 0 && (options.ShowZeroDisplacements || displ != 0))) {
+			else if (forceDispl || (displSize != 0 && (options.ShowZeroDisplacements || displ != 0))) {
 				if (needPlus) {
 					if (options.SpaceBetweenMemoryAddOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
@@ -859,10 +891,6 @@ namespace Iced.Intel {
 					throw new InvalidOperationException();
 				output.Write(s, FormatterOutputTextKind.Number);
 			}
-
-			if (options.SpaceAfterMemoryBracket)
-				output.Write(" ", FormatterOutputTextKind.Text);
-			output.Write("]", FormatterOutputTextKind.Punctuation);
 		}
 
 		void FormatMemorySize(FormatterOutput output, ref Instruction instr, MemorySize memSize, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions) {

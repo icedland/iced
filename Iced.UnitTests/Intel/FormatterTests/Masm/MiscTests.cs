@@ -115,6 +115,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			Assert.True(options.UsePseudoOps);
 			Assert.False(options.ShowSymbolAddress);
 			Assert.True(options.AddDsPrefix32);
+			Assert.True(options.SymbolDisplInBrackets);
+			Assert.True(options.DisplInBrackets);
 		}
 
 		[Theory]
