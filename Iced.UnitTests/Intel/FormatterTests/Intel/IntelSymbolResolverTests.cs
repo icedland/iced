@@ -147,6 +147,14 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			"mov al,[rax+symbol-0x123]",
 			"mov al,[rax-symnext]",
 			"mov al,[rax-0x5b]",
+			"mov eax,dword ptr [rax+symbol-0x123]",
+			"mov eax,dword ptr [rax+symbol]",
+			"mov eax,[rax+symbol+0x123]",
+			"mov eax,[rax+symbol-0x123]",
+			"mov eax,[rax+symbol]",
+			"mov eax,dword ptr [rax+symbol+0x123]",
+			"mov eax,[rax+symbol-0x123]",
+			"mov eax,dword ptr [rax+symbol]",
 		};
 	}
 }

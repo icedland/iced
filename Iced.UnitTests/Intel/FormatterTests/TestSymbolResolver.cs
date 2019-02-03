@@ -34,7 +34,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			if (tryGetSymbol != null) {
 				if (!tryGetSymbol(operand, instructionOperand, ref instruction, address, addressSize, out symbol))
 					return false;
-				symbol = new SymbolResult(address + (ulong)resultDispl, symbol.Text, symbol.Flags);
+				if (symbol.HasSymbolSize)
+					symbol = new SymbolResult(address + (ulong)resultDispl, symbol.Text, symbol.Flags, symbol.SymbolSize);
+				else
+					symbol = new SymbolResult(address + (ulong)resultDispl, symbol.Text, symbol.Flags);
 				return true;
 			}
 			symbol = default;

@@ -62,6 +62,11 @@ namespace Iced.Intel {
 		/// It's a signed symbol and it should be displayed as '-symbol' or 'reg-symbol' instead of 'symbol' or 'reg+symbol'
 		/// </summary>
 		Signed				= 0x00000002,
+
+		/// <summary>
+		/// Set if <see cref="SymbolResult.SymbolSize"/> is valid
+		/// </summary>
+		HasSymbolSize		= 0x00000004,
 	}
 
 	/// <summary>
@@ -84,6 +89,16 @@ namespace Iced.Intel {
 		public readonly SymbolFlags Flags;
 
 		/// <summary>
+		/// Checks whether <see cref="SymbolSize"/> is valid
+		/// </summary>
+		public bool HasSymbolSize => (Flags & SymbolFlags.HasSymbolSize) != 0;
+
+		/// <summary>
+		/// Symbol size if <see cref="HasSymbolSize"/> is true
+		/// </summary>
+		public readonly MemorySize SymbolSize;
+
+		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="address">The address of the symbol</param>
@@ -92,6 +107,20 @@ namespace Iced.Intel {
 			Address = address;
 			Text = new TextInfo(text, FormatterOutputTextKind.Label);
 			Flags = 0;
+			SymbolSize = 0;
+		}
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="address">The address of the symbol</param>
+		/// <param name="text">Symbol</param>
+		/// <param name="size">Symbol size</param>
+		public SymbolResult(ulong address, string text, MemorySize size) {
+			Address = address;
+			Text = new TextInfo(text, FormatterOutputTextKind.Label);
+			Flags = SymbolFlags.HasSymbolSize;
+			SymbolSize = size;
 		}
 
 		/// <summary>
@@ -104,6 +133,7 @@ namespace Iced.Intel {
 			Address = address;
 			Text = new TextInfo(text, color);
 			Flags = 0;
+			SymbolSize = 0;
 		}
 
 		/// <summary>
@@ -116,7 +146,8 @@ namespace Iced.Intel {
 		public SymbolResult(ulong address, string text, FormatterOutputTextKind color, SymbolFlags flags) {
 			Address = address;
 			Text = new TextInfo(text, color);
-			Flags = flags;
+			Flags = flags & ~SymbolFlags.HasSymbolSize;
+			SymbolSize = 0;
 		}
 
 		/// <summary>
@@ -128,6 +159,20 @@ namespace Iced.Intel {
 			Address = address;
 			Text = text;
 			Flags = 0;
+			SymbolSize = 0;
+		}
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="address">The address of the symbol</param>
+		/// <param name="text">Symbol</param>
+		/// <param name="size">Symbol size</param>
+		public SymbolResult(ulong address, TextInfo text, MemorySize size) {
+			Address = address;
+			Text = text;
+			Flags = SymbolFlags.HasSymbolSize;
+			SymbolSize = size;
 		}
 
 		/// <summary>
@@ -139,7 +184,22 @@ namespace Iced.Intel {
 		public SymbolResult(ulong address, TextInfo text, SymbolFlags flags) {
 			Address = address;
 			Text = text;
-			Flags = flags;
+			Flags = flags & ~SymbolFlags.HasSymbolSize;
+			SymbolSize = 0;
+		}
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="address">The address of the symbol</param>
+		/// <param name="text">Symbol</param>
+		/// <param name="flags">Symbol flags</param>
+		/// <param name="size">Symbol size</param>
+		public SymbolResult(ulong address, TextInfo text, SymbolFlags flags, MemorySize size) {
+			Address = address;
+			Text = text;
+			Flags = flags | SymbolFlags.HasSymbolSize;
+			SymbolSize = size;
 		}
 	}
 

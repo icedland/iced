@@ -27,7 +27,7 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class SymbolResolverTestInfos {
-		public const int AllInfos_Length = 113;
+		public const int AllInfos_Length = 121;
 		public static readonly SymbolInstructionInfo[] AllInfos = new SymbolInstructionInfo[AllInfos_Length] {
 			new SymbolInstructionInfo(16, "70 00", Code.Jo_rel8_16, new TestSymbolResolver {
 				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
@@ -1023,6 +1023,70 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
 					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
 					return false;
+				},
+			}),
+			new SymbolInstructionInfo(64, "8B 80 78563412", Code.Mov_r32_rm32, a => a.MemorySizeOptions = MemorySizeOptions.Always, new TestSymbolResolver {
+				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0x0000000012345678UL, address);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+					return true;
+				},
+			}),
+			new SymbolInstructionInfo(64, "8B 80 78563412", Code.Mov_r32_rm32, a => a.MemorySizeOptions = MemorySizeOptions.Always, new TestSymbolResolver {
+				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0x0000000012345678UL, address);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+					return true;
+				},
+			}),
+			new SymbolInstructionInfo(64, "8B 80 78563412", Code.Mov_r32_rm32, a => a.MemorySizeOptions = MemorySizeOptions.Never, new TestSymbolResolver {
+				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0x0000000012345678UL, address);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+					return true;
+				},
+			}),
+			new SymbolInstructionInfo(64, "8B 80 78563412", Code.Mov_r32_rm32, a => a.MemorySizeOptions = MemorySizeOptions.Never, new TestSymbolResolver {
+				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0x0000000012345678UL, address);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+					return true;
+				},
+			}),
+			new SymbolInstructionInfo(64, "8B 80 78563412", Code.Mov_r32_rm32, a => a.MemorySizeOptions = MemorySizeOptions.Default, new TestSymbolResolver {
+				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0x0000000012345678UL, address);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+					return true;
+				},
+			}),
+			new SymbolInstructionInfo(64, "8B 80 78563412", Code.Mov_r32_rm32, a => a.MemorySizeOptions = MemorySizeOptions.Default, new TestSymbolResolver {
+				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0x0000000012345678UL, address);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+					return true;
+				},
+			}),
+			new SymbolInstructionInfo(64, "8B 80 78563412", Code.Mov_r32_rm32, a => a.MemorySizeOptions = MemorySizeOptions.Minimum, new TestSymbolResolver {
+				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0x0000000012345678UL, address);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+					return true;
+				},
+			}),
+			new SymbolInstructionInfo(64, "8B 80 78563412", Code.Mov_r32_rm32, a => a.MemorySizeOptions = MemorySizeOptions.Minimum, new TestSymbolResolver {
+				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+					Assert.Equal(8, addressSize);
+					Assert.Equal(0x0000000012345678UL, address);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+					return true;
 				},
 			}),
 		};

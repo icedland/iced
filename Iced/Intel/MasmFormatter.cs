@@ -746,7 +746,7 @@ namespace Iced.Intel {
 				displInBrackets = true;
 			bool needBrackets = hasMemReg || displInBrackets;
 
-			FormatMemorySize(output, ref instr, memSize, flags, operandOptions);
+			FormatMemorySize(output, ref instr, ref symbol, memSize, flags, operandOptions, useSymbol);
 
 			if (options.AlwaysShowSegmentRegister || segOverride != Register.None ||
 				(is1632 && !hasMemReg && !useSymbol && options.AddDsPrefix32)) {
@@ -893,7 +893,7 @@ namespace Iced.Intel {
 			}
 		}
 
-		void FormatMemorySize(FormatterOutput output, ref Instruction instr, MemorySize memSize, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions) {
+		void FormatMemorySize(FormatterOutput output, ref Instruction instr, ref SymbolResult symbol, MemorySize memSize, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions, bool useSymbol) {
 			var memSizeOptions = (MemorySizeOptions)(((uint)operandOptions >> (int)FormatterOperandOptions.MemorySizeShift) & ((uint)FormatterOperandOptions.MemorySizeMask >> (int)FormatterOperandOptions.MemorySizeShift));
 			if (memSizeOptions == MemorySizeOptions.Never)
 				return;
@@ -904,18 +904,6 @@ namespace Iced.Intel {
 
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
 			var memInfo = allMemorySizes[(int)memSize];
-
-			if (memSizeOptions == MemorySizeOptions.Default) {
-				if ((flags & InstrOpInfoFlags.ShowNoMemSize_ForceSize) == 0 && !memInfo.isBroadcast)
-					return;
-			}
-			else if (memSizeOptions == MemorySizeOptions.Minimum) {
-				if ((flags & InstrOpInfoFlags.ShowMinMemSize_ForceSize) == 0 && !memInfo.isBroadcast)
-					return;
-			}
-			else
-				Debug.Assert(memSizeOptions == MemorySizeOptions.Always);
-
 			var memSizeStrings = memInfo.names;
 
 			switch (memInfo.size) {
@@ -942,10 +930,52 @@ namespace Iced.Intel {
 			if (memType == InstrOpInfoFlags.MemSize_XmmwordPtr)
 				memSizeStrings = MemorySizes.xmmword_ptr;
 
+			if (memSizeOptions == MemorySizeOptions.Default) {
+				if (useSymbol && symbol.HasSymbolSize) {
+					if (IsSameMemSize(memSizeStrings, memInfo.isBroadcast, ref symbol))
+						return;
+				}
+				else if ((flags & InstrOpInfoFlags.ShowNoMemSize_ForceSize) == 0 && !memInfo.isBroadcast)
+					return;
+			}
+			else if (memSizeOptions == MemorySizeOptions.Minimum) {
+				if (useSymbol && symbol.HasSymbolSize) {
+					if (IsSameMemSize(memSizeStrings, memInfo.isBroadcast, ref symbol))
+						return;
+				}
+				else if ((flags & InstrOpInfoFlags.ShowMinMemSize_ForceSize) == 0 && !memInfo.isBroadcast)
+					return;
+			}
+			else
+				Debug.Assert(memSizeOptions == MemorySizeOptions.Always);
+
 			foreach (string name in memSizeStrings) {
 				FormatKeyword(output, name);
 				output.Write(" ", FormatterOutputTextKind.Text);
 			}
+		}
+
+		bool IsSameMemSize(string[] memSizeStrings, bool isBroadcast, ref SymbolResult symbol) {
+			if (isBroadcast)
+				return false;
+			Debug.Assert((uint)symbol.SymbolSize < (uint)allMemorySizes.Length);
+			var symbolMemInfo = allMemorySizes[(int)symbol.SymbolSize];
+			if (symbolMemInfo.isBroadcast)
+				return false;
+			var symbolMemSizeStrings = symbolMemInfo.names;
+			return IsSameMemSize(memSizeStrings, symbolMemSizeStrings);
+		}
+
+		static bool IsSameMemSize(string[] a, string[] b) {
+			if (a == b)
+				return true;
+			if (a.Length != b.Length)
+				return false;
+			for (int i = 0; i < a.Length; i++) {
+				if (a[i] != b[i])
+					return false;
+			}
+			return true;
 		}
 
 		void FormatKeyword(FormatterOutput output, string keyword) {
