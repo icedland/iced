@@ -907,7 +907,7 @@ namespace Iced.Intel {
 					if (IsSameMemSize(memInfo.names, ref symbol))
 						return;
 				}
-				else if ((flags & InstrOpInfoFlags.ShowMinMemSize_ForceSize) == 0)
+				if ((flags & InstrOpInfoFlags.ShowMinMemSize_ForceSize) == 0)
 					return;
 			}
 			else

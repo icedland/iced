@@ -156,7 +156,15 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			"mov eax,[rax+symbol]",
 			"mov eax,dword ptr [rax+symbol+123h]",
 			"mov eax,[rax+symbol-123h]",
-			"mov eax,dword ptr [rax+symbol]",
+			"mov eax,[rax+symbol]",
+			"mov dword ptr [rax+symbol+123h],12345678h",
+			"mov dword ptr [rax+symbol-123h],12345678h",
+			"mov [rax+symbol],12345678h",
+			"mov [rax+symbol+123h],12345678h",
+			"mov [rax+symbol-123h],12345678h",
+			"mov dword ptr [rax+symbol],12345678h",
+			"mov [rax+symbol+123h],12345678h",
+			"mov dword ptr [rax+symbol-123h],12345678h",
 		};
 
 		[Flags]

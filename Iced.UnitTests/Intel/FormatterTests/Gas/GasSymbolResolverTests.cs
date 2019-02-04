@@ -155,6 +155,14 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			"mov symbol+0x123(%rax),%eax",
 			"mov symbol-0x123(%rax),%eax",
 			"mov symbol(%rax),%eax",
+			"movl $0x12345678,symbol+0x123(%rax)",
+			"movl $0x12345678,symbol-0x123(%rax)",
+			"movl $0x12345678,symbol(%rax)",
+			"movl $0x12345678,symbol+0x123(%rax)",
+			"movl $0x12345678,symbol-0x123(%rax)",
+			"movl $0x12345678,symbol(%rax)",
+			"movl $0x12345678,symbol+0x123(%rax)",
+			"movl $0x12345678,symbol-0x123(%rax)",
 		};
 	}
 }

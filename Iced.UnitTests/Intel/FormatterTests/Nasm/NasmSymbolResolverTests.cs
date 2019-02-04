@@ -155,6 +155,14 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			"mov eax,[rax+symbol+0x123]",
 			"mov eax,[rax+symbol-0x123]",
 			"mov eax,[rax+symbol]",
+			"mov dword [rax+symbol+0x123],0x12345678",
+			"mov dword [rax+symbol-0x123],0x12345678",
+			"mov [rax+symbol],0x12345678",
+			"mov [rax+symbol+0x123],0x12345678",
+			"mov dword [rax+symbol-0x123],0x12345678",
+			"mov dword [rax+symbol],0x12345678",
+			"mov dword [rax+symbol+0x123],0x12345678",
+			"mov dword [rax+symbol-0x123],0x12345678",
 		};
 	}
 }

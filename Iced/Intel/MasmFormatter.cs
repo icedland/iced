@@ -943,7 +943,7 @@ namespace Iced.Intel {
 					if (IsSameMemSize(memSizeStrings, memInfo.isBroadcast, ref symbol))
 						return;
 				}
-				else if ((flags & InstrOpInfoFlags.ShowMinMemSize_ForceSize) == 0 && !memInfo.isBroadcast)
+				if ((flags & InstrOpInfoFlags.ShowMinMemSize_ForceSize) == 0 && !memInfo.isBroadcast)
 					return;
 			}
 			else
