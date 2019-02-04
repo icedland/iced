@@ -732,9 +732,11 @@ F3 90, Pause, 0,
 9D, Popfd, 0,
 
 9E, Sahf, 0,
+9E, Sahf, 0, nolahfsahf64
 66 9E, Sahf, 0, enc=9E
 
 9F, Lahf, 0,
+9F, Lahf, 0, nolahfsahf64
 66 9F, Lahf, 0, enc=9F
 
 67 A0 1234, Mov_AL_moffs8, 2, op0=r;al op1=m;ds;;;1;0x3412;2;UInt8 co=0;0;0;0;2;2
