@@ -583,7 +583,7 @@ after_read_prefixes:
 			uint p2 = ReadByte();
 
 			if ((p1 & 4) == 0) {
-				//TODO: Support MVEX instructions
+				//TODO: Support deprecated MVEX instructions: https://github.com/0xd4d/iced/issues/2
 				SetInvalidInstruction();
 			}
 			else {
