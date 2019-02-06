@@ -24,141 +24,141 @@
 # push es
 06, Pushw_ES, Legacy, INTEL8086, op0=r r=ss rw=xsp r=es wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushd es
-66 06, Pushd_ES, Legacy, INTEL8086, op0=r r=ss rw=xsp r=es wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 06, Pushd_ES, Legacy, INTEL386, op0=r r=ss rw=xsp r=es wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # pop es
 07, Popw_ES, Legacy, INTEL8086, op0=w r=ss rw=xsp w=es rm=ss:xsp;UInt16 stack=2
 # popd es
-66 07, Popd_ES, Legacy, INTEL8086, op0=w r=ss rw=xsp w=es rm=ss:xsp;UInt32 stack=4
+66 07, Popd_ES, Legacy, INTEL386, op0=w r=ss rw=xsp w=es rm=ss:xsp;UInt32 stack=4
 # push cs
 0E, Pushw_CS, Legacy, INTEL8086, op0=r r=ss rw=xsp r=cs wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushd cs
-66 0E, Pushd_CS, Legacy, INTEL8086, op0=r r=ss rw=xsp r=cs wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 0E, Pushd_CS, Legacy, INTEL386, op0=r r=ss rw=xsp r=cs wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # pop cs
 0F, Popw_CS, Legacy, INTEL8086_ONLY, op0=w r=ss rw=xsp w=cs rm=ss:xsp;UInt16 stack=2
 # push ss
 16, Pushw_SS, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ss wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushd ss
-66 16, Pushd_SS, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ss wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 16, Pushd_SS, Legacy, INTEL386, op0=r r=ss rw=xsp r=ss wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # pop ss
 17, Popw_SS, Legacy, INTEL8086, op0=w r=ss rw=xsp w=ss rm=ss:xsp;UInt16 stack=2
 # popd ss
-66 17, Popd_SS, Legacy, INTEL8086, op0=w r=ss rw=xsp w=ss rm=ss:xsp;UInt32 stack=4
+66 17, Popd_SS, Legacy, INTEL386, op0=w r=ss rw=xsp w=ss rm=ss:xsp;UInt32 stack=4
 # push ds
 1E, Pushw_DS, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ds wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushd ds
-66 1E, Pushd_DS, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ds wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 1E, Pushd_DS, Legacy, INTEL386, op0=r r=ss rw=xsp r=ds wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # pop ds
 1F, Popw_DS, Legacy, INTEL8086, op0=w r=ss rw=xsp w=ds rm=ss:xsp;UInt16 stack=2
 # popd ds
-66 1F, Popd_DS, Legacy, INTEL8086, op0=w r=ss rw=xsp w=ds rm=ss:xsp;UInt32 stack=4
+66 1F, Popd_DS, Legacy, INTEL386, op0=w r=ss rw=xsp w=ds rm=ss:xsp;UInt32 stack=4
 # push ax
 50, Push_r16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ax wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push eax
-66 50, Push_r32, Legacy, INTEL8086, op0=r r=ss rw=xsp r=eax wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 50, Push_r32, Legacy, INTEL386, op0=r r=ss rw=xsp r=eax wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # push cx
 51, Push_r16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=cx wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push ecx
-66 51, Push_r32, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ecx wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 51, Push_r32, Legacy, INTEL386, op0=r r=ss rw=xsp r=ecx wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # push dx
 52, Push_r16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=dx wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push edx
-66 52, Push_r32, Legacy, INTEL8086, op0=r r=ss rw=xsp r=edx wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 52, Push_r32, Legacy, INTEL386, op0=r r=ss rw=xsp r=edx wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # push bx
 53, Push_r16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=bx wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push ebx
-66 53, Push_r32, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ebx wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 53, Push_r32, Legacy, INTEL386, op0=r r=ss rw=xsp r=ebx wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # push sp
 54, Push_r16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=sp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push esp
-66 54, Push_r32, Legacy, INTEL8086, op0=r r=ss rw=xsp r=esp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 54, Push_r32, Legacy, INTEL386, op0=r r=ss rw=xsp r=esp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # push bp
 55, Push_r16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=bp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push ebp
-66 55, Push_r32, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ebp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 55, Push_r32, Legacy, INTEL386, op0=r r=ss rw=xsp r=ebp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # push si
 56, Push_r16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=si wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push esi
-66 56, Push_r32, Legacy, INTEL8086, op0=r r=ss rw=xsp r=esi wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 56, Push_r32, Legacy, INTEL386, op0=r r=ss rw=xsp r=esi wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # push di
 57, Push_r16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=di wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push edi
-66 57, Push_r32, Legacy, INTEL8086, op0=r r=ss rw=xsp r=edi wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 57, Push_r32, Legacy, INTEL386, op0=r r=ss rw=xsp r=edi wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # pop ax
 58, Pop_r16, Legacy, INTEL8086, op0=w r=ss rw=xsp w=ax rm=ss:xsp;UInt16 stack=2
 # pop eax
-66 58, Pop_r32, Legacy, INTEL8086, op0=w r=ss rw=xsp w=eax rm=ss:xsp;UInt32 stack=4
+66 58, Pop_r32, Legacy, INTEL386, op0=w r=ss rw=xsp w=eax rm=ss:xsp;UInt32 stack=4
 # pop cx
 59, Pop_r16, Legacy, INTEL8086, op0=w r=ss rw=xsp w=cx rm=ss:xsp;UInt16 stack=2
 # pop ecx
-66 59, Pop_r32, Legacy, INTEL8086, op0=w r=ss rw=xsp w=ecx rm=ss:xsp;UInt32 stack=4
+66 59, Pop_r32, Legacy, INTEL386, op0=w r=ss rw=xsp w=ecx rm=ss:xsp;UInt32 stack=4
 # pop dx
 5A, Pop_r16, Legacy, INTEL8086, op0=w r=ss rw=xsp w=dx rm=ss:xsp;UInt16 stack=2
 # pop edx
-66 5A, Pop_r32, Legacy, INTEL8086, op0=w r=ss rw=xsp w=edx rm=ss:xsp;UInt32 stack=4
+66 5A, Pop_r32, Legacy, INTEL386, op0=w r=ss rw=xsp w=edx rm=ss:xsp;UInt32 stack=4
 # pop bx
 5B, Pop_r16, Legacy, INTEL8086, op0=w r=ss rw=xsp w=bx rm=ss:xsp;UInt16 stack=2
 # pop ebx
-66 5B, Pop_r32, Legacy, INTEL8086, op0=w r=ss rw=xsp w=ebx rm=ss:xsp;UInt32 stack=4
+66 5B, Pop_r32, Legacy, INTEL386, op0=w r=ss rw=xsp w=ebx rm=ss:xsp;UInt32 stack=4
 # pop sp
 5C, Pop_r16, Legacy, INTEL8086, op0=w r=ss rw=xsp w=sp rm=ss:xsp;UInt16 stack=2
 # pop esp
-66 5C, Pop_r32, Legacy, INTEL8086, op0=w r=ss rw=xsp w=esp rm=ss:xsp;UInt32 stack=4
+66 5C, Pop_r32, Legacy, INTEL386, op0=w r=ss rw=xsp w=esp rm=ss:xsp;UInt32 stack=4
 # pop bp
 5D, Pop_r16, Legacy, INTEL8086, op0=w r=ss rw=xsp w=bp rm=ss:xsp;UInt16 stack=2
 # pop ebp
-66 5D, Pop_r32, Legacy, INTEL8086, op0=w r=ss rw=xsp w=ebp rm=ss:xsp;UInt32 stack=4
+66 5D, Pop_r32, Legacy, INTEL386, op0=w r=ss rw=xsp w=ebp rm=ss:xsp;UInt32 stack=4
 # pop si
 5E, Pop_r16, Legacy, INTEL8086, op0=w r=ss rw=xsp w=si rm=ss:xsp;UInt16 stack=2
 # pop esi
-66 5E, Pop_r32, Legacy, INTEL8086, op0=w r=ss rw=xsp w=esi rm=ss:xsp;UInt32 stack=4
+66 5E, Pop_r32, Legacy, INTEL386, op0=w r=ss rw=xsp w=esi rm=ss:xsp;UInt32 stack=4
 # pop di
 5F, Pop_r16, Legacy, INTEL8086, op0=w r=ss rw=xsp w=di rm=ss:xsp;UInt16 stack=2
 # pop edi
-66 5F, Pop_r32, Legacy, INTEL8086, op0=w r=ss rw=xsp w=edi rm=ss:xsp;UInt32 stack=4
+66 5F, Pop_r32, Legacy, INTEL386, op0=w r=ss rw=xsp w=edi rm=ss:xsp;UInt32 stack=4
 # pusha
 60, Pushaw, Legacy, INTEL186, r=ax;cx;dx;bx;sp;bp;si;di r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFA;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFF6;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFF4;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFF2;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFF0;UInt16 stack=-16
 # pushad
-66 60, Pushad, Legacy, INTEL186, r=eax;ecx;edx;ebx;esp;ebp;esi;edi r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF4;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF0;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFEC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFE8;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFE4;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFE0;UInt32 stack=-32
+66 60, Pushad, Legacy, INTEL386, r=eax;ecx;edx;ebx;esp;ebp;esi;edi r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF4;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF0;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFEC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFE8;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFE4;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFE0;UInt32 stack=-32
 # popa
 61, Popaw, Legacy, INTEL186, w=ax;cx;dx;bx;bp;si;di r=ss rw=xsp rm=ss:xsp;UInt16 rm=ss:xsp+2;UInt16 rm=ss:xsp+4;UInt16 rm=ss:xsp+8;UInt16 rm=ss:xsp+0xA;UInt16 rm=ss:xsp+0xC;UInt16 rm=ss:xsp+0xE;UInt16 stack=16
 # popad
-66 61, Popad, Legacy, INTEL186, w=eax;ecx;edx;ebx;ebp;esi;edi r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 rm=ss:xsp+8;UInt32 rm=ss:xsp+0x10;UInt32 rm=ss:xsp+0x14;UInt32 rm=ss:xsp+0x18;UInt32 rm=ss:xsp+0x1C;UInt32 stack=32
+66 61, Popad, Legacy, INTEL386, w=eax;ecx;edx;ebx;ebp;esi;edi r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 rm=ss:xsp+8;UInt32 rm=ss:xsp+0x10;UInt32 rm=ss:xsp+0x14;UInt32 rm=ss:xsp+0x18;UInt32 rm=ss:xsp+0x1C;UInt32 stack=32
 # push 0A55Ah
 68 5AA5, Push_imm16, Legacy, INTEL186, op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushd 3412A55Ah
-66 68 5AA51234, Pushd_imm32, Legacy, INTEL186, op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 68 5AA51234, Pushd_imm32, Legacy, INTEL386, op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # push 5Ah
 6A 5A, Pushw_imm8, Legacy, INTEL186, op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushd 5Ah
-66 6A 5A, Pushd_imm8, Legacy, INTEL186, op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 6A 5A, Pushd_imm8, Legacy, INTEL386, op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # pop si
 8F C6, Pop_rm16, Legacy, INTEL8086, op0=w r=ss rw=xsp w=si rm=ss:xsp;UInt16 stack=2
 # pop [bx+si]
 8F 00, Pop_rm16, Legacy, INTEL8086, op0=w r=ss rw=xsp r=ds r=bx r=si wm=ds:bx+si*1;UInt16 rm=ss:xsp;UInt16 stack=2
 # pop esi
-66 8F C6, Pop_rm32, Legacy, INTEL8086, op0=w r=ss rw=xsp w=esi rm=ss:xsp;UInt32 stack=4
+66 8F C6, Pop_rm32, Legacy, INTEL386, op0=w r=ss rw=xsp w=esi rm=ss:xsp;UInt32 stack=4
 # pop dword ptr [bx+si]
-66 8F 00, Pop_rm32, Legacy, INTEL8086, op0=w r=ss rw=xsp r=ds r=bx r=si wm=ds:bx+si*1;UInt32 rm=ss:xsp;UInt32 stack=4
+66 8F 00, Pop_rm32, Legacy, INTEL386, op0=w r=ss rw=xsp r=ds r=bx r=si wm=ds:bx+si*1;UInt32 rm=ss:xsp;UInt32 stack=4
 # call far ptr 7856h:3412h
 9A 1234 5678, Call_ptr1616, Legacy, INTEL8086, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 stack=-4
 # call far ptr 0BC9Ah:78563412h
-66 9A 12345678 9ABC, Call_ptr3216, Legacy, INTEL8086, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
+66 9A 12345678 9ABC, Call_ptr3216, Legacy, INTEL386, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
 # pushf
 9C, Pushfw, Legacy, INTEL8086, fr=oszacpid r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushfd
-66 9C, Pushfd, Legacy, INTEL8086, fr=oszacpidA r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 9C, Pushfd, Legacy, INTEL386, fr=oszacpidA r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # popf
 9D, Popfw, Legacy, INTEL8086, fw=oszacpid r=ss rw=xsp rm=ss:xsp;UInt16 stack=2
 # popfd
-66 9D, Popfd, Legacy, INTEL8086, fw=oszacpidA r=ss rw=xsp rm=ss:xsp;UInt32 stack=4
+66 9D, Popfd, Legacy, INTEL386, fw=oszacpidA r=ss rw=xsp rm=ss:xsp;UInt32 stack=4
 # ret 0A55Ah
 C2 5AA5, Retnw_imm16, Legacy, INTEL8086, flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt16 stack=42332
 # retnd 0A55Ah
-66 C2 5AA5, Retnd_imm16, Legacy, INTEL8086, flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt32 stack=42334
+66 C2 5AA5, Retnd_imm16, Legacy, INTEL386, flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt32 stack=42334
 # ret
 C3, Retnw, Legacy, INTEL8086, flow=Return r=ss rw=xsp rm=ss:xsp;UInt16 stack=2
 # retnd
-66 C3, Retnd, Legacy, INTEL8086, flow=Return r=ss rw=xsp rm=ss:xsp;UInt32 stack=4
+66 C3, Retnd, Legacy, INTEL386, flow=Return r=ss rw=xsp rm=ss:xsp;UInt32 stack=4
 # enterw 0A55Ah,0E0h
 C8 5AA5 E0, Enterw_imm16_imm8, Legacy, INTEL186, op0=r op1=r rw=bp rw=sp r=ss rw=xsp stack=-42332 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16
 # enterw 0A55Ah,0E1h
@@ -166,51 +166,51 @@ C8 5AA5 E1, Enterw_imm16_imm8, Legacy, INTEL186, op0=r op1=r rw=bp rw=sp r=ss rw
 # enterw 0A55Ah,0E2h
 C8 5AA5 E2, Enterw_imm16_imm8, Legacy, INTEL186, op0=r op1=r rw=bp rw=sp rw=xbp r=ss rw=xsp stack=-42336 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFA;UInt16 rm=ss:xbp+0xFFFFFFFFFFFFFFFE;UInt16
 # enter 0A55Ah,0E0h
-66 C8 5AA5 E0, Enterd_imm16_imm8, Legacy, INTEL186, op0=r op1=r rw=ebp rw=esp r=ss rw=xsp stack=-42334 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32
+66 C8 5AA5 E0, Enterd_imm16_imm8, Legacy, INTEL386, op0=r op1=r rw=ebp rw=esp r=ss rw=xsp stack=-42334 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32
 # enter 0A55Ah,0E1h
-66 C8 5AA5 E1, Enterd_imm16_imm8, Legacy, INTEL186, op0=r op1=r rw=ebp rw=esp r=ss rw=xsp stack=-42338 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32
+66 C8 5AA5 E1, Enterd_imm16_imm8, Legacy, INTEL386, op0=r op1=r rw=ebp rw=esp r=ss rw=xsp stack=-42338 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32
 # enter 0A55Ah,0E2h
-66 C8 5AA5 E2, Enterd_imm16_imm8, Legacy, INTEL186, op0=r op1=r rw=ebp rw=esp rw=xbp r=ss rw=xsp stack=-42342 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF4;UInt32 rm=ss:xbp+0xFFFFFFFFFFFFFFFC;UInt32
+66 C8 5AA5 E2, Enterd_imm16_imm8, Legacy, INTEL386, op0=r op1=r rw=ebp rw=esp rw=xbp r=ss rw=xsp stack=-42342 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF4;UInt32 rm=ss:xbp+0xFFFFFFFFFFFFFFFC;UInt32
 # leavew
 C9, Leavew, Legacy, INTEL186, w=xsp r=ss r=xbp w=bp rm=ss:xbp;UInt16 stack=0
 # leave
-66 C9, Leaved, Legacy, INTEL186, w=xsp r=ss r=xbp w=ebp rm=ss:xbp;UInt32 stack=0
+66 C9, Leaved, Legacy, INTEL386, w=xsp r=ss r=xbp w=ebp rm=ss:xbp;UInt32 stack=0
 # retf 0A55Ah
 CA 5AA5, Retfw_imm16, Legacy, INTEL8086, flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt16 rm=ss:xsp+2;UInt16 stack=42334
 # retfd 0A55Ah
-66 CA 5AA5, Retfd_imm16, Legacy, INTEL8086, flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 stack=42338
+66 CA 5AA5, Retfd_imm16, Legacy, INTEL386, flow=Return op0=r r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 stack=42338
 # retf
 CB, Retfw, Legacy, INTEL8086, flow=Return r=ss rw=xsp rm=ss:xsp;UInt16 rm=ss:xsp+2;UInt16 stack=4
 # retfd
-66 CB, Retfd, Legacy, INTEL8086, flow=Return r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 stack=8
+66 CB, Retfd, Legacy, INTEL386, flow=Return r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 stack=8
 # iret
 CF, Iretw, Legacy, INTEL8086, flow=Return fw=acopszid r=ss rw=xsp rm=ss:xsp;UInt16 rm=ss:xsp+2;UInt16 rm=ss:xsp+4;UInt16 stack=6
 # iretd
-66 CF, Iretd, Legacy, INTEL8086, flow=Return fw=acopszidA r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 rm=ss:xsp+8;UInt32 stack=12
+66 CF, Iretd, Legacy, INTEL386, flow=Return fw=acopszidA r=ss rw=xsp rm=ss:xsp;UInt32 rm=ss:xsp+4;UInt32 rm=ss:xsp+8;UInt32 stack=12
 # call 254Dh
 E8 5AA5, Call_rel16, Legacy, INTEL8086, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # call 0A55AB408h
-66 E8 12345AA5, Call_rel32_32, Legacy, INTEL8086, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 E8 12345AA5, Call_rel32_32, Legacy, INTEL386, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # call cx
 FF D1, Call_rm16, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=cx wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # call word ptr [bx+si]
 FF 10, Call_rm16, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;WordOffset wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # call ecx
-66 FF D1, Call_rm32, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ecx wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 FF D1, Call_rm32, Legacy, INTEL386, flow=IndirectCall op0=r r=ss rw=xsp r=ecx wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # call dword ptr [bx+si]
-66 FF 10, Call_rm32, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;DwordOffset wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 FF 10, Call_rm32, Legacy, INTEL386, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;DwordOffset wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # call dword ptr [bx+si]
 FF 18, Call_m1616, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;SegPtr16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 stack=-4
 # call fword ptr [bx+si]
-66 FF 18, Call_m3216, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;SegPtr32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
+66 FF 18, Call_m3216, Legacy, INTEL386, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;SegPtr32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
 # push si
 FF F6, Push_rm16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=si wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push [bx+si]
 FF 30, Push_rm16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push esi
-66 FF F6, Push_rm32, Legacy, INTEL8086, op0=r r=ss rw=xsp r=esi wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 FF F6, Push_rm32, Legacy, INTEL386, op0=r r=ss rw=xsp r=esi wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # push dword ptr [bx+si]
-66 FF 30, Push_rm32, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 FF 30, Push_rm32, Legacy, INTEL386, op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # monitor ax,ecx,edx
 0F01 C8, Monitorw, Legacy, MONITOR, priv r=ds;ax;ecx;edx rm=ds:ax;Unknown
 # monitor eax,ecx,edx
@@ -384,43 +384,43 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
 # insw
 6D, Insw_m16_DX, Legacy, INTEL186, priv fr=d op0=w op1=r r=es rw=di r=dx wm=es:di;UInt16
 # insd
-66 6D, Insd_m32_DX, Legacy, INTEL186, priv fr=d op0=w op1=r r=es rw=di r=dx wm=es:di;UInt32
+66 6D, Insd_m32_DX, Legacy, INTEL386, priv fr=d op0=w op1=r r=es rw=di r=dx wm=es:di;UInt32
 # outsb
 6E, Outsb_DX_m8, Legacy, INTEL186, priv fr=d op0=r op1=r r=dx r=ds rw=si rm=ds:si;UInt8
 # outsw
 6F, Outsw_DX_m16, Legacy, INTEL186, priv fr=d op0=r op1=r r=dx r=ds rw=si rm=ds:si;UInt16
 # outsd
-66 6F, Outsd_DX_m32, Legacy, INTEL186, priv fr=d op0=r op1=r r=dx r=ds rw=si rm=ds:si;UInt32
+66 6F, Outsd_DX_m32, Legacy, INTEL386, priv fr=d op0=r op1=r r=dx r=ds rw=si rm=ds:si;UInt32
 # movsb
 A4, Movsb_m8_m8, Legacy, INTEL8086, fr=d op0=w op1=r r=es rw=di r=ds rw=si wm=es:di;UInt8 rm=ds:si;UInt8
 # movsw
 A5, Movsw_m16_m16, Legacy, INTEL8086, fr=d op0=w op1=r r=es rw=di r=ds rw=si wm=es:di;UInt16 rm=ds:si;UInt16
 # movsd
-66 A5, Movsd_m32_m32, Legacy, INTEL8086, fr=d op0=w op1=r r=es rw=di r=ds rw=si wm=es:di;UInt32 rm=ds:si;UInt32
+66 A5, Movsd_m32_m32, Legacy, INTEL386, fr=d op0=w op1=r r=es rw=di r=ds rw=si wm=es:di;UInt32 rm=ds:si;UInt32
 # cmpsb
 A6, Cmpsb_m8_m8, Legacy, INTEL8086, fr=d fw=oszacp op0=r op1=r r=ds rw=si r=es rw=di rm=ds:si;UInt8 rm=es:di;UInt8
 # cmpsw
 A7, Cmpsw_m16_m16, Legacy, INTEL8086, fr=d fw=oszacp op0=r op1=r r=ds rw=si r=es rw=di rm=ds:si;UInt16 rm=es:di;UInt16
 # cmpsd
-66 A7, Cmpsd_m32_m32, Legacy, INTEL8086, fr=d fw=oszacp op0=r op1=r r=ds rw=si r=es rw=di rm=ds:si;UInt32 rm=es:di;UInt32
+66 A7, Cmpsd_m32_m32, Legacy, INTEL386, fr=d fw=oszacp op0=r op1=r r=ds rw=si r=es rw=di rm=ds:si;UInt32 rm=es:di;UInt32
 # stosb
 AA, Stosb_m8_AL, Legacy, INTEL8086, fr=d op0=w op1=r r=es rw=di r=al wm=es:di;UInt8
 # stosw
 AB, Stosw_m16_AX, Legacy, INTEL8086, fr=d op0=w op1=r r=es rw=di r=ax wm=es:di;UInt16
 # stosd
-66 AB, Stosd_m32_EAX, Legacy, INTEL8086, fr=d op0=w op1=r r=es rw=di r=eax wm=es:di;UInt32
+66 AB, Stosd_m32_EAX, Legacy, INTEL386, fr=d op0=w op1=r r=es rw=di r=eax wm=es:di;UInt32
 # lodsb
 AC, Lodsb_AL_m8, Legacy, INTEL8086, fr=d op0=w op1=r w=al r=ds rw=si rm=ds:si;UInt8
 # lodsw
 AD, Lodsw_AX_m16, Legacy, INTEL8086, fr=d op0=w op1=r w=ax r=ds rw=si rm=ds:si;UInt16
 # lodsd
-66 AD, Lodsd_EAX_m32, Legacy, INTEL8086, fr=d op0=w op1=r w=eax r=ds rw=si rm=ds:si;UInt32
+66 AD, Lodsd_EAX_m32, Legacy, INTEL386, fr=d op0=w op1=r w=eax r=ds rw=si rm=ds:si;UInt32
 # scasb
 AE, Scasb_AL_m8, Legacy, INTEL8086, fr=d fw=oszacp op0=r op1=r r=al r=es rw=di rm=es:di;UInt8
 # scasw
 AF, Scasw_AX_m16, Legacy, INTEL8086, fr=d fw=oszacp op0=r op1=r r=ax r=es rw=di rm=es:di;UInt16
 # scasd
-66 AF, Scasd_EAX_m32, Legacy, INTEL8086, fr=d fw=oszacp op0=r op1=r r=eax r=es rw=di rm=es:di;UInt32
+66 AF, Scasd_EAX_m32, Legacy, INTEL386, fr=d fw=oszacp op0=r op1=r r=eax r=es rw=di rm=es:di;UInt32
 # xlatb
 D7, Xlatb, Legacy, INTEL8086, op0=r rw=al r=ds r=bx rm=ds:bx+al;UInt8
 # vmovups xmm1,xmm5
@@ -432,93 +432,93 @@ F2 6C, Insb_m8_DX, Legacy, INTEL186, priv fr=d op0=cw op1=cr rcw=cx cr=es cr=di 
 # repne insw
 F2 6D, Insw_m16_DX, Legacy, INTEL186, priv fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=dx cwm=es:di;Unknown
 # repne insd
-F2 66 6D, Insd_m32_DX, Legacy, INTEL186, priv fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=dx cwm=es:di;Unknown
+F2 66 6D, Insd_m32_DX, Legacy, INTEL386, priv fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=dx cwm=es:di;Unknown
 # repne outsb
 F2 6E, Outsb_DX_m8, Legacy, INTEL186, priv fr=d op0=cr op1=cr rcw=cx cr=dx cr=ds cr=si cw=si crm=ds:si;Unknown
 # repne outsw
 F2 6F, Outsw_DX_m16, Legacy, INTEL186, priv fr=d op0=cr op1=cr rcw=cx cr=dx cr=ds cr=si cw=si crm=ds:si;Unknown
 # repne outsd
-F2 66 6F, Outsd_DX_m32, Legacy, INTEL186, priv fr=d op0=cr op1=cr rcw=cx cr=dx cr=ds cr=si cw=si crm=ds:si;Unknown
+F2 66 6F, Outsd_DX_m32, Legacy, INTEL386, priv fr=d op0=cr op1=cr rcw=cx cr=dx cr=ds cr=si cw=si crm=ds:si;Unknown
 # repne movsb
 F2 A4, Movsb_m8_m8, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=ds cr=si cw=si cwm=es:di;Unknown crm=ds:si;Unknown
 # repne movsw
 F2 A5, Movsw_m16_m16, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=ds cr=si cw=si cwm=es:di;Unknown crm=ds:si;Unknown
 # repne movsd
-F2 66 A5, Movsd_m32_m32, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=ds cr=si cw=si cwm=es:di;Unknown crm=ds:si;Unknown
+F2 66 A5, Movsd_m32_m32, Legacy, INTEL386, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=ds cr=si cw=si cwm=es:di;Unknown crm=ds:si;Unknown
 # repne cmpsb
 F2 A6, Cmpsb_m8_m8, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr rcw=cx cr=ds cr=si cw=si cr=es cr=di cw=di crm=ds:si;Unknown crm=es:di;Unknown
 # repne cmpsw
 F2 A7, Cmpsw_m16_m16, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr rcw=cx cr=ds cr=si cw=si cr=es cr=di cw=di crm=ds:si;Unknown crm=es:di;Unknown
 # repne cmpsd
-F2 66 A7, Cmpsd_m32_m32, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr rcw=cx cr=ds cr=si cw=si cr=es cr=di cw=di crm=ds:si;Unknown crm=es:di;Unknown
+F2 66 A7, Cmpsd_m32_m32, Legacy, INTEL386, fr=d fw=oszacp op0=cr op1=cr rcw=cx cr=ds cr=si cw=si cr=es cr=di cw=di crm=ds:si;Unknown crm=es:di;Unknown
 # repne stosb
 F2 AA, Stosb_m8_AL, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=al cwm=es:di;Unknown
 # repne stosw
 F2 AB, Stosw_m16_AX, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=ax cwm=es:di;Unknown
 # repne stosd
-F2 66 AB, Stosd_m32_EAX, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=eax cwm=es:di;Unknown
+F2 66 AB, Stosd_m32_EAX, Legacy, INTEL386, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=eax cwm=es:di;Unknown
 # repne lodsb
 F2 AC, Lodsb_AL_m8, Legacy, INTEL8086, fr=d op0=cw op1=cr cw=al rcw=cx cr=ds cr=si cw=si crm=ds:si;Unknown
 # repne lodsw
 F2 AD, Lodsw_AX_m16, Legacy, INTEL8086, fr=d op0=cw op1=cr cw=ax rcw=cx cr=ds cr=si cw=si crm=ds:si;Unknown
 # repne lodsd
-F2 66 AD, Lodsd_EAX_m32, Legacy, INTEL8086, fr=d op0=cw op1=cr cw=eax rcw=cx cr=ds cr=si cw=si crm=ds:si;Unknown
+F2 66 AD, Lodsd_EAX_m32, Legacy, INTEL386, fr=d op0=cw op1=cr cw=eax rcw=cx cr=ds cr=si cw=si crm=ds:si;Unknown
 # repne scasb
 F2 AE, Scasb_AL_m8, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=al rcw=cx cr=es cr=di cw=di crm=es:di;Unknown
 # repne scasw
 F2 AF, Scasw_AX_m16, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=ax rcw=cx cr=es cr=di cw=di crm=es:di;Unknown
 # repne scasd
-F2 66 AF, Scasd_EAX_m32, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=eax rcw=cx cr=es cr=di cw=di crm=es:di;Unknown
+F2 66 AF, Scasd_EAX_m32, Legacy, INTEL386, fr=d fw=oszacp op0=cr op1=cr cr=eax rcw=cx cr=es cr=di cw=di crm=es:di;Unknown
 # rep insb
 F3 6C, Insb_m8_DX, Legacy, INTEL186, priv fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=dx cwm=es:di;Unknown
 # rep insw
 F3 6D, Insw_m16_DX, Legacy, INTEL186, priv fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=dx cwm=es:di;Unknown
 # rep insd
-F3 66 6D, Insd_m32_DX, Legacy, INTEL186, priv fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=dx cwm=es:di;Unknown
+F3 66 6D, Insd_m32_DX, Legacy, INTEL386, priv fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=dx cwm=es:di;Unknown
 # rep outsb
 F3 6E, Outsb_DX_m8, Legacy, INTEL186, priv fr=d op0=cr op1=cr rcw=cx cr=dx cr=ds cr=si cw=si crm=ds:si;Unknown
 # rep outsw
 F3 6F, Outsw_DX_m16, Legacy, INTEL186, priv fr=d op0=cr op1=cr rcw=cx cr=dx cr=ds cr=si cw=si crm=ds:si;Unknown
 # rep outsd
-F3 66 6F, Outsd_DX_m32, Legacy, INTEL186, priv fr=d op0=cr op1=cr rcw=cx cr=dx cr=ds cr=si cw=si crm=ds:si;Unknown
+F3 66 6F, Outsd_DX_m32, Legacy, INTEL386, priv fr=d op0=cr op1=cr rcw=cx cr=dx cr=ds cr=si cw=si crm=ds:si;Unknown
 # rep movsb
 F3 A4, Movsb_m8_m8, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=ds cr=si cw=si cwm=es:di;Unknown crm=ds:si;Unknown
 # rep movsw
 F3 A5, Movsw_m16_m16, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=ds cr=si cw=si cwm=es:di;Unknown crm=ds:si;Unknown
 # rep movsd
-F3 66 A5, Movsd_m32_m32, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=ds cr=si cw=si cwm=es:di;Unknown crm=ds:si;Unknown
+F3 66 A5, Movsd_m32_m32, Legacy, INTEL386, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=ds cr=si cw=si cwm=es:di;Unknown crm=ds:si;Unknown
 # repe cmpsb
 F3 A6, Cmpsb_m8_m8, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr rcw=cx cr=ds cr=si cw=si cr=es cr=di cw=di crm=ds:si;Unknown crm=es:di;Unknown
 # repe cmpsw
 F3 A7, Cmpsw_m16_m16, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr rcw=cx cr=ds cr=si cw=si cr=es cr=di cw=di crm=ds:si;Unknown crm=es:di;Unknown
 # repe cmpsd
-F3 66 A7, Cmpsd_m32_m32, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr rcw=cx cr=ds cr=si cw=si cr=es cr=di cw=di crm=ds:si;Unknown crm=es:di;Unknown
+F3 66 A7, Cmpsd_m32_m32, Legacy, INTEL386, fr=d fw=oszacp op0=cr op1=cr rcw=cx cr=ds cr=si cw=si cr=es cr=di cw=di crm=ds:si;Unknown crm=es:di;Unknown
 # rep stosb
 F3 AA, Stosb_m8_AL, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=al cwm=es:di;Unknown
 # rep stosw
 F3 AB, Stosw_m16_AX, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=ax cwm=es:di;Unknown
 # rep stosd
-F3 66 AB, Stosd_m32_EAX, Legacy, INTEL8086, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=eax cwm=es:di;Unknown
+F3 66 AB, Stosd_m32_EAX, Legacy, INTEL386, fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=eax cwm=es:di;Unknown
 # rep lodsb
 F3 AC, Lodsb_AL_m8, Legacy, INTEL8086, fr=d op0=cw op1=cr cw=al rcw=cx cr=ds cr=si cw=si crm=ds:si;Unknown
 # rep lodsw
 F3 AD, Lodsw_AX_m16, Legacy, INTEL8086, fr=d op0=cw op1=cr cw=ax rcw=cx cr=ds cr=si cw=si crm=ds:si;Unknown
 # rep lodsd
-F3 66 AD, Lodsd_EAX_m32, Legacy, INTEL8086, fr=d op0=cw op1=cr cw=eax rcw=cx cr=ds cr=si cw=si crm=ds:si;Unknown
+F3 66 AD, Lodsd_EAX_m32, Legacy, INTEL386, fr=d op0=cw op1=cr cw=eax rcw=cx cr=ds cr=si cw=si crm=ds:si;Unknown
 # repe scasb
 F3 AE, Scasb_AL_m8, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=al rcw=cx cr=es cr=di cw=di crm=es:di;Unknown
 # repe scasw
 F3 AF, Scasw_AX_m16, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=ax rcw=cx cr=es cr=di cw=di crm=es:di;Unknown
 # repe scasd
-F3 66 AF, Scasd_EAX_m32, Legacy, INTEL8086, fr=d fw=oszacp op0=cr op1=cr cr=eax rcw=cx cr=es cr=di cw=di crm=es:di;Unknown
+F3 66 AF, Scasd_EAX_m32, Legacy, INTEL386, fr=d fw=oszacp op0=cr op1=cr cr=eax rcw=cx cr=es cr=di cw=di crm=es:di;Unknown
 # push [esp+10h]
 67 FF 74 24 10, Push_rm16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=esp rm=ss:esp+0x10;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push dword ptr [esp+10h]
-66 67 FF 74 24 10, Push_rm32, Legacy, INTEL8086, op0=r r=ss rw=xsp r=esp rm=ss:esp+0x10;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
+66 67 FF 74 24 10, Push_rm32, Legacy, INTEL386, op0=r r=ss rw=xsp r=esp rm=ss:esp+0x10;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # pop [esp+10h]
 67 8F 44 24 10, Pop_rm16, Legacy, INTEL8086, op0=w r=ss rw=xsp r=esp wm=ss:esp+0x12;UInt16 rm=ss:xsp;UInt16 stack=2
 # pop dword ptr [esp+10h]
-66 67 8F 44 24 10, Pop_rm32, Legacy, INTEL8086, op0=w r=ss rw=xsp r=esp wm=ss:esp+0x14;UInt32 rm=ss:xsp;UInt32 stack=4
+66 67 8F 44 24 10, Pop_rm32, Legacy, INTEL386, op0=w r=ss rw=xsp r=esp wm=ss:esp+0x14;UInt32 rm=ss:xsp;UInt32 stack=4
 # vmrun ax
 0F01 D8, Vmrunw, Legacy, SVM, fr=acopszidA pm priv saverestore flow=Return r=ax
 # vmrun eax
