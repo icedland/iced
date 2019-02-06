@@ -606,7 +606,7 @@ after_read_prefixes:
 				uint aaa = p2 & 7;
 				state.aaa = aaa;
 				Debug.Assert((int)StateFlags.z == 0x20);
-				state.flags |= (StateFlags)((p2 & 0x80) >> 2);
+				state.flags |= (StateFlags)(p2 >> 2) & StateFlags.z;
 				if (aaa == 0 && (state.flags & StateFlags.z) != 0)
 					SetInvalidInstruction();
 
