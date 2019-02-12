@@ -242,6 +242,7 @@ Disassembled code:
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 4, size = 1
+    Memory size: 8
     Op0Access: Write
     Op1Access: Read
     RSP:Read
@@ -252,6 +253,7 @@ Disassembled code:
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 4, size = 1
+    Memory size: 8
     Op0Access: Write
     Op1Access: Read
     RSP:Read
@@ -308,6 +310,7 @@ Disassembled code:
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 3, size = 4
+    Memory size: 8
     Op0Access: Write
     Op1Access: Read
     RAX:Write
@@ -329,6 +332,7 @@ Disassembled code:
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 3, size = 4
+    Memory size: 8
     Op0Access: Write
     Op1Access: Read
     RBP:Read
@@ -339,6 +343,7 @@ Disassembled code:
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 3, size = 4
+    Memory size: 8
     Op0Access: Write
     Op1Access: Read
     R8:Write
@@ -414,7 +419,16 @@ Disassembled code:
                     Console.WriteLine($"{tab}RFLAGS Undefined: {instr.RflagsUndefined}");
                 if (instr.RflagsModified != RflagsBits.None)
                     Console.WriteLine($"{tab}RFLAGS Modified: {instr.RflagsModified}");
-                for (int i = 0; i < instr.OpCount; i++)
+				for (int i = 0; i < instr.OpCount; i++) {
+					var opKind = instr.GetOpKind(i);
+					if (opKind == OpKind.Memory || opKind == OpKind.Memory64) {
+						int size = instr.MemorySize.GetSize();
+						if (size != 0)
+							Console.WriteLine($"{tab}Memory size: {size}");
+						break;
+					}
+				}
+				for (int i = 0; i < instr.OpCount; i++)
                     Console.WriteLine($"{tab}Op{i}Access: {info.GetOpAccess(i)}");
                 // The returned iterator is a struct, nothing is allocated unless you box it
                 foreach (var regInfo in info.GetUsedRegisters())
