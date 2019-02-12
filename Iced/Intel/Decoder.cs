@@ -45,7 +45,8 @@ namespace Iced.Intel {
 		W						= 0x00000080,
 		NoImm					= 0x00000100,
 		Addr64					= 0x00000200,
-		SpecialImm				= 0x00000400,
+		BranchImm8				= 0x00000400,
+		Xbegin					= 0x00000800,
 	}
 
 	/// <summary>
@@ -987,32 +988,66 @@ after_read_prefixes:
 						constantOffsets.ImmediateSize2 = 1;
 						extraImmSub = 1;
 						break;
-					}
-				}
-				if ((state.flags & StateFlags.SpecialImm) != 0) {
-					var code = instruction.Code;
-					if (code == Code.Call_ptr3216 || code == Code.Jmp_ptr3216) {
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (4 + 2));
-						constantOffsets.ImmediateSize = 4;
-						constantOffsets.ImmediateOffset2 = (byte)(instruction.ByteLength - 2);
-						constantOffsets.ImmediateSize2 = 2;
-					}
-					else if (code == Code.Call_ptr1616 || code == Code.Jmp_ptr1616) {
+
+					case OpKind.NearBranch16:
+						if ((state.flags & StateFlags.BranchImm8) != 0) {
+							constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 1);
+							constantOffsets.ImmediateSize = 1;
+						}
+						else if ((state.flags & StateFlags.Xbegin) == 0) {
+							constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 2);
+							constantOffsets.ImmediateSize = 2;
+						}
+						else {
+							Debug.Assert((state.flags & StateFlags.Xbegin) != 0);
+							if (state.operandSize != OpSize.Size16) {
+								constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 4);
+								constantOffsets.ImmediateSize = 4;
+							}
+							else {
+								constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 2);
+								constantOffsets.ImmediateSize = 2;
+							}
+						}
+						break;
+
+					case OpKind.NearBranch32:
+					case OpKind.NearBranch64:
+						if ((state.flags & StateFlags.BranchImm8) != 0) {
+							constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 1);
+							constantOffsets.ImmediateSize = 1;
+						}
+						else if ((state.flags & StateFlags.Xbegin) == 0) {
+							constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 4);
+							constantOffsets.ImmediateSize = 4;
+						}
+						else {
+							Debug.Assert((state.flags & StateFlags.Xbegin) != 0);
+							if (state.operandSize != OpSize.Size16) {
+								constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 4);
+								constantOffsets.ImmediateSize = 4;
+							}
+							else {
+								constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 2);
+								constantOffsets.ImmediateSize = 2;
+							}
+						}
+						break;
+
+					case OpKind.FarBranch16:
 						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (2 + 2));
 						constantOffsets.ImmediateSize = 2;
 						constantOffsets.ImmediateOffset2 = (byte)(instruction.ByteLength - 2);
 						constantOffsets.ImmediateSize2 = 2;
-					}
-					else if (code == Code.Jmpe_disp32) {
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 4);
+						break;
+
+					case OpKind.FarBranch32:
+						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (4 + 2));
 						constantOffsets.ImmediateSize = 4;
+						constantOffsets.ImmediateOffset2 = (byte)(instruction.ByteLength - 2);
+						constantOffsets.ImmediateSize2 = 2;
+						break;
 					}
-					else if (code == Code.Jmpe_disp16) {
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 2);
-						constantOffsets.ImmediateSize = 2;
-					}
-					else
-						Debug.Fail("Unreachable");
 				}
 			}
 after_imm_loop:

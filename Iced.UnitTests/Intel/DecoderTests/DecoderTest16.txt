@@ -387,101 +387,101 @@
 66 6F, Outsd_DX_m32, 2, op0=r;dx op1=segsi;ds;UInt32
 66 67 6F, Outsd_DX_m32, 2, op0=r;dx op1=segesi;ds;UInt32
 
-70 5A, Jo_rel8_16, 1, op0=nb16;0x804C
-70 A5, Jo_rel8_16, 1, op0=nb16;0x7F97
+70 5A, Jo_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+70 A5, Jo_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 70 5A, Jo_rel8_32, 1, op0=nb32;0x804D
-66 70 A5, Jo_rel8_32, 1, op0=nb32;0x7F98
+66 70 5A, Jo_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 70 A5, Jo_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-71 5A, Jno_rel8_16, 1, op0=nb16;0x804C
-71 A5, Jno_rel8_16, 1, op0=nb16;0x7F97
+71 5A, Jno_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+71 A5, Jno_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 71 5A, Jno_rel8_32, 1, op0=nb32;0x804D
-66 71 A5, Jno_rel8_32, 1, op0=nb32;0x7F98
+66 71 5A, Jno_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 71 A5, Jno_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-72 5A, Jb_rel8_16, 1, op0=nb16;0x804C
-72 A5, Jb_rel8_16, 1, op0=nb16;0x7F97
+72 5A, Jb_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+72 A5, Jb_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 72 5A, Jb_rel8_32, 1, op0=nb32;0x804D
-66 72 A5, Jb_rel8_32, 1, op0=nb32;0x7F98
+66 72 5A, Jb_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 72 A5, Jb_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-73 5A, Jae_rel8_16, 1, op0=nb16;0x804C
-73 A5, Jae_rel8_16, 1, op0=nb16;0x7F97
+73 5A, Jae_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+73 A5, Jae_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 73 5A, Jae_rel8_32, 1, op0=nb32;0x804D
-66 73 A5, Jae_rel8_32, 1, op0=nb32;0x7F98
+66 73 5A, Jae_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 73 A5, Jae_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-74 5A, Je_rel8_16, 1, op0=nb16;0x804C
-74 A5, Je_rel8_16, 1, op0=nb16;0x7F97
+74 5A, Je_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+74 A5, Je_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 74 5A, Je_rel8_32, 1, op0=nb32;0x804D
-66 74 A5, Je_rel8_32, 1, op0=nb32;0x7F98
+66 74 5A, Je_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 74 A5, Je_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-75 5A, Jne_rel8_16, 1, op0=nb16;0x804C
-75 A5, Jne_rel8_16, 1, op0=nb16;0x7F97
+75 5A, Jne_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+75 A5, Jne_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 75 5A, Jne_rel8_32, 1, op0=nb32;0x804D
-66 75 A5, Jne_rel8_32, 1, op0=nb32;0x7F98
+66 75 5A, Jne_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 75 A5, Jne_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-76 5A, Jbe_rel8_16, 1, op0=nb16;0x804C
-76 A5, Jbe_rel8_16, 1, op0=nb16;0x7F97
+76 5A, Jbe_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+76 A5, Jbe_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 76 5A, Jbe_rel8_32, 1, op0=nb32;0x804D
-66 76 A5, Jbe_rel8_32, 1, op0=nb32;0x7F98
+66 76 5A, Jbe_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 76 A5, Jbe_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-77 5A, Ja_rel8_16, 1, op0=nb16;0x804C
-77 A5, Ja_rel8_16, 1, op0=nb16;0x7F97
+77 5A, Ja_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+77 A5, Ja_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 77 5A, Ja_rel8_32, 1, op0=nb32;0x804D
-66 77 A5, Ja_rel8_32, 1, op0=nb32;0x7F98
+66 77 5A, Ja_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 77 A5, Ja_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-78 5A, Js_rel8_16, 1, op0=nb16;0x804C
-78 A5, Js_rel8_16, 1, op0=nb16;0x7F97
+78 5A, Js_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+78 A5, Js_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 78 5A, Js_rel8_32, 1, op0=nb32;0x804D
-66 78 A5, Js_rel8_32, 1, op0=nb32;0x7F98
+66 78 5A, Js_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 78 A5, Js_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-79 5A, Jns_rel8_16, 1, op0=nb16;0x804C
-79 A5, Jns_rel8_16, 1, op0=nb16;0x7F97
+79 5A, Jns_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+79 A5, Jns_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 79 5A, Jns_rel8_32, 1, op0=nb32;0x804D
-66 79 A5, Jns_rel8_32, 1, op0=nb32;0x7F98
+66 79 5A, Jns_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 79 A5, Jns_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-7A 5A, Jp_rel8_16, 1, op0=nb16;0x804C
-7A A5, Jp_rel8_16, 1, op0=nb16;0x7F97
+7A 5A, Jp_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+7A A5, Jp_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 7A 5A, Jp_rel8_32, 1, op0=nb32;0x804D
-66 7A A5, Jp_rel8_32, 1, op0=nb32;0x7F98
+66 7A 5A, Jp_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 7A A5, Jp_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-7B 5A, Jnp_rel8_16, 1, op0=nb16;0x804C
-7B A5, Jnp_rel8_16, 1, op0=nb16;0x7F97
+7B 5A, Jnp_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+7B A5, Jnp_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 7B 5A, Jnp_rel8_32, 1, op0=nb32;0x804D
-66 7B A5, Jnp_rel8_32, 1, op0=nb32;0x7F98
+66 7B 5A, Jnp_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 7B A5, Jnp_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-7C 5A, Jl_rel8_16, 1, op0=nb16;0x804C
-7C A5, Jl_rel8_16, 1, op0=nb16;0x7F97
+7C 5A, Jl_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+7C A5, Jl_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 7C 5A, Jl_rel8_32, 1, op0=nb32;0x804D
-66 7C A5, Jl_rel8_32, 1, op0=nb32;0x7F98
+66 7C 5A, Jl_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 7C A5, Jl_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-7D 5A, Jge_rel8_16, 1, op0=nb16;0x804C
-7D A5, Jge_rel8_16, 1, op0=nb16;0x7F97
+7D 5A, Jge_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+7D A5, Jge_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 7D 5A, Jge_rel8_32, 1, op0=nb32;0x804D
-66 7D A5, Jge_rel8_32, 1, op0=nb32;0x7F98
+66 7D 5A, Jge_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 7D A5, Jge_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-7E 5A, Jle_rel8_16, 1, op0=nb16;0x804C
-7E A5, Jle_rel8_16, 1, op0=nb16;0x7F97
+7E 5A, Jle_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+7E A5, Jle_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 7E 5A, Jle_rel8_32, 1, op0=nb32;0x804D
-66 7E A5, Jle_rel8_32, 1, op0=nb32;0x7F98
+66 7E 5A, Jle_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 7E A5, Jle_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-7F 5A, Jg_rel8_16, 1, op0=nb16;0x804C
-7F A5, Jg_rel8_16, 1, op0=nb16;0x7F97
+7F 5A, Jg_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+7F A5, Jg_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 7F 5A, Jg_rel8_32, 1, op0=nb32;0x804D
-66 7F A5, Jg_rel8_32, 1, op0=nb32;0x7F98
+66 7F 5A, Jg_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 7F A5, Jg_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
 80 00 5A, Add_rm8_imm8, 2, op0=m;ds;bx;si;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
 80 C1 5A, Add_rm8_imm8, 2, op0=r;cl op1=i8;0x5A co=2;1;0;0;0;0
@@ -1123,11 +1123,11 @@ C7 C2 A55A, Mov_rm16_imm16, 2, op0=r;dx op1=i16;0x5AA5 co=2;2;0;0;0;0
 66 C7 C1 5AA51234, Mov_rm32_imm32, 2, op0=r;ecx op1=i32;0x3412A55A co=3;4;0;0;0;0
 66 C7 C2 A55A89AB, Mov_rm32_imm32, 2, op0=r;edx op1=i32;0xAB895AA5 co=3;4;0;0;0;0
 
-C7 F8 5AA5, Xbegin_rel16, 1, op0=nb16;0x254E
-C7 F8 A55A, Xbegin_rel16, 1, op0=nb16;0xDA99
+C7 F8 5AA5, Xbegin_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+C7 F8 A55A, Xbegin_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 C7 F8 5AA51234, Xbegin_rel32, 1, op0=nb16;0x2551 enc=66C7F85AA5FFFF
-66 C7 F8 A56789AB, Xbegin_rel32, 1, op0=nb16;0xE79C enc=66C7F8A5670000
+66 C7 F8 5AA51234, Xbegin_rel32, 1, op0=nb16;0x2551 co=3;4;0;0;0;0 enc=66C7F85AA5FFFF
+66 C7 F8 A56789AB, Xbegin_rel32, 1, op0=nb16;0xE79C co=3;4;0;0;0;0 enc=66C7F8A5670000
 
 C8 5AA5 A6, Enterw_imm16_imm8, 2, op0=i16;0xA55A op1=i8_2nd;0xA6 co=1;2;3;1;0;0
 C8 A55A 6A, Enterw_imm16_imm8, 2, op0=i16;0x5AA5 op1=i8_2nd;0x6A co=1;2;3;1;0;0
@@ -1741,53 +1741,53 @@ DF EB, Fucomip_st0_sti, 2, op0=r;st0 op1=r;st3
 DF F3, Fcomip_st0_sti, 2, op0=r;st0 op1=r;st3
 66 DF F6, Fcomip_st0_sti, 2, op0=r;st0 op1=r;st6 enc=DFF6
 
-E0 5A, Loopne_rel8_16_CX, 1, op0=nb16;0x804C
-E0 A5, Loopne_rel8_16_CX, 1, op0=nb16;0x7F97
+E0 5A, Loopne_rel8_16_CX, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+E0 A5, Loopne_rel8_16_CX, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 E0 5A, Loopne_rel8_32_CX, 1, op0=nb32;0x804D
-66 E0 A5, Loopne_rel8_32_CX, 1, op0=nb32;0x7F98
+66 E0 5A, Loopne_rel8_32_CX, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 E0 A5, Loopne_rel8_32_CX, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-67 E0 5A, Loopne_rel8_16_ECX, 1, op0=nb16;0x804D
-67 E0 A5, Loopne_rel8_16_ECX, 1, op0=nb16;0x7F98
+67 E0 5A, Loopne_rel8_16_ECX, 1, op0=nb16;0x804D co=2;1;0;0;0;0
+67 E0 A5, Loopne_rel8_16_ECX, 1, op0=nb16;0x7F98 co=2;1;0;0;0;0
 
-66 67 E0 5A, Loopne_rel8_32_ECX, 1, op0=nb32;0x804E
-66 67 E0 A5, Loopne_rel8_32_ECX, 1, op0=nb32;0x7F99
+66 67 E0 5A, Loopne_rel8_32_ECX, 1, op0=nb32;0x804E co=3;1;0;0;0;0
+66 67 E0 A5, Loopne_rel8_32_ECX, 1, op0=nb32;0x7F99 co=3;1;0;0;0;0
 
-E1 5A, Loope_rel8_16_CX, 1, op0=nb16;0x804C
-E1 A5, Loope_rel8_16_CX, 1, op0=nb16;0x7F97
+E1 5A, Loope_rel8_16_CX, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+E1 A5, Loope_rel8_16_CX, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 E1 5A, Loope_rel8_32_CX, 1, op0=nb32;0x804D
-66 E1 A5, Loope_rel8_32_CX, 1, op0=nb32;0x7F98
+66 E1 5A, Loope_rel8_32_CX, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 E1 A5, Loope_rel8_32_CX, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-67 E1 5A, Loope_rel8_16_ECX, 1, op0=nb16;0x804D
-67 E1 A5, Loope_rel8_16_ECX, 1, op0=nb16;0x7F98
+67 E1 5A, Loope_rel8_16_ECX, 1, op0=nb16;0x804D co=2;1;0;0;0;0
+67 E1 A5, Loope_rel8_16_ECX, 1, op0=nb16;0x7F98 co=2;1;0;0;0;0
 
-66 67 E1 5A, Loope_rel8_32_ECX, 1, op0=nb32;0x804E
-66 67 E1 A5, Loope_rel8_32_ECX, 1, op0=nb32;0x7F99
+66 67 E1 5A, Loope_rel8_32_ECX, 1, op0=nb32;0x804E co=3;1;0;0;0;0
+66 67 E1 A5, Loope_rel8_32_ECX, 1, op0=nb32;0x7F99 co=3;1;0;0;0;0
 
-E2 5A, Loop_rel8_16_CX, 1, op0=nb16;0x804C
-E2 A5, Loop_rel8_16_CX, 1, op0=nb16;0x7F97
+E2 5A, Loop_rel8_16_CX, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+E2 A5, Loop_rel8_16_CX, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 E2 5A, Loop_rel8_32_CX, 1, op0=nb32;0x804D
-66 E2 A5, Loop_rel8_32_CX, 1, op0=nb32;0x7F98
+66 E2 5A, Loop_rel8_32_CX, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 E2 A5, Loop_rel8_32_CX, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-67 E2 5A, Loop_rel8_16_ECX, 1, op0=nb16;0x804D
-67 E2 A5, Loop_rel8_16_ECX, 1, op0=nb16;0x7F98
+67 E2 5A, Loop_rel8_16_ECX, 1, op0=nb16;0x804D co=2;1;0;0;0;0
+67 E2 A5, Loop_rel8_16_ECX, 1, op0=nb16;0x7F98 co=2;1;0;0;0;0
 
-66 67 E2 5A, Loop_rel8_32_ECX, 1, op0=nb32;0x804E
-66 67 E2 A5, Loop_rel8_32_ECX, 1, op0=nb32;0x7F99
+66 67 E2 5A, Loop_rel8_32_ECX, 1, op0=nb32;0x804E co=3;1;0;0;0;0
+66 67 E2 A5, Loop_rel8_32_ECX, 1, op0=nb32;0x7F99 co=3;1;0;0;0;0
 
-E3 5A, Jcxz_rel8_16, 1, op0=nb16;0x804C
-E3 A5, Jcxz_rel8_16, 1, op0=nb16;0x7F97
+E3 5A, Jcxz_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+E3 A5, Jcxz_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 E3 5A, Jcxz_rel8_32, 1, op0=nb32;0x804D
-66 E3 A5, Jcxz_rel8_32, 1, op0=nb32;0x7F98
+66 E3 5A, Jcxz_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 E3 A5, Jcxz_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
-67 E3 5A, Jecxz_rel8_16, 1, op0=nb16;0x804D
-67 E3 A5, Jecxz_rel8_16, 1, op0=nb16;0x7F98
+67 E3 5A, Jecxz_rel8_16, 1, op0=nb16;0x804D co=2;1;0;0;0;0
+67 E3 A5, Jecxz_rel8_16, 1, op0=nb16;0x7F98 co=2;1;0;0;0;0
 
-66 67 E3 5A, Jecxz_rel8_32, 1, op0=nb32;0x804E
-66 67 E3 A5, Jecxz_rel8_32, 1, op0=nb32;0x7F99
+66 67 E3 5A, Jecxz_rel8_32, 1, op0=nb32;0x804E co=3;1;0;0;0;0
+66 67 E3 A5, Jecxz_rel8_32, 1, op0=nb32;0x7F99 co=3;1;0;0;0;0
 
 E4 5A, In_AL_imm8, 2, op0=r;al op1=i8;0x5A co=1;1;0;0;0;0
 E4 A5, In_AL_imm8, 2, op0=r;al op1=i8;0xA5 co=1;1;0;0;0;0
@@ -1807,27 +1807,27 @@ E7 A5, Out_imm8_AX, 2, op0=i8;0xA5 op1=r;ax co=1;1;0;0;0;0
 66 E7 5A, Out_imm8_EAX, 2, op0=i8;0x5A op1=r;eax co=2;1;0;0;0;0
 66 E7 A5, Out_imm8_EAX, 2, op0=i8;0xA5 op1=r;eax co=2;1;0;0;0;0
 
-E8 5AA5, Call_rel16, 1, op0=nb16;0x254D
-E8 A55A, Call_rel16, 1, op0=nb16;0xDA98
+E8 5AA5, Call_rel16, 1, op0=nb16;0x254D co=1;2;0;0;0;0
+E8 A55A, Call_rel16, 1, op0=nb16;0xDA98 co=1;2;0;0;0;0
 
-66 E8 12345AA5, Call_rel32_32, 1, op0=nb32;0xA55AB408
-66 E8 5678A55A, Call_rel32_32, 1, op0=nb32;0x5AA5F84C
+66 E8 12345AA5, Call_rel32_32, 1, op0=nb32;0xA55AB408 co=2;4;0;0;0;0
+66 E8 5678A55A, Call_rel32_32, 1, op0=nb32;0x5AA5F84C co=2;4;0;0;0;0
 
-E9 5AA5, Jmp_rel16, 1, op0=nb16;0x254D
-E9 A55A, Jmp_rel16, 1, op0=nb16;0xDA98
+E9 5AA5, Jmp_rel16, 1, op0=nb16;0x254D co=1;2;0;0;0;0
+E9 A55A, Jmp_rel16, 1, op0=nb16;0xDA98 co=1;2;0;0;0;0
 
-66 E9 12345AA5, Jmp_rel32_32, 1, op0=nb32;0xA55AB408
-66 E9 5678A55A, Jmp_rel32_32, 1, op0=nb32;0x5AA5F84C
+66 E9 12345AA5, Jmp_rel32_32, 1, op0=nb32;0xA55AB408 co=2;4;0;0;0;0
+66 E9 5678A55A, Jmp_rel32_32, 1, op0=nb32;0x5AA5F84C co=2;4;0;0;0;0
 
 EA 1234 5678, Jmp_ptr1616, 1, op0=fb16;0x7856;0x3412 co=1;2;3;2;0;0
 
 66 EA 12345678 EABC, Jmp_ptr3216, 1, op0=fb32;0xBCEA;0x78563412 co=2;4;6;2;0;0
 
-EB 5A, Jmp_rel8_16, 1, op0=nb16;0x804C
-EB A5, Jmp_rel8_16, 1, op0=nb16;0x7F97
+EB 5A, Jmp_rel8_16, 1, op0=nb16;0x804C co=1;1;0;0;0;0
+EB A5, Jmp_rel8_16, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
 
-66 EB 5A, Jmp_rel8_32, 1, op0=nb32;0x804D
-66 EB A5, Jmp_rel8_32, 1, op0=nb32;0x7F98
+66 EB 5A, Jmp_rel8_32, 1, op0=nb32;0x804D co=2;1;0;0;0;0
+66 EB A5, Jmp_rel8_32, 1, op0=nb32;0x7F98 co=2;1;0;0;0;0
 
 EC, In_AL_DX, 2, op0=r;al op1=r;dx
 
@@ -6282,101 +6282,101 @@ C5FE 7F CD, VEX_Vmovdqu_ymmm256_ymm, 2, op0=r;ymm5 op1=r;ymm1
 62 F1FF4B 7F D3, EVEX_Vmovdqu16_zmmm512_k1z_zmm, 2, op0=r;zmm3 op1=r;zmm2 k3
 62 F1FFCB 7F D3, EVEX_Vmovdqu16_zmmm512_k1z_zmm, 2, op0=r;zmm3 op1=r;zmm2 k3 zmsk
 
-0F80 5AA5, Jo_rel16, 1, op0=nb16;0x254E
-0F80 A55A, Jo_rel16, 1, op0=nb16;0xDA99
+0F80 5AA5, Jo_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F80 A55A, Jo_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F80 5AA51234, Jo_rel32_32, 1, op0=nb32;0x34132551
-66 0F80 A56789AB, Jo_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F80 5AA51234, Jo_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F80 A56789AB, Jo_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F81 5AA5, Jno_rel16, 1, op0=nb16;0x254E
-0F81 A55A, Jno_rel16, 1, op0=nb16;0xDA99
+0F81 5AA5, Jno_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F81 A55A, Jno_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F81 5AA51234, Jno_rel32_32, 1, op0=nb32;0x34132551
-66 0F81 A56789AB, Jno_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F81 5AA51234, Jno_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F81 A56789AB, Jno_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F82 5AA5, Jb_rel16, 1, op0=nb16;0x254E
-0F82 A55A, Jb_rel16, 1, op0=nb16;0xDA99
+0F82 5AA5, Jb_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F82 A55A, Jb_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F82 5AA51234, Jb_rel32_32, 1, op0=nb32;0x34132551
-66 0F82 A56789AB, Jb_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F82 5AA51234, Jb_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F82 A56789AB, Jb_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F83 5AA5, Jae_rel16, 1, op0=nb16;0x254E
-0F83 A55A, Jae_rel16, 1, op0=nb16;0xDA99
+0F83 5AA5, Jae_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F83 A55A, Jae_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F83 5AA51234, Jae_rel32_32, 1, op0=nb32;0x34132551
-66 0F83 A56789AB, Jae_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F83 5AA51234, Jae_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F83 A56789AB, Jae_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F84 5AA5, Je_rel16, 1, op0=nb16;0x254E
-0F84 A55A, Je_rel16, 1, op0=nb16;0xDA99
+0F84 5AA5, Je_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F84 A55A, Je_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F84 5AA51234, Je_rel32_32, 1, op0=nb32;0x34132551
-66 0F84 A56789AB, Je_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F84 5AA51234, Je_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F84 A56789AB, Je_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F85 5AA5, Jne_rel16, 1, op0=nb16;0x254E
-0F85 A55A, Jne_rel16, 1, op0=nb16;0xDA99
+0F85 5AA5, Jne_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F85 A55A, Jne_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F85 5AA51234, Jne_rel32_32, 1, op0=nb32;0x34132551
-66 0F85 A56789AB, Jne_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F85 5AA51234, Jne_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F85 A56789AB, Jne_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F86 5AA5, Jbe_rel16, 1, op0=nb16;0x254E
-0F86 A55A, Jbe_rel16, 1, op0=nb16;0xDA99
+0F86 5AA5, Jbe_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F86 A55A, Jbe_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F86 5AA51234, Jbe_rel32_32, 1, op0=nb32;0x34132551
-66 0F86 A56789AB, Jbe_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F86 5AA51234, Jbe_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F86 A56789AB, Jbe_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F87 5AA5, Ja_rel16, 1, op0=nb16;0x254E
-0F87 A55A, Ja_rel16, 1, op0=nb16;0xDA99
+0F87 5AA5, Ja_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F87 A55A, Ja_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F87 5AA51234, Ja_rel32_32, 1, op0=nb32;0x34132551
-66 0F87 A56789AB, Ja_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F87 5AA51234, Ja_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F87 A56789AB, Ja_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F88 5AA5, Js_rel16, 1, op0=nb16;0x254E
-0F88 A55A, Js_rel16, 1, op0=nb16;0xDA99
+0F88 5AA5, Js_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F88 A55A, Js_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F88 5AA51234, Js_rel32_32, 1, op0=nb32;0x34132551
-66 0F88 A56789AB, Js_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F88 5AA51234, Js_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F88 A56789AB, Js_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F89 5AA5, Jns_rel16, 1, op0=nb16;0x254E
-0F89 A55A, Jns_rel16, 1, op0=nb16;0xDA99
+0F89 5AA5, Jns_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F89 A55A, Jns_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F89 5AA51234, Jns_rel32_32, 1, op0=nb32;0x34132551
-66 0F89 A56789AB, Jns_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F89 5AA51234, Jns_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F89 A56789AB, Jns_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F8A 5AA5, Jp_rel16, 1, op0=nb16;0x254E
-0F8A A55A, Jp_rel16, 1, op0=nb16;0xDA99
+0F8A 5AA5, Jp_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F8A A55A, Jp_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F8A 5AA51234, Jp_rel32_32, 1, op0=nb32;0x34132551
-66 0F8A A56789AB, Jp_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F8A 5AA51234, Jp_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F8A A56789AB, Jp_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F8B 5AA5, Jnp_rel16, 1, op0=nb16;0x254E
-0F8B A55A, Jnp_rel16, 1, op0=nb16;0xDA99
+0F8B 5AA5, Jnp_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F8B A55A, Jnp_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F8B 5AA51234, Jnp_rel32_32, 1, op0=nb32;0x34132551
-66 0F8B A56789AB, Jnp_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F8B 5AA51234, Jnp_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F8B A56789AB, Jnp_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F8C 5AA5, Jl_rel16, 1, op0=nb16;0x254E
-0F8C A55A, Jl_rel16, 1, op0=nb16;0xDA99
+0F8C 5AA5, Jl_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F8C A55A, Jl_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F8C 5AA51234, Jl_rel32_32, 1, op0=nb32;0x34132551
-66 0F8C A56789AB, Jl_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F8C 5AA51234, Jl_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F8C A56789AB, Jl_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F8D 5AA5, Jge_rel16, 1, op0=nb16;0x254E
-0F8D A55A, Jge_rel16, 1, op0=nb16;0xDA99
+0F8D 5AA5, Jge_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F8D A55A, Jge_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F8D 5AA51234, Jge_rel32_32, 1, op0=nb32;0x34132551
-66 0F8D A56789AB, Jge_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F8D 5AA51234, Jge_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F8D A56789AB, Jge_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F8E 5AA5, Jle_rel16, 1, op0=nb16;0x254E
-0F8E A55A, Jle_rel16, 1, op0=nb16;0xDA99
+0F8E 5AA5, Jle_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F8E A55A, Jle_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F8E 5AA51234, Jle_rel32_32, 1, op0=nb32;0x34132551
-66 0F8E A56789AB, Jle_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F8E 5AA51234, Jle_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F8E A56789AB, Jle_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
-0F8F 5AA5, Jg_rel16, 1, op0=nb16;0x254E
-0F8F A55A, Jg_rel16, 1, op0=nb16;0xDA99
+0F8F 5AA5, Jg_rel16, 1, op0=nb16;0x254E co=2;2;0;0;0;0
+0F8F A55A, Jg_rel16, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
 
-66 0F8F 5AA51234, Jg_rel32_32, 1, op0=nb32;0x34132551
-66 0F8F A56789AB, Jg_rel32_32, 1, op0=nb32;0xAB89E79C
+66 0F8F 5AA51234, Jg_rel32_32, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 0F8F A56789AB, Jg_rel32_32, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
 0F90 C0, Seto_rm8, 1, op0=r;al
 0F90 C1, Seto_rm8, 1, op0=r;cl

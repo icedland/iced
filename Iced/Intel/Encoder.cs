@@ -1301,19 +1301,14 @@ namespace Iced.Intel {
 
 			switch (ImmSize) {
 			case ImmSize.None:
-			case ImmSize.RipRelSize1_Target16:
-			case ImmSize.RipRelSize1_Target32:
-			case ImmSize.RipRelSize1_Target64:
-			case ImmSize.RipRelSize2_Target16:
-			case ImmSize.RipRelSize2_Target32:
-			case ImmSize.RipRelSize2_Target64:
-			case ImmSize.RipRelSize4_Target32:
-			case ImmSize.RipRelSize4_Target64:
 			case ImmSize.SizeIbReg:
 			case ImmSize.Size1OpCode:
 				break;
 
 			case ImmSize.Size1:
+			case ImmSize.RipRelSize1_Target16:
+			case ImmSize.RipRelSize1_Target32:
+			case ImmSize.RipRelSize1_Target64:
 				constantOffsets.ImmediateSize = 1;
 				constantOffsets.ImmediateOffset = (byte)(immAddr - eip);
 				break;
@@ -1326,6 +1321,9 @@ namespace Iced.Intel {
 				break;
 
 			case ImmSize.Size2:
+			case ImmSize.RipRelSize2_Target16:
+			case ImmSize.RipRelSize2_Target32:
+			case ImmSize.RipRelSize2_Target64:
 				constantOffsets.ImmediateSize = 2;
 				constantOffsets.ImmediateOffset = (byte)(immAddr - eip);
 				break;
@@ -1345,6 +1343,8 @@ namespace Iced.Intel {
 				break;
 
 			case ImmSize.Size4:
+			case ImmSize.RipRelSize4_Target32:
+			case ImmSize.RipRelSize4_Target64:
 				constantOffsets.ImmediateSize = 4;
 				constantOffsets.ImmediateOffset = (byte)(immAddr - eip);
 				break;

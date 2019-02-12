@@ -871,6 +871,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			state.flags |= StateFlags.BranchImm8;
 			if ((decoder.options & DecoderOptions.AMD) == 0 || state.operandSize == OpSize.Size32) {
 				instruction.InternalCode = code64;
 				instruction.InternalOp0Kind = OpKind.NearBranch64;
@@ -898,6 +899,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			state.flags |= StateFlags.Xbegin;
 			if (state.operandSize == OpSize.Size32) {
 				instruction.InternalCode = code32;
 				instruction.InternalOp0Kind = OpKind.NearBranch64;
@@ -958,6 +960,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			state.flags |= StateFlags.BranchImm8;
 			if ((decoder.options & DecoderOptions.AMD) == 0 || state.operandSize == OpSize.Size32) {
 				if (state.addressSize == OpSize.Size64)
 					instruction.InternalCode = code64_64;

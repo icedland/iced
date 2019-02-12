@@ -709,6 +709,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
+			state.flags |= StateFlags.BranchImm8;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalOp0Kind = OpKind.NearBranch16;
 				instruction.InternalNearBranch16 = (ushort)((uint)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer32());
@@ -732,6 +733,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			state.flags |= StateFlags.Xbegin;
 			if (decoder.defaultCodeSize == CodeSize.Code32) {
 				if (state.operandSize == OpSize.Size32) {
 					instruction.InternalCode = code32;
@@ -815,6 +817,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				else
 					instruction.InternalCode = code16_16;
 			}
+			state.flags |= StateFlags.BranchImm8;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalOp0Kind = OpKind.NearBranch16;
 				instruction.InternalNearBranch16 = (ushort)((uint)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer32());
@@ -838,7 +841,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			state.flags |= StateFlags.SpecialImm;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalCode = code16;
 				instruction.InternalOp0Kind = OpKind.NearBranch16;
@@ -2022,7 +2024,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				instruction.InternalCode = code16;
 			else
 				instruction.InternalCode = code32;
-			state.flags |= StateFlags.SpecialImm;
 			if (state.operandSize == OpSize.Size16) {
 				instruction.InternalOp0Kind = OpKind.FarBranch16;
 				instruction.InternalFarBranch16 = decoder.ReadUInt16();
