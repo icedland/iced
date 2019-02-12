@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
+using System;
+
 namespace Iced.Intel {
 	/// <summary>
 	/// Formats decoded instructions
@@ -255,6 +257,7 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Options used by <see cref="Formatter.FormatMnemonic(ref Instruction, FormatterOutput)"/>
 	/// </summary>
+	[Flags]
 	public enum FormatMnemonicOptions : uint {
 		/// <summary>
 		/// No option is set
