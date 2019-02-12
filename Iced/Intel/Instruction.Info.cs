@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_INSTR_INFO
+using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
@@ -266,14 +268,21 @@ namespace Iced.Intel {
 		/// <summary>
 		/// CPU or CPUID feature flag
 		/// </summary>
-		public CpuidFeature CpuidFeature {
+		[Obsolete("Use " + nameof(CpuidFeatures) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public CpuidFeature CpuidFeature => CpuidFeatures[0];
+
+		/// <summary>
+		/// Gets the CPU or CPUID feature flags
+		/// </summary>
+		public CpuidFeature[] CpuidFeatures {
 			get {
 				var code = Code;
 				uint flags2 = InstructionInfoInternal.InfoHandlers.Data[(int)code * 2 + 1];
-				var cpuidFeature = (CpuidFeature)(flags2 >> (int)InstructionInfoInternal.InfoFlags2.CpuidFeatureShift & (uint)InstructionInfoInternal.InfoFlags2.CpuidFeatureMask);
+				var cpuidFeature = (InstructionInfoInternal.CpuidFeatureInternal)(flags2 >> (int)InstructionInfoInternal.InfoFlags2.CpuidFeatureShift & (uint)InstructionInfoInternal.InfoFlags2.CpuidFeatureMask);
 				if ((flags2 & (uint)InstructionInfoInternal.InfoFlags2.AVX2_Check) != 0 && Op1Kind == OpKind.Register)
-					cpuidFeature = CpuidFeature.AVX2;
-				return cpuidFeature;
+					cpuidFeature = InstructionInfoInternal.CpuidFeatureInternal.AVX2;
+				return InstructionInfoInternal.CpuidFeatureInternalData.ToCpuidFeatures[(int)cpuidFeature];
 			}
 		}
 

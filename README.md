@@ -397,7 +397,7 @@ Disassembled code:
                 var info = instrInfoFactory.GetInfo(ref instr);
                 const string tab = "    ";
                 Console.WriteLine($"{tab}Encoding: {info.Encoding}");
-                Console.WriteLine($"{tab}CpuidFeature: {info.CpuidFeature}");
+                Console.WriteLine($"{tab}CpuidFeature: {string.Join(" and ", info.CpuidFeatures)}");
                 Console.WriteLine($"{tab}FlowControl: {info.FlowControl}");
                 if (offsets.HasDisplacement)
                     Console.WriteLine($"{tab}Displacement offset = {offsets.DisplacementOffset}, size = {offsets.DisplacementSize}");

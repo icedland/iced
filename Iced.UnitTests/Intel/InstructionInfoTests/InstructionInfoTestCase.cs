@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_INSTR_INFO
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Iced.Intel;
@@ -30,7 +31,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	public sealed class InstructionInfoTestCase {
 		public InstructionInfoTestCase() => Debug.Assert(Iced.Intel.DecoderConstants.MaxOpCount == 5);
 		public EncodingKind Encoding = EncodingKind.Legacy;
-		public CpuidFeature CpuidFeature = CpuidFeature.INTEL8086;
+		public CpuidFeature[] CpuidFeatures = Array.Empty<CpuidFeature>();
 		public RflagsBits RflagsRead = RflagsBits.None;
 		public RflagsBits RflagsUndefined = RflagsBits.None;
 		public RflagsBits RflagsWritten = RflagsBits.None;

@@ -111,7 +111,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			var info = instr.GetInfo();
 			Assert.Equal(testCase.Encoding, info.Encoding);
-			Assert.Equal(testCase.CpuidFeature, info.CpuidFeature);
+			Assert.Equal(testCase.CpuidFeatures, info.CpuidFeatures);
 			Assert.Equal(testCase.RflagsRead, info.RflagsRead);
 			Assert.Equal(testCase.RflagsUndefined, info.RflagsUndefined);
 			Assert.Equal(testCase.RflagsWritten, info.RflagsWritten);
@@ -183,10 +183,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: false);
 
 			Assert.Equal(info.Encoding, instr.Code.Encoding());
-			var cf = instr.Code.CpuidFeature();
-			if (cf == CpuidFeature.AVX && instr.Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64))
-				cf = CpuidFeature.AVX2;
-			Assert.Equal(info.CpuidFeature, cf);
+			var cf = instr.Code.CpuidFeatures();
+			if (cf.Length == 1 && cf[0] == CpuidFeature.AVX && instr.Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64))
+				cf = new[] { CpuidFeature.AVX2 };
+			Assert.Equal(info.CpuidFeatures, cf);
 			Assert.Equal(info.FlowControl, instr.Code.FlowControl());
 			Assert.Equal(info.ProtectedMode, instr.Code.ProtectedMode());
 			Assert.Equal(info.Privileged, instr.Code.Privileged());
@@ -194,7 +194,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(info.SaveRestoreInstruction, instr.Code.SaveRestoreInstruction());
 
 			Assert.Equal(info.Encoding, instr.Encoding);
-			Assert.Equal(info.CpuidFeature, instr.CpuidFeature);
+			Assert.Equal(info.CpuidFeatures, instr.CpuidFeatures);
 			Assert.Equal(info.FlowControl, instr.FlowControl);
 			Assert.Equal(info.ProtectedMode, instr.ProtectedMode);
 			Assert.Equal(info.Privileged, instr.Privileged);
@@ -222,7 +222,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(info1.StackInstruction, info2.StackInstruction);
 			Assert.Equal(info1.SaveRestoreInstruction, info2.SaveRestoreInstruction);
 			Assert.Equal(info1.Encoding, info2.Encoding);
-			Assert.Equal(info1.CpuidFeature, info2.CpuidFeature);
+			Assert.Equal(info1.CpuidFeatures, info2.CpuidFeatures);
 			Assert.Equal(info1.FlowControl, info2.FlowControl);
 			Assert.Equal(info1.Op0Access, info2.Op0Access);
 			Assert.Equal(info1.Op1Access, info2.Op1Access);
@@ -529,7 +529,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				var hexBytes = elems[0].Trim();
 				var codeString = elems[1].Trim();
 				var encodingString = elems[2].Trim();
-				var cpuidFeatureString = elems[3].Trim();
+				var cpuidFeatureStrings = elems[3].Trim().Split(new[] { ';' });
 
 				var testCase = new InstructionInfoTestCase();
 
@@ -537,8 +537,12 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					throw new Exception($"Invalid {nameof(Code)} value, line {lineNo}: '{codeString}' ({filename})");
 				if (!toEncoding.TryGetValue(encodingString, out testCase.Encoding))
 					throw new Exception($"Invalid {nameof(EncodingKind)} value, line {lineNo}: '{encodingString}' ({filename})");
-				if (!toCpuidFeature.TryGetValue(cpuidFeatureString, out testCase.CpuidFeature))
-					throw new Exception($"Invalid {nameof(CpuidFeature)} value, line {lineNo}: '{cpuidFeatureString}' ({filename})");
+				var cpuidFeatures = new CpuidFeature[cpuidFeatureStrings.Length];
+				testCase.CpuidFeatures = cpuidFeatures;
+				for (int i = 0; i < cpuidFeatures.Length; i++) {
+					if (!toCpuidFeature.TryGetValue(cpuidFeatureStrings[i], out cpuidFeatures[i]))
+						throw new Exception($"Invalid {nameof(CpuidFeature)} value, line {lineNo}: '{cpuidFeatureStrings}' ({filename})");
+				}
 
 				var options = DecoderOptions.None;
 				foreach (var keyValue in elems[4].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {

@@ -103,19 +103,9 @@ namespace Iced.Intel {
 		AES,
 
 		/// <summary>
-		/// <see cref="AES"/> and <see cref="AVX"/>
-		/// </summary>
-		AES_and_AVX,
-
-		/// <summary>
 		/// CPUID.01H:ECX.AVX[bit 28]
 		/// </summary>
 		AVX,
-
-		/// <summary>
-		/// <see cref="AVX"/> and <see cref="GFNI"/>
-		/// </summary>
-		AVX_and_GFNI,
 
 		/// <summary>
 		/// CPUID.(EAX=07H, ECX=0H):EBX.AVX2[bit 5]
@@ -188,21 +178,6 @@ namespace Iced.Intel {
 		AVX512F,
 
 		/// <summary>
-		/// <see cref="AVX512F"/> and <see cref="GFNI"/>
-		/// </summary>
-		AVX512F_and_GFNI,
-
-		/// <summary>
-		/// <see cref="AVX512F"/> and <see cref="VAES"/>
-		/// </summary>
-		AVX512F_and_VAES,
-
-		/// <summary>
-		/// <see cref="AVX512F"/> and <see cref="VPCLMULQDQ"/>
-		/// </summary>
-		AVX512F_and_VPCLMULQDQ,
-
-		/// <summary>
 		/// CPUID.(EAX=07H, ECX=0H):EBX.AVX512PF[bit 26]
 		/// </summary>
 		AVX512PF,
@@ -211,71 +186,6 @@ namespace Iced.Intel {
 		/// CPUID.(EAX=07H, ECX=0H):EBX.AVX512VL[bit 31]
 		/// </summary>
 		AVX512VL,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="AVX512_BITALG"/>
-		/// </summary>
-		AVX512VL_and_AVX512_BITALG,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="AVX512_IFMA"/>
-		/// </summary>
-		AVX512VL_and_AVX512_IFMA,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="AVX512_VBMI"/>
-		/// </summary>
-		AVX512VL_and_AVX512_VBMI,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="AVX512_VBMI2"/>
-		/// </summary>
-		AVX512VL_and_AVX512_VBMI2,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="AVX512_VNNI"/>
-		/// </summary>
-		AVX512VL_and_AVX512_VNNI,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="AVX512_VPOPCNTDQ"/>
-		/// </summary>
-		AVX512VL_and_AVX512_VPOPCNTDQ,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="AVX512BW"/>
-		/// </summary>
-		AVX512VL_and_AVX512BW,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="AVX512CD"/>
-		/// </summary>
-		AVX512VL_and_AVX512CD,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="AVX512DQ"/>
-		/// </summary>
-		AVX512VL_and_AVX512DQ,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="AVX512F"/>
-		/// </summary>
-		AVX512VL_and_AVX512F,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="GFNI"/>
-		/// </summary>
-		AVX512VL_and_GFNI,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="VAES"/>
-		/// </summary>
-		AVX512VL_and_VAES,
-
-		/// <summary>
-		/// <see cref="AVX512VL"/> and <see cref="VPCLMULQDQ"/>
-		/// </summary>
-		AVX512VL_and_VPCLMULQDQ,
 
 		/// <summary>
 		/// CPUID.(EAX=07H, ECX=0H):EBX.BMI1[bit 3]
@@ -391,16 +301,6 @@ namespace Iced.Intel {
 		/// 8087 or later (CPUID.01H:EDX.FPU[bit 0])
 		/// </summary>
 		FPU,
-
-		/// <summary>
-		/// <see cref="FPU"/> and <see cref="CMOV"/>
-		/// </summary>
-		FPU_and_CMOV,
-
-		/// <summary>
-		/// <see cref="FPU"/> and <see cref="SSE3"/>
-		/// </summary>
-		FPU_and_SSE3,
 
 		/// <summary>
 		/// 80287 or later
@@ -551,11 +451,6 @@ namespace Iced.Intel {
 		/// CPUID.01H:ECX.PCLMULQDQ[bit 1]
 		/// </summary>
 		PCLMULQDQ,
-
-		/// <summary>
-		/// <see cref="PCLMULQDQ"/> and <see cref="AVX"/>
-		/// </summary>
-		PCLMULQDQ_and_AVX,
 
 		/// <summary>
 		/// CPUID.(EAX=07H, ECX=0H):EBX.PCOMMIT[bit 22]
@@ -771,8 +666,6 @@ namespace Iced.Intel {
 		/// Never implemented: CPUID.01H:EDX.ZALLOC[bit 16]
 		/// </summary>
 		ZALLOC,
-
-		// If a new value is added, update InfoFlags2.CpuidFeatureMask if needed
 	}
 }
 #endif

@@ -25,6 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using Iced.Intel.InstructionInfoInternal;
 
@@ -200,7 +201,14 @@ namespace Iced.Intel {
 		/// <summary>
 		/// CPU or CPUID feature flag
 		/// </summary>
-		public CpuidFeature CpuidFeature => (CpuidFeature)cpuidFeature;
+		[Obsolete("Use " + nameof(CpuidFeatures) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public CpuidFeature CpuidFeature => CpuidFeatures[0];
+
+		/// <summary>
+		/// Gets the CPU or CPUID feature flags
+		/// </summary>
+		public CpuidFeature[] CpuidFeatures => CpuidFeatureInternalData.ToCpuidFeatures[cpuidFeature];
 
 		/// <summary>
 		/// Flow control info

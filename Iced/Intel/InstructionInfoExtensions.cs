@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_INSTR_INFO
+using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Iced.Intel.InstructionInfoInternal;
 
@@ -44,9 +46,20 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[Obsolete("Use " + nameof(CpuidFeatures) + "() instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public static CpuidFeature CpuidFeature(this Code code) => code.CpuidFeatures()[0];
+
+		/// <summary>
+		/// Gets the CPU or CPUID feature flags
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static CpuidFeature CpuidFeature(this Code code) =>
-			(CpuidFeature)((InfoHandlers.Data[(int)code * 2 + 1] >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask);
+		public static CpuidFeature[] CpuidFeatures(this Code code) {
+			var cpuidFeature = (CpuidFeatureInternal)((InfoHandlers.Data[(int)code * 2 + 1] >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask);
+			return CpuidFeatureInternalData.ToCpuidFeatures[(int)cpuidFeature];
+		}
 
 		/// <summary>
 		/// Gets flow control info

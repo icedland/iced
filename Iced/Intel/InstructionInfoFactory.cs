@@ -108,7 +108,7 @@ namespace Iced.Intel {
 
 			if ((flags2 & (uint)InfoFlags2.AVX2_Check) != 0 && instruction.Op1Kind == OpKind.Register) {
 				flags2 = (flags2 & ~((uint)InfoFlags2.CpuidFeatureMask << (int)InfoFlags2.CpuidFeatureShift)) |
-					((uint)CpuidFeature.AVX2 << (int)InfoFlags2.CpuidFeatureShift);
+					((uint)CpuidFeatureInternal.AVX2 << (int)InfoFlags2.CpuidFeatureShift);
 			}
 
 			var codeSize = instruction.CodeSize;
