@@ -238,8 +238,8 @@ namespace Iced.Intel {
 			return builder.ToString();
 		}
 
-		static void ThrowArgumentOutOfRangeException(string paramName) => throw new ArgumentOutOfRangeException(paramName);
-		static void ThrowArgumentNullException(string paramName) => throw new ArgumentNullException(paramName);
+		static void ThrowArgumentOutOfRangeException_value() => throw new ArgumentOutOfRangeException("value");
+		static void ThrowArgumentOutOfRangeException_operand() => throw new ArgumentOutOfRangeException("operand");
 
 		/// <summary>
 		/// 16-bit IP of the instruction
@@ -330,7 +330,11 @@ namespace Iced.Intel {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (Code)(codeFlags & (uint)CodeFlags.CodeMask);
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | ((uint)value & (uint)CodeFlags.CodeMask);
+			set {
+				if ((uint)value >= (uint)DecoderConstants.NumberOfCodeValues)
+					ThrowArgumentOutOfRangeException_value();
+				codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | ((uint)value & (uint)CodeFlags.CodeMask);
+			}
 		}
 		internal Code InternalCode {
 			// x86 jitter doesn't always inline some of these props that should be inlined. Force it.
@@ -338,6 +342,9 @@ namespace Iced.Intel {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => codeFlags |= (uint)value;
 		}
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal void SetCodeNoCheck(Code code) =>
+			codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | ((uint)code & (uint)CodeFlags.CodeMask);
 
 		/// <summary>
 		/// Gets the operand count. Up to 5 operands is allowed.
@@ -526,14 +533,14 @@ namespace Iced.Intel {
 			get => OpKind.Immediate8;
 			set {
 				if (value != OpKind.Immediate8)
-					ThrowArgumentOutOfRangeException(nameof(value));
+					ThrowArgumentOutOfRangeException_value();
 			}
 		}
 		internal OpKind InternalOp4Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set {
 				if (value != OpKind.Immediate8)
-					ThrowArgumentOutOfRangeException(nameof(value));
+					ThrowArgumentOutOfRangeException_value();
 			}
 		}
 
@@ -550,7 +557,7 @@ namespace Iced.Intel {
 			case 3: return Op3Kind;
 			case 4: return Op4Kind;
 			default:
-				ThrowArgumentOutOfRangeException(nameof(operand));
+				ThrowArgumentOutOfRangeException_operand();
 				return 0;
 			}
 		}
@@ -567,7 +574,7 @@ namespace Iced.Intel {
 			case 2: Op2Kind = opKind; break;
 			case 3: Op3Kind = opKind; break;
 			case 4: Op4Kind = opKind; break;
-			default: ThrowArgumentOutOfRangeException(nameof(operand)); break;
+			default: ThrowArgumentOutOfRangeException_operand(); break;
 			}
 		}
 
@@ -1049,7 +1056,7 @@ namespace Iced.Intel {
 			get => Register.None;
 			set {
 				if (value != Register.None)
-					ThrowArgumentOutOfRangeException(nameof(value));
+					ThrowArgumentOutOfRangeException_value();
 			}
 		}
 
@@ -1066,7 +1073,7 @@ namespace Iced.Intel {
 			case 3: return Op3Register;
 			case 4: return Op4Register;
 			default:
-				ThrowArgumentOutOfRangeException(nameof(operand));
+				ThrowArgumentOutOfRangeException_operand();
 				return 0;
 			}
 		}
@@ -1083,7 +1090,7 @@ namespace Iced.Intel {
 			case 2: Op2Register = register; break;
 			case 3: Op3Register = register; break;
 			case 4: Op4Register = register; break;
-			default: ThrowArgumentOutOfRangeException(nameof(operand)); break;
+			default: ThrowArgumentOutOfRangeException_operand(); break;
 			}
 		}
 

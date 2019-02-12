@@ -73,7 +73,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(instruction.OpCount == 0);
 			return instruction;
@@ -87,7 +87,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction CreateBranch(Code code, ulong target) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			instruction.Op0Kind = GetNearBranchOpKind(code, 0);
 			instruction.NearBranch64 = target;
@@ -105,7 +105,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction CreateBranch(Code code, ushort selector, uint offset) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			instruction.Op0Kind = GetFarBranchOpKind(code, 0);
 			instruction.FarBranchSelector = selector;
@@ -125,7 +125,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction CreateMemory64(Code code, Register register, ulong address, Register prefixSegment = Register.None) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -150,7 +150,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction CreateMemory64(Code code, ulong address, Register register, Register prefixSegment = Register.None) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			instruction.InternalOp0Kind = OpKind.Memory64;
 			instruction.MemoryAddress64 = address;
@@ -173,7 +173,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -191,7 +191,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, int immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			instruction.InternalOp0Kind = GetImmediateOpKind(code, 0);
 			instruction.Immediate32 = (uint)immediate;
@@ -217,7 +217,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, in MemoryOperand memory) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			instruction.InternalOp0Kind = OpKind.Memory;
 			instruction.InternalMemoryBase = memory.Base;
@@ -241,7 +241,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -264,7 +264,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register, int immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -290,7 +290,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register, uint immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -316,7 +316,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register, long immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -348,7 +348,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register, in MemoryOperand memory) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -376,7 +376,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, int immediate, Register register) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			instruction.InternalOp0Kind = GetImmediateOpKind(code, 0);
 			instruction.Immediate32 = (uint)immediate;
@@ -408,7 +408,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, int immediate, byte immediate2) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			instruction.InternalOp0Kind = GetImmediateOpKind(code, 0);
 			instruction.Immediate32 = (uint)immediate;
@@ -439,7 +439,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, in MemoryOperand memory, Register register) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			instruction.InternalOp0Kind = OpKind.Memory;
 			instruction.InternalMemoryBase = memory.Base;
@@ -467,7 +467,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, in MemoryOperand memory, int immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			instruction.InternalOp0Kind = OpKind.Memory;
 			instruction.InternalMemoryBase = memory.Base;
@@ -505,7 +505,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, Register register3) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -533,7 +533,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, int immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -571,7 +571,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -604,7 +604,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register, int immediate, byte immediate2) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -641,7 +641,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, in MemoryOperand memory, Register register2) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -674,7 +674,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register, in MemoryOperand memory, int immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -717,7 +717,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, in MemoryOperand memory, Register register1, Register register2) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			instruction.InternalOp0Kind = OpKind.Memory;
 			instruction.InternalMemoryBase = memory.Base;
@@ -750,7 +750,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, in MemoryOperand memory, Register register, int immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			instruction.InternalOp0Kind = OpKind.Memory;
 			instruction.InternalMemoryBase = memory.Base;
@@ -794,7 +794,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, Register register3, Register register4) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -827,7 +827,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, Register register3, int immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -871,7 +871,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, Register register3, in MemoryOperand memory) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -909,7 +909,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, int immediate, byte immediate2) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -952,7 +952,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, Register register3) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -990,7 +990,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, int immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -1040,7 +1040,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, Register register3, Register register4, int immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -1090,7 +1090,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, Register register3, in MemoryOperand memory, int immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -1145,7 +1145,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Instruction Create(Code code, Register register1, Register register2, in MemoryOperand memory, Register register3, int immediate) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
@@ -1260,7 +1260,7 @@ namespace Iced.Intel {
 
 		static Instruction CreateString_Reg_SegRSI(Code code, int addressSize, Register register, Register prefixSegment, RepPrefixKind repPrefix) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			if (repPrefix == RepPrefixKind.Repe)
 				instruction.InternalSetHasRepePrefix();
@@ -1326,7 +1326,7 @@ namespace Iced.Intel {
 
 		static Instruction CreateString_Reg_ESRDI(Code code, int addressSize, Register register, RepPrefixKind repPrefix) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			if (repPrefix == RepPrefixKind.Repe)
 				instruction.InternalSetHasRepePrefix();
@@ -1417,7 +1417,7 @@ namespace Iced.Intel {
 
 		static Instruction CreateString_ESRDI_Reg(Code code, int addressSize, Register register, RepPrefixKind repPrefix) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			if (repPrefix == RepPrefixKind.Repe)
 				instruction.InternalSetHasRepePrefix();
@@ -1485,7 +1485,7 @@ namespace Iced.Intel {
 
 		static Instruction CreateString_SegRSI_ESRDI(Code code, int addressSize, Register prefixSegment, RepPrefixKind repPrefix) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			if (repPrefix == RepPrefixKind.Repe)
 				instruction.InternalSetHasRepePrefix();
@@ -1557,7 +1557,7 @@ namespace Iced.Intel {
 
 		static Instruction CreateString_ESRDI_SegRSI(Code code, int addressSize, Register prefixSegment, RepPrefixKind repPrefix) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			if (repPrefix == RepPrefixKind.Repe)
 				instruction.InternalSetHasRepePrefix();
@@ -1622,7 +1622,7 @@ namespace Iced.Intel {
 
 		static Instruction CreateMaskmov(Code code, int addressSize, Register register1, Register register2, Register prefixSegment) {
 			Instruction instruction = default;
-			instruction.InternalCode = code;
+			instruction.Code = code;
 
 			if (addressSize == 64)
 				instruction.InternalOp0Kind = OpKind.MemorySegRDI;

@@ -270,7 +270,11 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var code in GetEnumValues<Code>()) {
 				instr.Code = code;
 				Assert.Equal(code, instr.Code);
+				instr.SetCodeNoCheck(code);
+				Assert.Equal(code, instr.Code);
 			}
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)(-1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)Iced.Intel.DecoderConstants.NumberOfCodeValues);
 
 			Assert.Equal(5, Iced.Intel.DecoderConstants.MaxOpCount);
 			foreach (var opKind in GetEnumValues<OpKind>()) {
