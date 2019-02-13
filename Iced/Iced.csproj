@@ -33,7 +33,7 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 - All instructions are tested (decode, encode, format, instruction info)
 
 License: MIT
-</PackageDescription>
+    </PackageDescription>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
