@@ -297,34 +297,63 @@ namespace Iced.Intel {
 		/// <summary>
 		/// true if the instruction isn't available in real mode or virtual 8086 mode
 		/// </summary>
-		public bool ProtectedMode {
+		[Obsolete("Use " + nameof(IsProtectedMode) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool ProtectedMode => IsProtectedMode;
+
+		/// <summary>
+		/// true if the instruction isn't available in real mode or virtual 8086 mode
+		/// </summary>
+		public bool IsProtectedMode {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Code.ProtectedMode();
+			get => Code.IsProtectedMode();
 		}
 
 		/// <summary>
 		/// true if this is a privileged instruction
 		/// </summary>
-		public bool Privileged {
+		[Obsolete("Use " + nameof(IsPrivileged) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool Privileged => IsPrivileged;
+
+		/// <summary>
+		/// true if this is a privileged instruction
+		/// </summary>
+		public bool IsPrivileged {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Code.Privileged();
+			get => Code.IsPrivileged();
 		}
 
 		/// <summary>
 		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
 		/// See also <see cref="StackPointerIncrement"/>
 		/// </summary>
-		public bool StackInstruction {
+		[Obsolete("Use " + nameof(IsStackInstruction) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool StackInstruction => IsStackInstruction;
+
+		/// <summary>
+		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
+		/// See also <see cref="StackPointerIncrement"/>
+		/// </summary>
+		public bool IsStackInstruction {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Code.StackInstruction();
+			get => Code.IsStackInstruction();
 		}
 
 		/// <summary>
 		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
 		/// </summary>
-		public bool SaveRestoreInstruction {
+		[Obsolete("Use " + nameof(IsSaveRestoreInstruction) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool SaveRestoreInstruction => IsSaveRestoreInstruction;
+
+		/// <summary>
+		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
+		/// </summary>
+		public bool IsSaveRestoreInstruction {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Code.SaveRestoreInstruction();
+			get => Code.IsSaveRestoreInstruction();
 		}
 
 		InstructionInfoInternal.RflagsInfo GetRflagsInfo() {

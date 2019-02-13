@@ -75,8 +75,18 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[Obsolete("Use " + nameof(IsProtectedMode) + "() instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool ProtectedMode(this Code code) =>
+		public static bool ProtectedMode(this Code code) => code.IsProtectedMode();
+
+		/// <summary>
+		/// Checks if the instruction isn't available in real mode or virtual 8086 mode
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsProtectedMode(this Code code) =>
 			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.ProtectedMode) != 0;
 
 		/// <summary>
@@ -84,8 +94,18 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[Obsolete("Use " + nameof(IsPrivileged) + "() instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool Privileged(this Code code) =>
+		public static bool Privileged(this Code code) => code.IsPrivileged();
+
+		/// <summary>
+		/// Checks if this is a privileged instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsPrivileged(this Code code) =>
 			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.Privileged) != 0;
 
 		/// <summary>
@@ -94,8 +114,19 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[Obsolete("Use " + nameof(IsStackInstruction) + "() instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool StackInstruction(this Code code) =>
+		public static bool StackInstruction(this Code code) => code.IsStackInstruction();
+
+		/// <summary>
+		/// Checks if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
+		/// See also <see cref="Instruction.StackPointerIncrement"/>
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsStackInstruction(this Code code) =>
 			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.StackInstruction) != 0;
 
 		/// <summary>
@@ -103,8 +134,18 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[Obsolete("Use " + nameof(IsSaveRestoreInstruction) + "() instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool SaveRestoreInstruction(this Code code) =>
+		public static bool SaveRestoreInstruction(this Code code) => code.IsSaveRestoreInstruction();
+
+		/// <summary>
+		/// Checks if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsSaveRestoreInstruction(this Code code) =>
 			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.SaveRestore) != 0;
 
 		/// <summary>

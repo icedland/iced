@@ -38,10 +38,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public RflagsBits RflagsCleared = RflagsBits.None;
 		public RflagsBits RflagsSet = RflagsBits.None;
 		public int StackPointerIncrement = 0;
-		public bool Privileged = false;
-		public bool ProtectedMode = false;
-		public bool StackInstruction = false;
-		public bool SaveRestoreInstruction = false;
+		public bool IsPrivileged = false;
+		public bool IsProtectedMode = false;
+		public bool IsStackInstruction = false;
+		public bool IsSaveRestoreInstruction = false;
 		public readonly List<UsedRegister> UsedRegisters = new List<UsedRegister>();
 		public readonly List<UsedMemory> UsedMemory = new List<UsedMemory>();
 		public FlowControl FlowControl = FlowControl.Next;

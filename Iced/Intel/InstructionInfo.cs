@@ -174,24 +174,54 @@ namespace Iced.Intel {
 		/// <summary>
 		/// true if the instruction isn't available in real mode or virtual 8086 mode
 		/// </summary>
-		public bool ProtectedMode => (flags & (uint)Flags.ProtectedMode) != 0;
+		[Obsolete("Use " + nameof(IsProtectedMode) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool ProtectedMode => IsProtectedMode;
+
+		/// <summary>
+		/// true if the instruction isn't available in real mode or virtual 8086 mode
+		/// </summary>
+		public bool IsProtectedMode => (flags & (uint)Flags.ProtectedMode) != 0;
 
 		/// <summary>
 		/// true if this is a privileged instruction
 		/// </summary>
-		public bool Privileged => (flags & (uint)Flags.Privileged) != 0;
+		[Obsolete("Use " + nameof(IsPrivileged) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool Privileged => IsPrivileged;
+
+		/// <summary>
+		/// true if this is a privileged instruction
+		/// </summary>
+		public bool IsPrivileged => (flags & (uint)Flags.Privileged) != 0;
 
 		/// <summary>
 		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
 		/// See also <see cref="Instruction.StackPointerIncrement"/>
 		/// </summary>
-		public bool StackInstruction => (flags & (uint)Flags.StackInstruction) != 0;
+		[Obsolete("Use " + nameof(IsStackInstruction) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool StackInstruction => IsStackInstruction;
+
+		/// <summary>
+		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
+		/// See also <see cref="Instruction.StackPointerIncrement"/>
+		/// </summary>
+		public bool IsStackInstruction => (flags & (uint)Flags.StackInstruction) != 0;
 
 		/// <summary>
 		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
 		/// <see cref="GetUsedRegisters"/> won't return all read/written registers.
 		/// </summary>
-		public bool SaveRestoreInstruction => (flags & (uint)Flags.SaveRestore) != 0;
+		[Obsolete("Use " + nameof(IsSaveRestoreInstruction) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool SaveRestoreInstruction => IsSaveRestoreInstruction;
+
+		/// <summary>
+		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
+		/// <see cref="GetUsedRegisters"/> won't return all read/written registers.
+		/// </summary>
+		public bool IsSaveRestoreInstruction => (flags & (uint)Flags.SaveRestore) != 0;
 
 		/// <summary>
 		/// Instruction encoding, eg. legacy, VEX, EVEX, ...

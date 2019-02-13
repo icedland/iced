@@ -117,10 +117,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(testCase.RflagsWritten, info.RflagsWritten);
 			Assert.Equal(testCase.RflagsCleared, info.RflagsCleared);
 			Assert.Equal(testCase.RflagsSet, info.RflagsSet);
-			Assert.Equal(testCase.Privileged, info.Privileged);
-			Assert.Equal(testCase.ProtectedMode, info.ProtectedMode);
-			Assert.Equal(testCase.StackInstruction, info.StackInstruction);
-			Assert.Equal(testCase.SaveRestoreInstruction, info.SaveRestoreInstruction);
+			Assert.Equal(testCase.IsPrivileged, info.IsPrivileged);
+			Assert.Equal(testCase.IsProtectedMode, info.IsProtectedMode);
+			Assert.Equal(testCase.IsStackInstruction, info.IsStackInstruction);
+			Assert.Equal(testCase.IsSaveRestoreInstruction, info.IsSaveRestoreInstruction);
 			Assert.Equal(testCase.FlowControl, info.FlowControl);
 			Assert.Equal(testCase.Op0Access, info.Op0Access);
 			Assert.Equal(testCase.Op1Access, info.Op1Access);
@@ -188,18 +188,18 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				cf = new[] { CpuidFeature.AVX2 };
 			Assert.Equal(info.CpuidFeatures, cf);
 			Assert.Equal(info.FlowControl, instr.Code.FlowControl());
-			Assert.Equal(info.ProtectedMode, instr.Code.ProtectedMode());
-			Assert.Equal(info.Privileged, instr.Code.Privileged());
-			Assert.Equal(info.StackInstruction, instr.Code.StackInstruction());
-			Assert.Equal(info.SaveRestoreInstruction, instr.Code.SaveRestoreInstruction());
+			Assert.Equal(info.IsProtectedMode, instr.Code.IsProtectedMode());
+			Assert.Equal(info.IsPrivileged, instr.Code.IsPrivileged());
+			Assert.Equal(info.IsStackInstruction, instr.Code.IsStackInstruction());
+			Assert.Equal(info.IsSaveRestoreInstruction, instr.Code.IsSaveRestoreInstruction());
 
 			Assert.Equal(info.Encoding, instr.Encoding);
 			Assert.Equal(info.CpuidFeatures, instr.CpuidFeatures);
 			Assert.Equal(info.FlowControl, instr.FlowControl);
-			Assert.Equal(info.ProtectedMode, instr.ProtectedMode);
-			Assert.Equal(info.Privileged, instr.Privileged);
-			Assert.Equal(info.StackInstruction, instr.StackInstruction);
-			Assert.Equal(info.SaveRestoreInstruction, instr.SaveRestoreInstruction);
+			Assert.Equal(info.IsProtectedMode, instr.IsProtectedMode);
+			Assert.Equal(info.IsPrivileged, instr.IsPrivileged);
+			Assert.Equal(info.IsStackInstruction, instr.IsStackInstruction);
+			Assert.Equal(info.IsSaveRestoreInstruction, instr.IsSaveRestoreInstruction);
 			Assert.Equal(info.RflagsRead, instr.RflagsRead);
 			Assert.Equal(info.RflagsWritten, instr.RflagsWritten);
 			Assert.Equal(info.RflagsCleared, instr.RflagsCleared);
@@ -217,10 +217,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				Assert.Equal(info1.GetUsedMemory(), info2.GetUsedMemory(), UsedMemoryEqualityComparer.Instance);
 			else
 				Assert.Empty(info2.GetUsedMemory());
-			Assert.Equal(info1.ProtectedMode, info2.ProtectedMode);
-			Assert.Equal(info1.Privileged, info2.Privileged);
-			Assert.Equal(info1.StackInstruction, info2.StackInstruction);
-			Assert.Equal(info1.SaveRestoreInstruction, info2.SaveRestoreInstruction);
+			Assert.Equal(info1.IsProtectedMode, info2.IsProtectedMode);
+			Assert.Equal(info1.IsPrivileged, info2.IsPrivileged);
+			Assert.Equal(info1.IsStackInstruction, info2.IsStackInstruction);
+			Assert.Equal(info1.IsSaveRestoreInstruction, info2.IsSaveRestoreInstruction);
 			Assert.Equal(info1.Encoding, info2.Encoding);
 			Assert.Equal(info1.CpuidFeatures, info2.CpuidFeatures);
 			Assert.Equal(info1.FlowControl, info2.FlowControl);
@@ -561,25 +561,25 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					case "pm":
 						if (value != string.Empty)
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						testCase.ProtectedMode = true;
+						testCase.IsProtectedMode = true;
 						break;
 
 					case "priv":
 						if (value != string.Empty)
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						testCase.Privileged = true;
+						testCase.IsPrivileged = true;
 						break;
 
 					case "saverestore":
 						if (value != string.Empty)
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						testCase.SaveRestoreInstruction = true;
+						testCase.IsSaveRestoreInstruction = true;
 						break;
 
 					case "stack":
 						if (!int.TryParse(value, out testCase.StackPointerIncrement))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						testCase.StackInstruction = true;
+						testCase.IsStackInstruction = true;
 						break;
 
 					case "fr":
