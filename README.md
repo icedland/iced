@@ -396,16 +396,16 @@ Disassembled code:
 
                 var info = instrInfoFactory.GetInfo(ref instr);
                 const string tab = "    ";
-                Console.WriteLine($"{tab}Encoding: {info.Encoding}");
-                Console.WriteLine($"{tab}CpuidFeature: {string.Join(" and ", info.CpuidFeatures)}");
-                Console.WriteLine($"{tab}FlowControl: {info.FlowControl}");
+                Console.WriteLine($"{tab}Encoding: {instr.Encoding}");
+                Console.WriteLine($"{tab}CpuidFeature: {string.Join(" and ", instr.CpuidFeatures)}");
+                Console.WriteLine($"{tab}FlowControl: {instr.FlowControl}");
                 if (offsets.HasDisplacement)
                     Console.WriteLine($"{tab}Displacement offset = {offsets.DisplacementOffset}, size = {offsets.DisplacementSize}");
                 if (offsets.HasImmediate)
                     Console.WriteLine($"{tab}Immediate offset = {offsets.ImmediateOffset}, size = {offsets.ImmediateSize}");
                 if (offsets.HasImmediate2)
                     Console.WriteLine($"{tab}Immediate #2 offset = {offsets.ImmediateOffset2}, size = {offsets.ImmediateSize2}");
-                if (info.StackInstruction)
+                if (instr.StackInstruction)
                     Console.WriteLine($"{tab}SP Increment: {instr.StackPointerIncrement}");
                 if (instr.RflagsRead != RflagsBits.None)
                     Console.WriteLine($"{tab}RFLAGS Read: {instr.RflagsRead}");
