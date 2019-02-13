@@ -270,6 +270,8 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var code in GetEnumValues<Code>()) {
 				instr.Code = code;
 				Assert.Equal(code, instr.Code);
+			}
+			foreach (var code in GetEnumValues<Code>()) {
 				instr.SetCodeNoCheck(code);
 				Assert.Equal(code, instr.Code);
 			}

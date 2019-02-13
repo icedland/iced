@@ -925,7 +925,7 @@ namespace Iced.Intel {
 		/// <param name="memorySize">Memory size value</param>
 		/// <param name="size">Size of location</param>
 		/// <param name="elementSize">Size of the packed element, or <paramref name="size"/> if it's not packed data</param>
-		/// <param name="elementType">Element type if it's packed data or the <paramref name="memorySize"/> if it's not packed data</param>
+		/// <param name="elementType">Element type if it's packed data or <paramref name="memorySize"/> if it's not packed data</param>
 		/// <param name="isSigned">true if signed data</param>
 		/// <param name="isBroadcast">true if broadcast</param>
 		public MemorySizeInfo(MemorySize memorySize, int size, int elementSize, MemorySize elementType, bool isSigned, bool isBroadcast) {
