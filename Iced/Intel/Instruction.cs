@@ -333,7 +333,7 @@ namespace Iced.Intel {
 			set {
 				if ((uint)value >= (uint)DecoderConstants.NumberOfCodeValues)
 					ThrowArgumentOutOfRangeException_value();
-				codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | ((uint)value & (uint)CodeFlags.CodeMask);
+				codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | (uint)value;
 			}
 		}
 		internal Code InternalCode {
@@ -344,7 +344,7 @@ namespace Iced.Intel {
 		}
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void SetCodeNoCheck(Code code) =>
-			codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | ((uint)code & (uint)CodeFlags.CodeMask);
+			codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | (uint)code;
 
 		/// <summary>
 		/// Gets the operand count. Up to 5 operands is allowed.
