@@ -37,7 +37,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static EncodingKind Encoding(this Code code) =>
 			(EncodingKind)((InfoHandlers.Data[(int)code * 2 + 1] >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask);
 
@@ -55,7 +55,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static CpuidFeature[] CpuidFeatures(this Code code) {
 			var cpuidFeature = (CpuidFeatureInternal)((InfoHandlers.Data[(int)code * 2 + 1] >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask);
 			return CpuidFeatureInternalData.ToCpuidFeatures[(int)cpuidFeature];
@@ -66,7 +66,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static FlowControl FlowControl(this Code code) =>
 			(FlowControl)((InfoHandlers.Data[(int)code * 2 + 1] >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask);
 
@@ -77,7 +77,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[Obsolete("Use " + nameof(IsProtectedMode) + "() instead", false)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool ProtectedMode(this Code code) => code.IsProtectedMode();
 
 		/// <summary>
@@ -85,7 +85,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsProtectedMode(this Code code) =>
 			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.ProtectedMode) != 0;
 
@@ -96,7 +96,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[Obsolete("Use " + nameof(IsPrivileged) + "() instead", false)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool Privileged(this Code code) => code.IsPrivileged();
 
 		/// <summary>
@@ -104,7 +104,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsPrivileged(this Code code) =>
 			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.Privileged) != 0;
 
@@ -116,7 +116,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[Obsolete("Use " + nameof(IsStackInstruction) + "() instead", false)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool StackInstruction(this Code code) => code.IsStackInstruction();
 
 		/// <summary>
@@ -125,7 +125,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsStackInstruction(this Code code) =>
 			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.StackInstruction) != 0;
 
@@ -136,7 +136,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[Obsolete("Use " + nameof(IsSaveRestoreInstruction) + "() instead", false)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool SaveRestoreInstruction(this Code code) => code.IsSaveRestoreInstruction();
 
 		/// <summary>
@@ -144,7 +144,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsSaveRestoreInstruction(this Code code) =>
 			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.SaveRestore) != 0;
 
@@ -153,7 +153,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsJccShortOrNear(this Code code) =>
 			(uint)(code - Code.Jo_rel8_16) <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16) ||
 			(uint)(code - Code.Jo_rel16) <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16);
@@ -163,7 +163,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsJccNear(this Code code) =>
 			(uint)(code - Code.Jo_rel16) <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16);
 
@@ -172,7 +172,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsJccShort(this Code code) =>
 			(uint)(code - Code.Jo_rel8_16) <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16);
 
@@ -181,7 +181,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsJmpShort(this Code code) =>
 			(uint)(code - Code.Jmp_rel8_16) <= (uint)(Code.Jmp_rel8_64 - Code.Jmp_rel8_16);
 
@@ -190,7 +190,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsJmpNear(this Code code) =>
 			(uint)(code - Code.Jmp_rel16) <= (uint)(Code.Jmp_rel32_64 - Code.Jmp_rel16);
 
@@ -199,7 +199,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsJmpShortOrNear(this Code code) =>
 			(uint)(code - Code.Jmp_rel8_16) <= (uint)(Code.Jmp_rel8_64 - Code.Jmp_rel8_16) ||
 			(uint)(code - Code.Jmp_rel16) <= (uint)(Code.Jmp_rel32_64 - Code.Jmp_rel16);
@@ -209,7 +209,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsJmpFar(this Code code) =>
 			(uint)(code - Code.Jmp_ptr1616) <= (uint)(Code.Jmp_ptr3216 - Code.Jmp_ptr1616);
 
@@ -218,7 +218,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsCallNear(this Code code) =>
 			(uint)(code - Code.Call_rel16) <= (uint)(Code.Call_rel32_64 - Code.Call_rel16);
 
@@ -227,7 +227,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsCallFar(this Code code) =>
 			(uint)(code - Code.Call_ptr1616) <= (uint)(Code.Call_ptr3216 - Code.Call_ptr1616);
 
@@ -236,7 +236,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsJmpNearIndirect(this Code code) =>
 			(uint)(code - Code.Jmp_rm16) <= (uint)(Code.Jmp_rm64 - Code.Jmp_rm16);
 
@@ -245,7 +245,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsJmpFarIndirect(this Code code) =>
 			(uint)(code - Code.Jmp_m1616) <= (uint)(Code.Jmp_m6416 - Code.Jmp_m1616);
 
@@ -254,7 +254,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsCallNearIndirect(this Code code) =>
 			(uint)(code - Code.Call_rm16) <= (uint)(Code.Call_rm64 - Code.Call_rm16);
 
@@ -263,7 +263,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsCallFarIndirect(this Code code) =>
 			(uint)(code - Code.Call_m1616) <= (uint)(Code.Call_m6416 - Code.Call_m1616);
 	}

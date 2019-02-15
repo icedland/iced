@@ -1876,7 +1876,7 @@ namespace Iced.Intel {
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		static void AddMemorySegmentRegister(Flags flags, ref SimpleList<UsedRegister> regs, Register seg, OpAccess access) {
 			Debug.Assert(Register.ES <= seg && seg <= Register.GS);
 			// Ignore es,cs,ss,ds memory operand segment registers in 64-bit mode

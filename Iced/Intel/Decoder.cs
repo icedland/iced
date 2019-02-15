@@ -228,9 +228,9 @@ namespace Iced.Intel {
 			return 0;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal uint ReadUInt16() => ReadByte() | (ReadByte() << 8);
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal uint ReadUInt32() => ReadByte() | (ReadByte() << 8) | (ReadByte() << 16) | (ReadByte() << 24);
 
 		/// <summary>
@@ -399,7 +399,7 @@ after_read_prefixes:
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void SetXacquireRelease(ref Instruction instruction, HandlerFlags flags) {
 			if ((flags & HandlerFlags.XacquireReleaseNoLock) != 0 || instruction.HasLockPrefix)
 				SetXacquireReleaseCore(ref instruction, flags);
@@ -436,13 +436,13 @@ after_read_prefixes:
 			instruction.InternalClearHasRepnePrefix();
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void SetInvalidInstruction() => state.flags |= StateFlags.IsInvalid;
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void DecodeTable(OpCodeHandler[] table, ref Instruction instruction) => DecodeTable(table[(int)ReadByte()], ref instruction);
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		void DecodeTable(OpCodeHandler handler, ref Instruction instruction) {
 			if (handler.HasModRM) {
 				uint m = ReadByte();
@@ -454,7 +454,7 @@ after_read_prefixes:
 			handler.Decode(this, ref instruction);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void ReadModRM() {
 			uint m = ReadByte();
 			state.modrm = m;
@@ -652,7 +652,7 @@ after_read_prefixes:
 		// Return type is uint since caller will write to a uint field
 		internal uint ReadIb() => ReadByte();
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal Register ReadOpSw() {
 			uint reg = state.reg;
 			if (reg >= 6) {
@@ -663,15 +663,27 @@ after_read_prefixes:
 				return Register.ES + (int)reg;
 		}
 
-		static readonly (Register baseReg, Register indexReg)[] memRegs16 = new(Register baseReg, Register indexReg)[8] {
-			(Register.BX, Register.SI),
-			(Register.BX, Register.DI),
-			(Register.BP, Register.SI),
-			(Register.BP, Register.DI),
-			(Register.SI, Register.None),
-			(Register.DI, Register.None),
-			(Register.BP, Register.None),
-			(Register.BX, Register.None),
+		readonly struct RegInfo2 {
+			public readonly Register baseReg;
+			public readonly Register indexReg;
+			public RegInfo2(Register baseReg, Register indexReg) {
+				this.baseReg = baseReg;
+				this.indexReg = indexReg;
+			}
+			public void Deconstruct(out Register baseReg, out Register indexReg) {
+				baseReg = this.baseReg;
+				indexReg = this.indexReg;
+			}
+		}
+		static readonly RegInfo2[] memRegs16 = new RegInfo2[8] {
+			new RegInfo2(Register.BX, Register.SI),
+			new RegInfo2(Register.BX, Register.DI),
+			new RegInfo2(Register.BP, Register.SI),
+			new RegInfo2(Register.BP, Register.DI),
+			new RegInfo2(Register.SI, Register.None),
+			new RegInfo2(Register.DI, Register.None),
+			new RegInfo2(Register.BP, Register.None),
+			new RegInfo2(Register.BX, Register.None),
 		};
 		void ReadOpMem16(ref Instruction instruction, TupleType tupleType) {
 			Debug.Assert(state.addressSize == OpSize.Size16);

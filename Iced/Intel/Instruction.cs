@@ -133,9 +133,9 @@ namespace Iced.Intel {
 		byte reg0, reg1, reg2, reg3;// Register
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool operator ==(in Instruction left, in Instruction right) => EqualsInternal(left, right);
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool operator !=(in Instruction left, in Instruction right) => !EqualsInternal(left, right);
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
@@ -144,7 +144,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="other">Other instruction</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public bool Equals(in Instruction other) => EqualsInternal(this, other);
 		bool IEquatable<Instruction>.Equals(Instruction other) => EqualsInternal(this, other);
 
@@ -319,7 +319,7 @@ namespace Iced.Intel {
 				(((uint)value & (uint)OpKindFlags.CodeSizeMask) << (int)OpKindFlags.CodeSizeShift));
 		}
 		internal CodeSize InternalCodeSize {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => opKindFlags |= ((uint)value << (int)OpKindFlags.CodeSizeShift);
 		}
 
@@ -327,9 +327,9 @@ namespace Iced.Intel {
 		/// Instruction code
 		/// </summary>
 		public Code Code {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (Code)(codeFlags & (uint)CodeFlags.CodeMask);
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set {
 				if ((uint)value >= (uint)DecoderConstants.NumberOfCodeValues)
 					ThrowArgumentOutOfRangeException_value();
@@ -339,10 +339,10 @@ namespace Iced.Intel {
 		internal Code InternalCode {
 			// x86 jitter doesn't always inline some of these props that should be inlined. Force it.
 			// RyuJIT seems to be better and doesn't seem to require force-inline attrs.
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => codeFlags |= (uint)value;
 		}
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void SetCodeNoCheck(Code code) =>
 			codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | (uint)code;
 
@@ -350,7 +350,7 @@ namespace Iced.Intel {
 		/// Gets the operand count. Up to 5 operands is allowed.
 		/// </summary>
 		public int OpCount {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => InstructionOpCounts.OpCount[(int)(codeFlags & (uint)CodeFlags.CodeMask)];
 		}
 
@@ -364,20 +364,20 @@ namespace Iced.Intel {
 				(((uint)value & (uint)CodeFlags.InstrLengthMask) << (int)CodeFlags.InstrLengthShift);
 		}
 		internal uint InternalByteLength {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => codeFlags |= (value << (int)CodeFlags.InstrLengthShift);
 		}
 
 		internal bool Internal_HasRepePrefix_HasXreleasePrefix {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & (uint)(CodeFlags.RepePrefix | CodeFlags.XreleasePrefix)) != 0;
 		}
 		internal bool Internal_HasRepnePrefix_HasXacquirePrefix {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & (uint)(CodeFlags.RepnePrefix | CodeFlags.XacquirePrefix)) != 0;
 		}
 		internal bool Internal_HasRepeOrRepnePrefix {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & (uint)(CodeFlags.RepePrefix | CodeFlags.RepnePrefix)) != 0;
 		}
 
@@ -385,7 +385,7 @@ namespace Iced.Intel {
 		/// Checks if the instruction has the XACQUIRE prefix (F2)
 		/// </summary>
 		public bool HasXacquirePrefix {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & (uint)CodeFlags.XacquirePrefix) != 0;
 			set {
 				if (value)
@@ -394,14 +394,14 @@ namespace Iced.Intel {
 					codeFlags &= ~(uint)CodeFlags.XacquirePrefix;
 			}
 		}
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalSetHasXacquirePrefix() => codeFlags |= (uint)CodeFlags.XacquirePrefix;
 
 		/// <summary>
 		/// Checks if the instruction has the XACQUIRE prefix (F3)
 		/// </summary>
 		public bool HasXreleasePrefix {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & (uint)CodeFlags.XreleasePrefix) != 0;
 			set {
 				if (value)
@@ -410,14 +410,14 @@ namespace Iced.Intel {
 					codeFlags &= ~(uint)CodeFlags.XreleasePrefix;
 			}
 		}
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalSetHasXreleasePrefix() => codeFlags |= (uint)CodeFlags.XreleasePrefix;
 
 		/// <summary>
 		/// Checks if the instruction has the REPE prefix (F3)
 		/// </summary>
 		public bool HasRepePrefix {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & (uint)CodeFlags.RepePrefix) != 0;
 			set {
 				if (value)
@@ -426,16 +426,16 @@ namespace Iced.Intel {
 					codeFlags &= ~(uint)CodeFlags.RepePrefix;
 			}
 		}
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalSetHasRepePrefix() => codeFlags |= (uint)CodeFlags.RepePrefix;
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalClearHasRepePrefix() => codeFlags &= ~(uint)CodeFlags.RepePrefix;
 
 		/// <summary>
 		/// Checks if the instruction has the REPNE prefix (F2)
 		/// </summary>
 		public bool HasRepnePrefix {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & (uint)CodeFlags.RepnePrefix) != 0;
 			set {
 				if (value)
@@ -444,16 +444,16 @@ namespace Iced.Intel {
 					codeFlags &= ~(uint)CodeFlags.RepnePrefix;
 			}
 		}
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalSetHasRepnePrefix() => codeFlags |= (uint)CodeFlags.RepnePrefix;
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalClearHasRepnePrefix() => codeFlags &= ~(uint)CodeFlags.RepnePrefix;
 
 		/// <summary>
 		/// Checks if the instruction has the LOCK prefix (F0)
 		/// </summary>
 		public bool HasLockPrefix {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & (uint)CodeFlags.LockPrefix) != 0;
 			set {
 				if (value)
@@ -462,22 +462,22 @@ namespace Iced.Intel {
 					codeFlags &= ~(uint)CodeFlags.LockPrefix;
 			}
 		}
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalSetHasLockPrefix() => codeFlags |= (uint)CodeFlags.LockPrefix;
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalClearHasLockPrefix() => codeFlags &= ~(uint)CodeFlags.LockPrefix;
 
 		/// <summary>
 		/// Gets operand #0's kind if the operand exists (see <see cref="OpCount"/>)
 		/// </summary>
 		public OpKind Op0Kind {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (OpKind)(opKindFlags & (uint)OpKindFlags.OpKindMask);
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => opKindFlags = (opKindFlags & ~(uint)OpKindFlags.OpKindMask) | ((uint)value & (uint)OpKindFlags.OpKindMask);
 		}
 		internal OpKind InternalOp0Kind {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => opKindFlags |= (uint)value;
 		}
 
@@ -485,14 +485,14 @@ namespace Iced.Intel {
 		/// Gets operand #1's kind if the operand exists (see <see cref="OpCount"/>)
 		/// </summary>
 		public OpKind Op1Kind {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (OpKind)((opKindFlags >> (int)OpKindFlags.Op1KindShift) & (uint)OpKindFlags.OpKindMask);
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op1KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op1KindShift);
 		}
 		internal OpKind InternalOp1Kind {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => opKindFlags |= (uint)value << (int)OpKindFlags.Op1KindShift;
 		}
 
@@ -500,14 +500,14 @@ namespace Iced.Intel {
 		/// Gets operand #2's kind if the operand exists (see <see cref="OpCount"/>)
 		/// </summary>
 		public OpKind Op2Kind {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (OpKind)((opKindFlags >> (int)OpKindFlags.Op2KindShift) & (uint)OpKindFlags.OpKindMask);
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op2KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op2KindShift);
 		}
 		internal OpKind InternalOp2Kind {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => opKindFlags |= (uint)value << (int)OpKindFlags.Op2KindShift;
 		}
 
@@ -515,14 +515,14 @@ namespace Iced.Intel {
 		/// Gets operand #3's kind if the operand exists (see <see cref="OpCount"/>)
 		/// </summary>
 		public OpKind Op3Kind {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (OpKind)((opKindFlags >> (int)OpKindFlags.Op3KindShift) & (uint)OpKindFlags.OpKindMask);
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op3KindShift)) |
 				(((uint)value & (uint)OpKindFlags.OpKindMask) << (int)OpKindFlags.Op3KindShift);
 		}
 		internal OpKind InternalOp3Kind {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => opKindFlags |= (uint)value << (int)OpKindFlags.Op3KindShift;
 		}
 
@@ -537,7 +537,7 @@ namespace Iced.Intel {
 			}
 		}
 		internal OpKind InternalOp4Kind {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set {
 				if (value != OpKind.Immediate8)
 					ThrowArgumentOutOfRangeException_value();
@@ -647,7 +647,7 @@ namespace Iced.Intel {
 					(encValue << (int)MemoryFlags.DisplSizeShift));
 			}
 		}
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalSetMemoryDisplSize(uint scale) {
 			Debug.Assert(0 <= scale && scale <= 4);
 			memoryFlags |= (ushort)(scale << (int)MemoryFlags.DisplSizeShift);
@@ -657,7 +657,7 @@ namespace Iced.Intel {
 		/// true if the data is broadcasted (EVEX instructions only)
 		/// </summary>
 		public bool IsBroadcast {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (memoryFlags & (uint)MemoryFlags.BroadcastedMemory) != 0;
 			set {
 				if (value)
@@ -666,7 +666,7 @@ namespace Iced.Intel {
 					memoryFlags &= unchecked((ushort)~(ushort)MemoryFlags.BroadcastedMemory);
 			}
 		}
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void SetIsBroadcast() => memoryFlags |= (ushort)MemoryFlags.BroadcastedMemory;
 
 		/// <summary>
@@ -688,7 +688,7 @@ namespace Iced.Intel {
 		/// Gets the index register scale value, valid values are *1, *2, *4, *8. Use this property if the operand has kind <see cref="OpKind.Memory"/>
 		/// </summary>
 		public int MemoryIndexScale {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => 1 << (int)(memoryFlags & (uint)MemoryFlags.ScaleMask);
 			set {
 				if (value == 1)
@@ -704,9 +704,9 @@ namespace Iced.Intel {
 			}
 		}
 		internal int InternalMemoryIndexScale {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (int)(memoryFlags & (uint)MemoryFlags.ScaleMask);
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => memoryFlags |= (ushort)value;
 		}
 
@@ -841,9 +841,9 @@ namespace Iced.Intel {
 		/// Gets the operand's immediate value. Use this property if the operand has kind <see cref="OpKind.Immediate64"/>
 		/// </summary>
 		public ulong Immediate64 {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => ((ulong)memDispl << 32) | immediate;
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set {
 				immediate = (uint)value;
 				memDispl = (uint)(value >> 32);
@@ -892,9 +892,9 @@ namespace Iced.Intel {
 		/// Gets the operand's 64-bit address value. Use this property if the operand has kind <see cref="OpKind.Memory64"/>
 		/// </summary>
 		public ulong MemoryAddress64 {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => ((ulong)memDispl << 32) | immediate;
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set {
 				immediate = (uint)value;
 				memDispl = (uint)(value >> 32);
@@ -930,9 +930,9 @@ namespace Iced.Intel {
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.NearBranch64"/>
 		/// </summary>
 		public ulong NearBranch64 {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => ((ulong)memDispl << 32) | immediate;
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set {
 				immediate = (uint)value;
 				memDispl = (uint)(value >> 32);
@@ -1113,9 +1113,9 @@ namespace Iced.Intel {
 			}
 		}
 		internal uint InternalOpMask {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags >> (int)CodeFlags.OpMaskShift) & (uint)CodeFlags.OpMaskMask;
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => codeFlags |= value << (int)CodeFlags.OpMaskShift;
 		}
 
@@ -1123,7 +1123,7 @@ namespace Iced.Intel {
 		/// true if there's an opmask register (<see cref="OpMask"/>)
 		/// </summary>
 		public bool HasOpMask {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & ((uint)CodeFlags.OpMaskMask << (int)CodeFlags.OpMaskShift)) != 0;
 		}
 
@@ -1132,7 +1132,7 @@ namespace Iced.Intel {
 		/// Only used by most EVEX encoded instructions that use opmask registers.
 		/// </summary>
 		public bool ZeroingMasking {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & (uint)CodeFlags.ZeroingMasking) != 0;
 			set {
 				if (value)
@@ -1141,7 +1141,7 @@ namespace Iced.Intel {
 					codeFlags &= ~(uint)CodeFlags.ZeroingMasking;
 			}
 		}
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalSetZeroingMasking() => codeFlags |= (uint)CodeFlags.ZeroingMasking;
 
 		/// <summary>
@@ -1149,7 +1149,7 @@ namespace Iced.Intel {
 		/// Only used by most EVEX encoded instructions that use opmask registers.
 		/// </summary>
 		public bool MergingMasking {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & (uint)CodeFlags.ZeroingMasking) == 0;
 			set {
 				if (value)
@@ -1164,13 +1164,13 @@ namespace Iced.Intel {
 		/// or <see cref="RoundingControl.None"/> if the instruction doesn't use it.
 		/// </summary>
 		public RoundingControl RoundingControl {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (RoundingControl)((codeFlags >> (int)CodeFlags.RoundingControlShift) & (int)CodeFlags.RoundingControlMask);
 			set => codeFlags = (codeFlags & ~((uint)CodeFlags.RoundingControlMask << (int)CodeFlags.RoundingControlShift)) |
 				(((uint)value & (uint)CodeFlags.RoundingControlMask) << (int)CodeFlags.RoundingControlShift);
 		}
 		internal uint InternalRoundingControl {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => codeFlags |= value << (int)CodeFlags.RoundingControlShift;
 		}
 
@@ -1302,7 +1302,7 @@ namespace Iced.Intel {
 		/// not <see cref="RoundingControl.None"/>, SAE is implied but this property will still return false.
 		/// </summary>
 		public bool SuppressAllExceptions {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (codeFlags & (uint)CodeFlags.SuppressAllExceptions) != 0;
 			set {
 				if (value)
@@ -1311,7 +1311,7 @@ namespace Iced.Intel {
 					codeFlags &= ~(uint)CodeFlags.SuppressAllExceptions;
 			}
 		}
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalSetSuppressAllExceptions() => codeFlags |= (uint)CodeFlags.SuppressAllExceptions;
 
 		/// <summary>
@@ -1320,7 +1320,7 @@ namespace Iced.Intel {
 		[Obsolete("Use " + nameof(IsIPRelativeMemoryOperand) + " instead of this property", false)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool IsIPRelativeMemoryOp {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => MemoryBase == Register.RIP || MemoryBase == Register.EIP;
 		}
 
@@ -1328,7 +1328,7 @@ namespace Iced.Intel {
 		/// Checks if the memory operand is RIP/EIP relative
 		/// </summary>
 		public bool IsIPRelativeMemoryOperand {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => MemoryBase == Register.RIP || MemoryBase == Register.EIP;
 		}
 

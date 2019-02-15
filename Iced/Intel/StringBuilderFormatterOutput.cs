@@ -54,7 +54,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Clears the <see cref="StringBuilder"/> instance so this class can be reused to format the next instruction
 		/// </summary>
-		public void Reset() => sb.Clear();
+		public void Reset() => sb.Length = 0;
 
 		/// <summary>
 		/// Returns the current formatted text and clears the <see cref="StringBuilder"/> instance so this class can be reused to format the next instruction

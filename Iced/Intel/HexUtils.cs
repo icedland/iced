@@ -30,7 +30,7 @@ namespace Iced.Intel {
 			if (hexData == null)
 				throw new ArgumentNullException(nameof(hexData));
 			if (hexData.Length == 0)
-				return Array.Empty<byte>();
+				return Array2.Empty<byte>();
 			var data = new byte[hexData.Length / 2];
 			int w = 0;
 			for (int i = 0; ;) {

@@ -284,25 +284,34 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_MandatoryPrefix3 : OpCodeHandlerModRM {
-		readonly (OpCodeHandler handler, bool mandatoryPrefix)[] handlers_reg;
-		readonly (OpCodeHandler handler, bool mandatoryPrefix)[] handlers_mem;
+		readonly Info[] handlers_reg;
+		readonly Info[] handlers_mem;
+
+		readonly struct Info {
+			public readonly OpCodeHandler handler;
+			public readonly bool mandatoryPrefix;
+			public Info(OpCodeHandler handler, bool mandatoryPrefix) {
+				this.handler = handler;
+				this.mandatoryPrefix = mandatoryPrefix;
+			}
+		}
 
 		public OpCodeHandler_MandatoryPrefix3(OpCodeHandler handler_reg, OpCodeHandler handler_mem, OpCodeHandler handler66_reg, OpCodeHandler handler66_mem, OpCodeHandler handlerF3_reg, OpCodeHandler handlerF3_mem, OpCodeHandler handlerF2_reg, OpCodeHandler handlerF2_mem, LegacyHandlerFlags flags) {
 			Debug.Assert((int)MandatoryPrefix.None == 0);
 			Debug.Assert((int)MandatoryPrefix.P66 == 1);
 			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
 			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
-			handlers_reg = new(OpCodeHandler handler, bool mandatoryPrefix)[4] {
-				(handler_reg ?? throw new ArgumentNullException(nameof(handler_reg)), (flags & LegacyHandlerFlags.HandlerReg) == 0),
-				(handler66_reg ?? throw new ArgumentNullException(nameof(handler66_reg)), (flags & LegacyHandlerFlags.Handler66Reg) == 0),
-				(handlerF3_reg ?? throw new ArgumentNullException(nameof(handlerF3_reg)), (flags & LegacyHandlerFlags.HandlerF3Reg) == 0),
-				(handlerF2_reg ?? throw new ArgumentNullException(nameof(handlerF2_reg)), (flags & LegacyHandlerFlags.HandlerF2Reg) == 0),
+			handlers_reg = new Info[4] {
+				new Info(handler_reg ?? throw new ArgumentNullException(nameof(handler_reg)), (flags & LegacyHandlerFlags.HandlerReg) == 0),
+				new Info(handler66_reg ?? throw new ArgumentNullException(nameof(handler66_reg)), (flags & LegacyHandlerFlags.Handler66Reg) == 0),
+				new Info(handlerF3_reg ?? throw new ArgumentNullException(nameof(handlerF3_reg)), (flags & LegacyHandlerFlags.HandlerF3Reg) == 0),
+				new Info(handlerF2_reg ?? throw new ArgumentNullException(nameof(handlerF2_reg)), (flags & LegacyHandlerFlags.HandlerF2Reg) == 0),
 			};
-			handlers_mem = new(OpCodeHandler handler, bool mandatoryPrefix)[4] {
-				(handler_mem ?? throw new ArgumentNullException(nameof(handler_mem)), (flags & LegacyHandlerFlags.HandlerMem) == 0),
-				(handler66_mem ?? throw new ArgumentNullException(nameof(handler66_mem)), (flags & LegacyHandlerFlags.Handler66Mem) == 0),
-				(handlerF3_mem ?? throw new ArgumentNullException(nameof(handlerF3_mem)), (flags & LegacyHandlerFlags.HandlerF3Mem) == 0),
-				(handlerF2_mem ?? throw new ArgumentNullException(nameof(handlerF2_mem)), (flags & LegacyHandlerFlags.HandlerF2Mem) == 0),
+			handlers_mem = new Info[4] {
+				new Info(handler_mem ?? throw new ArgumentNullException(nameof(handler_mem)), (flags & LegacyHandlerFlags.HandlerMem) == 0),
+				new Info(handler66_mem ?? throw new ArgumentNullException(nameof(handler66_mem)), (flags & LegacyHandlerFlags.Handler66Mem) == 0),
+				new Info(handlerF3_mem ?? throw new ArgumentNullException(nameof(handlerF3_mem)), (flags & LegacyHandlerFlags.HandlerF3Mem) == 0),
+				new Info(handlerF2_mem ?? throw new ArgumentNullException(nameof(handlerF2_mem)), (flags & LegacyHandlerFlags.HandlerF2Mem) == 0),
 			};
 			Debug.Assert(handler_reg.HasModRM == HasModRM);
 			Debug.Assert(handler_mem.HasModRM == HasModRM);
@@ -620,22 +629,31 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
+	readonly struct HandlerOptions {
+		public readonly OpCodeHandler handler;
+		public readonly DecoderOptions options;
+		public HandlerOptions(OpCodeHandler handler, DecoderOptions options) {
+			this.handler = handler;
+			this.options = options;
+		}
+	}
+
 	sealed class OpCodeHandler_Options : OpCodeHandler {
 		readonly OpCodeHandler defaultHandler;
-		readonly (OpCodeHandler handler, DecoderOptions options)[] infos;
+		readonly HandlerOptions[] infos;
 
 		public OpCodeHandler_Options(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1) {
 			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
-			infos = new (OpCodeHandler, DecoderOptions options)[] {
-				(handler1, options1),
+			infos = new HandlerOptions[] {
+				new HandlerOptions(handler1, options1),
 			};
 		}
 
 		public OpCodeHandler_Options(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1, OpCodeHandler handler2, DecoderOptions options2) {
 			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
-			infos = new (OpCodeHandler, DecoderOptions options)[] {
-				(handler1 ?? throw new ArgumentNullException(nameof(handler1)), options1),
-				(handler2 ?? throw new ArgumentNullException(nameof(handler2)), options2),
+			infos = new HandlerOptions[] {
+				new HandlerOptions(handler1 ?? throw new ArgumentNullException(nameof(handler1)), options1),
+				new HandlerOptions(handler2 ?? throw new ArgumentNullException(nameof(handler2)), options2),
 			};
 		}
 
@@ -656,20 +674,20 @@ namespace Iced.Intel.DecoderInternal {
 
 	sealed class OpCodeHandler_Options_DontReadModRM : OpCodeHandlerModRM {
 		readonly OpCodeHandler defaultHandler;
-		readonly (OpCodeHandler handler, DecoderOptions options)[] infos;
+		readonly HandlerOptions[] infos;
 
 		public OpCodeHandler_Options_DontReadModRM(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1) {
 			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
-			infos = new (OpCodeHandler, DecoderOptions options)[] {
-				(handler1, options1),
+			infos = new HandlerOptions[] {
+				new HandlerOptions(handler1, options1),
 			};
 		}
 
 		public OpCodeHandler_Options_DontReadModRM(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1, OpCodeHandler handler2, DecoderOptions options2) {
 			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
-			infos = new (OpCodeHandler, DecoderOptions options)[] {
-				(handler1 ?? throw new ArgumentNullException(nameof(handler1)), options1),
-				(handler2 ?? throw new ArgumentNullException(nameof(handler2)), options2),
+			infos = new HandlerOptions[] {
+				new HandlerOptions(handler1 ?? throw new ArgumentNullException(nameof(handler1)), options1),
+				new HandlerOptions(handler2 ?? throw new ArgumentNullException(nameof(handler2)), options2),
 			};
 		}
 

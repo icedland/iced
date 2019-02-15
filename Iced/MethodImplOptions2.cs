@@ -21,16 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INSTR_INFO
-namespace Iced.Intel.InstructionInfoInternal {
-	struct SimpleList<T> {
-		public static readonly SimpleList<T> Empty = new SimpleList<T>(System.Array2.Empty<T>());
-		public T[] Array;
-		public int ValidLength;
-		public SimpleList(T[] array) {
-			Array = array;
-			ValidLength = 0;
-		}
+namespace System.Runtime.CompilerServices {
+	static class MethodImplOptions2 {
+		// Not supported by net35
+		public const MethodImplOptions AggressiveInlining = (MethodImplOptions)0x100;
 	}
 }
-#endif

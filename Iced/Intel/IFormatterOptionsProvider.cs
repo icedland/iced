@@ -184,7 +184,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="options">Options</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static NumberFormattingOptions CreateImmediate(FormatterOptions options) {
 			if (options == null)
 				ThrowArgumentNullException_options();
@@ -196,7 +196,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="options">Options</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static NumberFormattingOptions CreateDisplacement(FormatterOptions options) {
 			if (options == null)
 				ThrowArgumentNullException_options();
@@ -208,7 +208,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="options">Options</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static NumberFormattingOptions CreateBranch(FormatterOptions options) {
 			if (options == null)
 				ThrowArgumentNullException_options();

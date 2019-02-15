@@ -27,7 +27,7 @@ using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
 	sealed partial class Decoder {
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void ReadOpMem_m32(ref Instruction instruction) {
 			Debug.Assert(!is64Mode);
 			Debug.Assert(state.addressSize == OpSize.Size16 || state.addressSize == OpSize.Size32);
@@ -39,7 +39,7 @@ namespace Iced.Intel {
 		}
 
 		// All MPX instructions in 16/32-bit mode require 32-bit addressing (see SDM Vol 1, 17.5.1 Intel MPX and Operating Modes)
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void ReadOpMem_m32_ONLY32(ref Instruction instruction) {
 			Debug.Assert(!is64Mode);
 			Debug.Assert(state.addressSize == OpSize.Size16 || state.addressSize == OpSize.Size32);
@@ -50,7 +50,7 @@ namespace Iced.Intel {
 				SetInvalidInstruction();
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void ReadOpMem_m32(ref Instruction instruction, TupleType tupleType) {
 			Debug.Assert(!is64Mode);
 			Debug.Assert(state.addressSize == OpSize.Size16 || state.addressSize == OpSize.Size32);
@@ -60,7 +60,7 @@ namespace Iced.Intel {
 				ReadOpMem16(ref instruction, tupleType);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void ReadOpMem_VSIB_m32(ref Instruction instruction, Register vsibIndex) {
 			Debug.Assert(!is64Mode);
 			Debug.Assert(state.addressSize == OpSize.Size16 || state.addressSize == OpSize.Size32);
@@ -73,7 +73,7 @@ namespace Iced.Intel {
 				SetInvalidInstruction();
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void ReadOpMem_VSIB_m32(ref Instruction instruction, Register vsibIndex, TupleType tupleType) {
 			Debug.Assert(!is64Mode);
 			Debug.Assert(state.addressSize == OpSize.Size16 || state.addressSize == OpSize.Size32);

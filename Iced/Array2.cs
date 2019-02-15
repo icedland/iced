@@ -21,16 +21,13 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INSTR_INFO
-namespace Iced.Intel.InstructionInfoInternal {
-	struct SimpleList<T> {
-		public static readonly SimpleList<T> Empty = new SimpleList<T>(System.Array2.Empty<T>());
-		public T[] Array;
-		public int ValidLength;
-		public SimpleList(T[] array) {
-			Array = array;
-			ValidLength = 0;
+namespace System {
+	// Array.Empty<T>() is only available since net46 (net35 & net452 don't support it)
+	static class Array2 {
+		public static T[] Empty<T>() => EmptyClass<T>.Empty;
+
+		static class EmptyClass<T> {
+			public static readonly T[] Empty = new T[0];
 		}
 	}
 }
-#endif

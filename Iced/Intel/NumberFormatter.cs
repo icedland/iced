@@ -58,7 +58,7 @@ namespace Iced.Intel {
 			}
 
 			var res = sb.ToString();
-			sb.Clear();
+			sb.Length = 0;
 			return res;
 		}
 

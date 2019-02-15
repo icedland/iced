@@ -78,7 +78,7 @@ namespace Iced.Intel {
 		readonly string[] allRegisters;
 		readonly string[] allRegistersNaked;
 		readonly InstrInfo[] instrInfos;
-		readonly (MemorySize memorySize, string bcstTo)[] allMemorySizes;
+		readonly MemorySizes.Info[] allMemorySizes;
 		readonly NumberFormatter numberFormatter;
 
 		string[] AllRegisters => options.NakedRegisters ? allRegistersNaked : allRegisters;
@@ -702,7 +702,7 @@ namespace Iced.Intel {
 			output.Write("}", FormatterOutputTextKind.Punctuation);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		string ToString(Register reg) {
 			Debug.Assert((uint)reg < (uint)AllRegisters.Length);
 			var regStr = AllRegisters[(int)reg];

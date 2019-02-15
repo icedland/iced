@@ -366,7 +366,7 @@ namespace Iced.Intel {
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal bool Verify(int operand, OpKind expected, OpKind actual) {
 			if (expected == actual)
 				return true;
@@ -374,7 +374,7 @@ namespace Iced.Intel {
 			return false;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal bool Verify(int operand, Register expected, Register actual) {
 			if (expected == actual)
 				return true;
@@ -382,7 +382,7 @@ namespace Iced.Intel {
 			return false;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal bool Verify(int operand, Register register, Register regLo, Register regHi) {
 			if (defaultCodeSize != 64 && regHi > regLo + 7)
 				regHi = regLo + 7;
@@ -1255,7 +1255,7 @@ namespace Iced.Intel {
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void WriteByte(uint value) {
 			writer.WriteByte((byte)value);
 			currentRip++;

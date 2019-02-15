@@ -412,7 +412,7 @@ namespace Iced.Intel.EncoderInternal {
 	sealed class InvalidHandler : OpCodeHandler {
 		internal const string ERROR_MESSAGE = "Can't encode an invalid instruction";
 
-		public InvalidHandler(Code code) : base(code, 0, 0, OpCodeHandlerFlags.None, Encodable.Any, OperandSize.None, AddressSize.None, null, Array.Empty<Op>()) { }
+		public InvalidHandler(Code code) : base(code, 0, 0, OpCodeHandlerFlags.None, Encodable.Any, OperandSize.None, AddressSize.None, null, Array2.Empty<Op>()) { }
 
 		public override void Encode(Encoder encoder, ref Instruction instr) =>
 			encoder.ErrorMessage = ERROR_MESSAGE;
@@ -448,7 +448,7 @@ namespace Iced.Intel.EncoderInternal {
 			}
 			if (op0 != LegacyOpKind.None)
 				return new Op[] { LegacyOps.Ops[(int)op0] };
-			return Array.Empty<Op>();
+			return Array2.Empty<Op>();
 		}
 
 		static OpCodeHandlerFlags GetFlags(uint dword2) {
@@ -561,7 +561,7 @@ namespace Iced.Intel.EncoderInternal {
 			}
 			if (op0 != VexOpKind.None)
 				return new Op[] { VexOps.Ops[(int)op0] };
-			return Array.Empty<Op>();
+			return Array2.Empty<Op>();
 		}
 
 		public VexHandler(uint dword1, uint dword2, uint dword3)
@@ -635,7 +635,7 @@ namespace Iced.Intel.EncoderInternal {
 			}
 			if (op0 != XopOpKind.None)
 				return new Op[] { XopOps.Ops[(int)op0] };
-			return Array.Empty<Op>();
+			return Array2.Empty<Op>();
 		}
 
 		public XopHandler(uint dword1, uint dword2, uint dword3)
@@ -704,7 +704,7 @@ namespace Iced.Intel.EncoderInternal {
 			}
 			if (op0 != EvexOpKind.None)
 				return new Op[] { EvexOps.Ops[(int)op0] };
-			return Array.Empty<Op>();
+			return Array2.Empty<Op>();
 		}
 
 		static readonly TryConvertToDisp8N tryConvertToDisp8N = new TryConvertToDisp8NImpl().TryConvertToDisp8N;

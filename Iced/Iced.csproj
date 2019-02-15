@@ -1,7 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.1;netstandard2.0;net452</TargetFrameworks>
+    <!-- It's not possible to target .NET Framework 3.5 when using dotnet build
+         https://github.com/Microsoft/msbuild/issues/1333 -->
+    <NoTargetFrameworkNet35 Condition=" '$(NoTargetFrameworkNet35)' == '' AND '$(MSBuildRuntimeType)' == 'Core' ">true</NoTargetFrameworkNet35>
+    <TargetFrameworks Condition=" '$(NoTargetFrameworkNet35)' != 'true' ">$(TargetFrameworks);net35</TargetFrameworks>
 
     <Description>x86/x64 instruction decoder, encoder, disassembler</Description>
     <Title>$(Description)</Title>

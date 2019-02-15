@@ -21,6 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#if !NET35
+#define HAS_ROLIST
+#endif
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +40,11 @@ namespace Iced.Intel {
 	/// </summary>
 	[DebuggerDisplay("Count = {Count}")]
 	[DebuggerTypeProxy(typeof(InstructionListDebugView))]
+#if HAS_ROLIST
 	public sealed class InstructionList : IList<Instruction>, IReadOnlyList<Instruction>, IList {
+#else
+	public sealed class InstructionList : IList<Instruction>, IList {
+#endif
 		Instruction[] elements;
 		int count;
 
@@ -46,7 +54,9 @@ namespace Iced.Intel {
 		public int Count => count;
 		int ICollection<Instruction>.Count => count;
 		int ICollection.Count => count;
+#if HAS_ROLIST
 		int IReadOnlyCollection<Instruction>.Count => count;
+#endif
 
 		/// <summary>
 		/// Gets the size of the internal array
@@ -78,7 +88,9 @@ namespace Iced.Intel {
 			get => elements[index];
 			set => elements[index] = value;
 		}
+#if HAS_ROLIST
 		Instruction IReadOnlyList<Instruction>.this[int index] => elements[index];
+#endif
 		object IList.this[int index] {
 			get => elements[index];
 			set {
@@ -93,7 +105,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public InstructionList() => elements = Array.Empty<Instruction>();
+		public InstructionList() => elements = Array2.Empty<Instruction>();
 
 		/// <summary>
 		/// Constructor
@@ -102,7 +114,7 @@ namespace Iced.Intel {
 		public InstructionList(int capacity) {
 			if (capacity < 0)
 				ThrowArgumentOutOfRangeException(nameof(capacity));
-			elements = capacity == 0 ? Array.Empty<Instruction>() : new Instruction[capacity];
+			elements = capacity == 0 ? Array2.Empty<Instruction>() : new Instruction[capacity];
 		}
 
 		/// <summary>
@@ -114,7 +126,7 @@ namespace Iced.Intel {
 				ThrowArgumentNullException(nameof(list));
 			int length = list.count;
 			if (length == 0)
-				elements = Array.Empty<Instruction>();
+				elements = Array2.Empty<Instruction>();
 			else {
 				var elements = new Instruction[length];
 				this.elements = elements;
@@ -133,7 +145,7 @@ namespace Iced.Intel {
 			if (collection is ICollection<Instruction> coll) {
 				int count = coll.Count;
 				if (count == 0)
-					elements = Array.Empty<Instruction>();
+					elements = Array2.Empty<Instruction>();
 				else {
 					var elements = new Instruction[count];
 					this.elements = elements;
@@ -142,7 +154,7 @@ namespace Iced.Intel {
 				}
 			}
 			else {
-				elements = Array.Empty<Instruction>();
+				elements = Array2.Empty<Instruction>();
 				foreach (var elem in collection)
 					Add(elem);
 			}
@@ -175,7 +187,7 @@ namespace Iced.Intel {
 		/// The returned reference is valid until the internal array is resized.
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]// Add() is inlined, and this method does almost the same thing
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]// Add() is inlined, and this method does almost the same thing
 		public ref Instruction AllocUninitializedElement() {
 			var count = this.count;
 			var elements = this.elements;
@@ -263,6 +275,17 @@ namespace Iced.Intel {
 					Array.Copy(list.elements, 0, elements, index, list_count);
 				}
 			}
+			else if (collection is IList<Instruction> ilist) {
+				int ilist_Count = ilist.Count;
+				if (ilist_Count != 0) {
+					MakeRoom(index, ilist_Count);
+					count += ilist_Count;
+					var elements = this.elements;
+					for (int i = 0; i < ilist_Count; i++)
+						elements[index + i] = ilist[i];
+				}
+			}
+#if HAS_ROLIST
 			else if (collection is IReadOnlyList<Instruction> roList) {
 				int roList_Count = roList.Count;
 				if (roList_Count != 0) {
@@ -273,6 +296,7 @@ namespace Iced.Intel {
 						elements[index + i] = roList[i];
 				}
 			}
+#endif
 			else {
 				foreach (var instruction in collection)
 					Insert(index++, instruction);
@@ -305,7 +329,7 @@ namespace Iced.Intel {
 		/// Adds a new instruction to the end of the list
 		/// </summary>
 		/// <param name="instruction">Instruction to add</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]// Needed since it's not inlined otherwise (because of 'in') (List<Instruction>.Add() gets auto-inlined)
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]// Needed since it's not inlined otherwise (because of 'in') (List<Instruction>.Add() gets auto-inlined)
 		public void Add(in Instruction instruction) {
 			var count = this.count;
 			var elements = this.elements;
@@ -580,7 +604,7 @@ namespace Iced.Intel {
 		public Instruction[] ToArray() {
 			int count = this.count;
 			if (count == 0)
-				return Array.Empty<Instruction>();
+				return Array2.Empty<Instruction>();
 			var res = new Instruction[count];
 			Array.Copy(elements, 0, res, 0, res.Length);
 			return res;
