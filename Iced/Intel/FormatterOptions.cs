@@ -216,7 +216,7 @@ namespace Iced.Intel {
 			get => numberBase;
 			set {
 				if ((uint)value > (uint)NumberBase.Binary)
-					throw new ArgumentOutOfRangeException(nameof(value));
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				numberBase = value;
 			}
 		}
@@ -260,7 +260,7 @@ namespace Iced.Intel {
 			get => memorySizeOptions;
 			set {
 				if ((uint)value > (uint)MemorySizeOptions.Never)
-					throw new ArgumentOutOfRangeException(nameof(value));
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				memorySizeOptions = value;
 			}
 		}

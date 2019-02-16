@@ -21,7 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System;
 using System.Diagnostics;
 
 namespace Iced.Intel {
@@ -563,11 +562,9 @@ namespace Iced.Intel {
 		public static RegisterInfo GetInfo(this Register register) {
 			var infos = RegisterInfos;
 			if ((uint)register >= (uint)infos.Length)
-				ThrowArgumentOutOfRangeException(nameof(register));
+				ThrowHelper.ThrowArgumentOutOfRangeException_register();
 			return infos[(int)register];
 		}
-
-		static void ThrowArgumentOutOfRangeException(string paramName) => throw new ArgumentOutOfRangeException(paramName);
 
 		/// <summary>
 		/// Gets the base register, eg. AL, AX, EAX, RAX, MM0, XMM0, YMM0, ZMM0, ES

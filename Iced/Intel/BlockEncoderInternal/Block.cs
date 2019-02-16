@@ -125,9 +125,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public ulong Address {
 			get {
 				if (!IsValid)
-					throw new InvalidOperationException();
+					ThrowHelper.ThrowInvalidOperationException();
 				if (!__dont_use_address_initd)
-					throw new InvalidOperationException();
+					ThrowHelper.ThrowInvalidOperationException();
 				return __dont_use_address;
 			}
 		}

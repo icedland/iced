@@ -70,10 +70,6 @@ namespace Iced.Intel {
 		bool ICollection.IsSynchronized => false;
 		object ICollection.SyncRoot => this;
 
-		static void ThrowArgumentNullException(string paramName) => throw new ArgumentNullException(paramName);
-		static void ThrowArgumentException() => throw new ArgumentException();
-		static void ThrowArgumentOutOfRangeException(string paramName) => throw new ArgumentOutOfRangeException(paramName);
-
 		/// <summary>
 		/// Gets a reference to an element. The returned reference is valid until the internal array is resized.
 		/// </summary>
@@ -95,9 +91,9 @@ namespace Iced.Intel {
 			get => elements[index];
 			set {
 				if (value == null)
-					ThrowArgumentNullException(nameof(value));
+					ThrowHelper.ThrowArgumentNullException_value();
 				if (!(value is Instruction))
-					ThrowArgumentException();
+					ThrowHelper.ThrowArgumentException();
 				elements[index] = (Instruction)value;
 			}
 		}
@@ -113,7 +109,7 @@ namespace Iced.Intel {
 		/// <param name="capacity">Initial size of the internal array</param>
 		public InstructionList(int capacity) {
 			if (capacity < 0)
-				ThrowArgumentOutOfRangeException(nameof(capacity));
+				ThrowHelper.ThrowArgumentOutOfRangeException_capacity();
 			elements = capacity == 0 ? Array2.Empty<Instruction>() : new Instruction[capacity];
 		}
 
@@ -123,7 +119,7 @@ namespace Iced.Intel {
 		/// <param name="list">List that will be copied to this instance</param>
 		public InstructionList(InstructionList list) {
 			if (list == null)
-				ThrowArgumentNullException(nameof(list));
+				ThrowHelper.ThrowArgumentNullException_list();
 			int length = list.count;
 			if (length == 0)
 				elements = Array2.Empty<Instruction>();
@@ -141,7 +137,7 @@ namespace Iced.Intel {
 		/// <param name="collection">Collection that will be copied to this instance</param>
 		public InstructionList(IEnumerable<Instruction> collection) {
 			if (collection == null)
-				ThrowArgumentNullException(nameof(collection));
+				ThrowHelper.ThrowArgumentNullException_collection();
 			if (collection is ICollection<Instruction> coll) {
 				int count = coll.Count;
 				if (count == 0)
@@ -218,7 +214,7 @@ namespace Iced.Intel {
 		public void Insert(int index, in Instruction instruction) {
 			var count = this.count;
 			if ((uint)index > (uint)count)
-				ThrowArgumentOutOfRangeException(nameof(index));
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 			MakeRoom(index, 1);
 			elements[index] = instruction;
 			this.count = count + 1;
@@ -226,9 +222,9 @@ namespace Iced.Intel {
 		void IList<Instruction>.Insert(int index, Instruction instruction) => Insert(index, instruction);
 		void IList.Insert(int index, object value) {
 			if (value == null)
-				ThrowArgumentNullException(nameof(value));
+				ThrowHelper.ThrowArgumentNullException_value();
 			if (!(value is Instruction))
-				ThrowArgumentException();
+				ThrowHelper.ThrowArgumentException();
 			Insert(index, (Instruction)value);
 		}
 
@@ -239,7 +235,7 @@ namespace Iced.Intel {
 		public void RemoveAt(int index) {
 			var newCount = count;
 			if ((uint)index >= (uint)newCount)
-				ThrowArgumentOutOfRangeException(nameof(index));
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 			newCount--;
 			count = newCount;
 			int copyCount = newCount - index;
@@ -264,9 +260,9 @@ namespace Iced.Intel {
 		/// <param name="collection">Items to insert</param>
 		public void InsertRange(int index, IEnumerable<Instruction> collection) {
 			if ((uint)index > (uint)count)
-				ThrowArgumentOutOfRangeException(nameof(index));
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 			if (collection == null)
-				ThrowArgumentNullException(nameof(collection));
+				ThrowHelper.ThrowArgumentNullException_collection();
 			if (collection is InstructionList list) {
 				int list_count = list.count;
 				if (list_count != 0) {
@@ -310,11 +306,11 @@ namespace Iced.Intel {
 		/// <param name="count">Number of elements to remove</param>
 		public void RemoveRange(int index, int count) {
 			if (index < 0)
-				ThrowArgumentOutOfRangeException(nameof(index));
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 			if (count < 0)
-				ThrowArgumentOutOfRangeException(nameof(count));
+				ThrowHelper.ThrowArgumentOutOfRangeException_count();
 			if ((uint)index + (uint)count > (uint)this.count)
-				ThrowArgumentOutOfRangeException(nameof(count));
+				ThrowHelper.ThrowArgumentOutOfRangeException_count();
 			var newCount = this.count;
 			newCount -= count;
 			this.count = newCount;
@@ -343,9 +339,9 @@ namespace Iced.Intel {
 		void ICollection<Instruction>.Add(Instruction instruction) => Add(instruction);
 		int IList.Add(object value) {
 			if (value == null)
-				ThrowArgumentNullException(nameof(value));
+				ThrowHelper.ThrowArgumentNullException_value();
 			if (!(value is Instruction))
-				ThrowArgumentException();
+				ThrowHelper.ThrowArgumentException();
 			Add((Instruction)value);
 			return count - 1;
 		}
@@ -400,7 +396,7 @@ namespace Iced.Intel {
 		public int IndexOf(in Instruction instruction, int index) {
 			int count = this.count;
 			if ((uint)index > (uint)count)
-				ThrowArgumentOutOfRangeException(nameof(index));
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 			var elements = this.elements;
 			for (int i = index; i < count; i++) {
 				if (elements[i] == instruction)
@@ -418,12 +414,12 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public int IndexOf(in Instruction instruction, int index, int count) {
 			if (index < 0)
-				ThrowArgumentOutOfRangeException(nameof(index));
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 			if (count < 0)
-				ThrowArgumentOutOfRangeException(nameof(count));
+				ThrowHelper.ThrowArgumentOutOfRangeException_count();
 			int end = index + count;
 			if ((uint)end > (uint)this.count)
-				ThrowArgumentOutOfRangeException(nameof(count));
+				ThrowHelper.ThrowArgumentOutOfRangeException_count();
 			var elements = this.elements;
 			for (int i = index; i < end; i++) {
 				if (elements[i] == instruction)
@@ -454,7 +450,7 @@ namespace Iced.Intel {
 		public int LastIndexOf(in Instruction instruction, int index) {
 			int count = this.count;
 			if ((uint)index > (uint)count)
-				ThrowArgumentOutOfRangeException(nameof(index));
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 			var elements = this.elements;
 			for (int i = count - 1; i >= index; i--) {
 				if (elements[i] == instruction)
@@ -472,12 +468,12 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public int LastIndexOf(in Instruction instruction, int index, int count) {
 			if (index < 0)
-				ThrowArgumentOutOfRangeException(nameof(index));
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 			if (count < 0)
-				ThrowArgumentOutOfRangeException(nameof(count));
+				ThrowHelper.ThrowArgumentOutOfRangeException_count();
 			int end = index + count;
 			if ((uint)end > (uint)this.count)
-				ThrowArgumentOutOfRangeException(nameof(count));
+				ThrowHelper.ThrowArgumentOutOfRangeException_count();
 			var elements = this.elements;
 			for (int i = end - 1; i >= index; i--) {
 				if (elements[i] == instruction)
@@ -519,11 +515,11 @@ namespace Iced.Intel {
 		void ICollection<Instruction>.CopyTo(Instruction[] array, int arrayIndex) => CopyTo(array, arrayIndex);
 		void ICollection.CopyTo(Array array, int index) {
 			if (array == null)
-				ThrowArgumentNullException(nameof(array));
+				ThrowHelper.ThrowArgumentNullException_array();
 			else if (array is Instruction[] elemArray)
 				CopyTo(elemArray, index);
 			else
-				ThrowArgumentException();
+				ThrowHelper.ThrowArgumentException();
 		}
 
 		/// <summary>
@@ -544,11 +540,11 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public InstructionList GetRange(int index, int count) {
 			if (index < 0)
-				ThrowArgumentOutOfRangeException(nameof(index));
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 			if (count < 0)
-				ThrowArgumentOutOfRangeException(nameof(count));
+				ThrowHelper.ThrowArgumentOutOfRangeException_count();
 			if ((uint)index + (uint)count > (uint)this.count)
-				ThrowArgumentOutOfRangeException(nameof(count));
+				ThrowHelper.ThrowArgumentOutOfRangeException_count();
 			var list = new InstructionList(count);
 			Array.Copy(elements, index, list.elements, 0, count);
 			list.count = count;

@@ -21,7 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System;
 using System.Diagnostics;
 
 namespace Iced.Intel {
@@ -817,11 +816,9 @@ namespace Iced.Intel {
 		public static MemorySizeInfo GetInfo(this MemorySize memorySize) {
 			var infos = MemorySizeInfos;
 			if ((uint)memorySize >= (uint)infos.Length)
-				ThrowArgumentOutOfRangeException(nameof(memorySize));
+				ThrowHelper.ThrowArgumentOutOfRangeException_memorySize();
 			return infos[(int)memorySize];
 		}
-
-		static void ThrowArgumentOutOfRangeException(string paramName) => throw new ArgumentOutOfRangeException(paramName);
 
 		/// <summary>
 		/// Gets the size in bytes of the memory location or 0 if it's not accessed by the instruction or unknown or variable sized
@@ -930,11 +927,11 @@ namespace Iced.Intel {
 		/// <param name="isBroadcast">true if broadcast</param>
 		public MemorySizeInfo(MemorySize memorySize, int size, int elementSize, MemorySize elementType, bool isSigned, bool isBroadcast) {
 			if (size < 0)
-				throw new ArgumentOutOfRangeException(nameof(size));
+				ThrowHelper.ThrowArgumentOutOfRangeException_size();
 			if (elementSize < 0)
-				throw new ArgumentOutOfRangeException(nameof(elementSize));
+				ThrowHelper.ThrowArgumentOutOfRangeException_elementSize();
 			if (elementSize > size)
-				throw new ArgumentOutOfRangeException(nameof(elementSize));
+				ThrowHelper.ThrowArgumentOutOfRangeException_elementSize();
 			Debug.Assert(DecoderConstants.NumberOfMemorySizes <= byte.MaxValue + 1);
 			this.memorySize = (byte)memorySize;
 			Debug.Assert(size <= ushort.MaxValue);

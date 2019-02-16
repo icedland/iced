@@ -41,7 +41,7 @@ namespace Iced.Intel {
 			get => currentPosition - startPosition;
 			set {
 				if ((uint)value > (uint)Count)
-					throw new ArgumentOutOfRangeException(nameof(value));
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				currentPosition = startPosition + value;
 			}
 		}
@@ -69,7 +69,9 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="data">Data</param>
 		public ByteArrayCodeReader(byte[] data) {
-			this.data = data ?? throw new ArgumentNullException(nameof(data));
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			this.data = data;
 			currentPosition = 0;
 			startPosition = 0;
 			endPosition = data.Length;
@@ -82,13 +84,15 @@ namespace Iced.Intel {
 		/// <param name="index">Start index</param>
 		/// <param name="count">Number of bytes</param>
 		public ByteArrayCodeReader(byte[] data, int index, int count) {
-			this.data = data ?? throw new ArgumentNullException(nameof(data));
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			this.data = data;
 			if (index < 0)
-				throw new ArgumentOutOfRangeException(nameof(index));
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 			if (count < 0)
-				throw new ArgumentOutOfRangeException(nameof(count));
+				ThrowHelper.ThrowArgumentOutOfRangeException_count();
 			if ((uint)index + (uint)count > (uint)data.Length)
-				throw new ArgumentOutOfRangeException(nameof(count));
+				ThrowHelper.ThrowArgumentOutOfRangeException_count();
 			currentPosition = index;
 			startPosition = index;
 			endPosition = index + count;
@@ -99,7 +103,9 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="data">Data</param>
 		public ByteArrayCodeReader(ArraySegment<byte> data) {
-			this.data = data.Array ?? throw new ArgumentException();
+			if (data.Array == null)
+				ThrowHelper.ThrowArgumentException();
+			this.data = data.Array;
 			int offset = data.Offset;
 			currentPosition = offset;
 			startPosition = offset;

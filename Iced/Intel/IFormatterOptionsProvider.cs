@@ -177,8 +177,6 @@ namespace Iced.Intel {
 		/// </summary>
 		public bool SignExtendImmediate;
 
-		static void ThrowArgumentNullException_options() => throw new ArgumentNullException("options");
-
 		/// <summary>
 		/// Creates options used when formatting immediate values
 		/// </summary>
@@ -187,7 +185,7 @@ namespace Iced.Intel {
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static NumberFormattingOptions CreateImmediate(FormatterOptions options) {
 			if (options == null)
-				ThrowArgumentNullException_options();
+				ThrowHelper.ThrowArgumentNullException_options();
 			return new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedImmediateOperands, false);
 		}
 
@@ -199,7 +197,7 @@ namespace Iced.Intel {
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static NumberFormattingOptions CreateDisplacement(FormatterOptions options) {
 			if (options == null)
-				ThrowArgumentNullException_options();
+				ThrowHelper.ThrowArgumentNullException_options();
 			return new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedMemoryDisplacements, options.SignExtendMemoryDisplacements);
 		}
 
@@ -211,7 +209,7 @@ namespace Iced.Intel {
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static NumberFormattingOptions CreateBranch(FormatterOptions options) {
 			if (options == null)
-				ThrowArgumentNullException_options();
+				ThrowHelper.ThrowArgumentNullException_options();
 			return new NumberFormattingOptions(options, options.BranchLeadingZeroes, false, false);
 		}
 
@@ -224,7 +222,7 @@ namespace Iced.Intel {
 		/// <param name="signExtendImmediate">Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. 'mov al,[eax+12h]' vs 'mov al,[eax+00000012h]'</param>
 		public NumberFormattingOptions(FormatterOptions options, bool leadingZeroes, bool signedNumber, bool signExtendImmediate) {
 			if (options == null)
-				ThrowArgumentNullException_options();
+				ThrowHelper.ThrowArgumentNullException_options();
 #pragma warning disable CS0618 // Type or member is obsolete
 			ShortNumbers = !leadingZeroes;
 #pragma warning restore CS0618 // Type or member is obsolete

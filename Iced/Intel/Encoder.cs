@@ -173,7 +173,9 @@ namespace Iced.Intel {
 
 		Encoder(CodeWriter writer, int defaultCodeSize) {
 			Debug.Assert(defaultCodeSize == 16 || defaultCodeSize == 32 || defaultCodeSize == 64);
-			this.writer = writer ?? throw new ArgumentNullException(nameof(writer));
+			if (writer == null)
+				ThrowHelper.ThrowArgumentNullException_writer();
+			this.writer = writer;
 			this.defaultCodeSize = defaultCodeSize;
 			handlers = OpCodeHandlers.Handlers;
 		}
@@ -231,9 +233,12 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public uint Encode(ref Instruction instruction, ulong rip) {
 			if (!TryEncode(ref instruction, rip, out uint result, out var errorMessage))
-				throw new EncoderException(errorMessage, instruction);
+				ThrowEncoderException(ref instruction, errorMessage);
 			return result;
 		}
+
+		[MethodImpl(MethodImplOptions.NoInlining)]
+		static void ThrowEncoderException(ref Instruction instruction, string errorMessage) => throw new EncoderException(errorMessage, instruction);
 
 		/// <summary>
 		/// Encodes an instruction

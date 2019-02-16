@@ -239,9 +239,6 @@ namespace Iced.Intel {
 			return builder.ToString();
 		}
 
-		static void ThrowArgumentOutOfRangeException_value() => throw new ArgumentOutOfRangeException("value");
-		static void ThrowArgumentOutOfRangeException_operand() => throw new ArgumentOutOfRangeException("operand");
-
 		/// <summary>
 		/// 16-bit IP of the instruction
 		/// </summary>
@@ -333,7 +330,7 @@ namespace Iced.Intel {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set {
 				if ((uint)value >= (uint)DecoderConstants.NumberOfCodeValues)
-					ThrowArgumentOutOfRangeException_value();
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | (uint)value;
 			}
 		}
@@ -534,14 +531,14 @@ namespace Iced.Intel {
 			get => OpKind.Immediate8;
 			set {
 				if (value != OpKind.Immediate8)
-					ThrowArgumentOutOfRangeException_value();
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 			}
 		}
 		internal OpKind InternalOp4Kind {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set {
 				if (value != OpKind.Immediate8)
-					ThrowArgumentOutOfRangeException_value();
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 			}
 		}
 
@@ -558,7 +555,7 @@ namespace Iced.Intel {
 			case 3: return Op3Kind;
 			case 4: return Op4Kind;
 			default:
-				ThrowArgumentOutOfRangeException_operand();
+				ThrowHelper.ThrowArgumentOutOfRangeException_operand();
 				return 0;
 			}
 		}
@@ -575,7 +572,7 @@ namespace Iced.Intel {
 			case 2: Op2Kind = opKind; break;
 			case 3: Op3Kind = opKind; break;
 			case 4: Op4Kind = opKind; break;
-			default: ThrowArgumentOutOfRangeException_operand(); break;
+			default: ThrowHelper.ThrowArgumentOutOfRangeException_operand(); break;
 			}
 		}
 
@@ -1057,7 +1054,7 @@ namespace Iced.Intel {
 			get => Register.None;
 			set {
 				if (value != Register.None)
-					ThrowArgumentOutOfRangeException_value();
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 			}
 		}
 
@@ -1074,7 +1071,7 @@ namespace Iced.Intel {
 			case 3: return Op3Register;
 			case 4: return Op4Register;
 			default:
-				ThrowArgumentOutOfRangeException_operand();
+				ThrowHelper.ThrowArgumentOutOfRangeException_operand();
 				return 0;
 			}
 		}
@@ -1091,7 +1088,7 @@ namespace Iced.Intel {
 			case 2: Op2Register = register; break;
 			case 3: Op3Register = register; break;
 			case 4: Op4Register = register; break;
-			default: ThrowArgumentOutOfRangeException_operand(); break;
+			default: ThrowHelper.ThrowArgumentOutOfRangeException_operand(); break;
 			}
 		}
 

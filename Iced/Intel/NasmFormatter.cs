@@ -81,7 +81,9 @@ namespace Iced.Intel {
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
 		public NasmFormatter(NasmFormatterOptions options, ISymbolResolver symbolResolver = null, IFormatterOptionsProvider optionsProvider = null) {
-			this.options = options ?? throw new ArgumentNullException(nameof(options));
+			if (options == null)
+				ThrowHelper.ThrowArgumentNullException_options();
+			this.options = options;
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
 			allRegisters = Registers.AllRegisters;
@@ -176,7 +178,7 @@ namespace Iced.Intel {
 			instrInfo.GetOpInfo(options, ref instruction, out var opInfo);
 
 			if ((uint)operand >= (uint)opInfo.OpCount)
-				throw new ArgumentOutOfRangeException(nameof(operand));
+				ThrowHelper.ThrowArgumentOutOfRangeException_operand();
 			FormatOperand(ref instruction, output, ref opInfo, operand);
 		}
 

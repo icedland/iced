@@ -95,8 +95,6 @@ namespace Iced.Intel {
 			flags = (byte)(flags1 >> 27);
 		}
 
-		void ThrowArgumentOutOfRangeException(string paramName) => throw new ArgumentOutOfRangeException(paramName);
-
 		/// <summary>
 		/// Gets a struct iterator that returns all read and written registers. There are some exceptions, this method doesn't return all used registers:
 		/// 
@@ -283,7 +281,7 @@ namespace Iced.Intel {
 			case 3: return Op3Access;
 			case 4: return Op4Access;
 			default:
-				ThrowArgumentOutOfRangeException(nameof(operand));
+				ThrowHelper.ThrowArgumentOutOfRangeException_operand();
 				return 0;
 			}
 		}

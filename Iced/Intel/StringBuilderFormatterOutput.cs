@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
-using System;
 using System.Text;
 
 namespace Iced.Intel {
@@ -41,7 +40,11 @@ namespace Iced.Intel {
 		/// Constructor
 		/// </summary>
 		/// <param name="sb">String builder</param>
-		public StringBuilderFormatterOutput(StringBuilder sb) => this.sb = sb ?? throw new ArgumentNullException(nameof(sb));
+		public StringBuilderFormatterOutput(StringBuilder sb) {
+			if (sb == null)
+				ThrowHelper.ThrowArgumentNullException_sb();
+			this.sb = sb;
+		}
 
 		/// <summary>
 		/// Writes text and text kind

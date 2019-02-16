@@ -22,15 +22,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_ENCODER
-using System;
-
 namespace Iced.Intel.BlockEncoderInternal {
 	sealed class CodeWriterImpl : CodeWriter {
 		public uint BytesWritten;
 		readonly CodeWriter codeWriter;
 
-		public CodeWriterImpl(CodeWriter codeWriter) =>
-			this.codeWriter = codeWriter ?? throw new ArgumentNullException(nameof(codeWriter));
+		public CodeWriterImpl(CodeWriter codeWriter) {
+			if (codeWriter == null)
+				ThrowHelper.ThrowArgumentNullException_codeWriter();
+			this.codeWriter = codeWriter;
+		}
 
 		public override void WriteByte(byte value) {
 			BytesWritten++;
