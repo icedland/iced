@@ -23,13 +23,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_ENCODER
 using System;
-using System.Runtime.Serialization;
 
 namespace Iced.Intel {
 	/// <summary>
 	/// Thrown if the encoder can't encode an instruction
 	/// </summary>
+#if !NO_SERIALIZATION
 	[Serializable]
+#endif
 	public class EncoderException : Exception {
 		/// <summary>
 		/// The instruction that couldn't be encoded
@@ -43,12 +44,14 @@ namespace Iced.Intel {
 		/// <param name="instruction">Instruction</param>
 		public EncoderException(string message, in Instruction instruction) : base(message) => Instruction = instruction;
 
+#if !NO_SERIALIZATION
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="info"></param>
 		/// <param name="context"></param>
-		protected EncoderException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+		protected EncoderException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+#endif
 	}
 }
 #endif

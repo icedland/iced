@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netstandard2.0;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard1.4;net452</TargetFrameworks>
     <!-- It's not possible to target .NET Framework 3.5 when using dotnet build
          https://github.com/Microsoft/msbuild/issues/1333 -->
     <NoTargetFrameworkNet35 Condition=" '$(NoTargetFrameworkNet35)' == '' AND '$(MSBuildRuntimeType)' == 'Core' ">true</NoTargetFrameworkNet35>
@@ -50,7 +50,8 @@ License: MIT
   </ItemGroup>
 
   <PropertyGroup>
-    <DefineConstants Condition=" $(TargetFramework.StartsWith(netcoreapp)) OR ($(TargetFramework.StartsWith(netstandard)) AND '$(TargetFramework)' != 'netstandard2.0') ">$(DefineConstants);HAS_SPAN</DefineConstants>
+    <DefineConstants Condition=" $(TargetFramework.StartsWith(netstandard)) AND !$(TargetFramework.StartsWith(netstandard1.)) AND '$(TargetFramework)' != 'netstandard2.0' ">$(DefineConstants);HAS_SPAN</DefineConstants>
+    <DefineConstants Condition=" $(TargetFramework.StartsWith(netstandard1.)) ">$(DefineConstants);NO_SERIALIZATION</DefineConstants>
   </PropertyGroup>
 
 </Project>
