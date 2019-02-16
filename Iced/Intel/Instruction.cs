@@ -115,6 +115,7 @@ namespace Iced.Intel {
 		}
 
 		// All fields, size: 32 bytes with bits to spare
+		internal const int TOTAL_SIZE = 32;
 		// Next RIP is only needed by RIP relative memory operands. Without this field the user would have
 		// to pass this value to the formatter and encoder methods.
 		ulong nextRip;

@@ -494,5 +494,12 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 
 		static T[] GetEnumValues<T>() => (T[])Enum.GetValues(typeof(T));
+
+		[Fact]
+		unsafe void Verify_Instruction_size() {
+#pragma warning disable xUnit2000 // Constants and literals should be the expected argument
+			Assert.Equal(Instruction.TOTAL_SIZE, sizeof(Instruction));
+#pragma warning restore xUnit2000 // Constants and literals should be the expected argument
+		}
 	}
 }
