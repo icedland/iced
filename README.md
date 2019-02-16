@@ -405,7 +405,7 @@ Disassembled code:
                     Console.WriteLine($"{tab}Immediate offset = {offsets.ImmediateOffset}, size = {offsets.ImmediateSize}");
                 if (offsets.HasImmediate2)
                     Console.WriteLine($"{tab}Immediate #2 offset = {offsets.ImmediateOffset2}, size = {offsets.ImmediateSize2}");
-                if (instr.StackInstruction)
+                if (instr.IsStackInstruction)
                     Console.WriteLine($"{tab}SP Increment: {instr.StackPointerIncrement}");
                 if (instr.RflagsRead != RflagsBits.None)
                     Console.WriteLine($"{tab}RFLAGS Read: {instr.RflagsRead}");
