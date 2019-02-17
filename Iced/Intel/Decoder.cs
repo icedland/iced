@@ -55,6 +55,7 @@ namespace Iced.Intel {
 	public sealed partial class Decoder {
 		ulong instructionPointer;
 		readonly CodeReader reader;
+		readonly uint[] prefixes;
 		readonly OpCodeHandler[] handlers_XX;
 		readonly OpCodeHandler[] handlers_0FXX_VEX;
 		readonly OpCodeHandler[] handlers_0F38XX_VEX;
@@ -116,6 +117,31 @@ namespace Iced.Intel {
 		/// </summary>
 		public int Bitness { get; }
 
+		static readonly uint[] prefixes1632 = CreatePrefixes(false);
+		static readonly uint[] prefixes64 = CreatePrefixes(true);
+
+		static uint[] CreatePrefixes(bool is64) {
+			var data = new uint[0x100 / 32];
+			SetBit(data, 0x26);
+			SetBit(data, 0x2E);
+			SetBit(data, 0x36);
+			SetBit(data, 0x3E);
+			SetBit(data, 0x64);
+			SetBit(data, 0x65);
+			SetBit(data, 0x66);
+			SetBit(data, 0x67);
+			SetBit(data, 0xF0);
+			SetBit(data, 0xF2);
+			SetBit(data, 0xF3);
+			if (is64) {
+				for (int i = 0x40; i <= 0x4F; i++)
+					SetBit(data, i);
+			}
+			return data;
+
+			void SetBit(uint[] d, int b) => d[b / 32] |= 1U << (b & 31);
+		}
+
 		Decoder(CodeReader reader, DecoderOptions options, OpSize defaultOpSize) {
 			this.reader = reader ?? throw new ArgumentNullException(nameof(reader));
 			this.options = options;
@@ -128,6 +154,7 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size16;
 				defaultAddressSize = OpSize.Size64;
 				defaultInvertedAddressSize = OpSize.Size32;
+				prefixes = prefixes64;
 				handlers_XX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables.OneByteHandlers;
 				handlers_0FXX_VEX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_VEX.TwoByteHandlers_0FXX;
 				handlers_0F38XX_VEX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_VEX.ThreeByteHandlers_0F38XX;
@@ -152,6 +179,7 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = inverted;
 				defaultAddressSize = defaultOpSize;
 				defaultInvertedAddressSize = inverted;
+				prefixes = prefixes1632;
 				handlers_XX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables.OneByteHandlers;
 				handlers_0FXX_VEX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_VEX.TwoByteHandlers_0FXX;
 				handlers_0F38XX_VEX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_VEX.ThreeByteHandlers_0F38XX;
@@ -270,6 +298,9 @@ namespace Iced.Intel {
 			uint b;
 			for (;;) {
 				b = ReadByte();
+				// RyuJIT32: 2-5% faster, RyuJIT64: almost no improvement
+				if (((prefixes[(int)(b / 32)] >> ((int)b & 31)) & 1) == 0)
+					break;
 				// Converting these prefixes to opcode handlers instead of a switch results in slightly worse perf
 				// with JIT32, and about the same speed with 64-bit RyuJIT.
 				switch (b) {
