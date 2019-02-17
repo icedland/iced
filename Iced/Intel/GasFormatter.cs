@@ -86,18 +86,16 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public GasFormatter() : this(new GasFormatterOptions()) { }
+		public GasFormatter() : this(null) { }
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="options">Formatter options</param>
+		/// <param name="options">Formatter options or null</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
 		public GasFormatter(GasFormatterOptions options, ISymbolResolver symbolResolver = null, IFormatterOptionsProvider optionsProvider = null) {
-			if (options == null)
-				ThrowHelper.ThrowArgumentNullException_options();
-			this.options = options;
+			this.options = options ?? new GasFormatterOptions();
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
 			allRegisters = Registers.AllRegisters;
