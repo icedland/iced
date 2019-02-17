@@ -73,6 +73,11 @@ namespace Iced.Intel {
 		Register,
 
 		/// <summary>
+		/// A decorator, eg. 'sae' in '{sae}'
+		/// </summary>
+		Decorator,
+
+		/// <summary>
 		/// Selector value (eg. far jmp/call)
 		/// </summary>
 		SelectorValue,

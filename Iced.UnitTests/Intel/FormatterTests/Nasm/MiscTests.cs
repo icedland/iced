@@ -82,7 +82,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			Assert.False(options.UpperCaseMnemonics);
 			Assert.False(options.UpperCaseRegisters);
 			Assert.False(options.UpperCaseKeywords);
-			Assert.False(options.UpperCaseOther);
+			Assert.False(options.UpperCaseDecorators);
 			Assert.False(options.UpperCaseAll);
 			Assert.Equal(0, options.FirstOperandCharIndex);
 			Assert.Equal(0, options.TabSize);

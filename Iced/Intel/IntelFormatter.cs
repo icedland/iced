@@ -608,7 +608,7 @@ namespace Iced.Intel {
 				FormatRegister(output, instruction.OpMask);
 				output.Write("}", FormatterOutputTextKind.Punctuation);
 				if (instruction.ZeroingMasking)
-					FormatEvexMisc(output, "z");
+					FormatDecorator(output, "z");
 			}
 			if (operand == 0) {
 				var rc = instruction.RoundingControl;
@@ -620,10 +620,10 @@ namespace Iced.Intel {
 					Debug.Assert((int)RoundingControl.RoundTowardZero == 4);
 					var text = rcStrings[(int)rc];
 					if (text != null)
-						FormatEvexMisc(output, text);
+						FormatDecorator(output, text);
 				}
 				else if (instruction.SuppressAllExceptions)
-					FormatEvexMisc(output, "sae");
+					FormatDecorator(output, "sae");
 			}
 
 			output.OnOperand(operand, begin: false);
@@ -652,11 +652,11 @@ namespace Iced.Intel {
 			}
 		}
 
-		void FormatEvexMisc(FormatterOutput output, string text) {
-			if (options.UpperCaseOther || options.UpperCaseAll)
+		void FormatDecorator(FormatterOutput output, string text) {
+			if (options.UpperCaseDecorators || options.UpperCaseAll)
 				text = text.ToUpperInvariant();
 			output.Write("{", FormatterOutputTextKind.Punctuation);
-			output.Write(text, FormatterOutputTextKind.Text);
+			output.Write(text, FormatterOutputTextKind.Decorator);
 			output.Write("}", FormatterOutputTextKind.Punctuation);
 		}
 
@@ -866,7 +866,7 @@ namespace Iced.Intel {
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
 			var bcstTo = allMemorySizes[(int)memSize].bcstTo;
 			if (bcstTo != null)
-				FormatEvexMisc(output, bcstTo);
+				FormatDecorator(output, bcstTo);
 		}
 
 		void FormatMemorySize(FormatterOutput output, ref Instruction instr, ref SymbolResult symbol, MemorySize memSize, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions, bool useSymbol) {

@@ -596,23 +596,23 @@ namespace Iced.Intel {
 				break;
 
 			case InstrOpKind.Sae:
-				FormatEvexMisc(output, "sae");
+				FormatDecorator(output, "sae");
 				break;
 
 			case InstrOpKind.RnSae:
-				FormatEvexMisc(output, "rn-sae");
+				FormatDecorator(output, "rn-sae");
 				break;
 
 			case InstrOpKind.RdSae:
-				FormatEvexMisc(output, "rd-sae");
+				FormatDecorator(output, "rd-sae");
 				break;
 
 			case InstrOpKind.RuSae:
-				FormatEvexMisc(output, "ru-sae");
+				FormatDecorator(output, "ru-sae");
 				break;
 
 			case InstrOpKind.RzSae:
-				FormatEvexMisc(output, "rz-sae");
+				FormatDecorator(output, "rz-sae");
 				break;
 
 			default:
@@ -624,7 +624,7 @@ namespace Iced.Intel {
 				FormatRegister(output, instruction.OpMask);
 				output.Write("}", FormatterOutputTextKind.Punctuation);
 				if (instruction.ZeroingMasking)
-					FormatEvexMisc(output, "z");
+					FormatDecorator(output, "z");
 			}
 
 			output.OnOperand(operand, begin: false);
@@ -688,11 +688,11 @@ namespace Iced.Intel {
 			}
 		}
 
-		void FormatEvexMisc(FormatterOutput output, string text) {
-			if (options.UpperCaseOther || options.UpperCaseAll)
+		void FormatDecorator(FormatterOutput output, string text) {
+			if (options.UpperCaseDecorators || options.UpperCaseAll)
 				text = text.ToUpperInvariant();
 			output.Write("{", FormatterOutputTextKind.Punctuation);
-			output.Write(text, FormatterOutputTextKind.Text);
+			output.Write(text, FormatterOutputTextKind.Decorator);
 			output.Write("}", FormatterOutputTextKind.Punctuation);
 		}
 
@@ -931,7 +931,7 @@ namespace Iced.Intel {
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
 			var bcstTo = allMemorySizes[(int)memSize].bcstTo;
 			if (bcstTo != null)
-				FormatEvexMisc(output, bcstTo);
+				FormatDecorator(output, bcstTo);
 		}
 
 		void FormatMemorySize(FormatterOutput output, ref Instruction instr, MemorySize memSize, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions) {

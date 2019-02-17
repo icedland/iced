@@ -622,7 +622,7 @@ namespace Iced.Intel {
 				FormatRegister(output, instruction.OpMask);
 				output.Write("}", FormatterOutputTextKind.Punctuation);
 				if (instruction.ZeroingMasking)
-					FormatEvexMisc(output, "z");
+					FormatDecorator(output, "z");
 			}
 			if (operand + 1 == opInfo.OpCount) {
 				var rc = instruction.RoundingControl;
@@ -635,12 +635,12 @@ namespace Iced.Intel {
 					var text = rcStrings[(int)rc];
 					if (text != null) {
 						output.Write(" ", FormatterOutputTextKind.Text);
-						FormatEvexMisc(output, text);
+						FormatDecorator(output, text);
 					}
 				}
 				else if (instruction.SuppressAllExceptions) {
 					output.Write(" ", FormatterOutputTextKind.Text);
-					FormatEvexMisc(output, "sae");
+					FormatDecorator(output, "sae");
 				}
 			}
 
@@ -654,11 +654,11 @@ namespace Iced.Intel {
 			"rz-sae",
 		};
 
-		void FormatEvexMisc(FormatterOutput output, string text) {
-			if (options.UpperCaseOther || options.UpperCaseAll)
+		void FormatDecorator(FormatterOutput output, string text) {
+			if (options.UpperCaseDecorators || options.UpperCaseAll)
 				text = text.ToUpperInvariant();
 			output.Write("{", FormatterOutputTextKind.Punctuation);
-			output.Write(text, FormatterOutputTextKind.Text);
+			output.Write(text, FormatterOutputTextKind.Decorator);
 			output.Write("}", FormatterOutputTextKind.Punctuation);
 		}
 

@@ -51,9 +51,19 @@ namespace Iced.Intel {
 		public bool UpperCaseKeywords { get; set; }
 
 		/// <summary>
-		/// Upper case other stuff, eg. {z}, {sae}, {rd-sae}
+		/// Upper case decorators, eg. {z}, {sae}, {rd-sae}
 		/// </summary>
-		public bool UpperCaseOther { get; set; }
+		[Obsolete("Use " + nameof(UpperCaseDecorators) + " instead", false)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool UpperCaseOther {
+			get => UpperCaseDecorators;
+			set => UpperCaseDecorators = value;
+		}
+
+		/// <summary>
+		/// Upper case decorators, eg. {z}, {sae}, {rd-sae}
+		/// </summary>
+		public bool UpperCaseDecorators { get; set; }
 
 		/// <summary>
 		/// Everything is upper cased, except numbers and their prefixes/suffixes
