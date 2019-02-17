@@ -138,56 +138,56 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">Value</param>
 		/// <returns></returns>
-		public string FormatInt8(sbyte value) => FormatInt8(value, NumberFormattingOptions.CreateImmediate(Options));
+		public string FormatInt8(sbyte value) => FormatInt8(value, NumberFormattingOptions.CreateImmediateInternal(Options));
 
 		/// <summary>
 		/// Formats a <see cref="short"/>
 		/// </summary>
 		/// <param name="value">Value</param>
 		/// <returns></returns>
-		public string FormatInt16(short value) => FormatInt16(value, NumberFormattingOptions.CreateImmediate(Options));
+		public string FormatInt16(short value) => FormatInt16(value, NumberFormattingOptions.CreateImmediateInternal(Options));
 
 		/// <summary>
 		/// Formats a <see cref="int"/>
 		/// </summary>
 		/// <param name="value">Value</param>
 		/// <returns></returns>
-		public string FormatInt32(int value) => FormatInt32(value, NumberFormattingOptions.CreateImmediate(Options));
+		public string FormatInt32(int value) => FormatInt32(value, NumberFormattingOptions.CreateImmediateInternal(Options));
 
 		/// <summary>
 		/// Formats a <see cref="long"/>
 		/// </summary>
 		/// <param name="value">Value</param>
 		/// <returns></returns>
-		public string FormatInt64(long value) => FormatInt64(value, NumberFormattingOptions.CreateImmediate(Options));
+		public string FormatInt64(long value) => FormatInt64(value, NumberFormattingOptions.CreateImmediateInternal(Options));
 
 		/// <summary>
 		/// Formats a <see cref="byte"/>
 		/// </summary>
 		/// <param name="value">Value</param>
 		/// <returns></returns>
-		public string FormatUInt8(byte value) => FormatUInt8(value, NumberFormattingOptions.CreateImmediate(Options));
+		public string FormatUInt8(byte value) => FormatUInt8(value, NumberFormattingOptions.CreateImmediateInternal(Options));
 
 		/// <summary>
 		/// Formats a <see cref="ushort"/>
 		/// </summary>
 		/// <param name="value">Value</param>
 		/// <returns></returns>
-		public string FormatUInt16(ushort value) => FormatUInt16(value, NumberFormattingOptions.CreateImmediate(Options));
+		public string FormatUInt16(ushort value) => FormatUInt16(value, NumberFormattingOptions.CreateImmediateInternal(Options));
 
 		/// <summary>
 		/// Formats a <see cref="uint"/>
 		/// </summary>
 		/// <param name="value">Value</param>
 		/// <returns></returns>
-		public string FormatUInt32(uint value) => FormatUInt32(value, NumberFormattingOptions.CreateImmediate(Options));
+		public string FormatUInt32(uint value) => FormatUInt32(value, NumberFormattingOptions.CreateImmediateInternal(Options));
 
 		/// <summary>
 		/// Formats a <see cref="ulong"/>
 		/// </summary>
 		/// <param name="value">Value</param>
 		/// <returns></returns>
-		public string FormatUInt64(ulong value) => FormatUInt64(value, NumberFormattingOptions.CreateImmediate(Options));
+		public string FormatUInt64(ulong value) => FormatUInt64(value, NumberFormattingOptions.CreateImmediateInternal(Options));
 
 		/// <summary>
 		/// Formats a <see cref="sbyte"/>

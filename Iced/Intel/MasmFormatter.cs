@@ -385,7 +385,7 @@ namespace Iced.Intel {
 					immSize = 2;
 					imm64 = instruction.NearBranch16;
 				}
-				numberOptions = NumberFormattingOptions.CreateBranch(options);
+				numberOptions = NumberFormattingOptions.CreateBranchInternal(options);
 				operandOptions = options.ShowBranchSize ? FormatterOperandOptions.None : FormatterOperandOptions.NoBranchSize;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
@@ -416,7 +416,7 @@ namespace Iced.Intel {
 					immSize = 2;
 					imm64 = instruction.FarBranch16;
 				}
-				numberOptions = NumberFormattingOptions.CreateBranch(options);
+				numberOptions = NumberFormattingOptions.CreateBranchInternal(options);
 				operandOptions = options.ShowBranchSize ? FormatterOperandOptions.None : FormatterOperandOptions.NoBranchSize;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
@@ -455,7 +455,7 @@ namespace Iced.Intel {
 					imm8 = 3;
 				else
 					imm8 = instruction.Immediate8_2nd;
-				numberOptions = NumberFormattingOptions.CreateImmediate(options);
+				numberOptions = NumberFormattingOptions.CreateImmediateInternal(options);
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
@@ -482,7 +482,7 @@ namespace Iced.Intel {
 					imm16 = instruction.Immediate16;
 				else
 					imm16 = (ushort)instruction.Immediate8to16;
-				numberOptions = NumberFormattingOptions.CreateImmediate(options);
+				numberOptions = NumberFormattingOptions.CreateImmediateInternal(options);
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
@@ -509,7 +509,7 @@ namespace Iced.Intel {
 					imm32 = instruction.Immediate32;
 				else
 					imm32 = (uint)instruction.Immediate8to32;
-				numberOptions = NumberFormattingOptions.CreateImmediate(options);
+				numberOptions = NumberFormattingOptions.CreateImmediateInternal(options);
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
@@ -539,7 +539,7 @@ namespace Iced.Intel {
 					imm64 = (ulong)instruction.Immediate8to64;
 				else
 					imm64 = instruction.Immediate64;
-				numberOptions = NumberFormattingOptions.CreateImmediate(options);
+				numberOptions = NumberFormattingOptions.CreateImmediateInternal(options);
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instruction, ref operandOptions, ref numberOptions);
@@ -685,7 +685,7 @@ namespace Iced.Intel {
 			Debug.Assert((uint)scale < (uint)scaleNumbers.Length);
 			Debug.Assert(InstructionUtils.GetAddressSizeInBytes(baseReg, indexReg, displSize, instr.CodeSize) == addrSize);
 
-			var numberOptions = NumberFormattingOptions.CreateDisplacement(options);
+			var numberOptions = NumberFormattingOptions.CreateDisplacementInternal(options);
 			SymbolResult symbol;
 			bool useSymbol;
 

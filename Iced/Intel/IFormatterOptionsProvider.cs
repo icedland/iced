@@ -68,7 +68,7 @@ namespace Iced.Intel {
 		MemorySizeShift			= 30,
 
 		/// <summary>
-		/// MemorySizeXXX mask
+		/// MemorySizeXXX mask, use <see cref="FormatterOperandOptionsExtensions.WithMemorySize(FormatterOperandOptions, MemorySizeOptions)"/> to change this value
 		/// </summary>
 		MemorySizeMask			= 3U << (int)MemorySizeShift,
 
@@ -186,8 +186,12 @@ namespace Iced.Intel {
 		public static NumberFormattingOptions CreateImmediate(FormatterOptions options) {
 			if (options == null)
 				ThrowHelper.ThrowArgumentNullException_options();
-			return new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedImmediateOperands, false);
+			return CreateImmediateInternal(options);
 		}
+
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		internal static NumberFormattingOptions CreateImmediateInternal(FormatterOptions options) =>
+			new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedImmediateOperands, false);
 
 		/// <summary>
 		/// Creates options used when formatting displacements
@@ -198,8 +202,12 @@ namespace Iced.Intel {
 		public static NumberFormattingOptions CreateDisplacement(FormatterOptions options) {
 			if (options == null)
 				ThrowHelper.ThrowArgumentNullException_options();
-			return new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedMemoryDisplacements, options.SignExtendMemoryDisplacements);
+			return CreateDisplacementInternal(options);
 		}
+
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		internal static NumberFormattingOptions CreateDisplacementInternal(FormatterOptions options) =>
+			new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedMemoryDisplacements, options.SignExtendMemoryDisplacements);
 
 		/// <summary>
 		/// Creates options used when formatting branch operands
@@ -210,8 +218,12 @@ namespace Iced.Intel {
 		public static NumberFormattingOptions CreateBranch(FormatterOptions options) {
 			if (options == null)
 				ThrowHelper.ThrowArgumentNullException_options();
-			return new NumberFormattingOptions(options, options.BranchLeadingZeroes, false, false);
+			return CreateBranchInternal(options);
 		}
+
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		internal static NumberFormattingOptions CreateBranchInternal(FormatterOptions options) =>
+			new NumberFormattingOptions(options, options.BranchLeadingZeroes, false, false);
 
 		/// <summary>
 		/// Constructor
