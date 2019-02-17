@@ -688,23 +688,31 @@ namespace Iced.Intel {
 			bool useSymbol;
 
 			var operandOptions = (FormatterOperandOptions)((uint)options.MemorySizeOptions << (int)FormatterOperandOptions.MemorySizeShift);
+			if (options.RipRelativeAddresses)
+				operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
 			optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instr, ref operandOptions, ref numberOptions);
 
 			ulong absAddr;
 			if (baseReg == Register.RIP) {
 				absAddr = (ulong)((long)instr.NextIP + (int)displ);
-				if (options.RipRelativeAddresses)
-					operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
+				if ((operandOptions & FormatterOperandOptions.RipRelativeAddresses) == 0) {
+					Debug.Assert(indexReg == Register.None);
+					baseReg = Register.None;
+					displ = (long)absAddr;
+					displSize = 8;
+				}
 			}
 			else if (baseReg == Register.EIP) {
 				absAddr = instr.NextIP32 + (uint)displ;
-				if (options.RipRelativeAddresses)
-					operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
+				if ((operandOptions & FormatterOperandOptions.RipRelativeAddresses) == 0) {
+					Debug.Assert(indexReg == Register.None);
+					baseReg = Register.None;
+					displ = (long)absAddr;
+					displSize = 4;
+				}
 			}
-			else {
+			else
 				absAddr = (ulong)displ;
-				operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
-			}
 
 			var symbolResolver = this.symbolResolver;
 			if (symbolResolver != null)
@@ -712,21 +720,6 @@ namespace Iced.Intel {
 			else {
 				useSymbol = false;
 				symbol = default;
-			}
-
-			if ((operandOptions & FormatterOperandOptions.RipRelativeAddresses) == 0) {
-				if (baseReg == Register.RIP) {
-					Debug.Assert(indexReg == Register.None);
-					baseReg = Register.None;
-					displ = (long)absAddr;
-					displSize = 8;
-				}
-				else if (baseReg == Register.EIP) {
-					Debug.Assert(indexReg == Register.None);
-					baseReg = Register.None;
-					displ = (long)absAddr;
-					displSize = 4;
-				}
 			}
 
 			bool useScale = scale != 0 || options.AlwaysShowScale;

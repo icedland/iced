@@ -736,35 +736,15 @@ namespace Iced.Intel {
 			bool useSymbol;
 
 			var operandOptions = (FormatterOperandOptions)((uint)options.MemorySizeOptions << (int)FormatterOperandOptions.MemorySizeShift);
+			if (options.RipRelativeAddresses)
+				operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
 			optionsProvider?.GetOperandOptions(operand, instructionOperand, ref instr, ref operandOptions, ref numberOptions);
 
 			ulong absAddr;
+			bool addRelKeyword = false;
 			if (baseReg == Register.RIP) {
 				absAddr = (ulong)((long)instr.NextIP + (int)displ);
-				if (options.RipRelativeAddresses)
-					operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
-			}
-			else if (baseReg == Register.EIP) {
-				absAddr = instr.NextIP32 + (uint)displ;
-				if (options.RipRelativeAddresses)
-					operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
-			}
-			else {
-				absAddr = (ulong)displ;
-				operandOptions |= FormatterOperandOptions.RipRelativeAddresses;
-			}
-
-			var symbolResolver = this.symbolResolver;
-			if (symbolResolver != null)
-				useSymbol = symbolResolver.TryGetSymbol(operand, instructionOperand, ref instr, absAddr, addrSize, out symbol);
-			else {
-				useSymbol = false;
-				symbol = default;
-			}
-
-			bool addRelKeyword = false;
-			if ((operandOptions & FormatterOperandOptions.RipRelativeAddresses) == 0) {
-				if (baseReg == Register.RIP) {
+				if ((operandOptions & FormatterOperandOptions.RipRelativeAddresses) == 0) {
 					Debug.Assert(indexReg == Register.None);
 					baseReg = Register.None;
 					displ = (long)absAddr;
@@ -772,7 +752,10 @@ namespace Iced.Intel {
 					flags &= ~(InstrOpInfoFlags)((uint)InstrOpInfoFlags.MemorySizeInfoMask << (int)InstrOpInfoFlags.MemorySizeInfoShift);
 					addRelKeyword = true;
 				}
-				else if (baseReg == Register.EIP) {
+			}
+			else if (baseReg == Register.EIP) {
+				absAddr = instr.NextIP32 + (uint)displ;
+				if ((operandOptions & FormatterOperandOptions.RipRelativeAddresses) == 0) {
 					Debug.Assert(indexReg == Register.None);
 					baseReg = Register.None;
 					displ = (long)absAddr;
@@ -780,6 +763,16 @@ namespace Iced.Intel {
 					flags = (flags & ~(InstrOpInfoFlags)((uint)InstrOpInfoFlags.MemorySizeInfoMask << (int)InstrOpInfoFlags.MemorySizeInfoShift)) | (InstrOpInfoFlags)((int)NasmFormatterInternal.MemorySizeInfo.Dword << (int)InstrOpInfoFlags.MemorySizeInfoShift);
 					addRelKeyword = true;
 				}
+			}
+			else
+				absAddr = (ulong)displ;
+
+			var symbolResolver = this.symbolResolver;
+			if (symbolResolver != null)
+				useSymbol = symbolResolver.TryGetSymbol(operand, instructionOperand, ref instr, absAddr, addrSize, out symbol);
+			else {
+				useSymbol = false;
+				symbol = default;
 			}
 
 			bool useScale = scale != 0 || options.AlwaysShowScale;
