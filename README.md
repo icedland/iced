@@ -75,6 +75,7 @@ namespace Iced.Examples {
         static void Main(string[] args) {
             DecoderFormatterExample();
             EncoderExample();
+            CreateInstructionsExample();
             InstructionInfoExample();
         }
 
@@ -233,6 +234,82 @@ Disassembled code:
             readonly List<byte> allBytes = new List<byte>();
             public override void WriteByte(byte value) => allBytes.Add(value);
             public byte[] ToArray() => allBytes.ToArray();
+        }
+
+        /*
+         * This method produces the following output:
+Disassembled code:
+00007FFAC48ACDA4 push      rbp
+00007FFAC48ACDA5 push      rdi
+00007FFAC48ACDA6 push      rsi
+00007FFAC48ACDA7 sub       rsp,50h
+00007FFAC48ACDAE vzeroupper
+00007FFAC48ACDB1 lea       rbp,[rsp+60h]
+00007FFAC48ACDB6 mov       rsi,rcx
+00007FFAC48ACDB9 lea       rdi,[rbp-38h]
+00007FFAC48ACDBD mov       ecx,0Ah
+00007FFAC48ACDC2 xor       eax,eax
+00007FFAC48ACDC4 rep stosd
+00007FFAC48ACDC6 mov       rcx,rsi
+00007FFAC48ACDC9 mov       [rbp+10h],rcx
+00007FFAC48ACDCD mov       [rbp+18h],rdx
+         */
+        static void CreateInstructionsExample() {
+            const int bitness = 64;
+
+            var instructions = new InstructionList();
+            // push    rbp
+            instructions.Add(Instruction.Create(Code.Push_r64, Register.RBP));
+            // push    rdi
+            instructions.Add(Instruction.Create(Code.Push_r64, Register.RDI));
+            // push    rsi
+            instructions.Add(Instruction.Create(Code.Push_r64, Register.RSI));
+            // sub     rsp,50h
+            instructions.Add(Instruction.Create(Code.Sub_rm64_imm32, Register.RSP, 0x50));
+            // vzeroupper
+            instructions.Add(Instruction.Create(Code.VEX_Vzeroupper));
+            // lea     rbp,[rsp+60h]
+            instructions.Add(Instruction.Create(Code.Lea_r64_m, Register.RBP, new MemoryOperand(Register.RSP, 0x60)));
+            // mov     rsi,rcx
+            instructions.Add(Instruction.Create(Code.Mov_r64_rm64, Register.RSI, Register.RCX));
+            // lea     rdi,[rbp-38h]
+            instructions.Add(Instruction.Create(Code.Lea_r64_m, Register.RDI, new MemoryOperand(Register.RBP, -0x38)));
+            // mov     ecx,0Ah
+            instructions.Add(Instruction.Create(Code.Mov_r32_imm32, Register.ECX, 0x0A));
+            // xor     eax,eax
+            instructions.Add(Instruction.Create(Code.Xor_r32_rm32, Register.EAX, Register.EAX));
+            // rep stosd
+            instructions.Add(Instruction.CreateStosd(bitness, RepPrefixKind.Rep));
+            // mov     rcx,rsi
+            instructions.Add(Instruction.Create(Code.Mov_r64_rm64, Register.RCX, Register.RSI));
+            // mov     [rbp+10h],rcx
+            instructions.Add(Instruction.Create(Code.Mov_rm64_r64, new MemoryOperand(Register.RBP, 0x10), Register.RCX));
+            // mov     [rbp+18h],rdx
+            instructions.Add(Instruction.Create(Code.Mov_rm64_r64, new MemoryOperand(Register.RBP, 0x18), Register.RDX));
+
+            var codeWriter = new CodeWriterImpl();
+            ulong relocatedBaseAddress = exampleCodeRIP + 0x200000;
+            var block = new InstructionBlock(codeWriter, instructions, relocatedBaseAddress);
+            bool success = BlockEncoder.TryEncode(bitness, block, out var errorMessage);
+            if (!success) {
+                Console.WriteLine($"ERROR: {errorMessage}");
+                return;
+            }
+
+            var newCode = codeWriter.ToArray();
+            Console.WriteLine("Disassembled code:");
+            var formatter = new NasmFormatter();
+            formatter.Options.DigitSeparator = "`";
+            formatter.Options.FirstOperandCharIndex = 10;
+            var output = new StringBuilderFormatterOutput();
+            var newDecoder = Decoder.Create(bitness, new ByteArrayCodeReader(newCode));
+            newDecoder.IP = block.RIP;
+            ulong endRip = newDecoder.IP + (uint)newCode.Length;
+            while (newDecoder.IP < endRip) {
+                newDecoder.Decode(out var instr);
+                formatter.Format(ref instr, output);
+                Console.WriteLine($"{instr.IP:X16} {output.ToStringAndReset()}");
+            }
         }
 
         /*
@@ -419,16 +496,16 @@ Disassembled code:
                     Console.WriteLine($"{tab}RFLAGS Undefined: {instr.RflagsUndefined}");
                 if (instr.RflagsModified != RflagsBits.None)
                     Console.WriteLine($"{tab}RFLAGS Modified: {instr.RflagsModified}");
-				for (int i = 0; i < instr.OpCount; i++) {
-					var opKind = instr.GetOpKind(i);
-					if (opKind == OpKind.Memory || opKind == OpKind.Memory64) {
-						int size = instr.MemorySize.GetSize();
-						if (size != 0)
-							Console.WriteLine($"{tab}Memory size: {size}");
-						break;
-					}
-				}
-				for (int i = 0; i < instr.OpCount; i++)
+                for (int i = 0; i < instr.OpCount; i++) {
+                    var opKind = instr.GetOpKind(i);
+                    if (opKind == OpKind.Memory || opKind == OpKind.Memory64) {
+                        int size = instr.MemorySize.GetSize();
+                        if (size != 0)
+                            Console.WriteLine($"{tab}Memory size: {size}");
+                        break;
+                    }
+                }
+                for (int i = 0; i < instr.OpCount; i++)
                     Console.WriteLine($"{tab}Op{i}Access: {info.GetOpAccess(i)}");
                 // The returned iterator is a struct, nothing is allocated unless you box it
                 foreach (var regInfo in info.GetUsedRegisters())
