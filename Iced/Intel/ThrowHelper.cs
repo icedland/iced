@@ -26,48 +26,30 @@ using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
 	static class ThrowHelper {
-		[MethodImpl(MethodImplOptions.NoInlining)]
+		// NOTE: NoInlining is not used because RyuJIT doesn't move the method call to the end of the caller's method
+
 		internal static void ThrowArgumentException() => throw new ArgumentException();
 
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowInvalidOperationException() => throw new InvalidOperationException();
 
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentNullException_codeWriter() => throw new ArgumentNullException("codeWriter");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentNullException_data() => throw new ArgumentNullException("data");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentNullException_writer() => throw new ArgumentNullException("writer");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentNullException_options() => throw new ArgumentNullException("options");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentNullException_value() => throw new ArgumentNullException("value");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentNullException_list() => throw new ArgumentNullException("list");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentNullException_collection() => throw new ArgumentNullException("collection");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentNullException_array() => throw new ArgumentNullException("array");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentNullException_sb() => throw new ArgumentNullException("sb");
 
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentOutOfRangeException_value() => throw new ArgumentOutOfRangeException("value");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentOutOfRangeException_index() => throw new ArgumentOutOfRangeException("index");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentOutOfRangeException_count() => throw new ArgumentOutOfRangeException("count");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentOutOfRangeException_operand() => throw new ArgumentOutOfRangeException("operand");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentOutOfRangeException_capacity() => throw new ArgumentOutOfRangeException("capacity");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentOutOfRangeException_memorySize() => throw new ArgumentOutOfRangeException("memorySize");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentOutOfRangeException_size() => throw new ArgumentOutOfRangeException("size");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentOutOfRangeException_elementSize() => throw new ArgumentOutOfRangeException("elementSize");
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		internal static void ThrowArgumentOutOfRangeException_register() => throw new ArgumentOutOfRangeException("register");
 	}
 }
