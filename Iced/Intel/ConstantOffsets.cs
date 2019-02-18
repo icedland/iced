@@ -61,6 +61,12 @@ namespace Iced.Intel {
 		/// </summary>
 		public byte ImmediateSize2;
 
+#pragma warning disable CS0169
+		// pad to 8 bytes so the jitter can generate better code
+		byte pad1;
+		byte pad2;
+#pragma warning restore CS0169
+
 		/// <summary>
 		/// true if <see cref="DisplacementOffset"/> is valid
 		/// </summary>

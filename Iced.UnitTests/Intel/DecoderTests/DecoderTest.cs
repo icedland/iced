@@ -162,7 +162,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				var vs = s.Split(coSeps);
 				if (vs.Length != 6)
 					throw new InvalidOperationException();
-				ConstantOffsets co;
+				ConstantOffsets co = default;
 				co.ImmediateOffset = byte.Parse(vs[0]);
 				co.ImmediateSize = byte.Parse(vs[1]);
 				co.ImmediateOffset2 = byte.Parse(vs[2]);
