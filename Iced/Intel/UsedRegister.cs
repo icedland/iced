@@ -22,25 +22,23 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_INSTR_INFO
-using System.Diagnostics;
-
 namespace Iced.Intel {
 	/// <summary>
 	/// A register used by an instruction
 	/// </summary>
 	public readonly struct UsedRegister {
-		readonly byte register;
-		readonly byte access;
+		readonly Register register;
+		readonly OpAccess access;
 
 		/// <summary>
 		/// Register
 		/// </summary>
-		public Register Register => (Register)register;
+		public Register Register => register;
 
 		/// <summary>
 		/// Register access
 		/// </summary>
-		public OpAccess Access => (OpAccess)access;
+		public OpAccess Access => access;
 
 		/// <summary>
 		/// Constructor
@@ -48,10 +46,8 @@ namespace Iced.Intel {
 		/// <param name="register">Register</param>
 		/// <param name="access">Register access</param>
 		public UsedRegister(Register register, OpAccess access) {
-			Debug.Assert((uint)register <= byte.MaxValue);
-			this.register = (byte)register;
-			Debug.Assert((uint)access <= byte.MaxValue);
-			this.access = (byte)access;
+			this.register = register;
+			this.access = access;
 		}
 
 		/// <summary>

@@ -40,16 +40,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 			OpAccess.ReadWrite,
 		};
 
-		internal static readonly OpAccess[] Op3Accesses = new OpAccess[(int)OpInfo3.Last] {
-			OpAccess.None,
-			OpAccess.Read,
-		};
-
-		internal static readonly OpAccess[] Op4Accesses = new OpAccess[(int)OpInfo4.Last] {
-			OpAccess.None,
-			OpAccess.Read,
-		};
-
 		const uint Encoding_Legacy = (uint)EncodingKind.Legacy << (int)InfoFlags2.EncodingShift;
 		const uint Encoding_VEX = (uint)EncodingKind.VEX << (int)InfoFlags2.EncodingShift;
 		const uint Encoding_EVEX = (uint)EncodingKind.EVEX << (int)InfoFlags2.EncodingShift;

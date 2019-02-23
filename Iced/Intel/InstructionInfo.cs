@@ -26,24 +26,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using Iced.Intel.InstructionInfoInternal;
 
 namespace Iced.Intel {
 	/// <summary>
 	/// Contains information about an instruction, eg. read/written registers, read/written RFLAGS bits, CPUID feature bit, etc
 	/// </summary>
-	public readonly struct InstructionInfo {
-		readonly UsedRegister[] usedRegisters;
-		readonly UsedMemory[] usedMemoryLocations;
-		readonly ushort usedRegistersLength;
-		readonly ushort usedMemoryLocationsLength;
-		readonly ushort opMaskFlags;
-		readonly byte cpuidFeature;
-		readonly byte flowControl;
-		readonly byte encoding;
-		readonly byte rflagsInfo;
-		readonly byte flags;
+	public struct InstructionInfo {
+		internal UsedRegister[] usedRegisters;
+		internal UsedMemory[] usedMemoryLocations;
+		internal ushort usedRegistersLength;
+		internal ushort usedMemoryLocationsLength;
+		internal ushort opMaskFlags;
+		internal byte cpuidFeature;
+		internal byte flowControl;
+		internal byte encoding;
+		internal byte rflagsInfo;
+		internal byte flags;
 
 		[Flags]
 		internal enum OpMaskFlags : ushort {
@@ -55,44 +54,11 @@ namespace Iced.Intel {
 		}
 
 		[Flags]
-		enum Flags : byte {
+		internal enum Flags : byte {
 			SaveRestore				= 0x01,
 			StackInstruction		= 0x02,
 			ProtectedMode			= 0x04,
 			Privileged				= 0x08,
-		}
-
-		internal InstructionInfo(ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, uint opMaskFlags, RflagsInfo rflagsInfo, uint flags1, uint flags2) {
-			Debug.Assert(DecoderConstants.MaxOpCount == 5);
-			Debug.Assert(usedRegisters.Array != null);
-			this.usedRegisters = usedRegisters.Array;
-			Debug.Assert(usedMemoryLocations.Array != null);
-			this.usedMemoryLocations = usedMemoryLocations.Array;
-			Debug.Assert((uint)usedRegisters.ValidLength <= ushort.MaxValue);
-			usedRegistersLength = (ushort)usedRegisters.ValidLength;
-			Debug.Assert((uint)usedMemoryLocations.ValidLength <= ushort.MaxValue);
-			usedMemoryLocationsLength = (ushort)usedMemoryLocations.ValidLength;
-			this.opMaskFlags = (ushort)opMaskFlags;
-			Debug.Assert(((flags2 >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask) <= byte.MaxValue);
-			cpuidFeature = (byte)((flags2 >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask);
-			Debug.Assert(((flags2 >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask) <= byte.MaxValue);
-			flowControl = (byte)((flags2 >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask);
-			Debug.Assert(((flags2 >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask) <= byte.MaxValue);
-			encoding = (byte)((flags2 >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask);
-			Debug.Assert((uint)rflagsInfo <= byte.MaxValue);
-			Debug.Assert((uint)rflagsInfo < (uint)RflagsInfo.Last);
-			this.rflagsInfo = (byte)rflagsInfo;
-
-			Debug.Assert((uint)InfoFlags1.SaveRestore == 0x08000000);
-			Debug.Assert((uint)InfoFlags1.StackInstruction == 0x10000000);
-			Debug.Assert((uint)InfoFlags1.ProtectedMode == 0x20000000);
-			Debug.Assert((uint)InfoFlags1.Privileged == 0x40000000);
-			Debug.Assert((uint)Flags.SaveRestore == 0x01);
-			Debug.Assert((uint)Flags.StackInstruction == 0x02);
-			Debug.Assert((uint)Flags.ProtectedMode == 0x04);
-			Debug.Assert((uint)Flags.Privileged == 0x08);
-			// Bit 4 could be set but we don't use it so we don't need to mask it out
-			flags = (byte)(flags1 >> 27);
 		}
 
 		/// <summary>

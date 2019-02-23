@@ -478,6 +478,10 @@ namespace Iced.Intel {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => opKindFlags |= (uint)value;
 		}
+		internal bool Internal_Op0IsNotReg_or_Op0IsNotReg {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => (opKindFlags & ((uint)OpKindFlags.OpKindMask | ((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op1KindShift))) != 0;
+		}
 
 		/// <summary>
 		/// Gets operand #1's kind if the operand exists (see <see cref="OpCount"/>)

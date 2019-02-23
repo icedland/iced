@@ -94,17 +94,14 @@ namespace Iced.Intel {
 		public InstructionInfo GetInfo(ref Instruction instruction, InstructionInfoOptions options) =>
 			Create(ref instruction, ref usedRegisters, ref usedMemoryLocations, options);
 
-#if !HAS_SPAN
-		unsafe
-#endif
-		internal static InstructionInfo Create(ref Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, InstructionInfoOptions options) {
+		internal static unsafe InstructionInfo Create(ref Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, InstructionInfoOptions options) {
 			usedRegisters.ValidLength = 0;
 			usedMemoryLocations.ValidLength = 0;
 
-			var code = instruction.Code;
-			var index = (int)code << 1;
-			var flags1 = InfoHandlers.Data[index];
-			var flags2 = InfoHandlers.Data[index + 1];
+			var data = InfoHandlers.Data;
+			var index = (uint)instruction.Code << 1;
+			var flags1 = data[(int)index];
+			var flags2 = data[(int)index + 1];
 
 			if ((flags2 & (uint)InfoFlags2.AVX2_Check) != 0 && instruction.Op1Kind == OpKind.Register) {
 				flags2 = (flags2 & ~((uint)InfoFlags2.CpuidFeatureMask << (int)InfoFlags2.CpuidFeatureShift)) |
@@ -166,28 +163,24 @@ namespace Iced.Intel {
 				break;
 
 			case OpInfo0.WriteMem_ReadWriteReg:
-				if (instruction.Op0Kind != OpKind.Register || instruction.Op1Kind != OpKind.Register)
+				if (instruction.Internal_Op0IsNotReg_or_Op0IsNotReg)
 					op0Access = OpAccess.Write;
 				else
 					op0Access = OpAccess.ReadWrite;
 				break;
 			}
 
-			var rflagsInfo = (RflagsInfo)((flags1 >> (int)InfoFlags1.RflagsInfoShift) & (uint)InfoFlags1.RflagsInfoMask);
-
-			var op1info = (OpInfo1)((flags2 >> (int)InfoFlags2.OpInfo1Shift) & (uint)InfoFlags2.OpInfo1Mask);
 			Debug.Assert(instruction.OpCount <= DecoderConstants.MaxOpCount);
-#if HAS_SPAN
-			Span<OpAccess> accesses = stackalloc OpAccess[DecoderConstants.MaxOpCount] {
-#else
-			var accesses = stackalloc OpAccess[DecoderConstants.MaxOpCount] {
-#endif
-				op0Access,
-				InfoHandlers.Op1Accesses[(int)op1info],
-				InfoHandlers.Op2Accesses[(int)((flags2 >> (int)InfoFlags2.OpInfo2Shift) & (uint)InfoFlags2.OpInfo2Mask)],
-				InfoHandlers.Op3Accesses[(int)((flags2 >> (int)InfoFlags2.OpInfo3Shift) & (uint)InfoFlags2.OpInfo3Mask)],
-				InfoHandlers.Op4Accesses[(int)((flags2 >> (int)InfoFlags2.OpInfo4Shift) & (uint)InfoFlags2.OpInfo4Mask)],
-			};
+			var accesses = stackalloc OpAccess[DecoderConstants.MaxOpCount];
+			accesses[0] = op0Access;
+			var op1info = (OpInfo1)((flags2 >> (int)InfoFlags2.OpInfo1Shift) & (uint)InfoFlags2.OpInfo1Mask);
+			accesses[1] = InfoHandlers.Op1Accesses[(int)op1info];
+			accesses[2] = InfoHandlers.Op2Accesses[(int)((flags2 >> (int)InfoFlags2.OpInfo2Shift) & (uint)InfoFlags2.OpInfo2Mask)];
+			if ((flags2 & (((uint)InfoFlags2.OpInfo3Mask) << (int)InfoFlags2.OpInfo3Shift)) != 0)
+				accesses[3] = OpAccess.Read;
+			if ((flags2 & (((uint)InfoFlags2.OpInfo4Mask) << (int)InfoFlags2.OpInfo4Shift)) != 0)
+				accesses[4] = OpAccess.Read;
+			Debug.Assert(DecoderConstants.MaxOpCount == 5);
 
 			int opCount = instruction.OpCount;
 			for (int i = 0; i < opCount; i++) {
@@ -216,7 +209,7 @@ namespace Iced.Intel {
 
 				case OpKind.Memory64:
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, instruction.MemorySegment, Register.None, Register.None, 1, instruction.MemoryAddress64, instruction.MemorySize, access);
+						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, Register.None, Register.None, 1, instruction.MemoryAddress64, instruction.MemorySize, access);
 					if ((flags & Flags.NoRegisterUsage) == 0)
 						AddMemorySegmentRegister(flags, ref usedRegisters, instruction.MemorySegment, OpAccess.Read);
 					break;
@@ -228,13 +221,13 @@ namespace Iced.Intel {
 					var baseReg = instruction.MemoryBase;
 					if (baseReg == Register.RIP) {
 						if ((flags & Flags.NoMemoryUsage) == 0)
-							AddMemory(flags, ref usedMemoryLocations, segReg, Register.None, Register.None, 1, instruction.NextIP + (ulong)(int)instruction.MemoryDisplacement, instruction.MemorySize, access);
+							AddMemory(ref usedMemoryLocations, segReg, Register.None, Register.None, 1, instruction.NextIP + (ulong)(int)instruction.MemoryDisplacement, instruction.MemorySize, access);
 						if ((flags & Flags.NoRegisterUsage) == 0 && segReg != Register.None)
 							AddMemorySegmentRegister(flags, ref usedRegisters, segReg, OpAccess.Read);
 					}
 					else if (baseReg == Register.EIP) {
 						if ((flags & Flags.NoMemoryUsage) == 0)
-							AddMemory(flags, ref usedMemoryLocations, segReg, Register.None, Register.None, 1, instruction.NextIP32 + instruction.MemoryDisplacement, instruction.MemorySize, access);
+							AddMemory(ref usedMemoryLocations, segReg, Register.None, Register.None, 1, instruction.NextIP32 + instruction.MemoryDisplacement, instruction.MemorySize, access);
 						if ((flags & Flags.NoRegisterUsage) == 0 && segReg != Register.None)
 							AddMemorySegmentRegister(flags, ref usedRegisters, segReg, OpAccess.Read);
 					}
@@ -246,7 +239,7 @@ namespace Iced.Intel {
 						else
 							displ = instruction.MemoryDisplacement;
 						if ((flags & Flags.NoMemoryUsage) == 0)
-							AddMemory(flags, ref usedMemoryLocations, segReg, baseReg, indexReg, instruction.MemoryIndexScale, displ, instruction.MemorySize, access);
+							AddMemory(ref usedMemoryLocations, segReg, baseReg, indexReg, instruction.MemoryIndexScale, displ, instruction.MemorySize, access);
 						if ((flags & Flags.NoRegisterUsage) == 0) {
 							if (segReg != Register.None)
 								AddMemorySegmentRegister(flags, ref usedRegisters, segReg, OpAccess.Read);
@@ -260,6 +253,7 @@ namespace Iced.Intel {
 				}
 			}
 
+			var rflagsInfo = (RflagsInfo)((flags1 >> (int)InfoFlags1.RflagsInfoShift) & (uint)InfoFlags1.RflagsInfoMask);
 			var codeInfo = (CodeInfo)((flags1 >> (int)InfoFlags1.CodeInfoShift) & (uint)InfoFlags1.CodeInfoMask);
 			if (codeInfo != CodeInfo.None)
 				CodeInfoHandler(codeInfo, ref instruction, ref usedRegisters, ref usedMemoryLocations, ref rflagsInfo, flags, accesses);
@@ -267,13 +261,43 @@ namespace Iced.Intel {
 			if (instruction.HasOpMask && (flags & Flags.NoRegisterUsage) == 0)
 				AddRegister(flags, ref usedRegisters, instruction.OpMask, (flags2 & (uint)InfoFlags2.OpMaskRegReadWrite) != 0 ? OpAccess.ReadWrite : OpAccess.Read);
 
-			uint opMaskFlags = (uint)accesses[0] |
+			// Inlined ctor
+			InstructionInfo result;
+			Debug.Assert(DecoderConstants.MaxOpCount == 5);
+			Debug.Assert(usedRegisters.Array != null);
+			result.usedRegisters = usedRegisters.Array;
+			Debug.Assert(usedMemoryLocations.Array != null);
+			result.usedMemoryLocations = usedMemoryLocations.Array;
+			Debug.Assert((uint)usedRegisters.ValidLength <= ushort.MaxValue);
+			result.usedRegistersLength = (ushort)usedRegisters.ValidLength;
+			Debug.Assert((uint)usedMemoryLocations.ValidLength <= ushort.MaxValue);
+			result.usedMemoryLocationsLength = (ushort)usedMemoryLocations.ValidLength;
+			result.opMaskFlags = (ushort)((uint)accesses[0] |
 				((uint)accesses[1] << (int)InstructionInfo.OpMaskFlags.Op1AccessShift) |
 				((uint)accesses[2] << (int)InstructionInfo.OpMaskFlags.Op2AccessShift) |
 				((uint)accesses[3] << (int)InstructionInfo.OpMaskFlags.Op3AccessShift) |
-				((uint)accesses[4] << (int)InstructionInfo.OpMaskFlags.Op4AccessShift);
+				((uint)accesses[4] << (int)InstructionInfo.OpMaskFlags.Op4AccessShift));
+			Debug.Assert(((flags2 >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask) <= byte.MaxValue);
+			result.cpuidFeature = (byte)((flags2 >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask);
+			Debug.Assert(((flags2 >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask) <= byte.MaxValue);
+			result.flowControl = (byte)((flags2 >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask);
+			Debug.Assert(((flags2 >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask) <= byte.MaxValue);
+			result.encoding = (byte)((flags2 >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask);
+			Debug.Assert((uint)rflagsInfo <= byte.MaxValue);
+			Debug.Assert((uint)rflagsInfo < (uint)RflagsInfo.Last);
+			result.rflagsInfo = (byte)rflagsInfo;
 
-			return new InstructionInfo(ref usedRegisters, ref usedMemoryLocations, opMaskFlags, rflagsInfo, flags1, flags2);
+			Debug.Assert((uint)InfoFlags1.SaveRestore == 0x08000000);
+			Debug.Assert((uint)InfoFlags1.StackInstruction == 0x10000000);
+			Debug.Assert((uint)InfoFlags1.ProtectedMode == 0x20000000);
+			Debug.Assert((uint)InfoFlags1.Privileged == 0x40000000);
+			Debug.Assert((uint)InstructionInfo.Flags.SaveRestore == 0x01);
+			Debug.Assert((uint)InstructionInfo.Flags.StackInstruction == 0x02);
+			Debug.Assert((uint)InstructionInfo.Flags.ProtectedMode == 0x04);
+			Debug.Assert((uint)InstructionInfo.Flags.Privileged == 0x08);
+			// Bit 4 could be set but we don't use it so we don't need to mask it out
+			result.flags = (byte)(flags1 >> 27);
+			return result;
 		}
 
 		static Register GetXSP(CodeSize codeSize, out ulong xspMask) {
@@ -290,11 +314,7 @@ namespace Iced.Intel {
 			return Register.SP;
 		}
 
-#if HAS_SPAN
-		static void CodeInfoHandler(CodeInfo codeInfo, ref Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, ref RflagsInfo rflagsInfo, Flags flags, Span<OpAccess> accesses) {
-#else
 		static unsafe void CodeInfoHandler(CodeInfo codeInfo, ref Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, ref RflagsInfo rflagsInfo, Flags flags, OpAccess* accesses) {
-#endif
 			Debug.Assert(codeInfo != CodeInfo.None);
 			ulong xspMask;
 			ulong displ;
@@ -380,7 +400,7 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFFE & xspMask, MemorySize.UInt16, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFFE & xspMask, MemorySize.UInt16, OpAccess.Write);
 				break;
 
 			case CodeInfo.Push_4:
@@ -391,7 +411,7 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFFC & xspMask, MemorySize.UInt32, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFFC & xspMask, MemorySize.UInt32, OpAccess.Write);
 				break;
 
 			case CodeInfo.Push_8:
@@ -402,7 +422,7 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFF8 & xspMask, MemorySize.UInt64, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFF8 & xspMask, MemorySize.UInt64, OpAccess.Write);
 				break;
 
 			case CodeInfo.Push_2_2:
@@ -413,8 +433,8 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0) {
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFFE & xspMask, MemorySize.UInt16, OpAccess.Write);
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFFC & xspMask, MemorySize.UInt16, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFFE & xspMask, MemorySize.UInt16, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFFC & xspMask, MemorySize.UInt16, OpAccess.Write);
 				}
 				break;
 
@@ -426,8 +446,8 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0) {
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFFC & xspMask, MemorySize.UInt32, OpAccess.Write);
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFF8 & xspMask, MemorySize.UInt32, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFFC & xspMask, MemorySize.UInt32, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFF8 & xspMask, MemorySize.UInt32, OpAccess.Write);
 				}
 				break;
 
@@ -439,8 +459,8 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0) {
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFF8 & xspMask, MemorySize.UInt64, OpAccess.Write);
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFF0 & xspMask, MemorySize.UInt64, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFF8 & xspMask, MemorySize.UInt64, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFF0 & xspMask, MemorySize.UInt64, OpAccess.Write);
 				}
 				break;
 
@@ -452,7 +472,7 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt16, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt16, OpAccess.Read);
 				break;
 
 			case CodeInfo.Pop_4:
@@ -463,7 +483,7 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt32, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt32, OpAccess.Read);
 				break;
 
 			case CodeInfo.Pop_8:
@@ -474,7 +494,7 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt64, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt64, OpAccess.Read);
 				break;
 
 			case CodeInfo.Pop_2_2:
@@ -485,8 +505,8 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0) {
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt16, OpAccess.Read);
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 2, MemorySize.UInt16, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt16, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 2, MemorySize.UInt16, OpAccess.Read);
 				}
 				break;
 
@@ -498,8 +518,8 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0) {
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt32, OpAccess.Read);
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 4, MemorySize.UInt32, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt32, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 4, MemorySize.UInt32, OpAccess.Read);
 				}
 				break;
 
@@ -511,8 +531,8 @@ namespace Iced.Intel {
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0) {
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt64, OpAccess.Read);
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 8, MemorySize.UInt64, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt64, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 8, MemorySize.UInt64, OpAccess.Read);
 				}
 				break;
 
@@ -549,7 +569,7 @@ namespace Iced.Intel {
 							usedMemoryLocations.Array[0] = new UsedMemory(mem.Segment, mem.Base, mem.Index, mem.Scale, displ, mem.MemorySize, mem.Access);
 						}
 					}
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, memSize, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, memSize, OpAccess.Read);
 				}
 				break;
 
@@ -575,7 +595,7 @@ namespace Iced.Intel {
 					if ((flags & Flags.NoRegisterUsage) == 0)
 						AddRegister(flags, ref usedRegisters, baseReg + i, OpAccess.Read);
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, (ulong)((long)displ * (i + 1)) & xspMask, memSize, OpAccess.Write);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, (ulong)((long)displ * (i + 1)) & xspMask, memSize, OpAccess.Write);
 				}
 				break;
 
@@ -603,7 +623,7 @@ namespace Iced.Intel {
 						if ((flags & Flags.NoRegisterUsage) == 0)
 							AddRegister(flags, ref usedRegisters, baseReg + 7 - i, OpAccess.Write);
 						if ((flags & Flags.NoMemoryUsage) == 0)
-							AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, displ * (uint)i & xspMask, memSize, OpAccess.Read);
+							AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, displ * (uint)i & xspMask, memSize, OpAccess.Read);
 					}
 				}
 				break;
@@ -620,7 +640,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.CX + 32 == Register.RCX);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						Debug.Assert(usedRegisters.ValidLength == 1);
 						usedRegisters.Array[0] = new UsedRegister(Register.DX, OpAccess.CondRead);
@@ -638,7 +658,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.DI + 32 == Register.RDI);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
+						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if ((flags & Flags.Is64Bit) == 0)
 							AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
@@ -659,7 +679,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.CX + 32 == Register.RCX);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						Debug.Assert(usedRegisters.ValidLength == 1);
 						usedRegisters.Array[0] = new UsedRegister(Register.DX, OpAccess.CondRead);
@@ -676,7 +696,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.SI + 32 == Register.RSI);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						AddMemorySegmentRegister(flags, ref usedRegisters, instruction.MemorySegment, OpAccess.Read);
 						AddRegister(flags, ref usedRegisters, baseReg, OpAccess.ReadWrite);
@@ -696,7 +716,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.CX + 32 == Register.RCX);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						AddRegister(flags, ref usedRegisters, ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.CX, OpAccess.ReadCondWrite);
 						if ((flags & Flags.Is64Bit) == 0)
@@ -710,7 +730,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.SI + 32 == Register.RSI);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						AddMemorySegmentRegister(flags, ref usedRegisters, instruction.MemorySegment, OpAccess.CondRead);
 						AddRegister(flags, ref usedRegisters, baseReg, OpAccess.CondRead);
@@ -724,7 +744,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.DI + 32 == Register.RDI);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
+						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if ((flags & Flags.Is64Bit) == 0)
 							AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
@@ -736,7 +756,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.SI + 32 == Register.RSI);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						AddMemorySegmentRegister(flags, ref usedRegisters, instruction.MemorySegment, OpAccess.Read);
 						AddRegister(flags, ref usedRegisters, baseReg, OpAccess.ReadWrite);
@@ -756,7 +776,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.CX + 32 == Register.RCX);
 					baseReg = ((instruction.Op0Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						AddRegister(flags, ref usedRegisters, ((instruction.Op0Kind - OpKind.MemorySegSI) << 4) + Register.CX, OpAccess.ReadCondWrite);
 						AddMemorySegmentRegister(flags, ref usedRegisters, instruction.MemorySegment, OpAccess.CondRead);
@@ -769,7 +789,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.DI + 32 == Register.RDI);
 					baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if ((flags & Flags.Is64Bit) == 0)
 							AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.CondRead);
@@ -784,7 +804,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.SI + 32 == Register.RSI);
 					baseReg = ((instruction.Op0Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						AddMemorySegmentRegister(flags, ref usedRegisters, instruction.MemorySegment, OpAccess.Read);
 						AddRegister(flags, ref usedRegisters, baseReg, OpAccess.ReadWrite);
@@ -795,7 +815,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.DI + 32 == Register.RDI);
 					baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if ((flags & Flags.Is64Bit) == 0)
 							AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
@@ -816,7 +836,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.CX + 32 == Register.RCX);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						Debug.Assert(usedRegisters.ValidLength == 1);
 						usedRegisters.Array[0] = new UsedRegister(usedRegisters.Array[0].Register, OpAccess.CondRead);
@@ -834,7 +854,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.DI + 32 == Register.RDI);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
+						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if ((flags & Flags.Is64Bit) == 0)
 							AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
@@ -855,7 +875,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.CX + 32 == Register.RCX);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						Debug.Assert(usedRegisters.ValidLength == 1);
 						usedRegisters.Array[0] = new UsedRegister(usedRegisters.Array[0].Register, OpAccess.CondWrite);
@@ -872,7 +892,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.SI + 32 == Register.RSI);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						AddMemorySegmentRegister(flags, ref usedRegisters, instruction.MemorySegment, OpAccess.Read);
 						AddRegister(flags, ref usedRegisters, baseReg, OpAccess.ReadWrite);
@@ -892,7 +912,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.CX + 32 == Register.RCX);
 					baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						Debug.Assert(usedRegisters.ValidLength == 1);
 						usedRegisters.Array[0] = new UsedRegister(usedRegisters.Array[0].Register, OpAccess.CondRead);
@@ -910,7 +930,7 @@ namespace Iced.Intel {
 					Debug.Assert(Register.DI + 32 == Register.RDI);
 					baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if ((flags & Flags.Is64Bit) == 0)
 							AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
@@ -1046,7 +1066,7 @@ namespace Iced.Intel {
 				if ((flags & Flags.NoRegisterUsage) == 0)
 					AddRegister(flags, ref usedRegisters, rSP + 1, OpAccess.ReadWrite);
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, (xspOffset -= opSize) & xspMask, memSize, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, (xspOffset -= opSize) & xspMask, memSize, OpAccess.Write);
 
 				if (nestingLevel != 0) {
 					var xbp = xsp + 1;// rBP immediately follows rSP
@@ -1056,13 +1076,13 @@ namespace Iced.Intel {
 							AddRegister(flags, ref usedRegisters, xbp, OpAccess.ReadWrite);
 						// push [xbp]
 						if ((flags & Flags.NoMemoryUsage) == 0) {
-							AddMemory(flags, ref usedMemoryLocations, Register.SS, xbp, Register.None, 1, (xbpOffset -= opSize) & xspMask, memSize, OpAccess.Read);
-							AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, (xspOffset -= opSize) & xspMask, memSize, OpAccess.Write);
+							AddMemory(ref usedMemoryLocations, Register.SS, xbp, Register.None, 1, (xbpOffset -= opSize) & xspMask, memSize, OpAccess.Read);
+							AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, (xspOffset -= opSize) & xspMask, memSize, OpAccess.Write);
 						}
 					}
 					// push frameTemp
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, (xspOffset -= opSize) & xspMask, memSize, OpAccess.Write);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, (xspOffset -= opSize) & xspMask, memSize, OpAccess.Write);
 				}
 				break;
 
@@ -1077,7 +1097,7 @@ namespace Iced.Intel {
 				code = instruction.Code;
 				if (code == Code.Leaveq) {
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp + 1, Register.None, 1, 0, MemorySize.UInt64, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp + 1, Register.None, 1, 0, MemorySize.UInt64, OpAccess.Read);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if (xsp + 1 == Register.RBP)
 							AddRegister(flags, ref usedRegisters, Register.RBP, OpAccess.ReadWrite);
@@ -1089,7 +1109,7 @@ namespace Iced.Intel {
 				}
 				else if (code == Code.Leaved) {
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp + 1, Register.None, 1, 0, MemorySize.UInt32, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp + 1, Register.None, 1, 0, MemorySize.UInt32, OpAccess.Read);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if (xsp + 1 == Register.EBP)
 							AddRegister(flags, ref usedRegisters, Register.EBP, OpAccess.ReadWrite);
@@ -1102,7 +1122,7 @@ namespace Iced.Intel {
 				else {
 					Debug.Assert(code == Code.Leavew);
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp + 1, Register.None, 1, 0, MemorySize.UInt16, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp + 1, Register.None, 1, 0, MemorySize.UInt16, OpAccess.Read);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if (xsp + 1 == Register.BP)
 							AddRegister(flags, ref usedRegisters, Register.BP, OpAccess.ReadWrite);
@@ -1124,29 +1144,29 @@ namespace Iced.Intel {
 				if ((flags & Flags.NoMemoryUsage) == 0) {
 					code = instruction.Code;
 					if (code == Code.Iretq) {
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0 * 8, MemorySize.UInt64, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 1 * 8, MemorySize.UInt64, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 2 * 8, MemorySize.UInt64, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 3 * 8, MemorySize.UInt64, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 4 * 8, MemorySize.UInt64, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0 * 8, MemorySize.UInt64, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 1 * 8, MemorySize.UInt64, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 2 * 8, MemorySize.UInt64, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 3 * 8, MemorySize.UInt64, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 4 * 8, MemorySize.UInt64, OpAccess.Read);
 					}
 					else if (code == Code.Iretd) {
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0 * 4, MemorySize.UInt32, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 1 * 4, MemorySize.UInt32, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 2 * 4, MemorySize.UInt32, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0 * 4, MemorySize.UInt32, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 1 * 4, MemorySize.UInt32, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 2 * 4, MemorySize.UInt32, OpAccess.Read);
 						if (instruction.CodeSize == CodeSize.Code64) {
-							AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 3 * 4, MemorySize.UInt32, OpAccess.Read);
-							AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 4 * 4, MemorySize.UInt32, OpAccess.Read);
+							AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 3 * 4, MemorySize.UInt32, OpAccess.Read);
+							AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 4 * 4, MemorySize.UInt32, OpAccess.Read);
 						}
 					}
 					else {
 						Debug.Assert(code == Code.Iretw);
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0 * 2, MemorySize.UInt16, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 1 * 2, MemorySize.UInt16, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 2 * 2, MemorySize.UInt16, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0 * 2, MemorySize.UInt16, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 1 * 2, MemorySize.UInt16, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 2 * 2, MemorySize.UInt16, OpAccess.Read);
 						if (instruction.CodeSize == CodeSize.Code64) {
-							AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 3 * 2, MemorySize.UInt16, OpAccess.Read);
-							AddMemory(flags, ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 4 * 2, MemorySize.UInt16, OpAccess.Read);
+							AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 3 * 2, MemorySize.UInt16, OpAccess.Read);
+							AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 4 * 2, MemorySize.UInt16, OpAccess.Read);
 						}
 					}
 				}
@@ -1243,7 +1263,7 @@ namespace Iced.Intel {
 					break;
 				}
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddMemorySegmentRegister(flags, ref usedRegisters, instruction.MemorySegment, OpAccess.Read);
 					AddRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
@@ -1264,7 +1284,7 @@ namespace Iced.Intel {
 				if (seg == Register.None)
 					seg = Register.DS;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, seg, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, seg, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.Read);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddMemorySegmentRegister(flags, ref usedRegisters, seg, OpAccess.Read);
 					AddRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
@@ -1578,7 +1598,7 @@ namespace Iced.Intel {
 				if ((flags & (Flags.NoRegisterUsage | Flags.Is64Bit)) == 0)
 					AddRegister(flags, ref usedRegisters, Register.DS, OpAccess.Read);
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, Register.DS, instruction.Op0Register, Register.None, 1, 0, MemorySize.Unknown, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, Register.DS, instruction.Op0Register, Register.None, 1, 0, MemorySize.Unknown, OpAccess.Read);
 				break;
 
 			case CodeInfo.Loadall386:
@@ -1608,14 +1628,14 @@ namespace Iced.Intel {
 				if ((flags & Flags.NoRegisterUsage) == 0)
 					AddMemorySegmentRegister(flags, ref usedRegisters, baseReg, OpAccess.Read);
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, baseReg, instruction.Op0Register, Register.None, 1, 0, MemorySize.UInt8, OpAccess.Read);
+					AddMemory(ref usedMemoryLocations, baseReg, instruction.Op0Register, Register.None, 1, 0, MemorySize.UInt8, OpAccess.Read);
 				break;
 
 			case CodeInfo.Movdir64b:
 				if ((flags & Flags.Is64Bit) == 0 && (flags & Flags.NoRegisterUsage) == 0)
 					AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(flags, ref usedMemoryLocations, Register.ES, instruction.Op0Register, Register.None, 1, 0, MemorySize.UInt512, OpAccess.Write);
+					AddMemory(ref usedMemoryLocations, Register.ES, instruction.Op0Register, Register.None, 1, 0, MemorySize.UInt512, OpAccess.Write);
 				break;
 
 			case CodeInfo.Clear_rflags:
@@ -1670,7 +1690,7 @@ namespace Iced.Intel {
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					baseReg = (Register)((instruction.Code - Code.Montmul_16) << 4);
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						Debug.Assert(usedRegisters.ValidLength == 0);
 						AddRegister(flags, ref usedRegisters, baseReg == 0 ? Register.ECX : Register.CX + (int)baseReg, OpAccess.ReadCondWrite);
@@ -1685,7 +1705,7 @@ namespace Iced.Intel {
 				else {
 					baseReg = (Register)((instruction.Code - Code.Montmul_16) << 4);
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if ((flags & Flags.Is64Bit) == 0)
 							AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
@@ -1707,9 +1727,9 @@ namespace Iced.Intel {
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					baseReg = (Register)(((instruction.Code - Code.Xsha1_16) % 3) << 4);
 					if ((flags & Flags.NoMemoryUsage) == 0) {
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 					}
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						Debug.Assert(usedRegisters.ValidLength == 0);
@@ -1727,8 +1747,8 @@ namespace Iced.Intel {
 				else {
 					baseReg = (Register)(((instruction.Code - Code.Xsha1_16) % 3) << 4);
 					if ((flags & Flags.NoMemoryUsage) == 0) {
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.ReadWrite);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.ReadWrite);
 					}
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if ((flags & Flags.Is64Bit) == 0)
@@ -1767,13 +1787,13 @@ namespace Iced.Intel {
 					if ((flags & Flags.NoMemoryUsage) == 0) {
 						// Check if not XcryptEcb
 						if (instruction.Code >= Code.XcryptCbc_16) {
-							AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.AX + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
-							AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.AX + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+							AddMemory(ref usedMemoryLocations, Register.ES, Register.AX + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+							AddMemory(ref usedMemoryLocations, Register.ES, Register.AX + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 						}
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.DX + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.BX + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.DX + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.BX + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 					}
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						Debug.Assert(usedRegisters.ValidLength == 0);
@@ -1802,11 +1822,11 @@ namespace Iced.Intel {
 					if ((flags & Flags.NoMemoryUsage) == 0) {
 						// Check if not XcryptEcb
 						if (instruction.Code >= Code.XcryptCbc_16)
-							AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.AX + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.ReadWrite);
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.DX + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.BX + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
+							AddMemory(ref usedMemoryLocations, Register.ES, Register.AX + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.ReadWrite);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.DX + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.BX + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.SI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
 					}
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if ((flags & Flags.Is64Bit) == 0)
@@ -1830,7 +1850,7 @@ namespace Iced.Intel {
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					baseReg = (Register)((instruction.Code - Code.Xstore_16) << 4);
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						Debug.Assert(usedRegisters.ValidLength == 0);
 						AddRegister(flags, ref usedRegisters, Register.CX + (int)baseReg, OpAccess.ReadCondWrite);
@@ -1845,7 +1865,7 @@ namespace Iced.Intel {
 				else {
 					baseReg = (Register)((instruction.Code - Code.Xstore_16) << 4);
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(flags, ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
+						AddMemory(ref usedMemoryLocations, Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if ((flags & Flags.Is64Bit) == 0)
 							AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
@@ -1862,15 +1882,16 @@ namespace Iced.Intel {
 			}
 		}
 
-		static void AddMemory(Flags flags, ref SimpleList<UsedMemory> usedMemoryLocations, Register segReg, Register baseReg, Register indexReg, int scale, ulong displ, MemorySize memorySize, OpAccess access) {
-			Debug.Assert((flags & Flags.NoMemoryUsage) == 0, "Caller should check flags before calling this method");
+		static void AddMemory(ref SimpleList<UsedMemory> usedMemoryLocations, Register segReg, Register baseReg, Register indexReg, int scale, ulong displ, MemorySize memorySize, OpAccess access) {
 			if (access != OpAccess.NoMemAccess) {
 				int arrayLength = usedMemoryLocations.Array.Length;
 				int validLen = usedMemoryLocations.ValidLength;
-				if (arrayLength == 0)
-					usedMemoryLocations.Array = new UsedMemory[defaultMemoryArrayCount];
-				else if (arrayLength == validLen)
-					Array.Resize(ref usedMemoryLocations.Array, arrayLength * 2);
+				if (arrayLength == validLen) {
+					if (arrayLength == 0)
+						usedMemoryLocations.Array = new UsedMemory[defaultMemoryArrayCount];
+					else
+						Array.Resize(ref usedMemoryLocations.Array, arrayLength * 2);
+				}
 				usedMemoryLocations.Array[validLen] = new UsedMemory(segReg, baseReg, indexReg, scale, displ, memorySize, access);
 				usedMemoryLocations.ValidLength = validLen + 1;
 			}
@@ -1909,14 +1930,14 @@ namespace Iced.Intel {
 			var array = regs.Array;
 			int validLen = regs.ValidLength;
 			int arrayLength = array.Length;
-			if (arrayLength == 0) {
-				// The code below that resizes the array assumes there's at least 2 new free elements, so the minimum array length is 2.
-				Debug.Assert(defaultRegisterArrayCount >= 2);
-				regs.Array = array = new UsedRegister[defaultRegisterArrayCount];
-			}
-			else {
-				int numRegs = writeReg == reg ? 1 : 2;
-				if (validLen + numRegs > arrayLength) {
+			int numRegs = writeReg == reg ? 1 : 2;
+			if (validLen + numRegs > arrayLength) {
+				if (arrayLength == 0) {
+					// The code below that resizes the array assumes there's at least 2 new free elements, so the minimum array length is 2.
+					Debug.Assert(defaultRegisterArrayCount >= 2);
+					regs.Array = array = new UsedRegister[defaultRegisterArrayCount];
+				}
+				else {
 					Debug.Assert(arrayLength * 2 >= arrayLength + numRegs);
 					Array.Resize(ref regs.Array, arrayLength * 2);
 					array = regs.Array;
