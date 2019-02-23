@@ -1570,69 +1570,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			this.index = index;
 		}
 
-		static readonly Code[] codes = new Code[3] {
-			Code.Bswap_r16,
-			Code.Bswap_r32,
-			Code.Bswap_r64,
-		};
-
-		static readonly Register[,] registers = new Register[3, 16] {
-			{
-				Register.AX,
-				Register.CX,
-				Register.DX,
-				Register.BX,
-				Register.SP,
-				Register.BP,
-				Register.SI,
-				Register.DI,
-				Register.R8W,
-				Register.R9W,
-				Register.R10W,
-				Register.R11W,
-				Register.R12W,
-				Register.R13W,
-				Register.R14W,
-				Register.R15W,
-			},
-			{
-				Register.EAX,
-				Register.ECX,
-				Register.EDX,
-				Register.EBX,
-				Register.ESP,
-				Register.EBP,
-				Register.ESI,
-				Register.EDI,
-				Register.R8D,
-				Register.R9D,
-				Register.R10D,
-				Register.R11D,
-				Register.R12D,
-				Register.R13D,
-				Register.R14D,
-				Register.R15D,
-			},
-			{
-				Register.RAX,
-				Register.RCX,
-				Register.RDX,
-				Register.RBX,
-				Register.RSP,
-				Register.RBP,
-				Register.RSI,
-				Register.RDI,
-				Register.R8,
-				Register.R9,
-				Register.R10,
-				Register.R11,
-				Register.R12,
-				Register.R13,
-				Register.R14,
-				Register.R15,
-			},
-		};
-
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
@@ -1642,139 +1579,78 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			int sizeIndex = (int)state.operandSize;
 			int codeIndex = index + (int)state.extraBaseRegisterBase;
 
-			instruction.InternalCode = codes[sizeIndex];
+			Debug.Assert(Code.Bswap_r16 + 1 == Code.Bswap_r32);
+			Debug.Assert(Code.Bswap_r16 + 2 == Code.Bswap_r64);
+			instruction.InternalCode = sizeIndex + Code.Bswap_r16;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = registers[sizeIndex, codeIndex];
+			Debug.Assert(Register.AX + 16 == Register.EAX);
+			Debug.Assert(Register.AX + 32 == Register.RAX);
+			instruction.InternalOp0Register = sizeIndex * 16 + codeIndex + Register.AX;
 		}
 	}
 
 	sealed class OpCodeHandler_Xchg_Reg_rAX : OpCodeHandler {
 		readonly int index;
+		readonly Code[] codes;
 
 		public OpCodeHandler_Xchg_Reg_rAX(int index) {
 			Debug.Assert(0 <= index && index <= 7);
 			this.index = index;
+			codes = s_codes;
 		}
 
-		static readonly Code[,] codes = new Code[3, 16] {
-			{
-				Code.Nopw,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-			},
-			{
-				Code.Nopd,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-			},
-			{
-				Code.Nopq,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-				Code.Xchg_r64_RAX,
-			},
-		};
+		static readonly Code[] s_codes = new Code[3 * 16] {
+			Code.Nopw,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
 
-		static readonly Register[,] registers = new Register[3, 16] {
-			{
-				Register.None,
-				Register.CX,
-				Register.DX,
-				Register.BX,
-				Register.SP,
-				Register.BP,
-				Register.SI,
-				Register.DI,
-				Register.R8W,
-				Register.R9W,
-				Register.R10W,
-				Register.R11W,
-				Register.R12W,
-				Register.R13W,
-				Register.R14W,
-				Register.R15W,
-			},
-			{
-				Register.None,
-				Register.ECX,
-				Register.EDX,
-				Register.EBX,
-				Register.ESP,
-				Register.EBP,
-				Register.ESI,
-				Register.EDI,
-				Register.R8D,
-				Register.R9D,
-				Register.R10D,
-				Register.R11D,
-				Register.R12D,
-				Register.R13D,
-				Register.R14D,
-				Register.R15D,
-			},
-			{
-				Register.None,
-				Register.RCX,
-				Register.RDX,
-				Register.RBX,
-				Register.RSP,
-				Register.RBP,
-				Register.RSI,
-				Register.RDI,
-				Register.R8,
-				Register.R9,
-				Register.R10,
-				Register.R11,
-				Register.R12,
-				Register.R13,
-				Register.R14,
-				Register.R15,
-			},
-		};
+			Code.Nopd,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
 
-		static readonly Register[] accumulatorRegister = new Register[3] {
-			Register.AX,
-			Register.EAX,
-			Register.RAX,
+			Code.Nopq,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
+			Code.Xchg_r64_RAX,
 		};
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1792,15 +1668,17 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				int sizeIndex = (int)state.operandSize;
 				int codeIndex = index + (int)state.extraBaseRegisterBase;
 
-				instruction.InternalCode = codes[sizeIndex, codeIndex];
-				var reg = registers[sizeIndex, codeIndex];
-				if (reg != Register.None) {
+				instruction.InternalCode = codes[sizeIndex * 16 + codeIndex];
+				if (codeIndex != 0) {
+					Debug.Assert(Register.AX + 16 == Register.EAX);
+					Debug.Assert(Register.AX + 32 == Register.RAX);
+					var reg = sizeIndex * 16 + codeIndex + Register.AX;
 					Debug.Assert(OpKind.Register == 0);
 					//instruction.InternalOp0Kind = OpKind.Register;
 					instruction.InternalOp0Register = reg;
 					Debug.Assert(OpKind.Register == 0);
 					//instruction.InternalOp1Kind = OpKind.Register;
-					instruction.InternalOp1Register = accumulatorRegister[sizeIndex];
+					instruction.InternalOp1Register = sizeIndex * 16 + Register.AX;
 				}
 			}
 		}
@@ -1855,14 +1733,18 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_RegIb3 : OpCodeHandler {
 		readonly int index;
+		readonly Register[] noRexPrefix;
+		readonly Register[] withRexPrefix;
 
 		public OpCodeHandler_RegIb3(int index) {
 			Debug.Assert(0 <= index && index <= 7);
 			this.index = index;
+			noRexPrefix = s_noRexPrefix;
+			withRexPrefix = s_withRexPrefix;
 		}
 
 		// Code.Mov_r8_imm8
-		static readonly Register[] noRexPrefix = new Register[8] {
+		static readonly Register[] s_noRexPrefix = new Register[8] {
 			Register.AL,
 			Register.CL,
 			Register.DL,
@@ -1874,7 +1756,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		};
 
 		// Code.Mov_r8_imm8
-		static readonly Register[] withRexPrefix = new Register[16] {
+		static readonly Register[] s_withRexPrefix = new Register[16] {
 			Register.AL,
 			Register.CL,
 			Register.DL,
@@ -1912,14 +1794,20 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 	sealed class OpCodeHandler_RegIz2 : OpCodeHandler {
 		readonly int index;
+		readonly Register[] info16;
+		readonly Register[] info32;
+		readonly Register[] info64;
 
 		public OpCodeHandler_RegIz2(int index) {
 			Debug.Assert(0 <= index && index <= 7);
 			this.index = index;
+			info16 = s_info16;
+			info32 = s_info32;
+			info64 = s_info64;
 		}
 
 		// Code.Mov_r16_imm16
-		static readonly Register[] info16 = new Register[16] {
+		static readonly Register[] s_info16 = new Register[16] {
 			Register.AX,
 			Register.CX,
 			Register.DX,
@@ -1939,7 +1827,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		};
 
 		// Code.Mov_r32_imm32
-		static readonly Register[] info32 = new Register[16] {
+		static readonly Register[] s_info32 = new Register[16] {
 			Register.EAX,
 			Register.ECX,
 			Register.EDX,
@@ -1959,7 +1847,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		};
 
 		// Code.Mov_r64_imm64
-		static readonly Register[] info64 = new Register[16] {
+		static readonly Register[] s_info64 = new Register[16] {
 			Register.RAX,
 			Register.RCX,
 			Register.RDX,

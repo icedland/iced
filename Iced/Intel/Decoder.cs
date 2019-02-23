@@ -56,6 +56,7 @@ namespace Iced.Intel {
 		ulong instructionPointer;
 		readonly CodeReader reader;
 		readonly uint[] prefixes;
+		readonly RegInfo2[] memRegs16;
 		readonly OpCodeHandler[] handlers_XX;
 		readonly OpCodeHandler[] handlers_0FXX_VEX;
 		readonly OpCodeHandler[] handlers_0F38XX_VEX;
@@ -142,9 +143,26 @@ namespace Iced.Intel {
 			void SetBit(uint[] d, int b) => d[b / 32] |= 1U << (b & 31);
 		}
 
+		static Decoder() {
+			// Initialize cctors that are used by decoder related methods. It doesn't speed up
+			// decoding much, but getting instruction info is a little faster.
+			_ = OpCodeHandler_Invalid.Instance;
+			_ = InstructionMemorySizes.Sizes;
+			_ = OpCodeHandlers_D3NOW.CodeValues;
+			_ = InstructionOpCounts.OpCount;
+#if !NO_INSTR_INFO
+			_ = RegisterExtensions.RegisterInfos;
+			_ = InstructionInfoInternal.InfoHandlers.Data;
+			_ = InstructionInfoInternal.RflagsInfoConstants.flagsCleared;
+			_ = InstructionInfoInternal.CpuidFeatureInternalData.ToCpuidFeatures;
+			_ = MemorySizeExtensions.MemorySizeInfos;
+#endif
+		}
+
 		Decoder(CodeReader reader, DecoderOptions options, OpSize defaultOpSize) {
 			this.reader = reader ?? throw new ArgumentNullException(nameof(reader));
 			this.options = options;
+			memRegs16 = s_memRegs16;
 			if (defaultOpSize == OpSize.Size64) {
 #if !NO_DECODER64
 				is64Mode = true;
@@ -706,7 +724,7 @@ after_read_prefixes:
 				indexReg = this.indexReg;
 			}
 		}
-		static readonly RegInfo2[] memRegs16 = new RegInfo2[8] {
+		static readonly RegInfo2[] s_memRegs16 = new RegInfo2[8] {
 			new RegInfo2(Register.BX, Register.SI),
 			new RegInfo2(Register.BX, Register.DI),
 			new RegInfo2(Register.BP, Register.SI),

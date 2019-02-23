@@ -111,7 +111,7 @@ namespace Iced.Intel {
 	/// Encodes instructions decoded by the decoder or instructions created by other code
 	/// </summary>
 	public sealed class Encoder {
-		static readonly uint[] immSizes = new uint[(int)ImmSize.Last] {
+		static readonly uint[] s_immSizes = new uint[(int)ImmSize.Last] {
 			0,
 			1,
 			2,
@@ -145,6 +145,7 @@ namespace Iced.Intel {
 		readonly int defaultCodeSize;
 		readonly OpCodeHandler[] handlers;
 
+		readonly uint[] immSizes;
 		ulong currentRip;
 		string errorMessage;
 		OpCodeHandler handler;
@@ -175,6 +176,7 @@ namespace Iced.Intel {
 			Debug.Assert(defaultCodeSize == 16 || defaultCodeSize == 32 || defaultCodeSize == 64);
 			if (writer == null)
 				ThrowHelper.ThrowArgumentNullException_writer();
+			immSizes = s_immSizes;
 			this.writer = writer;
 			this.defaultCodeSize = defaultCodeSize;
 			handlers = OpCodeHandlers.Handlers;

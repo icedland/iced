@@ -1239,67 +1239,39 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 
 	sealed class OpCodeHandler_Xchg_Reg_eAX : OpCodeHandler {
 		readonly int index;
+		readonly Code[] codes;
 
 		public OpCodeHandler_Xchg_Reg_eAX(int index) {
 			Debug.Assert(0 <= index && index <= 7);
 			this.index = index;
+			codes = s_codes;
 		}
 
-		static readonly Code[,] codes = new Code[2, 8] {
-			{
-				Code.Nopw,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-				Code.Xchg_r16_AX,
-			},
-			{
-				Code.Nopd,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-				Code.Xchg_r32_EAX,
-			},
-		};
+		static readonly Code[] s_codes = new Code[2 * 8] {
+			Code.Nopw,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
+			Code.Xchg_r16_AX,
 
-		static readonly Register[,] registers = new Register[2, 8] {
-			{
-				Register.None,
-				Register.CX,
-				Register.DX,
-				Register.BX,
-				Register.SP,
-				Register.BP,
-				Register.SI,
-				Register.DI,
-			},
-			{
-				Register.None,
-				Register.ECX,
-				Register.EDX,
-				Register.EBX,
-				Register.ESP,
-				Register.EBP,
-				Register.ESI,
-				Register.EDI,
-			},
-		};
-
-		static readonly Register[] accumulatorRegister = new Register[2] {
-			Register.AX,
-			Register.EAX,
+			Code.Nopd,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
+			Code.Xchg_r32_EAX,
 		};
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 
+			var index = this.index;
 			if (index == 0 && state.mandatoryPrefix == MandatoryPrefix.PF3 && (decoder.options & DecoderOptions.NoPause) == 0) {
 				decoder.ClearMandatoryPrefixF3(ref instruction);
 				instruction.InternalCode = Code.Pause;
@@ -1309,15 +1281,16 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				Debug.Assert((int)OpSize.Size32 == 1);
 				int sizeIndex = (int)state.operandSize;
 
-				instruction.InternalCode = codes[sizeIndex, index];
-				var reg = registers[sizeIndex, index];
-				if (reg != Register.None) {
+				instruction.InternalCode = codes[sizeIndex * 8 + index];
+				Debug.Assert(Register.AX + 16 == Register.EAX);
+				if (index != 0) {
+					var reg = sizeIndex * 16 + index + Register.AX;
 					Debug.Assert(OpKind.Register == 0);
 					//instruction.InternalOp0Kind = OpKind.Register;
 					instruction.InternalOp0Register = reg;
 					Debug.Assert(OpKind.Register == 0);
 					//instruction.InternalOp1Kind = OpKind.Register;
-					instruction.InternalOp1Register = accumulatorRegister[sizeIndex];
+					instruction.InternalOp1Register = sizeIndex * 16 + Register.AX;
 				}
 			}
 		}
