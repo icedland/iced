@@ -27,6 +27,7 @@ Decoder:
 	- `ByteArrayCodeReader`
 - `InstructionList`
 - `ConstantOffsets`
+- `IcedFeatures.Initialize()`
 
 Formatters:
 
@@ -73,6 +74,7 @@ namespace Iced.Examples {
         const int HEXBYTES_COLUMN_BYTE_LENGTH = 10;
 
         static void Main(string[] args) {
+            IcedFeatures.Initialize();
             DecoderFormatterExample();
             EncoderExample();
             CreateInstructionsExample();
