@@ -237,7 +237,6 @@ namespace Iced.Intel {
 			return result;
 		}
 
-		[MethodImpl(MethodImplOptions.NoInlining)]
 		static void ThrowEncoderException(ref Instruction instruction, string errorMessage) => throw new EncoderException(errorMessage, instruction);
 
 		/// <summary>
