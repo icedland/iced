@@ -186,7 +186,6 @@ namespace Iced.Intel {
 					instr.IP = ip;
 					instrs[j] = instr;
 					instrCount++;
-					Debug.Assert(instr.Size != 0);
 					ip += instr.Size;
 				}
 				blocks[i] = new Block(this, instrBlocks[i].CodeWriter, instrBlocks[i].RIP, instrBlocks[i].RelocInfos, instrBlocks[i].NewInstructionOffsets, instrBlocks[i].ConstantOffsets, instrs);

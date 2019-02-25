@@ -25,7 +25,7 @@ namespace Iced.Intel {
 	static class DecoderConstants {
 		public const int MaxInstructionLength = 15;
 		public const int MaxOpCount = 5;
-		public const int NumberOfCodeValues = (int)Code.D3NOW_Pavgusb_mm_mmm64 + 1;
+		public const int NumberOfCodeValues = (int)Code.DeclareQword + 1;
 		public const int NumberOfRegisters = (int)Register.TR7 + 1;
 		public const int NumberOfMemorySizes = (int)MemorySize.Broadcast512_2xInt32 + 1;
 	}

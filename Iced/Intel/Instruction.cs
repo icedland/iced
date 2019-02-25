@@ -59,8 +59,9 @@ namespace Iced.Intel {
 		/// [9:5]	= Operand #1's <see cref="OpKind"/>
 		/// [14:10]	= Operand #2's <see cref="OpKind"/>
 		/// [19:15]	= Operand #3's <see cref="OpKind"/>
-		/// [29:20]	= Not used
-		/// [31:30] = CodeSize
+		/// [24:20]	= db/dw/dd/dq element count (0-16, 0-8, 0-4, or 0-2)
+		/// [29:25]	= Not used
+		/// [31:30]	= CodeSize
 		/// </summary>
 		[Flags]
 		enum OpKindFlags : uint {
@@ -69,6 +70,8 @@ namespace Iced.Intel {
 			Op1KindShift			= 5,
 			Op2KindShift			= 10,
 			Op3KindShift			= 15,
+			DataLengthMask			= 0x1F,
+			DataLengthShift			= 20,
 			// Unused bits here
 			CodeSizeMask			= 3,
 			CodeSizeShift			= 30,
@@ -82,7 +85,7 @@ namespace Iced.Intel {
 		/// [15:13]	= <see cref="Intel.RoundingControl"/>
 		/// [18:16]	= Opmask register or 0 if none
 		/// [22:19]	= Instruction length
-		/// [24:23] = Not used
+		/// [24:23]	= Not used
 		/// [25]	= Suppress all exceptions
 		/// [26]	= Zeroing masking
 		/// [27]	= xacquire prefix
@@ -1174,6 +1177,303 @@ namespace Iced.Intel {
 		internal uint InternalRoundingControl {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			set => codeFlags |= value << (int)CodeFlags.RoundingControlShift;
+		}
+
+		/// <summary>
+		/// Number of elements in a db/dw/dd/dq directive.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareByte"/>, <see cref="Code.DeclareWord"/>, <see cref="Code.DeclareDword"/>, <see cref="Code.DeclareQword"/>
+		/// </summary>
+		public int DeclareDataCount {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => (int)((opKindFlags >> (int)OpKindFlags.DataLengthShift) & (uint)OpKindFlags.DataLengthMask);
+			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.DataLengthMask << (int)OpKindFlags.DataLengthShift)) |
+					(((uint)value & (uint)OpKindFlags.DataLengthMask) << (int)OpKindFlags.DataLengthShift);
+		}
+		internal uint InternalDeclareDataCount {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			set => opKindFlags |= value << (int)OpKindFlags.DataLengthShift;
+		}
+
+		/// <summary>
+		/// Sets a new 'db' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareByte"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <param name="value">New value</param>
+		public void SetDeclareByteValue(int index, sbyte value) => SetDeclareByteValue(index, (byte)value);
+
+		/// <summary>
+		/// Sets a new 'db' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareByte"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <param name="value">New value</param>
+		public void SetDeclareByteValue(int index, byte value) {
+			switch (index) {
+			case 0:
+				reg0 = value;
+				break;
+			case 1:
+				reg1 = value;
+				break;
+			case 2:
+				reg2 = value;
+				break;
+			case 3:
+				reg3 = value;
+				break;
+			case 4:
+				immediate = (immediate & 0xFFFFFF00) | value;
+				break;
+			case 5:
+				immediate = (immediate & 0xFFFF00FF) | ((uint)value << 8);
+				break;
+			case 6:
+				immediate = (immediate & 0xFF00FFFF) | ((uint)value << 16);
+				break;
+			case 7:
+				immediate = (immediate & 0x00FFFFFF) | ((uint)value << 24);
+				break;
+			case 8:
+				memDispl = (memDispl & 0xFFFFFF00) | value;
+				break;
+			case 9:
+				memDispl = (memDispl & 0xFFFF00FF) | ((uint)value << 8);
+				break;
+			case 10:
+				memDispl = (memDispl & 0xFF00FFFF) | ((uint)value << 16);
+				break;
+			case 11:
+				memDispl = (memDispl & 0x00FFFFFF) | ((uint)value << 24);
+				break;
+			case 12:
+				memBaseReg = value;
+				break;
+			case 13:
+				memIndexReg = value;
+				break;
+			case 14:
+				opKindFlags = (opKindFlags & 0xFFFFFF00) | value;
+				break;
+			case 15:
+				opKindFlags = (opKindFlags & 0xFFFF00FF) | ((uint)value << 8);
+				break;
+			default:
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
+				break;
+			}
+		}
+
+		/// <summary>
+		/// Gets a 'db' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareByte"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <returns></returns>
+		public byte GetDeclareByteValue(int index) {
+			switch (index) {
+			case 0:		return reg0;
+			case 1:		return reg1;
+			case 2:		return reg2;
+			case 3:		return reg3;
+			case 4:		return (byte)immediate;
+			case 5:		return (byte)(immediate >> 8);
+			case 6:		return (byte)(immediate >> 16);
+			case 7:		return (byte)(immediate >> 24);
+			case 8:		return (byte)memDispl;
+			case 9:		return (byte)(memDispl >> 8);
+			case 10:	return (byte)(memDispl >> 16);
+			case 11:	return (byte)(memDispl >> 24);
+			case 12:	return memBaseReg;
+			case 13:	return memIndexReg;
+			case 14:	return (byte)opKindFlags;
+			case 15:	return (byte)(opKindFlags >> 8);
+			default:
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
+				return 0;
+			}
+		}
+
+		/// <summary>
+		/// Sets a new 'dw' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareWord"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <param name="value">New value</param>
+		public void SetDeclareWordValue(int index, short value) => SetDeclareWordValue(index, (ushort)value);
+
+		/// <summary>
+		/// Sets a new 'dw' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareWord"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <param name="value">New value</param>
+		public void SetDeclareWordValue(int index, ushort value) {
+			switch (index) {
+			case 0:
+				reg0 = (byte)value;
+				reg1 = (byte)(value >> 8);
+				break;
+			case 1:
+				reg2 = (byte)value;
+				reg3 = (byte)(value >> 8);
+				break;
+			case 2:
+				immediate = (immediate & 0xFFFF0000) | value;
+				break;
+			case 3:
+				immediate = (uint)(ushort)immediate | ((uint)value << 16);
+				break;
+			case 4:
+				memDispl = (memDispl & 0xFFFF0000) | value;
+				break;
+			case 5:
+				memDispl = (uint)(ushort)memDispl | ((uint)value << 16);
+				break;
+			case 6:
+				memBaseReg = (byte)value;
+				memIndexReg = (byte)(value >> 8);
+				break;
+			case 7:
+				opKindFlags = (opKindFlags & 0xFFFF0000) | value;
+				break;
+			default:
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
+				break;
+			}
+		}
+
+		/// <summary>
+		/// Gets a 'dw' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareWord"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <returns></returns>
+		public ushort GetDeclareWordValue(int index) {
+			switch (index) {
+			case 0:	return (ushort)((uint)reg0 | (uint)(reg1 << 8));
+			case 1:	return (ushort)((uint)reg2 | (uint)(reg3 << 8));
+			case 2:	return (ushort)immediate;
+			case 3:	return (ushort)(immediate >> 16);
+			case 4:	return (ushort)memDispl;
+			case 5:	return (ushort)(memDispl >> 16);
+			case 6:	return (ushort)((uint)memBaseReg | (uint)(memIndexReg << 8));
+			case 7:	return (ushort)opKindFlags;
+			default:
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
+				return 0;
+			}
+		}
+
+		/// <summary>
+		/// Sets a new 'dd' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareDword"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <param name="value">New value</param>
+		public void SetDeclareDwordValue(int index, int value) => SetDeclareDwordValue(index, (uint)value);
+
+		/// <summary>
+		/// Sets a new 'dd' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareDword"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <param name="value">New value</param>
+		public void SetDeclareDwordValue(int index, uint value) {
+			switch (index) {
+			case 0:
+				reg0 = (byte)value;
+				reg1 = (byte)(value >> 8);
+				reg2 = (byte)(value >> 16);
+				reg3 = (byte)(value >> 24);
+				break;
+			case 1:
+				immediate = value;
+				break;
+			case 2:
+				memDispl = value;
+				break;
+			case 3:
+				memBaseReg = (byte)value;
+				memIndexReg = (byte)(value >> 8);
+				opKindFlags = (opKindFlags & 0xFFFF0000) | (value >> 16);
+				break;
+			default:
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
+				break;
+			}
+		}
+
+		/// <summary>
+		/// Gets a 'dd' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareDword"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <returns></returns>
+		public uint GetDeclareDwordValue(int index) {
+			switch (index) {
+			case 0:	return (uint)reg0 | (uint)(reg1 << 8) | (uint)(reg2 << 16) | (uint)(reg3 << 24);
+			case 1:	return immediate;
+			case 2:	return memDispl;
+			case 3:	return (uint)memBaseReg | (uint)(memIndexReg << 8) | (opKindFlags << 16);
+			default:
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
+				return 0;
+			}
+		}
+
+		/// <summary>
+		/// Sets a new 'dq' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareQword"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <param name="value">New value</param>
+		public void SetDeclareQwordValue(int index, long value) => SetDeclareQwordValue(index, (ulong)value);
+
+		/// <summary>
+		/// Sets a new 'dq' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareQword"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <param name="value">New value</param>
+		public void SetDeclareQwordValue(int index, ulong value) {
+			uint v;
+			switch (index) {
+			case 0:
+				v = (uint)value;
+				reg0 = (byte)v;
+				reg1 = (byte)(v >> 8);
+				reg2 = (byte)(v >> 16);
+				reg3 = (byte)(v >> 24);
+				immediate = (uint)(value >> 32);
+				break;
+			case 1:
+				memDispl = (uint)value;
+				v = (uint)(value >> 32);
+				memBaseReg = (byte)v;
+				memIndexReg = (byte)(v >> 8);
+				opKindFlags = (opKindFlags & 0xFFFF0000) | (v >> 16);
+				break;
+			default:
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
+				break;
+			}
+		}
+
+		/// <summary>
+		/// Gets a 'dq' value, see also <see cref="DeclareDataCount"/>.
+		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareQword"/>
+		/// </summary>
+		/// <param name="index">Index</param>
+		/// <returns></returns>
+		public ulong GetDeclareQwordValue(int index) {
+			switch (index) {
+			case 0:	return (ulong)reg0 | (ulong)((uint)reg1 << 8) | (ulong)((uint)reg2 << 16) | (ulong)((uint)reg3 << 24) | ((ulong)immediate << 32);
+			case 1:	return (ulong)memDispl | ((ulong)memBaseReg << 32) | ((ulong)memIndexReg << 40) | ((ulong)opKindFlags << 48);
+			default:
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
+				return 0;
+			}
 		}
 
 		/// <summary>

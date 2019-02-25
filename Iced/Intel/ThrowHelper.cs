@@ -45,6 +45,7 @@ namespace Iced.Intel {
 		internal static void ThrowArgumentOutOfRangeException_value() => throw new ArgumentOutOfRangeException("value");
 		internal static void ThrowArgumentOutOfRangeException_index() => throw new ArgumentOutOfRangeException("index");
 		internal static void ThrowArgumentOutOfRangeException_count() => throw new ArgumentOutOfRangeException("count");
+		internal static void ThrowArgumentOutOfRangeException_length() => throw new ArgumentOutOfRangeException("length");
 		internal static void ThrowArgumentOutOfRangeException_operand() => throw new ArgumentOutOfRangeException("operand");
 		internal static void ThrowArgumentOutOfRangeException_capacity() => throw new ArgumentOutOfRangeException("capacity");
 		internal static void ThrowArgumentOutOfRangeException_memorySize() => throw new ArgumentOutOfRangeException("memorySize");

@@ -387,7 +387,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint FlowControl_Exception = (uint)FlowControl.Exception << (int)InfoFlags2.FlowControlShift;
 
 		internal static readonly uint[] Data = new uint[DecoderConstants.NumberOfCodeValues * 2] {
-			(uint)Code.INVALID, FlowControl_Exception | CPUID_INTEL8086,
+			(uint)Code.INVALID, FlowControl_Exception | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Add_rm8_r8 | RflagsInfo_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Add_rm16_r16 | RflagsInfo_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Add_rm32_r32 | RflagsInfo_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
@@ -4572,6 +4572,10 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.D3NOW_Pmulhrw_mm_mmm64, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
 			(uint)Code.D3NOW_Pswapd_mm_mmm64, Op0_Write | Op1_Read | CPUID_D3NOWEXT | Encoding_D3NOW,
 			(uint)Code.D3NOW_Pavgusb_mm_mmm64, Op0_ReadWrite | Op1_Read | CPUID_D3NOW | Encoding_D3NOW,
+			(uint)Code.DeclareByte, FlowControl_Exception | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.DeclareWord, FlowControl_Exception | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.DeclareDword, FlowControl_Exception | CPUID_INTEL8086 | Encoding_Legacy,
+			(uint)Code.DeclareQword, FlowControl_Exception | CPUID_INTEL8086 | Encoding_Legacy,
 		};
 	}
 }

@@ -226,7 +226,7 @@ namespace Iced.Intel {
 		static readonly string[] addrSizeStrings = new string[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "a16", "a32", "a64" };
 		void FormatMnemonic(ref Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo, ref int column, FormatMnemonicOptions mnemonicOptions) {
 			bool needSpace = false;
-			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0) {
+			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0 && (opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) == 0) {
 				string prefix;
 
 				prefix = opSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
@@ -268,9 +268,16 @@ namespace Iced.Intel {
 					column++;
 				}
 				var mnemonic = opInfo.Mnemonic;
-				if (options.UpperCaseMnemonics || options.UpperCaseAll)
-					mnemonic = mnemonic.ToUpperInvariant();
-				output.Write(mnemonic, FormatterOutputTextKind.Mnemonic);
+				if ((opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) != 0) {
+					if (options.UpperCaseKeywords || options.UpperCaseAll)
+						mnemonic = mnemonic.ToUpperInvariant();
+					output.Write(mnemonic, FormatterOutputTextKind.Directive);
+				}
+				else {
+					if (options.UpperCaseMnemonics || options.UpperCaseAll)
+						mnemonic = mnemonic.ToUpperInvariant();
+					output.Write(mnemonic, FormatterOutputTextKind.Mnemonic);
+				}
 				column += mnemonic.Length;
 			}
 		}
@@ -301,6 +308,10 @@ namespace Iced.Intel {
 				case InstrOpKind.RdSae:
 				case InstrOpKind.RuSae:
 				case InstrOpKind.RzSae:
+				case InstrOpKind.DeclareByte:
+				case InstrOpKind.DeclareWord:
+				case InstrOpKind.DeclareDword:
+				case InstrOpKind.DeclareQword:
 					break;
 
 				case InstrOpKind.MemorySegSI:
@@ -450,10 +461,13 @@ namespace Iced.Intel {
 
 			case InstrOpKind.Immediate8:
 			case InstrOpKind.Immediate8_2nd:
+			case InstrOpKind.DeclareByte:
 				if (opKind == InstrOpKind.Immediate8)
 					imm8 = instruction.Immediate8;
-				else
+				else if (opKind == InstrOpKind.Immediate8_2nd)
 					imm8 = instruction.Immediate8_2nd;
+				else
+					imm8 = instruction.GetDeclareByteValue(operand);
 				numberOptions = NumberFormattingOptions.CreateImmediateInternal(options);
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
@@ -472,11 +486,14 @@ namespace Iced.Intel {
 
 			case InstrOpKind.Immediate16:
 			case InstrOpKind.Immediate8to16:
+			case InstrOpKind.DeclareWord:
 				ShowSignExtendInfo(output, opInfo.Flags);
 				if (opKind == InstrOpKind.Immediate16)
 					imm16 = instruction.Immediate16;
-				else
+				else if (opKind == InstrOpKind.Immediate8to16)
 					imm16 = (ushort)instruction.Immediate8to16;
+				else
+					imm16 = instruction.GetDeclareWordValue(operand);
 				numberOptions = NumberFormattingOptions.CreateImmediateInternal(options);
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
@@ -495,11 +512,14 @@ namespace Iced.Intel {
 
 			case InstrOpKind.Immediate32:
 			case InstrOpKind.Immediate8to32:
+			case InstrOpKind.DeclareDword:
 				ShowSignExtendInfo(output, opInfo.Flags);
 				if (opKind == InstrOpKind.Immediate32)
 					imm32 = instruction.Immediate32;
-				else
+				else if (opKind == InstrOpKind.Immediate8to32)
 					imm32 = (uint)instruction.Immediate8to32;
+				else
+					imm32 = instruction.GetDeclareDwordValue(operand);
 				numberOptions = NumberFormattingOptions.CreateImmediateInternal(options);
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
@@ -519,13 +539,16 @@ namespace Iced.Intel {
 			case InstrOpKind.Immediate64:
 			case InstrOpKind.Immediate8to64:
 			case InstrOpKind.Immediate32to64:
+			case InstrOpKind.DeclareQword:
 				ShowSignExtendInfo(output, opInfo.Flags);
 				if (opKind == InstrOpKind.Immediate32to64)
 					imm64 = (ulong)instruction.Immediate32to64;
 				else if (opKind == InstrOpKind.Immediate8to64)
 					imm64 = (ulong)instruction.Immediate8to64;
-				else
+				else if (opKind == InstrOpKind.Immediate64)
 					imm64 = instruction.Immediate64;
+				else
+					imm64 = instruction.GetDeclareQwordValue(operand);
 				numberOptions = NumberFormattingOptions.CreateImmediateInternal(options);
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);

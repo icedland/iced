@@ -100,6 +100,33 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Null(errorMessage);
 			Assert.Equal(0x28, codeWriter.ToArray().Length);
 		}
+
+		[Theory]
+		[InlineData("")]
+		[InlineData("5A")]
+		[InlineData("77 A9 CE 9D 55 05 42 6C 86 32 FE 4F 34 27 AA 08")]
+		void EncodeDeclareByte(string hexBytes) {
+			const int bitness = 64;
+			const ulong newRip = 0x8000000000000000;
+
+			var data = HexUtils.ToByteArray(hexBytes);
+			var instructions = new Instruction[] {
+				Instruction.Create(Code.Nopd),
+				Instruction.CreateDeclareByte(data),
+				Instruction.Create(Code.Nopd),
+			};
+
+			var expectedData = new byte[data.Length + 2];
+			expectedData[0] = 0x90;
+			Array.Copy(data, 0, expectedData, 1, data.Length);
+			expectedData[expectedData.Length - 1] = 0x90;
+
+			var codeWriter = new CodeWriterImpl();
+			bool b = BlockEncoder.TryEncode(bitness, new InstructionBlock(codeWriter, instructions, newRip), out var errorMessage);
+			Assert.True(b);
+			Assert.Null(errorMessage);
+			Assert.Equal(expectedData, codeWriter.ToArray());
+		}
 	}
 }
 #endif

@@ -8396,6 +8396,14 @@ namespace Iced.Intel {
 			0,// D3NOW_Pswapd_mm_mmm64
 			(byte)MemorySize.Packed64_UInt8,// D3NOW_Pavgusb_mm_mmm64
 			0,// D3NOW_Pavgusb_mm_mmm64
+			0,// DeclareByte
+			0,// DeclareByte
+			0,// DeclareWord
+			0,// DeclareWord
+			0,// DeclareDword
+			0,// DeclareDword
+			0,// DeclareQword
+			0,// DeclareQword
 		};
 	}
 }

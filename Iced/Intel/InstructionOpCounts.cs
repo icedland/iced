@@ -4209,6 +4209,10 @@ namespace Iced.Intel {
 			2,// D3NOW_Pmulhrw_mm_mmm64
 			2,// D3NOW_Pswapd_mm_mmm64
 			2,// D3NOW_Pavgusb_mm_mmm64
+			0,// DeclareByte
+			0,// DeclareWord
+			0,// DeclareDword
+			0,// DeclareQword
 		};
 	}
 }

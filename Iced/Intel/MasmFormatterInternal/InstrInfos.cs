@@ -4210,6 +4210,10 @@ namespace Iced.Intel.MasmFormatterInternal {
 			new SimpleInstrInfo(Code.D3NOW_Pmulhrw_mm_mmm64, "pmulhrw", InstrOpInfoFlags.MemSize_Mmx),
 			new SimpleInstrInfo(Code.D3NOW_Pswapd_mm_mmm64, "pswapd", InstrOpInfoFlags.MemSize_Mmx),
 			new SimpleInstrInfo(Code.D3NOW_Pavgusb_mm_mmm64, "pavgusb", InstrOpInfoFlags.MemSize_Mmx),
+			new SimpleInstrInfo_DeclareData(Code.DeclareByte, "db"),
+			new SimpleInstrInfo_DeclareData(Code.DeclareWord, "dw"),
+			new SimpleInstrInfo_DeclareData(Code.DeclareDword, "dd"),
+			new SimpleInstrInfo_DeclareData(Code.DeclareQword, "dq"),
 		};
 	}
 }

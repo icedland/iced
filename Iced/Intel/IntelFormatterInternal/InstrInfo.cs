@@ -53,6 +53,10 @@ namespace Iced.Intel.IntelFormatterInternal {
 		MemoryESRDI = OpKind.MemoryESRDI,
 		Memory64 = OpKind.Memory64,
 		Memory = OpKind.Memory,
+		DeclareByte,
+		DeclareWord,
+		DeclareDword,
+		DeclareQword,
 	}
 
 	enum SizeOverride {
@@ -68,7 +72,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	[Flags]
-	enum InstrOpInfoFlags : ushort {
+	enum InstrOpInfoFlags : uint {
 		None						= 0,
 
 		// show no mem size
@@ -99,6 +103,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 		IgnoreSegmentPrefix			= 0x00002000,
 		ForceMemSizeDwordOrQword	= 0x00004000,
 		ShowMinMemSize_ForceSize	= 0x00008000,
+		MnemonicIsDirective			= 0x00010000,
 	}
 
 	struct InstrOpInfo {
@@ -141,7 +146,9 @@ namespace Iced.Intel.IntelFormatterInternal {
 			case 2: return Op2Kind;
 			case 3: return Op3Kind;
 			case 4: return Op4Kind;
-			default: throw new ArgumentOutOfRangeException(nameof(operand));
+			default:
+				Debug.Assert(Op0Kind == InstrOpKind.DeclareByte || Op0Kind == InstrOpKind.DeclareWord || Op0Kind == InstrOpKind.DeclareDword || Op0Kind == InstrOpKind.DeclareQword);
+				return Op0Kind;
 			}
 		}
 
@@ -153,7 +160,10 @@ namespace Iced.Intel.IntelFormatterInternal {
 			case 2: instructionOperand = Op2Index; break;
 			case 3: instructionOperand = Op3Index; break;
 			case 4: instructionOperand = Op4Index; break;
-			default: throw new ArgumentOutOfRangeException(nameof(operand));
+			default:
+				Debug.Assert(Op0Kind == InstrOpKind.DeclareByte || Op0Kind == InstrOpKind.DeclareWord || Op0Kind == InstrOpKind.DeclareDword || Op0Kind == InstrOpKind.DeclareQword);
+				instructionOperand = -1;
+				break;
 			}
 			return instructionOperand < 0 ? -1 : instructionOperand;
 		}
@@ -167,7 +177,10 @@ namespace Iced.Intel.IntelFormatterInternal {
 			case 2: instructionOperand = Op2Index; break;
 			case 3: instructionOperand = Op3Index; break;
 			case 4: instructionOperand = Op4Index; break;
-			default: throw new ArgumentOutOfRangeException(nameof(operand));
+			default:
+				Debug.Assert(Op0Kind == InstrOpKind.DeclareByte || Op0Kind == InstrOpKind.DeclareWord || Op0Kind == InstrOpKind.DeclareDword || Op0Kind == InstrOpKind.DeclareQword);
+				instructionOperand = -1;
+				break;
 			}
 			if (instructionOperand < InstrInfo.OpAccess_INVALID) {
 				access = (OpAccess)(-instructionOperand - 2);
@@ -1131,6 +1144,35 @@ namespace Iced.Intel.IntelFormatterInternal {
 				info.Op0Index = OpAccess_ReadWrite;
 			else
 				info.Op0Index = OpAccess_Read;
+		}
+	}
+
+	sealed class SimpleInstrInfo_DeclareData : InstrInfo {
+		readonly string mnemonic;
+		readonly InstrOpKind opKind;
+
+		public SimpleInstrInfo_DeclareData(Code code, string mnemonic)
+			: base(code) {
+			this.mnemonic = mnemonic;
+			InstrOpKind opKind;
+			switch (code) {
+			case Code.DeclareByte: opKind = InstrOpKind.DeclareByte; break;
+			case Code.DeclareWord: opKind = InstrOpKind.DeclareWord; break;
+			case Code.DeclareDword: opKind = InstrOpKind.DeclareDword; break;
+			case Code.DeclareQword: opKind = InstrOpKind.DeclareQword; break;
+			default: throw new InvalidOperationException();
+			}
+			this.opKind = opKind;
+		}
+
+		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, ref instr, InstrOpInfoFlags.MnemonicIsDirective);
+			info.OpCount = (byte)instr.DeclareDataCount;
+			info.Op0Kind = opKind;
+			info.Op1Kind = opKind;
+			info.Op2Kind = opKind;
+			info.Op3Kind = opKind;
+			info.Op4Kind = opKind;
 		}
 	}
 }

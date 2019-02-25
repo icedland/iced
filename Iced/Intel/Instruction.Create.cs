@@ -1646,6 +1646,943 @@ namespace Iced.Intel {
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
 		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 1;
+
+			instruction.SetDeclareByteValue(0, b0);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 2;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 3;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 4;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 5;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <param name="b5"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 6;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+			instruction.SetDeclareByteValue(5, b5);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <param name="b5"></param>
+		/// <param name="b6"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 7;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+			instruction.SetDeclareByteValue(5, b5);
+			instruction.SetDeclareByteValue(6, b6);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <param name="b5"></param>
+		/// <param name="b6"></param>
+		/// <param name="b7"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 8;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+			instruction.SetDeclareByteValue(5, b5);
+			instruction.SetDeclareByteValue(6, b6);
+			instruction.SetDeclareByteValue(7, b7);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <param name="b5"></param>
+		/// <param name="b6"></param>
+		/// <param name="b7"></param>
+		/// <param name="b8"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 9;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+			instruction.SetDeclareByteValue(5, b5);
+			instruction.SetDeclareByteValue(6, b6);
+			instruction.SetDeclareByteValue(7, b7);
+			instruction.SetDeclareByteValue(8, b8);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <param name="b5"></param>
+		/// <param name="b6"></param>
+		/// <param name="b7"></param>
+		/// <param name="b8"></param>
+		/// <param name="b9"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 10;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+			instruction.SetDeclareByteValue(5, b5);
+			instruction.SetDeclareByteValue(6, b6);
+			instruction.SetDeclareByteValue(7, b7);
+			instruction.SetDeclareByteValue(8, b8);
+			instruction.SetDeclareByteValue(9, b9);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <param name="b5"></param>
+		/// <param name="b6"></param>
+		/// <param name="b7"></param>
+		/// <param name="b8"></param>
+		/// <param name="b9"></param>
+		/// <param name="b10"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 11;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+			instruction.SetDeclareByteValue(5, b5);
+			instruction.SetDeclareByteValue(6, b6);
+			instruction.SetDeclareByteValue(7, b7);
+			instruction.SetDeclareByteValue(8, b8);
+			instruction.SetDeclareByteValue(9, b9);
+			instruction.SetDeclareByteValue(10, b10);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <param name="b5"></param>
+		/// <param name="b6"></param>
+		/// <param name="b7"></param>
+		/// <param name="b8"></param>
+		/// <param name="b9"></param>
+		/// <param name="b10"></param>
+		/// <param name="b11"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 12;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+			instruction.SetDeclareByteValue(5, b5);
+			instruction.SetDeclareByteValue(6, b6);
+			instruction.SetDeclareByteValue(7, b7);
+			instruction.SetDeclareByteValue(8, b8);
+			instruction.SetDeclareByteValue(9, b9);
+			instruction.SetDeclareByteValue(10, b10);
+			instruction.SetDeclareByteValue(11, b11);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <param name="b5"></param>
+		/// <param name="b6"></param>
+		/// <param name="b7"></param>
+		/// <param name="b8"></param>
+		/// <param name="b9"></param>
+		/// <param name="b10"></param>
+		/// <param name="b11"></param>
+		/// <param name="b12"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 13;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+			instruction.SetDeclareByteValue(5, b5);
+			instruction.SetDeclareByteValue(6, b6);
+			instruction.SetDeclareByteValue(7, b7);
+			instruction.SetDeclareByteValue(8, b8);
+			instruction.SetDeclareByteValue(9, b9);
+			instruction.SetDeclareByteValue(10, b10);
+			instruction.SetDeclareByteValue(11, b11);
+			instruction.SetDeclareByteValue(12, b12);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <param name="b5"></param>
+		/// <param name="b6"></param>
+		/// <param name="b7"></param>
+		/// <param name="b8"></param>
+		/// <param name="b9"></param>
+		/// <param name="b10"></param>
+		/// <param name="b11"></param>
+		/// <param name="b12"></param>
+		/// <param name="b13"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12, byte b13) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 14;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+			instruction.SetDeclareByteValue(5, b5);
+			instruction.SetDeclareByteValue(6, b6);
+			instruction.SetDeclareByteValue(7, b7);
+			instruction.SetDeclareByteValue(8, b8);
+			instruction.SetDeclareByteValue(9, b9);
+			instruction.SetDeclareByteValue(10, b10);
+			instruction.SetDeclareByteValue(11, b11);
+			instruction.SetDeclareByteValue(12, b12);
+			instruction.SetDeclareByteValue(13, b13);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <param name="b5"></param>
+		/// <param name="b6"></param>
+		/// <param name="b7"></param>
+		/// <param name="b8"></param>
+		/// <param name="b9"></param>
+		/// <param name="b10"></param>
+		/// <param name="b11"></param>
+		/// <param name="b12"></param>
+		/// <param name="b13"></param>
+		/// <param name="b14"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12, byte b13, byte b14) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 15;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+			instruction.SetDeclareByteValue(5, b5);
+			instruction.SetDeclareByteValue(6, b6);
+			instruction.SetDeclareByteValue(7, b7);
+			instruction.SetDeclareByteValue(8, b8);
+			instruction.SetDeclareByteValue(9, b9);
+			instruction.SetDeclareByteValue(10, b10);
+			instruction.SetDeclareByteValue(11, b11);
+			instruction.SetDeclareByteValue(12, b12);
+			instruction.SetDeclareByteValue(13, b13);
+			instruction.SetDeclareByteValue(14, b14);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="b0"></param>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <param name="b3"></param>
+		/// <param name="b4"></param>
+		/// <param name="b5"></param>
+		/// <param name="b6"></param>
+		/// <param name="b7"></param>
+		/// <param name="b8"></param>
+		/// <param name="b9"></param>
+		/// <param name="b10"></param>
+		/// <param name="b11"></param>
+		/// <param name="b12"></param>
+		/// <param name="b13"></param>
+		/// <param name="b14"></param>
+		/// <param name="b15"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12, byte b13, byte b14, byte b15) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = 16;
+
+			instruction.SetDeclareByteValue(0, b0);
+			instruction.SetDeclareByteValue(1, b1);
+			instruction.SetDeclareByteValue(2, b2);
+			instruction.SetDeclareByteValue(3, b3);
+			instruction.SetDeclareByteValue(4, b4);
+			instruction.SetDeclareByteValue(5, b5);
+			instruction.SetDeclareByteValue(6, b6);
+			instruction.SetDeclareByteValue(7, b7);
+			instruction.SetDeclareByteValue(8, b8);
+			instruction.SetDeclareByteValue(9, b9);
+			instruction.SetDeclareByteValue(10, b10);
+			instruction.SetDeclareByteValue(11, b11);
+			instruction.SetDeclareByteValue(12, b12);
+			instruction.SetDeclareByteValue(13, b13);
+			instruction.SetDeclareByteValue(14, b14);
+			instruction.SetDeclareByteValue(15, b15);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte[] data) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			return CreateDeclareByte(data, 0, data.Length);
+		}
+
+		/// <summary>
+		/// Create a 'db' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <param name="index">Start index</param>
+		/// <param name="length">Number of bytes</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareByte(byte[] data, int index, int length) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			if ((uint)length > 16)
+				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareByte;
+			instruction.InternalDeclareDataCount = (uint)length;
+
+			for (int i = 0; i < length; i++)
+				instruction.SetDeclareByteValue(i, data[index + i]);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="w0"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(ushort w0) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareWord;
+			instruction.InternalDeclareDataCount = 1;
+
+			instruction.SetDeclareWordValue(0, w0);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="w0"></param>
+		/// <param name="w1"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(ushort w0, ushort w1) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareWord;
+			instruction.InternalDeclareDataCount = 2;
+
+			instruction.SetDeclareWordValue(0, w0);
+			instruction.SetDeclareWordValue(1, w1);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="w0"></param>
+		/// <param name="w1"></param>
+		/// <param name="w2"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(ushort w0, ushort w1, ushort w2) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareWord;
+			instruction.InternalDeclareDataCount = 3;
+
+			instruction.SetDeclareWordValue(0, w0);
+			instruction.SetDeclareWordValue(1, w1);
+			instruction.SetDeclareWordValue(2, w2);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="w0"></param>
+		/// <param name="w1"></param>
+		/// <param name="w2"></param>
+		/// <param name="w3"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(ushort w0, ushort w1, ushort w2, ushort w3) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareWord;
+			instruction.InternalDeclareDataCount = 4;
+
+			instruction.SetDeclareWordValue(0, w0);
+			instruction.SetDeclareWordValue(1, w1);
+			instruction.SetDeclareWordValue(2, w2);
+			instruction.SetDeclareWordValue(3, w3);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="w0"></param>
+		/// <param name="w1"></param>
+		/// <param name="w2"></param>
+		/// <param name="w3"></param>
+		/// <param name="w4"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(ushort w0, ushort w1, ushort w2, ushort w3, ushort w4) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareWord;
+			instruction.InternalDeclareDataCount = 5;
+
+			instruction.SetDeclareWordValue(0, w0);
+			instruction.SetDeclareWordValue(1, w1);
+			instruction.SetDeclareWordValue(2, w2);
+			instruction.SetDeclareWordValue(3, w3);
+			instruction.SetDeclareWordValue(4, w4);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="w0"></param>
+		/// <param name="w1"></param>
+		/// <param name="w2"></param>
+		/// <param name="w3"></param>
+		/// <param name="w4"></param>
+		/// <param name="w5"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(ushort w0, ushort w1, ushort w2, ushort w3, ushort w4, ushort w5) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareWord;
+			instruction.InternalDeclareDataCount = 6;
+
+			instruction.SetDeclareWordValue(0, w0);
+			instruction.SetDeclareWordValue(1, w1);
+			instruction.SetDeclareWordValue(2, w2);
+			instruction.SetDeclareWordValue(3, w3);
+			instruction.SetDeclareWordValue(4, w4);
+			instruction.SetDeclareWordValue(5, w5);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="w0"></param>
+		/// <param name="w1"></param>
+		/// <param name="w2"></param>
+		/// <param name="w3"></param>
+		/// <param name="w4"></param>
+		/// <param name="w5"></param>
+		/// <param name="w6"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(ushort w0, ushort w1, ushort w2, ushort w3, ushort w4, ushort w5, ushort w6) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareWord;
+			instruction.InternalDeclareDataCount = 7;
+
+			instruction.SetDeclareWordValue(0, w0);
+			instruction.SetDeclareWordValue(1, w1);
+			instruction.SetDeclareWordValue(2, w2);
+			instruction.SetDeclareWordValue(3, w3);
+			instruction.SetDeclareWordValue(4, w4);
+			instruction.SetDeclareWordValue(5, w5);
+			instruction.SetDeclareWordValue(6, w6);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="w0"></param>
+		/// <param name="w1"></param>
+		/// <param name="w2"></param>
+		/// <param name="w3"></param>
+		/// <param name="w4"></param>
+		/// <param name="w5"></param>
+		/// <param name="w6"></param>
+		/// <param name="w7"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(ushort w0, ushort w1, ushort w2, ushort w3, ushort w4, ushort w5, ushort w6, ushort w7) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareWord;
+			instruction.InternalDeclareDataCount = 8;
+
+			instruction.SetDeclareWordValue(0, w0);
+			instruction.SetDeclareWordValue(1, w1);
+			instruction.SetDeclareWordValue(2, w2);
+			instruction.SetDeclareWordValue(3, w3);
+			instruction.SetDeclareWordValue(4, w4);
+			instruction.SetDeclareWordValue(5, w5);
+			instruction.SetDeclareWordValue(6, w6);
+			instruction.SetDeclareWordValue(7, w7);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(byte[] data) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			return CreateDeclareWord(data, 0, data.Length);
+		}
+
+		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <param name="index">Start index</param>
+		/// <param name="length">Number of bytes</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(byte[] data, int index, int length) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			if ((uint)length > 16 || ((uint)length & 1) != 0)
+				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareWord;
+			instruction.InternalDeclareDataCount = (uint)length / 2;
+
+			for (int i = 0; i < length; i += 2) {
+				uint v = data[index + i] | ((uint)data[index + i + 1] << 8);
+				instruction.SetDeclareWordValue(i / 2, (ushort)v);
+			}
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dd' instruction
+		/// </summary>
+		/// <param name="d0"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareDword(uint d0) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareDword;
+			instruction.InternalDeclareDataCount = 1;
+
+			instruction.SetDeclareDwordValue(0, d0);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dd' instruction
+		/// </summary>
+		/// <param name="d0"></param>
+		/// <param name="d1"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareDword(uint d0, uint d1) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareDword;
+			instruction.InternalDeclareDataCount = 2;
+
+			instruction.SetDeclareDwordValue(0, d0);
+			instruction.SetDeclareDwordValue(1, d1);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dd' instruction
+		/// </summary>
+		/// <param name="d0"></param>
+		/// <param name="d1"></param>
+		/// <param name="d2"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareDword(uint d0, uint d1, uint d2) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareDword;
+			instruction.InternalDeclareDataCount = 3;
+
+			instruction.SetDeclareDwordValue(0, d0);
+			instruction.SetDeclareDwordValue(1, d1);
+			instruction.SetDeclareDwordValue(2, d2);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dd' instruction
+		/// </summary>
+		/// <param name="d0"></param>
+		/// <param name="d1"></param>
+		/// <param name="d2"></param>
+		/// <param name="d3"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareDword(uint d0, uint d1, uint d2, uint d3) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareDword;
+			instruction.InternalDeclareDataCount = 4;
+
+			instruction.SetDeclareDwordValue(0, d0);
+			instruction.SetDeclareDwordValue(1, d1);
+			instruction.SetDeclareDwordValue(2, d2);
+			instruction.SetDeclareDwordValue(3, d3);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dd' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareDword(byte[] data) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			return CreateDeclareDword(data, 0, data.Length);
+		}
+
+		/// <summary>
+		/// Create a 'dd' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <param name="index">Start index</param>
+		/// <param name="length">Number of bytes</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareDword(byte[] data, int index, int length) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			if ((uint)length > 16 || ((uint)length & 3) != 0)
+				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareDword;
+			instruction.InternalDeclareDataCount = (uint)length / 4;
+
+			for (int i = 0; i < length; i += 4) {
+				uint v = data[index + i] | ((uint)data[index + i + 1] << 8) | ((uint)data[index + i + 2] << 16) | ((uint)data[index + i + 3] << 24);
+				instruction.SetDeclareDwordValue(i / 4, v);
+			}
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dq' instruction
+		/// </summary>
+		/// <param name="q0"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareQword(ulong q0) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareQword;
+			instruction.InternalDeclareDataCount = 1;
+
+			instruction.SetDeclareQwordValue(0, q0);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dq' instruction
+		/// </summary>
+		/// <param name="q0"></param>
+		/// <param name="q1"></param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareQword(ulong q0, ulong q1) {
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareQword;
+			instruction.InternalDeclareDataCount = 2;
+
+			instruction.SetDeclareQwordValue(0, q0);
+			instruction.SetDeclareQwordValue(1, q1);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dq' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareQword(byte[] data) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			return CreateDeclareQword(data, 0, data.Length);
+		}
+
+		/// <summary>
+		/// Create a 'dq' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <param name="index">Start index</param>
+		/// <param name="length">Number of bytes</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareQword(byte[] data, int index, int length) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			if ((uint)length > 16 || ((uint)length & 7) != 0)
+				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareQword;
+			instruction.InternalDeclareDataCount = (uint)length / 8;
+
+			for (int i = 0; i < length; i += 8) {
+				uint v1 = data[index + i] | ((uint)data[index + i + 1] << 8) | ((uint)data[index + i + 2] << 16) | ((uint)data[index + i + 3] << 24);
+				uint v2 = data[index + i + 4] | ((uint)data[index + i + 5] << 8) | ((uint)data[index + i + 6] << 16) | ((uint)data[index + i + 7] << 24);
+				instruction.SetDeclareQwordValue(i / 8, (ulong)v1 | ((ulong)v2 << 32));
+			}
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
 	}
 
 	/// <summary>

@@ -380,6 +380,7 @@ namespace Iced.Intel.EncoderInternal {
 	enum OpCodeHandlerFlags : uint {
 		None					= 0,
 		Fwait					= 0x00000001,
+		DeclareData				= 0x00000002,
 	}
 
 	abstract class OpCodeHandler {
@@ -416,6 +417,33 @@ namespace Iced.Intel.EncoderInternal {
 
 		public override void Encode(Encoder encoder, ref Instruction instr) =>
 			encoder.ErrorMessage = ERROR_MESSAGE;
+	}
+
+	sealed class DeclareDataHandler : OpCodeHandler {
+		public DeclareDataHandler(Code code)
+			: base(code, 0, 0, OpCodeHandlerFlags.DeclareData, Encodable.Any, OperandSize.None, AddressSize.None, null, Array2.Empty<Op>()) {
+		}
+
+		public override void Encode(Encoder encoder, ref Instruction instr) {
+			int byteLength = instr.DeclareDataCount;
+			switch (instr.Code) {
+			case Code.DeclareByte:
+				break;
+			case Code.DeclareWord:
+				byteLength *= 2;
+				break;
+			case Code.DeclareDword:
+				byteLength *= 4;
+				break;
+			case Code.DeclareQword:
+				byteLength *= 8;
+				break;
+			default:
+				throw new InvalidOperationException();
+			}
+			for (int i = 0; i < byteLength; i++)
+				encoder.WriteByte(instr.GetDeclareByteValue(i));
+		}
 	}
 
 	sealed class LegacyHandler : OpCodeHandler {

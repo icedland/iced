@@ -332,28 +332,34 @@ namespace Iced.Intel {
 				throw new InvalidOperationException();
 			}
 
-			var ops = handler.Operands;
-			if (instruction.OpCount != ops.Length)
-				ErrorMessage = $"Expected {ops.Length} operand(s) but the instruction has {instruction.OpCount} operand(s)";
-			for (int i = 0; i < ops.Length; i++)
-				ops[i].Encode(this, ref instruction, i);
+			if ((handler.Flags & OpCodeHandlerFlags.DeclareData) == 0) {
+				var ops = handler.Operands;
+				if (instruction.OpCount != ops.Length)
+					ErrorMessage = $"Expected {ops.Length} operand(s) but the instruction has {instruction.OpCount} operand(s)";
+				for (int i = 0; i < ops.Length; i++)
+					ops[i].Encode(this, ref instruction, i);
 
-			if ((handler.Flags & OpCodeHandlerFlags.Fwait) != 0)
-				WriteByte(0x9B);
+				if ((handler.Flags & OpCodeHandlerFlags.Fwait) != 0)
+					WriteByte(0x9B);
 
-			WritePrefixes(ref instruction);
+				WritePrefixes(ref instruction);
 
-			handler.Encode(this, ref instruction);
+				handler.Encode(this, ref instruction);
 
-			WriteOpCode();
+				WriteOpCode();
 
-			if ((EncoderFlags & (EncoderFlags.ModRM | EncoderFlags.Displ)) != 0)
-				WriteModRM();
+				if ((EncoderFlags & (EncoderFlags.ModRM | EncoderFlags.Displ)) != 0)
+					WriteModRM();
 
-			WriteImmediate();
+				WriteImmediate();
+			}
+			else {
+				Debug.Assert(handler is DeclareDataHandler);
+				handler.Encode(this, ref instruction);
+			}
 
 			uint instrLen = (uint)currentRip - (uint)rip;
-			if (instrLen > DecoderConstants.MaxInstructionLength)
+			if (instrLen > DecoderConstants.MaxInstructionLength && (handler.Flags & OpCodeHandlerFlags.DeclareData) == 0)
 				ErrorMessage = $"Instruction length > {DecoderConstants.MaxInstructionLength} bytes";
 			errorMessage = this.errorMessage;
 			if (errorMessage != null) {
@@ -996,6 +1002,7 @@ namespace Iced.Intel {
 
 		static readonly byte[] segmentOverrides = new byte[6] { 0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65 };
 		void WritePrefixes(ref Instruction instr) {
+			Debug.Assert((handler.Flags & OpCodeHandlerFlags.DeclareData) == 0);
 			var seg = instr.SegmentPrefix;
 			if (seg != Register.None) {
 				Debug.Assert((uint)(seg - Register.ES) < (uint)segmentOverrides.Length);
@@ -1014,6 +1021,7 @@ namespace Iced.Intel {
 		}
 
 		void WriteOpCode() {
+			Debug.Assert((handler.Flags & OpCodeHandlerFlags.DeclareData) == 0);
 			var opCode = OpCode;
 			if (opCode <= 0x000000FF)
 				WriteByte(opCode);
@@ -1035,6 +1043,7 @@ namespace Iced.Intel {
 		}
 
 		void WriteModRM() {
+			Debug.Assert((handler.Flags & OpCodeHandlerFlags.DeclareData) == 0);
 			Debug.Assert((EncoderFlags & (EncoderFlags.ModRM | EncoderFlags.Displ)) != 0);
 			if ((EncoderFlags & EncoderFlags.ModRM) != 0) {
 				WriteByte(ModRM);
@@ -1106,6 +1115,7 @@ namespace Iced.Intel {
 		}
 
 		void WriteImmediate() {
+			Debug.Assert((handler.Flags & OpCodeHandlerFlags.DeclareData) == 0);
 			ushort ip;
 			uint eip;
 			ulong rip;

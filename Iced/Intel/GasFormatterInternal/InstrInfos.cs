@@ -4210,6 +4210,10 @@ namespace Iced.Intel.GasFormatterInternal {
 			new SimpleInstrInfo(Code.D3NOW_Pmulhrw_mm_mmm64, "pmulhrw"),
 			new SimpleInstrInfo(Code.D3NOW_Pswapd_mm_mmm64, "pswapd"),
 			new SimpleInstrInfo(Code.D3NOW_Pavgusb_mm_mmm64, "pavgusb"),
+			new SimpleInstrInfo_DeclareData(Code.DeclareByte, ".byte"),
+			new SimpleInstrInfo_DeclareData(Code.DeclareWord, ".word"),
+			new SimpleInstrInfo_DeclareData(Code.DeclareDword, ".int"),
+			new SimpleInstrInfo_DeclareData(Code.DeclareQword, ".quad"),
 		};
 	}
 }

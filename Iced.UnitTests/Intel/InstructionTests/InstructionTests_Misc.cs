@@ -491,6 +491,11 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr.MemoryDisplacement = 0x87654321;
 			Assert.True(instr.IsIPRelativeMemoryOperand);
 			Assert.Equal(0x1234566FA641FDB9UL, instr.IPRelativeMemoryAddress);
+
+			instr.DeclareDataCount = 1;
+			Assert.Equal(1, instr.DeclareDataCount);
+			instr.DeclareDataCount = 15;
+			Assert.Equal(15, instr.DeclareDataCount);
 		}
 
 		static T[] GetEnumValues<T>() => (T[])Enum.GetValues(typeof(T));

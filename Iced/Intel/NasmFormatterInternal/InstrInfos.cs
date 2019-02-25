@@ -4210,6 +4210,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 			new SimpleInstrInfo(Code.D3NOW_Pmulhrw_mm_mmm64, "pmulhrwa"),
 			new SimpleInstrInfo(Code.D3NOW_Pswapd_mm_mmm64, "pswapd"),
 			new SimpleInstrInfo(Code.D3NOW_Pavgusb_mm_mmm64, "pavgusb"),
+			new SimpleInstrInfo_DeclareData(Code.DeclareByte, "db"),
+			new SimpleInstrInfo_DeclareData(Code.DeclareWord, "dw"),
+			new SimpleInstrInfo_DeclareData(Code.DeclareDword, "dd"),
+			new SimpleInstrInfo_DeclareData(Code.DeclareQword, "dq"),
 		};
 	}
 }

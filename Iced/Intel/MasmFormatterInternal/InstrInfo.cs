@@ -56,6 +56,10 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		// Extra opkinds
 		ExtraImmediate8_Value3,
+		DeclareByte,
+		DeclareWord,
+		DeclareDword,
+		DeclareQword,
 	}
 
 	[Flags]
@@ -82,6 +86,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		BndPrefix					= 0x0040,
 		IgnoreIndexReg				= 0x0080,
 		ShowMinMemSize_ForceSize	= 0x0100,
+		MnemonicIsDirective			= 0x0200,
 	}
 
 	struct InstrOpInfo {
@@ -124,7 +129,9 @@ namespace Iced.Intel.MasmFormatterInternal {
 			case 2: return Op2Kind;
 			case 3: return Op3Kind;
 			case 4: return Op4Kind;
-			default: throw new ArgumentOutOfRangeException(nameof(operand));
+			default:
+				Debug.Assert(Op0Kind == InstrOpKind.DeclareByte || Op0Kind == InstrOpKind.DeclareWord || Op0Kind == InstrOpKind.DeclareDword || Op0Kind == InstrOpKind.DeclareQword);
+				return Op0Kind;
 			}
 		}
 
@@ -136,7 +143,10 @@ namespace Iced.Intel.MasmFormatterInternal {
 			case 2: instructionOperand = Op2Index; break;
 			case 3: instructionOperand = Op3Index; break;
 			case 4: instructionOperand = Op4Index; break;
-			default: throw new ArgumentOutOfRangeException(nameof(operand));
+			default:
+				Debug.Assert(Op0Kind == InstrOpKind.DeclareByte || Op0Kind == InstrOpKind.DeclareWord || Op0Kind == InstrOpKind.DeclareDword || Op0Kind == InstrOpKind.DeclareQword);
+				instructionOperand = -1;
+				break;
 			}
 			return instructionOperand < 0 ? -1 : instructionOperand;
 		}
@@ -150,7 +160,10 @@ namespace Iced.Intel.MasmFormatterInternal {
 			case 2: instructionOperand = Op2Index; break;
 			case 3: instructionOperand = Op3Index; break;
 			case 4: instructionOperand = Op4Index; break;
-			default: throw new ArgumentOutOfRangeException(nameof(operand));
+			default:
+				Debug.Assert(Op0Kind == InstrOpKind.DeclareByte || Op0Kind == InstrOpKind.DeclareWord || Op0Kind == InstrOpKind.DeclareDword || Op0Kind == InstrOpKind.DeclareQword);
+				instructionOperand = -1;
+				break;
 			}
 			if (instructionOperand < InstrInfo.OpAccess_INVALID) {
 				access = (OpAccess)(-instructionOperand - 2);
@@ -1391,6 +1404,35 @@ namespace Iced.Intel.MasmFormatterInternal {
 			default:
 				throw new InvalidOperationException();
 			}
+		}
+	}
+
+	sealed class SimpleInstrInfo_DeclareData : InstrInfo {
+		readonly string mnemonic;
+		readonly InstrOpKind opKind;
+
+		public SimpleInstrInfo_DeclareData(Code code, string mnemonic)
+			: base(code) {
+			this.mnemonic = mnemonic;
+			InstrOpKind opKind;
+			switch (code) {
+			case Code.DeclareByte: opKind = InstrOpKind.DeclareByte; break;
+			case Code.DeclareWord: opKind = InstrOpKind.DeclareWord; break;
+			case Code.DeclareDword: opKind = InstrOpKind.DeclareDword; break;
+			case Code.DeclareQword: opKind = InstrOpKind.DeclareQword; break;
+			default: throw new InvalidOperationException();
+			}
+			this.opKind = opKind;
+		}
+
+		public override void GetOpInfo(MasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, ref instr, InstrOpInfoFlags.MnemonicIsDirective);
+			info.OpCount = (byte)instr.DeclareDataCount;
+			info.Op0Kind = opKind;
+			info.Op1Kind = opKind;
+			info.Op2Kind = opKind;
+			info.Op3Kind = opKind;
+			info.Op4Kind = opKind;
 		}
 	}
 }

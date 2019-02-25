@@ -81,6 +81,32 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				instr.CodeSize = CodeSize.Code16;
 				instr.ByteLength = 1;
 			}
+			else if (code >= Code.DeclareByte) {
+				instr = default;
+				instr.Code = code;
+				instr.DeclareDataCount = 1;
+				Assert.Equal(64, bitness);
+				instr.CodeSize = CodeSize.Code64;
+				switch (code) {
+				case Code.DeclareByte:
+					Assert.Equal("66", hexBytes);
+					instr.SetDeclareByteValue(0, 0x66);
+					break;
+				case Code.DeclareWord:
+					Assert.Equal("6644", hexBytes);
+					instr.SetDeclareWordValue(0, 0x4466);
+					break;
+				case Code.DeclareDword:
+					Assert.Equal("664422EE", hexBytes);
+					instr.SetDeclareDwordValue(0, 0xEE224466);
+					break;
+				case Code.DeclareQword:
+					Assert.Equal("664422EE12345678", hexBytes);
+					instr.SetDeclareQwordValue(0, 0x78563412EE224466);
+					break;
+				default: throw new InvalidOperationException();
+				}
+			}
 			else {
 				var decoder = CreateDecoder(bitness, codeBytes, options);
 				instr = decoder.Decode();

@@ -4215,6 +4215,10 @@ namespace Iced.Intel.EncoderInternal {
 				(uint)EncFlags1.D3NOW | (uint)Code.D3NOW_Pmulhrw_mm_mmm64 | ((uint)0xB7 << (int)EncFlags1.OpCodeShift), (uint)D3nowFlags.Encodable_Any, 0,
 				(uint)EncFlags1.D3NOW | (uint)Code.D3NOW_Pswapd_mm_mmm64 | ((uint)0xBB << (int)EncFlags1.OpCodeShift), (uint)D3nowFlags.Encodable_Any, 0,
 				(uint)EncFlags1.D3NOW | (uint)Code.D3NOW_Pavgusb_mm_mmm64 | ((uint)0xBF << (int)EncFlags1.OpCodeShift), (uint)D3nowFlags.Encodable_Any, 0,
+				(uint)EncFlags1.Legacy | (uint)Code.DeclareByte, 0, 0,
+				(uint)EncFlags1.Legacy | (uint)Code.DeclareWord, 0, 0,
+				(uint)EncFlags1.Legacy | (uint)Code.DeclareDword, 0, 0,
+				(uint)EncFlags1.Legacy | (uint)Code.DeclareQword, 0, 0,
 			};
 			var handlers = new OpCodeHandler[DecoderConstants.NumberOfCodeValues];
 			int j = 0;
@@ -4223,8 +4227,11 @@ namespace Iced.Intel.EncoderInternal {
 				OpCodeHandler handler;
 				switch ((EncodingKind)((dword1 >> (int)EncFlags1.EncodingShift) & (uint)EncFlags1.EncodingMask)) {
 				case EncodingKind.Legacy:
-					if ((Code)(dword1 & (uint)EncFlags1.CodeMask) == Code.INVALID)
+					var code = (Code)(dword1 & (uint)EncFlags1.CodeMask);
+					if (code == Code.INVALID)
 						handler = new InvalidHandler(Code.INVALID);
+					else if (code >= Code.DeclareByte)
+						handler = new DeclareDataHandler(code);
 					else
 						handler = new LegacyHandler(dword1, info[i + 1], info[i + 2]);
 					break;

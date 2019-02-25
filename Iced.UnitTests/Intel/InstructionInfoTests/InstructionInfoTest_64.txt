@@ -18543,3 +18543,11 @@ F3 0FA7 E8, XcryptOfb_64, Legacy, PADLOCK_ACE, cwm=es:rdi;Unknown crm=es:rax;Unk
 0FA7 E8, XcryptOfb_64, Legacy, PADLOCK_ACE, wm=es:rdi;Unknown rwm=es:rax;Unknown rm=es:rdx;Unknown rm=es:rbx;Unknown rm=es:rsi;Unknown r=rax;rdx;rbx;rsi;rdi w=rax;rsi;rdi
 # xcryptofb
 67 0FA7 E8, XcryptOfb_32, Legacy, PADLOCK_ACE, wm=es:edi;Unknown rwm=es:eax;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=eax;edx;ebx;esi;edi w=rax;rsi;rdi
+# db 66h
+66, DeclareByte, Legacy, INTEL8086, flow=Exception
+# dw 4466h
+6644, DeclareWord, Legacy, INTEL8086, flow=Exception
+# dd 0EE224466h
+664422EE, DeclareDword, Legacy, INTEL8086, flow=Exception
+# dq 78563412EE224466h
+664422EE12345678, DeclareQword, Legacy, INTEL8086, flow=Exception
