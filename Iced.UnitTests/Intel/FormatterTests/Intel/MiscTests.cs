@@ -164,7 +164,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 		}
 
 		[Fact]
-		void CreateDefaultFormatter() => new IntelFormatter();
+		void TestFormattingWithDefaultFormatterCtor() => FormatterTestUtils.TestFormatterDoesNotThrow(new IntelFormatter());
 	}
 }
 #endif

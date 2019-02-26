@@ -5033,6 +5033,8 @@ namespace Iced.Intel {
 		D3NOW_Pswapd_mm_mmm64,										// 0F0F BB
 		D3NOW_Pavgusb_mm_mmm64,										// 0F0F BF
 
+		// Misc
+
 		/// <summary>
 		/// A 'db' asm directive that can store 0-16 bytes
 		/// </summary>

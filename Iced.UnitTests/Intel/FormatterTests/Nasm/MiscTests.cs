@@ -172,7 +172,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		}
 
 		[Fact]
-		void CreateDefaultFormatter() => new NasmFormatter();
+		void TestFormattingWithDefaultFormatterCtor() => FormatterTestUtils.TestFormatterDoesNotThrow(new NasmFormatter());
 	}
 }
 #endif

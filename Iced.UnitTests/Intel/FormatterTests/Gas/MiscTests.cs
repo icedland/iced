@@ -167,7 +167,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 		}
 
 		[Fact]
-		void CreateDefaultFormatter() => new GasFormatter();
+		void TestFormattingWithDefaultFormatterCtor() => FormatterTestUtils.TestFormatterDoesNotThrow(new GasFormatter());
 	}
 }
 #endif

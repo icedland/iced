@@ -128,6 +128,16 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			decoder.IP = rip;
 			return decoder;
 		}
+
+		public static void TestFormatterDoesNotThrow(Formatter formatter) {
+			var output = new StringBuilderFormatterOutput();
+			foreach (var info in DecoderTests.DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: true)) {
+				var decoder = CreateDecoder(info.Bitness, info.HexBytes, info.Options, out _);
+				decoder.Decode(out var instr);
+				formatter.Format(ref instr, output);
+				output.Reset();
+			}
+		}
 	}
 }
 #endif
