@@ -198,7 +198,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 			var data = new byte[16];
 			for (int i = 0; i < data.Length; i++)
-				data[i] = (byte)0xFF;
+				data[i] = 0xFF;
 
 			instr = Instruction.CreateDeclareByte(data);
 			DeclareDataDoesNotUseOtherProperties2(ref instr);
@@ -217,6 +217,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Equal(Register.None, instr.SegmentPrefix);
 			Assert.Equal(CodeSize.Unknown, instr.CodeSize);
 			Assert.Equal(RoundingControl.None, instr.RoundingControl);
+			Assert.Equal(0UL, instr.IP);
 			Assert.False(instr.IsBroadcast);
 			Assert.False(instr.HasOpMask);
 			Assert.False(instr.SuppressAllExceptions);
