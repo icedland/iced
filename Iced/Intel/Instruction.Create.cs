@@ -2400,6 +2400,41 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(ushort[] data) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			return CreateDeclareWord(data, 0, data.Length);
+		}
+
+		/// <summary>
+		/// Create a 'dw' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <param name="index">Start index</param>
+		/// <param name="length">Number of elements</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareWord(ushort[] data, int index, int length) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			if ((uint)length > 8)
+				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareWord;
+			instruction.InternalDeclareDataCount = (uint)length;
+
+			for (int i = 0; i < length; i++)
+				instruction.SetDeclareWordValue(i, data[index + i]);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
 		/// Create a 'dd' instruction
 		/// </summary>
 		/// <param name="d0"></param>
@@ -2513,6 +2548,41 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Create a 'dd' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareDword(uint[] data) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			return CreateDeclareDword(data, 0, data.Length);
+		}
+
+		/// <summary>
+		/// Create a 'dd' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <param name="index">Start index</param>
+		/// <param name="length">Number of elements</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareDword(uint[] data, int index, int length) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			if ((uint)length > 4)
+				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareDword;
+			instruction.InternalDeclareDataCount = (uint)length;
+
+			for (int i = 0; i < length; i++)
+				instruction.SetDeclareDwordValue(i, data[index + i]);
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
 		/// Create a 'dq' instruction
 		/// </summary>
 		/// <param name="q0"></param>
@@ -2579,6 +2649,41 @@ namespace Iced.Intel {
 				uint v2 = data[index + i + 4] | ((uint)data[index + i + 5] << 8) | ((uint)data[index + i + 6] << 16) | ((uint)data[index + i + 7] << 24);
 				instruction.SetDeclareQwordValue(i / 8, (ulong)v1 | ((ulong)v2 << 32));
 			}
+
+			Debug.Assert(instruction.OpCount == 0);
+			return instruction;
+		}
+
+		/// <summary>
+		/// Create a 'dq' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareQword(ulong[] data) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			return CreateDeclareQword(data, 0, data.Length);
+		}
+
+		/// <summary>
+		/// Create a 'dq' instruction
+		/// </summary>
+		/// <param name="data">Data</param>
+		/// <param name="index">Start index</param>
+		/// <param name="length">Number of elements</param>
+		/// <returns></returns>
+		public static Instruction CreateDeclareQword(ulong[] data, int index, int length) {
+			if (data == null)
+				ThrowHelper.ThrowArgumentNullException_data();
+			if ((uint)length > 2)
+				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+
+			Instruction instruction = default;
+			instruction.InternalCode = Code.DeclareQword;
+			instruction.InternalDeclareDataCount = (uint)length;
+
+			for (int i = 0; i < length; i++)
+				instruction.SetDeclareQwordValue(i, data[index + i]);
 
 			Debug.Assert(instruction.OpCount == 0);
 			return instruction;

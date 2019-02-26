@@ -575,6 +575,106 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			}
 		}
 
+		[Fact]
+		void CreateDeclareWordArray3() {
+			var data = new (Instruction instr, ushort[] data)[] {
+				(Instruction.Create(Code.DeclareWord), Array.Empty<ushort>()),
+				(Instruction.CreateDeclareWord(0x77A9), new ushort[] { 0x77A9 }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D), new ushort[] { 0x77A9, 0xCE9D }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505), new ushort[] { 0x77A9, 0xCE9D, 0x5505 }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C), new ushort[] { 0x77A9, 0xCE9D, 0x5505, 0x426C }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632), new ushort[] { 0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632 }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F), new ushort[] { 0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427), new ushort[] { 0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427 }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08), new ushort[] { 0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08 }),
+			};
+			foreach (var info in data) {
+				var instr1 = info.instr;
+				var instr2 = Instruction.CreateDeclareWord(info.data);
+				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+			}
+		}
+
+		[Fact]
+		void CreateDeclareDwordArray3() {
+			var data = new (Instruction instr, uint[] data)[] {
+				(Instruction.Create(Code.DeclareDword), Array.Empty<uint>()),
+				(Instruction.CreateDeclareDword(0x77A9CE9D), new uint[] { 0x77A9CE9D }),
+				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C), new uint[] { 0x77A9CE9D, 0x5505426C }),
+				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C, 0x8632FE4F), new uint[] { 0x77A9CE9D, 0x5505426C, 0x8632FE4F }),
+				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C, 0x8632FE4F, 0x3427AA08), new uint[] { 0x77A9CE9D, 0x5505426C, 0x8632FE4F, 0x3427AA08 }),
+			};
+			foreach (var info in data) {
+				var instr1 = info.instr;
+				var instr2 = Instruction.CreateDeclareDword(info.data);
+				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+			}
+		}
+
+		[Fact]
+		void CreateDeclareQwordArray3() {
+			var data = new (Instruction instr, ulong[] data)[] {
+				(Instruction.Create(Code.DeclareQword), Array.Empty<ulong>()),
+				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C), new ulong[] { 0x77A9CE9D5505426C }),
+				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C, 0x8632FE4F3427AA08), new ulong[] { 0x77A9CE9D5505426C, 0x8632FE4F3427AA08 }),
+			};
+			foreach (var info in data) {
+				var instr1 = info.instr;
+				var instr2 = Instruction.CreateDeclareQword(info.data);
+				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+			}
+		}
+
+		[Fact]
+		void CreateDeclareWordArray4() {
+			var data = new (Instruction instr, ushort[] data)[] {
+				(Instruction.Create(Code.DeclareWord), new ushort[] { 0x5AA5, 0xA55A }),
+				(Instruction.CreateDeclareWord(0x77A9), new ushort[] { 0x5AA5, 0x77A9, 0xA55A }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D), new ushort[] { 0x5AA5, 0x77A9, 0xCE9D, 0xA55A }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505), new ushort[] { 0x5AA5, 0x77A9, 0xCE9D, 0x5505, 0xA55A }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C), new ushort[] { 0x5AA5, 0x77A9, 0xCE9D, 0x5505, 0x426C, 0xA55A }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632), new ushort[] { 0x5AA5, 0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xA55A }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F), new ushort[] { 0x5AA5, 0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0xA55A }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427), new ushort[] { 0x5AA5, 0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xA55A }),
+				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08), new ushort[] { 0x5AA5, 0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08, 0xA55A }),
+			};
+			foreach (var info in data) {
+				var instr1 = info.instr;
+				var instr2 = Instruction.CreateDeclareWord(info.data, 1, info.data.Length - 2);
+				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+			}
+		}
+
+		[Fact]
+		void CreateDeclareDwordArray4() {
+			var data = new (Instruction instr, uint[] data)[] {
+				(Instruction.Create(Code.DeclareDword), new uint[] { 0x5AA5A55A, 0xA55A5AA5 }),
+				(Instruction.CreateDeclareDword(0x77A9CE9D), new uint[] { 0x5AA5A55A, 0x77A9CE9D, 0xA55A5AA5 }),
+				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C), new uint[] { 0x5AA5A55A, 0x77A9CE9D, 0x5505426C, 0xA55A5AA5 }),
+				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C, 0x8632FE4F), new uint[] { 0x5AA5A55A, 0x77A9CE9D, 0x5505426C, 0x8632FE4F, 0xA55A5AA5 }),
+				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C, 0x8632FE4F, 0x3427AA08), new uint[] { 0x5AA5A55A, 0x77A9CE9D, 0x5505426C, 0x8632FE4F, 0x3427AA08, 0xA55A5AA5 }),
+			};
+			foreach (var info in data) {
+				var instr1 = info.instr;
+				var instr2 = Instruction.CreateDeclareDword(info.data, 1, info.data.Length - 2);
+				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+			}
+		}
+
+		[Fact]
+		void CreateDeclareQwordArray4() {
+			var data = new (Instruction instr, ulong[] data)[] {
+				(Instruction.Create(Code.DeclareQword), new ulong[] { 0x5AA5A55A5AA5A55A, 0xA55A5AA5A55A5AA5 }),
+				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C), new ulong[] { 0x5AA5A55A5AA5A55A, 0x77A9CE9D5505426C, 0xA55A5AA5A55A5AA5 }),
+				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C, 0x8632FE4F3427AA08), new ulong[] { 0x5AA5A55A5AA5A55A, 0x77A9CE9D5505426C, 0x8632FE4F3427AA08, 0xA55A5AA5A55A5AA5 }),
+			};
+			foreach (var info in data) {
+				var instr1 = info.instr;
+				var instr2 = Instruction.CreateDeclareQword(info.data, 1, info.data.Length - 2);
+				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+			}
+		}
+
 		[Theory]
 		[MemberData(nameof(CreateTest_Data))]
 		void CreateTest(int bitness, string hexBytes, Func<Instruction> create) {
