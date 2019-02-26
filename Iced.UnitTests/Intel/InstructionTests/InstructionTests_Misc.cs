@@ -496,6 +496,8 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Equal(1, instr.DeclareDataCount);
 			instr.DeclareDataCount = 15;
 			Assert.Equal(15, instr.DeclareDataCount);
+			instr.DeclareDataCount = 16;
+			Assert.Equal(16, instr.DeclareDataCount);
 		}
 
 		static T[] GetEnumValues<T>() => (T[])Enum.GetValues(typeof(T));
