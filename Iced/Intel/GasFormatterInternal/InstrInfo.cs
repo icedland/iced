@@ -169,7 +169,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			case 4: instructionOperand = Op4Index; break;
 			default:
 				Debug.Assert(Op0Kind == InstrOpKind.DeclareByte || Op0Kind == InstrOpKind.DeclareWord || Op0Kind == InstrOpKind.DeclareDword || Op0Kind == InstrOpKind.DeclareQword);
-				instructionOperand = -1;
+				instructionOperand = Op0Index;
 				break;
 			}
 			if (instructionOperand < InstrInfo.OpAccess_INVALID) {
@@ -1551,6 +1551,11 @@ namespace Iced.Intel.GasFormatterInternal {
 			info.Op2Kind = opKind;
 			info.Op3Kind = opKind;
 			info.Op4Kind = opKind;
+			info.Op0Index = OpAccess_Read;
+			info.Op1Index = OpAccess_Read;
+			info.Op2Index = OpAccess_Read;
+			info.Op3Index = OpAccess_Read;
+			info.Op4Index = OpAccess_Read;
 		}
 	}
 }
