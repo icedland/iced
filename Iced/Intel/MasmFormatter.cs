@@ -97,7 +97,7 @@ namespace Iced.Intel {
 			allRegisters = Registers.AllRegisters;
 			instrInfos = InstrInfos.AllInfos;
 			allMemorySizes = MemorySizes.AllMemorySizes;
-			numberFormatter = new NumberFormatter(options);
+			numberFormatter = new NumberFormatter(this.options);
 		}
 
 		/// <summary>

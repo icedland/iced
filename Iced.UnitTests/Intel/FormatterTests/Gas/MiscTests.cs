@@ -165,6 +165,9 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			Assert.Equal<string>(formattedString, actualFormattedString);
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 		}
+
+		[Fact]
+		void CreateDefaultFormatter() => new GasFormatter();
 	}
 }
 #endif

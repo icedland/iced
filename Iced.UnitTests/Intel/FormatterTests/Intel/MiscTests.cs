@@ -162,6 +162,9 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			Assert.Equal<string>(formattedString, actualFormattedString);
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 		}
+
+		[Fact]
+		void CreateDefaultFormatter() => new IntelFormatter();
 	}
 }
 #endif

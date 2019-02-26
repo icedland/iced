@@ -170,6 +170,9 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			Assert.Equal<string>(formattedString, actualFormattedString);
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 		}
+
+		[Fact]
+		void CreateDefaultFormatter() => new NasmFormatter();
 	}
 }
 #endif

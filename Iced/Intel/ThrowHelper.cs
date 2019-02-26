@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
 	static class ThrowHelper {
@@ -41,6 +40,7 @@ namespace Iced.Intel {
 		internal static void ThrowArgumentNullException_collection() => throw new ArgumentNullException("collection");
 		internal static void ThrowArgumentNullException_array() => throw new ArgumentNullException("array");
 		internal static void ThrowArgumentNullException_sb() => throw new ArgumentNullException("sb");
+		internal static void ThrowArgumentNullException_formatterOptions() => throw new ArgumentNullException("formatterOptions");
 
 		internal static void ThrowArgumentOutOfRangeException_value() => throw new ArgumentOutOfRangeException("value");
 		internal static void ThrowArgumentOutOfRangeException_index() => throw new ArgumentOutOfRangeException("index");
