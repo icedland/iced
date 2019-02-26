@@ -420,27 +420,30 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class DeclareDataHandler : OpCodeHandler {
+		readonly int elemLength;
+
 		public DeclareDataHandler(Code code)
 			: base(code, 0, 0, OpCodeHandlerFlags.DeclareData, Encodable.Any, OperandSize.None, AddressSize.None, null, Array2.Empty<Op>()) {
-		}
-
-		public override void Encode(Encoder encoder, ref Instruction instr) {
-			int byteLength = instr.DeclareDataCount;
-			switch (instr.Code) {
+			switch (code) {
 			case Code.DeclareByte:
+				elemLength = 1;
 				break;
 			case Code.DeclareWord:
-				byteLength *= 2;
+				elemLength = 2;
 				break;
 			case Code.DeclareDword:
-				byteLength *= 4;
+				elemLength = 4;
 				break;
 			case Code.DeclareQword:
-				byteLength *= 8;
+				elemLength = 8;
 				break;
 			default:
 				throw new InvalidOperationException();
 			}
+		}
+
+		public override void Encode(Encoder encoder, ref Instruction instr) {
+			int byteLength = instr.DeclareDataCount * elemLength;
 			for (int i = 0; i < byteLength; i++)
 				encoder.WriteByte(instr.GetDeclareByteValue(i));
 		}
