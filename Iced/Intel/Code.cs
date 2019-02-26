@@ -2357,30 +2357,9 @@ namespace Iced.Intel {
 		Umwait_r64,													// F2 REX.W 0FAE /6
 		Clflush_m8,													// 0FAE /7
 		Clflushopt_m8,												// 66 0FAE /7
-		Lfence,														// 0FAE E8
-		Lfence_E9,													// 0FAE E9
-		Lfence_EA,													// 0FAE EA
-		Lfence_EB,													// 0FAE EB
-		Lfence_EC,													// 0FAE EC
-		Lfence_ED,													// 0FAE ED
-		Lfence_EE,													// 0FAE EE
-		Lfence_EF,													// 0FAE EF
-		Mfence,														// 0FAE F0
-		Mfence_F1,													// 0FAE F1
-		Mfence_F2,													// 0FAE F2
-		Mfence_F3,													// 0FAE F3
-		Mfence_F4,													// 0FAE F4
-		Mfence_F5,													// 0FAE F5
-		Mfence_F6,													// 0FAE F6
-		Mfence_F7,													// 0FAE F7
-		Sfence,														// 0FAE F8
-		Sfence_F9,													// 0FAE F9
-		Sfence_FA,													// 0FAE FA
-		Sfence_FB,													// 0FAE FB
-		Sfence_FC,													// 0FAE FC
-		Sfence_FD,													// 0FAE FD
-		Sfence_FE,													// 0FAE FE
-		Sfence_FF,													// 0FAE FF
+		Lfence,														// 0FAE E8-EF
+		Mfence,														// 0FAE F0-F7
+		Sfence,														// 0FAE F8-FF
 		Pcommit,													// 66 0FAE F8
 		Imul_r16_rm16,												// o16 0FAF
 		Imul_r32_rm32,												// o32 0FAF

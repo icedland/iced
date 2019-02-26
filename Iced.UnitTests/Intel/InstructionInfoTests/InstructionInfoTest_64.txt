@@ -17370,47 +17370,47 @@ F2 0FAE F5, Umwait_r32, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=ebp r=eax;edx
 # umwait rbp
 F2 48 0FAE F5, Umwait_r64, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=rbp r=eax;edx
 # lfence
-0FAE E9, Lfence_E9, Legacy, SSE2,
+0FAE E9, Lfence, Legacy, SSE2,
 # lfence
-0FAE EA, Lfence_EA, Legacy, SSE2,
+0FAE EA, Lfence, Legacy, SSE2,
 # lfence
-0FAE EB, Lfence_EB, Legacy, SSE2,
+0FAE EB, Lfence, Legacy, SSE2,
 # lfence
-0FAE EC, Lfence_EC, Legacy, SSE2,
+0FAE EC, Lfence, Legacy, SSE2,
 # lfence
-0FAE ED, Lfence_ED, Legacy, SSE2,
+0FAE ED, Lfence, Legacy, SSE2,
 # lfence
-0FAE EE, Lfence_EE, Legacy, SSE2,
+0FAE EE, Lfence, Legacy, SSE2,
 # lfence
-0FAE EF, Lfence_EF, Legacy, SSE2,
+0FAE EF, Lfence, Legacy, SSE2,
 # mfence
-0FAE F1, Mfence_F1, Legacy, SSE2,
+0FAE F1, Mfence, Legacy, SSE2,
 # mfence
-0FAE F2, Mfence_F2, Legacy, SSE2,
+0FAE F2, Mfence, Legacy, SSE2,
 # mfence
-0FAE F3, Mfence_F3, Legacy, SSE2,
+0FAE F3, Mfence, Legacy, SSE2,
 # mfence
-0FAE F4, Mfence_F4, Legacy, SSE2,
+0FAE F4, Mfence, Legacy, SSE2,
 # mfence
-0FAE F5, Mfence_F5, Legacy, SSE2,
+0FAE F5, Mfence, Legacy, SSE2,
 # mfence
-0FAE F6, Mfence_F6, Legacy, SSE2,
+0FAE F6, Mfence, Legacy, SSE2,
 # mfence
-0FAE F7, Mfence_F7, Legacy, SSE2,
+0FAE F7, Mfence, Legacy, SSE2,
 # sfence
-0FAE F9, Sfence_F9, Legacy, SSE,
+0FAE F9, Sfence, Legacy, SSE,
 # sfence
-0FAE FA, Sfence_FA, Legacy, SSE,
+0FAE FA, Sfence, Legacy, SSE,
 # sfence
-0FAE FB, Sfence_FB, Legacy, SSE,
+0FAE FB, Sfence, Legacy, SSE,
 # sfence
-0FAE FC, Sfence_FC, Legacy, SSE,
+0FAE FC, Sfence, Legacy, SSE,
 # sfence
-0FAE FD, Sfence_FD, Legacy, SSE,
+0FAE FD, Sfence, Legacy, SSE,
 # sfence
-0FAE FE, Sfence_FE, Legacy, SSE,
+0FAE FE, Sfence, Legacy, SSE,
 # sfence
-0FAE FF, Sfence_FF, Legacy, SSE,
+0FAE FF, Sfence, Legacy, SSE,
 # pcommit
 66 0FAE F8, Pcommit, Legacy, PCOMMIT, decopt=pcommit
 # vpdpbusd xmm2,xmm6,[rax+10h]

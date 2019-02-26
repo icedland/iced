@@ -928,43 +928,43 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Lfence_E9),
+					new OpCodeHandler_Simple_ModRM(Code.Lfence),
 					invalid,
 					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Lfence_EA),
+					new OpCodeHandler_Simple_ModRM(Code.Lfence),
 					invalid,
 					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Lfence_EB),
+					new OpCodeHandler_Simple_ModRM(Code.Lfence),
 					invalid,
 					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Lfence_EC),
+					new OpCodeHandler_Simple_ModRM(Code.Lfence),
 					invalid,
 					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Lfence_ED),
+					new OpCodeHandler_Simple_ModRM(Code.Lfence),
 					invalid,
 					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Lfence_EE),
+					new OpCodeHandler_Simple_ModRM(Code.Lfence),
 					invalid,
 					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Lfence_EF),
+					new OpCodeHandler_Simple_ModRM(Code.Lfence),
 					invalid,
 					new OpCodeHandler_Ev_REXW(Code.Incsspd_r32, Code.Incsspq_r64, allowReg: true, allowMem: false),
 					invalid
@@ -978,43 +978,43 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Mfence_F1),
+					new OpCodeHandler_Simple_ModRM(Code.Mfence),
 					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
 					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
 					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Mfence_F2),
+					new OpCodeHandler_Simple_ModRM(Code.Mfence),
 					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
 					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
 					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Mfence_F3),
+					new OpCodeHandler_Simple_ModRM(Code.Mfence),
 					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
 					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
 					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Mfence_F4),
+					new OpCodeHandler_Simple_ModRM(Code.Mfence),
 					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
 					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
 					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Mfence_F5),
+					new OpCodeHandler_Simple_ModRM(Code.Mfence),
 					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
 					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
 					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Mfence_F6),
+					new OpCodeHandler_Simple_ModRM(Code.Mfence),
 					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
 					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
 					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Mfence_F7),
+					new OpCodeHandler_Simple_ModRM(Code.Mfence),
 					new OpCodeHandler_Ev_REXW(Code.Tpause_r32, Code.Tpause_r64, allowReg: true, allowMem: false),
 					new OpCodeHandler_Simple5_ModRM_as(Code.Umonitor_r16, Code.Umonitor_r32, Code.Umonitor_r64),
 					new OpCodeHandler_Ev_REXW(Code.Umwait_r32, Code.Umwait_r64, allowReg: true, allowMem: false)
@@ -1031,43 +1031,43 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Sfence_F9),
+					new OpCodeHandler_Simple_ModRM(Code.Sfence),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Sfence_FA),
+					new OpCodeHandler_Simple_ModRM(Code.Sfence),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Sfence_FB),
+					new OpCodeHandler_Simple_ModRM(Code.Sfence),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Sfence_FC),
+					new OpCodeHandler_Simple_ModRM(Code.Sfence),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Sfence_FD),
+					new OpCodeHandler_Simple_ModRM(Code.Sfence),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Sfence_FE),
+					new OpCodeHandler_Simple_ModRM(Code.Sfence),
 					invalid,
 					invalid,
 					invalid
 				),
 				new OpCodeHandler_MandatoryPrefix(
-					new OpCodeHandler_Simple_ModRM(Code.Sfence_FF),
+					new OpCodeHandler_Simple_ModRM(Code.Sfence),
 					invalid,
 					invalid,
 					invalid
