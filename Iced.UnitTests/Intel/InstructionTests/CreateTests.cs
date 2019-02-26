@@ -233,11 +233,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		void CreateDeclareByte() {
 			Instruction instr;
 
-			instr = Instruction.CreateDeclareByte(Array.Empty<byte>());
-			Assert.Equal(Code.DeclareByte, instr.Code);
-			Assert.Equal(0, instr.DeclareDataCount);
-			Assert.Equal(Array.Empty<byte>(), GetData(ref instr));
-
 			instr = Instruction.CreateDeclareByte(0x77);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(1, instr.DeclareDataCount);
@@ -323,11 +318,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		void CreateDeclareWord() {
 			Instruction instr;
 
-			instr = Instruction.CreateDeclareWord(Array.Empty<byte>());
-			Assert.Equal(Code.DeclareWord, instr.Code);
-			Assert.Equal(0, instr.DeclareDataCount);
-			Assert.Equal(Array.Empty<byte>(), GetData(ref instr));
-
 			instr = Instruction.CreateDeclareWord(0x77A9);
 			Assert.Equal(Code.DeclareWord, instr.Code);
 			Assert.Equal(1, instr.DeclareDataCount);
@@ -373,11 +363,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		void CreateDeclareDword() {
 			Instruction instr;
 
-			instr = Instruction.CreateDeclareDword(Array.Empty<byte>());
-			Assert.Equal(Code.DeclareDword, instr.Code);
-			Assert.Equal(0, instr.DeclareDataCount);
-			Assert.Equal(Array.Empty<byte>(), GetData(ref instr));
-
 			instr = Instruction.CreateDeclareDword(0x77A9CE9D);
 			Assert.Equal(Code.DeclareDword, instr.Code);
 			Assert.Equal(1, instr.DeclareDataCount);
@@ -403,11 +388,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		void CreateDeclareQword() {
 			Instruction instr;
 
-			instr = Instruction.CreateDeclareQword(Array.Empty<byte>());
-			Assert.Equal(Code.DeclareQword, instr.Code);
-			Assert.Equal(0, instr.DeclareDataCount);
-			Assert.Equal(Array.Empty<byte>(), GetData(ref instr));
-
 			instr = Instruction.CreateDeclareQword(0x77A9CE9D5505426C);
 			Assert.Equal(Code.DeclareQword, instr.Code);
 			Assert.Equal(1, instr.DeclareDataCount);
@@ -422,7 +402,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareByteArray() {
 			var data = new (Instruction instr, byte[] data)[] {
-				(Instruction.Create(Code.DeclareByte), Array.Empty<byte>()),
 				(Instruction.CreateDeclareByte(0x77), new byte[] { 0x77 }),
 				(Instruction.CreateDeclareByte(0x77, 0xA9), new byte[] { 0x77, 0xA9 }),
 				(Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE), new byte[] { 0x77, 0xA9, 0xCE }),
@@ -450,7 +429,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareWordArray() {
 			var data = new (Instruction instr, byte[] data)[] {
-				(Instruction.Create(Code.DeclareWord), Array.Empty<byte>()),
 				(Instruction.CreateDeclareWord(0x77A9), new byte[] { 0xA9, 0x77 }),
 				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D), new byte[] { 0xA9, 0x77, 0x9D, 0xCE }),
 				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505), new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55 }),
@@ -470,7 +448,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareDwordArray() {
 			var data = new (Instruction instr, byte[] data)[] {
-				(Instruction.Create(Code.DeclareDword), Array.Empty<byte>()),
 				(Instruction.CreateDeclareDword(0x77A9CE9D), new byte[] { 0x9D, 0xCE, 0xA9, 0x77 }),
 				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C), new byte[] { 0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55 }),
 				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C, 0x8632FE4F), new byte[] { 0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86 }),
@@ -486,7 +463,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareQwordArray() {
 			var data = new (Instruction instr, byte[] data)[] {
-				(Instruction.Create(Code.DeclareQword), Array.Empty<byte>()),
 				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C), new byte[] { 0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77 }),
 				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C, 0x8632FE4F3427AA08), new byte[] { 0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77, 0x08, 0xAA, 0x27, 0x34, 0x4F, 0xFE, 0x32, 0x86 }),
 			};
@@ -500,7 +476,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareByteArray2() {
 			var data = new (Instruction instr, byte[] data)[] {
-				(Instruction.Create(Code.DeclareByte), new byte[] { 0xA5, 0x5A }),
 				(Instruction.CreateDeclareByte(0x77), new byte[] { 0xA5, 0x77, 0x5A }),
 				(Instruction.CreateDeclareByte(0x77, 0xA9), new byte[] { 0xA5, 0x77, 0xA9, 0x5A }),
 				(Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE), new byte[] { 0xA5, 0x77, 0xA9, 0xCE, 0x5A }),
@@ -528,7 +503,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareWordArray2() {
 			var data = new (Instruction instr, byte[] data)[] {
-				(Instruction.Create(Code.DeclareWord), new byte[] { 0xA5, 0x5A }),
 				(Instruction.CreateDeclareWord(0x77A9), new byte[] { 0xA5, 0xA9, 0x77, 0x5A }),
 				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D), new byte[] { 0xA5, 0xA9, 0x77, 0x9D, 0xCE, 0x5A }),
 				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505), new byte[] { 0xA5, 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x5A }),
@@ -548,7 +522,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareDwordArray2() {
 			var data = new (Instruction instr, byte[] data)[] {
-				(Instruction.Create(Code.DeclareDword), new byte[] { 0xA5, 0x5A }),
 				(Instruction.CreateDeclareDword(0x77A9CE9D), new byte[] { 0xA5, 0x9D, 0xCE, 0xA9, 0x77, 0x5A }),
 				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C), new byte[] { 0xA5, 0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x5A }),
 				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C, 0x8632FE4F), new byte[] { 0xA5, 0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86, 0x5A }),
@@ -564,7 +537,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareQwordArray2() {
 			var data = new (Instruction instr, byte[] data)[] {
-				(Instruction.Create(Code.DeclareQword), new byte[] { 0xA5, 0x5A }),
 				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C), new byte[] { 0xA5, 0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77, 0x5A }),
 				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C, 0x8632FE4F3427AA08), new byte[] { 0xA5, 0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77, 0x08, 0xAA, 0x27, 0x34, 0x4F, 0xFE, 0x32, 0x86, 0x5A }),
 			};
@@ -578,7 +550,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareWordArray3() {
 			var data = new (Instruction instr, ushort[] data)[] {
-				(Instruction.Create(Code.DeclareWord), Array.Empty<ushort>()),
 				(Instruction.CreateDeclareWord(0x77A9), new ushort[] { 0x77A9 }),
 				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D), new ushort[] { 0x77A9, 0xCE9D }),
 				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505), new ushort[] { 0x77A9, 0xCE9D, 0x5505 }),
@@ -598,7 +569,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareDwordArray3() {
 			var data = new (Instruction instr, uint[] data)[] {
-				(Instruction.Create(Code.DeclareDword), Array.Empty<uint>()),
 				(Instruction.CreateDeclareDword(0x77A9CE9D), new uint[] { 0x77A9CE9D }),
 				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C), new uint[] { 0x77A9CE9D, 0x5505426C }),
 				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C, 0x8632FE4F), new uint[] { 0x77A9CE9D, 0x5505426C, 0x8632FE4F }),
@@ -614,7 +584,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareQwordArray3() {
 			var data = new (Instruction instr, ulong[] data)[] {
-				(Instruction.Create(Code.DeclareQword), Array.Empty<ulong>()),
 				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C), new ulong[] { 0x77A9CE9D5505426C }),
 				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C, 0x8632FE4F3427AA08), new ulong[] { 0x77A9CE9D5505426C, 0x8632FE4F3427AA08 }),
 			};
@@ -628,7 +597,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareWordArray4() {
 			var data = new (Instruction instr, ushort[] data)[] {
-				(Instruction.Create(Code.DeclareWord), new ushort[] { 0x5AA5, 0xA55A }),
 				(Instruction.CreateDeclareWord(0x77A9), new ushort[] { 0x5AA5, 0x77A9, 0xA55A }),
 				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D), new ushort[] { 0x5AA5, 0x77A9, 0xCE9D, 0xA55A }),
 				(Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505), new ushort[] { 0x5AA5, 0x77A9, 0xCE9D, 0x5505, 0xA55A }),
@@ -648,7 +616,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareDwordArray4() {
 			var data = new (Instruction instr, uint[] data)[] {
-				(Instruction.Create(Code.DeclareDword), new uint[] { 0x5AA5A55A, 0xA55A5AA5 }),
 				(Instruction.CreateDeclareDword(0x77A9CE9D), new uint[] { 0x5AA5A55A, 0x77A9CE9D, 0xA55A5AA5 }),
 				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C), new uint[] { 0x5AA5A55A, 0x77A9CE9D, 0x5505426C, 0xA55A5AA5 }),
 				(Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C, 0x8632FE4F), new uint[] { 0x5AA5A55A, 0x77A9CE9D, 0x5505426C, 0x8632FE4F, 0xA55A5AA5 }),
@@ -664,7 +631,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Fact]
 		void CreateDeclareQwordArray4() {
 			var data = new (Instruction instr, ulong[] data)[] {
-				(Instruction.Create(Code.DeclareQword), new ulong[] { 0x5AA5A55A5AA5A55A, 0xA55A5AA5A55A5AA5 }),
 				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C), new ulong[] { 0x5AA5A55A5AA5A55A, 0x77A9CE9D5505426C, 0xA55A5AA5A55A5AA5 }),
 				(Instruction.CreateDeclareQword(0x77A9CE9D5505426C, 0x8632FE4F3427AA08), new ulong[] { 0x5AA5A55A5AA5A55A, 0x77A9CE9D5505426C, 0x8632FE4F3427AA08, 0xA55A5AA5A55A5AA5 }),
 			};

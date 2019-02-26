@@ -59,8 +59,8 @@ namespace Iced.Intel {
 		/// [9:5]	= Operand #1's <see cref="OpKind"/>
 		/// [14:10]	= Operand #2's <see cref="OpKind"/>
 		/// [19:15]	= Operand #3's <see cref="OpKind"/>
-		/// [24:20]	= db/dw/dd/dq element count (0-16, 0-8, 0-4, or 0-2)
-		/// [29:25]	= Not used
+		/// [23:20]	= db/dw/dd/dq element count (1-16, 1-8, 1-4, or 1-2)
+		/// [29:24]	= Not used
 		/// [31:30]	= CodeSize
 		/// </summary>
 		[Flags]
@@ -70,7 +70,7 @@ namespace Iced.Intel {
 			Op1KindShift			= 5,
 			Op2KindShift			= 10,
 			Op3KindShift			= 15,
-			DataLengthMask			= 0x1F,
+			DataLengthMask			= 0xF,
 			DataLengthShift			= 20,
 			// Unused bits here
 			CodeSizeMask			= 3,
@@ -1185,13 +1185,13 @@ namespace Iced.Intel {
 		/// </summary>
 		public int DeclareDataCount {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-			get => (int)((opKindFlags >> (int)OpKindFlags.DataLengthShift) & (uint)OpKindFlags.DataLengthMask);
+			get => (int)((opKindFlags >> (int)OpKindFlags.DataLengthShift) & (uint)OpKindFlags.DataLengthMask) + 1;
 			set => opKindFlags = (opKindFlags & ~((uint)OpKindFlags.DataLengthMask << (int)OpKindFlags.DataLengthShift)) |
-					(((uint)value & (uint)OpKindFlags.DataLengthMask) << (int)OpKindFlags.DataLengthShift);
+					(((uint)(value - 1) & (uint)OpKindFlags.DataLengthMask) << (int)OpKindFlags.DataLengthShift);
 		}
 		internal uint InternalDeclareDataCount {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-			set => opKindFlags |= value << (int)OpKindFlags.DataLengthShift;
+			set => opKindFlags |= (value - 1) << (int)OpKindFlags.DataLengthShift;
 		}
 
 		/// <summary>

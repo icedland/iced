@@ -2164,7 +2164,7 @@ namespace Iced.Intel {
 		public static Instruction CreateDeclareByte(byte[] data, int index, int length) {
 			if (data == null)
 				ThrowHelper.ThrowArgumentNullException_data();
-			if ((uint)length > 16)
+			if ((uint)length - 1 > 16 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
 
 			Instruction instruction = default;
@@ -2383,7 +2383,7 @@ namespace Iced.Intel {
 		public static Instruction CreateDeclareWord(byte[] data, int index, int length) {
 			if (data == null)
 				ThrowHelper.ThrowArgumentNullException_data();
-			if ((uint)length > 16 || ((uint)length & 1) != 0)
+			if ((uint)length - 1 > 16 - 1 || ((uint)length & 1) != 0)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
 
 			Instruction instruction = default;
@@ -2420,7 +2420,7 @@ namespace Iced.Intel {
 		public static Instruction CreateDeclareWord(ushort[] data, int index, int length) {
 			if (data == null)
 				ThrowHelper.ThrowArgumentNullException_data();
-			if ((uint)length > 8)
+			if ((uint)length - 1 > 8 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
 
 			Instruction instruction = default;
@@ -2531,7 +2531,7 @@ namespace Iced.Intel {
 		public static Instruction CreateDeclareDword(byte[] data, int index, int length) {
 			if (data == null)
 				ThrowHelper.ThrowArgumentNullException_data();
-			if ((uint)length > 16 || ((uint)length & 3) != 0)
+			if ((uint)length - 1 > 16 - 1 || ((uint)length & 3) != 0)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
 
 			Instruction instruction = default;
@@ -2568,7 +2568,7 @@ namespace Iced.Intel {
 		public static Instruction CreateDeclareDword(uint[] data, int index, int length) {
 			if (data == null)
 				ThrowHelper.ThrowArgumentNullException_data();
-			if ((uint)length > 4)
+			if ((uint)length - 1 > 4 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
 
 			Instruction instruction = default;
@@ -2637,7 +2637,7 @@ namespace Iced.Intel {
 		public static Instruction CreateDeclareQword(byte[] data, int index, int length) {
 			if (data == null)
 				ThrowHelper.ThrowArgumentNullException_data();
-			if ((uint)length > 16 || ((uint)length & 7) != 0)
+			if ((uint)length - 1 > 16 - 1 || ((uint)length & 7) != 0)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
 
 			Instruction instruction = default;
@@ -2675,7 +2675,7 @@ namespace Iced.Intel {
 		public static Instruction CreateDeclareQword(ulong[] data, int index, int length) {
 			if (data == null)
 				ThrowHelper.ThrowArgumentNullException_data();
-			if ((uint)length > 2)
+			if ((uint)length - 1 > 2 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
 
 			Instruction instruction = default;

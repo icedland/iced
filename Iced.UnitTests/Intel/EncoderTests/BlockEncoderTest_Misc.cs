@@ -102,8 +102,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		}
 
 		[Theory]
-		[InlineData("")]
 		[InlineData("5A")]
+		[InlineData("F0 D2 7A 18 A0")]
 		[InlineData("77 A9 CE 9D 55 05 42 6C 86 32 FE 4F 34 27 AA 08")]
 		void EncodeDeclareByte(string hexBytes) {
 			const int bitness = 64;
