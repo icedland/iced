@@ -1648,7 +1648,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <returns></returns>
@@ -1664,7 +1664,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -1682,7 +1682,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -1702,7 +1702,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -1724,7 +1724,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -1748,7 +1748,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -1774,7 +1774,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -1802,7 +1802,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -1832,7 +1832,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -1864,7 +1864,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -1898,7 +1898,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -1934,7 +1934,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -1972,7 +1972,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -2012,7 +2012,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -2054,7 +2054,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -2098,7 +2098,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="b0"></param>
 		/// <param name="b1"></param>
@@ -2144,7 +2144,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <returns></returns>
@@ -2155,7 +2155,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'db' instruction
+		/// Create a 'db' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <param name="index">Start index</param>
@@ -2179,7 +2179,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="w0"></param>
 		/// <returns></returns>
@@ -2195,7 +2195,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="w0"></param>
 		/// <param name="w1"></param>
@@ -2213,7 +2213,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="w0"></param>
 		/// <param name="w1"></param>
@@ -2233,7 +2233,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="w0"></param>
 		/// <param name="w1"></param>
@@ -2255,7 +2255,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="w0"></param>
 		/// <param name="w1"></param>
@@ -2279,7 +2279,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="w0"></param>
 		/// <param name="w1"></param>
@@ -2305,7 +2305,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="w0"></param>
 		/// <param name="w1"></param>
@@ -2333,7 +2333,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="w0"></param>
 		/// <param name="w1"></param>
@@ -2363,7 +2363,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <returns></returns>
@@ -2374,7 +2374,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <param name="index">Start index</param>
@@ -2400,7 +2400,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <returns></returns>
@@ -2411,7 +2411,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dw' instruction
+		/// Create a 'dw' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <param name="index">Start index</param>
@@ -2435,7 +2435,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dd' instruction
+		/// Create a 'dd' asm directive
 		/// </summary>
 		/// <param name="d0"></param>
 		/// <returns></returns>
@@ -2451,7 +2451,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dd' instruction
+		/// Create a 'dd' asm directive
 		/// </summary>
 		/// <param name="d0"></param>
 		/// <param name="d1"></param>
@@ -2469,7 +2469,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dd' instruction
+		/// Create a 'dd' asm directive
 		/// </summary>
 		/// <param name="d0"></param>
 		/// <param name="d1"></param>
@@ -2489,7 +2489,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dd' instruction
+		/// Create a 'dd' asm directive
 		/// </summary>
 		/// <param name="d0"></param>
 		/// <param name="d1"></param>
@@ -2511,7 +2511,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dd' instruction
+		/// Create a 'dd' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <returns></returns>
@@ -2522,7 +2522,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dd' instruction
+		/// Create a 'dd' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <param name="index">Start index</param>
@@ -2548,7 +2548,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dd' instruction
+		/// Create a 'dd' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <returns></returns>
@@ -2559,7 +2559,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dd' instruction
+		/// Create a 'dd' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <param name="index">Start index</param>
@@ -2583,7 +2583,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dq' instruction
+		/// Create a 'dq' asm directive
 		/// </summary>
 		/// <param name="q0"></param>
 		/// <returns></returns>
@@ -2599,7 +2599,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dq' instruction
+		/// Create a 'dq' asm directive
 		/// </summary>
 		/// <param name="q0"></param>
 		/// <param name="q1"></param>
@@ -2617,7 +2617,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dq' instruction
+		/// Create a 'dq' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <returns></returns>
@@ -2628,7 +2628,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dq' instruction
+		/// Create a 'dq' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <param name="index">Start index</param>
@@ -2655,7 +2655,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dq' instruction
+		/// Create a 'dq' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <returns></returns>
@@ -2666,7 +2666,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Create a 'dq' instruction
+		/// Create a 'dq' asm directive
 		/// </summary>
 		/// <param name="data">Data</param>
 		/// <param name="index">Start index</param>
