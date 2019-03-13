@@ -315,6 +315,7 @@ namespace Iced.Intel {
 		/// be used by a formatter.
 		/// </summary>
 		public CodeSize CodeSize {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (CodeSize)((opKindFlags >> (int)OpKindFlags.CodeSizeShift) & (uint)OpKindFlags.CodeSizeMask);
 			set => opKindFlags = ((opKindFlags & ~((uint)OpKindFlags.CodeSizeMask << (int)OpKindFlags.CodeSizeShift)) |
 				(((uint)value & (uint)OpKindFlags.CodeSizeMask) << (int)OpKindFlags.CodeSizeShift));
@@ -360,6 +361,7 @@ namespace Iced.Intel {
 		/// or create a new one, this property could return the wrong value.
 		/// </summary>
 		public int ByteLength {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => (int)((codeFlags >> (int)CodeFlags.InstrLengthShift) & (uint)CodeFlags.InstrLengthMask);
 			set => codeFlags = (codeFlags & ~((uint)CodeFlags.InstrLengthMask << (int)CodeFlags.InstrLengthShift)) |
 				(((uint)value & (uint)CodeFlags.InstrLengthMask) << (int)CodeFlags.InstrLengthShift);
