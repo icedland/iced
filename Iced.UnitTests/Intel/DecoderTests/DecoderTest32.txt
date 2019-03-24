@@ -2239,6 +2239,7 @@ C5FC 10 CD, VEX_Vmovups_ymm_ymmm256, 2, op0=r;ymm1 op1=r;ymm5
 62 F17CCB 10 D3, EVEX_Vmovups_zmm_k1z_zmmm512, 2, op0=r;zmm2 op1=r;zmm3 k3 zmsk
 
 66 0F10 08, Movupd_xmm_xmmm128, 2, op0=r;xmm1 op1=m;ds;eax;;1;0;0;Packed128_Float64
+67 66 0F10 08, Movupd_xmm_xmmm128, 2, op0=r;xmm1 op1=m;ds;bx;si;1;0;0;Packed128_Float64
 66 0F10 CD, Movupd_xmm_xmmm128, 2, op0=r;xmm1 op1=r;xmm5
 
 C5F9 10 10, VEX_Vmovupd_xmm_xmmm128, 2, op0=r;xmm2 op1=m;ds;eax;;1;0;0;Packed128_Float64
@@ -2268,6 +2269,7 @@ C5FD 10 CD, VEX_Vmovupd_ymm_ymmm256, 2, op0=r;ymm1 op1=r;ymm5
 62 F1FDCB 10 D3, EVEX_Vmovupd_zmm_k1z_zmmm512, 2, op0=r;zmm2 op1=r;zmm3 k3 zmsk
 
 F3 0F10 08, Movss_xmm_xmmm32, 2, op0=r;xmm1 op1=m;ds;eax;;1;0;0;Float32
+67 F3 0F10 08, Movss_xmm_xmmm32, 2, op0=r;xmm1 op1=m;ds;bx;si;1;0;0;Float32
 F3 0F10 CD, Movss_xmm_xmmm32, 2, op0=r;xmm1 op1=r;xmm5
 
 C5CA 10 CD, VEX_Vmovss_xmm_xmm_xmm, 3, op0=r;xmm1 op1=r;xmm6 op2=r;xmm5
@@ -2288,6 +2290,7 @@ C4E1FE 10 10, VEX_Vmovss_xmm_m32, 2, op0=r;xmm2 op1=m;ds;eax;;1;0;0;Float32 enc=
 62 F17E8B 10 50 01, EVEX_Vmovss_xmm_k1z_m32, 2, op0=r;xmm2 op1=m;ds;eax;;1;4;1;Float32 k3 zmsk co=0;0;0;0;6;1
 
 F2 0F10 08, Movsd_xmm_xmmm64, 2, op0=r;xmm1 op1=m;ds;eax;;1;0;0;Float64
+67 F2 0F10 08, Movsd_xmm_xmmm64, 2, op0=r;xmm1 op1=m;ds;bx;si;1;0;0;Float64
 F2 0F10 CD, Movsd_xmm_xmmm64, 2, op0=r;xmm1 op1=r;xmm5
 
 C5CB 10 CD, VEX_Vmovsd_xmm_xmm_xmm, 3, op0=r;xmm1 op1=r;xmm6 op2=r;xmm5
