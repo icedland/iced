@@ -1552,7 +1552,7 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 # prefetchw [eax]
 0F0D 08, Prefetchw_m8, Legacy, PREFETCHW, op0=nma r=eax;ds
 # prefetchwt1 [eax]
-0F0D 10, Prefetchwt1_m8, Legacy, PREFETCHW, op0=nma r=eax;ds
+0F0D 10, Prefetchwt1_m8, Legacy, PREFETCHWT1, op0=nma r=eax;ds
 # prefetch-r3 [eax]
 0F0D 18, Prefetch_m8_r3, Legacy, PREFETCHW, op0=nma r=eax;ds
 # prefetch-r4 [eax]

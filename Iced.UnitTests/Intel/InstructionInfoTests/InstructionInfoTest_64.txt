@@ -2916,7 +2916,7 @@ FF 30, Push_rm64, Legacy, X64, op0=r rw=xsp r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xF
 # prefetchw [rax]
 0F0D 08, Prefetchw_m8, Legacy, PREFETCHW, op0=nma r=rax
 # prefetchwt1 [rax]
-0F0D 10, Prefetchwt1_m8, Legacy, PREFETCHW, op0=nma r=rax
+0F0D 10, Prefetchwt1_m8, Legacy, PREFETCHWT1, op0=nma r=rax
 # movups xmm1,xmm5
 0F10 CD, Movups_xmm_xmmm128, Legacy, SSE, op0=w op1=r w=xmm1 r=xmm5
 # movups xmm1,[rax]

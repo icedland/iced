@@ -1264,7 +1264,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.ReservedNop_rm64_r64_0F0D, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
 			(uint)Code.Prefetch_m8, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
 			(uint)Code.Prefetchw_m8, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
-			(uint)Code.Prefetchwt1_m8, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
+			(uint)Code.Prefetchwt1_m8, Op0_NoMemAccess | CPUID_PREFETCHWT1 | Encoding_Legacy,
 			(uint)Code.Prefetch_m8_r3, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
 			(uint)Code.Prefetch_m8_r4, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
 			(uint)Code.Prefetch_m8_r5, Op0_NoMemAccess | CPUID_PREFETCHW | Encoding_Legacy,
