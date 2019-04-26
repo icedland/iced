@@ -26,7 +26,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class InstructionInfos64_008 {
-		public const int AllInfos_Length = 244;
+		public const int AllInfos_Length = 271;
 		public static readonly InstructionInfo[] AllInfos = new InstructionInfo[AllInfos_Length] {
 			new InstructionInfo(64, "62 327DCB 63 D3", Code.EVEX_Vpcompressb_zmmm512_k1z_zmm),
 			new InstructionInfo(64, "62 F27D48 63 50 01", Code.EVEX_Vpcompressb_zmmm512_k1z_zmm),
@@ -272,6 +272,33 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new InstructionInfo(64, "67 F3 0FA7 E8", Code.XcryptOfb_32),
 			new InstructionInfo(64, "0FA7 E8", Code.XcryptOfb_64),
 			new InstructionInfo(64, "67 0FA7 E8", Code.XcryptOfb_32),
+			new InstructionInfo(64, "62 E20E0B 52 D3", Code.EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32),
+			new InstructionInfo(64, "62 F24E08 52 50 01", Code.EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32),
+			new InstructionInfo(64, "62 F24E9D 52 50 01", Code.EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32),
+			new InstructionInfo(64, "62 E20E2B 52 D3", Code.EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32),
+			new InstructionInfo(64, "62 F24E2B 52 50 01", Code.EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32),
+			new InstructionInfo(64, "62 F24EBD 52 50 01", Code.EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32),
+			new InstructionInfo(64, "62 F24ECB 52 D3", Code.EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32),
+			new InstructionInfo(64, "62 F24E48 52 50 01", Code.EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32),
+			new InstructionInfo(64, "62 F24EDD 52 50 01", Code.EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32),
+			new InstructionInfo(64, "62 F27E8B 72 D3", Code.EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32),
+			new InstructionInfo(64, "62 F27E0B 72 50 01", Code.EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32),
+			new InstructionInfo(64, "62 F27E9D 72 50 01", Code.EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32),
+			new InstructionInfo(64, "62 F27EAB 72 D3", Code.EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32),
+			new InstructionInfo(64, "62 F27E2B 72 50 01", Code.EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32),
+			new InstructionInfo(64, "62 F27EBD 72 50 01", Code.EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32),
+			new InstructionInfo(64, "62 F27ECB 72 D3", Code.EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32),
+			new InstructionInfo(64, "62 F27E4B 72 50 01", Code.EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32),
+			new InstructionInfo(64, "62 F27EDD 72 50 01", Code.EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32),
+			new InstructionInfo(64, "62 E20F0B 72 D3", Code.EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32),
+			new InstructionInfo(64, "62 F24F08 72 50 01", Code.EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32),
+			new InstructionInfo(64, "62 F24F9D 72 50 01", Code.EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32),
+			new InstructionInfo(64, "62 E20F2B 72 D3", Code.EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32),
+			new InstructionInfo(64, "62 F24F2B 72 50 01", Code.EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32),
+			new InstructionInfo(64, "62 F24FBD 72 50 01", Code.EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32),
+			new InstructionInfo(64, "62 F24FCB 72 D3", Code.EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32),
+			new InstructionInfo(64, "62 F24F48 72 50 01", Code.EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32),
+			new InstructionInfo(64, "62 F24FDD 72 50 01", Code.EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32),
 		};
 	}
 }

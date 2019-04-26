@@ -123,6 +123,11 @@ namespace Iced.Intel {
 		AVX512_4VNNIW,
 
 		/// <summary>
+		/// CPUID.(EAX=07H, ECX=1):EAX[bit 5]
+		/// </summary>
+		AVX512_BF16,
+
+		/// <summary>
 		/// CPUID.(EAX=07H, ECX=0H):ECX.AVX512_BITALG[bit 12]
 		/// </summary>
 		AVX512_BITALG,

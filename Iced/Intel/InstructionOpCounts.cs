@@ -3086,6 +3086,9 @@ namespace Iced.Intel {
 			3,// EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32
 			3,// EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32
 			3,// EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32
+			3,// EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32
+			3,// EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32
+			3,// EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32
 			3,// EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128
 			3,// EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
 			3,// EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32
@@ -3165,6 +3168,12 @@ namespace Iced.Intel {
 			3,// EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128
 			3,// EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256
 			3,// EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512
+			2,// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
+			2,// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
+			2,// EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32
+			3,// EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32
+			3,// EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32
+			3,// EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
 			3,// EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32
 			3,// EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32
 			3,// EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32

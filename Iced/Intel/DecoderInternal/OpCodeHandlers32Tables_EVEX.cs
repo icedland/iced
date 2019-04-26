@@ -1447,7 +1447,14 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 						),
 						invalid
 					),
-					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512)
+						),
+						invalid
+					),
 					new OpCodeHandler_W(
 						new OpCodeHandler_EVEX_VkHM(Register.ZMM0, Code.EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128, TupleType.Tuple1_4X),
 						invalid
@@ -1717,8 +1724,22 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512, TupleType.Full_Mem_512)
 						)
 					),
-					invalid,
-					invalid
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.XMM0, Code.EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, TupleType.Full_128),
+							new OpCodeHandler_EVEX_VkW(Register.XMM0, Register.YMM0, Code.EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, TupleType.Full_256),
+							new OpCodeHandler_EVEX_VkW(Register.YMM0, Register.ZMM0, Code.EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32, TupleType.Full_512)
+						),
+						invalid
+					),
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_VkHW(Register.XMM0, Code.EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32, TupleType.Full_128),
+							new OpCodeHandler_EVEX_VkHW(Register.YMM0, Code.EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32, TupleType.Full_256),
+							new OpCodeHandler_EVEX_VkHW(Register.ZMM0, Code.EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32, TupleType.Full_512)
+						),
+						invalid
+					)
 				),
 				new OpCodeHandler_MandatoryPrefix2(
 					invalid,

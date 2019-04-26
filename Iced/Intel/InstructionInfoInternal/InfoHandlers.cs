@@ -262,7 +262,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_AVX512F_and_VAES = (uint)CpuidFeatureInternal.AVX512F_and_VAES << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512F_and_VPCLMULQDQ = (uint)CpuidFeatureInternal.AVX512F_and_VPCLMULQDQ << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512PF = (uint)CpuidFeatureInternal.AVX512PF << (int)InfoFlags2.CpuidFeatureShift;
-		const uint CPUID_AVX512VL = (uint)CpuidFeatureInternal.AVX512VL << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512VL_and_AVX512_BF16 = (uint)CpuidFeatureInternal.AVX512VL_and_AVX512_BF16 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512VL_and_AVX512_BITALG = (uint)CpuidFeatureInternal.AVX512VL_and_AVX512_BITALG << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512VL_and_AVX512_IFMA = (uint)CpuidFeatureInternal.AVX512VL_and_AVX512_IFMA << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512VL_and_AVX512_VBMI = (uint)CpuidFeatureInternal.AVX512VL_and_AVX512_VBMI << (int)InfoFlags2.CpuidFeatureShift;
@@ -309,7 +309,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_FXSR = (uint)CpuidFeatureInternal.FXSR << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_GEODE = (uint)CpuidFeatureInternal.GEODE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_GFNI = (uint)CpuidFeatureInternal.GFNI << (int)InfoFlags2.CpuidFeatureShift;
-		const uint CPUID_HLE = (uint)CpuidFeatureInternal.HLE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_HLE_or_RTM = (uint)CpuidFeatureInternal.HLE_or_RTM << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INVEPT = (uint)CpuidFeatureInternal.INVEPT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_INVPCID = (uint)CpuidFeatureInternal.INVPCID << (int)InfoFlags2.CpuidFeatureShift;
@@ -348,7 +347,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_SEP = (uint)CpuidFeatureInternal.SEP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SGX1 = (uint)CpuidFeatureInternal.SGX1 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SHA = (uint)CpuidFeatureInternal.SHA << (int)InfoFlags2.CpuidFeatureShift;
-		const uint CPUID_SKINIT = (uint)CpuidFeatureInternal.SKINIT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SKINIT_or_SVML = (uint)CpuidFeatureInternal.SKINIT_or_SVML << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SMAP = (uint)CpuidFeatureInternal.SMAP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SMX = (uint)CpuidFeatureInternal.SMX << (int)InfoFlags2.CpuidFeatureShift;
@@ -360,7 +358,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_SSE4A = (uint)CpuidFeatureInternal.SSE4A << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SSSE3 = (uint)CpuidFeatureInternal.SSSE3 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SVM = (uint)CpuidFeatureInternal.SVM << (int)InfoFlags2.CpuidFeatureShift;
-		const uint CPUID_SVML = (uint)CpuidFeatureInternal.SVML << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_SYSCALL = (uint)CpuidFeatureInternal.SYSCALL << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_TBM = (uint)CpuidFeatureInternal.TBM << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_TSC = (uint)CpuidFeatureInternal.TSC << (int)InfoFlags2.CpuidFeatureShift;
@@ -3449,6 +3446,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
 			(uint)Code.EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
 			(uint)Code.EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VNNI | Encoding_EVEX,
+			(uint)Code.EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_BF16 | Encoding_EVEX,
+			(uint)Code.EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_BF16 | Encoding_EVEX,
+			(uint)Code.EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_BF16 | Encoding_EVEX,
 			(uint)Code.EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128, Op0_ReadWrite | Op1_ReadP3 | Op2_Read | CPUID_AVX512_4VNNIW | Encoding_EVEX,
 			(uint)Code.EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
 			(uint)Code.EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VNNI | Encoding_EVEX,
@@ -3528,6 +3528,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
 			(uint)Code.EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
 			(uint)Code.EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
+			(uint)Code.EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_BF16 | Encoding_EVEX,
+			(uint)Code.EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_BF16 | Encoding_EVEX,
+			(uint)Code.EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32, Op0_Write | Op1_Read | CPUID_AVX512VL_and_AVX512_BF16 | Encoding_EVEX,
+			(uint)Code.EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_BF16 | Encoding_EVEX,
+			(uint)Code.EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_BF16 | Encoding_EVEX,
+			(uint)Code.EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_BF16 | Encoding_EVEX,
 			(uint)Code.EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
 			(uint)Code.EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
 			(uint)Code.EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,

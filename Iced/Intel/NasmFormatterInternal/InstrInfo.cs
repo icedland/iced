@@ -137,11 +137,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 		FarMemorySizeInfoMask		= 3,
 		RegisterTo					= 0x00010000,
 		BndPrefix					= 0x00020000,
-		MemorySizeBits				= 7,
-		MemorySizeShift				= 18,
+		ShowMinMemSize_ForceSize	= 0x00040000,
+		MnemonicIsDirective			= 0x00080000,
+		MemorySizeBits				= 8,
+		MemorySizeShift				= 20,
 		MemorySizeMask				= (1 << (int)MemorySizeBits) - 1,
-		ShowMinMemSize_ForceSize	= 0x02000000,
-		MnemonicIsDirective			= 0x04000000,
 	}
 
 	struct InstrOpInfo {

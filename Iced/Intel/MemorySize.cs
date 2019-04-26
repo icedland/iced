@@ -199,6 +199,11 @@ namespace Iced.Intel {
 		Float128,
 
 		/// <summary>
+		/// Memory location contains a bfloat16
+		/// </summary>
+		BFloat16,
+
+		/// <summary>
 		/// Memory location contains a 14-byte FPU environment (16-bit fldenv/fstenv)
 		/// </summary>
 		FpuEnv14,
@@ -272,6 +277,11 @@ namespace Iced.Intel {
 		/// 32 bit location: 2 x int16
 		/// </summary>
 		Packed32_Int16,
+
+		/// <summary>
+		/// 32 bit location: 2 x bfloat16
+		/// </summary>
+		Packed32_BFloat16,
 
 		/// <summary>
 		/// 64-bit location: 8 x uint8
@@ -374,6 +384,11 @@ namespace Iced.Intel {
 		Packed128_Float64,
 
 		/// <summary>
+		/// 128 bit location: 4 x (2 x bfloat16)
+		/// </summary>
+		Packed128_2xBFloat16,
+
+		/// <summary>
 		/// 256 bit location: 32 x uint8
 		/// </summary>
 		Packed256_UInt8,
@@ -449,6 +464,11 @@ namespace Iced.Intel {
 		Packed256_Float128,
 
 		/// <summary>
+		/// 256 bit location: 8 x (2 x bfloat16)
+		/// </summary>
+		Packed256_2xBFloat16,
+
+		/// <summary>
 		/// 512 bit location: 64 x uint8
 		/// </summary>
 		Packed512_UInt8,
@@ -507,6 +527,11 @@ namespace Iced.Intel {
 		/// 512 bit location: 8 x float64
 		/// </summary>
 		Packed512_Float64,
+
+		/// <summary>
+		/// 512 bit location: 16 x (2 x bfloat16)
+		/// </summary>
+		Packed512_2xBFloat16,
 
 		/// <summary>
 		/// Broadcast uint32 to 64 bits
@@ -657,6 +682,21 @@ namespace Iced.Intel {
 		/// Broadcast 2 x int32 to 512 bits
 		/// </summary>
 		Broadcast512_2xInt32,
+
+		/// <summary>
+		/// Broadcast 2 x bfloat16 to 128 bits
+		/// </summary>
+		Broadcast128_2xBFloat16,
+
+		/// <summary>
+		/// Broadcast 2 x bfloat16 to 256 bits
+		/// </summary>
+		Broadcast256_2xBFloat16,
+
+		/// <summary>
+		/// Broadcast 2 x bfloat16 to 512 bits
+		/// </summary>
+		Broadcast512_2xBFloat16,
 	}
 
 #if !NO_INSTR_INFO || !NO_ENCODER
@@ -714,6 +754,7 @@ namespace Iced.Intel {
 			new MemorySizeInfo(MemorySize.Float64, 8, 8, MemorySize.Float64, true, false),
 			new MemorySizeInfo(MemorySize.Float80, 10, 10, MemorySize.Float80, true, false),
 			new MemorySizeInfo(MemorySize.Float128, 16, 16, MemorySize.Float128, true, false),
+			new MemorySizeInfo(MemorySize.BFloat16, 2, 2, MemorySize.BFloat16, true, false),
 			new MemorySizeInfo(MemorySize.FpuEnv14, 14, 14, MemorySize.FpuEnv14, false, false),
 			new MemorySizeInfo(MemorySize.FpuEnv28, 28, 28, MemorySize.FpuEnv28, false, false),
 			new MemorySizeInfo(MemorySize.FpuState94, 94, 94, MemorySize.FpuState94, false, false),
@@ -729,6 +770,7 @@ namespace Iced.Intel {
 			new MemorySizeInfo(MemorySize.Packed32_Int8, 4, 1, MemorySize.Int8, true, false),
 			new MemorySizeInfo(MemorySize.Packed32_UInt16, 4, 2, MemorySize.UInt16, false, false),
 			new MemorySizeInfo(MemorySize.Packed32_Int16, 4, 2, MemorySize.Int16, true, false),
+			new MemorySizeInfo(MemorySize.Packed32_BFloat16, 4, 2, MemorySize.BFloat16, true, false),
 			new MemorySizeInfo(MemorySize.Packed64_UInt8, 8, 1, MemorySize.UInt8, false, false),
 			new MemorySizeInfo(MemorySize.Packed64_Int8, 8, 1, MemorySize.Int8, true, false),
 			new MemorySizeInfo(MemorySize.Packed64_UInt16, 8, 2, MemorySize.UInt16, false, false),
@@ -749,6 +791,7 @@ namespace Iced.Intel {
 			new MemorySizeInfo(MemorySize.Packed128_Float16, 16, 2, MemorySize.Float16, true, false),
 			new MemorySizeInfo(MemorySize.Packed128_Float32, 16, 4, MemorySize.Float32, true, false),
 			new MemorySizeInfo(MemorySize.Packed128_Float64, 16, 8, MemorySize.Float64, true, false),
+			new MemorySizeInfo(MemorySize.Packed128_2xBFloat16, 16, 4, MemorySize.Packed32_BFloat16, true, false),
 			new MemorySizeInfo(MemorySize.Packed256_UInt8, 32, 1, MemorySize.UInt8, false, false),
 			new MemorySizeInfo(MemorySize.Packed256_Int8, 32, 1, MemorySize.Int8, true, false),
 			new MemorySizeInfo(MemorySize.Packed256_UInt16, 32, 2, MemorySize.UInt16, false, false),
@@ -764,6 +807,7 @@ namespace Iced.Intel {
 			new MemorySizeInfo(MemorySize.Packed256_Float32, 32, 4, MemorySize.Float32, true, false),
 			new MemorySizeInfo(MemorySize.Packed256_Float64, 32, 8, MemorySize.Float64, true, false),
 			new MemorySizeInfo(MemorySize.Packed256_Float128, 32, 16, MemorySize.Float128, true, false),
+			new MemorySizeInfo(MemorySize.Packed256_2xBFloat16, 32, 4, MemorySize.Packed32_BFloat16, true, false),
 			new MemorySizeInfo(MemorySize.Packed512_UInt8, 64, 1, MemorySize.UInt8, false, false),
 			new MemorySizeInfo(MemorySize.Packed512_Int8, 64, 1, MemorySize.Int8, true, false),
 			new MemorySizeInfo(MemorySize.Packed512_UInt16, 64, 2, MemorySize.UInt16, false, false),
@@ -776,6 +820,7 @@ namespace Iced.Intel {
 			new MemorySizeInfo(MemorySize.Packed512_UInt128, 64, 16, MemorySize.UInt128, false, false),
 			new MemorySizeInfo(MemorySize.Packed512_Float32, 64, 4, MemorySize.Float32, true, false),
 			new MemorySizeInfo(MemorySize.Packed512_Float64, 64, 8, MemorySize.Float64, true, false),
+			new MemorySizeInfo(MemorySize.Packed512_2xBFloat16, 64, 4, MemorySize.Packed32_BFloat16, true, false),
 			new MemorySizeInfo(MemorySize.Broadcast64_UInt32, 4, 4, MemorySize.UInt32, false, true),
 			new MemorySizeInfo(MemorySize.Broadcast64_Int32, 4, 4, MemorySize.Int32, true, true),
 			new MemorySizeInfo(MemorySize.Broadcast64_Float32, 4, 4, MemorySize.Float32, true, true),
@@ -806,6 +851,9 @@ namespace Iced.Intel {
 			new MemorySizeInfo(MemorySize.Broadcast128_2xInt32, 8, 4, MemorySize.Int32, true, true),
 			new MemorySizeInfo(MemorySize.Broadcast256_2xInt32, 8, 4, MemorySize.Int32, true, true),
 			new MemorySizeInfo(MemorySize.Broadcast512_2xInt32, 8, 4, MemorySize.Int32, true, true),
+			new MemorySizeInfo(MemorySize.Broadcast128_2xBFloat16, 4, 2, MemorySize.BFloat16, true, true),
+			new MemorySizeInfo(MemorySize.Broadcast256_2xBFloat16, 4, 2, MemorySize.BFloat16, true, true),
+			new MemorySizeInfo(MemorySize.Broadcast512_2xBFloat16, 4, 2, MemorySize.BFloat16, true, true),
 		};
 
 		/// <summary>

@@ -19022,6 +19022,33 @@ C4C2CD 47 D3, VEX_Vpsllvq_ymm_ymm_ymmm256, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm11
 62 B24D4B 52 D3, EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=r;zmm19 k3
 62 F24D4B 52 D3, EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=r;zmm3 k3
 
+62 F24E0B 52 50 01, EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;16;1;Packed128_2xBFloat16 k3 co=0;0;0;0;6;1
+62 F24E9D 52 50 01, EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;4;1;Broadcast128_2xBFloat16 bcst k5 zmsk co=0;0;0;0;6;1
+62 F24E08 52 50 01, EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;16;1;Packed128_2xBFloat16 co=0;0;0;0;6;1
+62 F24E8B 52 D3, EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 k3 zmsk
+62 E20E0B 52 D3, EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm18 op1=r;xmm14 op2=r;xmm3 k3
+62 124E03 52 D3, EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm10 op1=r;xmm22 op2=r;xmm27 k3
+62 B24E0B 52 D3, EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm19 k3
+62 F24E0B 52 D3, EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 k3
+
+62 F24E2B 52 50 01, EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;32;1;Packed256_2xBFloat16 k3 co=0;0;0;0;6;1
+62 F24EBD 52 50 01, EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;4;1;Broadcast256_2xBFloat16 bcst k5 zmsk co=0;0;0;0;6;1
+62 F24E28 52 50 01, EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;32;1;Packed256_2xBFloat16 co=0;0;0;0;6;1
+62 F24EAB 52 D3, EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 k3 zmsk
+62 E20E2B 52 D3, EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm18 op1=r;ymm14 op2=r;ymm3 k3
+62 124E23 52 D3, EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm10 op1=r;ymm22 op2=r;ymm27 k3
+62 B24E2B 52 D3, EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm19 k3
+62 F24E2B 52 D3, EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 k3
+
+62 F24E4B 52 50 01, EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=m;ds;rax;;1;64;1;Packed512_2xBFloat16 k3 co=0;0;0;0;6;1
+62 F24EDD 52 50 01, EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=m;ds;rax;;1;4;1;Broadcast512_2xBFloat16 bcst k5 zmsk co=0;0;0;0;6;1
+62 F24E48 52 50 01, EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=m;ds;rax;;1;64;1;Packed512_2xBFloat16 co=0;0;0;0;6;1
+62 F24ECB 52 D3, EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=r;zmm3 k3 zmsk
+62 E20E4B 52 D3, EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm18 op1=r;zmm14 op2=r;zmm3 k3
+62 124E43 52 D3, EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm10 op1=r;zmm22 op2=r;zmm27 k3
+62 B24E4B 52 D3, EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=r;zmm19 k3
+62 F24E4B 52 D3, EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=r;zmm3 k3
+
 62 F24F4B 52 50 01, EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128, 3, op0=r;zmm2 op1=r;zmm6 op2=m;ds;rax;;1;16;1;Packed128_Int16 k3 co=0;0;0;0;6;1
 62 E20FCB 52 50 01, EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128, 3, op0=r;zmm18 op1=r;zmm14 op2=m;ds;rax;;1;16;1;Packed128_Int16 k3 zmsk co=0;0;0;0;6;1
 62 724F40 52 50 01, EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128, 3, op0=r;zmm10 op1=r;zmm22 op2=m;ds;rax;;1;16;1;Packed128_Int16 co=0;0;0;0;6;1
@@ -19614,6 +19641,60 @@ C4627D 5A 10, VEX_Vbroadcasti128_ymm_m128, 2, op0=r;ymm10 op1=m;ds;rax;;1;0;0;In
 62 E28DCB 72 D3, EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512, 3, op0=r;zmm18 op1=r;zmm14 op2=r;zmm3 k3 zmsk
 62 12CD43 72 D3, EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512, 3, op0=r;zmm10 op1=r;zmm22 op2=r;zmm27 k3
 62 B2CD4B 72 D3, EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512, 3, op0=r;zmm2 op1=r;zmm6 op2=r;zmm19 k3
+
+62 F27E0B 72 50 01, EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, 2, op0=r;xmm2 op1=m;ds;rax;;1;16;1;Packed128_Float32 k3 co=0;0;0;0;6;1
+62 F27E9D 72 50 01, EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, 2, op0=r;xmm2 op1=m;ds;rax;;1;4;1;Broadcast128_Float32 bcst k5 zmsk co=0;0;0;0;6;1
+62 F27E08 72 50 01, EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, 2, op0=r;xmm2 op1=m;ds;rax;;1;16;1;Packed128_Float32 co=0;0;0;0;6;1
+62 F27E8B 72 D3, EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, 2, op0=r;xmm2 op1=r;xmm3 k3 zmsk
+62 E27E0B 72 D3, EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, 2, op0=r;xmm18 op1=r;xmm3 k3
+62 127E0B 72 D3, EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, 2, op0=r;xmm10 op1=r;xmm27 k3
+62 B27E0B 72 D3, EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, 2, op0=r;xmm2 op1=r;xmm19 k3
+62 F27E0B 72 D3, EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, 2, op0=r;xmm2 op1=r;xmm3 k3
+
+62 F27E2B 72 50 01, EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, 2, op0=r;xmm2 op1=m;ds;rax;;1;32;1;Packed256_Float32 k3 co=0;0;0;0;6;1
+62 F27EBD 72 50 01, EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, 2, op0=r;xmm2 op1=m;ds;rax;;1;4;1;Broadcast256_Float32 bcst k5 zmsk co=0;0;0;0;6;1
+62 F27E28 72 50 01, EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, 2, op0=r;xmm2 op1=m;ds;rax;;1;32;1;Packed256_Float32 co=0;0;0;0;6;1
+62 F27EAB 72 D3, EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, 2, op0=r;xmm2 op1=r;ymm3 k3 zmsk
+62 E27E2B 72 D3, EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, 2, op0=r;xmm18 op1=r;ymm3 k3
+62 127E2B 72 D3, EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, 2, op0=r;xmm10 op1=r;ymm27 k3
+62 B27E2B 72 D3, EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, 2, op0=r;xmm2 op1=r;ymm19 k3
+62 F27E2B 72 D3, EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, 2, op0=r;xmm2 op1=r;ymm3 k3
+
+62 F27E4B 72 50 01, EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32, 2, op0=r;ymm2 op1=m;ds;rax;;1;64;1;Packed512_Float32 k3 co=0;0;0;0;6;1
+62 F27EDD 72 50 01, EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32, 2, op0=r;ymm2 op1=m;ds;rax;;1;4;1;Broadcast512_Float32 bcst k5 zmsk co=0;0;0;0;6;1
+62 F27E48 72 50 01, EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32, 2, op0=r;ymm2 op1=m;ds;rax;;1;64;1;Packed512_Float32 co=0;0;0;0;6;1
+62 F27ECB 72 D3, EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32, 2, op0=r;ymm2 op1=r;zmm3 k3 zmsk
+62 E27E4B 72 D3, EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32, 2, op0=r;ymm18 op1=r;zmm3 k3
+62 127E4B 72 D3, EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32, 2, op0=r;ymm10 op1=r;zmm27 k3
+62 B27E4B 72 D3, EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32, 2, op0=r;ymm2 op1=r;zmm19 k3
+62 F27E4B 72 D3, EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32, 2, op0=r;ymm2 op1=r;zmm3 k3
+
+62 F24F0B 72 50 01, EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;16;1;Packed128_Float32 k3 co=0;0;0;0;6;1
+62 F24F9D 72 50 01, EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;4;1;Broadcast128_Float32 bcst k5 zmsk co=0;0;0;0;6;1
+62 F24F08 72 50 01, EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;16;1;Packed128_Float32 co=0;0;0;0;6;1
+62 F24F8B 72 D3, EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 k3 zmsk
+62 E20F0B 72 D3, EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm18 op1=r;xmm14 op2=r;xmm3 k3
+62 124F03 72 D3, EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm10 op1=r;xmm22 op2=r;xmm27 k3
+62 B24F0B 72 D3, EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm19 k3
+62 F24F0B 72 D3, EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 k3
+
+62 F24F2B 72 50 01, EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;32;1;Packed256_Float32 k3 co=0;0;0;0;6;1
+62 F24FBD 72 50 01, EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;4;1;Broadcast256_Float32 bcst k5 zmsk co=0;0;0;0;6;1
+62 F24F28 72 50 01, EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;32;1;Packed256_Float32 co=0;0;0;0;6;1
+62 F24FAB 72 D3, EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 k3 zmsk
+62 E20F2B 72 D3, EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm18 op1=r;ymm14 op2=r;ymm3 k3
+62 124F23 72 D3, EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm10 op1=r;ymm22 op2=r;ymm27 k3
+62 B24F2B 72 D3, EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm19 k3
+62 F24F2B 72 D3, EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 k3
+
+62 F24F4B 72 50 01, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=m;ds;rax;;1;64;1;Packed512_Float32 k3 co=0;0;0;0;6;1
+62 F24FDD 72 50 01, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=m;ds;rax;;1;4;1;Broadcast512_Float32 bcst k5 zmsk co=0;0;0;0;6;1
+62 F24F48 72 50 01, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=m;ds;rax;;1;64;1;Packed512_Float32 co=0;0;0;0;6;1
+62 F24FCB 72 D3, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=r;zmm3 k3 zmsk
+62 E20F4B 72 D3, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm18 op1=r;zmm14 op2=r;zmm3 k3
+62 124F43 72 D3, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm10 op1=r;zmm22 op2=r;zmm27 k3
+62 B24F4B 72 D3, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=r;zmm19 k3
+62 F24F4B 72 D3, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32, 3, op0=r;zmm2 op1=r;zmm6 op2=r;zmm3 k3
 
 62 F24D0B 73 50 01, EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;16;1;Packed128_UInt32 k3 co=0;0;0;0;6;1
 62 F24D9D 73 50 01, EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;4;1;Broadcast128_UInt32 bcst k5 zmsk co=0;0;0;0;6;1

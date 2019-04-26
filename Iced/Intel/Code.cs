@@ -3609,6 +3609,10 @@ namespace Iced.Intel {
 		EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32,						// EVEX.256.66.0F38.W0 52
 		EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32,						// EVEX.512.66.0F38.W0 52
 
+		EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32,						// EVEX.128.F3.0F38.W0 52
+		EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32,						// EVEX.256.F3.0F38.W0 52
+		EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32,						// EVEX.512.F3.0F38.W0 52
+
 		EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128,							// EVEX.512.F2.0F38.W0 52
 
 		EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32,						// EVEX.128.66.0F38.W0 53
@@ -3704,6 +3708,14 @@ namespace Iced.Intel {
 		EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128,							// EVEX.128.66.0F38.W1 72
 		EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256,							// EVEX.256.66.0F38.W1 72
 		EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512,							// EVEX.512.66.0F38.W1 72
+
+		EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32,						// EVEX.128.F3.0F38.W0 72
+		EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32,						// EVEX.256.F3.0F38.W0 72
+		EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32,						// EVEX.512.F3.0F38.W0 72
+
+		EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32,					// EVEX.128.F2.0F38.W0 72
+		EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32,					// EVEX.256.F2.0F38.W0 72
+		EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32,					// EVEX.512.F2.0F38.W0 72
 
 		EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32,						// EVEX.128.66.0F38.W0 73
 		EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32,						// EVEX.256.66.0F38.W0 73
