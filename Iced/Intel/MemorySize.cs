@@ -654,6 +654,21 @@ namespace Iced.Intel {
 		Broadcast512_Float64,
 
 		/// <summary>
+		/// Broadcast 2 x int16 to 128 bits
+		/// </summary>
+		Broadcast128_2xInt16,
+
+		/// <summary>
+		/// Broadcast 2 x int16 to 256 bits
+		/// </summary>
+		Broadcast256_2xInt16,
+
+		/// <summary>
+		/// Broadcast 2 x int16 to 512 bits
+		/// </summary>
+		Broadcast512_2xInt16,
+
+		/// <summary>
 		/// Broadcast 2 x uint32 to 128 bits
 		/// </summary>
 		Broadcast128_2xUInt32,
@@ -845,6 +860,9 @@ namespace Iced.Intel {
 			new MemorySizeInfo(MemorySize.Broadcast512_Int64, 8, 8, MemorySize.Int64, true, true),
 			new MemorySizeInfo(MemorySize.Broadcast512_Float32, 4, 4, MemorySize.Float32, true, true),
 			new MemorySizeInfo(MemorySize.Broadcast512_Float64, 8, 8, MemorySize.Float64, true, true),
+			new MemorySizeInfo(MemorySize.Broadcast128_2xInt16, 4, 2, MemorySize.Int16, true, true),
+			new MemorySizeInfo(MemorySize.Broadcast256_2xInt16, 4, 2, MemorySize.Int16, true, true),
+			new MemorySizeInfo(MemorySize.Broadcast512_2xInt16, 4, 2, MemorySize.Int16, true, true),
 			new MemorySizeInfo(MemorySize.Broadcast128_2xUInt32, 8, 4, MemorySize.UInt32, false, true),
 			new MemorySizeInfo(MemorySize.Broadcast256_2xUInt32, 8, 4, MemorySize.UInt32, false, true),
 			new MemorySizeInfo(MemorySize.Broadcast512_2xUInt32, 8, 4, MemorySize.UInt32, false, true),
