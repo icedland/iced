@@ -132,7 +132,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return Create(new Instruction[] { Instruction.Create(Code.Nopd) });
 				yield return Create(GetInstructions());
 
-				object[] Create(Instruction[] instructions) => new object[] { instructions, new InstructionList(instructions) };
+				static object[] Create(Instruction[] instructions) => new object[] { instructions, new InstructionList(instructions) };
 			}
 		}
 
@@ -447,7 +447,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 					yield return Create(kind, 1, new Instruction[] { i[1], i[12], i[10] }, new Instruction[] { i[3], i[5], i[7] }, new Instruction[] { i[1], i[3], i[5], i[7], i[12], i[10] });
 				}
 
-				object[] Create(InsertRangeKind kind, int index, Instruction[] instructions, Instruction[] inserted, Instruction[] expected) {
+				static object[] Create(InsertRangeKind kind, int index, Instruction[] instructions, Instruction[] inserted, Instruction[] expected) {
 					var list = new InstructionList(instructions);
 					return new object[] { index, list, Convert(kind, inserted), expected };
 				}
@@ -538,7 +538,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 					yield return Create(kind, new Instruction[] { i[1], i[12], i[10] }, new Instruction[] { i[3], i[5], i[7] }, new Instruction[] { i[1], i[12], i[10], i[3], i[5], i[7] });
 				}
 
-				object[] Create(InsertRangeKind kind, Instruction[] instructions, Instruction[] inserted, Instruction[] expected) {
+				static object[] Create(InsertRangeKind kind, Instruction[] instructions, Instruction[] inserted, Instruction[] expected) {
 					var list = new InstructionList(instructions);
 					return new object[] { list, Convert(kind, inserted), expected };
 				}
@@ -578,7 +578,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 				yield return Create(5, 0, new Instruction[] { i[0], i[1], i[2], i[3], i[4] }, new Instruction[] { i[0], i[1], i[2], i[3], i[4] });
 
-				object[] Create(int index, int count, Instruction[] instructions, Instruction[] expected) {
+				static object[] Create(int index, int count, Instruction[] instructions, Instruction[] expected) {
 					var list = new InstructionList(instructions);
 					return new object[] { index, count, list, expected };
 				}

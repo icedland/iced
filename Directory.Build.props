@@ -7,7 +7,7 @@
     <Authors>0xd4d</Authors>
     <InformationalVersion>$(Version)</InformationalVersion>
 
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Features>strict</Features>
     <SignAssembly>true</SignAssembly>

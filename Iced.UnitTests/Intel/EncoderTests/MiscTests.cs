@@ -112,7 +112,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
 				Assert.Equal(5, GetNumEncodings());
 
-				int GetNumEncodings() {
+				static int GetNumEncodings() {
 					int count = 0;
 					foreach (var field in typeof(EncodingKind).GetFields()) {
 						if (!field.IsStatic || !field.IsLiteral)

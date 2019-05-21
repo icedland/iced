@@ -146,7 +146,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[12] { hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize, constantOffsets, encodedHexBytes };
 			}
 
-			uint ParseUInt32(string s) {
+			static uint ParseUInt32(string s) {
 				if (uint.TryParse(s, out uint value))
 					return value;
 				if (s.StartsWith("0x")) {
@@ -158,7 +158,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				throw new InvalidOperationException();
 			}
 
-			ConstantOffsets ParseConstantOffsets(string s) {
+			static ConstantOffsets ParseConstantOffsets(string s) {
 				var vs = s.Split(coSeps);
 				if (vs.Length != 6)
 					throw new InvalidOperationException();

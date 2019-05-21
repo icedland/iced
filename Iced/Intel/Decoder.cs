@@ -140,7 +140,7 @@ namespace Iced.Intel {
 			}
 			return data;
 
-			void SetBit(uint[] d, int b) => d[b / 32] |= 1U << (b & 31);
+			static void SetBit(uint[] d, int b) => d[b / 32] |= 1U << (b & 31);
 		}
 
 		static Decoder() {
