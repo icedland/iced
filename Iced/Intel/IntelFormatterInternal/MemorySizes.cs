@@ -39,8 +39,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public readonly struct Info {
 			public readonly MemorySize memorySize;
 			public readonly string[] names;
-			public readonly string bcstTo;
-			public Info(MemorySize memorySize, string[] names, string bcstTo) {
+			public readonly string? bcstTo;
+			public Info(MemorySize memorySize, string[] names, string? bcstTo) {
 				this.memorySize = memorySize;
 				this.names = names;
 				this.bcstTo = bcstTo;

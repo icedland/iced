@@ -27,9 +27,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 		public readonly struct Info {
 			public readonly MemorySize memorySize;
 			public readonly int size;
-			public readonly string name;
-			public readonly string bcstTo;
-			public Info(MemorySize memorySize, int size, string name, string bcstTo) {
+			public readonly string? name;
+			public readonly string? bcstTo;
+			public Info(MemorySize memorySize, int size, string? name, string? bcstTo) {
 				this.memorySize = memorySize;
 				this.size = size;
 				this.name = name;

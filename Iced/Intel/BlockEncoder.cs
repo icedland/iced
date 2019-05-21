@@ -25,6 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Iced.Intel.BlockEncoderInternal;
 
 namespace Iced.Intel {
@@ -85,20 +86,20 @@ namespace Iced.Intel {
 		/// <summary>
 		/// List that gets all reloc infos or null
 		/// </summary>
-		public readonly IList<RelocInfo> RelocInfos;
+		public readonly IList<RelocInfo>? RelocInfos;
 
 		/// <summary>
 		/// Offsets of the new instructions relative to the base IP. If the instruction was rewritten to
 		/// a completely different instruction, the value <see cref="uint.MaxValue"/> is stored in that array element.
 		/// This array can be null.
 		/// </summary>
-		public readonly uint[] NewInstructionOffsets;
+		public readonly uint[]? NewInstructionOffsets;
 
 		/// <summary>
 		/// Offsets of all constants in the new encoded instructions. If the instruction was rewritten,
 		/// the 'default' value is stored in the corresponding array element. This array can be null.
 		/// </summary>
-		public readonly ConstantOffsets[] ConstantOffsets;
+		public readonly ConstantOffsets[]? ConstantOffsets;
 
 		/// <summary>
 		/// Constructor
@@ -112,7 +113,7 @@ namespace Iced.Intel {
 		/// This array can be null.</param>
 		/// <param name="constantOffsets">Offsets of all constants in the new encoded instructions. If the instruction was rewritten,
 		/// the 'default' value is stored in the corresponding array element. This array can be null.</param>
-		public InstructionBlock(CodeWriter codeWriter, IList<Instruction> instructions, ulong rip, IList<RelocInfo> relocInfos = null, uint[] newInstructionOffsets = null, ConstantOffsets[] constantOffsets = null) {
+		public InstructionBlock(CodeWriter codeWriter, IList<Instruction> instructions, ulong rip, IList<RelocInfo>? relocInfos = null, uint[]? newInstructionOffsets = null, ConstantOffsets[]? constantOffsets = null) {
 			CodeWriter = codeWriter ?? throw new ArgumentNullException(nameof(codeWriter));
 			Instructions = instructions ?? throw new ArgumentNullException(nameof(instructions));
 			RIP = rip;
@@ -234,7 +235,7 @@ namespace Iced.Intel {
 		/// <param name="errorMessage">Updated with an error message if the method failed</param>
 		/// <param name="options">Encoder options</param>
 		/// <returns></returns>
-		public static bool TryEncode(int bitness, InstructionBlock block, out string errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
+		public static bool TryEncode(int bitness, InstructionBlock block, [NotNullWhenFalse] out string? errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
 			TryEncode(bitness, new[] { block }, out errorMessage, options);
 
 		/// <summary>
@@ -245,10 +246,10 @@ namespace Iced.Intel {
 		/// <param name="errorMessage">Updated with an error message if the method failed</param>
 		/// <param name="options">Encoder options</param>
 		/// <returns></returns>
-		public static bool TryEncode(int bitness, InstructionBlock[] blocks, out string errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
+		public static bool TryEncode(int bitness, InstructionBlock[] blocks, [NotNullWhenFalse] out string? errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
 			new BlockEncoder(bitness, blocks, options).Encode(out errorMessage);
 
-		bool Encode(out string errorMessage) {
+		bool Encode([NotNullWhenFalse] out string? errorMessage) {
 			const int MAX_ITERS = 1000;
 			for (int iter = 0; iter < MAX_ITERS; iter++) {
 				bool updated = false;

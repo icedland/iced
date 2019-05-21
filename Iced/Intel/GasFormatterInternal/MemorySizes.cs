@@ -26,8 +26,8 @@ namespace Iced.Intel.GasFormatterInternal {
 	static class MemorySizes {
 		public readonly struct Info {
 			public readonly MemorySize memorySize;
-			public readonly string bcstTo;
-			public Info(MemorySize memorySize, string bcstTo) {
+			public readonly string? bcstTo;
+			public Info(MemorySize memorySize, string? bcstTo) {
 				this.memorySize = memorySize;
 				this.bcstTo = bcstTo;
 			}

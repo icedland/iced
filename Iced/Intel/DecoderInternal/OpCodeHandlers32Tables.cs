@@ -225,7 +225,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				new OpCodeHandler_M(Code.Invlpg_m),
 			};
 
-			var handlers_Grp_0F01_hi = new OpCodeHandler[0x40] {
+			var handlers_Grp_0F01_hi = new OpCodeHandler?[0x40] {
 				// C0
 				new OpCodeHandler_Simple(Code.Enclv),
 				new OpCodeHandler_Simple(Code.Vmcall),
@@ -328,7 +328,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 			};
 
-			var handlers_Grp_0FA6_hi = new OpCodeHandler[0x40] {
+			var handlers_Grp_0FA6_hi = new OpCodeHandler?[0x40] {
 				// C0
 				new OpCodeHandler_Simple5(Code.Montmul_16, Code.Montmul_32, Code.Montmul_64),
 				null,
@@ -421,7 +421,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 			};
 
-			var handlers_Grp_0FA7_hi = new OpCodeHandler[0x40] {
+			var handlers_Grp_0FA7_hi = new OpCodeHandler?[0x40] {
 				// C0
 				new OpCodeHandler_Simple5(Code.Xstore_16, Code.Xstore_32, Code.Xstore_64),
 				null,
@@ -571,7 +571,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 			};
 
-			var handlers_Grp_C6_hi = new OpCodeHandler[0x40] {
+			var handlers_Grp_C6_hi = new OpCodeHandler?[0x40] {
 				// C0
 				null,
 				null,
@@ -664,7 +664,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 			};
 
-			var handlers_Grp_C7_hi = new OpCodeHandler[0x40] {
+			var handlers_Grp_C7_hi = new OpCodeHandler?[0x40] {
 				// C0
 				null,
 				null,
@@ -883,7 +883,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				),
 			};
 
-			var handlers_Grp_0FAE_hi = new OpCodeHandler[0x40] {
+			var handlers_Grp_0FAE_hi = new OpCodeHandler?[0x40] {
 				// C0
 				null,
 				null,
@@ -1178,7 +1178,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				),
 				reservedNop_0F1E
 			);
-			var handlers_Grp_0F1E_reg_hi = new OpCodeHandler[0x40] {
+			var handlers_Grp_0F1E_reg_hi = new OpCodeHandler?[0x40] {
 				// C0
 				null,
 				null,

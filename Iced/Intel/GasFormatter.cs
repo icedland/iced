@@ -73,8 +73,8 @@ namespace Iced.Intel {
 
 		const string ImmediateValuePrefix = "$";
 		readonly GasFormatterOptions options;
-		readonly ISymbolResolver symbolResolver;
-		readonly IFormatterOptionsProvider optionsProvider;
+		readonly ISymbolResolver? symbolResolver;
+		readonly IFormatterOptionsProvider? optionsProvider;
 		readonly string[] allRegisters;
 		readonly string[] allRegistersNaked;
 		readonly InstrInfo[] instrInfos;
@@ -94,7 +94,7 @@ namespace Iced.Intel {
 		/// <param name="options">Formatter options or null</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
-		public GasFormatter(GasFormatterOptions options, ISymbolResolver symbolResolver = null, IFormatterOptionsProvider optionsProvider = null) {
+		public GasFormatter(GasFormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
 			this.options = options ?? new GasFormatterOptions();
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
@@ -237,12 +237,12 @@ namespace Iced.Intel {
 			}
 		}
 
-		static readonly string[] opSizeStrings = new string[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "data16", "data32", "rex.w" };
-		static readonly string[] addrSizeStrings = new string[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "addr16", "addr32", "addr64" };
+		static readonly string?[] opSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "data16", "data32", "rex.w" };
+		static readonly string?[] addrSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "addr16", "addr32", "addr64" };
 		void FormatMnemonic(ref Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo, ref int column, FormatMnemonicOptions mnemonicOptions) {
 			bool needSpace = false;
 			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0 && (opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) == 0) {
-				string prefix;
+				string? prefix;
 
 				if ((opInfo.Flags & InstrOpInfoFlags.OpSizeIsByteDirective) != 0) {
 					switch ((SizeOverride)(((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask)) {
@@ -433,7 +433,7 @@ namespace Iced.Intel {
 			int instructionOperand;
 			NumberFormattingOptions numberOptions;
 			SymbolResult symbol;
-			ISymbolResolver symbolResolver;
+			ISymbolResolver? symbolResolver;
 			FormatterOperandOptions operandOptions;
 			var opKind = opInfo.GetOpKind(operand);
 			switch (opKind) {

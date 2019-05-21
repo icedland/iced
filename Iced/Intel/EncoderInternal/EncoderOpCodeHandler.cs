@@ -391,9 +391,9 @@ namespace Iced.Intel.EncoderInternal {
 		internal readonly Encodable Encodable;
 		internal readonly OperandSize OpSize;
 		internal readonly AddressSize AddrSize;
-		internal readonly TryConvertToDisp8N TryConvertToDisp8N;
+		internal readonly TryConvertToDisp8N? TryConvertToDisp8N;
 		internal readonly Op[] Operands;
-		protected OpCodeHandler(Code code, uint opCode, int groupIndex, OpCodeHandlerFlags flags, Encodable encodable, OperandSize opSize, AddressSize addrSize, TryConvertToDisp8N tryConvertToDisp8N, Op[] operands) {
+		protected OpCodeHandler(Code code, uint opCode, int groupIndex, OpCodeHandlerFlags flags, Encodable encodable, OperandSize opSize, AddressSize addrSize, TryConvertToDisp8N? tryConvertToDisp8N, Op[] operands) {
 			TEST_Code = code;
 			OpCode = opCode;
 			GroupIndex = groupIndex;

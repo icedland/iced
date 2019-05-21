@@ -39,7 +39,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public override void Initialize() { }
 		public override bool Optimize() => false;
 
-		public override string TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
+		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
 			isOriginalInstruction = true;
 			if (!encoder.TryEncode(ref instruction, IP, out _, out var errorMessage)) {
 				constantOffsets = default;

@@ -57,8 +57,8 @@ namespace Iced.Intel {
 		public IntelFormatterOptions IntelOptions => options;
 
 		readonly IntelFormatterOptions options;
-		readonly ISymbolResolver symbolResolver;
-		readonly IFormatterOptionsProvider optionsProvider;
+		readonly ISymbolResolver? symbolResolver;
+		readonly IFormatterOptionsProvider? optionsProvider;
 		readonly string[] allRegisters;
 		readonly InstrInfo[] instrInfos;
 		readonly MemorySizes.Info[] allMemorySizes;
@@ -75,7 +75,7 @@ namespace Iced.Intel {
 		/// <param name="options">Formatter options or null</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
-		public IntelFormatter(IntelFormatterOptions options, ISymbolResolver symbolResolver = null, IFormatterOptionsProvider optionsProvider = null) {
+		public IntelFormatter(IntelFormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
 			this.options = options ?? new IntelFormatterOptions();
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
@@ -217,12 +217,12 @@ namespace Iced.Intel {
 			}
 		}
 
-		static readonly string[] opSizeStrings = new string[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "data16", "data32", "data64" };
-		static readonly string[] addrSizeStrings = new string[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "addr16", "addr32", "addr64" };
+		static readonly string?[] opSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "data16", "data32", "data64" };
+		static readonly string?[] addrSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "addr16", "addr32", "addr64" };
 		void FormatMnemonic(ref Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo, ref int column, FormatMnemonicOptions mnemonicOptions) {
 			bool needSpace = false;
 			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0 && (opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) == 0) {
-				string prefix;
+				string? prefix;
 
 				prefix = opSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
 				if (prefix != null)
@@ -376,7 +376,7 @@ namespace Iced.Intel {
 			int instructionOperand;
 			NumberFormattingOptions numberOptions;
 			SymbolResult symbol;
-			ISymbolResolver symbolResolver;
+			ISymbolResolver? symbolResolver;
 			FormatterOperandOptions operandOptions;
 			var opKind = opInfo.GetOpKind(operand);
 			switch (opKind) {
@@ -651,7 +651,7 @@ namespace Iced.Intel {
 
 			output.OnOperand(operand, begin: false);
 		}
-		static readonly string[] rcStrings = new string[] {
+		static readonly string?[] rcStrings = new string?[] {
 			null,
 			"rne-sae",
 			"rd-sae",
@@ -659,7 +659,7 @@ namespace Iced.Intel {
 			"rz-sae",
 		};
 
-		static readonly string[][] branchInfos = new string[(int)InstrOpInfoFlags.BranchSizeInfoMask + 1][] {
+		static readonly string[]?[] branchInfos = new string[]?[(int)InstrOpInfoFlags.BranchSizeInfoMask + 1] {
 			null,
 			new string[] { "short" },
 		};

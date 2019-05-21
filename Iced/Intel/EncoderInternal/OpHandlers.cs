@@ -209,7 +209,7 @@ namespace Iced.Intel.EncoderInternal {
 
 	static class LegacyOps {
 		public static readonly Op[] Ops = new Op[(int)LegacyOpKind.Last] {
-			null,
+			null!,// Never accessed
 			new OpA(2),
 			new OpA(4),
 			new OpModRM_rm_mem_only(),
@@ -435,7 +435,7 @@ namespace Iced.Intel.EncoderInternal {
 
 	static class VexOps {
 		public static readonly Op[] Ops = new Op[(int)VexOpKind.Last] {
-			null,
+			null!,// Never accessed
 			new OpModRM_rm(Register.EAX, Register.R15D),
 			new OpModRM_rm(Register.RAX, Register.R15),
 			new OpModRM_reg(Register.EAX, Register.R15D),
@@ -503,7 +503,7 @@ namespace Iced.Intel.EncoderInternal {
 
 	static class XopOps {
 		public static readonly Op[] Ops = new Op[(int)XopOpKind.Last] {
-			null,
+			null!,// Never accessed
 			new OpModRM_rm(Register.EAX, Register.R15D),
 			new OpModRM_rm(Register.RAX, Register.R15),
 			new OpModRM_reg(Register.EAX, Register.R15D),
@@ -567,7 +567,7 @@ namespace Iced.Intel.EncoderInternal {
 
 	static class EvexOps {
 		public static readonly Op[] Ops = new Op[(int)EvexOpKind.Last] {
-			null,
+			null!,// Never accessed
 			new OpModRM_rm(Register.EAX, Register.R15D),
 			new OpModRM_rm(Register.RAX, Register.R15),
 			new OpModRM_reg(Register.EAX, Register.R15D),

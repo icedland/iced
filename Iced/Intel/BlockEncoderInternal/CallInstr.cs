@@ -34,7 +34,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		Instruction instruction;
 		TargetInstr targetInstr;
 		readonly uint origInstructionSize;
-		BlockData pointerData;
+		BlockData? pointerData;
 		bool useOrigInstruction;
 		bool done;
 
@@ -93,7 +93,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			return false;
 		}
 
-		public override string TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
+		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
 			if (useOrigInstruction) {
 				isOriginalInstruction = true;
 				instruction.NearBranch64 = targetInstr.GetAddress();

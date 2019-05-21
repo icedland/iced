@@ -208,9 +208,9 @@ namespace Iced.Intel.DecoderInternal {
 
 	sealed class OpCodeHandler_Group8x64 : OpCodeHandlerModRM {
 		readonly OpCodeHandler[] tableLow;
-		readonly OpCodeHandler[] tableHigh;
+		readonly OpCodeHandler?[] tableHigh;
 
-		public OpCodeHandler_Group8x64(OpCodeHandler[] tableLow, OpCodeHandler[] tableHigh) {
+		public OpCodeHandler_Group8x64(OpCodeHandler[] tableLow, OpCodeHandler?[] tableHigh) {
 			if (tableLow.Length != 8)
 				throw new ArgumentException(nameof(tableLow));
 			if (tableHigh.Length != 64)

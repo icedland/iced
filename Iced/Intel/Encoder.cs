@@ -147,7 +147,7 @@ namespace Iced.Intel {
 
 		readonly uint[] immSizes;
 		ulong currentRip;
-		string errorMessage;
+		string? errorMessage;
 		OpCodeHandler handler;
 		uint eip;
 		uint displAddr;
@@ -172,7 +172,10 @@ namespace Iced.Intel {
 		/// </summary>
 		public int Bitness => defaultCodeSize;
 
+// 'handler' is initialized by TryEncode and isn't nullable
+#pragma warning disable CS8618 // Non-nullable field is uninitialized.
 		Encoder(CodeWriter writer, int defaultCodeSize) {
+#pragma warning restore CS8618 // Non-nullable field is uninitialized.
 			Debug.Assert(defaultCodeSize == 16 || defaultCodeSize == 32 || defaultCodeSize == 64);
 			if (writer == null)
 				ThrowHelper.ThrowArgumentNullException_writer();
@@ -249,7 +252,7 @@ namespace Iced.Intel {
 		/// <param name="encodedLength">Updated with length of encoded instruction if successful</param>
 		/// <param name="errorMessage">Set to the error message if we couldn't encode the instruction</param>
 		/// <returns></returns>
-		public bool TryEncode(ref Instruction instruction, ulong rip, out uint encodedLength, out string errorMessage) {
+		public bool TryEncode(ref Instruction instruction, ulong rip, out uint encodedLength, [NotNullWhenFalse] out string? errorMessage) {
 			currentRip = rip;
 			eip = (uint)rip;
 			this.errorMessage = null;
@@ -370,7 +373,7 @@ namespace Iced.Intel {
 			return true;
 		}
 
-		internal string ErrorMessage {
+		internal string? ErrorMessage {
 			get => errorMessage;
 			set {
 				if (errorMessage == null)

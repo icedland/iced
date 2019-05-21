@@ -220,7 +220,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Text and color or null if <see cref="Text"/> should be used
 		/// </summary>
-		public readonly TextPart[] TextArray;
+		public readonly TextPart[]? TextArray;
 
 		/// <summary>
 		/// Constructor

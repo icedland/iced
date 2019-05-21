@@ -152,9 +152,9 @@ namespace Iced.Intel {
 
 		string FormatUnsignedInteger(in NumberFormattingOptions options, ulong value, int valueSize, bool leadingZeroes, bool smallHexNumbersInDecimal) {
 			string rawNumber;
-			string prefix, suffix;
+			string? prefix, suffix;
 			int digitGroupSize;
-			string digitSeparator;
+			string? digitSeparator;
 			switch ((NumberBase)options.numberBaseByteValue) {
 			case NumberBase.Hexadecimal:
 				if (smallHexNumbersInDecimal && value <= SmallPositiveNumber) {

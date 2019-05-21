@@ -114,17 +114,17 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Digit separator or null/empty string
 		/// </summary>
-		public string DigitSeparator;
+		public string? DigitSeparator;
 
 		/// <summary>
 		/// Number prefix or null/empty string
 		/// </summary>
-		public string Prefix;
+		public string? Prefix;
 
 		/// <summary>
 		/// Number suffix or null/empty string
 		/// </summary>
-		public string Suffix;
+		public string? Suffix;
 
 		/// <summary>
 		/// Size of a digit group

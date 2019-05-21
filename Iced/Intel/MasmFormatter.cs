@@ -72,8 +72,8 @@ namespace Iced.Intel {
 		public MasmFormatterOptions MasmOptions => options;
 
 		readonly MasmFormatterOptions options;
-		readonly ISymbolResolver symbolResolver;
-		readonly IFormatterOptionsProvider optionsProvider;
+		readonly ISymbolResolver? symbolResolver;
+		readonly IFormatterOptionsProvider? optionsProvider;
 		readonly string[] allRegisters;
 		readonly InstrInfo[] instrInfos;
 		readonly MemorySizes.Info[] allMemorySizes;
@@ -90,7 +90,7 @@ namespace Iced.Intel {
 		/// <param name="options">Formatter options or null</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
-		public MasmFormatter(MasmFormatterOptions options, ISymbolResolver symbolResolver = null, IFormatterOptionsProvider optionsProvider = null) {
+		public MasmFormatter(MasmFormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
 			this.options = options ?? new MasmFormatterOptions();
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
@@ -370,7 +370,7 @@ namespace Iced.Intel {
 			int instructionOperand;
 			NumberFormattingOptions numberOptions;
 			SymbolResult symbol;
-			ISymbolResolver symbolResolver;
+			ISymbolResolver? symbolResolver;
 			FormatterOperandOptions operandOptions;
 			const string offsetKeyword = "offset";
 			var opKind = opInfo.GetOpKind(operand);
@@ -669,7 +669,7 @@ namespace Iced.Intel {
 
 			output.OnOperand(operand, begin: false);
 		}
-		static readonly string[] rcStrings = new string[] {
+		static readonly string?[] rcStrings = new string?[] {
 			null,
 			"rn-sae",
 			"rd-sae",

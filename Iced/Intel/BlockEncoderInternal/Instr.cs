@@ -36,7 +36,10 @@ namespace Iced.Intel.BlockEncoderInternal {
 		// 6 = FF 15 XXXXXXXX = call qword ptr [rip+mem_target]
 		protected const uint CallOrJmpPointerDataInstructionSize64 = 6;
 
+// 'Block' is initialized by other code
+#pragma warning disable CS8618 // Non-nullable field is uninitialized.
 		protected Instr(BlockEncoder blockEncoder, ulong origIp) {
+#pragma warning restore CS8618 // Non-nullable field is uninitialized.
 			this.blockEncoder = blockEncoder ?? throw new ArgumentNullException(nameof(blockEncoder));
 			OrigIP = origIp;
 		}
@@ -52,7 +55,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		/// <returns></returns>
 		public abstract bool Optimize();
 
-		public abstract string TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction);
+		public abstract string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction);
 
 		protected string CreateErrorMessage(string errorMessage, ref Instruction instruction) =>
 			$"{errorMessage} : 0x{instruction.IP:X} {instruction.ToString()}";
@@ -222,7 +225,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			return new SimpleInstr(blockEncoder, ref instruction);
 		}
 
-		protected string EncodeBranchToPointerData(Encoder encoder, bool isCall, ulong ip, BlockData pointerData, out uint size, uint minSize) {
+		protected string? EncodeBranchToPointerData(Encoder encoder, bool isCall, ulong ip, BlockData pointerData, out uint size, uint minSize) {
 			if (minSize > int.MaxValue)
 				throw new ArgumentOutOfRangeException(nameof(minSize));
 

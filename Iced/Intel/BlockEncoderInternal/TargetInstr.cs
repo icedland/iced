@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_ENCODER
 namespace Iced.Intel.BlockEncoderInternal {
 	readonly struct TargetInstr {
-		readonly Instr instruction;
+		readonly Instr? instruction;
 		readonly ulong address;
 
 		public TargetInstr(Instr instruction) {

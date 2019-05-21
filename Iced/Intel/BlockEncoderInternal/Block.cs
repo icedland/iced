@@ -29,9 +29,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 	sealed class Block {
 		public readonly CodeWriterImpl CodeWriter;
 		public readonly ulong RIP;
-		readonly IList<RelocInfo> relocInfos;
-		public readonly uint[] NewInstructionOffsets;
-		public readonly ConstantOffsets[] ConstantOffsets;
+		readonly IList<RelocInfo>? relocInfos;
+		public readonly uint[]? NewInstructionOffsets;
+		public readonly ConstantOffsets[]? ConstantOffsets;
 		public readonly Instr[] Instructions;
 		readonly List<BlockData> dataList;
 		readonly ulong alignment;
@@ -39,7 +39,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		ulong validDataAddress;
 		ulong validDataAddressAligned;
 
-		public Block(BlockEncoder blockEncoder, CodeWriter codeWriter, ulong rip, IList<RelocInfo> relocInfos, uint[] newInstructionOffsets, ConstantOffsets[] constantOffsets, Instr[] instructions) {
+		public Block(BlockEncoder blockEncoder, CodeWriter codeWriter, ulong rip, IList<RelocInfo>? relocInfos, uint[]? newInstructionOffsets, ConstantOffsets[]? constantOffsets, Instr[] instructions) {
 			CodeWriter = new CodeWriterImpl(codeWriter);
 			RIP = rip;
 			this.relocInfos = relocInfos;

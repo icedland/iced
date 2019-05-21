@@ -62,8 +62,8 @@ namespace Iced.Intel {
 		public NasmFormatterOptions NasmOptions => options;
 
 		readonly NasmFormatterOptions options;
-		readonly ISymbolResolver symbolResolver;
-		readonly IFormatterOptionsProvider optionsProvider;
+		readonly ISymbolResolver? symbolResolver;
+		readonly IFormatterOptionsProvider? optionsProvider;
 		readonly string[] allRegisters;
 		readonly InstrInfo[] instrInfos;
 		readonly MemorySizes.Info[] allMemorySizes;
@@ -80,7 +80,7 @@ namespace Iced.Intel {
 		/// <param name="options">Formatter options or null</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
-		public NasmFormatter(NasmFormatterOptions options, ISymbolResolver symbolResolver = null, IFormatterOptionsProvider optionsProvider = null) {
+		public NasmFormatter(NasmFormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
 			this.options = options ?? new NasmFormatterOptions();
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
@@ -222,12 +222,12 @@ namespace Iced.Intel {
 			}
 		}
 
-		static readonly string[] opSizeStrings = new string[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "o16", "o32", "o64" };
-		static readonly string[] addrSizeStrings = new string[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "a16", "a32", "a64" };
+		static readonly string?[] opSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "o16", "o32", "o64" };
+		static readonly string?[] addrSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "a16", "a32", "a64" };
 		void FormatMnemonic(ref Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo, ref int column, FormatMnemonicOptions mnemonicOptions) {
 			bool needSpace = false;
 			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0 && (opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) == 0) {
-				string prefix;
+				string? prefix;
 
 				prefix = opSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
 				if (prefix != null)
@@ -369,7 +369,7 @@ namespace Iced.Intel {
 			int instructionOperand;
 			NumberFormattingOptions numberOptions;
 			SymbolResult symbol;
-			ISymbolResolver symbolResolver;
+			ISymbolResolver? symbolResolver;
 			FormatterOperandOptions operandOptions;
 			var opKind = opInfo.GetOpKind(operand);
 			switch (opKind) {
@@ -689,7 +689,7 @@ namespace Iced.Intel {
 			output.Write(" ", FormatterOutputTextKind.Text);
 		}
 
-		static readonly string[][] branchInfos = new string[(int)InstrOpInfoFlags.BranchSizeInfoMask + 1][] {
+		static readonly string[]?[] branchInfos = new string[]?[(int)InstrOpInfoFlags.BranchSizeInfoMask + 1] {
 			null,
 			new string[] { "near" },
 			new string[] { "near", "word" },
@@ -735,13 +735,13 @@ namespace Iced.Intel {
 		static readonly string[] scaleNumbers = new string[4] {
 			"1", "2", "4", "8",
 		};
-		static readonly string[] memSizeInfos = new string[(int)InstrOpInfoFlags.MemorySizeInfoMask + 1] {
+		static readonly string?[] memSizeInfos = new string?[(int)InstrOpInfoFlags.MemorySizeInfoMask + 1] {
 			null,
 			"word",
 			"dword",
 			"qword",
 		};
-		static readonly string[] farMemSizeInfos = new string[(int)InstrOpInfoFlags.FarMemorySizeInfoMask + 1] {
+		static readonly string?[] farMemSizeInfos = new string?[(int)InstrOpInfoFlags.FarMemorySizeInfoMask + 1] {
 			null,
 			"word",
 			"dword",

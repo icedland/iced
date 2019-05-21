@@ -33,7 +33,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		readonly int bitness;
 		Instruction instruction;
 		TargetInstr targetInstr;
-		BlockData pointerData;
+		BlockData? pointerData;
 		InstrKind instrKind;
 		readonly uint shortInstructionSize;
 		readonly uint nearInstructionSize;
@@ -57,7 +57,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 
-			string errorMessage;
+			string? errorMessage;
 			Instruction instrCopy;
 
 			if (!blockEncoder.FixBranches) {
@@ -133,8 +133,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 			return false;
 		}
 
-		public override string TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
-			string errorMessage;
+		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
+			string? errorMessage;
 			switch (instrKind) {
 			case InstrKind.Unchanged:
 			case InstrKind.Short:

@@ -50,7 +50,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 
-			string errorMessage;
+			string? errorMessage;
 
 			instruction.MemoryBase = Register.RIP;
 			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP, out ripInstructionSize, out errorMessage))
@@ -101,7 +101,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			return false;
 		}
 
-		public override string TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
+		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
 			switch (instrKind) {
 			case InstrKind.Unchanged:
 			case InstrKind.Rip:
