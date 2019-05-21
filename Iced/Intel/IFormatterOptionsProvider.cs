@@ -135,7 +135,7 @@ namespace Iced.Intel {
 		/// Number base
 		/// </summary>
 		public NumberBase NumberBase {
-			get => (NumberBase)numberBaseByteValue;
+			readonly get => (NumberBase)numberBaseByteValue;
 			set => numberBaseByteValue = (byte)value;
 		}
 		internal byte numberBaseByteValue;

@@ -556,9 +556,9 @@ namespace Iced.Intel {
 			readonly InstructionList list;
 			int index;
 
-			public ref Instruction Current => ref list.elements[index];
-			Instruction IEnumerator<Instruction>.Current => list.elements[index];
-			object IEnumerator.Current => list.elements[index];
+			public readonly ref Instruction Current => ref list.elements[index];
+			readonly Instruction IEnumerator<Instruction>.Current => list.elements[index];
+			readonly object IEnumerator.Current => list.elements[index];
 
 			internal Enumerator(InstructionList list) {
 				// Only two fields, the jitter can put both fields in two registers and
@@ -574,8 +574,8 @@ namespace Iced.Intel {
 				return index < list.count;
 			}
 
-			void IEnumerator.Reset() => throw new NotSupportedException();
-			public void Dispose() { }
+			readonly void IEnumerator.Reset() => throw new NotSupportedException();
+			public readonly void Dispose() { }
 		}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 

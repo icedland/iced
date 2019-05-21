@@ -199,13 +199,13 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(RflagsBits.None, info.RflagsUndefined & (info.RflagsWritten | info.RflagsCleared | info.RflagsSet));
 			Assert.Equal(info.RflagsWritten | info.RflagsCleared | info.RflagsSet | info.RflagsUndefined, info.RflagsModified);
 
-			var info2 = new InstructionInfoFactory().GetInfo(ref instr);
+			var info2 = new InstructionInfoFactory().GetInfo(instr);
 			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: true);
-			info2 = new InstructionInfoFactory().GetInfo(ref instr, InstructionInfoOptions.NoMemoryUsage);
+			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoMemoryUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: false);
-			info2 = new InstructionInfoFactory().GetInfo(ref instr, InstructionInfoOptions.NoRegisterUsage);
+			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoRegisterUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: true);
-			info2 = new InstructionInfoFactory().GetInfo(ref instr, InstructionInfoOptions.NoRegisterUsage | InstructionInfoOptions.NoMemoryUsage);
+			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoRegisterUsage | InstructionInfoOptions.NoMemoryUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: false);
 
 			Assert.Equal(info.Encoding, instr.Code.Encoding());

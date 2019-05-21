@@ -41,7 +41,7 @@ namespace Iced.Intel {
 		/// <param name="elementIndex">Only used if it's a vsib memory operand. This is the element index of the vector index register.</param>
 		/// <param name="getRegisterValue">Delegate that returns the value of a register or the base address of a segment register</param>
 		/// <returns></returns>
-		public ulong GetVirtualAddress(int operand, int elementIndex, VAGetRegisterValue getRegisterValue) =>
+		public readonly ulong GetVirtualAddress(int operand, int elementIndex, VAGetRegisterValue getRegisterValue) =>
 			GetVirtualAddress(operand, elementIndex, new VARegisterValueProviderImpl(getRegisterValue));
 
 		/// <summary>
@@ -51,7 +51,7 @@ namespace Iced.Intel {
 		/// <param name="elementIndex">Only used if it's a vsib memory operand. This is the element index of the vector index register.</param>
 		/// <param name="registerValueProvider">Returns values of registers and segment base addresses</param>
 		/// <returns></returns>
-		public ulong GetVirtualAddress(int operand, int elementIndex, IVARegisterValueProvider registerValueProvider) {
+		public readonly ulong GetVirtualAddress(int operand, int elementIndex, IVARegisterValueProvider registerValueProvider) {
 			switch (GetOpKind(operand)) {
 			case OpKind.Register:
 			case OpKind.NearBranch16:

@@ -92,7 +92,7 @@ namespace Iced.Intel {
 			public MandatoryPrefix mandatoryPrefix;
 			public OpSize operandSize;
 			public OpSize addressSize;
-			public EncodingKind Encoding => (EncodingKind)(flags & StateFlags.EncodingMask);
+			public readonly EncodingKind Encoding => (EncodingKind)(flags & StateFlags.EncodingMask);
 		}
 
 		/// <summary>
