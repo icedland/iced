@@ -40,25 +40,25 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Equal((ushort)nextRip, instr.NextIP16);
 			Assert.Equal((uint)nextRip, instr.NextIP32);
 			Assert.Equal(nextRip, instr.NextIP);
-			FormatTest(ref instr, formattedString, formatter);
+			FormatTest(instr, formattedString, formatter);
 		}
 
-		public static void FormatTest(ref Instruction instr, string formattedString, Formatter formatter) {
+		public static void FormatTest(in Instruction instr, string formattedString, Formatter formatter) {
 			var output = new StringBuilderFormatterOutput();
 
-			formatter.Format(ref instr, output);
+			formatter.Format(instr, output);
 			var actualFormattedString = output.ToStringAndReset();
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 			// Show the full string without ellipses by using Equal<string>() instead of Equal()
 			Assert.Equal<string>(formattedString, actualFormattedString);
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 
-			formatter.FormatMnemonic(ref instr, output);
+			formatter.FormatMnemonic(instr, output);
 			var mnemonic = output.ToStringAndReset();
-			int opCount = formatter.GetOperandCount(ref instr);
+			int opCount = formatter.GetOperandCount(instr);
 			var operands = opCount == 0 ? Array.Empty<string>() : new string[opCount];
 			for (int i = 0; i < operands.Length; i++) {
-				formatter.FormatOperand(ref instr, output, i);
+				formatter.FormatOperand(instr, output, i);
 				operands[i] = output.ToStringAndReset();
 			}
 			output.Write(mnemonic, FormatterOutputTextKind.Text);
@@ -66,14 +66,14 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				output.Write(" ", FormatterOutputTextKind.Text);
 				for (int i = 0; i < operands.Length; i++) {
 					if (i > 0)
-						formatter.FormatOperandSeparator(ref instr, output);
+						formatter.FormatOperandSeparator(instr, output);
 					output.Write(operands[i], FormatterOutputTextKind.Text);
 				}
 			}
 			actualFormattedString = output.ToStringAndReset();
 			Assert.Equal(formattedString, actualFormattedString);
 
-			formatter.FormatAllOperands(ref instr, output);
+			formatter.FormatAllOperands(instr, output);
 			var allOperands = output.ToStringAndReset();
 			actualFormattedString = allOperands.Length == 0 ? mnemonic : mnemonic + " " + allOperands;
 			Assert.Equal(formattedString, actualFormattedString);
@@ -96,7 +96,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 			var output = new StringBuilderFormatterOutput();
 
-			formatter.Format(ref instr, output);
+			formatter.Format(instr, output);
 			var actualFormattedString = output.ToStringAndReset();
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 			// Show the full string without ellipses by using Equal<string>() instead of Equal()
@@ -134,7 +134,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			foreach (var info in DecoderTests.DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: true)) {
 				var decoder = CreateDecoder(info.Bitness, info.HexBytes, info.Options, out _);
 				decoder.Decode(out var instr);
-				formatter.Format(ref instr, output);
+				formatter.Format(instr, output);
 				output.Reset();
 			}
 		}

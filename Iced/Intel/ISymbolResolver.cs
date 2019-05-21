@@ -39,7 +39,7 @@ namespace Iced.Intel {
 		/// <param name="addressSize">Size of <paramref name="address"/> in bytes</param>
 		/// <param name="symbol">Updated with symbol information if this method returns true</param>
 		/// <returns></returns>
-		bool TryGetSymbol(int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol);
+		bool TryGetSymbol(int operand, int instructionOperand, in Instruction instruction, ulong address, int addressSize, out SymbolResult symbol);
 	}
 
 	/// <summary>

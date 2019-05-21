@@ -1652,22 +1652,22 @@ namespace Iced.Intel {
 		/// Formats the instruction using the default formatter with default formatter options
 		/// </summary>
 		/// <returns></returns>
-		public override string ToString() {
+		public override readonly string ToString() {
 #if !NO_MASM_FORMATTER && !NO_FORMATTER
 			var output = new StringBuilderFormatterOutput();
-			new MasmFormatter().Format(ref this, output);
+			new MasmFormatter().Format(this, output);
 			return output.ToString();
 #elif !NO_NASM_FORMATTER && !NO_FORMATTER
 			var output = new StringBuilderFormatterOutput();
-			new NasmFormatter().Format(ref this, output);
+			new NasmFormatter().Format(this, output);
 			return output.ToString();
 #elif !NO_INTEL_FORMATTER && !NO_FORMATTER
 			var output = new StringBuilderFormatterOutput();
-			new IntelFormatter().Format(ref this, output);
+			new IntelFormatter().Format(this, output);
 			return output.ToString();
 #elif !NO_GAS_FORMATTER && !NO_FORMATTER
 			var output = new StringBuilderFormatterOutput();
-			new GasFormatter().Format(ref this, output);
+			new GasFormatter().Format(this, output);
 			return output.ToString();
 #else
 			return base.ToString();

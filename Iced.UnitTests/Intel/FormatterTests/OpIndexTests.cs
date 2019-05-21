@@ -37,19 +37,19 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				for (int i = 0; i < instrToFormatter.Length; i++)
 					instrToFormatter[i] = -1;
 
-				int formatterOpCount = formatter.GetOperandCount(ref instr);
+				int formatterOpCount = formatter.GetOperandCount(instr);
 				int instrOpCount = instr.OpCount;
 
 				uint instrOpUsed = 0;
 				Assert.True(instrOpCount <= 32);// uint is 32 bits
 				for (int formatterOpIndex = 0; formatterOpIndex < formatterOpCount; formatterOpIndex++) {
-					int instrOpIndex = formatter.GetInstructionOperand(ref instr, formatterOpIndex);
+					int instrOpIndex = formatter.GetInstructionOperand(instr, formatterOpIndex);
 					if (instrOpIndex >= 0) {
 						Assert.True(instrOpIndex < instrOpCount);
 						instrToFormatter[instrOpIndex] = formatterOpIndex;
 
 #if !NO_INSTR_INFO
-						Assert.False(formatter.TryGetOpAccess(ref instr, formatterOpIndex, out var access));
+						Assert.False(formatter.TryGetOpAccess(instr, formatterOpIndex, out var access));
 						Assert.Equal(OpAccess.None, access);
 #endif
 
@@ -57,24 +57,24 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 						Assert.True(0U == (instrOpUsed & instrOpBit), "More than one formatter operand index maps to the same instruction op index");
 						instrOpUsed |= instrOpBit;
 
-						Assert.Equal(formatterOpIndex, formatter.GetFormatterOperand(ref instr, instrOpIndex));
+						Assert.Equal(formatterOpIndex, formatter.GetFormatterOperand(instr, instrOpIndex));
 					}
 					else {
 						Assert.Equal(-1, instrOpIndex);
 #if !NO_INSTR_INFO
-						Assert.True(formatter.TryGetOpAccess(ref instr, formatterOpIndex, out var access));
+						Assert.True(formatter.TryGetOpAccess(instr, formatterOpIndex, out var access));
 						Assert.True(access >= OpAccess.None && access <= OpAccess.NoMemAccess);
 #endif
 					}
 				}
 
 				for (int instrOpIndex = 0; instrOpIndex < instrOpCount; instrOpIndex++) {
-					int formatterOpIndex = formatter.GetFormatterOperand(ref instr, instrOpIndex);
+					int formatterOpIndex = formatter.GetFormatterOperand(instr, instrOpIndex);
 					Assert.Equal(instrToFormatter[instrOpIndex], formatterOpIndex);
 				}
 
 				for (int instrOpIndex = instrOpCount; instrOpIndex < Iced.Intel.DecoderConstants.MaxOpCount; instrOpIndex++) {
-					int formatterOpIndex = formatter.GetFormatterOperand(ref instr, instrOpIndex);
+					int formatterOpIndex = formatter.GetFormatterOperand(instr, instrOpIndex);
 					Assert.Equal(-1, formatterOpIndex);
 				}
 			}

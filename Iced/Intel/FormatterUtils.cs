@@ -118,7 +118,7 @@ namespace Iced.Intel {
 
 		public static bool IsCall(FormatterFlowControl kind) => kind == FormatterFlowControl.NearCall || kind == FormatterFlowControl.FarCall;
 
-		public static FormatterFlowControl GetFlowControl(ref Instruction instruction) {
+		public static FormatterFlowControl GetFlowControl(in Instruction instruction) {
 			switch (instruction.Code) {
 			case Code.Jo_rel8_16:
 			case Code.Jo_rel8_32:

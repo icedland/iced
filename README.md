@@ -133,7 +133,7 @@ namespace Iced.Examples {
             // Use InstructionList's ref iterator (C# 7.3) to prevent copying 32 bytes every iteration
             foreach (ref var instr in instructions) {
                 // Don't use instr.ToString(), it allocates more, uses masm syntax and default options
-                formatter.Format(ref instr, output);
+                formatter.Format(instr, output);
                 Console.Write(instr.IP.ToString("X16"));
                 Console.Write(" ");
                 int instrLen = instr.ByteLength;
@@ -226,7 +226,7 @@ Disassembled code:
             endRip = newDecoder.IP + (uint)newCode.Length;
             while (newDecoder.IP < endRip) {
                 newDecoder.Decode(out var instr);
-                formatter.Format(ref instr, output);
+                formatter.Format(instr, output);
                 Console.WriteLine($"{instr.IP:X16} {output.ToStringAndReset()}");
             }
         }
@@ -309,7 +309,7 @@ Disassembled code:
             ulong endRip = newDecoder.IP + (uint)newCode.Length;
             while (newDecoder.IP < endRip) {
                 newDecoder.Decode(out var instr);
-                formatter.Format(ref instr, output);
+                formatter.Format(instr, output);
                 Console.WriteLine($"{instr.IP:X16} {output.ToStringAndReset()}");
             }
         }
@@ -473,7 +473,7 @@ Disassembled code:
                 var disasmStr = instr.ToString();
                 Console.WriteLine($"{instr.IP:X16} {disasmStr}");
 
-                var info = instrInfoFactory.GetInfo(ref instr);
+                var info = instrInfoFactory.GetInfo(instr);
                 const string tab = "    ";
                 Console.WriteLine($"{tab}Encoding: {instr.Encoding}");
                 Console.WriteLine($"{tab}CpuidFeature: {string.Join(" and ", instr.CpuidFeatures)}");

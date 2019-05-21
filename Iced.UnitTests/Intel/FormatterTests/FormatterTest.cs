@@ -69,7 +69,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			FormatterTestUtils.FormatTest(info.CodeSize, info.HexBytes, info.Code, info.Options, formattedString, formatter);
 
 		protected void FormatBase(int index, Instruction instr, string formattedString, Formatter formatter) =>
-			FormatterTestUtils.FormatTest(ref instr, formattedString, formatter);
+			FormatterTestUtils.FormatTest(instr, formattedString, formatter);
 	}
 }
 #endif

@@ -39,7 +39,7 @@ namespace Iced.Intel {
 		/// <param name="instruction">Instruction</param>
 		/// <param name="options">Options. Only those options that will be used by the formatter are initialized.</param>
 		/// <param name="numberOptions">Number formatting options</param>
-		void GetOperandOptions(int operand, int instructionOperand, ref Instruction instruction, ref FormatterOperandOptions options, ref NumberFormattingOptions numberOptions);
+		void GetOperandOptions(int operand, int instructionOperand, in Instruction instruction, ref FormatterOperandOptions options, ref NumberFormattingOptions numberOptions);
 	}
 
 	/// <summary>
