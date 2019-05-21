@@ -57,10 +57,10 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public abstract string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction);
 
-		protected string CreateErrorMessage(string errorMessage, ref Instruction instruction) =>
+		protected string CreateErrorMessage(string errorMessage, in Instruction instruction) =>
 			$"{errorMessage} : 0x{instruction.IP:X} {instruction.ToString()}";
 
-		public static Instr Create(BlockEncoder blockEncoder, ref Instruction instruction) {
+		public static Instr Create(BlockEncoder blockEncoder, in Instruction instruction) {
 			switch (instruction.Code) {
 			case Code.Jo_rel8_16:
 			case Code.Jo_rel8_32:
@@ -161,7 +161,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case Code.Jg_rel16:
 			case Code.Jg_rel32_32:
 			case Code.Jg_rel32_64:
-				return new JccInstr(blockEncoder, ref instruction);
+				return new JccInstr(blockEncoder, instruction);
 
 			case Code.Loopne_rel8_16_CX:
 			case Code.Loopne_rel8_32_CX:
@@ -191,12 +191,12 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case Code.Jecxz_rel8_64:
 			case Code.Jrcxz_rel8_16:
 			case Code.Jrcxz_rel8_64:
-				return new SimpleBranchInstr(blockEncoder, ref instruction);
+				return new SimpleBranchInstr(blockEncoder, instruction);
 
 			case Code.Call_rel16:
 			case Code.Call_rel32_32:
 			case Code.Call_rel32_64:
-				return new CallInstr(blockEncoder, ref instruction);
+				return new CallInstr(blockEncoder, instruction);
 
 			case Code.Jmp_rel16:
 			case Code.Jmp_rel32_32:
@@ -204,11 +204,11 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case Code.Jmp_rel8_16:
 			case Code.Jmp_rel8_32:
 			case Code.Jmp_rel8_64:
-				return new JmpInstr(blockEncoder, ref instruction);
+				return new JmpInstr(blockEncoder, instruction);
 
 			case Code.Xbegin_rel16:
 			case Code.Xbegin_rel32:
-				return new XbeginInstr(blockEncoder, ref instruction);
+				return new XbeginInstr(blockEncoder, instruction);
 			}
 
 			if (blockEncoder.Bitness == 64) {
@@ -216,13 +216,13 @@ namespace Iced.Intel.BlockEncoderInternal {
 				for (int i = 0; i < ops; i++) {
 					if (instruction.GetOpKind(i) == OpKind.Memory) {
 						if (instruction.IsIPRelativeMemoryOperand)
-							return new IpRelMemOpInstr(blockEncoder, ref instruction);
+							return new IpRelMemOpInstr(blockEncoder, instruction);
 						break;
 					}
 				}
 			}
 
-			return new SimpleInstr(blockEncoder, ref instruction);
+			return new SimpleInstr(blockEncoder, instruction);
 		}
 
 		protected string? EncodeBranchToPointerData(Encoder encoder, bool isCall, ulong ip, BlockData pointerData, out uint size, uint minSize) {
@@ -252,7 +252,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				throw new InvalidOperationException();
 			}
 
-			if (!encoder.TryEncode(ref instr, ip, out size, out var errorMessage))
+			if (!encoder.TryEncode(instr, ip, out size, out var errorMessage))
 				return errorMessage;
 			if (Block.CanAddRelocInfos && relocKind != RelocKind.Offset64) {
 				var constantOffsets = encoder.GetConstantOffsets();

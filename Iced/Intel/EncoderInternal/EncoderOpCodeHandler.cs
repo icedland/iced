@@ -374,7 +374,7 @@ namespace Iced.Intel.EncoderInternal {
 		Encodable_Only64				= Encodable.Only64 << (int)EncodableShift,
 	}
 
-	delegate bool TryConvertToDisp8N(Encoder encoder, ref Instruction instr, OpCodeHandler handler, int displ, out sbyte compressedValue);
+	delegate bool TryConvertToDisp8N(Encoder encoder, in Instruction instr, OpCodeHandler handler, int displ, out sbyte compressedValue);
 
 	[Flags]
 	enum OpCodeHandlerFlags : uint {
@@ -407,7 +407,7 @@ namespace Iced.Intel.EncoderInternal {
 
 		protected static Code GetCode(uint dword1) => (Code)(dword1 & (uint)EncFlags1.CodeMask);
 		protected static uint GetOpCode(uint dword1) => dword1 >> (int)EncFlags1.OpCodeShift;
-		public abstract void Encode(Encoder encoder, ref Instruction instr);
+		public abstract void Encode(Encoder encoder, in Instruction instr);
 	}
 
 	sealed class InvalidHandler : OpCodeHandler {
@@ -415,7 +415,7 @@ namespace Iced.Intel.EncoderInternal {
 
 		public InvalidHandler(Code code) : base(code, 0, 0, OpCodeHandlerFlags.None, Encodable.Any, OperandSize.None, AddressSize.None, null, Array2.Empty<Op>()) { }
 
-		public override void Encode(Encoder encoder, ref Instruction instr) =>
+		public override void Encode(Encoder encoder, in Instruction instr) =>
 			encoder.ErrorMessage = ERROR_MESSAGE;
 	}
 
@@ -442,7 +442,7 @@ namespace Iced.Intel.EncoderInternal {
 			}
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr) {
+		public override void Encode(Encoder encoder, in Instruction instr) {
 			int byteLength = instr.DeclareDataCount * elemLength;
 			for (int i = 0; i < byteLength; i++)
 				encoder.WriteByte(instr.GetDeclareByteValue(i));
@@ -531,7 +531,7 @@ namespace Iced.Intel.EncoderInternal {
 				rexBits |= 1;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr) {
+		public override void Encode(Encoder encoder, in Instruction instr) {
 			uint b;
 			if ((b = mandatoryPrefix) != 0)
 				encoder.WriteByte(b);
@@ -605,7 +605,7 @@ namespace Iced.Intel.EncoderInternal {
 			lastByte |= (dword2 >> (int)VexFlags.MandatoryPrefixShift) & (uint)VexFlags.MandatoryPrefixMask;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr) {
+		public override void Encode(Encoder encoder, in Instruction instr) {
 			uint encoderFlags = (uint)encoder.EncoderFlags;
 
 			Debug.Assert((int)MandatoryPrefix.None == 0);
@@ -682,7 +682,7 @@ namespace Iced.Intel.EncoderInternal {
 			lastByte |= (dword2 >> (int)XopFlags.MandatoryPrefixShift) & (uint)XopFlags.MandatoryPrefixMask;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr) {
+		public override void Encode(Encoder encoder, in Instruction instr) {
 			encoder.WriteByte(0x8F);
 
 			uint encoderFlags = (uint)encoder.EncoderFlags;
@@ -756,7 +756,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		sealed class TryConvertToDisp8NImpl {
-			public bool TryConvertToDisp8N(Encoder encoder, ref Instruction instr, OpCodeHandler handler, int displ, out sbyte compressedValue) {
+			public bool TryConvertToDisp8N(Encoder encoder, in Instruction instr, OpCodeHandler handler, int displ, out sbyte compressedValue) {
 				var evexHandler = (EvexHandler)handler;
 				int n;
 				switch (evexHandler.tupleType) {
@@ -925,7 +925,7 @@ namespace Iced.Intel.EncoderInternal {
 			}
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr) {
+		public override void Encode(Encoder encoder, in Instruction instr) {
 			uint encoderFlags = (uint)encoder.EncoderFlags;
 
 			encoder.WriteByte(0x62);
@@ -997,7 +997,7 @@ namespace Iced.Intel.EncoderInternal {
 			Debug.Assert(immediate <= byte.MaxValue);
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr) {
+		public override void Encode(Encoder encoder, in Instruction instr) {
 			encoder.WriteByte(0x0F);
 			encoder.ImmSize = ImmSize.Size1OpCode;
 			encoder.Immediate = immediate;

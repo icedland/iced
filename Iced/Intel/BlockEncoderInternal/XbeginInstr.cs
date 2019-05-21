@@ -34,7 +34,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		Instruction instruction;
 		TargetInstr targetInstr;
 
-		public XbeginInstr(BlockEncoder blockEncoder, ref Instruction instruction)
+		public XbeginInstr(BlockEncoder blockEncoder, in Instruction instruction)
 			: base(blockEncoder, instruction.IP) {
 			this.instruction = instruction;
 
@@ -55,7 +55,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			}
 			var instrCopy = this.instruction;
 			instrCopy.NearBranch64 = 0;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, 0, out Size, out var errorMessage))
+			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out Size, out var errorMessage))
 				Size = DecoderConstants.MaxInstructionLength;
 		}
 
@@ -66,9 +66,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
 			isOriginalInstruction = true;
 			instruction.NearBranch64 = targetInstr.GetAddress();
-			if (!encoder.TryEncode(ref instruction, IP, out _, out var errorMessage)) {
+			if (!encoder.TryEncode(instruction, IP, out _, out var errorMessage)) {
 				constantOffsets = default;
-				return CreateErrorMessage(errorMessage, ref instruction);
+				return CreateErrorMessage(errorMessage, instruction);
 			}
 			constantOffsets = encoder.GetConstantOffsets();
 			return null;

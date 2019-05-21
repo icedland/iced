@@ -44,7 +44,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			Uninitialized,
 		}
 
-		public IpRelMemOpInstr(BlockEncoder blockEncoder, ref Instruction instruction)
+		public IpRelMemOpInstr(BlockEncoder blockEncoder, in Instruction instruction)
 			: base(blockEncoder, instruction.IP) {
 			Debug.Assert(instruction.IsIPRelativeMemoryOperand);
 			this.instruction = instruction;
@@ -52,12 +52,13 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 			string? errorMessage;
 
-			instruction.MemoryBase = Register.RIP;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP, out ripInstructionSize, out errorMessage))
+			var instrCopy = instruction;
+			instrCopy.MemoryBase = Register.RIP;
+			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, instrCopy.IP, out ripInstructionSize, out errorMessage))
 				ripInstructionSize = DecoderConstants.MaxInstructionLength;
 
-			instruction.MemoryBase = Register.EIP;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP, out eipInstructionSize, out errorMessage))
+			instrCopy.MemoryBase = Register.EIP;
+			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, instrCopy.IP, out eipInstructionSize, out errorMessage))
 				eipInstructionSize = DecoderConstants.MaxInstructionLength;
 
 			Debug.Assert(eipInstructionSize >= ripInstructionSize);
@@ -126,14 +127,14 @@ namespace Iced.Intel.BlockEncoderInternal {
 				var nextRip = IP + instrSize;
 				instruction.NextIP = nextRip;
 				instruction.MemoryDisplacement = (uint)targetAddress - (uint)nextRip;
-				encoder.TryEncode(ref instruction, IP, out _, out var errorMessage);
+				encoder.TryEncode(instruction, IP, out _, out var errorMessage);
 				bool b = instruction.IPRelativeMemoryAddress == (instruction.MemoryBase == Register.EIP ? (uint)targetAddress : targetAddress);
 				Debug.Assert(b);
 				if (!b)
 					errorMessage = "Invalid IP relative address";
 				if (errorMessage != null) {
 					constantOffsets = default;
-					return CreateErrorMessage(errorMessage, ref instruction);
+					return CreateErrorMessage(errorMessage, instruction);
 				}
 				constantOffsets = encoder.GetConstantOffsets();
 				return null;

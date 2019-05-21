@@ -46,19 +46,19 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			uint instrLen;
 
 			encoder = Encoder.Create(16, new CodeWriterImpl());
-			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
+			result = encoder.TryEncode(instr, 0, out instrLen, out errorMessage);
 			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
 			Assert.Equal(0U, instrLen);
 
 			encoder = Encoder.Create(32, new CodeWriterImpl());
-			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
+			result = encoder.TryEncode(instr, 0, out instrLen, out errorMessage);
 			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
 			Assert.Equal(0U, instrLen);
 
 			encoder = Encoder.Create(64, new CodeWriterImpl());
-			result = encoder.TryEncode(ref instr, 0, out instrLen, out errorMessage);
+			result = encoder.TryEncode(instr, 0, out instrLen, out errorMessage);
 			Assert.False(result);
 			Assert.Equal(InvalidHandler.ERROR_MESSAGE, errorMessage);
 			Assert.Equal(0U, instrLen);
@@ -70,7 +70,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var encoder = Encoder.Create(64, new CodeWriterImpl());
 			Assert.Throws<EncoderException>(() => {
 				var instrCopy = instr;
-				encoder.Encode(ref instrCopy, 0);
+				encoder.Encode(instrCopy, 0);
 			});
 		}
 
@@ -80,7 +80,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var expectedBytes = HexUtils.ToByteArray(hexBytes);
 			var codeWriter = new CodeWriterImpl();
 			var encoder = Encoder.Create(bitness, codeWriter);
-			Assert.True(encoder.TryEncode(ref instruction, rip, out uint encodedLength, out string errorMessage), $"Could not encode {instruction}, error: {errorMessage}");
+			Assert.True(encoder.TryEncode(instruction, rip, out uint encodedLength, out string errorMessage), $"Could not encode {instruction}, error: {errorMessage}");
 			Assert.Equal(expectedBytes, codeWriter.ToArray());
 			Assert.Equal((uint)expectedBytes.Length, encodedLength);
 		}
@@ -131,7 +131,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(16, writer);
 			var instr = Instruction.Create(Code.Mov_r16_rm16, Register.AX, new MemoryOperand(Register.BP));
-			uint len = encoder.Encode(ref instr, 0);
+			uint len = encoder.Encode(instr, 0);
 			var expected = new byte[] { 0x8B, 0x46, 0x00 };
 			var actual = writer.ToArray();
 			Assert.Equal(actual.Length, (int)len);
@@ -143,7 +143,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(32, writer);
 			var instr = Instruction.Create(Code.Mov_r32_rm32, Register.EAX, new MemoryOperand(Register.EBP));
-			uint len = encoder.Encode(ref instr, 0);
+			uint len = encoder.Encode(instr, 0);
 			var expected = new byte[] { 0x8B, 0x45, 0x00 };
 			var actual = writer.ToArray();
 			Assert.Equal(actual.Length, (int)len);
@@ -155,7 +155,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(64, writer);
 			var instr = Instruction.Create(Code.Mov_r32_rm32, Register.EAX, new MemoryOperand(Register.R13D));
-			uint len = encoder.Encode(ref instr, 0);
+			uint len = encoder.Encode(instr, 0);
 			var expected = new byte[] { 0x67, 0x41, 0x8B, 0x45, 0x00 };
 			var actual = writer.ToArray();
 			Assert.Equal(actual.Length, (int)len);
@@ -167,7 +167,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(64, writer);
 			var instr = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, new MemoryOperand(Register.RBP));
-			uint len = encoder.Encode(ref instr, 0);
+			uint len = encoder.Encode(instr, 0);
 			var expected = new byte[] { 0x48, 0x8B, 0x45, 0x00 };
 			var actual = writer.ToArray();
 			Assert.Equal(actual.Length, (int)len);
@@ -179,7 +179,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(64, writer);
 			var instr = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, new MemoryOperand(Register.R13));
-			uint len = encoder.Encode(ref instr, 0);
+			uint len = encoder.Encode(instr, 0);
 			var expected = new byte[] { 0x49, 0x8B, 0x45, 0x00 };
 			var actual = writer.ToArray();
 			Assert.Equal(actual.Length, (int)len);
@@ -198,7 +198,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(code, instr.Code);
 			var writer = new CodeWriterImpl();
 			var encoder = decoder.CreateEncoder(writer);
-			encoder.Encode(ref instr, 0);
+			encoder.Encode(instr, 0);
 			var expectedBytes = HexUtils.ToByteArray(encodedBytes);
 			var actualBytes = writer.ToArray();
 			Assert.Equal(expectedBytes, actualBytes);
@@ -224,7 +224,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var codeWriter = new CodeWriterImpl();
 			var encoder = decoder.CreateEncoder(codeWriter);
 			encoder.PreventVEX2 = preventVEX2;
-			encoder.Encode(ref instr, DecoderConstants.DEFAULT_IP64);
+			encoder.Encode(instr, DecoderConstants.DEFAULT_IP64);
 			var encodedBytes = codeWriter.ToArray();
 			var expectedBytesArray = HexUtils.ToByteArray(expectedBytes);
 			Assert.Equal(expectedBytesArray, encodedBytes);

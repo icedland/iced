@@ -29,10 +29,10 @@ namespace Iced.Intel.BlockEncoderInternal {
 	sealed class SimpleInstr : Instr {
 		Instruction instruction;
 
-		public SimpleInstr(BlockEncoder blockEncoder, ref Instruction instruction)
+		public SimpleInstr(BlockEncoder blockEncoder, in Instruction instruction)
 			: base(blockEncoder, instruction.IP) {
 			this.instruction = instruction;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP, out Size, out var errorMessage))
+			if (!blockEncoder.NullEncoder.TryEncode(instruction, instruction.IP, out Size, out var errorMessage))
 				Size = DecoderConstants.MaxInstructionLength;
 		}
 
@@ -41,9 +41,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
 			isOriginalInstruction = true;
-			if (!encoder.TryEncode(ref instruction, IP, out _, out var errorMessage)) {
+			if (!encoder.TryEncode(instruction, IP, out _, out var errorMessage)) {
 				constantOffsets = default;
-				return CreateErrorMessage(errorMessage, ref instruction);
+				return CreateErrorMessage(errorMessage, instruction);
 			}
 			constantOffsets = encoder.GetConstantOffsets();
 			return null;

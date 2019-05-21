@@ -183,7 +183,7 @@ namespace Iced.Intel {
 				ulong ip = instrBlocks[i].RIP;
 				for (int j = 0; j < instrs.Length; j++) {
 					var instruction = instructions[j];
-					var instr = Instr.Create(this, ref instruction);
+					var instr = Instr.Create(this, instruction);
 					instr.IP = ip;
 					instrs[j] = instr;
 					instrCount++;
