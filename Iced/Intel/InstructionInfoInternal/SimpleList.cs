@@ -24,10 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
 	struct SimpleList<T> {
-//TODO: Roslyn bug workaround: https://github.com/dotnet/roslyn/issues/32934 , will be fixed in VS 16.1
-#nullable disable
 		public static readonly SimpleList<T> Empty = new SimpleList<T>(System.Array2.Empty<T>());
-#nullable restore
 		public T[] Array;
 		public int ValidLength;
 		public SimpleList(T[] array) {
