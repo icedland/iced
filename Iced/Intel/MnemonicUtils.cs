@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
 	/// <summary>
@@ -33,6 +34,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static Mnemonic ToMnemonic(this Code code) {
 			Debug.Assert((uint)code < (uint)toMnemonic.Length);
 			return (Mnemonic)toMnemonic[(int)code];
