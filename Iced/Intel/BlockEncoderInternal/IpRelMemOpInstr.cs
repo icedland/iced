@@ -52,12 +52,13 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 			string errorMessage;
 
-			instruction.MemoryBase = Register.RIP;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP, out ripInstructionSize, out errorMessage))
+			var instrCopy = instruction;
+			instrCopy.MemoryBase = Register.RIP;
+			if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, instrCopy.IP, out ripInstructionSize, out errorMessage))
 				ripInstructionSize = DecoderConstants.MaxInstructionLength;
 
-			instruction.MemoryBase = Register.EIP;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instruction, instruction.IP, out eipInstructionSize, out errorMessage))
+			instrCopy.MemoryBase = Register.EIP;
+			if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, instrCopy.IP, out eipInstructionSize, out errorMessage))
 				eipInstructionSize = DecoderConstants.MaxInstructionLength;
 
 			Debug.Assert(eipInstructionSize >= ripInstructionSize);
