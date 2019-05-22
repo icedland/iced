@@ -7424,11 +7424,6 @@ F2 0F1B D8, Bndcn_bnd_rm64
 67 0F01 FC, Clzerod
 0F01 FC, Clzeroq
 0F0D 00, Prefetch_m8
-0F0D 18, Prefetch_m8_r3
-0F0D 20, Prefetch_m8_r4
-0F0D 28, Prefetch_m8_r5
-0F0D 30, Prefetch_m8_r6
-0F0D 38, Prefetch_m8_r7
 0F0E, Femms
 F3 0F2B 08, Movntss_m32_xmm
 F2 0F2B 08, Movntsd_m64_xmm

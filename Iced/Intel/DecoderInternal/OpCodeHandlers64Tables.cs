@@ -1088,11 +1088,11 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				new OpCodeHandler_M(Code.Prefetch_m8),
 				new OpCodeHandler_M(Code.Prefetchw_m8),
 				new OpCodeHandler_M(Code.Prefetchwt1_m8),
-				new OpCodeHandler_M(Code.Prefetch_m8_r3),
-				new OpCodeHandler_M(Code.Prefetch_m8_r4),
-				new OpCodeHandler_M(Code.Prefetch_m8_r5),
-				new OpCodeHandler_M(Code.Prefetch_m8_r6),
-				new OpCodeHandler_M(Code.Prefetch_m8_r7),
+				reservedNop_0F0D,
+				reservedNop_0F0D,
+				reservedNop_0F0D,
+				reservedNop_0F0D,
+				reservedNop_0F0D,
 			};
 			var grp0F0D = new OpCodeHandler_RM(
 				reservedNop_0F0D,

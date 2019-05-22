@@ -920,11 +920,6 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Prefetch,// Prefetch_m8
 			(ushort)Mnemonic.Prefetchw,// Prefetchw_m8
 			(ushort)Mnemonic.Prefetchwt1,// Prefetchwt1_m8
-			(ushort)Mnemonic.Prefetch,// Prefetch_m8_r3
-			(ushort)Mnemonic.Prefetch,// Prefetch_m8_r4
-			(ushort)Mnemonic.Prefetch,// Prefetch_m8_r5
-			(ushort)Mnemonic.Prefetch,// Prefetch_m8_r6
-			(ushort)Mnemonic.Prefetch,// Prefetch_m8_r7
 			(ushort)Mnemonic.Femms,// Femms
 			(ushort)Mnemonic.Umov,// Umov_rm8_r8
 			(ushort)Mnemonic.Umov,// Umov_rm16_r16

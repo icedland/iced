@@ -2170,6 +2170,11 @@ F3 0F09, Wbnoinvd, Wbnoinvd, 0,
 
 0F0D CE, ReservedNop_rm16_r16_0F0D, ReservedNop, 2, op0=r;si op1=r;cx resnop
 0F0D 18, ReservedNop_rm16_r16_0F0D, ReservedNop, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx resnop
+0F0D 18, ReservedNop_rm16_r16_0F0D, ReservedNop, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
+0F0D 20, ReservedNop_rm16_r16_0F0D, ReservedNop, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;sp
+0F0D 28, ReservedNop_rm16_r16_0F0D, ReservedNop, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bp
+0F0D 30, ReservedNop_rm16_r16_0F0D, ReservedNop, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;si
+0F0D 38, ReservedNop_rm16_r16_0F0D, ReservedNop, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;di
 
 66 0F0D CE, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=r;esi op1=r;ecx resnop
 66 0F0D 18, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx resnop
@@ -2179,16 +2184,6 @@ F3 0F09, Wbnoinvd, Wbnoinvd, 0,
 0F0D 08, Prefetchw_m8, Prefetchw, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
 0F0D 10, Prefetchwt1_m8, Prefetchwt1, 1, op0=m;ds;bx;si;1;0;0;UInt8
-
-0F0D 18, Prefetch_m8_r3, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
-
-0F0D 20, Prefetch_m8_r4, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
-
-0F0D 28, Prefetch_m8_r5, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
-
-0F0D 30, Prefetch_m8_r6, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
-
-0F0D 38, Prefetch_m8_r7, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
 0F0E, Femms, Femms, 0, 
 

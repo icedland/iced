@@ -16339,16 +16339,6 @@ FF 74 24 10, Push_rm64, Legacy, X64, op0=r rw=xsp r=rsp rm=ss:rsp+0x10;UInt64 wm
 0F01 FC, Clzeroq, Legacy, CLZERO, r=rax
 # prefetch [rax]
 0F0D 00, Prefetch_m8, Legacy, PREFETCHW, op0=nma r=rax
-# prefetch-r3 [rax]
-0F0D 18, Prefetch_m8_r3, Legacy, PREFETCHW, op0=nma r=rax
-# prefetch-r4 [rax]
-0F0D 20, Prefetch_m8_r4, Legacy, PREFETCHW, op0=nma r=rax
-# prefetch-r5 [rax]
-0F0D 28, Prefetch_m8_r5, Legacy, PREFETCHW, op0=nma r=rax
-# prefetch-r6 [rax]
-0F0D 30, Prefetch_m8_r6, Legacy, PREFETCHW, op0=nma r=rax
-# prefetch-r7 [rax]
-0F0D 38, Prefetch_m8_r7, Legacy, PREFETCHW, op0=nma r=rax
 # femms
 0F0E, Femms, Legacy, D3NOW,
 # movntss dword ptr [rax],xmm1

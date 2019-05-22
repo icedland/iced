@@ -7424,11 +7424,6 @@ mwaitx
 addr32 clzero
 clzero
 prefetch (rax)
-prefetch-r3 (rax)
-prefetch-r4 (rax)
-prefetch-r5 (rax)
-prefetch-r6 (rax)
-prefetch-r7 (rax)
 femms
 movntss xmm1,(rax)
 movntsd xmm1,(rax)

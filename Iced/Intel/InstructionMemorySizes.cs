@@ -1788,16 +1788,6 @@ namespace Iced.Intel {
 			0,// Prefetchw_m8
 			(byte)MemorySize.UInt8,// Prefetchwt1_m8
 			0,// Prefetchwt1_m8
-			(byte)MemorySize.UInt8,// Prefetch_m8_r3
-			0,// Prefetch_m8_r3
-			(byte)MemorySize.UInt8,// Prefetch_m8_r4
-			0,// Prefetch_m8_r4
-			(byte)MemorySize.UInt8,// Prefetch_m8_r5
-			0,// Prefetch_m8_r5
-			(byte)MemorySize.UInt8,// Prefetch_m8_r6
-			0,// Prefetch_m8_r6
-			(byte)MemorySize.UInt8,// Prefetch_m8_r7
-			0,// Prefetch_m8_r7
 			0,// Femms
 			0,// Femms
 			(byte)MemorySize.UInt8,// Umov_rm8_r8

@@ -7424,11 +7424,6 @@ mwaitx rax,rcx,rbx
 clzero
 clzero
 prefetch [rax]
-prefetch-r3 [rax]
-prefetch-r4 [rax]
-prefetch-r5 [rax]
-prefetch-r6 [rax]
-prefetch-r7 [rax]
 femms
 movntss dword ptr [rax],xmm1
 movntsd qword ptr [rax],xmm1
