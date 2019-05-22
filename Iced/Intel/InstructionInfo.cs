@@ -103,7 +103,7 @@ namespace Iced.Intel {
 			readonly object IEnumerator.Current => Current;
 			bool IEnumerator.MoveNext() => MoveNext();
 			readonly void IEnumerator.Reset() => throw new NotSupportedException();
-			readonly public void Dispose() { }
+			public readonly void Dispose() { }
 		}
 
 		public struct UsedMemoryIterator : IEnumerable<UsedMemory>, IEnumerator<UsedMemory> {
@@ -131,7 +131,7 @@ namespace Iced.Intel {
 			readonly object IEnumerator.Current => Current;
 			bool IEnumerator.MoveNext() => MoveNext();
 			readonly void IEnumerator.Reset() => throw new NotSupportedException();
-			readonly public void Dispose() { }
+			public readonly void Dispose() { }
 		}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
