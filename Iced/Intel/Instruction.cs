@@ -349,6 +349,14 @@ namespace Iced.Intel {
 			codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | (uint)code;
 
 		/// <summary>
+		/// Gets the mnemonic
+		/// </summary>
+		public Mnemonic Mnemonic {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.ToMnemonic();
+		}
+
+		/// <summary>
 		/// Gets the operand count. Up to 5 operands is allowed.
 		/// </summary>
 		public int OpCount {

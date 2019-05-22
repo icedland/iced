@@ -318,6 +318,7 @@ Disassembled code:
          * This method produces the following output:
 00007FFAC46ACDA4 mov [rsp+10h],rbx
     Encoding: Legacy
+    Mnemonic: Mov
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 4, size = 1
@@ -329,6 +330,7 @@ Disassembled code:
     [SS:RSP+0x10;UInt64;Write]
 00007FFAC46ACDA9 mov [rsp+18h],rsi
     Encoding: Legacy
+    Mnemonic: Mov
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 4, size = 1
@@ -340,6 +342,7 @@ Disassembled code:
     [SS:RSP+0x18;UInt64;Write]
 00007FFAC46ACDAE push rbp
     Encoding: Legacy
+    Mnemonic: Push
     CpuidFeature: X64
     FlowControl: Next
     SP Increment: -8
@@ -349,6 +352,7 @@ Disassembled code:
     [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDAF push rdi
     Encoding: Legacy
+    Mnemonic: Push
     CpuidFeature: X64
     FlowControl: Next
     SP Increment: -8
@@ -358,6 +362,7 @@ Disassembled code:
     [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDB0 push r14
     Encoding: Legacy
+    Mnemonic: Push
     CpuidFeature: X64
     FlowControl: Next
     SP Increment: -8
@@ -367,6 +372,7 @@ Disassembled code:
     [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDB2 lea rbp,[rsp-100h]
     Encoding: Legacy
+    Mnemonic: Lea
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 4, size = 4
@@ -376,6 +382,7 @@ Disassembled code:
     RSP:Read
 00007FFAC46ACDBA sub rsp,200h
     Encoding: Legacy
+    Mnemonic: Sub
     CpuidFeature: X64
     FlowControl: Next
     Immediate offset = 3, size = 4
@@ -386,6 +393,7 @@ Disassembled code:
     RSP:ReadWrite
 00007FFAC46ACDC1 mov rax,[7FFAC47524E0h]
     Encoding: Legacy
+    Mnemonic: Mov
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 3, size = 4
@@ -396,6 +404,7 @@ Disassembled code:
     [DS:0x7FFAC47524E0;UInt64;Read]
 00007FFAC46ACDC8 xor rax,rsp
     Encoding: Legacy
+    Mnemonic: Xor
     CpuidFeature: X64
     FlowControl: Next
     RFLAGS Written: SF, ZF, PF
@@ -408,6 +417,7 @@ Disassembled code:
     RSP:Read
 00007FFAC46ACDCB mov [rbp+0F0h],rax
     Encoding: Legacy
+    Mnemonic: Mov
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 3, size = 4
@@ -419,6 +429,7 @@ Disassembled code:
     [SS:RBP+0xF0;UInt64;Write]
 00007FFAC46ACDD2 mov r8,[7FFAC474F208h]
     Encoding: Legacy
+    Mnemonic: Mov
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 3, size = 4
@@ -429,6 +440,7 @@ Disassembled code:
     [DS:0x7FFAC474F208;UInt64;Read]
 00007FFAC46ACDD9 lea rax,[7FFAC46F4A58h]
     Encoding: Legacy
+    Mnemonic: Lea
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 3, size = 4
@@ -437,6 +449,7 @@ Disassembled code:
     RAX:Write
 00007FFAC46ACDE0 xor edi,edi
     Encoding: Legacy
+    Mnemonic: Xor
     CpuidFeature: INTEL386
     FlowControl: Next
     RFLAGS Cleared: OF, SF, CF
@@ -476,6 +489,7 @@ Disassembled code:
                 var info = instrInfoFactory.GetInfo(ref instr);
                 const string tab = "    ";
                 Console.WriteLine($"{tab}Encoding: {instr.Encoding}");
+                Console.WriteLine($"{tab}Mnemonic: {instr.Mnemonic}");
                 Console.WriteLine($"{tab}CpuidFeature: {string.Join(" and ", instr.CpuidFeatures)}");
                 Console.WriteLine($"{tab}FlowControl: {instr.FlowControl}");
                 if (offsets.HasDisplacement)

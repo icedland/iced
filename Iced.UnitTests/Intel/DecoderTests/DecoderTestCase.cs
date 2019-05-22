@@ -32,6 +32,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public string HexBytes;
 		public string EncodedHexBytes;
 		public Code Code;
+		public Mnemonic Mnemonic;
 		public int OpCount;
 		public bool ZeroingMasking;
 		public bool SuppressAllExceptions;
