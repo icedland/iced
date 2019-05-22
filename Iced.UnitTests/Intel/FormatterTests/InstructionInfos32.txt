@@ -1,0 +1,698 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+66 06, Pushw_ES
+06, Pushd_ES
+66 07, Popw_ES
+07, Popd_ES
+66 0E, Pushw_CS
+0E, Pushd_CS
+66 16, Pushw_SS
+16, Pushd_SS
+66 17, Popw_SS
+17, Popd_SS
+66 1E, Pushw_DS
+1E, Pushd_DS
+66 1F, Popw_DS
+1F, Popd_DS
+27, Daa
+2F, Das
+37, Aaa
+3F, Aas
+66 40, Inc_r16
+40, Inc_r32
+66 41, Inc_r16
+41, Inc_r32
+66 42, Inc_r16
+42, Inc_r32
+66 43, Inc_r16
+43, Inc_r32
+66 44, Inc_r16
+44, Inc_r32
+66 45, Inc_r16
+45, Inc_r32
+66 46, Inc_r16
+46, Inc_r32
+66 47, Inc_r16
+47, Inc_r32
+66 48, Dec_r16
+48, Dec_r32
+66 49, Dec_r16
+49, Dec_r32
+66 4A, Dec_r16
+4A, Dec_r32
+66 4B, Dec_r16
+4B, Dec_r32
+66 4C, Dec_r16
+4C, Dec_r32
+66 4D, Dec_r16
+4D, Dec_r32
+66 4E, Dec_r16
+4E, Dec_r32
+66 4F, Dec_r16
+4F, Dec_r32
+50, Push_r32
+51, Push_r32
+52, Push_r32
+53, Push_r32
+54, Push_r32
+55, Push_r32
+56, Push_r32
+57, Push_r32
+58, Pop_r32
+59, Pop_r32
+5A, Pop_r32
+5B, Pop_r32
+5C, Pop_r32
+5D, Pop_r32
+5E, Pop_r32
+5F, Pop_r32
+66 60, Pushaw
+60, Pushad
+66 61, Popaw
+61, Popad
+66 62 18, Bound_r16_m1616
+62 18, Bound_r32_m3232
+63 F2, Arpl_r32m16_r32
+63 18, Arpl_r32m16_r32
+68 5AA51234, Pushd_imm32
+6A A5, Pushd_imm8
+66 70 5A, Jo_rel8_16
+70 5A, Jo_rel8_32
+66 71 5A, Jno_rel8_16
+71 5A, Jno_rel8_32
+66 72 5A, Jb_rel8_16
+72 5A, Jb_rel8_32
+66 73 5A, Jae_rel8_16
+73 5A, Jae_rel8_32
+66 74 5A, Je_rel8_16
+74 5A, Je_rel8_32
+66 75 5A, Jne_rel8_16
+75 5A, Jne_rel8_32
+66 76 5A, Jbe_rel8_16
+76 5A, Jbe_rel8_32
+66 77 5A, Ja_rel8_16
+77 5A, Ja_rel8_32
+66 78 5A, Js_rel8_16
+78 5A, Js_rel8_32
+66 79 5A, Jns_rel8_16
+79 5A, Jns_rel8_32
+66 7A 5A, Jp_rel8_16
+7A 5A, Jp_rel8_32
+66 7B 5A, Jnp_rel8_16
+7B 5A, Jnp_rel8_32
+66 7C 5A, Jl_rel8_16
+7C 5A, Jl_rel8_32
+66 7D 5A, Jge_rel8_16
+7D 5A, Jge_rel8_32
+66 7E 5A, Jle_rel8_16
+7E 5A, Jle_rel8_32
+66 7F 5A, Jg_rel8_16
+7F 5A, Jg_rel8_32
+8F C6, Pop_rm32
+8F 00, Pop_rm32
+66 9A 1234 5678, Call_ptr1616
+9A 12345678 9ABC, Call_ptr3216
+9C, Pushfd
+9D, Popfd
+66 C2 5AA5, Retnw_imm16
+C2 5AA5, Retnd_imm16
+66 C3, Retnw
+C3, Retnd
+66 C4 18, Les_r16_m32
+C4 18, Les_r32_m48
+66 C5 18, Lds_r16_m32
+C5 18, Lds_r32_m48
+C8 5AA5 A6, Enterd_imm16_imm8
+C9, Leaved
+CE, Into
+D4 0A, Aam_imm8
+D5 0A, Aad_imm8
+66 67 E0 5A, Loopne_rel8_16_CX
+67 E0 5A, Loopne_rel8_32_CX
+66 E0 5A, Loopne_rel8_16_ECX
+E0 5A, Loopne_rel8_32_ECX
+66 67 E1 5A, Loope_rel8_16_CX
+67 E1 5A, Loope_rel8_32_CX
+66 E1 5A, Loope_rel8_16_ECX
+E1 5A, Loope_rel8_32_ECX
+66 67 E2 5A, Loop_rel8_16_CX
+67 E2 5A, Loop_rel8_32_CX
+66 E2 5A, Loop_rel8_16_ECX
+E2 5A, Loop_rel8_32_ECX
+66 67 E3 5A, Jcxz_rel8_16
+67 E3 5A, Jcxz_rel8_32
+66 E3 5A, Jecxz_rel8_16
+E3 5A, Jecxz_rel8_32
+66 E8 5AA5, Call_rel16
+E8 12345AA5, Call_rel32_32
+66 E9 5AA5, Jmp_rel16
+E9 12345AA5, Jmp_rel32_32
+66 EA 1234 5678, Jmp_ptr1616
+EA 12345678 EABC, Jmp_ptr3216
+66 EB 5A, Jmp_rel8_16
+EB 5A, Jmp_rel8_32
+66 FF D1, Call_rm16
+66 FF 10, Call_rm16
+FF D1, Call_rm32
+FF 10, Call_rm32
+66 FF E2, Jmp_rm16
+66 FF 20, Jmp_rm16
+FF E2, Jmp_rm32
+FF 20, Jmp_rm32
+FF F6, Push_rm32
+FF 30, Push_rm32
+66 0F1A CA, Bndmov_bnd_bndm64
+66 0F1A 08, Bndmov_bnd_bndm64
+F3 0F1A CA, Bndcl_bnd_rm32
+F3 0F1A 08, Bndcl_bnd_rm32
+F2 0F1A CA, Bndcu_bnd_rm32
+F2 0F1A 08, Bndcu_bnd_rm32
+66 0F1B CA, Bndmov_bndm64_bnd
+66 0F1B 08, Bndmov_bndm64_bnd
+F3 0F1B 08, Bndmk_bnd_m32
+F2 0F1B CA, Bndcn_bnd_rm32
+F2 0F1B 08, Bndcn_bnd_rm32
+0F20 DE, Mov_r32_cr
+0F21 DE, Mov_r32_dr
+0F22 DE, Mov_cr_r32
+0F23 DE, Mov_dr_r32
+0F78 CE, Vmread_rm32_r32
+0F78 18, Vmread_rm32_r32
+0F79 CE, Vmwrite_r32_rm32
+0F79 18, Vmwrite_r32_rm32
+66 0F80 5AA5, Jo_rel16
+0F80 5AA51234, Jo_rel32_32
+66 0F81 5AA5, Jno_rel16
+0F81 5AA51234, Jno_rel32_32
+66 0F82 5AA5, Jb_rel16
+0F82 5AA51234, Jb_rel32_32
+66 0F83 5AA5, Jae_rel16
+0F83 5AA51234, Jae_rel32_32
+66 0F84 5AA5, Je_rel16
+0F84 5AA51234, Je_rel32_32
+66 0F85 5AA5, Jne_rel16
+0F85 5AA51234, Jne_rel32_32
+66 0F86 5AA5, Jbe_rel16
+0F86 5AA51234, Jbe_rel32_32
+66 0F87 5AA5, Ja_rel16
+0F87 5AA51234, Ja_rel32_32
+66 0F88 5AA5, Js_rel16
+0F88 5AA51234, Js_rel32_32
+66 0F89 5AA5, Jns_rel16
+0F89 5AA51234, Jns_rel32_32
+66 0F8A 5AA5, Jp_rel16
+0F8A 5AA51234, Jp_rel32_32
+66 0F8B 5AA5, Jnp_rel16
+0F8B 5AA51234, Jnp_rel32_32
+66 0F8C 5AA5, Jl_rel16
+0F8C 5AA51234, Jl_rel32_32
+66 0F8D 5AA5, Jge_rel16
+0F8D 5AA51234, Jge_rel32_32
+66 0F8E 5AA5, Jle_rel16
+0F8E 5AA51234, Jle_rel32_32
+66 0F8F 5AA5, Jg_rel16
+0F8F 5AA51234, Jg_rel32_32
+0FA0, Pushd_FS
+0FA1, Popd_FS
+0FA8, Pushd_GS
+0FA9, Popd_GS
+F3 0FC7 FA, Rdpid_r32
+66 0F3880 10, Invept_r32_m128
+66 0F3881 10, Invvpid_r32_m128
+66 0F3882 10, Invpcid_r32_m128
+D6, Salc
+66 68 5AA5, Push_imm16
+66 6A A5, Pushw_imm8
+67 6C, Insb_m8_DX
+6C, Insb_m8_DX
+66 67 6D, Insw_m16_DX
+66 6D, Insw_m16_DX
+67 6D, Insd_m32_DX
+6D, Insd_m32_DX
+67 6E, Outsb_DX_m8
+6E, Outsb_DX_m8
+66 67 6F, Outsw_DX_m16
+66 6F, Outsw_DX_m16
+67 6F, Outsd_DX_m32
+6F, Outsd_DX_m32
+66 8E E6, Mov_Sreg_rm16
+66 8E 18, Mov_Sreg_rm16
+8E E6, Mov_Sreg_rm32
+8E 18, Mov_Sreg_rm32
+66 8F C6, Pop_rm16
+66 8F 00, Pop_rm16
+66 90, Nopw
+90, Nopd
+66 9C, Pushfw
+66 9D, Popfw
+A0 9ABCDEF0, Mov_AL_moffs8
+67 A0 DEF0, Mov_AL_moffs8
+66 A1 9ABCDEF0, Mov_AX_moffs16
+66 67 A1 DEF0, Mov_AX_moffs16
+A1 9ABCDEF0, Mov_EAX_moffs32
+67 A1 DEF0, Mov_EAX_moffs32
+A2 9ABCDEF0, Mov_moffs8_AL
+67 A2 DEF0, Mov_moffs8_AL
+66 A3 9ABCDEF0, Mov_moffs16_AX
+66 67 A3 DEF0, Mov_moffs16_AX
+A3 9ABCDEF0, Mov_moffs32_EAX
+67 A3 DEF0, Mov_moffs32_EAX
+67 A4, Movsb_m8_m8
+A4, Movsb_m8_m8
+66 67 A5, Movsw_m16_m16
+66 A5, Movsw_m16_m16
+67 A5, Movsd_m32_m32
+A5, Movsd_m32_m32
+67 A6, Cmpsb_m8_m8
+A6, Cmpsb_m8_m8
+66 67 A7, Cmpsw_m16_m16
+66 A7, Cmpsw_m16_m16
+67 A7, Cmpsd_m32_m32
+A7, Cmpsd_m32_m32
+67 AA, Stosb_m8_AL
+AA, Stosb_m8_AL
+66 67 AB, Stosw_m16_AX
+66 AB, Stosw_m16_AX
+67 AB, Stosd_m32_EAX
+AB, Stosd_m32_EAX
+67 AC, Lodsb_AL_m8
+AC, Lodsb_AL_m8
+66 67 AD, Lodsw_AX_m16
+66 AD, Lodsw_AX_m16
+67 AD, Lodsd_EAX_m32
+AD, Lodsd_EAX_m32
+67 AE, Scasb_AL_m8
+AE, Scasb_AL_m8
+66 67 AF, Scasw_AX_m16
+66 AF, Scasw_AX_m16
+67 AF, Scasd_EAX_m32
+AF, Scasd_EAX_m32
+66 C7 F8 5AA5, Xbegin_rel16
+C7 F8 5AA51234, Xbegin_rel32
+66 C8 5AA5 A6, Enterw_imm16_imm8
+66 C9, Leavew
+66 CA 5AA5, Retfw_imm16
+CA 5AA5, Retfd_imm16
+66 CB, Retfw
+CB, Retfd
+66 CF, Iretw
+CF, Iretd
+D2 C1, Rol_rm8_CL
+D2 00, Rol_rm8_CL
+D2 CA, Ror_rm8_CL
+D2 08, Ror_rm8_CL
+D2 D3, Rcl_rm8_CL
+D2 10, Rcl_rm8_CL
+D2 DC, Rcr_rm8_CL
+D2 18, Rcr_rm8_CL
+D2 E5, Shl_rm8_CL
+D2 20, Shl_rm8_CL
+D2 EE, Shr_rm8_CL
+D2 28, Shr_rm8_CL
+D2 F8, Sar_rm8_CL
+D2 38, Sar_rm8_CL
+66 D3 C1, Rol_rm16_CL
+66 D3 00, Rol_rm16_CL
+D3 C1, Rol_rm32_CL
+D3 00, Rol_rm32_CL
+66 D3 CA, Ror_rm16_CL
+66 D3 08, Ror_rm16_CL
+D3 CA, Ror_rm32_CL
+D3 08, Ror_rm32_CL
+66 D3 D3, Rcl_rm16_CL
+66 D3 10, Rcl_rm16_CL
+D3 D3, Rcl_rm32_CL
+D3 10, Rcl_rm32_CL
+66 D3 DC, Rcr_rm16_CL
+66 D3 18, Rcr_rm16_CL
+D3 DC, Rcr_rm32_CL
+D3 18, Rcr_rm32_CL
+66 D3 E5, Shl_rm16_CL
+66 D3 20, Shl_rm16_CL
+D3 E5, Shl_rm32_CL
+D3 20, Shl_rm32_CL
+66 D3 EE, Shr_rm16_CL
+66 D3 28, Shr_rm16_CL
+D3 EE, Shr_rm32_CL
+D3 28, Shr_rm32_CL
+66 D3 F8, Sar_rm16_CL
+66 D3 38, Sar_rm16_CL
+D3 F8, Sar_rm32_CL
+D3 38, Sar_rm32_CL
+D9 28, Fldcw_m16
+D9 38, Fnstcw_m16
+DD 38, Fnstsw_m16
+66 FF 18, Call_m1616
+FF 18, Call_m3216
+66 FF 28, Jmp_m1616
+FF 28, Jmp_m3216
+66 FF F6, Push_rm16
+66 FF 30, Push_rm16
+66 0F01 00, Sgdt_m40
+0F01 00, Sgdt_m48
+66 0F01 08, Sidt_m40
+0F01 08, Sidt_m48
+66 0F01 10, Lgdt_m40
+0F01 10, Lgdt_m48
+66 0F01 18, Lidt_m40
+0F01 18, Lidt_m48
+66 0F02 CE, Lar_r16_rm16
+66 0F02 18, Lar_r16_rm16
+0F02 CE, Lar_r32_rm32
+0F02 18, Lar_r32_rm32
+66 0F03 CE, Lsl_r16_rm16
+66 0F03 18, Lsl_r16_rm16
+0F03 CE, Lsl_r32_rm32
+0F03 18, Lsl_r32_rm32
+0F1A 08, Bndldx_bnd_mib
+0F1B 08, Bndstx_mib_bnd
+C5F8 90 D3, VEX_Kmovw_k_km16
+C5F8 90 08, VEX_Kmovw_k_km16
+C5F9 90 D3, VEX_Kmovb_k_km8
+C5F9 90 08, VEX_Kmovb_k_km8
+C4E1F9 90 D3, VEX_Kmovd_k_km32
+C4E1F9 90 08, VEX_Kmovd_k_km32
+C5F8 91 08, VEX_Kmovw_m16_k
+C5F9 91 08, VEX_Kmovb_m8_k
+C4E1F9 91 08, VEX_Kmovd_m32_k
+C5F8 92 D3, VEX_Kmovw_k_r32
+C5F9 92 D3, VEX_Kmovb_k_r32
+C5FB 92 D3, VEX_Kmovd_k_r32
+C5F8 93 D3, VEX_Kmovw_r32_k
+C5F9 93 D3, VEX_Kmovb_r32_k
+C5FB 93 D3, VEX_Kmovd_r32_k
+C5F8 98 D3, VEX_Kortestw_k_k
+C4E1F8 98 D3, VEX_Kortestq_k_k
+C5F9 98 D3, VEX_Kortestb_k_k
+C4E1F9 98 D3, VEX_Kortestd_k_k
+C5F8 99 D3, VEX_Ktestw_k_k
+C4E1F8 99 D3, VEX_Ktestq_k_k
+C5F9 99 D3, VEX_Ktestb_k_k
+C4E1F9 99 D3, VEX_Ktestd_k_k
+66 0FA0, Pushw_FS
+66 0FA1, Popw_FS
+66 0FA5 CE, Shld_rm16_r16_CL
+66 0FA5 18, Shld_rm16_r16_CL
+0FA5 CE, Shld_rm32_r32_CL
+0FA5 18, Shld_rm32_r32_CL
+66 0FA8, Pushw_GS
+66 0FA9, Popw_GS
+66 0FAD CE, Shrd_rm16_r16_CL
+66 0FAD 18, Shrd_rm16_r16_CL
+0FAD CE, Shrd_rm32_r32_CL
+0FAD 18, Shrd_rm32_r32_CL
+66 0FB2 18, Lss_r16_m32
+0FB2 18, Lss_r32_m48
+66 0FB4 18, Lfs_r16_m32
+0FB4 18, Lfs_r32_m48
+66 0FB5 18, Lgs_r16_m32
+0FB5 18, Lgs_r32_m48
+66 0FB6 CE, Movzx_r16_rm8
+66 0FB6 18, Movzx_r16_rm8
+0FB6 CE, Movzx_r32_rm8
+0FB6 18, Movzx_r32_rm8
+66 0FB7 CE, Movzx_r16_rm16
+66 0FB7 18, Movzx_r16_rm16
+0FB7 CE, Movzx_r32_rm16
+0FB7 18, Movzx_r32_rm16
+66 0FBE CE, Movsx_r16_rm8
+66 0FBE 18, Movsx_r16_rm8
+0FBE CE, Movsx_r32_rm8
+0FBE 18, Movsx_r32_rm8
+66 0FBF CE, Movsx_r16_rm16
+66 0FBF 18, Movsx_r16_rm16
+0FBF CE, Movsx_r32_rm16
+0FBF 18, Movsx_r32_rm16
+0FC7 08, Cmpxchg8b_m64
+F2 0F38F0 CE, Crc32_r32_rm8
+F2 0F38F0 18, Crc32_r32_rm8
+66 F2 0F38F1 CE, Crc32_r32_rm16
+66 F2 0F38F1 18, Crc32_r32_rm16
+F2 0F38F1 CE, Crc32_r32_rm32
+F2 0F38F1 18, Crc32_r32_rm32
+67 0FF7 D3, Maskmovq_rDI_mm_mm
+0FF7 D3, Maskmovq_rDI_mm_mm
+67 66 0FF7 D3, Maskmovdqu_rDI_xmm_xmm
+66 0FF7 D3, Maskmovdqu_rDI_xmm_xmm
+67 C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm
+C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm
+64 6E, Outsb_DX_m8
+64 66 6F, Outsw_DX_m16
+64 6F, Outsd_DX_m32
+64 A4, Movsb_m8_m8
+64 66 A5, Movsw_m16_m16
+64 A5, Movsd_m32_m32
+64 A6, Cmpsb_m8_m8
+64 66 A7, Cmpsw_m16_m16
+64 A7, Cmpsd_m32_m32
+64 AC, Lodsb_AL_m8
+64 66 AD, Lodsw_AX_m16
+64 AD, Lodsd_EAX_m32
+67 D7, Xlatb
+64 D7, Xlatb
+64 0FF7 D3, Maskmovq_rDI_mm_mm
+64 66 0FF7 D3, Maskmovdqu_rDI_xmm_xmm
+64 C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm
+D7, Xlatb
+D4 FA, Aam_imm8
+D5 FA, Aad_imm8
+66 D9 20, Fldenv_m14byte
+D9 20, Fldenv_m28byte
+66 D9 30, Fnstenv_m14byte
+D9 30, Fnstenv_m28byte
+66 DD 20, Frstor_m94byte
+DD 20, Frstor_m108byte
+66 DD 30, Fnsave_m94byte
+DD 30, Fnsave_m108byte
+67 0F01 C8, Monitorw
+0F01 C8, Monitord
+0F01 C9, Mwait
+64 A0 9ABCDEF0, Mov_AL_moffs8
+64 67 A0 DEF0, Mov_AL_moffs8
+64 66 A1 9ABCDEF0, Mov_AX_moffs16
+64 66 67 A1 DEF0, Mov_AX_moffs16
+64 A1 9ABCDEF0, Mov_EAX_moffs32
+64 67 A1 DEF0, Mov_EAX_moffs32
+64 A2 9ABCDEF0, Mov_moffs8_AL
+64 67 A2 DEF0, Mov_moffs8_AL
+64 66 A3 9ABCDEF0, Mov_moffs16_AX
+64 66 67 A3 DEF0, Mov_moffs16_AX
+64 A3 9ABCDEF0, Mov_moffs32_EAX
+64 67 A3 DEF0, Mov_moffs32_EAX
+8A 08, Mov_r8_rm8
+8A 48 EE, Mov_r8_rm8
+8A 88 88A9CBED, Mov_r8_rm8
+8A 0D 88A9CBED, Mov_r8_rm8
+8A 48 12, Mov_r8_rm8
+8A 88 78563412, Mov_r8_rm8
+8A 0D 78563412, Mov_r8_rm8
+8A 0C 08, Mov_r8_rm8
+8A 0C 48, Mov_r8_rm8
+8A 0C 88, Mov_r8_rm8
+8A 0C C8, Mov_r8_rm8
+8A 4C 08 EE, Mov_r8_rm8
+8A 4C 48 EE, Mov_r8_rm8
+8A 4C 88 EE, Mov_r8_rm8
+8A 4C C8 EE, Mov_r8_rm8
+8A 4C 08 12, Mov_r8_rm8
+8A 4C 48 12, Mov_r8_rm8
+8A 4C 88 12, Mov_r8_rm8
+8A 4C C8 12, Mov_r8_rm8
+8A 8C 08 88A9CBED, Mov_r8_rm8
+8A 8C 48 88A9CBED, Mov_r8_rm8
+8A 8C 88 88A9CBED, Mov_r8_rm8
+8A 8C C8 88A9CBED, Mov_r8_rm8
+8A 8C 08 78563412, Mov_r8_rm8
+8A 8C 48 78563412, Mov_r8_rm8
+8A 8C 88 78563412, Mov_r8_rm8
+8A 8C C8 78563412, Mov_r8_rm8
+8A 0C 0D 88A9CBED, Mov_r8_rm8
+8A 4C 4D EE, Mov_r8_rm8
+8A 8C 8D 88A9CBED, Mov_r8_rm8
+8A 0C CD 88A9CBED, Mov_r8_rm8
+8A 0C 0D 78563412, Mov_r8_rm8
+8A 4C 4D 12, Mov_r8_rm8
+8A 8C 8D 78563412, Mov_r8_rm8
+8A 0C CD 78563412, Mov_r8_rm8
+64 8A 08, Mov_r8_rm8
+64 8A 48 EE, Mov_r8_rm8
+64 8A 88 88A9CBED, Mov_r8_rm8
+64 8A 0D 88A9CBED, Mov_r8_rm8
+64 8A 48 12, Mov_r8_rm8
+64 8A 88 78563412, Mov_r8_rm8
+64 8A 0D 78563412, Mov_r8_rm8
+64 8A 0C 08, Mov_r8_rm8
+64 8A 0C 48, Mov_r8_rm8
+64 8A 0C 88, Mov_r8_rm8
+64 8A 0C C8, Mov_r8_rm8
+64 8A 4C 08 EE, Mov_r8_rm8
+64 8A 4C 48 EE, Mov_r8_rm8
+64 8A 4C 88 EE, Mov_r8_rm8
+64 8A 4C C8 EE, Mov_r8_rm8
+64 8A 4C 08 12, Mov_r8_rm8
+64 8A 4C 48 12, Mov_r8_rm8
+64 8A 4C 88 12, Mov_r8_rm8
+64 8A 4C C8 12, Mov_r8_rm8
+64 8A 8C 08 88A9CBED, Mov_r8_rm8
+64 8A 8C 48 88A9CBED, Mov_r8_rm8
+64 8A 8C 88 88A9CBED, Mov_r8_rm8
+64 8A 8C C8 88A9CBED, Mov_r8_rm8
+64 8A 8C 08 78563412, Mov_r8_rm8
+64 8A 8C 48 78563412, Mov_r8_rm8
+64 8A 8C 88 78563412, Mov_r8_rm8
+64 8A 8C C8 78563412, Mov_r8_rm8
+64 8A 0C 0D 88A9CBED, Mov_r8_rm8
+64 8A 4C 4D EE, Mov_r8_rm8
+64 8A 8C 8D 88A9CBED, Mov_r8_rm8
+64 8A 0C CD 88A9CBED, Mov_r8_rm8
+64 8A 0C 0D 78563412, Mov_r8_rm8
+64 8A 4C 4D 12, Mov_r8_rm8
+64 8A 8C 8D 78563412, Mov_r8_rm8
+64 8A 0C CD 78563412, Mov_r8_rm8
+67 0F01 D8, Vmrunw
+0F01 D8, Vmrund
+67 0F01 DA, Vmloadw
+0F01 DA, Vmloadd
+67 0F01 DB, Vmsavew
+0F01 DB, Vmsaved
+67 0F01 DF, Invlpgaw
+0F01 DF, Invlpgad
+67 0F01 FA, Monitorxw
+0F01 FA, Monitorxd
+67 0F01 FC, Clzerow
+0F01 FC, Clzerod
+82 C1 5A, Add_rm8_imm8_82
+82 00 5A, Add_rm8_imm8_82
+82 CA A5, Or_rm8_imm8_82
+82 08 A5, Or_rm8_imm8_82
+82 D3 5A, Adc_rm8_imm8_82
+82 10 5A, Adc_rm8_imm8_82
+82 DC A5, Sbb_rm8_imm8_82
+82 18 A5, Sbb_rm8_imm8_82
+82 E5 5A, And_rm8_imm8_82
+82 20 5A, And_rm8_imm8_82
+82 EE A5, Sub_rm8_imm8_82
+82 28 A5, Sub_rm8_imm8_82
+82 F7 5A, Xor_rm8_imm8_82
+82 30 5A, Xor_rm8_imm8_82
+82 F8 A5, Cmp_rm8_imm8_82
+82 38 A5, Cmp_rm8_imm8_82
+DB E5, Frstpm, OldFpu
+DF E1, Fstdw_AX, OldFpu
+DF E2, Fstsg_AX, OldFpu
+66 0F00 F1, Jmpe_rm16
+66 0F00 30, Jmpe_rm16
+0F00 F2, Jmpe_rm32
+0F00 30, Jmpe_rm32
+0F04, Loadallreset286, Loadall286
+0F05, Loadall286, Loadall286
+0F07, Loadall386, Loadall386
+0F0A, Cflsh, Cflsh
+0F10 CE, Umov_rm8_r8, Umov
+0F10 18, Umov_rm8_r8, Umov
+66 0F11 CE, Umov_rm16_r16, Umov
+66 0F11 18, Umov_rm16_r16, Umov
+0F11 CE, Umov_rm32_r32, Umov
+0F11 18, Umov_rm32_r32, Umov
+0F12 CE, Umov_r8_rm8, Umov
+0F12 18, Umov_r8_rm8, Umov
+66 0F13 CE, Umov_r16_rm16, Umov
+66 0F13 18, Umov_r16_rm16, Umov
+0F13 CE, Umov_r32_rm32, Umov
+0F13 18, Umov_r32_rm32, Umov
+0F24 DE, Mov_r32_tr, MovTr
+0F26 DE, Mov_tr_r32, MovTr
+0F34, Wrecr, Ecr
+0F36, Rdecr, Ecr
+66 0FA6 CE, Xbts_r16_rm16, Xbts
+66 0FA6 18, Xbts_r16_rm16, Xbts
+0FA6 CE, Xbts_r32_rm32, Xbts
+0FA6 18, Xbts_r32_rm32, Xbts
+66 0FA7 CE, Ibts_rm16_r16, Xbts
+66 0FA7 18, Ibts_rm16_r16, Xbts
+0FA7 CE, Ibts_rm32_r32, Xbts
+0FA7 18, Ibts_rm32_r32, Xbts
+0FA6 CE, Cmpxchg486_rm8_r8, Cmpxchg486A
+0FA6 18, Cmpxchg486_rm8_r8, Cmpxchg486A
+66 0FA7 CE, Cmpxchg486_rm16_r16, Cmpxchg486A
+66 0FA7 18, Cmpxchg486_rm16_r16, Cmpxchg486A
+0FA7 CE, Cmpxchg486_rm32_r32, Cmpxchg486A
+0FA7 18, Cmpxchg486_rm32_r32, Cmpxchg486A
+0FAE 00, Zalloc_m256, Zalloc
+67 F3 0FAE F5, Umonitor_r16
+F3 0FAE F5, Umonitor_r32
+66 0FB8 5AA5, Jmpe_disp16
+0FB8 12345AA5, Jmpe_disp32
+67 66 0F38F8 18, Movdir64b_r16_m512
+66 0F38F8 18, Movdir64b_r32_m512
+0F24 C0, Mov_r32_tr, MovTr
+0F24 C8, Mov_r32_tr, MovTr
+0F24 D0, Mov_r32_tr, MovTr
+0F24 D8, Mov_r32_tr, MovTr
+0F24 E0, Mov_r32_tr, MovTr
+0F24 E8, Mov_r32_tr, MovTr
+0F24 F0, Mov_r32_tr, MovTr
+0F24 F8, Mov_r32_tr, MovTr
+0F05, Syscall
+0F07, Sysretd
+64 67 0F01 C8, Monitorw
+64 67 0F01 FA, Monitorxw
+64 67 0F01 FC, Clzerow
+64 67 F3 0FAE F5, Umonitor_r16
+F3 0FA6 C0, Montmul_32
+67 F3 0FA6 C0, Montmul_16
+0FA6 C0, Montmul_32
+67 0FA6 C0, Montmul_16
+F3 0FA6 C8, Xsha1_32
+67 F3 0FA6 C8, Xsha1_16
+0FA6 C8, Xsha1_32
+67 0FA6 C8, Xsha1_16
+F3 0FA6 D0, Xsha256_32
+67 F3 0FA6 D0, Xsha256_16
+0FA6 D0, Xsha256_32
+67 0FA6 D0, Xsha256_16
+F3 0FA7 C0, Xstore_32
+67 F3 0FA7 C0, Xstore_16
+0FA7 C0, Xstore_32
+67 0FA7 C0, Xstore_16
+F3 0FA7 C8, XcryptEcb_32
+67 F3 0FA7 C8, XcryptEcb_16
+0FA7 C8, XcryptEcb_32
+67 0FA7 C8, XcryptEcb_16
+F3 0FA7 D0, XcryptCbc_32
+67 F3 0FA7 D0, XcryptCbc_16
+0FA7 D0, XcryptCbc_32
+67 0FA7 D0, XcryptCbc_16
+F3 0FA7 D8, XcryptCtr_32
+67 F3 0FA7 D8, XcryptCtr_16
+0FA7 D8, XcryptCtr_32
+67 0FA7 D8, XcryptCtr_16
+F3 0FA7 E0, XcryptCfb_32
+67 F3 0FA7 E0, XcryptCfb_16
+0FA7 E0, XcryptCfb_32
+67 0FA7 E0, XcryptCfb_16
+F3 0FA7 E8, XcryptOfb_32
+67 F3 0FA7 E8, XcryptOfb_16
+0FA7 E8, XcryptOfb_32
+67 0FA7 E8, XcryptOfb_16

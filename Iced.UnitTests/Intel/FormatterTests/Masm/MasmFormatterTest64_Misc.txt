@@ -1,0 +1,562 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+lock adc byte ptr [rax],cl
+lock adc byte ptr [rax],0A5h
+lock adc word ptr [rax],cx
+lock adc word ptr [rax],0FFA5h
+lock adc word ptr [rax],0A55Ah
+lock adc dword ptr [rax],ecx
+lock adc dword ptr [rax],0FFFFFFA5h
+lock adc dword ptr [rax],0A55A1234h
+lock adc qword ptr [rax],rcx
+lock adc qword ptr [rax],0FFFFFFFFFFFFFFA5h
+lock adc qword ptr [rax],0FFFFFFFFA55A1234h
+lock add byte ptr [rax],cl
+lock add byte ptr [rax],0A5h
+lock add word ptr [rax],cx
+lock add word ptr [rax],0FFA5h
+lock add word ptr [rax],0A55Ah
+lock add dword ptr [rax],ecx
+lock add dword ptr [rax],0FFFFFFA5h
+lock add dword ptr [rax],0A55A1234h
+lock add qword ptr [rax],rcx
+lock add qword ptr [rax],0FFFFFFFFFFFFFFA5h
+lock add qword ptr [rax],0FFFFFFFFA55A1234h
+lock and byte ptr [rax],cl
+lock and byte ptr [rax],0A5h
+lock and word ptr [rax],cx
+lock and word ptr [rax],0FFA5h
+lock and word ptr [rax],0A55Ah
+lock and dword ptr [rax],ecx
+lock and dword ptr [rax],0FFFFFFA5h
+lock and dword ptr [rax],0A55A1234h
+lock and qword ptr [rax],rcx
+lock and qword ptr [rax],0FFFFFFFFFFFFFFA5h
+lock and qword ptr [rax],0FFFFFFFFA55A1234h
+lock or byte ptr [rax],cl
+lock or byte ptr [rax],0A5h
+lock or word ptr [rax],cx
+lock or word ptr [rax],0FFA5h
+lock or word ptr [rax],0A55Ah
+lock or dword ptr [rax],ecx
+lock or dword ptr [rax],0FFFFFFA5h
+lock or dword ptr [rax],0A55A1234h
+lock or qword ptr [rax],rcx
+lock or qword ptr [rax],0FFFFFFFFFFFFFFA5h
+lock or qword ptr [rax],0FFFFFFFFA55A1234h
+lock sbb byte ptr [rax],cl
+lock sbb byte ptr [rax],0A5h
+lock sbb word ptr [rax],cx
+lock sbb word ptr [rax],0FFA5h
+lock sbb word ptr [rax],0A55Ah
+lock sbb dword ptr [rax],ecx
+lock sbb dword ptr [rax],0FFFFFFA5h
+lock sbb dword ptr [rax],0A55A1234h
+lock sbb qword ptr [rax],rcx
+lock sbb qword ptr [rax],0FFFFFFFFFFFFFFA5h
+lock sbb qword ptr [rax],0FFFFFFFFA55A1234h
+lock sub byte ptr [rax],cl
+lock sub byte ptr [rax],0A5h
+lock sub word ptr [rax],cx
+lock sub word ptr [rax],0FFA5h
+lock sub word ptr [rax],0A55Ah
+lock sub dword ptr [rax],ecx
+lock sub dword ptr [rax],0FFFFFFA5h
+lock sub dword ptr [rax],0A55A1234h
+lock sub qword ptr [rax],rcx
+lock sub qword ptr [rax],0FFFFFFFFFFFFFFA5h
+lock sub qword ptr [rax],0FFFFFFFFA55A1234h
+lock xor byte ptr [rax],cl
+lock xor byte ptr [rax],0A5h
+lock xor word ptr [rax],cx
+lock xor word ptr [rax],0FFA5h
+lock xor word ptr [rax],0A55Ah
+lock xor dword ptr [rax],ecx
+lock xor dword ptr [rax],0FFFFFFA5h
+lock xor dword ptr [rax],0A55A1234h
+lock xor qword ptr [rax],rcx
+lock xor qword ptr [rax],0FFFFFFFFFFFFFFA5h
+lock xor qword ptr [rax],0FFFFFFFFA55A1234h
+lock btc word ptr [rax],cx
+lock btc word ptr [rax],0A5h
+lock btc dword ptr [rax],ecx
+lock btc dword ptr [rax],0A5h
+lock btc qword ptr [rax],rcx
+lock btc qword ptr [rax],0A5h
+lock btr word ptr [rax],cx
+lock btr word ptr [rax],0A5h
+lock btr dword ptr [rax],ecx
+lock btr dword ptr [rax],0A5h
+lock btr qword ptr [rax],rcx
+lock btr qword ptr [rax],0A5h
+lock bts word ptr [rax],cx
+lock bts word ptr [rax],0A5h
+lock bts dword ptr [rax],ecx
+lock bts dword ptr [rax],0A5h
+lock bts qword ptr [rax],rcx
+lock bts qword ptr [rax],0A5h
+lock dec byte ptr [rax]
+lock dec word ptr [rax]
+lock dec dword ptr [rax]
+lock dec qword ptr [rax]
+lock inc byte ptr [rax]
+lock inc word ptr [rax]
+lock inc dword ptr [rax]
+lock inc qword ptr [rax]
+lock neg byte ptr [rax]
+lock neg word ptr [rax]
+lock neg dword ptr [rax]
+lock neg qword ptr [rax]
+lock not byte ptr [rax]
+lock not word ptr [rax]
+lock not dword ptr [rax]
+lock not qword ptr [rax]
+lock cmpxchg byte ptr [rax],cl
+lock cmpxchg word ptr [rax],cx
+lock cmpxchg dword ptr [rax],ecx
+lock cmpxchg qword ptr [rax],rcx
+lock xadd byte ptr [rax],cl
+lock xadd word ptr [rax],cx
+lock xadd dword ptr [rax],ecx
+lock xadd qword ptr [rax],rcx
+lock xchg cl,byte ptr [rax]
+lock xchg cx,word ptr [rax]
+lock xchg ecx,dword ptr [rax]
+lock xchg rcx,qword ptr [rax]
+lock cmpxchg8b qword ptr [rax]
+lock cmpxchg16b oword ptr [rax]
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+rep movsq
+repe cmpsb
+repne cmpsb
+repe cmpsw
+repne cmpsw
+repe cmpsd
+repne cmpsd
+repe cmpsq
+repne cmpsq
+rep stosb
+rep stosw
+rep stosd
+rep stosq
+rep lodsb
+rep lodsw
+rep lodsd
+rep lodsq
+repe scasb
+repne scasb
+repe scasw
+repne scasw
+repe scasd
+repne scasd
+repe scasq
+repne scasq
+xacquire lock adc byte ptr [rax],cl
+xacquire lock adc byte ptr [rax],0A5h
+xacquire lock adc word ptr [rax],cx
+xacquire lock adc word ptr [rax],0FFA5h
+xacquire lock adc word ptr [rax],0A55Ah
+xacquire lock adc dword ptr [rax],ecx
+xacquire lock adc dword ptr [rax],0FFFFFFA5h
+xacquire lock adc dword ptr [rax],0A55A1234h
+xacquire lock adc qword ptr [rax],rcx
+xacquire lock adc qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xacquire lock adc qword ptr [rax],0FFFFFFFFA55A1234h
+xacquire lock add byte ptr [rax],cl
+xacquire lock add byte ptr [rax],0A5h
+xacquire lock add word ptr [rax],cx
+xacquire lock add word ptr [rax],0FFA5h
+xacquire lock add word ptr [rax],0A55Ah
+xacquire lock add dword ptr [rax],ecx
+xacquire lock add dword ptr [rax],0FFFFFFA5h
+xacquire lock add dword ptr [rax],0A55A1234h
+xacquire lock add qword ptr [rax],rcx
+xacquire lock add qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xacquire lock add qword ptr [rax],0FFFFFFFFA55A1234h
+xacquire lock and byte ptr [rax],cl
+xacquire lock and byte ptr [rax],0A5h
+xacquire lock and word ptr [rax],cx
+xacquire lock and word ptr [rax],0FFA5h
+xacquire lock and word ptr [rax],0A55Ah
+xacquire lock and dword ptr [rax],ecx
+xacquire lock and dword ptr [rax],0FFFFFFA5h
+xacquire lock and dword ptr [rax],0A55A1234h
+xacquire lock and qword ptr [rax],rcx
+xacquire lock and qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xacquire lock and qword ptr [rax],0FFFFFFFFA55A1234h
+xacquire lock or byte ptr [rax],cl
+xacquire lock or byte ptr [rax],0A5h
+xacquire lock or word ptr [rax],cx
+xacquire lock or word ptr [rax],0FFA5h
+xacquire lock or word ptr [rax],0A55Ah
+xacquire lock or dword ptr [rax],ecx
+xacquire lock or dword ptr [rax],0FFFFFFA5h
+xacquire lock or dword ptr [rax],0A55A1234h
+xacquire lock or qword ptr [rax],rcx
+xacquire lock or qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xacquire lock or qword ptr [rax],0FFFFFFFFA55A1234h
+xacquire lock sbb byte ptr [rax],cl
+xacquire lock sbb byte ptr [rax],0A5h
+xacquire lock sbb word ptr [rax],cx
+xacquire lock sbb word ptr [rax],0FFA5h
+xacquire lock sbb word ptr [rax],0A55Ah
+xacquire lock sbb dword ptr [rax],ecx
+xacquire lock sbb dword ptr [rax],0FFFFFFA5h
+xacquire lock sbb dword ptr [rax],0A55A1234h
+xacquire lock sbb qword ptr [rax],rcx
+xacquire lock sbb qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xacquire lock sbb qword ptr [rax],0FFFFFFFFA55A1234h
+xacquire lock sub byte ptr [rax],cl
+xacquire lock sub byte ptr [rax],0A5h
+xacquire lock sub word ptr [rax],cx
+xacquire lock sub word ptr [rax],0FFA5h
+xacquire lock sub word ptr [rax],0A55Ah
+xacquire lock sub dword ptr [rax],ecx
+xacquire lock sub dword ptr [rax],0FFFFFFA5h
+xacquire lock sub dword ptr [rax],0A55A1234h
+xacquire lock sub qword ptr [rax],rcx
+xacquire lock sub qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xacquire lock sub qword ptr [rax],0FFFFFFFFA55A1234h
+xacquire lock xor byte ptr [rax],cl
+xacquire lock xor byte ptr [rax],0A5h
+xacquire lock xor word ptr [rax],cx
+xacquire lock xor word ptr [rax],0FFA5h
+xacquire lock xor word ptr [rax],0A55Ah
+xacquire lock xor dword ptr [rax],ecx
+xacquire lock xor dword ptr [rax],0FFFFFFA5h
+xacquire lock xor dword ptr [rax],0A55A1234h
+xacquire lock xor qword ptr [rax],rcx
+xacquire lock xor qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xacquire lock xor qword ptr [rax],0FFFFFFFFA55A1234h
+xacquire lock btc word ptr [rax],cx
+xacquire lock btc word ptr [rax],0A5h
+xacquire lock btc dword ptr [rax],ecx
+xacquire lock btc dword ptr [rax],0A5h
+xacquire lock btc qword ptr [rax],rcx
+xacquire lock btc qword ptr [rax],0A5h
+xacquire lock btr word ptr [rax],cx
+xacquire lock btr word ptr [rax],0A5h
+xacquire lock btr dword ptr [rax],ecx
+xacquire lock btr dword ptr [rax],0A5h
+xacquire lock btr qword ptr [rax],rcx
+xacquire lock btr qword ptr [rax],0A5h
+xacquire lock bts word ptr [rax],cx
+xacquire lock bts word ptr [rax],0A5h
+xacquire lock bts dword ptr [rax],ecx
+xacquire lock bts dword ptr [rax],0A5h
+xacquire lock bts qword ptr [rax],rcx
+xacquire lock bts qword ptr [rax],0A5h
+xacquire lock dec byte ptr [rax]
+xacquire lock dec word ptr [rax]
+xacquire lock dec dword ptr [rax]
+xacquire lock dec qword ptr [rax]
+xacquire lock inc byte ptr [rax]
+xacquire lock inc word ptr [rax]
+xacquire lock inc dword ptr [rax]
+xacquire lock inc qword ptr [rax]
+xacquire lock neg byte ptr [rax]
+xacquire lock neg word ptr [rax]
+xacquire lock neg dword ptr [rax]
+xacquire lock neg qword ptr [rax]
+xacquire lock not byte ptr [rax]
+xacquire lock not word ptr [rax]
+xacquire lock not dword ptr [rax]
+xacquire lock not qword ptr [rax]
+xacquire lock cmpxchg byte ptr [rax],cl
+xacquire lock cmpxchg word ptr [rax],cx
+xacquire lock cmpxchg dword ptr [rax],ecx
+xacquire lock cmpxchg qword ptr [rax],rcx
+xacquire lock xadd byte ptr [rax],cl
+xacquire lock xadd word ptr [rax],cx
+xacquire lock xadd dword ptr [rax],ecx
+xacquire lock xadd qword ptr [rax],rcx
+xacquire xchg cl,byte ptr [rax]
+xacquire xchg cx,word ptr [rax]
+xacquire xchg ecx,dword ptr [rax]
+xacquire xchg rcx,qword ptr [rax]
+xacquire lock xchg cl,byte ptr [rax]
+xacquire lock xchg cx,word ptr [rax]
+xacquire lock xchg ecx,dword ptr [rax]
+xacquire lock xchg rcx,qword ptr [rax]
+xacquire lock cmpxchg8b qword ptr [rax]
+xrelease lock adc byte ptr [rax],cl
+xrelease lock adc byte ptr [rax],0A5h
+xrelease lock adc word ptr [rax],cx
+xrelease lock adc word ptr [rax],0FFA5h
+xrelease lock adc word ptr [rax],0A55Ah
+xrelease lock adc dword ptr [rax],ecx
+xrelease lock adc dword ptr [rax],0FFFFFFA5h
+xrelease lock adc dword ptr [rax],0A55A1234h
+xrelease lock adc qword ptr [rax],rcx
+xrelease lock adc qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xrelease lock adc qword ptr [rax],0FFFFFFFFA55A1234h
+xrelease lock add byte ptr [rax],cl
+xrelease lock add byte ptr [rax],0A5h
+xrelease lock add word ptr [rax],cx
+xrelease lock add word ptr [rax],0FFA5h
+xrelease lock add word ptr [rax],0A55Ah
+xrelease lock add dword ptr [rax],ecx
+xrelease lock add dword ptr [rax],0FFFFFFA5h
+xrelease lock add dword ptr [rax],0A55A1234h
+xrelease lock add qword ptr [rax],rcx
+xrelease lock add qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xrelease lock add qword ptr [rax],0FFFFFFFFA55A1234h
+xrelease lock and byte ptr [rax],cl
+xrelease lock and byte ptr [rax],0A5h
+xrelease lock and word ptr [rax],cx
+xrelease lock and word ptr [rax],0FFA5h
+xrelease lock and word ptr [rax],0A55Ah
+xrelease lock and dword ptr [rax],ecx
+xrelease lock and dword ptr [rax],0FFFFFFA5h
+xrelease lock and dword ptr [rax],0A55A1234h
+xrelease lock and qword ptr [rax],rcx
+xrelease lock and qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xrelease lock and qword ptr [rax],0FFFFFFFFA55A1234h
+xrelease lock or byte ptr [rax],cl
+xrelease lock or byte ptr [rax],0A5h
+xrelease lock or word ptr [rax],cx
+xrelease lock or word ptr [rax],0FFA5h
+xrelease lock or word ptr [rax],0A55Ah
+xrelease lock or dword ptr [rax],ecx
+xrelease lock or dword ptr [rax],0FFFFFFA5h
+xrelease lock or dword ptr [rax],0A55A1234h
+xrelease lock or qword ptr [rax],rcx
+xrelease lock or qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xrelease lock or qword ptr [rax],0FFFFFFFFA55A1234h
+xrelease lock sbb byte ptr [rax],cl
+xrelease lock sbb byte ptr [rax],0A5h
+xrelease lock sbb word ptr [rax],cx
+xrelease lock sbb word ptr [rax],0FFA5h
+xrelease lock sbb word ptr [rax],0A55Ah
+xrelease lock sbb dword ptr [rax],ecx
+xrelease lock sbb dword ptr [rax],0FFFFFFA5h
+xrelease lock sbb dword ptr [rax],0A55A1234h
+xrelease lock sbb qword ptr [rax],rcx
+xrelease lock sbb qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xrelease lock sbb qword ptr [rax],0FFFFFFFFA55A1234h
+xrelease lock sub byte ptr [rax],cl
+xrelease lock sub byte ptr [rax],0A5h
+xrelease lock sub word ptr [rax],cx
+xrelease lock sub word ptr [rax],0FFA5h
+xrelease lock sub word ptr [rax],0A55Ah
+xrelease lock sub dword ptr [rax],ecx
+xrelease lock sub dword ptr [rax],0FFFFFFA5h
+xrelease lock sub dword ptr [rax],0A55A1234h
+xrelease lock sub qword ptr [rax],rcx
+xrelease lock sub qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xrelease lock sub qword ptr [rax],0FFFFFFFFA55A1234h
+xrelease lock xor byte ptr [rax],cl
+xrelease lock xor byte ptr [rax],0A5h
+xrelease lock xor word ptr [rax],cx
+xrelease lock xor word ptr [rax],0FFA5h
+xrelease lock xor word ptr [rax],0A55Ah
+xrelease lock xor dword ptr [rax],ecx
+xrelease lock xor dword ptr [rax],0FFFFFFA5h
+xrelease lock xor dword ptr [rax],0A55A1234h
+xrelease lock xor qword ptr [rax],rcx
+xrelease lock xor qword ptr [rax],0FFFFFFFFFFFFFFA5h
+xrelease lock xor qword ptr [rax],0FFFFFFFFA55A1234h
+xrelease lock btc word ptr [rax],cx
+xrelease lock btc word ptr [rax],0A5h
+xrelease lock btc dword ptr [rax],ecx
+xrelease lock btc dword ptr [rax],0A5h
+xrelease lock btc qword ptr [rax],rcx
+xrelease lock btc qword ptr [rax],0A5h
+xrelease lock btr word ptr [rax],cx
+xrelease lock btr word ptr [rax],0A5h
+xrelease lock btr dword ptr [rax],ecx
+xrelease lock btr dword ptr [rax],0A5h
+xrelease lock btr qword ptr [rax],rcx
+xrelease lock btr qword ptr [rax],0A5h
+xrelease lock bts word ptr [rax],cx
+xrelease lock bts word ptr [rax],0A5h
+xrelease lock bts dword ptr [rax],ecx
+xrelease lock bts dword ptr [rax],0A5h
+xrelease lock bts qword ptr [rax],rcx
+xrelease lock bts qword ptr [rax],0A5h
+xrelease lock dec byte ptr [rax]
+xrelease lock dec word ptr [rax]
+xrelease lock dec dword ptr [rax]
+xrelease lock dec qword ptr [rax]
+xrelease lock inc byte ptr [rax]
+xrelease lock inc word ptr [rax]
+xrelease lock inc dword ptr [rax]
+xrelease lock inc qword ptr [rax]
+xrelease lock neg byte ptr [rax]
+xrelease lock neg word ptr [rax]
+xrelease lock neg dword ptr [rax]
+xrelease lock neg qword ptr [rax]
+xrelease lock not byte ptr [rax]
+xrelease lock not word ptr [rax]
+xrelease lock not dword ptr [rax]
+xrelease lock not qword ptr [rax]
+xrelease lock cmpxchg byte ptr [rax],cl
+xrelease lock cmpxchg word ptr [rax],cx
+xrelease lock cmpxchg dword ptr [rax],ecx
+xrelease lock cmpxchg qword ptr [rax],rcx
+xrelease lock xadd byte ptr [rax],cl
+xrelease lock xadd word ptr [rax],cx
+xrelease lock xadd dword ptr [rax],ecx
+xrelease lock xadd qword ptr [rax],rcx
+xrelease xchg cl,byte ptr [rax]
+xrelease xchg cx,word ptr [rax]
+xrelease xchg ecx,dword ptr [rax]
+xrelease xchg rcx,qword ptr [rax]
+xrelease lock xchg cl,byte ptr [rax]
+xrelease lock xchg cx,word ptr [rax]
+xrelease lock xchg ecx,dword ptr [rax]
+xrelease lock xchg rcx,qword ptr [rax]
+xrelease lock cmpxchg8b qword ptr [rax]
+xrelease mov byte ptr [rax],cl
+xrelease mov word ptr [rax],cx
+xrelease mov dword ptr [rax],ecx
+xrelease mov qword ptr [rax],rcx
+xrelease mov byte ptr [rax],0A5h
+xrelease mov word ptr [rax],0A55Ah
+xrelease mov dword ptr [rax],0A55A1234h
+xrelease mov qword ptr [rax],0FFFFFFFFA55A1234h
+hnt jo short 7FFFFFFFFFFFFFF3h
+hnt jno short 7FFFFFFFFFFFFFF3h
+hnt jb short 7FFFFFFFFFFFFFF3h
+hnt jae short 7FFFFFFFFFFFFFF3h
+hnt je short 7FFFFFFFFFFFFFF3h
+hnt jne short 7FFFFFFFFFFFFFF3h
+hnt jbe short 7FFFFFFFFFFFFFF3h
+hnt ja short 7FFFFFFFFFFFFFF3h
+hnt js short 7FFFFFFFFFFFFFF3h
+hnt jns short 7FFFFFFFFFFFFFF3h
+hnt jp short 7FFFFFFFFFFFFFF3h
+hnt jnp short 7FFFFFFFFFFFFFF3h
+hnt jl short 7FFFFFFFFFFFFFF3h
+hnt jge short 7FFFFFFFFFFFFFF3h
+hnt jle short 7FFFFFFFFFFFFFF3h
+hnt jg short 7FFFFFFFFFFFFFF3h
+ht jo short 7FFFFFFFFFFFFFF3h
+ht jno short 7FFFFFFFFFFFFFF3h
+ht jb short 7FFFFFFFFFFFFFF3h
+ht jae short 7FFFFFFFFFFFFFF3h
+ht je short 7FFFFFFFFFFFFFF3h
+ht jne short 7FFFFFFFFFFFFFF3h
+ht jbe short 7FFFFFFFFFFFFFF3h
+ht ja short 7FFFFFFFFFFFFFF3h
+ht js short 7FFFFFFFFFFFFFF3h
+ht jns short 7FFFFFFFFFFFFFF3h
+ht jp short 7FFFFFFFFFFFFFF3h
+ht jnp short 7FFFFFFFFFFFFFF3h
+ht jl short 7FFFFFFFFFFFFFF3h
+ht jge short 7FFFFFFFFFFFFFF3h
+ht jle short 7FFFFFFFFFFFFFF3h
+ht jg short 7FFFFFFFFFFFFFF3h
+hnt jo near ptr 7FFFFFFFFFFFFFF7h
+hnt jno near ptr 7FFFFFFFFFFFFFF7h
+hnt jb near ptr 7FFFFFFFFFFFFFF7h
+hnt jae near ptr 7FFFFFFFFFFFFFF7h
+hnt je near ptr 7FFFFFFFFFFFFFF7h
+hnt jne near ptr 7FFFFFFFFFFFFFF7h
+hnt jbe near ptr 7FFFFFFFFFFFFFF7h
+hnt ja near ptr 7FFFFFFFFFFFFFF7h
+hnt js near ptr 7FFFFFFFFFFFFFF7h
+hnt jns near ptr 7FFFFFFFFFFFFFF7h
+hnt jp near ptr 7FFFFFFFFFFFFFF7h
+hnt jnp near ptr 7FFFFFFFFFFFFFF7h
+hnt jl near ptr 7FFFFFFFFFFFFFF7h
+hnt jge near ptr 7FFFFFFFFFFFFFF7h
+hnt jle near ptr 7FFFFFFFFFFFFFF7h
+hnt jg near ptr 7FFFFFFFFFFFFFF7h
+ht jo near ptr 7FFFFFFFFFFFFFF7h
+ht jno near ptr 7FFFFFFFFFFFFFF7h
+ht jb near ptr 7FFFFFFFFFFFFFF7h
+ht jae near ptr 7FFFFFFFFFFFFFF7h
+ht je near ptr 7FFFFFFFFFFFFFF7h
+ht jne near ptr 7FFFFFFFFFFFFFF7h
+ht jbe near ptr 7FFFFFFFFFFFFFF7h
+ht ja near ptr 7FFFFFFFFFFFFFF7h
+ht js near ptr 7FFFFFFFFFFFFFF7h
+ht jns near ptr 7FFFFFFFFFFFFFF7h
+ht jp near ptr 7FFFFFFFFFFFFFF7h
+ht jnp near ptr 7FFFFFFFFFFFFFF7h
+ht jl near ptr 7FFFFFFFFFFFFFF7h
+ht jge near ptr 7FFFFFFFFFFFFFF7h
+ht jle near ptr 7FFFFFFFFFFFFFF7h
+ht jg near ptr 7FFFFFFFFFFFFFF7h
+bnd jo short 7FFFFFFFFFFFFFF3h
+bnd jno short 7FFFFFFFFFFFFFF3h
+bnd jb short 7FFFFFFFFFFFFFF3h
+bnd jae short 7FFFFFFFFFFFFFF3h
+bnd je short 7FFFFFFFFFFFFFF3h
+bnd jne short 7FFFFFFFFFFFFFF3h
+bnd jbe short 7FFFFFFFFFFFFFF3h
+bnd ja short 7FFFFFFFFFFFFFF3h
+bnd js short 7FFFFFFFFFFFFFF3h
+bnd jns short 7FFFFFFFFFFFFFF3h
+bnd jp short 7FFFFFFFFFFFFFF3h
+bnd jnp short 7FFFFFFFFFFFFFF3h
+bnd jl short 7FFFFFFFFFFFFFF3h
+bnd jge short 7FFFFFFFFFFFFFF3h
+bnd jle short 7FFFFFFFFFFFFFF3h
+bnd jg short 7FFFFFFFFFFFFFF3h
+bnd jo near ptr 7FFFFFFFFFFFFFF7h
+bnd jno near ptr 7FFFFFFFFFFFFFF7h
+bnd jb near ptr 7FFFFFFFFFFFFFF7h
+bnd jae near ptr 7FFFFFFFFFFFFFF7h
+bnd je near ptr 7FFFFFFFFFFFFFF7h
+bnd jne near ptr 7FFFFFFFFFFFFFF7h
+bnd jbe near ptr 7FFFFFFFFFFFFFF7h
+bnd ja near ptr 7FFFFFFFFFFFFFF7h
+bnd js near ptr 7FFFFFFFFFFFFFF7h
+bnd jns near ptr 7FFFFFFFFFFFFFF7h
+bnd jp near ptr 7FFFFFFFFFFFFFF7h
+bnd jnp near ptr 7FFFFFFFFFFFFFF7h
+bnd jl near ptr 7FFFFFFFFFFFFFF7h
+bnd jge near ptr 7FFFFFFFFFFFFFF7h
+bnd jle near ptr 7FFFFFFFFFFFFFF7h
+bnd jg near ptr 7FFFFFFFFFFFFFF7h
+bnd jmp near ptr 7FFFFFFFFFFFFFF6h
+bnd jmp qword ptr [rax]
+bnd jmp rax
+bnd call 7FFFFFFFFFFFFFF6h
+bnd call qword ptr [rax]
+bnd call rax
+bnd ret 0
+bnd ret
+notrack call qword ptr ds:[rax]
+notrack call qword ptr ds:[rbp+11h]
+notrack call rcx
+notrack jmp qword ptr ds:[rax]
+notrack jmp qword ptr ds:[rbp+11h]
+notrack jmp rcx
+notrack bnd call rcx
+call qword ptr fs:[rax]
+call qword ptr fs:[rax]
+notrack bnd jmp rcx
+jmp qword ptr fs:[rax]
+jmp qword ptr fs:[rax]

@@ -24,12 +24,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Iced.Intel;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public abstract class RegisterTests {
-		protected static IEnumerable<object[]> GetFormatData(string[] formattedRegisters) {
+		protected static IEnumerable<object[]> GetFormatData(string formatterDir, string formattedRegistersFile) {
+			var formattedRegisters = FileUtils.ReadRawStrings(Path.Combine(formatterDir, formattedRegistersFile)).ToArray();
 			if (Iced.Intel.DecoderConstants.NumberOfRegisters != formattedRegisters.Length)
 				throw new ArgumentException($"({nameof(Iced.Intel.DecoderConstants.NumberOfRegisters)}) {Iced.Intel.DecoderConstants.NumberOfRegisters} != (formattedRegisters.Length) {formattedRegisters.Length}");
 			var res = new object[formattedRegisters.Length][];

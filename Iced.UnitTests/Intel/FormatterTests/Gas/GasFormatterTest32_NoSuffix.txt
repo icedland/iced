@@ -1,0 +1,698 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+pushw %es
+push %es
+popw %es
+pop %es
+pushw %cs
+push %cs
+pushw %ss
+push %ss
+popw %ss
+pop %ss
+pushw %ds
+push %ds
+popw %ds
+pop %ds
+daa
+das
+aaa
+aas
+inc %ax
+inc %eax
+inc %cx
+inc %ecx
+inc %dx
+inc %edx
+inc %bx
+inc %ebx
+inc %sp
+inc %esp
+inc %bp
+inc %ebp
+inc %si
+inc %esi
+inc %di
+inc %edi
+dec %ax
+dec %eax
+dec %cx
+dec %ecx
+dec %dx
+dec %edx
+dec %bx
+dec %ebx
+dec %sp
+dec %esp
+dec %bp
+dec %ebp
+dec %si
+dec %esi
+dec %di
+dec %edi
+push %eax
+push %ecx
+push %edx
+push %ebx
+push %esp
+push %ebp
+push %esi
+push %edi
+pop %eax
+pop %ecx
+pop %edx
+pop %ebx
+pop %esp
+pop %ebp
+pop %esi
+pop %edi
+pushaw
+pusha
+popaw
+popa
+bound %bx,(%eax)
+bound %ebx,(%eax)
+arpl %si,%dx
+arpl %bx,(%eax)
+push $0x3412a55a
+push $0xffffffa5
+data16 jo 0x004d
+jo 0x8000004c
+data16 jno 0x004d
+jno 0x8000004c
+data16 jb 0x004d
+jb 0x8000004c
+data16 jae 0x004d
+jae 0x8000004c
+data16 je 0x004d
+je 0x8000004c
+data16 jne 0x004d
+jne 0x8000004c
+data16 jbe 0x004d
+jbe 0x8000004c
+data16 ja 0x004d
+ja 0x8000004c
+data16 js 0x004d
+js 0x8000004c
+data16 jns 0x004d
+jns 0x8000004c
+data16 jp 0x004d
+jp 0x8000004c
+data16 jnp 0x004d
+jnp 0x8000004c
+data16 jl 0x004d
+jl 0x8000004c
+data16 jge 0x004d
+jge 0x8000004c
+data16 jle 0x004d
+jle 0x8000004c
+data16 jg 0x004d
+jg 0x8000004c
+pop %esi
+popl (%eax)
+lcallw $0x7856,$0x3412
+lcall $0xbc9a,$0x78563412
+pushf
+popf
+retw $0xa55a
+ret $0xa55a
+retw
+ret
+les (%eax),%bx
+les (%eax),%ebx
+lds (%eax),%bx
+lds (%eax),%ebx
+enter $0xa55a,$0xa6
+leave
+into
+aam
+aad
+.byte 0x66; loopnew 0x004e
+loopnew 0x8000004d
+.byte 0x66; loopne 0x004d
+loopne 0x8000004c
+.byte 0x66; loopew 0x004e
+loopew 0x8000004d
+.byte 0x66; loope 0x004d
+loope 0x8000004c
+.byte 0x66; loopw 0x004e
+loopw 0x8000004d
+.byte 0x66; loop 0x004d
+loop 0x8000004c
+.byte 0x66; jcxz 0x004e
+jcxz 0x8000004d
+.byte 0x66; jecxz 0x004d
+jecxz 0x8000004c
+callw 0xa54e
+call 0x255a3407
+data16 jmp 0xa54e
+jmp 0x255a3407
+ljmpw $0x7856,$0x3412
+ljmp $0xbcea,$0x78563412
+data16 jmp 0x004d
+jmp 0x8000004c
+call *%cx
+callw *(%eax)
+call *%ecx
+calll *(%eax)
+jmp *%dx
+jmpw *(%eax)
+jmp *%edx
+jmpl *(%eax)
+push %esi
+pushl (%eax)
+bndmov %bnd2,%bnd1
+bndmov (%eax),%bnd1
+bndcl %edx,%bnd1
+bndcl (%eax),%bnd1
+bndcu %edx,%bnd1
+bndcu (%eax),%bnd1
+bndmov %bnd1,%bnd2
+bndmov %bnd1,(%eax)
+bndmk (%eax),%bnd1
+bndcn %edx,%bnd1
+bndcn (%eax),%bnd1
+mov %cr3,%esi
+mov %db3,%esi
+mov %esi,%cr3
+mov %esi,%db3
+vmread %ecx,%esi
+vmread %ebx,(%eax)
+vmwrite %esi,%ecx
+vmwrite (%eax),%ebx
+data16 jo 0xa54f
+jo 0xb412a550
+data16 jno 0xa54f
+jno 0xb412a550
+data16 jb 0xa54f
+jb 0xb412a550
+data16 jae 0xa54f
+jae 0xb412a550
+data16 je 0xa54f
+je 0xb412a550
+data16 jne 0xa54f
+jne 0xb412a550
+data16 jbe 0xa54f
+jbe 0xb412a550
+data16 ja 0xa54f
+ja 0xb412a550
+data16 js 0xa54f
+js 0xb412a550
+data16 jns 0xa54f
+jns 0xb412a550
+data16 jp 0xa54f
+jp 0xb412a550
+data16 jnp 0xa54f
+jnp 0xb412a550
+data16 jl 0xa54f
+jl 0xb412a550
+data16 jge 0xa54f
+jge 0xb412a550
+data16 jle 0xa54f
+jle 0xb412a550
+data16 jg 0xa54f
+jg 0xb412a550
+push %fs
+pop %fs
+push %gs
+pop %gs
+rdpid %edx
+invept (%eax),%edx
+invvpid (%eax),%edx
+invpcid (%eax),%edx
+salc
+pushw $0xa55a
+pushw $0xffa5
+insb %dx,(%di)
+insb %dx,(%edi)
+insw %dx,(%di)
+insw %dx,(%edi)
+insl %dx,(%di)
+insl %dx,(%edi)
+outsb (%si),%dx
+outsb (%esi),%dx
+outsw (%si),%dx
+outsw (%esi),%dx
+outsl (%si),%dx
+outsl (%esi),%dx
+mov %si,%fs
+data16 mov (%eax),%ds
+mov %esi,%fs
+mov (%eax),%ds
+pop %si
+popw (%eax)
+xchg %ax,%ax
+nop
+pushfw
+popfw
+mov 0xf0debc9a,%al
+addr16 mov 0xf0de,%al
+mov 0xf0debc9a,%ax
+addr16 mov 0xf0de,%ax
+mov 0xf0debc9a,%eax
+addr16 mov 0xf0de,%eax
+mov %al,0xf0debc9a
+addr16 mov %al,0xf0de
+mov %ax,0xf0debc9a
+addr16 mov %ax,0xf0de
+mov %eax,0xf0debc9a
+addr16 mov %eax,0xf0de
+movsb (%si),(%di)
+movsb (%esi),(%edi)
+movsw (%si),(%di)
+movsw (%esi),(%edi)
+movsl (%si),(%di)
+movsl (%esi),(%edi)
+cmpsb (%di),(%si)
+cmpsb (%edi),(%esi)
+cmpsw (%di),(%si)
+cmpsw (%edi),(%esi)
+cmpsl (%di),(%si)
+cmpsl (%edi),(%esi)
+stos %al,(%di)
+stos %al,(%edi)
+stos %ax,(%di)
+stos %ax,(%edi)
+stos %eax,(%di)
+stos %eax,(%edi)
+lods (%si),%al
+lods (%esi),%al
+lods (%si),%ax
+lods (%esi),%ax
+lods (%si),%eax
+lods (%esi),%eax
+scas (%di),%al
+scas (%edi),%al
+scas (%di),%ax
+scas (%edi),%ax
+scas (%di),%eax
+scas (%edi),%eax
+data16 xbegin 0x7fffa54f
+xbegin 0xb412a550
+enterw $0xa55a,$0xa6
+leavew
+lretw $0xa55a
+lret $0xa55a
+lretw
+lret
+iretw
+iret
+rol %cl,%cl
+rolb %cl,(%eax)
+ror %cl,%dl
+rorb %cl,(%eax)
+rcl %cl,%bl
+rclb %cl,(%eax)
+rcr %cl,%ah
+rcrb %cl,(%eax)
+shl %cl,%ch
+shlb %cl,(%eax)
+shr %cl,%dh
+shrb %cl,(%eax)
+sar %cl,%al
+sarb %cl,(%eax)
+rol %cl,%cx
+rolw %cl,(%eax)
+rol %cl,%ecx
+roll %cl,(%eax)
+ror %cl,%dx
+rorw %cl,(%eax)
+ror %cl,%edx
+rorl %cl,(%eax)
+rcl %cl,%bx
+rclw %cl,(%eax)
+rcl %cl,%ebx
+rcll %cl,(%eax)
+rcr %cl,%sp
+rcrw %cl,(%eax)
+rcr %cl,%esp
+rcrl %cl,(%eax)
+shl %cl,%bp
+shlw %cl,(%eax)
+shl %cl,%ebp
+shll %cl,(%eax)
+shr %cl,%si
+shrw %cl,(%eax)
+shr %cl,%esi
+shrl %cl,(%eax)
+sar %cl,%ax
+sarw %cl,(%eax)
+sar %cl,%eax
+sarl %cl,(%eax)
+fldcw (%eax)
+fnstcw (%eax)
+fnstsw (%eax)
+lcallw *(%eax)
+lcall *(%eax)
+ljmpw *(%eax)
+ljmp *(%eax)
+push %si
+pushw (%eax)
+sgdtw (%eax)
+sgdt (%eax)
+sidtw (%eax)
+sidt (%eax)
+lgdtw (%eax)
+lgdt (%eax)
+lidtw (%eax)
+lidt (%eax)
+lar %si,%cx
+lar (%eax),%bx
+lar %esi,%ecx
+lar (%eax),%ebx
+lsl %si,%cx
+lsl (%eax),%bx
+lsl %esi,%ecx
+lsl (%eax),%ebx
+bndldx (%eax),%bnd1
+bndstx %bnd1,(%eax)
+kmovw %k3,%k2
+kmovw (%eax),%k1
+kmovb %k3,%k2
+kmovb (%eax),%k1
+kmovd %k3,%k2
+kmovd (%eax),%k1
+kmovw %k1,(%eax)
+kmovb %k1,(%eax)
+kmovd %k1,(%eax)
+kmovw %ebx,%k2
+kmovb %ebx,%k2
+kmovd %ebx,%k2
+kmovw %k3,%edx
+kmovb %k3,%edx
+kmovd %k3,%edx
+kortestw %k3,%k2
+kortestq %k3,%k2
+kortestb %k3,%k2
+kortestd %k3,%k2
+ktestw %k3,%k2
+ktestq %k3,%k2
+ktestb %k3,%k2
+ktestd %k3,%k2
+pushw %fs
+popw %fs
+shld %cl,%cx,%si
+shld %cl,%bx,(%eax)
+shld %cl,%ecx,%esi
+shld %cl,%ebx,(%eax)
+pushw %gs
+popw %gs
+shrd %cl,%cx,%si
+shrd %cl,%bx,(%eax)
+shrd %cl,%ecx,%esi
+shrd %cl,%ebx,(%eax)
+lss (%eax),%bx
+lss (%eax),%ebx
+lfs (%eax),%bx
+lfs (%eax),%ebx
+lgs (%eax),%bx
+lgs (%eax),%ebx
+movzbw %dh,%cx
+movzbw (%eax),%bx
+movzbl %dh,%ecx
+movzbl (%eax),%ebx
+movzww %si,%cx
+movzww (%eax),%bx
+movzwl %si,%ecx
+movzwl (%eax),%ebx
+movsbw %dh,%cx
+movsbw (%eax),%bx
+movsbl %dh,%ecx
+movsbl (%eax),%ebx
+movsww %si,%cx
+movsww (%eax),%bx
+movswl %si,%ecx
+movswl (%eax),%ebx
+cmpxchg8b (%eax)
+crc32 %dh,%ecx
+crc32b (%eax),%ebx
+crc32 %si,%ecx
+crc32w (%eax),%ebx
+crc32 %esi,%ecx
+crc32l (%eax),%ebx
+addr16 maskmovq %mm3,%mm2
+maskmovq %mm3,%mm2
+addr16 maskmovdqu %xmm3,%xmm2
+maskmovdqu %xmm3,%xmm2
+addr16 vmaskmovdqu %xmm3,%xmm2
+vmaskmovdqu %xmm3,%xmm2
+outsb %fs:(%esi),%dx
+outsw %fs:(%esi),%dx
+outsl %fs:(%esi),%dx
+movsb %fs:(%esi),%es:(%edi)
+movsw %fs:(%esi),%es:(%edi)
+movsl %fs:(%esi),%es:(%edi)
+cmpsb %es:(%edi),%fs:(%esi)
+cmpsw %es:(%edi),%fs:(%esi)
+cmpsl %es:(%edi),%fs:(%esi)
+lods %fs:(%esi),%al
+lods %fs:(%esi),%ax
+lods %fs:(%esi),%eax
+xlat (%bx)
+xlat %fs:(%ebx)
+fs maskmovq %mm3,%mm2
+fs maskmovdqu %xmm3,%xmm2
+fs vmaskmovdqu %xmm3,%xmm2
+xlat (%ebx)
+aam $0xfa
+aad $0xfa
+fldenvs (%eax)
+fldenv (%eax)
+fnstenvs (%eax)
+fnstenv (%eax)
+frstors (%eax)
+frstor (%eax)
+fnsaves (%eax)
+fnsave (%eax)
+addr16 monitor
+monitor
+mwait
+mov %fs:0xf0debc9a,%al
+addr16 mov %fs:0xf0de,%al
+mov %fs:0xf0debc9a,%ax
+addr16 mov %fs:0xf0de,%ax
+mov %fs:0xf0debc9a,%eax
+addr16 mov %fs:0xf0de,%eax
+mov %al,%fs:0xf0debc9a
+addr16 mov %al,%fs:0xf0de
+mov %ax,%fs:0xf0debc9a
+addr16 mov %ax,%fs:0xf0de
+mov %eax,%fs:0xf0debc9a
+addr16 mov %eax,%fs:0xf0de
+mov (%eax),%cl
+mov -0x12(%eax),%cl
+mov -0x12345678(%eax),%cl
+mov 0xedcba988,%cl
+mov 0x12(%eax),%cl
+mov 0x12345678(%eax),%cl
+mov 0x12345678,%cl
+mov (%eax,%ecx),%cl
+mov (%eax,%ecx,2),%cl
+mov (%eax,%ecx,4),%cl
+mov (%eax,%ecx,8),%cl
+mov -0x12(%eax,%ecx),%cl
+mov -0x12(%eax,%ecx,2),%cl
+mov -0x12(%eax,%ecx,4),%cl
+mov -0x12(%eax,%ecx,8),%cl
+mov 0x12(%eax,%ecx),%cl
+mov 0x12(%eax,%ecx,2),%cl
+mov 0x12(%eax,%ecx,4),%cl
+mov 0x12(%eax,%ecx,8),%cl
+mov -0x12345678(%eax,%ecx),%cl
+mov -0x12345678(%eax,%ecx,2),%cl
+mov -0x12345678(%eax,%ecx,4),%cl
+mov -0x12345678(%eax,%ecx,8),%cl
+mov 0x12345678(%eax,%ecx),%cl
+mov 0x12345678(%eax,%ecx,2),%cl
+mov 0x12345678(%eax,%ecx,4),%cl
+mov 0x12345678(%eax,%ecx,8),%cl
+mov -0x12345678(,%ecx),%cl
+mov -0x12(%ebp,%ecx,2),%cl
+mov -0x12345678(%ebp,%ecx,4),%cl
+mov -0x12345678(,%ecx,8),%cl
+mov 0x12345678(,%ecx),%cl
+mov 0x12(%ebp,%ecx,2),%cl
+mov 0x12345678(%ebp,%ecx,4),%cl
+mov 0x12345678(,%ecx,8),%cl
+mov %fs:(%eax),%cl
+mov %fs:-0x12(%eax),%cl
+mov %fs:-0x12345678(%eax),%cl
+mov %fs:0xedcba988,%cl
+mov %fs:0x12(%eax),%cl
+mov %fs:0x12345678(%eax),%cl
+mov %fs:0x12345678,%cl
+mov %fs:(%eax,%ecx),%cl
+mov %fs:(%eax,%ecx,2),%cl
+mov %fs:(%eax,%ecx,4),%cl
+mov %fs:(%eax,%ecx,8),%cl
+mov %fs:-0x12(%eax,%ecx),%cl
+mov %fs:-0x12(%eax,%ecx,2),%cl
+mov %fs:-0x12(%eax,%ecx,4),%cl
+mov %fs:-0x12(%eax,%ecx,8),%cl
+mov %fs:0x12(%eax,%ecx),%cl
+mov %fs:0x12(%eax,%ecx,2),%cl
+mov %fs:0x12(%eax,%ecx,4),%cl
+mov %fs:0x12(%eax,%ecx,8),%cl
+mov %fs:-0x12345678(%eax,%ecx),%cl
+mov %fs:-0x12345678(%eax,%ecx,2),%cl
+mov %fs:-0x12345678(%eax,%ecx,4),%cl
+mov %fs:-0x12345678(%eax,%ecx,8),%cl
+mov %fs:0x12345678(%eax,%ecx),%cl
+mov %fs:0x12345678(%eax,%ecx,2),%cl
+mov %fs:0x12345678(%eax,%ecx,4),%cl
+mov %fs:0x12345678(%eax,%ecx,8),%cl
+mov %fs:-0x12345678(,%ecx),%cl
+mov %fs:-0x12(%ebp,%ecx,2),%cl
+mov %fs:-0x12345678(%ebp,%ecx,4),%cl
+mov %fs:-0x12345678(,%ecx,8),%cl
+mov %fs:0x12345678(,%ecx),%cl
+mov %fs:0x12(%ebp,%ecx,2),%cl
+mov %fs:0x12345678(%ebp,%ecx,4),%cl
+mov %fs:0x12345678(,%ecx,8),%cl
+addr16 vmrun
+vmrun
+addr16 vmload
+vmload
+addr16 vmsave
+vmsave
+addr16 invlpga
+invlpga
+addr16 monitorx
+monitorx
+addr16 clzero
+clzero
+add $0x5a,%cl
+addb $0x5a,(%eax)
+or $0xa5,%dl
+orb $0xa5,(%eax)
+adc $0x5a,%bl
+adcb $0x5a,(%eax)
+sbb $0xa5,%ah
+sbbb $0xa5,(%eax)
+and $0x5a,%ch
+andb $0x5a,(%eax)
+sub $0xa5,%dh
+subb $0xa5,(%eax)
+xor $0x5a,%bh
+xorb $0x5a,(%eax)
+cmp $0xa5,%al
+cmpb $0xa5,(%eax)
+frstpm
+fstdw %ax
+fstsg %ax
+jmpe *%cx
+jmpe *(%eax)
+jmpe *%edx
+jmpe *(%eax)
+loadallreset286
+loadall286
+loadall386
+cflsh
+umov %cl,%dh
+umov %bl,(%eax)
+umov %cx,%si
+umov %bx,(%eax)
+umov %ecx,%esi
+umov %ebx,(%eax)
+umov %dh,%cl
+umov (%eax),%bl
+umov %si,%cx
+umov (%eax),%bx
+umov %esi,%ecx
+umov (%eax),%ebx
+mov %tr3,%esi
+mov %esi,%tr3
+wrecr
+rdecr
+xbts %si,%cx
+xbts (%eax),%bx
+xbts %esi,%ecx
+xbts (%eax),%ebx
+ibts %cx,%si
+ibts %bx,(%eax)
+ibts %ecx,%esi
+ibts %ebx,(%eax)
+cmpxchg486 %cl,%dh
+cmpxchg486 %bl,(%eax)
+cmpxchg486 %cx,%si
+cmpxchg486 %bx,(%eax)
+cmpxchg486 %ecx,%esi
+cmpxchg486 %ebx,(%eax)
+zalloc (%eax)
+umonitor %bp
+umonitor %ebp
+data16 jmpe 0xa55a
+jmpe 0xa55a3412
+movdir64b (%bx,%si),%bx
+movdir64b (%eax),%ebx
+mov %tr0,%eax
+mov %tr1,%eax
+mov %tr2,%eax
+mov %tr3,%eax
+mov %tr4,%eax
+mov %tr5,%eax
+mov %tr6,%eax
+mov %tr7,%eax
+syscall
+sysret
+addr16 fs monitor
+addr16 fs monitorx
+addr16 fs clzero
+fs umonitor %bp
+rep montmul
+addr16 rep montmul
+montmul
+addr16 montmul
+rep xsha1
+addr16 rep xsha1
+xsha1
+addr16 xsha1
+rep xsha256
+addr16 rep xsha256
+xsha256
+addr16 xsha256
+rep xstore
+addr16 rep xstore
+xstore
+addr16 xstore
+rep xcryptecb
+addr16 rep xcryptecb
+xcryptecb
+addr16 xcryptecb
+rep xcryptcbc
+addr16 rep xcryptcbc
+xcryptcbc
+addr16 xcryptcbc
+rep xcryptctr
+addr16 rep xcryptctr
+xcryptctr
+addr16 xcryptctr
+rep xcryptcfb
+addr16 rep xcryptcfb
+xcryptcfb
+addr16 xcryptcfb
+rep xcryptofb
+addr16 rep xcryptofb
+xcryptofb
+addr16 xcryptofb

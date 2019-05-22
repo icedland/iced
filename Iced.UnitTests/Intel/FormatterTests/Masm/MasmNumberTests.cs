@@ -30,22 +30,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 		[Theory]
 		[MemberData(nameof(Format_Data))]
 		void Format(int index, object number, string formattedString) => FormatBase(index, number, formattedString, MasmFormatterFactory.Create_Numbers());
-		public static IEnumerable<object[]> Format_Data => GetFormatData(allNumbers, formattedStrings);
-
-		static readonly string[] formattedStrings = new string[allNumbersCount] {
-			"-80h",
-			"7Fh",
-			"-8000h",
-			"7FFFh",
-			"-80000000h",
-			"7FFFFFFFh",
-			"-8000000000000000h",
-			"7FFFFFFFFFFFFFFFh",
-			"0FFh",
-			"0FFFFh",
-			"0FFFFFFFFh",
-			"0FFFFFFFFFFFFFFFFh",
-		};
+		public static IEnumerable<object[]> Format_Data => GetFormatData(allNumbers, "Masm", nameof(MasmNumberTests));
 	}
 }
 #endif

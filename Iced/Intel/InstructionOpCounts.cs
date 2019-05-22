@@ -905,11 +905,6 @@ namespace Iced.Intel {
 			1,// Prefetch_m8
 			1,// Prefetchw_m8
 			1,// Prefetchwt1_m8
-			1,// Prefetch_m8_r3
-			1,// Prefetch_m8_r4
-			1,// Prefetch_m8_r5
-			1,// Prefetch_m8_r6
-			1,// Prefetch_m8_r7
 			0,// Femms
 			2,// Umov_rm8_r8
 			2,// Umov_rm16_r16

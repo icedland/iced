@@ -150,6 +150,7 @@ namespace Iced.Intel {
 			_ = InstructionMemorySizes.Sizes;
 			_ = OpCodeHandlers_D3NOW.CodeValues;
 			_ = InstructionOpCounts.OpCount;
+			_ = MnemonicUtils.toMnemonic;
 #if !NO_INSTR_INFO
 			_ = RegisterExtensions.RegisterInfos;
 			_ = MemorySizeExtensions.MemorySizeInfos;

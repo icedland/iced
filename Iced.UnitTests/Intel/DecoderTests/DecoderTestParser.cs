@@ -113,6 +113,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		const string OpKind_Memory = "m";
 
 		static readonly Dictionary<string, Code> toCode = CreateToCode();
+		static readonly Dictionary<string, Mnemonic> toMnemonic = CreateToMnemonic();
 		static readonly Dictionary<string, Register> toRegister = CreateToRegister();
 		static readonly Dictionary<string, MemorySize> toMemorySize = CreateToMemorySize();
 
@@ -120,6 +121,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var dict = new Dictionary<string, Code>(StringComparer.Ordinal);
 			var names = Enum.GetNames(typeof(Code));
 			var values = (Code[])Enum.GetValues(typeof(Code));
+			if (names.Length != values.Length)
+				throw new InvalidOperationException();
+			for (int i = 0; i < names.Length; i++)
+				dict.Add(names[i], values[i]);
+			return dict;
+		}
+
+		static Dictionary<string, Mnemonic> CreateToMnemonic() {
+			var dict = new Dictionary<string, Mnemonic>(StringComparer.Ordinal);
+			var names = Enum.GetNames(typeof(Mnemonic));
+			var values = (Mnemonic[])Enum.GetValues(typeof(Mnemonic));
 			if (names.Length != values.Length)
 				throw new InvalidOperationException();
 			for (int i = 0; i < names.Length; i++)
@@ -170,7 +182,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		static readonly char[] extraSeps = new char[] { ' ' };
 		static DecoderTestCase ReadTestCase(int bitness, string line, int lineNo) {
 			var parts = line.Split(seps);
-			if (parts.Length != 4)
+			if (parts.Length != 5)
 				throw new InvalidOperationException();
 
 			var tc = new DecoderTestCase();
@@ -179,9 +191,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			tc.HexBytes = ToHexBytes(parts[0].Trim());
 			tc.EncodedHexBytes = tc.HexBytes;
 			tc.Code = ToCode(parts[1].Trim());
-			tc.OpCount = ToInt32(parts[2].Trim());
+			tc.Mnemonic = ToMnemonic(parts[2].Trim());
+			tc.OpCount = ToInt32(parts[3].Trim());
 
-			var rest = parts[3].Split(extraSeps);
+			var rest = parts[4].Split(extraSeps);
 			foreach (var tmp in rest) {
 				if (tmp == string.Empty)
 					continue;
@@ -726,6 +739,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			if (!toCode.TryGetValue(value, out var code))
 				throw new InvalidOperationException($"Invalid Code value: '{value}'");
 			return code;
+		}
+
+		static Mnemonic ToMnemonic(string value) {
+			if (!toMnemonic.TryGetValue(value, out var mnemonic))
+				throw new InvalidOperationException($"Invalid Mnemonic value: '{value}'");
+			return mnemonic;
 		}
 
 		static Register ToRegister(string value) {

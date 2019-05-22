@@ -26,8 +26,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class FormatterOptionsTests {
-		public const int AllInfos_Length = 1771;
-		public static readonly OptionsInstructionInfo[] AllInfos = new OptionsInstructionInfo[AllInfos_Length] {
+		public static readonly OptionsInstructionInfo[] AllInfos = new OptionsInstructionInfo[] {
 			new OptionsInstructionInfo(64, "64 F3 A4", Code.Movsb_m8_m8, a => a.UpperCasePrefixes = true),
 			new OptionsInstructionInfo(64, "64 F3 A4", Code.Movsb_m8_m8, a => a.UpperCasePrefixes = false),
 

@@ -1,0 +1,562 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+F0 10 08, Adc_rm8_r8
+F0 80 10 A5, Adc_rm8_imm8
+F0 66 11 08, Adc_rm16_r16
+F0 66 83 10 A5, Adc_rm16_imm8
+F0 66 81 10 5AA5, Adc_rm16_imm16
+F0 11 08, Adc_rm32_r32
+F0 83 10 A5, Adc_rm32_imm8
+F0 81 10 34 12 5AA5, Adc_rm32_imm32
+F0 48 11 08, Adc_rm64_r64
+F0 48 83 10 A5, Adc_rm64_imm8
+F0 48 81 10 34 12 5AA5, Adc_rm64_imm32
+F0 00 08, Add_rm8_r8
+F0 80 00 A5, Add_rm8_imm8
+F0 66 01 08, Add_rm16_r16
+F0 66 83 00 A5, Add_rm16_imm8
+F0 66 81 00 5AA5, Add_rm16_imm16
+F0 01 08, Add_rm32_r32
+F0 83 00 A5, Add_rm32_imm8
+F0 81 00 34 12 5AA5, Add_rm32_imm32
+F0 48 01 08, Add_rm64_r64
+F0 48 83 00 A5, Add_rm64_imm8
+F0 48 81 00 34 12 5AA5, Add_rm64_imm32
+F0 20 08, And_rm8_r8
+F0 80 20 A5, And_rm8_imm8
+F0 66 21 08, And_rm16_r16
+F0 66 83 20 A5, And_rm16_imm8
+F0 66 81 20 5AA5, And_rm16_imm16
+F0 21 08, And_rm32_r32
+F0 83 20 A5, And_rm32_imm8
+F0 81 20 34 12 5AA5, And_rm32_imm32
+F0 48 21 08, And_rm64_r64
+F0 48 83 20 A5, And_rm64_imm8
+F0 48 81 20 34 12 5AA5, And_rm64_imm32
+F0 08 08, Or_rm8_r8
+F0 80 08 A5, Or_rm8_imm8
+F0 66 09 08, Or_rm16_r16
+F0 66 83 08 A5, Or_rm16_imm8
+F0 66 81 08 5AA5, Or_rm16_imm16
+F0 09 08, Or_rm32_r32
+F0 83 08 A5, Or_rm32_imm8
+F0 81 08 34 12 5AA5, Or_rm32_imm32
+F0 48 09 08, Or_rm64_r64
+F0 48 83 08 A5, Or_rm64_imm8
+F0 48 81 08 34 12 5AA5, Or_rm64_imm32
+F0 18 08, Sbb_rm8_r8
+F0 80 18 A5, Sbb_rm8_imm8
+F0 66 19 08, Sbb_rm16_r16
+F0 66 83 18 A5, Sbb_rm16_imm8
+F0 66 81 18 5AA5, Sbb_rm16_imm16
+F0 19 08, Sbb_rm32_r32
+F0 83 18 A5, Sbb_rm32_imm8
+F0 81 18 34 12 5AA5, Sbb_rm32_imm32
+F0 48 19 08, Sbb_rm64_r64
+F0 48 83 18 A5, Sbb_rm64_imm8
+F0 48 81 18 34 12 5AA5, Sbb_rm64_imm32
+F0 28 08, Sub_rm8_r8
+F0 80 28 A5, Sub_rm8_imm8
+F0 66 29 08, Sub_rm16_r16
+F0 66 83 28 A5, Sub_rm16_imm8
+F0 66 81 28 5AA5, Sub_rm16_imm16
+F0 29 08, Sub_rm32_r32
+F0 83 28 A5, Sub_rm32_imm8
+F0 81 28 34 12 5AA5, Sub_rm32_imm32
+F0 48 29 08, Sub_rm64_r64
+F0 48 83 28 A5, Sub_rm64_imm8
+F0 48 81 28 34 12 5AA5, Sub_rm64_imm32
+F0 30 08, Xor_rm8_r8
+F0 80 30 A5, Xor_rm8_imm8
+F0 66 31 08, Xor_rm16_r16
+F0 66 83 30 A5, Xor_rm16_imm8
+F0 66 81 30 5AA5, Xor_rm16_imm16
+F0 31 08, Xor_rm32_r32
+F0 83 30 A5, Xor_rm32_imm8
+F0 81 30 34 12 5AA5, Xor_rm32_imm32
+F0 48 31 08, Xor_rm64_r64
+F0 48 83 30 A5, Xor_rm64_imm8
+F0 48 81 30 34 12 5AA5, Xor_rm64_imm32
+F0 66 0F BB 08, Btc_rm16_r16
+F0 66 0F BA 38 A5, Btc_rm16_imm8
+F0 0F BB 08, Btc_rm32_r32
+F0 0F BA 38 A5, Btc_rm32_imm8
+F0 48 0F BB 08, Btc_rm64_r64
+F0 48 0F BA 38 A5, Btc_rm64_imm8
+F0 66 0F B3 08, Btr_rm16_r16
+F0 66 0F BA 30 A5, Btr_rm16_imm8
+F0 0F B3 08, Btr_rm32_r32
+F0 0F BA 30 A5, Btr_rm32_imm8
+F0 48 0F B3 08, Btr_rm64_r64
+F0 48 0F BA 30 A5, Btr_rm64_imm8
+F0 66 0F AB 08, Bts_rm16_r16
+F0 66 0F BA 28 A5, Bts_rm16_imm8
+F0 0F AB 08, Bts_rm32_r32
+F0 0F BA 28 A5, Bts_rm32_imm8
+F0 48 0F AB 08, Bts_rm64_r64
+F0 48 0F BA 28 A5, Bts_rm64_imm8
+F0 FE 08, Dec_rm8
+F0 66 FF 08, Dec_rm16
+F0 FF 08, Dec_rm32
+F0 48 FF 08, Dec_rm64
+F0 FE 00, Inc_rm8
+F0 66 FF 00, Inc_rm16
+F0 FF 00, Inc_rm32
+F0 48 FF 00, Inc_rm64
+F0 F6 18, Neg_rm8
+F0 66 F7 18, Neg_rm16
+F0 F7 18, Neg_rm32
+F0 48 F7 18, Neg_rm64
+F0 F6 10, Not_rm8
+F0 66 F7 10, Not_rm16
+F0 F7 10, Not_rm32
+F0 48 F7 10, Not_rm64
+F0 0F B0 08, Cmpxchg_rm8_r8
+F0 66 0F B1 08, Cmpxchg_rm16_r16
+F0 0F B1 08, Cmpxchg_rm32_r32
+F0 48 0F B1 08, Cmpxchg_rm64_r64
+F0 0F C0 08, Xadd_rm8_r8
+F0 66 0F C1 08, Xadd_rm16_r16
+F0 0F C1 08, Xadd_rm32_r32
+F0 48 0F C1 08, Xadd_rm64_r64
+F0 86 08, Xchg_rm8_r8
+F0 66 87 08, Xchg_rm16_r16
+F0 87 08, Xchg_rm32_r32
+F0 48 87 08, Xchg_rm64_r64
+F0 0F C7 08, Cmpxchg8b_m64
+F0 48 0F C7 08, Cmpxchg16b_m128
+F3 6C, Insb_m8_DX
+F3 66 6D, Insw_m16_DX
+F3 6D, Insd_m32_DX
+F3 6E, Outsb_DX_m8
+F3 66 6F, Outsw_DX_m16
+F3 6F, Outsd_DX_m32
+F3 A4, Movsb_m8_m8
+F3 66 A5, Movsw_m16_m16
+F3 A5, Movsd_m32_m32
+F3 48 A5, Movsq_m64_m64
+F3 A6, Cmpsb_m8_m8
+F2 A6, Cmpsb_m8_m8
+F3 66 A7, Cmpsw_m16_m16
+F2 66 A7, Cmpsw_m16_m16
+F3 A7, Cmpsd_m32_m32
+F2 A7, Cmpsd_m32_m32
+F3 48 A7, Cmpsq_m64_m64
+F2 48 A7, Cmpsq_m64_m64
+F3 AA, Stosb_m8_AL
+F3 66 AB, Stosw_m16_AX
+F3 AB, Stosd_m32_EAX
+F3 48 AB, Stosq_m64_RAX
+F3 AC, Lodsb_AL_m8
+F3 66 AD, Lodsw_AX_m16
+F3 AD, Lodsd_EAX_m32
+F3 48 AD, Lodsq_RAX_m64
+F3 AE, Scasb_AL_m8
+F2 AE, Scasb_AL_m8
+F3 66 AF, Scasw_AX_m16
+F2 66 AF, Scasw_AX_m16
+F3 AF, Scasd_EAX_m32
+F2 AF, Scasd_EAX_m32
+F3 48 AF, Scasq_RAX_m64
+F2 48 AF, Scasq_RAX_m64
+F2 F0 10 08, Adc_rm8_r8
+F2 F0 80 10 A5, Adc_rm8_imm8
+F2 F0 66 11 08, Adc_rm16_r16
+F2 F0 66 83 10 A5, Adc_rm16_imm8
+F2 F0 66 81 10 5AA5, Adc_rm16_imm16
+F2 F0 11 08, Adc_rm32_r32
+F2 F0 83 10 A5, Adc_rm32_imm8
+F2 F0 81 10 34 12 5AA5, Adc_rm32_imm32
+F2 F0 48 11 08, Adc_rm64_r64
+F2 F0 48 83 10 A5, Adc_rm64_imm8
+F2 F0 48 81 10 34 12 5AA5, Adc_rm64_imm32
+F2 F0 00 08, Add_rm8_r8
+F2 F0 80 00 A5, Add_rm8_imm8
+F2 F0 66 01 08, Add_rm16_r16
+F2 F0 66 83 00 A5, Add_rm16_imm8
+F2 F0 66 81 00 5AA5, Add_rm16_imm16
+F2 F0 01 08, Add_rm32_r32
+F2 F0 83 00 A5, Add_rm32_imm8
+F2 F0 81 00 34 12 5AA5, Add_rm32_imm32
+F2 F0 48 01 08, Add_rm64_r64
+F2 F0 48 83 00 A5, Add_rm64_imm8
+F2 F0 48 81 00 34 12 5AA5, Add_rm64_imm32
+F2 F0 20 08, And_rm8_r8
+F2 F0 80 20 A5, And_rm8_imm8
+F2 F0 66 21 08, And_rm16_r16
+F2 F0 66 83 20 A5, And_rm16_imm8
+F2 F0 66 81 20 5AA5, And_rm16_imm16
+F2 F0 21 08, And_rm32_r32
+F2 F0 83 20 A5, And_rm32_imm8
+F2 F0 81 20 34 12 5AA5, And_rm32_imm32
+F2 F0 48 21 08, And_rm64_r64
+F2 F0 48 83 20 A5, And_rm64_imm8
+F2 F0 48 81 20 34 12 5AA5, And_rm64_imm32
+F2 F0 08 08, Or_rm8_r8
+F2 F0 80 08 A5, Or_rm8_imm8
+F2 F0 66 09 08, Or_rm16_r16
+F2 F0 66 83 08 A5, Or_rm16_imm8
+F2 F0 66 81 08 5AA5, Or_rm16_imm16
+F2 F0 09 08, Or_rm32_r32
+F2 F0 83 08 A5, Or_rm32_imm8
+F2 F0 81 08 34 12 5AA5, Or_rm32_imm32
+F2 F0 48 09 08, Or_rm64_r64
+F2 F0 48 83 08 A5, Or_rm64_imm8
+F2 F0 48 81 08 34 12 5AA5, Or_rm64_imm32
+F2 F0 18 08, Sbb_rm8_r8
+F2 F0 80 18 A5, Sbb_rm8_imm8
+F2 F0 66 19 08, Sbb_rm16_r16
+F2 F0 66 83 18 A5, Sbb_rm16_imm8
+F2 F0 66 81 18 5AA5, Sbb_rm16_imm16
+F2 F0 19 08, Sbb_rm32_r32
+F2 F0 83 18 A5, Sbb_rm32_imm8
+F2 F0 81 18 34 12 5AA5, Sbb_rm32_imm32
+F2 F0 48 19 08, Sbb_rm64_r64
+F2 F0 48 83 18 A5, Sbb_rm64_imm8
+F2 F0 48 81 18 34 12 5AA5, Sbb_rm64_imm32
+F2 F0 28 08, Sub_rm8_r8
+F2 F0 80 28 A5, Sub_rm8_imm8
+F2 F0 66 29 08, Sub_rm16_r16
+F2 F0 66 83 28 A5, Sub_rm16_imm8
+F2 F0 66 81 28 5AA5, Sub_rm16_imm16
+F2 F0 29 08, Sub_rm32_r32
+F2 F0 83 28 A5, Sub_rm32_imm8
+F2 F0 81 28 34 12 5AA5, Sub_rm32_imm32
+F2 F0 48 29 08, Sub_rm64_r64
+F2 F0 48 83 28 A5, Sub_rm64_imm8
+F2 F0 48 81 28 34 12 5AA5, Sub_rm64_imm32
+F2 F0 30 08, Xor_rm8_r8
+F2 F0 80 30 A5, Xor_rm8_imm8
+F2 F0 66 31 08, Xor_rm16_r16
+F2 F0 66 83 30 A5, Xor_rm16_imm8
+F2 F0 66 81 30 5AA5, Xor_rm16_imm16
+F2 F0 31 08, Xor_rm32_r32
+F2 F0 83 30 A5, Xor_rm32_imm8
+F2 F0 81 30 34 12 5AA5, Xor_rm32_imm32
+F2 F0 48 31 08, Xor_rm64_r64
+F2 F0 48 83 30 A5, Xor_rm64_imm8
+F2 F0 48 81 30 34 12 5AA5, Xor_rm64_imm32
+F2 F0 66 0F BB 08, Btc_rm16_r16
+F2 F0 66 0F BA 38 A5, Btc_rm16_imm8
+F2 F0 0F BB 08, Btc_rm32_r32
+F2 F0 0F BA 38 A5, Btc_rm32_imm8
+F2 F0 48 0F BB 08, Btc_rm64_r64
+F2 F0 48 0F BA 38 A5, Btc_rm64_imm8
+F2 F0 66 0F B3 08, Btr_rm16_r16
+F2 F0 66 0F BA 30 A5, Btr_rm16_imm8
+F2 F0 0F B3 08, Btr_rm32_r32
+F2 F0 0F BA 30 A5, Btr_rm32_imm8
+F2 F0 48 0F B3 08, Btr_rm64_r64
+F2 F0 48 0F BA 30 A5, Btr_rm64_imm8
+F2 F0 66 0F AB 08, Bts_rm16_r16
+F2 F0 66 0F BA 28 A5, Bts_rm16_imm8
+F2 F0 0F AB 08, Bts_rm32_r32
+F2 F0 0F BA 28 A5, Bts_rm32_imm8
+F2 F0 48 0F AB 08, Bts_rm64_r64
+F2 F0 48 0F BA 28 A5, Bts_rm64_imm8
+F2 F0 FE 08, Dec_rm8
+F2 F0 66 FF 08, Dec_rm16
+F2 F0 FF 08, Dec_rm32
+F2 F0 48 FF 08, Dec_rm64
+F2 F0 FE 00, Inc_rm8
+F2 F0 66 FF 00, Inc_rm16
+F2 F0 FF 00, Inc_rm32
+F2 F0 48 FF 00, Inc_rm64
+F2 F0 F6 18, Neg_rm8
+F2 F0 66 F7 18, Neg_rm16
+F2 F0 F7 18, Neg_rm32
+F2 F0 48 F7 18, Neg_rm64
+F2 F0 F6 10, Not_rm8
+F2 F0 66 F7 10, Not_rm16
+F2 F0 F7 10, Not_rm32
+F2 F0 48 F7 10, Not_rm64
+F2 F0 0F B0 08, Cmpxchg_rm8_r8
+F2 F0 66 0F B1 08, Cmpxchg_rm16_r16
+F2 F0 0F B1 08, Cmpxchg_rm32_r32
+F2 F0 48 0F B1 08, Cmpxchg_rm64_r64
+F2 F0 0F C0 08, Xadd_rm8_r8
+F2 F0 66 0F C1 08, Xadd_rm16_r16
+F2 F0 0F C1 08, Xadd_rm32_r32
+F2 F0 48 0F C1 08, Xadd_rm64_r64
+F2 86 08, Xchg_rm8_r8
+F2 66 87 08, Xchg_rm16_r16
+F2 87 08, Xchg_rm32_r32
+F2 48 87 08, Xchg_rm64_r64
+F2 F0 86 08, Xchg_rm8_r8
+F2 F0 66 87 08, Xchg_rm16_r16
+F2 F0 87 08, Xchg_rm32_r32
+F2 F0 48 87 08, Xchg_rm64_r64
+F2 F0 0F C7 08, Cmpxchg8b_m64
+F3 F0 10 08, Adc_rm8_r8
+F3 F0 80 10 A5, Adc_rm8_imm8
+F3 F0 66 11 08, Adc_rm16_r16
+F3 F0 66 83 10 A5, Adc_rm16_imm8
+F3 F0 66 81 10 5AA5, Adc_rm16_imm16
+F3 F0 11 08, Adc_rm32_r32
+F3 F0 83 10 A5, Adc_rm32_imm8
+F3 F0 81 10 34 12 5AA5, Adc_rm32_imm32
+F3 F0 48 11 08, Adc_rm64_r64
+F3 F0 48 83 10 A5, Adc_rm64_imm8
+F3 F0 48 81 10 34 12 5AA5, Adc_rm64_imm32
+F3 F0 00 08, Add_rm8_r8
+F3 F0 80 00 A5, Add_rm8_imm8
+F3 F0 66 01 08, Add_rm16_r16
+F3 F0 66 83 00 A5, Add_rm16_imm8
+F3 F0 66 81 00 5AA5, Add_rm16_imm16
+F3 F0 01 08, Add_rm32_r32
+F3 F0 83 00 A5, Add_rm32_imm8
+F3 F0 81 00 34 12 5AA5, Add_rm32_imm32
+F3 F0 48 01 08, Add_rm64_r64
+F3 F0 48 83 00 A5, Add_rm64_imm8
+F3 F0 48 81 00 34 12 5AA5, Add_rm64_imm32
+F3 F0 20 08, And_rm8_r8
+F3 F0 80 20 A5, And_rm8_imm8
+F3 F0 66 21 08, And_rm16_r16
+F3 F0 66 83 20 A5, And_rm16_imm8
+F3 F0 66 81 20 5AA5, And_rm16_imm16
+F3 F0 21 08, And_rm32_r32
+F3 F0 83 20 A5, And_rm32_imm8
+F3 F0 81 20 34 12 5AA5, And_rm32_imm32
+F3 F0 48 21 08, And_rm64_r64
+F3 F0 48 83 20 A5, And_rm64_imm8
+F3 F0 48 81 20 34 12 5AA5, And_rm64_imm32
+F3 F0 08 08, Or_rm8_r8
+F3 F0 80 08 A5, Or_rm8_imm8
+F3 F0 66 09 08, Or_rm16_r16
+F3 F0 66 83 08 A5, Or_rm16_imm8
+F3 F0 66 81 08 5AA5, Or_rm16_imm16
+F3 F0 09 08, Or_rm32_r32
+F3 F0 83 08 A5, Or_rm32_imm8
+F3 F0 81 08 34 12 5AA5, Or_rm32_imm32
+F3 F0 48 09 08, Or_rm64_r64
+F3 F0 48 83 08 A5, Or_rm64_imm8
+F3 F0 48 81 08 34 12 5AA5, Or_rm64_imm32
+F3 F0 18 08, Sbb_rm8_r8
+F3 F0 80 18 A5, Sbb_rm8_imm8
+F3 F0 66 19 08, Sbb_rm16_r16
+F3 F0 66 83 18 A5, Sbb_rm16_imm8
+F3 F0 66 81 18 5AA5, Sbb_rm16_imm16
+F3 F0 19 08, Sbb_rm32_r32
+F3 F0 83 18 A5, Sbb_rm32_imm8
+F3 F0 81 18 34 12 5AA5, Sbb_rm32_imm32
+F3 F0 48 19 08, Sbb_rm64_r64
+F3 F0 48 83 18 A5, Sbb_rm64_imm8
+F3 F0 48 81 18 34 12 5AA5, Sbb_rm64_imm32
+F3 F0 28 08, Sub_rm8_r8
+F3 F0 80 28 A5, Sub_rm8_imm8
+F3 F0 66 29 08, Sub_rm16_r16
+F3 F0 66 83 28 A5, Sub_rm16_imm8
+F3 F0 66 81 28 5AA5, Sub_rm16_imm16
+F3 F0 29 08, Sub_rm32_r32
+F3 F0 83 28 A5, Sub_rm32_imm8
+F3 F0 81 28 34 12 5AA5, Sub_rm32_imm32
+F3 F0 48 29 08, Sub_rm64_r64
+F3 F0 48 83 28 A5, Sub_rm64_imm8
+F3 F0 48 81 28 34 12 5AA5, Sub_rm64_imm32
+F3 F0 30 08, Xor_rm8_r8
+F3 F0 80 30 A5, Xor_rm8_imm8
+F3 F0 66 31 08, Xor_rm16_r16
+F3 F0 66 83 30 A5, Xor_rm16_imm8
+F3 F0 66 81 30 5AA5, Xor_rm16_imm16
+F3 F0 31 08, Xor_rm32_r32
+F3 F0 83 30 A5, Xor_rm32_imm8
+F3 F0 81 30 34 12 5AA5, Xor_rm32_imm32
+F3 F0 48 31 08, Xor_rm64_r64
+F3 F0 48 83 30 A5, Xor_rm64_imm8
+F3 F0 48 81 30 34 12 5AA5, Xor_rm64_imm32
+F3 F0 66 0F BB 08, Btc_rm16_r16
+F3 F0 66 0F BA 38 A5, Btc_rm16_imm8
+F3 F0 0F BB 08, Btc_rm32_r32
+F3 F0 0F BA 38 A5, Btc_rm32_imm8
+F3 F0 48 0F BB 08, Btc_rm64_r64
+F3 F0 48 0F BA 38 A5, Btc_rm64_imm8
+F3 F0 66 0F B3 08, Btr_rm16_r16
+F3 F0 66 0F BA 30 A5, Btr_rm16_imm8
+F3 F0 0F B3 08, Btr_rm32_r32
+F3 F0 0F BA 30 A5, Btr_rm32_imm8
+F3 F0 48 0F B3 08, Btr_rm64_r64
+F3 F0 48 0F BA 30 A5, Btr_rm64_imm8
+F3 F0 66 0F AB 08, Bts_rm16_r16
+F3 F0 66 0F BA 28 A5, Bts_rm16_imm8
+F3 F0 0F AB 08, Bts_rm32_r32
+F3 F0 0F BA 28 A5, Bts_rm32_imm8
+F3 F0 48 0F AB 08, Bts_rm64_r64
+F3 F0 48 0F BA 28 A5, Bts_rm64_imm8
+F3 F0 FE 08, Dec_rm8
+F3 F0 66 FF 08, Dec_rm16
+F3 F0 FF 08, Dec_rm32
+F3 F0 48 FF 08, Dec_rm64
+F3 F0 FE 00, Inc_rm8
+F3 F0 66 FF 00, Inc_rm16
+F3 F0 FF 00, Inc_rm32
+F3 F0 48 FF 00, Inc_rm64
+F3 F0 F6 18, Neg_rm8
+F3 F0 66 F7 18, Neg_rm16
+F3 F0 F7 18, Neg_rm32
+F3 F0 48 F7 18, Neg_rm64
+F3 F0 F6 10, Not_rm8
+F3 F0 66 F7 10, Not_rm16
+F3 F0 F7 10, Not_rm32
+F3 F0 48 F7 10, Not_rm64
+F3 F0 0F B0 08, Cmpxchg_rm8_r8
+F3 F0 66 0F B1 08, Cmpxchg_rm16_r16
+F3 F0 0F B1 08, Cmpxchg_rm32_r32
+F3 F0 48 0F B1 08, Cmpxchg_rm64_r64
+F3 F0 0F C0 08, Xadd_rm8_r8
+F3 F0 66 0F C1 08, Xadd_rm16_r16
+F3 F0 0F C1 08, Xadd_rm32_r32
+F3 F0 48 0F C1 08, Xadd_rm64_r64
+F3 86 08, Xchg_rm8_r8
+F3 66 87 08, Xchg_rm16_r16
+F3 87 08, Xchg_rm32_r32
+F3 48 87 08, Xchg_rm64_r64
+F3 F0 86 08, Xchg_rm8_r8
+F3 F0 66 87 08, Xchg_rm16_r16
+F3 F0 87 08, Xchg_rm32_r32
+F3 F0 48 87 08, Xchg_rm64_r64
+F3 F0 0F C7 08, Cmpxchg8b_m64
+F3 88 08, Mov_rm8_r8
+F3 66 89 08, Mov_rm16_r16
+F3 89 08, Mov_rm32_r32
+F3 48 89 08, Mov_rm64_r64
+F3 C6 00 A5, Mov_rm8_imm8
+F3 66 C7 00 5AA5, Mov_rm16_imm16
+F3 C7 00 34125AA5, Mov_rm32_imm32
+F3 48 C7 00 34125AA5, Mov_rm64_imm32
+2E 70 00, Jo_rel8_64
+2E 71 00, Jno_rel8_64
+2E 72 00, Jb_rel8_64
+2E 73 00, Jae_rel8_64
+2E 74 00, Je_rel8_64
+2E 75 00, Jne_rel8_64
+2E 76 00, Jbe_rel8_64
+2E 77 00, Ja_rel8_64
+2E 78 00, Js_rel8_64
+2E 79 00, Jns_rel8_64
+2E 7A 00, Jp_rel8_64
+2E 7B 00, Jnp_rel8_64
+2E 7C 00, Jl_rel8_64
+2E 7D 00, Jge_rel8_64
+2E 7E 00, Jle_rel8_64
+2E 7F 00, Jg_rel8_64
+3E 70 00, Jo_rel8_64
+3E 71 00, Jno_rel8_64
+3E 72 00, Jb_rel8_64
+3E 73 00, Jae_rel8_64
+3E 74 00, Je_rel8_64
+3E 75 00, Jne_rel8_64
+3E 76 00, Jbe_rel8_64
+3E 77 00, Ja_rel8_64
+3E 78 00, Js_rel8_64
+3E 79 00, Jns_rel8_64
+3E 7A 00, Jp_rel8_64
+3E 7B 00, Jnp_rel8_64
+3E 7C 00, Jl_rel8_64
+3E 7D 00, Jge_rel8_64
+3E 7E 00, Jle_rel8_64
+3E 7F 00, Jg_rel8_64
+2E 0F80 00000000, Jo_rel32_64
+2E 0F81 00000000, Jno_rel32_64
+2E 0F82 00000000, Jb_rel32_64
+2E 0F83 00000000, Jae_rel32_64
+2E 0F84 00000000, Je_rel32_64
+2E 0F85 00000000, Jne_rel32_64
+2E 0F86 00000000, Jbe_rel32_64
+2E 0F87 00000000, Ja_rel32_64
+2E 0F88 00000000, Js_rel32_64
+2E 0F89 00000000, Jns_rel32_64
+2E 0F8A 00000000, Jp_rel32_64
+2E 0F8B 00000000, Jnp_rel32_64
+2E 0F8C 00000000, Jl_rel32_64
+2E 0F8D 00000000, Jge_rel32_64
+2E 0F8E 00000000, Jle_rel32_64
+2E 0F8F 00000000, Jg_rel32_64
+3E 0F80 00000000, Jo_rel32_64
+3E 0F81 00000000, Jno_rel32_64
+3E 0F82 00000000, Jb_rel32_64
+3E 0F83 00000000, Jae_rel32_64
+3E 0F84 00000000, Je_rel32_64
+3E 0F85 00000000, Jne_rel32_64
+3E 0F86 00000000, Jbe_rel32_64
+3E 0F87 00000000, Ja_rel32_64
+3E 0F88 00000000, Js_rel32_64
+3E 0F89 00000000, Jns_rel32_64
+3E 0F8A 00000000, Jp_rel32_64
+3E 0F8B 00000000, Jnp_rel32_64
+3E 0F8C 00000000, Jl_rel32_64
+3E 0F8D 00000000, Jge_rel32_64
+3E 0F8E 00000000, Jle_rel32_64
+3E 0F8F 00000000, Jg_rel32_64
+F2 70 00, Jo_rel8_64
+F2 71 00, Jno_rel8_64
+F2 72 00, Jb_rel8_64
+F2 73 00, Jae_rel8_64
+F2 74 00, Je_rel8_64
+F2 75 00, Jne_rel8_64
+F2 76 00, Jbe_rel8_64
+F2 77 00, Ja_rel8_64
+F2 78 00, Js_rel8_64
+F2 79 00, Jns_rel8_64
+F2 7A 00, Jp_rel8_64
+F2 7B 00, Jnp_rel8_64
+F2 7C 00, Jl_rel8_64
+F2 7D 00, Jge_rel8_64
+F2 7E 00, Jle_rel8_64
+F2 7F 00, Jg_rel8_64
+F2 0F80 00000000, Jo_rel32_64
+F2 0F81 00000000, Jno_rel32_64
+F2 0F82 00000000, Jb_rel32_64
+F2 0F83 00000000, Jae_rel32_64
+F2 0F84 00000000, Je_rel32_64
+F2 0F85 00000000, Jne_rel32_64
+F2 0F86 00000000, Jbe_rel32_64
+F2 0F87 00000000, Ja_rel32_64
+F2 0F88 00000000, Js_rel32_64
+F2 0F89 00000000, Jns_rel32_64
+F2 0F8A 00000000, Jp_rel32_64
+F2 0F8B 00000000, Jnp_rel32_64
+F2 0F8C 00000000, Jl_rel32_64
+F2 0F8D 00000000, Jge_rel32_64
+F2 0F8E 00000000, Jle_rel32_64
+F2 0F8F 00000000, Jg_rel32_64
+F2 E9 00000000, Jmp_rel32_64
+F2 FF 20, Jmp_rm64
+F2 FF E0, Jmp_rm64
+F2 E8 00000000, Call_rel32_64
+F2 FF 10, Call_rm64
+F2 FF D0, Call_rm64
+F2 C2 00 00, Retnq_imm16
+F2 C3, Retnq
+3E FF 10, Call_rm64
+3E FF 55 11, Call_rm64
+3E FF D1, Call_rm64
+3E FF 20, Jmp_rm64
+3E FF 65 11, Jmp_rm64
+3E FF E1, Jmp_rm64
+3E F2 FF D1, Call_rm64
+64 3E FF 10, Call_rm64
+3E 64 FF 10, Call_rm64
+3E F2 FF E1, Jmp_rm64
+64 3E FF 20, Jmp_rm64
+3E 64 FF 20, Jmp_rm64

@@ -30,22 +30,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 		[Theory]
 		[MemberData(nameof(Format_Data))]
 		void Format(int index, object number, string formattedString) => FormatBase(index, number, formattedString, GasFormatterFactory.Create_Numbers());
-		public static IEnumerable<object[]> Format_Data => GetFormatData(allNumbers, formattedStrings);
-
-		static readonly string[] formattedStrings = new string[allNumbersCount] {
-			"-0x80",
-			"0x7f",
-			"-0x8000",
-			"0x7fff",
-			"-0x80000000",
-			"0x7fffffff",
-			"-0x8000000000000000",
-			"0x7fffffffffffffff",
-			"0xff",
-			"0xffff",
-			"0xffffffff",
-			"0xffffffffffffffff",
-		};
+		public static IEnumerable<object[]> Format_Data => GetFormatData(allNumbers, "Gas", nameof(GasNumberTests));
 	}
 }
 #endif

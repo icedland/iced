@@ -24,6 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
@@ -55,7 +57,9 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	}
 
 	public abstract class SymbolResolverTests {
-		protected static IEnumerable<object[]> GetFormatData(SymbolInstructionInfo[] infos, string[] formattedStrings) {
+		protected static IEnumerable<object[]> GetFormatData(string formatterDir, string formattedStringsFile) {
+			var infos = SymbolResolverTestInfos.AllInfos;
+			var formattedStrings = FileUtils.ReadRawStrings(Path.Combine(formatterDir, formattedStringsFile)).ToArray();
 			if (infos.Length != formattedStrings.Length)
 				throw new ArgumentException($"(infos.Length) {infos.Length} != (formattedStrings.Length) {formattedStrings.Length} . infos[0].HexBytes = {(infos.Length == 0 ? "<EMPTY>" : infos[0].HexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
 			var res = new object[infos.Length][];

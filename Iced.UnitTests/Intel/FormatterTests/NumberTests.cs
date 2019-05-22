@@ -24,12 +24,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Iced.Intel;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public abstract class NumberTests {
-		protected static IEnumerable<object[]> GetFormatData(object[] numbers, string[] formattedNumbers) {
+		protected static IEnumerable<object[]> GetFormatData(object[] numbers, string formatterDir, string formattedNumbersFile) {
+			var formattedNumbers = FileUtils.ReadRawStrings(Path.Combine(formatterDir, formattedNumbersFile)).ToArray();
 			if (numbers.Length != formattedNumbers.Length)
 				throw new ArgumentException();
 			var res = new object[formattedNumbers.Length][];

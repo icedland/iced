@@ -195,6 +195,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			ulong rip = decoder.IP;
 			decoder.Decode(out var instr);
 			Assert.Equal(tc.Code, instr.Code);
+			Assert.Equal(tc.Mnemonic, instr.Mnemonic);
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.Equal(rip, instr.IP);
 			Assert.Equal(decoder.IP, instr.NextIP);
