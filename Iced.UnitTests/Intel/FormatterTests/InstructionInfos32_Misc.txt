@@ -1,0 +1,139 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+2E 70 00, Jo_rel8_32
+2E 71 00, Jno_rel8_32
+2E 72 00, Jb_rel8_32
+2E 73 00, Jae_rel8_32
+2E 74 00, Je_rel8_32
+2E 75 00, Jne_rel8_32
+2E 76 00, Jbe_rel8_32
+2E 77 00, Ja_rel8_32
+2E 78 00, Js_rel8_32
+2E 79 00, Jns_rel8_32
+2E 7A 00, Jp_rel8_32
+2E 7B 00, Jnp_rel8_32
+2E 7C 00, Jl_rel8_32
+2E 7D 00, Jge_rel8_32
+2E 7E 00, Jle_rel8_32
+2E 7F 00, Jg_rel8_32
+3E 70 00, Jo_rel8_32
+3E 71 00, Jno_rel8_32
+3E 72 00, Jb_rel8_32
+3E 73 00, Jae_rel8_32
+3E 74 00, Je_rel8_32
+3E 75 00, Jne_rel8_32
+3E 76 00, Jbe_rel8_32
+3E 77 00, Ja_rel8_32
+3E 78 00, Js_rel8_32
+3E 79 00, Jns_rel8_32
+3E 7A 00, Jp_rel8_32
+3E 7B 00, Jnp_rel8_32
+3E 7C 00, Jl_rel8_32
+3E 7D 00, Jge_rel8_32
+3E 7E 00, Jle_rel8_32
+3E 7F 00, Jg_rel8_32
+2E 0F80 00000000, Jo_rel32_32
+2E 0F81 00000000, Jno_rel32_32
+2E 0F82 00000000, Jb_rel32_32
+2E 0F83 00000000, Jae_rel32_32
+2E 0F84 00000000, Je_rel32_32
+2E 0F85 00000000, Jne_rel32_32
+2E 0F86 00000000, Jbe_rel32_32
+2E 0F87 00000000, Ja_rel32_32
+2E 0F88 00000000, Js_rel32_32
+2E 0F89 00000000, Jns_rel32_32
+2E 0F8A 00000000, Jp_rel32_32
+2E 0F8B 00000000, Jnp_rel32_32
+2E 0F8C 00000000, Jl_rel32_32
+2E 0F8D 00000000, Jge_rel32_32
+2E 0F8E 00000000, Jle_rel32_32
+2E 0F8F 00000000, Jg_rel32_32
+3E 0F80 00000000, Jo_rel32_32
+3E 0F81 00000000, Jno_rel32_32
+3E 0F82 00000000, Jb_rel32_32
+3E 0F83 00000000, Jae_rel32_32
+3E 0F84 00000000, Je_rel32_32
+3E 0F85 00000000, Jne_rel32_32
+3E 0F86 00000000, Jbe_rel32_32
+3E 0F87 00000000, Ja_rel32_32
+3E 0F88 00000000, Js_rel32_32
+3E 0F89 00000000, Jns_rel32_32
+3E 0F8A 00000000, Jp_rel32_32
+3E 0F8B 00000000, Jnp_rel32_32
+3E 0F8C 00000000, Jl_rel32_32
+3E 0F8D 00000000, Jge_rel32_32
+3E 0F8E 00000000, Jle_rel32_32
+3E 0F8F 00000000, Jg_rel32_32
+F2 70 00, Jo_rel8_32
+F2 71 00, Jno_rel8_32
+F2 72 00, Jb_rel8_32
+F2 73 00, Jae_rel8_32
+F2 74 00, Je_rel8_32
+F2 75 00, Jne_rel8_32
+F2 76 00, Jbe_rel8_32
+F2 77 00, Ja_rel8_32
+F2 78 00, Js_rel8_32
+F2 79 00, Jns_rel8_32
+F2 7A 00, Jp_rel8_32
+F2 7B 00, Jnp_rel8_32
+F2 7C 00, Jl_rel8_32
+F2 7D 00, Jge_rel8_32
+F2 7E 00, Jle_rel8_32
+F2 7F 00, Jg_rel8_32
+F2 0F80 00000000, Jo_rel32_32
+F2 0F81 00000000, Jno_rel32_32
+F2 0F82 00000000, Jb_rel32_32
+F2 0F83 00000000, Jae_rel32_32
+F2 0F84 00000000, Je_rel32_32
+F2 0F85 00000000, Jne_rel32_32
+F2 0F86 00000000, Jbe_rel32_32
+F2 0F87 00000000, Ja_rel32_32
+F2 0F88 00000000, Js_rel32_32
+F2 0F89 00000000, Jns_rel32_32
+F2 0F8A 00000000, Jp_rel32_32
+F2 0F8B 00000000, Jnp_rel32_32
+F2 0F8C 00000000, Jl_rel32_32
+F2 0F8D 00000000, Jge_rel32_32
+F2 0F8E 00000000, Jle_rel32_32
+F2 0F8F 00000000, Jg_rel32_32
+F2 E9 00000000, Jmp_rel32_32
+F2 FF 20, Jmp_rm32
+F2 FF E0, Jmp_rm32
+F2 E8 00000000, Call_rel32_32
+F2 FF 10, Call_rm32
+F2 FF D0, Call_rm32
+F2 C2 00 00, Retnd_imm16
+F2 C3, Retnd
+3E FF 10, Call_rm32
+3E FF 55 11, Call_rm32
+3E FF D1, Call_rm32
+3E FF 20, Jmp_rm32
+3E FF 65 11, Jmp_rm32
+3E FF E1, Jmp_rm32
+3E F2 FF D1, Call_rm32
+64 3E FF 10, Call_rm32
+3E 64 FF 10, Call_rm32
+3E F2 FF E1, Jmp_rm32
+64 3E FF 20, Jmp_rm32
+3E 64 FF 20, Jmp_rm32

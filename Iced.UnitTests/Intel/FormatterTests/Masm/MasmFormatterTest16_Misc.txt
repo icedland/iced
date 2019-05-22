@@ -1,0 +1,139 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+hnt jo short 7FF3h
+hnt jno short 7FF3h
+hnt jb short 7FF3h
+hnt jae short 7FF3h
+hnt je short 7FF3h
+hnt jne short 7FF3h
+hnt jbe short 7FF3h
+hnt ja short 7FF3h
+hnt js short 7FF3h
+hnt jns short 7FF3h
+hnt jp short 7FF3h
+hnt jnp short 7FF3h
+hnt jl short 7FF3h
+hnt jge short 7FF3h
+hnt jle short 7FF3h
+hnt jg short 7FF3h
+ht jo short 7FF3h
+ht jno short 7FF3h
+ht jb short 7FF3h
+ht jae short 7FF3h
+ht je short 7FF3h
+ht jne short 7FF3h
+ht jbe short 7FF3h
+ht ja short 7FF3h
+ht js short 7FF3h
+ht jns short 7FF3h
+ht jp short 7FF3h
+ht jnp short 7FF3h
+ht jl short 7FF3h
+ht jge short 7FF3h
+ht jle short 7FF3h
+ht jg short 7FF3h
+hnt jo near ptr 7FF5h
+hnt jno near ptr 7FF5h
+hnt jb near ptr 7FF5h
+hnt jae near ptr 7FF5h
+hnt je near ptr 7FF5h
+hnt jne near ptr 7FF5h
+hnt jbe near ptr 7FF5h
+hnt ja near ptr 7FF5h
+hnt js near ptr 7FF5h
+hnt jns near ptr 7FF5h
+hnt jp near ptr 7FF5h
+hnt jnp near ptr 7FF5h
+hnt jl near ptr 7FF5h
+hnt jge near ptr 7FF5h
+hnt jle near ptr 7FF5h
+hnt jg near ptr 7FF5h
+ht jo near ptr 7FF5h
+ht jno near ptr 7FF5h
+ht jb near ptr 7FF5h
+ht jae near ptr 7FF5h
+ht je near ptr 7FF5h
+ht jne near ptr 7FF5h
+ht jbe near ptr 7FF5h
+ht ja near ptr 7FF5h
+ht js near ptr 7FF5h
+ht jns near ptr 7FF5h
+ht jp near ptr 7FF5h
+ht jnp near ptr 7FF5h
+ht jl near ptr 7FF5h
+ht jge near ptr 7FF5h
+ht jle near ptr 7FF5h
+ht jg near ptr 7FF5h
+bnd jo short 7FF3h
+bnd jno short 7FF3h
+bnd jb short 7FF3h
+bnd jae short 7FF3h
+bnd je short 7FF3h
+bnd jne short 7FF3h
+bnd jbe short 7FF3h
+bnd ja short 7FF3h
+bnd js short 7FF3h
+bnd jns short 7FF3h
+bnd jp short 7FF3h
+bnd jnp short 7FF3h
+bnd jl short 7FF3h
+bnd jge short 7FF3h
+bnd jle short 7FF3h
+bnd jg short 7FF3h
+bnd jo near ptr 7FF5h
+bnd jno near ptr 7FF5h
+bnd jb near ptr 7FF5h
+bnd jae near ptr 7FF5h
+bnd je near ptr 7FF5h
+bnd jne near ptr 7FF5h
+bnd jbe near ptr 7FF5h
+bnd ja near ptr 7FF5h
+bnd js near ptr 7FF5h
+bnd jns near ptr 7FF5h
+bnd jp near ptr 7FF5h
+bnd jnp near ptr 7FF5h
+bnd jl near ptr 7FF5h
+bnd jge near ptr 7FF5h
+bnd jle near ptr 7FF5h
+bnd jg near ptr 7FF5h
+bnd jmp near ptr 7FF4h
+bnd jmp word ptr [bx+si]
+bnd jmp ax
+bnd call 7FF4h
+bnd call word ptr [bx+si]
+bnd call ax
+bnd ret 0
+bnd ret
+notrack call word ptr ds:[bx+si]
+notrack call word ptr ds:[bp+11h]
+notrack call cx
+notrack jmp word ptr ds:[bx+si]
+notrack jmp word ptr ds:[bp+11h]
+notrack jmp cx
+notrack bnd call cx
+notrack call word ptr ds:[bx+si]
+call word ptr fs:[bx+si]
+notrack bnd jmp cx
+notrack jmp word ptr ds:[bx+si]
+jmp word ptr fs:[bx+si]

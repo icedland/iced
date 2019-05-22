@@ -44,14 +44,16 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			numCodeValues++;
 			var tested = new byte[numCodeValues];
 
-			var types = GetType().Assembly.GetTypes().Where(a =>
-					a.Namespace == GetType().Namespace &&
-					(a.Name.StartsWith("InstructionInfos16_") || a.Name.StartsWith("InstructionInfos32_") || a.Name.StartsWith("InstructionInfos64_"))).ToArray();
-			foreach (var type in types) {
-				var fieldInfo = type.GetField("AllInfos");
-				Assert.NotNull(fieldInfo);
-				var infos = fieldInfo.GetValue(null) as InstructionInfo[];
-				Assert.NotNull(infos);
+			var allArgs = new (int bitness, bool isMisc)[] {
+				(16, false),
+				(32, false),
+				(64, false),
+				(16, true),
+				(32, true),
+				(64, true),
+			};
+			foreach (var args in allArgs) {
+				var infos = FormatterTest.GetInstructionInfos(args.bitness, args.isMisc);
 				foreach (var info in infos)
 					tested[(int)info.Code] = 1;
 			}

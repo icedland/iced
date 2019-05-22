@@ -1,0 +1,139 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+2E 70 00, Jo_rel8_16
+2E 71 00, Jno_rel8_16
+2E 72 00, Jb_rel8_16
+2E 73 00, Jae_rel8_16
+2E 74 00, Je_rel8_16
+2E 75 00, Jne_rel8_16
+2E 76 00, Jbe_rel8_16
+2E 77 00, Ja_rel8_16
+2E 78 00, Js_rel8_16
+2E 79 00, Jns_rel8_16
+2E 7A 00, Jp_rel8_16
+2E 7B 00, Jnp_rel8_16
+2E 7C 00, Jl_rel8_16
+2E 7D 00, Jge_rel8_16
+2E 7E 00, Jle_rel8_16
+2E 7F 00, Jg_rel8_16
+3E 70 00, Jo_rel8_16
+3E 71 00, Jno_rel8_16
+3E 72 00, Jb_rel8_16
+3E 73 00, Jae_rel8_16
+3E 74 00, Je_rel8_16
+3E 75 00, Jne_rel8_16
+3E 76 00, Jbe_rel8_16
+3E 77 00, Ja_rel8_16
+3E 78 00, Js_rel8_16
+3E 79 00, Jns_rel8_16
+3E 7A 00, Jp_rel8_16
+3E 7B 00, Jnp_rel8_16
+3E 7C 00, Jl_rel8_16
+3E 7D 00, Jge_rel8_16
+3E 7E 00, Jle_rel8_16
+3E 7F 00, Jg_rel8_16
+2E 0F80 0000, Jo_rel16
+2E 0F81 0000, Jno_rel16
+2E 0F82 0000, Jb_rel16
+2E 0F83 0000, Jae_rel16
+2E 0F84 0000, Je_rel16
+2E 0F85 0000, Jne_rel16
+2E 0F86 0000, Jbe_rel16
+2E 0F87 0000, Ja_rel16
+2E 0F88 0000, Js_rel16
+2E 0F89 0000, Jns_rel16
+2E 0F8A 0000, Jp_rel16
+2E 0F8B 0000, Jnp_rel16
+2E 0F8C 0000, Jl_rel16
+2E 0F8D 0000, Jge_rel16
+2E 0F8E 0000, Jle_rel16
+2E 0F8F 0000, Jg_rel16
+3E 0F80 0000, Jo_rel16
+3E 0F81 0000, Jno_rel16
+3E 0F82 0000, Jb_rel16
+3E 0F83 0000, Jae_rel16
+3E 0F84 0000, Je_rel16
+3E 0F85 0000, Jne_rel16
+3E 0F86 0000, Jbe_rel16
+3E 0F87 0000, Ja_rel16
+3E 0F88 0000, Js_rel16
+3E 0F89 0000, Jns_rel16
+3E 0F8A 0000, Jp_rel16
+3E 0F8B 0000, Jnp_rel16
+3E 0F8C 0000, Jl_rel16
+3E 0F8D 0000, Jge_rel16
+3E 0F8E 0000, Jle_rel16
+3E 0F8F 0000, Jg_rel16
+F2 70 00, Jo_rel8_16
+F2 71 00, Jno_rel8_16
+F2 72 00, Jb_rel8_16
+F2 73 00, Jae_rel8_16
+F2 74 00, Je_rel8_16
+F2 75 00, Jne_rel8_16
+F2 76 00, Jbe_rel8_16
+F2 77 00, Ja_rel8_16
+F2 78 00, Js_rel8_16
+F2 79 00, Jns_rel8_16
+F2 7A 00, Jp_rel8_16
+F2 7B 00, Jnp_rel8_16
+F2 7C 00, Jl_rel8_16
+F2 7D 00, Jge_rel8_16
+F2 7E 00, Jle_rel8_16
+F2 7F 00, Jg_rel8_16
+F2 0F80 0000, Jo_rel16
+F2 0F81 0000, Jno_rel16
+F2 0F82 0000, Jb_rel16
+F2 0F83 0000, Jae_rel16
+F2 0F84 0000, Je_rel16
+F2 0F85 0000, Jne_rel16
+F2 0F86 0000, Jbe_rel16
+F2 0F87 0000, Ja_rel16
+F2 0F88 0000, Js_rel16
+F2 0F89 0000, Jns_rel16
+F2 0F8A 0000, Jp_rel16
+F2 0F8B 0000, Jnp_rel16
+F2 0F8C 0000, Jl_rel16
+F2 0F8D 0000, Jge_rel16
+F2 0F8E 0000, Jle_rel16
+F2 0F8F 0000, Jg_rel16
+F2 E9 0000, Jmp_rel16
+F2 FF 20, Jmp_rm16
+F2 FF E0, Jmp_rm16
+F2 E8 0000, Call_rel16
+F2 FF 10, Call_rm16
+F2 FF D0, Call_rm16
+F2 C2 00 00, Retnw_imm16
+F2 C3, Retnw
+3E FF 10, Call_rm16
+3E FF 56 11, Call_rm16
+3E FF D1, Call_rm16
+3E FF 20, Jmp_rm16
+3E FF 66 11, Jmp_rm16
+3E FF E1, Jmp_rm16
+3E F2 FF D1, Call_rm16
+64 3E FF 10, Call_rm16
+3E 64 FF 10, Call_rm16
+3E F2 FF E1, Jmp_rm16
+64 3E FF 20, Jmp_rm16
+3E 64 FF 20, Jmp_rm16
