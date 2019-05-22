@@ -351,7 +351,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the mnemonic
 		/// </summary>
-		public Mnemonic Mnemonic {
+		public readonly Mnemonic Mnemonic {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.ToMnemonic();
 		}
