@@ -89,21 +89,21 @@ namespace Iced.Intel {
 				index = -1;
 			}
 
-			public readonly UsedRegisterIterator GetEnumerator() => this;
-			public readonly UsedRegister Current => usedRegisters[index];
+			public UsedRegisterIterator GetEnumerator() => this;
+			public UsedRegister Current => usedRegisters[index];
 
 			public bool MoveNext() {
 				index++;
 				return (uint)index < length;
 			}
 
-			readonly IEnumerator<UsedRegister> IEnumerable<UsedRegister>.GetEnumerator() => GetEnumerator();
-			readonly IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-			readonly UsedRegister IEnumerator<UsedRegister>.Current => Current;
-			readonly object IEnumerator.Current => Current;
+			IEnumerator<UsedRegister> IEnumerable<UsedRegister>.GetEnumerator() => GetEnumerator();
+			IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+			UsedRegister IEnumerator<UsedRegister>.Current => Current;
+			object IEnumerator.Current => Current;
 			bool IEnumerator.MoveNext() => MoveNext();
-			readonly void IEnumerator.Reset() => throw new NotSupportedException();
-			public readonly void Dispose() { }
+			void IEnumerator.Reset() => throw new NotSupportedException();
+			public void Dispose() { }
 		}
 
 		public struct UsedMemoryIterator : IEnumerable<UsedMemory>, IEnumerator<UsedMemory> {
@@ -117,21 +117,21 @@ namespace Iced.Intel {
 				index = -1;
 			}
 
-			public readonly UsedMemoryIterator GetEnumerator() => this;
-			public readonly UsedMemory Current => usedMemoryLocations[index];
+			public UsedMemoryIterator GetEnumerator() => this;
+			public UsedMemory Current => usedMemoryLocations[index];
 
 			public bool MoveNext() {
 				index++;
 				return (uint)index < length;
 			}
 
-			readonly IEnumerator<UsedMemory> IEnumerable<UsedMemory>.GetEnumerator() => GetEnumerator();
-			readonly IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-			readonly UsedMemory IEnumerator<UsedMemory>.Current => Current;
-			readonly object IEnumerator.Current => Current;
+			IEnumerator<UsedMemory> IEnumerable<UsedMemory>.GetEnumerator() => GetEnumerator();
+			IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+			UsedMemory IEnumerator<UsedMemory>.Current => Current;
+			object IEnumerator.Current => Current;
 			bool IEnumerator.MoveNext() => MoveNext();
-			readonly void IEnumerator.Reset() => throw new NotSupportedException();
-			public readonly void Dispose() { }
+			void IEnumerator.Reset() => throw new NotSupportedException();
+			public void Dispose() { }
 		}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
