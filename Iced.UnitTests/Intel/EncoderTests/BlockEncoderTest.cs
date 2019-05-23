@@ -98,7 +98,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					reader.Index = (int)newInstructionOffsets[i];
 					decoder.IP = newRip + newInstructionOffsets[i];
 					decoder.Decode(out var instr);
-					expectedConstantOffsets[i] = decoder.GetConstantOffsets(ref instr);
+					expectedConstantOffsets[i] = decoder.GetConstantOffsets(instr);
 				}
 			}
 			Assert.Equal(expectedConstantOffsets, constantOffsets);

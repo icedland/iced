@@ -91,7 +91,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(OpKind.Register, instr.Op1Kind);
 			Assert.Equal(register, instr.Op1Register);
-			VerifyConstantOffsets(constantOffsets, decoder.GetConstantOffsets(ref instr));
+			VerifyConstantOffsets(constantOffsets, decoder.GetConstantOffsets(instr));
 		}
 
 		static readonly Dictionary<string, Code> toCode = CreateToCode();
@@ -366,7 +366,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					}
 				}
 			}
-			VerifyConstantOffsets(tc.ConstantOffsets, decoder.GetConstantOffsets(ref instr));
+			VerifyConstantOffsets(tc.ConstantOffsets, decoder.GetConstantOffsets(instr));
 		}
 
 		static void VerifyConstantOffsets(in ConstantOffsets expectedConstantOffsets, in ConstantOffsets actualConstantOffsets) {

@@ -57,7 +57,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var decoder = CreateDecoder(codeSize, origBytes, options);
 			var origRip = decoder.IP;
 			var origInstr = decoder.Decode();
-			var origConstantOffsets = decoder.GetConstantOffsets(ref origInstr);
+			var origConstantOffsets = decoder.GetConstantOffsets(origInstr);
 			Assert.Equal(code, origInstr.Code);
 			Assert.Equal(origBytes.Length, origInstr.ByteLength);
 			Assert.True(origInstr.ByteLength <= Iced.Intel.DecoderConstants.MaxInstructionLength);

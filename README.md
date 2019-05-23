@@ -479,7 +479,7 @@ Disassembled code:
                 // This can be useful if there are relocations in the binary. The encoder has a similar
                 // method. This method must be called after Decode() and you must pass in the last
                 // instruction Decode() returned.
-                var offsets = decoder.GetConstantOffsets(ref instr);
+                var offsets = decoder.GetConstantOffsets(instr);
 
                 // A formatter is recommended since this ToString() method defaults to masm syntax,
                 // uses default options, and allocates every single time it's called.

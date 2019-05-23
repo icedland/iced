@@ -1007,7 +1007,7 @@ after_read_prefixes:
 		/// </summary>
 		/// <param name="instruction">The latest instruction that was decoded by this decoder</param>
 		/// <returns></returns>
-		public ConstantOffsets GetConstantOffsets(ref Instruction instruction) {
+		public ConstantOffsets GetConstantOffsets(in Instruction instruction) {
 			ConstantOffsets constantOffsets = default;
 
 			int displSize = instruction.MemoryDisplSize;
