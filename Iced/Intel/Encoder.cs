@@ -172,10 +172,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public int Bitness => defaultCodeSize;
 
-// 'handler' is initialized by TryEncode and isn't nullable
-#pragma warning disable CS8618 // Non-nullable field is uninitialized.
 		Encoder(CodeWriter writer, int defaultCodeSize) {
-#pragma warning restore CS8618 // Non-nullable field is uninitialized.
 			Debug.Assert(defaultCodeSize == 16 || defaultCodeSize == 32 || defaultCodeSize == 64);
 			if (writer == null)
 				ThrowHelper.ThrowArgumentNullException_writer();
@@ -183,6 +180,7 @@ namespace Iced.Intel {
 			this.writer = writer;
 			this.defaultCodeSize = defaultCodeSize;
 			handlers = OpCodeHandlers.Handlers;
+			handler = null!;// It's initialized by TryEncode
 		}
 
 		/// <summary>
