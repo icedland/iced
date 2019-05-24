@@ -425,7 +425,7 @@ namespace Iced.Intel {
 		internal void InternalSetHasXreleasePrefix() => codeFlags |= (uint)CodeFlags.XreleasePrefix;
 
 		/// <summary>
-		/// Checks if the instruction has the REPE prefix (F3)
+		/// Checks if the instruction has the REPE or REP prefix (F3)
 		/// </summary>
 		public bool HasRepePrefix {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
