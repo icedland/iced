@@ -480,92 +480,118 @@ namespace Iced.Intel {
 		/// Checks if it's a jcc short or jcc near instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsJccShortOrNear() => Code.IsJccShortOrNear();
+		public bool IsJccShortOrNear {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsJccShortOrNear();
+		}
 
 		/// <summary>
 		/// Checks if it's a jcc near instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsJccNear() => Code.IsJccNear();
+		public bool IsJccNear {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsJccNear();
+		}
 
 		/// <summary>
 		/// Checks if it's a jcc short instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsJccShort() => Code.IsJccShort();
+		public bool IsJccShort {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsJccShort();
+		}
 
 		/// <summary>
 		/// Checks if it's a jmp short instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsJmpShort() => Code.IsJmpShort();
+		public bool IsJmpShort {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsJmpShort();
+		}
 
 		/// <summary>
 		/// Checks if it's a jmp near instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsJmpNear() => Code.IsJmpNear();
+		public bool IsJmpNear {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsJmpNear();
+		}
 
 		/// <summary>
 		/// Checks if it's a jmp short or a jmp near instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsJmpShortOrNear() => Code.IsJmpShortOrNear();
+		public bool IsJmpShortOrNear {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsJmpShortOrNear();
+		}
 
 		/// <summary>
 		/// Checks if it's a jmp far instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsJmpFar() => Code.IsJmpFar();
+		public bool IsJmpFar {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsJmpFar();
+		}
 
 		/// <summary>
 		/// Checks if it's a call near instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsCallNear() => Code.IsCallNear();
+		public bool IsCallNear {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsCallNear();
+		}
 
 		/// <summary>
 		/// Checks if it's a call far instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsCallFar() => Code.IsCallFar();
+		public bool IsCallFar {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsCallFar();
+		}
 
 		/// <summary>
 		/// Checks if it's a jmp near reg/[mem] instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsJmpNearIndirect() => Code.IsJmpNearIndirect();
+		public bool IsJmpNearIndirect {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsJmpNearIndirect();
+		}
 
 		/// <summary>
 		/// Checks if it's a jmp far [mem] instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsJmpFarIndirect() => Code.IsJmpFarIndirect();
+		public bool IsJmpFarIndirect {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsJmpFarIndirect();
+		}
 
 		/// <summary>
 		/// Checks if it's a call near reg/[mem] instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsCallNearIndirect() => Code.IsCallNearIndirect();
+		public bool IsCallNearIndirect {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsCallNearIndirect();
+		}
 
 		/// <summary>
 		/// Checks if it's a call far [mem] instruction
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public bool IsCallFarIndirect() => Code.IsCallFarIndirect();
+		public bool IsCallFarIndirect {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.IsCallFarIndirect();
+		}
 	}
 }
 #endif

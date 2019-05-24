@@ -192,43 +192,43 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				instr.Code = code;
 
 				Assert.Equal(jccShort.Contains(code) || jccNear.Contains(code), code.IsJccShortOrNear());
-				Assert.Equal(code.IsJccShortOrNear(), instr.IsJccShortOrNear());
+				Assert.Equal(code.IsJccShortOrNear(), instr.IsJccShortOrNear);
 
 				Assert.Equal(jccNear.Contains(code), code.IsJccNear());
-				Assert.Equal(code.IsJccNear(), instr.IsJccNear());
+				Assert.Equal(code.IsJccNear(), instr.IsJccNear);
 
 				Assert.Equal(jccShort.Contains(code), code.IsJccShort());
-				Assert.Equal(code.IsJccShort(), instr.IsJccShort());
+				Assert.Equal(code.IsJccShort(), instr.IsJccShort);
 
 				Assert.Equal(jmpShort.Contains(code), code.IsJmpShort());
-				Assert.Equal(code.IsJmpShort(), instr.IsJmpShort());
+				Assert.Equal(code.IsJmpShort(), instr.IsJmpShort);
 
 				Assert.Equal(jmpNear.Contains(code), code.IsJmpNear());
-				Assert.Equal(code.IsJmpNear(), instr.IsJmpNear());
+				Assert.Equal(code.IsJmpNear(), instr.IsJmpNear);
 
 				Assert.Equal(jmpShort.Contains(code) || jmpNear.Contains(code), code.IsJmpShortOrNear());
-				Assert.Equal(code.IsJmpShortOrNear(), instr.IsJmpShortOrNear());
+				Assert.Equal(code.IsJmpShortOrNear(), instr.IsJmpShortOrNear);
 
 				Assert.Equal(jmpFar.Contains(code), code.IsJmpFar());
-				Assert.Equal(code.IsJmpFar(), instr.IsJmpFar());
+				Assert.Equal(code.IsJmpFar(), instr.IsJmpFar);
 
 				Assert.Equal(callNear.Contains(code), code.IsCallNear());
-				Assert.Equal(code.IsCallNear(), instr.IsCallNear());
+				Assert.Equal(code.IsCallNear(), instr.IsCallNear);
 
 				Assert.Equal(callFar.Contains(code), code.IsCallFar());
-				Assert.Equal(code.IsCallFar(), instr.IsCallFar());
+				Assert.Equal(code.IsCallFar(), instr.IsCallFar);
 
 				Assert.Equal(jmpNearIndirect.Contains(code), code.IsJmpNearIndirect());
-				Assert.Equal(code.IsJmpNearIndirect(), instr.IsJmpNearIndirect());
+				Assert.Equal(code.IsJmpNearIndirect(), instr.IsJmpNearIndirect);
 
 				Assert.Equal(jmpFarIndirect.Contains(code), code.IsJmpFarIndirect());
-				Assert.Equal(code.IsJmpFarIndirect(), instr.IsJmpFarIndirect());
+				Assert.Equal(code.IsJmpFarIndirect(), instr.IsJmpFarIndirect);
 
 				Assert.Equal(callNearIndirect.Contains(code), code.IsCallNearIndirect());
-				Assert.Equal(code.IsCallNearIndirect(), instr.IsCallNearIndirect());
+				Assert.Equal(code.IsCallNearIndirect(), instr.IsCallNearIndirect);
 
 				Assert.Equal(callFarIndirect.Contains(code), code.IsCallFarIndirect());
-				Assert.Equal(code.IsCallFarIndirect(), instr.IsCallFarIndirect());
+				Assert.Equal(code.IsCallFarIndirect(), instr.IsCallFarIndirect);
 			}
 		}
 	}
