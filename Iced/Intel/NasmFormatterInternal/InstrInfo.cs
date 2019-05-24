@@ -1419,16 +1419,18 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_os_call : InstrInfo {
 		readonly int codeSize;
 		readonly string mnemonic;
+		readonly bool canHaveBndPrefix;
 
-		public SimpleInstrInfo_os_call(Code code, int codeSize, string mnemonic)
+		public SimpleInstrInfo_os_call(Code code, int codeSize, string mnemonic, bool canHaveBndPrefix = false)
 			: base(code) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
+			this.canHaveBndPrefix = canHaveBndPrefix;
 		}
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			if (instr.HasRepnePrefix)
+			if (canHaveBndPrefix && instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			var branchInfo = BranchSizeInfo.None;

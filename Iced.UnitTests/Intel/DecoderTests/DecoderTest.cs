@@ -172,7 +172,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				return co;
 			}
 		}
-		static char[] coSeps = new char[] { ';' };
+		static readonly char[] coSeps = new char[] { ';' };
 
 		protected static IEnumerable<object[]> GetDecoderTestData(int bitness, int classIndex) {
 			var allTestCases = DecoderTestCases.GetTestCases(bitness);
