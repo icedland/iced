@@ -764,7 +764,9 @@ namespace Iced.Intel {
 
 			FormatMemorySize(output, ref instr, ref symbol, memSize, flags, operandOptions, useSymbol);
 
-			if (options.AlwaysShowSegmentRegister || segOverride != Register.None ||
+			bool noTrackPrefix = segOverride == Register.DS && FormatterUtils.IsNoTrackPrefixBranch(instr.Code) &&
+				!(baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.RBP || baseReg == Register.ESP || baseReg == Register.RSP);
+			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix) ||
 				(is1632 && !hasMemReg && !useSymbol && options.AddDsPrefix32)) {
 				FormatRegister(output, segReg);
 				output.Write(":", FormatterOutputTextKind.Punctuation);
