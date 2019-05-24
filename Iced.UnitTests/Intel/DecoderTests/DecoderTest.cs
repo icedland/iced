@@ -196,6 +196,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			decoder.Decode(out var instr);
 			Assert.Equal(tc.Code, instr.Code);
 			Assert.Equal(tc.Mnemonic, instr.Mnemonic);
+			Assert.Equal(instr.Mnemonic, instr.Code.ToMnemonic());
 			Assert.Equal(byteLength, instr.ByteLength);
 			Assert.Equal(rip, instr.IP);
 			Assert.Equal(decoder.IP, instr.NextIP);
