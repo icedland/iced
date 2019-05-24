@@ -2143,15 +2143,15 @@ F3 0F01 EA, Saveprevssp, Saveprevssp, 0,
 66 0F03 CE, Lsl_r32_rm32, Lsl, 2, op0=r;ecx op1=r;esi
 66 0F03 18, Lsl_r32_rm32, Lsl, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;UInt16
 
-0F04, Loadallreset286, Loadallreset286, 0, loadall286
+0F04, Loadallreset286, Loadall, 0, loadall286
 
-0F05, Loadall286, Loadall286, 0, loadall286
+0F05, Loadall286, Loadall, 0, loadall286
 
 0F05, Syscall, Syscall, 0, 
 
 0F06, Clts, Clts, 0, 
 
-0F07, Loadall386, Loadall386, 0, loadall386
+0F07, Loadall386, Loadall, 0, loadall386
 
 0F07, Sysretd, Sysret, 0, 
 

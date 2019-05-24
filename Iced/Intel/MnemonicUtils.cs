@@ -903,11 +903,11 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Lsl,// Lsl_r16_rm16
 			(ushort)Mnemonic.Lsl,// Lsl_r32_rm32
 			(ushort)Mnemonic.Lsl,// Lsl_r64_rm64
-			(ushort)Mnemonic.Loadallreset286,// Loadallreset286
-			(ushort)Mnemonic.Loadall286,// Loadall286
+			(ushort)Mnemonic.Loadall,// Loadallreset286
+			(ushort)Mnemonic.Loadall,// Loadall286
 			(ushort)Mnemonic.Syscall,// Syscall
 			(ushort)Mnemonic.Clts,// Clts
-			(ushort)Mnemonic.Loadall386,// Loadall386
+			(ushort)Mnemonic.Loadall,// Loadall386
 			(ushort)Mnemonic.Sysret,// Sysretd
 			(ushort)Mnemonic.Sysret,// Sysretq
 			(ushort)Mnemonic.Invd,// Invd
