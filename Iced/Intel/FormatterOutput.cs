@@ -84,7 +84,7 @@ namespace Iced.Intel {
 
 		internal void Write(in TextInfo text) {
 			var array = text.TextArray;
-			if (array != null) {
+			if (!(array is null)) {
 				foreach (var part in array)
 					Write(part.Text, part.Color);
 			}

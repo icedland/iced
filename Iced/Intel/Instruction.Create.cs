@@ -2149,7 +2149,7 @@ namespace Iced.Intel {
 		/// <param name="data">Data</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareByte(byte[] data) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			return CreateDeclareByte(data, 0, data.Length);
 		}
@@ -2162,7 +2162,7 @@ namespace Iced.Intel {
 		/// <param name="length">Number of bytes</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareByte(byte[] data, int index, int length) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 16 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
@@ -2368,7 +2368,7 @@ namespace Iced.Intel {
 		/// <param name="data">Data</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareWord(byte[] data) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			return CreateDeclareWord(data, 0, data.Length);
 		}
@@ -2381,7 +2381,7 @@ namespace Iced.Intel {
 		/// <param name="length">Number of bytes</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareWord(byte[] data, int index, int length) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 16 - 1 || ((uint)length & 1) != 0)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
@@ -2405,7 +2405,7 @@ namespace Iced.Intel {
 		/// <param name="data">Data</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareWord(ushort[] data) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			return CreateDeclareWord(data, 0, data.Length);
 		}
@@ -2418,7 +2418,7 @@ namespace Iced.Intel {
 		/// <param name="length">Number of elements</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareWord(ushort[] data, int index, int length) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 8 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
@@ -2516,7 +2516,7 @@ namespace Iced.Intel {
 		/// <param name="data">Data</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareDword(byte[] data) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			return CreateDeclareDword(data, 0, data.Length);
 		}
@@ -2529,7 +2529,7 @@ namespace Iced.Intel {
 		/// <param name="length">Number of bytes</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareDword(byte[] data, int index, int length) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 16 - 1 || ((uint)length & 3) != 0)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
@@ -2553,7 +2553,7 @@ namespace Iced.Intel {
 		/// <param name="data">Data</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareDword(uint[] data) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			return CreateDeclareDword(data, 0, data.Length);
 		}
@@ -2566,7 +2566,7 @@ namespace Iced.Intel {
 		/// <param name="length">Number of elements</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareDword(uint[] data, int index, int length) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 4 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
@@ -2622,7 +2622,7 @@ namespace Iced.Intel {
 		/// <param name="data">Data</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareQword(byte[] data) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			return CreateDeclareQword(data, 0, data.Length);
 		}
@@ -2635,7 +2635,7 @@ namespace Iced.Intel {
 		/// <param name="length">Number of bytes</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareQword(byte[] data, int index, int length) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 16 - 1 || ((uint)length & 7) != 0)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
@@ -2660,7 +2660,7 @@ namespace Iced.Intel {
 		/// <param name="data">Data</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareQword(ulong[] data) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			return CreateDeclareQword(data, 0, data.Length);
 		}
@@ -2673,7 +2673,7 @@ namespace Iced.Intel {
 		/// <param name="length">Number of elements</param>
 		/// <returns></returns>
 		public static Instruction CreateDeclareQword(ulong[] data, int index, int length) {
-			if (data == null)
+			if (data is null)
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 2 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();

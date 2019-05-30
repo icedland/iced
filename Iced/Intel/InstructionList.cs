@@ -90,7 +90,7 @@ namespace Iced.Intel {
 		object IList.this[int index] {
 			get => elements[index];
 			set {
-				if (value == null)
+				if (value is null)
 					ThrowHelper.ThrowArgumentNullException_value();
 				if (!(value is Instruction))
 					ThrowHelper.ThrowArgumentException();
@@ -118,7 +118,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="list">List that will be copied to this instance</param>
 		public InstructionList(InstructionList list) {
-			if (list == null)
+			if (list is null)
 				ThrowHelper.ThrowArgumentNullException_list();
 			int length = list.count;
 			if (length == 0)
@@ -136,7 +136,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="collection">Collection that will be copied to this instance</param>
 		public InstructionList(IEnumerable<Instruction> collection) {
-			if (collection == null)
+			if (collection is null)
 				ThrowHelper.ThrowArgumentNullException_collection();
 			if (collection is ICollection<Instruction> coll) {
 				int count = coll.Count;
@@ -221,7 +221,7 @@ namespace Iced.Intel {
 		}
 		void IList<Instruction>.Insert(int index, Instruction instruction) => Insert(index, instruction);
 		void IList.Insert(int index, object value) {
-			if (value == null)
+			if (value is null)
 				ThrowHelper.ThrowArgumentNullException_value();
 			if (!(value is Instruction))
 				ThrowHelper.ThrowArgumentException();
@@ -261,7 +261,7 @@ namespace Iced.Intel {
 		public void InsertRange(int index, IEnumerable<Instruction> collection) {
 			if ((uint)index > (uint)count)
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
-			if (collection == null)
+			if (collection is null)
 				ThrowHelper.ThrowArgumentNullException_collection();
 			if (collection is InstructionList list) {
 				int list_count = list.count;
@@ -338,7 +338,7 @@ namespace Iced.Intel {
 		}
 		void ICollection<Instruction>.Add(Instruction instruction) => Add(instruction);
 		int IList.Add(object value) {
-			if (value == null)
+			if (value is null)
 				ThrowHelper.ThrowArgumentNullException_value();
 			if (!(value is Instruction))
 				ThrowHelper.ThrowArgumentException();
@@ -514,7 +514,7 @@ namespace Iced.Intel {
 			Array.Copy(elements, 0, array, arrayIndex, count);
 		void ICollection<Instruction>.CopyTo(Instruction[] array, int arrayIndex) => CopyTo(array, arrayIndex);
 		void ICollection.CopyTo(Array array, int index) {
-			if (array == null)
+			if (array is null)
 				ThrowHelper.ThrowArgumentNullException_array();
 			else if (array is Instruction[] elemArray)
 				CopyTo(elemArray, index);

@@ -28,7 +28,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		readonly CodeWriter codeWriter;
 
 		public CodeWriterImpl(CodeWriter codeWriter) {
-			if (codeWriter == null)
+			if (codeWriter is null)
 				ThrowHelper.ThrowArgumentNullException_codeWriter();
 			this.codeWriter = codeWriter;
 		}

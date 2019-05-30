@@ -31,7 +31,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		public TryGetSymbolDelegate tryGetSymbol;
 		public int resultDispl;
 		public bool TryGetSymbol(int operand, int instructionOperand, in Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) {
-			if (tryGetSymbol != null) {
+			if (!(tryGetSymbol is null)) {
 				if (!tryGetSymbol(operand, instructionOperand, instruction, address, addressSize, out symbol))
 					return false;
 				if (symbol.HasSymbolSize)

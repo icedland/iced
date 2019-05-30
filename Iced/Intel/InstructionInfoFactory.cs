@@ -264,9 +264,9 @@ namespace Iced.Intel {
 			// Inlined ctor
 			InstructionInfo result;
 			Debug.Assert(DecoderConstants.MaxOpCount == 5);
-			Debug.Assert(usedRegisters.Array != null);
+			Debug.Assert(!(usedRegisters.Array is null));
 			result.usedRegisters = usedRegisters.Array;
-			Debug.Assert(usedMemoryLocations.Array != null);
+			Debug.Assert(!(usedMemoryLocations.Array is null));
 			result.usedMemoryLocations = usedMemoryLocations.Array;
 			Debug.Assert((uint)usedRegisters.ValidLength <= ushort.MaxValue);
 			result.usedRegistersLength = (ushort)usedRegisters.ValidLength;

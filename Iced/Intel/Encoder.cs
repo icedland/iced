@@ -174,7 +174,7 @@ namespace Iced.Intel {
 
 		Encoder(CodeWriter writer, int defaultCodeSize) {
 			Debug.Assert(defaultCodeSize == 16 || defaultCodeSize == 32 || defaultCodeSize == 64);
-			if (writer == null)
+			if (writer is null)
 				ThrowHelper.ThrowArgumentNullException_writer();
 			immSizes = s_immSizes;
 			this.writer = writer;
@@ -363,7 +363,7 @@ namespace Iced.Intel {
 			if (instrLen > DecoderConstants.MaxInstructionLength && (handler.Flags & OpCodeHandlerFlags.DeclareData) == 0)
 				ErrorMessage = $"Instruction length > {DecoderConstants.MaxInstructionLength} bytes";
 			errorMessage = this.errorMessage;
-			if (errorMessage != null) {
+			if (!(errorMessage is null)) {
 				encodedLength = 0;
 				return false;
 			}
@@ -374,7 +374,7 @@ namespace Iced.Intel {
 		internal string? ErrorMessage {
 			get => errorMessage;
 			set {
-				if (errorMessage == null)
+				if (errorMessage is null)
 					errorMessage = value;
 			}
 		}
@@ -775,7 +775,7 @@ namespace Iced.Intel {
 
 		bool TryConvertToDisp8N(in Instruction instr, int displ, out sbyte compressedValue) {
 			var tryConvertToDisp8N = handler.TryConvertToDisp8N;
-			if (tryConvertToDisp8N != null)
+			if (!(tryConvertToDisp8N is null))
 				return tryConvertToDisp8N(this, instr, handler, displ, out compressedValue);
 			if (sbyte.MinValue <= displ && displ <= sbyte.MaxValue) {
 				compressedValue = (sbyte)displ;

@@ -398,7 +398,7 @@ namespace Iced.Intel {
 				operandOptions = options.ShowBranchSize ? FormatterOperandOptions.None : FormatterOperandOptions.NoBranchSize;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, imm64, immSize, out symbol)) {
+				if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, imm64, immSize, out symbol)) {
 					FormatFlowControl(output, FormatterUtils.GetFlowControl(instruction), operandOptions);
 					output.Write(numberFormatter, numberOptions, imm64, symbol, options.ShowSymbolAddress);
 				}
@@ -429,7 +429,7 @@ namespace Iced.Intel {
 				operandOptions = options.ShowBranchSize ? FormatterOperandOptions.None : FormatterOperandOptions.NoBranchSize;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, (uint)imm64, immSize, out symbol)) {
+				if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, (uint)imm64, immSize, out symbol)) {
 					FormatFlowControl(output, FormatterUtils.GetFlowControl(instruction), operandOptions);
 					Debug.Assert(operand + 1 == 1);
 					if (!symbolResolver.TryGetSymbol(operand + 1, instructionOperand, instruction, instruction.FarBranchSelector, 2, out var selectorSymbol)) {
@@ -471,7 +471,7 @@ namespace Iced.Intel {
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, imm8, 1, out symbol)) {
+				if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, imm8, 1, out symbol)) {
 					if ((symbol.Flags & SymbolFlags.Relative) == 0) {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
@@ -501,7 +501,7 @@ namespace Iced.Intel {
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, imm16, 2, out symbol)) {
+				if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, imm16, 2, out symbol)) {
 					if ((symbol.Flags & SymbolFlags.Relative) == 0) {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
@@ -531,7 +531,7 @@ namespace Iced.Intel {
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, imm32, 4, out symbol)) {
+				if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, imm32, 4, out symbol)) {
 					if ((symbol.Flags & SymbolFlags.Relative) == 0) {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
@@ -564,7 +564,7 @@ namespace Iced.Intel {
 				operandOptions = FormatterOperandOptions.None;
 				instructionOperand = opInfo.GetInstructionIndex(operand);
 				optionsProvider?.GetOperandOptions(operand, instructionOperand, instruction, ref operandOptions, ref numberOptions);
-				if ((symbolResolver = this.symbolResolver) != null && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, imm64, 8, out symbol)) {
+				if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(operand, instructionOperand, instruction, imm64, 8, out symbol)) {
 					if ((symbol.Flags & SymbolFlags.Relative) == 0) {
 						FormatKeyword(output, offsetKeyword);
 						output.Write(" ", FormatterOutputTextKind.Text);
@@ -656,7 +656,7 @@ namespace Iced.Intel {
 					Debug.Assert((int)RoundingControl.RoundUp == 3);
 					Debug.Assert((int)RoundingControl.RoundTowardZero == 4);
 					var text = rcStrings[(int)rc];
-					if (text != null) {
+					if (!(text is null)) {
 						output.Write(" ", FormatterOutputTextKind.Text);
 						FormatDecorator(output, text);
 					}
@@ -738,7 +738,7 @@ namespace Iced.Intel {
 				absAddr = (ulong)displ;
 
 			var symbolResolver = this.symbolResolver;
-			if (symbolResolver != null)
+			if (!(symbolResolver is null))
 				useSymbol = symbolResolver.TryGetSymbol(operand, instructionOperand, instr, absAddr, addrSize, out symbol);
 			else {
 				useSymbol = false;

@@ -210,7 +210,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// true if this is the default instance
 		/// </summary>
-		public bool IsDefault => TextArray == null && Text.Text == null;
+		public bool IsDefault => TextArray is null && Text.Text is null;
 
 		/// <summary>
 		/// The text and color unless <see cref="TextArray"/> is non-null

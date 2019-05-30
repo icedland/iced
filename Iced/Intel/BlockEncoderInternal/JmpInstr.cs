@@ -99,7 +99,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			var nextRip = IP + shortInstructionSize;
 			long diff = (long)(targetAddress - nextRip);
 			if (sbyte.MinValue <= diff && diff <= sbyte.MaxValue) {
-				if (pointerData != null)
+				if (!(pointerData is null))
 					pointerData.IsValid = false;
 				instrKind = InstrKind.Short;
 				Size = shortInstructionSize;
@@ -115,14 +115,14 @@ namespace Iced.Intel.BlockEncoderInternal {
 				useNear = int.MinValue <= diff && diff <= int.MaxValue;
 			}
 			if (useNear) {
-				if (pointerData != null)
+				if (!(pointerData is null))
 					pointerData.IsValid = false;
 				instrKind = InstrKind.Near;
 				Size = nearInstructionSize;
 				return true;
 			}
 
-			if (pointerData == null)
+			if (pointerData is null)
 				pointerData = Block.AllocPointerLocation();
 			instrKind = InstrKind.Long;
 			return false;
@@ -153,12 +153,12 @@ namespace Iced.Intel.BlockEncoderInternal {
 				return null;
 
 			case InstrKind.Long:
-				Debug.Assert(pointerData != null);
+				Debug.Assert(!(pointerData is null));
 				isOriginalInstruction = false;
 				constantOffsets = default;
 				pointerData.Data = targetInstr.GetAddress();
 				errorMessage = EncodeBranchToPointerData(encoder, isCall: false, IP, pointerData, out _, Size);
-				if (errorMessage != null)
+				if (!(errorMessage is null))
 					return CreateErrorMessage(errorMessage, instruction);
 				return null;
 

@@ -41,7 +41,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public ulong GetAddress() {
 			var instruction = this.instruction;
-			if (instruction == null)
+			if (instruction is null)
 				return address;
 			return instruction.IP;
 		}

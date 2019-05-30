@@ -132,7 +132,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				Debug.Assert(b);
 				if (!b)
 					errorMessage = "Invalid IP relative address";
-				if (errorMessage != null) {
+				if (!(errorMessage is null)) {
 					constantOffsets = default;
 					return CreateErrorMessage(errorMessage, instruction);
 				}

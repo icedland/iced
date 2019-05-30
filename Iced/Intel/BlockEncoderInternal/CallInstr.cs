@@ -80,7 +80,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			}
 
 			if (useShort) {
-				if (pointerData != null)
+				if (!(pointerData is null))
 					pointerData.IsValid = false;
 				Size = origInstructionSize;
 				useOrigInstruction = true;
@@ -88,7 +88,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				return true;
 			}
 
-			if (pointerData == null)
+			if (pointerData is null)
 				pointerData = Block.AllocPointerLocation();
 			return false;
 		}
@@ -105,12 +105,12 @@ namespace Iced.Intel.BlockEncoderInternal {
 				return null;
 			}
 			else {
-				Debug.Assert(pointerData != null);
+				Debug.Assert(!(pointerData is null));
 				isOriginalInstruction = false;
 				constantOffsets = default;
 				pointerData.Data = targetInstr.GetAddress();
 				var errorMessage = EncodeBranchToPointerData(encoder, isCall: true, IP, pointerData, out var size, Size);
-				if (errorMessage != null)
+				if (!(errorMessage is null))
 					return CreateErrorMessage(errorMessage, instruction);
 				return null;
 			}

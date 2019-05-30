@@ -35,7 +35,7 @@ namespace Iced.Intel {
 		readonly char[] numberCharArray;
 
 		public NumberFormatter(FormatterOptions formatterOptions) {
-			if (formatterOptions == null)
+			if (formatterOptions is null)
 				ThrowHelper.ThrowArgumentNullException_formatterOptions();
 			this.formatterOptions = formatterOptions;
 			sb = new StringBuilder();

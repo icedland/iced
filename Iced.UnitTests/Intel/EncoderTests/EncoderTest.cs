@@ -74,7 +74,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(codeSize, encoder.Bitness);
 			var origInstrCopy = origInstr;
 			bool result = encoder.TryEncode(origInstr, origRip, out uint encodedInstrLen, out string errorMessage);
-			Assert.True(errorMessage == null, "Unexpected ErrorMessage: " + errorMessage);
+			Assert.True(errorMessage is null, "Unexpected ErrorMessage: " + errorMessage);
 			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
 			var encodedConstantOffsets = encoder.GetConstantOffsets();
 			FixConstantOffsets(ref encodedConstantOffsets, origInstr.ByteLength, (int)encodedInstrLen);
@@ -127,7 +127,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(codeSize, encoder.Bitness);
 			var origInstrCopy = instr;
 			bool result = encoder.TryEncode(instr, rip, out uint encodedInstrLen, out string errorMessage);
-			Assert.True(errorMessage == null, "Unexpected ErrorMessage: " + errorMessage);
+			Assert.True(errorMessage is null, "Unexpected ErrorMessage: " + errorMessage);
 			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
 			var encodedBytes = writer.ToArray();
 			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);

@@ -76,7 +76,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		}
 
 		static InstructionInfo[] GetInstructionInfos(ref InstructionInfo[] instrInfos, int bitness, bool isMisc) {
-			if (instrInfos == null) {
+			if (instrInfos is null) {
 				var filename = "InstructionInfos" + bitness;
 				if (isMisc)
 					filename += "_Misc";

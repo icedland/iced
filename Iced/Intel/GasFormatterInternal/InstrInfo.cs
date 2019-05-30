@@ -395,7 +395,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		protected static string GetMnemonic(GasFormatterOptions options, in Instruction instr, string mnemonic, string mnemonic_suffix, InstrOpInfoFlags flags) {
 			if (options.ShowMnemonicSizeSuffix)
 				return mnemonic_suffix;
-			if ((flags & InstrOpInfoFlags.MnemonicSuffixIfMem) != 0 && MemorySizes.AllMemorySizes[(int)instr.MemorySize].bcstTo == null) {
+			if ((flags & InstrOpInfoFlags.MnemonicSuffixIfMem) != 0 && MemorySizes.AllMemorySizes[(int)instr.MemorySize].bcstTo is null) {
 				OpKind opKind;
 				if ((opKind = instr.Op0Kind) == OpKind.Memory || opKind == OpKind.Memory64 ||
 					(opKind = instr.Op1Kind) == OpKind.Memory || opKind == OpKind.Memory64 ||
@@ -1279,7 +1279,7 @@ namespace Iced.Intel.GasFormatterInternal {
 
 		public override void GetOpInfo(GasFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var memInfo = MemorySizes.AllMemorySizes[(int)instr.MemorySize];
-			var flags = memInfo.bcstTo != null ? flagsBroadcast : flagsNoBroadcast;
+			var flags = !(memInfo.bcstTo is null) ? flagsBroadcast : flagsNoBroadcast;
 			info = new InstrOpInfo(GetMnemonic(options, instr, mnemonic, mnemonic_suffix, flags), instr, flags);
 		}
 	}
