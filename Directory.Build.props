@@ -9,7 +9,7 @@
 
     <LangVersion>8.0</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Features>strict</Features>
+    <Features>strict;nullablePublicOnly</Features>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Iced.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
