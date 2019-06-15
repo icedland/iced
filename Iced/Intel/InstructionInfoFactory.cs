@@ -1876,6 +1876,12 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.KP1:
+				Debug.Assert(Register.K0 <= instruction.Op0Register && instruction.Op0Register < Register.K7);
+				if ((flags & Flags.NoRegisterUsage) == 0)
+					AddRegister(flags, ref usedRegisters, instruction.Op0Register + 1, OpAccess.Write);
+				break;
+
 			case CodeInfo.None:
 			default:
 				throw new InvalidOperationException();

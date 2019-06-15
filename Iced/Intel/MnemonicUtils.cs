@@ -3168,6 +3168,12 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vpblendmw,// EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128
 			(ushort)Mnemonic.Vpblendmw,// EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256
 			(ushort)Mnemonic.Vpblendmw,// EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512
+			(ushort)Mnemonic.Vp2intersectd,// EVEX_Vp2intersectd_k_xmm_xmmm128b32
+			(ushort)Mnemonic.Vp2intersectd,// EVEX_Vp2intersectd_k_ymm_ymmm256b32
+			(ushort)Mnemonic.Vp2intersectd,// EVEX_Vp2intersectd_k_zmm_zmmm512b32
+			(ushort)Mnemonic.Vp2intersectq,// EVEX_Vp2intersectq_k_xmm_xmmm128b64
+			(ushort)Mnemonic.Vp2intersectq,// EVEX_Vp2intersectq_k_ymm_ymmm256b64
+			(ushort)Mnemonic.Vp2intersectq,// EVEX_Vp2intersectq_k_zmm_zmmm512b64
 			(ushort)Mnemonic.Vpshldvw,// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
 			(ushort)Mnemonic.Vpshldvw,// EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256
 			(ushort)Mnemonic.Vpshldvw,// EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512
@@ -3718,6 +3724,12 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Movdir64b,// Movdir64b_r16_m512
 			(ushort)Mnemonic.Movdir64b,// Movdir64b_r32_m512
 			(ushort)Mnemonic.Movdir64b,// Movdir64b_r64_m512
+			(ushort)Mnemonic.Enqcmds,// Enqcmds_r16_m512
+			(ushort)Mnemonic.Enqcmds,// Enqcmds_r32_m512
+			(ushort)Mnemonic.Enqcmds,// Enqcmds_r64_m512
+			(ushort)Mnemonic.Enqcmd,// Enqcmd_r16_m512
+			(ushort)Mnemonic.Enqcmd,// Enqcmd_r32_m512
+			(ushort)Mnemonic.Enqcmd,// Enqcmd_r64_m512
 			(ushort)Mnemonic.Movdiri,// Movdiri_m32_r32
 			(ushort)Mnemonic.Movdiri,// Movdiri_m64_r64
 			(ushort)Mnemonic.Vpermq,// VEX_Vpermq_ymm_ymmm256_imm8

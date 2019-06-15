@@ -5426,6 +5426,24 @@ vpblendmw ymm2{k3},ymm6,ymm3
 vpblendmw ymm2{k3},ymm6,ymmword ptr [rax+20h]
 vpblendmw zmm2{k3},zmm6,zmm3
 vpblendmw zmm2{k3},zmm6,zmmword ptr [rax+40h]
+vp2intersectd k2,xmm6,xmm3
+vp2intersectd k2,xmm6,xmmword ptr [rax+10h]
+vp2intersectd k2,xmm6,dword bcst [rax+4]
+vp2intersectd k2,ymm6,ymm3
+vp2intersectd k2,ymm6,ymmword ptr [rax+20h]
+vp2intersectd k2,ymm6,dword bcst [rax+4]
+vp2intersectd k2,zmm6,zmm3
+vp2intersectd k2,zmm6,zmmword ptr [rax+40h]
+vp2intersectd k2,zmm6,dword bcst [rax+4]
+vp2intersectq k2,xmm6,xmm3
+vp2intersectq k2,xmm6,xmmword ptr [rax+10h]
+vp2intersectq k2,xmm6,qword bcst [rax+8]
+vp2intersectq k2,ymm6,ymm3
+vp2intersectq k2,ymm6,ymmword ptr [rax+20h]
+vp2intersectq k2,ymm6,qword bcst [rax+8]
+vp2intersectq k2,zmm6,zmm3
+vp2intersectq k2,zmm6,zmmword ptr [rax+40h]
+vp2intersectq k2,zmm6,qword bcst [rax+8]
 vpermi2b xmm2{k3},xmm6,xmm3
 vpermi2b xmm2{k3},xmm6,xmmword ptr [rax+10h]
 vpermi2b ymm2{k3},ymm6,ymm3
@@ -8163,6 +8181,10 @@ wrssd dword ptr [rax],ebx
 wrssq qword ptr [rax],rbx
 movdir64b ebx,zmmword ptr [eax]
 movdir64b rbx,zmmword ptr [rax]
+enqcmds ebx,zmmword ptr [eax]
+enqcmds rbx,zmmword ptr [rax]
+enqcmd ebx,zmmword ptr [eax]
+enqcmd rbx,zmmword ptr [rax]
 movdiri dword ptr [rax],ebx
 movdiri qword ptr [rax],rbx
 vpclmulqdq ymm2,ymm6,ymm3,-5Bh

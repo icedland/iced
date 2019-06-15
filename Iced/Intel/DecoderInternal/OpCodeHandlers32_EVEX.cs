@@ -1251,6 +1251,46 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		}
 	}
 
+	sealed class OpCodeHandler_EVEX_KP1HW : OpCodeHandlerModRM {
+		readonly Register baseReg;
+		readonly Code code;
+		readonly TupleType tupleType;
+
+		public OpCodeHandler_EVEX_KP1HW(Register baseReg, Code code, TupleType tupleType) {
+			this.baseReg = baseReg;
+			this.code = code;
+			this.tupleType = tupleType;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.EVEX);
+			instruction.InternalCode = code;
+
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = ((int)state.reg & ~1) + Register.K0;
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			instruction.InternalOp1Register = (int)state.vvvv + baseReg;
+			if (state.mod == 3) {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp2Kind = OpKind.Register;
+				instruction.InternalOp2Register = (int)state.rm + baseReg;
+				if ((state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
+			}
+			else {
+				instruction.InternalOp2Kind = OpKind.Memory;
+				if ((state.flags & StateFlags.b) != 0)
+					instruction.SetIsBroadcast();
+				decoder.ReadOpMem_m32(ref instruction, tupleType);
+			}
+			if ((state.flags & StateFlags.z) != 0 || state.aaa != 0)
+				decoder.SetInvalidInstruction();
+		}
+	}
+
 	sealed class OpCodeHandler_EVEX_KkHWIb : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code code;

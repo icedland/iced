@@ -658,12 +658,14 @@ namespace Iced.Intel {
 				ErrorMessage = $"Operand {operand}: Expected OpKind {nameof(OpKind.Memory)} or {nameof(OpKind.Memory64)}, actual: {opKind}";
 		}
 
-		internal void AddModRMRegister(ref Instruction instr, int operand, Register regLo, Register regHi) {
+		internal void AddModRMRegister(ref Instruction instr, int operand, Register regLo, Register regHi, int regAlignment = 1) {
 			if (!Verify(operand, OpKind.Register, instr.GetOpKind(operand)))
 				return;
 			var reg = instr.GetOpRegister(operand);
 			if (!Verify(operand, reg, regLo, regHi))
 				return;
+			if (((reg - regLo) % regAlignment) != 0)
+				ErrorMessage = $"Register {reg} number ({reg - regLo}) must be a multiple of {regAlignment}";
 			uint regNum = (uint)(reg - regLo);
 			if (regLo == Register.AL) {
 				if (reg >= Register.SPL) {

@@ -646,6 +646,10 @@ F3 0FAE F5, Umonitor_r32
 0FB8 12345AA5, Jmpe_disp32
 67 66 0F38F8 18, Movdir64b_r16_m512
 66 0F38F8 18, Movdir64b_r32_m512
+67 F3 0F38F8 18, Enqcmds_r16_m512
+F3 0F38F8 18, Enqcmds_r32_m512
+67 F2 0F38F8 18, Enqcmd_r16_m512
+F2 0F38F8 18, Enqcmd_r32_m512
 0F24 C0, Mov_r32_tr, MovTr
 0F24 C8, Mov_r32_tr, MovTr
 0F24 D0, Mov_r32_tr, MovTr

@@ -5426,6 +5426,24 @@ vpblendmw ymm2{k3},ymm6,ymm3
 vpblendmw ymm2{k3},ymm6,yword [rax+0x20]
 vpblendmw zmm2{k3},zmm6,zmm3
 vpblendmw zmm2{k3},zmm6,zword [rax+0x40]
+vp2intersectd k2,xmm6,xmm3
+vp2intersectd k2,xmm6,oword [rax+0x10]
+vp2intersectd k2,xmm6,dword [rax+4]{1to4}
+vp2intersectd k2,ymm6,ymm3
+vp2intersectd k2,ymm6,yword [rax+0x20]
+vp2intersectd k2,ymm6,dword [rax+4]{1to8}
+vp2intersectd k2,zmm6,zmm3
+vp2intersectd k2,zmm6,zword [rax+0x40]
+vp2intersectd k2,zmm6,dword [rax+4]{1to16}
+vp2intersectq k2,xmm6,xmm3
+vp2intersectq k2,xmm6,oword [rax+0x10]
+vp2intersectq k2,xmm6,qword [rax+8]{1to2}
+vp2intersectq k2,ymm6,ymm3
+vp2intersectq k2,ymm6,yword [rax+0x20]
+vp2intersectq k2,ymm6,qword [rax+8]{1to4}
+vp2intersectq k2,zmm6,zmm3
+vp2intersectq k2,zmm6,zword [rax+0x40]
+vp2intersectq k2,zmm6,qword [rax+8]{1to8}
 vpermi2b xmm2{k3},xmm6,xmm3
 vpermi2b xmm2{k3},xmm6,oword [rax+0x10]
 vpermi2b ymm2{k3},ymm6,ymm3
@@ -8163,6 +8181,10 @@ wrssd dword [rax],ebx
 wrssq qword [rax],rbx
 movdir64b ebx,zword [eax]
 movdir64b rbx,zword [rax]
+enqcmds ebx,zword [eax]
+enqcmds rbx,zword [rax]
+enqcmd ebx,zword [eax]
+enqcmd rbx,zword [rax]
 movdiri dword [rax],ebx
 movdiri qword [rax],rbx
 vpclmulqdq ymm2,ymm6,ymm3,-0x5b

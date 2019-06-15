@@ -137,6 +137,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Invlpga,
 		Iret,
 		Jrcxz,
+		KP1,
 		Lahf,
 		Lds,
 		Leave,

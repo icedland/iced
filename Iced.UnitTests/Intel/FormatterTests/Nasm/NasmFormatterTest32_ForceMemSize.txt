@@ -646,6 +646,10 @@ jmpe word 0xa55a
 jmpe 0xa55a3412
 movdir64b bx,zword [bx+si]
 movdir64b ebx,zword [eax]
+enqcmds bx,zword [bx+si]
+enqcmds ebx,zword [eax]
+enqcmd bx,zword [bx+si]
+enqcmd ebx,zword [eax]
 mov eax,tr0
 mov eax,tr1
 mov eax,tr2
