@@ -541,12 +541,14 @@ namespace Iced.Intel.EncoderInternal {
 			Debug.Assert((int)EncoderFlags.R == 0x04);
 			Debug.Assert((int)EncoderFlags.W == 0x08);
 			Debug.Assert((int)EncoderFlags.REX == 0x40);
-			uint rex = ((uint)encoder.EncoderFlags & 0x4F) | rexBits;
-			if (rex != 0) {
+			b = (uint)encoder.EncoderFlags;
+			b &= 0x4F;
+			b |= rexBits;
+			if (b != 0) {
 				if ((encoder.EncoderFlags & EncoderFlags.HighLegacy8BitRegs) != 0)
 					encoder.ErrorMessage = "Registers AH, CH, DH, BH can't be used if there's a REX prefix. Use AL, CL, DL, BL, SPL, BPL, SIL, DIL, R8L-R15L instead.";
-				rex |= 0x40;
-				encoder.WriteByte(rex);
+				b |= 0x40;
+				encoder.WriteByte(b);
 			}
 
 			if ((b = tableByte1) != 0) {
