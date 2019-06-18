@@ -561,7 +561,6 @@ namespace Iced.Intel.EncoderInternal {
 		WX,
 		WY,
 		WZ,
-		VKP1,
 
 		Last,
 	}
@@ -603,7 +602,6 @@ namespace Iced.Intel.EncoderInternal {
 			new OpModRM_rm(Register.XMM0, Register.XMM31),
 			new OpModRM_rm(Register.YMM0, Register.YMM31),
 			new OpModRM_rm(Register.ZMM0, Register.ZMM31),
-			new OpModRM_reg(Register.K0, Register.K7, 2),
 		};
 	}
 
@@ -676,16 +674,14 @@ namespace Iced.Intel.EncoderInternal {
 	sealed class OpModRM_reg : Op {
 		readonly Register regLo;
 		readonly Register regHi;
-		readonly int regAlignment;
 
-		public OpModRM_reg(Register regLo, Register regHi, int regAlignment = 1) {
+		public OpModRM_reg(Register regLo, Register regHi) {
 			this.regLo = regLo;
 			this.regHi = regHi;
-			this.regAlignment = regAlignment;
 		}
 
 		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddModRMRegister(ref instr, operand, regLo, regHi, regAlignment);
+			encoder.AddModRMRegister(ref instr, operand, regLo, regHi);
 	}
 
 	sealed class OpModRM_regF0 : Op {

@@ -1290,7 +1290,7 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = ((int)state.reg & ~1) + Register.K0;
+			instruction.InternalOp0Register = (int)state.reg + Register.K0;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = (int)state.vvvv + baseReg;

@@ -11832,32 +11832,32 @@ C4E27D 5A 10, VEX_Vbroadcasti128_ymm_m128, Vbroadcasti128, 2, op0=r;ymm2 op1=m;d
 62 F24F08 68 50 01, EVEX_Vp2intersectd_k_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;bx;si;1;16;1;Packed128_UInt32 co=0;0;0;0;6;1
 62 F24F18 68 50 01, EVEX_Vp2intersectd_k_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;Broadcast128_UInt32 bcst co=0;0;0;0;6;1
 62 F24F08 68 D3, EVEX_Vp2intersectd_k_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=r;xmm3
-62 F24F08 68 DB, EVEX_Vp2intersectd_k_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=r;xmm3 enc=62F24F0868D3
+62 F24F08 68 DB, EVEX_Vp2intersectd_k_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k3 op1=r;xmm6 op2=r;xmm3
 
 62 F24F28 68 50 01, EVEX_Vp2intersectd_k_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;bx;si;1;32;1;Packed256_UInt32 co=0;0;0;0;6;1
 62 F24F38 68 50 01, EVEX_Vp2intersectd_k_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;bx;si;1;4;1;Broadcast256_UInt32 bcst co=0;0;0;0;6;1
 62 F24F28 68 D3, EVEX_Vp2intersectd_k_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=r;ymm3
-62 F24F28 68 DB, EVEX_Vp2intersectd_k_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=r;ymm3 enc=62F24F2868D3
+62 F24F28 68 DB, EVEX_Vp2intersectd_k_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k3 op1=r;ymm6 op2=r;ymm3
 
 62 F24F48 68 50 01, EVEX_Vp2intersectd_k_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;bx;si;1;64;1;Packed512_UInt32 co=0;0;0;0;6;1
 62 F24F58 68 50 01, EVEX_Vp2intersectd_k_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;bx;si;1;4;1;Broadcast512_UInt32 bcst co=0;0;0;0;6;1
 62 F24F48 68 D3, EVEX_Vp2intersectd_k_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=r;zmm3
-62 F24F48 68 DB, EVEX_Vp2intersectd_k_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=r;zmm3 enc=62F24F4868D3
+62 F24F48 68 DB, EVEX_Vp2intersectd_k_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k3 op1=r;zmm6 op2=r;zmm3
 
 62 F2CF08 68 50 01, EVEX_Vp2intersectq_k_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;bx;si;1;16;1;Packed128_UInt64 co=0;0;0;0;6;1
 62 F2CF18 68 50 01, EVEX_Vp2intersectq_k_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;bx;si;1;8;1;Broadcast128_UInt64 bcst co=0;0;0;0;6;1
 62 F2CF08 68 D3, EVEX_Vp2intersectq_k_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=r;xmm3
-62 F2CF08 68 DB, EVEX_Vp2intersectq_k_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=r;xmm3 enc=62F2CF0868D3
+62 F2CF08 68 DB, EVEX_Vp2intersectq_k_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k3 op1=r;xmm6 op2=r;xmm3
 
 62 F2CF28 68 50 01, EVEX_Vp2intersectq_k_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;bx;si;1;32;1;Packed256_UInt64 co=0;0;0;0;6;1
 62 F2CF38 68 50 01, EVEX_Vp2intersectq_k_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;bx;si;1;8;1;Broadcast256_UInt64 bcst co=0;0;0;0;6;1
 62 F2CF28 68 D3, EVEX_Vp2intersectq_k_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=r;ymm3
-62 F2CF28 68 DB, EVEX_Vp2intersectq_k_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=r;ymm3 enc=62F2CF2868D3
+62 F2CF28 68 DB, EVEX_Vp2intersectq_k_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k3 op1=r;ymm6 op2=r;ymm3
 
 62 F2CF48 68 50 01, EVEX_Vp2intersectq_k_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;bx;si;1;64;1;Packed512_UInt64 co=0;0;0;0;6;1
 62 F2CF58 68 50 01, EVEX_Vp2intersectq_k_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;bx;si;1;8;1;Broadcast512_UInt64 bcst co=0;0;0;0;6;1
 62 F2CF48 68 D3, EVEX_Vp2intersectq_k_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=r;zmm3
-62 F2CF48 68 DB, EVEX_Vp2intersectq_k_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=r;zmm3 enc=62F2CF4868D3
+62 F2CF48 68 DB, EVEX_Vp2intersectq_k_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k3 op1=r;zmm6 op2=r;zmm3
 
 62 F2CD0B 70 50 01, EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128, Vpshldvw, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;16;1;Packed128_UInt16 k3 co=0;0;0;0;6;1
 62 F2CD8B 70 50 01, EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128, Vpshldvw, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;16;1;Packed128_UInt16 k3 zmsk co=0;0;0;0;6;1
