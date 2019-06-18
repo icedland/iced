@@ -259,6 +259,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_AVX512DQ = (uint)CpuidFeatureInternal.AVX512DQ << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512ER = (uint)CpuidFeatureInternal.AVX512ER << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512F = (uint)CpuidFeatureInternal.AVX512F << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512F_and_AVX512_VP2INTERSECT = (uint)CpuidFeatureInternal.AVX512F_and_AVX512_VP2INTERSECT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512F_and_GFNI = (uint)CpuidFeatureInternal.AVX512F_and_GFNI << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512F_and_VAES = (uint)CpuidFeatureInternal.AVX512F_and_VAES << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512F_and_VPCLMULQDQ = (uint)CpuidFeatureInternal.AVX512F_and_VPCLMULQDQ << (int)InfoFlags2.CpuidFeatureShift;
@@ -3516,10 +3517,10 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512BW | Encoding_EVEX,
 			(uint)Code.EVEX_Vp2intersectd_k_xmm_xmmm128b32 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VP2INTERSECT | Encoding_EVEX,
 			(uint)Code.EVEX_Vp2intersectd_k_ymm_ymmm256b32 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VP2INTERSECT | Encoding_EVEX,
-			(uint)Code.EVEX_Vp2intersectd_k_zmm_zmmm512b32 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VP2INTERSECT | Encoding_EVEX,
+			(uint)Code.EVEX_Vp2intersectd_k_zmm_zmmm512b32 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512F_and_AVX512_VP2INTERSECT | Encoding_EVEX,
 			(uint)Code.EVEX_Vp2intersectq_k_xmm_xmmm128b64 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VP2INTERSECT | Encoding_EVEX,
 			(uint)Code.EVEX_Vp2intersectq_k_ymm_ymmm256b64 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VP2INTERSECT | Encoding_EVEX,
-			(uint)Code.EVEX_Vp2intersectq_k_zmm_zmmm512b64 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VP2INTERSECT | Encoding_EVEX,
+			(uint)Code.EVEX_Vp2intersectq_k_zmm_zmmm512b64 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512F_and_AVX512_VP2INTERSECT | Encoding_EVEX,
 			(uint)Code.EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
 			(uint)Code.EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
 			(uint)Code.EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,

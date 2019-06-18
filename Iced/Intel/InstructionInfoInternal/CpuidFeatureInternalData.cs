@@ -58,6 +58,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			new[] { CpuidFeature.AVX512DQ },
 			new[] { CpuidFeature.AVX512ER },
 			new[] { CpuidFeature.AVX512F },
+			new[] { CpuidFeature.AVX512F, CpuidFeature.AVX512_VP2INTERSECT },
 			new[] { CpuidFeature.AVX512F, CpuidFeature.GFNI },
 			new[] { CpuidFeature.AVX512F, CpuidFeature.VAES },
 			new[] { CpuidFeature.AVX512F, CpuidFeature.VPCLMULQDQ },
