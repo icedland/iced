@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
@@ -50,8 +50,7 @@ License: MIT
   </ItemGroup>
 
   <PropertyGroup>
-    <DefineConstants Condition=" $(TargetFramework.StartsWith(netstandard)) AND !$(TargetFramework.StartsWith(netstandard1.)) AND '$(TargetFramework)' != 'netstandard2.0' ">$(DefineConstants);HAS_SPAN</DefineConstants>
-    <DefineConstants Condition=" $(TargetFramework.StartsWith(netstandard1.)) ">$(DefineConstants);NO_SERIALIZATION</DefineConstants>
+    <DefineConstants Condition=" $(TargetFramework.StartsWith(netstandard)) AND '$(TargetFramework)' != 'netstandard2.0' ">$(DefineConstants);HAS_SPAN</DefineConstants>
   </PropertyGroup>
 
 </Project>
