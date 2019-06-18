@@ -1180,5 +1180,24 @@ namespace Iced.Intel.IntelFormatterInternal {
 			info.Op4Index = OpAccess_Read;
 		}
 	}
+
+	sealed class SimpleInstrInfo_bcst : InstrInfo {
+		readonly string mnemonic;
+		readonly InstrOpInfoFlags flagsNoBroadcast;
+		readonly InstrOpInfoFlags flagsBroadcast;
+
+		public SimpleInstrInfo_bcst(Code code, string mnemonic, InstrOpInfoFlags flagsNoBroadcast, InstrOpInfoFlags flagsBroadcast)
+			: base(code) {
+			this.mnemonic = mnemonic;
+			this.flagsNoBroadcast = flagsNoBroadcast;
+			this.flagsBroadcast = flagsBroadcast;
+		}
+
+		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+			var memInfo = MemorySizes.AllMemorySizes[(int)instr.MemorySize];
+			var flags = memInfo.bcstTo != null ? flagsBroadcast : flagsNoBroadcast;
+			info = new InstrOpInfo(mnemonic, ref instr, flags);
+		}
+	}
 }
 #endif
