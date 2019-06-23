@@ -1674,7 +1674,23 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				invalid,
 
 				// 68
-				invalid,
+				new OpCodeHandler_MandatoryPrefix2(
+					invalid,
+					invalid,
+					invalid,
+					new OpCodeHandler_W(
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_KP1HW(Register.XMM0, Code.EVEX_Vp2intersectd_k_xmm_xmmm128b32, TupleType.Full_128),
+							new OpCodeHandler_EVEX_KP1HW(Register.YMM0, Code.EVEX_Vp2intersectd_k_ymm_ymmm256b32, TupleType.Full_256),
+							new OpCodeHandler_EVEX_KP1HW(Register.ZMM0, Code.EVEX_Vp2intersectd_k_zmm_zmmm512b32, TupleType.Full_512)
+						),
+						new OpCodeHandler_VectorLength_EVEX(
+							new OpCodeHandler_EVEX_KP1HW(Register.XMM0, Code.EVEX_Vp2intersectq_k_xmm_xmmm128b64, TupleType.Full_128),
+							new OpCodeHandler_EVEX_KP1HW(Register.YMM0, Code.EVEX_Vp2intersectq_k_ymm_ymmm256b64, TupleType.Full_256),
+							new OpCodeHandler_EVEX_KP1HW(Register.ZMM0, Code.EVEX_Vp2intersectq_k_zmm_zmmm512b64, TupleType.Full_512)
+						)
+					)
+				),
 				invalid,
 				invalid,
 				invalid,

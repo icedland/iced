@@ -124,16 +124,16 @@ jmp dword ptr [bx+si]
 push esi
 push dword ptr [bx+si]
 bndmov bnd1, bnd2
-bndmov bnd1, qword ptr [eax]
+bndmov bnd1, [eax]
 bndcl bnd1, edx
-bndcl bnd1, dword ptr [eax]
+bndcl bnd1, [eax]
 bndcu bnd1, edx
-bndcu bnd1, dword ptr [eax]
+bndcu bnd1, [eax]
 bndmov bnd2, bnd1
-bndmov qword ptr [eax], bnd1
-bndmk bnd1, dword ptr [eax]
+bndmov [eax], bnd1
+bndmk bnd1, [eax]
 bndcn bnd1, edx
-bndcn bnd1, dword ptr [eax]
+bndcn bnd1, [eax]
 vmread esi, ecx
 vmread dword ptr [bx+si], ebx
 vmwrite ecx, esi
@@ -320,8 +320,8 @@ lsl cx, si
 lsl bx, word ptr [bx+si]
 lsl ecx, esi
 lsl ebx, word ptr [bx+si]
-bndldx bnd1, dword ptr [eax]
-bndstx dword ptr [eax], bnd1
+bndldx bnd1, [eax]
+bndstx [eax], bnd1
 kmovw k2, k3
 kmovw k1, word ptr [bx+si]
 kmovb k2, k3

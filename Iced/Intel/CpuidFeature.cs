@@ -153,6 +153,11 @@ namespace Iced.Intel {
 		AVX512_VNNI,
 
 		/// <summary>
+		/// CPUID.(EAX=07H, ECX=0):EDX[bit 08]
+		/// </summary>
+		AVX512_VP2INTERSECT,
+
+		/// <summary>
 		/// CPUID.(EAX=07H, ECX=0H):ECX.AVX512_VPOPCNTDQ[bit 14]
 		/// </summary>
 		AVX512_VPOPCNTDQ,
@@ -286,6 +291,11 @@ namespace Iced.Intel {
 		/// CPUID.(EAX=12H, ECX=0H):EAX.OSS[bit 5]
 		/// </summary>
 		ENCLV,
+
+		/// <summary>
+		/// CPUID.(EAX=07H, ECX=0):ECX[bit 29]
+		/// </summary>
+		ENQCMD,
 
 		/// <summary>
 		/// CPUID.01H:ECX.F16C[bit 29]

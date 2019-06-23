@@ -127,6 +127,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CodeInfo_Invlpga = (uint)CodeInfo.Invlpga << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Iret = (uint)CodeInfo.Iret << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Jrcxz = (uint)CodeInfo.Jrcxz << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_KP1 = (uint)CodeInfo.KP1 << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Lahf = (uint)CodeInfo.Lahf << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Lds = (uint)CodeInfo.Lds << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Leave = (uint)CodeInfo.Leave << (int)InfoFlags1.CodeInfoShift;
@@ -258,6 +259,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_AVX512DQ = (uint)CpuidFeatureInternal.AVX512DQ << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512ER = (uint)CpuidFeatureInternal.AVX512ER << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512F = (uint)CpuidFeatureInternal.AVX512F << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512F_and_AVX512_VP2INTERSECT = (uint)CpuidFeatureInternal.AVX512F_and_AVX512_VP2INTERSECT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512F_and_GFNI = (uint)CpuidFeatureInternal.AVX512F_and_GFNI << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512F_and_VAES = (uint)CpuidFeatureInternal.AVX512F_and_VAES << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512F_and_VPCLMULQDQ = (uint)CpuidFeatureInternal.AVX512F_and_VPCLMULQDQ << (int)InfoFlags2.CpuidFeatureShift;
@@ -268,6 +270,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_AVX512VL_and_AVX512_VBMI = (uint)CpuidFeatureInternal.AVX512VL_and_AVX512_VBMI << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512VL_and_AVX512_VBMI2 = (uint)CpuidFeatureInternal.AVX512VL_and_AVX512_VBMI2 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512VL_and_AVX512_VNNI = (uint)CpuidFeatureInternal.AVX512VL_and_AVX512_VNNI << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_AVX512VL_and_AVX512_VP2INTERSECT = (uint)CpuidFeatureInternal.AVX512VL_and_AVX512_VP2INTERSECT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512VL_and_AVX512_VPOPCNTDQ = (uint)CpuidFeatureInternal.AVX512VL_and_AVX512_VPOPCNTDQ << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512VL_and_AVX512BW = (uint)CpuidFeatureInternal.AVX512VL_and_AVX512BW << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_AVX512VL_and_AVX512CD = (uint)CpuidFeatureInternal.AVX512VL_and_AVX512CD << (int)InfoFlags2.CpuidFeatureShift;
@@ -295,6 +298,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_D3NOWEXT = (uint)CpuidFeatureInternal.D3NOWEXT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_ECR = (uint)CpuidFeatureInternal.ECR << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_ENCLV = (uint)CpuidFeatureInternal.ENCLV << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_ENQCMD = (uint)CpuidFeatureInternal.ENQCMD << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_F16C = (uint)CpuidFeatureInternal.F16C << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FMA = (uint)CpuidFeatureInternal.FMA << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_FMA4 = (uint)CpuidFeatureInternal.FMA4 << (int)InfoFlags2.CpuidFeatureShift;
@@ -3511,6 +3515,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512BW | Encoding_EVEX,
 			(uint)Code.EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512BW | Encoding_EVEX,
 			(uint)Code.EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512BW | Encoding_EVEX,
+			(uint)Code.EVEX_Vp2intersectd_k_xmm_xmmm128b32 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VP2INTERSECT | Encoding_EVEX,
+			(uint)Code.EVEX_Vp2intersectd_k_ymm_ymmm256b32 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VP2INTERSECT | Encoding_EVEX,
+			(uint)Code.EVEX_Vp2intersectd_k_zmm_zmmm512b32 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512F_and_AVX512_VP2INTERSECT | Encoding_EVEX,
+			(uint)Code.EVEX_Vp2intersectq_k_xmm_xmmm128b64 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VP2INTERSECT | Encoding_EVEX,
+			(uint)Code.EVEX_Vp2intersectq_k_ymm_ymmm256b64 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VP2INTERSECT | Encoding_EVEX,
+			(uint)Code.EVEX_Vp2intersectq_k_zmm_zmmm512b64 | CodeInfo_KP1, Op0_WriteForce | Op1_Read | Op2_Read | CPUID_AVX512F_and_AVX512_VP2INTERSECT | Encoding_EVEX,
 			(uint)Code.EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
 			(uint)Code.EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512VL_and_AVX512_VBMI2 | Encoding_EVEX,
 			(uint)Code.EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_AVX512_VBMI2 | Encoding_EVEX,
@@ -4061,6 +4071,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Movdir64b_r16_m512 | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_MOVDIR64B | Encoding_Legacy,
 			(uint)Code.Movdir64b_r32_m512 | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_MOVDIR64B | Encoding_Legacy,
 			(uint)Code.Movdir64b_r64_m512 | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_MOVDIR64B | Encoding_Legacy,
+			(uint)Code.Enqcmds_r16_m512 | Privileged | RflagsInfo_W_z_C_acops | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_ENQCMD | Encoding_Legacy,
+			(uint)Code.Enqcmds_r32_m512 | Privileged | RflagsInfo_W_z_C_acops | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_ENQCMD | Encoding_Legacy,
+			(uint)Code.Enqcmds_r64_m512 | Privileged | RflagsInfo_W_z_C_acops | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_ENQCMD | Encoding_Legacy,
+			(uint)Code.Enqcmd_r16_m512 | RflagsInfo_W_z_C_acops | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_ENQCMD | Encoding_Legacy,
+			(uint)Code.Enqcmd_r32_m512 | RflagsInfo_W_z_C_acops | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_ENQCMD | Encoding_Legacy,
+			(uint)Code.Enqcmd_r64_m512 | RflagsInfo_W_z_C_acops | CodeInfo_Movdir64b, Op0_Read | Op1_Read | CPUID_ENQCMD | Encoding_Legacy,
 			(uint)Code.Movdiri_m32_r32, Op0_Write | Op1_Read | CPUID_MOVDIRI | Encoding_Legacy,
 			(uint)Code.Movdiri_m64_r64, Op0_Write | Op1_Read | CPUID_MOVDIRI | Encoding_Legacy,
 			(uint)Code.VEX_Vpermq_ymm_ymmm256_imm8, Op0_Write | Op1_Read | Op2_Read | CPUID_AVX2 | Encoding_VEX,

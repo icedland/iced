@@ -1163,6 +1163,14 @@ F3 0FAE F5, Umonitor_r32, Legacy, WAITPKG, op0=r r=ds;ebp rm=ds:ebp;UInt8
 67 66 0F38F8 18, Movdir64b_r16_m512, Legacy, MOVDIR64B, op0=r op1=r r=bx r=ds r=es;bx r=si rm=ds:bx+si;UInt512 wm=es:bx;UInt512
 # movdir64b ebx,[eax]
 66 0F38F8 18, Movdir64b_r32_m512, Legacy, MOVDIR64B, op0=r op1=r r=es;ebx r=ds r=eax rm=ds:eax;UInt512 wm=es:ebx;UInt512
+# enqcmds bx,[bx+si]
+67 F3 0F38F8 18, Enqcmds_r16_m512, Legacy, ENQCMD, priv fw=z fc=acops op0=r op1=r r=bx r=ds r=es;bx r=si rm=ds:bx+si;UInt512 wm=es:bx;UInt512
+# enqcmds ebx,[eax]
+F3 0F38F8 18, Enqcmds_r32_m512, Legacy, ENQCMD, priv fw=z fc=acops op0=r op1=r r=es;ebx r=ds r=eax rm=ds:eax;UInt512 wm=es:ebx;UInt512
+# enqcmd bx,[bx+si]
+67 F2 0F38F8 18, Enqcmd_r16_m512, Legacy, ENQCMD, fw=z fc=acops op0=r op1=r r=bx r=ds r=es;bx r=si rm=ds:bx+si;UInt512 wm=es:bx;UInt512
+# enqcmd ebx,[eax]
+F2 0F38F8 18, Enqcmd_r32_m512, Legacy, ENQCMD, fw=z fc=acops op0=r op1=r r=es;ebx r=ds r=eax rm=ds:eax;UInt512 wm=es:ebx;UInt512
 # pconfig
 0F01 C5, Pconfig, Legacy, PCONFIG, priv fw=z fc=acops rw=eax cr=ecx;edx;ebx
 # tpause ebp

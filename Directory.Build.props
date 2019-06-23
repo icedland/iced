@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Copyright>Copyright (C) 2018-2019 de4dot@gmail.com</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <Authors>0xd4d</Authors>
     <InformationalVersion>$(Version)</InformationalVersion>
 

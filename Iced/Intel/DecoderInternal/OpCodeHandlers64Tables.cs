@@ -1930,7 +1930,12 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				invalid,
 
 				// F8
-				new OpCodeHandler_Gv_M_as(Code.Movdir64b_r16_m512, Code.Movdir64b_r32_m512, Code.Movdir64b_r64_m512),
+				new OpCodeHandler_MandatoryPrefix(
+					invalid,
+					new OpCodeHandler_Gv_M_as(Code.Movdir64b_r16_m512, Code.Movdir64b_r32_m512, Code.Movdir64b_r64_m512),
+					new OpCodeHandler_Gv_M_as(Code.Enqcmds_r16_m512, Code.Enqcmds_r32_m512, Code.Enqcmds_r64_m512),
+					new OpCodeHandler_Gv_M_as(Code.Enqcmd_r16_m512, Code.Enqcmd_r32_m512, Code.Enqcmd_r64_m512)
+				),
 				new OpCodeHandler_MandatoryPrefix(
 					new OpCodeHandler_RM(
 						invalid,

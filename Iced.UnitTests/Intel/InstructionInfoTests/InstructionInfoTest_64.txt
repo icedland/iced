@@ -12559,6 +12559,30 @@ C4E27D 5A 10, VEX_Vbroadcasti128_ymm_m128, VEX, AVX2, op0=w op1=r w=vmm2 r=rax r
 62 F2CD4B 66 D3, EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512, EVEX, AVX512BW, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vpblendmw zmm18{k3}{z},zmm14,zmm3
 62 E28DCB 66 D3, EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512, EVEX, AVX512BW, op0=w op1=r op2=r w=vmm18 r=k3 r=zmm14 r=zmm3
+# vp2intersectd k2,xmm6,[rax+10h]
+62 F24F08 68 50 01, EVEX_Vp2intersectd_k_xmm_xmmm128b32, EVEX, AVX512VL;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_UInt32
+# vp2intersectd k3,xmm6,xmm3
+62 F24F08 68 DB, EVEX_Vp2intersectd_k_xmm_xmmm128b32, EVEX, AVX512VL;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=xmm6 r=xmm3
+# vp2intersectd k2,ymm6,[rax+20h]
+62 F24F28 68 50 01, EVEX_Vp2intersectd_k_ymm_ymmm256b32, EVEX, AVX512VL;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=ymm6 r=rax rm=ds:rax+0x20;Packed256_UInt32
+# vp2intersectd k3,ymm6,ymm3
+62 F24F28 68 DB, EVEX_Vp2intersectd_k_ymm_ymmm256b32, EVEX, AVX512VL;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=ymm6 r=ymm3
+# vp2intersectd k2,zmm6,[rax+40h]
+62 F24F48 68 50 01, EVEX_Vp2intersectd_k_zmm_zmmm512b32, EVEX, AVX512F;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_UInt32
+# vp2intersectd k3,zmm6,zmm3
+62 F24F48 68 DB, EVEX_Vp2intersectd_k_zmm_zmmm512b32, EVEX, AVX512F;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=zmm6 r=zmm3
+# vp2intersectq k2,xmm6,[rax+10h]
+62 F2CF08 68 50 01, EVEX_Vp2intersectq_k_xmm_xmmm128b64, EVEX, AVX512VL;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_UInt64
+# vp2intersectq k3,xmm6,xmm3
+62 F2CF08 68 DB, EVEX_Vp2intersectq_k_xmm_xmmm128b64, EVEX, AVX512VL;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=xmm6 r=xmm3
+# vp2intersectq k2,ymm6,[rax+20h]
+62 F2CF28 68 50 01, EVEX_Vp2intersectq_k_ymm_ymmm256b64, EVEX, AVX512VL;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=ymm6 r=rax rm=ds:rax+0x20;Packed256_UInt64
+# vp2intersectq k3,ymm6,ymm3
+62 F2CF28 68 DB, EVEX_Vp2intersectq_k_ymm_ymmm256b64, EVEX, AVX512VL;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=ymm6 r=ymm3
+# vp2intersectq k2,zmm6,[rax+40h]
+62 F2CF48 68 50 01, EVEX_Vp2intersectq_k_zmm_zmmm512b64, EVEX, AVX512F;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_UInt64
+# vp2intersectq k3,zmm6,zmm3
+62 F2CF48 68 DB, EVEX_Vp2intersectq_k_zmm_zmmm512b64, EVEX, AVX512F;AVX512_VP2INTERSECT, op0=w op1=r op2=r w=k2;k3 r=zmm6 r=zmm3
 # vpermi2b xmm2,xmm6,[rax+10h]
 62 F24D08 75 50 01, EVEX_Vpermi2b_xmm_k1z_xmm_xmmm128, EVEX, AVX512VL;AVX512_VBMI, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Int8
 # vpermi2b xmm2{k3},xmm6,xmm3
@@ -17935,6 +17959,14 @@ C4E24D DF 10, VEX_Vaesdeclast_ymm_ymm_ymmm256, VEX, VAES, op0=w op1=r op2=r w=vm
 67 66 0F38F8 18, Movdir64b_r32_m512, Legacy, MOVDIR64B, op0=r op1=r r=ebx r=eax rm=ds:eax;UInt512 wm=es:ebx;UInt512
 # movdir64b rbx,[rax]
 66 0F38F8 18, Movdir64b_r64_m512, Legacy, MOVDIR64B, op0=r op1=r r=rbx r=rax rm=ds:rax;UInt512 wm=es:rbx;UInt512
+# enqcmds ebx,[eax]
+67 F3 0F38F8 18, Enqcmds_r32_m512, Legacy, ENQCMD, priv fw=z fc=acops op0=r op1=r r=ebx r=eax rm=ds:eax;UInt512 wm=es:ebx;UInt512
+# enqcmds rbx,[rax]
+F3 0F38F8 18, Enqcmds_r64_m512, Legacy, ENQCMD, priv fw=z fc=acops op0=r op1=r r=rbx r=rax rm=ds:rax;UInt512 wm=es:rbx;UInt512
+# enqcmd ebx,[eax]
+67 F2 0F38F8 18, Enqcmd_r32_m512, Legacy, ENQCMD, fw=z fc=acops op0=r op1=r r=ebx r=eax rm=ds:eax;UInt512 wm=es:ebx;UInt512
+# enqcmd rbx,[rax]
+F2 0F38F8 18, Enqcmd_r64_m512, Legacy, ENQCMD, fw=z fc=acops op0=r op1=r r=rbx r=rax rm=ds:rax;UInt512 wm=es:rbx;UInt512
 # movdiri [rax],ebx
 0F38F9 18, Movdiri_m32_r32, Legacy, MOVDIRI, op0=w op1=r r=rax wm=ds:rax;UInt32 r=ebx
 # movdiri [rax],rbx

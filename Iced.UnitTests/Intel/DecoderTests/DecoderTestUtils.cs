@@ -268,6 +268,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.XcryptCtr_16;
 			yield return Code.XcryptCfb_16;
 			yield return Code.XcryptOfb_16;
+			yield return Code.Enqcmds_r16_m512;
+			yield return Code.Enqcmd_r16_m512;
 		}
 
 		static IEnumerable<Code> GetCode64() {
@@ -686,6 +688,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.XcryptCtr_64;
 			yield return Code.XcryptCfb_64;
 			yield return Code.XcryptOfb_64;
+			yield return Code.Enqcmds_r64_m512;
+			yield return Code.Enqcmd_r64_m512;
 		}
 
 		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool includeOtherTests, bool includeInvalid) {

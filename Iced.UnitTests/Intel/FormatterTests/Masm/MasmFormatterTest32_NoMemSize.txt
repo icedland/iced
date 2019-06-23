@@ -646,6 +646,10 @@ jmpe 0A55Ah
 jmpe 0A55A3412h
 movdir64b bx,[bx+si]
 movdir64b ebx,[eax]
+enqcmds bx,[bx+si]
+enqcmds ebx,[eax]
+enqcmd bx,[bx+si]
+enqcmd ebx,[eax]
 mov eax,tr0
 mov eax,tr1
 mov eax,tr2

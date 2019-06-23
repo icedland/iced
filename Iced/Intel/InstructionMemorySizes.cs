@@ -6280,6 +6280,18 @@ namespace Iced.Intel {
 			0,// EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256
 			(byte)MemorySize.Packed512_Int16,// EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512
 			0,// EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512
+			(byte)MemorySize.Packed128_UInt32,// EVEX_Vp2intersectd_k_xmm_xmmm128b32
+			(byte)MemorySize.Broadcast128_UInt32,// EVEX_Vp2intersectd_k_xmm_xmmm128b32
+			(byte)MemorySize.Packed256_UInt32,// EVEX_Vp2intersectd_k_ymm_ymmm256b32
+			(byte)MemorySize.Broadcast256_UInt32,// EVEX_Vp2intersectd_k_ymm_ymmm256b32
+			(byte)MemorySize.Packed512_UInt32,// EVEX_Vp2intersectd_k_zmm_zmmm512b32
+			(byte)MemorySize.Broadcast512_UInt32,// EVEX_Vp2intersectd_k_zmm_zmmm512b32
+			(byte)MemorySize.Packed128_UInt64,// EVEX_Vp2intersectq_k_xmm_xmmm128b64
+			(byte)MemorySize.Broadcast128_UInt64,// EVEX_Vp2intersectq_k_xmm_xmmm128b64
+			(byte)MemorySize.Packed256_UInt64,// EVEX_Vp2intersectq_k_ymm_ymmm256b64
+			(byte)MemorySize.Broadcast256_UInt64,// EVEX_Vp2intersectq_k_ymm_ymmm256b64
+			(byte)MemorySize.Packed512_UInt64,// EVEX_Vp2intersectq_k_zmm_zmmm512b64
+			(byte)MemorySize.Broadcast512_UInt64,// EVEX_Vp2intersectq_k_zmm_zmmm512b64
 			(int)MemorySize.Packed128_UInt16,// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
 			0,// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
 			(int)MemorySize.Packed256_UInt16,// EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256
@@ -7380,6 +7392,18 @@ namespace Iced.Intel {
 			0,// Movdir64b_r32_m512
 			(byte)MemorySize.UInt512,// Movdir64b_r64_m512
 			0,// Movdir64b_r64_m512
+			(byte)MemorySize.UInt512,// Enqcmds_r16_m512
+			0,// Enqcmds_r16_m512
+			(byte)MemorySize.UInt512,// Enqcmds_r32_m512
+			0,// Enqcmds_r32_m512
+			(byte)MemorySize.UInt512,// Enqcmds_r64_m512
+			0,// Enqcmds_r64_m512
+			(byte)MemorySize.UInt512,// Enqcmd_r16_m512
+			0,// Enqcmd_r16_m512
+			(byte)MemorySize.UInt512,// Enqcmd_r32_m512
+			0,// Enqcmd_r32_m512
+			(byte)MemorySize.UInt512,// Enqcmd_r64_m512
+			0,// Enqcmd_r64_m512
 			(byte)MemorySize.UInt32,// Movdiri_m32_r32
 			0,// Movdiri_m32_r32
 			(byte)MemorySize.UInt64,// Movdiri_m64_r64

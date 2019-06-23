@@ -3151,6 +3151,12 @@ namespace Iced.Intel {
 			3,// EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128
 			3,// EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256
 			3,// EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512
+			3,// EVEX_Vp2intersectd_k_xmm_xmmm128b32
+			3,// EVEX_Vp2intersectd_k_ymm_ymmm256b32
+			3,// EVEX_Vp2intersectd_k_zmm_zmmm512b32
+			3,// EVEX_Vp2intersectq_k_xmm_xmmm128b64
+			3,// EVEX_Vp2intersectq_k_ymm_ymmm256b64
+			3,// EVEX_Vp2intersectq_k_zmm_zmmm512b64
 			3,// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
 			3,// EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256
 			3,// EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512
@@ -3701,6 +3707,12 @@ namespace Iced.Intel {
 			2,// Movdir64b_r16_m512
 			2,// Movdir64b_r32_m512
 			2,// Movdir64b_r64_m512
+			2,// Enqcmds_r16_m512
+			2,// Enqcmds_r32_m512
+			2,// Enqcmds_r64_m512
+			2,// Enqcmd_r16_m512
+			2,// Enqcmd_r32_m512
+			2,// Enqcmd_r64_m512
 			2,// Movdiri_m32_r32
 			2,// Movdiri_m64_r64
 			3,// VEX_Vpermq_ymm_ymmm256_imm8

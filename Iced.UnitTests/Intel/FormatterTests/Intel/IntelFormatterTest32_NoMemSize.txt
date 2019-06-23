@@ -183,14 +183,14 @@ jmp dword ptr [eax]
 push esi
 push dword ptr [eax]
 bndmov bnd1, bnd2
-bndmov bnd1, qword ptr [eax]
+bndmov bnd1, [eax]
 bndcl bnd1, edx
 bndcl bnd1, [eax]
 bndcu bnd1, edx
 bndcu bnd1, [eax]
 bndmov bnd2, bnd1
-bndmov qword ptr [eax], bnd1
-bndmk bnd1, dword ptr [eax]
+bndmov [eax], bnd1
+bndmk bnd1, [eax]
 bndcn bnd1, edx
 bndcn bnd1, [eax]
 mov esi, cr3
@@ -198,9 +198,9 @@ mov esi, dr3
 mov cr3, esi
 mov dr3, esi
 vmread esi, ecx
-vmread dword ptr [eax], ebx
+vmread [eax], ebx
 vmwrite ecx, esi
-vmwrite ebx, dword ptr [eax]
+vmwrite ebx, [eax]
 data16 jo 0xa54f
 jo 0xb412a550
 data16 jno 0xa54f
@@ -385,17 +385,17 @@ lsl cx, si
 lsl bx, [eax]
 lsl ecx, esi
 lsl ebx, [eax]
-bndldx bnd1, dword ptr [eax]
-bndstx dword ptr [eax], bnd1
+bndldx bnd1, [eax]
+bndstx [eax], bnd1
 kmovw k2, k3
-kmovw k1, word ptr [eax]
+kmovw k1, [eax]
 kmovb k2, k3
-kmovb k1, byte ptr [eax]
+kmovb k1, [eax]
 kmovd k2, k3
-kmovd k1, dword ptr [eax]
-kmovw word ptr [eax], k1
-kmovb byte ptr [eax], k1
-kmovd dword ptr [eax], k1
+kmovd k1, [eax]
+kmovw [eax], k1
+kmovb [eax], k1
+kmovd [eax], k1
 kmovw k2, ebx
 kmovb k2, ebx
 kmovd k2, ebx
@@ -646,6 +646,10 @@ jmpe 0xa55a
 jmpe 0xa55a3412
 movdir64b bx, [bx+si]
 movdir64b ebx, [eax]
+enqcmds bx, [bx+si]
+enqcmds ebx, [eax]
+enqcmd bx, [bx+si]
+enqcmd ebx, [eax]
 mov eax, tr0
 mov eax, tr1
 mov eax, tr2

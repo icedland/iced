@@ -646,6 +646,10 @@ jmpe near ptr 0A55Ah
 jmpe near ptr 0A55A3412h
 movdir64b bx,zmmword ptr [bx+si]
 movdir64b ebx,zmmword ptr [eax]
+enqcmds bx,zmmword ptr [bx+si]
+enqcmds ebx,zmmword ptr [eax]
+enqcmd bx,zmmword ptr [bx+si]
+enqcmd ebx,zmmword ptr [eax]
 mov eax,tr0
 mov eax,tr1
 mov eax,tr2
