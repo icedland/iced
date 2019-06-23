@@ -1192,10 +1192,10 @@ namespace Iced.Intel.IntelFormatterInternal {
 			this.flagsBroadcast = flagsBroadcast;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var memInfo = MemorySizes.AllMemorySizes[(int)instr.MemorySize];
 			var flags = memInfo.bcstTo != null ? flagsBroadcast : flagsNoBroadcast;
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 }
