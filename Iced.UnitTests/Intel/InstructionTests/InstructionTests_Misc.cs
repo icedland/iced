@@ -103,34 +103,66 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		void Write_all_properties() {
 			Instruction instr = default;
 
+			instr.IP = 0x8A6BD04A9B683A92;
 			instr.IP16 = ushort.MinValue;
 			Assert.Equal(ushort.MinValue, instr.IP16);
+			Assert.Equal(ushort.MinValue, instr.IP32);
+			Assert.Equal(ushort.MinValue, instr.IP);
+			instr.IP = 0x8A6BD04A9B683A92;
 			instr.IP16 = ushort.MaxValue;
 			Assert.Equal(ushort.MaxValue, instr.IP16);
+			Assert.Equal(ushort.MaxValue, instr.IP32);
+			Assert.Equal(ushort.MaxValue, instr.IP);
 
+			instr.IP = 0x8A6BD04A9B683A92;
 			instr.IP32 = uint.MinValue;
+			Assert.Equal(ushort.MinValue, instr.IP16);
 			Assert.Equal(uint.MinValue, instr.IP32);
+			Assert.Equal(uint.MinValue, instr.IP);
+			instr.IP = 0x8A6BD04A9B683A92;
 			instr.IP32 = uint.MaxValue;
+			Assert.Equal(ushort.MaxValue, instr.IP16);
 			Assert.Equal(uint.MaxValue, instr.IP32);
+			Assert.Equal(uint.MaxValue, instr.IP);
 
 			instr.IP = ulong.MinValue;
+			Assert.Equal(ushort.MinValue, instr.IP16);
+			Assert.Equal(uint.MinValue, instr.IP32);
 			Assert.Equal(ulong.MinValue, instr.IP);
 			instr.IP = ulong.MaxValue;
+			Assert.Equal(ushort.MaxValue, instr.IP16);
+			Assert.Equal(uint.MaxValue, instr.IP32);
 			Assert.Equal(ulong.MaxValue, instr.IP);
 
+			instr.NextIP = 0x8A6BD04A9B683A92;
 			instr.NextIP16 = ushort.MinValue;
 			Assert.Equal(ushort.MinValue, instr.NextIP16);
+			Assert.Equal(ushort.MinValue, instr.NextIP32);
+			Assert.Equal(ushort.MinValue, instr.NextIP);
+			instr.NextIP = 0x8A6BD04A9B683A92;
 			instr.NextIP16 = ushort.MaxValue;
 			Assert.Equal(ushort.MaxValue, instr.NextIP16);
+			Assert.Equal(ushort.MaxValue, instr.NextIP32);
+			Assert.Equal(ushort.MaxValue, instr.NextIP);
 
+			instr.NextIP = 0x8A6BD04A9B683A92;
 			instr.NextIP32 = uint.MinValue;
+			Assert.Equal(ushort.MinValue, instr.NextIP16);
 			Assert.Equal(uint.MinValue, instr.NextIP32);
+			Assert.Equal(uint.MinValue, instr.NextIP);
+			instr.NextIP = 0x8A6BD04A9B683A92;
 			instr.NextIP32 = uint.MaxValue;
+			Assert.Equal(ushort.MaxValue, instr.NextIP16);
 			Assert.Equal(uint.MaxValue, instr.NextIP32);
+			Assert.Equal(uint.MaxValue, instr.NextIP);
 
 			instr.NextIP = ulong.MinValue;
+			Assert.Equal(ushort.MinValue, instr.NextIP16);
+			Assert.Equal(uint.MinValue, instr.NextIP32);
 			Assert.Equal(ulong.MinValue, instr.NextIP);
 			instr.NextIP = ulong.MaxValue;
+			Assert.Equal(ushort.MaxValue, instr.NextIP16);
+			Assert.Equal(uint.MaxValue, instr.NextIP32);
 			Assert.Equal(ulong.MaxValue, instr.NextIP);
 
 			instr.MemoryDisplacement = uint.MinValue;
