@@ -36,53 +36,128 @@ namespace Iced.Intel {
 		public abstract void Write(string text, FormatterOutputTextKind kind);
 
 		/// <summary>
-		/// Called just before and just after formatting an operand
+		/// Writes a prefix
 		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="text">Prefix text</param>
+		/// <param name="prefix">Prefix</param>
+		public virtual void WritePrefix(ref Instruction instruction, string text, PrefixKind prefix) => Write(text, FormatterOutputTextKind.Prefix);
+
+		/// <summary>
+		/// Writes a mnemonic (<see cref="Instruction.Mnemonic"/>)
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="text">Mnemonic text</param>
+		public virtual void WriteMnemonic(ref Instruction instruction, string text) => Write(text, FormatterOutputTextKind.Mnemonic);
+
+		/// <summary>
+		/// Writes a number
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.</param>
-		/// <param name="begin">true if we're about to format the operand, false if we've formatted it</param>
-		public virtual void OnOperand(int operand, bool begin) { }
+		/// <param name="instructionOperand">Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.</param>
+		/// <param name="text">Number text</param>
+		/// <param name="value">Value</param>
+		/// <param name="numberKind">Number kind</param>
+		/// <param name="kind">Text kind</param>
+		public virtual void WriteNumber(ref Instruction instruction, int operand, int instructionOperand, string text, ulong value, NumberKind numberKind, FormatterOutputTextKind kind) => Write(text, kind);
 
-		internal void Write(in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool showSymbolAddress) =>
-			Write(numberFormatter, numberOptions, address, symbol, showSymbolAddress, true, false);
+		/// <summary>
+		/// Writes a decorator
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.</param>
+		/// <param name="instructionOperand">Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.</param>
+		/// <param name="text">Decorator text</param>
+		/// <param name="decorator">Decorator</param>
+		public virtual void WriteDecorator(ref Instruction instruction, int operand, int instructionOperand, string text, DecoratorKind decorator) => Write(text, FormatterOutputTextKind.Decorator);
 
-		internal void Write(in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool showSymbolAddress, bool writeMinusIfSigned, bool spacesBetweenOp) {
+		/// <summary>
+		/// Writes a register
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.</param>
+		/// <param name="instructionOperand">Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.</param>
+		/// <param name="text">Register text</param>
+		/// <param name="register">Register</param>
+		public virtual void WriteRegister(ref Instruction instruction, int operand, int instructionOperand, string text, Register register) => Write(text, FormatterOutputTextKind.Register);
+
+		/// <summary>
+		/// Writes a symbol
+		/// </summary>
+		/// <param name="instruction">Instruction</param>
+		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.</param>
+		/// <param name="instructionOperand">Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.</param>
+		/// <param name="address">Address</param>
+		/// <param name="symbol">Symbol</param>
+		public virtual void WriteSymbol(ref Instruction instruction, int operand, int instructionOperand, ulong address, in SymbolResult symbol) => Write(symbol.Text);
+
+		internal void Write(ref Instruction instruction, int operand, int instructionOperand, in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool showSymbolAddress) =>
+			Write(ref instruction, operand, instructionOperand, numberFormatter, numberOptions, address, symbol, showSymbolAddress, true, false);
+
+		internal void Write(ref Instruction instruction, int operand, int instructionOperand, in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool showSymbolAddress, bool writeMinusIfSigned, bool spacesBetweenOp) {
 			long displ = (long)(address - symbol.Address);
 			if ((symbol.Flags & SymbolFlags.Signed) != 0) {
 				if (writeMinusIfSigned)
 					Write("-", FormatterOutputTextKind.Operator);
 				displ = -displ;
 			}
-			Write(symbol.Text);
+			WriteSymbol(ref instruction, operand, instructionOperand, address, symbol);
+			NumberKind numberKind;
 			if (displ != 0) {
 				if (spacesBetweenOp)
 					Write(" ", FormatterOutputTextKind.Text);
+				ulong origDispl = (ulong)displ;
 				if (displ < 0) {
 					Write("-", FormatterOutputTextKind.Operator);
 					displ = -displ;
+					if (displ <= sbyte.MaxValue + 1)
+						numberKind = NumberKind.Int8;
+					else if (displ <= short.MaxValue + 1)
+						numberKind = NumberKind.Int16;
+					else if (displ <= (long)int.MaxValue + 1)
+						numberKind = NumberKind.Int32;
+					else
+						numberKind = NumberKind.Int64;
 				}
-				else
+				else {
 					Write("+", FormatterOutputTextKind.Operator);
+					if (displ <= sbyte.MaxValue)
+						numberKind = NumberKind.Int8;
+					else if (displ <= short.MaxValue)
+						numberKind = NumberKind.Int16;
+					else if (displ <= int.MaxValue)
+						numberKind = NumberKind.Int32;
+					else
+						numberKind = NumberKind.Int64;
+				}
 				if (spacesBetweenOp)
 					Write(" ", FormatterOutputTextKind.Text);
 				var s = numberFormatter.FormatUInt64(numberOptions, (ulong)displ, leadingZeroes: false);
-				Write(s, FormatterOutputTextKind.Number);
+				WriteNumber(ref instruction, operand, instructionOperand, s, origDispl, numberKind, FormatterOutputTextKind.Number);
 			}
 			if (showSymbolAddress) {
 				Write(" ", FormatterOutputTextKind.Text);
 				Write("(", FormatterOutputTextKind.Punctuation);
 				string s;
-				if (address <= ushort.MaxValue)
+				if (address <= ushort.MaxValue) {
 					s = numberFormatter.FormatUInt16(numberOptions, (ushort)address, leadingZeroes: true);
-				else if (address <= uint.MaxValue)
+					numberKind = NumberKind.UInt16;
+				}
+				else if (address <= uint.MaxValue) {
 					s = numberFormatter.FormatUInt32(numberOptions, (uint)address, leadingZeroes: true);
-				else
+					numberKind = NumberKind.UInt32;
+				}
+				else {
 					s = numberFormatter.FormatUInt64(numberOptions, address, leadingZeroes: true);
-				Write(s, FormatterOutputTextKind.Number);
+					numberKind = NumberKind.UInt64;
+				}
+				WriteNumber(ref instruction, operand, instructionOperand, s, address, numberKind, FormatterOutputTextKind.Number);
 				Write(")", FormatterOutputTextKind.Punctuation);
 			}
 		}
 
-		internal void Write(in TextInfo text) {
+		void Write(in TextInfo text) {
 			var array = text.TextArray;
 			if (array != null) {
 				foreach (var part in array)
@@ -91,6 +166,60 @@ namespace Iced.Intel {
 			else if (text.Text.Text is string s)
 				Write(s, text.Text.Color);
 		}
+	}
+
+	/// <summary>
+	/// Prefix
+	/// </summary>
+	public enum PrefixKind {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+		ES,
+		CS,
+		SS,
+		DS,
+		FS,
+		GS,
+		Lock,
+		Rep,
+		Repe,
+		Repne,
+		OperandSize,
+		AddressSize,
+		HintNotTaken,
+		HintTaken,
+		Bnd,
+		Notrack,
+		Xacquire,
+		Xrelease,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+	}
+
+	/// <summary>
+	/// Decorator
+	/// </summary>
+	public enum DecoratorKind {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+		Broadcast,
+		RoundingControl,
+		SuppressAllExceptions,
+		ZeroingMasking,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+	}
+
+	/// <summary>
+	/// Number kind
+	/// </summary>
+	public enum NumberKind {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+		Int8,
+		UInt8,
+		Int16,
+		UInt16,
+		Int32,
+		UInt32,
+		Int64,
+		UInt64,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }
 #endif
