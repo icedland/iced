@@ -765,7 +765,7 @@ namespace Iced.Intel {
 			FormatMemorySize(output, ref instr, ref symbol, memSize, flags, operandOptions, useSymbol);
 
 			bool noTrackPrefix = segOverride == Register.DS && FormatterUtils.IsNoTrackPrefixBranch(instr.Code) &&
-				!(baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.RBP || baseReg == Register.ESP || baseReg == Register.RSP);
+				!((codeSize == CodeSize.Code16 || codeSize == CodeSize.Code32) && (baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.ESP));
 			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix) ||
 				(is1632 && !hasMemReg && !useSymbol && options.AddDsPrefix32)) {
 				FormatRegister(output, segReg);

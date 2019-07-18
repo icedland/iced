@@ -549,10 +549,10 @@ bnd call *%rax
 bnd ret $0
 bnd ret
 notrack callq *(%rax)
-notrack callq *%ds:0x11(%rbp)
+notrack callq *0x11(%rbp)
 notrack call *%rcx
 notrack jmpq *(%rax)
-notrack jmpq *%ds:0x11(%rbp)
+notrack jmpq *0x11(%rbp)
 notrack jmp *%rcx
 notrack bnd call *%rcx
 callq *%fs:(%rax)
