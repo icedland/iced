@@ -674,16 +674,13 @@ namespace Iced.Intel {
 					Debug.Assert((int)RoundingControl.RoundDown == 2);
 					Debug.Assert((int)RoundingControl.RoundUp == 3);
 					Debug.Assert((int)RoundingControl.RoundTowardZero == 4);
-					var text = rcStrings[(int)rc];
-					if (!(text is null))
-						FormatDecorator(output, instruction, operand, instructionOperand, text, DecoratorKind.RoundingControl);
+					FormatDecorator(output, instruction, operand, instructionOperand, rcStrings[(int)rc - 1], DecoratorKind.RoundingControl);
 				}
 				else if (instruction.SuppressAllExceptions)
 					FormatDecorator(output, instruction, operand, instructionOperand, "sae", DecoratorKind.SuppressAllExceptions);
 			}
 		}
-		static readonly string?[] rcStrings = new string?[] {
-			null,
+		static readonly string[] rcStrings = new string[] {
 			"rne-sae",
 			"rd-sae",
 			"ru-sae",

@@ -688,11 +688,8 @@ namespace Iced.Intel {
 					Debug.Assert((int)RoundingControl.RoundDown == 2);
 					Debug.Assert((int)RoundingControl.RoundUp == 3);
 					Debug.Assert((int)RoundingControl.RoundTowardZero == 4);
-					var text = rcStrings[(int)rc];
-					if (!(text is null)) {
-						output.Write(" ", FormatterOutputTextKind.Text);
-						FormatDecorator(output, instruction, operand, instructionOperand, text, DecoratorKind.RoundingControl);
-					}
+					output.Write(" ", FormatterOutputTextKind.Text);
+					FormatDecorator(output, instruction, operand, instructionOperand, rcStrings[(int)rc - 1], DecoratorKind.RoundingControl);
 				}
 				else if (instruction.SuppressAllExceptions) {
 					output.Write(" ", FormatterOutputTextKind.Text);
@@ -700,8 +697,7 @@ namespace Iced.Intel {
 				}
 			}
 		}
-		static readonly string?[] rcStrings = new string?[] {
-			null,
+		static readonly string[] rcStrings = new string[] {
 			"rn-sae",
 			"rd-sae",
 			"ru-sae",
