@@ -138,7 +138,7 @@ namespace Iced.Intel {
 			readonly get => (NumberBase)numberBaseByteValue;
 			set => numberBaseByteValue = (byte)value;
 		}
-		internal byte numberBaseByteValue;
+		byte numberBaseByteValue;
 
 		/// <summary>
 		/// Use upper case hex digits

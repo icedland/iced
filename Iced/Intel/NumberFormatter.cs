@@ -155,7 +155,7 @@ namespace Iced.Intel {
 			string? prefix, suffix;
 			int digitGroupSize;
 			string? digitSeparator;
-			switch ((NumberBase)options.numberBaseByteValue) {
+			switch (options.NumberBase) {
 			case NumberBase.Hexadecimal:
 				if (smallHexNumbersInDecimal && value <= SmallPositiveNumber) {
 					digitGroupSize = formatterOptions.DecimalDigitGroupSize;
