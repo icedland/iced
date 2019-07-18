@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
 	enum FormatterFlowControl {
@@ -302,12 +303,25 @@ namespace Iced.Intel {
 			}
 		}
 
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsNoTrackPrefixBranch(Code code) {
 			Debug.Assert(Code.Jmp_rm16 + 1 == Code.Jmp_rm32);
 			Debug.Assert(Code.Jmp_rm16 + 2 == Code.Jmp_rm64);
 			Debug.Assert(Code.Call_rm16 + 1 == Code.Call_rm32);
 			Debug.Assert(Code.Call_rm16 + 2 == Code.Call_rm64);
 			return (uint)code - (uint)Code.Jmp_rm16 <= 2 || (uint)code - (uint)Code.Call_rm16 <= 2;
+		}
+
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		public static PrefixKind GetSegmentRegisterPrefixKind(Register register) {
+			Debug.Assert(register == Register.ES || register == Register.CS || register == Register.SS ||
+						register == Register.DS || register == Register.FS || register == Register.GS);
+			Debug.Assert(PrefixKind.ES + 1 == PrefixKind.CS);
+			Debug.Assert(PrefixKind.ES + 2 == PrefixKind.SS);
+			Debug.Assert(PrefixKind.ES + 3 == PrefixKind.DS);
+			Debug.Assert(PrefixKind.ES + 4 == PrefixKind.FS);
+			Debug.Assert(PrefixKind.ES + 5 == PrefixKind.GS);
+			return (register - Register.ES) + PrefixKind.ES;
 		}
 	}
 }

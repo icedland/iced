@@ -549,10 +549,10 @@ bnd call rax
 bnd ret 0
 bnd ret
 notrack call qword ptr [rax]
-notrack call qword ptr ds:[rbp+0x11]
+notrack call qword ptr [rbp+0x11]
 notrack call rcx
 notrack jmp qword ptr [rax]
-notrack jmp qword ptr ds:[rbp+0x11]
+notrack jmp qword ptr [rbp+0x11]
 notrack jmp rcx
 notrack bnd call rcx
 call qword ptr fs:[rax]

@@ -2027,9 +2027,9 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Xcryptofb,// XcryptOfb_64
 			(ushort)Mnemonic.Ibts,// Ibts_rm16_r16
 			(ushort)Mnemonic.Ibts,// Ibts_rm32_r32
-			(ushort)Mnemonic.Cmpxchg486,// Cmpxchg486_rm8_r8
-			(ushort)Mnemonic.Cmpxchg486,// Cmpxchg486_rm16_r16
-			(ushort)Mnemonic.Cmpxchg486,// Cmpxchg486_rm32_r32
+			(ushort)Mnemonic.Cmpxchg,// Cmpxchg486_rm8_r8
+			(ushort)Mnemonic.Cmpxchg,// Cmpxchg486_rm16_r16
+			(ushort)Mnemonic.Cmpxchg,// Cmpxchg486_rm32_r32
 			(ushort)Mnemonic.Push,// Pushw_GS
 			(ushort)Mnemonic.Push,// Pushd_GS
 			(ushort)Mnemonic.Push,// Pushq_GS

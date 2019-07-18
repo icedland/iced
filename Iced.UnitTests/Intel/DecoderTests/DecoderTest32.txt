@@ -6634,8 +6634,8 @@ F3 0FA6 D0, Xsha256_32, Xsha256, 0, rep
 0FA7 CE, Ibts_rm32_r32, Ibts, 2, op0=r;esi op1=r;ecx xbts
 0FA7 18, Ibts_rm32_r32, Ibts, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx xbts
 
-0FA6 CE, Cmpxchg486_rm8_r8, Cmpxchg486, 2, op0=r;dh op1=r;cl cmpxchg486a
-0FA6 18, Cmpxchg486_rm8_r8, Cmpxchg486, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bl cmpxchg486a
+0FA6 CE, Cmpxchg486_rm8_r8, Cmpxchg, 2, op0=r;dh op1=r;cl cmpxchg486a
+0FA6 18, Cmpxchg486_rm8_r8, Cmpxchg, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bl cmpxchg486a
 
 F3 67 0FA7 C0, Xstore_16, Xstore, 0, rep enc=67F30FA7C0
 67 F3 0FA7 C0, Xstore_16, Xstore, 0, rep
@@ -6679,11 +6679,11 @@ F3 67 0FA7 E8, XcryptOfb_16, Xcryptofb, 0, rep enc=67F30FA7E8
 F3 0FA7 E8, XcryptOfb_32, Xcryptofb, 0, rep
 0FA7 E8, XcryptOfb_32, Xcryptofb, 0, 
 
-66 0FA7 CE, Cmpxchg486_rm16_r16, Cmpxchg486, 2, op0=r;si op1=r;cx cmpxchg486a
-66 0FA7 18, Cmpxchg486_rm16_r16, Cmpxchg486, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx cmpxchg486a
+66 0FA7 CE, Cmpxchg486_rm16_r16, Cmpxchg, 2, op0=r;si op1=r;cx cmpxchg486a
+66 0FA7 18, Cmpxchg486_rm16_r16, Cmpxchg, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx cmpxchg486a
 
-0FA7 CE, Cmpxchg486_rm32_r32, Cmpxchg486, 2, op0=r;esi op1=r;ecx cmpxchg486a
-0FA7 18, Cmpxchg486_rm32_r32, Cmpxchg486, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx cmpxchg486a
+0FA7 CE, Cmpxchg486_rm32_r32, Cmpxchg, 2, op0=r;esi op1=r;ecx cmpxchg486a
+0FA7 18, Cmpxchg486_rm32_r32, Cmpxchg, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx cmpxchg486a
 
 66 0FA8, Pushw_GS, Push, 1, op0=r;gs
 

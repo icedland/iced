@@ -32,14 +32,14 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Tries to resolve a symbol. It returns true if <paramref name="symbol"/> was updated.
 		/// </summary>
+		/// <param name="instruction">Instruction</param>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.</param>
 		/// <param name="instructionOperand">Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.</param>
-		/// <param name="instruction">Instruction</param>
 		/// <param name="address">Address</param>
 		/// <param name="addressSize">Size of <paramref name="address"/> in bytes</param>
 		/// <param name="symbol">Updated with symbol information if this method returns true</param>
 		/// <returns></returns>
-		bool TryGetSymbol(int operand, int instructionOperand, in Instruction instruction, ulong address, int addressSize, out SymbolResult symbol);
+		bool TryGetSymbol(in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol);
 	}
 
 	/// <summary>
