@@ -27,12 +27,12 @@ using Iced.Intel;
 namespace Iced.UnitTests.Intel.FormatterTests {
 	sealed class TestSymbolResolver : ISymbolResolver {
 		public TestSymbolResolver Clone() => new TestSymbolResolver() { tryGetSymbol = tryGetSymbol };
-		public delegate bool TryGetSymbolDelegate(int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol);
+		public delegate bool TryGetSymbolDelegate(ref Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol);
 		public TryGetSymbolDelegate tryGetSymbol;
 		public int resultDispl;
-		public bool TryGetSymbol(int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) {
+		public bool TryGetSymbol(ref Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) {
 			if (tryGetSymbol != null) {
-				if (!tryGetSymbol(operand, instructionOperand, ref instruction, address, addressSize, out symbol))
+				if (!tryGetSymbol(ref instruction, operand, instructionOperand, address, addressSize, out symbol))
 					return false;
 				if (symbol.HasSymbolSize)
 					symbol = new SymbolResult(address + (ulong)resultDispl, symbol.Text, symbol.Flags, symbol.SymbolSize);

@@ -259,7 +259,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			decoder.Decode(out var instr);
 
 			var resolver = new TestSymbolResolver {
-				tryGetSymbol = (int operand, int instructionOperand, ref Instruction instruction, ulong address, int addressSize, out SymbolResult symbol) => {
+				tryGetSymbol = (ref Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (instructionOperand == 1 && (flags & Flags.Symbol) != 0) {
 						symbol = new SymbolResult(address, "symbol", FormatterOutputTextKind.Data, (flags & Flags.Signed) != 0 ? SymbolFlags.Signed : SymbolFlags.None);
 						return true;
