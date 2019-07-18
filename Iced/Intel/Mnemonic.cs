@@ -131,7 +131,6 @@ namespace Iced.Intel {
 		Cmpsw,
 		Cmpxchg,
 		Cmpxchg16b,
-		Cmpxchg486,
 		Cmpxchg8b,
 		Comisd,
 		Comiss,
