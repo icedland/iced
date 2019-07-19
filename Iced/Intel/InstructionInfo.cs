@@ -138,7 +138,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// true if the instruction isn't available in real mode or virtual 8086 mode
 		/// </summary>
-		[Obsolete("Use " + nameof(IsProtectedMode) + " instead", false)]
+		[Obsolete("Use " + nameof(IsProtectedMode) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool ProtectedMode => IsProtectedMode;
 
@@ -150,7 +150,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// true if this is a privileged instruction
 		/// </summary>
-		[Obsolete("Use " + nameof(IsPrivileged) + " instead", false)]
+		[Obsolete("Use " + nameof(IsPrivileged) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool Privileged => IsPrivileged;
 
@@ -163,7 +163,7 @@ namespace Iced.Intel {
 		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
 		/// See also <see cref="Instruction.StackPointerIncrement"/>
 		/// </summary>
-		[Obsolete("Use " + nameof(IsStackInstruction) + " instead", false)]
+		[Obsolete("Use " + nameof(IsStackInstruction) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool StackInstruction => IsStackInstruction;
 
@@ -177,7 +177,7 @@ namespace Iced.Intel {
 		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
 		/// <see cref="GetUsedRegisters"/> won't return all read/written registers.
 		/// </summary>
-		[Obsolete("Use " + nameof(IsSaveRestoreInstruction) + " instead", false)]
+		[Obsolete("Use " + nameof(IsSaveRestoreInstruction) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool SaveRestoreInstruction => IsSaveRestoreInstruction;
 
@@ -195,7 +195,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// CPU or CPUID feature flag
 		/// </summary>
-		[Obsolete("Use " + nameof(CpuidFeatures) + " instead", false)]
+		[Obsolete("Use " + nameof(CpuidFeatures) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public CpuidFeature CpuidFeature => CpuidFeatures[0];
 

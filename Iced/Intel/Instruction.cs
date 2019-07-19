@@ -261,7 +261,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// 64-bit IP of the instruction
 		/// </summary>
-		[Obsolete("Use " + nameof(IP) + " instead of this property", false)]
+		[Obsolete("Use " + nameof(IP) + " instead of this property", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public ulong IP64 {
 			get => nextRip - (uint)ByteLength;
@@ -295,7 +295,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// 64-bit IP of the next instruction
 		/// </summary>
-		[Obsolete("Use " + nameof(NextIP) + " instead of this property", false)]
+		[Obsolete("Use " + nameof(NextIP) + " instead of this property", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public ulong NextIP64 {
 			get => nextRip;
@@ -1629,7 +1629,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Checks if the memory operand is RIP/EIP relative
 		/// </summary>
-		[Obsolete("Use " + nameof(IsIPRelativeMemoryOperand) + " instead of this property", false)]
+		[Obsolete("Use " + nameof(IsIPRelativeMemoryOperand) + " instead of this property", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool IsIPRelativeMemoryOp {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]

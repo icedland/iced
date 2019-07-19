@@ -46,7 +46,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[Obsolete("Use " + nameof(CpuidFeatures) + "() instead", false)]
+		[Obsolete("Use " + nameof(CpuidFeatures) + "() instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static CpuidFeature CpuidFeature(this Code code) => code.CpuidFeatures()[0];
 
@@ -75,7 +75,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[Obsolete("Use " + nameof(IsProtectedMode) + "() instead", false)]
+		[Obsolete("Use " + nameof(IsProtectedMode) + "() instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool ProtectedMode(this Code code) => code.IsProtectedMode();
@@ -94,7 +94,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[Obsolete("Use " + nameof(IsPrivileged) + "() instead", false)]
+		[Obsolete("Use " + nameof(IsPrivileged) + "() instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool Privileged(this Code code) => code.IsPrivileged();
@@ -114,7 +114,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[Obsolete("Use " + nameof(IsStackInstruction) + "() instead", false)]
+		[Obsolete("Use " + nameof(IsStackInstruction) + "() instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool StackInstruction(this Code code) => code.IsStackInstruction();
@@ -134,7 +134,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[Obsolete("Use " + nameof(IsSaveRestoreInstruction) + "() instead", false)]
+		[Obsolete("Use " + nameof(IsSaveRestoreInstruction) + "() instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool SaveRestoreInstruction(this Code code) => code.IsSaveRestoreInstruction();
