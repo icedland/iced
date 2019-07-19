@@ -8327,10 +8327,10 @@ vdpbf16ps %zmm3,%zmm6,%zmm2{%k3}{z}
 vdpbf16ps 0x40(%rax),%zmm6,%zmm2
 vdpbf16ps 4(%rax){1to16},%zmm6,%zmm2{%k5}{z}
 vcvtneps2bf16 %xmm3,%xmm2{%k3}{z}
-vcvtneps2bf16 0x10(%rax),%xmm2{%k3}
+vcvtneps2bf16x 0x10(%rax),%xmm2{%k3}
 vcvtneps2bf16 4(%rax){1to4},%xmm2{%k5}{z}
 vcvtneps2bf16 %ymm3,%xmm2{%k3}{z}
-vcvtneps2bf16 0x20(%rax),%xmm2{%k3}
+vcvtneps2bf16y 0x20(%rax),%xmm2{%k3}
 vcvtneps2bf16 4(%rax){1to8},%xmm2{%k5}{z}
 vcvtneps2bf16 %zmm3,%ymm2{%k3}{z}
 vcvtneps2bf16 0x40(%rax),%ymm2{%k3}

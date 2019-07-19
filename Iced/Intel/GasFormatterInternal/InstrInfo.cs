@@ -1261,29 +1261,6 @@ namespace Iced.Intel.GasFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_bcst : InstrInfo {
-		readonly string mnemonic;
-		readonly string mnemonic_suffix;
-		readonly InstrOpInfoFlags flagsNoBroadcast;
-		readonly InstrOpInfoFlags flagsBroadcast;
-
-		public SimpleInstrInfo_bcst(Code code, string mnemonic, InstrOpInfoFlags flagsNoBroadcast, InstrOpInfoFlags flagsBroadcast) : this(code, mnemonic, mnemonic, flagsNoBroadcast, flagsBroadcast) { }
-
-		public SimpleInstrInfo_bcst(Code code, string mnemonic, string mnemonic_suffix, InstrOpInfoFlags flagsNoBroadcast, InstrOpInfoFlags flagsBroadcast)
-			: base(code) {
-			this.mnemonic = mnemonic;
-			this.mnemonic_suffix = mnemonic_suffix;
-			this.flagsNoBroadcast = flagsNoBroadcast;
-			this.flagsBroadcast = flagsBroadcast;
-		}
-
-		public override void GetOpInfo(GasFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
-			var memInfo = MemorySizes.AllMemorySizes[(int)instr.MemorySize];
-			var flags = memInfo.bcstTo != null ? flagsBroadcast : flagsNoBroadcast;
-			info = new InstrOpInfo(GetMnemonic(options, ref instr, mnemonic, mnemonic_suffix, flags), ref instr, flags);
-		}
-	}
-
 	sealed class SimpleInstrInfo_far : InstrInfo {
 		readonly int codeSize;
 		readonly string mnemonic;

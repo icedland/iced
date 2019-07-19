@@ -8327,13 +8327,13 @@ vdpbf16ps zmm2{k3}{z},zmm6,zmm3
 vdpbf16ps zmm2,zmm6,[rax+40h]
 vdpbf16ps zmm2{k5}{z},zmm6,dword bcst [rax+4]
 vcvtneps2bf16 xmm2{k3}{z},xmm3
-vcvtneps2bf16 xmm2{k3},[rax+10h]
+vcvtneps2bf16 xmm2{k3},xmmword ptr [rax+10h]
 vcvtneps2bf16 xmm2{k5}{z},dword bcst [rax+4]
 vcvtneps2bf16 xmm2{k3}{z},ymm3
-vcvtneps2bf16 xmm2{k3},[rax+20h]
+vcvtneps2bf16 xmm2{k3},ymmword ptr [rax+20h]
 vcvtneps2bf16 xmm2{k5}{z},dword bcst [rax+4]
 vcvtneps2bf16 ymm2{k3}{z},zmm3
-vcvtneps2bf16 ymm2{k3},[rax+40h]
+vcvtneps2bf16 ymm2{k3},zmmword ptr [rax+40h]
 vcvtneps2bf16 ymm2{k5}{z},dword bcst [rax+4]
 vcvtne2ps2bf16 xmm18{k3},xmm14,xmm3
 vcvtne2ps2bf16 xmm2,xmm6,[rax+10h]
