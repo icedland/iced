@@ -7965,27 +7965,6 @@ umonitor ebp
 umonitor rbp
 umwait ebp
 umwait rbp
-lfence
-lfence
-lfence
-lfence
-lfence
-lfence
-lfence
-mfence
-mfence
-mfence
-mfence
-mfence
-mfence
-mfence
-sfence
-sfence
-sfence
-sfence
-sfence
-sfence
-sfence
 pcommit
 vpdpbusd xmm18{k3}, xmm14, xmm3
 vpdpbusd xmm2, xmm6, [rax+0x10]

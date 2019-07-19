@@ -7965,27 +7965,6 @@ umonitor %ebp
 umonitor %rbp
 umwait %ebp
 umwait %rbp
-lfence
-lfence
-lfence
-lfence
-lfence
-lfence
-lfence
-mfence
-mfence
-mfence
-mfence
-mfence
-mfence
-mfence
-sfence
-sfence
-sfence
-sfence
-sfence
-sfence
-sfence
 pcommit
 vpdpbusd %xmm3,%xmm14,%xmm18{%k3}
 vpdpbusd 0x10(%rax),%xmm6,%xmm2
