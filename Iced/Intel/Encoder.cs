@@ -25,6 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Iced.Intel.EncoderInternal;
 
@@ -250,7 +251,7 @@ namespace Iced.Intel {
 		/// <param name="encodedLength">Updated with length of encoded instruction if successful</param>
 		/// <param name="errorMessage">Set to the error message if we couldn't encode the instruction</param>
 		/// <returns></returns>
-		public bool TryEncode(in Instruction instruction, ulong rip, out uint encodedLength, [NotNullWhenFalse] out string? errorMessage) {
+		public bool TryEncode(in Instruction instruction, ulong rip, out uint encodedLength, [NotNullWhen(false)] out string? errorMessage) {
 			currentRip = rip;
 			eip = (uint)rip;
 			this.errorMessage = null;

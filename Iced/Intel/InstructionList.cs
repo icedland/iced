@@ -87,7 +87,7 @@ namespace Iced.Intel {
 #if HAS_ROLIST
 		Instruction IReadOnlyList<Instruction>.this[int index] => elements[index];
 #endif
-		object IList.this[int index] {
+		object? IList.this[int index] {
 			get => elements[index];
 			set {
 				if (value is null)
@@ -220,7 +220,7 @@ namespace Iced.Intel {
 			this.count = count + 1;
 		}
 		void IList<Instruction>.Insert(int index, Instruction instruction) => Insert(index, instruction);
-		void IList.Insert(int index, object value) {
+		void IList.Insert(int index, object? value) {
 			if (value is null)
 				ThrowHelper.ThrowArgumentNullException_value();
 			if (!(value is Instruction))
@@ -337,7 +337,7 @@ namespace Iced.Intel {
 			this.count = count + 1;
 		}
 		void ICollection<Instruction>.Add(Instruction instruction) => Add(instruction);
-		int IList.Add(object value) {
+		int IList.Add(object? value) {
 			if (value is null)
 				ThrowHelper.ThrowArgumentNullException_value();
 			if (!(value is Instruction))
@@ -360,7 +360,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public bool Contains(in Instruction instruction) => IndexOf(instruction) >= 0;
 		bool ICollection<Instruction>.Contains(Instruction instruction) => Contains(instruction);
-		bool IList.Contains(object value) {
+		bool IList.Contains(object? value) {
 			if (value is Instruction)
 				return Contains((Instruction)value);
 			return false;
@@ -381,7 +381,7 @@ namespace Iced.Intel {
 			return -1;
 		}
 		int IList<Instruction>.IndexOf(Instruction instruction) => IndexOf(instruction);
-		int IList.IndexOf(object value) {
+		int IList.IndexOf(object? value) {
 			if (value is Instruction)
 				return IndexOf((Instruction)value);
 			return -1;
@@ -494,7 +494,7 @@ namespace Iced.Intel {
 			return index >= 0;
 		}
 		bool ICollection<Instruction>.Remove(Instruction instruction) => Remove(instruction);
-		void IList.Remove(object value) {
+		void IList.Remove(object? value) {
 			if (value is Instruction)
 				Remove((Instruction)value);
 		}

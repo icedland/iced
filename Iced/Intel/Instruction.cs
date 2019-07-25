@@ -189,7 +189,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="obj">Other instruction</param>
 		/// <returns></returns>
-		public override readonly bool Equals(object obj) => obj is Instruction other && EqualsInternal(this, other);
+		public override readonly bool Equals(object? obj) => obj is Instruction other && EqualsInternal(this, other);
 
 		/// <summary>
 		/// Checks if two instructions are equal, comparing all bits, not ignoring anything

@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using System.Diagnostics.CodeAnalysis;
 using Iced.Intel.BlockEncoderInternal;
 
 namespace Iced.Intel {
@@ -235,7 +235,7 @@ namespace Iced.Intel {
 		/// <param name="errorMessage">Updated with an error message if the method failed</param>
 		/// <param name="options">Encoder options</param>
 		/// <returns></returns>
-		public static bool TryEncode(int bitness, InstructionBlock block, [NotNullWhenFalse] out string? errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
+		public static bool TryEncode(int bitness, InstructionBlock block, [NotNullWhen(false)] out string? errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
 			TryEncode(bitness, new[] { block }, out errorMessage, options);
 
 		/// <summary>
@@ -246,10 +246,10 @@ namespace Iced.Intel {
 		/// <param name="errorMessage">Updated with an error message if the method failed</param>
 		/// <param name="options">Encoder options</param>
 		/// <returns></returns>
-		public static bool TryEncode(int bitness, InstructionBlock[] blocks, [NotNullWhenFalse] out string? errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
+		public static bool TryEncode(int bitness, InstructionBlock[] blocks, [NotNullWhen(false)] out string? errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
 			new BlockEncoder(bitness, blocks, options).Encode(out errorMessage);
 
-		bool Encode([NotNullWhenFalse] out string? errorMessage) {
+		bool Encode([NotNullWhen(false)] out string? errorMessage) {
 			const int MAX_ITERS = 1000;
 			for (int iter = 0; iter < MAX_ITERS; iter++) {
 				bool updated = false;
