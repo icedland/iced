@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{B30C9637
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generator", "Generator\Generator.csproj", "{04B4A88F-A186-4BA1-B8EC-799393B3E10F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0990E973-7216-4968-9D54-33DCEAD123EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0990E973-7216-4968-9D54-33DCEAD123EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0990E973-7216-4968-9D54-33DCEAD123EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04B4A88F-A186-4BA1-B8EC-799393B3E10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B4A88F-A186-4BA1-B8EC-799393B3E10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B4A88F-A186-4BA1-B8EC-799393B3E10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B4A88F-A186-4BA1-B8EC-799393B3E10F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

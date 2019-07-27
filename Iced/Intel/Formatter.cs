@@ -26,7 +26,7 @@ using System;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// Formats decoded instructions
+	/// Formats instructions
 	/// </summary>
 	public abstract class Formatter {
 		/// <summary>
