@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2037
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
+MinimumVisualStudioVersion = 16.0.28729.10
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Iced", "Iced\Iced.csproj", "{13F19BFE-FCB6-4E65-BBE9-9C8E60BCB577}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Iced.UnitTests", "Iced.UnitTests\Iced.UnitTests.csproj", "{0990E973-7216-4968-9D54-33DCEAD123EB}"
