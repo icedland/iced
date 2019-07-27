@@ -1480,29 +1480,29 @@ cvtpi2ps xmm1,[rax]
 cvtpi2pd xmm1,mm5
 cvtpi2pd xmm1,[rax]
 cvtsi2ss xmm1,ebp
-cvtsi2ss xmm1,[rax]
+cvtsi2ss xmm1,dword [rax]
 cvtsi2ss xmm1,rbp
-cvtsi2ss xmm1,[rax]
+cvtsi2ss xmm1,qword [rax]
 vcvtsi2ss xmm2,xmm6,ebx
-vcvtsi2ss xmm2,xmm6,[rax]
+vcvtsi2ss xmm2,xmm6,dword [rax]
 vcvtsi2ss xmm2,xmm6,rbx
-vcvtsi2ss xmm2,xmm6,[rax]
+vcvtsi2ss xmm2,xmm6,qword [rax]
 vcvtsi2ss xmm2,xmm6,ebx
-vcvtsi2ss xmm2,xmm6,[rax+4]
+vcvtsi2ss xmm2,xmm6,dword [rax+4]
 vcvtsi2ss xmm2,xmm6,rbx
-vcvtsi2ss xmm2,xmm6,[rax+8]
+vcvtsi2ss xmm2,xmm6,qword [rax+8]
 cvtsi2sd xmm1,ebp
-cvtsi2sd xmm1,[rax]
+cvtsi2sd xmm1,dword [rax]
 cvtsi2sd xmm1,rbp
-cvtsi2sd xmm1,[rax]
+cvtsi2sd xmm1,qword [rax]
 vcvtsi2sd xmm2,xmm6,ebx
-vcvtsi2sd xmm2,xmm6,[rax]
+vcvtsi2sd xmm2,xmm6,dword [rax]
 vcvtsi2sd xmm2,xmm6,rbx
-vcvtsi2sd xmm2,xmm6,[rax]
+vcvtsi2sd xmm2,xmm6,qword [rax]
 vcvtsi2sd xmm2,xmm6,ebx
-vcvtsi2sd xmm2,xmm6,[rax+4]
+vcvtsi2sd xmm2,xmm6,dword [rax+4]
 vcvtsi2sd xmm2,xmm6,rbx
-vcvtsi2sd xmm2,xmm6,[rax+8]
+vcvtsi2sd xmm2,xmm6,qword [rax+8]
 movntps [rax],xmm1
 vmovntps [rax],xmm2
 vmovntps [rax],ymm2
@@ -2026,14 +2026,14 @@ vcvtps2pd zmm2{k3}{z},[rax+4]{1to8}
 cvtpd2ps xmm1,xmm5
 cvtpd2ps xmm1,[rax]
 vcvtpd2ps xmm1,xmm5
-vcvtpd2ps xmm2,[rax]
+vcvtpd2ps xmm2,oword [rax]
 vcvtpd2ps xmm1,ymm5
-vcvtpd2ps xmm2,[rax]
+vcvtpd2ps xmm2,yword [rax]
 vcvtpd2ps xmm2{k3},xmm3
-vcvtpd2ps xmm2,[rax+0x10]
+vcvtpd2ps xmm2,oword [rax+0x10]
 vcvtpd2ps xmm2{k3}{z},[rax+8]{1to2}
 vcvtpd2ps xmm2{k3},ymm3
-vcvtpd2ps xmm2,[rax+0x20]
+vcvtpd2ps xmm2,yword [rax+0x20]
 vcvtpd2ps xmm2{k3}{z},[rax+8]{1to4}
 vcvtpd2ps ymm2{k3},zmm3
 vcvtpd2ps ymm2,[rax+0x40]
@@ -3839,14 +3839,14 @@ vpmulhw zmm2{k3},zmm6,[rax+0x40]
 cvttpd2dq xmm1,xmm5
 cvttpd2dq xmm1,[rax]
 vcvttpd2dq xmm1,xmm5
-vcvttpd2dq xmm2,[rax]
+vcvttpd2dq xmm2,oword [rax]
 vcvttpd2dq xmm1,ymm5
-vcvttpd2dq xmm2,[rax]
+vcvttpd2dq xmm2,yword [rax]
 vcvttpd2dq xmm2{k3},xmm3
-vcvttpd2dq xmm2,[rax+0x10]
+vcvttpd2dq xmm2,oword [rax+0x10]
 vcvttpd2dq xmm2{k3}{z},[rax+8]{1to2}
 vcvttpd2dq xmm2{k3},ymm3
-vcvttpd2dq xmm2,[rax+0x20]
+vcvttpd2dq xmm2,yword [rax+0x20]
 vcvttpd2dq xmm2{k3}{z},[rax+8]{1to4}
 vcvttpd2dq ymm2{k3},zmm3
 vcvttpd2dq ymm2,[rax+0x40]
@@ -3878,14 +3878,14 @@ vcvtqq2pd zmm2{k3}{z},[rax+8]{1to8}
 cvtpd2dq xmm1,xmm5
 cvtpd2dq xmm1,[rax]
 vcvtpd2dq xmm1,xmm5
-vcvtpd2dq xmm2,[rax]
+vcvtpd2dq xmm2,oword [rax]
 vcvtpd2dq xmm1,ymm5
-vcvtpd2dq xmm2,[rax]
+vcvtpd2dq xmm2,yword [rax]
 vcvtpd2dq xmm2{k3},xmm3
-vcvtpd2dq xmm2,[rax+0x10]
+vcvtpd2dq xmm2,oword [rax+0x10]
 vcvtpd2dq xmm2{k3}{z},[rax+8]{1to2}
 vcvtpd2dq xmm2{k3},ymm3
-vcvtpd2dq xmm2,[rax+0x20]
+vcvtpd2dq xmm2,yword [rax+0x20]
 vcvtpd2dq xmm2{k3}{z},[rax+8]{1to4}
 vcvtpd2dq ymm2{k3},zmm3
 vcvtpd2dq ymm2,[rax+0x40]
@@ -7965,27 +7965,6 @@ umonitor ebp
 umonitor rbp
 umwait ebp
 umwait rbp
-lfence
-lfence
-lfence
-lfence
-lfence
-lfence
-lfence
-mfence
-mfence
-mfence
-mfence
-mfence
-mfence
-mfence
-sfence
-sfence
-sfence
-sfence
-sfence
-sfence
-sfence
 pcommit
 vpdpbusd xmm18{k3},xmm14,xmm3
 vpdpbusd xmm2,xmm6,[rax+0x10]
@@ -8327,10 +8306,10 @@ vdpbf16ps zmm2{k3}{z},zmm6,zmm3
 vdpbf16ps zmm2,zmm6,[rax+0x40]
 vdpbf16ps zmm2{k5}{z},zmm6,[rax+4]{1to16}
 vcvtneps2bf16 xmm2{k3}{z},xmm3
-vcvtneps2bf16 xmm2{k3},[rax+0x10]
+vcvtneps2bf16 xmm2{k3},oword [rax+0x10]
 vcvtneps2bf16 xmm2{k5}{z},[rax+4]{1to4}
 vcvtneps2bf16 xmm2{k3}{z},ymm3
-vcvtneps2bf16 xmm2{k3},[rax+0x20]
+vcvtneps2bf16 xmm2{k3},yword [rax+0x20]
 vcvtneps2bf16 xmm2{k5}{z},[rax+4]{1to8}
 vcvtneps2bf16 ymm2{k3}{z},zmm3
 vcvtneps2bf16 ymm2{k3},[rax+0x40]

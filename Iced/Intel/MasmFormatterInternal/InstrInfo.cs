@@ -62,33 +62,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 		DeclareQword,
 	}
 
-	[Flags]
-	enum InstrOpInfoFlags : ushort {
-		None						= 0,
-
-		MemSize_Mask				= 7,
-		// Use xmmword ptr etc
-		MemSize_Sse					= 0,
-		// Use mmword ptr etc
-		MemSize_Mmx					= 1,
-		// use qword ptr, oword ptr
-		MemSize_Normal				= 2,
-		// show no mem size
-		MemSize_Nothing				= 3,
-		MemSize_XmmwordPtr			= 4,
-		MemSize_DwordOrQword		= 5,
-
-		// AlwaysShowMemorySize is disabled: always show memory size
-		ShowNoMemSize_ForceSize		= 8,
-
-		JccNotTaken					= 0x0010,
-		JccTaken					= 0x0020,
-		BndPrefix					= 0x0040,
-		IgnoreIndexReg				= 0x0080,
-		ShowMinMemSize_ForceSize	= 0x0100,
-		MnemonicIsDirective			= 0x0200,
-	}
-
 	struct InstrOpInfo {
 		internal const int TEST_RegisterBits = 8;
 
@@ -826,18 +799,14 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 	sealed class SimpleInstrInfo_ST_STi : InstrInfo {
 		readonly string mnemonic;
-		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_ST_STi(Code code, string mnemonic) : this(code, mnemonic, InstrOpInfoFlags.None) { }
-
-		public SimpleInstrInfo_ST_STi(Code code, string mnemonic, InstrOpInfoFlags flags)
+		public SimpleInstrInfo_ST_STi(Code code, string mnemonic)
 			: base(code) {
 			this.mnemonic = mnemonic;
-			this.flags = flags;
 		}
 
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op0Register == (int)Register.ST0);
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op0Register = (byte)Registers.Register_ST;
@@ -846,18 +815,14 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 	sealed class SimpleInstrInfo_STi_ST : InstrInfo {
 		readonly string mnemonic;
-		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_STi_ST(Code code, string mnemonic) : this(code, mnemonic, InstrOpInfoFlags.None) { }
-
-		public SimpleInstrInfo_STi_ST(Code code, string mnemonic, InstrOpInfoFlags flags)
+		public SimpleInstrInfo_STi_ST(Code code, string mnemonic)
 			: base(code) {
 			this.mnemonic = mnemonic;
-			this.flags = flags;
 		}
 
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op1Register == (int)Register.ST0);
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op1Register = (byte)Registers.Register_ST;
@@ -1299,18 +1264,14 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 	sealed class SimpleInstrInfo_imul : InstrInfo {
 		readonly string mnemonic;
-		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_imul(Code code, string mnemonic) : this(code, mnemonic, InstrOpInfoFlags.None) { }
-
-		public SimpleInstrInfo_imul(Code code, string mnemonic, InstrOpInfoFlags flags)
+		public SimpleInstrInfo_imul(Code code, string mnemonic)
 			: base(code) {
 			this.mnemonic = mnemonic;
-			this.flags = flags;
 		}
 
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 			Debug.Assert(info.OpCount == 3);
 			if (options.UsePseudoOps && info.Op0Kind == InstrOpKind.Register && info.Op1Kind == InstrOpKind.Register && info.Op0Register == info.Op1Register) {
 				info.OpCount--;

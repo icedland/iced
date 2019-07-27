@@ -7965,27 +7965,6 @@ F3 0FAE 30, Clrssbsy_m64
 F3 0FAE F5, Umonitor_r64
 F2 0FAE F5, Umwait_r32
 F2 48 0FAE F5, Umwait_r64
-0FAE E9, Lfence
-0FAE EA, Lfence
-0FAE EB, Lfence
-0FAE EC, Lfence
-0FAE ED, Lfence
-0FAE EE, Lfence
-0FAE EF, Lfence
-0FAE F1, Mfence
-0FAE F2, Mfence
-0FAE F3, Mfence
-0FAE F4, Mfence
-0FAE F5, Mfence
-0FAE F6, Mfence
-0FAE F7, Mfence
-0FAE F9, Sfence
-0FAE FA, Sfence
-0FAE FB, Sfence
-0FAE FC, Sfence
-0FAE FD, Sfence
-0FAE FE, Sfence
-0FAE FF, Sfence
 66 0FAE F8, Pcommit, Pcommit
 62 E20D0B 50 D3, EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
 62 F24D08 50 50 01, EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32

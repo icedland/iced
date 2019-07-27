@@ -98,7 +98,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Current IP/EIP/RIP value
 		/// </summary>
-		[Obsolete("Use " + nameof(IP) + " instead of this property", false)]
+		[Obsolete("Use " + nameof(IP) + " instead of this property", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public ulong InstructionPointer {
 			get => instructionPointer;
@@ -239,7 +239,7 @@ namespace Iced.Intel {
 		/// <param name="reader">Code reader</param>
 		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[Obsolete("Use " + nameof(Create) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static Decoder Create16(CodeReader reader, DecoderOptions options = DecoderOptions.None) => Create(16, reader, options);
 
@@ -249,7 +249,7 @@ namespace Iced.Intel {
 		/// <param name="reader">Code reader</param>
 		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[Obsolete("Use " + nameof(Create) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static Decoder Create32(CodeReader reader, DecoderOptions options = DecoderOptions.None) => Create(32, reader, options);
 
@@ -259,7 +259,7 @@ namespace Iced.Intel {
 		/// <param name="reader">Code reader</param>
 		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[Obsolete("Use " + nameof(Create) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static Decoder Create64(CodeReader reader, DecoderOptions options = DecoderOptions.None) => Create(64, reader, options);
 

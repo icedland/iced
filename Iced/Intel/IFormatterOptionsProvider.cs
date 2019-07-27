@@ -156,13 +156,6 @@ namespace Iced.Intel {
 		public bool AddLeadingZeroToHexNumbers;
 
 		/// <summary>
-		/// If true, use short numbers, and if false, add leading zeroes, eg. '1h' vs '00000001h'
-		/// </summary>
-		[Obsolete("Use " + nameof(LeadingZeroes) + " instead", false)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public bool ShortNumbers;
-
-		/// <summary>
 		/// If true, add leading zeroes to numbers, eg. '1h' vs '00000001h'
 		/// </summary>
 		public bool LeadingZeroes;
@@ -235,9 +228,6 @@ namespace Iced.Intel {
 		public NumberFormattingOptions(FormatterOptions options, bool leadingZeroes, bool signedNumber, bool signExtendImmediate) {
 			if (options is null)
 				ThrowHelper.ThrowArgumentNullException_options();
-#pragma warning disable CS0618 // Type or member is obsolete
-			ShortNumbers = !leadingZeroes;
-#pragma warning restore CS0618 // Type or member is obsolete
 			LeadingZeroes = leadingZeroes;
 			SignedNumber = signedNumber;
 			SignExtendImmediate = signExtendImmediate;

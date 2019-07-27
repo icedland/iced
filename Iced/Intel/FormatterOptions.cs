@@ -53,7 +53,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Upper case decorators, eg. {z}, {sae}, {rd-sae}
 		/// </summary>
-		[Obsolete("Use " + nameof(UpperCaseDecorators) + " instead", false)]
+		[Obsolete("Use " + nameof(UpperCaseDecorators) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool UpperCaseOther {
 			get => UpperCaseDecorators;
@@ -191,7 +191,7 @@ namespace Iced.Intel {
 		/// Use shortest possible hexadecimal/octal/binary numbers, eg. 0xA/0Ah instead of eg. 0x0000000A/0000000Ah.
 		/// This option has no effect on branch targets, use <see cref="ShortBranchNumbers"/>.
 		/// </summary>
-		[Obsolete("Use " + nameof(LeadingZeroes) + " instead", false)]
+		[Obsolete("Use " + nameof(LeadingZeroes) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool ShortNumbers {
 			get => !LeadingZeroes;
@@ -235,7 +235,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Don't add leading zeroes to branch offsets, eg. 'je 123h' vs 'je 00000123h'. Used by call near, call far, jmp near, jmp far, jcc, loop, loopcc, xbegin
 		/// </summary>
-		[Obsolete("Use " + nameof(BranchLeadingZeroes) + " instead", false)]
+		[Obsolete("Use " + nameof(BranchLeadingZeroes) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public bool ShortBranchNumbers {
 			get => !BranchLeadingZeroes;

@@ -22,11 +22,58 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
+using System;
+
 namespace Iced.Intel {
+	enum PseudoOpsKind {
+		cmpps,
+		vcmpps,
+		cmppd,
+		vcmppd,
+		cmpss,
+		vcmpss,
+		cmpsd,
+		vcmpsd,
+		pclmulqdq,
+		vpclmulqdq,
+		vpcomb,
+		vpcomw,
+		vpcomd,
+		vpcomq,
+		vpcomub,
+		vpcomuw,
+		vpcomud,
+		vpcomuq,
+	}
+
 	static class FormatterConstants {
 		public const string InvalidMnemonicName = "(bad)";
 
-		public static readonly string[] cmpps_pseudo_ops = new string[8] {
+		public static string[] GetPseudoOps(PseudoOpsKind kind) {
+			switch (kind) {
+			case PseudoOpsKind.cmpps:		return cmpps_pseudo_ops;
+			case PseudoOpsKind.vcmpps:		return vcmpps_pseudo_ops;
+			case PseudoOpsKind.cmppd:		return cmppd_pseudo_ops;
+			case PseudoOpsKind.vcmppd:		return vcmppd_pseudo_ops;
+			case PseudoOpsKind.cmpss:		return cmpss_pseudo_ops;
+			case PseudoOpsKind.vcmpss:		return vcmpss_pseudo_ops;
+			case PseudoOpsKind.cmpsd:		return cmpsd_pseudo_ops;
+			case PseudoOpsKind.vcmpsd:		return vcmpsd_pseudo_ops;
+			case PseudoOpsKind.pclmulqdq:	return pclmulqdq_pseudo_ops;
+			case PseudoOpsKind.vpclmulqdq:	return vpclmulqdq_pseudo_ops;
+			case PseudoOpsKind.vpcomb:		return vpcomb_pseudo_ops;
+			case PseudoOpsKind.vpcomw:		return vpcomw_pseudo_ops;
+			case PseudoOpsKind.vpcomd:		return vpcomd_pseudo_ops;
+			case PseudoOpsKind.vpcomq:		return vpcomq_pseudo_ops;
+			case PseudoOpsKind.vpcomub:		return vpcomub_pseudo_ops;
+			case PseudoOpsKind.vpcomuw:		return vpcomuw_pseudo_ops;
+			case PseudoOpsKind.vpcomud:		return vpcomud_pseudo_ops;
+			case PseudoOpsKind.vpcomuq:		return vpcomuq_pseudo_ops;
+			default:						throw new ArgumentOutOfRangeException(nameof(kind));
+			}
+		}
+
+		static readonly string[] cmpps_pseudo_ops = new string[8] {
 			"cmpeqps",
 			"cmpltps",
 			"cmpleps",
@@ -37,7 +84,7 @@ namespace Iced.Intel {
 			"cmpordps",
 		};
 
-		public static readonly string[] vcmpps_pseudo_ops = new string[32] {
+		static readonly string[] vcmpps_pseudo_ops = new string[32] {
 			"vcmpeqps",
 			"vcmpltps",
 			"vcmpleps",
@@ -72,7 +119,7 @@ namespace Iced.Intel {
 			"vcmptrue_usps",
 		};
 
-		public static readonly string[] cmppd_pseudo_ops = new string[8] {
+		static readonly string[] cmppd_pseudo_ops = new string[8] {
 			"cmpeqpd",
 			"cmpltpd",
 			"cmplepd",
@@ -83,7 +130,7 @@ namespace Iced.Intel {
 			"cmpordpd",
 		};
 
-		public static readonly string[] vcmppd_pseudo_ops = new string[32] {
+		static readonly string[] vcmppd_pseudo_ops = new string[32] {
 			"vcmpeqpd",
 			"vcmpltpd",
 			"vcmplepd",
@@ -118,7 +165,7 @@ namespace Iced.Intel {
 			"vcmptrue_uspd",
 		};
 
-		public static readonly string[] cmpss_pseudo_ops = new string[8] {
+		static readonly string[] cmpss_pseudo_ops = new string[8] {
 			"cmpeqss",
 			"cmpltss",
 			"cmpless",
@@ -129,7 +176,7 @@ namespace Iced.Intel {
 			"cmpordss",
 		};
 
-		public static readonly string[] vcmpss_pseudo_ops = new string[32] {
+		static readonly string[] vcmpss_pseudo_ops = new string[32] {
 			"vcmpeqss",
 			"vcmpltss",
 			"vcmpless",
@@ -164,7 +211,7 @@ namespace Iced.Intel {
 			"vcmptrue_usss",
 		};
 
-		public static readonly string[] cmpsd_pseudo_ops = new string[8] {
+		static readonly string[] cmpsd_pseudo_ops = new string[8] {
 			"cmpeqsd",
 			"cmpltsd",
 			"cmplesd",
@@ -175,7 +222,7 @@ namespace Iced.Intel {
 			"cmpordsd",
 		};
 
-		public static readonly string[] vcmpsd_pseudo_ops = new string[32] {
+		static readonly string[] vcmpsd_pseudo_ops = new string[32] {
 			"vcmpeqsd",
 			"vcmpltsd",
 			"vcmplesd",
@@ -210,21 +257,21 @@ namespace Iced.Intel {
 			"vcmptrue_ussd",
 		};
 
-		public static readonly string[] pclmulqdq_pseudo_ops = new string[4] {
+		static readonly string[] pclmulqdq_pseudo_ops = new string[4] {
 			"pclmullqlqdq",
 			"pclmulhqlqdq",
 			"pclmullqhqdq",
 			"pclmulhqhqdq",
 		};
 
-		public static readonly string[] vpclmulqdq_pseudo_ops = new string[4] {
+		static readonly string[] vpclmulqdq_pseudo_ops = new string[4] {
 			"vpclmullqlqdq",
 			"vpclmulhqlqdq",
 			"vpclmullqhqdq",
 			"vpclmulhqhqdq",
 		};
 
-		public static readonly string[] vpcomb_pseudo_ops = new string[8] {
+		static readonly string[] vpcomb_pseudo_ops = new string[8] {
 			"vpcomltb",
 			"vpcomleb",
 			"vpcomgtb",
@@ -235,7 +282,7 @@ namespace Iced.Intel {
 			"vpcomtrueb",
 		};
 
-		public static readonly string[] vpcomw_pseudo_ops = new string[8] {
+		static readonly string[] vpcomw_pseudo_ops = new string[8] {
 			"vpcomltw",
 			"vpcomlew",
 			"vpcomgtw",
@@ -246,7 +293,7 @@ namespace Iced.Intel {
 			"vpcomtruew",
 		};
 
-		public static readonly string[] vpcomd_pseudo_ops = new string[8] {
+		static readonly string[] vpcomd_pseudo_ops = new string[8] {
 			"vpcomltd",
 			"vpcomled",
 			"vpcomgtd",
@@ -257,7 +304,7 @@ namespace Iced.Intel {
 			"vpcomtrued",
 		};
 
-		public static readonly string[] vpcomq_pseudo_ops = new string[8] {
+		static readonly string[] vpcomq_pseudo_ops = new string[8] {
 			"vpcomltq",
 			"vpcomleq",
 			"vpcomgtq",
@@ -268,7 +315,7 @@ namespace Iced.Intel {
 			"vpcomtrueq",
 		};
 
-		public static readonly string[] vpcomub_pseudo_ops = new string[8] {
+		static readonly string[] vpcomub_pseudo_ops = new string[8] {
 			"vpcomltub",
 			"vpcomleub",
 			"vpcomgtub",
@@ -279,7 +326,7 @@ namespace Iced.Intel {
 			"vpcomtrueub",
 		};
 
-		public static readonly string[] vpcomuw_pseudo_ops = new string[8] {
+		static readonly string[] vpcomuw_pseudo_ops = new string[8] {
 			"vpcomltuw",
 			"vpcomleuw",
 			"vpcomgtuw",
@@ -290,7 +337,7 @@ namespace Iced.Intel {
 			"vpcomtrueuw",
 		};
 
-		public static readonly string[] vpcomud_pseudo_ops = new string[8] {
+		static readonly string[] vpcomud_pseudo_ops = new string[8] {
 			"vpcomltud",
 			"vpcomleud",
 			"vpcomgtud",
@@ -301,7 +348,7 @@ namespace Iced.Intel {
 			"vpcomtrueud",
 		};
 
-		public static readonly string[] vpcomuq_pseudo_ops = new string[8] {
+		static readonly string[] vpcomuq_pseudo_ops = new string[8] {
 			"vpcomltuq",
 			"vpcomleuq",
 			"vpcomgtuq",

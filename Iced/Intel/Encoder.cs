@@ -206,7 +206,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="writer">Destination</param>
 		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[Obsolete("Use " + nameof(Create) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static Encoder Create16(CodeWriter writer) => Create(16, writer);
 
@@ -215,7 +215,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="writer">Destination</param>
 		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[Obsolete("Use " + nameof(Create) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static Encoder Create32(CodeWriter writer) => Create(32, writer);
 
@@ -224,7 +224,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="writer">Destination</param>
 		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", false)]
+		[Obsolete("Use " + nameof(Create) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static Encoder Create64(CodeWriter writer) => Create(64, writer);
 

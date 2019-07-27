@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net472;netcoreapp2.2</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Iced\Intel\DecoderConstants.cs" Link="IcedFiles\DecoderConstants.cs" />
+    <Compile Include="..\Iced\Intel\FormatterConstants.cs" Link="IcedFiles\FormatterConstants.cs" />
+    <Compile Include="..\Iced\Intel\GasFormatterInternal\CtorKind.cs" Link="IcedFiles\Gas\CtorKind.cs" />
+    <Compile Include="..\Iced\Intel\GasFormatterInternal\InstrOpInfoFlags.cs" Link="IcedFiles\Gas\InstrOpInfoFlags.cs" />
+    <Compile Include="..\Iced\Intel\IntelFormatterInternal\CtorKind.cs" Link="IcedFiles\Intel\CtorKind.cs" />
+    <Compile Include="..\Iced\Intel\IntelFormatterInternal\InstrOpInfoFlags.cs" Link="IcedFiles\Intel\InstrOpInfoFlags.cs" />
+    <Compile Include="..\Iced\Intel\MasmFormatterInternal\CtorKind.cs" Link="IcedFiles\Masm\CtorKind.cs" />
+    <Compile Include="..\Iced\Intel\MasmFormatterInternal\InstrOpInfoFlags.cs" Link="IcedFiles\Masm\InstrOpInfoFlags.cs" />
+    <Compile Include="..\Iced\Intel\NasmFormatterInternal\CtorKind.cs" Link="IcedFiles\Nasm\CtorKind.cs" />
+    <Compile Include="..\Iced\Intel\NasmFormatterInternal\InstrOpInfoFlags.cs" Link="IcedFiles\Nasm\InstrOpInfoFlags.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Iced\Iced.csproj" />
+  </ItemGroup>
+
+</Project>
