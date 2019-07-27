@@ -38,7 +38,7 @@ namespace Generator.Formatters {
 		readonly string className;
 		readonly string preprocessorExpr;
 		readonly Dictionary<string, Info> strings;
-		Info[] sortedInfos;
+		Info[]? sortedInfos;
 		bool isFrozen;
 
 		[DebuggerDisplay("{Count} {String}")]

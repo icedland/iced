@@ -32,7 +32,7 @@ namespace Generator {
 
 	sealed class CommandLineOptions {
 		public Command Command = Command.None;
-		public string IcedProjectDir = null;
+		public string? IcedProjectDir = null;
 	}
 
 	static class Program {
