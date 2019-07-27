@@ -66,7 +66,7 @@ namespace Generator {
 
 		static string GetIcedProjectDir() {
 			var dir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(typeof(Program).Assembly.Location)))));
-			if (!File.Exists(Path.Combine(dir, "Iced.sln")))
+			if (dir is null || !File.Exists(Path.Combine(dir, "Iced.sln")))
 				throw new InvalidOperationException();
 			dir = Path.Combine(dir, "Iced");
 			if (!File.Exists(Path.Combine(dir, "Iced.csproj")))
