@@ -21,23 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Iced.Intel {
-#if !NO_INSTR_INFO || !NO_ENCODER
-	/// <summary>
-	/// <see cref="MemorySize"/> extension methods
-	/// </summary>
-	public static partial class MemorySizeExtensions {
-		/// <summary>
-		/// Checks if <paramref name="memorySize"/> is a broadcast memory type
-		/// </summary>
-		/// <param name="memorySize">Memory size</param>
-		/// <returns></returns>
-		public static bool IsBroadcast(this MemorySize memorySize) => memorySize >= FirstBroadcastMemorySize;
-		const MemorySize FirstBroadcastMemorySize = MemorySize.Broadcast64_UInt32;
-	}
-#endif
-
 #if !NO_INSTR_INFO
+using System.Diagnostics;
+
+namespace Iced.Intel {
 	/// <summary>
 	/// <see cref="MemorySize"/> extension methods
 	/// </summary>
@@ -306,17 +293,17 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentOutOfRangeException_elementSize();
 			if (elementSize > size)
 				ThrowHelper.ThrowArgumentOutOfRangeException_elementSize();
-			System.Diagnostics.Debug.Assert(DecoderConstants.NumberOfMemorySizes <= byte.MaxValue + 1);
+			Debug.Assert(DecoderConstants.NumberOfMemorySizes <= byte.MaxValue + 1);
 			this.memorySize = (byte)memorySize;
-			System.Diagnostics.Debug.Assert(size <= ushort.MaxValue);
+			Debug.Assert(size <= ushort.MaxValue);
 			this.size = (ushort)size;
-			System.Diagnostics.Debug.Assert(elementSize <= ushort.MaxValue);
+			Debug.Assert(elementSize <= ushort.MaxValue);
 			this.elementSize = (ushort)elementSize;
-			System.Diagnostics.Debug.Assert(DecoderConstants.NumberOfMemorySizes <= byte.MaxValue + 1);
+			Debug.Assert(DecoderConstants.NumberOfMemorySizes <= byte.MaxValue + 1);
 			this.elementType = (byte)elementType;
 			this.isSigned = isSigned;
 			this.isBroadcast = isBroadcast;
 		}
 	}
-#endif
 }
+#endif
