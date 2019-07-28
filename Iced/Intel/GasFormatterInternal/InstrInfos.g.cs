@@ -710,17 +710,17 @@ namespace Iced.Intel.GasFormatterInternal {
 				// Movsxd_r16_rm16
 				0x02,// Normal_2b
 				0x82, 0x0C,// 1538 = "movslq"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movsxd_r32_rm32
 				0x02,// Normal_2b
 				0x82, 0x0C,// 1538 = "movslq"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movsxd_r64_rm32
 				0x02,// Normal_2b
 				0x82, 0x0C,// 1538 = "movslq"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Push_imm16
 				0x1B,// os2_3
@@ -1056,385 +1056,385 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x04,// 4 = "add"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Or_rm8_imm8
 				0x03,// Normal_3
 				0x07,// 7 = "or"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Adc_rm8_imm8
 				0x03,// Normal_3
 				0x03,// 3 = "adc"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sbb_rm8_imm8
 				0x03,// Normal_3
 				0x08,// 8 = "sbb"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// And_rm8_imm8
 				0x03,// Normal_3
 				0x05,// 5 = "and"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sub_rm8_imm8
 				0x03,// Normal_3
 				0x09,// 9 = "sub"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xor_rm8_imm8
 				0x03,// Normal_3
 				0x0A,// 10 = "xor"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Cmp_rm8_imm8
 				0x03,// Normal_3
 				0x06,// 6 = "cmp"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Add_rm16_imm16
 				0x03,// Normal_3
 				0x04,// 4 = "add"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Add_rm32_imm32
 				0x03,// Normal_3
 				0x04,// 4 = "add"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Add_rm64_imm32
 				0x03,// Normal_3
 				0x04,// 4 = "add"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Or_rm16_imm16
 				0x03,// Normal_3
 				0x07,// 7 = "or"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Or_rm32_imm32
 				0x03,// Normal_3
 				0x07,// 7 = "or"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Or_rm64_imm32
 				0x03,// Normal_3
 				0x07,// 7 = "or"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Adc_rm16_imm16
 				0x03,// Normal_3
 				0x03,// 3 = "adc"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Adc_rm32_imm32
 				0x03,// Normal_3
 				0x03,// 3 = "adc"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Adc_rm64_imm32
 				0x03,// Normal_3
 				0x03,// 3 = "adc"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sbb_rm16_imm16
 				0x03,// Normal_3
 				0x08,// 8 = "sbb"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sbb_rm32_imm32
 				0x03,// Normal_3
 				0x08,// 8 = "sbb"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sbb_rm64_imm32
 				0x03,// Normal_3
 				0x08,// 8 = "sbb"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// And_rm16_imm16
 				0x03,// Normal_3
 				0x05,// 5 = "and"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// And_rm32_imm32
 				0x03,// Normal_3
 				0x05,// 5 = "and"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// And_rm64_imm32
 				0x03,// Normal_3
 				0x05,// 5 = "and"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sub_rm16_imm16
 				0x03,// Normal_3
 				0x09,// 9 = "sub"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sub_rm32_imm32
 				0x03,// Normal_3
 				0x09,// 9 = "sub"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sub_rm64_imm32
 				0x03,// Normal_3
 				0x09,// 9 = "sub"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xor_rm16_imm16
 				0x03,// Normal_3
 				0x0A,// 10 = "xor"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xor_rm32_imm32
 				0x03,// Normal_3
 				0x0A,// 10 = "xor"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xor_rm64_imm32
 				0x03,// Normal_3
 				0x0A,// 10 = "xor"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Cmp_rm16_imm16
 				0x03,// Normal_3
 				0x06,// 6 = "cmp"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Cmp_rm32_imm32
 				0x03,// Normal_3
 				0x06,// 6 = "cmp"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Cmp_rm64_imm32
 				0x03,// Normal_3
 				0x06,// 6 = "cmp"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Add_rm8_imm8_82
 				0x03,// Normal_3
 				0x04,// 4 = "add"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Or_rm8_imm8_82
 				0x03,// Normal_3
 				0x07,// 7 = "or"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Adc_rm8_imm8_82
 				0x03,// Normal_3
 				0x03,// 3 = "adc"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sbb_rm8_imm8_82
 				0x03,// Normal_3
 				0x08,// 8 = "sbb"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// And_rm8_imm8_82
 				0x03,// Normal_3
 				0x05,// 5 = "and"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sub_rm8_imm8_82
 				0x03,// Normal_3
 				0x09,// 9 = "sub"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xor_rm8_imm8_82
 				0x03,// Normal_3
 				0x0A,// 10 = "xor"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Cmp_rm8_imm8_82
 				0x03,// Normal_3
 				0x06,// 6 = "cmp"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Add_rm16_imm8
 				0x03,// Normal_3
 				0x04,// 4 = "add"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Add_rm32_imm8
 				0x03,// Normal_3
 				0x04,// 4 = "add"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Add_rm64_imm8
 				0x03,// Normal_3
 				0x04,// 4 = "add"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Or_rm16_imm8
 				0x03,// Normal_3
 				0x07,// 7 = "or"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Or_rm32_imm8
 				0x03,// Normal_3
 				0x07,// 7 = "or"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Or_rm64_imm8
 				0x03,// Normal_3
 				0x07,// 7 = "or"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Adc_rm16_imm8
 				0x03,// Normal_3
 				0x03,// 3 = "adc"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Adc_rm32_imm8
 				0x03,// Normal_3
 				0x03,// 3 = "adc"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Adc_rm64_imm8
 				0x03,// Normal_3
 				0x03,// 3 = "adc"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sbb_rm16_imm8
 				0x03,// Normal_3
 				0x08,// 8 = "sbb"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sbb_rm32_imm8
 				0x03,// Normal_3
 				0x08,// 8 = "sbb"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sbb_rm64_imm8
 				0x03,// Normal_3
 				0x08,// 8 = "sbb"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// And_rm16_imm8
 				0x03,// Normal_3
 				0x05,// 5 = "and"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// And_rm32_imm8
 				0x03,// Normal_3
 				0x05,// 5 = "and"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// And_rm64_imm8
 				0x03,// Normal_3
 				0x05,// 5 = "and"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sub_rm16_imm8
 				0x03,// Normal_3
 				0x09,// 9 = "sub"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sub_rm32_imm8
 				0x03,// Normal_3
 				0x09,// 9 = "sub"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sub_rm64_imm8
 				0x03,// Normal_3
 				0x09,// 9 = "sub"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xor_rm16_imm8
 				0x03,// Normal_3
 				0x0A,// 10 = "xor"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xor_rm32_imm8
 				0x03,// Normal_3
 				0x0A,// 10 = "xor"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xor_rm64_imm8
 				0x03,// Normal_3
 				0x0A,// 10 = "xor"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Cmp_rm16_imm8
 				0x03,// Normal_3
 				0x06,// 6 = "cmp"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Cmp_rm32_imm8
 				0x03,// Normal_3
 				0x06,// 6 = "cmp"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Cmp_rm64_imm8
 				0x03,// Normal_3
 				0x06,// 6 = "cmp"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Test_rm8_r8
 				0x01,// Normal_2a
@@ -1571,19 +1571,19 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x0B,// 11 = "pop"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Pop_rm32
 				0x03,// Normal_3
 				0x0B,// 11 = "pop"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Pop_rm64
 				0x03,// Normal_3
 				0x0B,// 11 = "pop"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Nopw
 				0x0F,// nop
@@ -1900,193 +1900,193 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm8_imm8
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm8_imm8
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm8_imm8
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm8_imm8
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm8_imm8
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm8_imm8
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm8_imm8
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rol_rm16_imm8
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rol_rm32_imm8
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rol_rm64_imm8
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm16_imm8
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm32_imm8
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm64_imm8
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm16_imm8
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm32_imm8
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm64_imm8
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm16_imm8
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm32_imm8
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm64_imm8
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm16_imm8
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm32_imm8
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm64_imm8
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm16_imm8
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm32_imm8
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm64_imm8
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm16_imm8
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm32_imm8
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm64_imm8
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm16_imm8
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm32_imm8
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm64_imm8
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Retnw_imm16
 				0x11,// OpSize2_bnd
@@ -2150,7 +2150,7 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x00,// 0 = "mov"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xabort_imm8
 				0x00,// Normal_1
@@ -2160,19 +2160,19 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x00,// 0 = "mov"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Mov_rm32_imm32
 				0x03,// Normal_3
 				0x00,// 0 = "mov"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Mov_rm64_imm32
 				0x03,// Normal_3
 				0x00,// 0 = "mov"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xbegin_rel16
 				0x29,// xbegin
@@ -2293,385 +2293,385 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm8_1
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm8_1
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm8_1
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm8_1
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm8_1
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm8_1
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm8_1
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rol_rm16_1
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rol_rm32_1
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rol_rm64_1
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm16_1
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm32_1
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm64_1
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm16_1
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm32_1
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm64_1
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm16_1
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm32_1
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm64_1
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm16_1
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm32_1
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm64_1
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm16_1
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm32_1
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm64_1
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm16_1
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm32_1
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm64_1
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm16_1
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm32_1
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm64_1
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rol_rm8_CL
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm8_CL
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm8_CL
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm8_CL
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm8_CL
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm8_CL
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm8_CL
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm8_CL
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rol_rm16_CL
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rol_rm32_CL
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rol_rm64_CL
 				0x03,// Normal_3
 				0x11,// 17 = "rol"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm16_CL
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm32_CL
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ror_rm64_CL
 				0x03,// Normal_3
 				0x12,// 18 = "ror"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm16_CL
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm32_CL
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcl_rm64_CL
 				0x03,// Normal_3
 				0x0F,// 15 = "rcl"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm16_CL
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm32_CL
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Rcr_rm64_CL
 				0x03,// Normal_3
 				0x10,// 16 = "rcr"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm16_CL
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm32_CL
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shl_rm64_CL
 				0x03,// Normal_3
 				0x15,// 21 = "shl"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm16_CL
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm32_CL
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Shr_rm64_CL
 				0x03,// Normal_3
 				0x16,// 22 = "shr"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm16_CL
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm32_CL
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sal_rm64_CL
 				0x03,// Normal_3
 				0x13,// 19 = "sal"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm16_CL
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm32_CL
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sar_rm64_CL
 				0x03,// Normal_3
 				0x14,// 20 = "sar"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Aam_imm8
 				0x04,// AamAad
@@ -3700,193 +3700,193 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x0C,// 12 = "test"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Test_rm8_imm8_F6r1
 				0x03,// Normal_3
 				0x0C,// 12 = "test"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Not_rm8
 				0x03,// Normal_3
 				0xA9, 0x02,// 297 = "not"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Neg_rm8
 				0x03,// Normal_3
 				0xA8, 0x02,// 296 = "neg"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Mul_rm8
 				0x03,// Normal_3
 				0xA7, 0x02,// 295 = "mul"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Imul_rm8
 				0x03,// Normal_3
 				0x0D,// 13 = "imul"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Div_rm8
 				0x03,// Normal_3
 				0x9F, 0x02,// 287 = "div"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Idiv_rm8
 				0x03,// Normal_3
 				0xA0, 0x02,// 288 = "idiv"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Test_rm16_imm16
 				0x03,// Normal_3
 				0x0C,// 12 = "test"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Test_rm32_imm32
 				0x03,// Normal_3
 				0x0C,// 12 = "test"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Test_rm64_imm32
 				0x03,// Normal_3
 				0x0C,// 12 = "test"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Test_rm16_imm16_F7r1
 				0x03,// Normal_3
 				0x0C,// 12 = "test"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Test_rm32_imm32_F7r1
 				0x03,// Normal_3
 				0x0C,// 12 = "test"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Test_rm64_imm32_F7r1
 				0x03,// Normal_3
 				0x0C,// 12 = "test"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Not_rm16
 				0x03,// Normal_3
 				0xA9, 0x02,// 297 = "not"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Not_rm32
 				0x03,// Normal_3
 				0xA9, 0x02,// 297 = "not"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Not_rm64
 				0x03,// Normal_3
 				0xA9, 0x02,// 297 = "not"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Neg_rm16
 				0x03,// Normal_3
 				0xA8, 0x02,// 296 = "neg"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Neg_rm32
 				0x03,// Normal_3
 				0xA8, 0x02,// 296 = "neg"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Neg_rm64
 				0x03,// Normal_3
 				0xA8, 0x02,// 296 = "neg"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Mul_rm16
 				0x03,// Normal_3
 				0xA7, 0x02,// 295 = "mul"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Mul_rm32
 				0x03,// Normal_3
 				0xA7, 0x02,// 295 = "mul"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Mul_rm64
 				0x03,// Normal_3
 				0xA7, 0x02,// 295 = "mul"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Imul_rm16
 				0x03,// Normal_3
 				0x0D,// 13 = "imul"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Imul_rm32
 				0x03,// Normal_3
 				0x0D,// 13 = "imul"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Imul_rm64
 				0x03,// Normal_3
 				0x0D,// 13 = "imul"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Div_rm16
 				0x03,// Normal_3
 				0x9F, 0x02,// 287 = "div"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Div_rm32
 				0x03,// Normal_3
 				0x9F, 0x02,// 287 = "div"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Div_rm64
 				0x03,// Normal_3
 				0x9F, 0x02,// 287 = "div"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Idiv_rm16
 				0x03,// Normal_3
 				0xA0, 0x02,// 288 = "idiv"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Idiv_rm32
 				0x03,// Normal_3
 				0xA0, 0x02,// 288 = "idiv"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Idiv_rm64
 				0x03,// Normal_3
 				0xA0, 0x02,// 288 = "idiv"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Clc
 				0x00,// Normal_1
@@ -3916,67 +3916,67 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x3A,// 58 = "inc"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Dec_rm8
 				0x03,// Normal_3
 				0x38,// 56 = "dec"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Inc_rm16
 				0x03,// Normal_3
 				0x3A,// 58 = "inc"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Inc_rm32
 				0x03,// Normal_3
 				0x3A,// 58 = "inc"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Inc_rm64
 				0x03,// Normal_3
 				0x3A,// 58 = "inc"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Dec_rm16
 				0x03,// Normal_3
 				0x38,// 56 = "dec"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Dec_rm32
 				0x03,// Normal_3
 				0x38,// 56 = "dec"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Dec_rm64
 				0x03,// Normal_3
 				0x38,// 56 = "dec"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Call_rm16
 				0x07,// bnd2_3
 				0x26,// 38 = "call"
 				0x77,// 'w'
-				0x21,// 0x21 = OpSizeShift, IndirectOperand
+				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 				// Call_rm32
 				0x07,// bnd2_3
 				0x26,// 38 = "call"
 				0x6C,// 'l'
-				0x21,// 0x21 = OpSizeShift, IndirectOperand
+				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 				// Call_rm64
 				0x07,// bnd2_3
 				0x26,// 38 = "call"
 				0x71,// 'q'
-				0x21,// 0x21 = OpSizeShift, IndirectOperand
+				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 				// Call_m1616
 				0x0B,// far
@@ -4000,19 +4000,19 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x07,// bnd2_3
 				0x0E,// 14 = "jmp"
 				0x77,// 'w'
-				0x21,// 0x21 = OpSizeShift, IndirectOperand
+				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 				// Jmp_rm32
 				0x07,// bnd2_3
 				0x0E,// 14 = "jmp"
 				0x6C,// 'l'
-				0x21,// 0x21 = OpSizeShift, IndirectOperand
+				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 				// Jmp_rm64
 				0x07,// bnd2_3
 				0x0E,// 14 = "jmp"
 				0x71,// 'q'
-				0x21,// 0x21 = OpSizeShift, IndirectOperand
+				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 				// Jmp_m1616
 				0x0B,// far
@@ -4036,19 +4036,19 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x02,// 2 = "push"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Push_rm32
 				0x03,// Normal_3
 				0x02,// 2 = "push"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Push_rm64
 				0x03,// Normal_3
 				0x02,// 2 = "push"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Sldt_rm16
 				0x18,// os_mem
@@ -5307,19 +5307,19 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x4C,// 76 = "nop"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Nop_rm32
 				0x03,// Normal_3
 				0x4C,// 76 = "nop"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Nop_rm64
 				0x03,// Normal_3
 				0x4C,// 76 = "nop"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Mov_r32_cr
 				0x01,// Normal_2a
@@ -5479,76 +5479,76 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x88, 0x05,// 648 = "cvtsi2ss"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Cvtsi2ss_xmm_rm64
 				0x03,// Normal_3
 				0x88, 0x05,// 648 = "cvtsi2ss"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// VEX_Vcvtsi2ss_xmm_xmm_rm32
 				0x03,// Normal_3
 				0xB6, 0x02,// 310 = "vcvtsi2ss"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// VEX_Vcvtsi2ss_xmm_xmm_rm64
 				0x03,// Normal_3
 				0xB6, 0x02,// 310 = "vcvtsi2ss"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtsi2ss_xmm_xmm_rm32_er
 				0x0A,// er_4
 				0x01,// 0x1
 				0xB6, 0x02,// 310 = "vcvtsi2ss"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtsi2ss_xmm_xmm_rm64_er
 				0x0A,// er_4
 				0x01,// 0x1
 				0xB6, 0x02,// 310 = "vcvtsi2ss"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Cvtsi2sd_xmm_rm32
 				0x03,// Normal_3
 				0x87, 0x05,// 647 = "cvtsi2sd"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Cvtsi2sd_xmm_rm64
 				0x03,// Normal_3
 				0x87, 0x05,// 647 = "cvtsi2sd"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// VEX_Vcvtsi2sd_xmm_xmm_rm32
 				0x03,// Normal_3
 				0xB5, 0x02,// 309 = "vcvtsi2sd"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// VEX_Vcvtsi2sd_xmm_xmm_rm64
 				0x03,// Normal_3
 				0xB5, 0x02,// 309 = "vcvtsi2sd"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtsi2sd_xmm_xmm_rm32
 				0x03,// Normal_3
 				0xB5, 0x02,// 309 = "vcvtsi2sd"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtsi2sd_xmm_xmm_rm64_er
 				0x0A,// er_4
 				0x01,// 0x1
 				0xB5, 0x02,// 309 = "vcvtsi2sd"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movntps_m128_xmm
 				0x00,// Normal_1
@@ -6724,25 +6724,25 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x6C,// 108 = "vcvtpd2ps"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// VEX_Vcvtpd2ps_xmm_ymmm256
 				0x03,// Normal_3
 				0x6C,// 108 = "vcvtpd2ps"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64
 				0x03,// Normal_3
 				0x6C,// 108 = "vcvtpd2ps"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64
 				0x03,// Normal_3
 				0x6C,// 108 = "vcvtpd2ps"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtpd2ps_ymm_k1z_zmmm512b64_er
 				0x09,// er_2
@@ -6804,13 +6804,13 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0xAD, 0x03,// 429 = "vcvtqq2ps"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtqq2ps_xmm_k1z_ymmm256b64
 				0x03,// Normal_3
 				0xAD, 0x03,// 429 = "vcvtqq2ps"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er
 				0x09,// er_2
@@ -8218,13 +8218,13 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0xAF, 0x03,// 431 = "vcvttpd2udq"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvttpd2udq_xmm_k1z_ymmm256b64
 				0x03,// Normal_3
 				0xAF, 0x03,// 431 = "vcvttpd2udq"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae
 				0x22,// sae
@@ -8312,13 +8312,13 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0xA7, 0x03,// 423 = "vcvtpd2udq"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtpd2udq_xmm_k1z_ymmm256b64
 				0x03,// Normal_3
 				0xA7, 0x03,// 423 = "vcvtpd2udq"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er
 				0x09,// er_2
@@ -8447,13 +8447,13 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0xB7, 0x03,// 439 = "vcvtuqq2ps"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtuqq2ps_xmm_k1z_ymmm256b64
 				0x03,// Normal_3
 				0xB7, 0x03,// 439 = "vcvtuqq2ps"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er
 				0x09,// er_2
@@ -8491,27 +8491,27 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x01,// 0x1
 				0xA1, 0x06,// 801 = "vcvtusi2ss"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtusi2ss_xmm_xmm_rm64_er
 				0x0A,// er_4
 				0x01,// 0x1
 				0xA1, 0x06,// 801 = "vcvtusi2ss"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtusi2sd_xmm_xmm_rm32
 				0x03,// Normal_3
 				0xA0, 0x06,// 800 = "vcvtusi2sd"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
 				0x0A,// er_4
 				0x01,// 0x1
 				0xA0, 0x06,// 800 = "vcvtusi2sd"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Haddpd_xmm_xmmm128
 				0x00,// Normal_1
@@ -9541,13 +9541,13 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0xF1, 0x05,// 753 = "ptwrite"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Ptwrite_rm64
 				0x03,// Normal_3
 				0xF1, 0x05,// 753 = "ptwrite"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xrstor_m
 				0x00,// Normal_1
@@ -9731,32 +9731,32 @@ namespace Iced.Intel.GasFormatterInternal {
 				// Movzx_r16_rm8
 				0x02,// Normal_2b
 				0xF0, 0x0C,// 1648 = "movzbw"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movzx_r32_rm8
 				0x02,// Normal_2b
 				0xEE, 0x0C,// 1646 = "movzbl"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movzx_r64_rm8
 				0x02,// Normal_2b
 				0xEF, 0x0C,// 1647 = "movzbq"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movzx_r16_rm16
 				0x02,// Normal_2b
 				0xF3, 0x0C,// 1651 = "movzww"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movzx_r32_rm16
 				0x02,// Normal_2b
 				0xF1, 0x0C,// 1649 = "movzwl"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movzx_r64_rm16
 				0x02,// Normal_2b
 				0xF2, 0x0C,// 1650 = "movzwq"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Jmpe_disp16
 				0x13,// os_A
@@ -9802,73 +9802,73 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x34,// 52 = "bt"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Bt_rm32_imm8
 				0x03,// Normal_3
 				0x34,// 52 = "bt"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Bt_rm64_imm8
 				0x03,// Normal_3
 				0x34,// 52 = "bt"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Bts_rm16_imm8
 				0x03,// Normal_3
 				0x37,// 55 = "bts"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Bts_rm32_imm8
 				0x03,// Normal_3
 				0x37,// 55 = "bts"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Bts_rm64_imm8
 				0x03,// Normal_3
 				0x37,// 55 = "bts"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Btr_rm16_imm8
 				0x03,// Normal_3
 				0x36,// 54 = "btr"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Btr_rm32_imm8
 				0x03,// Normal_3
 				0x36,// 54 = "btr"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Btr_rm64_imm8
 				0x03,// Normal_3
 				0x36,// 54 = "btr"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Btc_rm16_imm8
 				0x03,// Normal_3
 				0x35,// 53 = "btc"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Btc_rm32_imm8
 				0x03,// Normal_3
 				0x35,// 53 = "btc"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Btc_rm64_imm8
 				0x03,// Normal_3
 				0x35,// 53 = "btc"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Btc_rm16_r16
 				0x01,// Normal_2a
@@ -9948,32 +9948,32 @@ namespace Iced.Intel.GasFormatterInternal {
 				// Movsx_r16_rm8
 				0x02,// Normal_2b
 				0xE9, 0x0C,// 1641 = "movsbw"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movsx_r32_rm8
 				0x02,// Normal_2b
 				0xE7, 0x0C,// 1639 = "movsbl"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movsx_r64_rm8
 				0x02,// Normal_2b
 				0xE8, 0x0C,// 1640 = "movsbq"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movsx_r16_rm16
 				0x02,// Normal_2b
 				0xED, 0x0C,// 1645 = "movsww"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movsx_r32_rm16
 				0x02,// Normal_2b
 				0xEB, 0x0C,// 1643 = "movswl"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Movsx_r64_rm16
 				0x02,// Normal_2b
 				0xEC, 0x0C,// 1644 = "movswq"
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xadd_rm8_r8
 				0x01,// Normal_2a
@@ -10958,25 +10958,25 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x71,// 113 = "vcvttpd2dq"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// VEX_Vcvttpd2dq_xmm_ymmm256
 				0x03,// Normal_3
 				0x71,// 113 = "vcvttpd2dq"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64
 				0x03,// Normal_3
 				0x71,// 113 = "vcvttpd2dq"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64
 				0x03,// Normal_3
 				0x71,// 113 = "vcvttpd2dq"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvttpd2dq_ymm_k1z_zmmm512b64_sae
 				0x22,// sae
@@ -11028,25 +11028,25 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x6B,// 107 = "vcvtpd2dq"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// VEX_Vcvtpd2dq_xmm_ymmm256
 				0x03,// Normal_3
 				0x6B,// 107 = "vcvtpd2dq"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64
 				0x03,// Normal_3
 				0x6B,// 107 = "vcvtpd2dq"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64
 				0x03,// Normal_3
 				0x6B,// 107 = "vcvtpd2dq"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtpd2dq_ymm_k1z_zmmm512b64_er
 				0x09,// er_2
@@ -14169,13 +14169,13 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0xA5, 0x03,// 421 = "vcvtneps2bf16"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
 				0x03,// Normal_3
 				0xA5, 0x03,// 421 = "vcvtneps2bf16"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32
 				0x00,// Normal_1
@@ -16241,31 +16241,31 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0x5A,// 90 = "crc32"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Crc32_r64_rm8
 				0x03,// Normal_3
 				0x5A,// 90 = "crc32"
 				0x62,// 'b'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Crc32_r32_rm16
 				0x03,// Normal_3
 				0x5A,// 90 = "crc32"
 				0x77,// 'w'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Crc32_r32_rm32
 				0x03,// Normal_3
 				0x5A,// 90 = "crc32"
 				0x6C,// 'l'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Crc32_r64_rm64
 				0x03,// Normal_3
 				0x5A,// 90 = "crc32"
 				0x71,// 'q'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// VEX_Andn_r32_r32_rm32
 				0x01,// Normal_2a
@@ -17574,37 +17574,37 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x03,// Normal_3
 				0xC1, 0x03,// 449 = "vfpclassps"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vfpclassps_k_k1_ymmm256b32_imm8
 				0x03,// Normal_3
 				0xC1, 0x03,// 449 = "vfpclassps"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vfpclassps_k_k1_zmmm512b32_imm8
 				0x03,// Normal_3
 				0xC1, 0x03,// 449 = "vfpclassps"
 				0x7A,// 'z'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8
 				0x03,// Normal_3
 				0xC0, 0x03,// 448 = "vfpclasspd"
 				0x78,// 'x'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8
 				0x03,// Normal_3
 				0xC0, 0x03,// 448 = "vfpclasspd"
 				0x79,// 'y'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8
 				0x03,// Normal_3
 				0xC0, 0x03,// 448 = "vfpclasspd"
 				0x7A,// 'z'
-				0x01,// 0x1 = OpSizeShift
+				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vfpclassss_k_k1_xmmm32_imm8
 				0x00,// Normal_1

@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_NASM_FORMATTER && !NO_FORMATTER
 using System;
 using System.IO;
+using System.Text;
 using Generator.IO;
 using Iced.Intel;
 using Iced.Intel.NasmFormatterInternal;
@@ -55,6 +56,7 @@ namespace Generator.Formatters.Nasm {
 			writer.Indent();
 
 			int index = -1;
+			var sb = new StringBuilder();
 			foreach (var info in CtorInfos.Infos) {
 				index++;
 				var ctorKind = (CtorKind)info[0];
@@ -92,7 +94,7 @@ namespace Generator.Formatters.Nasm {
 
 					case InstrOpInfoFlags flags:
 						writer.WriteCompressedUInt32((uint)flags);
-						writer.WriteComment($"0x{(uint)flags:X} = {flags.ToString()}");
+						writer.WriteComment($"0x{(uint)flags:X} = {ToString(sb, flags)}");
 						break;
 
 					case int ival:
@@ -155,6 +157,110 @@ namespace Generator.Formatters.Nasm {
 			writer.Unindent();
 			writer.WriteLine("}");
 			writer.WriteLine("#endif");
+		}
+
+		static string ToString(StringBuilder sb, InstrOpInfoFlags flags) {
+			sb.Clear();
+
+			if ((flags & InstrOpInfoFlags.MemSize_Nothing) != 0) {
+				flags &= ~InstrOpInfoFlags.MemSize_Nothing;
+				Append(sb, nameof(InstrOpInfoFlags.MemSize_Nothing));
+			}
+
+			if ((flags & InstrOpInfoFlags.ShowNoMemSize_ForceSize) != 0) {
+				flags &= ~InstrOpInfoFlags.ShowNoMemSize_ForceSize;
+				Append(sb, nameof(InstrOpInfoFlags.ShowNoMemSize_ForceSize));
+			}
+
+			if ((flags & InstrOpInfoFlags.ShowMinMemSize_ForceSize) != 0) {
+				flags &= ~InstrOpInfoFlags.ShowMinMemSize_ForceSize;
+				Append(sb, nameof(InstrOpInfoFlags.ShowMinMemSize_ForceSize));
+			}
+
+			switch (flags & (InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.OpSizeShift)) {
+			case 0: break;
+			case InstrOpInfoFlags.OpSize16: Append(sb, nameof(InstrOpInfoFlags.OpSize16)); break;
+			case InstrOpInfoFlags.OpSize32: Append(sb, nameof(InstrOpInfoFlags.OpSize32)); break;
+			case InstrOpInfoFlags.OpSize64: Append(sb, nameof(InstrOpInfoFlags.OpSize64)); break;
+			default: throw new InvalidOperationException();
+			}
+			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.OpSizeShift);
+
+			switch (flags & (InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.AddrSizeShift)) {
+			case 0: break;
+			case InstrOpInfoFlags.AddrSize16: Append(sb, nameof(InstrOpInfoFlags.AddrSize16)); break;
+			case InstrOpInfoFlags.AddrSize32: Append(sb, nameof(InstrOpInfoFlags.AddrSize32)); break;
+			case InstrOpInfoFlags.AddrSize64: Append(sb, nameof(InstrOpInfoFlags.AddrSize64)); break;
+			default: throw new InvalidOperationException();
+			}
+			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.AddrSizeShift);
+
+			switch (flags & (InstrOpInfoFlags)((int)InstrOpInfoFlags.BranchSizeInfoMask << (int)InstrOpInfoFlags.BranchSizeInfoShift)) {
+			case 0: break;
+			case InstrOpInfoFlags.BranchSizeInfo_Short: Append(sb, nameof(InstrOpInfoFlags.BranchSizeInfo_Short)); break;
+			default: throw new InvalidOperationException();
+			}
+			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.BranchSizeInfoMask << (int)InstrOpInfoFlags.BranchSizeInfoShift);
+
+			switch ((SignExtendInfo)(((uint)flags >> (int)InstrOpInfoFlags.SignExtendInfoShift) & (uint)InstrOpInfoFlags.SignExtendInfoMask)) {
+			case SignExtendInfo.None: break;
+			case SignExtendInfo.Sex1to2: Append(sb, nameof(SignExtendInfo.Sex1to2)); break;
+			case SignExtendInfo.Sex1to4: Append(sb, nameof(SignExtendInfo.Sex1to4)); break;
+			case SignExtendInfo.Sex1to8: Append(sb, nameof(SignExtendInfo.Sex1to8)); break;
+			case SignExtendInfo.Sex4to8: Append(sb, nameof(SignExtendInfo.Sex4to8)); break;
+			case SignExtendInfo.Sex4to8Qword: Append(sb, nameof(SignExtendInfo.Sex4to8Qword)); break;
+			case SignExtendInfo.Sex2: Append(sb, nameof(SignExtendInfo.Sex2)); break;
+			case SignExtendInfo.Sex4: Append(sb, nameof(SignExtendInfo.Sex4)); break;
+			default: throw new InvalidOperationException();
+			}
+			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.SignExtendInfoMask << (int)InstrOpInfoFlags.SignExtendInfoShift);
+
+			switch ((((uint)flags >> (int)InstrOpInfoFlags.MemorySizeInfoShift) & (uint)InstrOpInfoFlags.MemorySizeInfoMask)) {
+			case 0: break;
+			default: throw new InvalidOperationException();
+			}
+			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.MemorySizeInfoMask << (int)InstrOpInfoFlags.MemorySizeInfoShift);
+
+			switch ((((uint)flags >> (int)InstrOpInfoFlags.FarMemorySizeInfoShift) & (uint)InstrOpInfoFlags.FarMemorySizeInfoMask)) {
+			case 0: break;
+			default: throw new InvalidOperationException();
+			}
+			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.FarMemorySizeInfoMask << (int)InstrOpInfoFlags.FarMemorySizeInfoShift);
+
+			if ((flags & InstrOpInfoFlags.RegisterTo) != 0) {
+				flags &= ~InstrOpInfoFlags.RegisterTo;
+				Append(sb, nameof(InstrOpInfoFlags.RegisterTo));
+			}
+
+			if ((flags & InstrOpInfoFlags.BndPrefix) != 0) {
+				flags &= ~InstrOpInfoFlags.BndPrefix;
+				Append(sb, nameof(InstrOpInfoFlags.BndPrefix));
+			}
+
+			if ((flags & InstrOpInfoFlags.MnemonicIsDirective) != 0) {
+				flags &= ~InstrOpInfoFlags.MnemonicIsDirective;
+				Append(sb, nameof(InstrOpInfoFlags.MnemonicIsDirective));
+			}
+
+			switch ((((uint)flags >> (int)InstrOpInfoFlags.MemorySizeShift) & (uint)InstrOpInfoFlags.MemorySizeMask)) {
+			case 0: break;
+			default: throw new InvalidOperationException();
+			}
+			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.MemorySizeMask << (int)InstrOpInfoFlags.MemorySizeShift);
+
+			if (flags != 0)
+				throw new InvalidOperationException();
+
+			if (sb.Length == 0)
+				Append(sb, nameof(InstrOpInfoFlags.None));
+
+			return sb.ToString();
+		}
+
+		static void Append(StringBuilder sb, string name) {
+			if (sb.Length > 0)
+				sb.Append(", ");
+			sb.Append(name);
 		}
 	}
 }
