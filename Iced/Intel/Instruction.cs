@@ -1682,29 +1682,4 @@ namespace Iced.Intel {
 #endif
 		}
 	}
-
-	/// <summary>
-	/// Default code size when an instruction was decoded
-	/// </summary>
-	public enum CodeSize {
-		/// <summary>
-		/// Unknown size
-		/// </summary>
-		Unknown				= 0,
-
-		/// <summary>
-		/// 16-bit code
-		/// </summary>
-		Code16				= 1,
-
-		/// <summary>
-		/// 32-bit code
-		/// </summary>
-		Code32				= 2,
-
-		/// <summary>
-		/// 64-bit code
-		/// </summary>
-		Code64				= 3,
-	}
 }
