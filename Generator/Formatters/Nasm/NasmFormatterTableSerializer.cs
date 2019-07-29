@@ -57,7 +57,9 @@ namespace Generator.Formatters.Nasm {
 
 			int index = -1;
 			var sb = new StringBuilder();
-			foreach (var info in CtorInfos.Infos) {
+			var infos = CtorInfos.Infos;
+			for (int i = 0; i < infos.Length; i++) {
+				var info = infos[i];
 				index++;
 				var ctorKind = (CtorKind)info[0];
 				var code = (Code)info[1];
@@ -69,16 +71,24 @@ namespace Generator.Formatters.Nasm {
 				writer.WriteComment(code.ToString());
 				writer.WriteLine();
 
+				if (i > 0 && IsSame(infos[i - 1], info)) {
+					writer.WriteByte((byte)CtorKind.Previous);
+					writer.WriteComment(nameof(CtorKind.Previous));
+					writer.WriteLine();
+					continue;
+				}
+
 				if ((uint)ctorKind > byte.MaxValue)
 					throw new InvalidOperationException();
 				writer.WriteByte((byte)ctorKind);
 				writer.WriteComment($"{ctorKind}");
 				writer.WriteLine();
 				uint si;
-				for (int i = 2; i < info.Length; i++) {
-					switch (info[i]) {
+				for (int j = 2; j < info.Length; j++) {
+					switch (info[j]) {
 					case string s:
-						writer.WriteCompressedUInt32(si = stringsTable.GetIndex(s));
+						si = stringsTable.GetIndex(s);
+						writer.WriteCompressedUInt32(si);
 						writer.WriteComment($"{si} = \"{s}\"");
 						break;
 

@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_GAS_FORMATTER && !NO_FORMATTER
 namespace Iced.Intel.GasFormatterInternal {
 	enum CtorKind {
+		Previous,
 		Normal_1,
 		Normal_2a,
 		Normal_2b,

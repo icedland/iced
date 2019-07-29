@@ -30,6 +30,11 @@ namespace Iced.Intel.FormatterInternal {
 		readonly char[] stringData;
 		int index;
 
+		public int Index {
+			get => index;
+			set => index = value;
+		}
+
 		public bool CanRead => (uint)index < (uint)data.Length;
 
 		public DataReader(byte[] data)
