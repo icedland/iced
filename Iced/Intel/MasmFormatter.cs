@@ -967,7 +967,7 @@ namespace Iced.Intel {
 
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
 			var memInfo = allMemorySizes[(int)memSize];
-			var memSizeStrings = memInfo.names;
+			var memSizeStrings = memInfo.keywords;
 
 			switch (memInfo.size) {
 			case 0:
@@ -1025,7 +1025,7 @@ namespace Iced.Intel {
 			var symbolMemInfo = allMemorySizes[(int)symbol.SymbolSize];
 			if (symbolMemInfo.isBroadcast)
 				return false;
-			var symbolMemSizeStrings = symbolMemInfo.names;
+			var symbolMemSizeStrings = symbolMemInfo.keywords;
 			return IsSameMemSize(memSizeStrings, symbolMemSizeStrings);
 		}
 
