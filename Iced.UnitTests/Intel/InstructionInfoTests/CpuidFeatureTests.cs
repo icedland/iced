@@ -31,7 +31,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		[Fact]
 		void Verify_MaxCpuidFeatureInternalValues() {
 			var values = (CpuidFeatureInternal[])Enum.GetValues(typeof(CpuidFeatureInternal));
-			Assert.Equal(CpuidFeatureInternalData.MaxCpuidFeatureInternalValues, values.Length);
+			Assert.Equal(CpuidFeatureInternalConstants.MaxCpuidFeatureInternalValues, values.Length);
 		}
 	}
 }

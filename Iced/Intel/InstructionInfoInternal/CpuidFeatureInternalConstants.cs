@@ -21,36 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
-using System;
-using Generator.IO;
-using Iced.Intel;
-
-namespace Generator.Formatters {
-	abstract class FormatterTableSerializer {
-		public abstract void Initialize(StringsTable stringsTable);
-		public abstract string GetFilename(string icedProjectDir);
-		public abstract void Serialize(FileWriter writer, StringsTable stringsTable);
-
-		protected static bool IsSame(object[] a, object[] b) {
-			if (a.Length != b.Length)
-				return false;
-			for (int i = 0; i < a.Length; i++) {
-				if (i == 1) {
-					if (!(a[i] is Code) || !(b[i] is Code))
-						throw new InvalidOperationException();
-					continue;
-				}
-				bool same;
-				if (a[i] is string sa && b[i] is string sb)
-					same = StringComparer.Ordinal.Equals(sa, sb);
-				else
-					same = a[i].Equals(b[i]);
-				if (!same)
-					return false;
-			}
-			return true;
-		}
+#if !NO_INSTR_INFO
+namespace Iced.Intel.InstructionInfoInternal {
+	static class CpuidFeatureInternalConstants {
+		public const int MaxCpuidFeatureInternalValues = (int)CpuidFeatureInternal.ZALLOC + 1;
 	}
 }
 #endif
