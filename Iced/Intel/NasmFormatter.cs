@@ -1015,8 +1015,8 @@ namespace Iced.Intel {
 
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
 			var memInfo = allMemorySizes[(int)memSize];
-			var memSizeString = memInfo.name;
-			if (memSizeString is null)
+			var keyword = memInfo.keyword;
+			if (keyword is null)
 				return;
 
 			if (memSizeOptions == MemorySizeOptions.Default) {
@@ -1035,7 +1035,7 @@ namespace Iced.Intel {
 				FormatKeyword(output, farKind);
 				output.Write(" ", FormatterOutputTextKind.Text);
 			}
-			FormatKeyword(output, memSizeString);
+			FormatKeyword(output, keyword);
 			output.Write(" ", FormatterOutputTextKind.Text);
 		}
 

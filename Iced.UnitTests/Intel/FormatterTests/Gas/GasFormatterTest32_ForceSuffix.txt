@@ -194,9 +194,9 @@ bndmk (eax),bnd1
 bndcn edx,bnd1
 bndcn (eax),bnd1
 movl cr3,esi
-movl db3,esi
+movl dr3,esi
 movl esi,cr3
-movl esi,db3
+movl esi,dr3
 vmreadl ecx,esi
 vmreadl ebx,(eax)
 vmwritel esi,ecx

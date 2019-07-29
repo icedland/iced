@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_GAS_FORMATTER && !NO_FORMATTER
+using System;
+
 namespace Iced.Intel.GasFormatterInternal {
 	static class MemorySizes {
 		public readonly struct Info {
@@ -32,145 +34,74 @@ namespace Iced.Intel.GasFormatterInternal {
 				this.bcstTo = bcstTo;
 			}
 		}
-		public static readonly Info[] AllMemorySizes = new Info[DecoderConstants.NumberOfMemorySizes] {
-			new Info(MemorySize.Unknown, null),
-			new Info(MemorySize.UInt8, null),
-			new Info(MemorySize.UInt16, null),
-			new Info(MemorySize.UInt32, null),
-			new Info(MemorySize.UInt52, null),
-			new Info(MemorySize.UInt64, null),
-			new Info(MemorySize.UInt128, null),
-			new Info(MemorySize.UInt256, null),
-			new Info(MemorySize.UInt512, null),
-			new Info(MemorySize.Int8, null),
-			new Info(MemorySize.Int16, null),
-			new Info(MemorySize.Int32, null),
-			new Info(MemorySize.Int64, null),
-			new Info(MemorySize.Int128, null),
-			new Info(MemorySize.Int256, null),
-			new Info(MemorySize.Int512, null),
-			new Info(MemorySize.SegPtr16, null),
-			new Info(MemorySize.SegPtr32, null),
-			new Info(MemorySize.SegPtr64, null),
-			new Info(MemorySize.WordOffset, null),
-			new Info(MemorySize.DwordOffset, null),
-			new Info(MemorySize.QwordOffset, null),
-			new Info(MemorySize.Bound16_WordWord, null),
-			new Info(MemorySize.Bound32_DwordDword, null),
-			new Info(MemorySize.Bnd32, null),
-			new Info(MemorySize.Bnd64, null),
-			new Info(MemorySize.Fword5, null),
-			new Info(MemorySize.Fword6, null),
-			new Info(MemorySize.Fword10, null),
-			new Info(MemorySize.Float16, null),
-			new Info(MemorySize.Float32, null),
-			new Info(MemorySize.Float64, null),
-			new Info(MemorySize.Float80, null),
-			new Info(MemorySize.Float128, null),
-			new Info(MemorySize.BFloat16, null),
-			new Info(MemorySize.FpuEnv14, null),
-			new Info(MemorySize.FpuEnv28, null),
-			new Info(MemorySize.FpuState94, null),
-			new Info(MemorySize.FpuState108, null),
-			new Info(MemorySize.Fxsave_512Byte, null),
-			new Info(MemorySize.Fxsave64_512Byte, null),
-			new Info(MemorySize.Xsave, null),
-			new Info(MemorySize.Xsave64, null),
-			new Info(MemorySize.Bcd, null),
-			new Info(MemorySize.Packed16_UInt8, null),
-			new Info(MemorySize.Packed16_Int8, null),
-			new Info(MemorySize.Packed32_UInt8, null),
-			new Info(MemorySize.Packed32_Int8, null),
-			new Info(MemorySize.Packed32_UInt16, null),
-			new Info(MemorySize.Packed32_Int16, null),
-			new Info(MemorySize.Packed32_BFloat16, null),
-			new Info(MemorySize.Packed64_UInt8, null),
-			new Info(MemorySize.Packed64_Int8, null),
-			new Info(MemorySize.Packed64_UInt16, null),
-			new Info(MemorySize.Packed64_Int16, null),
-			new Info(MemorySize.Packed64_UInt32, null),
-			new Info(MemorySize.Packed64_Int32, null),
-			new Info(MemorySize.Packed64_Float16, null),
-			new Info(MemorySize.Packed64_Float32, null),
-			new Info(MemorySize.Packed128_UInt8, null),
-			new Info(MemorySize.Packed128_Int8, null),
-			new Info(MemorySize.Packed128_UInt16, null),
-			new Info(MemorySize.Packed128_Int16, null),
-			new Info(MemorySize.Packed128_UInt32, null),
-			new Info(MemorySize.Packed128_Int32, null),
-			new Info(MemorySize.Packed128_UInt52, null),
-			new Info(MemorySize.Packed128_UInt64, null),
-			new Info(MemorySize.Packed128_Int64, null),
-			new Info(MemorySize.Packed128_Float16, null),
-			new Info(MemorySize.Packed128_Float32, null),
-			new Info(MemorySize.Packed128_Float64, null),
-			new Info(MemorySize.Packed128_2xBFloat16, null),
-			new Info(MemorySize.Packed256_UInt8, null),
-			new Info(MemorySize.Packed256_Int8, null),
-			new Info(MemorySize.Packed256_UInt16, null),
-			new Info(MemorySize.Packed256_Int16, null),
-			new Info(MemorySize.Packed256_UInt32, null),
-			new Info(MemorySize.Packed256_Int32, null),
-			new Info(MemorySize.Packed256_UInt52, null),
-			new Info(MemorySize.Packed256_UInt64, null),
-			new Info(MemorySize.Packed256_Int64, null),
-			new Info(MemorySize.Packed256_UInt128, null),
-			new Info(MemorySize.Packed256_Int128, null),
-			new Info(MemorySize.Packed256_Float16, null),
-			new Info(MemorySize.Packed256_Float32, null),
-			new Info(MemorySize.Packed256_Float64, null),
-			new Info(MemorySize.Packed256_Float128, null),
-			new Info(MemorySize.Packed256_2xBFloat16, null),
-			new Info(MemorySize.Packed512_UInt8, null),
-			new Info(MemorySize.Packed512_Int8, null),
-			new Info(MemorySize.Packed512_UInt16, null),
-			new Info(MemorySize.Packed512_Int16, null),
-			new Info(MemorySize.Packed512_UInt32, null),
-			new Info(MemorySize.Packed512_Int32, null),
-			new Info(MemorySize.Packed512_UInt52, null),
-			new Info(MemorySize.Packed512_UInt64, null),
-			new Info(MemorySize.Packed512_Int64, null),
-			new Info(MemorySize.Packed512_UInt128, null),
-			new Info(MemorySize.Packed512_Float32, null),
-			new Info(MemorySize.Packed512_Float64, null),
-			new Info(MemorySize.Packed512_2xBFloat16, null),
-			new Info(MemorySize.Broadcast64_UInt32, "1to2"),
-			new Info(MemorySize.Broadcast64_Int32, "1to2"),
-			new Info(MemorySize.Broadcast64_Float32, "1to2"),
-			new Info(MemorySize.Broadcast128_UInt32, "1to4"),
-			new Info(MemorySize.Broadcast128_Int32, "1to4"),
-			new Info(MemorySize.Broadcast128_UInt52, "1to2"),
-			new Info(MemorySize.Broadcast128_UInt64, "1to2"),
-			new Info(MemorySize.Broadcast128_Int64, "1to2"),
-			new Info(MemorySize.Broadcast128_Float32, "1to4"),
-			new Info(MemorySize.Broadcast128_Float64, "1to2"),
-			new Info(MemorySize.Broadcast256_UInt32, "1to8"),
-			new Info(MemorySize.Broadcast256_Int32, "1to8"),
-			new Info(MemorySize.Broadcast256_UInt52, "1to4"),
-			new Info(MemorySize.Broadcast256_UInt64, "1to4"),
-			new Info(MemorySize.Broadcast256_Int64, "1to4"),
-			new Info(MemorySize.Broadcast256_Float32, "1to8"),
-			new Info(MemorySize.Broadcast256_Float64, "1to4"),
-			new Info(MemorySize.Broadcast512_UInt32, "1to16"),
-			new Info(MemorySize.Broadcast512_Int32, "1to16"),
-			new Info(MemorySize.Broadcast512_UInt52, "1to8"),
-			new Info(MemorySize.Broadcast512_UInt64, "1to8"),
-			new Info(MemorySize.Broadcast512_Int64, "1to8"),
-			new Info(MemorySize.Broadcast512_Float32, "1to16"),
-			new Info(MemorySize.Broadcast512_Float64, "1to8"),
-			new Info(MemorySize.Broadcast128_2xInt16, "1to4"),
-			new Info(MemorySize.Broadcast256_2xInt16, "1to8"),
-			new Info(MemorySize.Broadcast512_2xInt16, "1to16"),
-			new Info(MemorySize.Broadcast128_2xUInt32, "1to2"),
-			new Info(MemorySize.Broadcast256_2xUInt32, "1to4"),
-			new Info(MemorySize.Broadcast512_2xUInt32, "1to8"),
-			new Info(MemorySize.Broadcast128_2xInt32, "1to2"),
-			new Info(MemorySize.Broadcast256_2xInt32, "1to4"),
-			new Info(MemorySize.Broadcast512_2xInt32, "1to8"),
-			new Info(MemorySize.Broadcast128_2xBFloat16, "1to4"),
-			new Info(MemorySize.Broadcast256_2xBFloat16, "1to8"),
-			new Info(MemorySize.Broadcast512_2xBFloat16, "1to16"),
-		};
+
+		public static readonly Info[] AllMemorySizes = GetMemorySizes();
+		enum BroadcastToKind {
+			b1to2,
+			b1to4,
+			b1to8,
+			b1to16,
+		}
+		static Info[] GetMemorySizes() {
+			var bcstToData = new byte[DecoderConstants.NumberOfMemorySizes - (int)MemorySize.Broadcast64_UInt32] {
+				(byte)BroadcastToKind.b1to2,
+				(byte)BroadcastToKind.b1to2,
+				(byte)BroadcastToKind.b1to2,
+				(byte)BroadcastToKind.b1to4,
+				(byte)BroadcastToKind.b1to4,
+				(byte)BroadcastToKind.b1to2,
+				(byte)BroadcastToKind.b1to2,
+				(byte)BroadcastToKind.b1to2,
+				(byte)BroadcastToKind.b1to4,
+				(byte)BroadcastToKind.b1to2,
+				(byte)BroadcastToKind.b1to8,
+				(byte)BroadcastToKind.b1to8,
+				(byte)BroadcastToKind.b1to4,
+				(byte)BroadcastToKind.b1to4,
+				(byte)BroadcastToKind.b1to4,
+				(byte)BroadcastToKind.b1to8,
+				(byte)BroadcastToKind.b1to4,
+				(byte)BroadcastToKind.b1to16,
+				(byte)BroadcastToKind.b1to16,
+				(byte)BroadcastToKind.b1to8,
+				(byte)BroadcastToKind.b1to8,
+				(byte)BroadcastToKind.b1to8,
+				(byte)BroadcastToKind.b1to16,
+				(byte)BroadcastToKind.b1to8,
+				(byte)BroadcastToKind.b1to4,
+				(byte)BroadcastToKind.b1to8,
+				(byte)BroadcastToKind.b1to16,
+				(byte)BroadcastToKind.b1to2,
+				(byte)BroadcastToKind.b1to4,
+				(byte)BroadcastToKind.b1to8,
+				(byte)BroadcastToKind.b1to2,
+				(byte)BroadcastToKind.b1to4,
+				(byte)BroadcastToKind.b1to8,
+				(byte)BroadcastToKind.b1to4,
+				(byte)BroadcastToKind.b1to8,
+				(byte)BroadcastToKind.b1to16,
+			};
+
+			var infos = new Info[DecoderConstants.NumberOfMemorySizes];
+			for (int i = 0; i < infos.Length; i++) {
+				string bcstTo;
+				if (i < (int)MemorySize.Broadcast64_UInt32)
+					bcstTo = null;
+				else {
+					switch ((BroadcastToKind)bcstToData[i - (int)MemorySize.Broadcast64_UInt32]) {
+					case BroadcastToKind.b1to2:		bcstTo = "1to2"; break;
+					case BroadcastToKind.b1to4:		bcstTo = "1to4"; break;
+					case BroadcastToKind.b1to8:		bcstTo = "1to8"; break;
+					case BroadcastToKind.b1to16:	bcstTo = "1to16"; break;
+					default:						throw new InvalidOperationException();
+					}
+				}
+
+				infos[i] = new Info((MemorySize)i, bcstTo);
+			}
+
+			return infos;
+		}
 	}
 }
 #endif

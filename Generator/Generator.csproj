@@ -10,10 +10,13 @@
   <ItemGroup>
     <Compile Include="..\Iced\Intel\Code.cs" Link="IcedFiles\Code.cs" />
     <Compile Include="..\Iced\Intel\CodeSize.cs" Link="IcedFiles\CodeSize.cs" />
+    <Compile Include="..\Iced\Intel\CpuidFeature.cs" Link="IcedFiles\CpuidFeature.cs" />
     <Compile Include="..\Iced\Intel\DecoderConstants.cs" Link="IcedFiles\DecoderConstants.cs" />
     <Compile Include="..\Iced\Intel\FormatterConstants.cs" Link="IcedFiles\FormatterConstants.cs" />
     <Compile Include="..\Iced\Intel\GasFormatterInternal\CtorKind.cs" Link="IcedFiles\Gas\CtorKind.cs" />
     <Compile Include="..\Iced\Intel\GasFormatterInternal\InstrOpInfoFlags.cs" Link="IcedFiles\Gas\InstrOpInfoFlags.cs" />
+    <Compile Include="..\Iced\Intel\InstructionInfoInternal\CpuidFeatureInternal.cs" Link="IcedFiles\CpuidFeatureInternal.cs" />
+    <Compile Include="..\Iced\Intel\InstructionInfoInternal\CpuidFeatureInternalConstants.cs" Link="IcedFiles\CpuidFeatureInternalConstants.cs" />
     <Compile Include="..\Iced\Intel\IntelFormatterInternal\CtorKind.cs" Link="IcedFiles\Intel\CtorKind.cs" />
     <Compile Include="..\Iced\Intel\IntelFormatterInternal\InstrOpInfoFlags.cs" Link="IcedFiles\Intel\InstrOpInfoFlags.cs" />
     <Compile Include="..\Iced\Intel\MasmFormatterInternal\CtorKind.cs" Link="IcedFiles\Masm\CtorKind.cs" />

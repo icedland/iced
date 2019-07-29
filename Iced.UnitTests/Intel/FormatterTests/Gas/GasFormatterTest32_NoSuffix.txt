@@ -194,9 +194,9 @@ bndmk (%eax),%bnd1
 bndcn %edx,%bnd1
 bndcn (%eax),%bnd1
 mov %cr3,%esi
-mov %db3,%esi
+mov %dr3,%esi
 mov %esi,%cr3
-mov %esi,%db3
+mov %esi,%dr3
 vmread %ecx,%esi
 vmread %ebx,(%eax)
 vmwrite %esi,%ecx

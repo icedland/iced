@@ -21,52 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS_FORMATTER && !NO_FORMATTER
-namespace Iced.Intel.GasFormatterInternal {
-	enum CtorKind {
-		Previous,
-		Normal_1,
-		Normal_2a,
-		Normal_2b,
-		Normal_3,
-		AamAad,
-		asz,
-		bnd2_2,
-		bnd2_3,
-		DeclareData,
-		er_2,
-		er_4,
-		far,
-		imul,
-		maskmovq,
-		movabs,
-		nop,
-		OpSize,
-		OpSize2_bnd,
-		OpSize3,
-		os_A,
-		os_B,
-		os_bnd,
-		os_jcc,
-		os_loop,
-		os_mem,
-		os_mem_reg16,
-		os_mem2,
-		os2_3,
-		os2_4,
-		os2_bnd,
-		pblendvb,
-		pclmulqdq,
-		pops,
-		Reg16,
-		sae,
-		sae_pops,
-		ST_STi,
-		STi_ST,
-		STi_ST2,
-		STIG_1a,
-		STIG_1b,
-		xbegin,
+#if !NO_INSTR_INFO
+namespace Iced.Intel.InstructionInfoInternal {
+	static class CpuidFeatureInternalConstants {
+		public const int MaxCpuidFeatureInternalValues = (int)CpuidFeatureInternal.ZALLOC + 1;
 	}
 }
 #endif

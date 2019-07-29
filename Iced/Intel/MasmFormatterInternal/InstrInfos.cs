@@ -40,9 +40,20 @@ namespace Iced.Intel.MasmFormatterInternal {
 			var ca = new char[1];
 			string s, s2, s3, s4;
 			uint v, v2, v3;
+			int prevIndex = -1;
 			for (int i = 0; i < infos.Length; i++) {
 				var code = (Code)i;
 				var ctorKind = (CtorKind)reader.ReadByte();
+				int currentIndex;
+				if (ctorKind == CtorKind.Previous) {
+					currentIndex = reader.Index;
+					reader.Index = prevIndex;
+					ctorKind = (CtorKind)reader.ReadByte();
+				}
+				else {
+					currentIndex = -1;
+					prevIndex = reader.Index - 1;
+				}
 				InstrInfo instrInfo;
 				switch (ctorKind) {
 				case CtorKind.Normal_1:
@@ -334,6 +345,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 					throw new InvalidOperationException();
 				}
 				infos[i] = instrInfo;
+				if (currentIndex >= 0)
+					reader.Index = currentIndex;
 			}
 			if (reader.CanRead)
 				throw new InvalidOperationException();

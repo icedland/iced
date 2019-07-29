@@ -22,16 +22,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Generator {
 	enum Command {
-		None,
 		Formatter,
+		CpuidFeature,
 	}
 
 	sealed class CommandLineOptions {
-		public Command Command = Command.None;
+		public readonly List<Command> Commands = new List<Command>();
 		public string? IcedProjectDir = null;
 	}
 
@@ -46,14 +47,23 @@ namespace Generator {
 				if (options.IcedProjectDir is null)
 					options.IcedProjectDir = GetIcedProjectDir();
 
-				switch (options.Command) {
-				case Command.Formatter:
-					new Formatters.FormatterTableGenerator(options.IcedProjectDir).Generate();
-					break;
+				foreach (var command in options.Commands) {
+					switch (command) {
+#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
+					case Command.Formatter:
+						new Formatters.FormatterTableGenerator(options.IcedProjectDir).Generate();
+						break;
+#endif
 
-				case Command.None:
-				default:
-					throw new InvalidOperationException();
+#if !NO_INSTR_INFO
+					case Command.CpuidFeature:
+						new InstructionInfo.CpuidFeatureTableGenerator(options.IcedProjectDir).Generate();
+						break;
+#endif
+
+					default:
+						throw new InvalidOperationException();
+					}
 				}
 
 				return 0;
@@ -75,9 +85,10 @@ namespace Generator {
 		}
 
 		static void Usage() {
-			Console.WriteLine(@"Generator <command>
+			Console.WriteLine(@"Generator <command(s)>
 command:
     --formatter         Generate formatter tables
+    --cpuidfeature      Generate cpuid features table
 ");
 		}
 
@@ -90,16 +101,27 @@ command:
 					return false;
 
 				case "--formatter":
-					if (options.Command != Command.None)
+					if (!TryAddCommand(options, Command.Formatter))
 						return false;
-					options.Command = Command.Formatter;
+					break;
+
+				case "--cpuidfeature":
+					if (!TryAddCommand(options, Command.CpuidFeature))
+						return false;
 					break;
 
 				default:
 					return false;
 				}
 			}
-			return options.Command != Command.None;
+			return options.Commands.Count != 0;
+		}
+
+		static bool TryAddCommand(CommandLineOptions options, Command command) {
+			if (options.Commands.Contains(command))
+				return false;
+			options.Commands.Add(command);
+			return true;
 		}
 	}
 }

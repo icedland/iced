@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_INTEL_FORMATTER && !NO_FORMATTER
 using System;
 using System.IO;
+using System.Text;
 using Generator.IO;
 using Iced.Intel;
 using Iced.Intel.IntelFormatterInternal;
@@ -55,7 +56,10 @@ namespace Generator.Formatters.Intel {
 			writer.Indent();
 
 			int index = -1;
-			foreach (var info in CtorInfos.Infos) {
+			var sb = new StringBuilder();
+			var infos = CtorInfos.Infos;
+			for (int i = 0; i < infos.Length; i++) {
+				var info = infos[i];
 				index++;
 				var ctorKind = (CtorKind)info[0];
 				var code = (Code)info[1];
@@ -67,22 +71,30 @@ namespace Generator.Formatters.Intel {
 				writer.WriteComment(code.ToString());
 				writer.WriteLine();
 
+				if (i > 0 && IsSame(infos[i - 1], info)) {
+					writer.WriteByte((byte)CtorKind.Previous);
+					writer.WriteComment(nameof(CtorKind.Previous));
+					writer.WriteLine();
+					continue;
+				}
+
 				if ((uint)ctorKind > byte.MaxValue)
 					throw new InvalidOperationException();
 				writer.WriteByte((byte)ctorKind);
 				writer.WriteComment($"{ctorKind}");
 				writer.WriteLine();
 				uint si;
-				for (int i = 2; i < info.Length; i++) {
-					switch (info[i]) {
+				for (int j = 2; j < info.Length; j++) {
+					switch (info[j]) {
 					case string s:
-						writer.WriteCompressedUInt32(si = stringsTable.GetIndex(s));
+						si = stringsTable.GetIndex(s);
+						writer.WriteCompressedUInt32(si);
 						writer.WriteComment($"{si} = \"{s}\"");
 						break;
 
 					case InstrOpInfoFlags flags:
 						writer.WriteCompressedUInt32((uint)flags);
-						writer.WriteComment($"0x{(uint)flags:X} = {flags.ToString()}");
+						writer.WriteComment($"0x{(uint)flags:X} = {ToString(sb, flags)}");
 						break;
 
 					case int ival:
@@ -124,6 +136,104 @@ namespace Generator.Formatters.Intel {
 			writer.Unindent();
 			writer.WriteLine("}");
 			writer.WriteLine("#endif");
+		}
+
+		static string ToString(StringBuilder sb, InstrOpInfoFlags flags) {
+			sb.Clear();
+
+			if ((flags & InstrOpInfoFlags.MemSize_Nothing) != 0) {
+				flags &= ~InstrOpInfoFlags.MemSize_Nothing;
+				Append(sb, nameof(InstrOpInfoFlags.MemSize_Nothing));
+			}
+
+			if ((flags & InstrOpInfoFlags.ShowNoMemSize_ForceSize) != 0) {
+				flags &= ~InstrOpInfoFlags.ShowNoMemSize_ForceSize;
+				Append(sb, nameof(InstrOpInfoFlags.ShowNoMemSize_ForceSize));
+			}
+
+			if ((flags & InstrOpInfoFlags.ShowMinMemSize_ForceSize) != 0) {
+				flags &= ~InstrOpInfoFlags.ShowMinMemSize_ForceSize;
+				Append(sb, nameof(InstrOpInfoFlags.ShowMinMemSize_ForceSize));
+			}
+
+			switch (flags & (InstrOpInfoFlags)((int)InstrOpInfoFlags.BranchSizeInfoMask << (int)InstrOpInfoFlags.BranchSizeInfoShift)) {
+			case 0: break;
+			case InstrOpInfoFlags.BranchSizeInfo_Short: Append(sb, nameof(InstrOpInfoFlags.BranchSizeInfo_Short)); break;
+			default: throw new InvalidOperationException();
+			}
+			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.BranchSizeInfoMask << (int)InstrOpInfoFlags.BranchSizeInfoShift);
+
+			switch (flags & (InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.OpSizeShift)) {
+			case 0: break;
+			case InstrOpInfoFlags.OpSize16: Append(sb, nameof(InstrOpInfoFlags.OpSize16)); break;
+			case InstrOpInfoFlags.OpSize32: Append(sb, nameof(InstrOpInfoFlags.OpSize32)); break;
+			case InstrOpInfoFlags.OpSize64: Append(sb, nameof(InstrOpInfoFlags.OpSize64)); break;
+			default: throw new InvalidOperationException();
+			}
+			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.OpSizeShift);
+
+			switch (flags & (InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.AddrSizeShift)) {
+			case 0: break;
+			case InstrOpInfoFlags.AddrSize16: Append(sb, nameof(InstrOpInfoFlags.AddrSize16)); break;
+			case InstrOpInfoFlags.AddrSize32: Append(sb, nameof(InstrOpInfoFlags.AddrSize32)); break;
+			case InstrOpInfoFlags.AddrSize64: Append(sb, nameof(InstrOpInfoFlags.AddrSize64)); break;
+			default: throw new InvalidOperationException();
+			}
+			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.AddrSizeShift);
+
+			if ((flags & InstrOpInfoFlags.IgnoreOpMask) != 0) {
+				flags &= ~InstrOpInfoFlags.IgnoreOpMask;
+				Append(sb, nameof(InstrOpInfoFlags.IgnoreOpMask));
+			}
+
+			if ((flags & InstrOpInfoFlags.FarMnemonic) != 0) {
+				flags &= ~InstrOpInfoFlags.FarMnemonic;
+				Append(sb, nameof(InstrOpInfoFlags.FarMnemonic));
+			}
+
+			if ((flags & InstrOpInfoFlags.JccNotTaken) != 0) {
+				flags &= ~InstrOpInfoFlags.JccNotTaken;
+				Append(sb, nameof(InstrOpInfoFlags.JccNotTaken));
+			}
+
+			if ((flags & InstrOpInfoFlags.JccTaken) != 0) {
+				flags &= ~InstrOpInfoFlags.JccTaken;
+				Append(sb, nameof(InstrOpInfoFlags.JccTaken));
+			}
+
+			if ((flags & InstrOpInfoFlags.BndPrefix) != 0) {
+				flags &= ~InstrOpInfoFlags.BndPrefix;
+				Append(sb, nameof(InstrOpInfoFlags.BndPrefix));
+			}
+
+			if ((flags & InstrOpInfoFlags.IgnoreIndexReg) != 0) {
+				flags &= ~InstrOpInfoFlags.IgnoreIndexReg;
+				Append(sb, nameof(InstrOpInfoFlags.IgnoreIndexReg));
+			}
+
+			if ((flags & InstrOpInfoFlags.IgnoreSegmentPrefix) != 0) {
+				flags &= ~InstrOpInfoFlags.IgnoreSegmentPrefix;
+				Append(sb, nameof(InstrOpInfoFlags.IgnoreSegmentPrefix));
+			}
+
+			if ((flags & InstrOpInfoFlags.MnemonicIsDirective) != 0) {
+				flags &= ~InstrOpInfoFlags.MnemonicIsDirective;
+				Append(sb, nameof(InstrOpInfoFlags.MnemonicIsDirective));
+			}
+
+			if (flags != 0)
+				throw new InvalidOperationException();
+
+			if (sb.Length == 0)
+				Append(sb, nameof(InstrOpInfoFlags.None));
+
+			return sb.ToString();
+		}
+
+		static void Append(StringBuilder sb, string name) {
+			if (sb.Length > 0)
+				sb.Append(", ");
+			sb.Append(name);
 		}
 	}
 }

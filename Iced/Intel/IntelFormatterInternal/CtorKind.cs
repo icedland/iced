@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_INTEL_FORMATTER && !NO_FORMATTER
 namespace Iced.Intel.IntelFormatterInternal {
 	enum CtorKind {
+		Previous,
 		Normal_1,
 		Normal_2,
 		asz,

@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
+#if !NO_INSTR_INFO || ((!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER)
 using System;
 
 namespace Iced.Intel.FormatterInternal {
@@ -29,6 +29,11 @@ namespace Iced.Intel.FormatterInternal {
 		readonly byte[] data;
 		readonly char[] stringData;
 		int index;
+
+		public int Index {
+			get => index;
+			set => index = value;
+		}
 
 		public bool CanRead => (uint)index < (uint)data.Length;
 
