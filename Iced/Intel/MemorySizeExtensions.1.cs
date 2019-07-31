@@ -49,7 +49,7 @@ namespace Iced.Intel {
 			S512,
 		}
 		static MemorySizeInfo[] GetMemorySizeInfos() {
-			var data = new byte[] {
+			var data = new byte[DecoderConstants.NumberOfMemorySizes * 3] {
 				(byte)MemorySize.Unknown, (byte)((uint)SizeKind.S0 | ((uint)SizeKind.S0 << 4)), 0,
 				(byte)MemorySize.UInt8, (byte)((uint)SizeKind.S1 | ((uint)SizeKind.S1 << 4)), 0,
 				(byte)MemorySize.UInt16, (byte)((uint)SizeKind.S2 | ((uint)SizeKind.S2 << 4)), 0,
