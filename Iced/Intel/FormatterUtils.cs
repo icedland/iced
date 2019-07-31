@@ -38,36 +38,15 @@ namespace Iced.Intel {
 	}
 
 	static class FormatterUtils {
-		static readonly string[] spaceStrings = new string[] {
-			" ",
-			"  ",
-			"   ",
-			"    ",
-			"     ",
-			"      ",
-			"       ",
-			"        ",
-			"         ",
-			"          ",
-			"           ",
-			"            ",
-			"             ",
-			"              ",
-			"               ",
-			"                ",
-			"                 ",
-			"                  ",
-			"                   ",
-			"                    ",
-		};
-		static readonly string[] tabStrings = new string[] {
-			"\t",
-			"\t\t",
-			"\t\t\t",
-			"\t\t\t\t",
-			"\t\t\t\t\t",
-			"\t\t\t\t\t\t",
-		};
+		static readonly string[] spaceStrings = CreateStrings(' ', 20);
+		static readonly string[] tabStrings = CreateStrings('\t', 6);
+
+		static string[] CreateStrings(char c, int max) {
+			var strings = new string[max];
+			for (int i = 0; i < strings.Length; i++)
+				strings[i] = new string(c, i + 1);
+			return strings;
+		}
 
 		public static void AddTabs(FormatterOutput output, int column, int firstOperandCharIndex, int tabSize) {
 #if DEBUG
