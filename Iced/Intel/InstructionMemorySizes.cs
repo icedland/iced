@@ -3876,18 +3876,18 @@ namespace Iced.Intel {
 			0,// VEX_Kmovw_k_r32
 			0,// VEX_Kmovb_k_r32
 			0,// VEX_Kmovb_k_r32
-			0,// VEX_Kmovq_k_r64
-			0,// VEX_Kmovq_k_r64
 			0,// VEX_Kmovd_k_r32
 			0,// VEX_Kmovd_k_r32
+			0,// VEX_Kmovq_k_r64
+			0,// VEX_Kmovq_k_r64
 			0,// VEX_Kmovw_r32_k
 			0,// VEX_Kmovw_r32_k
 			0,// VEX_Kmovb_r32_k
 			0,// VEX_Kmovb_r32_k
-			0,// VEX_Kmovq_r64_k
-			0,// VEX_Kmovq_r64_k
 			0,// VEX_Kmovd_r32_k
 			0,// VEX_Kmovd_r32_k
+			0,// VEX_Kmovq_r64_k
+			0,// VEX_Kmovq_r64_k
 			0,// VEX_Kortestw_k_k
 			0,// VEX_Kortestw_k_k
 			0,// VEX_Kortestq_k_k
@@ -7702,22 +7702,22 @@ namespace Iced.Intel {
 			0,// EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae
 			(byte)MemorySize.Float64,// EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae
 			0,// EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae
-			0,// VEX_Kshiftrw_k_k_imm8
-			0,// VEX_Kshiftrw_k_k_imm8
 			0,// VEX_Kshiftrb_k_k_imm8
 			0,// VEX_Kshiftrb_k_k_imm8
-			0,// VEX_Kshiftrq_k_k_imm8
-			0,// VEX_Kshiftrq_k_k_imm8
+			0,// VEX_Kshiftrw_k_k_imm8
+			0,// VEX_Kshiftrw_k_k_imm8
 			0,// VEX_Kshiftrd_k_k_imm8
 			0,// VEX_Kshiftrd_k_k_imm8
-			0,// VEX_Kshiftlw_k_k_imm8
-			0,// VEX_Kshiftlw_k_k_imm8
+			0,// VEX_Kshiftrq_k_k_imm8
+			0,// VEX_Kshiftrq_k_k_imm8
 			0,// VEX_Kshiftlb_k_k_imm8
 			0,// VEX_Kshiftlb_k_k_imm8
-			0,// VEX_Kshiftlq_k_k_imm8
-			0,// VEX_Kshiftlq_k_k_imm8
+			0,// VEX_Kshiftlw_k_k_imm8
+			0,// VEX_Kshiftlw_k_k_imm8
 			0,// VEX_Kshiftld_k_k_imm8
 			0,// VEX_Kshiftld_k_k_imm8
+			0,// VEX_Kshiftlq_k_k_imm8
+			0,// VEX_Kshiftlq_k_k_imm8
 			(byte)MemorySize.Int128,// VEX_Vinserti128_ymm_ymm_xmmm128_imm8
 			0,// VEX_Vinserti128_ymm_ymm_xmmm128_imm8
 			(byte)MemorySize.Packed128_Int32,// EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8

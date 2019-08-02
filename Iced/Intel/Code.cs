@@ -2224,15 +2224,15 @@ namespace Iced.Intel {
 
 		VEX_Kmovb_k_r32,											// VEX.L0.66.0F.W0 92
 
-		VEX_Kmovq_k_r64,											// VEX.L0.F2.0F.W1 92
 		VEX_Kmovd_k_r32,											// VEX.L0.F2.0F.W0 92
+		VEX_Kmovq_k_r64,											// VEX.L0.F2.0F.W1 92
 
 		VEX_Kmovw_r32_k,											// VEX.L0.0F.W0 93
 
 		VEX_Kmovb_r32_k,											// VEX.L0.66.0F.W0 93
 
-		VEX_Kmovq_r64_k,											// VEX.L0.F2.0F.W1 93
 		VEX_Kmovd_r32_k,											// VEX.L0.F2.0F.W0 93
+		VEX_Kmovq_r64_k,											// VEX.L0.F2.0F.W1 93
 
 		VEX_Kortestw_k_k,											// VEX.L0.0F.W0 98
 		VEX_Kortestq_k_k,											// VEX.L0.0F.W1 98
@@ -4552,15 +4552,15 @@ namespace Iced.Intel {
 		EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae,				// EVEX.LIG.66.0F3A.W0 27
 		EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae,				// EVEX.LIG.66.0F3A.W1 27
 
-		VEX_Kshiftrw_k_k_imm8,										// VEX.L0.66.0F3A.W1 30
 		VEX_Kshiftrb_k_k_imm8,										// VEX.L0.66.0F3A.W0 30
-		VEX_Kshiftrq_k_k_imm8,										// VEX.L0.66.0F3A.W1 31
+		VEX_Kshiftrw_k_k_imm8,										// VEX.L0.66.0F3A.W1 30
 		VEX_Kshiftrd_k_k_imm8,										// VEX.L0.66.0F3A.W0 31
+		VEX_Kshiftrq_k_k_imm8,										// VEX.L0.66.0F3A.W1 31
 
-		VEX_Kshiftlw_k_k_imm8,										// VEX.L0.66.0F3A.W1 32
 		VEX_Kshiftlb_k_k_imm8,										// VEX.L0.66.0F3A.W0 32
-		VEX_Kshiftlq_k_k_imm8,										// VEX.L0.66.0F3A.W1 33
+		VEX_Kshiftlw_k_k_imm8,										// VEX.L0.66.0F3A.W1 32
 		VEX_Kshiftld_k_k_imm8,										// VEX.L0.66.0F3A.W0 33
+		VEX_Kshiftlq_k_k_imm8,										// VEX.L0.66.0F3A.W1 33
 
 		VEX_Vinserti128_ymm_ymm_xmmm128_imm8,						// VEX.256.66.0F3A.W0 38
 		EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8,					// EVEX.256.66.0F3A.W0 38

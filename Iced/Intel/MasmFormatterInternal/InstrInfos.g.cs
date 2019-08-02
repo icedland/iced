@@ -7399,13 +7399,13 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x01,// Normal_1
 				0xA2, 0x02,// 290 = "kmovb"
 
-				// VEX_Kmovq_k_r64
-				0x01,// Normal_1
-				0xA4, 0x02,// 292 = "kmovq"
-
 				// VEX_Kmovd_k_r32
 				0x01,// Normal_1
 				0xA3, 0x02,// 291 = "kmovd"
+
+				// VEX_Kmovq_k_r64
+				0x01,// Normal_1
+				0xA4, 0x02,// 292 = "kmovq"
 
 				// VEX_Kmovw_r32_k
 				0x01,// Normal_1
@@ -7415,13 +7415,13 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x01,// Normal_1
 				0xA2, 0x02,// 290 = "kmovb"
 
-				// VEX_Kmovq_r64_k
-				0x01,// Normal_1
-				0xA4, 0x02,// 292 = "kmovq"
-
 				// VEX_Kmovd_r32_k
 				0x01,// Normal_1
 				0xA3, 0x02,// 291 = "kmovd"
+
+				// VEX_Kmovq_r64_k
+				0x01,// Normal_1
+				0xA4, 0x02,// 292 = "kmovq"
 
 				// VEX_Kortestw_k_k
 				0x01,// Normal_1
@@ -14168,37 +14168,37 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x01,// Normal_1
 				0xEE, 0x0A,// 1390 = "vgetmantsd"
 
-				// VEX_Kshiftrw_k_k_imm8
-				0x01,// Normal_1
-				0xEE, 0x08,// 1134 = "kshiftrw"
-
 				// VEX_Kshiftrb_k_k_imm8
 				0x01,// Normal_1
 				0xEB, 0x08,// 1131 = "kshiftrb"
 
-				// VEX_Kshiftrq_k_k_imm8
+				// VEX_Kshiftrw_k_k_imm8
 				0x01,// Normal_1
-				0xED, 0x08,// 1133 = "kshiftrq"
+				0xEE, 0x08,// 1134 = "kshiftrw"
 
 				// VEX_Kshiftrd_k_k_imm8
 				0x01,// Normal_1
 				0xEC, 0x08,// 1132 = "kshiftrd"
 
-				// VEX_Kshiftlw_k_k_imm8
+				// VEX_Kshiftrq_k_k_imm8
 				0x01,// Normal_1
-				0xEA, 0x08,// 1130 = "kshiftlw"
+				0xED, 0x08,// 1133 = "kshiftrq"
 
 				// VEX_Kshiftlb_k_k_imm8
 				0x01,// Normal_1
 				0xE7, 0x08,// 1127 = "kshiftlb"
 
-				// VEX_Kshiftlq_k_k_imm8
+				// VEX_Kshiftlw_k_k_imm8
 				0x01,// Normal_1
-				0xE9, 0x08,// 1129 = "kshiftlq"
+				0xEA, 0x08,// 1130 = "kshiftlw"
 
 				// VEX_Kshiftld_k_k_imm8
 				0x01,// Normal_1
 				0xE8, 0x08,// 1128 = "kshiftld"
+
+				// VEX_Kshiftlq_k_k_imm8
+				0x01,// Normal_1
+				0xE9, 0x08,// 1129 = "kshiftlq"
 
 				// VEX_Vinserti128_ymm_ymm_xmmm128_imm8
 				0x02,// Normal_2
