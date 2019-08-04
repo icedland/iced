@@ -74,6 +74,13 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo(code, s, (InstrOpInfoFlags)v);
 					break;
 
+				case CtorKind.Normal_2c:
+					s = strings[reader.ReadCompressedUInt32()];
+					ca[0] = (char)reader.ReadByte();
+					s = AddSuffix(s, ca);
+					instrInfo = new SimpleInstrInfo(code, s);
+					break;
+
 				case CtorKind.Normal_3:
 					s = strings[reader.ReadCompressedUInt32()];
 					ca[0] = (char)reader.ReadByte();
