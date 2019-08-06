@@ -126,8 +126,7 @@ namespace Generator.Formatters {
 						throw new InvalidOperationException();
 					writer.WriteByte((byte)c);
 				}
-				writer.WriteComment(s);
-				writer.WriteLine();
+				writer.WriteCommentLine(s);
 			}
 
 			writer.Unindent();

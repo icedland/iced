@@ -26,14 +26,6 @@ using System;
 using System.Diagnostics;
 
 namespace Iced.Intel.DecoderInternal {
-	enum HandlerFlags : uint {
-		None					= 0,
-		Xacquire				= 0x00000001,
-		Xrelease				= 0x00000002,
-		XacquireRelease			= Xacquire | Xrelease,
-		XacquireReleaseNoLock	= 0x00000004,
-	}
-
 	abstract class OpCodeHandler {
 		public readonly bool HasModRM;
 
@@ -269,18 +261,6 @@ namespace Iced.Intel.DecoderInternal {
 			decoder.ClearMandatoryPrefix(ref instruction);
 			handlers[(int)decoder.state.mandatoryPrefix].Decode(decoder, ref instruction);
 		}
-	}
-
-	[Flags]
-	enum LegacyHandlerFlags {
-		HandlerReg				= 0x00000001,
-		HandlerMem				= 0x00000002,
-		Handler66Reg			= 0x00000004,
-		Handler66Mem			= 0x00000008,
-		HandlerF3Reg			= 0x00000010,
-		HandlerF3Mem			= 0x00000020,
-		HandlerF2Reg			= 0x00000040,
-		HandlerF2Mem			= 0x00000080,
 	}
 
 	sealed class OpCodeHandler_MandatoryPrefix3 : OpCodeHandlerModRM {

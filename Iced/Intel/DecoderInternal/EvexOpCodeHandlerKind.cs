@@ -21,15 +21,71 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER32 && !NO_DECODER
-namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
-	static class OpCodeHandlers32Tables_EVEX {
-		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F38XX;
-		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F3AXX;
-		internal static readonly OpCodeHandler[] TwoByteHandlers_0FXX;
+#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+namespace Iced.Intel.DecoderInternal {
+	enum EvexOpCodeHandlerKind : byte {
+		Invalid,
+		Invalid2,
+		Dup,
+		HandlerReference,
+		ArrayReference,
+		RM,
+		Group,
+		W,
+		MandatoryPrefix2,
+		VectorLength,
+		VectorLength_er,
 
-		static OpCodeHandlers32Tables_EVEX() =>
-			OpCodeHandlersTables_EVEX.GetTables(32, out ThreeByteHandlers_0F38XX, out ThreeByteHandlers_0F3AXX, out TwoByteHandlers_0FXX);
+		Ed_V_Ib,
+		Ev_VX,
+		Ev_VX_Ib,
+		Gv_W_er,
+		GvM_VX_Ib,
+		HkWIb,
+		KkHW,
+		kkHWIb,
+		KkHWIb,
+		KkWIb,
+		KP1HW,
+		KR,
+		MV,
+		V_H_Ev_er_5,
+		V_H_Ev_er_6,
+		V_H_Ev_Ib,
+		VHM,
+		VHW_3,
+		VHW_4,
+		VHWIb,
+		VK,
+		Vk_VSIB,
+		VkEv_REXW_2,
+		VkEv_REXW_3,
+		VkHM,
+		VkHW_3,
+		VkHW_5,
+		VkHW_er,
+		VkHWIb_3,
+		VkHWIb_5,
+		VkHWIb_er,
+		VkM,
+		VkW_3,
+		VkW_4,
+		VkW_er_4,
+		VkW_er_5,
+		VkWIb,
+		VkWIb_er,
+		VM,
+		VSIB_k1,
+		VSIB_k1_VX,
+		VW,
+		VW_er,
+		VX_Ev,
+		WkHV,
+		WkV_3,
+		WkV_4,
+		WkVIb,
+		WkVIb_er,
+		WV,
 	}
 }
 #endif

@@ -21,15 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER32 && !NO_DECODER
-namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
-	static class OpCodeHandlers32Tables_EVEX {
-		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F38XX;
-		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F3AXX;
-		internal static readonly OpCodeHandler[] TwoByteHandlers_0FXX;
-
-		static OpCodeHandlers32Tables_EVEX() =>
-			OpCodeHandlersTables_EVEX.GetTables(32, out ThreeByteHandlers_0F38XX, out ThreeByteHandlers_0F3AXX, out TwoByteHandlers_0FXX);
+#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+namespace Iced.Intel.DecoderInternal {
+	enum SerializedDataKind : byte {
+		HandlerReference,
+		ArrayReference,
 	}
 }
 #endif

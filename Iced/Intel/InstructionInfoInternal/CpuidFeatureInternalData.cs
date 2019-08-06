@@ -23,7 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_INSTR_INFO
 using System;
-using Iced.Intel.FormatterInternal;
+using Iced.Intel.Internal;
 
 namespace Iced.Intel.InstructionInfoInternal {
 	static partial class CpuidFeatureInternalData {

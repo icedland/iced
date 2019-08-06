@@ -21,15 +21,21 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER32 && !NO_DECODER
-namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
-	static class OpCodeHandlers32Tables_EVEX {
-		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F38XX;
-		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F3AXX;
-		internal static readonly OpCodeHandler[] TwoByteHandlers_0FXX;
+#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+using System;
+using Iced.Intel.DecoderInternal;
 
-		static OpCodeHandlers32Tables_EVEX() =>
-			OpCodeHandlersTables_EVEX.GetTables(32, out ThreeByteHandlers_0F38XX, out ThreeByteHandlers_0F3AXX, out TwoByteHandlers_0FXX);
+namespace Generator.Decoder {
+	abstract class VexCommonDecoderTableSerializer : DecoderTableSerializer {
+		static readonly object handlerReferenceValue = VexOpCodeHandlerKind.HandlerReference;
+		static readonly object arrayReferenceValue = VexOpCodeHandlerKind.ArrayReference;
+		static readonly object invalid2Value = VexOpCodeHandlerKind.Invalid2;
+		static readonly object dupValue = VexOpCodeHandlerKind.Dup;
+		protected override object GetNullValue() => throw new InvalidOperationException();
+		protected override object GetHandlerReferenceValue() => handlerReferenceValue;
+		protected override object GetArrayReferenceValue() => arrayReferenceValue;
+		protected override object GetInvalid2Value() => invalid2Value;
+		protected override object GetDupValue() => dupValue;
 	}
 }
 #endif

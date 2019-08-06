@@ -131,9 +131,10 @@ namespace Generator.IO {
 			}
 		}
 
-		public void WriteComment(string s) {
+		public void WriteCommentLine(string s) {
 			Write(CommentPrefix);
 			Write(s);
+			WriteLine();
 		}
 
 		void Write(string s) {

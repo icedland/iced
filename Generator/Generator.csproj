@@ -7,23 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Iced\Intel\Code.cs" Link="IcedFiles\Code.cs" />
-    <Compile Include="..\Iced\Intel\CodeSize.cs" Link="IcedFiles\CodeSize.cs" />
-    <Compile Include="..\Iced\Intel\CpuidFeature.cs" Link="IcedFiles\CpuidFeature.cs" />
-    <Compile Include="..\Iced\Intel\DecoderConstants.cs" Link="IcedFiles\DecoderConstants.cs" />
-    <Compile Include="..\Iced\Intel\FormatterConstants.cs" Link="IcedFiles\FormatterConstants.cs" />
-    <Compile Include="..\Iced\Intel\GasFormatterInternal\CtorKind.cs" Link="IcedFiles\Gas\CtorKind.cs" />
-    <Compile Include="..\Iced\Intel\GasFormatterInternal\InstrOpInfoFlags.cs" Link="IcedFiles\Gas\InstrOpInfoFlags.cs" />
-    <Compile Include="..\Iced\Intel\InstructionInfoInternal\CpuidFeatureInternal.cs" Link="IcedFiles\CpuidFeatureInternal.cs" />
-    <Compile Include="..\Iced\Intel\InstructionInfoInternal\CpuidFeatureInternalConstants.cs" Link="IcedFiles\CpuidFeatureInternalConstants.cs" />
-    <Compile Include="..\Iced\Intel\IntelFormatterInternal\CtorKind.cs" Link="IcedFiles\Intel\CtorKind.cs" />
-    <Compile Include="..\Iced\Intel\IntelFormatterInternal\InstrOpInfoFlags.cs" Link="IcedFiles\Intel\InstrOpInfoFlags.cs" />
-    <Compile Include="..\Iced\Intel\MasmFormatterInternal\CtorKind.cs" Link="IcedFiles\Masm\CtorKind.cs" />
-    <Compile Include="..\Iced\Intel\MasmFormatterInternal\InstrOpInfoFlags.cs" Link="IcedFiles\Masm\InstrOpInfoFlags.cs" />
-    <Compile Include="..\Iced\Intel\MemorySize.cs" Link="IcedFiles\MemorySize.cs" />
-    <Compile Include="..\Iced\Intel\NasmFormatterInternal\CtorKind.cs" Link="IcedFiles\Nasm\CtorKind.cs" />
-    <Compile Include="..\Iced\Intel\NasmFormatterInternal\InstrOpInfoFlags.cs" Link="IcedFiles\Nasm\InstrOpInfoFlags.cs" />
-    <Compile Include="..\Iced\Intel\Register.cs" Link="IcedFiles\Register.cs" />
+    <Compile Include="..\Iced\Intel\Code.cs" Link="Code.cs" />
+    <Compile Include="..\Iced\Intel\CodeSize.cs" Link="CodeSize.cs" />
+    <Compile Include="..\Iced\Intel\CpuidFeature.cs" Link="InstructionInfo\CpuidFeature.cs" />
+    <Compile Include="..\Iced\Intel\DecoderConstants.cs" Link="DecoderConstants.cs" />
+    <Compile Include="..\Iced\Intel\DecoderInternal\EvexOpCodeHandlerKind.cs" Link="Decoder\EvexOpCodeHandlerKind.cs" />
+    <Compile Include="..\Iced\Intel\DecoderInternal\HandlerFlags.cs" Link="Decoder\HandlerFlags.cs" />
+    <Compile Include="..\Iced\Intel\DecoderInternal\LegacyHandlerFlags.cs" Link="Decoder\LegacyHandlerFlags.cs" />
+    <Compile Include="..\Iced\Intel\DecoderInternal\OpCodeHandlerKind.cs" Link="Decoder\OpCodeHandlerKind.cs" />
+    <Compile Include="..\Iced\Intel\DecoderInternal\VexOpCodeHandlerKind.cs" Link="Decoder\VexOpCodeHandlerKind.cs" />
+    <Compile Include="..\Iced\Intel\DecoderOptions.cs" Link="Decoder\DecoderOptions.cs" />
+    <Compile Include="..\Iced\Intel\FormatterConstants.cs" Link="Formatters\FormatterConstants.cs" />
+    <Compile Include="..\Iced\Intel\GasFormatterInternal\CtorKind.cs" Link="Formatters\Gas\CtorKind.cs" />
+    <Compile Include="..\Iced\Intel\GasFormatterInternal\InstrOpInfoFlags.cs" Link="Formatters\Gas\InstrOpInfoFlags.cs" />
+    <Compile Include="..\Iced\Intel\InstructionInfoInternal\CpuidFeatureInternal.cs" Link="InstructionInfo\CpuidFeatureInternal.cs" />
+    <Compile Include="..\Iced\Intel\InstructionInfoInternal\CpuidFeatureInternalConstants.cs" Link="InstructionInfo\CpuidFeatureInternalConstants.cs" />
+    <Compile Include="..\Iced\Intel\IntelFormatterInternal\CtorKind.cs" Link="Formatters\Intel\CtorKind.cs" />
+    <Compile Include="..\Iced\Intel\IntelFormatterInternal\InstrOpInfoFlags.cs" Link="Formatters\Intel\InstrOpInfoFlags.cs" />
+    <Compile Include="..\Iced\Intel\MasmFormatterInternal\CtorKind.cs" Link="Formatters\Masm\CtorKind.cs" />
+    <Compile Include="..\Iced\Intel\MasmFormatterInternal\InstrOpInfoFlags.cs" Link="Formatters\Masm\InstrOpInfoFlags.cs" />
+    <Compile Include="..\Iced\Intel\MemorySize.cs" Link="MemorySize.cs" />
+    <Compile Include="..\Iced\Intel\NasmFormatterInternal\CtorKind.cs" Link="Formatters\Nasm\CtorKind.cs" />
+    <Compile Include="..\Iced\Intel\NasmFormatterInternal\InstrOpInfoFlags.cs" Link="Formatters\Nasm\InstrOpInfoFlags.cs" />
+    <Compile Include="..\Iced\Intel\Register.cs" Link="Register.cs" />
+    <Compile Include="..\Iced\Intel\DecoderInternal\SerializedDataKind.cs" Link="Decoder\SerializedDataKind.cs" />
+    <Compile Include="..\Iced\Intel\TupleType.cs" Link="Decoder\TupleType.cs" />
   </ItemGroup>
 
 </Project>

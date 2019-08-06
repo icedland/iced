@@ -21,15 +21,30 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER32 && !NO_DECODER
-namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
-	static class OpCodeHandlers32Tables_EVEX {
-		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F38XX;
-		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F3AXX;
-		internal static readonly OpCodeHandler[] TwoByteHandlers_0FXX;
+#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+using System.IO;
+using Generator.IO;
 
-		static OpCodeHandlers32Tables_EVEX() =>
-			OpCodeHandlersTables_EVEX.GetTables(32, out ThreeByteHandlers_0F38XX, out ThreeByteHandlers_0F3AXX, out TwoByteHandlers_0FXX);
+namespace Generator.Decoder {
+	sealed class DecoderTableGenerator {
+		readonly string icedProjectDir;
+
+		public DecoderTableGenerator(string icedProjectDir) => this.icedProjectDir = icedProjectDir;
+
+		public void Generate() {
+			var serializers = new DecoderTableSerializer[] {
+				new LegacyDecoderTableSerializer(),
+				new VexDecoderTableSerializer(),
+				new EvexDecoderTableSerializer(),
+				new XopDecoderTableSerializer(),
+			};
+
+			foreach (var serializer in serializers) {
+				var filename = Path.Combine(icedProjectDir, "Intel", "DecoderInternal", serializer.ClassName + ".g.cs");
+				using (var writer = new FileWriter(FileUtils.OpenWrite(filename)))
+					serializer.Serialize(writer);
+			}
+		}
 	}
 }
 #endif

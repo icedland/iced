@@ -27,6 +27,7 @@ using System.IO;
 
 namespace Generator {
 	enum Command {
+		Decoder,
 		Formatter,
 		CpuidFeature,
 	}
@@ -49,6 +50,12 @@ namespace Generator {
 
 				foreach (var command in options.Commands) {
 					switch (command) {
+#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+					case Command.Decoder:
+						new Decoder.DecoderTableGenerator(options.IcedProjectDir).Generate();
+						break;
+#endif
+
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 					case Command.Formatter:
 						new Formatters.FormatterTableGenerator(options.IcedProjectDir).Generate();
@@ -65,7 +72,6 @@ namespace Generator {
 						throw new InvalidOperationException();
 					}
 				}
-
 				return 0;
 			}
 			catch (Exception ex) {
@@ -87,6 +93,7 @@ namespace Generator {
 		static void Usage() {
 			Console.WriteLine(@"Generator <command(s)>
 command:
+    --decoder           Generate decoder tables
     --formatter         Generate formatter tables
     --cpuidfeature      Generate cpuid features table
 ");
@@ -99,6 +106,11 @@ command:
 				case "-?":
 				case "--help":
 					return false;
+
+				case "--decoder":
+					if (!TryAddCommand(options, Command.Decoder))
+						return false;
+					break;
 
 				case "--formatter":
 					if (!TryAddCommand(options, Command.Formatter))
