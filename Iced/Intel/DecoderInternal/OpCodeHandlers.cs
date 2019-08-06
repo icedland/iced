@@ -683,14 +683,6 @@ namespace Iced.Intel.DecoderInternal {
 			};
 		}
 
-		public OpCodeHandler_Options_DontReadModRM(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1, OpCodeHandler handler2, DecoderOptions options2) {
-			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
-			infos = new HandlerOptions[] {
-				new HandlerOptions(handler1 ?? throw new ArgumentNullException(nameof(handler1)), options1),
-				new HandlerOptions(handler2 ?? throw new ArgumentNullException(nameof(handler2)), options2),
-			};
-		}
-
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			var handler = defaultHandler;
 			var options = decoder.options;

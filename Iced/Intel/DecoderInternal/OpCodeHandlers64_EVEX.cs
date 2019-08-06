@@ -319,14 +319,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			this.onlySAE = onlySAE;
 		}
 
-		public OpCodeHandler_EVEX_VkWIb_er(Register baseReg1, Register baseReg2, Code code, TupleType tupleType, bool onlySAE) {
-			this.baseReg1 = baseReg1;
-			this.baseReg2 = baseReg2;
-			this.code = code;
-			this.tupleType = tupleType;
-			this.onlySAE = onlySAE;
-		}
-
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
@@ -516,13 +508,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			this.tupleType = tupleType;
 		}
 
-		public OpCodeHandler_EVEX_VkWIb(Register baseReg1, Register baseReg2, Code code, TupleType tupleType) {
-			this.baseReg1 = baseReg1;
-			this.baseReg2 = baseReg2;
-			this.code = code;
-			this.tupleType = tupleType;
-		}
-
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
@@ -559,13 +544,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Register baseReg2;
 		readonly Code code;
 		readonly TupleType tupleType;
-
-		public OpCodeHandler_EVEX_WkVIb(Register baseReg, Code code, TupleType tupleType) {
-			baseReg1 = baseReg;
-			baseReg2 = baseReg;
-			this.code = code;
-			this.tupleType = tupleType;
-		}
 
 		public OpCodeHandler_EVEX_WkVIb(Register baseReg1, Register baseReg2, Code code, TupleType tupleType) {
 			this.baseReg1 = baseReg1;
@@ -618,13 +596,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			this.tupleType = tupleType;
 		}
 
-		public OpCodeHandler_EVEX_HkWIb(Register baseReg1, Register baseReg2, Code code, TupleType tupleType) {
-			this.baseReg1 = baseReg1;
-			this.baseReg2 = baseReg2;
-			this.code = code;
-			this.tupleType = tupleType;
-		}
-
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
@@ -658,14 +629,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		readonly Code code;
 		readonly TupleType tupleType;
 		readonly bool onlySAE;
-
-		public OpCodeHandler_EVEX_WkVIb_er(Register baseReg, Code code, TupleType tupleType, bool onlySAE) {
-			baseReg1 = baseReg;
-			baseReg2 = baseReg;
-			this.code = code;
-			this.tupleType = tupleType;
-			this.onlySAE = onlySAE;
-		}
 
 		public OpCodeHandler_EVEX_WkVIb_er(Register baseReg1, Register baseReg2, Code code, TupleType tupleType, bool onlySAE) {
 			this.baseReg1 = baseReg1;
@@ -733,14 +696,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			this.onlySAE = onlySAE;
 		}
 
-		public OpCodeHandler_EVEX_VW_er(Register baseReg1, Register baseReg2, Code code, TupleType tupleType, bool onlySAE) {
-			this.baseReg1 = baseReg1;
-			this.baseReg2 = baseReg2;
-			this.code = code;
-			this.tupleType = tupleType;
-			this.onlySAE = onlySAE;
-		}
-
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
@@ -794,13 +749,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			this.tupleType = tupleType;
 		}
 
-		public OpCodeHandler_EVEX_VW(Register baseReg1, Register baseReg2, Code code, TupleType tupleType) {
-			this.baseReg1 = baseReg1;
-			this.baseReg2 = baseReg2;
-			this.code = code;
-			this.tupleType = tupleType;
-		}
-
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
@@ -836,13 +784,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 		public OpCodeHandler_EVEX_WV(Register baseReg, Code code, TupleType tupleType) {
 			baseReg1 = baseReg;
 			baseReg2 = baseReg;
-			this.code = code;
-			this.tupleType = tupleType;
-		}
-
-		public OpCodeHandler_EVEX_WV(Register baseReg1, Register baseReg2, Code code, TupleType tupleType) {
-			this.baseReg1 = baseReg1;
-			this.baseReg2 = baseReg2;
 			this.code = code;
 			this.tupleType = tupleType;
 		}
@@ -1076,13 +1017,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			this.tupleType = tupleType;
 		}
 
-		public OpCodeHandler_EVEX_VkHM(Register baseReg1, Register baseReg2, Code code, TupleType tupleType) {
-			this.baseReg1 = baseReg1;
-			this.baseReg2 = baseReg2;
-			this.code = code;
-			this.tupleType = tupleType;
-		}
-
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
@@ -1175,15 +1109,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			baseReg1 = baseReg;
 			baseReg2 = baseReg;
 			baseReg3 = baseReg;
-			this.code = code;
-			this.tupleType = tupleType;
-			this.onlySAE = onlySAE;
-		}
-
-		public OpCodeHandler_EVEX_VkHWIb_er(Register baseReg1, Register baseReg2, Register baseReg3, Code code, TupleType tupleType, bool onlySAE) {
-			this.baseReg1 = baseReg1;
-			this.baseReg2 = baseReg2;
-			this.baseReg3 = baseReg3;
 			this.code = code;
 			this.tupleType = tupleType;
 			this.onlySAE = onlySAE;
@@ -1453,15 +1378,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 			baseReg1 = baseReg;
 			baseReg2 = baseReg;
 			baseReg3 = baseReg;
-			codeR = code;
-			codeM = code;
-			this.tupleType = tupleType;
-		}
-
-		public OpCodeHandler_EVEX_VHW(Register baseReg1, Register baseReg2, Register baseReg3, Code code, TupleType tupleType) {
-			this.baseReg1 = baseReg1;
-			this.baseReg2 = baseReg2;
-			this.baseReg3 = baseReg3;
 			codeR = code;
 			codeM = code;
 			this.tupleType = tupleType;

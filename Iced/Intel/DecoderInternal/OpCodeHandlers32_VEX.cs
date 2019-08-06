@@ -236,12 +236,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			this.code = code;
 		}
 
-		public OpCodeHandler_VEX_WV(Register baseReg1, Register baseReg2, Code code) {
-			this.baseReg1 = baseReg1;
-			this.baseReg2 = baseReg2;
-			this.code = code;
-		}
-
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.VEX || state.Encoding == EncodingKind.XOP);
@@ -420,12 +414,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 			code = codeW0;
 		}
 
-		public OpCodeHandler_VEX_VWIb(Register baseReg1, Register baseReg2, Code code) {
-			this.baseReg1 = baseReg1;
-			this.baseReg2 = baseReg2;
-			this.code = code;
-		}
-
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.VEX || state.Encoding == EncodingKind.XOP);
@@ -455,12 +443,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		readonly Register baseReg1;
 		readonly Register baseReg2;
 		readonly Code code;
-
-		public OpCodeHandler_VEX_WVIb(Register baseReg, Code code) {
-			baseReg1 = baseReg;
-			baseReg2 = baseReg;
-			this.code = code;
-		}
 
 		public OpCodeHandler_VEX_WVIb(Register baseReg1, Register baseReg2, Code code) {
 			this.baseReg1 = baseReg1;
@@ -616,12 +598,6 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 		readonly Register baseReg;
 		readonly Code codeR;
 		readonly Code codeM;
-
-		public OpCodeHandler_VEX_WHV(Register baseReg, Code codeR, Code codeM) {
-			this.baseReg = baseReg;
-			this.codeR = codeR;
-			this.codeM = codeM;
-		}
 
 		public OpCodeHandler_VEX_WHV(Register baseReg, Code code) {
 			this.baseReg = baseReg;
