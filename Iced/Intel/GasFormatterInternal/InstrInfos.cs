@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_GAS_FORMATTER && !NO_FORMATTER
 using System;
 using Iced.Intel.FormatterInternal;
+using Iced.Intel.Internal;
 
 namespace Iced.Intel.GasFormatterInternal {
 	static partial class InstrInfos {
@@ -72,6 +73,13 @@ namespace Iced.Intel.GasFormatterInternal {
 					s = strings[reader.ReadCompressedUInt32()];
 					v = reader.ReadCompressedUInt32();
 					instrInfo = new SimpleInstrInfo(code, s, (InstrOpInfoFlags)v);
+					break;
+
+				case CtorKind.Normal_2c:
+					s = strings[reader.ReadCompressedUInt32()];
+					ca[0] = (char)reader.ReadByte();
+					s = AddSuffix(s, ca);
+					instrInfo = new SimpleInstrInfo(code, s);
 					break;
 
 				case CtorKind.Normal_3:

@@ -28,6 +28,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		Normal_1,
 		Normal_2a,
 		Normal_2b,
+		Normal_2c,
 		Normal_3,
 		AamAad,
 		asz,

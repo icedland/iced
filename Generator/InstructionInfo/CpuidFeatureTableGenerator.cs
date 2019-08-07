@@ -207,8 +207,7 @@ namespace Generator.InstructionInfo {
 				writer.WriteLine("new byte[] {");
 				writer.Indent();
 
-				writer.WriteComment("Header");
-				writer.WriteLine();
+				writer.WriteCommentLine("Header");
 				foreach (var b in header) {
 					writer.WriteByte(b);
 					writer.WriteLine();
@@ -220,8 +219,7 @@ namespace Generator.InstructionInfo {
 							throw new InvalidOperationException();
 						writer.WriteByte((byte)f);
 					}
-					writer.WriteComment(string.Join(", ", info));
-					writer.WriteLine();
+					writer.WriteCommentLine(string.Join(", ", info));
 				}
 
 				writer.Unindent();

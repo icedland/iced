@@ -213,35 +213,6 @@ namespace Iced.Intel {
 
 		internal static bool TEST_BitByBitEquals(in Instruction a, in Instruction b) => EqualsAllBits(a, b);
 
-		internal static string TEST_DumpDiff(in Instruction a, in Instruction b) {
-			var builder = new StringBuilder();
-			if (a.nextRip != b.nextRip)
-				builder.AppendLine($"a.nextRip={a.nextRip:X16} b.nextRip={b.nextRip:X16}");
-			if (a.codeFlags != b.codeFlags)
-				builder.AppendLine($"a.codeFlags={a.codeFlags:X} b.codeFlags={b.codeFlags:X}");
-			if (a.opKindFlags != b.opKindFlags)
-				builder.AppendLine($"a.opKindFlags={a.opKindFlags:X} b.opKindFlags={b.opKindFlags:X}");
-			if (a.immediate != b.immediate)
-				builder.AppendLine($"a.immediate={a.immediate:X} b.immediate={b.immediate:X}");
-			if (a.memDispl != b.memDispl)
-				builder.AppendLine($"a.memDispl={a.memDispl:X} b.memDispl={b.memDispl:X}");
-			if (a.memoryFlags != b.memoryFlags)
-				builder.AppendLine($"a.memoryFlags={a.memoryFlags:X} b.memoryFlags={b.memoryFlags:X}");
-			if (a.memBaseReg != b.memBaseReg)
-				builder.AppendLine($"a.MemoryBase={(Register)a.memBaseReg} b.MemoryBase={(Register)b.memBaseReg}");
-			if (a.memIndexReg != b.memIndexReg)
-				builder.AppendLine($"a.MemoryIndex={(Register)a.memIndexReg} b.MemoryIndex={(Register)b.memIndexReg}");
-			if (a.reg0 != b.reg0)
-				builder.AppendLine($"a.Op0Register={(Register)a.reg0} b.Op0Register={(Register)b.reg0}");
-			if (a.reg1 != b.reg1)
-				builder.AppendLine($"a.Op1Register={(Register)a.reg1} b.Op1Register={(Register)b.reg1}");
-			if (a.reg2 != b.reg2)
-				builder.AppendLine($"a.Op2Register={(Register)a.reg2} b.Op2Register={(Register)b.reg2}");
-			if (a.reg3 != b.reg3)
-				builder.AppendLine($"a.Op3Register={(Register)a.reg3} b.Op3Register={(Register)b.reg3}");
-			return builder.ToString();
-		}
-
 		/// <summary>
 		/// 16-bit IP of the instruction
 		/// </summary>

@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_MASM_FORMATTER && !NO_FORMATTER
 using System;
 using Iced.Intel.FormatterInternal;
+using Iced.Intel.Internal;
 
 namespace Iced.Intel.MasmFormatterInternal {
 	static partial class InstrInfos {

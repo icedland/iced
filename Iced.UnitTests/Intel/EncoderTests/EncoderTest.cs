@@ -81,7 +81,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(Equals(ref origConstantOffsets, ref encodedConstantOffsets));
 			var encodedBytes = writer.ToArray();
 			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);
-			Assert.True(Instruction.TEST_BitByBitEquals(origInstr, origInstrCopy), "Instructions are differing: " + Instruction.TEST_DumpDiff(origInstr, origInstrCopy));
+			Assert.True(Instruction.TEST_BitByBitEquals(origInstr, origInstrCopy));
 
 			var expectedBytes = HexUtils.ToByteArray(encodedHexBytes);
 			if (!ArrayEquals(expectedBytes, encodedBytes)) {
@@ -97,7 +97,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(encodedBytes.Length, newInstr.ByteLength);
 			newInstr.ByteLength = origInstr.ByteLength;
 			newInstr.NextIP = origInstr.NextIP;
-			Assert.True(Instruction.TEST_BitByBitEquals(origInstr, newInstr), "Instructions are differing: " + Instruction.TEST_DumpDiff(origInstr, newInstr));
+			Assert.True(Instruction.TEST_BitByBitEquals(origInstr, newInstr));
 			// Some tests use useless or extra prefixes, so we can't verify the exact length
 			Assert.True(encodedBytes.Length <= origBytes.Length, "Unexpected encoded prefixes: " + ToString(encodedBytes));
 		}
@@ -131,7 +131,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
 			var encodedBytes = writer.ToArray();
 			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);
-			Assert.True(Instruction.TEST_BitByBitEquals(instr, origInstrCopy), "Instructions are differing: " + Instruction.TEST_DumpDiff(instr, origInstrCopy));
+			Assert.True(Instruction.TEST_BitByBitEquals(instr, origInstrCopy));
 			if (!ArrayEquals(expectedBytes, encodedBytes)) {
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 				// Show the full string without ellipses by using Equal<string>() instead of Equal()
@@ -163,7 +163,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			bool result = encoder.TryEncode(origInstr, origRip, out uint encodedInstrLen, out string errorMessage);
 			Assert.Equal(invalidCodeSize == 64 ? Encoder.ERROR_ONLY_1632_BIT_MODE : Encoder.ERROR_ONLY_64_BIT_MODE, errorMessage);
 			Assert.False(result);
-			Assert.True(Instruction.TEST_BitByBitEquals(origInstr, origInstrCopy), "Instructions are differing: " + Instruction.TEST_DumpDiff(origInstr, origInstrCopy));
+			Assert.True(Instruction.TEST_BitByBitEquals(origInstr, origInstrCopy));
 		}
 
 		Encoder CreateEncoder(int codeSize, CodeWriter writer) {

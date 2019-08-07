@@ -68,28 +68,25 @@ namespace Generator.Formatters.Gas {
 
 				if (index != 0)
 					writer.WriteLine();
-				writer.WriteComment(code.ToString());
-				writer.WriteLine();
+				writer.WriteCommentLine(code.ToString());
 
 				if (i > 0 && IsSame(infos[i - 1], info)) {
 					writer.WriteByte((byte)CtorKind.Previous);
-					writer.WriteComment(nameof(CtorKind.Previous));
-					writer.WriteLine();
+					writer.WriteCommentLine(nameof(CtorKind.Previous));
 					continue;
 				}
 
 				if ((uint)ctorKind > byte.MaxValue)
 					throw new InvalidOperationException();
 				writer.WriteByte((byte)ctorKind);
-				writer.WriteComment($"{ctorKind}");
-				writer.WriteLine();
+				writer.WriteCommentLine($"{ctorKind}");
 				uint si;
 				for (int j = 2; j < info.Length; j++) {
 					switch (info[j]) {
 					case string s:
 						si = stringsTable.GetIndex(s);
 						writer.WriteCompressedUInt32(si);
-						writer.WriteComment($"{si} = \"{s}\"");
+						writer.WriteCommentLine($"{si} = \"{s}\"");
 						break;
 
 					case char c:
@@ -97,51 +94,50 @@ namespace Generator.Formatters.Gas {
 							throw new InvalidOperationException();
 						writer.WriteByte((byte)c);
 						if (c == '\0')
-							writer.WriteComment(@"'\0'");
+							writer.WriteCommentLine(@"'\0'");
 						else
-							writer.WriteComment($"'{c}'");
+							writer.WriteCommentLine($"'{c}'");
 						break;
 
 					case InstrOpInfoFlags flags:
 						writer.WriteCompressedUInt32((uint)flags);
-						writer.WriteComment($"0x{(uint)flags:X} = {ToString(sb, flags)}");
+						writer.WriteCommentLine($"0x{(uint)flags:X} = {ToString(sb, flags)}");
 						break;
 
 					case int ival:
 						writer.WriteCompressedUInt32((uint)ival);
-						writer.WriteComment($"0x{ival:X}");
+						writer.WriteCommentLine($"0x{ival:X}");
 						break;
 
 					case PseudoOpsKind pseudoOpsKind:
 						if ((uint)pseudoOpsKind > byte.MaxValue)
 							throw new InvalidOperationException();
 						writer.WriteByte((byte)pseudoOpsKind);
-						writer.WriteComment(pseudoOpsKind.ToString());
+						writer.WriteCommentLine(pseudoOpsKind.ToString());
 						break;
 
 					case CodeSize codeSize:
 						if ((uint)codeSize > byte.MaxValue)
 							throw new InvalidOperationException();
 						writer.WriteByte((byte)codeSize);
-						writer.WriteComment(codeSize.ToString());
+						writer.WriteCommentLine(codeSize.ToString());
 						break;
 
 					case Register register:
 						if ((uint)register > byte.MaxValue)
 							throw new InvalidOperationException();
 						writer.WriteByte((byte)register);
-						writer.WriteComment(register.ToString());
+						writer.WriteCommentLine(register.ToString());
 						break;
 
 					case bool b:
 						writer.WriteByte((byte)(b ? 1 : 0));
-						writer.WriteComment(b.ToString());
+						writer.WriteCommentLine(b.ToString());
 						break;
 
 					default:
 						throw new InvalidOperationException();
 					}
-					writer.WriteLine();
 				}
 			}
 
