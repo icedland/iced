@@ -26,7 +26,7 @@ using System;
 
 namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 	sealed class EvexOpCodeHandlerReader32 : OpCodeHandlerReader {
-		public override int ReadHandlers(ref TableDeserializer deserializer, OpCodeHandler[] result, int resultIndex) {
+		public override int ReadHandlers(ref TableDeserializer deserializer, OpCodeHandler?[] result, int resultIndex) {
 			ref var elem = ref result[resultIndex];
 			Code code;
 			switch (deserializer.ReadEvexOpCodeHandlerKind()) {

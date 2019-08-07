@@ -84,7 +84,7 @@ namespace Iced.Intel.GasFormatterInternal {
 
 			var infos = new Info[DecoderConstants.NumberOfMemorySizes];
 			for (int i = 0; i < infos.Length; i++) {
-				string bcstTo;
+				string? bcstTo;
 				if (i < (int)MemorySize.Broadcast64_UInt32)
 					bcstTo = null;
 				else {
