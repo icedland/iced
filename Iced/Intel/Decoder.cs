@@ -1125,17 +1125,9 @@ after_imm_loop:
 		/// </summary>
 		/// <param name="writer">Destination</param>
 		/// <returns></returns>
-		public Encoder CreateEncoder(CodeWriter writer) {
-			switch (defaultCodeSize) {
-			case CodeSize.Code16:	return Encoder.Create(16, writer);
-			case CodeSize.Code32:	return Encoder.Create(32, writer);
-			case CodeSize.Code64:	return Encoder.Create(64, writer);
-
-			case CodeSize.Unknown:
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		[Obsolete("Call Encoder.Create(decoder.Bitness, writer)", true)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public Encoder CreateEncoder(CodeWriter writer) => Encoder.Create(Bitness, writer);
 #endif
 	}
 }

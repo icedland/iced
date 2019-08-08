@@ -197,7 +197,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			decoder.Decode(out var instr);
 			Assert.Equal(code, instr.Code);
 			var writer = new CodeWriterImpl();
-			var encoder = decoder.CreateEncoder(writer);
+			var encoder = Encoder.Create(decoder.Bitness, writer);
 			encoder.Encode(ref instr, 0);
 			var expectedBytes = HexUtils.ToByteArray(encodedBytes);
 			var actualBytes = writer.ToArray();
@@ -222,7 +222,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			decoder.Decode(out var instr);
 			Assert.Equal(code, instr.Code);
 			var codeWriter = new CodeWriterImpl();
-			var encoder = decoder.CreateEncoder(codeWriter);
+			var encoder = Encoder.Create(decoder.Bitness, codeWriter);
 			encoder.PreventVEX2 = preventVEX2;
 			encoder.Encode(ref instr, DecoderConstants.DEFAULT_IP64);
 			var encodedBytes = codeWriter.ToArray();

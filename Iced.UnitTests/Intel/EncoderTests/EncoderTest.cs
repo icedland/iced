@@ -70,7 +70,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(afterRip, origInstr.NextIP);
 
 			var writer = new CodeWriterImpl();
-			var encoder = decoder.CreateEncoder(writer);
+			var encoder = Encoder.Create(decoder.Bitness, writer);
 			Assert.Equal(codeSize, encoder.Bitness);
 			var origInstrCopy = origInstr;
 			bool result = encoder.TryEncode(ref origInstr, origRip, out uint encodedInstrLen, out string errorMessage);
