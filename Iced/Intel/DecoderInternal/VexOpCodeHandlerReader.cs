@@ -21,11 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER32 && !NO_DECODER
+#if !NO_DECODER
 using System;
 
-namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
-	sealed class VexOpCodeHandlerReader32 : OpCodeHandlerReader {
+namespace Iced.Intel.DecoderInternal {
+	sealed class VexOpCodeHandlerReader : OpCodeHandlerReader {
 		public override int ReadHandlers(ref TableDeserializer deserializer, OpCodeHandler[] result, int resultIndex) {
 			ref var elem = ref result[resultIndex];
 			Code code;
@@ -50,9 +50,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers32 {
 				elem = OpCodeHandler_Invalid_NoModRM.Instance;
 				return 1;
 
-			case VexOpCodeHandlerKind.Bitness:
-				elem = deserializer.ReadHandler();
-				deserializer.ReadHandler();
+			case VexOpCodeHandlerKind.Bitness_DontReadModRM:
+				elem = new OpCodeHandler_Bitness_DontReadModRM(deserializer.ReadHandler(), deserializer.ReadHandler());
 				return 1;
 
 			case VexOpCodeHandlerKind.HandlerReference:

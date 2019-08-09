@@ -21,27 +21,20 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
-using System;
-
+#if !NO_DECODER
 namespace Iced.Intel.DecoderInternal {
 	static partial class OpCodeHandlersTables_EVEX {
-		public static void GetTables(int bitness, out OpCodeHandler[] threeByteHandlers_0F38XX, out OpCodeHandler[] threeByteHandlers_0F3AXX, out OpCodeHandler[] twoByteHandlers_0FXX) {
-			OpCodeHandlerReader handlerReader;
-			switch (bitness) {
-#if !NO_DECODER32
-			case 32: handlerReader = new OpCodeHandlers32.EvexOpCodeHandlerReader32(); break;
-#endif
-#if !NO_DECODER64
-			case 64: handlerReader = new OpCodeHandlers64.EvexOpCodeHandlerReader64(); break;
-#endif
-			default: throw new InvalidOperationException();
-			}
+		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F38XX;
+		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F3AXX;
+		internal static readonly OpCodeHandler[] TwoByteHandlers_0FXX;
+
+		static OpCodeHandlersTables_EVEX() {
+			var handlerReader = new EvexOpCodeHandlerReader();
 			var deserializer = new TableDeserializer(handlerReader, GetSerializedTables());
 			deserializer.Deserialize();
-			threeByteHandlers_0F38XX = deserializer.GetTable(ThreeByteHandlers_0F38XXIndex);
-			threeByteHandlers_0F3AXX = deserializer.GetTable(ThreeByteHandlers_0F3AXXIndex);
-			twoByteHandlers_0FXX = deserializer.GetTable(TwoByteHandlers_0FXXIndex);
+			ThreeByteHandlers_0F38XX = deserializer.GetTable(ThreeByteHandlers_0F38XXIndex);
+			ThreeByteHandlers_0F3AXX = deserializer.GetTable(ThreeByteHandlers_0F3AXXIndex);
+			TwoByteHandlers_0FXX = deserializer.GetTable(TwoByteHandlers_0FXXIndex);
 		}
 	}
 }

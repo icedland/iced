@@ -21,27 +21,20 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
-using System;
-
+#if !NO_DECODER
 namespace Iced.Intel.DecoderInternal {
 	static partial class OpCodeHandlersTables_XOP {
-		public static void GetTables(int bitness, out OpCodeHandler[] xop8, out OpCodeHandler[] xop9, out OpCodeHandler[] xopA) {
-			OpCodeHandlerReader handlerReader;
-			switch (bitness) {
-#if !NO_DECODER32
-			case 32: handlerReader = new OpCodeHandlers32.VexOpCodeHandlerReader32(); break;
-#endif
-#if !NO_DECODER64
-			case 64: handlerReader = new OpCodeHandlers64.VexOpCodeHandlerReader64(); break;
-#endif
-			default: throw new InvalidOperationException();
-			}
+		internal static readonly OpCodeHandler[] XOP8;
+		internal static readonly OpCodeHandler[] XOP9;
+		internal static readonly OpCodeHandler[] XOPA;
+
+		static OpCodeHandlersTables_XOP() {
+			var handlerReader = new VexOpCodeHandlerReader();
 			var deserializer = new TableDeserializer(handlerReader, GetSerializedTables());
 			deserializer.Deserialize();
-			xop8 = deserializer.GetTable(XOP8Index);
-			xop9 = deserializer.GetTable(XOP9Index);
-			xopA = deserializer.GetTable(XOPAIndex);
+			XOP8 = deserializer.GetTable(XOP8Index);
+			XOP9 = deserializer.GetTable(XOP9Index);
+			XOPA = deserializer.GetTable(XOPAIndex);
 		}
 	}
 }

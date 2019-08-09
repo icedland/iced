@@ -21,14 +21,14 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+#if !NO_DECODER
 namespace Iced.Intel.DecoderInternal {
 	enum VexOpCodeHandlerKind : byte {
 		Invalid,
 		Invalid2,
 		Dup,
 		Invalid_NoModRM,
-		Bitness,
+		Bitness_DontReadModRM,
 		HandlerReference,
 		ArrayReference,
 		RM,

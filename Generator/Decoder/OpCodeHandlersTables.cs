@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+#if !NO_DECODER
 using Iced.Intel;
 using Iced.Intel.DecoderInternal;
 
@@ -785,7 +785,7 @@ namespace Generator.Decoder {
 					new object[] { OpCodeHandlerKind.Ew, Code.Ltr_rm16, Code.Ltr_r32m16, Code.Ltr_r64m16 },
 					new object[] { OpCodeHandlerKind.Ew, Code.Verr_rm16, Code.Verr_r32m16, Code.Verr_r64m16 },
 					new object[] { OpCodeHandlerKind.Ew, Code.Verw_rm16, Code.Verw_r32m16, Code.Verw_r64m16 },
-					new object[] { OpCodeHandlerKind.Bitness,
+					new object[] { OpCodeHandlerKind.Bitness_DontReadModRM,
 						new object[] { OpCodeHandlerKind.Ev_3b, Code.Jmpe_rm16, Code.Jmpe_rm32 },
 						invalid,
 					},
@@ -1430,7 +1430,7 @@ namespace Generator.Decoder {
 				"handlers_Grp_0FAE_lo",
 				new object[] {
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
-						new object[] { OpCodeHandlerKind.Bitness,
+						new object[] { OpCodeHandlerKind.Bitness_DontReadModRM,
 							new object[] { OpCodeHandlerKind.Options_DontReadModRM,
 								new object[] { OpCodeHandlerKind.M_2, Code.Fxsave_m512byte, Code.Fxsave64_m512byte },
 								new object[] { OpCodeHandlerKind.M_1, Code.Zalloc_m256 }, DecoderOptions.Zalloc
@@ -1438,7 +1438,7 @@ namespace Generator.Decoder {
 							new object[] { OpCodeHandlerKind.M_2, Code.Fxsave_m512byte, Code.Fxsave64_m512byte },
 						},
 						invalid,
-						new object[] { OpCodeHandlerKind.Bitness,
+						new object[] { OpCodeHandlerKind.Bitness_DontReadModRM,
 							invalid,
 							new object[] { OpCodeHandlerKind.Ev_REXW, Code.Rdfsbase_r32, Code.Rdfsbase_r64, true, false },
 						},
@@ -1447,7 +1447,7 @@ namespace Generator.Decoder {
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
 						new object[] { OpCodeHandlerKind.M_2, Code.Fxrstor_m512byte, Code.Fxrstor64_m512byte },
 						invalid,
-						new object[] { OpCodeHandlerKind.Bitness,
+						new object[] { OpCodeHandlerKind.Bitness_DontReadModRM,
 							invalid,
 							new object[] { OpCodeHandlerKind.Ev_REXW, Code.Rdgsbase_r32, Code.Rdgsbase_r64, true, false },
 						},
@@ -1456,7 +1456,7 @@ namespace Generator.Decoder {
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
 						new object[] { OpCodeHandlerKind.M_1, Code.Ldmxcsr_m32 },
 						invalid,
-						new object[] { OpCodeHandlerKind.Bitness,
+						new object[] { OpCodeHandlerKind.Bitness_DontReadModRM,
 							invalid,
 							new object[] { OpCodeHandlerKind.Ev_REXW, Code.Wrfsbase_r32, Code.Wrfsbase_r64, true, false },
 						},
@@ -1465,7 +1465,7 @@ namespace Generator.Decoder {
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
 						new object[] { OpCodeHandlerKind.M_1, Code.Stmxcsr_m32 },
 						invalid,
-						new object[] { OpCodeHandlerKind.Bitness,
+						new object[] { OpCodeHandlerKind.Bitness_DontReadModRM,
 							invalid,
 							new object[] { OpCodeHandlerKind.Ev_REXW, Code.Wrgsbase_r32, Code.Wrgsbase_r64, true, false },
 						},
@@ -4312,10 +4312,7 @@ namespace Generator.Decoder {
 						new object[] { OpCodeHandlerKind.Simple2_3b, Code.Popaw, Code.Popad, Code.Popad },
 						invalid,
 					},
-					new object[] { OpCodeHandlerKind.Bitness,
-						new object[] { OpCodeHandlerKind.EVEX_32, new object[] { OpCodeHandlerKind.Gv_Ma, Code.Bound_r16_m1616, Code.Bound_r32_m3232 } },
-						new object[] { OpCodeHandlerKind.EVEX_64 },
-					},
+					new object[] { OpCodeHandlerKind.EVEX, new object[] { OpCodeHandlerKind.Gv_Ma, Code.Bound_r16_m1616, Code.Bound_r32_m3232 } },
 					new object[] { OpCodeHandlerKind.Bitness,
 						new object[] { OpCodeHandlerKind.RvMw_Gw, Code.Arpl_rm16_r16, Code.Arpl_r32m16_r32 },
 						new object[] { OpCodeHandlerKind.Gv_Ev2, Code.Movsxd_r16_rm16, Code.Movsxd_r32_rm32, Code.Movsxd_r64_rm32 },
@@ -4458,14 +4455,8 @@ namespace Generator.Decoder {
 					new object[] { OpCodeHandlerKind.Group, "handlers_Grp_C1" },
 					new object[] { OpCodeHandlerKind.BranchIw, Code.Retnw_imm16, Code.Retnd_imm16, Code.Retnq_imm16 },
 					new object[] { OpCodeHandlerKind.BranchSimple, Code.Retnw, Code.Retnd, Code.Retnq },
-					new object[] { OpCodeHandlerKind.Bitness,
-						new object[] { OpCodeHandlerKind.VEX3_32, new object[] { OpCodeHandlerKind.Gv_Mp_2, Code.Les_r16_m32, Code.Les_r32_m48 } },
-						new object[] { OpCodeHandlerKind.VEX3_64 },
-					},
-					new object[] { OpCodeHandlerKind.Bitness,
-						new object[] { OpCodeHandlerKind.VEX2_32, new object[] { OpCodeHandlerKind.Gv_Mp_2, Code.Lds_r16_m32, Code.Lds_r32_m48 } },
-						new object[] { OpCodeHandlerKind.VEX2_64 },
-					},
+					new object[] { OpCodeHandlerKind.VEX3, new object[] { OpCodeHandlerKind.Gv_Mp_2, Code.Les_r16_m32, Code.Les_r32_m48 } },
+					new object[] { OpCodeHandlerKind.VEX2, new object[] { OpCodeHandlerKind.Gv_Mp_2, Code.Lds_r16_m32, Code.Lds_r32_m48 } },
 					new object[] { OpCodeHandlerKind.Group8x64, "handlers_Grp_C6_lo", "handlers_Grp_C6_hi" },
 					new object[] { OpCodeHandlerKind.Group8x64, "handlers_Grp_C7_lo", "handlers_Grp_C7_hi" },
 

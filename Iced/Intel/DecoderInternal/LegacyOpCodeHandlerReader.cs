@@ -21,18 +21,21 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER64 && !NO_DECODER
+#if !NO_DECODER
 using System;
 
-namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
-	sealed class LegacyOpCodeHandlerReader64 : OpCodeHandlerReader {
+namespace Iced.Intel.DecoderInternal {
+	sealed class LegacyOpCodeHandlerReader : OpCodeHandlerReader {
 		public override int ReadHandlers(ref TableDeserializer deserializer, OpCodeHandler[] result, int resultIndex) {
 			ref var elem = ref result[resultIndex];
 			Code code;
 			switch (deserializer.ReadOpCodeHandlerKind()) {
 			case OpCodeHandlerKind.Bitness:
-				deserializer.ReadHandlerOrNull();
-				elem = deserializer.ReadHandler();
+				elem = new OpCodeHandler_Bitness(deserializer.ReadHandler(), deserializer.ReadHandler());
+				return 1;
+
+			case OpCodeHandlerKind.Bitness_DontReadModRM:
+				elem = new OpCodeHandler_Bitness_DontReadModRM(deserializer.ReadHandler(), deserializer.ReadHandler());
 				return 1;
 
 			case OpCodeHandlerKind.Invalid:
@@ -118,31 +121,16 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				elem = new OpCodeHandler_D3NOW();
 				return 1;
 
-			case OpCodeHandlerKind.EVEX_32:
-				deserializer.ReadHandlerOrNull();
-				elem = null;
+			case OpCodeHandlerKind.EVEX:
+				elem = new OpCodeHandler_EVEX(deserializer.ReadHandler());
 				return 1;
 
-			case OpCodeHandlerKind.EVEX_64:
-				elem = new OpCodeHandler_EVEX();
+			case OpCodeHandlerKind.VEX2:
+				elem = new OpCodeHandler_VEX2(deserializer.ReadHandler());
 				return 1;
 
-			case OpCodeHandlerKind.VEX2_32:
-				deserializer.ReadHandlerOrNull();
-				elem = null;
-				return 1;
-
-			case OpCodeHandlerKind.VEX2_64:
-				elem = new OpCodeHandler_VEX2();
-				return 1;
-
-			case OpCodeHandlerKind.VEX3_32:
-				deserializer.ReadHandlerOrNull();
-				elem = null;
-				return 1;
-
-			case OpCodeHandlerKind.VEX3_64:
-				elem = new OpCodeHandler_VEX3();
+			case OpCodeHandlerKind.VEX3:
+				elem = new OpCodeHandler_VEX3(deserializer.ReadHandler());
 				return 1;
 
 			case OpCodeHandlerKind.XOP:
@@ -154,8 +142,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				return 1;
 
 			case OpCodeHandlerKind.Ap:
-				deserializer.ReadCode();
-				elem = null;
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_Ap(code, code + 1);
 				return 1;
 
 			case OpCodeHandlerKind.B_BM:
@@ -455,13 +443,13 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				return 1;
 
 			case OpCodeHandlerKind.Gv_Ma:
-				deserializer.ReadCode();
-				elem = null;
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_Gv_Ma(code, code + 1);
 				return 1;
 
 			case OpCodeHandlerKind.Gv_Mp_2:
-				deserializer.ReadCode();
-				elem = null;
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_Gv_Mp(code, code + 1, Code.INVALID);
 				return 1;
 
 			case OpCodeHandlerKind.Gv_Mp_3:
@@ -528,8 +516,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				return 1;
 
 			case OpCodeHandlerKind.Jdisp:
-				deserializer.ReadCode();
-				elem = null;
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_Jdisp(code, code + 1);
 				return 1;
 
 			case OpCodeHandlerKind.Jx:
@@ -808,8 +796,8 @@ namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
 				return 1;
 
 			case OpCodeHandlerKind.RvMw_Gw:
-				deserializer.ReadCode();
-				elem = null;
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_RvMw_Gw(code, code + 1);
 				return 1;
 
 			case OpCodeHandlerKind.Simple:
