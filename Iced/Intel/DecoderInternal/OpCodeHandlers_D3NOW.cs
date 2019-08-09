@@ -21,11 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+#if !NO_DECODER
 using System.Diagnostics;
 
 namespace Iced.Intel.DecoderInternal {
-	static class OpCodeHandlers_D3NOW {
+	sealed class OpCodeHandler_D3NOW : OpCodeHandlerModRM {
 		internal static readonly Code[] CodeValues = CreateCodeValues();
 
 		static Code[] CreateCodeValues() {
@@ -58,6 +58,32 @@ namespace Iced.Intel.DecoderInternal {
 			result[0xBB] = Code.D3NOW_Pswapd_mm_mmm64;
 			result[0xBF] = Code.D3NOW_Pavgusb_mm_mmm64;
 			return result;
+		}
+
+		readonly Code[] codeValues = CodeValues;
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = (int)state.reg + Register.MM0;
+			uint ib;
+			if (state.mod == 3) {
+				Debug.Assert(OpKind.Register == 0);
+				//instruction.InternalOp1Kind = OpKind.Register;
+				instruction.InternalOp1Register = (int)state.rm + Register.MM0;
+				ib = decoder.ReadByte();
+			}
+			else {
+				instruction.InternalOp1Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
+				ib = decoder.ReadByte();
+			}
+			var code = codeValues[(int)ib];
+			instruction.InternalCode = code;
+			if (code == Code.INVALID)
+				decoder.SetInvalidInstruction();
 		}
 	}
 }

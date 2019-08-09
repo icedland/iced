@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+#if !NO_DECODER
 using Iced.Intel;
 using Iced.Intel.DecoderInternal;
 
@@ -3599,7 +3599,7 @@ namespace Generator.Decoder {
 						new object[] { VexOpCodeHandlerKind.VectorLength,
 							new object[] { VexOpCodeHandlerKind.W,
 								new object[] { VexOpCodeHandlerKind.VK_R, Code.VEX_Kmovd_k_r32, Register.EAX },
-								new object[] { VexOpCodeHandlerKind.Bitness,
+								new object[] { VexOpCodeHandlerKind.Bitness_DontReadModRM,
 									invalid,
 									new object[] { VexOpCodeHandlerKind.VK_R, Code.VEX_Kmovq_k_r64, Register.RAX },
 								},
@@ -3626,7 +3626,7 @@ namespace Generator.Decoder {
 						new object[] { VexOpCodeHandlerKind.VectorLength,
 							new object[] { VexOpCodeHandlerKind.W,
 								new object[] { VexOpCodeHandlerKind.G_VK, Code.VEX_Kmovd_r32_k, Register.EAX },
-								new object[] { VexOpCodeHandlerKind.Bitness,
+								new object[] { VexOpCodeHandlerKind.Bitness_DontReadModRM,
 									invalid,
 									new object[] { VexOpCodeHandlerKind.G_VK, Code.VEX_Kmovq_r64_k, Register.RAX },
 								},

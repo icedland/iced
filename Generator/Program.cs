@@ -50,7 +50,7 @@ namespace Generator {
 
 				foreach (var command in options.Commands) {
 					switch (command) {
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+#if !NO_DECODER
 					case Command.Decoder:
 						new Decoder.DecoderTableGenerator(options.IcedProjectDir).Generate();
 						break;

@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+#if !NO_DECODER
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -60,7 +60,7 @@ namespace Generator.Decoder {
 
 		public void Serialize(FileWriter writer) {
 			writer.WriteHeader();
-			writer.WriteLine("#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER");
+			writer.WriteLine("#if !NO_DECODER");
 			writer.WriteLine("namespace Iced.Intel.DecoderInternal {");
 			writer.Indent();
 			writer.WriteLine($"static partial class {ClassName} {{");

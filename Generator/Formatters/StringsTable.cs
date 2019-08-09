@@ -30,8 +30,8 @@ using Generator.IO;
 
 namespace Generator.Formatters {
 	abstract class StringsTable {
-		public abstract void Add(string s);
-		public abstract uint GetIndex(string s);
+		public abstract void Add(string s, bool ignoreVPrefix);
+		public abstract uint GetIndex(string s, bool ignoreVPrefix, out bool hasVPrefix);
 	}
 
 	sealed class StringsTableImpl : StringsTable {
@@ -76,17 +76,25 @@ namespace Generator.Formatters {
 			return StringComparer.Ordinal.Compare(x.String, y.String);
 		}
 
-		public override void Add(string s) {
+		public override void Add(string s, bool ignoreVPrefix) {
 			if (isFrozen)
 				throw new InvalidOperationException();
+			if (ignoreVPrefix && s.StartsWith("v", StringComparison.Ordinal))
+				s = s.Substring(1);
 			if (!strings.TryGetValue(s, out var info))
 				strings.Add(s, info = new Info(s));
 			info.Count++;
 		}
 
-		public override uint GetIndex(string s) {
+		public override uint GetIndex(string s, bool ignoreVPrefix, out bool hasVPrefix) {
 			if (!isFrozen)
 				throw new InvalidOperationException();
+			if (ignoreVPrefix && s.StartsWith("v", StringComparison.Ordinal)) {
+				s = s.Substring(1);
+				hasVPrefix = true;
+			}
+			else
+				hasVPrefix = false;
 			if (!strings.TryGetValue(s, out var info))
 				throw new ArgumentException();
 			return info.Index;

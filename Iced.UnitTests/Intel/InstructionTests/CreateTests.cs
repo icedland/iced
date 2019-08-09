@@ -662,7 +662,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.True(Instruction.TEST_BitByBitEquals(decodedInstr, createdInstr));
 
 			var writer = new CodeWriterImpl();
-			var encoder = decoder.CreateEncoder(writer);
+			var encoder = Encoder.Create(decoder.Bitness, writer);
 			bool result = encoder.TryEncode(createdInstr, origRip, out _, out var errorMessage);
 			Assert.Null(errorMessage);
 			Assert.True(result);

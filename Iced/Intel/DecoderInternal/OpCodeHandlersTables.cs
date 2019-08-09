@@ -21,25 +21,16 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
-using System;
-
+#if !NO_DECODER
 namespace Iced.Intel.DecoderInternal {
 	static partial class OpCodeHandlersTables {
-		public static void GetTables(int bitness, out OpCodeHandler[] oneByteHandlers) {
-			OpCodeHandlerReader handlerReader;
-			switch (bitness) {
-#if !NO_DECODER32
-			case 32: handlerReader = new OpCodeHandlers32.LegacyOpCodeHandlerReader32(); break;
-#endif
-#if !NO_DECODER64
-			case 64: handlerReader = new OpCodeHandlers64.LegacyOpCodeHandlerReader64(); break;
-#endif
-			default: throw new InvalidOperationException();
-			}
+		internal static readonly OpCodeHandler[] OneByteHandlers;
+
+		static OpCodeHandlersTables() {
+			var handlerReader = new LegacyOpCodeHandlerReader();
 			var deserializer = new TableDeserializer(handlerReader, GetSerializedTables());
 			deserializer.Deserialize();
-			oneByteHandlers = deserializer.GetTable(OneByteHandlersIndex);
+			OneByteHandlers = deserializer.GetTable(OneByteHandlersIndex);
 		}
 	}
 }

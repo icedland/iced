@@ -21,6 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
@@ -81,11 +83,11 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if the 16/32-bit decoder is available
+		/// true if the decoder is available
 		/// </summary>
-		public static bool HasDecoder32 {
+		public static bool HasDecoder {
 			get {
-#if !NO_DECODER32 && !NO_DECODER
+#if !NO_DECODER
 				return true;
 #else
 				return false;
@@ -94,17 +96,18 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// true if the 16/32-bit decoder is available
+		/// </summary>
+		[Obsolete("Use " + nameof(HasDecoder) + " instead of this property", true)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public static bool HasDecoder32 => HasDecoder;
+
+		/// <summary>
 		/// true if the 64-bit decoder is available
 		/// </summary>
-		public static bool HasDecoder64 {
-			get {
-#if !NO_DECODER64 && !NO_DECODER
-				return true;
-#else
-				return false;
-#endif
-			}
-		}
+		[Obsolete("Use " + nameof(HasDecoder) + " instead of this property", true)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public static bool HasDecoder64 => HasDecoder;
 
 		/// <summary>
 		/// true if the encoder is available
@@ -143,7 +146,7 @@ namespace Iced.Intel {
 		/// in a method called by Main().
 		/// </summary>
 		public static void Initialize() {
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+#if !NO_DECODER
 			// The decoder already initializes this stuff, but when it's called, it's a little bit too late.
 			RuntimeHelpers.RunClassConstructor(typeof(Decoder).TypeHandle);
 #endif

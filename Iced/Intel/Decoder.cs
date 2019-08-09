@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+#if !NO_DECODER
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -148,7 +148,7 @@ namespace Iced.Intel {
 			// decoding much, but getting instruction info is a little faster.
 			_ = OpCodeHandler_Invalid.Instance;
 			_ = InstructionMemorySizes.Sizes;
-			_ = OpCodeHandlers_D3NOW.CodeValues;
+			_ = OpCodeHandler_D3NOW.CodeValues;
 			_ = InstructionOpCounts.OpCount;
 			_ = MnemonicUtils.toMnemonic;
 #if !NO_INSTR_INFO
@@ -167,7 +167,6 @@ namespace Iced.Intel {
 			this.options = options;
 			memRegs16 = s_memRegs16;
 			if (defaultOpSize == OpSize.Size64) {
-#if !NO_DECODER64
 				is64Mode = true;
 				Bitness = 64;
 				defaultCodeSize = CodeSize.Code64;
@@ -176,45 +175,38 @@ namespace Iced.Intel {
 				defaultAddressSize = OpSize.Size64;
 				defaultInvertedAddressSize = OpSize.Size32;
 				prefixes = prefixes64;
-				handlers_XX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables.OneByteHandlers;
-				handlers_0FXX_VEX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_VEX.TwoByteHandlers_0FXX;
-				handlers_0F38XX_VEX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_VEX.ThreeByteHandlers_0F38XX;
-				handlers_0F3AXX_VEX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_VEX.ThreeByteHandlers_0F3AXX;
-				handlers_0FXX_EVEX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_EVEX.TwoByteHandlers_0FXX;
-				handlers_0F38XX_EVEX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_EVEX.ThreeByteHandlers_0F38XX;
-				handlers_0F3AXX_EVEX = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_EVEX.ThreeByteHandlers_0F3AXX;
-				handlers_XOP8 = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_XOP.XOP8;
-				handlers_XOP9 = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_XOP.XOP9;
-				handlers_XOPA = DecoderInternal.OpCodeHandlers64.OpCodeHandlers64Tables_XOP.XOPA;
-#else
-				throw new ArgumentException("64-bit decoder isn't present");
-#endif
+			}
+			else if (defaultOpSize == OpSize.Size32) {
+				is64Mode = false;
+				Bitness = 32;
+				defaultCodeSize = CodeSize.Code32;
+				defaultOperandSize = defaultOpSize;
+				defaultInvertedOperandSize = OpSize.Size16;
+				defaultAddressSize = defaultOpSize;
+				defaultInvertedAddressSize = OpSize.Size16;
+				prefixes = prefixes1632;
 			}
 			else {
-#if !NO_DECODER32
+				Debug.Assert(defaultOpSize == OpSize.Size16);
 				is64Mode = false;
-				Bitness = defaultOpSize == OpSize.Size32 ? 32 : 16;
-				defaultCodeSize = defaultOpSize == OpSize.Size32 ? CodeSize.Code32 : CodeSize.Code16;
-				var inverted = defaultOpSize == OpSize.Size32 ? OpSize.Size16 : OpSize.Size32;
+				Bitness = 16;
+				defaultCodeSize = CodeSize.Code16;
 				defaultOperandSize = defaultOpSize;
-				defaultInvertedOperandSize = inverted;
+				defaultInvertedOperandSize = OpSize.Size32;
 				defaultAddressSize = defaultOpSize;
-				defaultInvertedAddressSize = inverted;
+				defaultInvertedAddressSize = OpSize.Size32;
 				prefixes = prefixes1632;
-				handlers_XX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables.OneByteHandlers;
-				handlers_0FXX_VEX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_VEX.TwoByteHandlers_0FXX;
-				handlers_0F38XX_VEX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_VEX.ThreeByteHandlers_0F38XX;
-				handlers_0F3AXX_VEX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_VEX.ThreeByteHandlers_0F3AXX;
-				handlers_0FXX_EVEX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_EVEX.TwoByteHandlers_0FXX;
-				handlers_0F38XX_EVEX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_EVEX.ThreeByteHandlers_0F38XX;
-				handlers_0F3AXX_EVEX = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_EVEX.ThreeByteHandlers_0F3AXX;
-				handlers_XOP8 = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_XOP.XOP8;
-				handlers_XOP9 = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_XOP.XOP9;
-				handlers_XOPA = DecoderInternal.OpCodeHandlers32.OpCodeHandlers32Tables_XOP.XOPA;
-#else
-				throw new ArgumentException("16-bit and 32-bit decoders aren't present");
-#endif
 			}
+			handlers_XX = DecoderInternal.OpCodeHandlersTables.OneByteHandlers;
+			handlers_0FXX_VEX = DecoderInternal.OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX;
+			handlers_0F38XX_VEX = DecoderInternal.OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX;
+			handlers_0F3AXX_VEX = DecoderInternal.OpCodeHandlersTables_VEX.ThreeByteHandlers_0F3AXX;
+			handlers_0FXX_EVEX = DecoderInternal.OpCodeHandlersTables_EVEX.TwoByteHandlers_0FXX;
+			handlers_0F38XX_EVEX = DecoderInternal.OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F38XX;
+			handlers_0F3AXX_EVEX = DecoderInternal.OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX;
+			handlers_XOP8 = DecoderInternal.OpCodeHandlersTables_XOP.XOP8;
+			handlers_XOP9 = DecoderInternal.OpCodeHandlersTables_XOP.XOP9;
+			handlers_XOPA = DecoderInternal.OpCodeHandlersTables_XOP.XOPA;
 		}
 
 		/// <summary>
@@ -715,6 +707,73 @@ after_read_prefixes:
 				return Register.ES + (int)reg;
 		}
 
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		internal void ReadOpMem(ref Instruction instruction) {
+			Debug.Assert(state.Encoding != EncodingKind.EVEX);
+			if (state.addressSize == OpSize.Size64)
+				ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.None, false);
+			else if (state.addressSize == OpSize.Size32)
+				ReadOpMem32Or64(ref instruction, Register.EAX, Register.EAX, TupleType.None, false);
+			else
+				ReadOpMem16(ref instruction, TupleType.None);
+		}
+
+		// All MPX instructions in 64-bit mode force 64-bit addressing, and
+		// all MPX instructions in 16/32-bit mode require 32-bit addressing
+		// (see SDM Vol 1, 17.5.1 Intel MPX and Operating Modes)
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		internal void ReadOpMem_MPX(ref Instruction instruction) {
+			Debug.Assert(state.Encoding != EncodingKind.EVEX);
+			if (is64Mode) {
+				state.addressSize = OpSize.Size64;
+				ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.None, false);
+			}
+			else if (state.addressSize == OpSize.Size32)
+				ReadOpMem32Or64(ref instruction, Register.EAX, Register.EAX, TupleType.None, false);
+			else
+				SetInvalidInstruction();
+		}
+
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		internal void ReadOpMem(ref Instruction instruction, TupleType tupleType) {
+			Debug.Assert(state.Encoding == EncodingKind.EVEX);
+			if (state.addressSize == OpSize.Size64)
+				ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, tupleType, false);
+			else if (state.addressSize == OpSize.Size32)
+				ReadOpMem32Or64(ref instruction, Register.EAX, Register.EAX, tupleType, false);
+			else
+				ReadOpMem16(ref instruction, tupleType);
+		}
+
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		internal void ReadOpMem_VSIB(ref Instruction instruction, Register vsibIndex) {
+			Debug.Assert(state.Encoding != EncodingKind.EVEX);
+			if (state.addressSize == OpSize.Size64) {
+				if (!ReadOpMem32Or64(ref instruction, Register.RAX, vsibIndex, TupleType.None, true))
+					SetInvalidInstruction();
+			}
+			else if (state.addressSize == OpSize.Size32) {
+				if (!ReadOpMem32Or64(ref instruction, Register.EAX, vsibIndex, TupleType.None, true))
+					SetInvalidInstruction();
+			}
+			else
+				SetInvalidInstruction();
+		}
+
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		internal void ReadOpMem_VSIB(ref Instruction instruction, Register vsibIndex, TupleType tupleType) {
+			if (state.addressSize == OpSize.Size64) {
+				if (!ReadOpMem32Or64(ref instruction, Register.RAX, vsibIndex, tupleType, true))
+					SetInvalidInstruction();
+			}
+			else if (state.addressSize == OpSize.Size32) {
+				if (!ReadOpMem32Or64(ref instruction, Register.EAX, vsibIndex, tupleType, true))
+					SetInvalidInstruction();
+			}
+			else
+				SetInvalidInstruction();
+		}
+
 		readonly struct RegInfo2 {
 			public readonly Register baseReg;
 			public readonly Register indexReg;
@@ -1125,17 +1184,9 @@ after_imm_loop:
 		/// </summary>
 		/// <param name="writer">Destination</param>
 		/// <returns></returns>
-		public Encoder CreateEncoder(CodeWriter writer) {
-			switch (defaultCodeSize) {
-			case CodeSize.Code16:	return Encoder.Create(16, writer);
-			case CodeSize.Code32:	return Encoder.Create(32, writer);
-			case CodeSize.Code64:	return Encoder.Create(64, writer);
-
-			case CodeSize.Unknown:
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		[Obsolete("Call Encoder.Create(decoder.Bitness, writer)", true)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public Encoder CreateEncoder(CodeWriter writer) => Encoder.Create(Bitness, writer);
 #endif
 	}
 }

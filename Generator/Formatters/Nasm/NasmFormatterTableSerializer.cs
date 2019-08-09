@@ -31,14 +31,8 @@ using Iced.Intel.NasmFormatterInternal;
 
 namespace Generator.Formatters.Nasm {
 	sealed class NasmFormatterTableSerializer : FormatterTableSerializer {
-		public override void Initialize(StringsTable stringsTable) {
-			foreach (var info in CtorInfos.Infos) {
-				foreach (var o in info) {
-					if (o is string s)
-						stringsTable.Add(s);
-				}
-			}
-		}
+		public override void Initialize(StringsTable stringsTable) =>
+			Initialize(stringsTable, CtorInfos.Infos);
 
 		public override string GetFilename(string icedProjectDir) =>
 			Path.Combine(icedProjectDir, "Intel", "NasmFormatterInternal", "InstrInfos.g.cs");
@@ -70,21 +64,33 @@ namespace Generator.Formatters.Nasm {
 					writer.WriteLine();
 				writer.WriteCommentLine(code.ToString());
 
-				if (i > 0 && IsSame(infos[i - 1], info)) {
-					writer.WriteByte((byte)CtorKind.Previous);
-					writer.WriteCommentLine(nameof(CtorKind.Previous));
-					continue;
-				}
+				bool isSame = i > 0 && IsSame(infos[i - 1], info);
+				if (isSame)
+					ctorKind = CtorKind.Previous;
 
-				if ((uint)ctorKind > byte.MaxValue)
+				if ((uint)ctorKind > 0x7F)
 					throw new InvalidOperationException();
-				writer.WriteByte((byte)ctorKind);
-				writer.WriteCommentLine($"{ctorKind}");
+				uint firstStringIndex = GetFirstStringIndex(stringsTable, info, out bool hasVPrefix);
+				writer.WriteByte((byte)((uint)ctorKind | (hasVPrefix ? 0x80U : 0)));
+				if (hasVPrefix)
+					writer.WriteCommentLine($"'v', {ctorKind}");
+				else
+					writer.WriteCommentLine($"{ctorKind}");
+				if (isSame)
+					continue;
 				uint si;
 				for (int j = 2; j < info.Length; j++) {
 					switch (info[j]) {
 					case string s:
-						si = stringsTable.GetIndex(s);
+						if (firstStringIndex != uint.MaxValue) {
+							si = firstStringIndex;
+							firstStringIndex = uint.MaxValue;
+						}
+						else {
+							si = stringsTable.GetIndex(s, ignoreVPrefix: false, out hasVPrefix);
+							if (hasVPrefix)
+								throw new InvalidOperationException();
+						}
 						writer.WriteCompressedUInt32(si);
 						writer.WriteCommentLine($"{si} = \"{s}\"");
 						break;

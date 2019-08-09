@@ -21,11 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER64 && !NO_DECODER
+#if !NO_DECODER
 using System;
 
-namespace Iced.Intel.DecoderInternal.OpCodeHandlers64 {
-	sealed class EvexOpCodeHandlerReader64 : OpCodeHandlerReader {
+namespace Iced.Intel.DecoderInternal {
+	sealed class EvexOpCodeHandlerReader : OpCodeHandlerReader {
 		public override int ReadHandlers(ref TableDeserializer deserializer, OpCodeHandler?[] result, int resultIndex) {
 			ref var elem = ref result[resultIndex];
 			Code code;

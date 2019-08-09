@@ -21,10 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_DECODER32 || !NO_DECODER64) && !NO_DECODER
+#if !NO_DECODER
 namespace Iced.Intel.DecoderInternal {
 	enum OpCodeHandlerKind : byte {
 		Bitness,
+		Bitness_DontReadModRM,
 		Invalid,
 		Invalid2,
 		Dup,
@@ -50,12 +51,9 @@ namespace Iced.Intel.DecoderInternal {
 		MandatoryPrefix3,
 
 		D3NOW,
-		EVEX_32,
-		EVEX_64,
-		VEX2_32,
-		VEX2_64,
-		VEX3_32,
-		VEX3_64,
+		EVEX,
+		VEX2,
+		VEX3,
 		XOP,
 
 		AL_DX,
