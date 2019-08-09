@@ -32,6 +32,24 @@ namespace Generator.Formatters {
 		public abstract string GetFilename(string icedProjectDir);
 		public abstract void Serialize(FileWriter writer, StringsTable stringsTable);
 
+		protected void Initialize(StringsTable stringsTable, object[][] infos) {
+			foreach (var info in infos) {
+				bool ignoreVPrefix = true;
+				foreach (var o in info) {
+					if (o is string s) {
+						stringsTable.Add(s, ignoreVPrefix);
+						ignoreVPrefix = false;
+					}
+				}
+			}
+		}
+
+		protected uint GetFirstStringIndex(StringsTable stringsTable, object[] info, out bool hasVPrefix) {
+			if (!(info[2] is string s))
+				throw new InvalidOperationException();
+			return stringsTable.GetIndex(s, ignoreVPrefix: true, out hasVPrefix);
+		}
+
 		protected static bool IsSame(object[] a, object[] b) {
 			if (a.Length != b.Length)
 				return false;
