@@ -35,10 +35,12 @@ Formatters:
 	- `MasmFormatter`
 	- `NasmFormatter`
 	- `GasFormatter`
+	- `IntelFormatter`
 - `FormatterOptions`
 	- `MasmFormatterOptions`
 	- `NasmFormatterOptions`
 	- `GasFormatterOptions`
+	- `IntelFormatterOptions`
 - `FormatterOutput`
 	- `StringBuilderFormatterOutput`
 - `ISymbolResolver`

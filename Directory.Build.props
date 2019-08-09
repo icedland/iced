@@ -19,8 +19,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DefineConstants>TRACE</DefineConstants>
-    <!-- NOTE: if you add/remove a feature, some/all of the generated tables must be recreated, see Generator project -->
-    <DefineConstants>$(DefineConstants);NO_INTEL_FORMATTER</DefineConstants>
   </PropertyGroup>
 
 </Project>
