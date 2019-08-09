@@ -1,3 +1,4 @@
+#if NETFRAMEWORK || NETSTANDARD2_0
 namespace System.Diagnostics.CodeAnalysis {
 	[AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
 	sealed class NotNullWhenAttribute : Attribute {
@@ -9,3 +10,4 @@ namespace System.Diagnostics.CodeAnalysis {
 		public DoesNotReturnAttribute() { }
 	}
 }
+#endif
