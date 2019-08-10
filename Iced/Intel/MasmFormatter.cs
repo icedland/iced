@@ -111,7 +111,7 @@ namespace Iced.Intel {
 			var instrInfo = instrInfos[(int)instruction.Code];
 			instrInfo.GetOpInfo(this.options, instruction, out var opInfo);
 			int column = 0;
-			FormatMnemonic(instruction, output, ref opInfo, ref column, options);
+			FormatMnemonic(instruction, output, opInfo, ref column, options);
 		}
 
 		/// <summary>
@@ -187,7 +187,7 @@ namespace Iced.Intel {
 
 			if ((uint)operand >= (uint)opInfo.OpCount)
 				ThrowHelper.ThrowArgumentOutOfRangeException_operand();
-			FormatOperand(instruction, output, ref opInfo, operand);
+			FormatOperand(instruction, output, opInfo, operand);
 		}
 
 		/// <summary>
@@ -210,7 +210,7 @@ namespace Iced.Intel {
 			Debug.Assert((uint)instruction.Code < (uint)instrInfos.Length);
 			var instrInfo = instrInfos[(int)instruction.Code];
 			instrInfo.GetOpInfo(options, instruction, out var opInfo);
-			FormatOperands(instruction, output, ref opInfo);
+			FormatOperands(instruction, output, opInfo);
 		}
 
 		/// <summary>
@@ -224,20 +224,20 @@ namespace Iced.Intel {
 			instrInfo.GetOpInfo(options, instruction, out var opInfo);
 
 			int column = 0;
-			FormatMnemonic(instruction, output, ref opInfo, ref column, FormatMnemonicOptions.None);
+			FormatMnemonic(instruction, output, opInfo, ref column, FormatMnemonicOptions.None);
 
 			if (opInfo.OpCount != 0) {
 				FormatterUtils.AddTabs(output, column, options.FirstOperandCharIndex, options.TabSize);
-				FormatOperands(instruction, output, ref opInfo);
+				FormatOperands(instruction, output, opInfo);
 			}
 		}
 
-		void FormatMnemonic(in Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo, ref int column, FormatMnemonicOptions mnemonicOptions) {
+		void FormatMnemonic(in Instruction instruction, FormatterOutput output, in InstrOpInfo opInfo, ref int column, FormatMnemonicOptions mnemonicOptions) {
 			bool needSpace = false;
 			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0 && (opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) == 0) {
 				var prefixSeg = instruction.SegmentPrefix;
 				bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNoTrackPrefixBranch(instruction.Code);
-				if (!hasNoTrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(ref opInfo))
+				if (!hasNoTrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(opInfo))
 					FormatPrefix(output, instruction, ref column, allRegisters[(int)prefixSeg], FormatterUtils.GetSegmentRegisterPrefixKind(prefixSeg), ref needSpace);
 
 				if (instruction.HasXacquirePrefix)
@@ -289,7 +289,7 @@ namespace Iced.Intel {
 			}
 		}
 
-		bool ShowSegmentPrefix(ref InstrOpInfo opInfo) {
+		bool ShowSegmentPrefix(in InstrOpInfo opInfo) {
 			if ((opInfo.Flags & (InstrOpInfoFlags.JccNotTaken | InstrOpInfoFlags.JccTaken)) != 0)
 				return false;
 			for (int i = 0; i < opInfo.OpCount; i++) {
@@ -348,18 +348,18 @@ namespace Iced.Intel {
 			needSpace = true;
 		}
 
-		void FormatOperands(in Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo) {
+		void FormatOperands(in Instruction instruction, FormatterOutput output, in InstrOpInfo opInfo) {
 			for (int i = 0; i < opInfo.OpCount; i++) {
 				if (i > 0) {
 					output.Write(",", FormatterOutputTextKind.Punctuation);
 					if (options.SpaceAfterOperandSeparator)
 						output.Write(" ", FormatterOutputTextKind.Text);
 				}
-				FormatOperand(instruction, output, ref opInfo, i);
+				FormatOperand(instruction, output, opInfo, i);
 			}
 		}
 
-		void FormatOperand(in Instruction instruction, FormatterOutput output, ref InstrOpInfo opInfo, int operand) {
+		void FormatOperand(in Instruction instruction, FormatterOutput output, in InstrOpInfo opInfo, int operand) {
 			Debug.Assert((uint)operand < (uint)opInfo.OpCount);
 
 			int instructionOperand = opInfo.GetInstructionIndex(operand);
