@@ -21,23 +21,22 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS_FORMATTER && !NO_FORMATTER
-using System.Diagnostics;
+// This is needed because net35/net45/netstandard2.0 reference assemblies don't
+// have any nullable attributes
 
-namespace Iced.Intel.GasFormatterInternal {
-	static class Registers {
-		public const Register Register_ST = (Register)DecoderConstants.NumberOfRegisters + 0;
-		public const int ExtraRegisters = 1;
-		public static readonly string[] AllRegistersNaked = FormatterInternal.Registers.GetRegisters();
-		public static readonly string[] AllRegisters = GetRegistersWithPrefix();
-		static string[] GetRegistersWithPrefix() {
-			var registers = AllRegistersNaked;
-			Debug2.Assert(!(registers is null));
-			var result = new string[registers.Length];
-			for (int i = 0; i < registers.Length; i++)
-				result[i] = "%" + registers[i];
-			return result;
-		}
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+
+namespace System {
+	static class string2 {
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		public static bool IsNullOrEmpty([NotNullWhen(false)] string? value) => string.IsNullOrEmpty(value);
 	}
 }
-#endif
+
+namespace System.Diagnostics {
+	static class Debug2 {
+		[Conditional("DEBUG")]
+		public static void Assert([DoesNotReturnIf(false)] bool condition) => Debug.Assert(condition);
+	}
+}

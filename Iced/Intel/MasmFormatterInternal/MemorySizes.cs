@@ -26,11 +26,13 @@ using System;
 
 namespace Iced.Intel.MasmFormatterInternal {
 	static class MemorySizes {
+#pragma warning disable CS8618 // Non-nullable field 'dword_ptr' is uninitialized. Consider declaring the field as nullable.
 		internal static string[] dword_ptr;
 		internal static string[] qword_ptr;
 		internal static string[] mmword_ptr;
 		internal static string[] xmmword_ptr;
 		internal static string[] oword_ptr;
+#pragma warning restore CS8618
 
 		public readonly struct Info {
 			public readonly MemorySize memorySize;

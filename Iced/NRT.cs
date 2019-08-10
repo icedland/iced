@@ -9,5 +9,10 @@ namespace System.Diagnostics.CodeAnalysis {
 	sealed class DoesNotReturnAttribute : Attribute {
 		public DoesNotReturnAttribute() { }
 	}
+	[AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
+	sealed class DoesNotReturnIfAttribute : Attribute {
+		public DoesNotReturnIfAttribute(bool parameterValue) => ParameterValue = parameterValue;
+		public bool ParameterValue { get; }
+	}
 }
 #endif

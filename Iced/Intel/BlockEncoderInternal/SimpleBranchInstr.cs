@@ -324,7 +324,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 			case InstrKind.Long:
 				Debug.Assert(encoder.Bitness == 64);
-				Debug.Assert(!(pointerData is null));
+				Debug2.Assert(!(pointerData is null));
 				isOriginalInstruction = false;
 				constantOffsets = default;
 				pointerData.Data = targetInstr.GetAddress();

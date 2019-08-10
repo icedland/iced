@@ -105,7 +105,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				return null;
 			}
 			else {
-				Debug.Assert(!(pointerData is null));
+				Debug2.Assert(!(pointerData is null));
 				isOriginalInstruction = false;
 				constantOffsets = default;
 				pointerData.Data = targetInstr.GetAddress();
