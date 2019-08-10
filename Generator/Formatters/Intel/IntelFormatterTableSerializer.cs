@@ -87,7 +87,7 @@ namespace Generator.Formatters.Intel {
 							firstStringIndex = uint.MaxValue;
 						}
 						else {
-							si = stringsTable.GetIndex(s, ignoreVPrefix: false, out hasVPrefix);
+							si = stringsTable.GetIndex(s, ignoreVPrefix: true, out hasVPrefix);
 							if (hasVPrefix)
 								throw new InvalidOperationException();
 						}
