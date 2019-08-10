@@ -92,7 +92,7 @@ namespace Iced.Intel {
 			public MandatoryPrefix mandatoryPrefix;
 			public OpSize operandSize;
 			public OpSize addressSize;
-			public EncodingKind Encoding => (EncodingKind)(flags & StateFlags.EncodingMask);
+			public readonly EncodingKind Encoding => (EncodingKind)(flags & StateFlags.EncodingMask);
 		}
 
 		/// <summary>
@@ -140,7 +140,7 @@ namespace Iced.Intel {
 			}
 			return data;
 
-			void SetBit(uint[] d, int b) => d[b / 32] |= 1U << (b & 31);
+			static void SetBit(uint[] d, int b) => d[b / 32] |= 1U << (b & 31);
 		}
 
 		static Decoder() {
@@ -1066,7 +1066,7 @@ after_read_prefixes:
 		/// </summary>
 		/// <param name="instruction">The latest instruction that was decoded by this decoder</param>
 		/// <returns></returns>
-		public ConstantOffsets GetConstantOffsets(ref Instruction instruction) {
+		public ConstantOffsets GetConstantOffsets(in Instruction instruction) {
 			ConstantOffsets constantOffsets = default;
 
 			int displSize = instruction.MemoryDisplSize;

@@ -39,7 +39,7 @@ namespace Iced.Intel {
 		/// <param name="addressSize">Size of <paramref name="address"/> in bytes</param>
 		/// <param name="symbol">Updated with symbol information if this method returns true</param>
 		/// <returns></returns>
-		bool TryGetSymbol(ref Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol);
+		bool TryGetSymbol(in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol);
 	}
 
 	/// <summary>
@@ -210,7 +210,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// true if this is the default instance
 		/// </summary>
-		public bool IsDefault => TextArray == null && Text.Text == null;
+		public bool IsDefault => TextArray is null && Text.Text is null;
 
 		/// <summary>
 		/// The text and color unless <see cref="TextArray"/> is non-null
@@ -220,7 +220,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Text and color or null if <see cref="Text"/> should be used
 		/// </summary>
-		public readonly TextPart[] TextArray;
+		public readonly TextPart[]? TextArray;
 
 		/// <summary>
 		/// Constructor

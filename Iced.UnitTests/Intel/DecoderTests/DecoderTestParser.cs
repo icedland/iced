@@ -453,7 +453,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		static readonly char[] coSeps = new char[] { ';' };
 		static bool TryParseConstantOffsets(string value, out ConstantOffsets constantOffsets) {
 			constantOffsets = default;
-			if (value == null)
+			if (value is null)
 				return false;
 
 			var parts = value.Split(coSeps);

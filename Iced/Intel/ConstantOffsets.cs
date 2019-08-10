@@ -70,17 +70,17 @@ namespace Iced.Intel {
 		/// <summary>
 		/// true if <see cref="DisplacementOffset"/> is valid
 		/// </summary>
-		public bool HasDisplacement => DisplacementSize != 0;
+		public readonly bool HasDisplacement => DisplacementSize != 0;
 
 		/// <summary>
 		/// true if <see cref="ImmediateOffset"/> is valid
 		/// </summary>
-		public bool HasImmediate => ImmediateSize != 0;
+		public readonly bool HasImmediate => ImmediateSize != 0;
 
 		/// <summary>
 		/// true if <see cref="ImmediateOffset2"/> is valid
 		/// </summary>
-		public bool HasImmediate2 => ImmediateSize2 != 0;
+		public readonly bool HasImmediate2 => ImmediateSize2 != 0;
 	}
 }
 #endif

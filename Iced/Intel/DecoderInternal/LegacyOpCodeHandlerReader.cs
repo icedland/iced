@@ -26,7 +26,7 @@ using System;
 
 namespace Iced.Intel.DecoderInternal {
 	sealed class LegacyOpCodeHandlerReader : OpCodeHandlerReader {
-		public override int ReadHandlers(ref TableDeserializer deserializer, OpCodeHandler[] result, int resultIndex) {
+		public override int ReadHandlers(ref TableDeserializer deserializer, OpCodeHandler?[] result, int resultIndex) {
 			ref var elem = ref result[resultIndex];
 			Code code;
 			switch (deserializer.ReadOpCodeHandlerKind()) {

@@ -39,8 +39,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>
-		public void FormatMnemonic(ref Instruction instruction, FormatterOutput output) =>
-			FormatMnemonic(ref instruction, output, FormatMnemonicOptions.None);
+		public void FormatMnemonic(in Instruction instruction, FormatterOutput output) =>
+			FormatMnemonic(instruction, output, FormatMnemonicOptions.None);
 
 		/// <summary>
 		/// Formats the mnemonic and any prefixes
@@ -48,27 +48,27 @@ namespace Iced.Intel {
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>
 		/// <param name="options">Options</param>
-		public abstract void FormatMnemonic(ref Instruction instruction, FormatterOutput output, FormatMnemonicOptions options);
+		public abstract void FormatMnemonic(in Instruction instruction, FormatterOutput output, FormatMnemonicOptions options);
 
 		/// <summary>
 		/// Gets the number of operands that will be formatted. A formatter can add and remove operands
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <returns></returns>
-		public abstract int GetOperandCount(ref Instruction instruction);
+		public abstract int GetOperandCount(in Instruction instruction);
 
 #if !NO_INSTR_INFO
 		/// <summary>
 		/// Returns the operand access but only if it's an operand added by the formatter. If it's an
 		/// operand that is part of <see cref="Instruction"/>, you should call eg.
-		/// <see cref="Instruction.GetInfo()"/> or <see cref="InstructionInfoFactory.GetInfo(ref Instruction)"/>.
+		/// <see cref="Instruction.GetInfo()"/> or <see cref="InstructionInfoFactory.GetInfo(in Instruction)"/>.
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.
-		/// See <see cref="GetOperandCount(ref Instruction)"/></param>
+		/// See <see cref="GetOperandCount(in Instruction)"/></param>
 		/// <param name="access">Updated with operand access if successful</param>
 		/// <returns></returns>
-		public abstract bool TryGetOpAccess(ref Instruction instruction, int operand, out OpAccess access);
+		public abstract bool TryGetOpAccess(in Instruction instruction, int operand, out OpAccess access);
 #endif
 
 		/// <summary>
@@ -76,9 +76,9 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.
-		/// See <see cref="GetOperandCount(ref Instruction)"/></param>
+		/// See <see cref="GetOperandCount(in Instruction)"/></param>
 		/// <returns></returns>
-		public abstract int GetInstructionOperand(ref Instruction instruction, int operand);
+		public abstract int GetInstructionOperand(in Instruction instruction, int operand);
 
 		/// <summary>
 		/// Converts an instruction operand index to a formatter operand index. Returns -1 if the instruction operand isn't used by the formatter
@@ -86,7 +86,7 @@ namespace Iced.Intel {
 		/// <param name="instruction">Instruction</param>
 		/// <param name="instructionOperand">Instruction operand</param>
 		/// <returns></returns>
-		public abstract int GetFormatterOperand(ref Instruction instruction, int instructionOperand);
+		public abstract int GetFormatterOperand(in Instruction instruction, int instructionOperand);
 
 		/// <summary>
 		/// Formats an operand. This is a formatter operand and not necessarily a real instruction operand.
@@ -95,36 +95,29 @@ namespace Iced.Intel {
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.
-		/// See <see cref="GetOperandCount(ref Instruction)"/></param>
-		public abstract void FormatOperand(ref Instruction instruction, FormatterOutput output, int operand);
+		/// See <see cref="GetOperandCount(in Instruction)"/></param>
+		public abstract void FormatOperand(in Instruction instruction, FormatterOutput output, int operand);
 
 		/// <summary>
 		/// Formats an operand separator
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>
-		public abstract void FormatOperandSeparator(ref Instruction instruction, FormatterOutput output);
+		public abstract void FormatOperandSeparator(in Instruction instruction, FormatterOutput output);
 
 		/// <summary>
 		/// Formats all operands
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>
-		public abstract void FormatAllOperands(ref Instruction instruction, FormatterOutput output);
+		public abstract void FormatAllOperands(in Instruction instruction, FormatterOutput output);
 
 		/// <summary>
 		/// Formats the whole instruction: prefixes, mnemonic, operands
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>
-		public abstract void Format(ref Instruction instruction, FormatterOutput output);
-
-		/// <summary>
-		/// Formats the whole instruction: prefixes, mnemonic, operands
-		/// </summary>
-		/// <param name="instruction">Instruction</param>
-		/// <param name="output">Output</param>
-		public void Format(Instruction instruction, FormatterOutput output) => Format(ref instruction, output);
+		public abstract void Format(in Instruction instruction, FormatterOutput output);
 
 		/// <summary>
 		/// Formats a register
@@ -255,7 +248,7 @@ namespace Iced.Intel {
 	}
 
 	/// <summary>
-	/// Options used by <see cref="Formatter.FormatMnemonic(ref Instruction, FormatterOutput)"/>
+	/// Options used by <see cref="Formatter.FormatMnemonic(in Instruction, FormatterOutput)"/>
 	/// </summary>
 	[Flags]
 	public enum FormatMnemonicOptions : uint {

@@ -69,13 +69,13 @@ namespace Iced.Intel {
 		/// 2) If it's a <see cref="FlowControl.Call"/> or <see cref="FlowControl.Interrupt"/> instruction (call, sysenter, int n etc), it can read and write any register (including RFLAGS).
 		/// </summary>
 		/// <returns></returns>
-		public UsedRegisterIterator GetUsedRegisters() => new UsedRegisterIterator(usedRegisters, usedRegistersLength);
+		public readonly UsedRegisterIterator GetUsedRegisters() => new UsedRegisterIterator(usedRegisters, usedRegistersLength);
 
 		/// <summary>
 		/// Gets a struct iterator that returns all read and written memory locations
 		/// </summary>
 		/// <returns></returns>
-		public UsedMemoryIterator GetUsedMemory() => new UsedMemoryIterator(usedMemoryLocations, usedMemoryLocationsLength);
+		public readonly UsedMemoryIterator GetUsedMemory() => new UsedMemoryIterator(usedMemoryLocations, usedMemoryLocationsLength);
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public struct UsedRegisterIterator : IEnumerable<UsedRegister>, IEnumerator<UsedRegister> {
@@ -140,24 +140,24 @@ namespace Iced.Intel {
 		/// </summary>
 		[Obsolete("Use " + nameof(IsProtectedMode) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public bool ProtectedMode => IsProtectedMode;
+		public readonly bool ProtectedMode => IsProtectedMode;
 
 		/// <summary>
 		/// true if the instruction isn't available in real mode or virtual 8086 mode
 		/// </summary>
-		public bool IsProtectedMode => (flags & (uint)Flags.ProtectedMode) != 0;
+		public readonly bool IsProtectedMode => (flags & (uint)Flags.ProtectedMode) != 0;
 
 		/// <summary>
 		/// true if this is a privileged instruction
 		/// </summary>
 		[Obsolete("Use " + nameof(IsPrivileged) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public bool Privileged => IsPrivileged;
+		public readonly bool Privileged => IsPrivileged;
 
 		/// <summary>
 		/// true if this is a privileged instruction
 		/// </summary>
-		public bool IsPrivileged => (flags & (uint)Flags.Privileged) != 0;
+		public readonly bool IsPrivileged => (flags & (uint)Flags.Privileged) != 0;
 
 		/// <summary>
 		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
@@ -165,13 +165,13 @@ namespace Iced.Intel {
 		/// </summary>
 		[Obsolete("Use " + nameof(IsStackInstruction) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public bool StackInstruction => IsStackInstruction;
+		public readonly bool StackInstruction => IsStackInstruction;
 
 		/// <summary>
 		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
 		/// See also <see cref="Instruction.StackPointerIncrement"/>
 		/// </summary>
-		public bool IsStackInstruction => (flags & (uint)Flags.StackInstruction) != 0;
+		public readonly bool IsStackInstruction => (flags & (uint)Flags.StackInstruction) != 0;
 
 		/// <summary>
 		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
@@ -179,67 +179,67 @@ namespace Iced.Intel {
 		/// </summary>
 		[Obsolete("Use " + nameof(IsSaveRestoreInstruction) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public bool SaveRestoreInstruction => IsSaveRestoreInstruction;
+		public readonly bool SaveRestoreInstruction => IsSaveRestoreInstruction;
 
 		/// <summary>
 		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
 		/// <see cref="GetUsedRegisters"/> won't return all read/written registers.
 		/// </summary>
-		public bool IsSaveRestoreInstruction => (flags & (uint)Flags.SaveRestore) != 0;
+		public readonly bool IsSaveRestoreInstruction => (flags & (uint)Flags.SaveRestore) != 0;
 
 		/// <summary>
 		/// Instruction encoding, eg. legacy, VEX, EVEX, ...
 		/// </summary>
-		public EncodingKind Encoding => (EncodingKind)encoding;
+		public readonly EncodingKind Encoding => (EncodingKind)encoding;
 
 		/// <summary>
 		/// CPU or CPUID feature flag
 		/// </summary>
 		[Obsolete("Use " + nameof(CpuidFeatures) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public CpuidFeature CpuidFeature => CpuidFeatures[0];
+		public readonly CpuidFeature CpuidFeature => CpuidFeatures[0];
 
 		/// <summary>
 		/// Gets the CPU or CPUID feature flags
 		/// </summary>
-		public CpuidFeature[] CpuidFeatures => CpuidFeatureInternalData.ToCpuidFeatures[cpuidFeature];
+		public readonly CpuidFeature[] CpuidFeatures => CpuidFeatureInternalData.ToCpuidFeatures[cpuidFeature];
 
 		/// <summary>
 		/// Flow control info
 		/// </summary>
-		public FlowControl FlowControl => (FlowControl)flowControl;
+		public readonly FlowControl FlowControl => (FlowControl)flowControl;
 
 		/// <summary>
 		/// Operand #0 access
 		/// </summary>
-		public OpAccess Op0Access => (OpAccess)(opMaskFlags & (uint)OpMaskFlags.OpAccessMask);
+		public readonly OpAccess Op0Access => (OpAccess)(opMaskFlags & (uint)OpMaskFlags.OpAccessMask);
 
 		/// <summary>
 		/// Operand #1 access
 		/// </summary>
-		public OpAccess Op1Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op1AccessShift) & (uint)OpMaskFlags.OpAccessMask);
+		public readonly OpAccess Op1Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op1AccessShift) & (uint)OpMaskFlags.OpAccessMask);
 
 		/// <summary>
 		/// Operand #2 access
 		/// </summary>
-		public OpAccess Op2Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op2AccessShift) & (uint)OpMaskFlags.OpAccessMask);
+		public readonly OpAccess Op2Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op2AccessShift) & (uint)OpMaskFlags.OpAccessMask);
 
 		/// <summary>
 		/// Operand #3 access
 		/// </summary>
-		public OpAccess Op3Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op3AccessShift) & (uint)OpMaskFlags.OpAccessMask);
+		public readonly OpAccess Op3Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op3AccessShift) & (uint)OpMaskFlags.OpAccessMask);
 
 		/// <summary>
 		/// Operand #4 access
 		/// </summary>
-		public OpAccess Op4Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op4AccessShift) & (uint)OpMaskFlags.OpAccessMask);
+		public readonly OpAccess Op4Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op4AccessShift) & (uint)OpMaskFlags.OpAccessMask);
 
 		/// <summary>
 		/// Gets operand access
 		/// </summary>
 		/// <param name="operand">Operand number, 0-4</param>
 		/// <returns></returns>
-		public OpAccess GetOpAccess(int operand) {
+		public readonly OpAccess GetOpAccess(int operand) {
 			switch (operand) {
 			case 0: return Op0Access;
 			case 1: return Op1Access;
@@ -255,32 +255,32 @@ namespace Iced.Intel {
 		/// <summary>
 		/// All flags that are read by the CPU when executing the instruction
 		/// </summary>
-		public RflagsBits RflagsRead => (RflagsBits)RflagsInfoConstants.flagsRead[rflagsInfo];
+		public readonly RflagsBits RflagsRead => (RflagsBits)RflagsInfoConstants.flagsRead[rflagsInfo];
 
 		/// <summary>
 		/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared. See also <see cref="RflagsModified"/>
 		/// </summary>
-		public RflagsBits RflagsWritten => (RflagsBits)RflagsInfoConstants.flagsWritten[rflagsInfo];
+		public readonly RflagsBits RflagsWritten => (RflagsBits)RflagsInfoConstants.flagsWritten[rflagsInfo];
 
 		/// <summary>
 		/// All flags that are always cleared by the CPU
 		/// </summary>
-		public RflagsBits RflagsCleared => (RflagsBits)RflagsInfoConstants.flagsCleared[rflagsInfo];
+		public readonly RflagsBits RflagsCleared => (RflagsBits)RflagsInfoConstants.flagsCleared[rflagsInfo];
 
 		/// <summary>
 		/// All flags that are always set by the CPU
 		/// </summary>
-		public RflagsBits RflagsSet => (RflagsBits)RflagsInfoConstants.flagsSet[rflagsInfo];
+		public readonly RflagsBits RflagsSet => (RflagsBits)RflagsInfoConstants.flagsSet[rflagsInfo];
 
 		/// <summary>
 		/// All flags that are undefined after executing the instruction
 		/// </summary>
-		public RflagsBits RflagsUndefined => (RflagsBits)RflagsInfoConstants.flagsUndefined[rflagsInfo];
+		public readonly RflagsBits RflagsUndefined => (RflagsBits)RflagsInfoConstants.flagsUndefined[rflagsInfo];
 
 		/// <summary>
 		/// All flags that are modified by the CPU. This is <see cref="RflagsWritten"/> + <see cref="RflagsCleared"/> + <see cref="RflagsSet"/> + <see cref="RflagsUndefined"/>
 		/// </summary>
-		public RflagsBits RflagsModified => (RflagsBits)RflagsInfoConstants.flagsModified[rflagsInfo];
+		public readonly RflagsBits RflagsModified => (RflagsBits)RflagsInfoConstants.flagsModified[rflagsInfo];
 	}
 }
 #endif

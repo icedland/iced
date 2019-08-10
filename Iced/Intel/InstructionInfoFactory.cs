@@ -82,8 +82,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <returns></returns>
-		public InstructionInfo GetInfo(ref Instruction instruction) =>
-			Create(ref instruction, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.None);
+		public InstructionInfo GetInfo(in Instruction instruction) =>
+			Create(instruction, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.None);
 
 		/// <summary>
 		/// Creates an <see cref="InstructionInfo"/>. The return value is only valid until this instance creates a new <see cref="InstructionInfo"/> value.
@@ -91,10 +91,10 @@ namespace Iced.Intel {
 		/// <param name="instruction">Instruction</param>
 		/// <param name="options">Options</param>
 		/// <returns></returns>
-		public InstructionInfo GetInfo(ref Instruction instruction, InstructionInfoOptions options) =>
-			Create(ref instruction, ref usedRegisters, ref usedMemoryLocations, options);
+		public InstructionInfo GetInfo(in Instruction instruction, InstructionInfoOptions options) =>
+			Create(instruction, ref usedRegisters, ref usedMemoryLocations, options);
 
-		internal static unsafe InstructionInfo Create(ref Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, InstructionInfoOptions options) {
+		internal static unsafe InstructionInfo Create(in Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, InstructionInfoOptions options) {
 			usedRegisters.ValidLength = 0;
 			usedMemoryLocations.ValidLength = 0;
 
@@ -256,7 +256,7 @@ namespace Iced.Intel {
 			var rflagsInfo = (RflagsInfo)((flags1 >> (int)InfoFlags1.RflagsInfoShift) & (uint)InfoFlags1.RflagsInfoMask);
 			var codeInfo = (CodeInfo)((flags1 >> (int)InfoFlags1.CodeInfoShift) & (uint)InfoFlags1.CodeInfoMask);
 			if (codeInfo != CodeInfo.None)
-				CodeInfoHandler(codeInfo, ref instruction, ref usedRegisters, ref usedMemoryLocations, ref rflagsInfo, flags, accesses);
+				CodeInfoHandler(codeInfo, instruction, ref usedRegisters, ref usedMemoryLocations, ref rflagsInfo, flags, accesses);
 
 			if (instruction.HasOpMask && (flags & Flags.NoRegisterUsage) == 0)
 				AddRegister(flags, ref usedRegisters, instruction.OpMask, (flags2 & (uint)InfoFlags2.OpMaskRegReadWrite) != 0 ? OpAccess.ReadWrite : OpAccess.Read);
@@ -264,9 +264,9 @@ namespace Iced.Intel {
 			// Inlined ctor
 			InstructionInfo result;
 			Debug.Assert(DecoderConstants.MaxOpCount == 5);
-			Debug.Assert(usedRegisters.Array != null);
+			Debug.Assert(!(usedRegisters.Array is null));
 			result.usedRegisters = usedRegisters.Array;
-			Debug.Assert(usedMemoryLocations.Array != null);
+			Debug.Assert(!(usedMemoryLocations.Array is null));
 			result.usedMemoryLocations = usedMemoryLocations.Array;
 			Debug.Assert((uint)usedRegisters.ValidLength <= ushort.MaxValue);
 			result.usedRegistersLength = (ushort)usedRegisters.ValidLength;
@@ -314,7 +314,7 @@ namespace Iced.Intel {
 			return Register.SP;
 		}
 
-		static unsafe void CodeInfoHandler(CodeInfo codeInfo, ref Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, ref RflagsInfo rflagsInfo, Flags flags, OpAccess* accesses) {
+		static unsafe void CodeInfoHandler(CodeInfo codeInfo, in Instruction instruction, ref SimpleList<UsedRegister> usedRegisters, ref SimpleList<UsedMemory> usedMemoryLocations, ref RflagsInfo rflagsInfo, Flags flags, OpAccess* accesses) {
 			Debug.Assert(codeInfo != CodeInfo.None);
 			ulong xspMask;
 			ulong displ;

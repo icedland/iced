@@ -44,21 +44,21 @@ namespace Iced.Intel.BlockEncoderInternal {
 			Uninitialized,
 		}
 
-		public IpRelMemOpInstr(BlockEncoder blockEncoder, ref Instruction instruction)
+		public IpRelMemOpInstr(BlockEncoder blockEncoder, in Instruction instruction)
 			: base(blockEncoder, instruction.IP) {
 			Debug.Assert(instruction.IsIPRelativeMemoryOperand);
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 
-			string errorMessage;
+			string? errorMessage;
 
 			var instrCopy = instruction;
 			instrCopy.MemoryBase = Register.RIP;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, instrCopy.IP, out ripInstructionSize, out errorMessage))
+			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, instrCopy.IP, out ripInstructionSize, out errorMessage))
 				ripInstructionSize = DecoderConstants.MaxInstructionLength;
 
 			instrCopy.MemoryBase = Register.EIP;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, instrCopy.IP, out eipInstructionSize, out errorMessage))
+			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, instrCopy.IP, out eipInstructionSize, out errorMessage))
 				eipInstructionSize = DecoderConstants.MaxInstructionLength;
 
 			Debug.Assert(eipInstructionSize >= ripInstructionSize);
@@ -102,7 +102,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			return false;
 		}
 
-		public override string TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
+		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
 			switch (instrKind) {
 			case InstrKind.Unchanged:
 			case InstrKind.Rip:
@@ -127,14 +127,14 @@ namespace Iced.Intel.BlockEncoderInternal {
 				var nextRip = IP + instrSize;
 				instruction.NextIP = nextRip;
 				instruction.MemoryDisplacement = (uint)targetAddress - (uint)nextRip;
-				encoder.TryEncode(ref instruction, IP, out _, out var errorMessage);
+				encoder.TryEncode(instruction, IP, out _, out var errorMessage);
 				bool b = instruction.IPRelativeMemoryAddress == (instruction.MemoryBase == Register.EIP ? (uint)targetAddress : targetAddress);
 				Debug.Assert(b);
 				if (!b)
 					errorMessage = "Invalid IP relative address";
-				if (errorMessage != null) {
+				if (!(errorMessage is null)) {
 					constantOffsets = default;
-					return CreateErrorMessage(errorMessage, ref instruction);
+					return CreateErrorMessage(errorMessage, instruction);
 				}
 				constantOffsets = encoder.GetConstantOffsets();
 				return null;

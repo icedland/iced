@@ -57,7 +57,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var decoder = CreateDecoder(codeSize, origBytes, options);
 			var origRip = decoder.IP;
 			var origInstr = decoder.Decode();
-			var origConstantOffsets = decoder.GetConstantOffsets(ref origInstr);
+			var origConstantOffsets = decoder.GetConstantOffsets(origInstr);
 			Assert.Equal(code, origInstr.Code);
 			Assert.Equal(origBytes.Length, origInstr.ByteLength);
 			Assert.True(origInstr.ByteLength <= Iced.Intel.DecoderConstants.MaxInstructionLength);
@@ -73,8 +73,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var encoder = Encoder.Create(decoder.Bitness, writer);
 			Assert.Equal(codeSize, encoder.Bitness);
 			var origInstrCopy = origInstr;
-			bool result = encoder.TryEncode(ref origInstr, origRip, out uint encodedInstrLen, out string errorMessage);
-			Assert.True(errorMessage == null, "Unexpected ErrorMessage: " + errorMessage);
+			bool result = encoder.TryEncode(origInstr, origRip, out uint encodedInstrLen, out string errorMessage);
+			Assert.True(errorMessage is null, "Unexpected ErrorMessage: " + errorMessage);
 			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
 			var encodedConstantOffsets = encoder.GetConstantOffsets();
 			FixConstantOffsets(ref encodedConstantOffsets, origInstr.ByteLength, (int)encodedInstrLen);
@@ -126,8 +126,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var encoder = Encoder.Create(codeSize, writer);
 			Assert.Equal(codeSize, encoder.Bitness);
 			var origInstrCopy = instr;
-			bool result = encoder.TryEncode(ref instr, rip, out uint encodedInstrLen, out string errorMessage);
-			Assert.True(errorMessage == null, "Unexpected ErrorMessage: " + errorMessage);
+			bool result = encoder.TryEncode(instr, rip, out uint encodedInstrLen, out string errorMessage);
+			Assert.True(errorMessage is null, "Unexpected ErrorMessage: " + errorMessage);
 			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
 			var encodedBytes = writer.ToArray();
 			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);
@@ -160,7 +160,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var writer = new CodeWriterImpl();
 			var encoder = CreateEncoder(invalidCodeSize, writer);
 			var origInstrCopy = origInstr;
-			bool result = encoder.TryEncode(ref origInstr, origRip, out uint encodedInstrLen, out string errorMessage);
+			bool result = encoder.TryEncode(origInstr, origRip, out uint encodedInstrLen, out string errorMessage);
 			Assert.Equal(invalidCodeSize == 64 ? Encoder.ERROR_ONLY_1632_BIT_MODE : Encoder.ERROR_ONLY_64_BIT_MODE, errorMessage);
 			Assert.False(result);
 			Assert.True(Instruction.TEST_BitByBitEquals(origInstr, origInstrCopy));

@@ -25,6 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using Iced.Intel.BlockEncoderInternal;
 
 namespace Iced.Intel {
@@ -85,20 +86,20 @@ namespace Iced.Intel {
 		/// <summary>
 		/// List that gets all reloc infos or null
 		/// </summary>
-		public readonly IList<RelocInfo> RelocInfos;
+		public readonly IList<RelocInfo>? RelocInfos;
 
 		/// <summary>
 		/// Offsets of the new instructions relative to the base IP. If the instruction was rewritten to
 		/// a completely different instruction, the value <see cref="uint.MaxValue"/> is stored in that array element.
 		/// This array can be null.
 		/// </summary>
-		public readonly uint[] NewInstructionOffsets;
+		public readonly uint[]? NewInstructionOffsets;
 
 		/// <summary>
 		/// Offsets of all constants in the new encoded instructions. If the instruction was rewritten,
 		/// the 'default' value is stored in the corresponding array element. This array can be null.
 		/// </summary>
-		public readonly ConstantOffsets[] ConstantOffsets;
+		public readonly ConstantOffsets[]? ConstantOffsets;
 
 		/// <summary>
 		/// Constructor
@@ -112,16 +113,16 @@ namespace Iced.Intel {
 		/// This array can be null.</param>
 		/// <param name="constantOffsets">Offsets of all constants in the new encoded instructions. If the instruction was rewritten,
 		/// the 'default' value is stored in the corresponding array element. This array can be null.</param>
-		public InstructionBlock(CodeWriter codeWriter, IList<Instruction> instructions, ulong rip, IList<RelocInfo> relocInfos = null, uint[] newInstructionOffsets = null, ConstantOffsets[] constantOffsets = null) {
+		public InstructionBlock(CodeWriter codeWriter, IList<Instruction> instructions, ulong rip, IList<RelocInfo>? relocInfos = null, uint[]? newInstructionOffsets = null, ConstantOffsets[]? constantOffsets = null) {
 			CodeWriter = codeWriter ?? throw new ArgumentNullException(nameof(codeWriter));
 			Instructions = instructions ?? throw new ArgumentNullException(nameof(instructions));
 			RIP = rip;
 			RelocInfos = relocInfos;
 			NewInstructionOffsets = newInstructionOffsets;
 			ConstantOffsets = constantOffsets;
-			if (newInstructionOffsets != null && newInstructionOffsets.Length != instructions.Count)
+			if (!(newInstructionOffsets is null) && newInstructionOffsets.Length != instructions.Count)
 				throw new ArgumentException($"{nameof(newInstructionOffsets)} must have the same number of elements as {nameof(instructions)} or it must be null");
-			if (constantOffsets != null && constantOffsets.Length != instructions.Count)
+			if (!(constantOffsets is null) && constantOffsets.Length != instructions.Count)
 				throw new ArgumentException($"{nameof(constantOffsets)} must have the same number of elements as {nameof(instructions)} or it must be null");
 		}
 	}
@@ -166,7 +167,7 @@ namespace Iced.Intel {
 		BlockEncoder(int bitness, InstructionBlock[] instrBlocks, BlockEncoderOptions options) {
 			if (bitness != 16 && bitness != 32 && bitness != 64)
 				throw new ArgumentOutOfRangeException(nameof(bitness));
-			if (instrBlocks == null)
+			if (instrBlocks is null)
 				throw new ArgumentNullException(nameof(instrBlocks));
 			this.bitness = bitness;
 			nullEncoder = Encoder.Create(bitness, NullCodeWriter.Instance);
@@ -176,13 +177,13 @@ namespace Iced.Intel {
 			int instrCount = 0;
 			for (int i = 0; i < instrBlocks.Length; i++) {
 				var instructions = instrBlocks[i].Instructions;
-				if (instructions == null)
+				if (instructions is null)
 					throw new ArgumentException();
 				var instrs = new Instr[instructions.Count];
 				ulong ip = instrBlocks[i].RIP;
 				for (int j = 0; j < instrs.Length; j++) {
 					var instruction = instructions[j];
-					var instr = Instr.Create(this, ref instruction);
+					var instr = Instr.Create(this, instruction);
 					instr.IP = ip;
 					instrs[j] = instr;
 					instrCount++;
@@ -234,7 +235,7 @@ namespace Iced.Intel {
 		/// <param name="errorMessage">Updated with an error message if the method failed</param>
 		/// <param name="options">Encoder options</param>
 		/// <returns></returns>
-		public static bool TryEncode(int bitness, InstructionBlock block, out string errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
+		public static bool TryEncode(int bitness, InstructionBlock block, [NotNullWhen(false)] out string? errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
 			TryEncode(bitness, new[] { block }, out errorMessage, options);
 
 		/// <summary>
@@ -245,10 +246,10 @@ namespace Iced.Intel {
 		/// <param name="errorMessage">Updated with an error message if the method failed</param>
 		/// <param name="options">Encoder options</param>
 		/// <returns></returns>
-		public static bool TryEncode(int bitness, InstructionBlock[] blocks, out string errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
+		public static bool TryEncode(int bitness, InstructionBlock[] blocks, [NotNullWhen(false)] out string? errorMessage, BlockEncoderOptions options = BlockEncoderOptions.None) =>
 			new BlockEncoder(bitness, blocks, options).Encode(out errorMessage);
 
-		bool Encode(out string errorMessage) {
+		bool Encode([NotNullWhen(false)] out string? errorMessage) {
 			const int MAX_ITERS = 1000;
 			for (int iter = 0; iter < MAX_ITERS; iter++) {
 				bool updated = false;
@@ -289,18 +290,18 @@ namespace Iced.Intel {
 					var instr = instructions[i];
 					uint bytesWritten = block.CodeWriter.BytesWritten;
 					bool isOriginalInstruction;
-					if (constantOffsets != null)
+					if (!(constantOffsets is null))
 						errorMessage = instr.TryEncode(encoder, out constantOffsets[i], out isOriginalInstruction);
 					else
 						errorMessage = instr.TryEncode(encoder, out _, out isOriginalInstruction);
-					if (errorMessage != null)
+					if (!(errorMessage is null))
 						return false;
 					uint size = block.CodeWriter.BytesWritten - bytesWritten;
 					if (size != instr.Size) {
 						errorMessage = "Internal error: didn't write all bytes";
 						return false;
 					}
-					if (newInstructionOffsets != null) {
+					if (!(newInstructionOffsets is null)) {
 						if (isOriginalInstruction)
 							newInstructionOffsets[i] = (uint)(ip - block.RIP);
 						else

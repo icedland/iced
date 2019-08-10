@@ -76,7 +76,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		}
 
 		static InstructionInfo[] GetInstructionInfos(ref InstructionInfo[] instrInfos, int bitness, bool isMisc) {
-			if (instrInfos == null) {
+			if (instrInfos is null) {
 				var filename = "InstructionInfos" + bitness;
 				if (isMisc)
 					filename += "_Misc";
@@ -169,7 +169,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			FormatterTestUtils.FormatTest(info.CodeSize, info.HexBytes, info.Code, info.Options, formattedString, formatter);
 
 		protected void FormatBase(int index, Instruction instr, string formattedString, Formatter formatter) =>
-			FormatterTestUtils.FormatTest(ref instr, formattedString, formatter);
+			FormatterTestUtils.FormatTest(instr, formattedString, formatter);
 	}
 }
 #endif

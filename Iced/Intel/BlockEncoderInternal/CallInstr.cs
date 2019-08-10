@@ -34,17 +34,17 @@ namespace Iced.Intel.BlockEncoderInternal {
 		Instruction instruction;
 		TargetInstr targetInstr;
 		readonly uint origInstructionSize;
-		BlockData pointerData;
+		BlockData? pointerData;
 		bool useOrigInstruction;
 		bool done;
 
-		public CallInstr(BlockEncoder blockEncoder, ref Instruction instruction)
+		public CallInstr(BlockEncoder blockEncoder, in Instruction instruction)
 			: base(blockEncoder, instruction.IP) {
 			bitness = blockEncoder.Bitness;
 			this.instruction = instruction;
 			var instrCopy = instruction;
 			instrCopy.NearBranch64 = 0;
-			if (!blockEncoder.NullEncoder.TryEncode(ref instrCopy, 0, out origInstructionSize, out var errorMessage))
+			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out origInstructionSize, out var errorMessage))
 				origInstructionSize = DecoderConstants.MaxInstructionLength;
 			if (!blockEncoder.FixBranches) {
 				Size = origInstructionSize;
@@ -80,7 +80,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			}
 
 			if (useShort) {
-				if (pointerData != null)
+				if (!(pointerData is null))
 					pointerData.IsValid = false;
 				Size = origInstructionSize;
 				useOrigInstruction = true;
@@ -88,30 +88,30 @@ namespace Iced.Intel.BlockEncoderInternal {
 				return true;
 			}
 
-			if (pointerData == null)
+			if (pointerData is null)
 				pointerData = Block.AllocPointerLocation();
 			return false;
 		}
 
-		public override string TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
+		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
 			if (useOrigInstruction) {
 				isOriginalInstruction = true;
 				instruction.NearBranch64 = targetInstr.GetAddress();
-				if (!encoder.TryEncode(ref instruction, IP, out _, out var errorMessage)) {
+				if (!encoder.TryEncode(instruction, IP, out _, out var errorMessage)) {
 					constantOffsets = default;
-					return CreateErrorMessage(errorMessage, ref instruction);
+					return CreateErrorMessage(errorMessage, instruction);
 				}
 				constantOffsets = encoder.GetConstantOffsets();
 				return null;
 			}
 			else {
-				Debug.Assert(pointerData != null);
+				Debug.Assert(!(pointerData is null));
 				isOriginalInstruction = false;
 				constantOffsets = default;
 				pointerData.Data = targetInstr.GetAddress();
 				var errorMessage = EncodeBranchToPointerData(encoder, isCall: true, IP, pointerData, out var size, Size);
-				if (errorMessage != null)
-					return CreateErrorMessage(errorMessage, ref instruction);
+				if (!(errorMessage is null))
+					return CreateErrorMessage(errorMessage, instruction);
 				return null;
 			}
 		}

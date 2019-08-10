@@ -209,7 +209,7 @@ namespace Iced.Intel.EncoderInternal {
 
 	static class LegacyOps {
 		public static readonly Op[] Ops = new Op[(int)LegacyOpKind.Last] {
-			null,
+			null!,// Never accessed
 			new OpA(2),
 			new OpA(4),
 			new OpModRM_rm_mem_only(),
@@ -435,7 +435,7 @@ namespace Iced.Intel.EncoderInternal {
 
 	static class VexOps {
 		public static readonly Op[] Ops = new Op[(int)VexOpKind.Last] {
-			null,
+			null!,// Never accessed
 			new OpModRM_rm(Register.EAX, Register.R15D),
 			new OpModRM_rm(Register.RAX, Register.R15),
 			new OpModRM_reg(Register.EAX, Register.R15D),
@@ -503,7 +503,7 @@ namespace Iced.Intel.EncoderInternal {
 
 	static class XopOps {
 		public static readonly Op[] Ops = new Op[(int)XopOpKind.Last] {
-			null,
+			null!,// Never accessed
 			new OpModRM_rm(Register.EAX, Register.R15D),
 			new OpModRM_rm(Register.RAX, Register.R15),
 			new OpModRM_reg(Register.EAX, Register.R15D),
@@ -567,7 +567,7 @@ namespace Iced.Intel.EncoderInternal {
 
 	static class EvexOps {
 		public static readonly Op[] Ops = new Op[(int)EvexOpKind.Last] {
-			null,
+			null!,// Never accessed
 			new OpModRM_rm(Register.EAX, Register.R15D),
 			new OpModRM_rm(Register.RAX, Register.R15),
 			new OpModRM_reg(Register.EAX, Register.R15D),
@@ -606,7 +606,7 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	abstract class Op {
-		public abstract void Encode(Encoder encoder, ref Instruction instr, int operand);
+		public abstract void Encode(Encoder encoder, in Instruction instr, int operand);
 
 		/// <summary>
 		/// If this is an immediate operand, it returns the <see cref="OpKind"/> value, else it returns -1
@@ -628,8 +628,8 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpModRM_rm_mem_only : Op {
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddRegOrMem(ref instr, operand, Register.None, Register.None, allowMemOp: true, allowRegOp: false);
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
+			encoder.AddRegOrMem(instr, operand, Register.None, Register.None, allowMemOp: true, allowRegOp: false);
 	}
 
 	sealed class OpModRM_rm : Op {
@@ -641,8 +641,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddRegOrMem(ref instr, operand, regLo, regHi, allowMemOp: true, allowRegOp: true);
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
+			encoder.AddRegOrMem(instr, operand, regLo, regHi, allowMemOp: true, allowRegOp: true);
 	}
 
 	sealed class OpRegEmbed8: Op {
@@ -654,8 +654,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddReg(ref instr, operand, regLo, regHi);
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
+			encoder.AddReg(instr, operand, regLo, regHi);
 	}
 
 	sealed class OpModRM_rm_reg_only : Op {
@@ -667,8 +667,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddRegOrMem(ref instr, operand, regLo, regHi, allowMemOp: false, allowRegOp: true);
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
+			encoder.AddRegOrMem(instr, operand, regLo, regHi, allowMemOp: false, allowRegOp: true);
 	}
 
 	sealed class OpModRM_reg : Op {
@@ -680,8 +680,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddModRMRegister(ref instr, operand, regLo, regHi);
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
+			encoder.AddModRMRegister(instr, operand, regLo, regHi);
 	}
 
 	sealed class OpModRM_regF0 : Op {
@@ -693,13 +693,13 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			if (encoder.Bitness != 64 && instr.GetOpKind(operand) == OpKind.Register && instr.GetOpRegister(operand) == regLo + 8) {
 				encoder.EncoderFlags |= EncoderFlags.PF0;
-				encoder.AddModRMRegister(ref instr, operand, regLo + 8, regLo + 8);
+				encoder.AddModRMRegister(instr, operand, regLo + 8, regLo + 8);
 			}
 			else
-				encoder.AddModRMRegister(ref instr, operand, regLo, regHi);
+				encoder.AddModRMRegister(instr, operand, regLo, regHi);
 		}
 	}
 
@@ -708,14 +708,14 @@ namespace Iced.Intel.EncoderInternal {
 
 		public OpReg(Register register) => this.register = register;
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			encoder.Verify(operand, OpKind.Register, instr.GetOpKind(operand));
 			encoder.Verify(operand, register, instr.GetOpRegister(operand));
 		}
 	}
 
 	sealed class OpRegSTi : Op {
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			if (!encoder.Verify(operand, OpKind.Register, instr.GetOpKind(operand)))
 				return;
 			var reg = instr.GetOpRegister(operand);
@@ -737,7 +737,7 @@ namespace Iced.Intel.EncoderInternal {
 			return 0;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			var regSize = GetRegSize(instr.GetOpKind(operand));
 			if (regSize == 0) {
 				encoder.ErrorMessage = $"Operand {operand}: expected OpKind = {nameof(OpKind.MemorySegDI)}, {nameof(OpKind.MemorySegEDI)} or {nameof(OpKind.MemorySegRDI)}";
@@ -752,7 +752,7 @@ namespace Iced.Intel.EncoderInternal {
 
 		public OpIb(OpKind opKind) => this.opKind = opKind;
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			var opImmKind = instr.GetOpKind(operand);
 			if (!encoder.Verify(operand, opKind, opImmKind))
 				return;
@@ -764,7 +764,7 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpIw : Op {
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			if (!encoder.Verify(operand, OpKind.Immediate16, instr.GetOpKind(operand)))
 				return;
 			encoder.ImmSize = ImmSize.Size2;
@@ -779,7 +779,7 @@ namespace Iced.Intel.EncoderInternal {
 
 		public OpId(OpKind opKind) => this.opKind = opKind;
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			var opImmKind = instr.GetOpKind(operand);
 			if (!encoder.Verify(operand, opKind, opImmKind))
 				return;
@@ -791,7 +791,7 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpIq : Op {
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			if (!encoder.Verify(operand, OpKind.Immediate64, instr.GetOpKind(operand)))
 				return;
 			encoder.ImmSize = ImmSize.Size8;
@@ -804,7 +804,7 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpIb21 : Op {
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			if (!encoder.Verify(operand, OpKind.Immediate8_2nd, instr.GetOpKind(operand)))
 				return;
 			Debug.Assert(encoder.ImmSize == ImmSize.Size2);
@@ -816,7 +816,7 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpIb11 : Op {
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			if (!encoder.Verify(operand, OpKind.Immediate8_2nd, instr.GetOpKind(operand)))
 				return;
 			Debug.Assert(encoder.ImmSize == ImmSize.Size1);
@@ -828,7 +828,7 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpI2 : Op {
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			var opImmKind = instr.GetOpKind(operand);
 			if (!encoder.Verify(operand, OpKind.Immediate8, opImmKind))
 				return;
@@ -866,7 +866,7 @@ namespace Iced.Intel.EncoderInternal {
 			return 0;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			var regXSize = GetXRegSize(instr.GetOpKind(operand));
 			if (regXSize == 0) {
 				encoder.ErrorMessage = $"Operand {operand}: expected OpKind = {nameof(OpKind.MemorySegSI)}, {nameof(OpKind.MemorySegESI)} or {nameof(OpKind.MemorySegRSI)}";
@@ -889,7 +889,7 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpY : Op {
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			var regYSize = OpX.GetYRegSize(instr.GetOpKind(operand));
 			if (regYSize == 0) {
 				encoder.ErrorMessage = $"Operand {operand}: expected OpKind = {nameof(OpKind.MemoryESDI)}, {nameof(OpKind.MemoryESEDI)} or {nameof(OpKind.MemoryESRDI)}";
@@ -912,7 +912,7 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpMRBX : Op {
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			if (!encoder.Verify(operand, OpKind.Memory, instr.GetOpKind(operand)))
 				return;
 			var baseReg = instr.MemoryBase;
@@ -942,8 +942,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.immSize = immSize;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddBranch(opKind, immSize, ref instr, operand);
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
+			encoder.AddBranch(opKind, immSize, instr, operand);
 
 		public override OpKind GetNearBranchOpKind() => opKind;
 	}
@@ -953,8 +953,8 @@ namespace Iced.Intel.EncoderInternal {
 
 		public OpJx(int immSize) => this.immSize = immSize;
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddBranchX(immSize, ref instr, operand);
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
+			encoder.AddBranchX(immSize, instr, operand);
 
 		public override OpKind GetNearBranchOpKind() {
 			// xbegin is special and doesn't mask the target IP. We need to know the code size to return the correct value
@@ -967,8 +967,8 @@ namespace Iced.Intel.EncoderInternal {
 
 		public OpJdisp(int displSize) => this.displSize = displSize;
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddBranchDisp(displSize, ref instr, operand);
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
+			encoder.AddBranchDisp(displSize, instr, operand);
 
 		public override OpKind GetNearBranchOpKind() => displSize == 2 ? OpKind.NearBranch16 : OpKind.NearBranch32;
 	}
@@ -981,8 +981,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.size = size;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddFarBranch(ref instr, operand, size);
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
+			encoder.AddFarBranch(instr, operand, size);
 
 		public override OpKind GetFarBranchOpKind() {
 			Debug.Assert(size == 2 || size == 4);
@@ -991,8 +991,8 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpO : Op {
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddAbsMem(ref instr, operand);
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
+			encoder.AddAbsMem(instr, operand);
 	}
 
 	sealed class OpImm : Op {
@@ -1000,7 +1000,7 @@ namespace Iced.Intel.EncoderInternal {
 
 		public OpImm(byte value) => this.value = value;
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			if (!encoder.Verify(operand, OpKind.Immediate8, instr.GetOpKind(operand)))
 				return;
 			if (instr.Immediate8 != value) {
@@ -1021,7 +1021,7 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			if (!encoder.Verify(operand, OpKind.Register, instr.GetOpKind(operand)))
 				return;
 			var reg = instr.GetOpRegister(operand);
@@ -1040,8 +1040,8 @@ namespace Iced.Intel.EncoderInternal {
 			vsibIndexRegHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) =>
-			encoder.AddRegOrMem(ref instr, operand, Register.None, Register.None, vsibIndexRegLo, vsibIndexRegHi, allowMemOp: true, allowRegOp: false);
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
+			encoder.AddRegOrMem(instr, operand, Register.None, Register.None, vsibIndexRegLo, vsibIndexRegHi, allowMemOp: true, allowRegOp: false);
 	}
 
 	sealed class OpIs4x : Op {
@@ -1053,7 +1053,7 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, ref Instruction instr, int operand) {
+		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
 			if (!encoder.Verify(operand, OpKind.Register, instr.GetOpKind(operand)))
 				return;
 			var reg = instr.GetOpRegister(operand);

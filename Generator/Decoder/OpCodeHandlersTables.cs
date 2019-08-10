@@ -810,7 +810,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F01_hi",
-				new object[] {
+				new object?[] {
 					// C0
 					new object[] { OpCodeHandlerKind.Simple, Code.Enclv },
 					new object[] { OpCodeHandlerKind.Simple, Code.Vmcall },
@@ -915,7 +915,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0FA6_hi",
-				new object[] {
+				new object?[] {
 					// C0
 					new object[] { OpCodeHandlerKind.Simple5, Code.Montmul_16, Code.Montmul_32, Code.Montmul_64 },
 					null,
@@ -1010,7 +1010,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0FA7_hi",
-				new object[] {
+				new object?[] {
 					// C0
 					new object[] { OpCodeHandlerKind.Simple5, Code.Xstore_16, Code.Xstore_32, Code.Xstore_64 },
 					null,
@@ -1164,7 +1164,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_C6_hi",
-				new object[] {
+				new object?[] {
 					// C0
 					null,
 					null,
@@ -1259,7 +1259,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_C7_hi",
-				new object[] {
+				new object?[] {
 					// C0
 					null,
 					null,
@@ -1498,7 +1498,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0FAE_hi",
-				new object[] {
+				new object?[] {
 					// C0
 					null,
 					null,
@@ -1799,7 +1799,7 @@ namespace Generator.Decoder {
 					"reservedNop_0F1E"
 				},
 				"handlers_Grp_0F1E_reg_hi",
-				new object[] {
+				new object?[] {
 					// C0
 					null,
 					null,

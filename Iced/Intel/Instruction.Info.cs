@@ -34,7 +34,7 @@ namespace Iced.Intel {
 		/// assumes the instruction doesn't change privilege (eg. iret/d/q). If it's the leave instruction, this method returns 0.
 		/// </summary>
 		/// <returns></returns>
-		public int StackPointerIncrement {
+		public readonly int StackPointerIncrement {
 			get {
 				switch (Code) {
 				case Code.Pushw_ES:
@@ -210,10 +210,10 @@ namespace Iced.Intel {
 		/// Gets instruction info such as which register is read and written etc.
 		/// </summary>
 		/// <returns></returns>
-		public InstructionInfo GetInfo() {
+		public readonly InstructionInfo GetInfo() {
 			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
 			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
-			return InstructionInfoFactory.Create(ref this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.None);
+			return InstructionInfoFactory.Create(this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.None);
 		}
 
 		/// <summary>
@@ -223,10 +223,10 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="options">Options</param>
 		/// <returns></returns>
-		public InstructionInfo GetInfo(InstructionInfoOptions options) {
+		public readonly InstructionInfo GetInfo(InstructionInfoOptions options) {
 			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
 			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
-			return InstructionInfoFactory.Create(ref this, ref usedRegisters, ref usedMemoryLocations, options);
+			return InstructionInfoFactory.Create(this, ref usedRegisters, ref usedMemoryLocations, options);
 		}
 
 		/// <summary>
@@ -239,10 +239,10 @@ namespace Iced.Intel {
 		/// 2) If it's a <see cref="FlowControl.Call"/> or <see cref="FlowControl.Interrupt"/> instruction (call, sysenter, int n etc), it can read and write any register (including RFLAGS).
 		/// </summary>
 		/// <returns></returns>
-		public InstructionInfo.UsedRegisterIterator GetUsedRegisters() {
+		public readonly InstructionInfo.UsedRegisterIterator GetUsedRegisters() {
 			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
 			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
-			return InstructionInfoFactory.Create(ref this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.NoMemoryUsage).GetUsedRegisters();
+			return InstructionInfoFactory.Create(this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.NoMemoryUsage).GetUsedRegisters();
 		}
 
 		/// <summary>
@@ -251,16 +251,16 @@ namespace Iced.Intel {
 		/// Gets a struct iterator that returns all read and written memory locations
 		/// </summary>
 		/// <returns></returns>
-		public InstructionInfo.UsedMemoryIterator GetUsedMemory() {
+		public readonly InstructionInfo.UsedMemoryIterator GetUsedMemory() {
 			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
 			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
-			return InstructionInfoFactory.Create(ref this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.NoRegisterUsage).GetUsedMemory();
+			return InstructionInfoFactory.Create(this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.NoRegisterUsage).GetUsedMemory();
 		}
 
 		/// <summary>
 		/// Instruction encoding, eg. legacy, VEX, EVEX, ...
 		/// </summary>
-		public EncodingKind Encoding {
+		public readonly EncodingKind Encoding {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.Encoding();
 		}
@@ -270,12 +270,12 @@ namespace Iced.Intel {
 		/// </summary>
 		[Obsolete("Use " + nameof(CpuidFeatures) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public CpuidFeature CpuidFeature => CpuidFeatures[0];
+		public readonly CpuidFeature CpuidFeature => CpuidFeatures[0];
 
 		/// <summary>
 		/// Gets the CPU or CPUID feature flags
 		/// </summary>
-		public CpuidFeature[] CpuidFeatures {
+		public readonly CpuidFeature[] CpuidFeatures {
 			get {
 				var code = Code;
 				uint flags2 = InstructionInfoInternal.InfoHandlers.Data[(int)code * 2 + 1];
@@ -289,7 +289,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Flow control info
 		/// </summary>
-		public FlowControl FlowControl {
+		public readonly FlowControl FlowControl {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.FlowControl();
 		}
@@ -299,12 +299,12 @@ namespace Iced.Intel {
 		/// </summary>
 		[Obsolete("Use " + nameof(IsProtectedMode) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public bool ProtectedMode => IsProtectedMode;
+		public readonly bool ProtectedMode => IsProtectedMode;
 
 		/// <summary>
 		/// true if the instruction isn't available in real mode or virtual 8086 mode
 		/// </summary>
-		public bool IsProtectedMode {
+		public readonly bool IsProtectedMode {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsProtectedMode();
 		}
@@ -314,12 +314,12 @@ namespace Iced.Intel {
 		/// </summary>
 		[Obsolete("Use " + nameof(IsPrivileged) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public bool Privileged => IsPrivileged;
+		public readonly bool Privileged => IsPrivileged;
 
 		/// <summary>
 		/// true if this is a privileged instruction
 		/// </summary>
-		public bool IsPrivileged {
+		public readonly bool IsPrivileged {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsPrivileged();
 		}
@@ -330,13 +330,13 @@ namespace Iced.Intel {
 		/// </summary>
 		[Obsolete("Use " + nameof(IsStackInstruction) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public bool StackInstruction => IsStackInstruction;
+		public readonly bool StackInstruction => IsStackInstruction;
 
 		/// <summary>
 		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
 		/// See also <see cref="StackPointerIncrement"/>
 		/// </summary>
-		public bool IsStackInstruction {
+		public readonly bool IsStackInstruction {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsStackInstruction();
 		}
@@ -346,17 +346,17 @@ namespace Iced.Intel {
 		/// </summary>
 		[Obsolete("Use " + nameof(IsSaveRestoreInstruction) + " instead", true)]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public bool SaveRestoreInstruction => IsSaveRestoreInstruction;
+		public readonly bool SaveRestoreInstruction => IsSaveRestoreInstruction;
 
 		/// <summary>
 		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
 		/// </summary>
-		public bool IsSaveRestoreInstruction {
+		public readonly bool IsSaveRestoreInstruction {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsSaveRestoreInstruction();
 		}
 
-		InstructionInfoInternal.RflagsInfo GetRflagsInfo() {
+		readonly InstructionInfoInternal.RflagsInfo GetRflagsInfo() {
 			var flags1 = InstructionInfoInternal.InfoHandlers.Data[(int)Code << 1];
 			var codeInfo = (InstructionInfoInternal.CodeInfo)((flags1 >> (int)InstructionInfoInternal.InfoFlags1.CodeInfoShift) & (uint)InstructionInfoInternal.InfoFlags1.CodeInfoMask);
 			Debug.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 1 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD11);
@@ -405,7 +405,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// All flags that are read by the CPU when executing the instruction
 		/// </summary>
-		public RflagsBits RflagsRead {
+		public readonly RflagsBits RflagsRead {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get {
 				// If the method call is used without a temp index, the jitter generates worse code.
@@ -419,7 +419,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared. See also <see cref="RflagsModified"/>
 		/// </summary>
-		public RflagsBits RflagsWritten {
+		public readonly RflagsBits RflagsWritten {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get {
 				// See RflagsRead for the reason why a temp index is used here
@@ -431,7 +431,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// All flags that are always cleared by the CPU
 		/// </summary>
-		public RflagsBits RflagsCleared {
+		public readonly RflagsBits RflagsCleared {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get {
 				// See RflagsRead for the reason why a temp index is used here
@@ -443,7 +443,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// All flags that are always set by the CPU
 		/// </summary>
-		public RflagsBits RflagsSet {
+		public readonly RflagsBits RflagsSet {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get {
 				// See RflagsRead for the reason why a temp index is used here
@@ -455,7 +455,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// All flags that are undefined after executing the instruction
 		/// </summary>
-		public RflagsBits RflagsUndefined {
+		public readonly RflagsBits RflagsUndefined {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get {
 				// See RflagsRead for the reason why a temp index is used here
@@ -467,7 +467,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// All flags that are modified by the CPU. This is <see cref="RflagsWritten"/> + <see cref="RflagsCleared"/> + <see cref="RflagsSet"/> + <see cref="RflagsUndefined"/>
 		/// </summary>
-		public RflagsBits RflagsModified {
+		public readonly RflagsBits RflagsModified {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get {
 				// See RflagsRead for the reason why a temp index is used here
@@ -480,7 +480,7 @@ namespace Iced.Intel {
 		/// Checks if it's a jcc short or jcc near instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsJccShortOrNear {
+		public readonly bool IsJccShortOrNear {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsJccShortOrNear();
 		}
@@ -489,7 +489,7 @@ namespace Iced.Intel {
 		/// Checks if it's a jcc near instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsJccNear {
+		public readonly bool IsJccNear {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsJccNear();
 		}
@@ -498,7 +498,7 @@ namespace Iced.Intel {
 		/// Checks if it's a jcc short instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsJccShort {
+		public readonly bool IsJccShort {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsJccShort();
 		}
@@ -507,7 +507,7 @@ namespace Iced.Intel {
 		/// Checks if it's a jmp short instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsJmpShort {
+		public readonly bool IsJmpShort {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsJmpShort();
 		}
@@ -516,7 +516,7 @@ namespace Iced.Intel {
 		/// Checks if it's a jmp near instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsJmpNear {
+		public readonly bool IsJmpNear {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsJmpNear();
 		}
@@ -525,7 +525,7 @@ namespace Iced.Intel {
 		/// Checks if it's a jmp short or a jmp near instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsJmpShortOrNear {
+		public readonly bool IsJmpShortOrNear {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsJmpShortOrNear();
 		}
@@ -534,7 +534,7 @@ namespace Iced.Intel {
 		/// Checks if it's a jmp far instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsJmpFar {
+		public readonly bool IsJmpFar {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsJmpFar();
 		}
@@ -543,7 +543,7 @@ namespace Iced.Intel {
 		/// Checks if it's a call near instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsCallNear {
+		public readonly bool IsCallNear {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsCallNear();
 		}
@@ -552,7 +552,7 @@ namespace Iced.Intel {
 		/// Checks if it's a call far instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsCallFar {
+		public readonly bool IsCallFar {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsCallFar();
 		}
@@ -561,7 +561,7 @@ namespace Iced.Intel {
 		/// Checks if it's a jmp near reg/[mem] instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsJmpNearIndirect {
+		public readonly bool IsJmpNearIndirect {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsJmpNearIndirect();
 		}
@@ -570,7 +570,7 @@ namespace Iced.Intel {
 		/// Checks if it's a jmp far [mem] instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsJmpFarIndirect {
+		public readonly bool IsJmpFarIndirect {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsJmpFarIndirect();
 		}
@@ -579,7 +579,7 @@ namespace Iced.Intel {
 		/// Checks if it's a call near reg/[mem] instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsCallNearIndirect {
+		public readonly bool IsCallNearIndirect {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsCallNearIndirect();
 		}
@@ -588,7 +588,7 @@ namespace Iced.Intel {
 		/// Checks if it's a call far [mem] instruction
 		/// </summary>
 		/// <returns></returns>
-		public bool IsCallFarIndirect {
+		public readonly bool IsCallFarIndirect {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsCallFarIndirect();
 		}

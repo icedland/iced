@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_ENCODER
 namespace Iced.Intel.BlockEncoderInternal {
 	readonly struct TargetInstr {
-		readonly Instr instruction;
+		readonly Instr? instruction;
 		readonly ulong address;
 
 		public TargetInstr(Instr instruction) {
@@ -41,7 +41,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public ulong GetAddress() {
 			var instruction = this.instruction;
-			if (instruction == null)
+			if (instruction is null)
 				return address;
 			return instruction.IP;
 		}

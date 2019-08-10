@@ -135,7 +135,7 @@ namespace Iced.Examples {
             // Use InstructionList's ref iterator (C# 7.3) to prevent copying 32 bytes every iteration
             foreach (ref var instr in instructions) {
                 // Don't use instr.ToString(), it allocates more, uses masm syntax and default options
-                formatter.Format(ref instr, output);
+                formatter.Format(instr, output);
                 Console.Write(instr.IP.ToString("X16"));
                 Console.Write(" ");
                 int instrLen = instr.ByteLength;
@@ -228,7 +228,7 @@ Disassembled code:
             endRip = newDecoder.IP + (uint)newCode.Length;
             while (newDecoder.IP < endRip) {
                 newDecoder.Decode(out var instr);
-                formatter.Format(ref instr, output);
+                formatter.Format(instr, output);
                 Console.WriteLine($"{instr.IP:X16} {output.ToStringAndReset()}");
             }
         }
@@ -311,7 +311,7 @@ Disassembled code:
             ulong endRip = newDecoder.IP + (uint)newCode.Length;
             while (newDecoder.IP < endRip) {
                 newDecoder.Decode(out var instr);
-                formatter.Format(ref instr, output);
+                formatter.Format(instr, output);
                 Console.WriteLine($"{instr.IP:X16} {output.ToStringAndReset()}");
             }
         }
@@ -494,14 +494,14 @@ Disassembled code:
                 // This can be useful if there are relocations in the binary. The encoder has a similar
                 // method. This method must be called after Decode() and you must pass in the last
                 // instruction Decode() returned.
-                var offsets = decoder.GetConstantOffsets(ref instr);
+                var offsets = decoder.GetConstantOffsets(instr);
 
                 // A formatter is recommended since this ToString() method defaults to masm syntax,
                 // uses default options, and allocates every single time it's called.
                 var disasmStr = instr.ToString();
                 Console.WriteLine($"{instr.IP:X16} {disasmStr}");
 
-                var info = instrInfoFactory.GetInfo(ref instr);
+                var info = instrInfoFactory.GetInfo(instr);
                 const string tab = "    ";
                 Console.WriteLine($"{tab}Encoding: {instr.Encoding}");
                 Console.WriteLine($"{tab}Mnemonic: {instr.Mnemonic}");

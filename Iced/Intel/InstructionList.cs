@@ -87,10 +87,10 @@ namespace Iced.Intel {
 #if HAS_ROLIST
 		Instruction IReadOnlyList<Instruction>.this[int index] => elements[index];
 #endif
-		object IList.this[int index] {
+		object? IList.this[int index] {
 			get => elements[index];
 			set {
-				if (value == null)
+				if (value is null)
 					ThrowHelper.ThrowArgumentNullException_value();
 				if (!(value is Instruction))
 					ThrowHelper.ThrowArgumentException();
@@ -118,7 +118,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="list">List that will be copied to this instance</param>
 		public InstructionList(InstructionList list) {
-			if (list == null)
+			if (list is null)
 				ThrowHelper.ThrowArgumentNullException_list();
 			int length = list.count;
 			if (length == 0)
@@ -136,7 +136,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="collection">Collection that will be copied to this instance</param>
 		public InstructionList(IEnumerable<Instruction> collection) {
-			if (collection == null)
+			if (collection is null)
 				ThrowHelper.ThrowArgumentNullException_collection();
 			if (collection is ICollection<Instruction> coll) {
 				int count = coll.Count;
@@ -220,8 +220,8 @@ namespace Iced.Intel {
 			this.count = count + 1;
 		}
 		void IList<Instruction>.Insert(int index, Instruction instruction) => Insert(index, instruction);
-		void IList.Insert(int index, object value) {
-			if (value == null)
+		void IList.Insert(int index, object? value) {
+			if (value is null)
 				ThrowHelper.ThrowArgumentNullException_value();
 			if (!(value is Instruction))
 				ThrowHelper.ThrowArgumentException();
@@ -261,7 +261,7 @@ namespace Iced.Intel {
 		public void InsertRange(int index, IEnumerable<Instruction> collection) {
 			if ((uint)index > (uint)count)
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
-			if (collection == null)
+			if (collection is null)
 				ThrowHelper.ThrowArgumentNullException_collection();
 			if (collection is InstructionList list) {
 				int list_count = list.count;
@@ -337,8 +337,8 @@ namespace Iced.Intel {
 			this.count = count + 1;
 		}
 		void ICollection<Instruction>.Add(Instruction instruction) => Add(instruction);
-		int IList.Add(object value) {
-			if (value == null)
+		int IList.Add(object? value) {
+			if (value is null)
 				ThrowHelper.ThrowArgumentNullException_value();
 			if (!(value is Instruction))
 				ThrowHelper.ThrowArgumentException();
@@ -360,7 +360,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public bool Contains(in Instruction instruction) => IndexOf(instruction) >= 0;
 		bool ICollection<Instruction>.Contains(Instruction instruction) => Contains(instruction);
-		bool IList.Contains(object value) {
+		bool IList.Contains(object? value) {
 			if (value is Instruction)
 				return Contains((Instruction)value);
 			return false;
@@ -381,7 +381,7 @@ namespace Iced.Intel {
 			return -1;
 		}
 		int IList<Instruction>.IndexOf(Instruction instruction) => IndexOf(instruction);
-		int IList.IndexOf(object value) {
+		int IList.IndexOf(object? value) {
 			if (value is Instruction)
 				return IndexOf((Instruction)value);
 			return -1;
@@ -494,7 +494,7 @@ namespace Iced.Intel {
 			return index >= 0;
 		}
 		bool ICollection<Instruction>.Remove(Instruction instruction) => Remove(instruction);
-		void IList.Remove(object value) {
+		void IList.Remove(object? value) {
 			if (value is Instruction)
 				Remove((Instruction)value);
 		}
@@ -514,7 +514,7 @@ namespace Iced.Intel {
 			Array.Copy(elements, 0, array, arrayIndex, count);
 		void ICollection<Instruction>.CopyTo(Instruction[] array, int arrayIndex) => CopyTo(array, arrayIndex);
 		void ICollection.CopyTo(Array array, int index) {
-			if (array == null)
+			if (array is null)
 				ThrowHelper.ThrowArgumentNullException_array();
 			else if (array is Instruction[] elemArray)
 				CopyTo(elemArray, index);

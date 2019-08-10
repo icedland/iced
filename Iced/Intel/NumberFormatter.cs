@@ -35,7 +35,7 @@ namespace Iced.Intel {
 		readonly char[] numberCharArray;
 
 		public NumberFormatter(FormatterOptions formatterOptions) {
-			if (formatterOptions == null)
+			if (formatterOptions is null)
 				ThrowHelper.ThrowArgumentNullException_formatterOptions();
 			this.formatterOptions = formatterOptions;
 			sb = new StringBuilder();
@@ -152,10 +152,10 @@ namespace Iced.Intel {
 
 		string FormatUnsignedInteger(in NumberFormattingOptions options, ulong value, int valueSize, bool leadingZeroes, bool smallHexNumbersInDecimal) {
 			string rawNumber;
-			string prefix, suffix;
+			string? prefix, suffix;
 			int digitGroupSize;
-			string digitSeparator;
-			switch ((NumberBase)options.numberBaseByteValue) {
+			string? digitSeparator;
+			switch (options.NumberBase) {
 			case NumberBase.Hexadecimal:
 				if (smallHexNumbersInDecimal && value <= SmallPositiveNumber) {
 					digitGroupSize = formatterOptions.DecimalDigitGroupSize;

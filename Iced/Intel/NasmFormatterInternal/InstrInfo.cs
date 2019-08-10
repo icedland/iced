@@ -188,7 +188,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			return index < OpCount ? index : -1;
 		}
 
-		public InstrOpInfo(string mnemonic, ref Instruction instr, InstrOpInfoFlags flags) {
+		public InstrOpInfo(string mnemonic, in Instruction instr, InstrOpInfoFlags flags) {
 			Debug.Assert(DecoderConstants.MaxOpCount == 5);
 			Mnemonic = mnemonic;
 			Flags = flags | (InstrOpInfoFlags)((uint)instr.MemorySize << (int)InstrOpInfoFlags.MemorySizeShift);
@@ -289,7 +289,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		internal readonly Code TEST_Code;
 		protected InstrInfo(Code code) => TEST_Code = code;
 
-		public abstract void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info);
+		public abstract void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info);
 
 		protected static int GetCodeSize(CodeSize codeSize) {
 			switch (codeSize) {
@@ -314,8 +314,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) =>
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) =>
+			info = new InstrOpInfo(mnemonic, instr, flags);
 	}
 
 	sealed class SimpleInstrInfo_mmxmem : InstrInfo {
@@ -333,8 +333,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.memSize = memSize;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instr, flags);
 			if (memSize != MemorySize.Unknown)
 				info.MemorySize = memSize;
 		}
@@ -352,7 +352,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = (InstrOpInfoFlags)((int)sexInfo << (int)InstrOpInfoFlags.SignExtendInfoShift);
 
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
@@ -365,7 +365,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
 
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -381,7 +381,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 
 			bool signExtend = true;
@@ -396,7 +396,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			if (signExtend)
 				flags |= (InstrOpInfoFlags)((int)sexInfo << (int)InstrOpInfoFlags.SignExtendInfoShift);
 
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -417,12 +417,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			Debug.Assert(instr.OpCount == 2);
 			var sexInfo = instr.Op0Kind == OpKind.Memory || instr.Op1Kind == OpKind.Memory ? sexInfoMem : sexInfoReg;
 			var flags = this.flags;
 			flags |= (InstrOpInfoFlags)((int)sexInfo << (int)InstrOpInfoFlags.SignExtendInfoShift);
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -436,9 +436,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = (InstrOpInfoFlags)((int)sexInfo << (int)InstrOpInfoFlags.SignExtendInfoShift);
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 			Debug.Assert(info.OpCount == 3);
 			if (options.UsePseudoOps && info.Op0Kind == InstrOpKind.Register && info.Op1Kind == InstrOpKind.Register && info.Op0Register == info.Op1Register) {
 				info.OpCount--;
@@ -454,13 +454,13 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public SimpleInstrInfo_AamAad(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			if (instr.Immediate8 == 10) {
 				info = default;
 				info.Mnemonic = mnemonic;
 			}
 			else
-				info = new InstrOpInfo(mnemonic, ref instr, InstrOpInfoFlags.None);
+				info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 		}
 	}
 
@@ -506,7 +506,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public SimpleInstrInfo_YD(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op0Kind;
 			OpKind shortFormOpKind;
 			switch (instr.CodeSize) {
@@ -540,7 +540,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public SimpleInstrInfo_DX(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op1Kind;
 			OpKind shortFormOpKind;
 			switch (instr.CodeSize) {
@@ -574,7 +574,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public SimpleInstrInfo_YX(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op0Kind;
 			OpKind shortFormOpKind;
 			switch (instr.CodeSize) {
@@ -608,7 +608,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public SimpleInstrInfo_XY(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op1Kind;
 			OpKind shortFormOpKind;
 			switch (instr.CodeSize) {
@@ -642,7 +642,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public SimpleInstrInfo_YA(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op0Kind;
 			OpKind shortFormOpKind;
 			switch (instr.CodeSize) {
@@ -676,7 +676,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public SimpleInstrInfo_AX(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op1Kind;
 			OpKind shortFormOpKind;
 			switch (instr.CodeSize) {
@@ -710,7 +710,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public SimpleInstrInfo_AY(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op1Kind;
 			OpKind shortFormOpKind;
 			switch (instr.CodeSize) {
@@ -744,7 +744,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public SimpleInstrInfo_XLAT(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			Register baseReg;
 			switch (instr.CodeSize) {
 			case CodeSize.Unknown:
@@ -791,10 +791,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.register = register;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			if (instrCodeSize == 0 || (instrCodeSize & codeSize) != 0)
-				info = new InstrOpInfo(mnemonic, ref instr, InstrOpInfoFlags.None);
+				info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 			else {
 				info = default;
 				info.Mnemonic = "xchg";
@@ -830,7 +830,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.pseudoOp = pseudoOp;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			Debug.Assert(instr.OpCount == 2);
@@ -861,7 +861,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.pseudoOp = pseudoOp;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = default;
 			info.Flags = flags;
 			info.Mnemonic = mnemonic;
@@ -887,7 +887,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			InstrOpInfoFlags flags = 0;
 			var instrCodeSize = GetCodeSize(instr.CodeSize);
 			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
@@ -898,7 +898,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				else
 					flags |= InstrOpInfoFlags.AddrSize64;
 			}
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -907,7 +907,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public SimpleInstrInfo_maskmovq(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			Debug.Assert(instr.OpCount == 3);
 
 			var instrCodeSize = GetCodeSize(instr.CodeSize);
@@ -965,7 +965,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.memSize = memSize;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = default;
 			Debug.Assert(instr.OpCount == 2);
 			info.Mnemonic = mnemonic;
@@ -991,7 +991,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public SimpleInstrInfo_reverse2(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			Debug.Assert(instr.OpCount == 2);
@@ -1021,13 +1021,13 @@ namespace Iced.Intel.NasmFormatterInternal {
 			mnemonics[(int)CodeSize.Code64] = mnemonic64;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			string mnemonic;
 			if (instr.CodeSize == codeSize)
 				mnemonic = mnemonics[(int)CodeSize.Unknown];
 			else
 				mnemonic = mnemonics[(int)codeSize];
-			info = new InstrOpInfo(mnemonic, ref instr, InstrOpInfoFlags.None);
+			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 		}
 	}
 
@@ -1043,12 +1043,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 			mnemonics[(int)CodeSize.Code64] = mnemonic64;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			var mnemonic = mnemonics[(int)instr.CodeSize];
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1064,14 +1064,14 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonicFull = mnemonicFull;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var instrCodeSize = GetCodeSize(instr.CodeSize);
 			string mnemonic;
 			if (instrCodeSize == 0 || (instrCodeSize & codeSize) != 0)
 				mnemonic = mnemonicDefault;
 			else
 				mnemonic = mnemonicFull;
-			info = new InstrOpInfo(mnemonic, ref instr, InstrOpInfoFlags.None);
+			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 		}
 	}
 
@@ -1089,7 +1089,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = this.flags;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
@@ -1100,7 +1100,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1114,7 +1114,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			bool hasMemOp = instr.Op0Kind == OpKind.Memory || instr.Op1Kind == OpKind.Memory;
@@ -1126,7 +1126,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1142,7 +1142,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = this.flags;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			if (instrCodeSize != 0 && (instrCodeSize & codeSize) == 0) {
@@ -1151,7 +1151,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				else
 					flags |= InstrOpInfoFlags.OpSize32;
 			}
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1165,7 +1165,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			Debug.Assert(instr.OpCount == 1);
@@ -1179,7 +1179,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 						flags |= InstrOpInfoFlags.OpSize64;
 				}
 			}
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 			if (instr.Op0Kind == OpKind.Register) {
 				var reg = (Register)info.Op0Register;
 				int regSize = 0;
@@ -1224,7 +1224,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = this.flags;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			if (flags != InstrOpInfoFlags.None) {
@@ -1249,7 +1249,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			}
 			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1265,7 +1265,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			Register expectedReg;
@@ -1294,7 +1294,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 			if (addReg) {
 				Debug.Assert(info.OpCount == 1);
 				info.OpCount = 2;
@@ -1318,7 +1318,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.canHaveBndPrefix = canHaveBndPrefix;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			if (canHaveBndPrefix && instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
@@ -1331,7 +1331,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 					branchInfo = BranchSizeInfo.Dword;
 			}
 			flags |= (InstrOpInfoFlags)((int)branchInfo << (int)InstrOpInfoFlags.BranchSizeInfoShift);
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1345,7 +1345,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			var branchInfo = BranchSizeInfo.None;
@@ -1356,7 +1356,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 					branchInfo = BranchSizeInfo.Dword;
 			}
 			flags |= (InstrOpInfoFlags)((int)branchInfo << (int)InstrOpInfoFlags.BranchSizeInfoShift);
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1370,7 +1370,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.ShowNoMemSize_ForceSize;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			var farMemSizeInfo = FarMemorySizeInfo.None;
@@ -1381,7 +1381,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 					farMemSizeInfo = FarMemorySizeInfo.Dword;
 			}
 			flags |= (InstrOpInfoFlags)((int)farMemSizeInfo << (int)InstrOpInfoFlags.FarMemorySizeInfoShift);
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1395,7 +1395,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			var branchInfo = BranchSizeInfo.None;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
@@ -1413,7 +1413,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 					branchInfo = BranchSizeInfo.Dword;
 			}
 			flags |= (InstrOpInfoFlags)((int)branchInfo << (int)InstrOpInfoFlags.BranchSizeInfoShift);
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1427,7 +1427,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrCodeSize = GetCodeSize(instr.CodeSize);
 			var opKind = instr.GetOpKind(memOpNumber);
@@ -1456,7 +1456,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 					memSizeInfo = MemorySizeInfo.Dword;
 			}
 			flags |= (InstrOpInfoFlags)((int)memSizeInfo << (int)InstrOpInfoFlags.MemorySizeInfoShift);
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1474,8 +1474,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instr, flags);
 			var rc = instr.RoundingControl;
 			if (rc != RoundingControl.None) {
 				InstrOpKind rcOpKind;
@@ -1532,8 +1532,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, ref instr, InstrOpInfoFlags.None);
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 			if (instr.SuppressAllExceptions)
 				SimpleInstrInfo_er.MoveOperands(ref info, saeIndex, InstrOpKind.Sae);
 		}
@@ -1551,10 +1551,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.flagsBroadcast = flagsBroadcast;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var memInfo = MemorySizes.AllMemorySizes[(int)instr.MemorySize];
-			var flags = memInfo.bcstTo != null ? flagsBroadcast : flagsNoBroadcast;
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			var flags = !(memInfo.bcstTo is null) ? flagsBroadcast : flagsNoBroadcast;
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1570,11 +1570,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = this.flags;
 			if (instr.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 		}
 	}
 
@@ -1592,8 +1592,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instr, flags);
 			int imm = instr.Immediate8;
 			if (options.UsePseudoOps && (uint)imm < (uint)pseudo_ops.Length) {
 				info.Mnemonic = pseudo_ops[imm];
@@ -1631,8 +1631,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.pseudo_ops = pseudo_ops;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, ref instr, InstrOpInfoFlags.None);
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 			if (instr.SuppressAllExceptions)
 				SimpleInstrInfo_er.MoveOperands(ref info, saeIndex, InstrOpKind.Sae);
 			int imm = instr.Immediate8;
@@ -1657,8 +1657,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.memSize = memSize;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instr, flags);
 			if (memSize != MemorySize.Unknown)
 				info.MemorySize = memSize;
 			int imm = instr.Immediate8;
@@ -1679,8 +1679,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.pseudo_ops = pseudo_ops;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, ref instr, InstrOpInfoFlags.None);
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 			if (options.UsePseudoOps) {
 				int index;
 				int imm = instr.Immediate8;
@@ -1710,9 +1710,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
-			info = new InstrOpInfo(mnemonic, ref instr, flags);
+			info = new InstrOpInfo(mnemonic, instr, flags);
 			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D)
 				info.Op0Register = (byte)((Register)info.Op0Register - Register.EAX + Register.AX);
 			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D)
@@ -1730,7 +1730,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.mnemonic = mnemonic;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			info.OpCount = 2;
@@ -1781,8 +1781,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			this.opKind = opKind;
 		}
 
-		public override void GetOpInfo(NasmFormatterOptions options, ref Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, ref instr, InstrOpInfoFlags.MnemonicIsDirective);
+		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.MnemonicIsDirective);
 			info.OpCount = (byte)instr.DeclareDataCount;
 			info.Op0Kind = opKind;
 			info.Op1Kind = opKind;

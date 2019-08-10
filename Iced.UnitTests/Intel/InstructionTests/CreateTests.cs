@@ -65,7 +65,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var bitness in new int[] { 16, 32, 64 }) {
 				var writer = new CodeWriterImpl();
 				var encoder = Encoder.Create(bitness, writer);
-				bool result = encoder.TryEncode(ref instr, 0, out _, out var errorMessage);
+				bool result = encoder.TryEncode(instr, 0, out _, out var errorMessage);
 				Assert.Null(errorMessage);
 				Assert.True(result);
 				Assert.Equal(origData, writer.ToArray());
@@ -663,7 +663,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(decoder.Bitness, writer);
-			bool result = encoder.TryEncode(ref createdInstr, origRip, out _, out var errorMessage);
+			bool result = encoder.TryEncode(createdInstr, origRip, out _, out var errorMessage);
 			Assert.Null(errorMessage);
 			Assert.True(result);
 			Assert.Equal(bytes, writer.ToArray());

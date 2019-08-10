@@ -41,7 +41,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="sb">String builder</param>
 		public StringBuilderFormatterOutput(StringBuilder sb) {
-			if (sb == null)
+			if (sb is null)
 				ThrowHelper.ThrowArgumentNullException_sb();
 			this.sb = sb;
 		}

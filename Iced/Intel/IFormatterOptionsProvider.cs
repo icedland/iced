@@ -39,7 +39,7 @@ namespace Iced.Intel {
 		/// <param name="instructionOperand">Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.</param>
 		/// <param name="options">Options. Only those options that will be used by the formatter are initialized.</param>
 		/// <param name="numberOptions">Number formatting options</param>
-		void GetOperandOptions(ref Instruction instruction, int operand, int instructionOperand, ref FormatterOperandOptions options, ref NumberFormattingOptions numberOptions);
+		void GetOperandOptions(in Instruction instruction, int operand, int instructionOperand, ref FormatterOperandOptions options, ref NumberFormattingOptions numberOptions);
 	}
 
 	/// <summary>
@@ -114,17 +114,17 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Digit separator or null/empty string
 		/// </summary>
-		public string DigitSeparator;
+		public string? DigitSeparator;
 
 		/// <summary>
 		/// Number prefix or null/empty string
 		/// </summary>
-		public string Prefix;
+		public string? Prefix;
 
 		/// <summary>
 		/// Number suffix or null/empty string
 		/// </summary>
-		public string Suffix;
+		public string? Suffix;
 
 		/// <summary>
 		/// Size of a digit group
@@ -135,10 +135,10 @@ namespace Iced.Intel {
 		/// Number base
 		/// </summary>
 		public NumberBase NumberBase {
-			get => (NumberBase)numberBaseByteValue;
+			readonly get => (NumberBase)numberBaseByteValue;
 			set => numberBaseByteValue = (byte)value;
 		}
-		internal byte numberBaseByteValue;
+		byte numberBaseByteValue;
 
 		/// <summary>
 		/// Use upper case hex digits
@@ -177,7 +177,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static NumberFormattingOptions CreateImmediate(FormatterOptions options) {
-			if (options == null)
+			if (options is null)
 				ThrowHelper.ThrowArgumentNullException_options();
 			return CreateImmediateInternal(options);
 		}
@@ -193,7 +193,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static NumberFormattingOptions CreateDisplacement(FormatterOptions options) {
-			if (options == null)
+			if (options is null)
 				ThrowHelper.ThrowArgumentNullException_options();
 			return CreateDisplacementInternal(options);
 		}
@@ -209,7 +209,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static NumberFormattingOptions CreateBranch(FormatterOptions options) {
-			if (options == null)
+			if (options is null)
 				ThrowHelper.ThrowArgumentNullException_options();
 			return CreateBranchInternal(options);
 		}
@@ -226,7 +226,7 @@ namespace Iced.Intel {
 		/// <param name="signedNumber">Signed numbers if true, and unsigned numbers if false</param>
 		/// <param name="signExtendImmediate">Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. 'mov al,[eax+12h]' vs 'mov al,[eax+00000012h]'</param>
 		public NumberFormattingOptions(FormatterOptions options, bool leadingZeroes, bool signedNumber, bool signExtendImmediate) {
-			if (options == null)
+			if (options is null)
 				ThrowHelper.ThrowArgumentNullException_options();
 			LeadingZeroes = leadingZeroes;
 			SignedNumber = signedNumber;

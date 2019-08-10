@@ -33,8 +33,8 @@ namespace Generator {
 	}
 
 	sealed class CommandLineOptions {
-		public List<Command> Commands = new List<Command>();
-		public string IcedProjectDir = null;
+		public readonly List<Command> Commands = new List<Command>();
+		public string? IcedProjectDir = null;
 	}
 
 	static class Program {
@@ -82,7 +82,7 @@ namespace Generator {
 
 		static string GetIcedProjectDir() {
 			var dir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(typeof(Program).Assembly.Location)))));
-			if (!File.Exists(Path.Combine(dir, "Iced.sln")))
+			if (dir is null || !File.Exists(Path.Combine(dir, "Iced.sln")))
 				throw new InvalidOperationException();
 			dir = Path.Combine(dir, "Iced");
 			if (!File.Exists(Path.Combine(dir, "Iced.csproj")))

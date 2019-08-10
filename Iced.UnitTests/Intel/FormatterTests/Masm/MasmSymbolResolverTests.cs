@@ -259,7 +259,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			decoder.Decode(out var instr);
 
 			var resolver = new TestSymbolResolver {
-				tryGetSymbol = (ref Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
+				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (instructionOperand == 1 && (flags & Flags.Symbol) != 0) {
 						symbol = new SymbolResult(address, "symbol", FormatterOutputTextKind.Data, (flags & Flags.Signed) != 0 ? SymbolFlags.Signed : SymbolFlags.None);
 						return true;
@@ -276,7 +276,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			formatter.MasmOptions.AddDsPrefix32 = (flags & Flags.NoAddDsPrefix32) == 0;
 
 			var output = new StringBuilderFormatterOutput();
-			formatter.Format(ref instr, output);
+			formatter.Format(instr, output);
 			var actualFormattedString = output.ToStringAndReset();
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 			// Show the full string without ellipses by using Equal<string>() instead of Equal()

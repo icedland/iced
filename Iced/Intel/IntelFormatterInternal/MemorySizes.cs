@@ -29,8 +29,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public readonly struct Info {
 			public readonly MemorySize memorySize;
 			public readonly string[] keywords;
-			public readonly string bcstTo;
-			public Info(MemorySize memorySize, string[] keywords, string bcstTo) {
+			public readonly string? bcstTo;
+			public Info(MemorySize memorySize, string[] keywords, string? bcstTo) {
 				this.memorySize = memorySize;
 				this.keywords = keywords;
 				this.bcstTo = bcstTo;
@@ -241,7 +241,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 				default:								throw new InvalidOperationException();
 				}
 
-				string bcstTo;
+				string? bcstTo;
 				switch ((BroadcastToKind)(d >> BroadcastToKindShift)) {
 				case BroadcastToKind.None:		bcstTo = null; break;
 				case BroadcastToKind.b1to2:		bcstTo = "1to2"; break;

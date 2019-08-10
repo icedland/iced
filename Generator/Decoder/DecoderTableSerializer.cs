@@ -77,7 +77,7 @@ namespace Generator.Decoder {
 				throw new InvalidOperationException();
 			for (int i = 0; i < tables.Length; i += 2) {
 				var name = (string)tables[i];
-				var handlers = (object[])tables[i + 1];
+				var handlers = (object?[])tables[i + 1];
 				bool isHandler = IsHandler(handlers);
 				infos.Add(name, new Info((uint)i / 2, isHandler ? InfoKind.Handler : InfoKind.Handlers));
 
@@ -102,14 +102,14 @@ namespace Generator.Decoder {
 			writer.WriteLine("#endif");
 		}
 
-		static bool IsHandler(object[] handlers) {
+		static bool IsHandler(object?[] handlers) {
 			var data = handlers[0];
 			return data is OpCodeHandlerKind ||
 				data is VexOpCodeHandlerKind ||
 				data is EvexOpCodeHandlerKind;
 		}
 
-		static bool IsInvalid(object[] handler) {
+		static bool IsInvalid(object?[] handler) {
 			var data = handler[0];
 			bool isInvalid =
 				(data is OpCodeHandlerKind kind && kind == OpCodeHandlerKind.Invalid) ||
@@ -120,7 +120,7 @@ namespace Generator.Decoder {
 			return isInvalid;
 		}
 
-		void SerializeHandlers(FileWriter writer, object[] handlers, bool writeKind = false) {
+		void SerializeHandlers(FileWriter writer, object?[] handlers, bool writeKind = false) {
 			if (IsHandler(handlers)) {
 				if (writeKind)
 					Write(writer, SerializedDataKind.HandlerReference);
@@ -159,7 +159,7 @@ namespace Generator.Decoder {
 			writer.WriteCommentLine("0x" + value.ToString("X"));
 		}
 
-		int SerializeHandler(FileWriter writer, object[] handlers, int index) {
+		int SerializeHandler(FileWriter writer, object?[] handlers, int index) {
 			int invalidCount = CountInvalid(handlers, index);
 			if (invalidCount == 2) {
 				SerializeData(writer, new object[] { GetInvalid2Value() });
@@ -175,7 +175,7 @@ namespace Generator.Decoder {
 			return 1;
 		}
 
-		static int CountSame(object[] handlers, int index) {
+		static int CountSame(object?[] handlers, int index) {
 			var orig = handlers[index];
 			int count = 1;
 			for (int i = index + 1; i < handlers.Length; i++) {
@@ -186,12 +186,12 @@ namespace Generator.Decoder {
 			return count;
 		}
 
-		static bool IsSame(object a, object b) {
+		static bool IsSame(object? a, object? b) {
 			if (object.Equals(a, b))
 				return true;
 			if (a == null || b == null)
 				return false;
-			if (a is object[] aa && b is object[] ba) {
+			if (a is object?[] aa && b is object?[] ba) {
 				if (aa.Length != ba.Length)
 					return false;
 				for (int i = 0; i < aa.Length; i++) {
@@ -203,10 +203,10 @@ namespace Generator.Decoder {
 			return false;
 		}
 
-		static int CountInvalid(object[] handlers, int index) {
+		static int CountInvalid(object?[] handlers, int index) {
 			int count = 0;
 			for (int i = index; i < handlers.Length; i++) {
-				if (!(handlers[i] is object[] h) || !IsInvalid(h))
+				if (!(handlers[i] is object?[] h) || !IsInvalid(h))
 					break;
 				count++;
 			}
@@ -219,7 +219,7 @@ namespace Generator.Decoder {
 		protected abstract object GetInvalid2Value();
 		protected abstract object GetDupValue();
 
-		void SerializeHandler(FileWriter writer, object[] handler) {
+		void SerializeHandler(FileWriter writer, object?[] handler) {
 			int codeIndex = -1, codeLen = -1;
 			switch (handler[0]) {
 			case OpCodeHandlerKind kind:
@@ -408,8 +408,8 @@ namespace Generator.Decoder {
 			writer.Indent();
 			for (int i = 1; i < handler.Length; i++) {
 				if (codeIndex >= 0 && (codeIndex < i && i < codeIndex + codeLen)) {
-					var code1 = (Code)handler[codeIndex];
-					var code2 = (Code)handler[i];
+					var code1 = (Code)handler[codeIndex]!;
+					var code2 = (Code)handler[i]!;
 					if (code1 + (i - codeIndex) != code2)
 						throw new InvalidOperationException();
 					continue;
@@ -430,18 +430,18 @@ namespace Generator.Decoder {
 
 		sealed class DupInfo {
 			public readonly uint Count;
-			public readonly object Data;
-			public DupInfo(uint count, object data) {
+			public readonly object? Data;
+			public DupInfo(uint count, object? data) {
 				Count = count;
 				Data = data;
 			}
 		}
 
-		void SerializeData(FileWriter writer, object data) {
+		void SerializeData(FileWriter writer, object? data) {
 			if (data is null)
 				data = GetNullValue();
 			switch (data) {
-			case object[] moreHandlers:
+			case object?[] moreHandlers:
 				SerializeHandlers(writer, moreHandlers);
 				break;
 

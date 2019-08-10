@@ -28,21 +28,21 @@ using Iced.Intel.Internal;
 
 namespace Iced.Intel.DecoderInternal {
 	abstract class OpCodeHandlerReader {
-		public abstract int ReadHandlers(ref TableDeserializer deserializer, OpCodeHandler[] result, int resultIndex);
+		public abstract int ReadHandlers(ref TableDeserializer deserializer, OpCodeHandler?[] result, int resultIndex);
 	}
 
 	struct TableDeserializer {
 		DataReader reader;
 		readonly OpCodeHandlerReader handlerReader;
 		readonly Dictionary<uint, OpCodeHandler> indexToHandler;
-		readonly Dictionary<uint, OpCodeHandler[]> indexToHandlers;
-		readonly OpCodeHandler[] handlerArray;
+		readonly Dictionary<uint, OpCodeHandler?[]> indexToHandlers;
+		readonly OpCodeHandler?[] handlerArray;
 
 		public TableDeserializer(OpCodeHandlerReader handlerReader, byte[] data) {
 			this.handlerReader = handlerReader;
 			reader = new DataReader(data);
 			indexToHandler = new Dictionary<uint, OpCodeHandler>();
-			indexToHandlers = new Dictionary<uint, OpCodeHandler[]>();
+			indexToHandlers = new Dictionary<uint, OpCodeHandler?[]>();
 			handlerArray = new OpCodeHandler[1];
 		}
 
@@ -84,15 +84,15 @@ namespace Iced.Intel.DecoderInternal {
 			return handlerArray[0] ?? throw new InvalidOperationException();
 		}
 
-		public OpCodeHandler ReadHandlerOrNull() {
+		public OpCodeHandler? ReadHandlerOrNull() {
 			int count = handlerReader.ReadHandlers(ref this, handlerArray, 0);
 			if (count != 1)
 				throw new InvalidOperationException();
 			return handlerArray[0];
 		}
 
-		public OpCodeHandler[] ReadHandlers(int count) {
-			var handlers = new OpCodeHandler[count];
+		public OpCodeHandler?[] ReadHandlers(int count) {
+			var handlers = new OpCodeHandler?[count];
 			for (int i = 0; i < handlers.Length;) {
 				int num = handlerReader.ReadHandlers(ref this, handlers, i);
 				if (num <= 0 || (uint)i + (uint)num > (uint)handlers.Length)
@@ -118,7 +118,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler[] GetTable(uint index) {
 			if (!indexToHandlers.TryGetValue(index, out var handlers))
 				throw new InvalidOperationException();
-			return handlers;
+			return handlers!;
 		}
 	}
 }

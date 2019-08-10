@@ -29,9 +29,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 		public readonly struct Info {
 			public readonly MemorySize memorySize;
 			public readonly int size;
-			public readonly string keyword;
-			public readonly string bcstTo;
-			public Info(MemorySize memorySize, int size, string keyword, string bcstTo) {
+			public readonly string? keyword;
+			public readonly string? bcstTo;
+			public Info(MemorySize memorySize, int size, string? keyword, string? bcstTo) {
 				this.memorySize = memorySize;
 				this.size = size;
 				this.keyword = keyword;
@@ -282,7 +282,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			for (int i = 0; i < infos.Length; i++) {
 				var d = data[i];
 
-				string keyword;
+				string? keyword;
 				switch ((MemoryKeywords)(d & MemoryKeywordsMask)) {
 				case MemoryKeywords.None:		keyword = null; break;
 				case MemoryKeywords.@byte:		keyword = "byte"; break;
@@ -298,10 +298,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 				case MemoryKeywords.word:		keyword = "word"; break;
 				case MemoryKeywords.yword:		keyword = "yword"; break;
 				case MemoryKeywords.zword:		keyword = "zword"; break;
-				default:								throw new InvalidOperationException();
+				default:						throw new InvalidOperationException();
 				}
 
-				string bcstTo;
+				string? bcstTo;
 				if (i < (int)MemorySize.Broadcast64_UInt32)
 					bcstTo = null;
 				else {

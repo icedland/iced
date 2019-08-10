@@ -155,7 +155,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			Assert.Equal(code, instr.Code);
 			var formatter = IntelFormatterFactory.Create();
 			var output = new StringBuilderFormatterOutput();
-			formatter.FormatMnemonic(ref instr, output, options);
+			formatter.FormatMnemonic(instr, output, options);
 			var actualFormattedString = output.ToStringAndReset();
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 			// Show the full string without ellipses by using Equal<string>() instead of Equal()
