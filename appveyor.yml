@@ -5,23 +5,18 @@ install:
 - cmd: >-
     appveyor DownloadFile https://dot.net/v1/dotnet-install.ps1
 
-    powershell -NoLogo -NoProfile -File dotnet-install.ps1 -Version 2.2.107 -InstallDir "%ProgramFiles(x86)%\dotnet" -Architecture x86
+    powershell -NoLogo -NoProfile -File dotnet-install.ps1 -Version 3.0.100-preview7-012821 -InstallDir "%ProgramFiles%\dotnet" -Architecture x64
+
+    powershell -NoLogo -NoProfile -File dotnet-install.ps1 -Version 3.0.100-preview7-012821 -InstallDir "%ProgramFiles(x86)%\dotnet" -Architecture x86
 before_build:
 - cmd: appveyor-retry nuget restore
-build:
-  project: Iced.sln
-  parallel: true
-  verbosity: normal
-  publish_nuget_symbols: true
-  use_snupkg_format: true
+build_script:
+- cmd: build.cmd
 before_package:
 - cmd: msbuild /t:Pack /p:Configuration=Release
 artifacts:
 - path: Iced\bin\Release\*.*nupkg
   name: Iced NuGet Packages
-test_script:
-  - '"C:\Program Files\dotnet\dotnet.exe" test -c Release --no-build Iced.UnitTests\Iced.UnitTests.csproj -- RunConfiguration.NoAutoReporters=true RunConfiguration.TargetPlatform=X64'
-  - '"C:\Program Files (x86)\dotnet\dotnet.exe" test -c Release --no-build Iced.UnitTests\Iced.UnitTests.csproj -- RunConfiguration.NoAutoReporters=true RunConfiguration.TargetPlatform=X86'
 notifications:
 - provider: Email
   to:
