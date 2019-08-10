@@ -84,7 +84,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		public sbyte Op3Index;
 		public sbyte Op4Index;
 
-		public Register GetOpRegister(int operand) {
+		public readonly Register GetOpRegister(int operand) {
 			switch (operand) {
 			case 0: return (Register)Op0Register;
 			case 1: return (Register)Op1Register;
@@ -95,7 +95,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			}
 		}
 
-		public InstrOpKind GetOpKind(int operand) {
+		public readonly InstrOpKind GetOpKind(int operand) {
 			switch (operand) {
 			case 0: return Op0Kind;
 			case 1: return Op1Kind;
@@ -108,7 +108,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			}
 		}
 
-		public int GetInstructionIndex(int operand) {
+		public readonly int GetInstructionIndex(int operand) {
 			int instructionOperand;
 			switch (operand) {
 			case 0: instructionOperand = Op0Index; break;
@@ -125,7 +125,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		}
 
 #if !NO_INSTR_INFO
-		public bool TryGetOpAccess(int operand, out OpAccess access) {
+		public readonly bool TryGetOpAccess(int operand, out OpAccess access) {
 			int instructionOperand;
 			switch (operand) {
 			case 0: instructionOperand = Op0Index; break;
@@ -147,7 +147,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		}
 #endif
 
-		public int GetOperandIndex(int instructionOperand) {
+		public readonly int GetOperandIndex(int instructionOperand) {
 			int index;
 			if (instructionOperand == Op0Index)
 				index = 0;

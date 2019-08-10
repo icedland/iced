@@ -103,12 +103,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 		public sbyte Op4Index;
 
 		public MemorySize MemorySize {
-			get => (MemorySize)(((uint)Flags >> (int)InstrOpInfoFlags.MemorySizeShift) & (uint)InstrOpInfoFlags.MemorySizeMask);
+			readonly get => (MemorySize)(((uint)Flags >> (int)InstrOpInfoFlags.MemorySizeShift) & (uint)InstrOpInfoFlags.MemorySizeMask);
 			set => Flags = (InstrOpInfoFlags)(((uint)Flags & ~((uint)InstrOpInfoFlags.MemorySizeMask << (int)InstrOpInfoFlags.MemorySizeShift)) |
 				(((uint)value & (uint)InstrOpInfoFlags.MemorySizeMask) << (int)InstrOpInfoFlags.MemorySizeShift));
 		}
 
-		public Register GetOpRegister(int operand) {
+		public readonly Register GetOpRegister(int operand) {
 			switch (operand) {
 			case 0: return (Register)Op0Register;
 			case 1: return (Register)Op1Register;
@@ -119,7 +119,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			}
 		}
 
-		public InstrOpKind GetOpKind(int operand) {
+		public readonly InstrOpKind GetOpKind(int operand) {
 			switch (operand) {
 			case 0: return Op0Kind;
 			case 1: return Op1Kind;
@@ -132,7 +132,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			}
 		}
 
-		public int GetInstructionIndex(int operand) {
+		public readonly int GetInstructionIndex(int operand) {
 			int instructionOperand;
 			switch (operand) {
 			case 0: instructionOperand = Op0Index; break;
@@ -149,7 +149,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 
 #if !NO_INSTR_INFO
-		public bool TryGetOpAccess(int operand, out OpAccess access) {
+		public readonly bool TryGetOpAccess(int operand, out OpAccess access) {
 			int instructionOperand;
 			switch (operand) {
 			case 0: instructionOperand = Op0Index; break;
@@ -171,7 +171,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 #endif
 
-		public int GetOperandIndex(int instructionOperand) {
+		public readonly int GetOperandIndex(int instructionOperand) {
 			int index;
 			if (instructionOperand == Op0Index)
 				index = 0;
