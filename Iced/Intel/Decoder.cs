@@ -746,21 +746,6 @@ after_read_prefixes:
 		}
 
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		internal void ReadOpMem_VSIB(ref Instruction instruction, Register vsibIndex) {
-			Debug.Assert(state.Encoding != EncodingKind.EVEX);
-			if (state.addressSize == OpSize.Size64) {
-				if (!ReadOpMem32Or64(ref instruction, Register.RAX, vsibIndex, TupleType.None, true))
-					SetInvalidInstruction();
-			}
-			else if (state.addressSize == OpSize.Size32) {
-				if (!ReadOpMem32Or64(ref instruction, Register.EAX, vsibIndex, TupleType.None, true))
-					SetInvalidInstruction();
-			}
-			else
-				SetInvalidInstruction();
-		}
-
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void ReadOpMem_VSIB(ref Instruction instruction, Register vsibIndex, TupleType tupleType) {
 			if (state.addressSize == OpSize.Size64) {
 				if (!ReadOpMem32Or64(ref instruction, Register.RAX, vsibIndex, tupleType, true))

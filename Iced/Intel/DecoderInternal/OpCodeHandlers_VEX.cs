@@ -1368,7 +1368,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				decoder.ReadOpMem_VSIB(ref instruction, vsibIndex);
+				decoder.ReadOpMem_VSIB(ref instruction, vsibIndex, TupleType.None);
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp2Kind = OpKind.Register;
