@@ -414,26 +414,38 @@ F0 66 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock
 66 6B 18 A5, Imul_r32_rm32_imm8, Imul, 3, op0=r;ebx op1=m;ds;bx;si;1;0;0;Int32 op2=i8to32;0xFFFFFFA5 co=3;1;0;0;0;0
 
 6C, Insb_m8_DX, Insb, 2, op0=esdi;UInt8 op1=r;dx
+F3 6C, Insb_m8_DX, Insb, 2, op0=esdi;UInt8 op1=r;dx rep
 66 6C, Insb_m8_DX, Insb, 2, op0=esdi;UInt8 op1=r;dx enc=6C
 67 6C, Insb_m8_DX, Insb, 2, op0=esedi;UInt8 op1=r;dx
+67 F3 6C, Insb_m8_DX, Insb, 2, op0=esedi;UInt8 op1=r;dx rep
 66 67 6C, Insb_m8_DX, Insb, 2, op0=esedi;UInt8 op1=r;dx enc=676C
 
 6D, Insw_m16_DX, Insw, 2, op0=esdi;UInt16 op1=r;dx
+F3 6D, Insw_m16_DX, Insw, 2, op0=esdi;UInt16 op1=r;dx rep
 67 6D, Insw_m16_DX, Insw, 2, op0=esedi;UInt16 op1=r;dx
+67 F3 6D, Insw_m16_DX, Insw, 2, op0=esedi;UInt16 op1=r;dx rep
 
 66 6D, Insd_m32_DX, Insd, 2, op0=esdi;UInt32 op1=r;dx
+66 F3 6D, Insd_m32_DX, Insd, 2, op0=esdi;UInt32 op1=r;dx rep
 66 67 6D, Insd_m32_DX, Insd, 2, op0=esedi;UInt32 op1=r;dx
+66 67 F3 6D, Insd_m32_DX, Insd, 2, op0=esedi;UInt32 op1=r;dx rep
 
 6E, Outsb_DX_m8, Outsb, 2, op0=r;dx op1=segsi;ds;UInt8
+F3 6E, Outsb_DX_m8, Outsb, 2, op0=r;dx op1=segsi;ds;UInt8 rep
 66 6E, Outsb_DX_m8, Outsb, 2, op0=r;dx op1=segsi;ds;UInt8 enc=6E
 67 6E, Outsb_DX_m8, Outsb, 2, op0=r;dx op1=segesi;ds;UInt8
+67 F3 6E, Outsb_DX_m8, Outsb, 2, op0=r;dx op1=segesi;ds;UInt8 rep
 66 67 6E, Outsb_DX_m8, Outsb, 2, op0=r;dx op1=segesi;ds;UInt8 enc=676E
 
 6F, Outsw_DX_m16, Outsw, 2, op0=r;dx op1=segsi;ds;UInt16
+F3 6F, Outsw_DX_m16, Outsw, 2, op0=r;dx op1=segsi;ds;UInt16 rep
 67 6F, Outsw_DX_m16, Outsw, 2, op0=r;dx op1=segesi;ds;UInt16
+67 F3 6F, Outsw_DX_m16, Outsw, 2, op0=r;dx op1=segesi;ds;UInt16 rep
 
 66 6F, Outsd_DX_m32, Outsd, 2, op0=r;dx op1=segsi;ds;UInt32
+66 F3 6F, Outsd_DX_m32, Outsd, 2, op0=r;dx op1=segsi;ds;UInt32 rep
 66 67 6F, Outsd_DX_m32, Outsd, 2, op0=r;dx op1=segesi;ds;UInt32
+66 67 F3 6F, Outsd_DX_m32, Outsd, 2, op0=r;dx op1=segesi;ds;UInt32 rep
 
 70 5A, Jo_rel8_16, Jo, 1, op0=nb16;0x804C co=1;1;0;0;0;0
 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
@@ -968,6 +980,7 @@ A3 1234, Mov_moffs16_AX, Mov, 2, op0=m;ds;;;1;0x3412;2;UInt16 op1=r;ax co=0;0;0;
 65 66 67 A3 12345678, Mov_moffs32_EAX, Mov, 2, op0=m;gs;;;1;0x78563412;4;UInt32 op1=r;eax gs: co=0;0;0;0;4;4
 
 A4, Movsb_m8_m8, Movsb, 2, op0=esdi;UInt8 op1=segsi;ds;UInt8
+F3 A4, Movsb_m8_m8, Movsb, 2, op0=esdi;UInt8 op1=segsi;ds;UInt8 rep
 26 A4, Movsb_m8_m8, Movsb, 2, op0=esdi;UInt8 op1=segsi;es;UInt8 es:
 2E A4, Movsb_m8_m8, Movsb, 2, op0=esdi;UInt8 op1=segsi;cs;UInt8 cs:
 36 A4, Movsb_m8_m8, Movsb, 2, op0=esdi;UInt8 op1=segsi;ss;UInt8 ss:
@@ -975,14 +988,17 @@ A4, Movsb_m8_m8, Movsb, 2, op0=esdi;UInt8 op1=segsi;ds;UInt8
 64 A4, Movsb_m8_m8, Movsb, 2, op0=esdi;UInt8 op1=segsi;fs;UInt8 fs:
 65 A4, Movsb_m8_m8, Movsb, 2, op0=esdi;UInt8 op1=segsi;gs;UInt8 gs:
 67 A4, Movsb_m8_m8, Movsb, 2, op0=esedi;UInt8 op1=segesi;ds;UInt8
+67 F3 A4, Movsb_m8_m8, Movsb, 2, op0=esedi;UInt8 op1=segesi;ds;UInt8 rep
 26 67 A4, Movsb_m8_m8, Movsb, 2, op0=esedi;UInt8 op1=segesi;es;UInt8 es:
 2E 67 A4, Movsb_m8_m8, Movsb, 2, op0=esedi;UInt8 op1=segesi;cs;UInt8 cs:
 36 67 A4, Movsb_m8_m8, Movsb, 2, op0=esedi;UInt8 op1=segesi;ss;UInt8 ss:
 3E 67 A4, Movsb_m8_m8, Movsb, 2, op0=esedi;UInt8 op1=segesi;ds;UInt8 ds:
 64 67 A4, Movsb_m8_m8, Movsb, 2, op0=esedi;UInt8 op1=segesi;fs;UInt8 fs:
 65 67 A4, Movsb_m8_m8, Movsb, 2, op0=esedi;UInt8 op1=segesi;gs;UInt8 gs:
+65 67 F3 A4, Movsb_m8_m8, Movsb, 2, op0=esedi;UInt8 op1=segesi;gs;UInt8 gs: rep
 
 A5, Movsw_m16_m16, Movsw, 2, op0=esdi;UInt16 op1=segsi;ds;UInt16
+F3 A5, Movsw_m16_m16, Movsw, 2, op0=esdi;UInt16 op1=segsi;ds;UInt16 rep
 26 A5, Movsw_m16_m16, Movsw, 2, op0=esdi;UInt16 op1=segsi;es;UInt16 es:
 2E A5, Movsw_m16_m16, Movsw, 2, op0=esdi;UInt16 op1=segsi;cs;UInt16 cs:
 36 A5, Movsw_m16_m16, Movsw, 2, op0=esdi;UInt16 op1=segsi;ss;UInt16 ss:
@@ -990,14 +1006,17 @@ A5, Movsw_m16_m16, Movsw, 2, op0=esdi;UInt16 op1=segsi;ds;UInt16
 64 A5, Movsw_m16_m16, Movsw, 2, op0=esdi;UInt16 op1=segsi;fs;UInt16 fs:
 65 A5, Movsw_m16_m16, Movsw, 2, op0=esdi;UInt16 op1=segsi;gs;UInt16 gs:
 67 A5, Movsw_m16_m16, Movsw, 2, op0=esedi;UInt16 op1=segesi;ds;UInt16
+67 F3 A5, Movsw_m16_m16, Movsw, 2, op0=esedi;UInt16 op1=segesi;ds;UInt16 rep
 26 67 A5, Movsw_m16_m16, Movsw, 2, op0=esedi;UInt16 op1=segesi;es;UInt16 es:
 2E 67 A5, Movsw_m16_m16, Movsw, 2, op0=esedi;UInt16 op1=segesi;cs;UInt16 cs:
 36 67 A5, Movsw_m16_m16, Movsw, 2, op0=esedi;UInt16 op1=segesi;ss;UInt16 ss:
 3E 67 A5, Movsw_m16_m16, Movsw, 2, op0=esedi;UInt16 op1=segesi;ds;UInt16 ds:
 64 67 A5, Movsw_m16_m16, Movsw, 2, op0=esedi;UInt16 op1=segesi;fs;UInt16 fs:
 65 67 A5, Movsw_m16_m16, Movsw, 2, op0=esedi;UInt16 op1=segesi;gs;UInt16 gs:
+65 67 F3 A5, Movsw_m16_m16, Movsw, 2, op0=esedi;UInt16 op1=segesi;gs;UInt16 gs: rep
 
 66 A5, Movsd_m32_m32, Movsd, 2, op0=esdi;UInt32 op1=segsi;ds;UInt32
+66 F3 A5, Movsd_m32_m32, Movsd, 2, op0=esdi;UInt32 op1=segsi;ds;UInt32 rep
 26 66 A5, Movsd_m32_m32, Movsd, 2, op0=esdi;UInt32 op1=segsi;es;UInt32 es:
 2E 66 A5, Movsd_m32_m32, Movsd, 2, op0=esdi;UInt32 op1=segsi;cs;UInt32 cs:
 36 66 A5, Movsd_m32_m32, Movsd, 2, op0=esdi;UInt32 op1=segsi;ss;UInt32 ss:
@@ -1005,14 +1024,18 @@ A5, Movsw_m16_m16, Movsw, 2, op0=esdi;UInt16 op1=segsi;ds;UInt16
 64 66 A5, Movsd_m32_m32, Movsd, 2, op0=esdi;UInt32 op1=segsi;fs;UInt32 fs:
 65 66 A5, Movsd_m32_m32, Movsd, 2, op0=esdi;UInt32 op1=segsi;gs;UInt32 gs:
 66 67 A5, Movsd_m32_m32, Movsd, 2, op0=esedi;UInt32 op1=segesi;ds;UInt32
+66 67 F3 A5, Movsd_m32_m32, Movsd, 2, op0=esedi;UInt32 op1=segesi;ds;UInt32 rep
 26 66 67 A5, Movsd_m32_m32, Movsd, 2, op0=esedi;UInt32 op1=segesi;es;UInt32 es:
 2E 66 67 A5, Movsd_m32_m32, Movsd, 2, op0=esedi;UInt32 op1=segesi;cs;UInt32 cs:
 36 66 67 A5, Movsd_m32_m32, Movsd, 2, op0=esedi;UInt32 op1=segesi;ss;UInt32 ss:
 3E 66 67 A5, Movsd_m32_m32, Movsd, 2, op0=esedi;UInt32 op1=segesi;ds;UInt32 ds:
 64 66 67 A5, Movsd_m32_m32, Movsd, 2, op0=esedi;UInt32 op1=segesi;fs;UInt32 fs:
 65 66 67 A5, Movsd_m32_m32, Movsd, 2, op0=esedi;UInt32 op1=segesi;gs;UInt32 gs:
+65 66 67 F3 A5, Movsd_m32_m32, Movsd, 2, op0=esedi;UInt32 op1=segesi;gs;UInt32 gs: rep
 
 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segsi;ds;UInt8 op1=esdi;UInt8
+F3 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segsi;ds;UInt8 op1=esdi;UInt8 repe
+F2 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segsi;ds;UInt8 op1=esdi;UInt8 repne
 26 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segsi;es;UInt8 op1=esdi;UInt8 es:
 2E A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segsi;cs;UInt8 op1=esdi;UInt8 cs:
 36 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segsi;ss;UInt8 op1=esdi;UInt8 ss:
@@ -1020,14 +1043,20 @@ A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segsi;ds;UInt8 op1=esdi;UInt8
 64 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segsi;fs;UInt8 op1=esdi;UInt8 fs:
 65 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segsi;gs;UInt8 op1=esdi;UInt8 gs:
 67 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segesi;ds;UInt8 op1=esedi;UInt8
+67 F3 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segesi;ds;UInt8 op1=esedi;UInt8 repe
+67 F2 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segesi;ds;UInt8 op1=esedi;UInt8 repne
 26 67 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segesi;es;UInt8 op1=esedi;UInt8 es:
 2E 67 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segesi;cs;UInt8 op1=esedi;UInt8 cs:
 36 67 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segesi;ss;UInt8 op1=esedi;UInt8 ss:
 3E 67 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segesi;ds;UInt8 op1=esedi;UInt8 ds:
 64 67 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segesi;fs;UInt8 op1=esedi;UInt8 fs:
 65 67 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segesi;gs;UInt8 op1=esedi;UInt8 gs:
+65 67 F3 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segesi;gs;UInt8 op1=esedi;UInt8 gs: repe
+65 67 F2 A6, Cmpsb_m8_m8, Cmpsb, 2, op0=segesi;gs;UInt8 op1=esedi;UInt8 gs: repne
 
 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segsi;ds;UInt16 op1=esdi;UInt16
+F3 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segsi;ds;UInt16 op1=esdi;UInt16 repe
+F2 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segsi;ds;UInt16 op1=esdi;UInt16 repne
 26 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segsi;es;UInt16 op1=esdi;UInt16 es:
 2E A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segsi;cs;UInt16 op1=esdi;UInt16 cs:
 36 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segsi;ss;UInt16 op1=esdi;UInt16 ss:
@@ -1035,14 +1064,20 @@ A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segsi;ds;UInt16 op1=esdi;UInt16
 64 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segsi;fs;UInt16 op1=esdi;UInt16 fs:
 65 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segsi;gs;UInt16 op1=esdi;UInt16 gs:
 67 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segesi;ds;UInt16 op1=esedi;UInt16
+67 F3 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segesi;ds;UInt16 op1=esedi;UInt16 repe
+67 F2 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segesi;ds;UInt16 op1=esedi;UInt16 repne
 26 67 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segesi;es;UInt16 op1=esedi;UInt16 es:
 2E 67 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segesi;cs;UInt16 op1=esedi;UInt16 cs:
 36 67 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segesi;ss;UInt16 op1=esedi;UInt16 ss:
 3E 67 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segesi;ds;UInt16 op1=esedi;UInt16 ds:
 64 67 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segesi;fs;UInt16 op1=esedi;UInt16 fs:
 65 67 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segesi;gs;UInt16 op1=esedi;UInt16 gs:
+65 67 F3 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segesi;gs;UInt16 op1=esedi;UInt16 gs: repe
+65 67 F2 A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segesi;gs;UInt16 op1=esedi;UInt16 gs: repne
 
 66 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segsi;ds;UInt32 op1=esdi;UInt32
+66 F3 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segsi;ds;UInt32 op1=esdi;UInt32 repe
+66 F2 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segsi;ds;UInt32 op1=esdi;UInt32 repne
 26 66 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segsi;es;UInt32 op1=esdi;UInt32 es:
 2E 66 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segsi;cs;UInt32 op1=esdi;UInt32 cs:
 36 66 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segsi;ss;UInt32 op1=esdi;UInt32 ss:
@@ -1050,12 +1085,16 @@ A7, Cmpsw_m16_m16, Cmpsw, 2, op0=segsi;ds;UInt16 op1=esdi;UInt16
 64 66 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segsi;fs;UInt32 op1=esdi;UInt32 fs:
 65 66 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segsi;gs;UInt32 op1=esdi;UInt32 gs:
 66 67 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segesi;ds;UInt32 op1=esedi;UInt32
+66 67 F3 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segesi;ds;UInt32 op1=esedi;UInt32 repe
+66 67 F2 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segesi;ds;UInt32 op1=esedi;UInt32 repne
 26 66 67 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segesi;es;UInt32 op1=esedi;UInt32 es:
 2E 66 67 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segesi;cs;UInt32 op1=esedi;UInt32 cs:
 36 66 67 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segesi;ss;UInt32 op1=esedi;UInt32 ss:
 3E 66 67 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segesi;ds;UInt32 op1=esedi;UInt32 ds:
 64 66 67 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segesi;fs;UInt32 op1=esedi;UInt32 fs:
 65 66 67 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segesi;gs;UInt32 op1=esedi;UInt32 gs:
+65 66 67 F3 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segesi;gs;UInt32 op1=esedi;UInt32 gs: repe
+65 66 67 F2 A7, Cmpsd_m32_m32, Cmpsd, 2, op0=segesi;gs;UInt32 op1=esedi;UInt32 gs: repne
 
 A8 5A, Test_AL_imm8, Test, 2, op0=r;al op1=i8;0x5A co=1;1;0;0;0;0
 
@@ -1064,15 +1103,22 @@ A9 5AA5, Test_AX_imm16, Test, 2, op0=r;ax op1=i16;0xA55A co=1;2;0;0;0;0
 66 A9 5AA51234, Test_EAX_imm32, Test, 2, op0=r;eax op1=i32;0x3412A55A co=2;4;0;0;0;0
 
 AA, Stosb_m8_AL, Stosb, 2, op0=esdi;UInt8 op1=r;al
+F3 AA, Stosb_m8_AL, Stosb, 2, op0=esdi;UInt8 op1=r;al rep
 67 AA, Stosb_m8_AL, Stosb, 2, op0=esedi;UInt8 op1=r;al
+67 F3 AA, Stosb_m8_AL, Stosb, 2, op0=esedi;UInt8 op1=r;al rep
 
 AB, Stosw_m16_AX, Stosw, 2, op0=esdi;UInt16 op1=r;ax
+F3 AB, Stosw_m16_AX, Stosw, 2, op0=esdi;UInt16 op1=r;ax rep
 67 AB, Stosw_m16_AX, Stosw, 2, op0=esedi;UInt16 op1=r;ax
+67 F3 AB, Stosw_m16_AX, Stosw, 2, op0=esedi;UInt16 op1=r;ax rep
 
 66 AB, Stosd_m32_EAX, Stosd, 2, op0=esdi;UInt32 op1=r;eax
+66 F3 AB, Stosd_m32_EAX, Stosd, 2, op0=esdi;UInt32 op1=r;eax rep
 66 67 AB, Stosd_m32_EAX, Stosd, 2, op0=esedi;UInt32 op1=r;eax
+66 67 F3 AB, Stosd_m32_EAX, Stosd, 2, op0=esedi;UInt32 op1=r;eax rep
 
 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segsi;ds;UInt8
+F3 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segsi;ds;UInt8 rep
 26 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segsi;es;UInt8 es:
 2E AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segsi;cs;UInt8 cs:
 36 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segsi;ss;UInt8 ss:
@@ -1080,14 +1126,17 @@ AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segsi;ds;UInt8
 64 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segsi;fs;UInt8 fs:
 65 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segsi;gs;UInt8 gs:
 67 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segesi;ds;UInt8
+67 F3 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segesi;ds;UInt8 rep
 26 67 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segesi;es;UInt8 es:
 2E 67 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segesi;cs;UInt8 cs:
 36 67 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segesi;ss;UInt8 ss:
 3E 67 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segesi;ds;UInt8 ds:
 64 67 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segesi;fs;UInt8 fs:
 65 67 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segesi;gs;UInt8 gs:
+65 67 F3 AC, Lodsb_AL_m8, Lodsb, 2, op0=r;al op1=segesi;gs;UInt8 gs: rep
 
 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segsi;ds;UInt16
+F3 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segsi;ds;UInt16 rep
 26 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segsi;es;UInt16 es:
 2E AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segsi;cs;UInt16 cs:
 36 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segsi;ss;UInt16 ss:
@@ -1095,14 +1144,17 @@ AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segsi;ds;UInt16
 64 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segsi;fs;UInt16 fs:
 65 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segsi;gs;UInt16 gs:
 67 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segesi;ds;UInt16
+67 F3 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segesi;ds;UInt16 rep
 26 67 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segesi;es;UInt16 es:
 2E 67 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segesi;cs;UInt16 cs:
 36 67 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segesi;ss;UInt16 ss:
 3E 67 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segesi;ds;UInt16 ds:
 64 67 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segesi;fs;UInt16 fs:
 65 67 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segesi;gs;UInt16 gs:
+65 67 F3 AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segesi;gs;UInt16 gs: rep
 
 66 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segsi;ds;UInt32
+66 F3 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segsi;ds;UInt32 rep
 26 66 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segsi;es;UInt32 es:
 2E 66 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segsi;cs;UInt32 cs:
 36 66 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segsi;ss;UInt32 ss:
@@ -1110,21 +1162,35 @@ AD, Lodsw_AX_m16, Lodsw, 2, op0=r;ax op1=segsi;ds;UInt16
 64 66 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segsi;fs;UInt32 fs:
 65 66 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segsi;gs;UInt32 gs:
 66 67 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segesi;ds;UInt32
+66 67 F3 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segesi;ds;UInt32 rep
 26 66 67 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segesi;es;UInt32 es:
 2E 66 67 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segesi;cs;UInt32 cs:
 36 66 67 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segesi;ss;UInt32 ss:
 3E 66 67 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segesi;ds;UInt32 ds:
 64 66 67 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segesi;fs;UInt32 fs:
 65 66 67 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segesi;gs;UInt32 gs:
+65 66 67 F3 AD, Lodsd_EAX_m32, Lodsd, 2, op0=r;eax op1=segesi;gs;UInt32 gs: rep
 
 AE, Scasb_AL_m8, Scasb, 2, op0=r;al op1=esdi;UInt8
+F3 AE, Scasb_AL_m8, Scasb, 2, op0=r;al op1=esdi;UInt8 repe
+F2 AE, Scasb_AL_m8, Scasb, 2, op0=r;al op1=esdi;UInt8 repne
 67 AE, Scasb_AL_m8, Scasb, 2, op0=r;al op1=esedi;UInt8
+67 F3 AE, Scasb_AL_m8, Scasb, 2, op0=r;al op1=esedi;UInt8 repe
+67 F2 AE, Scasb_AL_m8, Scasb, 2, op0=r;al op1=esedi;UInt8 repne
 
 AF, Scasw_AX_m16, Scasw, 2, op0=r;ax op1=esdi;UInt16
+F3 AF, Scasw_AX_m16, Scasw, 2, op0=r;ax op1=esdi;UInt16 repe
+F2 AF, Scasw_AX_m16, Scasw, 2, op0=r;ax op1=esdi;UInt16 repne
 67 AF, Scasw_AX_m16, Scasw, 2, op0=r;ax op1=esedi;UInt16
+67 F3 AF, Scasw_AX_m16, Scasw, 2, op0=r;ax op1=esedi;UInt16 repe
+67 F2 AF, Scasw_AX_m16, Scasw, 2, op0=r;ax op1=esedi;UInt16 repne
 
 66 AF, Scasd_EAX_m32, Scasd, 2, op0=r;eax op1=esdi;UInt32
+66 F3 AF, Scasd_EAX_m32, Scasd, 2, op0=r;eax op1=esdi;UInt32 repe
+66 F2 AF, Scasd_EAX_m32, Scasd, 2, op0=r;eax op1=esdi;UInt32 repne
 66 67 AF, Scasd_EAX_m32, Scasd, 2, op0=r;eax op1=esedi;UInt32
+66 67 F3 AF, Scasd_EAX_m32, Scasd, 2, op0=r;eax op1=esedi;UInt32 repe
+66 67 F2 AF, Scasd_EAX_m32, Scasd, 2, op0=r;eax op1=esedi;UInt32 repne
 
 B0 5A, Mov_r8_imm8, Mov, 2, op0=r;al op1=i8;0x5A co=1;1;0;0;0;0
 B1 A5, Mov_r8_imm8, Mov, 2, op0=r;cl op1=i8;0xA5 co=1;1;0;0;0;0
