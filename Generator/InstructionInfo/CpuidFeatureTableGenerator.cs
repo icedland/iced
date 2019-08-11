@@ -153,6 +153,7 @@ namespace Generator.InstructionInfo {
 				new[] { CpuidFeature.PTWRITE },
 				new[] { CpuidFeature.RDPID },
 				new[] { CpuidFeature.RDPMC },
+				new[] { CpuidFeature.RDPRU },
 				new[] { CpuidFeature.RDRAND },
 				new[] { CpuidFeature.RDSEED },
 				new[] { CpuidFeature.RDTSCP },

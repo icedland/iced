@@ -1011,6 +1011,8 @@ C4E379 63 10 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, VEX, AVX, fw=cosz fc=ap op0=r 
 67 0F01 FC, Clzerow, Legacy, CLZERO, r=ax;ds
 # clzero
 0F01 FC, Clzerod, Legacy, CLZERO, r=eax;ds
+# rdpru
+0F01 FD, Rdpru, Legacy, RDPRU, fw=c fc=aopsz r=ecx w=eax;edx
 # add es:[eax],bh
 26 00 38, Add_rm8_r8, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=es r=eax r=bh rwm=es:eax;UInt8
 # add cs:[eax],bh

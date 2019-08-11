@@ -930,6 +930,7 @@ namespace Iced.Intel {
 		Clzerow,													// a16 0F01 FC
 		Clzerod,													// a32 0F01 FC
 		Clzeroq,													// a64 0F01 FC
+		Rdpru,														// 0F01 FD
 		Lar_r16_rm16,												// o16 0F02
 		Lar_r32_rm32,												// o32 0F02
 		Lar_r64_rm64,												// REX.W 0F02

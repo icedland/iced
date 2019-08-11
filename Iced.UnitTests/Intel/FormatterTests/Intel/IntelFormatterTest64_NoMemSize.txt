@@ -7441,6 +7441,7 @@ monitorx
 mwaitx
 clzero eax
 clzero rax
+rdpru
 prefetch_exclusive [rax]
 femms
 movntss [rax], xmm1

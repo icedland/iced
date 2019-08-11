@@ -7441,6 +7441,7 @@ monitorx
 mwaitx
 clzero eax
 clzero rax
+rdpru
 prefetch_exclusive byte ptr [rax]
 femms
 movntss dword ptr [rax], xmm1

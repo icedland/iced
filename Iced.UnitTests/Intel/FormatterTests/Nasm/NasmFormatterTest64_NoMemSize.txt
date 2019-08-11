@@ -7441,6 +7441,7 @@ monitorx
 mwaitx
 a32 clzero
 clzero
+rdpru
 prefetch [rax]
 femms
 movntss [rax],xmm1

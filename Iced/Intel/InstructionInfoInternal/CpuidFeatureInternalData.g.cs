@@ -84,8 +84,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x1F,// AVX512F
 				0x1F, 0x19,// AVX512F, AVX512_VP2INTERSECT
 				0x1F, 0x41,// AVX512F, GFNI
-				0x1F, 0x78,// AVX512F, VAES
-				0x1F, 0x7A,// AVX512F, VPCLMULQDQ
+				0x1F, 0x79,// AVX512F, VAES
+				0x1F, 0x7B,// AVX512F, VPCLMULQDQ
 				0x20,// AVX512PF
 				0x21, 0x13,// AVX512VL, AVX512_BF16
 				0x21, 0x14,// AVX512VL, AVX512_BITALG
@@ -100,8 +100,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x21, 0x1D,// AVX512VL, AVX512DQ
 				0x21, 0x1F,// AVX512VL, AVX512F
 				0x21, 0x41,// AVX512VL, GFNI
-				0x21, 0x78,// AVX512VL, VAES
-				0x21, 0x7A,// AVX512VL, VPCLMULQDQ
+				0x21, 0x79,// AVX512VL, VAES
+				0x21, 0x7B,// AVX512VL, VPCLMULQDQ
 				0x22,// BMI1
 				0x23,// BMI2
 				0x24,// CET_IBT
@@ -127,7 +127,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x38,// FMA4
 				0x39,// FPU
 				0x39, 0x2D,// FPU, CMOV
-				0x39, 0x6E,// FPU, SSE3
+				0x39, 0x6F,// FPU, SSE3
 				0x3A,// FPU287
 				0x3B,// FPU287XL_ONLY
 				0x3C,// FPU387
@@ -167,38 +167,39 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x5E,// PTWRITE
 				0x5F,// RDPID
 				0x60,// RDPMC
-				0x61,// RDRAND
-				0x62,// RDSEED
-				0x63,// RDTSCP
-				0x64,// RTM
-				0x65,// SEP
-				0x66,// SGX1
-				0x67,// SHA
-				0x69,// SKINIT_or_SVML
-				0x6A,// SMAP
-				0x6B,// SMX
-				0x6C,// SSE
-				0x6D,// SSE2
-				0x6E,// SSE3
-				0x6F,// SSE4_1
-				0x70,// SSE4_2
-				0x71,// SSE4A
-				0x72,// SSSE3
-				0x73,// SVM
-				0x75,// SYSCALL
-				0x76,// TBM
-				0x77,// TSC
-				0x78,// VAES
-				0x79,// VMX
-				0x7A,// VPCLMULQDQ
-				0x7B,// WAITPKG
-				0x7C,// WBNOINVD
-				0x7D,// XOP
-				0x7E,// XSAVE
-				0x7F,// XSAVEC
-				0x80,// XSAVEOPT
-				0x81,// XSAVES
-				0x82,// ZALLOC
+				0x61,// RDPRU
+				0x62,// RDRAND
+				0x63,// RDSEED
+				0x64,// RDTSCP
+				0x65,// RTM
+				0x66,// SEP
+				0x67,// SGX1
+				0x68,// SHA
+				0x6A,// SKINIT_or_SVML
+				0x6B,// SMAP
+				0x6C,// SMX
+				0x6D,// SSE
+				0x6E,// SSE2
+				0x6F,// SSE3
+				0x70,// SSE4_1
+				0x71,// SSE4_2
+				0x72,// SSE4A
+				0x73,// SSSE3
+				0x74,// SVM
+				0x76,// SYSCALL
+				0x77,// TBM
+				0x78,// TSC
+				0x79,// VAES
+				0x7A,// VMX
+				0x7B,// VPCLMULQDQ
+				0x7C,// WAITPKG
+				0x7D,// WBNOINVD
+				0x7E,// XOP
+				0x7F,// XSAVE
+				0x80,// XSAVEC
+				0x81,// XSAVEOPT
+				0x82,// XSAVES
+				0x83,// ZALLOC
 			};
 	}
 }

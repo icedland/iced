@@ -681,6 +681,7 @@ namespace Iced.Intel {
 		Rdpid,
 		Rdpkru,
 		Rdpmc,
+		Rdpru,
 		Rdrand,
 		Rdseed,
 		Rdsspd,

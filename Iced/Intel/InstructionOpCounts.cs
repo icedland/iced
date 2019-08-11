@@ -880,6 +880,7 @@ namespace Iced.Intel {
 			0,// Clzerow
 			0,// Clzerod
 			0,// Clzeroq
+			0,// Rdpru
 			2,// Lar_r16_rm16
 			2,// Lar_r32_rm32
 			2,// Lar_r64_rm64

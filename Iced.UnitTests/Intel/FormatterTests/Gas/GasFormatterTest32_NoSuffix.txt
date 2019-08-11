@@ -582,6 +582,7 @@ addr16 monitorx
 monitorx
 addr16 clzero
 clzero
+rdpru
 add $0x5a,%cl
 addb $0x5a,(%eax)
 or $0xa5,%dl

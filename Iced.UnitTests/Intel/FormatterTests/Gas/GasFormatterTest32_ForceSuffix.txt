@@ -582,6 +582,7 @@ addr16 monitorx
 monitorx
 addr16 clzero
 clzero
+rdpru
 addb $0x5a,cl
 addb $0x5a,(eax)
 orb $-0x5b,dl

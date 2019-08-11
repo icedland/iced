@@ -141,6 +141,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		PTWRITE,
 		RDPID,
 		RDPMC,
+		RDPRU,
 		RDRAND,
 		RDSEED,
 		RDTSCP,

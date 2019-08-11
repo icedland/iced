@@ -582,6 +582,7 @@ monitorx ax,ecx,edx
 monitorx eax,ecx,edx
 clzero
 clzero
+rdpru
 add cl,5Ah
 add byte ptr [eax],5Ah
 or dl,-5Bh

@@ -4299,6 +4299,8 @@ F3 0F01 EA, Saveprevssp, Saveprevssp, 0,
 
 0F01 FC, Clzeroq, Clzero, 0, 
 
+0F01 FD, Rdpru, Rdpru, 0,
+
 66 0F02 CE, Lar_r16_rm16, Lar, 2, op0=r;cx op1=r;si
 66 44 0F02 C5, Lar_r16_rm16, Lar, 2, op0=r;r8w op1=r;bp
 66 41 0F02 D6, Lar_r16_rm16, Lar, 2, op0=r;dx op1=r;r14w

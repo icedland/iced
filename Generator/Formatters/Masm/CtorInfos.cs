@@ -884,6 +884,7 @@ namespace Generator.Formatters.Masm {
 			new object[] { CtorKind.Normal_1, Code.Clzerow, "clzero" },
 			new object[] { CtorKind.Normal_1, Code.Clzerod, "clzero" },
 			new object[] { CtorKind.Normal_1, Code.Clzeroq, "clzero" },
+			new object[] { CtorKind.Normal_1, Code.Rdpru, "rdpru" },
 			new object[] { CtorKind.Normal_2, Code.Lar_r16_rm16, "lar", InstrOpInfoFlags.ShowNoMemSize_ForceSize },
 			new object[] { CtorKind.Normal_2, Code.Lar_r32_rm32, "lar", InstrOpInfoFlags.ShowNoMemSize_ForceSize },
 			new object[] { CtorKind.Normal_2, Code.Lar_r64_rm64, "lar", InstrOpInfoFlags.ShowNoMemSize_ForceSize },

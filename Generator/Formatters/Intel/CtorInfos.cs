@@ -884,6 +884,7 @@ namespace Generator.Formatters.Intel {
 			new object[] { CtorKind.reg, Code.Clzerow, "clzero", Register.AX },
 			new object[] { CtorKind.reg, Code.Clzerod, "clzero", Register.EAX },
 			new object[] { CtorKind.reg, Code.Clzeroq, "clzero", Register.RAX },
+			new object[] { CtorKind.Normal_1, Code.Rdpru, "rdpru" },
 			new object[] { CtorKind.Normal_1, Code.Lar_r16_rm16, "lar" },
 			new object[] { CtorKind.Normal_1, Code.Lar_r32_rm32, "lar" },
 			new object[] { CtorKind.Normal_1, Code.Lar_r64_rm64, "lar" },

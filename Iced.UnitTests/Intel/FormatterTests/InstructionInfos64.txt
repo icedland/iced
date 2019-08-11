@@ -7441,6 +7441,7 @@ F2 0F1B D8, Bndcn_bnd_rm64
 0F01 FB, Mwaitx
 67 0F01 FC, Clzerod
 0F01 FC, Clzeroq
+0F01 FD, Rdpru
 0F0D 00, Prefetch_m8
 0F0E, Femms
 F3 0F2B 08, Movntss_m32_xmm

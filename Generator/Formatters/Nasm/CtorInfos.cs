@@ -884,6 +884,7 @@ namespace Generator.Formatters.Nasm {
 			new object[] { CtorKind.asz, Code.Clzerow, "clzero", 16 },
 			new object[] { CtorKind.asz, Code.Clzerod, "clzero", 32 },
 			new object[] { CtorKind.asz, Code.Clzeroq, "clzero", 64 },
+			new object[] { CtorKind.Normal_1, Code.Rdpru, "rdpru" },
 			new object[] { CtorKind.Normal_1, Code.Lar_r16_rm16, "lar" },
 			new object[] { CtorKind.Normal_1, Code.Lar_r32_rm32, "lar" },
 			new object[] { CtorKind.Normal_1, Code.Lar_r64_rm64, "lar" },

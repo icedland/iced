@@ -897,6 +897,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Clzero,// Clzerow
 			(ushort)Mnemonic.Clzero,// Clzerod
 			(ushort)Mnemonic.Clzero,// Clzeroq
+			(ushort)Mnemonic.Rdpru,// Rdpru
 			(ushort)Mnemonic.Lar,// Lar_r16_rm16
 			(ushort)Mnemonic.Lar,// Lar_r32_rm32
 			(ushort)Mnemonic.Lar,// Lar_r64_rm64

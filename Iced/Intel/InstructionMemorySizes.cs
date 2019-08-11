@@ -1738,6 +1738,8 @@ namespace Iced.Intel {
 			0,// Clzerod
 			0,// Clzeroq
 			0,// Clzeroq
+			0,// Rdpru
+			0,// Rdpru
 			(byte)MemorySize.UInt16,// Lar_r16_rm16
 			0,// Lar_r16_rm16
 			(byte)MemorySize.UInt16,// Lar_r32_rm32

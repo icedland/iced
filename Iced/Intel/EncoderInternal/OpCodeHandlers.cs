@@ -886,6 +886,7 @@ namespace Iced.Intel.EncoderInternal {
 				(uint)EncFlags1.Legacy | (uint)Code.Clzerow | ((uint)0x01FC << (int)EncFlags1.OpCodeShift), (uint)LegacyFlags.Encodable_Only1632 | (uint)LegacyFlags.Table0F | (uint)LegacyFlags.a16, 0,
 				(uint)EncFlags1.Legacy | (uint)Code.Clzerod | ((uint)0x01FC << (int)EncFlags1.OpCodeShift), (uint)LegacyFlags.Encodable_Any | (uint)LegacyFlags.Table0F | (uint)LegacyFlags.a32, 0,
 				(uint)EncFlags1.Legacy | (uint)Code.Clzeroq | ((uint)0x01FC << (int)EncFlags1.OpCodeShift), (uint)LegacyFlags.Encodable_Only64 | (uint)LegacyFlags.Table0F, 0,
+				(uint)EncFlags1.Legacy | (uint)Code.Rdpru | ((uint)0x01FD << (int)EncFlags1.OpCodeShift), (uint)LegacyFlags.Encodable_Any | (uint)LegacyFlags.Table0F, 0,
 				(uint)EncFlags1.Legacy | (uint)Code.Lar_r16_rm16 | ((uint)0x02 << (int)EncFlags1.OpCodeShift), (uint)LegacyFlags.Encodable_Any | (uint)LegacyFlags.Table0F | (uint)LegacyFlags.o16, (uint)LegacyOpKind.Gw | ((uint)LegacyOpKind.Ew << (int)LegacyFlags3.Op1Shift),
 				(uint)EncFlags1.Legacy | (uint)Code.Lar_r32_rm32 | ((uint)0x02 << (int)EncFlags1.OpCodeShift), (uint)LegacyFlags.Encodable_Any | (uint)LegacyFlags.Table0F | (uint)LegacyFlags.o32, (uint)LegacyOpKind.Gd | ((uint)LegacyOpKind.Ed << (int)LegacyFlags3.Op1Shift),
 				(uint)EncFlags1.Legacy | (uint)Code.Lar_r64_rm64 | ((uint)0x02 << (int)EncFlags1.OpCodeShift), (uint)LegacyFlags.Encodable_Only64 | (uint)LegacyFlags.Table0F | (uint)LegacyFlags.rexw, (uint)LegacyOpKind.Gq | ((uint)LegacyOpKind.Eq << (int)LegacyFlags3.Op1Shift),

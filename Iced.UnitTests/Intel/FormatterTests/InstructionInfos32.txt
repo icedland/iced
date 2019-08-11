@@ -582,6 +582,7 @@ DD 30, Fnsave_m108byte
 0F01 FA, Monitorxd
 67 0F01 FC, Clzerow
 0F01 FC, Clzerod
+0F01 FD, Rdpru
 82 C1 5A, Add_rm8_imm8_82
 82 00 5A, Add_rm8_imm8_82
 82 CA A5, Or_rm8_imm8_82

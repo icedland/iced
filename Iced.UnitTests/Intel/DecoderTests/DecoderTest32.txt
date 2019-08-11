@@ -2358,6 +2358,8 @@ F3 0F01 EA, Saveprevssp, Saveprevssp, 0,
 
 0F01 FC, Clzerod, Clzero, 0, 
 
+0F01 FD, Rdpru, Rdpru, 0,
+
 66 0F02 CE, Lar_r16_rm16, Lar, 2, op0=r;cx op1=r;si
 66 0F02 18, Lar_r16_rm16, Lar, 2, op0=r;bx op1=m;ds;eax;;1;0;0;UInt16
 

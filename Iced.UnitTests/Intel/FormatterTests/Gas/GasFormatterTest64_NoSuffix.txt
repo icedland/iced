@@ -7441,6 +7441,7 @@ monitorx
 mwaitx
 addr32 clzero
 clzero
+rdpru
 prefetch (%rax)
 femms
 movntss %xmm1,(%rax)

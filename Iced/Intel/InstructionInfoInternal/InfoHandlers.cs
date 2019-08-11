@@ -344,6 +344,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_PTWRITE = (uint)CpuidFeatureInternal.PTWRITE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_RDPID = (uint)CpuidFeatureInternal.RDPID << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_RDPMC = (uint)CpuidFeatureInternal.RDPMC << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_RDPRU = (uint)CpuidFeatureInternal.RDPRU << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_RDRAND = (uint)CpuidFeatureInternal.RDRAND << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_RDSEED = (uint)CpuidFeatureInternal.RDSEED << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_RDTSCP = (uint)CpuidFeatureInternal.RDTSCP << (int)InfoFlags2.CpuidFeatureShift;
@@ -1244,6 +1245,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Clzerow | CodeInfo_Clzero, CPUID_CLZERO | Encoding_Legacy,
 			(uint)Code.Clzerod | CodeInfo_Clzero, CPUID_CLZERO | Encoding_Legacy,
 			(uint)Code.Clzeroq | CodeInfo_Clzero, CPUID_CLZERO | Encoding_Legacy,
+			(uint)Code.Rdpru | RflagsInfo_W_c_C_aopsz | CodeInfo_R_ECX_W_EAX_EDX, CPUID_RDPRU | Encoding_Legacy,
 			(uint)Code.Lar_r16_rm16 | RflagsInfo_W_z | ProtectedMode, Op0_CondWrite | Op1_Read | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.Lar_r32_rm32 | RflagsInfo_W_z | ProtectedMode, Op0_CondWrite | Op1_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Lar_r64_rm64 | RflagsInfo_W_z | ProtectedMode, Op0_CondWrite | Op1_Read | CPUID_X64 | Encoding_Legacy,

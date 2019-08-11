@@ -582,6 +582,7 @@ a16 monitorx
 monitorx
 a16 clzero
 clzero
+rdpru
 add cl,0x5a
 add byte [eax],0x5a
 or dl,0xa5

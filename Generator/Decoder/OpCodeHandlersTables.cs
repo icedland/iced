@@ -897,7 +897,7 @@ namespace Generator.Decoder {
 					new object[] { OpCodeHandlerKind.Simple5, Code.Monitorxw, Code.Monitorxd, Code.Monitorxq },
 					new object[] { OpCodeHandlerKind.Simple, Code.Mwaitx },
 					new object[] { OpCodeHandlerKind.Simple5, Code.Clzerow, Code.Clzerod, Code.Clzeroq },
-					null,
+					new object[] { OpCodeHandlerKind.Simple, Code.Rdpru },
 					null,
 					null,
 				},

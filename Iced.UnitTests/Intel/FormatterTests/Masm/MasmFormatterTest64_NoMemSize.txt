@@ -7441,6 +7441,7 @@ monitorx rax,rcx,rdx
 mwaitx rax,rcx,rbx
 clzero
 clzero
+rdpru
 prefetch [rax]
 femms
 movntss dword ptr [rax],xmm1
