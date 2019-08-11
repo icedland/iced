@@ -47,6 +47,8 @@ namespace Iced.Intel {
 		Addr64					= 0x00000200,
 		BranchImm8				= 0x00000400,
 		Xbegin					= 0x00000800,
+		Lock					= 0x00001000,
+		AllowLock				= 0x00002000,
 	}
 
 	/// <summary>
@@ -375,6 +377,7 @@ namespace Iced.Intel {
 
 				case 0xF0:
 					instruction.InternalSetHasLockPrefix();
+					state.flags |= StateFlags.Lock;
 					rexPrefix = 0;
 					break;
 
@@ -410,15 +413,19 @@ after_read_prefixes:
 				state.extraBaseRegisterBase = (rexPrefix & 1) << 3;
 			}
 			DecodeTable(handlers_XX[b], ref instruction);
-			if ((state.flags & StateFlags.IsInvalid) != 0) {
-				instruction = default;
-				Debug.Assert(Code.INVALID == 0);
-				//instruction.InternalCode = Code.INVALID;
+			var flags = state.flags;
+			if ((flags & (StateFlags.IsInvalid | StateFlags.Lock)) != 0) {
+				if ((flags & StateFlags.IsInvalid) != 0 ||
+					((options & DecoderOptions.NoInvalidCheck) == 0 && (flags & (StateFlags.Lock | StateFlags.AllowLock)) == StateFlags.Lock)) {
+					instruction = default;
+					Debug.Assert(Code.INVALID == 0);
+					//instruction.InternalCode = Code.INVALID;
+				}
 			}
+			instruction.InternalCodeSize = defaultCodeSize;
 			uint instrLen = state.instructionLength;
 			Debug.Assert(0 <= instrLen && instrLen <= DecoderConstants.MaxInstructionLength);// Could be 0 if there were no bytes available
 			instruction.InternalByteLength = instrLen;
-			instruction.InternalCodeSize = defaultCodeSize;
 			var ip = instructionPointer;
 			ip += instrLen;
 			instructionPointer = ip;

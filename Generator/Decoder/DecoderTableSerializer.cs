@@ -562,6 +562,11 @@ namespace Generator.Decoder {
 				Append(sb, nameof(HandlerFlags.XacquireReleaseNoLock));
 			}
 
+			if ((flags & HandlerFlags.Lock) != 0) {
+				flags &= ~HandlerFlags.Lock;
+				Append(sb, nameof(HandlerFlags.Lock));
+			}
+
 			if (flags != 0)
 				throw new InvalidOperationException();
 

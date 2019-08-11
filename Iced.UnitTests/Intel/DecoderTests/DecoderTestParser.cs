@@ -70,6 +70,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		const string DecoderOptions_NoMPFX_0FBC = "nompfx_0fbc";
 		const string DecoderOptions_NoMPFX_0FBD = "nompfx_0fbd";
 		const string DecoderOptions_NoLahfSahf64 = "nolahfsahf64";
+		const string DecoderOptions_NoInvalidCheck = "noinvalidcheck";
 		const string SegmentPrefix_ES = "es:";
 		const string SegmentPrefix_CS = "cs:";
 		const string SegmentPrefix_SS = "ss:";
@@ -383,6 +384,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				case DecoderOptions_NoLahfSahf64:
 					tc.DecoderOptions |= DecoderOptions.NoLahfSahf64;
+					break;
+
+				case DecoderOptions_NoInvalidCheck:
+					tc.DecoderOptions |= DecoderOptions.NoInvalidCheck;
 					break;
 
 				case SegmentPrefix_ES:

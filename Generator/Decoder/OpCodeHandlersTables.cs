@@ -599,49 +599,49 @@ namespace Generator.Decoder {
 
 				"handlers_Grp_80",
 				new object[] {
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Add_rm8_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Or_rm8_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Adc_rm8_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Sbb_rm8_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.And_rm8_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Sub_rm8_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Xor_rm8_imm8, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Add_rm8_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Or_rm8_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Adc_rm8_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Sbb_rm8_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.And_rm8_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Sub_rm8_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Xor_rm8_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Eb_Ib_1, Code.Cmp_rm8_imm8 },
 				},
 
 				"handlers_Grp_81",
 				new object[] {
-					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Add_rm16_imm16, Code.Add_rm32_imm32, Code.Add_rm64_imm32, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Or_rm16_imm16, Code.Or_rm32_imm32, Code.Or_rm64_imm32, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Adc_rm16_imm16, Code.Adc_rm32_imm32, Code.Adc_rm64_imm32, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Sbb_rm16_imm16, Code.Sbb_rm32_imm32, Code.Sbb_rm64_imm32, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.And_rm16_imm16, Code.And_rm32_imm32, Code.And_rm64_imm32, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Sub_rm16_imm16, Code.Sub_rm32_imm32, Code.Sub_rm64_imm32, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Xor_rm16_imm16, Code.Xor_rm32_imm32, Code.Xor_rm64_imm32, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Add_rm16_imm16, Code.Add_rm32_imm32, Code.Add_rm64_imm32, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Or_rm16_imm16, Code.Or_rm32_imm32, Code.Or_rm64_imm32, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Adc_rm16_imm16, Code.Adc_rm32_imm32, Code.Adc_rm64_imm32, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Sbb_rm16_imm16, Code.Sbb_rm32_imm32, Code.Sbb_rm64_imm32, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.And_rm16_imm16, Code.And_rm32_imm32, Code.And_rm64_imm32, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Sub_rm16_imm16, Code.Sub_rm32_imm32, Code.Sub_rm64_imm32, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Xor_rm16_imm16, Code.Xor_rm32_imm32, Code.Xor_rm64_imm32, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Ev_Iz_3, Code.Cmp_rm16_imm16, Code.Cmp_rm32_imm32, Code.Cmp_rm64_imm32 },
 				},
 
 				"handlers_Grp_82",
 				new object[] {
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Add_rm8_imm8_82, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Or_rm8_imm8_82, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Adc_rm8_imm8_82, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Sbb_rm8_imm8_82, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.And_rm8_imm8_82, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Sub_rm8_imm8_82, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Xor_rm8_imm8_82, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Add_rm8_imm8_82, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Or_rm8_imm8_82, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Adc_rm8_imm8_82, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Sbb_rm8_imm8_82, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.And_rm8_imm8_82, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Sub_rm8_imm8_82, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Xor_rm8_imm8_82, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Eb_Ib_1, Code.Cmp_rm8_imm8_82 },
 				},
 
 				"handlers_Grp_83",
 				new object[] {
-					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Add_rm16_imm8, Code.Add_rm32_imm8, Code.Add_rm64_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Or_rm16_imm8, Code.Or_rm32_imm8, Code.Or_rm64_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Adc_rm16_imm8, Code.Adc_rm32_imm8, Code.Adc_rm64_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Sbb_rm16_imm8, Code.Sbb_rm32_imm8, Code.Sbb_rm64_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.And_rm16_imm8, Code.And_rm32_imm8, Code.And_rm64_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Sub_rm16_imm8, Code.Sub_rm32_imm8, Code.Sub_rm64_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Xor_rm16_imm8, Code.Xor_rm32_imm8, Code.Xor_rm64_imm8, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Add_rm16_imm8, Code.Add_rm32_imm8, Code.Add_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Or_rm16_imm8, Code.Or_rm32_imm8, Code.Or_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Adc_rm16_imm8, Code.Adc_rm32_imm8, Code.Adc_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Sbb_rm16_imm8, Code.Sbb_rm32_imm8, Code.Sbb_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.And_rm16_imm8, Code.And_rm32_imm8, Code.And_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Sub_rm16_imm8, Code.Sub_rm32_imm8, Code.Sub_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Xor_rm16_imm8, Code.Xor_rm32_imm8, Code.Xor_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Ev_Ib_3, Code.Cmp_rm16_imm8, Code.Cmp_rm32_imm8, Code.Cmp_rm64_imm8 },
 				},
 
@@ -733,8 +733,8 @@ namespace Generator.Decoder {
 				new object[] {
 					new object[] { OpCodeHandlerKind.Eb_Ib_1, Code.Test_rm8_imm8 },
 					new object[] { OpCodeHandlerKind.Eb_Ib_1, Code.Test_rm8_imm8_F6r1 },
-					new object[] { OpCodeHandlerKind.Eb_2, Code.Not_rm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_2, Code.Neg_rm8, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_2, Code.Not_rm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_2, Code.Neg_rm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Eb_1, Code.Mul_rm8 },
 					new object[] { OpCodeHandlerKind.Eb_1, Code.Imul_rm8 },
 					new object[] { OpCodeHandlerKind.Eb_1, Code.Div_rm8 },
@@ -745,8 +745,8 @@ namespace Generator.Decoder {
 				new object[] {
 					new object[] { OpCodeHandlerKind.Ev_Iz_3, Code.Test_rm16_imm16, Code.Test_rm32_imm32, Code.Test_rm64_imm32 },
 					new object[] { OpCodeHandlerKind.Ev_Iz_3, Code.Test_rm16_imm16_F7r1, Code.Test_rm32_imm32_F7r1, Code.Test_rm64_imm32_F7r1 },
-					new object[] { OpCodeHandlerKind.Ev_4, Code.Not_rm16, Code.Not_rm32, Code.Not_rm64, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_4, Code.Neg_rm16, Code.Neg_rm32, Code.Neg_rm64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Ev_4, Code.Not_rm16, Code.Not_rm32, Code.Not_rm64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_4, Code.Neg_rm16, Code.Neg_rm32, Code.Neg_rm64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Ev_3a, Code.Mul_rm16, Code.Mul_rm32, Code.Mul_rm64 },
 					new object[] { OpCodeHandlerKind.Ev_3a, Code.Imul_rm16, Code.Imul_rm32, Code.Imul_rm64 },
 					new object[] { OpCodeHandlerKind.Ev_3a, Code.Div_rm16, Code.Div_rm32, Code.Div_rm64 },
@@ -755,8 +755,8 @@ namespace Generator.Decoder {
 
 				"handlers_Grp_FE",
 				new object[] {
-					new object[] { OpCodeHandlerKind.Eb_2, Code.Inc_rm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Eb_2, Code.Dec_rm8, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_2, Code.Inc_rm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Eb_2, Code.Dec_rm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					invalid,
 					invalid,
 					invalid,
@@ -767,8 +767,8 @@ namespace Generator.Decoder {
 
 				"handlers_Grp_FF",
 				new object[] {
-					new object[] { OpCodeHandlerKind.Ev_4, Code.Inc_rm16, Code.Inc_rm32, Code.Inc_rm64, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_4, Code.Dec_rm16, Code.Dec_rm32, Code.Dec_rm64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Ev_4, Code.Inc_rm16, Code.Inc_rm32, Code.Inc_rm64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_4, Code.Dec_rm16, Code.Dec_rm32, Code.Dec_rm64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Evj, Code.Call_rm16, Code.Call_rm32, Code.Call_rm64 },
 					new object[] { OpCodeHandlerKind.Ep, Code.Call_m1616, Code.Call_m3216, Code.Call_m6416 },
 					new object[] { OpCodeHandlerKind.Evj, Code.Jmp_rm16, Code.Jmp_rm32, Code.Jmp_rm64 },
@@ -1099,15 +1099,15 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					new object[] { OpCodeHandlerKind.Ev_Ib2_3, Code.Bt_rm16_imm8, Code.Bt_rm32_imm8, Code.Bt_rm64_imm8 },
-					new object[] { OpCodeHandlerKind.Ev_Ib2_4, Code.Bts_rm16_imm8, Code.Bts_rm32_imm8, Code.Bts_rm64_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Ib2_4, Code.Btr_rm16_imm8, Code.Btr_rm32_imm8, Code.Btr_rm64_imm8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Ib2_4, Code.Btc_rm16_imm8, Code.Btc_rm32_imm8, Code.Btc_rm64_imm8, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Ev_Ib2_4, Code.Bts_rm16_imm8, Code.Bts_rm32_imm8, Code.Bts_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Ib2_4, Code.Btr_rm16_imm8, Code.Btr_rm32_imm8, Code.Btr_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Ib2_4, Code.Btc_rm16_imm8, Code.Btc_rm32_imm8, Code.Btc_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 				},
 
 				"handlers_Grp_0FC7",
 				new object[] {
 					invalid,
-					new object[] { OpCodeHandlerKind.M_REXW_4, Code.Cmpxchg8b_m64, Code.Cmpxchg16b_m128, HandlerFlags.XacquireRelease, HandlerFlags.None },
+					new object[] { OpCodeHandlerKind.M_REXW_4, Code.Cmpxchg8b_m64, Code.Cmpxchg16b_m128, HandlerFlags.XacquireRelease | HandlerFlags.Lock, HandlerFlags.Lock },
 					invalid,
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
 						new object[] { OpCodeHandlerKind.M_REXW_2, Code.Xrstors_m, Code.Xrstors64_m },
@@ -3705,17 +3705,17 @@ namespace Generator.Decoder {
 					new object[] { OpCodeHandlerKind.PushOpSizeReg_4a, Code.Pushw_GS, Code.Pushd_GS, Code.Pushq_GS, Register.GS },
 					new object[] { OpCodeHandlerKind.PushOpSizeReg_4a, Code.Popw_GS, Code.Popd_GS, Code.Popq_GS, Register.GS },
 					new object[] { OpCodeHandlerKind.Simple, Code.Rsm },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Bts_rm16_r16, Code.Bts_rm32_r32, Code.Bts_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Bts_rm16_r16, Code.Bts_rm32_r32, Code.Bts_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Ev_Gv_Ib, Code.Shrd_rm16_r16_imm8, Code.Shrd_rm32_r32_imm8, Code.Shrd_rm64_r64_imm8 },
 					new object[] { OpCodeHandlerKind.Ev_Gv_CL, Code.Shrd_rm16_r16_CL, Code.Shrd_rm32_r32_CL, Code.Shrd_rm64_r64_CL },
 					new object[] { OpCodeHandlerKind.Group8x64, "handlers_Grp_0FAE_lo", "handlers_Grp_0FAE_hi" },
 					new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.Imul_r16_rm16, Code.Imul_r32_rm32, Code.Imul_r64_rm64 },
 
 					// B0
-					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Cmpxchg_rm8_r8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Cmpxchg_rm16_r16, Code.Cmpxchg_rm32_r32, Code.Cmpxchg_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Cmpxchg_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Cmpxchg_rm16_r16, Code.Cmpxchg_rm32_r32, Code.Cmpxchg_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Gv_Mp_3, Code.Lss_r16_m32, Code.Lss_r32_m48, Code.Lss_r64_m80 },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Btr_rm16_r16, Code.Btr_rm32_r32, Code.Btr_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Btr_rm16_r16, Code.Btr_rm32_r32, Code.Btr_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Gv_Mp_3, Code.Lfs_r16_m32, Code.Lfs_r32_m48, Code.Lfs_r64_m80 },
 					new object[] { OpCodeHandlerKind.Gv_Mp_3, Code.Lgs_r16_m32, Code.Lgs_r32_m48, Code.Lgs_r64_m80 },
 					new object[] { OpCodeHandlerKind.Gv_Eb, Code.Movzx_r16_rm8, Code.Movzx_r32_rm8, Code.Movzx_r64_rm8 },
@@ -3739,7 +3739,7 @@ namespace Generator.Decoder {
 					},
 					new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.Ud1_r16_rm16, Code.Ud1_r32_rm32, Code.Ud1_r64_rm64 },
 					new object[] { OpCodeHandlerKind.Group, "handlers_Grp_0FBA" },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Btc_rm16_r16, Code.Btc_rm32_r32, Code.Btc_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Btc_rm16_r16, Code.Btc_rm32_r32, Code.Btc_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Options3,
 						new object[] { OpCodeHandlerKind.MandatoryPrefix_F3_F2,
 							new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.Bsf_r16_rm16, Code.Bsf_r32_rm32, Code.Bsf_r64_rm64 },
@@ -3760,8 +3760,8 @@ namespace Generator.Decoder {
 					new object[] { OpCodeHandlerKind.Gv_Ew, Code.Movsx_r16_rm16, Code.Movsx_r32_rm16, Code.Movsx_r64_rm16 },
 
 					// C0
-					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Xadd_rm8_r8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Xadd_rm16_r16, Code.Xadd_rm32_r32, Code.Xadd_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Xadd_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Xadd_rm16_r16, Code.Xadd_rm32_r32, Code.Xadd_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
 						new object[] { OpCodeHandlerKind.VWIb_2, Register.XMM0, Code.Cmpps_xmm_xmmm128_imm8 },
 						new object[] { OpCodeHandlerKind.VWIb_2, Register.XMM0, Code.Cmppd_xmm_xmmm128_imm8 },
@@ -4103,8 +4103,8 @@ namespace Generator.Decoder {
 				"OneByteHandlers",
 				new object[] {
 					// 00
-					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Add_rm8_r8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Add_rm16_r16, Code.Add_rm32_r32, Code.Add_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Add_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Add_rm16_r16, Code.Add_rm32_r32, Code.Add_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Gb_Eb, Code.Add_r8_rm8 },
 					new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.Add_r16_rm16, Code.Add_r32_rm32, Code.Add_r64_rm64 },
 					new object[] { OpCodeHandlerKind.RegIb, Code.Add_AL_imm8, Register.AL },
@@ -4119,8 +4119,8 @@ namespace Generator.Decoder {
 					},
 
 					// 08
-					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Or_rm8_r8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Or_rm16_r16, Code.Or_rm32_r32, Code.Or_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Or_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Or_rm16_r16, Code.Or_rm32_r32, Code.Or_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Gb_Eb, Code.Or_r8_rm8 },
 					new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.Or_r16_rm16, Code.Or_r32_rm32, Code.Or_r64_rm64 },
 					new object[] { OpCodeHandlerKind.RegIb, Code.Or_AL_imm8, Register.AL },
@@ -4132,8 +4132,8 @@ namespace Generator.Decoder {
 					new object[] { OpCodeHandlerKind.AnotherTable, "TwoByteHandlers_0FXX" },
 
 					// 10
-					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Adc_rm8_r8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Adc_rm16_r16, Code.Adc_rm32_r32, Code.Adc_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Adc_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Adc_rm16_r16, Code.Adc_rm32_r32, Code.Adc_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Gb_Eb, Code.Adc_r8_rm8 },
 					new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.Adc_r16_rm16, Code.Adc_r32_rm32, Code.Adc_r64_rm64 },
 					new object[] { OpCodeHandlerKind.RegIb, Code.Adc_AL_imm8, Register.AL },
@@ -4148,8 +4148,8 @@ namespace Generator.Decoder {
 					},
 
 					// 18
-					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Sbb_rm8_r8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Sbb_rm16_r16, Code.Sbb_rm32_r32, Code.Sbb_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Sbb_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Sbb_rm16_r16, Code.Sbb_rm32_r32, Code.Sbb_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Gb_Eb, Code.Sbb_r8_rm8 },
 					new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.Sbb_r16_rm16, Code.Sbb_r32_rm32, Code.Sbb_r64_rm64 },
 					new object[] { OpCodeHandlerKind.RegIb, Code.Sbb_AL_imm8, Register.AL },
@@ -4164,8 +4164,8 @@ namespace Generator.Decoder {
 					},
 
 					// 20
-					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.And_rm8_r8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.And_rm16_r16, Code.And_rm32_r32, Code.And_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.And_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.And_rm16_r16, Code.And_rm32_r32, Code.And_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Gb_Eb, Code.And_r8_rm8 },
 					new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.And_r16_rm16, Code.And_r32_rm32, Code.And_r64_rm64 },
 					new object[] { OpCodeHandlerKind.RegIb, Code.And_AL_imm8, Register.AL },
@@ -4177,8 +4177,8 @@ namespace Generator.Decoder {
 					},
 
 					// 28
-					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Sub_rm8_r8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Sub_rm16_r16, Code.Sub_rm32_r32, Code.Sub_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Sub_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Sub_rm16_r16, Code.Sub_rm32_r32, Code.Sub_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Gb_Eb, Code.Sub_r8_rm8 },
 					new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.Sub_r16_rm16, Code.Sub_r32_rm32, Code.Sub_r64_rm64 },
 					new object[] { OpCodeHandlerKind.RegIb, Code.Sub_AL_imm8, Register.AL },
@@ -4190,8 +4190,8 @@ namespace Generator.Decoder {
 					},
 
 					// 30
-					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Xor_rm8_r8, HandlerFlags.XacquireRelease },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Xor_rm16_r16, Code.Xor_rm32_r32, Code.Xor_rm64_r64, HandlerFlags.XacquireRelease },
+					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Xor_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Xor_rm16_r16, Code.Xor_rm32_r32, Code.Xor_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Gb_Eb, Code.Xor_r8_rm8 },
 					new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.Xor_r16_rm16, Code.Xor_r32_rm32, Code.Xor_r64_rm64 },
 					new object[] { OpCodeHandlerKind.RegIb, Code.Xor_AL_imm8, Register.AL },
@@ -4362,8 +4362,8 @@ namespace Generator.Decoder {
 					new object[] { OpCodeHandlerKind.Group, "handlers_Grp_83" },
 					new object[] { OpCodeHandlerKind.Eb_Gb_1, Code.Test_rm8_r8 },
 					new object[] { OpCodeHandlerKind.Ev_Gv_3a, Code.Test_rm16_r16, Code.Test_rm32_r32, Code.Test_rm64_r64 },
-					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Xchg_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.XacquireReleaseNoLock },
-					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Xchg_rm16_r16, Code.Xchg_rm32_r32, Code.Xchg_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.XacquireReleaseNoLock },
+					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Xchg_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.XacquireReleaseNoLock | HandlerFlags.Lock },
+					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Xchg_rm16_r16, Code.Xchg_rm32_r32, Code.Xchg_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.XacquireReleaseNoLock | HandlerFlags.Lock },
 
 					// 88
 					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Mov_rm8_r8, HandlerFlags.Xrelease | HandlerFlags.XacquireReleaseNoLock },

@@ -381,6 +381,9 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
+				Debug.Assert((int)HandlerFlags.Lock == 8);
+				Debug.Assert((int)StateFlags.AllowLock == 0x00002000);
+				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 			if (state.operandSize == OpSize.Size32) {
 				instruction.InternalCode = code32;
@@ -438,6 +441,9 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
+				Debug.Assert((int)HandlerFlags.Lock == 8);
+				Debug.Assert((int)StateFlags.AllowLock == 0x00002000);
+				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 			if (state.operandSize == OpSize.Size32) {
 				instruction.InternalCode = code32;
@@ -501,6 +507,9 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
+				Debug.Assert((int)HandlerFlags.Lock == 8);
+				Debug.Assert((int)StateFlags.AllowLock == 0x00002000);
+				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 			instruction.InternalOp1Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
@@ -633,6 +642,9 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
+				Debug.Assert((int)HandlerFlags.Lock == 8);
+				Debug.Assert((int)StateFlags.AllowLock == 0x00002000);
+				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 		}
 	}
@@ -1199,6 +1211,7 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = Register.CR8;
 				instruction.InternalClearHasLockPrefix();
+				state.flags &= ~StateFlags.Lock;
 			}
 			else {
 				Debug.Assert(OpKind.Register == 0);
@@ -1240,6 +1253,7 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = Register.CR8;
 				instruction.InternalClearHasLockPrefix();
+				state.flags &= ~StateFlags.Lock;
 			}
 			else {
 				Debug.Assert(OpKind.Register == 0);
@@ -1604,6 +1618,9 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
+				Debug.Assert((int)HandlerFlags.Lock == 8);
+				Debug.Assert((int)StateFlags.AllowLock == 0x00002000);
+				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 			if (state.operandSize == OpSize.Size32) {
 				instruction.InternalCode = code32;
@@ -3713,6 +3730,9 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
+				Debug.Assert((int)HandlerFlags.Lock == 8);
+				Debug.Assert((int)StateFlags.AllowLock == 0x00002000);
+				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 			instruction.InternalOp1Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
@@ -3801,6 +3821,9 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
+				Debug.Assert((int)HandlerFlags.Lock == 8);
+				Debug.Assert((int)StateFlags.AllowLock == 0x00002000);
+				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 		}
 	}
@@ -3834,6 +3857,9 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
+				Debug.Assert((int)HandlerFlags.Lock == 8);
+				Debug.Assert((int)StateFlags.AllowLock == 0x00002000);
+				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 			index = state.reg + state.extraRegisterBase;
 			if ((state.flags & StateFlags.HasRex) != 0 && index >= 4)
@@ -3942,6 +3968,9 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & HandlerFlags.XacquireRelease) != 0)
 					decoder.SetXacquireRelease(ref instruction, flags);
+				Debug.Assert((int)HandlerFlags.Lock == 8);
+				Debug.Assert((int)StateFlags.AllowLock == 0x00002000);
+				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 		}
 	}

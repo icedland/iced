@@ -22,14 +22,20 @@
 #
 
 00 CE, Add_rm8_r8, Add, 2, op0=r;dh op1=r;cl
+F0 00 CE, INVALID, INVALID, 0,
 00 38, Add_rm8_r8, Add, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh
+F0 00 38, Add_rm8_r8, Add, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh lock
 
 66 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx
+F0 66 01 CE, INVALID, INVALID, 0,
 66 01 18, Add_rm16_r16, Add, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 01 18, Add_rm16_r16, Add, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx lock rep xacquire
 
 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx
+F0 01 CE, INVALID, INVALID, 0,
 01 18, Add_rm32_r32, Add, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 01 18, Add_rm32_r32, Add, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 02 CE, Add_r8_rm8, Add, 2, op0=r;cl op1=r;dh
 02 38, Add_r8_rm8, Add, 2, op0=r;bh op1=m;ds;eax;;1;0;0;UInt8
@@ -55,13 +61,19 @@ F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
 07, Popd_ES, Pop, 1, op0=r;es
 
 08 CE, Or_rm8_r8, Or, 2, op0=r;dh op1=r;cl
+F0 08 CE, INVALID, INVALID, 0,
 08 38, Or_rm8_r8, Or, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh
+F0 08 38, Or_rm8_r8, Or, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh lock
 
 66 09 CE, Or_rm16_r16, Or, 2, op0=r;si op1=r;cx
+F0 66 09 CE, INVALID, INVALID, 0,
 66 09 18, Or_rm16_r16, Or, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 09 18, Or_rm16_r16, Or, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 09 CE, Or_rm32_r32, Or, 2, op0=r;esi op1=r;ecx
+F0 09 CE, INVALID, INVALID, 0,
 09 18, Or_rm32_r32, Or, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 09 18, Or_rm32_r32, Or, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 0A CE, Or_r8_rm8, Or, 2, op0=r;cl op1=r;dh
 0A 38, Or_r8_rm8, Or, 2, op0=r;bh op1=m;ds;eax;;1;0;0;UInt8
@@ -83,13 +95,19 @@ F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
 0E, Pushd_CS, Push, 1, op0=r;cs
 
 10 CE, Adc_rm8_r8, Adc, 2, op0=r;dh op1=r;cl
+F0 10 CE, INVALID, INVALID, 0,
 10 38, Adc_rm8_r8, Adc, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh
+F0 10 38, Adc_rm8_r8, Adc, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh lock
 
 66 11 CE, Adc_rm16_r16, Adc, 2, op0=r;si op1=r;cx
+F0 66 11 CE, INVALID, INVALID, 0,
 66 11 18, Adc_rm16_r16, Adc, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 11 18, Adc_rm16_r16, Adc, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 11 CE, Adc_rm32_r32, Adc, 2, op0=r;esi op1=r;ecx
+F0 11 CE, INVALID, INVALID, 0,
 11 18, Adc_rm32_r32, Adc, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 11 18, Adc_rm32_r32, Adc, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 12 CE, Adc_r8_rm8, Adc, 2, op0=r;cl op1=r;dh
 12 38, Adc_r8_rm8, Adc, 2, op0=r;bh op1=m;ds;eax;;1;0;0;UInt8
@@ -115,13 +133,19 @@ F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
 17, Popd_SS, Pop, 1, op0=r;ss
 
 18 CE, Sbb_rm8_r8, Sbb, 2, op0=r;dh op1=r;cl
+F0 18 CE, INVALID, INVALID, 0,
 18 38, Sbb_rm8_r8, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh
+F0 18 38, Sbb_rm8_r8, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh lock
 
 66 19 CE, Sbb_rm16_r16, Sbb, 2, op0=r;si op1=r;cx
+F0 66 19 CE, INVALID, INVALID, 0,
 66 19 18, Sbb_rm16_r16, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 19 18, Sbb_rm16_r16, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 19 CE, Sbb_rm32_r32, Sbb, 2, op0=r;esi op1=r;ecx
+F0 19 CE, INVALID, INVALID, 0,
 19 18, Sbb_rm32_r32, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 19 18, Sbb_rm32_r32, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 1A CE, Sbb_r8_rm8, Sbb, 2, op0=r;cl op1=r;dh
 1A 38, Sbb_r8_rm8, Sbb, 2, op0=r;bh op1=m;ds;eax;;1;0;0;UInt8
@@ -147,13 +171,19 @@ F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
 1F, Popd_DS, Pop, 1, op0=r;ds
 
 20 CE, And_rm8_r8, And, 2, op0=r;dh op1=r;cl
+F0 20 CE, INVALID, INVALID, 0,
 20 38, And_rm8_r8, And, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh
+F0 20 38, And_rm8_r8, And, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh lock
 
 66 21 CE, And_rm16_r16, And, 2, op0=r;si op1=r;cx
+F0 66 21 CE, INVALID, INVALID, 0,
 66 21 18, And_rm16_r16, And, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 21 18, And_rm16_r16, And, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 21 CE, And_rm32_r32, And, 2, op0=r;esi op1=r;ecx
+F0 21 CE, INVALID, INVALID, 0,
 21 18, And_rm32_r32, And, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 21 18, And_rm32_r32, And, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 22 CE, And_r8_rm8, And, 2, op0=r;cl op1=r;dh
 22 38, And_r8_rm8, And, 2, op0=r;bh op1=m;ds;eax;;1;0;0;UInt8
@@ -173,13 +203,19 @@ F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
 27, Daa, Daa, 0, 
 
 28 CE, Sub_rm8_r8, Sub, 2, op0=r;dh op1=r;cl
+F0 28 CE, INVALID, INVALID, 0,
 28 38, Sub_rm8_r8, Sub, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh
+F0 28 38, Sub_rm8_r8, Sub, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh lock
 
 66 29 CE, Sub_rm16_r16, Sub, 2, op0=r;si op1=r;cx
+F0 66 29 CE, INVALID, INVALID, 0,
 66 29 18, Sub_rm16_r16, Sub, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 29 18, Sub_rm16_r16, Sub, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 29 CE, Sub_rm32_r32, Sub, 2, op0=r;esi op1=r;ecx
+F0 29 CE, INVALID, INVALID, 0,
 29 18, Sub_rm32_r32, Sub, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 29 18, Sub_rm32_r32, Sub, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 2A CE, Sub_r8_rm8, Sub, 2, op0=r;cl op1=r;dh
 2A 38, Sub_r8_rm8, Sub, 2, op0=r;bh op1=m;ds;eax;;1;0;0;UInt8
@@ -199,13 +235,19 @@ F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
 2F, Das, Das, 0, 
 
 30 CE, Xor_rm8_r8, Xor, 2, op0=r;dh op1=r;cl
+F0 30 CE, INVALID, INVALID, 0,
 30 38, Xor_rm8_r8, Xor, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh
+F0 30 38, Xor_rm8_r8, Xor, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh lock
 
 66 31 CE, Xor_rm16_r16, Xor, 2, op0=r;si op1=r;cx
+F0 66 31 CE, INVALID, INVALID, 0,
 66 31 18, Xor_rm16_r16, Xor, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 31 18, Xor_rm16_r16, Xor, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 31 CE, Xor_rm32_r32, Xor, 2, op0=r;esi op1=r;ecx
+F0 31 CE, INVALID, INVALID, 0,
 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 32 CE, Xor_r8_rm8, Xor, 2, op0=r;cl op1=r;dh
 32 38, Xor_r8_rm8, Xor, 2, op0=r;bh op1=m;ds;eax;;1;0;0;UInt8
@@ -485,70 +527,112 @@ F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
 7F A5, Jg_rel8_32, Jg, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
 
 80 00 5A, Add_rm8_imm8, Add, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
+F0 80 00 5A, Add_rm8_imm8, Add, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
 80 C1 5A, Add_rm8_imm8, Add, 2, op0=r;cl op1=i8;0x5A co=2;1;0;0;0;0
+F0 80 C1 5A, INVALID, INVALID, 0,
 
 80 08 A5, Or_rm8_imm8, Or, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
+F0 80 08 A5, Or_rm8_imm8, Or, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 lock
 80 CA A5, Or_rm8_imm8, Or, 2, op0=r;dl op1=i8;0xA5 co=2;1;0;0;0;0
+F0 80 CA A5, INVALID, INVALID, 0,
 
 80 10 5A, Adc_rm8_imm8, Adc, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
+F0 80 10 5A, Adc_rm8_imm8, Adc, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
 80 D3 5A, Adc_rm8_imm8, Adc, 2, op0=r;bl op1=i8;0x5A co=2;1;0;0;0;0
+F0 80 D3 5A, INVALID, INVALID, 0,
 
 80 18 A5, Sbb_rm8_imm8, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
+F0 80 18 A5, Sbb_rm8_imm8, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 lock
 80 DC A5, Sbb_rm8_imm8, Sbb, 2, op0=r;ah op1=i8;0xA5 co=2;1;0;0;0;0
+F0 80 DC A5, INVALID, INVALID, 0,
 
 80 20 5A, And_rm8_imm8, And, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
+F0 80 20 5A, And_rm8_imm8, And, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
 80 E5 5A, And_rm8_imm8, And, 2, op0=r;ch op1=i8;0x5A co=2;1;0;0;0;0
+F0 80 E5 5A, INVALID, INVALID, 0,
 
 80 28 A5, Sub_rm8_imm8, Sub, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
+F0 80 28 A5, Sub_rm8_imm8, Sub, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 lock
 80 EE A5, Sub_rm8_imm8, Sub, 2, op0=r;dh op1=i8;0xA5 co=2;1;0;0;0;0
+F0 80 EE A5, INVALID, INVALID, 0,
 
 80 30 5A, Xor_rm8_imm8, Xor, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
+F0 80 30 5A, Xor_rm8_imm8, Xor, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
 80 F7 5A, Xor_rm8_imm8, Xor, 2, op0=r;bh op1=i8;0x5A co=2;1;0;0;0;0
+F0 80 F7 5A, INVALID, INVALID, 0,
 
 80 38 A5, Cmp_rm8_imm8, Cmp, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
 80 F8 A5, Cmp_rm8_imm8, Cmp, 2, op0=r;al op1=i8;0xA5 co=2;1;0;0;0;0
 
 66 81 00 5AA5, Add_rm16_imm16, Add, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0xA55A co=3;2;0;0;0;0
+F0 66 81 00 5AA5, Add_rm16_imm16, Add, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0xA55A co=4;2;0;0;0;0 lock
 66 81 C1 5AA5, Add_rm16_imm16, Add, 2, op0=r;cx op1=i16;0xA55A co=3;2;0;0;0;0
+F0 66 81 C1 5AA5, INVALID, INVALID, 0,
 
 81 00 5AA51234, Add_rm32_imm32, Add, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0x3412A55A co=2;4;0;0;0;0
+F0 81 00 5AA51234, Add_rm32_imm32, Add, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0x3412A55A co=3;4;0;0;0;0 lock
 81 C1 5AA51234, Add_rm32_imm32, Add, 2, op0=r;ecx op1=i32;0x3412A55A co=2;4;0;0;0;0
+F0 81 C1 5AA51234, INVALID, INVALID, 0,
 
 66 81 08 A55A, Or_rm16_imm16, Or, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0x5AA5 co=3;2;0;0;0;0
+F0 66 81 08 A55A, Or_rm16_imm16, Or, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0x5AA5 co=4;2;0;0;0;0 lock
 66 81 CA A55A, Or_rm16_imm16, Or, 2, op0=r;dx op1=i16;0x5AA5 co=3;2;0;0;0;0
+F0 66 81 CA A55A, INVALID, INVALID, 0,
 
 81 08 A55A89AB, Or_rm32_imm32, Or, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=2;4;0;0;0;0
+F0 81 08 A55A89AB, Or_rm32_imm32, Or, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=3;4;0;0;0;0 lock
 81 CA A55A89AB, Or_rm32_imm32, Or, 2, op0=r;edx op1=i32;0xAB895AA5 co=2;4;0;0;0;0
+F0 81 CA A55A89AB, INVALID, INVALID, 0,
 
 66 81 10 5AA5, Adc_rm16_imm16, Adc, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0xA55A co=3;2;0;0;0;0
+F0 66 81 10 5AA5, Adc_rm16_imm16, Adc, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0xA55A co=4;2;0;0;0;0 lock
 66 81 D3 5AA5, Adc_rm16_imm16, Adc, 2, op0=r;bx op1=i16;0xA55A co=3;2;0;0;0;0
+F0 66 81 D3 5AA5, INVALID, INVALID, 0,
 
 81 10 5AA51234, Adc_rm32_imm32, Adc, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0x3412A55A co=2;4;0;0;0;0
+F0 81 10 5AA51234, Adc_rm32_imm32, Adc, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0x3412A55A co=3;4;0;0;0;0 lock
 81 D3 5AA51234, Adc_rm32_imm32, Adc, 2, op0=r;ebx op1=i32;0x3412A55A co=2;4;0;0;0;0
+F0 81 D3 5AA51234, INVALID, INVALID, 0,
 
 66 81 18 A55A, Sbb_rm16_imm16, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0x5AA5 co=3;2;0;0;0;0
+F0 66 81 18 A55A, Sbb_rm16_imm16, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0x5AA5 co=4;2;0;0;0;0 lock
 66 81 DC A55A, Sbb_rm16_imm16, Sbb, 2, op0=r;sp op1=i16;0x5AA5 co=3;2;0;0;0;0
+F0 66 81 DC A55A, INVALID, INVALID, 0,
 
 81 18 A55A89AB, Sbb_rm32_imm32, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=2;4;0;0;0;0
+F0 81 18 A55A89AB, Sbb_rm32_imm32, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=3;4;0;0;0;0 lock
 81 DC A55A89AB, Sbb_rm32_imm32, Sbb, 2, op0=r;esp op1=i32;0xAB895AA5 co=2;4;0;0;0;0
+F0 81 DC A55A89AB, INVALID, INVALID, 0,
 
 66 81 20 5AA5, And_rm16_imm16, And, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0xA55A co=3;2;0;0;0;0
+F0 66 81 20 5AA5, And_rm16_imm16, And, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0xA55A co=4;2;0;0;0;0 lock
 66 81 E5 5AA5, And_rm16_imm16, And, 2, op0=r;bp op1=i16;0xA55A co=3;2;0;0;0;0
+F0 66 81 E5 5AA5, INVALID, INVALID, 0,
 
 81 20 5AA51234, And_rm32_imm32, And, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0x3412A55A co=2;4;0;0;0;0
+F0 81 20 5AA51234, And_rm32_imm32, And, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0x3412A55A co=3;4;0;0;0;0 lock
 81 E5 5AA51234, And_rm32_imm32, And, 2, op0=r;ebp op1=i32;0x3412A55A co=2;4;0;0;0;0
+F0 81 E5 5AA51234, INVALID, INVALID, 0,
 
 66 81 28 A55A, Sub_rm16_imm16, Sub, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0x5AA5 co=3;2;0;0;0;0
+F0 66 81 28 A55A, Sub_rm16_imm16, Sub, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0x5AA5 co=4;2;0;0;0;0 lock
 66 81 EE A55A, Sub_rm16_imm16, Sub, 2, op0=r;si op1=i16;0x5AA5 co=3;2;0;0;0;0
+F0 66 81 EE A55A, INVALID, INVALID, 0,
 
 81 28 A55A89AB, Sub_rm32_imm32, Sub, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=2;4;0;0;0;0
+F0 81 28 A55A89AB, Sub_rm32_imm32, Sub, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=3;4;0;0;0;0 lock
 81 EE A55A89AB, Sub_rm32_imm32, Sub, 2, op0=r;esi op1=i32;0xAB895AA5 co=2;4;0;0;0;0
+F0 81 EE A55A89AB, INVALID, INVALID, 0,
 
 66 81 30 5AA5, Xor_rm16_imm16, Xor, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0xA55A co=3;2;0;0;0;0
+F0 66 81 30 5AA5, Xor_rm16_imm16, Xor, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0xA55A co=4;2;0;0;0;0 lock
 66 81 F7 5AA5, Xor_rm16_imm16, Xor, 2, op0=r;di op1=i16;0xA55A co=3;2;0;0;0;0
+F0 66 81 F7 5AA5, INVALID, INVALID, 0,
 
 81 30 5AA51234, Xor_rm32_imm32, Xor, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0x3412A55A co=2;4;0;0;0;0
+F0 81 30 5AA51234, Xor_rm32_imm32, Xor, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i32;0x3412A55A co=3;4;0;0;0;0 lock
 81 F7 5AA51234, Xor_rm32_imm32, Xor, 2, op0=r;edi op1=i32;0x3412A55A co=2;4;0;0;0;0
+F0 81 F7 5AA51234, INVALID, INVALID, 0,
 
 66 81 38 A55A, Cmp_rm16_imm16, Cmp, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i16;0x5AA5 co=3;2;0;0;0;0
 66 81 F8 A55A, Cmp_rm16_imm16, Cmp, 2, op0=r;ax op1=i16;0x5AA5 co=3;2;0;0;0;0
@@ -557,70 +641,112 @@ F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
 81 F8 A55A89AB, Cmp_rm32_imm32, Cmp, 2, op0=r;eax op1=i32;0xAB895AA5 co=2;4;0;0;0;0
 
 82 00 5A, Add_rm8_imm8_82, Add, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
+F0 82 00 5A, Add_rm8_imm8_82, Add, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
 82 C1 5A, Add_rm8_imm8_82, Add, 2, op0=r;cl op1=i8;0x5A co=2;1;0;0;0;0
+F0 82 C1 5A, INVALID, INVALID, 0,
 
 82 08 A5, Or_rm8_imm8_82, Or, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
+F0 82 08 A5, Or_rm8_imm8_82, Or, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 lock
 82 CA A5, Or_rm8_imm8_82, Or, 2, op0=r;dl op1=i8;0xA5 co=2;1;0;0;0;0
+F0 82 CA A5, INVALID, INVALID, 0,
 
 82 10 5A, Adc_rm8_imm8_82, Adc, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
+F0 82 10 5A, Adc_rm8_imm8_82, Adc, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
 82 D3 5A, Adc_rm8_imm8_82, Adc, 2, op0=r;bl op1=i8;0x5A co=2;1;0;0;0;0
+F0 82 D3 5A, INVALID, INVALID, 0,
 
 82 18 A5, Sbb_rm8_imm8_82, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
+F0 82 18 A5, Sbb_rm8_imm8_82, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 lock
 82 DC A5, Sbb_rm8_imm8_82, Sbb, 2, op0=r;ah op1=i8;0xA5 co=2;1;0;0;0;0
+F0 82 DC A5, INVALID, INVALID, 0,
 
 82 20 5A, And_rm8_imm8_82, And, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
+F0 82 20 5A, And_rm8_imm8_82, And, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
 82 E5 5A, And_rm8_imm8_82, And, 2, op0=r;ch op1=i8;0x5A co=2;1;0;0;0;0
+F0 82 E5 5A, INVALID, INVALID, 0,
 
 82 28 A5, Sub_rm8_imm8_82, Sub, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
+F0 82 28 A5, Sub_rm8_imm8_82, Sub, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 lock
 82 EE A5, Sub_rm8_imm8_82, Sub, 2, op0=r;dh op1=i8;0xA5 co=2;1;0;0;0;0
+F0 82 EE A5, INVALID, INVALID, 0,
 
 82 30 5A, Xor_rm8_imm8_82, Xor, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
+F0 82 30 5A, Xor_rm8_imm8_82, Xor, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
 82 F7 5A, Xor_rm8_imm8_82, Xor, 2, op0=r;bh op1=i8;0x5A co=2;1;0;0;0;0
+F0 82 F7 5A, INVALID, INVALID, 0,
 
 82 38 A5, Cmp_rm8_imm8_82, Cmp, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
 82 F8 A5, Cmp_rm8_imm8_82, Cmp, 2, op0=r;al op1=i8;0xA5 co=2;1;0;0;0;0
 
 66 83 00 5A, Add_rm16_imm8, Add, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0x005A co=3;1;0;0;0;0
+F0 66 83 00 5A, Add_rm16_imm8, Add, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0x005A co=4;1;0;0;0;0 lock
 66 83 C1 5A, Add_rm16_imm8, Add, 2, op0=r;cx op1=i8to16;0x005A co=3;1;0;0;0;0
+F0 66 83 C1 5A, INVALID, INVALID, 0,
 
 83 00 5A, Add_rm32_imm8, Add, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=2;1;0;0;0;0
+F0 83 00 5A, Add_rm32_imm8, Add, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=3;1;0;0;0;0 lock
 83 C1 5A, Add_rm32_imm8, Add, 2, op0=r;ecx op1=i8to32;0x0000005A co=2;1;0;0;0;0
+F0 83 C1 5A, INVALID, INVALID, 0,
 
 66 83 08 A5, Or_rm16_imm8, Or, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=3;1;0;0;0;0
+F0 66 83 08 A5, Or_rm16_imm8, Or, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=4;1;0;0;0;0 lock
 66 83 CA A5, Or_rm16_imm8, Or, 2, op0=r;dx op1=i8to16;0xFFA5 co=3;1;0;0;0;0
+F0 66 83 CA A5, INVALID, INVALID, 0,
 
 83 08 A5, Or_rm32_imm8, Or, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
+F0 83 08 A5, Or_rm32_imm8, Or, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=3;1;0;0;0;0 lock
 83 CA A5, Or_rm32_imm8, Or, 2, op0=r;edx op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
+F0 83 CA A5, INVALID, INVALID, 0,
 
 66 83 10 5A, Adc_rm16_imm8, Adc, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0x005A co=3;1;0;0;0;0
+F0 66 83 10 5A, Adc_rm16_imm8, Adc, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0x005A co=4;1;0;0;0;0 lock
 66 83 D3 5A, Adc_rm16_imm8, Adc, 2, op0=r;bx op1=i8to16;0x005A co=3;1;0;0;0;0
+F0 66 83 D3 5A, INVALID, INVALID, 0,
 
 83 10 5A, Adc_rm32_imm8, Adc, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=2;1;0;0;0;0
+F0 83 10 5A, Adc_rm32_imm8, Adc, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=3;1;0;0;0;0 lock
 83 D3 5A, Adc_rm32_imm8, Adc, 2, op0=r;ebx op1=i8to32;0x0000005A co=2;1;0;0;0;0
+F0 83 D3 5A, INVALID, INVALID, 0,
 
 66 83 18 A5, Sbb_rm16_imm8, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=3;1;0;0;0;0
+F0 66 83 18 A5, Sbb_rm16_imm8, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=4;1;0;0;0;0 lock
 66 83 DC A5, Sbb_rm16_imm8, Sbb, 2, op0=r;sp op1=i8to16;0xFFA5 co=3;1;0;0;0;0
+F0 66 83 DC A5, INVALID, INVALID, 0,
 
 83 18 A5, Sbb_rm32_imm8, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
+F0 83 18 A5, Sbb_rm32_imm8, Sbb, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=3;1;0;0;0;0 lock
 83 DC A5, Sbb_rm32_imm8, Sbb, 2, op0=r;esp op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
+F0 83 DC A5, INVALID, INVALID, 0,
 
 66 83 20 5A, And_rm16_imm8, And, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0x005A co=3;1;0;0;0;0
+F0 66 83 20 5A, And_rm16_imm8, And, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0x005A co=4;1;0;0;0;0 lock
 66 83 E5 5A, And_rm16_imm8, And, 2, op0=r;bp op1=i8to16;0x005A co=3;1;0;0;0;0
+F0 66 83 E5 5A, INVALID, INVALID, 0,
 
 83 20 5A, And_rm32_imm8, And, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=2;1;0;0;0;0
+F0 83 20 5A, And_rm32_imm8, And, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=3;1;0;0;0;0 lock
 83 E5 5A, And_rm32_imm8, And, 2, op0=r;ebp op1=i8to32;0x0000005A co=2;1;0;0;0;0
+F0 83 E5 5A, INVALID, INVALID, 0,
 
 66 83 28 A5, Sub_rm16_imm8, Sub, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=3;1;0;0;0;0
+F0 66 83 28 A5, Sub_rm16_imm8, Sub, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=4;1;0;0;0;0 lock
 66 83 EE A5, Sub_rm16_imm8, Sub, 2, op0=r;si op1=i8to16;0xFFA5 co=3;1;0;0;0;0
+F0 66 83 EE A5, INVALID, INVALID, 0,
 
 83 28 A5, Sub_rm32_imm8, Sub, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
+F0 83 28 A5, Sub_rm32_imm8, Sub, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=3;1;0;0;0;0 lock
 83 EE A5, Sub_rm32_imm8, Sub, 2, op0=r;esi op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
+F0 83 EE A5, INVALID, INVALID, 0,
 
 66 83 30 5A, Xor_rm16_imm8, Xor, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0x005A co=3;1;0;0;0;0
+F0 66 83 30 5A, Xor_rm16_imm8, Xor, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0x005A co=4;1;0;0;0;0 lock
 66 83 F7 5A, Xor_rm16_imm8, Xor, 2, op0=r;di op1=i8to16;0x005A co=3;1;0;0;0;0
+F0 66 83 F7 5A, INVALID, INVALID, 0,
 
 83 30 5A, Xor_rm32_imm8, Xor, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=2;1;0;0;0;0
+F0 83 30 5A, Xor_rm32_imm8, Xor, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=3;1;0;0;0;0 lock
 83 F7 5A, Xor_rm32_imm8, Xor, 2, op0=r;edi op1=i8to32;0x0000005A co=2;1;0;0;0;0
+F0 83 F7 5A, INVALID, INVALID, 0,
 
 66 83 38 A5, Cmp_rm16_imm8, Cmp, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=3;1;0;0;0;0
 66 83 F8 A5, Cmp_rm16_imm8, Cmp, 2, op0=r;ax op1=i8to16;0xFFA5 co=3;1;0;0;0;0
@@ -638,13 +764,19 @@ F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
 85 18, Test_rm32_r32, Test, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
 
 86 CE, Xchg_rm8_r8, Xchg, 2, op0=r;dh op1=r;cl
+F0 86 CE, INVALID, INVALID, 0,
 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh
+F0 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh lock
 
 66 87 CE, Xchg_rm16_r16, Xchg, 2, op0=r;si op1=r;cx
+F0 66 87 CE, INVALID, INVALID, 0,
 66 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 87 CE, Xchg_rm32_r32, Xchg, 2, op0=r;esi op1=r;ecx
+F0 87 CE, INVALID, INVALID, 0,
 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 88 CE, Mov_rm8_r8, Mov, 2, op0=r;dh op1=r;cl
 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh
@@ -1855,10 +1987,14 @@ F6 08 A5, Test_rm8_imm8_F6r1, Test, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0xA5 co=
 F6 CA A5, Test_rm8_imm8_F6r1, Test, 2, op0=r;dl op1=i8;0xA5 co=2;1;0;0;0;0
 
 F6 10, Not_rm8, Not, 1, op0=m;ds;eax;;1;0;0;UInt8
+F0 F6 10, Not_rm8, Not, 1, op0=m;ds;eax;;1;0;0;UInt8 lock
 F6 D1, Not_rm8, Not, 1, op0=r;cl
+F0 F6 D1, INVALID, INVALID, 0,
 
 F6 18, Neg_rm8, Neg, 1, op0=m;ds;eax;;1;0;0;Int8
+F0 F6 18, Neg_rm8, Neg, 1, op0=m;ds;eax;;1;0;0;Int8 lock
 F6 DA, Neg_rm8, Neg, 1, op0=r;dl
+F0 F6 DA, INVALID, INVALID, 0,
 
 F6 20, Mul_rm8, Mul, 1, op0=m;ds;eax;;1;0;0;UInt8
 F6 E5, Mul_rm8, Mul, 1, op0=r;ch
@@ -1885,16 +2021,24 @@ F7 08 A55A89AB, Test_rm32_imm32_F7r1, Test, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i3
 F7 CA A55A89AB, Test_rm32_imm32_F7r1, Test, 2, op0=r;edx op1=i32;0xAB895AA5 co=2;4;0;0;0;0
 
 66 F7 10, Not_rm16, Not, 1, op0=m;ds;eax;;1;0;0;UInt16
+F0 66 F7 10, Not_rm16, Not, 1, op0=m;ds;eax;;1;0;0;UInt16 lock
 66 F7 D1, Not_rm16, Not, 1, op0=r;cx
+F0 66 F7 D1, INVALID, INVALID, 0,
 
 F7 10, Not_rm32, Not, 1, op0=m;ds;eax;;1;0;0;UInt32
+F0 F7 10, Not_rm32, Not, 1, op0=m;ds;eax;;1;0;0;UInt32 lock
 F7 D1, Not_rm32, Not, 1, op0=r;ecx
+F0 F7 D1, INVALID, INVALID, 0,
 
 66 F7 18, Neg_rm16, Neg, 1, op0=m;ds;eax;;1;0;0;Int16
+F0 66 F7 18, Neg_rm16, Neg, 1, op0=m;ds;eax;;1;0;0;Int16 lock
 66 F7 DA, Neg_rm16, Neg, 1, op0=r;dx
+F0 66 F7 DA, INVALID, INVALID, 0,
 
 F7 18, Neg_rm32, Neg, 1, op0=m;ds;eax;;1;0;0;Int32
+F0 F7 18, Neg_rm32, Neg, 1, op0=m;ds;eax;;1;0;0;Int32 lock
 F7 DA, Neg_rm32, Neg, 1, op0=r;edx
+F0 F7 DA, INVALID, INVALID, 0,
 
 66 F7 20, Mul_rm16, Mul, 1, op0=m;ds;eax;;1;0;0;UInt16
 66 F7 E5, Mul_rm16, Mul, 1, op0=r;bp
@@ -1933,22 +2077,34 @@ FC, Cld, Cld, 0,
 FD, Std, Std, 0, 
 
 FE 00, Inc_rm8, Inc, 1, op0=m;ds;eax;;1;0;0;UInt8
+F0 FE 00, Inc_rm8, Inc, 1, op0=m;ds;eax;;1;0;0;UInt8 lock
 FE C1, Inc_rm8, Inc, 1, op0=r;cl
+F0 FE C1, INVALID, INVALID, 0,
 
 FE 08, Dec_rm8, Dec, 1, op0=m;ds;eax;;1;0;0;UInt8
+F0 FE 08, Dec_rm8, Dec, 1, op0=m;ds;eax;;1;0;0;UInt8 lock
 FE CE, Dec_rm8, Dec, 1, op0=r;dh
+F0 FE CE, INVALID, INVALID, 0,
 
 66 FF 00, Inc_rm16, Inc, 1, op0=m;ds;eax;;1;0;0;UInt16
+F0 66 FF 00, Inc_rm16, Inc, 1, op0=m;ds;eax;;1;0;0;UInt16 lock
 66 FF C1, Inc_rm16, Inc, 1, op0=r;cx
+F0 66 FF C1, INVALID, INVALID, 0,
 
 FF 00, Inc_rm32, Inc, 1, op0=m;ds;eax;;1;0;0;UInt32
+F0 FF 00, Inc_rm32, Inc, 1, op0=m;ds;eax;;1;0;0;UInt32 lock
 FF C1, Inc_rm32, Inc, 1, op0=r;ecx
+F0 FF C1, INVALID, INVALID, 0,
 
 66 FF 08, Dec_rm16, Dec, 1, op0=m;ds;eax;;1;0;0;UInt16
+F0 66 FF 08, Dec_rm16, Dec, 1, op0=m;ds;eax;;1;0;0;UInt16 lock
 66 FF CA, Dec_rm16, Dec, 1, op0=r;dx
+F0 66 FF CA, INVALID, INVALID, 0,
 
 FF 08, Dec_rm32, Dec, 1, op0=m;ds;eax;;1;0;0;UInt32
+F0 FF 08, Dec_rm32, Dec, 1, op0=m;ds;eax;;1;0;0;UInt32 lock
 FF CA, Dec_rm32, Dec, 1, op0=r;edx
+F0 FF CA, INVALID, INVALID, 0,
 
 66 FF 10, Call_rm16, Call, 1, op0=m;ds;eax;;1;0;0;WordOffset
 66 FF D1, Call_rm16, Call, 1, op0=r;cx
@@ -2777,7 +2933,8 @@ F3 0F1E FB, Endbr32, Endbr32, 0,
 66 0F20 5E, Mov_r32_cr, Mov, 2, op0=r;esi op1=r;cr3 enc=0F20DE
 66 0F20 31, Mov_r32_cr, Mov, 2, op0=r;ecx op1=r;cr6 enc=0F20F1
 F0 0F20 C1, Mov_r32_cr, Mov, 2, op0=r;ecx op1=r;cr8
-F0 0F20 C1, Mov_r32_cr, Mov, 2, op0=r;ecx op1=r;cr0 lock nolockmovcr0
+F0 0F20 C1, Mov_r32_cr, Mov, 2, op0=r;ecx op1=r;cr0 lock nolockmovcr0 noinvalidcheck
+F0 0F20 C1, INVALID, INVALID, 0, nolockmovcr0
 
 0F21 DE, Mov_r32_dr, Mov, 2, op0=r;esi op1=r;dr3
 0F21 B1, Mov_r32_dr, Mov, 2, op0=r;ecx op1=r;dr6 enc=0F21F1
@@ -2797,7 +2954,8 @@ F0 0F20 C1, Mov_r32_cr, Mov, 2, op0=r;ecx op1=r;cr0 lock nolockmovcr0
 66 0F22 5E, Mov_cr_r32, Mov, 2, op0=r;cr3 op1=r;esi enc=0F22DE
 66 0F22 31, Mov_cr_r32, Mov, 2, op0=r;cr6 op1=r;ecx enc=0F22F1
 F0 0F22 C1, Mov_cr_r32, Mov, 2, op0=r;cr8 op1=r;ecx
-F0 0F22 C1, Mov_cr_r32, Mov, 2, op0=r;cr0 op1=r;ecx lock nolockmovcr0
+F0 0F22 C1, Mov_cr_r32, Mov, 2, op0=r;cr0 op1=r;ecx lock nolockmovcr0 noinvalidcheck
+F0 0F22 C1, INVALID, INVALID, 0, nolockmovcr0
 
 0F23 DE, Mov_dr_r32, Mov, 2, op0=r;dr3 op1=r;esi
 0F23 B1, Mov_dr_r32, Mov, 2, op0=r;dr6 op1=r;ecx enc=0F23F1
@@ -6696,10 +6854,14 @@ F3 0FA7 E8, XcryptOfb_32, Xcryptofb, 0, rep
 0FAA, Rsm, Rsm, 0, 
 
 66 0FAB CE, Bts_rm16_r16, Bts, 2, op0=r;si op1=r;cx
+F0 66 0FAB CE, INVALID, INVALID, 0,
 66 0FAB 18, Bts_rm16_r16, Bts, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 0FAB 18, Bts_rm16_r16, Bts, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 0FAB CE, Bts_rm32_r32, Bts, 2, op0=r;esi op1=r;ecx
+F0 0FAB CE, INVALID, INVALID, 0,
 0FAB 18, Bts_rm32_r32, Bts, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 0FAB 18, Bts_rm32_r32, Bts, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 66 0FAC CE 5A, Shrd_rm16_r16_imm8, Shrd, 3, op0=r;si op1=r;cx op2=i8;0x5A co=4;1;0;0;0;0
 66 0FAC 18 5A, Shrd_rm16_r16_imm8, Shrd, 3, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx op2=i8;0x5A co=4;1;0;0;0;0
@@ -6813,23 +6975,33 @@ F2 0FAE F5, Umwait_r32, Umwait, 1, op0=r;ebp
 0FAF 18, Imul_r32_rm32, Imul, 2, op0=r;ebx op1=m;ds;eax;;1;0;0;Int32
 
 0FB0 CE, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=r;dh op1=r;cl
+F0 0FB0 CE, INVALID, INVALID, 0,
 0FB0 38, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh
+F0 0FB0 38, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh lock
 
 66 0FB1 CE, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=r;si op1=r;cx
+F0 66 0FB1 CE, INVALID, INVALID, 0,
 66 0FB1 18, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 0FB1 18, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 0FB1 CE, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=r;esi op1=r;ecx
+F0 0FB1 CE, INVALID, INVALID, 0,
 0FB1 18, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 0FB1 18, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 66 0FB2 18, Lss_r16_m32, Lss, 2, op0=r;bx op1=m;ds;eax;;1;0;0;SegPtr16
 
 0FB2 18, Lss_r32_m48, Lss, 2, op0=r;ebx op1=m;ds;eax;;1;0;0;SegPtr32
 
 66 0FB3 CE, Btr_rm16_r16, Btr, 2, op0=r;si op1=r;cx
+F0 66 0FB3 CE, INVALID, INVALID, 0,
 66 0FB3 18, Btr_rm16_r16, Btr, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 0FB3 18, Btr_rm16_r16, Btr, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 0FB3 CE, Btr_rm32_r32, Btr, 2, op0=r;esi op1=r;ecx
+F0 0FB3 CE, INVALID, INVALID, 0,
 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 66 0FB4 18, Lfs_r16_m32, Lfs, 2, op0=r;bx op1=m;ds;eax;;1;0;0;SegPtr16
 
@@ -6880,28 +7052,44 @@ F3 0FB8 18, Popcnt_r32_rm32, Popcnt, 2, op0=r;ebx op1=m;ds;eax;;1;0;0;UInt32
 0FBA E5 5A, Bt_rm32_imm8, Bt, 2, op0=r;ebp op1=i8;0x5A co=3;1;0;0;0;0
 
 66 0FBA 28 A5, Bts_rm16_imm8, Bts, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8;0xA5 co=4;1;0;0;0;0
+F0 66 0FBA 28 A5, Bts_rm16_imm8, Bts, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8;0xA5 co=5;1;0;0;0;0 lock
 66 0FBA EE A5, Bts_rm16_imm8, Bts, 2, op0=r;si op1=i8;0xA5 co=4;1;0;0;0;0
+F0 66 0FBA EE A5, INVALID, INVALID, 0,
 
 0FBA 28 A5, Bts_rm32_imm8, Bts, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8;0xA5 co=3;1;0;0;0;0
+F0 0FBA 28 A5, Bts_rm32_imm8, Bts, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8;0xA5 co=4;1;0;0;0;0 lock
 0FBA EE A5, Bts_rm32_imm8, Bts, 2, op0=r;esi op1=i8;0xA5 co=3;1;0;0;0;0
+F0 0FBA EE A5, INVALID, INVALID, 0,
 
 66 0FBA 30 5A, Btr_rm16_imm8, Btr, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8;0x5A co=4;1;0;0;0;0
+F0 66 0FBA 30 5A, Btr_rm16_imm8, Btr, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8;0x5A co=5;1;0;0;0;0 lock
 66 0FBA F7 5A, Btr_rm16_imm8, Btr, 2, op0=r;di op1=i8;0x5A co=4;1;0;0;0;0
+F0 66 0FBA F7 5A, INVALID, INVALID, 0,
 
 0FBA 30 5A, Btr_rm32_imm8, Btr, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8;0x5A co=3;1;0;0;0;0
+F0 0FBA 30 5A, Btr_rm32_imm8, Btr, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8;0x5A co=4;1;0;0;0;0 lock
 0FBA F7 5A, Btr_rm32_imm8, Btr, 2, op0=r;edi op1=i8;0x5A co=3;1;0;0;0;0
+F0 0FBA F7 5A, INVALID, INVALID, 0,
 
 66 0FBA 38 A5, Btc_rm16_imm8, Btc, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8;0xA5 co=4;1;0;0;0;0
+F0 66 0FBA 38 A5, Btc_rm16_imm8, Btc, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=i8;0xA5 co=5;1;0;0;0;0 lock
 66 0FBA F8 A5, Btc_rm16_imm8, Btc, 2, op0=r;ax op1=i8;0xA5 co=4;1;0;0;0;0
+F0 66 0FBA F8 A5, INVALID, INVALID, 0,
 
 0FBA 38 A5, Btc_rm32_imm8, Btc, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8;0xA5 co=3;1;0;0;0;0
+F0 0FBA 38 A5, Btc_rm32_imm8, Btc, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=i8;0xA5 co=4;1;0;0;0;0 lock
 0FBA F8 A5, Btc_rm32_imm8, Btc, 2, op0=r;eax op1=i8;0xA5 co=3;1;0;0;0;0
+F0 0FBA F8 A5, INVALID, INVALID, 0,
 
 66 0FBB CE, Btc_rm16_r16, Btc, 2, op0=r;si op1=r;cx
+F0 66 0FBB CE, INVALID, INVALID, 0,
 66 0FBB 18, Btc_rm16_r16, Btc, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 0FBB 18, Btc_rm16_r16, Btc, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 0FBB CE, Btc_rm32_r32, Btc, 2, op0=r;esi op1=r;ecx
+F0 0FBB CE, INVALID, INVALID, 0,
 0FBB 18, Btc_rm32_r32, Btc, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 0FBB 18, Btc_rm32_r32, Btc, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 66 0FBC CE, Bsf_r16_rm16, Bsf, 2, op0=r;cx op1=r;si
 66 0FBC 18, Bsf_r16_rm16, Bsf, 2, op0=r;bx op1=m;ds;eax;;1;0;0;UInt16
@@ -6964,13 +7152,19 @@ F3 0FBD 18, Lzcnt_r32_rm32, Lzcnt, 2, op0=r;ebx op1=m;ds;eax;;1;0;0;UInt32
 0FBF 18, Movsx_r32_rm16, Movsx, 2, op0=r;ebx op1=m;ds;eax;;1;0;0;Int16
 
 0FC0 CE, Xadd_rm8_r8, Xadd, 2, op0=r;dh op1=r;cl
+F0 0FC0 CE, INVALID, INVALID, 0,
 0FC0 38, Xadd_rm8_r8, Xadd, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh
+F0 0FC0 38, Xadd_rm8_r8, Xadd, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=r;bh lock
 
 66 0FC1 CE, Xadd_rm16_r16, Xadd, 2, op0=r;si op1=r;cx
+F0 66 0FC1 CE, INVALID, INVALID, 0,
 66 0FC1 18, Xadd_rm16_r16, Xadd, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx
+F0 66 0FC1 18, Xadd_rm16_r16, Xadd, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock
 
 0FC1 CE, Xadd_rm32_r32, Xadd, 2, op0=r;esi op1=r;ecx
+F0 0FC1 CE, INVALID, INVALID, 0,
 0FC1 18, Xadd_rm32_r32, Xadd, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
+F0 0FC1 18, Xadd_rm32_r32, Xadd, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock
 
 0FC2 08 A5, Cmpps_xmm_xmmm128_imm8, Cmpps, 3, op0=r;xmm1 op1=m;ds;eax;;1;0;0;Packed128_Float32 op2=i8;0xA5 co=3;1;0;0;0;0
 0FC2 CD A5, Cmpps_xmm_xmmm128_imm8, Cmpps, 3, op0=r;xmm1 op1=r;xmm5 op2=i8;0xA5 co=3;1;0;0;0;0
@@ -7151,6 +7345,7 @@ C5CD C6 D3 A5, VEX_Vshufpd_ymm_ymm_ymmm256_imm8, Vshufpd, 4, op0=r;ymm2 op1=r;ym
 62 F1CD4B C6 D3 A5, EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8, Vshufpd, 4, op0=r;zmm2 op1=r;zmm6 op2=r;zmm3 op3=i8;0xA5 k3 co=6;1;0;0;0;0
 
 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;eax;;1;0;0;UInt64
+F0 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;eax;;1;0;0;UInt64 lock
 
 0FC7 18, Xrstors_m, Xrstors, 1, op0=m;ds;eax;;1;0;0;Xsave
 

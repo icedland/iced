@@ -808,37 +808,37 @@ namespace Iced.Intel.DecoderInternal {
 				// 0 = 0x00
 				0x2D,// Eb_Ib_2
 					0xCB, 0x01,// Add_rm8_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 1 = 0x01
 				0x2D,// Eb_Ib_2
 					0xCC, 0x01,// Or_rm8_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 2 = 0x02
 				0x2D,// Eb_Ib_2
 					0xCD, 0x01,// Adc_rm8_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 3 = 0x03
 				0x2D,// Eb_Ib_2
 					0xCE, 0x01,// Sbb_rm8_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 4 = 0x04
 				0x2D,// Eb_Ib_2
 					0xCF, 0x01,// And_rm8_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 5 = 0x05
 				0x2D,// Eb_Ib_2
 					0xD0, 0x01,// Sub_rm8_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 6 = 0x06
 				0x2D,// Eb_Ib_2
 					0xD1, 0x01,// Xor_rm8_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 7 = 0x07
 				0x2C,// Eb_Ib_1
@@ -850,37 +850,37 @@ namespace Iced.Intel.DecoderInternal {
 				// 0 = 0x00
 				0x41,// Ev_Iz_4
 					0xD3, 0x01,// Add_rm16_imm16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 1 = 0x01
 				0x41,// Ev_Iz_4
 					0xD6, 0x01,// Or_rm16_imm16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 2 = 0x02
 				0x41,// Ev_Iz_4
 					0xD9, 0x01,// Adc_rm16_imm16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 3 = 0x03
 				0x41,// Ev_Iz_4
 					0xDC, 0x01,// Sbb_rm16_imm16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 4 = 0x04
 				0x41,// Ev_Iz_4
 					0xDF, 0x01,// And_rm16_imm16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 5 = 0x05
 				0x41,// Ev_Iz_4
 					0xE2, 0x01,// Sub_rm16_imm16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 6 = 0x06
 				0x41,// Ev_Iz_4
 					0xE5, 0x01,// Xor_rm16_imm16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 7 = 0x07
 				0x40,// Ev_Iz_3
@@ -892,37 +892,37 @@ namespace Iced.Intel.DecoderInternal {
 				// 0 = 0x00
 				0x2D,// Eb_Ib_2
 					0xEB, 0x01,// Add_rm8_imm8_82
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 1 = 0x01
 				0x2D,// Eb_Ib_2
 					0xEC, 0x01,// Or_rm8_imm8_82
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 2 = 0x02
 				0x2D,// Eb_Ib_2
 					0xED, 0x01,// Adc_rm8_imm8_82
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 3 = 0x03
 				0x2D,// Eb_Ib_2
 					0xEE, 0x01,// Sbb_rm8_imm8_82
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 4 = 0x04
 				0x2D,// Eb_Ib_2
 					0xEF, 0x01,// And_rm8_imm8_82
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 5 = 0x05
 				0x2D,// Eb_Ib_2
 					0xF0, 0x01,// Sub_rm8_imm8_82
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 6 = 0x06
 				0x2D,// Eb_Ib_2
 					0xF1, 0x01,// Xor_rm8_imm8_82
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 7 = 0x07
 				0x2C,// Eb_Ib_1
@@ -934,37 +934,37 @@ namespace Iced.Intel.DecoderInternal {
 				// 0 = 0x00
 				0x3D,// Ev_Ib_4
 					0xF3, 0x01,// Add_rm16_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 1 = 0x01
 				0x3D,// Ev_Ib_4
 					0xF6, 0x01,// Or_rm16_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 2 = 0x02
 				0x3D,// Ev_Ib_4
 					0xF9, 0x01,// Adc_rm16_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 3 = 0x03
 				0x3D,// Ev_Ib_4
 					0xFC, 0x01,// Sbb_rm16_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 4 = 0x04
 				0x3D,// Ev_Ib_4
 					0xFF, 0x01,// And_rm16_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 5 = 0x05
 				0x3D,// Ev_Ib_4
 					0x82, 0x02,// Sub_rm16_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 6 = 0x06
 				0x3D,// Ev_Ib_4
 					0x85, 0x02,// Xor_rm16_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 7 = 0x07
 				0x3C,// Ev_Ib_3
@@ -1206,12 +1206,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 2 = 0x02
 				0x28,// Eb_2
 					0xC5, 0x05,// Not_rm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 3 = 0x03
 				0x28,// Eb_2
 					0xC6, 0x05,// Neg_rm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 4 = 0x04
 				0x27,// Eb_1
@@ -1243,12 +1243,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 2 = 0x02
 				0x33,// Ev_4
 					0xD1, 0x05,// Not_rm16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 3 = 0x03
 				0x33,// Ev_4
 					0xD4, 0x05,// Neg_rm16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 4 = 0x04
 				0x31,// Ev_3a
@@ -1272,12 +1272,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 0 = 0x00
 				0x28,// Eb_2
 					0xE9, 0x05,// Inc_rm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 1 = 0x01
 				0x28,// Eb_2
 					0xEA, 0x05,// Dec_rm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 2 = 0x02
 				0x04,// Dup
@@ -1290,12 +1290,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 0 = 0x00
 				0x33,// Ev_4
 					0xEB, 0x05,// Inc_rm16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 1 = 0x01
 				0x33,// Ev_4
 					0xEE, 0x05,// Dec_rm16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 2 = 0x02
 				0x47,// Evj
@@ -1698,17 +1698,17 @@ namespace Iced.Intel.DecoderInternal {
 				// 5 = 0x05
 				0x3F,// Ev_Ib2_4
 					0xA3, 0x10,// Bts_rm16_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 6 = 0x06
 				0x3F,// Ev_Ib2_4
 					0xA6, 0x10,// Btr_rm16_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 7 = 0x07
 				0x3F,// Ev_Ib2_4
 					0xA9, 0x10,// Btc_rm16_imm8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// handlers_Grp_0FC7
 				0x01,// ArrayReference
@@ -1719,8 +1719,8 @@ namespace Iced.Intel.DecoderInternal {
 				// 1 = 0x01
 				0x70,// M_REXW_4
 					0xF5, 0x10,// Cmpxchg8b_m64
-					0x03,// Xacquire, Xrelease
-					0x00,// None
+					0x0B,// Xacquire, Xrelease, Lock
+					0x08,// Lock
 
 				// 2 = 0x02
 				0x02,// Invalid
@@ -4752,7 +4752,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 171 = 0xAB
 				0x37,// Ev_Gv_4
 					0xCC, 0x0F,// Bts_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 172 = 0xAC
 				0x3A,// Ev_Gv_Ib
@@ -4776,12 +4776,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 176 = 0xB0
 				0x2B,// Eb_Gb_2
 					0x82, 0x10,// Cmpxchg_rm8_r8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 177 = 0xB1
 				0x37,// Ev_Gv_4
 					0x83, 0x10,// Cmpxchg_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 178 = 0xB2
 				0x5C,// Gv_Mp_3
@@ -4790,7 +4790,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 179 = 0xB3
 				0x37,// Ev_Gv_4
 					0x89, 0x10,// Btr_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 180 = 0xB4
 				0x5C,// Gv_Mp_3
@@ -4836,7 +4836,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 187 = 0xBB
 				0x37,// Ev_Gv_4
 					0xAC, 0x10,// Btc_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 188 = 0xBC
 				0x09,// Options3
@@ -4873,12 +4873,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 192 = 0xC0
 				0x2B,// Eb_Gb_2
 					0xC1, 0x10,// Xadd_rm8_r8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 193 = 0xC1
 				0x37,// Ev_Gv_4
 					0xC2, 0x10,// Xadd_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 194 = 0xC2
 				0x10,// MandatoryPrefix
@@ -5466,12 +5466,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 0 = 0x00
 				0x2B,// Eb_Gb_2
 					0x01,// Add_rm8_r8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 1 = 0x01
 				0x37,// Ev_Gv_4
 					0x02,// Add_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 2 = 0x02
 				0x4A,// Gb_Eb
@@ -5507,12 +5507,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 8 = 0x08
 				0x2B,// Eb_Gb_2
 					0x11,// Or_rm8_r8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 9 = 0x09
 				0x37,// Ev_Gv_4
 					0x12,// Or_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 10 = 0x0A
 				0x4A,// Gb_Eb
@@ -5546,12 +5546,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 16 = 0x10
 				0x2B,// Eb_Gb_2
 					0x20,// Adc_rm8_r8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 17 = 0x11
 				0x37,// Ev_Gv_4
 					0x21,// Adc_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 18 = 0x12
 				0x4A,// Gb_Eb
@@ -5587,12 +5587,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 24 = 0x18
 				0x2B,// Eb_Gb_2
 					0x30,// Sbb_rm8_r8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 25 = 0x19
 				0x37,// Ev_Gv_4
 					0x31,// Sbb_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 26 = 0x1A
 				0x4A,// Gb_Eb
@@ -5628,12 +5628,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 32 = 0x20
 				0x2B,// Eb_Gb_2
 					0x40,// And_rm8_r8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 33 = 0x21
 				0x37,// Ev_Gv_4
 					0x41,// And_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 34 = 0x22
 				0x4A,// Gb_Eb
@@ -5664,12 +5664,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 40 = 0x28
 				0x2B,// Eb_Gb_2
 					0x4D,// Sub_rm8_r8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 41 = 0x29
 				0x37,// Ev_Gv_4
 					0x4E,// Sub_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 42 = 0x2A
 				0x4A,// Gb_Eb
@@ -5700,12 +5700,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 48 = 0x30
 				0x2B,// Eb_Gb_2
 					0x5A,// Xor_rm8_r8
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 49 = 0x31
 				0x37,// Ev_Gv_4
 					0x5B,// Xor_rm16_r16
-					0x03,// Xacquire, Xrelease
+					0x0B,// Xacquire, Xrelease, Lock
 
 				// 50 = 0x32
 				0x4A,// Gb_Eb
@@ -6123,12 +6123,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 134 = 0x86
 				0x2B,// Eb_Gb_2
 					0x8F, 0x02,// Xchg_rm8_r8
-					0x07,// Xacquire, Xrelease, XacquireReleaseNoLock
+					0x0F,// Xacquire, Xrelease, XacquireReleaseNoLock, Lock
 
 				// 135 = 0x87
 				0x37,// Ev_Gv_4
 					0x90, 0x02,// Xchg_rm16_r16
-					0x07,// Xacquire, Xrelease, XacquireReleaseNoLock
+					0x0F,// Xacquire, Xrelease, XacquireReleaseNoLock, Lock
 
 				// 136 = 0x88
 				0x2B,// Eb_Gb_2

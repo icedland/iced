@@ -139,6 +139,12 @@ namespace Iced.Intel {
 		/// Don't decode <see cref="Code.Lahf"/> and <see cref="Code.Sahf"/> in 64-bit mode
 		/// </summary>
 		NoLahfSahf64				= 0x00100000,
+
+		/// <summary>
+		/// Disable some checks for invalid encodings of instructions, eg. most instructions can't
+		/// use a LOCK prefix so if one is found, they're decoded as <see cref="Code.INVALID"/>.
+		/// </summary>
+		NoInvalidCheck				= 0x00200000,
 	}
 }
 #endif

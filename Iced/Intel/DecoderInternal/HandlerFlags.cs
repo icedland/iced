@@ -32,6 +32,7 @@ namespace Iced.Intel.DecoderInternal {
 		Xrelease				= 0x00000002,
 		XacquireRelease			= Xacquire | Xrelease,
 		XacquireReleaseNoLock	= 0x00000004,
+		Lock					= 0x00000008,
 	}
 }
 #endif
