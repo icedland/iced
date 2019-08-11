@@ -398,6 +398,20 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Checks if the instruction has the REPE or REP prefix (F3)
 		/// </summary>
+		public bool HasRepPrefix {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			readonly get => (codeFlags & (uint)CodeFlags.RepePrefix) != 0;
+			set {
+				if (value)
+					codeFlags |= (uint)CodeFlags.RepePrefix;
+				else
+					codeFlags &= ~(uint)CodeFlags.RepePrefix;
+			}
+		}
+
+		/// <summary>
+		/// Checks if the instruction has the REPE or REP prefix (F3)
+		/// </summary>
 		public bool HasRepePrefix {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			readonly get => (codeFlags & (uint)CodeFlags.RepePrefix) != 0;

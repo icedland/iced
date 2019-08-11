@@ -76,6 +76,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -207,6 +208,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(tc.IsBroadcast, instr.IsBroadcast);
 			Assert.Equal(tc.HasXacquirePrefix, instr.HasXacquirePrefix);
 			Assert.Equal(tc.HasXreleasePrefix, instr.HasXreleasePrefix);
+			Assert.Equal(tc.HasRepePrefix, instr.HasRepPrefix);
 			Assert.Equal(tc.HasRepePrefix, instr.HasRepePrefix);
 			Assert.Equal(tc.HasRepnePrefix, instr.HasRepnePrefix);
 			Assert.Equal(tc.HasLockPrefix, instr.HasLockPrefix);

@@ -78,6 +78,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -92,6 +93,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -112,6 +114,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -126,6 +129,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -146,6 +150,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -160,6 +165,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -183,6 +189,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -200,6 +207,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -217,6 +225,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);

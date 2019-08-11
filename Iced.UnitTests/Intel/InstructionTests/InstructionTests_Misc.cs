@@ -264,9 +264,18 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr.HasXreleasePrefix = true;
 			Assert.True(instr.HasXreleasePrefix);
 
+			instr.HasRepPrefix = false;
+			Assert.False(instr.HasRepPrefix);
+			Assert.False(instr.HasRepePrefix);
+			instr.HasRepPrefix = true;
+			Assert.True(instr.HasRepPrefix);
+			Assert.True(instr.HasRepePrefix);
+
 			instr.HasRepePrefix = false;
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			instr.HasRepePrefix = true;
+			Assert.True(instr.HasRepPrefix);
 			Assert.True(instr.HasRepePrefix);
 
 			instr.HasRepnePrefix = false;

@@ -224,6 +224,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.False(instr.ZeroingMasking);
 			Assert.False(instr.HasXacquirePrefix);
 			Assert.False(instr.HasXreleasePrefix);
+			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
