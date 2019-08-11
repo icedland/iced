@@ -33,6 +33,7 @@ F2 48 0FB8 CE, INVALID, INVALID, 0, nompfx_0fb8
 9F, INVALID, INVALID, 0, nolahfsahf64
 
 00 CE, Add_rm8_r8, Add, 2, op0=r;dh op1=r;cl
+F0 00 CE, Add_rm8_r8, Add, 2, op0=r;dh op1=r;cl noinvalidcheck lock
 F0 00 CE, INVALID, INVALID, 0,
 40 00 D5, Add_rm8_r8, Add, 2, op0=r;bpl op1=r;dl
 40 00 FA, Add_rm8_r8, Add, 2, op0=r;dl op1=r;dil
@@ -75,6 +76,8 @@ F0 48 01 CE, INVALID, INVALID, 0,
 F0 48 01 18, Add_rm64_r64, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
 
 02 CE, Add_r8_rm8, Add, 2, op0=r;cl op1=r;dh
+F0 02 CE, Add_r8_rm8, Add, 2, op0=r;cl op1=r;dh noinvalidcheck lock
+F0 02 CE, INVALID, INVALID, 0,
 40 02 D5, Add_r8_rm8, Add, 2, op0=r;dl op1=r;bpl
 40 02 FA, Add_r8_rm8, Add, 2, op0=r;dil op1=r;dl
 45 02 F0, Add_r8_rm8, Add, 2, op0=r;r14l op1=r;r8l
@@ -82,6 +85,8 @@ F0 48 01 18, Add_rm64_r64, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
 44 02 EC, Add_r8_rm8, Add, 2, op0=r;r13l op1=r;spl
 66 67 4E 02 EC, Add_r8_rm8, Add, 2, op0=r;r13l op1=r;spl enc=4402EC
 02 38, Add_r8_rm8, Add, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8
+F0 02 38, Add_r8_rm8, Add, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8 noinvalidcheck lock
+F0 02 38, INVALID, INVALID, 0,
 
 66 03 CE, Add_r16_rm16, Add, 2, op0=r;cx op1=r;si
 66 44 03 C5, Add_r16_rm16, Add, 2, op0=r;r8w op1=r;bp

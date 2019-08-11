@@ -22,6 +22,7 @@
 #
 
 00 CE, Add_rm8_r8, Add, 2, op0=r;dh op1=r;cl
+F0 00 CE, Add_rm8_r8, Add, 2, op0=r;dh op1=r;cl noinvalidcheck lock
 F0 00 CE, INVALID, INVALID, 0,
 00 38, Add_rm8_r8, Add, 2, op0=m;ds;bx;si;1;0;0;UInt8 op1=r;bh
 F0 00 38, Add_rm8_r8, Add, 2, op0=m;ds;bx;si;1;0;0;UInt8 op1=r;bh lock
@@ -38,7 +39,11 @@ F0 66 01 18, Add_rm32_r32, Add, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock
 F0 66 67 F3 F2 01 18, Add_rm32_r32, Add, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock rep xacquire
 
 02 CE, Add_r8_rm8, Add, 2, op0=r;cl op1=r;dh
+F0 02 CE, Add_r8_rm8, Add, 2, op0=r;cl op1=r;dh noinvalidcheck lock
+F0 02 CE, INVALID, INVALID, 0,
 02 38, Add_r8_rm8, Add, 2, op0=r;bh op1=m;ds;bx;si;1;0;0;UInt8
+F0 02 38, Add_r8_rm8, Add, 2, op0=r;bh op1=m;ds;bx;si;1;0;0;UInt8 noinvalidcheck lock
+F0 02 38, INVALID, INVALID, 0,
 
 03 CE, Add_r16_rm16, Add, 2, op0=r;cx op1=r;si
 03 18, Add_r16_rm16, Add, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16
