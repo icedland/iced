@@ -31,11 +31,11 @@ namespace Iced.Intel.Internal {
 		int index;
 
 		public int Index {
-			get => index;
+			readonly get => index;
 			set => index = value;
 		}
 
-		public bool CanRead => (uint)index < (uint)data.Length;
+		public readonly bool CanRead => (uint)index < (uint)data.Length;
 
 		public DataReader(byte[] data)
 			: this(data, 0) {
