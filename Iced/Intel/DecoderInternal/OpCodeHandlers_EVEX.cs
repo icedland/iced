@@ -26,6 +26,60 @@ using System;
 using System.Diagnostics;
 
 namespace Iced.Intel.DecoderInternal {
+	sealed class OpCodeHandler_VectorLength_EVEX : OpCodeHandlerModRM {
+		readonly OpCodeHandler[] handlers;
+
+		public OpCodeHandler_VectorLength_EVEX(OpCodeHandler handler128, OpCodeHandler handler256, OpCodeHandler handler512) {
+			Debug.Assert((int)VectorLength.L128 == 0);
+			Debug.Assert((int)VectorLength.L256 == 1);
+			Debug.Assert((int)VectorLength.L512 == 2);
+			Debug.Assert((int)VectorLength.Unknown == 3);
+			handlers = new OpCodeHandler[4] {
+				handler128 ?? throw new ArgumentNullException(nameof(handler128)),
+				handler256 ?? throw new ArgumentNullException(nameof(handler256)),
+				handler512 ?? throw new ArgumentNullException(nameof(handler512)),
+				OpCodeHandler_Invalid.Instance,
+			};
+			Debug.Assert(handler128.HasModRM == HasModRM);
+			Debug.Assert(handler256.HasModRM == HasModRM);
+			Debug.Assert(handler512.HasModRM == HasModRM);
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.EVEX);
+			handlers[(int)decoder.state.vectorLength].Decode(decoder, ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_VectorLength_EVEX_er : OpCodeHandlerModRM {
+		readonly OpCodeHandler[] handlers;
+
+		public OpCodeHandler_VectorLength_EVEX_er(OpCodeHandler handler128, OpCodeHandler handler256, OpCodeHandler handler512) {
+			Debug.Assert((int)VectorLength.L128 == 0);
+			Debug.Assert((int)VectorLength.L256 == 1);
+			Debug.Assert((int)VectorLength.L512 == 2);
+			Debug.Assert((int)VectorLength.Unknown == 3);
+			handlers = new OpCodeHandler[4] {
+				handler128 ?? throw new ArgumentNullException(nameof(handler128)),
+				handler256 ?? throw new ArgumentNullException(nameof(handler256)),
+				handler512 ?? throw new ArgumentNullException(nameof(handler512)),
+				OpCodeHandler_Invalid.Instance,
+			};
+			Debug.Assert(handler128.HasModRM == HasModRM);
+			Debug.Assert(handler256.HasModRM == HasModRM);
+			Debug.Assert(handler512.HasModRM == HasModRM);
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.EVEX);
+			int index = (int)state.vectorLength;
+			if (state.mod == 3 && (state.flags & StateFlags.b) != 0)
+				index = (int)VectorLength.L512;
+			handlers[index].Decode(decoder, ref instruction);
+		}
+	}
+
 	sealed class OpCodeHandler_EVEX : OpCodeHandlerModRM {
 		readonly OpCodeHandler handlerMem;
 
