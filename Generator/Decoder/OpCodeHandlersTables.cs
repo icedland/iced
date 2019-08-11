@@ -33,7 +33,7 @@ namespace Generator.Decoder {
 			var invalid = new object[] { OpCodeHandlerKind.Invalid };
 			var handlers = new object[] {
 				"handlers_FPU_D8_low",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Mf32, Code.Fadd_m32fp },
 					new object[] { OpCodeHandlerKind.Mf32, Code.Fmul_m32fp },
 					new object[] { OpCodeHandlerKind.Mf32, Code.Fcom_m32fp },
@@ -45,7 +45,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_D8_high",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.ST_STi, Code.Fadd_st0_sti },
 					new object[] { OpCodeHandlerKind.ST_STi, Code.Fmul_st0_sti },
 					new object[] { OpCodeHandlerKind.ST_STi, Code.Fcom_st0_sti },
@@ -57,7 +57,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_D9_low",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Mf32, Code.Fld_m32fp },
 					invalid,
 					new object[] { OpCodeHandlerKind.Mf32, Code.Fst_m32fp },
@@ -69,7 +69,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_D9_high",
-				new object[] {
+				new object[0x40] {
 					// C0
 					new object[] { OpCodeHandlerKind.ST_STi, Code.Fld_st0_sti },
 					new object[] { OpCodeHandlerKind.ST_STi, Code.Fld_st0_sti },
@@ -152,7 +152,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DA_low",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Mfi32, Code.Fiadd_m32int },
 					new object[] { OpCodeHandlerKind.Mfi32, Code.Fimul_m32int },
 					new object[] { OpCodeHandlerKind.Mfi32, Code.Ficom_m32int },
@@ -164,7 +164,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DA_high",
-				new object[] {
+				new object[0x40] {
 					// C0
 					new object[] { OpCodeHandlerKind.ST_STi, Code.Fcmovb_st0_sti },
 					new object[] { OpCodeHandlerKind.ST_STi, Code.Fcmovb_st0_sti },
@@ -247,7 +247,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DB_low",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Mfi32, Code.Fild_m32int },
 					new object[] { OpCodeHandlerKind.Mfi32, Code.Fisttp_m32int },
 					new object[] { OpCodeHandlerKind.Mfi32, Code.Fist_m32int },
@@ -259,7 +259,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DB_high",
-				new object[] {
+				new object[0x40] {
 					// C0
 					new object[] { OpCodeHandlerKind.ST_STi, Code.Fcmovnb_st0_sti },
 					new object[] { OpCodeHandlerKind.ST_STi, Code.Fcmovnb_st0_sti },
@@ -348,7 +348,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DC_low",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Mf64, Code.Fadd_m64fp },
 					new object[] { OpCodeHandlerKind.Mf64, Code.Fmul_m64fp },
 					new object[] { OpCodeHandlerKind.Mf64, Code.Fcom_m64fp },
@@ -360,7 +360,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DC_high",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.STi_ST, Code.Fadd_sti_st0 },
 					new object[] { OpCodeHandlerKind.STi_ST, Code.Fmul_sti_st0 },
 					new object[] { OpCodeHandlerKind.ST_STi, Code.Fcom_st0_sti_DCD0 },
@@ -372,7 +372,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DD_low",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Mf64, Code.Fld_m64fp },
 					new object[] { OpCodeHandlerKind.Mf64, Code.Fisttp_m64fp },
 					new object[] { OpCodeHandlerKind.Mf64, Code.Fst_m64fp },
@@ -384,7 +384,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DD_high",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.STi, Code.Ffree_sti },
 					new object[] { OpCodeHandlerKind.ST_STi, Code.Fxch_st0_sti_DDC8 },
 					new object[] { OpCodeHandlerKind.STi, Code.Fst_sti },
@@ -396,7 +396,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DE_low",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Mfi16, Code.Fiadd_m16int },
 					new object[] { OpCodeHandlerKind.Mfi16, Code.Fimul_m16int },
 					new object[] { OpCodeHandlerKind.Mfi16, Code.Ficom_m16int },
@@ -408,7 +408,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DE_high",
-				new object[] {
+				new object[0x40] {
 					// C0
 					new object[] { OpCodeHandlerKind.STi_ST, Code.Faddp_sti_st0 },
 					new object[] { OpCodeHandlerKind.STi_ST, Code.Faddp_sti_st0 },
@@ -491,7 +491,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DF_low",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Mfi16, Code.Fild_m16int },
 					new object[] { OpCodeHandlerKind.Mfi16, Code.Fisttp_m16int },
 					new object[] { OpCodeHandlerKind.Mfi16, Code.Fist_m16int },
@@ -503,7 +503,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_FPU_DF_high",
-				new object[] {
+				new object[0x40] {
 					// C0
 					new object[] { OpCodeHandlerKind.STi, Code.Ffreep_sti },
 					new object[] { OpCodeHandlerKind.STi, Code.Ffreep_sti },
@@ -598,7 +598,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_80",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Add_rm8_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Or_rm8_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Adc_rm8_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
@@ -610,7 +610,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_81",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Add_rm16_imm16, Code.Add_rm32_imm32, Code.Add_rm64_imm32, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Or_rm16_imm16, Code.Or_rm32_imm32, Code.Or_rm64_imm32, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Adc_rm16_imm16, Code.Adc_rm32_imm32, Code.Adc_rm64_imm32, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
@@ -622,7 +622,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_82",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Add_rm8_imm8_82, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Or_rm8_imm8_82, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Adc_rm8_imm8_82, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
@@ -634,7 +634,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_83",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Add_rm16_imm8, Code.Add_rm32_imm8, Code.Add_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Or_rm16_imm8, Code.Or_rm32_imm8, Code.Or_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Ev_Ib_4, Code.Adc_rm16_imm8, Code.Adc_rm32_imm8, Code.Adc_rm64_imm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
@@ -646,7 +646,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_8F",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.PushEv, Code.Pop_rm16, Code.Pop_rm32, Code.Pop_rm64 },
 					invalid,
 					invalid,
@@ -658,7 +658,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_C0",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Eb_Ib_1, Code.Rol_rm8_imm8 },
 					new object[] { OpCodeHandlerKind.Eb_Ib_1, Code.Ror_rm8_imm8 },
 					new object[] { OpCodeHandlerKind.Eb_Ib_1, Code.Rcl_rm8_imm8 },
@@ -670,7 +670,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_C1",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Ev_Ib2_3, Code.Rol_rm16_imm8, Code.Rol_rm32_imm8, Code.Rol_rm64_imm8 },
 					new object[] { OpCodeHandlerKind.Ev_Ib2_3, Code.Ror_rm16_imm8, Code.Ror_rm32_imm8, Code.Ror_rm64_imm8 },
 					new object[] { OpCodeHandlerKind.Ev_Ib2_3, Code.Rcl_rm16_imm8, Code.Rcl_rm32_imm8, Code.Rcl_rm64_imm8 },
@@ -682,7 +682,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_D0",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Eb1, Code.Rol_rm8_1 },
 					new object[] { OpCodeHandlerKind.Eb1, Code.Ror_rm8_1 },
 					new object[] { OpCodeHandlerKind.Eb1, Code.Rcl_rm8_1 },
@@ -694,7 +694,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_D1",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Ev1, Code.Rol_rm16_1, Code.Rol_rm32_1, Code.Rol_rm64_1 },
 					new object[] { OpCodeHandlerKind.Ev1, Code.Ror_rm16_1, Code.Ror_rm32_1, Code.Ror_rm64_1 },
 					new object[] { OpCodeHandlerKind.Ev1, Code.Rcl_rm16_1, Code.Rcl_rm32_1, Code.Rcl_rm64_1 },
@@ -706,7 +706,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_D2",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Eb_CL, Code.Rol_rm8_CL },
 					new object[] { OpCodeHandlerKind.Eb_CL, Code.Ror_rm8_CL },
 					new object[] { OpCodeHandlerKind.Eb_CL, Code.Rcl_rm8_CL },
@@ -718,7 +718,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_D3",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Ev_CL, Code.Rol_rm16_CL, Code.Rol_rm32_CL, Code.Rol_rm64_CL },
 					new object[] { OpCodeHandlerKind.Ev_CL, Code.Ror_rm16_CL, Code.Ror_rm32_CL, Code.Ror_rm64_CL },
 					new object[] { OpCodeHandlerKind.Ev_CL, Code.Rcl_rm16_CL, Code.Rcl_rm32_CL, Code.Rcl_rm64_CL },
@@ -730,7 +730,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_F6",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Eb_Ib_1, Code.Test_rm8_imm8 },
 					new object[] { OpCodeHandlerKind.Eb_Ib_1, Code.Test_rm8_imm8_F6r1 },
 					new object[] { OpCodeHandlerKind.Eb_2, Code.Not_rm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
@@ -742,7 +742,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_F7",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Ev_Iz_3, Code.Test_rm16_imm16, Code.Test_rm32_imm32, Code.Test_rm64_imm32 },
 					new object[] { OpCodeHandlerKind.Ev_Iz_3, Code.Test_rm16_imm16_F7r1, Code.Test_rm32_imm32_F7r1, Code.Test_rm64_imm32_F7r1 },
 					new object[] { OpCodeHandlerKind.Ev_4, Code.Not_rm16, Code.Not_rm32, Code.Not_rm64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
@@ -754,7 +754,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_FE",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Eb_2, Code.Inc_rm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Eb_2, Code.Dec_rm8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					invalid,
@@ -766,7 +766,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_FF",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Ev_4, Code.Inc_rm16, Code.Inc_rm32, Code.Inc_rm64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Ev_4, Code.Dec_rm16, Code.Dec_rm32, Code.Dec_rm64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Evj, Code.Call_rm16, Code.Call_rm32, Code.Call_rm64 },
@@ -778,7 +778,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F00",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Evw, Code.Sldt_rm16, Code.Sldt_r32m16, Code.Sldt_r64m16 },
 					new object[] { OpCodeHandlerKind.Evw, Code.Str_rm16, Code.Str_r32m16, Code.Str_r64m16 },
 					new object[] { OpCodeHandlerKind.Ew, Code.Lldt_rm16, Code.Lldt_r32m16, Code.Lldt_r64m16 },
@@ -793,7 +793,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F01_lo",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Ms, Code.Sgdt_m40, Code.Sgdt_m48, Code.Sgdt_m80 },
 					new object[] { OpCodeHandlerKind.Ms, Code.Sidt_m40, Code.Sidt_m48, Code.Sidt_m80 },
 					new object[] { OpCodeHandlerKind.Ms, Code.Lgdt_m40, Code.Lgdt_m48, Code.Lgdt_m80 },
@@ -810,7 +810,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F01_hi",
-				new object?[] {
+				new object?[0x40] {
 					// C0
 					new object[] { OpCodeHandlerKind.Simple, Code.Enclv },
 					new object[] { OpCodeHandlerKind.Simple, Code.Vmcall },
@@ -903,7 +903,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0FA6_lo",
-				new object[] {
+				new object[8] {
 					invalid,
 					invalid,
 					invalid,
@@ -915,7 +915,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0FA6_hi",
-				new object?[] {
+				new object?[0x40] {
 					// C0
 					new object[] { OpCodeHandlerKind.Simple5, Code.Montmul_16, Code.Montmul_32, Code.Montmul_64 },
 					null,
@@ -998,7 +998,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0FA7_lo",
-				new object[] {
+				new object[8] {
 					invalid,
 					invalid,
 					invalid,
@@ -1010,7 +1010,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0FA7_hi",
-				new object?[] {
+				new object?[0x40] {
 					// C0
 					new object[] { OpCodeHandlerKind.Simple5, Code.Xstore_16, Code.Xstore_32, Code.Xstore_64 },
 					null,
@@ -1093,7 +1093,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0FBA",
-				new object[] {
+				new object[8] {
 					invalid,
 					invalid,
 					invalid,
@@ -1105,7 +1105,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0FC7",
-				new object[] {
+				new object[8] {
 					invalid,
 					new object[] { OpCodeHandlerKind.M_REXW_4, Code.Cmpxchg8b_m64, Code.Cmpxchg16b_m128, HandlerFlags.XacquireRelease | HandlerFlags.Lock, HandlerFlags.Lock },
 					invalid,
@@ -1152,7 +1152,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_C6_lo",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Eb_Ib_2, Code.Mov_rm8_imm8, HandlerFlags.Xrelease | HandlerFlags.XacquireReleaseNoLock },
 					invalid,
 					invalid,
@@ -1164,7 +1164,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_C6_hi",
-				new object?[] {
+				new object?[0x40] {
 					// C0
 					null,
 					null,
@@ -1247,7 +1247,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_C7_lo",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Ev_Iz_4, Code.Mov_rm16_imm16, Code.Mov_rm32_imm32, Code.Mov_rm64_imm32, HandlerFlags.Xrelease | HandlerFlags.XacquireReleaseNoLock },
 					invalid,
 					invalid,
@@ -1259,7 +1259,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_C7_hi",
-				new object?[] {
+				new object?[0x40] {
 					// C0
 					null,
 					null,
@@ -1342,7 +1342,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F71",
-				new object[] {
+				new object[8] {
 					invalid,
 					invalid,
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
@@ -1369,7 +1369,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F72",
-				new object[] {
+				new object[8] {
 					invalid,
 					invalid,
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
@@ -1396,7 +1396,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F73",
-				new object[] {
+				new object[8] {
 					invalid,
 					invalid,
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
@@ -1428,7 +1428,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0FAE_lo",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
 						new object[] { OpCodeHandlerKind.Bitness_DontReadModRM,
 							new object[] { OpCodeHandlerKind.Options_DontReadModRM,
@@ -1498,7 +1498,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0FAE_hi",
-				new object?[] {
+				new object?[0x40] {
 					// C0
 					null,
 					null,
@@ -1714,7 +1714,7 @@ namespace Generator.Decoder {
 				"reservedNop_0F1F", new object[] { OpCodeHandlerKind.Ev_Gv_3a, Code.ReservedNop_rm16_r16_0F1F, Code.ReservedNop_rm32_r32_0F1F, Code.ReservedNop_rm64_r64_0F1F },
 
 				"handlers_Grp_0F0D_mem",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.M_1, Code.Prefetch_m8 },
 					new object[] { OpCodeHandlerKind.M_1, Code.Prefetchw_m8 },
 					new object[] { OpCodeHandlerKind.M_1, Code.Prefetchwt1_m8 },
@@ -1730,7 +1730,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F18_mem",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.M_1, Code.Prefetchnta_m8 },
 					new object[] { OpCodeHandlerKind.M_1, Code.Prefetcht0_m8 },
 					new object[] { OpCodeHandlerKind.M_1, Code.Prefetcht1_m8 },
@@ -1749,7 +1749,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F1C_mem",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.M_1, Code.Cldemote_m8 },
 					"reservedNop_0F1C",
 					"reservedNop_0F1C",
@@ -1768,7 +1768,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F1E_mem",
-				new object[] {
+				new object[8] {
 					"reservedNop_0F1E",
 					"reservedNop_0F1E",
 					"reservedNop_0F1E",
@@ -1779,7 +1779,7 @@ namespace Generator.Decoder {
 					"reservedNop_0F1E",
 				},
 				"handlers_Grp_0F1E_reg_lo",
-				new object[] {
+				new object[8] {
 					"reservedNop_0F1E",
 					"reservedNop_0F1E",
 					"reservedNop_0F1E",
@@ -1799,7 +1799,7 @@ namespace Generator.Decoder {
 					"reservedNop_0F1E"
 				},
 				"handlers_Grp_0F1E_reg_hi",
-				new object?[] {
+				new object?[0x40] {
 					// C0
 					null,
 					null,
@@ -1899,7 +1899,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F1F",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.Ev_3a, Code.Nop_rm16, Code.Nop_rm32, Code.Nop_rm64 },
 					"reservedNop_0F1F",
 					"reservedNop_0F1F",
@@ -1915,7 +1915,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_660F78",
-				new object[] {
+				new object[8] {
 					new object[] { OpCodeHandlerKind.RIbIb, Register.XMM0, Code.Extrq_xmm_imm8_imm8 },
 					invalid,
 					invalid,
@@ -1927,7 +1927,7 @@ namespace Generator.Decoder {
 				},
 
 				"ThreeByteHandlers_0F38XX",
-				new object[] {
+				new object[0x100] {
 					// 00
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
 						new object[] { OpCodeHandlerKind.P_Q, Code.Pshufb_mm_mmm64 },
@@ -2592,7 +2592,7 @@ namespace Generator.Decoder {
 				},
 
 				"ThreeByteHandlers_0F3AXX",
-				new object[] {
+				new object[0x100] {
 					// 00
 					invalid,
 					invalid,
@@ -3050,7 +3050,7 @@ namespace Generator.Decoder {
 				},
 
 				"TwoByteHandlers_0FXX",
-				new object[] {
+				new object[0x100] {
 					// 00
 					new object[] { OpCodeHandlerKind.Group, "handlers_Grp_0F00" },
 					new object[] { OpCodeHandlerKind.Group8x64, "handlers_Grp_0F01_lo", "handlers_Grp_0F01_hi" },
@@ -4101,7 +4101,7 @@ namespace Generator.Decoder {
 				},
 
 				"OneByteHandlers",
-				new object[] {
+				new object[0x100] {
 					// 00
 					new object[] { OpCodeHandlerKind.Eb_Gb_2, Code.Add_rm8_r8, HandlerFlags.XacquireRelease | HandlerFlags.Lock },
 					new object[] { OpCodeHandlerKind.Ev_Gv_4, Code.Add_rm16_r16, Code.Add_rm32_r32, Code.Add_rm64_r64, HandlerFlags.XacquireRelease | HandlerFlags.Lock },

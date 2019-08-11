@@ -35,7 +35,7 @@ namespace Generator.Decoder {
 			var invalid = new object[] { VexOpCodeHandlerKind.Invalid };
 			var handlers = new object[] {
 				"grp_XOP9_01",
-				new object[] {
+				new object[8] {
 					invalid,
 					new object[] { VexOpCodeHandlerKind.MandatoryPrefix2_1,
 						new object[] { VexOpCodeHandlerKind.VectorLength,
@@ -82,7 +82,7 @@ namespace Generator.Decoder {
 				},
 
 				"grp_XOP9_02",
-				new object[] {
+				new object[8] {
 					invalid,
 					new object[] { VexOpCodeHandlerKind.MandatoryPrefix2_1,
 						new object[] { VexOpCodeHandlerKind.VectorLength,
@@ -104,7 +104,7 @@ namespace Generator.Decoder {
 				},
 
 				"grp_XOP9_12",
-				new object[] {
+				new object[8] {
 					new object[] { VexOpCodeHandlerKind.MandatoryPrefix2_1,
 						new object[] { VexOpCodeHandlerKind.VectorLength,
 							new object[] { VexOpCodeHandlerKind.RdRq, Code.XOP_Llwpcb_r32, Code.XOP_Llwpcb_r64 },
@@ -126,7 +126,7 @@ namespace Generator.Decoder {
 				},
 
 				"grp_XOPA_12",
-				new object[] {
+				new object[8] {
 					new object[] { VexOpCodeHandlerKind.MandatoryPrefix2_1,
 						new object[] { VexOpCodeHandlerKind.VectorLength,
 							new object[] { VexOpCodeHandlerKind.Hv_Ed_Id, Code.XOP_Lwpins_r32_rm32_imm32, Code.XOP_Lwpins_r64_rm32_imm32 },
@@ -148,7 +148,7 @@ namespace Generator.Decoder {
 				},
 
 				XOP8,
-				new object[] {
+				new object[0x100] {
 					// 00
 					invalid,
 					invalid,
@@ -685,7 +685,7 @@ namespace Generator.Decoder {
 				},
 
 				XOP9,
-				new object[] {
+				new object[0x100] {
 					// 00
 					invalid,
 					new object[] { VexOpCodeHandlerKind.Group, "grp_XOP9_01" },
@@ -1262,7 +1262,7 @@ namespace Generator.Decoder {
 				},
 
 				XOPA,
-				new object[] {
+				new object[0x100] {
 					// 00
 					invalid,
 					invalid,

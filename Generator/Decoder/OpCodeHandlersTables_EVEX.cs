@@ -35,7 +35,7 @@ namespace Generator.Decoder {
 			var invalid = new object[] { EvexOpCodeHandlerKind.Invalid };
 			var handlers = new object[] {
 				"handlers_Grp_0F71",
-				new object[] {
+				new object[8] {
 					invalid,
 					invalid,
 					new object[] { EvexOpCodeHandlerKind.MandatoryPrefix2,
@@ -74,7 +74,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F72",
-				new object[] {
+				new object[8] {
 					new object[] { EvexOpCodeHandlerKind.MandatoryPrefix2,
 						invalid,
 						new object[] { EvexOpCodeHandlerKind.W,
@@ -158,7 +158,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F73",
-				new object[] {
+				new object[8] {
 					invalid,
 					invalid,
 					new object[] { EvexOpCodeHandlerKind.MandatoryPrefix2,
@@ -212,7 +212,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F38C6",
-				new object[] {
+				new object[8] {
 					invalid,
 					new object[] { EvexOpCodeHandlerKind.MandatoryPrefix2,
 						invalid,
@@ -288,7 +288,7 @@ namespace Generator.Decoder {
 				},
 
 				"handlers_Grp_0F38C7",
-				new object[] {
+				new object[8] {
 					invalid,
 					new object[] { EvexOpCodeHandlerKind.MandatoryPrefix2,
 						invalid,
@@ -364,7 +364,7 @@ namespace Generator.Decoder {
 				},
 
 				ThreeByteHandlers_0F38XX,
-				new object[] {
+				new object[0x100] {
 					// 00
 					new object[] { EvexOpCodeHandlerKind.MandatoryPrefix2,
 						invalid,
@@ -2883,7 +2883,7 @@ namespace Generator.Decoder {
 				},
 
 				ThreeByteHandlers_0F3AXX,
-				new object[] {
+				new object[0x100] {
 					// 00
 					new object[] { EvexOpCodeHandlerKind.MandatoryPrefix2,
 						invalid,
@@ -3858,7 +3858,7 @@ namespace Generator.Decoder {
 				},
 
 				TwoByteHandlers_0FXX,
-				new object[] {
+				new object[0x100] {
 					// 00
 					invalid,
 					invalid,
