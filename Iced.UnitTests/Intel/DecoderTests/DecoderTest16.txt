@@ -205,7 +205,7 @@ F0 66 21 18, And_rm32_r32, And, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock
 
 66 25 5AA51234, And_EAX_imm32, And, 2, op0=r;eax op1=i32;0x3412A55A co=2;4;0;0;0;0
 
-27, Daa, Daa, 0, 
+27, Daa, Daa, 0,
 
 28 CE, Sub_rm8_r8, Sub, 2, op0=r;dh op1=r;cl
 F0 28 CE, INVALID, INVALID, 0,
@@ -237,7 +237,7 @@ F0 66 29 18, Sub_rm32_r32, Sub, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock
 
 66 2D 5AA51234, Sub_EAX_imm32, Sub, 2, op0=r;eax op1=i32;0x3412A55A co=2;4;0;0;0;0
 
-2F, Das, Das, 0, 
+2F, Das, Das, 0,
 
 30 CE, Xor_rm8_r8, Xor, 2, op0=r;dh op1=r;cl
 F0 30 CE, INVALID, INVALID, 0,
@@ -269,7 +269,7 @@ F0 66 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock
 
 66 35 5AA51234, Xor_EAX_imm32, Xor, 2, op0=r;eax op1=i32;0x3412A55A co=2;4;0;0;0;0
 
-37, Aaa, Aaa, 0, 
+37, Aaa, Aaa, 0,
 
 38 CE, Cmp_rm8_r8, Cmp, 2, op0=r;dh op1=r;cl
 38 38, Cmp_rm8_r8, Cmp, 2, op0=m;ds;bx;si;1;0;0;UInt8 op1=r;bh
@@ -295,7 +295,7 @@ F0 66 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock
 
 66 3D 5AA51234, Cmp_EAX_imm32, Cmp, 2, op0=r;eax op1=i32;0x3412A55A co=2;4;0;0;0;0
 
-3F, Aas, Aas, 0, 
+3F, Aas, Aas, 0,
 
 40, Inc_r16, Inc, 1, op0=r;ax
 41, Inc_r16, Inc, 1, op0=r;cx
@@ -369,13 +369,13 @@ F0 66 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock
 66 5E, Pop_r32, Pop, 1, op0=r;esi
 66 5F, Pop_r32, Pop, 1, op0=r;edi
 
-60, Pushaw, Pusha, 0, 
+60, Pushaw, Pusha, 0,
 
-66 60, Pushad, Pusha, 0, 
+66 60, Pushad, Pusha, 0,
 
-61, Popaw, Popa, 0, 
+61, Popaw, Popa, 0,
 
-66 61, Popad, Popa, 0, 
+66 61, Popad, Popa, 0,
 
 62 18, Bound_r16_m1616, Bound, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;Bound16_WordWord
 
@@ -835,10 +835,10 @@ F0 66 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock
 66 8F C6, Pop_rm32, Pop, 1, op0=r;esi
 66 8F 00, Pop_rm32, Pop, 1, op0=m;ds;bx;si;1;0;0;UInt32
 
-90, Nopw, Nop, 0, 
+90, Nopw, Nop, 0,
 F3 90, Nopw, Nop, 0, rep nopause
 
-66 90, Nopd, Nop, 0, 
+66 90, Nopd, Nop, 0,
 
 91, Xchg_r16_AX, Xchg, 2, op0=r;cx op1=r;ax
 92, Xchg_r16_AX, Xchg, 2, op0=r;dx op1=r;ax
@@ -856,36 +856,36 @@ F3 90, Nopw, Nop, 0, rep nopause
 66 96, Xchg_r32_EAX, Xchg, 2, op0=r;esi op1=r;eax
 66 97, Xchg_r32_EAX, Xchg, 2, op0=r;edi op1=r;eax
 
-F3 90, Pause, Pause, 0, 
+F3 90, Pause, Pause, 0,
 
-98, Cbw, Cbw, 0, 
+98, Cbw, Cbw, 0,
 
-66 98, Cwde, Cwde, 0, 
+66 98, Cwde, Cwde, 0,
 
-99, Cwd, Cwd, 0, 
+99, Cwd, Cwd, 0,
 
-66 99, Cdq, Cdq, 0, 
+66 99, Cdq, Cdq, 0,
 
 9A 1234 5678, Call_ptr1616, Call, 1, op0=fb16;0x7856;0x3412 co=1;2;3;2;0;0
 
 66 9A 12345678 9ABC, Call_ptr3216, Call, 1, op0=fb32;0xBC9A;0x78563412 co=2;4;6;2;0;0
 
-9B, Wait, Wait, 0, 
+9B, Wait, Wait, 0,
 66 9B, Wait, Wait, 0, enc=9B
 
-9C, Pushfw, Pushf, 0, 
+9C, Pushfw, Pushf, 0,
 
-66 9C, Pushfd, Pushf, 0, 
+66 9C, Pushfd, Pushf, 0,
 
-9D, Popfw, Popf, 0, 
+9D, Popfw, Popf, 0,
 
-66 9D, Popfd, Popf, 0, 
+66 9D, Popfd, Popf, 0,
 
-9E, Sahf, Sahf, 0, 
+9E, Sahf, Sahf, 0,
 9E, Sahf, Sahf, 0, nolahfsahf64
 66 9E, Sahf, Sahf, 0, enc=9E
 
-9F, Lahf, Lahf, 0, 
+9F, Lahf, Lahf, 0,
 9F, Lahf, Lahf, 0, nolahfsahf64
 66 9F, Lahf, Lahf, 0, enc=9F
 
@@ -1297,9 +1297,9 @@ C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 co=1;2;0;0;0;0
 66 C2 5AA5, Retnd_imm16, Ret, 1, op0=i16;0xA55A co=2;2;0;0;0;0
 66 C2 A55A, Retnd_imm16, Ret, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0
 
-C3, Retnw, Ret, 0, 
+C3, Retnw, Ret, 0,
 
-66 C3, Retnd, Ret, 0, 
+66 C3, Retnd, Ret, 0,
 
 C4 18, Les_r16_m32, Les, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
 
@@ -1339,9 +1339,9 @@ C8 A55A 6A, Enterw_imm16_imm8, Enter, 2, op0=i16;0x5AA5 op1=i8_2nd;0x6A co=1;2;3
 66 C8 5AA5 A6, Enterd_imm16_imm8, Enter, 2, op0=i16;0xA55A op1=i8_2nd;0xA6 co=2;2;4;1;0;0
 66 C8 A55A 6A, Enterd_imm16_imm8, Enter, 2, op0=i16;0x5AA5 op1=i8_2nd;0x6A co=2;2;4;1;0;0
 
-C9, Leavew, Leave, 0, 
+C9, Leavew, Leave, 0,
 
-66 C9, Leaved, Leave, 0, 
+66 C9, Leaved, Leave, 0,
 
 CA 5AA5, Retfw_imm16, Retf, 1, op0=i16;0xA55A co=1;2;0;0;0;0
 CA A55A, Retfw_imm16, Retf, 1, op0=i16;0x5AA5 co=1;2;0;0;0;0
@@ -1349,20 +1349,20 @@ CA A55A, Retfw_imm16, Retf, 1, op0=i16;0x5AA5 co=1;2;0;0;0;0
 66 CA 5AA5, Retfd_imm16, Retf, 1, op0=i16;0xA55A co=2;2;0;0;0;0
 66 CA A55A, Retfd_imm16, Retf, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0
 
-CB, Retfw, Retf, 0, 
+CB, Retfw, Retf, 0,
 
-66 CB, Retfd, Retf, 0, 
+66 CB, Retfd, Retf, 0,
 
-CC, Int3, Int, 0, 
+CC, Int3, Int, 0,
 
 CD 5A, Int_imm8, Int, 1, op0=i8;0x5A co=1;1;0;0;0;0
 CD A5, Int_imm8, Int, 1, op0=i8;0xA5 co=1;1;0;0;0;0
 
-CE, Into, Into, 0, 
+CE, Into, Into, 0,
 
-CF, Iretw, Iret, 0, 
+CF, Iretw, Iret, 0,
 
-66 CF, Iretd, Iret, 0, 
+66 CF, Iretd, Iret, 0,
 
 D0 00, Rol_rm8_1, Rol, 2, op0=m;ds;bx;si;1;0;0;UInt8 op1=i8;1
 D0 C1, Rol_rm8_1, Rol, 2, op0=r;cl op1=i8;1
@@ -1516,7 +1516,7 @@ D5 0A, Aad_imm8, Aad, 1, op0=i8;0x0A co=1;1;0;0;0;0
 D5 A5, Aad_imm8, Aad, 1, op0=i8;0xA5 co=1;1;0;0;0;0
 D5 5A, Aad_imm8, Aad, 1, op0=i8;0x5A co=1;1;0;0;0;0
 
-D6, Salc, Salc, 0, 
+D6, Salc, Salc, 0,
 66 D6, Salc, Salc, 0, enc=D6
 
 D7, Xlatb, Xlatb, 1, op0=m;ds;bx;al;1;0;0;UInt8
@@ -1613,64 +1613,64 @@ D9 C3, Fld_st0_sti, Fld, 2, op0=r;st0 op1=r;st3
 D9 CB, Fxch_st0_sti, Fxch, 2, op0=r;st0 op1=r;st3
 66 D9 CE, Fxch_st0_sti, Fxch, 2, op0=r;st0 op1=r;st6 enc=D9CE
 
-D9 D0, Fnop, Fnop, 0, 
+D9 D0, Fnop, Fnop, 0,
 
 D9 DB, Fstpnce_sti, Fstp, 1, op0=r;st3
 66 D9 DE, Fstpnce_sti, Fstp, 1, op0=r;st6 enc=D9DE
 
-D9 E0, Fchs, Fchs, 0, 
+D9 E0, Fchs, Fchs, 0,
 
-D9 E1, Fabs, Fabs, 0, 
+D9 E1, Fabs, Fabs, 0,
 
-D9 E4, Ftst, Ftst, 0, 
+D9 E4, Ftst, Ftst, 0,
 
-D9 E5, Fxam, Fxam, 0, 
+D9 E5, Fxam, Fxam, 0,
 
-D9 E8, Fld1, Fld1, 0, 
+D9 E8, Fld1, Fld1, 0,
 
-D9 E9, Fldl2t, Fldl2t, 0, 
+D9 E9, Fldl2t, Fldl2t, 0,
 
-D9 EA, Fldl2e, Fldl2e, 0, 
+D9 EA, Fldl2e, Fldl2e, 0,
 
-D9 EB, Fldpi, Fldpi, 0, 
+D9 EB, Fldpi, Fldpi, 0,
 
-D9 EC, Fldlg2, Fldlg2, 0, 
+D9 EC, Fldlg2, Fldlg2, 0,
 
-D9 ED, Fldln2, Fldln2, 0, 
+D9 ED, Fldln2, Fldln2, 0,
 
-D9 EE, Fldz, Fldz, 0, 
+D9 EE, Fldz, Fldz, 0,
 
-D9 F0, F2xm1, F2xm1, 0, 
+D9 F0, F2xm1, F2xm1, 0,
 
-D9 F1, Fyl2x, Fyl2x, 0, 
+D9 F1, Fyl2x, Fyl2x, 0,
 
-D9 F2, Fptan, Fptan, 0, 
+D9 F2, Fptan, Fptan, 0,
 
-D9 F3, Fpatan, Fpatan, 0, 
+D9 F3, Fpatan, Fpatan, 0,
 
-D9 F4, Fxtract, Fxtract, 0, 
+D9 F4, Fxtract, Fxtract, 0,
 
-D9 F5, Fprem1, Fprem1, 0, 
+D9 F5, Fprem1, Fprem1, 0,
 
-D9 F6, Fdecstp, Fdecstp, 0, 
+D9 F6, Fdecstp, Fdecstp, 0,
 
-D9 F7, Fincstp, Fincstp, 0, 
+D9 F7, Fincstp, Fincstp, 0,
 
-D9 F8, Fprem, Fprem, 0, 
+D9 F8, Fprem, Fprem, 0,
 
-D9 F9, Fyl2xp1, Fyl2xp1, 0, 
+D9 F9, Fyl2xp1, Fyl2xp1, 0,
 
-D9 FA, Fsqrt, Fsqrt, 0, 
+D9 FA, Fsqrt, Fsqrt, 0,
 
-D9 FB, Fsincos, Fsincos, 0, 
+D9 FB, Fsincos, Fsincos, 0,
 
-D9 FC, Frndint, Frndint, 0, 
+D9 FC, Frndint, Frndint, 0,
 
-D9 FD, Fscale, Fscale, 0, 
+D9 FD, Fscale, Fscale, 0,
 
-D9 FE, Fsin, Fsin, 0, 
+D9 FE, Fsin, Fsin, 0,
 
-D9 FF, Fcos, Fcos, 0, 
+D9 FF, Fcos, Fcos, 0,
 
 DA 00, Fiadd_m32int, Fiadd, 1, op0=m;ds;bx;si;1;0;0;Int32
 66 DA 00, Fiadd_m32int, Fiadd, 1, op0=m;ds;bx;si;1;0;0;Int32 enc=DA00
@@ -1708,7 +1708,7 @@ DA D3, Fcmovbe_st0_sti, Fcmovbe, 2, op0=r;st0 op1=r;st3
 DA DB, Fcmovu_st0_sti, Fcmovu, 2, op0=r;st0 op1=r;st3
 66 DA DE, Fcmovu_st0_sti, Fcmovu, 2, op0=r;st0 op1=r;st6 enc=DADE
 
-DA E9, Fucompp, Fucompp, 0, 
+DA E9, Fucompp, Fucompp, 0,
 
 DB 00, Fild_m32int, Fild, 1, op0=m;ds;bx;si;1;0;0;Int32
 66 DB 00, Fild_m32int, Fild, 1, op0=m;ds;bx;si;1;0;0;Int32 enc=DB00
@@ -1740,15 +1740,15 @@ DB D3, Fcmovnbe_st0_sti, Fcmovnbe, 2, op0=r;st0 op1=r;st3
 DB DB, Fcmovnu_st0_sti, Fcmovnu, 2, op0=r;st0 op1=r;st3
 66 DB DE, Fcmovnu_st0_sti, Fcmovnu, 2, op0=r;st0 op1=r;st6 enc=DBDE
 
-DB E0, Fneni, Fneni, 0, 
+DB E0, Fneni, Fneni, 0,
 
-DB E1, Fndisi, Fndisi, 0, 
+DB E1, Fndisi, Fndisi, 0,
 
-DB E2, Fnclex, Fnclex, 0, 
+DB E2, Fnclex, Fnclex, 0,
 
-DB E3, Fninit, Fninit, 0, 
+DB E3, Fninit, Fninit, 0,
 
-DB E4, Fnsetpm, Fnsetpm, 0, 
+DB E4, Fnsetpm, Fnsetpm, 0,
 
 DB E5, Frstpm, Frstpm, 0, oldfpu
 
@@ -1880,7 +1880,7 @@ DE CB, Fmulp_sti_st0, Fmulp, 2, op0=r;st3 op1=r;st0
 DE D3, Fcomp_st0_sti_DED0, Fcomp, 2, op0=r;st0 op1=r;st3
 66 DE D6, Fcomp_st0_sti_DED0, Fcomp, 2, op0=r;st0 op1=r;st6 enc=DED6
 
-DE D9, Fcompp, Fcompp, 0, 
+DE D9, Fcompp, Fcompp, 0,
 
 DE E3, Fsubrp_sti_st0, Fsubrp, 2, op0=r;st3 op1=r;st0
 66 DE E6, Fsubrp_sti_st0, Fsubrp, 2, op0=r;st6 op1=r;st0 enc=DEE6
@@ -2045,11 +2045,11 @@ EF, Out_DX_AX, Out, 2, op0=r;dx op1=r;ax
 
 66 EF, Out_DX_EAX, Out, 2, op0=r;dx op1=r;eax
 
-F1, Int1, Int1, 0, 
+F1, Int1, Int1, 0,
 
-F4, Hlt, Hlt, 0, 
+F4, Hlt, Hlt, 0,
 
-F5, Cmc, Cmc, 0, 
+F5, Cmc, Cmc, 0,
 
 F6 00 5A, Test_rm8_imm8, Test, 2, op0=m;ds;bx;si;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
 F6 C1 5A, Test_rm8_imm8, Test, 2, op0=r;cl op1=i8;0x5A co=2;1;0;0;0;0
@@ -2135,17 +2135,17 @@ F7 F8, Idiv_rm16, Idiv, 1, op0=r;ax
 66 F7 38, Idiv_rm32, Idiv, 1, op0=m;ds;bx;si;1;0;0;Int32
 66 F7 F8, Idiv_rm32, Idiv, 1, op0=r;eax
 
-F8, Clc, Clc, 0, 
+F8, Clc, Clc, 0,
 
-F9, Stc, Stc, 0, 
+F9, Stc, Stc, 0,
 
-FA, Cli, Cli, 0, 
+FA, Cli, Cli, 0,
 
-FB, Sti, Sti, 0, 
+FB, Sti, Sti, 0,
 
-FC, Cld, Cld, 0, 
+FC, Cld, Cld, 0,
 
-FD, Std, Std, 0, 
+FD, Std, Std, 0,
 
 FE 00, Inc_rm8, Inc, 1, op0=m;ds;bx;si;1;0;0;UInt8
 F0 FE 00, Inc_rm8, Inc, 1, op0=m;ds;bx;si;1;0;0;UInt8 lock
@@ -2278,85 +2278,85 @@ F3 0F01 28, Rstorssp_m64, Rstorssp, 1, op0=m;ds;bx;si;1;0;0;UInt64
 0F01 38, Invlpg_m, Invlpg, 1, op0=m;ds;bx;si;1;0;0;Unknown
 66 0F01 38, Invlpg_m, Invlpg, 1, op0=m;ds;bx;si;1;0;0;Unknown enc=0F0138
 
-0F01 C0, Enclv, Enclv, 0, 
+0F01 C0, Enclv, Enclv, 0,
 
-0F01 C1, Vmcall, Vmcall, 0, 
+0F01 C1, Vmcall, Vmcall, 0,
 
-0F01 C2, Vmlaunch, Vmlaunch, 0, 
+0F01 C2, Vmlaunch, Vmlaunch, 0,
 
-0F01 C3, Vmresume, Vmresume, 0, 
+0F01 C3, Vmresume, Vmresume, 0,
 
-0F01 C4, Vmxoff, Vmxoff, 0, 
+0F01 C4, Vmxoff, Vmxoff, 0,
 
-0F01 C5, Pconfig, Pconfig, 0, 
+0F01 C5, Pconfig, Pconfig, 0,
 
-0F01 C8, Monitorw, Monitor, 0, 
+0F01 C8, Monitorw, Monitor, 0,
 
-67 0F01 C8, Monitord, Monitor, 0, 
+67 0F01 C8, Monitord, Monitor, 0,
 
-0F01 C9, Mwait, Mwait, 0, 
+0F01 C9, Mwait, Mwait, 0,
 
-0F01 CA, Clac, Clac, 0, 
+0F01 CA, Clac, Clac, 0,
 
-0F01 CB, Stac, Stac, 0, 
+0F01 CB, Stac, Stac, 0,
 
-0F01 CF, Encls, Encls, 0, 
+0F01 CF, Encls, Encls, 0,
 
-0F01 D0, Xgetbv, Xgetbv, 0, 
+0F01 D0, Xgetbv, Xgetbv, 0,
 
-0F01 D1, Xsetbv, Xsetbv, 0, 
+0F01 D1, Xsetbv, Xsetbv, 0,
 
-0F01 D4, Vmfunc, Vmfunc, 0, 
+0F01 D4, Vmfunc, Vmfunc, 0,
 
-0F01 D5, Xend, Xend, 0, 
+0F01 D5, Xend, Xend, 0,
 
-0F01 D6, Xtest, Xtest, 0, 
+0F01 D6, Xtest, Xtest, 0,
 
-0F01 D7, Enclu, Enclu, 0, 
+0F01 D7, Enclu, Enclu, 0,
 
-0F01 D8, Vmrunw, Vmrun, 0, 
+0F01 D8, Vmrunw, Vmrun, 0,
 
-67 0F01 D8, Vmrund, Vmrun, 0, 
+67 0F01 D8, Vmrund, Vmrun, 0,
 
-0F01 D9, Vmmcall, Vmmcall, 0, 
+0F01 D9, Vmmcall, Vmmcall, 0,
 
-0F01 DA, Vmloadw, Vmload, 0, 
+0F01 DA, Vmloadw, Vmload, 0,
 
-67 0F01 DA, Vmloadd, Vmload, 0, 
+67 0F01 DA, Vmloadd, Vmload, 0,
 
-0F01 DB, Vmsavew, Vmsave, 0, 
+0F01 DB, Vmsavew, Vmsave, 0,
 
-67 0F01 DB, Vmsaved, Vmsave, 0, 
+67 0F01 DB, Vmsaved, Vmsave, 0,
 
-0F01 DC, Stgi, Stgi, 0, 
+0F01 DC, Stgi, Stgi, 0,
 
-0F01 DD, Clgi, Clgi, 0, 
+0F01 DD, Clgi, Clgi, 0,
 
-0F01 DE, Skinit, Skinit, 0, 
+0F01 DE, Skinit, Skinit, 0,
 
-0F01 DF, Invlpgaw, Invlpga, 0, 
+0F01 DF, Invlpgaw, Invlpga, 0,
 
-67 0F01 DF, Invlpgad, Invlpga, 0, 
+67 0F01 DF, Invlpgad, Invlpga, 0,
 
-F3 0F01 E8, Setssbsy, Setssbsy, 0, 
+F3 0F01 E8, Setssbsy, Setssbsy, 0,
 
-F3 0F01 EA, Saveprevssp, Saveprevssp, 0, 
+F3 0F01 EA, Saveprevssp, Saveprevssp, 0,
 
-0F01 EE, Rdpkru, Rdpkru, 0, 
+0F01 EE, Rdpkru, Rdpkru, 0,
 
-0F01 EF, Wrpkru, Wrpkru, 0, 
+0F01 EF, Wrpkru, Wrpkru, 0,
 
-0F01 F9, Rdtscp, Rdtscp, 0, 
+0F01 F9, Rdtscp, Rdtscp, 0,
 
-0F01 FA, Monitorxw, Monitorx, 0, 
+0F01 FA, Monitorxw, Monitorx, 0,
 
-67 0F01 FA, Monitorxd, Monitorx, 0, 
+67 0F01 FA, Monitorxd, Monitorx, 0,
 
-0F01 FB, Mwaitx, Mwaitx, 0, 
+0F01 FB, Mwaitx, Mwaitx, 0,
 
-0F01 FC, Clzerow, Clzero, 0, 
+0F01 FC, Clzerow, Clzero, 0,
 
-67 0F01 FC, Clzerod, Clzero, 0, 
+67 0F01 FC, Clzerod, Clzero, 0,
 
 0F01 FD, Rdpru, Rdpru, 0,
 
@@ -2376,26 +2376,26 @@ F3 0F01 EA, Saveprevssp, Saveprevssp, 0,
 
 0F05, Loadall286, Loadall, 0, loadall286
 
-0F05, Syscall, Syscall, 0, 
+0F05, Syscall, Syscall, 0,
 
-0F06, Clts, Clts, 0, 
+0F06, Clts, Clts, 0,
 
 0F07, Loadall386, Loadall, 0, loadall386
 
-0F07, Sysretd, Sysret, 0, 
+0F07, Sysretd, Sysret, 0,
 
-0F08, Invd, Invd, 0, 
+0F08, Invd, Invd, 0,
 
-0F09, Wbinvd, Wbinvd, 0, 
+0F09, Wbinvd, Wbinvd, 0,
 F3 0F09, Wbinvd, Wbinvd, 0, nowbnoinvd enc=0F09
 
-F3 0F09, Wbnoinvd, Wbnoinvd, 0, 
+F3 0F09, Wbnoinvd, Wbnoinvd, 0,
 
 0F0A, Cflsh, Cflsh, 0, cflsh
 
 0F0A, Cl1invmb, Cl1invmb, 0, cl1invmb
 
-0F0B, Ud2, Ud2, 0, 
+0F0B, Ud2, Ud2, 0,
 
 0F0D CE, ReservedNop_rm16_r16_0F0D, ReservedNop, 2, op0=r;si op1=r;cx resnop
 0F0D 18, ReservedNop_rm16_r16_0F0D, ReservedNop, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx resnop
@@ -2414,7 +2414,7 @@ F3 0F09, Wbnoinvd, Wbnoinvd, 0,
 
 0F0D 10, Prefetchwt1_m8, Prefetchwt1, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
-0F0E, Femms, Femms, 0, 
+0F0E, Femms, Femms, 0,
 
 0F10 CE, Umov_rm8_r8, Umov, 2, op0=r;dh op1=r;cl umov
 0F10 18, Umov_rm8_r8, Umov, 2, op0=m;ds;bx;si;1;0;0;UInt8 op1=r;bl umov
@@ -2999,9 +2999,9 @@ F2 0F1B CA, Bndcn_bnd_rm32, Bndcn, 2, op0=r;bnd1 op1=r;edx
 
 F3 0F1E C9, Rdsspd_r32, Rdsspd, 1, op0=r;ecx
 
-F3 0F1E FA, Endbr64, Endbr64, 0, 
+F3 0F1E FA, Endbr64, Endbr64, 0,
 
-F3 0F1E FB, Endbr32, Endbr32, 0, 
+F3 0F1E FB, Endbr32, Endbr32, 0,
 
 0F1F 00, Nop_rm16, Nop, 1, op0=m;ds;bx;si;1;0;0;UInt16
 0F1F C1, Nop_rm16, Nop, 1, op0=r;cx
@@ -3401,23 +3401,23 @@ C5F9 2F D3, VEX_Vcomisd_xmm_xmmm64, Vcomisd, 2, op0=r;xmm2 op1=r;xmm3
 62 F1FD08 2F D3, EVEX_Vcomisd_xmm_xmmm64_sae, Vcomisd, 2, op0=r;xmm2 op1=r;xmm3
 62 F1FD18 2F D3, EVEX_Vcomisd_xmm_xmmm64_sae, Vcomisd, 2, op0=r;xmm2 op1=r;xmm3 sae
 
-0F30, Wrmsr, Wrmsr, 0, 
+0F30, Wrmsr, Wrmsr, 0,
 
-0F31, Rdtsc, Rdtsc, 0, 
+0F31, Rdtsc, Rdtsc, 0,
 
-0F32, Rdmsr, Rdmsr, 0, 
+0F32, Rdmsr, Rdmsr, 0,
 
-0F33, Rdpmc, Rdpmc, 0, 
+0F33, Rdpmc, Rdpmc, 0,
 
 0F34, Wrecr, Wrecr, 0, ecr
 
-0F34, Sysenter, Sysenter, 0, 
+0F34, Sysenter, Sysenter, 0,
 
-0F35, Sysexitd, Sysexit, 0, 
+0F35, Sysexitd, Sysexit, 0,
 
 0F36, Rdecr, Rdecr, 0, ecr
 
-0F37, Getsec, Getsec, 0, 
+0F37, Getsec, Getsec, 0,
 
 0F40 18, Cmovo_r16_rm16, Cmovo, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16
 0F40 CE, Cmovo_r16_rm16, Cmovo, 2, op0=r;cx op1=r;si
@@ -5946,12 +5946,12 @@ C5CD 76 D3, VEX_Vpcmpeqd_ymm_ymm_ymmm256, Vpcmpeqd, 3, op0=r;ymm2 op1=r;ymm6 op2
 62 F14D48 76 50 01, EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32, Vpcmpeqd, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;bx;si;1;64;1;Packed512_Int32 co=0;0;0;0;6;1
 62 F14D4B 76 D3, EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32, Vpcmpeqd, 3, op0=r;k2 op1=r;zmm6 op2=r;zmm3 k3
 
-0F77, Emms, Emms, 0, 
+0F77, Emms, Emms, 0,
 
-C5F8 77, VEX_Vzeroupper, Vzeroupper, 0, 
+C5F8 77, VEX_Vzeroupper, Vzeroupper, 0,
 C4E1F8 77, VEX_Vzeroupper, Vzeroupper, 0, enc=C5F877
 
-C5FC 77, VEX_Vzeroall, Vzeroall, 0, 
+C5FC 77, VEX_Vzeroall, Vzeroall, 0,
 C4E1FC 77, VEX_Vzeroall, Vzeroall, 0, enc=C5FC77
 
 0F78 CE, Vmread_rm32_r32, Vmread, 2, op0=r;esi op1=r;ecx
@@ -6824,7 +6824,7 @@ C4E1F9 99 D3, VEX_Ktestd_k_k, Ktestd, 2, op0=r;k2 op1=r;k3
 
 66 0FA1, Popd_FS, Pop, 1, op0=r;fs
 
-0FA2, Cpuid, Cpuid, 0, 
+0FA2, Cpuid, Cpuid, 0,
 
 0FA3 CE, Bt_rm16_r16, Bt, 2, op0=r;si op1=r;cx
 0FA3 18, Bt_rm16_r16, Bt, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
@@ -6845,25 +6845,25 @@ C4E1F9 99 D3, VEX_Ktestd_k_k, Ktestd, 2, op0=r;k2 op1=r;k3
 66 0FA5 18, Shld_rm32_r32_CL, Shld, 3, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx op2=r;cl
 
 F3 0FA6 C0, Montmul_16, Montmul, 0, rep
-0FA6 C0, Montmul_16, Montmul, 0, 
+0FA6 C0, Montmul_16, Montmul, 0,
 
 F3 67 0FA6 C0, Montmul_32, Montmul, 0, rep enc=67F30FA6C0
 67 F3 0FA6 C0, Montmul_32, Montmul, 0, rep
-67 0FA6 C0, Montmul_32, Montmul, 0, 
+67 0FA6 C0, Montmul_32, Montmul, 0,
 
 F3 0FA6 C8, Xsha1_16, Xsha1, 0, rep
-0FA6 C8, Xsha1_16, Xsha1, 0, 
+0FA6 C8, Xsha1_16, Xsha1, 0,
 
 F3 67 0FA6 C8, Xsha1_32, Xsha1, 0, rep enc=67F30FA6C8
 67 F3 0FA6 C8, Xsha1_32, Xsha1, 0, rep
-67 0FA6 C8, Xsha1_32, Xsha1, 0, 
+67 0FA6 C8, Xsha1_32, Xsha1, 0,
 
 F3 0FA6 D0, Xsha256_16, Xsha256, 0, rep
-0FA6 D0, Xsha256_16, Xsha256, 0, 
+0FA6 D0, Xsha256_16, Xsha256, 0,
 
 F3 67 0FA6 D0, Xsha256_32, Xsha256, 0, rep enc=67F30FA6D0
 67 F3 0FA6 D0, Xsha256_32, Xsha256, 0, rep
-67 0FA6 D0, Xsha256_32, Xsha256, 0, 
+67 0FA6 D0, Xsha256_32, Xsha256, 0,
 
 0FA6 CE, Xbts_r16_rm16, Xbts, 2, op0=r;cx op1=r;si xbts
 0FA6 18, Xbts_r16_rm16, Xbts, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16 xbts
@@ -6881,46 +6881,46 @@ F3 67 0FA6 D0, Xsha256_32, Xsha256, 0, rep enc=67F30FA6D0
 0FA6 18, Cmpxchg486_rm8_r8, Cmpxchg, 2, op0=m;ds;bx;si;1;0;0;UInt8 op1=r;bl cmpxchg486a
 
 F3 0FA7 C0, Xstore_16, Xstore, 0, rep
-0FA7 C0, Xstore_16, Xstore, 0, 
+0FA7 C0, Xstore_16, Xstore, 0,
 
 F3 67 0FA7 C0, Xstore_32, Xstore, 0, rep enc=67F30FA7C0
 67 F3 0FA7 C0, Xstore_32, Xstore, 0, rep
-67 0FA7 C0, Xstore_32, Xstore, 0, 
+67 0FA7 C0, Xstore_32, Xstore, 0,
 
 F3 0FA7 C8, XcryptEcb_16, Xcryptecb, 0, rep
-0FA7 C8, XcryptEcb_16, Xcryptecb, 0, 
+0FA7 C8, XcryptEcb_16, Xcryptecb, 0,
 
 F3 67 0FA7 C8, XcryptEcb_32, Xcryptecb, 0, rep enc=67F30FA7C8
 67 F3 0FA7 C8, XcryptEcb_32, Xcryptecb, 0, rep
-67 0FA7 C8, XcryptEcb_32, Xcryptecb, 0, 
+67 0FA7 C8, XcryptEcb_32, Xcryptecb, 0,
 
 F3 0FA7 D0, XcryptCbc_16, Xcryptcbc, 0, rep
-0FA7 D0, XcryptCbc_16, Xcryptcbc, 0, 
+0FA7 D0, XcryptCbc_16, Xcryptcbc, 0,
 
 F3 67 0FA7 D0, XcryptCbc_32, Xcryptcbc, 0, rep enc=67F30FA7D0
 67 F3 0FA7 D0, XcryptCbc_32, Xcryptcbc, 0, rep
-67 0FA7 D0, XcryptCbc_32, Xcryptcbc, 0, 
+67 0FA7 D0, XcryptCbc_32, Xcryptcbc, 0,
 
 F3 0FA7 D8, XcryptCtr_16, Xcryptctr, 0, rep
-0FA7 D8, XcryptCtr_16, Xcryptctr, 0, 
+0FA7 D8, XcryptCtr_16, Xcryptctr, 0,
 
 F3 67 0FA7 D8, XcryptCtr_32, Xcryptctr, 0, rep enc=67F30FA7D8
 67 F3 0FA7 D8, XcryptCtr_32, Xcryptctr, 0, rep
-67 0FA7 D8, XcryptCtr_32, Xcryptctr, 0, 
+67 0FA7 D8, XcryptCtr_32, Xcryptctr, 0,
 
 F3 0FA7 E0, XcryptCfb_16, Xcryptcfb, 0, rep
-0FA7 E0, XcryptCfb_16, Xcryptcfb, 0, 
+0FA7 E0, XcryptCfb_16, Xcryptcfb, 0,
 
 F3 67 0FA7 E0, XcryptCfb_32, Xcryptcfb, 0, rep enc=67F30FA7E0
 67 F3 0FA7 E0, XcryptCfb_32, Xcryptcfb, 0, rep
-67 0FA7 E0, XcryptCfb_32, Xcryptcfb, 0, 
+67 0FA7 E0, XcryptCfb_32, Xcryptcfb, 0,
 
 F3 0FA7 E8, XcryptOfb_16, Xcryptofb, 0, rep
-0FA7 E8, XcryptOfb_16, Xcryptofb, 0, 
+0FA7 E8, XcryptOfb_16, Xcryptofb, 0,
 
 F3 67 0FA7 E8, XcryptOfb_32, Xcryptofb, 0, rep enc=67F30FA7E8
 67 F3 0FA7 E8, XcryptOfb_32, Xcryptofb, 0, rep
-67 0FA7 E8, XcryptOfb_32, Xcryptofb, 0, 
+67 0FA7 E8, XcryptOfb_32, Xcryptofb, 0,
 
 0FA7 CE, Cmpxchg486_rm16_r16, Cmpxchg, 2, op0=r;si op1=r;cx cmpxchg486a
 0FA7 18, Cmpxchg486_rm16_r16, Cmpxchg, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx cmpxchg486a
@@ -6936,7 +6936,7 @@ F3 67 0FA7 E8, XcryptOfb_32, Xcryptofb, 0, rep enc=67F30FA7E8
 
 66 0FA9, Popd_GS, Pop, 1, op0=r;gs
 
-0FAA, Rsm, Rsm, 0, 
+0FAA, Rsm, Rsm, 0,
 
 0FAB CE, Bts_rm16_r16, Bts, 2, op0=r;si op1=r;cx
 F0 0FAB CE, INVALID, INVALID, 0,
@@ -7003,7 +7003,7 @@ F2 0FAE F5, Umwait_r32, Umwait, 1, op0=r;ebp
 
 66 0FAE 38, Clflushopt_m8, Clflushopt, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
-0FAE E8, Lfence, Lfence, 0, 
+0FAE E8, Lfence, Lfence, 0,
 
 0FAE E9, Lfence, Lfence, 0, enc=0FAEE8
 
@@ -7019,7 +7019,7 @@ F2 0FAE F5, Umwait_r32, Umwait, 1, op0=r;ebp
 
 0FAE EF, Lfence, Lfence, 0, enc=0FAEE8
 
-0FAE F0, Mfence, Mfence, 0, 
+0FAE F0, Mfence, Mfence, 0,
 
 0FAE F1, Mfence, Mfence, 0, enc=0FAEF0
 
@@ -7035,7 +7035,7 @@ F2 0FAE F5, Umwait_r32, Umwait, 1, op0=r;ebp
 
 0FAE F7, Mfence, Mfence, 0, enc=0FAEF0
 
-0FAE F8, Sfence, Sfence, 0, 
+0FAE F8, Sfence, Sfence, 0,
 
 0FAE F9, Sfence, Sfence, 0, enc=0FAEF8
 
