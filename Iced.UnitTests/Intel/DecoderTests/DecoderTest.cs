@@ -69,8 +69,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			return (decoder, codeReader.Count);
 		}
 
-		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, in ConstantOffsets constantOffsets, string encodedHexBytes) {
-			var (decoder, byteLength) = CreateDecoder(bitness, hexBytes, DecoderOptions.None);
+		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, in ConstantOffsets constantOffsets, string encodedHexBytes, DecoderOptions options) {
+			var (decoder, byteLength) = CreateDecoder(bitness, hexBytes, options);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
@@ -144,7 +144,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				int displSize = (int)ParseUInt32(parts[9].Trim());
 				var constantOffsets = ParseConstantOffsets(parts[10].Trim());
 				string encodedHexBytes = parts.Length > 11 ? parts[11].Trim() : hexBytes;
-				yield return new object[12] { hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize, constantOffsets, encodedHexBytes };
+				var options = DecoderOptions.NoInvalidCheck;
+				yield return new object[13] { hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize, constantOffsets, encodedHexBytes, options };
 			}
 
 			static uint ParseUInt32(string s) {

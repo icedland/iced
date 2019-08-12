@@ -741,13 +741,13 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + ((state.flags & StateFlags.W) != 0 ? Register.RAX : Register.EAX);
-				if (!allowReg && (decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && !allowReg)
 					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
-				if (!allowMem && (decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && !allowMem)
 					decoder.SetInvalidInstruction();
 			}
 		}
@@ -2651,7 +2651,7 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
-				if (!allowMem && (decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && !allowMem)
 					decoder.SetInvalidInstruction();
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
@@ -2691,13 +2691,13 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
-				if (!allowReg && (decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && !allowReg)
 					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
-				if (!allowMem && (decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && !allowMem)
 					decoder.SetInvalidInstruction();
 			}
 		}

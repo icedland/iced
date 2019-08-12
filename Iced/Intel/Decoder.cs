@@ -515,7 +515,7 @@ after_read_prefixes:
 		}
 
 		internal void VEX2(ref Instruction instruction) {
-			if (((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None) && (options & DecoderOptions.NoInvalidCheck) == 0)
+			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None))
 				SetInvalidInstruction();
 
 			state.flags |= (StateFlags)EncodingKind.VEX;
@@ -539,7 +539,7 @@ after_read_prefixes:
 		}
 
 		internal void VEX3(ref Instruction instruction) {
-			if (((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None) && (options & DecoderOptions.NoInvalidCheck) == 0)
+			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None))
 				SetInvalidInstruction();
 
 			state.flags |= (StateFlags)EncodingKind.VEX;
@@ -583,7 +583,7 @@ after_read_prefixes:
 		}
 
 		internal void XOP(ref Instruction instruction) {
-			if (((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None) && (options & DecoderOptions.NoInvalidCheck) == 0)
+			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None))
 				SetInvalidInstruction();
 
 			state.flags |= (StateFlags)EncodingKind.XOP;
@@ -627,7 +627,7 @@ after_read_prefixes:
 		}
 
 		internal void EVEX_MVEX(ref Instruction instruction) {
-			if (((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None) && (options & DecoderOptions.NoInvalidCheck) == 0)
+			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None))
 				SetInvalidInstruction();
 
 			uint p0 = state.modrm;
@@ -766,7 +766,7 @@ after_read_prefixes:
 				isInvalid = true;
 				ReadOpMem16(ref instruction, tupleType);
 			}
-			if (isInvalid && (options & DecoderOptions.NoInvalidCheck) == 0)
+			if ((options & DecoderOptions.NoInvalidCheck) == 0 && isInvalid)
 				SetInvalidInstruction();
 		}
 
