@@ -142,7 +142,8 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// Disable some checks for invalid encodings of instructions, eg. most instructions can't
-		/// use a LOCK prefix so if one is found, they're decoded as <see cref="Code.INVALID"/>.
+		/// use a LOCK prefix so if one is found, they're decoded as <see cref="Code.INVALID"/>
+		/// unless this option is enabled.
 		/// </summary>
 		NoInvalidCheck				= 0x00200000,
 	}

@@ -515,7 +515,7 @@ after_read_prefixes:
 		}
 
 		internal void VEX2(ref Instruction instruction) {
-			if ((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None)
+			if (((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None) && (options & DecoderOptions.NoInvalidCheck) == 0)
 				SetInvalidInstruction();
 
 			state.flags |= (StateFlags)EncodingKind.VEX;
@@ -539,7 +539,7 @@ after_read_prefixes:
 		}
 
 		internal void VEX3(ref Instruction instruction) {
-			if ((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None)
+			if (((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None) && (options & DecoderOptions.NoInvalidCheck) == 0)
 				SetInvalidInstruction();
 
 			state.flags |= (StateFlags)EncodingKind.VEX;
@@ -583,7 +583,7 @@ after_read_prefixes:
 		}
 
 		internal void XOP(ref Instruction instruction) {
-			if ((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None)
+			if (((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None) && (options & DecoderOptions.NoInvalidCheck) == 0)
 				SetInvalidInstruction();
 
 			state.flags |= (StateFlags)EncodingKind.XOP;
@@ -627,7 +627,7 @@ after_read_prefixes:
 		}
 
 		internal void EVEX_MVEX(ref Instruction instruction) {
-			if ((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None)
+			if (((state.flags & StateFlags.HasRex) != 0 || state.mandatoryPrefix != MandatoryPrefix.None) && (options & DecoderOptions.NoInvalidCheck) == 0)
 				SetInvalidInstruction();
 
 			uint p0 = state.modrm;
@@ -659,7 +659,7 @@ after_read_prefixes:
 				state.aaa = aaa;
 				Debug.Assert((int)StateFlags.z == 0x20);
 				state.flags |= (StateFlags)(p2 >> 2) & StateFlags.z;
-				if (aaa == 0 && (state.flags & StateFlags.z) != 0)
+				if ((options & DecoderOptions.NoInvalidCheck) == 0 && (aaa == 0 && (state.flags & StateFlags.z) != 0))
 					SetInvalidInstruction();
 
 				Debug.Assert((int)StateFlags.b == 0x10);
@@ -737,8 +737,11 @@ after_read_prefixes:
 			}
 			else if (state.addressSize == OpSize.Size32)
 				ReadOpMem32Or64(ref instruction, Register.EAX, Register.EAX, TupleType.None, false);
-			else
-				SetInvalidInstruction();
+			else {
+				ReadOpMem16(ref instruction, TupleType.None);
+				if ((options & DecoderOptions.NoInvalidCheck) == 0)
+					SetInvalidInstruction();
+			}
 		}
 
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
@@ -754,15 +757,16 @@ after_read_prefixes:
 
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void ReadOpMem_VSIB(ref Instruction instruction, Register vsibIndex, TupleType tupleType) {
-			if (state.addressSize == OpSize.Size64) {
-				if (!ReadOpMem32Or64(ref instruction, Register.RAX, vsibIndex, tupleType, true))
-					SetInvalidInstruction();
+			bool isInvalid;
+			if (state.addressSize == OpSize.Size64)
+				isInvalid = !ReadOpMem32Or64(ref instruction, Register.RAX, vsibIndex, tupleType, true);
+			else if (state.addressSize == OpSize.Size32)
+				isInvalid = !ReadOpMem32Or64(ref instruction, Register.EAX, vsibIndex, tupleType, true);
+			else {
+				isInvalid = true;
+				ReadOpMem16(ref instruction, tupleType);
 			}
-			else if (state.addressSize == OpSize.Size32) {
-				if (!ReadOpMem32Or64(ref instruction, Register.EAX, vsibIndex, tupleType, true))
-					SetInvalidInstruction();
-			}
-			else
+			if (isInvalid && (options & DecoderOptions.NoInvalidCheck) == 0)
 				SetInvalidInstruction();
 		}
 
