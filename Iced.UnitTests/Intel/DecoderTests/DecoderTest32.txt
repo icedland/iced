@@ -491,99 +491,195 @@ F3 6F, Outsd_DX_m32, Outsd, 2, op0=r;dx op1=segesi;ds;UInt32 rep
 
 66 70 5A, Jo_rel8_16, Jo, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 70 5A, Jo_rel8_32, Jo, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 70 A5, Jo_rel8_32, Jo, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 70 A5, Jo_rel8_32, Jo, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 70 A5, Jo_rel8_32, Jo, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 70 A5, Jo_rel8_32, Jo, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 71 5A, Jno_rel8_16, Jno, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 71 5A, Jno_rel8_32, Jno, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 71 A5, Jno_rel8_32, Jno, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 71 A5, Jno_rel8_32, Jno, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 71 A5, Jno_rel8_32, Jno, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 71 A5, Jno_rel8_32, Jno, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 72 5A, Jb_rel8_16, Jb, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 72 5A, Jb_rel8_32, Jb, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 72 A5, Jb_rel8_32, Jb, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 72 A5, Jb_rel8_32, Jb, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 72 A5, Jb_rel8_32, Jb, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 72 A5, Jb_rel8_32, Jb, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 73 5A, Jae_rel8_16, Jae, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 73 5A, Jae_rel8_32, Jae, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 73 A5, Jae_rel8_32, Jae, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 73 A5, Jae_rel8_32, Jae, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 73 A5, Jae_rel8_32, Jae, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 73 A5, Jae_rel8_32, Jae, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 74 5A, Je_rel8_16, Je, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 74 5A, Je_rel8_32, Je, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 74 A5, Je_rel8_32, Je, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 74 A5, Je_rel8_32, Je, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 74 A5, Je_rel8_32, Je, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 74 A5, Je_rel8_32, Je, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 75 5A, Jne_rel8_16, Jne, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 75 5A, Jne_rel8_32, Jne, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 75 A5, Jne_rel8_32, Jne, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 75 A5, Jne_rel8_32, Jne, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 75 A5, Jne_rel8_32, Jne, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 75 A5, Jne_rel8_32, Jne, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 76 5A, Jbe_rel8_16, Jbe, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 76 5A, Jbe_rel8_32, Jbe, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 76 A5, Jbe_rel8_32, Jbe, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 76 A5, Jbe_rel8_32, Jbe, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 76 A5, Jbe_rel8_32, Jbe, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 76 A5, Jbe_rel8_32, Jbe, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 77 5A, Ja_rel8_16, Ja, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 77 5A, Ja_rel8_32, Ja, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 77 A5, Ja_rel8_32, Ja, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 77 A5, Ja_rel8_32, Ja, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 77 A5, Ja_rel8_32, Ja, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 77 A5, Ja_rel8_32, Ja, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 78 5A, Js_rel8_16, Js, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 78 5A, Js_rel8_32, Js, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 78 A5, Js_rel8_32, Js, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 78 A5, Js_rel8_32, Js, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 78 A5, Js_rel8_32, Js, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 78 A5, Js_rel8_32, Js, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 79 5A, Jns_rel8_16, Jns, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 79 5A, Jns_rel8_32, Jns, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 79 A5, Jns_rel8_32, Jns, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 79 A5, Jns_rel8_32, Jns, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 79 A5, Jns_rel8_32, Jns, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 79 A5, Jns_rel8_32, Jns, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 7A 5A, Jp_rel8_16, Jp, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 7A 5A, Jp_rel8_32, Jp, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 7A A5, Jp_rel8_32, Jp, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 7A A5, Jp_rel8_32, Jp, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 7A A5, Jp_rel8_32, Jp, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 7A A5, Jp_rel8_32, Jp, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 7B 5A, Jnp_rel8_16, Jnp, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 7B 5A, Jnp_rel8_32, Jnp, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 7B A5, Jnp_rel8_32, Jnp, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 7B A5, Jnp_rel8_32, Jnp, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 7B A5, Jnp_rel8_32, Jnp, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 7B A5, Jnp_rel8_32, Jnp, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 7C 5A, Jl_rel8_16, Jl, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 7C 5A, Jl_rel8_32, Jl, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 7C A5, Jl_rel8_32, Jl, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 7C A5, Jl_rel8_32, Jl, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 7C A5, Jl_rel8_32, Jl, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 7C A5, Jl_rel8_32, Jl, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 7D 5A, Jge_rel8_16, Jge, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 7D 5A, Jge_rel8_32, Jge, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 7D A5, Jge_rel8_32, Jge, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 7D A5, Jge_rel8_32, Jge, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 7D A5, Jge_rel8_32, Jge, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 7D A5, Jge_rel8_32, Jge, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 7E 5A, Jle_rel8_16, Jle, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 7E 5A, Jle_rel8_32, Jle, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 7E A5, Jle_rel8_32, Jle, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 7E A5, Jle_rel8_32, Jle, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 7E A5, Jle_rel8_32, Jle, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 7E A5, Jle_rel8_32, Jle, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 66 7F 5A, Jg_rel8_16, Jg, 1, op0=nb16;0x4D co=2;1;0;0;0;0
 66 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF98 co=2;1;0;0;0;0
+2E 66 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 cs:
+3E 66 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 ds:
+66 F2 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF99 co=3;1;0;0;0;0 repne
 
 7F 5A, Jg_rel8_32, Jg, 1, op0=nb32;0x8000004C co=1;1;0;0;0;0
 7F A5, Jg_rel8_32, Jg, 1, op0=nb32;0x7FFFFF97 co=1;1;0;0;0;0
+2E 7F A5, Jg_rel8_32, Jg, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 cs:
+3E 7F A5, Jg_rel8_32, Jg, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 ds:
+F2 7F A5, Jg_rel8_32, Jg, 1, op0=nb32;0x7FFFFF98 co=2;1;0;0;0;0 repne
 
 80 00 5A, Add_rm8_imm8, Add, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
 F0 80 00 5A, Add_rm8_imm8, Add, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
@@ -1434,13 +1530,17 @@ C1 F8 A5, Sar_rm32_imm8, Sar, 2, op0=r;eax op1=i8;0xA5 co=2;1;0;0;0;0
 
 66 C2 5AA5, Retnw_imm16, Ret, 1, op0=i16;0xA55A co=2;2;0;0;0;0
 66 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0
+66 F2 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 co=3;2;0;0;0;0 repne
 
 C2 5AA5, Retnd_imm16, Ret, 1, op0=i16;0xA55A co=1;2;0;0;0;0
 C2 A55A, Retnd_imm16, Ret, 1, op0=i16;0x5AA5 co=1;2;0;0;0;0
+F2 C2 A55A, Retnd_imm16, Ret, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0 repne
 
 66 C3, Retnw, Ret, 0,
+66 F2 C3, Retnw, Ret, 0, repne
 
 C3, Retnd, Ret, 0,
+F2 C3, Retnd, Ret, 0, repne
 
 66 C4 18, Les_r16_m32, Les, 2, op0=r;bx op1=m;ds;eax;;1;0;0;SegPtr16
 
@@ -2157,15 +2257,19 @@ E7 A5, Out_imm8_EAX, Out, 2, op0=i8;0xA5 op1=r;eax co=1;1;0;0;0;0
 
 66 E8 5AA5, Call_rel16, Call, 1, op0=nb16;0xA54E co=2;2;0;0;0;0
 66 E8 A55A, Call_rel16, Call, 1, op0=nb16;0x5A99 co=2;2;0;0;0;0
+66 F2 E8 A55A, Call_rel16, Call, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0 repne
 
 E8 12345AA5, Call_rel32_32, Call, 1, op0=nb32;0x255A3407 co=1;4;0;0;0;0
 E8 5678A55A, Call_rel32_32, Call, 1, op0=nb32;0xDAA5784B co=1;4;0;0;0;0
+F2 E8 5678A55A, Call_rel32_32, Call, 1, op0=nb32;0xDAA5784C co=2;4;0;0;0;0 repne
 
 66 E9 5AA5, Jmp_rel16, Jmp, 1, op0=nb16;0xA54E co=2;2;0;0;0;0
 66 E9 A55A, Jmp_rel16, Jmp, 1, op0=nb16;0x5A99 co=2;2;0;0;0;0
+66 F2 E9 A55A, Jmp_rel16, Jmp, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0 repne
 
 E9 12345AA5, Jmp_rel32_32, Jmp, 1, op0=nb32;0x255A3407 co=1;4;0;0;0;0
 E9 5678A55A, Jmp_rel32_32, Jmp, 1, op0=nb32;0xDAA5784B co=1;4;0;0;0;0
+F2 E9 5678A55A, Jmp_rel32_32, Jmp, 1, op0=nb32;0xDAA5784C co=2;4;0;0;0;0 repne
 
 66 EA 1234 5678, Jmp_ptr1616, Jmp, 1, op0=fb16;0x7856;0x3412 co=2;2;4;2;0;0
 
@@ -2346,20 +2450,44 @@ FF CA, Dec_rm32, Dec, 1, op0=r;edx
 F0 FF CA, INVALID, INVALID, 0,
 
 66 FF 10, Call_rm16, Call, 1, op0=m;ds;eax;;1;0;0;WordOffset
+3E 66 FF 10, Call_rm16, Call, 1, op0=m;ds;eax;;1;0;0;WordOffset ds:
+66 F2 FF 10, Call_rm16, Call, 1, op0=m;ds;eax;;1;0;0;WordOffset repne
+3E 66 F2 FF 10, Call_rm16, Call, 1, op0=m;ds;eax;;1;0;0;WordOffset ds: repne
 66 FF D1, Call_rm16, Call, 1, op0=r;cx
+3E 66 FF D1, Call_rm16, Call, 1, op0=r;cx ds:
+66 F2 FF D1, Call_rm16, Call, 1, op0=r;cx repne
+3E 66 F2 FF D1, Call_rm16, Call, 1, op0=r;cx ds: repne
 
 FF 10, Call_rm32, Call, 1, op0=m;ds;eax;;1;0;0;DwordOffset
+3E FF 10, Call_rm32, Call, 1, op0=m;ds;eax;;1;0;0;DwordOffset ds:
+F2 FF 10, Call_rm32, Call, 1, op0=m;ds;eax;;1;0;0;DwordOffset repne
+3E F2 FF 10, Call_rm32, Call, 1, op0=m;ds;eax;;1;0;0;DwordOffset ds: repne
 FF D1, Call_rm32, Call, 1, op0=r;ecx
+3E FF D1, Call_rm32, Call, 1, op0=r;ecx ds:
+F2 FF D1, Call_rm32, Call, 1, op0=r;ecx repne
+3E F2 FF D1, Call_rm32, Call, 1, op0=r;ecx ds: repne
 
 66 FF 18, Call_m1616, Call, 1, op0=m;ds;eax;;1;0;0;SegPtr16
 
 FF 18, Call_m3216, Call, 1, op0=m;ds;eax;;1;0;0;SegPtr32
 
 66 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;eax;;1;0;0;WordOffset
+3E 66 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;eax;;1;0;0;WordOffset ds:
+66 F2 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;eax;;1;0;0;WordOffset repne
+3E 66 F2 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;eax;;1;0;0;WordOffset ds: repne
 66 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx
+3E 66 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx ds:
+66 F2 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx repne
+3E 66 F2 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx ds: repne
 
 FF 20, Jmp_rm32, Jmp, 1, op0=m;ds;eax;;1;0;0;DwordOffset
+3E FF 20, Jmp_rm32, Jmp, 1, op0=m;ds;eax;;1;0;0;DwordOffset ds:
+F2 FF 20, Jmp_rm32, Jmp, 1, op0=m;ds;eax;;1;0;0;DwordOffset repne
+3E F2 FF 20, Jmp_rm32, Jmp, 1, op0=m;ds;eax;;1;0;0;DwordOffset ds: repne
 FF E2, Jmp_rm32, Jmp, 1, op0=r;edx
+3E FF E2, Jmp_rm32, Jmp, 1, op0=r;edx ds:
+F2 FF E2, Jmp_rm32, Jmp, 1, op0=r;edx repne
+3E F2 FF E2, Jmp_rm32, Jmp, 1, op0=r;edx ds: repne
 
 66 FF 28, Jmp_m1616, Jmp, 1, op0=m;ds;eax;;1;0;0;SegPtr16
 
@@ -6670,99 +6798,195 @@ C5FE 7F CD, VEX_Vmovdqu_ymmm256_ymm, Vmovdqu, 2, op0=r;ymm5 op1=r;ymm1
 
 66 0F80 5AA5, Jo_rel16, Jo, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F80 5AA51234, Jo_rel32_32, Jo, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F80 A56789AB, Jo_rel32_32, Jo, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F80 A56789AB, Jo_rel32_32, Jo, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F80 A56789AB, Jo_rel32_32, Jo, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F80 A56789AB, Jo_rel32_32, Jo, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F81 5AA5, Jno_rel16, Jno, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F81 5AA51234, Jno_rel32_32, Jno, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F81 A56789AB, Jno_rel32_32, Jno, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F81 A56789AB, Jno_rel32_32, Jno, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F81 A56789AB, Jno_rel32_32, Jno, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F81 A56789AB, Jno_rel32_32, Jno, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F82 5AA5, Jb_rel16, Jb, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F82 5AA51234, Jb_rel32_32, Jb, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F82 A56789AB, Jb_rel32_32, Jb, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F82 A56789AB, Jb_rel32_32, Jb, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F82 A56789AB, Jb_rel32_32, Jb, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F82 A56789AB, Jb_rel32_32, Jb, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F83 5AA5, Jae_rel16, Jae, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F83 5AA51234, Jae_rel32_32, Jae, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F83 A56789AB, Jae_rel32_32, Jae, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F83 A56789AB, Jae_rel32_32, Jae, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F83 A56789AB, Jae_rel32_32, Jae, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F83 A56789AB, Jae_rel32_32, Jae, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F84 5AA5, Je_rel16, Je, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F84 5AA51234, Je_rel32_32, Je, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F84 A56789AB, Je_rel32_32, Je, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F84 A56789AB, Je_rel32_32, Je, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F84 A56789AB, Je_rel32_32, Je, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F84 A56789AB, Je_rel32_32, Je, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F85 5AA5, Jne_rel16, Jne, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F85 5AA51234, Jne_rel32_32, Jne, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F85 A56789AB, Jne_rel32_32, Jne, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F85 A56789AB, Jne_rel32_32, Jne, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F85 A56789AB, Jne_rel32_32, Jne, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F85 A56789AB, Jne_rel32_32, Jne, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F86 5AA5, Jbe_rel16, Jbe, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F86 5AA51234, Jbe_rel32_32, Jbe, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F86 A56789AB, Jbe_rel32_32, Jbe, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F86 A56789AB, Jbe_rel32_32, Jbe, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F86 A56789AB, Jbe_rel32_32, Jbe, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F86 A56789AB, Jbe_rel32_32, Jbe, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F87 5AA5, Ja_rel16, Ja, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F87 5AA51234, Ja_rel32_32, Ja, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F87 A56789AB, Ja_rel32_32, Ja, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F87 A56789AB, Ja_rel32_32, Ja, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F87 A56789AB, Ja_rel32_32, Ja, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F87 A56789AB, Ja_rel32_32, Ja, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F88 5AA5, Js_rel16, Js, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F88 5AA51234, Js_rel32_32, Js, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F88 A56789AB, Js_rel32_32, Js, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F88 A56789AB, Js_rel32_32, Js, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F88 A56789AB, Js_rel32_32, Js, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F88 A56789AB, Js_rel32_32, Js, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F89 5AA5, Jns_rel16, Jns, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F89 5AA51234, Jns_rel32_32, Jns, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F89 A56789AB, Jns_rel32_32, Jns, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F89 A56789AB, Jns_rel32_32, Jns, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F89 A56789AB, Jns_rel32_32, Jns, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F89 A56789AB, Jns_rel32_32, Jns, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F8A 5AA5, Jp_rel16, Jp, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F8A 5AA51234, Jp_rel32_32, Jp, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F8A A56789AB, Jp_rel32_32, Jp, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F8A A56789AB, Jp_rel32_32, Jp, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F8A A56789AB, Jp_rel32_32, Jp, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F8A A56789AB, Jp_rel32_32, Jp, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F8B 5AA5, Jnp_rel16, Jnp, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F8B 5AA51234, Jnp_rel32_32, Jnp, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F8B A56789AB, Jnp_rel32_32, Jnp, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F8B A56789AB, Jnp_rel32_32, Jnp, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F8B A56789AB, Jnp_rel32_32, Jnp, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F8B A56789AB, Jnp_rel32_32, Jnp, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F8C 5AA5, Jl_rel16, Jl, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F8C 5AA51234, Jl_rel32_32, Jl, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F8C A56789AB, Jl_rel32_32, Jl, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F8C A56789AB, Jl_rel32_32, Jl, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F8C A56789AB, Jl_rel32_32, Jl, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F8C A56789AB, Jl_rel32_32, Jl, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F8D 5AA5, Jge_rel16, Jge, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F8D 5AA51234, Jge_rel32_32, Jge, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F8D A56789AB, Jge_rel32_32, Jge, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F8D A56789AB, Jge_rel32_32, Jge, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F8D A56789AB, Jge_rel32_32, Jge, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F8D A56789AB, Jge_rel32_32, Jge, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F8E 5AA5, Jle_rel16, Jle, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F8E 5AA51234, Jle_rel32_32, Jle, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F8E A56789AB, Jle_rel32_32, Jle, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F8E A56789AB, Jle_rel32_32, Jle, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F8E A56789AB, Jle_rel32_32, Jle, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F8E A56789AB, Jle_rel32_32, Jle, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 66 0F8F 5AA5, Jg_rel16, Jg, 1, op0=nb16;0xA54F co=3;2;0;0;0;0
 66 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9A co=3;2;0;0;0;0
+2E 66 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 cs:
+3E 66 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 ds:
+66 F2 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9B co=4;2;0;0;0;0 repne
 
 0F8F 5AA51234, Jg_rel32_32, Jg, 1, op0=nb32;0xB412A550 co=2;4;0;0;0;0
 0F8F A56789AB, Jg_rel32_32, Jg, 1, op0=nb32;0x2B89679B co=2;4;0;0;0;0
+2E 0F8F A56789AB, Jg_rel32_32, Jg, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 cs:
+3E 0F8F A56789AB, Jg_rel32_32, Jg, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 ds:
+F2 0F8F A56789AB, Jg_rel32_32, Jg, 1, op0=nb32;0x2B89679C co=3;4;0;0;0;0 repne
 
 0F90 C0, Seto_rm8, Seto, 1, op0=r;al
 0F90 C1, Seto_rm8, Seto, 1, op0=r;cl
