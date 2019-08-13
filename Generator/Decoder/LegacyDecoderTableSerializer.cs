@@ -26,10 +26,10 @@ using Iced.Intel.DecoderInternal;
 
 namespace Generator.Decoder {
 	sealed class LegacyDecoderTableSerializer : DecoderTableSerializer {
-		public override string ClassName => "OpCodeHandlersTables";
-		protected override object[] GetTablesToSerialize() => OpCodeHandlersTables.GetHandlers();
+		public override string ClassName => "OpCodeHandlersTables_Legacy";
+		protected override object[] GetTablesToSerialize() => OpCodeHandlersTables_Legacy.GetHandlers();
 		protected override string[] GetTableIndexNames() => new string[] {
-			OpCodeHandlersTables.OneByteHandlers,
+			OpCodeHandlersTables_Legacy.OneByteHandlers,
 		};
 		static readonly object nullValue = OpCodeHandlerKind.Null;
 		static readonly object handlerReferenceValue = OpCodeHandlerKind.HandlerReference;

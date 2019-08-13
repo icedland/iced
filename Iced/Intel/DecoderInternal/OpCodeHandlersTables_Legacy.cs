@@ -23,10 +23,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_DECODER
 namespace Iced.Intel.DecoderInternal {
-	static partial class OpCodeHandlersTables {
+	static partial class OpCodeHandlersTables_Legacy {
 		internal static readonly OpCodeHandler[] OneByteHandlers;
 
-		static OpCodeHandlersTables() {
+		static OpCodeHandlersTables_Legacy() {
 			var handlerReader = new LegacyOpCodeHandlerReader();
 			var deserializer = new TableDeserializer(handlerReader, GetSerializedTables());
 			deserializer.Deserialize();

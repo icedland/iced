@@ -26,7 +26,7 @@ using Iced.Intel;
 using Iced.Intel.DecoderInternal;
 
 namespace Generator.Decoder {
-	static class OpCodeHandlersTables {
+	static class OpCodeHandlersTables_Legacy {
 		public const string OneByteHandlers = nameof(OneByteHandlers);
 
 		public static object[] GetHandlers() {

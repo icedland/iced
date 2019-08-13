@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_DECODER
 namespace Iced.Intel.DecoderInternal {
-	static partial class OpCodeHandlersTables {
+	static partial class OpCodeHandlersTables_Legacy {
 		static byte[] GetSerializedTables() =>
 			new byte[] {
 				// handlers_FPU_D8_low

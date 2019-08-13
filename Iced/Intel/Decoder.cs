@@ -199,7 +199,7 @@ namespace Iced.Intel {
 				defaultInvertedAddressSize = OpSize.Size32;
 				prefixes = prefixes1632;
 			}
-			handlers_XX = DecoderInternal.OpCodeHandlersTables.OneByteHandlers;
+			handlers_XX = DecoderInternal.OpCodeHandlersTables_Legacy.OneByteHandlers;
 			handlers_0FXX_VEX = DecoderInternal.OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX;
 			handlers_0F38XX_VEX = DecoderInternal.OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX;
 			handlers_0F3AXX_VEX = DecoderInternal.OpCodeHandlersTables_VEX.ThreeByteHandlers_0F3AXX;
