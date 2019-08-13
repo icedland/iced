@@ -740,7 +740,10 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + ((state.flags & StateFlags.W) != 0 ? Register.RAX : Register.EAX);
+				if ((state.flags & StateFlags.W) != 0)
+					instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.RAX;
+				else
+					instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.EAX;
 				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && !allowReg)
 					decoder.SetInvalidInstruction();
 			}
@@ -4833,7 +4836,10 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalCode = code32;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + ((state.flags & StateFlags.W) != 0 ? Register.RAX : Register.EAX);
+			if ((state.flags & StateFlags.W) != 0)
+				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.RAX;
+			else
+				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.EAX;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
@@ -5039,7 +5045,10 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalCode = code32;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + ((state.flags & StateFlags.W) != 0 ? Register.RAX : Register.EAX);
+			if ((state.flags & StateFlags.W) != 0)
+				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.RAX;
+			else
+				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.EAX;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
@@ -5070,7 +5079,10 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalCode = code32;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + ((state.flags & StateFlags.W) != 0 ? Register.RAX : Register.EAX);
+			if ((state.flags & StateFlags.W) != 0)
+				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.RAX;
+			else
+				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.EAX;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
@@ -5255,7 +5267,10 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase) + ((state.flags & StateFlags.W) != 0 ? Register.RAX : Register.EAX);
+				if ((state.flags & StateFlags.W) != 0)
+					instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.RAX;
+				else
+					instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.EAX;
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
@@ -5279,7 +5294,10 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + ((state.flags & StateFlags.W) != 0 ? Register.RAX : Register.EAX);
+				if ((state.flags & StateFlags.W) != 0)
+					instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.RAX;
+				else
+					instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.EAX;
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
