@@ -1290,7 +1290,7 @@ namespace Iced.Intel.DecoderInternal {
 				else {
 					instruction.InternalCode = code16;
 					instruction.InternalOp0Kind = OpKind.NearBranch16;
-					instruction.InternalNearBranch16 = (ushort)((sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer32());
+					instruction.InternalNearBranch16 = (ushort)((uint)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer32());
 				}
 			}
 			else {
@@ -1449,7 +1449,7 @@ namespace Iced.Intel.DecoderInternal {
 					else
 						instruction.InternalCode = code16_32;
 					instruction.InternalOp0Kind = OpKind.NearBranch16;
-					instruction.InternalNearBranch16 = (ushort)((sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer32());
+					instruction.InternalNearBranch16 = (ushort)((uint)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer32());
 				}
 			}
 			else {
