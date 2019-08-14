@@ -757,16 +757,16 @@ after_read_prefixes:
 
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void ReadOpMem_VSIB(ref Instruction instruction, Register vsibIndex, TupleType tupleType) {
-			bool isInvalid;
+			bool isValid;
 			if (state.addressSize == OpSize.Size64)
-				isInvalid = !ReadOpMem32Or64(ref instruction, Register.RAX, vsibIndex, tupleType, true);
+				isValid = ReadOpMem32Or64(ref instruction, Register.RAX, vsibIndex, tupleType, true);
 			else if (state.addressSize == OpSize.Size32)
-				isInvalid = !ReadOpMem32Or64(ref instruction, Register.EAX, vsibIndex, tupleType, true);
+				isValid = ReadOpMem32Or64(ref instruction, Register.EAX, vsibIndex, tupleType, true);
 			else {
-				isInvalid = true;
 				ReadOpMem16(ref instruction, tupleType);
+				isValid = false;
 			}
-			if ((options & DecoderOptions.NoInvalidCheck) == 0 && isInvalid)
+			if ((options & DecoderOptions.NoInvalidCheck) == 0 && !isValid)
 				SetInvalidInstruction();
 		}
 
