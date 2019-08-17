@@ -185,7 +185,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		static DecoderTestCase ReadTestCase(int bitness, string line, int lineNo) {
 			var parts = line.Split(seps);
 			if (parts.Length != 5)
-				throw new InvalidOperationException($"Invalid number of commas ({parts.Length} commas)");
+				throw new InvalidOperationException($"Invalid number of commas ({parts.Length - 1} commas)");
 
 			var tc = new DecoderTestCase();
 			tc.LineNumber = lineNo;
