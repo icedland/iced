@@ -139,6 +139,10 @@ retw $-0x5aa6
 retl $-0x5aa6
 retw
 retl
+rep retw $-0x5aa6
+rep retl $-0x5aa6
+rep retw
+rep retl
 lesw (eax),bx
 lesl (eax),ebx
 ldsw (eax),bx

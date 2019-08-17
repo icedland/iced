@@ -706,6 +706,8 @@ sar r8, 0xa5
 sar qword ptr [rax], 0xa5
 ret 0xa55a
 ret
+rep ret 0xa55a
+rep ret
 mov cl, 0x5a
 mov byte ptr [rax], 0x5a
 xabort 0x5a

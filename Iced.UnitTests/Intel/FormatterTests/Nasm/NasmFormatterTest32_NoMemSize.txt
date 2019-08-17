@@ -139,6 +139,10 @@ retw 0xa55a
 ret 0xa55a
 retw
 ret
+rep retw 0xa55a
+rep ret 0xa55a
+rep retw
+rep ret
 les bx,[eax]
 les ebx,[eax]
 lds bx,[eax]

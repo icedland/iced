@@ -706,6 +706,8 @@ C1 38 A5, Sar_rm32_imm8
 48 C1 38 A5, Sar_rm64_imm8
 C2 5AA5, Retnq_imm16
 C3, Retnq
+F3 C2 5AA5, Retnq_imm16
+F3 C3, Retnq
 C6 C1 5A, Mov_rm8_imm8
 C6 00 5A, Mov_rm8_imm8
 C6 F8 5A, Xabort_imm8

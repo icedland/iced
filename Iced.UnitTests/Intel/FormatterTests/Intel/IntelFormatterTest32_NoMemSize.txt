@@ -139,6 +139,10 @@ data16 ret 0xa55a
 ret 0xa55a
 data16 ret
 ret
+data16 rep ret 0xa55a
+rep ret 0xa55a
+data16 rep ret
+rep ret
 les bx, [eax]
 les ebx, [eax]
 lds bx, [eax]

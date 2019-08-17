@@ -706,6 +706,8 @@ sar $0xa5,%r8
 sarq $0xa5,(%rax)
 ret $0xa55a
 ret
+rep ret $0xa55a
+rep ret
 mov $0x5a,%cl
 movb $0x5a,(%rax)
 xabort $0x5a

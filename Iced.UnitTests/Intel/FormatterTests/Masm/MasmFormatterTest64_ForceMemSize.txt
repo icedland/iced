@@ -706,6 +706,8 @@ sar r8,-5Bh
 sar qword ptr [rax],-5Bh
 ret -5AA6h
 ret
+rep ret -5AA6h
+rep ret
 mov cl,5Ah
 mov byte ptr [rax],5Ah
 xabort 5Ah
