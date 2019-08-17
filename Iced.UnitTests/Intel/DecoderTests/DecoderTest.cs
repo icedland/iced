@@ -145,9 +145,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				var constantOffsets = ParseConstantOffsets(parts[10].Trim());
 				string encodedHexBytes = parts.Length > 11 ? parts[11].Trim() : hexBytes;
 				var options = DecoderOptions.None;
-				// There are some invalid encodings so disable decoder's invalid-encoding checks
-				if (code == Code.EVEX_Vpscatterdd_vm32x_k1_xmm)
-					options |= DecoderOptions.NoInvalidCheck;
 				yield return new object[13] { hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize, constantOffsets, encodedHexBytes, options };
 			}
 
