@@ -1531,16 +1531,20 @@ C1 F8 A5, Sar_rm16_imm8, Sar, 2, op0=r;ax op1=i8;0xA5 co=2;1;0;0;0;0
 C2 5AA5, Retnw_imm16, Ret, 1, op0=i16;0xA55A co=1;2;0;0;0;0
 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 co=1;2;0;0;0;0
 F2 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0 repne
+F3 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0 rep
 
 66 C2 5AA5, Retnd_imm16, Ret, 1, op0=i16;0xA55A co=2;2;0;0;0;0
 66 C2 A55A, Retnd_imm16, Ret, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0
 66 F2 C2 A55A, Retnd_imm16, Ret, 1, op0=i16;0x5AA5 co=3;2;0;0;0;0 repne
+66 F3 C2 A55A, Retnd_imm16, Ret, 1, op0=i16;0x5AA5 co=3;2;0;0;0;0 rep
 
 C3, Retnw, Ret, 0,
 F2 C3, Retnw, Ret, 0, repne
+F3 C3, Retnw, Ret, 0, rep
 
 66 C3, Retnd, Ret, 0,
 66 F2 C3, Retnd, Ret, 0, repne
+66 F3 C3, Retnd, Ret, 0, rep
 
 C4 18, Les_r16_m32, Les, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
 

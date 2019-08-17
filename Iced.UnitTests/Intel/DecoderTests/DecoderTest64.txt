@@ -2885,10 +2885,12 @@ C1 F8 A5, Sar_rm32_imm8, Sar, 2, op0=r;eax op1=i8;0xA5 co=2;1;0;0;0;0
 66 C2 5AA5, Retnw_imm16, Ret, 1, op0=i16;0xA55A amd co=2;2;0;0;0;0
 66 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 amd co=2;2;0;0;0;0
 66 F2 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 amd co=3;2;0;0;0;0 repne
+66 F3 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 amd co=3;2;0;0;0;0 rep
 
 C2 5AA5, Retnq_imm16, Ret, 1, op0=i16;0xA55A co=1;2;0;0;0;0
 C2 A55A, Retnq_imm16, Ret, 1, op0=i16;0x5AA5 co=1;2;0;0;0;0
 F2 C2 A55A, Retnq_imm16, Ret, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0 repne
+F3 C2 A55A, Retnq_imm16, Ret, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0 rep
 66 C2 5AA5, Retnq_imm16, Ret, 1, op0=i16;0xA55A co=2;2;0;0;0;0 enc=C25AA5
 48 C2 A55A, Retnq_imm16, Ret, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0 enc=C2A55A
 66 48 C2 5AA5, Retnq_imm16, Ret, 1, op0=i16;0xA55A co=3;2;0;0;0;0 enc=C25AA5
@@ -2896,9 +2898,11 @@ C2 5AA5, Retnq_imm16, Ret, 1, op0=i16;0xA55A amd co=1;2;0;0;0;0
 
 66 C3, Retnw, Ret, 0, amd
 66 F2 C3, Retnw, Ret, 0, amd repne
+66 F3 C3, Retnw, Ret, 0, amd rep
 
 C3, Retnq, Ret, 0,
 F2 C3, Retnq, Ret, 0, repne
+F3 C3, Retnq, Ret, 0, rep
 66 C3, Retnq, Ret, 0, enc=C3
 48 C3, Retnq, Ret, 0, enc=C3
 66 48 C3, Retnq, Ret, 0, enc=C3
