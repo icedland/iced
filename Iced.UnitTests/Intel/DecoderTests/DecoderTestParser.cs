@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Iced.Intel;
+using SG = System.Globalization;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
 	static class DecoderTestParser {
@@ -184,7 +185,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		static DecoderTestCase ReadTestCase(int bitness, string line, int lineNo) {
 			var parts = line.Split(seps);
 			if (parts.Length != 5)
-				throw new InvalidOperationException();
+				throw new InvalidOperationException($"Invalid number of commas ({parts.Length} commas)");
 
 			var tc = new DecoderTestCase();
 			tc.LineNumber = lineNo;
@@ -693,7 +694,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		static ulong ToUInt64(string value) {
 			if (value.StartsWith("0x")) {
 				value = value.Substring(2);
-				if (ulong.TryParse(value, System.Globalization.NumberStyles.HexNumber, null, out var number))
+				if (ulong.TryParse(value, SG.NumberStyles.HexNumber, null, out var number))
 					return number;
 			}
 			else if (ulong.TryParse(value, out var number))
@@ -704,7 +705,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		static long ToInt64(string value) {
 			if (value.StartsWith("0x")) {
 				value = value.Substring(2);
-				if (long.TryParse(value, System.Globalization.NumberStyles.HexNumber, null, out var number))
+				if (long.TryParse(value, SG.NumberStyles.HexNumber, null, out var number))
 					return number;
 			}
 			else if (long.TryParse(value, out var number))
