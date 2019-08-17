@@ -17188,39 +17188,39 @@ C4E3C9 7F 10 40, VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64, VEX, FMA4, pm op0=w op1=r op2
 # add gs:[rax],bh
 65 00 38, Add_rm8_r8, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=gs r=rax r=bh rwm=gs:rax;UInt8
 # fstenv [rax]
-9B 66 D9 30, Fstenv_m14byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv14
+9B 66 D9 30, Fstenv_m14byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv14 special
 # fstenv [rax]
-9B D9 30, Fstenv_m28byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv28
+9B D9 30, Fstenv_m28byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv28 special
 # fstcw [rax]
-9B D9 38, Fstcw_m16, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16
+9B D9 38, Fstcw_m16, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16 special
 # fstp st(3)
 D9 DB, Fstpnce_sti, Legacy, FPU, op0=w w=st3 r=st0
 # fneni
 DB E0, Fneni, Legacy, FPU,
 # feni
-9B DB E0, Feni, Legacy, FPU,
+9B DB E0, Feni, Legacy, FPU, special
 # fndisi
 DB E1, Fndisi, Legacy, FPU,
 # fdisi
-9B DB E1, Fdisi, Legacy, FPU,
+9B DB E1, Fdisi, Legacy, FPU, special
 # fclex
-9B DB E2, Fclex, Legacy, FPU,
+9B DB E2, Fclex, Legacy, FPU, special
 # finit
-9B DB E3, Finit, Legacy, FPU,
+9B DB E3, Finit, Legacy, FPU, special
 # fnsetpm
 DB E4, Fnsetpm, Legacy, FPU287,
 # fsetpm
-9B DB E4, Fsetpm, Legacy, FPU287,
+9B DB E4, Fsetpm, Legacy, FPU287, special
 # fcom st(3)
 DC D3, Fcom_st0_sti_DCD0, Legacy, FPU, op0=r op1=r r=st0 r=st3
 # fcomp st(3)
 DC DB, Fcomp_st0_sti_DCD8, Legacy, FPU, op0=r op1=r r=st0 r=st3
 # fsave [rax]
-9B 66 DD 30, Fsave_m94byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState94
+9B 66 DD 30, Fsave_m94byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState94 special
 # fsave [rax]
-9B DD 30, Fsave_m108byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState108
+9B DD 30, Fsave_m108byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState108 special
 # fstsw [rax]
-9B DD 38, Fstsw_m16, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16
+9B DD 38, Fstsw_m16, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16 special
 # fxch st(3)
 DD CB, Fxch_st0_sti_DDC8, Legacy, FPU, op0=rw op1=rw rw=st0 rw=st3
 # fcomp st(3)
@@ -17234,7 +17234,7 @@ DF D3, Fstp_sti_DFD0, Legacy, FPU, op0=w w=st3 r=st0
 # fstp st(3)
 DF DB, Fstp_sti_DFD8, Legacy, FPU, op0=w w=st3 r=st0
 # fstsw ax
-9B DF E0, Fstsw_AX, Legacy, FPU287, op0=w w=ax
+9B DF E0, Fstsw_AX, Legacy, FPU287, op0=w w=ax special
 # test dh,0A5h
 F6 CE A5, Test_rm8_imm8_F6r1, Legacy, INTEL8086, fc=oc fw=szp fu=a op0=r op1=r r=dh
 # test byte ptr [rax],0A5h
@@ -18622,10 +18622,10 @@ F3 0FA7 E8, XcryptOfb_64, Legacy, PADLOCK_ACE, cwm=es:rdi;Unknown crm=es:rax;Unk
 # xcryptofb
 67 0FA7 E8, XcryptOfb_32, Legacy, PADLOCK_ACE, wm=es:edi;Unknown rwm=es:eax;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=eax;edx;ebx;esi;edi w=rax;rsi;rdi
 # db 66h
-66, DeclareByte, Legacy, INTEL8086, flow=Exception
+66, DeclareByte, Legacy, INTEL8086, flow=Exception special
 # dw 4466h
-6644, DeclareWord, Legacy, INTEL8086, flow=Exception
+6644, DeclareWord, Legacy, INTEL8086, flow=Exception special
 # dd 0EE224466h
-664422EE, DeclareDword, Legacy, INTEL8086, flow=Exception
+664422EE, DeclareDword, Legacy, INTEL8086, flow=Exception special
 # dq 78563412EE224466h
-664422EE12345678, DeclareQword, Legacy, INTEL8086, flow=Exception
+664422EE12345678, DeclareQword, Legacy, INTEL8086, flow=Exception special

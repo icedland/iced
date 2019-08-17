@@ -42,6 +42,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public bool IsProtectedMode = false;
 		public bool IsStackInstruction = false;
 		public bool IsSaveRestoreInstruction = false;
+		public bool IsSpecial = false;
 		public readonly List<UsedRegister> UsedRegisters = new List<UsedRegister>();
 		public readonly List<UsedMemory> UsedMemory = new List<UsedMemory>();
 		public FlowControl FlowControl = FlowControl.Next;

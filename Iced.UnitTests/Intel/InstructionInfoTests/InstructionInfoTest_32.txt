@@ -1058,15 +1058,15 @@ C4E379 63 10 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, VEX, AVX, fw=cosz fc=ap op0=r 
 # cmp byte ptr [eax],0A5h
 82 38 A5, Cmp_rm8_imm8_82, Legacy, INTEL8086, fw=oszacp op0=r op1=r r=ds r=eax rm=ds:eax;UInt8
 # fstenv [eax]
-9B 66 D9 30, Fstenv_m14byte, Legacy, FPU, op0=w r=ds r=eax wm=ds:eax;FpuEnv14
+9B 66 D9 30, Fstenv_m14byte, Legacy, FPU, op0=w r=ds r=eax wm=ds:eax;FpuEnv14 special
 # fstenv [eax]
-9B D9 30, Fstenv_m28byte, Legacy, FPU, op0=w r=ds r=eax wm=ds:eax;FpuEnv28
+9B D9 30, Fstenv_m28byte, Legacy, FPU, op0=w r=ds r=eax wm=ds:eax;FpuEnv28 special
 # frstpm
 DB E5, Frstpm, Legacy, FPU287XL_ONLY, decopt=oldfpu
 # fsave [eax]
-9B 66 DD 30, Fsave_m94byte, Legacy, FPU, saverestore op0=w r=ds r=eax wm=ds:eax;FpuState94
+9B 66 DD 30, Fsave_m94byte, Legacy, FPU, saverestore op0=w r=ds r=eax wm=ds:eax;FpuState94 special
 # fsave [eax]
-9B DD 30, Fsave_m108byte, Legacy, FPU, saverestore op0=w r=ds r=eax wm=ds:eax;FpuState108
+9B DD 30, Fsave_m108byte, Legacy, FPU, saverestore op0=w r=ds r=eax wm=ds:eax;FpuState108 special
 # fstdw ax
 DF E1, Fstdw_AX, Legacy, FPU387SL_ONLY, decopt=oldfpu op0=w w=ax
 # fstsg ax
