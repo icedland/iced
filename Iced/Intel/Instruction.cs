@@ -1663,7 +1663,7 @@ namespace Iced.Intel {
 			new GasFormatter().Format(this, output);
 			return output.ToString();
 #else
-			return base.ToString();
+			return base.ToString() ?? string.Empty;
 #endif
 		}
 	}
