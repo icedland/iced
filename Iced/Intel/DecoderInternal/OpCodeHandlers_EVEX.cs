@@ -123,7 +123,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.aaa + state.extraBaseRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.aaa | state.extraBaseRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
@@ -182,7 +182,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.aaa + state.extraBaseRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.aaa | state.extraBaseRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
@@ -234,7 +234,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.vvvv + state.aaa + state.extraBaseRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv | state.aaa | state.extraBaseRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
@@ -506,7 +506,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.vvvv) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -789,7 +789,7 @@ namespace Iced.Intel.DecoderInternal {
 					instruction.SetIsBroadcast();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.vvvv + state.aaa + (uint)(state.flags & StateFlags.z)) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.vvvv | state.aaa | (uint)(state.flags & StateFlags.z)) != 0)
 				decoder.SetInvalidInstruction();
 		}
 	}
@@ -810,7 +810,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.vvvv + state.aaa) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.vvvv | state.aaa) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -847,7 +847,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.vvvv + state.aaa) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.vvvv | state.aaa) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -882,7 +882,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.vvvv + state.aaa) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.vvvv | state.aaa) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -912,7 +912,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.vvvv + state.aaa + state.extraBaseRegisterBase + state.extraBaseRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv | state.aaa | state.extraBaseRegisterBase | state.extraBaseRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -941,7 +941,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.vvvv + state.aaa + state.extraRegisterBase + state.extraRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv | state.aaa | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -1242,7 +1242,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOpMask = state.aaa;
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) + state.extraRegisterBase + state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
 				decoder.SetInvalidInstruction();
 		}
 	}
@@ -1282,7 +1282,7 @@ namespace Iced.Intel.DecoderInternal {
 					instruction.SetIsBroadcast();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.z) + state.aaa + state.extraRegisterBase + state.extraRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.z) | state.aaa | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 		}
 	}
@@ -1325,7 +1325,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalOp3Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
 			instruction.InternalOpMask = state.aaa;
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) + state.extraRegisterBase + state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
 				decoder.SetInvalidInstruction();
 		}
 	}
@@ -1385,7 +1385,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.aaa) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.aaa) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -1438,7 +1438,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.aaa) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.aaa) != 0)
 				decoder.SetInvalidInstruction();
 
 			Debug.Assert(OpKind.Register == 0);
@@ -1475,7 +1475,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.aaa) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.aaa) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -1512,7 +1512,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.vvvv + state.aaa + state.extraRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.vvvv | state.aaa | state.extraRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
 				instruction.InternalCode = codeW1;
@@ -1564,7 +1564,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.vvvv + state.aaa + state.extraBaseRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv | state.aaa | state.extraBaseRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
@@ -1604,7 +1604,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.vvvv + state.aaa + state.extraBaseRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv | state.aaa | state.extraBaseRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
@@ -1648,7 +1648,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.vvvv + state.aaa + state.extraRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv | state.aaa | state.extraRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
@@ -1692,7 +1692,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.vvvv + state.aaa) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv | state.aaa) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -1728,7 +1728,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.vvvv + state.extraBaseRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv | state.extraBaseRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
@@ -1774,7 +1774,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((state.vvvv & 0xF) + (uint)(state.flags & StateFlags.z)) != 0 || state.aaa == 0))
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((state.vvvv & 0xF) | (uint)(state.flags & StateFlags.z)) != 0 || state.aaa == 0))
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -1814,7 +1814,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & (StateFlags.b | StateFlags.z)) + (state.vvvv & 0xF)) != 0 || state.aaa == 0))
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & (StateFlags.b | StateFlags.z)) | (state.vvvv & 0xF)) != 0 || state.aaa == 0))
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -1845,7 +1845,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.b) + (state.vvvv & 0xF) + state.extraRegisterBase + state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.b) | (state.vvvv & 0xF) | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -1880,7 +1880,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) + state.vvvv + state.aaa + state.extraBaseRegisterBaseEVEX) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv | state.aaa | state.extraBaseRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
@@ -1925,7 +1925,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((state.vvvv + state.extraRegisterBase + state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((state.vvvv | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 

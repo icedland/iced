@@ -515,7 +515,7 @@ after_read_prefixes:
 		}
 
 		internal void VEX2(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) + (uint)state.mandatoryPrefix) != 0)
+			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
 				SetInvalidInstruction();
 
 			state.flags |= (StateFlags)EncodingKind.VEX;
@@ -539,7 +539,7 @@ after_read_prefixes:
 		}
 
 		internal void VEX3(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) + (uint)state.mandatoryPrefix) != 0)
+			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
 				SetInvalidInstruction();
 
 			state.flags |= (StateFlags)EncodingKind.VEX;
@@ -583,7 +583,7 @@ after_read_prefixes:
 		}
 
 		internal void XOP(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) + (uint)state.mandatoryPrefix) != 0)
+			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
 				SetInvalidInstruction();
 
 			state.flags |= (StateFlags)EncodingKind.XOP;
@@ -627,7 +627,7 @@ after_read_prefixes:
 		}
 
 		internal void EVEX_MVEX(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) + (uint)state.mandatoryPrefix) != 0)
+			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
 				SetInvalidInstruction();
 
 			uint p0 = state.modrm;
