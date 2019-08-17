@@ -1367,6 +1367,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			Debug.Assert(info.OpCount == 3);
 			if (options.UsePseudoOps && info.Op1Kind == InstrOpKind.Register && info.Op2Kind == InstrOpKind.Register && info.Op1Register == info.Op2Register) {
 				info.OpCount--;
+				info.Op1Index = OpAccess_ReadWrite;
 				info.Op2Index = OpAccess_INVALID;
 			}
 		}

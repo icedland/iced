@@ -1011,6 +1011,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 			Debug.Assert(info.OpCount == 3);
 			if (options.UsePseudoOps && info.Op0Kind == InstrOpKind.Register && info.Op1Kind == InstrOpKind.Register && info.Op0Register == info.Op1Register) {
 				info.OpCount--;
+				info.Op0Index = OpAccess_ReadWrite;
 				info.Op1Kind = info.Op2Kind;
 				info.Op1Index = 2;
 				info.Op2Index = OpAccess_INVALID;
