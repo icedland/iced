@@ -625,7 +625,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			//info.Op0Kind = InstrOpKind.Register;
 			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
 			info.Op0Register = (byte)Register.XMM0;
-			info.Op0Index = InstrInfo.OpAccess_Read;
+			info.Op0Index = OpAccess_Read;
 			info.Op1Kind = (InstrOpKind)instr.Op1Kind;
 			info.Op1Index = 1;
 			info.Op1Register = (byte)instr.Op1Register;
@@ -1118,7 +1118,7 @@ namespace Iced.Intel.GasFormatterInternal {
 				info.Op3Index = info.Op2Index;
 				info.Op2Index = info.Op1Index;
 				info.Op1Index = info.Op0Index;
-				info.Op0Index = InstrInfo.OpAccess_None;
+				info.Op0Index = OpAccess_None;
 				info.OpCount++;
 				break;
 
@@ -1133,7 +1133,7 @@ namespace Iced.Intel.GasFormatterInternal {
 				info.Op4Index = info.Op3Index;
 				info.Op3Index = info.Op2Index;
 				info.Op2Index = info.Op1Index;
-				info.Op1Index = InstrInfo.OpAccess_None;
+				info.Op1Index = OpAccess_None;
 				info.OpCount++;
 				break;
 

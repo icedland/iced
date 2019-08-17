@@ -51,9 +51,9 @@ namespace Iced.Intel {
 		public static void AddTabs(FormatterOutput output, int column, int firstOperandCharIndex, int tabSize) {
 #if DEBUG
 			for (int i = 0; i < spaceStrings.Length; i++)
-				System.Diagnostics.Debug.Assert(spaceStrings[i].Length == i + 1);
+				Debug.Assert(spaceStrings[i].Length == i + 1);
 			for (int i = 0; i < tabStrings.Length; i++)
-				System.Diagnostics.Debug.Assert(tabStrings[i].Length == i + 1);
+				Debug.Assert(tabStrings[i].Length == i + 1);
 #endif
 			const int max_firstOperandCharIndex = 256;
 			if (firstOperandCharIndex < 0)

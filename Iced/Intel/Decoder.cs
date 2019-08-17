@@ -199,16 +199,16 @@ namespace Iced.Intel {
 				defaultInvertedAddressSize = OpSize.Size32;
 				prefixes = prefixes1632;
 			}
-			handlers_XX = DecoderInternal.OpCodeHandlersTables_Legacy.OneByteHandlers;
-			handlers_0FXX_VEX = DecoderInternal.OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX;
-			handlers_0F38XX_VEX = DecoderInternal.OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX;
-			handlers_0F3AXX_VEX = DecoderInternal.OpCodeHandlersTables_VEX.ThreeByteHandlers_0F3AXX;
-			handlers_0FXX_EVEX = DecoderInternal.OpCodeHandlersTables_EVEX.TwoByteHandlers_0FXX;
-			handlers_0F38XX_EVEX = DecoderInternal.OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F38XX;
-			handlers_0F3AXX_EVEX = DecoderInternal.OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX;
-			handlers_XOP8 = DecoderInternal.OpCodeHandlersTables_XOP.XOP8;
-			handlers_XOP9 = DecoderInternal.OpCodeHandlersTables_XOP.XOP9;
-			handlers_XOPA = DecoderInternal.OpCodeHandlersTables_XOP.XOPA;
+			handlers_XX = OpCodeHandlersTables_Legacy.OneByteHandlers;
+			handlers_0FXX_VEX = OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX;
+			handlers_0F38XX_VEX = OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX;
+			handlers_0F3AXX_VEX = OpCodeHandlersTables_VEX.ThreeByteHandlers_0F3AXX;
+			handlers_0FXX_EVEX = OpCodeHandlersTables_EVEX.TwoByteHandlers_0FXX;
+			handlers_0F38XX_EVEX = OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F38XX;
+			handlers_0F3AXX_EVEX = OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX;
+			handlers_XOP8 = OpCodeHandlersTables_XOP.XOP8;
+			handlers_XOP9 = OpCodeHandlersTables_XOP.XOP9;
+			handlers_XOPA = OpCodeHandlersTables_XOP.XOPA;
 		}
 
 		/// <summary>
