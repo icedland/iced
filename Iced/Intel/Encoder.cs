@@ -866,14 +866,14 @@ namespace Iced.Intel {
 
 			Register baseRegLo, baseRegHi;
 			Register indexRegLo, indexRegHi;
-			if (addrSize == 32) {
-				baseRegLo = Register.EAX;
-				baseRegHi = Register.R15D;
-			}
-			else {
-				Debug.Assert(addrSize == 64);
+			if (addrSize == 64) {
 				baseRegLo = Register.RAX;
 				baseRegHi = Register.R15;
+			}
+			else {
+				Debug.Assert(addrSize == 32);
+				baseRegLo = Register.EAX;
+				baseRegHi = Register.R15D;
 			}
 			if (vsibIndexRegLo != Register.None) {
 				indexRegLo = vsibIndexRegLo;
