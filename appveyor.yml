@@ -12,6 +12,7 @@ before_build:
 - cmd: appveyor-retry nuget restore
 build_script:
 - cmd: build.cmd
+test: off
 before_package:
 - cmd: msbuild /t:Pack /p:Configuration=Release
 artifacts:
