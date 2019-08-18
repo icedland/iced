@@ -196,6 +196,11 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var decoder = Decoder.Create(64, new ByteArrayCodeReader(hexBytes));
 			decoder.Decode(out var instr);
 			Assert.Equal(code, instr.Code);
+			Assert.False(instr.HasLockPrefix);
+			if (code == Code.Mov_cr_r64)
+				Assert.Equal(Register.CR8, instr.Op0Register);
+			else
+				Assert.Equal(Register.CR8, instr.Op1Register);
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(decoder.Bitness, writer);
 			encoder.Encode(instr, 0);
