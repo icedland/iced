@@ -450,8 +450,8 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class LegacyHandler : OpCodeHandler {
-		readonly byte tableByte1, tableByte2;
-		readonly byte mandatoryPrefix;
+		readonly uint tableByte1, tableByte2;
+		readonly uint mandatoryPrefix;
 		readonly uint rexBits;
 
 		static int GetGroupIndex(uint dword2) {
