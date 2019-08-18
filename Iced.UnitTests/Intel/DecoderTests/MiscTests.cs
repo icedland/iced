@@ -72,6 +72,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test16_too_long_instruction() {
+			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+
 			var decoder = CreateDecoder16("26 26 26 26 26 26 26 26 26 26 26 26 26 66 01 CE");
 			var instr = decoder.Decode();
 
@@ -87,6 +89,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test16_almost_too_long_instruction() {
+			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+
 			var decoder = CreateDecoder16("26 26 26 26 26 26 26 26 26 26 26 26 66 01 CE");
 			var instr = decoder.Decode();
 
@@ -108,6 +112,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test32_too_long_instruction() {
+			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+
 			var decoder = CreateDecoder32("26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE");
 			var instr = decoder.Decode();
 
@@ -123,6 +129,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test32_almost_too_long_instruction() {
+			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+
 			var decoder = CreateDecoder32("26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE");
 			var instr = decoder.Decode();
 
@@ -144,6 +152,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test64_too_long_instruction() {
+			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+
 			var decoder = CreateDecoder64("26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE");
 			var instr = decoder.Decode();
 
@@ -159,6 +169,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test64_almost_too_long_instruction() {
+			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+
 			var decoder = CreateDecoder64("26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE");
 			var instr = decoder.Decode();
 
