@@ -42,6 +42,10 @@ namespace Iced.Intel.DecoderInternal {
 				elem = OpCodeHandler_Invalid.Instance;
 				return 1;
 
+			case OpCodeHandlerKind.Invalid_NoModRM:
+				elem = OpCodeHandler_Invalid_NoModRM.Instance;
+				return 1;
+
 			case OpCodeHandlerKind.Invalid2:
 				result[resultIndex] = OpCodeHandler_Invalid.Instance;
 				result[resultIndex + 1] = OpCodeHandler_Invalid.Instance;

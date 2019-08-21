@@ -7603,6 +7603,7 @@ F0 66 F3 0FBB 18, Btc_rm32_r32, Btc, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lo
 F0 66 F2 0FBB 18, Btc_rm32_r32, Btc, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock xacquire
 
 0FBC CE, Bsf_r16_rm16, Bsf, 2, op0=r;cx op1=r;si
+F2 0FBC CE, Bsf_r16_rm16, Bsf, 2, op0=r;cx op1=r;si enc=0FBCCE
 0FBC 18, Bsf_r16_rm16, Bsf, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16
 F3 0FBC CE, Bsf_r16_rm16, Bsf, 2, op0=r;cx op1=r;si rep nompfx_0fbc
 F3 0FBC 18, Bsf_r16_rm16, Bsf, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16 rep nompfx_0fbc
@@ -7610,6 +7611,8 @@ F2 0FBC CE, Bsf_r16_rm16, Bsf, 2, op0=r;cx op1=r;si repne nompfx_0fbc
 F2 0FBC 18, Bsf_r16_rm16, Bsf, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16 repne nompfx_0fbc
 
 66 0FBC CE, Bsf_r32_rm32, Bsf, 2, op0=r;ecx op1=r;esi
+66 F2 0FBC CE, Bsf_r32_rm32, Bsf, 2, op0=r;ecx op1=r;esi enc=660FBCCE
+F2 66 0FBC CE, Bsf_r32_rm32, Bsf, 2, op0=r;ecx op1=r;esi enc=660FBCCE
 66 0FBC 18, Bsf_r32_rm32, Bsf, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;UInt32
 66 F3 0FBC CE, Bsf_r32_rm32, Bsf, 2, op0=r;ecx op1=r;esi rep nompfx_0fbc
 66 F3 0FBC 18, Bsf_r32_rm32, Bsf, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;UInt32 rep nompfx_0fbc
@@ -7627,6 +7630,7 @@ F3 0FBC 18, Tzcnt_r16_rm16, Tzcnt, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16
 66 F3 0FBC 18, Tzcnt_r32_rm32, Tzcnt, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;UInt32
 
 0FBD CE, Bsr_r16_rm16, Bsr, 2, op0=r;cx op1=r;si
+F2 0FBD CE, Bsr_r16_rm16, Bsr, 2, op0=r;cx op1=r;si enc=0FBDCE
 0FBD 18, Bsr_r16_rm16, Bsr, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16
 F3 0FBD CE, Bsr_r16_rm16, Bsr, 2, op0=r;cx op1=r;si rep nompfx_0fbd
 F3 0FBD 18, Bsr_r16_rm16, Bsr, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16 rep nompfx_0fbd
@@ -7634,6 +7638,8 @@ F2 0FBD CE, Bsr_r16_rm16, Bsr, 2, op0=r;cx op1=r;si repne nompfx_0fbd
 F2 0FBD 18, Bsr_r16_rm16, Bsr, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16 repne nompfx_0fbd
 
 66 0FBD CE, Bsr_r32_rm32, Bsr, 2, op0=r;ecx op1=r;esi
+66 F2 0FBD CE, Bsr_r32_rm32, Bsr, 2, op0=r;ecx op1=r;esi enc=660FBDCE
+F2 66 0FBD CE, Bsr_r32_rm32, Bsr, 2, op0=r;ecx op1=r;esi enc=660FBDCE
 66 0FBD 18, Bsr_r32_rm32, Bsr, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;UInt32
 66 F3 0FBD CE, Bsr_r32_rm32, Bsr, 2, op0=r;ecx op1=r;esi rep nompfx_0fbd
 66 F3 0FBD 18, Bsr_r32_rm32, Bsr, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;UInt32 rep nompfx_0fbd

@@ -27,6 +27,7 @@ namespace Iced.Intel.DecoderInternal {
 		Bitness,
 		Bitness_DontReadModRM,
 		Invalid,
+		Invalid_NoModRM,
 		Invalid2,
 		Dup,
 		Null,

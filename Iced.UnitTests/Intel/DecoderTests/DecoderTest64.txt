@@ -12801,6 +12801,8 @@ F0 F3 48 0FBB 18, Btc_rm64_r64, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx loc
 F0 F2 48 0FBB 18, Btc_rm64_r64, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
 
 66 0FBC CE, Bsf_r16_rm16, Bsf, 2, op0=r;cx op1=r;si
+66 F2 0FBC CE, Bsf_r16_rm16, Bsf, 2, op0=r;cx op1=r;si enc=660FBCCE
+F2 66 0FBC CE, Bsf_r16_rm16, Bsf, 2, op0=r;cx op1=r;si enc=660FBCCE
 66 44 0FBC C5, Bsf_r16_rm16, Bsf, 2, op0=r;r8w op1=r;bp
 66 41 0FBC D6, Bsf_r16_rm16, Bsf, 2, op0=r;dx op1=r;r14w
 66 45 0FBC D0, Bsf_r16_rm16, Bsf, 2, op0=r;r10w op1=r;r8w
@@ -12817,6 +12819,7 @@ F2 66 0FBC CE, Bsf_r16_rm16, Bsf, 2, op0=r;cx op1=r;si repne nompfx_0fbc enc=66F
 F2 66 0FBC 18, Bsf_r16_rm16, Bsf, 2, op0=r;bx op1=m;ds;rax;;1;0;0;UInt16 repne nompfx_0fbc enc=66F20FBC18
 
 0FBC CE, Bsf_r32_rm32, Bsf, 2, op0=r;ecx op1=r;esi
+F2 0FBC CE, Bsf_r32_rm32, Bsf, 2, op0=r;ecx op1=r;esi enc=0FBCCE
 44 0FBC C5, Bsf_r32_rm32, Bsf, 2, op0=r;r8d op1=r;ebp
 41 0FBC D6, Bsf_r32_rm32, Bsf, 2, op0=r;edx op1=r;r14d
 45 0FBC D0, Bsf_r32_rm32, Bsf, 2, op0=r;r10d op1=r;r8d
@@ -12829,6 +12832,7 @@ F2 0FBC CE, Bsf_r32_rm32, Bsf, 2, op0=r;ecx op1=r;esi repne nompfx_0fbc
 F2 0FBC 18, Bsf_r32_rm32, Bsf, 2, op0=r;ebx op1=m;ds;rax;;1;0;0;UInt32 repne nompfx_0fbc
 
 48 0FBC CE, Bsf_r64_rm64, Bsf, 2, op0=r;rcx op1=r;rsi
+F2 48 0FBC CE, Bsf_r64_rm64, Bsf, 2, op0=r;rcx op1=r;rsi enc=480FBCCE
 4C 0FBC C5, Bsf_r64_rm64, Bsf, 2, op0=r;r8 op1=r;rbp
 49 0FBC D6, Bsf_r64_rm64, Bsf, 2, op0=r;rdx op1=r;r14
 4D 0FBC D0, Bsf_r64_rm64, Bsf, 2, op0=r;r10 op1=r;r8
@@ -12865,6 +12869,8 @@ F3 4C 0FBC EC, Tzcnt_r64_rm64, Tzcnt, 2, op0=r;r13 op1=r;rsp
 F3 48 0FBC 18, Tzcnt_r64_rm64, Tzcnt, 2, op0=r;rbx op1=m;ds;rax;;1;0;0;UInt64
 
 66 0FBD CE, Bsr_r16_rm16, Bsr, 2, op0=r;cx op1=r;si
+66 F2 0FBD CE, Bsr_r16_rm16, Bsr, 2, op0=r;cx op1=r;si enc=660FBDCE
+F2 66 0FBD CE, Bsr_r16_rm16, Bsr, 2, op0=r;cx op1=r;si enc=660FBDCE
 66 44 0FBD C5, Bsr_r16_rm16, Bsr, 2, op0=r;r8w op1=r;bp
 66 41 0FBD D6, Bsr_r16_rm16, Bsr, 2, op0=r;dx op1=r;r14w
 66 45 0FBD D0, Bsr_r16_rm16, Bsr, 2, op0=r;r10w op1=r;r8w
@@ -12881,6 +12887,7 @@ F2 66 0FBD CE, Bsr_r16_rm16, Bsr, 2, op0=r;cx op1=r;si repne nompfx_0fbd enc=66F
 F2 66 0FBD 18, Bsr_r16_rm16, Bsr, 2, op0=r;bx op1=m;ds;rax;;1;0;0;UInt16 repne nompfx_0fbd enc=66F20FBD18
 
 0FBD CE, Bsr_r32_rm32, Bsr, 2, op0=r;ecx op1=r;esi
+F2 0FBD CE, Bsr_r32_rm32, Bsr, 2, op0=r;ecx op1=r;esi enc=0FBDCE
 44 0FBD C5, Bsr_r32_rm32, Bsr, 2, op0=r;r8d op1=r;ebp
 41 0FBD D6, Bsr_r32_rm32, Bsr, 2, op0=r;edx op1=r;r14d
 45 0FBD D0, Bsr_r32_rm32, Bsr, 2, op0=r;r10d op1=r;r8d
@@ -12893,6 +12900,7 @@ F2 0FBD CE, Bsr_r32_rm32, Bsr, 2, op0=r;ecx op1=r;esi repne nompfx_0fbd
 F2 0FBD 18, Bsr_r32_rm32, Bsr, 2, op0=r;ebx op1=m;ds;rax;;1;0;0;UInt32 repne nompfx_0fbd
 
 48 0FBD CE, Bsr_r64_rm64, Bsr, 2, op0=r;rcx op1=r;rsi
+F2 48 0FBD CE, Bsr_r64_rm64, Bsr, 2, op0=r;rcx op1=r;rsi enc=480FBDCE
 4C 0FBD C5, Bsr_r64_rm64, Bsr, 2, op0=r;r8 op1=r;rbp
 49 0FBD D6, Bsr_r64_rm64, Bsr, 2, op0=r;rdx op1=r;r14
 4D 0FBD D0, Bsr_r64_rm64, Bsr, 2, op0=r;r10 op1=r;r8
