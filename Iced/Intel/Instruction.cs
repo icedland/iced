@@ -1645,7 +1645,10 @@ namespace Iced.Intel {
 		/// Gets the <see cref="Intel.OpCodeInfo"/>
 		/// </summary>
 		/// <returns></returns>
-		public OpCodeInfo OpCodeInfo => Code.ToOpCodeInfo();
+		public readonly OpCodeInfo OpCodeInfo {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.ToOpCodeInfo();
+		}
 #endif
 
 		/// <summary>
