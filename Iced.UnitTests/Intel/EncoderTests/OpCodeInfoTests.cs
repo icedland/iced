@@ -88,7 +88,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			for (int i = tc.OpCount; i < Iced.Intel.DecoderConstants.MaxOpCount; i++)
 				Assert.Equal(OpCodeOperandKind.None, info.GetOpKind(i));
 		}
-		public static IEnumerable<object[]> TestAllOpCodeInfos_Data => OpCodeInfos.OpCodeInfoTests.Select(a => new object[] { a.LineNumber, a.Code, a.OpCodeString, a });
+		public static IEnumerable<object[]> TestAllOpCodeInfos_Data => OpCodeInfoTestCases.OpCodeInfoTests.Select(a => new object[] { a.LineNumber, a.Code, a.OpCodeString, a });
 
 		[Fact]
 		void GetOpKindThrowsIfInvalidInput() {

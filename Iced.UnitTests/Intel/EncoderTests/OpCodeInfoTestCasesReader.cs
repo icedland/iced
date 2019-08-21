@@ -28,7 +28,7 @@ using System.IO;
 using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.EncoderTests {
-	static class OpCodeInfosReader {
+	static class OpCodeInfoTestCasesReader {
 		static readonly Dictionary<string, Code> toCode = CreateToCode();
 		static readonly Dictionary<string, TupleType> toTupleType = CreateToTupleType();
 		static readonly Dictionary<string, OpCodeOperandKind> toOpCodeOperandKind = CreateToOpCodeOperandKind();

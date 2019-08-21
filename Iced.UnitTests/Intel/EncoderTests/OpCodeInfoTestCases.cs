@@ -28,13 +28,13 @@ using System.Linq;
 using System.Reflection;
 
 namespace Iced.UnitTests.Intel.EncoderTests {
-	static class OpCodeInfos {
+	static class OpCodeInfoTestCases {
 		public static readonly OpCodeInfoTestCase[] OpCodeInfoTests = CreateOpCodeInfos();
 
 		static OpCodeInfoTestCase[] CreateOpCodeInfos() {
 			var filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Intel", "EncoderTests", "OpCodeInfos.txt");
 			Debug.Assert(File.Exists(filename));
-			return OpCodeInfosReader.ReadFile(filename).ToArray();
+			return OpCodeInfoTestCasesReader.ReadFile(filename).ToArray();
 		}
 	}
 }
