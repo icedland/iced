@@ -52,7 +52,7 @@ Encoder:
 - `BlockEncoder`
 - `CodeWriter`
 - `ConstantOffsets`
-- `OpCodeInfo` (`Instruction.GetOpCodeInfo()` and `Code.ToOpCodeInfo()`)
+- `OpCodeInfo` (`Instruction.OpCodeInfo` and `Code.ToOpCodeInfo()`)
 
 Instruction info:
 
