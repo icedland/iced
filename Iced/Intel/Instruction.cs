@@ -1642,10 +1642,10 @@ namespace Iced.Intel {
 
 #if !NO_ENCODER
 		/// <summary>
-		/// Gets the <see cref="OpCodeInfo"/>
+		/// Gets the <see cref="Intel.OpCodeInfo"/>
 		/// </summary>
 		/// <returns></returns>
-		public OpCodeInfo GetOpCodeInfo() => Code.ToOpCodeInfo();
+		public OpCodeInfo OpCodeInfo => Code.ToOpCodeInfo();
 #endif
 
 		/// <summary>

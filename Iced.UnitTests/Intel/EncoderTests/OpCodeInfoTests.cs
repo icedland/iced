@@ -107,7 +107,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				var code = (Code)i;
 				Instruction instr = default;
 				instr.Code = (Code)i;
-				Assert.True(ReferenceEquals(code.ToOpCodeInfo(), instr.GetOpCodeInfo()));
+				Assert.True(ReferenceEquals(code.ToOpCodeInfo(), instr.OpCodeInfo));
 			}
 		}
 	}
