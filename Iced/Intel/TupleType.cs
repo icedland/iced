@@ -32,15 +32,15 @@ namespace Iced.Intel {
 		/// </summary>
 		None,
 		/// <summary>
-		/// N = b ? (w ? 8 : 4) : 16
+		/// N = b ? (W ? 8 : 4) : 16
 		/// </summary>
 		Full_128,
 		/// <summary>
-		/// N = b ? (w ? 8 : 4) : 32
+		/// N = b ? (W ? 8 : 4) : 32
 		/// </summary>
 		Full_256,
 		/// <summary>
-		/// N = b ? (w ? 8 : 4) : 64
+		/// N = b ? (W ? 8 : 4) : 64
 		/// </summary>
 		Full_512,
 		/// <summary>
@@ -68,7 +68,7 @@ namespace Iced.Intel {
 		/// </summary>
 		Full_Mem_512,
 		/// <summary>
-		/// N = w ? 8 : 4
+		/// N = W ? 8 : 4
 		/// </summary>
 		Tuple1_Scalar,
 		/// <summary>
@@ -88,7 +88,7 @@ namespace Iced.Intel {
 		/// </summary>
 		Tuple1_Scalar_8,
 		/// <summary>
-		/// N = w ? 8 : 4
+		/// N = W ? 8 : 4
 		/// </summary>
 		Tuple1_Fixed,
 		/// <summary>
@@ -100,15 +100,15 @@ namespace Iced.Intel {
 		/// </summary>
 		Tuple1_Fixed_8,
 		/// <summary>
-		/// N = w ? 16 : 8
+		/// N = W ? 16 : 8
 		/// </summary>
 		Tuple2,
 		/// <summary>
-		/// N = w ? 32 : 16
+		/// N = W ? 32 : 16
 		/// </summary>
 		Tuple4,
 		/// <summary>
-		/// N = w ? error : 32
+		/// N = W ? error : 32
 		/// </summary>
 		Tuple8,
 		/// <summary>
