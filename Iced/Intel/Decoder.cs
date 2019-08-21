@@ -91,7 +91,7 @@ namespace Iced.Intel {
 			public StateFlags flags;
 			public byte defaultDsSegment;
 			public VectorLength vectorLength;
-			public MandatoryPrefix mandatoryPrefix;
+			public MandatoryPrefixByte mandatoryPrefix;
 			public OpSize operandSize;
 			public OpSize addressSize;
 			public readonly EncodingKind Encoding => (EncodingKind)(flags & StateFlags.EncodingMask);
@@ -366,8 +366,8 @@ namespace Iced.Intel {
 				case 0x66:
 					state.operandSize = defaultInvertedOperandSize;
 					rexPrefix = 0;
-					if (state.mandatoryPrefix == MandatoryPrefix.None)
-						state.mandatoryPrefix = MandatoryPrefix.P66;
+					if (state.mandatoryPrefix == MandatoryPrefixByte.None)
+						state.mandatoryPrefix = MandatoryPrefixByte.P66;
 					break;
 
 				case 0x67:
@@ -384,13 +384,13 @@ namespace Iced.Intel {
 				case 0xF2:
 					instruction.InternalSetHasRepnePrefix();
 					rexPrefix = 0;
-					state.mandatoryPrefix = MandatoryPrefix.PF2;
+					state.mandatoryPrefix = MandatoryPrefixByte.PF2;
 					break;
 
 				case 0xF3:
 					instruction.InternalSetHasRepePrefix();
 					rexPrefix = 0;
-					state.mandatoryPrefix = MandatoryPrefix.PF3;
+					state.mandatoryPrefix = MandatoryPrefixByte.PF3;
 					break;
 
 				default:
@@ -438,13 +438,13 @@ after_read_prefixes:
 		internal void ClearMandatoryPrefix(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			switch (state.mandatoryPrefix) {
-			case MandatoryPrefix.P66:
+			case MandatoryPrefixByte.P66:
 				state.operandSize = defaultOperandSize;
 				break;
-			case MandatoryPrefix.PF3:
+			case MandatoryPrefixByte.PF3:
 				instruction.InternalClearHasRepePrefix();
 				break;
-			case MandatoryPrefix.PF2:
+			case MandatoryPrefixByte.PF2:
 				instruction.InternalClearHasRepnePrefix();
 				break;
 			}
@@ -459,14 +459,14 @@ after_read_prefixes:
 		void SetXacquireReleaseCore(ref Instruction instruction, HandlerFlags flags) {
 			Debug.Assert(!((flags & HandlerFlags.XacquireReleaseNoLock) == 0 && !instruction.HasLockPrefix));
 			switch (state.mandatoryPrefix) {
-			case MandatoryPrefix.PF2:
+			case MandatoryPrefixByte.PF2:
 				if ((flags & HandlerFlags.Xacquire) != 0) {
 					ClearMandatoryPrefixF2(ref instruction);
 					instruction.InternalSetHasXacquirePrefix();
 				}
 				break;
 
-			case MandatoryPrefix.PF3:
+			case MandatoryPrefixByte.PF3:
 				if ((flags & HandlerFlags.Xrelease) != 0) {
 					ClearMandatoryPrefixF3(ref instruction);
 					instruction.InternalSetHasXreleasePrefix();
@@ -477,13 +477,13 @@ after_read_prefixes:
 
 		internal void ClearMandatoryPrefixF3(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			Debug.Assert(state.mandatoryPrefix == MandatoryPrefix.PF3);
+			Debug.Assert(state.mandatoryPrefix == MandatoryPrefixByte.PF3);
 			instruction.InternalClearHasRepePrefix();
 		}
 
 		internal void ClearMandatoryPrefixF2(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			Debug.Assert(state.mandatoryPrefix == MandatoryPrefix.PF2);
+			Debug.Assert(state.mandatoryPrefix == MandatoryPrefixByte.PF2);
 			instruction.InternalClearHasRepnePrefix();
 		}
 
@@ -529,11 +529,11 @@ after_read_prefixes:
 			Debug.Assert((int)VectorLength.L256 == 1);
 			state.vectorLength = (VectorLength)((b >> 2) & 1);
 
-			Debug.Assert((int)MandatoryPrefix.None == 0);
-			Debug.Assert((int)MandatoryPrefix.P66 == 1);
-			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
-			state.mandatoryPrefix = (MandatoryPrefix)(b & 3);
+			Debug.Assert((int)MandatoryPrefixByte.None == 0);
+			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+			state.mandatoryPrefix = (MandatoryPrefixByte)(b & 3);
 
 			DecodeTable(handlers_0FXX_VEX, ref instruction);
 		}
@@ -553,11 +553,11 @@ after_read_prefixes:
 			Debug.Assert((int)VectorLength.L256 == 1);
 			state.vectorLength = (VectorLength)((b2 >> 2) & 1);
 
-			Debug.Assert((int)MandatoryPrefix.None == 0);
-			Debug.Assert((int)MandatoryPrefix.P66 == 1);
-			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
-			state.mandatoryPrefix = (MandatoryPrefix)(b2 & 3);
+			Debug.Assert((int)MandatoryPrefixByte.None == 0);
+			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
 			if (is64Mode) {
 				if ((b2 & 0x80) != 0)
@@ -597,11 +597,11 @@ after_read_prefixes:
 			Debug.Assert((int)VectorLength.L256 == 1);
 			state.vectorLength = (VectorLength)((b2 >> 2) & 1);
 
-			Debug.Assert((int)MandatoryPrefix.None == 0);
-			Debug.Assert((int)MandatoryPrefix.P66 == 1);
-			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
-			state.mandatoryPrefix = (MandatoryPrefix)(b2 & 3);
+			Debug.Assert((int)MandatoryPrefixByte.None == 0);
+			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
 			if (is64Mode) {
 				if ((b2 & 0x80) != 0)
@@ -646,11 +646,11 @@ after_read_prefixes:
 
 				state.flags |= (StateFlags)EncodingKind.EVEX;
 
-				Debug.Assert((int)MandatoryPrefix.None == 0);
-				Debug.Assert((int)MandatoryPrefix.P66 == 1);
-				Debug.Assert((int)MandatoryPrefix.PF3 == 2);
-				Debug.Assert((int)MandatoryPrefix.PF2 == 3);
-				state.mandatoryPrefix = (MandatoryPrefix)(p1 & 3);
+				Debug.Assert((int)MandatoryPrefixByte.None == 0);
+				Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+				Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+				Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+				state.mandatoryPrefix = (MandatoryPrefixByte)(p1 & 3);
 
 				Debug.Assert((int)StateFlags.W == 0x80);
 				state.flags |= (StateFlags)(p1 & 0x80);

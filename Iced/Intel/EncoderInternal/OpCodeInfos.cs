@@ -22,35 +22,22 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_ENCODER
-namespace Iced.Intel {
-	/// <summary>
-	/// Mandatory prefix
-	/// </summary>
-	public enum MandatoryPrefix {
-		/// <summary>
-		/// No mandatory prefix (legacy and 3DNow! tables only)
-		/// </summary>
-		None,
+using System.Diagnostics;
+using System.Text;
 
-		/// <summary>
-		/// Empty mandatory prefix (no 66, F3 or F2 prefix)
-		/// </summary>
-		PNP,
+namespace Iced.Intel.EncoderInternal {
+	static class OpCodeInfos {
+		public static readonly OpCodeInfo[] Infos = CreateInfos();
 
-		/// <summary>
-		/// 66 prefix
-		/// </summary>
-		P66,
-
-		/// <summary>
-		/// F3 prefix
-		/// </summary>
-		PF3,
-
-		/// <summary>
-		/// F2 prefix
-		/// </summary>
-		PF2,
+		static OpCodeInfo[] CreateInfos() {
+			var infos = new OpCodeInfo[DecoderConstants.NumberOfCodeValues];
+			var data = OpCodeHandlers.GetData();
+			Debug.Assert(data.Length == infos.Length * 3);
+			var sb = new StringBuilder();
+			for (int i = 0; i < infos.Length; i++)
+				infos[i] = new OpCodeInfo(data[i * 3 + 2], data[i * 3 + 1], data[i * 3], sb);
+			return infos;
+		}
 	}
 }
 #endif

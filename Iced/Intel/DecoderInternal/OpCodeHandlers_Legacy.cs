@@ -148,10 +148,10 @@ namespace Iced.Intel.DecoderInternal {
 		readonly OpCodeHandler[] handlers;
 
 		public OpCodeHandler_MandatoryPrefix(OpCodeHandler handler, OpCodeHandler handler66, OpCodeHandler handlerF3, OpCodeHandler handlerF2) {
-			Debug.Assert((int)MandatoryPrefix.None == 0);
-			Debug.Assert((int)MandatoryPrefix.P66 == 1);
-			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
+			Debug.Assert((int)MandatoryPrefixByte.None == 0);
+			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
 			handlers = new OpCodeHandler[4] {
 				handler ?? throw new ArgumentNullException(nameof(handler)),
 				handler66 ?? throw new ArgumentNullException(nameof(handler66)),
@@ -185,10 +185,10 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public OpCodeHandler_MandatoryPrefix3(OpCodeHandler handler_reg, OpCodeHandler handler_mem, OpCodeHandler handler66_reg, OpCodeHandler handler66_mem, OpCodeHandler handlerF3_reg, OpCodeHandler handlerF3_mem, OpCodeHandler handlerF2_reg, OpCodeHandler handlerF2_mem, LegacyHandlerFlags flags) {
-			Debug.Assert((int)MandatoryPrefix.None == 0);
-			Debug.Assert((int)MandatoryPrefix.P66 == 1);
-			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
+			Debug.Assert((int)MandatoryPrefixByte.None == 0);
+			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
 			handlers_reg = new Info[4] {
 				new Info(handler_reg ?? throw new ArgumentNullException(nameof(handler_reg)), (flags & LegacyHandlerFlags.HandlerReg) == 0),
 				new Info(handler66_reg ?? throw new ArgumentNullException(nameof(handler66_reg)), (flags & LegacyHandlerFlags.Handler66Reg) == 0),
@@ -236,16 +236,16 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			OpCodeHandler handler;
 			var prefix = decoder.state.mandatoryPrefix;
-			if (prefix == MandatoryPrefix.PF3) {
+			if (prefix == MandatoryPrefixByte.PF3) {
 				decoder.ClearMandatoryPrefixF3(ref instruction);
 				handler = handlerF3;
 			}
-			else if (prefix == MandatoryPrefix.PF2) {
+			else if (prefix == MandatoryPrefixByte.PF2) {
 				decoder.ClearMandatoryPrefixF2(ref instruction);
 				handler = handlerF2;
 			}
 			else {
-				Debug.Assert(prefix == MandatoryPrefix.None || prefix == MandatoryPrefix.P66);
+				Debug.Assert(prefix == MandatoryPrefixByte.None || prefix == MandatoryPrefixByte.P66);
 				handler = handlerNormal;
 			}
 			if (handler.HasModRM)
@@ -258,10 +258,10 @@ namespace Iced.Intel.DecoderInternal {
 		readonly OpCodeHandler[] handlers;
 
 		public OpCodeHandler_MandatoryPrefix_NoModRM(OpCodeHandler handler, OpCodeHandler handler66, OpCodeHandler handlerF3, OpCodeHandler handlerF2) {
-			Debug.Assert((int)MandatoryPrefix.None == 0);
-			Debug.Assert((int)MandatoryPrefix.P66 == 1);
-			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
+			Debug.Assert((int)MandatoryPrefixByte.None == 0);
+			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
 			handlers = new OpCodeHandler[4] {
 				handler ?? throw new ArgumentNullException(nameof(handler)),
 				handler66 ?? throw new ArgumentNullException(nameof(handler66)),
@@ -285,10 +285,10 @@ namespace Iced.Intel.DecoderInternal {
 		readonly OpCodeHandler[] handlers;
 
 		public OpCodeHandler_MandatoryPrefix_MaybeModRM(OpCodeHandler handler, OpCodeHandler handler66, OpCodeHandler handlerF3, OpCodeHandler handlerF2) {
-			Debug.Assert((int)MandatoryPrefix.None == 0);
-			Debug.Assert((int)MandatoryPrefix.P66 == 1);
-			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
+			Debug.Assert((int)MandatoryPrefixByte.None == 0);
+			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
 			handlers = new OpCodeHandler[4] {
 				handler ?? throw new ArgumentNullException(nameof(handler)),
 				handler66 ?? throw new ArgumentNullException(nameof(handler66)),
@@ -2237,7 +2237,7 @@ namespace Iced.Intel.DecoderInternal {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 
-			if (index == 0 && state.mandatoryPrefix == MandatoryPrefix.PF3 && (decoder.options & DecoderOptions.NoPause) == 0) {
+			if (index == 0 && state.mandatoryPrefix == MandatoryPrefixByte.PF3 && (decoder.options & DecoderOptions.NoPause) == 0) {
 				decoder.ClearMandatoryPrefixF3(ref instruction);
 				instruction.InternalCode = Code.Pause;
 			}

@@ -104,15 +104,28 @@ namespace Iced.Intel.EncoderInternal {
 		Op3Shift			= 18,
 	}
 
+	enum AllowedPrefixes : uint {
+		None,
+		Bnd,
+		BndNotrack,
+		HintTakenBnd,
+		Lock,
+		Rep,
+		RepeRepne,
+		XacquireXreleaseLock,
+		Xrelease,
+	}
+
 	[Flags]
 	enum LegacyFlags : uint {
 		None							= 0,
 
 		MandatoryPrefixMask				= 3,
 		MandatoryPrefixShift			= 0,
-		P66								= MandatoryPrefix.P66 << (int)MandatoryPrefixShift,
-		PF3								= MandatoryPrefix.PF3 << (int)MandatoryPrefixShift,
-		PF2								= MandatoryPrefix.PF2 << (int)MandatoryPrefixShift,
+		PNP								= (MandatoryPrefixByte.None << (int)MandatoryPrefixShift) | HasMandatoryPrefix,
+		P66								= (MandatoryPrefixByte.P66 << (int)MandatoryPrefixShift) | HasMandatoryPrefix,
+		PF3								= (MandatoryPrefixByte.PF3 << (int)MandatoryPrefixShift) | HasMandatoryPrefix,
+		PF2								= (MandatoryPrefixByte.PF2 << (int)MandatoryPrefixShift) | HasMandatoryPrefix,
 
 		OpCodeTableMask					= 3,
 		OpCodeTableShift				= 2,
@@ -137,7 +150,19 @@ namespace Iced.Intel.EncoderInternal {
 		Group6							= HasGroupIndex | (6 << (int)GroupShift),
 		Group7							= HasGroupIndex | (7 << (int)GroupShift),
 
-		Fwait							= 0x00000400,
+		AllowedPrefixesMask				= 0xF,
+		AllowedPrefixesShift			= 10,
+		Bnd								= AllowedPrefixes.Bnd << (int)AllowedPrefixesShift,
+		BndNotrack						= AllowedPrefixes.BndNotrack << (int)AllowedPrefixesShift,
+		HintTakenBnd					= AllowedPrefixes.HintTakenBnd << (int)AllowedPrefixesShift,
+		Lock							= AllowedPrefixes.Lock << (int)AllowedPrefixesShift,
+		Rep								= AllowedPrefixes.Rep << (int)AllowedPrefixesShift,
+		RepeRepne						= AllowedPrefixes.RepeRepne << (int)AllowedPrefixesShift,
+		XacquireXreleaseLock			= AllowedPrefixes.XacquireXreleaseLock << (int)AllowedPrefixesShift,
+		Xrelease						= AllowedPrefixes.Xrelease << (int)AllowedPrefixesShift,
+
+		Fwait							= 0x00004000,
+		HasMandatoryPrefix				= 0x00008000,
 
 		Legacy_OpSizeShift				= 28,
 		Legacy_OperandSizeMask			= 3,
@@ -167,9 +192,9 @@ namespace Iced.Intel.EncoderInternal {
 
 		MandatoryPrefixMask				= 3,
 		MandatoryPrefixShift			= 0,
-		P66								= MandatoryPrefix.P66 << (int)MandatoryPrefixShift,
-		PF3								= MandatoryPrefix.PF3 << (int)MandatoryPrefixShift,
-		PF2								= MandatoryPrefix.PF2 << (int)MandatoryPrefixShift,
+		P66								= MandatoryPrefixByte.P66 << (int)MandatoryPrefixShift,
+		PF3								= MandatoryPrefixByte.PF3 << (int)MandatoryPrefixShift,
+		PF2								= MandatoryPrefixByte.PF2 << (int)MandatoryPrefixShift,
 
 		OpCodeTableMask					= 3,
 		OpCodeTableShift				= 2,
@@ -194,12 +219,13 @@ namespace Iced.Intel.EncoderInternal {
 		Group6							= HasGroupIndex | (6 << (int)GroupShift),
 		Group7							= HasGroupIndex | (7 << (int)GroupShift),
 
-		VEX_LShift						= 28,
+		VEX_LShift						= 27,
 		VEX_L128						= 0,
-		VEX_L256						= 0x10000000,
-		VEX_L0							= VEX_L128,
-		VEX_L1							= VEX_L256,
-		VEX_LIG							= 0x20000000,
+		VEX_L256						= 0x08000000,
+		VEX_L0							= VEX_L128 | VEX_L0_L1,
+		VEX_L1							= VEX_L256 | VEX_L0_L1,
+		VEX_LIG							= 0x10000000,
+		VEX_L0_L1						= 0x20000000,
 
 		VEX_W0							= 0,
 		VEX_W1							= 0x40000000,
@@ -227,9 +253,9 @@ namespace Iced.Intel.EncoderInternal {
 
 		MandatoryPrefixMask				= 3,
 		MandatoryPrefixShift			= 0,
-		P66								= MandatoryPrefix.P66 << (int)MandatoryPrefixShift,
-		PF3								= MandatoryPrefix.PF3 << (int)MandatoryPrefixShift,
-		PF2								= MandatoryPrefix.PF2 << (int)MandatoryPrefixShift,
+		P66								= MandatoryPrefixByte.P66 << (int)MandatoryPrefixShift,
+		PF3								= MandatoryPrefixByte.PF3 << (int)MandatoryPrefixShift,
+		PF2								= MandatoryPrefixByte.PF2 << (int)MandatoryPrefixShift,
 
 		OpCodeTableMask					= 3,
 		OpCodeTableShift				= 2,
@@ -254,11 +280,12 @@ namespace Iced.Intel.EncoderInternal {
 		Group6							= HasGroupIndex | (6 << (int)GroupShift),
 		Group7							= HasGroupIndex | (7 << (int)GroupShift),
 
-		XOP_LShift						= 30,
+		XOP_LShift						= 29,
 		XOP_L128						= 0,
-		XOP_L256						= 0x40000000,
-		XOP_L0							= XOP_L128,
-		XOP_L1							= XOP_L256,
+		XOP_L256						= 0x20000000,
+		XOP_L0							= XOP_L128 | XOP_L0_L1,
+		XOP_L1							= XOP_L256 | XOP_L0_L1,
+		XOP_L0_L1						= 0x40000000,
 
 		XOP_W0							= 0,
 		XOP_W1							= 0x80000000,
@@ -277,9 +304,9 @@ namespace Iced.Intel.EncoderInternal {
 
 		MandatoryPrefixMask				= 3,
 		MandatoryPrefixShift			= 0,
-		P66								= MandatoryPrefix.P66 << (int)MandatoryPrefixShift,
-		PF3								= MandatoryPrefix.PF3 << (int)MandatoryPrefixShift,
-		PF2								= MandatoryPrefix.PF2 << (int)MandatoryPrefixShift,
+		P66								= MandatoryPrefixByte.P66 << (int)MandatoryPrefixShift,
+		PF3								= MandatoryPrefixByte.PF3 << (int)MandatoryPrefixShift,
+		PF2								= MandatoryPrefixByte.PF2 << (int)MandatoryPrefixShift,
 
 		OpCodeTableMask					= 3,
 		OpCodeTableShift				= 2,
@@ -353,14 +380,8 @@ namespace Iced.Intel.EncoderInternal {
 	enum D3nowFlags : uint {
 		None							= 0,
 
-		MandatoryPrefixMask				= 3,
-		MandatoryPrefixShift			= 0,
-		P66								= MandatoryPrefix.P66 << (int)MandatoryPrefixShift,
-		PF3								= MandatoryPrefix.PF3 << (int)MandatoryPrefixShift,
-		PF2								= MandatoryPrefix.PF2 << (int)MandatoryPrefixShift,
-
 		EncodableMask					= 3,
-		EncodableShift					= 4,
+		EncodableShift					= 0,
 		Encodable_Any					= Encodable.Any << (int)EncodableShift,
 		Encodable_Only1632				= Encodable.Only1632 << (int)EncodableShift,
 		Encodable_Only64				= Encodable.Only64 << (int)EncodableShift,
@@ -507,11 +528,11 @@ namespace Iced.Intel.EncoderInternal {
 				throw new InvalidOperationException();
 			}
 
-			switch ((MandatoryPrefix)((dword2 >> (int)LegacyFlags.MandatoryPrefixShift) & (uint)LegacyFlags.MandatoryPrefixMask)) {
-			case MandatoryPrefix.None:	mandatoryPrefix = 0x00; break;
-			case MandatoryPrefix.P66:	mandatoryPrefix = 0x66; break;
-			case MandatoryPrefix.PF3:	mandatoryPrefix = 0xF3; break;
-			case MandatoryPrefix.PF2:	mandatoryPrefix = 0xF2; break;
+			switch ((MandatoryPrefixByte)((dword2 >> (int)LegacyFlags.MandatoryPrefixShift) & (uint)LegacyFlags.MandatoryPrefixMask)) {
+			case MandatoryPrefixByte.None:	mandatoryPrefix = 0x00; break;
+			case MandatoryPrefixByte.P66:	mandatoryPrefix = 0x66; break;
+			case MandatoryPrefixByte.PF3:	mandatoryPrefix = 0xF3; break;
+			case MandatoryPrefixByte.PF2:	mandatoryPrefix = 0xF2; break;
 			default:					throw new InvalidOperationException();
 			}
 		}
@@ -602,10 +623,10 @@ namespace Iced.Intel.EncoderInternal {
 		public override void Encode(Encoder encoder, in Instruction instr) {
 			uint encoderFlags = (uint)encoder.EncoderFlags;
 
-			Debug.Assert((int)MandatoryPrefix.None == 0);
-			Debug.Assert((int)MandatoryPrefix.P66 == 1);
-			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
+			Debug.Assert((int)MandatoryPrefixByte.None == 0);
+			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
 			uint b = lastByte;
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
 
@@ -682,10 +703,10 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.WriteByte(0x8F);
 
 			uint encoderFlags = (uint)encoder.EncoderFlags;
-			Debug.Assert((int)MandatoryPrefix.None == 0);
-			Debug.Assert((int)MandatoryPrefix.P66 == 1);
-			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
+			Debug.Assert((int)MandatoryPrefixByte.None == 0);
+			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
 
 			uint b = opCodeTable;
 			Debug.Assert((int)EncoderFlags.B == 1);
@@ -743,10 +764,10 @@ namespace Iced.Intel.EncoderInternal {
 			flags = (EvexFlags)dword2;
 			tupleType = (TupleType)((dword2 >> (int)EvexFlags.TupleTypeShift) & (uint)EvexFlags.TupleTypeMask);
 			opCodeTable = (EvexOpCodeTable)((dword2 >> (int)EvexFlags.OpCodeTableShift) & (uint)EvexFlags.OpCodeTableMask);
-			Debug.Assert((int)MandatoryPrefix.None == 0);
-			Debug.Assert((int)MandatoryPrefix.P66 == 1);
-			Debug.Assert((int)MandatoryPrefix.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefix.PF2 == 3);
+			Debug.Assert((int)MandatoryPrefixByte.None == 0);
+			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
 			p1Bits = 4 | ((dword2 >> (int)EvexFlags.MandatoryPrefixShift) & (uint)EvexFlags.MandatoryPrefixMask);
 			if ((dword2 & (uint)EvexFlags.EVEX_W1) != 0)
 				p1Bits |= 0x80;

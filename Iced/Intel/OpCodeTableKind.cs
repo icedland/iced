@@ -24,33 +24,43 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_ENCODER
 namespace Iced.Intel {
 	/// <summary>
-	/// Mandatory prefix
+	/// Opcode table
 	/// </summary>
-	public enum MandatoryPrefix {
+	public enum OpCodeTableKind {
 		/// <summary>
-		/// No mandatory prefix (legacy and 3DNow! tables only)
+		/// Legacy encoding table
 		/// </summary>
-		None,
+		Normal,
 
 		/// <summary>
-		/// Empty mandatory prefix (no 66, F3 or F2 prefix)
+		/// 0Fxx table (legacy, VEX, EVEX)
 		/// </summary>
-		PNP,
+		T0F,
 
 		/// <summary>
-		/// 66 prefix
+		/// 0F38xx table (legacy, VEX, EVEX)
 		/// </summary>
-		P66,
+		T0F38,
 
 		/// <summary>
-		/// F3 prefix
+		/// 0F3Axx table (legacy, VEX, EVEX)
 		/// </summary>
-		PF3,
+		T0F3A,
 
 		/// <summary>
-		/// F2 prefix
+		/// XOP8 table (XOP)
 		/// </summary>
-		PF2,
+		XOP8,
+
+		/// <summary>
+		/// XOP9 table (XOP)
+		/// </summary>
+		XOP9,
+
+		/// <summary>
+		/// XOPA table (XOP)
+		/// </summary>
+		XOPA,
 	}
 }
 #endif

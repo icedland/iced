@@ -1640,6 +1640,14 @@ namespace Iced.Intel {
 			}
 		}
 
+#if !NO_ENCODER
+		/// <summary>
+		/// Gets the <see cref="OpCodeInfo"/>
+		/// </summary>
+		/// <returns></returns>
+		public OpCodeInfo GetOpCodeInfo() => Code.ToOpCodeInfo();
+#endif
+
 		/// <summary>
 		/// Formats the instruction using the default formatter with default formatter options
 		/// </summary>

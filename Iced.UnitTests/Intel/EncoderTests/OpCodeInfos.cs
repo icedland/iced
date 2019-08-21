@@ -22,35 +22,20 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_ENCODER
-namespace Iced.Intel {
-	/// <summary>
-	/// Mandatory prefix
-	/// </summary>
-	public enum MandatoryPrefix {
-		/// <summary>
-		/// No mandatory prefix (legacy and 3DNow! tables only)
-		/// </summary>
-		None,
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
-		/// <summary>
-		/// Empty mandatory prefix (no 66, F3 or F2 prefix)
-		/// </summary>
-		PNP,
+namespace Iced.UnitTests.Intel.EncoderTests {
+	static class OpCodeInfos {
+		public static readonly OpCodeInfoTestCase[] OpCodeInfoTests = CreateOpCodeInfos();
 
-		/// <summary>
-		/// 66 prefix
-		/// </summary>
-		P66,
-
-		/// <summary>
-		/// F3 prefix
-		/// </summary>
-		PF3,
-
-		/// <summary>
-		/// F2 prefix
-		/// </summary>
-		PF2,
+		static OpCodeInfoTestCase[] CreateOpCodeInfos() {
+			var filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Intel", "EncoderTests", "OpCodeInfos.txt");
+			Debug.Assert(File.Exists(filename));
+			return OpCodeInfosReader.ReadFile(filename).ToArray();
+		}
 	}
 }
 #endif

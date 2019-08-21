@@ -22,35 +22,21 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_ENCODER
+using System.Runtime.CompilerServices;
+using Iced.Intel.EncoderInternal;
+
 namespace Iced.Intel {
 	/// <summary>
-	/// Mandatory prefix
+	/// Extensions
 	/// </summary>
-	public enum MandatoryPrefix {
+	public static class EncoderCodeExtensions {
 		/// <summary>
-		/// No mandatory prefix (legacy and 3DNow! tables only)
+		/// Gets a <see cref="OpCodeInfo"/>
 		/// </summary>
-		None,
-
-		/// <summary>
-		/// Empty mandatory prefix (no 66, F3 or F2 prefix)
-		/// </summary>
-		PNP,
-
-		/// <summary>
-		/// 66 prefix
-		/// </summary>
-		P66,
-
-		/// <summary>
-		/// F3 prefix
-		/// </summary>
-		PF3,
-
-		/// <summary>
-		/// F2 prefix
-		/// </summary>
-		PF2,
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		public static OpCodeInfo ToOpCodeInfo(this Code code) => OpCodeInfos.Infos[(int)code];
 	}
 }
 #endif

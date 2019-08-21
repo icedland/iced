@@ -21,36 +21,13 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_ENCODER
+#if !NO_DECODER || !NO_ENCODER
 namespace Iced.Intel {
-	/// <summary>
-	/// Mandatory prefix
-	/// </summary>
-	public enum MandatoryPrefix {
-		/// <summary>
-		/// No mandatory prefix (legacy and 3DNow! tables only)
-		/// </summary>
-		None,
-
-		/// <summary>
-		/// Empty mandatory prefix (no 66, F3 or F2 prefix)
-		/// </summary>
-		PNP,
-
-		/// <summary>
-		/// 66 prefix
-		/// </summary>
-		P66,
-
-		/// <summary>
-		/// F3 prefix
-		/// </summary>
-		PF3,
-
-		/// <summary>
-		/// F2 prefix
-		/// </summary>
-		PF2,
+	enum MandatoryPrefixByte : byte {
+		None	= 0,
+		P66		= 1,
+		PF3		= 2,
+		PF2		= 3,
 	}
 }
 #endif
