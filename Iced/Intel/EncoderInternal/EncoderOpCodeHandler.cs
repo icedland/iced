@@ -73,10 +73,10 @@ namespace Iced.Intel.EncoderInternal {
 
 	[Flags]
 	enum LegacyFlags3 : uint {
-		OpMask				= 0xFF,
-		Op1Shift			= 8,
-		Op2Shift			= 16,
-		Op3Shift			= 24,
+		OpMask				= 0x7F,
+		Op1Shift			= 7,
+		Op2Shift			= 14,
+		Op3Shift			= 21,
 	}
 
 	[Flags]
@@ -139,18 +139,16 @@ namespace Iced.Intel.EncoderInternal {
 
 		Fwait							= 0x00000400,
 
-		Legacy_OpSizeShift				= 26,
+		Legacy_OpSizeShift				= 28,
 		Legacy_OperandSizeMask			= 3,
 		Legacy_OpSize16					= OperandSize.Size16 << (int)Legacy_OpSizeShift,
 		Legacy_OpSize32					= OperandSize.Size32 << (int)Legacy_OpSizeShift,
 		Legacy_OpSize64					= OperandSize.Size64 << (int)Legacy_OpSizeShift,
-		Legacy_AddrSizeShift			= 28,
+		Legacy_AddrSizeShift			= 30,
 		Legacy_AddressSizeMask			= 3,
-		Legacy_AddrSize16				= AddressSize.Size16 << (int)Legacy_AddrSizeShift,
-		Legacy_AddrSize32				= AddressSize.Size32 << (int)Legacy_AddrSizeShift,
-		Legacy_AddrSize64				= AddressSize.Size64 << (int)Legacy_AddrSizeShift,
-		Legacy_REX						= 0x40000000,
-		Legacy_REX_b					= 0x80000000,
+		Legacy_AddrSize16				= (uint)AddressSize.Size16 << (int)Legacy_AddrSizeShift,
+		Legacy_AddrSize32				= (uint)AddressSize.Size32 << (int)Legacy_AddrSizeShift,
+		Legacy_AddrSize64				= (uint)AddressSize.Size64 << (int)Legacy_AddrSizeShift,
 		a16 = Legacy_AddrSize16,
 		a16_o16 = a16 | o16,
 		a16_o32 = a16 | o32,
@@ -159,13 +157,8 @@ namespace Iced.Intel.EncoderInternal {
 		a32_o32 = a32 | o32,
 		a64 = Legacy_AddrSize64,
 		o16 = Legacy_OpSize16,
-		o16_rexb = o16 | rexb,
 		o32 = Legacy_OpSize32,
-		o32_rexb = o32 | rexb,
-		rex = Legacy_REX,
-		rexb = Legacy_REX_b,
 		rexw = Legacy_OpSize64,
-		rexw_rexb = rexw | rexb,
 	}
 
 	[Flags]
@@ -451,7 +444,6 @@ namespace Iced.Intel.EncoderInternal {
 	sealed class LegacyHandler : OpCodeHandler {
 		readonly uint tableByte1, tableByte2;
 		readonly uint mandatoryPrefix;
-		readonly uint rexBits;
 
 		static int GetGroupIndex(uint dword2) {
 			if ((dword2 & (uint)LegacyFlags.HasGroupIndex) == 0)
@@ -522,12 +514,6 @@ namespace Iced.Intel.EncoderInternal {
 			case MandatoryPrefix.PF2:	mandatoryPrefix = 0xF2; break;
 			default:					throw new InvalidOperationException();
 			}
-
-			rexBits = 0;
-			if ((dword2 & (uint)LegacyFlags.Legacy_REX) != 0)
-				rexBits |= 0x40;
-			if ((dword2 & (uint)LegacyFlags.Legacy_REX_b) != 0)
-				rexBits |= 1;
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instr) {
@@ -542,7 +528,6 @@ namespace Iced.Intel.EncoderInternal {
 			Debug.Assert((int)EncoderFlags.REX == 0x40);
 			b = (uint)encoder.EncoderFlags;
 			b &= 0x4F;
-			b |= rexBits;
 			if (b != 0) {
 				if ((encoder.EncoderFlags & EncoderFlags.HighLegacy8BitRegs) != 0)
 					encoder.ErrorMessage = "Registers AH, CH, DH, BH can't be used if there's a REX prefix. Use AL, CL, DL, BL, SPL, BPL, SIL, DIL, R8L-R15L instead.";
@@ -966,7 +951,7 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.WriteByte(b);
 
 			b = instr.InternalOpMask;
-			if (b != 0 && (flags & EvexFlags.k1) == 0)
+			if (b != 0 && (flags & EvexFlags.EVEX_k1) == 0)
 				encoder.ErrorMessage = "The instruction doesn't support opmask registers";
 			b |= (encoderFlags >> ((int)EncoderFlags.VvvvvShift + 4 - 3)) & 8;
 			if (instr.SuppressAllExceptions) {
