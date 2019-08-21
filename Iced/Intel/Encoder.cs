@@ -139,6 +139,45 @@ namespace Iced.Intel {
 		/// </summary>
 		public bool PreventVEX2 { get; set; }
 
+		/// <summary>
+		/// Value of the VEX.W bit to use if it's an instruction that ignores the bit. Default is 0.
+		/// </summary>
+		public uint VEX_WIG {
+			get => (Internal_VEX_WIG_LIG >> 7) & 1;
+			set => Internal_VEX_WIG_LIG = (Internal_VEX_WIG_LIG & ~0x80U) | ((value & 1) << 7);
+		}
+		internal uint Internal_VEX_WIG_LIG;
+		internal uint Internal_VEX_LIG;
+
+		/// <summary>
+		/// Value of the VEX.L bit to use if it's an instruction that ignores the bit. Default is 0.
+		/// </summary>
+		public uint VEX_LIG {
+			get => (Internal_VEX_WIG_LIG >> 2) & 1;
+			set {
+				Internal_VEX_WIG_LIG = (Internal_VEX_WIG_LIG & ~4U) | ((value & 1) << 2);
+				Internal_VEX_LIG = (value & 1) << 2;
+			}
+		}
+
+		/// <summary>
+		/// Value of the EVEX.W bit to use if it's an instruction that ignores the bit. Default is 0.
+		/// </summary>
+		public uint EVEX_WIG {
+			get => Internal_EVEX_WIG >> 7;
+			set => Internal_EVEX_WIG = (value & 1) << 7;
+		}
+		internal uint Internal_EVEX_WIG;
+
+		/// <summary>
+		/// Value of the EVEX.L'L bits to use if it's an instruction that ignores the bits. Default is 0.
+		/// </summary>
+		public uint EVEX_LIG {
+			get => Internal_EVEX_LIG >> 5;
+			set => Internal_EVEX_LIG = (value & 3) << 5;
+		}
+		internal uint Internal_EVEX_LIG;
+
 		internal const string ERROR_ONLY_1632_BIT_MODE = "The instruction can only be used in 16/32-bit mode";
 		internal const string ERROR_ONLY_64_BIT_MODE = "The instruction can only be used in 64-bit mode";
 

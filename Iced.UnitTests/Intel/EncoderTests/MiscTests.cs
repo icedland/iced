@@ -216,6 +216,70 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		void Verify_encoder_options(int bitness) {
 			var encoder = Encoder.Create(bitness, new CodeWriterImpl());
 			Assert.False(encoder.PreventVEX2);
+			Assert.Equal(0U, encoder.VEX_WIG);
+			Assert.Equal(0U, encoder.VEX_LIG);
+			Assert.Equal(0U, encoder.EVEX_WIG);
+			Assert.Equal(0U, encoder.EVEX_LIG);
+		}
+
+		[Theory]
+		[InlineData(16)]
+		[InlineData(32)]
+		[InlineData(64)]
+		void GetSet_WIG_LIG_options(int bitness) {
+			var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+
+			encoder.VEX_LIG = 1;
+			encoder.VEX_WIG = 0;
+			Assert.Equal(0U, encoder.VEX_WIG);
+			encoder.VEX_WIG = 1;
+			Assert.Equal(1U, encoder.VEX_WIG);
+
+			encoder.VEX_WIG = 0xFFFFFFFE;
+			Assert.Equal(0U, encoder.VEX_WIG);
+			encoder.VEX_WIG = 0xFFFFFFFF;
+			Assert.Equal(1U, encoder.VEX_WIG);
+
+			encoder.VEX_WIG = 1;
+			encoder.VEX_LIG = 0;
+			Assert.Equal(0U, encoder.VEX_LIG);
+			encoder.VEX_LIG = 1;
+			Assert.Equal(1U, encoder.VEX_LIG);
+
+			encoder.VEX_LIG = 0xFFFFFFFE;
+			Assert.Equal(0U, encoder.VEX_LIG);
+			encoder.VEX_LIG = 0xFFFFFFFF;
+			Assert.Equal(1U, encoder.VEX_LIG);
+
+			encoder.EVEX_LIG = 3;
+			encoder.EVEX_WIG = 0;
+			Assert.Equal(0U, encoder.EVEX_WIG);
+			encoder.EVEX_WIG = 1;
+			Assert.Equal(1U, encoder.EVEX_WIG);
+
+			encoder.EVEX_WIG = 0xFFFFFFFE;
+			Assert.Equal(0U, encoder.EVEX_WIG);
+			encoder.EVEX_WIG = 0xFFFFFFFF;
+			Assert.Equal(1U, encoder.EVEX_WIG);
+
+			encoder.EVEX_WIG = 1;
+			encoder.EVEX_LIG = 0;
+			Assert.Equal(0U, encoder.EVEX_LIG);
+			encoder.EVEX_LIG = 1;
+			Assert.Equal(1U, encoder.EVEX_LIG);
+			encoder.EVEX_LIG = 2;
+			Assert.Equal(2U, encoder.EVEX_LIG);
+			encoder.EVEX_LIG = 3;
+			Assert.Equal(3U, encoder.EVEX_LIG);
+
+			encoder.EVEX_LIG = 0xFFFFFFFC;
+			Assert.Equal(0U, encoder.EVEX_LIG);
+			encoder.EVEX_LIG = 0xFFFFFFFD;
+			Assert.Equal(1U, encoder.EVEX_LIG);
+			encoder.EVEX_LIG = 0xFFFFFFFE;
+			Assert.Equal(2U, encoder.EVEX_LIG);
+			encoder.EVEX_LIG = 0xFFFFFFFF;
+			Assert.Equal(3U, encoder.EVEX_LIG);
 		}
 
 		[Theory]
@@ -229,6 +293,86 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var codeWriter = new CodeWriterImpl();
 			var encoder = Encoder.Create(decoder.Bitness, codeWriter);
 			encoder.PreventVEX2 = preventVEX2;
+			encoder.Encode(instr, DecoderConstants.DEFAULT_IP64);
+			var encodedBytes = codeWriter.ToArray();
+			var expectedBytesArray = HexUtils.ToByteArray(expectedBytes);
+			Assert.Equal(expectedBytesArray, encodedBytes);
+		}
+
+		[Theory]
+		[InlineData("C5CA 10 CD", "C5CA 10 CD", Code.VEX_Vmovss_xmm_xmm_xmm, 0, 0)]
+		[InlineData("C5CA 10 CD", "C5CE 10 CD", Code.VEX_Vmovss_xmm_xmm_xmm, 0, 1)]
+		[InlineData("C5CA 10 CD", "C5CA 10 CD", Code.VEX_Vmovss_xmm_xmm_xmm, 1, 0)]
+		[InlineData("C5CA 10 CD", "C5CE 10 CD", Code.VEX_Vmovss_xmm_xmm_xmm, 1, 1)]
+
+		[InlineData("C4414A 10 CD", "C4414A 10 CD", Code.VEX_Vmovss_xmm_xmm_xmm, 0, 0)]
+		[InlineData("C4414A 10 CD", "C4414E 10 CD", Code.VEX_Vmovss_xmm_xmm_xmm, 0, 1)]
+		[InlineData("C4414A 10 CD", "C441CA 10 CD", Code.VEX_Vmovss_xmm_xmm_xmm, 1, 0)]
+		[InlineData("C4414A 10 CD", "C441CE 10 CD", Code.VEX_Vmovss_xmm_xmm_xmm, 1, 1)]
+
+		[InlineData("C5F9 50 D3", "C5F9 50 D3", Code.VEX_Vmovmskpd_r32_xmm, 0, 0)]
+		[InlineData("C5F9 50 D3", "C5F9 50 D3", Code.VEX_Vmovmskpd_r32_xmm, 0, 1)]
+		[InlineData("C5F9 50 D3", "C5F9 50 D3", Code.VEX_Vmovmskpd_r32_xmm, 1, 0)]
+		[InlineData("C5F9 50 D3", "C5F9 50 D3", Code.VEX_Vmovmskpd_r32_xmm, 1, 1)]
+
+		[InlineData("C4C179 50 D3", "C4C179 50 D3", Code.VEX_Vmovmskpd_r32_xmm, 0, 0)]
+		[InlineData("C4C179 50 D3", "C4C179 50 D3", Code.VEX_Vmovmskpd_r32_xmm, 0, 1)]
+		[InlineData("C4C179 50 D3", "C4C179 50 D3", Code.VEX_Vmovmskpd_r32_xmm, 1, 0)]
+		[InlineData("C4C179 50 D3", "C4C179 50 D3", Code.VEX_Vmovmskpd_r32_xmm, 1, 1)]
+		void Test_VEX_WIG_LIG(string hexBytes, string expectedBytes, Code code, uint wig, uint lig) {
+			var decoder = Decoder.Create(64, new ByteArrayCodeReader(hexBytes));
+			decoder.IP = DecoderConstants.DEFAULT_IP64;
+			decoder.Decode(out var instr);
+			Assert.Equal(code, instr.Code);
+			var codeWriter = new CodeWriterImpl();
+			var encoder = Encoder.Create(decoder.Bitness, codeWriter);
+			encoder.VEX_WIG = wig;
+			encoder.VEX_LIG = lig;
+			encoder.Encode(instr, DecoderConstants.DEFAULT_IP64);
+			var encodedBytes = codeWriter.ToArray();
+			var expectedBytesArray = HexUtils.ToByteArray(expectedBytes);
+			Assert.Equal(expectedBytesArray, encodedBytes);
+		}
+
+		[Theory]
+		[InlineData("62 F14E08 10 D3", "62 F14E08 10 D3", Code.EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 0)]
+		[InlineData("62 F14E08 10 D3", "62 F14E28 10 D3", Code.EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 1)]
+		[InlineData("62 F14E08 10 D3", "62 F14E48 10 D3", Code.EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 2)]
+		[InlineData("62 F14E08 10 D3", "62 F14E68 10 D3", Code.EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 3)]
+
+		[InlineData("62 F14E08 10 D3", "62 F14E08 10 D3", Code.EVEX_Vmovss_xmm_k1z_xmm_xmm, 1, 0)]
+		[InlineData("62 F14E08 10 D3", "62 F14E28 10 D3", Code.EVEX_Vmovss_xmm_k1z_xmm_xmm, 1, 1)]
+		[InlineData("62 F14E08 10 D3", "62 F14E48 10 D3", Code.EVEX_Vmovss_xmm_k1z_xmm_xmm, 1, 2)]
+		[InlineData("62 F14E08 10 D3", "62 F14E68 10 D3", Code.EVEX_Vmovss_xmm_k1z_xmm_xmm, 1, 3)]
+
+		[InlineData("62 F14D0B 60 50 01", "62 F14D0B 60 50 01", Code.EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 0, 0)]
+		[InlineData("62 F14D0B 60 50 01", "62 F14D0B 60 50 01", Code.EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 0, 1)]
+		[InlineData("62 F14D0B 60 50 01", "62 F14D0B 60 50 01", Code.EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 0, 2)]
+		[InlineData("62 F14D0B 60 50 01", "62 F14D0B 60 50 01", Code.EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 0, 3)]
+
+		[InlineData("62 F14D0B 60 50 01", "62 F1CD0B 60 50 01", Code.EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 1, 0)]
+		[InlineData("62 F14D0B 60 50 01", "62 F1CD0B 60 50 01", Code.EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 1, 1)]
+		[InlineData("62 F14D0B 60 50 01", "62 F1CD0B 60 50 01", Code.EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 1, 2)]
+		[InlineData("62 F14D0B 60 50 01", "62 F1CD0B 60 50 01", Code.EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 1, 3)]
+
+		[InlineData("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code.EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 0, 0)]
+		[InlineData("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code.EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 0, 1)]
+		[InlineData("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code.EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 0, 2)]
+		[InlineData("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code.EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 0, 3)]
+
+		[InlineData("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code.EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 1, 0)]
+		[InlineData("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code.EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 1, 1)]
+		[InlineData("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code.EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 1, 2)]
+		[InlineData("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code.EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 1, 3)]
+		void Test_EVEX_WIG_LIG(string hexBytes, string expectedBytes, Code code, uint wig, uint lig) {
+			var decoder = Decoder.Create(64, new ByteArrayCodeReader(hexBytes));
+			decoder.IP = DecoderConstants.DEFAULT_IP64;
+			decoder.Decode(out var instr);
+			Assert.Equal(code, instr.Code);
+			var codeWriter = new CodeWriterImpl();
+			var encoder = Encoder.Create(decoder.Bitness, codeWriter);
+			encoder.EVEX_WIG = wig;
+			encoder.EVEX_LIG = lig;
 			encoder.Encode(instr, DecoderConstants.DEFAULT_IP64);
 			var encodedBytes = codeWriter.ToArray();
 			var expectedBytesArray = HexUtils.ToByteArray(expectedBytes);

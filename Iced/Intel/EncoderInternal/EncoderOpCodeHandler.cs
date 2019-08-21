@@ -201,16 +201,16 @@ namespace Iced.Intel.EncoderInternal {
 		Group6							= HasGroupIndex | (6 << (int)GroupShift),
 		Group7							= HasGroupIndex | (7 << (int)GroupShift),
 
-		VEX_LShift						= 30,
+		VEX_LShift						= 28,
 		VEX_L128						= 0,
-		VEX_L256						= 0x40000000,
+		VEX_L256						= 0x10000000,
 		VEX_L0							= VEX_L128,
 		VEX_L1							= VEX_L256,
-		VEX_LIG							= VEX_L128,
+		VEX_LIG							= 0x20000000,
 
 		VEX_W0							= 0,
-		VEX_W1							= 0x80000000,
-		VEX_WIG							= VEX_W0,
+		VEX_W1							= 0x40000000,
+		VEX_WIG							= 0x80000000,
 
 		VEX_128_W0 = VEX_L128 | VEX_W0,
 		VEX_128_W1 = VEX_L128 | VEX_W1,
@@ -266,7 +266,6 @@ namespace Iced.Intel.EncoderInternal {
 		XOP_L256						= 0x40000000,
 		XOP_L0							= XOP_L128,
 		XOP_L1							= XOP_L256,
-		XOP_LIG							= XOP_L128,
 
 		XOP_W0							= 0,
 		XOP_W1							= 0x80000000,
@@ -316,15 +315,15 @@ namespace Iced.Intel.EncoderInternal {
 		TupleTypeMask					= (1 << (int)TupleTypeBits) - 1,
 		TupleTypeShift					= 10,
 
-		EVEX_LShift						= 24,
+		EVEX_LShift						= 22,
 		EVEX_L128						= VectorLength.L128 << (int)EVEX_LShift,
 		EVEX_L256						= VectorLength.L256 << (int)EVEX_LShift,
 		EVEX_L512						= VectorLength.L512 << (int)EVEX_LShift,
-		EVEX_LIG						= EVEX_L128,
+		EVEX_LIG						= 0x01000000,
 
 		EVEX_W0							= 0,
-		EVEX_W1							= 0x04000000,
-		EVEX_WIG						= EVEX_W0,
+		EVEX_W1							= 0x02000000,
+		EVEX_WIG						= 0x04000000,
 
 		EVEX_b							= 0x08000000,
 		EVEX_er							= 0x10000000,
@@ -563,6 +562,8 @@ namespace Iced.Intel.EncoderInternal {
 		readonly VexOpCodeTable opCodeTable;
 		readonly bool W1;
 		readonly uint lastByte;
+		readonly uint mask_W_L;
+		readonly uint mask_L;
 
 		static int GetGroupIndex(uint dword2) {
 			if ((dword2 & (uint)VexFlags.HasGroupIndex) == 0)
@@ -605,6 +606,12 @@ namespace Iced.Intel.EncoderInternal {
 			if (W1)
 				lastByte |= 0x80;
 			lastByte |= (dword2 >> (int)VexFlags.MandatoryPrefixShift) & (uint)VexFlags.MandatoryPrefixMask;
+			if ((dword2 & (uint)VexFlags.VEX_WIG) != 0)
+				mask_W_L |= 0x80;
+			if ((dword2 & (uint)VexFlags.VEX_LIG) != 0) {
+				mask_W_L |= 4;
+				mask_L |= 4;
+			}
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instr) {
@@ -628,12 +635,14 @@ namespace Iced.Intel.EncoderInternal {
 				Debug.Assert((int)EncoderFlags.R == 4);
 				b2 |= (~encoderFlags & 7) << 5;
 				encoder.WriteByte(b2);
+				b |= mask_W_L & encoder.Internal_VEX_WIG_LIG;
 				encoder.WriteByte(b);
 			}
 			else {
 				encoder.WriteByte(0xC5);
 				Debug.Assert((int)EncoderFlags.R == 4);
 				b |= (~encoderFlags & 4) << 5;
+				b |= mask_L & encoder.Internal_VEX_LIG;
 				encoder.WriteByte(b);
 			}
 		}
@@ -711,6 +720,8 @@ namespace Iced.Intel.EncoderInternal {
 		readonly EvexOpCodeTable opCodeTable;
 		readonly uint p1Bits;
 		readonly uint llBits;
+		readonly uint mask_W;
+		readonly uint mask_LL;
 
 		static int GetGroupIndex(uint dword2) {
 			if ((dword2 & (uint)EvexFlags.HasGroupIndex) == 0)
@@ -755,6 +766,10 @@ namespace Iced.Intel.EncoderInternal {
 			if ((dword2 & (uint)EvexFlags.EVEX_W1) != 0)
 				p1Bits |= 0x80;
 			llBits = (dword2 >> ((int)EvexFlags.EVEX_LShift - 5)) & 0x60;
+			if ((dword2 & (uint)EvexFlags.EVEX_WIG) != 0)
+				mask_W |= 0x80;
+			if ((dword2 & (uint)EvexFlags.EVEX_LIG) != 0)
+				mask_LL |= 0x60;
 		}
 
 		sealed class TryConvertToDisp8NImpl {
@@ -947,6 +962,7 @@ namespace Iced.Intel.EncoderInternal {
 
 			b = p1Bits;
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
+			b |= mask_W & encoder.Internal_EVEX_WIG;
 			encoder.WriteByte(b);
 
 			b = instr.InternalOpMask;
@@ -982,6 +998,7 @@ namespace Iced.Intel.EncoderInternal {
 				b |= 0x80;
 			}
 			b ^= 8;
+			b |= mask_LL & encoder.Internal_EVEX_LIG;
 			encoder.WriteByte(b);
 		}
 	}
