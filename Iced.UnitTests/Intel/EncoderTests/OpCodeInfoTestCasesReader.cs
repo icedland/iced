@@ -132,6 +132,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							tc.Op3Kind = ToOpCodeOperandKind(opParts[3]);
 						if (opParts.Length >= 5)
 							tc.Op4Kind = ToOpCodeOperandKind(opParts[4]);
+						if (Iced.Intel.DecoderConstants.MaxOpCount != 5)
+							throw new InvalidOperationException("Invalid MaxOpCount value");
 						if (opParts.Length >= 6)
 							throw new InvalidOperationException($"Invalid number of operands: '{value}'");
 						break;
