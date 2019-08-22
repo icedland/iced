@@ -45,7 +45,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			return CreateDecoder(codeSize, hexBytes, options).decoder;
 		}
 
-		(Decoder decoder, int byteLength) CreateDecoder(int codeSize, string hexBytes, DecoderOptions options) {
+		(Decoder decoder, int byteLength, ByteArrayCodeReader codeReader) CreateDecoder(int codeSize, string hexBytes, DecoderOptions options) {
 			var codeReader = new ByteArrayCodeReader(hexBytes);
 			var decoder = Decoder.Create(codeSize, codeReader, options);
 			switch (codeSize) {
@@ -66,12 +66,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			}
 
 			Assert.Equal(codeSize, decoder.Bitness);
-			return (decoder, codeReader.Count);
+			return (decoder, codeReader.Count, codeReader);
 		}
 
 		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, in ConstantOffsets constantOffsets, string encodedHexBytes, DecoderOptions options) {
-			var (decoder, byteLength) = CreateDecoder(bitness, hexBytes, options);
+			var (decoder, byteLength, codeReader) = CreateDecoder(bitness, hexBytes, options);
 			var instr = decoder.Decode();
+			Assert.False(codeReader.CanReadByte);
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
@@ -193,9 +194,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		internal void DecoderTestBase(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) {
-			var (decoder, byteLength) = CreateDecoder(bitness, hexBytes, tc.DecoderOptions);
+			var (decoder, byteLength, codeReader) = CreateDecoder(bitness, hexBytes, tc.DecoderOptions);
 			ulong rip = decoder.IP;
 			decoder.Decode(out var instr);
+			Assert.False(codeReader.CanReadByte);
 			Assert.Equal(tc.Code, instr.Code);
 			Assert.Equal(tc.Mnemonic, instr.Mnemonic);
 			Assert.Equal(instr.Mnemonic, instr.Code.ToMnemonic());
