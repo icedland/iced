@@ -103,6 +103,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			tc.OpCode = ToOpCode(parts[4].Trim());
 			tc.OpCodeString = parts[5].Trim();
 
+			bool gotVectorLength = false;
+			bool gotW = false;
 			foreach (var part in parts[6].Split(optsseps)) {
 				var key = part.Trim();
 				if (key.Length == 0)
@@ -194,38 +196,47 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 					case "LIG":
 						tc.IsLIG = true;
+						gotVectorLength = true;
 						break;
 
 					case "L0":
 						tc.L = 0;
+						gotVectorLength = true;
 						break;
 
 					case "L1":
 						tc.L = 1;
+						gotVectorLength = true;
 						break;
 
 					case "L128":
 						tc.L = 0;
+						gotVectorLength = true;
 						break;
 
 					case "L256":
 						tc.L = 1;
+						gotVectorLength = true;
 						break;
 
 					case "L512":
 						tc.L = 2;
+						gotVectorLength = true;
 						break;
 
 					case "WIG":
 						tc.IsWIG = true;
+						gotW = true;
 						break;
 
 					case "W0":
 						tc.W = 0;
+						gotW = true;
 						break;
 
 					case "W1":
 						tc.W = 1;
+						gotW = true;
 						break;
 
 					case "b":
@@ -285,6 +296,21 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						throw new InvalidOperationException($"Invalid key: '{key}'");
 					}
 				}
+			}
+			switch (tc.Encoding) {
+			case EncodingKind.Legacy:
+			case EncodingKind.D3NOW:
+				break;
+			case EncodingKind.VEX:
+			case EncodingKind.EVEX:
+			case EncodingKind.XOP:
+				if (!gotVectorLength)
+					throw new InvalidOperationException($"Missing vector length: L0/L1/L128/L256/L512/LIG");
+				if (!gotW)
+					throw new InvalidOperationException($"Missing W bit: W0/W1/WIG");
+				break;
+			default:
+				throw new InvalidOperationException();
 			}
 
 			return tc;
