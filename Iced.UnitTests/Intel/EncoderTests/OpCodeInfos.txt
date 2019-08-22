@@ -1054,20 +1054,20 @@ Prefetchnta_m8, legacy, , 0F, 18, 0F18 /0, g=0 16b 32b 64b op=mem
 Prefetcht0_m8, legacy, , 0F, 18, 0F18 /1, g=1 16b 32b 64b op=mem
 Prefetcht1_m8, legacy, , 0F, 18, 0F18 /2, g=2 16b 32b 64b op=mem
 Prefetcht2_m8, legacy, , 0F, 18, 0F18 /3, g=3 16b 32b 64b op=mem
-Bndldx_bnd_mib, legacy, NP, 0F, 1A, NP 0F1A /r, 16b 32b 64b op=bnd_reg;mem
-Bndmov_bnd_bndm64, legacy, 66, 0F, 1A, 66 0F1A /r, 16b 32b op=bnd_reg;bnd_mem
-Bndmov_bnd_bndm128, legacy, 66, 0F, 1A, 66 0F1A /r, 64b op=bnd_reg;bnd_mem
-Bndcl_bnd_rm32, legacy, F3, 0F, 1A, F3 0F1A /r, 16b 32b op=bnd_reg;r32_mem
-Bndcl_bnd_rm64, legacy, F3, 0F, 1A, F3 0F1A /r, 64b op=bnd_reg;r64_mem
-Bndcu_bnd_rm32, legacy, F2, 0F, 1A, F2 0F1A /r, 16b 32b op=bnd_reg;r32_mem
-Bndcu_bnd_rm64, legacy, F2, 0F, 1A, F2 0F1A /r, 64b op=bnd_reg;r64_mem
-Bndstx_mib_bnd, legacy, NP, 0F, 1B, NP 0F1B /r, 16b 32b 64b op=mem;bnd_reg
-Bndmov_bndm64_bnd, legacy, 66, 0F, 1B, 66 0F1B /r, 16b 32b op=bnd_mem;bnd_reg
-Bndmov_bndm128_bnd, legacy, 66, 0F, 1B, 66 0F1B /r, 64b op=bnd_mem;bnd_reg
-Bndmk_bnd_m32, legacy, F3, 0F, 1B, F3 0F1B /r, 16b 32b op=bnd_reg;mem
-Bndmk_bnd_m64, legacy, F3, 0F, 1B, F3 0F1B /r, 64b op=bnd_reg;mem
-Bndcn_bnd_rm32, legacy, F2, 0F, 1B, F2 0F1B /r, 16b 32b op=bnd_reg;r32_mem
-Bndcn_bnd_rm64, legacy, F2, 0F, 1B, F2 0F1B /r, 64b op=bnd_reg;r64_mem
+Bndldx_bnd_mib, legacy, NP, 0F, 1A, NP 0F1A /r, 16b 32b 64b op=bnd_reg;mem_mpx
+Bndmov_bnd_bndm64, legacy, 66, 0F, 1A, 66 0F1A /r, 16b 32b op=bnd_reg;bnd_mem_mpx
+Bndmov_bnd_bndm128, legacy, 66, 0F, 1A, 66 0F1A /r, 64b op=bnd_reg;bnd_mem_mpx
+Bndcl_bnd_rm32, legacy, F3, 0F, 1A, F3 0F1A /r, 16b 32b op=bnd_reg;r32_mem_mpx
+Bndcl_bnd_rm64, legacy, F3, 0F, 1A, F3 0F1A /r, 64b op=bnd_reg;r64_mem_mpx
+Bndcu_bnd_rm32, legacy, F2, 0F, 1A, F2 0F1A /r, 16b 32b op=bnd_reg;r32_mem_mpx
+Bndcu_bnd_rm64, legacy, F2, 0F, 1A, F2 0F1A /r, 64b op=bnd_reg;r64_mem_mpx
+Bndstx_mib_bnd, legacy, NP, 0F, 1B, NP 0F1B /r, 16b 32b 64b op=mem_mpx;bnd_reg
+Bndmov_bndm64_bnd, legacy, 66, 0F, 1B, 66 0F1B /r, 16b 32b op=bnd_mem_mpx;bnd_reg
+Bndmov_bndm128_bnd, legacy, 66, 0F, 1B, 66 0F1B /r, 64b op=bnd_mem_mpx;bnd_reg
+Bndmk_bnd_m32, legacy, F3, 0F, 1B, F3 0F1B /r, 16b 32b op=bnd_reg;mem_mpx
+Bndmk_bnd_m64, legacy, F3, 0F, 1B, F3 0F1B /r, 64b op=bnd_reg;mem_mpx
+Bndcn_bnd_rm32, legacy, F2, 0F, 1B, F2 0F1B /r, 16b 32b op=bnd_reg;r32_mem_mpx
+Bndcn_bnd_rm64, legacy, F2, 0F, 1B, F2 0F1B /r, 64b op=bnd_reg;r64_mem_mpx
 Cldemote_m8, legacy, NP, 0F, 1C, NP 0F1C /0, g=0 16b 32b 64b op=mem
 Rdsspd_r32, legacy, F3, 0F, 1E, F3 0F1E /1, g=1 16b 32b 64b op=r32_rm
 Rdsspq_r64, legacy, F3, 0F, 1E, F3 REX.W 0F1E /1, g=1 64b o64 op=r64_rm

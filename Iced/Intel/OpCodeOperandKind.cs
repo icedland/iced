@@ -48,6 +48,10 @@ namespace Iced.Intel {
 		/// </summary>
 		mem,
 		/// <summary>
+		/// Memory (modrm), MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
+		/// </summary>
+		mem_mpx,
+		/// <summary>
 		/// Memory (modrm), vsib32, xmm registers
 		/// </summary>
 		mem_vsib32x,
@@ -84,9 +88,17 @@ namespace Iced.Intel {
 		/// </summary>
 		r32_mem,
 		/// <summary>
+		/// 32-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
+		/// </summary>
+		r32_mem_mpx,
+		/// <summary>
 		/// 64-bit GPR or memory
 		/// </summary>
 		r64_mem,
+		/// <summary>
+		/// 64-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
+		/// </summary>
+		r64_mem_mpx,
 		/// <summary>
 		/// MM register or memory
 		/// </summary>
@@ -104,9 +116,9 @@ namespace Iced.Intel {
 		/// </summary>
 		zmm_mem,
 		/// <summary>
-		/// BND register or memory
+		/// BND register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
 		/// </summary>
-		bnd_mem,
+		bnd_mem_mpx,
 		/// <summary>
 		/// K register or memory
 		/// </summary>

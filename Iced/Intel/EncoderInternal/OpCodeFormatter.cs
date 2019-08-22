@@ -127,6 +127,7 @@ namespace Iced.Intel.EncoderInternal {
 			for (int i = 0; i < opCount; i++) {
 				switch (info.GetOpKind(i)) {
 				case OpCodeOperandKind.mem:
+				case OpCodeOperandKind.mem_mpx:
 				case OpCodeOperandKind.mem_vsib32x:
 				case OpCodeOperandKind.mem_vsib64x:
 				case OpCodeOperandKind.mem_vsib32y:
@@ -136,12 +137,14 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.r8_mem:
 				case OpCodeOperandKind.r16_mem:
 				case OpCodeOperandKind.r32_mem:
+				case OpCodeOperandKind.r32_mem_mpx:
 				case OpCodeOperandKind.r64_mem:
+				case OpCodeOperandKind.r64_mem_mpx:
 				case OpCodeOperandKind.mm_mem:
 				case OpCodeOperandKind.xmm_mem:
 				case OpCodeOperandKind.ymm_mem:
 				case OpCodeOperandKind.zmm_mem:
-				case OpCodeOperandKind.bnd_mem:
+				case OpCodeOperandKind.bnd_mem_mpx:
 				case OpCodeOperandKind.k_mem:
 				case OpCodeOperandKind.r8_reg:
 				case OpCodeOperandKind.r16_reg:
