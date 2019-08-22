@@ -134,7 +134,7 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.eax,
 			(byte)OpCodeOperandKind.rax,
 			(byte)OpCodeOperandKind.st0,
-			(byte)OpCodeOperandKind.sti,
+			(byte)OpCodeOperandKind.sti_opcode,
 			(byte)OpCodeOperandKind.r8_opcode,
 			(byte)OpCodeOperandKind.r16_opcode,
 			(byte)OpCodeOperandKind.r32_opcode,

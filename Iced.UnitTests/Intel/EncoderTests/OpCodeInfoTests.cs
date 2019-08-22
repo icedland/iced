@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Iced.Intel;
-using Iced.UnitTests.Intel.DecoderTests;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.EncoderTests {

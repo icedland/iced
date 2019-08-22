@@ -519,14 +519,14 @@ Fsub_m32fp, legacy, , legacy, D8, D8 /4, g=4 16b 32b 64b op=mem
 Fsubr_m32fp, legacy, , legacy, D8, D8 /5, g=5 16b 32b 64b op=mem
 Fdiv_m32fp, legacy, , legacy, D8, D8 /6, g=6 16b 32b 64b op=mem
 Fdivr_m32fp, legacy, , legacy, D8, D8 /7, g=7 16b 32b 64b op=mem
-Fadd_st0_sti, legacy, , legacy, D8C0, D8C0+i, 16b 32b 64b op=st0;sti
-Fmul_st0_sti, legacy, , legacy, D8C8, D8C8+i, 16b 32b 64b op=st0;sti
-Fcom_st0_sti, legacy, , legacy, D8D0, D8D0+i, 16b 32b 64b op=st0;sti
-Fcomp_st0_sti, legacy, , legacy, D8D8, D8D8+i, 16b 32b 64b op=st0;sti
-Fsub_st0_sti, legacy, , legacy, D8E0, D8E0+i, 16b 32b 64b op=st0;sti
-Fsubr_st0_sti, legacy, , legacy, D8E8, D8E8+i, 16b 32b 64b op=st0;sti
-Fdiv_st0_sti, legacy, , legacy, D8F0, D8F0+i, 16b 32b 64b op=st0;sti
-Fdivr_st0_sti, legacy, , legacy, D8F8, D8F8+i, 16b 32b 64b op=st0;sti
+Fadd_st0_sti, legacy, , legacy, D8C0, D8C0+i, 16b 32b 64b op=st0;sti_opcode
+Fmul_st0_sti, legacy, , legacy, D8C8, D8C8+i, 16b 32b 64b op=st0;sti_opcode
+Fcom_st0_sti, legacy, , legacy, D8D0, D8D0+i, 16b 32b 64b op=st0;sti_opcode
+Fcomp_st0_sti, legacy, , legacy, D8D8, D8D8+i, 16b 32b 64b op=st0;sti_opcode
+Fsub_st0_sti, legacy, , legacy, D8E0, D8E0+i, 16b 32b 64b op=st0;sti_opcode
+Fsubr_st0_sti, legacy, , legacy, D8E8, D8E8+i, 16b 32b 64b op=st0;sti_opcode
+Fdiv_st0_sti, legacy, , legacy, D8F0, D8F0+i, 16b 32b 64b op=st0;sti_opcode
+Fdivr_st0_sti, legacy, , legacy, D8F8, D8F8+i, 16b 32b 64b op=st0;sti_opcode
 Fld_m32fp, legacy, , legacy, D9, D9 /0, g=0 16b 32b 64b op=mem
 Fst_m32fp, legacy, , legacy, D9, D9 /2, g=2 16b 32b 64b op=mem
 Fstp_m32fp, legacy, , legacy, D9, D9 /3, g=3 16b 32b 64b op=mem
@@ -539,10 +539,10 @@ Fnstenv_m28byte, legacy, , legacy, D9, o32 D9 /6, g=6 16b 32b 64b o32 op=mem
 Fstenv_m28byte, legacy, , legacy, D9, 9B o32 D9 /6, g=6 16b 32b 64b fwait o32 op=mem
 Fnstcw_m16, legacy, , legacy, D9, D9 /7, g=7 16b 32b 64b op=mem
 Fstcw_m16, legacy, , legacy, D9, 9B D9 /7, g=7 16b 32b 64b fwait op=mem
-Fld_st0_sti, legacy, , legacy, D9C0, D9C0+i, 16b 32b 64b op=st0;sti
-Fxch_st0_sti, legacy, , legacy, D9C8, D9C8+i, 16b 32b 64b op=st0;sti
+Fld_st0_sti, legacy, , legacy, D9C0, D9C0+i, 16b 32b 64b op=st0;sti_opcode
+Fxch_st0_sti, legacy, , legacy, D9C8, D9C8+i, 16b 32b 64b op=st0;sti_opcode
 Fnop, legacy, , legacy, D9D0, D9D0, 16b 32b 64b
-Fstpnce_sti, legacy, , legacy, D9D8, D9D8+i, 16b 32b 64b op=sti
+Fstpnce_sti, legacy, , legacy, D9D8, D9D8+i, 16b 32b 64b op=sti_opcode
 Fchs, legacy, , legacy, D9E0, D9E0, 16b 32b 64b
 Fabs, legacy, , legacy, D9E1, D9E1, 16b 32b 64b
 Ftst, legacy, , legacy, D9E4, D9E4, 16b 32b 64b
@@ -578,10 +578,10 @@ Fisub_m32int, legacy, , legacy, DA, DA /4, g=4 16b 32b 64b op=mem
 Fisubr_m32int, legacy, , legacy, DA, DA /5, g=5 16b 32b 64b op=mem
 Fidiv_m32int, legacy, , legacy, DA, DA /6, g=6 16b 32b 64b op=mem
 Fidivr_m32int, legacy, , legacy, DA, DA /7, g=7 16b 32b 64b op=mem
-Fcmovb_st0_sti, legacy, , legacy, DAC0, DAC0+i, 16b 32b 64b op=st0;sti
-Fcmove_st0_sti, legacy, , legacy, DAC8, DAC8+i, 16b 32b 64b op=st0;sti
-Fcmovbe_st0_sti, legacy, , legacy, DAD0, DAD0+i, 16b 32b 64b op=st0;sti
-Fcmovu_st0_sti, legacy, , legacy, DAD8, DAD8+i, 16b 32b 64b op=st0;sti
+Fcmovb_st0_sti, legacy, , legacy, DAC0, DAC0+i, 16b 32b 64b op=st0;sti_opcode
+Fcmove_st0_sti, legacy, , legacy, DAC8, DAC8+i, 16b 32b 64b op=st0;sti_opcode
+Fcmovbe_st0_sti, legacy, , legacy, DAD0, DAD0+i, 16b 32b 64b op=st0;sti_opcode
+Fcmovu_st0_sti, legacy, , legacy, DAD8, DAD8+i, 16b 32b 64b op=st0;sti_opcode
 Fucompp, legacy, , legacy, DAE9, DAE9, 16b 32b 64b
 Fild_m32int, legacy, , legacy, DB, DB /0, g=0 16b 32b 64b op=mem
 Fisttp_m32int, legacy, , legacy, DB, DB /1, g=1 16b 32b 64b op=mem
@@ -589,10 +589,10 @@ Fist_m32int, legacy, , legacy, DB, DB /2, g=2 16b 32b 64b op=mem
 Fistp_m32int, legacy, , legacy, DB, DB /3, g=3 16b 32b 64b op=mem
 Fld_m80fp, legacy, , legacy, DB, DB /5, g=5 16b 32b 64b op=mem
 Fstp_m80fp, legacy, , legacy, DB, DB /7, g=7 16b 32b 64b op=mem
-Fcmovnb_st0_sti, legacy, , legacy, DBC0, DBC0+i, 16b 32b 64b op=st0;sti
-Fcmovne_st0_sti, legacy, , legacy, DBC8, DBC8+i, 16b 32b 64b op=st0;sti
-Fcmovnbe_st0_sti, legacy, , legacy, DBD0, DBD0+i, 16b 32b 64b op=st0;sti
-Fcmovnu_st0_sti, legacy, , legacy, DBD8, DBD8+i, 16b 32b 64b op=st0;sti
+Fcmovnb_st0_sti, legacy, , legacy, DBC0, DBC0+i, 16b 32b 64b op=st0;sti_opcode
+Fcmovne_st0_sti, legacy, , legacy, DBC8, DBC8+i, 16b 32b 64b op=st0;sti_opcode
+Fcmovnbe_st0_sti, legacy, , legacy, DBD0, DBD0+i, 16b 32b 64b op=st0;sti_opcode
+Fcmovnu_st0_sti, legacy, , legacy, DBD8, DBD8+i, 16b 32b 64b op=st0;sti_opcode
 Fneni, legacy, , legacy, DBE0, DBE0, 16b 32b 64b
 Feni, legacy, , legacy, DBE0, 9B DBE0, 16b 32b 64b fwait
 Fndisi, legacy, , legacy, DBE1, DBE1, 16b 32b 64b
@@ -604,8 +604,8 @@ Finit, legacy, , legacy, DBE3, 9B DBE3, 16b 32b 64b fwait
 Fnsetpm, legacy, , legacy, DBE4, DBE4, 16b 32b 64b
 Fsetpm, legacy, , legacy, DBE4, 9B DBE4, 16b 32b 64b fwait
 Frstpm, legacy, , legacy, DBE5, DBE5, 16b 32b
-Fucomi_st0_sti, legacy, , legacy, DBE8, DBE8+i, 16b 32b 64b op=st0;sti
-Fcomi_st0_sti, legacy, , legacy, DBF0, DBF0+i, 16b 32b 64b op=st0;sti
+Fucomi_st0_sti, legacy, , legacy, DBE8, DBE8+i, 16b 32b 64b op=st0;sti_opcode
+Fcomi_st0_sti, legacy, , legacy, DBF0, DBF0+i, 16b 32b 64b op=st0;sti_opcode
 Fadd_m64fp, legacy, , legacy, DC, DC /0, g=0 16b 32b 64b op=mem
 Fmul_m64fp, legacy, , legacy, DC, DC /1, g=1 16b 32b 64b op=mem
 Fcom_m64fp, legacy, , legacy, DC, DC /2, g=2 16b 32b 64b op=mem
@@ -614,14 +614,14 @@ Fsub_m64fp, legacy, , legacy, DC, DC /4, g=4 16b 32b 64b op=mem
 Fsubr_m64fp, legacy, , legacy, DC, DC /5, g=5 16b 32b 64b op=mem
 Fdiv_m64fp, legacy, , legacy, DC, DC /6, g=6 16b 32b 64b op=mem
 Fdivr_m64fp, legacy, , legacy, DC, DC /7, g=7 16b 32b 64b op=mem
-Fadd_sti_st0, legacy, , legacy, DCC0, DCC0+i, 16b 32b 64b op=sti;st0
-Fmul_sti_st0, legacy, , legacy, DCC8, DCC8+i, 16b 32b 64b op=sti;st0
-Fcom_st0_sti_DCD0, legacy, , legacy, DCD0, DCD0+i, 16b 32b 64b op=st0;sti
-Fcomp_st0_sti_DCD8, legacy, , legacy, DCD8, DCD8+i, 16b 32b 64b op=st0;sti
-Fsubr_sti_st0, legacy, , legacy, DCE0, DCE0+i, 16b 32b 64b op=sti;st0
-Fsub_sti_st0, legacy, , legacy, DCE8, DCE8+i, 16b 32b 64b op=sti;st0
-Fdivr_sti_st0, legacy, , legacy, DCF0, DCF0+i, 16b 32b 64b op=sti;st0
-Fdiv_sti_st0, legacy, , legacy, DCF8, DCF8+i, 16b 32b 64b op=sti;st0
+Fadd_sti_st0, legacy, , legacy, DCC0, DCC0+i, 16b 32b 64b op=sti_opcode;st0
+Fmul_sti_st0, legacy, , legacy, DCC8, DCC8+i, 16b 32b 64b op=sti_opcode;st0
+Fcom_st0_sti_DCD0, legacy, , legacy, DCD0, DCD0+i, 16b 32b 64b op=st0;sti_opcode
+Fcomp_st0_sti_DCD8, legacy, , legacy, DCD8, DCD8+i, 16b 32b 64b op=st0;sti_opcode
+Fsubr_sti_st0, legacy, , legacy, DCE0, DCE0+i, 16b 32b 64b op=sti_opcode;st0
+Fsub_sti_st0, legacy, , legacy, DCE8, DCE8+i, 16b 32b 64b op=sti_opcode;st0
+Fdivr_sti_st0, legacy, , legacy, DCF0, DCF0+i, 16b 32b 64b op=sti_opcode;st0
+Fdiv_sti_st0, legacy, , legacy, DCF8, DCF8+i, 16b 32b 64b op=sti_opcode;st0
 Fld_m64fp, legacy, , legacy, DD, DD /0, g=0 16b 32b 64b op=mem
 Fisttp_m64fp, legacy, , legacy, DD, DD /1, g=1 16b 32b 64b op=mem
 Fst_m64fp, legacy, , legacy, DD, DD /2, g=2 16b 32b 64b op=mem
@@ -634,12 +634,12 @@ Fnsave_m108byte, legacy, , legacy, DD, o32 DD /6, g=6 16b 32b 64b o32 op=mem
 Fsave_m108byte, legacy, , legacy, DD, 9B o32 DD /6, g=6 16b 32b 64b fwait o32 op=mem
 Fnstsw_m16, legacy, , legacy, DD, DD /7, g=7 16b 32b 64b op=mem
 Fstsw_m16, legacy, , legacy, DD, 9B DD /7, g=7 16b 32b 64b fwait op=mem
-Ffree_sti, legacy, , legacy, DDC0, DDC0+i, 16b 32b 64b op=sti
-Fxch_st0_sti_DDC8, legacy, , legacy, DDC8, DDC8+i, 16b 32b 64b op=st0;sti
-Fst_sti, legacy, , legacy, DDD0, DDD0+i, 16b 32b 64b op=sti
-Fstp_sti, legacy, , legacy, DDD8, DDD8+i, 16b 32b 64b op=sti
-Fucom_st0_sti, legacy, , legacy, DDE0, DDE0+i, 16b 32b 64b op=st0;sti
-Fucomp_st0_sti, legacy, , legacy, DDE8, DDE8+i, 16b 32b 64b op=st0;sti
+Ffree_sti, legacy, , legacy, DDC0, DDC0+i, 16b 32b 64b op=sti_opcode
+Fxch_st0_sti_DDC8, legacy, , legacy, DDC8, DDC8+i, 16b 32b 64b op=st0;sti_opcode
+Fst_sti, legacy, , legacy, DDD0, DDD0+i, 16b 32b 64b op=sti_opcode
+Fstp_sti, legacy, , legacy, DDD8, DDD8+i, 16b 32b 64b op=sti_opcode
+Fucom_st0_sti, legacy, , legacy, DDE0, DDE0+i, 16b 32b 64b op=st0;sti_opcode
+Fucomp_st0_sti, legacy, , legacy, DDE8, DDE8+i, 16b 32b 64b op=st0;sti_opcode
 Fiadd_m16int, legacy, , legacy, DE, DE /0, g=0 16b 32b 64b op=mem
 Fimul_m16int, legacy, , legacy, DE, DE /1, g=1 16b 32b 64b op=mem
 Ficom_m16int, legacy, , legacy, DE, DE /2, g=2 16b 32b 64b op=mem
@@ -648,14 +648,14 @@ Fisub_m16int, legacy, , legacy, DE, DE /4, g=4 16b 32b 64b op=mem
 Fisubr_m16int, legacy, , legacy, DE, DE /5, g=5 16b 32b 64b op=mem
 Fidiv_m16int, legacy, , legacy, DE, DE /6, g=6 16b 32b 64b op=mem
 Fidivr_m16int, legacy, , legacy, DE, DE /7, g=7 16b 32b 64b op=mem
-Faddp_sti_st0, legacy, , legacy, DEC0, DEC0+i, 16b 32b 64b op=sti;st0
-Fmulp_sti_st0, legacy, , legacy, DEC8, DEC8+i, 16b 32b 64b op=sti;st0
-Fcomp_st0_sti_DED0, legacy, , legacy, DED0, DED0+i, 16b 32b 64b op=st0;sti
+Faddp_sti_st0, legacy, , legacy, DEC0, DEC0+i, 16b 32b 64b op=sti_opcode;st0
+Fmulp_sti_st0, legacy, , legacy, DEC8, DEC8+i, 16b 32b 64b op=sti_opcode;st0
+Fcomp_st0_sti_DED0, legacy, , legacy, DED0, DED0+i, 16b 32b 64b op=st0;sti_opcode
 Fcompp, legacy, , legacy, DED9, DED9, 16b 32b 64b
-Fsubrp_sti_st0, legacy, , legacy, DEE0, DEE0+i, 16b 32b 64b op=sti;st0
-Fsubp_sti_st0, legacy, , legacy, DEE8, DEE8+i, 16b 32b 64b op=sti;st0
-Fdivrp_sti_st0, legacy, , legacy, DEF0, DEF0+i, 16b 32b 64b op=sti;st0
-Fdivp_sti_st0, legacy, , legacy, DEF8, DEF8+i, 16b 32b 64b op=sti;st0
+Fsubrp_sti_st0, legacy, , legacy, DEE0, DEE0+i, 16b 32b 64b op=sti_opcode;st0
+Fsubp_sti_st0, legacy, , legacy, DEE8, DEE8+i, 16b 32b 64b op=sti_opcode;st0
+Fdivrp_sti_st0, legacy, , legacy, DEF0, DEF0+i, 16b 32b 64b op=sti_opcode;st0
+Fdivp_sti_st0, legacy, , legacy, DEF8, DEF8+i, 16b 32b 64b op=sti_opcode;st0
 Fild_m16int, legacy, , legacy, DF, DF /0, g=0 16b 32b 64b op=mem
 Fisttp_m16int, legacy, , legacy, DF, DF /1, g=1 16b 32b 64b op=mem
 Fist_m16int, legacy, , legacy, DF, DF /2, g=2 16b 32b 64b op=mem
@@ -664,16 +664,16 @@ Fbld_m80bcd, legacy, , legacy, DF, DF /4, g=4 16b 32b 64b op=mem
 Fild_m64int, legacy, , legacy, DF, DF /5, g=5 16b 32b 64b op=mem
 Fbstp_m80bcd, legacy, , legacy, DF, DF /6, g=6 16b 32b 64b op=mem
 Fistp_m64int, legacy, , legacy, DF, DF /7, g=7 16b 32b 64b op=mem
-Ffreep_sti, legacy, , legacy, DFC0, DFC0+i, 16b 32b 64b op=sti
-Fxch_st0_sti_DFC8, legacy, , legacy, DFC8, DFC8+i, 16b 32b 64b op=st0;sti
-Fstp_sti_DFD0, legacy, , legacy, DFD0, DFD0+i, 16b 32b 64b op=sti
-Fstp_sti_DFD8, legacy, , legacy, DFD8, DFD8+i, 16b 32b 64b op=sti
+Ffreep_sti, legacy, , legacy, DFC0, DFC0+i, 16b 32b 64b op=sti_opcode
+Fxch_st0_sti_DFC8, legacy, , legacy, DFC8, DFC8+i, 16b 32b 64b op=st0;sti_opcode
+Fstp_sti_DFD0, legacy, , legacy, DFD0, DFD0+i, 16b 32b 64b op=sti_opcode
+Fstp_sti_DFD8, legacy, , legacy, DFD8, DFD8+i, 16b 32b 64b op=sti_opcode
 Fnstsw_AX, legacy, , legacy, DFE0, DFE0, 16b 32b 64b op=ax
 Fstsw_AX, legacy, , legacy, DFE0, 9B DFE0, 16b 32b 64b fwait op=ax
 Fstdw_AX, legacy, , legacy, DFE1, DFE1, 16b 32b op=ax
 Fstsg_AX, legacy, , legacy, DFE2, DFE2, 16b 32b op=ax
-Fucomip_st0_sti, legacy, , legacy, DFE8, DFE8+i, 16b 32b 64b op=st0;sti
-Fcomip_st0_sti, legacy, , legacy, DFF0, DFF0+i, 16b 32b 64b op=st0;sti
+Fucomip_st0_sti, legacy, , legacy, DFE8, DFE8+i, 16b 32b 64b op=st0;sti_opcode
+Fcomip_st0_sti, legacy, , legacy, DFF0, DFF0+i, 16b 32b 64b op=st0;sti_opcode
 Loopne_rel8_16_CX, legacy, , legacy, E0, a16 o16 E0 cb, 16b 32b o16 a16 op=br16_1
 Loopne_rel8_32_CX, legacy, , legacy, E0, a16 o32 E0 cb, 16b 32b o32 a16 op=br32_1
 Loopne_rel8_16_ECX, legacy, , legacy, E0, a32 o16 E0 cb, 16b 32b 64b o16 a32 op=br16_1

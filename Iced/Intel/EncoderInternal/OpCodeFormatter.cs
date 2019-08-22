@@ -374,7 +374,7 @@ namespace Iced.Intel.EncoderInternal {
 			}
 			int opCount = info.OpCount;
 			for (int i = 0; i < opCount; i++) {
-				if (info.GetOpKind(i) == OpCodeOperandKind.sti) {
+				if (info.GetOpKind(i) == OpCodeOperandKind.sti_opcode) {
 					sb.Append("+i");
 					break;
 				}

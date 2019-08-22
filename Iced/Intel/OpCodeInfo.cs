@@ -545,7 +545,7 @@ namespace Iced.Intel {
 		public MandatoryPrefix MandatoryPrefix => (MandatoryPrefix)mandatoryPrefix;
 
 		/// <summary>
-		/// Gets the opcode 00000000xxh if it's 1-byte, 0000yyxxh if it's 2-byte (yy != 00, and yy is the first byte and xx the second byte).
+		/// Gets the opcode. 00000000xxh if it's 1-byte, 0000yyxxh if it's 2-byte (yy != 00, and yy is the first byte and xx the second byte).
 		/// It doesn't include the table value, see <see cref="Table"/>.
 		/// Example values: 0xDFC0 (<see cref="Code.Ffreep_sti"/>), 0x01D8 (<see cref="Code.Vmrunw"/>), 0x2A (<see cref="Code.Sub_r8_rm8"/>, <see cref="Code.Cvtpi2ps_xmm_mmm64"/>, etc).
 		/// </summary>

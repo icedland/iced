@@ -316,11 +316,11 @@ namespace Iced.Intel {
 		/// </summary>
 		st0,
 		/// <summary>
-		/// ST(i) register
+		/// ST(i) register encoded in the low 3 bits of the opcode
 		/// </summary>
-		sti,
+		sti_opcode,
 		/// <summary>
-		/// 2-bit immediate (m2z field, low 2 bits of the immediate, eg. vpermil2ps)
+		/// 2-bit immediate (m2z field, low 2 bits of the /is5 immediate, eg. vpermil2ps)
 		/// </summary>
 		imm2_m2z,
 		/// <summary>
@@ -360,19 +360,19 @@ namespace Iced.Intel {
 		/// </summary>
 		imm64,
 		/// <summary>
-		/// seg:rSI memory operand (string instructions)
+		/// seg:[rSI] memory operand (string instructions)
 		/// </summary>
 		seg_rSI,
 		/// <summary>
-		/// es:rDI memory operand (string instructions)
+		/// es:[rDI] memory operand (string instructions)
 		/// </summary>
 		es_rDI,
 		/// <summary>
-		/// seg:rDI memory operand ((v)maskmovq instructions)
+		/// seg:[rDI] memory operand ((v)maskmovq instructions)
 		/// </summary>
 		seg_rDI,
 		/// <summary>
-		/// Memory seg:[rBX+al] (xlatb instruction)
+		/// seg:[rBX+al] memory operand (xlatb instruction)
 		/// </summary>
 		seg_rBX_al,
 		/// <summary>
