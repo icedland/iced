@@ -25,6 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Iced.Intel;
 using Xunit;
 
@@ -33,7 +34,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Theory]
 		[MemberData(nameof(TestAllOpCodeInfos_Data))]
 #pragma warning disable xUnit1026 // Theory methods should use all of their parameters
-		void TestAllOpCodeInfos(int lineNo, Code code, string opCodeString, OpCodeInfoTestCase tc) {
+		void Test_all_OpCodeInfos(int lineNo, Code code, string opCodeString, OpCodeInfoTestCase tc) {
 #pragma warning restore xUnit1026 // Theory methods should use all of their parameters
 			var info = tc.Code.ToOpCodeInfo();
 			Assert.Equal(tc.Code, info.Code);
@@ -101,13 +102,31 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		}
 
 		[Fact]
-		void VerifyInstructionOpCodeInfo() {
+		void Verify_Instruction_OpCodeInfo() {
 			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
 				Instruction instr = default;
 				instr.Code = (Code)i;
 				Assert.True(ReferenceEquals(code.ToOpCodeInfo(), instr.OpCodeInfo));
 			}
+		}
+
+		[Fact]
+		void Make_sure_all_Code_values_are_tested_exactly_once() {
+			var tested = new bool[Iced.Intel.DecoderConstants.NumberOfCodeValues];
+			foreach (var info in OpCodeInfoTestCases.OpCodeInfoTests) {
+				Assert.False(tested[(int)info.Code]);
+				tested[(int)info.Code] = true;
+			}
+			var sb = new StringBuilder();
+			for (int i = 0; i < tested.Length; i++) {
+				if (!tested[i]) {
+					if (sb.Length > 0)
+						sb.Append(',');
+					sb.Append(((Code)i).ToString());
+				}
+			}
+			Assert.Equal(string.Empty, sb.ToString());
 		}
 	}
 }
