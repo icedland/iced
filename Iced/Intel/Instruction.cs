@@ -1642,12 +1642,12 @@ namespace Iced.Intel {
 
 #if !NO_ENCODER
 		/// <summary>
-		/// Gets the <see cref="Intel.OpCodeInfo"/>
+		/// Gets the <see cref="OpCodeInfo"/>
 		/// </summary>
 		/// <returns></returns>
-		public readonly OpCodeInfo OpCodeInfo {
+		public readonly OpCodeInfo OpCode {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-			get => Code.ToOpCodeInfo();
+			get => Code.ToOpCode();
 		}
 #endif
 

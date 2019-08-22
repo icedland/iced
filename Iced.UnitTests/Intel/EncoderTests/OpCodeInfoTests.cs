@@ -38,7 +38,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 #pragma warning disable xUnit1026 // Theory methods should use all of their parameters
 		void Test_all_OpCodeInfos(int lineNo, Code code, string opCodeString, OpCodeInfoTestCase tc) {
 #pragma warning restore xUnit1026 // Theory methods should use all of their parameters
-			var info = tc.Code.ToOpCodeInfo();
+			var info = tc.Code.ToOpCode();
 			Assert.Equal(tc.Code, info.Code);
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 			// Show the full string without ellipses by using Equal<string>() instead of Equal()
@@ -94,7 +94,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		[Fact]
 		void GetOpKindThrowsIfInvalidInput() {
-			var info = Code.Aaa.ToOpCodeInfo();
+			var info = Code.Aaa.ToOpCode();
 			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpKind(int.MinValue));
 			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpKind(-1));
 			info.GetOpKind(0);
@@ -109,7 +109,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				var code = (Code)i;
 				Instruction instr = default;
 				instr.Code = (Code)i;
-				Assert.True(ReferenceEquals(code.ToOpCodeInfo(), instr.OpCodeInfo));
+				Assert.True(ReferenceEquals(code.ToOpCode(), instr.OpCode));
 			}
 		}
 
@@ -167,7 +167,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 				// Show the full string without ellipses by using Equal<string>() instead of Equal()
 				Assert.Equal<string>("<" + opCodeStr.Trim() + ">", "<" + opCodeStr + ">");
-				var expectedOpCodeStr = code.ToOpCodeInfo().ToString();
+				var expectedOpCodeStr = code.ToOpCode().ToString();
 				Assert.Equal<string>(expectedOpCodeStr, opCodeStr);
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 				tested++;

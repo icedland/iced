@@ -52,7 +52,7 @@ Encoder:
 - `BlockEncoder`
 - `CodeWriter`
 - `ConstantOffsets`
-- `OpCodeInfo` (`Instruction.OpCodeInfo` and `Code.ToOpCodeInfo()`)
+- `OpCodeInfo` (`Instruction.OpCode` and `Code.ToOpCode()`)
 
 Instruction info:
 
@@ -538,10 +538,10 @@ Disassembled code:
                 var disasmStr = instr.ToString();
                 Console.WriteLine($"{instr.IP:X16} {disasmStr}");
 
-                var opCodeInfo = instr.OpCodeInfo;
+                var opCode = instr.OpCode;
                 var info = instrInfoFactory.GetInfo(instr);
                 const string tab = "    ";
-                Console.WriteLine($"{tab}OpCode: {opCodeInfo.ToString()}");
+                Console.WriteLine($"{tab}OpCode: {opCode.ToString()}");
                 Console.WriteLine($"{tab}Encoding: {instr.Encoding}");
                 Console.WriteLine($"{tab}Mnemonic: {instr.Mnemonic}");
                 Console.WriteLine($"{tab}Code: {instr.Code}");
@@ -578,8 +578,8 @@ Disassembled code:
                 }
                 for (int i = 0; i < instr.OpCount; i++)
                     Console.WriteLine($"{tab}Op{i}Access: {info.GetOpAccess(i)}");
-                for (int i = 0; i < opCodeInfo.OpCount; i++)
-                    Console.WriteLine($"{tab}Op{i}: {opCodeInfo.GetOpKind(i)}");
+                for (int i = 0; i < opCode.OpCount; i++)
+                    Console.WriteLine($"{tab}Op{i}: {opCode.GetOpKind(i)}");
                 // The returned iterator is a struct, nothing is allocated unless you box it
                 foreach (var regInfo in info.GetUsedRegisters())
                     Console.WriteLine($"{tab}{regInfo.ToString()}");
