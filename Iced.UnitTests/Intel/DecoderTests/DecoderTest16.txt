@@ -3274,24 +3274,40 @@ C4E1F9 17 10, VEX_Vmovhpd_m64_xmm, Vmovhpd, 2, op0=m;ds;bx;si;1;0;0;Float64 op1=
 
 0F18 18, Prefetcht2_m8, Prefetcht2, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
+0F1A 08, INVALID, INVALID, 0,
+0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;bx;si;1;0;0;Unknown noinvalidcheck
 67 0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;eax;;1;0;0;Unknown
 
+66 0F1A 08, INVALID, INVALID, 0,
+66 0F1A 08, Bndmov_bnd_bndm64, Bndmov, 2, op0=r;bnd1 op1=m;ds;bx;si;1;0;0;Bnd32 noinvalidcheck
 67 66 0F1A 08, Bndmov_bnd_bndm64, Bndmov, 2, op0=r;bnd1 op1=m;ds;eax;;1;0;0;Bnd32
 66 0F1A CA, Bndmov_bnd_bndm64, Bndmov, 2, op0=r;bnd1 op1=r;bnd2
 
+F3 0F1A 08, INVALID, INVALID, 0,
+F3 0F1A 08, Bndcl_bnd_rm32, Bndcl, 2, op0=r;bnd1 op1=m;ds;bx;si;1;0;0;UInt32 noinvalidcheck
 67 F3 0F1A 08, Bndcl_bnd_rm32, Bndcl, 2, op0=r;bnd1 op1=m;ds;eax;;1;0;0;UInt32
 F3 0F1A CA, Bndcl_bnd_rm32, Bndcl, 2, op0=r;bnd1 op1=r;edx
 
+F2 0F1A 08, INVALID, INVALID, 0,
+F2 0F1A 08, Bndcu_bnd_rm32, Bndcu, 2, op0=r;bnd1 op1=m;ds;bx;si;1;0;0;UInt32 noinvalidcheck
 67 F2 0F1A 08, Bndcu_bnd_rm32, Bndcu, 2, op0=r;bnd1 op1=m;ds;eax;;1;0;0;UInt32
 F2 0F1A CA, Bndcu_bnd_rm32, Bndcu, 2, op0=r;bnd1 op1=r;edx
 
+0F1B 08, INVALID, INVALID, 0,
+0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;bx;si;1;0;0;Unknown op1=r;bnd1 noinvalidcheck
 67 0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;eax;;1;0;0;Unknown op1=r;bnd1
 
+66 0F1B 08, INVALID, INVALID, 0,
+66 0F1B 08, Bndmov_bndm64_bnd, Bndmov, 2, op0=m;ds;bx;si;1;0;0;Bnd32 op1=r;bnd1 noinvalidcheck
 67 66 0F1B 08, Bndmov_bndm64_bnd, Bndmov, 2, op0=m;ds;eax;;1;0;0;Bnd32 op1=r;bnd1
 66 0F1B CA, Bndmov_bndm64_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1
 
+F3 0F1B 08, INVALID, INVALID, 0,
+F3 0F1B 08, Bndmk_bnd_m32, Bndmk, 2, op0=r;bnd1 op1=m;ds;bx;si;1;0;0;UInt32 noinvalidcheck
 67 F3 0F1B 08, Bndmk_bnd_m32, Bndmk, 2, op0=r;bnd1 op1=m;ds;eax;;1;0;0;UInt32
 
+F2 0F1B 08, INVALID, INVALID, 0,
+F2 0F1B 08, Bndcn_bnd_rm32, Bndcn, 2, op0=r;bnd1 op1=m;ds;bx;si;1;0;0;UInt32 noinvalidcheck
 67 F2 0F1B 08, Bndcn_bnd_rm32, Bndcn, 2, op0=r;bnd1 op1=m;ds;eax;;1;0;0;UInt32
 F2 0F1B CA, Bndcn_bnd_rm32, Bndcn, 2, op0=r;bnd1 op1=r;edx
 
