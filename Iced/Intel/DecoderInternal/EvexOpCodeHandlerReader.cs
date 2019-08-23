@@ -83,7 +83,7 @@ namespace Iced.Intel.DecoderInternal {
 
 			case EvexOpCodeHandlerKind.Ev_VX:
 				code = deserializer.ReadCode();
-				elem = new OpCodeHandler_EVEX_Ev_VX(code, code + 1, deserializer.ReadTupleType());
+				elem = new OpCodeHandler_EVEX_Ev_VX(code, code + 1, deserializer.ReadTupleType(), deserializer.ReadTupleType());
 				return 1;
 
 			case EvexOpCodeHandlerKind.Ev_VX_Ib:
@@ -130,12 +130,12 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_EVEX_MV(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
 				return 1;
 
-			case EvexOpCodeHandlerKind.V_H_Ev_er_5:
-				elem = new OpCodeHandler_EVEX_V_H_Ev_er(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1, deserializer.ReadTupleType(), deserializer.ReadBoolean());
+			case EvexOpCodeHandlerKind.V_H_Ev_er_6:
+				elem = new OpCodeHandler_EVEX_V_H_Ev_er(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1, deserializer.ReadTupleType(), deserializer.ReadTupleType(), deserializer.ReadBoolean());
 				return 1;
 
-			case EvexOpCodeHandlerKind.V_H_Ev_er_6:
-				elem = new OpCodeHandler_EVEX_V_H_Ev_er(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1, deserializer.ReadTupleType(), deserializer.ReadBoolean(), deserializer.ReadBoolean());
+			case EvexOpCodeHandlerKind.V_H_Ev_er_7:
+				elem = new OpCodeHandler_EVEX_V_H_Ev_er(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1, deserializer.ReadTupleType(), deserializer.ReadTupleType(), deserializer.ReadBoolean(), deserializer.ReadBoolean());
 				return 1;
 
 			case EvexOpCodeHandlerKind.V_H_Ev_Ib:
@@ -252,7 +252,7 @@ namespace Iced.Intel.DecoderInternal {
 
 			case EvexOpCodeHandlerKind.VX_Ev:
 				code = deserializer.ReadCode();
-				elem = new OpCodeHandler_EVEX_VX_Ev(code, code + 1, deserializer.ReadTupleType());
+				elem = new OpCodeHandler_EVEX_VX_Ev(code, code + 1, deserializer.ReadTupleType(), deserializer.ReadTupleType());
 				return 1;
 
 			case EvexOpCodeHandlerKind.WkHV:

@@ -99,24 +99,27 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Register baseReg;
 		readonly Code codeW0;
 		readonly Code codeW1;
-		readonly TupleType tupleType;
+		readonly TupleType tupleTypeW0;
+		readonly TupleType tupleTypeW1;
 		readonly bool onlySAE;
 		readonly bool noERd;
 
-		public OpCodeHandler_EVEX_V_H_Ev_er(Register baseReg, Code codeW0, Code codeW1, TupleType tupleType, bool onlySAE, bool noERd) {
+		public OpCodeHandler_EVEX_V_H_Ev_er(Register baseReg, Code codeW0, Code codeW1, TupleType tupleTypeW0, TupleType tupleTypeW1, bool onlySAE, bool noERd) {
 			this.baseReg = baseReg;
 			this.codeW0 = codeW0;
 			this.codeW1 = codeW1;
-			this.tupleType = tupleType;
+			this.tupleTypeW0 = tupleTypeW0;
+			this.tupleTypeW1 = tupleTypeW1;
 			this.onlySAE = onlySAE;
 			this.noERd = noERd;
 		}
 
-		public OpCodeHandler_EVEX_V_H_Ev_er(Register baseReg, Code codeW0, Code codeW1, TupleType tupleType, bool onlySAE) {
+		public OpCodeHandler_EVEX_V_H_Ev_er(Register baseReg, Code codeW0, Code codeW1, TupleType tupleTypeW0, TupleType tupleTypeW1, bool onlySAE) {
 			this.baseReg = baseReg;
 			this.codeW0 = codeW0;
 			this.codeW1 = codeW1;
-			this.tupleType = tupleType;
+			this.tupleTypeW0 = tupleTypeW0;
+			this.tupleTypeW1 = tupleTypeW1;
 			this.onlySAE = onlySAE;
 		}
 
@@ -126,12 +129,15 @@ namespace Iced.Intel.DecoderInternal {
 			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.aaa | state.extraBaseRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
+			TupleType tupleType;
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
 				instruction.InternalCode = codeW1;
+				tupleType = tupleTypeW1;
 				gpr = Register.RAX;
 			}
 			else {
 				instruction.InternalCode = codeW0;
+				tupleType = tupleTypeW0;
 				gpr = Register.EAX;
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -1553,12 +1559,14 @@ namespace Iced.Intel.DecoderInternal {
 	sealed class OpCodeHandler_EVEX_VX_Ev : OpCodeHandlerModRM {
 		readonly Code code32;
 		readonly Code code64;
-		readonly TupleType tupleType;
+		readonly TupleType tupleTypeW0;
+		readonly TupleType tupleTypeW1;
 
-		public OpCodeHandler_EVEX_VX_Ev(Code code32, Code code64, TupleType tupleType) {
+		public OpCodeHandler_EVEX_VX_Ev(Code code32, Code code64, TupleType tupleTypeW0, TupleType tupleTypeW1) {
 			this.code32 = code32;
 			this.code64 = code64;
-			this.tupleType = tupleType;
+			this.tupleTypeW0 = tupleTypeW0;
+			this.tupleTypeW1 = tupleTypeW1;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1567,12 +1575,15 @@ namespace Iced.Intel.DecoderInternal {
 			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv | state.aaa | state.extraBaseRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
+			TupleType tupleType;
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
 				instruction.InternalCode = code64;
+				tupleType = tupleTypeW1;
 				gpr = Register.RAX;
 			}
 			else {
 				instruction.InternalCode = code32;
+				tupleType = tupleTypeW0;
 				gpr = Register.EAX;
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -1593,12 +1604,14 @@ namespace Iced.Intel.DecoderInternal {
 	sealed class OpCodeHandler_EVEX_Ev_VX : OpCodeHandlerModRM {
 		readonly Code code32;
 		readonly Code code64;
-		readonly TupleType tupleType;
+		readonly TupleType tupleTypeW0;
+		readonly TupleType tupleTypeW1;
 
-		public OpCodeHandler_EVEX_Ev_VX(Code code32, Code code64, TupleType tupleType) {
+		public OpCodeHandler_EVEX_Ev_VX(Code code32, Code code64, TupleType tupleTypeW0, TupleType tupleTypeW1) {
 			this.code32 = code32;
 			this.code64 = code64;
-			this.tupleType = tupleType;
+			this.tupleTypeW0 = tupleTypeW0;
+			this.tupleTypeW1 = tupleTypeW1;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1607,12 +1620,15 @@ namespace Iced.Intel.DecoderInternal {
 			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv | state.aaa | state.extraBaseRegisterBaseEVEX) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
+			TupleType tupleType;
 			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
 				instruction.InternalCode = code64;
+				tupleType = tupleTypeW1;
 				gpr = Register.RAX;
 			}
 			else {
 				instruction.InternalCode = code32;
+				tupleType = tupleTypeW0;
 				gpr = Register.EAX;
 			}
 			if (state.mod == 3) {

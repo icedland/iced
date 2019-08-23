@@ -391,8 +391,8 @@ namespace Generator.Decoder {
 				case EvexOpCodeHandlerKind.Ev_VX_Ib:
 				case EvexOpCodeHandlerKind.Gv_W_er:
 				case EvexOpCodeHandlerKind.GvM_VX_Ib:
-				case EvexOpCodeHandlerKind.V_H_Ev_er_5:
 				case EvexOpCodeHandlerKind.V_H_Ev_er_6:
+				case EvexOpCodeHandlerKind.V_H_Ev_er_7:
 				case EvexOpCodeHandlerKind.V_H_Ev_Ib:
 					codeIndex = 2;
 					codeLen = 2;

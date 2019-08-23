@@ -18504,7 +18504,6 @@ C4427D 35 CD, VEX_Vpmovzxdq_ymm_xmmm128, Vpmovzxdq, 2, op0=r;ymm9 op1=r;xmm13
 
 62 F27D08 35 50 01, EVEX_Vpmovzxdq_xmm_k1z_xmmm64, Vpmovzxdq, 2, op0=r;xmm2 op1=m;ds;rax;;1;8;1;Packed64_UInt32 co=0;0;0;0;6;1
 62 F27D8B 35 50 01, EVEX_Vpmovzxdq_xmm_k1z_xmmm64, Vpmovzxdq, 2, op0=r;xmm2 op1=m;ds;rax;;1;8;1;Packed64_UInt32 k3 zmsk co=0;0;0;0;6;1
-62 F2FD08 35 50 01, EVEX_Vpmovzxdq_xmm_k1z_xmmm64, Vpmovzxdq, 2, op0=r;xmm2 op1=m;ds;rax;;1;8;1;Packed64_UInt32 co=0;0;0;0;6;1 enc=62F27D08355001
 62 F27D08 35 D3, EVEX_Vpmovzxdq_xmm_k1z_xmmm64, Vpmovzxdq, 2, op0=r;xmm2 op1=r;xmm3
 62 F27D0B 35 D3, EVEX_Vpmovzxdq_xmm_k1z_xmmm64, Vpmovzxdq, 2, op0=r;xmm2 op1=r;xmm3 k3
 62 327D8B 35 D3, EVEX_Vpmovzxdq_xmm_k1z_xmmm64, Vpmovzxdq, 2, op0=r;xmm10 op1=r;xmm19 k3 zmsk
@@ -18512,7 +18511,6 @@ C4427D 35 CD, VEX_Vpmovzxdq_ymm_xmmm128, Vpmovzxdq, 2, op0=r;ymm9 op1=r;xmm13
 
 62 F27D28 35 50 01, EVEX_Vpmovzxdq_ymm_k1z_xmmm128, Vpmovzxdq, 2, op0=r;ymm2 op1=m;ds;rax;;1;16;1;Packed128_UInt32 co=0;0;0;0;6;1
 62 F27DAB 35 50 01, EVEX_Vpmovzxdq_ymm_k1z_xmmm128, Vpmovzxdq, 2, op0=r;ymm2 op1=m;ds;rax;;1;16;1;Packed128_UInt32 k3 zmsk co=0;0;0;0;6;1
-62 F2FD28 35 50 01, EVEX_Vpmovzxdq_ymm_k1z_xmmm128, Vpmovzxdq, 2, op0=r;ymm2 op1=m;ds;rax;;1;16;1;Packed128_UInt32 co=0;0;0;0;6;1 enc=62F27D28355001
 62 F27D28 35 D3, EVEX_Vpmovzxdq_ymm_k1z_xmmm128, Vpmovzxdq, 2, op0=r;ymm2 op1=r;xmm3
 62 F27D2B 35 D3, EVEX_Vpmovzxdq_ymm_k1z_xmmm128, Vpmovzxdq, 2, op0=r;ymm2 op1=r;xmm3 k3
 62 327DAB 35 D3, EVEX_Vpmovzxdq_ymm_k1z_xmmm128, Vpmovzxdq, 2, op0=r;ymm10 op1=r;xmm19 k3 zmsk
@@ -18520,7 +18518,6 @@ C4427D 35 CD, VEX_Vpmovzxdq_ymm_xmmm128, Vpmovzxdq, 2, op0=r;ymm9 op1=r;xmm13
 
 62 F27D48 35 50 01, EVEX_Vpmovzxdq_zmm_k1z_ymmm256, Vpmovzxdq, 2, op0=r;zmm2 op1=m;ds;rax;;1;32;1;Packed256_UInt32 co=0;0;0;0;6;1
 62 F27DCB 35 50 01, EVEX_Vpmovzxdq_zmm_k1z_ymmm256, Vpmovzxdq, 2, op0=r;zmm2 op1=m;ds;rax;;1;32;1;Packed256_UInt32 k3 zmsk co=0;0;0;0;6;1
-62 F2FD48 35 50 01, EVEX_Vpmovzxdq_zmm_k1z_ymmm256, Vpmovzxdq, 2, op0=r;zmm2 op1=m;ds;rax;;1;32;1;Packed256_UInt32 co=0;0;0;0;6;1 enc=62F27D48355001
 62 F27D48 35 D3, EVEX_Vpmovzxdq_zmm_k1z_ymmm256, Vpmovzxdq, 2, op0=r;zmm2 op1=r;ymm3
 62 F27D4B 35 D3, EVEX_Vpmovzxdq_zmm_k1z_ymmm256, Vpmovzxdq, 2, op0=r;zmm2 op1=r;ymm3 k3
 62 327DCB 35 D3, EVEX_Vpmovzxdq_zmm_k1z_ymmm256, Vpmovzxdq, 2, op0=r;zmm10 op1=r;ymm19 k3 zmsk
