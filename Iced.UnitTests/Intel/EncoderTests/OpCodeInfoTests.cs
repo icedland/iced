@@ -56,6 +56,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(tc.W, info.W);
 			Assert.Equal(tc.IsLIG, info.IsLIG);
 			Assert.Equal(tc.IsWIG, info.IsWIG);
+			Assert.Equal(tc.IsWIG32, info.IsWIG32);
 			Assert.Equal(tc.TupleType, info.TupleType);
 			Assert.Equal(tc.CanBroadcast, info.CanBroadcast);
 			Assert.Equal(tc.CanUseRoundingControl, info.CanUseRoundingControl);

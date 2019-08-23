@@ -229,6 +229,12 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						gotW = true;
 						break;
 
+					case "WIG32":
+						tc.W = 0;
+						tc.IsWIG32 = true;
+						gotW = true;
+						break;
+
 					case "W0":
 						tc.W = 0;
 						gotW = true;

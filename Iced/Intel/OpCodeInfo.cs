@@ -41,21 +41,22 @@ namespace Iced.Intel {
 			Fwait					= 0x00000008,
 			LIG						= 0x00000010,
 			WIG						= 0x00000020,
-			W						= 0x00000040,
-			Broadcast				= 0x00000080,
-			RoundingControl			= 0x00000100,
-			SuppressAllExceptions	= 0x00000200,
-			OpMaskRegister			= 0x00000400,
-			ZeroingMasking			= 0x00000800,
-			LockPrefix				= 0x00001000,
-			XacquirePrefix			= 0x00002000,
-			XreleasePrefix			= 0x00004000,
-			RepPrefix				= 0x00008000,
-			RepnePrefix				= 0x00010000,
-			BndPrefix				= 0x00020000,
-			HintTakenPrefix			= 0x00040000,
-			NotrackPrefix			= 0x00080000,
-			IsInstruction			= 0x00100000,
+			WIG32					= 0x00000040,
+			W						= 0x00000080,
+			Broadcast				= 0x00000100,
+			RoundingControl			= 0x00000200,
+			SuppressAllExceptions	= 0x00000400,
+			OpMaskRegister			= 0x00000800,
+			ZeroingMasking			= 0x00001000,
+			LockPrefix				= 0x00002000,
+			XacquirePrefix			= 0x00004000,
+			XreleasePrefix			= 0x00008000,
+			RepPrefix				= 0x00010000,
+			RepnePrefix				= 0x00020000,
+			BndPrefix				= 0x00040000,
+			HintTakenPrefix			= 0x00080000,
+			NotrackPrefix			= 0x00100000,
+			IsInstruction			= 0x00200000,
 		}
 
 		readonly string toStringValue;
@@ -251,6 +252,8 @@ namespace Iced.Intel {
 					flags |= Flags.LIG;
 				if ((dword2 & (uint)VexFlags.VEX_WIG) != 0)
 					flags |= Flags.WIG;
+				if ((dword2 & (uint)VexFlags.VEX_WIG32) != 0)
+					flags |= Flags.WIG32;
 				l0l1 = (dword2 & (uint)VexFlags.VEX_L0_L1) != 0;
 				break;
 
@@ -303,6 +306,8 @@ namespace Iced.Intel {
 					flags |= Flags.LIG;
 				if ((dword2 & (uint)EvexFlags.EVEX_WIG) != 0)
 					flags |= Flags.WIG;
+				if ((dword2 & (uint)EvexFlags.EVEX_WIG32) != 0)
+					flags |= Flags.WIG32;
 				if ((dword2 & (uint)EvexFlags.EVEX_b) != 0)
 					flags |= Flags.Broadcast;
 				if ((dword2 & (uint)EvexFlags.EVEX_er) != 0)
@@ -361,6 +366,8 @@ namespace Iced.Intel {
 
 				if ((dword2 & (uint)XopFlags.XOP_W1) != 0)
 					flags |= Flags.W;
+				if ((dword2 & (uint)XopFlags.XOP_WIG32) != 0)
+					flags |= Flags.WIG32;
 				l0l1 = (dword2 & (uint)XopFlags.XOP_L0_L1) != 0;
 				break;
 
@@ -455,14 +462,20 @@ namespace Iced.Intel {
 		public uint W => (flags & Flags.W) != 0 ? 1U : 0;
 
 		/// <summary>
-		/// (VEX/XOP/EVEX) true if the L / L'L fields are ignored
+		/// (VEX/XOP/EVEX) true if the L / L'L fields are ignored.
+		/// EVEX: if reg-only ops and {er} (EVEX.b is set), L'L is the rounding control and not ignored.
 		/// </summary>
 		public bool IsLIG => (flags & Flags.LIG) != 0;
 
 		/// <summary>
-		/// (VEX/XOP/EVEX) true if the W field is ignored
+		/// (VEX/XOP/EVEX) true if the W field is ignored in 16/32/64-bit modes
 		/// </summary>
 		public bool IsWIG => (flags & Flags.WIG) != 0;
+
+		/// <summary>
+		/// (VEX/XOP/EVEX) true if the W field is ignored in 16/32-bit modes (but not 64-bit mode)
+		/// </summary>
+		public bool IsWIG32 => (flags & Flags.WIG32) != 0;
 
 		/// <summary>
 		/// (EVEX) Gets the tuple type
