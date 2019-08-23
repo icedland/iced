@@ -515,13 +515,22 @@ after_read_prefixes:
 		}
 
 		internal void VEX2(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
-				SetInvalidInstruction();
+			if ((options & DecoderOptions.NoInvalidCheck) == 0) {
+				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
+					SetInvalidInstruction();
+			}
+			else {
+				// Undo what Decode() did if it got a REX prefix
+				state.operandSize = defaultOperandSize;
+				state.flags &= ~StateFlags.W;
+				state.extraIndexRegisterBase = 0;
+				state.extraBaseRegisterBase = 0;
+			}
 
 			state.flags |= (StateFlags)EncodingKind.VEX;
 			uint b = state.modrm;
-			if (is64Mode && (b & 0x80) == 0)
-				state.extraRegisterBase = 8;
+			if (is64Mode)
+				state.extraRegisterBase = ((b & 0x80) >> 4) ^ 8;
 			// Bit 6 can only be 1 if it's 16/32-bit mode, so we don't need to change the mask
 			state.vvvv = (~b >> 3) & 0x0F;
 
@@ -539,8 +548,15 @@ after_read_prefixes:
 		}
 
 		internal void VEX3(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
-				SetInvalidInstruction();
+			if ((options & DecoderOptions.NoInvalidCheck) == 0) {
+				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
+					SetInvalidInstruction();
+			}
+			else {
+				// Undo what Decode() did if it got a REX prefix
+				state.operandSize = defaultOperandSize;
+				state.flags &= ~StateFlags.W;
+			}
 
 			state.flags |= (StateFlags)EncodingKind.VEX;
 			uint b1 = state.modrm;
@@ -583,8 +599,15 @@ after_read_prefixes:
 		}
 
 		internal void XOP(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
-				SetInvalidInstruction();
+			if ((options & DecoderOptions.NoInvalidCheck) == 0) {
+				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
+					SetInvalidInstruction();
+			}
+			else {
+				// Undo what Decode() did if it got a REX prefix
+				state.operandSize = defaultOperandSize;
+				state.flags &= ~StateFlags.W;
+			}
 
 			state.flags |= (StateFlags)EncodingKind.XOP;
 			uint b1 = state.modrm;
@@ -627,8 +650,15 @@ after_read_prefixes:
 		}
 
 		internal void EVEX_MVEX(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
-				SetInvalidInstruction();
+			if ((options & DecoderOptions.NoInvalidCheck) == 0) {
+				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
+					SetInvalidInstruction();
+			}
+			else {
+				// Undo what Decode() did if it got a REX prefix
+				state.operandSize = defaultOperandSize;
+				state.flags &= ~StateFlags.W;
+			}
 
 			uint p0 = state.modrm;
 			uint p1 = ReadByte();
