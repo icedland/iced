@@ -513,7 +513,7 @@ namespace Iced.Intel {
 		RDPMC,
 
 		/// <summary>
-		/// CPUID.(EAX=80000008H, ECX=0H):EBX.RDPRU[bit 4]
+		/// CPUID.80000008H:EBX.RDPRU[bit 4]
 		/// </summary>
 		RDPRU,
 
