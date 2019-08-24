@@ -1035,6 +1035,28 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			newCode = Code.INVALID;
 			return false;
 		}
+
+		[Fact]
+		void Verify_only_Full_ddd_and_Half_ddd_support_bcst() {
+			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+				var opCode = ((Code)i).ToOpCode();
+				bool expectedBcst;
+				switch (opCode.TupleType) {
+				case TupleType.Full_128:
+				case TupleType.Full_256:
+				case TupleType.Full_512:
+				case TupleType.Half_128:
+				case TupleType.Half_256:
+				case TupleType.Half_512:
+					expectedBcst = true;
+					break;
+				default:
+					expectedBcst = false;
+					break;
+				}
+				Assert.Equal(expectedBcst, opCode.CanBroadcast);
+			}
+		}
 #endif
 	}
 }
