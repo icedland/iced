@@ -2228,8 +2228,8 @@ namespace Iced.Intel {
 			0,// VEX_Vcvtsi2sd_xmm_xmm_rm32
 			(byte)MemorySize.Int64,// VEX_Vcvtsi2sd_xmm_xmm_rm64
 			0,// VEX_Vcvtsi2sd_xmm_xmm_rm64
-			(byte)MemorySize.Int32,// EVEX_Vcvtsi2sd_xmm_xmm_rm32
-			0,// EVEX_Vcvtsi2sd_xmm_xmm_rm32
+			(byte)MemorySize.Int32,// EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
+			0,// EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
 			(byte)MemorySize.Int64,// EVEX_Vcvtsi2sd_xmm_xmm_rm64_er
 			0,// EVEX_Vcvtsi2sd_xmm_xmm_rm64_er
 			(byte)MemorySize.Packed128_Float32,// Movntps_m128_xmm
@@ -3630,8 +3630,8 @@ namespace Iced.Intel {
 			0,// EVEX_Vcvtusi2ss_xmm_xmm_rm32_er
 			(byte)MemorySize.UInt64,// EVEX_Vcvtusi2ss_xmm_xmm_rm64_er
 			0,// EVEX_Vcvtusi2ss_xmm_xmm_rm64_er
-			(byte)MemorySize.UInt32,// EVEX_Vcvtusi2sd_xmm_xmm_rm32
-			0,// EVEX_Vcvtusi2sd_xmm_xmm_rm32
+			(byte)MemorySize.UInt32,// EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
+			0,// EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
 			(byte)MemorySize.UInt64,// EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
 			0,// EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
 			(byte)MemorySize.Packed128_Float64,// Haddpd_xmm_xmmm128

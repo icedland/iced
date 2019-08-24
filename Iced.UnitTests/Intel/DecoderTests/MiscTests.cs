@@ -994,7 +994,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						bytes[evexIndex + 3] |= 0x10;
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 						decoder.Decode(out var instr);
-						if (isSaeOrEr || (isRegOnly && (info.Code == Code.EVEX_Vcvtsi2sd_xmm_xmm_rm32 || info.Code == Code.EVEX_Vcvtusi2sd_xmm_xmm_rm32)))
+						if (isSaeOrEr)
 							Assert.Equal(info.Code, instr.Code);
 						else if (newCodeSaeOrEr && isRegOnly)
 							Assert.Equal(newCode, instr.Code);
@@ -1017,8 +1017,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		static bool TryGetSaeErInstruction(OpCodeInfo opCode, out Code newCode) {
-			if (opCode.Encoding == EncodingKind.EVEX && !(opCode.CanSuppressAllExceptions || opCode.CanUseRoundingControl) &&
-				opCode.Code != Code.EVEX_Vcvtsi2sd_xmm_xmm_rm32 && opCode.Code != Code.EVEX_Vcvtusi2sd_xmm_xmm_rm32) {
+			if (opCode.Encoding == EncodingKind.EVEX && !(opCode.CanSuppressAllExceptions || opCode.CanUseRoundingControl)) {
 				var mnemonic = opCode.Code.ToMnemonic();
 				for (int i = (int)opCode.Code + 1, j = 1; i < Iced.Intel.DecoderConstants.NumberOfCodeValues && j <= 2; i++, j++) {
 					var nextCode = (Code)i;

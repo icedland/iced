@@ -1501,8 +1501,8 @@ C5CB 2A D3, VEX_Vcvtsi2sd_xmm_xmm_rm32
 C5CB 2A 10, VEX_Vcvtsi2sd_xmm_xmm_rm32
 C4E1CB 2A D3, VEX_Vcvtsi2sd_xmm_xmm_rm64
 C4E1CB 2A 10, VEX_Vcvtsi2sd_xmm_xmm_rm64
-62 F14F08 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32
-62 F14F08 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32
+62 F14F08 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
+62 F14F08 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
 62 F1CF08 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm64_er
 62 F1CF08 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm64_er
 0F2B 08, Movntps_m128_xmm
@@ -2965,8 +2965,8 @@ C5FC 77, VEX_Vzeroall
 62 F14E08 7B 50 01, EVEX_Vcvtusi2ss_xmm_xmm_rm32_er
 62 F1CE08 7B D3, EVEX_Vcvtusi2ss_xmm_xmm_rm64_er
 62 F1CE08 7B 50 01, EVEX_Vcvtusi2ss_xmm_xmm_rm64_er
-62 F14F08 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32
-62 F14F08 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32
+62 F14F08 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
+62 F14F08 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
 62 F1CF08 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
 62 F1CF08 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
 66 0F7C CD, Haddpd_xmm_xmmm128

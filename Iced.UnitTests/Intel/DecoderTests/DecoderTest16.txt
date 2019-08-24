@@ -3539,17 +3539,17 @@ C4E1CF 2A 10, VEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op
 C5CB 2A D3, VEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx
 C5CF 2A D3, VEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=C5CB2AD3
 
-62 F14F08 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;Int32 co=0;0;0;0;6;1
-62 F1CF08 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;Int32 co=0;0;0;0;6;1 enc=62F14F082A5001
-62 F14F28 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;Int32 co=0;0;0;0;6;1 enc=62F14F082A5001
-62 F14F48 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;Int32 co=0;0;0;0;6;1 enc=62F14F082A5001
-62 F14F68 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;Int32 co=0;0;0;0;6;1 enc=62F14F082A5001
-62 F14F08 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx
-62 F1CF08 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F082AD3
-62 F14F18 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F082AD3
-62 F14F38 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F082AD3
-62 F14F58 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F082AD3
-62 F14F78 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F082AD3
+62 F14F08 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;Int32 co=0;0;0;0;6;1
+62 F1CF08 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;Int32 co=0;0;0;0;6;1 enc=62F14F082A5001
+62 F14F28 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;Int32 co=0;0;0;0;6;1 enc=62F14F082A5001
+62 F14F48 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;Int32 co=0;0;0;0;6;1 enc=62F14F082A5001
+62 F14F68 2A 50 01, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;Int32 co=0;0;0;0;6;1 enc=62F14F082A5001
+62 F14F08 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx
+62 F1CF08 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F082AD3
+62 F14F18 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx rc-rn
+62 F14F38 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx rc-rd
+62 F14F58 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx rc-ru
+62 F14F78 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, Vcvtsi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx rc-rz
 
 0F2B 08, Movntps_m128_xmm, Movntps, 2, op0=m;ds;bx;si;1;0;0;Packed128_Float32 op1=r;xmm1
 
@@ -6627,17 +6627,17 @@ F2 0F79 D1, Insertq_xmm_xmm, Insertq, 2, op0=r;xmm2 op1=r;xmm1
 62 F14E58 7B D3, EVEX_Vcvtusi2ss_xmm_xmm_rm32_er, Vcvtusi2ss, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx rc-ru
 62 F14E78 7B D3, EVEX_Vcvtusi2ss_xmm_xmm_rm32_er, Vcvtusi2ss, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx rc-rz
 
-62 F14F08 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;UInt32 co=0;0;0;0;6;1
-62 F1CF08 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;UInt32 co=0;0;0;0;6;1 enc=62F14F087B5001
-62 F14F28 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;UInt32 co=0;0;0;0;6;1 enc=62F14F087B5001
-62 F14F48 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;UInt32 co=0;0;0;0;6;1 enc=62F14F087B5001
-62 F14F68 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;UInt32 co=0;0;0;0;6;1 enc=62F14F087B5001
-62 F14F08 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx
-62 F1CF08 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F087BD3
-62 F14F18 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F087BD3
-62 F14F38 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F087BD3
-62 F14F58 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F087BD3
-62 F14F78 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F087BD3
+62 F14F08 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;UInt32 co=0;0;0;0;6;1
+62 F1CF08 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;UInt32 co=0;0;0;0;6;1 enc=62F14F087B5001
+62 F14F28 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;UInt32 co=0;0;0;0;6;1 enc=62F14F087B5001
+62 F14F48 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;UInt32 co=0;0;0;0;6;1 enc=62F14F087B5001
+62 F14F68 7B 50 01, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;4;1;UInt32 co=0;0;0;0;6;1 enc=62F14F087B5001
+62 F14F08 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx
+62 F1CF08 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx enc=62F14F087BD3
+62 F14F18 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx rc-rn
+62 F14F38 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx rc-rd
+62 F14F58 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx rc-ru
+62 F14F78 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Vcvtusi2sd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;ebx rc-rz
 
 66 0F7C 08, Haddpd_xmm_xmmm128, Haddpd, 2, op0=r;xmm1 op1=m;ds;bx;si;1;0;0;Packed128_Float64
 66 0F7C CD, Haddpd_xmm_xmmm128, Haddpd, 2, op0=r;xmm1 op1=r;xmm5

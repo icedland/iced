@@ -1217,7 +1217,7 @@ namespace Iced.Intel {
 		Cvtsi2sd_xmm_rm64,											// F2 REX.W 0F2A /r
 		VEX_Vcvtsi2sd_xmm_xmm_rm32,									// VEX.LIG.F2.0F.W0 2A /r
 		VEX_Vcvtsi2sd_xmm_xmm_rm64,									// VEX.LIG.F2.0F.W1 2A /r
-		EVEX_Vcvtsi2sd_xmm_xmm_rm32,								// EVEX.LIG.F2.0F.W0 2A /r
+		EVEX_Vcvtsi2sd_xmm_xmm_rm32_er,								// EVEX.LIG.F2.0F.W0 2A /r
 		EVEX_Vcvtsi2sd_xmm_xmm_rm64_er,								// EVEX.LIG.F2.0F.W1 2A /r
 
 		Movntps_m128_xmm,											// NP 0F2B /r
@@ -2079,7 +2079,7 @@ namespace Iced.Intel {
 		EVEX_Vcvtusi2ss_xmm_xmm_rm32_er,							// EVEX.LIG.F3.0F.W0 7B /r
 		EVEX_Vcvtusi2ss_xmm_xmm_rm64_er,							// EVEX.LIG.F3.0F.W1 7B /r
 
-		EVEX_Vcvtusi2sd_xmm_xmm_rm32,								// EVEX.LIG.F2.0F.W0 7B /r
+		EVEX_Vcvtusi2sd_xmm_xmm_rm32_er,							// EVEX.LIG.F2.0F.W0 7B /r
 		EVEX_Vcvtusi2sd_xmm_xmm_rm64_er,							// EVEX.LIG.F2.0F.W1 7B /r
 
 		Haddpd_xmm_xmmm128,											// 66 0F7C /r

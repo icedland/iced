@@ -1125,7 +1125,7 @@ namespace Iced.Intel {
 			2,// Cvtsi2sd_xmm_rm64
 			3,// VEX_Vcvtsi2sd_xmm_xmm_rm32
 			3,// VEX_Vcvtsi2sd_xmm_xmm_rm64
-			3,// EVEX_Vcvtsi2sd_xmm_xmm_rm32
+			3,// EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
 			3,// EVEX_Vcvtsi2sd_xmm_xmm_rm64_er
 			2,// Movntps_m128_xmm
 			2,// VEX_Vmovntps_m128_xmm
@@ -1826,7 +1826,7 @@ namespace Iced.Intel {
 			2,// EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er
 			3,// EVEX_Vcvtusi2ss_xmm_xmm_rm32_er
 			3,// EVEX_Vcvtusi2ss_xmm_xmm_rm64_er
-			3,// EVEX_Vcvtusi2sd_xmm_xmm_rm32
+			3,// EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
 			3,// EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
 			2,// Haddpd_xmm_xmmm128
 			3,// VEX_Vhaddpd_xmm_xmm_xmmm128

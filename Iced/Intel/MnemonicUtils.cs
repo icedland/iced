@@ -1142,7 +1142,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Cvtsi2sd,// Cvtsi2sd_xmm_rm64
 			(ushort)Mnemonic.Vcvtsi2sd,// VEX_Vcvtsi2sd_xmm_xmm_rm32
 			(ushort)Mnemonic.Vcvtsi2sd,// VEX_Vcvtsi2sd_xmm_xmm_rm64
-			(ushort)Mnemonic.Vcvtsi2sd,// EVEX_Vcvtsi2sd_xmm_xmm_rm32
+			(ushort)Mnemonic.Vcvtsi2sd,// EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
 			(ushort)Mnemonic.Vcvtsi2sd,// EVEX_Vcvtsi2sd_xmm_xmm_rm64_er
 			(ushort)Mnemonic.Movntps,// Movntps_m128_xmm
 			(ushort)Mnemonic.Vmovntps,// VEX_Vmovntps_m128_xmm
@@ -1843,7 +1843,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vcvtpd2qq,// EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er
 			(ushort)Mnemonic.Vcvtusi2ss,// EVEX_Vcvtusi2ss_xmm_xmm_rm32_er
 			(ushort)Mnemonic.Vcvtusi2ss,// EVEX_Vcvtusi2ss_xmm_xmm_rm64_er
-			(ushort)Mnemonic.Vcvtusi2sd,// EVEX_Vcvtusi2sd_xmm_xmm_rm32
+			(ushort)Mnemonic.Vcvtusi2sd,// EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
 			(ushort)Mnemonic.Vcvtusi2sd,// EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
 			(ushort)Mnemonic.Haddpd,// Haddpd_xmm_xmmm128
 			(ushort)Mnemonic.Vhaddpd,// VEX_Vhaddpd_xmm_xmm_xmmm128

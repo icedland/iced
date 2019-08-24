@@ -4402,7 +4402,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// VEX_Vcvtsi2sd_xmm_xmm_rm64
 				0x80,// 'v', Previous
 
-				// EVEX_Vcvtsi2sd_xmm_xmm_rm32
+				// EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
 				0x80,// 'v', Previous
 
 				// EVEX_Vcvtsi2sd_xmm_xmm_rm64_er
@@ -6924,7 +6924,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// EVEX_Vcvtusi2ss_xmm_xmm_rm64_er
 				0x80,// 'v', Previous
 
-				// EVEX_Vcvtusi2sd_xmm_xmm_rm32
+				// EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
 				0x82,// 'v', Normal_2
 				0xC2, 0x05,// 706 = "vcvtusi2sd"
 				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize

@@ -1122,7 +1122,7 @@ Cvtsi2sd_xmm_rm32, legacy, F2, 0F, 2A, F2 0F2A /r, 16b 32b 64b op=xmm_reg;r32_me
 Cvtsi2sd_xmm_rm64, legacy, F2, 0F, 2A, F2 REX.W 0F2A /r, 64b o64 op=xmm_reg;r64_mem
 VEX_Vcvtsi2sd_xmm_xmm_rm32, VEX, F2, 0F, 2A, VEX.LIG.F2.0F.W0 2A /r, 16b 32b 64b LIG WIG32 op=xmm_reg;xmm_vvvv;r32_mem
 VEX_Vcvtsi2sd_xmm_xmm_rm64, VEX, F2, 0F, 2A, VEX.LIG.F2.0F.W1 2A /r, 64b LIG W1 op=xmm_reg;xmm_vvvv;r64_mem
-EVEX_Vcvtsi2sd_xmm_xmm_rm32, EVEX, F2, 0F, 2A, EVEX.LIG.F2.0F.W0 2A /r, 16b 32b 64b LIG WIG32 op=xmm_reg;xmm_vvvv;r32_mem tt=Tuple1_Scalar
+EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, EVEX, F2, 0F, 2A, EVEX.LIG.F2.0F.W0 2A /r, 16b 32b 64b LIG WIG32 op=xmm_reg;xmm_vvvv;r32_mem tt=Tuple1_Scalar er
 EVEX_Vcvtsi2sd_xmm_xmm_rm64_er, EVEX, F2, 0F, 2A, EVEX.LIG.F2.0F.W1 2A /r, 64b LIG W1 op=xmm_reg;xmm_vvvv;r64_mem tt=Tuple1_Scalar er
 Movntps_m128_xmm, legacy, NP, 0F, 2B, NP 0F2B /r, 16b 32b 64b op=mem;xmm_reg
 VEX_Vmovntps_m128_xmm, VEX, NP, 0F, 2B, VEX.128.0F.WIG 2B /r, 16b 32b 64b L128 WIG op=mem;xmm_reg
@@ -1823,7 +1823,7 @@ EVEX_Vcvtpd2qq_ymm_k1z_ymmm256b64, EVEX, 66, 0F, 7B, EVEX.256.66.0F.W1 7B /r, 16
 EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er, EVEX, 66, 0F, 7B, EVEX.512.66.0F.W1 7B /r, 16b 32b 64b L512 W1 op=zmm_reg;zmm_mem tt=Full_512 b er k z
 EVEX_Vcvtusi2ss_xmm_xmm_rm32_er, EVEX, F3, 0F, 7B, EVEX.LIG.F3.0F.W0 7B /r, 16b 32b 64b LIG WIG32 op=xmm_reg;xmm_vvvv;r32_mem tt=Tuple1_Fixed er
 EVEX_Vcvtusi2ss_xmm_xmm_rm64_er, EVEX, F3, 0F, 7B, EVEX.LIG.F3.0F.W1 7B /r, 64b LIG W1 op=xmm_reg;xmm_vvvv;r64_mem tt=Tuple1_Fixed er
-EVEX_Vcvtusi2sd_xmm_xmm_rm32, EVEX, F2, 0F, 7B, EVEX.LIG.F2.0F.W0 7B /r, 16b 32b 64b LIG WIG32 op=xmm_reg;xmm_vvvv;r32_mem tt=Tuple1_Fixed
+EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, EVEX, F2, 0F, 7B, EVEX.LIG.F2.0F.W0 7B /r, 16b 32b 64b LIG WIG32 op=xmm_reg;xmm_vvvv;r32_mem tt=Tuple1_Fixed er
 EVEX_Vcvtusi2sd_xmm_xmm_rm64_er, EVEX, F2, 0F, 7B, EVEX.LIG.F2.0F.W1 7B /r, 64b LIG W1 op=xmm_reg;xmm_vvvv;r64_mem tt=Tuple1_Fixed er
 Haddpd_xmm_xmmm128, legacy, 66, 0F, 7C, 66 0F7C /r, 16b 32b 64b op=xmm_reg;xmm_mem
 VEX_Vhaddpd_xmm_xmm_xmmm128, VEX, 66, 0F, 7C, VEX.128.66.0F.WIG 7C /r, 16b 32b 64b L128 WIG op=xmm_reg;xmm_vvvv;xmm_mem

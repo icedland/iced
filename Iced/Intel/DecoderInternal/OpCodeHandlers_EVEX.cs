@@ -102,17 +102,6 @@ namespace Iced.Intel.DecoderInternal {
 		readonly TupleType tupleTypeW0;
 		readonly TupleType tupleTypeW1;
 		readonly bool onlySAE;
-		readonly bool noERd;
-
-		public OpCodeHandler_EVEX_V_H_Ev_er(Register baseReg, Code codeW0, Code codeW1, TupleType tupleTypeW0, TupleType tupleTypeW1, bool onlySAE, bool noERd) {
-			this.baseReg = baseReg;
-			this.codeW0 = codeW0;
-			this.codeW1 = codeW1;
-			this.tupleTypeW0 = tupleTypeW0;
-			this.tupleTypeW1 = tupleTypeW1;
-			this.onlySAE = onlySAE;
-			this.noERd = noERd;
-		}
 
 		public OpCodeHandler_EVEX_V_H_Ev_er(Register baseReg, Code codeW0, Code codeW1, TupleType tupleTypeW0, TupleType tupleTypeW1, bool onlySAE) {
 			this.baseReg = baseReg;
@@ -150,7 +139,7 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp2Kind = OpKind.Register;
 				instruction.InternalOp2Register = (int)(state.rm + state.extraBaseRegisterBase) + gpr;
-				if ((state.flags & StateFlags.b) != 0 && (!noERd || ((state.flags & StateFlags.W) != 0 && decoder.is64Mode))) {
+				if ((state.flags & StateFlags.b) != 0) {
 					if (onlySAE)
 						instruction.InternalSetSuppressAllExceptions();
 					else {
