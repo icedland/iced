@@ -166,6 +166,8 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction, tupleType);
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 			}
 		}
 	}
@@ -276,12 +278,14 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 		readonly TupleType tupleType;
 		readonly bool onlySAE;
+		readonly bool canBroadcast;
 
-		public OpCodeHandler_EVEX_VkHW_er(Register baseReg, Code code, TupleType tupleType, bool onlySAE) {
+		public OpCodeHandler_EVEX_VkHW_er(Register baseReg, Code code, TupleType tupleType, bool onlySAE, bool canBroadcast) {
 			this.baseReg = baseReg;
 			this.code = code;
 			this.tupleType = tupleType;
 			this.onlySAE = onlySAE;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -314,8 +318,12 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 		}
@@ -327,6 +335,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 		readonly TupleType tupleType;
 		readonly bool onlySAE;
+		readonly bool canBroadcast;
 
 		public OpCodeHandler_EVEX_VkW_er(Register baseReg, Code code, TupleType tupleType, bool onlySAE) {
 			baseReg1 = baseReg;
@@ -334,6 +343,7 @@ namespace Iced.Intel.DecoderInternal {
 			this.code = code;
 			this.tupleType = tupleType;
 			this.onlySAE = onlySAE;
+			this.canBroadcast = true;
 		}
 
 		public OpCodeHandler_EVEX_VkW_er(Register baseReg1, Register baseReg2, Code code, TupleType tupleType, bool onlySAE) {
@@ -342,6 +352,16 @@ namespace Iced.Intel.DecoderInternal {
 			this.code = code;
 			this.tupleType = tupleType;
 			this.onlySAE = onlySAE;
+			this.canBroadcast = true;
+		}
+
+		public OpCodeHandler_EVEX_VkW_er(Register baseReg1, Register baseReg2, Code code, TupleType tupleType, bool onlySAE, bool canBroadcast) {
+			this.baseReg1 = baseReg1;
+			this.baseReg2 = baseReg2;
+			this.code = code;
+			this.tupleType = tupleType;
+			this.onlySAE = onlySAE;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -373,8 +393,12 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 		}
@@ -438,19 +462,22 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Register baseReg2;
 		readonly Code code;
 		readonly TupleType tupleType;
+		readonly bool canBroadcast;
 
-		public OpCodeHandler_EVEX_VkW(Register baseReg, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_VkW(Register baseReg, Code code, TupleType tupleType, bool canBroadcast) {
 			baseReg1 = baseReg;
 			baseReg2 = baseReg;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
-		public OpCodeHandler_EVEX_VkW(Register baseReg1, Register baseReg2, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_VkW(Register baseReg1, Register baseReg2, Code code, TupleType tupleType, bool canBroadcast) {
 			this.baseReg1 = baseReg1;
 			this.baseReg2 = baseReg2;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -467,11 +494,17 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase + state.extraBaseRegisterBaseEVEX) + baseReg2;
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 		}
@@ -546,7 +579,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && state.vvvv != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -557,8 +590,6 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 		}
@@ -569,12 +600,14 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Register baseReg2;
 		readonly Code code;
 		readonly TupleType tupleType;
+		readonly bool canBroadcast;
 
-		public OpCodeHandler_EVEX_VkWIb(Register baseReg, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_VkWIb(Register baseReg, Code code, TupleType tupleType, bool canBroadcast) {
 			baseReg1 = baseReg;
 			baseReg2 = baseReg;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -591,11 +624,17 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase + state.extraBaseRegisterBaseEVEX) + baseReg2;
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
@@ -619,7 +658,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && state.vvvv != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.b) | state.vvvv) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -630,8 +669,6 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -647,12 +684,14 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Register baseReg2;
 		readonly Code code;
 		readonly TupleType tupleType;
+		readonly bool canBroadcast;
 
-		public OpCodeHandler_EVEX_HkWIb(Register baseReg, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_HkWIb(Register baseReg, Code code, TupleType tupleType, bool canBroadcast) {
 			baseReg1 = baseReg;
 			baseReg2 = baseReg;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -667,11 +706,17 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase + state.extraBaseRegisterBaseEVEX) + baseReg2;
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
@@ -696,7 +741,7 @@ namespace Iced.Intel.DecoderInternal {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
 			instruction.InternalCode = code;
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.z) | state.aaa) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & (StateFlags.z | StateFlags.b)) | state.aaa) != 0)
 				decoder.SetInvalidInstruction();
 
 			Debug.Assert(OpKind.Register == 0);
@@ -706,11 +751,11 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase + state.extraBaseRegisterBaseEVEX) + baseReg2;
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
@@ -759,8 +804,8 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -813,8 +858,8 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.z) | state.vvvv | state.aaa) != 0)
@@ -838,7 +883,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.z) | state.vvvv | state.aaa) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & (StateFlags.z | StateFlags.b)) | state.vvvv | state.aaa) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -849,11 +894,11 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase + state.extraBaseRegisterBaseEVEX) + baseReg2;
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 		}
@@ -875,7 +920,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.z) | state.vvvv | state.aaa) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & (StateFlags.z | StateFlags.b)) | state.vvvv | state.aaa) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -883,11 +928,11 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase + state.extraBaseRegisterBaseEVEX) + baseReg2;
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -910,7 +955,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & StateFlags.z) | state.vvvv | state.aaa) != 0)
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && ((uint)(state.flags & (StateFlags.z | StateFlags.b)) | state.vvvv | state.aaa) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -921,8 +966,6 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 		}
@@ -986,15 +1029,17 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
-	sealed class OpCodeHandler_EVEX_kkHWIb : OpCodeHandlerModRM {
+	sealed class OpCodeHandler_EVEX_kkHWIb_sae : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code code;
 		readonly TupleType tupleType;
+		readonly bool canBroadcast;
 
-		public OpCodeHandler_EVEX_kkHWIb(Register baseReg, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_kkHWIb_sae(Register baseReg, Code code, TupleType tupleType, bool canBroadcast) {
 			this.baseReg = baseReg;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1019,8 +1064,12 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
@@ -1034,21 +1083,24 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Register baseReg3;
 		readonly Code code;
 		readonly TupleType tupleType;
+		readonly bool canBroadcast;
 
-		public OpCodeHandler_EVEX_VkHW(Register baseReg, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_VkHW(Register baseReg, Code code, TupleType tupleType, bool canBroadcast) {
 			baseReg1 = baseReg;
 			baseReg2 = baseReg;
 			baseReg3 = baseReg;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
-		public OpCodeHandler_EVEX_VkHW(Register baseReg1, Register baseReg2, Register baseReg3, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_VkHW(Register baseReg1, Register baseReg2, Register baseReg3, Code code, TupleType tupleType, bool canBroadcast) {
 			this.baseReg1 = baseReg1;
 			this.baseReg2 = baseReg2;
 			this.baseReg3 = baseReg3;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1071,8 +1123,12 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 		}
@@ -1106,8 +1162,8 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 		}
@@ -1119,21 +1175,24 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Register baseReg3;
 		readonly Code code;
 		readonly TupleType tupleType;
+		readonly bool canBroadcast;
 
-		public OpCodeHandler_EVEX_VkHWIb(Register baseReg, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_VkHWIb(Register baseReg, Code code, TupleType tupleType, bool canBroadcast) {
 			baseReg1 = baseReg;
 			baseReg2 = baseReg;
 			baseReg3 = baseReg;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
-		public OpCodeHandler_EVEX_VkHWIb(Register baseReg1, Register baseReg2, Register baseReg3, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_VkHWIb(Register baseReg1, Register baseReg2, Register baseReg3, Code code, TupleType tupleType, bool canBroadcast) {
 			this.baseReg1 = baseReg1;
 			this.baseReg2 = baseReg2;
 			this.baseReg3 = baseReg3;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1156,8 +1215,12 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
@@ -1172,14 +1235,16 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 		readonly TupleType tupleType;
 		readonly bool onlySAE;
+		readonly bool canBroadcast;
 
-		public OpCodeHandler_EVEX_VkHWIb_er(Register baseReg, Code code, TupleType tupleType, bool onlySAE) {
+		public OpCodeHandler_EVEX_VkHWIb_er(Register baseReg, Code code, TupleType tupleType, bool onlySAE, bool canBroadcast) {
 			baseReg1 = baseReg;
 			baseReg2 = baseReg;
 			baseReg3 = baseReg;
 			this.code = code;
 			this.tupleType = tupleType;
 			this.onlySAE = onlySAE;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1212,8 +1277,12 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
@@ -1225,11 +1294,13 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Register baseReg;
 		readonly Code code;
 		readonly TupleType tupleType;
+		readonly bool canBroadcast;
 
-		public OpCodeHandler_EVEX_KkHW(Register baseReg, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_KkHW(Register baseReg, Code code, TupleType tupleType, bool canBroadcast) {
 			this.baseReg = baseReg;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1252,8 +1323,12 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
@@ -1305,11 +1380,13 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Register baseReg;
 		readonly Code code;
 		readonly TupleType tupleType;
+		readonly bool canBroadcast;
 
-		public OpCodeHandler_EVEX_KkHWIb(Register baseReg, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_KkHWIb(Register baseReg, Code code, TupleType tupleType, bool canBroadcast) {
 			this.baseReg = baseReg;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1332,8 +1409,12 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
@@ -1556,6 +1637,8 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction, tupleType);
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 			}
 		}
 	}
@@ -1791,7 +1874,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | (state.vvvv & 0xF)) != 0 || state.aaa == 0))
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & (StateFlags.z | StateFlags.b)) | (state.vvvv & 0xF)) != 0 || state.aaa == 0))
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -1803,8 +1886,6 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
 				decoder.ReadOpMem_VSIB(ref instruction, vsibBase, tupleType);
 				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0) {
 					if ((uint)regNum == ((uint)(instruction.MemoryIndex - Register.XMM0) % (uint)InstructionInfoConstants.VMM_count))
@@ -1926,11 +2007,13 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Register baseReg;
 		readonly Code code;
 		readonly TupleType tupleType;
+		readonly bool canBroadcast;
 
-		public OpCodeHandler_EVEX_KkWIb(Register baseReg, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_KkWIb(Register baseReg, Code code, TupleType tupleType, bool canBroadcast) {
 			this.baseReg = baseReg;
 			this.code = code;
 			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -1947,11 +2030,17 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase + state.extraBaseRegisterBaseEVEX) + baseReg;
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.flags & StateFlags.b) != 0)
+					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.SetIsBroadcast();
+					else if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0)
+						decoder.SetInvalidInstruction();
+				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;

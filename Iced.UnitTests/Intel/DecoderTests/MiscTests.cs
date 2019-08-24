@@ -949,6 +949,93 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				}
 			}
 		}
+
+		[Fact]
+		void Test_EVEX_b_bit() {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
+					continue;
+
+				var opCode = info.Code.ToOpCode();
+				if (opCode.Encoding != EncodingKind.EVEX)
+					continue;
+				var bytes = HexUtils.ToByteArray(info.HexBytes);
+				int evexIndex = GetEvexIndex(bytes);
+
+				bool isRegOnly = (bytes[evexIndex + 5] >> 6) == 3;
+				bool isSaeOrEr = isRegOnly && (opCode.CanUseRoundingControl || opCode.CanSuppressAllExceptions);
+				bool newCodeSaeOrEr = TryGetSaeErInstruction(opCode, out var newCode);
+
+				if (opCode.CanBroadcast && !isRegOnly) {
+					{
+						bytes[evexIndex + 3] &= 0xEF;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						Assert.Equal(info.Code, instr.Code);
+						Assert.False(instr.IsBroadcast);
+					}
+					{
+						bytes[evexIndex + 3] |= 0x10;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						Assert.Equal(info.Code, instr.Code);
+						Assert.True(instr.IsBroadcast);
+					}
+				}
+				else {
+					if (!isSaeOrEr) {
+						bytes[evexIndex + 3] &= 0xEF;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						Assert.Equal(info.Code, instr.Code);
+						Assert.False(instr.IsBroadcast);
+					}
+					{
+						bytes[evexIndex + 3] |= 0x10;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						if (isSaeOrEr || (isRegOnly && (info.Code == Code.EVEX_Vcvtsi2sd_xmm_xmm_rm32 || info.Code == Code.EVEX_Vcvtusi2sd_xmm_xmm_rm32)))
+							Assert.Equal(info.Code, instr.Code);
+						else if (newCodeSaeOrEr && isRegOnly)
+							Assert.Equal(newCode, instr.Code);
+						else
+							Assert.Equal(Code.INVALID, instr.Code);
+						Assert.False(instr.IsBroadcast);
+					}
+					{
+						bytes[evexIndex + 3] |= 0x10;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+						decoder.Decode(out var instr);
+						if (newCodeSaeOrEr && isRegOnly)
+							Assert.Equal(newCode, instr.Code);
+						else
+							Assert.Equal(info.Code, instr.Code);
+						Assert.False(instr.IsBroadcast);
+					}
+				}
+			}
+		}
+
+		static bool TryGetSaeErInstruction(OpCodeInfo opCode, out Code newCode) {
+			if (opCode.Encoding == EncodingKind.EVEX && !(opCode.CanSuppressAllExceptions || opCode.CanUseRoundingControl) &&
+				opCode.Code != Code.EVEX_Vcvtsi2sd_xmm_xmm_rm32 && opCode.Code != Code.EVEX_Vcvtusi2sd_xmm_xmm_rm32) {
+				var mnemonic = opCode.Code.ToMnemonic();
+				for (int i = (int)opCode.Code + 1, j = 1; i < Iced.Intel.DecoderConstants.NumberOfCodeValues && j <= 2; i++, j++) {
+					var nextCode = (Code)i;
+					if (nextCode.ToMnemonic() != mnemonic)
+						break;
+					var nextOpCode = nextCode.ToOpCode();
+					if (nextOpCode.Encoding != opCode.Encoding)
+						break;
+					if (nextOpCode.CanSuppressAllExceptions || nextOpCode.CanUseRoundingControl) {
+						newCode = nextCode;
+						return true;
+					}
+				}
+			}
+			newCode = Code.INVALID;
+			return false;
+		}
 #endif
 	}
 }

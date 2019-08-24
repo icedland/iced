@@ -98,28 +98,48 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_EVEX_GvM_VX_Ib(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1, deserializer.ReadTupleType(), deserializer.ReadTupleType());
 				return 1;
 
-			case EvexOpCodeHandlerKind.HkWIb:
-				elem = new OpCodeHandler_EVEX_HkWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+			case EvexOpCodeHandlerKind.HkWIb_3:
+				elem = new OpCodeHandler_EVEX_HkWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
+				return 1;
+
+			case EvexOpCodeHandlerKind.HkWIb_3b:
+				elem = new OpCodeHandler_EVEX_HkWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
 				return 1;
 
 			case EvexOpCodeHandlerKind.HWIb:
 				elem = new OpCodeHandler_EVEX_HWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
 				return 1;
 
-			case EvexOpCodeHandlerKind.KkHW:
-				elem = new OpCodeHandler_EVEX_KkHW(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+			case EvexOpCodeHandlerKind.KkHW_3:
+				elem = new OpCodeHandler_EVEX_KkHW(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
 				return 1;
 
-			case EvexOpCodeHandlerKind.kkHWIb:
-				elem = new OpCodeHandler_EVEX_kkHWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+			case EvexOpCodeHandlerKind.KkHW_3b:
+				elem = new OpCodeHandler_EVEX_KkHW(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
 				return 1;
 
-			case EvexOpCodeHandlerKind.KkHWIb:
-				elem = new OpCodeHandler_EVEX_KkHWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+			case EvexOpCodeHandlerKind.KkHWIb_sae_3:
+				elem = new OpCodeHandler_EVEX_kkHWIb_sae(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
 				return 1;
 
-			case EvexOpCodeHandlerKind.KkWIb:
-				elem = new OpCodeHandler_EVEX_KkWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+			case EvexOpCodeHandlerKind.KkHWIb_sae_3b:
+				elem = new OpCodeHandler_EVEX_kkHWIb_sae(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
+				return 1;
+
+			case EvexOpCodeHandlerKind.KkHWIb_3:
+				elem = new OpCodeHandler_EVEX_KkHWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
+				return 1;
+
+			case EvexOpCodeHandlerKind.KkHWIb_3b:
+				elem = new OpCodeHandler_EVEX_KkHWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
+				return 1;
+
+			case EvexOpCodeHandlerKind.KkWIb_3:
+				elem = new OpCodeHandler_EVEX_KkWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
+				return 1;
+
+			case EvexOpCodeHandlerKind.KkWIb_3b:
+				elem = new OpCodeHandler_EVEX_KkWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
 				return 1;
 
 			case EvexOpCodeHandlerKind.KP1HW:
@@ -183,27 +203,43 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkHW_3:
-				elem = new OpCodeHandler_EVEX_VkHW(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+				elem = new OpCodeHandler_EVEX_VkHW(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
+				return 1;
+
+			case EvexOpCodeHandlerKind.VkHW_3b:
+				elem = new OpCodeHandler_EVEX_VkHW(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkHW_5:
-				elem = new OpCodeHandler_EVEX_VkHW(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+				elem = new OpCodeHandler_EVEX_VkHW(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
 				return 1;
 
-			case EvexOpCodeHandlerKind.VkHW_er:
-				elem = new OpCodeHandler_EVEX_VkHW_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean());
+			case EvexOpCodeHandlerKind.VkHW_er_4:
+				elem = new OpCodeHandler_EVEX_VkHW_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean(), false);
+				return 1;
+
+			case EvexOpCodeHandlerKind.VkHW_er_4b:
+				elem = new OpCodeHandler_EVEX_VkHW_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean(), true);
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkHWIb_3:
-				elem = new OpCodeHandler_EVEX_VkHWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+				elem = new OpCodeHandler_EVEX_VkHWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
+				return 1;
+
+			case EvexOpCodeHandlerKind.VkHWIb_3b:
+				elem = new OpCodeHandler_EVEX_VkHWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkHWIb_5:
-				elem = new OpCodeHandler_EVEX_VkHWIb(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+				elem = new OpCodeHandler_EVEX_VkHWIb(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
 				return 1;
 
-			case EvexOpCodeHandlerKind.VkHWIb_er:
-				elem = new OpCodeHandler_EVEX_VkHWIb_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean());
+			case EvexOpCodeHandlerKind.VkHWIb_er_4:
+				elem = new OpCodeHandler_EVEX_VkHWIb_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean(), false);
+				return 1;
+
+			case EvexOpCodeHandlerKind.VkHWIb_er_4b:
+				elem = new OpCodeHandler_EVEX_VkHWIb_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean(), true);
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkM:
@@ -211,11 +247,19 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkW_3:
-				elem = new OpCodeHandler_EVEX_VkW(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+				elem = new OpCodeHandler_EVEX_VkW(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
+				return 1;
+
+			case EvexOpCodeHandlerKind.VkW_3b:
+				elem = new OpCodeHandler_EVEX_VkW(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkW_4:
-				elem = new OpCodeHandler_EVEX_VkW(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+				elem = new OpCodeHandler_EVEX_VkW(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
+				return 1;
+
+			case EvexOpCodeHandlerKind.VkW_4b:
+				elem = new OpCodeHandler_EVEX_VkW(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkW_er_4:
@@ -226,8 +270,16 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_EVEX_VkW_er(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean());
 				return 1;
 
-			case EvexOpCodeHandlerKind.VkWIb:
-				elem = new OpCodeHandler_EVEX_VkWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+			case EvexOpCodeHandlerKind.VkW_er_6:
+				elem = new OpCodeHandler_EVEX_VkW_er(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean(), deserializer.ReadBoolean());
+				return 1;
+
+			case EvexOpCodeHandlerKind.VkWIb_3:
+				elem = new OpCodeHandler_EVEX_VkWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
+				return 1;
+
+			case EvexOpCodeHandlerKind.VkWIb_3b:
+				elem = new OpCodeHandler_EVEX_VkWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkWIb_er:

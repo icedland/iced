@@ -735,6 +735,7 @@ after_read_prefixes:
 		}
 
 		// Return type is uint since caller will write to a uint field
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal uint ReadIb() => ReadByte();
 
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
