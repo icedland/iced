@@ -3149,12 +3149,12 @@ EVEX_Vpblendmb_zmm_k1z_zmm_zmmm512, EVEX, 66, 0F38, 66, EVEX.512.66.0F38.W0 66 /
 EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128, EVEX, 66, 0F38, 66, EVEX.128.66.0F38.W1 66 /r, 16b 32b 64b L128 W1 op=xmm_reg;xmm_vvvv;xmm_mem tt=Full_Mem_128 k z
 EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256, EVEX, 66, 0F38, 66, EVEX.256.66.0F38.W1 66 /r, 16b 32b 64b L256 W1 op=ymm_reg;ymm_vvvv;ymm_mem tt=Full_Mem_256 k z
 EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512, EVEX, 66, 0F38, 66, EVEX.512.66.0F38.W1 66 /r, 16b 32b 64b L512 W1 op=zmm_reg;zmm_vvvv;zmm_mem tt=Full_Mem_512 k z
-EVEX_Vp2intersectd_k_xmm_xmmm128b32, EVEX, F2, 0F38, 68, EVEX.128.F2.0F38.W0 68 /r, 16b 32b 64b L128 W0 op=k_reg;xmm_vvvv;xmm_mem tt=Full_128 b k
-EVEX_Vp2intersectd_k_ymm_ymmm256b32, EVEX, F2, 0F38, 68, EVEX.256.F2.0F38.W0 68 /r, 16b 32b 64b L256 W0 op=k_reg;ymm_vvvv;ymm_mem tt=Full_256 b k
-EVEX_Vp2intersectd_k_zmm_zmmm512b32, EVEX, F2, 0F38, 68, EVEX.512.F2.0F38.W0 68 /r, 16b 32b 64b L512 W0 op=k_reg;zmm_vvvv;zmm_mem tt=Full_512 b k
-EVEX_Vp2intersectq_k_xmm_xmmm128b64, EVEX, F2, 0F38, 68, EVEX.128.F2.0F38.W1 68 /r, 16b 32b 64b L128 W1 op=k_reg;xmm_vvvv;xmm_mem tt=Full_128 b k
-EVEX_Vp2intersectq_k_ymm_ymmm256b64, EVEX, F2, 0F38, 68, EVEX.256.F2.0F38.W1 68 /r, 16b 32b 64b L256 W1 op=k_reg;ymm_vvvv;ymm_mem tt=Full_256 b k
-EVEX_Vp2intersectq_k_zmm_zmmm512b64, EVEX, F2, 0F38, 68, EVEX.512.F2.0F38.W1 68 /r, 16b 32b 64b L512 W1 op=k_reg;zmm_vvvv;zmm_mem tt=Full_512 b k
+EVEX_Vp2intersectd_k_xmm_xmmm128b32, EVEX, F2, 0F38, 68, EVEX.128.F2.0F38.W0 68 /r, 16b 32b 64b L128 W0 op=k_reg;xmm_vvvv;xmm_mem tt=Full_128 b
+EVEX_Vp2intersectd_k_ymm_ymmm256b32, EVEX, F2, 0F38, 68, EVEX.256.F2.0F38.W0 68 /r, 16b 32b 64b L256 W0 op=k_reg;ymm_vvvv;ymm_mem tt=Full_256 b
+EVEX_Vp2intersectd_k_zmm_zmmm512b32, EVEX, F2, 0F38, 68, EVEX.512.F2.0F38.W0 68 /r, 16b 32b 64b L512 W0 op=k_reg;zmm_vvvv;zmm_mem tt=Full_512 b
+EVEX_Vp2intersectq_k_xmm_xmmm128b64, EVEX, F2, 0F38, 68, EVEX.128.F2.0F38.W1 68 /r, 16b 32b 64b L128 W1 op=k_reg;xmm_vvvv;xmm_mem tt=Full_128 b
+EVEX_Vp2intersectq_k_ymm_ymmm256b64, EVEX, F2, 0F38, 68, EVEX.256.F2.0F38.W1 68 /r, 16b 32b 64b L256 W1 op=k_reg;ymm_vvvv;ymm_mem tt=Full_256 b
+EVEX_Vp2intersectq_k_zmm_zmmm512b64, EVEX, F2, 0F38, 68, EVEX.512.F2.0F38.W1 68 /r, 16b 32b 64b L512 W1 op=k_reg;zmm_vvvv;zmm_mem tt=Full_512 b
 EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128, EVEX, 66, 0F38, 70, EVEX.128.66.0F38.W1 70 /r, 16b 32b 64b L128 W1 op=xmm_reg;xmm_vvvv;xmm_mem tt=Full_Mem_128 k z
 EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256, EVEX, 66, 0F38, 70, EVEX.256.66.0F38.W1 70 /r, 16b 32b 64b L256 W1 op=ymm_reg;ymm_vvvv;ymm_mem tt=Full_Mem_256 k z
 EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512, EVEX, 66, 0F38, 70, EVEX.512.66.0F38.W1 70 /r, 16b 32b 64b L512 W1 op=zmm_reg;zmm_vvvv;zmm_mem tt=Full_Mem_512 k z

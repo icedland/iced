@@ -538,6 +538,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						instr.NextIP--;
 						if (prefix == "F3") {
 							Assert.True(instr.HasRepPrefix);
+							Assert.True(instr.HasRepePrefix);
 							instr.HasRepPrefix = false;
 						}
 						else if (prefix == "F2") {
@@ -821,6 +822,131 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					continue;
 				else
 					throw new InvalidOperationException();
+			}
+		}
+
+		static bool MustUseNonZeroOpMaskRegister(OpCodeInfo opCode) {
+			switch (opCode.Code) {
+			case Code.EVEX_Vpgatherdd_xmm_k1_vm32x:
+			case Code.EVEX_Vpgatherdd_ymm_k1_vm32y:
+			case Code.EVEX_Vpgatherdd_zmm_k1_vm32z:
+			case Code.EVEX_Vpgatherdq_xmm_k1_vm32x:
+			case Code.EVEX_Vpgatherdq_ymm_k1_vm32x:
+			case Code.EVEX_Vpgatherdq_zmm_k1_vm32y:
+			case Code.EVEX_Vpgatherqd_xmm_k1_vm64x:
+			case Code.EVEX_Vpgatherqd_xmm_k1_vm64y:
+			case Code.EVEX_Vpgatherqd_ymm_k1_vm64z:
+			case Code.EVEX_Vpgatherqq_xmm_k1_vm64x:
+			case Code.EVEX_Vpgatherqq_ymm_k1_vm64y:
+			case Code.EVEX_Vpgatherqq_zmm_k1_vm64z:
+			case Code.EVEX_Vgatherdps_xmm_k1_vm32x:
+			case Code.EVEX_Vgatherdps_ymm_k1_vm32y:
+			case Code.EVEX_Vgatherdps_zmm_k1_vm32z:
+			case Code.EVEX_Vgatherdpd_xmm_k1_vm32x:
+			case Code.EVEX_Vgatherdpd_ymm_k1_vm32x:
+			case Code.EVEX_Vgatherdpd_zmm_k1_vm32y:
+			case Code.EVEX_Vgatherqps_xmm_k1_vm64x:
+			case Code.EVEX_Vgatherqps_xmm_k1_vm64y:
+			case Code.EVEX_Vgatherqps_ymm_k1_vm64z:
+			case Code.EVEX_Vgatherqpd_xmm_k1_vm64x:
+			case Code.EVEX_Vgatherqpd_ymm_k1_vm64y:
+			case Code.EVEX_Vgatherqpd_zmm_k1_vm64z:
+			case Code.EVEX_Vpscatterdd_vm32x_k1_xmm:
+			case Code.EVEX_Vpscatterdd_vm32y_k1_ymm:
+			case Code.EVEX_Vpscatterdd_vm32z_k1_zmm:
+			case Code.EVEX_Vpscatterdq_vm32x_k1_xmm:
+			case Code.EVEX_Vpscatterdq_vm32x_k1_ymm:
+			case Code.EVEX_Vpscatterdq_vm32y_k1_zmm:
+			case Code.EVEX_Vpscatterqd_vm64x_k1_xmm:
+			case Code.EVEX_Vpscatterqd_vm64y_k1_xmm:
+			case Code.EVEX_Vpscatterqd_vm64z_k1_ymm:
+			case Code.EVEX_Vpscatterqq_vm64x_k1_xmm:
+			case Code.EVEX_Vpscatterqq_vm64y_k1_ymm:
+			case Code.EVEX_Vpscatterqq_vm64z_k1_zmm:
+			case Code.EVEX_Vscatterdps_vm32x_k1_xmm:
+			case Code.EVEX_Vscatterdps_vm32y_k1_ymm:
+			case Code.EVEX_Vscatterdps_vm32z_k1_zmm:
+			case Code.EVEX_Vscatterdpd_vm32x_k1_xmm:
+			case Code.EVEX_Vscatterdpd_vm32x_k1_ymm:
+			case Code.EVEX_Vscatterdpd_vm32y_k1_zmm:
+			case Code.EVEX_Vscatterqps_vm64x_k1_xmm:
+			case Code.EVEX_Vscatterqps_vm64y_k1_xmm:
+			case Code.EVEX_Vscatterqps_vm64z_k1_ymm:
+			case Code.EVEX_Vscatterqpd_vm64x_k1_xmm:
+			case Code.EVEX_Vscatterqpd_vm64y_k1_ymm:
+			case Code.EVEX_Vscatterqpd_vm64z_k1_zmm:
+			case Code.EVEX_Vgatherpf0dps_vm32z_k1:
+			case Code.EVEX_Vgatherpf0dpd_vm32y_k1:
+			case Code.EVEX_Vgatherpf1dps_vm32z_k1:
+			case Code.EVEX_Vgatherpf1dpd_vm32y_k1:
+			case Code.EVEX_Vscatterpf0dps_vm32z_k1:
+			case Code.EVEX_Vscatterpf0dpd_vm32y_k1:
+			case Code.EVEX_Vscatterpf1dps_vm32z_k1:
+			case Code.EVEX_Vscatterpf1dpd_vm32y_k1:
+			case Code.EVEX_Vgatherpf0qps_vm64z_k1:
+			case Code.EVEX_Vgatherpf0qpd_vm64z_k1:
+			case Code.EVEX_Vgatherpf1qps_vm64z_k1:
+			case Code.EVEX_Vgatherpf1qpd_vm64z_k1:
+			case Code.EVEX_Vscatterpf0qps_vm64z_k1:
+			case Code.EVEX_Vscatterpf0qpd_vm64z_k1:
+			case Code.EVEX_Vscatterpf1qps_vm64z_k1:
+			case Code.EVEX_Vscatterpf1qpd_vm64z_k1:
+				return true;
+			default:
+				return false;
+			}
+		}
+
+		[Fact]
+		void Test_EVEX_k1_z_bits() {
+			var p2Values_k1z = new (bool valid, byte bits)[] { (true, 0x00), (true, 0x01), (false, 0x80), (true, 0x86) };
+			var p2Values_k1 = new (bool valid, byte bits)[] { (true, 0x00), (true, 0x01), (false, 0x80), (false, 0x86) };
+			var p2Values_k1_fk = new (bool valid, byte bits)[] { (false, 0x00), (true, 0x01), (false, 0x80), (false, 0x86) };
+			var p2Values_nothing = new (bool valid, byte bits)[] { (true, 0x00), (false, 0x01), (false, 0x80), (false, 0x86) };
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
+					continue;
+
+				var opCode = info.Code.ToOpCode();
+				if (opCode.Encoding != EncodingKind.EVEX)
+					continue;
+				var bytes = HexUtils.ToByteArray(info.HexBytes);
+				int evexIndex = GetEvexIndex(bytes);
+				(bool valid, byte bits)[] p2Values;
+				if (opCode.CanUseZeroingMasking) {
+					Assert.True(opCode.CanUseOpMaskRegister);
+					p2Values = p2Values_k1z;
+				}
+				else if (opCode.CanUseOpMaskRegister) {
+					if (MustUseNonZeroOpMaskRegister(opCode))
+						p2Values = p2Values_k1_fk;
+					else
+						p2Values = p2Values_k1;
+				}
+				else
+					p2Values = p2Values_nothing;
+
+				var b = bytes[evexIndex + 3];
+				foreach (var p2v in p2Values) {
+					for (int i = 0; i < 2; i++) {
+						bytes[evexIndex + 3] = (byte)((b & ~0x87U) | p2v.bits);
+						var options = info.Options;
+						if (i == 1)
+							options |= DecoderOptions.NoInvalidCheck;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), options);
+						decoder.Decode(out var instr);
+						if (p2v.valid || (options & DecoderOptions.NoInvalidCheck) != 0) {
+							Assert.Equal(info.Code, instr.Code);
+							Assert.Equal((p2v.bits & 0x80) != 0, instr.ZeroingMasking);
+							if ((p2v.bits & 7) != 0)
+								Assert.Equal(Register.K0 + (p2v.bits & 7), instr.OpMask);
+							else
+								Assert.Equal(Register.None, instr.OpMask);
+						}
+						else
+							Assert.Equal(Code.INVALID, instr.Code);
+					}
+				}
 			}
 		}
 #endif

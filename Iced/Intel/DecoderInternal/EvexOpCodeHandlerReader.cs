@@ -102,6 +102,10 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_EVEX_HkWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
 				return 1;
 
+			case EvexOpCodeHandlerKind.HWIb:
+				elem = new OpCodeHandler_EVEX_HWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+				return 1;
+
 			case EvexOpCodeHandlerKind.KkHW:
 				elem = new OpCodeHandler_EVEX_KkHW(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
 				return 1;
@@ -263,8 +267,12 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_EVEX_WkV(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
 				return 1;
 
-			case EvexOpCodeHandlerKind.WkV_4:
+			case EvexOpCodeHandlerKind.WkV_4a:
 				elem = new OpCodeHandler_EVEX_WkV(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+				return 1;
+
+			case EvexOpCodeHandlerKind.WkV_4b:
+				elem = new OpCodeHandler_EVEX_WkV(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean());
 				return 1;
 
 			case EvexOpCodeHandlerKind.WkVIb:
