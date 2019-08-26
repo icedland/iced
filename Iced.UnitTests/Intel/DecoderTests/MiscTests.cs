@@ -298,8 +298,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				decoderAll.IP = decoder.IP;
 				var instr1 = decoder.Decode();
 				var instr2 = decoderAll.Decode();
+				var co1 = decoder.GetConstantOffsets(instr1);
+				var co2 = decoderAll.GetConstantOffsets(instr2);
 				Assert.Equal(info.Code, instr1.Code);
 				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				VerifyConstantOffsets(co1, co2);
 			}
 		}
 

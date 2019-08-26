@@ -375,7 +375,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			VerifyConstantOffsets(tc.ConstantOffsets, decoder.GetConstantOffsets(instr));
 		}
 
-		static void VerifyConstantOffsets(in ConstantOffsets expectedConstantOffsets, in ConstantOffsets actualConstantOffsets) {
+		protected static void VerifyConstantOffsets(in ConstantOffsets expectedConstantOffsets, in ConstantOffsets actualConstantOffsets) {
 			Assert.Equal(expectedConstantOffsets.ImmediateOffset, actualConstantOffsets.ImmediateOffset);
 			Assert.Equal(expectedConstantOffsets.ImmediateSize, actualConstantOffsets.ImmediateSize);
 			Assert.Equal(expectedConstantOffsets.ImmediateOffset2, actualConstantOffsets.ImmediateOffset2);
