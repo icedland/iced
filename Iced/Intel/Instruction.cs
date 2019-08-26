@@ -676,9 +676,9 @@ namespace Iced.Intel {
 		/// </summary>
 		public readonly MemorySize MemorySize {
 			get {
-				int index = (int)Code * 2;
+				int index = (int)Code;
 				if (IsBroadcast)
-					index++;
+					index += DecoderConstants.NumberOfCodeValues;
 				return (MemorySize)InstructionMemorySizes.Sizes[index];
 			}
 		}
