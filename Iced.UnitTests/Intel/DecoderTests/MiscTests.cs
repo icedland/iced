@@ -1060,6 +1060,185 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				Assert.Equal(expectedBcst, opCode.CanBroadcast);
 			}
 		}
+
+		[Fact]
+		void Verify_invalid_vvvv() {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
+					continue;
+
+				var opCode = info.Code.ToOpCode();
+
+				switch (opCode.Encoding) {
+				case EncodingKind.Legacy:
+				case EncodingKind.D3NOW:
+					continue;
+
+				case EncodingKind.VEX:
+				case EncodingKind.EVEX:
+				case EncodingKind.XOP:
+					break;
+
+				default:
+					throw new InvalidOperationException();
+				}
+
+				Get_Vvvvv_info(opCode, out var uses_vvvv, out var isVsib, out var vvvv_mask);
+
+				if (opCode.Encoding == EncodingKind.VEX || opCode.Encoding == EncodingKind.XOP) {
+					var bytes = HexUtils.ToByteArray(info.HexBytes);
+					int vexIndex = GetVexXopIndex(bytes);
+					int b2i = vexIndex + 1;
+					if (bytes[vexIndex] != 0xC5)
+						b2i++;
+					var b2 = bytes[b2i];
+					Instruction origInstr;
+					{
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out origInstr);
+						Assert.Equal(info.Code, origInstr.Code);
+					}
+					bool isVEX2 = bytes[vexIndex] == 0xC5;
+					uint b2_mask = (byte)(info.Bitness == 64 || !isVEX2 ? 0x78 : 0x38);
+					if (uses_vvvv) {
+						bytes[b2i] = (byte)((b2 & ~b2_mask) | (b2_mask & ~(vvvv_mask << 3)));
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+						}
+						if (info.Bitness != 64 && !isVEX2) {
+							// vvvv[3] is ignored in 16/32-bit modes, clear it (it's inverted, so 'set' it)
+							bytes[b2i] = (byte)(b2 & ~0x40);
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+						if (info.Bitness == 64 && vvvv_mask != 0xF) {
+							bytes[b2i] = (byte)(b2 & ~b2_mask);
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+								decoder.Decode(out var instr);
+								Assert.Equal(Code.INVALID, instr.Code);
+							}
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+								decoder.Decode(out var instr);
+								Assert.Equal(info.Code, instr.Code);
+							}
+						}
+					}
+					else {
+						bytes[b2i] = (byte)(b2 & ~b2_mask);
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(Code.INVALID, instr.Code);
+						}
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+						if (info.Bitness != 64 && !isVEX2) {
+							// vvvv[3] is ignored in 16/32-bit modes, clear it (it's inverted, so 'set' it)
+							bytes[b2i] = (byte)(b2 & ~0x40);
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+					}
+				}
+				else if (opCode.Encoding == EncodingKind.EVEX) {
+					Debug.Assert(vvvv_mask == 0x1F);
+					var bytes = HexUtils.ToByteArray(info.HexBytes);
+					int evexIndex = GetEvexIndex(bytes);
+					var b2 = bytes[evexIndex + 2];
+					var b3 = bytes[evexIndex + 3];
+					Instruction origInstr;
+					{
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out origInstr);
+						Assert.Equal(info.Code, origInstr.Code);
+					}
+					bytes[evexIndex + 2] = (byte)(b2 & 0x87);
+					if (!isVsib)
+						bytes[evexIndex + 3] = (byte)(b3 & 0xF7);
+					{
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						if (uses_vvvv)
+							Assert.Equal(info.Code, instr.Code);
+						else
+							Assert.Equal(Code.INVALID, instr.Code);
+					}
+					if (!uses_vvvv) {
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+						decoder.Decode(out var instr);
+						Assert.Equal(info.Code, instr.Code);
+						Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+					}
+					// V'vvvv[4:3] is ignored in 16/32-bit modes (vvvv[3] if it's a vsib instruction)
+					bytes[evexIndex + 2] = (byte)(b2 & ~0x40);
+					if (!isVsib)
+						bytes[evexIndex + 3] = (byte)(b3 & 0xF7);
+					if (info.Bitness != 64) {
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						Assert.Equal(info.Code, instr.Code);
+						Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+					}
+				}
+				else
+					throw new InvalidOperationException();
+			}
+		}
+
+		static void Get_Vvvvv_info(OpCodeInfo opCode, out bool uses_vvvv, out bool isVsib, out uint vvvv_mask) {
+			uses_vvvv = false;
+			isVsib = false;
+			switch (opCode.Encoding) {
+			case EncodingKind.EVEX:
+				vvvv_mask = 0x1F;
+				break;
+			case EncodingKind.VEX:
+			case EncodingKind.XOP:
+				vvvv_mask = 0xF;
+				break;
+			case EncodingKind.Legacy:
+			case EncodingKind.D3NOW:
+			default:
+				throw new InvalidOperationException();
+			}
+			for (int i = 0; i < opCode.OpCount; i++) {
+				switch (opCode.GetOpKind(i)) {
+				case OpCodeOperandKind.mem_vsib32x:
+				case OpCodeOperandKind.mem_vsib64x:
+				case OpCodeOperandKind.mem_vsib32y:
+				case OpCodeOperandKind.mem_vsib64y:
+				case OpCodeOperandKind.mem_vsib32z:
+				case OpCodeOperandKind.mem_vsib64z:
+					isVsib = true;
+					break;
+				case OpCodeOperandKind.k_vvvv:
+					uses_vvvv = true;
+					vvvv_mask = 0x7;
+					break;
+				case OpCodeOperandKind.r32_vvvv:
+				case OpCodeOperandKind.r64_vvvv:
+				case OpCodeOperandKind.xmm_vvvv:
+				case OpCodeOperandKind.xmmp3_vvvv:
+				case OpCodeOperandKind.ymm_vvvv:
+				case OpCodeOperandKind.zmm_vvvv:
+				case OpCodeOperandKind.zmmp3_vvvv:
+					uses_vvvv = true;
+					break;
+				}
+			}
+		}
 #endif
 	}
 }

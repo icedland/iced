@@ -182,7 +182,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case VexOpCodeHandlerKind.Simple:
-				elem = new OpCodeHandler_Simple(deserializer.ReadCode());
+				elem = new OpCodeHandler_VEX_Simple(deserializer.ReadCode());
 				return 1;
 
 			case VexOpCodeHandlerKind.VHEv:

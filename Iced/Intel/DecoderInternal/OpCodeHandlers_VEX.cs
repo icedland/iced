@@ -117,6 +117,17 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
+	sealed class OpCodeHandler_VEX_Simple : OpCodeHandler {
+		readonly Code code;
+		public OpCodeHandler_VEX_Simple(Code code) => this.code = code;
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && decoder.state.vvvv != 0)
+				decoder.SetInvalidInstruction();
+			instruction.InternalCode = code;
+		}
+	}
+
 	sealed class OpCodeHandler_VEX_VHEv : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code codeW0;
