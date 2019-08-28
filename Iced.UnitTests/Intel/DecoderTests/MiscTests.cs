@@ -1172,8 +1172,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						decoder.Decode(out var instr);
 						if (uses_vvvv)
 							Assert.Equal(info.Code, instr.Code);
-						else
+						else {
 							Assert.Equal(Code.INVALID, instr.Code);
+							decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+							decoder.Decode(out instr);
+							Assert.Equal(info.Code, instr.Code);
+						}
 					}
 					if (!uses_vvvv) {
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1237,6 +1241,416 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					uses_vvvv = true;
 					break;
 				}
+			}
+		}
+
+		[Fact]
+		void Verify_GPR_RRXB_bits() {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
+					continue;
+
+				var opCode = info.Code.ToOpCode();
+
+				switch (opCode.Encoding) {
+				case EncodingKind.Legacy:
+				case EncodingKind.D3NOW:
+					continue;
+
+				case EncodingKind.VEX:
+				case EncodingKind.EVEX:
+				case EncodingKind.XOP:
+					break;
+
+				default:
+					throw new InvalidOperationException();
+				}
+
+				bool uses_rm = false;
+				bool uses_reg = false;
+				bool other_rm = false;
+				bool other_reg = false;
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.r32_mem:
+					case OpCodeOperandKind.r64_mem:
+					case OpCodeOperandKind.r32_mem_mpx:
+					case OpCodeOperandKind.r64_mem_mpx:
+					case OpCodeOperandKind.r32_rm:
+					case OpCodeOperandKind.r64_rm:
+						uses_rm = true;
+						break;
+					case OpCodeOperandKind.r32_reg:
+					case OpCodeOperandKind.r64_reg:
+						uses_reg = true;
+						break;
+					case OpCodeOperandKind.k_mem:
+					case OpCodeOperandKind.k_rm:
+					case OpCodeOperandKind.xmm_mem:
+					case OpCodeOperandKind.ymm_mem:
+					case OpCodeOperandKind.zmm_mem:
+					case OpCodeOperandKind.xmm_rm:
+					case OpCodeOperandKind.ymm_rm:
+					case OpCodeOperandKind.zmm_rm:
+						other_rm = true;
+						break;
+					case OpCodeOperandKind.k_reg:
+					case OpCodeOperandKind.xmm_reg:
+					case OpCodeOperandKind.ymm_reg:
+					case OpCodeOperandKind.zmm_reg:
+						other_reg = true;
+						break;
+					}
+				}
+				if (!uses_rm && !uses_reg && opCode.OpCount > 0)
+					continue;
+
+				if (opCode.Encoding == EncodingKind.VEX || opCode.Encoding == EncodingKind.XOP) {
+					var bytes = HexUtils.ToByteArray(info.HexBytes);
+					int vexIndex = GetVexXopIndex(bytes);
+					bool isVEX2 = bytes[vexIndex] == 0xC5;
+					int mrmi = vexIndex + 3 + (isVEX2 ? 0 : 1);
+					bool isRegOnly = mrmi >= bytes.Length ? true : (bytes[mrmi] >> 6) == 3;
+					var b1 = bytes[vexIndex + 1];
+
+					Instruction origInstr;
+					{
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out origInstr);
+						Assert.Equal(info.Code, origInstr.Code);
+					}
+					if (uses_rm && !isVEX2) {
+						bytes[vexIndex + 1] = (byte)(b1 ^ 0x20);
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							if (isRegOnly && info.Bitness != 64)
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+						bytes[vexIndex + 1] = (byte)(b1 ^ 0x40);
+						if (info.Bitness == 64) {
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							if (isRegOnly)
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+					}
+					else if (!other_rm && !isVEX2) {
+						bytes[vexIndex + 1] = (byte)(b1 ^ 0x60);
+						if (info.Bitness != 64)
+							bytes[vexIndex + 1] |= 0x40;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						Assert.Equal(info.Code, instr.Code);
+						Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+					}
+					if (uses_reg) {
+						bytes[vexIndex + 1] = (byte)(b1 ^ 0x80);
+						if (info.Bitness == 64) {
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							if (isRegOnly)
+								Assert.False(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+					}
+					else if (!other_reg) {
+						bytes[vexIndex + 1] = (byte)(b1 ^ 0x80);
+						if (info.Bitness != 64)
+							bytes[vexIndex + 1] |= 0x80;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						Assert.Equal(info.Code, instr.Code);
+						Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+					}
+				}
+				else if (opCode.Encoding == EncodingKind.EVEX) {
+					var bytes = HexUtils.ToByteArray(info.HexBytes);
+					int evexIndex = GetEvexIndex(bytes);
+					bool isRegOnly = (bytes[evexIndex + 5] >> 6) == 3;
+					var b1 = bytes[evexIndex + 1];
+
+					Instruction origInstr;
+					{
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out origInstr);
+						Assert.Equal(info.Code, origInstr.Code);
+					}
+					if (uses_rm) {
+						bytes[evexIndex + 1] = (byte)(b1 ^ 0x20);
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							if (isRegOnly && info.Bitness != 64)
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+						bytes[evexIndex + 1] = (byte)(b1 ^ 0x40);
+						if (info.Bitness == 64) {
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							if (isRegOnly)
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+					}
+					else if (!other_rm) {
+						bytes[evexIndex + 1] = (byte)(b1 ^ 0x60);
+						if (info.Bitness != 64)
+							bytes[evexIndex + 1] |= 0x40;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						Assert.Equal(info.Code, instr.Code);
+						Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+					}
+					if (uses_reg) {
+						if (info.Bitness == 64) {
+							bytes[evexIndex + 1] = (byte)(b1 ^ 0x10);
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+								decoder.Decode(out var instr);
+								Assert.Equal(Code.INVALID, instr.Code);
+							}
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+								decoder.Decode(out var instr);
+								Assert.Equal(info.Code, instr.Code);
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+							}
+							bytes[evexIndex + 1] = (byte)(b1 ^ 0x80);
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+								decoder.Decode(out var instr);
+								Assert.Equal(info.Code, instr.Code);
+							}
+						}
+						else {
+							bytes[evexIndex + 1] = (byte)(b1 ^ 0x10);
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+								decoder.Decode(out var instr);
+								Assert.Equal(info.Code, instr.Code);
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+							}
+						}
+					}
+				}
+				else
+					throw new InvalidOperationException();
+			}
+		}
+
+		[Fact]
+		void Verify_K_reg_RRXB_bits() {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
+					continue;
+
+				var opCode = info.Code.ToOpCode();
+
+				switch (opCode.Encoding) {
+				case EncodingKind.Legacy:
+				case EncodingKind.D3NOW:
+					continue;
+
+				case EncodingKind.VEX:
+				case EncodingKind.EVEX:
+				case EncodingKind.XOP:
+					break;
+
+				default:
+					throw new InvalidOperationException();
+				}
+
+				bool uses_rm = false;
+				bool uses_reg = false;
+				bool other_rm = false;
+				bool other_reg = false;
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.k_mem:
+					case OpCodeOperandKind.k_rm:
+						uses_rm = true;
+						break;
+					case OpCodeOperandKind.k_reg:
+						uses_reg = true;
+						break;
+
+					case OpCodeOperandKind.r32_mem:
+					case OpCodeOperandKind.r64_mem:
+					case OpCodeOperandKind.r32_mem_mpx:
+					case OpCodeOperandKind.r64_mem_mpx:
+					case OpCodeOperandKind.r32_rm:
+					case OpCodeOperandKind.r64_rm:
+					case OpCodeOperandKind.xmm_mem:
+					case OpCodeOperandKind.ymm_mem:
+					case OpCodeOperandKind.zmm_mem:
+					case OpCodeOperandKind.xmm_rm:
+					case OpCodeOperandKind.ymm_rm:
+					case OpCodeOperandKind.zmm_rm:
+						other_rm = true;
+						break;
+					case OpCodeOperandKind.xmm_reg:
+					case OpCodeOperandKind.ymm_reg:
+					case OpCodeOperandKind.zmm_reg:
+					case OpCodeOperandKind.r32_reg:
+					case OpCodeOperandKind.r64_reg:
+						other_reg = true;
+						break;
+					}
+				}
+				if (!uses_rm && !uses_reg && opCode.OpCount > 0)
+					continue;
+
+				if (opCode.Encoding == EncodingKind.VEX || opCode.Encoding == EncodingKind.XOP) {
+					var bytes = HexUtils.ToByteArray(info.HexBytes);
+					int vexIndex = GetVexXopIndex(bytes);
+					bool isVEX2 = bytes[vexIndex] == 0xC5;
+					int mrmi = vexIndex + 3 + (isVEX2 ? 0 : 1);
+					bool isRegOnly = mrmi >= bytes.Length ? true : (bytes[mrmi] >> 6) == 3;
+					var b1 = bytes[vexIndex + 1];
+
+					Instruction origInstr;
+					{
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out origInstr);
+						Assert.Equal(info.Code, origInstr.Code);
+					}
+					if (uses_rm && !isVEX2) {
+						bytes[vexIndex + 1] = (byte)(b1 ^ 0x20);
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							if (isRegOnly && info.Bitness != 64)
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+						bytes[vexIndex + 1] = (byte)(b1 ^ 0x40);
+						if (info.Bitness == 64) {
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							if (isRegOnly)
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+					}
+					else if (!other_rm && !isVEX2) {
+						bytes[vexIndex + 1] = (byte)(b1 ^ 0x60);
+						if (info.Bitness != 64)
+							bytes[vexIndex + 1] |= 0x40;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						Assert.Equal(info.Code, instr.Code);
+						Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+					}
+					if (uses_reg) {
+						bytes[vexIndex + 1] = (byte)(b1 ^ 0x80);
+						if (info.Bitness == 64) {
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+								decoder.Decode(out var instr);
+								Assert.Equal(Code.INVALID, instr.Code);
+							}
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+								decoder.Decode(out var instr);
+								Assert.Equal(info.Code, instr.Code);
+								if (isRegOnly)
+									Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+							}
+						}
+					}
+					else if (!other_reg) {
+						bytes[vexIndex + 1] = (byte)(b1 ^ 0x80);
+						if (info.Bitness != 64)
+							bytes[vexIndex + 1] |= 0x80;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						Assert.Equal(info.Code, instr.Code);
+						Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+					}
+				}
+				else if (opCode.Encoding == EncodingKind.EVEX) {
+					var bytes = HexUtils.ToByteArray(info.HexBytes);
+					int evexIndex = GetEvexIndex(bytes);
+					bool isRegOnly = (bytes[evexIndex + 5] >> 6) == 3;
+					var b1 = bytes[evexIndex + 1];
+
+					Instruction origInstr;
+					{
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out origInstr);
+						Assert.Equal(info.Code, origInstr.Code);
+					}
+					if (uses_rm) {
+						bytes[evexIndex + 1] = (byte)(b1 ^ 0x20);
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							if (isRegOnly && info.Bitness != 64)
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+						bytes[evexIndex + 1] = (byte)(b1 ^ 0x40);
+						if (info.Bitness == 64) {
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(info.Code, instr.Code);
+							if (isRegOnly)
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+						}
+					}
+					else if (!other_rm) {
+						bytes[evexIndex + 1] = (byte)(b1 ^ 0x60);
+						if (info.Bitness != 64)
+							bytes[evexIndex + 1] |= 0x40;
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instr);
+						Assert.Equal(info.Code, instr.Code);
+						Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+					}
+					if (uses_reg) {
+						if (info.Bitness == 64) {
+							bytes[evexIndex + 1] = (byte)(b1 ^ 0x10);
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+								decoder.Decode(out var instr);
+								Assert.Equal(Code.INVALID, instr.Code);
+							}
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+								decoder.Decode(out var instr);
+								Assert.Equal(info.Code, instr.Code);
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+							}
+							bytes[evexIndex + 1] = (byte)(b1 ^ 0x80);
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+								decoder.Decode(out var instr);
+								Assert.Equal(Code.INVALID, instr.Code);
+							}
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+								decoder.Decode(out var instr);
+								Assert.Equal(info.Code, instr.Code);
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+							}
+						}
+						else {
+							bytes[evexIndex + 1] = (byte)(b1 ^ 0x10);
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+								decoder.Decode(out var instr);
+								Assert.Equal(info.Code, instr.Code);
+								Assert.True(Instruction.TEST_BitByBitEquals(origInstr, instr));
+							}
+						}
+					}
+				}
+				else
+					throw new InvalidOperationException();
 			}
 		}
 #endif

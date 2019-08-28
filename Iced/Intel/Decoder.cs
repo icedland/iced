@@ -688,12 +688,11 @@ after_read_prefixes:
 				uint aaa = p2 & 7;
 				state.aaa = aaa;
 				instruction.InternalOpMask = aaa;
-				Debug.Assert((int)StateFlags.z == 0x20);
-				state.flags |= (StateFlags)(p2 >> 2) & StateFlags.z;
-				if ((state.flags & StateFlags.z) != 0) {
-					instruction.InternalSetZeroingMasking();
+				if ((p2 & 0x80) != 0) {
 					if ((options & DecoderOptions.NoInvalidCheck) == 0 && aaa == 0)
 						SetInvalidInstruction();
+					state.flags |= StateFlags.z;
+					instruction.InternalSetZeroingMasking();
 				}
 
 				Debug.Assert((int)StateFlags.b == 0x10);

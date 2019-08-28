@@ -119,11 +119,11 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case EvexOpCodeHandlerKind.KkHWIb_sae_3:
-				elem = new OpCodeHandler_EVEX_kkHWIb_sae(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
+				elem = new OpCodeHandler_EVEX_KkHWIb_sae(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
 				return 1;
 
 			case EvexOpCodeHandlerKind.KkHWIb_sae_3b:
-				elem = new OpCodeHandler_EVEX_kkHWIb_sae(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
+				elem = new OpCodeHandler_EVEX_KkHWIb_sae(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
 				return 1;
 
 			case EvexOpCodeHandlerKind.KkHWIb_3:
