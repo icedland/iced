@@ -1762,6 +1762,44 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			return true;
 		}
+
+		static bool TryGetVsib(OpCodeInfo opCode, out bool isVsib32, out bool isVsib64) {
+			for (int i = 0; i < opCode.OpCount; i++) {
+				switch (opCode.GetOpKind(i)) {
+				case OpCodeOperandKind.mem_vsib32x:
+				case OpCodeOperandKind.mem_vsib32y:
+				case OpCodeOperandKind.mem_vsib32z:
+					isVsib32 = true;
+					isVsib64 = false;
+					return true;
+
+				case OpCodeOperandKind.mem_vsib64x:
+				case OpCodeOperandKind.mem_vsib64y:
+				case OpCodeOperandKind.mem_vsib64z:
+					isVsib32 = false;
+					isVsib64 = true;
+					return true;
+				}
+			}
+
+			isVsib32 = false;
+			isVsib64 = false;
+			return false;
+		}
+
+		[Fact]
+		void Test_vsib_props() {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(info.HexBytes), info.Options);
+				decoder.Decode(out var instr);
+				Assert.Equal(info.Code, instr.Code);
+
+				bool isVsib = TryGetVsib(info.Code.ToOpCode(), out var isVsib32, out var isVsib64);
+				Assert.Equal(instr.IsVsib, isVsib);
+				Assert.Equal(instr.IsVsib32, isVsib32);
+				Assert.Equal(instr.IsVsib64, isVsib64);
+			}
+		}
 #endif
 	}
 }
