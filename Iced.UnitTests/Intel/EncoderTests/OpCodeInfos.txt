@@ -4176,32 +4176,32 @@ XOP_Lwpins_r32_rm32_imm32, XOP, NP, XA, 12, XOP.L0.XA.W0 12 /0 id, g=0 16b 32b 6
 XOP_Lwpins_r64_rm32_imm32, XOP, NP, XA, 12, XOP.L0.XA.W1 12 /0 id, g=0 64b L0 W1 op=r64_vvvv;r32_mem;imm32
 XOP_Lwpval_r32_rm32_imm32, XOP, NP, XA, 12, XOP.L0.XA.W0 12 /1 id, g=1 16b 32b 64b L0 WIG32 op=r32_vvvv;r32_mem;imm32
 XOP_Lwpval_r64_rm32_imm32, XOP, NP, XA, 12, XOP.L0.XA.W1 12 /1 id, g=1 64b L0 W1 op=r64_vvvv;r32_mem;imm32
-D3NOW_Pi2fw_mm_mmm64, 3DNow!, , legacy, 0C, 0F0F /r 0C, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pi2fd_mm_mmm64, 3DNow!, , legacy, 0D, 0F0F /r 0D, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pf2iw_mm_mmm64, 3DNow!, , legacy, 1C, 0F0F /r 1C, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pf2id_mm_mmm64, 3DNow!, , legacy, 1D, 0F0F /r 1D, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfrcpv_mm_mmm64, 3DNow!, , legacy, 86, 0F0F /r 86, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfrsqrtv_mm_mmm64, 3DNow!, , legacy, 87, 0F0F /r 87, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfnacc_mm_mmm64, 3DNow!, , legacy, 8A, 0F0F /r 8A, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfpnacc_mm_mmm64, 3DNow!, , legacy, 8E, 0F0F /r 8E, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfcmpge_mm_mmm64, 3DNow!, , legacy, 90, 0F0F /r 90, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfmin_mm_mmm64, 3DNow!, , legacy, 94, 0F0F /r 94, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfrcp_mm_mmm64, 3DNow!, , legacy, 96, 0F0F /r 96, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfrsqrt_mm_mmm64, 3DNow!, , legacy, 97, 0F0F /r 97, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfsub_mm_mmm64, 3DNow!, , legacy, 9A, 0F0F /r 9A, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfadd_mm_mmm64, 3DNow!, , legacy, 9E, 0F0F /r 9E, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfcmpgt_mm_mmm64, 3DNow!, , legacy, A0, 0F0F /r A0, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfmax_mm_mmm64, 3DNow!, , legacy, A4, 0F0F /r A4, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfrcpit1_mm_mmm64, 3DNow!, , legacy, A6, 0F0F /r A6, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfrsqit1_mm_mmm64, 3DNow!, , legacy, A7, 0F0F /r A7, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfsubr_mm_mmm64, 3DNow!, , legacy, AA, 0F0F /r AA, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfacc_mm_mmm64, 3DNow!, , legacy, AE, 0F0F /r AE, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfcmpeq_mm_mmm64, 3DNow!, , legacy, B0, 0F0F /r B0, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfmul_mm_mmm64, 3DNow!, , legacy, B4, 0F0F /r B4, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pfrcpit2_mm_mmm64, 3DNow!, , legacy, B6, 0F0F /r B6, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pmulhrw_mm_mmm64, 3DNow!, , legacy, B7, 0F0F /r B7, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pswapd_mm_mmm64, 3DNow!, , legacy, BB, 0F0F /r BB, 16b 32b 64b op=mm_reg;mm_mem
-D3NOW_Pavgusb_mm_mmm64, 3DNow!, , legacy, BF, 0F0F /r BF, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pi2fw_mm_mmm64, 3DNow!, , 0F, 0C, 0F0F /r 0C, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pi2fd_mm_mmm64, 3DNow!, , 0F, 0D, 0F0F /r 0D, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pf2iw_mm_mmm64, 3DNow!, , 0F, 1C, 0F0F /r 1C, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pf2id_mm_mmm64, 3DNow!, , 0F, 1D, 0F0F /r 1D, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfrcpv_mm_mmm64, 3DNow!, , 0F, 86, 0F0F /r 86, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfrsqrtv_mm_mmm64, 3DNow!, , 0F, 87, 0F0F /r 87, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfnacc_mm_mmm64, 3DNow!, , 0F, 8A, 0F0F /r 8A, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfpnacc_mm_mmm64, 3DNow!, , 0F, 8E, 0F0F /r 8E, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfcmpge_mm_mmm64, 3DNow!, , 0F, 90, 0F0F /r 90, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfmin_mm_mmm64, 3DNow!, , 0F, 94, 0F0F /r 94, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfrcp_mm_mmm64, 3DNow!, , 0F, 96, 0F0F /r 96, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfrsqrt_mm_mmm64, 3DNow!, , 0F, 97, 0F0F /r 97, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfsub_mm_mmm64, 3DNow!, , 0F, 9A, 0F0F /r 9A, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfadd_mm_mmm64, 3DNow!, , 0F, 9E, 0F0F /r 9E, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfcmpgt_mm_mmm64, 3DNow!, , 0F, A0, 0F0F /r A0, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfmax_mm_mmm64, 3DNow!, , 0F, A4, 0F0F /r A4, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfrcpit1_mm_mmm64, 3DNow!, , 0F, A6, 0F0F /r A6, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfrsqit1_mm_mmm64, 3DNow!, , 0F, A7, 0F0F /r A7, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfsubr_mm_mmm64, 3DNow!, , 0F, AA, 0F0F /r AA, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfacc_mm_mmm64, 3DNow!, , 0F, AE, 0F0F /r AE, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfcmpeq_mm_mmm64, 3DNow!, , 0F, B0, 0F0F /r B0, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfmul_mm_mmm64, 3DNow!, , 0F, B4, 0F0F /r B4, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pfrcpit2_mm_mmm64, 3DNow!, , 0F, B6, 0F0F /r B6, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pmulhrw_mm_mmm64, 3DNow!, , 0F, B7, 0F0F /r B7, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pswapd_mm_mmm64, 3DNow!, , 0F, BB, 0F0F /r BB, 16b 32b 64b op=mm_reg;mm_mem
+D3NOW_Pavgusb_mm_mmm64, 3DNow!, , 0F, BF, 0F0F /r BF, 16b 32b 64b op=mm_reg;mm_mem
 DeclareByte, legacy, , legacy, 00, <db>, notinstr 16b 32b 64b
 DeclareWord, legacy, , legacy, 00, <dw>, notinstr 16b 32b 64b
 DeclareDword, legacy, , legacy, 00, <dd>, notinstr 16b 32b 64b

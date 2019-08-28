@@ -375,7 +375,7 @@ namespace Iced.Intel {
 				op0Kind = (byte)OpCodeOperandKind.mm_reg;
 				op1Kind = (byte)OpCodeOperandKind.mm_mem;
 				mandatoryPrefix = (byte)MandatoryPrefix.None;
-				table = (byte)OpCodeTableKind.Normal;
+				table = (byte)OpCodeTableKind.T0F;
 				groupIndex = -1;
 				tupleType = (byte)TupleType.None;
 
