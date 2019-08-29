@@ -897,7 +897,6 @@ namespace Iced.Intel {
 			0,// Invd
 			0,// Wbinvd
 			0,// Wbnoinvd
-			0,// Cflsh
 			0,// Cl1invmb
 			0,// Ud2
 			2,// ReservedNop_rm16_r16_0F0D
@@ -1185,11 +1184,9 @@ namespace Iced.Intel {
 			0,// Rdtsc
 			0,// Rdmsr
 			0,// Rdpmc
-			0,// Wrecr
 			0,// Sysenter
 			0,// Sysexitd
 			0,// Sysexitq
-			0,// Rdecr
 			0,// Getsec
 			2,// Cmovo_r16_rm16
 			2,// Cmovo_r32_rm32
@@ -2030,7 +2027,6 @@ namespace Iced.Intel {
 			3,// Shrd_rm16_r16_CL
 			3,// Shrd_rm32_r32_CL
 			3,// Shrd_rm64_r64_CL
-			1,// Zalloc_m256
 			1,// Fxsave_m512byte
 			1,// Fxsave64_m512byte
 			1,// Rdfsbase_r32

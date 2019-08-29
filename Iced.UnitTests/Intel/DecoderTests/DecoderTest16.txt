@@ -2707,8 +2707,6 @@ F3 0F09, Wbinvd, Wbinvd, 0, nowbnoinvd enc=0F09
 
 F3 0F09, Wbnoinvd, Wbnoinvd, 0,
 
-0F0A, Cflsh, Cflsh, 0, cflsh
-
 0F0A, Cl1invmb, Cl1invmb, 0, cl1invmb
 
 0F0B, Ud2, Ud2, 0,
@@ -4041,13 +4039,9 @@ C4C179 2F 10, VEX_Vcomisd_xmm_xmmm64, Vcomisd, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;
 
 0F33, Rdpmc, Rdpmc, 0,
 
-0F34, Wrecr, Wrecr, 0, ecr
-
 0F34, Sysenter, Sysenter, 0,
 
 0F35, Sysexitd, Sysexit, 0,
-
-0F36, Rdecr, Rdecr, 0, ecr
 
 0F37, Getsec, Getsec, 0,
 
@@ -8662,8 +8656,6 @@ F0 66 F2 0FAB 18, Bts_rm32_r32, Bts, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lo
 
 66 0FAD CE, Shrd_rm32_r32_CL, Shrd, 3, op0=r;esi op1=r;ecx op2=r;cl
 66 0FAD 18, Shrd_rm32_r32_CL, Shrd, 3, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx op2=r;cl
-
-0FAE 00, Zalloc_m256, Zalloc, 1, op0=m;ds;bx;si;1;0;0;UInt256 zalloc
 
 0FAE 00, Fxsave_m512byte, Fxsave, 1, op0=m;ds;bx;si;1;0;0;Fxsave_512Byte
 

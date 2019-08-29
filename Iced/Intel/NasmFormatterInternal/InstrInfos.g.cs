@@ -305,7 +305,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Daa
 				0x01,// Normal_1
-				0xFE, 0x06,// 894 = "daa"
+				0xFD, 0x06,// 893 = "daa"
 
 				// Sub_rm8_r8
 				0x01,// Normal_1
@@ -348,7 +348,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Das
 				0x01,// Normal_1
-				0xFF, 0x06,// 895 = "das"
+				0xFE, 0x06,// 894 = "das"
 
 				// Xor_rm8_r8
 				0x01,// Normal_1
@@ -583,27 +583,27 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Insb_m8_DX
 				0x3C,// YD
-				0x8E, 0x0A,// 1294 = "insb"
+				0x8A, 0x0A,// 1290 = "insb"
 
 				// Insw_m16_DX
 				0x3C,// YD
-				0x90, 0x0A,// 1296 = "insw"
+				0x8C, 0x0A,// 1292 = "insw"
 
 				// Insd_m32_DX
 				0x3C,// YD
-				0x8F, 0x0A,// 1295 = "insd"
+				0x8B, 0x0A,// 1291 = "insd"
 
 				// Outsb_DX_m8
 				0x0B,// DX
-				0x9A, 0x0A,// 1306 = "outsb"
+				0x96, 0x0A,// 1302 = "outsb"
 
 				// Outsw_DX_m16
 				0x0B,// DX
-				0x9C, 0x0A,// 1308 = "outsw"
+				0x98, 0x0A,// 1304 = "outsw"
 
 				// Outsd_DX_m32
 				0x0B,// DX
-				0x9B, 0x0A,// 1307 = "outsd"
+				0x97, 0x0A,// 1303 = "outsd"
 
 				// Jo_rel8_16
 				0x20,// os_jcc_3
@@ -1361,31 +1361,31 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Pause
 				0x01,// Normal_1
-				0xC0, 0x08,// 1088 = "pause"
+				0xBF, 0x08,// 1087 = "pause"
 
 				// Cbw
 				0x01,// Normal_1
-				0xF8, 0x09,// 1272 = "cbw"
+				0xF4, 0x09,// 1268 = "cbw"
 
 				// Cwde
 				0x01,// Normal_1
-				0xFD, 0x09,// 1277 = "cwde"
+				0xF9, 0x09,// 1273 = "cwde"
 
 				// Cdqe
 				0x01,// Normal_1
-				0xFA, 0x09,// 1274 = "cdqe"
+				0xF6, 0x09,// 1270 = "cdqe"
 
 				// Cwd
 				0x01,// Normal_1
-				0xFC, 0x09,// 1276 = "cwd"
+				0xF8, 0x09,// 1272 = "cwd"
 
 				// Cdq
 				0x01,// Normal_1
-				0xF9, 0x09,// 1273 = "cdq"
+				0xF5, 0x09,// 1269 = "cdq"
 
 				// Cqo
 				0x01,// Normal_1
-				0xFB, 0x09,// 1275 = "cqo"
+				0xF7, 0x09,// 1271 = "cqo"
 
 				// Call_ptr1616
 				0x0E,// far
@@ -1399,7 +1399,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Wait
 				0x01,// Normal_1
-				0xAB, 0x0A,// 1323 = "wait"
+				0xA7, 0x0A,// 1319 = "wait"
 
 				// Pushfw
 				0x18,// OpSize
@@ -1433,11 +1433,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Sahf
 				0x01,// Normal_1
-				0xAB, 0x09,// 1195 = "sahf"
+				0xA9, 0x09,// 1193 = "sahf"
 
 				// Lahf
 				0x01,// Normal_1
-				0xA6, 0x08,// 1062 = "lahf"
+				0xA5, 0x08,// 1061 = "lahf"
 
 				// Mov_AL_moffs8
 				0x15,// movabs
@@ -1469,11 +1469,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Movsb_m8_m8
 				0x3D,// YX
-				0x97, 0x0A,// 1303 = "movsb"
+				0x93, 0x0A,// 1299 = "movsb"
 
 				// Movsw_m16_m16
 				0x3D,// YX
-				0x99, 0x0A,// 1305 = "movsw"
+				0x95, 0x0A,// 1301 = "movsw"
 
 				// Movsd_m32_m32
 				0x3D,// YX
@@ -1481,15 +1481,15 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Movsq_m64_m64
 				0x3D,// YX
-				0x98, 0x0A,// 1304 = "movsq"
+				0x94, 0x0A,// 1300 = "movsq"
 
 				// Cmpsb_m8_m8
 				0x3A,// XY
-				0x89, 0x0A,// 1289 = "cmpsb"
+				0x85, 0x0A,// 1285 = "cmpsb"
 
 				// Cmpsw_m16_m16
 				0x3A,// XY
-				0x8B, 0x0A,// 1291 = "cmpsw"
+				0x87, 0x0A,// 1287 = "cmpsw"
 
 				// Cmpsd_m32_m32
 				0x3A,// XY
@@ -1497,7 +1497,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Cmpsq_m64_m64
 				0x3A,// XY
-				0x8A, 0x0A,// 1290 = "cmpsq"
+				0x86, 0x0A,// 1286 = "cmpsq"
 
 				// Test_AL_imm8
 				0x01,// Normal_1
@@ -1516,51 +1516,51 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Stosb_m8_AL
 				0x3B,// YA
-				0xA6, 0x0A,// 1318 = "stosb"
+				0xA2, 0x0A,// 1314 = "stosb"
 
 				// Stosw_m16_AX
 				0x3B,// YA
-				0xA9, 0x0A,// 1321 = "stosw"
+				0xA5, 0x0A,// 1317 = "stosw"
 
 				// Stosd_m32_EAX
 				0x3B,// YA
-				0xA7, 0x0A,// 1319 = "stosd"
+				0xA3, 0x0A,// 1315 = "stosd"
 
 				// Stosq_m64_RAX
 				0x3B,// YA
-				0xA8, 0x0A,// 1320 = "stosq"
+				0xA4, 0x0A,// 1316 = "stosq"
 
 				// Lodsb_AL_m8
 				0x05,// AX
-				0x93, 0x0A,// 1299 = "lodsb"
+				0x8F, 0x0A,// 1295 = "lodsb"
 
 				// Lodsw_AX_m16
 				0x05,// AX
-				0x96, 0x0A,// 1302 = "lodsw"
+				0x92, 0x0A,// 1298 = "lodsw"
 
 				// Lodsd_EAX_m32
 				0x05,// AX
-				0x94, 0x0A,// 1300 = "lodsd"
+				0x90, 0x0A,// 1296 = "lodsd"
 
 				// Lodsq_RAX_m64
 				0x05,// AX
-				0x95, 0x0A,// 1301 = "lodsq"
+				0x91, 0x0A,// 1297 = "lodsq"
 
 				// Scasb_AL_m8
 				0x06,// AY
-				0xA2, 0x0A,// 1314 = "scasb"
+				0x9E, 0x0A,// 1310 = "scasb"
 
 				// Scasw_AX_m16
 				0x06,// AY
-				0xA5, 0x0A,// 1317 = "scasw"
+				0xA1, 0x0A,// 1313 = "scasw"
 
 				// Scasd_EAX_m32
 				0x06,// AY
-				0xA3, 0x0A,// 1315 = "scasd"
+				0x9F, 0x0A,// 1311 = "scasd"
 
 				// Scasq_RAX_m64
 				0x06,// AY
-				0xA4, 0x0A,// 1316 = "scasq"
+				0xA0, 0x0A,// 1312 = "scasq"
 
 				// Mov_r8_imm8
 				0x01,// Normal_1
@@ -1713,9 +1713,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				// Retnd_imm16
 				0x19,// OpSize2_bnd
 				0x26,// 38 = "ret"
-				0x9B, 0x09,// 1179 = "retd"
+				0x99, 0x09,// 1177 = "retd"
 				0x26,// 38 = "ret"
-				0x9B, 0x09,// 1179 = "retd"
+				0x99, 0x09,// 1177 = "retd"
 
 				// Retnq_imm16
 				0x08,// bnd_1
@@ -1731,9 +1731,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				// Retnd
 				0x19,// OpSize2_bnd
 				0x26,// 38 = "ret"
-				0x9B, 0x09,// 1179 = "retd"
+				0x99, 0x09,// 1177 = "retd"
 				0x26,// 38 = "ret"
-				0x9B, 0x09,// 1179 = "retd"
+				0x99, 0x09,// 1177 = "retd"
 
 				// Retnq
 				0x08,// bnd_1
@@ -1762,7 +1762,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Xabort_imm8
 				0x01,// Normal_1
-				0xE4, 0x09,// 1252 = "xabort"
+				0xE1, 0x09,// 1249 = "xabort"
 
 				// Mov_rm16_imm16
 				0x02,// Normal_2
@@ -1857,7 +1857,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Int3
 				0x01,// Normal_1
-				0x83, 0x0A,// 1283 = "int3"
+				0xFF, 0x09,// 1279 = "int3"
 
 				// Int_imm8
 				0x01,// Normal_1
@@ -1865,7 +1865,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Into
 				0x01,// Normal_1
-				0xF4, 0x07,// 1012 = "into"
+				0xF3, 0x07,// 1011 = "into"
 
 				// Iretw
 				0x1A,// OpSize3
@@ -2151,11 +2151,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Salc
 				0x01,// Normal_1
-				0xAC, 0x09,// 1196 = "salc"
+				0xAA, 0x09,// 1194 = "salc"
 
 				// Xlatb
 				0x39,// XLAT
-				0xCC, 0x0A,// 1356 = "xlatb"
+				0xC8, 0x0A,// 1352 = "xlatb"
 
 				// Fadd_m32fp
 				0x02,// Normal_2
@@ -2260,7 +2260,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fldcw_m16
 				0x01,// Normal_1
-				0xAE, 0x07,// 942 = "fldcw"
+				0xAD, 0x07,// 941 = "fldcw"
 
 				// Fnstenv_m14byte
 				0x24,// os_mem2
@@ -2288,11 +2288,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fnstcw_m16
 				0x01,// Normal_1
-				0xBC, 0x07,// 956 = "fnstcw"
+				0xBB, 0x07,// 955 = "fnstcw"
 
 				// Fstcw_m16
 				0x01,// Normal_1
-				0xCC, 0x07,// 972 = "fstcw"
+				0xCB, 0x07,// 971 = "fstcw"
 
 				// Fld_st0_sti
 				0x34,// STIG1_1
@@ -2305,119 +2305,119 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fnop
 				0x01,// Normal_1
-				0xBA, 0x07,// 954 = "fnop"
+				0xB9, 0x07,// 953 = "fnop"
 
 				// Fstpnce_sti
 				0x01,// Normal_1
-				0x8C, 0x0A,// 1292 = "fstpnce"
+				0x88, 0x0A,// 1288 = "fstpnce"
 
 				// Fchs
 				0x01,// Normal_1
-				0x93, 0x07,// 915 = "fchs"
+				0x92, 0x07,// 914 = "fchs"
 
 				// Fabs
 				0x01,// Normal_1
-				0x8F, 0x07,// 911 = "fabs"
+				0x8E, 0x07,// 910 = "fabs"
 
 				// Ftst
 				0x01,// Normal_1
-				0xD1, 0x07,// 977 = "ftst"
+				0xD0, 0x07,// 976 = "ftst"
 
 				// Fxam
 				0x01,// Normal_1
-				0xD5, 0x07,// 981 = "fxam"
+				0xD4, 0x07,// 980 = "fxam"
 
 				// Fld1
 				0x01,// Normal_1
-				0xAD, 0x07,// 941 = "fld1"
+				0xAC, 0x07,// 940 = "fld1"
 
 				// Fldl2t
 				0x01,// Normal_1
-				0xB0, 0x07,// 944 = "fldl2t"
+				0xAF, 0x07,// 943 = "fldl2t"
 
 				// Fldl2e
 				0x01,// Normal_1
-				0xAF, 0x07,// 943 = "fldl2e"
+				0xAE, 0x07,// 942 = "fldl2e"
 
 				// Fldpi
 				0x01,// Normal_1
-				0xB3, 0x07,// 947 = "fldpi"
+				0xB2, 0x07,// 946 = "fldpi"
 
 				// Fldlg2
 				0x01,// Normal_1
-				0xB1, 0x07,// 945 = "fldlg2"
+				0xB0, 0x07,// 944 = "fldlg2"
 
 				// Fldln2
 				0x01,// Normal_1
-				0xB2, 0x07,// 946 = "fldln2"
+				0xB1, 0x07,// 945 = "fldln2"
 
 				// Fldz
 				0x01,// Normal_1
-				0xB4, 0x07,// 948 = "fldz"
+				0xB3, 0x07,// 947 = "fldz"
 
 				// F2xm1
 				0x01,// Normal_1
-				0x8E, 0x07,// 910 = "f2xm1"
+				0x8D, 0x07,// 909 = "f2xm1"
 
 				// Fyl2x
 				0x01,// Normal_1
-				0xDB, 0x07,// 987 = "fyl2x"
+				0xDA, 0x07,// 986 = "fyl2x"
 
 				// Fptan
 				0x01,// Normal_1
-				0xC2, 0x07,// 962 = "fptan"
+				0xC1, 0x07,// 961 = "fptan"
 
 				// Fpatan
 				0x01,// Normal_1
-				0xBD, 0x07,// 957 = "fpatan"
+				0xBC, 0x07,// 956 = "fpatan"
 
 				// Fxtract
 				0x01,// Normal_1
-				0xDA, 0x07,// 986 = "fxtract"
+				0xD9, 0x07,// 985 = "fxtract"
 
 				// Fprem1
 				0x01,// Normal_1
-				0xC1, 0x07,// 961 = "fprem1"
+				0xC0, 0x07,// 960 = "fprem1"
 
 				// Fdecstp
 				0x01,// Normal_1
-				0xA1, 0x07,// 929 = "fdecstp"
+				0xA0, 0x07,// 928 = "fdecstp"
 
 				// Fincstp
 				0x01,// Normal_1
-				0xA9, 0x07,// 937 = "fincstp"
+				0xA8, 0x07,// 936 = "fincstp"
 
 				// Fprem
 				0x01,// Normal_1
-				0xC0, 0x07,// 960 = "fprem"
+				0xBF, 0x07,// 959 = "fprem"
 
 				// Fyl2xp1
 				0x01,// Normal_1
-				0xDC, 0x07,// 988 = "fyl2xp1"
+				0xDB, 0x07,// 987 = "fyl2xp1"
 
 				// Fsqrt
 				0x01,// Normal_1
-				0xCB, 0x07,// 971 = "fsqrt"
+				0xCA, 0x07,// 970 = "fsqrt"
 
 				// Fsincos
 				0x01,// Normal_1
-				0xCA, 0x07,// 970 = "fsincos"
+				0xC9, 0x07,// 969 = "fsincos"
 
 				// Frndint
 				0x01,// Normal_1
-				0xC5, 0x07,// 965 = "frndint"
+				0xC4, 0x07,// 964 = "frndint"
 
 				// Fscale
 				0x01,// Normal_1
-				0xC7, 0x07,// 967 = "fscale"
+				0xC6, 0x07,// 966 = "fscale"
 
 				// Fsin
 				0x01,// Normal_1
-				0xC9, 0x07,// 969 = "fsin"
+				0xC8, 0x07,// 968 = "fsin"
 
 				// Fcos
 				0x01,// Normal_1
-				0xA0, 0x07,// 928 = "fcos"
+				0x9F, 0x07,// 927 = "fcos"
 
 				// Fiadd_m32int
 				0x02,// Normal_2
@@ -2461,23 +2461,23 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fcmovb_st0_sti
 				0x34,// STIG1_1
-				0x95, 0x07,// 917 = "fcmovb"
+				0x94, 0x07,// 916 = "fcmovb"
 
 				// Fcmove_st0_sti
 				0x34,// STIG1_1
-				0x97, 0x07,// 919 = "fcmove"
+				0x96, 0x07,// 918 = "fcmove"
 
 				// Fcmovbe_st0_sti
 				0x34,// STIG1_1
-				0x96, 0x07,// 918 = "fcmovbe"
+				0x95, 0x07,// 917 = "fcmovbe"
 
 				// Fcmovu_st0_sti
 				0x34,// STIG1_1
-				0x9C, 0x07,// 924 = "fcmovu"
+				0x9B, 0x07,// 923 = "fcmovu"
 
 				// Fucompp
 				0x01,// Normal_1
-				0x82, 0x0A,// 1282 = "fucompp"
+				0xFE, 0x09,// 1278 = "fucompp"
 
 				// Fild_m32int
 				0x02,// Normal_2
@@ -2511,71 +2511,71 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fcmovnb_st0_sti
 				0x34,// STIG1_1
-				0x98, 0x07,// 920 = "fcmovnb"
+				0x97, 0x07,// 919 = "fcmovnb"
 
 				// Fcmovne_st0_sti
 				0x34,// STIG1_1
-				0x9A, 0x07,// 922 = "fcmovne"
+				0x99, 0x07,// 921 = "fcmovne"
 
 				// Fcmovnbe_st0_sti
 				0x34,// STIG1_1
-				0x99, 0x07,// 921 = "fcmovnbe"
+				0x98, 0x07,// 920 = "fcmovnbe"
 
 				// Fcmovnu_st0_sti
 				0x34,// STIG1_1
-				0x9B, 0x07,// 923 = "fcmovnu"
+				0x9A, 0x07,// 922 = "fcmovnu"
 
 				// Fneni
 				0x01,// Normal_1
-				0xB8, 0x07,// 952 = "fneni"
+				0xB7, 0x07,// 951 = "fneni"
 
 				// Feni
 				0x01,// Normal_1
-				0xA6, 0x07,// 934 = "feni"
+				0xA5, 0x07,// 933 = "feni"
 
 				// Fndisi
 				0x01,// Normal_1
-				0xB7, 0x07,// 951 = "fndisi"
+				0xB6, 0x07,// 950 = "fndisi"
 
 				// Fdisi
 				0x01,// Normal_1
-				0xA2, 0x07,// 930 = "fdisi"
+				0xA1, 0x07,// 929 = "fdisi"
 
 				// Fnclex
 				0x01,// Normal_1
-				0xB6, 0x07,// 950 = "fnclex"
+				0xB5, 0x07,// 949 = "fnclex"
 
 				// Fclex
 				0x01,// Normal_1
-				0x94, 0x07,// 916 = "fclex"
+				0x93, 0x07,// 915 = "fclex"
 
 				// Fninit
 				0x01,// Normal_1
-				0xB9, 0x07,// 953 = "fninit"
+				0xB8, 0x07,// 952 = "fninit"
 
 				// Finit
 				0x01,// Normal_1
-				0xAA, 0x07,// 938 = "finit"
+				0xA9, 0x07,// 937 = "finit"
 
 				// Fnsetpm
 				0x01,// Normal_1
-				0xBB, 0x07,// 955 = "fnsetpm"
+				0xBA, 0x07,// 954 = "fnsetpm"
 
 				// Fsetpm
 				0x01,// Normal_1
-				0xC8, 0x07,// 968 = "fsetpm"
+				0xC7, 0x07,// 967 = "fsetpm"
 
 				// Frstpm
 				0x01,// Normal_1
-				0xC6, 0x07,// 966 = "frstpm"
+				0xC5, 0x07,// 965 = "frstpm"
 
 				// Fucomi_st0_sti
 				0x34,// STIG1_1
-				0xD3, 0x07,// 979 = "fucomi"
+				0xD2, 0x07,// 978 = "fucomi"
 
 				// Fcomi_st0_sti
 				0x34,// STIG1_1
-				0x9D, 0x07,// 925 = "fcomi"
+				0x9C, 0x07,// 924 = "fcomi"
 
 				// Fadd_m64fp
 				0x02,// Normal_2
@@ -2723,7 +2723,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Ffree_sti
 				0x01,// Normal_1
-				0xA7, 0x07,// 935 = "ffree"
+				0xA6, 0x07,// 934 = "ffree"
 
 				// Fxch_st0_sti_DDC8
 				0x35,// STIG1_2
@@ -2740,7 +2740,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fucom_st0_sti
 				0x35,// STIG1_2
-				0xD2, 0x07,// 978 = "fucom"
+				0xD1, 0x07,// 977 = "fucom"
 				0x01,// True
 
 				// Fucomp_st0_sti
@@ -2790,12 +2790,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Faddp_sti_st0
 				0x36,// STIG2_2a
-				0x90, 0x07,// 912 = "faddp"
+				0x8F, 0x07,// 911 = "faddp"
 				0x01,// True
 
 				// Fmulp_sti_st0
 				0x36,// STIG2_2a
-				0xB5, 0x07,// 949 = "fmulp"
+				0xB4, 0x07,// 948 = "fmulp"
 				0x01,// True
 
 				// Fcomp_st0_sti_DED0
@@ -2805,26 +2805,26 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fcompp
 				0x01,// Normal_1
-				0x9F, 0x07,// 927 = "fcompp"
+				0x9E, 0x07,// 926 = "fcompp"
 
 				// Fsubrp_sti_st0
 				0x36,// STIG2_2a
-				0xD0, 0x07,// 976 = "fsubrp"
+				0xCF, 0x07,// 975 = "fsubrp"
 				0x01,// True
 
 				// Fsubp_sti_st0
 				0x36,// STIG2_2a
-				0xCF, 0x07,// 975 = "fsubp"
+				0xCE, 0x07,// 974 = "fsubp"
 				0x01,// True
 
 				// Fdivrp_sti_st0
 				0x36,// STIG2_2a
-				0xA4, 0x07,// 932 = "fdivrp"
+				0xA3, 0x07,// 931 = "fdivrp"
 				0x01,// True
 
 				// Fdivp_sti_st0
 				0x36,// STIG2_2a
-				0xA3, 0x07,// 931 = "fdivp"
+				0xA2, 0x07,// 930 = "fdivp"
 				0x01,// True
 
 				// Fild_m16int
@@ -2849,7 +2849,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fbld_m80bcd
 				0x02,// Normal_2
-				0x91, 0x07,// 913 = "fbld"
+				0x90, 0x07,// 912 = "fbld"
 				0x02,// 0x2 = ShowNoMemSize_ForceSize
 
 				// Fild_m64int
@@ -2859,7 +2859,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fbstp_m80bcd
 				0x02,// Normal_2
-				0x92, 0x07,// 914 = "fbstp"
+				0x91, 0x07,// 913 = "fbstp"
 				0x02,// 0x2 = ShowNoMemSize_ForceSize
 
 				// Fistp_m64int
@@ -2869,7 +2869,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Ffreep_sti
 				0x01,// Normal_1
-				0xA8, 0x07,// 936 = "ffreep"
+				0xA7, 0x07,// 935 = "ffreep"
 
 				// Fxch_st0_sti_DFC8
 				0x35,// STIG1_2
@@ -2893,19 +2893,19 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fstdw_AX
 				0x01,// Normal_1
-				0xCD, 0x07,// 973 = "fstdw"
+				0xCC, 0x07,// 972 = "fstdw"
 
 				// Fstsg_AX
 				0x01,// Normal_1
-				0xCE, 0x07,// 974 = "fstsg"
+				0xCD, 0x07,// 973 = "fstsg"
 
 				// Fucomip_st0_sti
 				0x34,// STIG1_1
-				0xD4, 0x07,// 980 = "fucomip"
+				0xD3, 0x07,// 979 = "fucomip"
 
 				// Fcomip_st0_sti
 				0x34,// STIG1_1
-				0x9E, 0x07,// 926 = "fcomip"
+				0x9D, 0x07,// 925 = "fcomip"
 
 				// Loopne_rel8_16_CX
 				0x21,// os_loop
@@ -3174,15 +3174,15 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Int1
 				0x01,// Normal_1
-				0xF3, 0x07,// 1011 = "int1"
+				0xF2, 0x07,// 1010 = "int1"
 
 				// Hlt
 				0x01,// Normal_1
-				0xEA, 0x07,// 1002 = "hlt"
+				0xE9, 0x07,// 1001 = "hlt"
 
 				// Cmc
 				0x01,// Normal_1
-				0xF4, 0x06,// 884 = "cmc"
+				0xF3, 0x06,// 883 = "cmc"
 
 				// Test_rm8_imm8
 				0x02,// Normal_2
@@ -3318,27 +3318,27 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Clc
 				0x01,// Normal_1
-				0xEA, 0x06,// 874 = "clc"
+				0xE9, 0x06,// 873 = "clc"
 
 				// Stc
 				0x01,// Normal_1
-				0xD3, 0x09,// 1235 = "stc"
+				0xD1, 0x09,// 1233 = "stc"
 
 				// Cli
 				0x01,// Normal_1
-				0xF0, 0x06,// 880 = "cli"
+				0xEF, 0x06,// 879 = "cli"
 
 				// Sti
 				0x01,// Normal_1
-				0xD6, 0x09,// 1238 = "sti"
+				0xD4, 0x09,// 1236 = "sti"
 
 				// Cld
 				0x01,// Normal_1
-				0xEB, 0x06,// 875 = "cld"
+				0xEA, 0x06,// 874 = "cld"
 
 				// Std
 				0x01,// Normal_1
-				0xD4, 0x09,// 1236 = "std"
+				0xD2, 0x09,// 1234 = "std"
 
 				// Inc_rm8
 				0x02,// Normal_2
@@ -3606,7 +3606,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Rstorssp_m64
 				0x01,// Normal_1
-				0xAA, 0x09,// 1194 = "rstorssp"
+				0xA8, 0x09,// 1192 = "rstorssp"
 
 				// Lmsw_rm16
 				0x23,// os_mem_reg16
@@ -3625,31 +3625,31 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Invlpg_m
 				0x01,// Normal_1
-				0xF6, 0x07,// 1014 = "invlpg"
+				0xF5, 0x07,// 1013 = "invlpg"
 
 				// Enclv
 				0x01,// Normal_1
-				0x83, 0x07,// 899 = "enclv"
+				0x82, 0x07,// 898 = "enclv"
 
 				// Vmcall
 				0x81,// 'v', Normal_1
-				0xAC, 0x08,// 1068 = "vmcall"
+				0xAB, 0x08,// 1067 = "vmcall"
 
 				// Vmlaunch
 				0x81,// 'v', Normal_1
-				0xB0, 0x08,// 1072 = "vmlaunch"
+				0xAF, 0x08,// 1071 = "vmlaunch"
 
 				// Vmresume
 				0x81,// 'v', Normal_1
-				0xB9, 0x08,// 1081 = "vmresume"
+				0xB8, 0x08,// 1080 = "vmresume"
 
 				// Vmxoff
 				0x81,// 'v', Normal_1
-				0xBC, 0x08,// 1084 = "vmxoff"
+				0xBB, 0x08,// 1083 = "vmxoff"
 
 				// Pconfig
 				0x01,// Normal_1
-				0xCB, 0x08,// 1099 = "pconfig"
+				0xCA, 0x08,// 1098 = "pconfig"
 
 				// Monitorw
 				0x04,// asz
@@ -3668,43 +3668,43 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Mwait
 				0x01,// Normal_1
-				0xBA, 0x08,// 1082 = "mwait"
+				0xB9, 0x08,// 1081 = "mwait"
 
 				// Clac
 				0x01,// Normal_1
-				0xE9, 0x06,// 873 = "clac"
+				0xE8, 0x06,// 872 = "clac"
 
 				// Stac
 				0x01,// Normal_1
-				0xD2, 0x09,// 1234 = "stac"
+				0xD0, 0x09,// 1232 = "stac"
 
 				// Encls
 				0x01,// Normal_1
-				0x81, 0x07,// 897 = "encls"
+				0x80, 0x07,// 896 = "encls"
 
 				// Xgetbv
 				0x01,// Normal_1
-				0xE6, 0x09,// 1254 = "xgetbv"
+				0xE3, 0x09,// 1251 = "xgetbv"
 
 				// Xsetbv
 				0x01,// Normal_1
-				0xF3, 0x09,// 1267 = "xsetbv"
+				0xF0, 0x09,// 1264 = "xsetbv"
 
 				// Vmfunc
 				0x81,// 'v', Normal_1
-				0xAF, 0x08,// 1071 = "vmfunc"
+				0xAE, 0x08,// 1070 = "vmfunc"
 
 				// Xend
 				0x01,// Normal_1
-				0xE5, 0x09,// 1253 = "xend"
+				0xE2, 0x09,// 1250 = "xend"
 
 				// Xtest
 				0x01,// Normal_1
-				0xF4, 0x09,// 1268 = "xtest"
+				0xF1, 0x09,// 1265 = "xtest"
 
 				// Enclu
 				0x01,// Normal_1
-				0x82, 0x07,// 898 = "enclu"
+				0x81, 0x07,// 897 = "enclu"
 
 				// Vmrunw
 				0x84,// 'v', asz
@@ -3723,7 +3723,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Vmmcall
 				0x81,// 'v', Normal_1
-				0xB1, 0x08,// 1073 = "vmmcall"
+				0xB0, 0x08,// 1072 = "vmmcall"
 
 				// Vmloadw
 				0x84,// 'v', asz
@@ -3757,15 +3757,15 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Stgi
 				0x01,// Normal_1
-				0xD5, 0x09,// 1237 = "stgi"
+				0xD3, 0x09,// 1235 = "stgi"
 
 				// Clgi
 				0x01,// Normal_1
-				0xEF, 0x06,// 879 = "clgi"
+				0xEE, 0x06,// 878 = "clgi"
 
 				// Skinit
 				0x01,// Normal_1
-				0xD1, 0x09,// 1233 = "skinit"
+				0xCF, 0x09,// 1231 = "skinit"
 
 				// Invlpgaw
 				0x10,// invlpga
@@ -3784,27 +3784,27 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Setssbsy
 				0x01,// Normal_1
-				0xC8, 0x09,// 1224 = "setssbsy"
+				0xC6, 0x09,// 1222 = "setssbsy"
 
 				// Saveprevssp
 				0x01,// Normal_1
-				0xAD, 0x09,// 1197 = "saveprevssp"
+				0xAB, 0x09,// 1195 = "saveprevssp"
 
 				// Rdpkru
 				0x01,// Normal_1
-				0x92, 0x09,// 1170 = "rdpkru"
+				0x90, 0x09,// 1168 = "rdpkru"
 
 				// Wrpkru
 				0x01,// Normal_1
-				0xDF, 0x09,// 1247 = "wrpkru"
+				0xDC, 0x09,// 1244 = "wrpkru"
 
 				// Swapgs
 				0x01,// Normal_1
-				0xD7, 0x09,// 1239 = "swapgs"
+				0xD5, 0x09,// 1237 = "swapgs"
 
 				// Rdtscp
 				0x01,// Normal_1
-				0x98, 0x09,// 1176 = "rdtscp"
+				0x96, 0x09,// 1174 = "rdtscp"
 
 				// Monitorxw
 				0x04,// asz
@@ -3823,7 +3823,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Mwaitx
 				0x01,// Normal_1
-				0xBB, 0x08,// 1083 = "mwaitx"
+				0xBA, 0x08,// 1082 = "mwaitx"
 
 				// Clzerow
 				0x04,// asz
@@ -3842,7 +3842,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Rdpru
 				0x01,// Normal_1
-				0x94, 0x09,// 1172 = "rdpru"
+				0x92, 0x09,// 1170 = "rdpru"
 
 				// Lar_r16_rm16
 				0x01,// Normal_1
@@ -3866,23 +3866,23 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Loadallreset286
 				0x01,// Normal_1
-				0xAA, 0x08,// 1066 = "loadallreset286"
+				0xA9, 0x08,// 1065 = "loadallreset286"
 
 				// Loadall286
 				0x01,// Normal_1
-				0xA8, 0x08,// 1064 = "loadall286"
+				0xA7, 0x08,// 1063 = "loadall286"
 
 				// Syscall
 				0x01,// Normal_1
-				0xD8, 0x09,// 1240 = "syscall"
+				0xD6, 0x09,// 1238 = "syscall"
 
 				// Clts
 				0x01,// Normal_1
-				0xF2, 0x06,// 882 = "clts"
+				0xF1, 0x06,// 881 = "clts"
 
 				// Loadall386
 				0x01,// Normal_1
-				0xA9, 0x08,// 1065 = "loadall386"
+				0xA8, 0x08,// 1064 = "loadall386"
 
 				// Sysretd
 				0x01,// Normal_1
@@ -3895,27 +3895,23 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Invd
 				0x01,// Normal_1
-				0xF5, 0x07,// 1013 = "invd"
+				0xF4, 0x07,// 1012 = "invd"
 
 				// Wbinvd
 				0x01,// Normal_1
-				0xDB, 0x09,// 1243 = "wbinvd"
+				0xD9, 0x09,// 1241 = "wbinvd"
 
 				// Wbnoinvd
 				0x01,// Normal_1
-				0xDC, 0x09,// 1244 = "wbnoinvd"
-
-				// Cflsh
-				0x01,// Normal_1
-				0xE7, 0x06,// 871 = "cflsh"
+				0xDA, 0x09,// 1242 = "wbnoinvd"
 
 				// Cl1invmb
 				0x01,// Normal_1
-				0xE8, 0x06,// 872 = "cl1invmb"
+				0xE7, 0x06,// 871 = "cl1invmb"
 
 				// Ud2
 				0x01,// Normal_1
-				0xDA, 0x09,// 1242 = "ud2"
+				0xD8, 0x09,// 1240 = "ud2"
 
 				// ReservedNop_rm16_r16_0F0D
 				0x01,// Normal_1
@@ -3929,21 +3925,21 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Prefetch_m8
 				0x02,// Normal_2
-				0x86, 0x0A,// 1286 = "prefetch"
+				0x82, 0x0A,// 1282 = "prefetch"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Prefetchw_m8
 				0x02,// Normal_2
-				0x84, 0x09,// 1156 = "prefetchw"
+				0x83, 0x09,// 1155 = "prefetchw"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Prefetchwt1_m8
 				0x01,// Normal_1
-				0x85, 0x09,// 1157 = "prefetchwt1"
+				0x84, 0x09,// 1156 = "prefetchwt1"
 
 				// Femms
 				0x01,// Normal_1
-				0xA5, 0x07,// 933 = "femms"
+				0xA4, 0x07,// 932 = "femms"
 
 				// Umov_rm8_r8
 				0x01,// Normal_1
@@ -4444,19 +4440,19 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Prefetchnta_m8
 				0x01,// Normal_1
-				0x80, 0x09,// 1152 = "prefetchnta"
+				0xFF, 0x08,// 1151 = "prefetchnta"
 
 				// Prefetcht0_m8
 				0x01,// Normal_1
-				0x81, 0x09,// 1153 = "prefetcht0"
+				0x80, 0x09,// 1152 = "prefetcht0"
 
 				// Prefetcht1_m8
 				0x01,// Normal_1
-				0x82, 0x09,// 1154 = "prefetcht1"
+				0x81, 0x09,// 1153 = "prefetcht1"
 
 				// Prefetcht2_m8
 				0x01,// Normal_1
-				0x83, 0x09,// 1155 = "prefetcht2"
+				0x82, 0x09,// 1154 = "prefetcht2"
 
 				// Bndldx_bnd_mib
 				0x02,// Normal_2
@@ -4518,24 +4514,24 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Cldemote_m8
 				0x02,// Normal_2
-				0xEC, 0x06,// 876 = "cldemote"
+				0xEB, 0x06,// 875 = "cldemote"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Rdsspd_r32
 				0x01,// Normal_1
-				0x95, 0x09,// 1173 = "rdsspd"
+				0x93, 0x09,// 1171 = "rdsspd"
 
 				// Rdsspq_r64
 				0x01,// Normal_1
-				0x96, 0x09,// 1174 = "rdsspq"
+				0x94, 0x09,// 1172 = "rdsspq"
 
 				// Endbr64
 				0x01,// Normal_1
-				0x85, 0x07,// 901 = "endbr64"
+				0x84, 0x07,// 900 = "endbr64"
 
 				// Endbr32
 				0x01,// Normal_1
-				0x84, 0x07,// 900 = "endbr32"
+				0x83, 0x07,// 899 = "endbr32"
 
 				// Nop_rm16
 				0x02,// Normal_2
@@ -4661,11 +4657,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Cvtpi2ps_xmm_mmm64
 				0x01,// Normal_1
-				0xFA, 0x06,// 890 = "cvtpi2ps"
+				0xF9, 0x06,// 889 = "cvtpi2ps"
 
 				// Cvtpi2pd_xmm_mmm64
 				0x01,// Normal_1
-				0xF9, 0x06,// 889 = "cvtpi2pd"
+				0xF8, 0x06,// 888 = "cvtpi2pd"
 
 				// Cvtsi2ss_xmm_rm32
 				0x02,// Normal_2
@@ -4759,19 +4755,19 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Movntss_m32_xmm
 				0x01,// Normal_1
-				0xB5, 0x08,// 1077 = "movntss"
+				0xB4, 0x08,// 1076 = "movntss"
 
 				// Movntsd_m64_xmm
 				0x01,// Normal_1
-				0xB4, 0x08,// 1076 = "movntsd"
+				0xB3, 0x08,// 1075 = "movntsd"
 
 				// Cvttps2pi_mm_xmmm64
 				0x12,// mmxmem_1
-				0xFD, 0x06,// 893 = "cvttps2pi"
+				0xFC, 0x06,// 892 = "cvttps2pi"
 
 				// Cvttpd2pi_mm_xmmm128
 				0x12,// mmxmem_1
-				0xFC, 0x06,// 892 = "cvttpd2pi"
+				0xFB, 0x06,// 891 = "cvttpd2pi"
 
 				// Cvttss2si_r32_xmmm32
 				0x01,// Normal_1
@@ -4819,11 +4815,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Cvtps2pi_mm_xmmm64
 				0x12,// mmxmem_1
-				0xFB, 0x06,// 891 = "cvtps2pi"
+				0xFA, 0x06,// 890 = "cvtps2pi"
 
 				// Cvtpd2pi_mm_xmmm128
 				0x12,// mmxmem_1
-				0xF8, 0x06,// 888 = "cvtpd2pi"
+				0xF7, 0x06,// 887 = "cvtpd2pi"
 
 				// Cvtss2si_r32_xmmm32
 				0x01,// Normal_1
@@ -4925,27 +4921,23 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Wrmsr
 				0x01,// Normal_1
-				0xDE, 0x09,// 1246 = "wrmsr"
+				0xDB, 0x09,// 1243 = "wrmsr"
 
 				// Rdtsc
 				0x01,// Normal_1
-				0x97, 0x09,// 1175 = "rdtsc"
+				0x95, 0x09,// 1173 = "rdtsc"
 
 				// Rdmsr
 				0x01,// Normal_1
-				0x91, 0x09,// 1169 = "rdmsr"
+				0x8F, 0x09,// 1167 = "rdmsr"
 
 				// Rdpmc
 				0x01,// Normal_1
-				0x93, 0x09,// 1171 = "rdpmc"
-
-				// Wrecr
-				0x01,// Normal_1
-				0xDD, 0x09,// 1245 = "wrecr"
+				0x91, 0x09,// 1169 = "rdpmc"
 
 				// Sysenter
 				0x01,// Normal_1
-				0xD9, 0x09,// 1241 = "sysenter"
+				0xD7, 0x09,// 1239 = "sysenter"
 
 				// Sysexitd
 				0x01,// Normal_1
@@ -4956,13 +4948,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0xD0, 0x06,// 848 = "sysexit"
 				0x18,// 0x18 = OpSize64
 
-				// Rdecr
-				0x01,// Normal_1
-				0x90, 0x09,// 1168 = "rdecr"
-
 				// Getsec
 				0x01,// Normal_1
-				0xE9, 0x07,// 1001 = "getsec"
+				0xE8, 0x07,// 1000 = "getsec"
 
 				// Cmovo_r16_rm16
 				0x01,// Normal_1
@@ -5126,127 +5114,127 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// VEX_Kandw_k_k_k
 				0x01,// Normal_1
-				0x82, 0x08,// 1026 = "kandw"
+				0x81, 0x08,// 1025 = "kandw"
 
 				// VEX_Kandq_k_k_k
 				0x01,// Normal_1
-				0x81, 0x08,// 1025 = "kandq"
+				0x80, 0x08,// 1024 = "kandq"
 
 				// VEX_Kandb_k_k_k
 				0x01,// Normal_1
-				0xFB, 0x07,// 1019 = "kandb"
+				0xFA, 0x07,// 1018 = "kandb"
 
 				// VEX_Kandd_k_k_k
 				0x01,// Normal_1
-				0xFC, 0x07,// 1020 = "kandd"
+				0xFB, 0x07,// 1019 = "kandd"
 
 				// VEX_Kandnw_k_k_k
 				0x01,// Normal_1
-				0x80, 0x08,// 1024 = "kandnw"
+				0xFF, 0x07,// 1023 = "kandnw"
 
 				// VEX_Kandnq_k_k_k
 				0x01,// Normal_1
-				0xFF, 0x07,// 1023 = "kandnq"
+				0xFE, 0x07,// 1022 = "kandnq"
 
 				// VEX_Kandnb_k_k_k
 				0x01,// Normal_1
-				0xFD, 0x07,// 1021 = "kandnb"
+				0xFC, 0x07,// 1020 = "kandnb"
 
 				// VEX_Kandnd_k_k_k
 				0x01,// Normal_1
-				0xFE, 0x07,// 1022 = "kandnd"
+				0xFD, 0x07,// 1021 = "kandnd"
 
 				// VEX_Knotw_k_k
 				0x01,// Normal_1
-				0x86, 0x08,// 1030 = "knotw"
+				0x85, 0x08,// 1029 = "knotw"
 
 				// VEX_Knotq_k_k
 				0x01,// Normal_1
-				0x85, 0x08,// 1029 = "knotq"
+				0x84, 0x08,// 1028 = "knotq"
 
 				// VEX_Knotb_k_k
 				0x01,// Normal_1
-				0x83, 0x08,// 1027 = "knotb"
+				0x82, 0x08,// 1026 = "knotb"
 
 				// VEX_Knotd_k_k
 				0x01,// Normal_1
-				0x84, 0x08,// 1028 = "knotd"
+				0x83, 0x08,// 1027 = "knotd"
 
 				// VEX_Korw_k_k_k
 				0x01,// Normal_1
-				0x8E, 0x08,// 1038 = "korw"
+				0x8D, 0x08,// 1037 = "korw"
 
 				// VEX_Korq_k_k_k
 				0x01,// Normal_1
-				0x89, 0x08,// 1033 = "korq"
+				0x88, 0x08,// 1032 = "korq"
 
 				// VEX_Korb_k_k_k
 				0x01,// Normal_1
-				0x87, 0x08,// 1031 = "korb"
+				0x86, 0x08,// 1030 = "korb"
 
 				// VEX_Kord_k_k_k
 				0x01,// Normal_1
-				0x88, 0x08,// 1032 = "kord"
+				0x87, 0x08,// 1031 = "kord"
 
 				// VEX_Kxnorw_k_k_k
 				0x01,// Normal_1
-				0xA1, 0x08,// 1057 = "kxnorw"
+				0xA0, 0x08,// 1056 = "kxnorw"
 
 				// VEX_Kxnorq_k_k_k
 				0x01,// Normal_1
-				0xA0, 0x08,// 1056 = "kxnorq"
+				0x9F, 0x08,// 1055 = "kxnorq"
 
 				// VEX_Kxnorb_k_k_k
 				0x01,// Normal_1
-				0x9E, 0x08,// 1054 = "kxnorb"
+				0x9D, 0x08,// 1053 = "kxnorb"
 
 				// VEX_Kxnord_k_k_k
 				0x01,// Normal_1
-				0x9F, 0x08,// 1055 = "kxnord"
+				0x9E, 0x08,// 1054 = "kxnord"
 
 				// VEX_Kxorw_k_k_k
 				0x01,// Normal_1
-				0xA5, 0x08,// 1061 = "kxorw"
+				0xA4, 0x08,// 1060 = "kxorw"
 
 				// VEX_Kxorq_k_k_k
 				0x01,// Normal_1
-				0xA4, 0x08,// 1060 = "kxorq"
+				0xA3, 0x08,// 1059 = "kxorq"
 
 				// VEX_Kxorb_k_k_k
 				0x01,// Normal_1
-				0xA2, 0x08,// 1058 = "kxorb"
+				0xA1, 0x08,// 1057 = "kxorb"
 
 				// VEX_Kxord_k_k_k
 				0x01,// Normal_1
-				0xA3, 0x08,// 1059 = "kxord"
+				0xA2, 0x08,// 1058 = "kxord"
 
 				// VEX_Kaddw_k_k_k
 				0x01,// Normal_1
-				0xFA, 0x07,// 1018 = "kaddw"
+				0xF9, 0x07,// 1017 = "kaddw"
 
 				// VEX_Kaddq_k_k_k
 				0x01,// Normal_1
-				0xF9, 0x07,// 1017 = "kaddq"
+				0xF8, 0x07,// 1016 = "kaddq"
 
 				// VEX_Kaddb_k_k_k
 				0x01,// Normal_1
-				0xF7, 0x07,// 1015 = "kaddb"
+				0xF6, 0x07,// 1014 = "kaddb"
 
 				// VEX_Kaddd_k_k_k
 				0x01,// Normal_1
-				0xF8, 0x07,// 1016 = "kaddd"
+				0xF7, 0x07,// 1015 = "kaddd"
 
 				// VEX_Kunpckwd_k_k_k
 				0x01,// Normal_1
-				0x9D, 0x08,// 1053 = "kunpckwd"
+				0x9C, 0x08,// 1052 = "kunpckwd"
 
 				// VEX_Kunpckdq_k_k_k
 				0x01,// Normal_1
-				0x9C, 0x08,// 1052 = "kunpckdq"
+				0x9B, 0x08,// 1051 = "kunpckdq"
 
 				// VEX_Kunpckbw_k_k_k
 				0x01,// Normal_1
-				0x9B, 0x08,// 1051 = "kunpckbw"
+				0x9A, 0x08,// 1050 = "kunpckbw"
 
 				// Movmskps_r32_xmm
 				0x01,// Normal_1
@@ -6590,7 +6578,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Pshufw_mm_mmm64_imm8
 				0x13,// mmxmem_2
-				0x86, 0x09,// 1158 = "pshufw"
+				0x85, 0x09,// 1157 = "pshufw"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Pshufd_xmm_xmmm128_imm8
@@ -7004,15 +6992,15 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Emms
 				0x01,// Normal_1
-				0x80, 0x07,// 896 = "emms"
+				0xFF, 0x06,// 895 = "emms"
 
 				// VEX_Vzeroupper
 				0x81,// 'v', Normal_1
-				0xF7, 0x09,// 1271 = "vzeroupper"
+				0xF3, 0x09,// 1267 = "vzeroupper"
 
 				// VEX_Vzeroall
 				0x81,// 'v', Normal_1
-				0xF6, 0x09,// 1270 = "vzeroall"
+				0xF2, 0x09,// 1266 = "vzeroall"
 
 				// Vmread_rm32_r32
 				0x81,// 'v', Normal_1
@@ -7707,67 +7695,67 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Seto_rm8
 				0x01,// Normal_1
-				0xC5, 0x09,// 1221 = "seto"
+				0xC3, 0x09,// 1219 = "seto"
 
 				// Setno_rm8
 				0x01,// Normal_1
-				0xC2, 0x09,// 1218 = "setno"
+				0xC0, 0x09,// 1216 = "setno"
 
 				// Setb_rm8
 				0x01,// Normal_1
-				0xBA, 0x09,// 1210 = "setb"
+				0xB8, 0x09,// 1208 = "setb"
 
 				// Setae_rm8
 				0x01,// Normal_1
-				0xB9, 0x09,// 1209 = "setae"
+				0xB7, 0x09,// 1207 = "setae"
 
 				// Sete_rm8
 				0x01,// Normal_1
-				0xBC, 0x09,// 1212 = "sete"
+				0xBA, 0x09,// 1210 = "sete"
 
 				// Setne_rm8
 				0x01,// Normal_1
-				0xC1, 0x09,// 1217 = "setne"
+				0xBF, 0x09,// 1215 = "setne"
 
 				// Setbe_rm8
 				0x01,// Normal_1
-				0xBB, 0x09,// 1211 = "setbe"
+				0xB9, 0x09,// 1209 = "setbe"
 
 				// Seta_rm8
 				0x01,// Normal_1
-				0xB8, 0x09,// 1208 = "seta"
+				0xB6, 0x09,// 1206 = "seta"
 
 				// Sets_rm8
 				0x01,// Normal_1
-				0xC7, 0x09,// 1223 = "sets"
+				0xC5, 0x09,// 1221 = "sets"
 
 				// Setns_rm8
 				0x01,// Normal_1
-				0xC4, 0x09,// 1220 = "setns"
+				0xC2, 0x09,// 1218 = "setns"
 
 				// Setp_rm8
 				0x01,// Normal_1
-				0xC6, 0x09,// 1222 = "setp"
+				0xC4, 0x09,// 1220 = "setp"
 
 				// Setnp_rm8
 				0x01,// Normal_1
-				0xC3, 0x09,// 1219 = "setnp"
+				0xC1, 0x09,// 1217 = "setnp"
 
 				// Setl_rm8
 				0x01,// Normal_1
-				0xBF, 0x09,// 1215 = "setl"
+				0xBD, 0x09,// 1213 = "setl"
 
 				// Setge_rm8
 				0x01,// Normal_1
-				0xBE, 0x09,// 1214 = "setge"
+				0xBC, 0x09,// 1212 = "setge"
 
 				// Setle_rm8
 				0x01,// Normal_1
-				0xC0, 0x09,// 1216 = "setle"
+				0xBE, 0x09,// 1214 = "setle"
 
 				// Setg_rm8
 				0x01,// Normal_1
-				0xBD, 0x09,// 1213 = "setg"
+				0xBB, 0x09,// 1211 = "setg"
 
 				// VEX_Kmovw_k_km16
 				0x01,// Normal_1
@@ -7835,35 +7823,35 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// VEX_Kortestw_k_k
 				0x01,// Normal_1
-				0x8D, 0x08,// 1037 = "kortestw"
+				0x8C, 0x08,// 1036 = "kortestw"
 
 				// VEX_Kortestq_k_k
 				0x01,// Normal_1
-				0x8C, 0x08,// 1036 = "kortestq"
+				0x8B, 0x08,// 1035 = "kortestq"
 
 				// VEX_Kortestb_k_k
 				0x01,// Normal_1
-				0x8A, 0x08,// 1034 = "kortestb"
+				0x89, 0x08,// 1033 = "kortestb"
 
 				// VEX_Kortestd_k_k
 				0x01,// Normal_1
-				0x8B, 0x08,// 1035 = "kortestd"
+				0x8A, 0x08,// 1034 = "kortestd"
 
 				// VEX_Ktestw_k_k
 				0x01,// Normal_1
-				0x9A, 0x08,// 1050 = "ktestw"
+				0x99, 0x08,// 1049 = "ktestw"
 
 				// VEX_Ktestq_k_k
 				0x01,// Normal_1
-				0x99, 0x08,// 1049 = "ktestq"
+				0x98, 0x08,// 1048 = "ktestq"
 
 				// VEX_Ktestb_k_k
 				0x01,// Normal_1
-				0x97, 0x08,// 1047 = "ktestb"
+				0x96, 0x08,// 1046 = "ktestb"
 
 				// VEX_Ktestd_k_k
 				0x01,// Normal_1
-				0x98, 0x08,// 1048 = "ktestd"
+				0x97, 0x08,// 1047 = "ktestd"
 
 				// Pushw_FS
 				0x1B,// os_2
@@ -7897,7 +7885,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Cpuid
 				0x01,// Normal_1
-				0xF7, 0x06,// 887 = "cpuid"
+				0xF6, 0x06,// 886 = "cpuid"
 
 				// Bt_rm16_r16
 				0x01,// Normal_1
@@ -8119,7 +8107,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Rsm
 				0x01,// Normal_1
-				0xA3, 0x09,// 1187 = "rsm"
+				0xA1, 0x09,// 1185 = "rsm"
 
 				// Bts_rm16_r16
 				0x01,// Normal_1
@@ -8150,17 +8138,13 @@ namespace Iced.Intel.NasmFormatterInternal {
 				// Shrd_rm64_r64_CL
 				0x00,// Previous
 
-				// Zalloc_m256
-				0x01,// Normal_1
-				0xF5, 0x09,// 1269 = "zalloc"
-
 				// Fxsave_m512byte
 				0x01,// Normal_1
-				0xD8, 0x07,// 984 = "fxsave"
+				0xD7, 0x07,// 983 = "fxsave"
 
 				// Fxsave64_m512byte
 				0x01,// Normal_1
-				0xD9, 0x07,// 985 = "fxsave64"
+				0xD8, 0x07,// 984 = "fxsave64"
 
 				// Rdfsbase_r32
 				0x01,// Normal_1
@@ -8171,11 +8155,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fxrstor_m512byte
 				0x01,// Normal_1
-				0xD6, 0x07,// 982 = "fxrstor"
+				0xD5, 0x07,// 981 = "fxrstor"
 
 				// Fxrstor64_m512byte
 				0x01,// Normal_1
-				0xD7, 0x07,// 983 = "fxrstor64"
+				0xD6, 0x07,// 982 = "fxrstor64"
 
 				// Rdgsbase_r32
 				0x01,// Normal_1
@@ -8216,11 +8200,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Xsave_m
 				0x01,// Normal_1
-				0xEB, 0x09,// 1259 = "xsave"
+				0xE8, 0x09,// 1256 = "xsave"
 
 				// Xsave64_m
 				0x01,// Normal_1
-				0xEC, 0x09,// 1260 = "xsave64"
+				0xE9, 0x09,// 1257 = "xsave64"
 
 				// Ptwrite_rm32
 				0x02,// Normal_2
@@ -8232,31 +8216,31 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Xrstor_m
 				0x01,// Normal_1
-				0xE7, 0x09,// 1255 = "xrstor"
+				0xE4, 0x09,// 1252 = "xrstor"
 
 				// Xrstor64_m
 				0x01,// Normal_1
-				0xE8, 0x09,// 1256 = "xrstor64"
+				0xE5, 0x09,// 1253 = "xrstor64"
 
 				// Incsspd_r32
 				0x01,// Normal_1
-				0xEB, 0x07,// 1003 = "incsspd"
+				0xEA, 0x07,// 1002 = "incsspd"
 
 				// Incsspq_r64
 				0x01,// Normal_1
-				0xEC, 0x07,// 1004 = "incsspq"
+				0xEB, 0x07,// 1003 = "incsspq"
 
 				// Xsaveopt_m
 				0x01,// Normal_1
-				0xEF, 0x09,// 1263 = "xsaveopt"
+				0xEC, 0x09,// 1260 = "xsaveopt"
 
 				// Xsaveopt64_m
 				0x01,// Normal_1
-				0xF0, 0x09,// 1264 = "xsaveopt64"
+				0xED, 0x09,// 1261 = "xsaveopt64"
 
 				// Clwb_m8
 				0x02,// Normal_2
-				0xF3, 0x06,// 883 = "clwb"
+				0xF2, 0x06,// 882 = "clwb"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Tpause_r32
@@ -8268,7 +8252,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Clrssbsy_m64
 				0x01,// Normal_1
-				0xF1, 0x06,// 881 = "clrssbsy"
+				0xF0, 0x06,// 880 = "clrssbsy"
 
 				// Umonitor_r16
 				0x01,// Normal_1
@@ -8289,29 +8273,29 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Clflush_m8
 				0x02,// Normal_2
-				0xED, 0x06,// 877 = "clflush"
+				0xEC, 0x06,// 876 = "clflush"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Clflushopt_m8
 				0x02,// Normal_2
-				0xEE, 0x06,// 878 = "clflushopt"
+				0xED, 0x06,// 877 = "clflushopt"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Lfence
 				0x01,// Normal_1
-				0xA7, 0x08,// 1063 = "lfence"
+				0xA6, 0x08,// 1062 = "lfence"
 
 				// Mfence
 				0x01,// Normal_1
-				0xAE, 0x08,// 1070 = "mfence"
+				0xAD, 0x08,// 1069 = "mfence"
 
 				// Sfence
 				0x01,// Normal_1
-				0xC9, 0x09,// 1225 = "sfence"
+				0xC7, 0x09,// 1223 = "sfence"
 
 				// Pcommit
 				0x01,// Normal_1
-				0xC4, 0x08,// 1092 = "pcommit"
+				0xC3, 0x08,// 1091 = "pcommit"
 
 				// Imul_r16_rm16
 				0x01,// Normal_1
@@ -8747,51 +8731,51 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Cmpxchg8b_m64
 				0x02,// Normal_2
-				0xF6, 0x06,// 886 = "cmpxchg8b"
+				0xF5, 0x06,// 885 = "cmpxchg8b"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Cmpxchg16b_m128
 				0x02,// Normal_2
-				0xF5, 0x06,// 885 = "cmpxchg16b"
+				0xF4, 0x06,// 884 = "cmpxchg16b"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Xrstors_m
 				0x01,// Normal_1
-				0xE9, 0x09,// 1257 = "xrstors"
+				0xE6, 0x09,// 1254 = "xrstors"
 
 				// Xrstors64_m
 				0x01,// Normal_1
-				0xEA, 0x09,// 1258 = "xrstors64"
+				0xE7, 0x09,// 1255 = "xrstors64"
 
 				// Xsavec_m
 				0x01,// Normal_1
-				0xED, 0x09,// 1261 = "xsavec"
+				0xEA, 0x09,// 1258 = "xsavec"
 
 				// Xsavec64_m
 				0x01,// Normal_1
-				0xEE, 0x09,// 1262 = "xsavec64"
+				0xEB, 0x09,// 1259 = "xsavec64"
 
 				// Xsaves_m
 				0x01,// Normal_1
-				0xF1, 0x09,// 1265 = "xsaves"
+				0xEE, 0x09,// 1262 = "xsaves"
 
 				// Xsaves64_m
 				0x01,// Normal_1
-				0xF2, 0x09,// 1266 = "xsaves64"
+				0xEF, 0x09,// 1263 = "xsaves64"
 
 				// Vmptrld_m64
 				0x82,// 'v', Normal_2
-				0xB7, 0x08,// 1079 = "vmptrld"
+				0xB6, 0x08,// 1078 = "vmptrld"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Vmclear_m64
 				0x82,// 'v', Normal_2
-				0xAD, 0x08,// 1069 = "vmclear"
+				0xAC, 0x08,// 1068 = "vmclear"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Vmxon_m64
 				0x82,// 'v', Normal_2
-				0xBD, 0x08,// 1085 = "vmxon"
+				0xBC, 0x08,// 1084 = "vmxon"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Rdrand_r16
@@ -8806,7 +8790,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Vmptrst_m64
 				0x82,// 'v', Normal_2
-				0xB8, 0x08,// 1080 = "vmptrst"
+				0xB7, 0x08,// 1079 = "vmptrst"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Rdseed_r16
@@ -8991,11 +8975,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Movq2dq_xmm_mm
 				0x01,// Normal_1
-				0xB6, 0x08,// 1078 = "movq2dq"
+				0xB5, 0x08,// 1077 = "movq2dq"
 
 				// Movdq2q_mm_xmm
 				0x12,// mmxmem_1
-				0xB2, 0x08,// 1074 = "movdq2q"
+				0xB1, 0x08,// 1073 = "movdq2q"
 
 				// Pmovmskb_r32_mm
 				0x01,// Normal_1
@@ -9477,7 +9461,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Movntq_m64_mm
 				0x12,// mmxmem_1
-				0xB3, 0x08,// 1075 = "movntq"
+				0xB2, 0x08,// 1074 = "movntq"
 
 				// Movntdq_m128_xmm
 				0x01,// Normal_1
@@ -9872,7 +9856,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Maskmovq_rDI_mm_mm
 				0x11,// maskmovq
-				0xAB, 0x08,// 1067 = "maskmovq"
+				0xAA, 0x08,// 1066 = "maskmovq"
 
 				// Maskmovdqu_rDI_xmm_xmm
 				0x11,// maskmovq
@@ -11093,12 +11077,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er
 				0x8C,// 'v', er_2
-				0xAF, 0x09,// 1199 = "vscalefss"
+				0xAD, 0x09,// 1197 = "vscalefss"
 				0x03,// 0x3
 
 				// EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er
 				0x8C,// 'v', er_2
-				0xAE, 0x09,// 1198 = "vscalefsd"
+				0xAC, 0x09,// 1196 = "vscalefsd"
 				0x03,// 0x3
 
 				// VEX_Vmaskmovps_m128_xmm_xmm
@@ -11657,12 +11641,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae
 				0xAC,// 'v', sae
-				0xE6, 0x07,// 998 = "vgetexpss"
+				0xE5, 0x07,// 997 = "vgetexpss"
 				0x03,// 0x3
 
 				// EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae
 				0xAC,// 'v', sae
-				0xE5, 0x07,// 997 = "vgetexpsd"
+				0xE4, 0x07,// 996 = "vgetexpsd"
 				0x03,// 0x3
 
 				// EVEX_Vplzcntd_xmm_k1z_xmmm128b32
@@ -11801,11 +11785,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32
 				0x81,// 'v', Normal_1
-				0x8B, 0x09,// 1163 = "vrcp14ss"
+				0x8A, 0x09,// 1162 = "vrcp14ss"
 
 				// EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64
 				0x81,// 'v', Normal_1
-				0x8A, 0x09,// 1162 = "vrcp14sd"
+				0x89, 0x09,// 1161 = "vrcp14sd"
 
 				// EVEX_Vrsqrt14ps_xmm_k1z_xmmm128b32
 				0x81,// 'v', Normal_1
@@ -11829,11 +11813,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32
 				0x81,// 'v', Normal_1
-				0xA5, 0x09,// 1189 = "vrsqrt14ss"
+				0xA3, 0x09,// 1187 = "vrsqrt14ss"
 
 				// EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64
 				0x81,// 'v', Normal_1
-				0xA4, 0x09,// 1188 = "vrsqrt14sd"
+				0xA2, 0x09,// 1186 = "vrsqrt14sd"
 
 				// EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
 				0x81,// 'v', Normal_1
@@ -11877,7 +11861,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128
 				0x81,// 'v', Normal_1
-				0xBE, 0x08,// 1086 = "vp4dpwssd"
+				0xBD, 0x08,// 1085 = "vp4dpwssd"
 
 				// EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
 				0x81,// 'v', Normal_1
@@ -11891,7 +11875,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128
 				0x81,// 'v', Normal_1
-				0xBF, 0x08,// 1087 = "vp4dpwssds"
+				0xBE, 0x08,// 1086 = "vp4dpwssds"
 
 				// EVEX_Vpopcntb_xmm_k1z_xmmm128
 				0x81,// 'v', Normal_1
@@ -13740,141 +13724,141 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vgatherpf0dps_vm32z_k1
 				0x81,// 'v', Normal_1
-				0xDE, 0x07,// 990 = "vgatherpf0dps"
+				0xDD, 0x07,// 989 = "vgatherpf0dps"
 
 				// EVEX_Vgatherpf0dpd_vm32y_k1
 				0x81,// 'v', Normal_1
-				0xDD, 0x07,// 989 = "vgatherpf0dpd"
+				0xDC, 0x07,// 988 = "vgatherpf0dpd"
 
 				// EVEX_Vgatherpf1dps_vm32z_k1
 				0x81,// 'v', Normal_1
-				0xE2, 0x07,// 994 = "vgatherpf1dps"
+				0xE1, 0x07,// 993 = "vgatherpf1dps"
 
 				// EVEX_Vgatherpf1dpd_vm32y_k1
 				0x81,// 'v', Normal_1
-				0xE1, 0x07,// 993 = "vgatherpf1dpd"
+				0xE0, 0x07,// 992 = "vgatherpf1dpd"
 
 				// EVEX_Vscatterpf0dps_vm32z_k1
 				0x81,// 'v', Normal_1
-				0xB1, 0x09,// 1201 = "vscatterpf0dps"
+				0xAF, 0x09,// 1199 = "vscatterpf0dps"
 
 				// EVEX_Vscatterpf0dpd_vm32y_k1
 				0x81,// 'v', Normal_1
-				0xB0, 0x09,// 1200 = "vscatterpf0dpd"
+				0xAE, 0x09,// 1198 = "vscatterpf0dpd"
 
 				// EVEX_Vscatterpf1dps_vm32z_k1
 				0x81,// 'v', Normal_1
-				0xB5, 0x09,// 1205 = "vscatterpf1dps"
+				0xB3, 0x09,// 1203 = "vscatterpf1dps"
 
 				// EVEX_Vscatterpf1dpd_vm32y_k1
 				0x81,// 'v', Normal_1
-				0xB4, 0x09,// 1204 = "vscatterpf1dpd"
+				0xB2, 0x09,// 1202 = "vscatterpf1dpd"
 
 				// EVEX_Vgatherpf0qps_vm64z_k1
 				0x81,// 'v', Normal_1
-				0xE0, 0x07,// 992 = "vgatherpf0qps"
+				0xDF, 0x07,// 991 = "vgatherpf0qps"
 
 				// EVEX_Vgatherpf0qpd_vm64z_k1
 				0x81,// 'v', Normal_1
-				0xDF, 0x07,// 991 = "vgatherpf0qpd"
+				0xDE, 0x07,// 990 = "vgatherpf0qpd"
 
 				// EVEX_Vgatherpf1qps_vm64z_k1
 				0x81,// 'v', Normal_1
-				0xE4, 0x07,// 996 = "vgatherpf1qps"
+				0xE3, 0x07,// 995 = "vgatherpf1qps"
 
 				// EVEX_Vgatherpf1qpd_vm64z_k1
 				0x81,// 'v', Normal_1
-				0xE3, 0x07,// 995 = "vgatherpf1qpd"
+				0xE2, 0x07,// 994 = "vgatherpf1qpd"
 
 				// EVEX_Vscatterpf0qps_vm64z_k1
 				0x81,// 'v', Normal_1
-				0xB3, 0x09,// 1203 = "vscatterpf0qps"
+				0xB1, 0x09,// 1201 = "vscatterpf0qps"
 
 				// EVEX_Vscatterpf0qpd_vm64z_k1
 				0x81,// 'v', Normal_1
-				0xB2, 0x09,// 1202 = "vscatterpf0qpd"
+				0xB0, 0x09,// 1200 = "vscatterpf0qpd"
 
 				// EVEX_Vscatterpf1qps_vm64z_k1
 				0x81,// 'v', Normal_1
-				0xB7, 0x09,// 1207 = "vscatterpf1qps"
+				0xB5, 0x09,// 1205 = "vscatterpf1qps"
 
 				// EVEX_Vscatterpf1qpd_vm64z_k1
 				0x81,// 'v', Normal_1
-				0xB6, 0x09,// 1206 = "vscatterpf1qpd"
+				0xB4, 0x09,// 1204 = "vscatterpf1qpd"
 
 				// Sha1nexte_xmm_xmmm128
 				0x01,// Normal_1
-				0xCC, 0x09,// 1228 = "sha1nexte"
+				0xCA, 0x09,// 1226 = "sha1nexte"
 
 				// EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae
 				0xAC,// 'v', sae
-				0x87, 0x07,// 903 = "vexp2ps"
+				0x86, 0x07,// 902 = "vexp2ps"
 				0x02,// 0x2
 
 				// EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae
 				0xAC,// 'v', sae
-				0x86, 0x07,// 902 = "vexp2pd"
+				0x85, 0x07,// 901 = "vexp2pd"
 				0x02,// 0x2
 
 				// Sha1msg1_xmm_xmmm128
 				0x01,// Normal_1
-				0xCA, 0x09,// 1226 = "sha1msg1"
+				0xC8, 0x09,// 1224 = "sha1msg1"
 
 				// Sha1msg2_xmm_xmmm128
 				0x01,// Normal_1
-				0xCB, 0x09,// 1227 = "sha1msg2"
+				0xC9, 0x09,// 1225 = "sha1msg2"
 
 				// EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae
 				0xAC,// 'v', sae
-				0x8D, 0x09,// 1165 = "vrcp28ps"
+				0x8C, 0x09,// 1164 = "vrcp28ps"
 				0x02,// 0x2
 
 				// EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae
 				0xAC,// 'v', sae
-				0x8C, 0x09,// 1164 = "vrcp28pd"
+				0x8B, 0x09,// 1163 = "vrcp28pd"
 				0x02,// 0x2
 
 				// Sha256rnds2_xmm_xmmm128
 				0x26,// pblendvb_2
-				0xD0, 0x09,// 1232 = "sha256rnds2"
+				0xCE, 0x09,// 1230 = "sha256rnds2"
 				0x06,// UInt128
 
 				// EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae
 				0xAC,// 'v', sae
-				0x8F, 0x09,// 1167 = "vrcp28ss"
+				0x8E, 0x09,// 1166 = "vrcp28ss"
 				0x03,// 0x3
 
 				// EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae
 				0xAC,// 'v', sae
-				0x8E, 0x09,// 1166 = "vrcp28sd"
+				0x8D, 0x09,// 1165 = "vrcp28sd"
 				0x03,// 0x3
 
 				// Sha256msg1_xmm_xmmm128
 				0x01,// Normal_1
-				0xCE, 0x09,// 1230 = "sha256msg1"
+				0xCC, 0x09,// 1228 = "sha256msg1"
 
 				// EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae
 				0xAC,// 'v', sae
-				0xA7, 0x09,// 1191 = "vrsqrt28ps"
+				0xA5, 0x09,// 1189 = "vrsqrt28ps"
 				0x02,// 0x2
 
 				// EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae
 				0xAC,// 'v', sae
-				0xA6, 0x09,// 1190 = "vrsqrt28pd"
+				0xA4, 0x09,// 1188 = "vrsqrt28pd"
 				0x02,// 0x2
 
 				// Sha256msg2_xmm_xmmm128
 				0x01,// Normal_1
-				0xCF, 0x09,// 1231 = "sha256msg2"
+				0xCD, 0x09,// 1229 = "sha256msg2"
 
 				// EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae
 				0xAC,// 'v', sae
-				0xA9, 0x09,// 1193 = "vrsqrt28ss"
+				0xA7, 0x09,// 1191 = "vrsqrt28ss"
 				0x03,// 0x3
 
 				// EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae
 				0xAC,// 'v', sae
-				0xA8, 0x09,// 1192 = "vrsqrt28sd"
+				0xA6, 0x09,// 1190 = "vrsqrt28sd"
 				0x03,// 0x3
 
 				// Gf2p8mulb_xmm_xmmm128
@@ -14058,11 +14042,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Wrussd_m32_r32
 				0x01,// Normal_1
-				0xE2, 0x09,// 1250 = "wrussd"
+				0xDF, 0x09,// 1247 = "wrussd"
 
 				// Wrussq_m64_r64
 				0x01,// Normal_1
-				0xE3, 0x09,// 1251 = "wrussq"
+				0xE0, 0x09,// 1248 = "wrussq"
 
 				// VEX_Pext_r32_r32_rm32
 				0x01,// Normal_1
@@ -14080,11 +14064,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Wrssd_m32_r32
 				0x01,// Normal_1
-				0xE0, 0x09,// 1248 = "wrssd"
+				0xDD, 0x09,// 1245 = "wrssd"
 
 				// Wrssq_m64_r64
 				0x01,// Normal_1
-				0xE1, 0x09,// 1249 = "wrssq"
+				0xDE, 0x09,// 1246 = "wrssq"
 
 				// Adcx_r32_rm32
 				0x01,// Normal_1
@@ -14253,7 +14237,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// VEX_Vperm2f128_ymm_ymm_ymmm256_imm8
 				0x81,// 'v', Normal_1
-				0xCC, 0x08,// 1100 = "vperm2f128"
+				0xCB, 0x08,// 1099 = "vperm2f128"
 
 				// Roundps_xmm_xmmm128_imm8
 				0x02,// Normal_2
@@ -14314,7 +14298,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae
 				0xAC,// 'v', sae
-				0xA2, 0x09,// 1186 = "vrndscaless"
+				0xA0, 0x09,// 1184 = "vrndscaless"
 				0x03,// 0x3
 
 				// Roundsd_xmm_xmmm64_imm8
@@ -14328,7 +14312,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae
 				0xAC,// 'v', sae
-				0xA1, 0x09,// 1185 = "vrndscalesd"
+				0x9F, 0x09,// 1183 = "vrndscalesd"
 				0x03,// 0x3
 
 				// Blendps_xmm_xmmm128_imm8
@@ -14478,7 +14462,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// VEX_Vinsertf128_ymm_ymm_xmmm128_imm8
 				0x81,// 'v', Normal_1
-				0xED, 0x07,// 1005 = "vinsertf128"
+				0xEC, 0x07,// 1004 = "vinsertf128"
 
 				// EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8
 				0x81,// 'v', Normal_1
@@ -14496,7 +14480,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// VEX_Vextractf128_xmmm128_ymm_imm8
 				0x81,// 'v', Normal_1
-				0x88, 0x07,// 904 = "vextractf128"
+				0x87, 0x07,// 903 = "vextractf128"
 
 				// EVEX_Vextractf32x4_xmmm128_k1z_ymm_imm8
 				0x81,// 'v', Normal_1
@@ -14514,19 +14498,19 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8
 				0x81,// 'v', Normal_1
-				0xEE, 0x07,// 1006 = "vinsertf32x8"
+				0xED, 0x07,// 1005 = "vinsertf32x8"
 
 				// EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8
 				0x81,// 'v', Normal_1
-				0xEF, 0x07,// 1007 = "vinsertf64x4"
+				0xEE, 0x07,// 1006 = "vinsertf64x4"
 
 				// EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8
 				0x81,// 'v', Normal_1
-				0x89, 0x07,// 905 = "vextractf32x8"
+				0x88, 0x07,// 904 = "vextractf32x8"
 
 				// EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8
 				0x81,// 'v', Normal_1
-				0x8A, 0x07,// 906 = "vextractf64x4"
+				0x89, 0x07,// 905 = "vextractf64x4"
 
 				// VEX_Vcvtps2ph_xmmm64_xmm_imm8
 				0x81,// 'v', Normal_1
@@ -14701,49 +14685,49 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae
 				0xAC,// 'v', sae
-				0xE8, 0x07,// 1000 = "vgetmantss"
+				0xE7, 0x07,// 999 = "vgetmantss"
 				0x03,// 0x3
 
 				// EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae
 				0xAC,// 'v', sae
-				0xE7, 0x07,// 999 = "vgetmantsd"
+				0xE6, 0x07,// 998 = "vgetmantsd"
 				0x03,// 0x3
 
 				// VEX_Kshiftrb_k_k_imm8
 				0x01,// Normal_1
-				0x93, 0x08,// 1043 = "kshiftrb"
+				0x92, 0x08,// 1042 = "kshiftrb"
 
 				// VEX_Kshiftrw_k_k_imm8
 				0x01,// Normal_1
-				0x96, 0x08,// 1046 = "kshiftrw"
+				0x95, 0x08,// 1045 = "kshiftrw"
 
 				// VEX_Kshiftrd_k_k_imm8
 				0x01,// Normal_1
-				0x94, 0x08,// 1044 = "kshiftrd"
+				0x93, 0x08,// 1043 = "kshiftrd"
 
 				// VEX_Kshiftrq_k_k_imm8
 				0x01,// Normal_1
-				0x95, 0x08,// 1045 = "kshiftrq"
+				0x94, 0x08,// 1044 = "kshiftrq"
 
 				// VEX_Kshiftlb_k_k_imm8
 				0x01,// Normal_1
-				0x8F, 0x08,// 1039 = "kshiftlb"
+				0x8E, 0x08,// 1038 = "kshiftlb"
 
 				// VEX_Kshiftlw_k_k_imm8
 				0x01,// Normal_1
-				0x92, 0x08,// 1042 = "kshiftlw"
+				0x91, 0x08,// 1041 = "kshiftlw"
 
 				// VEX_Kshiftld_k_k_imm8
 				0x01,// Normal_1
-				0x90, 0x08,// 1040 = "kshiftld"
+				0x8F, 0x08,// 1039 = "kshiftld"
 
 				// VEX_Kshiftlq_k_k_imm8
 				0x01,// Normal_1
-				0x91, 0x08,// 1041 = "kshiftlq"
+				0x90, 0x08,// 1040 = "kshiftlq"
 
 				// VEX_Vinserti128_ymm_ymm_xmmm128_imm8
 				0x81,// 'v', Normal_1
-				0xF0, 0x07,// 1008 = "vinserti128"
+				0xEF, 0x07,// 1007 = "vinserti128"
 
 				// EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8
 				0x81,// 'v', Normal_1
@@ -14761,7 +14745,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// VEX_Vextracti128_xmmm128_ymm_imm8
 				0x81,// 'v', Normal_1
-				0x8B, 0x07,// 907 = "vextracti128"
+				0x8A, 0x07,// 906 = "vextracti128"
 
 				// EVEX_Vextracti32x4_xmmm128_k1z_ymm_imm8
 				0x81,// 'v', Normal_1
@@ -14779,19 +14763,19 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8
 				0x81,// 'v', Normal_1
-				0xF1, 0x07,// 1009 = "vinserti32x8"
+				0xF0, 0x07,// 1008 = "vinserti32x8"
 
 				// EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8
 				0x81,// 'v', Normal_1
-				0xF2, 0x07,// 1010 = "vinserti64x4"
+				0xF1, 0x07,// 1009 = "vinserti64x4"
 
 				// EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8
 				0x81,// 'v', Normal_1
-				0x8C, 0x07,// 908 = "vextracti32x8"
+				0x8B, 0x07,// 907 = "vextracti32x8"
 
 				// EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8
 				0x81,// 'v', Normal_1
-				0x8D, 0x07,// 909 = "vextracti64x4"
+				0x8C, 0x07,// 908 = "vextracti64x4"
 
 				// EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8
 				0x81,// 'v', Normal_1
@@ -14914,7 +14898,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
 				0x81,// 'v', Normal_1
-				0xCD, 0x08,// 1101 = "vperm2i128"
+				0xCC, 0x08,// 1100 = "vperm2i128"
 
 				// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8
 				0x81,// 'v', Normal_1
@@ -14989,12 +14973,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae
 				0xAC,// 'v', sae
-				0x89, 0x09,// 1161 = "vrangess"
+				0x88, 0x09,// 1160 = "vrangess"
 				0x03,// 0x3
 
 				// EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae
 				0xAC,// 'v', sae
-				0x88, 0x09,// 1160 = "vrangesd"
+				0x87, 0x09,// 1159 = "vrangesd"
 				0x03,// 0x3
 
 				// EVEX_Vfixupimmps_xmm_k1z_xmm_xmmm128b32_imm8
@@ -15023,12 +15007,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae
 				0xAC,// 'v', sae
-				0xAC, 0x07,// 940 = "vfixupimmss"
+				0xAB, 0x07,// 939 = "vfixupimmss"
 				0x03,// 0x3
 
 				// EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae
 				0xAC,// 'v', sae
-				0xAB, 0x07,// 939 = "vfixupimmsd"
+				0xAA, 0x07,// 938 = "vfixupimmsd"
 				0x03,// 0x3
 
 				// EVEX_Vreduceps_xmm_k1z_xmmm128b32_imm8
@@ -15057,12 +15041,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae
 				0xAC,// 'v', sae
-				0x9A, 0x09,// 1178 = "vreducess"
+				0x98, 0x09,// 1176 = "vreducess"
 				0x03,// 0x3
 
 				// EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae
 				0xAC,// 'v', sae
-				0x99, 0x09,// 1177 = "vreducesd"
+				0x97, 0x09,// 1175 = "vreducesd"
 				0x03,// 0x3
 
 				// VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm
@@ -15197,11 +15181,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// EVEX_Vfpclassss_k_k1_xmmm32_imm8
 				0x81,// 'v', Normal_1
-				0xBF, 0x07,// 959 = "vfpclassss"
+				0xBE, 0x07,// 958 = "vfpclassss"
 
 				// EVEX_Vfpclasssd_k_k1_xmmm64_imm8
 				0x81,// 'v', Normal_1
-				0xBE, 0x07,// 958 = "vfpclasssd"
+				0xBD, 0x07,// 957 = "vfpclasssd"
 
 				// VEX_Vfmaddps_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
@@ -15425,7 +15409,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Sha1rnds4_xmm_xmmm128_imm8
 				0x01,// Normal_1
-				0xCD, 0x09,// 1229 = "sha1rnds4"
+				0xCB, 0x09,// 1227 = "sha1rnds4"
 
 				// Gf2p8affineqb_xmm_xmmm128_imm8
 				0x01,// Normal_1
@@ -15484,43 +15468,43 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// XOP_Vpmacssww_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xFB, 0x08,// 1147 = "vpmacssww"
+				0xFA, 0x08,// 1146 = "vpmacssww"
 
 				// XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xFA, 0x08,// 1146 = "vpmacsswd"
+				0xF9, 0x08,// 1145 = "vpmacsswd"
 
 				// XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF9, 0x08,// 1145 = "vpmacssdql"
+				0xF8, 0x08,// 1144 = "vpmacssdql"
 
 				// XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF7, 0x08,// 1143 = "vpmacssdd"
+				0xF6, 0x08,// 1142 = "vpmacssdd"
 
 				// XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF8, 0x08,// 1144 = "vpmacssdqh"
+				0xF7, 0x08,// 1143 = "vpmacssdqh"
 
 				// XOP_Vpmacsww_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xFD, 0x08,// 1149 = "vpmacsww"
+				0xFC, 0x08,// 1148 = "vpmacsww"
 
 				// XOP_Vpmacswd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xFC, 0x08,// 1148 = "vpmacswd"
+				0xFB, 0x08,// 1147 = "vpmacswd"
 
 				// XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF6, 0x08,// 1142 = "vpmacsdql"
+				0xF5, 0x08,// 1141 = "vpmacsdql"
 
 				// XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF4, 0x08,// 1140 = "vpmacsdd"
+				0xF3, 0x08,// 1139 = "vpmacsdd"
 
 				// XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF5, 0x08,// 1141 = "vpmacsdqh"
+				0xF4, 0x08,// 1140 = "vpmacsdqh"
 
 				// XOP_Vpcmov_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
@@ -15544,11 +15528,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xFE, 0x08,// 1150 = "vpmadcsswd"
+				0xFD, 0x08,// 1149 = "vpmadcsswd"
 
 				// XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xFF, 0x08,// 1151 = "vpmadcswd"
+				0xFE, 0x08,// 1150 = "vpmadcswd"
 
 				// XOP_Vprotb_xmm_xmmm128_imm8
 				0x81,// 'v', Normal_1
@@ -15568,42 +15552,42 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// XOP_Vpcomb_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops_2
-				0xC2, 0x08,// 1090 = "vpcomb"
+				0xC1, 0x08,// 1089 = "vpcomb"
 				0x0A,// vpcomb
 
 				// XOP_Vpcomw_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops_2
-				0xCA, 0x08,// 1098 = "vpcomw"
+				0xC9, 0x08,// 1097 = "vpcomw"
 				0x0B,// vpcomw
 
 				// XOP_Vpcomd_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops_2
-				0xC3, 0x08,// 1091 = "vpcomd"
+				0xC2, 0x08,// 1090 = "vpcomd"
 				0x0C,// vpcomd
 
 				// XOP_Vpcomq_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops_2
-				0xC5, 0x08,// 1093 = "vpcomq"
+				0xC4, 0x08,// 1092 = "vpcomq"
 				0x0D,// vpcomq
 
 				// XOP_Vpcomub_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops_2
-				0xC6, 0x08,// 1094 = "vpcomub"
+				0xC5, 0x08,// 1093 = "vpcomub"
 				0x0E,// vpcomub
 
 				// XOP_Vpcomuw_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops_2
-				0xC9, 0x08,// 1097 = "vpcomuw"
+				0xC8, 0x08,// 1096 = "vpcomuw"
 				0x0F,// vpcomuw
 
 				// XOP_Vpcomud_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops_2
-				0xC7, 0x08,// 1095 = "vpcomud"
+				0xC6, 0x08,// 1094 = "vpcomud"
 				0x10,// vpcomud
 
 				// XOP_Vpcomuq_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops_2
-				0xC8, 0x08,// 1096 = "vpcomuq"
+				0xC7, 0x08,// 1095 = "vpcomuq"
 				0x11,// vpcomuq
 
 				// XOP_Blcfill_r32_rm32
@@ -15699,11 +15683,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// XOP_Vfrczss_xmm_xmmm32
 				0x81,// 'v', Normal_1
-				0xC4, 0x07,// 964 = "vfrczss"
+				0xC3, 0x07,// 963 = "vfrczss"
 
 				// XOP_Vfrczsd_xmm_xmmm64
 				0x81,// 'v', Normal_1
-				0xC3, 0x07,// 963 = "vfrczsd"
+				0xC2, 0x07,// 962 = "vfrczsd"
 
 				// XOP_Vprotb_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
@@ -15791,63 +15775,63 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// XOP_Vphaddbw_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE5, 0x08,// 1125 = "vphaddbw"
+				0xE4, 0x08,// 1124 = "vphaddbw"
 
 				// XOP_Vphaddbd_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE3, 0x08,// 1123 = "vphaddbd"
+				0xE2, 0x08,// 1122 = "vphaddbd"
 
 				// XOP_Vphaddbq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE4, 0x08,// 1124 = "vphaddbq"
+				0xE3, 0x08,// 1123 = "vphaddbq"
 
 				// XOP_Vphaddwd_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xED, 0x08,// 1133 = "vphaddwd"
+				0xEC, 0x08,// 1132 = "vphaddwd"
 
 				// XOP_Vphaddwq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xEE, 0x08,// 1134 = "vphaddwq"
+				0xED, 0x08,// 1133 = "vphaddwq"
 
 				// XOP_Vphadddq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE6, 0x08,// 1126 = "vphadddq"
+				0xE5, 0x08,// 1125 = "vphadddq"
 
 				// XOP_Vphaddubw_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE9, 0x08,// 1129 = "vphaddubw"
+				0xE8, 0x08,// 1128 = "vphaddubw"
 
 				// XOP_Vphaddubd_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE7, 0x08,// 1127 = "vphaddubd"
+				0xE6, 0x08,// 1126 = "vphaddubd"
 
 				// XOP_Vphaddubq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE8, 0x08,// 1128 = "vphaddubq"
+				0xE7, 0x08,// 1127 = "vphaddubq"
 
 				// XOP_Vphadduwd_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xEB, 0x08,// 1131 = "vphadduwd"
+				0xEA, 0x08,// 1130 = "vphadduwd"
 
 				// XOP_Vphadduwq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xEC, 0x08,// 1132 = "vphadduwq"
+				0xEB, 0x08,// 1131 = "vphadduwq"
 
 				// XOP_Vphaddudq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xEA, 0x08,// 1130 = "vphaddudq"
+				0xE9, 0x08,// 1129 = "vphaddudq"
 
 				// XOP_Vphsubbw_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xEF, 0x08,// 1135 = "vphsubbw"
+				0xEE, 0x08,// 1134 = "vphsubbw"
 
 				// XOP_Vphsubwd_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xF1, 0x08,// 1137 = "vphsubwd"
+				0xF0, 0x08,// 1136 = "vphsubwd"
 
 				// XOP_Vphsubdq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xF0, 0x08,// 1136 = "vphsubdq"
+				0xEF, 0x08,// 1135 = "vphsubdq"
 
 				// XOP_Bextr_r32_rm32_imm32
 				0x01,// Normal_1
@@ -15872,123 +15856,123 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// D3NOW_Pi2fw_mm_mmm64
 				0x01,// Normal_1
-				0xF3, 0x08,// 1139 = "pi2fw"
+				0xF2, 0x08,// 1138 = "pi2fw"
 
 				// D3NOW_Pi2fd_mm_mmm64
 				0x01,// Normal_1
-				0xF2, 0x08,// 1138 = "pi2fd"
+				0xF1, 0x08,// 1137 = "pi2fd"
 
 				// D3NOW_Pf2iw_mm_mmm64
 				0x01,// Normal_1
-				0xCF, 0x08,// 1103 = "pf2iw"
+				0xCE, 0x08,// 1102 = "pf2iw"
 
 				// D3NOW_Pf2id_mm_mmm64
 				0x01,// Normal_1
-				0xCE, 0x08,// 1102 = "pf2id"
+				0xCD, 0x08,// 1101 = "pf2id"
 
 				// D3NOW_Pfrcpv_mm_mmm64
 				0x01,// Normal_1
-				0xDD, 0x08,// 1117 = "pfrcpv"
+				0xDC, 0x08,// 1116 = "pfrcpv"
 
 				// D3NOW_Pfrsqrtv_mm_mmm64
 				0x01,// Normal_1
-				0xE0, 0x08,// 1120 = "pfrsqrtv"
+				0xDF, 0x08,// 1119 = "pfrsqrtv"
 
 				// D3NOW_Pfnacc_mm_mmm64
 				0x01,// Normal_1
-				0xD8, 0x08,// 1112 = "pfnacc"
+				0xD7, 0x08,// 1111 = "pfnacc"
 
 				// D3NOW_Pfpnacc_mm_mmm64
 				0x01,// Normal_1
-				0xD9, 0x08,// 1113 = "pfpnacc"
+				0xD8, 0x08,// 1112 = "pfpnacc"
 
 				// D3NOW_Pfcmpge_mm_mmm64
 				0x01,// Normal_1
-				0xD3, 0x08,// 1107 = "pfcmpge"
+				0xD2, 0x08,// 1106 = "pfcmpge"
 
 				// D3NOW_Pfmin_mm_mmm64
 				0x01,// Normal_1
-				0xD6, 0x08,// 1110 = "pfmin"
+				0xD5, 0x08,// 1109 = "pfmin"
 
 				// D3NOW_Pfrcp_mm_mmm64
 				0x01,// Normal_1
-				0xDA, 0x08,// 1114 = "pfrcp"
+				0xD9, 0x08,// 1113 = "pfrcp"
 
 				// D3NOW_Pfrsqrt_mm_mmm64
 				0x01,// Normal_1
-				0xDF, 0x08,// 1119 = "pfrsqrt"
+				0xDE, 0x08,// 1118 = "pfrsqrt"
 
 				// D3NOW_Pfsub_mm_mmm64
 				0x01,// Normal_1
-				0xE1, 0x08,// 1121 = "pfsub"
+				0xE0, 0x08,// 1120 = "pfsub"
 
 				// D3NOW_Pfadd_mm_mmm64
 				0x01,// Normal_1
-				0xD1, 0x08,// 1105 = "pfadd"
+				0xD0, 0x08,// 1104 = "pfadd"
 
 				// D3NOW_Pfcmpgt_mm_mmm64
 				0x01,// Normal_1
-				0xD4, 0x08,// 1108 = "pfcmpgt"
+				0xD3, 0x08,// 1107 = "pfcmpgt"
 
 				// D3NOW_Pfmax_mm_mmm64
 				0x01,// Normal_1
-				0xD5, 0x08,// 1109 = "pfmax"
+				0xD4, 0x08,// 1108 = "pfmax"
 
 				// D3NOW_Pfrcpit1_mm_mmm64
 				0x01,// Normal_1
-				0xDB, 0x08,// 1115 = "pfrcpit1"
+				0xDA, 0x08,// 1114 = "pfrcpit1"
 
 				// D3NOW_Pfrsqit1_mm_mmm64
 				0x01,// Normal_1
-				0xDE, 0x08,// 1118 = "pfrsqit1"
+				0xDD, 0x08,// 1117 = "pfrsqit1"
 
 				// D3NOW_Pfsubr_mm_mmm64
 				0x01,// Normal_1
-				0xE2, 0x08,// 1122 = "pfsubr"
+				0xE1, 0x08,// 1121 = "pfsubr"
 
 				// D3NOW_Pfacc_mm_mmm64
 				0x01,// Normal_1
-				0xD0, 0x08,// 1104 = "pfacc"
+				0xCF, 0x08,// 1103 = "pfacc"
 
 				// D3NOW_Pfcmpeq_mm_mmm64
 				0x01,// Normal_1
-				0xD2, 0x08,// 1106 = "pfcmpeq"
+				0xD1, 0x08,// 1105 = "pfcmpeq"
 
 				// D3NOW_Pfmul_mm_mmm64
 				0x01,// Normal_1
-				0xD7, 0x08,// 1111 = "pfmul"
+				0xD6, 0x08,// 1110 = "pfmul"
 
 				// D3NOW_Pfrcpit2_mm_mmm64
 				0x01,// Normal_1
-				0xDC, 0x08,// 1116 = "pfrcpit2"
+				0xDB, 0x08,// 1115 = "pfrcpit2"
 
 				// D3NOW_Pmulhrw_mm_mmm64
 				0x01,// Normal_1
-				0xC8, 0x0A,// 1352 = "pmulhrwa"
+				0xC4, 0x0A,// 1348 = "pmulhrwa"
 
 				// D3NOW_Pswapd_mm_mmm64
 				0x01,// Normal_1
-				0x87, 0x09,// 1159 = "pswapd"
+				0x86, 0x09,// 1158 = "pswapd"
 
 				// D3NOW_Pavgusb_mm_mmm64
 				0x01,// Normal_1
-				0xC1, 0x08,// 1089 = "pavgusb"
+				0xC0, 0x08,// 1088 = "pavgusb"
 
 				// DeclareByte
 				0x0A,// DeclareData
-				0xFE, 0x09,// 1278 = "db"
+				0xFA, 0x09,// 1274 = "db"
 
 				// DeclareWord
 				0x0A,// DeclareData
-				0x81, 0x0A,// 1281 = "dw"
+				0xFD, 0x09,// 1277 = "dw"
 
 				// DeclareDword
 				0x0A,// DeclareData
-				0xFF, 0x09,// 1279 = "dd"
+				0xFB, 0x09,// 1275 = "dd"
 
 				// DeclareQword
 				0x0A,// DeclareData
-				0x80, 0x0A,// 1280 = "dq"
+				0xFC, 0x09,// 1276 = "dq"
 			};
 	}
 }

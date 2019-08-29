@@ -914,7 +914,6 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Invd,// Invd
 			(ushort)Mnemonic.Wbinvd,// Wbinvd
 			(ushort)Mnemonic.Wbnoinvd,// Wbnoinvd
-			(ushort)Mnemonic.Cflsh,// Cflsh
 			(ushort)Mnemonic.Cl1invmb,// Cl1invmb
 			(ushort)Mnemonic.Ud2,// Ud2
 			(ushort)Mnemonic.ReservedNop,// ReservedNop_rm16_r16_0F0D
@@ -1202,11 +1201,9 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Rdtsc,// Rdtsc
 			(ushort)Mnemonic.Rdmsr,// Rdmsr
 			(ushort)Mnemonic.Rdpmc,// Rdpmc
-			(ushort)Mnemonic.Wrecr,// Wrecr
 			(ushort)Mnemonic.Sysenter,// Sysenter
 			(ushort)Mnemonic.Sysexit,// Sysexitd
 			(ushort)Mnemonic.Sysexit,// Sysexitq
-			(ushort)Mnemonic.Rdecr,// Rdecr
 			(ushort)Mnemonic.Getsec,// Getsec
 			(ushort)Mnemonic.Cmovo,// Cmovo_r16_rm16
 			(ushort)Mnemonic.Cmovo,// Cmovo_r32_rm32
@@ -2047,7 +2044,6 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Shrd,// Shrd_rm16_r16_CL
 			(ushort)Mnemonic.Shrd,// Shrd_rm32_r32_CL
 			(ushort)Mnemonic.Shrd,// Shrd_rm64_r64_CL
-			(ushort)Mnemonic.Zalloc,// Zalloc_m256
 			(ushort)Mnemonic.Fxsave,// Fxsave_m512byte
 			(ushort)Mnemonic.Fxsave64,// Fxsave64_m512byte
 			(ushort)Mnemonic.Rdfsbase,// Rdfsbase_r32

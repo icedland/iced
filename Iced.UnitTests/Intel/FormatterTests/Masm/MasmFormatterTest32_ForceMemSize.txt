@@ -613,7 +613,6 @@ jmpe dword ptr [eax]
 loadallreset286
 loadall286
 loadall386
-cflsh
 umov dh,cl
 umov byte ptr [eax],bl
 umov si,cx
@@ -628,8 +627,6 @@ umov ecx,esi
 umov ebx,dword ptr [eax]
 mov esi,tr3
 mov tr3,esi
-wrecr
-rdecr
 xbts cx,si
 xbts bx,word ptr [eax]
 xbts ecx,esi
@@ -644,7 +641,6 @@ cmpxchg486 si,cx
 cmpxchg486 word ptr [eax],bx
 cmpxchg486 esi,ecx
 cmpxchg486 dword ptr [eax],ebx
-zalloc ymmword ptr [eax]
 umonitor bp
 umonitor ebp
 jmpe near ptr 0A55Ah

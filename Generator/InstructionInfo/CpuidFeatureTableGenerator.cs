@@ -92,7 +92,6 @@ namespace Generator.InstructionInfo {
 				new[] { CpuidFeature.BMI2 },
 				new[] { CpuidFeature.CET_IBT },
 				new[] { CpuidFeature.CET_SS },
-				new[] { CpuidFeature.CFLSH },
 				new[] { CpuidFeature.CL1INVMB },
 				new[] { CpuidFeature.CLDEMOTE },
 				new[] { CpuidFeature.CLFLUSHOPT },
@@ -105,7 +104,6 @@ namespace Generator.InstructionInfo {
 				new[] { CpuidFeature.CX8 },
 				new[] { CpuidFeature.D3NOW },
 				new[] { CpuidFeature.D3NOWEXT },
-				new[] { CpuidFeature.ECR },
 				new[] { CpuidFeature.ENCLV },
 				new[] { CpuidFeature.ENQCMD },
 				new[] { CpuidFeature.F16C },
@@ -185,7 +183,6 @@ namespace Generator.InstructionInfo {
 				new[] { CpuidFeature.XSAVEC },
 				new[] { CpuidFeature.XSAVEOPT },
 				new[] { CpuidFeature.XSAVES },
-				new[] { CpuidFeature.ZALLOC },
 			};
 
 			var header = new byte[(CpuidFeatureInternalConstants.MaxCpuidFeatureInternalValues + 7) / 8];

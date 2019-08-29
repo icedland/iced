@@ -613,7 +613,6 @@ jmpe *(%eax)
 loadallreset286
 loadall286
 loadall386
-cflsh
 umov %cl,%dh
 umov %bl,(%eax)
 umov %cx,%si
@@ -628,8 +627,6 @@ umov %esi,%ecx
 umov (%eax),%ebx
 mov %tr3,%esi
 mov %esi,%tr3
-wrecr
-rdecr
 xbts %si,%cx
 xbts (%eax),%bx
 xbts %esi,%ecx
@@ -644,7 +641,6 @@ cmpxchg486 %cx,%si
 cmpxchg486 %bx,(%eax)
 cmpxchg486 %ecx,%esi
 cmpxchg486 %ebx,(%eax)
-zalloc (%eax)
 umonitor %bp
 umonitor %ebp
 data16 jmpe 0xa55a

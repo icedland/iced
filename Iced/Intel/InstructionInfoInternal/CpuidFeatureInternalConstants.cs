@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
 	static class CpuidFeatureInternalConstants {
-		public const int MaxCpuidFeatureInternalValues = (int)CpuidFeatureInternal.ZALLOC + 1;
+		public const int MaxCpuidFeatureInternalValues = (int)CpuidFeatureInternal.XSAVES + 1;
 	}
 }
 #endif

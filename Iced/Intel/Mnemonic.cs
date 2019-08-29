@@ -90,7 +90,6 @@ namespace Iced.Intel {
 		Cbw,
 		Cdq,
 		Cdqe,
-		Cflsh,
 		Cl1invmb,
 		Clac,
 		Clc,
@@ -674,7 +673,6 @@ namespace Iced.Intel {
 		Rcpps,
 		Rcpss,
 		Rcr,
-		Rdecr,
 		Rdfsbase,
 		Rdgsbase,
 		Rdmsr,
@@ -1524,7 +1522,6 @@ namespace Iced.Intel {
 		Wait,
 		Wbinvd,
 		Wbnoinvd,
-		Wrecr,
 		Wrfsbase,
 		Wrgsbase,
 		Wrmsr,
@@ -1566,7 +1563,6 @@ namespace Iced.Intel {
 		Xsha256,
 		Xstore,
 		Xtest,
-		Zalloc,
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

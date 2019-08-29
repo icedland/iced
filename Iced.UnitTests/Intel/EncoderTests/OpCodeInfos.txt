@@ -894,7 +894,6 @@ Sysretq, legacy, , 0F, 07, REX.W 0F 07, 64b o64
 Invd, legacy, , 0F, 08, 0F 08, 16b 32b 64b
 Wbinvd, legacy, , 0F, 09, 0F 09, 16b 32b 64b
 Wbnoinvd, legacy, F3, 0F, 09, F3 0F 09, 16b 32b 64b
-Cflsh, legacy, , 0F, 0A, 0F 0A, 16b 32b
 Cl1invmb, legacy, , 0F, 0A, 0F 0A, 16b 32b 64b
 Ud2, legacy, , 0F, 0B, 0F 0B, 16b 32b 64b
 ReservedNop_rm16_r16_0F0D, legacy, , 0F, 0D, o16 0F 0D /r, 16b 32b 64b o16 op=r16_mem;r16_reg
@@ -1182,11 +1181,9 @@ Wrmsr, legacy, , 0F, 30, 0F 30, 16b 32b 64b
 Rdtsc, legacy, , 0F, 31, 0F 31, 16b 32b 64b
 Rdmsr, legacy, , 0F, 32, 0F 32, 16b 32b 64b
 Rdpmc, legacy, , 0F, 33, 0F 33, 16b 32b 64b
-Wrecr, legacy, , 0F, 34, 0F 34, 16b 32b
 Sysenter, legacy, , 0F, 34, 0F 34, 16b 32b 64b
 Sysexitd, legacy, , 0F, 35, 0F 35, 16b 32b 64b
 Sysexitq, legacy, , 0F, 35, REX.W 0F 35, 64b o64
-Rdecr, legacy, , 0F, 36, 0F 36, 16b 32b
 Getsec, legacy, NP, 0F, 37, NP 0F 37, 16b 32b 64b
 Cmovo_r16_rm16, legacy, , 0F, 40, o16 0F 40 /r, 16b 32b 64b o16 op=r16_reg;r16_mem
 Cmovo_r32_rm32, legacy, , 0F, 40, o32 0F 40 /r, 16b 32b 64b o32 op=r32_reg;r32_mem
@@ -2027,7 +2024,6 @@ Shrd_rm64_r64_imm8, legacy, , 0F, AC, REX.W 0F AC /r ib, 64b o64 op=r64_mem;r64_
 Shrd_rm16_r16_CL, legacy, , 0F, AD, o16 0F AD /r, 16b 32b 64b o16 op=r16_mem;r16_reg;cl
 Shrd_rm32_r32_CL, legacy, , 0F, AD, o32 0F AD /r, 16b 32b 64b o32 op=r32_mem;r32_reg;cl
 Shrd_rm64_r64_CL, legacy, , 0F, AD, REX.W 0F AD /r, 64b o64 op=r64_mem;r64_reg;cl
-Zalloc_m256, legacy, , 0F, AE, 0F AE /0, g=0 16b 32b op=mem
 Fxsave_m512byte, legacy, NP, 0F, AE, NP 0F AE /0, g=0 16b 32b 64b op=mem
 Fxsave64_m512byte, legacy, NP, 0F, AE, NP REX.W 0F AE /0, g=0 64b o64 op=mem
 Rdfsbase_r32, legacy, F3, 0F, AE, F3 0F AE /0, g=0 64b op=r32_rm

@@ -283,7 +283,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_BMI2 = (uint)CpuidFeatureInternal.BMI2 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CET_IBT = (uint)CpuidFeatureInternal.CET_IBT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CET_SS = (uint)CpuidFeatureInternal.CET_SS << (int)InfoFlags2.CpuidFeatureShift;
-		const uint CPUID_CFLSH = (uint)CpuidFeatureInternal.CFLSH << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CL1INVMB = (uint)CpuidFeatureInternal.CL1INVMB << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CLDEMOTE = (uint)CpuidFeatureInternal.CLDEMOTE << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_CLFLUSHOPT = (uint)CpuidFeatureInternal.CLFLUSHOPT << (int)InfoFlags2.CpuidFeatureShift;
@@ -296,7 +295,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_CX8 = (uint)CpuidFeatureInternal.CX8 << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_D3NOW = (uint)CpuidFeatureInternal.D3NOW << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_D3NOWEXT = (uint)CpuidFeatureInternal.D3NOWEXT << (int)InfoFlags2.CpuidFeatureShift;
-		const uint CPUID_ECR = (uint)CpuidFeatureInternal.ECR << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_ENCLV = (uint)CpuidFeatureInternal.ENCLV << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_ENQCMD = (uint)CpuidFeatureInternal.ENQCMD << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_F16C = (uint)CpuidFeatureInternal.F16C << (int)InfoFlags2.CpuidFeatureShift;
@@ -376,7 +374,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_XSAVEC = (uint)CpuidFeatureInternal.XSAVEC << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_XSAVEOPT = (uint)CpuidFeatureInternal.XSAVEOPT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_XSAVES = (uint)CpuidFeatureInternal.XSAVES << (int)InfoFlags2.CpuidFeatureShift;
-		const uint CPUID_ZALLOC = (uint)CpuidFeatureInternal.ZALLOC << (int)InfoFlags2.CpuidFeatureShift;
 
 		const uint FlowControl_Unconditional = (uint)FlowControl.UnconditionalBranch << (int)InfoFlags2.FlowControlShift;
 		const uint FlowControl_IndirectBranch = (uint)FlowControl.IndirectBranch << (int)InfoFlags2.FlowControlShift;
@@ -1262,7 +1259,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Invd | Privileged, CPUID_INTEL486 | Encoding_Legacy,
 			(uint)Code.Wbinvd | Privileged, CPUID_INTEL486 | Encoding_Legacy,
 			(uint)Code.Wbnoinvd | Privileged, CPUID_WBNOINVD | Encoding_Legacy,
-			(uint)Code.Cflsh, CPUID_CFLSH | Encoding_Legacy,
 			(uint)Code.Cl1invmb | Privileged, CPUID_CL1INVMB | Encoding_Legacy,
 			(uint)Code.Ud2, FlowControl_Exception | CPUID_INTEL286 | Encoding_Legacy,
 			(uint)Code.ReservedNop_rm16_r16_0F0D, Op0_None | Op1_None | CPUID_MULTIBYTENOP | Encoding_Legacy,
@@ -1550,11 +1546,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Rdtsc | CodeInfo_W_EAX_EDX, CPUID_TSC | Encoding_Legacy,
 			(uint)Code.Rdmsr | Privileged | CodeInfo_R_ECX_W_EAX_EDX, CPUID_MSR | Encoding_Legacy,
 			(uint)Code.Rdpmc | CodeInfo_R_ECX_W_EAX_EDX, CPUID_RDPMC | Encoding_Legacy,
-			(uint)Code.Wrecr | Privileged | CodeInfo_R_EAX_ECX_EDX, CPUID_ECR | Encoding_Legacy,
 			(uint)Code.Sysenter | RflagsInfo_C_i | CodeInfo_Syscall, FlowControl_Call | CPUID_SEP | Encoding_Legacy,
 			(uint)Code.Sysexitd | Privileged | ProtectedMode | CodeInfo_Syscall, FlowControl_Return | CPUID_SEP | Encoding_Legacy,
 			(uint)Code.Sysexitq | Privileged | ProtectedMode | CodeInfo_Syscall, FlowControl_Return | CPUID_SEP | Encoding_Legacy,
-			(uint)Code.Rdecr | Privileged | CodeInfo_R_ECX_W_EAX_EDX, CPUID_ECR | Encoding_Legacy,
 			(uint)Code.Getsec | SaveRestore, CPUID_SMX | Encoding_Legacy,
 			(uint)Code.Cmovo_r16_rm16 | RflagsInfo_R_o, Op0_CondWrite | Op1_Read | CPUID_CMOV | Encoding_Legacy,
 			(uint)Code.Cmovo_r32_rm32 | RflagsInfo_R_o, Op0_CondWrite32_ReadWrite64 | Op1_Read | CPUID_CMOV | Encoding_Legacy,
@@ -2395,7 +2389,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Shrd_rm16_r16_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Shrd_rm32_r32_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_INTEL386 | Encoding_Legacy,
 			(uint)Code.Shrd_rm64_r64_CL | RflagsInfo_W_copsz_U_a, Op0_ReadWrite | Op1_Read | Op2_Read | CPUID_X64 | Encoding_Legacy,
-			(uint)Code.Zalloc_m256, Op0_NoMemAccess | CPUID_ZALLOC | Encoding_Legacy,
 			(uint)Code.Fxsave_m512byte | SaveRestore, Op0_Write | CPUID_FXSR | Encoding_Legacy,
 			(uint)Code.Fxsave64_m512byte | SaveRestore, Op0_Write | CPUID_FXSR | Encoding_Legacy,
 			(uint)Code.Rdfsbase_r32, Op0_Write | CPUID_FSGSBASE | Encoding_Legacy,

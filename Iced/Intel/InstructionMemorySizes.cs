@@ -899,7 +899,6 @@ namespace Iced.Intel {
 			0,// Invd
 			0,// Wbinvd
 			0,// Wbnoinvd
-			0,// Cflsh
 			0,// Cl1invmb
 			0,// Ud2
 			(byte)MemorySize.UInt16,// ReservedNop_rm16_r16_0F0D
@@ -1187,11 +1186,9 @@ namespace Iced.Intel {
 			0,// Rdtsc
 			0,// Rdmsr
 			0,// Rdpmc
-			0,// Wrecr
 			0,// Sysenter
 			0,// Sysexitd
 			0,// Sysexitq
-			0,// Rdecr
 			0,// Getsec
 			(byte)MemorySize.UInt16,// Cmovo_r16_rm16
 			(byte)MemorySize.UInt32,// Cmovo_r32_rm32
@@ -2032,7 +2029,6 @@ namespace Iced.Intel {
 			(byte)MemorySize.UInt16,// Shrd_rm16_r16_CL
 			(byte)MemorySize.UInt32,// Shrd_rm32_r32_CL
 			(byte)MemorySize.UInt64,// Shrd_rm64_r64_CL
-			(byte)MemorySize.UInt256,// Zalloc_m256
 			(byte)MemorySize.Fxsave_512Byte,// Fxsave_m512byte
 			(byte)MemorySize.Fxsave64_512Byte,// Fxsave64_m512byte
 			0,// Rdfsbase_r32
@@ -5084,7 +5080,6 @@ namespace Iced.Intel {
 			0,// Invd
 			0,// Wbinvd
 			0,// Wbnoinvd
-			0,// Cflsh
 			0,// Cl1invmb
 			0,// Ud2
 			0,// ReservedNop_rm16_r16_0F0D
@@ -5372,11 +5367,9 @@ namespace Iced.Intel {
 			0,// Rdtsc
 			0,// Rdmsr
 			0,// Rdpmc
-			0,// Wrecr
 			0,// Sysenter
 			0,// Sysexitd
 			0,// Sysexitq
-			0,// Rdecr
 			0,// Getsec
 			0,// Cmovo_r16_rm16
 			0,// Cmovo_r32_rm32
@@ -6217,7 +6210,6 @@ namespace Iced.Intel {
 			0,// Shrd_rm16_r16_CL
 			0,// Shrd_rm32_r32_CL
 			0,// Shrd_rm64_r64_CL
-			0,// Zalloc_m256
 			0,// Fxsave_m512byte
 			0,// Fxsave64_m512byte
 			0,// Rdfsbase_r32

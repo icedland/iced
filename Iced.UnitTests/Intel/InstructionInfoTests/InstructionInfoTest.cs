@@ -756,23 +756,14 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				case "forcereservednop":
 					options |= DecoderOptions.ForceReservedNop;
 					break;
-				case "cflsh":
-					options |= DecoderOptions.Cflsh;
-					break;
 				case "umov":
 					options |= DecoderOptions.Umov;
-					break;
-				case "ecr":
-					options |= DecoderOptions.Ecr;
 					break;
 				case "xbts":
 					options |= DecoderOptions.Xbts;
 					break;
 				case "cmpxchg486a":
 					options |= DecoderOptions.Cmpxchg486A;
-					break;
-				case "zalloc":
-					options |= DecoderOptions.Zalloc;
 					break;
 				case "oldfpu":
 					options |= DecoderOptions.OldFpu;

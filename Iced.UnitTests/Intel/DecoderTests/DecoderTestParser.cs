@@ -52,12 +52,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		const string EncodedHexBytes = "enc";
 		const string DecoderOptions_AMD = "amd";
 		const string DecoderOptions_ForceReservedNop = "resnop";
-		const string DecoderOptions_Cflsh = "cflsh";
 		const string DecoderOptions_Umov = "umov";
-		const string DecoderOptions_Ecr = "ecr";
 		const string DecoderOptions_Xbts = "xbts";
 		const string DecoderOptions_Cmpxchg486A = "cmpxchg486a";
-		const string DecoderOptions_Zalloc = "zalloc";
 		const string DecoderOptions_OldFpu = "oldfpu";
 		const string DecoderOptions_Pcommit = "pcommit";
 		const string DecoderOptions_Loadall286 = "loadall286";
@@ -311,16 +308,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					tc.DecoderOptions |= DecoderOptions.ForceReservedNop;
 					break;
 
-				case DecoderOptions_Cflsh:
-					tc.DecoderOptions |= DecoderOptions.Cflsh;
-					break;
-
 				case DecoderOptions_Umov:
 					tc.DecoderOptions |= DecoderOptions.Umov;
-					break;
-
-				case DecoderOptions_Ecr:
-					tc.DecoderOptions |= DecoderOptions.Ecr;
 					break;
 
 				case DecoderOptions_Xbts:
@@ -329,10 +318,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				case DecoderOptions_Cmpxchg486A:
 					tc.DecoderOptions |= DecoderOptions.Cmpxchg486A;
-					break;
-
-				case DecoderOptions_Zalloc:
-					tc.DecoderOptions |= DecoderOptions.Zalloc;
 					break;
 
 				case DecoderOptions_OldFpu:

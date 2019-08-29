@@ -613,7 +613,6 @@ jmpe dword [eax]
 loadallreset286
 loadall286
 loadall386
-cflsh
 umov dh,cl
 umov [eax],bl
 umov si,cx
@@ -628,8 +627,6 @@ umov ecx,esi
 umov ebx,[eax]
 mov esi,tr3
 mov tr3,esi
-wrecr
-rdecr
 xbts cx,si
 xbts bx,[eax]
 xbts ecx,esi
@@ -644,7 +641,6 @@ cmpxchg486 si,cx
 cmpxchg486 [eax],bx
 cmpxchg486 esi,ecx
 cmpxchg486 [eax],ebx
-zalloc [eax]
 umonitor bp
 umonitor ebp
 jmpe 0xa55a

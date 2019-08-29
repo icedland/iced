@@ -218,11 +218,6 @@ namespace Iced.Intel {
 		CET_SS,
 
 		/// <summary>
-		/// CFLSH instruction (never implemented)
-		/// </summary>
-		CFLSH,
-
-		/// <summary>
 		/// CL1INVMB instruction (Intel SCC = Single-Chip Computer)
 		/// </summary>
 		CL1INVMB,
@@ -281,11 +276,6 @@ namespace Iced.Intel {
 		/// CPUID.80000001H:EDX.3DNOWEXT[bit 30]
 		/// </summary>
 		D3NOWEXT,
-
-		/// <summary>
-		/// Never implemented: CPUID.01H:EDX.ECR[bit 11]
-		/// </summary>
-		ECR,
 
 		/// <summary>
 		/// CPUID.(EAX=12H, ECX=0H):EAX.OSS[bit 5]
@@ -681,11 +671,6 @@ namespace Iced.Intel {
 		/// CPUID.(EAX=0DH, ECX=1H):EAX.XSAVES[bit 3]
 		/// </summary>
 		XSAVES,
-
-		/// <summary>
-		/// Never implemented: CPUID.01H:EDX.ZALLOC[bit 16]
-		/// </summary>
-		ZALLOC,
 	}
 }
 #endif

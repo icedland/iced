@@ -613,7 +613,6 @@ jmpel *(eax)
 loadallreset286
 loadall286
 loadall386
-cflsh
 umovb cl,dh
 umovb bl,(eax)
 umovw cx,si
@@ -628,8 +627,6 @@ umovl esi,ecx
 umovl (eax),ebx
 movl tr3,esi
 movl esi,tr3
-wrecr
-rdecr
 xbtsw si,cx
 xbtsw (eax),bx
 xbtsl esi,ecx
@@ -644,7 +641,6 @@ cmpxchg486w cx,si
 cmpxchg486w bx,(eax)
 cmpxchg486l ecx,esi
 cmpxchg486l ebx,(eax)
-zalloc (eax)
 umonitor bp
 umonitor ebp
 data16 jmpe 0xa55a

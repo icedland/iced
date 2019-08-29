@@ -948,7 +948,6 @@ namespace Iced.Intel {
 		Invd,														// 0F 08
 		Wbinvd,														// 0F 09
 		Wbnoinvd,													// F3 0F 09
-		Cflsh,														// 0F 0A
 		Cl1invmb,													// 0F 0A
 		Ud2,														// 0F 0B
 		ReservedNop_rm16_r16_0F0D,									// o16 0F 0D /r
@@ -1137,18 +1136,24 @@ namespace Iced.Intel {
 		Prefetcht2_m8,												// 0F 18 /3
 
 		Bndldx_bnd_mib,												// NP 0F 1A /r
+
 		Bndmov_bnd_bndm64,											// 66 0F 1A /r
 		Bndmov_bnd_bndm128,											// 66 0F 1A /r
+
 		Bndcl_bnd_rm32,												// F3 0F 1A /r
 		Bndcl_bnd_rm64,												// F3 0F 1A /r
+
 		Bndcu_bnd_rm32,												// F2 0F 1A /r
 		Bndcu_bnd_rm64,												// F2 0F 1A /r
 
 		Bndstx_mib_bnd,												// NP 0F 1B /r
+
 		Bndmov_bndm64_bnd,											// 66 0F 1B /r
 		Bndmov_bndm128_bnd,											// 66 0F 1B /r
+
 		Bndmk_bnd_m32,												// F3 0F 1B /r
 		Bndmk_bnd_m64,												// F3 0F 1B /r
+
 		Bndcn_bnd_rm32,												// F2 0F 1B /r
 		Bndcn_bnd_rm64,												// F2 0F 1B /r
 
@@ -1294,11 +1299,9 @@ namespace Iced.Intel {
 		Rdtsc,														// 0F 31
 		Rdmsr,														// 0F 32
 		Rdpmc,														// 0F 33
-		Wrecr,														// 0F 34
 		Sysenter,													// 0F 34
 		Sysexitd,													// 0F 35
 		Sysexitq,													// REX.W 0F 35
-		Rdecr,														// 0F 36
 		Getsec,														// NP 0F 37
 
 		Cmovo_r16_rm16,												// o16 0F 40 /r
@@ -2315,7 +2318,6 @@ namespace Iced.Intel {
 		Shrd_rm32_r32_CL,											// o32 0F AD /r
 		Shrd_rm64_r64_CL,											// REX.W 0F AD /r
 
-		Zalloc_m256,												// 0F AE /0
 		Fxsave_m512byte,											// NP 0F AE /0
 		Fxsave64_m512byte,											// NP REX.W 0F AE /0
 		Rdfsbase_r32,												// F3 0F AE /0

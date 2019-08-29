@@ -613,7 +613,6 @@ DF E2, Fstsg_AX, OldFpu
 0F04, Loadallreset286, Loadall286
 0F05, Loadall286, Loadall286
 0F07, Loadall386, Loadall386
-0F0A, Cflsh, Cflsh
 0F10 CE, Umov_rm8_r8, Umov
 0F10 18, Umov_rm8_r8, Umov
 66 0F11 CE, Umov_rm16_r16, Umov
@@ -628,8 +627,6 @@ DF E2, Fstsg_AX, OldFpu
 0F13 18, Umov_r32_rm32, Umov
 0F24 DE, Mov_r32_tr, MovTr
 0F26 DE, Mov_tr_r32, MovTr
-0F34, Wrecr, Ecr
-0F36, Rdecr, Ecr
 66 0FA6 CE, Xbts_r16_rm16, Xbts
 66 0FA6 18, Xbts_r16_rm16, Xbts
 0FA6 CE, Xbts_r32_rm32, Xbts
@@ -644,7 +641,6 @@ DF E2, Fstsg_AX, OldFpu
 66 0FA7 18, Cmpxchg486_rm16_r16, Cmpxchg486A
 0FA7 CE, Cmpxchg486_rm32_r32, Cmpxchg486A
 0FA7 18, Cmpxchg486_rm32_r32, Cmpxchg486A
-0FAE 00, Zalloc_m256, Zalloc
 67 F3 0FAE F5, Umonitor_r16
 F3 0FAE F5, Umonitor_r32
 66 0FB8 5AA5, Jmpe_disp16

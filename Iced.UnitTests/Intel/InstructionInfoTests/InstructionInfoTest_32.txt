@@ -1085,8 +1085,6 @@ DF E2, Fstsg_AX, Legacy, FPU387SL_ONLY, decopt=oldfpu op0=w w=ax
 0F05, Loadall286, Legacy, INTEL286_ONLY, decopt=loadall286 priv saverestore
 # loadall386
 0F07, Loadall386, Legacy, INTEL386_ONLY, decopt=loadall386 priv saverestore r=es;edi
-# cflsh
-0F0A, Cflsh, Legacy, CFLSH, decopt=cflsh
 # umov dh,cl
 0F10 CE, Umov_rm8_r8, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r w=dh r=cl
 # umov [eax],bl
@@ -1115,10 +1113,6 @@ DF E2, Fstsg_AX, Legacy, FPU387SL_ONLY, decopt=oldfpu op0=w w=ax
 0F24 DE, Mov_r32_tr, Legacy, INTEL386_486_ONLY, decopt=movtr priv fu=oszacp op0=w op1=r w=esi r=tr3
 # mov tr3,esi
 0F26 DE, Mov_tr_r32, Legacy, INTEL386_486_ONLY, decopt=movtr priv fu=oszacp op0=w op1=r w=tr3 r=esi
-# wrecr
-0F34, Wrecr, Legacy, ECR, priv r=eax;ecx;edx decopt=ecr
-# rdecr
-0F36, Rdecr, Legacy, ECR, priv r=ecx w=eax;edx decopt=ecr
 # xbts cx,si
 66 0FA6 CE, Xbts_r16_rm16, Legacy, INTEL386_A0_ONLY, decopt=xbts op0=rw op1=r rw=cx r=si r=ax;cl
 # xbts bx,[eax]
@@ -1147,8 +1141,6 @@ DF E2, Fstsg_AX, Legacy, FPU387SL_ONLY, decopt=oldfpu op0=w w=ax
 0FA7 CE, Cmpxchg486_rm32_r32, Legacy, INTEL486_A_ONLY, decopt=cmpxchg486a fw=acopsz op0=rw op1=r rw=esi r=ecx rcw=eax
 # cmpxchg486 [eax],ebx
 0FA7 18, Cmpxchg486_rm32_r32, Legacy, INTEL486_A_ONLY, decopt=cmpxchg486a fw=acopsz op0=rw op1=r r=ds r=eax rwm=ds:eax;UInt32 r=ebx rcw=eax
-# zalloc [eax]
-0FAE 00, Zalloc_m256, Legacy, ZALLOC, decopt=zalloc op0=nma r=ds r=eax
 # umonitor bp
 67 F3 0FAE F5, Umonitor_r16, Legacy, WAITPKG, op0=r r=ds;bp rm=ds:bp;UInt8
 # umonitor ebp

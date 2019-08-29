@@ -80,7 +80,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		BMI2,
 		CET_IBT,
 		CET_SS,
-		CFLSH,
 		CL1INVMB,
 		CLDEMOTE,
 		CLFLUSHOPT,
@@ -93,7 +92,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		CX8,
 		D3NOW,
 		D3NOWEXT,
-		ECR,
 		ENCLV,
 		ENQCMD,
 		F16C,
@@ -173,7 +171,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		XSAVEC,
 		XSAVEOPT,
 		XSAVES,
-		ZALLOC,
 		// If a new value is added, update InfoFlags2.CpuidFeatureMask if needed
 	}
 }

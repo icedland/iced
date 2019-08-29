@@ -1526,13 +1526,7 @@ namespace Generator.Decoder {
 				"handlers_Grp_0FAE_lo",
 				new object[8] {
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
-						new object[] { OpCodeHandlerKind.Bitness_DontReadModRM,
-							new object[] { OpCodeHandlerKind.Options_DontReadModRM,
-								new object[] { OpCodeHandlerKind.M_2, Code.Fxsave_m512byte, Code.Fxsave64_m512byte },
-								new object[] { OpCodeHandlerKind.M_1, Code.Zalloc_m256 }, DecoderOptions.Zalloc
-							},
-							new object[] { OpCodeHandlerKind.M_2, Code.Fxsave_m512byte, Code.Fxsave64_m512byte },
-						},
+						new object[] { OpCodeHandlerKind.M_2, Code.Fxsave_m512byte, Code.Fxsave64_m512byte },
 						invalid,
 						new object[] { OpCodeHandlerKind.Bitness_DontReadModRM,
 							invalid,
@@ -3191,10 +3185,9 @@ namespace Generator.Decoder {
 						new object[] { OpCodeHandlerKind.Simple, Code.Wbinvd }
 					},
 					new object[] { OpCodeHandlerKind.Bitness,
-						new object[] { OpCodeHandlerKind.Options5,
+						new object[] { OpCodeHandlerKind.Options3,
 							invalid,
-							new object[] { OpCodeHandlerKind.Simple, Code.Cl1invmb }, DecoderOptions.Cl1invmb,
-							new object[] { OpCodeHandlerKind.Simple, Code.Cflsh }, DecoderOptions.Cflsh
+							new object[] { OpCodeHandlerKind.Simple, Code.Cl1invmb }, DecoderOptions.Cl1invmb
 						},
 						new object[] { OpCodeHandlerKind.Options3,
 							invalid,
@@ -3416,21 +3409,9 @@ namespace Generator.Decoder {
 					new object[] { OpCodeHandlerKind.Simple, Code.Rdtsc },
 					new object[] { OpCodeHandlerKind.Simple, Code.Rdmsr },
 					new object[] { OpCodeHandlerKind.Simple, Code.Rdpmc },
-					new object[] { OpCodeHandlerKind.Bitness,
-						new object[] { OpCodeHandlerKind.Options3,
-							new object[] { OpCodeHandlerKind.Simple, Code.Sysenter },
-							new object[] { OpCodeHandlerKind.Simple, Code.Wrecr }, DecoderOptions.Ecr
-						},
-						new object[] { OpCodeHandlerKind.Simple, Code.Sysenter },
-					},
+					new object[] { OpCodeHandlerKind.Simple, Code.Sysenter },
 					new object[] { OpCodeHandlerKind.Simple4, Code.Sysexitd, Code.Sysexitq },
-					new object[] { OpCodeHandlerKind.Bitness,
-						new object[] { OpCodeHandlerKind.Options3,
-							invalid,
-							new object[] { OpCodeHandlerKind.Simple, Code.Rdecr }, DecoderOptions.Ecr
-						},
-						invalid,
-					},
+					invalid,
 					new object[] { OpCodeHandlerKind.MandatoryPrefix_NoModRM,
 						new object[] { OpCodeHandlerKind.Simple, Code.Getsec },
 						invalid_NoModRM,
