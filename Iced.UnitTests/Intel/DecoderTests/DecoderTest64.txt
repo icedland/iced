@@ -2068,6 +2068,10 @@ F3 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease
 66 44 8C EC, Mov_rm16_Sreg, Mov, 2, op0=r;sp op1=r;gs enc=668CEC
 66 8C 18, Mov_rm16_Sreg, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;ds
 66 42 8C CE, Mov_rm16_Sreg, Mov, 2, op0=r;si op1=r;cs enc=668CCE
+66 8C F6, INVALID, INVALID, 0,
+66 8C FE, INVALID, INVALID, 0,
+66 8C F6, INVALID, INVALID, 0, noinvalidcheck
+66 8C FE, INVALID, INVALID, 0, noinvalidcheck
 
 8C CE, Mov_rm32_Sreg, Mov, 2, op0=r;esi op1=r;cs
 44 8C C5, Mov_rm32_Sreg, Mov, 2, op0=r;ebp op1=r;es enc=8CC5
@@ -2077,6 +2081,10 @@ F3 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease
 44 8C EC, Mov_rm32_Sreg, Mov, 2, op0=r;esp op1=r;gs enc=8CEC
 8C 18, Mov_rm32_Sreg, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;ds
 42 8C CE, Mov_rm32_Sreg, Mov, 2, op0=r;esi op1=r;cs enc=8CCE
+8C F6, INVALID, INVALID, 0,
+8C FE, INVALID, INVALID, 0,
+8C F6, INVALID, INVALID, 0, noinvalidcheck
+8C FE, INVALID, INVALID, 0, noinvalidcheck
 
 48 8C CE, Mov_rm64_Sreg, Mov, 2, op0=r;rsi op1=r;cs
 4C 8C C5, Mov_rm64_Sreg, Mov, 2, op0=r;rbp op1=r;es enc=488CC5
@@ -2086,6 +2094,10 @@ F3 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease
 4C 8C EC, Mov_rm64_Sreg, Mov, 2, op0=r;rsp op1=r;gs enc=488CEC
 48 8C 18, Mov_rm64_Sreg, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;ds
 4A 8C CE, Mov_rm64_Sreg, Mov, 2, op0=r;rsi op1=r;cs enc=488CCE
+48 8C F6, INVALID, INVALID, 0,
+48 8C FE, INVALID, INVALID, 0,
+48 8C F6, INVALID, INVALID, 0, noinvalidcheck
+48 8C FE, INVALID, INVALID, 0, noinvalidcheck
 
 66 8D 18, Lea_r16_m, Lea, 2, op0=r;bx op1=m;ds;rax;;1;0;0;Unknown
 66 44 8D 18, Lea_r16_m, Lea, 2, op0=r;r11w op1=m;ds;rax;;1;0;0;Unknown
@@ -2104,6 +2116,10 @@ F3 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease
 66 44 8E EC, Mov_Sreg_rm16, Mov, 2, op0=r;gs op1=r;sp enc=668EEC
 66 8E 18, Mov_Sreg_rm16, Mov, 2, op0=r;ds op1=m;ds;rax;;1;0;0;UInt16
 66 42 8E CE, Mov_Sreg_rm16, Mov, 2, op0=r;cs op1=r;si enc=668ECE
+66 8E F6, INVALID, INVALID, 0,
+66 8E FE, INVALID, INVALID, 0,
+66 8E F6, INVALID, INVALID, 0, noinvalidcheck
+66 8E FE, INVALID, INVALID, 0, noinvalidcheck
 
 8E CE, Mov_Sreg_rm32, Mov, 2, op0=r;cs op1=r;esi
 44 8E C5, Mov_Sreg_rm32, Mov, 2, op0=r;es op1=r;ebp enc=8EC5
@@ -2113,6 +2129,10 @@ F3 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease
 44 8E EC, Mov_Sreg_rm32, Mov, 2, op0=r;gs op1=r;esp enc=8EEC
 47 8E E0, Mov_Sreg_rm32, Mov, 2, op0=r;fs op1=r;r8d enc=418EE0
 8E 18, Mov_Sreg_rm32, Mov, 2, op0=r;ds op1=m;ds;rax;;1;0;0;UInt16
+8E F6, INVALID, INVALID, 0,
+8E FE, INVALID, INVALID, 0,
+8E F6, INVALID, INVALID, 0, noinvalidcheck
+8E FE, INVALID, INVALID, 0, noinvalidcheck
 
 48 8E CE, Mov_Sreg_rm64, Mov, 2, op0=r;cs op1=r;rsi
 4C 8E C5, Mov_Sreg_rm64, Mov, 2, op0=r;es op1=r;rbp enc=488EC5
@@ -2122,6 +2142,10 @@ F3 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease
 4C 8E EC, Mov_Sreg_rm64, Mov, 2, op0=r;gs op1=r;rsp enc=488EEC
 4F 8E E0, Mov_Sreg_rm64, Mov, 2, op0=r;fs op1=r;r8 enc=498EE0
 48 8E 18, Mov_Sreg_rm64, Mov, 2, op0=r;ds op1=m;ds;rax;;1;0;0;UInt16
+48 8E F6, INVALID, INVALID, 0,
+48 8E FE, INVALID, INVALID, 0,
+48 8E F6, INVALID, INVALID, 0, noinvalidcheck
+48 8E FE, INVALID, INVALID, 0, noinvalidcheck
 
 66 8F C6, Pop_rm16, Pop, 1, op0=r;si
 66 41 8F C6, Pop_rm16, Pop, 1, op0=r;r14w
