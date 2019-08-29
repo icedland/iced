@@ -4387,16 +4387,16 @@ namespace Iced.Intel.DecoderInternal {
 				0x0B,// MandatoryPrefix2_4
 					0x0E,// VectorLength
 						0x09,// W
-							0x1F,// MK_VK
+							0x1F,// M_VK
 								0x80, 0x0F,// VEX_Kmovw_m16_k
-							0x1F,// MK_VK
+							0x1F,// M_VK
 								0x81, 0x0F,// VEX_Kmovq_m64_k
 						0x00,// Invalid
 					0x0E,// VectorLength
 						0x09,// W
-							0x1F,// MK_VK
+							0x1F,// M_VK
 								0x82, 0x0F,// VEX_Kmovb_m8_k
-							0x1F,// MK_VK
+							0x1F,// M_VK
 								0x83, 0x0F,// VEX_Kmovd_m32_k
 						0x00,// Invalid
 					0x00,// Invalid

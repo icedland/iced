@@ -1111,10 +1111,10 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
-	sealed class OpCodeHandler_VEX_MK_VK : OpCodeHandlerModRM {
+	sealed class OpCodeHandler_VEX_M_VK : OpCodeHandlerModRM {
 		readonly Code code;
 
-		public OpCodeHandler_VEX_MK_VK(Code code) => this.code = code;
+		public OpCodeHandler_VEX_M_VK(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -1122,11 +1122,8 @@ namespace Iced.Intel.DecoderInternal {
 			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.vvvv | state.extraRegisterBase) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
-			if (state.mod == 3) {
-				Debug.Assert(OpKind.Register == 0);
-				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.InternalOp0Register = (int)state.rm + Register.K0;
-			}
+			if (state.mod == 3)
+				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);

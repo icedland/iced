@@ -307,14 +307,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Theory]
-		[MemberData(nameof(Test_all_mandatory_prefixes_Data))]
+		[MemberData(nameof(Test64_all_mandatory_prefixes_Data))]
 		void Test64_all_mandatory_prefixes(string hexBytes, int byteLength, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(byteLength, instr.ByteLength);
 		}
-		public static IEnumerable<object[]> Test_all_mandatory_prefixes_Data {
+		public static IEnumerable<object[]> Test64_all_mandatory_prefixes_Data {
 			get {
 				yield return new object[] { "0F10 08", 3, Code.Movups_xmm_xmmm128 };
 				yield return new object[] { "66 0F10 08", 4, Code.Movupd_xmm_xmmm128 };
@@ -1463,11 +1463,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				}
 
 				bool uses_rm = false;
+				bool maybe_uses_rm = false;
 				bool uses_reg = false;
 				bool other_rm = false;
 				bool other_reg = false;
 				for (int i = 0; i < opCode.OpCount; i++) {
 					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.mem:
+						maybe_uses_rm = true;
+						break;
 					case OpCodeOperandKind.k_mem:
 					case OpCodeOperandKind.k_rm:
 						uses_rm = true;
@@ -1499,6 +1503,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						break;
 					}
 				}
+				if (uses_reg && maybe_uses_rm)
+					uses_rm = true;
 				if (!uses_rm && !uses_reg && opCode.OpCount > 0)
 					continue;
 
@@ -1763,6 +1769,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			return true;
 		}
 
+		static bool IsVsib(OpCodeInfo opCode) => TryGetVsib(opCode, out _, out _);
+
 		static bool TryGetVsib(OpCodeInfo opCode, out bool isVsib32, out bool isVsib64) {
 			for (int i = 0; i < opCode.OpCount; i++) {
 				switch (opCode.GetOpKind(i)) {
@@ -1799,6 +1807,1013 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				Assert.Equal(instr.IsVsib32, isVsib32);
 				Assert.Equal(instr.IsVsib64, isVsib64);
 			}
+		}
+
+		struct TestedInfo {
+			// VEX/XOP.L and EVEX.L'L values
+			public uint LBits;// bit 0 = L0/L128, bit 1 = L1/L256, etc
+			public uint VEX2_LBits;
+
+			// VEX/XOP/EVEX/MVEX: W values
+			public uint WBits;// bit 0 = W0, bit 1 = W1
+
+			// REX/VEX/XOP/EVEX/MVEX.R
+			public uint RBits;
+			public uint VEX2_RBits;
+			// REX/VEX/XOP/EVEX/MVEX.X
+			public uint XBits;
+			// REX/VEX/XOP/EVEX/MVEX.B
+			public uint BBits;
+			// EVEX/MVEX.R'
+			public uint R2Bits;
+			// EVEX/MVEX.V'
+			public uint V2Bits;
+
+			// mod=11
+			public bool RegReg;
+			// mod=00,01,10
+			public bool RegMem;
+
+			// EVEX/MVEX only
+			public bool MemDisp8;
+
+			// Tested VEX2 prefix
+			public bool VEX2;
+			// Tested VEX3 prefix
+			public bool VEX3;
+
+			// EVEX/MVEX: tested opmask
+			public bool OpMask;
+			// EVEX/MVEX: tested no opmask
+			public bool NoOpMask;
+
+			public bool PrefixXacquire;
+			public bool PrefixNoXacquire;
+			public bool PrefixXrelease;
+			public bool PrefixNoXrelease;
+			public bool PrefixLock;
+			public bool PrefixNoLock;
+			public bool PrefixHnt;
+			public bool PrefixNoHnt;
+			public bool PrefixHt;
+			public bool PrefixNoHt;
+			public bool PrefixRep;
+			public bool PrefixNoRep;
+			public bool PrefixRepne;
+			public bool PrefixNoRepne;
+			public bool PrefixNotrack;
+			public bool PrefixNoNotrack;
+			public bool PrefixBnd;
+			public bool PrefixNoBnd;
+		}
+		[Fact]
+		void Verify_that_test_cases_test_enough_bits() {
+			var testedInfos16 = new TestedInfo[Iced.Intel.DecoderConstants.NumberOfCodeValues];
+			var testedInfos32 = new TestedInfo[Iced.Intel.DecoderConstants.NumberOfCodeValues];
+			var testedInfos64 = new TestedInfo[Iced.Intel.DecoderConstants.NumberOfCodeValues];
+
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
+					continue;
+				var testedInfos = info.Bitness switch {
+					16 => testedInfos16,
+					32 => testedInfos32,
+					64 => testedInfos64,
+					_ => throw new InvalidOperationException(),
+				};
+
+				var opCode = info.Code.ToOpCode();
+				ref var tested = ref testedInfos[(int)info.Code];
+
+				var bytes = HexUtils.ToByteArray(info.HexBytes);
+				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+				decoder.Decode(out var instr);
+				Assert.Equal(info.Code, instr.Code);
+
+				if (opCode.Encoding == EncodingKind.EVEX) {
+					int evexIndex = GetEvexIndex(bytes);
+					if (instr.RoundingControl == RoundingControl.None)
+						tested.LBits |= 1U << ((bytes[evexIndex + 3] >> 5) & 3);
+					tested.WBits |= 1U << (bytes[evexIndex + 2] >> 7);
+					tested.RBits |= 1U << ((bytes[evexIndex + 1] >> 7) ^ 1);
+					tested.XBits |= 1U << (((bytes[evexIndex + 1] >> 6) & 1) ^ 1);
+					tested.BBits |= 1U << (((bytes[evexIndex + 1] >> 5) & 1) ^ 1);
+					tested.R2Bits |= 1U << (((bytes[evexIndex + 1] >> 4) & 1) ^ 1);
+					tested.V2Bits |= 1U << (((bytes[evexIndex + 3] >> 3) & 1) ^ 1);
+					if ((bytes[evexIndex + 5] >> 6) != 3) {
+						tested.RegMem = true;
+						if (instr.MemoryDisplSize == 1 && instr.MemoryDisplacement != 0)
+							tested.MemDisp8 = true;
+					}
+					else
+						tested.RegReg = true;
+					if (instr.OpMask != Register.None)
+						tested.OpMask = true;
+					else
+						tested.NoOpMask = true;
+				}
+				else if (opCode.Encoding == EncodingKind.VEX || opCode.Encoding == EncodingKind.XOP) {
+					int vexIndex = GetVexXopIndex(bytes);
+					int mrmi;
+					if (bytes[vexIndex] == 0xC5) {
+						mrmi = vexIndex + 3;
+						tested.VEX2 = true;
+						tested.VEX2_RBits |= 1U << ((bytes[vexIndex + 1] >> 7) ^ 1);
+						tested.VEX2_LBits |= 1U << ((bytes[vexIndex + 1] >> 2) & 1);
+					}
+					else {
+						mrmi = vexIndex + 4;
+						if (opCode.Encoding == EncodingKind.VEX)
+							tested.VEX3 = true;
+						tested.RBits |= 1U << ((bytes[vexIndex + 1] >> 7) ^ 1);
+						tested.XBits |= 1U << (((bytes[vexIndex + 1] >> 6) & 1) ^ 1);
+						tested.BBits |= 1U << (((bytes[vexIndex + 1] >> 5) & 1) ^ 1);
+						tested.WBits |= 1U << (bytes[vexIndex + 2] >> 7);
+						tested.LBits |= 1U << ((bytes[vexIndex + 2] >> 2) & 1);
+					}
+					if (HasModRM(opCode)) {
+						if ((bytes[mrmi] >> 6) != 3)
+							tested.RegMem = true;
+						else
+							tested.RegReg = true;
+					}
+				}
+				else if (opCode.Encoding == EncodingKind.Legacy || opCode.Encoding == EncodingKind.D3NOW) {
+					uint rex = 0;
+					int i;
+					for (i = 0; i < bytes.Length; i++) {
+						byte b = bytes[i];
+						bool isPrefix;
+						switch (b) {
+						case 0x26:
+						case 0x2E:
+						case 0x36:
+						case 0x3E:
+						case 0x64:
+						case 0x65:
+						case 0x66:
+						case 0x67:
+						case 0xF0:
+						case 0xF2:
+						case 0xF3:
+							isPrefix = true;
+							rex = 0;
+							break;
+						default:
+							if (info.Bitness == 64 && (b & 0xF0) == 0x40) {
+								isPrefix = true;
+								rex = b;
+							}
+							else
+								isPrefix = false;
+							break;
+						}
+						if (!isPrefix)
+							break;
+					}
+					if (info.Bitness == 64) {
+						tested.RBits |= 1U << (int)((rex >> 2) & 1);
+						tested.XBits |= 1U << (int)((rex >> 1) & 1);
+						tested.BBits |= 1U << (int)(rex & 1);
+					}
+					else {
+						tested.RBits |= 1;
+						tested.XBits |= 1;
+						tested.BBits |= 1;
+					}
+					if (HasModRM(opCode)) {
+						switch (opCode.Table) {
+						case OpCodeTableKind.Normal:
+							break;
+						case OpCodeTableKind.T0F:
+							if (bytes[i++] != 0x0F)
+								throw new InvalidOperationException();
+							break;
+						case OpCodeTableKind.T0F38:
+							if (bytes[i++] != 0x0F)
+								throw new InvalidOperationException();
+							if (bytes[i++] != 0x38)
+								throw new InvalidOperationException();
+							break;
+						case OpCodeTableKind.T0F3A:
+							if (bytes[i++] != 0x0F)
+								throw new InvalidOperationException();
+							if (bytes[i++] != 0x3A)
+								throw new InvalidOperationException();
+							break;
+						default:
+							throw new InvalidOperationException();
+						}
+						i++;
+						if ((bytes[i] >> 6) != 3)
+							tested.RegMem = true;
+						else
+							tested.RegReg = true;
+					}
+					if (opCode.CanUseXacquirePrefix) {
+						if (instr.HasXacquirePrefix)
+							tested.PrefixXacquire = true;
+						else
+							tested.PrefixNoXacquire = true;
+					}
+					if (opCode.CanUseXreleasePrefix) {
+						if (instr.HasXreleasePrefix)
+							tested.PrefixXrelease = true;
+						else
+							tested.PrefixNoXrelease = true;
+					}
+					if (opCode.CanUseLockPrefix) {
+						if (instr.HasLockPrefix)
+							tested.PrefixLock = true;
+						else
+							tested.PrefixNoLock = true;
+					}
+					if (opCode.CanUseHintTakenPrefix) {
+						if (instr.SegmentPrefix == Register.CS)
+							tested.PrefixHnt = true;
+						else
+							tested.PrefixNoHnt = true;
+					}
+					if (opCode.CanUseHintTakenPrefix) {
+						if (instr.SegmentPrefix == Register.DS)
+							tested.PrefixHt = true;
+						else
+							tested.PrefixNoHt = true;
+					}
+					if (opCode.CanUseRepPrefix) {
+						if (instr.HasRepPrefix)
+							tested.PrefixRep = true;
+						else
+							tested.PrefixNoRep = true;
+					}
+					if (opCode.CanUseRepnePrefix) {
+						if (instr.HasRepnePrefix)
+							tested.PrefixRepne = true;
+						else
+							tested.PrefixNoRepne = true;
+					}
+					if (opCode.CanUseNotrackPrefix) {
+						if (instr.SegmentPrefix == Register.DS)
+							tested.PrefixNotrack = true;
+						else
+							tested.PrefixNoNotrack = true;
+					}
+					if (opCode.CanUseBndPrefix) {
+						if (instr.HasRepnePrefix)
+							tested.PrefixBnd = true;
+						else
+							tested.PrefixNoBnd = true;
+					}
+				}
+				else
+					throw new InvalidOperationException();
+			}
+
+			var wig32_16 = new List<Code>();
+			var wig32_32 = new List<Code>();
+
+			var wig_16 = new List<Code>();
+			var wig_32 = new List<Code>();
+			var wig_64 = new List<Code>();
+
+			var lig_16 = new List<Code>();
+			var lig_32 = new List<Code>();
+			var lig_64 = new List<Code>();
+
+			var vex2_lig_16 = new List<Code>();
+			var vex2_lig_32 = new List<Code>();
+			var vex2_lig_64 = new List<Code>();
+
+			var rr_16 = new List<Code>();
+			var rr_32 = new List<Code>();
+			var rr_64 = new List<Code>();
+
+			var rm_16 = new List<Code>();
+			var rm_32 = new List<Code>();
+			var rm_64 = new List<Code>();
+
+			var disp8_16 = new List<Code>();
+			var disp8_32 = new List<Code>();
+			var disp8_64 = new List<Code>();
+
+			var vex2_16 = new List<Code>();
+			var vex2_32 = new List<Code>();
+			var vex2_64 = new List<Code>();
+
+			var vex3_16 = new List<Code>();
+			var vex3_32 = new List<Code>();
+			var vex3_64 = new List<Code>();
+
+			var opmask_16 = new List<Code>();
+			var opmask_32 = new List<Code>();
+			var opmask_64 = new List<Code>();
+
+			var noopmask_16 = new List<Code>();
+			var noopmask_32 = new List<Code>();
+			var noopmask_64 = new List<Code>();
+
+			var b_16 = new List<Code>();
+			var b_32 = new List<Code>();
+			var b_64 = new List<Code>();
+
+			var r2_16 = new List<Code>();
+			var r2_32 = new List<Code>();
+			var r2_64 = new List<Code>();
+
+			var r_64 = new List<Code>();
+			var vex2_r_64 = new List<Code>();
+			var x_64 = new List<Code>();
+			var v2_64 = new List<Code>();
+
+			var pfx_xacquire_16 = new List<Code>();
+			var pfx_xacquire_32 = new List<Code>();
+			var pfx_xacquire_64 = new List<Code>();
+
+			var pfx_xrelease_16 = new List<Code>();
+			var pfx_xrelease_32 = new List<Code>();
+			var pfx_xrelease_64 = new List<Code>();
+
+			var pfx_lock_16 = new List<Code>();
+			var pfx_lock_32 = new List<Code>();
+			var pfx_lock_64 = new List<Code>();
+
+			var pfx_hnt_16 = new List<Code>();
+			var pfx_hnt_32 = new List<Code>();
+			var pfx_hnt_64 = new List<Code>();
+
+			var pfx_ht_16 = new List<Code>();
+			var pfx_ht_32 = new List<Code>();
+			var pfx_ht_64 = new List<Code>();
+
+			var pfx_rep_16 = new List<Code>();
+			var pfx_rep_32 = new List<Code>();
+			var pfx_rep_64 = new List<Code>();
+
+			var pfx_repne_16 = new List<Code>();
+			var pfx_repne_32 = new List<Code>();
+			var pfx_repne_64 = new List<Code>();
+
+			var pfx_notrack_16 = new List<Code>();
+			var pfx_notrack_32 = new List<Code>();
+			var pfx_notrack_64 = new List<Code>();
+
+			var pfx_bnd_16 = new List<Code>();
+			var pfx_bnd_32 = new List<Code>();
+			var pfx_bnd_64 = new List<Code>();
+
+			var pfx_no_xacquire_16 = new List<Code>();
+			var pfx_no_xacquire_32 = new List<Code>();
+			var pfx_no_xacquire_64 = new List<Code>();
+
+			var pfx_no_xrelease_16 = new List<Code>();
+			var pfx_no_xrelease_32 = new List<Code>();
+			var pfx_no_xrelease_64 = new List<Code>();
+
+			var pfx_no_lock_16 = new List<Code>();
+			var pfx_no_lock_32 = new List<Code>();
+			var pfx_no_lock_64 = new List<Code>();
+
+			var pfx_no_hnt_16 = new List<Code>();
+			var pfx_no_hnt_32 = new List<Code>();
+			var pfx_no_hnt_64 = new List<Code>();
+
+			var pfx_no_ht_16 = new List<Code>();
+			var pfx_no_ht_32 = new List<Code>();
+			var pfx_no_ht_64 = new List<Code>();
+
+			var pfx_no_rep_16 = new List<Code>();
+			var pfx_no_rep_32 = new List<Code>();
+			var pfx_no_rep_64 = new List<Code>();
+
+			var pfx_no_repne_16 = new List<Code>();
+			var pfx_no_repne_32 = new List<Code>();
+			var pfx_no_repne_64 = new List<Code>();
+
+			var pfx_no_notrack_16 = new List<Code>();
+			var pfx_no_notrack_32 = new List<Code>();
+			var pfx_no_notrack_64 = new List<Code>();
+
+			var pfx_no_bnd_16 = new List<Code>();
+			var pfx_no_bnd_32 = new List<Code>();
+			var pfx_no_bnd_64 = new List<Code>();
+
+			foreach (var bitness in new int[] { 16, 32, 64 }) {
+				var testedInfos = bitness switch {
+					16 => testedInfos16,
+					32 => testedInfos32,
+					64 => testedInfos64,
+					_ => throw new InvalidOperationException(),
+				};
+
+				for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+					var code = (Code)i;
+					var opCode = code.ToOpCode();
+					if (!opCode.IsInstruction || opCode.Code == Code.Popw_CS)
+						continue;
+					if (opCode.Fwait)
+						continue;
+
+					switch (bitness) {
+					case 16:
+						if (!opCode.Mode16)
+							continue;
+						break;
+					case 32:
+						if (!opCode.Mode32)
+							continue;
+						break;
+					case 64:
+						if (!opCode.Mode64)
+							continue;
+						break;
+					default:
+						throw new InvalidOperationException();
+					}
+
+					ref var tested = ref testedInfos[i];
+
+					if ((bitness == 16 || bitness == 32) && opCode.IsWIG32) {
+						if (tested.WBits != 3)
+							GetList2(bitness, wig32_16, wig32_32).Add(code);
+					}
+					if (opCode.IsWIG) {
+						if (tested.WBits != 3)
+							GetList(bitness, wig_16, wig_32, wig_64).Add(code);
+					}
+					if (opCode.IsLIG) {
+						uint allLBits;
+						switch (opCode.Encoding) {
+						case EncodingKind.VEX:
+						case EncodingKind.XOP:
+							allLBits = 3;// 1 bit = 2 values
+							break;
+
+						case EncodingKind.EVEX:
+							allLBits = 0xF;// 2 bits = 4 values
+							break;
+
+						case EncodingKind.Legacy:
+						case EncodingKind.D3NOW:
+						default:
+							throw new InvalidOperationException();
+						}
+						if (tested.LBits != allLBits)
+							GetList(bitness, lig_16, lig_32, lig_64).Add(code);
+					}
+					if (opCode.IsLIG && opCode.Encoding == EncodingKind.VEX) {
+						if (tested.VEX2_LBits != 3 && CanUseVEX2(opCode))
+							GetList(bitness, vex2_lig_16, vex2_lig_32, vex2_lig_64).Add(code);
+					}
+					if (CanUseModRM_rm_mem(opCode)) {
+						if (!tested.RegMem)
+							GetList(bitness, rm_16, rm_32, rm_64).Add(code);
+					}
+					if (CanUseModRM_rm_reg(opCode)) {
+						if (!tested.RegReg)
+							GetList(bitness, rr_16, rr_32, rr_64).Add(code);
+					}
+					switch (opCode.Encoding) {
+					case EncodingKind.Legacy:
+					case EncodingKind.VEX:
+					case EncodingKind.XOP:
+					case EncodingKind.D3NOW:
+						break;
+					case EncodingKind.EVEX:
+						if (!tested.MemDisp8 && CanUseModRM_rm_mem(opCode))
+							GetList(bitness, disp8_16, disp8_32, disp8_64).Add(code);
+						break;
+					default:
+						throw new InvalidOperationException();
+					}
+					if (opCode.Encoding == EncodingKind.VEX) {
+						if (!tested.VEX3)
+							GetList(bitness, vex3_16, vex3_32, vex3_64).Add(code);
+						if (!tested.VEX2 && CanUseVEX2(opCode))
+							GetList(bitness, vex2_16, vex2_32, vex2_64).Add(code);
+					}
+					if (opCode.CanUseOpMaskRegister) {
+						if (!tested.OpMask)
+							GetList(bitness, opmask_16, opmask_32, opmask_64).Add(code);
+						if (!tested.NoOpMask && !MustUseNonZeroOpMaskRegister(opCode))
+							GetList(bitness, noopmask_16, noopmask_32, noopmask_64).Add(code);
+					}
+					if (CanUseB(bitness, opCode)) {
+						if (tested.BBits != 3)
+							GetList(bitness, b_16, b_32, b_64).Add(code);
+					}
+					else {
+						if ((tested.BBits & 1) == 0)
+							GetList(bitness, b_16, b_32, b_64).Add(code);
+					}
+					switch (opCode.Encoding) {
+					case EncodingKind.EVEX:
+						if (CanUseR2(opCode)) {
+							if (tested.R2Bits != 3)
+								GetList(bitness, r2_16, r2_32, r2_64).Add(code);
+						}
+						else {
+							if ((tested.R2Bits & 1) == 0)
+								GetList(bitness, r2_16, r2_32, r2_64).Add(code);
+						}
+						break;
+					case EncodingKind.Legacy:
+					case EncodingKind.VEX:
+					case EncodingKind.XOP:
+					case EncodingKind.D3NOW:
+						break;
+					default:
+						throw new InvalidOperationException();
+					}
+					if (bitness == 64 && opCode.Mode64) {
+						if (tested.VEX2_RBits != 3 && opCode.Encoding == EncodingKind.VEX && CanUseVEX2(opCode) && CanUseR(opCode))
+							vex2_r_64.Add(code);
+						if (CanUseR(opCode)) {
+							if (tested.RBits != 3)
+								r_64.Add(code);
+						}
+						else {
+							if ((tested.RBits & 1) == 0)
+								r_64.Add(code);
+						}
+						if (IsVsib(opCode)) {
+							// The memory tests test vsib memory operands
+						}
+						else if (CanUseX(opCode)) {
+							if (tested.XBits != 3)
+								x_64.Add(code);
+						}
+						else {
+							if ((tested.XBits & 1) == 0)
+								x_64.Add(code);
+						}
+						switch (opCode.Encoding) {
+						case EncodingKind.EVEX:
+							if (IsVsib(opCode)) {
+								// The memory tests test vsib memory operands
+							}
+							else if (CanUseV2(opCode)) {
+								if (tested.V2Bits != 3)
+									v2_64.Add(code);
+							}
+							else {
+								if ((tested.V2Bits & 1) == 0)
+									v2_64.Add(code);
+							}
+							break;
+						case EncodingKind.Legacy:
+						case EncodingKind.VEX:
+						case EncodingKind.XOP:
+						case EncodingKind.D3NOW:
+							break;
+						default:
+							throw new InvalidOperationException();
+						}
+					}
+					if (opCode.CanUseXacquirePrefix) {
+						if (!tested.PrefixXacquire)
+							GetList(bitness, pfx_xacquire_16, pfx_xacquire_32, pfx_xacquire_64).Add(code);
+						if (!tested.PrefixNoXacquire)
+							GetList(bitness, pfx_no_xacquire_16, pfx_no_xacquire_32, pfx_no_xacquire_64).Add(code);
+					}
+					if (opCode.CanUseXreleasePrefix) {
+						if (!tested.PrefixXrelease)
+							GetList(bitness, pfx_xrelease_16, pfx_xrelease_32, pfx_xrelease_64).Add(code);
+						if (!tested.PrefixNoXrelease)
+							GetList(bitness, pfx_no_xrelease_16, pfx_no_xrelease_32, pfx_no_xrelease_64).Add(code);
+					}
+					if (opCode.CanUseLockPrefix) {
+						if (!tested.PrefixLock)
+							GetList(bitness, pfx_lock_16, pfx_lock_32, pfx_lock_64).Add(code);
+						if (!tested.PrefixNoLock)
+							GetList(bitness, pfx_no_lock_16, pfx_no_lock_32, pfx_no_lock_64).Add(code);
+					}
+					if (opCode.CanUseHintTakenPrefix) {
+						if (!tested.PrefixHnt)
+							GetList(bitness, pfx_hnt_16, pfx_hnt_32, pfx_hnt_64).Add(code);
+						if (!tested.PrefixNoHnt)
+							GetList(bitness, pfx_no_hnt_16, pfx_no_hnt_32, pfx_no_hnt_64).Add(code);
+					}
+					if (opCode.CanUseHintTakenPrefix) {
+						if (!tested.PrefixHt)
+							GetList(bitness, pfx_ht_16, pfx_ht_32, pfx_ht_64).Add(code);
+						if (!tested.PrefixNoHt)
+							GetList(bitness, pfx_no_ht_16, pfx_no_ht_32, pfx_no_ht_64).Add(code);
+					}
+					if (opCode.CanUseRepPrefix) {
+						if (!tested.PrefixRep)
+							GetList(bitness, pfx_rep_16, pfx_rep_32, pfx_rep_64).Add(code);
+						if (!tested.PrefixNoRep)
+							GetList(bitness, pfx_no_rep_16, pfx_no_rep_32, pfx_no_rep_64).Add(code);
+					}
+					if (opCode.CanUseRepnePrefix) {
+						if (!tested.PrefixRepne)
+							GetList(bitness, pfx_repne_16, pfx_repne_32, pfx_repne_64).Add(code);
+						if (!tested.PrefixNoRepne)
+							GetList(bitness, pfx_no_repne_16, pfx_no_repne_32, pfx_no_repne_64).Add(code);
+					}
+					if (opCode.CanUseNotrackPrefix) {
+						if (!tested.PrefixNotrack)
+							GetList(bitness, pfx_notrack_16, pfx_notrack_32, pfx_notrack_64).Add(code);
+						if (!tested.PrefixNoNotrack)
+							GetList(bitness, pfx_no_notrack_16, pfx_no_notrack_32, pfx_no_notrack_64).Add(code);
+					}
+					if (opCode.CanUseBndPrefix) {
+						if (!tested.PrefixBnd)
+							GetList(bitness, pfx_bnd_16, pfx_bnd_32, pfx_bnd_64).Add(code);
+						if (!tested.PrefixNoBnd)
+							GetList(bitness, pfx_no_bnd_16, pfx_no_bnd_32, pfx_no_bnd_64).Add(code);
+					}
+				}
+			}
+
+			Assert.Equal("wig32_16:", "wig32_16:" + string.Join(",", wig32_16.ToArray()));
+			Assert.Equal("wig32_32:", "wig32_32:" + string.Join(",", wig32_32.ToArray()));
+			Assert.Equal("wig_16:", "wig_16:" + string.Join(",", wig_16.ToArray()));
+			Assert.Equal("wig_32:", "wig_32:" + string.Join(",", wig_32.ToArray()));
+			Assert.Equal("wig_64:", "wig_64:" + string.Join(",", wig_64.ToArray()));
+			Assert.Equal("lig_16:", "lig_16:" + string.Join(",", lig_16.ToArray()));
+			Assert.Equal("lig_32:", "lig_32:" + string.Join(",", lig_32.ToArray()));
+			Assert.Equal("lig_64:", "lig_64:" + string.Join(",", lig_64.ToArray()));
+			Assert.Equal("vex2_lig_16:", "vex2_lig_16:" + string.Join(",", vex2_lig_16.ToArray()));
+			Assert.Equal("vex2_lig_32:", "vex2_lig_32:" + string.Join(",", vex2_lig_32.ToArray()));
+			Assert.Equal("vex2_lig_64:", "vex2_lig_64:" + string.Join(",", vex2_lig_64.ToArray()));
+			Assert.Equal("rr_16:", "rr_16:" + string.Join(",", rr_16.ToArray()));
+			Assert.Equal("rr_32:", "rr_32:" + string.Join(",", rr_32.ToArray()));
+			Assert.Equal("rr_64:", "rr_64:" + string.Join(",", rr_64.ToArray()));
+			Assert.Equal("rm_16:", "rm_16:" + string.Join(",", rm_16.ToArray()));
+			Assert.Equal("rm_32:", "rm_32:" + string.Join(",", rm_32.ToArray()));
+			Assert.Equal("rm_64:", "rm_64:" + string.Join(",", rm_64.ToArray()));
+			Assert.Equal("disp8_16:", "disp8_16:" + string.Join(",", disp8_16.ToArray()));
+			Assert.Equal("disp8_32:", "disp8_32:" + string.Join(",", disp8_32.ToArray()));
+			Assert.Equal("disp8_64:", "disp8_64:" + string.Join(",", disp8_64.ToArray()));
+			Assert.Equal("vex2_16:", "vex2_16:" + string.Join(",", vex2_16.ToArray()));
+			Assert.Equal("vex2_32:", "vex2_32:" + string.Join(",", vex2_32.ToArray()));
+			Assert.Equal("vex2_64:", "vex2_64:" + string.Join(",", vex2_64.ToArray()));
+			Assert.Equal("vex3_16:", "vex3_16:" + string.Join(",", vex3_16.ToArray()));
+			Assert.Equal("vex3_32:", "vex3_32:" + string.Join(",", vex3_32.ToArray()));
+			Assert.Equal("vex3_64:", "vex3_64:" + string.Join(",", vex3_64.ToArray()));
+			Assert.Equal("opmask_16:", "opmask_16:" + string.Join(",", opmask_16.ToArray()));
+			Assert.Equal("opmask_32:", "opmask_32:" + string.Join(",", opmask_32.ToArray()));
+			Assert.Equal("opmask_64:", "opmask_64:" + string.Join(",", opmask_64.ToArray()));
+			Assert.Equal("noopmask_16:", "noopmask_16:" + string.Join(",", noopmask_16.ToArray()));
+			Assert.Equal("noopmask_32:", "noopmask_32:" + string.Join(",", noopmask_32.ToArray()));
+			Assert.Equal("noopmask_64:", "noopmask_64:" + string.Join(",", noopmask_64.ToArray()));
+			Assert.Equal("b_16:", "b_16:" + string.Join(",", b_16.ToArray()));
+			Assert.Equal("b_32:", "b_32:" + string.Join(",", b_32.ToArray()));
+			Assert.Equal("b_64:", "b_64:" + string.Join(",", b_64.ToArray()));
+			Assert.Equal("r2_16:", "r2_16:" + string.Join(",", r2_16.ToArray()));
+			Assert.Equal("r2_32:", "r2_32:" + string.Join(",", r2_32.ToArray()));
+			Assert.Equal("r2_64:", "r2_64:" + string.Join(",", r2_64.ToArray()));
+			Assert.Equal("r_64:", "r_64:" + string.Join(",", r_64.ToArray()));
+			Assert.Equal("vex2_r_64:", "vex2_r_64:" + string.Join(",", vex2_r_64.ToArray()));
+			Assert.Equal("x_64:", "x_64:" + string.Join(",", x_64.ToArray()));
+			Assert.Equal("v2_64:", "v2_64:" + string.Join(",", v2_64.ToArray()));
+			Assert.Equal("pfx_xacquire_16:", "pfx_xacquire_16:" + string.Join(",", pfx_xacquire_16.ToArray()));
+			Assert.Equal("pfx_xacquire_32:", "pfx_xacquire_32:" + string.Join(",", pfx_xacquire_32.ToArray()));
+			Assert.Equal("pfx_xacquire_64:", "pfx_xacquire_64:" + string.Join(",", pfx_xacquire_64.ToArray()));
+			Assert.Equal("pfx_xrelease_16:", "pfx_xrelease_16:" + string.Join(",", pfx_xrelease_16.ToArray()));
+			Assert.Equal("pfx_xrelease_32:", "pfx_xrelease_32:" + string.Join(",", pfx_xrelease_32.ToArray()));
+			Assert.Equal("pfx_xrelease_64:", "pfx_xrelease_64:" + string.Join(",", pfx_xrelease_64.ToArray()));
+			Assert.Equal("pfx_lock_16:", "pfx_lock_16:" + string.Join(",", pfx_lock_16.ToArray()));
+			Assert.Equal("pfx_lock_32:", "pfx_lock_32:" + string.Join(",", pfx_lock_32.ToArray()));
+			Assert.Equal("pfx_lock_64:", "pfx_lock_64:" + string.Join(",", pfx_lock_64.ToArray()));
+			Assert.Equal("pfx_hnt_16:", "pfx_hnt_16:" + string.Join(",", pfx_hnt_16.ToArray()));
+			Assert.Equal("pfx_hnt_32:", "pfx_hnt_32:" + string.Join(",", pfx_hnt_32.ToArray()));
+			Assert.Equal("pfx_hnt_64:", "pfx_hnt_64:" + string.Join(",", pfx_hnt_64.ToArray()));
+			Assert.Equal("pfx_ht_16:", "pfx_ht_16:" + string.Join(",", pfx_ht_16.ToArray()));
+			Assert.Equal("pfx_ht_32:", "pfx_ht_32:" + string.Join(",", pfx_ht_32.ToArray()));
+			Assert.Equal("pfx_ht_64:", "pfx_ht_64:" + string.Join(",", pfx_ht_64.ToArray()));
+			Assert.Equal("pfx_rep_16:", "pfx_rep_16:" + string.Join(",", pfx_rep_16.ToArray()));
+			Assert.Equal("pfx_rep_32:", "pfx_rep_32:" + string.Join(",", pfx_rep_32.ToArray()));
+			Assert.Equal("pfx_rep_64:", "pfx_rep_64:" + string.Join(",", pfx_rep_64.ToArray()));
+			Assert.Equal("pfx_repne_16:", "pfx_repne_16:" + string.Join(",", pfx_repne_16.ToArray()));
+			Assert.Equal("pfx_repne_32:", "pfx_repne_32:" + string.Join(",", pfx_repne_32.ToArray()));
+			Assert.Equal("pfx_repne_64:", "pfx_repne_64:" + string.Join(",", pfx_repne_64.ToArray()));
+			Assert.Equal("pfx_notrack_16:", "pfx_notrack_16:" + string.Join(",", pfx_notrack_16.ToArray()));
+			Assert.Equal("pfx_notrack_32:", "pfx_notrack_32:" + string.Join(",", pfx_notrack_32.ToArray()));
+			Assert.Equal("pfx_notrack_64:", "pfx_notrack_64:" + string.Join(",", pfx_notrack_64.ToArray()));
+			Assert.Equal("pfx_bnd_16:", "pfx_bnd_16:" + string.Join(",", pfx_bnd_16.ToArray()));
+			Assert.Equal("pfx_bnd_32:", "pfx_bnd_32:" + string.Join(",", pfx_bnd_32.ToArray()));
+			Assert.Equal("pfx_bnd_64:", "pfx_bnd_64:" + string.Join(",", pfx_bnd_64.ToArray()));
+			Assert.Equal("pfx_no_xacquire_16:", "pfx_no_xacquire_16:" + string.Join(",", pfx_no_xacquire_16.ToArray()));
+			Assert.Equal("pfx_no_xacquire_32:", "pfx_no_xacquire_32:" + string.Join(",", pfx_no_xacquire_32.ToArray()));
+			Assert.Equal("pfx_no_xacquire_64:", "pfx_no_xacquire_64:" + string.Join(",", pfx_no_xacquire_64.ToArray()));
+			Assert.Equal("pfx_no_xrelease_16:", "pfx_no_xrelease_16:" + string.Join(",", pfx_no_xrelease_16.ToArray()));
+			Assert.Equal("pfx_no_xrelease_32:", "pfx_no_xrelease_32:" + string.Join(",", pfx_no_xrelease_32.ToArray()));
+			Assert.Equal("pfx_no_xrelease_64:", "pfx_no_xrelease_64:" + string.Join(",", pfx_no_xrelease_64.ToArray()));
+			Assert.Equal("pfx_no_lock_16:", "pfx_no_lock_16:" + string.Join(",", pfx_no_lock_16.ToArray()));
+			Assert.Equal("pfx_no_lock_32:", "pfx_no_lock_32:" + string.Join(",", pfx_no_lock_32.ToArray()));
+			Assert.Equal("pfx_no_lock_64:", "pfx_no_lock_64:" + string.Join(",", pfx_no_lock_64.ToArray()));
+			Assert.Equal("pfx_no_hnt_16:", "pfx_no_hnt_16:" + string.Join(",", pfx_no_hnt_16.ToArray()));
+			Assert.Equal("pfx_no_hnt_32:", "pfx_no_hnt_32:" + string.Join(",", pfx_no_hnt_32.ToArray()));
+			Assert.Equal("pfx_no_hnt_64:", "pfx_no_hnt_64:" + string.Join(",", pfx_no_hnt_64.ToArray()));
+			Assert.Equal("pfx_no_ht_16:", "pfx_no_ht_16:" + string.Join(",", pfx_no_ht_16.ToArray()));
+			Assert.Equal("pfx_no_ht_32:", "pfx_no_ht_32:" + string.Join(",", pfx_no_ht_32.ToArray()));
+			Assert.Equal("pfx_no_ht_64:", "pfx_no_ht_64:" + string.Join(",", pfx_no_ht_64.ToArray()));
+			Assert.Equal("pfx_no_rep_16:", "pfx_no_rep_16:" + string.Join(",", pfx_no_rep_16.ToArray()));
+			Assert.Equal("pfx_no_rep_32:", "pfx_no_rep_32:" + string.Join(",", pfx_no_rep_32.ToArray()));
+			Assert.Equal("pfx_no_rep_64:", "pfx_no_rep_64:" + string.Join(",", pfx_no_rep_64.ToArray()));
+			Assert.Equal("pfx_no_repne_16:", "pfx_no_repne_16:" + string.Join(",", pfx_no_repne_16.ToArray()));
+			Assert.Equal("pfx_no_repne_32:", "pfx_no_repne_32:" + string.Join(",", pfx_no_repne_32.ToArray()));
+			Assert.Equal("pfx_no_repne_64:", "pfx_no_repne_64:" + string.Join(",", pfx_no_repne_64.ToArray()));
+			Assert.Equal("pfx_no_notrack_16:", "pfx_no_notrack_16:" + string.Join(",", pfx_no_notrack_16.ToArray()));
+			Assert.Equal("pfx_no_notrack_32:", "pfx_no_notrack_32:" + string.Join(",", pfx_no_notrack_32.ToArray()));
+			Assert.Equal("pfx_no_notrack_64:", "pfx_no_notrack_64:" + string.Join(",", pfx_no_notrack_64.ToArray()));
+			Assert.Equal("pfx_no_bnd_16:", "pfx_no_bnd_16:" + string.Join(",", pfx_no_bnd_16.ToArray()));
+			Assert.Equal("pfx_no_bnd_32:", "pfx_no_bnd_32:" + string.Join(",", pfx_no_bnd_32.ToArray()));
+			Assert.Equal("pfx_no_bnd_64:", "pfx_no_bnd_64:" + string.Join(",", pfx_no_bnd_64.ToArray()));
+
+			static bool CanUseModRM_rm_reg(OpCodeInfo opCode) {
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.r8_mem:
+					case OpCodeOperandKind.r16_mem:
+					case OpCodeOperandKind.r32_mem:
+					case OpCodeOperandKind.r32_mem_mpx:
+					case OpCodeOperandKind.r64_mem:
+					case OpCodeOperandKind.r64_mem_mpx:
+					case OpCodeOperandKind.mm_mem:
+					case OpCodeOperandKind.xmm_mem:
+					case OpCodeOperandKind.ymm_mem:
+					case OpCodeOperandKind.zmm_mem:
+					case OpCodeOperandKind.bnd_mem_mpx:
+					case OpCodeOperandKind.k_mem:
+					case OpCodeOperandKind.r16_rm:
+					case OpCodeOperandKind.r32_rm:
+					case OpCodeOperandKind.r64_rm:
+					case OpCodeOperandKind.k_rm:
+					case OpCodeOperandKind.mm_rm:
+					case OpCodeOperandKind.xmm_rm:
+					case OpCodeOperandKind.ymm_rm:
+					case OpCodeOperandKind.zmm_rm:
+						return true;
+					}
+				}
+				return false;
+			}
+
+			static bool CanUseModRM_rm_mem(OpCodeInfo opCode) {
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_vsib32x:
+					case OpCodeOperandKind.mem_vsib64x:
+					case OpCodeOperandKind.mem_vsib32y:
+					case OpCodeOperandKind.mem_vsib64y:
+					case OpCodeOperandKind.mem_vsib32z:
+					case OpCodeOperandKind.mem_vsib64z:
+					case OpCodeOperandKind.r8_mem:
+					case OpCodeOperandKind.r16_mem:
+					case OpCodeOperandKind.r32_mem:
+					case OpCodeOperandKind.r32_mem_mpx:
+					case OpCodeOperandKind.r64_mem:
+					case OpCodeOperandKind.r64_mem_mpx:
+					case OpCodeOperandKind.mm_mem:
+					case OpCodeOperandKind.xmm_mem:
+					case OpCodeOperandKind.ymm_mem:
+					case OpCodeOperandKind.zmm_mem:
+					case OpCodeOperandKind.bnd_mem_mpx:
+					case OpCodeOperandKind.k_mem:
+						return true;
+					}
+				}
+				return false;
+			}
+
+			static bool CanUseVEX2(OpCodeInfo opCode) => opCode.Table == OpCodeTableKind.T0F && opCode.W == 0;
+
+			static bool CanUseB(int bitness, OpCodeInfo opCode) {
+				if (opCode.Code == Code.Nopw || opCode.Code == Code.Nopd || opCode.Code == Code.Nopq)
+					return false;
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.k_rm:
+					case OpCodeOperandKind.mm_rm:
+					case OpCodeOperandKind.r16_rm:
+					case OpCodeOperandKind.r32_rm:
+					case OpCodeOperandKind.r64_rm:
+					case OpCodeOperandKind.xmm_rm:
+					case OpCodeOperandKind.ymm_rm:
+					case OpCodeOperandKind.zmm_rm:
+
+					case OpCodeOperandKind.bnd_mem_mpx:
+					case OpCodeOperandKind.k_mem:
+					case OpCodeOperandKind.mm_mem:
+					case OpCodeOperandKind.r16_mem:
+					case OpCodeOperandKind.r32_mem:
+					case OpCodeOperandKind.r32_mem_mpx:
+					case OpCodeOperandKind.r64_mem:
+					case OpCodeOperandKind.r64_mem_mpx:
+					case OpCodeOperandKind.r8_mem:
+					case OpCodeOperandKind.xmm_mem:
+					case OpCodeOperandKind.ymm_mem:
+					case OpCodeOperandKind.zmm_mem:
+						if (opCode.Encoding == EncodingKind.Legacy || opCode.Encoding == EncodingKind.D3NOW)
+							return bitness == 64;
+						return true;
+
+					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_vsib32x:
+					case OpCodeOperandKind.mem_vsib32y:
+					case OpCodeOperandKind.mem_vsib32z:
+					case OpCodeOperandKind.mem_vsib64x:
+					case OpCodeOperandKind.mem_vsib64y:
+					case OpCodeOperandKind.mem_vsib64z:
+						// The memory test tests all combinations
+						return false;
+					}
+				}
+				if (opCode.Encoding == EncodingKind.Legacy || opCode.Encoding == EncodingKind.D3NOW)
+					return bitness == 64;
+				return true;
+			}
+
+			static bool CanUseX(OpCodeInfo opCode) {
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.k_rm:
+					case OpCodeOperandKind.mm_rm:
+					case OpCodeOperandKind.r16_rm:
+					case OpCodeOperandKind.r32_rm:
+					case OpCodeOperandKind.r64_rm:
+					case OpCodeOperandKind.xmm_rm:
+					case OpCodeOperandKind.ymm_rm:
+					case OpCodeOperandKind.zmm_rm:
+
+					case OpCodeOperandKind.bnd_mem_mpx:
+					case OpCodeOperandKind.k_mem:
+					case OpCodeOperandKind.mm_mem:
+					case OpCodeOperandKind.r16_mem:
+					case OpCodeOperandKind.r32_mem:
+					case OpCodeOperandKind.r32_mem_mpx:
+					case OpCodeOperandKind.r64_mem:
+					case OpCodeOperandKind.r64_mem_mpx:
+					case OpCodeOperandKind.r8_mem:
+					case OpCodeOperandKind.xmm_mem:
+					case OpCodeOperandKind.ymm_mem:
+					case OpCodeOperandKind.zmm_mem:
+						return true;
+
+					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_vsib32x:
+					case OpCodeOperandKind.mem_vsib32y:
+					case OpCodeOperandKind.mem_vsib32z:
+					case OpCodeOperandKind.mem_vsib64x:
+					case OpCodeOperandKind.mem_vsib64y:
+					case OpCodeOperandKind.mem_vsib64z:
+						// The memory test tests all combinations
+						return false;
+					}
+				}
+				return true;
+			}
+
+			static bool CanUseR(OpCodeInfo opCode) {
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.k_reg:
+					case OpCodeOperandKind.tr_reg:
+						return false;
+
+					case OpCodeOperandKind.bnd_reg:
+					case OpCodeOperandKind.cr_reg:
+					case OpCodeOperandKind.dr_reg:
+					case OpCodeOperandKind.mm_reg:
+					case OpCodeOperandKind.r16_reg:
+					case OpCodeOperandKind.r32_reg:
+					case OpCodeOperandKind.r64_reg:
+					case OpCodeOperandKind.r8_reg:
+					case OpCodeOperandKind.seg_reg:
+					case OpCodeOperandKind.xmm_reg:
+					case OpCodeOperandKind.ymm_reg:
+					case OpCodeOperandKind.zmm_reg:
+						return true;
+					}
+				}
+				return true;
+			}
+
+			static bool CanUseR2(OpCodeInfo opCode) {
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.k_reg:
+					case OpCodeOperandKind.tr_reg:
+					case OpCodeOperandKind.bnd_reg:
+					case OpCodeOperandKind.cr_reg:
+					case OpCodeOperandKind.dr_reg:
+					case OpCodeOperandKind.mm_reg:
+					case OpCodeOperandKind.r16_reg:
+					case OpCodeOperandKind.r32_reg:
+					case OpCodeOperandKind.r64_reg:
+					case OpCodeOperandKind.r8_reg:
+					case OpCodeOperandKind.seg_reg:
+						return false;
+
+					case OpCodeOperandKind.xmm_reg:
+					case OpCodeOperandKind.ymm_reg:
+					case OpCodeOperandKind.zmm_reg:
+						return true;
+					}
+				}
+				return true;
+			}
+
+			static bool CanUseV2(OpCodeInfo opCode) {
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.k_vvvv:
+					case OpCodeOperandKind.r32_vvvv:
+					case OpCodeOperandKind.r64_vvvv:
+						return false;
+
+					case OpCodeOperandKind.xmm_vvvv:
+					case OpCodeOperandKind.xmmp3_vvvv:
+					case OpCodeOperandKind.ymm_vvvv:
+					case OpCodeOperandKind.zmm_vvvv:
+					case OpCodeOperandKind.zmmp3_vvvv:
+						return true;
+
+					case OpCodeOperandKind.mem_vsib32x:
+					case OpCodeOperandKind.mem_vsib32y:
+					case OpCodeOperandKind.mem_vsib32z:
+					case OpCodeOperandKind.mem_vsib64x:
+					case OpCodeOperandKind.mem_vsib64y:
+					case OpCodeOperandKind.mem_vsib64z:
+						// The memory test tests all combinations
+						return false;
+					}
+				}
+				return false;
+			}
+
+			static bool HasModRM(OpCodeInfo opCode) {
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_vsib32x:
+					case OpCodeOperandKind.mem_vsib64x:
+					case OpCodeOperandKind.mem_vsib32y:
+					case OpCodeOperandKind.mem_vsib64y:
+					case OpCodeOperandKind.mem_vsib32z:
+					case OpCodeOperandKind.mem_vsib64z:
+					case OpCodeOperandKind.r8_mem:
+					case OpCodeOperandKind.r16_mem:
+					case OpCodeOperandKind.r32_mem:
+					case OpCodeOperandKind.r32_mem_mpx:
+					case OpCodeOperandKind.r64_mem:
+					case OpCodeOperandKind.r64_mem_mpx:
+					case OpCodeOperandKind.mm_mem:
+					case OpCodeOperandKind.xmm_mem:
+					case OpCodeOperandKind.ymm_mem:
+					case OpCodeOperandKind.zmm_mem:
+					case OpCodeOperandKind.bnd_mem_mpx:
+					case OpCodeOperandKind.k_mem:
+					case OpCodeOperandKind.r8_reg:
+					case OpCodeOperandKind.r16_reg:
+					case OpCodeOperandKind.r16_rm:
+					case OpCodeOperandKind.r32_reg:
+					case OpCodeOperandKind.r32_rm:
+					case OpCodeOperandKind.r64_reg:
+					case OpCodeOperandKind.r64_rm:
+					case OpCodeOperandKind.seg_reg:
+					case OpCodeOperandKind.k_reg:
+					case OpCodeOperandKind.k_rm:
+					case OpCodeOperandKind.mm_reg:
+					case OpCodeOperandKind.mm_rm:
+					case OpCodeOperandKind.xmm_reg:
+					case OpCodeOperandKind.xmm_rm:
+					case OpCodeOperandKind.ymm_reg:
+					case OpCodeOperandKind.ymm_rm:
+					case OpCodeOperandKind.zmm_reg:
+					case OpCodeOperandKind.zmm_rm:
+					case OpCodeOperandKind.cr_reg:
+					case OpCodeOperandKind.dr_reg:
+					case OpCodeOperandKind.tr_reg:
+					case OpCodeOperandKind.bnd_reg:
+						return true;
+					}
+				}
+				return false;
+			}
+
+			static List<Code> GetList2(int bitness, List<Code> l16, List<Code> l32) =>
+				bitness switch {
+					16 => l16,
+					32 => l32,
+					_ => throw new InvalidOperationException(),
+				};
+
+			static List<Code> GetList(int bitness, List<Code> l16, List<Code> l32, List<Code> l64) =>
+				bitness switch {
+					16 => l16,
+					32 => l32,
+					64 => l64,
+					_ => throw new InvalidOperationException(),
+				};
 		}
 #endif
 	}

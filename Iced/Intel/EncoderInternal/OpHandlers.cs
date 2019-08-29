@@ -341,7 +341,7 @@ namespace Iced.Intel.EncoderInternal {
 			new OpIs4x(Register.YMM0, Register.YMM15),
 			new OpModRM_rm_mem_only(),
 			new OpModRM_rm_mem_only(),
-			new OpModRM_rm(Register.K0, Register.K7),
+			new OpModRM_rm_mem_only(),
 			new OprDI(),
 			new OpModRM_rm_reg_only(Register.K0, Register.K7),
 			new OpModRM_rm_reg_only(Register.XMM0, Register.XMM15),

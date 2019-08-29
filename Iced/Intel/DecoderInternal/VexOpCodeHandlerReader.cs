@@ -164,8 +164,8 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_VEX_MHV(deserializer.ReadRegister(), deserializer.ReadCode());
 				return 1;
 
-			case VexOpCodeHandlerKind.MK_VK:
-				elem = new OpCodeHandler_VEX_MK_VK(deserializer.ReadCode());
+			case VexOpCodeHandlerKind.M_VK:
+				elem = new OpCodeHandler_VEX_M_VK(deserializer.ReadCode());
 				return 1;
 
 			case VexOpCodeHandlerKind.MV:

@@ -56,7 +56,7 @@ namespace Iced.Intel.DecoderInternal {
 		Hv_Ev,
 		M,
 		MHV,
-		MK_VK,
+		M_VK,
 		MV,
 		rDI_VX_RX,
 		RdRq,
