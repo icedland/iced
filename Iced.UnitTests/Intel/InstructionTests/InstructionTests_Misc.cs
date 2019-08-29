@@ -76,7 +76,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Equal(Code.INVALID, instr1.Code);
 			var instr2 = new Instruction();
 			Assert.Equal(Code.INVALID, instr2.Code);
-			Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+			Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 		}
 
 #if !NO_ENCODER

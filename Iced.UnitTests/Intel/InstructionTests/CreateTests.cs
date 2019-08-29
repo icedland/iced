@@ -423,7 +423,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareByte(info.data);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -442,7 +442,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareWord(info.data);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -457,7 +457,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareDword(info.data);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -470,7 +470,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareQword(info.data);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -497,7 +497,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareByte(info.data, 1, info.data.Length - 2);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -516,7 +516,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareWord(info.data, 1, info.data.Length - 2);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -531,7 +531,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareDword(info.data, 1, info.data.Length - 2);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -544,7 +544,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareQword(info.data, 1, info.data.Length - 2);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -563,7 +563,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareWord(info.data);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -578,7 +578,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareDword(info.data);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -591,7 +591,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareQword(info.data);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -610,7 +610,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareWord(info.data, 1, info.data.Length - 2);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -625,7 +625,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareDword(info.data, 1, info.data.Length - 2);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -638,7 +638,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var info in data) {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareQword(info.data, 1, info.data.Length - 2);
-				Assert.True(Instruction.TEST_BitByBitEquals(instr1, instr2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			}
 		}
 
@@ -660,7 +660,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			decodedInstr.NextIP = 0;
 
 			var createdInstr = create();
-			Assert.True(Instruction.TEST_BitByBitEquals(decodedInstr, createdInstr));
+			Assert.True(Instruction.EqualsAllBits(decodedInstr, createdInstr));
 
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(decoder.Bitness, writer);

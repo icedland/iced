@@ -210,8 +210,6 @@ namespace Iced.Intel {
 			a.reg3 == b.reg3 &&
 			a.nextRip == b.nextRip;
 
-		internal static bool TEST_BitByBitEquals(in Instruction a, in Instruction b) => EqualsAllBits(a, b);
-
 		/// <summary>
 		/// 16-bit IP of the instruction
 		/// </summary>

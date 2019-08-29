@@ -62,7 +62,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			for (int i = 0; i < elems; i++) {
 				var expInstr = expected[i];
 				var actualInstr = actual[i];
-				Assert.True(Instruction.TEST_BitByBitEquals(expInstr, actualInstr));
+				Assert.True(Instruction.EqualsAllBits(expInstr, actualInstr));
 			}
 		}
 
@@ -166,7 +166,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			var list = new InstructionList(instructions);
 			Assert.Equal(instructions.Length, list.Count);
 			for (int i = 0; i < instructions.Length; i++)
-				Assert.True(Instruction.TEST_BitByBitEquals(instructions[i], list[i]));
+				Assert.True(Instruction.EqualsAllBits(instructions[i], list[i]));
 		}
 
 		[Fact]
@@ -337,7 +337,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			int index = 0;
 			foreach (ref var instr in list) {
 				Assert.True(index < instructions.Length);
-				Assert.True(Instruction.TEST_BitByBitEquals(instructions[index], instr));
+				Assert.True(Instruction.EqualsAllBits(instructions[index], instr));
 				index++;
 			}
 			Assert.Equal(instructions.Length, index);
