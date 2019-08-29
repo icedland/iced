@@ -4858,10 +4858,12 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			if (state.reg > 3)
+				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = (int)(state.reg & 3) + Register.BND0;
+			instruction.InternalOp0Register = (int)state.reg + Register.BND0;
 			if (state.mod == 3) {
 				// Should never be reached
 				decoder.SetInvalidInstruction();
@@ -4881,6 +4883,8 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			if (state.reg > 3)
+				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 			if (state.mod == 3) {
 				// Should never be reached
@@ -4892,7 +4896,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.InternalOp1Register = (int)(state.reg & 3) + Register.BND0;
+			instruction.InternalOp1Register = (int)state.reg + Register.BND0;
 		}
 	}
 
@@ -4908,17 +4912,19 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			if (state.reg > 3 || state.rm > 3)
+				decoder.SetInvalidInstruction();
 			if (decoder.is64Mode)
 				instruction.InternalCode = code64;
 			else
 				instruction.InternalCode = code32;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = (int)(state.reg & 3) + Register.BND0;
+			instruction.InternalOp0Register = (int)state.reg + Register.BND0;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.InternalOp1Register = (int)(state.rm & 3) + Register.BND0;
+				instruction.InternalOp1Register = (int)state.rm + Register.BND0;
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
@@ -4939,6 +4945,8 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			if (state.reg > 3 || state.rm > 3)
+				decoder.SetInvalidInstruction();
 			if (decoder.is64Mode)
 				instruction.InternalCode = code64;
 			else
@@ -4946,7 +4954,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.InternalOp0Register = (int)(state.rm & 3) + Register.BND0;
+				instruction.InternalOp0Register = (int)state.rm + Register.BND0;
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
@@ -4954,7 +4962,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.InternalOp1Register = (int)(state.reg & 3) + Register.BND0;
+			instruction.InternalOp1Register = (int)state.reg + Register.BND0;
 		}
 	}
 
@@ -4970,6 +4978,8 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			if (state.reg > 3)
+				decoder.SetInvalidInstruction();
 			Register baseReg;
 			if (decoder.is64Mode) {
 				instruction.InternalCode = code64;
@@ -4981,7 +4991,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = (int)(state.reg & 3) + Register.BND0;
+			instruction.InternalOp0Register = (int)state.reg + Register.BND0;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
