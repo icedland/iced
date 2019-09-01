@@ -1814,7 +1814,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			public uint LBits;// bit 0 = L0/L128, bit 1 = L1/L256, etc
 			public uint VEX2_LBits;
 
-			// VEX/XOP/EVEX/MVEX: W values
+			// REX/VEX/XOP/EVEX/MVEX: W values
 			public uint WBits;// bit 0 = W0, bit 1 = W1
 
 			// REX/VEX/XOP/EVEX/MVEX.R
@@ -1871,6 +1871,37 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var testedInfos16 = new TestedInfo[Iced.Intel.DecoderConstants.NumberOfCodeValues];
 			var testedInfos32 = new TestedInfo[Iced.Intel.DecoderConstants.NumberOfCodeValues];
 			var testedInfos64 = new TestedInfo[Iced.Intel.DecoderConstants.NumberOfCodeValues];
+
+			var canUseW = new bool[Iced.Intel.DecoderConstants.NumberOfCodeValues];
+			{
+				var usesW = new HashSet<(OpCodeTableKind table, uint opCode)>();
+				for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+					var code = (Code)i;
+					var opCode = code.ToOpCode();
+					if (opCode.Encoding != EncodingKind.Legacy)
+						continue;
+					if (opCode.OperandSize != 0)
+						usesW.Add((opCode.Table, opCode.OpCode));
+				}
+				for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+					var code = (Code)i;
+					var opCode = code.ToOpCode();
+					switch (opCode.Encoding) {
+					case EncodingKind.Legacy:
+					case EncodingKind.D3NOW:
+						canUseW[i] = !usesW.Contains((opCode.Table, opCode.OpCode));
+						break;
+
+					case EncodingKind.VEX:
+					case EncodingKind.EVEX:
+					case EncodingKind.XOP:
+						break;
+
+					default:
+						throw new InvalidOperationException();
+					}
+				}
+			}
 
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
@@ -1972,11 +2003,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 							break;
 					}
 					if (info.Bitness == 64) {
+						tested.WBits |= 1U << (int)((rex >> 3) & 1);
 						tested.RBits |= 1U << (int)((rex >> 2) & 1);
 						tested.XBits |= 1U << (int)((rex >> 1) & 1);
 						tested.BBits |= 1U << (int)(rex & 1);
 					}
 					else {
+						tested.WBits |= 1;
 						tested.RBits |= 1;
 						tested.XBits |= 1;
 						tested.BBits |= 1;
@@ -2075,6 +2108,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var wig_16 = new List<Code>();
 			var wig_32 = new List<Code>();
 			var wig_64 = new List<Code>();
+
+			var w_64 = new List<Code>();
 
 			var lig_16 = new List<Code>();
 			var lig_32 = new List<Code>();
@@ -2239,6 +2274,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					if (opCode.IsWIG) {
 						if (tested.WBits != 3)
 							GetList(bitness, wig_16, wig_32, wig_64).Add(code);
+					}
+					if (bitness == 64 && opCode.Mode64 && (opCode.Encoding == EncodingKind.Legacy || opCode.Encoding == EncodingKind.D3NOW)) {
+						Debug.Assert(!opCode.IsWIG);
+						Debug.Assert(!opCode.IsWIG32);
+						if (canUseW[(int)code] && tested.WBits != 3)
+							w_64.Add(code);
 					}
 					if (opCode.IsLIG) {
 						uint allLBits;
@@ -2431,6 +2472,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal("wig_16:", "wig_16:" + string.Join(",", wig_16.ToArray()));
 			Assert.Equal("wig_32:", "wig_32:" + string.Join(",", wig_32.ToArray()));
 			Assert.Equal("wig_64:", "wig_64:" + string.Join(",", wig_64.ToArray()));
+			Assert.Equal("w_64:", "w_64:" + string.Join(",", w_64.ToArray()));
 			Assert.Equal("lig_16:", "lig_16:" + string.Join(",", lig_16.ToArray()));
 			Assert.Equal("lig_32:", "lig_32:" + string.Join(",", lig_32.ToArray()));
 			Assert.Equal("lig_64:", "lig_64:" + string.Join(",", lig_64.ToArray()));
