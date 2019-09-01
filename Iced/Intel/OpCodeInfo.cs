@@ -442,12 +442,12 @@ namespace Iced.Intel {
 		public bool Fwait => (flags & Flags.Fwait) != 0;
 
 		/// <summary>
-		/// (Legacy) Gets the operand size (16,32,64) or 0
+		/// (Legacy encoding) Gets the required operand size (16,32,64) or 0 if no operand size prefix (66) is needed
 		/// </summary>
 		public int OperandSize => operandSize;
 
 		/// <summary>
-		/// (Legacy) Gets the address size (16,32,64) or 0
+		/// (Legacy encoding) Gets the required address size (16,32,64) or 0 if no address size prefix (67) is needed
 		/// </summary>
 		public int AddressSize => addressSize;
 
@@ -457,7 +457,7 @@ namespace Iced.Intel {
 		public uint L => l;
 
 		/// <summary>
-		/// (VEX/XOP/EVEX) W value or default value if <see cref="IsWIG"/> is true
+		/// (VEX/XOP/EVEX) W value or default value if <see cref="IsWIG"/> or <see cref="IsWIG32"/> is true
 		/// </summary>
 		public uint W => (flags & Flags.W) != 0 ? 1U : 0;
 
