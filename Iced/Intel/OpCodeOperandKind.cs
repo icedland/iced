@@ -78,51 +78,51 @@ namespace Iced.Intel {
 		/// <summary>
 		/// 8-bit GPR or memory
 		/// </summary>
-		r8_mem,
+		r8_or_mem,
 		/// <summary>
 		/// 16-bit GPR or memory
 		/// </summary>
-		r16_mem,
+		r16_or_mem,
 		/// <summary>
 		/// 32-bit GPR or memory
 		/// </summary>
-		r32_mem,
+		r32_or_mem,
 		/// <summary>
 		/// 32-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
 		/// </summary>
-		r32_mem_mpx,
+		r32_or_mem_mpx,
 		/// <summary>
 		/// 64-bit GPR or memory
 		/// </summary>
-		r64_mem,
+		r64_or_mem,
 		/// <summary>
 		/// 64-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
 		/// </summary>
-		r64_mem_mpx,
+		r64_or_mem_mpx,
 		/// <summary>
 		/// MM register or memory
 		/// </summary>
-		mm_mem,
+		mm_or_mem,
 		/// <summary>
 		/// XMM register or memory
 		/// </summary>
-		xmm_mem,
+		xmm_or_mem,
 		/// <summary>
 		/// YMM register or memory
 		/// </summary>
-		ymm_mem,
+		ymm_or_mem,
 		/// <summary>
 		/// ZMM register or memory
 		/// </summary>
-		zmm_mem,
+		zmm_or_mem,
 		/// <summary>
 		/// BND register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
 		/// </summary>
-		bnd_mem_mpx,
+		bnd_or_mem_mpx,
 		/// <summary>
 		/// K register or memory
 		/// </summary>
-		k_mem,
+		k_or_mem,
 		/// <summary>
 		/// 8-bit GPR encoded in the 'reg' field of the modrm byte
 		/// </summary>

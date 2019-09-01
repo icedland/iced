@@ -330,7 +330,7 @@ Disassembled code:
     Memory size: 8
     Op0Access: Write
     Op1Access: Read
-    Op0: r64_mem
+    Op0: r64_or_mem
     Op1: r64_reg
     RSP:Read
     RBX:Read
@@ -346,7 +346,7 @@ Disassembled code:
     Memory size: 8
     Op0Access: Write
     Op1Access: Read
-    Op0: r64_mem
+    Op0: r64_or_mem
     Op1: r64_reg
     RSP:Read
     RSI:Read
@@ -416,7 +416,7 @@ Disassembled code:
     RFLAGS Modified: OF, SF, ZF, AF, CF, PF
     Op0Access: ReadWrite
     Op1Access: Read
-    Op0: r64_mem
+    Op0: r64_or_mem
     Op1: imm32sex64
     RSP:ReadWrite
 00007FFAC46ACDC1 mov rax,[7FFAC47524E0h]
@@ -431,7 +431,7 @@ Disassembled code:
     Op0Access: Write
     Op1Access: Read
     Op0: r64_reg
-    Op1: r64_mem
+    Op1: r64_or_mem
     RAX:Write
     [DS:0x7FFAC47524E0;UInt64;Read]
 00007FFAC46ACDC8 xor rax,rsp
@@ -448,7 +448,7 @@ Disassembled code:
     Op0Access: ReadWrite
     Op1Access: Read
     Op0: r64_reg
-    Op1: r64_mem
+    Op1: r64_or_mem
     RAX:ReadWrite
     RSP:Read
 00007FFAC46ACDCB mov [rbp+0F0h],rax
@@ -462,7 +462,7 @@ Disassembled code:
     Memory size: 8
     Op0Access: Write
     Op1Access: Read
-    Op0: r64_mem
+    Op0: r64_or_mem
     Op1: r64_reg
     RBP:Read
     RAX:Read
@@ -479,7 +479,7 @@ Disassembled code:
     Op0Access: Write
     Op1Access: Read
     Op0: r64_reg
-    Op1: r64_mem
+    Op1: r64_or_mem
     R8:Write
     [DS:0x7FFAC474F208;UInt64;Read]
 00007FFAC46ACDD9 lea rax,[7FFAC46F4A58h]
@@ -509,7 +509,7 @@ Disassembled code:
     Op0Access: Write
     Op1Access: None
     Op0: r32_reg
-    Op1: r32_mem
+    Op1: r32_or_mem
     RDI:Write
          */
         static void InstructionInfoExample() {

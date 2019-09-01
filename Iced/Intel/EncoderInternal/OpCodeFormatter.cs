@@ -136,18 +136,18 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.mem_vsib64y:
 				case OpCodeOperandKind.mem_vsib32z:
 				case OpCodeOperandKind.mem_vsib64z:
-				case OpCodeOperandKind.r8_mem:
-				case OpCodeOperandKind.r16_mem:
-				case OpCodeOperandKind.r32_mem:
-				case OpCodeOperandKind.r32_mem_mpx:
-				case OpCodeOperandKind.r64_mem:
-				case OpCodeOperandKind.r64_mem_mpx:
-				case OpCodeOperandKind.mm_mem:
-				case OpCodeOperandKind.xmm_mem:
-				case OpCodeOperandKind.ymm_mem:
-				case OpCodeOperandKind.zmm_mem:
-				case OpCodeOperandKind.bnd_mem_mpx:
-				case OpCodeOperandKind.k_mem:
+				case OpCodeOperandKind.r8_or_mem:
+				case OpCodeOperandKind.r16_or_mem:
+				case OpCodeOperandKind.r32_or_mem:
+				case OpCodeOperandKind.r32_or_mem_mpx:
+				case OpCodeOperandKind.r64_or_mem:
+				case OpCodeOperandKind.r64_or_mem_mpx:
+				case OpCodeOperandKind.mm_or_mem:
+				case OpCodeOperandKind.xmm_or_mem:
+				case OpCodeOperandKind.ymm_or_mem:
+				case OpCodeOperandKind.zmm_or_mem:
+				case OpCodeOperandKind.bnd_or_mem_mpx:
+				case OpCodeOperandKind.k_or_mem:
 				case OpCodeOperandKind.r8_reg:
 				case OpCodeOperandKind.r16_reg:
 				case OpCodeOperandKind.r16_rm:

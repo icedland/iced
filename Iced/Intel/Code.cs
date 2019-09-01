@@ -840,7 +840,7 @@ namespace Iced.Intel {
 		Push_rm32,													// o32 FF /6
 		Push_rm64,													// FF /6
 
-		// 0Fxx opcodes
+		// 0F xx opcodes
 
 		Sldt_rm16,													// o16 0F 00 /0
 		Sldt_r32m16,												// o32 0F 00 /0
@@ -2966,7 +2966,7 @@ namespace Iced.Intel {
 		Ud0_r32_rm32,												// o32 0F FF /r
 		Ud0_r64_rm64,												// REX.W 0F FF /r
 
-		// 0F 38xx opcodes
+		// 0F 38 xx opcodes
 
 		Pshufb_mm_mmm64,											// NP 0F 38 00 /r
 
@@ -4372,7 +4372,7 @@ namespace Iced.Intel {
 		Movdiri_m32_r32,											// NP 0F 38 F9 /r
 		Movdiri_m64_r64,											// NP REX.W 0F 38 F9 /r
 
-		// 0F 3Axx opcodes
+		// 0F 3A xx opcodes
 
 		VEX_Vpermq_ymm_ymmm256_imm8,								// VEX.256.66.0F3A.W1 00 /r ib
 		EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8,						// EVEX.256.66.0F3A.W1 00 /r ib

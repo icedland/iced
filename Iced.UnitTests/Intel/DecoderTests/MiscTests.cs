@@ -1270,10 +1270,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				bool other_reg = false;
 				for (int i = 0; i < opCode.OpCount; i++) {
 					switch (opCode.GetOpKind(i)) {
-					case OpCodeOperandKind.r32_mem:
-					case OpCodeOperandKind.r64_mem:
-					case OpCodeOperandKind.r32_mem_mpx:
-					case OpCodeOperandKind.r64_mem_mpx:
+					case OpCodeOperandKind.r32_or_mem:
+					case OpCodeOperandKind.r64_or_mem:
+					case OpCodeOperandKind.r32_or_mem_mpx:
+					case OpCodeOperandKind.r64_or_mem_mpx:
 					case OpCodeOperandKind.r32_rm:
 					case OpCodeOperandKind.r64_rm:
 						uses_rm = true;
@@ -1282,11 +1282,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					case OpCodeOperandKind.r64_reg:
 						uses_reg = true;
 						break;
-					case OpCodeOperandKind.k_mem:
+					case OpCodeOperandKind.k_or_mem:
 					case OpCodeOperandKind.k_rm:
-					case OpCodeOperandKind.xmm_mem:
-					case OpCodeOperandKind.ymm_mem:
-					case OpCodeOperandKind.zmm_mem:
+					case OpCodeOperandKind.xmm_or_mem:
+					case OpCodeOperandKind.ymm_or_mem:
+					case OpCodeOperandKind.zmm_or_mem:
 					case OpCodeOperandKind.xmm_rm:
 					case OpCodeOperandKind.ymm_rm:
 					case OpCodeOperandKind.zmm_rm:
@@ -1472,7 +1472,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					case OpCodeOperandKind.mem:
 						maybe_uses_rm = true;
 						break;
-					case OpCodeOperandKind.k_mem:
+					case OpCodeOperandKind.k_or_mem:
 					case OpCodeOperandKind.k_rm:
 						uses_rm = true;
 						break;
@@ -1480,15 +1480,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						uses_reg = true;
 						break;
 
-					case OpCodeOperandKind.r32_mem:
-					case OpCodeOperandKind.r64_mem:
-					case OpCodeOperandKind.r32_mem_mpx:
-					case OpCodeOperandKind.r64_mem_mpx:
+					case OpCodeOperandKind.r32_or_mem:
+					case OpCodeOperandKind.r64_or_mem:
+					case OpCodeOperandKind.r32_or_mem_mpx:
+					case OpCodeOperandKind.r64_or_mem_mpx:
 					case OpCodeOperandKind.r32_rm:
 					case OpCodeOperandKind.r64_rm:
-					case OpCodeOperandKind.xmm_mem:
-					case OpCodeOperandKind.ymm_mem:
-					case OpCodeOperandKind.zmm_mem:
+					case OpCodeOperandKind.xmm_or_mem:
+					case OpCodeOperandKind.ymm_or_mem:
+					case OpCodeOperandKind.zmm_or_mem:
 					case OpCodeOperandKind.xmm_rm:
 					case OpCodeOperandKind.ymm_rm:
 					case OpCodeOperandKind.zmm_rm:
@@ -2526,18 +2526,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			static bool CanUseModRM_rm_reg(OpCodeInfo opCode) {
 				for (int i = 0; i < opCode.OpCount; i++) {
 					switch (opCode.GetOpKind(i)) {
-					case OpCodeOperandKind.r8_mem:
-					case OpCodeOperandKind.r16_mem:
-					case OpCodeOperandKind.r32_mem:
-					case OpCodeOperandKind.r32_mem_mpx:
-					case OpCodeOperandKind.r64_mem:
-					case OpCodeOperandKind.r64_mem_mpx:
-					case OpCodeOperandKind.mm_mem:
-					case OpCodeOperandKind.xmm_mem:
-					case OpCodeOperandKind.ymm_mem:
-					case OpCodeOperandKind.zmm_mem:
-					case OpCodeOperandKind.bnd_mem_mpx:
-					case OpCodeOperandKind.k_mem:
+					case OpCodeOperandKind.r8_or_mem:
+					case OpCodeOperandKind.r16_or_mem:
+					case OpCodeOperandKind.r32_or_mem:
+					case OpCodeOperandKind.r32_or_mem_mpx:
+					case OpCodeOperandKind.r64_or_mem:
+					case OpCodeOperandKind.r64_or_mem_mpx:
+					case OpCodeOperandKind.mm_or_mem:
+					case OpCodeOperandKind.xmm_or_mem:
+					case OpCodeOperandKind.ymm_or_mem:
+					case OpCodeOperandKind.zmm_or_mem:
+					case OpCodeOperandKind.bnd_or_mem_mpx:
+					case OpCodeOperandKind.k_or_mem:
 					case OpCodeOperandKind.r16_rm:
 					case OpCodeOperandKind.r32_rm:
 					case OpCodeOperandKind.r64_rm:
@@ -2563,18 +2563,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					case OpCodeOperandKind.mem_vsib64y:
 					case OpCodeOperandKind.mem_vsib32z:
 					case OpCodeOperandKind.mem_vsib64z:
-					case OpCodeOperandKind.r8_mem:
-					case OpCodeOperandKind.r16_mem:
-					case OpCodeOperandKind.r32_mem:
-					case OpCodeOperandKind.r32_mem_mpx:
-					case OpCodeOperandKind.r64_mem:
-					case OpCodeOperandKind.r64_mem_mpx:
-					case OpCodeOperandKind.mm_mem:
-					case OpCodeOperandKind.xmm_mem:
-					case OpCodeOperandKind.ymm_mem:
-					case OpCodeOperandKind.zmm_mem:
-					case OpCodeOperandKind.bnd_mem_mpx:
-					case OpCodeOperandKind.k_mem:
+					case OpCodeOperandKind.r8_or_mem:
+					case OpCodeOperandKind.r16_or_mem:
+					case OpCodeOperandKind.r32_or_mem:
+					case OpCodeOperandKind.r32_or_mem_mpx:
+					case OpCodeOperandKind.r64_or_mem:
+					case OpCodeOperandKind.r64_or_mem_mpx:
+					case OpCodeOperandKind.mm_or_mem:
+					case OpCodeOperandKind.xmm_or_mem:
+					case OpCodeOperandKind.ymm_or_mem:
+					case OpCodeOperandKind.zmm_or_mem:
+					case OpCodeOperandKind.bnd_or_mem_mpx:
+					case OpCodeOperandKind.k_or_mem:
 						return true;
 					}
 				}
@@ -2597,18 +2597,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					case OpCodeOperandKind.ymm_rm:
 					case OpCodeOperandKind.zmm_rm:
 
-					case OpCodeOperandKind.bnd_mem_mpx:
-					case OpCodeOperandKind.k_mem:
-					case OpCodeOperandKind.mm_mem:
-					case OpCodeOperandKind.r16_mem:
-					case OpCodeOperandKind.r32_mem:
-					case OpCodeOperandKind.r32_mem_mpx:
-					case OpCodeOperandKind.r64_mem:
-					case OpCodeOperandKind.r64_mem_mpx:
-					case OpCodeOperandKind.r8_mem:
-					case OpCodeOperandKind.xmm_mem:
-					case OpCodeOperandKind.ymm_mem:
-					case OpCodeOperandKind.zmm_mem:
+					case OpCodeOperandKind.bnd_or_mem_mpx:
+					case OpCodeOperandKind.k_or_mem:
+					case OpCodeOperandKind.mm_or_mem:
+					case OpCodeOperandKind.r16_or_mem:
+					case OpCodeOperandKind.r32_or_mem:
+					case OpCodeOperandKind.r32_or_mem_mpx:
+					case OpCodeOperandKind.r64_or_mem:
+					case OpCodeOperandKind.r64_or_mem_mpx:
+					case OpCodeOperandKind.r8_or_mem:
+					case OpCodeOperandKind.xmm_or_mem:
+					case OpCodeOperandKind.ymm_or_mem:
+					case OpCodeOperandKind.zmm_or_mem:
 						if (opCode.Encoding == EncodingKind.Legacy || opCode.Encoding == EncodingKind.D3NOW)
 							return bitness == 64;
 						return true;
@@ -2642,18 +2642,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					case OpCodeOperandKind.ymm_rm:
 					case OpCodeOperandKind.zmm_rm:
 
-					case OpCodeOperandKind.bnd_mem_mpx:
-					case OpCodeOperandKind.k_mem:
-					case OpCodeOperandKind.mm_mem:
-					case OpCodeOperandKind.r16_mem:
-					case OpCodeOperandKind.r32_mem:
-					case OpCodeOperandKind.r32_mem_mpx:
-					case OpCodeOperandKind.r64_mem:
-					case OpCodeOperandKind.r64_mem_mpx:
-					case OpCodeOperandKind.r8_mem:
-					case OpCodeOperandKind.xmm_mem:
-					case OpCodeOperandKind.ymm_mem:
-					case OpCodeOperandKind.zmm_mem:
+					case OpCodeOperandKind.bnd_or_mem_mpx:
+					case OpCodeOperandKind.k_or_mem:
+					case OpCodeOperandKind.mm_or_mem:
+					case OpCodeOperandKind.r16_or_mem:
+					case OpCodeOperandKind.r32_or_mem:
+					case OpCodeOperandKind.r32_or_mem_mpx:
+					case OpCodeOperandKind.r64_or_mem:
+					case OpCodeOperandKind.r64_or_mem_mpx:
+					case OpCodeOperandKind.r8_or_mem:
+					case OpCodeOperandKind.xmm_or_mem:
+					case OpCodeOperandKind.ymm_or_mem:
+					case OpCodeOperandKind.zmm_or_mem:
 						return true;
 
 					case OpCodeOperandKind.mem:
@@ -2760,18 +2760,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					case OpCodeOperandKind.mem_vsib64y:
 					case OpCodeOperandKind.mem_vsib32z:
 					case OpCodeOperandKind.mem_vsib64z:
-					case OpCodeOperandKind.r8_mem:
-					case OpCodeOperandKind.r16_mem:
-					case OpCodeOperandKind.r32_mem:
-					case OpCodeOperandKind.r32_mem_mpx:
-					case OpCodeOperandKind.r64_mem:
-					case OpCodeOperandKind.r64_mem_mpx:
-					case OpCodeOperandKind.mm_mem:
-					case OpCodeOperandKind.xmm_mem:
-					case OpCodeOperandKind.ymm_mem:
-					case OpCodeOperandKind.zmm_mem:
-					case OpCodeOperandKind.bnd_mem_mpx:
-					case OpCodeOperandKind.k_mem:
+					case OpCodeOperandKind.r8_or_mem:
+					case OpCodeOperandKind.r16_or_mem:
+					case OpCodeOperandKind.r32_or_mem:
+					case OpCodeOperandKind.r32_or_mem_mpx:
+					case OpCodeOperandKind.r64_or_mem:
+					case OpCodeOperandKind.r64_or_mem_mpx:
+					case OpCodeOperandKind.mm_or_mem:
+					case OpCodeOperandKind.xmm_or_mem:
+					case OpCodeOperandKind.ymm_or_mem:
+					case OpCodeOperandKind.zmm_or_mem:
+					case OpCodeOperandKind.bnd_or_mem_mpx:
+					case OpCodeOperandKind.k_or_mem:
 					case OpCodeOperandKind.r8_reg:
 					case OpCodeOperandKind.r16_reg:
 					case OpCodeOperandKind.r16_rm:

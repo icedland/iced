@@ -373,7 +373,7 @@ namespace Iced.Intel {
 
 			case EncodingKind.D3NOW:
 				op0Kind = (byte)OpCodeOperandKind.mm_reg;
-				op1Kind = (byte)OpCodeOperandKind.mm_mem;
+				op1Kind = (byte)OpCodeOperandKind.mm_or_mem;
 				mandatoryPrefix = (byte)MandatoryPrefix.None;
 				table = (byte)OpCodeTableKind.T0F;
 				groupIndex = -1;
