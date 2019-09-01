@@ -2858,5 +2858,29 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				};
 		}
 #endif
+
+		[Theory]
+		[InlineData("C4E249 90 54 A1 01", Code.INVALID, 16, DecoderOptions.None)]
+		[InlineData("C4E249 90 54 A1 01", Code.VEX_Vpgatherdd_xmm_vm32x_xmm, 16, DecoderOptions.NoInvalidCheck)]
+		[InlineData("67 C4E249 90 00", Code.INVALID, 16, DecoderOptions.None)]
+		[InlineData("67 C4E249 90 00", Code.VEX_Vpgatherdd_xmm_vm32x_xmm, 16, DecoderOptions.NoInvalidCheck)]
+		[InlineData("62 F27D0B 90 54 A1 01", Code.INVALID, 16, DecoderOptions.None)]
+		[InlineData("62 F27D0B 90 54 A1 01", Code.EVEX_Vpgatherdd_xmm_k1_vm32x, 16, DecoderOptions.NoInvalidCheck)]
+		[InlineData("67 62 F27D0B 90 00", Code.INVALID, 16, DecoderOptions.None)]
+		[InlineData("67 62 F27D0B 90 00", Code.EVEX_Vpgatherdd_xmm_k1_vm32x, 16, DecoderOptions.NoInvalidCheck)]
+
+		[InlineData("67 C4E249 90 54 A1 01", Code.INVALID, 32, DecoderOptions.None)]
+		[InlineData("67 C4E249 90 54 A1 01", Code.VEX_Vpgatherdd_xmm_vm32x_xmm, 32, DecoderOptions.NoInvalidCheck)]
+		[InlineData("C4E249 90 00", Code.INVALID, 32, DecoderOptions.None)]
+		[InlineData("C4E249 90 00", Code.VEX_Vpgatherdd_xmm_vm32x_xmm, 32, DecoderOptions.NoInvalidCheck)]
+		[InlineData("67 62 F27D0B 90 54 A1 01", Code.INVALID, 32, DecoderOptions.None)]
+		[InlineData("67 62 F27D0B 90 54 A1 01", Code.EVEX_Vpgatherdd_xmm_k1_vm32x, 32, DecoderOptions.NoInvalidCheck)]
+		[InlineData("62 F27D0B 90 00", Code.INVALID, 32, DecoderOptions.None)]
+		[InlineData("62 F27D0B 90 00", Code.EVEX_Vpgatherdd_xmm_k1_vm32x, 32, DecoderOptions.NoInvalidCheck)]
+		void Verify_vsib_a16_is_invalid(string hexBytes, Code code, int bitness, DecoderOptions options) {
+			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(hexBytes), options);
+			decoder.Decode(out var instr);
+			Assert.Equal(code, instr.Code);
+		}
 	}
 }
