@@ -403,7 +403,7 @@ namespace Iced.Intel {
 				throw new InvalidOperationException();
 			}
 
-			toStringValue = OpCodeFormatter.ToString(this, sb, l0l1);
+			toStringValue = new OpCodeFormatter(this, sb, l0l1).Format();
 		}
 
 		/// <summary>

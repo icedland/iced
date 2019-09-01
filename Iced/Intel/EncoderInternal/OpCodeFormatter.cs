@@ -26,8 +26,18 @@ using System;
 using System.Text;
 
 namespace Iced.Intel.EncoderInternal {
-	static class OpCodeFormatter {
-		public static string ToString(OpCodeInfo opCode, StringBuilder sb, bool l0l1) {
+	struct OpCodeFormatter {
+		readonly OpCodeInfo opCode;
+		readonly StringBuilder sb;
+		readonly bool l0l1;
+
+		public OpCodeFormatter(OpCodeInfo opCode, StringBuilder sb, bool l0l1) {
+			this.opCode = opCode;
+			this.sb = sb;
+			this.l0l1 = l0l1;
+		}
+
+		public string Format() {
 			if (!opCode.IsInstruction) {
 				switch (opCode.Code) {
 				case Code.INVALID:		return "<invalid>";
@@ -41,55 +51,55 @@ namespace Iced.Intel.EncoderInternal {
 
 			switch (opCode.Encoding) {
 			case EncodingKind.Legacy:
-				return ToString_Legacy(opCode, sb);
+				return ToString_Legacy();
 
 			case EncodingKind.VEX:
-				return ToString_VEX_XOP_EVEX(opCode, sb, l0l1, "VEX");
+				return ToString_VEX_XOP_EVEX("VEX");
 
 			case EncodingKind.EVEX:
-				return ToString_VEX_XOP_EVEX(opCode, sb, l0l1, "EVEX");
+				return ToString_VEX_XOP_EVEX("EVEX");
 
 			case EncodingKind.XOP:
-				return ToString_VEX_XOP_EVEX(opCode, sb, l0l1, "XOP");
+				return ToString_VEX_XOP_EVEX("XOP");
 
 			case EncodingKind.D3NOW:
-				return ToString_3DNow(opCode, sb);
+				return ToString_3DNow();
 
 			default:
 				throw new InvalidOperationException();
 			}
 		}
 
-		static void AppendHexByte(StringBuilder sb, byte value) => sb.Append(value.ToString("X2"));
+		void AppendHexByte(byte value) => sb.Append(value.ToString("X2"));
 
-		static void AppendOpCode(StringBuilder sb, uint value, bool sep) {
+		void AppendOpCode(uint value, bool sep) {
 			if (value <= byte.MaxValue)
-				AppendHexByte(sb, (byte)value);
+				AppendHexByte((byte)value);
 			else if (value <= ushort.MaxValue) {
-				AppendHexByte(sb, (byte)(value >> 8));
+				AppendHexByte((byte)(value >> 8));
 				if (sep)
 					sb.Append(' ');
-				AppendHexByte(sb, (byte)value);
+				AppendHexByte((byte)value);
 			}
 			else
 				throw new InvalidOperationException();
 		}
 
-		static void AppendTable(OpCodeInfo opCode, StringBuilder sb, bool sep) {
+		void AppendTable(bool sep) {
 			switch (opCode.Table) {
 			case OpCodeTableKind.Normal:
 				break;
 
 			case OpCodeTableKind.T0F:
-				AppendOpCode(sb, 0x0F, sep);
+				AppendOpCode(0x0F, sep);
 				break;
 
 			case OpCodeTableKind.T0F38:
-				AppendOpCode(sb, 0x0F38, sep);
+				AppendOpCode(0x0F38, sep);
 				break;
 
 			case OpCodeTableKind.T0F3A:
-				AppendOpCode(sb, 0x0F3A, sep);
+				AppendOpCode(0x0F3A, sep);
 				break;
 
 			case OpCodeTableKind.XOP8:
@@ -109,7 +119,7 @@ namespace Iced.Intel.EncoderInternal {
 			}
 		}
 
-		static bool HasModRM(OpCodeInfo opCode) {
+		bool HasModRM() {
 			int opCount = opCode.OpCount;
 			if (opCount == 0)
 				return false;
@@ -176,7 +186,7 @@ namespace Iced.Intel.EncoderInternal {
 			return false;
 		}
 
-		static bool HasVsib(OpCodeInfo opCode) {
+		bool HasVsib() {
 			int opCount = opCode.OpCount;
 			for (int i = 0; i < opCount; i++) {
 				switch (opCode.GetOpKind(i)) {
@@ -192,7 +202,7 @@ namespace Iced.Intel.EncoderInternal {
 			return false;
 		}
 
-		static OpCodeOperandKind GetOpCodeBitsOperand(OpCodeInfo opCode) {
+		OpCodeOperandKind GetOpCodeBitsOperand() {
 			int opCount = opCode.OpCount;
 			for (int i = 0; i < opCount; i++) {
 				var opKind = opCode.GetOpKind(i);
@@ -207,13 +217,13 @@ namespace Iced.Intel.EncoderInternal {
 			return OpCodeOperandKind.None;
 		}
 
-		static void AppendRest(OpCodeInfo opCode, StringBuilder sb) {
-			bool isVsib = HasVsib(opCode);
+		void AppendRest() {
+			bool isVsib = HasVsib();
 			if (opCode.IsGroup) {
 				sb.Append(" /");
 				sb.Append(opCode.GroupIndex);
 			}
-			else if (!isVsib && HasModRM(opCode))
+			else if (!isVsib && HasModRM())
 				sb.Append(" /r");
 			if (isVsib)
 				sb.Append(" /vsib");
@@ -284,11 +294,11 @@ namespace Iced.Intel.EncoderInternal {
 			}
 		}
 
-		static string ToString_Legacy(OpCodeInfo opCode, StringBuilder sb) {
+		string ToString_Legacy() {
 			sb.Length = 0;
 
 			if (opCode.Fwait) {
-				AppendHexByte(sb, 0x9B);
+				AppendHexByte(0x9B);
 				sb.Append(' ');
 			}
 
@@ -339,15 +349,15 @@ namespace Iced.Intel.EncoderInternal {
 				sb.Append("NP ");
 				break;
 			case MandatoryPrefix.P66:
-				AppendHexByte(sb, 0x66);
+				AppendHexByte(0x66);
 				sb.Append(' ');
 				break;
 			case MandatoryPrefix.PF3:
-				AppendHexByte(sb, 0xF3);
+				AppendHexByte(0xF3);
 				sb.Append(' ');
 				break;
 			case MandatoryPrefix.PF2:
-				AppendHexByte(sb, 0xF2);
+				AppendHexByte(0xF2);
 				sb.Append(' ');
 				break;
 			default:
@@ -359,11 +369,11 @@ namespace Iced.Intel.EncoderInternal {
 				sb.Append("REX.W ");
 			}
 
-			AppendTable(opCode, sb, true);
+			AppendTable(true);
 			if (opCode.Table != OpCodeTableKind.Normal)
 				sb.Append(' ');
-			AppendOpCode(sb, opCode.OpCode, true);
-			switch (GetOpCodeBitsOperand(opCode)) {
+			AppendOpCode(opCode.OpCode, true);
+			switch (GetOpCodeBitsOperand()) {
 			case OpCodeOperandKind.r8_opcode:
 				sb.Append("+rb");
 				break;
@@ -389,23 +399,23 @@ namespace Iced.Intel.EncoderInternal {
 				}
 			}
 
-			AppendRest(opCode, sb);
+			AppendRest();
 
 			return sb.ToString();
 		}
 
-		static string ToString_3DNow(OpCodeInfo opCode, StringBuilder sb) {
+		string ToString_3DNow() {
 			sb.Length = 0;
 
-			AppendOpCode(sb, 0x0F0F, true);
+			AppendOpCode(0x0F0F, true);
 			sb.Append(" /r");
 			sb.Append(' ');
-			AppendOpCode(sb, opCode.OpCode, true);
+			AppendOpCode(opCode.OpCode, true);
 
 			return sb.ToString();
 		}
 
-		static string ToString_VEX_XOP_EVEX(OpCodeInfo opCode, StringBuilder sb, bool l0l1, string encodingName) {
+		string ToString_VEX_XOP_EVEX(string encodingName) {
 			sb.Length = 0;
 
 			sb.Append(encodingName);
@@ -424,21 +434,21 @@ namespace Iced.Intel.EncoderInternal {
 				break;
 			case MandatoryPrefix.P66:
 				sb.Append('.');
-				AppendHexByte(sb, 0x66);
+				AppendHexByte(0x66);
 				break;
 			case MandatoryPrefix.PF3:
 				sb.Append('.');
-				AppendHexByte(sb, 0xF3);
+				AppendHexByte(0xF3);
 				break;
 			case MandatoryPrefix.PF2:
 				sb.Append('.');
-				AppendHexByte(sb, 0xF2);
+				AppendHexByte(0xF2);
 				break;
 			default:
 				throw new InvalidOperationException();
 			}
 			sb.Append('.');
-			AppendTable(opCode, sb, false);
+			AppendTable(false);
 			if (opCode.IsWIG)
 				sb.Append(".WIG");
 			else {
@@ -446,8 +456,8 @@ namespace Iced.Intel.EncoderInternal {
 				sb.Append(opCode.W);
 			}
 			sb.Append(' ');
-			AppendOpCode(sb, opCode.OpCode, true);
-			AppendRest(opCode, sb);
+			AppendOpCode(opCode.OpCode, true);
+			AppendRest();
 
 			return sb.ToString();
 		}
