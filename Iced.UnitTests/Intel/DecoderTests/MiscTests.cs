@@ -2892,6 +2892,35 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				}
 			}
 		}
+
+		[Fact]
+		void Verify_cpu_mode() {
+			var hash1632 = new HashSet<Code>(DecoderTestUtils.Code32Only);
+			foreach (var code in DecoderTestUtils.NotDecoded32Only)
+				hash1632.Add(code);
+			var hash64 = new HashSet<Code>(DecoderTestUtils.Code64Only);
+			foreach (var code in DecoderTestUtils.NotDecoded64Only)
+				hash64.Add(code);
+			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+				var code = (Code)i;
+				var opCode = code.ToOpCode();
+				if (hash1632.Contains(code)) {
+					Assert.True(opCode.Mode16);
+					Assert.True(opCode.Mode32);
+					Assert.False(opCode.Mode64);
+				}
+				else if (hash64.Contains(code)) {
+					Assert.False(opCode.Mode16);
+					Assert.False(opCode.Mode32);
+					Assert.True(opCode.Mode64);
+				}
+				else {
+					Assert.True(opCode.Mode16);
+					Assert.True(opCode.Mode32);
+					Assert.True(opCode.Mode64);
+				}
+			}
+		}
 #endif
 
 		[Theory]
