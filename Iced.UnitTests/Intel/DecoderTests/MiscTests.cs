@@ -2921,6 +2921,30 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				}
 			}
 		}
+
+		[Fact]
+		void Verify_can_only_decode_in_correct_mode() {
+			var extraBytes = new string('0', (Iced.Intel.DecoderConstants.MaxInstructionLength - 1) * 2);
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				var opCode = info.Code.ToOpCode();
+				var newHexBytes = info.HexBytes + extraBytes;
+				if (!opCode.Mode16) {
+					var decoder = Decoder.Create(16, new ByteArrayCodeReader(newHexBytes), info.Options);
+					decoder.Decode(out var instr);
+					Assert.NotEqual(info.Code, instr.Code);
+				}
+				if (!opCode.Mode32) {
+					var decoder = Decoder.Create(32, new ByteArrayCodeReader(newHexBytes), info.Options);
+					decoder.Decode(out var instr);
+					Assert.NotEqual(info.Code, instr.Code);
+				}
+				if (!opCode.Mode64) {
+					var decoder = Decoder.Create(64, new ByteArrayCodeReader(newHexBytes), info.Options);
+					decoder.Decode(out var instr);
+					Assert.NotEqual(info.Code, instr.Code);
+				}
+			}
+		}
 #endif
 
 		[Theory]

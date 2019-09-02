@@ -1635,8 +1635,10 @@ namespace Iced.Intel.DecoderInternal {
 					0x06,// Null
 
 				// 56 = 0x38
-				0xAC,// Simple
-					0xCF, 0x06,// Swapgs
+				0x01,// Bitness_DontReadModRM
+					0x02,// Invalid
+					0xAC,// Simple
+						0xCF, 0x06,// Swapgs
 
 				// 57 = 0x39
 				0xAC,// Simple

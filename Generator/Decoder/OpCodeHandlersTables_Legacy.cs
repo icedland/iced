@@ -991,7 +991,10 @@ namespace Generator.Decoder {
 					null,
 
 					// F8
-					new object[] { OpCodeHandlerKind.Simple, Code.Swapgs },
+					new object[] { OpCodeHandlerKind.Bitness_DontReadModRM,
+						invalid,
+						new object[] { OpCodeHandlerKind.Simple, Code.Swapgs },
+					},
 					new object[] { OpCodeHandlerKind.Simple, Code.Rdtscp },
 					new object[] { OpCodeHandlerKind.Simple5, Code.Monitorxw, Code.Monitorxd, Code.Monitorxq },
 					new object[] { OpCodeHandlerKind.Simple, Code.Mwaitx },
