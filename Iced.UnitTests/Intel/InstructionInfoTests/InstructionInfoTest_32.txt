@@ -1072,13 +1072,13 @@ DF E1, Fstdw_AX, Legacy, FPU387SL_ONLY, decopt=oldfpu op0=w w=ax
 # fstsg ax
 DF E2, Fstsg_AX, Legacy, FPU387SL_ONLY, decopt=oldfpu op0=w w=ax
 # jmpe cx
-66 0F00 F1, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=cx
+66 0F00 F1, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=cx decopt=ia64
 # jmpe word ptr [eax]
-66 0F00 30, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;WordOffset
+66 0F00 30, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;WordOffset decopt=ia64
 # jmpe edx
-0F00 F2, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=edx
+0F00 F2, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=edx decopt=ia64
 # jmpe dword ptr [eax]
-0F00 30, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;DwordOffset
+0F00 30, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;DwordOffset decopt=ia64
 # loadallreset286
 0F04, Loadallreset286, Legacy, INTEL286_ONLY, decopt=loadall286 priv saverestore
 # loadall286
@@ -1150,9 +1150,9 @@ F3 0FAE F5, Umonitor_r32, Legacy, WAITPKG, op0=r r=ds;ebp rm=ds:ebp;UInt8
 # umonitor ebp
 64 F3 0FAE F5, Umonitor_r32, Legacy, WAITPKG, op0=r r=fs;ebp rm=fs:ebp;UInt8
 # jmpe near ptr 0A55Ah
-66 0FB8 5AA5, Jmpe_disp16, Legacy, IA64, flow=UnconditionalBranch op0=r
+66 0FB8 5AA5, Jmpe_disp16, Legacy, IA64, flow=UnconditionalBranch op0=r decopt=ia64
 # jmpe near ptr 0A55A3412h
-0FB8 12345AA5, Jmpe_disp32, Legacy, IA64, flow=UnconditionalBranch op0=r
+0FB8 12345AA5, Jmpe_disp32, Legacy, IA64, flow=UnconditionalBranch op0=r decopt=ia64
 # movdir64b bx,[bx+si]
 67 66 0F38F8 18, Movdir64b_r16_m512, Legacy, MOVDIR64B, op0=r op1=r r=bx r=ds r=es;bx r=si rm=ds:bx+si;UInt512 wm=es:bx;UInt512
 # movdir64b ebx,[eax]

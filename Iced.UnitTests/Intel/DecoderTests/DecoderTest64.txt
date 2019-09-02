@@ -21,14 +21,23 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-66 F3 0FB8 CE, INVALID, INVALID, 0, nompfx_0fb8
-F3 66 0FB8 CE, INVALID, INVALID, 0, nompfx_0fb8
-F3 0FB8 CE, INVALID, INVALID, 0, nompfx_0fb8
-F3 48 0FB8 CE, INVALID, INVALID, 0, nompfx_0fb8
-66 F2 0FB8 CE, INVALID, INVALID, 0, nompfx_0fb8
-F2 66 0FB8 CE, INVALID, INVALID, 0, nompfx_0fb8
-F2 0FB8 CE, INVALID, INVALID, 0, nompfx_0fb8
-F2 48 0FB8 CE, INVALID, INVALID, 0, nompfx_0fb8
+# jmpe
+66 F2 0FB8 CE, INVALID, INVALID, 0, ia64
+F2 66 0FB8 CE, INVALID, INVALID, 0, ia64
+F2 0FB8 CE, INVALID, INVALID, 0, ia64
+F2 48 0FB8 CE, INVALID, INVALID, 0, ia64
+66 0F00 F1, INVALID, INVALID, 0, ia64
+66 0F00 30, INVALID, INVALID, 0, ia64
+0F00 F2, INVALID, INVALID, 0, ia64
+0F00 30, INVALID, INVALID, 0, ia64
+# jmpe
+F2 66 0FB8 CE, INVALID, INVALID, 0,
+F2 48 0FB8 CE, INVALID, INVALID, 0,
+66 0F00 F1, INVALID, INVALID, 0,
+66 0F00 30, INVALID, INVALID, 0,
+0F00 F2, INVALID, INVALID, 0,
+0F00 30, INVALID, INVALID, 0,
+
 9E, INVALID, INVALID, 0, nolahfsahf64
 9F, INVALID, INVALID, 0, nolahfsahf64
 DB E5, INVALID, INVALID, 0,
@@ -14618,6 +14627,7 @@ F0 F2 48 0FB3 18, Btr_rm64_r64, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx loc
 4A 0FB7 CE, Movzx_r64_rm16, Movzx, 2, op0=r;rcx op1=r;si enc=480FB7CE
 
 66 F3 0FB8 CE, Popcnt_r16_rm16, Popcnt, 2, op0=r;cx op1=r;si
+66 F3 0FB8 CE, Popcnt_r16_rm16, Popcnt, 2, op0=r;cx op1=r;si ia64
 66 F3 44 0FB8 C5, Popcnt_r16_rm16, Popcnt, 2, op0=r;r8w op1=r;bp
 66 F3 41 0FB8 D6, Popcnt_r16_rm16, Popcnt, 2, op0=r;dx op1=r;r14w
 66 F3 45 0FB8 D0, Popcnt_r16_rm16, Popcnt, 2, op0=r;r10w op1=r;r8w
@@ -14627,6 +14637,7 @@ F0 F2 48 0FB3 18, Btr_rm64_r64, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx loc
 66 F3 42 0FB8 CE, Popcnt_r16_rm16, Popcnt, 2, op0=r;cx op1=r;si enc=66F30FB8CE
 
 F3 0FB8 CE, Popcnt_r32_rm32, Popcnt, 2, op0=r;ecx op1=r;esi
+F3 0FB8 CE, Popcnt_r32_rm32, Popcnt, 2, op0=r;ecx op1=r;esi ia64
 F3 44 0FB8 C5, Popcnt_r32_rm32, Popcnt, 2, op0=r;r8d op1=r;ebp
 F3 41 0FB8 D6, Popcnt_r32_rm32, Popcnt, 2, op0=r;edx op1=r;r14d
 F3 45 0FB8 D0, Popcnt_r32_rm32, Popcnt, 2, op0=r;r10d op1=r;r8d
@@ -14636,6 +14647,7 @@ F3 0FB8 18, Popcnt_r32_rm32, Popcnt, 2, op0=r;ebx op1=m;ds;rax;;1;0;0;UInt32
 F3 42 0FB8 CE, Popcnt_r32_rm32, Popcnt, 2, op0=r;ecx op1=r;esi enc=F30FB8CE
 
 F3 48 0FB8 CE, Popcnt_r64_rm64, Popcnt, 2, op0=r;rcx op1=r;rsi
+F3 48 0FB8 CE, Popcnt_r64_rm64, Popcnt, 2, op0=r;rcx op1=r;rsi ia64
 F3 4C 0FB8 C5, Popcnt_r64_rm64, Popcnt, 2, op0=r;r8 op1=r;rbp
 F3 49 0FB8 D6, Popcnt_r64_rm64, Popcnt, 2, op0=r;rdx op1=r;r14
 F3 4D 0FB8 D0, Popcnt_r64_rm64, Popcnt, 2, op0=r;r10 op1=r;r8

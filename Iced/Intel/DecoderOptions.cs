@@ -98,24 +98,24 @@ namespace Iced.Intel {
 		MovTr						= 0x00000800,
 
 		/// <summary>
+		/// Decode jmpe instructions
+		/// </summary>
+		IA64						= 0x00001000,
+
+		/// <summary>
 		/// Don't decode <see cref="Code.Pause"/>, decode <see cref="Code.Nopd"/>/etc instead
 		/// </summary>
-		NoPause						= 0x00001000,
+		NoPause						= 0x00002000,
 
 		/// <summary>
 		/// Don't decode <see cref="Code.Wbnoinvd"/>, decode <see cref="Code.Wbinvd"/> instead
 		/// </summary>
-		NoWbnoinvd					= 0x00002000,
+		NoWbnoinvd					= 0x00004000,
 
 		/// <summary>
-		/// Don't decode LOCK MOV CR0 as MOV CR8
+		/// Don't decode LOCK MOV CR0 as MOV CR8 (AMD)
 		/// </summary>
-		NoLockMovCR0				= 0x00004000,
-
-		/// <summary>
-		/// Don't decode <see cref="Code.Popcnt_r32_rm32"/>/etc, decode eg. <see cref="Code.Jmpe_disp32"/>/etc instead
-		/// </summary>
-		NoMPFX_0FB8					= 0x00008000,
+		NoLockMovCR0				= 0x00008000,
 
 		/// <summary>
 		/// Don't decode <see cref="Code.Tzcnt_r32_rm32"/>/etc, decode <see cref="Code.Bsf_r32_rm32"/>/etc instead

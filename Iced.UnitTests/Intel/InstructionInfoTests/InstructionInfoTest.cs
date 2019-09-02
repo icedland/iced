@@ -783,6 +783,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				case "movtr":
 					options |= DecoderOptions.MovTr;
 					break;
+				case "ia64":
+					options |= DecoderOptions.IA64;
+					break;
 				default:
 					return false;
 				}

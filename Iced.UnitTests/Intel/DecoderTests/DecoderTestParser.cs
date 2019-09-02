@@ -61,10 +61,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		const string DecoderOptions_Loadall386 = "loadall386";
 		const string DecoderOptions_Cl1invmb = "cl1invmb";
 		const string DecoderOptions_MovTr = "movtr";
+		const string DecoderOptions_IA64 = "ia64";
 		const string DecoderOptions_NoPause = "nopause";
 		const string DecoderOptions_NoWbnoinvd = "nowbnoinvd";
 		const string DecoderOptions_NoLockMovCR0 = "nolockmovcr0";
-		const string DecoderOptions_NoMPFX_0FB8 = "nompfx_0fb8";
 		const string DecoderOptions_NoMPFX_0FBC = "nompfx_0fbc";
 		const string DecoderOptions_NoMPFX_0FBD = "nompfx_0fbd";
 		const string DecoderOptions_NoLahfSahf64 = "nolahfsahf64";
@@ -344,6 +344,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					tc.DecoderOptions |= DecoderOptions.MovTr;
 					break;
 
+				case DecoderOptions_IA64:
+					tc.DecoderOptions |= DecoderOptions.IA64;
+					break;
+
 				case DecoderOptions_NoPause:
 					tc.DecoderOptions |= DecoderOptions.NoPause;
 					break;
@@ -354,10 +358,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				case DecoderOptions_NoLockMovCR0:
 					tc.DecoderOptions |= DecoderOptions.NoLockMovCR0;
-					break;
-
-				case DecoderOptions_NoMPFX_0FB8:
-					tc.DecoderOptions |= DecoderOptions.NoMPFX_0FB8;
 					break;
 
 				case DecoderOptions_NoMPFX_0FBC:

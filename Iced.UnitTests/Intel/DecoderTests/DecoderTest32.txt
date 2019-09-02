@@ -2569,11 +2569,11 @@ FF 30, Push_rm32, Push, 1, op0=m;ds;eax;;1;0;0;UInt32
 0F00 EE, Verw_r32m16, Verw, 1, op0=r;esi
 0F00 28, Verw_r32m16, Verw, 1, op0=m;ds;eax;;1;0;0;UInt16
 
-66 0F00 F1, Jmpe_rm16, Jmpe, 1, op0=r;cx
-66 0F00 30, Jmpe_rm16, Jmpe, 1, op0=m;ds;eax;;1;0;0;WordOffset
+66 0F00 F1, Jmpe_rm16, Jmpe, 1, op0=r;cx ia64
+66 0F00 30, Jmpe_rm16, Jmpe, 1, op0=m;ds;eax;;1;0;0;WordOffset ia64
 
-0F00 F2, Jmpe_rm32, Jmpe, 1, op0=r;edx
-0F00 30, Jmpe_rm32, Jmpe, 1, op0=m;ds;eax;;1;0;0;DwordOffset
+0F00 F2, Jmpe_rm32, Jmpe, 1, op0=r;edx ia64
+0F00 30, Jmpe_rm32, Jmpe, 1, op0=m;ds;eax;;1;0;0;DwordOffset ia64
 
 66 0F01 00, Sgdt_m40, Sgdt, 1, op0=m;ds;eax;;1;0;0;Fword5
 
@@ -8839,15 +8839,15 @@ F0 F2 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock x
 0FB7 CE, Movzx_r32_rm16, Movzx, 2, op0=r;ecx op1=r;si
 0FB7 18, Movzx_r32_rm16, Movzx, 2, op0=r;ebx op1=m;ds;eax;;1;0;0;UInt16
 
-66 0FB8 5AA5, Jmpe_disp16, Jmpe, 1, op0=nb16;0xA55A co=3;2;0;0;0;0
-66 F3 0FB8 5AA5, Jmpe_disp16, Jmpe, 1, op0=nb16;0xA55A co=4;2;0;0;0;0 rep nompfx_0fb8
-F3 66 0FB8 5AA5, Jmpe_disp16, Jmpe, 1, op0=nb16;0xA55A co=4;2;0;0;0;0 rep nompfx_0fb8 enc=66F30FB85AA5
-66 F2 0FB8 5AA5, Jmpe_disp16, Jmpe, 1, op0=nb16;0xA55A co=4;2;0;0;0;0 repne nompfx_0fb8
-F2 66 0FB8 5AA5, Jmpe_disp16, Jmpe, 1, op0=nb16;0xA55A co=4;2;0;0;0;0 repne nompfx_0fb8 enc=66F20FB85AA5
+66 0FB8 5AA5, Jmpe_disp16, Jmpe, 1, op0=nb16;0xA55A co=3;2;0;0;0;0 ia64
+66 F3 0FB8 5AA5, Jmpe_disp16, Jmpe, 1, op0=nb16;0xA55A co=4;2;0;0;0;0 rep ia64
+F3 66 0FB8 5AA5, Jmpe_disp16, Jmpe, 1, op0=nb16;0xA55A co=4;2;0;0;0;0 rep ia64 enc=66F30FB85AA5
+66 F2 0FB8 5AA5, Jmpe_disp16, Jmpe, 1, op0=nb16;0xA55A co=4;2;0;0;0;0 repne ia64
+F2 66 0FB8 5AA5, Jmpe_disp16, Jmpe, 1, op0=nb16;0xA55A co=4;2;0;0;0;0 repne ia64 enc=66F20FB85AA5
 
-0FB8 12345AA5, Jmpe_disp32, Jmpe, 1, op0=nb32;0xA55A3412 co=2;4;0;0;0;0
-F3 0FB8 12345AA5, Jmpe_disp32, Jmpe, 1, op0=nb32;0xA55A3412 co=3;4;0;0;0;0 rep nompfx_0fb8
-F2 0FB8 12345AA5, Jmpe_disp32, Jmpe, 1, op0=nb32;0xA55A3412 co=3;4;0;0;0;0 repne nompfx_0fb8
+0FB8 12345AA5, Jmpe_disp32, Jmpe, 1, op0=nb32;0xA55A3412 co=2;4;0;0;0;0 ia64
+F3 0FB8 12345AA5, Jmpe_disp32, Jmpe, 1, op0=nb32;0xA55A3412 co=3;4;0;0;0;0 rep ia64
+F2 0FB8 12345AA5, Jmpe_disp32, Jmpe, 1, op0=nb32;0xA55A3412 co=3;4;0;0;0;0 repne ia64
 
 66 F3 0FB8 CE, Popcnt_r16_rm16, Popcnt, 2, op0=r;cx op1=r;si
 66 F3 0FB8 18, Popcnt_r16_rm16, Popcnt, 2, op0=r;bx op1=m;ds;eax;;1;0;0;UInt16
