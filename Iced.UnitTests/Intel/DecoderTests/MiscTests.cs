@@ -687,7 +687,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 							bytes[evexIndex + 2] ^= 0x80;
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 							decoder.Decode(out var instr);
-							Assert.True(info.Code != instr.Code);
+							Assert.NotEqual(info.Code, instr.Code);
 						}
 					}
 				}
@@ -722,7 +722,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 							bytes[vexIndex + 2] ^= 0x80;
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 							decoder.Decode(out var instr);
-							Assert.True(info.Code != instr.Code);
+							Assert.NotEqual(info.Code, instr.Code);
 						}
 					}
 				}
@@ -815,7 +815,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 							bytes[lIndex] ^= 4;
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 							decoder.Decode(out var instr);
-							Assert.True(info.Code != instr.Code);
+							Assert.NotEqual(info.Code, instr.Code);
 						}
 					}
 				}
@@ -2856,6 +2856,41 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					64 => l64,
 					_ => throw new InvalidOperationException(),
 				};
+		}
+
+		[Fact]
+		void Test_invalid_zero_opmask_reg() {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
+					continue;
+				var opCode = info.Code.ToOpCode();
+				if (!MustUseNonZeroOpMaskRegister(opCode))
+					continue;
+
+				var bytes = HexUtils.ToByteArray(info.HexBytes);
+				Instruction origInstr;
+				{
+					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+					decoder.Decode(out origInstr);
+					Assert.Equal(info.Code, origInstr.Code);
+				}
+
+				int evexIndex = GetEvexIndex(bytes);
+				bytes[evexIndex + 3] &= 0xF8;
+				{
+					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+					decoder.Decode(out var instr);
+					Assert.Equal(Code.INVALID, instr.Code);
+				}
+				{
+					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+					decoder.Decode(out var instr);
+					Assert.Equal(info.Code, instr.Code);
+					Assert.Equal(Register.None, instr.OpMask);
+					origInstr.OpMask = Register.None;
+					Assert.True(Instruction.EqualsAllBits(origInstr, instr));
+				}
+			}
 		}
 #endif
 
