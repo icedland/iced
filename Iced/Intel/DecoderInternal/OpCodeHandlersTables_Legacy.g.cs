@@ -3120,12 +3120,12 @@ namespace Iced.Intel.DecoderInternal {
 						0xB2, 0x1C,// Movbe_r16_m16
 					0x02,// Invalid
 					0x4E,// Gv_Eb_REX
-						0xB8, 0x1C,// Crc32_r32_rm8
+						0xB5, 0x1C,// Crc32_r32_rm8
 
 				// 241 = 0xF1
 				0x12,// MandatoryPrefix_F3_F2
 					0x81,// Mv_Gv
-						0xB5, 0x1C,// Movbe_m16_r16
+						0xB7, 0x1C,// Movbe_m16_r16
 					0x02,// Invalid
 					0x4C,// Gdq_Ev
 						0xBA, 0x1C,// Crc32_r32_rm16

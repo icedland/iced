@@ -14985,6 +14985,15 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xA4, 0x01,// 164 = "movbe"
 				0x71,// 'q'
 
+				// Crc32_r32_rm8
+				0x05,// Normal_3
+				0xF4, 0x01,// 244 = "crc32"
+				0x62,// 'b'
+				0x01,// 0x1 = MnemonicSuffixIfMem
+
+				// Crc32_r64_rm8
+				0x00,// Previous
+
 				// Movbe_m16_r16
 				0x02,// Normal_2a
 				0xA4, 0x01,// 164 = "movbe"
@@ -14999,15 +15008,6 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x02,// Normal_2a
 				0xA4, 0x01,// 164 = "movbe"
 				0x71,// 'q'
-
-				// Crc32_r32_rm8
-				0x05,// Normal_3
-				0xF4, 0x01,// 244 = "crc32"
-				0x62,// 'b'
-				0x01,// 0x1 = MnemonicSuffixIfMem
-
-				// Crc32_r64_rm8
-				0x00,// Previous
 
 				// Crc32_r32_rm16
 				0x05,// Normal_3

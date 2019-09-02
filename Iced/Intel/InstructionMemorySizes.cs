@@ -3663,11 +3663,11 @@ namespace Iced.Intel {
 			(byte)MemorySize.UInt16,// Movbe_r16_m16
 			(byte)MemorySize.UInt32,// Movbe_r32_m32
 			(byte)MemorySize.UInt64,// Movbe_r64_m64
+			(byte)MemorySize.UInt8,// Crc32_r32_rm8
+			(byte)MemorySize.UInt8,// Crc32_r64_rm8
 			(byte)MemorySize.UInt16,// Movbe_m16_r16
 			(byte)MemorySize.UInt32,// Movbe_m32_r32
 			(byte)MemorySize.UInt64,// Movbe_m64_r64
-			(byte)MemorySize.UInt8,// Crc32_r32_rm8
-			(byte)MemorySize.UInt8,// Crc32_r64_rm8
 			(byte)MemorySize.UInt16,// Crc32_r32_rm16
 			(byte)MemorySize.UInt32,// Crc32_r32_rm32
 			(byte)MemorySize.UInt64,// Crc32_r64_rm64
@@ -7844,11 +7844,11 @@ namespace Iced.Intel {
 			0,// Movbe_r16_m16
 			0,// Movbe_r32_m32
 			0,// Movbe_r64_m64
+			0,// Crc32_r32_rm8
+			0,// Crc32_r64_rm8
 			0,// Movbe_m16_r16
 			0,// Movbe_m32_r32
 			0,// Movbe_m64_r64
-			0,// Crc32_r32_rm8
-			0,// Crc32_r64_rm8
 			0,// Crc32_r32_rm16
 			0,// Crc32_r32_rm32
 			0,// Crc32_r64_rm64

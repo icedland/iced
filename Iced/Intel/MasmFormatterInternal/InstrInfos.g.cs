@@ -13432,15 +13432,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Movbe_r64_m64
 				0x00,// Previous
 
-				// Movbe_m16_r16
-				0x00,// Previous
-
-				// Movbe_m32_r32
-				0x00,// Previous
-
-				// Movbe_m64_r64
-				0x00,// Previous
-
 				// Crc32_r32_rm8
 				0x02,// Normal_2
 				0xF4, 0x01,// 244 = "crc32"
@@ -13449,8 +13440,20 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Crc32_r64_rm8
 				0x00,// Previous
 
-				// Crc32_r32_rm16
+				// Movbe_m16_r16
+				0x01,// Normal_1
+				0xA4, 0x01,// 164 = "movbe"
+
+				// Movbe_m32_r32
 				0x00,// Previous
+
+				// Movbe_m64_r64
+				0x00,// Previous
+
+				// Crc32_r32_rm16
+				0x02,// Normal_2
+				0xF4, 0x01,// 244 = "crc32"
+				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Crc32_r32_rm32
 				0x00,// Previous

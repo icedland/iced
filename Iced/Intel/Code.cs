@@ -4300,12 +4300,12 @@ namespace Iced.Intel {
 		Movbe_r32_m32,												// o32 0F 38 F0 /r
 		Movbe_r64_m64,												// REX.W 0F 38 F0 /r
 
+		Crc32_r32_rm8,												// F2 0F 38 F0 /r
+		Crc32_r64_rm8,												// F2 REX.W 0F 38 F0 /r
+
 		Movbe_m16_r16,												// o16 0F 38 F1 /r
 		Movbe_m32_r32,												// o32 0F 38 F1 /r
 		Movbe_m64_r64,												// REX.W 0F 38 F1 /r
-
-		Crc32_r32_rm8,												// F2 0F 38 F0 /r
-		Crc32_r64_rm8,												// F2 REX.W 0F 38 F0 /r
 
 		Crc32_r32_rm16,												// o16 F2 0F 38 F1 /r
 		Crc32_r32_rm32,												// o32 F2 0F 38 F1 /r

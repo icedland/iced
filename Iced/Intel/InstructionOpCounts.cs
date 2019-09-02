@@ -3661,11 +3661,11 @@ namespace Iced.Intel {
 			2,// Movbe_r16_m16
 			2,// Movbe_r32_m32
 			2,// Movbe_r64_m64
+			2,// Crc32_r32_rm8
+			2,// Crc32_r64_rm8
 			2,// Movbe_m16_r16
 			2,// Movbe_m32_r32
 			2,// Movbe_m64_r64
-			2,// Crc32_r32_rm8
-			2,// Crc32_r64_rm8
 			2,// Crc32_r32_rm16
 			2,// Crc32_r32_rm32
 			2,// Crc32_r64_rm64

@@ -3678,11 +3678,11 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Movbe,// Movbe_r16_m16
 			(ushort)Mnemonic.Movbe,// Movbe_r32_m32
 			(ushort)Mnemonic.Movbe,// Movbe_r64_m64
+			(ushort)Mnemonic.Crc32,// Crc32_r32_rm8
+			(ushort)Mnemonic.Crc32,// Crc32_r64_rm8
 			(ushort)Mnemonic.Movbe,// Movbe_m16_r16
 			(ushort)Mnemonic.Movbe,// Movbe_m32_r32
 			(ushort)Mnemonic.Movbe,// Movbe_m64_r64
-			(ushort)Mnemonic.Crc32,// Crc32_r32_rm8
-			(ushort)Mnemonic.Crc32,// Crc32_r64_rm8
 			(ushort)Mnemonic.Crc32,// Crc32_r32_rm16
 			(ushort)Mnemonic.Crc32,// Crc32_r32_rm32
 			(ushort)Mnemonic.Crc32,// Crc32_r64_rm64
