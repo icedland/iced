@@ -225,11 +225,15 @@ namespace Iced.Intel.DecoderInternal {
 		readonly OpCodeHandler handlerNormal;
 		readonly OpCodeHandler handlerF3;
 		readonly OpCodeHandler handlerF2;
+		readonly bool clearF3;
+		readonly bool clearF2;
 
-		public OpCodeHandler_MandatoryPrefix_F3_F2(OpCodeHandler handlerNormal, OpCodeHandler handlerF3, OpCodeHandler handlerF2) {
+		public OpCodeHandler_MandatoryPrefix_F3_F2(OpCodeHandler handlerNormal, OpCodeHandler handlerF3, bool clearF3, OpCodeHandler handlerF2, bool clearF2) {
 			this.handlerNormal = handlerNormal ?? throw new ArgumentNullException(nameof(handlerNormal));
 			this.handlerF3 = handlerF3 ?? throw new ArgumentNullException(nameof(handlerF3));
+			this.clearF3 = clearF3;
 			this.handlerF2 = handlerF2 ?? throw new ArgumentNullException(nameof(handlerF2));
+			this.clearF2 = clearF2;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -237,11 +241,13 @@ namespace Iced.Intel.DecoderInternal {
 			OpCodeHandler handler;
 			var prefix = decoder.state.mandatoryPrefix;
 			if (prefix == MandatoryPrefixByte.PF3) {
-				decoder.ClearMandatoryPrefixF3(ref instruction);
+				if (clearF3)
+					decoder.ClearMandatoryPrefixF3(ref instruction);
 				handler = handlerF3;
 			}
 			else if (prefix == MandatoryPrefixByte.PF2) {
-				decoder.ClearMandatoryPrefixF2(ref instruction);
+				if (clearF2)
+					decoder.ClearMandatoryPrefixF2(ref instruction);
 				handler = handlerF2;
 			}
 			else {
@@ -5365,6 +5371,20 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalOp1Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
 			instruction.InternalOp2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
+		}
+	}
+
+	sealed class OpCodeHandler_Wbinvd : OpCodeHandler {
+		public OpCodeHandler_Wbinvd() { }
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			if ((decoder.options & DecoderOptions.NoWbnoinvd) != 0 || decoder.state.mandatoryPrefix != MandatoryPrefixByte.PF3)
+				instruction.InternalCode = Code.Wbinvd;
+			else {
+				decoder.ClearMandatoryPrefixF3(ref instruction);
+				instruction.InternalCode = Code.Wbnoinvd;
+			}
 		}
 	}
 }

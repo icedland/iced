@@ -106,7 +106,11 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case OpCodeHandlerKind.MandatoryPrefix_F3_F2:
-				elem = new OpCodeHandler_MandatoryPrefix_F3_F2(deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadHandler());
+				elem = new OpCodeHandler_MandatoryPrefix_F3_F2(deserializer.ReadHandler(), deserializer.ReadHandler(), true, deserializer.ReadHandler(), true);
+				return 1;
+
+			case OpCodeHandlerKind.LegacyMandatoryPrefix_F3_F2:
+				elem = new OpCodeHandler_MandatoryPrefix_F3_F2(deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadBoolean(), deserializer.ReadHandler(), deserializer.ReadBoolean());
 				return 1;
 
 			case OpCodeHandlerKind.MandatoryPrefix_MaybeModRM:
@@ -263,6 +267,11 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_Ev_CL(code, code + 1, code + 2);
 				return 1;
 
+			case OpCodeHandlerKind.Ev_Gv_32_64:
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_Ev_Gv_32_64(code, code + 1);
+				return 1;
+
 			case OpCodeHandlerKind.Ev_Gv_3a:
 				code = deserializer.ReadCode();
 				elem = new OpCodeHandler_Ev_Gv(code, code + 1, code + 2);
@@ -276,11 +285,6 @@ namespace Iced.Intel.DecoderInternal {
 			case OpCodeHandlerKind.Ev_Gv_4:
 				code = deserializer.ReadCode();
 				elem = new OpCodeHandler_Ev_Gv(code, code + 1, code + 2, deserializer.ReadHandlerFlags());
-				return 1;
-
-			case OpCodeHandlerKind.Ev_Gv_32_64:
-				code = deserializer.ReadCode();
-				elem = new OpCodeHandler_Ev_Gv_32_64(code, code + 1);
 				return 1;
 
 			case OpCodeHandlerKind.Ev_Gv_CL:
@@ -387,6 +391,11 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_Gv_Eb_REX(code, code + 1);
 				return 1;
 
+			case OpCodeHandlerKind.Gv_Ev_32_64:
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_Gv_Ev_32_64(code, code + 1, deserializer.ReadBoolean(), deserializer.ReadBoolean());
+				return 1;
+
 			case OpCodeHandlerKind.Gv_Ev_3a:
 				code = deserializer.ReadCode();
 				elem = new OpCodeHandler_Gv_Ev(code, code + 1, code + 2);
@@ -395,11 +404,6 @@ namespace Iced.Intel.DecoderInternal {
 			case OpCodeHandlerKind.Gv_Ev_3b:
 				code = deserializer.ReadCode();
 				elem = new OpCodeHandler_Gv_Ev(code, code + 1, Code.INVALID);
-				return 1;
-
-			case OpCodeHandlerKind.Gv_Ev_32_64:
-				code = deserializer.ReadCode();
-				elem = new OpCodeHandler_Gv_Ev_32_64(code, code + 1, deserializer.ReadBoolean(), deserializer.ReadBoolean());
 				return 1;
 
 			case OpCodeHandlerKind.Gv_Ev_Ib:
@@ -910,6 +914,10 @@ namespace Iced.Intel.DecoderInternal {
 			case OpCodeHandlerKind.VX_Ev:
 				code = deserializer.ReadCode();
 				elem = new OpCodeHandler_VX_Ev(code, code + 1);
+				return 1;
+
+			case OpCodeHandlerKind.Wbinvd:
+				elem = new OpCodeHandler_Wbinvd();
 				return 1;
 
 			case OpCodeHandlerKind.WV:
