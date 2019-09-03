@@ -1034,7 +1034,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0))
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
@@ -1320,7 +1320,7 @@ namespace Iced.Intel.DecoderInternal {
 				}
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0))
 				decoder.SetInvalidInstruction();
 		}
 	}
@@ -1408,7 +1408,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadIb();
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0))
 				decoder.SetInvalidInstruction();
 		}
 	}
@@ -2008,7 +2008,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | state.vvvv | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0 || (state.reg == state.aaa && state.aaa != 0)))
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (((uint)(state.flags & StateFlags.z) | state.vvvv | state.extraRegisterBase | state.extraRegisterBaseEVEX) != 0))
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 
