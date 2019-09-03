@@ -1023,9 +1023,6 @@ after_read_prefixes:
 			case TupleType.Tuple1_Scalar_8:
 				return 8;
 
-			case TupleType.Tuple1_Fixed:
-				return (state.flags & StateFlags.W) != 0 ? 8U : 4;
-
 			case TupleType.Tuple1_Fixed_4:
 				return 4;
 

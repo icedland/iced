@@ -1818,10 +1818,10 @@ EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er, EVEX, 66, 0F, 7B, EVEX.512.66.0F.W0 7B /r,
 EVEX_Vcvtpd2qq_xmm_k1z_xmmm128b64, EVEX, 66, 0F, 7B, EVEX.128.66.0F.W1 7B /r, 16b 32b 64b L128 W1 op=xmm_reg;xmm_or_mem tt=Full_128 b k z
 EVEX_Vcvtpd2qq_ymm_k1z_ymmm256b64, EVEX, 66, 0F, 7B, EVEX.256.66.0F.W1 7B /r, 16b 32b 64b L256 W1 op=ymm_reg;ymm_or_mem tt=Full_256 b k z
 EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er, EVEX, 66, 0F, 7B, EVEX.512.66.0F.W1 7B /r, 16b 32b 64b L512 W1 op=zmm_reg;zmm_or_mem tt=Full_512 b er k z
-EVEX_Vcvtusi2ss_xmm_xmm_rm32_er, EVEX, F3, 0F, 7B, EVEX.LIG.F3.0F.W0 7B /r, 16b 32b 64b LIG WIG32 op=xmm_reg;xmm_vvvv;r32_or_mem tt=Tuple1_Fixed er
-EVEX_Vcvtusi2ss_xmm_xmm_rm64_er, EVEX, F3, 0F, 7B, EVEX.LIG.F3.0F.W1 7B /r, 64b LIG W1 op=xmm_reg;xmm_vvvv;r64_or_mem tt=Tuple1_Fixed er
-EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, EVEX, F2, 0F, 7B, EVEX.LIG.F2.0F.W0 7B /r, 16b 32b 64b LIG WIG32 op=xmm_reg;xmm_vvvv;r32_or_mem tt=Tuple1_Fixed er
-EVEX_Vcvtusi2sd_xmm_xmm_rm64_er, EVEX, F2, 0F, 7B, EVEX.LIG.F2.0F.W1 7B /r, 64b LIG W1 op=xmm_reg;xmm_vvvv;r64_or_mem tt=Tuple1_Fixed er
+EVEX_Vcvtusi2ss_xmm_xmm_rm32_er, EVEX, F3, 0F, 7B, EVEX.LIG.F3.0F.W0 7B /r, 16b 32b 64b LIG WIG32 op=xmm_reg;xmm_vvvv;r32_or_mem tt=Tuple1_Fixed_4 er
+EVEX_Vcvtusi2ss_xmm_xmm_rm64_er, EVEX, F3, 0F, 7B, EVEX.LIG.F3.0F.W1 7B /r, 64b LIG W1 op=xmm_reg;xmm_vvvv;r64_or_mem tt=Tuple1_Fixed_8 er
+EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, EVEX, F2, 0F, 7B, EVEX.LIG.F2.0F.W0 7B /r, 16b 32b 64b LIG WIG32 op=xmm_reg;xmm_vvvv;r32_or_mem tt=Tuple1_Fixed_4 er
+EVEX_Vcvtusi2sd_xmm_xmm_rm64_er, EVEX, F2, 0F, 7B, EVEX.LIG.F2.0F.W1 7B /r, 64b LIG W1 op=xmm_reg;xmm_vvvv;r64_or_mem tt=Tuple1_Fixed_8 er
 Haddpd_xmm_xmmm128, legacy, 66, 0F, 7C, 66 0F 7C /r, 16b 32b 64b op=xmm_reg;xmm_or_mem
 VEX_Vhaddpd_xmm_xmm_xmmm128, VEX, 66, 0F, 7C, VEX.128.66.0F.WIG 7C /r, 16b 32b 64b L128 WIG op=xmm_reg;xmm_vvvv;xmm_or_mem
 VEX_Vhaddpd_ymm_ymm_ymmm256, VEX, 66, 0F, 7C, VEX.256.66.0F.WIG 7C /r, 16b 32b 64b L256 WIG op=ymm_reg;ymm_vvvv;ymm_or_mem

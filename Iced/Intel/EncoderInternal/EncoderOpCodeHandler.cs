@@ -855,10 +855,6 @@ namespace Iced.Intel.EncoderInternal {
 					n = 8;
 					break;
 
-				case TupleType.Tuple1_Fixed:
-					n = (evexHandler.flags & EvexFlags.EVEX_W1) != 0 ? 8 : 4;
-					break;
-
 				case TupleType.Tuple1_Fixed_4:
 					n = 4;
 					break;

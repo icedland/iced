@@ -88,10 +88,6 @@ namespace Iced.Intel {
 		/// </summary>
 		Tuple1_Scalar_8,
 		/// <summary>
-		/// N = W ? 8 : 4
-		/// </summary>
-		Tuple1_Fixed,
-		/// <summary>
 		/// N = 4
 		/// </summary>
 		Tuple1_Fixed_4,
