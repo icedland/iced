@@ -207,11 +207,22 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			var info2 = new InstructionInfoFactory().GetInfo(instr);
 			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: true);
+			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.None);
+			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: true);
 			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoMemoryUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: false);
 			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoRegisterUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: true);
 			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoRegisterUsage | InstructionInfoOptions.NoMemoryUsage);
+			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: false);
+
+			info2 = instr.GetInfo(InstructionInfoOptions.None);
+			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: true);
+			info2 = instr.GetInfo(InstructionInfoOptions.NoMemoryUsage);
+			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: false);
+			info2 = instr.GetInfo(InstructionInfoOptions.NoRegisterUsage);
+			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: true);
+			info2 = instr.GetInfo(InstructionInfoOptions.NoRegisterUsage | InstructionInfoOptions.NoMemoryUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: false);
 
 			Assert.Equal(info.Encoding, instr.Code.Encoding());
