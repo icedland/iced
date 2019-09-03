@@ -1659,7 +1659,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Verify_vsib_with_invalid_index_register() {
+		void Verify_vsib_with_invalid_index_register_EVEX() {
 			var codeValues = new HashSet<Code> {
 				Code.EVEX_Vpgatherdd_xmm_k1_vm32x,
 				Code.EVEX_Vpgatherdd_ymm_k1_vm32y,
@@ -1690,8 +1690,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
 					continue;
 				var opCode = info.Code.ToOpCode();
-				Assert.Equal(CanHaveInvalidIndexRegister(opCode), codeValues.Contains(info.Code));
-				if (!CanHaveInvalidIndexRegister(opCode))
+				Assert.Equal(CanHaveInvalidIndexRegister_EVEX(opCode), codeValues.Contains(info.Code));
+				if (!CanHaveInvalidIndexRegister_EVEX(opCode))
 					continue;
 
 				if (opCode.Encoding == EncodingKind.EVEX) {
@@ -1736,7 +1736,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		// All Vk_VSIB instructions, eg. EVEX_Vpgatherdd_xmm_k1_vm32x
-		static bool CanHaveInvalidIndexRegister(OpCodeInfo opCode) {
+		static bool CanHaveInvalidIndexRegister_EVEX(OpCodeInfo opCode) {
 			if (opCode.Encoding != EncodingKind.EVEX)
 				return false;
 
@@ -1765,6 +1765,159 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			}
 			if (vsibIndex <= 0)
 				return false;
+
+			return true;
+		}
+
+		[Fact]
+		void Verify_vsib_with_invalid_index_mask_dest_register_VEX() {
+			var codeValues = new HashSet<Code> {
+				Code.VEX_Vpgatherdd_xmm_vm32x_xmm,
+				Code.VEX_Vpgatherdd_ymm_vm32y_ymm,
+				Code.VEX_Vpgatherdq_xmm_vm32x_xmm,
+				Code.VEX_Vpgatherdq_ymm_vm32x_ymm,
+				Code.VEX_Vpgatherqd_xmm_vm64x_xmm,
+				Code.VEX_Vpgatherqd_xmm_vm64y_xmm,
+				Code.VEX_Vpgatherqq_xmm_vm64x_xmm,
+				Code.VEX_Vpgatherqq_ymm_vm64y_ymm,
+				Code.VEX_Vgatherdps_xmm_vm32x_xmm,
+				Code.VEX_Vgatherdps_ymm_vm32y_ymm,
+				Code.VEX_Vgatherdpd_xmm_vm32x_xmm,
+				Code.VEX_Vgatherdpd_ymm_vm32x_ymm,
+				Code.VEX_Vgatherqps_xmm_vm64x_xmm,
+				Code.VEX_Vgatherqps_xmm_vm64y_xmm,
+				Code.VEX_Vgatherqpd_xmm_vm64x_xmm,
+				Code.VEX_Vgatherqpd_ymm_vm64y_ymm,
+			};
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
+					continue;
+				var opCode = info.Code.ToOpCode();
+				Assert.Equal(CanHaveInvalidIndexMaskDestRegister_VEX(opCode), codeValues.Contains(info.Code));
+				if (!CanHaveInvalidIndexMaskDestRegister_VEX(opCode))
+					continue;
+
+				if (opCode.Encoding == EncodingKind.VEX) {
+					var bytes = HexUtils.ToByteArray(info.HexBytes);
+					int vexIndex = GetVexXopIndex(bytes);
+
+					bool isVEX2 = bytes[vexIndex] == 0xC5;
+					int rIndex = vexIndex + 1;
+					int vIndex = isVEX2 ? rIndex : rIndex + 1;
+					int mIndex = vIndex + 2;
+					int sIndex = vIndex + 3;
+
+					var r = bytes[rIndex];
+					var v = bytes[vIndex];
+					var m = bytes[mIndex];
+					var s = bytes[sIndex];
+
+					const int reg_eq_vvvv = 0;
+					const int reg_eq_vidx = 1;
+					const int vvvv_eq_vidx = 2;
+					const int all_eq_all = 3;
+					foreach (var testKind in new[] { reg_eq_vvvv, reg_eq_vidx, vvvv_eq_vidx, all_eq_all }) {
+						for (int i = 0; i < 16; i++) {
+							int regNum = info.Bitness == 64 ? i : i & 7;
+							// Use a small number (0-7) in case it's VEX2 and 'other' is vidx (uses VEX.X bit)
+							int other = regNum == 0 ? 1 : 0;
+							int newReg, newVvvv, newVidx;
+
+							switch (testKind) {
+							case reg_eq_vvvv:
+								newReg = newVvvv = regNum;
+								newVidx = other;
+								break;
+							case reg_eq_vidx:
+								newReg = newVidx = regNum;
+								newVvvv = other;
+								break;
+							case vvvv_eq_vidx:
+								newVvvv = newVidx = regNum;
+								newReg = other;
+								break;
+							case all_eq_all:
+								newReg = newVvvv = newVidx = regNum;
+								break;
+							default:
+								throw new InvalidOperationException();
+							}
+
+							// reg  = R modrm.reg
+							// vidx = X sib.index
+							if (isVEX2) {
+								if (newVidx >= 8)
+									continue;
+								bytes[rIndex] = (byte)((r & 0x07) | /*R*/(((newReg ^ 8) & 0x8) << 4) | /*vvvv*/((newVvvv ^ 0xF) << 3));
+							}
+							else {
+								bytes[rIndex] = (byte)((r & 0x3F) | /*R*/(((newReg ^ 8) & 8) << 4) | /*X*/(((newVidx ^ 8) & 8) << 3));
+								bytes[vIndex] = (byte)((v & 0x87) | /*vvvv*/((newVvvv ^ 0xF) << 3));
+							}
+							bytes[mIndex] = (byte)((m & 0xC7) | /*modrm.reg*/((newReg & 7) << 3));
+							bytes[sIndex] = (byte)((s & 0xC7) | /*sib.index*/((newVidx & 7) << 3));
+
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+								decoder.Decode(out var instr);
+								Assert.Equal(Code.INVALID, instr.Code);
+							}
+							{
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+								decoder.Decode(out var instr);
+								Assert.Equal(info.Code, instr.Code);
+								Assert.Equal(OpKind.Register, instr.Op0Kind);
+								Assert.Equal(OpKind.Memory, instr.Op1Kind);
+								Assert.Equal(OpKind.Register, instr.Op2Kind);
+								Assert.NotEqual(Register.None, instr.MemoryIndex);
+								Assert.Equal(newReg, instr.Op0Register.GetInfo().Number);
+								Assert.Equal(newVidx, instr.MemoryIndex.GetInfo().Number);
+								Assert.Equal(newVvvv, instr.Op2Register.GetInfo().Number);
+							}
+						}
+					}
+				}
+				else
+					throw new InvalidOperationException();
+			}
+		}
+
+		// All VX_VSIB_HX instructions, eg. VEX_Vpgatherdd_xmm_vm32x_xmm
+		static bool CanHaveInvalidIndexMaskDestRegister_VEX(OpCodeInfo opCode) {
+			if (opCode.Encoding != EncodingKind.VEX)
+				return false;
+			if (opCode.OpCount != 3)
+				return false;
+
+			switch (opCode.Op0Kind) {
+			case OpCodeOperandKind.xmm_reg:
+			case OpCodeOperandKind.ymm_reg:
+			case OpCodeOperandKind.zmm_reg:
+				break;
+			default:
+				return false;
+			}
+
+			switch (opCode.Op2Kind) {
+			case OpCodeOperandKind.xmm_vvvv:
+			case OpCodeOperandKind.ymm_vvvv:
+			case OpCodeOperandKind.zmm_vvvv:
+				break;
+			default:
+				return false;
+			}
+
+			switch (opCode.Op1Kind) {
+			case OpCodeOperandKind.mem_vsib32x:
+			case OpCodeOperandKind.mem_vsib32y:
+			case OpCodeOperandKind.mem_vsib32z:
+			case OpCodeOperandKind.mem_vsib64x:
+			case OpCodeOperandKind.mem_vsib64y:
+			case OpCodeOperandKind.mem_vsib64z:
+				break;
+			default:
+				return false;
+			}
 
 			return true;
 		}
