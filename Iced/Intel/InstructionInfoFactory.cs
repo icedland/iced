@@ -416,11 +416,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.Push_8:
 				xsp = GetXSP(instruction.CodeSize, out xspMask);
-				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if ((flags & Flags.Is64Bit) == 0)
-						AddRegister(flags, ref usedRegisters, Register.SS, OpAccess.Read);
+				if ((flags & Flags.NoRegisterUsage) == 0)
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
-				}
 				if ((flags & Flags.NoMemoryUsage) == 0)
 					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFF8 & xspMask, MemorySize.UInt64, OpAccess.Write);
 				break;
@@ -453,11 +450,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.Push_8_8:
 				xsp = GetXSP(instruction.CodeSize, out xspMask);
-				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if ((flags & Flags.Is64Bit) == 0)
-						AddRegister(flags, ref usedRegisters, Register.SS, OpAccess.Read);
+				if ((flags & Flags.NoRegisterUsage) == 0)
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
-				}
 				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFF8 & xspMask, MemorySize.UInt64, OpAccess.Write);
 					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0xFFFF_FFFF_FFFF_FFF0 & xspMask, MemorySize.UInt64, OpAccess.Write);
@@ -488,11 +482,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.Pop_8:
 				xsp = GetXSP(instruction.CodeSize, out xspMask);
-				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if ((flags & Flags.Is64Bit) == 0)
-						AddRegister(flags, ref usedRegisters, Register.SS, OpAccess.Read);
+				if ((flags & Flags.NoRegisterUsage) == 0)
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
-				}
 				if ((flags & Flags.NoMemoryUsage) == 0)
 					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt64, OpAccess.Read);
 				break;
@@ -525,11 +516,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.Pop_8_8:
 				xsp = GetXSP(instruction.CodeSize, out xspMask);
-				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if ((flags & Flags.Is64Bit) == 0)
-						AddRegister(flags, ref usedRegisters, Register.SS, OpAccess.Read);
+				if ((flags & Flags.NoRegisterUsage) == 0)
 					AddRegister(flags, ref usedRegisters, xsp, OpAccess.ReadWrite);
-				}
 				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt64, OpAccess.Read);
 					AddMemory(ref usedMemoryLocations, Register.SS, xsp, Register.None, 1, 8, MemorySize.UInt64, OpAccess.Read);
