@@ -72,6 +72,23 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			}
 			Assert.Equal("Fmt: 0 ins ", $"Fmt: {missing} ins " + sb.ToString());
 		}
+
+		[Fact]
+		void Test_WithMemorySize_extension_method() {
+			var options = FormatterOperandOptions.None;
+
+			options = FormatterOperandOptions.None.WithMemorySize(MemorySizeOptions.Always);
+			Assert.Equal(MemorySizeOptions.Always, (MemorySizeOptions)((uint)(options & FormatterOperandOptions.MemorySizeMask) >> (int)FormatterOperandOptions.MemorySizeShift));
+
+			options = FormatterOperandOptions.None.WithMemorySize(MemorySizeOptions.Minimum);
+			Assert.Equal(MemorySizeOptions.Minimum, (MemorySizeOptions)((uint)(options & FormatterOperandOptions.MemorySizeMask) >> (int)FormatterOperandOptions.MemorySizeShift));
+
+			options = FormatterOperandOptions.None.WithMemorySize(MemorySizeOptions.Never);
+			Assert.Equal(MemorySizeOptions.Never, (MemorySizeOptions)((uint)(options & FormatterOperandOptions.MemorySizeMask) >> (int)FormatterOperandOptions.MemorySizeShift));
+
+			options = FormatterOperandOptions.None.WithMemorySize(MemorySizeOptions.Default);
+			Assert.Equal(MemorySizeOptions.Default, (MemorySizeOptions)((uint)(options & FormatterOperandOptions.MemorySizeMask) >> (int)FormatterOperandOptions.MemorySizeShift));
+		}
 	}
 }
 #endif
