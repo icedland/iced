@@ -43,6 +43,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			options.SignedImmediateOperands = false;
+			options.SpaceAfterOperandSeparator = false;
 			return new IntelFormatter(options);
 		}
 
@@ -52,6 +53,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;
+			options.SpaceAfterOperandSeparator = true;
 			return new IntelFormatter(options);
 		}
 

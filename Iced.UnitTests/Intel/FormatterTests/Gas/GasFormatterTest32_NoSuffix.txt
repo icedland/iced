@@ -511,34 +511,34 @@ mov 0xedcba988,%cl
 mov 0x12(%eax),%cl
 mov 0x12345678(%eax),%cl
 mov 0x12345678,%cl
-mov (%eax,%ecx),%cl
-mov (%eax,%ecx,2),%cl
-mov (%eax,%ecx,4),%cl
-mov (%eax,%ecx,8),%cl
-mov -0x12(%eax,%ecx),%cl
-mov -0x12(%eax,%ecx,2),%cl
-mov -0x12(%eax,%ecx,4),%cl
-mov -0x12(%eax,%ecx,8),%cl
-mov 0x12(%eax,%ecx),%cl
-mov 0x12(%eax,%ecx,2),%cl
-mov 0x12(%eax,%ecx,4),%cl
-mov 0x12(%eax,%ecx,8),%cl
-mov -0x12345678(%eax,%ecx),%cl
-mov -0x12345678(%eax,%ecx,2),%cl
-mov -0x12345678(%eax,%ecx,4),%cl
-mov -0x12345678(%eax,%ecx,8),%cl
-mov 0x12345678(%eax,%ecx),%cl
-mov 0x12345678(%eax,%ecx,2),%cl
-mov 0x12345678(%eax,%ecx,4),%cl
-mov 0x12345678(%eax,%ecx,8),%cl
-mov -0x12345678(,%ecx),%cl
-mov -0x12(%ebp,%ecx,2),%cl
-mov -0x12345678(%ebp,%ecx,4),%cl
-mov -0x12345678(,%ecx,8),%cl
-mov 0x12345678(,%ecx),%cl
-mov 0x12(%ebp,%ecx,2),%cl
-mov 0x12345678(%ebp,%ecx,4),%cl
-mov 0x12345678(,%ecx,8),%cl
+mov (%eax, %ecx),%cl
+mov (%eax, %ecx, 2),%cl
+mov (%eax, %ecx, 4),%cl
+mov (%eax, %ecx, 8),%cl
+mov -0x12(%eax, %ecx),%cl
+mov -0x12(%eax, %ecx, 2),%cl
+mov -0x12(%eax, %ecx, 4),%cl
+mov -0x12(%eax, %ecx, 8),%cl
+mov 0x12(%eax, %ecx),%cl
+mov 0x12(%eax, %ecx, 2),%cl
+mov 0x12(%eax, %ecx, 4),%cl
+mov 0x12(%eax, %ecx, 8),%cl
+mov -0x12345678(%eax, %ecx),%cl
+mov -0x12345678(%eax, %ecx, 2),%cl
+mov -0x12345678(%eax, %ecx, 4),%cl
+mov -0x12345678(%eax, %ecx, 8),%cl
+mov 0x12345678(%eax, %ecx),%cl
+mov 0x12345678(%eax, %ecx, 2),%cl
+mov 0x12345678(%eax, %ecx, 4),%cl
+mov 0x12345678(%eax, %ecx, 8),%cl
+mov -0x12345678(, %ecx),%cl
+mov -0x12(%ebp, %ecx, 2),%cl
+mov -0x12345678(%ebp, %ecx, 4),%cl
+mov -0x12345678(, %ecx, 8),%cl
+mov 0x12345678(, %ecx),%cl
+mov 0x12(%ebp, %ecx, 2),%cl
+mov 0x12345678(%ebp, %ecx, 4),%cl
+mov 0x12345678(, %ecx, 8),%cl
 mov %fs:(%eax),%cl
 mov %fs:-0x12(%eax),%cl
 mov %fs:-0x12345678(%eax),%cl
@@ -546,34 +546,34 @@ mov %fs:0xedcba988,%cl
 mov %fs:0x12(%eax),%cl
 mov %fs:0x12345678(%eax),%cl
 mov %fs:0x12345678,%cl
-mov %fs:(%eax,%ecx),%cl
-mov %fs:(%eax,%ecx,2),%cl
-mov %fs:(%eax,%ecx,4),%cl
-mov %fs:(%eax,%ecx,8),%cl
-mov %fs:-0x12(%eax,%ecx),%cl
-mov %fs:-0x12(%eax,%ecx,2),%cl
-mov %fs:-0x12(%eax,%ecx,4),%cl
-mov %fs:-0x12(%eax,%ecx,8),%cl
-mov %fs:0x12(%eax,%ecx),%cl
-mov %fs:0x12(%eax,%ecx,2),%cl
-mov %fs:0x12(%eax,%ecx,4),%cl
-mov %fs:0x12(%eax,%ecx,8),%cl
-mov %fs:-0x12345678(%eax,%ecx),%cl
-mov %fs:-0x12345678(%eax,%ecx,2),%cl
-mov %fs:-0x12345678(%eax,%ecx,4),%cl
-mov %fs:-0x12345678(%eax,%ecx,8),%cl
-mov %fs:0x12345678(%eax,%ecx),%cl
-mov %fs:0x12345678(%eax,%ecx,2),%cl
-mov %fs:0x12345678(%eax,%ecx,4),%cl
-mov %fs:0x12345678(%eax,%ecx,8),%cl
-mov %fs:-0x12345678(,%ecx),%cl
-mov %fs:-0x12(%ebp,%ecx,2),%cl
-mov %fs:-0x12345678(%ebp,%ecx,4),%cl
-mov %fs:-0x12345678(,%ecx,8),%cl
-mov %fs:0x12345678(,%ecx),%cl
-mov %fs:0x12(%ebp,%ecx,2),%cl
-mov %fs:0x12345678(%ebp,%ecx,4),%cl
-mov %fs:0x12345678(,%ecx,8),%cl
+mov %fs:(%eax, %ecx),%cl
+mov %fs:(%eax, %ecx, 2),%cl
+mov %fs:(%eax, %ecx, 4),%cl
+mov %fs:(%eax, %ecx, 8),%cl
+mov %fs:-0x12(%eax, %ecx),%cl
+mov %fs:-0x12(%eax, %ecx, 2),%cl
+mov %fs:-0x12(%eax, %ecx, 4),%cl
+mov %fs:-0x12(%eax, %ecx, 8),%cl
+mov %fs:0x12(%eax, %ecx),%cl
+mov %fs:0x12(%eax, %ecx, 2),%cl
+mov %fs:0x12(%eax, %ecx, 4),%cl
+mov %fs:0x12(%eax, %ecx, 8),%cl
+mov %fs:-0x12345678(%eax, %ecx),%cl
+mov %fs:-0x12345678(%eax, %ecx, 2),%cl
+mov %fs:-0x12345678(%eax, %ecx, 4),%cl
+mov %fs:-0x12345678(%eax, %ecx, 8),%cl
+mov %fs:0x12345678(%eax, %ecx),%cl
+mov %fs:0x12345678(%eax, %ecx, 2),%cl
+mov %fs:0x12345678(%eax, %ecx, 4),%cl
+mov %fs:0x12345678(%eax, %ecx, 8),%cl
+mov %fs:-0x12345678(, %ecx),%cl
+mov %fs:-0x12(%ebp, %ecx, 2),%cl
+mov %fs:-0x12345678(%ebp, %ecx, 4),%cl
+mov %fs:-0x12345678(, %ecx, 8),%cl
+mov %fs:0x12345678(, %ecx),%cl
+mov %fs:0x12(%ebp, %ecx, 2),%cl
+mov %fs:0x12345678(%ebp, %ecx, 4),%cl
+mov %fs:0x12345678(, %ecx, 8),%cl
 addr16 vmrun
 vmrun
 addr16 vmload
@@ -645,11 +645,11 @@ umonitor %bp
 umonitor %ebp
 data16 jmpe 0xa55a
 jmpe 0xa55a3412
-movdir64b (%bx,%si),%bx
+movdir64b (%bx, %si),%bx
 movdir64b (%eax),%ebx
-enqcmds (%bx,%si),%bx
+enqcmds (%bx, %si),%bx
 enqcmds (%eax),%ebx
-enqcmd (%bx,%si),%bx
+enqcmd (%bx, %si),%bx
 enqcmd (%eax),%ebx
 mov %tr0,%eax
 mov %tr1,%eax

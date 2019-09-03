@@ -74,7 +74,7 @@ data32 jle 0x0000804d
 jg 0x804c
 data32 jg 0x0000804d
 pop %esi
-popl (%bx,%si)
+popl (%bx, %si)
 lcall $0x7856,$0x3412
 lcalll $0xbc9a,$0x78563412
 pushfl
@@ -83,10 +83,10 @@ ret $0xa55a
 retl $0xa55a
 ret
 retl
-les (%bx,%si),%bx
-les (%bx,%si),%ebx
-lds (%bx,%si),%bx
-lds (%bx,%si),%ebx
+les (%bx, %si),%bx
+les (%bx, %si),%ebx
+lds (%bx, %si),%bx
+lds (%bx, %si),%ebx
 enterl $0xa55a,$0xa6
 leavel
 loopne 0x804c
@@ -114,15 +114,15 @@ ljmpl $0xbcea,$0x78563412
 jmp 0x804c
 data32 jmp 0x0000804d
 call *%cx
-callw *(%bx,%si)
+callw *(%bx, %si)
 call *%ecx
-calll *(%bx,%si)
+calll *(%bx, %si)
 jmp *%dx
-jmpw *(%bx,%si)
+jmpw *(%bx, %si)
 jmp *%edx
-jmpl *(%bx,%si)
+jmpl *(%bx, %si)
 push %esi
-pushl (%bx,%si)
+pushl (%bx, %si)
 bndmov %bnd2,%bnd1
 bndmov (%eax),%bnd1
 bndcl %edx,%bnd1
@@ -135,9 +135,9 @@ bndmk (%eax),%bnd1
 bndcn %edx,%bnd1
 bndcn (%eax),%bnd1
 vmread %ecx,%esi
-vmread %ebx,(%bx,%si)
+vmread %ebx,(%bx, %si)
 vmwrite %esi,%ecx
-vmwrite (%bx,%si),%ebx
+vmwrite (%bx, %si),%ebx
 jo 0x254e
 data32 jo 0x34132551
 jno 0x254e
@@ -174,9 +174,9 @@ pushl %fs
 popl %fs
 pushl %gs
 popl %gs
-invept (%bx,%si),%edx
-invvpid (%bx,%si),%edx
-invpcid (%bx,%si),%edx
+invept (%bx, %si),%edx
+invvpid (%bx, %si),%edx
+invpcid (%bx, %si),%edx
 push $0xa55a
 push $0xffa5
 insb %dx,(%edi)
@@ -192,11 +192,11 @@ outsw (%si),%dx
 outsl (%esi),%dx
 outsl (%si),%dx
 mov %si,%fs
-mov (%bx,%si),%ds
+mov (%bx, %si),%ds
 mov %esi,%fs
-data32 mov (%bx,%si),%ds
+data32 mov (%bx, %si),%ds
 pop %si
-popw (%bx,%si)
+popw (%bx, %si)
 nop
 xchg %eax,%eax
 pushf
@@ -254,83 +254,83 @@ lretl
 iret
 iretl
 rol %cl,%cl
-rolb %cl,(%bx,%si)
+rolb %cl,(%bx, %si)
 ror %cl,%dl
-rorb %cl,(%bx,%si)
+rorb %cl,(%bx, %si)
 rcl %cl,%bl
-rclb %cl,(%bx,%si)
+rclb %cl,(%bx, %si)
 rcr %cl,%ah
-rcrb %cl,(%bx,%si)
+rcrb %cl,(%bx, %si)
 shl %cl,%ch
-shlb %cl,(%bx,%si)
+shlb %cl,(%bx, %si)
 shr %cl,%dh
-shrb %cl,(%bx,%si)
+shrb %cl,(%bx, %si)
 sar %cl,%al
-sarb %cl,(%bx,%si)
+sarb %cl,(%bx, %si)
 rol %cl,%cx
-rolw %cl,(%bx,%si)
+rolw %cl,(%bx, %si)
 rol %cl,%ecx
-roll %cl,(%bx,%si)
+roll %cl,(%bx, %si)
 ror %cl,%dx
-rorw %cl,(%bx,%si)
+rorw %cl,(%bx, %si)
 ror %cl,%edx
-rorl %cl,(%bx,%si)
+rorl %cl,(%bx, %si)
 rcl %cl,%bx
-rclw %cl,(%bx,%si)
+rclw %cl,(%bx, %si)
 rcl %cl,%ebx
-rcll %cl,(%bx,%si)
+rcll %cl,(%bx, %si)
 rcr %cl,%sp
-rcrw %cl,(%bx,%si)
+rcrw %cl,(%bx, %si)
 rcr %cl,%esp
-rcrl %cl,(%bx,%si)
+rcrl %cl,(%bx, %si)
 shl %cl,%bp
-shlw %cl,(%bx,%si)
+shlw %cl,(%bx, %si)
 shl %cl,%ebp
-shll %cl,(%bx,%si)
+shll %cl,(%bx, %si)
 shr %cl,%si
-shrw %cl,(%bx,%si)
+shrw %cl,(%bx, %si)
 shr %cl,%esi
-shrl %cl,(%bx,%si)
+shrl %cl,(%bx, %si)
 sar %cl,%ax
-sarw %cl,(%bx,%si)
+sarw %cl,(%bx, %si)
 sar %cl,%eax
-sarl %cl,(%bx,%si)
-fldcw (%bx,%si)
-fnstcw (%bx,%si)
-fnstsw (%bx,%si)
-lcall *(%bx,%si)
-lcalll *(%bx,%si)
-ljmp *(%bx,%si)
-ljmpl *(%bx,%si)
+sarl %cl,(%bx, %si)
+fldcw (%bx, %si)
+fnstcw (%bx, %si)
+fnstsw (%bx, %si)
+lcall *(%bx, %si)
+lcalll *(%bx, %si)
+ljmp *(%bx, %si)
+ljmpl *(%bx, %si)
 push %si
-pushw (%bx,%si)
-sgdt (%bx,%si)
-sgdtl (%bx,%si)
-sidt (%bx,%si)
-sidtl (%bx,%si)
-lgdt (%bx,%si)
-lgdtl (%bx,%si)
-lidt (%bx,%si)
-lidtl (%bx,%si)
+pushw (%bx, %si)
+sgdt (%bx, %si)
+sgdtl (%bx, %si)
+sidt (%bx, %si)
+sidtl (%bx, %si)
+lgdt (%bx, %si)
+lgdtl (%bx, %si)
+lidt (%bx, %si)
+lidtl (%bx, %si)
 lar %si,%cx
-lar (%bx,%si),%bx
+lar (%bx, %si),%bx
 lar %esi,%ecx
-lar (%bx,%si),%ebx
+lar (%bx, %si),%ebx
 lsl %si,%cx
-lsl (%bx,%si),%bx
+lsl (%bx, %si),%bx
 lsl %esi,%ecx
-lsl (%bx,%si),%ebx
+lsl (%bx, %si),%ebx
 bndldx (%eax),%bnd1
 bndstx %bnd1,(%eax)
 kmovw %k3,%k2
-kmovw (%bx,%si),%k1
+kmovw (%bx, %si),%k1
 kmovb %k3,%k2
-kmovb (%bx,%si),%k1
+kmovb (%bx, %si),%k1
 kmovd %k3,%k2
-kmovd (%bx,%si),%k1
-kmovw %k1,(%bx,%si)
-kmovb %k1,(%bx,%si)
-kmovd %k1,(%bx,%si)
+kmovd (%bx, %si),%k1
+kmovw %k1,(%bx, %si)
+kmovb %k1,(%bx, %si)
+kmovd %k1,(%bx, %si)
 kmovw %ebx,%k2
 kmovb %ebx,%k2
 kmovd %ebx,%k2
@@ -348,44 +348,44 @@ ktestd %k3,%k2
 push %fs
 pop %fs
 shld %cl,%cx,%si
-shld %cl,%bx,(%bx,%si)
+shld %cl,%bx,(%bx, %si)
 shld %cl,%ecx,%esi
-shld %cl,%ebx,(%bx,%si)
+shld %cl,%ebx,(%bx, %si)
 push %gs
 pop %gs
 shrd %cl,%cx,%si
-shrd %cl,%bx,(%bx,%si)
+shrd %cl,%bx,(%bx, %si)
 shrd %cl,%ecx,%esi
-shrd %cl,%ebx,(%bx,%si)
-lss (%bx,%si),%bx
-lss (%bx,%si),%ebx
-lfs (%bx,%si),%bx
-lfs (%bx,%si),%ebx
-lgs (%bx,%si),%bx
-lgs (%bx,%si),%ebx
+shrd %cl,%ebx,(%bx, %si)
+lss (%bx, %si),%bx
+lss (%bx, %si),%ebx
+lfs (%bx, %si),%bx
+lfs (%bx, %si),%ebx
+lgs (%bx, %si),%bx
+lgs (%bx, %si),%ebx
 movzbw %dh,%cx
-movzbw (%bx,%si),%bx
+movzbw (%bx, %si),%bx
 movzbl %dh,%ecx
-movzbl (%bx,%si),%ebx
+movzbl (%bx, %si),%ebx
 movzww %si,%cx
-movzww (%bx,%si),%bx
+movzww (%bx, %si),%bx
 movzwl %si,%ecx
-movzwl (%bx,%si),%ebx
+movzwl (%bx, %si),%ebx
 movsbw %dh,%cx
-movsbw (%bx,%si),%bx
+movsbw (%bx, %si),%bx
 movsbl %dh,%ecx
-movsbl (%bx,%si),%ebx
+movsbl (%bx, %si),%ebx
 movsww %si,%cx
-movsww (%bx,%si),%bx
+movsww (%bx, %si),%bx
 movswl %si,%ecx
-movswl (%bx,%si),%ebx
-cmpxchg8b (%bx,%si)
+movswl (%bx, %si),%ebx
+cmpxchg8b (%bx, %si)
 crc32 %dh,%ecx
-crc32b (%bx,%si),%ebx
+crc32b (%bx, %si),%ebx
 crc32 %si,%ecx
-crc32w (%bx,%si),%ebx
+crc32w (%bx, %si),%ebx
 crc32 %esi,%ecx
-crc32l (%bx,%si),%ebx
+crc32l (%bx, %si),%ebx
 addr32 maskmovq %mm3,%mm2
 maskmovq %mm3,%mm2
 addr32 maskmovdqu %xmm3,%xmm2
@@ -414,14 +414,14 @@ aam
 aad
 aam $0xfa
 aad $0xfa
-fldenv (%bx,%si)
-fldenvs (%bx,%si)
-fnstenv (%bx,%si)
-fnstenvs (%bx,%si)
-frstor (%bx,%si)
-frstors (%bx,%si)
-fnsave (%bx,%si)
-fnsaves (%bx,%si)
+fldenv (%bx, %si)
+fldenvs (%bx, %si)
+fnstenv (%bx, %si)
+fnstenvs (%bx, %si)
+frstor (%bx, %si)
+frstors (%bx, %si)
+fnsave (%bx, %si)
+fnsaves (%bx, %si)
 monitor
 addr32 monitor
 mwait
@@ -437,90 +437,90 @@ mov %ax,%fs:0xf0de
 addr32 mov %ax,%fs:0x78563412
 mov %eax,%fs:0xf0de
 addr32 mov %eax,%fs:0x78563412
-mov (%bx,%si),%cl
-mov (%bx,%di),%cl
-mov (%bp,%si),%cl
-mov (%bp,%di),%cl
+mov (%bx, %si),%cl
+mov (%bx, %di),%cl
+mov (%bp, %si),%cl
+mov (%bp, %di),%cl
 mov (%si),%cl
 mov (%di),%cl
 mov 0xedcc,%cl
 mov 0x1234,%cl
 mov (%bx),%cl
-mov -0x12(%bx,%si),%cl
-mov -0x12(%bx,%di),%cl
-mov -0x12(%bp,%si),%cl
-mov -0x12(%bp,%di),%cl
+mov -0x12(%bx, %si),%cl
+mov -0x12(%bx, %di),%cl
+mov -0x12(%bp, %si),%cl
+mov -0x12(%bp, %di),%cl
 mov -0x12(%si),%cl
 mov -0x12(%di),%cl
 mov -0x12(%bp),%cl
 mov -0x12(%bx),%cl
-mov 0x12(%bx,%si),%cl
-mov 0x12(%bx,%di),%cl
-mov 0x12(%bp,%si),%cl
-mov 0x12(%bp,%di),%cl
+mov 0x12(%bx, %si),%cl
+mov 0x12(%bx, %di),%cl
+mov 0x12(%bp, %si),%cl
+mov 0x12(%bp, %di),%cl
 mov 0x12(%si),%cl
 mov 0x12(%di),%cl
 mov 0x12(%bp),%cl
 mov 0x12(%bx),%cl
-mov -0x1234(%bx,%si),%cl
-mov -0x1234(%bx,%di),%cl
-mov -0x1234(%bp,%si),%cl
-mov -0x1234(%bp,%di),%cl
+mov -0x1234(%bx, %si),%cl
+mov -0x1234(%bx, %di),%cl
+mov -0x1234(%bp, %si),%cl
+mov -0x1234(%bp, %di),%cl
 mov -0x1234(%si),%cl
 mov -0x1234(%di),%cl
 mov -0x1234(%bp),%cl
 mov -0x1234(%bx),%cl
-mov 0x1234(%bx,%si),%cl
-mov 0x1234(%bx,%di),%cl
-mov 0x1234(%bp,%si),%cl
-mov 0x1234(%bp,%di),%cl
+mov 0x1234(%bx, %si),%cl
+mov 0x1234(%bx, %di),%cl
+mov 0x1234(%bp, %si),%cl
+mov 0x1234(%bp, %di),%cl
 mov 0x1234(%si),%cl
 mov 0x1234(%di),%cl
 mov 0x1234(%bp),%cl
 mov 0x1234(%bx),%cl
-mov %fs:(%bx,%si),%cl
-mov %fs:(%bx,%di),%cl
-mov %fs:(%bp,%si),%cl
-mov %fs:(%bp,%di),%cl
+mov %fs:(%bx, %si),%cl
+mov %fs:(%bx, %di),%cl
+mov %fs:(%bp, %si),%cl
+mov %fs:(%bp, %di),%cl
 mov %fs:(%si),%cl
 mov %fs:(%di),%cl
 mov %fs:0xedcc,%cl
 mov %fs:0x1234,%cl
 mov %fs:(%bx),%cl
-mov %fs:-0x12(%bx,%si),%cl
-mov %fs:-0x12(%bx,%di),%cl
-mov %fs:-0x12(%bp,%si),%cl
-mov %fs:-0x12(%bp,%di),%cl
+mov %fs:-0x12(%bx, %si),%cl
+mov %fs:-0x12(%bx, %di),%cl
+mov %fs:-0x12(%bp, %si),%cl
+mov %fs:-0x12(%bp, %di),%cl
 mov %fs:-0x12(%si),%cl
 mov %fs:-0x12(%di),%cl
 mov %fs:-0x12(%bp),%cl
 mov %fs:-0x12(%bx),%cl
-mov %fs:0x12(%bx,%si),%cl
-mov %fs:0x12(%bx,%di),%cl
-mov %fs:0x12(%bp,%si),%cl
-mov %fs:0x12(%bp,%di),%cl
+mov %fs:0x12(%bx, %si),%cl
+mov %fs:0x12(%bx, %di),%cl
+mov %fs:0x12(%bp, %si),%cl
+mov %fs:0x12(%bp, %di),%cl
 mov %fs:0x12(%si),%cl
 mov %fs:0x12(%di),%cl
 mov %fs:0x12(%bp),%cl
 mov %fs:0x12(%bx),%cl
-mov %fs:-0x1234(%bx,%si),%cl
-mov %fs:-0x1234(%bx,%di),%cl
-mov %fs:-0x1234(%bp,%si),%cl
-mov %fs:-0x1234(%bp,%di),%cl
+mov %fs:-0x1234(%bx, %si),%cl
+mov %fs:-0x1234(%bx, %di),%cl
+mov %fs:-0x1234(%bp, %si),%cl
+mov %fs:-0x1234(%bp, %di),%cl
 mov %fs:-0x1234(%si),%cl
 mov %fs:-0x1234(%di),%cl
 mov %fs:-0x1234(%bp),%cl
 mov %fs:-0x1234(%bx),%cl
-mov %fs:0x1234(%bx,%si),%cl
-mov %fs:0x1234(%bx,%di),%cl
-mov %fs:0x1234(%bp,%si),%cl
-mov %fs:0x1234(%bp,%di),%cl
+mov %fs:0x1234(%bx, %si),%cl
+mov %fs:0x1234(%bx, %di),%cl
+mov %fs:0x1234(%bp, %si),%cl
+mov %fs:0x1234(%bp, %di),%cl
 mov %fs:0x1234(%si),%cl
 mov %fs:0x1234(%di),%cl
 mov %fs:0x1234(%bp),%cl
 mov %fs:0x1234(%bx),%cl
 arpl %si,%dx
-arpl %bx,(%bx,%si)
+arpl %bx,(%bx, %si)
 vmrun
 addr32 vmrun
 vmload

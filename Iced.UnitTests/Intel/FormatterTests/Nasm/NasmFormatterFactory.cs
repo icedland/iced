@@ -43,6 +43,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			options.SignedImmediateOperands = false;
+			options.SpaceAfterOperandSeparator = false;
 			return new NasmFormatter(options);
 		}
 
@@ -53,6 +54,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;
+			options.SpaceAfterOperandSeparator = true;
 			return new NasmFormatter(options);
 		}
 

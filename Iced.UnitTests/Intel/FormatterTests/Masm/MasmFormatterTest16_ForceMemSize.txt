@@ -83,11 +83,11 @@ ret -5AA6h
 retnd -5AA6h
 ret
 retnd
-les bx,dword ptr [bx+si]
-les ebx,fword ptr [bx+si]
-lds bx,dword ptr [bx+si]
-lds ebx,fword ptr [bx+si]
-enterd -5AA6h,-5Ah
+les bx, dword ptr [bx+si]
+les ebx, fword ptr [bx+si]
+lds bx, dword ptr [bx+si]
+lds ebx, fword ptr [bx+si]
+enterd -5AA6h, -5Ah
 leaved
 loopne 804Ch
 loopne 0000804Dh
@@ -123,21 +123,21 @@ jmp edx
 jmp dword ptr [bx+si]
 push esi
 push dword ptr [bx+si]
-bndmov bnd1,bnd2
-bndmov bnd1,qword ptr [eax]
-bndcl bnd1,edx
-bndcl bnd1,dword ptr [eax]
-bndcu bnd1,edx
-bndcu bnd1,dword ptr [eax]
-bndmov bnd2,bnd1
-bndmov qword ptr [eax],bnd1
-bndmk bnd1,dword ptr [eax]
-bndcn bnd1,edx
-bndcn bnd1,dword ptr [eax]
-vmread esi,ecx
-vmread dword ptr [bx+si],ebx
-vmwrite ecx,esi
-vmwrite ebx,dword ptr [bx+si]
+bndmov bnd1, bnd2
+bndmov bnd1, qword ptr [eax]
+bndcl bnd1, edx
+bndcl bnd1, dword ptr [eax]
+bndcu bnd1, edx
+bndcu bnd1, dword ptr [eax]
+bndmov bnd2, bnd1
+bndmov qword ptr [eax], bnd1
+bndmk bnd1, dword ptr [eax]
+bndcn bnd1, edx
+bndcn bnd1, dword ptr [eax]
+vmread esi, ecx
+vmread dword ptr [bx+si], ebx
+vmwrite ecx, esi
+vmwrite ebx, dword ptr [bx+si]
 jo near ptr 254Eh
 jo near ptr 34132551h
 jno near ptr 254Eh
@@ -174,56 +174,56 @@ pushd fs
 popd fs
 pushd gs
 popd gs
-invept edx,oword ptr [bx+si]
-invvpid edx,oword ptr [bx+si]
-invpcid edx,oword ptr [bx+si]
+invept edx, oword ptr [bx+si]
+invvpid edx, oword ptr [bx+si]
+invpcid edx, oword ptr [bx+si]
 push -5AA6h
 push -5Bh
-ins byte ptr [edi],dx
+ins byte ptr [edi], dx
 insb
-ins word ptr [edi],dx
+ins word ptr [edi], dx
 insw
-ins dword ptr [edi],dx
+ins dword ptr [edi], dx
 insd
-outs dx,byte ptr [esi]
+outs dx, byte ptr [esi]
 outsb
-outs dx,word ptr [esi]
+outs dx, word ptr [esi]
 outsw
-outs dx,dword ptr [esi]
+outs dx, dword ptr [esi]
 outsd
-mov fs,si
-mov ds,word ptr [bx+si]
-mov fs,esi
-mov ds,word ptr [bx+si]
+mov fs, si
+mov ds, word ptr [bx+si]
+mov fs, esi
+mov ds, word ptr [bx+si]
 pop si
 pop word ptr [bx+si]
 nop
-xchg eax,eax
+xchg eax, eax
 pushf
 popf
-mov al,byte ptr ds:[0F0DEh]
-mov al,byte ptr ds:[78563412h]
-mov ax,word ptr ds:[0F0DEh]
-mov ax,word ptr ds:[78563412h]
-mov eax,dword ptr ds:[0F0DEh]
-mov eax,dword ptr ds:[78563412h]
-mov byte ptr ds:[0F0DEh],al
-mov byte ptr ds:[78563412h],al
-mov word ptr ds:[0F0DEh],ax
-mov word ptr ds:[78563412h],ax
-mov dword ptr ds:[0F0DEh],eax
-mov dword ptr ds:[78563412h],eax
-movs byte ptr [edi],byte ptr [esi]
+mov al, byte ptr ds:[0F0DEh]
+mov al, byte ptr ds:[78563412h]
+mov ax, word ptr ds:[0F0DEh]
+mov ax, word ptr ds:[78563412h]
+mov eax, dword ptr ds:[0F0DEh]
+mov eax, dword ptr ds:[78563412h]
+mov byte ptr ds:[0F0DEh], al
+mov byte ptr ds:[78563412h], al
+mov word ptr ds:[0F0DEh], ax
+mov word ptr ds:[78563412h], ax
+mov dword ptr ds:[0F0DEh], eax
+mov dword ptr ds:[78563412h], eax
+movs byte ptr [edi], byte ptr [esi]
 movsb
-movs word ptr [edi],word ptr [esi]
+movs word ptr [edi], word ptr [esi]
 movsw
-movs dword ptr [edi],dword ptr [esi]
+movs dword ptr [edi], dword ptr [esi]
 movsd
-cmps byte ptr [esi],byte ptr [edi]
+cmps byte ptr [esi], byte ptr [edi]
 cmpsb
-cmps word ptr [esi],word ptr [edi]
+cmps word ptr [esi], word ptr [edi]
 cmpsw
-cmps dword ptr [esi],dword ptr [edi]
+cmps dword ptr [esi], dword ptr [edi]
 cmpsd
 stos byte ptr [edi]
 stosb
@@ -245,7 +245,7 @@ scas dword ptr [edi]
 scasd
 xbegin 254Eh
 xbegin 2551h
-enter -5AA6h,-5Ah
+enter -5AA6h, -5Ah
 leave
 retf -5AA6h
 retfd -5AA6h
@@ -253,48 +253,48 @@ retf
 retfd
 iret
 iretd
-rol cl,cl
-rol byte ptr [bx+si],cl
-ror dl,cl
-ror byte ptr [bx+si],cl
-rcl bl,cl
-rcl byte ptr [bx+si],cl
-rcr ah,cl
-rcr byte ptr [bx+si],cl
-shl ch,cl
-shl byte ptr [bx+si],cl
-shr dh,cl
-shr byte ptr [bx+si],cl
-sar al,cl
-sar byte ptr [bx+si],cl
-rol cx,cl
-rol word ptr [bx+si],cl
-rol ecx,cl
-rol dword ptr [bx+si],cl
-ror dx,cl
-ror word ptr [bx+si],cl
-ror edx,cl
-ror dword ptr [bx+si],cl
-rcl bx,cl
-rcl word ptr [bx+si],cl
-rcl ebx,cl
-rcl dword ptr [bx+si],cl
-rcr sp,cl
-rcr word ptr [bx+si],cl
-rcr esp,cl
-rcr dword ptr [bx+si],cl
-shl bp,cl
-shl word ptr [bx+si],cl
-shl ebp,cl
-shl dword ptr [bx+si],cl
-shr si,cl
-shr word ptr [bx+si],cl
-shr esi,cl
-shr dword ptr [bx+si],cl
-sar ax,cl
-sar word ptr [bx+si],cl
-sar eax,cl
-sar dword ptr [bx+si],cl
+rol cl, cl
+rol byte ptr [bx+si], cl
+ror dl, cl
+ror byte ptr [bx+si], cl
+rcl bl, cl
+rcl byte ptr [bx+si], cl
+rcr ah, cl
+rcr byte ptr [bx+si], cl
+shl ch, cl
+shl byte ptr [bx+si], cl
+shr dh, cl
+shr byte ptr [bx+si], cl
+sar al, cl
+sar byte ptr [bx+si], cl
+rol cx, cl
+rol word ptr [bx+si], cl
+rol ecx, cl
+rol dword ptr [bx+si], cl
+ror dx, cl
+ror word ptr [bx+si], cl
+ror edx, cl
+ror dword ptr [bx+si], cl
+rcl bx, cl
+rcl word ptr [bx+si], cl
+rcl ebx, cl
+rcl dword ptr [bx+si], cl
+rcr sp, cl
+rcr word ptr [bx+si], cl
+rcr esp, cl
+rcr dword ptr [bx+si], cl
+shl bp, cl
+shl word ptr [bx+si], cl
+shl ebp, cl
+shl dword ptr [bx+si], cl
+shr si, cl
+shr word ptr [bx+si], cl
+shr esi, cl
+shr dword ptr [bx+si], cl
+sar ax, cl
+sar word ptr [bx+si], cl
+sar eax, cl
+sar dword ptr [bx+si], cl
 fldcw word ptr [bx+si]
 fnstcw word ptr [bx+si]
 fnstsw word ptr [bx+si]
@@ -312,103 +312,103 @@ lgdt fword ptr [bx+si]
 lgdtd fword ptr [bx+si]
 lidt fword ptr [bx+si]
 lidtd fword ptr [bx+si]
-lar cx,si
-lar bx,word ptr [bx+si]
-lar ecx,esi
-lar ebx,word ptr [bx+si]
-lsl cx,si
-lsl bx,word ptr [bx+si]
-lsl ecx,esi
-lsl ebx,word ptr [bx+si]
-bndldx bnd1,dword ptr [eax]
-bndstx dword ptr [eax],bnd1
-kmovw k2,k3
-kmovw k1,word ptr [bx+si]
-kmovb k2,k3
-kmovb k1,byte ptr [bx+si]
-kmovd k2,k3
-kmovd k1,dword ptr [bx+si]
-kmovw word ptr [bx+si],k1
-kmovb byte ptr [bx+si],k1
-kmovd dword ptr [bx+si],k1
-kmovw k2,ebx
-kmovb k2,ebx
-kmovd k2,ebx
-kmovw edx,k3
-kmovb edx,k3
-kmovd edx,k3
-kortestw k2,k3
-kortestq k2,k3
-kortestb k2,k3
-kortestd k2,k3
-ktestw k2,k3
-ktestq k2,k3
-ktestb k2,k3
-ktestd k2,k3
+lar cx, si
+lar bx, word ptr [bx+si]
+lar ecx, esi
+lar ebx, word ptr [bx+si]
+lsl cx, si
+lsl bx, word ptr [bx+si]
+lsl ecx, esi
+lsl ebx, word ptr [bx+si]
+bndldx bnd1, dword ptr [eax]
+bndstx dword ptr [eax], bnd1
+kmovw k2, k3
+kmovw k1, word ptr [bx+si]
+kmovb k2, k3
+kmovb k1, byte ptr [bx+si]
+kmovd k2, k3
+kmovd k1, dword ptr [bx+si]
+kmovw word ptr [bx+si], k1
+kmovb byte ptr [bx+si], k1
+kmovd dword ptr [bx+si], k1
+kmovw k2, ebx
+kmovb k2, ebx
+kmovd k2, ebx
+kmovw edx, k3
+kmovb edx, k3
+kmovd edx, k3
+kortestw k2, k3
+kortestq k2, k3
+kortestb k2, k3
+kortestd k2, k3
+ktestw k2, k3
+ktestq k2, k3
+ktestb k2, k3
+ktestd k2, k3
 push fs
 pop fs
-shld si,cx,cl
-shld word ptr [bx+si],bx,cl
-shld esi,ecx,cl
-shld dword ptr [bx+si],ebx,cl
+shld si, cx, cl
+shld word ptr [bx+si], bx, cl
+shld esi, ecx, cl
+shld dword ptr [bx+si], ebx, cl
 push gs
 pop gs
-shrd si,cx,cl
-shrd word ptr [bx+si],bx,cl
-shrd esi,ecx,cl
-shrd dword ptr [bx+si],ebx,cl
-lss bx,dword ptr [bx+si]
-lss ebx,fword ptr [bx+si]
-lfs bx,dword ptr [bx+si]
-lfs ebx,fword ptr [bx+si]
-lgs bx,dword ptr [bx+si]
-lgs ebx,fword ptr [bx+si]
-movzx cx,dh
-movzx bx,byte ptr [bx+si]
-movzx ecx,dh
-movzx ebx,byte ptr [bx+si]
-movzx cx,si
-movzx bx,word ptr [bx+si]
-movzx ecx,si
-movzx ebx,word ptr [bx+si]
-movsx cx,dh
-movsx bx,byte ptr [bx+si]
-movsx ecx,dh
-movsx ebx,byte ptr [bx+si]
-movsx cx,si
-movsx bx,word ptr [bx+si]
-movsx ecx,si
-movsx ebx,word ptr [bx+si]
+shrd si, cx, cl
+shrd word ptr [bx+si], bx, cl
+shrd esi, ecx, cl
+shrd dword ptr [bx+si], ebx, cl
+lss bx, dword ptr [bx+si]
+lss ebx, fword ptr [bx+si]
+lfs bx, dword ptr [bx+si]
+lfs ebx, fword ptr [bx+si]
+lgs bx, dword ptr [bx+si]
+lgs ebx, fword ptr [bx+si]
+movzx cx, dh
+movzx bx, byte ptr [bx+si]
+movzx ecx, dh
+movzx ebx, byte ptr [bx+si]
+movzx cx, si
+movzx bx, word ptr [bx+si]
+movzx ecx, si
+movzx ebx, word ptr [bx+si]
+movsx cx, dh
+movsx bx, byte ptr [bx+si]
+movsx ecx, dh
+movsx ebx, byte ptr [bx+si]
+movsx cx, si
+movsx bx, word ptr [bx+si]
+movsx ecx, si
+movsx ebx, word ptr [bx+si]
 cmpxchg8b qword ptr [bx+si]
-crc32 ecx,dh
-crc32 ebx,byte ptr [bx+si]
-crc32 ecx,si
-crc32 ebx,word ptr [bx+si]
-crc32 ecx,esi
-crc32 ebx,dword ptr [bx+si]
-maskmovq mmword ptr [edi],mm2,mm3
-maskmovq mm2,mm3
-maskmovdqu xmmword ptr [edi],xmm2,xmm3
-maskmovdqu xmm2,xmm3
-vmaskmovdqu xmmword ptr [edi],xmm2,xmm3
-vmaskmovdqu xmm2,xmm3
-outs dx,byte ptr fs:[si]
-outs dx,word ptr fs:[si]
-outs dx,dword ptr fs:[si]
-movs byte ptr es:[di],byte ptr fs:[si]
-movs word ptr es:[di],word ptr fs:[si]
-movs dword ptr es:[di],dword ptr fs:[si]
-cmps byte ptr fs:[si],byte ptr es:[di]
-cmps word ptr fs:[si],word ptr es:[di]
-cmps dword ptr fs:[si],dword ptr es:[di]
+crc32 ecx, dh
+crc32 ebx, byte ptr [bx+si]
+crc32 ecx, si
+crc32 ebx, word ptr [bx+si]
+crc32 ecx, esi
+crc32 ebx, dword ptr [bx+si]
+maskmovq mmword ptr [edi], mm2, mm3
+maskmovq mm2, mm3
+maskmovdqu xmmword ptr [edi], xmm2, xmm3
+maskmovdqu xmm2, xmm3
+vmaskmovdqu xmmword ptr [edi], xmm2, xmm3
+vmaskmovdqu xmm2, xmm3
+outs dx, byte ptr fs:[si]
+outs dx, word ptr fs:[si]
+outs dx, dword ptr fs:[si]
+movs byte ptr es:[di], byte ptr fs:[si]
+movs word ptr es:[di], word ptr fs:[si]
+movs dword ptr es:[di], dword ptr fs:[si]
+cmps byte ptr fs:[si], byte ptr es:[di]
+cmps word ptr fs:[si], word ptr es:[di]
+cmps dword ptr fs:[si], dword ptr es:[di]
 lods byte ptr fs:[si]
 lods word ptr fs:[si]
 lods dword ptr fs:[si]
 xlat byte ptr [ebx]
 xlat byte ptr fs:[bx]
-maskmovq mmword ptr fs:[di],mm2,mm3
-maskmovdqu xmmword ptr fs:[di],xmm2,xmm3
-vmaskmovdqu xmmword ptr fs:[di],xmm2,xmm3
+maskmovq mmword ptr fs:[di], mm2, mm3
+maskmovdqu xmmword ptr fs:[di], xmm2, xmm3
+vmaskmovdqu xmmword ptr fs:[di], xmm2, xmm3
 xlatb
 aam
 aad
@@ -422,114 +422,114 @@ frstor [bx+si]
 frstor fpustate108 ptr [bx+si]
 fnsave [bx+si]
 fnsave fpustate108 ptr [bx+si]
-monitor ax,ecx,edx
-monitor eax,ecx,edx
-mwait ax,ecx
-mov al,byte ptr fs:[0F0DEh]
-mov al,byte ptr fs:[78563412h]
-mov ax,word ptr fs:[0F0DEh]
-mov ax,word ptr fs:[78563412h]
-mov eax,dword ptr fs:[0F0DEh]
-mov eax,dword ptr fs:[78563412h]
-mov byte ptr fs:[0F0DEh],al
-mov byte ptr fs:[78563412h],al
-mov word ptr fs:[0F0DEh],ax
-mov word ptr fs:[78563412h],ax
-mov dword ptr fs:[0F0DEh],eax
-mov dword ptr fs:[78563412h],eax
-mov cl,byte ptr [bx+si]
-mov cl,byte ptr [bx+di]
-mov cl,byte ptr [bp+si]
-mov cl,byte ptr [bp+di]
-mov cl,byte ptr [si]
-mov cl,byte ptr [di]
-mov cl,byte ptr ds:[0EDCCh]
-mov cl,byte ptr ds:[1234h]
-mov cl,byte ptr [bx]
-mov cl,byte ptr [bx+si-12h]
-mov cl,byte ptr [bx+di-12h]
-mov cl,byte ptr [bp+si-12h]
-mov cl,byte ptr [bp+di-12h]
-mov cl,byte ptr [si-12h]
-mov cl,byte ptr [di-12h]
-mov cl,byte ptr [bp-12h]
-mov cl,byte ptr [bx-12h]
-mov cl,byte ptr [bx+si+12h]
-mov cl,byte ptr [bx+di+12h]
-mov cl,byte ptr [bp+si+12h]
-mov cl,byte ptr [bp+di+12h]
-mov cl,byte ptr [si+12h]
-mov cl,byte ptr [di+12h]
-mov cl,byte ptr [bp+12h]
-mov cl,byte ptr [bx+12h]
-mov cl,byte ptr [bx+si-1234h]
-mov cl,byte ptr [bx+di-1234h]
-mov cl,byte ptr [bp+si-1234h]
-mov cl,byte ptr [bp+di-1234h]
-mov cl,byte ptr [si-1234h]
-mov cl,byte ptr [di-1234h]
-mov cl,byte ptr [bp-1234h]
-mov cl,byte ptr [bx-1234h]
-mov cl,byte ptr [bx+si+1234h]
-mov cl,byte ptr [bx+di+1234h]
-mov cl,byte ptr [bp+si+1234h]
-mov cl,byte ptr [bp+di+1234h]
-mov cl,byte ptr [si+1234h]
-mov cl,byte ptr [di+1234h]
-mov cl,byte ptr [bp+1234h]
-mov cl,byte ptr [bx+1234h]
-mov cl,byte ptr fs:[bx+si]
-mov cl,byte ptr fs:[bx+di]
-mov cl,byte ptr fs:[bp+si]
-mov cl,byte ptr fs:[bp+di]
-mov cl,byte ptr fs:[si]
-mov cl,byte ptr fs:[di]
-mov cl,byte ptr fs:[0EDCCh]
-mov cl,byte ptr fs:[1234h]
-mov cl,byte ptr fs:[bx]
-mov cl,byte ptr fs:[bx+si-12h]
-mov cl,byte ptr fs:[bx+di-12h]
-mov cl,byte ptr fs:[bp+si-12h]
-mov cl,byte ptr fs:[bp+di-12h]
-mov cl,byte ptr fs:[si-12h]
-mov cl,byte ptr fs:[di-12h]
-mov cl,byte ptr fs:[bp-12h]
-mov cl,byte ptr fs:[bx-12h]
-mov cl,byte ptr fs:[bx+si+12h]
-mov cl,byte ptr fs:[bx+di+12h]
-mov cl,byte ptr fs:[bp+si+12h]
-mov cl,byte ptr fs:[bp+di+12h]
-mov cl,byte ptr fs:[si+12h]
-mov cl,byte ptr fs:[di+12h]
-mov cl,byte ptr fs:[bp+12h]
-mov cl,byte ptr fs:[bx+12h]
-mov cl,byte ptr fs:[bx+si-1234h]
-mov cl,byte ptr fs:[bx+di-1234h]
-mov cl,byte ptr fs:[bp+si-1234h]
-mov cl,byte ptr fs:[bp+di-1234h]
-mov cl,byte ptr fs:[si-1234h]
-mov cl,byte ptr fs:[di-1234h]
-mov cl,byte ptr fs:[bp-1234h]
-mov cl,byte ptr fs:[bx-1234h]
-mov cl,byte ptr fs:[bx+si+1234h]
-mov cl,byte ptr fs:[bx+di+1234h]
-mov cl,byte ptr fs:[bp+si+1234h]
-mov cl,byte ptr fs:[bp+di+1234h]
-mov cl,byte ptr fs:[si+1234h]
-mov cl,byte ptr fs:[di+1234h]
-mov cl,byte ptr fs:[bp+1234h]
-mov cl,byte ptr fs:[bx+1234h]
-arpl dx,si
-arpl word ptr [bx+si],bx
+monitor ax, ecx, edx
+monitor eax, ecx, edx
+mwait ax, ecx
+mov al, byte ptr fs:[0F0DEh]
+mov al, byte ptr fs:[78563412h]
+mov ax, word ptr fs:[0F0DEh]
+mov ax, word ptr fs:[78563412h]
+mov eax, dword ptr fs:[0F0DEh]
+mov eax, dword ptr fs:[78563412h]
+mov byte ptr fs:[0F0DEh], al
+mov byte ptr fs:[78563412h], al
+mov word ptr fs:[0F0DEh], ax
+mov word ptr fs:[78563412h], ax
+mov dword ptr fs:[0F0DEh], eax
+mov dword ptr fs:[78563412h], eax
+mov cl, byte ptr [bx+si]
+mov cl, byte ptr [bx+di]
+mov cl, byte ptr [bp+si]
+mov cl, byte ptr [bp+di]
+mov cl, byte ptr [si]
+mov cl, byte ptr [di]
+mov cl, byte ptr ds:[0EDCCh]
+mov cl, byte ptr ds:[1234h]
+mov cl, byte ptr [bx]
+mov cl, byte ptr [bx+si-12h]
+mov cl, byte ptr [bx+di-12h]
+mov cl, byte ptr [bp+si-12h]
+mov cl, byte ptr [bp+di-12h]
+mov cl, byte ptr [si-12h]
+mov cl, byte ptr [di-12h]
+mov cl, byte ptr [bp-12h]
+mov cl, byte ptr [bx-12h]
+mov cl, byte ptr [bx+si+12h]
+mov cl, byte ptr [bx+di+12h]
+mov cl, byte ptr [bp+si+12h]
+mov cl, byte ptr [bp+di+12h]
+mov cl, byte ptr [si+12h]
+mov cl, byte ptr [di+12h]
+mov cl, byte ptr [bp+12h]
+mov cl, byte ptr [bx+12h]
+mov cl, byte ptr [bx+si-1234h]
+mov cl, byte ptr [bx+di-1234h]
+mov cl, byte ptr [bp+si-1234h]
+mov cl, byte ptr [bp+di-1234h]
+mov cl, byte ptr [si-1234h]
+mov cl, byte ptr [di-1234h]
+mov cl, byte ptr [bp-1234h]
+mov cl, byte ptr [bx-1234h]
+mov cl, byte ptr [bx+si+1234h]
+mov cl, byte ptr [bx+di+1234h]
+mov cl, byte ptr [bp+si+1234h]
+mov cl, byte ptr [bp+di+1234h]
+mov cl, byte ptr [si+1234h]
+mov cl, byte ptr [di+1234h]
+mov cl, byte ptr [bp+1234h]
+mov cl, byte ptr [bx+1234h]
+mov cl, byte ptr fs:[bx+si]
+mov cl, byte ptr fs:[bx+di]
+mov cl, byte ptr fs:[bp+si]
+mov cl, byte ptr fs:[bp+di]
+mov cl, byte ptr fs:[si]
+mov cl, byte ptr fs:[di]
+mov cl, byte ptr fs:[0EDCCh]
+mov cl, byte ptr fs:[1234h]
+mov cl, byte ptr fs:[bx]
+mov cl, byte ptr fs:[bx+si-12h]
+mov cl, byte ptr fs:[bx+di-12h]
+mov cl, byte ptr fs:[bp+si-12h]
+mov cl, byte ptr fs:[bp+di-12h]
+mov cl, byte ptr fs:[si-12h]
+mov cl, byte ptr fs:[di-12h]
+mov cl, byte ptr fs:[bp-12h]
+mov cl, byte ptr fs:[bx-12h]
+mov cl, byte ptr fs:[bx+si+12h]
+mov cl, byte ptr fs:[bx+di+12h]
+mov cl, byte ptr fs:[bp+si+12h]
+mov cl, byte ptr fs:[bp+di+12h]
+mov cl, byte ptr fs:[si+12h]
+mov cl, byte ptr fs:[di+12h]
+mov cl, byte ptr fs:[bp+12h]
+mov cl, byte ptr fs:[bx+12h]
+mov cl, byte ptr fs:[bx+si-1234h]
+mov cl, byte ptr fs:[bx+di-1234h]
+mov cl, byte ptr fs:[bp+si-1234h]
+mov cl, byte ptr fs:[bp+di-1234h]
+mov cl, byte ptr fs:[si-1234h]
+mov cl, byte ptr fs:[di-1234h]
+mov cl, byte ptr fs:[bp-1234h]
+mov cl, byte ptr fs:[bx-1234h]
+mov cl, byte ptr fs:[bx+si+1234h]
+mov cl, byte ptr fs:[bx+di+1234h]
+mov cl, byte ptr fs:[bp+si+1234h]
+mov cl, byte ptr fs:[bp+di+1234h]
+mov cl, byte ptr fs:[si+1234h]
+mov cl, byte ptr fs:[di+1234h]
+mov cl, byte ptr fs:[bp+1234h]
+mov cl, byte ptr fs:[bx+1234h]
+arpl dx, si
+arpl word ptr [bx+si], bx
 vmrun ax
 vmrun eax
 vmload ax
 vmload eax
 vmsave ax
 vmsave eax
-invlpga ax,ecx
-invlpga eax,ecx
-monitorx ax,ecx,edx
-monitorx eax,ecx,edx
+invlpga ax, ecx
+invlpga eax, ecx
+monitorx ax, ecx, edx
+monitorx eax, ecx, edx
 clzero
 clzero

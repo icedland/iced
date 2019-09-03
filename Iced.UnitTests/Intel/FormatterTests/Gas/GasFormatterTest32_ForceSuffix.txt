@@ -91,10 +91,10 @@ pushaw
 pushal
 popaw
 popal
-boundw bx,(eax)
-boundl ebx,(eax)
-arpl si,dx
-arpl bx,(eax)
+boundw bx, (eax)
+boundl ebx, (eax)
+arpl si, dx
+arpl bx, (eax)
 pushl $0x3412a55a
 pushl $-0x5b
 data16 jo 0x004d
@@ -131,8 +131,8 @@ data16 jg 0x004d
 jg 0x8000004c
 popl esi
 popl (eax)
-lcallw $0x7856,$0x3412
-lcalll $0xbc9a,$0x78563412
+lcallw $0x7856, $0x3412
+lcalll $0xbc9a, $0x78563412
 pushfl
 popfl
 retw $-0x5aa6
@@ -143,11 +143,11 @@ rep retw $-0x5aa6
 rep retl $-0x5aa6
 rep retw
 rep retl
-lesw (eax),bx
-lesl (eax),ebx
-ldsw (eax),bx
-ldsl (eax),ebx
-enterl $-0x5aa6,$-0x5a
+lesw (eax), bx
+lesl (eax), ebx
+ldsw (eax), bx
+ldsl (eax), ebx
+enterl $-0x5aa6, $-0x5a
 leavel
 into
 aam
@@ -172,8 +172,8 @@ callw 0xa54e
 calll 0x255a3407
 data16 jmp 0xa54e
 jmp 0x255a3407
-ljmpw $0x7856,$0x3412
-ljmpl $0xbcea,$0x78563412
+ljmpw $0x7856, $0x3412
+ljmpl $0xbcea, $0x78563412
 data16 jmp 0x004d
 jmp 0x8000004c
 callw *cx
@@ -186,25 +186,25 @@ jmpl *edx
 jmpl *(eax)
 pushl esi
 pushl (eax)
-bndmov bnd2,bnd1
-bndmov (eax),bnd1
-bndcl edx,bnd1
-bndcl (eax),bnd1
-bndcu edx,bnd1
-bndcu (eax),bnd1
-bndmov bnd1,bnd2
-bndmov bnd1,(eax)
-bndmk (eax),bnd1
-bndcn edx,bnd1
-bndcn (eax),bnd1
-movl cr3,esi
-movl dr3,esi
-movl esi,cr3
-movl esi,dr3
-vmreadl ecx,esi
-vmreadl ebx,(eax)
-vmwritel esi,ecx
-vmwritel (eax),ebx
+bndmov bnd2, bnd1
+bndmov (eax), bnd1
+bndcl edx, bnd1
+bndcl (eax), bnd1
+bndcu edx, bnd1
+bndcu (eax), bnd1
+bndmov bnd1, bnd2
+bndmov bnd1, (eax)
+bndmk (eax), bnd1
+bndcn edx, bnd1
+bndcn (eax), bnd1
+movl cr3, esi
+movl dr3, esi
+movl esi, cr3
+movl esi, dr3
+vmreadl ecx, esi
+vmreadl ebx, (eax)
+vmwritel esi, ecx
+vmwritel (eax), ebx
 data16 jo 0xa54f
 jo 0xb412a550
 data16 jno 0xa54f
@@ -242,79 +242,79 @@ popl fs
 pushl gs
 popl gs
 rdpid edx
-invept (eax),edx
-invvpid (eax),edx
-invpcid (eax),edx
+invept (eax), edx
+invvpid (eax), edx
+invpcid (eax), edx
 salc
 pushw $-0x5aa6
 pushw $-0x5b
-insb dx,(di)
-insb dx,(edi)
-insw dx,(di)
-insw dx,(edi)
-insl dx,(di)
-insl dx,(edi)
-outsb (si),dx
-outsb (esi),dx
-outsw (si),dx
-outsw (esi),dx
-outsl (si),dx
-outsl (esi),dx
-movw si,fs
-data16 mov (eax),ds
-movl esi,fs
-mov (eax),ds
+insb dx, (di)
+insb dx, (edi)
+insw dx, (di)
+insw dx, (edi)
+insl dx, (di)
+insl dx, (edi)
+outsb (si), dx
+outsb (esi), dx
+outsw (si), dx
+outsw (esi), dx
+outsl (si), dx
+outsl (esi), dx
+movw si, fs
+data16 mov (eax), ds
+movl esi, fs
+mov (eax), ds
 popw si
 popw (eax)
-xchgw ax,ax
+xchgw ax, ax
 nop
 pushfw
 popfw
-movb 0xf0debc9a,al
-addr16 movb 0xf0de,al
-movw 0xf0debc9a,ax
-addr16 movw 0xf0de,ax
-movl 0xf0debc9a,eax
-addr16 movl 0xf0de,eax
-movb al,0xf0debc9a
-addr16 movb al,0xf0de
-movw ax,0xf0debc9a
-addr16 movw ax,0xf0de
-movl eax,0xf0debc9a
-addr16 movl eax,0xf0de
-movsb (si),(di)
-movsb (esi),(edi)
-movsw (si),(di)
-movsw (esi),(edi)
-movsl (si),(di)
-movsl (esi),(edi)
-cmpsb (di),(si)
-cmpsb (edi),(esi)
-cmpsw (di),(si)
-cmpsw (edi),(esi)
-cmpsl (di),(si)
-cmpsl (edi),(esi)
-stosb al,(di)
-stosb al,(edi)
-stosw ax,(di)
-stosw ax,(edi)
-stosl eax,(di)
-stosl eax,(edi)
-lodsb (si),al
-lodsb (esi),al
-lodsw (si),ax
-lodsw (esi),ax
-lodsl (si),eax
-lodsl (esi),eax
-scasb (di),al
-scasb (edi),al
-scasw (di),ax
-scasw (edi),ax
-scasl (di),eax
-scasl (edi),eax
+movb 0xf0debc9a, al
+addr16 movb 0xf0de, al
+movw 0xf0debc9a, ax
+addr16 movw 0xf0de, ax
+movl 0xf0debc9a, eax
+addr16 movl 0xf0de, eax
+movb al, 0xf0debc9a
+addr16 movb al, 0xf0de
+movw ax, 0xf0debc9a
+addr16 movw ax, 0xf0de
+movl eax, 0xf0debc9a
+addr16 movl eax, 0xf0de
+movsb (si), (di)
+movsb (esi), (edi)
+movsw (si), (di)
+movsw (esi), (edi)
+movsl (si), (di)
+movsl (esi), (edi)
+cmpsb (di), (si)
+cmpsb (edi), (esi)
+cmpsw (di), (si)
+cmpsw (edi), (esi)
+cmpsl (di), (si)
+cmpsl (edi), (esi)
+stosb al, (di)
+stosb al, (edi)
+stosw ax, (di)
+stosw ax, (edi)
+stosl eax, (di)
+stosl eax, (edi)
+lodsb (si), al
+lodsb (esi), al
+lodsw (si), ax
+lodsw (esi), ax
+lodsl (si), eax
+lodsl (esi), eax
+scasb (di), al
+scasb (edi), al
+scasw (di), ax
+scasw (edi), ax
+scasl (di), eax
+scasl (edi), eax
 data16 xbegin 0x7fffa54f
 xbegin 0xb412a550
-enterw $-0x5aa6,$-0x5a
+enterw $-0x5aa6, $-0x5a
 leavew
 lretw $-0x5aa6
 lretl $-0x5aa6
@@ -322,48 +322,48 @@ lretw
 lretl
 iretw
 iretl
-rolb cl,cl
-rolb cl,(eax)
-rorb cl,dl
-rorb cl,(eax)
-rclb cl,bl
-rclb cl,(eax)
-rcrb cl,ah
-rcrb cl,(eax)
-shlb cl,ch
-shlb cl,(eax)
-shrb cl,dh
-shrb cl,(eax)
-sarb cl,al
-sarb cl,(eax)
-rolw cl,cx
-rolw cl,(eax)
-roll cl,ecx
-roll cl,(eax)
-rorw cl,dx
-rorw cl,(eax)
-rorl cl,edx
-rorl cl,(eax)
-rclw cl,bx
-rclw cl,(eax)
-rcll cl,ebx
-rcll cl,(eax)
-rcrw cl,sp
-rcrw cl,(eax)
-rcrl cl,esp
-rcrl cl,(eax)
-shlw cl,bp
-shlw cl,(eax)
-shll cl,ebp
-shll cl,(eax)
-shrw cl,si
-shrw cl,(eax)
-shrl cl,esi
-shrl cl,(eax)
-sarw cl,ax
-sarw cl,(eax)
-sarl cl,eax
-sarl cl,(eax)
+rolb cl, cl
+rolb cl, (eax)
+rorb cl, dl
+rorb cl, (eax)
+rclb cl, bl
+rclb cl, (eax)
+rcrb cl, ah
+rcrb cl, (eax)
+shlb cl, ch
+shlb cl, (eax)
+shrb cl, dh
+shrb cl, (eax)
+sarb cl, al
+sarb cl, (eax)
+rolw cl, cx
+rolw cl, (eax)
+roll cl, ecx
+roll cl, (eax)
+rorw cl, dx
+rorw cl, (eax)
+rorl cl, edx
+rorl cl, (eax)
+rclw cl, bx
+rclw cl, (eax)
+rcll cl, ebx
+rcll cl, (eax)
+rcrw cl, sp
+rcrw cl, (eax)
+rcrl cl, esp
+rcrl cl, (eax)
+shlw cl, bp
+shlw cl, (eax)
+shll cl, ebp
+shll cl, (eax)
+shrw cl, si
+shrw cl, (eax)
+shrl cl, esi
+shrl cl, (eax)
+sarw cl, ax
+sarw cl, (eax)
+sarl cl, eax
+sarl cl, (eax)
 fldcw (eax)
 fnstcw (eax)
 fnstsw (eax)
@@ -381,103 +381,103 @@ lgdtw (eax)
 lgdtl (eax)
 lidtw (eax)
 lidtl (eax)
-larw si,cx
-larw (eax),bx
-larl esi,ecx
-larl (eax),ebx
-lslw si,cx
-lslw (eax),bx
-lsll esi,ecx
-lsll (eax),ebx
-bndldx (eax),bnd1
-bndstx bnd1,(eax)
-kmovw k3,k2
-kmovw (eax),k1
-kmovb k3,k2
-kmovb (eax),k1
-kmovd k3,k2
-kmovd (eax),k1
-kmovw k1,(eax)
-kmovb k1,(eax)
-kmovd k1,(eax)
-kmovw ebx,k2
-kmovb ebx,k2
-kmovd ebx,k2
-kmovw k3,edx
-kmovb k3,edx
-kmovd k3,edx
-kortestw k3,k2
-kortestq k3,k2
-kortestb k3,k2
-kortestd k3,k2
-ktestw k3,k2
-ktestq k3,k2
-ktestb k3,k2
-ktestd k3,k2
+larw si, cx
+larw (eax), bx
+larl esi, ecx
+larl (eax), ebx
+lslw si, cx
+lslw (eax), bx
+lsll esi, ecx
+lsll (eax), ebx
+bndldx (eax), bnd1
+bndstx bnd1, (eax)
+kmovw k3, k2
+kmovw (eax), k1
+kmovb k3, k2
+kmovb (eax), k1
+kmovd k3, k2
+kmovd (eax), k1
+kmovw k1, (eax)
+kmovb k1, (eax)
+kmovd k1, (eax)
+kmovw ebx, k2
+kmovb ebx, k2
+kmovd ebx, k2
+kmovw k3, edx
+kmovb k3, edx
+kmovd k3, edx
+kortestw k3, k2
+kortestq k3, k2
+kortestb k3, k2
+kortestd k3, k2
+ktestw k3, k2
+ktestq k3, k2
+ktestb k3, k2
+ktestd k3, k2
 pushw fs
 popw fs
-shldw cl,cx,si
-shldw cl,bx,(eax)
-shldl cl,ecx,esi
-shldl cl,ebx,(eax)
+shldw cl, cx, si
+shldw cl, bx, (eax)
+shldl cl, ecx, esi
+shldl cl, ebx, (eax)
 pushw gs
 popw gs
-shrdw cl,cx,si
-shrdw cl,bx,(eax)
-shrdl cl,ecx,esi
-shrdl cl,ebx,(eax)
-lssw (eax),bx
-lssl (eax),ebx
-lfsw (eax),bx
-lfsl (eax),ebx
-lgsw (eax),bx
-lgsl (eax),ebx
-movzbw dh,cx
-movzbw (eax),bx
-movzbl dh,ecx
-movzbl (eax),ebx
-movzww si,cx
-movzww (eax),bx
-movzwl si,ecx
-movzwl (eax),ebx
-movsbw dh,cx
-movsbw (eax),bx
-movsbl dh,ecx
-movsbl (eax),ebx
-movsww si,cx
-movsww (eax),bx
-movswl si,ecx
-movswl (eax),ebx
+shrdw cl, cx, si
+shrdw cl, bx, (eax)
+shrdl cl, ecx, esi
+shrdl cl, ebx, (eax)
+lssw (eax), bx
+lssl (eax), ebx
+lfsw (eax), bx
+lfsl (eax), ebx
+lgsw (eax), bx
+lgsl (eax), ebx
+movzbw dh, cx
+movzbw (eax), bx
+movzbl dh, ecx
+movzbl (eax), ebx
+movzww si, cx
+movzww (eax), bx
+movzwl si, ecx
+movzwl (eax), ebx
+movsbw dh, cx
+movsbw (eax), bx
+movsbl dh, ecx
+movsbl (eax), ebx
+movsww si, cx
+movsww (eax), bx
+movswl si, ecx
+movswl (eax), ebx
 cmpxchg8b (eax)
-crc32b dh,ecx
-crc32b (eax),ebx
-crc32w si,ecx
-crc32w (eax),ebx
-crc32l esi,ecx
-crc32l (eax),ebx
-addr16 maskmovq mm3,mm2
-maskmovq mm3,mm2
-addr16 maskmovdqu xmm3,xmm2
-maskmovdqu xmm3,xmm2
-addr16 vmaskmovdqu xmm3,xmm2
-vmaskmovdqu xmm3,xmm2
-outsb fs:(esi),dx
-outsw fs:(esi),dx
-outsl fs:(esi),dx
-movsb fs:(esi),es:(edi)
-movsw fs:(esi),es:(edi)
-movsl fs:(esi),es:(edi)
-cmpsb es:(edi),fs:(esi)
-cmpsw es:(edi),fs:(esi)
-cmpsl es:(edi),fs:(esi)
-lodsb fs:(esi),al
-lodsw fs:(esi),ax
-lodsl fs:(esi),eax
+crc32b dh, ecx
+crc32b (eax), ebx
+crc32w si, ecx
+crc32w (eax), ebx
+crc32l esi, ecx
+crc32l (eax), ebx
+addr16 maskmovq mm3, mm2
+maskmovq mm3, mm2
+addr16 maskmovdqu xmm3, xmm2
+maskmovdqu xmm3, xmm2
+addr16 vmaskmovdqu xmm3, xmm2
+vmaskmovdqu xmm3, xmm2
+outsb fs:(esi), dx
+outsw fs:(esi), dx
+outsl fs:(esi), dx
+movsb fs:(esi), es:(edi)
+movsw fs:(esi), es:(edi)
+movsl fs:(esi), es:(edi)
+cmpsb es:(edi), fs:(esi)
+cmpsw es:(edi), fs:(esi)
+cmpsl es:(edi), fs:(esi)
+lodsb fs:(esi), al
+lodsw fs:(esi), ax
+lodsl fs:(esi), eax
 xlatb (bx)
 xlatb fs:(ebx)
-fs maskmovq mm3,mm2
-fs maskmovdqu xmm3,xmm2
-fs vmaskmovdqu xmm3,xmm2
+fs maskmovq mm3, mm2
+fs maskmovdqu xmm3, xmm2
+fs vmaskmovdqu xmm3, xmm2
 xlatb (ebx)
 aam $-6
 aad $-6
@@ -492,88 +492,88 @@ fnsave (eax)
 addr16 monitor
 monitor
 mwait
-movb fs:0xf0debc9a,al
-addr16 movb fs:0xf0de,al
-movw fs:0xf0debc9a,ax
-addr16 movw fs:0xf0de,ax
-movl fs:0xf0debc9a,eax
-addr16 movl fs:0xf0de,eax
-movb al,fs:0xf0debc9a
-addr16 movb al,fs:0xf0de
-movw ax,fs:0xf0debc9a
-addr16 movw ax,fs:0xf0de
-movl eax,fs:0xf0debc9a
-addr16 movl eax,fs:0xf0de
-movb (eax),cl
-movb -0x12(eax),cl
-movb -0x12345678(eax),cl
-movb 0xedcba988,cl
-movb 0x12(eax),cl
-movb 0x12345678(eax),cl
-movb 0x12345678,cl
-movb (eax,ecx),cl
-movb (eax,ecx,2),cl
-movb (eax,ecx,4),cl
-movb (eax,ecx,8),cl
-movb -0x12(eax,ecx),cl
-movb -0x12(eax,ecx,2),cl
-movb -0x12(eax,ecx,4),cl
-movb -0x12(eax,ecx,8),cl
-movb 0x12(eax,ecx),cl
-movb 0x12(eax,ecx,2),cl
-movb 0x12(eax,ecx,4),cl
-movb 0x12(eax,ecx,8),cl
-movb -0x12345678(eax,ecx),cl
-movb -0x12345678(eax,ecx,2),cl
-movb -0x12345678(eax,ecx,4),cl
-movb -0x12345678(eax,ecx,8),cl
-movb 0x12345678(eax,ecx),cl
-movb 0x12345678(eax,ecx,2),cl
-movb 0x12345678(eax,ecx,4),cl
-movb 0x12345678(eax,ecx,8),cl
-movb -0x12345678(,ecx),cl
-movb -0x12(ebp,ecx,2),cl
-movb -0x12345678(ebp,ecx,4),cl
-movb -0x12345678(,ecx,8),cl
-movb 0x12345678(,ecx),cl
-movb 0x12(ebp,ecx,2),cl
-movb 0x12345678(ebp,ecx,4),cl
-movb 0x12345678(,ecx,8),cl
-movb fs:(eax),cl
-movb fs:-0x12(eax),cl
-movb fs:-0x12345678(eax),cl
-movb fs:0xedcba988,cl
-movb fs:0x12(eax),cl
-movb fs:0x12345678(eax),cl
-movb fs:0x12345678,cl
-movb fs:(eax,ecx),cl
-movb fs:(eax,ecx,2),cl
-movb fs:(eax,ecx,4),cl
-movb fs:(eax,ecx,8),cl
-movb fs:-0x12(eax,ecx),cl
-movb fs:-0x12(eax,ecx,2),cl
-movb fs:-0x12(eax,ecx,4),cl
-movb fs:-0x12(eax,ecx,8),cl
-movb fs:0x12(eax,ecx),cl
-movb fs:0x12(eax,ecx,2),cl
-movb fs:0x12(eax,ecx,4),cl
-movb fs:0x12(eax,ecx,8),cl
-movb fs:-0x12345678(eax,ecx),cl
-movb fs:-0x12345678(eax,ecx,2),cl
-movb fs:-0x12345678(eax,ecx,4),cl
-movb fs:-0x12345678(eax,ecx,8),cl
-movb fs:0x12345678(eax,ecx),cl
-movb fs:0x12345678(eax,ecx,2),cl
-movb fs:0x12345678(eax,ecx,4),cl
-movb fs:0x12345678(eax,ecx,8),cl
-movb fs:-0x12345678(,ecx),cl
-movb fs:-0x12(ebp,ecx,2),cl
-movb fs:-0x12345678(ebp,ecx,4),cl
-movb fs:-0x12345678(,ecx,8),cl
-movb fs:0x12345678(,ecx),cl
-movb fs:0x12(ebp,ecx,2),cl
-movb fs:0x12345678(ebp,ecx,4),cl
-movb fs:0x12345678(,ecx,8),cl
+movb fs:0xf0debc9a, al
+addr16 movb fs:0xf0de, al
+movw fs:0xf0debc9a, ax
+addr16 movw fs:0xf0de, ax
+movl fs:0xf0debc9a, eax
+addr16 movl fs:0xf0de, eax
+movb al, fs:0xf0debc9a
+addr16 movb al, fs:0xf0de
+movw ax, fs:0xf0debc9a
+addr16 movw ax, fs:0xf0de
+movl eax, fs:0xf0debc9a
+addr16 movl eax, fs:0xf0de
+movb (eax), cl
+movb -0x12(eax), cl
+movb -0x12345678(eax), cl
+movb 0xedcba988, cl
+movb 0x12(eax), cl
+movb 0x12345678(eax), cl
+movb 0x12345678, cl
+movb (eax,ecx), cl
+movb (eax,ecx,2), cl
+movb (eax,ecx,4), cl
+movb (eax,ecx,8), cl
+movb -0x12(eax,ecx), cl
+movb -0x12(eax,ecx,2), cl
+movb -0x12(eax,ecx,4), cl
+movb -0x12(eax,ecx,8), cl
+movb 0x12(eax,ecx), cl
+movb 0x12(eax,ecx,2), cl
+movb 0x12(eax,ecx,4), cl
+movb 0x12(eax,ecx,8), cl
+movb -0x12345678(eax,ecx), cl
+movb -0x12345678(eax,ecx,2), cl
+movb -0x12345678(eax,ecx,4), cl
+movb -0x12345678(eax,ecx,8), cl
+movb 0x12345678(eax,ecx), cl
+movb 0x12345678(eax,ecx,2), cl
+movb 0x12345678(eax,ecx,4), cl
+movb 0x12345678(eax,ecx,8), cl
+movb -0x12345678(,ecx), cl
+movb -0x12(ebp,ecx,2), cl
+movb -0x12345678(ebp,ecx,4), cl
+movb -0x12345678(,ecx,8), cl
+movb 0x12345678(,ecx), cl
+movb 0x12(ebp,ecx,2), cl
+movb 0x12345678(ebp,ecx,4), cl
+movb 0x12345678(,ecx,8), cl
+movb fs:(eax), cl
+movb fs:-0x12(eax), cl
+movb fs:-0x12345678(eax), cl
+movb fs:0xedcba988, cl
+movb fs:0x12(eax), cl
+movb fs:0x12345678(eax), cl
+movb fs:0x12345678, cl
+movb fs:(eax,ecx), cl
+movb fs:(eax,ecx,2), cl
+movb fs:(eax,ecx,4), cl
+movb fs:(eax,ecx,8), cl
+movb fs:-0x12(eax,ecx), cl
+movb fs:-0x12(eax,ecx,2), cl
+movb fs:-0x12(eax,ecx,4), cl
+movb fs:-0x12(eax,ecx,8), cl
+movb fs:0x12(eax,ecx), cl
+movb fs:0x12(eax,ecx,2), cl
+movb fs:0x12(eax,ecx,4), cl
+movb fs:0x12(eax,ecx,8), cl
+movb fs:-0x12345678(eax,ecx), cl
+movb fs:-0x12345678(eax,ecx,2), cl
+movb fs:-0x12345678(eax,ecx,4), cl
+movb fs:-0x12345678(eax,ecx,8), cl
+movb fs:0x12345678(eax,ecx), cl
+movb fs:0x12345678(eax,ecx,2), cl
+movb fs:0x12345678(eax,ecx,4), cl
+movb fs:0x12345678(eax,ecx,8), cl
+movb fs:-0x12345678(,ecx), cl
+movb fs:-0x12(ebp,ecx,2), cl
+movb fs:-0x12345678(ebp,ecx,4), cl
+movb fs:-0x12345678(,ecx,8), cl
+movb fs:0x12345678(,ecx), cl
+movb fs:0x12(ebp,ecx,2), cl
+movb fs:0x12345678(ebp,ecx,4), cl
+movb fs:0x12345678(,ecx,8), cl
 addr16 vmrun
 vmrun
 addr16 vmload
@@ -587,22 +587,22 @@ monitorx
 addr16 clzero
 clzero
 rdpru
-addb $0x5a,cl
-addb $0x5a,(eax)
-orb $-0x5b,dl
-orb $-0x5b,(eax)
-adcb $0x5a,bl
-adcb $0x5a,(eax)
-sbbb $-0x5b,ah
-sbbb $-0x5b,(eax)
-andb $0x5a,ch
-andb $0x5a,(eax)
-subb $-0x5b,dh
-subb $-0x5b,(eax)
-xorb $0x5a,bh
-xorb $0x5a,(eax)
-cmpb $-0x5b,al
-cmpb $-0x5b,(eax)
+addb $0x5a, cl
+addb $0x5a, (eax)
+orb $-0x5b, dl
+orb $-0x5b, (eax)
+adcb $0x5a, bl
+adcb $0x5a, (eax)
+sbbb $-0x5b, ah
+sbbb $-0x5b, (eax)
+andb $0x5a, ch
+andb $0x5a, (eax)
+subb $-0x5b, dh
+subb $-0x5b, (eax)
+xorb $0x5a, bh
+xorb $0x5a, (eax)
+cmpb $-0x5b, al
+cmpb $-0x5b, (eax)
 frstpm
 fstdw ax
 fstsg ax
@@ -613,52 +613,52 @@ jmpel *(eax)
 loadallreset286
 loadall286
 loadall386
-umovb cl,dh
-umovb bl,(eax)
-umovw cx,si
-umovw bx,(eax)
-umovl ecx,esi
-umovl ebx,(eax)
-umovb dh,cl
-umovb (eax),bl
-umovw si,cx
-umovw (eax),bx
-umovl esi,ecx
-umovl (eax),ebx
-movl tr3,esi
-movl esi,tr3
-xbtsw si,cx
-xbtsw (eax),bx
-xbtsl esi,ecx
-xbtsl (eax),ebx
-ibtsw cx,si
-ibtsw bx,(eax)
-ibtsl ecx,esi
-ibtsl ebx,(eax)
-cmpxchg486b cl,dh
-cmpxchg486b bl,(eax)
-cmpxchg486w cx,si
-cmpxchg486w bx,(eax)
-cmpxchg486l ecx,esi
-cmpxchg486l ebx,(eax)
+umovb cl, dh
+umovb bl, (eax)
+umovw cx, si
+umovw bx, (eax)
+umovl ecx, esi
+umovl ebx, (eax)
+umovb dh, cl
+umovb (eax), bl
+umovw si, cx
+umovw (eax), bx
+umovl esi, ecx
+umovl (eax), ebx
+movl tr3, esi
+movl esi, tr3
+xbtsw si, cx
+xbtsw (eax), bx
+xbtsl esi, ecx
+xbtsl (eax), ebx
+ibtsw cx, si
+ibtsw bx, (eax)
+ibtsl ecx, esi
+ibtsl ebx, (eax)
+cmpxchg486b cl, dh
+cmpxchg486b bl, (eax)
+cmpxchg486w cx, si
+cmpxchg486w bx, (eax)
+cmpxchg486l ecx, esi
+cmpxchg486l ebx, (eax)
 umonitor bp
 umonitor ebp
 data16 jmpe 0xa55a
 jmpe 0xa55a3412
-movdir64b (bx,si),bx
-movdir64b (eax),ebx
-enqcmds (bx,si),bx
-enqcmds (eax),ebx
-enqcmd (bx,si),bx
-enqcmd (eax),ebx
-movl tr0,eax
-movl tr1,eax
-movl tr2,eax
-movl tr3,eax
-movl tr4,eax
-movl tr5,eax
-movl tr6,eax
-movl tr7,eax
+movdir64b (bx,si), bx
+movdir64b (eax), ebx
+enqcmds (bx,si), bx
+enqcmds (eax), ebx
+enqcmd (bx,si), bx
+enqcmd (eax), ebx
+movl tr0, eax
+movl tr1, eax
+movl tr2, eax
+movl tr3, eax
+movl tr4, eax
+movl tr5, eax
+movl tr6, eax
+movl tr7, eax
 syscall
 sysret
 addr16 fs monitor

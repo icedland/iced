@@ -35,6 +35,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			options.SignedImmediateOperands = false;
+			options.SpaceAfterOperandSeparator = false;
+			options.SpaceAfterMemoryOperandComma = true;
 			return new GasFormatter(options);
 		}
 
@@ -45,6 +47,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;
+			options.SpaceAfterOperandSeparator = true;
+			options.SpaceAfterMemoryOperandComma = false;
 			return new GasFormatter(options);
 		}
 

@@ -22,23 +22,23 @@
 #
 
 pop %cs
-fstenv (%bx,%si)
-fstenv %fs:(%bx,%si)
-fstenv (%bx,%si)
-fstenv %fs:(%bx,%si)
-fstcw (%bx,%si)
-fstcw %fs:(%bx,%si)
+fstenv (%bx, %si)
+fstenv %fs:(%bx, %si)
+fstenv (%bx, %si)
+fstenv %fs:(%bx, %si)
+fstcw (%bx, %si)
+fstcw %fs:(%bx, %si)
 feni
 fdisi
 fclex
 finit
 fsetpm
-fsave (%bx,%si)
-fsave %fs:(%bx,%si)
-fsave (%bx,%si)
-fsave %fs:(%bx,%si)
-fstsw (%bx,%si)
-fstsw %fs:(%bx,%si)
+fsave (%bx, %si)
+fsave %fs:(%bx, %si)
+fsave (%bx, %si)
+fsave %fs:(%bx, %si)
+fstsw (%bx, %si)
+fstsw %fs:(%bx, %si)
 fstsw %ax
 .byte 0x77
 .byte 0x77,0xa9

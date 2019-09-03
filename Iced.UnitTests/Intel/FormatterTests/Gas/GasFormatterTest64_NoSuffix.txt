@@ -5654,46 +5654,46 @@ vpmaskmovd %xmm2,%xmm6,(%rax)
 vpmaskmovd %ymm2,%ymm6,(%rax)
 vpmaskmovq %xmm2,%xmm6,(%rax)
 vpmaskmovq %ymm2,%ymm6,(%rax)
-vpgatherdd %xmm6,1(%rcx,%xmm4,4),%xmm2
-vpgatherdd %ymm6,1(%rcx,%ymm4,4),%ymm2
-vpgatherdq %xmm6,1(%rcx,%xmm4,4),%xmm2
-vpgatherdq %ymm6,1(%rcx,%xmm4,4),%ymm2
-vpgatherdd 4(%rcx,%xmm4,4),%xmm2{%k3}
-vpgatherdd 4(%rcx,%ymm4,4),%ymm2{%k3}
-vpgatherdd 4(%rcx,%zmm4,4),%zmm2{%k3}
-vpgatherdq 8(%rcx,%xmm4,4),%xmm2{%k3}
-vpgatherdq 8(%rcx,%xmm4,4),%ymm2{%k3}
-vpgatherdq 8(%rcx,%ymm4,4),%zmm2{%k3}
-vpgatherqd %xmm6,1(%rcx,%xmm4,4),%xmm2
-vpgatherqd %xmm6,1(%rcx,%ymm4,4),%xmm2
-vpgatherqq %xmm6,1(%rcx,%xmm4,4),%xmm2
-vpgatherqq %ymm6,1(%rcx,%ymm4,4),%ymm2
-vpgatherqd 4(%rcx,%xmm4,4),%xmm2{%k3}
-vpgatherqd 4(%rcx,%ymm4,4),%xmm2{%k3}
-vpgatherqd 4(%rcx,%zmm4,4),%ymm2{%k3}
-vpgatherqq 8(%rcx,%xmm4,4),%xmm2{%k3}
-vpgatherqq 8(%rcx,%ymm4,4),%ymm2{%k3}
-vpgatherqq 8(%rcx,%zmm4,4),%zmm2{%k3}
-vgatherdps %xmm6,1(%rcx,%xmm4,4),%xmm2
-vgatherdps %ymm6,1(%rcx,%ymm4,4),%ymm2
-vgatherdpd %xmm6,1(%rcx,%xmm4,4),%xmm2
-vgatherdpd %ymm6,1(%rcx,%xmm4,4),%ymm2
-vgatherdps 4(%rcx,%xmm4,4),%xmm2{%k3}
-vgatherdps 4(%rcx,%ymm4,4),%ymm2{%k3}
-vgatherdps 4(%rcx,%zmm4,4),%zmm2{%k3}
-vgatherdpd 8(%rcx,%xmm4,4),%xmm2{%k3}
-vgatherdpd 8(%rcx,%xmm4,4),%ymm2{%k3}
-vgatherdpd 8(%rcx,%ymm4,4),%zmm2{%k3}
-vgatherqps %xmm6,1(%rcx,%xmm4,4),%xmm2
-vgatherqps %xmm6,1(%rcx,%ymm4,4),%xmm2
-vgatherqpd %xmm6,1(%rcx,%xmm4,4),%xmm2
-vgatherqpd %ymm6,1(%rcx,%ymm4,4),%ymm2
-vgatherqps 4(%rcx,%xmm4,4),%xmm2{%k3}
-vgatherqps 4(%rcx,%ymm4,4),%xmm2{%k3}
-vgatherqps 4(%rcx,%zmm4,4),%ymm2{%k3}
-vgatherqpd 8(%rcx,%xmm4,4),%xmm2{%k3}
-vgatherqpd 8(%rcx,%ymm4,4),%ymm2{%k3}
-vgatherqpd 8(%rcx,%zmm4,4),%zmm2{%k3}
+vpgatherdd %xmm6,1(%rcx, %xmm4, 4),%xmm2
+vpgatherdd %ymm6,1(%rcx, %ymm4, 4),%ymm2
+vpgatherdq %xmm6,1(%rcx, %xmm4, 4),%xmm2
+vpgatherdq %ymm6,1(%rcx, %xmm4, 4),%ymm2
+vpgatherdd 4(%rcx, %xmm4, 4),%xmm2{%k3}
+vpgatherdd 4(%rcx, %ymm4, 4),%ymm2{%k3}
+vpgatherdd 4(%rcx, %zmm4, 4),%zmm2{%k3}
+vpgatherdq 8(%rcx, %xmm4, 4),%xmm2{%k3}
+vpgatherdq 8(%rcx, %xmm4, 4),%ymm2{%k3}
+vpgatherdq 8(%rcx, %ymm4, 4),%zmm2{%k3}
+vpgatherqd %xmm6,1(%rcx, %xmm4, 4),%xmm2
+vpgatherqd %xmm6,1(%rcx, %ymm4, 4),%xmm2
+vpgatherqq %xmm6,1(%rcx, %xmm4, 4),%xmm2
+vpgatherqq %ymm6,1(%rcx, %ymm4, 4),%ymm2
+vpgatherqd 4(%rcx, %xmm4, 4),%xmm2{%k3}
+vpgatherqd 4(%rcx, %ymm4, 4),%xmm2{%k3}
+vpgatherqd 4(%rcx, %zmm4, 4),%ymm2{%k3}
+vpgatherqq 8(%rcx, %xmm4, 4),%xmm2{%k3}
+vpgatherqq 8(%rcx, %ymm4, 4),%ymm2{%k3}
+vpgatherqq 8(%rcx, %zmm4, 4),%zmm2{%k3}
+vgatherdps %xmm6,1(%rcx, %xmm4, 4),%xmm2
+vgatherdps %ymm6,1(%rcx, %ymm4, 4),%ymm2
+vgatherdpd %xmm6,1(%rcx, %xmm4, 4),%xmm2
+vgatherdpd %ymm6,1(%rcx, %xmm4, 4),%ymm2
+vgatherdps 4(%rcx, %xmm4, 4),%xmm2{%k3}
+vgatherdps 4(%rcx, %ymm4, 4),%ymm2{%k3}
+vgatherdps 4(%rcx, %zmm4, 4),%zmm2{%k3}
+vgatherdpd 8(%rcx, %xmm4, 4),%xmm2{%k3}
+vgatherdpd 8(%rcx, %xmm4, 4),%ymm2{%k3}
+vgatherdpd 8(%rcx, %ymm4, 4),%zmm2{%k3}
+vgatherqps %xmm6,1(%rcx, %xmm4, 4),%xmm2
+vgatherqps %xmm6,1(%rcx, %ymm4, 4),%xmm2
+vgatherqpd %xmm6,1(%rcx, %xmm4, 4),%xmm2
+vgatherqpd %ymm6,1(%rcx, %ymm4, 4),%ymm2
+vgatherqps 4(%rcx, %xmm4, 4),%xmm2{%k3}
+vgatherqps 4(%rcx, %ymm4, 4),%xmm2{%k3}
+vgatherqps 4(%rcx, %zmm4, 4),%ymm2{%k3}
+vgatherqpd 8(%rcx, %xmm4, 4),%xmm2{%k3}
+vgatherqpd 8(%rcx, %ymm4, 4),%ymm2{%k3}
+vgatherqpd 8(%rcx, %zmm4, 4),%zmm2{%k3}
 vfmaddsub132ps %xmm3,%xmm6,%xmm2
 vfmaddsub132ps (%rax),%xmm6,%xmm2
 vfmaddsub132ps %ymm3,%ymm6,%ymm2
@@ -5884,30 +5884,30 @@ vfnmsub132ss %xmm3,%xmm6,%xmm2{%k3}{z}
 vfnmsub132ss 4(%rax),%xmm6,%xmm2{%k3}
 vfnmsub132sd %xmm3,%xmm6,%xmm2{%k3}{z}
 vfnmsub132sd 8(%rax),%xmm6,%xmm2{%k3}
-vpscatterdd %xmm2,4(%rcx,%xmm4,4){%k3}
-vpscatterdd %ymm2,4(%rcx,%ymm4,4){%k3}
-vpscatterdd %zmm2,4(%rcx,%zmm4,4){%k3}
-vpscatterdq %xmm2,8(%rcx,%xmm4,4){%k3}
-vpscatterdq %ymm2,8(%rcx,%xmm4,4){%k3}
-vpscatterdq %zmm2,8(%rcx,%ymm4,4){%k3}
-vpscatterqd %xmm2,4(%rcx,%xmm4,4){%k3}
-vpscatterqd %xmm2,4(%rcx,%ymm4,4){%k3}
-vpscatterqd %ymm2,4(%rcx,%zmm4,4){%k3}
-vpscatterqq %xmm2,8(%rcx,%xmm4,4){%k3}
-vpscatterqq %ymm2,8(%rcx,%ymm4,4){%k3}
-vpscatterqq %zmm2,8(%rcx,%zmm4,4){%k3}
-vscatterdps %xmm2,4(%rcx,%xmm4,4){%k3}
-vscatterdps %ymm2,4(%rcx,%ymm4,4){%k3}
-vscatterdps %zmm2,4(%rcx,%zmm4,4){%k3}
-vscatterdpd %xmm2,8(%rcx,%xmm4,4){%k3}
-vscatterdpd %ymm2,8(%rcx,%xmm4,4){%k3}
-vscatterdpd %zmm2,8(%rcx,%ymm4,4){%k3}
-vscatterqps %xmm2,4(%rcx,%xmm4,4){%k3}
-vscatterqps %xmm2,4(%rcx,%ymm4,4){%k3}
-vscatterqps %ymm2,4(%rcx,%zmm4,4){%k3}
-vscatterqpd %xmm2,8(%rcx,%xmm4,4){%k3}
-vscatterqpd %ymm2,8(%rcx,%ymm4,4){%k3}
-vscatterqpd %zmm2,8(%rcx,%zmm4,4){%k3}
+vpscatterdd %xmm2,4(%rcx, %xmm4, 4){%k3}
+vpscatterdd %ymm2,4(%rcx, %ymm4, 4){%k3}
+vpscatterdd %zmm2,4(%rcx, %zmm4, 4){%k3}
+vpscatterdq %xmm2,8(%rcx, %xmm4, 4){%k3}
+vpscatterdq %ymm2,8(%rcx, %xmm4, 4){%k3}
+vpscatterdq %zmm2,8(%rcx, %ymm4, 4){%k3}
+vpscatterqd %xmm2,4(%rcx, %xmm4, 4){%k3}
+vpscatterqd %xmm2,4(%rcx, %ymm4, 4){%k3}
+vpscatterqd %ymm2,4(%rcx, %zmm4, 4){%k3}
+vpscatterqq %xmm2,8(%rcx, %xmm4, 4){%k3}
+vpscatterqq %ymm2,8(%rcx, %ymm4, 4){%k3}
+vpscatterqq %zmm2,8(%rcx, %zmm4, 4){%k3}
+vscatterdps %xmm2,4(%rcx, %xmm4, 4){%k3}
+vscatterdps %ymm2,4(%rcx, %ymm4, 4){%k3}
+vscatterdps %zmm2,4(%rcx, %zmm4, 4){%k3}
+vscatterdpd %xmm2,8(%rcx, %xmm4, 4){%k3}
+vscatterdpd %ymm2,8(%rcx, %xmm4, 4){%k3}
+vscatterdpd %zmm2,8(%rcx, %ymm4, 4){%k3}
+vscatterqps %xmm2,4(%rcx, %xmm4, 4){%k3}
+vscatterqps %xmm2,4(%rcx, %ymm4, 4){%k3}
+vscatterqps %ymm2,4(%rcx, %zmm4, 4){%k3}
+vscatterqpd %xmm2,8(%rcx, %xmm4, 4){%k3}
+vscatterqpd %ymm2,8(%rcx, %ymm4, 4){%k3}
+vscatterqpd %zmm2,8(%rcx, %zmm4, 4){%k3}
 vfmaddsub213ps %xmm3,%xmm6,%xmm2
 vfmaddsub213ps (%rax),%xmm6,%xmm2
 vfmaddsub213ps %ymm3,%ymm6,%ymm2
@@ -6334,22 +6334,22 @@ sha256msg1 %xmm5,%xmm1
 sha256msg1 (%rax),%xmm1
 sha256msg2 %xmm5,%xmm1
 sha256msg2 (%rax),%xmm1
-vgatherpf0dps 4(%rcx,%zmm4,4){%k3}
-vgatherpf0dpd 8(%rcx,%ymm4,4){%k3}
-vgatherpf1dps 4(%rcx,%zmm4,4){%k3}
-vgatherpf1dpd 8(%rcx,%ymm4,4){%k3}
-vscatterpf0dps 4(%rcx,%zmm4,4){%k3}
-vscatterpf0dpd 8(%rcx,%ymm4,4){%k3}
-vscatterpf1dps 4(%rcx,%zmm4,4){%k3}
-vscatterpf1dpd 8(%rcx,%ymm4,4){%k3}
-vgatherpf0qps 4(%rcx,%zmm4,4){%k3}
-vgatherpf0qpd 8(%rcx,%zmm4,4){%k3}
-vgatherpf1qps 4(%rcx,%zmm4,4){%k3}
-vgatherpf1qpd 8(%rcx,%zmm4,4){%k3}
-vscatterpf0qps 4(%rcx,%zmm4,4){%k3}
-vscatterpf0qpd 8(%rcx,%zmm4,4){%k3}
-vscatterpf1qps 4(%rcx,%zmm4,4){%k3}
-vscatterpf1qpd 8(%rcx,%zmm4,4){%k3}
+vgatherpf0dps 4(%rcx, %zmm4, 4){%k3}
+vgatherpf0dpd 8(%rcx, %ymm4, 4){%k3}
+vgatherpf1dps 4(%rcx, %zmm4, 4){%k3}
+vgatherpf1dpd 8(%rcx, %ymm4, 4){%k3}
+vscatterpf0dps 4(%rcx, %zmm4, 4){%k3}
+vscatterpf0dpd 8(%rcx, %ymm4, 4){%k3}
+vscatterpf1dps 4(%rcx, %zmm4, 4){%k3}
+vscatterpf1dpd 8(%rcx, %ymm4, 4){%k3}
+vgatherpf0qps 4(%rcx, %zmm4, 4){%k3}
+vgatherpf0qpd 8(%rcx, %zmm4, 4){%k3}
+vgatherpf1qps 4(%rcx, %zmm4, 4){%k3}
+vgatherpf1qpd 8(%rcx, %zmm4, 4){%k3}
+vscatterpf0qps 4(%rcx, %zmm4, 4){%k3}
+vscatterpf0qpd 8(%rcx, %zmm4, 4){%k3}
+vscatterpf1qps 4(%rcx, %zmm4, 4){%k3}
+vscatterpf1qpd 8(%rcx, %zmm4, 4){%k3}
 vexp2ps %zmm3,%zmm2{%k3}
 vexp2ps 0x40(%rax),%zmm2
 vexp2ps 4(%rax){1to16},%zmm2{%k3}{z}
@@ -7357,34 +7357,34 @@ mov 0x12(%rax),%cl
 mov 0x12345678(%rax),%cl
 mov 0x12345678(%rip),%cl
 mov 0x12345678(%eip),%cl
-mov (%rax,%rcx),%cl
-mov (%rax,%rcx,2),%cl
-mov (%rax,%rcx,4),%cl
-mov (%rax,%rcx,8),%cl
-mov -0x12(%rax,%rcx),%cl
-mov -0x12(%rax,%rcx,2),%cl
-mov -0x12(%rax,%rcx,4),%cl
-mov -0x12(%rax,%rcx,8),%cl
-mov 0x12(%rax,%rcx),%cl
-mov 0x12(%rax,%rcx,2),%cl
-mov 0x12(%rax,%rcx,4),%cl
-mov 0x12(%rax,%rcx,8),%cl
-mov -0x12345678(%rax,%rcx),%cl
-mov -0x12345678(%rax,%rcx,2),%cl
-mov -0x12345678(%rax,%rcx,4),%cl
-mov -0x12345678(%rax,%rcx,8),%cl
-mov 0x12345678(%rax,%rcx),%cl
-mov 0x12345678(%rax,%rcx,2),%cl
-mov 0x12345678(%rax,%rcx,4),%cl
-mov 0x12345678(%rax,%rcx,8),%cl
-mov -0x12345678(,%rcx),%cl
-mov -0x12(%rbp,%rcx,2),%cl
-mov -0x12345678(%rbp,%rcx,4),%cl
-mov -0x12345678(,%rcx,8),%cl
-mov 0x12345678(,%rcx),%cl
-mov 0x12(%rbp,%rcx,2),%cl
-mov 0x12345678(%rbp,%rcx,4),%cl
-mov 0x12345678(,%rcx,8),%cl
+mov (%rax, %rcx),%cl
+mov (%rax, %rcx, 2),%cl
+mov (%rax, %rcx, 4),%cl
+mov (%rax, %rcx, 8),%cl
+mov -0x12(%rax, %rcx),%cl
+mov -0x12(%rax, %rcx, 2),%cl
+mov -0x12(%rax, %rcx, 4),%cl
+mov -0x12(%rax, %rcx, 8),%cl
+mov 0x12(%rax, %rcx),%cl
+mov 0x12(%rax, %rcx, 2),%cl
+mov 0x12(%rax, %rcx, 4),%cl
+mov 0x12(%rax, %rcx, 8),%cl
+mov -0x12345678(%rax, %rcx),%cl
+mov -0x12345678(%rax, %rcx, 2),%cl
+mov -0x12345678(%rax, %rcx, 4),%cl
+mov -0x12345678(%rax, %rcx, 8),%cl
+mov 0x12345678(%rax, %rcx),%cl
+mov 0x12345678(%rax, %rcx, 2),%cl
+mov 0x12345678(%rax, %rcx, 4),%cl
+mov 0x12345678(%rax, %rcx, 8),%cl
+mov -0x12345678(, %rcx),%cl
+mov -0x12(%rbp, %rcx, 2),%cl
+mov -0x12345678(%rbp, %rcx, 4),%cl
+mov -0x12345678(, %rcx, 8),%cl
+mov 0x12345678(, %rcx),%cl
+mov 0x12(%rbp, %rcx, 2),%cl
+mov 0x12345678(%rbp, %rcx, 4),%cl
+mov 0x12345678(, %rcx, 8),%cl
 mov %fs:(%rax),%cl
 mov %fs:-0x12(%rax),%cl
 mov %fs:-0x12345678(%rax),%cl
@@ -7394,34 +7394,34 @@ mov %fs:0x12(%rax),%cl
 mov %fs:0x12345678(%rax),%cl
 mov %fs:0x12345678(%rip),%cl
 mov %fs:0x12345678(%eip),%cl
-mov %fs:(%rax,%rcx),%cl
-mov %fs:(%rax,%rcx,2),%cl
-mov %fs:(%rax,%rcx,4),%cl
-mov %fs:(%rax,%rcx,8),%cl
-mov %fs:-0x12(%rax,%rcx),%cl
-mov %fs:-0x12(%rax,%rcx,2),%cl
-mov %fs:-0x12(%rax,%rcx,4),%cl
-mov %fs:-0x12(%rax,%rcx,8),%cl
-mov %fs:0x12(%rax,%rcx),%cl
-mov %fs:0x12(%rax,%rcx,2),%cl
-mov %fs:0x12(%rax,%rcx,4),%cl
-mov %fs:0x12(%rax,%rcx,8),%cl
-mov %fs:-0x12345678(%rax,%rcx),%cl
-mov %fs:-0x12345678(%rax,%rcx,2),%cl
-mov %fs:-0x12345678(%rax,%rcx,4),%cl
-mov %fs:-0x12345678(%rax,%rcx,8),%cl
-mov %fs:0x12345678(%rax,%rcx),%cl
-mov %fs:0x12345678(%rax,%rcx,2),%cl
-mov %fs:0x12345678(%rax,%rcx,4),%cl
-mov %fs:0x12345678(%rax,%rcx,8),%cl
-mov %fs:-0x12345678(,%rcx),%cl
-mov %fs:-0x12(%rbp,%rcx,2),%cl
-mov %fs:-0x12345678(%rbp,%rcx,4),%cl
-mov %fs:-0x12345678(,%rcx,8),%cl
-mov %fs:0x12345678(,%rcx),%cl
-mov %fs:0x12(%rbp,%rcx,2),%cl
-mov %fs:0x12345678(%rbp,%rcx,4),%cl
-mov %fs:0x12345678(,%rcx,8),%cl
+mov %fs:(%rax, %rcx),%cl
+mov %fs:(%rax, %rcx, 2),%cl
+mov %fs:(%rax, %rcx, 4),%cl
+mov %fs:(%rax, %rcx, 8),%cl
+mov %fs:-0x12(%rax, %rcx),%cl
+mov %fs:-0x12(%rax, %rcx, 2),%cl
+mov %fs:-0x12(%rax, %rcx, 4),%cl
+mov %fs:-0x12(%rax, %rcx, 8),%cl
+mov %fs:0x12(%rax, %rcx),%cl
+mov %fs:0x12(%rax, %rcx, 2),%cl
+mov %fs:0x12(%rax, %rcx, 4),%cl
+mov %fs:0x12(%rax, %rcx, 8),%cl
+mov %fs:-0x12345678(%rax, %rcx),%cl
+mov %fs:-0x12345678(%rax, %rcx, 2),%cl
+mov %fs:-0x12345678(%rax, %rcx, 4),%cl
+mov %fs:-0x12345678(%rax, %rcx, 8),%cl
+mov %fs:0x12345678(%rax, %rcx),%cl
+mov %fs:0x12345678(%rax, %rcx, 2),%cl
+mov %fs:0x12345678(%rax, %rcx, 4),%cl
+mov %fs:0x12345678(%rax, %rcx, 8),%cl
+mov %fs:-0x12345678(, %rcx),%cl
+mov %fs:-0x12(%rbp, %rcx, 2),%cl
+mov %fs:-0x12345678(%rbp, %rcx, 4),%cl
+mov %fs:-0x12345678(, %rcx, 8),%cl
+mov %fs:0x12345678(, %rcx),%cl
+mov %fs:0x12(%rbp, %rcx, 2),%cl
+mov %fs:0x12345678(%rbp, %rcx, 4),%cl
+mov %fs:0x12345678(, %rcx, 8),%cl
 vsqrtss {rn-sae},%xmm3,%xmm6,%xmm2{%k3}{z}
 vsqrtss {rd-sae},%xmm3,%xmm6,%xmm2{%k3}{z}
 vsqrtss {ru-sae},%xmm3,%xmm6,%xmm2{%k3}{z}

@@ -91,10 +91,10 @@ pushaw
 pusha
 popaw
 popa
-bound bx,[eax]
-bound ebx,[eax]
-arpl dx,si
-arpl word [eax],bx
+bound bx, [eax]
+bound ebx, [eax]
+arpl dx, si
+arpl word [eax], bx
 push dword 0x3412a55a
 push byte -0x5b
 o16 jo short 0x004d
@@ -143,25 +143,25 @@ rep retw -0x5aa6
 rep ret -0x5aa6
 rep retw
 rep ret
-les bx,[eax]
-les ebx,[eax]
-lds bx,[eax]
-lds ebx,[eax]
-enter -0x5aa6,-0x5a
+les bx, [eax]
+les ebx, [eax]
+lds bx, [eax]
+lds ebx, [eax]
+enter -0x5aa6, -0x5a
 leave
 into
 aam
 aad
-o16 loopne 0x004e,cx
-loopne 0x8000004d,cx
+o16 loopne 0x004e, cx
+loopne 0x8000004d, cx
 o16 loopne 0x004d
 loopne 0x8000004c
-o16 loope 0x004e,cx
-loope 0x8000004d,cx
+o16 loope 0x004e, cx
+loope 0x8000004d, cx
 o16 loope 0x004d
 loope 0x8000004c
-o16 loop 0x004e,cx
-loop 0x8000004d,cx
+o16 loop 0x004e, cx
+loop 0x8000004d, cx
 o16 loop 0x004d
 loop 0x8000004c
 o16 jcxz 0x004e
@@ -186,25 +186,25 @@ jmp edx
 jmp dword [eax]
 push esi
 push dword [eax]
-bndmov bnd1,bnd2
-bndmov bnd1,[eax]
-bndcl bnd1,edx
-bndcl bnd1,[eax]
-bndcu bnd1,edx
-bndcu bnd1,[eax]
-bndmov bnd2,bnd1
-bndmov [eax],bnd1
-bndmk bnd1,[eax]
-bndcn bnd1,edx
-bndcn bnd1,[eax]
-mov esi,cr3
-mov esi,dr3
-mov cr3,esi
-mov dr3,esi
-vmread esi,ecx
-vmread dword [eax],ebx
-vmwrite ecx,esi
-vmwrite ebx,dword [eax]
+bndmov bnd1, bnd2
+bndmov bnd1, [eax]
+bndcl bnd1, edx
+bndcl bnd1, [eax]
+bndcu bnd1, edx
+bndcu bnd1, [eax]
+bndmov bnd2, bnd1
+bndmov [eax], bnd1
+bndmk bnd1, [eax]
+bndcn bnd1, edx
+bndcn bnd1, [eax]
+mov esi, cr3
+mov esi, dr3
+mov cr3, esi
+mov dr3, esi
+vmread esi, ecx
+vmread dword [eax], ebx
+vmwrite ecx, esi
+vmwrite ebx, dword [eax]
 jo near word 0xa54f
 jo near 0xb412a550
 jno near word 0xa54f
@@ -242,9 +242,9 @@ pop fs
 push gs
 pop gs
 rdpid edx
-invept edx,oword [eax]
-invvpid edx,oword [eax]
-invpcid edx,oword [eax]
+invept edx, oword [eax]
+invvpid edx, oword [eax]
+invpcid edx, oword [eax]
 salc
 push word -0x5aa6
 o16 push byte -0x5b
@@ -260,28 +260,28 @@ a16 outsw
 outsw
 a16 outsd
 outsd
-mov fs,si
-o16 mov ds,word [eax]
-mov fs,esi
-mov ds,word [eax]
+mov fs, si
+o16 mov ds, word [eax]
+mov fs, esi
+mov ds, word [eax]
 pop si
 pop word [eax]
-xchg ax,ax
+xchg ax, ax
 nop
 pushfw
 popfw
-mov al,byte [0xf0debc9a]
-mov al,byte [word 0xf0de]
-mov ax,word [0xf0debc9a]
-mov ax,word [word 0xf0de]
-mov eax,dword [0xf0debc9a]
-mov eax,dword [word 0xf0de]
-mov byte [0xf0debc9a],al
-mov byte [word 0xf0de],al
-mov word [0xf0debc9a],ax
-mov word [word 0xf0de],ax
-mov dword [0xf0debc9a],eax
-mov dword [word 0xf0de],eax
+mov al, byte [0xf0debc9a]
+mov al, byte [word 0xf0de]
+mov ax, word [0xf0debc9a]
+mov ax, word [word 0xf0de]
+mov eax, dword [0xf0debc9a]
+mov eax, dword [word 0xf0de]
+mov byte [0xf0debc9a], al
+mov byte [word 0xf0de], al
+mov word [0xf0debc9a], ax
+mov word [word 0xf0de], ax
+mov dword [0xf0debc9a], eax
+mov dword [word 0xf0de], eax
 a16 movsb
 movsb
 a16 movsw
@@ -314,7 +314,7 @@ a16 scasd
 scasd
 xbegin word 0x7fffa54f
 xbegin 0xb412a550
-o16 enter -0x5aa6,-0x5a
+o16 enter -0x5aa6, -0x5a
 o16 leave
 retfw -0x5aa6
 retf -0x5aa6
@@ -322,48 +322,48 @@ retfw
 retf
 iretw
 iret
-rol cl,cl
-rol byte [eax],cl
-ror dl,cl
-ror byte [eax],cl
-rcl bl,cl
-rcl byte [eax],cl
-rcr ah,cl
-rcr byte [eax],cl
-shl ch,cl
-shl byte [eax],cl
-shr dh,cl
-shr byte [eax],cl
-sar al,cl
-sar byte [eax],cl
-rol cx,cl
-rol word [eax],cl
-rol ecx,cl
-rol dword [eax],cl
-ror dx,cl
-ror word [eax],cl
-ror edx,cl
-ror dword [eax],cl
-rcl bx,cl
-rcl word [eax],cl
-rcl ebx,cl
-rcl dword [eax],cl
-rcr sp,cl
-rcr word [eax],cl
-rcr esp,cl
-rcr dword [eax],cl
-shl bp,cl
-shl word [eax],cl
-shl ebp,cl
-shl dword [eax],cl
-shr si,cl
-shr word [eax],cl
-shr esi,cl
-shr dword [eax],cl
-sar ax,cl
-sar word [eax],cl
-sar eax,cl
-sar dword [eax],cl
+rol cl, cl
+rol byte [eax], cl
+ror dl, cl
+ror byte [eax], cl
+rcl bl, cl
+rcl byte [eax], cl
+rcr ah, cl
+rcr byte [eax], cl
+shl ch, cl
+shl byte [eax], cl
+shr dh, cl
+shr byte [eax], cl
+sar al, cl
+sar byte [eax], cl
+rol cx, cl
+rol word [eax], cl
+rol ecx, cl
+rol dword [eax], cl
+ror dx, cl
+ror word [eax], cl
+ror edx, cl
+ror dword [eax], cl
+rcl bx, cl
+rcl word [eax], cl
+rcl ebx, cl
+rcl dword [eax], cl
+rcr sp, cl
+rcr word [eax], cl
+rcr esp, cl
+rcr dword [eax], cl
+shl bp, cl
+shl word [eax], cl
+shl ebp, cl
+shl dword [eax], cl
+shr si, cl
+shr word [eax], cl
+shr esi, cl
+shr dword [eax], cl
+sar ax, cl
+sar word [eax], cl
+sar eax, cl
+sar dword [eax], cl
 fldcw word [eax]
 fnstcw word [eax]
 fnstsw word [eax]
@@ -381,86 +381,86 @@ o16 lgdt [eax]
 lgdt [eax]
 o16 lidt [eax]
 lidt [eax]
-lar cx,si
-lar bx,word [eax]
-lar ecx,esi
-lar ebx,word [eax]
-lsl cx,si
-lsl bx,word [eax]
-lsl ecx,esi
-lsl ebx,word [eax]
-bndldx bnd1,[eax]
-bndstx [eax],bnd1
-kmovw k2,k3
-kmovw k1,word [eax]
-kmovb k2,k3
-kmovb k1,byte [eax]
-kmovd k2,k3
-kmovd k1,dword [eax]
-kmovw word [eax],k1
-kmovb byte [eax],k1
-kmovd dword [eax],k1
-kmovw k2,ebx
-kmovb k2,ebx
-kmovd k2,ebx
-kmovw edx,k3
-kmovb edx,k3
-kmovd edx,k3
-kortestw k2,k3
-kortestq k2,k3
-kortestb k2,k3
-kortestd k2,k3
-ktestw k2,k3
-ktestq k2,k3
-ktestb k2,k3
-ktestd k2,k3
+lar cx, si
+lar bx, word [eax]
+lar ecx, esi
+lar ebx, word [eax]
+lsl cx, si
+lsl bx, word [eax]
+lsl ecx, esi
+lsl ebx, word [eax]
+bndldx bnd1, [eax]
+bndstx [eax], bnd1
+kmovw k2, k3
+kmovw k1, word [eax]
+kmovb k2, k3
+kmovb k1, byte [eax]
+kmovd k2, k3
+kmovd k1, dword [eax]
+kmovw word [eax], k1
+kmovb byte [eax], k1
+kmovd dword [eax], k1
+kmovw k2, ebx
+kmovb k2, ebx
+kmovd k2, ebx
+kmovw edx, k3
+kmovb edx, k3
+kmovd edx, k3
+kortestw k2, k3
+kortestq k2, k3
+kortestb k2, k3
+kortestd k2, k3
+ktestw k2, k3
+ktestq k2, k3
+ktestb k2, k3
+ktestd k2, k3
 o16 push fs
 o16 pop fs
-shld si,cx,cl
-shld word [eax],bx,cl
-shld esi,ecx,cl
-shld dword [eax],ebx,cl
+shld si, cx, cl
+shld word [eax], bx, cl
+shld esi, ecx, cl
+shld dword [eax], ebx, cl
 o16 push gs
 o16 pop gs
-shrd si,cx,cl
-shrd word [eax],bx,cl
-shrd esi,ecx,cl
-shrd dword [eax],ebx,cl
-lss bx,[eax]
-lss ebx,[eax]
-lfs bx,[eax]
-lfs ebx,[eax]
-lgs bx,[eax]
-lgs ebx,[eax]
-movzx cx,dh
-movzx bx,byte [eax]
-movzx ecx,dh
-movzx ebx,byte [eax]
-movzx cx,si
-movzx bx,word [eax]
-movzx ecx,si
-movzx ebx,word [eax]
-movsx cx,dh
-movsx bx,byte [eax]
-movsx ecx,dh
-movsx ebx,byte [eax]
-movsx cx,si
-movsx bx,word [eax]
-movsx ecx,si
-movsx ebx,word [eax]
+shrd si, cx, cl
+shrd word [eax], bx, cl
+shrd esi, ecx, cl
+shrd dword [eax], ebx, cl
+lss bx, [eax]
+lss ebx, [eax]
+lfs bx, [eax]
+lfs ebx, [eax]
+lgs bx, [eax]
+lgs ebx, [eax]
+movzx cx, dh
+movzx bx, byte [eax]
+movzx ecx, dh
+movzx ebx, byte [eax]
+movzx cx, si
+movzx bx, word [eax]
+movzx ecx, si
+movzx ebx, word [eax]
+movsx cx, dh
+movsx bx, byte [eax]
+movsx ecx, dh
+movsx ebx, byte [eax]
+movsx cx, si
+movsx bx, word [eax]
+movsx ecx, si
+movsx ebx, word [eax]
 cmpxchg8b [eax]
-crc32 ecx,dh
-crc32 ebx,byte [eax]
-crc32 ecx,si
-crc32 ebx,word [eax]
-crc32 ecx,esi
-crc32 ebx,dword [eax]
-a16 maskmovq mm2,mm3
-maskmovq mm2,mm3
-a16 maskmovdqu xmm2,xmm3
-maskmovdqu xmm2,xmm3
-a16 vmaskmovdqu xmm2,xmm3
-vmaskmovdqu xmm2,xmm3
+crc32 ecx, dh
+crc32 ebx, byte [eax]
+crc32 ecx, si
+crc32 ebx, word [eax]
+crc32 ecx, esi
+crc32 ebx, dword [eax]
+a16 maskmovq mm2, mm3
+maskmovq mm2, mm3
+a16 maskmovdqu xmm2, xmm3
+maskmovdqu xmm2, xmm3
+a16 vmaskmovdqu xmm2, xmm3
+vmaskmovdqu xmm2, xmm3
 fs outsb
 fs outsw
 fs outsd
@@ -475,9 +475,9 @@ fs lodsw
 fs lodsd
 a16 xlatb
 fs xlatb
-fs maskmovq mm2,mm3
-fs maskmovdqu xmm2,xmm3
-fs vmaskmovdqu xmm2,xmm3
+fs maskmovq mm2, mm3
+fs maskmovdqu xmm2, xmm3
+fs vmaskmovdqu xmm2, xmm3
 xlatb
 aam -6
 aad -6
@@ -492,117 +492,117 @@ fnsave [eax]
 a16 monitor
 monitor
 mwait
-mov al,byte [fs:0xf0debc9a]
-mov al,byte [word fs:0xf0de]
-mov ax,word [fs:0xf0debc9a]
-mov ax,word [word fs:0xf0de]
-mov eax,dword [fs:0xf0debc9a]
-mov eax,dword [word fs:0xf0de]
-mov byte [fs:0xf0debc9a],al
-mov byte [word fs:0xf0de],al
-mov word [fs:0xf0debc9a],ax
-mov word [word fs:0xf0de],ax
-mov dword [fs:0xf0debc9a],eax
-mov dword [word fs:0xf0de],eax
-mov cl,byte [eax]
-mov cl,byte [eax-0x12]
-mov cl,byte [eax-0x12345678]
-mov cl,byte [0xedcba988]
-mov cl,byte [eax+0x12]
-mov cl,byte [eax+0x12345678]
-mov cl,byte [0x12345678]
-mov cl,byte [eax+ecx]
-mov cl,byte [eax+ecx*2]
-mov cl,byte [eax+ecx*4]
-mov cl,byte [eax+ecx*8]
-mov cl,byte [eax+ecx-0x12]
-mov cl,byte [eax+ecx*2-0x12]
-mov cl,byte [eax+ecx*4-0x12]
-mov cl,byte [eax+ecx*8-0x12]
-mov cl,byte [eax+ecx+0x12]
-mov cl,byte [eax+ecx*2+0x12]
-mov cl,byte [eax+ecx*4+0x12]
-mov cl,byte [eax+ecx*8+0x12]
-mov cl,byte [eax+ecx-0x12345678]
-mov cl,byte [eax+ecx*2-0x12345678]
-mov cl,byte [eax+ecx*4-0x12345678]
-mov cl,byte [eax+ecx*8-0x12345678]
-mov cl,byte [eax+ecx+0x12345678]
-mov cl,byte [eax+ecx*2+0x12345678]
-mov cl,byte [eax+ecx*4+0x12345678]
-mov cl,byte [eax+ecx*8+0x12345678]
-mov cl,byte [ecx*1-0x12345678]
-mov cl,byte [ebp+ecx*2-0x12]
-mov cl,byte [ebp+ecx*4-0x12345678]
-mov cl,byte [ecx*8-0x12345678]
-mov cl,byte [ecx*1+0x12345678]
-mov cl,byte [ebp+ecx*2+0x12]
-mov cl,byte [ebp+ecx*4+0x12345678]
-mov cl,byte [ecx*8+0x12345678]
-mov cl,byte [fs:eax]
-mov cl,byte [fs:eax-0x12]
-mov cl,byte [fs:eax-0x12345678]
-mov cl,byte [fs:0xedcba988]
-mov cl,byte [fs:eax+0x12]
-mov cl,byte [fs:eax+0x12345678]
-mov cl,byte [fs:0x12345678]
-mov cl,byte [fs:eax+ecx]
-mov cl,byte [fs:eax+ecx*2]
-mov cl,byte [fs:eax+ecx*4]
-mov cl,byte [fs:eax+ecx*8]
-mov cl,byte [fs:eax+ecx-0x12]
-mov cl,byte [fs:eax+ecx*2-0x12]
-mov cl,byte [fs:eax+ecx*4-0x12]
-mov cl,byte [fs:eax+ecx*8-0x12]
-mov cl,byte [fs:eax+ecx+0x12]
-mov cl,byte [fs:eax+ecx*2+0x12]
-mov cl,byte [fs:eax+ecx*4+0x12]
-mov cl,byte [fs:eax+ecx*8+0x12]
-mov cl,byte [fs:eax+ecx-0x12345678]
-mov cl,byte [fs:eax+ecx*2-0x12345678]
-mov cl,byte [fs:eax+ecx*4-0x12345678]
-mov cl,byte [fs:eax+ecx*8-0x12345678]
-mov cl,byte [fs:eax+ecx+0x12345678]
-mov cl,byte [fs:eax+ecx*2+0x12345678]
-mov cl,byte [fs:eax+ecx*4+0x12345678]
-mov cl,byte [fs:eax+ecx*8+0x12345678]
-mov cl,byte [fs:ecx*1-0x12345678]
-mov cl,byte [fs:ebp+ecx*2-0x12]
-mov cl,byte [fs:ebp+ecx*4-0x12345678]
-mov cl,byte [fs:ecx*8-0x12345678]
-mov cl,byte [fs:ecx*1+0x12345678]
-mov cl,byte [fs:ebp+ecx*2+0x12]
-mov cl,byte [fs:ebp+ecx*4+0x12345678]
-mov cl,byte [fs:ecx*8+0x12345678]
+mov al, byte [fs:0xf0debc9a]
+mov al, byte [word fs:0xf0de]
+mov ax, word [fs:0xf0debc9a]
+mov ax, word [word fs:0xf0de]
+mov eax, dword [fs:0xf0debc9a]
+mov eax, dword [word fs:0xf0de]
+mov byte [fs:0xf0debc9a], al
+mov byte [word fs:0xf0de], al
+mov word [fs:0xf0debc9a], ax
+mov word [word fs:0xf0de], ax
+mov dword [fs:0xf0debc9a], eax
+mov dword [word fs:0xf0de], eax
+mov cl, byte [eax]
+mov cl, byte [eax-0x12]
+mov cl, byte [eax-0x12345678]
+mov cl, byte [0xedcba988]
+mov cl, byte [eax+0x12]
+mov cl, byte [eax+0x12345678]
+mov cl, byte [0x12345678]
+mov cl, byte [eax+ecx]
+mov cl, byte [eax+ecx*2]
+mov cl, byte [eax+ecx*4]
+mov cl, byte [eax+ecx*8]
+mov cl, byte [eax+ecx-0x12]
+mov cl, byte [eax+ecx*2-0x12]
+mov cl, byte [eax+ecx*4-0x12]
+mov cl, byte [eax+ecx*8-0x12]
+mov cl, byte [eax+ecx+0x12]
+mov cl, byte [eax+ecx*2+0x12]
+mov cl, byte [eax+ecx*4+0x12]
+mov cl, byte [eax+ecx*8+0x12]
+mov cl, byte [eax+ecx-0x12345678]
+mov cl, byte [eax+ecx*2-0x12345678]
+mov cl, byte [eax+ecx*4-0x12345678]
+mov cl, byte [eax+ecx*8-0x12345678]
+mov cl, byte [eax+ecx+0x12345678]
+mov cl, byte [eax+ecx*2+0x12345678]
+mov cl, byte [eax+ecx*4+0x12345678]
+mov cl, byte [eax+ecx*8+0x12345678]
+mov cl, byte [ecx*1-0x12345678]
+mov cl, byte [ebp+ecx*2-0x12]
+mov cl, byte [ebp+ecx*4-0x12345678]
+mov cl, byte [ecx*8-0x12345678]
+mov cl, byte [ecx*1+0x12345678]
+mov cl, byte [ebp+ecx*2+0x12]
+mov cl, byte [ebp+ecx*4+0x12345678]
+mov cl, byte [ecx*8+0x12345678]
+mov cl, byte [fs:eax]
+mov cl, byte [fs:eax-0x12]
+mov cl, byte [fs:eax-0x12345678]
+mov cl, byte [fs:0xedcba988]
+mov cl, byte [fs:eax+0x12]
+mov cl, byte [fs:eax+0x12345678]
+mov cl, byte [fs:0x12345678]
+mov cl, byte [fs:eax+ecx]
+mov cl, byte [fs:eax+ecx*2]
+mov cl, byte [fs:eax+ecx*4]
+mov cl, byte [fs:eax+ecx*8]
+mov cl, byte [fs:eax+ecx-0x12]
+mov cl, byte [fs:eax+ecx*2-0x12]
+mov cl, byte [fs:eax+ecx*4-0x12]
+mov cl, byte [fs:eax+ecx*8-0x12]
+mov cl, byte [fs:eax+ecx+0x12]
+mov cl, byte [fs:eax+ecx*2+0x12]
+mov cl, byte [fs:eax+ecx*4+0x12]
+mov cl, byte [fs:eax+ecx*8+0x12]
+mov cl, byte [fs:eax+ecx-0x12345678]
+mov cl, byte [fs:eax+ecx*2-0x12345678]
+mov cl, byte [fs:eax+ecx*4-0x12345678]
+mov cl, byte [fs:eax+ecx*8-0x12345678]
+mov cl, byte [fs:eax+ecx+0x12345678]
+mov cl, byte [fs:eax+ecx*2+0x12345678]
+mov cl, byte [fs:eax+ecx*4+0x12345678]
+mov cl, byte [fs:eax+ecx*8+0x12345678]
+mov cl, byte [fs:ecx*1-0x12345678]
+mov cl, byte [fs:ebp+ecx*2-0x12]
+mov cl, byte [fs:ebp+ecx*4-0x12345678]
+mov cl, byte [fs:ecx*8-0x12345678]
+mov cl, byte [fs:ecx*1+0x12345678]
+mov cl, byte [fs:ebp+ecx*2+0x12]
+mov cl, byte [fs:ebp+ecx*4+0x12345678]
+mov cl, byte [fs:ecx*8+0x12345678]
 a16 vmrun
 vmrun
 a16 vmload
 vmload
 a16 vmsave
 vmsave
-invlpga ax,ecx
-invlpga eax,ecx
+invlpga ax, ecx
+invlpga eax, ecx
 a16 monitorx
 monitorx
 a16 clzero
 clzero
 rdpru
-add cl,0x5a
-add byte [eax],0x5a
-or dl,-0x5b
-or byte [eax],-0x5b
-adc bl,0x5a
-adc byte [eax],0x5a
-sbb ah,-0x5b
-sbb byte [eax],-0x5b
-and ch,0x5a
-and byte [eax],0x5a
-sub dh,-0x5b
-sub byte [eax],-0x5b
-xor bh,0x5a
-xor byte [eax],0x5a
-cmp al,-0x5b
-cmp byte [eax],-0x5b
+add cl, 0x5a
+add byte [eax], 0x5a
+or dl, -0x5b
+or byte [eax], -0x5b
+adc bl, 0x5a
+adc byte [eax], 0x5a
+sbb ah, -0x5b
+sbb byte [eax], -0x5b
+and ch, 0x5a
+and byte [eax], 0x5a
+sub dh, -0x5b
+sub byte [eax], -0x5b
+xor bh, 0x5a
+xor byte [eax], 0x5a
+cmp al, -0x5b
+cmp byte [eax], -0x5b
 frstpm
 fstdw ax
 fstsg ax
@@ -613,52 +613,52 @@ jmpe dword [eax]
 loadallreset286
 loadall286
 loadall386
-umov dh,cl
-umov byte [eax],bl
-umov si,cx
-umov word [eax],bx
-umov esi,ecx
-umov dword [eax],ebx
-umov cl,dh
-umov bl,byte [eax]
-umov cx,si
-umov bx,word [eax]
-umov ecx,esi
-umov ebx,dword [eax]
-mov esi,tr3
-mov tr3,esi
-xbts cx,si
-xbts bx,word [eax]
-xbts ecx,esi
-xbts ebx,dword [eax]
-ibts si,cx
-ibts word [eax],bx
-ibts esi,ecx
-ibts dword [eax],ebx
-cmpxchg486 dh,cl
-cmpxchg486 byte [eax],bl
-cmpxchg486 si,cx
-cmpxchg486 word [eax],bx
-cmpxchg486 esi,ecx
-cmpxchg486 dword [eax],ebx
+umov dh, cl
+umov byte [eax], bl
+umov si, cx
+umov word [eax], bx
+umov esi, ecx
+umov dword [eax], ebx
+umov cl, dh
+umov bl, byte [eax]
+umov cx, si
+umov bx, word [eax]
+umov ecx, esi
+umov ebx, dword [eax]
+mov esi, tr3
+mov tr3, esi
+xbts cx, si
+xbts bx, word [eax]
+xbts ecx, esi
+xbts ebx, dword [eax]
+ibts si, cx
+ibts word [eax], bx
+ibts esi, ecx
+ibts dword [eax], ebx
+cmpxchg486 dh, cl
+cmpxchg486 byte [eax], bl
+cmpxchg486 si, cx
+cmpxchg486 word [eax], bx
+cmpxchg486 esi, ecx
+cmpxchg486 dword [eax], ebx
 umonitor bp
 umonitor ebp
 jmpe word 0xa55a
 jmpe 0xa55a3412
-movdir64b bx,zword [bx+si]
-movdir64b ebx,zword [eax]
-enqcmds bx,zword [bx+si]
-enqcmds ebx,zword [eax]
-enqcmd bx,zword [bx+si]
-enqcmd ebx,zword [eax]
-mov eax,tr0
-mov eax,tr1
-mov eax,tr2
-mov eax,tr3
-mov eax,tr4
-mov eax,tr5
-mov eax,tr6
-mov eax,tr7
+movdir64b bx, zword [bx+si]
+movdir64b ebx, zword [eax]
+enqcmds bx, zword [bx+si]
+enqcmds ebx, zword [eax]
+enqcmd bx, zword [bx+si]
+enqcmd ebx, zword [eax]
+mov eax, tr0
+mov eax, tr1
+mov eax, tr2
+mov eax, tr3
+mov eax, tr4
+mov eax, tr5
+mov eax, tr6
+mov eax, tr7
 syscall
 sysret
 a16 fs monitor

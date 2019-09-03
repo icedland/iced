@@ -41,32 +41,32 @@ fstsw word ptr [bx+si]
 fstsw word ptr fs:[bx+si]
 fstsw ax
 db 77h
-db 77h,-57h
-db 77h,-57h,-32h
-db 77h,-57h,-32h,-63h
-db 77h,-57h,-32h,-63h,55h
-db 77h,-57h,-32h,-63h,55h,5
-db 77h,-57h,-32h,-63h,55h,5,42h
-db 77h,-57h,-32h,-63h,55h,5,42h,6Ch
-db 77h,-57h,-32h,-63h,55h,5,42h,6Ch,-7Ah
-db 77h,-57h,-32h,-63h,55h,5,42h,6Ch,-7Ah,32h
-db 77h,-57h,-32h,-63h,55h,5,42h,6Ch,-7Ah,32h,-2
-db 77h,-57h,-32h,-63h,55h,5,42h,6Ch,-7Ah,32h,-2,4Fh
-db 77h,-57h,-32h,-63h,55h,5,42h,6Ch,-7Ah,32h,-2,4Fh,34h
-db 77h,-57h,-32h,-63h,55h,5,42h,6Ch,-7Ah,32h,-2,4Fh,34h,27h
-db 77h,-57h,-32h,-63h,55h,5,42h,6Ch,-7Ah,32h,-2,4Fh,34h,27h,-56h
-db 77h,-57h,-32h,-63h,55h,5,42h,6Ch,-7Ah,32h,-2,4Fh,34h,27h,-56h,8
+db 77h, -57h
+db 77h, -57h, -32h
+db 77h, -57h, -32h, -63h
+db 77h, -57h, -32h, -63h, 55h
+db 77h, -57h, -32h, -63h, 55h, 5
+db 77h, -57h, -32h, -63h, 55h, 5, 42h
+db 77h, -57h, -32h, -63h, 55h, 5, 42h, 6Ch
+db 77h, -57h, -32h, -63h, 55h, 5, 42h, 6Ch, -7Ah
+db 77h, -57h, -32h, -63h, 55h, 5, 42h, 6Ch, -7Ah, 32h
+db 77h, -57h, -32h, -63h, 55h, 5, 42h, 6Ch, -7Ah, 32h, -2
+db 77h, -57h, -32h, -63h, 55h, 5, 42h, 6Ch, -7Ah, 32h, -2, 4Fh
+db 77h, -57h, -32h, -63h, 55h, 5, 42h, 6Ch, -7Ah, 32h, -2, 4Fh, 34h
+db 77h, -57h, -32h, -63h, 55h, 5, 42h, 6Ch, -7Ah, 32h, -2, 4Fh, 34h, 27h
+db 77h, -57h, -32h, -63h, 55h, 5, 42h, 6Ch, -7Ah, 32h, -2, 4Fh, 34h, 27h, -56h
+db 77h, -57h, -32h, -63h, 55h, 5, 42h, 6Ch, -7Ah, 32h, -2, 4Fh, 34h, 27h, -56h, 8
 dw 77A9h
-dw 77A9h,-3163h
-dw 77A9h,-3163h,5505h
-dw 77A9h,-3163h,5505h,426Ch
-dw 77A9h,-3163h,5505h,426Ch,-79CEh
-dw 77A9h,-3163h,5505h,426Ch,-79CEh,-1B1h
-dw 77A9h,-3163h,5505h,426Ch,-79CEh,-1B1h,3427h
-dw 77A9h,-3163h,5505h,426Ch,-79CEh,-1B1h,3427h,-55F8h
+dw 77A9h, -3163h
+dw 77A9h, -3163h, 5505h
+dw 77A9h, -3163h, 5505h, 426Ch
+dw 77A9h, -3163h, 5505h, 426Ch, -79CEh
+dw 77A9h, -3163h, 5505h, 426Ch, -79CEh, -1B1h
+dw 77A9h, -3163h, 5505h, 426Ch, -79CEh, -1B1h, 3427h
+dw 77A9h, -3163h, 5505h, 426Ch, -79CEh, -1B1h, 3427h, -55F8h
 dd 77A9CE9Dh
-dd 77A9CE9Dh,5505426Ch
-dd 77A9CE9Dh,5505426Ch,-79CD01B1h
-dd 77A9CE9Dh,5505426Ch,-79CD01B1h,3427AA08h
+dd 77A9CE9Dh, 5505426Ch
+dd 77A9CE9Dh, 5505426Ch, -79CD01B1h
+dd 77A9CE9Dh, 5505426Ch, -79CD01B1h, 3427AA08h
 dq 77A9CE9D5505426Ch
-dq 77A9CE9D5505426Ch,-79CD01B0CBD855F8h
+dq 77A9CE9D5505426Ch, -79CD01B0CBD855F8h
