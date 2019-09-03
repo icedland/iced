@@ -2970,5 +2970,107 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			decoder.Decode(out var instr);
 			Assert.Equal(code, instr.Code);
 		}
+
+		[Theory]
+		[MemberData(nameof(Test_ByteArrayCodeReader_ctor_Data))]
+		void Test_ByteArrayCodeReader_ctor(ByteArrayCodeReader reader, byte[] expectedData) {
+			int i = 0;
+			Assert.Equal(0, reader.Position);
+			while (reader.CanReadByte) {
+				Assert.Equal(i, reader.Position);
+				Assert.True(i < expectedData.Length);
+				Assert.Equal(expectedData[i], reader.ReadByte());
+				i++;
+			}
+			Assert.Equal(i, reader.Position);
+			Assert.Equal(expectedData.Length, i);
+			Assert.Equal(-1, reader.ReadByte());
+			Assert.Equal(i, reader.Position);
+
+			reader.Position = 0;
+			Assert.Equal(0, reader.Position);
+			i = 0;
+			while (reader.CanReadByte) {
+				Assert.Equal(i, reader.Position);
+				Assert.True(i < expectedData.Length);
+				Assert.Equal(expectedData[i], reader.ReadByte());
+				i++;
+			}
+			Assert.Equal(i, reader.Position);
+			Assert.Equal(expectedData.Length, i);
+			Assert.Equal(-1, reader.ReadByte());
+			Assert.Equal(i, reader.Position);
+
+			reader.Position = reader.Count;
+			Assert.Equal(reader.Count, reader.Position);
+			Assert.False(reader.CanReadByte);
+			Assert.Equal(-1, reader.ReadByte());
+
+			for (i = expectedData.Length - 1; i >= 0; i--) {
+				reader.Position = i;
+				Assert.Equal(i, reader.Position);
+				Assert.True(reader.CanReadByte);
+				Assert.Equal(expectedData[i], reader.ReadByte());
+				Assert.Equal(i + 1, reader.Position);
+			}
+		}
+		public static IEnumerable<object[]> Test_ByteArrayCodeReader_ctor_Data {
+			get {
+				yield return new object[] { new ByteArrayCodeReader(""), new byte[] { } };
+				yield return new object[] { new ByteArrayCodeReader("12"), new byte[] { 0x12 } };
+				yield return new object[] { new ByteArrayCodeReader("1234"), new byte[] { 0x12, 0x34 } };
+
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { }), new byte[] { } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x23 }), new byte[] { 0x23 } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x23, 0x45 }), new byte[] { 0x23, 0x45 } };
+
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { }, 0, 0), new byte[] { } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45 }, 0, 1), new byte[] { 0x45 } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67 }, 0, 2), new byte[] { 0x45, 0x67 } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89 }, 0, 3), new byte[] { 0x45, 0x67, 0x89 } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 0, 4), new byte[] { 0x45, 0x67, 0x89, 0xAB } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 1, 3), new byte[] { 0x67, 0x89, 0xAB } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 2, 2), new byte[] { 0x89, 0xAB } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 3, 1), new byte[] { 0xAB } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 4, 0), new byte[] { } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 0, 3), new byte[] { 0x45, 0x67, 0x89 } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 0, 2), new byte[] { 0x45, 0x67 } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 0, 1), new byte[] { 0x45 } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 0, 0), new byte[] { } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 1, 2), new byte[] { 0x67, 0x89 } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 1, 1), new byte[] { 0x67 } };
+				yield return new object[] { new ByteArrayCodeReader(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 2, 1), new byte[] { 0x89 } };
+
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { }, 0, 0)), new byte[] { } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45 }, 0, 1)), new byte[] { 0x45 } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67 }, 0, 2)), new byte[] { 0x45, 0x67 } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89 }, 0, 3)), new byte[] { 0x45, 0x67, 0x89 } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 0, 4)), new byte[] { 0x45, 0x67, 0x89, 0xAB } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 1, 3)), new byte[] { 0x67, 0x89, 0xAB } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 2, 2)), new byte[] { 0x89, 0xAB } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 3, 1)), new byte[] { 0xAB } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 4, 0)), new byte[] { } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 0, 3)), new byte[] { 0x45, 0x67, 0x89 } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 0, 2)), new byte[] { 0x45, 0x67 } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 0, 1)), new byte[] { 0x45 } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 0, 0)), new byte[] { } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 1, 2)), new byte[] { 0x67, 0x89 } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 1, 1)), new byte[] { 0x67 } };
+				yield return new object[] { new ByteArrayCodeReader(new ArraySegment<byte>(new byte[] { 0x45, 0x67, 0x89, 0xAB }, 2, 1)), new byte[] { 0x89 } };
+			}
+		}
+
+		[Fact]
+		void Test_ByteArrayCodeReader_throws() {
+			Assert.Throws<ArgumentNullException>(() => new ByteArrayCodeReader((string)null));
+			Assert.Throws<ArgumentNullException>(() => new ByteArrayCodeReader((byte[])null));
+			Assert.Throws<ArgumentNullException>(() => new ByteArrayCodeReader((byte[])null, 0, 0));
+			Assert.Throws<ArgumentException>(() => new ByteArrayCodeReader(default(ArraySegment<byte>)));
+			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, -1, 0));
+			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, int.MinValue, 0));
+			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, 0, 5));
+			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, 0, int.MaxValue));
+			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, int.MinValue, int.MaxValue));
+		}
 	}
 }
