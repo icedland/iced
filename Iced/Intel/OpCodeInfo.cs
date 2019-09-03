@@ -442,7 +442,7 @@ namespace Iced.Intel {
 		public bool Fwait => (flags & Flags.Fwait) != 0;
 
 		/// <summary>
-		/// (Legacy encoding) Gets the required operand size (16,32,64) or 0 if no operand size prefix (66) is needed
+		/// (Legacy encoding) Gets the required operand size (16,32,64) or 0 if no operand size prefix (66) or REX.W prefix is needed
 		/// </summary>
 		public int OperandSize => operandSize;
 

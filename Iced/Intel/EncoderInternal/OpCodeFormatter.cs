@@ -26,7 +26,7 @@ using System;
 using System.Text;
 
 namespace Iced.Intel.EncoderInternal {
-	struct OpCodeFormatter {
+	readonly struct OpCodeFormatter {
 		readonly OpCodeInfo opCode;
 		readonly StringBuilder sb;
 		readonly bool l0l1;
