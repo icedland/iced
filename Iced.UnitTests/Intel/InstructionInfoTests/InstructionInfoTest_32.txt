@@ -1691,3 +1691,17 @@ F3 0FA7 E8, XcryptOfb_32, Legacy, PADLOCK_ACE, cwm=es:edi;Unknown crm=es:eax;Unk
 67 0FA7 E8, XcryptOfb_16, Legacy, PADLOCK_ACE, wm=es:di;Unknown rwm=es:ax;Unknown rm=es:dx;Unknown rm=es:bx;Unknown rm=es:si;Unknown r=es;ax;dx;bx;si;di w=ax;si;di
 # xcryptofb
 0FA7 E8, XcryptOfb_32, Legacy, PADLOCK_ACE, wm=es:edi;Unknown rwm=es:eax;Unknown rm=es:edx;Unknown rm=es:ebx;Unknown rm=es:esi;Unknown r=es;eax;edx;ebx;esi;edi w=eax;esi;edi
+# maskmovq mm2,mm3
+0FF7 D3, Maskmovq_rDI_mm_mm, Legacy, SSE, op0=w op1=r op2=r r=ds;edi r=mm2 r=mm3 wm=ds:edi;UInt64
+# maskmovq mm2,mm3
+64 0FF7 D3, Maskmovq_rDI_mm_mm, Legacy, SSE, op0=w op1=r op2=r r=fs;edi r=mm2 r=mm3 wm=fs:edi;UInt64
+# maskmovdqu xmm2,xmm3
+66 0FF7 D3, Maskmovdqu_rDI_xmm_xmm, Legacy, SSE2, op0=w op1=r op2=r r=ds;edi r=xmm2 r=xmm3 wm=ds:edi;UInt128
+# maskmovdqu xmm2,xmm3
+64 66 0FF7 D3, Maskmovdqu_rDI_xmm_xmm, Legacy, SSE2, op0=w op1=r op2=r r=fs;edi r=xmm2 r=xmm3 wm=fs:edi;UInt128
+# vmaskmovdqu xmm2,xmm3
+C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm, VEX, AVX, op0=w op1=r op2=r r=ds;edi r=xmm2 r=xmm3 wm=ds:edi;UInt128
+# vmaskmovdqu xmm2,xmm3
+64 C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm, VEX, AVX, op0=w op1=r op2=r r=fs;edi r=xmm2 r=xmm3 wm=fs:edi;UInt128
+# llwpcb ebx
+64 8FE978 12 C3, XOP_Llwpcb_r32, XOP, LWP, pm op0=r r=ds;ebx rm=ds:ebx;Unknown

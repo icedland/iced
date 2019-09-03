@@ -9477,10 +9477,16 @@ C5CD F6 10, VEX_Vpsadbw_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=r op2=r w=vmm2 r=y
 62 F14D48 F6 50 01, EVEX_Vpsadbw_zmm_zmm_zmmm512, EVEX, AVX512BW, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_UInt8
 # maskmovq mm2,mm3
 0FF7 D3, Maskmovq_rDI_mm_mm, Legacy, SSE, op0=w op1=r op2=r r=rdi r=mm2 r=mm3 wm=ds:rdi;UInt64
+# maskmovq mm2,mm3
+64 0FF7 D3, Maskmovq_rDI_mm_mm, Legacy, SSE, op0=w op1=r op2=r r=fs;rdi r=mm2 r=mm3 wm=fs:rdi;UInt64
 # maskmovdqu xmm2,xmm3
 66 0FF7 D3, Maskmovdqu_rDI_xmm_xmm, Legacy, SSE2, op0=w op1=r op2=r r=rdi r=xmm2 r=xmm3 wm=ds:rdi;UInt128
+# maskmovdqu xmm2,xmm3
+64 66 0FF7 D3, Maskmovdqu_rDI_xmm_xmm, Legacy, SSE2, op0=w op1=r op2=r r=fs;rdi r=xmm2 r=xmm3 wm=fs:rdi;UInt128
 # vmaskmovdqu xmm2,xmm3
 C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm, VEX, AVX, op0=w op1=r op2=r r=rdi r=xmm2 r=xmm3 wm=ds:rdi;UInt128
+# vmaskmovdqu xmm2,xmm3
+64 C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm, VEX, AVX, op0=w op1=r op2=r r=fs;rdi r=xmm2 r=xmm3 wm=fs:rdi;UInt128
 # psubb mm1,mm5
 0FF8 CD, Psubb_mm_mmm64, Legacy, MMX, op0=rw op1=r rw=mm1 r=mm5
 # psubb mm1,[rax]
