@@ -101,7 +101,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Theory]
 		[MemberData(nameof(Ctor_IEnumerable_Data))]
 		void Ctor_IEnumerable(Instruction[] instructions) {
-			var list = new InstructionList(instructions.AsEnumerable());
+			var list = new InstructionList(AsEnumerable(instructions));
 			Assert.Equal(instructions.Length, list.Count);
 			Assert.True(instructions.Length <= list.Capacity);
 			var listElems = new Instruction[list.Count];
@@ -457,7 +457,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			switch (kind) {
 			case InsertRangeKind.IEnumerable:
 				// IEnumerable<Instruction> code path
-				return array.AsEnumerable();
+				return AsEnumerable(array);
 
 			case InsertRangeKind.Array:
 				// Instruction[] code path (none at the moment)
@@ -479,6 +479,12 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			default:
 				throw new InvalidOperationException();
 			}
+		}
+
+		static IEnumerable<T> AsEnumerable<T>(IEnumerable<T> collection) {
+			// Don't return the input, always create a new enumerable
+			foreach (var elem in collection)
+				yield return elem;
 		}
 
 		sealed class IListImpl<T> : IList<T> {
