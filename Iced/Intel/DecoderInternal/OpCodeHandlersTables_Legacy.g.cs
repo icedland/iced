@@ -1828,10 +1828,12 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 5 = 0x05
 				0x11,// MandatoryPrefix
-					0x45,// Ev_REXW
-						0xF8, 0x10,// Xsaves_m
-						0x00,// false
-						0x01,// true
+					0x09,// RM
+						0x02,// Invalid
+						0x45,// Ev_REXW
+							0xF8, 0x10,// Xsaves_m
+							0x00,// false
+							0x01,// true
 					0x02,// Invalid
 					0x02,// Invalid
 					0x02,// Invalid
@@ -2077,10 +2079,12 @@ namespace Iced.Intel.DecoderInternal {
 					0x02,// Invalid
 					0x01,// Bitness_DontReadModRM
 						0x02,// Invalid
-						0x45,// Ev_REXW
-							0xD5, 0x0F,// Rdfsbase_r32
-							0x01,// true
-							0x00,// false
+						0x09,// RM
+							0x45,// Ev_REXW
+								0xD5, 0x0F,// Rdfsbase_r32
+								0x01,// true
+								0x00,// false
+							0x02,// Invalid
 					0x02,// Invalid
 
 				// 1 = 0x01
@@ -2090,10 +2094,12 @@ namespace Iced.Intel.DecoderInternal {
 					0x02,// Invalid
 					0x01,// Bitness_DontReadModRM
 						0x02,// Invalid
-						0x45,// Ev_REXW
-							0xD9, 0x0F,// Rdgsbase_r32
-							0x01,// true
-							0x00,// false
+						0x09,// RM
+							0x45,// Ev_REXW
+								0xD9, 0x0F,// Rdgsbase_r32
+								0x01,// true
+								0x00,// false
+							0x02,// Invalid
 					0x02,// Invalid
 
 				// 2 = 0x02
@@ -2103,10 +2109,12 @@ namespace Iced.Intel.DecoderInternal {
 					0x02,// Invalid
 					0x01,// Bitness_DontReadModRM
 						0x02,// Invalid
-						0x45,// Ev_REXW
-							0xDC, 0x0F,// Wrfsbase_r32
-							0x01,// true
-							0x00,// false
+						0x09,// RM
+							0x45,// Ev_REXW
+								0xDC, 0x0F,// Wrfsbase_r32
+								0x01,// true
+								0x00,// false
+							0x02,// Invalid
 					0x02,// Invalid
 
 				// 3 = 0x03
@@ -2116,10 +2124,12 @@ namespace Iced.Intel.DecoderInternal {
 					0x02,// Invalid
 					0x01,// Bitness_DontReadModRM
 						0x02,// Invalid
-						0x45,// Ev_REXW
-							0xE0, 0x0F,// Wrgsbase_r32
-							0x01,// true
-							0x00,// false
+						0x09,// RM
+							0x45,// Ev_REXW
+								0xE0, 0x0F,// Wrgsbase_r32
+								0x01,// true
+								0x00,// false
+							0x02,// Invalid
 					0x02,// Invalid
 
 				// 4 = 0x04
@@ -2966,30 +2976,36 @@ namespace Iced.Intel.DecoderInternal {
 				// 128 = 0x80
 				0x11,// MandatoryPrefix
 					0x02,// Invalid
-					0x50,// Gv_Ev_32_64
-						0x8C, 0x19,// Invept_r32_m128
-						0x00,// false
-						0x01,// true
+					0x09,// RM
+						0x02,// Invalid
+						0x50,// Gv_Ev_32_64
+							0x8C, 0x19,// Invept_r32_m128
+							0x00,// false
+							0x01,// true
 					0x02,// Invalid
 					0x02,// Invalid
 
 				// 129 = 0x81
 				0x11,// MandatoryPrefix
 					0x02,// Invalid
-					0x50,// Gv_Ev_32_64
-						0x8E, 0x19,// Invvpid_r32_m128
-						0x00,// false
-						0x01,// true
+					0x09,// RM
+						0x02,// Invalid
+						0x50,// Gv_Ev_32_64
+							0x8E, 0x19,// Invvpid_r32_m128
+							0x00,// false
+							0x01,// true
 					0x02,// Invalid
 					0x02,// Invalid
 
 				// 130 = 0x82
 				0x11,// MandatoryPrefix
 					0x02,// Invalid
-					0x50,// Gv_Ev_32_64
-						0x90, 0x19,// Invpcid_r32_m128
-						0x00,// false
-						0x01,// true
+					0x09,// RM
+						0x02,// Invalid
+						0x50,// Gv_Ev_32_64
+							0x90, 0x19,// Invpcid_r32_m128
+							0x00,// false
+							0x01,// true
 					0x02,// Invalid
 					0x02,// Invalid
 
@@ -4982,10 +4998,12 @@ namespace Iced.Intel.DecoderInternal {
 				0x11,// MandatoryPrefix
 					0x61,// Gv_N_Ib_REX
 						0xDE, 0x10,// Pextrw_r32_mm_imm8
-					0x54,// Gv_Ev_Ib_REX
-						0x4D,// XMM0
-						0xE0, 0x10,// Pextrw_r32_xmm_imm8
-						0x00,// false
+					0x09,// RM
+						0x54,// Gv_Ev_Ib_REX
+							0x4D,// XMM0
+							0xE0, 0x10,// Pextrw_r32_xmm_imm8
+							0x00,// false
+						0x02,// Invalid
 					0x02,// Invalid
 					0x02,// Invalid
 

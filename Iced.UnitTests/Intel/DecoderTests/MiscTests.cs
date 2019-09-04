@@ -1962,6 +1962,42 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			}
 		}
 
+		static int SkipPrefixes(byte[] bytes, int bitness, out uint rex) {
+			rex = 0;
+			int i;
+			for (i = 0; i < bytes.Length; i++) {
+				byte b = bytes[i];
+				bool isPrefix;
+				switch (b) {
+				case 0x26:
+				case 0x2E:
+				case 0x36:
+				case 0x3E:
+				case 0x64:
+				case 0x65:
+				case 0x66:
+				case 0x67:
+				case 0xF0:
+				case 0xF2:
+				case 0xF3:
+					isPrefix = true;
+					rex = 0;
+					break;
+				default:
+					if (bitness == 64 && (b & 0xF0) == 0x40) {
+						isPrefix = true;
+						rex = b;
+					}
+					else
+						isPrefix = false;
+					break;
+				}
+				if (!isPrefix)
+					break;
+			}
+			return i;
+		}
+
 		struct TestedInfo {
 			// VEX/XOP.L and EVEX.L'L values
 			public uint LBits;// bit 0 = L0/L128, bit 1 = L1/L256, etc
@@ -2123,38 +2159,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					}
 				}
 				else if (opCode.Encoding == EncodingKind.Legacy || opCode.Encoding == EncodingKind.D3NOW) {
-					uint rex = 0;
-					int i;
-					for (i = 0; i < bytes.Length; i++) {
-						byte b = bytes[i];
-						bool isPrefix;
-						switch (b) {
-						case 0x26:
-						case 0x2E:
-						case 0x36:
-						case 0x3E:
-						case 0x64:
-						case 0x65:
-						case 0x66:
-						case 0x67:
-						case 0xF0:
-						case 0xF2:
-						case 0xF3:
-							isPrefix = true;
-							rex = 0;
-							break;
-						default:
-							if (info.Bitness == 64 && (b & 0xF0) == 0x40) {
-								isPrefix = true;
-								rex = b;
-							}
-							else
-								isPrefix = false;
-							break;
-						}
-						if (!isPrefix)
-							break;
-					}
+					int i = SkipPrefixes(bytes, info.Bitness, out var rex);
 					if (info.Bitness == 64) {
 						tested.WBits |= 1U << (int)((rex >> 3) & 1);
 						tested.RBits |= 1U << (int)((rex >> 2) & 1);
@@ -3218,6 +3223,107 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				}
 				else
 					throw new InvalidOperationException();
+			}
+		}
+
+		[Fact]
+		void Verify_regonly_or_regmemonly_mod_bits() {
+			var extraBytes = new string('0', (Iced.Intel.DecoderConstants.MaxInstructionLength - 1) * 2);
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				var opCode = info.Code.ToOpCode();
+				if (!IsRegOnlyOrRegMemOnlyModRM(opCode))
+					continue;
+				// There are a few instructions that ignore the mod bits...
+				switch (info.Code) {
+				case Code.Mov_r32_cr:
+				case Code.Mov_r64_cr:
+				case Code.Mov_r32_dr:
+				case Code.Mov_r64_dr:
+				case Code.Mov_cr_r32:
+				case Code.Mov_cr_r64:
+				case Code.Mov_dr_r32:
+				case Code.Mov_dr_r64:
+				case Code.Mov_r32_tr:
+				case Code.Mov_tr_r32:
+					continue;
+				}
+
+				var bytes = HexUtils.ToByteArray(info.HexBytes + extraBytes);
+				int mIndex;
+				if (opCode.Encoding == EncodingKind.EVEX)
+					mIndex = GetEvexIndex(bytes) + 5;
+				else if (opCode.Encoding == EncodingKind.VEX || opCode.Encoding == EncodingKind.XOP) {
+					int vexIndex = GetVexXopIndex(bytes);
+					mIndex = bytes[vexIndex] == 0xC5 ? vexIndex + 3 : vexIndex + 4;
+				}
+				else if (opCode.Encoding == EncodingKind.Legacy || opCode.Encoding == EncodingKind.D3NOW) {
+					mIndex = SkipPrefixes(bytes, info.Bitness, out var rex);
+					switch (opCode.Table) {
+					case OpCodeTableKind.Normal:
+						break;
+					case OpCodeTableKind.T0F:
+						if (bytes[mIndex++] != 0x0F)
+							throw new InvalidOperationException();
+						break;
+					case OpCodeTableKind.T0F38:
+						if (bytes[mIndex++] != 0x0F)
+							throw new InvalidOperationException();
+						if (bytes[mIndex++] != 0x38)
+							throw new InvalidOperationException();
+						break;
+					case OpCodeTableKind.T0F3A:
+						if (bytes[mIndex++] != 0x0F)
+							throw new InvalidOperationException();
+						if (bytes[mIndex++] != 0x3A)
+							throw new InvalidOperationException();
+						break;
+					default:
+						throw new InvalidOperationException();
+					}
+					mIndex++;
+				}
+				else
+					throw new InvalidOperationException();
+
+				if (bytes[mIndex] >= 0xC0)
+					bytes[mIndex] &= 0x3F;
+				else
+					bytes[mIndex] |= 0xC0;
+				{
+					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+					decoder.Decode(out var instr);
+					Assert.NotEqual(info.Code, instr.Code);
+				}
+				{
+					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options ^ DecoderOptions.NoInvalidCheck);
+					decoder.Decode(out var instr);
+					Assert.NotEqual(info.Code, instr.Code);
+				}
+			}
+
+			static bool IsRegOnlyOrRegMemOnlyModRM(OpCodeInfo opCode) {
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_vsib32x:
+					case OpCodeOperandKind.mem_vsib64x:
+					case OpCodeOperandKind.mem_vsib32y:
+					case OpCodeOperandKind.mem_vsib64y:
+					case OpCodeOperandKind.mem_vsib32z:
+					case OpCodeOperandKind.mem_vsib64z:
+					case OpCodeOperandKind.r16_rm:
+					case OpCodeOperandKind.r32_rm:
+					case OpCodeOperandKind.r64_rm:
+					case OpCodeOperandKind.k_rm:
+					case OpCodeOperandKind.mm_rm:
+					case OpCodeOperandKind.xmm_rm:
+					case OpCodeOperandKind.ymm_rm:
+					case OpCodeOperandKind.zmm_rm:
+						return true;
+					}
+				}
+				return false;
 			}
 		}
 #endif

@@ -8796,15 +8796,19 @@ namespace Iced.Intel.DecoderInternal {
 					0x00,// Invalid
 					0x07,// W
 						0x09,// VectorLength
-							0x0D,// Ev_VX_Ib
-								0x4D,// XMM0
-								0xE4, 0x10,// EVEX_Vpextrw_r32_xmm_imm8
+							0x05,// RM
+								0x0D,// Ev_VX_Ib
+									0x4D,// XMM0
+									0xE4, 0x10,// EVEX_Vpextrw_r32_xmm_imm8
+								0x00,// Invalid
 							0x00,// Invalid
 							0x00,// Invalid
 						0x09,// VectorLength
-							0x0D,// Ev_VX_Ib
-								0x4D,// XMM0
-								0xE4, 0x10,// EVEX_Vpextrw_r32_xmm_imm8
+							0x05,// RM
+								0x0D,// Ev_VX_Ib
+									0x4D,// XMM0
+									0xE4, 0x10,// EVEX_Vpextrw_r32_xmm_imm8
+								0x00,// Invalid
 							0x00,// Invalid
 							0x00,// Invalid
 					0x00,// Invalid
