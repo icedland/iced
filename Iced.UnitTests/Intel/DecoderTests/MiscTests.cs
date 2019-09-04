@@ -3224,6 +3224,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, 0, 5));
 			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, 0, int.MaxValue));
 			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, int.MinValue, int.MaxValue));
+			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, 4, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, 4, int.MaxValue));
 		}
 	}
 }
