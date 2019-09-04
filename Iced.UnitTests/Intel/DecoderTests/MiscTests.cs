@@ -1797,7 +1797,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				if (!CanHaveInvalidIndexMaskDestRegister_VEX(opCode))
 					continue;
 
-				if (opCode.Encoding == EncodingKind.VEX) {
+				if (opCode.Encoding == EncodingKind.VEX || opCode.Encoding == EncodingKind.XOP) {
 					var bytes = HexUtils.ToByteArray(info.HexBytes);
 					int vexIndex = GetVexXopIndex(bytes);
 
@@ -1884,7 +1884,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		// All VX_VSIB_HX instructions, eg. VEX_Vpgatherdd_xmm_vm32x_xmm
 		static bool CanHaveInvalidIndexMaskDestRegister_VEX(OpCodeInfo opCode) {
-			if (opCode.Encoding != EncodingKind.VEX)
+			if (opCode.Encoding != EncodingKind.VEX && opCode.Encoding != EncodingKind.XOP)
 				return false;
 			if (opCode.OpCount != 3)
 				return false;
@@ -3096,6 +3096,80 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					decoder.Decode(out var instr);
 					Assert.NotEqual(info.Code, instr.Code);
 				}
+			}
+		}
+
+		[Fact]
+		void Verify_invalid_table_encoding() {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				var opCode = info.Code.ToOpCode();
+				if (opCode.Encoding == EncodingKind.EVEX) {
+					var hexBytes = HexUtils.ToByteArray(info.HexBytes);
+					var evexIndex = GetEvexIndex(hexBytes);
+					hexBytes[evexIndex + 1] &= 0xFC;
+					{
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
+						decoder.Decode(out var instr);
+						Assert.Equal(Code.INVALID, instr.Code);
+					}
+					{
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options ^ DecoderOptions.NoInvalidCheck);
+						decoder.Decode(out var instr);
+						Assert.Equal(Code.INVALID, instr.Code);
+					}
+				}
+				else if (opCode.Encoding == EncodingKind.VEX) {
+					var hexBytes = HexUtils.ToByteArray(info.HexBytes);
+					var vexIndex = GetVexXopIndex(hexBytes);
+					if (hexBytes[vexIndex] == 0xC5)
+						continue;
+					for (int i = 0; i < 32; i++) {
+						switch (i) {
+						case 1:// 0F
+						case 2:// 0F 38
+						case 3:// 0F 3A
+							continue;
+						}
+						hexBytes[vexIndex + 1] = (byte)((hexBytes[vexIndex + 1] & 0xE0) | i);
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.Equal(Code.INVALID, instr.Code);
+						}
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options ^ DecoderOptions.NoInvalidCheck);
+							decoder.Decode(out var instr);
+							Assert.Equal(Code.INVALID, instr.Code);
+						}
+					}
+				}
+				else if (opCode.Encoding == EncodingKind.XOP) {
+					var hexBytes = HexUtils.ToByteArray(info.HexBytes);
+					var vexIndex = GetVexXopIndex(hexBytes);
+					for (int i = 0; i < 32; i++) {
+						switch (i) {
+						case 8:// XOP8
+						case 9:// XOP9
+						case 0xA:// XOPA
+							continue;
+						}
+						hexBytes[vexIndex + 1] = (byte)((hexBytes[vexIndex + 1] & 0xE0) | i);
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.NotEqual(info.Code, instr.Code);
+						}
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options ^ DecoderOptions.NoInvalidCheck);
+							decoder.Decode(out var instr);
+							Assert.NotEqual(info.Code, instr.Code);
+						}
+					}
+				}
+				else if (opCode.Encoding == EncodingKind.Legacy || opCode.Encoding == EncodingKind.D3NOW) {
+				}
+				else
+					throw new InvalidOperationException();
 			}
 		}
 #endif
