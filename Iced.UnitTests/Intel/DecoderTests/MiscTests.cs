@@ -3172,6 +3172,54 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					throw new InvalidOperationException();
 			}
 		}
+
+		[Fact]
+		void Verify_invalid_pp_field() {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				var opCode = info.Code.ToOpCode();
+				if (opCode.Encoding == EncodingKind.EVEX) {
+					var hexBytes = HexUtils.ToByteArray(info.HexBytes);
+					var evexIndex = GetEvexIndex(hexBytes);
+					var b = hexBytes[evexIndex + 2];
+					for (int i = 1; i <= 3; i++) {
+						hexBytes[evexIndex + 2] = (byte)(b ^ i);
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.NotEqual(info.Code, instr.Code);
+						}
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options ^ DecoderOptions.NoInvalidCheck);
+							decoder.Decode(out var instr);
+							Assert.NotEqual(info.Code, instr.Code);
+						}
+					}
+				}
+				else if (opCode.Encoding == EncodingKind.VEX || opCode.Encoding == EncodingKind.XOP) {
+					var hexBytes = HexUtils.ToByteArray(info.HexBytes);
+					var vexIndex = GetVexXopIndex(hexBytes);
+					int ppIndex = hexBytes[vexIndex] == 0xC5 ? vexIndex + 1 : vexIndex + 2;
+					var b = hexBytes[ppIndex];
+					for (int i = 1; i <= 3; i++) {
+						hexBytes[ppIndex] = (byte)(b ^ i);
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
+							decoder.Decode(out var instr);
+							Assert.NotEqual(info.Code, instr.Code);
+						}
+						{
+							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options ^ DecoderOptions.NoInvalidCheck);
+							decoder.Decode(out var instr);
+							Assert.NotEqual(info.Code, instr.Code);
+						}
+					}
+				}
+				else if (opCode.Encoding == EncodingKind.Legacy || opCode.Encoding == EncodingKind.D3NOW) {
+				}
+				else
+					throw new InvalidOperationException();
+			}
+		}
 #endif
 
 		[Theory]
