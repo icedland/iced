@@ -5,9 +5,9 @@ install:
 - cmd: >-
     appveyor DownloadFile https://dot.net/v1/dotnet-install.ps1
 
-    powershell -NoLogo -NoProfile -File dotnet-install.ps1 -Version 3.0.100-preview8-013656 -InstallDir "%ProgramFiles%\dotnet" -Architecture x64
+    powershell -NoLogo -NoProfile -File dotnet-install.ps1 -Version 3.0.100-preview9-014004 -InstallDir "%ProgramFiles%\dotnet" -Architecture x64
 
-    powershell -NoLogo -NoProfile -File dotnet-install.ps1 -Version 3.0.100-preview8-013656 -InstallDir "%ProgramFiles(x86)%\dotnet" -Architecture x86
+    powershell -NoLogo -NoProfile -File dotnet-install.ps1 -Version 3.0.100-preview9-014004 -InstallDir "%ProgramFiles(x86)%\dotnet" -Architecture x86
 before_build:
 - cmd: appveyor-retry nuget restore
 build_script:
@@ -30,4 +30,4 @@ deploy:
   on:
     APPVEYOR_REPO_TAG: true
   api_key:
-    secure: en/ChGrnyp08i9CgI/8WXLKhl0OHCpPsuBSRv9wt286kvKlI9P4732egbzq+ycfx
+    secure: 1oWvNqv/17WGGwHiBAuPEXRbFUqG5ZIX83m51TNF1u/jIqAkjt8Ec4LI+jB9N5zh
