@@ -3171,12 +3171,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						{
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
 							decoder.Decode(out var instr);
-							Assert.NotEqual(info.Code, instr.Code);
+							if (i < 8)
+								Assert.NotEqual(info.Code, instr.Code);
+							else
+								Assert.Equal(Code.INVALID, instr.Code);
 						}
 						{
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options ^ DecoderOptions.NoInvalidCheck);
 							decoder.Decode(out var instr);
-							Assert.NotEqual(info.Code, instr.Code);
+							if (i < 8)
+								Assert.NotEqual(info.Code, instr.Code);
+							else
+								Assert.Equal(Code.INVALID, instr.Code);
 						}
 					}
 				}
