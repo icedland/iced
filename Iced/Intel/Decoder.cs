@@ -54,7 +54,7 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Decodes 16/32/64-bit x86 instructions
 	/// </summary>
-	public sealed partial class Decoder {
+	public sealed class Decoder {
 		ulong instructionPointer;
 		readonly CodeReader reader;
 		readonly uint[] prefixes;
@@ -432,7 +432,9 @@ after_read_prefixes:
 			instruction.NextIP = ip;
 		}
 
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal uint GetCurrentInstructionPointer32() => (uint)instructionPointer + state.instructionLength;
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal ulong GetCurrentInstructionPointer64() => instructionPointer + state.instructionLength;
 
 		internal void ClearMandatoryPrefix(ref Instruction instruction) {
@@ -475,12 +477,14 @@ after_read_prefixes:
 			}
 		}
 
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void ClearMandatoryPrefixF3(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			Debug.Assert(state.mandatoryPrefix == MandatoryPrefixByte.PF3);
 			instruction.InternalClearHasRepePrefix();
 		}
 
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void ClearMandatoryPrefixF2(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			Debug.Assert(state.mandatoryPrefix == MandatoryPrefixByte.PF2);
