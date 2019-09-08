@@ -81,6 +81,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
+			Assert.Equal(DecoderConstants.DEFAULT_IP16, instr.IP);
+			Assert.Equal(DecoderConstants.DEFAULT_IP16 + 15, instr.NextIP);
+			Assert.Equal(CodeSize.Code16, instr.CodeSize);
 			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
@@ -121,6 +124,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
+			Assert.Equal(DecoderConstants.DEFAULT_IP32, instr.IP);
+			Assert.Equal(DecoderConstants.DEFAULT_IP32 + 15, instr.NextIP);
+			Assert.Equal(CodeSize.Code32, instr.CodeSize);
 			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
@@ -161,6 +167,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
 			Assert.Equal(15, instr.ByteLength);
+			Assert.Equal(DecoderConstants.DEFAULT_IP64, instr.IP);
+			Assert.Equal(DecoderConstants.DEFAULT_IP64 + 15, instr.NextIP);
+			Assert.Equal(CodeSize.Code64, instr.CodeSize);
 			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
