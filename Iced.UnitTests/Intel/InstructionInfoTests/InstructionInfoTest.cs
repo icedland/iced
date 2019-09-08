@@ -226,6 +226,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: false);
 
 			Assert.Equal(info.Encoding, instr.Code.Encoding());
+#if !NO_ENCODER
+			Assert.Equal(code.ToOpCode().Encoding, instr.Code.Encoding());
+#endif
 			var cf = instr.Code.CpuidFeatures();
 			if (cf.Length == 1 && cf[0] == CpuidFeature.AVX && instr.Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64))
 				cf = new[] { CpuidFeature.AVX2 };
