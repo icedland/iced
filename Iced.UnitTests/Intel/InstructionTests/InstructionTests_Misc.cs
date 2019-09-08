@@ -195,6 +195,11 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr.Immediate64 = ulong.MaxValue;
 			Assert.Equal(ulong.MaxValue, instr.Immediate64);
 
+			instr.Immediate8to16 = sbyte.MinValue;
+			Assert.Equal(sbyte.MinValue, instr.Immediate8to16);
+			instr.Immediate8to16 = sbyte.MaxValue;
+			Assert.Equal(sbyte.MaxValue, instr.Immediate8to16);
+
 			instr.Immediate8to32 = sbyte.MinValue;
 			Assert.Equal(sbyte.MinValue, instr.Immediate8to32);
 			instr.Immediate8to32 = sbyte.MaxValue;
