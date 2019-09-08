@@ -549,6 +549,82 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		static T[] GetEnumValues<T>() => (T[])Enum.GetValues(typeof(T));
 
 		[Fact]
+		void Verify_GetSetImmediate() {
+			Instruction instr = default;
+
+			instr.Code = Code.Add_AL_imm8;
+			instr.Op1Kind = OpKind.Immediate8;
+			instr.SetImmediate(1, 0x5A);
+			Assert.Equal(0x5AUL, instr.GetImmediate(1));
+			instr.SetImmediate(1, 0xA5);
+			Assert.Equal(0xA5UL, instr.GetImmediate(1));
+
+			instr.Code = Code.Add_AX_imm16;
+			instr.Op1Kind = OpKind.Immediate16;
+			instr.SetImmediate(1, 0x5AA5);
+			Assert.Equal(0x5AA5UL, instr.GetImmediate(1));
+			instr.SetImmediate(1, 0xA55A);
+			Assert.Equal(0xA55AUL, instr.GetImmediate(1));
+
+			instr.Code = Code.Add_EAX_imm32;
+			instr.Op1Kind = OpKind.Immediate32;
+			instr.SetImmediate(1, 0x5AA51234);
+			Assert.Equal(0x5AA51234UL, instr.GetImmediate(1));
+			instr.SetImmediate(1, 0xA54A1234);
+			Assert.Equal(0xA54A1234UL, instr.GetImmediate(1));
+
+			instr.Code = Code.Add_RAX_imm32;
+			instr.Op1Kind = OpKind.Immediate32to64;
+			instr.SetImmediate(1, 0x5AA51234);
+			Assert.Equal(0x5AA51234UL, instr.GetImmediate(1));
+			instr.SetImmediate(1, 0xA54A1234);
+			Assert.Equal(0xFFFFFFFFA54A1234UL, instr.GetImmediate(1));
+
+			instr.Code = Code.Enterq_imm16_imm8;
+			instr.Op1Kind = OpKind.Immediate8_2nd;
+			instr.SetImmediate(1, 0x5A);
+			Assert.Equal(0x5AUL, instr.GetImmediate(1));
+			instr.SetImmediate(1, 0xA5);
+			Assert.Equal(0xA5UL, instr.GetImmediate(1));
+
+			instr.Code = Code.Adc_rm16_imm8;
+			instr.Op1Kind = OpKind.Immediate8to16;
+			instr.SetImmediate(1, 0x5A);
+			Assert.Equal(0x5AUL, instr.GetImmediate(1));
+			instr.SetImmediate(1, 0xA5);
+			Assert.Equal(0xFFFFFFFFFFFFFFA5UL, instr.GetImmediate(1));
+
+			instr.Code = Code.Adc_rm32_imm8;
+			instr.Op1Kind = OpKind.Immediate8to32;
+			instr.SetImmediate(1, 0x5A);
+			Assert.Equal(0x5AUL, instr.GetImmediate(1));
+			instr.SetImmediate(1, 0xA5);
+			Assert.Equal(0xFFFFFFFFFFFFFFA5UL, instr.GetImmediate(1));
+
+			instr.Code = Code.Adc_rm64_imm8;
+			instr.Op1Kind = OpKind.Immediate8to64;
+			instr.SetImmediate(1, 0x5A);
+			Assert.Equal(0x5AUL, instr.GetImmediate(1));
+			instr.SetImmediate(1, 0xA5);
+			Assert.Equal(0xFFFFFFFFFFFFFFA5UL, instr.GetImmediate(1));
+
+			instr.Code = Code.Mov_r64_imm64;
+			instr.Op1Kind = OpKind.Immediate64;
+			instr.SetImmediate(1, 0x5AA5123456789ABC);
+			Assert.Equal(0x5AA5123456789ABCUL, instr.GetImmediate(1));
+			instr.SetImmediate(1, 0xA54A123456789ABC);
+			Assert.Equal(0xA54A123456789ABCUL, instr.GetImmediate(1));
+			instr.SetImmediate(1, unchecked((long)0xA54A123456789ABC));
+			Assert.Equal(0xA54A123456789ABCUL, instr.GetImmediate(1));
+
+			Assert.Throws<ArgumentException>(() => instr.GetImmediate(0));
+			Assert.Throws<ArgumentException>(() => instr.SetImmediate(0, 0));
+			Assert.Throws<ArgumentException>(() => instr.SetImmediate(0, 0U));
+			Assert.Throws<ArgumentException>(() => instr.SetImmediate(0, 0L));
+			Assert.Throws<ArgumentException>(() => instr.SetImmediate(0, 0UL));
+		}
+
+		[Fact]
 		unsafe void Verify_Instruction_size() {
 #pragma warning disable xUnit2000 // Constants and literals should be the expected argument
 			Assert.Equal(Instruction.TOTAL_SIZE, sizeof(Instruction));
