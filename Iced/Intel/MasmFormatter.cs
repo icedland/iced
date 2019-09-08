@@ -78,6 +78,8 @@ namespace Iced.Intel {
 		readonly InstrInfo[] instrInfos;
 		readonly MemorySizes.Info[] allMemorySizes;
 		readonly NumberFormatter numberFormatter;
+		readonly string[] rcStrings;
+		readonly string[] scaleNumbers;
 
 		/// <summary>
 		/// Constructor
@@ -98,6 +100,8 @@ namespace Iced.Intel {
 			instrInfos = InstrInfos.AllInfos;
 			allMemorySizes = MemorySizes.AllMemorySizes;
 			numberFormatter = new NumberFormatter(this.options);
+			rcStrings = s_rcStrings;
+			scaleNumbers = s_scaleNumbers;
 		}
 
 		/// <summary>
@@ -697,7 +701,7 @@ namespace Iced.Intel {
 				}
 			}
 		}
-		static readonly string[] rcStrings = new string[] {
+		static readonly string[] s_rcStrings = new string[] {
 			"rn-sae",
 			"rd-sae",
 			"ru-sae",
@@ -725,7 +729,7 @@ namespace Iced.Intel {
 		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, Register register) =>
 			output.WriteRegister(instruction, operand, instructionOperand, ToString(register), register);
 
-		static readonly string[] scaleNumbers = new string[4] {
+		static readonly string[] s_scaleNumbers = new string[4] {
 			"1", "2", "4", "8",
 		};
 

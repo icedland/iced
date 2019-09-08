@@ -63,6 +63,11 @@ namespace Iced.Intel {
 		readonly InstrInfo[] instrInfos;
 		readonly MemorySizes.Info[] allMemorySizes;
 		readonly NumberFormatter numberFormatter;
+		readonly string?[] opSizeStrings;
+		readonly string?[] addrSizeStrings;
+		readonly string[] rcStrings;
+		readonly string[]?[] branchInfos;
+		readonly string[] scaleNumbers;
 
 		/// <summary>
 		/// Constructor
@@ -83,6 +88,11 @@ namespace Iced.Intel {
 			instrInfos = InstrInfos.AllInfos;
 			allMemorySizes = MemorySizes.AllMemorySizes;
 			numberFormatter = new NumberFormatter(this.options);
+			opSizeStrings = s_opSizeStrings;
+			addrSizeStrings = s_addrSizeStrings;
+			rcStrings = s_rcStrings;
+			branchInfos = s_branchInfos;
+			scaleNumbers = s_scaleNumbers;
 		}
 
 		/// <summary>
@@ -217,8 +227,8 @@ namespace Iced.Intel {
 			}
 		}
 
-		static readonly string?[] opSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "data16", "data32", "data64" };
-		static readonly string?[] addrSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "addr16", "addr32", "addr64" };
+		static readonly string?[] s_opSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "data16", "data32", "data64" };
+		static readonly string?[] s_addrSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "addr16", "addr32", "addr64" };
 		void FormatMnemonic(in Instruction instruction, FormatterOutput output, in InstrOpInfo opInfo, ref int column, FormatMnemonicOptions mnemonicOptions) {
 			bool needSpace = false;
 			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0 && (opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) == 0) {
@@ -680,14 +690,14 @@ namespace Iced.Intel {
 					FormatDecorator(output, instruction, operand, instructionOperand, "sae", DecoratorKind.SuppressAllExceptions);
 			}
 		}
-		static readonly string[] rcStrings = new string[] {
+		static readonly string[] s_rcStrings = new string[] {
 			"rne-sae",
 			"rd-sae",
 			"ru-sae",
 			"rz-sae",
 		};
 
-		static readonly string[]?[] branchInfos = new string[]?[(int)InstrOpInfoFlags.BranchSizeInfoMask + 1] {
+		static readonly string[]?[] s_branchInfos = new string[]?[(int)InstrOpInfoFlags.BranchSizeInfoMask + 1] {
 			null,
 			new string[] { "short" },
 		};
@@ -724,7 +734,7 @@ namespace Iced.Intel {
 		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, Register register) =>
 			output.WriteRegister(instruction, operand, instructionOperand, ToString(register), register);
 
-		static readonly string[] scaleNumbers = new string[4] {
+		static readonly string[] s_scaleNumbers = new string[4] {
 			"1", "2", "4", "8",
 		};
 

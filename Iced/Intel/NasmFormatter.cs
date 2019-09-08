@@ -68,6 +68,12 @@ namespace Iced.Intel {
 		readonly InstrInfo[] instrInfos;
 		readonly MemorySizes.Info[] allMemorySizes;
 		readonly NumberFormatter numberFormatter;
+		readonly string?[] opSizeStrings;
+		readonly string?[] addrSizeStrings;
+		readonly string[]?[] branchInfos;
+		readonly string[] scaleNumbers;
+		readonly string?[] memSizeInfos;
+		readonly string?[] farMemSizeInfos;
 
 		/// <summary>
 		/// Constructor
@@ -88,6 +94,12 @@ namespace Iced.Intel {
 			instrInfos = InstrInfos.AllInfos;
 			allMemorySizes = MemorySizes.AllMemorySizes;
 			numberFormatter = new NumberFormatter(this.options);
+			opSizeStrings = s_opSizeStrings;
+			addrSizeStrings = s_addrSizeStrings;
+			branchInfos = s_branchInfos;
+			scaleNumbers = s_scaleNumbers;
+			memSizeInfos = s_memSizeInfos;
+			farMemSizeInfos = s_farMemSizeInfos;
 		}
 
 		/// <summary>
@@ -222,8 +234,8 @@ namespace Iced.Intel {
 			}
 		}
 
-		static readonly string?[] opSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "o16", "o32", "o64" };
-		static readonly string?[] addrSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "a16", "a32", "a64" };
+		static readonly string?[] s_opSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "o16", "o32", "o64" };
+		static readonly string?[] s_addrSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "a16", "a32", "a64" };
 		void FormatMnemonic(in Instruction instruction, FormatterOutput output, in InstrOpInfo opInfo, ref int column, FormatMnemonicOptions mnemonicOptions) {
 			bool needSpace = false;
 			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0 && (opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) == 0) {
@@ -720,7 +732,7 @@ namespace Iced.Intel {
 			output.Write(" ", FormatterOutputTextKind.Text);
 		}
 
-		static readonly string[]?[] branchInfos = new string[]?[(int)InstrOpInfoFlags.BranchSizeInfoMask + 1] {
+		static readonly string[]?[] s_branchInfos = new string[]?[(int)InstrOpInfoFlags.BranchSizeInfoMask + 1] {
 			null,
 			new string[] { "near" },
 			new string[] { "near", "word" },
@@ -763,16 +775,16 @@ namespace Iced.Intel {
 		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, Register register) =>
 			output.WriteRegister(instruction, operand, instructionOperand, ToString(register), register);
 
-		static readonly string[] scaleNumbers = new string[4] {
+		static readonly string[] s_scaleNumbers = new string[4] {
 			"1", "2", "4", "8",
 		};
-		static readonly string?[] memSizeInfos = new string?[(int)InstrOpInfoFlags.MemorySizeInfoMask + 1] {
+		static readonly string?[] s_memSizeInfos = new string?[(int)InstrOpInfoFlags.MemorySizeInfoMask + 1] {
 			null,
 			"word",
 			"dword",
 			"qword",
 		};
-		static readonly string?[] farMemSizeInfos = new string?[(int)InstrOpInfoFlags.FarMemorySizeInfoMask + 1] {
+		static readonly string?[] s_farMemSizeInfos = new string?[(int)InstrOpInfoFlags.FarMemorySizeInfoMask + 1] {
 			null,
 			"word",
 			"dword",

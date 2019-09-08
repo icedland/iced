@@ -80,6 +80,9 @@ namespace Iced.Intel {
 		readonly InstrInfo[] instrInfos;
 		readonly MemorySizes.Info[] allMemorySizes;
 		readonly NumberFormatter numberFormatter;
+		readonly string?[] opSizeStrings;
+		readonly string?[] addrSizeStrings;
+		readonly string[] scaleNumbers;
 
 		string[] AllRegisters => options.NakedRegisters ? allRegistersNaked : allRegisters;
 
@@ -103,6 +106,9 @@ namespace Iced.Intel {
 			instrInfos = InstrInfos.AllInfos;
 			allMemorySizes = MemorySizes.AllMemorySizes;
 			numberFormatter = new NumberFormatter(this.options);
+			opSizeStrings = s_opSizeStrings;
+			addrSizeStrings = s_addrSizeStrings;
+			scaleNumbers = s_scaleNumbers;
 		}
 
 		/// <summary>
@@ -237,8 +243,8 @@ namespace Iced.Intel {
 			}
 		}
 
-		static readonly string?[] opSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "data16", "data32", "rex.w" };
-		static readonly string?[] addrSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "addr16", "addr32", "addr64" };
+		static readonly string?[] s_opSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "data16", "data32", "rex.w" };
+		static readonly string?[] s_addrSizeStrings = new string?[(int)InstrOpInfoFlags.SizeOverrideMask + 1] { null, "addr16", "addr32", "addr64" };
 		void FormatMnemonic(in Instruction instruction, FormatterOutput output, in InstrOpInfo opInfo, ref int column, FormatMnemonicOptions mnemonicOptions) {
 			bool needSpace = false;
 			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0 && (opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) == 0) {
@@ -773,7 +779,7 @@ namespace Iced.Intel {
 		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, Register register) =>
 			output.WriteRegister(instruction, operand, instructionOperand, ToString(register), register);
 
-		static readonly string[] scaleNumbers = new string[4] {
+		static readonly string[] s_scaleNumbers = new string[4] {
 			"1", "2", "4", "8",
 		};
 
