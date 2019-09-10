@@ -293,7 +293,7 @@ namespace Iced.Intel {
 			}
 		}
 
-		bool ShowSegmentPrefix(in InstrOpInfo opInfo) {
+		static bool ShowSegmentPrefix(in InstrOpInfo opInfo) {
 			if ((opInfo.Flags & (InstrOpInfoFlags.JccNotTaken | InstrOpInfoFlags.JccTaken)) != 0)
 				return false;
 			for (int i = 0; i < opInfo.OpCount; i++) {

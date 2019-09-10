@@ -298,7 +298,7 @@ namespace Iced.Intel {
 			}
 		}
 
-		bool ShowSegmentPrefix(in InstrOpInfo opInfo) {
+		static bool ShowSegmentPrefix(in InstrOpInfo opInfo) {
 			for (int i = 0; i < opInfo.OpCount; i++) {
 				switch (opInfo.GetOpKind(i)) {
 				case InstrOpKind.Register:

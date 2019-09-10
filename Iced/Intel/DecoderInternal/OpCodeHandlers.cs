@@ -69,9 +69,9 @@ namespace Iced.Intel.DecoderInternal {
 
 		public OpCodeHandler_Group8x8(OpCodeHandler[] tableLow, OpCodeHandler[] tableHigh) {
 			if (tableLow.Length != 8)
-				throw new ArgumentException(nameof(tableLow));
+				throw new ArgumentOutOfRangeException(nameof(tableLow));
 			if (tableHigh.Length != 8)
-				throw new ArgumentException(nameof(tableHigh));
+				throw new ArgumentOutOfRangeException(nameof(tableHigh));
 			this.tableLow = tableLow;
 			this.tableHigh = tableHigh;
 		}
@@ -93,9 +93,9 @@ namespace Iced.Intel.DecoderInternal {
 
 		public OpCodeHandler_Group8x64(OpCodeHandler[] tableLow, OpCodeHandler?[] tableHigh) {
 			if (tableLow.Length != 8)
-				throw new ArgumentException(nameof(tableLow));
+				throw new ArgumentOutOfRangeException(nameof(tableLow));
 			if (tableHigh.Length != 64)
-				throw new ArgumentException(nameof(tableHigh));
+				throw new ArgumentOutOfRangeException(nameof(tableHigh));
 			this.tableLow = tableLow;
 			this.tableHigh = tableHigh;
 		}

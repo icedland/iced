@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_ENCODER
 using System;
+using System.Runtime.Serialization;
 
 namespace Iced.Intel {
 	/// <summary>
@@ -47,7 +48,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="info"></param>
 		/// <param name="context"></param>
-		protected EncoderException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+		protected EncoderException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 	}
 }
 #endif
