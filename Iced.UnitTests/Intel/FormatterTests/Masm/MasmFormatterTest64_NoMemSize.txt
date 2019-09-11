@@ -7440,6 +7440,7 @@ invlpga eax,ecx
 invlpga rax,ecx
 monitorx eax,rcx,rdx
 monitorx rax,rcx,rdx
+mcommit
 mwaitx rax,rcx,rbx
 clzero
 clzero

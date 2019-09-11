@@ -878,6 +878,7 @@ namespace Iced.Intel {
 			0,// Monitorxw
 			0,// Monitorxd
 			0,// Monitorxq
+			0,// Mcommit
 			0,// Mwaitx
 			0,// Clzerow
 			0,// Clzerod
@@ -5059,6 +5060,7 @@ namespace Iced.Intel {
 			0,// Monitorxw
 			0,// Monitorxd
 			0,// Monitorxq
+			0,// Mcommit
 			0,// Mwaitx
 			0,// Clzerow
 			0,// Clzerod

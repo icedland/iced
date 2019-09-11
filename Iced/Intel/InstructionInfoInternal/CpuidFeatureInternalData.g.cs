@@ -43,7 +43,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x00,
 				0x00,
 				0x00,
-				0x02,
+				0x04,
 				0x00,
 				0x00,
 				0x00,
@@ -84,8 +84,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x1F,// AVX512F
 				0x1F, 0x19,// AVX512F, AVX512_VP2INTERSECT
 				0x1F, 0x3F,// AVX512F, GFNI
-				0x1F, 0x77,// AVX512F, VAES
-				0x1F, 0x79,// AVX512F, VPCLMULQDQ
+				0x1F, 0x78,// AVX512F, VAES
+				0x1F, 0x7A,// AVX512F, VPCLMULQDQ
 				0x20,// AVX512PF
 				0x21, 0x13,// AVX512VL, AVX512_BF16
 				0x21, 0x14,// AVX512VL, AVX512_BITALG
@@ -100,8 +100,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x21, 0x1D,// AVX512VL, AVX512DQ
 				0x21, 0x1F,// AVX512VL, AVX512F
 				0x21, 0x3F,// AVX512VL, GFNI
-				0x21, 0x77,// AVX512VL, VAES
-				0x21, 0x79,// AVX512VL, VPCLMULQDQ
+				0x21, 0x78,// AVX512VL, VAES
+				0x21, 0x7A,// AVX512VL, VPCLMULQDQ
 				0x22,// BMI1
 				0x23,// BMI2
 				0x24,// CET_IBT
@@ -125,7 +125,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x36,// FMA4
 				0x37,// FPU
 				0x37, 0x2C,// FPU, CMOV
-				0x37, 0x6D,// FPU, SSE3
+				0x37, 0x6E,// FPU, SSE3
 				0x38,// FPU287
 				0x39,// FPU287XL_ONLY
 				0x3A,// FPU387
@@ -140,63 +140,64 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x44,// INVVPID
 				0x45,// LWP
 				0x46,// LZCNT
-				0x47,// MMX
-				0x48,// MONITOR
-				0x49,// MONITORX
-				0x4A,// MOVBE
-				0x4B,// MOVDIR64B
-				0x4C,// MOVDIRI
-				0x4D,// MPX
-				0x4E,// MSR
-				0x4F,// MULTIBYTENOP
-				0x50,// PADLOCK_ACE
-				0x51,// PADLOCK_PHE
-				0x52,// PADLOCK_PMM
-				0x53,// PADLOCK_RNG
-				0x54,// PAUSE
-				0x55,// PCLMULQDQ
-				0x55, 0x0F,// PCLMULQDQ, AVX
-				0x56,// PCOMMIT
-				0x57,// PCONFIG
-				0x58,// PKU
-				0x59,// POPCNT
-				0x5A,// PREFETCHW
-				0x5B,// PREFETCHWT1
-				0x5C,// PTWRITE
-				0x5D,// RDPID
-				0x5E,// RDPMC
-				0x5F,// RDPRU
-				0x60,// RDRAND
-				0x61,// RDSEED
-				0x62,// RDTSCP
-				0x63,// RTM
-				0x64,// SEP
-				0x65,// SGX1
-				0x66,// SHA
-				0x68,// SKINIT_or_SVML
-				0x69,// SMAP
-				0x6A,// SMX
-				0x6B,// SSE
-				0x6C,// SSE2
-				0x6D,// SSE3
-				0x6E,// SSE4_1
-				0x6F,// SSE4_2
-				0x70,// SSE4A
-				0x71,// SSSE3
-				0x72,// SVM
-				0x74,// SYSCALL
-				0x75,// TBM
-				0x76,// TSC
-				0x77,// VAES
-				0x78,// VMX
-				0x79,// VPCLMULQDQ
-				0x7A,// WAITPKG
-				0x7B,// WBNOINVD
-				0x7C,// XOP
-				0x7D,// XSAVE
-				0x7E,// XSAVEC
-				0x7F,// XSAVEOPT
-				0x80,// XSAVES
+				0x47,// MCOMMIT
+				0x48,// MMX
+				0x49,// MONITOR
+				0x4A,// MONITORX
+				0x4B,// MOVBE
+				0x4C,// MOVDIR64B
+				0x4D,// MOVDIRI
+				0x4E,// MPX
+				0x4F,// MSR
+				0x50,// MULTIBYTENOP
+				0x51,// PADLOCK_ACE
+				0x52,// PADLOCK_PHE
+				0x53,// PADLOCK_PMM
+				0x54,// PADLOCK_RNG
+				0x55,// PAUSE
+				0x56,// PCLMULQDQ
+				0x56, 0x0F,// PCLMULQDQ, AVX
+				0x57,// PCOMMIT
+				0x58,// PCONFIG
+				0x59,// PKU
+				0x5A,// POPCNT
+				0x5B,// PREFETCHW
+				0x5C,// PREFETCHWT1
+				0x5D,// PTWRITE
+				0x5E,// RDPID
+				0x5F,// RDPMC
+				0x60,// RDPRU
+				0x61,// RDRAND
+				0x62,// RDSEED
+				0x63,// RDTSCP
+				0x64,// RTM
+				0x65,// SEP
+				0x66,// SGX1
+				0x67,// SHA
+				0x69,// SKINIT_or_SVML
+				0x6A,// SMAP
+				0x6B,// SMX
+				0x6C,// SSE
+				0x6D,// SSE2
+				0x6E,// SSE3
+				0x6F,// SSE4_1
+				0x70,// SSE4_2
+				0x71,// SSE4A
+				0x72,// SSSE3
+				0x73,// SVM
+				0x75,// SYSCALL
+				0x76,// TBM
+				0x77,// TSC
+				0x78,// VAES
+				0x79,// VMX
+				0x7A,// VPCLMULQDQ
+				0x7B,// WAITPKG
+				0x7C,// WBNOINVD
+				0x7D,// XOP
+				0x7E,// XSAVE
+				0x7F,// XSAVEC
+				0x80,// XSAVEOPT
+				0x81,// XSAVES
 			};
 	}
 }

@@ -7440,6 +7440,7 @@ invlpga eax, ecx
 invlpga rax, ecx
 a32 monitorx
 monitorx
+mcommit
 mwaitx
 a32 clzero
 clzero

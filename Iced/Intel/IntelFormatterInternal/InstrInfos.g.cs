@@ -460,7 +460,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Pushad
 				0x01,// Normal_1
-				0xC7, 0x0A,// 1351 = "pushad"
+				0xC8, 0x0A,// 1352 = "pushad"
 
 				// Popaw
 				0x01,// Normal_1
@@ -468,7 +468,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Popad
 				0x01,// Normal_1
-				0xC5, 0x0A,// 1349 = "popad"
+				0xC6, 0x0A,// 1350 = "popad"
 
 				// Bound_r16_m1616
 				0x02,// Normal_2
@@ -548,27 +548,27 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Insb_m8_DX
 				0x01,// Normal_1
-				0x8A, 0x0A,// 1290 = "insb"
+				0x8B, 0x0A,// 1291 = "insb"
 
 				// Insw_m16_DX
 				0x01,// Normal_1
-				0x8C, 0x0A,// 1292 = "insw"
+				0x8D, 0x0A,// 1293 = "insw"
 
 				// Insd_m32_DX
 				0x01,// Normal_1
-				0x8B, 0x0A,// 1291 = "insd"
+				0x8C, 0x0A,// 1292 = "insd"
 
 				// Outsb_DX_m8
 				0x01,// Normal_1
-				0x96, 0x0A,// 1302 = "outsb"
+				0x97, 0x0A,// 1303 = "outsb"
 
 				// Outsw_DX_m16
 				0x01,// Normal_1
-				0x98, 0x0A,// 1304 = "outsw"
+				0x99, 0x0A,// 1305 = "outsw"
 
 				// Outsd_DX_m32
 				0x01,// Normal_1
-				0x97, 0x0A,// 1303 = "outsd"
+				0x98, 0x0A,// 1304 = "outsd"
 
 				// Jo_rel8_16
 				0x18,// os_jcc_3
@@ -1246,31 +1246,31 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Pause
 				0x01,// Normal_1
-				0xBF, 0x08,// 1087 = "pause"
+				0xC0, 0x08,// 1088 = "pause"
 
 				// Cbw
 				0x01,// Normal_1
-				0xF4, 0x09,// 1268 = "cbw"
+				0xF5, 0x09,// 1269 = "cbw"
 
 				// Cwde
 				0x01,// Normal_1
-				0xF9, 0x09,// 1273 = "cwde"
+				0xFA, 0x09,// 1274 = "cwde"
 
 				// Cdqe
 				0x01,// Normal_1
-				0xF6, 0x09,// 1270 = "cdqe"
+				0xF7, 0x09,// 1271 = "cdqe"
 
 				// Cwd
 				0x01,// Normal_1
-				0xF8, 0x09,// 1272 = "cwd"
+				0xF9, 0x09,// 1273 = "cwd"
 
 				// Cdq
 				0x01,// Normal_1
-				0xF5, 0x09,// 1269 = "cdq"
+				0xF6, 0x09,// 1270 = "cdq"
 
 				// Cqo
 				0x01,// Normal_1
-				0xF7, 0x09,// 1271 = "cqo"
+				0xF8, 0x09,// 1272 = "cqo"
 
 				// Call_ptr1616
 				0x15,// os3
@@ -1286,7 +1286,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Wait
 				0x01,// Normal_1
-				0x89, 0x0A,// 1289 = "fwait"
+				0x8A, 0x0A,// 1290 = "fwait"
 
 				// Pushfw
 				0x01,// Normal_1
@@ -1294,11 +1294,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Pushfd
 				0x01,// Normal_1
-				0x9B, 0x0A,// 1307 = "pushfd"
+				0x9C, 0x0A,// 1308 = "pushfd"
 
 				// Pushfq
 				0x01,// Normal_1
-				0x9C, 0x0A,// 1308 = "pushfq"
+				0x9D, 0x0A,// 1309 = "pushfq"
 
 				// Popfw
 				0x01,// Normal_1
@@ -1306,15 +1306,15 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Popfd
 				0x01,// Normal_1
-				0x99, 0x0A,// 1305 = "popfd"
+				0x9A, 0x0A,// 1306 = "popfd"
 
 				// Popfq
 				0x01,// Normal_1
-				0x9A, 0x0A,// 1306 = "popfq"
+				0x9B, 0x0A,// 1307 = "popfq"
 
 				// Sahf
 				0x01,// Normal_1
-				0xA9, 0x09,// 1193 = "sahf"
+				0xAA, 0x09,// 1194 = "sahf"
 
 				// Lahf
 				0x01,// Normal_1
@@ -1350,11 +1350,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Movsb_m8_m8
 				0x01,// Normal_1
-				0x93, 0x0A,// 1299 = "movsb"
+				0x94, 0x0A,// 1300 = "movsb"
 
 				// Movsw_m16_m16
 				0x01,// Normal_1
-				0x95, 0x0A,// 1301 = "movsw"
+				0x96, 0x0A,// 1302 = "movsw"
 
 				// Movsd_m32_m32
 				0x01,// Normal_1
@@ -1362,15 +1362,15 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Movsq_m64_m64
 				0x01,// Normal_1
-				0x94, 0x0A,// 1300 = "movsq"
+				0x95, 0x0A,// 1301 = "movsq"
 
 				// Cmpsb_m8_m8
 				0x01,// Normal_1
-				0x85, 0x0A,// 1285 = "cmpsb"
+				0x86, 0x0A,// 1286 = "cmpsb"
 
 				// Cmpsw_m16_m16
 				0x01,// Normal_1
-				0x87, 0x0A,// 1287 = "cmpsw"
+				0x88, 0x0A,// 1288 = "cmpsw"
 
 				// Cmpsd_m32_m32
 				0x01,// Normal_1
@@ -1378,7 +1378,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Cmpsq_m64_m64
 				0x01,// Normal_1
-				0x86, 0x0A,// 1286 = "cmpsq"
+				0x87, 0x0A,// 1287 = "cmpsq"
 
 				// Test_AL_imm8
 				0x01,// Normal_1
@@ -1395,51 +1395,51 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Stosb_m8_AL
 				0x25,// YA
-				0xA2, 0x0A,// 1314 = "stosb"
+				0xA3, 0x0A,// 1315 = "stosb"
 
 				// Stosw_m16_AX
 				0x25,// YA
-				0xA5, 0x0A,// 1317 = "stosw"
+				0xA6, 0x0A,// 1318 = "stosw"
 
 				// Stosd_m32_EAX
 				0x25,// YA
-				0xA3, 0x0A,// 1315 = "stosd"
+				0xA4, 0x0A,// 1316 = "stosd"
 
 				// Stosq_m64_RAX
 				0x25,// YA
-				0xA4, 0x0A,// 1316 = "stosq"
+				0xA5, 0x0A,// 1317 = "stosq"
 
 				// Lodsb_AL_m8
 				0x04,// AX
-				0x8F, 0x0A,// 1295 = "lodsb"
+				0x90, 0x0A,// 1296 = "lodsb"
 
 				// Lodsw_AX_m16
 				0x04,// AX
-				0x92, 0x0A,// 1298 = "lodsw"
+				0x93, 0x0A,// 1299 = "lodsw"
 
 				// Lodsd_EAX_m32
 				0x04,// AX
-				0x90, 0x0A,// 1296 = "lodsd"
+				0x91, 0x0A,// 1297 = "lodsd"
 
 				// Lodsq_RAX_m64
 				0x04,// AX
-				0x91, 0x0A,// 1297 = "lodsq"
+				0x92, 0x0A,// 1298 = "lodsq"
 
 				// Scasb_AL_m8
 				0x05,// AY
-				0x9E, 0x0A,// 1310 = "scasb"
+				0x9F, 0x0A,// 1311 = "scasb"
 
 				// Scasw_AX_m16
 				0x05,// AY
-				0xA1, 0x0A,// 1313 = "scasw"
+				0xA2, 0x0A,// 1314 = "scasw"
 
 				// Scasd_EAX_m32
 				0x05,// AY
-				0x9F, 0x0A,// 1311 = "scasd"
+				0xA0, 0x0A,// 1312 = "scasd"
 
 				// Scasq_RAX_m64
 				0x05,// AY
-				0xA0, 0x0A,// 1312 = "scasq"
+				0xA1, 0x0A,// 1313 = "scasq"
 
 				// Mov_r8_imm8
 				0x01,// Normal_1
@@ -1631,7 +1631,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Xabort_imm8
 				0x01,// Normal_1
-				0xE1, 0x09,// 1249 = "xabort"
+				0xE2, 0x09,// 1250 = "xabort"
 
 				// Mov_rm16_imm16
 				0x02,// Normal_2
@@ -1720,7 +1720,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Int3
 				0x01,// Normal_1
-				0xFF, 0x09,// 1279 = "int3"
+				0x80, 0x0A,// 1280 = "int3"
 
 				// Int_imm8
 				0x01,// Normal_1
@@ -1736,11 +1736,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Iretd
 				0x01,// Normal_1
-				0x8D, 0x0A,// 1293 = "iretd"
+				0x8E, 0x0A,// 1294 = "iretd"
 
 				// Iretq
 				0x01,// Normal_1
-				0x8E, 0x0A,// 1294 = "iretq"
+				0x8F, 0x0A,// 1295 = "iretq"
 
 				// Rol_rm8_1
 				0x02,// Normal_2
@@ -2008,11 +2008,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Salc
 				0x01,// Normal_1
-				0xAA, 0x09,// 1194 = "salc"
+				0xAB, 0x09,// 1195 = "salc"
 
 				// Xlatb
 				0x02,// Normal_2
-				0x84, 0x0A,// 1284 = "xlat"
+				0x85, 0x0A,// 1285 = "xlat"
 				0x80, 0x40,// 0x2000 = IgnoreIndexReg
 
 				// Fadd_m32fp
@@ -2159,7 +2159,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Fstpnce_sti
 				0x22,// ST2
-				0x88, 0x0A,// 1288 = "fstpnce"
+				0x89, 0x0A,// 1289 = "fstpnce"
 				0x00,// 0x0 = None
 
 				// Fchs
@@ -2328,7 +2328,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Fucompp
 				0x01,// Normal_1
-				0xFE, 0x09,// 1278 = "fucompp"
+				0xFF, 0x09,// 1279 = "fucompp"
 
 				// Fild_m32int
 				0x21,// ST1_3
@@ -3145,7 +3145,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Stc
 				0x01,// Normal_1
-				0xD1, 0x09,// 1233 = "stc"
+				0xD2, 0x09,// 1234 = "stc"
 
 				// Cli
 				0x01,// Normal_1
@@ -3153,7 +3153,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Sti
 				0x01,// Normal_1
-				0xD4, 0x09,// 1236 = "sti"
+				0xD5, 0x09,// 1237 = "sti"
 
 				// Cld
 				0x01,// Normal_1
@@ -3161,7 +3161,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Std
 				0x01,// Normal_1
-				0xD2, 0x09,// 1234 = "std"
+				0xD3, 0x09,// 1235 = "std"
 
 				// Inc_rm8
 				0x02,// Normal_2
@@ -3370,7 +3370,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Rstorssp_m64
 				0x01,// Normal_1
-				0xA8, 0x09,// 1192 = "rstorssp"
+				0xA9, 0x09,// 1193 = "rstorssp"
 
 				// Lmsw_rm16
 				0x01,// Normal_1
@@ -3397,19 +3397,19 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Vmlaunch
 				0x81,// 'v', Normal_1
-				0xAF, 0x08,// 1071 = "vmlaunch"
+				0xB0, 0x08,// 1072 = "vmlaunch"
 
 				// Vmresume
 				0x81,// 'v', Normal_1
-				0xB8, 0x08,// 1080 = "vmresume"
+				0xB9, 0x08,// 1081 = "vmresume"
 
 				// Vmxoff
 				0x81,// 'v', Normal_1
-				0xBB, 0x08,// 1083 = "vmxoff"
+				0xBC, 0x08,// 1084 = "vmxoff"
 
 				// Pconfig
 				0x01,// Normal_1
-				0xCA, 0x08,// 1098 = "pconfig"
+				0xCB, 0x08,// 1099 = "pconfig"
 
 				// Monitorw
 				0x03,// asz
@@ -3428,7 +3428,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Mwait
 				0x01,// Normal_1
-				0xB9, 0x08,// 1081 = "mwait"
+				0xBA, 0x08,// 1082 = "mwait"
 
 				// Clac
 				0x01,// Normal_1
@@ -3436,7 +3436,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Stac
 				0x01,// Normal_1
-				0xD0, 0x09,// 1232 = "stac"
+				0xD1, 0x09,// 1233 = "stac"
 
 				// Encls
 				0x01,// Normal_1
@@ -3444,23 +3444,23 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Xgetbv
 				0x01,// Normal_1
-				0xE3, 0x09,// 1251 = "xgetbv"
+				0xE4, 0x09,// 1252 = "xgetbv"
 
 				// Xsetbv
 				0x01,// Normal_1
-				0xF0, 0x09,// 1264 = "xsetbv"
+				0xF1, 0x09,// 1265 = "xsetbv"
 
 				// Vmfunc
 				0x81,// 'v', Normal_1
-				0xAE, 0x08,// 1070 = "vmfunc"
+				0xAF, 0x08,// 1071 = "vmfunc"
 
 				// Xend
 				0x01,// Normal_1
-				0xE2, 0x09,// 1250 = "xend"
+				0xE3, 0x09,// 1251 = "xend"
 
 				// Xtest
 				0x01,// Normal_1
-				0xF1, 0x09,// 1265 = "xtest"
+				0xF2, 0x09,// 1266 = "xtest"
 
 				// Enclu
 				0x01,// Normal_1
@@ -3483,7 +3483,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Vmmcall
 				0x81,// 'v', Normal_1
-				0xB0, 0x08,// 1072 = "vmmcall"
+				0xB1, 0x08,// 1073 = "vmmcall"
 
 				// Vmloadw
 				0x83,// 'v', asz
@@ -3517,7 +3517,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Stgi
 				0x01,// Normal_1
-				0xD3, 0x09,// 1235 = "stgi"
+				0xD4, 0x09,// 1236 = "stgi"
 
 				// Clgi
 				0x01,// Normal_1
@@ -3525,7 +3525,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Skinit
 				0x1D,// reg
-				0xCF, 0x09,// 1231 = "skinit"
+				0xD0, 0x09,// 1232 = "skinit"
 				0x25,// EAX
 
 				// Invlpgaw
@@ -3545,27 +3545,27 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Setssbsy
 				0x01,// Normal_1
-				0xC6, 0x09,// 1222 = "setssbsy"
+				0xC7, 0x09,// 1223 = "setssbsy"
 
 				// Saveprevssp
 				0x01,// Normal_1
-				0xAB, 0x09,// 1195 = "saveprevssp"
+				0xAC, 0x09,// 1196 = "saveprevssp"
 
 				// Rdpkru
 				0x01,// Normal_1
-				0x90, 0x09,// 1168 = "rdpkru"
+				0x91, 0x09,// 1169 = "rdpkru"
 
 				// Wrpkru
 				0x01,// Normal_1
-				0xDC, 0x09,// 1244 = "wrpkru"
+				0xDD, 0x09,// 1245 = "wrpkru"
 
 				// Swapgs
 				0x01,// Normal_1
-				0xD5, 0x09,// 1237 = "swapgs"
+				0xD6, 0x09,// 1238 = "swapgs"
 
 				// Rdtscp
 				0x01,// Normal_1
-				0x96, 0x09,// 1174 = "rdtscp"
+				0x97, 0x09,// 1175 = "rdtscp"
 
 				// Monitorxw
 				0x03,// asz
@@ -3582,9 +3582,13 @@ namespace Iced.Intel.IntelFormatterInternal {
 				0xD4, 0x03,// 468 = "monitorx"
 				0x40,// 0x40
 
+				// Mcommit
+				0x01,// Normal_1
+				0xAD, 0x08,// 1069 = "mcommit"
+
 				// Mwaitx
 				0x01,// Normal_1
-				0xBA, 0x08,// 1082 = "mwaitx"
+				0xBB, 0x08,// 1083 = "mwaitx"
 
 				// Clzerow
 				0x1D,// reg
@@ -3603,7 +3607,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Rdpru
 				0x01,// Normal_1
-				0x92, 0x09,// 1170 = "rdpru"
+				0x93, 0x09,// 1171 = "rdpru"
 
 				// Lar_r16_rm16
 				0x01,// Normal_1
@@ -3635,7 +3639,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Syscall
 				0x01,// Normal_1
-				0xD6, 0x09,// 1238 = "syscall"
+				0xD7, 0x09,// 1239 = "syscall"
 
 				// Clts
 				0x01,// Normal_1
@@ -3651,7 +3655,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Sysretq
 				0x01,// Normal_1
-				0x83, 0x0A,// 1283 = "sysretq"
+				0x84, 0x0A,// 1284 = "sysretq"
 
 				// Invd
 				0x01,// Normal_1
@@ -3659,11 +3663,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Wbinvd
 				0x01,// Normal_1
-				0xD9, 0x09,// 1241 = "wbinvd"
+				0xDA, 0x09,// 1242 = "wbinvd"
 
 				// Wbnoinvd
 				0x01,// Normal_1
-				0xDA, 0x09,// 1242 = "wbnoinvd"
+				0xDB, 0x09,// 1243 = "wbnoinvd"
 
 				// Cl1invmb
 				0x01,// Normal_1
@@ -3671,7 +3675,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Ud2
 				0x01,// Normal_1
-				0xD8, 0x09,// 1240 = "ud2"
+				0xD9, 0x09,// 1241 = "ud2"
 
 				// ReservedNop_rm16_r16_0F0D
 				0x01,// Normal_1
@@ -3685,15 +3689,15 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Prefetch_m8
 				0x01,// Normal_1
-				0xC6, 0x0A,// 1350 = "prefetch_exclusive"
+				0xC7, 0x0A,// 1351 = "prefetch_exclusive"
 
 				// Prefetchw_m8
 				0x01,// Normal_1
-				0x83, 0x09,// 1155 = "prefetchw"
+				0x84, 0x09,// 1156 = "prefetchw"
 
 				// Prefetchwt1_m8
 				0x01,// Normal_1
-				0x84, 0x09,// 1156 = "prefetchwt1"
+				0x85, 0x09,// 1157 = "prefetchwt1"
 
 				// Femms
 				0x01,// Normal_1
@@ -4193,19 +4197,19 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Prefetchnta_m8
 				0x01,// Normal_1
-				0xFF, 0x08,// 1151 = "prefetchnta"
+				0x80, 0x09,// 1152 = "prefetchnta"
 
 				// Prefetcht0_m8
 				0x01,// Normal_1
-				0x80, 0x09,// 1152 = "prefetcht0"
+				0x81, 0x09,// 1153 = "prefetcht0"
 
 				// Prefetcht1_m8
 				0x01,// Normal_1
-				0x81, 0x09,// 1153 = "prefetcht1"
+				0x82, 0x09,// 1154 = "prefetcht1"
 
 				// Prefetcht2_m8
 				0x01,// Normal_1
-				0x82, 0x09,// 1154 = "prefetcht2"
+				0x83, 0x09,// 1155 = "prefetcht2"
 
 				// Bndldx_bnd_mib
 				0x02,// Normal_2
@@ -4272,11 +4276,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Rdsspd_r32
 				0x01,// Normal_1
-				0x93, 0x09,// 1171 = "rdsspd"
+				0x94, 0x09,// 1172 = "rdsspd"
 
 				// Rdsspq_r64
 				0x01,// Normal_1
-				0x94, 0x09,// 1172 = "rdsspq"
+				0x95, 0x09,// 1173 = "rdsspq"
 
 				// Endbr64
 				0x01,// Normal_1
@@ -4509,11 +4513,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Movntss_m32_xmm
 				0x01,// Normal_1
-				0xB4, 0x08,// 1076 = "movntss"
+				0xB5, 0x08,// 1077 = "movntss"
 
 				// Movntsd_m64_xmm
 				0x01,// Normal_1
-				0xB3, 0x08,// 1075 = "movntsd"
+				0xB4, 0x08,// 1076 = "movntsd"
 
 				// Cvttps2pi_mm_xmmm64
 				0x01,// Normal_1
@@ -4659,23 +4663,23 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Wrmsr
 				0x01,// Normal_1
-				0xDB, 0x09,// 1243 = "wrmsr"
+				0xDC, 0x09,// 1244 = "wrmsr"
 
 				// Rdtsc
 				0x01,// Normal_1
-				0x95, 0x09,// 1173 = "rdtsc"
+				0x96, 0x09,// 1174 = "rdtsc"
 
 				// Rdmsr
 				0x01,// Normal_1
-				0x8F, 0x09,// 1167 = "rdmsr"
+				0x90, 0x09,// 1168 = "rdmsr"
 
 				// Rdpmc
 				0x01,// Normal_1
-				0x91, 0x09,// 1169 = "rdpmc"
+				0x92, 0x09,// 1170 = "rdpmc"
 
 				// Sysenter
 				0x01,// Normal_1
-				0xD7, 0x09,// 1239 = "sysenter"
+				0xD8, 0x09,// 1240 = "sysenter"
 
 				// Sysexitd
 				0x01,// Normal_1
@@ -4683,7 +4687,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Sysexitq
 				0x01,// Normal_1
-				0xA6, 0x0A,// 1318 = "sysexitq"
+				0xA7, 0x0A,// 1319 = "sysexitq"
 
 				// Getsec
 				0x01,// Normal_1
@@ -6221,7 +6225,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Pshufw_mm_mmm64_imm8
 				0x01,// Normal_1
-				0x85, 0x09,// 1157 = "pshufw"
+				0x86, 0x09,// 1158 = "pshufw"
 
 				// Pshufd_xmm_xmmm128_imm8
 				0x01,// Normal_1
@@ -6632,11 +6636,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// VEX_Vzeroupper
 				0x81,// 'v', Normal_1
-				0xF3, 0x09,// 1267 = "vzeroupper"
+				0xF4, 0x09,// 1268 = "vzeroupper"
 
 				// VEX_Vzeroall
 				0x81,// 'v', Normal_1
-				0xF2, 0x09,// 1266 = "vzeroall"
+				0xF3, 0x09,// 1267 = "vzeroall"
 
 				// Vmread_rm32_r32
 				0x81,// 'v', Normal_1
@@ -7296,67 +7300,67 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Seto_rm8
 				0x01,// Normal_1
-				0xC3, 0x09,// 1219 = "seto"
+				0xC4, 0x09,// 1220 = "seto"
 
 				// Setno_rm8
 				0x01,// Normal_1
-				0xC0, 0x09,// 1216 = "setno"
+				0xC1, 0x09,// 1217 = "setno"
 
 				// Setb_rm8
 				0x01,// Normal_1
-				0xB8, 0x09,// 1208 = "setb"
+				0xB9, 0x09,// 1209 = "setb"
 
 				// Setae_rm8
 				0x01,// Normal_1
-				0xB7, 0x09,// 1207 = "setae"
+				0xB8, 0x09,// 1208 = "setae"
 
 				// Sete_rm8
 				0x01,// Normal_1
-				0xBA, 0x09,// 1210 = "sete"
+				0xBB, 0x09,// 1211 = "sete"
 
 				// Setne_rm8
 				0x01,// Normal_1
-				0xBF, 0x09,// 1215 = "setne"
+				0xC0, 0x09,// 1216 = "setne"
 
 				// Setbe_rm8
 				0x01,// Normal_1
-				0xB9, 0x09,// 1209 = "setbe"
+				0xBA, 0x09,// 1210 = "setbe"
 
 				// Seta_rm8
 				0x01,// Normal_1
-				0xB6, 0x09,// 1206 = "seta"
+				0xB7, 0x09,// 1207 = "seta"
 
 				// Sets_rm8
 				0x01,// Normal_1
-				0xC5, 0x09,// 1221 = "sets"
+				0xC6, 0x09,// 1222 = "sets"
 
 				// Setns_rm8
 				0x01,// Normal_1
-				0xC2, 0x09,// 1218 = "setns"
+				0xC3, 0x09,// 1219 = "setns"
 
 				// Setp_rm8
 				0x01,// Normal_1
-				0xC4, 0x09,// 1220 = "setp"
+				0xC5, 0x09,// 1221 = "setp"
 
 				// Setnp_rm8
 				0x01,// Normal_1
-				0xC1, 0x09,// 1217 = "setnp"
+				0xC2, 0x09,// 1218 = "setnp"
 
 				// Setl_rm8
 				0x01,// Normal_1
-				0xBD, 0x09,// 1213 = "setl"
+				0xBE, 0x09,// 1214 = "setl"
 
 				// Setge_rm8
 				0x01,// Normal_1
-				0xBC, 0x09,// 1212 = "setge"
+				0xBD, 0x09,// 1213 = "setge"
 
 				// Setle_rm8
 				0x01,// Normal_1
-				0xBE, 0x09,// 1214 = "setle"
+				0xBF, 0x09,// 1215 = "setle"
 
 				// Setg_rm8
 				0x01,// Normal_1
-				0xBB, 0x09,// 1211 = "setg"
+				0xBC, 0x09,// 1212 = "setg"
 
 				// VEX_Kmovw_k_km16
 				0x01,// Normal_1
@@ -7708,7 +7712,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Rsm
 				0x01,// Normal_1
-				0xA1, 0x09,// 1185 = "rsm"
+				0xA2, 0x09,// 1186 = "rsm"
 
 				// Bts_rm16_r16
 				0x01,// Normal_1
@@ -7801,11 +7805,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Xsave_m
 				0x01,// Normal_1
-				0xE8, 0x09,// 1256 = "xsave"
+				0xE9, 0x09,// 1257 = "xsave"
 
 				// Xsave64_m
 				0x01,// Normal_1
-				0xE9, 0x09,// 1257 = "xsave64"
+				0xEA, 0x09,// 1258 = "xsave64"
 
 				// Ptwrite_rm32
 				0x02,// Normal_2
@@ -7817,11 +7821,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Xrstor_m
 				0x01,// Normal_1
-				0xE4, 0x09,// 1252 = "xrstor"
+				0xE5, 0x09,// 1253 = "xrstor"
 
 				// Xrstor64_m
 				0x01,// Normal_1
-				0xE5, 0x09,// 1253 = "xrstor64"
+				0xE6, 0x09,// 1254 = "xrstor64"
 
 				// Incsspd_r32
 				0x01,// Normal_1
@@ -7833,11 +7837,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Xsaveopt_m
 				0x01,// Normal_1
-				0xEC, 0x09,// 1260 = "xsaveopt"
+				0xED, 0x09,// 1261 = "xsaveopt"
 
 				// Xsaveopt64_m
 				0x01,// Normal_1
-				0xED, 0x09,// 1261 = "xsaveopt64"
+				0xEE, 0x09,// 1262 = "xsaveopt64"
 
 				// Clwb_m8
 				0x01,// Normal_1
@@ -7885,15 +7889,15 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Mfence
 				0x01,// Normal_1
-				0xAD, 0x08,// 1069 = "mfence"
+				0xAE, 0x08,// 1070 = "mfence"
 
 				// Sfence
 				0x01,// Normal_1
-				0xC7, 0x09,// 1223 = "sfence"
+				0xC8, 0x09,// 1224 = "sfence"
 
 				// Pcommit
 				0x01,// Normal_1
-				0xC3, 0x08,// 1091 = "pcommit"
+				0xC4, 0x08,// 1092 = "pcommit"
 
 				// Imul_r16_rm16
 				0x01,// Normal_1
@@ -8311,31 +8315,31 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Xrstors_m
 				0x01,// Normal_1
-				0xE6, 0x09,// 1254 = "xrstors"
+				0xE7, 0x09,// 1255 = "xrstors"
 
 				// Xrstors64_m
 				0x01,// Normal_1
-				0xE7, 0x09,// 1255 = "xrstors64"
+				0xE8, 0x09,// 1256 = "xrstors64"
 
 				// Xsavec_m
 				0x01,// Normal_1
-				0xEA, 0x09,// 1258 = "xsavec"
+				0xEB, 0x09,// 1259 = "xsavec"
 
 				// Xsavec64_m
 				0x01,// Normal_1
-				0xEB, 0x09,// 1259 = "xsavec64"
+				0xEC, 0x09,// 1260 = "xsavec64"
 
 				// Xsaves_m
 				0x01,// Normal_1
-				0xEE, 0x09,// 1262 = "xsaves"
+				0xEF, 0x09,// 1263 = "xsaves"
 
 				// Xsaves64_m
 				0x01,// Normal_1
-				0xEF, 0x09,// 1263 = "xsaves64"
+				0xF0, 0x09,// 1264 = "xsaves64"
 
 				// Vmptrld_m64
 				0x81,// 'v', Normal_1
-				0xB6, 0x08,// 1078 = "vmptrld"
+				0xB7, 0x08,// 1079 = "vmptrld"
 
 				// Vmclear_m64
 				0x81,// 'v', Normal_1
@@ -8343,7 +8347,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Vmxon_m64
 				0x81,// 'v', Normal_1
-				0xBC, 0x08,// 1084 = "vmxon"
+				0xBD, 0x08,// 1085 = "vmxon"
 
 				// Rdrand_r16
 				0x01,// Normal_1
@@ -8357,7 +8361,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Vmptrst_m64
 				0x81,// 'v', Normal_1
-				0xB7, 0x08,// 1079 = "vmptrst"
+				0xB8, 0x08,// 1080 = "vmptrst"
 
 				// Rdseed_r16
 				0x01,// Normal_1
@@ -8536,11 +8540,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Movq2dq_xmm_mm
 				0x01,// Normal_1
-				0xB5, 0x08,// 1077 = "movq2dq"
+				0xB6, 0x08,// 1078 = "movq2dq"
 
 				// Movdq2q_mm_xmm
 				0x01,// Normal_1
-				0xB1, 0x08,// 1073 = "movdq2q"
+				0xB2, 0x08,// 1074 = "movdq2q"
 
 				// Pmovmskb_r32_mm
 				0x01,// Normal_1
@@ -9004,7 +9008,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Movntq_m64_mm
 				0x01,// Normal_1
-				0xB2, 0x08,// 1074 = "movntq"
+				0xB3, 0x08,// 1075 = "movntq"
 
 				// Movntdq_m128_xmm
 				0x01,// Normal_1
@@ -10559,11 +10563,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er
 				0x81,// 'v', Normal_1
-				0xAD, 0x09,// 1197 = "vscalefss"
+				0xAE, 0x09,// 1198 = "vscalefss"
 
 				// EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er
 				0x81,// 'v', Normal_1
-				0xAC, 0x09,// 1196 = "vscalefsd"
+				0xAD, 0x09,// 1197 = "vscalefsd"
 
 				// VEX_Vmaskmovps_m128_xmm_xmm
 				0x81,// 'v', Normal_1
@@ -11248,11 +11252,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32
 				0x81,// 'v', Normal_1
-				0x8A, 0x09,// 1162 = "vrcp14ss"
+				0x8B, 0x09,// 1163 = "vrcp14ss"
 
 				// EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64
 				0x81,// 'v', Normal_1
-				0x89, 0x09,// 1161 = "vrcp14sd"
+				0x8A, 0x09,// 1162 = "vrcp14sd"
 
 				// EVEX_Vrsqrt14ps_xmm_k1z_xmmm128b32
 				0x81,// 'v', Normal_1
@@ -11276,11 +11280,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32
 				0x81,// 'v', Normal_1
-				0xA3, 0x09,// 1187 = "vrsqrt14ss"
+				0xA4, 0x09,// 1188 = "vrsqrt14ss"
 
 				// EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64
 				0x81,// 'v', Normal_1
-				0xA2, 0x09,// 1186 = "vrsqrt14sd"
+				0xA3, 0x09,// 1187 = "vrsqrt14sd"
 
 				// EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
 				0x81,// 'v', Normal_1
@@ -11324,7 +11328,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128
 				0x81,// 'v', Normal_1
-				0xBD, 0x08,// 1085 = "vp4dpwssd"
+				0xBE, 0x08,// 1086 = "vp4dpwssd"
 
 				// EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
 				0x81,// 'v', Normal_1
@@ -11338,7 +11342,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128
 				0x81,// 'v', Normal_1
-				0xBE, 0x08,// 1086 = "vp4dpwssds"
+				0xBF, 0x08,// 1087 = "vp4dpwssds"
 
 				// EVEX_Vpopcntb_xmm_k1z_xmmm128
 				0x81,// 'v', Normal_1
@@ -13107,19 +13111,19 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// EVEX_Vscatterpf0dps_vm32z_k1
 				0x8D,// 'v', k1
-				0xAF, 0x09,// 1199 = "vscatterpf0dps"
+				0xB0, 0x09,// 1200 = "vscatterpf0dps"
 
 				// EVEX_Vscatterpf0dpd_vm32y_k1
 				0x8D,// 'v', k1
-				0xAE, 0x09,// 1198 = "vscatterpf0dpd"
+				0xAF, 0x09,// 1199 = "vscatterpf0dpd"
 
 				// EVEX_Vscatterpf1dps_vm32z_k1
 				0x8D,// 'v', k1
-				0xB3, 0x09,// 1203 = "vscatterpf1dps"
+				0xB4, 0x09,// 1204 = "vscatterpf1dps"
 
 				// EVEX_Vscatterpf1dpd_vm32y_k1
 				0x8D,// 'v', k1
-				0xB2, 0x09,// 1202 = "vscatterpf1dpd"
+				0xB3, 0x09,// 1203 = "vscatterpf1dpd"
 
 				// EVEX_Vgatherpf0qps_vm64z_k1
 				0x8D,// 'v', k1
@@ -13139,23 +13143,23 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// EVEX_Vscatterpf0qps_vm64z_k1
 				0x8D,// 'v', k1
-				0xB1, 0x09,// 1201 = "vscatterpf0qps"
+				0xB2, 0x09,// 1202 = "vscatterpf0qps"
 
 				// EVEX_Vscatterpf0qpd_vm64z_k1
 				0x8D,// 'v', k1
-				0xB0, 0x09,// 1200 = "vscatterpf0qpd"
+				0xB1, 0x09,// 1201 = "vscatterpf0qpd"
 
 				// EVEX_Vscatterpf1qps_vm64z_k1
 				0x8D,// 'v', k1
-				0xB5, 0x09,// 1205 = "vscatterpf1qps"
+				0xB6, 0x09,// 1206 = "vscatterpf1qps"
 
 				// EVEX_Vscatterpf1qpd_vm64z_k1
 				0x8D,// 'v', k1
-				0xB4, 0x09,// 1204 = "vscatterpf1qpd"
+				0xB5, 0x09,// 1205 = "vscatterpf1qpd"
 
 				// Sha1nexte_xmm_xmmm128
 				0x01,// Normal_1
-				0xCA, 0x09,// 1226 = "sha1nexte"
+				0xCB, 0x09,// 1227 = "sha1nexte"
 
 				// EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae
 				0x81,// 'v', Normal_1
@@ -13167,55 +13171,55 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Sha1msg1_xmm_xmmm128
 				0x01,// Normal_1
-				0xC8, 0x09,// 1224 = "sha1msg1"
+				0xC9, 0x09,// 1225 = "sha1msg1"
 
 				// Sha1msg2_xmm_xmmm128
 				0x01,// Normal_1
-				0xC9, 0x09,// 1225 = "sha1msg2"
+				0xCA, 0x09,// 1226 = "sha1msg2"
 
 				// EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae
 				0x81,// 'v', Normal_1
-				0x8C, 0x09,// 1164 = "vrcp28ps"
+				0x8D, 0x09,// 1165 = "vrcp28ps"
 
 				// EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae
 				0x81,// 'v', Normal_1
-				0x8B, 0x09,// 1163 = "vrcp28pd"
+				0x8C, 0x09,// 1164 = "vrcp28pd"
 
 				// Sha256rnds2_xmm_xmmm128
 				0x01,// Normal_1
-				0xCE, 0x09,// 1230 = "sha256rnds2"
+				0xCF, 0x09,// 1231 = "sha256rnds2"
 
 				// EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae
 				0x81,// 'v', Normal_1
-				0x8E, 0x09,// 1166 = "vrcp28ss"
+				0x8F, 0x09,// 1167 = "vrcp28ss"
 
 				// EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae
 				0x81,// 'v', Normal_1
-				0x8D, 0x09,// 1165 = "vrcp28sd"
+				0x8E, 0x09,// 1166 = "vrcp28sd"
 
 				// Sha256msg1_xmm_xmmm128
 				0x01,// Normal_1
-				0xCC, 0x09,// 1228 = "sha256msg1"
+				0xCD, 0x09,// 1229 = "sha256msg1"
 
 				// EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae
 				0x81,// 'v', Normal_1
-				0xA5, 0x09,// 1189 = "vrsqrt28ps"
+				0xA6, 0x09,// 1190 = "vrsqrt28ps"
 
 				// EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae
 				0x81,// 'v', Normal_1
-				0xA4, 0x09,// 1188 = "vrsqrt28pd"
+				0xA5, 0x09,// 1189 = "vrsqrt28pd"
 
 				// Sha256msg2_xmm_xmmm128
 				0x01,// Normal_1
-				0xCD, 0x09,// 1229 = "sha256msg2"
+				0xCE, 0x09,// 1230 = "sha256msg2"
 
 				// EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae
 				0x81,// 'v', Normal_1
-				0xA7, 0x09,// 1191 = "vrsqrt28ss"
+				0xA8, 0x09,// 1192 = "vrsqrt28ss"
 
 				// EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae
 				0x81,// 'v', Normal_1
-				0xA6, 0x09,// 1190 = "vrsqrt28sd"
+				0xA7, 0x09,// 1191 = "vrsqrt28sd"
 
 				// Gf2p8mulb_xmm_xmmm128
 				0x01,// Normal_1
@@ -13401,11 +13405,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Wrussd_m32_r32
 				0x01,// Normal_1
-				0xDF, 0x09,// 1247 = "wrussd"
+				0xE0, 0x09,// 1248 = "wrussd"
 
 				// Wrussq_m64_r64
 				0x01,// Normal_1
-				0xE0, 0x09,// 1248 = "wrussq"
+				0xE1, 0x09,// 1249 = "wrussq"
 
 				// VEX_Pext_r32_r32_rm32
 				0x01,// Normal_1
@@ -13423,11 +13427,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Wrssd_m32_r32
 				0x01,// Normal_1
-				0xDD, 0x09,// 1245 = "wrssd"
+				0xDE, 0x09,// 1246 = "wrssd"
 
 				// Wrssq_m64_r64
 				0x01,// Normal_1
-				0xDE, 0x09,// 1246 = "wrssq"
+				0xDF, 0x09,// 1247 = "wrssq"
 
 				// Adcx_r32_rm32
 				0x01,// Normal_1
@@ -13596,7 +13600,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// VEX_Vperm2f128_ymm_ymm_ymmm256_imm8
 				0x81,// 'v', Normal_1
-				0xCB, 0x08,// 1099 = "vperm2f128"
+				0xCC, 0x08,// 1100 = "vperm2f128"
 
 				// Roundps_xmm_xmmm128_imm8
 				0x01,// Normal_1
@@ -13650,7 +13654,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae
 				0x81,// 'v', Normal_1
-				0xA0, 0x09,// 1184 = "vrndscaless"
+				0xA1, 0x09,// 1185 = "vrndscaless"
 
 				// Roundsd_xmm_xmmm64_imm8
 				0x01,// Normal_1
@@ -13662,7 +13666,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae
 				0x81,// 'v', Normal_1
-				0x9F, 0x09,// 1183 = "vrndscalesd"
+				0xA0, 0x09,// 1184 = "vrndscalesd"
 
 				// Blendps_xmm_xmmm128_imm8
 				0x01,// Normal_1
@@ -14231,7 +14235,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
 				0x81,// 'v', Normal_1
-				0xCC, 0x08,// 1100 = "vperm2i128"
+				0xCD, 0x08,// 1101 = "vperm2i128"
 
 				// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8
 				0x81,// 'v', Normal_1
@@ -14302,11 +14306,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae
 				0x81,// 'v', Normal_1
-				0x88, 0x09,// 1160 = "vrangess"
+				0x89, 0x09,// 1161 = "vrangess"
 
 				// EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae
 				0x81,// 'v', Normal_1
-				0x87, 0x09,// 1159 = "vrangesd"
+				0x88, 0x09,// 1160 = "vrangesd"
 
 				// EVEX_Vfixupimmps_xmm_k1z_xmm_xmmm128b32_imm8
 				0x81,// 'v', Normal_1
@@ -14358,11 +14362,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae
 				0x81,// 'v', Normal_1
-				0x98, 0x09,// 1176 = "vreducess"
+				0x99, 0x09,// 1177 = "vreducess"
 
 				// EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae
 				0x81,// 'v', Normal_1
-				0x97, 0x09,// 1175 = "vreducesd"
+				0x98, 0x09,// 1176 = "vreducesd"
 
 				// VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
@@ -14718,7 +14722,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// Sha1rnds4_xmm_xmmm128_imm8
 				0x01,// Normal_1
-				0xCB, 0x09,// 1227 = "sha1rnds4"
+				0xCC, 0x09,// 1228 = "sha1rnds4"
 
 				// Gf2p8affineqb_xmm_xmmm128_imm8
 				0x01,// Normal_1
@@ -14777,43 +14781,43 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// XOP_Vpmacssww_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xFA, 0x08,// 1146 = "vpmacssww"
+				0xFB, 0x08,// 1147 = "vpmacssww"
 
 				// XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF9, 0x08,// 1145 = "vpmacsswd"
+				0xFA, 0x08,// 1146 = "vpmacsswd"
 
 				// XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF8, 0x08,// 1144 = "vpmacssdql"
+				0xF9, 0x08,// 1145 = "vpmacssdql"
 
 				// XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF6, 0x08,// 1142 = "vpmacssdd"
+				0xF7, 0x08,// 1143 = "vpmacssdd"
 
 				// XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF7, 0x08,// 1143 = "vpmacssdqh"
+				0xF8, 0x08,// 1144 = "vpmacssdqh"
 
 				// XOP_Vpmacsww_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xFC, 0x08,// 1148 = "vpmacsww"
+				0xFD, 0x08,// 1149 = "vpmacsww"
 
 				// XOP_Vpmacswd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xFB, 0x08,// 1147 = "vpmacswd"
+				0xFC, 0x08,// 1148 = "vpmacswd"
 
 				// XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF5, 0x08,// 1141 = "vpmacsdql"
+				0xF6, 0x08,// 1142 = "vpmacsdql"
 
 				// XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF3, 0x08,// 1139 = "vpmacsdd"
+				0xF4, 0x08,// 1140 = "vpmacsdd"
 
 				// XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xF4, 0x08,// 1140 = "vpmacsdqh"
+				0xF5, 0x08,// 1141 = "vpmacsdqh"
 
 				// XOP_Vpcmov_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
@@ -14837,11 +14841,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xFD, 0x08,// 1149 = "vpmadcsswd"
+				0xFE, 0x08,// 1150 = "vpmadcsswd"
 
 				// XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm
 				0x81,// 'v', Normal_1
-				0xFE, 0x08,// 1150 = "vpmadcswd"
+				0xFF, 0x08,// 1151 = "vpmadcswd"
 
 				// XOP_Vprotb_xmm_xmmm128_imm8
 				0x81,// 'v', Normal_1
@@ -14861,42 +14865,42 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// XOP_Vpcomb_xmm_xmm_xmmm128_imm8
 				0x9C,// 'v', pops
-				0xC1, 0x08,// 1089 = "vpcomb"
+				0xC2, 0x08,// 1090 = "vpcomb"
 				0x0A,// vpcomb
 
 				// XOP_Vpcomw_xmm_xmm_xmmm128_imm8
 				0x9C,// 'v', pops
-				0xC9, 0x08,// 1097 = "vpcomw"
+				0xCA, 0x08,// 1098 = "vpcomw"
 				0x0B,// vpcomw
 
 				// XOP_Vpcomd_xmm_xmm_xmmm128_imm8
 				0x9C,// 'v', pops
-				0xC2, 0x08,// 1090 = "vpcomd"
+				0xC3, 0x08,// 1091 = "vpcomd"
 				0x0C,// vpcomd
 
 				// XOP_Vpcomq_xmm_xmm_xmmm128_imm8
 				0x9C,// 'v', pops
-				0xC4, 0x08,// 1092 = "vpcomq"
+				0xC5, 0x08,// 1093 = "vpcomq"
 				0x0D,// vpcomq
 
 				// XOP_Vpcomub_xmm_xmm_xmmm128_imm8
 				0x9C,// 'v', pops
-				0xC5, 0x08,// 1093 = "vpcomub"
+				0xC6, 0x08,// 1094 = "vpcomub"
 				0x0E,// vpcomub
 
 				// XOP_Vpcomuw_xmm_xmm_xmmm128_imm8
 				0x9C,// 'v', pops
-				0xC8, 0x08,// 1096 = "vpcomuw"
+				0xC9, 0x08,// 1097 = "vpcomuw"
 				0x0F,// vpcomuw
 
 				// XOP_Vpcomud_xmm_xmm_xmmm128_imm8
 				0x9C,// 'v', pops
-				0xC6, 0x08,// 1094 = "vpcomud"
+				0xC7, 0x08,// 1095 = "vpcomud"
 				0x10,// vpcomud
 
 				// XOP_Vpcomuq_xmm_xmm_xmmm128_imm8
 				0x9C,// 'v', pops
-				0xC7, 0x08,// 1095 = "vpcomuq"
+				0xC8, 0x08,// 1096 = "vpcomuq"
 				0x11,// vpcomuq
 
 				// XOP_Blcfill_r32_rm32
@@ -15084,63 +15088,63 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// XOP_Vphaddbw_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE4, 0x08,// 1124 = "vphaddbw"
+				0xE5, 0x08,// 1125 = "vphaddbw"
 
 				// XOP_Vphaddbd_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE2, 0x08,// 1122 = "vphaddbd"
+				0xE3, 0x08,// 1123 = "vphaddbd"
 
 				// XOP_Vphaddbq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE3, 0x08,// 1123 = "vphaddbq"
+				0xE4, 0x08,// 1124 = "vphaddbq"
 
 				// XOP_Vphaddwd_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xEC, 0x08,// 1132 = "vphaddwd"
+				0xED, 0x08,// 1133 = "vphaddwd"
 
 				// XOP_Vphaddwq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xED, 0x08,// 1133 = "vphaddwq"
+				0xEE, 0x08,// 1134 = "vphaddwq"
 
 				// XOP_Vphadddq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE5, 0x08,// 1125 = "vphadddq"
+				0xE6, 0x08,// 1126 = "vphadddq"
 
 				// XOP_Vphaddubw_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE8, 0x08,// 1128 = "vphaddubw"
+				0xE9, 0x08,// 1129 = "vphaddubw"
 
 				// XOP_Vphaddubd_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE6, 0x08,// 1126 = "vphaddubd"
+				0xE7, 0x08,// 1127 = "vphaddubd"
 
 				// XOP_Vphaddubq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE7, 0x08,// 1127 = "vphaddubq"
+				0xE8, 0x08,// 1128 = "vphaddubq"
 
 				// XOP_Vphadduwd_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xEA, 0x08,// 1130 = "vphadduwd"
+				0xEB, 0x08,// 1131 = "vphadduwd"
 
 				// XOP_Vphadduwq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xEB, 0x08,// 1131 = "vphadduwq"
+				0xEC, 0x08,// 1132 = "vphadduwq"
 
 				// XOP_Vphaddudq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xE9, 0x08,// 1129 = "vphaddudq"
+				0xEA, 0x08,// 1130 = "vphaddudq"
 
 				// XOP_Vphsubbw_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xEE, 0x08,// 1134 = "vphsubbw"
+				0xEF, 0x08,// 1135 = "vphsubbw"
 
 				// XOP_Vphsubwd_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xF0, 0x08,// 1136 = "vphsubwd"
+				0xF1, 0x08,// 1137 = "vphsubwd"
 
 				// XOP_Vphsubdq_xmm_xmmm128
 				0x81,// 'v', Normal_1
-				0xEF, 0x08,// 1135 = "vphsubdq"
+				0xF0, 0x08,// 1136 = "vphsubdq"
 
 				// XOP_Bextr_r32_rm32_imm32
 				0x01,// Normal_1
@@ -15165,123 +15169,123 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// D3NOW_Pi2fw_mm_mmm64
 				0x01,// Normal_1
-				0xF2, 0x08,// 1138 = "pi2fw"
+				0xF3, 0x08,// 1139 = "pi2fw"
 
 				// D3NOW_Pi2fd_mm_mmm64
 				0x01,// Normal_1
-				0xF1, 0x08,// 1137 = "pi2fd"
+				0xF2, 0x08,// 1138 = "pi2fd"
 
 				// D3NOW_Pf2iw_mm_mmm64
 				0x01,// Normal_1
-				0xCE, 0x08,// 1102 = "pf2iw"
+				0xCF, 0x08,// 1103 = "pf2iw"
 
 				// D3NOW_Pf2id_mm_mmm64
 				0x01,// Normal_1
-				0xCD, 0x08,// 1101 = "pf2id"
+				0xCE, 0x08,// 1102 = "pf2id"
 
 				// D3NOW_Pfrcpv_mm_mmm64
 				0x01,// Normal_1
-				0xDC, 0x08,// 1116 = "pfrcpv"
+				0xDD, 0x08,// 1117 = "pfrcpv"
 
 				// D3NOW_Pfrsqrtv_mm_mmm64
 				0x01,// Normal_1
-				0xDF, 0x08,// 1119 = "pfrsqrtv"
+				0xE0, 0x08,// 1120 = "pfrsqrtv"
 
 				// D3NOW_Pfnacc_mm_mmm64
 				0x01,// Normal_1
-				0xD7, 0x08,// 1111 = "pfnacc"
+				0xD8, 0x08,// 1112 = "pfnacc"
 
 				// D3NOW_Pfpnacc_mm_mmm64
 				0x01,// Normal_1
-				0xD8, 0x08,// 1112 = "pfpnacc"
+				0xD9, 0x08,// 1113 = "pfpnacc"
 
 				// D3NOW_Pfcmpge_mm_mmm64
 				0x01,// Normal_1
-				0xD2, 0x08,// 1106 = "pfcmpge"
+				0xD3, 0x08,// 1107 = "pfcmpge"
 
 				// D3NOW_Pfmin_mm_mmm64
 				0x01,// Normal_1
-				0xD5, 0x08,// 1109 = "pfmin"
+				0xD6, 0x08,// 1110 = "pfmin"
 
 				// D3NOW_Pfrcp_mm_mmm64
 				0x01,// Normal_1
-				0xD9, 0x08,// 1113 = "pfrcp"
+				0xDA, 0x08,// 1114 = "pfrcp"
 
 				// D3NOW_Pfrsqrt_mm_mmm64
 				0x01,// Normal_1
-				0xDE, 0x08,// 1118 = "pfrsqrt"
+				0xDF, 0x08,// 1119 = "pfrsqrt"
 
 				// D3NOW_Pfsub_mm_mmm64
 				0x01,// Normal_1
-				0xE0, 0x08,// 1120 = "pfsub"
+				0xE1, 0x08,// 1121 = "pfsub"
 
 				// D3NOW_Pfadd_mm_mmm64
 				0x01,// Normal_1
-				0xD0, 0x08,// 1104 = "pfadd"
+				0xD1, 0x08,// 1105 = "pfadd"
 
 				// D3NOW_Pfcmpgt_mm_mmm64
 				0x01,// Normal_1
-				0xD3, 0x08,// 1107 = "pfcmpgt"
+				0xD4, 0x08,// 1108 = "pfcmpgt"
 
 				// D3NOW_Pfmax_mm_mmm64
 				0x01,// Normal_1
-				0xD4, 0x08,// 1108 = "pfmax"
+				0xD5, 0x08,// 1109 = "pfmax"
 
 				// D3NOW_Pfrcpit1_mm_mmm64
 				0x01,// Normal_1
-				0xDA, 0x08,// 1114 = "pfrcpit1"
+				0xDB, 0x08,// 1115 = "pfrcpit1"
 
 				// D3NOW_Pfrsqit1_mm_mmm64
 				0x01,// Normal_1
-				0xDD, 0x08,// 1117 = "pfrsqit1"
+				0xDE, 0x08,// 1118 = "pfrsqit1"
 
 				// D3NOW_Pfsubr_mm_mmm64
 				0x01,// Normal_1
-				0xE1, 0x08,// 1121 = "pfsubr"
+				0xE2, 0x08,// 1122 = "pfsubr"
 
 				// D3NOW_Pfacc_mm_mmm64
 				0x01,// Normal_1
-				0xCF, 0x08,// 1103 = "pfacc"
+				0xD0, 0x08,// 1104 = "pfacc"
 
 				// D3NOW_Pfcmpeq_mm_mmm64
 				0x01,// Normal_1
-				0xD1, 0x08,// 1105 = "pfcmpeq"
+				0xD2, 0x08,// 1106 = "pfcmpeq"
 
 				// D3NOW_Pfmul_mm_mmm64
 				0x01,// Normal_1
-				0xD6, 0x08,// 1110 = "pfmul"
+				0xD7, 0x08,// 1111 = "pfmul"
 
 				// D3NOW_Pfrcpit2_mm_mmm64
 				0x01,// Normal_1
-				0xDB, 0x08,// 1115 = "pfrcpit2"
+				0xDC, 0x08,// 1116 = "pfrcpit2"
 
 				// D3NOW_Pmulhrw_mm_mmm64
 				0x01,// Normal_1
-				0x81, 0x0A,// 1281 = "pmulhrw"
+				0x82, 0x0A,// 1282 = "pmulhrw"
 
 				// D3NOW_Pswapd_mm_mmm64
 				0x01,// Normal_1
-				0x86, 0x09,// 1158 = "pswapd"
+				0x87, 0x09,// 1159 = "pswapd"
 
 				// D3NOW_Pavgusb_mm_mmm64
 				0x01,// Normal_1
-				0xC0, 0x08,// 1088 = "pavgusb"
+				0xC1, 0x08,// 1089 = "pavgusb"
 
 				// DeclareByte
 				0x09,// DeclareData
-				0xFA, 0x09,// 1274 = "db"
+				0xFB, 0x09,// 1275 = "db"
 
 				// DeclareWord
 				0x09,// DeclareData
-				0xFD, 0x09,// 1277 = "dw"
+				0xFE, 0x09,// 1278 = "dw"
 
 				// DeclareDword
 				0x09,// DeclareData
-				0xFB, 0x09,// 1275 = "dd"
+				0xFC, 0x09,// 1276 = "dd"
 
 				// DeclareQword
 				0x09,// DeclareData
-				0xFC, 0x09,// 1276 = "dq"
+				0xFD, 0x09,// 1277 = "dq"
 			};
 	}
 }

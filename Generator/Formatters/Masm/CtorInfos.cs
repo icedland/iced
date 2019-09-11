@@ -880,6 +880,7 @@ namespace Generator.Formatters.Masm {
 			new object[] { CtorKind.monitor, Code.Monitorxw, "monitorx", Register.AX, Register.ECX, Register.EDX },
 			new object[] { CtorKind.monitor, Code.Monitorxd, "monitorx", Register.EAX, Register.ECX, Register.EDX },
 			new object[] { CtorKind.monitor, Code.Monitorxq, "monitorx", Register.RAX, Register.RCX, Register.RDX },
+			new object[] { CtorKind.Normal_1, Code.Mcommit, "mcommit" },
 			new object[] { CtorKind.mwaitx, Code.Mwaitx, "mwaitx" },
 			new object[] { CtorKind.Normal_1, Code.Clzerow, "clzero" },
 			new object[] { CtorKind.Normal_1, Code.Clzerod, "clzero" },

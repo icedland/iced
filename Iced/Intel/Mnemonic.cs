@@ -431,6 +431,7 @@ namespace Iced.Intel {
 		Maxps,
 		Maxsd,
 		Maxss,
+		Mcommit,
 		Mfence,
 		Minpd,
 		Minps,

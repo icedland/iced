@@ -7440,6 +7440,7 @@ F2 0F1B D8, Bndcn_bnd_rm64
 0F01 DF, Invlpgaq
 67 0F01 FA, Monitorxd
 0F01 FA, Monitorxq
+F3 0F01 FA, Mcommit
 0F01 FB, Mwaitx
 67 0F01 FC, Clzerod
 0F01 FC, Clzeroq

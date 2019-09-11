@@ -870,9 +870,10 @@ Rdpkru, legacy, NP, 0F, 01EE, NP 0F 01 EE, 16b 32b 64b
 Wrpkru, legacy, NP, 0F, 01EF, NP 0F 01 EF, 16b 32b 64b
 Swapgs, legacy, , 0F, 01F8, 0F 01 F8, 64b
 Rdtscp, legacy, , 0F, 01F9, 0F 01 F9, 16b 32b 64b
-Monitorxw, legacy, , 0F, 01FA, a16 0F 01 FA, 16b 32b a16
-Monitorxd, legacy, , 0F, 01FA, a32 0F 01 FA, 16b 32b 64b a32
-Monitorxq, legacy, , 0F, 01FA, 0F 01 FA, 64b
+Monitorxw, legacy, NP, 0F, 01FA, a16 NP 0F 01 FA, 16b 32b a16
+Monitorxd, legacy, NP, 0F, 01FA, a32 NP 0F 01 FA, 16b 32b 64b a32
+Monitorxq, legacy, NP, 0F, 01FA, NP 0F 01 FA, 64b
+Mcommit, legacy, F3, 0F, 01FA, F3 0F 01 FA, 16b 32b 64b
 Mwaitx, legacy, , 0F, 01FB, 0F 01 FB, 16b 32b 64b
 Clzerow, legacy, , 0F, 01FC, a16 0F 01 FC, 16b 32b a16
 Clzerod, legacy, , 0F, 01FC, a32 0F 01 FC, 16b 32b 64b a32

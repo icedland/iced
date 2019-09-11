@@ -126,6 +126,7 @@ namespace Generator.InstructionInfo {
 				new[] { CpuidFeature.INVVPID },
 				new[] { CpuidFeature.LWP },
 				new[] { CpuidFeature.LZCNT },
+				new[] { CpuidFeature.MCOMMIT },
 				new[] { CpuidFeature.MMX },
 				new[] { CpuidFeature.MONITOR },
 				new[] { CpuidFeature.MONITORX },

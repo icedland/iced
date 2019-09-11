@@ -880,6 +880,7 @@ namespace Generator.Formatters.Intel {
 			new object[] { CtorKind.asz, Code.Monitorxw, "monitorx", 16 },
 			new object[] { CtorKind.asz, Code.Monitorxd, "monitorx", 32 },
 			new object[] { CtorKind.asz, Code.Monitorxq, "monitorx", 64 },
+			new object[] { CtorKind.Normal_1, Code.Mcommit, "mcommit" },
 			new object[] { CtorKind.Normal_1, Code.Mwaitx, "mwaitx" },
 			new object[] { CtorKind.reg, Code.Clzerow, "clzero", Register.AX },
 			new object[] { CtorKind.reg, Code.Clzerod, "clzero", Register.EAX },

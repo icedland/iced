@@ -923,9 +923,10 @@ namespace Iced.Intel {
 		Wrpkru,														// NP 0F 01 EF
 		Swapgs,														// 0F 01 F8
 		Rdtscp,														// 0F 01 F9
-		Monitorxw,													// a16 0F 01 FA
-		Monitorxd,													// a32 0F 01 FA
-		Monitorxq,													// 0F 01 FA
+		Monitorxw,													// a16 NP 0F 01 FA
+		Monitorxd,													// a32 NP 0F 01 FA
+		Monitorxq,													// NP 0F 01 FA
+		Mcommit,													// F3 0F 01 FA
 		Mwaitx,														// 0F 01 FB
 		Clzerow,													// a16 0F 01 FC
 		Clzerod,													// a32 0F 01 FC

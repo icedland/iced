@@ -114,6 +114,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		INVVPID,
 		LWP,
 		LZCNT,
+		MCOMMIT,
 		MMX,
 		MONITOR,
 		MONITORX,

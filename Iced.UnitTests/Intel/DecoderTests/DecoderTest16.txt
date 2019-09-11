@@ -2682,6 +2682,8 @@ F3 0F01 EA, Saveprevssp, Saveprevssp, 0,
 
 67 0F01 FA, Monitorxd, Monitorx, 0,
 
+F3 0F01 FA, Mcommit, Mcommit, 0,
+
 0F01 FB, Mwaitx, Mwaitx, 0,
 
 0F01 FC, Clzerow, Clzero, 0,

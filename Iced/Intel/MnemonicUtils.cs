@@ -893,6 +893,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Monitorx,// Monitorxw
 			(ushort)Mnemonic.Monitorx,// Monitorxd
 			(ushort)Mnemonic.Monitorx,// Monitorxq
+			(ushort)Mnemonic.Mcommit,// Mcommit
 			(ushort)Mnemonic.Mwaitx,// Mwaitx
 			(ushort)Mnemonic.Clzero,// Clzerow
 			(ushort)Mnemonic.Clzero,// Clzerod

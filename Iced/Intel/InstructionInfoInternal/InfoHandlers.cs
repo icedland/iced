@@ -317,6 +317,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CPUID_INVVPID = (uint)CpuidFeatureInternal.INVVPID << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_LWP = (uint)CpuidFeatureInternal.LWP << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_LZCNT = (uint)CpuidFeatureInternal.LZCNT << (int)InfoFlags2.CpuidFeatureShift;
+		const uint CPUID_MCOMMIT = (uint)CpuidFeatureInternal.MCOMMIT << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MMX = (uint)CpuidFeatureInternal.MMX << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MONITOR = (uint)CpuidFeatureInternal.MONITOR << (int)InfoFlags2.CpuidFeatureShift;
 		const uint CPUID_MONITORX = (uint)CpuidFeatureInternal.MONITORX << (int)InfoFlags2.CpuidFeatureShift;
@@ -1238,6 +1239,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Monitorxw | CodeInfo_Monitor, CPUID_MONITORX | Encoding_Legacy,
 			(uint)Code.Monitorxd | CodeInfo_Monitor, CPUID_MONITORX | Encoding_Legacy,
 			(uint)Code.Monitorxq | CodeInfo_Monitor, CPUID_MONITORX | Encoding_Legacy,
+			(uint)Code.Mcommit | RflagsInfo_W_c_C_aopsz, CPUID_MCOMMIT | Encoding_Legacy,
 			(uint)Code.Mwaitx | CodeInfo_Mwaitx, CPUID_MONITORX | Encoding_Legacy,
 			(uint)Code.Clzerow | CodeInfo_Clzero, CPUID_CLZERO | Encoding_Legacy,
 			(uint)Code.Clzerod | CodeInfo_Clzero, CPUID_CLZERO | Encoding_Legacy,

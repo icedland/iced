@@ -383,6 +383,11 @@ namespace Iced.Intel {
 		LZCNT,
 
 		/// <summary>
+		/// CPUID.80000008H:EBX.MCOMMIT[bit 8]
+		/// </summary>
+		MCOMMIT,
+
+		/// <summary>
 		/// CPUID.01H:EDX.MMX[bit 23]
 		/// </summary>
 		MMX,

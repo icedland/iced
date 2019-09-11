@@ -7440,6 +7440,7 @@ addr32 invlpga
 invlpga
 addr32 monitorx
 monitorx
+mcommit
 mwaitx
 clzero eax
 clzero rax

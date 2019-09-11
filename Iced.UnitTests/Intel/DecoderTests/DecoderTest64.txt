@@ -5140,6 +5140,9 @@ F3 4F 0F01 EA, Saveprevssp, Saveprevssp, 0, enc=F30F01EA
 0F01 FA, Monitorxq, Monitorx, 0,
 4F 0F01 FA, Monitorxq, Monitorx, 0, enc=0F01FA
 
+F3 0F01 FA, Mcommit, Mcommit, 0,
+F3 4F 0F01 FA, Mcommit, Mcommit, 0, enc=F30F01FA
+
 0F01 FB, Mwaitx, Mwaitx, 0,
 4F 0F01 FB, Mwaitx, Mwaitx, 0, enc=0F01FB
 

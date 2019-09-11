@@ -16361,6 +16361,8 @@ FF 74 24 10, Push_rm64, Legacy, X64, op0=r rw=xsp r=rsp rm=ss:rsp+0x10;UInt64 wm
 67 0F01 FA, Monitorxd, Legacy, MONITORX, r=eax;rcx;rdx rm=ds:eax;Unknown
 # monitorx rax,rcx,rdx
 0F01 FA, Monitorxq, Legacy, MONITORX, r=rax;rcx;rdx rm=ds:rax;Unknown
+# mcommit
+F3 0F01 FA, Mcommit, Legacy, MCOMMIT, fw=c fc=aopsz
 # mwaitx rax,rcx,rbx
 0F01 FB, Mwaitx, Legacy, MONITORX, r=rax;rcx cr=rbx
 # clzero

@@ -880,6 +880,7 @@ namespace Generator.Formatters.Nasm {
 			new object[] { CtorKind.asz, Code.Monitorxw, "monitorx", 16 },
 			new object[] { CtorKind.asz, Code.Monitorxd, "monitorx", 32 },
 			new object[] { CtorKind.asz, Code.Monitorxq, "monitorx", 64 },
+			new object[] { CtorKind.Normal_1, Code.Mcommit, "mcommit" },
 			new object[] { CtorKind.Normal_1, Code.Mwaitx, "mwaitx" },
 			new object[] { CtorKind.asz, Code.Clzerow, "clzero", 16 },
 			new object[] { CtorKind.asz, Code.Clzerod, "clzero", 32 },
