@@ -26,15 +26,25 @@ using System;
 using System.Text;
 
 namespace Iced.Intel.EncoderInternal {
+	enum LKind : byte {
+		None,
+		// .128, .256, .512
+		L128,
+		// .L0, .L1
+		L0,
+		// .LZ
+		LZ,
+	}
+
 	readonly struct OpCodeFormatter {
 		readonly OpCodeInfo opCode;
 		readonly StringBuilder sb;
-		readonly bool l0l1;
+		readonly LKind lkind;
 
-		public OpCodeFormatter(OpCodeInfo opCode, StringBuilder sb, bool l0l1) {
+		public OpCodeFormatter(OpCodeInfo opCode, StringBuilder sb, LKind lkind) {
 			this.opCode = opCode;
 			this.sb = sb;
-			this.l0l1 = l0l1;
+			this.lkind = lkind;
 		}
 
 		public string Format() {
@@ -422,12 +432,25 @@ namespace Iced.Intel.EncoderInternal {
 			sb.Append('.');
 			if (opCode.IsLIG)
 				sb.Append("LIG");
-			else if (l0l1) {
-				sb.Append('L');
-				sb.Append(opCode.L);
+			else {
+				switch (lkind) {
+				case LKind.L128:
+					sb.Append(128U << (int)opCode.L);
+					break;
+				case LKind.L0:
+					sb.Append('L');
+					sb.Append(opCode.L);
+					break;
+				case LKind.LZ:
+					if (opCode.L != 0)
+						throw new InvalidOperationException();
+					sb.Append("LZ");
+					break;
+				case LKind.None:
+				default:
+					throw new InvalidOperationException();
+				}
 			}
-			else
-				sb.Append(128U << (int)opCode.L);
 			switch (opCode.MandatoryPrefix) {
 			case MandatoryPrefix.None:
 			case MandatoryPrefix.PNP:

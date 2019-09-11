@@ -219,13 +219,21 @@ namespace Iced.Intel.EncoderInternal {
 		Group6							= HasGroupIndex | (6 << (int)GroupShift),
 		Group7							= HasGroupIndex | (7 << (int)GroupShift),
 
+		LZ								= 0,
+		L0								= 1,
+		L1								= 2,
+		L128							= 3,
+		L256							= 4,
+		LIG								= 5,
+
 		VEX_LShift						= 26,
-		VEX_L128						= 0,
-		VEX_L256						= 0x04000000,
-		VEX_L0							= VEX_L128 | VEX_L0_L1,
-		VEX_L1							= VEX_L256 | VEX_L0_L1,
-		VEX_LIG							= 0x08000000,
-		VEX_L0_L1						= 0x10000000,
+		VEX_LMask						= 7,
+		VEX_LZ							= LZ << (int)VEX_LShift,
+		VEX_L0							= L0 << (int)VEX_LShift,
+		VEX_L1							= L1 << (int)VEX_LShift,
+		VEX_L128						= L128 << (int)VEX_LShift,
+		VEX_L256						= L256 << (int)VEX_LShift,
+		VEX_LIG							= LIG << (int)VEX_LShift,
 
 		VEX_W0							= 0,
 		VEX_W1							= 0x20000000,
@@ -240,8 +248,11 @@ namespace Iced.Intel.EncoderInternal {
 		VEX_256_WIG = VEX_L256 | VEX_WIG,
 		VEX_LIG_W0 = VEX_LIG | VEX_W0,
 		VEX_LIG_W1 = VEX_LIG | VEX_W1,
+		VEX_LZ_W0 = VEX_LZ | VEX_W0,
+		VEX_LZ_W1 = VEX_LZ | VEX_W1,
 		VEX_L0_W0 = VEX_L0 | VEX_W0,
 		VEX_L0_W1 = VEX_L0 | VEX_W1,
+		VEX_LZ_WIG = VEX_LZ | VEX_WIG,
 		VEX_L0_WIG = VEX_L0 | VEX_WIG,
 		VEX_LIG_WIG = VEX_LIG | VEX_WIG,
 		VEX_L1_W0 = VEX_L1 | VEX_W0,
@@ -611,13 +622,26 @@ namespace Iced.Intel.EncoderInternal {
 			: base(GetCode(dword1), GetOpCode(dword1), GetGroupIndex(dword2), OpCodeHandlerFlags.None, (Encodable)((dword2 >> (int)VexFlags.EncodableShift) & (uint)VexFlags.EncodableMask), OperandSize.None, AddressSize.None, null, CreateOps(dword3)) {
 			opCodeTable = (VexOpCodeTable)((dword2 >> (int)VexFlags.OpCodeTableShift) & (uint)VexFlags.OpCodeTableMask);
 			W1 = (dword2 & (uint)VexFlags.VEX_W1) != 0;
-			lastByte = (dword2 >> ((int)VexFlags.VEX_LShift - 2)) & 4;
+			var vexFlags = (VexFlags)((dword2 >> (int)VexFlags.VEX_LShift) & (int)VexFlags.VEX_LMask);
+			switch (vexFlags) {
+			case VexFlags.LZ:
+			case VexFlags.L0:
+			case VexFlags.L128:
+			case VexFlags.LIG:
+				break;
+			case VexFlags.L1:
+			case VexFlags.L256:
+				lastByte = 4;
+				break;
+			default:
+				throw new InvalidOperationException();
+			}
 			if (W1)
 				lastByte |= 0x80;
 			lastByte |= (dword2 >> (int)VexFlags.MandatoryPrefixShift) & (uint)VexFlags.MandatoryPrefixMask;
 			if ((dword2 & (uint)VexFlags.VEX_WIG) != 0)
 				mask_W_L |= 0x80;
-			if ((dword2 & (uint)VexFlags.VEX_LIG) != 0) {
+			if (vexFlags == VexFlags.LIG) {
 				mask_W_L |= 4;
 				mask_L |= 4;
 			}

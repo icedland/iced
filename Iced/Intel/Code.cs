@@ -2330,11 +2330,11 @@ namespace Iced.Intel {
 		Ldmxcsr_m32,												// NP 0F AE /2
 		Wrfsbase_r32,												// F3 0F AE /2
 		Wrfsbase_r64,												// F3 REX.W 0F AE /2
-		VEX_Vldmxcsr_m32,											// VEX.L0.0F.WIG AE /2
+		VEX_Vldmxcsr_m32,											// VEX.LZ.0F.WIG AE /2
 		Stmxcsr_m32,												// NP 0F AE /3
 		Wrgsbase_r32,												// F3 0F AE /3
 		Wrgsbase_r64,												// F3 REX.W 0F AE /3
-		VEX_Vstmxcsr_m32,											// VEX.L0.0F.WIG AE /3
+		VEX_Vstmxcsr_m32,											// VEX.LZ.0F.WIG AE /3
 		Xsave_m,													// NP 0F AE /4
 		Xsave64_m,													// NP REX.W 0F AE /4
 		Ptwrite_rm32,												// F3 0F AE /4
@@ -4312,27 +4312,27 @@ namespace Iced.Intel {
 		Crc32_r32_rm32,												// o32 F2 0F 38 F1 /r
 		Crc32_r64_rm64,												// F2 REX.W 0F 38 F1 /r
 
-		VEX_Andn_r32_r32_rm32,										// VEX.L0.0F38.W0 F2 /r
-		VEX_Andn_r64_r64_rm64,										// VEX.L0.0F38.W1 F2 /r
+		VEX_Andn_r32_r32_rm32,										// VEX.LZ.0F38.W0 F2 /r
+		VEX_Andn_r64_r64_rm64,										// VEX.LZ.0F38.W1 F2 /r
 
-		VEX_Blsr_r32_rm32,											// VEX.L0.0F38.W0 F3 /1
-		VEX_Blsr_r64_rm64,											// VEX.L0.0F38.W1 F3 /1
-		VEX_Blsmsk_r32_rm32,										// VEX.L0.0F38.W0 F3 /2
-		VEX_Blsmsk_r64_rm64,										// VEX.L0.0F38.W1 F3 /2
-		VEX_Blsi_r32_rm32,											// VEX.L0.0F38.W0 F3 /3
-		VEX_Blsi_r64_rm64,											// VEX.L0.0F38.W1 F3 /3
+		VEX_Blsr_r32_rm32,											// VEX.LZ.0F38.W0 F3 /1
+		VEX_Blsr_r64_rm64,											// VEX.LZ.0F38.W1 F3 /1
+		VEX_Blsmsk_r32_rm32,										// VEX.LZ.0F38.W0 F3 /2
+		VEX_Blsmsk_r64_rm64,										// VEX.LZ.0F38.W1 F3 /2
+		VEX_Blsi_r32_rm32,											// VEX.LZ.0F38.W0 F3 /3
+		VEX_Blsi_r64_rm64,											// VEX.LZ.0F38.W1 F3 /3
 
-		VEX_Bzhi_r32_rm32_r32,										// VEX.L0.0F38.W0 F5 /r
-		VEX_Bzhi_r64_rm64_r64,										// VEX.L0.0F38.W1 F5 /r
+		VEX_Bzhi_r32_rm32_r32,										// VEX.LZ.0F38.W0 F5 /r
+		VEX_Bzhi_r64_rm64_r64,										// VEX.LZ.0F38.W1 F5 /r
 
 		Wrussd_m32_r32,												// 66 0F 38 F5 /r
 		Wrussq_m64_r64,												// 66 REX.W 0F 38 F5 /r
 
-		VEX_Pext_r32_r32_rm32,										// VEX.L0.F3.0F38.W0 F5 /r
-		VEX_Pext_r64_r64_rm64,										// VEX.L0.F3.0F38.W1 F5 /r
+		VEX_Pext_r32_r32_rm32,										// VEX.LZ.F3.0F38.W0 F5 /r
+		VEX_Pext_r64_r64_rm64,										// VEX.LZ.F3.0F38.W1 F5 /r
 
-		VEX_Pdep_r32_r32_rm32,										// VEX.L0.F2.0F38.W0 F5 /r
-		VEX_Pdep_r64_r64_rm64,										// VEX.L0.F2.0F38.W1 F5 /r
+		VEX_Pdep_r32_r32_rm32,										// VEX.LZ.F2.0F38.W0 F5 /r
+		VEX_Pdep_r64_r64_rm64,										// VEX.LZ.F2.0F38.W1 F5 /r
 
 		Wrssd_m32_r32,												// NP 0F 38 F6 /r
 		Wrssq_m64_r64,												// NP REX.W 0F 38 F6 /r
@@ -4343,20 +4343,20 @@ namespace Iced.Intel {
 		Adox_r32_rm32,												// F3 0F 38 F6 /r
 		Adox_r64_rm64,												// F3 REX.W 0F 38 F6 /r
 
-		VEX_Mulx_r32_r32_rm32,										// VEX.L0.F2.0F38.W0 F6 /r
-		VEX_Mulx_r64_r64_rm64,										// VEX.L0.F2.0F38.W1 F6 /r
+		VEX_Mulx_r32_r32_rm32,										// VEX.LZ.F2.0F38.W0 F6 /r
+		VEX_Mulx_r64_r64_rm64,										// VEX.LZ.F2.0F38.W1 F6 /r
 
-		VEX_Bextr_r32_rm32_r32,										// VEX.L0.0F38.W0 F7 /r
-		VEX_Bextr_r64_rm64_r64,										// VEX.L0.0F38.W1 F7 /r
+		VEX_Bextr_r32_rm32_r32,										// VEX.LZ.0F38.W0 F7 /r
+		VEX_Bextr_r64_rm64_r64,										// VEX.LZ.0F38.W1 F7 /r
 
-		VEX_Shlx_r32_rm32_r32,										// VEX.L0.66.0F38.W0 F7 /r
-		VEX_Shlx_r64_rm64_r64,										// VEX.L0.66.0F38.W1 F7 /r
+		VEX_Shlx_r32_rm32_r32,										// VEX.LZ.66.0F38.W0 F7 /r
+		VEX_Shlx_r64_rm64_r64,										// VEX.LZ.66.0F38.W1 F7 /r
 
-		VEX_Sarx_r32_rm32_r32,										// VEX.L0.F3.0F38.W0 F7 /r
-		VEX_Sarx_r64_rm64_r64,										// VEX.L0.F3.0F38.W1 F7 /r
+		VEX_Sarx_r32_rm32_r32,										// VEX.LZ.F3.0F38.W0 F7 /r
+		VEX_Sarx_r64_rm64_r64,										// VEX.LZ.F3.0F38.W1 F7 /r
 
-		VEX_Shrx_r32_rm32_r32,										// VEX.L0.F2.0F38.W0 F7 /r
-		VEX_Shrx_r64_rm64_r64,										// VEX.L0.F2.0F38.W1 F7 /r
+		VEX_Shrx_r32_rm32_r32,										// VEX.LZ.F2.0F38.W0 F7 /r
+		VEX_Shrx_r64_rm64_r64,										// VEX.LZ.F2.0F38.W1 F7 /r
 
 		Movdir64b_r16_m512,											// a16 66 0F 38 F8 /r
 		Movdir64b_r32_m512,											// a32 66 0F 38 F8 /r
@@ -4826,8 +4826,8 @@ namespace Iced.Intel {
 		Aeskeygenassist_xmm_xmmm128_imm8,							// 66 0F 3A DF /r ib
 		VEX_Vaeskeygenassist_xmm_xmmm128_imm8,						// VEX.128.66.0F3A.WIG DF /r ib
 
-		VEX_Rorx_r32_rm32_imm8,										// VEX.L0.F2.0F3A.W0 F0 /r ib
-		VEX_Rorx_r64_rm64_imm8,										// VEX.L0.F2.0F3A.W1 F0 /r ib
+		VEX_Rorx_r32_rm32_imm8,										// VEX.LZ.F2.0F3A.W0 F0 /r ib
+		VEX_Rorx_r64_rm64_imm8,										// VEX.LZ.F2.0F3A.W1 F0 /r ib
 
 		// XOP8 opcodes
 

@@ -76,6 +76,7 @@ namespace Iced.Intel {
 		readonly byte op2Kind;
 		readonly byte op3Kind;
 		readonly byte op4Kind;
+		readonly LKind lkind;
 
 		internal OpCodeInfo(uint dword3, uint dword2, uint dword1, StringBuilder sb) {
 			var code = (Code)(dword1 & (uint)EncFlags1.CodeMask);
@@ -88,7 +89,6 @@ namespace Iced.Intel {
 
 			byte[] opKinds;
 			encoding = (byte)((dword1 >> (int)EncFlags1.EncodingShift) & (uint)EncFlags1.EncodingMask);
-			bool l0l1;
 			switch ((EncodingKind)encoding) {
 			case EncodingKind.Legacy:
 				opKinds = OpCodeOperandKinds.LegacyOpKinds;
@@ -116,55 +116,29 @@ namespace Iced.Intel {
 				groupIndex = (sbyte)((dword2 & (uint)LegacyFlags.HasGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)LegacyFlags.GroupShift) & 7));
 				tupleType = (byte)TupleType.None;
 
-				switch ((Encodable)((dword2 >> (int)LegacyFlags.EncodableShift) & (uint)LegacyFlags.EncodableMask)) {
-				case Encodable.Any:
+				if (!IsInstruction)
 					flags |= Flags.Mode16 | Flags.Mode32 | Flags.Mode64;
-					break;
-				case Encodable.Only1632:
-					flags |= Flags.Mode16 | Flags.Mode32;
-					break;
-				case Encodable.Only64:
-					flags |= Flags.Mode64;
-					break;
-				default:
-					if (!IsInstruction)
-						flags |= Flags.Mode16 | Flags.Mode32 | Flags.Mode64;
-					else
-						throw new InvalidOperationException();
-					break;
+				else {
+					flags |= (Encodable)((dword2 >> (int)LegacyFlags.EncodableShift) & (uint)LegacyFlags.EncodableMask) switch {
+						Encodable.Any => Flags.Mode16 | Flags.Mode32 | Flags.Mode64,
+						Encodable.Only1632 => Flags.Mode16 | Flags.Mode32,
+						Encodable.Only64 => Flags.Mode64,
+						_ => throw new InvalidOperationException(),
+					};
 				}
 
-				switch ((AllowedPrefixes)((dword2 >> (int)LegacyFlags.AllowedPrefixesShift) & (uint)LegacyFlags.AllowedPrefixesMask)) {
-				case AllowedPrefixes.None:
-					break;
-				case AllowedPrefixes.Bnd:
-					flags |= Flags.BndPrefix;
-					break;
-				case AllowedPrefixes.BndNotrack:
-					flags |= Flags.BndPrefix | Flags.NotrackPrefix;
-					break;
-				case AllowedPrefixes.HintTakenBnd:
-					flags |= Flags.HintTakenPrefix | Flags.BndPrefix;
-					break;
-				case AllowedPrefixes.Lock:
-					flags |= Flags.LockPrefix;
-					break;
-				case AllowedPrefixes.Rep:
-					flags |= Flags.RepPrefix;
-					break;
-				case AllowedPrefixes.RepeRepne:
-					flags |= Flags.RepPrefix | Flags.RepnePrefix;
-					break;
-				case AllowedPrefixes.XacquireXreleaseLock:
-					flags |= Flags.XacquirePrefix | Flags.XreleasePrefix | Flags.LockPrefix;
-					break;
-				case AllowedPrefixes.Xrelease:
-					flags |= Flags.XreleasePrefix;
-					break;
-				default:
-					throw new InvalidOperationException();
-				}
-
+				flags |= (AllowedPrefixes)((dword2 >> (int)LegacyFlags.AllowedPrefixesShift) & (uint)LegacyFlags.AllowedPrefixesMask) switch {
+					AllowedPrefixes.None => Flags.None,
+					AllowedPrefixes.Bnd => Flags.BndPrefix,
+					AllowedPrefixes.BndNotrack => Flags.BndPrefix | Flags.NotrackPrefix,
+					AllowedPrefixes.HintTakenBnd => Flags.HintTakenPrefix | Flags.BndPrefix,
+					AllowedPrefixes.Lock => Flags.LockPrefix,
+					AllowedPrefixes.Rep => Flags.RepPrefix,
+					AllowedPrefixes.RepeRepne => Flags.RepPrefix | Flags.RepnePrefix,
+					AllowedPrefixes.XacquireXreleaseLock => Flags.XacquirePrefix | Flags.XreleasePrefix | Flags.LockPrefix,
+					AllowedPrefixes.Xrelease => Flags.XreleasePrefix,
+					_ => throw new InvalidOperationException(),
+				};
 				if ((dword2 & (uint)LegacyFlags.Fwait) != 0)
 					flags |= Flags.Fwait;
 
@@ -199,7 +173,7 @@ namespace Iced.Intel {
 				}
 
 				l = 0;
-				l0l1 = false;
+				lkind = LKind.None;
 				break;
 
 			case EncodingKind.VEX:
@@ -228,33 +202,50 @@ namespace Iced.Intel {
 				groupIndex = (sbyte)((dword2 & (uint)VexFlags.HasGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)VexFlags.GroupShift) & 7));
 				tupleType = (byte)TupleType.None;
 
-				switch ((Encodable)((dword2 >> (int)VexFlags.EncodableShift) & (uint)VexFlags.EncodableMask)) {
-				case Encodable.Any:
-					flags |= Flags.Mode16 | Flags.Mode32 | Flags.Mode64;
+				flags |= (Encodable)((dword2 >> (int)VexFlags.EncodableShift) & (uint)VexFlags.EncodableMask) switch {
+					Encodable.Any => Flags.Mode16 | Flags.Mode32 | Flags.Mode64,
+					Encodable.Only1632 => Flags.Mode16 | Flags.Mode32,
+					Encodable.Only64 => Flags.Mode64,
+					_ => throw new InvalidOperationException(),
+				};
+				operandSize = 0;
+				addressSize = 0;
+				switch ((VexFlags)((dword2 >> (int)VexFlags.VEX_LShift) & (int)VexFlags.VEX_LMask)) {
+				case VexFlags.LZ:
+					lkind = LKind.LZ;
+					l = 0;
 					break;
-				case Encodable.Only1632:
-					flags |= Flags.Mode16 | Flags.Mode32;
+				case VexFlags.L0:
+					lkind = LKind.L0;
+					l = 0;
 					break;
-				case Encodable.Only64:
-					flags |= Flags.Mode64;
+				case VexFlags.L1:
+					lkind = LKind.L0;
+					l = 1;
+					break;
+				case VexFlags.L128:
+					lkind = LKind.L128;
+					l = 0;
+					break;
+				case VexFlags.L256:
+					lkind = LKind.L128;
+					l = 1;
+					break;
+				case VexFlags.LIG:
+					lkind = LKind.None;
+					l = 0;
+					flags |= Flags.LIG;
 					break;
 				default:
 					throw new InvalidOperationException();
 				}
 
-				operandSize = 0;
-				addressSize = 0;
-				l = (byte)((dword2 >> (int)VexFlags.VEX_LShift) & 1);
-
 				if ((dword2 & (uint)VexFlags.VEX_W1) != 0)
 					flags |= Flags.W;
-				if ((dword2 & (uint)VexFlags.VEX_LIG) != 0)
-					flags |= Flags.LIG;
 				if ((dword2 & (uint)VexFlags.VEX_WIG) != 0)
 					flags |= Flags.WIG;
 				if ((dword2 & (uint)VexFlags.VEX_WIG32) != 0)
 					flags |= Flags.WIG32;
-				l0l1 = (dword2 & (uint)VexFlags.VEX_L0_L1) != 0;
 				break;
 
 			case EncodingKind.EVEX:
@@ -282,20 +273,12 @@ namespace Iced.Intel {
 				groupIndex = (sbyte)((dword2 & (uint)EvexFlags.HasGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)EvexFlags.GroupShift) & 7));
 				tupleType = (byte)((dword2 >> (int)EvexFlags.TupleTypeShift) & (uint)EvexFlags.TupleTypeMask);
 
-				switch ((Encodable)((dword2 >> (int)EvexFlags.EncodableShift) & (uint)EvexFlags.EncodableMask)) {
-				case Encodable.Any:
-					flags |= Flags.Mode16 | Flags.Mode32 | Flags.Mode64;
-					break;
-				case Encodable.Only1632:
-					flags |= Flags.Mode16 | Flags.Mode32;
-					break;
-				case Encodable.Only64:
-					flags |= Flags.Mode64;
-					break;
-				default:
-					throw new InvalidOperationException();
-				}
-
+				flags |= (Encodable)((dword2 >> (int)EvexFlags.EncodableShift) & (uint)EvexFlags.EncodableMask) switch {
+					Encodable.Any => Flags.Mode16 | Flags.Mode32 | Flags.Mode64,
+					Encodable.Only1632 => Flags.Mode16 | Flags.Mode32,
+					Encodable.Only64 => Flags.Mode64,
+					_ => throw new InvalidOperationException(),
+				};
 				operandSize = 0;
 				addressSize = 0;
 				l = (byte)((dword2 >> (int)EvexFlags.EVEX_LShift) & 3);
@@ -318,7 +301,7 @@ namespace Iced.Intel {
 					flags |= Flags.OpMaskRegister;
 				if ((dword2 & (uint)EvexFlags.EVEX_z) != 0)
 					flags |= Flags.ZeroingMasking;
-				l0l1 = false;
+				lkind = LKind.L128;
 				break;
 
 			case EncodingKind.XOP:
@@ -346,20 +329,12 @@ namespace Iced.Intel {
 				groupIndex = (sbyte)((dword2 & (uint)XopFlags.HasGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)XopFlags.GroupShift) & 7));
 				tupleType = (byte)TupleType.None;
 
-				switch ((Encodable)((dword2 >> (int)XopFlags.EncodableShift) & (uint)XopFlags.EncodableMask)) {
-				case Encodable.Any:
-					flags |= Flags.Mode16 | Flags.Mode32 | Flags.Mode64;
-					break;
-				case Encodable.Only1632:
-					flags |= Flags.Mode16 | Flags.Mode32;
-					break;
-				case Encodable.Only64:
-					flags |= Flags.Mode64;
-					break;
-				default:
-					throw new InvalidOperationException();
-				}
-
+				flags |= (Encodable)((dword2 >> (int)XopFlags.EncodableShift) & (uint)XopFlags.EncodableMask) switch {
+					Encodable.Any => Flags.Mode16 | Flags.Mode32 | Flags.Mode64,
+					Encodable.Only1632 => Flags.Mode16 | Flags.Mode32,
+					Encodable.Only64 => Flags.Mode64,
+					_ => throw new InvalidOperationException(),
+				};
 				operandSize = 0;
 				addressSize = 0;
 				l = (byte)((dword2 >> (int)XopFlags.XOP_LShift) & 1);
@@ -368,7 +343,7 @@ namespace Iced.Intel {
 					flags |= Flags.W;
 				if ((dword2 & (uint)XopFlags.XOP_WIG32) != 0)
 					flags |= Flags.WIG32;
-				l0l1 = (dword2 & (uint)XopFlags.XOP_L0_L1) != 0;
+				lkind = (dword2 & (uint)XopFlags.XOP_L0_L1) != 0 ? LKind.L0 : LKind.L128;
 				break;
 
 			case EncodingKind.D3NOW:
@@ -379,31 +354,23 @@ namespace Iced.Intel {
 				groupIndex = -1;
 				tupleType = (byte)TupleType.None;
 
-				switch ((Encodable)((dword2 >> (int)D3nowFlags.EncodableShift) & (uint)D3nowFlags.EncodableMask)) {
-				case Encodable.Any:
-					flags |= Flags.Mode16 | Flags.Mode32 | Flags.Mode64;
-					break;
-				case Encodable.Only1632:
-					flags |= Flags.Mode16 | Flags.Mode32;
-					break;
-				case Encodable.Only64:
-					flags |= Flags.Mode64;
-					break;
-				default:
-					throw new InvalidOperationException();
-				}
-
+				flags |= (Encodable)((dword2 >> (int)D3nowFlags.EncodableShift) & (uint)D3nowFlags.EncodableMask) switch {
+					Encodable.Any => Flags.Mode16 | Flags.Mode32 | Flags.Mode64,
+					Encodable.Only1632 => Flags.Mode16 | Flags.Mode32,
+					Encodable.Only64 => Flags.Mode64,
+					_ => throw new InvalidOperationException(),
+				};
 				operandSize = 0;
 				addressSize = 0;
 				l = 0;
-				l0l1 = false;
+				lkind = LKind.None;
 				break;
 
 			default:
 				throw new InvalidOperationException();
 			}
 
-			toStringValue = new OpCodeFormatter(this, sb, l0l1).Format();
+			toStringValue = new OpCodeFormatter(this, sb, lkind).Format();
 		}
 
 		/// <summary>
