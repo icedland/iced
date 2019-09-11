@@ -22,8 +22,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_INSTR_INFO
+using System;
 using System.Collections.Generic;
 using Iced.Intel;
+using Iced.UnitTests.Intel.DecoderTests;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.InstructionInfoTests {
@@ -229,6 +231,27 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 				Assert.Equal(callFarIndirect.Contains(code), code.IsCallFarIndirect());
 				Assert.Equal(code.IsCallFarIndirect(), instr.IsCallFarIndirect);
+			}
+		}
+
+		[Fact]
+		void Verify_ProtectedMode_is_true_if_VEX_XOP_EVEX() {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(info.HexBytes), info.Options);
+				decoder.Decode(out var instr);
+				switch (instr.Encoding) {
+				case EncodingKind.Legacy:
+				case EncodingKind.D3NOW:
+					break;
+				case EncodingKind.VEX:
+				case EncodingKind.EVEX:
+				case EncodingKind.XOP:
+					Assert.True(instr.IsProtectedMode);
+					Assert.True(info.Code.IsProtectedMode());
+					break;
+				default:
+					throw new InvalidOperationException();
+				}
 			}
 		}
 	}

@@ -354,9 +354,9 @@ FF 30, Push_rm16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+s
 # cmovg ebx,[bx+si]
 66 0F4F 18, Cmovg_r32_rm32, Legacy, CMOV, fr=soz op0=cw op1=r cw=ebx r=ds r=bx r=si rm=ds:bx+si*1;UInt32
 # vzeroupper
-C5F8 77, VEX_Vzeroupper, VEX, AVX, rw=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
+C5F8 77, VEX_Vzeroupper, VEX, AVX, pm rw=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
 # vzeroall
-C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
+C5FC 77, VEX_Vzeroall, VEX, AVX, pm w=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
 # push fs
 0FA0, Pushw_FS, Legacy, INTEL386, op0=r r=ss rw=xsp r=fs wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushd fs
@@ -424,9 +424,9 @@ AF, Scasw_AX_m16, Legacy, INTEL8086, fr=d fw=oszacp op0=r op1=r r=ax r=es rw=di 
 # xlatb
 D7, Xlatb, Legacy, INTEL8086, op0=r rw=al r=ds r=bx rm=ds:bx+al;UInt8
 # vmovups xmm1,xmm5
-C5F8 10 CD, VEX_Vmovups_xmm_xmmm128, VEX, AVX, op0=w op1=r w=vmm1 r=xmm5
+C5F8 10 CD, VEX_Vmovups_xmm_xmmm128, VEX, AVX, pm op0=w op1=r w=vmm1 r=xmm5
 # vmovups xmm2,xmm3
-62 F17C08 10 D3, EVEX_Vmovups_xmm_k1z_xmmm128, EVEX, AVX512VL;AVX512F, op0=w op1=r w=vmm2 r=xmm3
+62 F17C08 10 D3, EVEX_Vmovups_xmm_k1z_xmmm128, EVEX, AVX512VL;AVX512F, pm op0=w op1=r w=vmm2 r=xmm3
 # repne insb
 F2 6C, Insb_m8_DX, Legacy, INTEL186, priv fr=d op0=cw op1=cr rcw=cx cr=es cr=di cw=di cr=dx cwm=es:di;Unknown
 # repne insw
@@ -684,8 +684,8 @@ F3 0FA7 E8, XcryptOfb_16, Legacy, PADLOCK_ACE, cwm=es:di;Unknown crm=es:ax;Unkno
 # maskmovdqu xmm2,xmm3
 64 66 0FF7 D3, Maskmovdqu_rDI_xmm_xmm, Legacy, SSE2, op0=w op1=r op2=r r=fs;di r=xmm2 r=xmm3 wm=fs:di;UInt128
 # vmaskmovdqu xmm2,xmm3
-C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm, VEX, AVX, op0=w op1=r op2=r r=ds;di r=xmm2 r=xmm3 wm=ds:di;UInt128
+C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm, VEX, AVX, pm op0=w op1=r op2=r r=ds;di r=xmm2 r=xmm3 wm=ds:di;UInt128
 # vmaskmovdqu xmm2,xmm3
-64 C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm, VEX, AVX, op0=w op1=r op2=r r=fs;di r=xmm2 r=xmm3 wm=fs:di;UInt128
+64 C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm, VEX, AVX, pm op0=w op1=r op2=r r=fs;di r=xmm2 r=xmm3 wm=fs:di;UInt128
 # llwpcb ebx
 64 8FE978 12 C3, XOP_Llwpcb_r32, XOP, LWP, pm op0=r r=ds;ebx rm=ds:ebx;Unknown
