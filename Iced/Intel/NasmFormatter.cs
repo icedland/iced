@@ -848,7 +848,7 @@ namespace Iced.Intel {
 			if (addrSize == 16)
 				useScale = false;
 
-			FormatMemorySize(output, instr, memSize, flags, operandOptions);
+			FormatMemorySize(output, memSize, flags, operandOptions);
 
 			output.Write("[", FormatterOutputTextKind.Punctuation);
 			if (options.SpaceAfterMemoryBracket)
@@ -1017,7 +1017,7 @@ namespace Iced.Intel {
 				FormatDecorator(output, instr, operand, instructionOperand, bcstTo, DecoratorKind.Broadcast);
 		}
 
-		void FormatMemorySize(FormatterOutput output, in Instruction instr, MemorySize memSize, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions) {
+		void FormatMemorySize(FormatterOutput output, MemorySize memSize, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions) {
 			var memSizeOptions = (MemorySizeOptions)(((uint)operandOptions >> (int)FormatterOperandOptions.MemorySizeShift) & ((uint)FormatterOperandOptions.MemorySizeMask >> (int)FormatterOperandOptions.MemorySizeShift));
 			if (memSizeOptions == MemorySizeOptions.Never)
 				return;

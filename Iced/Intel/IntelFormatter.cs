@@ -790,7 +790,7 @@ namespace Iced.Intel {
 			if (addrSize == 16)
 				useScale = false;
 
-			FormatMemorySize(output, instr, ref symbol, memSize, flags, operandOptions, useSymbol);
+			FormatMemorySize(output, ref symbol, memSize, flags, operandOptions, useSymbol);
 
 			var codeSize = instr.CodeSize;
 			bool noTrackPrefix = segOverride == Register.DS && FormatterUtils.IsNoTrackPrefixBranch(instr.Code) &&
@@ -947,7 +947,7 @@ namespace Iced.Intel {
 				FormatDecorator(output, instr, operand, instructionOperand, bcstTo, DecoratorKind.Broadcast);
 		}
 
-		void FormatMemorySize(FormatterOutput output, in Instruction instr, ref SymbolResult symbol, MemorySize memSize, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions, bool useSymbol) {
+		void FormatMemorySize(FormatterOutput output, ref SymbolResult symbol, MemorySize memSize, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions, bool useSymbol) {
 			var memSizeOptions = (MemorySizeOptions)(((uint)operandOptions >> (int)FormatterOperandOptions.MemorySizeShift) & ((uint)FormatterOperandOptions.MemorySizeMask >> (int)FormatterOperandOptions.MemorySizeShift));
 			if (memSizeOptions == MemorySizeOptions.Never)
 				return;
