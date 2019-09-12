@@ -184,6 +184,10 @@ namespace Iced.Intel {
 		/// </summary>
 		k_reg,
 		/// <summary>
+		/// K register (+1) encoded in the 'reg' field of the modrm byte
+		/// </summary>
+		kp1_reg,
+		/// <summary>
 		/// K register encoded in the 'mod + r/m' fields of the modrm byte
 		/// </summary>
 		k_rm,

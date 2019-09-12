@@ -239,6 +239,7 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.mem_vsib64y,
 			(byte)OpCodeOperandKind.mem_vsib64z,
 			(byte)OpCodeOperandKind.k_reg,
+			(byte)OpCodeOperandKind.kp1_reg,
 			(byte)OpCodeOperandKind.xmm_reg,
 			(byte)OpCodeOperandKind.ymm_reg,
 			(byte)OpCodeOperandKind.zmm_reg,

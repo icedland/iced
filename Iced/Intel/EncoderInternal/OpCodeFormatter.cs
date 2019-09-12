@@ -177,6 +177,7 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.r64_rm:
 				case OpCodeOperandKind.seg_reg:
 				case OpCodeOperandKind.k_reg:
+				case OpCodeOperandKind.kp1_reg:
 				case OpCodeOperandKind.k_rm:
 				case OpCodeOperandKind.mm_reg:
 				case OpCodeOperandKind.mm_rm:

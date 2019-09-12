@@ -36,14 +36,16 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Theory]
 		[MemberData(nameof(TestAllOpCodeInfos_Data))]
 #pragma warning disable xUnit1026 // Theory methods should use all of their parameters
-		void Test_all_OpCodeInfos(int lineNo, Code code, string opCodeString, OpCodeInfoTestCase tc) {
+		void Test_all_OpCodeInfos(int lineNo, Code code, string opCodeString, string instructionString, OpCodeInfoTestCase tc) {
 #pragma warning restore xUnit1026 // Theory methods should use all of their parameters
 			var info = tc.Code.ToOpCode();
 			Assert.Equal(tc.Code, info.Code);
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 			// Show the full string without ellipses by using Equal<string>() instead of Equal()
-			Assert.Equal<string>(tc.OpCodeString, info.ToString());
+			Assert.Equal<string>(tc.OpCodeString, info.ToOpCodeString());
+			Assert.Equal<string>(tc.InstructionString, info.ToInstructionString());
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
+			Assert.True((object)info.ToInstructionString() == info.ToString());
 			Assert.Equal(tc.Encoding, info.Encoding);
 			Assert.Equal(tc.IsInstruction, info.IsInstruction);
 			Assert.Equal(tc.Mode16, info.Mode16);
@@ -91,7 +93,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			for (int i = tc.OpCount; i < Iced.Intel.DecoderConstants.MaxOpCount; i++)
 				Assert.Equal(OpCodeOperandKind.None, info.GetOpKind(i));
 		}
-		public static IEnumerable<object[]> TestAllOpCodeInfos_Data => OpCodeInfoTestCases.OpCodeInfoTests.Select(a => new object[] { a.LineNumber, a.Code, a.OpCodeString, a });
+		public static IEnumerable<object[]> TestAllOpCodeInfos_Data => OpCodeInfoTestCases.OpCodeInfoTests.Select(a => new object[] { a.LineNumber, a.Code, a.OpCodeString, a.InstructionString, a });
 
 		[Fact]
 		void GetOpKindThrowsIfInvalidInput() {
@@ -168,7 +170,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 				// Show the full string without ellipses by using Equal<string>() instead of Equal()
 				Assert.Equal<string>("<" + opCodeStr.Trim() + ">", "<" + opCodeStr + ">");
-				var expectedOpCodeStr = code.ToOpCode().ToString();
+				var expectedOpCodeStr = code.ToOpCode().ToOpCodeString();
 				Assert.Equal<string>(expectedOpCodeStr, opCodeStr);
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 				tested++;

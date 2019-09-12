@@ -1302,6 +1302,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						other_rm = true;
 						break;
 					case OpCodeOperandKind.k_reg:
+					case OpCodeOperandKind.kp1_reg:
 					case OpCodeOperandKind.xmm_reg:
 					case OpCodeOperandKind.ymm_reg:
 					case OpCodeOperandKind.zmm_reg:
@@ -1486,6 +1487,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						uses_rm = true;
 						break;
 					case OpCodeOperandKind.k_reg:
+					case OpCodeOperandKind.kp1_reg:
 						uses_reg = true;
 						break;
 
@@ -2884,6 +2886,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				for (int i = 0; i < opCode.OpCount; i++) {
 					switch (opCode.GetOpKind(i)) {
 					case OpCodeOperandKind.k_reg:
+					case OpCodeOperandKind.kp1_reg:
 					case OpCodeOperandKind.tr_reg:
 						return false;
 
@@ -2909,6 +2912,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				for (int i = 0; i < opCode.OpCount; i++) {
 					switch (opCode.GetOpKind(i)) {
 					case OpCodeOperandKind.k_reg:
+					case OpCodeOperandKind.kp1_reg:
 					case OpCodeOperandKind.tr_reg:
 					case OpCodeOperandKind.bnd_reg:
 					case OpCodeOperandKind.cr_reg:
@@ -2990,6 +2994,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					case OpCodeOperandKind.r64_rm:
 					case OpCodeOperandKind.seg_reg:
 					case OpCodeOperandKind.k_reg:
+					case OpCodeOperandKind.kp1_reg:
 					case OpCodeOperandKind.k_rm:
 					case OpCodeOperandKind.mm_reg:
 					case OpCodeOperandKind.mm_rm:

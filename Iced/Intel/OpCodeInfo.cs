@@ -59,7 +59,8 @@ namespace Iced.Intel {
 			IsInstruction			= 0x00200000,
 		}
 
-		readonly string toStringValue;
+		readonly string toOpCodeStringValue;
+		readonly string toInstructionStringValue;
 		readonly Flags flags;
 		readonly ushort code;
 		readonly ushort opCode;
@@ -370,7 +371,8 @@ namespace Iced.Intel {
 				throw new InvalidOperationException();
 			}
 
-			toStringValue = new OpCodeFormatter(this, sb, lkind).Format();
+			toOpCodeStringValue = new OpCodeFormatter(this, sb, lkind).Format();
+			toInstructionStringValue = new InstructionFormatter(this, sb).Format();
 		}
 
 		/// <summary>
@@ -588,10 +590,22 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the opcode string
+		/// Gets the opcode string, eg. "VEX.128.66.0F38.W0 78 /r", see also <see cref="ToInstructionString()"/>
 		/// </summary>
 		/// <returns></returns>
-		public override string ToString() => toStringValue;
+		public string ToOpCodeString() => toOpCodeStringValue;
+
+		/// <summary>
+		/// Gets the instruction string, eg. "VPBROADCASTB xmm1, xmm2/m8", see also <see cref="ToOpCodeString"/>
+		/// </summary>
+		/// <returns></returns>
+		public string ToInstructionString() => toInstructionStringValue;
+
+		/// <summary>
+		/// Gets the instruction string, eg. "VPBROADCASTB xmm1, xmm2/m8", see also <see cref="ToOpCodeString"/>
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString() => ToInstructionString();
 	}
 }
 #endif

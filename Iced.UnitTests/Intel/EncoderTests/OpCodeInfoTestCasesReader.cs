@@ -88,7 +88,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		static readonly char[] opseps = new char[] { ';' };
 		static OpCodeInfoTestCase ReadTestCase(string line, int lineNo) {
 			var parts = line.Split(seps);
-			if (parts.Length != 7)
+			if (parts.Length != 8)
 				throw new InvalidOperationException($"Invalid number of commas ({parts.Length - 1} commas)");
 
 			var tc = new OpCodeInfoTestCase();
@@ -102,10 +102,11 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			tc.Table = ToTable(parts[3].Trim());
 			tc.OpCode = ToOpCode(parts[4].Trim());
 			tc.OpCodeString = parts[5].Trim();
+			tc.InstructionString = parts[6].Trim().Replace('|', ',');
 
 			bool gotVectorLength = false;
 			bool gotW = false;
-			foreach (var part in parts[6].Split(optsseps)) {
+			foreach (var part in parts[7].Split(optsseps)) {
 				var key = part.Trim();
 				if (key.Length == 0)
 					continue;
