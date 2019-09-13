@@ -1220,16 +1220,16 @@ namespace Iced.Intel {
 			case CodeInfo.Lds:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (Code.Lfs_r16_m32 <= code && code <= Code.Lfs_r64_m80)
+					if (Code.Lfs_r16_m1616 <= code && code <= Code.Lfs_r64_m1664)
 						AddRegister(flags, ref usedRegisters, Register.FS, OpAccess.Write);
-					else if (Code.Lgs_r16_m32 <= code && code <= Code.Lgs_r64_m80)
+					else if (Code.Lgs_r16_m1616 <= code && code <= Code.Lgs_r64_m1664)
 						AddRegister(flags, ref usedRegisters, Register.GS, OpAccess.Write);
-					else if (Code.Lss_r16_m32 <= code && code <= Code.Lss_r64_m80)
+					else if (Code.Lss_r16_m1616 <= code && code <= Code.Lss_r64_m1664)
 						AddRegister(flags, ref usedRegisters, Register.SS, OpAccess.Write);
-					else if (Code.Lds_r16_m32 <= code && code <= Code.Lds_r32_m48)
+					else if (Code.Lds_r16_m1616 <= code && code <= Code.Lds_r32_m1632)
 						AddRegister(flags, ref usedRegisters, Register.DS, OpAccess.Write);
 					else {
-						Debug.Assert(Code.Les_r16_m32 <= code && code <= Code.Les_r32_m48);
+						Debug.Assert(Code.Les_r16_m1616 <= code && code <= Code.Les_r32_m1632);
 						AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Write);
 					}
 				}

@@ -308,14 +308,14 @@ namespace Iced.Intel {
 			2,// Mov_r32_rm32
 			2,// Mov_r64_rm64
 			2,// Mov_rm16_Sreg
-			2,// Mov_rm32_Sreg
-			2,// Mov_rm64_Sreg
+			2,// Mov_r32m16_Sreg
+			2,// Mov_r64m16_Sreg
 			2,// Lea_r16_m
 			2,// Lea_r32_m
 			2,// Lea_r64_m
 			2,// Mov_Sreg_rm16
-			2,// Mov_Sreg_rm32
-			2,// Mov_Sreg_rm64
+			2,// Mov_Sreg_r32m16
+			2,// Mov_Sreg_r64m16
 			1,// Pop_rm16
 			1,// Pop_rm32
 			1,// Pop_rm64
@@ -333,7 +333,7 @@ namespace Iced.Intel {
 			0,// Cdq
 			0,// Cqo
 			1,// Call_ptr1616
-			1,// Call_ptr3216
+			1,// Call_ptr1632
 			0,// Wait
 			0,// Pushfw
 			0,// Pushfd
@@ -417,10 +417,10 @@ namespace Iced.Intel {
 			0,// Retnw
 			0,// Retnd
 			0,// Retnq
-			2,// Les_r16_m32
-			2,// Les_r32_m48
-			2,// Lds_r16_m32
-			2,// Lds_r32_m48
+			2,// Les_r16_m1616
+			2,// Les_r32_m1632
+			2,// Lds_r16_m1616
+			2,// Lds_r32_m1632
 			2,// Mov_rm8_imm8
 			1,// Xabort_imm8
 			2,// Mov_rm16_imm16
@@ -535,13 +535,13 @@ namespace Iced.Intel {
 			1,// Fstp_m32fp
 			1,// Fldenv_m14byte
 			1,// Fldenv_m28byte
-			1,// Fldcw_m16
+			1,// Fldcw_m2byte
 			1,// Fnstenv_m14byte
 			1,// Fstenv_m14byte
 			1,// Fnstenv_m28byte
 			1,// Fstenv_m28byte
-			1,// Fnstcw_m16
-			1,// Fstcw_m16
+			1,// Fnstcw_m2byte
+			1,// Fstcw_m2byte
 			2,// Fld_st0_sti
 			2,// Fxch_st0_sti
 			0,// Fnop
@@ -626,7 +626,7 @@ namespace Iced.Intel {
 			2,// Fdivr_sti_st0
 			2,// Fdiv_sti_st0
 			1,// Fld_m64fp
-			1,// Fisttp_m64fp
+			1,// Fisttp_m64int
 			1,// Fst_m64fp
 			1,// Fstp_m64fp
 			1,// Frstor_m94byte
@@ -635,8 +635,8 @@ namespace Iced.Intel {
 			1,// Fsave_m94byte
 			1,// Fnsave_m108byte
 			1,// Fsave_m108byte
-			1,// Fnstsw_m16
-			1,// Fstsw_m16
+			1,// Fnstsw_m2byte
+			1,// Fstsw_m2byte
 			1,// Ffree_sti
 			2,// Fxch_st0_sti_DDC8
 			1,// Fst_sti
@@ -718,7 +718,7 @@ namespace Iced.Intel {
 			1,// Jmp_rel32_32
 			1,// Jmp_rel32_64
 			1,// Jmp_ptr1616
-			1,// Jmp_ptr3216
+			1,// Jmp_ptr1632
 			1,// Jmp_rel8_16
 			1,// Jmp_rel8_32
 			1,// Jmp_rel8_64
@@ -781,14 +781,14 @@ namespace Iced.Intel {
 			1,// Call_rm32
 			1,// Call_rm64
 			1,// Call_m1616
-			1,// Call_m3216
-			1,// Call_m6416
+			1,// Call_m1632
+			1,// Call_m1664
 			1,// Jmp_rm16
 			1,// Jmp_rm32
 			1,// Jmp_rm64
 			1,// Jmp_m1616
-			1,// Jmp_m3216
-			1,// Jmp_m6416
+			1,// Jmp_m1632
+			1,// Jmp_m1664
 			1,// Push_rm16
 			1,// Push_rm32
 			1,// Push_rm64
@@ -812,18 +812,18 @@ namespace Iced.Intel {
 			1,// Verw_r64m16
 			1,// Jmpe_rm16
 			1,// Jmpe_rm32
-			1,// Sgdt_m40
-			1,// Sgdt_m48
-			1,// Sgdt_m80
-			1,// Sidt_m40
-			1,// Sidt_m48
-			1,// Sidt_m80
-			1,// Lgdt_m40
-			1,// Lgdt_m48
-			1,// Lgdt_m80
-			1,// Lidt_m40
-			1,// Lidt_m48
-			1,// Lidt_m80
+			1,// Sgdt_m_16
+			1,// Sgdt_m_32
+			1,// Sgdt_m_64
+			1,// Sidt_m_16
+			1,// Sidt_m_32
+			1,// Sidt_m_64
+			1,// Lgdt_m_16
+			1,// Lgdt_m_32
+			1,// Lgdt_m_64
+			1,// Lidt_m_16
+			1,// Lidt_m_32
+			1,// Lidt_m_64
 			1,// Smsw_rm16
 			1,// Smsw_r32m16
 			1,// Smsw_r64m16
@@ -883,11 +883,11 @@ namespace Iced.Intel {
 			0,// Clzeroq
 			0,// Rdpru
 			2,// Lar_r16_rm16
-			2,// Lar_r32_rm32
-			2,// Lar_r64_rm64
+			2,// Lar_r32_r32m16
+			2,// Lar_r64_r64m16
 			2,// Lsl_r16_rm16
-			2,// Lsl_r32_rm32
-			2,// Lsl_r64_rm64
+			2,// Lsl_r32_r32m16
+			2,// Lsl_r64_r64m16
 			0,// Loadallreset286
 			0,// Loadall286
 			0,// Syscall
@@ -2044,16 +2044,16 @@ namespace Iced.Intel {
 			1,// Wrgsbase_r32
 			1,// Wrgsbase_r64
 			1,// VEX_Vstmxcsr_m32
-			1,// Xsave_m
-			1,// Xsave64_m
+			1,// Xsave_mem
+			1,// Xsave64_mem
 			1,// Ptwrite_rm32
 			1,// Ptwrite_rm64
-			1,// Xrstor_m
-			1,// Xrstor64_m
+			1,// Xrstor_mem
+			1,// Xrstor64_mem
 			1,// Incsspd_r32
 			1,// Incsspq_r64
-			1,// Xsaveopt_m
-			1,// Xsaveopt64_m
+			1,// Xsaveopt_mem
+			1,// Xsaveopt64_mem
 			1,// Clwb_m8
 			1,// Tpause_r32
 			1,// Tpause_r64
@@ -2076,18 +2076,18 @@ namespace Iced.Intel {
 			2,// Cmpxchg_rm16_r16
 			2,// Cmpxchg_rm32_r32
 			2,// Cmpxchg_rm64_r64
-			2,// Lss_r16_m32
-			2,// Lss_r32_m48
-			2,// Lss_r64_m80
+			2,// Lss_r16_m1616
+			2,// Lss_r32_m1632
+			2,// Lss_r64_m1664
 			2,// Btr_rm16_r16
 			2,// Btr_rm32_r32
 			2,// Btr_rm64_r64
-			2,// Lfs_r16_m32
-			2,// Lfs_r32_m48
-			2,// Lfs_r64_m80
-			2,// Lgs_r16_m32
-			2,// Lgs_r32_m48
-			2,// Lgs_r64_m80
+			2,// Lfs_r16_m1616
+			2,// Lfs_r32_m1632
+			2,// Lfs_r64_m1664
+			2,// Lgs_r16_m1616
+			2,// Lgs_r32_m1632
+			2,// Lgs_r64_m1664
 			2,// Movzx_r16_rm8
 			2,// Movzx_r32_rm8
 			2,// Movzx_r64_rm8
@@ -2189,12 +2189,12 @@ namespace Iced.Intel {
 			4,// EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8
 			1,// Cmpxchg8b_m64
 			1,// Cmpxchg16b_m128
-			1,// Xrstors_m
-			1,// Xrstors64_m
-			1,// Xsavec_m
-			1,// Xsavec64_m
-			1,// Xsaves_m
-			1,// Xsaves64_m
+			1,// Xrstors_mem
+			1,// Xrstors64_mem
+			1,// Xsavec_mem
+			1,// Xsavec64_mem
+			1,// Xsaves_mem
+			1,// Xsaves64_mem
 			1,// Vmptrld_m64
 			1,// Vmclear_m64
 			1,// Vmxon_m64
@@ -3916,14 +3916,14 @@ namespace Iced.Intel {
 			4,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 			4,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 			4,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-			5,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8
-			5,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm8
-			5,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm8
-			5,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm8
-			5,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm8
-			5,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm8
-			5,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm8
-			5,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm8
+			5,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
+			5,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
+			5,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
+			5,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
+			5,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
+			5,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
+			5,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
+			5,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
 			4,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 			4,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 			4,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm

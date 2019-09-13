@@ -2608,17 +2608,17 @@ namespace Iced.Intel.DecoderInternal {
 						0x0E,// VectorLength
 							0x2F,// VHWIs5
 								0x4D,// XMM0
-								0xB4, 0x1E,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8
+								0xB4, 0x1E,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
 							0x2F,// VHWIs5
 								0x6D,// YMM0
-								0xB5, 0x1E,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm8
+								0xB5, 0x1E,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
 						0x0E,// VectorLength
 							0x27,// VHIs5W
 								0x4D,// XMM0
-								0xB6, 0x1E,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm8
+								0xB6, 0x1E,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
 							0x27,// VHIs5W
 								0x6D,// YMM0
-								0xB7, 0x1E,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm8
+								0xB7, 0x1E,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
 					0x00,// Invalid
 					0x00,// Invalid
 
@@ -2629,17 +2629,17 @@ namespace Iced.Intel.DecoderInternal {
 						0x0E,// VectorLength
 							0x2F,// VHWIs5
 								0x4D,// XMM0
-								0xB8, 0x1E,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm8
+								0xB8, 0x1E,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
 							0x2F,// VHWIs5
 								0x6D,// YMM0
-								0xB9, 0x1E,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm8
+								0xB9, 0x1E,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
 						0x0E,// VectorLength
 							0x27,// VHIs5W
 								0x4D,// XMM0
-								0xBA, 0x1E,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm8
+								0xBA, 0x1E,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
 							0x27,// VHIs5W
 								0x6D,// YMM0
-								0xBB, 0x1E,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm8
+								0xBB, 0x1E,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
 					0x00,// Invalid
 					0x00,// Invalid
 

@@ -82,7 +82,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 #if !NO_ENCODER
 		[Fact]
 		void Equals_and_GetHashCode_ignore_some_fields() {
-			var instr1 = Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RCX, Register.R14, 8, 0x12345678, 8, false, Register.FS), Register.XMM10, 0xA5);
+			var instr1 = Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RCX, Register.R14, 8, 0x12345678, 8, false, Register.FS), Register.XMM10, 0xA5);
 			var instr2 = instr1;
 			Assert.True(Instruction.EqualsAllBits(instr1, instr2));
 			instr1.CodeSize = CodeSize.Code32;

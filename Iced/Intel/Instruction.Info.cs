@@ -116,11 +116,11 @@ namespace Iced.Intel {
 				case Code.Call_m1616:
 					return -(2 + 2);
 
-				case Code.Call_ptr3216:
-				case Code.Call_m3216:
+				case Code.Call_ptr1632:
+				case Code.Call_m1632:
 					return -(4 + 4);
 
-				case Code.Call_m6416:
+				case Code.Call_m1664:
 					return -(8 + 8);
 
 				case Code.Call_rel16:

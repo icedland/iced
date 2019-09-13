@@ -852,13 +852,13 @@
 # mov [rax],ds
 66 8C 18, Mov_rm16_Sreg, Legacy, INTEL8086, op0=w op1=r r=rax r=ds wm=ds:rax;UInt16
 # mov esi,cs
-8C CE, Mov_rm32_Sreg, Legacy, INTEL386, op0=w op1=r w=rsi r=cs
+8C CE, Mov_r32m16_Sreg, Legacy, INTEL386, op0=w op1=r w=rsi r=cs
 # mov [rax],ds
-8C 18, Mov_rm32_Sreg, Legacy, INTEL386, op0=w op1=r r=rax r=ds wm=ds:rax;UInt16
+8C 18, Mov_r32m16_Sreg, Legacy, INTEL386, op0=w op1=r r=rax r=ds wm=ds:rax;UInt16
 # mov rsi,cs
-48 8C CE, Mov_rm64_Sreg, Legacy, X64, op0=w op1=r w=rsi r=cs
+48 8C CE, Mov_r64m16_Sreg, Legacy, X64, op0=w op1=r w=rsi r=cs
 # mov [rax],ds
-48 8C 18, Mov_rm64_Sreg, Legacy, X64, op0=w op1=r r=rax r=ds wm=ds:rax;UInt16
+48 8C 18, Mov_r64m16_Sreg, Legacy, X64, op0=w op1=r r=rax r=ds wm=ds:rax;UInt16
 # lea bx,[rax]
 66 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=rax
 # lea ebx,[rax]
@@ -870,13 +870,13 @@
 # mov ds,[rax]
 66 8E 18, Mov_Sreg_rm16, Legacy, INTEL8086, op0=w op1=r w=ds r=rax rm=ds:rax;UInt16
 # mov cs,esi
-8E CE, Mov_Sreg_rm32, Legacy, INTEL386, op0=w op1=r w=cs r=esi
+8E CE, Mov_Sreg_r32m16, Legacy, INTEL386, op0=w op1=r w=cs r=esi
 # mov ds,[rax]
-8E 18, Mov_Sreg_rm32, Legacy, INTEL386, op0=w op1=r w=ds r=rax rm=ds:rax;UInt16
+8E 18, Mov_Sreg_r32m16, Legacy, INTEL386, op0=w op1=r w=ds r=rax rm=ds:rax;UInt16
 # mov cs,rsi
-48 8E CE, Mov_Sreg_rm64, Legacy, X64, op0=w op1=r w=cs r=rsi
+48 8E CE, Mov_Sreg_r64m16, Legacy, X64, op0=w op1=r w=cs r=rsi
 # mov ds,[rax]
-48 8E 18, Mov_Sreg_rm64, Legacy, X64, op0=w op1=r w=ds r=rax rm=ds:rax;UInt16
+48 8E 18, Mov_Sreg_r64m16, Legacy, X64, op0=w op1=r w=ds r=rax rm=ds:rax;UInt16
 # pop si
 66 8F C6, Pop_rm16, Legacy, INTEL8086, op0=w rw=xsp w=si rm=ss:xsp;UInt16 stack=2
 # pop word ptr [rax]
@@ -2246,13 +2246,13 @@ D9 18, Fstp_m32fp, Legacy, FPU, op0=w r=rax wm=ds:rax;Float32 r=st0
 # fldenv [rax]
 D9 20, Fldenv_m28byte, Legacy, FPU, op0=r r=rax rm=ds:rax;FpuEnv28
 # fldcw [rax]
-D9 28, Fldcw_m16, Legacy, FPU, op0=r r=rax rm=ds:rax;UInt16
+D9 28, Fldcw_m2byte, Legacy, FPU, op0=r r=rax rm=ds:rax;UInt16
 # fnstenv fpuenv14 ptr [rax]
 66 D9 30, Fnstenv_m14byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv14
 # fnstenv [rax]
 D9 30, Fnstenv_m28byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv28
 # fnstcw [rax]
-D9 38, Fnstcw_m16, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16
+D9 38, Fnstcw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16
 # fld st(3)
 D9 C3, Fld_st0_sti, Legacy, FPU, op0=w op1=r w=st0 r=st3
 # fxch st(3)
@@ -2398,7 +2398,7 @@ DC FB, Fdiv_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
 # fld qword ptr [rax]
 DD 00, Fld_m64fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float64 w=st0
 # fisttp qword ptr [rax]
-DD 08, Fisttp_m64fp, Legacy, FPU;SSE3, op0=w r=rax wm=ds:rax;Float64 r=st0
+DD 08, Fisttp_m64int, Legacy, FPU;SSE3, op0=w r=rax wm=ds:rax;Int64 r=st0
 # fst qword ptr [rax]
 DD 10, Fst_m64fp, Legacy, FPU, op0=w r=rax wm=ds:rax;Float64 r=st0
 # fstp qword ptr [rax]
@@ -2412,7 +2412,7 @@ DD 20, Frstor_m108byte, Legacy, FPU, saverestore op0=r r=rax rm=ds:rax;FpuState1
 # fnsave [rax]
 DD 30, Fnsave_m108byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState108
 # fnstsw [rax]
-DD 38, Fnstsw_m16, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16
+DD 38, Fnstsw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16
 # ffree st(3)
 DD C3, Ffree_sti, Legacy, FPU, op0=n
 # fst st(3)
@@ -2706,9 +2706,9 @@ FF 10, Call_rm64, Legacy, X64, flow=IndirectCall op0=r rw=xsp r=rax rm=ds:rax;Qw
 # call dword ptr [rax]
 66 FF 18, Call_m1616, Legacy, INTEL8086, flow=IndirectCall op0=r rw=xsp r=rax rm=ds:rax;SegPtr16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 stack=-4
 # call fword ptr [rax]
-FF 18, Call_m3216, Legacy, INTEL386, flow=IndirectCall op0=r rw=xsp r=rax rm=ds:rax;SegPtr32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
+FF 18, Call_m1632, Legacy, INTEL386, flow=IndirectCall op0=r rw=xsp r=rax rm=ds:rax;SegPtr32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
 # call tbyte ptr [rax]
-48 FF 18, Call_m6416, Legacy, X64, flow=IndirectCall op0=r rw=xsp r=rax rm=ds:rax;SegPtr64 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF0;UInt64 stack=-16
+48 FF 18, Call_m1664, Legacy, X64, flow=IndirectCall op0=r rw=xsp r=rax rm=ds:rax;SegPtr64 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt64 wm=ss:xsp+0xFFFFFFFFFFFFFFF0;UInt64 stack=-16
 # jmp rsi
 FF E6, Jmp_rm64, Legacy, X64, flow=IndirectBranch op0=r r=rsi
 # jmp qword ptr [rax]
@@ -2716,9 +2716,9 @@ FF 20, Jmp_rm64, Legacy, X64, flow=IndirectBranch op0=r r=rax rm=ds:rax;QwordOff
 # jmp dword ptr [rax]
 66 FF 28, Jmp_m1616, Legacy, INTEL8086, flow=IndirectBranch op0=r r=rax rm=ds:rax;SegPtr16
 # jmp fword ptr [rax]
-FF 28, Jmp_m3216, Legacy, INTEL386, flow=IndirectBranch op0=r r=rax rm=ds:rax;SegPtr32
+FF 28, Jmp_m1632, Legacy, INTEL386, flow=IndirectBranch op0=r r=rax rm=ds:rax;SegPtr32
 # jmp tbyte ptr [rax]
-48 FF 28, Jmp_m6416, Legacy, X64, flow=IndirectBranch op0=r r=rax rm=ds:rax;SegPtr64
+48 FF 28, Jmp_m1664, Legacy, X64, flow=IndirectBranch op0=r r=rax rm=ds:rax;SegPtr64
 # push si
 66 FF F6, Push_rm16, Legacy, INTEL8086, op0=r rw=xsp r=si wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push word ptr [rax]
@@ -2800,13 +2800,13 @@ FF 30, Push_rm64, Legacy, X64, op0=r rw=xsp r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xF
 # verw word ptr [rax]
 48 0F00 28, Verw_r64m16, Legacy, X64, pm fw=z op0=r r=rax rm=ds:rax;UInt16
 # sgdt [rax]
-0F01 00, Sgdt_m80, Legacy, X64, op0=w r=rax wm=ds:rax;Fword10
+0F01 00, Sgdt_m_64, Legacy, X64, op0=w r=rax wm=ds:rax;Fword10
 # sidt [rax]
-0F01 08, Sidt_m80, Legacy, X64, op0=w r=rax wm=ds:rax;Fword10
+0F01 08, Sidt_m_64, Legacy, X64, op0=w r=rax wm=ds:rax;Fword10
 # lgdt fword ptr [rax]
-0F01 10, Lgdt_m80, Legacy, X64, priv op0=r r=rax rm=ds:rax;Fword10
+0F01 10, Lgdt_m_64, Legacy, X64, priv op0=r r=rax rm=ds:rax;Fword10
 # lidt fword ptr [rax]
-0F01 18, Lidt_m80, Legacy, X64, priv op0=r r=rax rm=ds:rax;Fword10
+0F01 18, Lidt_m_64, Legacy, X64, priv op0=r r=rax rm=ds:rax;Fword10
 # smsw bp
 66 0F01 E5, Smsw_rm16, Legacy, INTEL286, op0=w w=bp r=cr0
 # smsw word ptr [rax]
@@ -2880,25 +2880,25 @@ FF 30, Push_rm64, Legacy, X64, op0=r rw=xsp r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xF
 # lar bx,word ptr [rax]
 66 0F02 18, Lar_r16_rm16, Legacy, INTEL286, pm fw=z op0=cw op1=r cw=bx r=rax rm=ds:rax;UInt16
 # lar ecx,esi
-0F02 CE, Lar_r32_rm32, Legacy, INTEL386, pm fw=z op0=cw op1=r cw=rcx r=esi
+0F02 CE, Lar_r32_r32m16, Legacy, INTEL386, pm fw=z op0=cw op1=r cw=rcx r=esi
 # lar ebx,word ptr [rax]
-0F02 18, Lar_r32_rm32, Legacy, INTEL386, pm fw=z op0=cw op1=r cw=rbx r=rax rm=ds:rax;UInt16
+0F02 18, Lar_r32_r32m16, Legacy, INTEL386, pm fw=z op0=cw op1=r cw=rbx r=rax rm=ds:rax;UInt16
 # lar rcx,rsi
-48 0F02 CE, Lar_r64_rm64, Legacy, X64, pm fw=z op0=cw op1=r cw=rcx r=rsi
+48 0F02 CE, Lar_r64_r64m16, Legacy, X64, pm fw=z op0=cw op1=r cw=rcx r=rsi
 # lar rbx,word ptr [rax]
-48 0F02 18, Lar_r64_rm64, Legacy, X64, pm fw=z op0=cw op1=r cw=rbx r=rax rm=ds:rax;UInt16
+48 0F02 18, Lar_r64_r64m16, Legacy, X64, pm fw=z op0=cw op1=r cw=rbx r=rax rm=ds:rax;UInt16
 # lsl cx,si
 66 0F03 CE, Lsl_r16_rm16, Legacy, INTEL286, pm fw=z op0=cw op1=r cw=cx r=si
 # lsl bx,word ptr [rax]
 66 0F03 18, Lsl_r16_rm16, Legacy, INTEL286, pm fw=z op0=cw op1=r cw=bx r=rax rm=ds:rax;UInt16
 # lsl ecx,esi
-0F03 CE, Lsl_r32_rm32, Legacy, INTEL386, pm fw=z op0=cw op1=r cw=rcx r=esi
+0F03 CE, Lsl_r32_r32m16, Legacy, INTEL386, pm fw=z op0=cw op1=r cw=rcx r=esi
 # lsl ebx,word ptr [rax]
-0F03 18, Lsl_r32_rm32, Legacy, INTEL386, pm fw=z op0=cw op1=r cw=rbx r=rax rm=ds:rax;UInt16
+0F03 18, Lsl_r32_r32m16, Legacy, INTEL386, pm fw=z op0=cw op1=r cw=rbx r=rax rm=ds:rax;UInt16
 # lsl rcx,rsi
-48 0F03 CE, Lsl_r64_rm64, Legacy, X64, pm fw=z op0=cw op1=r cw=rcx r=rsi
+48 0F03 CE, Lsl_r64_r64m16, Legacy, X64, pm fw=z op0=cw op1=r cw=rcx r=rsi
 # lsl rbx,word ptr [rax]
-48 0F03 18, Lsl_r64_rm64, Legacy, X64, pm fw=z op0=cw op1=r cw=rbx r=rax rm=ds:rax;UInt16
+48 0F03 18, Lsl_r64_r64m16, Legacy, X64, pm fw=z op0=cw op1=r cw=rbx r=rax rm=ds:rax;UInt16
 # syscall
 0F05, Syscall, Legacy, SYSCALL, fr=acopszidA flow=Call w=rcx;r11
 # clts
@@ -7482,9 +7482,9 @@ F3 48 0FAE DD, Wrgsbase_r64, Legacy, FSGSBASE, op0=r r=rbp
 # vstmxcsr dword ptr [rax]
 C5F8 AE 18, VEX_Vstmxcsr_m32, VEX, AVX, pm op0=w r=rax wm=ds:rax;UInt32
 # xsave [rdi]
-0FAE 27, Xsave_m, Legacy, XSAVE, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
+0FAE 27, Xsave_mem, Legacy, XSAVE, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
 # xsave64 [rdi]
-48 0FAE 27, Xsave64_m, Legacy, XSAVE, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
+48 0FAE 27, Xsave64_mem, Legacy, XSAVE, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
 # ptwrite ebp
 F3 0FAE E5, Ptwrite_rm32, Legacy, PTWRITE, op0=r r=ebp
 # ptwrite dword ptr [rax]
@@ -7494,13 +7494,13 @@ F3 48 0FAE E5, Ptwrite_rm64, Legacy, PTWRITE, op0=r r=rbp
 # ptwrite qword ptr [rax]
 F3 48 0FAE 20, Ptwrite_rm64, Legacy, PTWRITE, op0=r r=rax rm=ds:rax;UInt64
 # xrstor [rdi]
-0FAE 2F, Xrstor_m, Legacy, XSAVE, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
+0FAE 2F, Xrstor_mem, Legacy, XSAVE, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
 # xrstor64 [rdi]
-48 0FAE 2F, Xrstor64_m, Legacy, XSAVE, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
+48 0FAE 2F, Xrstor64_mem, Legacy, XSAVE, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
 # xsaveopt [rdi]
-0FAE 37, Xsaveopt_m, Legacy, XSAVEOPT, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
+0FAE 37, Xsaveopt_mem, Legacy, XSAVEOPT, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
 # xsaveopt64 [rdi]
-48 0FAE 37, Xsaveopt64_m, Legacy, XSAVEOPT, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
+48 0FAE 37, Xsaveopt64_mem, Legacy, XSAVEOPT, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
 # clwb [rax]
 66 0FAE 30, Clwb_m8, Legacy, CLWB, op0=nma r=rax
 # clflush [rax]
@@ -7542,11 +7542,11 @@ F3 48 0FAE 20, Ptwrite_rm64, Legacy, PTWRITE, op0=r r=rax rm=ds:rax;UInt64
 # cmpxchg [rax],rbx
 48 0FB1 18, Cmpxchg_rm64_r64, Legacy, X64, op0=rw op1=r fw=acopsz r=rax r=rbx rcw=rax rwm=ds:rax;UInt64
 # lss bx,[rax]
-66 0FB2 18, Lss_r16_m32, Legacy, INTEL386, op0=w op1=r w=ss;bx r=rax rm=ds:rax;SegPtr16
+66 0FB2 18, Lss_r16_m1616, Legacy, INTEL386, op0=w op1=r w=ss;bx r=rax rm=ds:rax;SegPtr16
 # lss ebx,[rax]
-0FB2 18, Lss_r32_m48, Legacy, INTEL386, op0=w op1=r w=ss;rbx r=rax rm=ds:rax;SegPtr32
+0FB2 18, Lss_r32_m1632, Legacy, INTEL386, op0=w op1=r w=ss;rbx r=rax rm=ds:rax;SegPtr32
 # lss rbx,[rax]
-48 0FB2 18, Lss_r64_m80, Legacy, X64, op0=w op1=r w=ss;rbx r=rax rm=ds:rax;SegPtr64
+48 0FB2 18, Lss_r64_m1664, Legacy, X64, op0=w op1=r w=ss;rbx r=rax rm=ds:rax;SegPtr64
 # btr si,cx
 66 0FB3 CE, Btr_rm16_r16, Legacy, INTEL386, fw=c fu=osap op0=rw op1=r rw=si r=cx
 # btr [rax],bx
@@ -7560,17 +7560,17 @@ F3 48 0FAE 20, Ptwrite_rm64, Legacy, PTWRITE, op0=r r=rax rm=ds:rax;UInt64
 # btr [rax],rbx
 48 0FB3 18, Btr_rm64_r64, Legacy, X64, fw=c fu=osap op0=rw op1=r r=rax r=rbx rwm=ds:rax;UInt64
 # lfs bx,[rax]
-66 0FB4 18, Lfs_r16_m32, Legacy, INTEL386, op0=w op1=r w=fs;bx r=rax rm=ds:rax;SegPtr16
+66 0FB4 18, Lfs_r16_m1616, Legacy, INTEL386, op0=w op1=r w=fs;bx r=rax rm=ds:rax;SegPtr16
 # lfs ebx,[rax]
-0FB4 18, Lfs_r32_m48, Legacy, INTEL386, op0=w op1=r w=fs;rbx r=rax rm=ds:rax;SegPtr32
+0FB4 18, Lfs_r32_m1632, Legacy, INTEL386, op0=w op1=r w=fs;rbx r=rax rm=ds:rax;SegPtr32
 # lfs rbx,[rax]
-48 0FB4 18, Lfs_r64_m80, Legacy, X64, op0=w op1=r w=fs;rbx r=rax rm=ds:rax;SegPtr64
+48 0FB4 18, Lfs_r64_m1664, Legacy, X64, op0=w op1=r w=fs;rbx r=rax rm=ds:rax;SegPtr64
 # lgs bx,[rax]
-66 0FB5 18, Lgs_r16_m32, Legacy, INTEL386, op0=w op1=r w=gs;bx r=rax rm=ds:rax;SegPtr16
+66 0FB5 18, Lgs_r16_m1616, Legacy, INTEL386, op0=w op1=r w=gs;bx r=rax rm=ds:rax;SegPtr16
 # lgs ebx,[rax]
-0FB5 18, Lgs_r32_m48, Legacy, INTEL386, op0=w op1=r w=gs;rbx r=rax rm=ds:rax;SegPtr32
+0FB5 18, Lgs_r32_m1632, Legacy, INTEL386, op0=w op1=r w=gs;rbx r=rax rm=ds:rax;SegPtr32
 # lgs rbx,[rax]
-48 0FB5 18, Lgs_r64_m80, Legacy, X64, op0=w op1=r w=gs;rbx r=rax rm=ds:rax;SegPtr64
+48 0FB5 18, Lgs_r64_m1664, Legacy, X64, op0=w op1=r w=gs;rbx r=rax rm=ds:rax;SegPtr64
 # movzx cx,dh
 66 0FB6 CE, Movzx_r16_rm8, Legacy, INTEL386, op0=w op1=r w=cx r=dh
 # movzx bx,byte ptr [rax]
@@ -7956,17 +7956,17 @@ C5CD C6 10 A5, VEX_Vshufpd_ymm_ymm_ymmm256_imm8, VEX, AVX, pm op0=w op1=r op2=r 
 # cmpxchg16b [rax]
 48 0FC7 08, Cmpxchg16b_m128, Legacy, CMPXCHG16B, fw=z op0=rw rcw=rdx;rax cr=rcx;rbx r=rax rwm=ds:rax;UInt128
 # xrstors [rdi]
-0FC7 1F, Xrstors_m, Legacy, XSAVES, saverestore priv op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
+0FC7 1F, Xrstors_mem, Legacy, XSAVES, saverestore priv op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
 # xrstors64 [rdi]
-48 0FC7 1F, Xrstors64_m, Legacy, XSAVES, saverestore priv op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
+48 0FC7 1F, Xrstors64_mem, Legacy, XSAVES, saverestore priv op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
 # xsavec [rdi]
-0FC7 27, Xsavec_m, Legacy, XSAVEC, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
+0FC7 27, Xsavec_mem, Legacy, XSAVEC, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
 # xsavec64 [rdi]
-48 0FC7 27, Xsavec64_m, Legacy, XSAVEC, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
+48 0FC7 27, Xsavec64_mem, Legacy, XSAVEC, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
 # xsaves [rdi]
-0FC7 2F, Xsaves_m, Legacy, XSAVES, saverestore priv op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
+0FC7 2F, Xsaves_mem, Legacy, XSAVES, saverestore priv op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave
 # xsaves64 [rdi]
-48 0FC7 2F, Xsaves64_m, Legacy, XSAVES, saverestore priv op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
+48 0FC7 2F, Xsaves64_mem, Legacy, XSAVES, saverestore priv op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
 # vmptrld qword ptr [rax]
 0FC7 30, Vmptrld_m64, Legacy, VMX, fw=cz fc=aops priv pm op0=r r=rax rm=ds:rax;UInt64
 # vmclear qword ptr [rax]
@@ -16388,37 +16388,37 @@ F2 0F78 D1 A5 FD, Insertq_xmm_xmm_imm8_imm8, Legacy, SSE4A, op0=w op1=r op2=r op
 # insertq xmm2,xmm1
 F2 0F79 D1, Insertq_xmm_xmm, Legacy, SSE4A, op0=rw op1=r rw=xmm2 r=xmm1
 # vpermil2ps xmm2,xmm6,xmm3,xmm4,0
-C4E349 48 D3 40, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm3 r=xmm4
+C4E349 48 D3 40, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm3 r=xmm4
 # vpermil2ps xmm2,xmm6,[rax],xmm4,1
-C4E349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=rax rm=ds:rax;Packed128_Float32 r=xmm4
+C4E349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=rax rm=ds:rax;Packed128_Float32 r=xmm4
 # vpermil2ps ymm2,ymm6,ymm3,ymm5,0
-C4E34D 48 D3 50, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm3 r=ymm5
+C4E34D 48 D3 50, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm3 r=ymm5
 # vpermil2ps ymm2,ymm6,[rax],ymm5,2
-C4E34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=rax rm=ds:rax;Packed256_Float32 r=ymm5
+C4E34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=rax rm=ds:rax;Packed256_Float32 r=ymm5
 # vpermil2ps xmm2,xmm6,xmm4,xmm3,0
-C4E3C9 48 D3 40, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm4 r=xmm3
+C4E3C9 48 D3 40, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm4 r=xmm3
 # vpermil2ps xmm2,xmm6,xmm4,[rax],1
-C4E3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm4 r=rax rm=ds:rax;Packed128_Float32
+C4E3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm4 r=rax rm=ds:rax;Packed128_Float32
 # vpermil2ps ymm2,ymm6,ymm5,ymm3,0
-C4E3CD 48 D3 50, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm5 r=ymm3
+C4E3CD 48 D3 50, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm5 r=ymm3
 # vpermil2ps ymm2,ymm6,ymm5,[rax],2
-C4E3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm5 r=rax rm=ds:rax;Packed256_Float32
+C4E3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm5 r=rax rm=ds:rax;Packed256_Float32
 # vpermil2pd xmm2,xmm6,xmm3,xmm4,0
-C4E349 49 D3 40, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm3 r=xmm4
+C4E349 49 D3 40, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm3 r=xmm4
 # vpermil2pd xmm2,xmm6,[rax],xmm4,1
-C4E349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=rax rm=ds:rax;Packed128_Float64 r=xmm4
+C4E349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=rax rm=ds:rax;Packed128_Float64 r=xmm4
 # vpermil2pd ymm2,ymm6,ymm3,ymm5,0
-C4E34D 49 D3 50, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm3 r=ymm5
+C4E34D 49 D3 50, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm3 r=ymm5
 # vpermil2pd ymm2,ymm6,[rax],ymm5,2
-C4E34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=rax rm=ds:rax;Packed256_Float64 r=ymm5
+C4E34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=rax rm=ds:rax;Packed256_Float64 r=ymm5
 # vpermil2pd xmm2,xmm6,xmm4,xmm3,0
-C4E3C9 49 D3 40, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm4 r=xmm3
+C4E3C9 49 D3 40, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm4 r=xmm3
 # vpermil2pd xmm2,xmm6,xmm4,[rax],1
-C4E3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm4 r=rax rm=ds:rax;Packed128_Float64
+C4E3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=xmm6 r=xmm4 r=rax rm=ds:rax;Packed128_Float64
 # vpermil2pd ymm2,ymm6,ymm5,ymm3,0
-C4E3CD 49 D3 50, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm5 r=ymm3
+C4E3CD 49 D3 50, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm5 r=ymm3
 # vpermil2pd ymm2,ymm6,ymm5,[rax],2
-C4E3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm8, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm5 r=rax rm=ds:rax;Packed256_Float64
+C4E3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, VEX, XOP, pm op0=w op1=r op2=r op3=r op4=r w=vmm2 r=ymm6 r=ymm5 r=rax rm=ds:rax;Packed256_Float64
 # vfmaddsubps xmm2,xmm6,xmm3,xmm4
 C4E349 5C D3 40, VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm, VEX, FMA4, pm op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=xmm3 r=xmm4
 # vfmaddsubps xmm2,xmm6,[rax],xmm4
@@ -17200,7 +17200,7 @@ C4E3C9 7F 10 40, VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64, VEX, FMA4, pm op0=w op1=r op2
 # fstenv [rax]
 9B D9 30, Fstenv_m28byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv28 special
 # fstcw [rax]
-9B D9 38, Fstcw_m16, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16 special
+9B D9 38, Fstcw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16 special
 # fstp st(3)
 D9 DB, Fstpnce_sti, Legacy, FPU, op0=w w=st3 r=st0
 # fneni
@@ -17228,7 +17228,7 @@ DC DB, Fcomp_st0_sti_DCD8, Legacy, FPU, op0=r op1=r r=st0 r=st3
 # fsave [rax]
 9B DD 30, Fsave_m108byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState108 special
 # fstsw [rax]
-9B DD 38, Fstsw_m16, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16 special
+9B DD 38, Fstsw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16 special
 # fxch st(3)
 DD CB, Fxch_st0_sti_DDC8, Legacy, FPU, op0=rw op1=rw rw=st0 rw=st3
 # fcomp st(3)

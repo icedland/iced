@@ -325,14 +325,14 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Mov,// Mov_r32_rm32
 			(ushort)Mnemonic.Mov,// Mov_r64_rm64
 			(ushort)Mnemonic.Mov,// Mov_rm16_Sreg
-			(ushort)Mnemonic.Mov,// Mov_rm32_Sreg
-			(ushort)Mnemonic.Mov,// Mov_rm64_Sreg
+			(ushort)Mnemonic.Mov,// Mov_r32m16_Sreg
+			(ushort)Mnemonic.Mov,// Mov_r64m16_Sreg
 			(ushort)Mnemonic.Lea,// Lea_r16_m
 			(ushort)Mnemonic.Lea,// Lea_r32_m
 			(ushort)Mnemonic.Lea,// Lea_r64_m
 			(ushort)Mnemonic.Mov,// Mov_Sreg_rm16
-			(ushort)Mnemonic.Mov,// Mov_Sreg_rm32
-			(ushort)Mnemonic.Mov,// Mov_Sreg_rm64
+			(ushort)Mnemonic.Mov,// Mov_Sreg_r32m16
+			(ushort)Mnemonic.Mov,// Mov_Sreg_r64m16
 			(ushort)Mnemonic.Pop,// Pop_rm16
 			(ushort)Mnemonic.Pop,// Pop_rm32
 			(ushort)Mnemonic.Pop,// Pop_rm64
@@ -350,7 +350,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Cdq,// Cdq
 			(ushort)Mnemonic.Cqo,// Cqo
 			(ushort)Mnemonic.Call,// Call_ptr1616
-			(ushort)Mnemonic.Call,// Call_ptr3216
+			(ushort)Mnemonic.Call,// Call_ptr1632
 			(ushort)Mnemonic.Wait,// Wait
 			(ushort)Mnemonic.Pushf,// Pushfw
 			(ushort)Mnemonic.Pushf,// Pushfd
@@ -434,10 +434,10 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Ret,// Retnw
 			(ushort)Mnemonic.Ret,// Retnd
 			(ushort)Mnemonic.Ret,// Retnq
-			(ushort)Mnemonic.Les,// Les_r16_m32
-			(ushort)Mnemonic.Les,// Les_r32_m48
-			(ushort)Mnemonic.Lds,// Lds_r16_m32
-			(ushort)Mnemonic.Lds,// Lds_r32_m48
+			(ushort)Mnemonic.Les,// Les_r16_m1616
+			(ushort)Mnemonic.Les,// Les_r32_m1632
+			(ushort)Mnemonic.Lds,// Lds_r16_m1616
+			(ushort)Mnemonic.Lds,// Lds_r32_m1632
 			(ushort)Mnemonic.Mov,// Mov_rm8_imm8
 			(ushort)Mnemonic.Xabort,// Xabort_imm8
 			(ushort)Mnemonic.Mov,// Mov_rm16_imm16
@@ -552,13 +552,13 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Fstp,// Fstp_m32fp
 			(ushort)Mnemonic.Fldenv,// Fldenv_m14byte
 			(ushort)Mnemonic.Fldenv,// Fldenv_m28byte
-			(ushort)Mnemonic.Fldcw,// Fldcw_m16
+			(ushort)Mnemonic.Fldcw,// Fldcw_m2byte
 			(ushort)Mnemonic.Fnstenv,// Fnstenv_m14byte
 			(ushort)Mnemonic.Fstenv,// Fstenv_m14byte
 			(ushort)Mnemonic.Fnstenv,// Fnstenv_m28byte
 			(ushort)Mnemonic.Fstenv,// Fstenv_m28byte
-			(ushort)Mnemonic.Fnstcw,// Fnstcw_m16
-			(ushort)Mnemonic.Fstcw,// Fstcw_m16
+			(ushort)Mnemonic.Fnstcw,// Fnstcw_m2byte
+			(ushort)Mnemonic.Fstcw,// Fstcw_m2byte
 			(ushort)Mnemonic.Fld,// Fld_st0_sti
 			(ushort)Mnemonic.Fxch,// Fxch_st0_sti
 			(ushort)Mnemonic.Fnop,// Fnop
@@ -643,7 +643,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Fdivr,// Fdivr_sti_st0
 			(ushort)Mnemonic.Fdiv,// Fdiv_sti_st0
 			(ushort)Mnemonic.Fld,// Fld_m64fp
-			(ushort)Mnemonic.Fisttp,// Fisttp_m64fp
+			(ushort)Mnemonic.Fisttp,// Fisttp_m64int
 			(ushort)Mnemonic.Fst,// Fst_m64fp
 			(ushort)Mnemonic.Fstp,// Fstp_m64fp
 			(ushort)Mnemonic.Frstor,// Frstor_m94byte
@@ -652,8 +652,8 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Fsave,// Fsave_m94byte
 			(ushort)Mnemonic.Fnsave,// Fnsave_m108byte
 			(ushort)Mnemonic.Fsave,// Fsave_m108byte
-			(ushort)Mnemonic.Fnstsw,// Fnstsw_m16
-			(ushort)Mnemonic.Fstsw,// Fstsw_m16
+			(ushort)Mnemonic.Fnstsw,// Fnstsw_m2byte
+			(ushort)Mnemonic.Fstsw,// Fstsw_m2byte
 			(ushort)Mnemonic.Ffree,// Ffree_sti
 			(ushort)Mnemonic.Fxch,// Fxch_st0_sti_DDC8
 			(ushort)Mnemonic.Fst,// Fst_sti
@@ -735,7 +735,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Jmp,// Jmp_rel32_32
 			(ushort)Mnemonic.Jmp,// Jmp_rel32_64
 			(ushort)Mnemonic.Jmp,// Jmp_ptr1616
-			(ushort)Mnemonic.Jmp,// Jmp_ptr3216
+			(ushort)Mnemonic.Jmp,// Jmp_ptr1632
 			(ushort)Mnemonic.Jmp,// Jmp_rel8_16
 			(ushort)Mnemonic.Jmp,// Jmp_rel8_32
 			(ushort)Mnemonic.Jmp,// Jmp_rel8_64
@@ -798,14 +798,14 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Call,// Call_rm32
 			(ushort)Mnemonic.Call,// Call_rm64
 			(ushort)Mnemonic.Call,// Call_m1616
-			(ushort)Mnemonic.Call,// Call_m3216
-			(ushort)Mnemonic.Call,// Call_m6416
+			(ushort)Mnemonic.Call,// Call_m1632
+			(ushort)Mnemonic.Call,// Call_m1664
 			(ushort)Mnemonic.Jmp,// Jmp_rm16
 			(ushort)Mnemonic.Jmp,// Jmp_rm32
 			(ushort)Mnemonic.Jmp,// Jmp_rm64
 			(ushort)Mnemonic.Jmp,// Jmp_m1616
-			(ushort)Mnemonic.Jmp,// Jmp_m3216
-			(ushort)Mnemonic.Jmp,// Jmp_m6416
+			(ushort)Mnemonic.Jmp,// Jmp_m1632
+			(ushort)Mnemonic.Jmp,// Jmp_m1664
 			(ushort)Mnemonic.Push,// Push_rm16
 			(ushort)Mnemonic.Push,// Push_rm32
 			(ushort)Mnemonic.Push,// Push_rm64
@@ -829,18 +829,18 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Verw,// Verw_r64m16
 			(ushort)Mnemonic.Jmpe,// Jmpe_rm16
 			(ushort)Mnemonic.Jmpe,// Jmpe_rm32
-			(ushort)Mnemonic.Sgdt,// Sgdt_m40
-			(ushort)Mnemonic.Sgdt,// Sgdt_m48
-			(ushort)Mnemonic.Sgdt,// Sgdt_m80
-			(ushort)Mnemonic.Sidt,// Sidt_m40
-			(ushort)Mnemonic.Sidt,// Sidt_m48
-			(ushort)Mnemonic.Sidt,// Sidt_m80
-			(ushort)Mnemonic.Lgdt,// Lgdt_m40
-			(ushort)Mnemonic.Lgdt,// Lgdt_m48
-			(ushort)Mnemonic.Lgdt,// Lgdt_m80
-			(ushort)Mnemonic.Lidt,// Lidt_m40
-			(ushort)Mnemonic.Lidt,// Lidt_m48
-			(ushort)Mnemonic.Lidt,// Lidt_m80
+			(ushort)Mnemonic.Sgdt,// Sgdt_m_16
+			(ushort)Mnemonic.Sgdt,// Sgdt_m_32
+			(ushort)Mnemonic.Sgdt,// Sgdt_m_64
+			(ushort)Mnemonic.Sidt,// Sidt_m_16
+			(ushort)Mnemonic.Sidt,// Sidt_m_32
+			(ushort)Mnemonic.Sidt,// Sidt_m_64
+			(ushort)Mnemonic.Lgdt,// Lgdt_m_16
+			(ushort)Mnemonic.Lgdt,// Lgdt_m_32
+			(ushort)Mnemonic.Lgdt,// Lgdt_m_64
+			(ushort)Mnemonic.Lidt,// Lidt_m_16
+			(ushort)Mnemonic.Lidt,// Lidt_m_32
+			(ushort)Mnemonic.Lidt,// Lidt_m_64
 			(ushort)Mnemonic.Smsw,// Smsw_rm16
 			(ushort)Mnemonic.Smsw,// Smsw_r32m16
 			(ushort)Mnemonic.Smsw,// Smsw_r64m16
@@ -900,11 +900,11 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Clzero,// Clzeroq
 			(ushort)Mnemonic.Rdpru,// Rdpru
 			(ushort)Mnemonic.Lar,// Lar_r16_rm16
-			(ushort)Mnemonic.Lar,// Lar_r32_rm32
-			(ushort)Mnemonic.Lar,// Lar_r64_rm64
+			(ushort)Mnemonic.Lar,// Lar_r32_r32m16
+			(ushort)Mnemonic.Lar,// Lar_r64_r64m16
 			(ushort)Mnemonic.Lsl,// Lsl_r16_rm16
-			(ushort)Mnemonic.Lsl,// Lsl_r32_rm32
-			(ushort)Mnemonic.Lsl,// Lsl_r64_rm64
+			(ushort)Mnemonic.Lsl,// Lsl_r32_r32m16
+			(ushort)Mnemonic.Lsl,// Lsl_r64_r64m16
 			(ushort)Mnemonic.Loadall,// Loadallreset286
 			(ushort)Mnemonic.Loadall,// Loadall286
 			(ushort)Mnemonic.Syscall,// Syscall
@@ -2061,16 +2061,16 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Wrgsbase,// Wrgsbase_r32
 			(ushort)Mnemonic.Wrgsbase,// Wrgsbase_r64
 			(ushort)Mnemonic.Vstmxcsr,// VEX_Vstmxcsr_m32
-			(ushort)Mnemonic.Xsave,// Xsave_m
-			(ushort)Mnemonic.Xsave64,// Xsave64_m
+			(ushort)Mnemonic.Xsave,// Xsave_mem
+			(ushort)Mnemonic.Xsave64,// Xsave64_mem
 			(ushort)Mnemonic.Ptwrite,// Ptwrite_rm32
 			(ushort)Mnemonic.Ptwrite,// Ptwrite_rm64
-			(ushort)Mnemonic.Xrstor,// Xrstor_m
-			(ushort)Mnemonic.Xrstor64,// Xrstor64_m
+			(ushort)Mnemonic.Xrstor,// Xrstor_mem
+			(ushort)Mnemonic.Xrstor64,// Xrstor64_mem
 			(ushort)Mnemonic.Incsspd,// Incsspd_r32
 			(ushort)Mnemonic.Incsspq,// Incsspq_r64
-			(ushort)Mnemonic.Xsaveopt,// Xsaveopt_m
-			(ushort)Mnemonic.Xsaveopt64,// Xsaveopt64_m
+			(ushort)Mnemonic.Xsaveopt,// Xsaveopt_mem
+			(ushort)Mnemonic.Xsaveopt64,// Xsaveopt64_mem
 			(ushort)Mnemonic.Clwb,// Clwb_m8
 			(ushort)Mnemonic.Tpause,// Tpause_r32
 			(ushort)Mnemonic.Tpause,// Tpause_r64
@@ -2093,18 +2093,18 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Cmpxchg,// Cmpxchg_rm16_r16
 			(ushort)Mnemonic.Cmpxchg,// Cmpxchg_rm32_r32
 			(ushort)Mnemonic.Cmpxchg,// Cmpxchg_rm64_r64
-			(ushort)Mnemonic.Lss,// Lss_r16_m32
-			(ushort)Mnemonic.Lss,// Lss_r32_m48
-			(ushort)Mnemonic.Lss,// Lss_r64_m80
+			(ushort)Mnemonic.Lss,// Lss_r16_m1616
+			(ushort)Mnemonic.Lss,// Lss_r32_m1632
+			(ushort)Mnemonic.Lss,// Lss_r64_m1664
 			(ushort)Mnemonic.Btr,// Btr_rm16_r16
 			(ushort)Mnemonic.Btr,// Btr_rm32_r32
 			(ushort)Mnemonic.Btr,// Btr_rm64_r64
-			(ushort)Mnemonic.Lfs,// Lfs_r16_m32
-			(ushort)Mnemonic.Lfs,// Lfs_r32_m48
-			(ushort)Mnemonic.Lfs,// Lfs_r64_m80
-			(ushort)Mnemonic.Lgs,// Lgs_r16_m32
-			(ushort)Mnemonic.Lgs,// Lgs_r32_m48
-			(ushort)Mnemonic.Lgs,// Lgs_r64_m80
+			(ushort)Mnemonic.Lfs,// Lfs_r16_m1616
+			(ushort)Mnemonic.Lfs,// Lfs_r32_m1632
+			(ushort)Mnemonic.Lfs,// Lfs_r64_m1664
+			(ushort)Mnemonic.Lgs,// Lgs_r16_m1616
+			(ushort)Mnemonic.Lgs,// Lgs_r32_m1632
+			(ushort)Mnemonic.Lgs,// Lgs_r64_m1664
 			(ushort)Mnemonic.Movzx,// Movzx_r16_rm8
 			(ushort)Mnemonic.Movzx,// Movzx_r32_rm8
 			(ushort)Mnemonic.Movzx,// Movzx_r64_rm8
@@ -2206,12 +2206,12 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vshufpd,// EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8
 			(ushort)Mnemonic.Cmpxchg8b,// Cmpxchg8b_m64
 			(ushort)Mnemonic.Cmpxchg16b,// Cmpxchg16b_m128
-			(ushort)Mnemonic.Xrstors,// Xrstors_m
-			(ushort)Mnemonic.Xrstors64,// Xrstors64_m
-			(ushort)Mnemonic.Xsavec,// Xsavec_m
-			(ushort)Mnemonic.Xsavec64,// Xsavec64_m
-			(ushort)Mnemonic.Xsaves,// Xsaves_m
-			(ushort)Mnemonic.Xsaves64,// Xsaves64_m
+			(ushort)Mnemonic.Xrstors,// Xrstors_mem
+			(ushort)Mnemonic.Xrstors64,// Xrstors64_mem
+			(ushort)Mnemonic.Xsavec,// Xsavec_mem
+			(ushort)Mnemonic.Xsavec64,// Xsavec64_mem
+			(ushort)Mnemonic.Xsaves,// Xsaves_mem
+			(ushort)Mnemonic.Xsaves64,// Xsaves64_mem
 			(ushort)Mnemonic.Vmptrld,// Vmptrld_m64
 			(ushort)Mnemonic.Vmclear,// Vmclear_m64
 			(ushort)Mnemonic.Vmxon,// Vmxon_m64
@@ -3933,14 +3933,14 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vpclmulqdq,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 			(ushort)Mnemonic.Vpclmulqdq,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 			(ushort)Mnemonic.Vperm2i128,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-			(ushort)Mnemonic.Vpermil2ps,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8
-			(ushort)Mnemonic.Vpermil2ps,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm8
-			(ushort)Mnemonic.Vpermil2ps,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm8
-			(ushort)Mnemonic.Vpermil2ps,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm8
-			(ushort)Mnemonic.Vpermil2pd,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm8
-			(ushort)Mnemonic.Vpermil2pd,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm8
-			(ushort)Mnemonic.Vpermil2pd,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm8
-			(ushort)Mnemonic.Vpermil2pd,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm8
+			(ushort)Mnemonic.Vpermil2ps,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
+			(ushort)Mnemonic.Vpermil2ps,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
+			(ushort)Mnemonic.Vpermil2ps,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
+			(ushort)Mnemonic.Vpermil2ps,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
+			(ushort)Mnemonic.Vpermil2pd,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
+			(ushort)Mnemonic.Vpermil2pd,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
+			(ushort)Mnemonic.Vpermil2pd,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
+			(ushort)Mnemonic.Vpermil2pd,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
 			(ushort)Mnemonic.Vblendvps,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 			(ushort)Mnemonic.Vblendvps,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 			(ushort)Mnemonic.Vblendvpd,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm

@@ -187,7 +187,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					}
 				},
 			}),
-			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr3216, new TestSymbolResolver {
+			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr1632, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (operand == 0) {
 						Assert.Equal(0xFEDCBA98, address);
@@ -203,7 +203,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr3216, a => a.ShowSymbolAddress = true, new TestSymbolResolver {
+			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr1632, a => a.ShowSymbolAddress = true, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (operand == 0) {
 						Assert.Equal(0xFEDCBA98, address);
@@ -219,7 +219,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					return true;
 				},
 			}),
-			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr3216, a => a.ShowBranchSize = true, new TestSymbolResolver {
+			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr1632, a => a.ShowBranchSize = true, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (operand == 0) {
 						Assert.Equal(0xFEDCBA98, address);
@@ -236,7 +236,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					}
 				},
 			}),
-			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr3216, a => a.ShowBranchSize = false, new TestSymbolResolver {
+			new SymbolInstructionInfo(32, "9A 98BADCFE 5AA5", Code.Call_ptr1632, a => a.ShowBranchSize = false, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (operand == 0) {
 						Assert.Equal(0xFEDCBA98, address);

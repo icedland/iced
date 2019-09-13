@@ -834,11 +834,11 @@ namespace Iced.Intel.EncoderInternal {
 
 		void WriteMemorySize(MemorySize memorySize) {
 			switch (opCode.Code) {
-			case Code.Fldcw_m16:
-			case Code.Fnstcw_m16:
-			case Code.Fstcw_m16:
-			case Code.Fnstsw_m16:
-			case Code.Fstsw_m16:
+			case Code.Fldcw_m2byte:
+			case Code.Fnstcw_m2byte:
+			case Code.Fstcw_m2byte:
+			case Code.Fnstsw_m2byte:
+			case Code.Fstsw_m2byte:
 				sb.Append("2byte");
 				return;
 			}
@@ -891,11 +891,6 @@ namespace Iced.Intel.EncoderInternal {
 				sb.Append("16:64");
 				break;
 
-			case MemorySize.Fword5:
-				if (!IsSgdtOrSidt())
-					sb.Append("16&24");
-				break;
-
 			case MemorySize.Fword6:
 				if (!IsSgdtOrSidt())
 					sb.Append("16&32");
@@ -936,12 +931,12 @@ namespace Iced.Intel.EncoderInternal {
 
 		bool IsSgdtOrSidt() {
 			switch (opCode.Code) {
-			case Code.Sgdt_m40:
-			case Code.Sgdt_m48:
-			case Code.Sgdt_m80:
-			case Code.Sidt_m40:
-			case Code.Sidt_m48:
-			case Code.Sidt_m80:
+			case Code.Sgdt_m_16:
+			case Code.Sgdt_m_32:
+			case Code.Sgdt_m_64:
+			case Code.Sidt_m_16:
+			case Code.Sidt_m_32:
+			case Code.Sidt_m_64:
 				return true;
 			}
 			return false;

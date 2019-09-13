@@ -248,11 +248,11 @@ namespace Iced.Intel {
 			case Code.Jmpe_disp32:
 				return FormatterFlowControl.NearBranch;
 
-			case Code.Call_ptr3216:
+			case Code.Call_ptr1632:
 			case Code.Call_ptr1616:
 				return FormatterFlowControl.FarCall;
 
-			case Code.Jmp_ptr3216:
+			case Code.Jmp_ptr1632:
 			case Code.Jmp_ptr1616:
 				return FormatterFlowControl.FarBranch;
 

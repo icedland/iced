@@ -108,7 +108,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					new object[] { MemorySize.Bound32_DwordDword, 8, 8, MemorySize.Bound32_DwordDword, 1, MemorySizeFlags.None },
 					new object[] { MemorySize.Bnd32, 8, 8, MemorySize.Bnd32, 1, MemorySizeFlags.None },
 					new object[] { MemorySize.Bnd64, 16, 16, MemorySize.Bnd64, 1, MemorySizeFlags.None },
-					new object[] { MemorySize.Fword5, 5, 5, MemorySize.Fword5, 1, MemorySizeFlags.None },
 					new object[] { MemorySize.Fword6, 6, 6, MemorySize.Fword6, 1, MemorySizeFlags.None },
 					new object[] { MemorySize.Fword10, 10, 10, MemorySize.Fword10, 1, MemorySizeFlags.None },
 					new object[] { MemorySize.Float16, 2, 2, MemorySize.Float16, 1, MemorySizeFlags.Signed },

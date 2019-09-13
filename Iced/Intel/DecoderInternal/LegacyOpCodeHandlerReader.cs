@@ -561,6 +561,10 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_MemBx(deserializer.ReadCode());
 				return 1;
 
+			case OpCodeHandlerKind.Mf_1:
+				elem = new OpCodeHandler_Mf(deserializer.ReadCode());
+				return 1;
+
 			case OpCodeHandlerKind.Mf_2a:
 				code = deserializer.ReadCode();
 				elem = new OpCodeHandler_Mf(code, code + 1);
@@ -568,38 +572,6 @@ namespace Iced.Intel.DecoderInternal {
 
 			case OpCodeHandlerKind.Mf_2b:
 				elem = new OpCodeHandler_Mf(deserializer.ReadCode(), deserializer.ReadCode());
-				return 1;
-
-			case OpCodeHandlerKind.Mf2:
-				elem = new OpCodeHandler_Mf2(deserializer.ReadCode());
-				return 1;
-
-			case OpCodeHandlerKind.Mf32:
-				elem = new OpCodeHandler_Mf32(deserializer.ReadCode());
-				return 1;
-
-			case OpCodeHandlerKind.Mf64:
-				elem = new OpCodeHandler_Mf64(deserializer.ReadCode());
-				return 1;
-
-			case OpCodeHandlerKind.Mf80:
-				elem = new OpCodeHandler_Mf80(deserializer.ReadCode());
-				return 1;
-
-			case OpCodeHandlerKind.Mfbcd:
-				elem = new OpCodeHandler_Mfbcd(deserializer.ReadCode());
-				return 1;
-
-			case OpCodeHandlerKind.Mfi16:
-				elem = new OpCodeHandler_Mfi16(deserializer.ReadCode());
-				return 1;
-
-			case OpCodeHandlerKind.Mfi32:
-				elem = new OpCodeHandler_Mfi32(deserializer.ReadCode());
-				return 1;
-
-			case OpCodeHandlerKind.Mfi64:
-				elem = new OpCodeHandler_Mfi64(deserializer.ReadCode());
 				return 1;
 
 			case OpCodeHandlerKind.MIB_B:

@@ -116,7 +116,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 						switch (instr.Code) {
 						case Code.Fnstenv_m14byte: instr.Code = Code.Fstenv_m14byte; break;
 						case Code.Fnstenv_m28byte: instr.Code = Code.Fstenv_m28byte; break;
-						case Code.Fnstcw_m16: instr.Code = Code.Fstcw_m16; break;
+						case Code.Fnstcw_m2byte: instr.Code = Code.Fstcw_m2byte; break;
 						case Code.Fneni: instr.Code = Code.Feni; break;
 						case Code.Fndisi: instr.Code = Code.Fdisi; break;
 						case Code.Fnclex: instr.Code = Code.Fclex; break;
@@ -124,7 +124,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 						case Code.Fnsetpm: instr.Code = Code.Fsetpm; break;
 						case Code.Fnsave_m94byte: instr.Code = Code.Fsave_m94byte; break;
 						case Code.Fnsave_m108byte: instr.Code = Code.Fsave_m108byte; break;
-						case Code.Fnstsw_m16: instr.Code = Code.Fstsw_m16; break;
+						case Code.Fnstsw_m2byte: instr.Code = Code.Fstsw_m2byte; break;
 						case Code.Fnstsw_AX: instr.Code = Code.Fstsw_AX; break;
 						default: throw new InvalidOperationException();
 						}

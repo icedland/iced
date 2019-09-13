@@ -73,128 +73,14 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
-	sealed class OpCodeHandler_Mf32 : OpCodeHandlerModRM {
-		readonly Code code;
-
-		public OpCodeHandler_Mf32(Code code) => this.code = code;
-
-		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
-			if (decoder.state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
-				instruction.InternalOp0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
-		}
-	}
-
-	sealed class OpCodeHandler_Mf64 : OpCodeHandlerModRM {
-		readonly Code code;
-
-		public OpCodeHandler_Mf64(Code code) => this.code = code;
-
-		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
-			if (decoder.state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
-				instruction.InternalOp0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
-		}
-	}
-
-	sealed class OpCodeHandler_Mf80 : OpCodeHandlerModRM {
-		readonly Code code;
-
-		public OpCodeHandler_Mf80(Code code) => this.code = code;
-
-		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
-			if (decoder.state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
-				instruction.InternalOp0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
-		}
-	}
-
-	sealed class OpCodeHandler_Mfi16 : OpCodeHandlerModRM {
-		readonly Code code;
-
-		public OpCodeHandler_Mfi16(Code code) => this.code = code;
-
-		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
-			if (decoder.state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
-				instruction.InternalOp0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
-		}
-	}
-
-	sealed class OpCodeHandler_Mfi32 : OpCodeHandlerModRM {
-		readonly Code code;
-
-		public OpCodeHandler_Mfi32(Code code) => this.code = code;
-
-		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
-			if (decoder.state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
-				instruction.InternalOp0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
-		}
-	}
-
-	sealed class OpCodeHandler_Mfi64 : OpCodeHandlerModRM {
-		readonly Code code;
-
-		public OpCodeHandler_Mfi64(Code code) => this.code = code;
-
-		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
-			if (decoder.state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
-				instruction.InternalOp0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
-		}
-	}
-
-	sealed class OpCodeHandler_Mfbcd : OpCodeHandlerModRM {
-		readonly Code code;
-
-		public OpCodeHandler_Mfbcd(Code code) => this.code = code;
-
-		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
-			if (decoder.state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
-				instruction.InternalOp0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
-		}
-	}
-
 	sealed class OpCodeHandler_Mf : OpCodeHandlerModRM {
 		readonly Code code16;
 		readonly Code code32;
+
+		public OpCodeHandler_Mf(Code code) {
+			code16 = code;
+			code32 = code;
+		}
 
 		public OpCodeHandler_Mf(Code code16, Code code32) {
 			this.code16 = code16;
@@ -209,23 +95,6 @@ namespace Iced.Intel.DecoderInternal {
 			else
 				instruction.InternalCode = code16;
 			if (state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
-				instruction.InternalOp0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
-		}
-	}
-
-	sealed class OpCodeHandler_Mf2 : OpCodeHandlerModRM {
-		readonly Code code;
-
-		public OpCodeHandler_Mf2(Code code) => this.code = code;
-
-		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
-			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;

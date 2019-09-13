@@ -1068,8 +1068,8 @@ F3 89 18, Mov_rm16_r16, Mov, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx xrelease
 8C F6, INVALID, INVALID, 0, noinvalidcheck
 8C FE, INVALID, INVALID, 0, noinvalidcheck
 
-66 8C CE, Mov_rm32_Sreg, Mov, 2, op0=r;esi op1=r;cs
-66 8C 18, Mov_rm32_Sreg, Mov, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;ds
+66 8C CE, Mov_r32m16_Sreg, Mov, 2, op0=r;esi op1=r;cs
+66 8C 18, Mov_r32m16_Sreg, Mov, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;ds
 66 8C F6, INVALID, INVALID, 0,
 66 8C FE, INVALID, INVALID, 0,
 66 8C F6, INVALID, INVALID, 0, noinvalidcheck
@@ -1086,8 +1086,8 @@ F3 89 18, Mov_rm16_r16, Mov, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx xrelease
 8E F6, INVALID, INVALID, 0, noinvalidcheck
 8E FE, INVALID, INVALID, 0, noinvalidcheck
 
-66 8E CE, Mov_Sreg_rm32, Mov, 2, op0=r;cs op1=r;esi
-66 8E 18, Mov_Sreg_rm32, Mov, 2, op0=r;ds op1=m;ds;bx;si;1;0;0;UInt16
+66 8E CE, Mov_Sreg_r32m16, Mov, 2, op0=r;cs op1=r;esi
+66 8E 18, Mov_Sreg_r32m16, Mov, 2, op0=r;ds op1=m;ds;bx;si;1;0;0;UInt16
 66 8E F6, INVALID, INVALID, 0,
 66 8E FE, INVALID, INVALID, 0,
 66 8E F6, INVALID, INVALID, 0, noinvalidcheck
@@ -1132,7 +1132,7 @@ F3 90, Pause, Pause, 0,
 
 9A 1234 5678, Call_ptr1616, Call, 1, op0=fb16;0x7856;0x3412 co=1;2;3;2;0;0
 
-66 9A 12345678 9ABC, Call_ptr3216, Call, 1, op0=fb32;0xBC9A;0x78563412 co=2;4;6;2;0;0
+66 9A 12345678 9ABC, Call_ptr1632, Call, 1, op0=fb32;0xBC9A;0x78563412 co=2;4;6;2;0;0
 
 9B, Wait, Wait, 0,
 66 9B, Wait, Wait, 0, enc=9B
@@ -1573,13 +1573,13 @@ F3 C3, Retnw, Ret, 0, rep
 66 F2 C3, Retnd, Ret, 0, repne
 66 F3 C3, Retnd, Ret, 0, rep
 
-C4 18, Les_r16_m32, Les, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
+C4 18, Les_r16_m1616, Les, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
 
-66 C4 18, Les_r32_m48, Les, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;SegPtr32
+66 C4 18, Les_r32_m1632, Les, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;SegPtr32
 
-C5 18, Lds_r16_m32, Lds, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
+C5 18, Lds_r16_m1616, Lds, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
 
-66 C5 18, Lds_r32_m48, Lds, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;SegPtr32
+66 C5 18, Lds_r32_m1632, Lds, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;SegPtr32
 
 C6 00 5A, Mov_rm8_imm8, Mov, 2, op0=m;ds;bx;si;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
 C6 00 A5, Mov_rm8_imm8, Mov, 2, op0=m;ds;bx;si;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
@@ -1872,15 +1872,15 @@ D9 20, Fldenv_m14byte, Fldenv, 1, op0=m;ds;bx;si;1;0;0;FpuEnv14
 
 66 D9 20, Fldenv_m28byte, Fldenv, 1, op0=m;ds;bx;si;1;0;0;FpuEnv28
 
-D9 28, Fldcw_m16, Fldcw, 1, op0=m;ds;bx;si;1;0;0;UInt16
-66 D9 28, Fldcw_m16, Fldcw, 1, op0=m;ds;bx;si;1;0;0;UInt16 enc=D928
+D9 28, Fldcw_m2byte, Fldcw, 1, op0=m;ds;bx;si;1;0;0;UInt16
+66 D9 28, Fldcw_m2byte, Fldcw, 1, op0=m;ds;bx;si;1;0;0;UInt16 enc=D928
 
 D9 30, Fnstenv_m14byte, Fnstenv, 1, op0=m;ds;bx;si;1;0;0;FpuEnv14
 
 66 D9 30, Fnstenv_m28byte, Fnstenv, 1, op0=m;ds;bx;si;1;0;0;FpuEnv28
 
-D9 38, Fnstcw_m16, Fnstcw, 1, op0=m;ds;bx;si;1;0;0;UInt16
-66 D9 38, Fnstcw_m16, Fnstcw, 1, op0=m;ds;bx;si;1;0;0;UInt16 enc=D938
+D9 38, Fnstcw_m2byte, Fnstcw, 1, op0=m;ds;bx;si;1;0;0;UInt16
+66 D9 38, Fnstcw_m2byte, Fnstcw, 1, op0=m;ds;bx;si;1;0;0;UInt16 enc=D938
 
 D9 C3, Fld_st0_sti, Fld, 2, op0=r;st0 op1=r;st3
 66 D9 C6, Fld_st0_sti, Fld, 2, op0=r;st0 op1=r;st6 enc=D9C6
@@ -2085,8 +2085,8 @@ DC FB, Fdiv_sti_st0, Fdiv, 2, op0=r;st3 op1=r;st0
 DD 00, Fld_m64fp, Fld, 1, op0=m;ds;bx;si;1;0;0;Float64
 66 DD 00, Fld_m64fp, Fld, 1, op0=m;ds;bx;si;1;0;0;Float64 enc=DD00
 
-DD 08, Fisttp_m64fp, Fisttp, 1, op0=m;ds;bx;si;1;0;0;Float64
-66 DD 08, Fisttp_m64fp, Fisttp, 1, op0=m;ds;bx;si;1;0;0;Float64 enc=DD08
+DD 08, Fisttp_m64int, Fisttp, 1, op0=m;ds;bx;si;1;0;0;Int64
+66 DD 08, Fisttp_m64int, Fisttp, 1, op0=m;ds;bx;si;1;0;0;Int64 enc=DD08
 
 DD 10, Fst_m64fp, Fst, 1, op0=m;ds;bx;si;1;0;0;Float64
 66 DD 10, Fst_m64fp, Fst, 1, op0=m;ds;bx;si;1;0;0;Float64 enc=DD10
@@ -2102,8 +2102,8 @@ DD 30, Fnsave_m94byte, Fnsave, 1, op0=m;ds;bx;si;1;0;0;FpuState94
 
 66 DD 30, Fnsave_m108byte, Fnsave, 1, op0=m;ds;bx;si;1;0;0;FpuState108
 
-DD 38, Fnstsw_m16, Fnstsw, 1, op0=m;ds;bx;si;1;0;0;UInt16
-66 DD 38, Fnstsw_m16, Fnstsw, 1, op0=m;ds;bx;si;1;0;0;UInt16 enc=DD38
+DD 38, Fnstsw_m2byte, Fnstsw, 1, op0=m;ds;bx;si;1;0;0;UInt16
+66 DD 38, Fnstsw_m2byte, Fnstsw, 1, op0=m;ds;bx;si;1;0;0;UInt16 enc=DD38
 
 DD C3, Ffree_sti, Ffree, 1, op0=r;st3
 66 DD C6, Ffree_sti, Ffree, 1, op0=r;st6 enc=DDC6
@@ -2307,7 +2307,7 @@ F2 E9 A55A, Jmp_rel16, Jmp, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0 repne
 
 EA 1234 5678, Jmp_ptr1616, Jmp, 1, op0=fb16;0x7856;0x3412 co=1;2;3;2;0;0
 
-66 EA 12345678 EABC, Jmp_ptr3216, Jmp, 1, op0=fb32;0xBCEA;0x78563412 co=2;4;6;2;0;0
+66 EA 12345678 EABC, Jmp_ptr1632, Jmp, 1, op0=fb32;0xBCEA;0x78563412 co=2;4;6;2;0;0
 
 EB 5A, Jmp_rel8_16, Jmp, 1, op0=nb16;0x804C co=1;1;0;0;0;0
 EB A5, Jmp_rel8_16, Jmp, 1, op0=nb16;0x7F97 co=1;1;0;0;0;0
@@ -2503,7 +2503,7 @@ F2 FF D1, Call_rm16, Call, 1, op0=r;cx repne
 
 FF 18, Call_m1616, Call, 1, op0=m;ds;bx;si;1;0;0;SegPtr16
 
-66 FF 18, Call_m3216, Call, 1, op0=m;ds;bx;si;1;0;0;SegPtr32
+66 FF 18, Call_m1632, Call, 1, op0=m;ds;bx;si;1;0;0;SegPtr32
 
 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;bx;si;1;0;0;WordOffset
 3E FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;bx;si;1;0;0;WordOffset ds:
@@ -2525,7 +2525,7 @@ F2 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx repne
 
 FF 28, Jmp_m1616, Jmp, 1, op0=m;ds;bx;si;1;0;0;SegPtr16
 
-66 FF 28, Jmp_m3216, Jmp, 1, op0=m;ds;bx;si;1;0;0;SegPtr32
+66 FF 28, Jmp_m1632, Jmp, 1, op0=m;ds;bx;si;1;0;0;SegPtr32
 
 FF F6, Push_rm16, Push, 1, op0=r;si
 FF 30, Push_rm16, Push, 1, op0=m;ds;bx;si;1;0;0;UInt16
@@ -2575,21 +2575,21 @@ FF 30, Push_rm16, Push, 1, op0=m;ds;bx;si;1;0;0;UInt16
 66 0F00 F2, Jmpe_rm32, Jmpe, 1, op0=r;edx ia64
 66 0F00 30, Jmpe_rm32, Jmpe, 1, op0=m;ds;bx;si;1;0;0;DwordOffset ia64
 
-0F01 00, Sgdt_m40, Sgdt, 1, op0=m;ds;bx;si;1;0;0;Fword5
+0F01 00, Sgdt_m_16, Sgdt, 1, op0=m;ds;bx;si;1;0;0;Fword6
 
-66 0F01 00, Sgdt_m48, Sgdt, 1, op0=m;ds;bx;si;1;0;0;Fword6
+66 0F01 00, Sgdt_m_32, Sgdt, 1, op0=m;ds;bx;si;1;0;0;Fword6
 
-0F01 08, Sidt_m40, Sidt, 1, op0=m;ds;bx;si;1;0;0;Fword5
+0F01 08, Sidt_m_16, Sidt, 1, op0=m;ds;bx;si;1;0;0;Fword6
 
-66 0F01 08, Sidt_m48, Sidt, 1, op0=m;ds;bx;si;1;0;0;Fword6
+66 0F01 08, Sidt_m_32, Sidt, 1, op0=m;ds;bx;si;1;0;0;Fword6
 
-0F01 10, Lgdt_m40, Lgdt, 1, op0=m;ds;bx;si;1;0;0;Fword5
+0F01 10, Lgdt_m_16, Lgdt, 1, op0=m;ds;bx;si;1;0;0;Fword6
 
-66 0F01 10, Lgdt_m48, Lgdt, 1, op0=m;ds;bx;si;1;0;0;Fword6
+66 0F01 10, Lgdt_m_32, Lgdt, 1, op0=m;ds;bx;si;1;0;0;Fword6
 
-0F01 18, Lidt_m40, Lidt, 1, op0=m;ds;bx;si;1;0;0;Fword5
+0F01 18, Lidt_m_16, Lidt, 1, op0=m;ds;bx;si;1;0;0;Fword6
 
-66 0F01 18, Lidt_m48, Lidt, 1, op0=m;ds;bx;si;1;0;0;Fword6
+66 0F01 18, Lidt_m_32, Lidt, 1, op0=m;ds;bx;si;1;0;0;Fword6
 
 0F01 E5, Smsw_rm16, Smsw, 1, op0=r;bp
 0F01 20, Smsw_rm16, Smsw, 1, op0=m;ds;bx;si;1;0;0;UInt16
@@ -2695,14 +2695,14 @@ F3 0F01 FA, Mcommit, Mcommit, 0,
 0F02 CE, Lar_r16_rm16, Lar, 2, op0=r;cx op1=r;si
 0F02 18, Lar_r16_rm16, Lar, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16
 
-66 0F02 CE, Lar_r32_rm32, Lar, 2, op0=r;ecx op1=r;esi
-66 0F02 18, Lar_r32_rm32, Lar, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;UInt16
+66 0F02 CE, Lar_r32_r32m16, Lar, 2, op0=r;ecx op1=r;esi
+66 0F02 18, Lar_r32_r32m16, Lar, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;UInt16
 
 0F03 CE, Lsl_r16_rm16, Lsl, 2, op0=r;cx op1=r;si
 0F03 18, Lsl_r16_rm16, Lsl, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt16
 
-66 0F03 CE, Lsl_r32_rm32, Lsl, 2, op0=r;ecx op1=r;esi
-66 0F03 18, Lsl_r32_rm32, Lsl, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;UInt16
+66 0F03 CE, Lsl_r32_r32m16, Lsl, 2, op0=r;ecx op1=r;esi
+66 0F03 18, Lsl_r32_r32m16, Lsl, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;UInt16
 
 0F04, Loadallreset286, Loadall, 0, loadall286
 0F04, INVALID, INVALID, 0,
@@ -8699,16 +8699,16 @@ C5F8 AE 18, VEX_Vstmxcsr_m32, Vstmxcsr, 1, op0=m;ds;bx;si;1;0;0;UInt32
 C4E178 AE 18, VEX_Vstmxcsr_m32, Vstmxcsr, 1, op0=m;ds;bx;si;1;0;0;UInt32 enc=C5F8AE18
 C4E1F8 AE 18, VEX_Vstmxcsr_m32, Vstmxcsr, 1, op0=m;ds;bx;si;1;0;0;UInt32 enc=C5F8AE18
 
-0FAE 20, Xsave_m, Xsave, 1, op0=m;ds;bx;si;1;0;0;Xsave
+0FAE 20, Xsave_mem, Xsave, 1, op0=m;ds;bx;si;1;0;0;Xsave
 
 F3 0FAE 20, Ptwrite_rm32, Ptwrite, 1, op0=m;ds;bx;si;1;0;0;UInt32
 F3 0FAE E5, Ptwrite_rm32, Ptwrite, 1, op0=r;ebp
 
-0FAE 28, Xrstor_m, Xrstor, 1, op0=m;ds;bx;si;1;0;0;Xsave
+0FAE 28, Xrstor_mem, Xrstor, 1, op0=m;ds;bx;si;1;0;0;Xsave
 
 F3 0FAE ED, Incsspd_r32, Incsspd, 1, op0=r;ebp
 
-0FAE 30, Xsaveopt_m, Xsaveopt, 1, op0=m;ds;bx;si;1;0;0;Xsave
+0FAE 30, Xsaveopt_mem, Xsaveopt, 1, op0=m;ds;bx;si;1;0;0;Xsave
 
 66 0FAE 30, Clwb_m8, Clwb, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
@@ -8804,9 +8804,9 @@ F0 66 0FB1 18, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;e
 F0 66 F3 0FB1 18, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock xrelease
 F0 66 F2 0FB1 18, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock xacquire
 
-0FB2 18, Lss_r16_m32, Lss, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
+0FB2 18, Lss_r16_m1616, Lss, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
 
-66 0FB2 18, Lss_r32_m48, Lss, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;SegPtr32
+66 0FB2 18, Lss_r32_m1632, Lss, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;SegPtr32
 
 0FB3 CE, Btr_rm16_r16, Btr, 2, op0=r;si op1=r;cx
 F0 0FB3 CE, INVALID, INVALID, 0,
@@ -8822,13 +8822,13 @@ F0 66 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock
 F0 66 F3 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock xrelease
 F0 66 F2 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx lock xacquire
 
-0FB4 18, Lfs_r16_m32, Lfs, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
+0FB4 18, Lfs_r16_m1616, Lfs, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
 
-66 0FB4 18, Lfs_r32_m48, Lfs, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;SegPtr32
+66 0FB4 18, Lfs_r32_m1632, Lfs, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;SegPtr32
 
-0FB5 18, Lgs_r16_m32, Lgs, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
+0FB5 18, Lgs_r16_m1616, Lgs, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;SegPtr16
 
-66 0FB5 18, Lgs_r32_m48, Lgs, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;SegPtr32
+66 0FB5 18, Lgs_r32_m1632, Lgs, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;SegPtr32
 
 0FB6 CE, Movzx_r16_rm8, Movzx, 2, op0=r;cx op1=r;dh
 0FB6 18, Movzx_r16_rm8, Movzx, 2, op0=r;bx op1=m;ds;bx;si;1;0;0;UInt8
@@ -9241,11 +9241,11 @@ F0 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;bx;si;1;0;0;UInt64 lock
 F0 F3 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;bx;si;1;0;0;UInt64 lock xrelease
 F0 F2 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;bx;si;1;0;0;UInt64 lock xacquire
 
-0FC7 18, Xrstors_m, Xrstors, 1, op0=m;ds;bx;si;1;0;0;Xsave
+0FC7 18, Xrstors_mem, Xrstors, 1, op0=m;ds;bx;si;1;0;0;Xsave
 
-0FC7 20, Xsavec_m, Xsavec, 1, op0=m;ds;bx;si;1;0;0;Xsave
+0FC7 20, Xsavec_mem, Xsavec, 1, op0=m;ds;bx;si;1;0;0;Xsave
 
-0FC7 28, Xsaves_m, Xsaves, 1, op0=m;ds;bx;si;1;0;0;Xsave
+0FC7 28, Xsaves_mem, Xsaves, 1, op0=m;ds;bx;si;1;0;0;Xsave
 
 0FC7 30, Vmptrld_m64, Vmptrld, 1, op0=m;ds;bx;si;1;0;0;UInt64
 
@@ -19612,37 +19612,37 @@ C4E34D 46 10 A5, VEX_Vperm2i128_ymm_ymm_ymmm256_imm8, Vperm2i128, 4, op0=r;ymm2 
 C4E34D 46 D3 A5, VEX_Vperm2i128_ymm_ymm_ymmm256_imm8, Vperm2i128, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=i8;0xA5 co=5;1;0;0;0;0
 C4C34D 46 10 A5, VEX_Vperm2i128_ymm_ymm_ymmm256_imm8, Vperm2i128, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int128 op3=i8;0xA5 co=5;1;0;0;0;0 enc=C4E34D4610A5
 
-C4E349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Float32 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
-C4E349 48 D3 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
-C4C349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm8, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Float32 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349481041
+C4E349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Float32 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
+C4E349 48 D3 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
+C4C349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Float32 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349481041
 
-C4E34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm8, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Float32 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
-C4E34D 48 D3 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm8, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
-C4C34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm8, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Float32 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D481052
+C4E34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Float32 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
+C4E34D 48 D3 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
+C4C34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Float32 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D481052
 
-C4E3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm8, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;bx;si;1;0;0;Packed128_Float32 op4=i8;1 co=5;1;0;0;0;0
-C4E3C9 48 D3 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm8, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 op4=i8;1 co=5;1;0;0;0;0
-C4C3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm8, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;bx;si;1;0;0;Packed128_Float32 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9481041
+C4E3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;bx;si;1;0;0;Packed128_Float32 op4=i8;1 co=5;1;0;0;0;0
+C4E3C9 48 D3 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 op4=i8;1 co=5;1;0;0;0;0
+C4C3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;bx;si;1;0;0;Packed128_Float32 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9481041
 
-C4E3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm8, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;bx;si;1;0;0;Packed256_Float32 op4=i8;2 co=5;1;0;0;0;0
-C4E3CD 48 D3 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm8, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3 op4=i8;2 co=5;1;0;0;0;0
-C4C3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm8, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;bx;si;1;0;0;Packed256_Float32 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD481052
+C4E3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;bx;si;1;0;0;Packed256_Float32 op4=i8;2 co=5;1;0;0;0;0
+C4E3CD 48 D3 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3 op4=i8;2 co=5;1;0;0;0;0
+C4C3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;bx;si;1;0;0;Packed256_Float32 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD481052
 
-C4E349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm8, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Float64 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
-C4E349 49 D3 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm8, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
-C4C349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm8, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Float64 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349491041
+C4E349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Float64 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
+C4E349 49 D3 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
+C4C349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Float64 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349491041
 
-C4E34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm8, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Float64 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
-C4E34D 49 D3 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm8, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
-C4C34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm8, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Float64 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D491052
+C4E34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Float64 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
+C4E34D 49 D3 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
+C4C34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Float64 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D491052
 
-C4E3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm8, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;bx;si;1;0;0;Packed128_Float64 op4=i8;1 co=5;1;0;0;0;0
-C4E3C9 49 D3 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm8, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 op4=i8;1 co=5;1;0;0;0;0
-C4C3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm8, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;bx;si;1;0;0;Packed128_Float64 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9491041
+C4E3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;bx;si;1;0;0;Packed128_Float64 op4=i8;1 co=5;1;0;0;0;0
+C4E3C9 49 D3 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 op4=i8;1 co=5;1;0;0;0;0
+C4C3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;bx;si;1;0;0;Packed128_Float64 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9491041
 
-C4E3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm8, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;bx;si;1;0;0;Packed256_Float64 op4=i8;2 co=5;1;0;0;0;0
-C4E3CD 49 D3 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm8, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3 op4=i8;2 co=5;1;0;0;0;0
-C4C3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm8, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;bx;si;1;0;0;Packed256_Float64 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD491052
+C4E3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;bx;si;1;0;0;Packed256_Float64 op4=i8;2 co=5;1;0;0;0;0
+C4E3CD 49 D3 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3 op4=i8;2 co=5;1;0;0;0;0
+C4C3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;bx;si;1;0;0;Packed256_Float64 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD491052
 
 C4E349 4A 10 40, VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Vblendvps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Float32 op3=r;xmm4
 C4E349 4A D3 40, VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Vblendvps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4

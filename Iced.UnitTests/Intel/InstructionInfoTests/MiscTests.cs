@@ -92,7 +92,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			var jmpFar = new HashSet<Code> {
 				Code.Jmp_ptr1616,
-				Code.Jmp_ptr3216,
+				Code.Jmp_ptr1632,
 			};
 
 			var jmpShort = new HashSet<Code> {
@@ -109,8 +109,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			var jmpFarIndirect = new HashSet<Code> {
 				Code.Jmp_m1616,
-				Code.Jmp_m3216,
-				Code.Jmp_m6416,
+				Code.Jmp_m1632,
+				Code.Jmp_m1664,
 			};
 
 			var jccNear = new HashSet<Code> {
@@ -167,7 +167,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			var callFar = new HashSet<Code> {
 				Code.Call_ptr1616,
-				Code.Call_ptr3216,
+				Code.Call_ptr1632,
 			};
 
 			var callNear = new HashSet<Code> {
@@ -184,8 +184,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			var callFarIndirect = new HashSet<Code> {
 				Code.Call_m1616,
-				Code.Call_m3216,
-				Code.Call_m6416,
+				Code.Call_m1632,
+				Code.Call_m1664,
 			};
 
 			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {

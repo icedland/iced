@@ -211,7 +211,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsJmpFar(this Code code) =>
-			(uint)(code - Code.Jmp_ptr1616) <= (uint)(Code.Jmp_ptr3216 - Code.Jmp_ptr1616);
+			(uint)(code - Code.Jmp_ptr1616) <= (uint)(Code.Jmp_ptr1632 - Code.Jmp_ptr1616);
 
 		/// <summary>
 		/// Checks if it's a call near instruction
@@ -229,7 +229,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsCallFar(this Code code) =>
-			(uint)(code - Code.Call_ptr1616) <= (uint)(Code.Call_ptr3216 - Code.Call_ptr1616);
+			(uint)(code - Code.Call_ptr1616) <= (uint)(Code.Call_ptr1632 - Code.Call_ptr1616);
 
 		/// <summary>
 		/// Checks if it's a jmp near reg/[mem] instruction
@@ -247,7 +247,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsJmpFarIndirect(this Code code) =>
-			(uint)(code - Code.Jmp_m1616) <= (uint)(Code.Jmp_m6416 - Code.Jmp_m1616);
+			(uint)(code - Code.Jmp_m1616) <= (uint)(Code.Jmp_m1664 - Code.Jmp_m1616);
 
 		/// <summary>
 		/// Checks if it's a call near reg/[mem] instruction
@@ -265,7 +265,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsCallFarIndirect(this Code code) =>
-			(uint)(code - Code.Call_m1616) <= (uint)(Code.Call_m6416 - Code.Call_m1616);
+			(uint)(code - Code.Call_m1616) <= (uint)(Code.Call_m1664 - Code.Call_m1616);
 	}
 }
 #endif

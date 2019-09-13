@@ -288,7 +288,7 @@
 # call far ptr 7856h:3412h
 66 9A 1234 5678, Call_ptr1616, Legacy, INTEL8086, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 stack=-4
 # call far ptr 0BC9Ah:78563412h
-9A 12345678 9ABC, Call_ptr3216, Legacy, INTEL386, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
+9A 12345678 9ABC, Call_ptr1632, Legacy, INTEL386, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
 # pushf
 66 9C, Pushfw, Legacy, INTEL8086, fr=oszacpid r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushfd
@@ -306,13 +306,13 @@ C2 5AA5, Retnd_imm16, Legacy, INTEL386, flow=Return op0=r r=ss rw=xsp rm=ss:xsp;
 # ret
 C3, Retnd, Legacy, INTEL386, flow=Return r=ss rw=xsp rm=ss:xsp;UInt32 stack=4
 # les bx,[eax]
-66 C4 18, Les_r16_m32, Legacy, INTEL8086, op0=w op1=r w=es;bx r=ds r=eax rm=ds:eax;SegPtr16
+66 C4 18, Les_r16_m1616, Legacy, INTEL8086, op0=w op1=r w=es;bx r=ds r=eax rm=ds:eax;SegPtr16
 # les ebx,[eax]
-C4 18, Les_r32_m48, Legacy, INTEL386, op0=w op1=r w=es;ebx r=ds r=eax rm=ds:eax;SegPtr32
+C4 18, Les_r32_m1632, Legacy, INTEL386, op0=w op1=r w=es;ebx r=ds r=eax rm=ds:eax;SegPtr32
 # lds bx,[eax]
-26 66 C5 18, Lds_r16_m32, Legacy, INTEL8086, op0=w op1=r w=ds;bx r=es r=eax rm=es:eax;SegPtr16
+26 66 C5 18, Lds_r16_m1616, Legacy, INTEL8086, op0=w op1=r w=ds;bx r=es r=eax rm=es:eax;SegPtr16
 # lds ebx,[eax]
-26 C5 18, Lds_r32_m48, Legacy, INTEL386, op0=w op1=r w=ds;ebx r=es r=eax rm=es:eax;SegPtr32
+26 C5 18, Lds_r32_m1632, Legacy, INTEL386, op0=w op1=r w=ds;ebx r=es r=eax rm=es:eax;SegPtr32
 # enterw 0A55Ah,0E0h
 66 C8 5AA5 E0, Enterw_imm16_imm8, Legacy, INTEL186, op0=r op1=r rw=bp rw=sp r=ss rw=xsp stack=-42332 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16
 # enterw 0A55Ah,0E1h
@@ -392,7 +392,7 @@ E9 12345AA5, Jmp_rel32_32, Legacy, INTEL386, flow=UnconditionalBranch op0=r
 # jmp far ptr 7856h:3412h
 66 EA 1234 5678, Jmp_ptr1616, Legacy, INTEL8086, flow=UnconditionalBranch op0=r
 # jmp far ptr 0BCEAh:78563412h
-EA 12345678 EABC, Jmp_ptr3216, Legacy, INTEL386, flow=UnconditionalBranch op0=r
+EA 12345678 EABC, Jmp_ptr1632, Legacy, INTEL386, flow=UnconditionalBranch op0=r
 # jmp short 004Dh
 66 EB 5A, Jmp_rel8_16, Legacy, INTEL8086, flow=UnconditionalBranch op0=r
 # jmp short 8000004Ch
@@ -408,7 +408,7 @@ FF 10, Call_rm32, Legacy, INTEL386, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=e
 # call dword ptr [eax]
 66 FF 18, Call_m1616, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=eax rm=ds:eax;SegPtr16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 stack=-4
 # call fword ptr [eax]
-FF 18, Call_m3216, Legacy, INTEL386, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=eax rm=ds:eax;SegPtr32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
+FF 18, Call_m1632, Legacy, INTEL386, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=eax rm=ds:eax;SegPtr32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
 # jmp dx
 66 FF E2, Jmp_rm16, Legacy, INTEL8086, flow=IndirectBranch op0=r r=dx
 # jmp word ptr [eax]
@@ -426,21 +426,21 @@ FF F6, Push_rm32, Legacy, INTEL386, op0=r r=ss rw=xsp r=esi wm=ss:xsp+0xFFFFFFFF
 # push [eax]
 FF 30, Push_rm32, Legacy, INTEL386, op0=r r=ss rw=xsp r=ds r=eax rm=ds:eax;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # sgdtw [eax]
-66 0F01 00, Sgdt_m40, Legacy, INTEL286, op0=w r=ds r=eax wm=ds:eax;Fword5
+66 0F01 00, Sgdt_m_16, Legacy, INTEL286, op0=w r=ds r=eax wm=ds:eax;Fword6
 # sgdt [eax]
-0F01 00, Sgdt_m48, Legacy, INTEL386, op0=w r=ds r=eax wm=ds:eax;Fword6
+0F01 00, Sgdt_m_32, Legacy, INTEL386, op0=w r=ds r=eax wm=ds:eax;Fword6
 # sidtw [eax]
-66 0F01 08, Sidt_m40, Legacy, INTEL286, op0=w r=ds r=eax wm=ds:eax;Fword5
+66 0F01 08, Sidt_m_16, Legacy, INTEL286, op0=w r=ds r=eax wm=ds:eax;Fword6
 # sidt [eax]
-0F01 08, Sidt_m48, Legacy, INTEL386, op0=w r=ds r=eax wm=ds:eax;Fword6
+0F01 08, Sidt_m_32, Legacy, INTEL386, op0=w r=ds r=eax wm=ds:eax;Fword6
 # lgdtw fword ptr [eax]
-66 0F01 10, Lgdt_m40, Legacy, INTEL286, priv op0=r r=ds r=eax rm=ds:eax;Fword5
+66 0F01 10, Lgdt_m_16, Legacy, INTEL286, priv op0=r r=ds r=eax rm=ds:eax;Fword6
 # lgdt fword ptr [eax]
-0F01 10, Lgdt_m48, Legacy, INTEL386, priv op0=r r=ds r=eax rm=ds:eax;Fword6
+0F01 10, Lgdt_m_32, Legacy, INTEL386, priv op0=r r=ds r=eax rm=ds:eax;Fword6
 # lidtw fword ptr [eax]
-66 0F01 18, Lidt_m40, Legacy, INTEL286, priv op0=r r=ds r=eax rm=ds:eax;Fword5
+66 0F01 18, Lidt_m_16, Legacy, INTEL286, priv op0=r r=ds r=eax rm=ds:eax;Fword6
 # lidt fword ptr [eax]
-0F01 18, Lidt_m48, Legacy, INTEL386, priv op0=r r=ds r=eax rm=ds:eax;Fword6
+0F01 18, Lidt_m_32, Legacy, INTEL386, priv op0=r r=ds r=eax rm=ds:eax;Fword6
 # monitor ax,ecx,edx
 67 0F01 C8, Monitorw, Legacy, MONITOR, priv r=ds;ax;ecx;edx rm=ds:ax;Unknown
 # monitor eax,ecx,edx

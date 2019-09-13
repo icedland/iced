@@ -142,7 +142,7 @@
 # call far ptr 7856h:3412h
 9A 1234 5678, Call_ptr1616, Legacy, INTEL8086, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 stack=-4
 # call far ptr 0BC9Ah:78563412h
-66 9A 12345678 9ABC, Call_ptr3216, Legacy, INTEL386, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
+66 9A 12345678 9ABC, Call_ptr1632, Legacy, INTEL386, flow=Call op0=r r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
 # pushf
 9C, Pushfw, Legacy, INTEL8086, fr=oszacpid r=ss rw=xsp wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # pushfd
@@ -202,7 +202,7 @@ FF 10, Call_rm16, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=
 # call dword ptr [bx+si]
 FF 18, Call_m1616, Legacy, INTEL8086, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;SegPtr16 wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt16 stack=-4
 # call fword ptr [bx+si]
-66 FF 18, Call_m3216, Legacy, INTEL386, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;SegPtr32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
+66 FF 18, Call_m1632, Legacy, INTEL386, flow=IndirectCall op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;SegPtr32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFF8;UInt32 stack=-8
 # push si
 FF F6, Push_rm16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=si wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2
 # push [bx+si]

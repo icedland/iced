@@ -157,12 +157,7 @@ namespace Iced.Intel {
 		Bnd64,
 
 		/// <summary>
-		/// Memory location contains a 16-bit limit and a 24-bit address (eg. lgdtw)
-		/// </summary>
-		Fword5,
-
-		/// <summary>
-		/// Memory location contains a 16-bit limit and a 32-bit address (eg. lgdtd)
+		/// Memory location contains a 16-bit limit and a 32-bit address (eg. lgdtw, lgdtd)
 		/// </summary>
 		Fword6,
 

@@ -229,7 +229,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		void AppendRest() {
-			bool isVsib = HasVsib();
+			bool isVsib = opCode.Encoding == EncodingKind.EVEX && HasVsib();
 			if (opCode.IsGroup) {
 				sb.Append(" /");
 				sb.Append(opCode.GroupIndex);
