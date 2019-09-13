@@ -14395,34 +14395,76 @@ F2 4E 0FAE F5, Umwait_r64, Umwait, 1, op0=r;rbp enc=F2480FAEF5
 66 44 0FAE 38, Clflushopt_m8, Clflushopt, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=660FAE38
 
 0FAE E8, Lfence, Lfence, 0,
-0FAE E9, Lfence, Lfence, 0, enc=0FAEE8
-0FAE EA, Lfence, Lfence, 0, enc=0FAEE8
-0FAE EB, Lfence, Lfence, 0, enc=0FAEE8
-0FAE EC, Lfence, Lfence, 0, enc=0FAEE8
-0FAE ED, Lfence, Lfence, 0, enc=0FAEE8
-0FAE EE, Lfence, Lfence, 0, enc=0FAEE8
-0FAE EF, Lfence, Lfence, 0, enc=0FAEE8
 4F 0FAE E8, Lfence, Lfence, 0, enc=0FAEE8
 
+0FAE E9, Lfence_E9, Lfence, 0,
+4F 0FAE E9, Lfence_E9, Lfence, 0, enc=0FAEE9
+
+0FAE EA, Lfence_EA, Lfence, 0,
+4F 0FAE EA, Lfence_EA, Lfence, 0, enc=0FAEEA
+
+0FAE EB, Lfence_EB, Lfence, 0,
+4F 0FAE EB, Lfence_EB, Lfence, 0, enc=0FAEEB
+
+0FAE EC, Lfence_EC, Lfence, 0,
+4F 0FAE EC, Lfence_EC, Lfence, 0, enc=0FAEEC
+
+0FAE ED, Lfence_ED, Lfence, 0,
+4F 0FAE ED, Lfence_ED, Lfence, 0, enc=0FAEED
+
+0FAE EE, Lfence_EE, Lfence, 0,
+4F 0FAE EE, Lfence_EE, Lfence, 0, enc=0FAEEE
+
+0FAE EF, Lfence_EF, Lfence, 0,
+4F 0FAE EF, Lfence_EF, Lfence, 0, enc=0FAEEF
+
 0FAE F0, Mfence, Mfence, 0,
-0FAE F1, Mfence, Mfence, 0, enc=0FAEF0
-0FAE F2, Mfence, Mfence, 0, enc=0FAEF0
-0FAE F3, Mfence, Mfence, 0, enc=0FAEF0
-0FAE F4, Mfence, Mfence, 0, enc=0FAEF0
-0FAE F5, Mfence, Mfence, 0, enc=0FAEF0
-0FAE F6, Mfence, Mfence, 0, enc=0FAEF0
-0FAE F7, Mfence, Mfence, 0, enc=0FAEF0
 4F 0FAE F0, Mfence, Mfence, 0, enc=0FAEF0
 
+0FAE F1, Mfence_F1, Mfence, 0,
+4F 0FAE F1, Mfence_F1, Mfence, 0, enc=0FAEF1
+
+0FAE F2, Mfence_F2, Mfence, 0,
+4F 0FAE F2, Mfence_F2, Mfence, 0, enc=0FAEF2
+
+0FAE F3, Mfence_F3, Mfence, 0,
+4F 0FAE F3, Mfence_F3, Mfence, 0, enc=0FAEF3
+
+0FAE F4, Mfence_F4, Mfence, 0,
+4F 0FAE F4, Mfence_F4, Mfence, 0, enc=0FAEF4
+
+0FAE F5, Mfence_F5, Mfence, 0,
+4F 0FAE F5, Mfence_F5, Mfence, 0, enc=0FAEF5
+
+0FAE F6, Mfence_F6, Mfence, 0,
+4F 0FAE F6, Mfence_F6, Mfence, 0, enc=0FAEF6
+
+0FAE F7, Mfence_F7, Mfence, 0,
+4F 0FAE F7, Mfence_F7, Mfence, 0, enc=0FAEF7
+
 0FAE F8, Sfence, Sfence, 0,
-0FAE F9, Sfence, Sfence, 0, enc=0FAEF8
-0FAE FA, Sfence, Sfence, 0, enc=0FAEF8
-0FAE FB, Sfence, Sfence, 0, enc=0FAEF8
-0FAE FC, Sfence, Sfence, 0, enc=0FAEF8
-0FAE FD, Sfence, Sfence, 0, enc=0FAEF8
-0FAE FE, Sfence, Sfence, 0, enc=0FAEF8
-0FAE FF, Sfence, Sfence, 0, enc=0FAEF8
 4F 0FAE F8, Sfence, Sfence, 0, enc=0FAEF8
+
+0FAE F9, Sfence_F9, Sfence, 0,
+4F 0FAE F9, Sfence_F9, Sfence, 0, enc=0FAEF9
+
+0FAE FA, Sfence_FA, Sfence, 0,
+4F 0FAE FA, Sfence_FA, Sfence, 0, enc=0FAEFA
+
+0FAE FB, Sfence_FB, Sfence, 0,
+4F 0FAE FB, Sfence_FB, Sfence, 0, enc=0FAEFB
+
+0FAE FC, Sfence_FC, Sfence, 0,
+4F 0FAE FC, Sfence_FC, Sfence, 0, enc=0FAEFC
+
+0FAE FD, Sfence_FD, Sfence, 0,
+4F 0FAE FD, Sfence_FD, Sfence, 0, enc=0FAEFD
+
+0FAE FE, Sfence_FE, Sfence, 0,
+4F 0FAE FE, Sfence_FE, Sfence, 0, enc=0FAEFE
+
+0FAE FF, Sfence_FF, Sfence, 0,
+4F 0FAE FF, Sfence_FF, Sfence, 0, enc=0FAEFF
 
 66 0FAE F8, Pcommit, Pcommit, 0, pcommit
 66 0FAE F8, INVALID, INVALID, 0,

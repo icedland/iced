@@ -2066,8 +2066,29 @@ namespace Iced.Intel {
 			1,// Clflush_m8
 			1,// Clflushopt_m8
 			0,// Lfence
+			0,// Lfence_E9
+			0,// Lfence_EA
+			0,// Lfence_EB
+			0,// Lfence_EC
+			0,// Lfence_ED
+			0,// Lfence_EE
+			0,// Lfence_EF
 			0,// Mfence
+			0,// Mfence_F1
+			0,// Mfence_F2
+			0,// Mfence_F3
+			0,// Mfence_F4
+			0,// Mfence_F5
+			0,// Mfence_F6
+			0,// Mfence_F7
 			0,// Sfence
+			0,// Sfence_F9
+			0,// Sfence_FA
+			0,// Sfence_FB
+			0,// Sfence_FC
+			0,// Sfence_FD
+			0,// Sfence_FE
+			0,// Sfence_FF
 			0,// Pcommit
 			2,// Imul_r16_rm16
 			2,// Imul_r32_rm32

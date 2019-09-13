@@ -2083,8 +2083,29 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Clflush,// Clflush_m8
 			(ushort)Mnemonic.Clflushopt,// Clflushopt_m8
 			(ushort)Mnemonic.Lfence,// Lfence
+			(ushort)Mnemonic.Lfence,// Lfence_E9
+			(ushort)Mnemonic.Lfence,// Lfence_EA
+			(ushort)Mnemonic.Lfence,// Lfence_EB
+			(ushort)Mnemonic.Lfence,// Lfence_EC
+			(ushort)Mnemonic.Lfence,// Lfence_ED
+			(ushort)Mnemonic.Lfence,// Lfence_EE
+			(ushort)Mnemonic.Lfence,// Lfence_EF
 			(ushort)Mnemonic.Mfence,// Mfence
+			(ushort)Mnemonic.Mfence,// Mfence_F1
+			(ushort)Mnemonic.Mfence,// Mfence_F2
+			(ushort)Mnemonic.Mfence,// Mfence_F3
+			(ushort)Mnemonic.Mfence,// Mfence_F4
+			(ushort)Mnemonic.Mfence,// Mfence_F5
+			(ushort)Mnemonic.Mfence,// Mfence_F6
+			(ushort)Mnemonic.Mfence,// Mfence_F7
 			(ushort)Mnemonic.Sfence,// Sfence
+			(ushort)Mnemonic.Sfence,// Sfence_F9
+			(ushort)Mnemonic.Sfence,// Sfence_FA
+			(ushort)Mnemonic.Sfence,// Sfence_FB
+			(ushort)Mnemonic.Sfence,// Sfence_FC
+			(ushort)Mnemonic.Sfence,// Sfence_FD
+			(ushort)Mnemonic.Sfence,// Sfence_FE
+			(ushort)Mnemonic.Sfence,// Sfence_FF
 			(ushort)Mnemonic.Pcommit,// Pcommit
 			(ushort)Mnemonic.Imul,// Imul_r16_rm16
 			(ushort)Mnemonic.Imul,// Imul_r32_rm32

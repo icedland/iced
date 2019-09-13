@@ -2063,8 +2063,29 @@ Umwait_r64, legacy, F2, 0F, AE, F2 REX.W 0F AE /6, UMWAIT r64| <edx>| <eax>, g=6
 Clflush_m8, legacy, NP, 0F, AE, NP 0F AE /7, CLFLUSH m8, g=7 16b 32b 64b op=mem
 Clflushopt_m8, legacy, 66, 0F, AE, 66 0F AE /7, CLFLUSHOPT m8, g=7 16b 32b 64b op=mem
 Lfence, legacy, NP, 0F, AEE8, NP 0F AE E8, LFENCE, 16b 32b 64b
+Lfence_E9, legacy, NP, 0F, AEE9, NP 0F AE E9, LFENCE, 16b 32b 64b
+Lfence_EA, legacy, NP, 0F, AEEA, NP 0F AE EA, LFENCE, 16b 32b 64b
+Lfence_EB, legacy, NP, 0F, AEEB, NP 0F AE EB, LFENCE, 16b 32b 64b
+Lfence_EC, legacy, NP, 0F, AEEC, NP 0F AE EC, LFENCE, 16b 32b 64b
+Lfence_ED, legacy, NP, 0F, AEED, NP 0F AE ED, LFENCE, 16b 32b 64b
+Lfence_EE, legacy, NP, 0F, AEEE, NP 0F AE EE, LFENCE, 16b 32b 64b
+Lfence_EF, legacy, NP, 0F, AEEF, NP 0F AE EF, LFENCE, 16b 32b 64b
 Mfence, legacy, NP, 0F, AEF0, NP 0F AE F0, MFENCE, 16b 32b 64b
+Mfence_F1, legacy, NP, 0F, AEF1, NP 0F AE F1, MFENCE, 16b 32b 64b
+Mfence_F2, legacy, NP, 0F, AEF2, NP 0F AE F2, MFENCE, 16b 32b 64b
+Mfence_F3, legacy, NP, 0F, AEF3, NP 0F AE F3, MFENCE, 16b 32b 64b
+Mfence_F4, legacy, NP, 0F, AEF4, NP 0F AE F4, MFENCE, 16b 32b 64b
+Mfence_F5, legacy, NP, 0F, AEF5, NP 0F AE F5, MFENCE, 16b 32b 64b
+Mfence_F6, legacy, NP, 0F, AEF6, NP 0F AE F6, MFENCE, 16b 32b 64b
+Mfence_F7, legacy, NP, 0F, AEF7, NP 0F AE F7, MFENCE, 16b 32b 64b
 Sfence, legacy, NP, 0F, AEF8, NP 0F AE F8, SFENCE, 16b 32b 64b
+Sfence_F9, legacy, NP, 0F, AEF9, NP 0F AE F9, SFENCE, 16b 32b 64b
+Sfence_FA, legacy, NP, 0F, AEFA, NP 0F AE FA, SFENCE, 16b 32b 64b
+Sfence_FB, legacy, NP, 0F, AEFB, NP 0F AE FB, SFENCE, 16b 32b 64b
+Sfence_FC, legacy, NP, 0F, AEFC, NP 0F AE FC, SFENCE, 16b 32b 64b
+Sfence_FD, legacy, NP, 0F, AEFD, NP 0F AE FD, SFENCE, 16b 32b 64b
+Sfence_FE, legacy, NP, 0F, AEFE, NP 0F AE FE, SFENCE, 16b 32b 64b
+Sfence_FF, legacy, NP, 0F, AEFF, NP 0F AE FF, SFENCE, 16b 32b 64b
 Pcommit, legacy, 66, 0F, AEF8, 66 0F AE F8, PCOMMIT, 16b 32b 64b
 Imul_r16_rm16, legacy, , 0F, AF, o16 0F AF /r, IMUL r16| r/m16, 16b 32b 64b o16 op=r16_reg;r16_or_mem
 Imul_r32_rm32, legacy, , 0F, AF, o32 0F AF /r, IMUL r32| r/m32, 16b 32b 64b o32 op=r32_reg;r32_or_mem

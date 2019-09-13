@@ -3217,7 +3217,28 @@ clwb [rax]
 clflush [rax]
 clflushopt [rax]
 lfence
+lfence
+lfence
+lfence
+lfence
+lfence
+lfence
+lfence
 mfence
+mfence
+mfence
+mfence
+mfence
+mfence
+mfence
+mfence
+sfence
+sfence
+sfence
+sfence
+sfence
+sfence
+sfence
 sfence
 imul cx,si
 imul bx,[rax]

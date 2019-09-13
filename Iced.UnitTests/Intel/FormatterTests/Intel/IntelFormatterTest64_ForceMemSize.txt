@@ -3217,7 +3217,28 @@ clwb byte ptr [rax]
 clflush byte ptr [rax]
 clflushopt byte ptr [rax]
 lfence
+lfence
+lfence
+lfence
+lfence
+lfence
+lfence
+lfence
 mfence
+mfence
+mfence
+mfence
+mfence
+mfence
+mfence
+mfence
+sfence
+sfence
+sfence
+sfence
+sfence
+sfence
+sfence
 sfence
 imul cx, si
 imul bx, word ptr [rax]

@@ -3217,8 +3217,29 @@ F3 48 0FAE 20, Ptwrite_rm64
 0FAE 38, Clflush_m8
 66 0FAE 38, Clflushopt_m8
 0FAE E8, Lfence
+0FAE E9, Lfence_E9
+0FAE EA, Lfence_EA
+0FAE EB, Lfence_EB
+0FAE EC, Lfence_EC
+0FAE ED, Lfence_ED
+0FAE EE, Lfence_EE
+0FAE EF, Lfence_EF
 0FAE F0, Mfence
+0FAE F1, Mfence_F1
+0FAE F2, Mfence_F2
+0FAE F3, Mfence_F3
+0FAE F4, Mfence_F4
+0FAE F5, Mfence_F5
+0FAE F6, Mfence_F6
+0FAE F7, Mfence_F7
 0FAE F8, Sfence
+0FAE F9, Sfence_F9
+0FAE FA, Sfence_FA
+0FAE FB, Sfence_FB
+0FAE FC, Sfence_FC
+0FAE FD, Sfence_FD
+0FAE FE, Sfence_FE
+0FAE FF, Sfence_FF
 66 0FAF CE, Imul_r16_rm16
 66 0FAF 18, Imul_r16_rm16
 0FAF CE, Imul_r32_rm32
