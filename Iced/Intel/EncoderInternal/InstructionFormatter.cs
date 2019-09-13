@@ -328,11 +328,16 @@ namespace Iced.Intel.EncoderInternal {
 					if (i == 0) {
 						switch (opCode.Code) {
 						case Code.Fcom_st0_sti:
+						case Code.Fcom_st0_sti_DCD0:
 						case Code.Fcomp_st0_sti:
+						case Code.Fcomp_st0_sti_DCD8:
+						case Code.Fcomp_st0_sti_DED0:
 						case Code.Fld_st0_sti:
 						case Code.Fucom_st0_sti:
 						case Code.Fucomp_st0_sti:
 						case Code.Fxch_st0_sti:
+						case Code.Fxch_st0_sti_DDC8:
+						case Code.Fxch_st0_sti_DFC8:
 							startOpIndex = 1;
 							break;
 						}
