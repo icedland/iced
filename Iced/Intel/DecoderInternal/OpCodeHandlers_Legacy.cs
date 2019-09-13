@@ -3254,7 +3254,10 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalCode = code16;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = decoder.ReadOpSw();
+			var sreg = decoder.ReadOpSw();
+			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && sreg == Register.CS)
+				decoder.SetInvalidInstruction();
+			instruction.InternalOp0Register = sreg;
 			if (state.mod == 3) {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;

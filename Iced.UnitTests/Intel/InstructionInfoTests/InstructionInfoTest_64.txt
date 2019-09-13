@@ -865,16 +865,16 @@
 8D 18, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=rbx r=rax
 # lea rbx,[rax]
 48 8D 18, Lea_r64_m, Legacy, X64, op0=w op1=nma w=rbx r=rax
-# mov cs,si
-66 8E CE, Mov_Sreg_rm16, Legacy, INTEL8086, op0=w op1=r w=cs r=si
+# mov ss,si
+66 8E D6, Mov_Sreg_rm16, Legacy, INTEL8086, op0=w op1=r w=ss r=si
 # mov ds,[rax]
 66 8E 18, Mov_Sreg_rm16, Legacy, INTEL8086, op0=w op1=r w=ds r=rax rm=ds:rax;UInt16
-# mov cs,esi
-8E CE, Mov_Sreg_r32m16, Legacy, INTEL386, op0=w op1=r w=cs r=esi
+# mov ss,esi
+8E D6, Mov_Sreg_r32m16, Legacy, INTEL386, op0=w op1=r w=ss r=esi
 # mov ds,[rax]
 8E 18, Mov_Sreg_r32m16, Legacy, INTEL386, op0=w op1=r w=ds r=rax rm=ds:rax;UInt16
-# mov cs,rsi
-48 8E CE, Mov_Sreg_r64m16, Legacy, X64, op0=w op1=r w=cs r=rsi
+# mov ss,rsi
+48 8E D6, Mov_Sreg_r64m16, Legacy, X64, op0=w op1=r w=ss r=rsi
 # mov ds,[rax]
 48 8E 18, Mov_Sreg_r64m16, Legacy, X64, op0=w op1=r w=ds r=rax rm=ds:rax;UInt16
 # pop si

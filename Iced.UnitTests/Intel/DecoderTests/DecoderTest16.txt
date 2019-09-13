@@ -1079,14 +1079,18 @@ F3 89 18, Mov_rm16_r16, Mov, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx xrelease
 
 66 8D 18, Lea_r32_m, Lea, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;Unknown
 
-8E CE, Mov_Sreg_rm16, Mov, 2, op0=r;cs op1=r;si
+8E D6, Mov_Sreg_rm16, Mov, 2, op0=r;ss op1=r;si
+8E CE, INVALID, INVALID, 0,
+8E CE, Mov_Sreg_rm16, Mov, 2, op0=r;cs op1=r;si noinvalidcheck
 8E 18, Mov_Sreg_rm16, Mov, 2, op0=r;ds op1=m;ds;bx;si;1;0;0;UInt16
 8E F6, INVALID, INVALID, 0,
 8E FE, INVALID, INVALID, 0,
 8E F6, INVALID, INVALID, 0, noinvalidcheck
 8E FE, INVALID, INVALID, 0, noinvalidcheck
 
-66 8E CE, Mov_Sreg_r32m16, Mov, 2, op0=r;cs op1=r;esi
+66 8E D6, Mov_Sreg_r32m16, Mov, 2, op0=r;ss op1=r;esi
+66 8E CE, INVALID, INVALID, 0,
+66 8E CE, Mov_Sreg_r32m16, Mov, 2, op0=r;cs op1=r;esi noinvalidcheck
 66 8E 18, Mov_Sreg_r32m16, Mov, 2, op0=r;ds op1=m;ds;bx;si;1;0;0;UInt16
 66 8E F6, INVALID, INVALID, 0,
 66 8E FE, INVALID, INVALID, 0,

@@ -2143,20 +2143,24 @@ F3 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease
 48 8D 18, Lea_r64_m, Lea, 2, op0=r;rbx op1=m;ds;rax;;1;0;0;Unknown
 4C 8D 18, Lea_r64_m, Lea, 2, op0=r;r11 op1=m;ds;rax;;1;0;0;Unknown
 
-66 8E CE, Mov_Sreg_rm16, Mov, 2, op0=r;cs op1=r;si
+66 8E D6, Mov_Sreg_rm16, Mov, 2, op0=r;ss op1=r;si
+66 8E CE, INVALID, INVALID, 0,
+66 8E CE, Mov_Sreg_rm16, Mov, 2, op0=r;cs op1=r;si noinvalidcheck
 66 44 8E C5, Mov_Sreg_rm16, Mov, 2, op0=r;es op1=r;bp enc=668EC5
 66 41 8E D6, Mov_Sreg_rm16, Mov, 2, op0=r;ss op1=r;r14w
 66 45 8E D0, Mov_Sreg_rm16, Mov, 2, op0=r;ss op1=r;r8w enc=66418ED0
 66 41 8E D9, Mov_Sreg_rm16, Mov, 2, op0=r;ds op1=r;r9w
 66 44 8E EC, Mov_Sreg_rm16, Mov, 2, op0=r;gs op1=r;sp enc=668EEC
 66 8E 18, Mov_Sreg_rm16, Mov, 2, op0=r;ds op1=m;ds;rax;;1;0;0;UInt16
-66 42 8E CE, Mov_Sreg_rm16, Mov, 2, op0=r;cs op1=r;si enc=668ECE
+66 42 8E D6, Mov_Sreg_rm16, Mov, 2, op0=r;ss op1=r;si enc=668ED6
 66 8E F6, INVALID, INVALID, 0,
 66 8E FE, INVALID, INVALID, 0,
 66 8E F6, INVALID, INVALID, 0, noinvalidcheck
 66 8E FE, INVALID, INVALID, 0, noinvalidcheck
 
-8E CE, Mov_Sreg_r32m16, Mov, 2, op0=r;cs op1=r;esi
+8E D6, Mov_Sreg_r32m16, Mov, 2, op0=r;ss op1=r;esi
+8E CE, INVALID, INVALID, 0,
+8E CE, Mov_Sreg_r32m16, Mov, 2, op0=r;cs op1=r;esi noinvalidcheck
 44 8E C5, Mov_Sreg_r32m16, Mov, 2, op0=r;es op1=r;ebp enc=8EC5
 41 8E D6, Mov_Sreg_r32m16, Mov, 2, op0=r;ss op1=r;r14d
 45 8E E0, Mov_Sreg_r32m16, Mov, 2, op0=r;fs op1=r;r8d enc=418EE0
@@ -2169,7 +2173,9 @@ F3 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease
 8E F6, INVALID, INVALID, 0, noinvalidcheck
 8E FE, INVALID, INVALID, 0, noinvalidcheck
 
-48 8E CE, Mov_Sreg_r64m16, Mov, 2, op0=r;cs op1=r;rsi
+48 8E D6, Mov_Sreg_r64m16, Mov, 2, op0=r;ss op1=r;rsi
+48 8E CE, INVALID, INVALID, 0,
+48 8E CE, Mov_Sreg_r64m16, Mov, 2, op0=r;cs op1=r;rsi noinvalidcheck
 4C 8E C5, Mov_Sreg_r64m16, Mov, 2, op0=r;es op1=r;rbp enc=488EC5
 49 8E D6, Mov_Sreg_r64m16, Mov, 2, op0=r;ss op1=r;r14
 4D 8E E0, Mov_Sreg_r64m16, Mov, 2, op0=r;fs op1=r;r8 enc=498EE0
