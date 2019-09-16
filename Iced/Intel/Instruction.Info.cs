@@ -592,6 +592,33 @@ namespace Iced.Intel {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsCallFarIndirect();
 		}
+
+		/// <summary>
+		/// Flips the condition code, eg. je -> jne. Can be used if it's jcc, setcc, cmovcc and does
+		/// nothing if the instruction doesn't have a condition code.
+		/// </summary>
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		public void FlipConditionCode() => Code = Code.FlipConditionCode();
+
+		/// <summary>
+		/// Converts jcc near to jcc short and does nothing if it's not a jcc near instruction
+		/// </summary>
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		public void ToShortBranch() => Code = Code.ToShortBranch();
+
+		/// <summary>
+		/// Converts jcc short to jcc near and does nothing if it's not a jcc short instruction
+		/// </summary>
+		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		public void ToNearBranch() => Code = Code.ToNearBranch();
+
+		/// <summary>
+		/// Gets the condition code if its jcc, setcc, cmovcc else <see cref="ConditionCode.None"/> is returned
+		/// </summary>
+		public readonly ConditionCode ConditionCode {
+			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			get => Code.GetConditionCode();
+		}
 	}
 }
 #endif

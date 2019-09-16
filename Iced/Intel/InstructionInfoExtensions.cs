@@ -266,6 +266,84 @@ namespace Iced.Intel {
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static bool IsCallFarIndirect(this Code code) =>
 			(uint)(code - Code.Call_m1616) <= (uint)(Code.Call_m1664 - Code.Call_m1616);
+
+		/// <summary>
+		/// Flips the condition code, eg. je -> jne. Can be used if it's jcc, setcc, cmovcc and returns
+		/// the original value if it's none of those instructions.
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		public static Code FlipConditionCode(this Code code) {
+			uint t;
+
+			if ((t = (uint)(code - Code.Jo_rel16)) <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16) ||
+				(t = (uint)(code - Code.Jo_rel8_16)) <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16) ||
+				(t = (uint)(code - Code.Cmovo_r16_rm16)) <= (uint)(Code.Cmovg_r64_rm64 - Code.Cmovo_r16_rm16)) {
+				// They're ordered, eg. je_16, je_32, je_64, jne_16, jne_32, jne_64
+				// if low 3, add 3, else if high 3, subtract 3.
+				//return (((int)((t / 3) << 31) >> 31) | 1) * 3 + code;
+				if (((t / 3) & 1) != 0)
+					return code - 3;
+				return code + 3;
+			}
+
+			t = (uint)(code - Code.Seto_rm8);
+			if (t <= (uint)(Code.Setg_rm8 - Code.Seto_rm8))
+				return (int)(t ^ 1) + Code.Seto_rm8;
+
+			return code;
+		}
+
+		/// <summary>
+		/// Converts jcc near to jcc short. Returns the input if it's not a jcc near instruction.
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		public static Code ToShortBranch(this Code code) {
+			uint t = (uint)(code - Code.Jo_rel16);
+			if (t <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16))
+				return (int)t + Code.Jo_rel8_16;
+			return code;
+		}
+
+		/// <summary>
+		/// Converts jcc short to jcc near. Returns the input if it's not a jcc short instruction.
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		public static Code ToNearBranch(this Code code) {
+			uint t = (uint)(code - Code.Jo_rel8_16);
+			if (t <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16))
+				return (int)t + Code.Jo_rel16;
+			return code;
+		}
+
+		/// <summary>
+		/// Gets the condition code if its jcc, setcc, cmovcc else <see cref="ConditionCode.None"/> is returned
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		public static ConditionCode GetConditionCode(this Code code) {
+			uint t;
+
+			t = (uint)(code - Code.Jo_rel16);
+			if (t <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16))
+				return (int)(t / 3) + ConditionCode.o;
+
+			t = (uint)(code - Code.Jo_rel8_16);
+			if (t <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16))
+				return (int)(t / 3) + ConditionCode.o;
+
+			t = (uint)(code - Code.Cmovo_r16_rm16);
+			if (t <= (uint)(Code.Cmovg_r64_rm64 - Code.Cmovo_r16_rm16))
+				return (int)(t / 3) + ConditionCode.o;
+
+			t = (uint)(code - Code.Seto_rm8);
+			if (t <= (uint)(Code.Setg_rm8 - Code.Seto_rm8))
+				return (int)t + ConditionCode.o;
+
+			return ConditionCode.None;
+		}
 	}
 }
 #endif
