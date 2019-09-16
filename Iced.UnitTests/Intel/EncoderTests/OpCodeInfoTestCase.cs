@@ -48,6 +48,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		public bool CanUseRoundingControl;
 		public bool CanSuppressAllExceptions;
 		public bool CanUseOpMaskRegister;
+		public bool RequireNonZeroOpMaskRegister;
 		public bool CanUseZeroingMasking;
 		public bool CanUseLockPrefix;
 		public bool CanUseXacquirePrefix;

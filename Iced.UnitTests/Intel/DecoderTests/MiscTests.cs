@@ -835,78 +835,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			}
 		}
 
-		static bool MustUseNonZeroOpMaskRegister(OpCodeInfo opCode) {
-			switch (opCode.Code) {
-			case Code.EVEX_Vpgatherdd_xmm_k1_vm32x:
-			case Code.EVEX_Vpgatherdd_ymm_k1_vm32y:
-			case Code.EVEX_Vpgatherdd_zmm_k1_vm32z:
-			case Code.EVEX_Vpgatherdq_xmm_k1_vm32x:
-			case Code.EVEX_Vpgatherdq_ymm_k1_vm32x:
-			case Code.EVEX_Vpgatherdq_zmm_k1_vm32y:
-			case Code.EVEX_Vpgatherqd_xmm_k1_vm64x:
-			case Code.EVEX_Vpgatherqd_xmm_k1_vm64y:
-			case Code.EVEX_Vpgatherqd_ymm_k1_vm64z:
-			case Code.EVEX_Vpgatherqq_xmm_k1_vm64x:
-			case Code.EVEX_Vpgatherqq_ymm_k1_vm64y:
-			case Code.EVEX_Vpgatherqq_zmm_k1_vm64z:
-			case Code.EVEX_Vgatherdps_xmm_k1_vm32x:
-			case Code.EVEX_Vgatherdps_ymm_k1_vm32y:
-			case Code.EVEX_Vgatherdps_zmm_k1_vm32z:
-			case Code.EVEX_Vgatherdpd_xmm_k1_vm32x:
-			case Code.EVEX_Vgatherdpd_ymm_k1_vm32x:
-			case Code.EVEX_Vgatherdpd_zmm_k1_vm32y:
-			case Code.EVEX_Vgatherqps_xmm_k1_vm64x:
-			case Code.EVEX_Vgatherqps_xmm_k1_vm64y:
-			case Code.EVEX_Vgatherqps_ymm_k1_vm64z:
-			case Code.EVEX_Vgatherqpd_xmm_k1_vm64x:
-			case Code.EVEX_Vgatherqpd_ymm_k1_vm64y:
-			case Code.EVEX_Vgatherqpd_zmm_k1_vm64z:
-			case Code.EVEX_Vpscatterdd_vm32x_k1_xmm:
-			case Code.EVEX_Vpscatterdd_vm32y_k1_ymm:
-			case Code.EVEX_Vpscatterdd_vm32z_k1_zmm:
-			case Code.EVEX_Vpscatterdq_vm32x_k1_xmm:
-			case Code.EVEX_Vpscatterdq_vm32x_k1_ymm:
-			case Code.EVEX_Vpscatterdq_vm32y_k1_zmm:
-			case Code.EVEX_Vpscatterqd_vm64x_k1_xmm:
-			case Code.EVEX_Vpscatterqd_vm64y_k1_xmm:
-			case Code.EVEX_Vpscatterqd_vm64z_k1_ymm:
-			case Code.EVEX_Vpscatterqq_vm64x_k1_xmm:
-			case Code.EVEX_Vpscatterqq_vm64y_k1_ymm:
-			case Code.EVEX_Vpscatterqq_vm64z_k1_zmm:
-			case Code.EVEX_Vscatterdps_vm32x_k1_xmm:
-			case Code.EVEX_Vscatterdps_vm32y_k1_ymm:
-			case Code.EVEX_Vscatterdps_vm32z_k1_zmm:
-			case Code.EVEX_Vscatterdpd_vm32x_k1_xmm:
-			case Code.EVEX_Vscatterdpd_vm32x_k1_ymm:
-			case Code.EVEX_Vscatterdpd_vm32y_k1_zmm:
-			case Code.EVEX_Vscatterqps_vm64x_k1_xmm:
-			case Code.EVEX_Vscatterqps_vm64y_k1_xmm:
-			case Code.EVEX_Vscatterqps_vm64z_k1_ymm:
-			case Code.EVEX_Vscatterqpd_vm64x_k1_xmm:
-			case Code.EVEX_Vscatterqpd_vm64y_k1_ymm:
-			case Code.EVEX_Vscatterqpd_vm64z_k1_zmm:
-			case Code.EVEX_Vgatherpf0dps_vm32z_k1:
-			case Code.EVEX_Vgatherpf0dpd_vm32y_k1:
-			case Code.EVEX_Vgatherpf1dps_vm32z_k1:
-			case Code.EVEX_Vgatherpf1dpd_vm32y_k1:
-			case Code.EVEX_Vscatterpf0dps_vm32z_k1:
-			case Code.EVEX_Vscatterpf0dpd_vm32y_k1:
-			case Code.EVEX_Vscatterpf1dps_vm32z_k1:
-			case Code.EVEX_Vscatterpf1dpd_vm32y_k1:
-			case Code.EVEX_Vgatherpf0qps_vm64z_k1:
-			case Code.EVEX_Vgatherpf0qpd_vm64z_k1:
-			case Code.EVEX_Vgatherpf1qps_vm64z_k1:
-			case Code.EVEX_Vgatherpf1qpd_vm64z_k1:
-			case Code.EVEX_Vscatterpf0qps_vm64z_k1:
-			case Code.EVEX_Vscatterpf0qpd_vm64z_k1:
-			case Code.EVEX_Vscatterpf1qps_vm64z_k1:
-			case Code.EVEX_Vscatterpf1qpd_vm64z_k1:
-				return true;
-			default:
-				return false;
-			}
-		}
-
 		[Fact]
 		void Test_EVEX_k1_z_bits() {
 			var p2Values_k1z = new (bool valid, byte bits)[] { (true, 0x00), (true, 0x01), (false, 0x80), (true, 0x86) };
@@ -928,7 +856,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					p2Values = p2Values_k1z;
 				}
 				else if (opCode.CanUseOpMaskRegister) {
-					if (MustUseNonZeroOpMaskRegister(opCode))
+					if (opCode.RequireNonZeroOpMaskRegister)
 						p2Values = p2Values_k1_fk;
 					else
 						p2Values = p2Values_k1;
@@ -2504,7 +2432,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					if (opCode.CanUseOpMaskRegister) {
 						if (!tested.OpMask)
 							GetList(bitness, opmask_16, opmask_32, opmask_64).Add(code);
-						if (!tested.NoOpMask && !MustUseNonZeroOpMaskRegister(opCode))
+						if (!tested.NoOpMask && !opCode.RequireNonZeroOpMaskRegister)
 							GetList(bitness, noopmask_16, noopmask_32, noopmask_64).Add(code);
 					}
 					if (CanUseB(bitness, opCode)) {
@@ -3043,7 +2971,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
 					continue;
 				var opCode = info.Code.ToOpCode();
-				if (!MustUseNonZeroOpMaskRegister(opCode))
+				if (!opCode.RequireNonZeroOpMaskRegister)
 					continue;
 
 				var bytes = HexUtils.ToByteArray(info.HexBytes);

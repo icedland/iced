@@ -262,6 +262,11 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						tc.CanUseOpMaskRegister = true;
 						break;
 
+					case "knz":
+						tc.CanUseOpMaskRegister = true;
+						tc.RequireNonZeroOpMaskRegister = true;
+						break;
+
 					case "z":
 						tc.CanUseZeroingMasking = true;
 						break;
