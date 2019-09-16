@@ -613,7 +613,7 @@ namespace Iced.Intel {
 		public void ToNearBranch() => Code = Code.ToNearBranch();
 
 		/// <summary>
-		/// Gets the condition code if its jcc, setcc, cmovcc else <see cref="ConditionCode.None"/> is returned
+		/// Gets the condition code if it's jcc, setcc, cmovcc else <see cref="ConditionCode.None"/> is returned
 		/// </summary>
 		public readonly ConditionCode ConditionCode {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]

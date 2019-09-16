@@ -319,7 +319,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the condition code if its jcc, setcc, cmovcc else <see cref="ConditionCode.None"/> is returned
+		/// Gets the condition code if it's jcc, setcc, cmovcc else <see cref="ConditionCode.None"/> is returned
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
