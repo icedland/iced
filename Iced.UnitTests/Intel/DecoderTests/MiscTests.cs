@@ -2795,8 +2795,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			static bool CanUseVEX2(OpCodeInfo opCode) => opCode.Table == OpCodeTableKind.T0F && opCode.W == 0;
 
 			static bool CanUseB(int bitness, OpCodeInfo opCode) {
-				if (opCode.Code == Code.Nopw || opCode.Code == Code.Nopd || opCode.Code == Code.Nopq)
+				switch (opCode.Code) {
+				case Code.Nopw:
+				case Code.Nopd:
+				case Code.Nopq:
+				case Code.Bndmov_bnd_bndm128:
+				case Code.Bndmov_bndm128_bnd:
 					return false;
+				}
+
 				for (int i = 0; i < opCode.OpCount; i++) {
 					switch (opCode.GetOpKind(i)) {
 					case OpCodeOperandKind.k_rm:
@@ -2888,9 +2895,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					case OpCodeOperandKind.k_reg:
 					case OpCodeOperandKind.kp1_reg:
 					case OpCodeOperandKind.tr_reg:
+					case OpCodeOperandKind.bnd_reg:
 						return false;
 
-					case OpCodeOperandKind.bnd_reg:
 					case OpCodeOperandKind.cr_reg:
 					case OpCodeOperandKind.dr_reg:
 					case OpCodeOperandKind.mm_reg:
