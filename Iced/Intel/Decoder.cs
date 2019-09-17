@@ -72,6 +72,7 @@ namespace Iced.Intel {
 		internal State state;
 		internal uint displIndex;
 		internal readonly DecoderOptions options;
+		internal readonly uint invalidCheckMask;// All 1s if we should check for invalid instructions, else 0
 		internal readonly CodeSize defaultCodeSize;
 		readonly OpSize defaultOperandSize, defaultInvertedOperandSize;
 		readonly OpSize defaultAddressSize, defaultInvertedAddressSize;
@@ -167,6 +168,7 @@ namespace Iced.Intel {
 		Decoder(CodeReader reader, DecoderOptions options, OpSize defaultOpSize) {
 			this.reader = reader ?? throw new ArgumentNullException(nameof(reader));
 			this.options = options;
+			invalidCheckMask = (options & DecoderOptions.NoInvalidCheck) == 0 ? uint.MaxValue : 0;
 			memRegs16 = s_memRegs16;
 			if (defaultOpSize == OpSize.Size64) {
 				is64Mode = true;
@@ -416,7 +418,7 @@ after_read_prefixes:
 			var flags = state.flags;
 			if ((flags & (StateFlags.IsInvalid | StateFlags.Lock)) != 0) {
 				if ((flags & StateFlags.IsInvalid) != 0 ||
-					((options & DecoderOptions.NoInvalidCheck) == 0 && (flags & (StateFlags.Lock | StateFlags.AllowLock)) == StateFlags.Lock)) {
+					(((uint)(flags & (StateFlags.Lock | StateFlags.AllowLock)) & invalidCheckMask) == (uint)StateFlags.Lock)) {
 					instruction = default;
 					Debug.Assert(Code.INVALID == 0);
 					//instruction.InternalCode = Code.INVALID;
@@ -519,7 +521,7 @@ after_read_prefixes:
 		}
 
 		internal void VEX2(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0) {
+			if (invalidCheckMask != 0) {
 				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
 					SetInvalidInstruction();
 			}
@@ -552,7 +554,7 @@ after_read_prefixes:
 		}
 
 		internal void VEX3(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0) {
+			if (invalidCheckMask != 0) {
 				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
 					SetInvalidInstruction();
 			}
@@ -603,7 +605,7 @@ after_read_prefixes:
 		}
 
 		internal void XOP(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0) {
+			if (invalidCheckMask != 0) {
 				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
 					SetInvalidInstruction();
 			}
@@ -654,7 +656,7 @@ after_read_prefixes:
 		}
 
 		internal void EVEX_MVEX(ref Instruction instruction) {
-			if ((options & DecoderOptions.NoInvalidCheck) == 0) {
+			if (invalidCheckMask != 0) {
 				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
 					SetInvalidInstruction();
 			}
@@ -693,7 +695,7 @@ after_read_prefixes:
 				state.aaa = aaa;
 				instruction.InternalOpMask = aaa;
 				if ((p2 & 0x80) != 0) {
-					if ((options & DecoderOptions.NoInvalidCheck) == 0 && aaa == 0)
+					if (invalidCheckMask != 0 && aaa == 0)
 						SetInvalidInstruction();
 					state.flags |= StateFlags.z;
 					instruction.InternalSetZeroingMasking();
@@ -777,7 +779,7 @@ after_read_prefixes:
 				ReadOpMem32Or64(ref instruction, Register.EAX, Register.EAX, TupleType.None, false);
 			else {
 				ReadOpMem16(ref instruction, TupleType.None);
-				if ((options & DecoderOptions.NoInvalidCheck) == 0)
+				if (invalidCheckMask != 0)
 					SetInvalidInstruction();
 			}
 		}
@@ -804,7 +806,7 @@ after_read_prefixes:
 				ReadOpMem16(ref instruction, tupleType);
 				isValid = false;
 			}
-			if ((options & DecoderOptions.NoInvalidCheck) == 0 && !isValid)
+			if (invalidCheckMask != 0 && !isValid)
 				SetInvalidInstruction();
 		}
 

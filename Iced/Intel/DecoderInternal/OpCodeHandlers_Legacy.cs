@@ -726,14 +726,14 @@ namespace Iced.Intel.DecoderInternal {
 	sealed class OpCodeHandler_Ev_REXW : OpCodeHandlerModRM {
 		readonly Code code32;
 		readonly Code code64;
-		readonly bool allowReg;
-		readonly bool allowMem;
+		readonly uint disallowReg;
+		readonly uint disallowMem;
 
 		public OpCodeHandler_Ev_REXW(Code code32, Code code64, bool allowReg, bool allowMem) {
 			this.code32 = code32;
 			this.code64 = code64;
-			this.allowReg = allowReg;
-			this.allowMem = allowMem;
+			disallowReg = allowReg ? 0 : uint.MaxValue;
+			disallowMem = allowMem ? 0 : uint.MaxValue;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -750,13 +750,13 @@ namespace Iced.Intel.DecoderInternal {
 					instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.RAX;
 				else
 					instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.EAX;
-				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && !allowReg)
+				if ((disallowReg & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
-				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && !allowMem)
+				if ((disallowMem & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
 			}
 		}
@@ -2628,13 +2628,13 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Register baseReg;
 		readonly Code code32;
 		readonly Code code64;
-		readonly bool allowMem;
+		readonly uint disallowMem;
 
 		public OpCodeHandler_Gv_Ev_Ib_REX(Register baseReg, Code code32, Code code64, bool allowMem) {
 			this.baseReg = baseReg;
 			this.code32 = code32;
 			this.code64 = code64;
-			this.allowMem = allowMem;
+			disallowMem = allowMem ? 0 : uint.MaxValue;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -2660,7 +2660,7 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
-				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && !allowMem)
+				if ((disallowMem & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
@@ -2671,14 +2671,14 @@ namespace Iced.Intel.DecoderInternal {
 	sealed class OpCodeHandler_Gv_Ev_32_64 : OpCodeHandlerModRM {
 		readonly Code code32;
 		readonly Code code64;
-		readonly bool allowReg;
-		readonly bool allowMem;
+		readonly uint disallowReg;
+		readonly uint disallowMem;
 
 		public OpCodeHandler_Gv_Ev_32_64(Code code32, Code code64, bool allowReg, bool allowMem) {
 			this.code32 = code32;
 			this.code64 = code64;
-			this.allowReg = allowReg;
-			this.allowMem = allowMem;
+			disallowMem = allowMem ? 0 : uint.MaxValue;
+			disallowReg = allowReg ? 0 : uint.MaxValue;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -2700,13 +2700,13 @@ namespace Iced.Intel.DecoderInternal {
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
-				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && !allowReg)
+				if ((disallowReg & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
-				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && !allowMem)
+				if ((disallowMem & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
 			}
 		}
@@ -3255,7 +3255,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			var sreg = decoder.ReadOpSw();
-			if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && sreg == Register.CS)
+			if (decoder.invalidCheckMask != 0 && sreg == Register.CS)
 				decoder.SetInvalidInstruction();
 			instruction.InternalOp0Register = sreg;
 			if (state.mod == 3) {
@@ -4867,7 +4867,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			if (state.reg > 3 || ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && state.extraRegisterBase != 0))
+			if (state.reg > 3 || ((state.extraRegisterBase & decoder.invalidCheckMask) != 0))
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 			Debug.Assert(OpKind.Register == 0);
@@ -4881,7 +4881,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem_MPX(ref instruction);
 				// It can't be EIP since if it's MPX + 64-bit, the address size is always 64-bit
-				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && instruction.MemoryBase == Register.RIP)
+				if (decoder.invalidCheckMask != 0 && instruction.MemoryBase == Register.RIP)
 					decoder.SetInvalidInstruction();
 			}
 		}
@@ -4895,7 +4895,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			if (state.reg > 3 || ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && state.extraRegisterBase != 0))
+			if (state.reg > 3 || ((state.extraRegisterBase & decoder.invalidCheckMask) != 0))
 				decoder.SetInvalidInstruction();
 			instruction.InternalCode = code;
 			if (state.mod == 3) {
@@ -4906,7 +4906,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem_MPX(ref instruction);
 				// It can't be EIP since if it's MPX + 64-bit, the address size is always 64-bit
-				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && instruction.MemoryBase == Register.RIP)
+				if (decoder.invalidCheckMask != 0 && instruction.MemoryBase == Register.RIP)
 					decoder.SetInvalidInstruction();
 			}
 			Debug.Assert(OpKind.Register == 0);
@@ -4927,7 +4927,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			if ((state.reg | state.rm) > 3 || ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.extraRegisterBase | state.extraBaseRegisterBase) != 0))
+			if ((state.reg | state.rm) > 3 || (((state.extraRegisterBase | state.extraBaseRegisterBase) & decoder.invalidCheckMask) != 0))
 				decoder.SetInvalidInstruction();
 			if (decoder.is64Mode)
 				instruction.InternalCode = code64;
@@ -4960,7 +4960,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			if ((state.reg | state.rm) > 3 || ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && (state.extraRegisterBase | state.extraBaseRegisterBase) != 0))
+			if ((state.reg | state.rm) > 3 || (((state.extraRegisterBase | state.extraBaseRegisterBase) & decoder.invalidCheckMask) != 0))
 				decoder.SetInvalidInstruction();
 			if (decoder.is64Mode)
 				instruction.InternalCode = code64;
@@ -4993,7 +4993,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			if (state.reg > 3 || ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && state.extraRegisterBase != 0))
+			if (state.reg > 3 || ((state.extraRegisterBase & decoder.invalidCheckMask) != 0))
 				decoder.SetInvalidInstruction();
 			Register baseReg;
 			if (decoder.is64Mode) {
