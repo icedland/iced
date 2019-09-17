@@ -116,7 +116,7 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.bnd_reg,
 			(byte)OpCodeOperandKind.bnd_or_mem_mpx,
 			(byte)OpCodeOperandKind.bnd_or_mem_mpx,
-			(byte)OpCodeOperandKind.mem_mpx,
+			(byte)OpCodeOperandKind.mem_mib,
 			(byte)OpCodeOperandKind.mm_rm,
 			(byte)OpCodeOperandKind.mm_reg,
 			(byte)OpCodeOperandKind.mm_or_mem,

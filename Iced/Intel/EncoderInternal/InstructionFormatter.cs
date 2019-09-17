@@ -350,6 +350,7 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.mem_offs:
 				case OpCodeOperandKind.mem:
 				case OpCodeOperandKind.mem_mpx:
+				case OpCodeOperandKind.mem_mib:
 				case OpCodeOperandKind.mem_vsib32x:
 				case OpCodeOperandKind.mem_vsib64x:
 				case OpCodeOperandKind.mem_vsib32y:
@@ -499,10 +500,11 @@ namespace Iced.Intel.EncoderInternal {
 						break;
 
 					case OpCodeOperandKind.mem_mpx:
-						if (opCode.Code == Code.Bndldx_bnd_mib || opCode.Code == Code.Bndstx_mib_bnd)
-							sb.Append("mib");
-						else
-							WriteMemory();
+						WriteMemory();
+						break;
+
+					case OpCodeOperandKind.mem_mib:
+						sb.Append("mib");
 						break;
 
 					case OpCodeOperandKind.mem_vsib32x:

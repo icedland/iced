@@ -2696,6 +2696,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					switch (opCode.GetOpKind(i)) {
 					case OpCodeOperandKind.mem:
 					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_mib:
 					case OpCodeOperandKind.mem_vsib32x:
 					case OpCodeOperandKind.mem_vsib64x:
 					case OpCodeOperandKind.mem_vsib32y:
@@ -2761,6 +2762,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 					case OpCodeOperandKind.mem:
 					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_mib:
 					case OpCodeOperandKind.mem_vsib32x:
 					case OpCodeOperandKind.mem_vsib32y:
 					case OpCodeOperandKind.mem_vsib32z:
@@ -2804,6 +2806,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 					case OpCodeOperandKind.mem:
 					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_mib:
 					case OpCodeOperandKind.mem_vsib32x:
 					case OpCodeOperandKind.mem_vsib32y:
 					case OpCodeOperandKind.mem_vsib32z:
@@ -2902,6 +2905,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					switch (opCode.GetOpKind(i)) {
 					case OpCodeOperandKind.mem:
 					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_mib:
 					case OpCodeOperandKind.mem_vsib32x:
 					case OpCodeOperandKind.mem_vsib64x:
 					case OpCodeOperandKind.mem_vsib32y:
@@ -3261,6 +3265,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					switch (opCode.GetOpKind(i)) {
 					case OpCodeOperandKind.mem:
 					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_mib:
 					case OpCodeOperandKind.mem_vsib32x:
 					case OpCodeOperandKind.mem_vsib64x:
 					case OpCodeOperandKind.mem_vsib32y:

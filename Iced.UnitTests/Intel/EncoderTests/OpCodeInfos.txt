@@ -1054,14 +1054,14 @@ Prefetchnta_m8, legacy, , 0F, 18, 0F 18 /0, PREFETCHNTA m8, g=0 16b 32b 64b op=m
 Prefetcht0_m8, legacy, , 0F, 18, 0F 18 /1, PREFETCHT0 m8, g=1 16b 32b 64b op=mem
 Prefetcht1_m8, legacy, , 0F, 18, 0F 18 /2, PREFETCHT1 m8, g=2 16b 32b 64b op=mem
 Prefetcht2_m8, legacy, , 0F, 18, 0F 18 /3, PREFETCHT2 m8, g=3 16b 32b 64b op=mem
-Bndldx_bnd_mib, legacy, NP, 0F, 1A, NP 0F 1A /r, BNDLDX bnd| mib, 16b 32b 64b op=bnd_reg;mem_mpx
+Bndldx_bnd_mib, legacy, NP, 0F, 1A, NP 0F 1A /r, BNDLDX bnd| mib, 16b 32b 64b op=bnd_reg;mem_mib
 Bndmov_bnd_bndm64, legacy, 66, 0F, 1A, 66 0F 1A /r, BNDMOV bnd1| bnd2/m64, 16b 32b op=bnd_reg;bnd_or_mem_mpx
 Bndmov_bnd_bndm128, legacy, 66, 0F, 1A, 66 0F 1A /r, BNDMOV bnd1| bnd2/m128, 64b op=bnd_reg;bnd_or_mem_mpx
 Bndcl_bnd_rm32, legacy, F3, 0F, 1A, F3 0F 1A /r, BNDCL bnd| r/m32, 16b 32b op=bnd_reg;r32_or_mem_mpx
 Bndcl_bnd_rm64, legacy, F3, 0F, 1A, F3 0F 1A /r, BNDCL bnd| r/m64, 64b op=bnd_reg;r64_or_mem_mpx
 Bndcu_bnd_rm32, legacy, F2, 0F, 1A, F2 0F 1A /r, BNDCU bnd| r/m32, 16b 32b op=bnd_reg;r32_or_mem_mpx
 Bndcu_bnd_rm64, legacy, F2, 0F, 1A, F2 0F 1A /r, BNDCU bnd| r/m64, 64b op=bnd_reg;r64_or_mem_mpx
-Bndstx_mib_bnd, legacy, NP, 0F, 1B, NP 0F 1B /r, BNDSTX mib| bnd, 16b 32b 64b op=mem_mpx;bnd_reg
+Bndstx_mib_bnd, legacy, NP, 0F, 1B, NP 0F 1B /r, BNDSTX mib| bnd, 16b 32b 64b op=mem_mib;bnd_reg
 Bndmov_bndm64_bnd, legacy, 66, 0F, 1B, 66 0F 1B /r, BNDMOV bnd1/m64| bnd2, 16b 32b op=bnd_or_mem_mpx;bnd_reg
 Bndmov_bndm128_bnd, legacy, 66, 0F, 1B, 66 0F 1B /r, BNDMOV bnd1/m128| bnd2, 64b op=bnd_or_mem_mpx;bnd_reg
 Bndmk_bnd_m32, legacy, F3, 0F, 1B, F3 0F 1B /r, BNDMK bnd| m32, 16b 32b op=bnd_reg;mem_mpx

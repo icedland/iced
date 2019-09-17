@@ -52,6 +52,10 @@ namespace Iced.Intel {
 		/// </summary>
 		mem_mpx,
 		/// <summary>
+		/// Memory (modrm), MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced and must not be RIP relative
+		/// </summary>
+		mem_mib,
+		/// <summary>
 		/// Memory (modrm), vsib32, xmm registers
 		/// </summary>
 		mem_vsib32x,
