@@ -38,7 +38,7 @@ namespace Iced.Intel {
 		o,
 
 		/// <summary>
-		/// No overflow (OF=0)
+		/// Not overflow (OF=0)
 		/// </summary>
 		no,
 

@@ -326,17 +326,11 @@ namespace Iced.Intel {
 		public static ConditionCode GetConditionCode(this Code code) {
 			uint t;
 
-			t = (uint)(code - Code.Jo_rel16);
-			if (t <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16))
+			if ((t = (uint)(code - Code.Jo_rel16)) <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16) ||
+				(t = (uint)(code - Code.Jo_rel8_16)) <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16) ||
+				(t = (uint)(code - Code.Cmovo_r16_rm16)) <= (uint)(Code.Cmovg_r64_rm64 - Code.Cmovo_r16_rm16)) {
 				return (int)(t / 3) + ConditionCode.o;
-
-			t = (uint)(code - Code.Jo_rel8_16);
-			if (t <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16))
-				return (int)(t / 3) + ConditionCode.o;
-
-			t = (uint)(code - Code.Cmovo_r16_rm16);
-			if (t <= (uint)(Code.Cmovg_r64_rm64 - Code.Cmovo_r16_rm16))
-				return (int)(t / 3) + ConditionCode.o;
+			}
 
 			t = (uint)(code - Code.Seto_rm8);
 			if (t <= (uint)(Code.Setg_rm8 - Code.Seto_rm8))
