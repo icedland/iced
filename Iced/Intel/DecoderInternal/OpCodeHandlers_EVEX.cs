@@ -119,7 +119,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			TupleType tupleType;
-			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
+			if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0) {
 				instruction.InternalCode = codeW1;
 				tupleType = tupleTypeW1;
 				gpr = Register.RAX;
@@ -182,7 +182,7 @@ namespace Iced.Intel.DecoderInternal {
 			if ((((uint)(state.flags & (StateFlags.b | StateFlags.z)) | state.aaa) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
-			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
+			if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0) {
 				instruction.InternalCode = codeW1;
 				gpr = Register.RAX;
 			}
@@ -203,7 +203,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode)
+				if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0)
 					decoder.ReadOpMem(ref instruction, tupleTypeW1);
 				else
 					decoder.ReadOpMem(ref instruction, tupleTypeW0);
@@ -234,7 +234,7 @@ namespace Iced.Intel.DecoderInternal {
 			if ((((uint)(state.flags & (StateFlags.b | StateFlags.z)) | state.vvvv | state.aaa) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
-			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
+			if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0) {
 				instruction.InternalCode = code64;
 				gpr = Register.RAX;
 			}
@@ -249,7 +249,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode)
+				if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0)
 					decoder.ReadOpMem(ref instruction, tupleType64);
 				else
 					decoder.ReadOpMem(ref instruction, tupleType32);
@@ -1594,7 +1594,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
 			if ((((uint)(state.flags & StateFlags.z) | state.vvvv | state.aaa | state.extraRegisterBaseEVEX) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
+			if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0) {
 				instruction.InternalCode = codeW1;
 				Debug.Assert(OpKind.Register == 0);
 				//instruction.InternalOp0Kind = OpKind.Register;
@@ -1652,7 +1652,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			TupleType tupleType;
-			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
+			if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0) {
 				instruction.InternalCode = code64;
 				tupleType = tupleTypeW1;
 				gpr = Register.RAX;
@@ -1697,7 +1697,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			TupleType tupleType;
-			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
+			if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0) {
 				instruction.InternalCode = code64;
 				tupleType = tupleTypeW1;
 				gpr = Register.RAX;
@@ -1743,7 +1743,7 @@ namespace Iced.Intel.DecoderInternal {
 			if ((((uint)(state.flags & (StateFlags.b | StateFlags.z)) | state.vvvv | state.aaa | state.extraRegisterBaseEVEX) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
-			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
+			if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0) {
 				instruction.InternalCode = code64;
 				gpr = Register.RAX;
 			}
@@ -1823,7 +1823,7 @@ namespace Iced.Intel.DecoderInternal {
 			if ((((uint)(state.flags & StateFlags.b) | state.vvvv) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
-			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
+			if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0) {
 				instruction.InternalCode = code64;
 				if (code64 == Code.INVALID)
 					decoder.SetInvalidInstruction();
@@ -1964,7 +1964,7 @@ namespace Iced.Intel.DecoderInternal {
 			if ((((uint)(state.flags & (StateFlags.b | StateFlags.z)) | state.vvvv | state.aaa) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			Register gpr;
-			if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode) {
+			if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0) {
 				instruction.InternalCode = code64;
 				gpr = Register.RAX;
 			}
@@ -1979,7 +1979,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.W) != 0 && decoder.is64Mode)
+				if (((uint)(state.flags & StateFlags.W) & decoder.is64ModeMask) != 0)
 					decoder.ReadOpMem(ref instruction, tupleType64);
 				else
 					decoder.ReadOpMem(ref instruction, tupleType32);

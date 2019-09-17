@@ -77,6 +77,8 @@ namespace Iced.Intel {
 		readonly OpSize defaultOperandSize, defaultInvertedOperandSize;
 		readonly OpSize defaultAddressSize, defaultInvertedAddressSize;
 		internal readonly bool is64Mode;
+		internal readonly uint is64ModeMask;// All 1s if 64-bit, 0 if 16/32-bit
+		readonly uint rexMask;
 
 		internal struct State {
 			public uint instructionLength;
@@ -201,6 +203,8 @@ namespace Iced.Intel {
 				defaultInvertedAddressSize = OpSize.Size32;
 				prefixes = prefixes1632;
 			}
+			is64ModeMask = is64Mode ? uint.MaxValue : 0;
+			rexMask = is64Mode ? 0xF0U : 0;
 			handlers_XX = OpCodeHandlersTables_Legacy.OneByteHandlers;
 			handlers_0FXX_VEX = OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX;
 			handlers_0F38XX_VEX = OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX;
@@ -396,7 +400,7 @@ namespace Iced.Intel {
 					break;
 
 				default:
-					if (is64Mode && (b & 0xF0) == 0x40) {
+					if ((b & rexMask) == 0x40) {
 						rexPrefix = b;
 						break;
 					}
