@@ -4880,6 +4880,9 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem_MPX(ref instruction);
+				// It can't be EIP since if it's MPX + 64-bit, the address size is always 64-bit
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && instruction.MemoryBase == Register.RIP)
+					decoder.SetInvalidInstruction();
 			}
 		}
 	}
@@ -4902,6 +4905,9 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem_MPX(ref instruction);
+				// It can't be EIP since if it's MPX + 64-bit, the address size is always 64-bit
+				if ((decoder.options & DecoderOptions.NoInvalidCheck) == 0 && instruction.MemoryBase == Register.RIP)
+					decoder.SetInvalidInstruction();
 			}
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;

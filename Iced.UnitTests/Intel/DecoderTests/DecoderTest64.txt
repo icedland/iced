@@ -6399,6 +6399,10 @@ C4E1F9 17 10, VEX_Vmovhpd_m64_xmm, Vmovhpd, 2, op0=m;ds;rax;;1;0;0;Float64 op1=r
 0F1A 30, INVALID, INVALID, 0,
 0F1A 38, INVALID, INVALID, 0,
 0F1A 20, INVALID, INVALID, 0, noinvalidcheck
+0F1A 0D 34125AA5, INVALID, INVALID, 0,
+67 0F1A 0D 34125AA5, INVALID, INVALID, 0,
+0F1A 0D 34125AA5, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;Unknown co=0;0;0;0;3;4 noinvalidcheck
+67 0F1A 0D 34125AA5, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;Unknown co=0;0;0;0;4;4 noinvalidcheck enc=0F1A0D35125AA5
 
 66 0F1A 08, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Bnd64
 66 48 0F1A 08, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Bnd64 enc=660F1A08
@@ -6467,6 +6471,10 @@ F2 0F1A 30, INVALID, INVALID, 0, noinvalidcheck
 0F1B 30, INVALID, INVALID, 0,
 0F1B 38, INVALID, INVALID, 0,
 0F1B 38, INVALID, INVALID, 0, noinvalidcheck
+0F1B 0D 34125AA5, INVALID, INVALID, 0,
+67 0F1B 0D 34125AA5, INVALID, INVALID, 0,
+0F1B 0D 34125AA5, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rip;;1;0xA55A1234;8;Unknown op1=r;bnd1 noinvalidcheck co=0;0;0;0;3;4
+67 0F1B 0D 34125AA5, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rip;;1;0xA55A1234;8;Unknown op1=r;bnd1 co=0;0;0;0;4;4 noinvalidcheck enc=0F1B0D35125AA5
 
 66 0F1B 08, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rax;;1;0;0;Bnd64 op1=r;bnd1
 66 48 0F1B 08, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rax;;1;0;0;Bnd64 op1=r;bnd1 enc=660F1B08
