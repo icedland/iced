@@ -326,10 +326,6 @@ namespace Iced.Intel.EncoderInternal {
 				sb.Append("a32 ");
 				break;
 
-			case 64:
-				sb.Append("a64 ");
-				break;
-
 			default:
 				throw new InvalidOperationException();
 			}

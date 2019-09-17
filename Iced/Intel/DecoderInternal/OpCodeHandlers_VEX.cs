@@ -718,17 +718,11 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.VEX || state.Encoding == EncodingKind.XOP);
-			if (state.mod == 3) {
-				instruction.InternalCode = codeR;
-				Debug.Assert(OpKind.Register == 0);
-				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
-			}
-			else {
-				instruction.InternalCode = codeM;
-				instruction.InternalOp0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
+			Debug.Assert(state.mod == 3);
+			instruction.InternalCode = codeR;
+			Debug.Assert(OpKind.Register == 0);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
 			Debug.Assert(OpKind.Register == 0);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = (int)state.vvvv + baseReg;

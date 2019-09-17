@@ -94,12 +94,9 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalCode = code32;
 			else
 				instruction.InternalCode = code16;
-			if (state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
-				instruction.InternalOp0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
+			Debug.Assert(state.mod != 3);
+			instruction.InternalOp0Kind = OpKind.Memory;
+			decoder.ReadOpMem(ref instruction);
 		}
 	}
 }

@@ -155,7 +155,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case EvexOpCodeHandlerKind.V_H_Ev_er:
-				elem = new OpCodeHandler_EVEX_V_H_Ev_er(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1, deserializer.ReadTupleType(), deserializer.ReadTupleType(), deserializer.ReadBoolean());
+				elem = new OpCodeHandler_EVEX_V_H_Ev_er(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1, deserializer.ReadTupleType(), deserializer.ReadTupleType());
 				return 1;
 
 			case EvexOpCodeHandlerKind.V_H_Ev_Ib:
@@ -231,11 +231,11 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkHWIb_er_4:
-				elem = new OpCodeHandler_EVEX_VkHWIb_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean(), false);
+				elem = new OpCodeHandler_EVEX_VkHWIb_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkHWIb_er_4b:
-				elem = new OpCodeHandler_EVEX_VkHWIb_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean(), true);
+				elem = new OpCodeHandler_EVEX_VkHWIb_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkM:
@@ -279,7 +279,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case EvexOpCodeHandlerKind.VkWIb_er:
-				elem = new OpCodeHandler_EVEX_VkWIb_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean());
+				elem = new OpCodeHandler_EVEX_VkWIb_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
 				return 1;
 
 			case EvexOpCodeHandlerKind.VM:
@@ -299,7 +299,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case EvexOpCodeHandlerKind.VW_er:
-				elem = new OpCodeHandler_EVEX_VW_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean());
+				elem = new OpCodeHandler_EVEX_VW_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
 				return 1;
 
 			case EvexOpCodeHandlerKind.VX_Ev:
@@ -328,7 +328,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case EvexOpCodeHandlerKind.WkVIb_er:
-				elem = new OpCodeHandler_EVEX_WkVIb_er(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean());
+				elem = new OpCodeHandler_EVEX_WkVIb_er(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
 				return 1;
 
 			case EvexOpCodeHandlerKind.WV:

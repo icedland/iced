@@ -787,7 +787,7 @@ namespace Iced.Intel {
 				if (baseReg == Register.None)
 					useScale = true;
 			}
-			if (addrSize == 16)
+			if (addrSize == 2)
 				useScale = false;
 
 			FormatMemorySize(output, ref symbol, memSize, flags, operandOptions, useSymbol);

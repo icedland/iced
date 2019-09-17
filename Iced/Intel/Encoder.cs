@@ -387,7 +387,14 @@ namespace Iced.Intel {
 
 				handler.Encode(this, instruction);
 
-				WriteOpCode();
+				var opCode = OpCode;
+				if (opCode <= 0x000000FF)
+					WriteByte(opCode);
+				else {
+					Debug.Assert(opCode <= 0x0000FFFF);
+					WriteByte(opCode >> 8);
+					WriteByte(opCode);
+				}
 
 				if ((EncoderFlags & (EncoderFlags.ModRM | EncoderFlags.Displ)) != 0)
 					WriteModRM();
@@ -412,7 +419,6 @@ namespace Iced.Intel {
 		}
 
 		internal string? ErrorMessage {
-			get => errorMessage;
 			set {
 				if (errorMessage is null)
 					errorMessage = value;
@@ -1059,28 +1065,6 @@ namespace Iced.Intel {
 				WriteByte(0xF3);
 			if (instr.Internal_HasRepnePrefix_HasXacquirePrefix)
 				WriteByte(0xF2);
-		}
-
-		void WriteOpCode() {
-			Debug.Assert((handler.Flags & OpCodeHandlerFlags.DeclareData) == 0);
-			var opCode = OpCode;
-			if (opCode <= 0x000000FF)
-				WriteByte(opCode);
-			else if (opCode <= 0x0000FFFF) {
-				WriteByte(opCode >> 8);
-				WriteByte(opCode);
-			}
-			else if (opCode <= 0x00FFFFFF) {
-				WriteByte(opCode >> 16);
-				WriteByte(opCode >> 8);
-				WriteByte(opCode);
-			}
-			else {
-				WriteByte(opCode >> 24);
-				WriteByte(opCode >> 16);
-				WriteByte(opCode >> 8);
-				WriteByte(opCode);
-			}
 		}
 
 		void WriteModRM() {

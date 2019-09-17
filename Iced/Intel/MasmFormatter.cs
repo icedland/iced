@@ -782,7 +782,7 @@ namespace Iced.Intel {
 				if (baseReg == Register.None)
 					useScale = true;
 			}
-			if (addrSize == 16)
+			if (addrSize == 2)
 				useScale = false;
 
 			CodeSize codeSize;

@@ -827,9 +827,7 @@ namespace Iced.Intel {
 			}
 
 			bool useScale = scale != 0 || options.AlwaysShowScale;
-			if (scale != 0 || options.AlwaysShowScale)
-				useScale = true;
-			if (addrSize == 16)
+			if (addrSize == 2)
 				useScale = false;
 
 			bool hasBaseOrIndexReg = baseReg != Register.None || indexReg != Register.None;

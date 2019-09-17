@@ -48,7 +48,6 @@ namespace Iced.Intel.DecoderInternal {
 		MandatoryPrefix,
 		MandatoryPrefix_F3_F2,
 		LegacyMandatoryPrefix_F3_F2,
-		MandatoryPrefix_MaybeModRM,
 		MandatoryPrefix_NoModRM,
 		MandatoryPrefix3,
 
