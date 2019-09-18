@@ -12,7 +12,7 @@
     <AssemblyTitle>Iced</AssemblyTitle>
     <AssemblyName>Iced</AssemblyName>
     <PackageId>Iced</PackageId>
-    <PackageIconUrl>https://raw.githubusercontent.com/0xd4d/iced/master/logo.png</PackageIconUrl>
+    <PackageIcon>logo.png</PackageIcon>
     <PackageProjectUrl>https://github.com/0xd4d/iced</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageVersion>$(InformationalVersion)</PackageVersion>
@@ -44,6 +44,7 @@ License: MIT
 
   <ItemGroup>
     <None Include="..\LICENSE.txt" Pack="true" PackagePath="" />
+    <None Include="..\logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
