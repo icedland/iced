@@ -373,14 +373,14 @@ FF 18, Call_m1632
 FF 28, Jmp_m1632
 66 FF F6, Push_rm16
 66 FF 30, Push_rm16
-66 0F01 00, Sgdt_m_16
-0F01 00, Sgdt_m_32
-66 0F01 08, Sidt_m_16
-0F01 08, Sidt_m_32
-66 0F01 10, Lgdt_m_16
-0F01 10, Lgdt_m_32
-66 0F01 18, Lidt_m_16
-0F01 18, Lidt_m_32
+66 0F01 00, Sgdt_m1632_16
+0F01 00, Sgdt_m1632
+66 0F01 08, Sidt_m1632_16
+0F01 08, Sidt_m1632
+66 0F01 10, Lgdt_m1632_16
+0F01 10, Lgdt_m1632
+66 0F01 18, Lidt_m1632_16
+0F01 18, Lidt_m1632
 66 0F02 CE, Lar_r16_rm16
 66 0F02 18, Lar_r16_rm16
 0F02 CE, Lar_r32_r32m16
@@ -473,12 +473,12 @@ C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm
 64 AC, Lodsb_AL_m8
 64 66 AD, Lodsw_AX_m16
 64 AD, Lodsd_EAX_m32
-67 D7, Xlatb
-64 D7, Xlatb
+67 D7, Xlat_m8
+64 D7, Xlat_m8
 64 0FF7 D3, Maskmovq_rDI_mm_mm
 64 66 0FF7 D3, Maskmovdqu_rDI_xmm_xmm
 64 C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm
-D7, Xlatb
+D7, Xlat_m8
 D4 FA, Aam_imm8
 D5 FA, Aad_imm8
 66 D9 20, Fldenv_m14byte

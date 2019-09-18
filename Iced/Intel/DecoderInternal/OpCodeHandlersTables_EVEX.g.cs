@@ -3016,28 +3016,28 @@ namespace Iced.Intel.DecoderInternal {
 						0x09,// VectorLength
 							0x1B,// KP1HW
 								0x4D,// XMM0
-								0xCA, 0x18,// EVEX_Vp2intersectd_k_xmm_xmmm128b32
+								0xCA, 0x18,// EVEX_Vp2intersectd_kp1_xmm_xmmm128b32
 								0x01,// Full_128
 							0x1B,// KP1HW
 								0x6D,// YMM0
-								0xCB, 0x18,// EVEX_Vp2intersectd_k_ymm_ymmm256b32
+								0xCB, 0x18,// EVEX_Vp2intersectd_kp1_ymm_ymmm256b32
 								0x02,// Full_256
 							0x1B,// KP1HW
 								0x8D,// ZMM0
-								0xCC, 0x18,// EVEX_Vp2intersectd_k_zmm_zmmm512b32
+								0xCC, 0x18,// EVEX_Vp2intersectd_kp1_zmm_zmmm512b32
 								0x03,// Full_512
 						0x09,// VectorLength
 							0x1B,// KP1HW
 								0x4D,// XMM0
-								0xCD, 0x18,// EVEX_Vp2intersectq_k_xmm_xmmm128b64
+								0xCD, 0x18,// EVEX_Vp2intersectq_kp1_xmm_xmmm128b64
 								0x01,// Full_128
 							0x1B,// KP1HW
 								0x6D,// YMM0
-								0xCE, 0x18,// EVEX_Vp2intersectq_k_ymm_ymmm256b64
+								0xCE, 0x18,// EVEX_Vp2intersectq_kp1_ymm_ymmm256b64
 								0x02,// Full_256
 							0x1B,// KP1HW
 								0x8D,// ZMM0
-								0xCF, 0x18,// EVEX_Vp2intersectq_k_zmm_zmmm512b64
+								0xCF, 0x18,// EVEX_Vp2intersectq_kp1_zmm_zmmm512b64
 								0x03,// Full_512
 
 				// 105 = 0x69

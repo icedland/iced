@@ -1798,22 +1798,22 @@ D5 5A, Aad_imm8, Aad, 1, op0=i8;0x5A co=1;1;0;0;0;0
 D6, Salc, Salc, 0,
 66 D6, Salc, Salc, 0, enc=D6
 
-D7, Xlatb, Xlatb, 1, op0=m;ds;ebx;al;1;0;0;UInt8
-26 D7, Xlatb, Xlatb, 1, op0=m;es;ebx;al;1;0;0;UInt8 es:
-2E D7, Xlatb, Xlatb, 1, op0=m;cs;ebx;al;1;0;0;UInt8 cs:
-36 D7, Xlatb, Xlatb, 1, op0=m;ss;ebx;al;1;0;0;UInt8 ss:
-3E D7, Xlatb, Xlatb, 1, op0=m;ds;ebx;al;1;0;0;UInt8 ds:
-64 D7, Xlatb, Xlatb, 1, op0=m;fs;ebx;al;1;0;0;UInt8 fs:
-65 D7, Xlatb, Xlatb, 1, op0=m;gs;ebx;al;1;0;0;UInt8 gs:
-66 D7, Xlatb, Xlatb, 1, op0=m;ds;ebx;al;1;0;0;UInt8 enc=D7
-67 D7, Xlatb, Xlatb, 1, op0=m;ds;bx;al;1;0;0;UInt8
-26 67 D7, Xlatb, Xlatb, 1, op0=m;es;bx;al;1;0;0;UInt8 es:
-2E 67 D7, Xlatb, Xlatb, 1, op0=m;cs;bx;al;1;0;0;UInt8 cs:
-36 67 D7, Xlatb, Xlatb, 1, op0=m;ss;bx;al;1;0;0;UInt8 ss:
-3E 67 D7, Xlatb, Xlatb, 1, op0=m;ds;bx;al;1;0;0;UInt8 ds:
-64 67 D7, Xlatb, Xlatb, 1, op0=m;fs;bx;al;1;0;0;UInt8 fs:
-65 67 D7, Xlatb, Xlatb, 1, op0=m;gs;bx;al;1;0;0;UInt8 gs:
-66 67 D7, Xlatb, Xlatb, 1, op0=m;ds;bx;al;1;0;0;UInt8 enc=67D7
+D7, Xlat_m8, Xlatb, 1, op0=m;ds;ebx;al;1;0;0;UInt8
+26 D7, Xlat_m8, Xlatb, 1, op0=m;es;ebx;al;1;0;0;UInt8 es:
+2E D7, Xlat_m8, Xlatb, 1, op0=m;cs;ebx;al;1;0;0;UInt8 cs:
+36 D7, Xlat_m8, Xlatb, 1, op0=m;ss;ebx;al;1;0;0;UInt8 ss:
+3E D7, Xlat_m8, Xlatb, 1, op0=m;ds;ebx;al;1;0;0;UInt8 ds:
+64 D7, Xlat_m8, Xlatb, 1, op0=m;fs;ebx;al;1;0;0;UInt8 fs:
+65 D7, Xlat_m8, Xlatb, 1, op0=m;gs;ebx;al;1;0;0;UInt8 gs:
+66 D7, Xlat_m8, Xlatb, 1, op0=m;ds;ebx;al;1;0;0;UInt8 enc=D7
+67 D7, Xlat_m8, Xlatb, 1, op0=m;ds;bx;al;1;0;0;UInt8
+26 67 D7, Xlat_m8, Xlatb, 1, op0=m;es;bx;al;1;0;0;UInt8 es:
+2E 67 D7, Xlat_m8, Xlatb, 1, op0=m;cs;bx;al;1;0;0;UInt8 cs:
+36 67 D7, Xlat_m8, Xlatb, 1, op0=m;ss;bx;al;1;0;0;UInt8 ss:
+3E 67 D7, Xlat_m8, Xlatb, 1, op0=m;ds;bx;al;1;0;0;UInt8 ds:
+64 67 D7, Xlat_m8, Xlatb, 1, op0=m;fs;bx;al;1;0;0;UInt8 fs:
+65 67 D7, Xlat_m8, Xlatb, 1, op0=m;gs;bx;al;1;0;0;UInt8 gs:
+66 67 D7, Xlat_m8, Xlatb, 1, op0=m;ds;bx;al;1;0;0;UInt8 enc=67D7
 
 D8 00, Fadd_m32fp, Fadd, 1, op0=m;ds;eax;;1;0;0;Float32
 66 D8 00, Fadd_m32fp, Fadd, 1, op0=m;ds;eax;;1;0;0;Float32 enc=D800
@@ -2579,21 +2579,21 @@ FF 30, Push_rm32, Push, 1, op0=m;ds;eax;;1;0;0;UInt32
 0F00 F2, Jmpe_rm32, Jmpe, 1, op0=r;edx ia64
 0F00 30, Jmpe_rm32, Jmpe, 1, op0=m;ds;eax;;1;0;0;DwordOffset ia64
 
-66 0F01 00, Sgdt_m_16, Sgdt, 1, op0=m;ds;eax;;1;0;0;Fword6
+66 0F01 00, Sgdt_m1632_16, Sgdt, 1, op0=m;ds;eax;;1;0;0;Fword6
 
-0F01 00, Sgdt_m_32, Sgdt, 1, op0=m;ds;eax;;1;0;0;Fword6
+0F01 00, Sgdt_m1632, Sgdt, 1, op0=m;ds;eax;;1;0;0;Fword6
 
-66 0F01 08, Sidt_m_16, Sidt, 1, op0=m;ds;eax;;1;0;0;Fword6
+66 0F01 08, Sidt_m1632_16, Sidt, 1, op0=m;ds;eax;;1;0;0;Fword6
 
-0F01 08, Sidt_m_32, Sidt, 1, op0=m;ds;eax;;1;0;0;Fword6
+0F01 08, Sidt_m1632, Sidt, 1, op0=m;ds;eax;;1;0;0;Fword6
 
-66 0F01 10, Lgdt_m_16, Lgdt, 1, op0=m;ds;eax;;1;0;0;Fword6
+66 0F01 10, Lgdt_m1632_16, Lgdt, 1, op0=m;ds;eax;;1;0;0;Fword6
 
-0F01 10, Lgdt_m_32, Lgdt, 1, op0=m;ds;eax;;1;0;0;Fword6
+0F01 10, Lgdt_m1632, Lgdt, 1, op0=m;ds;eax;;1;0;0;Fword6
 
-66 0F01 18, Lidt_m_16, Lidt, 1, op0=m;ds;eax;;1;0;0;Fword6
+66 0F01 18, Lidt_m1632_16, Lidt, 1, op0=m;ds;eax;;1;0;0;Fword6
 
-0F01 18, Lidt_m_32, Lidt, 1, op0=m;ds;eax;;1;0;0;Fword6
+0F01 18, Lidt_m1632, Lidt, 1, op0=m;ds;eax;;1;0;0;Fword6
 
 66 0F01 E5, Smsw_rm16, Smsw, 1, op0=r;bp
 66 0F01 20, Smsw_rm16, Smsw, 1, op0=m;ds;eax;;1;0;0;UInt16
@@ -15259,41 +15259,41 @@ C4E27D 5A 10, VEX_Vbroadcasti128_ymm_m128, Vbroadcasti128, 2, op0=r;ymm2 op1=m;d
 62 D2CD4B 66 50 01, EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512, Vpblendmw, 3, op0=r;zmm2 op1=r;zmm6 op2=m;ds;eax;;1;64;1;Packed512_Int16 k3 co=0;0;0;0;6;1 enc=62F2CD4B665001
 62 E2CD4B 66 50 01, EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512, Vpblendmw, 3, op0=r;zmm2 op1=r;zmm6 op2=m;ds;eax;;1;64;1;Packed512_Int16 k3 co=0;0;0;0;6;1 enc=62F2CD4B665001
 
-62 F24F08 68 50 01, EVEX_Vp2intersectd_k_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;16;1;Packed128_UInt32 co=0;0;0;0;6;1
-62 F24F18 68 50 01, EVEX_Vp2intersectd_k_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;4;1;Broadcast128_UInt32 bcst co=0;0;0;0;6;1
-62 F24F08 68 D3, EVEX_Vp2intersectd_k_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=r;xmm3
-62 F24F08 68 DB, EVEX_Vp2intersectd_k_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k3 op1=r;xmm6 op2=r;xmm3
-62 D24F08 68 50 01, EVEX_Vp2intersectd_k_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;16;1;Packed128_UInt32 co=0;0;0;0;6;1 enc=62F24F08685001
+62 F24F08 68 50 01, EVEX_Vp2intersectd_kp1_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;16;1;Packed128_UInt32 co=0;0;0;0;6;1
+62 F24F18 68 50 01, EVEX_Vp2intersectd_kp1_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;4;1;Broadcast128_UInt32 bcst co=0;0;0;0;6;1
+62 F24F08 68 D3, EVEX_Vp2intersectd_kp1_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=r;xmm3
+62 F24F08 68 DB, EVEX_Vp2intersectd_kp1_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k3 op1=r;xmm6 op2=r;xmm3
+62 D24F08 68 50 01, EVEX_Vp2intersectd_kp1_xmm_xmmm128b32, Vp2intersectd, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;16;1;Packed128_UInt32 co=0;0;0;0;6;1 enc=62F24F08685001
 
-62 F24F28 68 50 01, EVEX_Vp2intersectd_k_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;32;1;Packed256_UInt32 co=0;0;0;0;6;1
-62 F24F38 68 50 01, EVEX_Vp2intersectd_k_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;4;1;Broadcast256_UInt32 bcst co=0;0;0;0;6;1
-62 F24F28 68 D3, EVEX_Vp2intersectd_k_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=r;ymm3
-62 F24F28 68 DB, EVEX_Vp2intersectd_k_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k3 op1=r;ymm6 op2=r;ymm3
-62 D24F28 68 50 01, EVEX_Vp2intersectd_k_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;32;1;Packed256_UInt32 co=0;0;0;0;6;1 enc=62F24F28685001
+62 F24F28 68 50 01, EVEX_Vp2intersectd_kp1_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;32;1;Packed256_UInt32 co=0;0;0;0;6;1
+62 F24F38 68 50 01, EVEX_Vp2intersectd_kp1_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;4;1;Broadcast256_UInt32 bcst co=0;0;0;0;6;1
+62 F24F28 68 D3, EVEX_Vp2intersectd_kp1_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=r;ymm3
+62 F24F28 68 DB, EVEX_Vp2intersectd_kp1_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k3 op1=r;ymm6 op2=r;ymm3
+62 D24F28 68 50 01, EVEX_Vp2intersectd_kp1_ymm_ymmm256b32, Vp2intersectd, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;32;1;Packed256_UInt32 co=0;0;0;0;6;1 enc=62F24F28685001
 
-62 F24F48 68 50 01, EVEX_Vp2intersectd_k_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;64;1;Packed512_UInt32 co=0;0;0;0;6;1
-62 F24F58 68 50 01, EVEX_Vp2intersectd_k_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;4;1;Broadcast512_UInt32 bcst co=0;0;0;0;6;1
-62 F24F48 68 D3, EVEX_Vp2intersectd_k_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=r;zmm3
-62 F24F48 68 DB, EVEX_Vp2intersectd_k_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k3 op1=r;zmm6 op2=r;zmm3
-62 D24F48 68 50 01, EVEX_Vp2intersectd_k_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;64;1;Packed512_UInt32 co=0;0;0;0;6;1 enc=62F24F48685001
+62 F24F48 68 50 01, EVEX_Vp2intersectd_kp1_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;64;1;Packed512_UInt32 co=0;0;0;0;6;1
+62 F24F58 68 50 01, EVEX_Vp2intersectd_kp1_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;4;1;Broadcast512_UInt32 bcst co=0;0;0;0;6;1
+62 F24F48 68 D3, EVEX_Vp2intersectd_kp1_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=r;zmm3
+62 F24F48 68 DB, EVEX_Vp2intersectd_kp1_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k3 op1=r;zmm6 op2=r;zmm3
+62 D24F48 68 50 01, EVEX_Vp2intersectd_kp1_zmm_zmmm512b32, Vp2intersectd, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;64;1;Packed512_UInt32 co=0;0;0;0;6;1 enc=62F24F48685001
 
-62 F2CF08 68 50 01, EVEX_Vp2intersectq_k_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;16;1;Packed128_UInt64 co=0;0;0;0;6;1
-62 F2CF18 68 50 01, EVEX_Vp2intersectq_k_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;8;1;Broadcast128_UInt64 bcst co=0;0;0;0;6;1
-62 F2CF08 68 D3, EVEX_Vp2intersectq_k_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=r;xmm3
-62 F2CF08 68 DB, EVEX_Vp2intersectq_k_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k3 op1=r;xmm6 op2=r;xmm3
-62 D2CF08 68 50 01, EVEX_Vp2intersectq_k_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;16;1;Packed128_UInt64 co=0;0;0;0;6;1 enc=62F2CF08685001
+62 F2CF08 68 50 01, EVEX_Vp2intersectq_kp1_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;16;1;Packed128_UInt64 co=0;0;0;0;6;1
+62 F2CF18 68 50 01, EVEX_Vp2intersectq_kp1_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;8;1;Broadcast128_UInt64 bcst co=0;0;0;0;6;1
+62 F2CF08 68 D3, EVEX_Vp2intersectq_kp1_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=r;xmm3
+62 F2CF08 68 DB, EVEX_Vp2intersectq_kp1_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k3 op1=r;xmm6 op2=r;xmm3
+62 D2CF08 68 50 01, EVEX_Vp2intersectq_kp1_xmm_xmmm128b64, Vp2intersectq, 3, op0=r;k2 op1=r;xmm6 op2=m;ds;eax;;1;16;1;Packed128_UInt64 co=0;0;0;0;6;1 enc=62F2CF08685001
 
-62 F2CF28 68 50 01, EVEX_Vp2intersectq_k_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;32;1;Packed256_UInt64 co=0;0;0;0;6;1
-62 F2CF38 68 50 01, EVEX_Vp2intersectq_k_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;8;1;Broadcast256_UInt64 bcst co=0;0;0;0;6;1
-62 F2CF28 68 D3, EVEX_Vp2intersectq_k_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=r;ymm3
-62 F2CF28 68 DB, EVEX_Vp2intersectq_k_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k3 op1=r;ymm6 op2=r;ymm3
-62 D2CF28 68 50 01, EVEX_Vp2intersectq_k_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;32;1;Packed256_UInt64 co=0;0;0;0;6;1 enc=62F2CF28685001
+62 F2CF28 68 50 01, EVEX_Vp2intersectq_kp1_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;32;1;Packed256_UInt64 co=0;0;0;0;6;1
+62 F2CF38 68 50 01, EVEX_Vp2intersectq_kp1_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;8;1;Broadcast256_UInt64 bcst co=0;0;0;0;6;1
+62 F2CF28 68 D3, EVEX_Vp2intersectq_kp1_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=r;ymm3
+62 F2CF28 68 DB, EVEX_Vp2intersectq_kp1_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k3 op1=r;ymm6 op2=r;ymm3
+62 D2CF28 68 50 01, EVEX_Vp2intersectq_kp1_ymm_ymmm256b64, Vp2intersectq, 3, op0=r;k2 op1=r;ymm6 op2=m;ds;eax;;1;32;1;Packed256_UInt64 co=0;0;0;0;6;1 enc=62F2CF28685001
 
-62 F2CF48 68 50 01, EVEX_Vp2intersectq_k_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;64;1;Packed512_UInt64 co=0;0;0;0;6;1
-62 F2CF58 68 50 01, EVEX_Vp2intersectq_k_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;8;1;Broadcast512_UInt64 bcst co=0;0;0;0;6;1
-62 F2CF48 68 D3, EVEX_Vp2intersectq_k_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=r;zmm3
-62 F2CF48 68 DB, EVEX_Vp2intersectq_k_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k3 op1=r;zmm6 op2=r;zmm3
-62 D2CF48 68 50 01, EVEX_Vp2intersectq_k_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;64;1;Packed512_UInt64 co=0;0;0;0;6;1 enc=62F2CF48685001
+62 F2CF48 68 50 01, EVEX_Vp2intersectq_kp1_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;64;1;Packed512_UInt64 co=0;0;0;0;6;1
+62 F2CF58 68 50 01, EVEX_Vp2intersectq_kp1_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;8;1;Broadcast512_UInt64 bcst co=0;0;0;0;6;1
+62 F2CF48 68 D3, EVEX_Vp2intersectq_kp1_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=r;zmm3
+62 F2CF48 68 DB, EVEX_Vp2intersectq_kp1_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k3 op1=r;zmm6 op2=r;zmm3
+62 D2CF48 68 50 01, EVEX_Vp2intersectq_kp1_zmm_zmmm512b64, Vp2intersectq, 3, op0=r;k2 op1=r;zmm6 op2=m;ds;eax;;1;64;1;Packed512_UInt64 co=0;0;0;0;6;1 enc=62F2CF48685001
 
 62 F2CD0B 70 50 01, EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128, Vpshldvw, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;16;1;Packed128_UInt16 k3 co=0;0;0;0;6;1
 62 F2CD8B 70 50 01, EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128, Vpshldvw, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;16;1;Packed128_UInt16 k3 zmsk co=0;0;0;0;6;1

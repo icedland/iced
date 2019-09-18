@@ -510,7 +510,7 @@ Sar_rm64_CL, legacy, , legacy, D3, REX.W D3 /7, SAR r/m64| CL, g=7 64b o64 op=r6
 Aam_imm8, legacy, , legacy, D4, D4 ib, AAM imm8, 16b 32b op=imm8
 Aad_imm8, legacy, , legacy, D5, D5 ib, AAD imm8, 16b 32b op=imm8
 Salc, legacy, , legacy, D6, D6, SALC, 16b 32b
-Xlatb, legacy, , legacy, D7, D7, XLATB, 16b 32b 64b op=seg_rBX_al
+Xlat_m8, legacy, , legacy, D7, D7, XLATB, 16b 32b 64b op=seg_rBX_al
 Fadd_m32fp, legacy, , legacy, D8, D8 /0, FADD m32fp, g=0 16b 32b 64b op=mem
 Fmul_m32fp, legacy, , legacy, D8, D8 /1, FMUL m32fp, g=1 16b 32b 64b op=mem
 Fcom_m32fp, legacy, , legacy, D8, D8 /2, FCOM m32fp, g=2 16b 32b 64b op=mem
@@ -809,18 +809,18 @@ Verw_r32m16, legacy, , 0F, 00, o32 0F 00 /5, VERW r32/m16, g=5 16b 32b 64b o32 o
 Verw_r64m16, legacy, , 0F, 00, REX.W 0F 00 /5, VERW r64/m16, g=5 64b o64 op=r64_or_mem
 Jmpe_rm16, legacy, , 0F, 00, o16 0F 00 /6, JMPE r/m16, g=6 16b 32b o16 op=r16_or_mem
 Jmpe_rm32, legacy, , 0F, 00, o32 0F 00 /6, JMPE r/m32, g=6 16b 32b o32 op=r32_or_mem
-Sgdt_m_16, legacy, , 0F, 01, o16 0F 01 /0, SGDT m, g=0 16b 32b o16 op=mem
-Sgdt_m_32, legacy, , 0F, 01, o32 0F 01 /0, SGDT m, g=0 16b 32b o32 op=mem
-Sgdt_m_64, legacy, , 0F, 01, 0F 01 /0, SGDT m, g=0 64b op=mem
-Sidt_m_16, legacy, , 0F, 01, o16 0F 01 /1, SIDT m, g=1 16b 32b o16 op=mem
-Sidt_m_32, legacy, , 0F, 01, o32 0F 01 /1, SIDT m, g=1 16b 32b o32 op=mem
-Sidt_m_64, legacy, , 0F, 01, 0F 01 /1, SIDT m, g=1 64b op=mem
-Lgdt_m_16, legacy, , 0F, 01, o16 0F 01 /2, LGDT m16&32, g=2 16b 32b o16 op=mem
-Lgdt_m_32, legacy, , 0F, 01, o32 0F 01 /2, LGDT m16&32, g=2 16b 32b o32 op=mem
-Lgdt_m_64, legacy, , 0F, 01, 0F 01 /2, LGDT m16&64, g=2 64b op=mem
-Lidt_m_16, legacy, , 0F, 01, o16 0F 01 /3, LIDT m16&32, g=3 16b 32b o16 op=mem
-Lidt_m_32, legacy, , 0F, 01, o32 0F 01 /3, LIDT m16&32, g=3 16b 32b o32 op=mem
-Lidt_m_64, legacy, , 0F, 01, 0F 01 /3, LIDT m16&64, g=3 64b op=mem
+Sgdt_m1632_16, legacy, , 0F, 01, o16 0F 01 /0, SGDT m, g=0 16b 32b o16 op=mem
+Sgdt_m1632, legacy, , 0F, 01, o32 0F 01 /0, SGDT m, g=0 16b 32b o32 op=mem
+Sgdt_m1664, legacy, , 0F, 01, 0F 01 /0, SGDT m, g=0 64b op=mem
+Sidt_m1632_16, legacy, , 0F, 01, o16 0F 01 /1, SIDT m, g=1 16b 32b o16 op=mem
+Sidt_m1632, legacy, , 0F, 01, o32 0F 01 /1, SIDT m, g=1 16b 32b o32 op=mem
+Sidt_m1664, legacy, , 0F, 01, 0F 01 /1, SIDT m, g=1 64b op=mem
+Lgdt_m1632_16, legacy, , 0F, 01, o16 0F 01 /2, LGDT m16&32, g=2 16b 32b o16 op=mem
+Lgdt_m1632, legacy, , 0F, 01, o32 0F 01 /2, LGDT m16&32, g=2 16b 32b o32 op=mem
+Lgdt_m1664, legacy, , 0F, 01, 0F 01 /2, LGDT m16&64, g=2 64b op=mem
+Lidt_m1632_16, legacy, , 0F, 01, o16 0F 01 /3, LIDT m16&32, g=3 16b 32b o16 op=mem
+Lidt_m1632, legacy, , 0F, 01, o32 0F 01 /3, LIDT m16&32, g=3 16b 32b o32 op=mem
+Lidt_m1664, legacy, , 0F, 01, 0F 01 /3, LIDT m16&64, g=3 64b op=mem
 Smsw_rm16, legacy, , 0F, 01, o16 0F 01 /4, SMSW r/m16, g=4 16b 32b 64b o16 op=r16_or_mem
 Smsw_r32m16, legacy, , 0F, 01, o32 0F 01 /4, SMSW r32/m16, g=4 16b 32b 64b o32 op=r32_or_mem
 Smsw_r64m16, legacy, , 0F, 01, REX.W 0F 01 /4, SMSW r64/m16, g=4 64b o64 op=r64_or_mem
@@ -3167,12 +3167,12 @@ EVEX_Vpblendmb_zmm_k1z_zmm_zmmm512, EVEX, 66, 0F38, 66, EVEX.512.66.0F38.W0 66 /
 EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128, EVEX, 66, 0F38, 66, EVEX.128.66.0F38.W1 66 /r, VPBLENDMW xmm1 {k1}{z}| xmm2| xmm3/m128, 16b 32b 64b L128 W1 op=xmm_reg;xmm_vvvv;xmm_or_mem tt=Full_Mem_128 k z
 EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256, EVEX, 66, 0F38, 66, EVEX.256.66.0F38.W1 66 /r, VPBLENDMW ymm1 {k1}{z}| ymm2| ymm3/m256, 16b 32b 64b L256 W1 op=ymm_reg;ymm_vvvv;ymm_or_mem tt=Full_Mem_256 k z
 EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512, EVEX, 66, 0F38, 66, EVEX.512.66.0F38.W1 66 /r, VPBLENDMW zmm1 {k1}{z}| zmm2| zmm3/m512, 16b 32b 64b L512 W1 op=zmm_reg;zmm_vvvv;zmm_or_mem tt=Full_Mem_512 k z
-EVEX_Vp2intersectd_k_xmm_xmmm128b32, EVEX, F2, 0F38, 68, EVEX.128.F2.0F38.W0 68 /r, VP2INTERSECTD k1+1| xmm2| xmm3/m128/m32bcst, 16b 32b 64b L128 W0 op=kp1_reg;xmm_vvvv;xmm_or_mem tt=Full_128 b
-EVEX_Vp2intersectd_k_ymm_ymmm256b32, EVEX, F2, 0F38, 68, EVEX.256.F2.0F38.W0 68 /r, VP2INTERSECTD k1+1| ymm2| ymm3/m256/m32bcst, 16b 32b 64b L256 W0 op=kp1_reg;ymm_vvvv;ymm_or_mem tt=Full_256 b
-EVEX_Vp2intersectd_k_zmm_zmmm512b32, EVEX, F2, 0F38, 68, EVEX.512.F2.0F38.W0 68 /r, VP2INTERSECTD k1+1| zmm2| zmm3/m512/m32bcst, 16b 32b 64b L512 W0 op=kp1_reg;zmm_vvvv;zmm_or_mem tt=Full_512 b
-EVEX_Vp2intersectq_k_xmm_xmmm128b64, EVEX, F2, 0F38, 68, EVEX.128.F2.0F38.W1 68 /r, VP2INTERSECTQ k1+1| xmm2| xmm3/m128/m64bcst, 16b 32b 64b L128 W1 op=kp1_reg;xmm_vvvv;xmm_or_mem tt=Full_128 b
-EVEX_Vp2intersectq_k_ymm_ymmm256b64, EVEX, F2, 0F38, 68, EVEX.256.F2.0F38.W1 68 /r, VP2INTERSECTQ k1+1| ymm2| ymm3/m256/m64bcst, 16b 32b 64b L256 W1 op=kp1_reg;ymm_vvvv;ymm_or_mem tt=Full_256 b
-EVEX_Vp2intersectq_k_zmm_zmmm512b64, EVEX, F2, 0F38, 68, EVEX.512.F2.0F38.W1 68 /r, VP2INTERSECTQ k1+1| zmm2| zmm3/m512/m64bcst, 16b 32b 64b L512 W1 op=kp1_reg;zmm_vvvv;zmm_or_mem tt=Full_512 b
+EVEX_Vp2intersectd_kp1_xmm_xmmm128b32, EVEX, F2, 0F38, 68, EVEX.128.F2.0F38.W0 68 /r, VP2INTERSECTD k1+1| xmm2| xmm3/m128/m32bcst, 16b 32b 64b L128 W0 op=kp1_reg;xmm_vvvv;xmm_or_mem tt=Full_128 b
+EVEX_Vp2intersectd_kp1_ymm_ymmm256b32, EVEX, F2, 0F38, 68, EVEX.256.F2.0F38.W0 68 /r, VP2INTERSECTD k1+1| ymm2| ymm3/m256/m32bcst, 16b 32b 64b L256 W0 op=kp1_reg;ymm_vvvv;ymm_or_mem tt=Full_256 b
+EVEX_Vp2intersectd_kp1_zmm_zmmm512b32, EVEX, F2, 0F38, 68, EVEX.512.F2.0F38.W0 68 /r, VP2INTERSECTD k1+1| zmm2| zmm3/m512/m32bcst, 16b 32b 64b L512 W0 op=kp1_reg;zmm_vvvv;zmm_or_mem tt=Full_512 b
+EVEX_Vp2intersectq_kp1_xmm_xmmm128b64, EVEX, F2, 0F38, 68, EVEX.128.F2.0F38.W1 68 /r, VP2INTERSECTQ k1+1| xmm2| xmm3/m128/m64bcst, 16b 32b 64b L128 W1 op=kp1_reg;xmm_vvvv;xmm_or_mem tt=Full_128 b
+EVEX_Vp2intersectq_kp1_ymm_ymmm256b64, EVEX, F2, 0F38, 68, EVEX.256.F2.0F38.W1 68 /r, VP2INTERSECTQ k1+1| ymm2| ymm3/m256/m64bcst, 16b 32b 64b L256 W1 op=kp1_reg;ymm_vvvv;ymm_or_mem tt=Full_256 b
+EVEX_Vp2intersectq_kp1_zmm_zmmm512b64, EVEX, F2, 0F38, 68, EVEX.512.F2.0F38.W1 68 /r, VP2INTERSECTQ k1+1| zmm2| zmm3/m512/m64bcst, 16b 32b 64b L512 W1 op=kp1_reg;zmm_vvvv;zmm_or_mem tt=Full_512 b
 EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128, EVEX, 66, 0F38, 70, EVEX.128.66.0F38.W1 70 /r, VPSHLDVW xmm1 {k1}{z}| xmm2| xmm3/m128, 16b 32b 64b L128 W1 op=xmm_reg;xmm_vvvv;xmm_or_mem tt=Full_Mem_128 k z
 EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256, EVEX, 66, 0F38, 70, EVEX.256.66.0F38.W1 70 /r, VPSHLDVW ymm1 {k1}{z}| ymm2| ymm3/m256, 16b 32b 64b L256 W1 op=ymm_reg;ymm_vvvv;ymm_or_mem tt=Full_Mem_256 k z
 EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512, EVEX, 66, 0F38, 70, EVEX.512.66.0F38.W1 70 /r, VPSHLDVW zmm1 {k1}{z}| zmm2| zmm3/m512, 16b 32b 64b L512 W1 op=zmm_reg;zmm_vvvv;zmm_or_mem tt=Full_Mem_512 k z
@@ -3809,11 +3809,11 @@ VEX_Vpextrq_rm64_xmm_imm8, VEX, 66, 0F3A, 16, VEX.128.66.0F3A.W1 16 /r ib, VPEXT
 EVEX_Vpextrd_rm32_xmm_imm8, EVEX, 66, 0F3A, 16, EVEX.128.66.0F3A.W0 16 /r ib, VPEXTRD r/m32| xmm2| imm8, 16b 32b 64b L128 WIG32 op=r32_or_mem;xmm_reg;imm8 tt=Tuple1_Scalar_4
 EVEX_Vpextrq_rm64_xmm_imm8, EVEX, 66, 0F3A, 16, EVEX.128.66.0F3A.W1 16 /r ib, VPEXTRQ r/m64| xmm2| imm8, 64b L128 W1 op=r64_or_mem;xmm_reg;imm8 tt=Tuple1_Scalar_8
 Extractps_rm32_xmm_imm8, legacy, 66, 0F3A, 17, 66 0F 3A 17 /r ib, EXTRACTPS r/m32| xmm1| imm8, 16b 32b 64b op=r32_or_mem;xmm_reg;imm8
-Extractps_rm64_xmm_imm8, legacy, 66, 0F3A, 17, 66 REX.W 0F 3A 17 /r ib, EXTRACTPS r64/m32| xmm1| imm8, 64b o64 op=r64_or_mem;xmm_reg;imm8
+Extractps_r64m32_xmm_imm8, legacy, 66, 0F3A, 17, 66 REX.W 0F 3A 17 /r ib, EXTRACTPS r64/m32| xmm1| imm8, 64b o64 op=r64_or_mem;xmm_reg;imm8
 VEX_Vextractps_rm32_xmm_imm8, VEX, 66, 0F3A, 17, VEX.128.66.0F3A.W0 17 /r ib, VEXTRACTPS r/m32| xmm1| imm8, 16b 32b 64b L128 WIG32 op=r32_or_mem;xmm_reg;imm8
-VEX_Vextractps_rm64_xmm_imm8, VEX, 66, 0F3A, 17, VEX.128.66.0F3A.W1 17 /r ib, VEXTRACTPS r64/m32| xmm1| imm8, 64b L128 W1 op=r64_or_mem;xmm_reg;imm8
+VEX_Vextractps_r64m32_xmm_imm8, VEX, 66, 0F3A, 17, VEX.128.66.0F3A.W1 17 /r ib, VEXTRACTPS r64/m32| xmm1| imm8, 64b L128 W1 op=r64_or_mem;xmm_reg;imm8
 EVEX_Vextractps_rm32_xmm_imm8, EVEX, 66, 0F3A, 17, EVEX.128.66.0F3A.W0 17 /r ib, VEXTRACTPS r/m32| xmm1| imm8, 16b 32b 64b L128 WIG32 op=r32_or_mem;xmm_reg;imm8 tt=Tuple1_Scalar_4
-EVEX_Vextractps_rm64_xmm_imm8, EVEX, 66, 0F3A, 17, EVEX.128.66.0F3A.W1 17 /r ib, VEXTRACTPS r64/m32| xmm1| imm8, 64b L128 W1 op=r64_or_mem;xmm_reg;imm8 tt=Tuple1_Scalar_4
+EVEX_Vextractps_r64m32_xmm_imm8, EVEX, 66, 0F3A, 17, EVEX.128.66.0F3A.W1 17 /r ib, VEXTRACTPS r64/m32| xmm1| imm8, 64b L128 W1 op=r64_or_mem;xmm_reg;imm8 tt=Tuple1_Scalar_4
 VEX_Vinsertf128_ymm_ymm_xmmm128_imm8, VEX, 66, 0F3A, 18, VEX.256.66.0F3A.W0 18 /r ib, VINSERTF128 ymm1| ymm2| xmm3/m128| imm8, 16b 32b 64b L256 W0 op=ymm_reg;ymm_vvvv;xmm_or_mem;imm8
 EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8, EVEX, 66, 0F3A, 18, EVEX.256.66.0F3A.W0 18 /r ib, VINSERTF32X4 ymm1 {k1}{z}| ymm2| xmm3/m128| imm8, 16b 32b 64b L256 W0 op=ymm_reg;ymm_vvvv;xmm_or_mem;imm8 tt=Tuple4 k z
 EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8, EVEX, 66, 0F3A, 18, EVEX.512.66.0F3A.W0 18 /r ib, VINSERTF32X4 zmm1 {k1}{z}| zmm2| xmm3/m128| imm8, 16b 32b 64b L512 W0 op=zmm_reg;zmm_vvvv;xmm_or_mem;imm8 tt=Tuple4 k z

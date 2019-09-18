@@ -670,13 +670,13 @@ namespace Iced.Intel {
 		public string ToOpCodeString() => toOpCodeStringValue;
 
 		/// <summary>
-		/// Gets the instruction string, eg. "VPBROADCASTB xmm1, xmm2/m8", see also <see cref="ToOpCodeString"/>
+		/// Gets the instruction string, eg. "VPBROADCASTB xmm1, xmm2/m8", see also <see cref="ToOpCodeString()"/>
 		/// </summary>
 		/// <returns></returns>
 		public string ToInstructionString() => toInstructionStringValue;
 
 		/// <summary>
-		/// Gets the instruction string, eg. "VPBROADCASTB xmm1, xmm2/m8", see also <see cref="ToOpCodeString"/>
+		/// Gets the instruction string, eg. "VPBROADCASTB xmm1, xmm2/m8", see also <see cref="ToOpCodeString()"/>
 		/// </summary>
 		/// <returns></returns>
 		public override string ToString() => ToInstructionString();

@@ -426,21 +426,21 @@ FF F6, Push_rm32, Legacy, INTEL386, op0=r r=ss rw=xsp r=esi wm=ss:xsp+0xFFFFFFFF
 # push [eax]
 FF 30, Push_rm32, Legacy, INTEL386, op0=r r=ss rw=xsp r=ds r=eax rm=ds:eax;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # sgdtw [eax]
-66 0F01 00, Sgdt_m_16, Legacy, INTEL286, op0=w r=ds r=eax wm=ds:eax;Fword6
+66 0F01 00, Sgdt_m1632_16, Legacy, INTEL286, op0=w r=ds r=eax wm=ds:eax;Fword6
 # sgdt [eax]
-0F01 00, Sgdt_m_32, Legacy, INTEL386, op0=w r=ds r=eax wm=ds:eax;Fword6
+0F01 00, Sgdt_m1632, Legacy, INTEL386, op0=w r=ds r=eax wm=ds:eax;Fword6
 # sidtw [eax]
-66 0F01 08, Sidt_m_16, Legacy, INTEL286, op0=w r=ds r=eax wm=ds:eax;Fword6
+66 0F01 08, Sidt_m1632_16, Legacy, INTEL286, op0=w r=ds r=eax wm=ds:eax;Fword6
 # sidt [eax]
-0F01 08, Sidt_m_32, Legacy, INTEL386, op0=w r=ds r=eax wm=ds:eax;Fword6
+0F01 08, Sidt_m1632, Legacy, INTEL386, op0=w r=ds r=eax wm=ds:eax;Fword6
 # lgdtw fword ptr [eax]
-66 0F01 10, Lgdt_m_16, Legacy, INTEL286, priv op0=r r=ds r=eax rm=ds:eax;Fword6
+66 0F01 10, Lgdt_m1632_16, Legacy, INTEL286, priv op0=r r=ds r=eax rm=ds:eax;Fword6
 # lgdt fword ptr [eax]
-0F01 10, Lgdt_m_32, Legacy, INTEL386, priv op0=r r=ds r=eax rm=ds:eax;Fword6
+0F01 10, Lgdt_m1632, Legacy, INTEL386, priv op0=r r=ds r=eax rm=ds:eax;Fword6
 # lidtw fword ptr [eax]
-66 0F01 18, Lidt_m_16, Legacy, INTEL286, priv op0=r r=ds r=eax rm=ds:eax;Fword6
+66 0F01 18, Lidt_m1632_16, Legacy, INTEL286, priv op0=r r=ds r=eax rm=ds:eax;Fword6
 # lidt fword ptr [eax]
-0F01 18, Lidt_m_32, Legacy, INTEL386, priv op0=r r=ds r=eax rm=ds:eax;Fword6
+0F01 18, Lidt_m1632, Legacy, INTEL386, priv op0=r r=ds r=eax rm=ds:eax;Fword6
 # monitor ax,ecx,edx
 67 0F01 C8, Monitorw, Legacy, MONITOR, priv r=ds;ax;ecx;edx rm=ds:ax;Unknown
 # monitor eax,ecx,edx
@@ -852,7 +852,7 @@ F7 28, Imul_rm32, Legacy, INTEL386, fw=oc fu=apsz op0=r r=ds r=eax rm=ds:eax;Int
 # rdtscp
 0F01 F9, Rdtscp, Legacy, RDTSCP, w=eax;ecx;edx
 # xlatb
-D7, Xlatb, Legacy, INTEL8086, op0=r rw=al r=ds r=ebx rm=ds:ebx+al;UInt8
+D7, Xlat_m8, Legacy, INTEL8086, op0=r rw=al r=ds r=ebx rm=ds:ebx+al;UInt8
 # vmovups xmm1,xmm5
 C5F8 10 CD, VEX_Vmovups_xmm_xmmm128, VEX, AVX, pm op0=w op1=r w=vmm1 r=xmm5
 # vmovups xmm2,xmm3

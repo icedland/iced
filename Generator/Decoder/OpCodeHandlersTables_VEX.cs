@@ -1840,7 +1840,7 @@ namespace Generator.Decoder {
 					new object[] { VexOpCodeHandlerKind.MandatoryPrefix2_4,
 						invalid,
 						new object[] { VexOpCodeHandlerKind.VectorLength,
-							new object[] { VexOpCodeHandlerKind.Ed_V_Ib, Register.XMM0, Code.VEX_Vextractps_rm32_xmm_imm8, Code.VEX_Vextractps_rm64_xmm_imm8 },
+							new object[] { VexOpCodeHandlerKind.Ed_V_Ib, Register.XMM0, Code.VEX_Vextractps_rm32_xmm_imm8, Code.VEX_Vextractps_r64m32_xmm_imm8 },
 							invalid,
 						},
 						invalid,

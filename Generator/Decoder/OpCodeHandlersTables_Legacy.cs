@@ -798,10 +798,10 @@ namespace Generator.Decoder {
 
 				"handlers_Grp_0F01_lo",
 				new object[8] {
-					new object[] { OpCodeHandlerKind.Ms, Code.Sgdt_m_16, Code.Sgdt_m_32, Code.Sgdt_m_64 },
-					new object[] { OpCodeHandlerKind.Ms, Code.Sidt_m_16, Code.Sidt_m_32, Code.Sidt_m_64 },
-					new object[] { OpCodeHandlerKind.Ms, Code.Lgdt_m_16, Code.Lgdt_m_32, Code.Lgdt_m_64 },
-					new object[] { OpCodeHandlerKind.Ms, Code.Lidt_m_16, Code.Lidt_m_32, Code.Lidt_m_64 },
+					new object[] { OpCodeHandlerKind.Ms, Code.Sgdt_m1632_16, Code.Sgdt_m1632, Code.Sgdt_m1664 },
+					new object[] { OpCodeHandlerKind.Ms, Code.Sidt_m1632_16, Code.Sidt_m1632, Code.Sidt_m1664 },
+					new object[] { OpCodeHandlerKind.Ms, Code.Lgdt_m1632_16, Code.Lgdt_m1632, Code.Lgdt_m1664 },
+					new object[] { OpCodeHandlerKind.Ms, Code.Lidt_m1632_16, Code.Lidt_m1632, Code.Lidt_m1664 },
 					new object[] { OpCodeHandlerKind.Evw, Code.Smsw_rm16, Code.Smsw_r32m16, Code.Smsw_r64m16 },
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
 						invalid,
@@ -2808,7 +2808,7 @@ namespace Generator.Decoder {
 					},
 					new object[] { OpCodeHandlerKind.MandatoryPrefix,
 						invalid,
-						new object[] { OpCodeHandlerKind.Ed_V_Ib, Register.XMM0, Code.Extractps_rm32_xmm_imm8, Code.Extractps_rm64_xmm_imm8 },
+						new object[] { OpCodeHandlerKind.Ed_V_Ib, Register.XMM0, Code.Extractps_rm32_xmm_imm8, Code.Extractps_r64m32_xmm_imm8 },
 						invalid,
 						invalid,
 					},
@@ -4607,7 +4607,7 @@ namespace Generator.Decoder {
 						new object[] { OpCodeHandlerKind.Simple, Code.Salc },
 						invalid,
 					},
-					new object[] { OpCodeHandlerKind.MemBx, Code.Xlatb },
+					new object[] { OpCodeHandlerKind.MemBx, Code.Xlat_m8 },
 
 					// D8
 					new object[] { OpCodeHandlerKind.Group8x8, "handlers_FPU_D8_low", "handlers_FPU_D8_high" },

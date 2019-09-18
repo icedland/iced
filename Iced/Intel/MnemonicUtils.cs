@@ -530,7 +530,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Aam,// Aam_imm8
 			(ushort)Mnemonic.Aad,// Aad_imm8
 			(ushort)Mnemonic.Salc,// Salc
-			(ushort)Mnemonic.Xlatb,// Xlatb
+			(ushort)Mnemonic.Xlatb,// Xlat_m8
 			(ushort)Mnemonic.Fadd,// Fadd_m32fp
 			(ushort)Mnemonic.Fmul,// Fmul_m32fp
 			(ushort)Mnemonic.Fcom,// Fcom_m32fp
@@ -829,18 +829,18 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Verw,// Verw_r64m16
 			(ushort)Mnemonic.Jmpe,// Jmpe_rm16
 			(ushort)Mnemonic.Jmpe,// Jmpe_rm32
-			(ushort)Mnemonic.Sgdt,// Sgdt_m_16
-			(ushort)Mnemonic.Sgdt,// Sgdt_m_32
-			(ushort)Mnemonic.Sgdt,// Sgdt_m_64
-			(ushort)Mnemonic.Sidt,// Sidt_m_16
-			(ushort)Mnemonic.Sidt,// Sidt_m_32
-			(ushort)Mnemonic.Sidt,// Sidt_m_64
-			(ushort)Mnemonic.Lgdt,// Lgdt_m_16
-			(ushort)Mnemonic.Lgdt,// Lgdt_m_32
-			(ushort)Mnemonic.Lgdt,// Lgdt_m_64
-			(ushort)Mnemonic.Lidt,// Lidt_m_16
-			(ushort)Mnemonic.Lidt,// Lidt_m_32
-			(ushort)Mnemonic.Lidt,// Lidt_m_64
+			(ushort)Mnemonic.Sgdt,// Sgdt_m1632_16
+			(ushort)Mnemonic.Sgdt,// Sgdt_m1632
+			(ushort)Mnemonic.Sgdt,// Sgdt_m1664
+			(ushort)Mnemonic.Sidt,// Sidt_m1632_16
+			(ushort)Mnemonic.Sidt,// Sidt_m1632
+			(ushort)Mnemonic.Sidt,// Sidt_m1664
+			(ushort)Mnemonic.Lgdt,// Lgdt_m1632_16
+			(ushort)Mnemonic.Lgdt,// Lgdt_m1632
+			(ushort)Mnemonic.Lgdt,// Lgdt_m1664
+			(ushort)Mnemonic.Lidt,// Lidt_m1632_16
+			(ushort)Mnemonic.Lidt,// Lidt_m1632
+			(ushort)Mnemonic.Lidt,// Lidt_m1664
 			(ushort)Mnemonic.Smsw,// Smsw_rm16
 			(ushort)Mnemonic.Smsw,// Smsw_r32m16
 			(ushort)Mnemonic.Smsw,// Smsw_r64m16
@@ -3187,12 +3187,12 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vpblendmw,// EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128
 			(ushort)Mnemonic.Vpblendmw,// EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256
 			(ushort)Mnemonic.Vpblendmw,// EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512
-			(ushort)Mnemonic.Vp2intersectd,// EVEX_Vp2intersectd_k_xmm_xmmm128b32
-			(ushort)Mnemonic.Vp2intersectd,// EVEX_Vp2intersectd_k_ymm_ymmm256b32
-			(ushort)Mnemonic.Vp2intersectd,// EVEX_Vp2intersectd_k_zmm_zmmm512b32
-			(ushort)Mnemonic.Vp2intersectq,// EVEX_Vp2intersectq_k_xmm_xmmm128b64
-			(ushort)Mnemonic.Vp2intersectq,// EVEX_Vp2intersectq_k_ymm_ymmm256b64
-			(ushort)Mnemonic.Vp2intersectq,// EVEX_Vp2intersectq_k_zmm_zmmm512b64
+			(ushort)Mnemonic.Vp2intersectd,// EVEX_Vp2intersectd_kp1_xmm_xmmm128b32
+			(ushort)Mnemonic.Vp2intersectd,// EVEX_Vp2intersectd_kp1_ymm_ymmm256b32
+			(ushort)Mnemonic.Vp2intersectd,// EVEX_Vp2intersectd_kp1_zmm_zmmm512b32
+			(ushort)Mnemonic.Vp2intersectq,// EVEX_Vp2intersectq_kp1_xmm_xmmm128b64
+			(ushort)Mnemonic.Vp2intersectq,// EVEX_Vp2intersectq_kp1_ymm_ymmm256b64
+			(ushort)Mnemonic.Vp2intersectq,// EVEX_Vp2intersectq_kp1_zmm_zmmm512b64
 			(ushort)Mnemonic.Vpshldvw,// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
 			(ushort)Mnemonic.Vpshldvw,// EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256
 			(ushort)Mnemonic.Vpshldvw,// EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512
@@ -3829,11 +3829,11 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vpextrd,// EVEX_Vpextrd_rm32_xmm_imm8
 			(ushort)Mnemonic.Vpextrq,// EVEX_Vpextrq_rm64_xmm_imm8
 			(ushort)Mnemonic.Extractps,// Extractps_rm32_xmm_imm8
-			(ushort)Mnemonic.Extractps,// Extractps_rm64_xmm_imm8
+			(ushort)Mnemonic.Extractps,// Extractps_r64m32_xmm_imm8
 			(ushort)Mnemonic.Vextractps,// VEX_Vextractps_rm32_xmm_imm8
-			(ushort)Mnemonic.Vextractps,// VEX_Vextractps_rm64_xmm_imm8
+			(ushort)Mnemonic.Vextractps,// VEX_Vextractps_r64m32_xmm_imm8
 			(ushort)Mnemonic.Vextractps,// EVEX_Vextractps_rm32_xmm_imm8
-			(ushort)Mnemonic.Vextractps,// EVEX_Vextractps_rm64_xmm_imm8
+			(ushort)Mnemonic.Vextractps,// EVEX_Vextractps_r64m32_xmm_imm8
 			(ushort)Mnemonic.Vinsertf128,// VEX_Vinsertf128_ymm_ymm_xmmm128_imm8
 			(ushort)Mnemonic.Vinsertf32x4,// EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8
 			(ushort)Mnemonic.Vinsertf32x4,// EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8

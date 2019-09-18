@@ -422,7 +422,7 @@ AF, Scasw_AX_m16, Legacy, INTEL8086, fr=d fw=oszacp op0=r op1=r r=ax r=es rw=di 
 # scasd
 66 AF, Scasd_EAX_m32, Legacy, INTEL386, fr=d fw=oszacp op0=r op1=r r=eax r=es rw=di rm=es:di;UInt32
 # xlatb
-D7, Xlatb, Legacy, INTEL8086, op0=r rw=al r=ds r=bx rm=ds:bx+al;UInt8
+D7, Xlat_m8, Legacy, INTEL8086, op0=r rw=al r=ds r=bx rm=ds:bx+al;UInt8
 # vmovups xmm1,xmm5
 C5F8 10 CD, VEX_Vmovups_xmm_xmmm128, VEX, AVX, pm op0=w op1=r w=vmm1 r=xmm5
 # vmovups xmm2,xmm3

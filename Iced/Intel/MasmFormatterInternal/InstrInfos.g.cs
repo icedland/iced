@@ -1936,7 +1936,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x01,// Normal_1
 				0xAC, 0x09,// 1196 = "salc"
 
-				// Xlatb
+				// Xlat_m8
 				0x28,// XLAT
 				0x85, 0x0A,// 1285 = "xlat"
 				0x62,// 'b'
@@ -3179,84 +3179,84 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Jmpe_rm32
 				0x00,// Previous
 
-				// Sgdt_m_16
+				// Sgdt_m1632_16
 				0x0A,// fword
 				0x89, 0x05,// 649 = "sgdt"
 				0x77,// 'w'
 				0x01,// Code16
 				0x01,// True
 
-				// Sgdt_m_32
+				// Sgdt_m1632
 				0x0A,// fword
 				0x89, 0x05,// 649 = "sgdt"
 				0x64,// 'd'
 				0x02,// Code32
 				0x01,// True
 
-				// Sgdt_m_64
+				// Sgdt_m1664
 				0x0A,// fword
 				0x89, 0x05,// 649 = "sgdt"
 				0x71,// 'q'
 				0x03,// Code64
 				0x01,// True
 
-				// Sidt_m_16
+				// Sidt_m1632_16
 				0x0A,// fword
 				0x8A, 0x05,// 650 = "sidt"
 				0x77,// 'w'
 				0x01,// Code16
 				0x01,// True
 
-				// Sidt_m_32
+				// Sidt_m1632
 				0x0A,// fword
 				0x8A, 0x05,// 650 = "sidt"
 				0x64,// 'd'
 				0x02,// Code32
 				0x01,// True
 
-				// Sidt_m_64
+				// Sidt_m1664
 				0x0A,// fword
 				0x8A, 0x05,// 650 = "sidt"
 				0x71,// 'q'
 				0x03,// Code64
 				0x01,// True
 
-				// Lgdt_m_16
+				// Lgdt_m1632_16
 				0x0A,// fword
 				0xC8, 0x03,// 456 = "lgdt"
 				0x77,// 'w'
 				0x01,// Code16
 				0x00,// False
 
-				// Lgdt_m_32
+				// Lgdt_m1632
 				0x0A,// fword
 				0xC8, 0x03,// 456 = "lgdt"
 				0x64,// 'd'
 				0x02,// Code32
 				0x00,// False
 
-				// Lgdt_m_64
+				// Lgdt_m1664
 				0x0A,// fword
 				0xC8, 0x03,// 456 = "lgdt"
 				0x71,// 'q'
 				0x03,// Code64
 				0x00,// False
 
-				// Lidt_m_16
+				// Lidt_m1632_16
 				0x0A,// fword
 				0xCA, 0x03,// 458 = "lidt"
 				0x77,// 'w'
 				0x01,// Code16
 				0x00,// False
 
-				// Lidt_m_32
+				// Lidt_m1632
 				0x0A,// fword
 				0xCA, 0x03,// 458 = "lidt"
 				0x64,// 'd'
 				0x02,// Code32
 				0x00,// False
 
-				// Lidt_m_64
+				// Lidt_m1664
 				0x0A,// fword
 				0xCA, 0x03,// 458 = "lidt"
 				0x71,// 'q'
@@ -11701,24 +11701,24 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512
 				0x80,// 'v', Previous
 
-				// EVEX_Vp2intersectd_k_xmm_xmmm128b32
+				// EVEX_Vp2intersectd_kp1_xmm_xmmm128b32
 				0x81,// 'v', Normal_1
 				0xE1, 0x03,// 481 = "vp2intersectd"
 
-				// EVEX_Vp2intersectd_k_ymm_ymmm256b32
+				// EVEX_Vp2intersectd_kp1_ymm_ymmm256b32
 				0x80,// 'v', Previous
 
-				// EVEX_Vp2intersectd_k_zmm_zmmm512b32
+				// EVEX_Vp2intersectd_kp1_zmm_zmmm512b32
 				0x80,// 'v', Previous
 
-				// EVEX_Vp2intersectq_k_xmm_xmmm128b64
+				// EVEX_Vp2intersectq_kp1_xmm_xmmm128b64
 				0x81,// 'v', Normal_1
 				0xE2, 0x03,// 482 = "vp2intersectq"
 
-				// EVEX_Vp2intersectq_k_ymm_ymmm256b64
+				// EVEX_Vp2intersectq_kp1_ymm_ymmm256b64
 				0x80,// 'v', Previous
 
-				// EVEX_Vp2intersectq_k_zmm_zmmm512b64
+				// EVEX_Vp2intersectq_kp1_zmm_zmmm512b64
 				0x80,// 'v', Previous
 
 				// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
@@ -13966,7 +13966,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x8D, 0x01,// 141 = "extractps"
 				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
-				// Extractps_rm64_xmm_imm8
+				// Extractps_r64m32_xmm_imm8
 				0x00,// Previous
 
 				// VEX_Vextractps_rm32_xmm_imm8
@@ -13974,13 +13974,13 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x8D, 0x01,// 141 = "vextractps"
 				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
-				// VEX_Vextractps_rm64_xmm_imm8
+				// VEX_Vextractps_r64m32_xmm_imm8
 				0x80,// 'v', Previous
 
 				// EVEX_Vextractps_rm32_xmm_imm8
 				0x80,// 'v', Previous
 
-				// EVEX_Vextractps_rm64_xmm_imm8
+				// EVEX_Vextractps_r64m32_xmm_imm8
 				0x80,// 'v', Previous
 
 				// VEX_Vinsertf128_ymm_ymm_xmmm128_imm8

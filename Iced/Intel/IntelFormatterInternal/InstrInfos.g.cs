@@ -2010,7 +2010,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 				0x01,// Normal_1
 				0xAC, 0x09,// 1196 = "salc"
 
-				// Xlatb
+				// Xlat_m8
 				0x02,// Normal_2
 				0x85, 0x0A,// 1285 = "xlat"
 				0x80, 0x40,// 0x2000 = IgnoreIndexReg
@@ -3318,44 +3318,44 @@ namespace Iced.Intel.IntelFormatterInternal {
 				// Jmpe_rm32
 				0x00,// Previous
 
-				// Sgdt_m_16
+				// Sgdt_m1632_16
 				0x01,// Normal_1
 				0x89, 0x05,// 649 = "sgdt"
 
-				// Sgdt_m_32
+				// Sgdt_m1632
 				0x00,// Previous
 
-				// Sgdt_m_64
+				// Sgdt_m1664
 				0x00,// Previous
 
-				// Sidt_m_16
+				// Sidt_m1632_16
 				0x01,// Normal_1
 				0x8A, 0x05,// 650 = "sidt"
 
-				// Sidt_m_32
+				// Sidt_m1632
 				0x00,// Previous
 
-				// Sidt_m_64
+				// Sidt_m1664
 				0x00,// Previous
 
-				// Lgdt_m_16
+				// Lgdt_m1632_16
 				0x01,// Normal_1
 				0xC8, 0x03,// 456 = "lgdt"
 
-				// Lgdt_m_32
+				// Lgdt_m1632
 				0x00,// Previous
 
-				// Lgdt_m_64
+				// Lgdt_m1664
 				0x00,// Previous
 
-				// Lidt_m_16
+				// Lidt_m1632_16
 				0x01,// Normal_1
 				0xCA, 0x03,// 458 = "lidt"
 
-				// Lidt_m_32
+				// Lidt_m1632
 				0x00,// Previous
 
-				// Lidt_m_64
+				// Lidt_m1664
 				0x00,// Previous
 
 				// Smsw_rm16
@@ -11616,24 +11616,24 @@ namespace Iced.Intel.IntelFormatterInternal {
 				// EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512
 				0x80,// 'v', Previous
 
-				// EVEX_Vp2intersectd_k_xmm_xmmm128b32
+				// EVEX_Vp2intersectd_kp1_xmm_xmmm128b32
 				0x81,// 'v', Normal_1
 				0xE1, 0x03,// 481 = "vp2intersectd"
 
-				// EVEX_Vp2intersectd_k_ymm_ymmm256b32
+				// EVEX_Vp2intersectd_kp1_ymm_ymmm256b32
 				0x80,// 'v', Previous
 
-				// EVEX_Vp2intersectd_k_zmm_zmmm512b32
+				// EVEX_Vp2intersectd_kp1_zmm_zmmm512b32
 				0x80,// 'v', Previous
 
-				// EVEX_Vp2intersectq_k_xmm_xmmm128b64
+				// EVEX_Vp2intersectq_kp1_xmm_xmmm128b64
 				0x81,// 'v', Normal_1
 				0xE2, 0x03,// 482 = "vp2intersectq"
 
-				// EVEX_Vp2intersectq_k_ymm_ymmm256b64
+				// EVEX_Vp2intersectq_kp1_ymm_ymmm256b64
 				0x80,// 'v', Previous
 
-				// EVEX_Vp2intersectq_k_zmm_zmmm512b64
+				// EVEX_Vp2intersectq_kp1_zmm_zmmm512b64
 				0x80,// 'v', Previous
 
 				// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
@@ -13855,20 +13855,20 @@ namespace Iced.Intel.IntelFormatterInternal {
 				0x01,// Normal_1
 				0x8D, 0x01,// 141 = "extractps"
 
-				// Extractps_rm64_xmm_imm8
+				// Extractps_r64m32_xmm_imm8
 				0x00,// Previous
 
 				// VEX_Vextractps_rm32_xmm_imm8
 				0x81,// 'v', Normal_1
 				0x8D, 0x01,// 141 = "vextractps"
 
-				// VEX_Vextractps_rm64_xmm_imm8
+				// VEX_Vextractps_r64m32_xmm_imm8
 				0x80,// 'v', Previous
 
 				// EVEX_Vextractps_rm32_xmm_imm8
 				0x80,// 'v', Previous
 
-				// EVEX_Vextractps_rm64_xmm_imm8
+				// EVEX_Vextractps_r64m32_xmm_imm8
 				0x80,// 'v', Previous
 
 				// VEX_Vinsertf128_ymm_ymm_xmmm128_imm8

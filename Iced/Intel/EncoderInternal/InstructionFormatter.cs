@@ -938,12 +938,12 @@ namespace Iced.Intel.EncoderInternal {
 
 		bool IsSgdtOrSidt() {
 			switch (opCode.Code) {
-			case Code.Sgdt_m_16:
-			case Code.Sgdt_m_32:
-			case Code.Sgdt_m_64:
-			case Code.Sidt_m_16:
-			case Code.Sidt_m_32:
-			case Code.Sidt_m_64:
+			case Code.Sgdt_m1632_16:
+			case Code.Sgdt_m1632:
+			case Code.Sgdt_m1664:
+			case Code.Sidt_m1632_16:
+			case Code.Sidt_m1632:
+			case Code.Sidt_m1664:
 				return true;
 			}
 			return false;

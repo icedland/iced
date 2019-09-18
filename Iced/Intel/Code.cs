@@ -548,7 +548,7 @@ namespace Iced.Intel {
 		Aam_imm8,													// D4 ib
 		Aad_imm8,													// D5 ib
 		Salc,														// D6
-		Xlatb,														// D7
+		Xlat_m8,													// D7
 
 		Fadd_m32fp,													// D8 /0
 		Fmul_m32fp,													// D8 /1
@@ -862,18 +862,18 @@ namespace Iced.Intel {
 		Verw_r64m16,												// REX.W 0F 00 /5
 		Jmpe_rm16,													// o16 0F 00 /6
 		Jmpe_rm32,													// o32 0F 00 /6
-		Sgdt_m_16,													// o16 0F 01 /0
-		Sgdt_m_32,													// o32 0F 01 /0
-		Sgdt_m_64,													// 0F 01 /0
-		Sidt_m_16,													// o16 0F 01 /1
-		Sidt_m_32,													// o32 0F 01 /1
-		Sidt_m_64,													// 0F 01 /1
-		Lgdt_m_16,													// o16 0F 01 /2
-		Lgdt_m_32,													// o32 0F 01 /2
-		Lgdt_m_64,													// 0F 01 /2
-		Lidt_m_16,													// o16 0F 01 /3
-		Lidt_m_32,													// o32 0F 01 /3
-		Lidt_m_64,													// 0F 01 /3
+		Sgdt_m1632_16,												// o16 0F 01 /0
+		Sgdt_m1632,													// o32 0F 01 /0
+		Sgdt_m1664,													// 0F 01 /0
+		Sidt_m1632_16,												// o16 0F 01 /1
+		Sidt_m1632,													// o32 0F 01 /1
+		Sidt_m1664,													// 0F 01 /1
+		Lgdt_m1632_16,												// o16 0F 01 /2
+		Lgdt_m1632,													// o32 0F 01 /2
+		Lgdt_m1664,													// 0F 01 /2
+		Lidt_m1632_16,												// o16 0F 01 /3
+		Lidt_m1632,													// o32 0F 01 /3
+		Lidt_m1664,													// 0F 01 /3
 		Smsw_rm16,													// o16 0F 01 /4
 		Smsw_r32m16,												// o32 0F 01 /4
 		Smsw_r64m16,												// REX.W 0F 01 /4
@@ -3714,12 +3714,12 @@ namespace Iced.Intel {
 		EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256,							// EVEX.256.66.0F38.W1 66 /r
 		EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512,							// EVEX.512.66.0F38.W1 66 /r
 
-		EVEX_Vp2intersectd_k_xmm_xmmm128b32,						// EVEX.128.F2.0F38.W0 68 /r
-		EVEX_Vp2intersectd_k_ymm_ymmm256b32,						// EVEX.256.F2.0F38.W0 68 /r
-		EVEX_Vp2intersectd_k_zmm_zmmm512b32,						// EVEX.512.F2.0F38.W0 68 /r
-		EVEX_Vp2intersectq_k_xmm_xmmm128b64,						// EVEX.128.F2.0F38.W1 68 /r
-		EVEX_Vp2intersectq_k_ymm_ymmm256b64,						// EVEX.256.F2.0F38.W1 68 /r
-		EVEX_Vp2intersectq_k_zmm_zmmm512b64,						// EVEX.512.F2.0F38.W1 68 /r
+		EVEX_Vp2intersectd_kp1_xmm_xmmm128b32,						// EVEX.128.F2.0F38.W0 68 /r
+		EVEX_Vp2intersectd_kp1_ymm_ymmm256b32,						// EVEX.256.F2.0F38.W0 68 /r
+		EVEX_Vp2intersectd_kp1_zmm_zmmm512b32,						// EVEX.512.F2.0F38.W0 68 /r
+		EVEX_Vp2intersectq_kp1_xmm_xmmm128b64,						// EVEX.128.F2.0F38.W1 68 /r
+		EVEX_Vp2intersectq_kp1_ymm_ymmm256b64,						// EVEX.256.F2.0F38.W1 68 /r
+		EVEX_Vp2intersectq_kp1_zmm_zmmm512b64,						// EVEX.512.F2.0F38.W1 68 /r
 
 		EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128,							// EVEX.128.66.0F38.W1 70 /r
 		EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256,							// EVEX.256.66.0F38.W1 70 /r
@@ -4493,11 +4493,11 @@ namespace Iced.Intel {
 		EVEX_Vpextrq_rm64_xmm_imm8,									// EVEX.128.66.0F3A.W1 16 /r ib
 
 		Extractps_rm32_xmm_imm8,									// 66 0F 3A 17 /r ib
-		Extractps_rm64_xmm_imm8,									// 66 REX.W 0F 3A 17 /r ib
+		Extractps_r64m32_xmm_imm8,									// 66 REX.W 0F 3A 17 /r ib
 		VEX_Vextractps_rm32_xmm_imm8,								// VEX.128.66.0F3A.W0 17 /r ib
-		VEX_Vextractps_rm64_xmm_imm8,								// VEX.128.66.0F3A.W1 17 /r ib
+		VEX_Vextractps_r64m32_xmm_imm8,								// VEX.128.66.0F3A.W1 17 /r ib
 		EVEX_Vextractps_rm32_xmm_imm8,								// EVEX.128.66.0F3A.W0 17 /r ib
-		EVEX_Vextractps_rm64_xmm_imm8,								// EVEX.128.66.0F3A.W1 17 /r ib
+		EVEX_Vextractps_r64m32_xmm_imm8,							// EVEX.128.66.0F3A.W1 17 /r ib
 
 		VEX_Vinsertf128_ymm_ymm_xmmm128_imm8,						// VEX.256.66.0F3A.W0 18 /r ib
 		EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8,					// EVEX.256.66.0F3A.W0 18 /r ib

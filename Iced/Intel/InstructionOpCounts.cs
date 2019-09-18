@@ -513,7 +513,7 @@ namespace Iced.Intel {
 			1,// Aam_imm8
 			1,// Aad_imm8
 			0,// Salc
-			1,// Xlatb
+			1,// Xlat_m8
 			1,// Fadd_m32fp
 			1,// Fmul_m32fp
 			1,// Fcom_m32fp
@@ -812,18 +812,18 @@ namespace Iced.Intel {
 			1,// Verw_r64m16
 			1,// Jmpe_rm16
 			1,// Jmpe_rm32
-			1,// Sgdt_m_16
-			1,// Sgdt_m_32
-			1,// Sgdt_m_64
-			1,// Sidt_m_16
-			1,// Sidt_m_32
-			1,// Sidt_m_64
-			1,// Lgdt_m_16
-			1,// Lgdt_m_32
-			1,// Lgdt_m_64
-			1,// Lidt_m_16
-			1,// Lidt_m_32
-			1,// Lidt_m_64
+			1,// Sgdt_m1632_16
+			1,// Sgdt_m1632
+			1,// Sgdt_m1664
+			1,// Sidt_m1632_16
+			1,// Sidt_m1632
+			1,// Sidt_m1664
+			1,// Lgdt_m1632_16
+			1,// Lgdt_m1632
+			1,// Lgdt_m1664
+			1,// Lidt_m1632_16
+			1,// Lidt_m1632
+			1,// Lidt_m1664
 			1,// Smsw_rm16
 			1,// Smsw_r32m16
 			1,// Smsw_r64m16
@@ -3170,12 +3170,12 @@ namespace Iced.Intel {
 			3,// EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128
 			3,// EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256
 			3,// EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512
-			3,// EVEX_Vp2intersectd_k_xmm_xmmm128b32
-			3,// EVEX_Vp2intersectd_k_ymm_ymmm256b32
-			3,// EVEX_Vp2intersectd_k_zmm_zmmm512b32
-			3,// EVEX_Vp2intersectq_k_xmm_xmmm128b64
-			3,// EVEX_Vp2intersectq_k_ymm_ymmm256b64
-			3,// EVEX_Vp2intersectq_k_zmm_zmmm512b64
+			3,// EVEX_Vp2intersectd_kp1_xmm_xmmm128b32
+			3,// EVEX_Vp2intersectd_kp1_ymm_ymmm256b32
+			3,// EVEX_Vp2intersectd_kp1_zmm_zmmm512b32
+			3,// EVEX_Vp2intersectq_kp1_xmm_xmmm128b64
+			3,// EVEX_Vp2intersectq_kp1_ymm_ymmm256b64
+			3,// EVEX_Vp2intersectq_kp1_zmm_zmmm512b64
 			3,// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
 			3,// EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256
 			3,// EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512
@@ -3812,11 +3812,11 @@ namespace Iced.Intel {
 			3,// EVEX_Vpextrd_rm32_xmm_imm8
 			3,// EVEX_Vpextrq_rm64_xmm_imm8
 			3,// Extractps_rm32_xmm_imm8
-			3,// Extractps_rm64_xmm_imm8
+			3,// Extractps_r64m32_xmm_imm8
 			3,// VEX_Vextractps_rm32_xmm_imm8
-			3,// VEX_Vextractps_rm64_xmm_imm8
+			3,// VEX_Vextractps_r64m32_xmm_imm8
 			3,// EVEX_Vextractps_rm32_xmm_imm8
-			3,// EVEX_Vextractps_rm64_xmm_imm8
+			3,// EVEX_Vextractps_r64m32_xmm_imm8
 			4,// VEX_Vinsertf128_ymm_ymm_xmmm128_imm8
 			4,// EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8
 			4,// EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8
