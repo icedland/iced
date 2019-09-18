@@ -542,7 +542,7 @@ Fstcw_m2byte, legacy, , legacy, D9, 9B D9 /7, FSTCW m2byte, g=7 16b 32b 64b fwai
 Fld_st0_sti, legacy, , legacy, D9C0, D9 C0+i, FLD ST(i), 16b 32b 64b op=st0;sti_opcode
 Fxch_st0_sti, legacy, , legacy, D9C8, D9 C8+i, FXCH ST(i), 16b 32b 64b op=st0;sti_opcode
 Fnop, legacy, , legacy, D9D0, D9 D0, FNOP, 16b 32b 64b
-Fstpnce_sti, legacy, , legacy, D9D8, D9 D8+i, FSTP ST(i), 16b 32b 64b op=sti_opcode
+Fstpnce_sti, legacy, , legacy, D9D8, D9 D8+i, FSTPNCE ST(i), 16b 32b 64b op=sti_opcode
 Fchs, legacy, , legacy, D9E0, D9 E0, FCHS, 16b 32b 64b
 Fabs, legacy, , legacy, D9E1, D9 E1, FABS, 16b 32b 64b
 Ftst, legacy, , legacy, D9E4, D9 E4, FTST, 16b 32b 64b

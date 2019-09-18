@@ -562,7 +562,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Fld,// Fld_st0_sti
 			(ushort)Mnemonic.Fxch,// Fxch_st0_sti
 			(ushort)Mnemonic.Fnop,// Fnop
-			(ushort)Mnemonic.Fstp,// Fstpnce_sti
+			(ushort)Mnemonic.Fstpnce,// Fstpnce_sti
 			(ushort)Mnemonic.Fchs,// Fchs
 			(ushort)Mnemonic.Fabs,// Fabs
 			(ushort)Mnemonic.Ftst,// Ftst

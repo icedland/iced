@@ -1894,8 +1894,8 @@ D9 CB, Fxch_st0_sti, Fxch, 2, op0=r;st0 op1=r;st3
 
 D9 D0, Fnop, Fnop, 0,
 
-D9 DB, Fstpnce_sti, Fstp, 1, op0=r;st3
-66 D9 DE, Fstpnce_sti, Fstp, 1, op0=r;st6 enc=D9DE
+D9 DB, Fstpnce_sti, Fstpnce, 1, op0=r;st3
+66 D9 DE, Fstpnce_sti, Fstpnce, 1, op0=r;st6 enc=D9DE
 
 D9 E0, Fchs, Fchs, 0,
 

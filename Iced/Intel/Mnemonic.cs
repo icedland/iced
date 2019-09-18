@@ -271,6 +271,7 @@ namespace Iced.Intel {
 		Fstdw,
 		Fstenv,
 		Fstp,
+		Fstpnce,
 		Fstsg,
 		Fstsw,
 		Fsub,
