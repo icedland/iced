@@ -255,7 +255,12 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			}
 		}
 
-		static readonly (Code jcc, Code flipped, Code jccNear, ConditionCode cc)[] jccShortInfos = new (Code jcc, Code flipped, Code jccNear, ConditionCode cc)[] {
+		static readonly (Code jmpShort, Code jmpNear)[] jmpInfos = new (Code jmpShort, Code jmpNear)[] {
+			(Code.Jmp_rel8_16, Code.Jmp_rel16),
+			(Code.Jmp_rel8_32, Code.Jmp_rel32_32),
+			(Code.Jmp_rel8_64, Code.Jmp_rel32_64),
+		};
+		static readonly (Code jcc, Code negated, Code jccNear, ConditionCode cc)[] jccShortInfos = new (Code jcc, Code negated, Code jccNear, ConditionCode cc)[] {
 			(Code.Jo_rel8_16, Code.Jno_rel8_16, Code.Jo_rel16, ConditionCode.o),
 			(Code.Jo_rel8_32, Code.Jno_rel8_32, Code.Jo_rel32_32, ConditionCode.o),
 			(Code.Jo_rel8_64, Code.Jno_rel8_64, Code.Jo_rel32_64, ConditionCode.o),
@@ -305,7 +310,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			(Code.Jg_rel8_32, Code.Jle_rel8_32, Code.Jg_rel32_32, ConditionCode.g),
 			(Code.Jg_rel8_64, Code.Jle_rel8_64, Code.Jg_rel32_64, ConditionCode.g),
 		};
-		static readonly (Code jcc, Code flipped, Code jccShort, ConditionCode cc)[] jccNearInfos = new (Code jcc, Code flipped, Code jccShort, ConditionCode cc)[] {
+		static readonly (Code jcc, Code negated, Code jccShort, ConditionCode cc)[] jccNearInfos = new (Code jcc, Code negated, Code jccShort, ConditionCode cc)[] {
 			(Code.Jo_rel16, Code.Jno_rel16, Code.Jo_rel8_16, ConditionCode.o),
 			(Code.Jo_rel32_32, Code.Jno_rel32_32, Code.Jo_rel8_32, ConditionCode.o),
 			(Code.Jo_rel32_64, Code.Jno_rel32_64, Code.Jo_rel8_64, ConditionCode.o),
@@ -355,7 +360,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			(Code.Jg_rel32_32, Code.Jle_rel32_32, Code.Jg_rel8_32, ConditionCode.g),
 			(Code.Jg_rel32_64, Code.Jle_rel32_64, Code.Jg_rel8_64, ConditionCode.g),
 		};
-		static readonly (Code setcc, Code flipped, ConditionCode cc)[] setccInfos = new (Code setcc, Code flipped, ConditionCode cc)[] {
+		static readonly (Code setcc, Code negated, ConditionCode cc)[] setccInfos = new (Code setcc, Code negated, ConditionCode cc)[] {
 			(Code.Seto_rm8, Code.Setno_rm8, ConditionCode.o),
 			(Code.Setno_rm8, Code.Seto_rm8, ConditionCode.no),
 			(Code.Setb_rm8, Code.Setae_rm8, ConditionCode.b),
@@ -373,7 +378,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			(Code.Setle_rm8, Code.Setg_rm8, ConditionCode.le),
 			(Code.Setg_rm8, Code.Setle_rm8, ConditionCode.g),
 		};
-		static readonly (Code cmovcc, Code flipped, ConditionCode cc)[] cmovccInfos = new (Code cmovcc, Code flipped, ConditionCode cc)[] {
+		static readonly (Code cmovcc, Code negated, ConditionCode cc)[] cmovccInfos = new (Code cmovcc, Code negated, ConditionCode cc)[] {
 			(Code.Cmovo_r16_rm16, Code.Cmovno_r16_rm16, ConditionCode.o),
 			(Code.Cmovno_r16_rm16, Code.Cmovo_r16_rm16, ConditionCode.no),
 			(Code.Cmovo_r32_rm32, Code.Cmovno_r32_rm32, ConditionCode.o),
@@ -425,28 +430,28 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		};
 
 		[Fact]
-		void Verify_FlipConditionCode() {
-			var toFlippedCodeValue = new Dictionary<Code, Code>();
+		void Verify_NegateConditionCode() {
+			var toNegatedCodeValue = new Dictionary<Code, Code>();
 			foreach (var info in jccShortInfos)
-				toFlippedCodeValue.Add(info.jcc, info.flipped);
+				toNegatedCodeValue.Add(info.jcc, info.negated);
 			foreach (var info in jccNearInfos)
-				toFlippedCodeValue.Add(info.jcc, info.flipped);
+				toNegatedCodeValue.Add(info.jcc, info.negated);
 			foreach (var info in setccInfos)
-				toFlippedCodeValue.Add(info.setcc, info.flipped);
+				toNegatedCodeValue.Add(info.setcc, info.negated);
 			foreach (var info in cmovccInfos)
-				toFlippedCodeValue.Add(info.cmovcc, info.flipped);
+				toNegatedCodeValue.Add(info.cmovcc, info.negated);
 
 			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
 				Instruction instr = default;
 				instr.Code = code;
 
-				if (!toFlippedCodeValue.TryGetValue(code, out var flippedCodeValue))
-					flippedCodeValue = code;
+				if (!toNegatedCodeValue.TryGetValue(code, out var negatedCodeValue))
+					negatedCodeValue = code;
 
-				Assert.Equal(flippedCodeValue, code.FlipConditionCode());
-				instr.FlipConditionCode();
-				Assert.Equal(flippedCodeValue, instr.Code);
+				Assert.Equal(negatedCodeValue, code.NegateConditionCode());
+				instr.NegateConditionCode();
+				Assert.Equal(negatedCodeValue, instr.Code);
 			}
 		}
 
@@ -455,6 +460,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var toShortBranch = new Dictionary<Code, Code>();
 			foreach (var info in jccNearInfos)
 				toShortBranch.Add(info.jcc, info.jccShort);
+			foreach (var info in jmpInfos)
+				toShortBranch.Add(info.jmpNear, info.jmpShort);
 
 			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
@@ -475,6 +482,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var toNearBranch = new Dictionary<Code, Code>();
 			foreach (var info in jccShortInfos)
 				toNearBranch.Add(info.jcc, info.jccNear);
+			foreach (var info in jmpInfos)
+				toNearBranch.Add(info.jmpShort, info.jmpNear);
 
 			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;

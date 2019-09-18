@@ -594,11 +594,11 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Flips the condition code, eg. je -> jne. Can be used if it's jcc, setcc, cmovcc and does
+		/// Negates the condition code, eg. je -> jne. Can be used if it's jcc, setcc, cmovcc and does
 		/// nothing if the instruction doesn't have a condition code.
 		/// </summary>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public void FlipConditionCode() => Code = Code.FlipConditionCode();
+		public void NegateConditionCode() => Code = Code.NegateConditionCode();
 
 		/// <summary>
 		/// Converts jcc near to jcc short and does nothing if it's not a jcc near instruction

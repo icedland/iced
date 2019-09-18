@@ -268,12 +268,12 @@ namespace Iced.Intel {
 			(uint)(code - Code.Call_m1616) <= (uint)(Code.Call_m1664 - Code.Call_m1616);
 
 		/// <summary>
-		/// Flips the condition code, eg. je -> jne. Can be used if it's jcc, setcc, cmovcc and returns
+		/// Negates the condition code, eg. je -> jne. Can be used if it's jcc, setcc, cmovcc and returns
 		/// the original value if it's none of those instructions.
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		public static Code FlipConditionCode(this Code code) {
+		public static Code NegateConditionCode(this Code code) {
 			uint t;
 
 			if ((t = (uint)(code - Code.Jo_rel16)) <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16) ||
@@ -295,26 +295,40 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Converts jcc near to jcc short. Returns the input if it's not a jcc near instruction.
+		/// Converts jcc/jmp near to jcc/jmp short. Returns the input if it's not a jcc/jmp near instruction.
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
 		public static Code ToShortBranch(this Code code) {
-			uint t = (uint)(code - Code.Jo_rel16);
+			uint t;
+
+			t = (uint)(code - Code.Jo_rel16);
 			if (t <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16))
 				return (int)t + Code.Jo_rel8_16;
+
+			t = (uint)(code - Code.Jmp_rel16);
+			if (t <= (uint)(Code.Jmp_rel32_64 - Code.Jmp_rel16))
+				return (int)t + Code.Jmp_rel8_16;
+
 			return code;
 		}
 
 		/// <summary>
-		/// Converts jcc short to jcc near. Returns the input if it's not a jcc short instruction.
+		/// Converts jcc/jmp short to jcc/jmp near. Returns the input if it's not a jcc/jmp short instruction.
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
 		public static Code ToNearBranch(this Code code) {
-			uint t = (uint)(code - Code.Jo_rel8_16);
+			uint t;
+
+			t = (uint)(code - Code.Jo_rel8_16);
 			if (t <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16))
 				return (int)t + Code.Jo_rel16;
+
+			t = (uint)(code - Code.Jmp_rel8_16);
+			if (t <= (uint)(Code.Jmp_rel8_64 - Code.Jmp_rel8_16))
+				return (int)t + Code.Jmp_rel16;
+
 			return code;
 		}
 
