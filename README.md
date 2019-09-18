@@ -569,6 +569,8 @@ Disassembled code:
                     Console.WriteLine($"{tab}Immediate #2 offset = {offsets.ImmediateOffset2}, size = {offsets.ImmediateSize2}");
                 if (instr.IsStackInstruction)
                     Console.WriteLine($"{tab}SP Increment: {instr.StackPointerIncrement}");
+                if (instr.ConditionCode != ConditionCode.None)
+                    Console.WriteLine($"{tab}Condition code: {instr.ConditionCode}");
                 if (instr.RflagsRead != RflagsBits.None)
                     Console.WriteLine($"{tab}RFLAGS Read: {instr.RflagsRead}");
                 if (instr.RflagsWritten != RflagsBits.None)
