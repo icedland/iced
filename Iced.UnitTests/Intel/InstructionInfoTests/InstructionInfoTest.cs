@@ -764,8 +764,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		static bool TryParseDecoderOptions(string[] stringOptions, ref DecoderOptions options) {
 			foreach (var opt in stringOptions) {
 				switch (opt.Trim().ToLowerInvariant()) {
-				case "amd":
-					options |= DecoderOptions.AMD;
+				case "amdbr":
+					options |= DecoderOptions.AmdBranches;
 					break;
 				case "forcereservednop":
 					options |= DecoderOptions.ForceReservedNop;
@@ -797,8 +797,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				case "movtr":
 					options |= DecoderOptions.MovTr;
 					break;
-				case "ia64":
-					options |= DecoderOptions.IA64;
+				case "jmpe":
+					options |= DecoderOptions.Jmpe;
 					break;
 				default:
 					return false;

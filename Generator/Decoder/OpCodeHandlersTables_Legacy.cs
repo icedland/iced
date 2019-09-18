@@ -791,7 +791,7 @@ namespace Generator.Decoder {
 						new object[] { OpCodeHandlerKind.Bitness_DontReadModRM,
 							new object[] { OpCodeHandlerKind.Ev_3b, Code.Jmpe_rm16, Code.Jmpe_rm32 },
 							invalid,
-						}, DecoderOptions.IA64
+						}, DecoderOptions.Jmpe
 					},
 					invalid,
 				},
@@ -3849,7 +3849,7 @@ namespace Generator.Decoder {
 								new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.Popcnt_r16_rm16, Code.Popcnt_r32_rm32, Code.Popcnt_r64_rm64 },
 								invalid,
 							},
-						}, DecoderOptions.IA64
+						}, DecoderOptions.Jmpe
 					},
 					new object[] { OpCodeHandlerKind.Gv_Ev_3a, Code.Ud1_r16_rm16, Code.Ud1_r32_rm32, Code.Ud1_r64_rm64 },
 					new object[] { OpCodeHandlerKind.Group, "handlers_Grp_0FBA" },

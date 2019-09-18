@@ -606,10 +606,10 @@ DD 30, Fnsave_m108byte
 DB E5, Frstpm, OldFpu
 DF E1, Fstdw_AX, OldFpu
 DF E2, Fstsg_AX, OldFpu
-66 0F00 F1, Jmpe_rm16, IA64
-66 0F00 30, Jmpe_rm16, IA64
-0F00 F2, Jmpe_rm32, IA64
-0F00 30, Jmpe_rm32, IA64
+66 0F00 F1, Jmpe_rm16, Jmpe
+66 0F00 30, Jmpe_rm16, Jmpe
+0F00 F2, Jmpe_rm32, Jmpe
+0F00 30, Jmpe_rm32, Jmpe
 0F04, Loadallreset286, Loadall286
 0F05, Loadall286, Loadall286
 0F07, Loadall386, Loadall386
@@ -643,8 +643,8 @@ DF E2, Fstsg_AX, OldFpu
 0FA7 18, Cmpxchg486_rm32_r32, Cmpxchg486A
 67 F3 0FAE F5, Umonitor_r16
 F3 0FAE F5, Umonitor_r32
-66 0FB8 5AA5, Jmpe_disp16, IA64
-0FB8 12345AA5, Jmpe_disp32, IA64
+66 0FB8 5AA5, Jmpe_disp16, Jmpe
+0FB8 12345AA5, Jmpe_disp32, Jmpe
 67 66 0F38F8 18, Movdir64b_r16_m512
 66 0F38F8 18, Movdir64b_r32_m512
 67 F3 0F38F8 18, Enqcmds_r16_m512

@@ -50,7 +50,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		const string Op3Kind = "op3";
 		const string Op4Kind = "op4";
 		const string EncodedHexBytes = "enc";
-		const string DecoderOptions_AMD = "amd";
+		const string DecoderOptions_AmdBranches = "amdbr";
 		const string DecoderOptions_ForceReservedNop = "resnop";
 		const string DecoderOptions_Umov = "umov";
 		const string DecoderOptions_Xbts = "xbts";
@@ -61,7 +61,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		const string DecoderOptions_Loadall386 = "loadall386";
 		const string DecoderOptions_Cl1invmb = "cl1invmb";
 		const string DecoderOptions_MovTr = "movtr";
-		const string DecoderOptions_IA64 = "ia64";
+		const string DecoderOptions_Jmpe = "jmpe";
 		const string DecoderOptions_NoPause = "nopause";
 		const string DecoderOptions_NoWbnoinvd = "nowbnoinvd";
 		const string DecoderOptions_NoLockMovCR0 = "nolockmovcr0";
@@ -300,8 +300,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					tc.EncodedHexBytes = value;
 					break;
 
-				case DecoderOptions_AMD:
-					tc.DecoderOptions |= DecoderOptions.AMD;
+				case DecoderOptions_AmdBranches:
+					tc.DecoderOptions |= DecoderOptions.AmdBranches;
 					break;
 
 				case DecoderOptions_ForceReservedNop:
@@ -344,8 +344,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					tc.DecoderOptions |= DecoderOptions.MovTr;
 					break;
 
-				case DecoderOptions_IA64:
-					tc.DecoderOptions |= DecoderOptions.IA64;
+				case DecoderOptions_Jmpe:
+					tc.DecoderOptions |= DecoderOptions.Jmpe;
 					break;
 
 				case DecoderOptions_NoPause:

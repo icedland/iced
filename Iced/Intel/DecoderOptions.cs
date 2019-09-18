@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_DECODER
 using System;
+using System.ComponentModel;
 
 namespace Iced.Intel {
 	/// <summary>
@@ -43,9 +44,16 @@ namespace Iced.Intel {
 		NoInvalidCheck				= 0x00000001,
 
 		/// <summary>
-		/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode
+		/// AMD branch decoder: allow 16-bit branch/ret instructions in 64-bit mode
 		/// </summary>
-		AMD							= 0x00000002,
+		AmdBranches					= 0x00000002,
+
+		/// <summary>
+		/// AMD branch decoder: allow 16-bit branch/ret instructions in 64-bit mode
+		/// </summary>
+		[Obsolete("Use " + nameof(AmdBranches) + " instead", true)]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		AMD							= AmdBranches,
 
 		/// <summary>
 		/// Decode opcodes 0F0D and 0F18-0F1F as reserved-nop instructions (eg. <see cref="Code.ReservedNop_rm32_r32_0F1D"/>)
@@ -100,7 +108,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Decode jmpe instructions
 		/// </summary>
-		IA64						= 0x00001000,
+		Jmpe						= 0x00001000,
 
 		/// <summary>
 		/// Don't decode <see cref="Code.Pause"/>, decode <see cref="Code.Nopd"/>/etc instead

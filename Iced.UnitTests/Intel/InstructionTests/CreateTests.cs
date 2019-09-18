@@ -740,8 +740,8 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "C4E36948CB40", DecoderOptions.None, new Func<Instruction>(() => Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0)) };
 				yield return new object[] { 64, "64C4E3E9488C7501EFCDAB31", DecoderOptions.None, new Func<Instruction>(() => Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x1)) };
 				yield return new object[] { 64, "64C4E369488C7501EFCDAB41", DecoderOptions.None, new Func<Instruction>(() => Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4, 0x1)) };
-				yield return new object[] { 16, "0FB855AA", DecoderOptions.IA64, new Func<Instruction>(() => Instruction.CreateBranch(Code.Jmpe_disp16, 0xAA55)) };
-				yield return new object[] { 32, "0FB8123455AA", DecoderOptions.IA64, new Func<Instruction>(() => Instruction.CreateBranch(Code.Jmpe_disp32, 0xAA553412)) };
+				yield return new object[] { 16, "0FB855AA", DecoderOptions.Jmpe, new Func<Instruction>(() => Instruction.CreateBranch(Code.Jmpe_disp16, 0xAA55)) };
+				yield return new object[] { 32, "0FB8123455AA", DecoderOptions.Jmpe, new Func<Instruction>(() => Instruction.CreateBranch(Code.Jmpe_disp32, 0xAA553412)) };
 				yield return new object[] { 32, "64676E", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateOutsb(16, Register.FS)) };
 				yield return new object[] { 64, "64676E", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateOutsb(32, Register.FS)) };
 				yield return new object[] { 64, "646E", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateOutsb(64, Register.FS)) };
