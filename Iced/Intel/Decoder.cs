@@ -167,12 +167,12 @@ namespace Iced.Intel {
 #endif
 		}
 
-		Decoder(CodeReader reader, DecoderOptions options, OpSize defaultOpSize) {
+		Decoder(CodeReader reader, DecoderOptions options, int bitness) {
 			this.reader = reader ?? throw new ArgumentNullException(nameof(reader));
 			this.options = options;
 			invalidCheckMask = (options & DecoderOptions.NoInvalidCheck) == 0 ? uint.MaxValue : 0;
 			memRegs16 = s_memRegs16;
-			if (defaultOpSize == OpSize.Size64) {
+			if (bitness == 64) {
 				is64Mode = true;
 				Bitness = 64;
 				defaultCodeSize = CodeSize.Code64;
@@ -182,24 +182,24 @@ namespace Iced.Intel {
 				defaultInvertedAddressSize = OpSize.Size32;
 				prefixes = prefixes64;
 			}
-			else if (defaultOpSize == OpSize.Size32) {
+			else if (bitness == 32) {
 				is64Mode = false;
 				Bitness = 32;
 				defaultCodeSize = CodeSize.Code32;
-				defaultOperandSize = defaultOpSize;
+				defaultOperandSize = OpSize.Size32;
 				defaultInvertedOperandSize = OpSize.Size16;
-				defaultAddressSize = defaultOpSize;
+				defaultAddressSize = OpSize.Size32;
 				defaultInvertedAddressSize = OpSize.Size16;
 				prefixes = prefixes1632;
 			}
 			else {
-				Debug.Assert(defaultOpSize == OpSize.Size16);
+				Debug.Assert(bitness == 16);
 				is64Mode = false;
 				Bitness = 16;
 				defaultCodeSize = CodeSize.Code16;
-				defaultOperandSize = defaultOpSize;
+				defaultOperandSize = OpSize.Size16;
 				defaultInvertedOperandSize = OpSize.Size32;
-				defaultAddressSize = defaultOpSize;
+				defaultAddressSize = OpSize.Size16;
 				defaultInvertedAddressSize = OpSize.Size32;
 				prefixes = prefixes1632;
 			}
@@ -226,9 +226,9 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static Decoder Create(int bitness, CodeReader reader, DecoderOptions options = DecoderOptions.None) {
 			switch (bitness) {
-			case 16: return new Decoder(reader, options, OpSize.Size16);
-			case 32: return new Decoder(reader, options, OpSize.Size32);
-			case 64: return new Decoder(reader, options, OpSize.Size64);
+			case 16:
+			case 32:
+			case 64: return new Decoder(reader, options, bitness);
 			default: throw new ArgumentOutOfRangeException(nameof(bitness));
 			}
 		}
