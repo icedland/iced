@@ -525,17 +525,12 @@ after_read_prefixes:
 		}
 
 		internal void VEX2(ref Instruction instruction) {
-			if (invalidCheckMask != 0) {
-				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
-					SetInvalidInstruction();
-			}
-			else {
-				// Undo what Decode() did if it got a REX prefix
-				state.operandSize = defaultOperandSize;
-				state.flags &= ~StateFlags.W;
-				state.extraIndexRegisterBase = 0;
-				state.extraBaseRegisterBase = 0;
-			}
+			if ((((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) & invalidCheckMask) != 0)
+				SetInvalidInstruction();
+			// Undo what Decode() did if it got a REX prefix
+			state.flags &= ~StateFlags.W;
+			state.extraIndexRegisterBase = 0;
+			state.extraBaseRegisterBase = 0;
 
 			state.flags |= (StateFlags)EncodingKind.VEX;
 			uint b = state.modrm;
@@ -558,15 +553,10 @@ after_read_prefixes:
 		}
 
 		internal void VEX3(ref Instruction instruction) {
-			if (invalidCheckMask != 0) {
-				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
-					SetInvalidInstruction();
-			}
-			else {
-				// Undo what Decode() did if it got a REX prefix
-				state.operandSize = defaultOperandSize;
-				state.flags &= ~StateFlags.W;
-			}
+			if ((((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) & invalidCheckMask) != 0)
+				SetInvalidInstruction();
+			// Undo what Decode() did if it got a REX prefix
+			state.flags &= ~StateFlags.W;
 
 			state.flags |= (StateFlags)EncodingKind.VEX;
 			uint b1 = state.modrm;
@@ -586,8 +576,6 @@ after_read_prefixes:
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
 			if (is64Mode) {
-				if ((b2 & 0x80) != 0)
-					state.operandSize = OpSize.Size64;
 				state.vvvv = (~b2 >> 3) & 0x0F;
 				uint b1x = ~b1;
 				state.extraRegisterBase = (b1x >> 4) & 8;
@@ -609,15 +597,10 @@ after_read_prefixes:
 		}
 
 		internal void XOP(ref Instruction instruction) {
-			if (invalidCheckMask != 0) {
-				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
-					SetInvalidInstruction();
-			}
-			else {
-				// Undo what Decode() did if it got a REX prefix
-				state.operandSize = defaultOperandSize;
-				state.flags &= ~StateFlags.W;
-			}
+			if ((((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) & invalidCheckMask) != 0)
+				SetInvalidInstruction();
+			// Undo what Decode() did if it got a REX prefix
+			state.flags &= ~StateFlags.W;
 
 			state.flags |= (StateFlags)EncodingKind.XOP;
 			uint b1 = state.modrm;
@@ -637,8 +620,6 @@ after_read_prefixes:
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
 			if (is64Mode) {
-				if ((b2 & 0x80) != 0)
-					state.operandSize = OpSize.Size64;
 				state.vvvv = (~b2 >> 3) & 0x0F;
 				uint b1x = ~b1;
 				state.extraRegisterBase = (b1x >> 4) & 8;
@@ -660,86 +641,79 @@ after_read_prefixes:
 		}
 
 		internal void EVEX_MVEX(ref Instruction instruction) {
-			if (invalidCheckMask != 0) {
-				if (((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) != 0)
-					SetInvalidInstruction();
-			}
-			else {
-				// Undo what Decode() did if it got a REX prefix
-				state.operandSize = defaultOperandSize;
-				state.flags &= ~StateFlags.W;
-			}
+			if ((((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) & invalidCheckMask) != 0)
+				SetInvalidInstruction();
+			// Undo what Decode() did if it got a REX prefix
+			state.flags &= ~StateFlags.W;
 
 			uint p0 = state.modrm;
 			uint p1 = ReadByte();
 			uint p2 = ReadByte();
 
-			if ((p1 & 4) == 0) {
-				//TODO: Support deprecated MVEX instructions: https://github.com/0xd4d/iced/issues/2
-				SetInvalidInstruction();
+			if ((p1 & 4) != 0) {
+				if ((p0 & 0x0C) == 0) {
+					state.flags |= (StateFlags)EncodingKind.EVEX;
+
+					Debug.Assert((int)MandatoryPrefixByte.None == 0);
+					Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
+					Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
+					Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+					state.mandatoryPrefix = (MandatoryPrefixByte)(p1 & 3);
+
+					Debug.Assert((int)StateFlags.W == 0x80);
+					state.flags |= (StateFlags)(p1 & 0x80);
+
+					uint aaa = p2 & 7;
+					state.aaa = aaa;
+					instruction.InternalOpMask = aaa;
+					if ((p2 & 0x80) != 0) {
+						// invalid if aaa == 0 and if we check for invalid instructions (it's all 1s)
+						if ((aaa ^ invalidCheckMask) == uint.MaxValue)
+							SetInvalidInstruction();
+						state.flags |= StateFlags.z;
+						instruction.InternalSetZeroingMasking();
+					}
+
+					Debug.Assert((int)StateFlags.b == 0x10);
+					state.flags |= (StateFlags)(p2 & 0x10);
+
+					Debug.Assert((int)VectorLength.L128 == 0);
+					Debug.Assert((int)VectorLength.L256 == 1);
+					Debug.Assert((int)VectorLength.L512 == 2);
+					Debug.Assert((int)VectorLength.Unknown == 3);
+					state.vectorLength = (VectorLength)((p2 >> 5) & 3);
+
+					if (is64Mode) {
+						state.vvvv = (~p1 >> 3) & 0x0F;
+						uint tmp = (~p2 & 8) << 1;
+						state.vvvv += tmp;
+						state.extraIndexRegisterBaseVSIB = tmp;
+						uint p0x = ~p0;
+						state.extraRegisterBase = (p0x >> 4) & 8;
+						state.extraIndexRegisterBase = (p0x & 0x40) >> 3;
+						state.extraBaseRegisterBaseEVEX = (p0x & 0x40) >> 2;
+						state.extraBaseRegisterBase = (p0x >> 2) & 8;
+						state.extraRegisterBaseEVEX = p0x & 0x10;
+					}
+					else
+						state.vvvv = (~p1 >> 3) & 0x07;
+
+					int table = (int)(p0 & 3);
+					if (table == 1)
+						DecodeTable(handlers_0FXX_EVEX, ref instruction);
+					else if (table == 2)
+						DecodeTable(handlers_0F38XX_EVEX, ref instruction);
+					else if (table == 3)
+						DecodeTable(handlers_0F3AXX_EVEX, ref instruction);
+					else
+						SetInvalidInstruction();
+				}
+				else
+					SetInvalidInstruction();
 			}
 			else {
-				if ((p0 & 0x0C) != 0) {
-					SetInvalidInstruction();
-					return;
-				}
-
-				state.flags |= (StateFlags)EncodingKind.EVEX;
-
-				Debug.Assert((int)MandatoryPrefixByte.None == 0);
-				Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
-				Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
-				Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
-				state.mandatoryPrefix = (MandatoryPrefixByte)(p1 & 3);
-
-				Debug.Assert((int)StateFlags.W == 0x80);
-				state.flags |= (StateFlags)(p1 & 0x80);
-
-				uint aaa = p2 & 7;
-				state.aaa = aaa;
-				instruction.InternalOpMask = aaa;
-				if ((p2 & 0x80) != 0) {
-					if (invalidCheckMask != 0 && aaa == 0)
-						SetInvalidInstruction();
-					state.flags |= StateFlags.z;
-					instruction.InternalSetZeroingMasking();
-				}
-
-				Debug.Assert((int)StateFlags.b == 0x10);
-				state.flags |= (StateFlags)(p2 & 0x10);
-
-				Debug.Assert((int)VectorLength.L128 == 0);
-				Debug.Assert((int)VectorLength.L256 == 1);
-				Debug.Assert((int)VectorLength.L512 == 2);
-				Debug.Assert((int)VectorLength.Unknown == 3);
-				state.vectorLength = (VectorLength)((p2 >> 5) & 3);
-
-				if (is64Mode) {
-					state.vvvv = (~p1 >> 3) & 0x0F;
-					uint tmp = (~p2 & 8) << 1;
-					state.vvvv += tmp;
-					state.extraIndexRegisterBaseVSIB = tmp;
-					if ((p1 & 0x80) != 0)
-						state.operandSize = OpSize.Size64;
-					uint p0x = ~p0;
-					state.extraRegisterBase = (p0x >> 4) & 8;
-					state.extraIndexRegisterBase = (p0x & 0x40) >> 3;
-					state.extraBaseRegisterBaseEVEX = (p0x & 0x40) >> 2;
-					state.extraBaseRegisterBase = (p0x >> 2) & 8;
-					state.extraRegisterBaseEVEX = p0x & 0x10;
-				}
-				else
-					state.vvvv = (~p1 >> 3) & 0x07;
-
-				int table = (int)(p0 & 3);
-				if (table == 1)
-					DecodeTable(handlers_0FXX_EVEX, ref instruction);
-				else if (table == 2)
-					DecodeTable(handlers_0F38XX_EVEX, ref instruction);
-				else if (table == 3)
-					DecodeTable(handlers_0F3AXX_EVEX, ref instruction);
-				else
-					SetInvalidInstruction();
+				//TODO: Support deprecated MVEX instructions: https://github.com/0xd4d/iced/issues/2
+				SetInvalidInstruction();
 			}
 		}
 
