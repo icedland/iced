@@ -14,8 +14,6 @@ build_script:
     set path=C:\vsbuildtools\MSBuild\Current\Bin\amd64;%path%
     build.cmd
 test: off
-before_package:
-- cmd: C:\vsbuildtools\MSBuild\Current\Bin\amd64\msbuild.exe /t:Pack /p:Configuration=Release
 artifacts:
 - path: Iced\bin\Release\*.*nupkg
   name: Iced NuGet Packages
