@@ -11,7 +11,7 @@ install:
     start /wait vs_BuildTools.exe --quiet --wait --norestart --installPath "C:\vsbuildtools" --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools --add Microsoft.VisualStudio.Workload.NetCoreBuildTools
 build_script:
 - cmd: |
-    set path=C:\vsbuildtools\MSBuild\Current\Bin\amd64;%path%
+    set PATH=C:\vsbuildtools\MSBuild\Current\Bin\amd64;%PATH%
     build.cmd
 test: off
 artifacts:
