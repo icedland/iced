@@ -532,7 +532,9 @@ after_read_prefixes:
 			state.extraIndexRegisterBase = 0;
 			state.extraBaseRegisterBase = 0;
 
+#if DEBUG
 			state.flags |= (StateFlags)EncodingKind.VEX;
+#endif
 			uint b = state.modrm;
 			if (is64Mode)
 				state.extraRegisterBase = ((b & 0x80) >> 4) ^ 8;
@@ -558,7 +560,9 @@ after_read_prefixes:
 			// Undo what Decode() did if it got a REX prefix
 			state.flags &= ~StateFlags.W;
 
+#if DEBUG
 			state.flags |= (StateFlags)EncodingKind.VEX;
+#endif
 			uint b1 = state.modrm;
 			uint b2 = ReadByte();
 
@@ -602,7 +606,9 @@ after_read_prefixes:
 			// Undo what Decode() did if it got a REX prefix
 			state.flags &= ~StateFlags.W;
 
+#if DEBUG
 			state.flags |= (StateFlags)EncodingKind.XOP;
+#endif
 			uint b1 = state.modrm;
 			uint b2 = ReadByte();
 
@@ -652,7 +658,9 @@ after_read_prefixes:
 
 			if ((p1 & 4) != 0) {
 				if ((p0 & 0x0C) == 0) {
+#if DEBUG
 					state.flags |= (StateFlags)EncodingKind.EVEX;
+#endif
 
 					Debug.Assert((int)MandatoryPrefixByte.None == 0);
 					Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
