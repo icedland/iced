@@ -247,10 +247,11 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		[Fact]
 		void StringBuilderFormatterOutput_uses_input_sb() {
 			var sb = new StringBuilder();
+			sb.Append("Text");
 			var output = new StringBuilderFormatterOutput(sb);
 			output.Write("hello", FormatterOutputTextKind.Text);
-			Assert.Equal("hello", sb.ToString());
-			Assert.Equal("hello", output.ToString());
+			Assert.Equal("Texthello", sb.ToString());
+			Assert.Equal("Texthello", output.ToString());
 		}
 	}
 }
