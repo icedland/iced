@@ -183,6 +183,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		R_ST0_RW_ST1,
 		R_ST0_ST1,
 		R_XMM0,
+		Read_Reg8_Op0,
 		Read_Reg8_Op1,
 		Read_Reg8_Op2,
 		Read_Reg16_Op0,

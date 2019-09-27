@@ -173,6 +173,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint CodeInfo_R_ST0_RW_ST1 = (uint)CodeInfo.R_ST0_RW_ST1 << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_R_ST0_ST1 = (uint)CodeInfo.R_ST0_ST1 << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_R_XMM0 = (uint)CodeInfo.R_XMM0 << (int)InfoFlags1.CodeInfoShift;
+		const uint CodeInfo_Read_Reg8_Op0 = (uint)CodeInfo.Read_Reg8_Op0 << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Read_Reg8_Op1 = (uint)CodeInfo.Read_Reg8_Op1 << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Read_Reg8_Op2 = (uint)CodeInfo.Read_Reg8_Op2 << (int)InfoFlags1.CodeInfoShift;
 		const uint CodeInfo_Read_Reg16_Op0 = (uint)CodeInfo.Read_Reg16_Op0 << (int)InfoFlags1.CodeInfoShift;
@@ -2418,8 +2419,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			(uint)Code.Ptwrite_rm64, Op0_Read | CPUID_PTWRITE | Encoding_Legacy,
 			(uint)Code.Xrstor_mem | SaveRestore | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_XSAVE | Encoding_Legacy,
 			(uint)Code.Xrstor64_mem | SaveRestore | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_XSAVE | Encoding_Legacy,
-			(uint)Code.Incsspd_r32 | ProtectedMode, Op0_Read | CPUID_CET_SS | Encoding_Legacy,
-			(uint)Code.Incsspq_r64 | ProtectedMode, Op0_Read | CPUID_CET_SS | Encoding_Legacy,
+			(uint)Code.Incsspd_r32 | CodeInfo_Read_Reg8_Op0 | ProtectedMode, Op0_Read | CPUID_CET_SS | Encoding_Legacy,
+			(uint)Code.Incsspq_r64 | CodeInfo_Read_Reg8_Op0 | ProtectedMode, Op0_Read | CPUID_CET_SS | Encoding_Legacy,
 			(uint)Code.Xsaveopt_mem | SaveRestore | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_XSAVEOPT | Encoding_Legacy,
 			(uint)Code.Xsaveopt64_mem | SaveRestore | CodeInfo_R_EAX_EDX, Op0_Read | CPUID_XSAVEOPT | Encoding_Legacy,
 			(uint)Code.Clwb_m8, Op0_NoMemAccess | CPUID_CLWB | Encoding_Legacy,

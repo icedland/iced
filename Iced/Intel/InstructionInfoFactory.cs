@@ -1884,6 +1884,20 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.Read_Reg8_Op0:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					if (instruction.Op0Kind == OpKind.Register) {
+						Debug.Assert(usedRegisters.ValidLength >= 1);
+						Debug.Assert(usedRegisters.Array[0].Register == instruction.Op0Register);
+						index = TryGetGpr163264Index(instruction.Op0Register);
+						if (index >= 4)
+							index += 4;// Skip AH, CH, DH, BH
+						if (index >= 0)
+							usedRegisters.Array[0] = new UsedRegister(Register.AL + index, OpAccess.Read);
+					}
+				}
+				break;
+
 			case CodeInfo.Read_Reg8_Op1:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if (instruction.Op1Kind == OpKind.Register) {

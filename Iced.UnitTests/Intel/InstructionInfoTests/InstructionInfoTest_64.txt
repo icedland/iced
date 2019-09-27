@@ -17503,10 +17503,18 @@ F3 48 0F1E C9, Rdsspq_r64, Legacy, CET_SS, op0=w w=rcx
 F3 0F1E FA, Endbr64, Legacy, CET_IBT,
 # endbr32
 F3 0F1E FB, Endbr32, Legacy, CET_IBT,
-# incsspd ebp
-F3 0FAE ED, Incsspd_r32, Legacy, CET_SS, pm op0=r r=ebp
-# incsspq rbp
-F3 48 0FAE ED, Incsspq_r64, Legacy, CET_SS, pm op0=r r=rbp
+# incsspd ebx
+F3 0FAE EB, Incsspd_r32, Legacy, CET_SS, pm op0=r r=bl
+# incsspd esp
+F3 0FAE EC, Incsspd_r32, Legacy, CET_SS, pm op0=r r=spl
+# incsspd r15d
+F3 41 0FAE EF, Incsspd_r32, Legacy, CET_SS, pm op0=r r=r15l
+# incsspq rbx
+F3 48 0FAE EB, Incsspq_r64, Legacy, CET_SS, pm op0=r r=bl
+# incsspq rsp
+F3 48 0FAE EC, Incsspq_r64, Legacy, CET_SS, pm op0=r r=spl
+# incsspq r15
+F3 49 0FAE EF, Incsspq_r64, Legacy, CET_SS, pm op0=r r=r15l
 # tpause ebp
 66 0FAE F5, Tpause_r32, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=ebp r=eax;edx
 # tpause rbp
