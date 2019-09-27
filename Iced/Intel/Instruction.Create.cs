@@ -2166,6 +2166,8 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 16 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+			if ((ulong)(uint)index + (uint)length > (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 
 			Instruction instruction = default;
 			instruction.InternalCode = Code.DeclareByte;
@@ -2385,6 +2387,8 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 16 - 1 || ((uint)length & 1) != 0)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+			if ((ulong)(uint)index + (uint)length > (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 
 			Instruction instruction = default;
 			instruction.InternalCode = Code.DeclareWord;
@@ -2422,6 +2426,8 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 8 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+			if ((ulong)(uint)index + (uint)length > (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 
 			Instruction instruction = default;
 			instruction.InternalCode = Code.DeclareWord;
@@ -2533,6 +2539,8 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 16 - 1 || ((uint)length & 3) != 0)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+			if ((ulong)(uint)index + (uint)length > (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 
 			Instruction instruction = default;
 			instruction.InternalCode = Code.DeclareDword;
@@ -2570,6 +2578,8 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 4 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+			if ((ulong)(uint)index + (uint)length > (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 
 			Instruction instruction = default;
 			instruction.InternalCode = Code.DeclareDword;
@@ -2639,6 +2649,8 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 16 - 1 || ((uint)length & 7) != 0)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+			if ((ulong)(uint)index + (uint)length > (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 
 			Instruction instruction = default;
 			instruction.InternalCode = Code.DeclareQword;
@@ -2677,6 +2689,8 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentNullException_data();
 			if ((uint)length - 1 > 2 - 1)
 				ThrowHelper.ThrowArgumentOutOfRangeException_length();
+			if ((ulong)(uint)index + (uint)length > (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 
 			Instruction instruction = default;
 			instruction.InternalCode = Code.DeclareQword;

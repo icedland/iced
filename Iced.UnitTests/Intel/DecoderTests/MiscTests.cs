@@ -3354,6 +3354,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				Assert.Equal(expectedData[i], reader.ReadByte());
 				Assert.Equal(i + 1, reader.Position);
 			}
+
+			Assert.Throws<ArgumentOutOfRangeException>(() => reader.Position = int.MinValue);
+			Assert.Throws<ArgumentOutOfRangeException>(() => reader.Position = -1);
+			Assert.Throws<ArgumentOutOfRangeException>(() => reader.Position = expectedData.Length + 1);
+			Assert.Throws<ArgumentOutOfRangeException>(() => reader.Position = int.MaxValue);
 		}
 		public static IEnumerable<object[]> Test_ByteArrayCodeReader_ctor_Data {
 			get {
@@ -3402,18 +3407,49 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		[Fact]
-		void Test_ByteArrayCodeReader_throws() {
+		void Test_ByteArrayCodeReader_ctor_throws() {
 			Assert.Throws<ArgumentNullException>(() => new ByteArrayCodeReader((string)null));
 			Assert.Throws<ArgumentNullException>(() => new ByteArrayCodeReader((byte[])null));
 			Assert.Throws<ArgumentNullException>(() => new ByteArrayCodeReader((byte[])null, 0, 0));
 			Assert.Throws<ArgumentException>(() => new ByteArrayCodeReader(default(ArraySegment<byte>)));
 			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, -1, 0));
+			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, 0, -1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, int.MinValue, 0));
 			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, 0, 5));
 			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, 0, int.MaxValue));
 			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, int.MinValue, int.MaxValue));
 			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, 4, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => new ByteArrayCodeReader(new byte[] { 1, 2, 3, 4 }, 4, int.MaxValue));
+		}
+
+		[Fact]
+		void Test_Decoder_Create_throws() {
+			static IEnumerable<int> GetDecoderBitness() {
+				yield return int.MinValue;
+				yield return int.MaxValue;
+				for (int bitness = -1; bitness <= 128; bitness++) {
+					if (bitness == 16 || bitness == 32 || bitness == 64)
+						continue;
+					yield return bitness;
+				}
+			}
+			foreach (var bitness in GetDecoderBitness())
+				Assert.Throws<ArgumentOutOfRangeException>(() => Decoder.Create(bitness, new ByteArrayCodeReader("90"), DecoderOptions.None));
+
+			foreach (var bitness in new[] { 16, 32, 64 })
+				Assert.Throws<ArgumentNullException>(() => Decoder.Create(bitness, null, DecoderOptions.None));
+		}
+
+		[Fact]
+		void Instruction_operator_eq_neq() {
+			var instr1 = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, Register.RCX);
+			var instr2 = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, Register.RDX);
+#pragma warning disable CS1718 // Comparison made to same variable
+			Assert.True(instr1 == instr1);
+			Assert.False(instr1 == instr2);
+			Assert.True(instr1 != instr2);
+			Assert.False(instr1 != instr1);
+#pragma warning restore CS1718 // Comparison made to same variable
 		}
 	}
 }

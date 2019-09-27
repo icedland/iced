@@ -6473,7 +6473,7 @@ F2 0F1A 30, INVALID, INVALID, 0, noinvalidcheck
 0F1B 38, INVALID, INVALID, 0, noinvalidcheck
 0F1B 0D 34125AA5, INVALID, INVALID, 0,
 67 0F1B 0D 34125AA5, INVALID, INVALID, 0,
-0F1B 0D 34125AA5, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rip;;1;0xA55A1234;8;Unknown op1=r;bnd1 noinvalidcheck co=0;0;0;0;3;4
+0F1B 0D 34125AA5, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rip;;1;0xA55A1234;8;Unknown op1=r;bnd1 co=0;0;0;0;3;4 noinvalidcheck
 67 0F1B 0D 34125AA5, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rip;;1;0xA55A1234;8;Unknown op1=r;bnd1 co=0;0;0;0;4;4 noinvalidcheck enc=0F1B0D35125AA5
 
 66 0F1B 08, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rax;;1;0;0;Bnd64 op1=r;bnd1
@@ -31615,3 +31615,7 @@ C4A3FB F0 10 A5, VEX_Rorx_r64_rm64_imm8, Rorx, 3, op0=r;rdx op1=m;ds;rax;;1;0;0;
 0F0F 88 34125AA5 BF, D3NOW_Pavgusb_mm_mmm64, Pavgusb, 2, op0=r;mm1 op1=m;ds;rax;;1;0xA55A1234;8;Packed64_UInt8 co=0;0;0;0;3;4
 0F0F CD BF, D3NOW_Pavgusb_mm_mmm64, Pavgusb, 2, op0=r;mm1 op1=r;mm5
 4F 0F0F CD BF, D3NOW_Pavgusb_mm_mmm64, Pavgusb, 2, op0=r;mm1 op1=r;mm5 enc=0F0FCDBF
+
+0F0F 88 34125AA5 FF, INVALID, INVALID, 0,
+0F0F CD FF, INVALID, INVALID, 0,
+4F 0F0F CD FF, INVALID, INVALID, 0,

@@ -20943,3 +20943,6 @@ C4C37B F0 10 5A, VEX_Rorx_r32_rm32_imm8, Rorx, 3, op0=r;edx op1=m;ds;eax;;1;0;0;
 
 0F0F 88 34125AA5 BF, D3NOW_Pavgusb_mm_mmm64, Pavgusb, 2, op0=r;mm1 op1=m;ds;eax;;1;0xA55A1234;4;Packed64_UInt8 co=0;0;0;0;3;4
 0F0F CD BF, D3NOW_Pavgusb_mm_mmm64, Pavgusb, 2, op0=r;mm1 op1=r;mm5
+
+0F0F 88 34125AA5 FF, INVALID, INVALID, 0,
+0F0F CD FF, INVALID, INVALID, 0,

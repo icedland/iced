@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_ENCODER
 using System;
+using System.Collections.Generic;
 using Iced.Intel;
 using Xunit;
 
@@ -126,6 +127,43 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.Equal(expectedData, codeWriter.ToArray());
+		}
+
+		[Fact]
+		void TryEncode_with_default_InstructionBlock_throws() {
+			Assert.Throws<ArgumentException>(() => BlockEncoder.TryEncode(64, default(InstructionBlock), out _));
+			Assert.Throws<ArgumentException>(() => BlockEncoder.TryEncode(64, new InstructionBlock[3], out _));
+		}
+
+		[Fact]
+		void TryEncode_with_null_array_throws() =>
+			Assert.Throws<ArgumentNullException>(() => BlockEncoder.TryEncode(64, null, out _));
+
+		[Fact]
+		void TryEncode_with_invalid_bitness_throws() {
+			static IEnumerable<int> GetEncoderBitness() {
+				yield return int.MinValue;
+				yield return int.MaxValue;
+				for (int bitness = -1; bitness <= 128; bitness++) {
+					if (bitness == 16 || bitness == 32 || bitness == 64)
+						continue;
+					yield return bitness;
+				}
+			}
+			foreach (var bitness in GetEncoderBitness())
+				Assert.Throws<ArgumentOutOfRangeException>(() => BlockEncoder.TryEncode(bitness, new InstructionBlock(new CodeWriterImpl(), new Instruction[1], 0), out _));
+			foreach (var bitness in GetEncoderBitness())
+				Assert.Throws<ArgumentOutOfRangeException>(() => BlockEncoder.TryEncode(bitness, new[] { new InstructionBlock(new CodeWriterImpl(), new Instruction[1], 0) }, out _));
+		}
+
+		[Fact]
+		void InstructionBlock_throws_if_invalid_input() {
+			Assert.Throws<ArgumentNullException>(() => new InstructionBlock(null, Array.Empty<Instruction>(), 0));
+			Assert.Throws<ArgumentNullException>(() => new InstructionBlock(new CodeWriterImpl(), null, 0));
+			Assert.Throws<ArgumentException>(() => new InstructionBlock(new CodeWriterImpl(), new Instruction[2], 0, null, new uint[1]));
+			Assert.Throws<ArgumentException>(() => new InstructionBlock(new CodeWriterImpl(), new Instruction[1], 0, null, new uint[2]));
+			Assert.Throws<ArgumentException>(() => new InstructionBlock(new CodeWriterImpl(), new Instruction[1], 0, null, null, new ConstantOffsets[2]));
+			Assert.Throws<ArgumentException>(() => new InstructionBlock(new CodeWriterImpl(), new Instruction[2], 0, null, null, new ConstantOffsets[1]));
 		}
 	}
 }

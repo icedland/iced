@@ -974,6 +974,274 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "64F248A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateMovsq(64, Register.FS, RepPrefixKind.Repne )) };
 			}
 		}
+
+		[Fact]
+		void CreateDeclareXXX_throws_if_null_array() {
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareByte(null));
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareByte(null, 0, 0));
+
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareWord((byte[])null));
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareWord((byte[])null, 0, 0));
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareWord((ushort[])null));
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareWord((ushort[])null, 0, 0));
+
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareDword((byte[])null));
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareDword((byte[])null, 0, 0));
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareDword((uint[])null));
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareDword((uint[])null, 0, 0));
+
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareQword((byte[])null));
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareQword((byte[])null, 0, 0));
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareQword((ulong[])null));
+			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareQword((ulong[])null, 0, 0));
+		}
+
+		[Fact]
+		void CreateDeclareXXX_throws_if_invalid_index_length() {
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[4], -1, 0));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[4], -1, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[4], int.MinValue, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[4], 0, 5));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[4], 0, int.MaxValue));
+			Instruction.CreateDeclareByte(new byte[16]);
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[17]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[17], 0, 17));
+
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[1]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[3]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[4], -1, 0));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[4], -1, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[4], int.MinValue, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[4], 0, 5));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[4], 0, int.MaxValue));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[64], 63, 2));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[64], 32, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[64]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[64], 0, 64));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[4], -1, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[4], int.MinValue, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[4], 0, 5));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[4], 0, int.MaxValue));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[4], 3, 2));
+			Instruction.CreateDeclareWord(new ushort[8]);
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[9]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[9], 0, 9));
+			Instruction.CreateDeclareWord(new byte[16]);
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[17]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[17], 0, 17));
+
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[5]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[6]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[7]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[16], -1, 0));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[16], -1, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[16], int.MinValue, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[16], 1, 16));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[16], 0, int.MaxValue));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[64], 0, 9));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[64], 0, 10));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[64], 0, 11));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[64], 63, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[64], 62, 2));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[64], 61, 3));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[4], -1, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[4], int.MinValue, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[4], 0, 5));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[4], 0, int.MaxValue));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[4], 3, 2));
+			Instruction.CreateDeclareDword(new uint[4]);
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[5]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[5], 0, 5));
+			Instruction.CreateDeclareDword(new byte[16]);
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[17]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[17], 0, 17));
+
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[1]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[2]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[3]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[4]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[5]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[6]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[7]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[16], -1, 0));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[16], -1, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[16], int.MinValue, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[16], 1, 16));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[16], 0, int.MaxValue));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 0, 9));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 0, 10));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 0, 11));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 0, 12));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 0, 13));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 0, 14));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 0, 15));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 63, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 62, 2));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 61, 3));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 60, 4));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 59, 5));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 58, 6));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 57, 7));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[2], -1, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[2], int.MinValue, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[2], 0, 3));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[2], 0, int.MaxValue));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[2], 1, 2));
+			Instruction.CreateDeclareQword(new ulong[2]);
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[3]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[3], 0, 3));
+			Instruction.CreateDeclareQword(new byte[16]);
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[17]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[17], 0, 17));
+		}
+
+		[Fact]
+		void Equals_returns_false_if_null_input() {
+			Assert.False(default(Instruction).Equals(null));
+			Assert.False(Instruction.Create(Code.Nopd).Equals(null));
+		}
+
+		[Fact]
+		void Code_prop_throws_if_invalid() {
+			Instruction instr = default;
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)(-1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)(Iced.Intel.DecoderConstants.NumberOfCodeValues));
+		}
+
+		[Fact]
+		void GetSetOpKind_throws_if_invalid_input() {
+			var instr = Instruction.Create(Code.Adc_EAX_imm32, Register.EAX, uint.MaxValue);
+
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetOpKind(-1));
+			instr.GetOpKind(0);
+			instr.GetOpKind(1);
+			for (int i = 2; i < Iced.Intel.DecoderConstants.MaxOpCount; i++)
+				instr.GetOpKind(i);
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetOpKind(Iced.Intel.DecoderConstants.MaxOpCount));
+
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpKind(-1, OpKind.Register));
+			instr.SetOpKind(0, OpKind.Register);
+			instr.SetOpKind(1, OpKind.Immediate32);
+			for (int i = 2; i < Iced.Intel.DecoderConstants.MaxOpCount; i++)
+				instr.SetOpKind(i, OpKind.Immediate8);
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpKind(Iced.Intel.DecoderConstants.MaxOpCount, OpKind.Register));
+		}
+
+		[Fact]
+		void GetSetImmediate_throws_if_invalid_input() {
+			var instr = Instruction.Create(Code.Adc_EAX_imm32, Register.EAX, uint.MaxValue);
+
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetImmediate(-1));
+			Assert.Throws<ArgumentException>(() => instr.GetImmediate(0));
+			instr.GetImmediate(1);
+			for (int i = 2; i < Iced.Intel.DecoderConstants.MaxOpCount; i++) {
+				if (i == 4 && instr.Op4Kind == OpKind.Immediate8)
+					continue;
+				Assert.Throws<ArgumentException>(() => instr.GetImmediate(i));
+			}
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetImmediate(Iced.Intel.DecoderConstants.MaxOpCount));
+
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(-1, 0));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(-1, 0L));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(-1, 0U));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(-1, 0UL));
+
+			Assert.Throws<ArgumentException>(() => instr.SetImmediate(0, 0));
+			Assert.Throws<ArgumentException>(() => instr.SetImmediate(0, 0L));
+			Assert.Throws<ArgumentException>(() => instr.SetImmediate(0, 0U));
+			Assert.Throws<ArgumentException>(() => instr.SetImmediate(0, 0UL));
+
+			instr.SetImmediate(1, 0);
+			instr.SetImmediate(1, 0L);
+			instr.SetImmediate(1, 0U);
+			instr.SetImmediate(1, 0UL);
+
+			for (int i = 2; i < Iced.Intel.DecoderConstants.MaxOpCount; i++) {
+				if (i == 4 && instr.Op4Kind == OpKind.Immediate8)
+					continue;
+				Assert.Throws<ArgumentException>(() => instr.SetImmediate(i, 0));
+				Assert.Throws<ArgumentException>(() => instr.SetImmediate(i, 0L));
+				Assert.Throws<ArgumentException>(() => instr.SetImmediate(i, 0U));
+				Assert.Throws<ArgumentException>(() => instr.SetImmediate(i, 0UL));
+			}
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(Iced.Intel.DecoderConstants.MaxOpCount, 0));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(Iced.Intel.DecoderConstants.MaxOpCount, 0L));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(Iced.Intel.DecoderConstants.MaxOpCount, 0U));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(Iced.Intel.DecoderConstants.MaxOpCount, 0UL));
+		}
+
+		[Fact]
+		void GetSetRegister_throws_if_invalid_input() {
+			var instr = Instruction.Create(Code.Adc_EAX_imm32, Register.EAX, uint.MaxValue);
+
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetOpRegister(-1));
+			for (int i = 0; i < Iced.Intel.DecoderConstants.MaxOpCount; i++)
+				instr.GetOpRegister(i);
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetOpRegister(Iced.Intel.DecoderConstants.MaxOpCount));
+
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpRegister(-1, Register.EAX));
+			for (int i = 0; i < Iced.Intel.DecoderConstants.MaxOpCount; i++) {
+				if (i == 4 && instr.Op4Kind == OpKind.Immediate8)
+					continue;
+				instr.SetOpRegister(i, Register.EAX);
+			}
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpRegister(Iced.Intel.DecoderConstants.MaxOpCount, Register.EAX));
+		}
+
+		[Fact]
+		void SetDeclareXXXValue_throws_if_invalid_input() {
+			{
+				var instr = Instruction.CreateDeclareByte(new byte[1]);
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareByteValue(-1, (sbyte)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareByteValue(-1, (byte)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareByteValue(16, (sbyte)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareByteValue(16, (byte)0));
+				for (int i = 0; i < 16; i++) {
+					instr.SetDeclareByteValue(i, (sbyte)0);
+					instr.SetDeclareByteValue(i, (byte)0);
+				}
+			}
+			{
+				var instr = Instruction.CreateDeclareWord(new ushort[1]);
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareWordValue(-1, (short)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareWordValue(-1, (ushort)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareWordValue(8, (short)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareWordValue(8, (ushort)0));
+				for (int i = 0; i < 8; i++) {
+					instr.SetDeclareWordValue(i, (short)0);
+					instr.SetDeclareWordValue(i, (ushort)0);
+				}
+			}
+			{
+				var instr = Instruction.CreateDeclareDword(new uint[1]);
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareDwordValue(-1, (int)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareDwordValue(-1, (uint)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareDwordValue(4, (int)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareDwordValue(4, (uint)0));
+				for (int i = 0; i < 4; i++) {
+					instr.SetDeclareDwordValue(i, (int)0);
+					instr.SetDeclareDwordValue(i, (uint)0);
+				}
+			}
+			{
+				var instr = Instruction.CreateDeclareQword(new ulong[1]);
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareQwordValue(-1, (long)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareQwordValue(-1, (ulong)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareQwordValue(2, (long)0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetDeclareQwordValue(2, (ulong)0));
+				for (int i = 0; i < 2; i++) {
+					instr.SetDeclareQwordValue(i, (long)0);
+					instr.SetDeclareQwordValue(i, (ulong)0);
+				}
+			}
+		}
+
+		[Fact]
+		void GetVirtualAddress_throws_if_null_input() {
+			var instr = Instruction.Create(Code.Lea_r64_m, Register.RAX, new MemoryOperand(Register.RCX, Register.RDI, 8));
+			Assert.Throws<ArgumentNullException>(() => instr.GetVirtualAddress(1, 0, (VAGetRegisterValue)null));
+			Assert.Throws<ArgumentNullException>(() => instr.GetVirtualAddress(1, 0, (IVARegisterValueProvider)null));
+		}
 	}
 }
 #endif

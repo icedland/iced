@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_ENCODER
+using System;
 using System.Collections.Generic;
 using Iced.Intel;
 using Iced.Intel.EncoderInternal;
@@ -377,6 +378,146 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var encodedBytes = codeWriter.ToArray();
 			var expectedBytesArray = HexUtils.ToByteArray(expectedBytes);
 			Assert.Equal(expectedBytesArray, encodedBytes);
+		}
+
+		[Fact]
+		void Test_Encoder_Create_throws() {
+			static IEnumerable<int> GetEncoderBitness() {
+				yield return int.MinValue;
+				yield return int.MaxValue;
+				for (int bitness = -1; bitness <= 128; bitness++) {
+					if (bitness == 16 || bitness == 32 || bitness == 64)
+						continue;
+					yield return bitness;
+				}
+			}
+			foreach (var bitness in GetEncoderBitness())
+				Assert.Throws<ArgumentOutOfRangeException>(() => Encoder.Create(bitness, new CodeWriterImpl()));
+
+			foreach (var bitness in new[] { 16, 32, 64 })
+				Assert.Throws<ArgumentNullException>(() => Encoder.Create(bitness, null));
+		}
+
+		[Fact]
+		void ToOpCode_throws_if_input_is_invalid() {
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)int.MinValue).ToOpCode());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)(-1)).ToOpCode());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)Iced.Intel.DecoderConstants.NumberOfCodeValues).ToOpCode());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)int.MaxValue).ToOpCode());
+		}
+
+		[Fact]
+		void Verify_MemoryOperand_ctors() {
+			{
+				var op = new MemoryOperand(Register.RCX, Register.RSI, 4, 0x12345678, 8, true, Register.FS);
+				Assert.Equal(Register.RCX, op.Base);
+				Assert.Equal(Register.RSI, op.Index);
+				Assert.Equal(4, op.Scale);
+				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(8, op.DisplSize);
+				Assert.True(op.IsBroadcast);
+				Assert.Equal(Register.FS, op.SegmentPrefix);
+			}
+			{
+				var op = new MemoryOperand(Register.RCX, Register.RSI, 4, true, Register.FS);
+				Assert.Equal(Register.RCX, op.Base);
+				Assert.Equal(Register.RSI, op.Index);
+				Assert.Equal(4, op.Scale);
+				Assert.Equal(0, op.Displacement);
+				Assert.Equal(0, op.DisplSize);
+				Assert.True(op.IsBroadcast);
+				Assert.Equal(Register.FS, op.SegmentPrefix);
+			}
+			{
+				var op = new MemoryOperand(Register.RCX, 0x12345678, 8, true, Register.FS);
+				Assert.Equal(Register.RCX, op.Base);
+				Assert.Equal(Register.None, op.Index);
+				Assert.Equal(1, op.Scale);
+				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(8, op.DisplSize);
+				Assert.True(op.IsBroadcast);
+				Assert.Equal(Register.FS, op.SegmentPrefix);
+			}
+			{
+				var op = new MemoryOperand(Register.RSI, 4, 0x12345678, 8, true, Register.FS);
+				Assert.Equal(Register.None, op.Base);
+				Assert.Equal(Register.RSI, op.Index);
+				Assert.Equal(4, op.Scale);
+				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(8, op.DisplSize);
+				Assert.True(op.IsBroadcast);
+				Assert.Equal(Register.FS, op.SegmentPrefix);
+			}
+			{
+				var op = new MemoryOperand(Register.RCX, 0x12345678, true, Register.FS);
+				Assert.Equal(Register.RCX, op.Base);
+				Assert.Equal(Register.None, op.Index);
+				Assert.Equal(1, op.Scale);
+				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(1, op.DisplSize);
+				Assert.True(op.IsBroadcast);
+				Assert.Equal(Register.FS, op.SegmentPrefix);
+			}
+			{
+				var op = new MemoryOperand(Register.RCX, Register.RSI, 4, 0x12345678, 8);
+				Assert.Equal(Register.RCX, op.Base);
+				Assert.Equal(Register.RSI, op.Index);
+				Assert.Equal(4, op.Scale);
+				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(8, op.DisplSize);
+				Assert.False(op.IsBroadcast);
+				Assert.Equal(Register.None, op.SegmentPrefix);
+			}
+			{
+				var op = new MemoryOperand(Register.RCX, Register.RSI, 4);
+				Assert.Equal(Register.RCX, op.Base);
+				Assert.Equal(Register.RSI, op.Index);
+				Assert.Equal(4, op.Scale);
+				Assert.Equal(0, op.Displacement);
+				Assert.Equal(0, op.DisplSize);
+				Assert.False(op.IsBroadcast);
+				Assert.Equal(Register.None, op.SegmentPrefix);
+			}
+			{
+				var op = new MemoryOperand(Register.RCX, 0x12345678, 8);
+				Assert.Equal(Register.RCX, op.Base);
+				Assert.Equal(Register.None, op.Index);
+				Assert.Equal(1, op.Scale);
+				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(8, op.DisplSize);
+				Assert.False(op.IsBroadcast);
+				Assert.Equal(Register.None, op.SegmentPrefix);
+			}
+			{
+				var op = new MemoryOperand(Register.RSI, 4, 0x12345678, 8);
+				Assert.Equal(Register.None, op.Base);
+				Assert.Equal(Register.RSI, op.Index);
+				Assert.Equal(4, op.Scale);
+				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(8, op.DisplSize);
+				Assert.False(op.IsBroadcast);
+				Assert.Equal(Register.None, op.SegmentPrefix);
+			}
+			{
+				var op = new MemoryOperand(Register.RCX, 0x12345678);
+				Assert.Equal(Register.RCX, op.Base);
+				Assert.Equal(Register.None, op.Index);
+				Assert.Equal(1, op.Scale);
+				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(1, op.DisplSize);
+				Assert.False(op.IsBroadcast);
+				Assert.Equal(Register.None, op.SegmentPrefix);
+			}
+			{
+				var op = new MemoryOperand(Register.RCX);
+				Assert.Equal(Register.RCX, op.Base);
+				Assert.Equal(Register.None, op.Index);
+				Assert.Equal(1, op.Scale);
+				Assert.Equal(0, op.Displacement);
+				Assert.Equal(0, op.DisplSize);
+				Assert.False(op.IsBroadcast);
+				Assert.Equal(Register.None, op.SegmentPrefix);
+			}
 		}
 	}
 }

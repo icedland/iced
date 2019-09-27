@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
+using System;
 using Iced.Intel;
 using Xunit;
 
@@ -73,10 +74,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					Assert.Equal(instrToFormatter[instrOpIndex], formatterOpIndex);
 				}
 
-				for (int instrOpIndex = instrOpCount; instrOpIndex < Iced.Intel.DecoderConstants.MaxOpCount; instrOpIndex++) {
-					int formatterOpIndex = formatter.GetFormatterOperand(instr, instrOpIndex);
-					Assert.Equal(-1, formatterOpIndex);
-				}
+				for (int instrOpIndex = instrOpCount; instrOpIndex < Iced.Intel.DecoderConstants.MaxOpCount; instrOpIndex++)
+					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(instr, instrOpIndex));
 			}
 		}
 	}

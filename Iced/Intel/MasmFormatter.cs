@@ -145,6 +145,9 @@ namespace Iced.Intel {
 			Debug.Assert((uint)instruction.Code < (uint)instrInfos.Length);
 			var instrInfo = instrInfos[(int)instruction.Code];
 			instrInfo.GetOpInfo(options, instruction, out var opInfo);
+			// Although it's a TryXXX() method, it should only accept valid instruction operand indexes
+			if ((uint)operand >= (uint)opInfo.OpCount)
+				ThrowHelper.ThrowArgumentOutOfRangeException_operand();
 			return opInfo.TryGetOpAccess(operand, out access);
 		}
 #endif
@@ -160,6 +163,8 @@ namespace Iced.Intel {
 			Debug.Assert((uint)instruction.Code < (uint)instrInfos.Length);
 			var instrInfo = instrInfos[(int)instruction.Code];
 			instrInfo.GetOpInfo(options, instruction, out var opInfo);
+			if ((uint)operand >= (uint)opInfo.OpCount)
+				ThrowHelper.ThrowArgumentOutOfRangeException_operand();
 			return opInfo.GetInstructionIndex(operand);
 		}
 
@@ -173,6 +178,8 @@ namespace Iced.Intel {
 			Debug.Assert((uint)instruction.Code < (uint)instrInfos.Length);
 			var instrInfo = instrInfos[(int)instruction.Code];
 			instrInfo.GetOpInfo(options, instruction, out var opInfo);
+			if ((uint)instructionOperand >= (uint)instruction.OpCount)
+				ThrowHelper.ThrowArgumentOutOfRangeException_instructionOperand();
 			return opInfo.GetOperandIndex(instructionOperand);
 		}
 
@@ -200,6 +207,8 @@ namespace Iced.Intel {
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>
 		public override void FormatOperandSeparator(in Instruction instruction, FormatterOutput output) {
+			if (output is null)
+				ThrowHelper.ThrowArgumentNullException_output();
 			output.Write(",", FormatterOutputTextKind.Punctuation);
 			if (options.SpaceAfterOperandSeparator)
 				output.Write(" ", FormatterOutputTextKind.Text);
@@ -237,6 +246,8 @@ namespace Iced.Intel {
 		}
 
 		void FormatMnemonic(in Instruction instruction, FormatterOutput output, in InstrOpInfo opInfo, ref int column, FormatMnemonicOptions mnemonicOptions) {
+			if (output is null)
+				ThrowHelper.ThrowArgumentNullException_output();
 			bool needSpace = false;
 			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0 && (opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) == 0) {
 				var prefixSeg = instruction.SegmentPrefix;
@@ -353,6 +364,8 @@ namespace Iced.Intel {
 		}
 
 		void FormatOperands(in Instruction instruction, FormatterOutput output, in InstrOpInfo opInfo) {
+			if (output is null)
+				ThrowHelper.ThrowArgumentNullException_output();
 			for (int i = 0; i < opInfo.OpCount; i++) {
 				if (i > 0) {
 					output.Write(",", FormatterOutputTextKind.Punctuation);
@@ -365,6 +378,8 @@ namespace Iced.Intel {
 
 		void FormatOperand(in Instruction instruction, FormatterOutput output, in InstrOpInfo opInfo, int operand) {
 			Debug.Assert((uint)operand < (uint)opInfo.OpCount);
+			if (output is null)
+				ThrowHelper.ThrowArgumentNullException_output();
 
 			int instructionOperand = opInfo.GetInstructionIndex(operand);
 

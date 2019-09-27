@@ -38,8 +38,13 @@ namespace Iced.Intel {
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public static EncodingKind Encoding(this Code code) =>
-			(EncodingKind)((InfoHandlers.Data[(int)code * 2 + 1] >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask);
+		public static EncodingKind Encoding(this Code code) {
+			var data = InfoHandlers.Data;
+			int index = (int)code * 2 + 1;
+			if ((uint)index >= (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_code();
+			return (EncodingKind)((data[index] >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask);
+		}
 
 		/// <summary>
 		/// Gets the CPU or CPUID feature flag
@@ -57,7 +62,11 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		public static CpuidFeature[] CpuidFeatures(this Code code) {
-			var cpuidFeature = (CpuidFeatureInternal)((InfoHandlers.Data[(int)code * 2 + 1] >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask);
+			var data = InfoHandlers.Data;
+			int index = (int)code * 2 + 1;
+			if ((uint)index >= (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_code();
+			var cpuidFeature = (CpuidFeatureInternal)((data[index] >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask);
 			return CpuidFeatureInternalData.ToCpuidFeatures[(int)cpuidFeature];
 		}
 
@@ -67,8 +76,13 @@ namespace Iced.Intel {
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public static FlowControl FlowControl(this Code code) =>
-			(FlowControl)((InfoHandlers.Data[(int)code * 2 + 1] >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask);
+		public static FlowControl FlowControl(this Code code) {
+			var data = InfoHandlers.Data;
+			int index = (int)code * 2 + 1;
+			if ((uint)index >= (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_code();
+			return (FlowControl)((data[index] >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask);
+		}
 
 		/// <summary>
 		/// Checks if the instruction isn't available in real mode or virtual 8086 mode
@@ -86,8 +100,13 @@ namespace Iced.Intel {
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public static bool IsProtectedMode(this Code code) =>
-			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.ProtectedMode) != 0;
+		public static bool IsProtectedMode(this Code code) {
+			var data = InfoHandlers.Data;
+			int index = (int)code * 2;
+			if ((uint)index >= (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_code();
+			return (data[index] & (uint)InfoFlags1.ProtectedMode) != 0;
+		}
 
 		/// <summary>
 		/// Checks if this is a privileged instruction
@@ -105,8 +124,13 @@ namespace Iced.Intel {
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public static bool IsPrivileged(this Code code) =>
-			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.Privileged) != 0;
+		public static bool IsPrivileged(this Code code) {
+			var data = InfoHandlers.Data;
+			int index = (int)code * 2;
+			if ((uint)index >= (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_code();
+			return (data[index] & (uint)InfoFlags1.Privileged) != 0;
+		}
 
 		/// <summary>
 		/// Checks if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
@@ -126,8 +150,13 @@ namespace Iced.Intel {
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public static bool IsStackInstruction(this Code code) =>
-			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.StackInstruction) != 0;
+		public static bool IsStackInstruction(this Code code) {
+			var data = InfoHandlers.Data;
+			int index = (int)code * 2;
+			if ((uint)index >= (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_code();
+			return (data[index] & (uint)InfoFlags1.StackInstruction) != 0;
+		}
 
 		/// <summary>
 		/// Checks if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
@@ -145,8 +174,13 @@ namespace Iced.Intel {
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-		public static bool IsSaveRestoreInstruction(this Code code) =>
-			(InfoHandlers.Data[(int)code * 2] & (uint)InfoFlags1.SaveRestore) != 0;
+		public static bool IsSaveRestoreInstruction(this Code code) {
+			var data = InfoHandlers.Data;
+			int index = (int)code * 2;
+			if ((uint)index >= (uint)data.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_code();
+			return (data[index] & (uint)InfoFlags1.SaveRestore) != 0;
+		}
 
 		/// <summary>
 		/// Checks if it's a jcc short or jcc near instruction

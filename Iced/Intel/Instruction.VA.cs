@@ -52,6 +52,8 @@ namespace Iced.Intel {
 		/// <param name="registerValueProvider">Returns values of registers and segment base addresses</param>
 		/// <returns></returns>
 		public readonly ulong GetVirtualAddress(int operand, int elementIndex, IVARegisterValueProvider registerValueProvider) {
+			if (registerValueProvider is null)
+				throw new ArgumentNullException(nameof(registerValueProvider));
 			switch (GetOpKind(operand)) {
 			case OpKind.Register:
 			case OpKind.NearBranch16:

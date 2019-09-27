@@ -42,16 +42,19 @@ namespace Iced.Intel {
 		[DoesNotReturn] internal static void ThrowArgumentNullException_array() => throw new ArgumentNullException("array");
 		[DoesNotReturn] internal static void ThrowArgumentNullException_sb() => throw new ArgumentNullException("sb");
 		[DoesNotReturn] internal static void ThrowArgumentNullException_formatterOptions() => throw new ArgumentNullException("formatterOptions");
+		[DoesNotReturn] internal static void ThrowArgumentNullException_output() => throw new ArgumentNullException("output");
 
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_value() => throw new ArgumentOutOfRangeException("value");
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_index() => throw new ArgumentOutOfRangeException("index");
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_count() => throw new ArgumentOutOfRangeException("count");
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_length() => throw new ArgumentOutOfRangeException("length");
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_operand() => throw new ArgumentOutOfRangeException("operand");
+		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_instructionOperand() => throw new ArgumentOutOfRangeException("instructionOperand");
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_capacity() => throw new ArgumentOutOfRangeException("capacity");
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_memorySize() => throw new ArgumentOutOfRangeException("memorySize");
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_size() => throw new ArgumentOutOfRangeException("size");
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_elementSize() => throw new ArgumentOutOfRangeException("elementSize");
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_register() => throw new ArgumentOutOfRangeException("register");
+		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_code() => throw new ArgumentOutOfRangeException("code");
 	}
 }
