@@ -41,7 +41,6 @@ namespace Iced.Intel {
 		[DoesNotReturn] internal static void ThrowArgumentNullException_collection() => throw new ArgumentNullException("collection");
 		[DoesNotReturn] internal static void ThrowArgumentNullException_array() => throw new ArgumentNullException("array");
 		[DoesNotReturn] internal static void ThrowArgumentNullException_sb() => throw new ArgumentNullException("sb");
-		[DoesNotReturn] internal static void ThrowArgumentNullException_formatterOptions() => throw new ArgumentNullException("formatterOptions");
 		[DoesNotReturn] internal static void ThrowArgumentNullException_output() => throw new ArgumentNullException("output");
 
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_value() => throw new ArgumentOutOfRangeException("value");

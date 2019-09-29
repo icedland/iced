@@ -35,8 +35,6 @@ namespace Iced.Intel {
 		readonly char[] numberCharArray;
 
 		public NumberFormatter(FormatterOptions formatterOptions) {
-			if (formatterOptions is null)
-				ThrowHelper.ThrowArgumentNullException_formatterOptions();
 			this.formatterOptions = formatterOptions;
 			sb = new StringBuilder();
 			// We need 64 chars to format the longest number, which is an unsigned 64-bit value in binary

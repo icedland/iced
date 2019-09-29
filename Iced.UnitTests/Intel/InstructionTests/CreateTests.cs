@@ -1237,6 +1237,38 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 
 		[Fact]
+		void GetDeclareXXXValue_throws_if_invalid_input() {
+			{
+				var instr = Instruction.CreateDeclareByte(new byte[1]);
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetDeclareByteValue(-1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetDeclareByteValue(16));
+				for (int i = 0; i < 16; i++)
+					instr.GetDeclareByteValue(i);
+			}
+			{
+				var instr = Instruction.CreateDeclareWord(new ushort[1]);
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetDeclareWordValue(-1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetDeclareWordValue(8));
+				for (int i = 0; i < 8; i++)
+					instr.GetDeclareWordValue(i);
+			}
+			{
+				var instr = Instruction.CreateDeclareDword(new uint[1]);
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetDeclareDwordValue(-1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetDeclareDwordValue(4));
+				for (int i = 0; i < 4; i++)
+					instr.GetDeclareDwordValue(i);
+			}
+			{
+				var instr = Instruction.CreateDeclareQword(new ulong[1]);
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetDeclareQwordValue(-1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetDeclareQwordValue(2));
+				for (int i = 0; i < 2; i++)
+					instr.GetDeclareQwordValue(i);
+			}
+		}
+
+		[Fact]
 		void GetVirtualAddress_throws_if_null_input() {
 			var instr = Instruction.Create(Code.Lea_r64_m, Register.RAX, new MemoryOperand(Register.RCX, Register.RDI, 8));
 			Assert.Throws<ArgumentNullException>(() => instr.GetVirtualAddress(1, 0, (VAGetRegisterValue)null));
