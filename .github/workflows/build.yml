@@ -45,4 +45,4 @@ jobs:
         shell: pwsh
         run: |
           Invoke-WebRequest -Uri 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -UseBasicParsing -OutFile nuget.exe
-          Get-Item "Iced\bin\Release\Iced.*.nupkg" | % { .\nuget.exe push $_.FullName -ApiKey ${{secrets.NUGET_APIKEY}} -NonInteractive -Source https://api.nuget.org/v3/index.json }
+          Get-ChildItem "Iced\bin\Release\Iced.*.nupkg" | ForEach-Object { .\nuget.exe push $_.FullName -ApiKey ${{secrets.NUGET_APIKEY}} -NonInteractive -Source https://api.nuget.org/v3/index.json }
