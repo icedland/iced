@@ -3442,14 +3442,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Instruction_operator_eq_neq() {
-			var instr1 = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, Register.RCX);
+			var instr1a = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, Register.RCX);
+			var instr1b = instr1a;
 			var instr2 = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, Register.RDX);
-#pragma warning disable CS1718 // Comparison made to same variable
-			Assert.True(instr1 == instr1);
-			Assert.False(instr1 == instr2);
-			Assert.True(instr1 != instr2);
-			Assert.False(instr1 != instr1);
-#pragma warning restore CS1718 // Comparison made to same variable
+			Assert.True(instr1a == instr1b);
+			Assert.False(instr1a == instr2);
+			Assert.True(instr1a != instr2);
+			Assert.False(instr1a != instr1b);
 		}
 	}
 }

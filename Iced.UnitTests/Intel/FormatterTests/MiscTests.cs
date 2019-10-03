@@ -99,18 +99,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		public static IEnumerable<object[]> AllFormatters {
 			get {
 				var result = new List<object[]>();
-#if !NO_GAS_FORMATTER && !NO_FORMATTER
-				result.Add(new object[] { new GasFormatter() });
-#endif
-#if !NO_INTEL_FORMATTER && !NO_FORMATTER
-				result.Add(new object[] { new IntelFormatter() });
-#endif
-#if !NO_MASM_FORMATTER && !NO_FORMATTER
-				result.Add(new object[] { new MasmFormatter() });
-#endif
-#if !NO_NASM_FORMATTER && !NO_FORMATTER
-				result.Add(new object[] { new NasmFormatter() });
-#endif
+				foreach (var formatter in Utils.GetAllFormatters())
+					result.Add(new object[] { formatter });
 				return result.ToArray();
 			}
 		}
