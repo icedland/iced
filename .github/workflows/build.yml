@@ -9,21 +9,17 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Install .NET Core
+      - name: Build, test
         shell: pwsh
         run: |
-          Invoke-WebRequest -Uri https://dot.net/v1/dotnet-install.ps1 -UseBasicParsing -OutFile $env:temp\dotnet-install.ps1
-          & $env:temp\dotnet-install.ps1 -Version 3.0.100 -InstallDir "${env:ProgramFiles(x86)}\dotnet" -Architecture x86
-
-      - name: Build, test
-        run: |
-          set PATH=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\amd64;%PATH%
-          build.cmd
+          $env:PATH = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\amd64;' + $env:PATH
+          .\build.ps1
 
       - name: upload-artifact doesn't support wildcards
+        shell: pwsh
         run: |
-          mkdir nuget_files
-          copy "Iced\bin\Release\*.*nupkg" nuget_files
+          New-Item -ItemType Directory nuget_files > $null
+          Copy-Item Iced\bin\Release\*.*nupkg nuget_files
 
       - uses: actions/upload-artifact@v1
         with:
