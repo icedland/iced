@@ -141,18 +141,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		[Fact]
 		void TryEncode_with_invalid_bitness_throws() {
-			static IEnumerable<int> GetEncoderBitness() {
-				yield return int.MinValue;
-				yield return int.MaxValue;
-				for (int bitness = -1; bitness <= 128; bitness++) {
-					if (bitness == 16 || bitness == 32 || bitness == 64)
-						continue;
-					yield return bitness;
-				}
-			}
-			foreach (var bitness in GetEncoderBitness())
+			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues())
 				Assert.Throws<ArgumentOutOfRangeException>(() => BlockEncoder.TryEncode(bitness, new InstructionBlock(new CodeWriterImpl(), new Instruction[1], 0), out _));
-			foreach (var bitness in GetEncoderBitness())
+			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues())
 				Assert.Throws<ArgumentOutOfRangeException>(() => BlockEncoder.TryEncode(bitness, new[] { new InstructionBlock(new CodeWriterImpl(), new Instruction[1], 0) }, out _));
 		}
 

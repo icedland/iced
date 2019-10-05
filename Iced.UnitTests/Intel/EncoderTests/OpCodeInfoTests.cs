@@ -49,8 +49,11 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(tc.Encoding, info.Encoding);
 			Assert.Equal(tc.IsInstruction, info.IsInstruction);
 			Assert.Equal(tc.Mode16, info.Mode16);
+			Assert.Equal(tc.Mode16, info.IsAvailableInMode(16));
 			Assert.Equal(tc.Mode32, info.Mode32);
+			Assert.Equal(tc.Mode32, info.IsAvailableInMode(32));
 			Assert.Equal(tc.Mode64, info.Mode64);
+			Assert.Equal(tc.Mode64, info.IsAvailableInMode(64));
 			Assert.Equal(tc.Fwait, info.Fwait);
 			Assert.Equal(tc.OperandSize, info.OperandSize);
 			Assert.Equal(tc.AddressSize, info.AddressSize);

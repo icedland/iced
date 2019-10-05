@@ -382,16 +382,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		[Fact]
 		void Test_Encoder_Create_throws() {
-			static IEnumerable<int> GetEncoderBitness() {
-				yield return int.MinValue;
-				yield return int.MaxValue;
-				for (int bitness = -1; bitness <= 128; bitness++) {
-					if (bitness == 16 || bitness == 32 || bitness == 64)
-						continue;
-					yield return bitness;
-				}
-			}
-			foreach (var bitness in GetEncoderBitness())
+			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues())
 				Assert.Throws<ArgumentOutOfRangeException>(() => Encoder.Create(bitness, new CodeWriterImpl()));
 
 			foreach (var bitness in new[] { 16, 32, 64 })
@@ -518,6 +509,12 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.False(op.IsBroadcast);
 				Assert.Equal(Register.None, op.SegmentPrefix);
 			}
+		}
+
+		[Fact]
+		void OpCodeInfo_IsAvailableInMode_throws_if_invalid_bitness() {
+			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues())
+				Assert.Throws<ArgumentOutOfRangeException>(() => Code.Nopd.ToOpCode().IsAvailableInMode(bitness));
 		}
 	}
 }

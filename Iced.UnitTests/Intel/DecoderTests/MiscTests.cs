@@ -3424,16 +3424,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test_Decoder_Create_throws() {
-			static IEnumerable<int> GetDecoderBitness() {
-				yield return int.MinValue;
-				yield return int.MaxValue;
-				for (int bitness = -1; bitness <= 128; bitness++) {
-					if (bitness == 16 || bitness == 32 || bitness == 64)
-						continue;
-					yield return bitness;
-				}
-			}
-			foreach (var bitness in GetDecoderBitness())
+			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues())
 				Assert.Throws<ArgumentOutOfRangeException>(() => Decoder.Create(bitness, new ByteArrayCodeReader("90"), DecoderOptions.None));
 
 			foreach (var bitness in new[] { 16, 32, 64 })

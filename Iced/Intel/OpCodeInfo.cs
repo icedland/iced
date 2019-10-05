@@ -664,6 +664,19 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Checks if the instruction is available in 16-bit mode, 32-bit mode or 64-bit mode
+		/// </summary>
+		/// <param name="bitness">16, 32 or 64</param>
+		/// <returns></returns>
+		public bool IsAvailableInMode(int bitness) =>
+			bitness switch {
+				16 => Mode16,
+				32 => Mode32,
+				64 => Mode64,
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+			};
+
+		/// <summary>
 		/// Gets the opcode string, eg. "VEX.128.66.0F38.W0 78 /r", see also <see cref="ToInstructionString()"/>
 		/// </summary>
 		/// <returns></returns>
