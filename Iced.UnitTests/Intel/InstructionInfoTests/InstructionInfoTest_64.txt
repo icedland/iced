@@ -894,11 +894,11 @@
 # xchg r8w,ax
 66 41 90, Xchg_r16_AX, Legacy, INTEL8086, op0=rw op1=rw rw=r8w rw=ax
 # nop
-90, Nopd, Legacy, INTEL386,
+90, Nopd, Legacy, INTEL8086,
 # xchg r8d,eax
 41 90, Xchg_r32_EAX, Legacy, INTEL386, op0=rw op1=rw w=r8 r=r8d w=rax r=eax
 # xchg rax,rax
-48 90, Nopq, Legacy, X64,
+48 90, Nopq, Legacy, INTEL8086,
 # xchg r8,rax
 49 90, Xchg_r64_RAX, Legacy, X64, op0=rw op1=rw rw=r8 rw=rax
 # xchg cx,ax
