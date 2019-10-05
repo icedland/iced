@@ -26,6 +26,11 @@ jobs:
           name: nupkg
           path: nuget_files
 
+      - uses: actions/upload-artifact@v1
+        with:
+          name: coverage.info
+          path: Iced.UnitTests/coverage.info
+
       - name: Upload coverage report
         shell: bash
         run: |
