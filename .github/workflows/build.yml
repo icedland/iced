@@ -57,4 +57,4 @@ jobs:
 
       - name: Build, test
         shell: pwsh
-        run: .\build.ps1
+        run: ./build.ps1
