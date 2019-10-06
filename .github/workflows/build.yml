@@ -2,8 +2,8 @@ name: GitHub CI
 on: push
 
 jobs:
-  build:
-    name: Build
+  build-windows:
+    name: Build (Windows)
     runs-on: windows-latest
 
     steps:
@@ -46,3 +46,15 @@ jobs:
         run: |
           Invoke-WebRequest -Uri https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -UseBasicParsing -OutFile nuget.exe
           Get-ChildItem Iced\bin\Release\Iced.*.nupkg | ForEach-Object { .\nuget.exe push $_.FullName -ApiKey ${{secrets.NUGET_APIKEY}} -NonInteractive -Source https://api.nuget.org/v3/index.json }
+
+  # Make sure it builds on Linux too
+  build-ubuntu:
+    name: Build (Ubuntu)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Build, test
+        shell: pwsh
+        run: .\build.ps1
