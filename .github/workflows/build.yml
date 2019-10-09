@@ -12,7 +12,8 @@ jobs:
       - name: Build, test
         shell: pwsh
         run: |
-          $env:PATH = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\amd64;' + $env:PATH
+          $msbuildPath = Join-Path (Get-ChildItem "${env:ProgramFiles(x86)}\Microsoft Visual Studio" | Where-Object { $_.Name -match '^\d{4}$' -and $_.PSIsContainer } | Sort-Object Name -Descending)[0] 'Enterprise\MSBuild\Current\Bin\amd64'
+          $env:PATH = $msbuildPath + ';' + $env:PATH
           .\build.ps1
 
       - name: upload-artifact doesn't support wildcards
