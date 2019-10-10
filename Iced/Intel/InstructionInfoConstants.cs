@@ -21,7 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INSTR_INFO
 namespace Iced.Intel {
 	static class InstructionInfoConstants {
 		// This is the largest vector register. If it's VEX/EVEX, the upper bits are always cleared when writing to any sub reg, eg. YMM0
@@ -30,4 +29,3 @@ namespace Iced.Intel {
 		public const int VMM_count = VMM_last - VMM_first + 1;
 	}
 }
-#endif

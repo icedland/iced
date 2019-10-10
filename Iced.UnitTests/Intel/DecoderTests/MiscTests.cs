@@ -3431,6 +3431,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				Assert.Throws<ArgumentNullException>(() => Decoder.Create(bitness, null, DecoderOptions.None));
 		}
 
+#if !NO_ENCODER
 		[Fact]
 		void Instruction_operator_eq_neq() {
 			var instr1a = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, Register.RCX);
@@ -3441,5 +3442,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.True(instr1a != instr2);
 			Assert.False(instr1a != instr1b);
 		}
+#endif
 	}
 }
