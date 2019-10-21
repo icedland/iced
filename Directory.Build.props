@@ -2,12 +2,11 @@
 
   <PropertyGroup>
     <Copyright>Copyright (C) 2018-2019 de4dot@gmail.com</Copyright>
-    <NeutralLanguage>en-US</NeutralLanguage>
     <Version>1.4.0</Version>
     <Authors>0xd4d</Authors>
     <InformationalVersion>$(Version)</InformationalVersion>
 
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Features>strict;nullablePublicOnly</Features>
     <SignAssembly>true</SignAssembly>

@@ -7,7 +7,7 @@
     <NoTargetFrameworkNet35 Condition=" '$(NoTargetFrameworkNet35)' == '' AND '$(MSBuildRuntimeType)' == 'Core' ">true</NoTargetFrameworkNet35>
     <TargetFrameworks Condition=" '$(NoTargetFrameworkNet35)' != 'true' ">$(TargetFrameworks);net35</TargetFrameworks>
 
-    <Description>x86/x64 instruction decoder, encoder, disassembler</Description>
+    <Description>x86/x64 disassembler, decoder, encoder</Description>
     <Title>$(Description)</Title>
     <AssemblyTitle>Iced</AssemblyTitle>
     <AssemblyName>Iced</AssemblyName>
@@ -16,7 +16,7 @@
     <PackageProjectUrl>https://github.com/0xd4d/iced</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageVersion>$(InformationalVersion)</PackageVersion>
-    <PackageTags>x86;x64;encoder;decoder;formatter;disassembler</PackageTags>
+    <PackageTags>disassembler;x86;x64;encoder;decoder;formatter</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
