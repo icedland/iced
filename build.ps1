@@ -4,6 +4,9 @@ $ErrorActionPreference = 'Stop'
 
 $configuration = 'Release'
 $netcore_tfm = 'netcoreapp3.0'
+$net_tfm = 'net48'
+$xunitVersion = '2.4.1'
+$xunitNetTfmVersion = 'net472'
 
 #
 # dotnet build isn't used because it can't build net35 tfms
@@ -12,10 +15,10 @@ $netcore_tfm = 'netcoreapp3.0'
 $env:MoreDefineConstants = ''
 $env:NoTargetFrameworkNet35 = ''
 
-$useMsbuild = $IsWindows -or $IsWindows -eq $null
-if ($NoMsbuild) {
-	$useMsbuild = $false
+if ($null -eq $IsWindows) {
+	$IsWindows = $true
 }
+$useMsbuild = !$NoMsbuild -and $IsWindows
 
 if (!$useMsbuild) {
 	# There are currently no net35 reference assemblies on nuget
@@ -32,6 +35,12 @@ else {
 }
 
 if (!$NoTest) {
+	if ($IsWindows) {
+		& $HOME/.nuget/packages/xunit.runner.console/$xunitVersion/tools/$xunitNetTfmVersion/xunit.console.exe Iced.UnitTests/bin/$configuration/$net_tfm/Iced.UnitTests.dll -noappdomain
+		if ($LASTEXITCODE) { exit $LASTEXITCODE }
+		& $HOME/.nuget/packages/xunit.runner.console/$xunitVersion/tools/$xunitNetTfmVersion/xunit.console.x86.exe Iced.UnitTests/bin/$configuration/$net_tfm/Iced.UnitTests.dll -noappdomain
+		if ($LASTEXITCODE) { exit $LASTEXITCODE }
+	}
 	if (!(Test-Path Iced.UnitTests/bin/$configuration/$netcore_tfm)) { throw "Invalid tfm: $netcore_tfm" }
 	$collectCoverage = if ($NoCoverage) { '' } else { 'true' }
 	dotnet test -c $configuration -f $netcore_tfm -p:Exclude='\"[Iced]Iced.Intel.InstructionMemorySizes,[Iced]Iced.Intel.EncoderInternal.OpCodeHandlers,[Iced]Iced.Intel.InstructionInfoInternal.InfoHandlers,[Iced]Iced.Intel.MnemonicUtils,[Iced]Iced.Intel.InstructionOpCounts\"' -p:ExcludeByFile="$PWD\Iced\**\*.g.cs" -p:ExcludeByAttribute='ObsoleteAttribute' -p:CollectCoverage=$collectCoverage -p:CoverletOutputFormat=lcov --no-build Iced.UnitTests/Iced.UnitTests.csproj -- RunConfiguration.NoAutoReporters=true RunConfiguration.TargetPlatform=X64
