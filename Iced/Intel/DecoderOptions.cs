@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_DECODER
 using System;
-using System.ComponentModel;
 
 namespace Iced.Intel {
 	/// <summary>

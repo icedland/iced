@@ -22,8 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_INSTR_INFO
-using System;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Iced.Intel.InstructionInfoInternal;
 
