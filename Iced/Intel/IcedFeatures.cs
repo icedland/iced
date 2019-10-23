@@ -96,20 +96,6 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if the 16/32-bit decoder is available
-		/// </summary>
-		[Obsolete("Use " + nameof(HasDecoder) + " instead of this property", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public static bool HasDecoder32 => HasDecoder;
-
-		/// <summary>
-		/// true if the 64-bit decoder is available
-		/// </summary>
-		[Obsolete("Use " + nameof(HasDecoder) + " instead of this property", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public static bool HasDecoder64 => HasDecoder;
-
-		/// <summary>
 		/// true if the encoder is available
 		/// </summary>
 		public static bool HasEncoder {

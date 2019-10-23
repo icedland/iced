@@ -49,13 +49,6 @@ namespace Iced.Intel {
 		AmdBranches					= 0x00000002,
 
 		/// <summary>
-		/// AMD branch decoder: allow 16-bit branch/ret instructions in 64-bit mode
-		/// </summary>
-		[Obsolete("Use " + nameof(AmdBranches) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		AMD							= AmdBranches,
-
-		/// <summary>
 		/// Decode opcodes 0F0D and 0F18-0F1F as reserved-nop instructions (eg. <see cref="Code.ReservedNop_rm32_r32_0F1D"/>)
 		/// </summary>
 		ForceReservedNop			= 0x00000004,

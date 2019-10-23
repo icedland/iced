@@ -241,33 +241,6 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Creates a 16-bit encoder
-		/// </summary>
-		/// <param name="writer">Destination</param>
-		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public static Encoder Create16(CodeWriter writer) => Create(16, writer);
-
-		/// <summary>
-		/// Creates a 32-bit encoder
-		/// </summary>
-		/// <param name="writer">Destination</param>
-		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public static Encoder Create32(CodeWriter writer) => Create(32, writer);
-
-		/// <summary>
-		/// Creates a 64-bit encoder
-		/// </summary>
-		/// <param name="writer">Destination</param>
-		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public static Encoder Create64(CodeWriter writer) => Create(64, writer);
-
-		/// <summary>
 		/// Encodes an instruction and returns the size of the encoded instruction.
 		/// A <see cref="EncoderException"/> is thrown if it failed to encode the instruction.
 		/// </summary>

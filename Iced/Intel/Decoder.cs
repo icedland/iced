@@ -103,16 +103,6 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Current IP/EIP/RIP value
 		/// </summary>
-		[Obsolete("Use " + nameof(IP) + " instead of this property", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public ulong InstructionPointer {
-			get => instructionPointer;
-			set => instructionPointer = value;
-		}
-
-		/// <summary>
-		/// Current IP/EIP/RIP value
-		/// </summary>
 		public ulong IP {
 			get => instructionPointer;
 			set => instructionPointer = value;
@@ -232,36 +222,6 @@ namespace Iced.Intel {
 			default: throw new ArgumentOutOfRangeException(nameof(bitness));
 			}
 		}
-
-		/// <summary>
-		/// Creates a decoder that decodes 16-bit code
-		/// </summary>
-		/// <param name="reader">Code reader</param>
-		/// <param name="options">Decoder options</param>
-		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public static Decoder Create16(CodeReader reader, DecoderOptions options = DecoderOptions.None) => Create(16, reader, options);
-
-		/// <summary>
-		/// Creates a decoder that decodes 32-bit code
-		/// </summary>
-		/// <param name="reader">Code reader</param>
-		/// <param name="options">Decoder options</param>
-		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public static Decoder Create32(CodeReader reader, DecoderOptions options = DecoderOptions.None) => Create(32, reader, options);
-
-		/// <summary>
-		/// Creates a decoder that decodes 64-bit code
-		/// </summary>
-		/// <param name="reader">Code reader</param>
-		/// <param name="options">Decoder options</param>
-		/// <returns></returns>
-		[Obsolete("Use " + nameof(Create) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public static Decoder Create64(CodeReader reader, DecoderOptions options = DecoderOptions.None) => Create(64, reader, options);
 
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;
@@ -1196,17 +1156,6 @@ after_imm_loop:
 
 			return constantOffsets;
 		}
-
-#if !NO_ENCODER
-		/// <summary>
-		/// Creates an encoder
-		/// </summary>
-		/// <param name="writer">Destination</param>
-		/// <returns></returns>
-		[Obsolete("Call Encoder.Create(decoder.Bitness, writer)", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public Encoder CreateEncoder(CodeWriter writer) => Encoder.Create(Bitness, writer);
-#endif
 	}
 }
 #endif

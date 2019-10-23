@@ -229,16 +229,6 @@ namespace Iced.Intel {
 		/// <summary>
 		/// 64-bit IP of the instruction
 		/// </summary>
-		[Obsolete("Use " + nameof(IP) + " instead of this property", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public ulong IP64 {
-			readonly get => nextRip - (uint)ByteLength;
-			set => nextRip = value + (uint)ByteLength;
-		}
-
-		/// <summary>
-		/// 64-bit IP of the instruction
-		/// </summary>
 		public ulong IP {
 			readonly get => nextRip - (uint)ByteLength;
 			set => nextRip = value + (uint)ByteLength;
@@ -257,16 +247,6 @@ namespace Iced.Intel {
 		/// </summary>
 		public uint NextIP32 {
 			readonly get => (uint)nextRip;
-			set => nextRip = value;
-		}
-
-		/// <summary>
-		/// 64-bit IP of the next instruction
-		/// </summary>
-		[Obsolete("Use " + nameof(NextIP) + " instead of this property", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public ulong NextIP64 {
-			readonly get => nextRip;
 			set => nextRip = value;
 		}
 
@@ -1607,16 +1587,6 @@ namespace Iced.Intel {
 		}
 		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 		internal void InternalSetSuppressAllExceptions() => codeFlags |= (uint)CodeFlags.SuppressAllExceptions;
-
-		/// <summary>
-		/// Checks if the memory operand is RIP/EIP relative
-		/// </summary>
-		[Obsolete("Use " + nameof(IsIPRelativeMemoryOperand) + " instead of this property", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public readonly bool IsIPRelativeMemoryOp {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
-			get => MemoryBase == Register.RIP || MemoryBase == Register.EIP;
-		}
 
 		/// <summary>
 		/// Checks if the memory operand is RIP/EIP relative

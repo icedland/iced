@@ -234,7 +234,7 @@ namespace Iced.Intel {
 		/// 
 		/// Gets a struct iterator that returns all read and written registers. There are some exceptions, this method doesn't return all used registers:
 		/// 
-		/// 1) If <see cref="SaveRestoreInstruction"/> is true, or
+		/// 1) If <see cref="IsSaveRestoreInstruction"/> is true, or
 		/// 
 		/// 2) If it's a <see cref="FlowControl.Call"/> or <see cref="FlowControl.Interrupt"/> instruction (call, sysenter, int n etc), it can read and write any register (including RFLAGS).
 		/// </summary>
@@ -266,13 +266,6 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// CPU or CPUID feature flag
-		/// </summary>
-		[Obsolete("Use " + nameof(CpuidFeatures) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public readonly CpuidFeature CpuidFeature => CpuidFeatures[0];
-
-		/// <summary>
 		/// Gets the CPU or CPUID feature flags
 		/// </summary>
 		public readonly CpuidFeature[] CpuidFeatures {
@@ -297,24 +290,10 @@ namespace Iced.Intel {
 		/// <summary>
 		/// true if the instruction isn't available in real mode or virtual 8086 mode
 		/// </summary>
-		[Obsolete("Use " + nameof(IsProtectedMode) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public readonly bool ProtectedMode => IsProtectedMode;
-
-		/// <summary>
-		/// true if the instruction isn't available in real mode or virtual 8086 mode
-		/// </summary>
 		public readonly bool IsProtectedMode {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsProtectedMode();
 		}
-
-		/// <summary>
-		/// true if this is a privileged instruction
-		/// </summary>
-		[Obsolete("Use " + nameof(IsPrivileged) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public readonly bool Privileged => IsPrivileged;
 
 		/// <summary>
 		/// true if this is a privileged instruction
@@ -328,25 +307,10 @@ namespace Iced.Intel {
 		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
 		/// See also <see cref="StackPointerIncrement"/>
 		/// </summary>
-		[Obsolete("Use " + nameof(IsStackInstruction) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public readonly bool StackInstruction => IsStackInstruction;
-
-		/// <summary>
-		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
-		/// See also <see cref="StackPointerIncrement"/>
-		/// </summary>
 		public readonly bool IsStackInstruction {
 			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
 			get => Code.IsStackInstruction();
 		}
-
-		/// <summary>
-		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
-		/// </summary>
-		[Obsolete("Use " + nameof(IsSaveRestoreInstruction) + " instead", true)]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public readonly bool SaveRestoreInstruction => IsSaveRestoreInstruction;
 
 		/// <summary>
 		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
