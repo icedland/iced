@@ -1,4 +1,4 @@
-param([switch]$NoMsbuild, [switch]$NoTest, [switch]$NoCoverage)
+param([switch]$NoTest, [switch]$NoCoverage)
 
 $ErrorActionPreference = 'Stop'
 
@@ -8,31 +8,14 @@ $net_tfm = 'net48'
 $xunitVersion = '2.4.1'
 $xunitNetTfmVersion = 'net472'
 
-#
-# dotnet build isn't used because it can't build net35 tfms
-#
-
 $env:MoreDefineConstants = ''
-$env:NoTargetFrameworkNet35 = ''
 
 if ($null -eq $IsWindows) {
 	$IsWindows = $true
 }
-$useMsbuild = !$NoMsbuild -and $IsWindows
 
-if (!$useMsbuild) {
-	# There are currently no net35 reference assemblies on nuget
-	$env:NoTargetFrameworkNet35 = 'true'
-}
-
-if ($useMsbuild) {
-	msbuild -v:m -restore -t:Build -p:Configuration=$configuration
-	if ($LASTEXITCODE) { exit $LASTEXITCODE }
-}
-else {
-	dotnet build -v:m -c $configuration
-	if ($LASTEXITCODE) { exit $LASTEXITCODE }
-}
+dotnet build -v:m -c $configuration
+if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
 if (!$NoTest) {
 	if ($IsWindows) {
@@ -49,20 +32,9 @@ if (!$NoTest) {
 
 # Don't include the IVT in the final binary
 $env:MoreDefineConstants = 'IcedNoIVT'
-if ($useMsbuild) {
-	msbuild -v:m -t:Clean -p:Configuration=$configuration
-	if ($LASTEXITCODE) { exit $LASTEXITCODE }
-	msbuild -v:m -restore -t:Build -p:Configuration=$configuration Iced/Iced.csproj
-	if ($LASTEXITCODE) { exit $LASTEXITCODE }
-	msbuild -v:m -t:Pack -p:Configuration=$configuration Iced/Iced.csproj
-	if ($LASTEXITCODE) { exit $LASTEXITCODE }
-}
-else {
-	dotnet clean -v:m -c $configuration
-	if ($LASTEXITCODE) { exit $LASTEXITCODE }
-	dotnet pack -v:m -c $configuration Iced/Iced.csproj
-	if ($LASTEXITCODE) { exit $LASTEXITCODE }
-}
+dotnet clean -v:m -c $configuration
+if ($LASTEXITCODE) { exit $LASTEXITCODE }
+dotnet pack -v:m -c $configuration Iced/Iced.csproj
+if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
 $env:MoreDefineConstants = ''
-$env:NoTargetFrameworkNet35 = ''
