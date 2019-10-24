@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-// This is needed because net35/net45/netstandard2.0 reference assemblies don't
+// This is needed because net45/netstandard2.0 reference assemblies don't
 // have any nullable attributes
 
 using System.Diagnostics.CodeAnalysis;
@@ -29,7 +29,7 @@ using System.Runtime.CompilerServices;
 
 namespace System {
 	static class string2 {
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsNullOrEmpty([NotNullWhen(false)] string? value) => string.IsNullOrEmpty(value);
 	}
 }

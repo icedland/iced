@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace System {
-	// Array.Empty<T>() is only available since net46 (net35 & net45 don't support it)
+	// Array.Empty<T>() is only available since net46 (net45 doesn't support it)
 	static class Array2 {
 		public static T[] Empty<T>() => EmptyClass<T>.Empty;
 

@@ -35,7 +35,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static OpCodeInfo ToOpCode(this Code code) {
 			var infos = OpCodeInfos.Infos;
 			if ((uint)code >= (uint)infos.Length)

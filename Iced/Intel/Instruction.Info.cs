@@ -259,7 +259,7 @@ namespace Iced.Intel {
 		/// Instruction encoding, eg. legacy, VEX, EVEX, ...
 		/// </summary>
 		public readonly EncodingKind Encoding {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.Encoding();
 		}
 
@@ -281,7 +281,7 @@ namespace Iced.Intel {
 		/// Flow control info
 		/// </summary>
 		public readonly FlowControl FlowControl {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.FlowControl();
 		}
 
@@ -289,7 +289,7 @@ namespace Iced.Intel {
 		/// true if the instruction isn't available in real mode or virtual 8086 mode
 		/// </summary>
 		public readonly bool IsProtectedMode {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsProtectedMode();
 		}
 
@@ -297,7 +297,7 @@ namespace Iced.Intel {
 		/// true if this is a privileged instruction
 		/// </summary>
 		public readonly bool IsPrivileged {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsPrivileged();
 		}
 
@@ -306,7 +306,7 @@ namespace Iced.Intel {
 		/// See also <see cref="StackPointerIncrement"/>
 		/// </summary>
 		public readonly bool IsStackInstruction {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsStackInstruction();
 		}
 
@@ -314,7 +314,7 @@ namespace Iced.Intel {
 		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
 		/// </summary>
 		public readonly bool IsSaveRestoreInstruction {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsSaveRestoreInstruction();
 		}
 
@@ -368,7 +368,7 @@ namespace Iced.Intel {
 		/// All flags that are read by the CPU when executing the instruction
 		/// </summary>
 		public readonly RflagsBits RflagsRead {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get {
 				// If the method call is used without a temp index, the jitter generates worse code.
 				// It stores the array in a temp local, then it calls the method, and then it reads
@@ -382,7 +382,7 @@ namespace Iced.Intel {
 		/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared. See also <see cref="RflagsModified"/>
 		/// </summary>
 		public readonly RflagsBits RflagsWritten {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get {
 				// See RflagsRead for the reason why a temp index is used here
 				int index = (int)GetRflagsInfo();
@@ -394,7 +394,7 @@ namespace Iced.Intel {
 		/// All flags that are always cleared by the CPU
 		/// </summary>
 		public readonly RflagsBits RflagsCleared {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get {
 				// See RflagsRead for the reason why a temp index is used here
 				int index = (int)GetRflagsInfo();
@@ -406,7 +406,7 @@ namespace Iced.Intel {
 		/// All flags that are always set by the CPU
 		/// </summary>
 		public readonly RflagsBits RflagsSet {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get {
 				// See RflagsRead for the reason why a temp index is used here
 				int index = (int)GetRflagsInfo();
@@ -418,7 +418,7 @@ namespace Iced.Intel {
 		/// All flags that are undefined after executing the instruction
 		/// </summary>
 		public readonly RflagsBits RflagsUndefined {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get {
 				// See RflagsRead for the reason why a temp index is used here
 				int index = (int)GetRflagsInfo();
@@ -430,7 +430,7 @@ namespace Iced.Intel {
 		/// All flags that are modified by the CPU. This is <see cref="RflagsWritten"/> + <see cref="RflagsCleared"/> + <see cref="RflagsSet"/> + <see cref="RflagsUndefined"/>
 		/// </summary>
 		public readonly RflagsBits RflagsModified {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get {
 				// See RflagsRead for the reason why a temp index is used here
 				int index = (int)GetRflagsInfo();
@@ -443,7 +443,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJccShortOrNear {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsJccShortOrNear();
 		}
 
@@ -452,7 +452,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJccNear {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsJccNear();
 		}
 
@@ -461,7 +461,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJccShort {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsJccShort();
 		}
 
@@ -470,7 +470,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpShort {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsJmpShort();
 		}
 
@@ -479,7 +479,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpNear {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsJmpNear();
 		}
 
@@ -488,7 +488,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpShortOrNear {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsJmpShortOrNear();
 		}
 
@@ -497,7 +497,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpFar {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsJmpFar();
 		}
 
@@ -506,7 +506,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsCallNear {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsCallNear();
 		}
 
@@ -515,7 +515,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsCallFar {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsCallFar();
 		}
 
@@ -524,7 +524,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpNearIndirect {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsJmpNearIndirect();
 		}
 
@@ -533,7 +533,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpFarIndirect {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsJmpFarIndirect();
 		}
 
@@ -542,7 +542,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsCallNearIndirect {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsCallNearIndirect();
 		}
 
@@ -551,7 +551,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsCallFarIndirect {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsCallFarIndirect();
 		}
 
@@ -559,26 +559,26 @@ namespace Iced.Intel {
 		/// Negates the condition code, eg. je -> jne. Can be used if it's jcc, setcc, cmovcc and does
 		/// nothing if the instruction doesn't have a condition code.
 		/// </summary>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void NegateConditionCode() => Code = Code.NegateConditionCode();
 
 		/// <summary>
 		/// Converts jcc near to jcc short and does nothing if it's not a jcc near instruction
 		/// </summary>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void ToShortBranch() => Code = Code.ToShortBranch();
 
 		/// <summary>
 		/// Converts jcc short to jcc near and does nothing if it's not a jcc short instruction
 		/// </summary>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void ToNearBranch() => Code = Code.ToNearBranch();
 
 		/// <summary>
 		/// Gets the condition code if it's jcc, setcc, cmovcc else <see cref="ConditionCode.None"/> is returned
 		/// </summary>
 		public readonly ConditionCode ConditionCode {
-			[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.GetConditionCode();
 		}
 	}

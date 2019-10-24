@@ -21,10 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NET35
-#define HAS_ROLIST
-#endif
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,11 +36,7 @@ namespace Iced.Intel {
 	/// </summary>
 	[DebuggerDisplay("Count = {Count}")]
 	[DebuggerTypeProxy(typeof(InstructionListDebugView))]
-#if HAS_ROLIST
 	public sealed class InstructionList : IList<Instruction>, IReadOnlyList<Instruction>, IList {
-#else
-	public sealed class InstructionList : IList<Instruction>, IList {
-#endif
 		Instruction[] elements;
 		int count;
 
@@ -54,9 +46,7 @@ namespace Iced.Intel {
 		public int Count => count;
 		int ICollection<Instruction>.Count => count;
 		int ICollection.Count => count;
-#if HAS_ROLIST
 		int IReadOnlyCollection<Instruction>.Count => count;
-#endif
 
 		/// <summary>
 		/// Gets the size of the internal array
@@ -84,9 +74,7 @@ namespace Iced.Intel {
 			get => elements[index];
 			set => elements[index] = value;
 		}
-#if HAS_ROLIST
 		Instruction IReadOnlyList<Instruction>.this[int index] => elements[index];
-#endif
 		object? IList.this[int index] {
 			get => elements[index];
 			set {
@@ -183,7 +171,7 @@ namespace Iced.Intel {
 		/// The returned reference is valid until the internal array is resized.
 		/// </summary>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]// Add() is inlined, and this method does almost the same thing
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]// Add() is inlined, and this method does almost the same thing
 		public ref Instruction AllocUninitializedElement() {
 			var count = this.count;
 			var elements = this.elements;
@@ -281,7 +269,6 @@ namespace Iced.Intel {
 						elements[index + i] = ilist[i];
 				}
 			}
-#if HAS_ROLIST
 			else if (collection is IReadOnlyList<Instruction> roList) {
 				int roList_Count = roList.Count;
 				if (roList_Count != 0) {
@@ -292,7 +279,6 @@ namespace Iced.Intel {
 						elements[index + i] = roList[i];
 				}
 			}
-#endif
 			else {
 				foreach (var instruction in collection)
 					Insert(index++, instruction);
@@ -325,7 +311,7 @@ namespace Iced.Intel {
 		/// Adds a new instruction to the end of the list
 		/// </summary>
 		/// <param name="instruction">Instruction to add</param>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]// Needed since it's not inlined otherwise (because of 'in') (List<Instruction>.Add() gets auto-inlined)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]// Needed since it's not inlined otherwise (because of 'in') (List<Instruction>.Add() gets auto-inlined)
 		public void Add(in Instruction instruction) {
 			var count = this.count;
 			var elements = this.elements;

@@ -282,7 +282,7 @@ namespace Iced.Intel {
 			}
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsNoTrackPrefixBranch(Code code) {
 			Debug.Assert(Code.Jmp_rm16 + 1 == Code.Jmp_rm32);
 			Debug.Assert(Code.Jmp_rm16 + 2 == Code.Jmp_rm64);
@@ -291,7 +291,7 @@ namespace Iced.Intel {
 			return (uint)code - (uint)Code.Jmp_rm16 <= 2 || (uint)code - (uint)Code.Call_rm16 <= 2;
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static PrefixKind GetSegmentRegisterPrefixKind(Register register) {
 			Debug.Assert(register == Register.ES || register == Register.CS || register == Register.SS ||
 						register == Register.DS || register == Register.FS || register == Register.GS);

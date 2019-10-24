@@ -236,9 +236,9 @@ namespace Iced.Intel {
 			return 0;
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal uint ReadUInt16() => ReadByte() | (ReadByte() << 8);
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal uint ReadUInt32() => ReadByte() | (ReadByte() << 8) | (ReadByte() << 16) | (ReadByte() << 24);
 
 		/// <summary>
@@ -397,9 +397,9 @@ after_read_prefixes:
 			instruction.NextIP = ip;
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal uint GetCurrentInstructionPointer32() => (uint)instructionPointer + state.instructionLength;
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal ulong GetCurrentInstructionPointer64() => instructionPointer + state.instructionLength;
 
 		internal void ClearMandatoryPrefix(ref Instruction instruction) {
@@ -417,7 +417,7 @@ after_read_prefixes:
 			}
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void SetXacquireRelease(ref Instruction instruction, HandlerFlags flags) {
 			if ((flags & HandlerFlags.XacquireReleaseNoLock) != 0 || instruction.HasLockPrefix)
 				SetXacquireReleaseCore(ref instruction, flags);
@@ -442,27 +442,27 @@ after_read_prefixes:
 			}
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ClearMandatoryPrefixF3(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			Debug.Assert(state.mandatoryPrefix == MandatoryPrefixByte.PF3);
 			instruction.InternalClearHasRepePrefix();
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ClearMandatoryPrefixF2(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			Debug.Assert(state.mandatoryPrefix == MandatoryPrefixByte.PF2);
 			instruction.InternalClearHasRepnePrefix();
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void SetInvalidInstruction() => state.flags |= StateFlags.IsInvalid;
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void DecodeTable(OpCodeHandler[] table, ref Instruction instruction) => DecodeTable(table[(int)ReadByte()], ref instruction);
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		void DecodeTable(OpCodeHandler handler, ref Instruction instruction) {
 			if (handler.HasModRM) {
 				uint m = ReadByte();
@@ -474,7 +474,7 @@ after_read_prefixes:
 			handler.Decode(this, ref instruction);
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadModRM() {
 			uint m = ReadByte();
 			state.modrm = m;
@@ -685,10 +685,10 @@ after_read_prefixes:
 		}
 
 		// Return type is uint since caller will write to a uint field
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal uint ReadIb() => ReadByte();
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal Register ReadOpSw() {
 			uint reg = state.reg;
 			if (reg >= 6) {
@@ -699,7 +699,7 @@ after_read_prefixes:
 				return Register.ES + (int)reg;
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMem(ref Instruction instruction) {
 			Debug.Assert(state.Encoding != EncodingKind.EVEX);
 			if (state.addressSize == OpSize.Size64)
@@ -713,7 +713,7 @@ after_read_prefixes:
 		// All MPX instructions in 64-bit mode force 64-bit addressing, and
 		// all MPX instructions in 16/32-bit mode require 32-bit addressing
 		// (see SDM Vol 1, 17.5.1 Intel MPX and Operating Modes)
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMem_MPX(ref Instruction instruction) {
 			Debug.Assert(state.Encoding != EncodingKind.EVEX);
 			if (is64Mode) {
@@ -729,7 +729,7 @@ after_read_prefixes:
 			}
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMem(ref Instruction instruction, TupleType tupleType) {
 			Debug.Assert(state.Encoding == EncodingKind.EVEX);
 			if (state.addressSize == OpSize.Size64)
@@ -740,7 +740,7 @@ after_read_prefixes:
 				ReadOpMem16(ref instruction, tupleType);
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMem_VSIB(ref Instruction instruction, Register vsibIndex, TupleType tupleType) {
 			bool isValid;
 			if (state.addressSize == OpSize.Size64)

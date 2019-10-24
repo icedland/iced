@@ -34,7 +34,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Mnemonic ToMnemonic(this Code code) {
 			Debug.Assert((uint)code < (uint)toMnemonic.Length);
 			return (Mnemonic)toMnemonic[(int)code];

@@ -731,7 +731,7 @@ namespace Iced.Intel {
 			output.Write("}", FormatterOutputTextKind.Punctuation);
 		}
 
-		[MethodImpl(MethodImplOptions2.AggressiveInlining)]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		string ToString(Register reg) {
 			Debug.Assert((uint)reg < (uint)allRegisters.Length);
 			var regStr = allRegisters[(int)reg];
