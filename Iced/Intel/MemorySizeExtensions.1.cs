@@ -250,6 +250,13 @@ namespace Iced.Intel {
 		public static MemorySize GetElementType(this MemorySize memorySize) => memorySize.GetInfo().ElementType;
 
 		/// <summary>
+		/// Gets the element type if it's packed data or <paramref name="memorySize"/> if it's not packed data
+		/// </summary>
+		/// <param name="memorySize">Memory size</param>
+		/// <returns></returns>
+		public static MemorySizeInfo GetElementTypeInfo(this MemorySize memorySize) => memorySize.GetInfo().ElementType.GetInfo();
+
+		/// <summary>
 		/// true if it's signed data (signed integer or a floating point value)
 		/// </summary>
 		/// <param name="memorySize">Memory size</param>

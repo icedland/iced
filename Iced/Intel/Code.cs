@@ -5062,19 +5062,19 @@ namespace Iced.Intel {
 		// Misc
 
 		/// <summary>
-		/// A 'db' asm directive that can store 1-16 bytes
+		/// A 'db'/'.byte' asm directive that can store 1-16 bytes
 		/// </summary>
 		DeclareByte,												// <db>
 		/// <summary>
-		/// A 'dw' asm directive that can store 1-8 words
+		/// A 'dw'/'.word' asm directive that can store 1-8 words
 		/// </summary>
 		DeclareWord,												// <dw>
 		/// <summary>
-		/// A 'dd' asm directive that can store 1-4 dwords
+		/// A 'dd'/'.int' asm directive that can store 1-4 dwords
 		/// </summary>
 		DeclareDword,												// <dd>
 		/// <summary>
-		/// A 'dq' asm directive that can store 1-2 qwords
+		/// A 'dq'/'.quad' asm directive that can store 1-2 qwords
 		/// </summary>
 		DeclareQword,												// <dq>
 #pragma warning restore 1591 // Missing XML comment for publicly visible type or member

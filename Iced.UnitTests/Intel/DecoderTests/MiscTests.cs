@@ -80,7 +80,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
-			Assert.Equal(15, instr.ByteLength);
+			Assert.Equal(15, instr.Length);
 			Assert.Equal(DecoderConstants.DEFAULT_IP16, instr.IP);
 			Assert.Equal(DecoderConstants.DEFAULT_IP16 + 15, instr.NextIP);
 			Assert.Equal(CodeSize.Code16, instr.CodeSize);
@@ -100,7 +100,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(15, instr.ByteLength);
+			Assert.Equal(15, instr.Length);
 			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
@@ -123,7 +123,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
-			Assert.Equal(15, instr.ByteLength);
+			Assert.Equal(15, instr.Length);
 			Assert.Equal(DecoderConstants.DEFAULT_IP32, instr.IP);
 			Assert.Equal(DecoderConstants.DEFAULT_IP32 + 15, instr.NextIP);
 			Assert.Equal(CodeSize.Code32, instr.CodeSize);
@@ -143,7 +143,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(15, instr.ByteLength);
+			Assert.Equal(15, instr.Length);
 			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
@@ -166,7 +166,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
-			Assert.Equal(15, instr.ByteLength);
+			Assert.Equal(15, instr.Length);
 			Assert.Equal(DecoderConstants.DEFAULT_IP64, instr.IP);
 			Assert.Equal(DecoderConstants.DEFAULT_IP64 + 15, instr.NextIP);
 			Assert.Equal(CodeSize.Code64, instr.CodeSize);
@@ -186,7 +186,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 			Assert.Equal(Code.Add_rm32_r32, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(15, instr.ByteLength);
+			Assert.Equal(15, instr.Length);
 			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
@@ -204,13 +204,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("", 0)]
 		[InlineData("66", 1)]
 		[InlineData("01", 1)]
-		void Test16_too_short_instruction(string hexBytes, int byteLength) {
+		void Test16_too_short_instruction(string hexBytes, int length) {
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
@@ -222,13 +222,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("", 0)]
 		[InlineData("66", 1)]
 		[InlineData("01", 1)]
-		void Test32_too_short_instruction(string hexBytes, int byteLength) {
+		void Test32_too_short_instruction(string hexBytes, int length) {
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
@@ -240,13 +240,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("", 0)]
 		[InlineData("66", 1)]
 		[InlineData("01", 1)]
-		void Test64_too_short_instruction(string hexBytes, int byteLength) {
+		void Test64_too_short_instruction(string hexBytes, int length) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(Code.INVALID, instr.Code);
 			Assert.Equal(0, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepPrefix);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
@@ -317,11 +317,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[MemberData(nameof(Test64_all_mandatory_prefixes_Data))]
-		void Test64_all_mandatory_prefixes(string hexBytes, int byteLength, Code code) {
+		void Test64_all_mandatory_prefixes(string hexBytes, int length, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 			Assert.Equal(code, instr.Code);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 		}
 		public static IEnumerable<object[]> Test64_all_mandatory_prefixes_Data {
 			get {
@@ -370,11 +370,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[MemberData(nameof(Test64_all_mandatory_prefixes_segoverride_Data))]
-		void Test64_all_mandatory_prefixes_segoverride(string hexBytes, int byteLength, Code code) {
+		void Test64_all_mandatory_prefixes_segoverride(string hexBytes, int length, Code code) {
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 			Assert.Equal(code, instr.Code);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 		}
 		public static IEnumerable<object[]> Test64_all_mandatory_prefixes_segoverride_Data {
 			get {
@@ -545,7 +545,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						decoder.Decode(out var instr);
 						Assert.Equal(info.Code, instr.Code);
 
-						instr.ByteLength--;
+						instr.Length--;
 						instr.NextIP--;
 						if (prefix == "F3") {
 							Assert.True(instr.HasRepPrefix);

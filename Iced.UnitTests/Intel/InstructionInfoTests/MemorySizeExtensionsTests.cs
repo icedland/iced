@@ -44,6 +44,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => memorySize.GetSize());
 			Assert.Throws<ArgumentOutOfRangeException>(() => memorySize.GetElementSize());
 			Assert.Throws<ArgumentOutOfRangeException>(() => memorySize.GetElementType());
+			Assert.Throws<ArgumentOutOfRangeException>(() => memorySize.GetElementTypeInfo());
 			Assert.Throws<ArgumentOutOfRangeException>(() => memorySize.IsSigned());
 			Assert.Throws<ArgumentOutOfRangeException>(() => memorySize.IsPacked());
 			Assert.Throws<ArgumentOutOfRangeException>(() => memorySize.GetElementCount());
@@ -74,6 +75,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(size, memorySize.GetSize());
 			Assert.Equal(elementSize, memorySize.GetElementSize());
 			Assert.Equal(elementType, memorySize.GetElementType());
+			Assert.Equal(elementType, memorySize.GetElementTypeInfo().MemorySize);
 			Assert.Equal((flags & MemorySizeFlags.Signed) != 0, memorySize.IsSigned());
 			Assert.Equal((flags & MemorySizeFlags.Packed) != 0, memorySize.IsPacked());
 			Assert.Equal((flags & MemorySizeFlags.Broadcast) != 0, memorySize.IsBroadcast());

@@ -88,8 +88,8 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr1.CodeSize = CodeSize.Code32;
 			instr2.CodeSize = CodeSize.Code64;
 			Assert.False(Instruction.EqualsAllBits(instr1, instr2));
-			instr1.ByteLength = 10;
-			instr2.ByteLength = 5;
+			instr1.Length = 10;
+			instr2.Length = 5;
 			Assert.True(instr1.Equals(instr2));
 			Assert.True(instr1.Equals(ToObject(instr2)));
 			Assert.Equal(instr1, instr2);
@@ -304,8 +304,8 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.True(instr.SuppressAllExceptions);
 
 			for (int i = 0; i <= Iced.Intel.DecoderConstants.MaxInstructionLength; i++) {
-				instr.ByteLength = i;
-				Assert.Equal(i, instr.ByteLength);
+				instr.Length = i;
+				Assert.Equal(i, instr.Length);
 			}
 
 			foreach (var codeSize in GetEnumValues<CodeSize>()) {
@@ -318,7 +318,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				Assert.Equal(code, instr.Code);
 			}
 			foreach (var code in GetEnumValues<Code>()) {
-				instr.SetCodeNoCheck(code);
+				instr.InternalSetCodeNoCheck(code);
 				Assert.Equal(code, instr.Code);
 			}
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)(-1));

@@ -30,14 +30,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("66 66 01 CE", 4, Code.Add_rm32_r32, "66 01 CE")]
-		void Test16_double_66_is_same_as_one(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test16_double_66_is_same_as_one(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -52,14 +52,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("66 66 01 CE", 4, Code.Add_rm16_r16, "66 01 CE")]
-		void Test32_double_66_is_same_as_one(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test32_double_66_is_same_as_one(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -74,14 +74,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("66 66 01 CE", 4, Code.Add_rm16_r16, "66 01 CE")]
-		void Test64_double_66_is_same_as_one(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test64_double_66_is_same_as_one(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -96,14 +96,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("67 67 8D 18", 4, Code.Lea_r16_m, "67 8D 18")]
-		void Test16_double_67_is_same_as_one(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test16_double_67_is_same_as_one(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -124,14 +124,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("67 67 8D 18", 4, Code.Lea_r32_m, "67 8D 18")]
-		void Test32_double_67_is_same_as_one(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test32_double_67_is_same_as_one(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -152,14 +152,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("67 67 8D 18", 4, Code.Lea_r32_m, "67 8D 18")]
-		void Test64_double_67_is_same_as_one(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test64_double_67_is_same_as_one(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -220,14 +220,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("65 3E 01 18", 4, Code.Add_rm16_r16, Register.DS, "3E 01 18")]
 		[InlineData("65 64 01 18", 4, Code.Add_rm16_r16, Register.FS, "64 01 18")]
 		[InlineData("65 65 01 18", 4, Code.Add_rm16_r16, Register.GS, "65 01 18")]
-		void Test16_extra_segment_overrides(string hexBytes, int byteLength, Code code, Register segReg, string encodedBytes) {
+		void Test16_extra_segment_overrides(string hexBytes, int length, Code code, Register segReg, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder16(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -288,14 +288,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("65 3E 01 18", 4, Code.Add_rm32_r32, Register.DS, "3E 01 18")]
 		[InlineData("65 64 01 18", 4, Code.Add_rm32_r32, Register.FS, "64 01 18")]
 		[InlineData("65 65 01 18", 4, Code.Add_rm32_r32, Register.GS, "65 01 18")]
-		void Test32_extra_segment_overrides(string hexBytes, int byteLength, Code code, Register segReg, string encodedBytes) {
+		void Test32_extra_segment_overrides(string hexBytes, int length, Code code, Register segReg, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder32(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -356,14 +356,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("65 3E 01 18", 4, Code.Add_rm32_r32, Register.GS, "65 01 18")]
 		[InlineData("65 64 01 18", 4, Code.Add_rm32_r32, Register.FS, "64 01 18")]
 		[InlineData("65 65 01 18", 4, Code.Add_rm32_r32, Register.GS, "65 01 18")]
-		void Test64_extra_segment_overrides(string hexBytes, int byteLength, Code code, Register segReg, string encodedBytes) {
+		void Test64_extra_segment_overrides(string hexBytes, int length, Code code, Register segReg, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -384,14 +384,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("66 48 01 CE", 4, Code.Add_rm64_r64, "48 01 CE")]
-		void Test64_REX_W_overrides_66(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test64_REX_W_overrides_66(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -411,14 +411,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("4F 4D 01 D0", 4, Code.Add_rm64_r64, Register.R8, Register.R10, "4D 01 D0")]
 		[InlineData("4F 49 01 D9", 4, Code.Add_rm64_r64, Register.R9, Register.RBX, "49 01 D9")]
 		[InlineData("4F 4C 01 EC", 4, Code.Add_rm64_r64, Register.RSP, Register.R13, "4C 01 EC")]
-		void Test64_double_REX_prefixes(string hexBytes, int byteLength, Code code, Register reg1, Register reg2, string encodedBytes) {
+		void Test64_double_REX_prefixes(string hexBytes, int length, Code code, Register reg1, Register reg2, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -434,14 +434,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Theory]
 		[InlineData("48 66 01 CE", 4, Code.Add_rm16_r16, "66 01 CE")]
 		[InlineData("4F 66 01 CE", 4, Code.Add_rm16_r16, "66 01 CE")]
-		void Test64_REX_prefix_before_66(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test64_REX_prefix_before_66(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -456,14 +456,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("48 67 01 18", 4, Code.Add_rm32_r32, "67 01 18")]
-		void Test64_REX_before_67(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test64_REX_before_67(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -484,14 +484,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("49 F0 01 18", 4, Code.Add_rm32_r32, "F0 01 18")]
-		void Test64_REX_before_F0(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test64_REX_before_F0(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.True(instr.HasLockPrefix);
@@ -512,14 +512,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("4D F2 01 18", 4, Code.Add_rm32_r32, "F2 01 18")]
-		void Test64_REX_before_F2(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test64_REX_before_F2(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.True(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -540,14 +540,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Theory]
 		[InlineData("4F F3 01 18", 4, Code.Add_rm32_r32, "F3 01 18")]
-		void Test64_REX_before_F3(string hexBytes, int byteLength, Code code, string encodedBytes) {
+		void Test64_REX_before_F3(string hexBytes, int length, Code code, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.True(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
@@ -573,14 +573,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[InlineData("4B 3E 01 18", 4, Code.Add_rm32_r32, Register.DS, "3E 01 18")]
 		[InlineData("4C 64 01 18", 4, Code.Add_rm32_r32, Register.FS, "64 01 18")]
 		[InlineData("4F 65 01 18", 4, Code.Add_rm32_r32, Register.GS, "65 01 18")]
-		void Test64_REX_before_segment_override(string hexBytes, int byteLength, Code code, Register segReg, string encodedBytes) {
+		void Test64_REX_before_segment_override(string hexBytes, int length, Code code, Register segReg, string encodedBytes) {
 			Dummy(encodedBytes);
 			var decoder = CreateDecoder64(hexBytes);
 			var instr = decoder.Decode();
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(byteLength, instr.ByteLength);
+			Assert.Equal(length, instr.Length);
 			Assert.False(instr.HasRepePrefix);
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);

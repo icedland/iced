@@ -470,8 +470,8 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instr) {
-			int byteLength = instr.DeclareDataCount * elemLength;
-			for (int i = 0; i < byteLength; i++)
+			int length = instr.DeclareDataCount * elemLength;
+			for (int i = 0; i < length; i++)
 				encoder.WriteByte(instr.GetDeclareByteValue(i));
 		}
 	}

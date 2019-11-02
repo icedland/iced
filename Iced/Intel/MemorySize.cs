@@ -27,7 +27,7 @@ namespace Iced.Intel {
 	/// </summary>
 	public enum MemorySize {
 		/// <summary>
-		/// Unknown size or the instruction doesn't reference the memory (eg. <c>lea</c>)
+		/// Unknown size or the instruction doesn't reference any memory (eg. <c>lea</c>)
 		/// </summary>
 		Unknown,
 
@@ -122,17 +122,17 @@ namespace Iced.Intel {
 		SegPtr64,
 
 		/// <summary>
-		/// Memory location contains a 16-bit offset (jmp/call word ptr [mem])
+		/// Memory location contains a 16-bit offset (<c>jmp/call word ptr [mem]</c>)
 		/// </summary>
 		WordOffset,
 
 		/// <summary>
-		/// Memory location contains a 32-bit offset (jmp/call dword ptr [mem])
+		/// Memory location contains a 32-bit offset (<c>jmp/call dword ptr [mem]</c>)
 		/// </summary>
 		DwordOffset,
 
 		/// <summary>
-		/// Memory location contains a 64-bit offset (jmp/call qword ptr [mem])
+		/// Memory location contains a 64-bit offset (<c>jmp/call qword ptr [mem]</c>)
 		/// </summary>
 		QwordOffset,
 
@@ -147,27 +147,27 @@ namespace Iced.Intel {
 		Bound32_DwordDword,
 
 		/// <summary>
-		/// 32-bit bndmov, 2 x uint32
+		/// 32-bit bndmov, 2 x <see cref="uint"/>
 		/// </summary>
 		Bnd32,
 
 		/// <summary>
-		/// 64-bit bndmov, 2 x uint64
+		/// 64-bit bndmov, 2 x <see cref="ulong"/>
 		/// </summary>
 		Bnd64,
 
 		/// <summary>
-		/// Memory location contains a 16-bit limit and a 32-bit address (eg. lgdtw, lgdtd)
+		/// Memory location contains a 16-bit limit and a 32-bit address (eg. <c>lgdtw</c>, <c>lgdtd</c>)
 		/// </summary>
 		Fword6,
 
 		/// <summary>
-		/// Memory location contains a 16-bit limit and a 64-bit address (eg. lgdtq)
+		/// Memory location contains a 16-bit limit and a 64-bit address (eg. <c>lgdtq</c>)
 		/// </summary>
 		Fword10,
 
 		/// <summary>
-		/// Memory location contains an 16-bit floating point value
+		/// Memory location contains a 16-bit floating point value
 		/// </summary>
 		Float16,
 
@@ -197,32 +197,32 @@ namespace Iced.Intel {
 		BFloat16,
 
 		/// <summary>
-		/// Memory location contains a 14-byte FPU environment (16-bit fldenv/fstenv)
+		/// Memory location contains a 14-byte FPU environment (16-bit <c>fldenv</c>/<c>fstenv</c>)
 		/// </summary>
 		FpuEnv14,
 
 		/// <summary>
-		/// Memory location contains a 28-byte FPU environment (32/64-bit fldenv/fstenv)
+		/// Memory location contains a 28-byte FPU environment (32/64-bit <c>fldenv</c>/<c>fstenv</c>)
 		/// </summary>
 		FpuEnv28,
 
 		/// <summary>
-		/// Memory location contains a 94-byte FPU environment (16-bit fsave/frstor)
+		/// Memory location contains a 94-byte FPU environment (16-bit <c>fsave</c>/<c>frstor</c>)
 		/// </summary>
 		FpuState94,
 
 		/// <summary>
-		/// Memory location contains a 108-byte FPU environment (32/64-bit fsave/frstor)
+		/// Memory location contains a 108-byte FPU environment (32/64-bit <c>fsave</c>/<c>frstor</c>)
 		/// </summary>
 		FpuState108,
 
 		/// <summary>
-		/// Memory location contains 512-bytes of fxsave/fxrstor data
+		/// Memory location contains 512-bytes of <c>fxsave</c>/<c>fxrstor</c> data
 		/// </summary>
 		Fxsave_512Byte,
 
 		/// <summary>
-		/// Memory location contains 512-bytes of fxsave64/fxrstor64 data
+		/// Memory location contains 512-bytes of <c>fxsave64</c>/<c>fxrstor64</c> data
 		/// </summary>
 		Fxsave64_512Byte,
 
@@ -237,37 +237,37 @@ namespace Iced.Intel {
 		Xsave64,
 
 		/// <summary>
-		/// Memory location contains a 10-byte bcd value (fbld/fbstp)
+		/// Memory location contains a 10-byte bcd value (<c>fbld</c>/<c>fbstp</c>)
 		/// </summary>
 		Bcd,
 
 		/// <summary>
-		/// 16 bit location: 2 x uint8
+		/// 16 bit location: 2 x <see cref="byte"/>
 		/// </summary>
 		Packed16_UInt8,
 
 		/// <summary>
-		/// 16 bit location: 2 x int8
+		/// 16 bit location: 2 x <see cref="sbyte"/>
 		/// </summary>
 		Packed16_Int8,
 
 		/// <summary>
-		/// 32 bit location: 4 x uint8
+		/// 32 bit location: 4 x <see cref="byte"/>
 		/// </summary>
 		Packed32_UInt8,
 
 		/// <summary>
-		/// 32 bit location: 4 x int8
+		/// 32 bit location: 4 x <see cref="sbyte"/>
 		/// </summary>
 		Packed32_Int8,
 
 		/// <summary>
-		/// 32 bit location: 2 x uint16
+		/// 32 bit location: 2 x <see cref="ushort"/>
 		/// </summary>
 		Packed32_UInt16,
 
 		/// <summary>
-		/// 32 bit location: 2 x int16
+		/// 32 bit location: 2 x <see cref="short"/>
 		/// </summary>
 		Packed32_Int16,
 
@@ -277,32 +277,32 @@ namespace Iced.Intel {
 		Packed32_BFloat16,
 
 		/// <summary>
-		/// 64-bit location: 8 x uint8
+		/// 64-bit location: 8 x <see cref="byte"/>
 		/// </summary>
 		Packed64_UInt8,
 
 		/// <summary>
-		/// 64-bit location: 8 x int8
+		/// 64-bit location: 8 x <see cref="sbyte"/>
 		/// </summary>
 		Packed64_Int8,
 
 		/// <summary>
-		/// 64-bit location: 4 x uint16
+		/// 64-bit location: 4 x <see cref="ushort"/>
 		/// </summary>
 		Packed64_UInt16,
 
 		/// <summary>
-		/// 64-bit location: 4 x int16
+		/// 64-bit location: 4 x <see cref="short"/>
 		/// </summary>
 		Packed64_Int16,
 
 		/// <summary>
-		/// 64-bit location: 2 x uint32
+		/// 64-bit location: 2 x <see cref="uint"/>
 		/// </summary>
 		Packed64_UInt32,
 
 		/// <summary>
-		/// 64-bit location: 2 x int32
+		/// 64-bit location: 2 x <see cref="int"/>
 		/// </summary>
 		Packed64_Int32,
 
@@ -312,37 +312,37 @@ namespace Iced.Intel {
 		Packed64_Float16,
 
 		/// <summary>
-		/// 64-bit location: 2 x float32
+		/// 64-bit location: 2 x <see cref="float"/>
 		/// </summary>
 		Packed64_Float32,
 
 		/// <summary>
-		/// 128 bit location: 16 x uint8
+		/// 128 bit location: 16 x <see cref="byte"/>
 		/// </summary>
 		Packed128_UInt8,
 
 		/// <summary>
-		/// 128 bit location: 16 x int8
+		/// 128 bit location: 16 x <see cref="sbyte"/>
 		/// </summary>
 		Packed128_Int8,
 
 		/// <summary>
-		/// 128 bit location: 8 x uint16
+		/// 128 bit location: 8 x <see cref="ushort"/>
 		/// </summary>
 		Packed128_UInt16,
 
 		/// <summary>
-		/// 128 bit location: 8 x int16
+		/// 128 bit location: 8 x <see cref="short"/>
 		/// </summary>
 		Packed128_Int16,
 
 		/// <summary>
-		/// 128 bit location: 4 x uint32
+		/// 128 bit location: 4 x <see cref="uint"/>
 		/// </summary>
 		Packed128_UInt32,
 
 		/// <summary>
-		/// 128 bit location: 4 x int32
+		/// 128 bit location: 4 x <see cref="int"/>
 		/// </summary>
 		Packed128_Int32,
 
@@ -352,12 +352,12 @@ namespace Iced.Intel {
 		Packed128_UInt52,
 
 		/// <summary>
-		/// 128 bit location: 2 x uint64
+		/// 128 bit location: 2 x <see cref="ulong"/>
 		/// </summary>
 		Packed128_UInt64,
 
 		/// <summary>
-		/// 128 bit location: 2 x int64
+		/// 128 bit location: 2 x <see cref="long"/>
 		/// </summary>
 		Packed128_Int64,
 
@@ -367,12 +367,12 @@ namespace Iced.Intel {
 		Packed128_Float16,
 
 		/// <summary>
-		/// 128 bit location: 4 x float32
+		/// 128 bit location: 4 x <see cref="float"/>
 		/// </summary>
 		Packed128_Float32,
 
 		/// <summary>
-		/// 128 bit location: 2 x float64
+		/// 128 bit location: 2 x <see cref="double"/>
 		/// </summary>
 		Packed128_Float64,
 
@@ -382,32 +382,32 @@ namespace Iced.Intel {
 		Packed128_2xBFloat16,
 
 		/// <summary>
-		/// 256 bit location: 32 x uint8
+		/// 256 bit location: 32 x <see cref="byte"/>
 		/// </summary>
 		Packed256_UInt8,
 
 		/// <summary>
-		/// 256 bit location: 32 x int8
+		/// 256 bit location: 32 x <see cref="sbyte"/>
 		/// </summary>
 		Packed256_Int8,
 
 		/// <summary>
-		/// 256 bit location: 16 x uint16
+		/// 256 bit location: 16 x <see cref="ushort"/>
 		/// </summary>
 		Packed256_UInt16,
 
 		/// <summary>
-		/// 256 bit location: 16 x int16
+		/// 256 bit location: 16 x <see cref="short"/>
 		/// </summary>
 		Packed256_Int16,
 
 		/// <summary>
-		/// 256 bit location: 8 x uint32
+		/// 256 bit location: 8 x <see cref="uint"/>
 		/// </summary>
 		Packed256_UInt32,
 
 		/// <summary>
-		/// 256 bit location: 8 x int32
+		/// 256 bit location: 8 x <see cref="int"/>
 		/// </summary>
 		Packed256_Int32,
 
@@ -417,12 +417,12 @@ namespace Iced.Intel {
 		Packed256_UInt52,
 
 		/// <summary>
-		/// 256 bit location: 4 x uint64
+		/// 256 bit location: 4 x <see cref="ulong"/>
 		/// </summary>
 		Packed256_UInt64,
 
 		/// <summary>
-		/// 256 bit location: 4 x int64
+		/// 256 bit location: 4 x <see cref="long"/>
 		/// </summary>
 		Packed256_Int64,
 
@@ -442,12 +442,12 @@ namespace Iced.Intel {
 		Packed256_Float16,
 
 		/// <summary>
-		/// 256 bit location: 8 x float32
+		/// 256 bit location: 8 x <see cref="float"/>
 		/// </summary>
 		Packed256_Float32,
 
 		/// <summary>
-		/// 256 bit location: 4 x float64
+		/// 256 bit location: 4 x <see cref="double"/>
 		/// </summary>
 		Packed256_Float64,
 
@@ -462,32 +462,32 @@ namespace Iced.Intel {
 		Packed256_2xBFloat16,
 
 		/// <summary>
-		/// 512 bit location: 64 x uint8
+		/// 512 bit location: 64 x <see cref="byte"/>
 		/// </summary>
 		Packed512_UInt8,
 
 		/// <summary>
-		/// 512 bit location: 64 x int8
+		/// 512 bit location: 64 x <see cref="sbyte"/>
 		/// </summary>
 		Packed512_Int8,
 
 		/// <summary>
-		/// 512 bit location: 32 x uint16
+		/// 512 bit location: 32 x <see cref="ushort"/>
 		/// </summary>
 		Packed512_UInt16,
 
 		/// <summary>
-		/// 512 bit location: 32 x int16
+		/// 512 bit location: 32 x <see cref="short"/>
 		/// </summary>
 		Packed512_Int16,
 
 		/// <summary>
-		/// 512 bit location: 16 x uint32
+		/// 512 bit location: 16 x <see cref="uint"/>
 		/// </summary>
 		Packed512_UInt32,
 
 		/// <summary>
-		/// 512 bit location: 16 x int32
+		/// 512 bit location: 16 x <see cref="int"/>
 		/// </summary>
 		Packed512_Int32,
 
@@ -497,12 +497,12 @@ namespace Iced.Intel {
 		Packed512_UInt52,
 
 		/// <summary>
-		/// 512 bit location: 8 x uint64
+		/// 512 bit location: 8 x <see cref="ulong"/>
 		/// </summary>
 		Packed512_UInt64,
 
 		/// <summary>
-		/// 512 bit location: 8 x int64
+		/// 512 bit location: 8 x <see cref="long"/>
 		/// </summary>
 		Packed512_Int64,
 
@@ -512,12 +512,12 @@ namespace Iced.Intel {
 		Packed512_UInt128,
 
 		/// <summary>
-		/// 512 bit location: 16 x float32
+		/// 512 bit location: 16 x <see cref="float"/>
 		/// </summary>
 		Packed512_Float32,
 
 		/// <summary>
-		/// 512 bit location: 8 x float64
+		/// 512 bit location: 8 x <see cref="double"/>
 		/// </summary>
 		Packed512_Float64,
 
@@ -527,27 +527,27 @@ namespace Iced.Intel {
 		Packed512_2xBFloat16,
 
 		/// <summary>
-		/// Broadcast uint32 to 64 bits
+		/// Broadcast <see cref="uint"/> to 64 bits
 		/// </summary>
 		Broadcast64_UInt32,
 
 		/// <summary>
-		/// Broadcast int32 to 64 bits
+		/// Broadcast <see cref="int"/> to 64 bits
 		/// </summary>
 		Broadcast64_Int32,
 
 		/// <summary>
-		/// Broadcast float32 to 64 bits
+		/// Broadcast <see cref="float"/> to 64 bits
 		/// </summary>
 		Broadcast64_Float32,
 
 		/// <summary>
-		/// Broadcast uint32 to 128 bits
+		/// Broadcast <see cref="uint"/> to 128 bits
 		/// </summary>
 		Broadcast128_UInt32,
 
 		/// <summary>
-		/// Broadcast int32 to 128 bits
+		/// Broadcast <see cref="int"/> to 128 bits
 		/// </summary>
 		Broadcast128_Int32,
 
@@ -557,32 +557,32 @@ namespace Iced.Intel {
 		Broadcast128_UInt52,
 
 		/// <summary>
-		/// Broadcast uint64 to 128 bits
+		/// Broadcast <see cref="ulong"/> to 128 bits
 		/// </summary>
 		Broadcast128_UInt64,
 
 		/// <summary>
-		/// Broadcast int64 to 128 bits
+		/// Broadcast <see cref="long"/> to 128 bits
 		/// </summary>
 		Broadcast128_Int64,
 
 		/// <summary>
-		/// Broadcast float32 to 128 bits
+		/// Broadcast <see cref="float"/> to 128 bits
 		/// </summary>
 		Broadcast128_Float32,
 
 		/// <summary>
-		/// Broadcast float64 to 128 bits
+		/// Broadcast <see cref="double"/> to 128 bits
 		/// </summary>
 		Broadcast128_Float64,
 
 		/// <summary>
-		/// Broadcast uint32 to 256 bits
+		/// Broadcast <see cref="uint"/> to 256 bits
 		/// </summary>
 		Broadcast256_UInt32,
 
 		/// <summary>
-		/// Broadcast int32 to 256 bits
+		/// Broadcast <see cref="int"/> to 256 bits
 		/// </summary>
 		Broadcast256_Int32,
 
@@ -592,32 +592,32 @@ namespace Iced.Intel {
 		Broadcast256_UInt52,
 
 		/// <summary>
-		/// Broadcast uint64 to 256 bits
+		/// Broadcast <see cref="ulong"/> to 256 bits
 		/// </summary>
 		Broadcast256_UInt64,
 
 		/// <summary>
-		/// Broadcast int64 to 256 bits
+		/// Broadcast <see cref="long"/> to 256 bits
 		/// </summary>
 		Broadcast256_Int64,
 
 		/// <summary>
-		/// Broadcast float32 to 256 bits
+		/// Broadcast <see cref="float"/> to 256 bits
 		/// </summary>
 		Broadcast256_Float32,
 
 		/// <summary>
-		/// Broadcast float64 to 256 bits
+		/// Broadcast <see cref="double"/> to 256 bits
 		/// </summary>
 		Broadcast256_Float64,
 
 		/// <summary>
-		/// Broadcast uint32 to 512 bits
+		/// Broadcast <see cref="uint"/> to 512 bits
 		/// </summary>
 		Broadcast512_UInt32,
 
 		/// <summary>
-		/// Broadcast int32 to 512 bits
+		/// Broadcast <see cref="int"/> to 512 bits
 		/// </summary>
 		Broadcast512_Int32,
 
@@ -627,67 +627,67 @@ namespace Iced.Intel {
 		Broadcast512_UInt52,
 
 		/// <summary>
-		/// Broadcast uint64 to 512 bits
+		/// Broadcast <see cref="ulong"/> to 512 bits
 		/// </summary>
 		Broadcast512_UInt64,
 
 		/// <summary>
-		/// Broadcast int64 to 512 bits
+		/// Broadcast <see cref="long"/> to 512 bits
 		/// </summary>
 		Broadcast512_Int64,
 
 		/// <summary>
-		/// Broadcast float32 to 512 bits
+		/// Broadcast <see cref="float"/> to 512 bits
 		/// </summary>
 		Broadcast512_Float32,
 
 		/// <summary>
-		/// Broadcast float64 to 512 bits
+		/// Broadcast <see cref="double"/> to 512 bits
 		/// </summary>
 		Broadcast512_Float64,
 
 		/// <summary>
-		/// Broadcast 2 x int16 to 128 bits
+		/// Broadcast 2 x <see cref="short"/> to 128 bits
 		/// </summary>
 		Broadcast128_2xInt16,
 
 		/// <summary>
-		/// Broadcast 2 x int16 to 256 bits
+		/// Broadcast 2 x <see cref="short"/> to 256 bits
 		/// </summary>
 		Broadcast256_2xInt16,
 
 		/// <summary>
-		/// Broadcast 2 x int16 to 512 bits
+		/// Broadcast 2 x <see cref="short"/> to 512 bits
 		/// </summary>
 		Broadcast512_2xInt16,
 
 		/// <summary>
-		/// Broadcast 2 x uint32 to 128 bits
+		/// Broadcast 2 x <see cref="uint"/> to 128 bits
 		/// </summary>
 		Broadcast128_2xUInt32,
 
 		/// <summary>
-		/// Broadcast 2 x uint32 to 256 bits
+		/// Broadcast 2 x <see cref="uint"/> to 256 bits
 		/// </summary>
 		Broadcast256_2xUInt32,
 
 		/// <summary>
-		/// Broadcast 2 x uint32 to 512 bits
+		/// Broadcast 2 x <see cref="uint"/> to 512 bits
 		/// </summary>
 		Broadcast512_2xUInt32,
 
 		/// <summary>
-		/// Broadcast 2 x int32 to 128 bits
+		/// Broadcast 2 x <see cref="int"/> to 128 bits
 		/// </summary>
 		Broadcast128_2xInt32,
 
 		/// <summary>
-		/// Broadcast 2 x int32 to 256 bits
+		/// Broadcast 2 x <see cref="int"/> to 256 bits
 		/// </summary>
 		Broadcast256_2xInt32,
 
 		/// <summary>
-		/// Broadcast 2 x int32 to 512 bits
+		/// Broadcast 2 x <see cref="int"/> to 512 bits
 		/// </summary>
 		Broadcast512_2xInt32,
 

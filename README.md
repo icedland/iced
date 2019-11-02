@@ -139,7 +139,7 @@ namespace Iced.Examples {
                 formatter.Format(instr, output);
                 Console.Write(instr.IP.ToString("X16"));
                 Console.Write(" ");
-                int instrLen = instr.ByteLength;
+                int instrLen = instr.Length;
                 int byteBaseIndex = (int)(instr.IP - exampleCodeRIP);
                 for (int i = 0; i < instrLen; i++)
                     Console.Write(codeBytes[byteBaseIndex + i].ToString("X2"));

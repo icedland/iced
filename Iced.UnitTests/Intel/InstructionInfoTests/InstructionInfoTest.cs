@@ -80,7 +80,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					instr.Op0Kind = OpKind.Register;
 					instr.Op0Register = Register.CS;
 					instr.CodeSize = CodeSize.Code16;
-					instr.ByteLength = 1;
+					instr.Length = 1;
 				}
 				else if (code >= Code.DeclareByte) {
 					instr = default;
@@ -111,7 +111,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				else {
 					var decoder = CreateDecoder(bitness, codeBytes, options);
 					instr = decoder.Decode();
-					if (codeBytes.Length > 1 && codeBytes[0] == 0x9B && instr.ByteLength == 1) {
+					if (codeBytes.Length > 1 && codeBytes[0] == 0x9B && instr.Length == 1) {
 						instr = decoder.Decode();
 						switch (instr.Code) {
 						case Code.Fnstenv_m14byte: instr.Code = Code.Fstenv_m14byte; break;

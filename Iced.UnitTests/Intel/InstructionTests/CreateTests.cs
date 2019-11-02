@@ -73,23 +73,23 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 
 		static byte[] GetData(ref Instruction instr) {
-			int byteLength = instr.DeclareDataCount;
+			int length = instr.DeclareDataCount;
 			switch (instr.Code) {
 			case Code.DeclareByte:
 				break;
 			case Code.DeclareWord:
-				byteLength *= 2;
+				length *= 2;
 				break;
 			case Code.DeclareDword:
-				byteLength *= 4;
+				length *= 4;
 				break;
 			case Code.DeclareQword:
-				byteLength *= 8;
+				length *= 8;
 				break;
 			default:
 				throw new InvalidOperationException();
 			}
-			var res = new byte[byteLength];
+			var res = new byte[length];
 			for (int i = 0; i < res.Length; i++)
 				res[i] = instr.GetDeclareByteValue(i);
 			return res;
@@ -656,7 +656,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			var origRip = decoder.IP;
 			decoder.Decode(out var decodedInstr);
 			decodedInstr.CodeSize = 0;
-			decodedInstr.ByteLength = 0;
+			decodedInstr.Length = 0;
 			decodedInstr.NextIP = 0;
 
 			var createdInstr = create();

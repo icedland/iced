@@ -303,7 +303,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp2Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}
@@ -378,7 +378,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}
@@ -420,7 +420,7 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+					instruction.InternalSetIsBroadcast();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
@@ -472,7 +472,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}
@@ -602,7 +602,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}
@@ -684,7 +684,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}
@@ -1013,7 +1013,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp2Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}
@@ -1072,7 +1072,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp2Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}
@@ -1164,7 +1164,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp2Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}
@@ -1214,7 +1214,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp2Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}
@@ -1260,7 +1260,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp2Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}
@@ -1303,7 +1303,7 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				instruction.InternalOp2Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0)
-					instruction.SetIsBroadcast();
+					instruction.InternalSetIsBroadcast();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			if ((((uint)(state.flags & StateFlags.z) | state.aaa | state.extraRegisterBase | state.extraRegisterBaseEVEX) & decoder.invalidCheckMask) != 0)
@@ -1346,7 +1346,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp2Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}
@@ -1953,7 +1953,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				if ((state.flags & StateFlags.b) != 0) {
 					if (canBroadcast)
-						instruction.SetIsBroadcast();
+						instruction.InternalSetIsBroadcast();
 					else if (decoder.invalidCheckMask != 0)
 						decoder.SetInvalidInstruction();
 				}

@@ -30,7 +30,7 @@ using Iced.Intel;
 namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 	readonly struct MemInfo : IEquatable<MemInfo> {
 		public readonly string HexBytes;
-		public readonly int ByteLength;
+		public readonly int Length;
 		public readonly string Code;
 		public readonly Register Register;
 		public readonly Register PrefixSeg;
@@ -42,9 +42,9 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 		public readonly uint Displ;
 		public readonly bool IsInvalid;
 
-		public MemInfo(string hexBytes, int byteLength, string code, Register register, Register prefixSeg, Register baseReg, Register indexReg, int scale, int displSize, uint displ, bool isInvalid) {
+		public MemInfo(string hexBytes, int length, string code, Register register, Register prefixSeg, Register baseReg, Register indexReg, int scale, int displSize, uint displ, bool isInvalid) {
 			HexBytes = hexBytes;
-			ByteLength = byteLength;
+			Length = length;
 			Code = code;
 			Register = register;
 			PrefixSeg = prefixSeg;
@@ -66,7 +66,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 			if (HexBytes != other.HexBytes)
 				return false;
 
-			if (ByteLength != other.ByteLength ||
+			if (Length != other.Length ||
 				Code != other.Code ||
 				Register != other.Register ||
 				PrefixSeg != other.PrefixSeg ||
@@ -109,7 +109,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 		const Register EVEX_Register = Register.XMM0;
 
 		readonly StringBuilder sb = new StringBuilder();
-		int byteLength;
+		int length;
 
 		string GetCodeValue(int codeSize, bool isVsib) {
 			if (isVsib)
@@ -122,9 +122,9 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 			}
 		}
 
-		string GetHexBytes(out int byteLength) {
-			byteLength = this.byteLength;
-			this.byteLength = 0;
+		string GetHexBytes(out int length) {
+			length = this.length;
+			this.length = 0;
 			var res = sb.ToString();
 			sb.Clear();
 			return res;
@@ -139,7 +139,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 
 		void AddByte(byte value) {
 			sb.Append(value.ToString("X2"));
-			byteLength++;
+			length++;
 		}
 
 		void AddUInt16(ushort value) {
@@ -326,7 +326,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 						default:
 							throw new InvalidOperationException();
 						}
-						Console.WriteLine($"{info.HexBytes}, {info.ByteLength}, {info.Code}, {info.Register}, {info.PrefixSeg}, {info.Segment}, {info.BaseReg}, {info.IndexReg}, {info.Scale}, {displString}, {info.DisplSize}");
+						Console.WriteLine($"{info.HexBytes}, {info.Length}, {info.Code}, {info.Register}, {info.PrefixSeg}, {info.Segment}, {info.BaseReg}, {info.IndexReg}, {info.Scale}, {displString}, {info.DisplSize}");
 						var data = HexUtils.ToByteArray(info.HexBytes);
 						file.Write(data, 0, data.Length);
 					}
@@ -430,8 +430,8 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 
 				uint displ = GetDispl(addrSize, displSize, modRM);
 				LegacyEncode(codeSize != addrSize, 0, modRM, -1, displSize, displ);
-				var hexBytes = GetHexBytes(out int byteLength);
-				yield return new MemInfo(hexBytes, byteLength, GetCodeValue(codeSize, isVsib), register, prefixSeg, baseReg, indexReg, scale, displSize, displ, isInvalid: false);
+				var hexBytes = GetHexBytes(out int length);
+				yield return new MemInfo(hexBytes, length, GetCodeValue(codeSize, isVsib), register, prefixSeg, baseReg, indexReg, scale, displSize, displ, isInvalid: false);
 			}
 		}
 
@@ -593,8 +593,8 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 					rex |= 0x40;
 				LegacyEncode(codeSize != addrSize, rex, modRM, sib, displSize, displ);
 			}
-			var hexBytes = GetHexBytes(out int byteLength);
-			return new MemInfo(hexBytes, byteLength, GetCodeValue(codeSize, isVsib), register, prefixSeg, baseReg, indexReg, scale, displSize, displ, isInvalid);
+			var hexBytes = GetHexBytes(out int length);
+			return new MemInfo(hexBytes, length, GetCodeValue(codeSize, isVsib), register, prefixSeg, baseReg, indexReg, scale, displSize, displ, isInvalid);
 		}
 	}
 }

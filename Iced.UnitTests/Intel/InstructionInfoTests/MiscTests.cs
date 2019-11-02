@@ -619,6 +619,12 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		}
 
 		[Fact]
+		void MemorySizeExtensions_GetElementTypeInfo_throws_if_invalid_input() {
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)(-1)).GetElementTypeInfo());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)Iced.Intel.DecoderConstants.NumberOfMemorySizes).GetElementTypeInfo());
+		}
+
+		[Fact]
 		void MemorySizeExtensions_IsSigned_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)(-1)).IsSigned());
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)Iced.Intel.DecoderConstants.NumberOfMemorySizes).IsSigned());

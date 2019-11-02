@@ -390,7 +390,7 @@ after_read_prefixes:
 			instruction.InternalCodeSize = defaultCodeSize;
 			uint instrLen = state.instructionLength;
 			Debug.Assert(0 <= instrLen && instrLen <= DecoderConstants.MaxInstructionLength);// Could be 0 if there were no bytes available
-			instruction.InternalByteLength = instrLen;
+			instruction.InternalLength = instrLen;
 			var ip = instructionPointer;
 			ip += instrLen;
 			instructionPointer = ip;
@@ -1064,49 +1064,49 @@ after_read_prefixes:
 					case OpKind.Immediate8to16:
 					case OpKind.Immediate8to32:
 					case OpKind.Immediate8to64:
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - extraImmSub - 1);
+						constantOffsets.ImmediateOffset = (byte)(instruction.Length - extraImmSub - 1);
 						constantOffsets.ImmediateSize = 1;
 						goto after_imm_loop;
 
 					case OpKind.Immediate16:
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - extraImmSub - 2);
+						constantOffsets.ImmediateOffset = (byte)(instruction.Length - extraImmSub - 2);
 						constantOffsets.ImmediateSize = 2;
 						goto after_imm_loop;
 
 					case OpKind.Immediate32:
 					case OpKind.Immediate32to64:
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - extraImmSub - 4);
+						constantOffsets.ImmediateOffset = (byte)(instruction.Length - extraImmSub - 4);
 						constantOffsets.ImmediateSize = 4;
 						goto after_imm_loop;
 
 					case OpKind.Immediate64:
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - extraImmSub - 8);
+						constantOffsets.ImmediateOffset = (byte)(instruction.Length - extraImmSub - 8);
 						constantOffsets.ImmediateSize = 8;
 						goto after_imm_loop;
 
 					case OpKind.Immediate8_2nd:
-						constantOffsets.ImmediateOffset2 = (byte)(instruction.ByteLength - 1);
+						constantOffsets.ImmediateOffset2 = (byte)(instruction.Length - 1);
 						constantOffsets.ImmediateSize2 = 1;
 						extraImmSub = 1;
 						break;
 
 					case OpKind.NearBranch16:
 						if ((state.flags & StateFlags.BranchImm8) != 0) {
-							constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 1);
+							constantOffsets.ImmediateOffset = (byte)(instruction.Length - 1);
 							constantOffsets.ImmediateSize = 1;
 						}
 						else if ((state.flags & StateFlags.Xbegin) == 0) {
-							constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 2);
+							constantOffsets.ImmediateOffset = (byte)(instruction.Length - 2);
 							constantOffsets.ImmediateSize = 2;
 						}
 						else {
 							Debug.Assert((state.flags & StateFlags.Xbegin) != 0);
 							if (state.operandSize != OpSize.Size16) {
-								constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 4);
+								constantOffsets.ImmediateOffset = (byte)(instruction.Length - 4);
 								constantOffsets.ImmediateSize = 4;
 							}
 							else {
-								constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 2);
+								constantOffsets.ImmediateOffset = (byte)(instruction.Length - 2);
 								constantOffsets.ImmediateSize = 2;
 							}
 						}
@@ -1115,37 +1115,37 @@ after_read_prefixes:
 					case OpKind.NearBranch32:
 					case OpKind.NearBranch64:
 						if ((state.flags & StateFlags.BranchImm8) != 0) {
-							constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 1);
+							constantOffsets.ImmediateOffset = (byte)(instruction.Length - 1);
 							constantOffsets.ImmediateSize = 1;
 						}
 						else if ((state.flags & StateFlags.Xbegin) == 0) {
-							constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 4);
+							constantOffsets.ImmediateOffset = (byte)(instruction.Length - 4);
 							constantOffsets.ImmediateSize = 4;
 						}
 						else {
 							Debug.Assert((state.flags & StateFlags.Xbegin) != 0);
 							if (state.operandSize != OpSize.Size16) {
-								constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 4);
+								constantOffsets.ImmediateOffset = (byte)(instruction.Length - 4);
 								constantOffsets.ImmediateSize = 4;
 							}
 							else {
-								constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - 2);
+								constantOffsets.ImmediateOffset = (byte)(instruction.Length - 2);
 								constantOffsets.ImmediateSize = 2;
 							}
 						}
 						break;
 
 					case OpKind.FarBranch16:
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (2 + 2));
+						constantOffsets.ImmediateOffset = (byte)(instruction.Length - (2 + 2));
 						constantOffsets.ImmediateSize = 2;
-						constantOffsets.ImmediateOffset2 = (byte)(instruction.ByteLength - 2);
+						constantOffsets.ImmediateOffset2 = (byte)(instruction.Length - 2);
 						constantOffsets.ImmediateSize2 = 2;
 						break;
 
 					case OpKind.FarBranch32:
-						constantOffsets.ImmediateOffset = (byte)(instruction.ByteLength - (4 + 2));
+						constantOffsets.ImmediateOffset = (byte)(instruction.Length - (4 + 2));
 						constantOffsets.ImmediateSize = 4;
-						constantOffsets.ImmediateOffset2 = (byte)(instruction.ByteLength - 2);
+						constantOffsets.ImmediateOffset2 = (byte)(instruction.Length - 2);
 						constantOffsets.ImmediateSize2 = 2;
 						break;
 					}

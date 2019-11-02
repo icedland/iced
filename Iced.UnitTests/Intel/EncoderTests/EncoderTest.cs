@@ -59,8 +59,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var origInstr = decoder.Decode();
 			var origConstantOffsets = decoder.GetConstantOffsets(origInstr);
 			Assert.Equal(code, origInstr.Code);
-			Assert.Equal(origBytes.Length, origInstr.ByteLength);
-			Assert.True(origInstr.ByteLength <= Iced.Intel.DecoderConstants.MaxInstructionLength);
+			Assert.Equal(origBytes.Length, origInstr.Length);
+			Assert.True(origInstr.Length <= Iced.Intel.DecoderConstants.MaxInstructionLength);
 			Assert.Equal((ushort)origRip, origInstr.IP16);
 			Assert.Equal((uint)origRip, origInstr.IP32);
 			Assert.Equal(origRip, origInstr.IP);
@@ -77,7 +77,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(errorMessage is null, "Unexpected ErrorMessage: " + errorMessage);
 			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
 			var encodedConstantOffsets = encoder.GetConstantOffsets();
-			FixConstantOffsets(ref encodedConstantOffsets, origInstr.ByteLength, (int)encodedInstrLen);
+			FixConstantOffsets(ref encodedConstantOffsets, origInstr.Length, (int)encodedInstrLen);
 			Assert.True(Equals(ref origConstantOffsets, ref encodedConstantOffsets));
 			var encodedBytes = writer.ToArray();
 			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);
@@ -94,8 +94,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 			var newInstr = CreateDecoder(codeSize, encodedBytes, options).Decode();
 			Assert.Equal(code, newInstr.Code);
-			Assert.Equal(encodedBytes.Length, newInstr.ByteLength);
-			newInstr.ByteLength = origInstr.ByteLength;
+			Assert.Equal(encodedBytes.Length, newInstr.Length);
+			newInstr.Length = origInstr.Length;
 			newInstr.NextIP = origInstr.NextIP;
 			if (origBytes.Length != expectedBytes.Length && (origInstr.MemoryBase == Register.EIP || origInstr.MemoryBase == Register.RIP))
 				newInstr.MemoryDisplacement += (uint)(expectedBytes.Length - origBytes.Length);
@@ -149,8 +149,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var origRip = decoder.IP;
 			var origInstr = decoder.Decode();
 			Assert.Equal(code, origInstr.Code);
-			Assert.Equal(origBytes.Length, origInstr.ByteLength);
-			Assert.True(origInstr.ByteLength <= Iced.Intel.DecoderConstants.MaxInstructionLength);
+			Assert.Equal(origBytes.Length, origInstr.Length);
+			Assert.True(origInstr.Length <= Iced.Intel.DecoderConstants.MaxInstructionLength);
 			Assert.Equal((ushort)origRip, origInstr.IP16);
 			Assert.Equal((uint)origRip, origInstr.IP32);
 			Assert.Equal(origRip, origInstr.IP);

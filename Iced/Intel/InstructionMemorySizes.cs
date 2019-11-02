@@ -3093,35 +3093,35 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed512_Float64,// EVEX_Vrsqrt14pd_zmm_k1z_zmmm512b64
 			(byte)MemorySize.Float32,// EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32
 			(byte)MemorySize.Float64,// EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64
-			(int)MemorySize.Packed128_Int8,// EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Packed256_Int8,// EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Packed512_Int8,// EVEX_Vpdpbusd_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Packed128_Int8,// EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Packed256_Int8,// EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Packed512_Int8,// EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Packed128_Int16,// EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Packed256_Int16,// EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Packed512_Int16,// EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Packed128_2xBFloat16,// EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Packed256_2xBFloat16,// EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Packed512_2xBFloat16,// EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Packed128_Int8,// EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Packed256_Int8,// EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Packed512_Int8,// EVEX_Vpdpbusd_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Packed128_Int8,// EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Packed256_Int8,// EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Packed512_Int8,// EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Packed128_Int16,// EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Packed256_Int16,// EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Packed512_Int16,// EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Packed128_2xBFloat16,// EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Packed256_2xBFloat16,// EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Packed512_2xBFloat16,// EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32
 			(byte)MemorySize.Packed128_Int16,// EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128
-			(int)MemorySize.Packed128_Int16,// EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Packed256_Int16,// EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Packed512_Int16,// EVEX_Vpdpwssds_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Packed128_Int16,// EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Packed256_Int16,// EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Packed512_Int16,// EVEX_Vpdpwssds_zmm_k1z_zmm_zmmm512b32
 			(byte)MemorySize.Packed128_Int16,// EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128
-			(int)MemorySize.Packed128_UInt8,// EVEX_Vpopcntb_xmm_k1z_xmmm128
-			(int)MemorySize.Packed256_UInt8,// EVEX_Vpopcntb_ymm_k1z_ymmm256
-			(int)MemorySize.Packed512_UInt8,// EVEX_Vpopcntb_zmm_k1z_zmmm512
-			(int)MemorySize.Packed128_UInt16,// EVEX_Vpopcntw_xmm_k1z_xmmm128
-			(int)MemorySize.Packed256_UInt16,// EVEX_Vpopcntw_ymm_k1z_ymmm256
-			(int)MemorySize.Packed512_UInt16,// EVEX_Vpopcntw_zmm_k1z_zmmm512
-			(int)MemorySize.Packed128_UInt32,// EVEX_Vpopcntd_xmm_k1z_xmmm128b32
-			(int)MemorySize.Packed256_UInt32,// EVEX_Vpopcntd_ymm_k1z_ymmm256b32
-			(int)MemorySize.Packed512_UInt32,// EVEX_Vpopcntd_zmm_k1z_zmmm512b32
-			(int)MemorySize.Packed128_UInt64,// EVEX_Vpopcntq_xmm_k1z_xmmm128b64
-			(int)MemorySize.Packed256_UInt64,// EVEX_Vpopcntq_ymm_k1z_ymmm256b64
-			(int)MemorySize.Packed512_UInt64,// EVEX_Vpopcntq_zmm_k1z_zmmm512b64
+			(byte)MemorySize.Packed128_UInt8,// EVEX_Vpopcntb_xmm_k1z_xmmm128
+			(byte)MemorySize.Packed256_UInt8,// EVEX_Vpopcntb_ymm_k1z_ymmm256
+			(byte)MemorySize.Packed512_UInt8,// EVEX_Vpopcntb_zmm_k1z_zmmm512
+			(byte)MemorySize.Packed128_UInt16,// EVEX_Vpopcntw_xmm_k1z_xmmm128
+			(byte)MemorySize.Packed256_UInt16,// EVEX_Vpopcntw_ymm_k1z_ymmm256
+			(byte)MemorySize.Packed512_UInt16,// EVEX_Vpopcntw_zmm_k1z_zmmm512
+			(byte)MemorySize.Packed128_UInt32,// EVEX_Vpopcntd_xmm_k1z_xmmm128b32
+			(byte)MemorySize.Packed256_UInt32,// EVEX_Vpopcntd_ymm_k1z_ymmm256b32
+			(byte)MemorySize.Packed512_UInt32,// EVEX_Vpopcntd_zmm_k1z_zmmm512b32
+			(byte)MemorySize.Packed128_UInt64,// EVEX_Vpopcntq_xmm_k1z_xmmm128b64
+			(byte)MemorySize.Packed256_UInt64,// EVEX_Vpopcntq_ymm_k1z_ymmm256b64
+			(byte)MemorySize.Packed512_UInt64,// EVEX_Vpopcntq_zmm_k1z_zmmm512b64
 			(byte)MemorySize.Int32,// VEX_Vpbroadcastd_xmm_xmmm32
 			(byte)MemorySize.Int32,// VEX_Vpbroadcastd_ymm_xmmm32
 			(byte)MemorySize.Int32,// EVEX_Vpbroadcastd_xmm_k1z_xmmm32
@@ -3142,18 +3142,18 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed128_Int64,// EVEX_Vbroadcasti64x2_zmm_k1z_m128
 			(byte)MemorySize.Packed256_Int32,// EVEX_Vbroadcasti32x8_zmm_k1z_m256
 			(byte)MemorySize.Packed256_Int64,// EVEX_Vbroadcasti64x4_zmm_k1z_m256
-			(int)MemorySize.Packed128_UInt8,// EVEX_Vpexpandb_xmm_k1z_xmmm128
-			(int)MemorySize.Packed256_UInt8,// EVEX_Vpexpandb_ymm_k1z_ymmm256
-			(int)MemorySize.Packed512_UInt8,// EVEX_Vpexpandb_zmm_k1z_zmmm512
-			(int)MemorySize.Packed128_UInt16,// EVEX_Vpexpandw_xmm_k1z_xmmm128
-			(int)MemorySize.Packed256_UInt16,// EVEX_Vpexpandw_ymm_k1z_ymmm256
-			(int)MemorySize.Packed512_UInt16,// EVEX_Vpexpandw_zmm_k1z_zmmm512
-			(int)MemorySize.Packed128_UInt8,// EVEX_Vpcompressb_xmmm128_k1z_xmm
-			(int)MemorySize.Packed256_UInt8,// EVEX_Vpcompressb_ymmm256_k1z_ymm
-			(int)MemorySize.Packed512_UInt8,// EVEX_Vpcompressb_zmmm512_k1z_zmm
-			(int)MemorySize.Packed128_UInt16,// EVEX_Vpcompressw_xmmm128_k1z_xmm
-			(int)MemorySize.Packed256_UInt16,// EVEX_Vpcompressw_ymmm256_k1z_ymm
-			(int)MemorySize.Packed512_UInt16,// EVEX_Vpcompressw_zmmm512_k1z_zmm
+			(byte)MemorySize.Packed128_UInt8,// EVEX_Vpexpandb_xmm_k1z_xmmm128
+			(byte)MemorySize.Packed256_UInt8,// EVEX_Vpexpandb_ymm_k1z_ymmm256
+			(byte)MemorySize.Packed512_UInt8,// EVEX_Vpexpandb_zmm_k1z_zmmm512
+			(byte)MemorySize.Packed128_UInt16,// EVEX_Vpexpandw_xmm_k1z_xmmm128
+			(byte)MemorySize.Packed256_UInt16,// EVEX_Vpexpandw_ymm_k1z_ymmm256
+			(byte)MemorySize.Packed512_UInt16,// EVEX_Vpexpandw_zmm_k1z_zmmm512
+			(byte)MemorySize.Packed128_UInt8,// EVEX_Vpcompressb_xmmm128_k1z_xmm
+			(byte)MemorySize.Packed256_UInt8,// EVEX_Vpcompressb_ymmm256_k1z_ymm
+			(byte)MemorySize.Packed512_UInt8,// EVEX_Vpcompressb_zmmm512_k1z_zmm
+			(byte)MemorySize.Packed128_UInt16,// EVEX_Vpcompressw_xmmm128_k1z_xmm
+			(byte)MemorySize.Packed256_UInt16,// EVEX_Vpcompressw_ymmm256_k1z_ymm
+			(byte)MemorySize.Packed512_UInt16,// EVEX_Vpcompressw_zmmm512_k1z_zmm
 			(byte)MemorySize.Packed128_Int32,// EVEX_Vpblendmd_xmm_k1z_xmm_xmmm128b32
 			(byte)MemorySize.Packed256_Int32,// EVEX_Vpblendmd_ymm_k1z_ymm_ymmm256b32
 			(byte)MemorySize.Packed512_Int32,// EVEX_Vpblendmd_zmm_k1z_zmm_zmmm512b32
@@ -3178,30 +3178,30 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed128_UInt64,// EVEX_Vp2intersectq_kp1_xmm_xmmm128b64
 			(byte)MemorySize.Packed256_UInt64,// EVEX_Vp2intersectq_kp1_ymm_ymmm256b64
 			(byte)MemorySize.Packed512_UInt64,// EVEX_Vp2intersectq_kp1_zmm_zmmm512b64
-			(int)MemorySize.Packed128_UInt16,// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
-			(int)MemorySize.Packed256_UInt16,// EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256
-			(int)MemorySize.Packed512_UInt16,// EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512
-			(int)MemorySize.Packed128_UInt32,// EVEX_Vpshldvd_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Packed256_UInt32,// EVEX_Vpshldvd_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Packed512_UInt32,// EVEX_Vpshldvd_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Packed128_UInt64,// EVEX_Vpshldvq_xmm_k1z_xmm_xmmm128b64
-			(int)MemorySize.Packed256_UInt64,// EVEX_Vpshldvq_ymm_k1z_ymm_ymmm256b64
-			(int)MemorySize.Packed512_UInt64,// EVEX_Vpshldvq_zmm_k1z_zmm_zmmm512b64
-			(int)MemorySize.Packed128_UInt16,// EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128
-			(int)MemorySize.Packed256_UInt16,// EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256
-			(int)MemorySize.Packed512_UInt16,// EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512
-			(int)MemorySize.Packed128_Float32,// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
-			(int)MemorySize.Packed256_Float32,// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
-			(int)MemorySize.Packed512_Float32,// EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32
-			(int)MemorySize.Packed128_Float32,// EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Packed256_Float32,// EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Packed512_Float32,// EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Packed128_UInt32,// EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Packed256_UInt32,// EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Packed512_UInt32,// EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Packed128_UInt64,// EVEX_Vpshrdvq_xmm_k1z_xmm_xmmm128b64
-			(int)MemorySize.Packed256_UInt64,// EVEX_Vpshrdvq_ymm_k1z_ymm_ymmm256b64
-			(int)MemorySize.Packed512_UInt64,// EVEX_Vpshrdvq_zmm_k1z_zmm_zmmm512b64
+			(byte)MemorySize.Packed128_UInt16,// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
+			(byte)MemorySize.Packed256_UInt16,// EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256
+			(byte)MemorySize.Packed512_UInt16,// EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512
+			(byte)MemorySize.Packed128_UInt32,// EVEX_Vpshldvd_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Packed256_UInt32,// EVEX_Vpshldvd_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Packed512_UInt32,// EVEX_Vpshldvd_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Packed128_UInt64,// EVEX_Vpshldvq_xmm_k1z_xmm_xmmm128b64
+			(byte)MemorySize.Packed256_UInt64,// EVEX_Vpshldvq_ymm_k1z_ymm_ymmm256b64
+			(byte)MemorySize.Packed512_UInt64,// EVEX_Vpshldvq_zmm_k1z_zmm_zmmm512b64
+			(byte)MemorySize.Packed128_UInt16,// EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128
+			(byte)MemorySize.Packed256_UInt16,// EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256
+			(byte)MemorySize.Packed512_UInt16,// EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512
+			(byte)MemorySize.Packed128_Float32,// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
+			(byte)MemorySize.Packed256_Float32,// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
+			(byte)MemorySize.Packed512_Float32,// EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32
+			(byte)MemorySize.Packed128_Float32,// EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Packed256_Float32,// EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Packed512_Float32,// EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Packed128_UInt32,// EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Packed256_UInt32,// EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Packed512_UInt32,// EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Packed128_UInt64,// EVEX_Vpshrdvq_xmm_k1z_xmm_xmmm128b64
+			(byte)MemorySize.Packed256_UInt64,// EVEX_Vpshrdvq_ymm_k1z_ymm_ymmm256b64
+			(byte)MemorySize.Packed512_UInt64,// EVEX_Vpshrdvq_zmm_k1z_zmm_zmmm512b64
 			(byte)MemorySize.Packed128_Int8,// EVEX_Vpermi2b_xmm_k1z_xmm_xmmm128
 			(byte)MemorySize.Packed256_Int8,// EVEX_Vpermi2b_ymm_k1z_ymm_ymmm256
 			(byte)MemorySize.Packed512_Int8,// EVEX_Vpermi2b_zmm_k1z_zmm_zmmm512
@@ -3307,9 +3307,9 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed256_Int32,// VEX_Vpmaskmovd_m256_ymm_ymm
 			(byte)MemorySize.Packed128_Int64,// VEX_Vpmaskmovq_m128_xmm_xmm
 			(byte)MemorySize.Packed256_Int64,// VEX_Vpmaskmovq_m256_ymm_ymm
-			(int)MemorySize.Packed128_UInt8,// EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128
-			(int)MemorySize.Packed256_UInt8,// EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256
-			(int)MemorySize.Packed512_UInt8,// EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512
+			(byte)MemorySize.Packed128_UInt8,// EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128
+			(byte)MemorySize.Packed256_UInt8,// EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256
+			(byte)MemorySize.Packed512_UInt8,// EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512
 			(byte)MemorySize.Int32,// VEX_Vpgatherdd_xmm_vm32x_xmm
 			(byte)MemorySize.Int32,// VEX_Vpgatherdd_ymm_vm32y_ymm
 			(byte)MemorySize.Int64,// VEX_Vpgatherdq_xmm_vm32x_xmm
@@ -3650,12 +3650,12 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed128_UInt32,// Sha256msg2_xmm_xmmm128
 			(byte)MemorySize.Float32,// EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae
 			(byte)MemorySize.Float64,// EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae
-			(int)MemorySize.Packed128_UInt8,// Gf2p8mulb_xmm_xmmm128
-			(int)MemorySize.Packed128_UInt8,// VEX_Vgf2p8mulb_xmm_xmm_xmmm128
-			(int)MemorySize.Packed256_UInt8,// VEX_Vgf2p8mulb_ymm_ymm_ymmm256
-			(int)MemorySize.Packed128_UInt8,// EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128
-			(int)MemorySize.Packed256_UInt8,// EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256
-			(int)MemorySize.Packed512_UInt8,// EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512
+			(byte)MemorySize.Packed128_UInt8,// Gf2p8mulb_xmm_xmmm128
+			(byte)MemorySize.Packed128_UInt8,// VEX_Vgf2p8mulb_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_UInt8,// VEX_Vgf2p8mulb_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_UInt8,// EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128
+			(byte)MemorySize.Packed256_UInt8,// EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256
+			(byte)MemorySize.Packed512_UInt8,// EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512
 			(byte)MemorySize.UInt128,// Aesimc_xmm_xmmm128
 			(byte)MemorySize.UInt128,// VEX_Vaesimc_xmm_xmmm128
 			(byte)MemorySize.UInt128,// Aesenc_xmm_xmmm128
@@ -4080,18 +4080,18 @@ namespace Iced.Intel {
 			(byte)MemorySize.Float64,// VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm
 			(byte)MemorySize.Float64,// VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64
 			(byte)MemorySize.Packed128_UInt32,// Sha1rnds4_xmm_xmmm128_imm8
-			(int)MemorySize.Packed128_UInt8,// Gf2p8affineqb_xmm_xmmm128_imm8
-			(int)MemorySize.Packed128_UInt8,// VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
-			(int)MemorySize.Packed256_UInt8,// VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
-			(int)MemorySize.Packed128_UInt8,// EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8
-			(int)MemorySize.Packed256_UInt8,// EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8
-			(int)MemorySize.Packed512_UInt8,// EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8
-			(int)MemorySize.Packed128_UInt8,// Gf2p8affineinvqb_xmm_xmmm128_imm8
-			(int)MemorySize.Packed128_UInt8,// VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
-			(int)MemorySize.Packed256_UInt8,// VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
-			(int)MemorySize.Packed128_UInt8,// EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8
-			(int)MemorySize.Packed256_UInt8,// EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8
-			(int)MemorySize.Packed512_UInt8,// EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8
+			(byte)MemorySize.Packed128_UInt8,// Gf2p8affineqb_xmm_xmmm128_imm8
+			(byte)MemorySize.Packed128_UInt8,// VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
+			(byte)MemorySize.Packed256_UInt8,// VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
+			(byte)MemorySize.Packed128_UInt8,// EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8
+			(byte)MemorySize.Packed256_UInt8,// EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8
+			(byte)MemorySize.Packed512_UInt8,// EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8
+			(byte)MemorySize.Packed128_UInt8,// Gf2p8affineinvqb_xmm_xmmm128_imm8
+			(byte)MemorySize.Packed128_UInt8,// VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
+			(byte)MemorySize.Packed256_UInt8,// VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
+			(byte)MemorySize.Packed128_UInt8,// EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8
+			(byte)MemorySize.Packed256_UInt8,// EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8
+			(byte)MemorySize.Packed512_UInt8,// EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8
 			(byte)MemorySize.UInt128,// Aeskeygenassist_xmm_xmmm128_imm8
 			(byte)MemorySize.UInt128,// VEX_Vaeskeygenassist_xmm_xmmm128_imm8
 			(byte)MemorySize.UInt32,// VEX_Rorx_r32_rm32_imm8
@@ -7296,22 +7296,22 @@ namespace Iced.Intel {
 			(byte)MemorySize.Broadcast512_Float64,// EVEX_Vrsqrt14pd_zmm_k1z_zmmm512b64
 			0,// EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32
 			0,// EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64
-			(int)MemorySize.Broadcast128_UInt32,// EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Broadcast256_UInt32,// EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Broadcast512_UInt32,// EVEX_Vpdpbusd_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Broadcast128_UInt32,// EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Broadcast256_UInt32,// EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Broadcast512_UInt32,// EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Broadcast128_2xInt16,// EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Broadcast256_2xInt16,// EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Broadcast512_2xInt16,// EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Broadcast128_2xBFloat16,// EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Broadcast256_2xBFloat16,// EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Broadcast512_2xBFloat16,// EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Broadcast128_UInt32,// EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Broadcast256_UInt32,// EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Broadcast512_UInt32,// EVEX_Vpdpbusd_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Broadcast128_UInt32,// EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Broadcast256_UInt32,// EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Broadcast512_UInt32,// EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Broadcast128_2xInt16,// EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Broadcast256_2xInt16,// EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Broadcast512_2xInt16,// EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Broadcast128_2xBFloat16,// EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Broadcast256_2xBFloat16,// EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Broadcast512_2xBFloat16,// EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32
 			0,// EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128
-			(int)MemorySize.Broadcast128_2xInt16,// EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Broadcast256_2xInt16,// EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Broadcast512_2xInt16,// EVEX_Vpdpwssds_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Broadcast128_2xInt16,// EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Broadcast256_2xInt16,// EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Broadcast512_2xInt16,// EVEX_Vpdpwssds_zmm_k1z_zmm_zmmm512b32
 			0,// EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128
 			0,// EVEX_Vpopcntb_xmm_k1z_xmmm128
 			0,// EVEX_Vpopcntb_ymm_k1z_ymmm256
@@ -7319,12 +7319,12 @@ namespace Iced.Intel {
 			0,// EVEX_Vpopcntw_xmm_k1z_xmmm128
 			0,// EVEX_Vpopcntw_ymm_k1z_ymmm256
 			0,// EVEX_Vpopcntw_zmm_k1z_zmmm512
-			(int)MemorySize.Broadcast128_UInt32,// EVEX_Vpopcntd_xmm_k1z_xmmm128b32
-			(int)MemorySize.Broadcast256_UInt32,// EVEX_Vpopcntd_ymm_k1z_ymmm256b32
-			(int)MemorySize.Broadcast512_UInt32,// EVEX_Vpopcntd_zmm_k1z_zmmm512b32
-			(int)MemorySize.Broadcast128_UInt64,// EVEX_Vpopcntq_xmm_k1z_xmmm128b64
-			(int)MemorySize.Broadcast256_UInt64,// EVEX_Vpopcntq_ymm_k1z_ymmm256b64
-			(int)MemorySize.Broadcast512_UInt64,// EVEX_Vpopcntq_zmm_k1z_zmmm512b64
+			(byte)MemorySize.Broadcast128_UInt32,// EVEX_Vpopcntd_xmm_k1z_xmmm128b32
+			(byte)MemorySize.Broadcast256_UInt32,// EVEX_Vpopcntd_ymm_k1z_ymmm256b32
+			(byte)MemorySize.Broadcast512_UInt32,// EVEX_Vpopcntd_zmm_k1z_zmmm512b32
+			(byte)MemorySize.Broadcast128_UInt64,// EVEX_Vpopcntq_xmm_k1z_xmmm128b64
+			(byte)MemorySize.Broadcast256_UInt64,// EVEX_Vpopcntq_ymm_k1z_ymmm256b64
+			(byte)MemorySize.Broadcast512_UInt64,// EVEX_Vpopcntq_zmm_k1z_zmmm512b64
 			0,// VEX_Vpbroadcastd_xmm_xmmm32
 			0,// VEX_Vpbroadcastd_ymm_xmmm32
 			0,// EVEX_Vpbroadcastd_xmm_k1z_xmmm32
@@ -7384,27 +7384,27 @@ namespace Iced.Intel {
 			0,// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
 			0,// EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256
 			0,// EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512
-			(int)MemorySize.Broadcast128_UInt32,// EVEX_Vpshldvd_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Broadcast256_UInt32,// EVEX_Vpshldvd_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Broadcast512_UInt32,// EVEX_Vpshldvd_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Broadcast128_UInt64,// EVEX_Vpshldvq_xmm_k1z_xmm_xmmm128b64
-			(int)MemorySize.Broadcast256_UInt64,// EVEX_Vpshldvq_ymm_k1z_ymm_ymmm256b64
-			(int)MemorySize.Broadcast512_UInt64,// EVEX_Vpshldvq_zmm_k1z_zmm_zmmm512b64
+			(byte)MemorySize.Broadcast128_UInt32,// EVEX_Vpshldvd_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Broadcast256_UInt32,// EVEX_Vpshldvd_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Broadcast512_UInt32,// EVEX_Vpshldvd_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Broadcast128_UInt64,// EVEX_Vpshldvq_xmm_k1z_xmm_xmmm128b64
+			(byte)MemorySize.Broadcast256_UInt64,// EVEX_Vpshldvq_ymm_k1z_ymm_ymmm256b64
+			(byte)MemorySize.Broadcast512_UInt64,// EVEX_Vpshldvq_zmm_k1z_zmm_zmmm512b64
 			0,// EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128
 			0,// EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256
 			0,// EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512
-			(int)MemorySize.Broadcast128_Float32,// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
-			(int)MemorySize.Broadcast256_Float32,// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
-			(int)MemorySize.Broadcast512_Float32,// EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32
-			(int)MemorySize.Broadcast128_Float32,// EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Broadcast256_Float32,// EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Broadcast512_Float32,// EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Broadcast128_UInt32,// EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32
-			(int)MemorySize.Broadcast256_UInt32,// EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32
-			(int)MemorySize.Broadcast512_UInt32,// EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32
-			(int)MemorySize.Broadcast128_UInt64,// EVEX_Vpshrdvq_xmm_k1z_xmm_xmmm128b64
-			(int)MemorySize.Broadcast256_UInt64,// EVEX_Vpshrdvq_ymm_k1z_ymm_ymmm256b64
-			(int)MemorySize.Broadcast512_UInt64,// EVEX_Vpshrdvq_zmm_k1z_zmm_zmmm512b64
+			(byte)MemorySize.Broadcast128_Float32,// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
+			(byte)MemorySize.Broadcast256_Float32,// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
+			(byte)MemorySize.Broadcast512_Float32,// EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32
+			(byte)MemorySize.Broadcast128_Float32,// EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Broadcast256_Float32,// EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Broadcast512_Float32,// EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Broadcast128_UInt32,// EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32
+			(byte)MemorySize.Broadcast256_UInt32,// EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32
+			(byte)MemorySize.Broadcast512_UInt32,// EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32
+			(byte)MemorySize.Broadcast128_UInt64,// EVEX_Vpshrdvq_xmm_k1z_xmm_xmmm128b64
+			(byte)MemorySize.Broadcast256_UInt64,// EVEX_Vpshrdvq_ymm_k1z_ymm_ymmm256b64
+			(byte)MemorySize.Broadcast512_UInt64,// EVEX_Vpshrdvq_zmm_k1z_zmm_zmmm512b64
 			0,// EVEX_Vpermi2b_xmm_k1z_xmm_xmmm128
 			0,// EVEX_Vpermi2b_ymm_k1z_ymm_ymmm256
 			0,// EVEX_Vpermi2b_zmm_k1z_zmm_zmmm512
@@ -8286,15 +8286,15 @@ namespace Iced.Intel {
 			0,// Gf2p8affineqb_xmm_xmmm128_imm8
 			0,// VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
 			0,// VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
-			(int)MemorySize.Broadcast128_UInt64,// EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8
-			(int)MemorySize.Broadcast256_UInt64,// EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8
-			(int)MemorySize.Broadcast512_UInt64,// EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8
+			(byte)MemorySize.Broadcast128_UInt64,// EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8
+			(byte)MemorySize.Broadcast256_UInt64,// EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8
+			(byte)MemorySize.Broadcast512_UInt64,// EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8
 			0,// Gf2p8affineinvqb_xmm_xmmm128_imm8
 			0,// VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
 			0,// VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
-			(int)MemorySize.Broadcast128_UInt64,// EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8
-			(int)MemorySize.Broadcast256_UInt64,// EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8
-			(int)MemorySize.Broadcast512_UInt64,// EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8
+			(byte)MemorySize.Broadcast128_UInt64,// EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8
+			(byte)MemorySize.Broadcast256_UInt64,// EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8
+			(byte)MemorySize.Broadcast512_UInt64,// EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8
 			0,// Aeskeygenassist_xmm_xmmm128_imm8
 			0,// VEX_Vaeskeygenassist_xmm_xmmm128_imm8
 			0,// VEX_Rorx_r32_rm32_imm8

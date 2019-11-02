@@ -233,7 +233,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			RelocKind relocKind;
 			switch (encoder.Bitness) {
 			case 64:
-				instr.SetCodeNoCheck(isCall ? Code.Call_rm64 : Code.Jmp_rm64);
+				instr.InternalSetCodeNoCheck(isCall ? Code.Call_rm64 : Code.Jmp_rm64);
 				instr.MemoryBase = Register.RIP;
 				var nextRip = ip + CallOrJmpPointerDataInstructionSize64;
 				instr.NextIP = nextRip;

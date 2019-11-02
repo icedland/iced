@@ -49,7 +49,7 @@ namespace Iced.Intel {
 			SegmentPrefixShift		= 5,
 			SegmentPrefixMask		= 7,
 			// Unused bits here
-			BroadcastedMemory		= 0x8000,
+			Broadcast				= 0x8000,
 		}
 
 		/// <summary>
@@ -213,24 +213,24 @@ namespace Iced.Intel {
 		/// 16-bit IP of the instruction
 		/// </summary>
 		public ushort IP16 {
-			readonly get => (ushort)((uint)nextRip - (uint)ByteLength);
-			set => nextRip = value + (uint)ByteLength;
+			readonly get => (ushort)((uint)nextRip - (uint)Length);
+			set => nextRip = value + (uint)Length;
 		}
 
 		/// <summary>
 		/// 32-bit IP of the instruction
 		/// </summary>
 		public uint IP32 {
-			readonly get => (uint)nextRip - (uint)ByteLength;
-			set => nextRip = value + (uint)ByteLength;
+			readonly get => (uint)nextRip - (uint)Length;
+			set => nextRip = value + (uint)Length;
 		}
 
 		/// <summary>
 		/// 64-bit IP of the instruction
 		/// </summary>
 		public ulong IP {
-			readonly get => nextRip - (uint)ByteLength;
-			set => nextRip = value + (uint)ByteLength;
+			readonly get => nextRip - (uint)Length;
+			set => nextRip = value + (uint)Length;
 		}
 
 		/// <summary>
@@ -273,7 +273,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Instruction code
+		/// Instruction code, see also <see cref="Mnemonic"/>
 		/// </summary>
 		public Code Code {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -292,11 +292,11 @@ namespace Iced.Intel {
 			set => codeFlags |= (uint)value;
 		}
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal void SetCodeNoCheck(Code code) =>
+		internal void InternalSetCodeNoCheck(Code code) =>
 			codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | (uint)code;
 
 		/// <summary>
-		/// Gets the mnemonic
+		/// Gets the mnemonic, see also <see cref="Code"/>
 		/// </summary>
 		public readonly Mnemonic Mnemonic {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -304,7 +304,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the operand count. Up to 5 operands is allowed.
+		/// Gets the operand count. An instruction can have 0-5 operands.
 		/// </summary>
 		public readonly int OpCount {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -315,13 +315,25 @@ namespace Iced.Intel {
 		/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
 		/// or create a new one, this property could return the wrong value.
 		/// </summary>
+		[Obsolete("Use " + nameof(Length) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public int ByteLength {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			readonly get => Length;
+			set => Length = value;
+		}
+
+		/// <summary>
+		/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
+		/// or create a new one, this property could return the wrong value.
+		/// </summary>
+		public int Length {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			readonly get => (int)((codeFlags >> (int)CodeFlags.InstrLengthShift) & (uint)CodeFlags.InstrLengthMask);
 			set => codeFlags = (codeFlags & ~((uint)CodeFlags.InstrLengthMask << (int)CodeFlags.InstrLengthShift)) |
 				(((uint)value & (uint)CodeFlags.InstrLengthMask) << (int)CodeFlags.InstrLengthShift);
 		}
-		internal uint InternalByteLength {
+		internal uint InternalLength {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => codeFlags |= (value << (int)CodeFlags.InstrLengthShift);
 		}
@@ -356,7 +368,7 @@ namespace Iced.Intel {
 		internal void InternalSetHasXacquirePrefix() => codeFlags |= (uint)CodeFlags.XacquirePrefix;
 
 		/// <summary>
-		/// Checks if the instruction has the XACQUIRE prefix (F3)
+		/// Checks if the instruction has the XRELEASE prefix (F3)
 		/// </summary>
 		public bool HasXreleasePrefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -634,16 +646,16 @@ namespace Iced.Intel {
 		/// </summary>
 		public bool IsBroadcast {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			readonly get => (memoryFlags & (uint)MemoryFlags.BroadcastedMemory) != 0;
+			readonly get => (memoryFlags & (uint)MemoryFlags.Broadcast) != 0;
 			set {
 				if (value)
-					memoryFlags |= (ushort)MemoryFlags.BroadcastedMemory;
+					memoryFlags |= (ushort)MemoryFlags.Broadcast;
 				else
-					memoryFlags &= unchecked((ushort)~(ushort)MemoryFlags.BroadcastedMemory);
+					memoryFlags &= unchecked((ushort)~(ushort)MemoryFlags.Broadcast);
 			}
 		}
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal void SetIsBroadcast() => memoryFlags |= (ushort)MemoryFlags.BroadcastedMemory;
+		internal void InternalSetIsBroadcast() => memoryFlags |= (ushort)MemoryFlags.Broadcast;
 
 		/// <summary>
 		/// Gets the size of the memory location that is referenced by the operand. See also <see cref="IsBroadcast"/>.
@@ -1151,7 +1163,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Number of elements in a db/dw/dd/dq directive.
+		/// Number of elements in a db/dw/dd/dq directive: <c>db</c>: 1-16; <c>dw</c>: 1-8; <c>dd</c>: 1-4; <c>dq</c>: 1-2.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareByte"/>, <see cref="Code.DeclareWord"/>, <see cref="Code.DeclareDword"/>, <see cref="Code.DeclareQword"/>
 		/// </summary>
 		public int DeclareDataCount {
@@ -1169,7 +1181,7 @@ namespace Iced.Intel {
 		/// Sets a new 'db' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareByte"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-15)</param>
 		/// <param name="value">New value</param>
 		public void SetDeclareByteValue(int index, sbyte value) => SetDeclareByteValue(index, (byte)value);
 
@@ -1177,7 +1189,7 @@ namespace Iced.Intel {
 		/// Sets a new 'db' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareByte"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-15)</param>
 		/// <param name="value">New value</param>
 		public void SetDeclareByteValue(int index, byte value) {
 			switch (index) {
@@ -1239,7 +1251,7 @@ namespace Iced.Intel {
 		/// Gets a 'db' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareByte"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-15)</param>
 		/// <returns></returns>
 		public readonly byte GetDeclareByteValue(int index) {
 			switch (index) {
@@ -1269,7 +1281,7 @@ namespace Iced.Intel {
 		/// Sets a new 'dw' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareWord"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-7)</param>
 		/// <param name="value">New value</param>
 		public void SetDeclareWordValue(int index, short value) => SetDeclareWordValue(index, (ushort)value);
 
@@ -1277,7 +1289,7 @@ namespace Iced.Intel {
 		/// Sets a new 'dw' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareWord"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-7)</param>
 		/// <param name="value">New value</param>
 		public void SetDeclareWordValue(int index, ushort value) {
 			switch (index) {
@@ -1318,7 +1330,7 @@ namespace Iced.Intel {
 		/// Gets a 'dw' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareWord"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-7)</param>
 		/// <returns></returns>
 		public readonly ushort GetDeclareWordValue(int index) {
 			switch (index) {
@@ -1340,7 +1352,7 @@ namespace Iced.Intel {
 		/// Sets a new 'dd' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareDword"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-3)</param>
 		/// <param name="value">New value</param>
 		public void SetDeclareDwordValue(int index, int value) => SetDeclareDwordValue(index, (uint)value);
 
@@ -1348,7 +1360,7 @@ namespace Iced.Intel {
 		/// Sets a new 'dd' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareDword"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-3)</param>
 		/// <param name="value">New value</param>
 		public void SetDeclareDwordValue(int index, uint value) {
 			switch (index) {
@@ -1379,7 +1391,7 @@ namespace Iced.Intel {
 		/// Gets a 'dd' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareDword"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-3)</param>
 		/// <returns></returns>
 		public readonly uint GetDeclareDwordValue(int index) {
 			switch (index) {
@@ -1397,7 +1409,7 @@ namespace Iced.Intel {
 		/// Sets a new 'dq' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareQword"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-1)</param>
 		/// <param name="value">New value</param>
 		public void SetDeclareQwordValue(int index, long value) => SetDeclareQwordValue(index, (ulong)value);
 
@@ -1405,7 +1417,7 @@ namespace Iced.Intel {
 		/// Sets a new 'dq' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareQword"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-1)</param>
 		/// <param name="value">New value</param>
 		public void SetDeclareQwordValue(int index, ulong value) {
 			uint v;
@@ -1435,7 +1447,7 @@ namespace Iced.Intel {
 		/// Gets a 'dq' value, see also <see cref="DeclareDataCount"/>.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareQword"/>
 		/// </summary>
-		/// <param name="index">Index</param>
+		/// <param name="index">Index (0-1)</param>
 		/// <returns></returns>
 		public readonly ulong GetDeclareQwordValue(int index) {
 			switch (index) {
@@ -1596,7 +1608,8 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the RIP/EIP releative address ((<see cref="NextIP"/> or <see cref="NextIP32"/>) + <see cref="MemoryDisplacement"/>). This property is only valid if there's a memory operand with RIP/EIP relative addressing.
+		/// Gets the RIP/EIP releative address ((<see cref="NextIP"/> or <see cref="NextIP32"/>) + <see cref="MemoryDisplacement"/>).
+		/// This property is only valid if there's a memory operand with RIP/EIP relative addressing, see <see cref="IsIPRelativeMemoryOperand"/>
 		/// </summary>
 		public readonly ulong IPRelativeMemoryAddress {
 			get {

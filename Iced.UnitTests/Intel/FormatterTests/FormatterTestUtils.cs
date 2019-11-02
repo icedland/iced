@@ -35,7 +35,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Equal((ushort)nextRip, instr.IP16);
 			Assert.Equal((uint)nextRip, instr.IP32);
 			Assert.Equal(nextRip, instr.IP);
-			nextRip += (uint)instr.ByteLength;
+			nextRip += (uint)instr.Length;
 			Assert.Equal(nextRip, decoder.IP);
 			Assert.Equal((ushort)nextRip, instr.NextIP16);
 			Assert.Equal((uint)nextRip, instr.NextIP32);
@@ -88,7 +88,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Equal((ushort)nextRip, instr.IP16);
 			Assert.Equal((uint)nextRip, instr.IP32);
 			Assert.Equal(nextRip, instr.IP);
-			nextRip += (uint)instr.ByteLength;
+			nextRip += (uint)instr.Length;
 			Assert.Equal(nextRip, decoder.IP);
 			Assert.Equal((ushort)nextRip, instr.NextIP16);
 			Assert.Equal((uint)nextRip, instr.NextIP32);

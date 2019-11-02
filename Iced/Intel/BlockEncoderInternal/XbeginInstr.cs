@@ -47,10 +47,10 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 			if (blockEncoder.FixBranches) {
 				if (blockEncoder.Bitness == 16)
-					this.instruction.SetCodeNoCheck(Code.Xbegin_rel16);
+					this.instruction.InternalSetCodeNoCheck(Code.Xbegin_rel16);
 				else {
 					Debug.Assert(blockEncoder.Bitness == 32 || blockEncoder.Bitness == 64);
-					this.instruction.SetCodeNoCheck(Code.Xbegin_rel32);
+					this.instruction.InternalSetCodeNoCheck(Code.Xbegin_rel32);
 				}
 			}
 			var instrCopy = this.instruction;
