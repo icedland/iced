@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net48;netcoreapp3.0</TargetFrameworks>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
   </PropertyGroup>
