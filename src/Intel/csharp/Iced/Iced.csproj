@@ -39,8 +39,8 @@ License: MIT
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\LICENSE.txt" Pack="true" PackagePath="" />
-    <None Include="..\logo.png" Pack="true" PackagePath="" />
+    <None Include="..\..\..\..\LICENSE.txt" Pack="true" PackagePath="" />
+    <None Include="..\..\..\..\logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
