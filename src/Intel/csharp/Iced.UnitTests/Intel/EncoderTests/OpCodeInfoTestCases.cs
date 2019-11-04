@@ -32,7 +32,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		public static readonly OpCodeInfoTestCase[] OpCodeInfoTests = CreateOpCodeInfos();
 
 		static OpCodeInfoTestCase[] CreateOpCodeInfos() {
-			var filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Intel", "EncoderTests", "OpCodeInfos.txt");
+			var filename = PathUtils.GetTestTextFilename("OpCodeInfos.txt", "Encoder");
 			Debug.Assert(File.Exists(filename));
 			return OpCodeInfoTestCasesReader.ReadFile(filename).ToArray();
 		}

@@ -29,7 +29,7 @@ using System.Reflection;
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class FileUtils {
 		public static string GetFormatterFilename(string filename) =>
-			Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Intel", "FormatterTests", filename + ".txt");
+			PathUtils.GetTestTextFilename(filename + ".txt", "Formatter");
 
 		public static IEnumerable<string> ReadRawStrings(string filename) {
 			foreach (var line in File.ReadLines(GetFormatterFilename(filename))) {

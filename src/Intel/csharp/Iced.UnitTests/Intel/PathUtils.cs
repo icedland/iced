@@ -21,29 +21,16 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Iced.UnitTests.Intel.DecoderTests {
-	static class DecoderTestCases {
-		public static readonly DecoderTestCase[] TestCases16 = ReadTestCases(16);
-		public static readonly DecoderTestCase[] TestCases32 = ReadTestCases(32);
-		public static readonly DecoderTestCase[] TestCases64 = ReadTestCases(64);
-
-		public static DecoderTestCase[] GetTestCases(int bitness) {
-			switch (bitness) {
-			case 16: return TestCases16;
-			case 32: return TestCases32;
-			case 64: return TestCases64;
-			default: throw new ArgumentOutOfRangeException(nameof(bitness));
-			}
-		}
-
-		static DecoderTestCase[] ReadTestCases(int bitness) {
-			var filename = PathUtils.GetTestTextFilename($"DecoderTest{bitness}.txt", "Decoder");
-			return DecoderTestParser.ReadFile(bitness, filename).ToArray();
+namespace Iced.UnitTests.Intel {
+	static class PathUtils {
+		public static string GetTestTextFilename(string filename, params string[] directories) {
+			var baseDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..", "..", "..", "..", "..", "UnitTests");
+			baseDir = Path.Combine(new string[] { baseDir }.Concat(directories).ToArray());
+			return Path.GetFullPath(Path.Combine(baseDir, filename));
 		}
 	}
 }

@@ -126,7 +126,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		protected static IEnumerable<object[]> GetMemOpsData(string className) {
-			var filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Intel", "DecoderTests", className + ".txt");
+			var filename = PathUtils.GetTestTextFilename(className + ".txt", "Decoder");
 			Debug.Assert(File.Exists(filename));
 			foreach (var line in File.ReadLines(filename)) {
 				if (line.Length == 0 || line[0] == '#')

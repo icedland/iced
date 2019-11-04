@@ -559,7 +559,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			for (int i = 0; i < (InstructionInfoConstants.VMM_last - InstructionInfoConstants.VMM_first + 1); i++)
 				toRegister.Add(VMM_prefix + i.ToString(), InstructionInfoConstants.VMM_first + i);
 
-			var filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Intel", "InstructionInfoTests", className + ".txt");
+			var filename = PathUtils.GetTestTextFilename(className + ".txt", "InstructionInfo");
 			Debug.Assert(File.Exists(filename));
 			int lineNo = 0;
 			foreach (var line in File.ReadLines(filename)) {
