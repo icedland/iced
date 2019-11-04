@@ -672,7 +672,7 @@ namespace Iced.Intel {
 				int addrSize = InstructionUtils.GetAddressSizeInBytes(baseReg, indexReg, displSize, instruction.CodeSize);
 				long displ;
 				if (addrSize == 8)
-					displ = (int)instruction.MemoryDisplacement;
+					displ = (long)instruction.MemoryDisplacement64;
 				else
 					displ = instruction.MemoryDisplacement;
 				FormatMemory(output, instruction, operand, instructionOperand, opInfo.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize, opInfo.Flags);

@@ -167,8 +167,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 			instr.MemoryDisplacement = uint.MinValue;
 			Assert.Equal(uint.MinValue, instr.MemoryDisplacement);
+			Assert.Equal(ulong.MinValue, instr.MemoryDisplacement64);
 			instr.MemoryDisplacement = uint.MaxValue;
 			Assert.Equal(uint.MaxValue, instr.MemoryDisplacement);
+			Assert.Equal(ulong.MaxValue, instr.MemoryDisplacement64);
 
 			instr.Immediate8 = byte.MinValue;
 			Assert.Equal(byte.MinValue, instr.Immediate8);

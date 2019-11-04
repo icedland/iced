@@ -699,13 +699,19 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing.
+		/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see <see cref="MemoryDisplacement64"/>).
 		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>
 		/// </summary>
 		public uint MemoryDisplacement {
 			readonly get => memDispl;
 			set => memDispl = value;
 		}
+
+		/// <summary>
+		/// Gets the memory operand's displacement sign extended to 64 bits.
+		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>
+		/// </summary>
+		public readonly ulong MemoryDisplacement64 => (ulong)(int)memDispl;
 
 		/// <summary>
 		/// Gets an operand's immediate value
