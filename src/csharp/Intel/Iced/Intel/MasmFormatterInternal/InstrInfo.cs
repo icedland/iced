@@ -165,7 +165,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		}
 
 		public InstrOpInfo(string mnemonic, in Instruction instr, InstrOpInfoFlags flags) {
-			Debug.Assert(IcedConstants.MaxOpCount == 5);
+			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 			Mnemonic = mnemonic;
 			Flags = flags;
 			Op0Kind = (InstrOpKind)instr.Op0Kind;
@@ -173,15 +173,15 @@ namespace Iced.Intel.MasmFormatterInternal {
 			Op2Kind = (InstrOpKind)instr.Op2Kind;
 			Op3Kind = (InstrOpKind)instr.Op3Kind;
 			Op4Kind = (InstrOpKind)instr.Op4Kind;
-			Debug.Assert(TEST_RegisterBits == 8);
+			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
 			Op0Register = (byte)instr.Op0Register;
-			Debug.Assert(TEST_RegisterBits == 8);
+			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
 			Op1Register = (byte)instr.Op1Register;
-			Debug.Assert(TEST_RegisterBits == 8);
+			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
 			Op2Register = (byte)instr.Op2Register;
-			Debug.Assert(TEST_RegisterBits == 8);
+			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
 			Op3Register = (byte)instr.Op3Register;
-			Debug.Assert(TEST_RegisterBits == 8);
+			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
 			Op4Register = (byte)instr.Op4Register;
 			int opCount = instr.OpCount;
 			OpCount = (byte)opCount;
@@ -730,9 +730,9 @@ namespace Iced.Intel.MasmFormatterInternal {
 				info.OpCount = 2;
 				info.Op0Kind = InstrOpKind.Register;
 				info.Op1Kind = InstrOpKind.Register;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)register;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)register;
 				if (instr.Op0Register == instr.Op1Register) {
 					info.Op0Index = OpAccess_None;
@@ -765,9 +765,9 @@ namespace Iced.Intel.MasmFormatterInternal {
 			Debug.Assert(instr.Op0Kind == OpKind.Register && instr.Op0Register == Register.ST0);
 			if (!pseudoOp || !(options.UsePseudoOps && instr.Op1Register == Register.ST1)) {
 				info.OpCount = 1;
-				Debug.Assert(InstrOpKind.Register == 0);
+				Static.Assert(InstrOpKind.Register == 0 ? 0 : -1);
 				//info.Op0Kind = InstrOpKind.Register;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)instr.Op1Register;
 				info.Op0Index = 1;
 			}
@@ -791,7 +791,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			else {
 				info = new InstrOpInfo(mnemonic, instr, flags);
 				Debug.Assert(info.Op1Register == (int)Register.ST0);
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)Registers.Register_ST;
 			}
 		}
@@ -808,7 +808,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op0Register == (int)Register.ST0);
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)Registers.Register_ST;
 		}
 	}
@@ -824,7 +824,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op1Register == (int)Register.ST0);
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)Registers.Register_ST;
 		}
 	}
@@ -848,13 +848,13 @@ namespace Iced.Intel.MasmFormatterInternal {
 			info.Mnemonic = mnemonic;
 			info.OpCount = 3;
 			info.Op0Kind = InstrOpKind.Register;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)reg1;
 			info.Op1Kind = InstrOpKind.Register;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)reg2;
 			info.Op2Kind = InstrOpKind.Register;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op2Register = (byte)reg3;
 			info.Op0Index = OpAccess_Read;
 			info.Op1Index = OpAccess_Read;
@@ -882,22 +882,22 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 			switch (instr.CodeSize) {
 			case CodeSize.Code16:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.AX;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)Register.ECX;
 				break;
 			case CodeSize.Code32:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.EAX;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)Register.ECX;
 				break;
 			case CodeSize.Unknown:
 			case CodeSize.Code64:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.RAX;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)Register.RCX;
 				break;
 			}
@@ -922,28 +922,28 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 			switch (instr.CodeSize) {
 			case CodeSize.Code16:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.AX;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)Register.ECX;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op2Register = (byte)Register.EBX;
 				break;
 			case CodeSize.Code32:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.EAX;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)Register.ECX;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op2Register = (byte)Register.EBX;
 				break;
 			case CodeSize.Unknown:
 			case CodeSize.Code64:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.RAX;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)Register.RCX;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op2Register = (byte)Register.RBX;
 				break;
 			}
@@ -991,11 +991,11 @@ namespace Iced.Intel.MasmFormatterInternal {
 				info.OpCount = 2;
 				info.Op0Kind = (InstrOpKind)instr.Op1Kind;
 				info.Op0Index = 1;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)instr.Op1Register;
 				info.Op1Kind = (InstrOpKind)instr.Op2Kind;
 				info.Op1Index = 2;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)instr.Op2Register;
 			}
 		}
@@ -1012,14 +1012,14 @@ namespace Iced.Intel.MasmFormatterInternal {
 			info.Mnemonic = mnemonic;
 			info.OpCount = 3;
 			info.Op0Kind = (InstrOpKind)instr.Op0Kind;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)instr.Op0Register;
 			info.Op1Kind = (InstrOpKind)instr.Op1Kind;
 			info.Op1Index = 1;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)instr.Op1Register;
 			info.Op2Kind = InstrOpKind.Register;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op2Register = (byte)Register.XMM0;
 			info.Op2Index = OpAccess_Read;
 		}
@@ -1037,10 +1037,10 @@ namespace Iced.Intel.MasmFormatterInternal {
 			info.OpCount = 2;
 			info.Op0Kind = (InstrOpKind)instr.Op1Kind;
 			info.Op0Index = 1;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)instr.Op1Register;
 			info.Op1Kind = (InstrOpKind)instr.Op0Kind;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)instr.Op0Register;
 		}
 	}
@@ -1295,11 +1295,11 @@ namespace Iced.Intel.MasmFormatterInternal {
 			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
 			info = new InstrOpInfo(mnemonic, instr, flags);
 			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D) {
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)((Register)info.Op0Register - Register.EAX + Register.AX);
 			}
 			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D) {
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)((Register)info.Op1Register - Register.EAX + Register.AX);
 			}
 		}
@@ -1320,7 +1320,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			info.Mnemonic = mnemonic;
 			info.OpCount = 1;
 			info.Op0Kind = InstrOpKind.Register;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)register;
 			info.Op0Index = OpAccess_Read;
 		}
@@ -1342,24 +1342,24 @@ namespace Iced.Intel.MasmFormatterInternal {
 			info.OpCount = 2;
 			info.Op0Kind = InstrOpKind.Register;
 			info.Op1Kind = InstrOpKind.Register;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)Register.ECX;
 			info.Op0Index = OpAccess_Read;
 			info.Op1Index = OpAccess_Read;
 
 			switch (codeSize) {
 			case 16:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.AX;
 				break;
 
 			case 32:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.EAX;
 				break;
 
 			case 64:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.RAX;
 				break;
 

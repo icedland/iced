@@ -168,7 +168,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(info.GetUsedMemory(), instr.GetUsedMemory(), UsedMemoryEqualityComparer.Instance);
 			Assert.Equal(info.GetUsedRegisters(), instr.GetUsedRegisters(), UsedRegisterEqualityComparer.Instance);
 
-			Debug.Assert(IcedConstants.MaxOpCount == 5);
+			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 			Debug.Assert(instr.OpCount <= IcedConstants.MaxOpCount);
 			for (int i = 0; i < instr.OpCount; i++) {
 				switch (i) {
@@ -556,7 +556,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				throw new InvalidOperationException();
 			}
 
-			for (int i = 0; i < (IcedConstants.VMM_last - IcedConstants.VMM_first + 1); i++)
+			for (int i = 0; i < IcedConstants.VMM_count; i++)
 				toRegister.Add(VMM_prefix + i.ToString(), IcedConstants.VMM_first + i);
 
 			var filename = PathUtils.GetTestTextFilename(className + ".txt", "InstructionInfo");

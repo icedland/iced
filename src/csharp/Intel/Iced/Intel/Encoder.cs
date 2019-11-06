@@ -695,9 +695,9 @@ namespace Iced.Intel {
 			Debug.Assert(regNum <= 31);
 			ModRM |= (byte)((regNum & 7) << 3);
 			EncoderFlags |= EncoderFlags.ModRM;
-			Debug.Assert((int)EncoderFlags.R == 4);
+			Static.Assert((int)EncoderFlags.R == 4 ? 0 : -1);
 			EncoderFlags |= (EncoderFlags)((regNum & 8) >> 1);
-			Debug.Assert((int)EncoderFlags.R2 == 0x200);
+			Static.Assert((int)EncoderFlags.R2 == 0x200 ? 0 : -1);
 			EncoderFlags |= (EncoderFlags)((regNum & 0x10) << (9 - 4));
 		}
 
@@ -718,7 +718,7 @@ namespace Iced.Intel {
 			}
 			Debug.Assert(regNum <= 15);
 			OpCode |= regNum & 7;
-			Debug.Assert((int)EncoderFlags.B == 1);
+			Static.Assert((int)EncoderFlags.B == 1 ? 0 : -1);
 			Debug.Assert(regNum <= 15);
 			EncoderFlags |= (EncoderFlags)(regNum >> 3);// regNum <= 15, so no need to mask out anything
 		}
@@ -750,8 +750,8 @@ namespace Iced.Intel {
 				}
 				ModRM |= (byte)(regNum & 7);
 				ModRM |= 0xC0;
-				Debug.Assert((int)EncoderFlags.B == 1);
-				Debug.Assert((int)EncoderFlags.X == 2);
+				Static.Assert((int)EncoderFlags.B == 1 ? 0 : -1);
+				Static.Assert((int)EncoderFlags.X == 2 ? 0 : -1);
 				EncoderFlags |= (EncoderFlags)((regNum >> 3) & 3);
 				Debug.Assert(regNum <= 31);
 			}
@@ -1007,12 +1007,12 @@ namespace Iced.Intel {
 			}
 
 			if (baseNum >= 0) {
-				Debug.Assert((int)EncoderFlags.B == 1);
+				Static.Assert((int)EncoderFlags.B == 1 ? 0 : -1);
 				Debug.Assert(baseNum <= 15);// No '& 1' required below
 				EncoderFlags |= (EncoderFlags)(baseNum >> 3);
 			}
 			if (indexNum >= 0) {
-				Debug.Assert((int)EncoderFlags.X == 2);
+				Static.Assert((int)EncoderFlags.X == 2 ? 0 : -1);
 				EncoderFlags |= (EncoderFlags)((indexNum >> 2) & 2);
 				EncoderFlags |= (EncoderFlags)((indexNum & 0x10) << (int)EncoderFlags.VvvvvShift);
 				Debug.Assert(indexNum <= 31);

@@ -127,7 +127,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
@@ -157,7 +157,7 @@ namespace Iced.Intel {
 			instruction.InternalSetMemoryDisplSize(4);
 			instruction.SegmentPrefix = prefixSegment;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register;
 
@@ -175,7 +175,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
@@ -243,11 +243,11 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
@@ -266,7 +266,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
@@ -292,7 +292,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
@@ -318,7 +318,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
@@ -350,7 +350,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
@@ -381,7 +381,7 @@ namespace Iced.Intel {
 			instruction.InternalOp0Kind = GetImmediateOpKind(code, 0);
 			instruction.Immediate32 = (uint)immediate;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register;
 
@@ -450,7 +450,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register;
 
@@ -507,15 +507,15 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register3;
 
@@ -535,11 +535,11 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
@@ -573,11 +573,11 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
@@ -606,7 +606,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
@@ -643,7 +643,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
@@ -656,7 +656,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register2;
 
@@ -676,7 +676,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
@@ -728,11 +728,11 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register2;
 
@@ -761,7 +761,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register;
 
@@ -796,19 +796,19 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register3;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp3Kind = OpKind.Register;
 			instruction.InternalOp3Register = register4;
 
@@ -829,15 +829,15 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register3;
 
@@ -873,15 +873,15 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register3;
 
@@ -911,11 +911,11 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
@@ -954,11 +954,11 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
@@ -971,7 +971,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp3Kind = OpKind.Register;
 			instruction.InternalOp3Register = register3;
 
@@ -992,11 +992,11 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
@@ -1042,19 +1042,19 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register3;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp3Kind = OpKind.Register;
 			instruction.InternalOp3Register = register4;
 
@@ -1092,15 +1092,15 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register3;
 
@@ -1147,11 +1147,11 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.Code = code;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
@@ -1164,7 +1164,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp3Kind = OpKind.Register;
 			instruction.InternalOp3Register = register3;
 
@@ -1269,7 +1269,7 @@ namespace Iced.Intel {
 			else
 				Debug.Assert(repPrefix == RepPrefixKind.None);
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
@@ -1335,7 +1335,7 @@ namespace Iced.Intel {
 			else
 				Debug.Assert(repPrefix == RepPrefixKind.None);
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
@@ -1435,7 +1435,7 @@ namespace Iced.Intel {
 			else
 				throw new ArgumentOutOfRangeException(nameof(addressSize));
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register;
 
@@ -1633,11 +1633,11 @@ namespace Iced.Intel {
 			else
 				throw new ArgumentOutOfRangeException(nameof(addressSize));
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register1;
 
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register2;
 

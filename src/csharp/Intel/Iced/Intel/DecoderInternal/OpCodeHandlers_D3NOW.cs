@@ -30,7 +30,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		static Code[] CreateCodeValues() {
 			var result = new Code[0x100];
-			Debug.Assert(Code.INVALID == 0);
+			Static.Assert(Code.INVALID == 0 ? 0 : -1);
 			result[0x0C] = Code.D3NOW_Pi2fw_mm_mmm64;
 			result[0x0D] = Code.D3NOW_Pi2fd_mm_mmm64;
 			result[0x1C] = Code.D3NOW_Pf2iw_mm_mmm64;
@@ -65,12 +65,12 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			Debug.Assert(OpKind.Register == 0);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = (int)state.reg + Register.MM0;
 			uint ib;
 			if (state.mod == 3) {
-				Debug.Assert(OpKind.Register == 0);
+				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)state.rm + Register.MM0;
 				ib = decoder.ReadByte();

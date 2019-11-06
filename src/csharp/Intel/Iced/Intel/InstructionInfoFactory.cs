@@ -109,8 +109,8 @@ namespace Iced.Intel {
 			}
 
 			var codeSize = instruction.CodeSize;
-			Debug.Assert((uint)InstructionInfoOptions.NoMemoryUsage == (uint)Flags.NoMemoryUsage);
-			Debug.Assert((uint)InstructionInfoOptions.NoRegisterUsage == (uint)Flags.NoRegisterUsage);
+			Static.Assert((uint)InstructionInfoOptions.NoMemoryUsage == (uint)Flags.NoMemoryUsage ? 0 : -1);
+			Static.Assert((uint)InstructionInfoOptions.NoRegisterUsage == (uint)Flags.NoRegisterUsage ? 0 : -1);
 			var flags = (Flags)options & (Flags.NoMemoryUsage | Flags.NoRegisterUsage);
 			if (codeSize == CodeSize.Code64 || codeSize == CodeSize.Unknown)
 				flags |= Flags.Is64Bit;
@@ -180,7 +180,7 @@ namespace Iced.Intel {
 				accesses[3] = OpAccess.Read;
 			if ((flags2 & (((uint)InfoFlags2.OpInfo4Mask) << (int)InfoFlags2.OpInfo4Shift)) != 0)
 				accesses[4] = OpAccess.Read;
-			Debug.Assert(IcedConstants.MaxOpCount == 5);
+			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 
 			int opCount = instruction.OpCount;
 			for (int i = 0; i < opCount; i++) {
@@ -215,8 +215,8 @@ namespace Iced.Intel {
 					break;
 
 				case OpKind.Memory:
-					Debug.Assert((uint)InfoFlags1.NoSegmentRead == (1U << 31));
-					Debug.Assert(Register.None == 0);
+					Static.Assert((uint)InfoFlags1.NoSegmentRead == (1U << 31) ? 0 : -1);
+					Static.Assert(Register.None == 0 ? 0 : -1);
 					var segReg = (Register)((uint)instruction.MemorySegment & ~(uint)((int)flags1 >> 31));
 					var baseReg = instruction.MemoryBase;
 					if (baseReg == Register.RIP) {
@@ -263,7 +263,7 @@ namespace Iced.Intel {
 
 			// Inlined ctor
 			InstructionInfo result;
-			Debug.Assert(IcedConstants.MaxOpCount == 5);
+			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 			Debug2.Assert(!(usedRegisters.Array is null));
 			result.usedRegisters = usedRegisters.Array;
 			Debug2.Assert(!(usedMemoryLocations.Array is null));
@@ -287,14 +287,14 @@ namespace Iced.Intel {
 			Debug.Assert((uint)rflagsInfo < (uint)RflagsInfo.Last);
 			result.rflagsInfo = (byte)rflagsInfo;
 
-			Debug.Assert((uint)InfoFlags1.SaveRestore == 0x08000000);
-			Debug.Assert((uint)InfoFlags1.StackInstruction == 0x10000000);
-			Debug.Assert((uint)InfoFlags1.ProtectedMode == 0x20000000);
-			Debug.Assert((uint)InfoFlags1.Privileged == 0x40000000);
-			Debug.Assert((uint)InstructionInfo.Flags.SaveRestore == 0x01);
-			Debug.Assert((uint)InstructionInfo.Flags.StackInstruction == 0x02);
-			Debug.Assert((uint)InstructionInfo.Flags.ProtectedMode == 0x04);
-			Debug.Assert((uint)InstructionInfo.Flags.Privileged == 0x08);
+			Static.Assert((uint)InfoFlags1.SaveRestore == 0x08000000 ? 0 : -1);
+			Static.Assert((uint)InfoFlags1.StackInstruction == 0x10000000 ? 0 : -1);
+			Static.Assert((uint)InfoFlags1.ProtectedMode == 0x20000000 ? 0 : -1);
+			Static.Assert((uint)InfoFlags1.Privileged == 0x40000000 ? 0 : -1);
+			Static.Assert((uint)InstructionInfo.Flags.SaveRestore == 0x01 ? 0 : -1);
+			Static.Assert((uint)InstructionInfo.Flags.StackInstruction == 0x02 ? 0 : -1);
+			Static.Assert((uint)InstructionInfo.Flags.ProtectedMode == 0x04 ? 0 : -1);
+			Static.Assert((uint)InstructionInfo.Flags.Privileged == 0x08 ? 0 : -1);
 			// Bit 4 could be set but we don't use it so we don't need to mask it out
 			result.flags = (byte)(flags1 >> 27);
 			return result;
@@ -621,12 +621,12 @@ namespace Iced.Intel {
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
-					Debug.Assert(Register.CX + 16 == Register.ECX);
-					Debug.Assert(Register.CX + 32 == Register.RCX);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
+					Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
+					Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
@@ -641,10 +641,10 @@ namespace Iced.Intel {
 					}
 				}
 				else {
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
@@ -660,12 +660,12 @@ namespace Iced.Intel {
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondRead;
 					accesses[1] = OpAccess.CondRead;
-					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
-					Debug.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI);
-					Debug.Assert(Register.SI + 16 == Register.ESI);
-					Debug.Assert(Register.SI + 32 == Register.RSI);
-					Debug.Assert(Register.CX + 16 == Register.ECX);
-					Debug.Assert(Register.CX + 32 == Register.RCX);
+					Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
+					Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
+					Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
+					Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
+					Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
+					Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
@@ -679,10 +679,10 @@ namespace Iced.Intel {
 					}
 				}
 				else {
-					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
-					Debug.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI);
-					Debug.Assert(Register.SI + 16 == Register.ESI);
-					Debug.Assert(Register.SI + 32 == Register.RSI);
+					Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
+					Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
+					Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
+					Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
@@ -697,12 +697,12 @@ namespace Iced.Intel {
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
-					Debug.Assert(Register.CX + 16 == Register.ECX);
-					Debug.Assert(Register.CX + 32 == Register.RCX);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
+					Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
+					Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
@@ -713,10 +713,10 @@ namespace Iced.Intel {
 						AddRegister(flags, ref usedRegisters, baseReg, OpAccess.CondRead);
 						AddRegister(flags, ref usedRegisters, baseReg, OpAccess.CondWrite);
 					}
-					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
-					Debug.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI);
-					Debug.Assert(Register.SI + 16 == Register.ESI);
-					Debug.Assert(Register.SI + 32 == Register.RSI);
+					Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
+					Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
+					Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
+					Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
@@ -727,10 +727,10 @@ namespace Iced.Intel {
 					}
 				}
 				else {
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
@@ -739,10 +739,10 @@ namespace Iced.Intel {
 							AddRegister(flags, ref usedRegisters, Register.ES, OpAccess.Read);
 						AddRegister(flags, ref usedRegisters, baseReg, OpAccess.ReadWrite);
 					}
-					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
-					Debug.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI);
-					Debug.Assert(Register.SI + 16 == Register.ESI);
-					Debug.Assert(Register.SI + 32 == Register.RSI);
+					Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
+					Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
+					Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
+					Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
@@ -757,12 +757,12 @@ namespace Iced.Intel {
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondRead;
 					accesses[1] = OpAccess.CondRead;
-					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
-					Debug.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI);
-					Debug.Assert(Register.SI + 16 == Register.ESI);
-					Debug.Assert(Register.SI + 32 == Register.RSI);
-					Debug.Assert(Register.CX + 16 == Register.ECX);
-					Debug.Assert(Register.CX + 32 == Register.RCX);
+					Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
+					Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
+					Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
+					Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
+					Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
+					Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
 					baseReg = ((instruction.Op0Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
@@ -772,10 +772,10 @@ namespace Iced.Intel {
 						AddRegister(flags, ref usedRegisters, baseReg, OpAccess.CondRead);
 						AddRegister(flags, ref usedRegisters, baseReg, OpAccess.CondWrite);
 					}
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
 					baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
@@ -787,10 +787,10 @@ namespace Iced.Intel {
 					}
 				}
 				else {
-					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
-					Debug.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI);
-					Debug.Assert(Register.SI + 16 == Register.ESI);
-					Debug.Assert(Register.SI + 32 == Register.RSI);
+					Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
+					Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
+					Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
+					Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
 					baseReg = ((instruction.Op0Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
@@ -798,10 +798,10 @@ namespace Iced.Intel {
 						AddMemorySegmentRegister(flags, ref usedRegisters, instruction.MemorySegment, OpAccess.Read);
 						AddRegister(flags, ref usedRegisters, baseReg, OpAccess.ReadWrite);
 					}
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
 					baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
@@ -817,12 +817,12 @@ namespace Iced.Intel {
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
-					Debug.Assert(Register.CX + 16 == Register.ECX);
-					Debug.Assert(Register.CX + 32 == Register.RCX);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
+					Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
+					Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
@@ -837,10 +837,10 @@ namespace Iced.Intel {
 					}
 				}
 				else {
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
 					baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
@@ -856,12 +856,12 @@ namespace Iced.Intel {
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondWrite;
 					accesses[1] = OpAccess.CondRead;
-					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
-					Debug.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI);
-					Debug.Assert(Register.SI + 16 == Register.ESI);
-					Debug.Assert(Register.SI + 32 == Register.RSI);
-					Debug.Assert(Register.CX + 16 == Register.ECX);
-					Debug.Assert(Register.CX + 32 == Register.RCX);
+					Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
+					Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
+					Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
+					Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
+					Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
+					Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
@@ -875,10 +875,10 @@ namespace Iced.Intel {
 					}
 				}
 				else {
-					Debug.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI);
-					Debug.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI);
-					Debug.Assert(Register.SI + 16 == Register.ESI);
-					Debug.Assert(Register.SI + 32 == Register.RSI);
+					Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
+					Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
+					Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
+					Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
 					baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
@@ -893,12 +893,12 @@ namespace Iced.Intel {
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					accesses[0] = OpAccess.CondRead;
 					accesses[1] = OpAccess.CondRead;
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
-					Debug.Assert(Register.CX + 16 == Register.ECX);
-					Debug.Assert(Register.CX + 32 == Register.RCX);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
+					Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
+					Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
 					baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
@@ -913,10 +913,10 @@ namespace Iced.Intel {
 					}
 				}
 				else {
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
 					baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 					if ((flags & Flags.NoMemoryUsage) == 0)
 						AddMemory(ref usedMemoryLocations, Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
@@ -1172,7 +1172,7 @@ namespace Iced.Intel {
 					}
 					int maxVecRegs;
 					if ((flags & Flags.Is64Bit) != 0)
-						maxVecRegs = IcedConstants.VMM_last - IcedConstants.VMM_first + 1;
+						maxVecRegs = IcedConstants.VMM_count;
 					else
 						maxVecRegs = 8;
 					for (int i = 0; i < maxVecRegs; i++)
@@ -1680,10 +1680,10 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Montmul:
-				Debug.Assert(Code.Montmul_16 + 1 == Code.Montmul_32);
-				Debug.Assert(Code.Montmul_16 + 2 == Code.Montmul_64);
-				Debug.Assert(Register.AX + 16 == Register.EAX);
-				Debug.Assert(Register.AX + 32 == Register.RAX);
+				Static.Assert(Code.Montmul_16 + 1 == Code.Montmul_32 ? 0 : -1);
+				Static.Assert(Code.Montmul_16 + 2 == Code.Montmul_64 ? 0 : -1);
+				Static.Assert(Register.AX + 16 == Register.EAX ? 0 : -1);
+				Static.Assert(Register.AX + 32 == Register.RAX ? 0 : -1);
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					baseReg = (Register)((instruction.Code - Code.Montmul_16) << 4);
 					if ((flags & Flags.NoMemoryUsage) == 0)
@@ -1714,13 +1714,13 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Xsha:
-				Debug.Assert(Code.Xsha1_16 + 1 == Code.Xsha1_32);
-				Debug.Assert(Code.Xsha1_16 + 2 == Code.Xsha1_64);
-				Debug.Assert(Code.Xsha1_16 + 3 == Code.Xsha256_16);
-				Debug.Assert(Code.Xsha1_16 + 4 == Code.Xsha256_32);
-				Debug.Assert(Code.Xsha1_16 + 5 == Code.Xsha256_64);
-				Debug.Assert(Register.AX + 16 == Register.EAX);
-				Debug.Assert(Register.AX + 32 == Register.RAX);
+				Static.Assert(Code.Xsha1_16 + 1 == Code.Xsha1_32 ? 0 : -1);
+				Static.Assert(Code.Xsha1_16 + 2 == Code.Xsha1_64 ? 0 : -1);
+				Static.Assert(Code.Xsha1_16 + 3 == Code.Xsha256_16 ? 0 : -1);
+				Static.Assert(Code.Xsha1_16 + 4 == Code.Xsha256_32 ? 0 : -1);
+				Static.Assert(Code.Xsha1_16 + 5 == Code.Xsha256_64 ? 0 : -1);
+				Static.Assert(Register.AX + 16 == Register.EAX ? 0 : -1);
+				Static.Assert(Register.AX + 32 == Register.RAX ? 0 : -1);
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					baseReg = (Register)(((instruction.Code - Code.Xsha1_16) % 3) << 4);
 					if ((flags & Flags.NoMemoryUsage) == 0) {
@@ -1757,29 +1757,29 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Xcrypt:
-				Debug.Assert(Code.XcryptEcb_16 + 1 == Code.XcryptEcb_32);
-				Debug.Assert(Code.XcryptEcb_16 + 2 == Code.XcryptEcb_64);
-				Debug.Assert(Code.XcryptEcb_16 + 3 == Code.XcryptCbc_16);
-				Debug.Assert(Code.XcryptEcb_16 + 4 == Code.XcryptCbc_32);
-				Debug.Assert(Code.XcryptEcb_16 + 5 == Code.XcryptCbc_64);
-				Debug.Assert(Code.XcryptEcb_16 + 6 == Code.XcryptCtr_16);
-				Debug.Assert(Code.XcryptEcb_16 + 7 == Code.XcryptCtr_32);
-				Debug.Assert(Code.XcryptEcb_16 + 8 == Code.XcryptCtr_64);
-				Debug.Assert(Code.XcryptEcb_16 + 9 == Code.XcryptCfb_16);
-				Debug.Assert(Code.XcryptEcb_16 + 10 == Code.XcryptCfb_32);
-				Debug.Assert(Code.XcryptEcb_16 + 11 == Code.XcryptCfb_64);
-				Debug.Assert(Code.XcryptEcb_16 + 12 == Code.XcryptOfb_16);
-				Debug.Assert(Code.XcryptEcb_16 + 13 == Code.XcryptOfb_32);
-				Debug.Assert(Code.XcryptEcb_16 + 14 == Code.XcryptOfb_64);
-				Debug.Assert(Register.AX + 16 == Register.EAX);
-				Debug.Assert(Register.AX + 32 == Register.RAX);
+				Static.Assert(Code.XcryptEcb_16 + 1 == Code.XcryptEcb_32 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 2 == Code.XcryptEcb_64 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 3 == Code.XcryptCbc_16 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 4 == Code.XcryptCbc_32 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 5 == Code.XcryptCbc_64 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 6 == Code.XcryptCtr_16 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 7 == Code.XcryptCtr_32 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 8 == Code.XcryptCtr_64 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 9 == Code.XcryptCfb_16 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 10 == Code.XcryptCfb_32 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 11 == Code.XcryptCfb_64 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 12 == Code.XcryptOfb_16 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 13 == Code.XcryptOfb_32 ? 0 : -1);
+				Static.Assert(Code.XcryptEcb_16 + 14 == Code.XcryptOfb_64 ? 0 : -1);
+				Static.Assert(Register.AX + 16 == Register.EAX ? 0 : -1);
+				Static.Assert(Register.AX + 32 == Register.RAX ? 0 : -1);
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
-					Debug.Assert(Register.CX + 16 == Register.ECX);
-					Debug.Assert(Register.CX + 32 == Register.RCX);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
+					Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
+					Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
 					baseReg = (Register)(((instruction.Code - Code.XcryptEcb_16) % 3) << 4);
 					if ((flags & Flags.NoMemoryUsage) == 0) {
 						// Check if not XcryptEcb
@@ -1811,10 +1811,10 @@ namespace Iced.Intel {
 					}
 				}
 				else {
-					Debug.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI);
-					Debug.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI);
-					Debug.Assert(Register.DI + 16 == Register.EDI);
-					Debug.Assert(Register.DI + 32 == Register.RDI);
+					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
+					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
+					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
+					Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
 					baseReg = (Register)(((instruction.Code - Code.XcryptEcb_16) % 3) << 4);
 					if ((flags & Flags.NoMemoryUsage) == 0) {
 						// Check if not XcryptEcb
@@ -1840,10 +1840,10 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Xstore:
-				Debug.Assert(Code.Xstore_16 + 1 == Code.Xstore_32);
-				Debug.Assert(Code.Xstore_16 + 2 == Code.Xstore_64);
-				Debug.Assert(Register.AX + 16 == Register.EAX);
-				Debug.Assert(Register.AX + 32 == Register.RAX);
+				Static.Assert(Code.Xstore_16 + 1 == Code.Xstore_32 ? 0 : -1);
+				Static.Assert(Code.Xstore_16 + 2 == Code.Xstore_64 ? 0 : -1);
+				Static.Assert(Register.AX + 16 == Register.EAX ? 0 : -1);
+				Static.Assert(Register.AX + 32 == Register.RAX ? 0 : -1);
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
 					baseReg = (Register)((instruction.Code - Code.Xstore_16) << 4);
 					if ((flags & Flags.NoMemoryUsage) == 0)
@@ -1876,7 +1876,7 @@ namespace Iced.Intel {
 			case CodeInfo.KP1:
 				Debug.Assert(Register.K0 <= instruction.Op0Register && instruction.Op0Register <= Register.K7);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					Debug.Assert(((int)Register.K0 & 1) == 1);
+					Static.Assert(((int)Register.K0 & 1) == 1 ? 0 : -1);
 					if (((int)instruction.Op0Register & 1) != 0)
 						AddRegister(flags, ref usedRegisters, instruction.Op0Register + 1, OpAccess.Write);
 					else
@@ -2010,14 +2010,14 @@ namespace Iced.Intel {
 
 			var writeReg = reg;
 			if ((flags & (Flags.Is64Bit | Flags.ZeroExtVecRegs)) != 0) {
-				Debug.Assert(OpAccess.Write + 1 == OpAccess.CondWrite);
-				Debug.Assert(OpAccess.Write + 2 == OpAccess.ReadWrite);
-				Debug.Assert(OpAccess.Write + 3 == OpAccess.ReadCondWrite);
+				Static.Assert(OpAccess.Write + 1 == OpAccess.CondWrite ? 0 : -1);
+				Static.Assert(OpAccess.Write + 2 == OpAccess.ReadWrite ? 0 : -1);
+				Static.Assert(OpAccess.Write + 3 == OpAccess.ReadCondWrite ? 0 : -1);
 				if ((uint)(access - OpAccess.Write) <= 3) {
 					int index;
-					Debug.Assert(IcedConstants.VMM_first == Register.ZMM0);
-					const uint VecRegCount = IcedConstants.VMM_last - IcedConstants.VMM_first + 1;
-					Debug.Assert((VecRegCount & (VecRegCount - 1)) == 0);// Verify that it's a power of 2
+					Static.Assert(IcedConstants.VMM_first == Register.ZMM0 ? 0 : -1);
+					const uint VecRegCount = IcedConstants.VMM_count;
+					Static.Assert((VecRegCount & (VecRegCount - 1)) == 0 ? 0 : -1);// Verify that it's a power of 2
 					if ((flags & Flags.Is64Bit) != 0 && (uint)(index = reg - Register.EAX) <= (Register.R15D - Register.EAX))
 						writeReg = Register.RAX + index;
 					else if ((flags & Flags.ZeroExtVecRegs) != 0 && (uint)(index = reg - Register.XMM0) <= IcedConstants.VMM_last - Register.XMM0)

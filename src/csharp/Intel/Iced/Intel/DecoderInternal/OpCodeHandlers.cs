@@ -132,10 +132,10 @@ namespace Iced.Intel.DecoderInternal {
 			: this(handler, OpCodeHandler_Invalid.Instance, OpCodeHandler_Invalid.Instance, OpCodeHandler_Invalid.Instance) { }
 
 		public OpCodeHandler_MandatoryPrefix2(OpCodeHandler handler, OpCodeHandler handler66, OpCodeHandler handlerF3, OpCodeHandler handlerF2) {
-			Debug.Assert((int)MandatoryPrefixByte.None == 0);
-			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
-			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF3 == 2 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			handlers = new OpCodeHandler[4] {
 				handler ?? throw new ArgumentNullException(nameof(handler)),
 				handler66 ?? throw new ArgumentNullException(nameof(handler66)),
@@ -161,10 +161,10 @@ namespace Iced.Intel.DecoderInternal {
 		readonly OpCodeHandler[] handlers;
 
 		public OpCodeHandler_MandatoryPrefix2_NoModRM(OpCodeHandler handler, OpCodeHandler handler66, OpCodeHandler handlerF3, OpCodeHandler handlerF2) {
-			Debug.Assert((int)MandatoryPrefixByte.None == 0);
-			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
-			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF3 == 2 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			handlers = new OpCodeHandler[4] {
 				handler ?? throw new ArgumentNullException(nameof(handler)),
 				handler66 ?? throw new ArgumentNullException(nameof(handler66)),

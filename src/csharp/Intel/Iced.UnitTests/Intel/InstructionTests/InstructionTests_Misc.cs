@@ -64,8 +64,8 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Fact]
 		void OpKind_Register_is_zero() {
-			// The opcode handlers assume it's zero. They have Debug.Assert()s too.
-			Assert.True(OpKind.Register == 0);
+			// The opcode handlers assume it's zero. They have Static.Assert()s too.
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 		}
 
 		[Fact]

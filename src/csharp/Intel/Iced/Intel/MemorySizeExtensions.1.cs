@@ -347,13 +347,13 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentOutOfRangeException_elementSize();
 			if (elementSize > size)
 				ThrowHelper.ThrowArgumentOutOfRangeException_elementSize();
-			Debug.Assert(IcedConstants.NumberOfMemorySizes <= byte.MaxValue + 1);
+			Static.Assert(IcedConstants.NumberOfMemorySizes <= byte.MaxValue + 1 ? 0 : -1);
 			this.memorySize = (byte)memorySize;
 			Debug.Assert(size <= ushort.MaxValue);
 			this.size = (ushort)size;
 			Debug.Assert(elementSize <= ushort.MaxValue);
 			this.elementSize = (ushort)elementSize;
-			Debug.Assert(IcedConstants.NumberOfMemorySizes <= byte.MaxValue + 1);
+			Static.Assert(IcedConstants.NumberOfMemorySizes <= byte.MaxValue + 1 ? 0 : -1);
 			this.elementType = (byte)elementType;
 			this.isSigned = isSigned;
 			this.isBroadcast = isBroadcast;

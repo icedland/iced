@@ -383,7 +383,7 @@ after_read_prefixes:
 				if ((flags & StateFlags.IsInvalid) != 0 ||
 					(((uint)(flags & (StateFlags.Lock | StateFlags.AllowLock)) & invalidCheckMask) == (uint)StateFlags.Lock)) {
 					instruction = default;
-					Debug.Assert(Code.INVALID == 0);
+					Static.Assert(Code.INVALID == 0 ? 0 : -1);
 					//instruction.InternalCode = Code.INVALID;
 				}
 			}
@@ -500,14 +500,14 @@ after_read_prefixes:
 			// Bit 6 can only be 1 if it's 16/32-bit mode, so we don't need to change the mask
 			state.vvvv = (~b >> 3) & 0x0F;
 
-			Debug.Assert((int)VectorLength.L128 == 0);
-			Debug.Assert((int)VectorLength.L256 == 1);
+			Static.Assert((int)VectorLength.L128 == 0 ? 0 : -1);
+			Static.Assert((int)VectorLength.L256 == 1 ? 0 : -1);
 			state.vectorLength = (VectorLength)((b >> 2) & 1);
 
-			Debug.Assert((int)MandatoryPrefixByte.None == 0);
-			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
-			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF3 == 2 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b & 3);
 
 			DecodeTable(handlers_0FXX_VEX, ref instruction);
@@ -525,17 +525,17 @@ after_read_prefixes:
 			uint b1 = state.modrm;
 			uint b2 = ReadByte();
 
-			Debug.Assert((int)StateFlags.W == 0x80);
+			Static.Assert((int)StateFlags.W == 0x80 ? 0 : -1);
 			state.flags |= (StateFlags)(b2 & 0x80);
 
-			Debug.Assert((int)VectorLength.L128 == 0);
-			Debug.Assert((int)VectorLength.L256 == 1);
+			Static.Assert((int)VectorLength.L128 == 0 ? 0 : -1);
+			Static.Assert((int)VectorLength.L256 == 1 ? 0 : -1);
 			state.vectorLength = (VectorLength)((b2 >> 2) & 1);
 
-			Debug.Assert((int)MandatoryPrefixByte.None == 0);
-			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
-			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF3 == 2 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
 			if (is64Mode) {
@@ -571,17 +571,17 @@ after_read_prefixes:
 			uint b1 = state.modrm;
 			uint b2 = ReadByte();
 
-			Debug.Assert((int)StateFlags.W == 0x80);
+			Static.Assert((int)StateFlags.W == 0x80 ? 0 : -1);
 			state.flags |= (StateFlags)(b2 & 0x80);
 
-			Debug.Assert((int)VectorLength.L128 == 0);
-			Debug.Assert((int)VectorLength.L256 == 1);
+			Static.Assert((int)VectorLength.L128 == 0 ? 0 : -1);
+			Static.Assert((int)VectorLength.L256 == 1 ? 0 : -1);
 			state.vectorLength = (VectorLength)((b2 >> 2) & 1);
 
-			Debug.Assert((int)MandatoryPrefixByte.None == 0);
-			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
-			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF3 == 2 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
 			if (is64Mode) {
@@ -621,13 +621,13 @@ after_read_prefixes:
 					state.flags |= (StateFlags)EncodingKind.EVEX;
 #endif
 
-					Debug.Assert((int)MandatoryPrefixByte.None == 0);
-					Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
-					Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
-					Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+					Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
+					Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
+					Static.Assert((int)MandatoryPrefixByte.PF3 == 2 ? 0 : -1);
+					Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 					state.mandatoryPrefix = (MandatoryPrefixByte)(p1 & 3);
 
-					Debug.Assert((int)StateFlags.W == 0x80);
+					Static.Assert((int)StateFlags.W == 0x80 ? 0 : -1);
 					state.flags |= (StateFlags)(p1 & 0x80);
 
 					uint aaa = p2 & 7;
@@ -641,13 +641,13 @@ after_read_prefixes:
 						instruction.InternalSetZeroingMasking();
 					}
 
-					Debug.Assert((int)StateFlags.b == 0x10);
+					Static.Assert((int)StateFlags.b == 0x10 ? 0 : -1);
 					state.flags |= (StateFlags)(p2 & 0x10);
 
-					Debug.Assert((int)VectorLength.L128 == 0);
-					Debug.Assert((int)VectorLength.L256 == 1);
-					Debug.Assert((int)VectorLength.L512 == 2);
-					Debug.Assert((int)VectorLength.Unknown == 3);
+					Static.Assert((int)VectorLength.L128 == 0 ? 0 : -1);
+					Static.Assert((int)VectorLength.L256 == 1 ? 0 : -1);
+					Static.Assert((int)VectorLength.L512 == 2 ? 0 : -1);
+					Static.Assert((int)VectorLength.Unknown == 3 ? 0 : -1);
 					state.vectorLength = (VectorLength)((p2 >> 5) & 3);
 
 					if (is64Mode) {

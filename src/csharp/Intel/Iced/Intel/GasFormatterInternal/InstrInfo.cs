@@ -169,7 +169,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		}
 
 		public InstrOpInfo(string mnemonic, in Instruction instr, InstrOpInfoFlags flags) {
-			Debug.Assert(IcedConstants.MaxOpCount == 5);
+			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 			Mnemonic = mnemonic;
 			Flags = flags;
 			int opCount = instr.OpCount;
@@ -440,12 +440,12 @@ namespace Iced.Intel.GasFormatterInternal {
 				else
 					throw new InvalidOperationException();
 				info.OpCount = 2;
-				Debug.Assert(InstrOpKind.Register == 0);
+				Static.Assert(InstrOpKind.Register == 0 ? 0 : -1);
 				//info.Op0Kind = InstrOpKind.Register;
 				//info.Op1Kind = InstrOpKind.Register;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)register;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)register;
 				if (instr.Op0Register == instr.Op1Register) {
 					info.Op0Index = OpAccess_None;
@@ -478,7 +478,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			Debug.Assert(instr.Op0Kind == OpKind.Register && instr.Op0Register == Register.ST0);
 			if (!pseudoOp || !(options.UsePseudoOps && instr.Op1Register == Register.ST1)) {
 				info.OpCount = 1;
-				Debug.Assert(InstrOpKind.Register == 0);
+				Static.Assert(InstrOpKind.Register == 0 ? 0 : -1);
 				//info.Op0Kind = InstrOpKind.Register;
 				info.Op0Register = (byte)instr.Op1Register;
 				info.Op0Index = 1;
@@ -503,7 +503,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			else {
 				info = new InstrOpInfo(mnemonic, instr, flags);
 				Debug.Assert(info.Op0Register == (int)Register.ST0);
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Registers.Register_ST;
 			}
 		}
@@ -518,7 +518,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		public override void GetOpInfo(GasFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op1Register == (int)Register.ST0);
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)Registers.Register_ST;
 		}
 	}
@@ -532,7 +532,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		public override void GetOpInfo(GasFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op0Register == (int)Register.ST0);
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)Registers.Register_ST;
 		}
 	}
@@ -621,9 +621,9 @@ namespace Iced.Intel.GasFormatterInternal {
 			Debug.Assert(instr.OpCount == 2);
 			info.Mnemonic = mnemonic;
 			info.OpCount = 3;
-			Debug.Assert(InstrOpKind.Register == 0);
+			Static.Assert(InstrOpKind.Register == 0 ? 0 : -1);
 			//info.Op0Kind = InstrOpKind.Register;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)Register.XMM0;
 			info.Op0Index = OpAccess_Read;
 			info.Op1Kind = (InstrOpKind)instr.Op1Kind;
@@ -907,7 +907,7 @@ namespace Iced.Intel.GasFormatterInternal {
 				}
 				Debug.Assert(regSize != 0);
 				if (regSize != 0) {
-					Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+					Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 					info.Op0Register = (byte)reg;
 					if (!((instrCodeSize != 64 && instrCodeSize == regSize) || (instrCodeSize == 64 && regSize == 32))) {
 						if (codeSize == 16)

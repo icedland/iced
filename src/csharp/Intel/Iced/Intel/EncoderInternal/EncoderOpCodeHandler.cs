@@ -556,11 +556,11 @@ namespace Iced.Intel.EncoderInternal {
 			if ((b = mandatoryPrefix) != 0)
 				encoder.WriteByte(b);
 
-			Debug.Assert((int)EncoderFlags.B == 0x01);
-			Debug.Assert((int)EncoderFlags.X == 0x02);
-			Debug.Assert((int)EncoderFlags.R == 0x04);
-			Debug.Assert((int)EncoderFlags.W == 0x08);
-			Debug.Assert((int)EncoderFlags.REX == 0x40);
+			Static.Assert((int)EncoderFlags.B == 0x01 ? 0 : -1);
+			Static.Assert((int)EncoderFlags.X == 0x02 ? 0 : -1);
+			Static.Assert((int)EncoderFlags.R == 0x04 ? 0 : -1);
+			Static.Assert((int)EncoderFlags.W == 0x08 ? 0 : -1);
+			Static.Assert((int)EncoderFlags.REX == 0x40 ? 0 : -1);
 			b = (uint)encoder.EncoderFlags;
 			b &= 0x4F;
 			if (b != 0) {
@@ -650,22 +650,22 @@ namespace Iced.Intel.EncoderInternal {
 		public override void Encode(Encoder encoder, in Instruction instr) {
 			uint encoderFlags = (uint)encoder.EncoderFlags;
 
-			Debug.Assert((int)MandatoryPrefixByte.None == 0);
-			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
-			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF3 == 2 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			uint b = lastByte;
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
 
 			if (encoder.PreventVEX2 || W1 || opCodeTable != VexOpCodeTable.Table0F || (encoderFlags & (uint)(EncoderFlags.X | EncoderFlags.B | EncoderFlags.W)) != 0) {
 				encoder.WriteByte(0xC4);
-				Debug.Assert((int)VexOpCodeTable.Table0F == 1);
-				Debug.Assert((int)VexOpCodeTable.Table0F38 == 2);
-				Debug.Assert((int)VexOpCodeTable.Table0F3A == 3);
+				Static.Assert((int)VexOpCodeTable.Table0F == 1 ? 0 : -1);
+				Static.Assert((int)VexOpCodeTable.Table0F38 == 2 ? 0 : -1);
+				Static.Assert((int)VexOpCodeTable.Table0F3A == 3 ? 0 : -1);
 				uint b2 = (uint)opCodeTable;
-				Debug.Assert((int)EncoderFlags.B == 1);
-				Debug.Assert((int)EncoderFlags.X == 2);
-				Debug.Assert((int)EncoderFlags.R == 4);
+				Static.Assert((int)EncoderFlags.B == 1 ? 0 : -1);
+				Static.Assert((int)EncoderFlags.X == 2 ? 0 : -1);
+				Static.Assert((int)EncoderFlags.R == 4 ? 0 : -1);
 				b2 |= (~encoderFlags & 7) << 5;
 				encoder.WriteByte(b2);
 				b |= mask_W_L & encoder.Internal_VEX_WIG_LIG;
@@ -673,7 +673,7 @@ namespace Iced.Intel.EncoderInternal {
 			}
 			else {
 				encoder.WriteByte(0xC5);
-				Debug.Assert((int)EncoderFlags.R == 4);
+				Static.Assert((int)EncoderFlags.R == 4 ? 0 : -1);
 				b |= (~encoderFlags & 4) << 5;
 				b |= mask_L & encoder.Internal_VEX_LIG;
 				encoder.WriteByte(b);
@@ -715,9 +715,9 @@ namespace Iced.Intel.EncoderInternal {
 
 		public XopHandler(uint dword1, uint dword2, uint dword3)
 			: base(GetCode(dword1), GetOpCode(dword1), GetGroupIndex(dword2), OpCodeHandlerFlags.None, (Encodable)((dword2 >> (int)XopFlags.EncodableShift) & (uint)XopFlags.EncodableMask), OperandSize.None, AddressSize.None, null, CreateOps(dword3)) {
-			Debug.Assert((int)XopOpCodeTable.XOP8 == 1);
-			Debug.Assert((int)XopOpCodeTable.XOP9 == 2);
-			Debug.Assert((int)XopOpCodeTable.XOPA == 3);
+			Static.Assert((int)XopOpCodeTable.XOP8 == 1 ? 0 : -1);
+			Static.Assert((int)XopOpCodeTable.XOP9 == 2 ? 0 : -1);
+			Static.Assert((int)XopOpCodeTable.XOPA == 3 ? 0 : -1);
 			opCodeTable = 7 + ((dword2 >> (int)XopFlags.OpCodeTableShift) & (uint)XopFlags.OpCodeTableMask);
 			Debug.Assert(opCodeTable == 8 || opCodeTable == 9 || opCodeTable == 10);
 			lastByte = (dword2 >> ((int)XopFlags.XOP_LShift - 2)) & 4;
@@ -730,15 +730,15 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.WriteByte(0x8F);
 
 			uint encoderFlags = (uint)encoder.EncoderFlags;
-			Debug.Assert((int)MandatoryPrefixByte.None == 0);
-			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
-			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF3 == 2 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 
 			uint b = opCodeTable;
-			Debug.Assert((int)EncoderFlags.B == 1);
-			Debug.Assert((int)EncoderFlags.X == 2);
-			Debug.Assert((int)EncoderFlags.R == 4);
+			Static.Assert((int)EncoderFlags.B == 1 ? 0 : -1);
+			Static.Assert((int)EncoderFlags.X == 2 ? 0 : -1);
+			Static.Assert((int)EncoderFlags.R == 4 ? 0 : -1);
 			b |= (~encoderFlags & 7) << 5;
 			encoder.WriteByte(b);
 			b = lastByte;
@@ -791,10 +791,10 @@ namespace Iced.Intel.EncoderInternal {
 			flags = (EvexFlags)dword2;
 			tupleType = (TupleType)((dword2 >> (int)EvexFlags.TupleTypeShift) & (uint)EvexFlags.TupleTypeMask);
 			opCodeTable = (EvexOpCodeTable)((dword2 >> (int)EvexFlags.OpCodeTableShift) & (uint)EvexFlags.OpCodeTableMask);
-			Debug.Assert((int)MandatoryPrefixByte.None == 0);
-			Debug.Assert((int)MandatoryPrefixByte.P66 == 1);
-			Debug.Assert((int)MandatoryPrefixByte.PF3 == 2);
-			Debug.Assert((int)MandatoryPrefixByte.PF2 == 3);
+			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF3 == 2 ? 0 : -1);
+			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			p1Bits = 4 | ((dword2 >> (int)EvexFlags.MandatoryPrefixShift) & (uint)EvexFlags.MandatoryPrefixMask);
 			if ((dword2 & (uint)EvexFlags.EVEX_W1) != 0)
 				p1Bits |= 0x80;
@@ -976,15 +976,15 @@ namespace Iced.Intel.EncoderInternal {
 
 			encoder.WriteByte(0x62);
 
-			Debug.Assert((int)EvexOpCodeTable.Table0F == 1);
-			Debug.Assert((int)EvexOpCodeTable.Table0F38 == 2);
-			Debug.Assert((int)EvexOpCodeTable.Table0F3A == 3);
+			Static.Assert((int)EvexOpCodeTable.Table0F == 1 ? 0 : -1);
+			Static.Assert((int)EvexOpCodeTable.Table0F38 == 2 ? 0 : -1);
+			Static.Assert((int)EvexOpCodeTable.Table0F3A == 3 ? 0 : -1);
 			uint b = (uint)opCodeTable;
-			Debug.Assert((int)EncoderFlags.B == 1);
-			Debug.Assert((int)EncoderFlags.X == 2);
-			Debug.Assert((int)EncoderFlags.R == 4);
+			Static.Assert((int)EncoderFlags.B == 1 ? 0 : -1);
+			Static.Assert((int)EncoderFlags.X == 2 ? 0 : -1);
+			Static.Assert((int)EncoderFlags.R == 4 ? 0 : -1);
 			b |= (encoderFlags & 7) << 5;
-			Debug.Assert((int)EncoderFlags.R2 == 0x00000200);
+			Static.Assert((int)EncoderFlags.R2 == 0x00000200 ? 0 : -1);
 			b |= (encoderFlags >> (9 - 4)) & 0x10;
 			b ^= ~0xFU;
 			encoder.WriteByte(b);
@@ -1008,10 +1008,10 @@ namespace Iced.Intel.EncoderInternal {
 				if ((flags & EvexFlags.EVEX_er) == 0)
 					encoder.ErrorMessage = "The instruction doesn't support rounding control";
 				b |= 0x10;
-				Debug.Assert((int)RoundingControl.RoundToNearest == 1);
-				Debug.Assert((int)RoundingControl.RoundDown == 2);
-				Debug.Assert((int)RoundingControl.RoundUp == 3);
-				Debug.Assert((int)RoundingControl.RoundTowardZero == 4);
+				Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
+				Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
+				Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
+				Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
 				b |= (uint)(rc - RoundingControl.RoundToNearest) << 5;
 			}
 			else if ((flags & EvexFlags.EVEX_sae) == 0 || !instr.SuppressAllExceptions)

@@ -284,10 +284,10 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsNoTrackPrefixBranch(Code code) {
-			Debug.Assert(Code.Jmp_rm16 + 1 == Code.Jmp_rm32);
-			Debug.Assert(Code.Jmp_rm16 + 2 == Code.Jmp_rm64);
-			Debug.Assert(Code.Call_rm16 + 1 == Code.Call_rm32);
-			Debug.Assert(Code.Call_rm16 + 2 == Code.Call_rm64);
+			Static.Assert(Code.Jmp_rm16 + 1 == Code.Jmp_rm32 ? 0 : -1);
+			Static.Assert(Code.Jmp_rm16 + 2 == Code.Jmp_rm64 ? 0 : -1);
+			Static.Assert(Code.Call_rm16 + 1 == Code.Call_rm32 ? 0 : -1);
+			Static.Assert(Code.Call_rm16 + 2 == Code.Call_rm64 ? 0 : -1);
 			return (uint)code - (uint)Code.Jmp_rm16 <= 2 || (uint)code - (uint)Code.Call_rm16 <= 2;
 		}
 
@@ -295,11 +295,11 @@ namespace Iced.Intel {
 		public static PrefixKind GetSegmentRegisterPrefixKind(Register register) {
 			Debug.Assert(register == Register.ES || register == Register.CS || register == Register.SS ||
 						register == Register.DS || register == Register.FS || register == Register.GS);
-			Debug.Assert(PrefixKind.ES + 1 == PrefixKind.CS);
-			Debug.Assert(PrefixKind.ES + 2 == PrefixKind.SS);
-			Debug.Assert(PrefixKind.ES + 3 == PrefixKind.DS);
-			Debug.Assert(PrefixKind.ES + 4 == PrefixKind.FS);
-			Debug.Assert(PrefixKind.ES + 5 == PrefixKind.GS);
+			Static.Assert(PrefixKind.ES + 1 == PrefixKind.CS ? 0 : -1);
+			Static.Assert(PrefixKind.ES + 2 == PrefixKind.SS ? 0 : -1);
+			Static.Assert(PrefixKind.ES + 3 == PrefixKind.DS ? 0 : -1);
+			Static.Assert(PrefixKind.ES + 4 == PrefixKind.FS ? 0 : -1);
+			Static.Assert(PrefixKind.ES + 5 == PrefixKind.GS ? 0 : -1);
 			return (register - Register.ES) + PrefixKind.ES;
 		}
 	}

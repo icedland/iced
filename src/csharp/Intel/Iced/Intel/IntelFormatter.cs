@@ -694,11 +694,11 @@ namespace Iced.Intel {
 			if (operand == 0) {
 				var rc = instruction.RoundingControl;
 				if (rc != RoundingControl.None) {
-					Debug.Assert((int)RoundingControl.None == 0);
-					Debug.Assert((int)RoundingControl.RoundToNearest == 1);
-					Debug.Assert((int)RoundingControl.RoundDown == 2);
-					Debug.Assert((int)RoundingControl.RoundUp == 3);
-					Debug.Assert((int)RoundingControl.RoundTowardZero == 4);
+					Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
+					Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
+					Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
+					Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
+					Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
 					FormatDecorator(output, instruction, operand, instructionOperand, rcStrings[(int)rc - 1], DecoratorKind.RoundingControl);
 				}
 				else if (instruction.SuppressAllExceptions)

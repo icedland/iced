@@ -189,7 +189,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 
 		public InstrOpInfo(string mnemonic, in Instruction instr, InstrOpInfoFlags flags) {
-			Debug.Assert(IcedConstants.MaxOpCount == 5);
+			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 			Mnemonic = mnemonic;
 			Flags = flags | (InstrOpInfoFlags)((uint)instr.MemorySize << (int)InstrOpInfoFlags.MemorySizeShift);
 			Op0Kind = (InstrOpKind)instr.Op0Kind;
@@ -197,15 +197,15 @@ namespace Iced.Intel.NasmFormatterInternal {
 			Op2Kind = (InstrOpKind)instr.Op2Kind;
 			Op3Kind = (InstrOpKind)instr.Op3Kind;
 			Op4Kind = (InstrOpKind)instr.Op4Kind;
-			Debug.Assert(TEST_RegisterBits == 8);
+			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
 			Op0Register = (byte)instr.Op0Register;
-			Debug.Assert(TEST_RegisterBits == 8);
+			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
 			Op1Register = (byte)instr.Op1Register;
-			Debug.Assert(TEST_RegisterBits == 8);
+			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
 			Op2Register = (byte)instr.Op2Register;
-			Debug.Assert(TEST_RegisterBits == 8);
+			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
 			Op3Register = (byte)instr.Op3Register;
-			Debug.Assert(TEST_RegisterBits == 8);
+			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
 			Op4Register = (byte)instr.Op4Register;
 			int opCount = instr.OpCount;
 			OpCount = (byte)opCount;
@@ -800,12 +800,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 				info = default;
 				info.Mnemonic = "xchg";
 				info.OpCount = 2;
-				Debug.Assert(InstrOpKind.Register == 0);
+				Static.Assert(InstrOpKind.Register == 0 ? 0 : -1);
 				//info.Op0Kind = InstrOpKind.Register;
 				//info.Op1Kind = InstrOpKind.Register;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)register;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)register;
 				if (instr.Op0Register == instr.Op1Register) {
 					info.Op0Index = OpAccess_None;
@@ -838,9 +838,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 			Debug.Assert(instr.Op0Kind == OpKind.Register && instr.Op0Register == Register.ST0);
 			if (!pseudoOp || !(options.UsePseudoOps && instr.Op1Register == Register.ST1)) {
 				info.OpCount = 1;
-				Debug.Assert(InstrOpKind.Register == 0);
+				Static.Assert(InstrOpKind.Register == 0 ? 0 : -1);
 				//info.Op0Kind = InstrOpKind.Register;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)instr.Op1Register;
 				info.Op0Index = 1;
 			}
@@ -870,9 +870,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 			Debug.Assert(instr.Op1Kind == OpKind.Register && instr.Op1Register == Register.ST0);
 			if (!pseudoOp || !(options.UsePseudoOps && instr.Op0Register == Register.ST1)) {
 				info.OpCount = 1;
-				Debug.Assert(InstrOpKind.Register == 0);
+				Static.Assert(InstrOpKind.Register == 0 ? 0 : -1);
 				//info.Op0Kind = InstrOpKind.Register;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)instr.Op0Register;
 			}
 		}
@@ -937,11 +937,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 			info.OpCount = 2;
 			info.Op0Kind = (InstrOpKind)instr.Op1Kind;
 			info.Op0Index = 1;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)instr.Op1Register;
 			info.Op1Kind = (InstrOpKind)instr.Op2Kind;
 			info.Op1Index = 2;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)instr.Op2Register;
 			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
 				if (codeSize == 16)
@@ -972,15 +972,15 @@ namespace Iced.Intel.NasmFormatterInternal {
 			info.Mnemonic = mnemonic;
 			info.OpCount = 3;
 			info.Op0Kind = (InstrOpKind)instr.Op0Kind;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)instr.Op0Register;
 			info.Op1Kind = (InstrOpKind)instr.Op1Kind;
 			info.Op1Index = 1;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)instr.Op1Register;
-			Debug.Assert(InstrOpKind.Register == 0);
+			Static.Assert(InstrOpKind.Register == 0 ? 0 : -1);
 			//info.Op2Kind = InstrOpKind.Register;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op2Register = (byte)Register.XMM0;
 			info.MemorySize = memSize;
 			info.Op2Index = OpAccess_Read;
@@ -999,10 +999,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 			info.OpCount = 2;
 			info.Op0Kind = (InstrOpKind)instr.Op1Kind;
 			info.Op0Index = 1;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)instr.Op1Register;
 			info.Op1Kind = (InstrOpKind)instr.Op0Kind;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)instr.Op0Register;
 			info.MemorySize = instr.MemorySize;
 		}
@@ -1196,7 +1196,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				}
 				Debug.Assert(regSize != 0);
 				if (regSize != 0) {
-					Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+					Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 					info.Op0Register = (byte)reg;
 					if (!((instrCodeSize != 64 && instrCodeSize == regSize) || (instrCodeSize == 64 && regSize == 32))) {
 						if (codeSize == 16)
@@ -1301,7 +1301,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				info.OpCount = 2;
 				info.Op1Kind = InstrOpKind.Register;
 				info.Op1Index = OpAccess_ReadWrite;
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)reg;
 			}
 		}
@@ -1737,24 +1737,24 @@ namespace Iced.Intel.NasmFormatterInternal {
 			info.OpCount = 2;
 			info.Op0Kind = InstrOpKind.Register;
 			info.Op1Kind = InstrOpKind.Register;
-			Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)Register.ECX;
 			info.Op0Index = OpAccess_Read;
 			info.Op1Index = OpAccess_Read;
 
 			switch (codeSize) {
 			case 16:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.AX;
 				break;
 
 			case 32:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.EAX;
 				break;
 
 			case 64:
-				Debug.Assert(InstrOpInfo.TEST_RegisterBits == 8);
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Register.RAX;
 				break;
 
