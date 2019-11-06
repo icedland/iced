@@ -58,15 +58,6 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		}
 
 		[Fact]
-		void Verify_InstrInfos_have_valid_Code_values() {
-			var infos = InstrInfos.AllInfos;
-			for (int i = 0; i < infos.Length; i++) {
-				var expectedCodeValue = (Code)i;
-				Assert.Equal(expectedCodeValue, infos[i].TEST_Code);
-			}
-		}
-
-		[Fact]
 		void Verify_MemorySizes_have_valid_MemorySize_values() {
 			var infos = MemorySizes.AllMemorySizes;
 			for (int i = 0; i < infos.Length; i++) {

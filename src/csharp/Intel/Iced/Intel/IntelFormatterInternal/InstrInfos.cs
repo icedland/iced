@@ -43,7 +43,6 @@ namespace Iced.Intel.IntelFormatterInternal {
 			uint v, v2;
 			int prevIndex = -1;
 			for (int i = 0; i < infos.Length; i++) {
-				var code = (Code)i;
 				byte f = reader.ReadByte();
 				var ctorKind = (CtorKind)(f & 0x7F);
 				int currentIndex;
@@ -64,157 +63,157 @@ namespace Iced.Intel.IntelFormatterInternal {
 				InstrInfo instrInfo;
 				switch (ctorKind) {
 				case CtorKind.Normal_1:
-					instrInfo = new SimpleInstrInfo(code, s);
+					instrInfo = new SimpleInstrInfo(s);
 					break;
 
 				case CtorKind.Normal_2:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo(code, s, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo(s, (InstrOpInfoFlags)v);
 					break;
 
 				case CtorKind.asz:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_as(code, (int)v, s);
+					instrInfo = new SimpleInstrInfo_as((int)v, s);
 					break;
 
 				case CtorKind.AX:
-					instrInfo = new SimpleInstrInfo_AX(code, s);
+					instrInfo = new SimpleInstrInfo_AX(s);
 					break;
 
 				case CtorKind.AY:
-					instrInfo = new SimpleInstrInfo_AY(code, s);
+					instrInfo = new SimpleInstrInfo_AY(s);
 					break;
 
 				case CtorKind.bcst:
 					v = reader.ReadCompressedUInt32();
 					v2 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_bcst(code, s, (InstrOpInfoFlags)v, (InstrOpInfoFlags)v2);
+					instrInfo = new SimpleInstrInfo_bcst(s, (InstrOpInfoFlags)v, (InstrOpInfoFlags)v2);
 					break;
 
 				case CtorKind.bnd_1:
-					instrInfo = new SimpleInstrInfo_bnd(code, s);
+					instrInfo = new SimpleInstrInfo_bnd(s);
 					break;
 
 				case CtorKind.bnd_2:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_bnd(code, s, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_bnd(s, (InstrOpInfoFlags)v);
 					break;
 
 				case CtorKind.DeclareData:
-					instrInfo = new SimpleInstrInfo_DeclareData(code, s);
+					instrInfo = new SimpleInstrInfo_DeclareData((Code)i, s);
 					break;
 
 				case CtorKind.fpu_ST_STi:
-					instrInfo = new SimpleInstrInfo_fpu_ST_STi(code, s);
+					instrInfo = new SimpleInstrInfo_fpu_ST_STi(s);
 					break;
 
 				case CtorKind.fpu_STi_ST:
-					instrInfo = new SimpleInstrInfo_fpu_STi_ST(code, s);
+					instrInfo = new SimpleInstrInfo_fpu_STi_ST(s);
 					break;
 
 				case CtorKind.imul:
-					instrInfo = new SimpleInstrInfo_imul(code, s);
+					instrInfo = new SimpleInstrInfo_imul(s);
 					break;
 
 				case CtorKind.k1:
-					instrInfo = new SimpleInstrInfo_k1(code, s);
+					instrInfo = new SimpleInstrInfo_k1(s);
 					break;
 
 				case CtorKind.k2:
-					instrInfo = new SimpleInstrInfo_k2(code, s);
+					instrInfo = new SimpleInstrInfo_k2(s);
 					break;
 
 				case CtorKind.maskmovq:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_maskmovq(code, s, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_maskmovq(s, (InstrOpInfoFlags)v);
 					break;
 
 				case CtorKind.memsize:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_memsize(code, (int)v, s);
+					instrInfo = new SimpleInstrInfo_memsize((int)v, s);
 					break;
 
 				case CtorKind.movabs:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_movabs(code, (int)v, s);
+					instrInfo = new SimpleInstrInfo_movabs((int)v, s);
 					break;
 
 				case CtorKind.nop:
 					v = reader.ReadCompressedUInt32();
 					v2 = reader.ReadByte();
-					instrInfo = new SimpleInstrInfo_nop(code, (int)v, s, (Register)v2);
+					instrInfo = new SimpleInstrInfo_nop((int)v, s, (Register)v2);
 					break;
 
 				case CtorKind.nop0F1F:
 					v = reader.ReadByte();
 					v2 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_nop0F1F(code, (Register)v, s, (InstrOpInfoFlags)v2);
+					instrInfo = new SimpleInstrInfo_nop0F1F((Register)v, s, (InstrOpInfoFlags)v2);
 					break;
 
 				case CtorKind.os2:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os(code, (int)v, s);
+					instrInfo = new SimpleInstrInfo_os((int)v, s);
 					break;
 
 				case CtorKind.os3:
 					v = reader.ReadCompressedUInt32();
 					v2 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os(code, (int)v, s, (InstrOpInfoFlags)v2);
+					instrInfo = new SimpleInstrInfo_os((int)v, s, (InstrOpInfoFlags)v2);
 					break;
 
 				case CtorKind.os_bnd:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os_bnd(code, (int)v, s);
+					instrInfo = new SimpleInstrInfo_os_bnd((int)v, s);
 					break;
 
 				case CtorKind.os_jcc_2:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os_jcc(code, (int)v, s);
+					instrInfo = new SimpleInstrInfo_os_jcc((int)v, s);
 					break;
 
 				case CtorKind.os_jcc_3:
 					v = reader.ReadCompressedUInt32();
 					v2 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os_jcc(code, (int)v, s, (InstrOpInfoFlags)v2);
+					instrInfo = new SimpleInstrInfo_os_jcc((int)v, s, (InstrOpInfoFlags)v2);
 					break;
 
 				case CtorKind.os_loop:
 					v = reader.ReadCompressedUInt32();
 					v2 = reader.ReadByte();
-					instrInfo = new SimpleInstrInfo_os_loop(code, (int)v, (Register)v2, s);
+					instrInfo = new SimpleInstrInfo_os_loop((int)v, (Register)v2, s);
 					break;
 
 				case CtorKind.os_mem:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os_mem(code, (int)v, s);
+					instrInfo = new SimpleInstrInfo_os_mem((int)v, s);
 					break;
 
 				case CtorKind.pclmulqdq:
 					v = reader.ReadByte();
-					instrInfo = new SimpleInstrInfo_pclmulqdq(code, s, FormatterConstants.GetPseudoOps((PseudoOpsKind)v));
+					instrInfo = new SimpleInstrInfo_pclmulqdq(s, FormatterConstants.GetPseudoOps((PseudoOpsKind)v));
 					break;
 
 				case CtorKind.pops:
 					v = reader.ReadByte();
-					instrInfo = new SimpleInstrInfo_pops(code, s, FormatterConstants.GetPseudoOps((PseudoOpsKind)v));
+					instrInfo = new SimpleInstrInfo_pops(s, FormatterConstants.GetPseudoOps((PseudoOpsKind)v));
 					break;
 
 				case CtorKind.reg:
 					v = reader.ReadByte();
-					instrInfo = new SimpleInstrInfo_reg(code, s, (Register)v);
+					instrInfo = new SimpleInstrInfo_reg(s, (Register)v);
 					break;
 
 				case CtorKind.Reg16:
-					instrInfo = new SimpleInstrInfo_Reg16(code, s);
+					instrInfo = new SimpleInstrInfo_Reg16(s);
 					break;
 
 				case CtorKind.ST_STi:
-					instrInfo = new SimpleInstrInfo_ST_STi(code, s);
+					instrInfo = new SimpleInstrInfo_ST_STi(s);
 					break;
 
 				case CtorKind.ST1_2:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_ST1(code, s, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_ST1(s, (InstrOpInfoFlags)v);
 					break;
 
 				case CtorKind.ST1_3:
@@ -222,25 +221,25 @@ namespace Iced.Intel.IntelFormatterInternal {
 					v2 = reader.ReadByte();
 					if (v2 > 1)
 						throw new InvalidOperationException();
-					instrInfo = new SimpleInstrInfo_ST1(code, s, (InstrOpInfoFlags)v, v2 != 0);
+					instrInfo = new SimpleInstrInfo_ST1(s, (InstrOpInfoFlags)v, v2 != 0);
 					break;
 
 				case CtorKind.ST2:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_ST2(code, s, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_ST2(s, (InstrOpInfoFlags)v);
 					break;
 
 				case CtorKind.STi_ST:
-					instrInfo = new SimpleInstrInfo_STi_ST(code, s);
+					instrInfo = new SimpleInstrInfo_STi_ST(s);
 					break;
 
 				case CtorKind.xbegin:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_xbegin(code, (int)v, s);
+					instrInfo = new SimpleInstrInfo_xbegin((int)v, s);
 					break;
 
 				case CtorKind.YA:
-					instrInfo = new SimpleInstrInfo_YA(code, s);
+					instrInfo = new SimpleInstrInfo_YA(s);
 					break;
 
 				default:

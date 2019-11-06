@@ -286,9 +286,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 		public const int OpAccess_NoMemAccess = OpAccess_INVALID;
 #endif
 
-		internal readonly Code TEST_Code;
-		protected InstrInfo(Code code) => TEST_Code = code;
-
 		public abstract void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info);
 
 		protected static int GetCodeSize(CodeSize codeSize) {
@@ -306,10 +303,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo(Code code, string mnemonic) : this(code, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo(string mnemonic) : this(mnemonic, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo(Code code, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo(string mnemonic, InstrOpInfoFlags flags) {
 			this.mnemonic = mnemonic;
 			this.flags = flags;
 		}
@@ -323,11 +319,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly InstrOpInfoFlags flags;
 		readonly MemorySize memSize;
 
-		public SimpleInstrInfo_mmxmem(Code code, string mnemonic) : this(code, mnemonic, InstrOpInfoFlags.None, MemorySize.Unknown) { }
-		public SimpleInstrInfo_mmxmem(Code code, string mnemonic, InstrOpInfoFlags flags) : this(code, mnemonic, flags, MemorySize.Unknown) { }
+		public SimpleInstrInfo_mmxmem(string mnemonic) : this(mnemonic, InstrOpInfoFlags.None, MemorySize.Unknown) { }
+		public SimpleInstrInfo_mmxmem(string mnemonic, InstrOpInfoFlags flags) : this(mnemonic, flags, MemorySize.Unknown) { }
 
-		public SimpleInstrInfo_mmxmem(Code code, string mnemonic, InstrOpInfoFlags flags, MemorySize memSize)
-			: base(code) {
+		public SimpleInstrInfo_mmxmem(string mnemonic, InstrOpInfoFlags flags, MemorySize memSize) {
 			this.mnemonic = mnemonic;
 			this.flags = flags;
 			this.memSize = memSize;
@@ -345,8 +340,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly SignExtendInfo sexInfo;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_SEX1(Code code, int codeSize, SignExtendInfo sexInfo, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_SEX1(int codeSize, SignExtendInfo sexInfo, string mnemonic) {
 			this.codeSize = codeSize;
 			this.sexInfo = sexInfo;
 			this.mnemonic = mnemonic;
@@ -374,8 +368,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly SignExtendInfo sexInfo;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_SEX1a(Code code, int codeSize, SignExtendInfo sexInfo, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_SEX1a(int codeSize, SignExtendInfo sexInfo, string mnemonic) {
 			this.codeSize = codeSize;
 			this.sexInfo = sexInfo;
 			this.mnemonic = mnemonic;
@@ -406,11 +399,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_SEX2(Code code, SignExtendInfo sexInfo, string mnemonic) : this(code, sexInfo, sexInfo, mnemonic, InstrOpInfoFlags.None) { }
-		public SimpleInstrInfo_SEX2(Code code, SignExtendInfo sexInfo, string mnemonic, InstrOpInfoFlags flags) : this(code, sexInfo, sexInfo, mnemonic, flags) { }
+		public SimpleInstrInfo_SEX2(SignExtendInfo sexInfo, string mnemonic) : this(sexInfo, sexInfo, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_SEX2(SignExtendInfo sexInfo, string mnemonic, InstrOpInfoFlags flags) : this(sexInfo, sexInfo, mnemonic, flags) { }
 
-		public SimpleInstrInfo_SEX2(Code code, SignExtendInfo sexInfoReg, SignExtendInfo sexInfoMem, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_SEX2(SignExtendInfo sexInfoReg, SignExtendInfo sexInfoMem, string mnemonic, InstrOpInfoFlags flags) {
 			this.sexInfoReg = sexInfoReg;
 			this.sexInfoMem = sexInfoMem;
 			this.mnemonic = mnemonic;
@@ -430,8 +422,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly SignExtendInfo sexInfo;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_SEX3(Code code, SignExtendInfo sexInfo, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_SEX3(SignExtendInfo sexInfo, string mnemonic) {
 			this.sexInfo = sexInfo;
 			this.mnemonic = mnemonic;
 		}
@@ -453,7 +444,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_AamAad : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_AamAad(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_AamAad(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			if (instr.Immediate8 == 10) {
@@ -505,7 +496,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_YD : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_YD(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_YD(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op0Kind;
@@ -539,7 +530,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_DX : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_DX(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_DX(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op1Kind;
@@ -573,7 +564,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_YX : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_YX(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_YX(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op0Kind;
@@ -607,7 +598,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_XY : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_XY(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_XY(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op1Kind;
@@ -641,7 +632,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_YA : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_YA(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_YA(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op0Kind;
@@ -675,7 +666,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_AX : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_AX(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_AX(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op1Kind;
@@ -709,7 +700,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_AY : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_AY(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_AY(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var opKind = instr.Op1Kind;
@@ -743,7 +734,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_XLAT : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_XLAT(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_XLAT(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			Register baseReg;
@@ -785,8 +776,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly Register register;
 
-		public SimpleInstrInfo_nop(Code code, int codeSize, string mnemonic, Register register)
-			: base(code) {
+		public SimpleInstrInfo_nop(int codeSize, string mnemonic, Register register) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 			this.register = register;
@@ -823,10 +813,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly bool pseudoOp;
 
-		public SimpleInstrInfo_STIG1(Code code, string mnemonic) : this(code, mnemonic, false) { }
+		public SimpleInstrInfo_STIG1(string mnemonic) : this(mnemonic, false) { }
 
-		public SimpleInstrInfo_STIG1(Code code, string mnemonic, bool pseudoOp)
-			: base(code) {
+		public SimpleInstrInfo_STIG1(string mnemonic, bool pseudoOp) {
 			this.mnemonic = mnemonic;
 			this.pseudoOp = pseudoOp;
 		}
@@ -852,11 +841,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly bool pseudoOp;
 
-		public SimpleInstrInfo_STIG2(Code code, string mnemonic, bool pseudoOp) : this(code, mnemonic, 0, pseudoOp) { }
-		public SimpleInstrInfo_STIG2(Code code, string mnemonic, InstrOpInfoFlags flags) : this(code, mnemonic, flags, false) { }
+		public SimpleInstrInfo_STIG2(string mnemonic, bool pseudoOp) : this(mnemonic, 0, pseudoOp) { }
+		public SimpleInstrInfo_STIG2(string mnemonic, InstrOpInfoFlags flags) : this(mnemonic, flags, false) { }
 
-		SimpleInstrInfo_STIG2(Code code, string mnemonic, InstrOpInfoFlags flags, bool pseudoOp)
-			: base(code) {
+		SimpleInstrInfo_STIG2(string mnemonic, InstrOpInfoFlags flags, bool pseudoOp) {
 			this.flags = flags;
 			this.mnemonic = mnemonic;
 			this.pseudoOp = pseudoOp;
@@ -882,8 +870,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_as(Code code, int codeSize, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_as(int codeSize, string mnemonic) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 		}
@@ -906,7 +893,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_maskmovq : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_maskmovq(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_maskmovq(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			Debug.Assert(instr.OpCount == 3);
@@ -958,10 +945,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly MemorySize memSize;
 
-		public SimpleInstrInfo_pblendvb(Code code, string mnemonic) : this(code, mnemonic, MemorySize.Unknown) { }
+		public SimpleInstrInfo_pblendvb(string mnemonic) : this(mnemonic, MemorySize.Unknown) { }
 
-		public SimpleInstrInfo_pblendvb(Code code, string mnemonic, MemorySize memSize)
-			: base(code) {
+		public SimpleInstrInfo_pblendvb(string mnemonic, MemorySize memSize) {
 			this.mnemonic = mnemonic;
 			this.memSize = memSize;
 		}
@@ -990,7 +976,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_reverse2 : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_reverse2(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_reverse2(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(NasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = default;
@@ -1012,8 +998,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly CodeSize codeSize;
 		readonly string[] mnemonics;
 
-		public SimpleInstrInfo_OpSize(Code code, CodeSize codeSize, string mnemonic, string mnemonic16, string mnemonic32, string mnemonic64)
-			: base(code) {
+		public SimpleInstrInfo_OpSize(CodeSize codeSize, string mnemonic, string mnemonic16, string mnemonic32, string mnemonic64) {
 			this.codeSize = codeSize;
 			mnemonics = new string[4];
 			mnemonics[(int)CodeSize.Unknown] = mnemonic;
@@ -1035,8 +1020,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_OpSize2_bnd : InstrInfo {
 		readonly string[] mnemonics;
 
-		public SimpleInstrInfo_OpSize2_bnd(Code code, string mnemonic, string mnemonic16, string mnemonic32, string mnemonic64)
-			: base(code) {
+		public SimpleInstrInfo_OpSize2_bnd(string mnemonic, string mnemonic16, string mnemonic32, string mnemonic64) {
 			mnemonics = new string[4];
 			mnemonics[(int)CodeSize.Unknown] = mnemonic;
 			mnemonics[(int)CodeSize.Code16] = mnemonic16;
@@ -1058,8 +1042,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonicDefault;
 		readonly string mnemonicFull;
 
-		public SimpleInstrInfo_OpSize3(Code code, int codeSize, string mnemonicDefault, string mnemonicFull)
-			: base(code) {
+		public SimpleInstrInfo_OpSize3(int codeSize, string mnemonicDefault, string mnemonicFull) {
 			this.codeSize = codeSize;
 			this.mnemonicDefault = mnemonicDefault;
 			this.mnemonicFull = mnemonicFull;
@@ -1081,10 +1064,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_os(Code code, int codeSize, string mnemonic) : this(code, codeSize, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_os(int codeSize, string mnemonic) : this(codeSize, mnemonic, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo_os(Code code, int codeSize, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_os(int codeSize, string mnemonic, InstrOpInfoFlags flags) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 			this.flags = flags;
@@ -1109,8 +1091,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_os_mem(Code code, int codeSize, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_os_mem(int codeSize, string mnemonic) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 		}
@@ -1136,8 +1117,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_os_mem2(Code code, int codeSize, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_os_mem2(int codeSize, string mnemonic, InstrOpInfoFlags flags) {
 			this.flags = flags;
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
@@ -1160,8 +1140,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_os_mem_reg16(Code code, int codeSize, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_os_mem_reg16(int codeSize, string mnemonic) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 		}
@@ -1216,10 +1195,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_os_jcc(Code code, int codeSize, string mnemonic) : this(code, codeSize, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_os_jcc(int codeSize, string mnemonic) : this(codeSize, mnemonic, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo_os_jcc(Code code, int codeSize, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_os_jcc(int codeSize, string mnemonic, InstrOpInfoFlags flags) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 			this.flags = flags;
@@ -1259,8 +1237,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly Register reg;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_os_loop(Code code, int codeSize, Register reg, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_os_loop(int codeSize, Register reg, string mnemonic) {
 			this.codeSize = codeSize;
 			this.reg = reg;
 			this.mnemonic = mnemonic;
@@ -1312,8 +1289,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly bool canHaveBndPrefix;
 
-		public SimpleInstrInfo_os_call(Code code, int codeSize, string mnemonic, bool canHaveBndPrefix = false)
-			: base(code) {
+		public SimpleInstrInfo_os_call(int codeSize, string mnemonic, bool canHaveBndPrefix = false) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 			this.canHaveBndPrefix = canHaveBndPrefix;
@@ -1340,8 +1316,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_far(Code code, int codeSize, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_far(int codeSize, string mnemonic) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 		}
@@ -1365,8 +1340,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_far_mem(Code code, int codeSize, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_far_mem(int codeSize, string mnemonic) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 		}
@@ -1390,8 +1364,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_xbegin(Code code, int codeSize, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_xbegin(int codeSize, string mnemonic) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 		}
@@ -1422,8 +1395,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly int memOpNumber;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_movabs(Code code, int memOpNumber, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_movabs(int memOpNumber, string mnemonic) {
 			this.memOpNumber = memOpNumber;
 			this.mnemonic = mnemonic;
 		}
@@ -1466,10 +1438,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_er(Code code, int erIndex, string mnemonic) : this(code, erIndex, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_er(int erIndex, string mnemonic) : this(erIndex, mnemonic, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo_er(Code code, int erIndex, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_er(int erIndex, string mnemonic, InstrOpInfoFlags flags) {
 			this.erIndex = erIndex;
 			this.mnemonic = mnemonic;
 			this.flags = flags;
@@ -1527,8 +1498,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly int saeIndex;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_sae(Code code, int saeIndex, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_sae(int saeIndex, string mnemonic) {
 			this.saeIndex = saeIndex;
 			this.mnemonic = mnemonic;
 		}
@@ -1545,8 +1515,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly InstrOpInfoFlags flagsNoBroadcast;
 		readonly InstrOpInfoFlags flagsBroadcast;
 
-		public SimpleInstrInfo_bcst(Code code, string mnemonic, InstrOpInfoFlags flagsNoBroadcast, InstrOpInfoFlags flagsBroadcast)
-			: base(code) {
+		public SimpleInstrInfo_bcst(string mnemonic, InstrOpInfoFlags flagsNoBroadcast, InstrOpInfoFlags flagsBroadcast) {
 			this.mnemonic = mnemonic;
 			this.flagsNoBroadcast = flagsNoBroadcast;
 			this.flagsBroadcast = flagsBroadcast;
@@ -1563,10 +1532,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_bnd(Code code, string mnemonic) : this(code, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_bnd(string mnemonic) : this(mnemonic, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo_bnd(Code code, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_bnd(string mnemonic, InstrOpInfoFlags flags) {
 			this.mnemonic = mnemonic;
 			this.flags = flags;
 		}
@@ -1584,10 +1552,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string[] pseudo_ops;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_pops(Code code, string mnemonic, string[] pseudo_ops) : this(code, mnemonic, pseudo_ops, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_pops(string mnemonic, string[] pseudo_ops) : this(mnemonic, pseudo_ops, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo_pops(Code code, string mnemonic, string[] pseudo_ops, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_pops(string mnemonic, string[] pseudo_ops, InstrOpInfoFlags flags) {
 			this.mnemonic = mnemonic;
 			this.pseudo_ops = pseudo_ops;
 			this.flags = flags;
@@ -1625,8 +1592,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly string[] pseudo_ops;
 
-		public SimpleInstrInfo_sae_pops(Code code, int saeIndex, string mnemonic, string[] pseudo_ops)
-			: base(code) {
+		public SimpleInstrInfo_sae_pops(int saeIndex, string mnemonic, string[] pseudo_ops) {
 			this.saeIndex = saeIndex;
 			this.mnemonic = mnemonic;
 			this.pseudo_ops = pseudo_ops;
@@ -1650,8 +1616,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly InstrOpInfoFlags flags;
 		readonly MemorySize memSize;
 
-		public SimpleInstrInfo_ms_pops(Code code, string mnemonic, string[] pseudo_ops, InstrOpInfoFlags flags, MemorySize memSize)
-			: base(code) {
+		public SimpleInstrInfo_ms_pops(string mnemonic, string[] pseudo_ops, InstrOpInfoFlags flags, MemorySize memSize) {
 			this.mnemonic = mnemonic;
 			this.pseudo_ops = pseudo_ops;
 			this.flags = flags;
@@ -1674,8 +1639,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly string[] pseudo_ops;
 
-		public SimpleInstrInfo_pclmulqdq(Code code, string mnemonic, string[] pseudo_ops)
-			: base(code) {
+		public SimpleInstrInfo_pclmulqdq(string mnemonic, string[] pseudo_ops) {
 			this.mnemonic = mnemonic;
 			this.pseudo_ops = pseudo_ops;
 		}
@@ -1706,8 +1670,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_Reg16 : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_Reg16(Code code, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_Reg16(string mnemonic) {
 			this.mnemonic = mnemonic;
 		}
 
@@ -1725,8 +1688,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_invlpga(Code code, int codeSize, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_invlpga(int codeSize, string mnemonic) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 		}
@@ -1768,8 +1730,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpKind opKind;
 
-		public SimpleInstrInfo_DeclareData(Code code, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_DeclareData(Code code, string mnemonic) {
 			this.mnemonic = mnemonic;
 			InstrOpKind opKind;
 			switch (code) {

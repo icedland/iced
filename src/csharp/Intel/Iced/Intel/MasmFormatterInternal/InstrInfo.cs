@@ -262,9 +262,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 		public const int OpAccess_NoMemAccess = OpAccess_INVALID;
 #endif
 
-		internal readonly Code TEST_Code;
-		protected InstrInfo(Code code) => TEST_Code = code;
-
 		protected static int GetCodeSize(CodeSize codeSize) {
 			switch (codeSize) {
 			case CodeSize.Code16:	return 16;
@@ -282,10 +279,9 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo(Code code, string mnemonic) : this(code, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo(string mnemonic) : this(mnemonic, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo(Code code, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo(string mnemonic, InstrOpInfoFlags flags) {
 			this.mnemonic = mnemonic;
 			this.flags = flags;
 		}
@@ -298,12 +294,11 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_mmxmem(Code code, string mnemonic)
-			: this(code, mnemonic, InstrOpInfoFlags.None) {
+		public SimpleInstrInfo_mmxmem(string mnemonic)
+			: this(mnemonic, InstrOpInfoFlags.None) {
 		}
 
-		public SimpleInstrInfo_mmxmem(Code code, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_mmxmem(string mnemonic, InstrOpInfoFlags flags) {
 			this.mnemonic = mnemonic;
 			this.flags = flags | InstrOpInfoFlags.MemSize_Mmx;
 		}
@@ -316,8 +311,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_memsize(Code code, int codeSize, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_memsize(int codeSize, string mnemonic) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 		}
@@ -332,7 +326,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_AamAad : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_AamAad(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_AamAad(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			if (instr.Immediate8 == 10) {
@@ -347,7 +341,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_Ib : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_Ib(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_Ib(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = default;
@@ -363,8 +357,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic_no_args;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_YD(Code code, string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_YD(string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags) {
 			this.mnemonic_args = mnemonic_args;
 			this.mnemonic_no_args = mnemonic_no_args;
 			this.flags = flags;
@@ -405,8 +398,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic_no_args;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_DX(Code code, string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_DX(string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags) {
 			this.mnemonic_args = mnemonic_args;
 			this.mnemonic_no_args = mnemonic_no_args;
 			this.flags = flags;
@@ -447,8 +439,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic_no_args;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_YX(Code code, string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_YX(string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags) {
 			this.mnemonic_args = mnemonic_args;
 			this.mnemonic_no_args = mnemonic_no_args;
 			this.flags = flags;
@@ -489,8 +480,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic_no_args;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_XY(Code code, string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_XY(string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags) {
 			this.mnemonic_args = mnemonic_args;
 			this.mnemonic_no_args = mnemonic_no_args;
 			this.flags = flags;
@@ -531,8 +521,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic_no_args;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_YA(Code code, string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_YA(string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags) {
 			this.mnemonic_args = mnemonic_args;
 			this.mnemonic_no_args = mnemonic_no_args;
 			this.flags = flags;
@@ -578,8 +567,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic_no_args;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_AX(Code code, string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_AX(string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags) {
 			this.mnemonic_args = mnemonic_args;
 			this.mnemonic_no_args = mnemonic_no_args;
 			this.flags = flags;
@@ -626,8 +614,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic_no_args;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_AY(Code code, string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_AY(string mnemonic_args, string mnemonic_no_args, InstrOpInfoFlags flags) {
 			this.mnemonic_args = mnemonic_args;
 			this.mnemonic_no_args = mnemonic_no_args;
 			this.flags = flags;
@@ -673,8 +660,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic_args;
 		readonly string mnemonic_no_args;
 
-		public SimpleInstrInfo_XLAT(Code code, string mnemonic_args, string mnemonic_no_args)
-			: base(code) {
+		public SimpleInstrInfo_XLAT(string mnemonic_args, string mnemonic_no_args) {
 			this.mnemonic_args = mnemonic_args;
 			this.mnemonic_no_args = mnemonic_no_args;
 		}
@@ -713,8 +699,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic;
 		readonly Register register;
 
-		public SimpleInstrInfo_nop(Code code, int codeSize, string mnemonic, Register register)
-			: base(code) {
+		public SimpleInstrInfo_nop(int codeSize, string mnemonic, Register register) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 			this.register = register;
@@ -750,10 +735,9 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic;
 		readonly bool pseudoOp;
 
-		public SimpleInstrInfo_STIG1(Code code, string mnemonic) : this(code, mnemonic, false) { }
+		public SimpleInstrInfo_STIG1(string mnemonic) : this(mnemonic, false) { }
 
-		public SimpleInstrInfo_STIG1(Code code, string mnemonic, bool pseudoOp)
-			: base(code) {
+		public SimpleInstrInfo_STIG1(string mnemonic, bool pseudoOp) {
 			this.mnemonic = mnemonic;
 			this.pseudoOp = pseudoOp;
 		}
@@ -777,8 +761,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_STi_ST2 : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_STi_ST2(Code code, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_STi_ST2(string mnemonic) {
 			this.mnemonic = mnemonic;
 		}
 
@@ -800,8 +783,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_ST_STi : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_ST_STi(Code code, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_ST_STi(string mnemonic) {
 			this.mnemonic = mnemonic;
 		}
 
@@ -816,8 +798,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_STi_ST : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_STi_ST(Code code, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_STi_ST(string mnemonic) {
 			this.mnemonic = mnemonic;
 		}
 
@@ -835,8 +816,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly Register reg2;
 		readonly Register reg3;
 
-		public SimpleInstrInfo_monitor(Code code, string mnemonic, Register reg1, Register reg2, Register reg3)
-			: base(code) {
+		public SimpleInstrInfo_monitor(string mnemonic, Register reg1, Register reg2, Register reg3) {
 			this.mnemonic = mnemonic;
 			this.reg1 = reg1;
 			this.reg2 = reg2;
@@ -869,7 +849,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_mwait : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_mwait(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_mwait(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = default;
@@ -907,7 +887,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_mwaitx : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_mwaitx(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_mwaitx(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = default;
@@ -954,8 +934,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_maskmovq(Code code, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_maskmovq(string mnemonic, InstrOpInfoFlags flags) {
 			this.mnemonic = mnemonic;
 			this.flags = flags;
 		}
@@ -1004,7 +983,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_pblendvb : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_pblendvb(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_pblendvb(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = default;
@@ -1028,7 +1007,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_reverse2 : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_reverse2(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_reverse2(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			info = default;
@@ -1049,8 +1028,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly CodeSize codeSize;
 		readonly string[] mnemonics;
 
-		public SimpleInstrInfo_OpSize(Code code, CodeSize codeSize, string mnemonic, string mnemonic16, string mnemonic32, string mnemonic64)
-			: base(code) {
+		public SimpleInstrInfo_OpSize(CodeSize codeSize, string mnemonic, string mnemonic16, string mnemonic32, string mnemonic64) {
 			this.codeSize = codeSize;
 			mnemonics = new string[4];
 			mnemonics[(int)CodeSize.Unknown] = mnemonic;
@@ -1072,8 +1050,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_OpSize2 : InstrInfo {
 		readonly string[] mnemonics;
 
-		public SimpleInstrInfo_OpSize2(Code code, string mnemonic, string mnemonic16, string mnemonic32, string mnemonic64)
-			: base(code) {
+		public SimpleInstrInfo_OpSize2(string mnemonic, string mnemonic16, string mnemonic32, string mnemonic64) {
 			mnemonics = new string[4];
 			mnemonics[(int)CodeSize.Unknown] = mnemonic;
 			mnemonics[(int)CodeSize.Code16] = mnemonic16;
@@ -1090,8 +1067,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_OpSize2_bnd : InstrInfo {
 		readonly string[] mnemonics;
 
-		public SimpleInstrInfo_OpSize2_bnd(Code code, string mnemonic, string mnemonic16, string mnemonic32, string mnemonic64)
-			: base(code) {
+		public SimpleInstrInfo_OpSize2_bnd(string mnemonic, string mnemonic16, string mnemonic32, string mnemonic64) {
 			mnemonics = new string[4];
 			mnemonics[(int)CodeSize.Unknown] = mnemonic;
 			mnemonics[(int)CodeSize.Code16] = mnemonic16;
@@ -1112,8 +1088,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly CodeSize codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_pushm(Code code, CodeSize codeSize, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_pushm(CodeSize codeSize, string mnemonic) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 		}
@@ -1132,8 +1107,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic;
 		readonly string mnemonic2;
 
-		public SimpleInstrInfo_fword(Code code, CodeSize codeSize, bool forceNoMemSize, string mnemonic, string mnemonic2)
-			: base(code) {
+		public SimpleInstrInfo_fword(CodeSize codeSize, bool forceNoMemSize, string mnemonic, string mnemonic2) {
 			this.codeSize = codeSize;
 			this.forceNoMemSize = forceNoMemSize;
 			this.mnemonic = mnemonic;
@@ -1156,7 +1130,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_jcc : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_jcc(Code code, string mnemonic) : base(code) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_jcc(string mnemonic) => this.mnemonic = mnemonic;
 
 		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
@@ -1175,10 +1149,9 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_bnd(Code code, string mnemonic) : this(code, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_bnd(string mnemonic) : this(mnemonic, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo_bnd(Code code, string mnemonic, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_bnd(string mnemonic, InstrOpInfoFlags flags) {
 			this.mnemonic = mnemonic;
 			this.flags = flags;
 		}
@@ -1196,10 +1169,9 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string[] pseudo_ops;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_pops(Code code, string mnemonic, string[] pseudo_ops) : this(code, mnemonic, pseudo_ops, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_pops(string mnemonic, string[] pseudo_ops) : this(mnemonic, pseudo_ops, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo_pops(Code code, string mnemonic, string[] pseudo_ops, InstrOpInfoFlags flags)
-			: base(code) {
+		public SimpleInstrInfo_pops(string mnemonic, string[] pseudo_ops, InstrOpInfoFlags flags) {
 			this.mnemonic = mnemonic;
 			this.pseudo_ops = pseudo_ops;
 			this.flags = flags;
@@ -1233,8 +1205,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic;
 		readonly string[] pseudo_ops;
 
-		public SimpleInstrInfo_pclmulqdq(Code code, string mnemonic, string[] pseudo_ops)
-			: base(code) {
+		public SimpleInstrInfo_pclmulqdq(string mnemonic, string[] pseudo_ops) {
 			this.mnemonic = mnemonic;
 			this.pseudo_ops = pseudo_ops;
 		}
@@ -1265,8 +1236,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_imul : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_imul(Code code, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_imul(string mnemonic) {
 			this.mnemonic = mnemonic;
 		}
 
@@ -1286,8 +1256,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_Reg16 : InstrInfo {
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_Reg16(Code code, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_Reg16(string mnemonic) {
 			this.mnemonic = mnemonic;
 		}
 
@@ -1309,8 +1278,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic;
 		readonly Register register;
 
-		public SimpleInstrInfo_reg(Code code, string mnemonic, Register register)
-			: base(code) {
+		public SimpleInstrInfo_reg(string mnemonic, Register register) {
 			this.mnemonic = mnemonic;
 			this.register = register;
 		}
@@ -1330,8 +1298,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly int codeSize;
 		readonly string mnemonic;
 
-		public SimpleInstrInfo_invlpga(Code code, int codeSize, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_invlpga(int codeSize, string mnemonic) {
 			this.codeSize = codeSize;
 			this.mnemonic = mnemonic;
 		}
@@ -1373,8 +1340,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		readonly string mnemonic;
 		readonly InstrOpKind opKind;
 
-		public SimpleInstrInfo_DeclareData(Code code, string mnemonic)
-			: base(code) {
+		public SimpleInstrInfo_DeclareData(Code code, string mnemonic) {
 			this.mnemonic = mnemonic;
 			InstrOpKind opKind;
 			switch (code) {
