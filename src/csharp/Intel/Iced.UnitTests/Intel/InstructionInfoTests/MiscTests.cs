@@ -188,7 +188,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				Code.Call_m1664,
 			};
 
-			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
 				Instruction instr = default;
 				instr.Code = code;
@@ -441,7 +441,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			foreach (var info in cmovccInfos)
 				toNegatedCodeValue.Add(info.cmovcc, info.negated);
 
-			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
 				Instruction instr = default;
 				instr.Code = code;
@@ -463,7 +463,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			foreach (var info in jmpInfos)
 				toShortBranch.Add(info.jmpNear, info.jmpShort);
 
-			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
 				Instruction instr = default;
 				instr.Code = code;
@@ -485,7 +485,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			foreach (var info in jmpInfos)
 				toNearBranch.Add(info.jmpShort, info.jmpNear);
 
-			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
 				Instruction instr = default;
 				instr.Code = code;
@@ -511,7 +511,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			foreach (var info in cmovccInfos)
 				toConditionCode.Add(info.cmovcc, info.cc);
 
-			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
 				Instruction instr = default;
 				instr.Code = code;
@@ -548,98 +548,98 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		[Fact]
 		void InstructionInfoExtensions_Encoding_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)(-1)).Encoding());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)Iced.Intel.DecoderConstants.NumberOfCodeValues).Encoding());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)IcedConstants.NumberOfCodeValues).Encoding());
 		}
 
 		[Fact]
 		void InstructionInfoExtensions_CpuidFeatures_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)(-1)).CpuidFeatures());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)Iced.Intel.DecoderConstants.NumberOfCodeValues).CpuidFeatures());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)IcedConstants.NumberOfCodeValues).CpuidFeatures());
 		}
 
 		[Fact]
 		void InstructionInfoExtensions_FlowControl_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)(-1)).FlowControl());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)Iced.Intel.DecoderConstants.NumberOfCodeValues).FlowControl());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)IcedConstants.NumberOfCodeValues).FlowControl());
 		}
 
 		[Fact]
 		void InstructionInfoExtensions_IsProtectedMode_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)(-1)).IsProtectedMode());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)Iced.Intel.DecoderConstants.NumberOfCodeValues).IsProtectedMode());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)IcedConstants.NumberOfCodeValues).IsProtectedMode());
 		}
 
 		[Fact]
 		void InstructionInfoExtensions_IsPrivileged_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)(-1)).IsPrivileged());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)Iced.Intel.DecoderConstants.NumberOfCodeValues).IsPrivileged());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)IcedConstants.NumberOfCodeValues).IsPrivileged());
 		}
 
 		[Fact]
 		void InstructionInfoExtensions_IsStackInstruction_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)(-1)).IsStackInstruction());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)Iced.Intel.DecoderConstants.NumberOfCodeValues).IsStackInstruction());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)IcedConstants.NumberOfCodeValues).IsStackInstruction());
 		}
 
 		[Fact]
 		void InstructionInfoExtensions_IsSaveRestoreInstruction_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)(-1)).IsSaveRestoreInstruction());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)Iced.Intel.DecoderConstants.NumberOfCodeValues).IsSaveRestoreInstruction());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)IcedConstants.NumberOfCodeValues).IsSaveRestoreInstruction());
 		}
 
 		[Fact]
 		void InstructionInfo_GetOpAccess_throws_if_invalid_input() {
 			var info = Instruction.Create(Code.Nopd).GetInfo();
 			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpAccess(-1));
-			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpAccess(Iced.Intel.DecoderConstants.MaxOpCount));
+			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpAccess(IcedConstants.MaxOpCount));
 		}
 
 		[Fact]
 		void MemorySizeExtensions_GetInfo_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)(-1)).GetInfo());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)Iced.Intel.DecoderConstants.NumberOfMemorySizes).GetInfo());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)IcedConstants.NumberOfMemorySizes).GetInfo());
 		}
 
 		[Fact]
 		void MemorySizeExtensions_GetSize_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)(-1)).GetSize());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)Iced.Intel.DecoderConstants.NumberOfMemorySizes).GetSize());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)IcedConstants.NumberOfMemorySizes).GetSize());
 		}
 
 		[Fact]
 		void MemorySizeExtensions_GetElementSize_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)(-1)).GetElementSize());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)Iced.Intel.DecoderConstants.NumberOfMemorySizes).GetElementSize());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)IcedConstants.NumberOfMemorySizes).GetElementSize());
 		}
 
 		[Fact]
 		void MemorySizeExtensions_GetElementType_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)(-1)).GetElementType());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)Iced.Intel.DecoderConstants.NumberOfMemorySizes).GetElementType());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)IcedConstants.NumberOfMemorySizes).GetElementType());
 		}
 
 		[Fact]
 		void MemorySizeExtensions_GetElementTypeInfo_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)(-1)).GetElementTypeInfo());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)Iced.Intel.DecoderConstants.NumberOfMemorySizes).GetElementTypeInfo());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)IcedConstants.NumberOfMemorySizes).GetElementTypeInfo());
 		}
 
 		[Fact]
 		void MemorySizeExtensions_IsSigned_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)(-1)).IsSigned());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)Iced.Intel.DecoderConstants.NumberOfMemorySizes).IsSigned());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)IcedConstants.NumberOfMemorySizes).IsSigned());
 		}
 
 		[Fact]
 		void MemorySizeExtensions_IsPacked_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)(-1)).IsPacked());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)Iced.Intel.DecoderConstants.NumberOfMemorySizes).IsPacked());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)IcedConstants.NumberOfMemorySizes).IsPacked());
 		}
 
 		[Fact]
 		void MemorySizeExtensions_GetElementCount_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)(-1)).GetElementCount());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)Iced.Intel.DecoderConstants.NumberOfMemorySizes).GetElementCount());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((MemorySize)IcedConstants.NumberOfMemorySizes).GetElementCount());
 		}
 
 		[Fact]
@@ -652,37 +652,37 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		[Fact]
 		void RegisterExtensions_GetInfo_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)(-1)).GetInfo());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)Iced.Intel.DecoderConstants.NumberOfRegisters).GetInfo());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)IcedConstants.NumberOfRegisters).GetInfo());
 		}
 
 		[Fact]
 		void RegisterExtensions_GetBaseRegister_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)(-1)).GetBaseRegister());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)Iced.Intel.DecoderConstants.NumberOfRegisters).GetBaseRegister());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)IcedConstants.NumberOfRegisters).GetBaseRegister());
 		}
 
 		[Fact]
 		void RegisterExtensions_GetNumber_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)(-1)).GetNumber());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)Iced.Intel.DecoderConstants.NumberOfRegisters).GetNumber());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)IcedConstants.NumberOfRegisters).GetNumber());
 		}
 
 		[Fact]
 		void RegisterExtensions_GetFullRegister_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)(-1)).GetFullRegister());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)Iced.Intel.DecoderConstants.NumberOfRegisters).GetFullRegister());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)IcedConstants.NumberOfRegisters).GetFullRegister());
 		}
 
 		[Fact]
 		void RegisterExtensions_GetFullRegister32_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)(-1)).GetFullRegister32());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)Iced.Intel.DecoderConstants.NumberOfRegisters).GetFullRegister32());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)IcedConstants.NumberOfRegisters).GetFullRegister32());
 		}
 
 		[Fact]
 		void RegisterExtensions_GetSize_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)(-1)).GetSize());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)Iced.Intel.DecoderConstants.NumberOfRegisters).GetSize());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Register)IcedConstants.NumberOfRegisters).GetSize());
 		}
 	}
 }

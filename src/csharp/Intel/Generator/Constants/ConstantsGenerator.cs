@@ -21,12 +21,35 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Iced.Intel {
-	static class DecoderConstants {
-		public const int MaxInstructionLength = 15;
-		public const int MaxOpCount = 5;
-		public const int NumberOfCodeValues = (int)Code.DeclareQword + 1;
-		public const int NumberOfRegisters = (int)Register.TR7 + 1;
-		public const int NumberOfMemorySizes = (int)MemorySize.Broadcast512_2xBFloat16 + 1;
+using System;
+using System.Linq;
+
+namespace Generator.Constants {
+	abstract class ConstantsTypeGenerator {
+		public abstract void Generate(ConstantsType constantsType);
+	}
+
+	sealed class ConstantsGenerator {
+		readonly ProjectDirs projectDirs;
+
+		public ConstantsGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+
+		static readonly ConstantsType[] allConstants = new ConstantsType[] {
+			IcedConstantsType.Instance,
+		};
+
+		public void Generate() {
+			if (allConstants.Select(a => a.Kind).ToHashSet().Count != Enum.GetValues(typeof(ConstantsTypeKind)).Length)
+				throw new InvalidOperationException($"Missing at least one {nameof(ConstantsTypeKind)} value");
+
+			var generators = new ConstantsTypeGenerator[] {
+				new CSharp.CSharpConstantsTypeGenerator(projectDirs),
+			};
+
+			foreach (var generator in generators) {
+				foreach (var constantsType in allConstants)
+					generator.Generate(constantsType);
+			}
+		}
 	}
 }

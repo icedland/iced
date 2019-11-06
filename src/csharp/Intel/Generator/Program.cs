@@ -31,7 +31,7 @@ namespace Generator {
 		Decoder,
 		Formatter,
 		CpuidFeature,
-		Enums,
+		Constants,
 	}
 
 	sealed class CommandLineOptions {
@@ -42,42 +42,21 @@ namespace Generator {
 	static class Program {
 		static int Main(string[] args) {
 			try {
-				if (!ParseCommandLine(args, out var options)) {
-					Usage();
-					return 1;
-				}
+				var projectDirs = GetProjectDirs();
+				Enums.CodeEnum.AddComments(projectDirs.UnitTestsDir);
 
-				options.ProjectDirs = GetProjectDirs();
-				Enums.CodeEnum.AddComments(options.ProjectDirs.UnitTestsDir);
-
-				foreach (var command in options.Commands) {
-					switch (command) {
 #if !NO_DECODER
-					case Command.Decoder:
-						new Decoder.DecoderTableGenerator(options.ProjectDirs).Generate();
-						break;
+				new Decoder.DecoderTableGenerator(projectDirs).Generate();
 #endif
-
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
-					case Command.Formatter:
-						new Formatters.FormatterTableGenerator(options.ProjectDirs).Generate();
-						break;
+				new Formatters.FormatterTableGenerator(projectDirs).Generate();
 #endif
-
 #if !NO_INSTR_INFO
-					case Command.CpuidFeature:
-						new InstructionInfo.CpuidFeatureTableGenerator(options.ProjectDirs).Generate();
-						break;
+				new InstructionInfo.CpuidFeatureTableGenerator(projectDirs).Generate();
 #endif
+				new Enums.EnumsGenerator(projectDirs).Generate();
+				new Constants.ConstantsGenerator(projectDirs).Generate();
 
-					case Command.Enums:
-						new Enums.EnumsGenerator(options.ProjectDirs).Generate();
-						break;
-
-					default:
-						throw new InvalidOperationException();
-					}
-				}
 				return 0;
 			}
 			catch (Exception ex) {
@@ -92,58 +71,6 @@ namespace Generator {
 			if (dir is null || !File.Exists(Path.Combine(dir, "csharp", "Iced.sln")))
 				throw new InvalidOperationException();
 			return new ProjectDirs(dir);
-		}
-
-		static void Usage() {
-			Console.WriteLine(@"Generator <command(s)>
-command:
-    --decoder           Generate decoder tables
-    --formatter         Generate formatter tables
-    --cpuidfeature      Generate cpuid features table
-    --enums             Generate enums
-");
-		}
-
-		static bool ParseCommandLine(string[] args, out CommandLineOptions options) {
-			options = new CommandLineOptions();
-			foreach (var arg in args) {
-				switch (arg) {
-				case "-?":
-				case "--help":
-					return false;
-
-				case "--decoder":
-					if (!TryAddCommand(options, Command.Decoder))
-						return false;
-					break;
-
-				case "--formatter":
-					if (!TryAddCommand(options, Command.Formatter))
-						return false;
-					break;
-
-				case "--cpuidfeature":
-					if (!TryAddCommand(options, Command.CpuidFeature))
-						return false;
-					break;
-
-				case "--enums":
-					if (!TryAddCommand(options, Command.Enums))
-						return false;
-					break;
-
-				default:
-					return false;
-				}
-			}
-			return options.Commands.Count != 0;
-		}
-
-		static bool TryAddCommand(CommandLineOptions options, Command command) {
-			if (options.Commands.Contains(command))
-				return false;
-			options.Commands.Add(command);
-			return true;
 		}
 	}
 }

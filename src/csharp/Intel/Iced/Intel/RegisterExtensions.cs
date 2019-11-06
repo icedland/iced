@@ -32,7 +32,7 @@ namespace Iced.Intel {
 	public static class RegisterExtensions {
 		internal static readonly RegisterInfo[] RegisterInfos = GetRegisterInfos();
 		static RegisterInfo[] GetRegisterInfos() {
-			var regInfos = new RegisterInfo[DecoderConstants.NumberOfRegisters];
+			var regInfos = new RegisterInfo[IcedConstants.NumberOfRegisters];
 
 			regInfos[(int)Register.EIP] = new RegisterInfo(Register.EIP, Register.EIP, Register.RIP, 4);
 			regInfos[(int)Register.RIP] = new RegisterInfo(Register.RIP, Register.EIP, Register.RIP, 8);
@@ -171,28 +171,28 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static bool IsXMM(this Register register) => Register.XMM0 <= register && register <= Register.XMM0 + InstructionInfoConstants.VMM_count - 1;
+		public static bool IsXMM(this Register register) => Register.XMM0 <= register && register <= Register.XMM0 + IcedConstants.VMM_count - 1;
 
 		/// <summary>
 		/// Checks if it's a 256-bit vector register (YMM0-YMM31)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static bool IsYMM(this Register register) => Register.YMM0 <= register && register <= Register.YMM0 + InstructionInfoConstants.VMM_count - 1;
+		public static bool IsYMM(this Register register) => Register.YMM0 <= register && register <= Register.YMM0 + IcedConstants.VMM_count - 1;
 
 		/// <summary>
 		/// Checks if it's a 512-bit vector register (ZMM0-ZMM31)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static bool IsZMM(this Register register) => Register.ZMM0 <= register && register <= Register.ZMM0 + InstructionInfoConstants.VMM_count - 1;
+		public static bool IsZMM(this Register register) => Register.ZMM0 <= register && register <= Register.ZMM0 + IcedConstants.VMM_count - 1;
 
 		/// <summary>
 		/// Checks if it's an XMM, YMM or ZMM register
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static bool IsVectorRegister(this Register register) => Register.XMM0 <= register && register <= Register.ZMM0 + InstructionInfoConstants.VMM_count - 1;
+		public static bool IsVectorRegister(this Register register) => Register.XMM0 <= register && register <= Register.ZMM0 + IcedConstants.VMM_count - 1;
 	}
 
 	/// <summary>

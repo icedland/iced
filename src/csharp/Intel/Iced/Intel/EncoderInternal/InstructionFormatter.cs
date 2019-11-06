@@ -450,7 +450,7 @@ namespace Iced.Intel.EncoderInternal {
 		MemorySize GetMemorySize(bool isBroadcast) {
 			int index = (int)opCode.Code;
 			if (isBroadcast)
-				index += DecoderConstants.NumberOfCodeValues;
+				index += IcedConstants.NumberOfCodeValues;
 			return (MemorySize)InstructionMemorySizes.Sizes[index];
 		}
 

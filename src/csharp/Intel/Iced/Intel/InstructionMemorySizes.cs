@@ -25,7 +25,7 @@ namespace Iced.Intel {
 	static class InstructionMemorySizes {
 		// 0 = memory size
 		// 1 = broadcast memory size
-		internal static readonly byte[] Sizes = new byte[DecoderConstants.NumberOfCodeValues * 2] {
+		internal static readonly byte[] Sizes = new byte[IcedConstants.NumberOfCodeValues * 2] {
 			0,// INVALID
 			(byte)MemorySize.UInt8,// Add_rm8_r8
 			(byte)MemorySize.UInt16,// Add_rm16_r16

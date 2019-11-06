@@ -110,10 +110,10 @@ namespace Iced.Intel.MasmFormatterInternal {
 			var dword_bcst = new string[] { "dword", "bcst" };
 			var qword_bcst = new string[] { "qword", "bcst" };
 
-			var infos = new Info[DecoderConstants.NumberOfMemorySizes];
+			var infos = new Info[IcedConstants.NumberOfMemorySizes];
 			const int SizeKindShift = 5;
 			const int MemoryKeywordsMask = 0x1F;
-			var data = new ushort[DecoderConstants.NumberOfMemorySizes] {
+			var data = new ushort[IcedConstants.NumberOfMemorySizes] {
 				(ushort)((uint)MemoryKeywords.None | ((uint)Size.S0 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.byte_ptr | ((uint)Size.S1 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.word_ptr | ((uint)Size.S2 << SizeKindShift)),
@@ -294,7 +294,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				default:								throw new InvalidOperationException();
 				}
 
-				infos[i] = new Info((MemorySize)i, i >= (int)MemorySize.Broadcast64_UInt32, sizes[d >> SizeKindShift], keywords);
+				infos[i] = new Info((MemorySize)i, i >= (int)IcedConstants.FirstBroadcastMemorySize, sizes[d >> SizeKindShift], keywords);
 			}
 
 			return infos;

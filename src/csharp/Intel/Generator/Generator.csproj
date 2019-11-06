@@ -8,26 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Iced\Intel\Code.g.cs" Link="Code.g.cs" />
-    <Compile Include="..\Iced\Intel\CodeSize.g.cs" Link="CodeSize.g.cs" />
-    <Compile Include="..\Iced\Intel\CpuidFeature.g.cs" Link="InstructionInfo\CpuidFeature.g.cs" />
-    <Compile Include="..\Iced\Intel\DecoderConstants.cs" Link="DecoderConstants.cs" />
-    <Compile Include="..\Iced\Intel\GasFormatterInternal\CtorKind.cs" Link="Formatters\Gas\CtorKind.cs" />
-    <Compile Include="..\Iced\Intel\GasFormatterInternal\InstrOpInfoFlags.cs" Link="Formatters\Gas\InstrOpInfoFlags.cs" />
-    <Compile Include="..\Iced\Intel\InstructionInfoInternal\CpuidFeatureInternal.g.cs" Link="InstructionInfo\CpuidFeatureInternal.g.cs" />
-    <Compile Include="..\Iced\Intel\InstructionInfoInternal\CpuidFeatureInternalConstants.cs" Link="InstructionInfo\CpuidFeatureInternalConstants.cs" />
-    <Compile Include="..\Iced\Intel\IntelFormatterInternal\CtorKind.cs" Link="Formatters\Intel\CtorKind.cs" />
-    <Compile Include="..\Iced\Intel\IntelFormatterInternal\InstrOpInfoFlags.cs" Link="Formatters\Intel\InstrOpInfoFlags.cs" />
-    <Compile Include="..\Iced\Intel\MasmFormatterInternal\CtorKind.cs" Link="Formatters\Masm\CtorKind.cs" />
-    <Compile Include="..\Iced\Intel\MasmFormatterInternal\InstrOpInfoFlags.cs" Link="Formatters\Masm\InstrOpInfoFlags.cs" />
-    <Compile Include="..\Iced\Intel\MemorySize.g.cs" Link="MemorySize.g.cs" />
-    <Compile Include="..\Iced\Intel\NasmFormatterInternal\CtorKind.cs" Link="Formatters\Nasm\CtorKind.cs" />
-    <Compile Include="..\Iced\Intel\NasmFormatterInternal\InstrOpInfoFlags.cs" Link="Formatters\Nasm\InstrOpInfoFlags.cs" />
-    <Compile Include="..\Iced\Intel\PseudoOpsKind.g.cs" Link="Formatters\PseudoOpsKind.g.cs" />
-    <Compile Include="..\Iced\Intel\Register.g.cs" Link="Register.g.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
   </ItemGroup>
 

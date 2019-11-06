@@ -1332,7 +1332,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem_VSIB(ref instruction, vsibIndex, TupleType.None);
 				if (decoder.invalidCheckMask != 0) {
-					uint indexNum = ((uint)(instruction.MemoryIndex - Register.XMM0) % (uint)InstructionInfoConstants.VMM_count);
+					uint indexNum = ((uint)(instruction.MemoryIndex - Register.XMM0) % (uint)IcedConstants.VMM_count);
 					if ((uint)regNum == indexNum || state.vvvv == indexNum || (uint)regNum == state.vvvv)
 						decoder.SetInvalidInstruction();
 				}

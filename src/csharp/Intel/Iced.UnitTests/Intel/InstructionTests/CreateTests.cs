@@ -1105,7 +1105,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		void Code_prop_throws_if_invalid() {
 			Instruction instr = default;
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)(-1));
-			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)(Iced.Intel.DecoderConstants.NumberOfCodeValues));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)(IcedConstants.NumberOfCodeValues));
 		}
 
 		[Fact]
@@ -1115,16 +1115,16 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetOpKind(-1));
 			instr.GetOpKind(0);
 			instr.GetOpKind(1);
-			for (int i = 2; i < Iced.Intel.DecoderConstants.MaxOpCount; i++)
+			for (int i = 2; i < IcedConstants.MaxOpCount; i++)
 				instr.GetOpKind(i);
-			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetOpKind(Iced.Intel.DecoderConstants.MaxOpCount));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetOpKind(IcedConstants.MaxOpCount));
 
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpKind(-1, OpKind.Register));
 			instr.SetOpKind(0, OpKind.Register);
 			instr.SetOpKind(1, OpKind.Immediate32);
-			for (int i = 2; i < Iced.Intel.DecoderConstants.MaxOpCount; i++)
+			for (int i = 2; i < IcedConstants.MaxOpCount; i++)
 				instr.SetOpKind(i, OpKind.Immediate8);
-			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpKind(Iced.Intel.DecoderConstants.MaxOpCount, OpKind.Register));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpKind(IcedConstants.MaxOpCount, OpKind.Register));
 		}
 
 		[Fact]
@@ -1134,12 +1134,12 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetImmediate(-1));
 			Assert.Throws<ArgumentException>(() => instr.GetImmediate(0));
 			instr.GetImmediate(1);
-			for (int i = 2; i < Iced.Intel.DecoderConstants.MaxOpCount; i++) {
+			for (int i = 2; i < IcedConstants.MaxOpCount; i++) {
 				if (i == 4 && instr.Op4Kind == OpKind.Immediate8)
 					continue;
 				Assert.Throws<ArgumentException>(() => instr.GetImmediate(i));
 			}
-			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetImmediate(Iced.Intel.DecoderConstants.MaxOpCount));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetImmediate(IcedConstants.MaxOpCount));
 
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(-1, 0));
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(-1, 0L));
@@ -1156,7 +1156,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr.SetImmediate(1, 0U);
 			instr.SetImmediate(1, 0UL);
 
-			for (int i = 2; i < Iced.Intel.DecoderConstants.MaxOpCount; i++) {
+			for (int i = 2; i < IcedConstants.MaxOpCount; i++) {
 				if (i == 4 && instr.Op4Kind == OpKind.Immediate8)
 					continue;
 				Assert.Throws<ArgumentException>(() => instr.SetImmediate(i, 0));
@@ -1164,10 +1164,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				Assert.Throws<ArgumentException>(() => instr.SetImmediate(i, 0U));
 				Assert.Throws<ArgumentException>(() => instr.SetImmediate(i, 0UL));
 			}
-			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(Iced.Intel.DecoderConstants.MaxOpCount, 0));
-			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(Iced.Intel.DecoderConstants.MaxOpCount, 0L));
-			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(Iced.Intel.DecoderConstants.MaxOpCount, 0U));
-			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(Iced.Intel.DecoderConstants.MaxOpCount, 0UL));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(IcedConstants.MaxOpCount, 0));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(IcedConstants.MaxOpCount, 0L));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(IcedConstants.MaxOpCount, 0U));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetImmediate(IcedConstants.MaxOpCount, 0UL));
 		}
 
 		[Fact]
@@ -1175,17 +1175,17 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			var instr = Instruction.Create(Code.Adc_EAX_imm32, Register.EAX, uint.MaxValue);
 
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetOpRegister(-1));
-			for (int i = 0; i < Iced.Intel.DecoderConstants.MaxOpCount; i++)
+			for (int i = 0; i < IcedConstants.MaxOpCount; i++)
 				instr.GetOpRegister(i);
-			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetOpRegister(Iced.Intel.DecoderConstants.MaxOpCount));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.GetOpRegister(IcedConstants.MaxOpCount));
 
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpRegister(-1, Register.EAX));
-			for (int i = 0; i < Iced.Intel.DecoderConstants.MaxOpCount; i++) {
+			for (int i = 0; i < IcedConstants.MaxOpCount; i++) {
 				if (i == 4 && instr.Op4Kind == OpKind.Immediate8)
 					continue;
 				instr.SetOpRegister(i, Register.EAX);
 			}
-			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpRegister(Iced.Intel.DecoderConstants.MaxOpCount, Register.EAX));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.SetOpRegister(IcedConstants.MaxOpCount, Register.EAX));
 		}
 
 		[Fact]

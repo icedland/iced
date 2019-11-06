@@ -379,8 +379,8 @@ namespace Iced.Intel {
 			}
 
 			uint instrLen = (uint)currentRip - (uint)rip;
-			if (instrLen > DecoderConstants.MaxInstructionLength && (handler.Flags & OpCodeHandlerFlags.DeclareData) == 0)
-				ErrorMessage = $"Instruction length > {DecoderConstants.MaxInstructionLength} bytes";
+			if (instrLen > IcedConstants.MaxInstructionLength && (handler.Flags & OpCodeHandlerFlags.DeclareData) == 0)
+				ErrorMessage = $"Instruction length > {IcedConstants.MaxInstructionLength} bytes";
 			errorMessage = this.errorMessage;
 			if (!(errorMessage is null)) {
 				encodedLength = 0;

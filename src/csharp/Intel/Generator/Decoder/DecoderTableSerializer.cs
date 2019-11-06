@@ -104,18 +104,18 @@ namespace Generator.Decoder {
 		static bool IsHandler(object?[] handlers) {
 			var data = handlers[0];
 			return data is IEnumValue enumValue && (
-				enumValue.EnumType.EnumKind == EnumKind.OpCodeHandlerKind ||
-				enumValue.EnumType.EnumKind == EnumKind.VexOpCodeHandlerKind ||
-				enumValue.EnumType.EnumKind == EnumKind.EvexOpCodeHandlerKind);
+				enumValue.DeclaringType.EnumKind == EnumKind.OpCodeHandlerKind ||
+				enumValue.DeclaringType.EnumKind == EnumKind.VexOpCodeHandlerKind ||
+				enumValue.DeclaringType.EnumKind == EnumKind.EvexOpCodeHandlerKind);
 		}
 
 		static bool IsInvalid(object?[] handler) {
 			var data = handler[0];
 			bool isInvalid =
 				data is IEnumValue enumValue &&
-				((enumValue.EnumType.EnumKind == EnumKind.OpCodeHandlerKind && enumValue == OpCodeHandlerKindEnum.Instance["Invalid"]) ||
-				(enumValue.EnumType.EnumKind == EnumKind.VexOpCodeHandlerKind && enumValue == VexOpCodeHandlerKindEnum.Instance["Invalid"]) ||
-				(enumValue.EnumType.EnumKind == EnumKind.EvexOpCodeHandlerKind && enumValue == EvexOpCodeHandlerKindEnum.Instance["Invalid"]));
+				((enumValue.DeclaringType.EnumKind == EnumKind.OpCodeHandlerKind && enumValue == OpCodeHandlerKindEnum.Instance["Invalid"]) ||
+				(enumValue.DeclaringType.EnumKind == EnumKind.VexOpCodeHandlerKind && enumValue == VexOpCodeHandlerKindEnum.Instance["Invalid"]) ||
+				(enumValue.DeclaringType.EnumKind == EnumKind.EvexOpCodeHandlerKind && enumValue == EvexOpCodeHandlerKindEnum.Instance["Invalid"]));
 			if (isInvalid && handler.Length != 1)
 				throw new InvalidOperationException();
 			return isInvalid;
@@ -410,7 +410,7 @@ namespace Generator.Decoder {
 				break;
 
 			case IEnumValue enumValue:
-				switch (enumValue.EnumType.EnumKind) {
+				switch (enumValue.DeclaringType.EnumKind) {
 				case EnumKind.Code:
 					writer.WriteCompressedUInt32(enumValue.Value);
 					writer.WriteCommentLine(enumValue.ToStringValue);
@@ -457,12 +457,6 @@ namespace Generator.Decoder {
 					writer.WriteCompressedUInt32((uint)enumValue.Value);
 					writer.WriteCommentLine(enumValue.ToStringValue);
 					break;
-				case EnumKind.SerializedDataKind:
-				case EnumKind.CodeSize:
-				case EnumKind.CpuidFeature:
-				case EnumKind.CpuidFeatureInternal:
-				case EnumKind.MemorySize:
-				case EnumKind.PseudoOpsKind:
 				default:
 					throw new InvalidOperationException();
 				}

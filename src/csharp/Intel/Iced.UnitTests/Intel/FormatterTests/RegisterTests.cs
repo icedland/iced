@@ -33,8 +33,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	public abstract class RegisterTests {
 		protected static IEnumerable<object[]> GetFormatData(string formatterDir, string formattedRegistersFile) {
 			var formattedRegisters = FileUtils.ReadRawStrings(Path.Combine(formatterDir, formattedRegistersFile)).ToArray();
-			if (Iced.Intel.DecoderConstants.NumberOfRegisters != formattedRegisters.Length)
-				throw new ArgumentException($"({nameof(Iced.Intel.DecoderConstants.NumberOfRegisters)}) {Iced.Intel.DecoderConstants.NumberOfRegisters} != (formattedRegisters.Length) {formattedRegisters.Length}");
+			if (IcedConstants.NumberOfRegisters != formattedRegisters.Length)
+				throw new ArgumentException($"({nameof(IcedConstants.NumberOfRegisters)}) {IcedConstants.NumberOfRegisters} != (formattedRegisters.Length) {formattedRegisters.Length}");
 			var res = new object[formattedRegisters.Length][];
 			for (int i = 0; i < res.Length; i++)
 				res[i] = new object[2] { (Register)i, formattedRegisters[i] };

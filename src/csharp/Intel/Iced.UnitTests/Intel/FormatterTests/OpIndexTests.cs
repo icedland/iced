@@ -29,7 +29,7 @@ using Xunit;
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public abstract class OpIndexTests {
 		protected void TestBase(Formatter formatter) {
-			var instrToFormatter = new int[Iced.Intel.DecoderConstants.MaxOpCount];
+			var instrToFormatter = new int[IcedConstants.MaxOpCount];
 			foreach (var info in DecoderTests.DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: false)) {
 				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(info.HexBytes), info.Options);
 				decoder.Decode(out var instr);
@@ -74,7 +74,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					Assert.Equal(instrToFormatter[instrOpIndex], formatterOpIndex);
 				}
 
-				for (int instrOpIndex = instrOpCount; instrOpIndex < Iced.Intel.DecoderConstants.MaxOpCount; instrOpIndex++)
+				for (int instrOpIndex = instrOpCount; instrOpIndex < IcedConstants.MaxOpCount; instrOpIndex++)
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(instr, instrOpIndex));
 			}
 		}

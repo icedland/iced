@@ -170,8 +170,8 @@ namespace Iced.Intel {
 				break;
 			}
 
-			Debug.Assert(instruction.OpCount <= DecoderConstants.MaxOpCount);
-			var accesses = stackalloc OpAccess[DecoderConstants.MaxOpCount];
+			Debug.Assert(instruction.OpCount <= IcedConstants.MaxOpCount);
+			var accesses = stackalloc OpAccess[IcedConstants.MaxOpCount];
 			accesses[0] = op0Access;
 			var op1info = (OpInfo1)((flags2 >> (int)InfoFlags2.OpInfo1Shift) & (uint)InfoFlags2.OpInfo1Mask);
 			accesses[1] = InfoHandlers.Op1Accesses[(int)op1info];
@@ -180,7 +180,7 @@ namespace Iced.Intel {
 				accesses[3] = OpAccess.Read;
 			if ((flags2 & (((uint)InfoFlags2.OpInfo4Mask) << (int)InfoFlags2.OpInfo4Shift)) != 0)
 				accesses[4] = OpAccess.Read;
-			Debug.Assert(DecoderConstants.MaxOpCount == 5);
+			Debug.Assert(IcedConstants.MaxOpCount == 5);
 
 			int opCount = instruction.OpCount;
 			for (int i = 0; i < opCount; i++) {
@@ -197,8 +197,8 @@ namespace Iced.Intel {
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if (i == 1 && op1info == OpInfo1.ReadP3) {
 							var reg = instruction.Op1Register;
-							Debug.Assert(Register.XMM0 <= reg && reg <= InstructionInfoConstants.VMM_last);
-							reg = InstructionInfoConstants.VMM_first + ((reg - InstructionInfoConstants.VMM_first) & ~3);
+							Debug.Assert(Register.XMM0 <= reg && reg <= IcedConstants.VMM_last);
+							reg = IcedConstants.VMM_first + ((reg - IcedConstants.VMM_first) & ~3);
 							for (int j = 0; j < 4; j++)
 								AddRegister(flags, ref usedRegisters, reg + j, access);
 						}
@@ -263,7 +263,7 @@ namespace Iced.Intel {
 
 			// Inlined ctor
 			InstructionInfo result;
-			Debug.Assert(DecoderConstants.MaxOpCount == 5);
+			Debug.Assert(IcedConstants.MaxOpCount == 5);
 			Debug2.Assert(!(usedRegisters.Array is null));
 			result.usedRegisters = usedRegisters.Array;
 			Debug2.Assert(!(usedMemoryLocations.Array is null));
@@ -1172,11 +1172,11 @@ namespace Iced.Intel {
 					}
 					int maxVecRegs;
 					if ((flags & Flags.Is64Bit) != 0)
-						maxVecRegs = InstructionInfoConstants.VMM_last - InstructionInfoConstants.VMM_first + 1;
+						maxVecRegs = IcedConstants.VMM_last - IcedConstants.VMM_first + 1;
 					else
 						maxVecRegs = 8;
 					for (int i = 0; i < maxVecRegs; i++)
-						AddRegister(flags, ref usedRegisters, InstructionInfoConstants.VMM_first + i, access);
+						AddRegister(flags, ref usedRegisters, IcedConstants.VMM_first + i, access);
 				}
 				break;
 
@@ -2015,12 +2015,12 @@ namespace Iced.Intel {
 				Debug.Assert(OpAccess.Write + 3 == OpAccess.ReadCondWrite);
 				if ((uint)(access - OpAccess.Write) <= 3) {
 					int index;
-					Debug.Assert(InstructionInfoConstants.VMM_first == Register.ZMM0);
-					const uint VecRegCount = InstructionInfoConstants.VMM_last - InstructionInfoConstants.VMM_first + 1;
+					Debug.Assert(IcedConstants.VMM_first == Register.ZMM0);
+					const uint VecRegCount = IcedConstants.VMM_last - IcedConstants.VMM_first + 1;
 					Debug.Assert((VecRegCount & (VecRegCount - 1)) == 0);// Verify that it's a power of 2
 					if ((flags & Flags.Is64Bit) != 0 && (uint)(index = reg - Register.EAX) <= (Register.R15D - Register.EAX))
 						writeReg = Register.RAX + index;
-					else if ((flags & Flags.ZeroExtVecRegs) != 0 && (uint)(index = reg - Register.XMM0) <= InstructionInfoConstants.VMM_last - Register.XMM0)
+					else if ((flags & Flags.ZeroExtVecRegs) != 0 && (uint)(index = reg - Register.XMM0) <= IcedConstants.VMM_last - Register.XMM0)
 						writeReg = Register.ZMM0 + (index & ((int)VecRegCount - 1));
 					if (access != OpAccess.ReadWrite && access != OpAccess.ReadCondWrite)
 						reg = writeReg;

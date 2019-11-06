@@ -26,7 +26,7 @@ using System.Diagnostics;
 
 namespace Iced.Intel.GasFormatterInternal {
 	static class Registers {
-		public const Register Register_ST = (Register)DecoderConstants.NumberOfRegisters + 0;
+		public const Register Register_ST = (Register)IcedConstants.NumberOfRegisters + 0;
 		public const int ExtraRegisters = 1;
 		public static readonly string[] AllRegistersNaked = FormatterInternal.Registers.GetRegisters();
 		public static readonly string[] AllRegisters = GetRegistersWithPrefix();

@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_MASM_FORMATTER && !NO_FORMATTER
 namespace Iced.Intel.MasmFormatterInternal {
 	static class Registers {
-		public const Register Register_ST = (Register)DecoderConstants.NumberOfRegisters + 0;
+		public const Register Register_ST = (Register)IcedConstants.NumberOfRegisters + 0;
 		public const int ExtraRegisters = 1;
 		public static readonly string[] AllRegisters = FormatterInternal.Registers.GetRegisters();
 	}

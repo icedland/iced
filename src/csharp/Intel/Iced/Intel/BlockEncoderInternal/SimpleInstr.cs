@@ -33,7 +33,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			: base(blockEncoder, instruction.IP) {
 			this.instruction = instruction;
 			if (!blockEncoder.NullEncoder.TryEncode(instruction, instruction.IP, out Size, out var errorMessage))
-				Size = DecoderConstants.MaxInstructionLength;
+				Size = IcedConstants.MaxInstructionLength;
 		}
 
 		public override void Initialize() { }

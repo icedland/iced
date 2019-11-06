@@ -21,35 +21,22 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_MASM_FORMATTER && !NO_FORMATTER
-using System;
+using System.Linq;
 
-namespace Iced.Intel.MasmFormatterInternal {
-	[Flags]
-	enum InstrOpInfoFlags : ushort {
-		None						= 0,
+namespace Generator.Enums {
+	static class IntelSizeOverrideEnum {
+		const string? documentation = null;
 
-		MemSize_Mask				= 7,
-		// Use xmmword ptr etc
-		MemSize_Sse					= 0,
-		// Use mmword ptr etc
-		MemSize_Mmx					= 1,
-		// use qword ptr, oword ptr
-		MemSize_Normal				= 2,
-		// show no mem size
-		MemSize_Nothing				= 3,
-		MemSize_XmmwordPtr			= 4,
-		MemSize_DwordOrQword		= 5,
+		internal enum Enum {
+			None,
+			Size16,
+			Size32,
+			Size64,
+		}
 
-		// AlwaysShowMemorySize is disabled: always show memory size
-		ShowNoMemSize_ForceSize		= 8,
-		ShowMinMemSize_ForceSize	= 0x0010,
+		static EnumValue[] GetValues() =>
+			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name)).ToArray();
 
-		JccNotTaken					= 0x0020,
-		JccTaken					= 0x0040,
-		BndPrefix					= 0x0080,
-		IgnoreIndexReg				= 0x0100,
-		MnemonicIsDirective			= 0x0200,
+		public static readonly EnumType Instance = new EnumType("SizeOverride", EnumKind.IntelSizeOverride, documentation, GetValues(), EnumTypeFlags.NoInitialize);
 	}
 }
-#endif

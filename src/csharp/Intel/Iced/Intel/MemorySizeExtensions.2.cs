@@ -32,8 +32,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="memorySize">Memory size</param>
 		/// <returns></returns>
-		public static bool IsBroadcast(this MemorySize memorySize) => memorySize >= FirstBroadcastMemorySize;
-		const MemorySize FirstBroadcastMemorySize = MemorySize.Broadcast64_UInt32;
+		public static bool IsBroadcast(this MemorySize memorySize) => memorySize >= IcedConstants.FirstBroadcastMemorySize;
 	}
 }
 #endif

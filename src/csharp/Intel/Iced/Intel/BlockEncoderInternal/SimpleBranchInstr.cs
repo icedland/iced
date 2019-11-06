@@ -63,13 +63,13 @@ namespace Iced.Intel.BlockEncoderInternal {
 				instrCopy = instruction;
 				instrCopy.NearBranch64 = 0;
 				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out Size, out errorMessage))
-					Size = DecoderConstants.MaxInstructionLength;
+					Size = IcedConstants.MaxInstructionLength;
 			}
 			else {
 				instrCopy = instruction;
 				instrCopy.NearBranch64 = 0;
 				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out shortInstructionSize, out errorMessage))
-					shortInstructionSize = DecoderConstants.MaxInstructionLength;
+					shortInstructionSize = IcedConstants.MaxInstructionLength;
 
 				nativeCode = ToNativeBranchCode(instruction.Code, blockEncoder.Bitness);
 				if (nativeCode == instruction.Code)
@@ -79,7 +79,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 					instrCopy.InternalSetCodeNoCheck(nativeCode);
 					instrCopy.NearBranch64 = 0;
 					if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out nativeInstructionSize, out errorMessage))
-						nativeInstructionSize = DecoderConstants.MaxInstructionLength;
+						nativeInstructionSize = IcedConstants.MaxInstructionLength;
 				}
 
 				switch (blockEncoder.Bitness) {

@@ -35,7 +35,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var handlers = OpCodeHandlers.Handlers;
 			for (int i = 0; i < handlers.Length; i++)
 				Assert.Equal((Code)i, handlers[i].TEST_Code);
-			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfCodeValues, handlers.Length);
+			Assert.Equal(IcedConstants.NumberOfCodeValues, handlers.Length);
 		}
 
 		[Fact]
@@ -393,7 +393,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		void ToOpCode_throws_if_input_is_invalid() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)int.MinValue).ToOpCode());
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)(-1)).ToOpCode());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)Iced.Intel.DecoderConstants.NumberOfCodeValues).ToOpCode());
+			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)IcedConstants.NumberOfCodeValues).ToOpCode());
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)int.MaxValue).ToOpCode());
 		}
 

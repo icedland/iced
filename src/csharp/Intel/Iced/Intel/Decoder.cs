@@ -224,7 +224,7 @@ namespace Iced.Intel {
 
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;
-			if (instrLen < DecoderConstants.MaxInstructionLength) {
+			if (instrLen < IcedConstants.MaxInstructionLength) {
 				uint b = (uint)reader.ReadByte();
 				Debug.Assert(b <= byte.MaxValue || b > int.MaxValue);
 				if (b <= byte.MaxValue) {
@@ -389,7 +389,7 @@ after_read_prefixes:
 			}
 			instruction.InternalCodeSize = defaultCodeSize;
 			uint instrLen = state.instructionLength;
-			Debug.Assert(0 <= instrLen && instrLen <= DecoderConstants.MaxInstructionLength);// Could be 0 if there were no bytes available
+			Debug.Assert(0 <= instrLen && instrLen <= IcedConstants.MaxInstructionLength);// Could be 0 if there were no bytes available
 			instruction.InternalLength = instrLen;
 			var ip = instructionPointer;
 			ip += instrLen;

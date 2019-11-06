@@ -71,8 +71,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 		[Fact]
 		void Verify_Code_values_in_InfoHandlers_table() {
-			Assert.Equal(InfoHandlers.Data.Length, 2 * Iced.Intel.DecoderConstants.NumberOfCodeValues);
-			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+			Assert.Equal(InfoHandlers.Data.Length, 2 * IcedConstants.NumberOfCodeValues);
+			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)(InfoHandlers.Data[i * 2] & (uint)InfoFlags1.CodeMask);
 				Assert.Equal((Code)i, code);
 			}

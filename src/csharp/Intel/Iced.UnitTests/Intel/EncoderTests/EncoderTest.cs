@@ -60,7 +60,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var origConstantOffsets = decoder.GetConstantOffsets(origInstr);
 			Assert.Equal(code, origInstr.Code);
 			Assert.Equal(origBytes.Length, origInstr.Length);
-			Assert.True(origInstr.Length <= Iced.Intel.DecoderConstants.MaxInstructionLength);
+			Assert.True(origInstr.Length <= IcedConstants.MaxInstructionLength);
 			Assert.Equal((ushort)origRip, origInstr.IP16);
 			Assert.Equal((uint)origRip, origInstr.IP32);
 			Assert.Equal(origRip, origInstr.IP);
@@ -150,7 +150,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var origInstr = decoder.Decode();
 			Assert.Equal(code, origInstr.Code);
 			Assert.Equal(origBytes.Length, origInstr.Length);
-			Assert.True(origInstr.Length <= Iced.Intel.DecoderConstants.MaxInstructionLength);
+			Assert.True(origInstr.Length <= IcedConstants.MaxInstructionLength);
 			Assert.Equal((ushort)origRip, origInstr.IP16);
 			Assert.Equal((uint)origRip, origInstr.IP32);
 			Assert.Equal(origRip, origInstr.IP);

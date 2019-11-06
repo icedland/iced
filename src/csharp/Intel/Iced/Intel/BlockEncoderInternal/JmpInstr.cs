@@ -60,20 +60,20 @@ namespace Iced.Intel.BlockEncoderInternal {
 				instrCopy = instruction;
 				instrCopy.NearBranch64 = 0;
 				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out Size, out errorMessage))
-					Size = DecoderConstants.MaxInstructionLength;
+					Size = IcedConstants.MaxInstructionLength;
 			}
 			else {
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToShortBranch());
 				instrCopy.NearBranch64 = 0;
 				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out shortInstructionSize, out errorMessage))
-					shortInstructionSize = DecoderConstants.MaxInstructionLength;
+					shortInstructionSize = IcedConstants.MaxInstructionLength;
 
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToNearBranch());
 				instrCopy.NearBranch64 = 0;
 				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out nearInstructionSize, out errorMessage))
-					nearInstructionSize = DecoderConstants.MaxInstructionLength;
+					nearInstructionSize = IcedConstants.MaxInstructionLength;
 
 				if (blockEncoder.Bitness == 64) {
 					// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.

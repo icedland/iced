@@ -31,8 +31,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 		static CpuidFeature[][] GetCpuidFeatures() {
 			var data = GetGetCpuidFeaturesData();
 			var reader = new DataReader(data);
-			reader.Index = (CpuidFeatureInternalConstants.MaxCpuidFeatureInternalValues + 7) / 8;
-			var cpuidFeatures = new CpuidFeature[CpuidFeatureInternalConstants.MaxCpuidFeatureInternalValues][];
+			reader.Index = (IcedConstants.MaxCpuidFeatureInternalValues + 7) / 8;
+			var cpuidFeatures = new CpuidFeature[IcedConstants.MaxCpuidFeatureInternalValues][];
 			for (int i = 0; i < cpuidFeatures.Length; i++) {
 				byte b = data[i / 8];
 				var features = new CpuidFeature[((b >> (i % 8)) & 1) + 1];

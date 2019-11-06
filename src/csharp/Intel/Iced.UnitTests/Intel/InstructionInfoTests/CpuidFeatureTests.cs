@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_INSTR_INFO
 using System;
+using Iced.Intel;
 using Iced.Intel.InstructionInfoInternal;
 using Xunit;
 
@@ -31,7 +32,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		[Fact]
 		void Verify_MaxCpuidFeatureInternalValues() {
 			var values = (CpuidFeatureInternal[])Enum.GetValues(typeof(CpuidFeatureInternal));
-			Assert.Equal(CpuidFeatureInternalConstants.MaxCpuidFeatureInternalValues, values.Length);
+			Assert.Equal(IcedConstants.MaxCpuidFeatureInternalValues, values.Length);
 		}
 	}
 }

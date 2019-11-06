@@ -21,11 +21,22 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Iced.Intel {
-	static class InstructionInfoConstants {
-		// This is the largest vector register. If it's VEX/EVEX, the upper bits are always cleared when writing to any sub reg, eg. YMM0
-		public const Register VMM_first = Register.ZMM0;
-		public const Register VMM_last = Register.ZMM31;
-		public const int VMM_count = VMM_last - VMM_first + 1;
+using System.Linq;
+
+namespace Generator.Enums {
+	static class GasSizeOverrideEnum {
+		const string? documentation = null;
+
+		internal enum Enum {
+			None,
+			Size16,
+			Size32,
+			Size64,
+		}
+
+		static EnumValue[] GetValues() =>
+			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name)).ToArray();
+
+		public static readonly EnumType Instance = new EnumType("SizeOverride", EnumKind.GasSizeOverride, documentation, GetValues(), EnumTypeFlags.NoInitialize);
 	}
 }

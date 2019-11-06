@@ -79,7 +79,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			b1to16,
 		}
 		static Info[] GetMemorySizes() {
-			var bcstToData = new byte[DecoderConstants.NumberOfMemorySizes - (int)MemorySize.Broadcast64_UInt32] {
+			var bcstToData = new byte[IcedConstants.NumberOfMemorySizes - (int)IcedConstants.FirstBroadcastMemorySize] {
 				(byte)BroadcastToKind.b1to2,
 				(byte)BroadcastToKind.b1to2,
 				(byte)BroadcastToKind.b1to2,
@@ -119,7 +119,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			};
 			const int SizeKindShift = 4;
 			const int MemoryKeywordsMask = 0xF;
-			var data = new byte[DecoderConstants.NumberOfMemorySizes] {
+			var data = new byte[IcedConstants.NumberOfMemorySizes] {
 				(byte)((uint)MemoryKeywords.None | ((uint)Size.S0 << SizeKindShift)),
 				(byte)((uint)MemoryKeywords.@byte | ((uint)Size.S1 << SizeKindShift)),
 				(byte)((uint)MemoryKeywords.word | ((uint)Size.S2 << SizeKindShift)),
@@ -275,7 +275,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				512,
 			};
 
-			var infos = new Info[DecoderConstants.NumberOfMemorySizes];
+			var infos = new Info[IcedConstants.NumberOfMemorySizes];
 			for (int i = 0; i < infos.Length; i++) {
 				var d = data[i];
 
@@ -299,10 +299,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 				}
 
 				string? bcstTo;
-				if (i < (int)MemorySize.Broadcast64_UInt32)
+				if (i < (int)IcedConstants.FirstBroadcastMemorySize)
 					bcstTo = null;
 				else {
-					switch ((BroadcastToKind)bcstToData[i - (int)MemorySize.Broadcast64_UInt32]) {
+					switch ((BroadcastToKind)bcstToData[i - (int)IcedConstants.FirstBroadcastMemorySize]) {
 					case BroadcastToKind.b1to2:		bcstTo = "1to2"; break;
 					case BroadcastToKind.b1to4:		bcstTo = "1to4"; break;
 					case BroadcastToKind.b1to8:		bcstTo = "1to8"; break;

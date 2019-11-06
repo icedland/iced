@@ -36,7 +36,7 @@ namespace Generator.Enums {
 				new EnumValue("Cmpxchg486A", "Decode #(c:0FA6)#/#(c:0FA7)# as #(c:cmpxchg)#"),
 				new EnumValue("OldFpu", "Decode some old removed FPU instructions (eg. #(c:frstpm)#)"),
 				new EnumValue("Pcommit", "Decode #(r:Code.Pcommit)#"),
-				new EnumValue("Loadall286", "Decode 286 #(c:loadall)# ((#c:0F04)# and #(c:0F05)#)"),
+				new EnumValue("Loadall286", "Decode 286 #(c:loadall)# (#(c:0F04)# and #(c:0F05)#)"),
 				new EnumValue("Loadall386", "Decode #(r:Code.Loadall386)#"),
 				new EnumValue("Cl1invmb", "Decode #(r:Code.Cl1invmb)#"),
 				new EnumValue("MovTr", "Decode #(r:Code.Mov_r32_tr)# and #(r:Code.Mov_tr_r32)#"),

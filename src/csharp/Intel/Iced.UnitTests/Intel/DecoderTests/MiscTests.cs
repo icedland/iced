@@ -40,7 +40,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				}
 			}
 			numValues++;
-			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfCodeValues, numValues);
+			Assert.Equal(IcedConstants.NumberOfCodeValues, numValues);
 		}
 
 		[Fact]
@@ -54,7 +54,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				}
 			}
 			numValues++;
-			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfRegisters, numValues);
+			Assert.Equal(IcedConstants.NumberOfRegisters, numValues);
 		}
 
 		[Fact]
@@ -68,12 +68,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				}
 			}
 			numValues++;
-			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfMemorySizes, numValues);
+			Assert.Equal(IcedConstants.NumberOfMemorySizes, numValues);
 		}
 
 		[Fact]
 		void Test16_too_long_instruction() {
-			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+			Assert.Equal(15, IcedConstants.MaxInstructionLength);
 
 			var decoder = CreateDecoder16("26 26 26 26 26 26 26 26 26 26 26 26 26 66 01 CE");
 			var instr = decoder.Decode();
@@ -93,7 +93,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test16_almost_too_long_instruction() {
-			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+			Assert.Equal(15, IcedConstants.MaxInstructionLength);
 
 			var decoder = CreateDecoder16("26 26 26 26 26 26 26 26 26 26 26 26 66 01 CE");
 			var instr = decoder.Decode();
@@ -116,7 +116,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test32_too_long_instruction() {
-			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+			Assert.Equal(15, IcedConstants.MaxInstructionLength);
 
 			var decoder = CreateDecoder32("26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE");
 			var instr = decoder.Decode();
@@ -136,7 +136,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test32_almost_too_long_instruction() {
-			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+			Assert.Equal(15, IcedConstants.MaxInstructionLength);
 
 			var decoder = CreateDecoder32("26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE");
 			var instr = decoder.Decode();
@@ -159,7 +159,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test64_too_long_instruction() {
-			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+			Assert.Equal(15, IcedConstants.MaxInstructionLength);
 
 			var decoder = CreateDecoder64("26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE");
 			var instr = decoder.Decode();
@@ -179,7 +179,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test64_almost_too_long_instruction() {
-			Assert.Equal(15, Iced.Intel.DecoderConstants.MaxInstructionLength);
+			Assert.Equal(15, IcedConstants.MaxInstructionLength);
 
 			var decoder = CreateDecoder64("26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE");
 			var instr = decoder.Decode();
@@ -957,7 +957,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		static bool TryGetSaeErInstruction(OpCodeInfo opCode, out Code newCode) {
 			if (opCode.Encoding == EncodingKind.EVEX && !(opCode.CanSuppressAllExceptions || opCode.CanUseRoundingControl)) {
 				var mnemonic = opCode.Code.ToMnemonic();
-				for (int i = (int)opCode.Code + 1, j = 1; i < Iced.Intel.DecoderConstants.NumberOfCodeValues && j <= 2; i++, j++) {
+				for (int i = (int)opCode.Code + 1, j = 1; i < IcedConstants.NumberOfCodeValues && j <= 2; i++, j++) {
 					var nextCode = (Code)i;
 					if (nextCode.ToMnemonic() != mnemonic)
 						break;
@@ -976,7 +976,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Verify_only_Full_ddd_and_Half_ddd_support_bcst() {
-			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var opCode = ((Code)i).ToOpCode();
 				bool expectedBcst;
 				switch (opCode.TupleType) {
@@ -1996,14 +1996,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 		[Fact]
 		void Verify_that_test_cases_test_enough_bits() {
-			var testedInfos16 = new TestedInfo[Iced.Intel.DecoderConstants.NumberOfCodeValues];
-			var testedInfos32 = new TestedInfo[Iced.Intel.DecoderConstants.NumberOfCodeValues];
-			var testedInfos64 = new TestedInfo[Iced.Intel.DecoderConstants.NumberOfCodeValues];
+			var testedInfos16 = new TestedInfo[IcedConstants.NumberOfCodeValues];
+			var testedInfos32 = new TestedInfo[IcedConstants.NumberOfCodeValues];
+			var testedInfos64 = new TestedInfo[IcedConstants.NumberOfCodeValues];
 
-			var canUseW = new bool[Iced.Intel.DecoderConstants.NumberOfCodeValues];
+			var canUseW = new bool[IcedConstants.NumberOfCodeValues];
 			{
 				var usesW = new HashSet<(OpCodeTableKind table, uint opCode)>();
-				for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+				for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 					var code = (Code)i;
 					var opCode = code.ToOpCode();
 					if (opCode.Encoding != EncodingKind.Legacy)
@@ -2011,7 +2011,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					if (opCode.OperandSize != 0)
 						usesW.Add((opCode.Table, opCode.OpCode));
 				}
-				for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+				for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 					var code = (Code)i;
 					var opCode = code.ToOpCode();
 					switch (opCode.Encoding) {
@@ -2337,7 +2337,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					_ => throw new InvalidOperationException(),
 				};
 
-				for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+				for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 					var code = (Code)i;
 					var opCode = code.ToOpCode();
 					if (!opCode.IsInstruction || opCode.Code == Code.Popw_CS)
@@ -3012,7 +3012,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var hash64 = new HashSet<Code>(DecoderTestUtils.Code64Only);
 			foreach (var code in DecoderTestUtils.NotDecoded64Only)
 				hash64.Add(code);
-			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
 				var opCode = code.ToOpCode();
 				if (hash1632.Contains(code)) {
@@ -3035,7 +3035,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Verify_can_only_decode_in_correct_mode() {
-			var extraBytes = new string('0', (Iced.Intel.DecoderConstants.MaxInstructionLength - 1) * 2);
+			var extraBytes = new string('0', (IcedConstants.MaxInstructionLength - 1) * 2);
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 				var opCode = info.Code.ToOpCode();
 				var newHexBytes = info.HexBytes + extraBytes;
@@ -3187,7 +3187,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Verify_regonly_or_regmemonly_mod_bits() {
-			var extraBytes = new string('0', (Iced.Intel.DecoderConstants.MaxInstructionLength - 1) * 2);
+			var extraBytes = new string('0', (IcedConstants.MaxInstructionLength - 1) * 2);
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 				var opCode = info.Code.ToOpCode();
 				if (!IsRegOnlyOrRegMemOnlyModRM(opCode))

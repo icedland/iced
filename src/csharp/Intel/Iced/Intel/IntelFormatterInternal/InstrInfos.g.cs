@@ -1699,7 +1699,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 				// Retfq_imm16
 				0x02,// Normal_2
 				0x26,// 38 = "ret"
-				0xB0, 0x04,// 0x230 = OpSize64, FarMnemonic
+				0xB0, 0x04,// 0x230 = FarMnemonic, OpSize64
 
 				// Retfw
 				0x15,// os3
@@ -1716,7 +1716,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 				// Retfq
 				0x02,// Normal_2
 				0x26,// 38 = "ret"
-				0xB0, 0x04,// 0x230 = OpSize64, FarMnemonic
+				0xB0, 0x04,// 0x230 = FarMnemonic, OpSize64
 
 				// Int3
 				0x01,// Normal_1

@@ -76,10 +76,10 @@ namespace Iced.Intel.IntelFormatterInternal {
 			var fpustate108_ptr = new string[] { "fpustate108", ptr };
 			var fpustate94_ptr = new string[] { "fpustate94", ptr };
 
-			var infos = new Info[DecoderConstants.NumberOfMemorySizes];
+			var infos = new Info[IcedConstants.NumberOfMemorySizes];
 			const int BroadcastToKindShift = 5;
 			const int MemoryKeywordsMask = 0x1F;
-			var data = new byte[DecoderConstants.NumberOfMemorySizes] {
+			var data = new byte[IcedConstants.NumberOfMemorySizes] {
 				(byte)((uint)MemoryKeywords.None | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.byte_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.word_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),

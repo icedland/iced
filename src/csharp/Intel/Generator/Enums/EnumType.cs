@@ -49,6 +49,21 @@ namespace Generator.Enums {
 		SerializedDataKind,
 		TupleType,
 		VexOpCodeHandlerKind,
+		Mnemonic,
+		GasCtorKind,
+		IntelCtorKind,
+		MasmCtorKind,
+		NasmCtorKind,
+		GasSizeOverride,
+		GasInstrOpInfoFlags,
+		IntelSizeOverride,
+		IntelBranchSizeInfo,
+		IntelInstrOpInfoFlags,
+		MasmInstrOpInfoFlags,
+		NasmSignExtendInfo,
+		NasmSizeOverride,
+		NasmBranchSizeInfo,
+		NasmInstrOpInfoFlags,
 	}
 
 	sealed class EnumType {
@@ -62,7 +77,7 @@ namespace Generator.Enums {
 			get {
 				if (toEnumValue.TryGetValue(name, out var value))
 					return value;
-				throw new InvalidOperationException($"Couldn't find enum value {Name}.{value}");
+				throw new InvalidOperationException($"Couldn't find enum field {Name}.{value}");
 			}
 		}
 
@@ -81,12 +96,16 @@ namespace Generator.Enums {
 			}
 		}
 
-		public EnumType(EnumKind enumKind, string? documentation, EnumValue[] values, EnumTypeFlags flags) {
+		public EnumType(EnumKind enumKind, string? documentation, EnumValue[] values, EnumTypeFlags flags)
+			: this(enumKind.ToString(), enumKind, documentation, values, flags) {
+		}
+
+		public EnumType(string name, EnumKind enumKind, string? documentation, EnumValue[] values, EnumTypeFlags flags) {
 			toEnumValue = new Dictionary<string, EnumValue>(values.Length, StringComparer.Ordinal);
 			IsPublic = (flags & EnumTypeFlags.Public) != 0;
 			IsFlags = (flags & EnumTypeFlags.Flags) != 0;
 			EnumKind = enumKind;
-			Name = enumKind.ToString();
+			Name = name;
 			Documentation = documentation;
 			Values = values;
 			if ((flags & EnumTypeFlags.NoInitialize) == 0) {
@@ -112,25 +131,25 @@ namespace Generator.Enums {
 				}
 			}
 			foreach (var value in values) {
-				value.EnumType = this;
+				value.DeclaringType = this;
 				toEnumValue.Add(value.Name, value);
 			}
 		}
 	}
 
 	interface IEnumValue {
-		EnumType EnumType { get; }
+		EnumType DeclaringType { get; }
 		uint Value { get; }
 		string ToStringValue { get; }
 	}
 
 	sealed class OrEnumValue : IEnumValue {
-		public EnumType EnumType { get; }
+		public EnumType DeclaringType { get; }
 		public uint Value { get; }
 		public string ToStringValue { get; }
 
 		public OrEnumValue(EnumType enumType, params string[] values) {
-			EnumType = enumType;
+			DeclaringType = enumType;
 			var sb = new StringBuilder();
 			foreach (var value in values) {
 				if (sb.Length > 0)
@@ -140,24 +159,42 @@ namespace Generator.Enums {
 			}
 			ToStringValue = sb.ToString();
 		}
+
+		// Need to override this since the formatter table generators call Equals()
+		public override bool Equals(object? obj) {
+			if (!(obj is OrEnumValue other))
+				return false;
+			if (DeclaringType != other.DeclaringType)
+				return false;
+			return Value == other.Value;
+		}
+
+		public override int GetHashCode() => DeclaringType.GetHashCode() ^ (int)Value;
 	}
 
 	sealed class EnumValue : IEnumValue {
-		public EnumType EnumType { get; set; }
+		public EnumType DeclaringType { get; set; }
 		public uint Value { get; set; }
 		public string Name { get; }
 		public string ToStringValue => Name;
 		public string? Documentation { get; internal set; }
 
 		public EnumValue(string name) {
-			EnumType = null!;
+			DeclaringType = null!;
 			Value = 0;
 			Name = name;
 			Documentation = null;
 		}
 
+		public EnumValue(uint value, string name) {
+			DeclaringType = null!;
+			Value = value;
+			Name = name;
+			Documentation = null;
+		}
+
 		public EnumValue(string name, string? documentation) {
-			EnumType = null!;
+			DeclaringType = null!;
 			Value = 0;
 			Name = name;
 			Documentation = documentation;

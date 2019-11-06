@@ -40,7 +40,7 @@ namespace Iced.Intel {
 			return (Mnemonic)toMnemonic[(int)code];
 		}
 
-		internal static readonly ushort[] toMnemonic = new ushort[DecoderConstants.NumberOfCodeValues] {
+		internal static readonly ushort[] toMnemonic = new ushort[IcedConstants.NumberOfCodeValues] {
 			(ushort)Mnemonic.INVALID,// INVALID
 			(ushort)Mnemonic.Add,// Add_rm8_r8
 			(ushort)Mnemonic.Add,// Add_rm16_r16

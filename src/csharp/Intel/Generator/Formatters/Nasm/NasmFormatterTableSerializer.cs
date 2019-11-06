@@ -24,10 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_NASM_FORMATTER && !NO_FORMATTER
 using System;
 using System.IO;
-using System.Text;
+using Generator.Enums;
 using Generator.IO;
-using Iced.Intel;
-using Iced.Intel.NasmFormatterInternal;
 
 namespace Generator.Formatters.Nasm {
 	sealed class NasmFormatterTableSerializer : FormatterTableSerializer {
@@ -50,32 +48,31 @@ namespace Generator.Formatters.Nasm {
 			writer.Indent();
 
 			int index = -1;
-			var sb = new StringBuilder();
 			var infos = CtorInfos.Infos;
 			for (int i = 0; i < infos.Length; i++) {
 				var info = infos[i];
 				index++;
-				var ctorKind = (CtorKind)info[0];
-				var code = (Code)info[1];
-				if (code != (Code)index)
+				var ctorKind = (EnumValue)info[0];
+				var code = (EnumValue)info[Utils.CodeValueIndex];
+				if (code.Value != (uint)index)
 					throw new InvalidOperationException();
 
 				if (index != 0)
 					writer.WriteLine();
-				writer.WriteCommentLine(code.ToString());
+				writer.WriteCommentLine(code.ToStringValue);
 
 				bool isSame = i > 0 && IsSame(infos[i - 1], info);
 				if (isSame)
-					ctorKind = CtorKind.Previous;
+					ctorKind = NasmCtorKindEnum.Instance["Previous"];
 
-				if ((uint)ctorKind > 0x7F)
+				if ((uint)ctorKind.Value > 0x7F)
 					throw new InvalidOperationException();
 				uint firstStringIndex = GetFirstStringIndex(stringsTable, info, out bool hasVPrefix);
-				writer.WriteByte((byte)((uint)ctorKind | (hasVPrefix ? 0x80U : 0)));
+				writer.WriteByte((byte)((uint)ctorKind.Value | (hasVPrefix ? 0x80U : 0)));
 				if (hasVPrefix)
-					writer.WriteCommentLine($"'v', {ctorKind}");
+					writer.WriteCommentLine($"'v', {ctorKind.ToStringValue}");
 				else
-					writer.WriteCommentLine($"{ctorKind}");
+					writer.WriteCommentLine($"{ctorKind.ToStringValue}");
 				if (isSame)
 					continue;
 				uint si;
@@ -105,49 +102,51 @@ namespace Generator.Formatters.Nasm {
 							writer.WriteCommentLine($"'{c}'");
 						break;
 
-					case InstrOpInfoFlags flags:
-						writer.WriteCompressedUInt32((uint)flags);
-						writer.WriteCommentLine($"0x{(uint)flags:X} = {ToString(sb, flags)}");
-						break;
-
 					case int ival:
 						writer.WriteCompressedUInt32((uint)ival);
 						writer.WriteCommentLine($"0x{ival:X}");
 						break;
 
-					case PseudoOpsKind pseudoOpsKind:
-						if ((uint)pseudoOpsKind > byte.MaxValue)
-							throw new InvalidOperationException();
-						writer.WriteByte((byte)pseudoOpsKind);
-						writer.WriteCommentLine(pseudoOpsKind.ToString());
-						break;
+					case IEnumValue enumValue:
+						switch (enumValue.DeclaringType.EnumKind) {
+						case EnumKind.NasmInstrOpInfoFlags:
+							writer.WriteCompressedUInt32((uint)enumValue.Value);
+							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue}");
+							break;
 
-					case CodeSize codeSize:
-						if ((uint)codeSize > byte.MaxValue)
+						case EnumKind.PseudoOpsKind:
+							if ((uint)enumValue.Value > byte.MaxValue)
+								throw new InvalidOperationException();
+							writer.WriteByte((byte)enumValue.Value);
+							writer.WriteCommentLine(enumValue.ToStringValue);
+							break;
+						case EnumKind.CodeSize:
+							if ((uint)enumValue.Value > byte.MaxValue)
+								throw new InvalidOperationException();
+							writer.WriteByte((byte)enumValue.Value);
+							writer.WriteCommentLine(enumValue.ToStringValue);
+							break;
+						case EnumKind.Register:
+							if ((uint)enumValue.Value > byte.MaxValue)
+								throw new InvalidOperationException();
+							writer.WriteByte((byte)enumValue.Value);
+							writer.WriteCommentLine(enumValue.ToStringValue);
+							break;
+						case EnumKind.MemorySize:
+							if ((uint)enumValue.Value > byte.MaxValue)
+								throw new InvalidOperationException();
+							writer.WriteByte((byte)enumValue.Value);
+							writer.WriteCommentLine(enumValue.ToStringValue);
+							break;
+						case EnumKind.NasmSignExtendInfo:
+							if ((uint)enumValue.Value > byte.MaxValue)
+								throw new InvalidOperationException();
+							writer.WriteByte((byte)enumValue.Value);
+							writer.WriteCommentLine(enumValue.ToStringValue);
+							break;
+						default:
 							throw new InvalidOperationException();
-						writer.WriteByte((byte)codeSize);
-						writer.WriteCommentLine(codeSize.ToString());
-						break;
-
-					case Register register:
-						if ((uint)register > byte.MaxValue)
-							throw new InvalidOperationException();
-						writer.WriteByte((byte)register);
-						writer.WriteCommentLine(register.ToString());
-						break;
-
-					case SignExtendInfo signExtendInfo:
-						if ((uint)signExtendInfo > byte.MaxValue)
-							throw new InvalidOperationException();
-						writer.WriteByte((byte)signExtendInfo);
-						writer.WriteCommentLine(signExtendInfo.ToString());
-						break;
-
-					case MemorySize memorySize:
-						if ((uint)memorySize > byte.MaxValue)
-							throw new InvalidOperationException();
-						writer.WriteByte((byte)memorySize);
-						writer.WriteCommentLine(memorySize.ToString());
+						}
 						break;
 
 					case bool b:
@@ -169,110 +168,6 @@ namespace Generator.Formatters.Nasm {
 			writer.Unindent();
 			writer.WriteLine("}");
 			writer.WriteLine("#endif");
-		}
-
-		static string ToString(StringBuilder sb, InstrOpInfoFlags flags) {
-			sb.Clear();
-
-			if ((flags & InstrOpInfoFlags.MemSize_Nothing) != 0) {
-				flags &= ~InstrOpInfoFlags.MemSize_Nothing;
-				Append(sb, nameof(InstrOpInfoFlags.MemSize_Nothing));
-			}
-
-			if ((flags & InstrOpInfoFlags.ShowNoMemSize_ForceSize) != 0) {
-				flags &= ~InstrOpInfoFlags.ShowNoMemSize_ForceSize;
-				Append(sb, nameof(InstrOpInfoFlags.ShowNoMemSize_ForceSize));
-			}
-
-			if ((flags & InstrOpInfoFlags.ShowMinMemSize_ForceSize) != 0) {
-				flags &= ~InstrOpInfoFlags.ShowMinMemSize_ForceSize;
-				Append(sb, nameof(InstrOpInfoFlags.ShowMinMemSize_ForceSize));
-			}
-
-			switch (flags & (InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.OpSizeShift)) {
-			case 0: break;
-			case InstrOpInfoFlags.OpSize16: Append(sb, nameof(InstrOpInfoFlags.OpSize16)); break;
-			case InstrOpInfoFlags.OpSize32: Append(sb, nameof(InstrOpInfoFlags.OpSize32)); break;
-			case InstrOpInfoFlags.OpSize64: Append(sb, nameof(InstrOpInfoFlags.OpSize64)); break;
-			default: throw new InvalidOperationException();
-			}
-			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.OpSizeShift);
-
-			switch (flags & (InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.AddrSizeShift)) {
-			case 0: break;
-			case InstrOpInfoFlags.AddrSize16: Append(sb, nameof(InstrOpInfoFlags.AddrSize16)); break;
-			case InstrOpInfoFlags.AddrSize32: Append(sb, nameof(InstrOpInfoFlags.AddrSize32)); break;
-			case InstrOpInfoFlags.AddrSize64: Append(sb, nameof(InstrOpInfoFlags.AddrSize64)); break;
-			default: throw new InvalidOperationException();
-			}
-			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.AddrSizeShift);
-
-			switch (flags & (InstrOpInfoFlags)((int)InstrOpInfoFlags.BranchSizeInfoMask << (int)InstrOpInfoFlags.BranchSizeInfoShift)) {
-			case 0: break;
-			case InstrOpInfoFlags.BranchSizeInfo_Short: Append(sb, nameof(InstrOpInfoFlags.BranchSizeInfo_Short)); break;
-			default: throw new InvalidOperationException();
-			}
-			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.BranchSizeInfoMask << (int)InstrOpInfoFlags.BranchSizeInfoShift);
-
-			switch ((SignExtendInfo)(((uint)flags >> (int)InstrOpInfoFlags.SignExtendInfoShift) & (uint)InstrOpInfoFlags.SignExtendInfoMask)) {
-			case SignExtendInfo.None: break;
-			case SignExtendInfo.Sex1to2: Append(sb, nameof(SignExtendInfo.Sex1to2)); break;
-			case SignExtendInfo.Sex1to4: Append(sb, nameof(SignExtendInfo.Sex1to4)); break;
-			case SignExtendInfo.Sex1to8: Append(sb, nameof(SignExtendInfo.Sex1to8)); break;
-			case SignExtendInfo.Sex4to8: Append(sb, nameof(SignExtendInfo.Sex4to8)); break;
-			case SignExtendInfo.Sex4to8Qword: Append(sb, nameof(SignExtendInfo.Sex4to8Qword)); break;
-			case SignExtendInfo.Sex2: Append(sb, nameof(SignExtendInfo.Sex2)); break;
-			case SignExtendInfo.Sex4: Append(sb, nameof(SignExtendInfo.Sex4)); break;
-			default: throw new InvalidOperationException();
-			}
-			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.SignExtendInfoMask << (int)InstrOpInfoFlags.SignExtendInfoShift);
-
-			switch ((((uint)flags >> (int)InstrOpInfoFlags.MemorySizeInfoShift) & (uint)InstrOpInfoFlags.MemorySizeInfoMask)) {
-			case 0: break;
-			default: throw new InvalidOperationException();
-			}
-			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.MemorySizeInfoMask << (int)InstrOpInfoFlags.MemorySizeInfoShift);
-
-			switch ((((uint)flags >> (int)InstrOpInfoFlags.FarMemorySizeInfoShift) & (uint)InstrOpInfoFlags.FarMemorySizeInfoMask)) {
-			case 0: break;
-			default: throw new InvalidOperationException();
-			}
-			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.FarMemorySizeInfoMask << (int)InstrOpInfoFlags.FarMemorySizeInfoShift);
-
-			if ((flags & InstrOpInfoFlags.RegisterTo) != 0) {
-				flags &= ~InstrOpInfoFlags.RegisterTo;
-				Append(sb, nameof(InstrOpInfoFlags.RegisterTo));
-			}
-
-			if ((flags & InstrOpInfoFlags.BndPrefix) != 0) {
-				flags &= ~InstrOpInfoFlags.BndPrefix;
-				Append(sb, nameof(InstrOpInfoFlags.BndPrefix));
-			}
-
-			if ((flags & InstrOpInfoFlags.MnemonicIsDirective) != 0) {
-				flags &= ~InstrOpInfoFlags.MnemonicIsDirective;
-				Append(sb, nameof(InstrOpInfoFlags.MnemonicIsDirective));
-			}
-
-			switch ((((uint)flags >> (int)InstrOpInfoFlags.MemorySizeShift) & (uint)InstrOpInfoFlags.MemorySizeMask)) {
-			case 0: break;
-			default: throw new InvalidOperationException();
-			}
-			flags &= ~(InstrOpInfoFlags)((int)InstrOpInfoFlags.MemorySizeMask << (int)InstrOpInfoFlags.MemorySizeShift);
-
-			if (flags != 0)
-				throw new InvalidOperationException();
-
-			if (sb.Length == 0)
-				Append(sb, nameof(InstrOpInfoFlags.None));
-
-			return sb.ToString();
-		}
-
-		static void Append(StringBuilder sb, string name) {
-			if (sb.Length > 0)
-				sb.Append(", ");
-			sb.Append(name);
 		}
 	}
 }

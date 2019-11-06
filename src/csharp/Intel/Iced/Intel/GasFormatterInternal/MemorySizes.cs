@@ -43,7 +43,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			b1to16,
 		}
 		static Info[] GetMemorySizes() {
-			var bcstToData = new byte[DecoderConstants.NumberOfMemorySizes - (int)MemorySize.Broadcast64_UInt32] {
+			var bcstToData = new byte[IcedConstants.NumberOfMemorySizes - (int)IcedConstants.FirstBroadcastMemorySize] {
 				(byte)BroadcastToKind.b1to2,
 				(byte)BroadcastToKind.b1to2,
 				(byte)BroadcastToKind.b1to2,
@@ -82,13 +82,13 @@ namespace Iced.Intel.GasFormatterInternal {
 				(byte)BroadcastToKind.b1to16,
 			};
 
-			var infos = new Info[DecoderConstants.NumberOfMemorySizes];
+			var infos = new Info[IcedConstants.NumberOfMemorySizes];
 			for (int i = 0; i < infos.Length; i++) {
 				string? bcstTo;
-				if (i < (int)MemorySize.Broadcast64_UInt32)
+				if (i < (int)IcedConstants.FirstBroadcastMemorySize)
 					bcstTo = null;
 				else {
-					switch ((BroadcastToKind)bcstToData[i - (int)MemorySize.Broadcast64_UInt32]) {
+					switch ((BroadcastToKind)bcstToData[i - (int)IcedConstants.FirstBroadcastMemorySize]) {
 					case BroadcastToKind.b1to2:		bcstTo = "1to2"; break;
 					case BroadcastToKind.b1to4:		bcstTo = "1to4"; break;
 					case BroadcastToKind.b1to8:		bcstTo = "1to8"; break;

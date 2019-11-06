@@ -82,7 +82,7 @@ namespace Iced.Intel {
 
 		internal OpCodeInfo(uint dword3, uint dword2, uint dword1, StringBuilder sb) {
 			var code = (Code)(dword1 & (uint)EncFlags1.CodeMask);
-			Debug.Assert((uint)code < (uint)DecoderConstants.NumberOfCodeValues);
+			Debug.Assert((uint)code < (uint)IcedConstants.NumberOfCodeValues);
 			Debug.Assert((uint)code <= ushort.MaxValue);
 			this.code = (ushort)code;
 			if (!(code == Code.INVALID || code >= Code.DeclareByte))

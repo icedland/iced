@@ -29,7 +29,7 @@ namespace Iced.Intel.EncoderInternal {
 		public static readonly OpCodeHandler[] Handlers;
 
 		public static uint[] GetData() =>
-			new uint[DecoderConstants.NumberOfCodeValues * 3] {
+			new uint[IcedConstants.NumberOfCodeValues * 3] {
 				(uint)EncFlags1.Legacy | (uint)Code.INVALID, 0, 0,
 				(uint)EncFlags1.Legacy | (uint)Code.Add_rm8_r8 | ((uint)0x00 << (int)EncFlags1.OpCodeShift), (uint)LegacyFlags.Encodable_Any | (uint)LegacyFlags.XacquireXreleaseLock, (uint)LegacyOpKind.Eb | ((uint)LegacyOpKind.Gb << (int)LegacyFlags3.Op1Shift),
 				(uint)EncFlags1.Legacy | (uint)Code.Add_rm16_r16 | ((uint)0x01 << (int)EncFlags1.OpCodeShift), (uint)LegacyFlags.Encodable_Any | (uint)LegacyFlags.o16 | (uint)LegacyFlags.XacquireXreleaseLock, (uint)LegacyOpKind.Ew | ((uint)LegacyOpKind.Gw << (int)LegacyFlags3.Op1Shift),
@@ -4237,7 +4237,7 @@ namespace Iced.Intel.EncoderInternal {
 
 		static OpCodeHandlers() {
 			var info = GetData();
-			var handlers = new OpCodeHandler[DecoderConstants.NumberOfCodeValues];
+			var handlers = new OpCodeHandler[IcedConstants.NumberOfCodeValues];
 			int j = 0;
 			for (int i = 0; i < info.Length; i += 3, j++) {
 				uint dword1 = info[i];

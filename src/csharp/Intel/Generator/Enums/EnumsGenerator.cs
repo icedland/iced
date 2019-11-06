@@ -50,6 +50,21 @@ namespace Generator.Enums {
 			SerializedDataKindEnum.Instance,
 			TupleTypeEnum.Instance,
 			VexOpCodeHandlerKindEnum.Instance,
+			MnemonicEnum.Instance,
+			GasCtorKindEnum.Instance,
+			IntelCtorKindEnum.Instance,
+			MasmCtorKindEnum.Instance,
+			NasmCtorKindEnum.Instance,
+			GasSizeOverrideEnum.Instance,
+			GasInstrOpInfoFlagsEnum.Instance,
+			IntelSizeOverrideEnum.Instance,
+			IntelBranchSizeInfoEnum.Instance,
+			IntelInstrOpInfoFlagsEnum.Instance,
+			MasmInstrOpInfoFlagsEnum.Instance,
+			NasmSignExtendInfoEnum.Instance,
+			NasmSizeOverrideEnum.Instance,
+			NasmBranchSizeInfoEnum.Instance,
+			NasmInstrOpInfoFlagsEnum.Instance,
 		};
 
 		public void Generate() {

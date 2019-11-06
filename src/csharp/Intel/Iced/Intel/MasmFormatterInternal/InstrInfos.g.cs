@@ -4159,7 +4159,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Bndldx_bnd_mib
 				0x02,// Normal_2
 				0xE2, 0x06,// 866 = "bndldx"
-				0x0D,// 0xD = MemSize_DwordOrQword, ShowNoMemSize_ForceSize
+				0x0D,// 0xD = ShowNoMemSize_ForceSize, MemSize_DwordOrQword
 
 				// Bndmov_bnd_bndm64
 				0x02,// Normal_2
@@ -4186,7 +4186,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Bndstx_mib_bnd
 				0x02,// Normal_2
 				0xE3, 0x06,// 867 = "bndstx"
-				0x0D,// 0xD = MemSize_DwordOrQword, ShowNoMemSize_ForceSize
+				0x0D,// 0xD = ShowNoMemSize_ForceSize, MemSize_DwordOrQword
 
 				// Bndmov_bndm64_bnd
 				0x02,// Normal_2

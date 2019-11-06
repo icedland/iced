@@ -1804,7 +1804,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem_VSIB(ref instruction, vsibBase, tupleType);
 				if (decoder.invalidCheckMask != 0) {
-					if ((uint)regNum == ((uint)(instruction.MemoryIndex - Register.XMM0) % (uint)InstructionInfoConstants.VMM_count))
+					if ((uint)regNum == ((uint)(instruction.MemoryIndex - Register.XMM0) % (uint)IcedConstants.VMM_count))
 						decoder.SetInvalidInstruction();
 				}
 			}

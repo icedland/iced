@@ -23,8 +23,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
+using Generator.Enums;
 using Generator.IO;
-using Iced.Intel;
 
 namespace Generator.Formatters {
 	abstract class FormatterTableSerializer {
@@ -33,6 +33,9 @@ namespace Generator.Formatters {
 		public abstract void Serialize(FileWriter writer, StringsTable stringsTable);
 
 		protected void Initialize(StringsTable stringsTable, object[][] infos) {
+			var expectedLength = Constants.IcedConstantsType.Instance["NumberOfCodeValues"].Value;
+			if ((uint)infos.Length != expectedLength)
+				throw new InvalidOperationException($"Found {infos.Length} elements, expected {expectedLength}");
 			foreach (var info in infos) {
 				bool ignoreVPrefix = true;
 				foreach (var o in info) {
@@ -55,8 +58,10 @@ namespace Generator.Formatters {
 				return false;
 			for (int i = 0; i < a.Length; i++) {
 				if (i == 1) {
-					if (!(a[i] is Code) || !(b[i] is Code))
+					if (!(a[i] is EnumValue eva && eva.DeclaringType.EnumKind == EnumKind.Code) ||
+						!(b[i] is EnumValue evb && evb.DeclaringType.EnumKind == EnumKind.Code)) {
 						throw new InvalidOperationException();
+					}
 					continue;
 				}
 				bool same;

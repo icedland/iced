@@ -29,7 +29,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	public sealed class InstructionInfoTestCase {
-		public InstructionInfoTestCase() => Debug.Assert(Iced.Intel.DecoderConstants.MaxOpCount == 5);
+		public InstructionInfoTestCase() => Debug.Assert(IcedConstants.MaxOpCount == 5);
 		public EncodingKind Encoding = EncodingKind.Legacy;
 		public CpuidFeature[] CpuidFeatures = Array.Empty<CpuidFeature>();
 		public RflagsBits RflagsRead = RflagsBits.None;

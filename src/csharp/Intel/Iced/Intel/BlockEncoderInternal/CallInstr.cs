@@ -45,7 +45,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			var instrCopy = instruction;
 			instrCopy.NearBranch64 = 0;
 			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out origInstructionSize, out var errorMessage))
-				origInstructionSize = DecoderConstants.MaxInstructionLength;
+				origInstructionSize = IcedConstants.MaxInstructionLength;
 			if (!blockEncoder.FixBranches) {
 				Size = origInstructionSize;
 				useOrigInstruction = true;

@@ -392,7 +392,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		const uint FlowControl_XbeginXabortXend = (uint)FlowControl.XbeginXabortXend << (int)InfoFlags2.FlowControlShift;
 		const uint FlowControl_Exception = (uint)FlowControl.Exception << (int)InfoFlags2.FlowControlShift;
 
-		internal static readonly uint[] Data = new uint[DecoderConstants.NumberOfCodeValues * 2] {
+		internal static readonly uint[] Data = new uint[IcedConstants.NumberOfCodeValues * 2] {
 			(uint)Code.INVALID, FlowControl_Exception | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Add_rm8_r8 | RflagsInfo_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,
 			(uint)Code.Add_rm16_r16 | RflagsInfo_W_acopsz, Op0_ReadWrite | Op1_Read | CPUID_INTEL8086 | Encoding_Legacy,

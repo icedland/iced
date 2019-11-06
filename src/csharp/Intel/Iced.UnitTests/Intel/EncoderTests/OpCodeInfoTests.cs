@@ -97,8 +97,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(tc.Op2Kind, info.GetOpKind(2));
 			Assert.Equal(tc.Op3Kind, info.GetOpKind(3));
 			Assert.Equal(tc.Op4Kind, info.GetOpKind(4));
-			Assert.Equal(5, Iced.Intel.DecoderConstants.MaxOpCount);
-			for (int i = tc.OpCount; i < Iced.Intel.DecoderConstants.MaxOpCount; i++)
+			Assert.Equal(5, IcedConstants.MaxOpCount);
+			for (int i = tc.OpCount; i < IcedConstants.MaxOpCount; i++)
 				Assert.Equal(OpCodeOperandKind.None, info.GetOpKind(i));
 		}
 		public static IEnumerable<object[]> TestAllOpCodeInfos_Data => OpCodeInfoTestCases.OpCodeInfoTests.Select(a => new object[] { a.LineNumber, a.Code, a.OpCodeString, a.InstructionString, a });
@@ -109,14 +109,14 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpKind(int.MinValue));
 			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpKind(-1));
 			info.GetOpKind(0);
-			info.GetOpKind(Iced.Intel.DecoderConstants.MaxOpCount - 1);
-			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpKind(Iced.Intel.DecoderConstants.MaxOpCount));
+			info.GetOpKind(IcedConstants.MaxOpCount - 1);
+			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpKind(IcedConstants.MaxOpCount));
 			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpKind(int.MaxValue));
 		}
 
 		[Fact]
 		void Verify_Instruction_OpCodeInfo() {
-			for (int i = 0; i < Iced.Intel.DecoderConstants.NumberOfCodeValues; i++) {
+			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
 				Instruction instr = default;
 				instr.Code = (Code)i;
@@ -126,7 +126,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		[Fact]
 		void Make_sure_all_Code_values_are_tested_exactly_once() {
-			var tested = new bool[Iced.Intel.DecoderConstants.NumberOfCodeValues];
+			var tested = new bool[IcedConstants.NumberOfCodeValues];
 			foreach (var info in OpCodeInfoTestCases.OpCodeInfoTests) {
 				Assert.False(tested[(int)info.Code]);
 				tested[(int)info.Code] = true;

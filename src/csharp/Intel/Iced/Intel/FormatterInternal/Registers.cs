@@ -275,7 +275,7 @@ namespace Iced.Intel.FormatterInternal {
 
 		public static string[] GetRegisters() {
 			const int MaxStringLength = 5;
-			const int StringsCount = DecoderConstants.NumberOfRegisters + 1;
+			const int StringsCount = IcedConstants.NumberOfRegisters + 1;
 			var reader = new DataReader(GetRegistersData(), MaxStringLength);
 			var strings = new string[StringsCount];
 			for (int i = 0; i < strings.Length; i++)

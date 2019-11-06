@@ -48,7 +48,7 @@ namespace Iced.Intel {
 			S512,
 		}
 		static MemorySizeInfo[] GetMemorySizeInfos() {
-			var data = new byte[DecoderConstants.NumberOfMemorySizes * 3] {
+			var data = new byte[IcedConstants.NumberOfMemorySizes * 3] {
 				(byte)MemorySize.Unknown, (byte)((uint)SizeKind.S0 | ((uint)SizeKind.S0 << 4)), 0,
 				(byte)MemorySize.UInt8, (byte)((uint)SizeKind.S1 | ((uint)SizeKind.S1 << 4)), 0,
 				(byte)MemorySize.UInt16, (byte)((uint)SizeKind.S2 | ((uint)SizeKind.S2 << 4)), 0,
@@ -205,13 +205,13 @@ namespace Iced.Intel {
 				512,
 			};
 
-			var infos = new MemorySizeInfo[DecoderConstants.NumberOfMemorySizes];
+			var infos = new MemorySizeInfo[IcedConstants.NumberOfMemorySizes];
 			for (int i = 0, j = 0; i < infos.Length; i++, j += 3) {
 				var elementType = (MemorySize)data[j];
 				var b = data[j + 1];
 				var size = sizes[b & 0xF];
 				var elementSize = sizes[b >> 4];
-				infos[i] = new MemorySizeInfo((MemorySize)i, size, elementSize, elementType, data[j + 2] != 0, i >= (int)MemorySize.Broadcast64_UInt32);
+				infos[i] = new MemorySizeInfo((MemorySize)i, size, elementSize, elementType, data[j + 2] != 0, i >= (int)IcedConstants.FirstBroadcastMemorySize);
 			}
 			return infos;
 		}
@@ -347,13 +347,13 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentOutOfRangeException_elementSize();
 			if (elementSize > size)
 				ThrowHelper.ThrowArgumentOutOfRangeException_elementSize();
-			Debug.Assert(DecoderConstants.NumberOfMemorySizes <= byte.MaxValue + 1);
+			Debug.Assert(IcedConstants.NumberOfMemorySizes <= byte.MaxValue + 1);
 			this.memorySize = (byte)memorySize;
 			Debug.Assert(size <= ushort.MaxValue);
 			this.size = (ushort)size;
 			Debug.Assert(elementSize <= ushort.MaxValue);
 			this.elementSize = (ushort)elementSize;
-			Debug.Assert(DecoderConstants.NumberOfMemorySizes <= byte.MaxValue + 1);
+			Debug.Assert(IcedConstants.NumberOfMemorySizes <= byte.MaxValue + 1);
 			this.elementType = (byte)elementType;
 			this.isSigned = isSigned;
 			this.isBroadcast = isBroadcast;

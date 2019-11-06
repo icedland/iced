@@ -169,7 +169,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		}
 
 		public InstrOpInfo(string mnemonic, in Instruction instr, InstrOpInfoFlags flags) {
-			Debug.Assert(DecoderConstants.MaxOpCount == 5);
+			Debug.Assert(IcedConstants.MaxOpCount == 5);
 			Mnemonic = mnemonic;
 			Flags = flags;
 			int opCount = instr.OpCount;

@@ -56,7 +56,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			var instrCopy = this.instruction;
 			instrCopy.NearBranch64 = 0;
 			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out Size, out var errorMessage))
-				Size = DecoderConstants.MaxInstructionLength;
+				Size = IcedConstants.MaxInstructionLength;
 		}
 
 		public override void Initialize() => targetInstr = blockEncoder.GetTarget(targetAddr);

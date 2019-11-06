@@ -305,7 +305,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr.SuppressAllExceptions = true;
 			Assert.True(instr.SuppressAllExceptions);
 
-			for (int i = 0; i <= Iced.Intel.DecoderConstants.MaxInstructionLength; i++) {
+			for (int i = 0; i <= IcedConstants.MaxInstructionLength; i++) {
 				instr.Length = i;
 				Assert.Equal(i, instr.Length);
 			}
@@ -324,9 +324,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				Assert.Equal(code, instr.Code);
 			}
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)(-1));
-			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)Iced.Intel.DecoderConstants.NumberOfCodeValues);
+			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)IcedConstants.NumberOfCodeValues);
 
-			Assert.Equal(5, Iced.Intel.DecoderConstants.MaxOpCount);
+			Assert.Equal(5, IcedConstants.MaxOpCount);
 			foreach (var opKind in GetEnumValues<OpKind>()) {
 				instr.Op0Kind = opKind;
 				Assert.Equal(opKind, instr.Op0Kind);

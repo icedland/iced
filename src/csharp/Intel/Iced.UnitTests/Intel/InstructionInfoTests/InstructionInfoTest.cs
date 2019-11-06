@@ -168,8 +168,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(info.GetUsedMemory(), instr.GetUsedMemory(), UsedMemoryEqualityComparer.Instance);
 			Assert.Equal(info.GetUsedRegisters(), instr.GetUsedRegisters(), UsedRegisterEqualityComparer.Instance);
 
-			Debug.Assert(Iced.Intel.DecoderConstants.MaxOpCount == 5);
-			Debug.Assert(instr.OpCount <= Iced.Intel.DecoderConstants.MaxOpCount);
+			Debug.Assert(IcedConstants.MaxOpCount == 5);
+			Debug.Assert(instr.OpCount <= IcedConstants.MaxOpCount);
 			for (int i = 0; i < instr.OpCount; i++) {
 				switch (i) {
 				case 0:
@@ -196,7 +196,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					throw new InvalidOperationException();
 				}
 			}
-			for (int i = instr.OpCount; i < Iced.Intel.DecoderConstants.MaxOpCount; i++)
+			for (int i = instr.OpCount; i < IcedConstants.MaxOpCount; i++)
 				Assert.Equal(OpAccess.None, info.GetOpAccess(i));
 
 			Assert.Equal(RflagsBits.None, info.RflagsWritten & (info.RflagsCleared | info.RflagsSet | info.RflagsUndefined));
@@ -366,12 +366,12 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					if (hash.Contains(Register.AX + index))
 						continue;
 				}
-				else if (Register.YMM0 <= reg && reg <= Register.YMM0 + InstructionInfoConstants.VMM_count - 1) {
+				else if (Register.YMM0 <= reg && reg <= Register.YMM0 + IcedConstants.VMM_count - 1) {
 					index = reg - Register.YMM0;
 					if (hash.Contains(Register.ZMM0 + index))
 						continue;
 				}
-				else if (Register.XMM0 <= reg && reg <= Register.XMM0 + InstructionInfoConstants.VMM_count - 1) {
+				else if (Register.XMM0 <= reg && reg <= Register.XMM0 + IcedConstants.VMM_count - 1) {
 					index = reg - Register.XMM0;
 					if (hash.Contains(Register.ZMM0 + index))
 						continue;
@@ -415,11 +415,11 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			if (Register.AL <= reg && reg <= Register.R15L)
 				return 3;
 
-			if (Register.ZMM0 <= reg && reg <= Register.ZMM0 + InstructionInfoConstants.VMM_count - 1)
+			if (Register.ZMM0 <= reg && reg <= Register.ZMM0 + IcedConstants.VMM_count - 1)
 				return 4;
-			if (Register.YMM0 <= reg && reg <= Register.YMM0 + InstructionInfoConstants.VMM_count - 1)
+			if (Register.YMM0 <= reg && reg <= Register.YMM0 + IcedConstants.VMM_count - 1)
 				return 5;
-			if (Register.XMM0 <= reg && reg <= Register.XMM0 + InstructionInfoConstants.VMM_count - 1)
+			if (Register.XMM0 <= reg && reg <= Register.XMM0 + IcedConstants.VMM_count - 1)
 				return 6;
 
 			return -1;
@@ -556,8 +556,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				throw new InvalidOperationException();
 			}
 
-			for (int i = 0; i < (InstructionInfoConstants.VMM_last - InstructionInfoConstants.VMM_first + 1); i++)
-				toRegister.Add(VMM_prefix + i.ToString(), InstructionInfoConstants.VMM_first + i);
+			for (int i = 0; i < (IcedConstants.VMM_last - IcedConstants.VMM_first + 1); i++)
+				toRegister.Add(VMM_prefix + i.ToString(), IcedConstants.VMM_first + i);
 
 			var filename = PathUtils.GetTestTextFilename(className + ".txt", "InstructionInfo");
 			Debug.Assert(File.Exists(filename));
@@ -920,7 +920,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					case OpAccess.CondWrite:
 					case OpAccess.ReadWrite:
 					case OpAccess.ReadCondWrite:
-						if (Register.XMM0 <= reg && reg <= InstructionInfoConstants.VMM_last && !regString.StartsWith(VMM_prefix, StringComparison.OrdinalIgnoreCase))
+						if (Register.XMM0 <= reg && reg <= IcedConstants.VMM_last && !regString.StartsWith(VMM_prefix, StringComparison.OrdinalIgnoreCase))
 							throw new Exception($"Register {regString} is written ({access}) but {VMM_prefix} pseudo register should be used instead, line {lineNo} ({filename})");
 						break;
 

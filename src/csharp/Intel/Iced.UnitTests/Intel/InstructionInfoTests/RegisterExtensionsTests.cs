@@ -38,7 +38,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 		[Theory]
 		[InlineData((Register)(-1))]
-		[InlineData((Register)Iced.Intel.DecoderConstants.NumberOfRegisters)]
+		[InlineData((Register)IcedConstants.NumberOfRegisters)]
 		void GetInfo_throws_if_invalid_value(Register register) {
 			Assert.Throws<ArgumentOutOfRangeException>(() => register.GetInfo());
 			Assert.Throws<ArgumentOutOfRangeException>(() => register.GetBaseRegister());
@@ -93,7 +93,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		}
 		public static IEnumerable<object[]> VerifyRegisterProperties_Data {
 			get {
-				var res = new object[Iced.Intel.DecoderConstants.NumberOfRegisters][] {
+				var res = new object[IcedConstants.NumberOfRegisters][] {
 					new object[] { Register.None, 0, Register.None, Register.None, Register.None, 0, RegisterFlags.None },
 
 					new object[] { Register.AL, 0, Register.AL, Register.RAX, Register.EAX, 1, RegisterFlags.GPR | RegisterFlags.GPR8 },

@@ -280,7 +280,7 @@ namespace Iced.Intel {
 			readonly get => (Code)(codeFlags & (uint)CodeFlags.CodeMask);
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set {
-				if ((uint)value >= (uint)DecoderConstants.NumberOfCodeValues)
+				if ((uint)value >= (uint)IcedConstants.NumberOfCodeValues)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | (uint)value;
 			}
@@ -667,7 +667,7 @@ namespace Iced.Intel {
 			get {
 				int index = (int)Code;
 				if (IsBroadcast)
-					index += DecoderConstants.NumberOfCodeValues;
+					index += IcedConstants.NumberOfCodeValues;
 				return (MemorySize)InstructionMemorySizes.Sizes[index];
 			}
 		}

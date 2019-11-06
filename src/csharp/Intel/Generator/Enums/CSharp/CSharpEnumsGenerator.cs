@@ -29,7 +29,7 @@ using Generator.IO;
 
 namespace Generator.Enums.CSharp {
 	sealed class CSharpEnumsGenerator : EnumGenerator {
-		readonly Dictionary<EnumKind, FullEnumFileInfo> tooFullFileInfo;
+		readonly Dictionary<EnumKind, FullEnumFileInfo> toFullFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 
 		sealed class FullEnumFileInfo {
@@ -38,7 +38,7 @@ namespace Generator.Enums.CSharp {
 			public readonly string? Define;
 			public readonly string? BaseType;
 
-			public FullEnumFileInfo(string filename, string @namespace, string? define = null, bool isPublic = false, string? baseType = null) {
+			public FullEnumFileInfo(string filename, string @namespace, string? define = null, string? baseType = null) {
 				Filename = filename;
 				Namespace = @namespace;
 				Define = define;
@@ -52,32 +52,60 @@ namespace Generator.Enums.CSharp {
 			const string decoderDefine = "!NO_DECODER";
 			const string instrInfoDefine = "!NO_INSTR_INFO";
 			const string decoderOrEncoderDefine = "!NO_DECODER || !NO_ENCODER";
-			const string anyFormaterDefine = "(!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER";
 			const string ns = "Iced.Intel";
 			const string nsDecInt = "Iced.Intel.DecoderInternal";
 			const string nsInstrInfoInt = "Iced.Intel.InstructionInfoInternal";
+			const string formatterDefine = "(!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER";
+			const string gasFormatterDefine = "!NO_GAS_FORMATTER && !NO_FORMATTER";
+			const string intelFormatterDefine = "!NO_INTEL_FORMATTER && !NO_FORMATTER";
+			const string masmFormatterDefine = "!NO_MASM_FORMATTER && !NO_FORMATTER";
+			const string nasmFormatterDefine = "!NO_NASM_FORMATTER && !NO_FORMATTER";
+			const string nsFormatter = "Iced.Intel.FormatterInternal";
+			const string nsFormatterGas = "Iced.Intel.GasFormatterInternal";
+			const string nsFormatterIntel = "Iced.Intel.IntelFormatterInternal";
+			const string nsFormatterMasm = "Iced.Intel.MasmFormatterInternal";
+			const string nsFormatterNasm = "Iced.Intel.NasmFormatterInternal";
 
 			var baseDir = Path.Combine(projectDirs.CSharpDir, "Intel");
-			tooFullFileInfo = new Dictionary<EnumKind, FullEnumFileInfo>();
-			tooFullFileInfo.Add(EnumKind.Code, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.Code) + ".g.cs"), ns));
-			tooFullFileInfo.Add(EnumKind.CodeSize, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.CodeSize) + ".g.cs"), ns));
-			tooFullFileInfo.Add(EnumKind.CpuidFeature, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.CpuidFeature) + ".g.cs"), ns, instrInfoDefine));
-			tooFullFileInfo.Add(EnumKind.CpuidFeatureInternal, new FullEnumFileInfo(Path.Combine(baseDir, "InstructionInfoInternal", nameof(EnumKind.CpuidFeatureInternal) + ".g.cs"), nsInstrInfoInt, instrInfoDefine));
-			tooFullFileInfo.Add(EnumKind.DecoderOptions, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.DecoderOptions) + ".g.cs"), ns, decoderDefine, baseType: "uint"));
-			tooFullFileInfo.Add(EnumKind.EvexOpCodeHandlerKind, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.EvexOpCodeHandlerKind) + ".g.cs"), nsDecInt, decoderDefine, baseType: "byte"));
-			tooFullFileInfo.Add(EnumKind.HandlerFlags, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.HandlerFlags) + ".g.cs"), nsDecInt, decoderDefine, baseType: "uint"));
-			tooFullFileInfo.Add(EnumKind.LegacyHandlerFlags, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.LegacyHandlerFlags) + ".g.cs"), nsDecInt, decoderDefine, baseType: "uint"));
-			tooFullFileInfo.Add(EnumKind.MemorySize, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.MemorySize) + ".g.cs"), ns));
-			tooFullFileInfo.Add(EnumKind.OpCodeHandlerKind, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.OpCodeHandlerKind) + ".g.cs"), nsDecInt, decoderDefine, baseType: "byte"));
-			tooFullFileInfo.Add(EnumKind.PseudoOpsKind, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.PseudoOpsKind) + ".g.cs"), ns, anyFormaterDefine));
-			tooFullFileInfo.Add(EnumKind.Register, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.Register) + ".g.cs"), ns));
-			tooFullFileInfo.Add(EnumKind.SerializedDataKind, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.SerializedDataKind) + ".g.cs"), nsDecInt, decoderDefine, baseType: "byte"));
-			tooFullFileInfo.Add(EnumKind.TupleType, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.TupleType) + ".g.cs"), ns, decoderOrEncoderDefine));
-			tooFullFileInfo.Add(EnumKind.VexOpCodeHandlerKind, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.VexOpCodeHandlerKind) + ".g.cs"), nsDecInt, decoderDefine, baseType: "byte"));
+			toFullFileInfo = new Dictionary<EnumKind, FullEnumFileInfo>();
+			toFullFileInfo.Add(EnumKind.Code, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.Code) + ".g.cs"), ns));
+			toFullFileInfo.Add(EnumKind.CodeSize, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.CodeSize) + ".g.cs"), ns));
+			toFullFileInfo.Add(EnumKind.CpuidFeature, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.CpuidFeature) + ".g.cs"), ns, instrInfoDefine));
+			toFullFileInfo.Add(EnumKind.CpuidFeatureInternal, new FullEnumFileInfo(Path.Combine(baseDir, "InstructionInfoInternal", nameof(EnumKind.CpuidFeatureInternal) + ".g.cs"), nsInstrInfoInt, instrInfoDefine));
+			toFullFileInfo.Add(EnumKind.DecoderOptions, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.DecoderOptions) + ".g.cs"), ns, decoderDefine, baseType: "uint"));
+			toFullFileInfo.Add(EnumKind.EvexOpCodeHandlerKind, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.EvexOpCodeHandlerKind) + ".g.cs"), nsDecInt, decoderDefine, baseType: "byte"));
+			toFullFileInfo.Add(EnumKind.HandlerFlags, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.HandlerFlags) + ".g.cs"), nsDecInt, decoderDefine, baseType: "uint"));
+			toFullFileInfo.Add(EnumKind.LegacyHandlerFlags, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.LegacyHandlerFlags) + ".g.cs"), nsDecInt, decoderDefine, baseType: "uint"));
+			toFullFileInfo.Add(EnumKind.MemorySize, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.MemorySize) + ".g.cs"), ns));
+			toFullFileInfo.Add(EnumKind.OpCodeHandlerKind, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.OpCodeHandlerKind) + ".g.cs"), nsDecInt, decoderDefine, baseType: "byte"));
+			toFullFileInfo.Add(EnumKind.PseudoOpsKind, new FullEnumFileInfo(Path.Combine(baseDir, "FormatterInternal", nameof(EnumKind.PseudoOpsKind) + ".g.cs"), nsFormatter, formatterDefine));
+			toFullFileInfo.Add(EnumKind.Register, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.Register) + ".g.cs"), ns));
+			toFullFileInfo.Add(EnumKind.SerializedDataKind, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.SerializedDataKind) + ".g.cs"), nsDecInt, decoderDefine, baseType: "byte"));
+			toFullFileInfo.Add(EnumKind.TupleType, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.TupleType) + ".g.cs"), ns, decoderOrEncoderDefine));
+			toFullFileInfo.Add(EnumKind.VexOpCodeHandlerKind, new FullEnumFileInfo(Path.Combine(baseDir, "DecoderInternal", nameof(EnumKind.VexOpCodeHandlerKind) + ".g.cs"), nsDecInt, decoderDefine, baseType: "byte"));
+			toFullFileInfo.Add(EnumKind.Mnemonic, new FullEnumFileInfo(Path.Combine(baseDir, nameof(EnumKind.Mnemonic) + ".g.cs"), ns));
+			toFullFileInfo.Add(EnumKind.GasCtorKind, new FullEnumFileInfo(Path.Combine(baseDir, "GasFormatterInternal", "CtorKind.g.cs"), nsFormatterGas, gasFormatterDefine));
+			toFullFileInfo.Add(EnumKind.IntelCtorKind, new FullEnumFileInfo(Path.Combine(baseDir, "IntelFormatterInternal", "CtorKind.g.cs"), nsFormatterIntel, intelFormatterDefine));
+			toFullFileInfo.Add(EnumKind.MasmCtorKind, new FullEnumFileInfo(Path.Combine(baseDir, "MasmFormatterInternal", "CtorKind.g.cs"), nsFormatterMasm, masmFormatterDefine));
+			toFullFileInfo.Add(EnumKind.NasmCtorKind, new FullEnumFileInfo(Path.Combine(baseDir, "NasmFormatterInternal", "CtorKind.g.cs"), nsFormatterNasm, nasmFormatterDefine));
+
+			toFullFileInfo.Add(EnumKind.GasSizeOverride, new FullEnumFileInfo(Path.Combine(baseDir, "GasFormatterInternal", "SizeOverride.g.cs"), nsFormatterGas, gasFormatterDefine));
+			toFullFileInfo.Add(EnumKind.GasInstrOpInfoFlags, new FullEnumFileInfo(Path.Combine(baseDir, "GasFormatterInternal", "InstrOpInfoFlags.g.cs"), nsFormatterGas, gasFormatterDefine, "ushort"));
+
+			toFullFileInfo.Add(EnumKind.IntelSizeOverride, new FullEnumFileInfo(Path.Combine(baseDir, "IntelFormatterInternal", "SizeOverride.g.cs"), nsFormatterIntel, intelFormatterDefine));
+			toFullFileInfo.Add(EnumKind.IntelBranchSizeInfo, new FullEnumFileInfo(Path.Combine(baseDir, "IntelFormatterInternal", "BranchSizeInfo.g.cs"), nsFormatterIntel, intelFormatterDefine));
+			toFullFileInfo.Add(EnumKind.IntelInstrOpInfoFlags, new FullEnumFileInfo(Path.Combine(baseDir, "IntelFormatterInternal", "InstrOpInfoFlags.g.cs"), nsFormatterIntel, intelFormatterDefine, "ushort"));
+
+			toFullFileInfo.Add(EnumKind.MasmInstrOpInfoFlags, new FullEnumFileInfo(Path.Combine(baseDir, "MasmFormatterInternal", "InstrOpInfoFlags.g.cs"), nsFormatterMasm, masmFormatterDefine, "ushort"));
+
+			toFullFileInfo.Add(EnumKind.NasmSignExtendInfo, new FullEnumFileInfo(Path.Combine(baseDir, "NasmFormatterInternal", "SignExtendInfo.g.cs"), nsFormatterNasm, nasmFormatterDefine));
+			toFullFileInfo.Add(EnumKind.NasmSizeOverride, new FullEnumFileInfo(Path.Combine(baseDir, "NasmFormatterInternal", "SizeOverride.g.cs"), nsFormatterNasm, nasmFormatterDefine));
+			toFullFileInfo.Add(EnumKind.NasmBranchSizeInfo, new FullEnumFileInfo(Path.Combine(baseDir, "NasmFormatterInternal", "BranchSizeInfo.g.cs"), nsFormatterNasm, nasmFormatterDefine));
+			toFullFileInfo.Add(EnumKind.NasmInstrOpInfoFlags, new FullEnumFileInfo(Path.Combine(baseDir, "NasmFormatterInternal", "InstrOpInfoFlags.g.cs"), nsFormatterNasm, nasmFormatterDefine, "uint"));
 		}
 
 		public override void Generate(EnumType enumType) {
-			if (tooFullFileInfo.TryGetValue(enumType.EnumKind, out var fullFileInfo))
+			if (toFullFileInfo.TryGetValue(enumType.EnumKind, out var fullFileInfo))
 				WriteFile(fullFileInfo, enumType);
 			else
 				throw new InvalidOperationException();

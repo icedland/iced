@@ -49,7 +49,7 @@ namespace Iced.Intel {
 		OldFpu = 0x00000040,
 		/// <summary>Decode <see cref="Code.Pcommit"/></summary>
 		Pcommit = 0x00000080,
-		/// <summary>Decode 286 <c>loadall</c> ((#c:0F04)# and <c>0F05</c>)</summary>
+		/// <summary>Decode 286 <c>loadall</c> (<c>0F04</c> and <c>0F05</c>)</summary>
 		Loadall286 = 0x00000100,
 		/// <summary>Decode <see cref="Code.Loadall386"/></summary>
 		Loadall386 = 0x00000200,

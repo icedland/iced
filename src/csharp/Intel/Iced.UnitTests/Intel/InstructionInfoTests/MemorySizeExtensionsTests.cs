@@ -38,7 +38,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 		[Theory]
 		[InlineData((MemorySize)(-1))]
-		[InlineData((MemorySize)Iced.Intel.DecoderConstants.NumberOfMemorySizes)]
+		[InlineData((MemorySize)IcedConstants.NumberOfMemorySizes)]
 		void GetInfo_throws_if_invalid_value(MemorySize memorySize) {
 			Assert.Throws<ArgumentOutOfRangeException>(() => memorySize.GetInfo());
 			Assert.Throws<ArgumentOutOfRangeException>(() => memorySize.GetSize());
@@ -83,7 +83,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		}
 		public static IEnumerable<object[]> VerifyMemorySizeProperties_Data {
 			get {
-				var res = new object[Iced.Intel.DecoderConstants.NumberOfMemorySizes][] {
+				var res = new object[IcedConstants.NumberOfMemorySizes][] {
 					new object[] { MemorySize.Unknown, 0, 0, MemorySize.Unknown, 1, MemorySizeFlags.None },
 					new object[] { MemorySize.UInt8, 1, 1, MemorySize.UInt8, 1, MemorySizeFlags.None },
 					new object[] { MemorySize.UInt16, 2, 2, MemorySize.UInt16, 1, MemorySizeFlags.None },

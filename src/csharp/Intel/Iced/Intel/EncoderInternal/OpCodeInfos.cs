@@ -30,7 +30,7 @@ namespace Iced.Intel.EncoderInternal {
 		public static readonly OpCodeInfo[] Infos = CreateInfos();
 
 		static OpCodeInfo[] CreateInfos() {
-			var infos = new OpCodeInfo[DecoderConstants.NumberOfCodeValues];
+			var infos = new OpCodeInfo[IcedConstants.NumberOfCodeValues];
 			var data = OpCodeHandlers.GetData();
 			Debug.Assert(data.Length == infos.Length * 3);
 			var sb = new StringBuilder();
