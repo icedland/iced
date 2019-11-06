@@ -23,7 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_DECODER
 using System;
-using Iced.Intel.DecoderInternal;
+using Generator.Enums;
 
 namespace Generator.Decoder {
 	sealed class EvexDecoderTableSerializer : DecoderTableSerializer {
@@ -34,10 +34,10 @@ namespace Generator.Decoder {
 			OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX,
 			OpCodeHandlersTables_EVEX.TwoByteHandlers_0FXX,
 		};
-		static readonly object handlerReferenceValue = EvexOpCodeHandlerKind.HandlerReference;
-		static readonly object arrayReferenceValue = EvexOpCodeHandlerKind.ArrayReference;
-		static readonly object invalid2Value = EvexOpCodeHandlerKind.Invalid2;
-		static readonly object dupValue = EvexOpCodeHandlerKind.Dup;
+		static readonly object handlerReferenceValue = EvexOpCodeHandlerKindEnum.Instance["HandlerReference"];
+		static readonly object arrayReferenceValue = EvexOpCodeHandlerKindEnum.Instance["ArrayReference"];
+		static readonly object invalid2Value = EvexOpCodeHandlerKindEnum.Instance["Invalid2"];
+		static readonly object dupValue = EvexOpCodeHandlerKindEnum.Instance["Dup"];
 		protected override object GetNullValue() => throw new InvalidOperationException();
 		protected override object GetHandlerReferenceValue() => handlerReferenceValue;
 		protected override object GetArrayReferenceValue() => arrayReferenceValue;

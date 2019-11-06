@@ -21,21 +21,16 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER
-using System;
-using Generator.Enums;
+namespace Generator.Enums {
+	static class SerializedDataKindEnum {
+		const string? documentation = null;
 
-namespace Generator.Decoder {
-	abstract class VexCommonDecoderTableSerializer : DecoderTableSerializer {
-		static readonly object handlerReferenceValue = VexOpCodeHandlerKindEnum.Instance["HandlerReference"];
-		static readonly object arrayReferenceValue = VexOpCodeHandlerKindEnum.Instance["ArrayReference"];
-		static readonly object invalid2Value = VexOpCodeHandlerKindEnum.Instance["Invalid2"];
-		static readonly object dupValue = VexOpCodeHandlerKindEnum.Instance["Dup"];
-		protected override object GetNullValue() => throw new InvalidOperationException();
-		protected override object GetHandlerReferenceValue() => handlerReferenceValue;
-		protected override object GetArrayReferenceValue() => arrayReferenceValue;
-		protected override object GetInvalid2Value() => invalid2Value;
-		protected override object GetDupValue() => dupValue;
+		static EnumValue[] GetValues() =>
+			new EnumValue[] {
+				new EnumValue("HandlerReference"),
+				new EnumValue("ArrayReference"),
+			};
+
+		public static readonly EnumType Instance = new EnumType(EnumKind.SerializedDataKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }
-#endif

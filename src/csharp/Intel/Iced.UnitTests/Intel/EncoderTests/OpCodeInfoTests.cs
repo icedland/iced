@@ -141,50 +141,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			}
 			Assert.Equal(string.Empty, sb.ToString());
 		}
-
-		[Fact]
-		void Verify_Code_cs_opcode_string_comments() {
-			var toCode = new Dictionary<string, Code>(StringComparer.Ordinal);
-			foreach (var code in (Code[])Enum.GetValues(typeof(Code)))
-				toCode.Add(code.ToString(), code);
-
-			var filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..", "..", "..", "..", "Iced", "Intel", "Code.cs");
-			Assert.True(File.Exists(filename), $"File '{filename}' does not exist");
-			bool started = false;
-			int tested = 0;
-			foreach (var line in File.ReadLines(filename)) {
-				if (!started) {
-					started = line.Contains("public enum Code");
-					continue;
-				}
-
-				int i = 0;
-				while (i < line.Length && char.IsWhiteSpace(line[i]))
-					i++;
-				if (i >= line.Length)
-					continue;
-				if (line[i] == '#' || line[i] == '/')
-					continue;
-				if (line[i] == '}')
-					break;
-				int j = line.IndexOf(',', i);
-				Assert.True(j > i);
-				var codeStr = line.Substring(i, j - i);
-				var code = toCode[codeStr];
-				const string comment = "// ";
-				int ci = line.IndexOf(comment);
-				Assert.True(ci > j);
-				var opCodeStr = line.Substring(ci + comment.Length);
-#pragma warning disable xUnit2006 // Do not use invalid string equality check
-				// Show the full string without ellipses by using Equal<string>() instead of Equal()
-				Assert.Equal<string>("<" + opCodeStr.Trim() + ">", "<" + opCodeStr + ">");
-				var expectedOpCodeStr = code.ToOpCode().ToOpCodeString();
-				Assert.Equal<string>(expectedOpCodeStr, opCodeStr);
-#pragma warning restore xUnit2006 // Do not use invalid string equality check
-				tested++;
-			}
-			Assert.Equal(Iced.Intel.DecoderConstants.NumberOfCodeValues, tested);
-		}
 	}
 }
 #endif

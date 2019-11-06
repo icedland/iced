@@ -21,21 +21,32 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER
-using System;
-using Generator.Enums;
+namespace Generator.Enums {
+	static class PseudoOpsKindEnum {
+		const string? documentation = null;
 
-namespace Generator.Decoder {
-	abstract class VexCommonDecoderTableSerializer : DecoderTableSerializer {
-		static readonly object handlerReferenceValue = VexOpCodeHandlerKindEnum.Instance["HandlerReference"];
-		static readonly object arrayReferenceValue = VexOpCodeHandlerKindEnum.Instance["ArrayReference"];
-		static readonly object invalid2Value = VexOpCodeHandlerKindEnum.Instance["Invalid2"];
-		static readonly object dupValue = VexOpCodeHandlerKindEnum.Instance["Dup"];
-		protected override object GetNullValue() => throw new InvalidOperationException();
-		protected override object GetHandlerReferenceValue() => handlerReferenceValue;
-		protected override object GetArrayReferenceValue() => arrayReferenceValue;
-		protected override object GetInvalid2Value() => invalid2Value;
-		protected override object GetDupValue() => dupValue;
+		static EnumValue[] GetValues() =>
+			new EnumValue[] {
+				new EnumValue("cmpps"),
+				new EnumValue("vcmpps"),
+				new EnumValue("cmppd"),
+				new EnumValue("vcmppd"),
+				new EnumValue("cmpss"),
+				new EnumValue("vcmpss"),
+				new EnumValue("cmpsd"),
+				new EnumValue("vcmpsd"),
+				new EnumValue("pclmulqdq"),
+				new EnumValue("vpclmulqdq"),
+				new EnumValue("vpcomb"),
+				new EnumValue("vpcomw"),
+				new EnumValue("vpcomd"),
+				new EnumValue("vpcomq"),
+				new EnumValue("vpcomub"),
+				new EnumValue("vpcomuw"),
+				new EnumValue("vpcomud"),
+				new EnumValue("vpcomuq"),
+			};
+
+		public static readonly EnumType Instance = new EnumType(EnumKind.PseudoOpsKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }
-#endif

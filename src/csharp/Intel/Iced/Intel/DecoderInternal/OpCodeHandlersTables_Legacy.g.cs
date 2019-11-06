@@ -1354,7 +1354,7 @@ namespace Iced.Intel.DecoderInternal {
 						0x33,// Ev_3b
 							0x92, 0x06,// Jmpe_rm16
 						0x02,// Invalid
-					0x80, 0x20,// IA64
+					0x80, 0x20,// Jmpe
 
 				// 7 = 0x07
 				0x02,// Invalid
@@ -5126,7 +5126,7 @@ namespace Iced.Intel.DecoderInternal {
 							0x50,// Gv_Ev_3a
 								0xAD, 0x10,// Popcnt_r16_rm16
 							0x02,// Invalid
-					0x80, 0x20,// IA64
+					0x80, 0x20,// Jmpe
 
 				// 185 = 0xB9
 				0x50,// Gv_Ev_3a

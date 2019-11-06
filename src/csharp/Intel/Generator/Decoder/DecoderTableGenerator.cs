@@ -27,9 +27,9 @@ using Generator.IO;
 
 namespace Generator.Decoder {
 	sealed class DecoderTableGenerator {
-		readonly string icedProjectDir;
+		readonly ProjectDirs projectDirs;
 
-		public DecoderTableGenerator(string icedProjectDir) => this.icedProjectDir = icedProjectDir;
+		public DecoderTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
 
 		public void Generate() {
 			var serializers = new DecoderTableSerializer[] {
@@ -40,7 +40,7 @@ namespace Generator.Decoder {
 			};
 
 			foreach (var serializer in serializers) {
-				var filename = Path.Combine(icedProjectDir, "Intel", "DecoderInternal", serializer.ClassName + ".g.cs");
+				var filename = Path.Combine(projectDirs.CSharpDir, "Intel", "DecoderInternal", serializer.ClassName + ".g.cs");
 				using (var writer = new FileWriter(FileUtils.OpenWrite(filename)))
 					serializer.Serialize(writer);
 			}

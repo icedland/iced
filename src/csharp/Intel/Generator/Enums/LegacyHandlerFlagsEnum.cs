@@ -21,20 +21,22 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER
-using System;
+namespace Generator.Enums {
+	static class LegacyHandlerFlagsEnum {
+		const string? documentation = null;
 
-namespace Iced.Intel.DecoderInternal {
-	[Flags]
-	enum LegacyHandlerFlags {
-		HandlerReg				= 0x00000001,
-		HandlerMem				= 0x00000002,
-		Handler66Reg			= 0x00000004,
-		Handler66Mem			= 0x00000008,
-		HandlerF3Reg			= 0x00000010,
-		HandlerF3Mem			= 0x00000020,
-		HandlerF2Reg			= 0x00000040,
-		HandlerF2Mem			= 0x00000080,
+		static EnumValue[] GetValues() =>
+			new EnumValue[] {
+				new EnumValue("HandlerReg"),
+				new EnumValue("HandlerMem"),
+				new EnumValue("Handler66Reg"),
+				new EnumValue("Handler66Mem"),
+				new EnumValue("HandlerF3Reg"),
+				new EnumValue("HandlerF3Mem"),
+				new EnumValue("HandlerF2Reg"),
+				new EnumValue("HandlerF2Mem"),
+			};
+
+		public static readonly EnumType Instance = new EnumType(EnumKind.LegacyHandlerFlags, documentation, GetValues(), EnumTypeFlags.Flags);
 	}
 }
-#endif

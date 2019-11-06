@@ -25,30 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 
 namespace Iced.Intel {
-	enum PseudoOpsKind {
-		cmpps,
-		vcmpps,
-		cmppd,
-		vcmppd,
-		cmpss,
-		vcmpss,
-		cmpsd,
-		vcmpsd,
-		pclmulqdq,
-		vpclmulqdq,
-		vpcomb,
-		vpcomw,
-		vpcomd,
-		vpcomq,
-		vpcomub,
-		vpcomuw,
-		vpcomud,
-		vpcomuq,
-	}
-
 	static class FormatterConstants {
-		public const string InvalidMnemonicName = "(bad)";
-
 		public static string[] GetPseudoOps(PseudoOpsKind kind) {
 			switch (kind) {
 			case PseudoOpsKind.cmpps:		return cmpps_pseudo_ops;

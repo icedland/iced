@@ -34,11 +34,11 @@ namespace Generator.Formatters.Intel {
 		public override void Initialize(StringsTable stringsTable) =>
 			Initialize(stringsTable, CtorInfos.Infos);
 
-		public override string GetFilename(string icedProjectDir) =>
-			Path.Combine(icedProjectDir, "Intel", "IntelFormatterInternal", "InstrInfos.g.cs");
+		public override string GetFilename(ProjectDirs projectDirs) =>
+			Path.Combine(projectDirs.CSharpDir, "Intel", "IntelFormatterInternal", "InstrInfos.g.cs");
 
 		public override void Serialize(FileWriter writer, StringsTable stringsTable) {
-			writer.WriteHeader();
+			writer.WriteCSharpHeader();
 			writer.WriteLine("#if !NO_INTEL_FORMATTER && !NO_FORMATTER");
 			writer.WriteLine("namespace Iced.Intel.IntelFormatterInternal {");
 			writer.Indent();

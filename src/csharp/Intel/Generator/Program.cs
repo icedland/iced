@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace Generator {
@@ -30,11 +31,12 @@ namespace Generator {
 		Decoder,
 		Formatter,
 		CpuidFeature,
+		Enums,
 	}
 
 	sealed class CommandLineOptions {
 		public readonly List<Command> Commands = new List<Command>();
-		public string? IcedProjectDir = null;
+		public ProjectDirs? ProjectDirs = null;
 	}
 
 	static class Program {
@@ -45,28 +47,31 @@ namespace Generator {
 					return 1;
 				}
 
-				if (options.IcedProjectDir is null)
-					options.IcedProjectDir = GetIcedProjectDir();
+				options.ProjectDirs = GetProjectDirs();
 
 				foreach (var command in options.Commands) {
 					switch (command) {
 #if !NO_DECODER
 					case Command.Decoder:
-						new Decoder.DecoderTableGenerator(options.IcedProjectDir).Generate();
+						new Decoder.DecoderTableGenerator(options.ProjectDirs).Generate();
 						break;
 #endif
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 					case Command.Formatter:
-						new Formatters.FormatterTableGenerator(options.IcedProjectDir).Generate();
+						new Formatters.FormatterTableGenerator(options.ProjectDirs).Generate();
 						break;
 #endif
 
 #if !NO_INSTR_INFO
 					case Command.CpuidFeature:
-						new InstructionInfo.CpuidFeatureTableGenerator(options.IcedProjectDir).Generate();
+						new InstructionInfo.CpuidFeatureTableGenerator(options.ProjectDirs).Generate();
 						break;
 #endif
+
+					case Command.Enums:
+						new Enums.EnumsGenerator(options.ProjectDirs).Generate();
+						break;
 
 					default:
 						throw new InvalidOperationException();
@@ -76,18 +81,16 @@ namespace Generator {
 			}
 			catch (Exception ex) {
 				Console.WriteLine(ex.ToString());
+				Debug.Fail("Excetion:\n\n" + ex.ToString());
 				return 1;
 			}
 		}
 
-		static string GetIcedProjectDir() {
-			var dir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(typeof(Program).Assembly.Location)))));
-			if (dir is null || !File.Exists(Path.Combine(dir, "Iced.sln")))
+		static ProjectDirs GetProjectDirs() {
+			var dir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(typeof(Program).Assembly.Location)))))));
+			if (dir is null || !File.Exists(Path.Combine(dir, "csharp", "Iced.sln")))
 				throw new InvalidOperationException();
-			dir = Path.Combine(dir, "Iced");
-			if (!File.Exists(Path.Combine(dir, "Iced.csproj")))
-				throw new InvalidOperationException();
-			return dir;
+			return new ProjectDirs(dir);
 		}
 
 		static void Usage() {
@@ -96,6 +99,7 @@ command:
     --decoder           Generate decoder tables
     --formatter         Generate formatter tables
     --cpuidfeature      Generate cpuid features table
+    --enums             Generate enums
 ");
 		}
 
@@ -119,6 +123,11 @@ command:
 
 				case "--cpuidfeature":
 					if (!TryAddCommand(options, Command.CpuidFeature))
+						return false;
+					break;
+
+				case "--enums":
+					if (!TryAddCommand(options, Command.Enums))
 						return false;
 					break;
 

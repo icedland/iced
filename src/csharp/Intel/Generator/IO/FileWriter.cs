@@ -75,7 +75,7 @@ namespace Generator.IO {
 			}
 		}
 
-		public void WriteHeader() {
+		public void WriteCSharpHeader() {
 			WriteLine("/*");
 			WriteLine("Copyright (C) 2018-2019 de4dot@gmail.com");
 			WriteLine();

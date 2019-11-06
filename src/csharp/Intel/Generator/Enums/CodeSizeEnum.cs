@@ -21,11 +21,18 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER
-namespace Iced.Intel.DecoderInternal {
-	enum SerializedDataKind : byte {
-		HandlerReference,
-		ArrayReference,
+namespace Generator.Enums {
+	static class CodeSizeEnum {
+		const string documentation = "Default code size when an instruction was decoded";
+
+		static EnumValue[] GetValues() =>
+			new EnumValue[] {
+				new EnumValue("Unknown", "Unknown size"),
+				new EnumValue("Code16", "16-bit code"),
+				new EnumValue("Code32", "32-bit code"),
+				new EnumValue("Code64", "64-bit code"),
+			};
+
+		public static readonly EnumType Instance = new EnumType(EnumKind.CodeSize, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }
-#endif

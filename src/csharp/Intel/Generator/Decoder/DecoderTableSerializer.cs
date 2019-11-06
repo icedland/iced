@@ -25,9 +25,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Generator.Enums;
 using Generator.IO;
-using Iced.Intel;
-using Iced.Intel.DecoderInternal;
 
 namespace Generator.Decoder {
 	abstract class DecoderTableSerializer {
@@ -59,7 +58,7 @@ namespace Generator.Decoder {
 		protected abstract string[] GetTableIndexNames();
 
 		public void Serialize(FileWriter writer) {
-			writer.WriteHeader();
+			writer.WriteCSharpHeader();
 			writer.WriteLine("#if !NO_DECODER");
 			writer.WriteLine("namespace Iced.Intel.DecoderInternal {");
 			writer.Indent();
@@ -104,17 +103,19 @@ namespace Generator.Decoder {
 
 		static bool IsHandler(object?[] handlers) {
 			var data = handlers[0];
-			return data is OpCodeHandlerKind ||
-				data is VexOpCodeHandlerKind ||
-				data is EvexOpCodeHandlerKind;
+			return data is IEnumValue enumValue && (
+				enumValue.EnumType.EnumKind == EnumKind.OpCodeHandlerKind ||
+				enumValue.EnumType.EnumKind == EnumKind.VexOpCodeHandlerKind ||
+				enumValue.EnumType.EnumKind == EnumKind.EvexOpCodeHandlerKind);
 		}
 
 		static bool IsInvalid(object?[] handler) {
 			var data = handler[0];
 			bool isInvalid =
-				(data is OpCodeHandlerKind kind && kind == OpCodeHandlerKind.Invalid) ||
-				(data is VexOpCodeHandlerKind vexKind && vexKind == VexOpCodeHandlerKind.Invalid) ||
-				(data is EvexOpCodeHandlerKind evexKind && evexKind == EvexOpCodeHandlerKind.Invalid);
+				data is IEnumValue enumValue &&
+				((enumValue.EnumType.EnumKind == EnumKind.OpCodeHandlerKind && enumValue == OpCodeHandlerKindEnum.Instance["Invalid"]) ||
+				(enumValue.EnumType.EnumKind == EnumKind.VexOpCodeHandlerKind && enumValue == VexOpCodeHandlerKindEnum.Instance["Invalid"]) ||
+				(enumValue.EnumType.EnumKind == EnumKind.EvexOpCodeHandlerKind && enumValue == EvexOpCodeHandlerKindEnum.Instance["Invalid"]));
 			if (isInvalid && handler.Length != 1)
 				throw new InvalidOperationException();
 			return isInvalid;
@@ -123,12 +124,12 @@ namespace Generator.Decoder {
 		void SerializeHandlers(FileWriter writer, object?[] handlers, bool writeKind = false) {
 			if (IsHandler(handlers)) {
 				if (writeKind)
-					Write(writer, SerializedDataKind.HandlerReference);
+					Write(writer, SerializedDataKindEnum.Instance["HandlerReference"]);
 				SerializeHandler(writer, handlers);
 			}
 			else {
 				if (writeKind) {
-					Write(writer, SerializedDataKind.ArrayReference);
+					Write(writer, SerializedDataKindEnum.Instance["ArrayReference"]);
 					Write(writer, (uint)handlers.Length);
 				}
 				bool writeIndexComment = handlers.Length > 1;
@@ -147,11 +148,11 @@ namespace Generator.Decoder {
 			}
 		}
 
-		static void Write(FileWriter writer, SerializedDataKind kind) {
-			if ((uint)kind > byte.MaxValue)
+		static void Write(FileWriter writer, EnumValue enumValue) {
+			if ((uint)enumValue.Value > byte.MaxValue)
 				throw new InvalidOperationException();
-			writer.WriteByte((byte)kind);
-			writer.WriteCommentLine(kind.ToString());
+			writer.WriteByte((byte)enumValue.Value);
+			writer.WriteCommentLine(enumValue.ToStringValue);
 		}
 
 		static void Write(FileWriter writer, uint value) {
@@ -219,197 +220,161 @@ namespace Generator.Decoder {
 		protected abstract object GetInvalid2Value();
 		protected abstract object GetDupValue();
 
+		static readonly Dictionary<IEnumValue, (int codeIndex, int codeLen)> enumValueInfo = new Dictionary<IEnumValue, (int codeIndex, int codeLen)> {
+			{ OpCodeHandlerKindEnum.Instance["Ap"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["B_BM"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["B_Ev"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["BM_B"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["C_R_3a"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["DX_eAX"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["eAX_DX"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_3b"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Gv_3b"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Gv_32_64"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Gv_REX"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_P"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_REXW"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_VX"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Eb_REX"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Ev_3b"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Ev_32_64"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Ev_REX"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Ma"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Mp_2"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_N"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_N_Ib_REX"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["IbReg2"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Jdisp"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Jx"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["M_2"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["M_REXW_2"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["M_REXW_4"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Mf_2a"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Mv_Gv_REXW"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["P_Ev"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["P_Ev_Ib"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["PushOpSizeReg_4b"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["R_C_3a"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Reg_Ib2"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Reg_Xv2"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Rv_32_64"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["RvMw_Gw"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Simple4"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["VX_Ev"], (1, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Yv_Reg2"], (1, 2) },
+
+			{ OpCodeHandlerKindEnum.Instance["Ed_V_Ib"], (2, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Ev_Ib_REX"], (2, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_RX"], (2, 2) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_W"], (2, 2) },
+			{ OpCodeHandlerKindEnum.Instance["GvM_VX_Ib"], (2, 2) },
+			{ OpCodeHandlerKindEnum.Instance["V_Ev"], (2, 2) },
+			{ OpCodeHandlerKindEnum.Instance["VWIb_3"], (2, 2) },
+			{ OpCodeHandlerKindEnum.Instance["VX_E_Ib"], (2, 2) },
+
+			{ OpCodeHandlerKindEnum.Instance["BranchIw"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["BranchSimple"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ep"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_3a"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_4"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_CL"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Gv_3a"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Gv_4"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Gv_CL"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Gv_Ib"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Ib_3"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Ib_4"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Ib2_3"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Ib2_4"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Iz_3"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Iz_4"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev_Sw"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ev1"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Evj"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Evw"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ew"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gdq_Ev"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Eb"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Ev_3a"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Ev_Ib"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Ev_Iz"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Ev2"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Ev3"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Ew"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_M"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_M_as"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Mp_3"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Gv_Mv"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Iw_Ib"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Jb"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Jz"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ms"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Mv_Gv"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Ov_Reg"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["PushEv"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["PushIb2"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["PushIz"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["PushOpSizeReg_4a"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["PushSimple2"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Reg_Iz"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Reg_Ov"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Reg_Xv"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Reg_Yv"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Rv"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Simple2_3a"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Simple2Iw"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Simple3"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Simple5"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Simple5_ModRM_as"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Sw_Ev"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Xv_Yv"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Yv_Reg"], (1, 3) },
+			{ OpCodeHandlerKindEnum.Instance["Yv_Xv"], (1, 3) },
+
+			{ OpCodeHandlerKindEnum.Instance["PushSimpleReg"], (2, 3) },
+
+			{ VexOpCodeHandlerKindEnum.Instance["Ev_VX"], (1, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["Gv_Ev_Gv"], (1, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["Gv_Ev_Ib"], (1, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["Gv_Ev_Id"], (1, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["Gv_Gv_Ev"], (1, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["Hv_Ed_Id"], (1, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["Hv_Ev"], (1, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["RdRq"], (1, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["VX_Ev"], (1, 2) },
+
+			{ VexOpCodeHandlerKindEnum.Instance["Ed_V_Ib"], (2, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["Gv_GPR_Ib"], (2, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["Gv_RX"], (2, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["Gv_W"], (2, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["GvM_VX_Ib"], (2, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["VHEv"], (2, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["VHEvIb"], (2, 2) },
+			{ VexOpCodeHandlerKindEnum.Instance["VWIb_3"], (2, 2) },
+
+			{ EvexOpCodeHandlerKindEnum.Instance["Ev_VX"], (1, 2) },
+			{ EvexOpCodeHandlerKindEnum.Instance["VX_Ev"], (1, 2) },
+
+			{ EvexOpCodeHandlerKindEnum.Instance["Ed_V_Ib"], (2, 2) },
+			{ EvexOpCodeHandlerKindEnum.Instance["Ev_VX_Ib"], (2, 2) },
+			{ EvexOpCodeHandlerKindEnum.Instance["Gv_W_er"], (2, 2) },
+			{ EvexOpCodeHandlerKindEnum.Instance["GvM_VX_Ib"], (2, 2) },
+			{ EvexOpCodeHandlerKindEnum.Instance["V_H_Ev_er"], (2, 2) },
+			{ EvexOpCodeHandlerKindEnum.Instance["V_H_Ev_Ib"], (2, 2) },
+		};
+
 		void SerializeHandler(FileWriter writer, object?[] handler) {
 			int codeIndex = -1, codeLen = -1;
-			switch (handler[0]) {
-			case OpCodeHandlerKind kind:
-				switch (kind) {
-				case OpCodeHandlerKind.Ap:
-				case OpCodeHandlerKind.B_BM:
-				case OpCodeHandlerKind.B_Ev:
-				case OpCodeHandlerKind.BM_B:
-				case OpCodeHandlerKind.C_R_3a:
-				case OpCodeHandlerKind.DX_eAX:
-				case OpCodeHandlerKind.eAX_DX:
-				case OpCodeHandlerKind.Ev_3b:
-				case OpCodeHandlerKind.Ev_Gv_3b:
-				case OpCodeHandlerKind.Ev_Gv_32_64:
-				case OpCodeHandlerKind.Ev_Gv_REX:
-				case OpCodeHandlerKind.Ev_P:
-				case OpCodeHandlerKind.Ev_REXW:
-				case OpCodeHandlerKind.Ev_VX:
-				case OpCodeHandlerKind.Gv_Eb_REX:
-				case OpCodeHandlerKind.Gv_Ev_3b:
-				case OpCodeHandlerKind.Gv_Ev_32_64:
-				case OpCodeHandlerKind.Gv_Ev_REX:
-				case OpCodeHandlerKind.Gv_Ma:
-				case OpCodeHandlerKind.Gv_Mp_2:
-				case OpCodeHandlerKind.Gv_N:
-				case OpCodeHandlerKind.Gv_N_Ib_REX:
-				case OpCodeHandlerKind.IbReg2:
-				case OpCodeHandlerKind.Jdisp:
-				case OpCodeHandlerKind.Jx:
-				case OpCodeHandlerKind.M_2:
-				case OpCodeHandlerKind.M_REXW_2:
-				case OpCodeHandlerKind.M_REXW_4:
-				case OpCodeHandlerKind.Mf_2a:
-				case OpCodeHandlerKind.Mv_Gv_REXW:
-				case OpCodeHandlerKind.P_Ev:
-				case OpCodeHandlerKind.P_Ev_Ib:
-				case OpCodeHandlerKind.PushOpSizeReg_4b:
-				case OpCodeHandlerKind.R_C_3a:
-				case OpCodeHandlerKind.Reg_Ib2:
-				case OpCodeHandlerKind.Reg_Xv2:
-				case OpCodeHandlerKind.Rv_32_64:
-				case OpCodeHandlerKind.RvMw_Gw:
-				case OpCodeHandlerKind.Simple4:
-				case OpCodeHandlerKind.VX_Ev:
-				case OpCodeHandlerKind.Yv_Reg2:
-					codeIndex = 1;
-					codeLen = 2;
-					break;
-
-				case OpCodeHandlerKind.Ed_V_Ib:
-				case OpCodeHandlerKind.Gv_Ev_Ib_REX:
-				case OpCodeHandlerKind.Gv_RX:
-				case OpCodeHandlerKind.Gv_W:
-				case OpCodeHandlerKind.GvM_VX_Ib:
-				case OpCodeHandlerKind.V_Ev:
-				case OpCodeHandlerKind.VWIb_3:
-				case OpCodeHandlerKind.VX_E_Ib:
-					codeIndex = 2;
-					codeLen = 2;
-					break;
-
-				case OpCodeHandlerKind.BranchIw:
-				case OpCodeHandlerKind.BranchSimple:
-				case OpCodeHandlerKind.Ep:
-				case OpCodeHandlerKind.Ev_3a:
-				case OpCodeHandlerKind.Ev_4:
-				case OpCodeHandlerKind.Ev_CL:
-				case OpCodeHandlerKind.Ev_Gv_3a:
-				case OpCodeHandlerKind.Ev_Gv_4:
-				case OpCodeHandlerKind.Ev_Gv_CL:
-				case OpCodeHandlerKind.Ev_Gv_Ib:
-				case OpCodeHandlerKind.Ev_Ib_3:
-				case OpCodeHandlerKind.Ev_Ib_4:
-				case OpCodeHandlerKind.Ev_Ib2_3:
-				case OpCodeHandlerKind.Ev_Ib2_4:
-				case OpCodeHandlerKind.Ev_Iz_3:
-				case OpCodeHandlerKind.Ev_Iz_4:
-				case OpCodeHandlerKind.Ev_Sw:
-				case OpCodeHandlerKind.Ev1:
-				case OpCodeHandlerKind.Evj:
-				case OpCodeHandlerKind.Evw:
-				case OpCodeHandlerKind.Ew:
-				case OpCodeHandlerKind.Gdq_Ev:
-				case OpCodeHandlerKind.Gv_Eb:
-				case OpCodeHandlerKind.Gv_Ev_3a:
-				case OpCodeHandlerKind.Gv_Ev_Ib:
-				case OpCodeHandlerKind.Gv_Ev_Iz:
-				case OpCodeHandlerKind.Gv_Ev2:
-				case OpCodeHandlerKind.Gv_Ev3:
-				case OpCodeHandlerKind.Gv_Ew:
-				case OpCodeHandlerKind.Gv_M:
-				case OpCodeHandlerKind.Gv_M_as:
-				case OpCodeHandlerKind.Gv_Mp_3:
-				case OpCodeHandlerKind.Gv_Mv:
-				case OpCodeHandlerKind.Iw_Ib:
-				case OpCodeHandlerKind.Jb:
-				case OpCodeHandlerKind.Jz:
-				case OpCodeHandlerKind.Ms:
-				case OpCodeHandlerKind.Mv_Gv:
-				case OpCodeHandlerKind.Ov_Reg:
-				case OpCodeHandlerKind.PushEv:
-				case OpCodeHandlerKind.PushIb2:
-				case OpCodeHandlerKind.PushIz:
-				case OpCodeHandlerKind.PushOpSizeReg_4a:
-				case OpCodeHandlerKind.PushSimple2:
-				case OpCodeHandlerKind.Reg_Iz:
-				case OpCodeHandlerKind.Reg_Ov:
-				case OpCodeHandlerKind.Reg_Xv:
-				case OpCodeHandlerKind.Reg_Yv:
-				case OpCodeHandlerKind.Rv:
-				case OpCodeHandlerKind.Simple2_3a:
-				case OpCodeHandlerKind.Simple2Iw:
-				case OpCodeHandlerKind.Simple3:
-				case OpCodeHandlerKind.Simple5:
-				case OpCodeHandlerKind.Simple5_ModRM_as:
-				case OpCodeHandlerKind.Sw_Ev:
-				case OpCodeHandlerKind.Xv_Yv:
-				case OpCodeHandlerKind.Yv_Reg:
-				case OpCodeHandlerKind.Yv_Xv:
-					codeIndex = 1;
-					codeLen = 3;
-					break;
-
-				case OpCodeHandlerKind.PushSimpleReg:
-					codeIndex = 2;
-					codeLen = 3;
-					break;
-				}
-				break;
-
-			case VexOpCodeHandlerKind kind:
-				switch (kind) {
-				case VexOpCodeHandlerKind.Ev_VX:
-				case VexOpCodeHandlerKind.Gv_Ev_Gv:
-				case VexOpCodeHandlerKind.Gv_Ev_Ib:
-				case VexOpCodeHandlerKind.Gv_Ev_Id:
-				case VexOpCodeHandlerKind.Gv_Gv_Ev:
-				case VexOpCodeHandlerKind.Hv_Ed_Id:
-				case VexOpCodeHandlerKind.Hv_Ev:
-				case VexOpCodeHandlerKind.RdRq:
-				case VexOpCodeHandlerKind.VX_Ev:
-					codeIndex = 1;
-					codeLen = 2;
-					break;
-
-				case VexOpCodeHandlerKind.Ed_V_Ib:
-				case VexOpCodeHandlerKind.Gv_GPR_Ib:
-				case VexOpCodeHandlerKind.Gv_RX:
-				case VexOpCodeHandlerKind.Gv_W:
-				case VexOpCodeHandlerKind.GvM_VX_Ib:
-				case VexOpCodeHandlerKind.VHEv:
-				case VexOpCodeHandlerKind.VHEvIb:
-				case VexOpCodeHandlerKind.VWIb_3:
-					codeIndex = 2;
-					codeLen = 2;
-					break;
-				}
-				break;
-
-			case EvexOpCodeHandlerKind kind:
-				switch (kind) {
-				case EvexOpCodeHandlerKind.Ev_VX:
-				case EvexOpCodeHandlerKind.VX_Ev:
-					codeIndex = 1;
-					codeLen = 2;
-					break;
-
-				case EvexOpCodeHandlerKind.Ed_V_Ib:
-				case EvexOpCodeHandlerKind.Ev_VX_Ib:
-				case EvexOpCodeHandlerKind.Gv_W_er:
-				case EvexOpCodeHandlerKind.GvM_VX_Ib:
-				case EvexOpCodeHandlerKind.V_H_Ev_er:
-				case EvexOpCodeHandlerKind.V_H_Ev_Ib:
-					codeIndex = 2;
-					codeLen = 2;
-					break;
-				}
-				break;
-
-			default:
-				throw new InvalidOperationException();
-			}
+			if (handler[0] is IEnumValue enumValue && enumValueInfo.TryGetValue(enumValue, out var info))
+				(codeIndex, codeLen) = info;
 
 			SerializeData(writer, handler[0]);
 			writer.Indent();
 			for (int i = 1; i < handler.Length; i++) {
 				if (codeIndex >= 0 && (codeIndex < i && i < codeIndex + codeLen)) {
-					var code1 = (Code)handler[codeIndex]!;
-					var code2 = (Code)handler[i]!;
-					if (code1 + (i - codeIndex) != code2)
+					var code1 = (EnumValue)handler[codeIndex]!;
+					var code2 = (EnumValue)handler[i]!;
+					if (code1.Value + (uint)(i - codeIndex) != code2.Value)
 						throw new InvalidOperationException();
 					continue;
 				}
@@ -444,59 +409,63 @@ namespace Generator.Decoder {
 				SerializeHandlers(writer, moreHandlers);
 				break;
 
-			case OpCodeHandlerKind kind:
-				if ((uint)kind > byte.MaxValue)
+			case IEnumValue enumValue:
+				switch (enumValue.EnumType.EnumKind) {
+				case EnumKind.Code:
+					writer.WriteCompressedUInt32(enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue);
+					break;
+				case EnumKind.Register:
+					if ((uint)enumValue.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					writer.WriteByte((byte)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue);
+					break;
+				case EnumKind.DecoderOptions:
+					writer.WriteCompressedUInt32((uint)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue);
+					break;
+				case EnumKind.HandlerFlags:
+					writer.WriteCompressedUInt32((uint)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue);
+					break;
+				case EnumKind.TupleType:
+					if ((uint)enumValue.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					writer.WriteByte((byte)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue);
+					break;
+				case EnumKind.OpCodeHandlerKind:
+					if ((uint)enumValue.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					writer.WriteByte((byte)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue);
+					break;
+				case EnumKind.VexOpCodeHandlerKind:
+					if ((uint)enumValue.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					writer.WriteByte((byte)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue);
+					break;
+				case EnumKind.EvexOpCodeHandlerKind:
+					if ((uint)enumValue.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					writer.WriteByte((byte)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue);
+					break;
+				case EnumKind.LegacyHandlerFlags:
+					writer.WriteCompressedUInt32((uint)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue);
+					break;
+				case EnumKind.SerializedDataKind:
+				case EnumKind.CodeSize:
+				case EnumKind.CpuidFeature:
+				case EnumKind.CpuidFeatureInternal:
+				case EnumKind.MemorySize:
+				case EnumKind.PseudoOpsKind:
+				default:
 					throw new InvalidOperationException();
-				writer.WriteByte((byte)kind);
-				writer.WriteCommentLine(kind.ToString());
-				break;
-
-			case VexOpCodeHandlerKind kind:
-				if ((uint)kind > byte.MaxValue)
-					throw new InvalidOperationException();
-				writer.WriteByte((byte)kind);
-				writer.WriteCommentLine(kind.ToString());
-				break;
-
-			case EvexOpCodeHandlerKind kind:
-				if ((uint)kind > byte.MaxValue)
-					throw new InvalidOperationException();
-				writer.WriteByte((byte)kind);
-				writer.WriteCommentLine(kind.ToString());
-				break;
-
-			case Code code:
-				writer.WriteCompressedUInt32((uint)code);
-				writer.WriteCommentLine(code.ToString());
-				break;
-
-			case Register register:
-				if ((uint)register > byte.MaxValue)
-					throw new InvalidOperationException();
-				writer.WriteByte((byte)register);
-				writer.WriteCommentLine(register.ToString());
-				break;
-
-			case DecoderOptions options:
-				writer.WriteCompressedUInt32((uint)options);
-				writer.WriteCommentLine(options.ToString());
-				break;
-
-			case HandlerFlags flags:
-				writer.WriteCompressedUInt32((uint)flags);
-				writer.WriteCommentLine(ToString(sb, flags));
-				break;
-
-			case LegacyHandlerFlags flags:
-				writer.WriteCompressedUInt32((uint)flags);
-				writer.WriteCommentLine(flags.ToString());
-				break;
-
-			case TupleType tupleType:
-				if ((uint)tupleType > byte.MaxValue)
-					throw new InvalidOperationException();
-				writer.WriteByte((byte)tupleType);
-				writer.WriteCommentLine(tupleType.ToString());
+				}
 				break;
 
 			case string name:
@@ -541,44 +510,6 @@ namespace Generator.Decoder {
 			default:
 				throw new InvalidOperationException();
 			}
-		}
-
-		static string ToString(StringBuilder sb, HandlerFlags flags) {
-			sb.Clear();
-
-			if ((flags & HandlerFlags.Xacquire) != 0) {
-				flags &= ~HandlerFlags.Xacquire;
-				Append(sb, nameof(HandlerFlags.Xacquire));
-			}
-
-			if ((flags & HandlerFlags.Xrelease) != 0) {
-				flags &= ~HandlerFlags.Xrelease;
-				Append(sb, nameof(HandlerFlags.Xrelease));
-			}
-
-			if ((flags & HandlerFlags.XacquireReleaseNoLock) != 0) {
-				flags &= ~HandlerFlags.XacquireReleaseNoLock;
-				Append(sb, nameof(HandlerFlags.XacquireReleaseNoLock));
-			}
-
-			if ((flags & HandlerFlags.Lock) != 0) {
-				flags &= ~HandlerFlags.Lock;
-				Append(sb, nameof(HandlerFlags.Lock));
-			}
-
-			if (flags != 0)
-				throw new InvalidOperationException();
-
-			if (sb.Length == 0)
-				Append(sb, nameof(HandlerFlags.None));
-
-			return sb.ToString();
-		}
-
-		static void Append(StringBuilder sb, string name) {
-			if (sb.Length > 0)
-				sb.Append(", ");
-			sb.Append(name);
 		}
 
 		Info GetInfo(string name) {

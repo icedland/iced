@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_DECODER
-using Iced.Intel.DecoderInternal;
+using Generator.Enums;
 
 namespace Generator.Decoder {
 	sealed class LegacyDecoderTableSerializer : DecoderTableSerializer {
@@ -31,11 +31,11 @@ namespace Generator.Decoder {
 		protected override string[] GetTableIndexNames() => new string[] {
 			OpCodeHandlersTables_Legacy.OneByteHandlers,
 		};
-		static readonly object nullValue = OpCodeHandlerKind.Null;
-		static readonly object handlerReferenceValue = OpCodeHandlerKind.HandlerReference;
-		static readonly object arrayReferenceValue = OpCodeHandlerKind.ArrayReference;
-		static readonly object invalid2Value = OpCodeHandlerKind.Invalid2;
-		static readonly object dupValue = OpCodeHandlerKind.Dup;
+		static readonly object nullValue = OpCodeHandlerKindEnum.Instance["Null"];
+		static readonly object handlerReferenceValue = OpCodeHandlerKindEnum.Instance["HandlerReference"];
+		static readonly object arrayReferenceValue = OpCodeHandlerKindEnum.Instance["ArrayReference"];
+		static readonly object invalid2Value = OpCodeHandlerKindEnum.Instance["Invalid2"];
+		static readonly object dupValue = OpCodeHandlerKindEnum.Instance["Dup"];
 		protected override object GetNullValue() => nullValue;
 		protected override object GetHandlerReferenceValue() => handlerReferenceValue;
 		protected override object GetArrayReferenceValue() => arrayReferenceValue;

@@ -27,9 +27,9 @@ using Generator.IO;
 
 namespace Generator.Formatters {
 	sealed class FormatterTableGenerator {
-		readonly string icedProjectDir;
+		readonly ProjectDirs projectDirs;
 
-		public FormatterTableGenerator(string icedProjectDir) => this.icedProjectDir = icedProjectDir;
+		public FormatterTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
 
 		public void Generate() {
 			var serializers = new FormatterTableSerializer[] {
@@ -57,11 +57,11 @@ namespace Generator.Formatters {
 
 			stringsTable.Freeze();
 
-			using (var writer = new FileWriter(FileUtils.OpenWrite(Path.Combine(icedProjectDir, "Intel", "FormatterInternal", className + ".g.cs"))))
+			using (var writer = new FileWriter(FileUtils.OpenWrite(Path.Combine(projectDirs.CSharpDir, "Intel", "FormatterInternal", className + ".g.cs"))))
 				stringsTable.Serialize(writer);
 
 			foreach (var serializer in serializers) {
-				using (var writer = new FileWriter(FileUtils.OpenWrite(serializer.GetFilename(icedProjectDir))))
+				using (var writer = new FileWriter(FileUtils.OpenWrite(serializer.GetFilename(projectDirs))))
 					serializer.Serialize(writer, stringsTable);
 			}
 		}

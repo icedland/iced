@@ -21,29 +21,21 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Iced.Intel {
-	/// <summary>
-	/// Default code size when an instruction was decoded
-	/// </summary>
-	public enum CodeSize {
-		/// <summary>
-		/// Unknown size
-		/// </summary>
-		Unknown				= 0,
+using System;
+using System.IO;
 
-		/// <summary>
-		/// 16-bit code
-		/// </summary>
-		Code16				= 1,
+namespace Generator {
+	sealed class ProjectDirs {
+		public readonly string CSharpDir;
 
-		/// <summary>
-		/// 32-bit code
-		/// </summary>
-		Code32				= 2,
+		public ProjectDirs(string baseDir) {
+			CSharpDir = GetAndVerify(Path.Combine(baseDir, "csharp", "Intel", "Iced"));
+		}
 
-		/// <summary>
-		/// 64-bit code
-		/// </summary>
-		Code64				= 3,
+		static string GetAndVerify(string path) {
+			if (!Directory.Exists(path))
+				throw new InvalidOperationException($"Path {path} doesn't exist");
+			return path;
+		}
 	}
 }

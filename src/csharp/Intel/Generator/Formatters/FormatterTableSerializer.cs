@@ -29,7 +29,7 @@ using Iced.Intel;
 namespace Generator.Formatters {
 	abstract class FormatterTableSerializer {
 		public abstract void Initialize(StringsTable stringsTable);
-		public abstract string GetFilename(string icedProjectDir);
+		public abstract string GetFilename(ProjectDirs projectDirs);
 		public abstract void Serialize(FileWriter writer, StringsTable stringsTable);
 
 		protected void Initialize(StringsTable stringsTable, object[][] infos) {
