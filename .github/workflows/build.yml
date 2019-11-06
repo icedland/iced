@@ -18,7 +18,7 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory nuget_files > $null
-          Copy-Item src\Intel\csharp\Iced\bin\Release\*.*nupkg nuget_files
+          Copy-Item src\csharp\Intel\Iced\bin\Release\*.*nupkg nuget_files
 
       - uses: actions/upload-artifact@v1
         with:
@@ -28,14 +28,14 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: coverage.info
-          path: src/Intel/csharp/Iced.UnitTests/coverage.info
+          path: src/csharp/Intel/Iced.UnitTests/coverage.info
 
       - name: Upload coverage report
         shell: bash
         run: |
           curl https://codecov.io/bash -o codecov
           chmod +x codecov
-          ./codecov -f src/Intel/csharp/Iced.UnitTests/coverage.info
+          ./codecov -f src/csharp/Intel/Iced.UnitTests/coverage.info
         env:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
 
@@ -44,7 +44,7 @@ jobs:
         shell: pwsh
         run: |
           Invoke-WebRequest -Uri https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -UseBasicParsing -OutFile nuget.exe
-          Get-ChildItem src\Intel\csharp\Iced\bin\Release\Iced.*.nupkg | ForEach-Object { .\nuget.exe push $_.FullName -ApiKey ${{secrets.NUGET_APIKEY}} -NonInteractive -Source https://api.nuget.org/v3/index.json }
+          Get-ChildItem src\csharp\Intel\Iced\bin\Release\Iced.*.nupkg | ForEach-Object { .\nuget.exe push $_.FullName -ApiKey ${{secrets.NUGET_APIKEY}} -NonInteractive -Source https://api.nuget.org/v3/index.json }
 
   # Make sure it builds on Linux too
   build-ubuntu:
