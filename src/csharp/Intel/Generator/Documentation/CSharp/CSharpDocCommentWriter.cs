@@ -59,13 +59,28 @@ namespace Generator.Documentation.CSharp {
 		public CSharpDocCommentWriter() =>
 			sb = new StringBuilder();
 
+		string GetStringAndReset() {
+			var s = sb.ToString();
+			sb.Clear();
+			return s;
+		}
+
 		public void Write(FileWriter writer, string? documentation, string enumName) {
 			if (string.IsNullOrEmpty(documentation))
 				return;
-			sb.Clear();
+			if (sb.Length != 0)
+				throw new InvalidOperationException();
 			sb.Append("/// <summary>");
 			foreach (var info in GetTokens(enumName, documentation)) {
 				switch (info.kind) {
+				case TokenKind.NewParagraph:
+					if (!string.IsNullOrEmpty(info.value) && !string.IsNullOrEmpty(info.value2))
+						throw new InvalidOperationException();
+					sb.Append("<br/>");
+					writer.WriteLine(GetStringAndReset());
+					writer.WriteLine("/// <br/>");
+					sb.Append("/// ");
+					break;
 				case TokenKind.String:
 					sb.Append(Escape(info.value));
 					if (!string.IsNullOrEmpty(info.value2))
@@ -108,7 +123,7 @@ namespace Generator.Documentation.CSharp {
 				}
 			}
 			sb.Append("</summary>");
-			writer.WriteLine(sb.ToString());
+			writer.WriteLine(GetStringAndReset());
 		}
 
 		static string Escape(string value) => SecurityElement.Escape(value) ?? throw new InvalidOperationException();

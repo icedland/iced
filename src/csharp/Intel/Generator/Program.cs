@@ -48,6 +48,7 @@ namespace Generator {
 				}
 
 				options.ProjectDirs = GetProjectDirs();
+				Enums.CodeEnum.AddComments(options.ProjectDirs.UnitTestsDir);
 
 				foreach (var command in options.Commands) {
 					switch (command) {

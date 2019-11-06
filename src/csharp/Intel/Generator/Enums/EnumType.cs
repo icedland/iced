@@ -147,7 +147,7 @@ namespace Generator.Enums {
 		public uint Value { get; set; }
 		public string Name { get; }
 		public string ToStringValue => Name;
-		public string? Documentation { get; }
+		public string? Documentation { get; internal set; }
 
 		public EnumValue(string name) {
 			EnumType = null!;

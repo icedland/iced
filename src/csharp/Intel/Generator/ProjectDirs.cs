@@ -26,15 +26,18 @@ using System.IO;
 
 namespace Generator {
 	sealed class ProjectDirs {
+		public readonly string UnitTestsDir;
 		public readonly string CSharpDir;
 
 		public ProjectDirs(string baseDir) {
-			CSharpDir = GetAndVerify(Path.Combine(baseDir, "csharp", "Intel", "Iced"));
+			UnitTestsDir = GetAndVerifyPath(baseDir, "UnitTests", "Intel");
+			CSharpDir = GetAndVerifyPath(baseDir, "csharp", "Intel", "Iced");
 		}
 
-		static string GetAndVerify(string path) {
+		static string GetAndVerifyPath(params string[] paths) {
+			var path = Path.Combine(paths);
 			if (!Directory.Exists(path))
-				throw new InvalidOperationException($"Path {path} doesn't exist");
+				throw new InvalidOperationException($"Directory {path} doesn't exist");
 			return path;
 		}
 	}

@@ -27,6 +27,7 @@ using System.Collections.Generic;
 namespace Generator.Documentation {
 	abstract class DocCommentWriter {
 		protected enum TokenKind {
+			NewParagraph,
 			String,
 			Code,
 			Type,
@@ -38,9 +39,12 @@ namespace Generator.Documentation {
 			while (index < comment.Length) {
 				const string pattern = "#(";
 				const string patternEnd = ")#";
+				const char newParagraph = 'p';
 				const char codeChar = 'c';
 				const char typeChar = 't';
 				const char referenceChar = 'r';
+				// char (eg. 'c') + ':'
+				const int kindLen = 1 + 1;
 
 				int nextIndex = comment.IndexOf(pattern, index);
 				if (nextIndex < 0)
@@ -52,17 +56,23 @@ namespace Generator.Documentation {
 				if (index == comment.Length)
 					break;
 				index += pattern.Length;
-				if (index + 2 > comment.Length)
+				if (index + kindLen > comment.Length)
 					throw new InvalidOperationException($"Invalid comment: {comment}");
 				var type = comment[index];
 				if (comment[index + 1] != ':')
 					throw new InvalidOperationException($"Invalid comment: {comment}");
-				nextIndex = comment.IndexOf(patternEnd, index + 2);
+				nextIndex = comment.IndexOf(patternEnd, index + kindLen);
 				if (nextIndex < 0)
 					throw new InvalidOperationException($"Invalid comment: {comment}");
 
-				var data = comment.Substring(index + 2, nextIndex - index - 2);
+				var data = comment.Substring(index + kindLen, nextIndex - (index + kindLen));
 				switch (type) {
+				case newParagraph:
+					if (!string.IsNullOrEmpty(data))
+						throw new InvalidOperationException($"Invalid comment: {comment}");
+					yield return (TokenKind.NewParagraph, data, string.Empty);
+					break;
+
 				case codeChar:
 					yield return (TokenKind.Code, data, string.Empty);
 					break;

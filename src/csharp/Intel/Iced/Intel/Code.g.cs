@@ -29,8401 +29,16797 @@ namespace Iced.Intel {
 	public enum Code {
 		/// <summary>It&apos;s an invalid instruction, eg. it&apos;s a new unknown instruction, garbage or there&apos;s not enough bytes to decode the instruction etc.</summary>
 		INVALID,
-		/// <summary>00 /r</summary>
+		/// <summary><c>00 /r</c><br/>
+		/// <br/>
+		/// <c>ADD r/m8, r8</c></summary>
 		Add_rm8_r8,
-		/// <summary>o16 01 /r</summary>
+		/// <summary><c>o16 01 /r</c><br/>
+		/// <br/>
+		/// <c>ADD r/m16, r16</c></summary>
 		Add_rm16_r16,
-		/// <summary>o32 01 /r</summary>
+		/// <summary><c>o32 01 /r</c><br/>
+		/// <br/>
+		/// <c>ADD r/m32, r32</c></summary>
 		Add_rm32_r32,
-		/// <summary>REX.W 01 /r</summary>
+		/// <summary><c>REX.W 01 /r</c><br/>
+		/// <br/>
+		/// <c>ADD r/m64, r64</c></summary>
 		Add_rm64_r64,
-		/// <summary>02 /r</summary>
+		/// <summary><c>02 /r</c><br/>
+		/// <br/>
+		/// <c>ADD r8, r/m8</c></summary>
 		Add_r8_rm8,
-		/// <summary>o16 03 /r</summary>
+		/// <summary><c>o16 03 /r</c><br/>
+		/// <br/>
+		/// <c>ADD r16, r/m16</c></summary>
 		Add_r16_rm16,
-		/// <summary>o32 03 /r</summary>
+		/// <summary><c>o32 03 /r</c><br/>
+		/// <br/>
+		/// <c>ADD r32, r/m32</c></summary>
 		Add_r32_rm32,
-		/// <summary>REX.W 03 /r</summary>
+		/// <summary><c>REX.W 03 /r</c><br/>
+		/// <br/>
+		/// <c>ADD r64, r/m64</c></summary>
 		Add_r64_rm64,
-		/// <summary>04 ib</summary>
+		/// <summary><c>04 ib</c><br/>
+		/// <br/>
+		/// <c>ADD AL, imm8</c></summary>
 		Add_AL_imm8,
-		/// <summary>o16 05 iw</summary>
+		/// <summary><c>o16 05 iw</c><br/>
+		/// <br/>
+		/// <c>ADD AX, imm16</c></summary>
 		Add_AX_imm16,
-		/// <summary>o32 05 id</summary>
+		/// <summary><c>o32 05 id</c><br/>
+		/// <br/>
+		/// <c>ADD EAX, imm32</c></summary>
 		Add_EAX_imm32,
-		/// <summary>REX.W 05 id</summary>
+		/// <summary><c>REX.W 05 id</c><br/>
+		/// <br/>
+		/// <c>ADD RAX, imm32</c></summary>
 		Add_RAX_imm32,
-		/// <summary>o16 06</summary>
+		/// <summary><c>o16 06</c><br/>
+		/// <br/>
+		/// <c>PUSH ES</c></summary>
 		Pushw_ES,
-		/// <summary>o32 06</summary>
+		/// <summary><c>o32 06</c><br/>
+		/// <br/>
+		/// <c>PUSH ES</c></summary>
 		Pushd_ES,
-		/// <summary>o16 07</summary>
+		/// <summary><c>o16 07</c><br/>
+		/// <br/>
+		/// <c>POP ES</c></summary>
 		Popw_ES,
-		/// <summary>o32 07</summary>
+		/// <summary><c>o32 07</c><br/>
+		/// <br/>
+		/// <c>POP ES</c></summary>
 		Popd_ES,
-		/// <summary>08 /r</summary>
+		/// <summary><c>08 /r</c><br/>
+		/// <br/>
+		/// <c>OR r/m8, r8</c></summary>
 		Or_rm8_r8,
-		/// <summary>o16 09 /r</summary>
+		/// <summary><c>o16 09 /r</c><br/>
+		/// <br/>
+		/// <c>OR r/m16, r16</c></summary>
 		Or_rm16_r16,
-		/// <summary>o32 09 /r</summary>
+		/// <summary><c>o32 09 /r</c><br/>
+		/// <br/>
+		/// <c>OR r/m32, r32</c></summary>
 		Or_rm32_r32,
-		/// <summary>REX.W 09 /r</summary>
+		/// <summary><c>REX.W 09 /r</c><br/>
+		/// <br/>
+		/// <c>OR r/m64, r64</c></summary>
 		Or_rm64_r64,
-		/// <summary>0A /r</summary>
+		/// <summary><c>0A /r</c><br/>
+		/// <br/>
+		/// <c>OR r8, r/m8</c></summary>
 		Or_r8_rm8,
-		/// <summary>o16 0B /r</summary>
+		/// <summary><c>o16 0B /r</c><br/>
+		/// <br/>
+		/// <c>OR r16, r/m16</c></summary>
 		Or_r16_rm16,
-		/// <summary>o32 0B /r</summary>
+		/// <summary><c>o32 0B /r</c><br/>
+		/// <br/>
+		/// <c>OR r32, r/m32</c></summary>
 		Or_r32_rm32,
-		/// <summary>REX.W 0B /r</summary>
+		/// <summary><c>REX.W 0B /r</c><br/>
+		/// <br/>
+		/// <c>OR r64, r/m64</c></summary>
 		Or_r64_rm64,
-		/// <summary>0C ib</summary>
+		/// <summary><c>0C ib</c><br/>
+		/// <br/>
+		/// <c>OR AL, imm8</c></summary>
 		Or_AL_imm8,
-		/// <summary>o16 0D iw</summary>
+		/// <summary><c>o16 0D iw</c><br/>
+		/// <br/>
+		/// <c>OR AX, imm16</c></summary>
 		Or_AX_imm16,
-		/// <summary>o32 0D id</summary>
+		/// <summary><c>o32 0D id</c><br/>
+		/// <br/>
+		/// <c>OR EAX, imm32</c></summary>
 		Or_EAX_imm32,
-		/// <summary>REX.W 0D id</summary>
+		/// <summary><c>REX.W 0D id</c><br/>
+		/// <br/>
+		/// <c>OR RAX, imm32</c></summary>
 		Or_RAX_imm32,
-		/// <summary>o16 0E</summary>
+		/// <summary><c>o16 0E</c><br/>
+		/// <br/>
+		/// <c>PUSH CS</c></summary>
 		Pushw_CS,
-		/// <summary>o32 0E</summary>
+		/// <summary><c>o32 0E</c><br/>
+		/// <br/>
+		/// <c>PUSH CS</c></summary>
 		Pushd_CS,
-		/// <summary>o16 0F</summary>
+		/// <summary><c>o16 0F</c><br/>
+		/// <br/>
+		/// <c>POP CS</c></summary>
 		Popw_CS,
-		/// <summary>10 /r</summary>
+		/// <summary><c>10 /r</c><br/>
+		/// <br/>
+		/// <c>ADC r/m8, r8</c></summary>
 		Adc_rm8_r8,
-		/// <summary>o16 11 /r</summary>
+		/// <summary><c>o16 11 /r</c><br/>
+		/// <br/>
+		/// <c>ADC r/m16, r16</c></summary>
 		Adc_rm16_r16,
-		/// <summary>o32 11 /r</summary>
+		/// <summary><c>o32 11 /r</c><br/>
+		/// <br/>
+		/// <c>ADC r/m32, r32</c></summary>
 		Adc_rm32_r32,
-		/// <summary>REX.W 11 /r</summary>
+		/// <summary><c>REX.W 11 /r</c><br/>
+		/// <br/>
+		/// <c>ADC r/m64, r64</c></summary>
 		Adc_rm64_r64,
-		/// <summary>12 /r</summary>
+		/// <summary><c>12 /r</c><br/>
+		/// <br/>
+		/// <c>ADC r8, r/m8</c></summary>
 		Adc_r8_rm8,
-		/// <summary>o16 13 /r</summary>
+		/// <summary><c>o16 13 /r</c><br/>
+		/// <br/>
+		/// <c>ADC r16, r/m16</c></summary>
 		Adc_r16_rm16,
-		/// <summary>o32 13 /r</summary>
+		/// <summary><c>o32 13 /r</c><br/>
+		/// <br/>
+		/// <c>ADC r32, r/m32</c></summary>
 		Adc_r32_rm32,
-		/// <summary>REX.W 13 /r</summary>
+		/// <summary><c>REX.W 13 /r</c><br/>
+		/// <br/>
+		/// <c>ADC r64, r/m64</c></summary>
 		Adc_r64_rm64,
-		/// <summary>14 ib</summary>
+		/// <summary><c>14 ib</c><br/>
+		/// <br/>
+		/// <c>ADC AL, imm8</c></summary>
 		Adc_AL_imm8,
-		/// <summary>o16 15 iw</summary>
+		/// <summary><c>o16 15 iw</c><br/>
+		/// <br/>
+		/// <c>ADC AX, imm16</c></summary>
 		Adc_AX_imm16,
-		/// <summary>o32 15 id</summary>
+		/// <summary><c>o32 15 id</c><br/>
+		/// <br/>
+		/// <c>ADC EAX, imm32</c></summary>
 		Adc_EAX_imm32,
-		/// <summary>REX.W 15 id</summary>
+		/// <summary><c>REX.W 15 id</c><br/>
+		/// <br/>
+		/// <c>ADC RAX, imm32</c></summary>
 		Adc_RAX_imm32,
-		/// <summary>o16 16</summary>
+		/// <summary><c>o16 16</c><br/>
+		/// <br/>
+		/// <c>PUSH SS</c></summary>
 		Pushw_SS,
-		/// <summary>o32 16</summary>
+		/// <summary><c>o32 16</c><br/>
+		/// <br/>
+		/// <c>PUSH SS</c></summary>
 		Pushd_SS,
-		/// <summary>o16 17</summary>
+		/// <summary><c>o16 17</c><br/>
+		/// <br/>
+		/// <c>POP SS</c></summary>
 		Popw_SS,
-		/// <summary>o32 17</summary>
+		/// <summary><c>o32 17</c><br/>
+		/// <br/>
+		/// <c>POP SS</c></summary>
 		Popd_SS,
-		/// <summary>18 /r</summary>
+		/// <summary><c>18 /r</c><br/>
+		/// <br/>
+		/// <c>SBB r/m8, r8</c></summary>
 		Sbb_rm8_r8,
-		/// <summary>o16 19 /r</summary>
+		/// <summary><c>o16 19 /r</c><br/>
+		/// <br/>
+		/// <c>SBB r/m16, r16</c></summary>
 		Sbb_rm16_r16,
-		/// <summary>o32 19 /r</summary>
+		/// <summary><c>o32 19 /r</c><br/>
+		/// <br/>
+		/// <c>SBB r/m32, r32</c></summary>
 		Sbb_rm32_r32,
-		/// <summary>REX.W 19 /r</summary>
+		/// <summary><c>REX.W 19 /r</c><br/>
+		/// <br/>
+		/// <c>SBB r/m64, r64</c></summary>
 		Sbb_rm64_r64,
-		/// <summary>1A /r</summary>
+		/// <summary><c>1A /r</c><br/>
+		/// <br/>
+		/// <c>SBB r8, r/m8</c></summary>
 		Sbb_r8_rm8,
-		/// <summary>o16 1B /r</summary>
+		/// <summary><c>o16 1B /r</c><br/>
+		/// <br/>
+		/// <c>SBB r16, r/m16</c></summary>
 		Sbb_r16_rm16,
-		/// <summary>o32 1B /r</summary>
+		/// <summary><c>o32 1B /r</c><br/>
+		/// <br/>
+		/// <c>SBB r32, r/m32</c></summary>
 		Sbb_r32_rm32,
-		/// <summary>REX.W 1B /r</summary>
+		/// <summary><c>REX.W 1B /r</c><br/>
+		/// <br/>
+		/// <c>SBB r64, r/m64</c></summary>
 		Sbb_r64_rm64,
-		/// <summary>1C ib</summary>
+		/// <summary><c>1C ib</c><br/>
+		/// <br/>
+		/// <c>SBB AL, imm8</c></summary>
 		Sbb_AL_imm8,
-		/// <summary>o16 1D iw</summary>
+		/// <summary><c>o16 1D iw</c><br/>
+		/// <br/>
+		/// <c>SBB AX, imm16</c></summary>
 		Sbb_AX_imm16,
-		/// <summary>o32 1D id</summary>
+		/// <summary><c>o32 1D id</c><br/>
+		/// <br/>
+		/// <c>SBB EAX, imm32</c></summary>
 		Sbb_EAX_imm32,
-		/// <summary>REX.W 1D id</summary>
+		/// <summary><c>REX.W 1D id</c><br/>
+		/// <br/>
+		/// <c>SBB RAX, imm32</c></summary>
 		Sbb_RAX_imm32,
-		/// <summary>o16 1E</summary>
+		/// <summary><c>o16 1E</c><br/>
+		/// <br/>
+		/// <c>PUSH DS</c></summary>
 		Pushw_DS,
-		/// <summary>o32 1E</summary>
+		/// <summary><c>o32 1E</c><br/>
+		/// <br/>
+		/// <c>PUSH DS</c></summary>
 		Pushd_DS,
-		/// <summary>o16 1F</summary>
+		/// <summary><c>o16 1F</c><br/>
+		/// <br/>
+		/// <c>POP DS</c></summary>
 		Popw_DS,
-		/// <summary>o32 1F</summary>
+		/// <summary><c>o32 1F</c><br/>
+		/// <br/>
+		/// <c>POP DS</c></summary>
 		Popd_DS,
-		/// <summary>20 /r</summary>
+		/// <summary><c>20 /r</c><br/>
+		/// <br/>
+		/// <c>AND r/m8, r8</c></summary>
 		And_rm8_r8,
-		/// <summary>o16 21 /r</summary>
+		/// <summary><c>o16 21 /r</c><br/>
+		/// <br/>
+		/// <c>AND r/m16, r16</c></summary>
 		And_rm16_r16,
-		/// <summary>o32 21 /r</summary>
+		/// <summary><c>o32 21 /r</c><br/>
+		/// <br/>
+		/// <c>AND r/m32, r32</c></summary>
 		And_rm32_r32,
-		/// <summary>REX.W 21 /r</summary>
+		/// <summary><c>REX.W 21 /r</c><br/>
+		/// <br/>
+		/// <c>AND r/m64, r64</c></summary>
 		And_rm64_r64,
-		/// <summary>22 /r</summary>
+		/// <summary><c>22 /r</c><br/>
+		/// <br/>
+		/// <c>AND r8, r/m8</c></summary>
 		And_r8_rm8,
-		/// <summary>o16 23 /r</summary>
+		/// <summary><c>o16 23 /r</c><br/>
+		/// <br/>
+		/// <c>AND r16, r/m16</c></summary>
 		And_r16_rm16,
-		/// <summary>o32 23 /r</summary>
+		/// <summary><c>o32 23 /r</c><br/>
+		/// <br/>
+		/// <c>AND r32, r/m32</c></summary>
 		And_r32_rm32,
-		/// <summary>REX.W 23 /r</summary>
+		/// <summary><c>REX.W 23 /r</c><br/>
+		/// <br/>
+		/// <c>AND r64, r/m64</c></summary>
 		And_r64_rm64,
-		/// <summary>24 ib</summary>
+		/// <summary><c>24 ib</c><br/>
+		/// <br/>
+		/// <c>AND AL, imm8</c></summary>
 		And_AL_imm8,
-		/// <summary>o16 25 iw</summary>
+		/// <summary><c>o16 25 iw</c><br/>
+		/// <br/>
+		/// <c>AND AX, imm16</c></summary>
 		And_AX_imm16,
-		/// <summary>o32 25 id</summary>
+		/// <summary><c>o32 25 id</c><br/>
+		/// <br/>
+		/// <c>AND EAX, imm32</c></summary>
 		And_EAX_imm32,
-		/// <summary>REX.W 25 id</summary>
+		/// <summary><c>REX.W 25 id</c><br/>
+		/// <br/>
+		/// <c>AND RAX, imm32</c></summary>
 		And_RAX_imm32,
-		/// <summary>27</summary>
+		/// <summary><c>27</c><br/>
+		/// <br/>
+		/// <c>DAA</c></summary>
 		Daa,
-		/// <summary>28 /r</summary>
+		/// <summary><c>28 /r</c><br/>
+		/// <br/>
+		/// <c>SUB r/m8, r8</c></summary>
 		Sub_rm8_r8,
-		/// <summary>o16 29 /r</summary>
+		/// <summary><c>o16 29 /r</c><br/>
+		/// <br/>
+		/// <c>SUB r/m16, r16</c></summary>
 		Sub_rm16_r16,
-		/// <summary>o32 29 /r</summary>
+		/// <summary><c>o32 29 /r</c><br/>
+		/// <br/>
+		/// <c>SUB r/m32, r32</c></summary>
 		Sub_rm32_r32,
-		/// <summary>REX.W 29 /r</summary>
+		/// <summary><c>REX.W 29 /r</c><br/>
+		/// <br/>
+		/// <c>SUB r/m64, r64</c></summary>
 		Sub_rm64_r64,
-		/// <summary>2A /r</summary>
+		/// <summary><c>2A /r</c><br/>
+		/// <br/>
+		/// <c>SUB r8, r/m8</c></summary>
 		Sub_r8_rm8,
-		/// <summary>o16 2B /r</summary>
+		/// <summary><c>o16 2B /r</c><br/>
+		/// <br/>
+		/// <c>SUB r16, r/m16</c></summary>
 		Sub_r16_rm16,
-		/// <summary>o32 2B /r</summary>
+		/// <summary><c>o32 2B /r</c><br/>
+		/// <br/>
+		/// <c>SUB r32, r/m32</c></summary>
 		Sub_r32_rm32,
-		/// <summary>REX.W 2B /r</summary>
+		/// <summary><c>REX.W 2B /r</c><br/>
+		/// <br/>
+		/// <c>SUB r64, r/m64</c></summary>
 		Sub_r64_rm64,
-		/// <summary>2C ib</summary>
+		/// <summary><c>2C ib</c><br/>
+		/// <br/>
+		/// <c>SUB AL, imm8</c></summary>
 		Sub_AL_imm8,
-		/// <summary>o16 2D iw</summary>
+		/// <summary><c>o16 2D iw</c><br/>
+		/// <br/>
+		/// <c>SUB AX, imm16</c></summary>
 		Sub_AX_imm16,
-		/// <summary>o32 2D id</summary>
+		/// <summary><c>o32 2D id</c><br/>
+		/// <br/>
+		/// <c>SUB EAX, imm32</c></summary>
 		Sub_EAX_imm32,
-		/// <summary>REX.W 2D id</summary>
+		/// <summary><c>REX.W 2D id</c><br/>
+		/// <br/>
+		/// <c>SUB RAX, imm32</c></summary>
 		Sub_RAX_imm32,
-		/// <summary>2F</summary>
+		/// <summary><c>2F</c><br/>
+		/// <br/>
+		/// <c>DAS</c></summary>
 		Das,
-		/// <summary>30 /r</summary>
+		/// <summary><c>30 /r</c><br/>
+		/// <br/>
+		/// <c>XOR r/m8, r8</c></summary>
 		Xor_rm8_r8,
-		/// <summary>o16 31 /r</summary>
+		/// <summary><c>o16 31 /r</c><br/>
+		/// <br/>
+		/// <c>XOR r/m16, r16</c></summary>
 		Xor_rm16_r16,
-		/// <summary>o32 31 /r</summary>
+		/// <summary><c>o32 31 /r</c><br/>
+		/// <br/>
+		/// <c>XOR r/m32, r32</c></summary>
 		Xor_rm32_r32,
-		/// <summary>REX.W 31 /r</summary>
+		/// <summary><c>REX.W 31 /r</c><br/>
+		/// <br/>
+		/// <c>XOR r/m64, r64</c></summary>
 		Xor_rm64_r64,
-		/// <summary>32 /r</summary>
+		/// <summary><c>32 /r</c><br/>
+		/// <br/>
+		/// <c>XOR r8, r/m8</c></summary>
 		Xor_r8_rm8,
-		/// <summary>o16 33 /r</summary>
+		/// <summary><c>o16 33 /r</c><br/>
+		/// <br/>
+		/// <c>XOR r16, r/m16</c></summary>
 		Xor_r16_rm16,
-		/// <summary>o32 33 /r</summary>
+		/// <summary><c>o32 33 /r</c><br/>
+		/// <br/>
+		/// <c>XOR r32, r/m32</c></summary>
 		Xor_r32_rm32,
-		/// <summary>REX.W 33 /r</summary>
+		/// <summary><c>REX.W 33 /r</c><br/>
+		/// <br/>
+		/// <c>XOR r64, r/m64</c></summary>
 		Xor_r64_rm64,
-		/// <summary>34 ib</summary>
+		/// <summary><c>34 ib</c><br/>
+		/// <br/>
+		/// <c>XOR AL, imm8</c></summary>
 		Xor_AL_imm8,
-		/// <summary>o16 35 iw</summary>
+		/// <summary><c>o16 35 iw</c><br/>
+		/// <br/>
+		/// <c>XOR AX, imm16</c></summary>
 		Xor_AX_imm16,
-		/// <summary>o32 35 id</summary>
+		/// <summary><c>o32 35 id</c><br/>
+		/// <br/>
+		/// <c>XOR EAX, imm32</c></summary>
 		Xor_EAX_imm32,
-		/// <summary>REX.W 35 id</summary>
+		/// <summary><c>REX.W 35 id</c><br/>
+		/// <br/>
+		/// <c>XOR RAX, imm32</c></summary>
 		Xor_RAX_imm32,
-		/// <summary>37</summary>
+		/// <summary><c>37</c><br/>
+		/// <br/>
+		/// <c>AAA</c></summary>
 		Aaa,
-		/// <summary>38 /r</summary>
+		/// <summary><c>38 /r</c><br/>
+		/// <br/>
+		/// <c>CMP r/m8, r8</c></summary>
 		Cmp_rm8_r8,
-		/// <summary>o16 39 /r</summary>
+		/// <summary><c>o16 39 /r</c><br/>
+		/// <br/>
+		/// <c>CMP r/m16, r16</c></summary>
 		Cmp_rm16_r16,
-		/// <summary>o32 39 /r</summary>
+		/// <summary><c>o32 39 /r</c><br/>
+		/// <br/>
+		/// <c>CMP r/m32, r32</c></summary>
 		Cmp_rm32_r32,
-		/// <summary>REX.W 39 /r</summary>
+		/// <summary><c>REX.W 39 /r</c><br/>
+		/// <br/>
+		/// <c>CMP r/m64, r64</c></summary>
 		Cmp_rm64_r64,
-		/// <summary>3A /r</summary>
+		/// <summary><c>3A /r</c><br/>
+		/// <br/>
+		/// <c>CMP r8, r/m8</c></summary>
 		Cmp_r8_rm8,
-		/// <summary>o16 3B /r</summary>
+		/// <summary><c>o16 3B /r</c><br/>
+		/// <br/>
+		/// <c>CMP r16, r/m16</c></summary>
 		Cmp_r16_rm16,
-		/// <summary>o32 3B /r</summary>
+		/// <summary><c>o32 3B /r</c><br/>
+		/// <br/>
+		/// <c>CMP r32, r/m32</c></summary>
 		Cmp_r32_rm32,
-		/// <summary>REX.W 3B /r</summary>
+		/// <summary><c>REX.W 3B /r</c><br/>
+		/// <br/>
+		/// <c>CMP r64, r/m64</c></summary>
 		Cmp_r64_rm64,
-		/// <summary>3C ib</summary>
+		/// <summary><c>3C ib</c><br/>
+		/// <br/>
+		/// <c>CMP AL, imm8</c></summary>
 		Cmp_AL_imm8,
-		/// <summary>o16 3D iw</summary>
+		/// <summary><c>o16 3D iw</c><br/>
+		/// <br/>
+		/// <c>CMP AX, imm16</c></summary>
 		Cmp_AX_imm16,
-		/// <summary>o32 3D id</summary>
+		/// <summary><c>o32 3D id</c><br/>
+		/// <br/>
+		/// <c>CMP EAX, imm32</c></summary>
 		Cmp_EAX_imm32,
-		/// <summary>REX.W 3D id</summary>
+		/// <summary><c>REX.W 3D id</c><br/>
+		/// <br/>
+		/// <c>CMP RAX, imm32</c></summary>
 		Cmp_RAX_imm32,
-		/// <summary>3F</summary>
+		/// <summary><c>3F</c><br/>
+		/// <br/>
+		/// <c>AAS</c></summary>
 		Aas,
-		/// <summary>o16 40+rw</summary>
+		/// <summary><c>o16 40+rw</c><br/>
+		/// <br/>
+		/// <c>INC r16</c></summary>
 		Inc_r16,
-		/// <summary>o32 40+rd</summary>
+		/// <summary><c>o32 40+rd</c><br/>
+		/// <br/>
+		/// <c>INC r32</c></summary>
 		Inc_r32,
-		/// <summary>o16 48+rw</summary>
+		/// <summary><c>o16 48+rw</c><br/>
+		/// <br/>
+		/// <c>DEC r16</c></summary>
 		Dec_r16,
-		/// <summary>o32 48+rd</summary>
+		/// <summary><c>o32 48+rd</c><br/>
+		/// <br/>
+		/// <c>DEC r32</c></summary>
 		Dec_r32,
-		/// <summary>o16 50+rw</summary>
+		/// <summary><c>o16 50+rw</c><br/>
+		/// <br/>
+		/// <c>PUSH r16</c></summary>
 		Push_r16,
-		/// <summary>o32 50+rd</summary>
+		/// <summary><c>o32 50+rd</c><br/>
+		/// <br/>
+		/// <c>PUSH r32</c></summary>
 		Push_r32,
-		/// <summary>50+ro</summary>
+		/// <summary><c>50+ro</c><br/>
+		/// <br/>
+		/// <c>PUSH r64</c></summary>
 		Push_r64,
-		/// <summary>o16 58+rw</summary>
+		/// <summary><c>o16 58+rw</c><br/>
+		/// <br/>
+		/// <c>POP r16</c></summary>
 		Pop_r16,
-		/// <summary>o32 58+rd</summary>
+		/// <summary><c>o32 58+rd</c><br/>
+		/// <br/>
+		/// <c>POP r32</c></summary>
 		Pop_r32,
-		/// <summary>58+ro</summary>
+		/// <summary><c>58+ro</c><br/>
+		/// <br/>
+		/// <c>POP r64</c></summary>
 		Pop_r64,
-		/// <summary>o16 60</summary>
+		/// <summary><c>o16 60</c><br/>
+		/// <br/>
+		/// <c>PUSHA</c></summary>
 		Pushaw,
-		/// <summary>o32 60</summary>
+		/// <summary><c>o32 60</c><br/>
+		/// <br/>
+		/// <c>PUSHAD</c></summary>
 		Pushad,
-		/// <summary>o16 61</summary>
+		/// <summary><c>o16 61</c><br/>
+		/// <br/>
+		/// <c>POPA</c></summary>
 		Popaw,
-		/// <summary>o32 61</summary>
+		/// <summary><c>o32 61</c><br/>
+		/// <br/>
+		/// <c>POPAD</c></summary>
 		Popad,
-		/// <summary>o16 62 /r</summary>
+		/// <summary><c>o16 62 /r</c><br/>
+		/// <br/>
+		/// <c>BOUND r16, m16&amp;16</c></summary>
 		Bound_r16_m1616,
-		/// <summary>o32 62 /r</summary>
+		/// <summary><c>o32 62 /r</c><br/>
+		/// <br/>
+		/// <c>BOUND r32, m32&amp;32</c></summary>
 		Bound_r32_m3232,
-		/// <summary>o16 63 /r</summary>
+		/// <summary><c>o16 63 /r</c><br/>
+		/// <br/>
+		/// <c>ARPL r/m16, r16</c></summary>
 		Arpl_rm16_r16,
-		/// <summary>o32 63 /r</summary>
+		/// <summary><c>o32 63 /r</c><br/>
+		/// <br/>
+		/// <c>ARPL r32/m16, r32</c></summary>
 		Arpl_r32m16_r32,
-		/// <summary>o16 63 /r</summary>
+		/// <summary><c>o16 63 /r</c><br/>
+		/// <br/>
+		/// <c>MOVSXD r16, r/m16</c></summary>
 		Movsxd_r16_rm16,
-		/// <summary>o32 63 /r</summary>
+		/// <summary><c>o32 63 /r</c><br/>
+		/// <br/>
+		/// <c>MOVSXD r32, r/m32</c></summary>
 		Movsxd_r32_rm32,
-		/// <summary>REX.W 63 /r</summary>
+		/// <summary><c>REX.W 63 /r</c><br/>
+		/// <br/>
+		/// <c>MOVSXD r64, r/m32</c></summary>
 		Movsxd_r64_rm32,
-		/// <summary>o16 68 iw</summary>
+		/// <summary><c>o16 68 iw</c><br/>
+		/// <br/>
+		/// <c>PUSH imm16</c></summary>
 		Push_imm16,
-		/// <summary>o32 68 id</summary>
+		/// <summary><c>o32 68 id</c><br/>
+		/// <br/>
+		/// <c>PUSH imm32</c></summary>
 		Pushd_imm32,
-		/// <summary>68 id</summary>
+		/// <summary><c>68 id</c><br/>
+		/// <br/>
+		/// <c>PUSH imm32</c></summary>
 		Pushq_imm32,
-		/// <summary>o16 69 /r iw</summary>
+		/// <summary><c>o16 69 /r iw</c><br/>
+		/// <br/>
+		/// <c>IMUL r16, r/m16, imm16</c></summary>
 		Imul_r16_rm16_imm16,
-		/// <summary>o32 69 /r id</summary>
+		/// <summary><c>o32 69 /r id</c><br/>
+		/// <br/>
+		/// <c>IMUL r32, r/m32, imm32</c></summary>
 		Imul_r32_rm32_imm32,
-		/// <summary>REX.W 69 /r id</summary>
+		/// <summary><c>REX.W 69 /r id</c><br/>
+		/// <br/>
+		/// <c>IMUL r64, r/m64, imm32</c></summary>
 		Imul_r64_rm64_imm32,
-		/// <summary>o16 6A ib</summary>
+		/// <summary><c>o16 6A ib</c><br/>
+		/// <br/>
+		/// <c>PUSH imm8</c></summary>
 		Pushw_imm8,
-		/// <summary>o32 6A ib</summary>
+		/// <summary><c>o32 6A ib</c><br/>
+		/// <br/>
+		/// <c>PUSH imm8</c></summary>
 		Pushd_imm8,
-		/// <summary>6A ib</summary>
+		/// <summary><c>6A ib</c><br/>
+		/// <br/>
+		/// <c>PUSH imm8</c></summary>
 		Pushq_imm8,
-		/// <summary>o16 6B /r ib</summary>
+		/// <summary><c>o16 6B /r ib</c><br/>
+		/// <br/>
+		/// <c>IMUL r16, r/m16, imm8</c></summary>
 		Imul_r16_rm16_imm8,
-		/// <summary>o32 6B /r ib</summary>
+		/// <summary><c>o32 6B /r ib</c><br/>
+		/// <br/>
+		/// <c>IMUL r32, r/m32, imm8</c></summary>
 		Imul_r32_rm32_imm8,
-		/// <summary>REX.W 6B /r ib</summary>
+		/// <summary><c>REX.W 6B /r ib</c><br/>
+		/// <br/>
+		/// <c>IMUL r64, r/m64, imm8</c></summary>
 		Imul_r64_rm64_imm8,
-		/// <summary>6C</summary>
+		/// <summary><c>6C</c><br/>
+		/// <br/>
+		/// <c>INSB</c></summary>
 		Insb_m8_DX,
-		/// <summary>o16 6D</summary>
+		/// <summary><c>o16 6D</c><br/>
+		/// <br/>
+		/// <c>INSW</c></summary>
 		Insw_m16_DX,
-		/// <summary>o32 6D</summary>
+		/// <summary><c>o32 6D</c><br/>
+		/// <br/>
+		/// <c>INSD</c></summary>
 		Insd_m32_DX,
-		/// <summary>6E</summary>
+		/// <summary><c>6E</c><br/>
+		/// <br/>
+		/// <c>OUTSB</c></summary>
 		Outsb_DX_m8,
-		/// <summary>o16 6F</summary>
+		/// <summary><c>o16 6F</c><br/>
+		/// <br/>
+		/// <c>OUTSW</c></summary>
 		Outsw_DX_m16,
-		/// <summary>o32 6F</summary>
+		/// <summary><c>o32 6F</c><br/>
+		/// <br/>
+		/// <c>OUTSD</c></summary>
 		Outsd_DX_m32,
-		/// <summary>o16 70 cb</summary>
+		/// <summary><c>o16 70 cb</c><br/>
+		/// <br/>
+		/// <c>JO rel8</c></summary>
 		Jo_rel8_16,
-		/// <summary>o32 70 cb</summary>
+		/// <summary><c>o32 70 cb</c><br/>
+		/// <br/>
+		/// <c>JO rel8</c></summary>
 		Jo_rel8_32,
-		/// <summary>70 cb</summary>
+		/// <summary><c>70 cb</c><br/>
+		/// <br/>
+		/// <c>JO rel8</c></summary>
 		Jo_rel8_64,
-		/// <summary>o16 71 cb</summary>
+		/// <summary><c>o16 71 cb</c><br/>
+		/// <br/>
+		/// <c>JNO rel8</c></summary>
 		Jno_rel8_16,
-		/// <summary>o32 71 cb</summary>
+		/// <summary><c>o32 71 cb</c><br/>
+		/// <br/>
+		/// <c>JNO rel8</c></summary>
 		Jno_rel8_32,
-		/// <summary>71 cb</summary>
+		/// <summary><c>71 cb</c><br/>
+		/// <br/>
+		/// <c>JNO rel8</c></summary>
 		Jno_rel8_64,
-		/// <summary>o16 72 cb</summary>
+		/// <summary><c>o16 72 cb</c><br/>
+		/// <br/>
+		/// <c>JB rel8</c></summary>
 		Jb_rel8_16,
-		/// <summary>o32 72 cb</summary>
+		/// <summary><c>o32 72 cb</c><br/>
+		/// <br/>
+		/// <c>JB rel8</c></summary>
 		Jb_rel8_32,
-		/// <summary>72 cb</summary>
+		/// <summary><c>72 cb</c><br/>
+		/// <br/>
+		/// <c>JB rel8</c></summary>
 		Jb_rel8_64,
-		/// <summary>o16 73 cb</summary>
+		/// <summary><c>o16 73 cb</c><br/>
+		/// <br/>
+		/// <c>JAE rel8</c></summary>
 		Jae_rel8_16,
-		/// <summary>o32 73 cb</summary>
+		/// <summary><c>o32 73 cb</c><br/>
+		/// <br/>
+		/// <c>JAE rel8</c></summary>
 		Jae_rel8_32,
-		/// <summary>73 cb</summary>
+		/// <summary><c>73 cb</c><br/>
+		/// <br/>
+		/// <c>JAE rel8</c></summary>
 		Jae_rel8_64,
-		/// <summary>o16 74 cb</summary>
+		/// <summary><c>o16 74 cb</c><br/>
+		/// <br/>
+		/// <c>JE rel8</c></summary>
 		Je_rel8_16,
-		/// <summary>o32 74 cb</summary>
+		/// <summary><c>o32 74 cb</c><br/>
+		/// <br/>
+		/// <c>JE rel8</c></summary>
 		Je_rel8_32,
-		/// <summary>74 cb</summary>
+		/// <summary><c>74 cb</c><br/>
+		/// <br/>
+		/// <c>JE rel8</c></summary>
 		Je_rel8_64,
-		/// <summary>o16 75 cb</summary>
+		/// <summary><c>o16 75 cb</c><br/>
+		/// <br/>
+		/// <c>JNE rel8</c></summary>
 		Jne_rel8_16,
-		/// <summary>o32 75 cb</summary>
+		/// <summary><c>o32 75 cb</c><br/>
+		/// <br/>
+		/// <c>JNE rel8</c></summary>
 		Jne_rel8_32,
-		/// <summary>75 cb</summary>
+		/// <summary><c>75 cb</c><br/>
+		/// <br/>
+		/// <c>JNE rel8</c></summary>
 		Jne_rel8_64,
-		/// <summary>o16 76 cb</summary>
+		/// <summary><c>o16 76 cb</c><br/>
+		/// <br/>
+		/// <c>JBE rel8</c></summary>
 		Jbe_rel8_16,
-		/// <summary>o32 76 cb</summary>
+		/// <summary><c>o32 76 cb</c><br/>
+		/// <br/>
+		/// <c>JBE rel8</c></summary>
 		Jbe_rel8_32,
-		/// <summary>76 cb</summary>
+		/// <summary><c>76 cb</c><br/>
+		/// <br/>
+		/// <c>JBE rel8</c></summary>
 		Jbe_rel8_64,
-		/// <summary>o16 77 cb</summary>
+		/// <summary><c>o16 77 cb</c><br/>
+		/// <br/>
+		/// <c>JA rel8</c></summary>
 		Ja_rel8_16,
-		/// <summary>o32 77 cb</summary>
+		/// <summary><c>o32 77 cb</c><br/>
+		/// <br/>
+		/// <c>JA rel8</c></summary>
 		Ja_rel8_32,
-		/// <summary>77 cb</summary>
+		/// <summary><c>77 cb</c><br/>
+		/// <br/>
+		/// <c>JA rel8</c></summary>
 		Ja_rel8_64,
-		/// <summary>o16 78 cb</summary>
+		/// <summary><c>o16 78 cb</c><br/>
+		/// <br/>
+		/// <c>JS rel8</c></summary>
 		Js_rel8_16,
-		/// <summary>o32 78 cb</summary>
+		/// <summary><c>o32 78 cb</c><br/>
+		/// <br/>
+		/// <c>JS rel8</c></summary>
 		Js_rel8_32,
-		/// <summary>78 cb</summary>
+		/// <summary><c>78 cb</c><br/>
+		/// <br/>
+		/// <c>JS rel8</c></summary>
 		Js_rel8_64,
-		/// <summary>o16 79 cb</summary>
+		/// <summary><c>o16 79 cb</c><br/>
+		/// <br/>
+		/// <c>JNS rel8</c></summary>
 		Jns_rel8_16,
-		/// <summary>o32 79 cb</summary>
+		/// <summary><c>o32 79 cb</c><br/>
+		/// <br/>
+		/// <c>JNS rel8</c></summary>
 		Jns_rel8_32,
-		/// <summary>79 cb</summary>
+		/// <summary><c>79 cb</c><br/>
+		/// <br/>
+		/// <c>JNS rel8</c></summary>
 		Jns_rel8_64,
-		/// <summary>o16 7A cb</summary>
+		/// <summary><c>o16 7A cb</c><br/>
+		/// <br/>
+		/// <c>JP rel8</c></summary>
 		Jp_rel8_16,
-		/// <summary>o32 7A cb</summary>
+		/// <summary><c>o32 7A cb</c><br/>
+		/// <br/>
+		/// <c>JP rel8</c></summary>
 		Jp_rel8_32,
-		/// <summary>7A cb</summary>
+		/// <summary><c>7A cb</c><br/>
+		/// <br/>
+		/// <c>JP rel8</c></summary>
 		Jp_rel8_64,
-		/// <summary>o16 7B cb</summary>
+		/// <summary><c>o16 7B cb</c><br/>
+		/// <br/>
+		/// <c>JNP rel8</c></summary>
 		Jnp_rel8_16,
-		/// <summary>o32 7B cb</summary>
+		/// <summary><c>o32 7B cb</c><br/>
+		/// <br/>
+		/// <c>JNP rel8</c></summary>
 		Jnp_rel8_32,
-		/// <summary>7B cb</summary>
+		/// <summary><c>7B cb</c><br/>
+		/// <br/>
+		/// <c>JNP rel8</c></summary>
 		Jnp_rel8_64,
-		/// <summary>o16 7C cb</summary>
+		/// <summary><c>o16 7C cb</c><br/>
+		/// <br/>
+		/// <c>JL rel8</c></summary>
 		Jl_rel8_16,
-		/// <summary>o32 7C cb</summary>
+		/// <summary><c>o32 7C cb</c><br/>
+		/// <br/>
+		/// <c>JL rel8</c></summary>
 		Jl_rel8_32,
-		/// <summary>7C cb</summary>
+		/// <summary><c>7C cb</c><br/>
+		/// <br/>
+		/// <c>JL rel8</c></summary>
 		Jl_rel8_64,
-		/// <summary>o16 7D cb</summary>
+		/// <summary><c>o16 7D cb</c><br/>
+		/// <br/>
+		/// <c>JGE rel8</c></summary>
 		Jge_rel8_16,
-		/// <summary>o32 7D cb</summary>
+		/// <summary><c>o32 7D cb</c><br/>
+		/// <br/>
+		/// <c>JGE rel8</c></summary>
 		Jge_rel8_32,
-		/// <summary>7D cb</summary>
+		/// <summary><c>7D cb</c><br/>
+		/// <br/>
+		/// <c>JGE rel8</c></summary>
 		Jge_rel8_64,
-		/// <summary>o16 7E cb</summary>
+		/// <summary><c>o16 7E cb</c><br/>
+		/// <br/>
+		/// <c>JLE rel8</c></summary>
 		Jle_rel8_16,
-		/// <summary>o32 7E cb</summary>
+		/// <summary><c>o32 7E cb</c><br/>
+		/// <br/>
+		/// <c>JLE rel8</c></summary>
 		Jle_rel8_32,
-		/// <summary>7E cb</summary>
+		/// <summary><c>7E cb</c><br/>
+		/// <br/>
+		/// <c>JLE rel8</c></summary>
 		Jle_rel8_64,
-		/// <summary>o16 7F cb</summary>
+		/// <summary><c>o16 7F cb</c><br/>
+		/// <br/>
+		/// <c>JG rel8</c></summary>
 		Jg_rel8_16,
-		/// <summary>o32 7F cb</summary>
+		/// <summary><c>o32 7F cb</c><br/>
+		/// <br/>
+		/// <c>JG rel8</c></summary>
 		Jg_rel8_32,
-		/// <summary>7F cb</summary>
+		/// <summary><c>7F cb</c><br/>
+		/// <br/>
+		/// <c>JG rel8</c></summary>
 		Jg_rel8_64,
-		/// <summary>80 /0 ib</summary>
+		/// <summary><c>80 /0 ib</c><br/>
+		/// <br/>
+		/// <c>ADD r/m8, imm8</c></summary>
 		Add_rm8_imm8,
-		/// <summary>80 /1 ib</summary>
+		/// <summary><c>80 /1 ib</c><br/>
+		/// <br/>
+		/// <c>OR r/m8, imm8</c></summary>
 		Or_rm8_imm8,
-		/// <summary>80 /2 ib</summary>
+		/// <summary><c>80 /2 ib</c><br/>
+		/// <br/>
+		/// <c>ADC r/m8, imm8</c></summary>
 		Adc_rm8_imm8,
-		/// <summary>80 /3 ib</summary>
+		/// <summary><c>80 /3 ib</c><br/>
+		/// <br/>
+		/// <c>SBB r/m8, imm8</c></summary>
 		Sbb_rm8_imm8,
-		/// <summary>80 /4 ib</summary>
+		/// <summary><c>80 /4 ib</c><br/>
+		/// <br/>
+		/// <c>AND r/m8, imm8</c></summary>
 		And_rm8_imm8,
-		/// <summary>80 /5 ib</summary>
+		/// <summary><c>80 /5 ib</c><br/>
+		/// <br/>
+		/// <c>SUB r/m8, imm8</c></summary>
 		Sub_rm8_imm8,
-		/// <summary>80 /6 ib</summary>
+		/// <summary><c>80 /6 ib</c><br/>
+		/// <br/>
+		/// <c>XOR r/m8, imm8</c></summary>
 		Xor_rm8_imm8,
-		/// <summary>80 /7 ib</summary>
+		/// <summary><c>80 /7 ib</c><br/>
+		/// <br/>
+		/// <c>CMP r/m8, imm8</c></summary>
 		Cmp_rm8_imm8,
-		/// <summary>o16 81 /0 iw</summary>
+		/// <summary><c>o16 81 /0 iw</c><br/>
+		/// <br/>
+		/// <c>ADD r/m16, imm16</c></summary>
 		Add_rm16_imm16,
-		/// <summary>o32 81 /0 id</summary>
+		/// <summary><c>o32 81 /0 id</c><br/>
+		/// <br/>
+		/// <c>ADD r/m32, imm32</c></summary>
 		Add_rm32_imm32,
-		/// <summary>REX.W 81 /0 id</summary>
+		/// <summary><c>REX.W 81 /0 id</c><br/>
+		/// <br/>
+		/// <c>ADD r/m64, imm32</c></summary>
 		Add_rm64_imm32,
-		/// <summary>o16 81 /1 iw</summary>
+		/// <summary><c>o16 81 /1 iw</c><br/>
+		/// <br/>
+		/// <c>OR r/m16, imm16</c></summary>
 		Or_rm16_imm16,
-		/// <summary>o32 81 /1 id</summary>
+		/// <summary><c>o32 81 /1 id</c><br/>
+		/// <br/>
+		/// <c>OR r/m32, imm32</c></summary>
 		Or_rm32_imm32,
-		/// <summary>REX.W 81 /1 id</summary>
+		/// <summary><c>REX.W 81 /1 id</c><br/>
+		/// <br/>
+		/// <c>OR r/m64, imm32</c></summary>
 		Or_rm64_imm32,
-		/// <summary>o16 81 /2 iw</summary>
+		/// <summary><c>o16 81 /2 iw</c><br/>
+		/// <br/>
+		/// <c>ADC r/m16, imm16</c></summary>
 		Adc_rm16_imm16,
-		/// <summary>o32 81 /2 id</summary>
+		/// <summary><c>o32 81 /2 id</c><br/>
+		/// <br/>
+		/// <c>ADC r/m32, imm32</c></summary>
 		Adc_rm32_imm32,
-		/// <summary>REX.W 81 /2 id</summary>
+		/// <summary><c>REX.W 81 /2 id</c><br/>
+		/// <br/>
+		/// <c>ADC r/m64, imm32</c></summary>
 		Adc_rm64_imm32,
-		/// <summary>o16 81 /3 iw</summary>
+		/// <summary><c>o16 81 /3 iw</c><br/>
+		/// <br/>
+		/// <c>SBB r/m16, imm16</c></summary>
 		Sbb_rm16_imm16,
-		/// <summary>o32 81 /3 id</summary>
+		/// <summary><c>o32 81 /3 id</c><br/>
+		/// <br/>
+		/// <c>SBB r/m32, imm32</c></summary>
 		Sbb_rm32_imm32,
-		/// <summary>REX.W 81 /3 id</summary>
+		/// <summary><c>REX.W 81 /3 id</c><br/>
+		/// <br/>
+		/// <c>SBB r/m64, imm32</c></summary>
 		Sbb_rm64_imm32,
-		/// <summary>o16 81 /4 iw</summary>
+		/// <summary><c>o16 81 /4 iw</c><br/>
+		/// <br/>
+		/// <c>AND r/m16, imm16</c></summary>
 		And_rm16_imm16,
-		/// <summary>o32 81 /4 id</summary>
+		/// <summary><c>o32 81 /4 id</c><br/>
+		/// <br/>
+		/// <c>AND r/m32, imm32</c></summary>
 		And_rm32_imm32,
-		/// <summary>REX.W 81 /4 id</summary>
+		/// <summary><c>REX.W 81 /4 id</c><br/>
+		/// <br/>
+		/// <c>AND r/m64, imm32</c></summary>
 		And_rm64_imm32,
-		/// <summary>o16 81 /5 iw</summary>
+		/// <summary><c>o16 81 /5 iw</c><br/>
+		/// <br/>
+		/// <c>SUB r/m16, imm16</c></summary>
 		Sub_rm16_imm16,
-		/// <summary>o32 81 /5 id</summary>
+		/// <summary><c>o32 81 /5 id</c><br/>
+		/// <br/>
+		/// <c>SUB r/m32, imm32</c></summary>
 		Sub_rm32_imm32,
-		/// <summary>REX.W 81 /5 id</summary>
+		/// <summary><c>REX.W 81 /5 id</c><br/>
+		/// <br/>
+		/// <c>SUB r/m64, imm32</c></summary>
 		Sub_rm64_imm32,
-		/// <summary>o16 81 /6 iw</summary>
+		/// <summary><c>o16 81 /6 iw</c><br/>
+		/// <br/>
+		/// <c>XOR r/m16, imm16</c></summary>
 		Xor_rm16_imm16,
-		/// <summary>o32 81 /6 id</summary>
+		/// <summary><c>o32 81 /6 id</c><br/>
+		/// <br/>
+		/// <c>XOR r/m32, imm32</c></summary>
 		Xor_rm32_imm32,
-		/// <summary>REX.W 81 /6 id</summary>
+		/// <summary><c>REX.W 81 /6 id</c><br/>
+		/// <br/>
+		/// <c>XOR r/m64, imm32</c></summary>
 		Xor_rm64_imm32,
-		/// <summary>o16 81 /7 iw</summary>
+		/// <summary><c>o16 81 /7 iw</c><br/>
+		/// <br/>
+		/// <c>CMP r/m16, imm16</c></summary>
 		Cmp_rm16_imm16,
-		/// <summary>o32 81 /7 id</summary>
+		/// <summary><c>o32 81 /7 id</c><br/>
+		/// <br/>
+		/// <c>CMP r/m32, imm32</c></summary>
 		Cmp_rm32_imm32,
-		/// <summary>REX.W 81 /7 id</summary>
+		/// <summary><c>REX.W 81 /7 id</c><br/>
+		/// <br/>
+		/// <c>CMP r/m64, imm32</c></summary>
 		Cmp_rm64_imm32,
-		/// <summary>82 /0 ib</summary>
+		/// <summary><c>82 /0 ib</c><br/>
+		/// <br/>
+		/// <c>ADD r/m8, imm8</c></summary>
 		Add_rm8_imm8_82,
-		/// <summary>82 /1 ib</summary>
+		/// <summary><c>82 /1 ib</c><br/>
+		/// <br/>
+		/// <c>OR r/m8, imm8</c></summary>
 		Or_rm8_imm8_82,
-		/// <summary>82 /2 ib</summary>
+		/// <summary><c>82 /2 ib</c><br/>
+		/// <br/>
+		/// <c>ADC r/m8, imm8</c></summary>
 		Adc_rm8_imm8_82,
-		/// <summary>82 /3 ib</summary>
+		/// <summary><c>82 /3 ib</c><br/>
+		/// <br/>
+		/// <c>SBB r/m8, imm8</c></summary>
 		Sbb_rm8_imm8_82,
-		/// <summary>82 /4 ib</summary>
+		/// <summary><c>82 /4 ib</c><br/>
+		/// <br/>
+		/// <c>AND r/m8, imm8</c></summary>
 		And_rm8_imm8_82,
-		/// <summary>82 /5 ib</summary>
+		/// <summary><c>82 /5 ib</c><br/>
+		/// <br/>
+		/// <c>SUB r/m8, imm8</c></summary>
 		Sub_rm8_imm8_82,
-		/// <summary>82 /6 ib</summary>
+		/// <summary><c>82 /6 ib</c><br/>
+		/// <br/>
+		/// <c>XOR r/m8, imm8</c></summary>
 		Xor_rm8_imm8_82,
-		/// <summary>82 /7 ib</summary>
+		/// <summary><c>82 /7 ib</c><br/>
+		/// <br/>
+		/// <c>CMP r/m8, imm8</c></summary>
 		Cmp_rm8_imm8_82,
-		/// <summary>o16 83 /0 ib</summary>
+		/// <summary><c>o16 83 /0 ib</c><br/>
+		/// <br/>
+		/// <c>ADD r/m16, imm8</c></summary>
 		Add_rm16_imm8,
-		/// <summary>o32 83 /0 ib</summary>
+		/// <summary><c>o32 83 /0 ib</c><br/>
+		/// <br/>
+		/// <c>ADD r/m32, imm8</c></summary>
 		Add_rm32_imm8,
-		/// <summary>REX.W 83 /0 ib</summary>
+		/// <summary><c>REX.W 83 /0 ib</c><br/>
+		/// <br/>
+		/// <c>ADD r/m64, imm8</c></summary>
 		Add_rm64_imm8,
-		/// <summary>o16 83 /1 ib</summary>
+		/// <summary><c>o16 83 /1 ib</c><br/>
+		/// <br/>
+		/// <c>OR r/m16, imm8</c></summary>
 		Or_rm16_imm8,
-		/// <summary>o32 83 /1 ib</summary>
+		/// <summary><c>o32 83 /1 ib</c><br/>
+		/// <br/>
+		/// <c>OR r/m32, imm8</c></summary>
 		Or_rm32_imm8,
-		/// <summary>REX.W 83 /1 ib</summary>
+		/// <summary><c>REX.W 83 /1 ib</c><br/>
+		/// <br/>
+		/// <c>OR r/m64, imm8</c></summary>
 		Or_rm64_imm8,
-		/// <summary>o16 83 /2 ib</summary>
+		/// <summary><c>o16 83 /2 ib</c><br/>
+		/// <br/>
+		/// <c>ADC r/m16, imm8</c></summary>
 		Adc_rm16_imm8,
-		/// <summary>o32 83 /2 ib</summary>
+		/// <summary><c>o32 83 /2 ib</c><br/>
+		/// <br/>
+		/// <c>ADC r/m32, imm8</c></summary>
 		Adc_rm32_imm8,
-		/// <summary>REX.W 83 /2 ib</summary>
+		/// <summary><c>REX.W 83 /2 ib</c><br/>
+		/// <br/>
+		/// <c>ADC r/m64, imm8</c></summary>
 		Adc_rm64_imm8,
-		/// <summary>o16 83 /3 ib</summary>
+		/// <summary><c>o16 83 /3 ib</c><br/>
+		/// <br/>
+		/// <c>SBB r/m16, imm8</c></summary>
 		Sbb_rm16_imm8,
-		/// <summary>o32 83 /3 ib</summary>
+		/// <summary><c>o32 83 /3 ib</c><br/>
+		/// <br/>
+		/// <c>SBB r/m32, imm8</c></summary>
 		Sbb_rm32_imm8,
-		/// <summary>REX.W 83 /3 ib</summary>
+		/// <summary><c>REX.W 83 /3 ib</c><br/>
+		/// <br/>
+		/// <c>SBB r/m64, imm8</c></summary>
 		Sbb_rm64_imm8,
-		/// <summary>o16 83 /4 ib</summary>
+		/// <summary><c>o16 83 /4 ib</c><br/>
+		/// <br/>
+		/// <c>AND r/m16, imm8</c></summary>
 		And_rm16_imm8,
-		/// <summary>o32 83 /4 ib</summary>
+		/// <summary><c>o32 83 /4 ib</c><br/>
+		/// <br/>
+		/// <c>AND r/m32, imm8</c></summary>
 		And_rm32_imm8,
-		/// <summary>REX.W 83 /4 ib</summary>
+		/// <summary><c>REX.W 83 /4 ib</c><br/>
+		/// <br/>
+		/// <c>AND r/m64, imm8</c></summary>
 		And_rm64_imm8,
-		/// <summary>o16 83 /5 ib</summary>
+		/// <summary><c>o16 83 /5 ib</c><br/>
+		/// <br/>
+		/// <c>SUB r/m16, imm8</c></summary>
 		Sub_rm16_imm8,
-		/// <summary>o32 83 /5 ib</summary>
+		/// <summary><c>o32 83 /5 ib</c><br/>
+		/// <br/>
+		/// <c>SUB r/m32, imm8</c></summary>
 		Sub_rm32_imm8,
-		/// <summary>REX.W 83 /5 ib</summary>
+		/// <summary><c>REX.W 83 /5 ib</c><br/>
+		/// <br/>
+		/// <c>SUB r/m64, imm8</c></summary>
 		Sub_rm64_imm8,
-		/// <summary>o16 83 /6 ib</summary>
+		/// <summary><c>o16 83 /6 ib</c><br/>
+		/// <br/>
+		/// <c>XOR r/m16, imm8</c></summary>
 		Xor_rm16_imm8,
-		/// <summary>o32 83 /6 ib</summary>
+		/// <summary><c>o32 83 /6 ib</c><br/>
+		/// <br/>
+		/// <c>XOR r/m32, imm8</c></summary>
 		Xor_rm32_imm8,
-		/// <summary>REX.W 83 /6 ib</summary>
+		/// <summary><c>REX.W 83 /6 ib</c><br/>
+		/// <br/>
+		/// <c>XOR r/m64, imm8</c></summary>
 		Xor_rm64_imm8,
-		/// <summary>o16 83 /7 ib</summary>
+		/// <summary><c>o16 83 /7 ib</c><br/>
+		/// <br/>
+		/// <c>CMP r/m16, imm8</c></summary>
 		Cmp_rm16_imm8,
-		/// <summary>o32 83 /7 ib</summary>
+		/// <summary><c>o32 83 /7 ib</c><br/>
+		/// <br/>
+		/// <c>CMP r/m32, imm8</c></summary>
 		Cmp_rm32_imm8,
-		/// <summary>REX.W 83 /7 ib</summary>
+		/// <summary><c>REX.W 83 /7 ib</c><br/>
+		/// <br/>
+		/// <c>CMP r/m64, imm8</c></summary>
 		Cmp_rm64_imm8,
-		/// <summary>84 /r</summary>
+		/// <summary><c>84 /r</c><br/>
+		/// <br/>
+		/// <c>TEST r/m8, r8</c></summary>
 		Test_rm8_r8,
-		/// <summary>o16 85 /r</summary>
+		/// <summary><c>o16 85 /r</c><br/>
+		/// <br/>
+		/// <c>TEST r/m16, r16</c></summary>
 		Test_rm16_r16,
-		/// <summary>o32 85 /r</summary>
+		/// <summary><c>o32 85 /r</c><br/>
+		/// <br/>
+		/// <c>TEST r/m32, r32</c></summary>
 		Test_rm32_r32,
-		/// <summary>REX.W 85 /r</summary>
+		/// <summary><c>REX.W 85 /r</c><br/>
+		/// <br/>
+		/// <c>TEST r/m64, r64</c></summary>
 		Test_rm64_r64,
-		/// <summary>86 /r</summary>
+		/// <summary><c>86 /r</c><br/>
+		/// <br/>
+		/// <c>XCHG r/m8, r8</c></summary>
 		Xchg_rm8_r8,
-		/// <summary>o16 87 /r</summary>
+		/// <summary><c>o16 87 /r</c><br/>
+		/// <br/>
+		/// <c>XCHG r/m16, r16</c></summary>
 		Xchg_rm16_r16,
-		/// <summary>o32 87 /r</summary>
+		/// <summary><c>o32 87 /r</c><br/>
+		/// <br/>
+		/// <c>XCHG r/m32, r32</c></summary>
 		Xchg_rm32_r32,
-		/// <summary>REX.W 87 /r</summary>
+		/// <summary><c>REX.W 87 /r</c><br/>
+		/// <br/>
+		/// <c>XCHG r/m64, r64</c></summary>
 		Xchg_rm64_r64,
-		/// <summary>88 /r</summary>
+		/// <summary><c>88 /r</c><br/>
+		/// <br/>
+		/// <c>MOV r/m8, r8</c></summary>
 		Mov_rm8_r8,
-		/// <summary>o16 89 /r</summary>
+		/// <summary><c>o16 89 /r</c><br/>
+		/// <br/>
+		/// <c>MOV r/m16, r16</c></summary>
 		Mov_rm16_r16,
-		/// <summary>o32 89 /r</summary>
+		/// <summary><c>o32 89 /r</c><br/>
+		/// <br/>
+		/// <c>MOV r/m32, r32</c></summary>
 		Mov_rm32_r32,
-		/// <summary>REX.W 89 /r</summary>
+		/// <summary><c>REX.W 89 /r</c><br/>
+		/// <br/>
+		/// <c>MOV r/m64, r64</c></summary>
 		Mov_rm64_r64,
-		/// <summary>8A /r</summary>
+		/// <summary><c>8A /r</c><br/>
+		/// <br/>
+		/// <c>MOV r8, r/m8</c></summary>
 		Mov_r8_rm8,
-		/// <summary>o16 8B /r</summary>
+		/// <summary><c>o16 8B /r</c><br/>
+		/// <br/>
+		/// <c>MOV r16, r/m16</c></summary>
 		Mov_r16_rm16,
-		/// <summary>o32 8B /r</summary>
+		/// <summary><c>o32 8B /r</c><br/>
+		/// <br/>
+		/// <c>MOV r32, r/m32</c></summary>
 		Mov_r32_rm32,
-		/// <summary>REX.W 8B /r</summary>
+		/// <summary><c>REX.W 8B /r</c><br/>
+		/// <br/>
+		/// <c>MOV r64, r/m64</c></summary>
 		Mov_r64_rm64,
-		/// <summary>o16 8C /r</summary>
+		/// <summary><c>o16 8C /r</c><br/>
+		/// <br/>
+		/// <c>MOV r/m16, Sreg</c></summary>
 		Mov_rm16_Sreg,
-		/// <summary>o32 8C /r</summary>
+		/// <summary><c>o32 8C /r</c><br/>
+		/// <br/>
+		/// <c>MOV r32/m16, Sreg</c></summary>
 		Mov_r32m16_Sreg,
-		/// <summary>REX.W 8C /r</summary>
+		/// <summary><c>REX.W 8C /r</c><br/>
+		/// <br/>
+		/// <c>MOV r64/m16, Sreg</c></summary>
 		Mov_r64m16_Sreg,
-		/// <summary>o16 8D /r</summary>
+		/// <summary><c>o16 8D /r</c><br/>
+		/// <br/>
+		/// <c>LEA r16, m</c></summary>
 		Lea_r16_m,
-		/// <summary>o32 8D /r</summary>
+		/// <summary><c>o32 8D /r</c><br/>
+		/// <br/>
+		/// <c>LEA r32, m</c></summary>
 		Lea_r32_m,
-		/// <summary>REX.W 8D /r</summary>
+		/// <summary><c>REX.W 8D /r</c><br/>
+		/// <br/>
+		/// <c>LEA r64, m</c></summary>
 		Lea_r64_m,
-		/// <summary>o16 8E /r</summary>
+		/// <summary><c>o16 8E /r</c><br/>
+		/// <br/>
+		/// <c>MOV Sreg, r/m16</c></summary>
 		Mov_Sreg_rm16,
-		/// <summary>o32 8E /r</summary>
+		/// <summary><c>o32 8E /r</c><br/>
+		/// <br/>
+		/// <c>MOV Sreg, r32/m16</c></summary>
 		Mov_Sreg_r32m16,
-		/// <summary>REX.W 8E /r</summary>
+		/// <summary><c>REX.W 8E /r</c><br/>
+		/// <br/>
+		/// <c>MOV Sreg, r64/m16</c></summary>
 		Mov_Sreg_r64m16,
-		/// <summary>o16 8F /0</summary>
+		/// <summary><c>o16 8F /0</c><br/>
+		/// <br/>
+		/// <c>POP r/m16</c></summary>
 		Pop_rm16,
-		/// <summary>o32 8F /0</summary>
+		/// <summary><c>o32 8F /0</c><br/>
+		/// <br/>
+		/// <c>POP r/m32</c></summary>
 		Pop_rm32,
-		/// <summary>8F /0</summary>
+		/// <summary><c>8F /0</c><br/>
+		/// <br/>
+		/// <c>POP r/m64</c></summary>
 		Pop_rm64,
-		/// <summary>o16 90</summary>
+		/// <summary><c>o16 90</c><br/>
+		/// <br/>
+		/// <c>NOP</c></summary>
 		Nopw,
-		/// <summary>o32 90</summary>
+		/// <summary><c>o32 90</c><br/>
+		/// <br/>
+		/// <c>NOP</c></summary>
 		Nopd,
-		/// <summary>REX.W 90</summary>
+		/// <summary><c>REX.W 90</c><br/>
+		/// <br/>
+		/// <c>NOP</c></summary>
 		Nopq,
-		/// <summary>o16 90+rw</summary>
+		/// <summary><c>o16 90+rw</c><br/>
+		/// <br/>
+		/// <c>XCHG r16, AX</c></summary>
 		Xchg_r16_AX,
-		/// <summary>o32 90+rd</summary>
+		/// <summary><c>o32 90+rd</c><br/>
+		/// <br/>
+		/// <c>XCHG r32, EAX</c></summary>
 		Xchg_r32_EAX,
-		/// <summary>REX.W 90+ro</summary>
+		/// <summary><c>REX.W 90+ro</c><br/>
+		/// <br/>
+		/// <c>XCHG r64, RAX</c></summary>
 		Xchg_r64_RAX,
-		/// <summary>F3 90</summary>
+		/// <summary><c>F3 90</c><br/>
+		/// <br/>
+		/// <c>PAUSE</c></summary>
 		Pause,
-		/// <summary>o16 98</summary>
+		/// <summary><c>o16 98</c><br/>
+		/// <br/>
+		/// <c>CBW</c></summary>
 		Cbw,
-		/// <summary>o32 98</summary>
+		/// <summary><c>o32 98</c><br/>
+		/// <br/>
+		/// <c>CWDE</c></summary>
 		Cwde,
-		/// <summary>REX.W 98</summary>
+		/// <summary><c>REX.W 98</c><br/>
+		/// <br/>
+		/// <c>CDQE</c></summary>
 		Cdqe,
-		/// <summary>o16 99</summary>
+		/// <summary><c>o16 99</c><br/>
+		/// <br/>
+		/// <c>CWD</c></summary>
 		Cwd,
-		/// <summary>o32 99</summary>
+		/// <summary><c>o32 99</c><br/>
+		/// <br/>
+		/// <c>CDQ</c></summary>
 		Cdq,
-		/// <summary>REX.W 99</summary>
+		/// <summary><c>REX.W 99</c><br/>
+		/// <br/>
+		/// <c>CQO</c></summary>
 		Cqo,
-		/// <summary>o16 9A cd</summary>
+		/// <summary><c>o16 9A cd</c><br/>
+		/// <br/>
+		/// <c>CALL ptr16:16</c></summary>
 		Call_ptr1616,
-		/// <summary>o32 9A cp</summary>
+		/// <summary><c>o32 9A cp</c><br/>
+		/// <br/>
+		/// <c>CALL ptr16:32</c></summary>
 		Call_ptr1632,
-		/// <summary>9B</summary>
+		/// <summary><c>9B</c><br/>
+		/// <br/>
+		/// <c>WAIT</c></summary>
 		Wait,
-		/// <summary>o16 9C</summary>
+		/// <summary><c>o16 9C</c><br/>
+		/// <br/>
+		/// <c>PUSHF</c></summary>
 		Pushfw,
-		/// <summary>o32 9C</summary>
+		/// <summary><c>o32 9C</c><br/>
+		/// <br/>
+		/// <c>PUSHFD</c></summary>
 		Pushfd,
-		/// <summary>9C</summary>
+		/// <summary><c>9C</c><br/>
+		/// <br/>
+		/// <c>PUSHFQ</c></summary>
 		Pushfq,
-		/// <summary>o16 9D</summary>
+		/// <summary><c>o16 9D</c><br/>
+		/// <br/>
+		/// <c>POPF</c></summary>
 		Popfw,
-		/// <summary>o32 9D</summary>
+		/// <summary><c>o32 9D</c><br/>
+		/// <br/>
+		/// <c>POPFD</c></summary>
 		Popfd,
-		/// <summary>9D</summary>
+		/// <summary><c>9D</c><br/>
+		/// <br/>
+		/// <c>POPFQ</c></summary>
 		Popfq,
-		/// <summary>9E</summary>
+		/// <summary><c>9E</c><br/>
+		/// <br/>
+		/// <c>SAHF</c></summary>
 		Sahf,
-		/// <summary>9F</summary>
+		/// <summary><c>9F</c><br/>
+		/// <br/>
+		/// <c>LAHF</c></summary>
 		Lahf,
-		/// <summary>A0 mo</summary>
+		/// <summary><c>A0 mo</c><br/>
+		/// <br/>
+		/// <c>MOV AL, moffs8</c></summary>
 		Mov_AL_moffs8,
-		/// <summary>o16 A1 mo</summary>
+		/// <summary><c>o16 A1 mo</c><br/>
+		/// <br/>
+		/// <c>MOV AX, moffs16</c></summary>
 		Mov_AX_moffs16,
-		/// <summary>o32 A1 mo</summary>
+		/// <summary><c>o32 A1 mo</c><br/>
+		/// <br/>
+		/// <c>MOV EAX, moffs32</c></summary>
 		Mov_EAX_moffs32,
-		/// <summary>REX.W A1 mo</summary>
+		/// <summary><c>REX.W A1 mo</c><br/>
+		/// <br/>
+		/// <c>MOV RAX, moffs64</c></summary>
 		Mov_RAX_moffs64,
-		/// <summary>A2 mo</summary>
+		/// <summary><c>A2 mo</c><br/>
+		/// <br/>
+		/// <c>MOV moffs8, AL</c></summary>
 		Mov_moffs8_AL,
-		/// <summary>o16 A3 mo</summary>
+		/// <summary><c>o16 A3 mo</c><br/>
+		/// <br/>
+		/// <c>MOV moffs16, AX</c></summary>
 		Mov_moffs16_AX,
-		/// <summary>o32 A3 mo</summary>
+		/// <summary><c>o32 A3 mo</c><br/>
+		/// <br/>
+		/// <c>MOV moffs32, EAX</c></summary>
 		Mov_moffs32_EAX,
-		/// <summary>REX.W A3 mo</summary>
+		/// <summary><c>REX.W A3 mo</c><br/>
+		/// <br/>
+		/// <c>MOV moffs64, RAX</c></summary>
 		Mov_moffs64_RAX,
-		/// <summary>A4</summary>
+		/// <summary><c>A4</c><br/>
+		/// <br/>
+		/// <c>MOVSB</c></summary>
 		Movsb_m8_m8,
-		/// <summary>o16 A5</summary>
+		/// <summary><c>o16 A5</c><br/>
+		/// <br/>
+		/// <c>MOVSW</c></summary>
 		Movsw_m16_m16,
-		/// <summary>o32 A5</summary>
+		/// <summary><c>o32 A5</c><br/>
+		/// <br/>
+		/// <c>MOVSD</c></summary>
 		Movsd_m32_m32,
-		/// <summary>REX.W A5</summary>
+		/// <summary><c>REX.W A5</c><br/>
+		/// <br/>
+		/// <c>MOVSQ</c></summary>
 		Movsq_m64_m64,
-		/// <summary>A6</summary>
+		/// <summary><c>A6</c><br/>
+		/// <br/>
+		/// <c>CMPSB</c></summary>
 		Cmpsb_m8_m8,
-		/// <summary>o16 A7</summary>
+		/// <summary><c>o16 A7</c><br/>
+		/// <br/>
+		/// <c>CMPSW</c></summary>
 		Cmpsw_m16_m16,
-		/// <summary>o32 A7</summary>
+		/// <summary><c>o32 A7</c><br/>
+		/// <br/>
+		/// <c>CMPSD</c></summary>
 		Cmpsd_m32_m32,
-		/// <summary>REX.W A7</summary>
+		/// <summary><c>REX.W A7</c><br/>
+		/// <br/>
+		/// <c>CMPSQ</c></summary>
 		Cmpsq_m64_m64,
-		/// <summary>A8 ib</summary>
+		/// <summary><c>A8 ib</c><br/>
+		/// <br/>
+		/// <c>TEST AL, imm8</c></summary>
 		Test_AL_imm8,
-		/// <summary>o16 A9 iw</summary>
+		/// <summary><c>o16 A9 iw</c><br/>
+		/// <br/>
+		/// <c>TEST AX, imm16</c></summary>
 		Test_AX_imm16,
-		/// <summary>o32 A9 id</summary>
+		/// <summary><c>o32 A9 id</c><br/>
+		/// <br/>
+		/// <c>TEST EAX, imm32</c></summary>
 		Test_EAX_imm32,
-		/// <summary>REX.W A9 id</summary>
+		/// <summary><c>REX.W A9 id</c><br/>
+		/// <br/>
+		/// <c>TEST RAX, imm32</c></summary>
 		Test_RAX_imm32,
-		/// <summary>AA</summary>
+		/// <summary><c>AA</c><br/>
+		/// <br/>
+		/// <c>STOSB</c></summary>
 		Stosb_m8_AL,
-		/// <summary>o16 AB</summary>
+		/// <summary><c>o16 AB</c><br/>
+		/// <br/>
+		/// <c>STOSW</c></summary>
 		Stosw_m16_AX,
-		/// <summary>o32 AB</summary>
+		/// <summary><c>o32 AB</c><br/>
+		/// <br/>
+		/// <c>STOSD</c></summary>
 		Stosd_m32_EAX,
-		/// <summary>REX.W AB</summary>
+		/// <summary><c>REX.W AB</c><br/>
+		/// <br/>
+		/// <c>STOSQ</c></summary>
 		Stosq_m64_RAX,
-		/// <summary>AC</summary>
+		/// <summary><c>AC</c><br/>
+		/// <br/>
+		/// <c>LODSB</c></summary>
 		Lodsb_AL_m8,
-		/// <summary>o16 AD</summary>
+		/// <summary><c>o16 AD</c><br/>
+		/// <br/>
+		/// <c>LODSW</c></summary>
 		Lodsw_AX_m16,
-		/// <summary>o32 AD</summary>
+		/// <summary><c>o32 AD</c><br/>
+		/// <br/>
+		/// <c>LODSD</c></summary>
 		Lodsd_EAX_m32,
-		/// <summary>REX.W AD</summary>
+		/// <summary><c>REX.W AD</c><br/>
+		/// <br/>
+		/// <c>LODSQ</c></summary>
 		Lodsq_RAX_m64,
-		/// <summary>AE</summary>
+		/// <summary><c>AE</c><br/>
+		/// <br/>
+		/// <c>SCASB</c></summary>
 		Scasb_AL_m8,
-		/// <summary>o16 AF</summary>
+		/// <summary><c>o16 AF</c><br/>
+		/// <br/>
+		/// <c>SCASW</c></summary>
 		Scasw_AX_m16,
-		/// <summary>o32 AF</summary>
+		/// <summary><c>o32 AF</c><br/>
+		/// <br/>
+		/// <c>SCASD</c></summary>
 		Scasd_EAX_m32,
-		/// <summary>REX.W AF</summary>
+		/// <summary><c>REX.W AF</c><br/>
+		/// <br/>
+		/// <c>SCASQ</c></summary>
 		Scasq_RAX_m64,
-		/// <summary>B0+rb ib</summary>
+		/// <summary><c>B0+rb ib</c><br/>
+		/// <br/>
+		/// <c>MOV r8, imm8</c></summary>
 		Mov_r8_imm8,
-		/// <summary>o16 B8+rw iw</summary>
+		/// <summary><c>o16 B8+rw iw</c><br/>
+		/// <br/>
+		/// <c>MOV r16, imm16</c></summary>
 		Mov_r16_imm16,
-		/// <summary>o32 B8+rd id</summary>
+		/// <summary><c>o32 B8+rd id</c><br/>
+		/// <br/>
+		/// <c>MOV r32, imm32</c></summary>
 		Mov_r32_imm32,
-		/// <summary>REX.W B8+ro io</summary>
+		/// <summary><c>REX.W B8+ro io</c><br/>
+		/// <br/>
+		/// <c>MOV r64, imm64</c></summary>
 		Mov_r64_imm64,
-		/// <summary>C0 /0 ib</summary>
+		/// <summary><c>C0 /0 ib</c><br/>
+		/// <br/>
+		/// <c>ROL r/m8, imm8</c></summary>
 		Rol_rm8_imm8,
-		/// <summary>C0 /1 ib</summary>
+		/// <summary><c>C0 /1 ib</c><br/>
+		/// <br/>
+		/// <c>ROR r/m8, imm8</c></summary>
 		Ror_rm8_imm8,
-		/// <summary>C0 /2 ib</summary>
+		/// <summary><c>C0 /2 ib</c><br/>
+		/// <br/>
+		/// <c>RCL r/m8, imm8</c></summary>
 		Rcl_rm8_imm8,
-		/// <summary>C0 /3 ib</summary>
+		/// <summary><c>C0 /3 ib</c><br/>
+		/// <br/>
+		/// <c>RCR r/m8, imm8</c></summary>
 		Rcr_rm8_imm8,
-		/// <summary>C0 /4 ib</summary>
+		/// <summary><c>C0 /4 ib</c><br/>
+		/// <br/>
+		/// <c>SHL r/m8, imm8</c></summary>
 		Shl_rm8_imm8,
-		/// <summary>C0 /5 ib</summary>
+		/// <summary><c>C0 /5 ib</c><br/>
+		/// <br/>
+		/// <c>SHR r/m8, imm8</c></summary>
 		Shr_rm8_imm8,
-		/// <summary>C0 /6 ib</summary>
+		/// <summary><c>C0 /6 ib</c><br/>
+		/// <br/>
+		/// <c>SAL r/m8, imm8</c></summary>
 		Sal_rm8_imm8,
-		/// <summary>C0 /7 ib</summary>
+		/// <summary><c>C0 /7 ib</c><br/>
+		/// <br/>
+		/// <c>SAR r/m8, imm8</c></summary>
 		Sar_rm8_imm8,
-		/// <summary>o16 C1 /0 ib</summary>
+		/// <summary><c>o16 C1 /0 ib</c><br/>
+		/// <br/>
+		/// <c>ROL r/m16, imm8</c></summary>
 		Rol_rm16_imm8,
-		/// <summary>o32 C1 /0 ib</summary>
+		/// <summary><c>o32 C1 /0 ib</c><br/>
+		/// <br/>
+		/// <c>ROL r/m32, imm8</c></summary>
 		Rol_rm32_imm8,
-		/// <summary>REX.W C1 /0 ib</summary>
+		/// <summary><c>REX.W C1 /0 ib</c><br/>
+		/// <br/>
+		/// <c>ROL r/m64, imm8</c></summary>
 		Rol_rm64_imm8,
-		/// <summary>o16 C1 /1 ib</summary>
+		/// <summary><c>o16 C1 /1 ib</c><br/>
+		/// <br/>
+		/// <c>ROR r/m16, imm8</c></summary>
 		Ror_rm16_imm8,
-		/// <summary>o32 C1 /1 ib</summary>
+		/// <summary><c>o32 C1 /1 ib</c><br/>
+		/// <br/>
+		/// <c>ROR r/m32, imm8</c></summary>
 		Ror_rm32_imm8,
-		/// <summary>REX.W C1 /1 ib</summary>
+		/// <summary><c>REX.W C1 /1 ib</c><br/>
+		/// <br/>
+		/// <c>ROR r/m64, imm8</c></summary>
 		Ror_rm64_imm8,
-		/// <summary>o16 C1 /2 ib</summary>
+		/// <summary><c>o16 C1 /2 ib</c><br/>
+		/// <br/>
+		/// <c>RCL r/m16, imm8</c></summary>
 		Rcl_rm16_imm8,
-		/// <summary>o32 C1 /2 ib</summary>
+		/// <summary><c>o32 C1 /2 ib</c><br/>
+		/// <br/>
+		/// <c>RCL r/m32, imm8</c></summary>
 		Rcl_rm32_imm8,
-		/// <summary>REX.W C1 /2 ib</summary>
+		/// <summary><c>REX.W C1 /2 ib</c><br/>
+		/// <br/>
+		/// <c>RCL r/m64, imm8</c></summary>
 		Rcl_rm64_imm8,
-		/// <summary>o16 C1 /3 ib</summary>
+		/// <summary><c>o16 C1 /3 ib</c><br/>
+		/// <br/>
+		/// <c>RCR r/m16, imm8</c></summary>
 		Rcr_rm16_imm8,
-		/// <summary>o32 C1 /3 ib</summary>
+		/// <summary><c>o32 C1 /3 ib</c><br/>
+		/// <br/>
+		/// <c>RCR r/m32, imm8</c></summary>
 		Rcr_rm32_imm8,
-		/// <summary>REX.W C1 /3 ib</summary>
+		/// <summary><c>REX.W C1 /3 ib</c><br/>
+		/// <br/>
+		/// <c>RCR r/m64, imm8</c></summary>
 		Rcr_rm64_imm8,
-		/// <summary>o16 C1 /4 ib</summary>
+		/// <summary><c>o16 C1 /4 ib</c><br/>
+		/// <br/>
+		/// <c>SHL r/m16, imm8</c></summary>
 		Shl_rm16_imm8,
-		/// <summary>o32 C1 /4 ib</summary>
+		/// <summary><c>o32 C1 /4 ib</c><br/>
+		/// <br/>
+		/// <c>SHL r/m32, imm8</c></summary>
 		Shl_rm32_imm8,
-		/// <summary>REX.W C1 /4 ib</summary>
+		/// <summary><c>REX.W C1 /4 ib</c><br/>
+		/// <br/>
+		/// <c>SHL r/m64, imm8</c></summary>
 		Shl_rm64_imm8,
-		/// <summary>o16 C1 /5 ib</summary>
+		/// <summary><c>o16 C1 /5 ib</c><br/>
+		/// <br/>
+		/// <c>SHR r/m16, imm8</c></summary>
 		Shr_rm16_imm8,
-		/// <summary>o32 C1 /5 ib</summary>
+		/// <summary><c>o32 C1 /5 ib</c><br/>
+		/// <br/>
+		/// <c>SHR r/m32, imm8</c></summary>
 		Shr_rm32_imm8,
-		/// <summary>REX.W C1 /5 ib</summary>
+		/// <summary><c>REX.W C1 /5 ib</c><br/>
+		/// <br/>
+		/// <c>SHR r/m64, imm8</c></summary>
 		Shr_rm64_imm8,
-		/// <summary>o16 C1 /6 ib</summary>
+		/// <summary><c>o16 C1 /6 ib</c><br/>
+		/// <br/>
+		/// <c>SAL r/m16, imm8</c></summary>
 		Sal_rm16_imm8,
-		/// <summary>o32 C1 /6 ib</summary>
+		/// <summary><c>o32 C1 /6 ib</c><br/>
+		/// <br/>
+		/// <c>SAL r/m32, imm8</c></summary>
 		Sal_rm32_imm8,
-		/// <summary>REX.W C1 /6 ib</summary>
+		/// <summary><c>REX.W C1 /6 ib</c><br/>
+		/// <br/>
+		/// <c>SAL r/m64, imm8</c></summary>
 		Sal_rm64_imm8,
-		/// <summary>o16 C1 /7 ib</summary>
+		/// <summary><c>o16 C1 /7 ib</c><br/>
+		/// <br/>
+		/// <c>SAR r/m16, imm8</c></summary>
 		Sar_rm16_imm8,
-		/// <summary>o32 C1 /7 ib</summary>
+		/// <summary><c>o32 C1 /7 ib</c><br/>
+		/// <br/>
+		/// <c>SAR r/m32, imm8</c></summary>
 		Sar_rm32_imm8,
-		/// <summary>REX.W C1 /7 ib</summary>
+		/// <summary><c>REX.W C1 /7 ib</c><br/>
+		/// <br/>
+		/// <c>SAR r/m64, imm8</c></summary>
 		Sar_rm64_imm8,
-		/// <summary>o16 C2 iw</summary>
+		/// <summary><c>o16 C2 iw</c><br/>
+		/// <br/>
+		/// <c>RET imm16</c></summary>
 		Retnw_imm16,
-		/// <summary>o32 C2 iw</summary>
+		/// <summary><c>o32 C2 iw</c><br/>
+		/// <br/>
+		/// <c>RET imm16</c></summary>
 		Retnd_imm16,
-		/// <summary>C2 iw</summary>
+		/// <summary><c>C2 iw</c><br/>
+		/// <br/>
+		/// <c>RET imm16</c></summary>
 		Retnq_imm16,
-		/// <summary>o16 C3</summary>
+		/// <summary><c>o16 C3</c><br/>
+		/// <br/>
+		/// <c>RET</c></summary>
 		Retnw,
-		/// <summary>o32 C3</summary>
+		/// <summary><c>o32 C3</c><br/>
+		/// <br/>
+		/// <c>RET</c></summary>
 		Retnd,
-		/// <summary>C3</summary>
+		/// <summary><c>C3</c><br/>
+		/// <br/>
+		/// <c>RET</c></summary>
 		Retnq,
-		/// <summary>o16 C4 /r</summary>
+		/// <summary><c>o16 C4 /r</c><br/>
+		/// <br/>
+		/// <c>LES r16, m16:16</c></summary>
 		Les_r16_m1616,
-		/// <summary>o32 C4 /r</summary>
+		/// <summary><c>o32 C4 /r</c><br/>
+		/// <br/>
+		/// <c>LES r32, m16:32</c></summary>
 		Les_r32_m1632,
-		/// <summary>o16 C5 /r</summary>
+		/// <summary><c>o16 C5 /r</c><br/>
+		/// <br/>
+		/// <c>LDS r16, m16:16</c></summary>
 		Lds_r16_m1616,
-		/// <summary>o32 C5 /r</summary>
+		/// <summary><c>o32 C5 /r</c><br/>
+		/// <br/>
+		/// <c>LDS r32, m16:32</c></summary>
 		Lds_r32_m1632,
-		/// <summary>C6 /0 ib</summary>
+		/// <summary><c>C6 /0 ib</c><br/>
+		/// <br/>
+		/// <c>MOV r/m8, imm8</c></summary>
 		Mov_rm8_imm8,
-		/// <summary>C6 F8 ib</summary>
+		/// <summary><c>C6 F8 ib</c><br/>
+		/// <br/>
+		/// <c>XABORT imm8</c></summary>
 		Xabort_imm8,
-		/// <summary>o16 C7 /0 iw</summary>
+		/// <summary><c>o16 C7 /0 iw</c><br/>
+		/// <br/>
+		/// <c>MOV r/m16, imm16</c></summary>
 		Mov_rm16_imm16,
-		/// <summary>o32 C7 /0 id</summary>
+		/// <summary><c>o32 C7 /0 id</c><br/>
+		/// <br/>
+		/// <c>MOV r/m32, imm32</c></summary>
 		Mov_rm32_imm32,
-		/// <summary>REX.W C7 /0 id</summary>
+		/// <summary><c>REX.W C7 /0 id</c><br/>
+		/// <br/>
+		/// <c>MOV r/m64, imm32</c></summary>
 		Mov_rm64_imm32,
-		/// <summary>o16 C7 F8 cw</summary>
+		/// <summary><c>o16 C7 F8 cw</c><br/>
+		/// <br/>
+		/// <c>XBEGIN rel16</c></summary>
 		Xbegin_rel16,
-		/// <summary>o32 C7 F8 cd</summary>
+		/// <summary><c>o32 C7 F8 cd</c><br/>
+		/// <br/>
+		/// <c>XBEGIN rel32</c></summary>
 		Xbegin_rel32,
-		/// <summary>o16 C8 iw ib</summary>
+		/// <summary><c>o16 C8 iw ib</c><br/>
+		/// <br/>
+		/// <c>ENTER imm16, imm8</c></summary>
 		Enterw_imm16_imm8,
-		/// <summary>o32 C8 iw ib</summary>
+		/// <summary><c>o32 C8 iw ib</c><br/>
+		/// <br/>
+		/// <c>ENTER imm16, imm8</c></summary>
 		Enterd_imm16_imm8,
-		/// <summary>C8 iw ib</summary>
+		/// <summary><c>C8 iw ib</c><br/>
+		/// <br/>
+		/// <c>ENTER imm16, imm8</c></summary>
 		Enterq_imm16_imm8,
-		/// <summary>o16 C9</summary>
+		/// <summary><c>o16 C9</c><br/>
+		/// <br/>
+		/// <c>LEAVE</c></summary>
 		Leavew,
-		/// <summary>o32 C9</summary>
+		/// <summary><c>o32 C9</c><br/>
+		/// <br/>
+		/// <c>LEAVE</c></summary>
 		Leaved,
-		/// <summary>C9</summary>
+		/// <summary><c>C9</c><br/>
+		/// <br/>
+		/// <c>LEAVE</c></summary>
 		Leaveq,
-		/// <summary>o16 CA iw</summary>
+		/// <summary><c>o16 CA iw</c><br/>
+		/// <br/>
+		/// <c>RET imm16</c></summary>
 		Retfw_imm16,
-		/// <summary>o32 CA iw</summary>
+		/// <summary><c>o32 CA iw</c><br/>
+		/// <br/>
+		/// <c>RET imm16</c></summary>
 		Retfd_imm16,
-		/// <summary>REX.W CA iw</summary>
+		/// <summary><c>REX.W CA iw</c><br/>
+		/// <br/>
+		/// <c>RET imm16</c></summary>
 		Retfq_imm16,
-		/// <summary>o16 CB</summary>
+		/// <summary><c>o16 CB</c><br/>
+		/// <br/>
+		/// <c>RET</c></summary>
 		Retfw,
-		/// <summary>o32 CB</summary>
+		/// <summary><c>o32 CB</c><br/>
+		/// <br/>
+		/// <c>RET</c></summary>
 		Retfd,
-		/// <summary>REX.W CB</summary>
+		/// <summary><c>REX.W CB</c><br/>
+		/// <br/>
+		/// <c>RET</c></summary>
 		Retfq,
-		/// <summary>CC</summary>
+		/// <summary><c>CC</c><br/>
+		/// <br/>
+		/// <c>INT3</c></summary>
 		Int3,
-		/// <summary>CD ib</summary>
+		/// <summary><c>CD ib</c><br/>
+		/// <br/>
+		/// <c>INT imm8</c></summary>
 		Int_imm8,
-		/// <summary>CE</summary>
+		/// <summary><c>CE</c><br/>
+		/// <br/>
+		/// <c>INTO</c></summary>
 		Into,
-		/// <summary>o16 CF</summary>
+		/// <summary><c>o16 CF</c><br/>
+		/// <br/>
+		/// <c>IRET</c></summary>
 		Iretw,
-		/// <summary>o32 CF</summary>
+		/// <summary><c>o32 CF</c><br/>
+		/// <br/>
+		/// <c>IRETD</c></summary>
 		Iretd,
-		/// <summary>REX.W CF</summary>
+		/// <summary><c>REX.W CF</c><br/>
+		/// <br/>
+		/// <c>IRETQ</c></summary>
 		Iretq,
-		/// <summary>D0 /0</summary>
+		/// <summary><c>D0 /0</c><br/>
+		/// <br/>
+		/// <c>ROL r/m8, 1</c></summary>
 		Rol_rm8_1,
-		/// <summary>D0 /1</summary>
+		/// <summary><c>D0 /1</c><br/>
+		/// <br/>
+		/// <c>ROR r/m8, 1</c></summary>
 		Ror_rm8_1,
-		/// <summary>D0 /2</summary>
+		/// <summary><c>D0 /2</c><br/>
+		/// <br/>
+		/// <c>RCL r/m8, 1</c></summary>
 		Rcl_rm8_1,
-		/// <summary>D0 /3</summary>
+		/// <summary><c>D0 /3</c><br/>
+		/// <br/>
+		/// <c>RCR r/m8, 1</c></summary>
 		Rcr_rm8_1,
-		/// <summary>D0 /4</summary>
+		/// <summary><c>D0 /4</c><br/>
+		/// <br/>
+		/// <c>SHL r/m8, 1</c></summary>
 		Shl_rm8_1,
-		/// <summary>D0 /5</summary>
+		/// <summary><c>D0 /5</c><br/>
+		/// <br/>
+		/// <c>SHR r/m8, 1</c></summary>
 		Shr_rm8_1,
-		/// <summary>D0 /6</summary>
+		/// <summary><c>D0 /6</c><br/>
+		/// <br/>
+		/// <c>SAL r/m8, 1</c></summary>
 		Sal_rm8_1,
-		/// <summary>D0 /7</summary>
+		/// <summary><c>D0 /7</c><br/>
+		/// <br/>
+		/// <c>SAR r/m8, 1</c></summary>
 		Sar_rm8_1,
-		/// <summary>o16 D1 /0</summary>
+		/// <summary><c>o16 D1 /0</c><br/>
+		/// <br/>
+		/// <c>ROL r/m16, 1</c></summary>
 		Rol_rm16_1,
-		/// <summary>o32 D1 /0</summary>
+		/// <summary><c>o32 D1 /0</c><br/>
+		/// <br/>
+		/// <c>ROL r/m32, 1</c></summary>
 		Rol_rm32_1,
-		/// <summary>REX.W D1 /0</summary>
+		/// <summary><c>REX.W D1 /0</c><br/>
+		/// <br/>
+		/// <c>ROL r/m64, 1</c></summary>
 		Rol_rm64_1,
-		/// <summary>o16 D1 /1</summary>
+		/// <summary><c>o16 D1 /1</c><br/>
+		/// <br/>
+		/// <c>ROR r/m16, 1</c></summary>
 		Ror_rm16_1,
-		/// <summary>o32 D1 /1</summary>
+		/// <summary><c>o32 D1 /1</c><br/>
+		/// <br/>
+		/// <c>ROR r/m32, 1</c></summary>
 		Ror_rm32_1,
-		/// <summary>REX.W D1 /1</summary>
+		/// <summary><c>REX.W D1 /1</c><br/>
+		/// <br/>
+		/// <c>ROR r/m64, 1</c></summary>
 		Ror_rm64_1,
-		/// <summary>o16 D1 /2</summary>
+		/// <summary><c>o16 D1 /2</c><br/>
+		/// <br/>
+		/// <c>RCL r/m16, 1</c></summary>
 		Rcl_rm16_1,
-		/// <summary>o32 D1 /2</summary>
+		/// <summary><c>o32 D1 /2</c><br/>
+		/// <br/>
+		/// <c>RCL r/m32, 1</c></summary>
 		Rcl_rm32_1,
-		/// <summary>REX.W D1 /2</summary>
+		/// <summary><c>REX.W D1 /2</c><br/>
+		/// <br/>
+		/// <c>RCL r/m64, 1</c></summary>
 		Rcl_rm64_1,
-		/// <summary>o16 D1 /3</summary>
+		/// <summary><c>o16 D1 /3</c><br/>
+		/// <br/>
+		/// <c>RCR r/m16, 1</c></summary>
 		Rcr_rm16_1,
-		/// <summary>o32 D1 /3</summary>
+		/// <summary><c>o32 D1 /3</c><br/>
+		/// <br/>
+		/// <c>RCR r/m32, 1</c></summary>
 		Rcr_rm32_1,
-		/// <summary>REX.W D1 /3</summary>
+		/// <summary><c>REX.W D1 /3</c><br/>
+		/// <br/>
+		/// <c>RCR r/m64, 1</c></summary>
 		Rcr_rm64_1,
-		/// <summary>o16 D1 /4</summary>
+		/// <summary><c>o16 D1 /4</c><br/>
+		/// <br/>
+		/// <c>SHL r/m16, 1</c></summary>
 		Shl_rm16_1,
-		/// <summary>o32 D1 /4</summary>
+		/// <summary><c>o32 D1 /4</c><br/>
+		/// <br/>
+		/// <c>SHL r/m32, 1</c></summary>
 		Shl_rm32_1,
-		/// <summary>REX.W D1 /4</summary>
+		/// <summary><c>REX.W D1 /4</c><br/>
+		/// <br/>
+		/// <c>SHL r/m64, 1</c></summary>
 		Shl_rm64_1,
-		/// <summary>o16 D1 /5</summary>
+		/// <summary><c>o16 D1 /5</c><br/>
+		/// <br/>
+		/// <c>SHR r/m16, 1</c></summary>
 		Shr_rm16_1,
-		/// <summary>o32 D1 /5</summary>
+		/// <summary><c>o32 D1 /5</c><br/>
+		/// <br/>
+		/// <c>SHR r/m32, 1</c></summary>
 		Shr_rm32_1,
-		/// <summary>REX.W D1 /5</summary>
+		/// <summary><c>REX.W D1 /5</c><br/>
+		/// <br/>
+		/// <c>SHR r/m64, 1</c></summary>
 		Shr_rm64_1,
-		/// <summary>o16 D1 /6</summary>
+		/// <summary><c>o16 D1 /6</c><br/>
+		/// <br/>
+		/// <c>SAL r/m16, 1</c></summary>
 		Sal_rm16_1,
-		/// <summary>o32 D1 /6</summary>
+		/// <summary><c>o32 D1 /6</c><br/>
+		/// <br/>
+		/// <c>SAL r/m32, 1</c></summary>
 		Sal_rm32_1,
-		/// <summary>REX.W D1 /6</summary>
+		/// <summary><c>REX.W D1 /6</c><br/>
+		/// <br/>
+		/// <c>SAL r/m64, 1</c></summary>
 		Sal_rm64_1,
-		/// <summary>o16 D1 /7</summary>
+		/// <summary><c>o16 D1 /7</c><br/>
+		/// <br/>
+		/// <c>SAR r/m16, 1</c></summary>
 		Sar_rm16_1,
-		/// <summary>o32 D1 /7</summary>
+		/// <summary><c>o32 D1 /7</c><br/>
+		/// <br/>
+		/// <c>SAR r/m32, 1</c></summary>
 		Sar_rm32_1,
-		/// <summary>REX.W D1 /7</summary>
+		/// <summary><c>REX.W D1 /7</c><br/>
+		/// <br/>
+		/// <c>SAR r/m64, 1</c></summary>
 		Sar_rm64_1,
-		/// <summary>D2 /0</summary>
+		/// <summary><c>D2 /0</c><br/>
+		/// <br/>
+		/// <c>ROL r/m8, CL</c></summary>
 		Rol_rm8_CL,
-		/// <summary>D2 /1</summary>
+		/// <summary><c>D2 /1</c><br/>
+		/// <br/>
+		/// <c>ROR r/m8, CL</c></summary>
 		Ror_rm8_CL,
-		/// <summary>D2 /2</summary>
+		/// <summary><c>D2 /2</c><br/>
+		/// <br/>
+		/// <c>RCL r/m8, CL</c></summary>
 		Rcl_rm8_CL,
-		/// <summary>D2 /3</summary>
+		/// <summary><c>D2 /3</c><br/>
+		/// <br/>
+		/// <c>RCR r/m8, CL</c></summary>
 		Rcr_rm8_CL,
-		/// <summary>D2 /4</summary>
+		/// <summary><c>D2 /4</c><br/>
+		/// <br/>
+		/// <c>SHL r/m8, CL</c></summary>
 		Shl_rm8_CL,
-		/// <summary>D2 /5</summary>
+		/// <summary><c>D2 /5</c><br/>
+		/// <br/>
+		/// <c>SHR r/m8, CL</c></summary>
 		Shr_rm8_CL,
-		/// <summary>D2 /6</summary>
+		/// <summary><c>D2 /6</c><br/>
+		/// <br/>
+		/// <c>SAL r/m8, CL</c></summary>
 		Sal_rm8_CL,
-		/// <summary>D2 /7</summary>
+		/// <summary><c>D2 /7</c><br/>
+		/// <br/>
+		/// <c>SAR r/m8, CL</c></summary>
 		Sar_rm8_CL,
-		/// <summary>o16 D3 /0</summary>
+		/// <summary><c>o16 D3 /0</c><br/>
+		/// <br/>
+		/// <c>ROL r/m16, CL</c></summary>
 		Rol_rm16_CL,
-		/// <summary>o32 D3 /0</summary>
+		/// <summary><c>o32 D3 /0</c><br/>
+		/// <br/>
+		/// <c>ROL r/m32, CL</c></summary>
 		Rol_rm32_CL,
-		/// <summary>REX.W D3 /0</summary>
+		/// <summary><c>REX.W D3 /0</c><br/>
+		/// <br/>
+		/// <c>ROL r/m64, CL</c></summary>
 		Rol_rm64_CL,
-		/// <summary>o16 D3 /1</summary>
+		/// <summary><c>o16 D3 /1</c><br/>
+		/// <br/>
+		/// <c>ROR r/m16, CL</c></summary>
 		Ror_rm16_CL,
-		/// <summary>o32 D3 /1</summary>
+		/// <summary><c>o32 D3 /1</c><br/>
+		/// <br/>
+		/// <c>ROR r/m32, CL</c></summary>
 		Ror_rm32_CL,
-		/// <summary>REX.W D3 /1</summary>
+		/// <summary><c>REX.W D3 /1</c><br/>
+		/// <br/>
+		/// <c>ROR r/m64, CL</c></summary>
 		Ror_rm64_CL,
-		/// <summary>o16 D3 /2</summary>
+		/// <summary><c>o16 D3 /2</c><br/>
+		/// <br/>
+		/// <c>RCL r/m16, CL</c></summary>
 		Rcl_rm16_CL,
-		/// <summary>o32 D3 /2</summary>
+		/// <summary><c>o32 D3 /2</c><br/>
+		/// <br/>
+		/// <c>RCL r/m32, CL</c></summary>
 		Rcl_rm32_CL,
-		/// <summary>REX.W D3 /2</summary>
+		/// <summary><c>REX.W D3 /2</c><br/>
+		/// <br/>
+		/// <c>RCL r/m64, CL</c></summary>
 		Rcl_rm64_CL,
-		/// <summary>o16 D3 /3</summary>
+		/// <summary><c>o16 D3 /3</c><br/>
+		/// <br/>
+		/// <c>RCR r/m16, CL</c></summary>
 		Rcr_rm16_CL,
-		/// <summary>o32 D3 /3</summary>
+		/// <summary><c>o32 D3 /3</c><br/>
+		/// <br/>
+		/// <c>RCR r/m32, CL</c></summary>
 		Rcr_rm32_CL,
-		/// <summary>REX.W D3 /3</summary>
+		/// <summary><c>REX.W D3 /3</c><br/>
+		/// <br/>
+		/// <c>RCR r/m64, CL</c></summary>
 		Rcr_rm64_CL,
-		/// <summary>o16 D3 /4</summary>
+		/// <summary><c>o16 D3 /4</c><br/>
+		/// <br/>
+		/// <c>SHL r/m16, CL</c></summary>
 		Shl_rm16_CL,
-		/// <summary>o32 D3 /4</summary>
+		/// <summary><c>o32 D3 /4</c><br/>
+		/// <br/>
+		/// <c>SHL r/m32, CL</c></summary>
 		Shl_rm32_CL,
-		/// <summary>REX.W D3 /4</summary>
+		/// <summary><c>REX.W D3 /4</c><br/>
+		/// <br/>
+		/// <c>SHL r/m64, CL</c></summary>
 		Shl_rm64_CL,
-		/// <summary>o16 D3 /5</summary>
+		/// <summary><c>o16 D3 /5</c><br/>
+		/// <br/>
+		/// <c>SHR r/m16, CL</c></summary>
 		Shr_rm16_CL,
-		/// <summary>o32 D3 /5</summary>
+		/// <summary><c>o32 D3 /5</c><br/>
+		/// <br/>
+		/// <c>SHR r/m32, CL</c></summary>
 		Shr_rm32_CL,
-		/// <summary>REX.W D3 /5</summary>
+		/// <summary><c>REX.W D3 /5</c><br/>
+		/// <br/>
+		/// <c>SHR r/m64, CL</c></summary>
 		Shr_rm64_CL,
-		/// <summary>o16 D3 /6</summary>
+		/// <summary><c>o16 D3 /6</c><br/>
+		/// <br/>
+		/// <c>SAL r/m16, CL</c></summary>
 		Sal_rm16_CL,
-		/// <summary>o32 D3 /6</summary>
+		/// <summary><c>o32 D3 /6</c><br/>
+		/// <br/>
+		/// <c>SAL r/m32, CL</c></summary>
 		Sal_rm32_CL,
-		/// <summary>REX.W D3 /6</summary>
+		/// <summary><c>REX.W D3 /6</c><br/>
+		/// <br/>
+		/// <c>SAL r/m64, CL</c></summary>
 		Sal_rm64_CL,
-		/// <summary>o16 D3 /7</summary>
+		/// <summary><c>o16 D3 /7</c><br/>
+		/// <br/>
+		/// <c>SAR r/m16, CL</c></summary>
 		Sar_rm16_CL,
-		/// <summary>o32 D3 /7</summary>
+		/// <summary><c>o32 D3 /7</c><br/>
+		/// <br/>
+		/// <c>SAR r/m32, CL</c></summary>
 		Sar_rm32_CL,
-		/// <summary>REX.W D3 /7</summary>
+		/// <summary><c>REX.W D3 /7</c><br/>
+		/// <br/>
+		/// <c>SAR r/m64, CL</c></summary>
 		Sar_rm64_CL,
-		/// <summary>D4 ib</summary>
+		/// <summary><c>D4 ib</c><br/>
+		/// <br/>
+		/// <c>AAM imm8</c></summary>
 		Aam_imm8,
-		/// <summary>D5 ib</summary>
+		/// <summary><c>D5 ib</c><br/>
+		/// <br/>
+		/// <c>AAD imm8</c></summary>
 		Aad_imm8,
-		/// <summary>D6</summary>
+		/// <summary><c>D6</c><br/>
+		/// <br/>
+		/// <c>SALC</c></summary>
 		Salc,
-		/// <summary>D7</summary>
+		/// <summary><c>D7</c><br/>
+		/// <br/>
+		/// <c>XLATB</c></summary>
 		Xlat_m8,
-		/// <summary>D8 /0</summary>
+		/// <summary><c>D8 /0</c><br/>
+		/// <br/>
+		/// <c>FADD m32fp</c></summary>
 		Fadd_m32fp,
-		/// <summary>D8 /1</summary>
+		/// <summary><c>D8 /1</c><br/>
+		/// <br/>
+		/// <c>FMUL m32fp</c></summary>
 		Fmul_m32fp,
-		/// <summary>D8 /2</summary>
+		/// <summary><c>D8 /2</c><br/>
+		/// <br/>
+		/// <c>FCOM m32fp</c></summary>
 		Fcom_m32fp,
-		/// <summary>D8 /3</summary>
+		/// <summary><c>D8 /3</c><br/>
+		/// <br/>
+		/// <c>FCOMP m32fp</c></summary>
 		Fcomp_m32fp,
-		/// <summary>D8 /4</summary>
+		/// <summary><c>D8 /4</c><br/>
+		/// <br/>
+		/// <c>FSUB m32fp</c></summary>
 		Fsub_m32fp,
-		/// <summary>D8 /5</summary>
+		/// <summary><c>D8 /5</c><br/>
+		/// <br/>
+		/// <c>FSUBR m32fp</c></summary>
 		Fsubr_m32fp,
-		/// <summary>D8 /6</summary>
+		/// <summary><c>D8 /6</c><br/>
+		/// <br/>
+		/// <c>FDIV m32fp</c></summary>
 		Fdiv_m32fp,
-		/// <summary>D8 /7</summary>
+		/// <summary><c>D8 /7</c><br/>
+		/// <br/>
+		/// <c>FDIVR m32fp</c></summary>
 		Fdivr_m32fp,
-		/// <summary>D8 C0+i</summary>
+		/// <summary><c>D8 C0+i</c><br/>
+		/// <br/>
+		/// <c>FADD ST(0), ST(i)</c></summary>
 		Fadd_st0_sti,
-		/// <summary>D8 C8+i</summary>
+		/// <summary><c>D8 C8+i</c><br/>
+		/// <br/>
+		/// <c>FMUL ST(0), ST(i)</c></summary>
 		Fmul_st0_sti,
-		/// <summary>D8 D0+i</summary>
+		/// <summary><c>D8 D0+i</c><br/>
+		/// <br/>
+		/// <c>FCOM ST(i)</c></summary>
 		Fcom_st0_sti,
-		/// <summary>D8 D8+i</summary>
+		/// <summary><c>D8 D8+i</c><br/>
+		/// <br/>
+		/// <c>FCOMP ST(i)</c></summary>
 		Fcomp_st0_sti,
-		/// <summary>D8 E0+i</summary>
+		/// <summary><c>D8 E0+i</c><br/>
+		/// <br/>
+		/// <c>FSUB ST(0), ST(i)</c></summary>
 		Fsub_st0_sti,
-		/// <summary>D8 E8+i</summary>
+		/// <summary><c>D8 E8+i</c><br/>
+		/// <br/>
+		/// <c>FSUBR ST(0), ST(i)</c></summary>
 		Fsubr_st0_sti,
-		/// <summary>D8 F0+i</summary>
+		/// <summary><c>D8 F0+i</c><br/>
+		/// <br/>
+		/// <c>FDIV ST(0), ST(i)</c></summary>
 		Fdiv_st0_sti,
-		/// <summary>D8 F8+i</summary>
+		/// <summary><c>D8 F8+i</c><br/>
+		/// <br/>
+		/// <c>FDIVR ST(0), ST(i)</c></summary>
 		Fdivr_st0_sti,
-		/// <summary>D9 /0</summary>
+		/// <summary><c>D9 /0</c><br/>
+		/// <br/>
+		/// <c>FLD m32fp</c></summary>
 		Fld_m32fp,
-		/// <summary>D9 /2</summary>
+		/// <summary><c>D9 /2</c><br/>
+		/// <br/>
+		/// <c>FST m32fp</c></summary>
 		Fst_m32fp,
-		/// <summary>D9 /3</summary>
+		/// <summary><c>D9 /3</c><br/>
+		/// <br/>
+		/// <c>FSTP m32fp</c></summary>
 		Fstp_m32fp,
-		/// <summary>o16 D9 /4</summary>
+		/// <summary><c>o16 D9 /4</c><br/>
+		/// <br/>
+		/// <c>FLDENV m14byte</c></summary>
 		Fldenv_m14byte,
-		/// <summary>o32 D9 /4</summary>
+		/// <summary><c>o32 D9 /4</c><br/>
+		/// <br/>
+		/// <c>FLDENV m28byte</c></summary>
 		Fldenv_m28byte,
-		/// <summary>D9 /5</summary>
+		/// <summary><c>D9 /5</c><br/>
+		/// <br/>
+		/// <c>FLDCW m2byte</c></summary>
 		Fldcw_m2byte,
-		/// <summary>o16 D9 /6</summary>
+		/// <summary><c>o16 D9 /6</c><br/>
+		/// <br/>
+		/// <c>FNSTENV m14byte</c></summary>
 		Fnstenv_m14byte,
-		/// <summary>9B o16 D9 /6</summary>
+		/// <summary><c>9B o16 D9 /6</c><br/>
+		/// <br/>
+		/// <c>FSTENV m14byte</c></summary>
 		Fstenv_m14byte,
-		/// <summary>o32 D9 /6</summary>
+		/// <summary><c>o32 D9 /6</c><br/>
+		/// <br/>
+		/// <c>FNSTENV m28byte</c></summary>
 		Fnstenv_m28byte,
-		/// <summary>9B o32 D9 /6</summary>
+		/// <summary><c>9B o32 D9 /6</c><br/>
+		/// <br/>
+		/// <c>FSTENV m28byte</c></summary>
 		Fstenv_m28byte,
-		/// <summary>D9 /7</summary>
+		/// <summary><c>D9 /7</c><br/>
+		/// <br/>
+		/// <c>FNSTCW m2byte</c></summary>
 		Fnstcw_m2byte,
-		/// <summary>9B D9 /7</summary>
+		/// <summary><c>9B D9 /7</c><br/>
+		/// <br/>
+		/// <c>FSTCW m2byte</c></summary>
 		Fstcw_m2byte,
-		/// <summary>D9 C0+i</summary>
+		/// <summary><c>D9 C0+i</c><br/>
+		/// <br/>
+		/// <c>FLD ST(i)</c></summary>
 		Fld_st0_sti,
-		/// <summary>D9 C8+i</summary>
+		/// <summary><c>D9 C8+i</c><br/>
+		/// <br/>
+		/// <c>FXCH ST(i)</c></summary>
 		Fxch_st0_sti,
-		/// <summary>D9 D0</summary>
+		/// <summary><c>D9 D0</c><br/>
+		/// <br/>
+		/// <c>FNOP</c></summary>
 		Fnop,
-		/// <summary>D9 D8+i</summary>
+		/// <summary><c>D9 D8+i</c><br/>
+		/// <br/>
+		/// <c>FSTPNCE ST(i)</c></summary>
 		Fstpnce_sti,
-		/// <summary>D9 E0</summary>
+		/// <summary><c>D9 E0</c><br/>
+		/// <br/>
+		/// <c>FCHS</c></summary>
 		Fchs,
-		/// <summary>D9 E1</summary>
+		/// <summary><c>D9 E1</c><br/>
+		/// <br/>
+		/// <c>FABS</c></summary>
 		Fabs,
-		/// <summary>D9 E4</summary>
+		/// <summary><c>D9 E4</c><br/>
+		/// <br/>
+		/// <c>FTST</c></summary>
 		Ftst,
-		/// <summary>D9 E5</summary>
+		/// <summary><c>D9 E5</c><br/>
+		/// <br/>
+		/// <c>FXAM</c></summary>
 		Fxam,
-		/// <summary>D9 E8</summary>
+		/// <summary><c>D9 E8</c><br/>
+		/// <br/>
+		/// <c>FLD1</c></summary>
 		Fld1,
-		/// <summary>D9 E9</summary>
+		/// <summary><c>D9 E9</c><br/>
+		/// <br/>
+		/// <c>FLDL2T</c></summary>
 		Fldl2t,
-		/// <summary>D9 EA</summary>
+		/// <summary><c>D9 EA</c><br/>
+		/// <br/>
+		/// <c>FLDL2E</c></summary>
 		Fldl2e,
-		/// <summary>D9 EB</summary>
+		/// <summary><c>D9 EB</c><br/>
+		/// <br/>
+		/// <c>FLDPI</c></summary>
 		Fldpi,
-		/// <summary>D9 EC</summary>
+		/// <summary><c>D9 EC</c><br/>
+		/// <br/>
+		/// <c>FLDLG2</c></summary>
 		Fldlg2,
-		/// <summary>D9 ED</summary>
+		/// <summary><c>D9 ED</c><br/>
+		/// <br/>
+		/// <c>FLDLN2</c></summary>
 		Fldln2,
-		/// <summary>D9 EE</summary>
+		/// <summary><c>D9 EE</c><br/>
+		/// <br/>
+		/// <c>FLDZ</c></summary>
 		Fldz,
-		/// <summary>D9 F0</summary>
+		/// <summary><c>D9 F0</c><br/>
+		/// <br/>
+		/// <c>F2XM1</c></summary>
 		F2xm1,
-		/// <summary>D9 F1</summary>
+		/// <summary><c>D9 F1</c><br/>
+		/// <br/>
+		/// <c>FYL2X</c></summary>
 		Fyl2x,
-		/// <summary>D9 F2</summary>
+		/// <summary><c>D9 F2</c><br/>
+		/// <br/>
+		/// <c>FPTAN</c></summary>
 		Fptan,
-		/// <summary>D9 F3</summary>
+		/// <summary><c>D9 F3</c><br/>
+		/// <br/>
+		/// <c>FPATAN</c></summary>
 		Fpatan,
-		/// <summary>D9 F4</summary>
+		/// <summary><c>D9 F4</c><br/>
+		/// <br/>
+		/// <c>FXTRACT</c></summary>
 		Fxtract,
-		/// <summary>D9 F5</summary>
+		/// <summary><c>D9 F5</c><br/>
+		/// <br/>
+		/// <c>FPREM1</c></summary>
 		Fprem1,
-		/// <summary>D9 F6</summary>
+		/// <summary><c>D9 F6</c><br/>
+		/// <br/>
+		/// <c>FDECSTP</c></summary>
 		Fdecstp,
-		/// <summary>D9 F7</summary>
+		/// <summary><c>D9 F7</c><br/>
+		/// <br/>
+		/// <c>FINCSTP</c></summary>
 		Fincstp,
-		/// <summary>D9 F8</summary>
+		/// <summary><c>D9 F8</c><br/>
+		/// <br/>
+		/// <c>FPREM</c></summary>
 		Fprem,
-		/// <summary>D9 F9</summary>
+		/// <summary><c>D9 F9</c><br/>
+		/// <br/>
+		/// <c>FYL2XP1</c></summary>
 		Fyl2xp1,
-		/// <summary>D9 FA</summary>
+		/// <summary><c>D9 FA</c><br/>
+		/// <br/>
+		/// <c>FSQRT</c></summary>
 		Fsqrt,
-		/// <summary>D9 FB</summary>
+		/// <summary><c>D9 FB</c><br/>
+		/// <br/>
+		/// <c>FSINCOS</c></summary>
 		Fsincos,
-		/// <summary>D9 FC</summary>
+		/// <summary><c>D9 FC</c><br/>
+		/// <br/>
+		/// <c>FRNDINT</c></summary>
 		Frndint,
-		/// <summary>D9 FD</summary>
+		/// <summary><c>D9 FD</c><br/>
+		/// <br/>
+		/// <c>FSCALE</c></summary>
 		Fscale,
-		/// <summary>D9 FE</summary>
+		/// <summary><c>D9 FE</c><br/>
+		/// <br/>
+		/// <c>FSIN</c></summary>
 		Fsin,
-		/// <summary>D9 FF</summary>
+		/// <summary><c>D9 FF</c><br/>
+		/// <br/>
+		/// <c>FCOS</c></summary>
 		Fcos,
-		/// <summary>DA /0</summary>
+		/// <summary><c>DA /0</c><br/>
+		/// <br/>
+		/// <c>FIADD m32int</c></summary>
 		Fiadd_m32int,
-		/// <summary>DA /1</summary>
+		/// <summary><c>DA /1</c><br/>
+		/// <br/>
+		/// <c>FIMUL m32int</c></summary>
 		Fimul_m32int,
-		/// <summary>DA /2</summary>
+		/// <summary><c>DA /2</c><br/>
+		/// <br/>
+		/// <c>FICOM m32int</c></summary>
 		Ficom_m32int,
-		/// <summary>DA /3</summary>
+		/// <summary><c>DA /3</c><br/>
+		/// <br/>
+		/// <c>FICOMP m32int</c></summary>
 		Ficomp_m32int,
-		/// <summary>DA /4</summary>
+		/// <summary><c>DA /4</c><br/>
+		/// <br/>
+		/// <c>FISUB m32int</c></summary>
 		Fisub_m32int,
-		/// <summary>DA /5</summary>
+		/// <summary><c>DA /5</c><br/>
+		/// <br/>
+		/// <c>FISUBR m32int</c></summary>
 		Fisubr_m32int,
-		/// <summary>DA /6</summary>
+		/// <summary><c>DA /6</c><br/>
+		/// <br/>
+		/// <c>FIDIV m32int</c></summary>
 		Fidiv_m32int,
-		/// <summary>DA /7</summary>
+		/// <summary><c>DA /7</c><br/>
+		/// <br/>
+		/// <c>FIDIVR m32int</c></summary>
 		Fidivr_m32int,
-		/// <summary>DA C0+i</summary>
+		/// <summary><c>DA C0+i</c><br/>
+		/// <br/>
+		/// <c>FCMOVB ST(0), ST(i)</c></summary>
 		Fcmovb_st0_sti,
-		/// <summary>DA C8+i</summary>
+		/// <summary><c>DA C8+i</c><br/>
+		/// <br/>
+		/// <c>FCMOVE ST(0), ST(i)</c></summary>
 		Fcmove_st0_sti,
-		/// <summary>DA D0+i</summary>
+		/// <summary><c>DA D0+i</c><br/>
+		/// <br/>
+		/// <c>FCMOVBE ST(0), ST(i)</c></summary>
 		Fcmovbe_st0_sti,
-		/// <summary>DA D8+i</summary>
+		/// <summary><c>DA D8+i</c><br/>
+		/// <br/>
+		/// <c>FCMOVU ST(0), ST(i)</c></summary>
 		Fcmovu_st0_sti,
-		/// <summary>DA E9</summary>
+		/// <summary><c>DA E9</c><br/>
+		/// <br/>
+		/// <c>FUCOMPP</c></summary>
 		Fucompp,
-		/// <summary>DB /0</summary>
+		/// <summary><c>DB /0</c><br/>
+		/// <br/>
+		/// <c>FILD m32int</c></summary>
 		Fild_m32int,
-		/// <summary>DB /1</summary>
+		/// <summary><c>DB /1</c><br/>
+		/// <br/>
+		/// <c>FISTTP m32int</c></summary>
 		Fisttp_m32int,
-		/// <summary>DB /2</summary>
+		/// <summary><c>DB /2</c><br/>
+		/// <br/>
+		/// <c>FIST m32int</c></summary>
 		Fist_m32int,
-		/// <summary>DB /3</summary>
+		/// <summary><c>DB /3</c><br/>
+		/// <br/>
+		/// <c>FISTP m32int</c></summary>
 		Fistp_m32int,
-		/// <summary>DB /5</summary>
+		/// <summary><c>DB /5</c><br/>
+		/// <br/>
+		/// <c>FLD m80fp</c></summary>
 		Fld_m80fp,
-		/// <summary>DB /7</summary>
+		/// <summary><c>DB /7</c><br/>
+		/// <br/>
+		/// <c>FSTP m80fp</c></summary>
 		Fstp_m80fp,
-		/// <summary>DB C0+i</summary>
+		/// <summary><c>DB C0+i</c><br/>
+		/// <br/>
+		/// <c>FCMOVNB ST(0), ST(i)</c></summary>
 		Fcmovnb_st0_sti,
-		/// <summary>DB C8+i</summary>
+		/// <summary><c>DB C8+i</c><br/>
+		/// <br/>
+		/// <c>FCMOVNE ST(0), ST(i)</c></summary>
 		Fcmovne_st0_sti,
-		/// <summary>DB D0+i</summary>
+		/// <summary><c>DB D0+i</c><br/>
+		/// <br/>
+		/// <c>FCMOVNBE ST(0), ST(i)</c></summary>
 		Fcmovnbe_st0_sti,
-		/// <summary>DB D8+i</summary>
+		/// <summary><c>DB D8+i</c><br/>
+		/// <br/>
+		/// <c>FCMOVNU ST(0), ST(i)</c></summary>
 		Fcmovnu_st0_sti,
-		/// <summary>DB E0</summary>
+		/// <summary><c>DB E0</c><br/>
+		/// <br/>
+		/// <c>FNENI</c></summary>
 		Fneni,
-		/// <summary>9B DB E0</summary>
+		/// <summary><c>9B DB E0</c><br/>
+		/// <br/>
+		/// <c>FENI</c></summary>
 		Feni,
-		/// <summary>DB E1</summary>
+		/// <summary><c>DB E1</c><br/>
+		/// <br/>
+		/// <c>FNDISI</c></summary>
 		Fndisi,
-		/// <summary>9B DB E1</summary>
+		/// <summary><c>9B DB E1</c><br/>
+		/// <br/>
+		/// <c>FDISI</c></summary>
 		Fdisi,
-		/// <summary>DB E2</summary>
+		/// <summary><c>DB E2</c><br/>
+		/// <br/>
+		/// <c>FNCLEX</c></summary>
 		Fnclex,
-		/// <summary>9B DB E2</summary>
+		/// <summary><c>9B DB E2</c><br/>
+		/// <br/>
+		/// <c>FCLEX</c></summary>
 		Fclex,
-		/// <summary>DB E3</summary>
+		/// <summary><c>DB E3</c><br/>
+		/// <br/>
+		/// <c>FNINIT</c></summary>
 		Fninit,
-		/// <summary>9B DB E3</summary>
+		/// <summary><c>9B DB E3</c><br/>
+		/// <br/>
+		/// <c>FINIT</c></summary>
 		Finit,
-		/// <summary>DB E4</summary>
+		/// <summary><c>DB E4</c><br/>
+		/// <br/>
+		/// <c>FNSETPM</c></summary>
 		Fnsetpm,
-		/// <summary>9B DB E4</summary>
+		/// <summary><c>9B DB E4</c><br/>
+		/// <br/>
+		/// <c>FSETPM</c></summary>
 		Fsetpm,
-		/// <summary>DB E5</summary>
+		/// <summary><c>DB E5</c><br/>
+		/// <br/>
+		/// <c>FRSTPM</c></summary>
 		Frstpm,
-		/// <summary>DB E8+i</summary>
+		/// <summary><c>DB E8+i</c><br/>
+		/// <br/>
+		/// <c>FUCOMI ST, ST(i)</c></summary>
 		Fucomi_st0_sti,
-		/// <summary>DB F0+i</summary>
+		/// <summary><c>DB F0+i</c><br/>
+		/// <br/>
+		/// <c>FCOMI ST, ST(i)</c></summary>
 		Fcomi_st0_sti,
-		/// <summary>DC /0</summary>
+		/// <summary><c>DC /0</c><br/>
+		/// <br/>
+		/// <c>FADD m64fp</c></summary>
 		Fadd_m64fp,
-		/// <summary>DC /1</summary>
+		/// <summary><c>DC /1</c><br/>
+		/// <br/>
+		/// <c>FMUL m64fp</c></summary>
 		Fmul_m64fp,
-		/// <summary>DC /2</summary>
+		/// <summary><c>DC /2</c><br/>
+		/// <br/>
+		/// <c>FCOM m64fp</c></summary>
 		Fcom_m64fp,
-		/// <summary>DC /3</summary>
+		/// <summary><c>DC /3</c><br/>
+		/// <br/>
+		/// <c>FCOMP m64fp</c></summary>
 		Fcomp_m64fp,
-		/// <summary>DC /4</summary>
+		/// <summary><c>DC /4</c><br/>
+		/// <br/>
+		/// <c>FSUB m64fp</c></summary>
 		Fsub_m64fp,
-		/// <summary>DC /5</summary>
+		/// <summary><c>DC /5</c><br/>
+		/// <br/>
+		/// <c>FSUBR m64fp</c></summary>
 		Fsubr_m64fp,
-		/// <summary>DC /6</summary>
+		/// <summary><c>DC /6</c><br/>
+		/// <br/>
+		/// <c>FDIV m64fp</c></summary>
 		Fdiv_m64fp,
-		/// <summary>DC /7</summary>
+		/// <summary><c>DC /7</c><br/>
+		/// <br/>
+		/// <c>FDIVR m64fp</c></summary>
 		Fdivr_m64fp,
-		/// <summary>DC C0+i</summary>
+		/// <summary><c>DC C0+i</c><br/>
+		/// <br/>
+		/// <c>FADD ST(i), ST(0)</c></summary>
 		Fadd_sti_st0,
-		/// <summary>DC C8+i</summary>
+		/// <summary><c>DC C8+i</c><br/>
+		/// <br/>
+		/// <c>FMUL ST(i), ST(0)</c></summary>
 		Fmul_sti_st0,
-		/// <summary>DC D0+i</summary>
+		/// <summary><c>DC D0+i</c><br/>
+		/// <br/>
+		/// <c>FCOM ST(i)</c></summary>
 		Fcom_st0_sti_DCD0,
-		/// <summary>DC D8+i</summary>
+		/// <summary><c>DC D8+i</c><br/>
+		/// <br/>
+		/// <c>FCOMP ST(i)</c></summary>
 		Fcomp_st0_sti_DCD8,
-		/// <summary>DC E0+i</summary>
+		/// <summary><c>DC E0+i</c><br/>
+		/// <br/>
+		/// <c>FSUBR ST(i), ST(0)</c></summary>
 		Fsubr_sti_st0,
-		/// <summary>DC E8+i</summary>
+		/// <summary><c>DC E8+i</c><br/>
+		/// <br/>
+		/// <c>FSUB ST(i), ST(0)</c></summary>
 		Fsub_sti_st0,
-		/// <summary>DC F0+i</summary>
+		/// <summary><c>DC F0+i</c><br/>
+		/// <br/>
+		/// <c>FDIVR ST(i), ST(0)</c></summary>
 		Fdivr_sti_st0,
-		/// <summary>DC F8+i</summary>
+		/// <summary><c>DC F8+i</c><br/>
+		/// <br/>
+		/// <c>FDIV ST(i), ST(0)</c></summary>
 		Fdiv_sti_st0,
-		/// <summary>DD /0</summary>
+		/// <summary><c>DD /0</c><br/>
+		/// <br/>
+		/// <c>FLD m64fp</c></summary>
 		Fld_m64fp,
-		/// <summary>DD /1</summary>
+		/// <summary><c>DD /1</c><br/>
+		/// <br/>
+		/// <c>FISTTP m64int</c></summary>
 		Fisttp_m64int,
-		/// <summary>DD /2</summary>
+		/// <summary><c>DD /2</c><br/>
+		/// <br/>
+		/// <c>FST m64fp</c></summary>
 		Fst_m64fp,
-		/// <summary>DD /3</summary>
+		/// <summary><c>DD /3</c><br/>
+		/// <br/>
+		/// <c>FSTP m64fp</c></summary>
 		Fstp_m64fp,
-		/// <summary>o16 DD /4</summary>
+		/// <summary><c>o16 DD /4</c><br/>
+		/// <br/>
+		/// <c>FRSTOR m94byte</c></summary>
 		Frstor_m94byte,
-		/// <summary>o32 DD /4</summary>
+		/// <summary><c>o32 DD /4</c><br/>
+		/// <br/>
+		/// <c>FRSTOR m108byte</c></summary>
 		Frstor_m108byte,
-		/// <summary>o16 DD /6</summary>
+		/// <summary><c>o16 DD /6</c><br/>
+		/// <br/>
+		/// <c>FNSAVE m94byte</c></summary>
 		Fnsave_m94byte,
-		/// <summary>9B o16 DD /6</summary>
+		/// <summary><c>9B o16 DD /6</c><br/>
+		/// <br/>
+		/// <c>FSAVE m94byte</c></summary>
 		Fsave_m94byte,
-		/// <summary>o32 DD /6</summary>
+		/// <summary><c>o32 DD /6</c><br/>
+		/// <br/>
+		/// <c>FNSAVE m108byte</c></summary>
 		Fnsave_m108byte,
-		/// <summary>9B o32 DD /6</summary>
+		/// <summary><c>9B o32 DD /6</c><br/>
+		/// <br/>
+		/// <c>FSAVE m108byte</c></summary>
 		Fsave_m108byte,
-		/// <summary>DD /7</summary>
+		/// <summary><c>DD /7</c><br/>
+		/// <br/>
+		/// <c>FNSTSW m2byte</c></summary>
 		Fnstsw_m2byte,
-		/// <summary>9B DD /7</summary>
+		/// <summary><c>9B DD /7</c><br/>
+		/// <br/>
+		/// <c>FSTSW m2byte</c></summary>
 		Fstsw_m2byte,
-		/// <summary>DD C0+i</summary>
+		/// <summary><c>DD C0+i</c><br/>
+		/// <br/>
+		/// <c>FFREE ST(i)</c></summary>
 		Ffree_sti,
-		/// <summary>DD C8+i</summary>
+		/// <summary><c>DD C8+i</c><br/>
+		/// <br/>
+		/// <c>FXCH ST(i)</c></summary>
 		Fxch_st0_sti_DDC8,
-		/// <summary>DD D0+i</summary>
+		/// <summary><c>DD D0+i</c><br/>
+		/// <br/>
+		/// <c>FST ST(i)</c></summary>
 		Fst_sti,
-		/// <summary>DD D8+i</summary>
+		/// <summary><c>DD D8+i</c><br/>
+		/// <br/>
+		/// <c>FSTP ST(i)</c></summary>
 		Fstp_sti,
-		/// <summary>DD E0+i</summary>
+		/// <summary><c>DD E0+i</c><br/>
+		/// <br/>
+		/// <c>FUCOM ST(i)</c></summary>
 		Fucom_st0_sti,
-		/// <summary>DD E8+i</summary>
+		/// <summary><c>DD E8+i</c><br/>
+		/// <br/>
+		/// <c>FUCOMP ST(i)</c></summary>
 		Fucomp_st0_sti,
-		/// <summary>DE /0</summary>
+		/// <summary><c>DE /0</c><br/>
+		/// <br/>
+		/// <c>FIADD m16int</c></summary>
 		Fiadd_m16int,
-		/// <summary>DE /1</summary>
+		/// <summary><c>DE /1</c><br/>
+		/// <br/>
+		/// <c>FIMUL m16int</c></summary>
 		Fimul_m16int,
-		/// <summary>DE /2</summary>
+		/// <summary><c>DE /2</c><br/>
+		/// <br/>
+		/// <c>FICOM m16int</c></summary>
 		Ficom_m16int,
-		/// <summary>DE /3</summary>
+		/// <summary><c>DE /3</c><br/>
+		/// <br/>
+		/// <c>FICOMP m16int</c></summary>
 		Ficomp_m16int,
-		/// <summary>DE /4</summary>
+		/// <summary><c>DE /4</c><br/>
+		/// <br/>
+		/// <c>FISUB m16int</c></summary>
 		Fisub_m16int,
-		/// <summary>DE /5</summary>
+		/// <summary><c>DE /5</c><br/>
+		/// <br/>
+		/// <c>FISUBR m16int</c></summary>
 		Fisubr_m16int,
-		/// <summary>DE /6</summary>
+		/// <summary><c>DE /6</c><br/>
+		/// <br/>
+		/// <c>FIDIV m16int</c></summary>
 		Fidiv_m16int,
-		/// <summary>DE /7</summary>
+		/// <summary><c>DE /7</c><br/>
+		/// <br/>
+		/// <c>FIDIVR m16int</c></summary>
 		Fidivr_m16int,
-		/// <summary>DE C0+i</summary>
+		/// <summary><c>DE C0+i</c><br/>
+		/// <br/>
+		/// <c>FADDP ST(i), ST(0)</c></summary>
 		Faddp_sti_st0,
-		/// <summary>DE C8+i</summary>
+		/// <summary><c>DE C8+i</c><br/>
+		/// <br/>
+		/// <c>FMULP ST(i), ST(0)</c></summary>
 		Fmulp_sti_st0,
-		/// <summary>DE D0+i</summary>
+		/// <summary><c>DE D0+i</c><br/>
+		/// <br/>
+		/// <c>FCOMP ST(i)</c></summary>
 		Fcomp_st0_sti_DED0,
-		/// <summary>DE D9</summary>
+		/// <summary><c>DE D9</c><br/>
+		/// <br/>
+		/// <c>FCOMPP</c></summary>
 		Fcompp,
-		/// <summary>DE E0+i</summary>
+		/// <summary><c>DE E0+i</c><br/>
+		/// <br/>
+		/// <c>FSUBRP ST(i), ST(0)</c></summary>
 		Fsubrp_sti_st0,
-		/// <summary>DE E8+i</summary>
+		/// <summary><c>DE E8+i</c><br/>
+		/// <br/>
+		/// <c>FSUBP ST(i), ST(0)</c></summary>
 		Fsubp_sti_st0,
-		/// <summary>DE F0+i</summary>
+		/// <summary><c>DE F0+i</c><br/>
+		/// <br/>
+		/// <c>FDIVRP ST(i), ST(0)</c></summary>
 		Fdivrp_sti_st0,
-		/// <summary>DE F8+i</summary>
+		/// <summary><c>DE F8+i</c><br/>
+		/// <br/>
+		/// <c>FDIVP ST(i), ST(0)</c></summary>
 		Fdivp_sti_st0,
-		/// <summary>DF /0</summary>
+		/// <summary><c>DF /0</c><br/>
+		/// <br/>
+		/// <c>FILD m16int</c></summary>
 		Fild_m16int,
-		/// <summary>DF /1</summary>
+		/// <summary><c>DF /1</c><br/>
+		/// <br/>
+		/// <c>FISTTP m16int</c></summary>
 		Fisttp_m16int,
-		/// <summary>DF /2</summary>
+		/// <summary><c>DF /2</c><br/>
+		/// <br/>
+		/// <c>FIST m16int</c></summary>
 		Fist_m16int,
-		/// <summary>DF /3</summary>
+		/// <summary><c>DF /3</c><br/>
+		/// <br/>
+		/// <c>FISTP m16int</c></summary>
 		Fistp_m16int,
-		/// <summary>DF /4</summary>
+		/// <summary><c>DF /4</c><br/>
+		/// <br/>
+		/// <c>FBLD m80bcd</c></summary>
 		Fbld_m80bcd,
-		/// <summary>DF /5</summary>
+		/// <summary><c>DF /5</c><br/>
+		/// <br/>
+		/// <c>FILD m64int</c></summary>
 		Fild_m64int,
-		/// <summary>DF /6</summary>
+		/// <summary><c>DF /6</c><br/>
+		/// <br/>
+		/// <c>FBSTP m80bcd</c></summary>
 		Fbstp_m80bcd,
-		/// <summary>DF /7</summary>
+		/// <summary><c>DF /7</c><br/>
+		/// <br/>
+		/// <c>FISTP m64int</c></summary>
 		Fistp_m64int,
-		/// <summary>DF C0+i</summary>
+		/// <summary><c>DF C0+i</c><br/>
+		/// <br/>
+		/// <c>FFREEP ST(i)</c></summary>
 		Ffreep_sti,
-		/// <summary>DF C8+i</summary>
+		/// <summary><c>DF C8+i</c><br/>
+		/// <br/>
+		/// <c>FXCH ST(i)</c></summary>
 		Fxch_st0_sti_DFC8,
-		/// <summary>DF D0+i</summary>
+		/// <summary><c>DF D0+i</c><br/>
+		/// <br/>
+		/// <c>FSTP ST(i)</c></summary>
 		Fstp_sti_DFD0,
-		/// <summary>DF D8+i</summary>
+		/// <summary><c>DF D8+i</c><br/>
+		/// <br/>
+		/// <c>FSTP ST(i)</c></summary>
 		Fstp_sti_DFD8,
-		/// <summary>DF E0</summary>
+		/// <summary><c>DF E0</c><br/>
+		/// <br/>
+		/// <c>FNSTSW AX</c></summary>
 		Fnstsw_AX,
-		/// <summary>9B DF E0</summary>
+		/// <summary><c>9B DF E0</c><br/>
+		/// <br/>
+		/// <c>FSTSW AX</c></summary>
 		Fstsw_AX,
-		/// <summary>DF E1</summary>
+		/// <summary><c>DF E1</c><br/>
+		/// <br/>
+		/// <c>FSTDW AX</c></summary>
 		Fstdw_AX,
-		/// <summary>DF E2</summary>
+		/// <summary><c>DF E2</c><br/>
+		/// <br/>
+		/// <c>FSTSG AX</c></summary>
 		Fstsg_AX,
-		/// <summary>DF E8+i</summary>
+		/// <summary><c>DF E8+i</c><br/>
+		/// <br/>
+		/// <c>FUCOMIP ST, ST(i)</c></summary>
 		Fucomip_st0_sti,
-		/// <summary>DF F0+i</summary>
+		/// <summary><c>DF F0+i</c><br/>
+		/// <br/>
+		/// <c>FCOMIP ST, ST(i)</c></summary>
 		Fcomip_st0_sti,
-		/// <summary>a16 o16 E0 cb</summary>
+		/// <summary><c>a16 o16 E0 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPNE rel8</c></summary>
 		Loopne_rel8_16_CX,
-		/// <summary>a16 o32 E0 cb</summary>
+		/// <summary><c>a16 o32 E0 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPNE rel8</c></summary>
 		Loopne_rel8_32_CX,
-		/// <summary>a32 o16 E0 cb</summary>
+		/// <summary><c>a32 o16 E0 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPNE rel8</c></summary>
 		Loopne_rel8_16_ECX,
-		/// <summary>a32 o32 E0 cb</summary>
+		/// <summary><c>a32 o32 E0 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPNE rel8</c></summary>
 		Loopne_rel8_32_ECX,
-		/// <summary>a32 E0 cb</summary>
+		/// <summary><c>a32 E0 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPNE rel8</c></summary>
 		Loopne_rel8_64_ECX,
-		/// <summary>o16 E0 cb</summary>
+		/// <summary><c>o16 E0 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPNE rel8</c></summary>
 		Loopne_rel8_16_RCX,
-		/// <summary>E0 cb</summary>
+		/// <summary><c>E0 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPNE rel8</c></summary>
 		Loopne_rel8_64_RCX,
-		/// <summary>a16 o16 E1 cb</summary>
+		/// <summary><c>a16 o16 E1 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPE rel8</c></summary>
 		Loope_rel8_16_CX,
-		/// <summary>a16 o32 E1 cb</summary>
+		/// <summary><c>a16 o32 E1 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPE rel8</c></summary>
 		Loope_rel8_32_CX,
-		/// <summary>a32 o16 E1 cb</summary>
+		/// <summary><c>a32 o16 E1 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPE rel8</c></summary>
 		Loope_rel8_16_ECX,
-		/// <summary>a32 o32 E1 cb</summary>
+		/// <summary><c>a32 o32 E1 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPE rel8</c></summary>
 		Loope_rel8_32_ECX,
-		/// <summary>a32 E1 cb</summary>
+		/// <summary><c>a32 E1 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPE rel8</c></summary>
 		Loope_rel8_64_ECX,
-		/// <summary>o16 E1 cb</summary>
+		/// <summary><c>o16 E1 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPE rel8</c></summary>
 		Loope_rel8_16_RCX,
-		/// <summary>E1 cb</summary>
+		/// <summary><c>E1 cb</c><br/>
+		/// <br/>
+		/// <c>LOOPE rel8</c></summary>
 		Loope_rel8_64_RCX,
-		/// <summary>a16 o16 E2 cb</summary>
+		/// <summary><c>a16 o16 E2 cb</c><br/>
+		/// <br/>
+		/// <c>LOOP rel8</c></summary>
 		Loop_rel8_16_CX,
-		/// <summary>a16 o32 E2 cb</summary>
+		/// <summary><c>a16 o32 E2 cb</c><br/>
+		/// <br/>
+		/// <c>LOOP rel8</c></summary>
 		Loop_rel8_32_CX,
-		/// <summary>a32 o16 E2 cb</summary>
+		/// <summary><c>a32 o16 E2 cb</c><br/>
+		/// <br/>
+		/// <c>LOOP rel8</c></summary>
 		Loop_rel8_16_ECX,
-		/// <summary>a32 o32 E2 cb</summary>
+		/// <summary><c>a32 o32 E2 cb</c><br/>
+		/// <br/>
+		/// <c>LOOP rel8</c></summary>
 		Loop_rel8_32_ECX,
-		/// <summary>a32 E2 cb</summary>
+		/// <summary><c>a32 E2 cb</c><br/>
+		/// <br/>
+		/// <c>LOOP rel8</c></summary>
 		Loop_rel8_64_ECX,
-		/// <summary>o16 E2 cb</summary>
+		/// <summary><c>o16 E2 cb</c><br/>
+		/// <br/>
+		/// <c>LOOP rel8</c></summary>
 		Loop_rel8_16_RCX,
-		/// <summary>E2 cb</summary>
+		/// <summary><c>E2 cb</c><br/>
+		/// <br/>
+		/// <c>LOOP rel8</c></summary>
 		Loop_rel8_64_RCX,
-		/// <summary>a16 o16 E3 cb</summary>
+		/// <summary><c>a16 o16 E3 cb</c><br/>
+		/// <br/>
+		/// <c>JCXZ rel8</c></summary>
 		Jcxz_rel8_16,
-		/// <summary>a16 o32 E3 cb</summary>
+		/// <summary><c>a16 o32 E3 cb</c><br/>
+		/// <br/>
+		/// <c>JCXZ rel8</c></summary>
 		Jcxz_rel8_32,
-		/// <summary>a32 o16 E3 cb</summary>
+		/// <summary><c>a32 o16 E3 cb</c><br/>
+		/// <br/>
+		/// <c>JECXZ rel8</c></summary>
 		Jecxz_rel8_16,
-		/// <summary>a32 o32 E3 cb</summary>
+		/// <summary><c>a32 o32 E3 cb</c><br/>
+		/// <br/>
+		/// <c>JECXZ rel8</c></summary>
 		Jecxz_rel8_32,
-		/// <summary>a32 E3 cb</summary>
+		/// <summary><c>a32 E3 cb</c><br/>
+		/// <br/>
+		/// <c>JECXZ rel8</c></summary>
 		Jecxz_rel8_64,
-		/// <summary>o16 E3 cb</summary>
+		/// <summary><c>o16 E3 cb</c><br/>
+		/// <br/>
+		/// <c>JRCXZ rel8</c></summary>
 		Jrcxz_rel8_16,
-		/// <summary>E3 cb</summary>
+		/// <summary><c>E3 cb</c><br/>
+		/// <br/>
+		/// <c>JRCXZ rel8</c></summary>
 		Jrcxz_rel8_64,
-		/// <summary>E4 ib</summary>
+		/// <summary><c>E4 ib</c><br/>
+		/// <br/>
+		/// <c>IN AL, imm8</c></summary>
 		In_AL_imm8,
-		/// <summary>o16 E5 ib</summary>
+		/// <summary><c>o16 E5 ib</c><br/>
+		/// <br/>
+		/// <c>IN AX, imm8</c></summary>
 		In_AX_imm8,
-		/// <summary>o32 E5 ib</summary>
+		/// <summary><c>o32 E5 ib</c><br/>
+		/// <br/>
+		/// <c>IN EAX, imm8</c></summary>
 		In_EAX_imm8,
-		/// <summary>E6 ib</summary>
+		/// <summary><c>E6 ib</c><br/>
+		/// <br/>
+		/// <c>OUT imm8, AL</c></summary>
 		Out_imm8_AL,
-		/// <summary>o16 E7 ib</summary>
+		/// <summary><c>o16 E7 ib</c><br/>
+		/// <br/>
+		/// <c>OUT imm8, AX</c></summary>
 		Out_imm8_AX,
-		/// <summary>o32 E7 ib</summary>
+		/// <summary><c>o32 E7 ib</c><br/>
+		/// <br/>
+		/// <c>OUT imm8, EAX</c></summary>
 		Out_imm8_EAX,
-		/// <summary>o16 E8 cw</summary>
+		/// <summary><c>o16 E8 cw</c><br/>
+		/// <br/>
+		/// <c>CALL rel16</c></summary>
 		Call_rel16,
-		/// <summary>o32 E8 cd</summary>
+		/// <summary><c>o32 E8 cd</c><br/>
+		/// <br/>
+		/// <c>CALL rel32</c></summary>
 		Call_rel32_32,
-		/// <summary>E8 cd</summary>
+		/// <summary><c>E8 cd</c><br/>
+		/// <br/>
+		/// <c>CALL rel32</c></summary>
 		Call_rel32_64,
-		/// <summary>o16 E9 cw</summary>
+		/// <summary><c>o16 E9 cw</c><br/>
+		/// <br/>
+		/// <c>JMP rel16</c></summary>
 		Jmp_rel16,
-		/// <summary>o32 E9 cd</summary>
+		/// <summary><c>o32 E9 cd</c><br/>
+		/// <br/>
+		/// <c>JMP rel32</c></summary>
 		Jmp_rel32_32,
-		/// <summary>E9 cd</summary>
+		/// <summary><c>E9 cd</c><br/>
+		/// <br/>
+		/// <c>JMP rel32</c></summary>
 		Jmp_rel32_64,
-		/// <summary>o16 EA cd</summary>
+		/// <summary><c>o16 EA cd</c><br/>
+		/// <br/>
+		/// <c>JMP ptr16:16</c></summary>
 		Jmp_ptr1616,
-		/// <summary>o32 EA cp</summary>
+		/// <summary><c>o32 EA cp</c><br/>
+		/// <br/>
+		/// <c>JMP ptr16:32</c></summary>
 		Jmp_ptr1632,
-		/// <summary>o16 EB cb</summary>
+		/// <summary><c>o16 EB cb</c><br/>
+		/// <br/>
+		/// <c>JMP rel8</c></summary>
 		Jmp_rel8_16,
-		/// <summary>o32 EB cb</summary>
+		/// <summary><c>o32 EB cb</c><br/>
+		/// <br/>
+		/// <c>JMP rel8</c></summary>
 		Jmp_rel8_32,
-		/// <summary>EB cb</summary>
+		/// <summary><c>EB cb</c><br/>
+		/// <br/>
+		/// <c>JMP rel8</c></summary>
 		Jmp_rel8_64,
-		/// <summary>EC</summary>
+		/// <summary><c>EC</c><br/>
+		/// <br/>
+		/// <c>IN AL, DX</c></summary>
 		In_AL_DX,
-		/// <summary>o16 ED</summary>
+		/// <summary><c>o16 ED</c><br/>
+		/// <br/>
+		/// <c>IN AX, DX</c></summary>
 		In_AX_DX,
-		/// <summary>o32 ED</summary>
+		/// <summary><c>o32 ED</c><br/>
+		/// <br/>
+		/// <c>IN EAX, DX</c></summary>
 		In_EAX_DX,
-		/// <summary>EE</summary>
+		/// <summary><c>EE</c><br/>
+		/// <br/>
+		/// <c>OUT DX, AL</c></summary>
 		Out_DX_AL,
-		/// <summary>o16 EF</summary>
+		/// <summary><c>o16 EF</c><br/>
+		/// <br/>
+		/// <c>OUT DX, AX</c></summary>
 		Out_DX_AX,
-		/// <summary>o32 EF</summary>
+		/// <summary><c>o32 EF</c><br/>
+		/// <br/>
+		/// <c>OUT DX, EAX</c></summary>
 		Out_DX_EAX,
-		/// <summary>F1</summary>
+		/// <summary><c>F1</c><br/>
+		/// <br/>
+		/// <c>INT1</c></summary>
 		Int1,
-		/// <summary>F4</summary>
+		/// <summary><c>F4</c><br/>
+		/// <br/>
+		/// <c>HLT</c></summary>
 		Hlt,
-		/// <summary>F5</summary>
+		/// <summary><c>F5</c><br/>
+		/// <br/>
+		/// <c>CMC</c></summary>
 		Cmc,
-		/// <summary>F6 /0 ib</summary>
+		/// <summary><c>F6 /0 ib</c><br/>
+		/// <br/>
+		/// <c>TEST r/m8, imm8</c></summary>
 		Test_rm8_imm8,
-		/// <summary>F6 /1 ib</summary>
+		/// <summary><c>F6 /1 ib</c><br/>
+		/// <br/>
+		/// <c>TEST r/m8, imm8</c></summary>
 		Test_rm8_imm8_F6r1,
-		/// <summary>F6 /2</summary>
+		/// <summary><c>F6 /2</c><br/>
+		/// <br/>
+		/// <c>NOT r/m8</c></summary>
 		Not_rm8,
-		/// <summary>F6 /3</summary>
+		/// <summary><c>F6 /3</c><br/>
+		/// <br/>
+		/// <c>NEG r/m8</c></summary>
 		Neg_rm8,
-		/// <summary>F6 /4</summary>
+		/// <summary><c>F6 /4</c><br/>
+		/// <br/>
+		/// <c>MUL r/m8</c></summary>
 		Mul_rm8,
-		/// <summary>F6 /5</summary>
+		/// <summary><c>F6 /5</c><br/>
+		/// <br/>
+		/// <c>IMUL r/m8</c></summary>
 		Imul_rm8,
-		/// <summary>F6 /6</summary>
+		/// <summary><c>F6 /6</c><br/>
+		/// <br/>
+		/// <c>DIV r/m8</c></summary>
 		Div_rm8,
-		/// <summary>F6 /7</summary>
+		/// <summary><c>F6 /7</c><br/>
+		/// <br/>
+		/// <c>IDIV r/m8</c></summary>
 		Idiv_rm8,
-		/// <summary>o16 F7 /0 iw</summary>
+		/// <summary><c>o16 F7 /0 iw</c><br/>
+		/// <br/>
+		/// <c>TEST r/m16, imm16</c></summary>
 		Test_rm16_imm16,
-		/// <summary>o32 F7 /0 id</summary>
+		/// <summary><c>o32 F7 /0 id</c><br/>
+		/// <br/>
+		/// <c>TEST r/m32, imm32</c></summary>
 		Test_rm32_imm32,
-		/// <summary>REX.W F7 /0 id</summary>
+		/// <summary><c>REX.W F7 /0 id</c><br/>
+		/// <br/>
+		/// <c>TEST r/m64, imm32</c></summary>
 		Test_rm64_imm32,
-		/// <summary>o16 F7 /1 iw</summary>
+		/// <summary><c>o16 F7 /1 iw</c><br/>
+		/// <br/>
+		/// <c>TEST r/m16, imm16</c></summary>
 		Test_rm16_imm16_F7r1,
-		/// <summary>o32 F7 /1 id</summary>
+		/// <summary><c>o32 F7 /1 id</c><br/>
+		/// <br/>
+		/// <c>TEST r/m32, imm32</c></summary>
 		Test_rm32_imm32_F7r1,
-		/// <summary>REX.W F7 /1 id</summary>
+		/// <summary><c>REX.W F7 /1 id</c><br/>
+		/// <br/>
+		/// <c>TEST r/m64, imm32</c></summary>
 		Test_rm64_imm32_F7r1,
-		/// <summary>o16 F7 /2</summary>
+		/// <summary><c>o16 F7 /2</c><br/>
+		/// <br/>
+		/// <c>NOT r/m16</c></summary>
 		Not_rm16,
-		/// <summary>o32 F7 /2</summary>
+		/// <summary><c>o32 F7 /2</c><br/>
+		/// <br/>
+		/// <c>NOT r/m32</c></summary>
 		Not_rm32,
-		/// <summary>REX.W F7 /2</summary>
+		/// <summary><c>REX.W F7 /2</c><br/>
+		/// <br/>
+		/// <c>NOT r/m64</c></summary>
 		Not_rm64,
-		/// <summary>o16 F7 /3</summary>
+		/// <summary><c>o16 F7 /3</c><br/>
+		/// <br/>
+		/// <c>NEG r/m16</c></summary>
 		Neg_rm16,
-		/// <summary>o32 F7 /3</summary>
+		/// <summary><c>o32 F7 /3</c><br/>
+		/// <br/>
+		/// <c>NEG r/m32</c></summary>
 		Neg_rm32,
-		/// <summary>REX.W F7 /3</summary>
+		/// <summary><c>REX.W F7 /3</c><br/>
+		/// <br/>
+		/// <c>NEG r/m64</c></summary>
 		Neg_rm64,
-		/// <summary>o16 F7 /4</summary>
+		/// <summary><c>o16 F7 /4</c><br/>
+		/// <br/>
+		/// <c>MUL r/m16</c></summary>
 		Mul_rm16,
-		/// <summary>o32 F7 /4</summary>
+		/// <summary><c>o32 F7 /4</c><br/>
+		/// <br/>
+		/// <c>MUL r/m32</c></summary>
 		Mul_rm32,
-		/// <summary>REX.W F7 /4</summary>
+		/// <summary><c>REX.W F7 /4</c><br/>
+		/// <br/>
+		/// <c>MUL r/m64</c></summary>
 		Mul_rm64,
-		/// <summary>o16 F7 /5</summary>
+		/// <summary><c>o16 F7 /5</c><br/>
+		/// <br/>
+		/// <c>IMUL r/m16</c></summary>
 		Imul_rm16,
-		/// <summary>o32 F7 /5</summary>
+		/// <summary><c>o32 F7 /5</c><br/>
+		/// <br/>
+		/// <c>IMUL r/m32</c></summary>
 		Imul_rm32,
-		/// <summary>REX.W F7 /5</summary>
+		/// <summary><c>REX.W F7 /5</c><br/>
+		/// <br/>
+		/// <c>IMUL r/m64</c></summary>
 		Imul_rm64,
-		/// <summary>o16 F7 /6</summary>
+		/// <summary><c>o16 F7 /6</c><br/>
+		/// <br/>
+		/// <c>DIV r/m16</c></summary>
 		Div_rm16,
-		/// <summary>o32 F7 /6</summary>
+		/// <summary><c>o32 F7 /6</c><br/>
+		/// <br/>
+		/// <c>DIV r/m32</c></summary>
 		Div_rm32,
-		/// <summary>REX.W F7 /6</summary>
+		/// <summary><c>REX.W F7 /6</c><br/>
+		/// <br/>
+		/// <c>DIV r/m64</c></summary>
 		Div_rm64,
-		/// <summary>o16 F7 /7</summary>
+		/// <summary><c>o16 F7 /7</c><br/>
+		/// <br/>
+		/// <c>IDIV r/m16</c></summary>
 		Idiv_rm16,
-		/// <summary>o32 F7 /7</summary>
+		/// <summary><c>o32 F7 /7</c><br/>
+		/// <br/>
+		/// <c>IDIV r/m32</c></summary>
 		Idiv_rm32,
-		/// <summary>REX.W F7 /7</summary>
+		/// <summary><c>REX.W F7 /7</c><br/>
+		/// <br/>
+		/// <c>IDIV r/m64</c></summary>
 		Idiv_rm64,
-		/// <summary>F8</summary>
+		/// <summary><c>F8</c><br/>
+		/// <br/>
+		/// <c>CLC</c></summary>
 		Clc,
-		/// <summary>F9</summary>
+		/// <summary><c>F9</c><br/>
+		/// <br/>
+		/// <c>STC</c></summary>
 		Stc,
-		/// <summary>FA</summary>
+		/// <summary><c>FA</c><br/>
+		/// <br/>
+		/// <c>CLI</c></summary>
 		Cli,
-		/// <summary>FB</summary>
+		/// <summary><c>FB</c><br/>
+		/// <br/>
+		/// <c>STI</c></summary>
 		Sti,
-		/// <summary>FC</summary>
+		/// <summary><c>FC</c><br/>
+		/// <br/>
+		/// <c>CLD</c></summary>
 		Cld,
-		/// <summary>FD</summary>
+		/// <summary><c>FD</c><br/>
+		/// <br/>
+		/// <c>STD</c></summary>
 		Std,
-		/// <summary>FE /0</summary>
+		/// <summary><c>FE /0</c><br/>
+		/// <br/>
+		/// <c>INC r/m8</c></summary>
 		Inc_rm8,
-		/// <summary>FE /1</summary>
+		/// <summary><c>FE /1</c><br/>
+		/// <br/>
+		/// <c>DEC r/m8</c></summary>
 		Dec_rm8,
-		/// <summary>o16 FF /0</summary>
+		/// <summary><c>o16 FF /0</c><br/>
+		/// <br/>
+		/// <c>INC r/m16</c></summary>
 		Inc_rm16,
-		/// <summary>o32 FF /0</summary>
+		/// <summary><c>o32 FF /0</c><br/>
+		/// <br/>
+		/// <c>INC r/m32</c></summary>
 		Inc_rm32,
-		/// <summary>REX.W FF /0</summary>
+		/// <summary><c>REX.W FF /0</c><br/>
+		/// <br/>
+		/// <c>INC r/m64</c></summary>
 		Inc_rm64,
-		/// <summary>o16 FF /1</summary>
+		/// <summary><c>o16 FF /1</c><br/>
+		/// <br/>
+		/// <c>DEC r/m16</c></summary>
 		Dec_rm16,
-		/// <summary>o32 FF /1</summary>
+		/// <summary><c>o32 FF /1</c><br/>
+		/// <br/>
+		/// <c>DEC r/m32</c></summary>
 		Dec_rm32,
-		/// <summary>REX.W FF /1</summary>
+		/// <summary><c>REX.W FF /1</c><br/>
+		/// <br/>
+		/// <c>DEC r/m64</c></summary>
 		Dec_rm64,
-		/// <summary>o16 FF /2</summary>
+		/// <summary><c>o16 FF /2</c><br/>
+		/// <br/>
+		/// <c>CALL r/m16</c></summary>
 		Call_rm16,
-		/// <summary>o32 FF /2</summary>
+		/// <summary><c>o32 FF /2</c><br/>
+		/// <br/>
+		/// <c>CALL r/m32</c></summary>
 		Call_rm32,
-		/// <summary>FF /2</summary>
+		/// <summary><c>FF /2</c><br/>
+		/// <br/>
+		/// <c>CALL r/m64</c></summary>
 		Call_rm64,
-		/// <summary>o16 FF /3</summary>
+		/// <summary><c>o16 FF /3</c><br/>
+		/// <br/>
+		/// <c>CALL m16:16</c></summary>
 		Call_m1616,
-		/// <summary>o32 FF /3</summary>
+		/// <summary><c>o32 FF /3</c><br/>
+		/// <br/>
+		/// <c>CALL m16:32</c></summary>
 		Call_m1632,
-		/// <summary>REX.W FF /3</summary>
+		/// <summary><c>REX.W FF /3</c><br/>
+		/// <br/>
+		/// <c>CALL m16:64</c></summary>
 		Call_m1664,
-		/// <summary>o16 FF /4</summary>
+		/// <summary><c>o16 FF /4</c><br/>
+		/// <br/>
+		/// <c>JMP r/m16</c></summary>
 		Jmp_rm16,
-		/// <summary>o32 FF /4</summary>
+		/// <summary><c>o32 FF /4</c><br/>
+		/// <br/>
+		/// <c>JMP r/m32</c></summary>
 		Jmp_rm32,
-		/// <summary>FF /4</summary>
+		/// <summary><c>FF /4</c><br/>
+		/// <br/>
+		/// <c>JMP r/m64</c></summary>
 		Jmp_rm64,
-		/// <summary>o16 FF /5</summary>
+		/// <summary><c>o16 FF /5</c><br/>
+		/// <br/>
+		/// <c>JMP m16:16</c></summary>
 		Jmp_m1616,
-		/// <summary>o32 FF /5</summary>
+		/// <summary><c>o32 FF /5</c><br/>
+		/// <br/>
+		/// <c>JMP m16:32</c></summary>
 		Jmp_m1632,
-		/// <summary>REX.W FF /5</summary>
+		/// <summary><c>REX.W FF /5</c><br/>
+		/// <br/>
+		/// <c>JMP m16:64</c></summary>
 		Jmp_m1664,
-		/// <summary>o16 FF /6</summary>
+		/// <summary><c>o16 FF /6</c><br/>
+		/// <br/>
+		/// <c>PUSH r/m16</c></summary>
 		Push_rm16,
-		/// <summary>o32 FF /6</summary>
+		/// <summary><c>o32 FF /6</c><br/>
+		/// <br/>
+		/// <c>PUSH r/m32</c></summary>
 		Push_rm32,
-		/// <summary>FF /6</summary>
+		/// <summary><c>FF /6</c><br/>
+		/// <br/>
+		/// <c>PUSH r/m64</c></summary>
 		Push_rm64,
-		/// <summary>o16 0F 00 /0</summary>
+		/// <summary><c>o16 0F 00 /0</c><br/>
+		/// <br/>
+		/// <c>SLDT r/m16</c></summary>
 		Sldt_rm16,
-		/// <summary>o32 0F 00 /0</summary>
+		/// <summary><c>o32 0F 00 /0</c><br/>
+		/// <br/>
+		/// <c>SLDT r32/m16</c></summary>
 		Sldt_r32m16,
-		/// <summary>REX.W 0F 00 /0</summary>
+		/// <summary><c>REX.W 0F 00 /0</c><br/>
+		/// <br/>
+		/// <c>SLDT r64/m16</c></summary>
 		Sldt_r64m16,
-		/// <summary>o16 0F 00 /1</summary>
+		/// <summary><c>o16 0F 00 /1</c><br/>
+		/// <br/>
+		/// <c>STR r/m16</c></summary>
 		Str_rm16,
-		/// <summary>o32 0F 00 /1</summary>
+		/// <summary><c>o32 0F 00 /1</c><br/>
+		/// <br/>
+		/// <c>STR r32/m16</c></summary>
 		Str_r32m16,
-		/// <summary>REX.W 0F 00 /1</summary>
+		/// <summary><c>REX.W 0F 00 /1</c><br/>
+		/// <br/>
+		/// <c>STR r64/m16</c></summary>
 		Str_r64m16,
-		/// <summary>o16 0F 00 /2</summary>
+		/// <summary><c>o16 0F 00 /2</c><br/>
+		/// <br/>
+		/// <c>LLDT r/m16</c></summary>
 		Lldt_rm16,
-		/// <summary>o32 0F 00 /2</summary>
+		/// <summary><c>o32 0F 00 /2</c><br/>
+		/// <br/>
+		/// <c>LLDT r32/m16</c></summary>
 		Lldt_r32m16,
-		/// <summary>REX.W 0F 00 /2</summary>
+		/// <summary><c>REX.W 0F 00 /2</c><br/>
+		/// <br/>
+		/// <c>LLDT r64/m16</c></summary>
 		Lldt_r64m16,
-		/// <summary>o16 0F 00 /3</summary>
+		/// <summary><c>o16 0F 00 /3</c><br/>
+		/// <br/>
+		/// <c>LTR r/m16</c></summary>
 		Ltr_rm16,
-		/// <summary>o32 0F 00 /3</summary>
+		/// <summary><c>o32 0F 00 /3</c><br/>
+		/// <br/>
+		/// <c>LTR r32/m16</c></summary>
 		Ltr_r32m16,
-		/// <summary>REX.W 0F 00 /3</summary>
+		/// <summary><c>REX.W 0F 00 /3</c><br/>
+		/// <br/>
+		/// <c>LTR r64/m16</c></summary>
 		Ltr_r64m16,
-		/// <summary>o16 0F 00 /4</summary>
+		/// <summary><c>o16 0F 00 /4</c><br/>
+		/// <br/>
+		/// <c>VERR r/m16</c></summary>
 		Verr_rm16,
-		/// <summary>o32 0F 00 /4</summary>
+		/// <summary><c>o32 0F 00 /4</c><br/>
+		/// <br/>
+		/// <c>VERR r32/m16</c></summary>
 		Verr_r32m16,
-		/// <summary>REX.W 0F 00 /4</summary>
+		/// <summary><c>REX.W 0F 00 /4</c><br/>
+		/// <br/>
+		/// <c>VERR r64/m16</c></summary>
 		Verr_r64m16,
-		/// <summary>o16 0F 00 /5</summary>
+		/// <summary><c>o16 0F 00 /5</c><br/>
+		/// <br/>
+		/// <c>VERW r/m16</c></summary>
 		Verw_rm16,
-		/// <summary>o32 0F 00 /5</summary>
+		/// <summary><c>o32 0F 00 /5</c><br/>
+		/// <br/>
+		/// <c>VERW r32/m16</c></summary>
 		Verw_r32m16,
-		/// <summary>REX.W 0F 00 /5</summary>
+		/// <summary><c>REX.W 0F 00 /5</c><br/>
+		/// <br/>
+		/// <c>VERW r64/m16</c></summary>
 		Verw_r64m16,
-		/// <summary>o16 0F 00 /6</summary>
+		/// <summary><c>o16 0F 00 /6</c><br/>
+		/// <br/>
+		/// <c>JMPE r/m16</c></summary>
 		Jmpe_rm16,
-		/// <summary>o32 0F 00 /6</summary>
+		/// <summary><c>o32 0F 00 /6</c><br/>
+		/// <br/>
+		/// <c>JMPE r/m32</c></summary>
 		Jmpe_rm32,
-		/// <summary>o16 0F 01 /0</summary>
+		/// <summary><c>o16 0F 01 /0</c><br/>
+		/// <br/>
+		/// <c>SGDT m</c></summary>
 		Sgdt_m1632_16,
-		/// <summary>o32 0F 01 /0</summary>
+		/// <summary><c>o32 0F 01 /0</c><br/>
+		/// <br/>
+		/// <c>SGDT m</c></summary>
 		Sgdt_m1632,
-		/// <summary>0F 01 /0</summary>
+		/// <summary><c>0F 01 /0</c><br/>
+		/// <br/>
+		/// <c>SGDT m</c></summary>
 		Sgdt_m1664,
-		/// <summary>o16 0F 01 /1</summary>
+		/// <summary><c>o16 0F 01 /1</c><br/>
+		/// <br/>
+		/// <c>SIDT m</c></summary>
 		Sidt_m1632_16,
-		/// <summary>o32 0F 01 /1</summary>
+		/// <summary><c>o32 0F 01 /1</c><br/>
+		/// <br/>
+		/// <c>SIDT m</c></summary>
 		Sidt_m1632,
-		/// <summary>0F 01 /1</summary>
+		/// <summary><c>0F 01 /1</c><br/>
+		/// <br/>
+		/// <c>SIDT m</c></summary>
 		Sidt_m1664,
-		/// <summary>o16 0F 01 /2</summary>
+		/// <summary><c>o16 0F 01 /2</c><br/>
+		/// <br/>
+		/// <c>LGDT m16&amp;32</c></summary>
 		Lgdt_m1632_16,
-		/// <summary>o32 0F 01 /2</summary>
+		/// <summary><c>o32 0F 01 /2</c><br/>
+		/// <br/>
+		/// <c>LGDT m16&amp;32</c></summary>
 		Lgdt_m1632,
-		/// <summary>0F 01 /2</summary>
+		/// <summary><c>0F 01 /2</c><br/>
+		/// <br/>
+		/// <c>LGDT m16&amp;64</c></summary>
 		Lgdt_m1664,
-		/// <summary>o16 0F 01 /3</summary>
+		/// <summary><c>o16 0F 01 /3</c><br/>
+		/// <br/>
+		/// <c>LIDT m16&amp;32</c></summary>
 		Lidt_m1632_16,
-		/// <summary>o32 0F 01 /3</summary>
+		/// <summary><c>o32 0F 01 /3</c><br/>
+		/// <br/>
+		/// <c>LIDT m16&amp;32</c></summary>
 		Lidt_m1632,
-		/// <summary>0F 01 /3</summary>
+		/// <summary><c>0F 01 /3</c><br/>
+		/// <br/>
+		/// <c>LIDT m16&amp;64</c></summary>
 		Lidt_m1664,
-		/// <summary>o16 0F 01 /4</summary>
+		/// <summary><c>o16 0F 01 /4</c><br/>
+		/// <br/>
+		/// <c>SMSW r/m16</c></summary>
 		Smsw_rm16,
-		/// <summary>o32 0F 01 /4</summary>
+		/// <summary><c>o32 0F 01 /4</c><br/>
+		/// <br/>
+		/// <c>SMSW r32/m16</c></summary>
 		Smsw_r32m16,
-		/// <summary>REX.W 0F 01 /4</summary>
+		/// <summary><c>REX.W 0F 01 /4</c><br/>
+		/// <br/>
+		/// <c>SMSW r64/m16</c></summary>
 		Smsw_r64m16,
-		/// <summary>F3 0F 01 /5</summary>
+		/// <summary><c>F3 0F 01 /5</c><br/>
+		/// <br/>
+		/// <c>RSTORSSP m64</c></summary>
 		Rstorssp_m64,
-		/// <summary>o16 0F 01 /6</summary>
+		/// <summary><c>o16 0F 01 /6</c><br/>
+		/// <br/>
+		/// <c>LMSW r/m16</c></summary>
 		Lmsw_rm16,
-		/// <summary>o32 0F 01 /6</summary>
+		/// <summary><c>o32 0F 01 /6</c><br/>
+		/// <br/>
+		/// <c>LMSW r32/m16</c></summary>
 		Lmsw_r32m16,
-		/// <summary>REX.W 0F 01 /6</summary>
+		/// <summary><c>REX.W 0F 01 /6</c><br/>
+		/// <br/>
+		/// <c>LMSW r64/m16</c></summary>
 		Lmsw_r64m16,
-		/// <summary>0F 01 /7</summary>
+		/// <summary><c>0F 01 /7</c><br/>
+		/// <br/>
+		/// <c>INVLPG m</c></summary>
 		Invlpg_m,
-		/// <summary>NP 0F 01 C0</summary>
+		/// <summary><c>NP 0F 01 C0</c><br/>
+		/// <br/>
+		/// <c>ENCLV</c></summary>
 		Enclv,
-		/// <summary>NP 0F 01 C1</summary>
+		/// <summary><c>NP 0F 01 C1</c><br/>
+		/// <br/>
+		/// <c>VMCALL</c></summary>
 		Vmcall,
-		/// <summary>NP 0F 01 C2</summary>
+		/// <summary><c>NP 0F 01 C2</c><br/>
+		/// <br/>
+		/// <c>VMLAUNCH</c></summary>
 		Vmlaunch,
-		/// <summary>NP 0F 01 C3</summary>
+		/// <summary><c>NP 0F 01 C3</c><br/>
+		/// <br/>
+		/// <c>VMRESUME</c></summary>
 		Vmresume,
-		/// <summary>NP 0F 01 C4</summary>
+		/// <summary><c>NP 0F 01 C4</c><br/>
+		/// <br/>
+		/// <c>VMXOFF</c></summary>
 		Vmxoff,
-		/// <summary>NP 0F 01 C5</summary>
+		/// <summary><c>NP 0F 01 C5</c><br/>
+		/// <br/>
+		/// <c>PCONFIG</c></summary>
 		Pconfig,
-		/// <summary>a16 NP 0F 01 C8</summary>
+		/// <summary><c>a16 NP 0F 01 C8</c><br/>
+		/// <br/>
+		/// <c>MONITOR</c></summary>
 		Monitorw,
-		/// <summary>a32 NP 0F 01 C8</summary>
+		/// <summary><c>a32 NP 0F 01 C8</c><br/>
+		/// <br/>
+		/// <c>MONITOR</c></summary>
 		Monitord,
-		/// <summary>NP 0F 01 C8</summary>
+		/// <summary><c>NP 0F 01 C8</c><br/>
+		/// <br/>
+		/// <c>MONITOR</c></summary>
 		Monitorq,
-		/// <summary>NP 0F 01 C9</summary>
+		/// <summary><c>NP 0F 01 C9</c><br/>
+		/// <br/>
+		/// <c>MWAIT</c></summary>
 		Mwait,
-		/// <summary>NP 0F 01 CA</summary>
+		/// <summary><c>NP 0F 01 CA</c><br/>
+		/// <br/>
+		/// <c>CLAC</c></summary>
 		Clac,
-		/// <summary>NP 0F 01 CB</summary>
+		/// <summary><c>NP 0F 01 CB</c><br/>
+		/// <br/>
+		/// <c>STAC</c></summary>
 		Stac,
-		/// <summary>NP 0F 01 CF</summary>
+		/// <summary><c>NP 0F 01 CF</c><br/>
+		/// <br/>
+		/// <c>ENCLS</c></summary>
 		Encls,
-		/// <summary>NP 0F 01 D0</summary>
+		/// <summary><c>NP 0F 01 D0</c><br/>
+		/// <br/>
+		/// <c>XGETBV</c></summary>
 		Xgetbv,
-		/// <summary>NP 0F 01 D1</summary>
+		/// <summary><c>NP 0F 01 D1</c><br/>
+		/// <br/>
+		/// <c>XSETBV</c></summary>
 		Xsetbv,
-		/// <summary>NP 0F 01 D4</summary>
+		/// <summary><c>NP 0F 01 D4</c><br/>
+		/// <br/>
+		/// <c>VMFUNC</c></summary>
 		Vmfunc,
-		/// <summary>NP 0F 01 D5</summary>
+		/// <summary><c>NP 0F 01 D5</c><br/>
+		/// <br/>
+		/// <c>XEND</c></summary>
 		Xend,
-		/// <summary>NP 0F 01 D6</summary>
+		/// <summary><c>NP 0F 01 D6</c><br/>
+		/// <br/>
+		/// <c>XTEST</c></summary>
 		Xtest,
-		/// <summary>NP 0F 01 D7</summary>
+		/// <summary><c>NP 0F 01 D7</c><br/>
+		/// <br/>
+		/// <c>ENCLU</c></summary>
 		Enclu,
-		/// <summary>a16 0F 01 D8</summary>
+		/// <summary><c>a16 0F 01 D8</c><br/>
+		/// <br/>
+		/// <c>VMRUN</c></summary>
 		Vmrunw,
-		/// <summary>a32 0F 01 D8</summary>
+		/// <summary><c>a32 0F 01 D8</c><br/>
+		/// <br/>
+		/// <c>VMRUN</c></summary>
 		Vmrund,
-		/// <summary>0F 01 D8</summary>
+		/// <summary><c>0F 01 D8</c><br/>
+		/// <br/>
+		/// <c>VMRUN</c></summary>
 		Vmrunq,
-		/// <summary>0F 01 D9</summary>
+		/// <summary><c>0F 01 D9</c><br/>
+		/// <br/>
+		/// <c>VMMCALL</c></summary>
 		Vmmcall,
-		/// <summary>a16 0F 01 DA</summary>
+		/// <summary><c>a16 0F 01 DA</c><br/>
+		/// <br/>
+		/// <c>VMLOAD</c></summary>
 		Vmloadw,
-		/// <summary>a32 0F 01 DA</summary>
+		/// <summary><c>a32 0F 01 DA</c><br/>
+		/// <br/>
+		/// <c>VMLOAD</c></summary>
 		Vmloadd,
-		/// <summary>0F 01 DA</summary>
+		/// <summary><c>0F 01 DA</c><br/>
+		/// <br/>
+		/// <c>VMLOAD</c></summary>
 		Vmloadq,
-		/// <summary>a16 0F 01 DB</summary>
+		/// <summary><c>a16 0F 01 DB</c><br/>
+		/// <br/>
+		/// <c>VMSAVE</c></summary>
 		Vmsavew,
-		/// <summary>a32 0F 01 DB</summary>
+		/// <summary><c>a32 0F 01 DB</c><br/>
+		/// <br/>
+		/// <c>VMSAVE</c></summary>
 		Vmsaved,
-		/// <summary>0F 01 DB</summary>
+		/// <summary><c>0F 01 DB</c><br/>
+		/// <br/>
+		/// <c>VMSAVE</c></summary>
 		Vmsaveq,
-		/// <summary>0F 01 DC</summary>
+		/// <summary><c>0F 01 DC</c><br/>
+		/// <br/>
+		/// <c>STGI</c></summary>
 		Stgi,
-		/// <summary>0F 01 DD</summary>
+		/// <summary><c>0F 01 DD</c><br/>
+		/// <br/>
+		/// <c>CLGI</c></summary>
 		Clgi,
-		/// <summary>0F 01 DE</summary>
+		/// <summary><c>0F 01 DE</c><br/>
+		/// <br/>
+		/// <c>SKINIT</c></summary>
 		Skinit,
-		/// <summary>a16 0F 01 DF</summary>
+		/// <summary><c>a16 0F 01 DF</c><br/>
+		/// <br/>
+		/// <c>INVLPGA</c></summary>
 		Invlpgaw,
-		/// <summary>a32 0F 01 DF</summary>
+		/// <summary><c>a32 0F 01 DF</c><br/>
+		/// <br/>
+		/// <c>INVLPGA</c></summary>
 		Invlpgad,
-		/// <summary>0F 01 DF</summary>
+		/// <summary><c>0F 01 DF</c><br/>
+		/// <br/>
+		/// <c>INVLPGA</c></summary>
 		Invlpgaq,
-		/// <summary>F3 0F 01 E8</summary>
+		/// <summary><c>F3 0F 01 E8</c><br/>
+		/// <br/>
+		/// <c>SETSSBSY</c></summary>
 		Setssbsy,
-		/// <summary>F3 0F 01 EA</summary>
+		/// <summary><c>F3 0F 01 EA</c><br/>
+		/// <br/>
+		/// <c>SAVEPREVSSP</c></summary>
 		Saveprevssp,
-		/// <summary>NP 0F 01 EE</summary>
+		/// <summary><c>NP 0F 01 EE</c><br/>
+		/// <br/>
+		/// <c>RDPKRU</c></summary>
 		Rdpkru,
-		/// <summary>NP 0F 01 EF</summary>
+		/// <summary><c>NP 0F 01 EF</c><br/>
+		/// <br/>
+		/// <c>WRPKRU</c></summary>
 		Wrpkru,
-		/// <summary>0F 01 F8</summary>
+		/// <summary><c>0F 01 F8</c><br/>
+		/// <br/>
+		/// <c>SWAPGS</c></summary>
 		Swapgs,
-		/// <summary>0F 01 F9</summary>
+		/// <summary><c>0F 01 F9</c><br/>
+		/// <br/>
+		/// <c>RDTSCP</c></summary>
 		Rdtscp,
-		/// <summary>a16 NP 0F 01 FA</summary>
+		/// <summary><c>a16 NP 0F 01 FA</c><br/>
+		/// <br/>
+		/// <c>MONITORX</c></summary>
 		Monitorxw,
-		/// <summary>a32 NP 0F 01 FA</summary>
+		/// <summary><c>a32 NP 0F 01 FA</c><br/>
+		/// <br/>
+		/// <c>MONITORX</c></summary>
 		Monitorxd,
-		/// <summary>NP 0F 01 FA</summary>
+		/// <summary><c>NP 0F 01 FA</c><br/>
+		/// <br/>
+		/// <c>MONITORX</c></summary>
 		Monitorxq,
-		/// <summary>F3 0F 01 FA</summary>
+		/// <summary><c>F3 0F 01 FA</c><br/>
+		/// <br/>
+		/// <c>MCOMMIT</c></summary>
 		Mcommit,
-		/// <summary>0F 01 FB</summary>
+		/// <summary><c>0F 01 FB</c><br/>
+		/// <br/>
+		/// <c>MWAITX</c></summary>
 		Mwaitx,
-		/// <summary>a16 0F 01 FC</summary>
+		/// <summary><c>a16 0F 01 FC</c><br/>
+		/// <br/>
+		/// <c>CLZERO</c></summary>
 		Clzerow,
-		/// <summary>a32 0F 01 FC</summary>
+		/// <summary><c>a32 0F 01 FC</c><br/>
+		/// <br/>
+		/// <c>CLZERO</c></summary>
 		Clzerod,
-		/// <summary>0F 01 FC</summary>
+		/// <summary><c>0F 01 FC</c><br/>
+		/// <br/>
+		/// <c>CLZERO</c></summary>
 		Clzeroq,
-		/// <summary>0F 01 FD</summary>
+		/// <summary><c>0F 01 FD</c><br/>
+		/// <br/>
+		/// <c>RDPRU</c></summary>
 		Rdpru,
-		/// <summary>o16 0F 02 /r</summary>
+		/// <summary><c>o16 0F 02 /r</c><br/>
+		/// <br/>
+		/// <c>LAR r16, r/m16</c></summary>
 		Lar_r16_rm16,
-		/// <summary>o32 0F 02 /r</summary>
+		/// <summary><c>o32 0F 02 /r</c><br/>
+		/// <br/>
+		/// <c>LAR r32, r32/m16</c></summary>
 		Lar_r32_r32m16,
-		/// <summary>REX.W 0F 02 /r</summary>
+		/// <summary><c>REX.W 0F 02 /r</c><br/>
+		/// <br/>
+		/// <c>LAR r64, r64/m16</c></summary>
 		Lar_r64_r64m16,
-		/// <summary>o16 0F 03 /r</summary>
+		/// <summary><c>o16 0F 03 /r</c><br/>
+		/// <br/>
+		/// <c>LSL r16, r/m16</c></summary>
 		Lsl_r16_rm16,
-		/// <summary>o32 0F 03 /r</summary>
+		/// <summary><c>o32 0F 03 /r</c><br/>
+		/// <br/>
+		/// <c>LSL r32, r32/m16</c></summary>
 		Lsl_r32_r32m16,
-		/// <summary>REX.W 0F 03 /r</summary>
+		/// <summary><c>REX.W 0F 03 /r</c><br/>
+		/// <br/>
+		/// <c>LSL r64, r64/m16</c></summary>
 		Lsl_r64_r64m16,
-		/// <summary>0F 04</summary>
+		/// <summary><c>0F 04</c><br/>
+		/// <br/>
+		/// <c>LOADALL</c></summary>
 		Loadallreset286,
-		/// <summary>0F 05</summary>
+		/// <summary><c>0F 05</c><br/>
+		/// <br/>
+		/// <c>LOADALL</c></summary>
 		Loadall286,
-		/// <summary>0F 05</summary>
+		/// <summary><c>0F 05</c><br/>
+		/// <br/>
+		/// <c>SYSCALL</c></summary>
 		Syscall,
-		/// <summary>0F 06</summary>
+		/// <summary><c>0F 06</c><br/>
+		/// <br/>
+		/// <c>CLTS</c></summary>
 		Clts,
-		/// <summary>0F 07</summary>
+		/// <summary><c>0F 07</c><br/>
+		/// <br/>
+		/// <c>LOADALL</c></summary>
 		Loadall386,
-		/// <summary>0F 07</summary>
+		/// <summary><c>0F 07</c><br/>
+		/// <br/>
+		/// <c>SYSRET</c></summary>
 		Sysretd,
-		/// <summary>REX.W 0F 07</summary>
+		/// <summary><c>REX.W 0F 07</c><br/>
+		/// <br/>
+		/// <c>SYSRET</c></summary>
 		Sysretq,
-		/// <summary>0F 08</summary>
+		/// <summary><c>0F 08</c><br/>
+		/// <br/>
+		/// <c>INVD</c></summary>
 		Invd,
-		/// <summary>0F 09</summary>
+		/// <summary><c>0F 09</c><br/>
+		/// <br/>
+		/// <c>WBINVD</c></summary>
 		Wbinvd,
-		/// <summary>F3 0F 09</summary>
+		/// <summary><c>F3 0F 09</c><br/>
+		/// <br/>
+		/// <c>WBNOINVD</c></summary>
 		Wbnoinvd,
-		/// <summary>0F 0A</summary>
+		/// <summary><c>0F 0A</c><br/>
+		/// <br/>
+		/// <c>CL1INVMB</c></summary>
 		Cl1invmb,
-		/// <summary>0F 0B</summary>
+		/// <summary><c>0F 0B</c><br/>
+		/// <br/>
+		/// <c>UD2</c></summary>
 		Ud2,
-		/// <summary>o16 0F 0D /r</summary>
+		/// <summary><c>o16 0F 0D /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m16, r16</c></summary>
 		ReservedNop_rm16_r16_0F0D,
-		/// <summary>o32 0F 0D /r</summary>
+		/// <summary><c>o32 0F 0D /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m32, r32</c></summary>
 		ReservedNop_rm32_r32_0F0D,
-		/// <summary>REX.W 0F 0D /r</summary>
+		/// <summary><c>REX.W 0F 0D /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m64, r64</c></summary>
 		ReservedNop_rm64_r64_0F0D,
-		/// <summary>0F 0D /0</summary>
+		/// <summary><c>0F 0D /0</c><br/>
+		/// <br/>
+		/// <c>PREFETCH m8</c></summary>
 		Prefetch_m8,
-		/// <summary>0F 0D /1</summary>
+		/// <summary><c>0F 0D /1</c><br/>
+		/// <br/>
+		/// <c>PREFETCHW m8</c></summary>
 		Prefetchw_m8,
-		/// <summary>0F 0D /2</summary>
+		/// <summary><c>0F 0D /2</c><br/>
+		/// <br/>
+		/// <c>PREFETCHWT1 m8</c></summary>
 		Prefetchwt1_m8,
-		/// <summary>0F 0E</summary>
+		/// <summary><c>0F 0E</c><br/>
+		/// <br/>
+		/// <c>FEMMS</c></summary>
 		Femms,
-		/// <summary>0F 10 /r</summary>
+		/// <summary><c>0F 10 /r</c><br/>
+		/// <br/>
+		/// <c>UMOV r/m8, r8</c></summary>
 		Umov_rm8_r8,
-		/// <summary>o16 0F 11 /r</summary>
+		/// <summary><c>o16 0F 11 /r</c><br/>
+		/// <br/>
+		/// <c>UMOV r/m16, r16</c></summary>
 		Umov_rm16_r16,
-		/// <summary>o32 0F 11 /r</summary>
+		/// <summary><c>o32 0F 11 /r</c><br/>
+		/// <br/>
+		/// <c>UMOV r/m32, r32</c></summary>
 		Umov_rm32_r32,
-		/// <summary>0F 12 /r</summary>
+		/// <summary><c>0F 12 /r</c><br/>
+		/// <br/>
+		/// <c>UMOV r8, r/m8</c></summary>
 		Umov_r8_rm8,
-		/// <summary>o16 0F 13 /r</summary>
+		/// <summary><c>o16 0F 13 /r</c><br/>
+		/// <br/>
+		/// <c>UMOV r16, r/m16</c></summary>
 		Umov_r16_rm16,
-		/// <summary>o32 0F 13 /r</summary>
+		/// <summary><c>o32 0F 13 /r</c><br/>
+		/// <br/>
+		/// <c>UMOV r32, r/m32</c></summary>
 		Umov_r32_rm32,
-		/// <summary>NP 0F 10 /r</summary>
+		/// <summary><c>NP 0F 10 /r</c><br/>
+		/// <br/>
+		/// <c>MOVUPS xmm1, xmm2/m128</c></summary>
 		Movups_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 10 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPS xmm1, xmm2/m128</c></summary>
 		VEX_Vmovups_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 10 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPS ymm1, ymm2/m256</c></summary>
 		VEX_Vmovups_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 10 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPS xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovups_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.0F.W0 10 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPS ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovups_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.0F.W0 10 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPS zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovups_zmm_k1z_zmmm512,
-		/// <summary>66 0F 10 /r</summary>
+		/// <summary><c>66 0F 10 /r</c><br/>
+		/// <br/>
+		/// <c>MOVUPD xmm1, xmm2/m128</c></summary>
 		Movupd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 10 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPD xmm1, xmm2/m128</c></summary>
 		VEX_Vmovupd_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 10 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPD ymm1, ymm2/m256</c></summary>
 		VEX_Vmovupd_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 10 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPD xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovupd_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F.W1 10 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPD ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovupd_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F.W1 10 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPD zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovupd_zmm_k1z_zmmm512,
-		/// <summary>F3 0F 10 /r</summary>
+		/// <summary><c>F3 0F 10 /r</c><br/>
+		/// <br/>
+		/// <c>MOVSS xmm1, xmm2/m32</c></summary>
 		Movss_xmm_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.WIG 10 /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSS xmm1, xmm2, xmm3</c></summary>
 		VEX_Vmovss_xmm_xmm_xmm,
-		/// <summary>VEX.LIG.F3.0F.WIG 10 /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSS xmm1, m32</c></summary>
 		VEX_Vmovss_xmm_m32,
-		/// <summary>EVEX.LIG.F3.0F.W0 10 /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSS xmm1 {k1}{z}, xmm2, xmm3</c></summary>
 		EVEX_Vmovss_xmm_k1z_xmm_xmm,
-		/// <summary>EVEX.LIG.F3.0F.W0 10 /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSS xmm1 {k1}{z}, m32</c></summary>
 		EVEX_Vmovss_xmm_k1z_m32,
-		/// <summary>F2 0F 10 /r</summary>
+		/// <summary><c>F2 0F 10 /r</c><br/>
+		/// <br/>
+		/// <c>MOVSD xmm1, xmm2/m64</c></summary>
 		Movsd_xmm_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.WIG 10 /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSD xmm1, xmm2, xmm3</c></summary>
 		VEX_Vmovsd_xmm_xmm_xmm,
-		/// <summary>VEX.LIG.F2.0F.WIG 10 /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSD xmm1, m64</c></summary>
 		VEX_Vmovsd_xmm_m64,
-		/// <summary>EVEX.LIG.F2.0F.W1 10 /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSD xmm1 {k1}{z}, xmm2, xmm3</c></summary>
 		EVEX_Vmovsd_xmm_k1z_xmm_xmm,
-		/// <summary>EVEX.LIG.F2.0F.W1 10 /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 10 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSD xmm1 {k1}{z}, m64</c></summary>
 		EVEX_Vmovsd_xmm_k1z_m64,
-		/// <summary>NP 0F 11 /r</summary>
+		/// <summary><c>NP 0F 11 /r</c><br/>
+		/// <br/>
+		/// <c>MOVUPS xmm2/m128, xmm1</c></summary>
 		Movups_xmmm128_xmm,
-		/// <summary>VEX.128.0F.WIG 11 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPS xmm2/m128, xmm1</c></summary>
 		VEX_Vmovups_xmmm128_xmm,
-		/// <summary>VEX.256.0F.WIG 11 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPS ymm2/m256, ymm1</c></summary>
 		VEX_Vmovups_ymmm256_ymm,
-		/// <summary>EVEX.128.0F.W0 11 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPS xmm2/m128 {k1}{z}, xmm1</c></summary>
 		EVEX_Vmovups_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.0F.W0 11 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPS ymm2/m256 {k1}{z}, ymm1</c></summary>
 		EVEX_Vmovups_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.0F.W0 11 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPS zmm2/m512 {k1}{z}, zmm1</c></summary>
 		EVEX_Vmovups_zmmm512_k1z_zmm,
-		/// <summary>66 0F 11 /r</summary>
+		/// <summary><c>66 0F 11 /r</c><br/>
+		/// <br/>
+		/// <c>MOVUPD xmm2/m128, xmm1</c></summary>
 		Movupd_xmmm128_xmm,
-		/// <summary>VEX.128.66.0F.WIG 11 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPD xmm2/m128, xmm1</c></summary>
 		VEX_Vmovupd_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F.WIG 11 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPD ymm2/m256, ymm1</c></summary>
 		VEX_Vmovupd_ymmm256_ymm,
-		/// <summary>EVEX.128.66.0F.W1 11 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPD xmm2/m128 {k1}{z}, xmm1</c></summary>
 		EVEX_Vmovupd_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.66.0F.W1 11 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPD ymm2/m256 {k1}{z}, ymm1</c></summary>
 		EVEX_Vmovupd_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.66.0F.W1 11 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVUPD zmm2/m512 {k1}{z}, zmm1</c></summary>
 		EVEX_Vmovupd_zmmm512_k1z_zmm,
-		/// <summary>F3 0F 11 /r</summary>
+		/// <summary><c>F3 0F 11 /r</c><br/>
+		/// <br/>
+		/// <c>MOVSS xmm2/m32, xmm1</c></summary>
 		Movss_xmmm32_xmm,
-		/// <summary>VEX.LIG.F3.0F.WIG 11 /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSS xmm1, xmm2, xmm3</c></summary>
 		VEX_Vmovss_xmm_xmm_xmm_0F11,
-		/// <summary>VEX.LIG.F3.0F.WIG 11 /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSS m32, xmm1</c></summary>
 		VEX_Vmovss_m32_xmm,
-		/// <summary>EVEX.LIG.F3.0F.W0 11 /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSS xmm1 {k1}{z}, xmm2, xmm3</c></summary>
 		EVEX_Vmovss_xmm_k1z_xmm_xmm_0F11,
-		/// <summary>EVEX.LIG.F3.0F.W0 11 /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSS m32 {k1}, xmm1</c></summary>
 		EVEX_Vmovss_m32_k1_xmm,
-		/// <summary>F2 0F 11 /r</summary>
+		/// <summary><c>F2 0F 11 /r</c><br/>
+		/// <br/>
+		/// <c>MOVSD xmm1/m64, xmm2</c></summary>
 		Movsd_xmmm64_xmm,
-		/// <summary>VEX.LIG.F2.0F.WIG 11 /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSD xmm1, xmm2, xmm3</c></summary>
 		VEX_Vmovsd_xmm_xmm_xmm_0F11,
-		/// <summary>VEX.LIG.F2.0F.WIG 11 /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSD m64, xmm1</c></summary>
 		VEX_Vmovsd_m64_xmm,
-		/// <summary>EVEX.LIG.F2.0F.W1 11 /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSD xmm1 {k1}{z}, xmm2, xmm3</c></summary>
 		EVEX_Vmovsd_xmm_k1z_xmm_xmm_0F11,
-		/// <summary>EVEX.LIG.F2.0F.W1 11 /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 11 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSD m64 {k1}, xmm1</c></summary>
 		EVEX_Vmovsd_m64_k1_xmm,
-		/// <summary>NP 0F 12 /r</summary>
+		/// <summary><c>NP 0F 12 /r</c><br/>
+		/// <br/>
+		/// <c>MOVHLPS xmm1, xmm2</c></summary>
 		Movhlps_xmm_xmm,
-		/// <summary>NP 0F 12 /r</summary>
+		/// <summary><c>NP 0F 12 /r</c><br/>
+		/// <br/>
+		/// <c>MOVLPS xmm1, m64</c></summary>
 		Movlps_xmm_m64,
-		/// <summary>VEX.128.0F.WIG 12 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVHLPS xmm1, xmm2, xmm3</c></summary>
 		VEX_Vmovhlps_xmm_xmm_xmm,
-		/// <summary>VEX.128.0F.WIG 12 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVLPS xmm2, xmm1, m64</c></summary>
 		VEX_Vmovlps_xmm_xmm_m64,
-		/// <summary>EVEX.128.0F.W0 12 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVHLPS xmm1, xmm2, xmm3</c></summary>
 		EVEX_Vmovhlps_xmm_xmm_xmm,
-		/// <summary>EVEX.128.0F.W0 12 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVLPS xmm2, xmm1, m64</c></summary>
 		EVEX_Vmovlps_xmm_xmm_m64,
-		/// <summary>66 0F 12 /r</summary>
+		/// <summary><c>66 0F 12 /r</c><br/>
+		/// <br/>
+		/// <c>MOVLPD xmm1, m64</c></summary>
 		Movlpd_xmm_m64,
-		/// <summary>VEX.128.66.0F.WIG 12 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVLPD xmm2, xmm1, m64</c></summary>
 		VEX_Vmovlpd_xmm_xmm_m64,
-		/// <summary>EVEX.128.66.0F.W1 12 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVLPD xmm2, xmm1, m64</c></summary>
 		EVEX_Vmovlpd_xmm_xmm_m64,
-		/// <summary>F3 0F 12 /r</summary>
+		/// <summary><c>F3 0F 12 /r</c><br/>
+		/// <br/>
+		/// <c>MOVSLDUP xmm1, xmm2/m128</c></summary>
 		Movsldup_xmm_xmmm128,
-		/// <summary>VEX.128.F3.0F.WIG 12 /r</summary>
+		/// <summary><c>VEX.128.F3.0F.WIG 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSLDUP xmm1, xmm2/m128</c></summary>
 		VEX_Vmovsldup_xmm_xmmm128,
-		/// <summary>VEX.256.F3.0F.WIG 12 /r</summary>
+		/// <summary><c>VEX.256.F3.0F.WIG 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSLDUP ymm1, ymm2/m256</c></summary>
 		VEX_Vmovsldup_ymm_ymmm256,
-		/// <summary>EVEX.128.F3.0F.W0 12 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W0 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSLDUP xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovsldup_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.F3.0F.W0 12 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F.W0 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSLDUP ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovsldup_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.F3.0F.W0 12 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F.W0 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSLDUP zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovsldup_zmm_k1z_zmmm512,
-		/// <summary>F2 0F 12 /r</summary>
+		/// <summary><c>F2 0F 12 /r</c><br/>
+		/// <br/>
+		/// <c>MOVDDUP xmm1, xmm2/m64</c></summary>
 		Movddup_xmm_xmmm64,
-		/// <summary>VEX.128.F2.0F.WIG 12 /r</summary>
+		/// <summary><c>VEX.128.F2.0F.WIG 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDDUP xmm1, xmm2/m64</c></summary>
 		VEX_Vmovddup_xmm_xmmm64,
-		/// <summary>VEX.256.F2.0F.WIG 12 /r</summary>
+		/// <summary><c>VEX.256.F2.0F.WIG 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDDUP ymm1, ymm2/m256</c></summary>
 		VEX_Vmovddup_ymm_ymmm256,
-		/// <summary>EVEX.128.F2.0F.W1 12 /r</summary>
+		/// <summary><c>EVEX.128.F2.0F.W1 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDDUP xmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vmovddup_xmm_k1z_xmmm64,
-		/// <summary>EVEX.256.F2.0F.W1 12 /r</summary>
+		/// <summary><c>EVEX.256.F2.0F.W1 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDDUP ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovddup_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.F2.0F.W1 12 /r</summary>
+		/// <summary><c>EVEX.512.F2.0F.W1 12 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDDUP zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovddup_zmm_k1z_zmmm512,
-		/// <summary>NP 0F 13 /r</summary>
+		/// <summary><c>NP 0F 13 /r</c><br/>
+		/// <br/>
+		/// <c>MOVLPS m64, xmm1</c></summary>
 		Movlps_m64_xmm,
-		/// <summary>VEX.128.0F.WIG 13 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 13 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVLPS m64, xmm1</c></summary>
 		VEX_Vmovlps_m64_xmm,
-		/// <summary>EVEX.128.0F.W0 13 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVLPS m64, xmm1</c></summary>
 		EVEX_Vmovlps_m64_xmm,
-		/// <summary>66 0F 13 /r</summary>
+		/// <summary><c>66 0F 13 /r</c><br/>
+		/// <br/>
+		/// <c>MOVLPD m64, xmm1</c></summary>
 		Movlpd_m64_xmm,
-		/// <summary>VEX.128.66.0F.WIG 13 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 13 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVLPD m64, xmm1</c></summary>
 		VEX_Vmovlpd_m64_xmm,
-		/// <summary>EVEX.128.66.0F.W1 13 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 13 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVLPD m64, xmm1</c></summary>
 		EVEX_Vmovlpd_m64_xmm,
-		/// <summary>NP 0F 14 /r</summary>
+		/// <summary><c>NP 0F 14 /r</c><br/>
+		/// <br/>
+		/// <c>UNPCKLPS xmm1, xmm2/m128</c></summary>
 		Unpcklps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 14 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 14 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKLPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vunpcklps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 14 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 14 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKLPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vunpcklps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 14 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 14 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKLPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 14 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 14 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKLPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vunpcklps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 14 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 14 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKLPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vunpcklps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>66 0F 14 /r</summary>
+		/// <summary><c>66 0F 14 /r</c><br/>
+		/// <br/>
+		/// <c>UNPCKLPD xmm1, xmm2/m128</c></summary>
 		Unpcklpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 14 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 14 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKLPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vunpcklpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 14 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 14 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKLPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vunpcklpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 14 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 14 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKLPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vunpcklpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 14 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 14 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKLPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vunpcklpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 14 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 14 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKLPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vunpcklpd_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F 15 /r</summary>
+		/// <summary><c>NP 0F 15 /r</c><br/>
+		/// <br/>
+		/// <c>UNPCKHPS xmm1, xmm2/m128</c></summary>
 		Unpckhps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 15 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 15 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKHPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vunpckhps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 15 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 15 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKHPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vunpckhps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 15 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 15 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKHPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vunpckhps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 15 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 15 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKHPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vunpckhps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 15 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 15 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKHPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vunpckhps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>66 0F 15 /r</summary>
+		/// <summary><c>66 0F 15 /r</c><br/>
+		/// <br/>
+		/// <c>UNPCKHPD xmm1, xmm2/m128</c></summary>
 		Unpckhpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 15 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 15 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKHPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vunpckhpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 15 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 15 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKHPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vunpckhpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 15 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 15 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKHPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vunpckhpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 15 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 15 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKHPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vunpckhpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 15 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 15 /r</c><br/>
+		/// <br/>
+		/// <c>VUNPCKHPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vunpckhpd_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F 16 /r</summary>
+		/// <summary><c>NP 0F 16 /r</c><br/>
+		/// <br/>
+		/// <c>MOVLHPS xmm1, xmm2</c></summary>
 		Movlhps_xmm_xmm,
-		/// <summary>VEX.128.0F.WIG 16 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 16 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVLHPS xmm1, xmm2, xmm3</c></summary>
 		VEX_Vmovlhps_xmm_xmm_xmm,
-		/// <summary>EVEX.128.0F.W0 16 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 16 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVLHPS xmm1, xmm2, xmm3</c></summary>
 		EVEX_Vmovlhps_xmm_xmm_xmm,
-		/// <summary>NP 0F 16 /r</summary>
+		/// <summary><c>NP 0F 16 /r</c><br/>
+		/// <br/>
+		/// <c>MOVHPS xmm1, m64</c></summary>
 		Movhps_xmm_m64,
-		/// <summary>VEX.128.0F.WIG 16 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 16 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVHPS xmm2, xmm1, m64</c></summary>
 		VEX_Vmovhps_xmm_xmm_m64,
-		/// <summary>EVEX.128.0F.W0 16 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 16 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVHPS xmm2, xmm1, m64</c></summary>
 		EVEX_Vmovhps_xmm_xmm_m64,
-		/// <summary>66 0F 16 /r</summary>
+		/// <summary><c>66 0F 16 /r</c><br/>
+		/// <br/>
+		/// <c>MOVHPD xmm1, m64</c></summary>
 		Movhpd_xmm_m64,
-		/// <summary>VEX.128.66.0F.WIG 16 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 16 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVHPD xmm2, xmm1, m64</c></summary>
 		VEX_Vmovhpd_xmm_xmm_m64,
-		/// <summary>EVEX.128.66.0F.W1 16 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 16 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVHPD xmm2, xmm1, m64</c></summary>
 		EVEX_Vmovhpd_xmm_xmm_m64,
-		/// <summary>F3 0F 16 /r</summary>
+		/// <summary><c>F3 0F 16 /r</c><br/>
+		/// <br/>
+		/// <c>MOVSHDUP xmm1, xmm2/m128</c></summary>
 		Movshdup_xmm_xmmm128,
-		/// <summary>VEX.128.F3.0F.WIG 16 /r</summary>
+		/// <summary><c>VEX.128.F3.0F.WIG 16 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSHDUP xmm1, xmm2/m128</c></summary>
 		VEX_Vmovshdup_xmm_xmmm128,
-		/// <summary>VEX.256.F3.0F.WIG 16 /r</summary>
+		/// <summary><c>VEX.256.F3.0F.WIG 16 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSHDUP ymm1, ymm2/m256</c></summary>
 		VEX_Vmovshdup_ymm_ymmm256,
-		/// <summary>EVEX.128.F3.0F.W0 16 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W0 16 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSHDUP xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovshdup_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.F3.0F.W0 16 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F.W0 16 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSHDUP ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovshdup_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.F3.0F.W0 16 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F.W0 16 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVSHDUP zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovshdup_zmm_k1z_zmmm512,
-		/// <summary>NP 0F 17 /r</summary>
+		/// <summary><c>NP 0F 17 /r</c><br/>
+		/// <br/>
+		/// <c>MOVHPS m64, xmm1</c></summary>
 		Movhps_m64_xmm,
-		/// <summary>VEX.128.0F.WIG 17 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 17 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVHPS m64, xmm1</c></summary>
 		VEX_Vmovhps_m64_xmm,
-		/// <summary>EVEX.128.0F.W0 17 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 17 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVHPS m64, xmm1</c></summary>
 		EVEX_Vmovhps_m64_xmm,
-		/// <summary>66 0F 17 /r</summary>
+		/// <summary><c>66 0F 17 /r</c><br/>
+		/// <br/>
+		/// <c>MOVHPD m64, xmm1</c></summary>
 		Movhpd_m64_xmm,
-		/// <summary>VEX.128.66.0F.WIG 17 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 17 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVHPD m64, xmm1</c></summary>
 		VEX_Vmovhpd_m64_xmm,
-		/// <summary>EVEX.128.66.0F.W1 17 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 17 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVHPD m64, xmm1</c></summary>
 		EVEX_Vmovhpd_m64_xmm,
-		/// <summary>o16 0F 18 /r</summary>
+		/// <summary><c>o16 0F 18 /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m16, r16</c></summary>
 		ReservedNop_rm16_r16_0F18,
-		/// <summary>o32 0F 18 /r</summary>
+		/// <summary><c>o32 0F 18 /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m32, r32</c></summary>
 		ReservedNop_rm32_r32_0F18,
-		/// <summary>REX.W 0F 18 /r</summary>
+		/// <summary><c>REX.W 0F 18 /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m64, r64</c></summary>
 		ReservedNop_rm64_r64_0F18,
-		/// <summary>o16 0F 19 /r</summary>
+		/// <summary><c>o16 0F 19 /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m16, r16</c></summary>
 		ReservedNop_rm16_r16_0F19,
-		/// <summary>o32 0F 19 /r</summary>
+		/// <summary><c>o32 0F 19 /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m32, r32</c></summary>
 		ReservedNop_rm32_r32_0F19,
-		/// <summary>REX.W 0F 19 /r</summary>
+		/// <summary><c>REX.W 0F 19 /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m64, r64</c></summary>
 		ReservedNop_rm64_r64_0F19,
-		/// <summary>o16 0F 1A /r</summary>
+		/// <summary><c>o16 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m16, r16</c></summary>
 		ReservedNop_rm16_r16_0F1A,
-		/// <summary>o32 0F 1A /r</summary>
+		/// <summary><c>o32 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m32, r32</c></summary>
 		ReservedNop_rm32_r32_0F1A,
-		/// <summary>REX.W 0F 1A /r</summary>
+		/// <summary><c>REX.W 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m64, r64</c></summary>
 		ReservedNop_rm64_r64_0F1A,
-		/// <summary>o16 0F 1B /r</summary>
+		/// <summary><c>o16 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m16, r16</c></summary>
 		ReservedNop_rm16_r16_0F1B,
-		/// <summary>o32 0F 1B /r</summary>
+		/// <summary><c>o32 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m32, r32</c></summary>
 		ReservedNop_rm32_r32_0F1B,
-		/// <summary>REX.W 0F 1B /r</summary>
+		/// <summary><c>REX.W 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m64, r64</c></summary>
 		ReservedNop_rm64_r64_0F1B,
-		/// <summary>o16 0F 1C /r</summary>
+		/// <summary><c>o16 0F 1C /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m16, r16</c></summary>
 		ReservedNop_rm16_r16_0F1C,
-		/// <summary>o32 0F 1C /r</summary>
+		/// <summary><c>o32 0F 1C /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m32, r32</c></summary>
 		ReservedNop_rm32_r32_0F1C,
-		/// <summary>REX.W 0F 1C /r</summary>
+		/// <summary><c>REX.W 0F 1C /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m64, r64</c></summary>
 		ReservedNop_rm64_r64_0F1C,
-		/// <summary>o16 0F 1D /r</summary>
+		/// <summary><c>o16 0F 1D /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m16, r16</c></summary>
 		ReservedNop_rm16_r16_0F1D,
-		/// <summary>o32 0F 1D /r</summary>
+		/// <summary><c>o32 0F 1D /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m32, r32</c></summary>
 		ReservedNop_rm32_r32_0F1D,
-		/// <summary>REX.W 0F 1D /r</summary>
+		/// <summary><c>REX.W 0F 1D /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m64, r64</c></summary>
 		ReservedNop_rm64_r64_0F1D,
-		/// <summary>o16 0F 1E /r</summary>
+		/// <summary><c>o16 0F 1E /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m16, r16</c></summary>
 		ReservedNop_rm16_r16_0F1E,
-		/// <summary>o32 0F 1E /r</summary>
+		/// <summary><c>o32 0F 1E /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m32, r32</c></summary>
 		ReservedNop_rm32_r32_0F1E,
-		/// <summary>REX.W 0F 1E /r</summary>
+		/// <summary><c>REX.W 0F 1E /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m64, r64</c></summary>
 		ReservedNop_rm64_r64_0F1E,
-		/// <summary>o16 0F 1F /r</summary>
+		/// <summary><c>o16 0F 1F /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m16, r16</c></summary>
 		ReservedNop_rm16_r16_0F1F,
-		/// <summary>o32 0F 1F /r</summary>
+		/// <summary><c>o32 0F 1F /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m32, r32</c></summary>
 		ReservedNop_rm32_r32_0F1F,
-		/// <summary>REX.W 0F 1F /r</summary>
+		/// <summary><c>REX.W 0F 1F /r</c><br/>
+		/// <br/>
+		/// <c>RESERVEDNOP r/m64, r64</c></summary>
 		ReservedNop_rm64_r64_0F1F,
-		/// <summary>0F 18 /0</summary>
+		/// <summary><c>0F 18 /0</c><br/>
+		/// <br/>
+		/// <c>PREFETCHNTA m8</c></summary>
 		Prefetchnta_m8,
-		/// <summary>0F 18 /1</summary>
+		/// <summary><c>0F 18 /1</c><br/>
+		/// <br/>
+		/// <c>PREFETCHT0 m8</c></summary>
 		Prefetcht0_m8,
-		/// <summary>0F 18 /2</summary>
+		/// <summary><c>0F 18 /2</c><br/>
+		/// <br/>
+		/// <c>PREFETCHT1 m8</c></summary>
 		Prefetcht1_m8,
-		/// <summary>0F 18 /3</summary>
+		/// <summary><c>0F 18 /3</c><br/>
+		/// <br/>
+		/// <c>PREFETCHT2 m8</c></summary>
 		Prefetcht2_m8,
-		/// <summary>NP 0F 1A /r</summary>
+		/// <summary><c>NP 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>BNDLDX bnd, mib</c></summary>
 		Bndldx_bnd_mib,
-		/// <summary>66 0F 1A /r</summary>
+		/// <summary><c>66 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>BNDMOV bnd1, bnd2/m64</c></summary>
 		Bndmov_bnd_bndm64,
-		/// <summary>66 0F 1A /r</summary>
+		/// <summary><c>66 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>BNDMOV bnd1, bnd2/m128</c></summary>
 		Bndmov_bnd_bndm128,
-		/// <summary>F3 0F 1A /r</summary>
+		/// <summary><c>F3 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>BNDCL bnd, r/m32</c></summary>
 		Bndcl_bnd_rm32,
-		/// <summary>F3 0F 1A /r</summary>
+		/// <summary><c>F3 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>BNDCL bnd, r/m64</c></summary>
 		Bndcl_bnd_rm64,
-		/// <summary>F2 0F 1A /r</summary>
+		/// <summary><c>F2 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>BNDCU bnd, r/m32</c></summary>
 		Bndcu_bnd_rm32,
-		/// <summary>F2 0F 1A /r</summary>
+		/// <summary><c>F2 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>BNDCU bnd, r/m64</c></summary>
 		Bndcu_bnd_rm64,
-		/// <summary>NP 0F 1B /r</summary>
+		/// <summary><c>NP 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>BNDSTX mib, bnd</c></summary>
 		Bndstx_mib_bnd,
-		/// <summary>66 0F 1B /r</summary>
+		/// <summary><c>66 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>BNDMOV bnd1/m64, bnd2</c></summary>
 		Bndmov_bndm64_bnd,
-		/// <summary>66 0F 1B /r</summary>
+		/// <summary><c>66 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>BNDMOV bnd1/m128, bnd2</c></summary>
 		Bndmov_bndm128_bnd,
-		/// <summary>F3 0F 1B /r</summary>
+		/// <summary><c>F3 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>BNDMK bnd, m32</c></summary>
 		Bndmk_bnd_m32,
-		/// <summary>F3 0F 1B /r</summary>
+		/// <summary><c>F3 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>BNDMK bnd, m64</c></summary>
 		Bndmk_bnd_m64,
-		/// <summary>F2 0F 1B /r</summary>
+		/// <summary><c>F2 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>BNDCN bnd, r/m32</c></summary>
 		Bndcn_bnd_rm32,
-		/// <summary>F2 0F 1B /r</summary>
+		/// <summary><c>F2 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>BNDCN bnd, r/m64</c></summary>
 		Bndcn_bnd_rm64,
-		/// <summary>NP 0F 1C /0</summary>
+		/// <summary><c>NP 0F 1C /0</c><br/>
+		/// <br/>
+		/// <c>CLDEMOTE m8</c></summary>
 		Cldemote_m8,
-		/// <summary>F3 0F 1E /1</summary>
+		/// <summary><c>F3 0F 1E /1</c><br/>
+		/// <br/>
+		/// <c>RDSSPD r32</c></summary>
 		Rdsspd_r32,
-		/// <summary>F3 REX.W 0F 1E /1</summary>
+		/// <summary><c>F3 REX.W 0F 1E /1</c><br/>
+		/// <br/>
+		/// <c>RDSSPQ r64</c></summary>
 		Rdsspq_r64,
-		/// <summary>F3 0F 1E FA</summary>
+		/// <summary><c>F3 0F 1E FA</c><br/>
+		/// <br/>
+		/// <c>ENDBR64</c></summary>
 		Endbr64,
-		/// <summary>F3 0F 1E FB</summary>
+		/// <summary><c>F3 0F 1E FB</c><br/>
+		/// <br/>
+		/// <c>ENDBR32</c></summary>
 		Endbr32,
-		/// <summary>o16 0F 1F /0</summary>
+		/// <summary><c>o16 0F 1F /0</c><br/>
+		/// <br/>
+		/// <c>NOP r/m16</c></summary>
 		Nop_rm16,
-		/// <summary>o32 0F 1F /0</summary>
+		/// <summary><c>o32 0F 1F /0</c><br/>
+		/// <br/>
+		/// <c>NOP r/m32</c></summary>
 		Nop_rm32,
-		/// <summary>REX.W 0F 1F /0</summary>
+		/// <summary><c>REX.W 0F 1F /0</c><br/>
+		/// <br/>
+		/// <c>NOP r/m64</c></summary>
 		Nop_rm64,
-		/// <summary>0F 20 /r</summary>
+		/// <summary><c>0F 20 /r</c><br/>
+		/// <br/>
+		/// <c>MOV r32, cr</c></summary>
 		Mov_r32_cr,
-		/// <summary>0F 20 /r</summary>
+		/// <summary><c>0F 20 /r</c><br/>
+		/// <br/>
+		/// <c>MOV r64, cr</c></summary>
 		Mov_r64_cr,
-		/// <summary>0F 21 /r</summary>
+		/// <summary><c>0F 21 /r</c><br/>
+		/// <br/>
+		/// <c>MOV r32, dr</c></summary>
 		Mov_r32_dr,
-		/// <summary>0F 21 /r</summary>
+		/// <summary><c>0F 21 /r</c><br/>
+		/// <br/>
+		/// <c>MOV r64, dr</c></summary>
 		Mov_r64_dr,
-		/// <summary>0F 22 /r</summary>
+		/// <summary><c>0F 22 /r</c><br/>
+		/// <br/>
+		/// <c>MOV cr, r32</c></summary>
 		Mov_cr_r32,
-		/// <summary>0F 22 /r</summary>
+		/// <summary><c>0F 22 /r</c><br/>
+		/// <br/>
+		/// <c>MOV cr, r64</c></summary>
 		Mov_cr_r64,
-		/// <summary>0F 23 /r</summary>
+		/// <summary><c>0F 23 /r</c><br/>
+		/// <br/>
+		/// <c>MOV dr, r32</c></summary>
 		Mov_dr_r32,
-		/// <summary>0F 23 /r</summary>
+		/// <summary><c>0F 23 /r</c><br/>
+		/// <br/>
+		/// <c>MOV dr, r64</c></summary>
 		Mov_dr_r64,
-		/// <summary>0F 24 /r</summary>
+		/// <summary><c>0F 24 /r</c><br/>
+		/// <br/>
+		/// <c>MOV r32, tr</c></summary>
 		Mov_r32_tr,
-		/// <summary>0F 26 /r</summary>
+		/// <summary><c>0F 26 /r</c><br/>
+		/// <br/>
+		/// <c>MOV tr, r32</c></summary>
 		Mov_tr_r32,
-		/// <summary>NP 0F 28 /r</summary>
+		/// <summary><c>NP 0F 28 /r</c><br/>
+		/// <br/>
+		/// <c>MOVAPS xmm1, xmm2/m128</c></summary>
 		Movaps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 28 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 28 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPS xmm1, xmm2/m128</c></summary>
 		VEX_Vmovaps_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 28 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 28 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPS ymm1, ymm2/m256</c></summary>
 		VEX_Vmovaps_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 28 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 28 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPS xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovaps_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.0F.W0 28 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 28 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPS ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovaps_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.0F.W0 28 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 28 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPS zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovaps_zmm_k1z_zmmm512,
-		/// <summary>66 0F 28 /r</summary>
+		/// <summary><c>66 0F 28 /r</c><br/>
+		/// <br/>
+		/// <c>MOVAPD xmm1, xmm2/m128</c></summary>
 		Movapd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 28 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 28 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPD xmm1, xmm2/m128</c></summary>
 		VEX_Vmovapd_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 28 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 28 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPD ymm1, ymm2/m256</c></summary>
 		VEX_Vmovapd_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 28 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 28 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPD xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovapd_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F.W1 28 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 28 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPD ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovapd_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F.W1 28 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 28 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPD zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovapd_zmm_k1z_zmmm512,
-		/// <summary>NP 0F 29 /r</summary>
+		/// <summary><c>NP 0F 29 /r</c><br/>
+		/// <br/>
+		/// <c>MOVAPS xmm2/m128, xmm1</c></summary>
 		Movaps_xmmm128_xmm,
-		/// <summary>VEX.128.0F.WIG 29 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 29 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPS xmm2/m128, xmm1</c></summary>
 		VEX_Vmovaps_xmmm128_xmm,
-		/// <summary>VEX.256.0F.WIG 29 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 29 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPS ymm2/m256, ymm1</c></summary>
 		VEX_Vmovaps_ymmm256_ymm,
-		/// <summary>EVEX.128.0F.W0 29 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 29 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPS xmm2/m128 {k1}{z}, xmm1</c></summary>
 		EVEX_Vmovaps_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.0F.W0 29 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 29 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPS ymm2/m256 {k1}{z}, ymm1</c></summary>
 		EVEX_Vmovaps_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.0F.W0 29 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 29 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPS zmm2/m512 {k1}{z}, zmm1</c></summary>
 		EVEX_Vmovaps_zmmm512_k1z_zmm,
-		/// <summary>66 0F 29 /r</summary>
+		/// <summary><c>66 0F 29 /r</c><br/>
+		/// <br/>
+		/// <c>MOVAPD xmm2/m128, xmm1</c></summary>
 		Movapd_xmmm128_xmm,
-		/// <summary>VEX.128.66.0F.WIG 29 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 29 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPD xmm2/m128, xmm1</c></summary>
 		VEX_Vmovapd_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F.WIG 29 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 29 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPD ymm2/m256, ymm1</c></summary>
 		VEX_Vmovapd_ymmm256_ymm,
-		/// <summary>EVEX.128.66.0F.W1 29 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 29 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPD xmm2/m128 {k1}{z}, xmm1</c></summary>
 		EVEX_Vmovapd_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.66.0F.W1 29 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 29 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPD ymm2/m256 {k1}{z}, ymm1</c></summary>
 		EVEX_Vmovapd_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.66.0F.W1 29 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 29 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVAPD zmm2/m512 {k1}{z}, zmm1</c></summary>
 		EVEX_Vmovapd_zmmm512_k1z_zmm,
-		/// <summary>NP 0F 2A /r</summary>
+		/// <summary><c>NP 0F 2A /r</c><br/>
+		/// <br/>
+		/// <c>CVTPI2PS xmm, mm/m64</c></summary>
 		Cvtpi2ps_xmm_mmm64,
-		/// <summary>66 0F 2A /r</summary>
+		/// <summary><c>66 0F 2A /r</c><br/>
+		/// <br/>
+		/// <c>CVTPI2PD xmm, mm/m64</c></summary>
 		Cvtpi2pd_xmm_mmm64,
-		/// <summary>F3 0F 2A /r</summary>
+		/// <summary><c>F3 0F 2A /r</c><br/>
+		/// <br/>
+		/// <c>CVTSI2SS xmm1, r/m32</c></summary>
 		Cvtsi2ss_xmm_rm32,
-		/// <summary>F3 REX.W 0F 2A /r</summary>
+		/// <summary><c>F3 REX.W 0F 2A /r</c><br/>
+		/// <br/>
+		/// <c>CVTSI2SS xmm1, r/m64</c></summary>
 		Cvtsi2ss_xmm_rm64,
-		/// <summary>VEX.LIG.F3.0F.W0 2A /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.W0 2A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSI2SS xmm1, xmm2, r/m32</c></summary>
 		VEX_Vcvtsi2ss_xmm_xmm_rm32,
-		/// <summary>VEX.LIG.F3.0F.W1 2A /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.W1 2A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSI2SS xmm1, xmm2, r/m64</c></summary>
 		VEX_Vcvtsi2ss_xmm_xmm_rm64,
-		/// <summary>EVEX.LIG.F3.0F.W0 2A /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 2A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSI2SS xmm1, xmm2, r/m32{er}</c></summary>
 		EVEX_Vcvtsi2ss_xmm_xmm_rm32_er,
-		/// <summary>EVEX.LIG.F3.0F.W1 2A /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W1 2A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSI2SS xmm1, xmm2, r/m64{er}</c></summary>
 		EVEX_Vcvtsi2ss_xmm_xmm_rm64_er,
-		/// <summary>F2 0F 2A /r</summary>
+		/// <summary><c>F2 0F 2A /r</c><br/>
+		/// <br/>
+		/// <c>CVTSI2SD xmm1, r/m32</c></summary>
 		Cvtsi2sd_xmm_rm32,
-		/// <summary>F2 REX.W 0F 2A /r</summary>
+		/// <summary><c>F2 REX.W 0F 2A /r</c><br/>
+		/// <br/>
+		/// <c>CVTSI2SD xmm1, r/m64</c></summary>
 		Cvtsi2sd_xmm_rm64,
-		/// <summary>VEX.LIG.F2.0F.W0 2A /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.W0 2A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSI2SD xmm1, xmm2, r/m32</c></summary>
 		VEX_Vcvtsi2sd_xmm_xmm_rm32,
-		/// <summary>VEX.LIG.F2.0F.W1 2A /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.W1 2A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSI2SD xmm1, xmm2, r/m64</c></summary>
 		VEX_Vcvtsi2sd_xmm_xmm_rm64,
-		/// <summary>EVEX.LIG.F2.0F.W0 2A /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W0 2A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSI2SD xmm1, xmm2, r/m32</c></summary>
 		EVEX_Vcvtsi2sd_xmm_xmm_rm32_er,
-		/// <summary>EVEX.LIG.F2.0F.W1 2A /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 2A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSI2SD xmm1, xmm2, r/m64{er}</c></summary>
 		EVEX_Vcvtsi2sd_xmm_xmm_rm64_er,
-		/// <summary>NP 0F 2B /r</summary>
+		/// <summary><c>NP 0F 2B /r</c><br/>
+		/// <br/>
+		/// <c>MOVNTPS m128, xmm1</c></summary>
 		Movntps_m128_xmm,
-		/// <summary>VEX.128.0F.WIG 2B /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 2B /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTPS m128, xmm1</c></summary>
 		VEX_Vmovntps_m128_xmm,
-		/// <summary>VEX.256.0F.WIG 2B /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 2B /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTPS m256, ymm1</c></summary>
 		VEX_Vmovntps_m256_ymm,
-		/// <summary>EVEX.128.0F.W0 2B /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 2B /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTPS m128, xmm1</c></summary>
 		EVEX_Vmovntps_m128_xmm,
-		/// <summary>EVEX.256.0F.W0 2B /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 2B /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTPS m256, ymm1</c></summary>
 		EVEX_Vmovntps_m256_ymm,
-		/// <summary>EVEX.512.0F.W0 2B /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 2B /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTPS m512, zmm1</c></summary>
 		EVEX_Vmovntps_m512_zmm,
-		/// <summary>66 0F 2B /r</summary>
+		/// <summary><c>66 0F 2B /r</c><br/>
+		/// <br/>
+		/// <c>MOVNTPD m128, xmm1</c></summary>
 		Movntpd_m128_xmm,
-		/// <summary>VEX.128.66.0F.WIG 2B /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 2B /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTPD m128, xmm1</c></summary>
 		VEX_Vmovntpd_m128_xmm,
-		/// <summary>VEX.256.66.0F.WIG 2B /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 2B /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTPD m256, ymm1</c></summary>
 		VEX_Vmovntpd_m256_ymm,
-		/// <summary>EVEX.128.66.0F.W1 2B /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 2B /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTPD m128, xmm1</c></summary>
 		EVEX_Vmovntpd_m128_xmm,
-		/// <summary>EVEX.256.66.0F.W1 2B /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 2B /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTPD m256, ymm1</c></summary>
 		EVEX_Vmovntpd_m256_ymm,
-		/// <summary>EVEX.512.66.0F.W1 2B /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 2B /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTPD m512, zmm1</c></summary>
 		EVEX_Vmovntpd_m512_zmm,
-		/// <summary>F3 0F 2B /r</summary>
+		/// <summary><c>F3 0F 2B /r</c><br/>
+		/// <br/>
+		/// <c>MOVNTSS m32, xmm1</c></summary>
 		Movntss_m32_xmm,
-		/// <summary>F2 0F 2B /r</summary>
+		/// <summary><c>F2 0F 2B /r</c><br/>
+		/// <br/>
+		/// <c>MOVNTSD m64, xmm1</c></summary>
 		Movntsd_m64_xmm,
-		/// <summary>NP 0F 2C /r</summary>
+		/// <summary><c>NP 0F 2C /r</c><br/>
+		/// <br/>
+		/// <c>CVTTPS2PI mm, xmm/m64</c></summary>
 		Cvttps2pi_mm_xmmm64,
-		/// <summary>66 0F 2C /r</summary>
+		/// <summary><c>66 0F 2C /r</c><br/>
+		/// <br/>
+		/// <c>CVTTPD2PI mm, xmm/m128</c></summary>
 		Cvttpd2pi_mm_xmmm128,
-		/// <summary>F3 0F 2C /r</summary>
+		/// <summary><c>F3 0F 2C /r</c><br/>
+		/// <br/>
+		/// <c>CVTTSS2SI r32, xmm1/m32</c></summary>
 		Cvttss2si_r32_xmmm32,
-		/// <summary>F3 REX.W 0F 2C /r</summary>
+		/// <summary><c>F3 REX.W 0F 2C /r</c><br/>
+		/// <br/>
+		/// <c>CVTTSS2SI r64, xmm1/m32</c></summary>
 		Cvttss2si_r64_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.W0 2C /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSS2SI r32, xmm1/m32</c></summary>
 		VEX_Vcvttss2si_r32_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.W1 2C /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.W1 2C /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSS2SI r64, xmm1/m32</c></summary>
 		VEX_Vcvttss2si_r64_xmmm32,
-		/// <summary>EVEX.LIG.F3.0F.W0 2C /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSS2SI r32, xmm1/m32{sae}</c></summary>
 		EVEX_Vcvttss2si_r32_xmmm32_sae,
-		/// <summary>EVEX.LIG.F3.0F.W1 2C /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W1 2C /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSS2SI r64, xmm1/m32{sae}</c></summary>
 		EVEX_Vcvttss2si_r64_xmmm32_sae,
-		/// <summary>F2 0F 2C /r</summary>
+		/// <summary><c>F2 0F 2C /r</c><br/>
+		/// <br/>
+		/// <c>CVTTSD2SI r32, xmm1/m64</c></summary>
 		Cvttsd2si_r32_xmmm64,
-		/// <summary>F2 REX.W 0F 2C /r</summary>
+		/// <summary><c>F2 REX.W 0F 2C /r</c><br/>
+		/// <br/>
+		/// <c>CVTTSD2SI r64, xmm1/m64</c></summary>
 		Cvttsd2si_r64_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.W0 2C /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSD2SI r32, xmm1/m64</c></summary>
 		VEX_Vcvttsd2si_r32_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.W1 2C /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.W1 2C /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSD2SI r64, xmm1/m64</c></summary>
 		VEX_Vcvttsd2si_r64_xmmm64,
-		/// <summary>EVEX.LIG.F2.0F.W0 2C /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSD2SI r32, xmm1/m64{sae}</c></summary>
 		EVEX_Vcvttsd2si_r32_xmmm64_sae,
-		/// <summary>EVEX.LIG.F2.0F.W1 2C /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 2C /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSD2SI r64, xmm1/m64{sae}</c></summary>
 		EVEX_Vcvttsd2si_r64_xmmm64_sae,
-		/// <summary>NP 0F 2D /r</summary>
+		/// <summary><c>NP 0F 2D /r</c><br/>
+		/// <br/>
+		/// <c>CVTPS2PI mm, xmm/m64</c></summary>
 		Cvtps2pi_mm_xmmm64,
-		/// <summary>66 0F 2D /r</summary>
+		/// <summary><c>66 0F 2D /r</c><br/>
+		/// <br/>
+		/// <c>CVTPD2PI mm, xmm/m128</c></summary>
 		Cvtpd2pi_mm_xmmm128,
-		/// <summary>F3 0F 2D /r</summary>
+		/// <summary><c>F3 0F 2D /r</c><br/>
+		/// <br/>
+		/// <c>CVTSS2SI r32, xmm1/m32</c></summary>
 		Cvtss2si_r32_xmmm32,
-		/// <summary>F3 REX.W 0F 2D /r</summary>
+		/// <summary><c>F3 REX.W 0F 2D /r</c><br/>
+		/// <br/>
+		/// <c>CVTSS2SI r64, xmm1/m32</c></summary>
 		Cvtss2si_r64_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.W0 2D /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.W0 2D /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSS2SI r32, xmm1/m32</c></summary>
 		VEX_Vcvtss2si_r32_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.W1 2D /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.W1 2D /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSS2SI r64, xmm1/m32</c></summary>
 		VEX_Vcvtss2si_r64_xmmm32,
-		/// <summary>EVEX.LIG.F3.0F.W0 2D /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 2D /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSS2SI r32, xmm1/m32{er}</c></summary>
 		EVEX_Vcvtss2si_r32_xmmm32_er,
-		/// <summary>EVEX.LIG.F3.0F.W1 2D /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W1 2D /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSS2SI r64, xmm1/m32{er}</c></summary>
 		EVEX_Vcvtss2si_r64_xmmm32_er,
-		/// <summary>F2 0F 2D /r</summary>
+		/// <summary><c>F2 0F 2D /r</c><br/>
+		/// <br/>
+		/// <c>CVTSD2SI r32, xmm1/m64</c></summary>
 		Cvtsd2si_r32_xmmm64,
-		/// <summary>F2 REX.W 0F 2D /r</summary>
+		/// <summary><c>F2 REX.W 0F 2D /r</c><br/>
+		/// <br/>
+		/// <c>CVTSD2SI r64, xmm1/m64</c></summary>
 		Cvtsd2si_r64_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.W0 2D /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.W0 2D /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSD2SI r32, xmm1/m64</c></summary>
 		VEX_Vcvtsd2si_r32_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.W1 2D /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.W1 2D /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSD2SI r64, xmm1/m64</c></summary>
 		VEX_Vcvtsd2si_r64_xmmm64,
-		/// <summary>EVEX.LIG.F2.0F.W0 2D /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W0 2D /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSD2SI r32, xmm1/m64{er}</c></summary>
 		EVEX_Vcvtsd2si_r32_xmmm64_er,
-		/// <summary>EVEX.LIG.F2.0F.W1 2D /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 2D /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSD2SI r64, xmm1/m64{er}</c></summary>
 		EVEX_Vcvtsd2si_r64_xmmm64_er,
-		/// <summary>NP 0F 2E /r</summary>
+		/// <summary><c>NP 0F 2E /r</c><br/>
+		/// <br/>
+		/// <c>UCOMISS xmm1, xmm2/m32</c></summary>
 		Ucomiss_xmm_xmmm32,
-		/// <summary>VEX.LIG.0F.WIG 2E /r</summary>
+		/// <summary><c>VEX.LIG.0F.WIG 2E /r</c><br/>
+		/// <br/>
+		/// <c>VUCOMISS xmm1, xmm2/m32</c></summary>
 		VEX_Vucomiss_xmm_xmmm32,
-		/// <summary>EVEX.LIG.0F.W0 2E /r</summary>
+		/// <summary><c>EVEX.LIG.0F.W0 2E /r</c><br/>
+		/// <br/>
+		/// <c>VUCOMISS xmm1, xmm2/m32{sae}</c></summary>
 		EVEX_Vucomiss_xmm_xmmm32_sae,
-		/// <summary>66 0F 2E /r</summary>
+		/// <summary><c>66 0F 2E /r</c><br/>
+		/// <br/>
+		/// <c>UCOMISD xmm1, xmm2/m64</c></summary>
 		Ucomisd_xmm_xmmm64,
-		/// <summary>VEX.LIG.66.0F.WIG 2E /r</summary>
+		/// <summary><c>VEX.LIG.66.0F.WIG 2E /r</c><br/>
+		/// <br/>
+		/// <c>VUCOMISD xmm1, xmm2/m64</c></summary>
 		VEX_Vucomisd_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F.W1 2E /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F.W1 2E /r</c><br/>
+		/// <br/>
+		/// <c>VUCOMISD xmm1, xmm2/m64{sae}</c></summary>
 		EVEX_Vucomisd_xmm_xmmm64_sae,
-		/// <summary>NP 0F 2F /r</summary>
+		/// <summary><c>NP 0F 2F /r</c><br/>
+		/// <br/>
+		/// <c>COMISS xmm1, xmm2/m32</c></summary>
 		Comiss_xmm_xmmm32,
-		/// <summary>66 0F 2F /r</summary>
+		/// <summary><c>66 0F 2F /r</c><br/>
+		/// <br/>
+		/// <c>COMISD xmm1, xmm2/m64</c></summary>
 		Comisd_xmm_xmmm64,
-		/// <summary>VEX.LIG.0F.WIG 2F /r</summary>
+		/// <summary><c>VEX.LIG.0F.WIG 2F /r</c><br/>
+		/// <br/>
+		/// <c>VCOMISS xmm1, xmm2/m32</c></summary>
 		VEX_Vcomiss_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F.WIG 2F /r</summary>
+		/// <summary><c>VEX.LIG.66.0F.WIG 2F /r</c><br/>
+		/// <br/>
+		/// <c>VCOMISD xmm1, xmm2/m64</c></summary>
 		VEX_Vcomisd_xmm_xmmm64,
-		/// <summary>EVEX.LIG.0F.W0 2F /r</summary>
+		/// <summary><c>EVEX.LIG.0F.W0 2F /r</c><br/>
+		/// <br/>
+		/// <c>VCOMISS xmm1, xmm2/m32{sae}</c></summary>
 		EVEX_Vcomiss_xmm_xmmm32_sae,
-		/// <summary>EVEX.LIG.66.0F.W1 2F /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F.W1 2F /r</c><br/>
+		/// <br/>
+		/// <c>VCOMISD xmm1, xmm2/m64{sae}</c></summary>
 		EVEX_Vcomisd_xmm_xmmm64_sae,
-		/// <summary>0F 30</summary>
+		/// <summary><c>0F 30</c><br/>
+		/// <br/>
+		/// <c>WRMSR</c></summary>
 		Wrmsr,
-		/// <summary>0F 31</summary>
+		/// <summary><c>0F 31</c><br/>
+		/// <br/>
+		/// <c>RDTSC</c></summary>
 		Rdtsc,
-		/// <summary>0F 32</summary>
+		/// <summary><c>0F 32</c><br/>
+		/// <br/>
+		/// <c>RDMSR</c></summary>
 		Rdmsr,
-		/// <summary>0F 33</summary>
+		/// <summary><c>0F 33</c><br/>
+		/// <br/>
+		/// <c>RDPMC</c></summary>
 		Rdpmc,
-		/// <summary>0F 34</summary>
+		/// <summary><c>0F 34</c><br/>
+		/// <br/>
+		/// <c>SYSENTER</c></summary>
 		Sysenter,
-		/// <summary>0F 35</summary>
+		/// <summary><c>0F 35</c><br/>
+		/// <br/>
+		/// <c>SYSEXIT</c></summary>
 		Sysexitd,
-		/// <summary>REX.W 0F 35</summary>
+		/// <summary><c>REX.W 0F 35</c><br/>
+		/// <br/>
+		/// <c>SYSEXIT</c></summary>
 		Sysexitq,
-		/// <summary>NP 0F 37</summary>
+		/// <summary><c>NP 0F 37</c><br/>
+		/// <br/>
+		/// <c>GETSEC</c></summary>
 		Getsec,
-		/// <summary>o16 0F 40 /r</summary>
+		/// <summary><c>o16 0F 40 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVO r16, r/m16</c></summary>
 		Cmovo_r16_rm16,
-		/// <summary>o32 0F 40 /r</summary>
+		/// <summary><c>o32 0F 40 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVO r32, r/m32</c></summary>
 		Cmovo_r32_rm32,
-		/// <summary>REX.W 0F 40 /r</summary>
+		/// <summary><c>REX.W 0F 40 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVO r64, r/m64</c></summary>
 		Cmovo_r64_rm64,
-		/// <summary>o16 0F 41 /r</summary>
+		/// <summary><c>o16 0F 41 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNO r16, r/m16</c></summary>
 		Cmovno_r16_rm16,
-		/// <summary>o32 0F 41 /r</summary>
+		/// <summary><c>o32 0F 41 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNO r32, r/m32</c></summary>
 		Cmovno_r32_rm32,
-		/// <summary>REX.W 0F 41 /r</summary>
+		/// <summary><c>REX.W 0F 41 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNO r64, r/m64</c></summary>
 		Cmovno_r64_rm64,
-		/// <summary>o16 0F 42 /r</summary>
+		/// <summary><c>o16 0F 42 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVB r16, r/m16</c></summary>
 		Cmovb_r16_rm16,
-		/// <summary>o32 0F 42 /r</summary>
+		/// <summary><c>o32 0F 42 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVB r32, r/m32</c></summary>
 		Cmovb_r32_rm32,
-		/// <summary>REX.W 0F 42 /r</summary>
+		/// <summary><c>REX.W 0F 42 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVB r64, r/m64</c></summary>
 		Cmovb_r64_rm64,
-		/// <summary>o16 0F 43 /r</summary>
+		/// <summary><c>o16 0F 43 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVAE r16, r/m16</c></summary>
 		Cmovae_r16_rm16,
-		/// <summary>o32 0F 43 /r</summary>
+		/// <summary><c>o32 0F 43 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVAE r32, r/m32</c></summary>
 		Cmovae_r32_rm32,
-		/// <summary>REX.W 0F 43 /r</summary>
+		/// <summary><c>REX.W 0F 43 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVAE r64, r/m64</c></summary>
 		Cmovae_r64_rm64,
-		/// <summary>o16 0F 44 /r</summary>
+		/// <summary><c>o16 0F 44 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVE r16, r/m16</c></summary>
 		Cmove_r16_rm16,
-		/// <summary>o32 0F 44 /r</summary>
+		/// <summary><c>o32 0F 44 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVE r32, r/m32</c></summary>
 		Cmove_r32_rm32,
-		/// <summary>REX.W 0F 44 /r</summary>
+		/// <summary><c>REX.W 0F 44 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVE r64, r/m64</c></summary>
 		Cmove_r64_rm64,
-		/// <summary>o16 0F 45 /r</summary>
+		/// <summary><c>o16 0F 45 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNE r16, r/m16</c></summary>
 		Cmovne_r16_rm16,
-		/// <summary>o32 0F 45 /r</summary>
+		/// <summary><c>o32 0F 45 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNE r32, r/m32</c></summary>
 		Cmovne_r32_rm32,
-		/// <summary>REX.W 0F 45 /r</summary>
+		/// <summary><c>REX.W 0F 45 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNE r64, r/m64</c></summary>
 		Cmovne_r64_rm64,
-		/// <summary>o16 0F 46 /r</summary>
+		/// <summary><c>o16 0F 46 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVBE r16, r/m16</c></summary>
 		Cmovbe_r16_rm16,
-		/// <summary>o32 0F 46 /r</summary>
+		/// <summary><c>o32 0F 46 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVBE r32, r/m32</c></summary>
 		Cmovbe_r32_rm32,
-		/// <summary>REX.W 0F 46 /r</summary>
+		/// <summary><c>REX.W 0F 46 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVBE r64, r/m64</c></summary>
 		Cmovbe_r64_rm64,
-		/// <summary>o16 0F 47 /r</summary>
+		/// <summary><c>o16 0F 47 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVA r16, r/m16</c></summary>
 		Cmova_r16_rm16,
-		/// <summary>o32 0F 47 /r</summary>
+		/// <summary><c>o32 0F 47 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVA r32, r/m32</c></summary>
 		Cmova_r32_rm32,
-		/// <summary>REX.W 0F 47 /r</summary>
+		/// <summary><c>REX.W 0F 47 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVA r64, r/m64</c></summary>
 		Cmova_r64_rm64,
-		/// <summary>o16 0F 48 /r</summary>
+		/// <summary><c>o16 0F 48 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVS r16, r/m16</c></summary>
 		Cmovs_r16_rm16,
-		/// <summary>o32 0F 48 /r</summary>
+		/// <summary><c>o32 0F 48 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVS r32, r/m32</c></summary>
 		Cmovs_r32_rm32,
-		/// <summary>REX.W 0F 48 /r</summary>
+		/// <summary><c>REX.W 0F 48 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVS r64, r/m64</c></summary>
 		Cmovs_r64_rm64,
-		/// <summary>o16 0F 49 /r</summary>
+		/// <summary><c>o16 0F 49 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNS r16, r/m16</c></summary>
 		Cmovns_r16_rm16,
-		/// <summary>o32 0F 49 /r</summary>
+		/// <summary><c>o32 0F 49 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNS r32, r/m32</c></summary>
 		Cmovns_r32_rm32,
-		/// <summary>REX.W 0F 49 /r</summary>
+		/// <summary><c>REX.W 0F 49 /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNS r64, r/m64</c></summary>
 		Cmovns_r64_rm64,
-		/// <summary>o16 0F 4A /r</summary>
+		/// <summary><c>o16 0F 4A /r</c><br/>
+		/// <br/>
+		/// <c>CMOVP r16, r/m16</c></summary>
 		Cmovp_r16_rm16,
-		/// <summary>o32 0F 4A /r</summary>
+		/// <summary><c>o32 0F 4A /r</c><br/>
+		/// <br/>
+		/// <c>CMOVP r32, r/m32</c></summary>
 		Cmovp_r32_rm32,
-		/// <summary>REX.W 0F 4A /r</summary>
+		/// <summary><c>REX.W 0F 4A /r</c><br/>
+		/// <br/>
+		/// <c>CMOVP r64, r/m64</c></summary>
 		Cmovp_r64_rm64,
-		/// <summary>o16 0F 4B /r</summary>
+		/// <summary><c>o16 0F 4B /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNP r16, r/m16</c></summary>
 		Cmovnp_r16_rm16,
-		/// <summary>o32 0F 4B /r</summary>
+		/// <summary><c>o32 0F 4B /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNP r32, r/m32</c></summary>
 		Cmovnp_r32_rm32,
-		/// <summary>REX.W 0F 4B /r</summary>
+		/// <summary><c>REX.W 0F 4B /r</c><br/>
+		/// <br/>
+		/// <c>CMOVNP r64, r/m64</c></summary>
 		Cmovnp_r64_rm64,
-		/// <summary>o16 0F 4C /r</summary>
+		/// <summary><c>o16 0F 4C /r</c><br/>
+		/// <br/>
+		/// <c>CMOVL r16, r/m16</c></summary>
 		Cmovl_r16_rm16,
-		/// <summary>o32 0F 4C /r</summary>
+		/// <summary><c>o32 0F 4C /r</c><br/>
+		/// <br/>
+		/// <c>CMOVL r32, r/m32</c></summary>
 		Cmovl_r32_rm32,
-		/// <summary>REX.W 0F 4C /r</summary>
+		/// <summary><c>REX.W 0F 4C /r</c><br/>
+		/// <br/>
+		/// <c>CMOVL r64, r/m64</c></summary>
 		Cmovl_r64_rm64,
-		/// <summary>o16 0F 4D /r</summary>
+		/// <summary><c>o16 0F 4D /r</c><br/>
+		/// <br/>
+		/// <c>CMOVGE r16, r/m16</c></summary>
 		Cmovge_r16_rm16,
-		/// <summary>o32 0F 4D /r</summary>
+		/// <summary><c>o32 0F 4D /r</c><br/>
+		/// <br/>
+		/// <c>CMOVGE r32, r/m32</c></summary>
 		Cmovge_r32_rm32,
-		/// <summary>REX.W 0F 4D /r</summary>
+		/// <summary><c>REX.W 0F 4D /r</c><br/>
+		/// <br/>
+		/// <c>CMOVGE r64, r/m64</c></summary>
 		Cmovge_r64_rm64,
-		/// <summary>o16 0F 4E /r</summary>
+		/// <summary><c>o16 0F 4E /r</c><br/>
+		/// <br/>
+		/// <c>CMOVLE r16, r/m16</c></summary>
 		Cmovle_r16_rm16,
-		/// <summary>o32 0F 4E /r</summary>
+		/// <summary><c>o32 0F 4E /r</c><br/>
+		/// <br/>
+		/// <c>CMOVLE r32, r/m32</c></summary>
 		Cmovle_r32_rm32,
-		/// <summary>REX.W 0F 4E /r</summary>
+		/// <summary><c>REX.W 0F 4E /r</c><br/>
+		/// <br/>
+		/// <c>CMOVLE r64, r/m64</c></summary>
 		Cmovle_r64_rm64,
-		/// <summary>o16 0F 4F /r</summary>
+		/// <summary><c>o16 0F 4F /r</c><br/>
+		/// <br/>
+		/// <c>CMOVG r16, r/m16</c></summary>
 		Cmovg_r16_rm16,
-		/// <summary>o32 0F 4F /r</summary>
+		/// <summary><c>o32 0F 4F /r</c><br/>
+		/// <br/>
+		/// <c>CMOVG r32, r/m32</c></summary>
 		Cmovg_r32_rm32,
-		/// <summary>REX.W 0F 4F /r</summary>
+		/// <summary><c>REX.W 0F 4F /r</c><br/>
+		/// <br/>
+		/// <c>CMOVG r64, r/m64</c></summary>
 		Cmovg_r64_rm64,
-		/// <summary>VEX.L1.0F.W0 41 /r</summary>
+		/// <summary><c>VEX.L1.0F.W0 41 /r</c><br/>
+		/// <br/>
+		/// <c>KANDW k1, k2, k3</c></summary>
 		VEX_Kandw_k_k_k,
-		/// <summary>VEX.L1.0F.W1 41 /r</summary>
+		/// <summary><c>VEX.L1.0F.W1 41 /r</c><br/>
+		/// <br/>
+		/// <c>KANDQ k1, k2, k3</c></summary>
 		VEX_Kandq_k_k_k,
-		/// <summary>VEX.L1.66.0F.W0 41 /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W0 41 /r</c><br/>
+		/// <br/>
+		/// <c>KANDB k1, k2, k3</c></summary>
 		VEX_Kandb_k_k_k,
-		/// <summary>VEX.L1.66.0F.W1 41 /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W1 41 /r</c><br/>
+		/// <br/>
+		/// <c>KANDD k1, k2, k3</c></summary>
 		VEX_Kandd_k_k_k,
-		/// <summary>VEX.L1.0F.W0 42 /r</summary>
+		/// <summary><c>VEX.L1.0F.W0 42 /r</c><br/>
+		/// <br/>
+		/// <c>KANDNW k1, k2, k3</c></summary>
 		VEX_Kandnw_k_k_k,
-		/// <summary>VEX.L1.0F.W1 42 /r</summary>
+		/// <summary><c>VEX.L1.0F.W1 42 /r</c><br/>
+		/// <br/>
+		/// <c>KANDNQ k1, k2, k3</c></summary>
 		VEX_Kandnq_k_k_k,
-		/// <summary>VEX.L1.66.0F.W0 42 /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W0 42 /r</c><br/>
+		/// <br/>
+		/// <c>KANDNB k1, k2, k3</c></summary>
 		VEX_Kandnb_k_k_k,
-		/// <summary>VEX.L1.66.0F.W1 42 /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W1 42 /r</c><br/>
+		/// <br/>
+		/// <c>KANDND k1, k2, k3</c></summary>
 		VEX_Kandnd_k_k_k,
-		/// <summary>VEX.L0.0F.W0 44 /r</summary>
+		/// <summary><c>VEX.L0.0F.W0 44 /r</c><br/>
+		/// <br/>
+		/// <c>KNOTW k1, k2</c></summary>
 		VEX_Knotw_k_k,
-		/// <summary>VEX.L0.0F.W1 44 /r</summary>
+		/// <summary><c>VEX.L0.0F.W1 44 /r</c><br/>
+		/// <br/>
+		/// <c>KNOTQ k1, k2</c></summary>
 		VEX_Knotq_k_k,
-		/// <summary>VEX.L0.66.0F.W0 44 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W0 44 /r</c><br/>
+		/// <br/>
+		/// <c>KNOTB k1, k2</c></summary>
 		VEX_Knotb_k_k,
-		/// <summary>VEX.L0.66.0F.W1 44 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W1 44 /r</c><br/>
+		/// <br/>
+		/// <c>KNOTD k1, k2</c></summary>
 		VEX_Knotd_k_k,
-		/// <summary>VEX.L1.0F.W0 45 /r</summary>
+		/// <summary><c>VEX.L1.0F.W0 45 /r</c><br/>
+		/// <br/>
+		/// <c>KORW k1, k2, k3</c></summary>
 		VEX_Korw_k_k_k,
-		/// <summary>VEX.L1.0F.W1 45 /r</summary>
+		/// <summary><c>VEX.L1.0F.W1 45 /r</c><br/>
+		/// <br/>
+		/// <c>KORQ k1, k2, k3</c></summary>
 		VEX_Korq_k_k_k,
-		/// <summary>VEX.L1.66.0F.W0 45 /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W0 45 /r</c><br/>
+		/// <br/>
+		/// <c>KORB k1, k2, k3</c></summary>
 		VEX_Korb_k_k_k,
-		/// <summary>VEX.L1.66.0F.W1 45 /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W1 45 /r</c><br/>
+		/// <br/>
+		/// <c>KORD k1, k2, k3</c></summary>
 		VEX_Kord_k_k_k,
-		/// <summary>VEX.L1.0F.W0 46 /r</summary>
+		/// <summary><c>VEX.L1.0F.W0 46 /r</c><br/>
+		/// <br/>
+		/// <c>KXNORW k1, k2, k3</c></summary>
 		VEX_Kxnorw_k_k_k,
-		/// <summary>VEX.L1.0F.W1 46 /r</summary>
+		/// <summary><c>VEX.L1.0F.W1 46 /r</c><br/>
+		/// <br/>
+		/// <c>KXNORQ k1, k2, k3</c></summary>
 		VEX_Kxnorq_k_k_k,
-		/// <summary>VEX.L1.66.0F.W0 46 /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W0 46 /r</c><br/>
+		/// <br/>
+		/// <c>KXNORB k1, k2, k3</c></summary>
 		VEX_Kxnorb_k_k_k,
-		/// <summary>VEX.L1.66.0F.W1 46 /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W1 46 /r</c><br/>
+		/// <br/>
+		/// <c>KXNORD k1, k2, k3</c></summary>
 		VEX_Kxnord_k_k_k,
-		/// <summary>VEX.L1.0F.W0 47 /r</summary>
+		/// <summary><c>VEX.L1.0F.W0 47 /r</c><br/>
+		/// <br/>
+		/// <c>KXORW k1, k2, k3</c></summary>
 		VEX_Kxorw_k_k_k,
-		/// <summary>VEX.L1.0F.W1 47 /r</summary>
+		/// <summary><c>VEX.L1.0F.W1 47 /r</c><br/>
+		/// <br/>
+		/// <c>KXORQ k1, k2, k3</c></summary>
 		VEX_Kxorq_k_k_k,
-		/// <summary>VEX.L1.66.0F.W0 47 /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W0 47 /r</c><br/>
+		/// <br/>
+		/// <c>KXORB k1, k2, k3</c></summary>
 		VEX_Kxorb_k_k_k,
-		/// <summary>VEX.L1.66.0F.W1 47 /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W1 47 /r</c><br/>
+		/// <br/>
+		/// <c>KXORD k1, k2, k3</c></summary>
 		VEX_Kxord_k_k_k,
-		/// <summary>VEX.L1.0F.W0 4A /r</summary>
+		/// <summary><c>VEX.L1.0F.W0 4A /r</c><br/>
+		/// <br/>
+		/// <c>KADDW k1, k2, k3</c></summary>
 		VEX_Kaddw_k_k_k,
-		/// <summary>VEX.L1.0F.W1 4A /r</summary>
+		/// <summary><c>VEX.L1.0F.W1 4A /r</c><br/>
+		/// <br/>
+		/// <c>KADDQ k1, k2, k3</c></summary>
 		VEX_Kaddq_k_k_k,
-		/// <summary>VEX.L1.66.0F.W0 4A /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W0 4A /r</c><br/>
+		/// <br/>
+		/// <c>KADDB k1, k2, k3</c></summary>
 		VEX_Kaddb_k_k_k,
-		/// <summary>VEX.L1.66.0F.W1 4A /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W1 4A /r</c><br/>
+		/// <br/>
+		/// <c>KADDD k1, k2, k3</c></summary>
 		VEX_Kaddd_k_k_k,
-		/// <summary>VEX.L1.0F.W0 4B /r</summary>
+		/// <summary><c>VEX.L1.0F.W0 4B /r</c><br/>
+		/// <br/>
+		/// <c>KUNPCKWD k1, k2, k3</c></summary>
 		VEX_Kunpckwd_k_k_k,
-		/// <summary>VEX.L1.0F.W1 4B /r</summary>
+		/// <summary><c>VEX.L1.0F.W1 4B /r</c><br/>
+		/// <br/>
+		/// <c>KUNPCKDQ k1, k2, k3</c></summary>
 		VEX_Kunpckdq_k_k_k,
-		/// <summary>VEX.L1.66.0F.W0 4B /r</summary>
+		/// <summary><c>VEX.L1.66.0F.W0 4B /r</c><br/>
+		/// <br/>
+		/// <c>KUNPCKBW k1, k2, k3</c></summary>
 		VEX_Kunpckbw_k_k_k,
-		/// <summary>NP 0F 50 /r</summary>
+		/// <summary><c>NP 0F 50 /r</c><br/>
+		/// <br/>
+		/// <c>MOVMSKPS r32, xmm</c></summary>
 		Movmskps_r32_xmm,
-		/// <summary>NP REX.W 0F 50 /r</summary>
+		/// <summary><c>NP REX.W 0F 50 /r</c><br/>
+		/// <br/>
+		/// <c>MOVMSKPS r64, xmm</c></summary>
 		Movmskps_r64_xmm,
-		/// <summary>VEX.128.0F.W0 50 /r</summary>
+		/// <summary><c>VEX.128.0F.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVMSKPS r32, xmm2</c></summary>
 		VEX_Vmovmskps_r32_xmm,
-		/// <summary>VEX.128.0F.W1 50 /r</summary>
+		/// <summary><c>VEX.128.0F.W1 50 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVMSKPS r64, xmm2</c></summary>
 		VEX_Vmovmskps_r64_xmm,
-		/// <summary>VEX.256.0F.W0 50 /r</summary>
+		/// <summary><c>VEX.256.0F.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVMSKPS r32, ymm2</c></summary>
 		VEX_Vmovmskps_r32_ymm,
-		/// <summary>VEX.256.0F.W1 50 /r</summary>
+		/// <summary><c>VEX.256.0F.W1 50 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVMSKPS r64, ymm2</c></summary>
 		VEX_Vmovmskps_r64_ymm,
-		/// <summary>66 0F 50 /r</summary>
+		/// <summary><c>66 0F 50 /r</c><br/>
+		/// <br/>
+		/// <c>MOVMSKPD r32, xmm</c></summary>
 		Movmskpd_r32_xmm,
-		/// <summary>66 REX.W 0F 50 /r</summary>
+		/// <summary><c>66 REX.W 0F 50 /r</c><br/>
+		/// <br/>
+		/// <c>MOVMSKPD r64, xmm</c></summary>
 		Movmskpd_r64_xmm,
-		/// <summary>VEX.128.66.0F.W0 50 /r</summary>
+		/// <summary><c>VEX.128.66.0F.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVMSKPD r32, xmm2</c></summary>
 		VEX_Vmovmskpd_r32_xmm,
-		/// <summary>VEX.128.66.0F.W1 50 /r</summary>
+		/// <summary><c>VEX.128.66.0F.W1 50 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVMSKPD r64, xmm2</c></summary>
 		VEX_Vmovmskpd_r64_xmm,
-		/// <summary>VEX.256.66.0F.W0 50 /r</summary>
+		/// <summary><c>VEX.256.66.0F.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVMSKPD r32, ymm2</c></summary>
 		VEX_Vmovmskpd_r32_ymm,
-		/// <summary>VEX.256.66.0F.W1 50 /r</summary>
+		/// <summary><c>VEX.256.66.0F.W1 50 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVMSKPD r64, ymm2</c></summary>
 		VEX_Vmovmskpd_r64_ymm,
-		/// <summary>NP 0F 51 /r</summary>
+		/// <summary><c>NP 0F 51 /r</c><br/>
+		/// <br/>
+		/// <c>SQRTPS xmm1, xmm2/m128</c></summary>
 		Sqrtps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 51 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTPS xmm1, xmm2/m128</c></summary>
 		VEX_Vsqrtps_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 51 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTPS ymm1, ymm2/m256</c></summary>
 		VEX_Vsqrtps_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 51 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTPS xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vsqrtps_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 51 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTPS ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vsqrtps_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 51 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTPS zmm1 {k1}{z}, zmm2/m512/m32bcst{er}</c></summary>
 		EVEX_Vsqrtps_zmm_k1z_zmmm512b32_er,
-		/// <summary>66 0F 51 /r</summary>
+		/// <summary><c>66 0F 51 /r</c><br/>
+		/// <br/>
+		/// <c>SQRTPD xmm1, xmm2/m128</c></summary>
 		Sqrtpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 51 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTPD xmm1, xmm2/m128</c></summary>
 		VEX_Vsqrtpd_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 51 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTPD ymm1, ymm2/m256</c></summary>
 		VEX_Vsqrtpd_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 51 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTPD xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vsqrtpd_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 51 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTPD ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vsqrtpd_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 51 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTPD zmm1 {k1}{z}, zmm2/m512/m64bcst{er}</c></summary>
 		EVEX_Vsqrtpd_zmm_k1z_zmmm512b64_er,
-		/// <summary>F3 0F 51 /r</summary>
+		/// <summary><c>F3 0F 51 /r</c><br/>
+		/// <br/>
+		/// <c>SQRTSS xmm1, xmm2/m32</c></summary>
 		Sqrtss_xmm_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.WIG 51 /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTSS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vsqrtss_xmm_xmm_xmmm32,
-		/// <summary>EVEX.LIG.F3.0F.W0 51 /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>F2 0F 51 /r</summary>
+		/// <summary><c>F2 0F 51 /r</c><br/>
+		/// <br/>
+		/// <c>SQRTSD xmm1, xmm2/m64</c></summary>
 		Sqrtsd_xmm_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.WIG 51 /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTSD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vsqrtsd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.F2.0F.W1 51 /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 51 /r</c><br/>
+		/// <br/>
+		/// <c>VSQRTSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>NP 0F 52 /r</summary>
+		/// <summary><c>NP 0F 52 /r</c><br/>
+		/// <br/>
+		/// <c>RSQRTPS xmm1, xmm2/m128</c></summary>
 		Rsqrtps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 52 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 52 /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRTPS xmm1, xmm2/m128</c></summary>
 		VEX_Vrsqrtps_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 52 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 52 /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRTPS ymm1, ymm2/m256</c></summary>
 		VEX_Vrsqrtps_ymm_ymmm256,
-		/// <summary>F3 0F 52 /r</summary>
+		/// <summary><c>F3 0F 52 /r</c><br/>
+		/// <br/>
+		/// <c>RSQRTSS xmm1, xmm2/m32</c></summary>
 		Rsqrtss_xmm_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.WIG 52 /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 52 /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRTSS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vrsqrtss_xmm_xmm_xmmm32,
-		/// <summary>NP 0F 53 /r</summary>
+		/// <summary><c>NP 0F 53 /r</c><br/>
+		/// <br/>
+		/// <c>RCPPS xmm1, xmm2/m128</c></summary>
 		Rcpps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 53 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 53 /r</c><br/>
+		/// <br/>
+		/// <c>VRCPPS xmm1, xmm2/m128</c></summary>
 		VEX_Vrcpps_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 53 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 53 /r</c><br/>
+		/// <br/>
+		/// <c>VRCPPS ymm1, ymm2/m256</c></summary>
 		VEX_Vrcpps_ymm_ymmm256,
-		/// <summary>F3 0F 53 /r</summary>
+		/// <summary><c>F3 0F 53 /r</c><br/>
+		/// <br/>
+		/// <c>RCPSS xmm1, xmm2/m32</c></summary>
 		Rcpss_xmm_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.WIG 53 /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 53 /r</c><br/>
+		/// <br/>
+		/// <c>VRCPSS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vrcpss_xmm_xmm_xmmm32,
-		/// <summary>NP 0F 54 /r</summary>
+		/// <summary><c>NP 0F 54 /r</c><br/>
+		/// <br/>
+		/// <c>ANDPS xmm1, xmm2/m128</c></summary>
 		Andps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 54 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 54 /r</c><br/>
+		/// <br/>
+		/// <c>VANDPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vandps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 54 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 54 /r</c><br/>
+		/// <br/>
+		/// <c>VANDPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vandps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 54 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 54 /r</c><br/>
+		/// <br/>
+		/// <c>VANDPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vandps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 54 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 54 /r</c><br/>
+		/// <br/>
+		/// <c>VANDPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vandps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 54 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 54 /r</c><br/>
+		/// <br/>
+		/// <c>VANDPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vandps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>66 0F 54 /r</summary>
+		/// <summary><c>66 0F 54 /r</c><br/>
+		/// <br/>
+		/// <c>ANDPD xmm1, xmm2/m128</c></summary>
 		Andpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 54 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 54 /r</c><br/>
+		/// <br/>
+		/// <c>VANDPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vandpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 54 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 54 /r</c><br/>
+		/// <br/>
+		/// <c>VANDPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vandpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 54 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 54 /r</c><br/>
+		/// <br/>
+		/// <c>VANDPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vandpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 54 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 54 /r</c><br/>
+		/// <br/>
+		/// <c>VANDPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vandpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 54 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 54 /r</c><br/>
+		/// <br/>
+		/// <c>VANDPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vandpd_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F 55 /r</summary>
+		/// <summary><c>NP 0F 55 /r</c><br/>
+		/// <br/>
+		/// <c>ANDNPS xmm1, xmm2/m128</c></summary>
 		Andnps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 55 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 55 /r</c><br/>
+		/// <br/>
+		/// <c>VANDNPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vandnps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 55 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 55 /r</c><br/>
+		/// <br/>
+		/// <c>VANDNPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vandnps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 55 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 55 /r</c><br/>
+		/// <br/>
+		/// <c>VANDNPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vandnps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 55 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 55 /r</c><br/>
+		/// <br/>
+		/// <c>VANDNPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vandnps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 55 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 55 /r</c><br/>
+		/// <br/>
+		/// <c>VANDNPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vandnps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>66 0F 55 /r</summary>
+		/// <summary><c>66 0F 55 /r</c><br/>
+		/// <br/>
+		/// <c>ANDNPD xmm1, xmm2/m128</c></summary>
 		Andnpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 55 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 55 /r</c><br/>
+		/// <br/>
+		/// <c>VANDNPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vandnpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 55 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 55 /r</c><br/>
+		/// <br/>
+		/// <c>VANDNPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vandnpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 55 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 55 /r</c><br/>
+		/// <br/>
+		/// <c>VANDNPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vandnpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 55 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 55 /r</c><br/>
+		/// <br/>
+		/// <c>VANDNPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vandnpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 55 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 55 /r</c><br/>
+		/// <br/>
+		/// <c>VANDNPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vandnpd_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F 56 /r</summary>
+		/// <summary><c>NP 0F 56 /r</c><br/>
+		/// <br/>
+		/// <c>ORPS xmm1, xmm2/m128</c></summary>
 		Orps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 56 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 56 /r</c><br/>
+		/// <br/>
+		/// <c>VORPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vorps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 56 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 56 /r</c><br/>
+		/// <br/>
+		/// <c>VORPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vorps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 56 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 56 /r</c><br/>
+		/// <br/>
+		/// <c>VORPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vorps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 56 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 56 /r</c><br/>
+		/// <br/>
+		/// <c>VORPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vorps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 56 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 56 /r</c><br/>
+		/// <br/>
+		/// <c>VORPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vorps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>66 0F 56 /r</summary>
+		/// <summary><c>66 0F 56 /r</c><br/>
+		/// <br/>
+		/// <c>ORPD xmm1, xmm2/m128</c></summary>
 		Orpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 56 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 56 /r</c><br/>
+		/// <br/>
+		/// <c>VORPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vorpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 56 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 56 /r</c><br/>
+		/// <br/>
+		/// <c>VORPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vorpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 56 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 56 /r</c><br/>
+		/// <br/>
+		/// <c>VORPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vorpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 56 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 56 /r</c><br/>
+		/// <br/>
+		/// <c>VORPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vorpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 56 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 56 /r</c><br/>
+		/// <br/>
+		/// <c>VORPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vorpd_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F 57 /r</summary>
+		/// <summary><c>NP 0F 57 /r</c><br/>
+		/// <br/>
+		/// <c>XORPS xmm1, xmm2/m128</c></summary>
 		Xorps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 57 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 57 /r</c><br/>
+		/// <br/>
+		/// <c>VXORPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vxorps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 57 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 57 /r</c><br/>
+		/// <br/>
+		/// <c>VXORPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vxorps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 57 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 57 /r</c><br/>
+		/// <br/>
+		/// <c>VXORPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vxorps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 57 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 57 /r</c><br/>
+		/// <br/>
+		/// <c>VXORPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vxorps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 57 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 57 /r</c><br/>
+		/// <br/>
+		/// <c>VXORPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vxorps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>66 0F 57 /r</summary>
+		/// <summary><c>66 0F 57 /r</c><br/>
+		/// <br/>
+		/// <c>XORPD xmm1, xmm2/m128</c></summary>
 		Xorpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 57 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 57 /r</c><br/>
+		/// <br/>
+		/// <c>VXORPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vxorpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 57 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 57 /r</c><br/>
+		/// <br/>
+		/// <c>VXORPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vxorpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 57 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 57 /r</c><br/>
+		/// <br/>
+		/// <c>VXORPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vxorpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 57 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 57 /r</c><br/>
+		/// <br/>
+		/// <c>VXORPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vxorpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 57 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 57 /r</c><br/>
+		/// <br/>
+		/// <c>VXORPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vxorpd_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F 58 /r</summary>
+		/// <summary><c>NP 0F 58 /r</c><br/>
+		/// <br/>
+		/// <c>ADDPS xmm1, xmm2/m128</c></summary>
 		Addps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 58 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vaddps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 58 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vaddps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 58 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vaddps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 58 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vaddps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 58 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vaddps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>66 0F 58 /r</summary>
+		/// <summary><c>66 0F 58 /r</c><br/>
+		/// <br/>
+		/// <c>ADDPD xmm1, xmm2/m128</c></summary>
 		Addpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 58 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vaddpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 58 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vaddpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 58 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vaddpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 58 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vaddpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 58 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>F3 0F 58 /r</summary>
+		/// <summary><c>F3 0F 58 /r</c><br/>
+		/// <br/>
+		/// <c>ADDSS xmm1, xmm2/m32</c></summary>
 		Addss_xmm_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.WIG 58 /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDSS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vaddss_xmm_xmm_xmmm32,
-		/// <summary>EVEX.LIG.F3.0F.W0 58 /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>F2 0F 58 /r</summary>
+		/// <summary><c>F2 0F 58 /r</c><br/>
+		/// <br/>
+		/// <c>ADDSD xmm1, xmm2/m64</c></summary>
 		Addsd_xmm_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.WIG 58 /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDSD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vaddsd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.F2.0F.W1 58 /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 58 /r</c><br/>
+		/// <br/>
+		/// <c>VADDSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>NP 0F 59 /r</summary>
+		/// <summary><c>NP 0F 59 /r</c><br/>
+		/// <br/>
+		/// <c>MULPS xmm1, xmm2/m128</c></summary>
 		Mulps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 59 /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vmulps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 59 /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vmulps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 59 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vmulps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 59 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vmulps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 59 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vmulps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>66 0F 59 /r</summary>
+		/// <summary><c>66 0F 59 /r</c><br/>
+		/// <br/>
+		/// <c>MULPD xmm1, xmm2/m128</c></summary>
 		Mulpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 59 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vmulpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 59 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vmulpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 59 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vmulpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 59 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vmulpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 59 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vmulpd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>F3 0F 59 /r</summary>
+		/// <summary><c>F3 0F 59 /r</c><br/>
+		/// <br/>
+		/// <c>MULSS xmm1, xmm2/m32</c></summary>
 		Mulss_xmm_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.WIG 59 /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULSS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vmulss_xmm_xmm_xmmm32,
-		/// <summary>EVEX.LIG.F3.0F.W0 59 /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>F2 0F 59 /r</summary>
+		/// <summary><c>F2 0F 59 /r</c><br/>
+		/// <br/>
+		/// <c>MULSD xmm1, xmm2/m64</c></summary>
 		Mulsd_xmm_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.WIG 59 /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULSD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vmulsd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.F2.0F.W1 59 /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 59 /r</c><br/>
+		/// <br/>
+		/// <c>VMULSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>NP 0F 5A /r</summary>
+		/// <summary><c>NP 0F 5A /r</c><br/>
+		/// <br/>
+		/// <c>CVTPS2PD xmm1, xmm2/m64</c></summary>
 		Cvtps2pd_xmm_xmmm64,
-		/// <summary>VEX.128.0F.WIG 5A /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2PD xmm1, xmm2/m64</c></summary>
 		VEX_Vcvtps2pd_xmm_xmmm64,
-		/// <summary>VEX.256.0F.WIG 5A /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2PD ymm1, xmm2/m128</c></summary>
 		VEX_Vcvtps2pd_ymm_xmmm128,
-		/// <summary>EVEX.128.0F.W0 5A /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2PD xmm1 {k1}{z}, xmm2/m64/m32bcst</c></summary>
 		EVEX_Vcvtps2pd_xmm_k1z_xmmm64b32,
-		/// <summary>EVEX.256.0F.W0 5A /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2PD ymm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvtps2pd_ymm_k1z_xmmm128b32,
-		/// <summary>EVEX.512.0F.W0 5A /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{sae}</c></summary>
 		EVEX_Vcvtps2pd_zmm_k1z_ymmm256b32_sae,
-		/// <summary>66 0F 5A /r</summary>
+		/// <summary><c>66 0F 5A /r</c><br/>
+		/// <br/>
+		/// <c>CVTPD2PS xmm1, xmm2/m128</c></summary>
 		Cvtpd2ps_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 5A /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2PS xmm1, xmm2/m128</c></summary>
 		VEX_Vcvtpd2ps_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 5A /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2PS xmm1, ymm2/m256</c></summary>
 		VEX_Vcvtpd2ps_xmm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 5A /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2PS xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 5A /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2PS xmm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 5A /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2PS ymm1 {k1}{z}, zmm2/m512/m64bcst{er}</c></summary>
 		EVEX_Vcvtpd2ps_ymm_k1z_zmmm512b64_er,
-		/// <summary>F3 0F 5A /r</summary>
+		/// <summary><c>F3 0F 5A /r</c><br/>
+		/// <br/>
+		/// <c>CVTSS2SD xmm1, xmm2/m32</c></summary>
 		Cvtss2sd_xmm_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.WIG 5A /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSS2SD xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vcvtss2sd_xmm_xmm_xmmm32,
-		/// <summary>EVEX.LIG.F3.0F.W0 5A /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSS2SD xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</c></summary>
 		EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae,
-		/// <summary>F2 0F 5A /r</summary>
+		/// <summary><c>F2 0F 5A /r</c><br/>
+		/// <br/>
+		/// <c>CVTSD2SS xmm1, xmm2/m64</c></summary>
 		Cvtsd2ss_xmm_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.WIG 5A /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSD2SS xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vcvtsd2ss_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.F2.0F.W1 5A /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSD2SS xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>NP 0F 5B /r</summary>
+		/// <summary><c>NP 0F 5B /r</c><br/>
+		/// <br/>
+		/// <c>CVTDQ2PS xmm1, xmm2/m128</c></summary>
 		Cvtdq2ps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 5B /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTDQ2PS xmm1, xmm2/m128</c></summary>
 		VEX_Vcvtdq2ps_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 5B /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTDQ2PS ymm1, ymm2/m256</c></summary>
 		VEX_Vcvtdq2ps_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 5B /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTDQ2PS xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvtdq2ps_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 5B /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTDQ2PS ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vcvtdq2ps_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 5B /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTDQ2PS zmm1 {k1}{z}, zmm2/m512/m32bcst{er}</c></summary>
 		EVEX_Vcvtdq2ps_zmm_k1z_zmmm512b32_er,
-		/// <summary>EVEX.128.0F.W1 5B /r</summary>
+		/// <summary><c>EVEX.128.0F.W1 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTQQ2PS xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.0F.W1 5B /r</summary>
+		/// <summary><c>EVEX.256.0F.W1 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTQQ2PS xmm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvtqq2ps_xmm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.0F.W1 5B /r</summary>
+		/// <summary><c>EVEX.512.0F.W1 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTQQ2PS ymm1 {k1}{z}, zmm2/m512/m64bcst{er}</c></summary>
 		EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er,
-		/// <summary>66 0F 5B /r</summary>
+		/// <summary><c>66 0F 5B /r</c><br/>
+		/// <br/>
+		/// <c>CVTPS2DQ xmm1, xmm2/m128</c></summary>
 		Cvtps2dq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 5B /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2DQ xmm1, xmm2/m128</c></summary>
 		VEX_Vcvtps2dq_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 5B /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2DQ ymm1, ymm2/m256</c></summary>
 		VEX_Vcvtps2dq_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 5B /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2DQ xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 5B /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2DQ ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vcvtps2dq_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 5B /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2DQ zmm1 {k1}{z}, zmm2/m512/m32bcst{er}</c></summary>
 		EVEX_Vcvtps2dq_zmm_k1z_zmmm512b32_er,
-		/// <summary>F3 0F 5B /r</summary>
+		/// <summary><c>F3 0F 5B /r</c><br/>
+		/// <br/>
+		/// <c>CVTTPS2DQ xmm1, xmm2/m128</c></summary>
 		Cvttps2dq_xmm_xmmm128,
-		/// <summary>VEX.128.F3.0F.WIG 5B /r</summary>
+		/// <summary><c>VEX.128.F3.0F.WIG 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2DQ xmm1, xmm2/m128</c></summary>
 		VEX_Vcvttps2dq_xmm_xmmm128,
-		/// <summary>VEX.256.F3.0F.WIG 5B /r</summary>
+		/// <summary><c>VEX.256.F3.0F.WIG 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2DQ ymm1, ymm2/m256</c></summary>
 		VEX_Vcvttps2dq_ymm_ymmm256,
-		/// <summary>EVEX.128.F3.0F.W0 5B /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2DQ xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvttps2dq_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.F3.0F.W0 5B /r</summary>
+		/// <summary><c>EVEX.256.F3.0F.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2DQ ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vcvttps2dq_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.F3.0F.W0 5B /r</summary>
+		/// <summary><c>EVEX.512.F3.0F.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2DQ zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}</c></summary>
 		EVEX_Vcvttps2dq_zmm_k1z_zmmm512b32_sae,
-		/// <summary>NP 0F 5C /r</summary>
+		/// <summary><c>NP 0F 5C /r</c><br/>
+		/// <br/>
+		/// <c>SUBPS xmm1, xmm2/m128</c></summary>
 		Subps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 5C /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vsubps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 5C /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vsubps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 5C /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 5C /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 5C /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>66 0F 5C /r</summary>
+		/// <summary><c>66 0F 5C /r</c><br/>
+		/// <br/>
+		/// <c>SUBPD xmm1, xmm2/m128</c></summary>
 		Subpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 5C /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vsubpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 5C /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vsubpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 5C /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 5C /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 5C /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>F3 0F 5C /r</summary>
+		/// <summary><c>F3 0F 5C /r</c><br/>
+		/// <br/>
+		/// <c>SUBSS xmm1, xmm2/m32</c></summary>
 		Subss_xmm_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.WIG 5C /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBSS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vsubss_xmm_xmm_xmmm32,
-		/// <summary>EVEX.LIG.F3.0F.W0 5C /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>F2 0F 5C /r</summary>
+		/// <summary><c>F2 0F 5C /r</c><br/>
+		/// <br/>
+		/// <c>SUBSD xmm1, xmm2/m64</c></summary>
 		Subsd_xmm_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.WIG 5C /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBSD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vsubsd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.F2.0F.W1 5C /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 5C /r</c><br/>
+		/// <br/>
+		/// <c>VSUBSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>NP 0F 5D /r</summary>
+		/// <summary><c>NP 0F 5D /r</c><br/>
+		/// <br/>
+		/// <c>MINPS xmm1, xmm2/m128</c></summary>
 		Minps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 5D /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vminps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 5D /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vminps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 5D /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vminps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 5D /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vminps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 5D /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}</c></summary>
 		EVEX_Vminps_zmm_k1z_zmm_zmmm512b32_sae,
-		/// <summary>66 0F 5D /r</summary>
+		/// <summary><c>66 0F 5D /r</c><br/>
+		/// <br/>
+		/// <c>MINPD xmm1, xmm2/m128</c></summary>
 		Minpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 5D /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vminpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 5D /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vminpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 5D /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vminpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 5D /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vminpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 5D /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}</c></summary>
 		EVEX_Vminpd_zmm_k1z_zmm_zmmm512b64_sae,
-		/// <summary>F3 0F 5D /r</summary>
+		/// <summary><c>F3 0F 5D /r</c><br/>
+		/// <br/>
+		/// <c>MINSS xmm1, xmm2/m32</c></summary>
 		Minss_xmm_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.WIG 5D /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINSS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vminss_xmm_xmm_xmmm32,
-		/// <summary>EVEX.LIG.F3.0F.W0 5D /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</c></summary>
 		EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae,
-		/// <summary>F2 0F 5D /r</summary>
+		/// <summary><c>F2 0F 5D /r</c><br/>
+		/// <br/>
+		/// <c>MINSD xmm1, xmm2/m64</c></summary>
 		Minsd_xmm_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.WIG 5D /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINSD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vminsd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.F2.0F.W1 5D /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 5D /r</c><br/>
+		/// <br/>
+		/// <c>VMINSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}</c></summary>
 		EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae,
-		/// <summary>NP 0F 5E /r</summary>
+		/// <summary><c>NP 0F 5E /r</c><br/>
+		/// <br/>
+		/// <c>DIVPS xmm1, xmm2/m128</c></summary>
 		Divps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 5E /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vdivps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 5E /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vdivps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 5E /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vdivps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 5E /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vdivps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 5E /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vdivps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>66 0F 5E /r</summary>
+		/// <summary><c>66 0F 5E /r</c><br/>
+		/// <br/>
+		/// <c>DIVPD xmm1, xmm2/m128</c></summary>
 		Divpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 5E /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vdivpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 5E /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vdivpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 5E /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vdivpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 5E /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vdivpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 5E /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vdivpd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>F3 0F 5E /r</summary>
+		/// <summary><c>F3 0F 5E /r</c><br/>
+		/// <br/>
+		/// <c>DIVSS xmm1, xmm2/m32</c></summary>
 		Divss_xmm_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.WIG 5E /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVSS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vdivss_xmm_xmm_xmmm32,
-		/// <summary>EVEX.LIG.F3.0F.W0 5E /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>F2 0F 5E /r</summary>
+		/// <summary><c>F2 0F 5E /r</c><br/>
+		/// <br/>
+		/// <c>DIVSD xmm1, xmm2/m64</c></summary>
 		Divsd_xmm_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.WIG 5E /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVSD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vdivsd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.F2.0F.W1 5E /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 5E /r</c><br/>
+		/// <br/>
+		/// <c>VDIVSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>NP 0F 5F /r</summary>
+		/// <summary><c>NP 0F 5F /r</c><br/>
+		/// <br/>
+		/// <c>MAXPS xmm1, xmm2/m128</c></summary>
 		Maxps_xmm_xmmm128,
-		/// <summary>VEX.128.0F.WIG 5F /r</summary>
+		/// <summary><c>VEX.128.0F.WIG 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vmaxps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.0F.WIG 5F /r</summary>
+		/// <summary><c>VEX.256.0F.WIG 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vmaxps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.0F.W0 5F /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vmaxps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 5F /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vmaxps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 5F /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}</c></summary>
 		EVEX_Vmaxps_zmm_k1z_zmm_zmmm512b32_sae,
-		/// <summary>66 0F 5F /r</summary>
+		/// <summary><c>66 0F 5F /r</c><br/>
+		/// <br/>
+		/// <c>MAXPD xmm1, xmm2/m128</c></summary>
 		Maxpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 5F /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vmaxpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 5F /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vmaxpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 5F /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vmaxpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 5F /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vmaxpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 5F /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}</c></summary>
 		EVEX_Vmaxpd_zmm_k1z_zmm_zmmm512b64_sae,
-		/// <summary>F3 0F 5F /r</summary>
+		/// <summary><c>F3 0F 5F /r</c><br/>
+		/// <br/>
+		/// <c>MAXSS xmm1, xmm2/m32</c></summary>
 		Maxss_xmm_xmmm32,
-		/// <summary>VEX.LIG.F3.0F.WIG 5F /r</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXSS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vmaxss_xmm_xmm_xmmm32,
-		/// <summary>EVEX.LIG.F3.0F.W0 5F /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</c></summary>
 		EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae,
-		/// <summary>F2 0F 5F /r</summary>
+		/// <summary><c>F2 0F 5F /r</c><br/>
+		/// <br/>
+		/// <c>MAXSD xmm1, xmm2/m64</c></summary>
 		Maxsd_xmm_xmmm64,
-		/// <summary>VEX.LIG.F2.0F.WIG 5F /r</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXSD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vmaxsd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.F2.0F.W1 5F /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 5F /r</c><br/>
+		/// <br/>
+		/// <c>VMAXSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}</c></summary>
 		EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae,
-		/// <summary>NP 0F 60 /r</summary>
+		/// <summary><c>NP 0F 60 /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKLBW mm, mm/m32</c></summary>
 		Punpcklbw_mm_mmm32,
-		/// <summary>66 0F 60 /r</summary>
+		/// <summary><c>66 0F 60 /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKLBW xmm1, xmm2/m128</c></summary>
 		Punpcklbw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 60 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 60 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLBW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpunpcklbw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 60 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 60 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLBW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpunpcklbw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG 60 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 60 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLBW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG 60 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 60 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLBW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpunpcklbw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG 60 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 60 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLBW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpunpcklbw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F 61 /r</summary>
+		/// <summary><c>NP 0F 61 /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKLWD mm, mm/m32</c></summary>
 		Punpcklwd_mm_mmm32,
-		/// <summary>66 0F 61 /r</summary>
+		/// <summary><c>66 0F 61 /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKLWD xmm1, xmm2/m128</c></summary>
 		Punpcklwd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 61 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 61 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLWD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpunpcklwd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 61 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 61 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLWD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpunpcklwd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG 61 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 61 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLWD xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpunpcklwd_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG 61 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 61 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLWD ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpunpcklwd_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG 61 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 61 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLWD zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpunpcklwd_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F 62 /r</summary>
+		/// <summary><c>NP 0F 62 /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKLDQ mm, mm/m32</c></summary>
 		Punpckldq_mm_mmm32,
-		/// <summary>66 0F 62 /r</summary>
+		/// <summary><c>66 0F 62 /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKLDQ xmm1, xmm2/m128</c></summary>
 		Punpckldq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 62 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 62 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLDQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpunpckldq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 62 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 62 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLDQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpunpckldq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 62 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 62 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpunpckldq_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 62 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 62 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpunpckldq_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 62 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 62 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpunpckldq_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>NP 0F 63 /r</summary>
+		/// <summary><c>NP 0F 63 /r</c><br/>
+		/// <br/>
+		/// <c>PACKSSWB mm1, mm2/m64</c></summary>
 		Packsswb_mm_mmm64,
-		/// <summary>66 0F 63 /r</summary>
+		/// <summary><c>66 0F 63 /r</c><br/>
+		/// <br/>
+		/// <c>PACKSSWB xmm1, xmm2/m128</c></summary>
 		Packsswb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 63 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 63 /r</c><br/>
+		/// <br/>
+		/// <c>VPACKSSWB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpacksswb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 63 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 63 /r</c><br/>
+		/// <br/>
+		/// <c>VPACKSSWB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpacksswb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG 63 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 63 /r</c><br/>
+		/// <br/>
+		/// <c>VPACKSSWB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpacksswb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG 63 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 63 /r</c><br/>
+		/// <br/>
+		/// <c>VPACKSSWB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpacksswb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG 63 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 63 /r</c><br/>
+		/// <br/>
+		/// <c>VPACKSSWB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpacksswb_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F 64 /r</summary>
+		/// <summary><c>NP 0F 64 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPGTB mm, mm/m64</c></summary>
 		Pcmpgtb_mm_mmm64,
-		/// <summary>66 0F 64 /r</summary>
+		/// <summary><c>66 0F 64 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPGTB xmm1, xmm2/m128</c></summary>
 		Pcmpgtb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 64 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 64 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpcmpgtb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 64 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 64 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpcmpgtb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG 64 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 64 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTB k1 {k2}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpcmpgtb_k_k1_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG 64 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 64 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTB k1 {k2}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpcmpgtb_k_k1_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG 64 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 64 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTB k1 {k2}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpcmpgtb_k_k1_zmm_zmmm512,
-		/// <summary>NP 0F 65 /r</summary>
+		/// <summary><c>NP 0F 65 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPGTW mm, mm/m64</c></summary>
 		Pcmpgtw_mm_mmm64,
-		/// <summary>66 0F 65 /r</summary>
+		/// <summary><c>66 0F 65 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPGTW xmm1, xmm2/m128</c></summary>
 		Pcmpgtw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 65 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 65 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpcmpgtw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 65 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 65 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpcmpgtw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG 65 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 65 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTW k1 {k2}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpcmpgtw_k_k1_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG 65 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 65 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTW k1 {k2}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpcmpgtw_k_k1_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG 65 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 65 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTW k1 {k2}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpcmpgtw_k_k1_zmm_zmmm512,
-		/// <summary>NP 0F 66 /r</summary>
+		/// <summary><c>NP 0F 66 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPGTD mm, mm/m64</c></summary>
 		Pcmpgtd_mm_mmm64,
-		/// <summary>66 0F 66 /r</summary>
+		/// <summary><c>66 0F 66 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPGTD xmm1, xmm2/m128</c></summary>
 		Pcmpgtd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 66 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 66 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpcmpgtd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 66 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 66 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpcmpgtd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 66 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 66 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTD k1 {k2}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 66 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 66 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTD k1 {k2}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 66 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 66 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTD k1 {k2}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32,
-		/// <summary>NP 0F 67 /r</summary>
+		/// <summary><c>NP 0F 67 /r</c><br/>
+		/// <br/>
+		/// <c>PACKUSWB mm, mm/m64</c></summary>
 		Packuswb_mm_mmm64,
-		/// <summary>66 0F 67 /r</summary>
+		/// <summary><c>66 0F 67 /r</c><br/>
+		/// <br/>
+		/// <c>PACKUSWB xmm1, xmm2/m128</c></summary>
 		Packuswb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 67 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 67 /r</c><br/>
+		/// <br/>
+		/// <c>VPACKUSWB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpackuswb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 67 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 67 /r</c><br/>
+		/// <br/>
+		/// <c>VPACKUSWB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpackuswb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG 67 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 67 /r</c><br/>
+		/// <br/>
+		/// <c>VPACKUSWB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpackuswb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG 67 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 67 /r</c><br/>
+		/// <br/>
+		/// <c>VPACKUSWB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpackuswb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG 67 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 67 /r</c><br/>
+		/// <br/>
+		/// <c>VPACKUSWB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpackuswb_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F 68 /r</summary>
+		/// <summary><c>NP 0F 68 /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKHBW mm, mm/m64</c></summary>
 		Punpckhbw_mm_mmm64,
-		/// <summary>66 0F 68 /r</summary>
+		/// <summary><c>66 0F 68 /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKHBW xmm1, xmm2/m128</c></summary>
 		Punpckhbw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 68 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 68 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHBW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpunpckhbw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 68 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 68 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHBW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpunpckhbw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG 68 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 68 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHBW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpunpckhbw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG 68 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 68 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHBW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpunpckhbw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG 68 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 68 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHBW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpunpckhbw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F 69 /r</summary>
+		/// <summary><c>NP 0F 69 /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKHWD mm, mm/m64</c></summary>
 		Punpckhwd_mm_mmm64,
-		/// <summary>66 0F 69 /r</summary>
+		/// <summary><c>66 0F 69 /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKHWD xmm1, xmm2/m128</c></summary>
 		Punpckhwd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 69 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 69 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHWD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpunpckhwd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 69 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 69 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHWD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpunpckhwd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG 69 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 69 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHWD xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpunpckhwd_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG 69 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 69 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHWD ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpunpckhwd_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG 69 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 69 /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHWD zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpunpckhwd_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F 6A /r</summary>
+		/// <summary><c>NP 0F 6A /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKHDQ mm, mm/m64</c></summary>
 		Punpckhdq_mm_mmm64,
-		/// <summary>66 0F 6A /r</summary>
+		/// <summary><c>66 0F 6A /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKHDQ xmm1, xmm2/m128</c></summary>
 		Punpckhdq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 6A /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 6A /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHDQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpunpckhdq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 6A /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 6A /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHDQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpunpckhdq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 6A /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 6A /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpunpckhdq_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 6A /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 6A /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpunpckhdq_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 6A /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 6A /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpunpckhdq_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>NP 0F 6B /r</summary>
+		/// <summary><c>NP 0F 6B /r</c><br/>
+		/// <br/>
+		/// <c>PACKSSDW mm1, mm2/m64</c></summary>
 		Packssdw_mm_mmm64,
-		/// <summary>66 0F 6B /r</summary>
+		/// <summary><c>66 0F 6B /r</c><br/>
+		/// <br/>
+		/// <c>PACKSSDW xmm1, xmm2/m128</c></summary>
 		Packssdw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 6B /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 6B /r</c><br/>
+		/// <br/>
+		/// <c>VPACKSSDW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpackssdw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 6B /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 6B /r</c><br/>
+		/// <br/>
+		/// <c>VPACKSSDW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpackssdw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 6B /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 6B /r</c><br/>
+		/// <br/>
+		/// <c>VPACKSSDW xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpackssdw_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 6B /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 6B /r</c><br/>
+		/// <br/>
+		/// <c>VPACKSSDW ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpackssdw_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 6B /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 6B /r</c><br/>
+		/// <br/>
+		/// <c>VPACKSSDW zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpackssdw_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>66 0F 6C /r</summary>
+		/// <summary><c>66 0F 6C /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKLQDQ xmm1, xmm2/m128</c></summary>
 		Punpcklqdq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 6C /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 6C /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLQDQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpunpcklqdq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 6C /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 6C /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLQDQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpunpcklqdq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 6C /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 6C /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLQDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpunpcklqdq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 6C /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 6C /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLQDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpunpcklqdq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 6C /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 6C /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKLQDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpunpcklqdq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>66 0F 6D /r</summary>
+		/// <summary><c>66 0F 6D /r</c><br/>
+		/// <br/>
+		/// <c>PUNPCKHQDQ xmm1, xmm2/m128</c></summary>
 		Punpckhqdq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 6D /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 6D /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHQDQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpunpckhqdq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 6D /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 6D /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHQDQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpunpckhqdq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 6D /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 6D /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHQDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpunpckhqdq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 6D /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 6D /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHQDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpunpckhqdq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 6D /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 6D /r</c><br/>
+		/// <br/>
+		/// <c>VPUNPCKHQDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpunpckhqdq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F 6E /r</summary>
+		/// <summary><c>NP 0F 6E /r</c><br/>
+		/// <br/>
+		/// <c>MOVD mm, r/m32</c></summary>
 		Movd_mm_rm32,
-		/// <summary>NP REX.W 0F 6E /r</summary>
+		/// <summary><c>NP REX.W 0F 6E /r</c><br/>
+		/// <br/>
+		/// <c>MOVQ mm, r/m64</c></summary>
 		Movq_mm_rm64,
-		/// <summary>66 0F 6E /r</summary>
+		/// <summary><c>66 0F 6E /r</c><br/>
+		/// <br/>
+		/// <c>MOVD xmm, r/m32</c></summary>
 		Movd_xmm_rm32,
-		/// <summary>66 REX.W 0F 6E /r</summary>
+		/// <summary><c>66 REX.W 0F 6E /r</c><br/>
+		/// <br/>
+		/// <c>MOVQ xmm, r/m64</c></summary>
 		Movq_xmm_rm64,
-		/// <summary>VEX.128.66.0F.W0 6E /r</summary>
+		/// <summary><c>VEX.128.66.0F.W0 6E /r</c><br/>
+		/// <br/>
+		/// <c>VMOVD xmm1, r/m32</c></summary>
 		VEX_Vmovd_xmm_rm32,
-		/// <summary>VEX.128.66.0F.W1 6E /r</summary>
+		/// <summary><c>VEX.128.66.0F.W1 6E /r</c><br/>
+		/// <br/>
+		/// <c>VMOVQ xmm1, r/m64</c></summary>
 		VEX_Vmovq_xmm_rm64,
-		/// <summary>EVEX.128.66.0F.W0 6E /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 6E /r</c><br/>
+		/// <br/>
+		/// <c>VMOVD xmm1, r/m32</c></summary>
 		EVEX_Vmovd_xmm_rm32,
-		/// <summary>EVEX.128.66.0F.W1 6E /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 6E /r</c><br/>
+		/// <br/>
+		/// <c>VMOVQ xmm1, r/m64</c></summary>
 		EVEX_Vmovq_xmm_rm64,
-		/// <summary>NP 0F 6F /r</summary>
+		/// <summary><c>NP 0F 6F /r</c><br/>
+		/// <br/>
+		/// <c>MOVQ mm, mm/m64</c></summary>
 		Movq_mm_mmm64,
-		/// <summary>66 0F 6F /r</summary>
+		/// <summary><c>66 0F 6F /r</c><br/>
+		/// <br/>
+		/// <c>MOVDQA xmm1, xmm2/m128</c></summary>
 		Movdqa_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 6F /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA xmm1, xmm2/m128</c></summary>
 		VEX_Vmovdqa_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 6F /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA ymm1, ymm2/m256</c></summary>
 		VEX_Vmovdqa_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 6F /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA32 xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovdqa32_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F.W0 6F /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA32 ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovdqa32_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F.W0 6F /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA32 zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovdqa32_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.66.0F.W1 6F /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA64 xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovdqa64_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F.W1 6F /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA64 ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovdqa64_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F.W1 6F /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA64 zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovdqa64_zmm_k1z_zmmm512,
-		/// <summary>F3 0F 6F /r</summary>
+		/// <summary><c>F3 0F 6F /r</c><br/>
+		/// <br/>
+		/// <c>MOVDQU xmm1, xmm2/m128</c></summary>
 		Movdqu_xmm_xmmm128,
-		/// <summary>VEX.128.F3.0F.WIG 6F /r</summary>
+		/// <summary><c>VEX.128.F3.0F.WIG 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU xmm1, xmm2/m128</c></summary>
 		VEX_Vmovdqu_xmm_xmmm128,
-		/// <summary>VEX.256.F3.0F.WIG 6F /r</summary>
+		/// <summary><c>VEX.256.F3.0F.WIG 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU ymm1, ymm2/m256</c></summary>
 		VEX_Vmovdqu_ymm_ymmm256,
-		/// <summary>EVEX.128.F3.0F.W0 6F /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W0 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU32 xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovdqu32_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.F3.0F.W0 6F /r</summary>
+		/// <summary><c>EVEX.256.F3.0F.W0 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU32 ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovdqu32_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.F3.0F.W0 6F /r</summary>
+		/// <summary><c>EVEX.512.F3.0F.W0 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU32 zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovdqu32_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.F3.0F.W1 6F /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W1 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU64 xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovdqu64_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.F3.0F.W1 6F /r</summary>
+		/// <summary><c>EVEX.256.F3.0F.W1 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU64 ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovdqu64_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.F3.0F.W1 6F /r</summary>
+		/// <summary><c>EVEX.512.F3.0F.W1 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU64 zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovdqu64_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.F2.0F.W0 6F /r</summary>
+		/// <summary><c>EVEX.128.F2.0F.W0 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU8 xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovdqu8_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.F2.0F.W0 6F /r</summary>
+		/// <summary><c>EVEX.256.F2.0F.W0 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU8 ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovdqu8_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.F2.0F.W0 6F /r</summary>
+		/// <summary><c>EVEX.512.F2.0F.W0 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU8 zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovdqu8_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.F2.0F.W1 6F /r</summary>
+		/// <summary><c>EVEX.128.F2.0F.W1 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU16 xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vmovdqu16_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.F2.0F.W1 6F /r</summary>
+		/// <summary><c>EVEX.256.F2.0F.W1 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU16 ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vmovdqu16_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.F2.0F.W1 6F /r</summary>
+		/// <summary><c>EVEX.512.F2.0F.W1 6F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU16 zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vmovdqu16_zmm_k1z_zmmm512,
-		/// <summary>NP 0F 70 /r ib</summary>
+		/// <summary><c>NP 0F 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>PSHUFW mm1, mm2/m64, imm8</c></summary>
 		Pshufw_mm_mmm64_imm8,
-		/// <summary>66 0F 70 /r ib</summary>
+		/// <summary><c>66 0F 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>PSHUFD xmm1, xmm2/m128, imm8</c></summary>
 		Pshufd_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F.WIG 70 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFD xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vpshufd_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F.WIG 70 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFD ymm1, ymm2/m256, imm8</c></summary>
 		VEX_Vpshufd_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F.W0 70 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c></summary>
 		EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F.W0 70 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c></summary>
 		EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F.W0 70 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c></summary>
 		EVEX_Vpshufd_zmm_k1z_zmmm512b32_imm8,
-		/// <summary>F3 0F 70 /r ib</summary>
+		/// <summary><c>F3 0F 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>PSHUFHW xmm1, xmm2/m128, imm8</c></summary>
 		Pshufhw_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.F3.0F.WIG 70 /r ib</summary>
+		/// <summary><c>VEX.128.F3.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFHW xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vpshufhw_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.F3.0F.WIG 70 /r ib</summary>
+		/// <summary><c>VEX.256.F3.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFHW ymm1, ymm2/m256, imm8</c></summary>
 		VEX_Vpshufhw_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.F3.0F.WIG 70 /r ib</summary>
+		/// <summary><c>EVEX.128.F3.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFHW xmm1 {k1}{z}, xmm2/m128, imm8</c></summary>
 		EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8,
-		/// <summary>EVEX.256.F3.0F.WIG 70 /r ib</summary>
+		/// <summary><c>EVEX.256.F3.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFHW ymm1 {k1}{z}, ymm2/m256, imm8</c></summary>
 		EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8,
-		/// <summary>EVEX.512.F3.0F.WIG 70 /r ib</summary>
+		/// <summary><c>EVEX.512.F3.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFHW zmm1 {k1}{z}, zmm2/m512, imm8</c></summary>
 		EVEX_Vpshufhw_zmm_k1z_zmmm512_imm8,
-		/// <summary>F2 0F 70 /r ib</summary>
+		/// <summary><c>F2 0F 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>PSHUFLW xmm1, xmm2/m128, imm8</c></summary>
 		Pshuflw_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.F2.0F.WIG 70 /r ib</summary>
+		/// <summary><c>VEX.128.F2.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFLW xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vpshuflw_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.F2.0F.WIG 70 /r ib</summary>
+		/// <summary><c>VEX.256.F2.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFLW ymm1, ymm2/m256, imm8</c></summary>
 		VEX_Vpshuflw_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.F2.0F.WIG 70 /r ib</summary>
+		/// <summary><c>EVEX.128.F2.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFLW xmm1 {k1}{z}, xmm2/m128, imm8</c></summary>
 		EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8,
-		/// <summary>EVEX.256.F2.0F.WIG 70 /r ib</summary>
+		/// <summary><c>EVEX.256.F2.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFLW ymm1 {k1}{z}, ymm2/m256, imm8</c></summary>
 		EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8,
-		/// <summary>EVEX.512.F2.0F.WIG 70 /r ib</summary>
+		/// <summary><c>EVEX.512.F2.0F.WIG 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHUFLW zmm1 {k1}{z}, zmm2/m512, imm8</c></summary>
 		EVEX_Vpshuflw_zmm_k1z_zmmm512_imm8,
-		/// <summary>NP 0F 71 /2 ib</summary>
+		/// <summary><c>NP 0F 71 /2 ib</c><br/>
+		/// <br/>
+		/// <c>PSRLW mm, imm8</c></summary>
 		Psrlw_mm_imm8,
-		/// <summary>66 0F 71 /2 ib</summary>
+		/// <summary><c>66 0F 71 /2 ib</c><br/>
+		/// <br/>
+		/// <c>PSRLW xmm1, imm8</c></summary>
 		Psrlw_xmm_imm8,
-		/// <summary>VEX.128.66.0F.WIG 71 /2 ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 71 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLW xmm1, xmm2, imm8</c></summary>
 		VEX_Vpsrlw_xmm_xmm_imm8,
-		/// <summary>VEX.256.66.0F.WIG 71 /2 ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 71 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLW ymm1, ymm2, imm8</c></summary>
 		VEX_Vpsrlw_ymm_ymm_imm8,
-		/// <summary>EVEX.128.66.0F.WIG 71 /2 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 71 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLW xmm1 {k1}{z}, xmm2/m128, imm8</c></summary>
 		EVEX_Vpsrlw_xmm_k1z_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F.WIG 71 /2 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 71 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLW ymm1 {k1}{z}, ymm2/m256, imm8</c></summary>
 		EVEX_Vpsrlw_ymm_k1z_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F.WIG 71 /2 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 71 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLW zmm1 {k1}{z}, zmm2/m512, imm8</c></summary>
 		EVEX_Vpsrlw_zmm_k1z_zmmm512_imm8,
-		/// <summary>NP 0F 71 /4 ib</summary>
+		/// <summary><c>NP 0F 71 /4 ib</c><br/>
+		/// <br/>
+		/// <c>PSRAW mm, imm8</c></summary>
 		Psraw_mm_imm8,
-		/// <summary>66 0F 71 /4 ib</summary>
+		/// <summary><c>66 0F 71 /4 ib</c><br/>
+		/// <br/>
+		/// <c>PSRAW xmm1, imm8</c></summary>
 		Psraw_xmm_imm8,
-		/// <summary>VEX.128.66.0F.WIG 71 /4 ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 71 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAW xmm1, xmm2, imm8</c></summary>
 		VEX_Vpsraw_xmm_xmm_imm8,
-		/// <summary>VEX.256.66.0F.WIG 71 /4 ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 71 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAW ymm1, ymm2, imm8</c></summary>
 		VEX_Vpsraw_ymm_ymm_imm8,
-		/// <summary>EVEX.128.66.0F.WIG 71 /4 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 71 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAW xmm1 {k1}{z}, xmm2/m128, imm8</c></summary>
 		EVEX_Vpsraw_xmm_k1z_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F.WIG 71 /4 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 71 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAW ymm1 {k1}{z}, ymm2/m256, imm8</c></summary>
 		EVEX_Vpsraw_ymm_k1z_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F.WIG 71 /4 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 71 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAW zmm1 {k1}{z}, zmm2/m512, imm8</c></summary>
 		EVEX_Vpsraw_zmm_k1z_zmmm512_imm8,
-		/// <summary>NP 0F 71 /6 ib</summary>
+		/// <summary><c>NP 0F 71 /6 ib</c><br/>
+		/// <br/>
+		/// <c>PSLLW mm1, imm8</c></summary>
 		Psllw_mm_imm8,
-		/// <summary>66 0F 71 /6 ib</summary>
+		/// <summary><c>66 0F 71 /6 ib</c><br/>
+		/// <br/>
+		/// <c>PSLLW xmm1, imm8</c></summary>
 		Psllw_xmm_imm8,
-		/// <summary>VEX.128.66.0F.WIG 71 /6 ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 71 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLW xmm1, xmm2, imm8</c></summary>
 		VEX_Vpsllw_xmm_xmm_imm8,
-		/// <summary>VEX.256.66.0F.WIG 71 /6 ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 71 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLW ymm1, ymm2, imm8</c></summary>
 		VEX_Vpsllw_ymm_ymm_imm8,
-		/// <summary>EVEX.128.66.0F.WIG 71 /6 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 71 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLW xmm1 {k1}{z}, xmm2/m128, imm8</c></summary>
 		EVEX_Vpsllw_xmm_k1z_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F.WIG 71 /6 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 71 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLW ymm1 {k1}{z}, ymm2/m256, imm8</c></summary>
 		EVEX_Vpsllw_ymm_k1z_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F.WIG 71 /6 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 71 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLW zmm1 {k1}{z}, zmm2/m512, imm8</c></summary>
 		EVEX_Vpsllw_zmm_k1z_zmmm512_imm8,
-		/// <summary>EVEX.128.66.0F.W0 72 /0 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 72 /0 ib</c><br/>
+		/// <br/>
+		/// <c>VPRORD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c></summary>
 		EVEX_Vprord_xmm_k1z_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F.W0 72 /0 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 72 /0 ib</c><br/>
+		/// <br/>
+		/// <c>VPRORD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c></summary>
 		EVEX_Vprord_ymm_k1z_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F.W0 72 /0 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 72 /0 ib</c><br/>
+		/// <br/>
+		/// <c>VPRORD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c></summary>
 		EVEX_Vprord_zmm_k1z_zmmm512b32_imm8,
-		/// <summary>EVEX.128.66.0F.W1 72 /0 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 72 /0 ib</c><br/>
+		/// <br/>
+		/// <c>VPRORQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c></summary>
 		EVEX_Vprorq_xmm_k1z_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F.W1 72 /0 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 72 /0 ib</c><br/>
+		/// <br/>
+		/// <c>VPRORQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vprorq_ymm_k1z_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F.W1 72 /0 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 72 /0 ib</c><br/>
+		/// <br/>
+		/// <c>VPRORQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c></summary>
 		EVEX_Vprorq_zmm_k1z_zmmm512b64_imm8,
-		/// <summary>EVEX.128.66.0F.W0 72 /1 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 72 /1 ib</c><br/>
+		/// <br/>
+		/// <c>VPROLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c></summary>
 		EVEX_Vprold_xmm_k1z_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F.W0 72 /1 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 72 /1 ib</c><br/>
+		/// <br/>
+		/// <c>VPROLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c></summary>
 		EVEX_Vprold_ymm_k1z_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F.W0 72 /1 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 72 /1 ib</c><br/>
+		/// <br/>
+		/// <c>VPROLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c></summary>
 		EVEX_Vprold_zmm_k1z_zmmm512b32_imm8,
-		/// <summary>EVEX.128.66.0F.W1 72 /1 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 72 /1 ib</c><br/>
+		/// <br/>
+		/// <c>VPROLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c></summary>
 		EVEX_Vprolq_xmm_k1z_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F.W1 72 /1 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 72 /1 ib</c><br/>
+		/// <br/>
+		/// <c>VPROLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vprolq_ymm_k1z_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F.W1 72 /1 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 72 /1 ib</c><br/>
+		/// <br/>
+		/// <c>VPROLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c></summary>
 		EVEX_Vprolq_zmm_k1z_zmmm512b64_imm8,
-		/// <summary>NP 0F 72 /2 ib</summary>
+		/// <summary><c>NP 0F 72 /2 ib</c><br/>
+		/// <br/>
+		/// <c>PSRLD mm, imm8</c></summary>
 		Psrld_mm_imm8,
-		/// <summary>66 0F 72 /2 ib</summary>
+		/// <summary><c>66 0F 72 /2 ib</c><br/>
+		/// <br/>
+		/// <c>PSRLD xmm1, imm8</c></summary>
 		Psrld_xmm_imm8,
-		/// <summary>VEX.128.66.0F.WIG 72 /2 ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 72 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLD xmm1, xmm2, imm8</c></summary>
 		VEX_Vpsrld_xmm_xmm_imm8,
-		/// <summary>VEX.256.66.0F.WIG 72 /2 ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 72 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLD ymm1, ymm2, imm8</c></summary>
 		VEX_Vpsrld_ymm_ymm_imm8,
-		/// <summary>EVEX.128.66.0F.W0 72 /2 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 72 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c></summary>
 		EVEX_Vpsrld_xmm_k1z_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F.W0 72 /2 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 72 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c></summary>
 		EVEX_Vpsrld_ymm_k1z_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F.W0 72 /2 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 72 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c></summary>
 		EVEX_Vpsrld_zmm_k1z_zmmm512b32_imm8,
-		/// <summary>NP 0F 72 /4 ib</summary>
+		/// <summary><c>NP 0F 72 /4 ib</c><br/>
+		/// <br/>
+		/// <c>PSRAD mm, imm8</c></summary>
 		Psrad_mm_imm8,
-		/// <summary>66 0F 72 /4 ib</summary>
+		/// <summary><c>66 0F 72 /4 ib</c><br/>
+		/// <br/>
+		/// <c>PSRAD xmm1, imm8</c></summary>
 		Psrad_xmm_imm8,
-		/// <summary>VEX.128.66.0F.WIG 72 /4 ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 72 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAD xmm1, xmm2, imm8</c></summary>
 		VEX_Vpsrad_xmm_xmm_imm8,
-		/// <summary>VEX.256.66.0F.WIG 72 /4 ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 72 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAD ymm1, ymm2, imm8</c></summary>
 		VEX_Vpsrad_ymm_ymm_imm8,
-		/// <summary>EVEX.128.66.0F.W0 72 /4 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 72 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c></summary>
 		EVEX_Vpsrad_xmm_k1z_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F.W0 72 /4 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 72 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c></summary>
 		EVEX_Vpsrad_ymm_k1z_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F.W0 72 /4 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 72 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c></summary>
 		EVEX_Vpsrad_zmm_k1z_zmmm512b32_imm8,
-		/// <summary>EVEX.128.66.0F.W1 72 /4 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 72 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c></summary>
 		EVEX_Vpsraq_xmm_k1z_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F.W1 72 /4 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 72 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vpsraq_ymm_k1z_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F.W1 72 /4 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 72 /4 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRAQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c></summary>
 		EVEX_Vpsraq_zmm_k1z_zmmm512b64_imm8,
-		/// <summary>NP 0F 72 /6 ib</summary>
+		/// <summary><c>NP 0F 72 /6 ib</c><br/>
+		/// <br/>
+		/// <c>PSLLD mm, imm8</c></summary>
 		Pslld_mm_imm8,
-		/// <summary>66 0F 72 /6 ib</summary>
+		/// <summary><c>66 0F 72 /6 ib</c><br/>
+		/// <br/>
+		/// <c>PSLLD xmm1, imm8</c></summary>
 		Pslld_xmm_imm8,
-		/// <summary>VEX.128.66.0F.WIG 72 /6 ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 72 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLD xmm1, xmm2, imm8</c></summary>
 		VEX_Vpslld_xmm_xmm_imm8,
-		/// <summary>VEX.256.66.0F.WIG 72 /6 ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 72 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLD ymm1, ymm2, imm8</c></summary>
 		VEX_Vpslld_ymm_ymm_imm8,
-		/// <summary>EVEX.128.66.0F.W0 72 /6 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 72 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c></summary>
 		EVEX_Vpslld_xmm_k1z_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F.W0 72 /6 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 72 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c></summary>
 		EVEX_Vpslld_ymm_k1z_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F.W0 72 /6 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 72 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c></summary>
 		EVEX_Vpslld_zmm_k1z_zmmm512b32_imm8,
-		/// <summary>NP 0F 73 /2 ib</summary>
+		/// <summary><c>NP 0F 73 /2 ib</c><br/>
+		/// <br/>
+		/// <c>PSRLQ mm, imm8</c></summary>
 		Psrlq_mm_imm8,
-		/// <summary>66 0F 73 /2 ib</summary>
+		/// <summary><c>66 0F 73 /2 ib</c><br/>
+		/// <br/>
+		/// <c>PSRLQ xmm1, imm8</c></summary>
 		Psrlq_xmm_imm8,
-		/// <summary>VEX.128.66.0F.WIG 73 /2 ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 73 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLQ xmm1, xmm2, imm8</c></summary>
 		VEX_Vpsrlq_xmm_xmm_imm8,
-		/// <summary>VEX.256.66.0F.WIG 73 /2 ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 73 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLQ ymm1, ymm2, imm8</c></summary>
 		VEX_Vpsrlq_ymm_ymm_imm8,
-		/// <summary>EVEX.128.66.0F.W1 73 /2 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 73 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c></summary>
 		EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F.W1 73 /2 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 73 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vpsrlq_ymm_k1z_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F.W1 73 /2 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 73 /2 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c></summary>
 		EVEX_Vpsrlq_zmm_k1z_zmmm512b64_imm8,
-		/// <summary>66 0F 73 /3 ib</summary>
+		/// <summary><c>66 0F 73 /3 ib</c><br/>
+		/// <br/>
+		/// <c>PSRLDQ xmm1, imm8</c></summary>
 		Psrldq_xmm_imm8,
-		/// <summary>VEX.128.66.0F.WIG 73 /3 ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 73 /3 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLDQ xmm1, xmm2, imm8</c></summary>
 		VEX_Vpsrldq_xmm_xmm_imm8,
-		/// <summary>VEX.256.66.0F.WIG 73 /3 ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 73 /3 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLDQ ymm1, ymm2, imm8</c></summary>
 		VEX_Vpsrldq_ymm_ymm_imm8,
-		/// <summary>EVEX.128.66.0F.WIG 73 /3 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 73 /3 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLDQ xmm1, xmm2/m128, imm8</c></summary>
 		EVEX_Vpsrldq_xmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F.WIG 73 /3 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 73 /3 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLDQ ymm1, ymm2/m256, imm8</c></summary>
 		EVEX_Vpsrldq_ymm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F.WIG 73 /3 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 73 /3 ib</c><br/>
+		/// <br/>
+		/// <c>VPSRLDQ zmm1, zmm2/m512, imm8</c></summary>
 		EVEX_Vpsrldq_zmm_zmmm512_imm8,
-		/// <summary>NP 0F 73 /6 ib</summary>
+		/// <summary><c>NP 0F 73 /6 ib</c><br/>
+		/// <br/>
+		/// <c>PSLLQ mm, imm8</c></summary>
 		Psllq_mm_imm8,
-		/// <summary>66 0F 73 /6 ib</summary>
+		/// <summary><c>66 0F 73 /6 ib</c><br/>
+		/// <br/>
+		/// <c>PSLLQ xmm1, imm8</c></summary>
 		Psllq_xmm_imm8,
-		/// <summary>VEX.128.66.0F.WIG 73 /6 ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 73 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLQ xmm1, xmm2, imm8</c></summary>
 		VEX_Vpsllq_xmm_xmm_imm8,
-		/// <summary>VEX.256.66.0F.WIG 73 /6 ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 73 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLQ ymm1, ymm2, imm8</c></summary>
 		VEX_Vpsllq_ymm_ymm_imm8,
-		/// <summary>EVEX.128.66.0F.W1 73 /6 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 73 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c></summary>
 		EVEX_Vpsllq_xmm_k1z_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F.W1 73 /6 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 73 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vpsllq_ymm_k1z_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F.W1 73 /6 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 73 /6 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c></summary>
 		EVEX_Vpsllq_zmm_k1z_zmmm512b64_imm8,
-		/// <summary>66 0F 73 /7 ib</summary>
+		/// <summary><c>66 0F 73 /7 ib</c><br/>
+		/// <br/>
+		/// <c>PSLLDQ xmm1, imm8</c></summary>
 		Pslldq_xmm_imm8,
-		/// <summary>VEX.128.66.0F.WIG 73 /7 ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 73 /7 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLDQ xmm1, xmm2, imm8</c></summary>
 		VEX_Vpslldq_xmm_xmm_imm8,
-		/// <summary>VEX.256.66.0F.WIG 73 /7 ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 73 /7 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLDQ ymm1, ymm2, imm8</c></summary>
 		VEX_Vpslldq_ymm_ymm_imm8,
-		/// <summary>EVEX.128.66.0F.WIG 73 /7 ib</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 73 /7 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLDQ xmm1, xmm2/m128, imm8</c></summary>
 		EVEX_Vpslldq_xmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F.WIG 73 /7 ib</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 73 /7 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLDQ ymm1, ymm2/m256, imm8</c></summary>
 		EVEX_Vpslldq_ymm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F.WIG 73 /7 ib</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 73 /7 ib</c><br/>
+		/// <br/>
+		/// <c>VPSLLDQ zmm1, zmm2/m512, imm8</c></summary>
 		EVEX_Vpslldq_zmm_zmmm512_imm8,
-		/// <summary>NP 0F 74 /r</summary>
+		/// <summary><c>NP 0F 74 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPEQB mm, mm/m64</c></summary>
 		Pcmpeqb_mm_mmm64,
-		/// <summary>66 0F 74 /r</summary>
+		/// <summary><c>66 0F 74 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPEQB xmm1, xmm2/m128</c></summary>
 		Pcmpeqb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 74 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 74 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpcmpeqb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 74 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 74 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpcmpeqb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG 74 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 74 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQB k1 {k2}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpcmpeqb_k_k1_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG 74 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 74 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQB k1 {k2}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpcmpeqb_k_k1_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG 74 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 74 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQB k1 {k2}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpcmpeqb_k_k1_zmm_zmmm512,
-		/// <summary>NP 0F 75 /r</summary>
+		/// <summary><c>NP 0F 75 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPEQW mm, mm/m64</c></summary>
 		Pcmpeqw_mm_mmm64,
-		/// <summary>66 0F 75 /r</summary>
+		/// <summary><c>66 0F 75 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPEQW xmm1, xmm2/m128</c></summary>
 		Pcmpeqw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 75 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 75 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpcmpeqw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 75 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 75 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpcmpeqw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG 75 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG 75 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQW k1 {k2}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpcmpeqw_k_k1_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG 75 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG 75 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQW k1 {k2}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpcmpeqw_k_k1_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG 75 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG 75 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQW k1 {k2}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpcmpeqw_k_k1_zmm_zmmm512,
-		/// <summary>NP 0F 76 /r</summary>
+		/// <summary><c>NP 0F 76 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPEQD mm, mm/m64</c></summary>
 		Pcmpeqd_mm_mmm64,
-		/// <summary>66 0F 76 /r</summary>
+		/// <summary><c>66 0F 76 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPEQD xmm1, xmm2/m128</c></summary>
 		Pcmpeqd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 76 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 76 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpcmpeqd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 76 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 76 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpcmpeqd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 76 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 76 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQD k1 {k2}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 76 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 76 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQD k1 {k2}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 76 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 76 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQD k1 {k2}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32,
-		/// <summary>NP 0F 77</summary>
+		/// <summary><c>NP 0F 77</c><br/>
+		/// <br/>
+		/// <c>EMMS</c></summary>
 		Emms,
-		/// <summary>VEX.128.0F.WIG 77</summary>
+		/// <summary><c>VEX.128.0F.WIG 77</c><br/>
+		/// <br/>
+		/// <c>VZEROUPPER</c></summary>
 		VEX_Vzeroupper,
-		/// <summary>VEX.256.0F.WIG 77</summary>
+		/// <summary><c>VEX.256.0F.WIG 77</c><br/>
+		/// <br/>
+		/// <c>VZEROALL</c></summary>
 		VEX_Vzeroall,
-		/// <summary>NP 0F 78 /r</summary>
+		/// <summary><c>NP 0F 78 /r</c><br/>
+		/// <br/>
+		/// <c>VMREAD r/m32, r32</c></summary>
 		Vmread_rm32_r32,
-		/// <summary>NP 0F 78 /r</summary>
+		/// <summary><c>NP 0F 78 /r</c><br/>
+		/// <br/>
+		/// <c>VMREAD r/m64, r64</c></summary>
 		Vmread_rm64_r64,
-		/// <summary>EVEX.128.0F.W0 78 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2UDQ xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvttps2udq_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 78 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2UDQ ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vcvttps2udq_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 78 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2UDQ zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}</c></summary>
 		EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae,
-		/// <summary>EVEX.128.0F.W1 78 /r</summary>
+		/// <summary><c>EVEX.128.0F.W1 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2UDQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.0F.W1 78 /r</summary>
+		/// <summary><c>EVEX.256.0F.W1 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2UDQ xmm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvttpd2udq_xmm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.0F.W1 78 /r</summary>
+		/// <summary><c>EVEX.512.0F.W1 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2UDQ ymm1 {k1}{z}, zmm2/m512/m64bcst{sae}</c></summary>
 		EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae,
-		/// <summary>66 0F 78 /0 ib ib</summary>
+		/// <summary><c>66 0F 78 /0 ib ib</c><br/>
+		/// <br/>
+		/// <c>EXTRQ xmm1, imm8, imm8</c></summary>
 		Extrq_xmm_imm8_imm8,
-		/// <summary>EVEX.128.66.0F.W0 78 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2UQQ xmm1 {k1}{z}, xmm2/m64/m32bcst</c></summary>
 		EVEX_Vcvttps2uqq_xmm_k1z_xmmm64b32,
-		/// <summary>EVEX.256.66.0F.W0 78 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2UQQ ymm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvttps2uqq_ymm_k1z_xmmm128b32,
-		/// <summary>EVEX.512.66.0F.W0 78 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2UQQ zmm1 {k1}{z}, ymm2/m256/m32bcst{sae}</c></summary>
 		EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae,
-		/// <summary>EVEX.128.66.0F.W1 78 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2UQQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvttpd2uqq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 78 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2UQQ ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvttpd2uqq_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 78 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2UQQ zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}</c></summary>
 		EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae,
-		/// <summary>EVEX.LIG.F3.0F.W0 78 /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSS2USI r32, xmm1/m32{sae}</c></summary>
 		EVEX_Vcvttss2usi_r32_xmmm32_sae,
-		/// <summary>EVEX.LIG.F3.0F.W1 78 /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W1 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSS2USI r64, xmm1/m32{sae}</c></summary>
 		EVEX_Vcvttss2usi_r64_xmmm32_sae,
-		/// <summary>F2 0F 78 /r ib ib</summary>
+		/// <summary><c>F2 0F 78 /r ib ib</c><br/>
+		/// <br/>
+		/// <c>INSERTQ xmm1, xmm2, imm8, imm8</c></summary>
 		Insertq_xmm_xmm_imm8_imm8,
-		/// <summary>EVEX.LIG.F2.0F.W0 78 /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSD2USI r32, xmm1/m64{sae}</c></summary>
 		EVEX_Vcvttsd2usi_r32_xmmm64_sae,
-		/// <summary>EVEX.LIG.F2.0F.W1 78 /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 78 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTSD2USI r64, xmm1/m64{sae}</c></summary>
 		EVEX_Vcvttsd2usi_r64_xmmm64_sae,
-		/// <summary>NP 0F 79 /r</summary>
+		/// <summary><c>NP 0F 79 /r</c><br/>
+		/// <br/>
+		/// <c>VMWRITE r32, r/m32</c></summary>
 		Vmwrite_r32_rm32,
-		/// <summary>NP 0F 79 /r</summary>
+		/// <summary><c>NP 0F 79 /r</c><br/>
+		/// <br/>
+		/// <c>VMWRITE r64, r/m64</c></summary>
 		Vmwrite_r64_rm64,
-		/// <summary>EVEX.128.0F.W0 79 /r</summary>
+		/// <summary><c>EVEX.128.0F.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2UDQ xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvtps2udq_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.0F.W0 79 /r</summary>
+		/// <summary><c>EVEX.256.0F.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2UDQ ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vcvtps2udq_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.0F.W0 79 /r</summary>
+		/// <summary><c>EVEX.512.0F.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2UDQ zmm1 {k1}{z}, zmm2/m512/m32bcst{er}</c></summary>
 		EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er,
-		/// <summary>EVEX.128.0F.W1 79 /r</summary>
+		/// <summary><c>EVEX.128.0F.W1 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2UDQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.0F.W1 79 /r</summary>
+		/// <summary><c>EVEX.256.0F.W1 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2UDQ xmm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvtpd2udq_xmm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.0F.W1 79 /r</summary>
+		/// <summary><c>EVEX.512.0F.W1 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2UDQ ymm1 {k1}{z}, zmm2/m512/m64bcst{er}</c></summary>
 		EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er,
-		/// <summary>66 0F 79 /r</summary>
+		/// <summary><c>66 0F 79 /r</c><br/>
+		/// <br/>
+		/// <c>EXTRQ xmm1, xmm2</c></summary>
 		Extrq_xmm_xmm,
-		/// <summary>EVEX.128.66.0F.W0 79 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2UQQ xmm1 {k1}{z}, xmm2/m64/m32bcst</c></summary>
 		EVEX_Vcvtps2uqq_xmm_k1z_xmmm64b32,
-		/// <summary>EVEX.256.66.0F.W0 79 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2UQQ ymm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvtps2uqq_ymm_k1z_xmmm128b32,
-		/// <summary>EVEX.512.66.0F.W0 79 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2UQQ zmm1 {k1}{z}, ymm2/m256/m32bcst{er}</c></summary>
 		EVEX_Vcvtps2uqq_zmm_k1z_ymmm256b32_er,
-		/// <summary>EVEX.128.66.0F.W1 79 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2UQQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvtpd2uqq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 79 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2UQQ ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvtpd2uqq_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 79 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2UQQ zmm1 {k1}{z}, zmm2/m512/m64bcst{er}</c></summary>
 		EVEX_Vcvtpd2uqq_zmm_k1z_zmmm512b64_er,
-		/// <summary>EVEX.LIG.F3.0F.W0 79 /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSS2USI r32, xmm1/m32{er}</c></summary>
 		EVEX_Vcvtss2usi_r32_xmmm32_er,
-		/// <summary>EVEX.LIG.F3.0F.W1 79 /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W1 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSS2USI r64, xmm1/m32{er}</c></summary>
 		EVEX_Vcvtss2usi_r64_xmmm32_er,
-		/// <summary>F2 0F 79 /r</summary>
+		/// <summary><c>F2 0F 79 /r</c><br/>
+		/// <br/>
+		/// <c>INSERTQ xmm1, xmm2</c></summary>
 		Insertq_xmm_xmm,
-		/// <summary>EVEX.LIG.F2.0F.W0 79 /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSD2USI r32, xmm1/m64{er}</c></summary>
 		EVEX_Vcvtsd2usi_r32_xmmm64_er,
-		/// <summary>EVEX.LIG.F2.0F.W1 79 /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 79 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTSD2USI r64, xmm1/m64{er}</c></summary>
 		EVEX_Vcvtsd2usi_r64_xmmm64_er,
-		/// <summary>EVEX.128.66.0F.W0 7A /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2QQ xmm1 {k1}{z}, xmm2/m64/m32bcst</c></summary>
 		EVEX_Vcvttps2qq_xmm_k1z_xmmm64b32,
-		/// <summary>EVEX.256.66.0F.W0 7A /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2QQ ymm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvttps2qq_ymm_k1z_xmmm128b32,
-		/// <summary>EVEX.512.66.0F.W0 7A /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPS2QQ zmm1 {k1}{z}, ymm2/m256/m32bcst{sae}</c></summary>
 		EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae,
-		/// <summary>EVEX.128.66.0F.W1 7A /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2QQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvttpd2qq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 7A /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2QQ ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvttpd2qq_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 7A /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2QQ zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}</c></summary>
 		EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae,
-		/// <summary>EVEX.128.F3.0F.W0 7A /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUDQ2PD xmm1 {k1}{z}, xmm2/m64/m32bcst</c></summary>
 		EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32,
-		/// <summary>EVEX.256.F3.0F.W0 7A /r</summary>
+		/// <summary><c>EVEX.256.F3.0F.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUDQ2PD ymm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32,
-		/// <summary>EVEX.512.F3.0F.W0 7A /r</summary>
+		/// <summary><c>EVEX.512.F3.0F.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32,
-		/// <summary>EVEX.128.F3.0F.W1 7A /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUQQ2PD xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.F3.0F.W1 7A /r</summary>
+		/// <summary><c>EVEX.256.F3.0F.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUQQ2PD ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.F3.0F.W1 7A /r</summary>
+		/// <summary><c>EVEX.512.F3.0F.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUQQ2PD zmm1 {k1}{z}, zmm2/m512/m64bcst{er}</c></summary>
 		EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er,
-		/// <summary>EVEX.128.F2.0F.W0 7A /r</summary>
+		/// <summary><c>EVEX.128.F2.0F.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUDQ2PS xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvtudq2ps_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.F2.0F.W0 7A /r</summary>
+		/// <summary><c>EVEX.256.F2.0F.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUDQ2PS ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vcvtudq2ps_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.F2.0F.W0 7A /r</summary>
+		/// <summary><c>EVEX.512.F2.0F.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUDQ2PS zmm1 {k1}{z}, zmm2/m512/m32bcst{er}</c></summary>
 		EVEX_Vcvtudq2ps_zmm_k1z_zmmm512b32_er,
-		/// <summary>EVEX.128.F2.0F.W1 7A /r</summary>
+		/// <summary><c>EVEX.128.F2.0F.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUQQ2PS xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.F2.0F.W1 7A /r</summary>
+		/// <summary><c>EVEX.256.F2.0F.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUQQ2PS xmm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvtuqq2ps_xmm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.F2.0F.W1 7A /r</summary>
+		/// <summary><c>EVEX.512.F2.0F.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUQQ2PS ymm1 {k1}{z}, zmm2/m512/m64bcst{er}</c></summary>
 		EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er,
-		/// <summary>EVEX.128.66.0F.W0 7B /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2QQ xmm1 {k1}{z}, xmm2/m64/m32bcst</c></summary>
 		EVEX_Vcvtps2qq_xmm_k1z_xmmm64b32,
-		/// <summary>EVEX.256.66.0F.W0 7B /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2QQ ymm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvtps2qq_ymm_k1z_xmmm128b32,
-		/// <summary>EVEX.512.66.0F.W0 7B /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2QQ zmm1 {k1}{z}, ymm2/m256/m32bcst{er}</c></summary>
 		EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er,
-		/// <summary>EVEX.128.66.0F.W1 7B /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 7B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2QQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvtpd2qq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 7B /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 7B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2QQ ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvtpd2qq_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 7B /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 7B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2QQ zmm1 {k1}{z}, zmm2/m512/m64bcst{er}</c></summary>
 		EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er,
-		/// <summary>EVEX.LIG.F3.0F.W0 7B /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUSI2SS xmm1, xmm2, r/m32{er}</c></summary>
 		EVEX_Vcvtusi2ss_xmm_xmm_rm32_er,
-		/// <summary>EVEX.LIG.F3.0F.W1 7B /r</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W1 7B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUSI2SS xmm1, xmm2, r/m64{er}</c></summary>
 		EVEX_Vcvtusi2ss_xmm_xmm_rm64_er,
-		/// <summary>EVEX.LIG.F2.0F.W0 7B /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUSI2SD xmm1, xmm2, r/m32</c></summary>
 		EVEX_Vcvtusi2sd_xmm_xmm_rm32_er,
-		/// <summary>EVEX.LIG.F2.0F.W1 7B /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 7B /r</c><br/>
+		/// <br/>
+		/// <c>VCVTUSI2SD xmm1, xmm2, r/m64{er}</c></summary>
 		EVEX_Vcvtusi2sd_xmm_xmm_rm64_er,
-		/// <summary>66 0F 7C /r</summary>
+		/// <summary><c>66 0F 7C /r</c><br/>
+		/// <br/>
+		/// <c>HADDPD xmm1, xmm2/m128</c></summary>
 		Haddpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 7C /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 7C /r</c><br/>
+		/// <br/>
+		/// <c>VHADDPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vhaddpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 7C /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 7C /r</c><br/>
+		/// <br/>
+		/// <c>VHADDPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vhaddpd_ymm_ymm_ymmm256,
-		/// <summary>F2 0F 7C /r</summary>
+		/// <summary><c>F2 0F 7C /r</c><br/>
+		/// <br/>
+		/// <c>HADDPS xmm1, xmm2/m128</c></summary>
 		Haddps_xmm_xmmm128,
-		/// <summary>VEX.128.F2.0F.WIG 7C /r</summary>
+		/// <summary><c>VEX.128.F2.0F.WIG 7C /r</c><br/>
+		/// <br/>
+		/// <c>VHADDPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vhaddps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.F2.0F.WIG 7C /r</summary>
+		/// <summary><c>VEX.256.F2.0F.WIG 7C /r</c><br/>
+		/// <br/>
+		/// <c>VHADDPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vhaddps_ymm_ymm_ymmm256,
-		/// <summary>66 0F 7D /r</summary>
+		/// <summary><c>66 0F 7D /r</c><br/>
+		/// <br/>
+		/// <c>HSUBPD xmm1, xmm2/m128</c></summary>
 		Hsubpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG 7D /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 7D /r</c><br/>
+		/// <br/>
+		/// <c>VHSUBPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vhsubpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG 7D /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 7D /r</c><br/>
+		/// <br/>
+		/// <c>VHSUBPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vhsubpd_ymm_ymm_ymmm256,
-		/// <summary>F2 0F 7D /r</summary>
+		/// <summary><c>F2 0F 7D /r</c><br/>
+		/// <br/>
+		/// <c>HSUBPS xmm1, xmm2/m128</c></summary>
 		Hsubps_xmm_xmmm128,
-		/// <summary>VEX.128.F2.0F.WIG 7D /r</summary>
+		/// <summary><c>VEX.128.F2.0F.WIG 7D /r</c><br/>
+		/// <br/>
+		/// <c>VHSUBPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vhsubps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.F2.0F.WIG 7D /r</summary>
+		/// <summary><c>VEX.256.F2.0F.WIG 7D /r</c><br/>
+		/// <br/>
+		/// <c>VHSUBPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vhsubps_ymm_ymm_ymmm256,
-		/// <summary>NP 0F 7E /r</summary>
+		/// <summary><c>NP 0F 7E /r</c><br/>
+		/// <br/>
+		/// <c>MOVD r/m32, mm</c></summary>
 		Movd_rm32_mm,
-		/// <summary>NP REX.W 0F 7E /r</summary>
+		/// <summary><c>NP REX.W 0F 7E /r</c><br/>
+		/// <br/>
+		/// <c>MOVQ r/m64, mm</c></summary>
 		Movq_rm64_mm,
-		/// <summary>66 0F 7E /r</summary>
+		/// <summary><c>66 0F 7E /r</c><br/>
+		/// <br/>
+		/// <c>MOVD r/m32, xmm</c></summary>
 		Movd_rm32_xmm,
-		/// <summary>66 REX.W 0F 7E /r</summary>
+		/// <summary><c>66 REX.W 0F 7E /r</c><br/>
+		/// <br/>
+		/// <c>MOVQ r/m64, xmm</c></summary>
 		Movq_rm64_xmm,
-		/// <summary>VEX.128.66.0F.W0 7E /r</summary>
+		/// <summary><c>VEX.128.66.0F.W0 7E /r</c><br/>
+		/// <br/>
+		/// <c>VMOVD r/m32, xmm1</c></summary>
 		VEX_Vmovd_rm32_xmm,
-		/// <summary>VEX.128.66.0F.W1 7E /r</summary>
+		/// <summary><c>VEX.128.66.0F.W1 7E /r</c><br/>
+		/// <br/>
+		/// <c>VMOVQ r/m64, xmm1</c></summary>
 		VEX_Vmovq_rm64_xmm,
-		/// <summary>EVEX.128.66.0F.W0 7E /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 7E /r</c><br/>
+		/// <br/>
+		/// <c>VMOVD r/m32, xmm1</c></summary>
 		EVEX_Vmovd_rm32_xmm,
-		/// <summary>EVEX.128.66.0F.W1 7E /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 7E /r</c><br/>
+		/// <br/>
+		/// <c>VMOVQ r/m64, xmm1</c></summary>
 		EVEX_Vmovq_rm64_xmm,
-		/// <summary>F3 0F 7E /r</summary>
+		/// <summary><c>F3 0F 7E /r</c><br/>
+		/// <br/>
+		/// <c>MOVQ xmm1, xmm2/m64</c></summary>
 		Movq_xmm_xmmm64,
-		/// <summary>VEX.128.F3.0F.WIG 7E /r</summary>
+		/// <summary><c>VEX.128.F3.0F.WIG 7E /r</c><br/>
+		/// <br/>
+		/// <c>VMOVQ xmm1, xmm2/m64</c></summary>
 		VEX_Vmovq_xmm_xmmm64,
-		/// <summary>EVEX.128.F3.0F.W1 7E /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W1 7E /r</c><br/>
+		/// <br/>
+		/// <c>VMOVQ xmm1, xmm2/m64</c></summary>
 		EVEX_Vmovq_xmm_xmmm64,
-		/// <summary>NP 0F 7F /r</summary>
+		/// <summary><c>NP 0F 7F /r</c><br/>
+		/// <br/>
+		/// <c>MOVQ mm/m64, mm</c></summary>
 		Movq_mmm64_mm,
-		/// <summary>66 0F 7F /r</summary>
+		/// <summary><c>66 0F 7F /r</c><br/>
+		/// <br/>
+		/// <c>MOVDQA xmm2/m128, xmm1</c></summary>
 		Movdqa_xmmm128_xmm,
-		/// <summary>VEX.128.66.0F.WIG 7F /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA xmm2/m128, xmm1</c></summary>
 		VEX_Vmovdqa_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F.WIG 7F /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA ymm2/m256, ymm1</c></summary>
 		VEX_Vmovdqa_ymmm256_ymm,
-		/// <summary>EVEX.128.66.0F.W0 7F /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA32 xmm2/m128 {k1}{z}, xmm1</c></summary>
 		EVEX_Vmovdqa32_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.66.0F.W0 7F /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA32 ymm2/m256 {k1}{z}, ymm1</c></summary>
 		EVEX_Vmovdqa32_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.66.0F.W0 7F /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA32 zmm2/m512 {k1}{z}, zmm1</c></summary>
 		EVEX_Vmovdqa32_zmmm512_k1z_zmm,
-		/// <summary>EVEX.128.66.0F.W1 7F /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA64 xmm2/m128 {k1}{z}, xmm1</c></summary>
 		EVEX_Vmovdqa64_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.66.0F.W1 7F /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA64 ymm2/m256 {k1}{z}, ymm1</c></summary>
 		EVEX_Vmovdqa64_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.66.0F.W1 7F /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQA64 zmm2/m512 {k1}{z}, zmm1</c></summary>
 		EVEX_Vmovdqa64_zmmm512_k1z_zmm,
-		/// <summary>F3 0F 7F /r</summary>
+		/// <summary><c>F3 0F 7F /r</c><br/>
+		/// <br/>
+		/// <c>MOVDQU xmm2/m128, xmm1</c></summary>
 		Movdqu_xmmm128_xmm,
-		/// <summary>VEX.128.F3.0F.WIG 7F /r</summary>
+		/// <summary><c>VEX.128.F3.0F.WIG 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU xmm2/m128, xmm1</c></summary>
 		VEX_Vmovdqu_xmmm128_xmm,
-		/// <summary>VEX.256.F3.0F.WIG 7F /r</summary>
+		/// <summary><c>VEX.256.F3.0F.WIG 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU ymm2/m256, ymm1</c></summary>
 		VEX_Vmovdqu_ymmm256_ymm,
-		/// <summary>EVEX.128.F3.0F.W0 7F /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU32 xmm2/m128 {k1}{z}, xmm1</c></summary>
 		EVEX_Vmovdqu32_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F.W0 7F /r</summary>
+		/// <summary><c>EVEX.256.F3.0F.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU32 ymm2/m256 {k1}{z}, ymm1</c></summary>
 		EVEX_Vmovdqu32_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F.W0 7F /r</summary>
+		/// <summary><c>EVEX.512.F3.0F.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU32 zmm2/m512 {k1}{z}, zmm1</c></summary>
 		EVEX_Vmovdqu32_zmmm512_k1z_zmm,
-		/// <summary>EVEX.128.F3.0F.W1 7F /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU64 xmm2/m128 {k1}{z}, xmm1</c></summary>
 		EVEX_Vmovdqu64_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F.W1 7F /r</summary>
+		/// <summary><c>EVEX.256.F3.0F.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU64 ymm2/m256 {k1}{z}, ymm1</c></summary>
 		EVEX_Vmovdqu64_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F.W1 7F /r</summary>
+		/// <summary><c>EVEX.512.F3.0F.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU64 zmm2/m512 {k1}{z}, zmm1</c></summary>
 		EVEX_Vmovdqu64_zmmm512_k1z_zmm,
-		/// <summary>EVEX.128.F2.0F.W0 7F /r</summary>
+		/// <summary><c>EVEX.128.F2.0F.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU8 xmm2/m128 {k1}{z}, xmm1</c></summary>
 		EVEX_Vmovdqu8_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.F2.0F.W0 7F /r</summary>
+		/// <summary><c>EVEX.256.F2.0F.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU8 ymm2/m256 {k1}{z}, ymm1</c></summary>
 		EVEX_Vmovdqu8_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.F2.0F.W0 7F /r</summary>
+		/// <summary><c>EVEX.512.F2.0F.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU8 zmm2/m512 {k1}{z}, zmm1</c></summary>
 		EVEX_Vmovdqu8_zmmm512_k1z_zmm,
-		/// <summary>EVEX.128.F2.0F.W1 7F /r</summary>
+		/// <summary><c>EVEX.128.F2.0F.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU16 xmm2/m128 {k1}{z}, xmm1</c></summary>
 		EVEX_Vmovdqu16_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.F2.0F.W1 7F /r</summary>
+		/// <summary><c>EVEX.256.F2.0F.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU16 ymm2/m256 {k1}{z}, ymm1</c></summary>
 		EVEX_Vmovdqu16_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.F2.0F.W1 7F /r</summary>
+		/// <summary><c>EVEX.512.F2.0F.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VMOVDQU16 zmm2/m512 {k1}{z}, zmm1</c></summary>
 		EVEX_Vmovdqu16_zmmm512_k1z_zmm,
-		/// <summary>o16 0F 80 cw</summary>
+		/// <summary><c>o16 0F 80 cw</c><br/>
+		/// <br/>
+		/// <c>JO rel16</c></summary>
 		Jo_rel16,
-		/// <summary>o32 0F 80 cd</summary>
+		/// <summary><c>o32 0F 80 cd</c><br/>
+		/// <br/>
+		/// <c>JO rel32</c></summary>
 		Jo_rel32_32,
-		/// <summary>0F 80 cd</summary>
+		/// <summary><c>0F 80 cd</c><br/>
+		/// <br/>
+		/// <c>JO rel32</c></summary>
 		Jo_rel32_64,
-		/// <summary>o16 0F 81 cw</summary>
+		/// <summary><c>o16 0F 81 cw</c><br/>
+		/// <br/>
+		/// <c>JNO rel16</c></summary>
 		Jno_rel16,
-		/// <summary>o32 0F 81 cd</summary>
+		/// <summary><c>o32 0F 81 cd</c><br/>
+		/// <br/>
+		/// <c>JNO rel32</c></summary>
 		Jno_rel32_32,
-		/// <summary>0F 81 cd</summary>
+		/// <summary><c>0F 81 cd</c><br/>
+		/// <br/>
+		/// <c>JNO rel32</c></summary>
 		Jno_rel32_64,
-		/// <summary>o16 0F 82 cw</summary>
+		/// <summary><c>o16 0F 82 cw</c><br/>
+		/// <br/>
+		/// <c>JB rel16</c></summary>
 		Jb_rel16,
-		/// <summary>o32 0F 82 cd</summary>
+		/// <summary><c>o32 0F 82 cd</c><br/>
+		/// <br/>
+		/// <c>JB rel32</c></summary>
 		Jb_rel32_32,
-		/// <summary>0F 82 cd</summary>
+		/// <summary><c>0F 82 cd</c><br/>
+		/// <br/>
+		/// <c>JB rel32</c></summary>
 		Jb_rel32_64,
-		/// <summary>o16 0F 83 cw</summary>
+		/// <summary><c>o16 0F 83 cw</c><br/>
+		/// <br/>
+		/// <c>JAE rel16</c></summary>
 		Jae_rel16,
-		/// <summary>o32 0F 83 cd</summary>
+		/// <summary><c>o32 0F 83 cd</c><br/>
+		/// <br/>
+		/// <c>JAE rel32</c></summary>
 		Jae_rel32_32,
-		/// <summary>0F 83 cd</summary>
+		/// <summary><c>0F 83 cd</c><br/>
+		/// <br/>
+		/// <c>JAE rel32</c></summary>
 		Jae_rel32_64,
-		/// <summary>o16 0F 84 cw</summary>
+		/// <summary><c>o16 0F 84 cw</c><br/>
+		/// <br/>
+		/// <c>JE rel16</c></summary>
 		Je_rel16,
-		/// <summary>o32 0F 84 cd</summary>
+		/// <summary><c>o32 0F 84 cd</c><br/>
+		/// <br/>
+		/// <c>JE rel32</c></summary>
 		Je_rel32_32,
-		/// <summary>0F 84 cd</summary>
+		/// <summary><c>0F 84 cd</c><br/>
+		/// <br/>
+		/// <c>JE rel32</c></summary>
 		Je_rel32_64,
-		/// <summary>o16 0F 85 cw</summary>
+		/// <summary><c>o16 0F 85 cw</c><br/>
+		/// <br/>
+		/// <c>JNE rel16</c></summary>
 		Jne_rel16,
-		/// <summary>o32 0F 85 cd</summary>
+		/// <summary><c>o32 0F 85 cd</c><br/>
+		/// <br/>
+		/// <c>JNE rel32</c></summary>
 		Jne_rel32_32,
-		/// <summary>0F 85 cd</summary>
+		/// <summary><c>0F 85 cd</c><br/>
+		/// <br/>
+		/// <c>JNE rel32</c></summary>
 		Jne_rel32_64,
-		/// <summary>o16 0F 86 cw</summary>
+		/// <summary><c>o16 0F 86 cw</c><br/>
+		/// <br/>
+		/// <c>JBE rel16</c></summary>
 		Jbe_rel16,
-		/// <summary>o32 0F 86 cd</summary>
+		/// <summary><c>o32 0F 86 cd</c><br/>
+		/// <br/>
+		/// <c>JBE rel32</c></summary>
 		Jbe_rel32_32,
-		/// <summary>0F 86 cd</summary>
+		/// <summary><c>0F 86 cd</c><br/>
+		/// <br/>
+		/// <c>JBE rel32</c></summary>
 		Jbe_rel32_64,
-		/// <summary>o16 0F 87 cw</summary>
+		/// <summary><c>o16 0F 87 cw</c><br/>
+		/// <br/>
+		/// <c>JA rel16</c></summary>
 		Ja_rel16,
-		/// <summary>o32 0F 87 cd</summary>
+		/// <summary><c>o32 0F 87 cd</c><br/>
+		/// <br/>
+		/// <c>JA rel32</c></summary>
 		Ja_rel32_32,
-		/// <summary>0F 87 cd</summary>
+		/// <summary><c>0F 87 cd</c><br/>
+		/// <br/>
+		/// <c>JA rel32</c></summary>
 		Ja_rel32_64,
-		/// <summary>o16 0F 88 cw</summary>
+		/// <summary><c>o16 0F 88 cw</c><br/>
+		/// <br/>
+		/// <c>JS rel16</c></summary>
 		Js_rel16,
-		/// <summary>o32 0F 88 cd</summary>
+		/// <summary><c>o32 0F 88 cd</c><br/>
+		/// <br/>
+		/// <c>JS rel32</c></summary>
 		Js_rel32_32,
-		/// <summary>0F 88 cd</summary>
+		/// <summary><c>0F 88 cd</c><br/>
+		/// <br/>
+		/// <c>JS rel32</c></summary>
 		Js_rel32_64,
-		/// <summary>o16 0F 89 cw</summary>
+		/// <summary><c>o16 0F 89 cw</c><br/>
+		/// <br/>
+		/// <c>JNS rel16</c></summary>
 		Jns_rel16,
-		/// <summary>o32 0F 89 cd</summary>
+		/// <summary><c>o32 0F 89 cd</c><br/>
+		/// <br/>
+		/// <c>JNS rel32</c></summary>
 		Jns_rel32_32,
-		/// <summary>0F 89 cd</summary>
+		/// <summary><c>0F 89 cd</c><br/>
+		/// <br/>
+		/// <c>JNS rel32</c></summary>
 		Jns_rel32_64,
-		/// <summary>o16 0F 8A cw</summary>
+		/// <summary><c>o16 0F 8A cw</c><br/>
+		/// <br/>
+		/// <c>JP rel16</c></summary>
 		Jp_rel16,
-		/// <summary>o32 0F 8A cd</summary>
+		/// <summary><c>o32 0F 8A cd</c><br/>
+		/// <br/>
+		/// <c>JP rel32</c></summary>
 		Jp_rel32_32,
-		/// <summary>0F 8A cd</summary>
+		/// <summary><c>0F 8A cd</c><br/>
+		/// <br/>
+		/// <c>JP rel32</c></summary>
 		Jp_rel32_64,
-		/// <summary>o16 0F 8B cw</summary>
+		/// <summary><c>o16 0F 8B cw</c><br/>
+		/// <br/>
+		/// <c>JNP rel16</c></summary>
 		Jnp_rel16,
-		/// <summary>o32 0F 8B cd</summary>
+		/// <summary><c>o32 0F 8B cd</c><br/>
+		/// <br/>
+		/// <c>JNP rel32</c></summary>
 		Jnp_rel32_32,
-		/// <summary>0F 8B cd</summary>
+		/// <summary><c>0F 8B cd</c><br/>
+		/// <br/>
+		/// <c>JNP rel32</c></summary>
 		Jnp_rel32_64,
-		/// <summary>o16 0F 8C cw</summary>
+		/// <summary><c>o16 0F 8C cw</c><br/>
+		/// <br/>
+		/// <c>JL rel16</c></summary>
 		Jl_rel16,
-		/// <summary>o32 0F 8C cd</summary>
+		/// <summary><c>o32 0F 8C cd</c><br/>
+		/// <br/>
+		/// <c>JL rel32</c></summary>
 		Jl_rel32_32,
-		/// <summary>0F 8C cd</summary>
+		/// <summary><c>0F 8C cd</c><br/>
+		/// <br/>
+		/// <c>JL rel32</c></summary>
 		Jl_rel32_64,
-		/// <summary>o16 0F 8D cw</summary>
+		/// <summary><c>o16 0F 8D cw</c><br/>
+		/// <br/>
+		/// <c>JGE rel16</c></summary>
 		Jge_rel16,
-		/// <summary>o32 0F 8D cd</summary>
+		/// <summary><c>o32 0F 8D cd</c><br/>
+		/// <br/>
+		/// <c>JGE rel32</c></summary>
 		Jge_rel32_32,
-		/// <summary>0F 8D cd</summary>
+		/// <summary><c>0F 8D cd</c><br/>
+		/// <br/>
+		/// <c>JGE rel32</c></summary>
 		Jge_rel32_64,
-		/// <summary>o16 0F 8E cw</summary>
+		/// <summary><c>o16 0F 8E cw</c><br/>
+		/// <br/>
+		/// <c>JLE rel16</c></summary>
 		Jle_rel16,
-		/// <summary>o32 0F 8E cd</summary>
+		/// <summary><c>o32 0F 8E cd</c><br/>
+		/// <br/>
+		/// <c>JLE rel32</c></summary>
 		Jle_rel32_32,
-		/// <summary>0F 8E cd</summary>
+		/// <summary><c>0F 8E cd</c><br/>
+		/// <br/>
+		/// <c>JLE rel32</c></summary>
 		Jle_rel32_64,
-		/// <summary>o16 0F 8F cw</summary>
+		/// <summary><c>o16 0F 8F cw</c><br/>
+		/// <br/>
+		/// <c>JG rel16</c></summary>
 		Jg_rel16,
-		/// <summary>o32 0F 8F cd</summary>
+		/// <summary><c>o32 0F 8F cd</c><br/>
+		/// <br/>
+		/// <c>JG rel32</c></summary>
 		Jg_rel32_32,
-		/// <summary>0F 8F cd</summary>
+		/// <summary><c>0F 8F cd</c><br/>
+		/// <br/>
+		/// <c>JG rel32</c></summary>
 		Jg_rel32_64,
-		/// <summary>0F 90 /r</summary>
+		/// <summary><c>0F 90 /r</c><br/>
+		/// <br/>
+		/// <c>SETO r/m8</c></summary>
 		Seto_rm8,
-		/// <summary>0F 91 /r</summary>
+		/// <summary><c>0F 91 /r</c><br/>
+		/// <br/>
+		/// <c>SETNO r/m8</c></summary>
 		Setno_rm8,
-		/// <summary>0F 92 /r</summary>
+		/// <summary><c>0F 92 /r</c><br/>
+		/// <br/>
+		/// <c>SETB r/m8</c></summary>
 		Setb_rm8,
-		/// <summary>0F 93 /r</summary>
+		/// <summary><c>0F 93 /r</c><br/>
+		/// <br/>
+		/// <c>SETAE r/m8</c></summary>
 		Setae_rm8,
-		/// <summary>0F 94 /r</summary>
+		/// <summary><c>0F 94 /r</c><br/>
+		/// <br/>
+		/// <c>SETE r/m8</c></summary>
 		Sete_rm8,
-		/// <summary>0F 95 /r</summary>
+		/// <summary><c>0F 95 /r</c><br/>
+		/// <br/>
+		/// <c>SETNE r/m8</c></summary>
 		Setne_rm8,
-		/// <summary>0F 96 /r</summary>
+		/// <summary><c>0F 96 /r</c><br/>
+		/// <br/>
+		/// <c>SETBE r/m8</c></summary>
 		Setbe_rm8,
-		/// <summary>0F 97 /r</summary>
+		/// <summary><c>0F 97 /r</c><br/>
+		/// <br/>
+		/// <c>SETA r/m8</c></summary>
 		Seta_rm8,
-		/// <summary>0F 98 /r</summary>
+		/// <summary><c>0F 98 /r</c><br/>
+		/// <br/>
+		/// <c>SETS r/m8</c></summary>
 		Sets_rm8,
-		/// <summary>0F 99 /r</summary>
+		/// <summary><c>0F 99 /r</c><br/>
+		/// <br/>
+		/// <c>SETNS r/m8</c></summary>
 		Setns_rm8,
-		/// <summary>0F 9A /r</summary>
+		/// <summary><c>0F 9A /r</c><br/>
+		/// <br/>
+		/// <c>SETP r/m8</c></summary>
 		Setp_rm8,
-		/// <summary>0F 9B /r</summary>
+		/// <summary><c>0F 9B /r</c><br/>
+		/// <br/>
+		/// <c>SETNP r/m8</c></summary>
 		Setnp_rm8,
-		/// <summary>0F 9C /r</summary>
+		/// <summary><c>0F 9C /r</c><br/>
+		/// <br/>
+		/// <c>SETL r/m8</c></summary>
 		Setl_rm8,
-		/// <summary>0F 9D /r</summary>
+		/// <summary><c>0F 9D /r</c><br/>
+		/// <br/>
+		/// <c>SETGE r/m8</c></summary>
 		Setge_rm8,
-		/// <summary>0F 9E /r</summary>
+		/// <summary><c>0F 9E /r</c><br/>
+		/// <br/>
+		/// <c>SETLE r/m8</c></summary>
 		Setle_rm8,
-		/// <summary>0F 9F /r</summary>
+		/// <summary><c>0F 9F /r</c><br/>
+		/// <br/>
+		/// <c>SETG r/m8</c></summary>
 		Setg_rm8,
-		/// <summary>VEX.L0.0F.W0 90 /r</summary>
+		/// <summary><c>VEX.L0.0F.W0 90 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVW k1, k2/m16</c></summary>
 		VEX_Kmovw_k_km16,
-		/// <summary>VEX.L0.0F.W1 90 /r</summary>
+		/// <summary><c>VEX.L0.0F.W1 90 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVQ k1, k2/m64</c></summary>
 		VEX_Kmovq_k_km64,
-		/// <summary>VEX.L0.66.0F.W0 90 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W0 90 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVB k1, k2/m8</c></summary>
 		VEX_Kmovb_k_km8,
-		/// <summary>VEX.L0.66.0F.W1 90 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W1 90 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVD k1, k2/m32</c></summary>
 		VEX_Kmovd_k_km32,
-		/// <summary>VEX.L0.0F.W0 91 /r</summary>
+		/// <summary><c>VEX.L0.0F.W0 91 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVW m16, k1</c></summary>
 		VEX_Kmovw_m16_k,
-		/// <summary>VEX.L0.0F.W1 91 /r</summary>
+		/// <summary><c>VEX.L0.0F.W1 91 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVQ m64, k1</c></summary>
 		VEX_Kmovq_m64_k,
-		/// <summary>VEX.L0.66.0F.W0 91 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W0 91 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVB m8, k1</c></summary>
 		VEX_Kmovb_m8_k,
-		/// <summary>VEX.L0.66.0F.W1 91 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W1 91 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVD m32, k1</c></summary>
 		VEX_Kmovd_m32_k,
-		/// <summary>VEX.L0.0F.W0 92 /r</summary>
+		/// <summary><c>VEX.L0.0F.W0 92 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVW k1, r32</c></summary>
 		VEX_Kmovw_k_r32,
-		/// <summary>VEX.L0.66.0F.W0 92 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W0 92 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVB k1, r32</c></summary>
 		VEX_Kmovb_k_r32,
-		/// <summary>VEX.L0.F2.0F.W0 92 /r</summary>
+		/// <summary><c>VEX.L0.F2.0F.W0 92 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVD k1, r32</c></summary>
 		VEX_Kmovd_k_r32,
-		/// <summary>VEX.L0.F2.0F.W1 92 /r</summary>
+		/// <summary><c>VEX.L0.F2.0F.W1 92 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVQ k1, r64</c></summary>
 		VEX_Kmovq_k_r64,
-		/// <summary>VEX.L0.0F.W0 93 /r</summary>
+		/// <summary><c>VEX.L0.0F.W0 93 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVW r32, k1</c></summary>
 		VEX_Kmovw_r32_k,
-		/// <summary>VEX.L0.66.0F.W0 93 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W0 93 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVB r32, k1</c></summary>
 		VEX_Kmovb_r32_k,
-		/// <summary>VEX.L0.F2.0F.W0 93 /r</summary>
+		/// <summary><c>VEX.L0.F2.0F.W0 93 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVD r32, k1</c></summary>
 		VEX_Kmovd_r32_k,
-		/// <summary>VEX.L0.F2.0F.W1 93 /r</summary>
+		/// <summary><c>VEX.L0.F2.0F.W1 93 /r</c><br/>
+		/// <br/>
+		/// <c>KMOVQ r64, k1</c></summary>
 		VEX_Kmovq_r64_k,
-		/// <summary>VEX.L0.0F.W0 98 /r</summary>
+		/// <summary><c>VEX.L0.0F.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>KORTESTW k1, k2</c></summary>
 		VEX_Kortestw_k_k,
-		/// <summary>VEX.L0.0F.W1 98 /r</summary>
+		/// <summary><c>VEX.L0.0F.W1 98 /r</c><br/>
+		/// <br/>
+		/// <c>KORTESTQ k1, k2</c></summary>
 		VEX_Kortestq_k_k,
-		/// <summary>VEX.L0.66.0F.W0 98 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>KORTESTB k1, k2</c></summary>
 		VEX_Kortestb_k_k,
-		/// <summary>VEX.L0.66.0F.W1 98 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W1 98 /r</c><br/>
+		/// <br/>
+		/// <c>KORTESTD k1, k2</c></summary>
 		VEX_Kortestd_k_k,
-		/// <summary>VEX.L0.0F.W0 99 /r</summary>
+		/// <summary><c>VEX.L0.0F.W0 99 /r</c><br/>
+		/// <br/>
+		/// <c>KTESTW k1, k2</c></summary>
 		VEX_Ktestw_k_k,
-		/// <summary>VEX.L0.0F.W1 99 /r</summary>
+		/// <summary><c>VEX.L0.0F.W1 99 /r</c><br/>
+		/// <br/>
+		/// <c>KTESTQ k1, k2</c></summary>
 		VEX_Ktestq_k_k,
-		/// <summary>VEX.L0.66.0F.W0 99 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W0 99 /r</c><br/>
+		/// <br/>
+		/// <c>KTESTB k1, k2</c></summary>
 		VEX_Ktestb_k_k,
-		/// <summary>VEX.L0.66.0F.W1 99 /r</summary>
+		/// <summary><c>VEX.L0.66.0F.W1 99 /r</c><br/>
+		/// <br/>
+		/// <c>KTESTD k1, k2</c></summary>
 		VEX_Ktestd_k_k,
-		/// <summary>o16 0F A0</summary>
+		/// <summary><c>o16 0F A0</c><br/>
+		/// <br/>
+		/// <c>PUSH FS</c></summary>
 		Pushw_FS,
-		/// <summary>o32 0F A0</summary>
+		/// <summary><c>o32 0F A0</c><br/>
+		/// <br/>
+		/// <c>PUSH FS</c></summary>
 		Pushd_FS,
-		/// <summary>0F A0</summary>
+		/// <summary><c>0F A0</c><br/>
+		/// <br/>
+		/// <c>PUSH FS</c></summary>
 		Pushq_FS,
-		/// <summary>o16 0F A1</summary>
+		/// <summary><c>o16 0F A1</c><br/>
+		/// <br/>
+		/// <c>POP FS</c></summary>
 		Popw_FS,
-		/// <summary>o32 0F A1</summary>
+		/// <summary><c>o32 0F A1</c><br/>
+		/// <br/>
+		/// <c>POP FS</c></summary>
 		Popd_FS,
-		/// <summary>0F A1</summary>
+		/// <summary><c>0F A1</c><br/>
+		/// <br/>
+		/// <c>POP FS</c></summary>
 		Popq_FS,
-		/// <summary>0F A2</summary>
+		/// <summary><c>0F A2</c><br/>
+		/// <br/>
+		/// <c>CPUID</c></summary>
 		Cpuid,
-		/// <summary>o16 0F A3 /r</summary>
+		/// <summary><c>o16 0F A3 /r</c><br/>
+		/// <br/>
+		/// <c>BT r/m16, r16</c></summary>
 		Bt_rm16_r16,
-		/// <summary>o32 0F A3 /r</summary>
+		/// <summary><c>o32 0F A3 /r</c><br/>
+		/// <br/>
+		/// <c>BT r/m32, r32</c></summary>
 		Bt_rm32_r32,
-		/// <summary>REX.W 0F A3 /r</summary>
+		/// <summary><c>REX.W 0F A3 /r</c><br/>
+		/// <br/>
+		/// <c>BT r/m64, r64</c></summary>
 		Bt_rm64_r64,
-		/// <summary>o16 0F A4 /r ib</summary>
+		/// <summary><c>o16 0F A4 /r ib</c><br/>
+		/// <br/>
+		/// <c>SHLD r/m16, r16, imm8</c></summary>
 		Shld_rm16_r16_imm8,
-		/// <summary>o32 0F A4 /r ib</summary>
+		/// <summary><c>o32 0F A4 /r ib</c><br/>
+		/// <br/>
+		/// <c>SHLD r/m32, r32, imm8</c></summary>
 		Shld_rm32_r32_imm8,
-		/// <summary>REX.W 0F A4 /r ib</summary>
+		/// <summary><c>REX.W 0F A4 /r ib</c><br/>
+		/// <br/>
+		/// <c>SHLD r/m64, r64, imm8</c></summary>
 		Shld_rm64_r64_imm8,
-		/// <summary>o16 0F A5 /r</summary>
+		/// <summary><c>o16 0F A5 /r</c><br/>
+		/// <br/>
+		/// <c>SHLD r/m16, r16, CL</c></summary>
 		Shld_rm16_r16_CL,
-		/// <summary>o32 0F A5 /r</summary>
+		/// <summary><c>o32 0F A5 /r</c><br/>
+		/// <br/>
+		/// <c>SHLD r/m32, r32, CL</c></summary>
 		Shld_rm32_r32_CL,
-		/// <summary>REX.W 0F A5 /r</summary>
+		/// <summary><c>REX.W 0F A5 /r</c><br/>
+		/// <br/>
+		/// <c>SHLD r/m64, r64, CL</c></summary>
 		Shld_rm64_r64_CL,
-		/// <summary>a16 0F A6 C0</summary>
+		/// <summary><c>a16 0F A6 C0</c><br/>
+		/// <br/>
+		/// <c>MONTMUL</c></summary>
 		Montmul_16,
-		/// <summary>a32 0F A6 C0</summary>
+		/// <summary><c>a32 0F A6 C0</c><br/>
+		/// <br/>
+		/// <c>MONTMUL</c></summary>
 		Montmul_32,
-		/// <summary>0F A6 C0</summary>
+		/// <summary><c>0F A6 C0</c><br/>
+		/// <br/>
+		/// <c>MONTMUL</c></summary>
 		Montmul_64,
-		/// <summary>a16 0F A6 C8</summary>
+		/// <summary><c>a16 0F A6 C8</c><br/>
+		/// <br/>
+		/// <c>XSHA1</c></summary>
 		Xsha1_16,
-		/// <summary>a32 0F A6 C8</summary>
+		/// <summary><c>a32 0F A6 C8</c><br/>
+		/// <br/>
+		/// <c>XSHA1</c></summary>
 		Xsha1_32,
-		/// <summary>0F A6 C8</summary>
+		/// <summary><c>0F A6 C8</c><br/>
+		/// <br/>
+		/// <c>XSHA1</c></summary>
 		Xsha1_64,
-		/// <summary>a16 0F A6 D0</summary>
+		/// <summary><c>a16 0F A6 D0</c><br/>
+		/// <br/>
+		/// <c>XSHA256</c></summary>
 		Xsha256_16,
-		/// <summary>a32 0F A6 D0</summary>
+		/// <summary><c>a32 0F A6 D0</c><br/>
+		/// <br/>
+		/// <c>XSHA256</c></summary>
 		Xsha256_32,
-		/// <summary>0F A6 D0</summary>
+		/// <summary><c>0F A6 D0</c><br/>
+		/// <br/>
+		/// <c>XSHA256</c></summary>
 		Xsha256_64,
-		/// <summary>o16 0F A6 /r</summary>
+		/// <summary><c>o16 0F A6 /r</c><br/>
+		/// <br/>
+		/// <c>XBTS r16, r/m16</c></summary>
 		Xbts_r16_rm16,
-		/// <summary>o32 0F A6 /r</summary>
+		/// <summary><c>o32 0F A6 /r</c><br/>
+		/// <br/>
+		/// <c>XBTS r32, r/m32</c></summary>
 		Xbts_r32_rm32,
-		/// <summary>a16 0F A7 C0</summary>
+		/// <summary><c>a16 0F A7 C0</c><br/>
+		/// <br/>
+		/// <c>XSTORE</c></summary>
 		Xstore_16,
-		/// <summary>a32 0F A7 C0</summary>
+		/// <summary><c>a32 0F A7 C0</c><br/>
+		/// <br/>
+		/// <c>XSTORE</c></summary>
 		Xstore_32,
-		/// <summary>0F A7 C0</summary>
+		/// <summary><c>0F A7 C0</c><br/>
+		/// <br/>
+		/// <c>XSTORE</c></summary>
 		Xstore_64,
-		/// <summary>a16 0F A7 C8</summary>
+		/// <summary><c>a16 0F A7 C8</c><br/>
+		/// <br/>
+		/// <c>XCRYPTECB</c></summary>
 		XcryptEcb_16,
-		/// <summary>a32 0F A7 C8</summary>
+		/// <summary><c>a32 0F A7 C8</c><br/>
+		/// <br/>
+		/// <c>XCRYPTECB</c></summary>
 		XcryptEcb_32,
-		/// <summary>0F A7 C8</summary>
+		/// <summary><c>0F A7 C8</c><br/>
+		/// <br/>
+		/// <c>XCRYPTECB</c></summary>
 		XcryptEcb_64,
-		/// <summary>a16 0F A7 D0</summary>
+		/// <summary><c>a16 0F A7 D0</c><br/>
+		/// <br/>
+		/// <c>XCRYPTCBC</c></summary>
 		XcryptCbc_16,
-		/// <summary>a32 0F A7 D0</summary>
+		/// <summary><c>a32 0F A7 D0</c><br/>
+		/// <br/>
+		/// <c>XCRYPTCBC</c></summary>
 		XcryptCbc_32,
-		/// <summary>0F A7 D0</summary>
+		/// <summary><c>0F A7 D0</c><br/>
+		/// <br/>
+		/// <c>XCRYPTCBC</c></summary>
 		XcryptCbc_64,
-		/// <summary>a16 0F A7 D8</summary>
+		/// <summary><c>a16 0F A7 D8</c><br/>
+		/// <br/>
+		/// <c>XCRYPTCTR</c></summary>
 		XcryptCtr_16,
-		/// <summary>a32 0F A7 D8</summary>
+		/// <summary><c>a32 0F A7 D8</c><br/>
+		/// <br/>
+		/// <c>XCRYPTCTR</c></summary>
 		XcryptCtr_32,
-		/// <summary>0F A7 D8</summary>
+		/// <summary><c>0F A7 D8</c><br/>
+		/// <br/>
+		/// <c>XCRYPTCTR</c></summary>
 		XcryptCtr_64,
-		/// <summary>a16 0F A7 E0</summary>
+		/// <summary><c>a16 0F A7 E0</c><br/>
+		/// <br/>
+		/// <c>XCRYPTCFB</c></summary>
 		XcryptCfb_16,
-		/// <summary>a32 0F A7 E0</summary>
+		/// <summary><c>a32 0F A7 E0</c><br/>
+		/// <br/>
+		/// <c>XCRYPTCFB</c></summary>
 		XcryptCfb_32,
-		/// <summary>0F A7 E0</summary>
+		/// <summary><c>0F A7 E0</c><br/>
+		/// <br/>
+		/// <c>XCRYPTCFB</c></summary>
 		XcryptCfb_64,
-		/// <summary>a16 0F A7 E8</summary>
+		/// <summary><c>a16 0F A7 E8</c><br/>
+		/// <br/>
+		/// <c>XCRYPTOFB</c></summary>
 		XcryptOfb_16,
-		/// <summary>a32 0F A7 E8</summary>
+		/// <summary><c>a32 0F A7 E8</c><br/>
+		/// <br/>
+		/// <c>XCRYPTOFB</c></summary>
 		XcryptOfb_32,
-		/// <summary>0F A7 E8</summary>
+		/// <summary><c>0F A7 E8</c><br/>
+		/// <br/>
+		/// <c>XCRYPTOFB</c></summary>
 		XcryptOfb_64,
-		/// <summary>o16 0F A7 /r</summary>
+		/// <summary><c>o16 0F A7 /r</c><br/>
+		/// <br/>
+		/// <c>IBTS r/m16, r16</c></summary>
 		Ibts_rm16_r16,
-		/// <summary>o32 0F A7 /r</summary>
+		/// <summary><c>o32 0F A7 /r</c><br/>
+		/// <br/>
+		/// <c>IBTS r/m32, r32</c></summary>
 		Ibts_rm32_r32,
-		/// <summary>0F A6 /r</summary>
+		/// <summary><c>0F A6 /r</c><br/>
+		/// <br/>
+		/// <c>CMPXCHG r/m8, r8</c></summary>
 		Cmpxchg486_rm8_r8,
-		/// <summary>o16 0F A7 /r</summary>
+		/// <summary><c>o16 0F A7 /r</c><br/>
+		/// <br/>
+		/// <c>CMPXCHG r/m16, r16</c></summary>
 		Cmpxchg486_rm16_r16,
-		/// <summary>o32 0F A7 /r</summary>
+		/// <summary><c>o32 0F A7 /r</c><br/>
+		/// <br/>
+		/// <c>CMPXCHG r/m32, r32</c></summary>
 		Cmpxchg486_rm32_r32,
-		/// <summary>o16 0F A8</summary>
+		/// <summary><c>o16 0F A8</c><br/>
+		/// <br/>
+		/// <c>PUSH GS</c></summary>
 		Pushw_GS,
-		/// <summary>o32 0F A8</summary>
+		/// <summary><c>o32 0F A8</c><br/>
+		/// <br/>
+		/// <c>PUSH GS</c></summary>
 		Pushd_GS,
-		/// <summary>0F A8</summary>
+		/// <summary><c>0F A8</c><br/>
+		/// <br/>
+		/// <c>PUSH GS</c></summary>
 		Pushq_GS,
-		/// <summary>o16 0F A9</summary>
+		/// <summary><c>o16 0F A9</c><br/>
+		/// <br/>
+		/// <c>POP GS</c></summary>
 		Popw_GS,
-		/// <summary>o32 0F A9</summary>
+		/// <summary><c>o32 0F A9</c><br/>
+		/// <br/>
+		/// <c>POP GS</c></summary>
 		Popd_GS,
-		/// <summary>0F A9</summary>
+		/// <summary><c>0F A9</c><br/>
+		/// <br/>
+		/// <c>POP GS</c></summary>
 		Popq_GS,
-		/// <summary>0F AA</summary>
+		/// <summary><c>0F AA</c><br/>
+		/// <br/>
+		/// <c>RSM</c></summary>
 		Rsm,
-		/// <summary>o16 0F AB /r</summary>
+		/// <summary><c>o16 0F AB /r</c><br/>
+		/// <br/>
+		/// <c>BTS r/m16, r16</c></summary>
 		Bts_rm16_r16,
-		/// <summary>o32 0F AB /r</summary>
+		/// <summary><c>o32 0F AB /r</c><br/>
+		/// <br/>
+		/// <c>BTS r/m32, r32</c></summary>
 		Bts_rm32_r32,
-		/// <summary>REX.W 0F AB /r</summary>
+		/// <summary><c>REX.W 0F AB /r</c><br/>
+		/// <br/>
+		/// <c>BTS r/m64, r64</c></summary>
 		Bts_rm64_r64,
-		/// <summary>o16 0F AC /r ib</summary>
+		/// <summary><c>o16 0F AC /r ib</c><br/>
+		/// <br/>
+		/// <c>SHRD r/m16, r16, imm8</c></summary>
 		Shrd_rm16_r16_imm8,
-		/// <summary>o32 0F AC /r ib</summary>
+		/// <summary><c>o32 0F AC /r ib</c><br/>
+		/// <br/>
+		/// <c>SHRD r/m32, r32, imm8</c></summary>
 		Shrd_rm32_r32_imm8,
-		/// <summary>REX.W 0F AC /r ib</summary>
+		/// <summary><c>REX.W 0F AC /r ib</c><br/>
+		/// <br/>
+		/// <c>SHRD r/m64, r64, imm8</c></summary>
 		Shrd_rm64_r64_imm8,
-		/// <summary>o16 0F AD /r</summary>
+		/// <summary><c>o16 0F AD /r</c><br/>
+		/// <br/>
+		/// <c>SHRD r/m16, r16, CL</c></summary>
 		Shrd_rm16_r16_CL,
-		/// <summary>o32 0F AD /r</summary>
+		/// <summary><c>o32 0F AD /r</c><br/>
+		/// <br/>
+		/// <c>SHRD r/m32, r32, CL</c></summary>
 		Shrd_rm32_r32_CL,
-		/// <summary>REX.W 0F AD /r</summary>
+		/// <summary><c>REX.W 0F AD /r</c><br/>
+		/// <br/>
+		/// <c>SHRD r/m64, r64, CL</c></summary>
 		Shrd_rm64_r64_CL,
-		/// <summary>NP 0F AE /0</summary>
+		/// <summary><c>NP 0F AE /0</c><br/>
+		/// <br/>
+		/// <c>FXSAVE m512byte</c></summary>
 		Fxsave_m512byte,
-		/// <summary>NP REX.W 0F AE /0</summary>
+		/// <summary><c>NP REX.W 0F AE /0</c><br/>
+		/// <br/>
+		/// <c>FXSAVE64 m512byte</c></summary>
 		Fxsave64_m512byte,
-		/// <summary>F3 0F AE /0</summary>
+		/// <summary><c>F3 0F AE /0</c><br/>
+		/// <br/>
+		/// <c>RDFSBASE r32</c></summary>
 		Rdfsbase_r32,
-		/// <summary>F3 REX.W 0F AE /0</summary>
+		/// <summary><c>F3 REX.W 0F AE /0</c><br/>
+		/// <br/>
+		/// <c>RDFSBASE r64</c></summary>
 		Rdfsbase_r64,
-		/// <summary>NP 0F AE /1</summary>
+		/// <summary><c>NP 0F AE /1</c><br/>
+		/// <br/>
+		/// <c>FXRSTOR m512byte</c></summary>
 		Fxrstor_m512byte,
-		/// <summary>NP REX.W 0F AE /1</summary>
+		/// <summary><c>NP REX.W 0F AE /1</c><br/>
+		/// <br/>
+		/// <c>FXRSTOR64 m512byte</c></summary>
 		Fxrstor64_m512byte,
-		/// <summary>F3 0F AE /1</summary>
+		/// <summary><c>F3 0F AE /1</c><br/>
+		/// <br/>
+		/// <c>RDGSBASE r32</c></summary>
 		Rdgsbase_r32,
-		/// <summary>F3 REX.W 0F AE /1</summary>
+		/// <summary><c>F3 REX.W 0F AE /1</c><br/>
+		/// <br/>
+		/// <c>RDGSBASE r64</c></summary>
 		Rdgsbase_r64,
-		/// <summary>NP 0F AE /2</summary>
+		/// <summary><c>NP 0F AE /2</c><br/>
+		/// <br/>
+		/// <c>LDMXCSR m32</c></summary>
 		Ldmxcsr_m32,
-		/// <summary>F3 0F AE /2</summary>
+		/// <summary><c>F3 0F AE /2</c><br/>
+		/// <br/>
+		/// <c>WRFSBASE r32</c></summary>
 		Wrfsbase_r32,
-		/// <summary>F3 REX.W 0F AE /2</summary>
+		/// <summary><c>F3 REX.W 0F AE /2</c><br/>
+		/// <br/>
+		/// <c>WRFSBASE r64</c></summary>
 		Wrfsbase_r64,
-		/// <summary>VEX.LZ.0F.WIG AE /2</summary>
+		/// <summary><c>VEX.LZ.0F.WIG AE /2</c><br/>
+		/// <br/>
+		/// <c>VLDMXCSR m32</c></summary>
 		VEX_Vldmxcsr_m32,
-		/// <summary>NP 0F AE /3</summary>
+		/// <summary><c>NP 0F AE /3</c><br/>
+		/// <br/>
+		/// <c>STMXCSR m32</c></summary>
 		Stmxcsr_m32,
-		/// <summary>F3 0F AE /3</summary>
+		/// <summary><c>F3 0F AE /3</c><br/>
+		/// <br/>
+		/// <c>WRGSBASE r32</c></summary>
 		Wrgsbase_r32,
-		/// <summary>F3 REX.W 0F AE /3</summary>
+		/// <summary><c>F3 REX.W 0F AE /3</c><br/>
+		/// <br/>
+		/// <c>WRGSBASE r64</c></summary>
 		Wrgsbase_r64,
-		/// <summary>VEX.LZ.0F.WIG AE /3</summary>
+		/// <summary><c>VEX.LZ.0F.WIG AE /3</c><br/>
+		/// <br/>
+		/// <c>VSTMXCSR m32</c></summary>
 		VEX_Vstmxcsr_m32,
-		/// <summary>NP 0F AE /4</summary>
+		/// <summary><c>NP 0F AE /4</c><br/>
+		/// <br/>
+		/// <c>XSAVE mem</c></summary>
 		Xsave_mem,
-		/// <summary>NP REX.W 0F AE /4</summary>
+		/// <summary><c>NP REX.W 0F AE /4</c><br/>
+		/// <br/>
+		/// <c>XSAVE64 mem</c></summary>
 		Xsave64_mem,
-		/// <summary>F3 0F AE /4</summary>
+		/// <summary><c>F3 0F AE /4</c><br/>
+		/// <br/>
+		/// <c>PTWRITE r/m32</c></summary>
 		Ptwrite_rm32,
-		/// <summary>F3 REX.W 0F AE /4</summary>
+		/// <summary><c>F3 REX.W 0F AE /4</c><br/>
+		/// <br/>
+		/// <c>PTWRITE r/m64</c></summary>
 		Ptwrite_rm64,
-		/// <summary>NP 0F AE /5</summary>
+		/// <summary><c>NP 0F AE /5</c><br/>
+		/// <br/>
+		/// <c>XRSTOR mem</c></summary>
 		Xrstor_mem,
-		/// <summary>NP REX.W 0F AE /5</summary>
+		/// <summary><c>NP REX.W 0F AE /5</c><br/>
+		/// <br/>
+		/// <c>XRSTOR64 mem</c></summary>
 		Xrstor64_mem,
-		/// <summary>F3 0F AE /5</summary>
+		/// <summary><c>F3 0F AE /5</c><br/>
+		/// <br/>
+		/// <c>INCSSPD r32</c></summary>
 		Incsspd_r32,
-		/// <summary>F3 REX.W 0F AE /5</summary>
+		/// <summary><c>F3 REX.W 0F AE /5</c><br/>
+		/// <br/>
+		/// <c>INCSSPQ r64</c></summary>
 		Incsspq_r64,
-		/// <summary>NP 0F AE /6</summary>
+		/// <summary><c>NP 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>XSAVEOPT mem</c></summary>
 		Xsaveopt_mem,
-		/// <summary>NP REX.W 0F AE /6</summary>
+		/// <summary><c>NP REX.W 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>XSAVEOPT64 mem</c></summary>
 		Xsaveopt64_mem,
-		/// <summary>66 0F AE /6</summary>
+		/// <summary><c>66 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>CLWB m8</c></summary>
 		Clwb_m8,
-		/// <summary>66 0F AE /6</summary>
+		/// <summary><c>66 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>TPAUSE r32, &lt;edx&gt;, &lt;eax&gt;</c></summary>
 		Tpause_r32,
-		/// <summary>66 REX.W 0F AE /6</summary>
+		/// <summary><c>66 REX.W 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>TPAUSE r64, &lt;edx&gt;, &lt;eax&gt;</c></summary>
 		Tpause_r64,
-		/// <summary>F3 0F AE /6</summary>
+		/// <summary><c>F3 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>CLRSSBSY m64</c></summary>
 		Clrssbsy_m64,
-		/// <summary>a16 F3 0F AE /6</summary>
+		/// <summary><c>a16 F3 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>UMONITOR r16</c></summary>
 		Umonitor_r16,
-		/// <summary>a32 F3 0F AE /6</summary>
+		/// <summary><c>a32 F3 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>UMONITOR r32</c></summary>
 		Umonitor_r32,
-		/// <summary>F3 0F AE /6</summary>
+		/// <summary><c>F3 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>UMONITOR r64</c></summary>
 		Umonitor_r64,
-		/// <summary>F2 0F AE /6</summary>
+		/// <summary><c>F2 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>UMWAIT r32, &lt;edx&gt;, &lt;eax&gt;</c></summary>
 		Umwait_r32,
-		/// <summary>F2 REX.W 0F AE /6</summary>
+		/// <summary><c>F2 REX.W 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>UMWAIT r64, &lt;edx&gt;, &lt;eax&gt;</c></summary>
 		Umwait_r64,
-		/// <summary>NP 0F AE /7</summary>
+		/// <summary><c>NP 0F AE /7</c><br/>
+		/// <br/>
+		/// <c>CLFLUSH m8</c></summary>
 		Clflush_m8,
-		/// <summary>66 0F AE /7</summary>
+		/// <summary><c>66 0F AE /7</c><br/>
+		/// <br/>
+		/// <c>CLFLUSHOPT m8</c></summary>
 		Clflushopt_m8,
-		/// <summary>NP 0F AE E8</summary>
+		/// <summary><c>NP 0F AE E8</c><br/>
+		/// <br/>
+		/// <c>LFENCE</c></summary>
 		Lfence,
-		/// <summary>NP 0F AE E9</summary>
+		/// <summary><c>NP 0F AE E9</c><br/>
+		/// <br/>
+		/// <c>LFENCE</c></summary>
 		Lfence_E9,
-		/// <summary>NP 0F AE EA</summary>
+		/// <summary><c>NP 0F AE EA</c><br/>
+		/// <br/>
+		/// <c>LFENCE</c></summary>
 		Lfence_EA,
-		/// <summary>NP 0F AE EB</summary>
+		/// <summary><c>NP 0F AE EB</c><br/>
+		/// <br/>
+		/// <c>LFENCE</c></summary>
 		Lfence_EB,
-		/// <summary>NP 0F AE EC</summary>
+		/// <summary><c>NP 0F AE EC</c><br/>
+		/// <br/>
+		/// <c>LFENCE</c></summary>
 		Lfence_EC,
-		/// <summary>NP 0F AE ED</summary>
+		/// <summary><c>NP 0F AE ED</c><br/>
+		/// <br/>
+		/// <c>LFENCE</c></summary>
 		Lfence_ED,
-		/// <summary>NP 0F AE EE</summary>
+		/// <summary><c>NP 0F AE EE</c><br/>
+		/// <br/>
+		/// <c>LFENCE</c></summary>
 		Lfence_EE,
-		/// <summary>NP 0F AE EF</summary>
+		/// <summary><c>NP 0F AE EF</c><br/>
+		/// <br/>
+		/// <c>LFENCE</c></summary>
 		Lfence_EF,
-		/// <summary>NP 0F AE F0</summary>
+		/// <summary><c>NP 0F AE F0</c><br/>
+		/// <br/>
+		/// <c>MFENCE</c></summary>
 		Mfence,
-		/// <summary>NP 0F AE F1</summary>
+		/// <summary><c>NP 0F AE F1</c><br/>
+		/// <br/>
+		/// <c>MFENCE</c></summary>
 		Mfence_F1,
-		/// <summary>NP 0F AE F2</summary>
+		/// <summary><c>NP 0F AE F2</c><br/>
+		/// <br/>
+		/// <c>MFENCE</c></summary>
 		Mfence_F2,
-		/// <summary>NP 0F AE F3</summary>
+		/// <summary><c>NP 0F AE F3</c><br/>
+		/// <br/>
+		/// <c>MFENCE</c></summary>
 		Mfence_F3,
-		/// <summary>NP 0F AE F4</summary>
+		/// <summary><c>NP 0F AE F4</c><br/>
+		/// <br/>
+		/// <c>MFENCE</c></summary>
 		Mfence_F4,
-		/// <summary>NP 0F AE F5</summary>
+		/// <summary><c>NP 0F AE F5</c><br/>
+		/// <br/>
+		/// <c>MFENCE</c></summary>
 		Mfence_F5,
-		/// <summary>NP 0F AE F6</summary>
+		/// <summary><c>NP 0F AE F6</c><br/>
+		/// <br/>
+		/// <c>MFENCE</c></summary>
 		Mfence_F6,
-		/// <summary>NP 0F AE F7</summary>
+		/// <summary><c>NP 0F AE F7</c><br/>
+		/// <br/>
+		/// <c>MFENCE</c></summary>
 		Mfence_F7,
-		/// <summary>NP 0F AE F8</summary>
+		/// <summary><c>NP 0F AE F8</c><br/>
+		/// <br/>
+		/// <c>SFENCE</c></summary>
 		Sfence,
-		/// <summary>NP 0F AE F9</summary>
+		/// <summary><c>NP 0F AE F9</c><br/>
+		/// <br/>
+		/// <c>SFENCE</c></summary>
 		Sfence_F9,
-		/// <summary>NP 0F AE FA</summary>
+		/// <summary><c>NP 0F AE FA</c><br/>
+		/// <br/>
+		/// <c>SFENCE</c></summary>
 		Sfence_FA,
-		/// <summary>NP 0F AE FB</summary>
+		/// <summary><c>NP 0F AE FB</c><br/>
+		/// <br/>
+		/// <c>SFENCE</c></summary>
 		Sfence_FB,
-		/// <summary>NP 0F AE FC</summary>
+		/// <summary><c>NP 0F AE FC</c><br/>
+		/// <br/>
+		/// <c>SFENCE</c></summary>
 		Sfence_FC,
-		/// <summary>NP 0F AE FD</summary>
+		/// <summary><c>NP 0F AE FD</c><br/>
+		/// <br/>
+		/// <c>SFENCE</c></summary>
 		Sfence_FD,
-		/// <summary>NP 0F AE FE</summary>
+		/// <summary><c>NP 0F AE FE</c><br/>
+		/// <br/>
+		/// <c>SFENCE</c></summary>
 		Sfence_FE,
-		/// <summary>NP 0F AE FF</summary>
+		/// <summary><c>NP 0F AE FF</c><br/>
+		/// <br/>
+		/// <c>SFENCE</c></summary>
 		Sfence_FF,
-		/// <summary>66 0F AE F8</summary>
+		/// <summary><c>66 0F AE F8</c><br/>
+		/// <br/>
+		/// <c>PCOMMIT</c></summary>
 		Pcommit,
-		/// <summary>o16 0F AF /r</summary>
+		/// <summary><c>o16 0F AF /r</c><br/>
+		/// <br/>
+		/// <c>IMUL r16, r/m16</c></summary>
 		Imul_r16_rm16,
-		/// <summary>o32 0F AF /r</summary>
+		/// <summary><c>o32 0F AF /r</c><br/>
+		/// <br/>
+		/// <c>IMUL r32, r/m32</c></summary>
 		Imul_r32_rm32,
-		/// <summary>REX.W 0F AF /r</summary>
+		/// <summary><c>REX.W 0F AF /r</c><br/>
+		/// <br/>
+		/// <c>IMUL r64, r/m64</c></summary>
 		Imul_r64_rm64,
-		/// <summary>0F B0 /r</summary>
+		/// <summary><c>0F B0 /r</c><br/>
+		/// <br/>
+		/// <c>CMPXCHG r/m8, r8</c></summary>
 		Cmpxchg_rm8_r8,
-		/// <summary>o16 0F B1 /r</summary>
+		/// <summary><c>o16 0F B1 /r</c><br/>
+		/// <br/>
+		/// <c>CMPXCHG r/m16, r16</c></summary>
 		Cmpxchg_rm16_r16,
-		/// <summary>o32 0F B1 /r</summary>
+		/// <summary><c>o32 0F B1 /r</c><br/>
+		/// <br/>
+		/// <c>CMPXCHG r/m32, r32</c></summary>
 		Cmpxchg_rm32_r32,
-		/// <summary>REX.W 0F B1 /r</summary>
+		/// <summary><c>REX.W 0F B1 /r</c><br/>
+		/// <br/>
+		/// <c>CMPXCHG r/m64, r64</c></summary>
 		Cmpxchg_rm64_r64,
-		/// <summary>o16 0F B2 /r</summary>
+		/// <summary><c>o16 0F B2 /r</c><br/>
+		/// <br/>
+		/// <c>LSS r16, m16:16</c></summary>
 		Lss_r16_m1616,
-		/// <summary>o32 0F B2 /r</summary>
+		/// <summary><c>o32 0F B2 /r</c><br/>
+		/// <br/>
+		/// <c>LSS r32, m16:32</c></summary>
 		Lss_r32_m1632,
-		/// <summary>REX.W 0F B2 /r</summary>
+		/// <summary><c>REX.W 0F B2 /r</c><br/>
+		/// <br/>
+		/// <c>LSS r64, m16:64</c></summary>
 		Lss_r64_m1664,
-		/// <summary>o16 0F B3 /r</summary>
+		/// <summary><c>o16 0F B3 /r</c><br/>
+		/// <br/>
+		/// <c>BTR r/m16, r16</c></summary>
 		Btr_rm16_r16,
-		/// <summary>o32 0F B3 /r</summary>
+		/// <summary><c>o32 0F B3 /r</c><br/>
+		/// <br/>
+		/// <c>BTR r/m32, r32</c></summary>
 		Btr_rm32_r32,
-		/// <summary>REX.W 0F B3 /r</summary>
+		/// <summary><c>REX.W 0F B3 /r</c><br/>
+		/// <br/>
+		/// <c>BTR r/m64, r64</c></summary>
 		Btr_rm64_r64,
-		/// <summary>o16 0F B4 /r</summary>
+		/// <summary><c>o16 0F B4 /r</c><br/>
+		/// <br/>
+		/// <c>LFS r16, m16:16</c></summary>
 		Lfs_r16_m1616,
-		/// <summary>o32 0F B4 /r</summary>
+		/// <summary><c>o32 0F B4 /r</c><br/>
+		/// <br/>
+		/// <c>LFS r32, m16:32</c></summary>
 		Lfs_r32_m1632,
-		/// <summary>REX.W 0F B4 /r</summary>
+		/// <summary><c>REX.W 0F B4 /r</c><br/>
+		/// <br/>
+		/// <c>LFS r64, m16:64</c></summary>
 		Lfs_r64_m1664,
-		/// <summary>o16 0F B5 /r</summary>
+		/// <summary><c>o16 0F B5 /r</c><br/>
+		/// <br/>
+		/// <c>LGS r16, m16:16</c></summary>
 		Lgs_r16_m1616,
-		/// <summary>o32 0F B5 /r</summary>
+		/// <summary><c>o32 0F B5 /r</c><br/>
+		/// <br/>
+		/// <c>LGS r32, m16:32</c></summary>
 		Lgs_r32_m1632,
-		/// <summary>REX.W 0F B5 /r</summary>
+		/// <summary><c>REX.W 0F B5 /r</c><br/>
+		/// <br/>
+		/// <c>LGS r64, m16:64</c></summary>
 		Lgs_r64_m1664,
-		/// <summary>o16 0F B6 /r</summary>
+		/// <summary><c>o16 0F B6 /r</c><br/>
+		/// <br/>
+		/// <c>MOVZX r16, r/m8</c></summary>
 		Movzx_r16_rm8,
-		/// <summary>o32 0F B6 /r</summary>
+		/// <summary><c>o32 0F B6 /r</c><br/>
+		/// <br/>
+		/// <c>MOVZX r32, r/m8</c></summary>
 		Movzx_r32_rm8,
-		/// <summary>REX.W 0F B6 /r</summary>
+		/// <summary><c>REX.W 0F B6 /r</c><br/>
+		/// <br/>
+		/// <c>MOVZX r64, r/m8</c></summary>
 		Movzx_r64_rm8,
-		/// <summary>o16 0F B7 /r</summary>
+		/// <summary><c>o16 0F B7 /r</c><br/>
+		/// <br/>
+		/// <c>MOVZX r16, r/m16</c></summary>
 		Movzx_r16_rm16,
-		/// <summary>o32 0F B7 /r</summary>
+		/// <summary><c>o32 0F B7 /r</c><br/>
+		/// <br/>
+		/// <c>MOVZX r32, r/m16</c></summary>
 		Movzx_r32_rm16,
-		/// <summary>REX.W 0F B7 /r</summary>
+		/// <summary><c>REX.W 0F B7 /r</c><br/>
+		/// <br/>
+		/// <c>MOVZX r64, r/m16</c></summary>
 		Movzx_r64_rm16,
-		/// <summary>o16 0F B8 cw</summary>
+		/// <summary><c>o16 0F B8 cw</c><br/>
+		/// <br/>
+		/// <c>JMPE disp16</c></summary>
 		Jmpe_disp16,
-		/// <summary>o32 0F B8 cd</summary>
+		/// <summary><c>o32 0F B8 cd</c><br/>
+		/// <br/>
+		/// <c>JMPE disp32</c></summary>
 		Jmpe_disp32,
-		/// <summary>o16 F3 0F B8 /r</summary>
+		/// <summary><c>o16 F3 0F B8 /r</c><br/>
+		/// <br/>
+		/// <c>POPCNT r16, r/m16</c></summary>
 		Popcnt_r16_rm16,
-		/// <summary>o32 F3 0F B8 /r</summary>
+		/// <summary><c>o32 F3 0F B8 /r</c><br/>
+		/// <br/>
+		/// <c>POPCNT r32, r/m32</c></summary>
 		Popcnt_r32_rm32,
-		/// <summary>F3 REX.W 0F B8 /r</summary>
+		/// <summary><c>F3 REX.W 0F B8 /r</c><br/>
+		/// <br/>
+		/// <c>POPCNT r64, r/m64</c></summary>
 		Popcnt_r64_rm64,
-		/// <summary>o16 0F B9 /r</summary>
+		/// <summary><c>o16 0F B9 /r</c><br/>
+		/// <br/>
+		/// <c>UD1 r16, r/m16</c></summary>
 		Ud1_r16_rm16,
-		/// <summary>o32 0F B9 /r</summary>
+		/// <summary><c>o32 0F B9 /r</c><br/>
+		/// <br/>
+		/// <c>UD1 r32, r/m32</c></summary>
 		Ud1_r32_rm32,
-		/// <summary>REX.W 0F B9 /r</summary>
+		/// <summary><c>REX.W 0F B9 /r</c><br/>
+		/// <br/>
+		/// <c>UD1 r64, r/m64</c></summary>
 		Ud1_r64_rm64,
-		/// <summary>o16 0F BA /4 ib</summary>
+		/// <summary><c>o16 0F BA /4 ib</c><br/>
+		/// <br/>
+		/// <c>BT r/m16, imm8</c></summary>
 		Bt_rm16_imm8,
-		/// <summary>o32 0F BA /4 ib</summary>
+		/// <summary><c>o32 0F BA /4 ib</c><br/>
+		/// <br/>
+		/// <c>BT r/m32, imm8</c></summary>
 		Bt_rm32_imm8,
-		/// <summary>REX.W 0F BA /4 ib</summary>
+		/// <summary><c>REX.W 0F BA /4 ib</c><br/>
+		/// <br/>
+		/// <c>BT r/m64, imm8</c></summary>
 		Bt_rm64_imm8,
-		/// <summary>o16 0F BA /5 ib</summary>
+		/// <summary><c>o16 0F BA /5 ib</c><br/>
+		/// <br/>
+		/// <c>BTS r/m16, imm8</c></summary>
 		Bts_rm16_imm8,
-		/// <summary>o32 0F BA /5 ib</summary>
+		/// <summary><c>o32 0F BA /5 ib</c><br/>
+		/// <br/>
+		/// <c>BTS r/m32, imm8</c></summary>
 		Bts_rm32_imm8,
-		/// <summary>REX.W 0F BA /5 ib</summary>
+		/// <summary><c>REX.W 0F BA /5 ib</c><br/>
+		/// <br/>
+		/// <c>BTS r/m64, imm8</c></summary>
 		Bts_rm64_imm8,
-		/// <summary>o16 0F BA /6 ib</summary>
+		/// <summary><c>o16 0F BA /6 ib</c><br/>
+		/// <br/>
+		/// <c>BTR r/m16, imm8</c></summary>
 		Btr_rm16_imm8,
-		/// <summary>o32 0F BA /6 ib</summary>
+		/// <summary><c>o32 0F BA /6 ib</c><br/>
+		/// <br/>
+		/// <c>BTR r/m32, imm8</c></summary>
 		Btr_rm32_imm8,
-		/// <summary>REX.W 0F BA /6 ib</summary>
+		/// <summary><c>REX.W 0F BA /6 ib</c><br/>
+		/// <br/>
+		/// <c>BTR r/m64, imm8</c></summary>
 		Btr_rm64_imm8,
-		/// <summary>o16 0F BA /7 ib</summary>
+		/// <summary><c>o16 0F BA /7 ib</c><br/>
+		/// <br/>
+		/// <c>BTC r/m16, imm8</c></summary>
 		Btc_rm16_imm8,
-		/// <summary>o32 0F BA /7 ib</summary>
+		/// <summary><c>o32 0F BA /7 ib</c><br/>
+		/// <br/>
+		/// <c>BTC r/m32, imm8</c></summary>
 		Btc_rm32_imm8,
-		/// <summary>REX.W 0F BA /7 ib</summary>
+		/// <summary><c>REX.W 0F BA /7 ib</c><br/>
+		/// <br/>
+		/// <c>BTC r/m64, imm8</c></summary>
 		Btc_rm64_imm8,
-		/// <summary>o16 0F BB /r</summary>
+		/// <summary><c>o16 0F BB /r</c><br/>
+		/// <br/>
+		/// <c>BTC r/m16, r16</c></summary>
 		Btc_rm16_r16,
-		/// <summary>o32 0F BB /r</summary>
+		/// <summary><c>o32 0F BB /r</c><br/>
+		/// <br/>
+		/// <c>BTC r/m32, r32</c></summary>
 		Btc_rm32_r32,
-		/// <summary>REX.W 0F BB /r</summary>
+		/// <summary><c>REX.W 0F BB /r</c><br/>
+		/// <br/>
+		/// <c>BTC r/m64, r64</c></summary>
 		Btc_rm64_r64,
-		/// <summary>o16 0F BC /r</summary>
+		/// <summary><c>o16 0F BC /r</c><br/>
+		/// <br/>
+		/// <c>BSF r16, r/m16</c></summary>
 		Bsf_r16_rm16,
-		/// <summary>o32 0F BC /r</summary>
+		/// <summary><c>o32 0F BC /r</c><br/>
+		/// <br/>
+		/// <c>BSF r32, r/m32</c></summary>
 		Bsf_r32_rm32,
-		/// <summary>REX.W 0F BC /r</summary>
+		/// <summary><c>REX.W 0F BC /r</c><br/>
+		/// <br/>
+		/// <c>BSF r64, r/m64</c></summary>
 		Bsf_r64_rm64,
-		/// <summary>o16 F3 0F BC /r</summary>
+		/// <summary><c>o16 F3 0F BC /r</c><br/>
+		/// <br/>
+		/// <c>TZCNT r16, r/m16</c></summary>
 		Tzcnt_r16_rm16,
-		/// <summary>o32 F3 0F BC /r</summary>
+		/// <summary><c>o32 F3 0F BC /r</c><br/>
+		/// <br/>
+		/// <c>TZCNT r32, r/m32</c></summary>
 		Tzcnt_r32_rm32,
-		/// <summary>F3 REX.W 0F BC /r</summary>
+		/// <summary><c>F3 REX.W 0F BC /r</c><br/>
+		/// <br/>
+		/// <c>TZCNT r64, r/m64</c></summary>
 		Tzcnt_r64_rm64,
-		/// <summary>o16 0F BD /r</summary>
+		/// <summary><c>o16 0F BD /r</c><br/>
+		/// <br/>
+		/// <c>BSR r16, r/m16</c></summary>
 		Bsr_r16_rm16,
-		/// <summary>o32 0F BD /r</summary>
+		/// <summary><c>o32 0F BD /r</c><br/>
+		/// <br/>
+		/// <c>BSR r32, r/m32</c></summary>
 		Bsr_r32_rm32,
-		/// <summary>REX.W 0F BD /r</summary>
+		/// <summary><c>REX.W 0F BD /r</c><br/>
+		/// <br/>
+		/// <c>BSR r64, r/m64</c></summary>
 		Bsr_r64_rm64,
-		/// <summary>o16 F3 0F BD /r</summary>
+		/// <summary><c>o16 F3 0F BD /r</c><br/>
+		/// <br/>
+		/// <c>LZCNT r16, r/m16</c></summary>
 		Lzcnt_r16_rm16,
-		/// <summary>o32 F3 0F BD /r</summary>
+		/// <summary><c>o32 F3 0F BD /r</c><br/>
+		/// <br/>
+		/// <c>LZCNT r32, r/m32</c></summary>
 		Lzcnt_r32_rm32,
-		/// <summary>F3 REX.W 0F BD /r</summary>
+		/// <summary><c>F3 REX.W 0F BD /r</c><br/>
+		/// <br/>
+		/// <c>LZCNT r64, r/m64</c></summary>
 		Lzcnt_r64_rm64,
-		/// <summary>o16 0F BE /r</summary>
+		/// <summary><c>o16 0F BE /r</c><br/>
+		/// <br/>
+		/// <c>MOVSX r16, r/m8</c></summary>
 		Movsx_r16_rm8,
-		/// <summary>o32 0F BE /r</summary>
+		/// <summary><c>o32 0F BE /r</c><br/>
+		/// <br/>
+		/// <c>MOVSX r32, r/m8</c></summary>
 		Movsx_r32_rm8,
-		/// <summary>REX.W 0F BE /r</summary>
+		/// <summary><c>REX.W 0F BE /r</c><br/>
+		/// <br/>
+		/// <c>MOVSX r64, r/m8</c></summary>
 		Movsx_r64_rm8,
-		/// <summary>o16 0F BF /r</summary>
+		/// <summary><c>o16 0F BF /r</c><br/>
+		/// <br/>
+		/// <c>MOVSX r16, r/m16</c></summary>
 		Movsx_r16_rm16,
-		/// <summary>o32 0F BF /r</summary>
+		/// <summary><c>o32 0F BF /r</c><br/>
+		/// <br/>
+		/// <c>MOVSX r32, r/m16</c></summary>
 		Movsx_r32_rm16,
-		/// <summary>REX.W 0F BF /r</summary>
+		/// <summary><c>REX.W 0F BF /r</c><br/>
+		/// <br/>
+		/// <c>MOVSX r64, r/m16</c></summary>
 		Movsx_r64_rm16,
-		/// <summary>0F C0 /r</summary>
+		/// <summary><c>0F C0 /r</c><br/>
+		/// <br/>
+		/// <c>XADD r/m8, r8</c></summary>
 		Xadd_rm8_r8,
-		/// <summary>o16 0F C1 /r</summary>
+		/// <summary><c>o16 0F C1 /r</c><br/>
+		/// <br/>
+		/// <c>XADD r/m16, r16</c></summary>
 		Xadd_rm16_r16,
-		/// <summary>o32 0F C1 /r</summary>
+		/// <summary><c>o32 0F C1 /r</c><br/>
+		/// <br/>
+		/// <c>XADD r/m32, r32</c></summary>
 		Xadd_rm32_r32,
-		/// <summary>REX.W 0F C1 /r</summary>
+		/// <summary><c>REX.W 0F C1 /r</c><br/>
+		/// <br/>
+		/// <c>XADD r/m64, r64</c></summary>
 		Xadd_rm64_r64,
-		/// <summary>NP 0F C2 /r ib</summary>
+		/// <summary><c>NP 0F C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>CMPPS xmm1, xmm2/m128, imm8</c></summary>
 		Cmpps_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.0F.WIG C2 /r ib</summary>
+		/// <summary><c>VEX.128.0F.WIG C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPPS xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vcmpps_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.0F.WIG C2 /r ib</summary>
+		/// <summary><c>VEX.256.0F.WIG C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPPS ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vcmpps_ymm_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.0F.W0 C2 /r ib</summary>
+		/// <summary><c>EVEX.128.0F.W0 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPPS k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8</c></summary>
 		EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8,
-		/// <summary>EVEX.256.0F.W0 C2 /r ib</summary>
+		/// <summary><c>EVEX.256.0F.W0 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPPS k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.0F.W0 C2 /r ib</summary>
+		/// <summary><c>EVEX.512.0F.W0 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPPS k1 {k2}, zmm2, zmm3/m512/m32bcst{sae}, imm8</c></summary>
 		EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae,
-		/// <summary>66 0F C2 /r ib</summary>
+		/// <summary><c>66 0F C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>CMPPD xmm1, xmm2/m128, imm8</c></summary>
 		Cmppd_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F.WIG C2 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPPD xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vcmppd_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F.WIG C2 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPPD ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vcmppd_ymm_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F.W1 C2 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPPD k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F.W1 C2 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPPD k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F.W1 C2 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPPD k1 {k2}, zmm2, zmm3/m512/m64bcst{sae}, imm8</c></summary>
 		EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae,
-		/// <summary>F3 0F C2 /r ib</summary>
+		/// <summary><c>F3 0F C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>CMPSS xmm1, xmm2/m32, imm8</c></summary>
 		Cmpss_xmm_xmmm32_imm8,
-		/// <summary>VEX.LIG.F3.0F.WIG C2 /r ib</summary>
+		/// <summary><c>VEX.LIG.F3.0F.WIG C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPSS xmm1, xmm2, xmm3/m32, imm8</c></summary>
 		VEX_Vcmpss_xmm_xmm_xmmm32_imm8,
-		/// <summary>EVEX.LIG.F3.0F.W0 C2 /r ib</summary>
+		/// <summary><c>EVEX.LIG.F3.0F.W0 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPSS k1 {k2}, xmm2, xmm3/m32{sae}, imm8</c></summary>
 		EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae,
-		/// <summary>F2 0F C2 /r ib</summary>
+		/// <summary><c>F2 0F C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>CMPSD xmm1, xmm2/m64, imm8</c></summary>
 		Cmpsd_xmm_xmmm64_imm8,
-		/// <summary>VEX.LIG.F2.0F.WIG C2 /r ib</summary>
+		/// <summary><c>VEX.LIG.F2.0F.WIG C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPSD xmm1, xmm2, xmm3/m64, imm8</c></summary>
 		VEX_Vcmpsd_xmm_xmm_xmmm64_imm8,
-		/// <summary>EVEX.LIG.F2.0F.W1 C2 /r ib</summary>
+		/// <summary><c>EVEX.LIG.F2.0F.W1 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VCMPSD k1 {k2}, xmm2, xmm3/m64{sae}, imm8</c></summary>
 		EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae,
-		/// <summary>NP 0F C3 /r</summary>
+		/// <summary><c>NP 0F C3 /r</c><br/>
+		/// <br/>
+		/// <c>MOVNTI m32, r32</c></summary>
 		Movnti_m32_r32,
-		/// <summary>NP REX.W 0F C3 /r</summary>
+		/// <summary><c>NP REX.W 0F C3 /r</c><br/>
+		/// <br/>
+		/// <c>MOVNTI m64, r64</c></summary>
 		Movnti_m64_r64,
-		/// <summary>NP 0F C4 /r ib</summary>
+		/// <summary><c>NP 0F C4 /r ib</c><br/>
+		/// <br/>
+		/// <c>PINSRW mm, r32/m16, imm8</c></summary>
 		Pinsrw_mm_r32m16_imm8,
-		/// <summary>NP REX.W 0F C4 /r ib</summary>
+		/// <summary><c>NP REX.W 0F C4 /r ib</c><br/>
+		/// <br/>
+		/// <c>PINSRW mm, r64/m16, imm8</c></summary>
 		Pinsrw_mm_r64m16_imm8,
-		/// <summary>66 0F C4 /r ib</summary>
+		/// <summary><c>66 0F C4 /r ib</c><br/>
+		/// <br/>
+		/// <c>PINSRW xmm, r32/m16, imm8</c></summary>
 		Pinsrw_xmm_r32m16_imm8,
-		/// <summary>66 REX.W 0F C4 /r ib</summary>
+		/// <summary><c>66 REX.W 0F C4 /r ib</c><br/>
+		/// <br/>
+		/// <c>PINSRW xmm, r64/m16, imm8</c></summary>
 		Pinsrw_xmm_r64m16_imm8,
-		/// <summary>VEX.128.66.0F.W0 C4 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F.W0 C4 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRW xmm1, xmm2, r32/m16, imm8</c></summary>
 		VEX_Vpinsrw_xmm_xmm_r32m16_imm8,
-		/// <summary>VEX.128.66.0F.W1 C4 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F.W1 C4 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRW xmm1, xmm2, r64/m16, imm8</c></summary>
 		VEX_Vpinsrw_xmm_xmm_r64m16_imm8,
-		/// <summary>EVEX.128.66.0F.W0 C4 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 C4 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRW xmm1, xmm2, r32/m16, imm8</c></summary>
 		EVEX_Vpinsrw_xmm_xmm_r32m16_imm8,
-		/// <summary>EVEX.128.66.0F.W1 C4 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 C4 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRW xmm1, xmm2, r64/m16, imm8</c></summary>
 		EVEX_Vpinsrw_xmm_xmm_r64m16_imm8,
-		/// <summary>NP 0F C5 /r ib</summary>
+		/// <summary><c>NP 0F C5 /r ib</c><br/>
+		/// <br/>
+		/// <c>PEXTRW r32, mm, imm8</c></summary>
 		Pextrw_r32_mm_imm8,
-		/// <summary>NP REX.W 0F C5 /r ib</summary>
+		/// <summary><c>NP REX.W 0F C5 /r ib</c><br/>
+		/// <br/>
+		/// <c>PEXTRW r64, mm, imm8</c></summary>
 		Pextrw_r64_mm_imm8,
-		/// <summary>66 0F C5 /r ib</summary>
+		/// <summary><c>66 0F C5 /r ib</c><br/>
+		/// <br/>
+		/// <c>PEXTRW r32, xmm, imm8</c></summary>
 		Pextrw_r32_xmm_imm8,
-		/// <summary>66 REX.W 0F C5 /r ib</summary>
+		/// <summary><c>66 REX.W 0F C5 /r ib</c><br/>
+		/// <br/>
+		/// <c>PEXTRW r64, xmm, imm8</c></summary>
 		Pextrw_r64_xmm_imm8,
-		/// <summary>VEX.128.66.0F.W0 C5 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F.W0 C5 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRW r32, xmm1, imm8</c></summary>
 		VEX_Vpextrw_r32_xmm_imm8,
-		/// <summary>VEX.128.66.0F.W1 C5 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F.W1 C5 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRW r64, xmm1, imm8</c></summary>
 		VEX_Vpextrw_r64_xmm_imm8,
-		/// <summary>EVEX.128.66.0F.W0 C5 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 C5 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRW r32, xmm1, imm8</c></summary>
 		EVEX_Vpextrw_r32_xmm_imm8,
-		/// <summary>EVEX.128.66.0F.W1 C5 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 C5 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRW r64, xmm1, imm8</c></summary>
 		EVEX_Vpextrw_r64_xmm_imm8,
-		/// <summary>NP 0F C6 /r ib</summary>
+		/// <summary><c>NP 0F C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>SHUFPS xmm1, xmm2/m128, imm8</c></summary>
 		Shufps_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.0F.WIG C6 /r ib</summary>
+		/// <summary><c>VEX.128.0F.WIG C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFPS xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vshufps_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.0F.WIG C6 /r ib</summary>
+		/// <summary><c>VEX.256.0F.WIG C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFPS ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vshufps_ymm_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.0F.W0 C6 /r ib</summary>
+		/// <summary><c>EVEX.128.0F.W0 C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c></summary>
 		EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8,
-		/// <summary>EVEX.256.0F.W0 C6 /r ib</summary>
+		/// <summary><c>EVEX.256.0F.W0 C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.0F.W0 C6 /r ib</summary>
+		/// <summary><c>EVEX.512.0F.W0 C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c></summary>
 		EVEX_Vshufps_zmm_k1z_zmm_zmmm512b32_imm8,
-		/// <summary>66 0F C6 /r ib</summary>
+		/// <summary><c>66 0F C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>SHUFPD xmm1, xmm2/m128, imm8</c></summary>
 		Shufpd_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F.WIG C6 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F.WIG C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFPD xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vshufpd_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F.WIG C6 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F.WIG C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFPD ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vshufpd_ymm_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F.W1 C6 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F.W1 C6 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F.W1 C6 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 C6 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c></summary>
 		EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8,
-		/// <summary>0F C7 /1</summary>
+		/// <summary><c>0F C7 /1</c><br/>
+		/// <br/>
+		/// <c>CMPXCHG8B m64</c></summary>
 		Cmpxchg8b_m64,
-		/// <summary>REX.W 0F C7 /1</summary>
+		/// <summary><c>REX.W 0F C7 /1</c><br/>
+		/// <br/>
+		/// <c>CMPXCHG16B m128</c></summary>
 		Cmpxchg16b_m128,
-		/// <summary>NP 0F C7 /3</summary>
+		/// <summary><c>NP 0F C7 /3</c><br/>
+		/// <br/>
+		/// <c>XRSTORS mem</c></summary>
 		Xrstors_mem,
-		/// <summary>NP REX.W 0F C7 /3</summary>
+		/// <summary><c>NP REX.W 0F C7 /3</c><br/>
+		/// <br/>
+		/// <c>XRSTORS64 mem</c></summary>
 		Xrstors64_mem,
-		/// <summary>NP 0F C7 /4</summary>
+		/// <summary><c>NP 0F C7 /4</c><br/>
+		/// <br/>
+		/// <c>XSAVEC mem</c></summary>
 		Xsavec_mem,
-		/// <summary>NP REX.W 0F C7 /4</summary>
+		/// <summary><c>NP REX.W 0F C7 /4</c><br/>
+		/// <br/>
+		/// <c>XSAVEC64 mem</c></summary>
 		Xsavec64_mem,
-		/// <summary>NP 0F C7 /5</summary>
+		/// <summary><c>NP 0F C7 /5</c><br/>
+		/// <br/>
+		/// <c>XSAVES mem</c></summary>
 		Xsaves_mem,
-		/// <summary>NP REX.W 0F C7 /5</summary>
+		/// <summary><c>NP REX.W 0F C7 /5</c><br/>
+		/// <br/>
+		/// <c>XSAVES64 mem</c></summary>
 		Xsaves64_mem,
-		/// <summary>NP 0F C7 /6</summary>
+		/// <summary><c>NP 0F C7 /6</c><br/>
+		/// <br/>
+		/// <c>VMPTRLD m64</c></summary>
 		Vmptrld_m64,
-		/// <summary>66 0F C7 /6</summary>
+		/// <summary><c>66 0F C7 /6</c><br/>
+		/// <br/>
+		/// <c>VMCLEAR m64</c></summary>
 		Vmclear_m64,
-		/// <summary>F3 0F C7 /6</summary>
+		/// <summary><c>F3 0F C7 /6</c><br/>
+		/// <br/>
+		/// <c>VMXON m64</c></summary>
 		Vmxon_m64,
-		/// <summary>o16 0F C7 /6</summary>
+		/// <summary><c>o16 0F C7 /6</c><br/>
+		/// <br/>
+		/// <c>RDRAND r16</c></summary>
 		Rdrand_r16,
-		/// <summary>o32 0F C7 /6</summary>
+		/// <summary><c>o32 0F C7 /6</c><br/>
+		/// <br/>
+		/// <c>RDRAND r32</c></summary>
 		Rdrand_r32,
-		/// <summary>REX.W 0F C7 /6</summary>
+		/// <summary><c>REX.W 0F C7 /6</c><br/>
+		/// <br/>
+		/// <c>RDRAND r64</c></summary>
 		Rdrand_r64,
-		/// <summary>NP 0F C7 /7</summary>
+		/// <summary><c>NP 0F C7 /7</c><br/>
+		/// <br/>
+		/// <c>VMPTRST m64</c></summary>
 		Vmptrst_m64,
-		/// <summary>o16 0F C7 /7</summary>
+		/// <summary><c>o16 0F C7 /7</c><br/>
+		/// <br/>
+		/// <c>RDSEED r16</c></summary>
 		Rdseed_r16,
-		/// <summary>o32 0F C7 /7</summary>
+		/// <summary><c>o32 0F C7 /7</c><br/>
+		/// <br/>
+		/// <c>RDSEED r32</c></summary>
 		Rdseed_r32,
-		/// <summary>REX.W 0F C7 /7</summary>
+		/// <summary><c>REX.W 0F C7 /7</c><br/>
+		/// <br/>
+		/// <c>RDSEED r64</c></summary>
 		Rdseed_r64,
-		/// <summary>F3 0F C7 /7</summary>
+		/// <summary><c>F3 0F C7 /7</c><br/>
+		/// <br/>
+		/// <c>RDPID r32</c></summary>
 		Rdpid_r32,
-		/// <summary>F3 0F C7 /7</summary>
+		/// <summary><c>F3 0F C7 /7</c><br/>
+		/// <br/>
+		/// <c>RDPID r64</c></summary>
 		Rdpid_r64,
-		/// <summary>o16 0F C8+rw</summary>
+		/// <summary><c>o16 0F C8+rw</c><br/>
+		/// <br/>
+		/// <c>BSWAP r16</c></summary>
 		Bswap_r16,
-		/// <summary>o32 0F C8+rd</summary>
+		/// <summary><c>o32 0F C8+rd</c><br/>
+		/// <br/>
+		/// <c>BSWAP r32</c></summary>
 		Bswap_r32,
-		/// <summary>REX.W 0F C8+ro</summary>
+		/// <summary><c>REX.W 0F C8+ro</c><br/>
+		/// <br/>
+		/// <c>BSWAP r64</c></summary>
 		Bswap_r64,
-		/// <summary>66 0F D0 /r</summary>
+		/// <summary><c>66 0F D0 /r</c><br/>
+		/// <br/>
+		/// <c>ADDSUBPD xmm1, xmm2/m128</c></summary>
 		Addsubpd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG D0 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG D0 /r</c><br/>
+		/// <br/>
+		/// <c>VADDSUBPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vaddsubpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG D0 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG D0 /r</c><br/>
+		/// <br/>
+		/// <c>VADDSUBPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vaddsubpd_ymm_ymm_ymmm256,
-		/// <summary>F2 0F D0 /r</summary>
+		/// <summary><c>F2 0F D0 /r</c><br/>
+		/// <br/>
+		/// <c>ADDSUBPS xmm1, xmm2/m128</c></summary>
 		Addsubps_xmm_xmmm128,
-		/// <summary>VEX.128.F2.0F.WIG D0 /r</summary>
+		/// <summary><c>VEX.128.F2.0F.WIG D0 /r</c><br/>
+		/// <br/>
+		/// <c>VADDSUBPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vaddsubps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.F2.0F.WIG D0 /r</summary>
+		/// <summary><c>VEX.256.F2.0F.WIG D0 /r</c><br/>
+		/// <br/>
+		/// <c>VADDSUBPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vaddsubps_ymm_ymm_ymmm256,
-		/// <summary>NP 0F D1 /r</summary>
+		/// <summary><c>NP 0F D1 /r</c><br/>
+		/// <br/>
+		/// <c>PSRLW mm, mm/m64</c></summary>
 		Psrlw_mm_mmm64,
-		/// <summary>66 0F D1 /r</summary>
+		/// <summary><c>66 0F D1 /r</c><br/>
+		/// <br/>
+		/// <c>PSRLW xmm1, xmm2/m128</c></summary>
 		Psrlw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG D1 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG D1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsrlw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG D1 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG D1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLW ymm1, ymm2, xmm3/m128</c></summary>
 		VEX_Vpsrlw_ymm_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F.WIG D1 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG D1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsrlw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG D1 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG D1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLW ymm1 {k1}{z}, ymm2, xmm3/m128</c></summary>
 		EVEX_Vpsrlw_ymm_k1z_ymm_xmmm128,
-		/// <summary>EVEX.512.66.0F.WIG D1 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG D1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLW zmm1 {k1}{z}, zmm2, xmm3/m128</c></summary>
 		EVEX_Vpsrlw_zmm_k1z_zmm_xmmm128,
-		/// <summary>NP 0F D2 /r</summary>
+		/// <summary><c>NP 0F D2 /r</c><br/>
+		/// <br/>
+		/// <c>PSRLD mm, mm/m64</c></summary>
 		Psrld_mm_mmm64,
-		/// <summary>66 0F D2 /r</summary>
+		/// <summary><c>66 0F D2 /r</c><br/>
+		/// <br/>
+		/// <c>PSRLD xmm1, xmm2/m128</c></summary>
 		Psrld_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG D2 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG D2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsrld_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG D2 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG D2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLD ymm1, ymm2, xmm3/m128</c></summary>
 		VEX_Vpsrld_ymm_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F.W0 D2 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 D2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLD xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsrld_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.W0 D2 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 D2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLD ymm1 {k1}{z}, ymm2, xmm3/m128</c></summary>
 		EVEX_Vpsrld_ymm_k1z_ymm_xmmm128,
-		/// <summary>EVEX.512.66.0F.W0 D2 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 D2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLD zmm1 {k1}{z}, zmm2, xmm3/m128</c></summary>
 		EVEX_Vpsrld_zmm_k1z_zmm_xmmm128,
-		/// <summary>NP 0F D3 /r</summary>
+		/// <summary><c>NP 0F D3 /r</c><br/>
+		/// <br/>
+		/// <c>PSRLQ mm, mm/m64</c></summary>
 		Psrlq_mm_mmm64,
-		/// <summary>66 0F D3 /r</summary>
+		/// <summary><c>66 0F D3 /r</c><br/>
+		/// <br/>
+		/// <c>PSRLQ xmm1, xmm2/m128</c></summary>
 		Psrlq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG D3 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG D3 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsrlq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG D3 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG D3 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLQ ymm1, ymm2, xmm3/m128</c></summary>
 		VEX_Vpsrlq_ymm_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F.W1 D3 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 D3 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLQ xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsrlq_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.W1 D3 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 D3 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLQ ymm1 {k1}{z}, ymm2, xmm3/m128</c></summary>
 		EVEX_Vpsrlq_ymm_k1z_ymm_xmmm128,
-		/// <summary>EVEX.512.66.0F.W1 D3 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 D3 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLQ zmm1 {k1}{z}, zmm2, xmm3/m128</c></summary>
 		EVEX_Vpsrlq_zmm_k1z_zmm_xmmm128,
-		/// <summary>NP 0F D4 /r</summary>
+		/// <summary><c>NP 0F D4 /r</c><br/>
+		/// <br/>
+		/// <c>PADDQ mm, mm/m64</c></summary>
 		Paddq_mm_mmm64,
-		/// <summary>66 0F D4 /r</summary>
+		/// <summary><c>66 0F D4 /r</c><br/>
+		/// <br/>
+		/// <c>PADDQ xmm1, xmm2/m128</c></summary>
 		Paddq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG D4 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG D4 /r</c><br/>
+		/// <br/>
+		/// <c>VPADDQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpaddq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG D4 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG D4 /r</c><br/>
+		/// <br/>
+		/// <c>VPADDQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpaddq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 D4 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 D4 /r</c><br/>
+		/// <br/>
+		/// <c>VPADDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpaddq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 D4 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 D4 /r</c><br/>
+		/// <br/>
+		/// <c>VPADDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpaddq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 D4 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 D4 /r</c><br/>
+		/// <br/>
+		/// <c>VPADDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpaddq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F D5 /r</summary>
+		/// <summary><c>NP 0F D5 /r</c><br/>
+		/// <br/>
+		/// <c>PMULLW mm, mm/m64</c></summary>
 		Pmullw_mm_mmm64,
-		/// <summary>66 0F D5 /r</summary>
+		/// <summary><c>66 0F D5 /r</c><br/>
+		/// <br/>
+		/// <c>PMULLW xmm1, xmm2/m128</c></summary>
 		Pmullw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG D5 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG D5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmullw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG D5 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG D5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmullw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG D5 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG D5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpmullw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG D5 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG D5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpmullw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG D5 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG D5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpmullw_zmm_k1z_zmm_zmmm512,
-		/// <summary>66 0F D6 /r</summary>
+		/// <summary><c>66 0F D6 /r</c><br/>
+		/// <br/>
+		/// <c>MOVQ xmm2/m64, xmm1</c></summary>
 		Movq_xmmm64_xmm,
-		/// <summary>VEX.128.66.0F.WIG D6 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG D6 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVQ xmm1/m64, xmm2</c></summary>
 		VEX_Vmovq_xmmm64_xmm,
-		/// <summary>EVEX.128.66.0F.W1 D6 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 D6 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVQ xmm1/m64, xmm2</c></summary>
 		EVEX_Vmovq_xmmm64_xmm,
-		/// <summary>F3 0F D6 /r</summary>
+		/// <summary><c>F3 0F D6 /r</c><br/>
+		/// <br/>
+		/// <c>MOVQ2DQ xmm, mm</c></summary>
 		Movq2dq_xmm_mm,
-		/// <summary>F2 0F D6 /r</summary>
+		/// <summary><c>F2 0F D6 /r</c><br/>
+		/// <br/>
+		/// <c>MOVDQ2Q mm, xmm</c></summary>
 		Movdq2q_mm_xmm,
-		/// <summary>NP 0F D7 /r</summary>
+		/// <summary><c>NP 0F D7 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVMSKB r32, mm</c></summary>
 		Pmovmskb_r32_mm,
-		/// <summary>NP REX.W 0F D7 /r</summary>
+		/// <summary><c>NP REX.W 0F D7 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVMSKB r64, mm</c></summary>
 		Pmovmskb_r64_mm,
-		/// <summary>66 0F D7 /r</summary>
+		/// <summary><c>66 0F D7 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVMSKB r32, xmm</c></summary>
 		Pmovmskb_r32_xmm,
-		/// <summary>66 REX.W 0F D7 /r</summary>
+		/// <summary><c>66 REX.W 0F D7 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVMSKB r64, xmm</c></summary>
 		Pmovmskb_r64_xmm,
-		/// <summary>VEX.128.66.0F.W0 D7 /r</summary>
+		/// <summary><c>VEX.128.66.0F.W0 D7 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVMSKB r32, xmm1</c></summary>
 		VEX_Vpmovmskb_r32_xmm,
-		/// <summary>VEX.128.66.0F.W1 D7 /r</summary>
+		/// <summary><c>VEX.128.66.0F.W1 D7 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVMSKB r64, xmm1</c></summary>
 		VEX_Vpmovmskb_r64_xmm,
-		/// <summary>VEX.256.66.0F.W0 D7 /r</summary>
+		/// <summary><c>VEX.256.66.0F.W0 D7 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVMSKB r32, ymm1</c></summary>
 		VEX_Vpmovmskb_r32_ymm,
-		/// <summary>VEX.256.66.0F.W1 D7 /r</summary>
+		/// <summary><c>VEX.256.66.0F.W1 D7 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVMSKB r64, ymm1</c></summary>
 		VEX_Vpmovmskb_r64_ymm,
-		/// <summary>NP 0F D8 /r</summary>
+		/// <summary><c>NP 0F D8 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBUSB mm, mm/m64</c></summary>
 		Psubusb_mm_mmm64,
-		/// <summary>66 0F D8 /r</summary>
+		/// <summary><c>66 0F D8 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBUSB xmm1, xmm2/m128</c></summary>
 		Psubusb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG D8 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG D8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBUSB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsubusb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG D8 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG D8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBUSB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsubusb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG D8 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG D8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBUSB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsubusb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG D8 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG D8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBUSB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpsubusb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG D8 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG D8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBUSB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpsubusb_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F D9 /r</summary>
+		/// <summary><c>NP 0F D9 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBUSW mm, mm/m64</c></summary>
 		Psubusw_mm_mmm64,
-		/// <summary>66 0F D9 /r</summary>
+		/// <summary><c>66 0F D9 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBUSW xmm1, xmm2/m128</c></summary>
 		Psubusw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG D9 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG D9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBUSW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsubusw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG D9 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG D9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBUSW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsubusw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG D9 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG D9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBUSW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsubusw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG D9 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG D9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBUSW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpsubusw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG D9 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG D9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBUSW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpsubusw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F DA /r</summary>
+		/// <summary><c>NP 0F DA /r</c><br/>
+		/// <br/>
+		/// <c>PMINUB mm1, mm2/m64</c></summary>
 		Pminub_mm_mmm64,
-		/// <summary>66 0F DA /r</summary>
+		/// <summary><c>66 0F DA /r</c><br/>
+		/// <br/>
+		/// <c>PMINUB xmm1, xmm2/m128</c></summary>
 		Pminub_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG DA /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG DA /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpminub_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG DA /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG DA /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpminub_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG DA /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG DA /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpminub_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG DA /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG DA /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpminub_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG DA /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG DA /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpminub_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F DB /r</summary>
+		/// <summary><c>NP 0F DB /r</c><br/>
+		/// <br/>
+		/// <c>PAND mm, mm/m64</c></summary>
 		Pand_mm_mmm64,
-		/// <summary>66 0F DB /r</summary>
+		/// <summary><c>66 0F DB /r</c><br/>
+		/// <br/>
+		/// <c>PAND xmm1, xmm2/m128</c></summary>
 		Pand_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG DB /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG DB /r</c><br/>
+		/// <br/>
+		/// <c>VPAND xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpand_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG DB /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG DB /r</c><br/>
+		/// <br/>
+		/// <c>VPAND ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpand_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 DB /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 DB /r</c><br/>
+		/// <br/>
+		/// <c>VPANDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpandd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 DB /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 DB /r</c><br/>
+		/// <br/>
+		/// <c>VPANDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpandd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 DB /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 DB /r</c><br/>
+		/// <br/>
+		/// <c>VPANDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpandd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F.W1 DB /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 DB /r</c><br/>
+		/// <br/>
+		/// <c>VPANDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpandq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 DB /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 DB /r</c><br/>
+		/// <br/>
+		/// <c>VPANDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpandq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 DB /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 DB /r</c><br/>
+		/// <br/>
+		/// <c>VPANDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpandq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F DC /r</summary>
+		/// <summary><c>NP 0F DC /r</c><br/>
+		/// <br/>
+		/// <c>PADDUSB mm, mm/m64</c></summary>
 		Paddusb_mm_mmm64,
-		/// <summary>66 0F DC /r</summary>
+		/// <summary><c>66 0F DC /r</c><br/>
+		/// <br/>
+		/// <c>PADDUSB xmm1, xmm2/m128</c></summary>
 		Paddusb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG DC /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG DC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDUSB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpaddusb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG DC /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG DC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDUSB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpaddusb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG DC /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG DC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDUSB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpaddusb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG DC /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG DC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDUSB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpaddusb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG DC /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG DC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDUSB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpaddusb_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F DD /r</summary>
+		/// <summary><c>NP 0F DD /r</c><br/>
+		/// <br/>
+		/// <c>PADDUSW mm, mm/m64</c></summary>
 		Paddusw_mm_mmm64,
-		/// <summary>66 0F DD /r</summary>
+		/// <summary><c>66 0F DD /r</c><br/>
+		/// <br/>
+		/// <c>PADDUSW xmm1, xmm2/m128</c></summary>
 		Paddusw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG DD /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG DD /r</c><br/>
+		/// <br/>
+		/// <c>VPADDUSW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpaddusw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG DD /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG DD /r</c><br/>
+		/// <br/>
+		/// <c>VPADDUSW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpaddusw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG DD /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG DD /r</c><br/>
+		/// <br/>
+		/// <c>VPADDUSW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpaddusw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG DD /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG DD /r</c><br/>
+		/// <br/>
+		/// <c>VPADDUSW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpaddusw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG DD /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG DD /r</c><br/>
+		/// <br/>
+		/// <c>VPADDUSW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpaddusw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F DE /r</summary>
+		/// <summary><c>NP 0F DE /r</c><br/>
+		/// <br/>
+		/// <c>PMAXUB mm1, mm2/m64</c></summary>
 		Pmaxub_mm_mmm64,
-		/// <summary>66 0F DE /r</summary>
+		/// <summary><c>66 0F DE /r</c><br/>
+		/// <br/>
+		/// <c>PMAXUB xmm1, xmm2/m128</c></summary>
 		Pmaxub_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG DE /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG DE /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmaxub_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG DE /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG DE /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmaxub_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG DE /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG DE /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpmaxub_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG DE /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG DE /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpmaxub_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG DE /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG DE /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpmaxub_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F DF /r</summary>
+		/// <summary><c>NP 0F DF /r</c><br/>
+		/// <br/>
+		/// <c>PANDN mm, mm/m64</c></summary>
 		Pandn_mm_mmm64,
-		/// <summary>66 0F DF /r</summary>
+		/// <summary><c>66 0F DF /r</c><br/>
+		/// <br/>
+		/// <c>PANDN xmm1, xmm2/m128</c></summary>
 		Pandn_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG DF /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG DF /r</c><br/>
+		/// <br/>
+		/// <c>VPANDN xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpandn_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG DF /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG DF /r</c><br/>
+		/// <br/>
+		/// <c>VPANDN ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpandn_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 DF /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 DF /r</c><br/>
+		/// <br/>
+		/// <c>VPANDND xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpandnd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 DF /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 DF /r</c><br/>
+		/// <br/>
+		/// <c>VPANDND ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpandnd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 DF /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 DF /r</c><br/>
+		/// <br/>
+		/// <c>VPANDND zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpandnd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F.W1 DF /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 DF /r</c><br/>
+		/// <br/>
+		/// <c>VPANDNQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpandnq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 DF /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 DF /r</c><br/>
+		/// <br/>
+		/// <c>VPANDNQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpandnq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 DF /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 DF /r</c><br/>
+		/// <br/>
+		/// <c>VPANDNQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpandnq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F E0 /r</summary>
+		/// <summary><c>NP 0F E0 /r</c><br/>
+		/// <br/>
+		/// <c>PAVGB mm1, mm2/m64</c></summary>
 		Pavgb_mm_mmm64,
-		/// <summary>66 0F E0 /r</summary>
+		/// <summary><c>66 0F E0 /r</c><br/>
+		/// <br/>
+		/// <c>PAVGB xmm1, xmm2/m128</c></summary>
 		Pavgb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG E0 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG E0 /r</c><br/>
+		/// <br/>
+		/// <c>VPAVGB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpavgb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG E0 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG E0 /r</c><br/>
+		/// <br/>
+		/// <c>VPAVGB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpavgb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG E0 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG E0 /r</c><br/>
+		/// <br/>
+		/// <c>VPAVGB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpavgb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG E0 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG E0 /r</c><br/>
+		/// <br/>
+		/// <c>VPAVGB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpavgb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG E0 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG E0 /r</c><br/>
+		/// <br/>
+		/// <c>VPAVGB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpavgb_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F E1 /r</summary>
+		/// <summary><c>NP 0F E1 /r</c><br/>
+		/// <br/>
+		/// <c>PSRAW mm, mm/m64</c></summary>
 		Psraw_mm_mmm64,
-		/// <summary>66 0F E1 /r</summary>
+		/// <summary><c>66 0F E1 /r</c><br/>
+		/// <br/>
+		/// <c>PSRAW xmm1, xmm2/m128</c></summary>
 		Psraw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG E1 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG E1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsraw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG E1 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG E1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAW ymm1, ymm2, xmm3/m128</c></summary>
 		VEX_Vpsraw_ymm_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F.WIG E1 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG E1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsraw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG E1 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG E1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAW ymm1 {k1}{z}, ymm2, xmm3/m128</c></summary>
 		EVEX_Vpsraw_ymm_k1z_ymm_xmmm128,
-		/// <summary>EVEX.512.66.0F.WIG E1 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG E1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAW zmm1 {k1}{z}, zmm2, xmm3/m128</c></summary>
 		EVEX_Vpsraw_zmm_k1z_zmm_xmmm128,
-		/// <summary>NP 0F E2 /r</summary>
+		/// <summary><c>NP 0F E2 /r</c><br/>
+		/// <br/>
+		/// <c>PSRAD mm, mm/m64</c></summary>
 		Psrad_mm_mmm64,
-		/// <summary>66 0F E2 /r</summary>
+		/// <summary><c>66 0F E2 /r</c><br/>
+		/// <br/>
+		/// <c>PSRAD xmm1, xmm2/m128</c></summary>
 		Psrad_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG E2 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG E2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsrad_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG E2 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG E2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAD ymm1, ymm2, xmm3/m128</c></summary>
 		VEX_Vpsrad_ymm_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F.W0 E2 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 E2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAD xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsrad_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.W0 E2 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 E2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAD ymm1 {k1}{z}, ymm2, xmm3/m128</c></summary>
 		EVEX_Vpsrad_ymm_k1z_ymm_xmmm128,
-		/// <summary>EVEX.512.66.0F.W0 E2 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 E2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAD zmm1 {k1}{z}, zmm2, xmm3/m128</c></summary>
 		EVEX_Vpsrad_zmm_k1z_zmm_xmmm128,
-		/// <summary>EVEX.128.66.0F.W1 E2 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 E2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAQ xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsraq_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.W1 E2 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 E2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAQ ymm1 {k1}{z}, ymm2, xmm3/m128</c></summary>
 		EVEX_Vpsraq_ymm_k1z_ymm_xmmm128,
-		/// <summary>EVEX.512.66.0F.W1 E2 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 E2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAQ zmm1 {k1}{z}, zmm2, xmm3/m128</c></summary>
 		EVEX_Vpsraq_zmm_k1z_zmm_xmmm128,
-		/// <summary>NP 0F E3 /r</summary>
+		/// <summary><c>NP 0F E3 /r</c><br/>
+		/// <br/>
+		/// <c>PAVGW mm1, mm2/m64</c></summary>
 		Pavgw_mm_mmm64,
-		/// <summary>66 0F E3 /r</summary>
+		/// <summary><c>66 0F E3 /r</c><br/>
+		/// <br/>
+		/// <c>PAVGW xmm1, xmm2/m128</c></summary>
 		Pavgw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG E3 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG E3 /r</c><br/>
+		/// <br/>
+		/// <c>VPAVGW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpavgw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG E3 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG E3 /r</c><br/>
+		/// <br/>
+		/// <c>VPAVGW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpavgw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG E3 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG E3 /r</c><br/>
+		/// <br/>
+		/// <c>VPAVGW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpavgw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG E3 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG E3 /r</c><br/>
+		/// <br/>
+		/// <c>VPAVGW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpavgw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG E3 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG E3 /r</c><br/>
+		/// <br/>
+		/// <c>VPAVGW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpavgw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F E4 /r</summary>
+		/// <summary><c>NP 0F E4 /r</c><br/>
+		/// <br/>
+		/// <c>PMULHUW mm1, mm2/m64</c></summary>
 		Pmulhuw_mm_mmm64,
-		/// <summary>66 0F E4 /r</summary>
+		/// <summary><c>66 0F E4 /r</c><br/>
+		/// <br/>
+		/// <c>PMULHUW xmm1, xmm2/m128</c></summary>
 		Pmulhuw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG E4 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG E4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHUW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmulhuw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG E4 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG E4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHUW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmulhuw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG E4 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG E4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHUW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpmulhuw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG E4 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG E4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHUW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpmulhuw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG E4 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG E4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHUW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpmulhuw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F E5 /r</summary>
+		/// <summary><c>NP 0F E5 /r</c><br/>
+		/// <br/>
+		/// <c>PMULHW mm, mm/m64</c></summary>
 		Pmulhw_mm_mmm64,
-		/// <summary>66 0F E5 /r</summary>
+		/// <summary><c>66 0F E5 /r</c><br/>
+		/// <br/>
+		/// <c>PMULHW xmm1, xmm2/m128</c></summary>
 		Pmulhw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG E5 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG E5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmulhw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG E5 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG E5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmulhw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG E5 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG E5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpmulhw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG E5 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG E5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpmulhw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG E5 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG E5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpmulhw_zmm_k1z_zmm_zmmm512,
-		/// <summary>66 0F E6 /r</summary>
+		/// <summary><c>66 0F E6 /r</c><br/>
+		/// <br/>
+		/// <c>CVTTPD2DQ xmm1, xmm2/m128</c></summary>
 		Cvttpd2dq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG E6 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2DQ xmm1, xmm2/m128</c></summary>
 		VEX_Vcvttpd2dq_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG E6 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2DQ xmm1, ymm2/m256</c></summary>
 		VEX_Vcvttpd2dq_xmm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 E6 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2DQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 E6 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2DQ xmm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 E6 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTTPD2DQ ymm1 {k1}{z}, zmm2/m512/m64bcst{sae}</c></summary>
 		EVEX_Vcvttpd2dq_ymm_k1z_zmmm512b64_sae,
-		/// <summary>F3 0F E6 /r</summary>
+		/// <summary><c>F3 0F E6 /r</c><br/>
+		/// <br/>
+		/// <c>CVTDQ2PD xmm1, xmm2/m64</c></summary>
 		Cvtdq2pd_xmm_xmmm64,
-		/// <summary>VEX.128.F3.0F.WIG E6 /r</summary>
+		/// <summary><c>VEX.128.F3.0F.WIG E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTDQ2PD xmm1, xmm2/m64</c></summary>
 		VEX_Vcvtdq2pd_xmm_xmmm64,
-		/// <summary>VEX.256.F3.0F.WIG E6 /r</summary>
+		/// <summary><c>VEX.256.F3.0F.WIG E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTDQ2PD ymm1, xmm2/m128</c></summary>
 		VEX_Vcvtdq2pd_ymm_xmmm128,
-		/// <summary>EVEX.128.F3.0F.W0 E6 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W0 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTDQ2PD xmm1 {k1}{z}, xmm2/m64/m32bcst</c></summary>
 		EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32,
-		/// <summary>EVEX.256.F3.0F.W0 E6 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F.W0 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTDQ2PD ymm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32,
-		/// <summary>EVEX.512.F3.0F.W0 E6 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F.W0 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32,
-		/// <summary>EVEX.128.F3.0F.W1 E6 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F.W1 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTQQ2PD xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.F3.0F.W1 E6 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F.W1 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTQQ2PD ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.F3.0F.W1 E6 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F.W1 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTQQ2PD zmm1 {k1}{z}, zmm2/m512/m64bcst{er}</c></summary>
 		EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er,
-		/// <summary>F2 0F E6 /r</summary>
+		/// <summary><c>F2 0F E6 /r</c><br/>
+		/// <br/>
+		/// <c>CVTPD2DQ xmm1, xmm2/m128</c></summary>
 		Cvtpd2dq_xmm_xmmm128,
-		/// <summary>VEX.128.F2.0F.WIG E6 /r</summary>
+		/// <summary><c>VEX.128.F2.0F.WIG E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2DQ xmm1, xmm2/m128</c></summary>
 		VEX_Vcvtpd2dq_xmm_xmmm128,
-		/// <summary>VEX.256.F2.0F.WIG E6 /r</summary>
+		/// <summary><c>VEX.256.F2.0F.WIG E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2DQ xmm1, ymm2/m256</c></summary>
 		VEX_Vcvtpd2dq_xmm_ymmm256,
-		/// <summary>EVEX.128.F2.0F.W1 E6 /r</summary>
+		/// <summary><c>EVEX.128.F2.0F.W1 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2DQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.F2.0F.W1 E6 /r</summary>
+		/// <summary><c>EVEX.256.F2.0F.W1 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2DQ xmm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.F2.0F.W1 E6 /r</summary>
+		/// <summary><c>EVEX.512.F2.0F.W1 E6 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPD2DQ ymm1 {k1}{z}, zmm2/m512/m64bcst{er}</c></summary>
 		EVEX_Vcvtpd2dq_ymm_k1z_zmmm512b64_er,
-		/// <summary>NP 0F E7 /r</summary>
+		/// <summary><c>NP 0F E7 /r</c><br/>
+		/// <br/>
+		/// <c>MOVNTQ m64, mm</c></summary>
 		Movntq_m64_mm,
-		/// <summary>66 0F E7 /r</summary>
+		/// <summary><c>66 0F E7 /r</c><br/>
+		/// <br/>
+		/// <c>MOVNTDQ m128, xmm1</c></summary>
 		Movntdq_m128_xmm,
-		/// <summary>VEX.128.66.0F.WIG E7 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG E7 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTDQ m128, xmm1</c></summary>
 		VEX_Vmovntdq_m128_xmm,
-		/// <summary>VEX.256.66.0F.WIG E7 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG E7 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTDQ m256, ymm1</c></summary>
 		VEX_Vmovntdq_m256_ymm,
-		/// <summary>EVEX.128.66.0F.W0 E7 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 E7 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTDQ m128, xmm1</c></summary>
 		EVEX_Vmovntdq_m128_xmm,
-		/// <summary>EVEX.256.66.0F.W0 E7 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 E7 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTDQ m256, ymm1</c></summary>
 		EVEX_Vmovntdq_m256_ymm,
-		/// <summary>EVEX.512.66.0F.W0 E7 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 E7 /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTDQ m512, zmm1</c></summary>
 		EVEX_Vmovntdq_m512_zmm,
-		/// <summary>NP 0F E8 /r</summary>
+		/// <summary><c>NP 0F E8 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBSB mm, mm/m64</c></summary>
 		Psubsb_mm_mmm64,
-		/// <summary>66 0F E8 /r</summary>
+		/// <summary><c>66 0F E8 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBSB xmm1, xmm2/m128</c></summary>
 		Psubsb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG E8 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG E8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBSB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsubsb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG E8 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG E8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBSB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsubsb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG E8 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG E8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBSB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsubsb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG E8 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG E8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBSB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpsubsb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG E8 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG E8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBSB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpsubsb_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F E9 /r</summary>
+		/// <summary><c>NP 0F E9 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBSW mm, mm/m64</c></summary>
 		Psubsw_mm_mmm64,
-		/// <summary>66 0F E9 /r</summary>
+		/// <summary><c>66 0F E9 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBSW xmm1, xmm2/m128</c></summary>
 		Psubsw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG E9 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG E9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBSW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsubsw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG E9 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG E9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBSW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsubsw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG E9 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG E9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBSW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsubsw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG E9 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG E9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBSW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpsubsw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG E9 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG E9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBSW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpsubsw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F EA /r</summary>
+		/// <summary><c>NP 0F EA /r</c><br/>
+		/// <br/>
+		/// <c>PMINSW mm1, mm2/m64</c></summary>
 		Pminsw_mm_mmm64,
-		/// <summary>66 0F EA /r</summary>
+		/// <summary><c>66 0F EA /r</c><br/>
+		/// <br/>
+		/// <c>PMINSW xmm1, xmm2/m128</c></summary>
 		Pminsw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG EA /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG EA /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpminsw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG EA /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG EA /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpminsw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG EA /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG EA /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpminsw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG EA /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG EA /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpminsw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG EA /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG EA /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpminsw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F EB /r</summary>
+		/// <summary><c>NP 0F EB /r</c><br/>
+		/// <br/>
+		/// <c>POR mm, mm/m64</c></summary>
 		Por_mm_mmm64,
-		/// <summary>66 0F EB /r</summary>
+		/// <summary><c>66 0F EB /r</c><br/>
+		/// <br/>
+		/// <c>POR xmm1, xmm2/m128</c></summary>
 		Por_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG EB /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG EB /r</c><br/>
+		/// <br/>
+		/// <c>VPOR xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpor_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG EB /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG EB /r</c><br/>
+		/// <br/>
+		/// <c>VPOR ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpor_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 EB /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 EB /r</c><br/>
+		/// <br/>
+		/// <c>VPORD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpord_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 EB /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 EB /r</c><br/>
+		/// <br/>
+		/// <c>VPORD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpord_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 EB /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 EB /r</c><br/>
+		/// <br/>
+		/// <c>VPORD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpord_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F.W1 EB /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 EB /r</c><br/>
+		/// <br/>
+		/// <c>VPORQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vporq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 EB /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 EB /r</c><br/>
+		/// <br/>
+		/// <c>VPORQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vporq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 EB /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 EB /r</c><br/>
+		/// <br/>
+		/// <c>VPORQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vporq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F EC /r</summary>
+		/// <summary><c>NP 0F EC /r</c><br/>
+		/// <br/>
+		/// <c>PADDSB mm, mm/m64</c></summary>
 		Paddsb_mm_mmm64,
-		/// <summary>66 0F EC /r</summary>
+		/// <summary><c>66 0F EC /r</c><br/>
+		/// <br/>
+		/// <c>PADDSB xmm1, xmm2/m128</c></summary>
 		Paddsb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG EC /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG EC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDSB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpaddsb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG EC /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG EC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDSB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpaddsb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG EC /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG EC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDSB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpaddsb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG EC /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG EC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDSB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpaddsb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG EC /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG EC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDSB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpaddsb_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F ED /r</summary>
+		/// <summary><c>NP 0F ED /r</c><br/>
+		/// <br/>
+		/// <c>PADDSW mm, mm/m64</c></summary>
 		Paddsw_mm_mmm64,
-		/// <summary>66 0F ED /r</summary>
+		/// <summary><c>66 0F ED /r</c><br/>
+		/// <br/>
+		/// <c>PADDSW xmm1, xmm2/m128</c></summary>
 		Paddsw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG ED /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG ED /r</c><br/>
+		/// <br/>
+		/// <c>VPADDSW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpaddsw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG ED /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG ED /r</c><br/>
+		/// <br/>
+		/// <c>VPADDSW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpaddsw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG ED /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG ED /r</c><br/>
+		/// <br/>
+		/// <c>VPADDSW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpaddsw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG ED /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG ED /r</c><br/>
+		/// <br/>
+		/// <c>VPADDSW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpaddsw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG ED /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG ED /r</c><br/>
+		/// <br/>
+		/// <c>VPADDSW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpaddsw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F EE /r</summary>
+		/// <summary><c>NP 0F EE /r</c><br/>
+		/// <br/>
+		/// <c>PMAXSW mm1, mm2/m64</c></summary>
 		Pmaxsw_mm_mmm64,
-		/// <summary>66 0F EE /r</summary>
+		/// <summary><c>66 0F EE /r</c><br/>
+		/// <br/>
+		/// <c>PMAXSW xmm1, xmm2/m128</c></summary>
 		Pmaxsw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG EE /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG EE /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmaxsw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG EE /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG EE /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmaxsw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG EE /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG EE /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpmaxsw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG EE /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG EE /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpmaxsw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG EE /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG EE /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpmaxsw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F EF /r</summary>
+		/// <summary><c>NP 0F EF /r</c><br/>
+		/// <br/>
+		/// <c>PXOR mm, mm/m64</c></summary>
 		Pxor_mm_mmm64,
-		/// <summary>66 0F EF /r</summary>
+		/// <summary><c>66 0F EF /r</c><br/>
+		/// <br/>
+		/// <c>PXOR xmm1, xmm2/m128</c></summary>
 		Pxor_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG EF /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG EF /r</c><br/>
+		/// <br/>
+		/// <c>VPXOR xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpxor_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG EF /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG EF /r</c><br/>
+		/// <br/>
+		/// <c>VPXOR ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpxor_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 EF /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 EF /r</c><br/>
+		/// <br/>
+		/// <c>VPXORD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpxord_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 EF /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 EF /r</c><br/>
+		/// <br/>
+		/// <c>VPXORD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpxord_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 EF /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 EF /r</c><br/>
+		/// <br/>
+		/// <c>VPXORD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpxord_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F.W1 EF /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 EF /r</c><br/>
+		/// <br/>
+		/// <c>VPXORQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpxorq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 EF /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 EF /r</c><br/>
+		/// <br/>
+		/// <c>VPXORQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpxorq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 EF /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 EF /r</c><br/>
+		/// <br/>
+		/// <c>VPXORQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpxorq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>F2 0F F0 /r</summary>
+		/// <summary><c>F2 0F F0 /r</c><br/>
+		/// <br/>
+		/// <c>LDDQU xmm1, m128</c></summary>
 		Lddqu_xmm_m128,
-		/// <summary>VEX.128.F2.0F.WIG F0 /r</summary>
+		/// <summary><c>VEX.128.F2.0F.WIG F0 /r</c><br/>
+		/// <br/>
+		/// <c>VLDDQU xmm1, m128</c></summary>
 		VEX_Vlddqu_xmm_m128,
-		/// <summary>VEX.256.F2.0F.WIG F0 /r</summary>
+		/// <summary><c>VEX.256.F2.0F.WIG F0 /r</c><br/>
+		/// <br/>
+		/// <c>VLDDQU ymm1, m256</c></summary>
 		VEX_Vlddqu_ymm_m256,
-		/// <summary>NP 0F F1 /r</summary>
+		/// <summary><c>NP 0F F1 /r</c><br/>
+		/// <br/>
+		/// <c>PSLLW mm, mm/m64</c></summary>
 		Psllw_mm_mmm64,
-		/// <summary>66 0F F1 /r</summary>
+		/// <summary><c>66 0F F1 /r</c><br/>
+		/// <br/>
+		/// <c>PSLLW xmm1, xmm2/m128</c></summary>
 		Psllw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG F1 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG F1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsllw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG F1 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG F1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLW ymm1, ymm2, xmm3/m128</c></summary>
 		VEX_Vpsllw_ymm_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F.WIG F1 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG F1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsllw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG F1 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG F1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLW ymm1 {k1}{z}, ymm2, xmm3/m128</c></summary>
 		EVEX_Vpsllw_ymm_k1z_ymm_xmmm128,
-		/// <summary>EVEX.512.66.0F.WIG F1 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG F1 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLW zmm1 {k1}{z}, zmm2, xmm3/m128</c></summary>
 		EVEX_Vpsllw_zmm_k1z_zmm_xmmm128,
-		/// <summary>NP 0F F2 /r</summary>
+		/// <summary><c>NP 0F F2 /r</c><br/>
+		/// <br/>
+		/// <c>PSLLD mm, mm/m64</c></summary>
 		Pslld_mm_mmm64,
-		/// <summary>66 0F F2 /r</summary>
+		/// <summary><c>66 0F F2 /r</c><br/>
+		/// <br/>
+		/// <c>PSLLD xmm1, xmm2/m128</c></summary>
 		Pslld_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG F2 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG F2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpslld_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG F2 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG F2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLD ymm1, ymm2, xmm3/m128</c></summary>
 		VEX_Vpslld_ymm_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F.W0 F2 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 F2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLD xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpslld_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.W0 F2 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 F2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLD ymm1 {k1}{z}, ymm2, xmm3/m128</c></summary>
 		EVEX_Vpslld_ymm_k1z_ymm_xmmm128,
-		/// <summary>EVEX.512.66.0F.W0 F2 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 F2 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLD zmm1 {k1}{z}, zmm2, xmm3/m128</c></summary>
 		EVEX_Vpslld_zmm_k1z_zmm_xmmm128,
-		/// <summary>NP 0F F3 /r</summary>
+		/// <summary><c>NP 0F F3 /r</c><br/>
+		/// <br/>
+		/// <c>PSLLQ mm, mm/m64</c></summary>
 		Psllq_mm_mmm64,
-		/// <summary>66 0F F3 /r</summary>
+		/// <summary><c>66 0F F3 /r</c><br/>
+		/// <br/>
+		/// <c>PSLLQ xmm1, xmm2/m128</c></summary>
 		Psllq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG F3 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG F3 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsllq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG F3 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG F3 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLQ ymm1, ymm2, xmm3/m128</c></summary>
 		VEX_Vpsllq_ymm_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F.W1 F3 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 F3 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLQ xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsllq_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.W1 F3 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 F3 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLQ ymm1 {k1}{z}, ymm2, xmm3/m128</c></summary>
 		EVEX_Vpsllq_ymm_k1z_ymm_xmmm128,
-		/// <summary>EVEX.512.66.0F.W1 F3 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 F3 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLQ zmm1 {k1}{z}, zmm2, xmm3/m128</c></summary>
 		EVEX_Vpsllq_zmm_k1z_zmm_xmmm128,
-		/// <summary>NP 0F F4 /r</summary>
+		/// <summary><c>NP 0F F4 /r</c><br/>
+		/// <br/>
+		/// <c>PMULUDQ mm1, mm2/m64</c></summary>
 		Pmuludq_mm_mmm64,
-		/// <summary>66 0F F4 /r</summary>
+		/// <summary><c>66 0F F4 /r</c><br/>
+		/// <br/>
+		/// <c>PMULUDQ xmm1, xmm2/m128</c></summary>
 		Pmuludq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG F4 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG F4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULUDQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmuludq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG F4 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG F4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULUDQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmuludq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 F4 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 F4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULUDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpmuludq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 F4 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 F4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULUDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpmuludq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 F4 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 F4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULUDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpmuludq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F F5 /r</summary>
+		/// <summary><c>NP 0F F5 /r</c><br/>
+		/// <br/>
+		/// <c>PMADDWD mm, mm/m64</c></summary>
 		Pmaddwd_mm_mmm64,
-		/// <summary>66 0F F5 /r</summary>
+		/// <summary><c>66 0F F5 /r</c><br/>
+		/// <br/>
+		/// <c>PMADDWD xmm1, xmm2/m128</c></summary>
 		Pmaddwd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG F5 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG F5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADDWD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmaddwd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG F5 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG F5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADDWD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmaddwd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG F5 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG F5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADDWD xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpmaddwd_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG F5 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG F5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADDWD ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpmaddwd_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG F5 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG F5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADDWD zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpmaddwd_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F F6 /r</summary>
+		/// <summary><c>NP 0F F6 /r</c><br/>
+		/// <br/>
+		/// <c>PSADBW mm1, mm2/m64</c></summary>
 		Psadbw_mm_mmm64,
-		/// <summary>66 0F F6 /r</summary>
+		/// <summary><c>66 0F F6 /r</c><br/>
+		/// <br/>
+		/// <c>PSADBW xmm1, xmm2/m128</c></summary>
 		Psadbw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG F6 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG F6 /r</c><br/>
+		/// <br/>
+		/// <c>VPSADBW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsadbw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG F6 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG F6 /r</c><br/>
+		/// <br/>
+		/// <c>VPSADBW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsadbw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG F6 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG F6 /r</c><br/>
+		/// <br/>
+		/// <c>VPSADBW xmm1, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsadbw_xmm_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG F6 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG F6 /r</c><br/>
+		/// <br/>
+		/// <c>VPSADBW ymm1, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpsadbw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG F6 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG F6 /r</c><br/>
+		/// <br/>
+		/// <c>VPSADBW zmm1, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpsadbw_zmm_zmm_zmmm512,
-		/// <summary>NP 0F F7 /r</summary>
+		/// <summary><c>NP 0F F7 /r</c><br/>
+		/// <br/>
+		/// <c>MASKMOVQ mm1, mm2</c></summary>
 		Maskmovq_rDI_mm_mm,
-		/// <summary>66 0F F7 /r</summary>
+		/// <summary><c>66 0F F7 /r</c><br/>
+		/// <br/>
+		/// <c>MASKMOVDQU xmm1, xmm2</c></summary>
 		Maskmovdqu_rDI_xmm_xmm,
-		/// <summary>VEX.128.66.0F.WIG F7 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG F7 /r</c><br/>
+		/// <br/>
+		/// <c>VMASKMOVDQU xmm1, xmm2</c></summary>
 		VEX_Vmaskmovdqu_rDI_xmm_xmm,
-		/// <summary>NP 0F F8 /r</summary>
+		/// <summary><c>NP 0F F8 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBB mm, mm/m64</c></summary>
 		Psubb_mm_mmm64,
-		/// <summary>66 0F F8 /r</summary>
+		/// <summary><c>66 0F F8 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBB xmm1, xmm2/m128</c></summary>
 		Psubb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG F8 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG F8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsubb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG F8 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG F8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsubb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG F8 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG F8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsubb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG F8 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG F8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpsubb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG F8 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG F8 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpsubb_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F F9 /r</summary>
+		/// <summary><c>NP 0F F9 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBW mm, mm/m64</c></summary>
 		Psubw_mm_mmm64,
-		/// <summary>66 0F F9 /r</summary>
+		/// <summary><c>66 0F F9 /r</c><br/>
+		/// <br/>
+		/// <c>PSUBW xmm1, xmm2/m128</c></summary>
 		Psubw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG F9 /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG F9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsubw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG F9 /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG F9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsubw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG F9 /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG F9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsubw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG F9 /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG F9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpsubw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG F9 /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG F9 /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpsubw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F FA /r</summary>
+		/// <summary><c>NP 0F FA /r</c><br/>
+		/// <br/>
+		/// <c>PSUBD mm, mm/m64</c></summary>
 		Psubd_mm_mmm64,
-		/// <summary>66 0F FA /r</summary>
+		/// <summary><c>66 0F FA /r</c><br/>
+		/// <br/>
+		/// <c>PSUBD xmm1, xmm2/m128</c></summary>
 		Psubd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG FA /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG FA /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsubd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG FA /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG FA /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsubd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 FA /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 FA /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpsubd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 FA /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 FA /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpsubd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 FA /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 FA /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpsubd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>NP 0F FB /r</summary>
+		/// <summary><c>NP 0F FB /r</c><br/>
+		/// <br/>
+		/// <c>PSUBQ mm1, mm2/m64</c></summary>
 		Psubq_mm_mmm64,
-		/// <summary>66 0F FB /r</summary>
+		/// <summary><c>66 0F FB /r</c><br/>
+		/// <br/>
+		/// <c>PSUBQ xmm1, xmm2/m128</c></summary>
 		Psubq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG FB /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG FB /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsubq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG FB /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG FB /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsubq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W1 FB /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W1 FB /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpsubq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F.W1 FB /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W1 FB /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpsubq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F.W1 FB /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W1 FB /r</c><br/>
+		/// <br/>
+		/// <c>VPSUBQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>NP 0F FC /r</summary>
+		/// <summary><c>NP 0F FC /r</c><br/>
+		/// <br/>
+		/// <c>PADDB mm, mm/m64</c></summary>
 		Paddb_mm_mmm64,
-		/// <summary>66 0F FC /r</summary>
+		/// <summary><c>66 0F FC /r</c><br/>
+		/// <br/>
+		/// <c>PADDB xmm1, xmm2/m128</c></summary>
 		Paddb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG FC /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG FC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpaddb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG FC /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG FC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpaddb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG FC /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG FC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpaddb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG FC /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG FC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpaddb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG FC /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG FC /r</c><br/>
+		/// <br/>
+		/// <c>VPADDB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpaddb_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F FD /r</summary>
+		/// <summary><c>NP 0F FD /r</c><br/>
+		/// <br/>
+		/// <c>PADDW mm, mm/m64</c></summary>
 		Paddw_mm_mmm64,
-		/// <summary>66 0F FD /r</summary>
+		/// <summary><c>66 0F FD /r</c><br/>
+		/// <br/>
+		/// <c>PADDW xmm1, xmm2/m128</c></summary>
 		Paddw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG FD /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG FD /r</c><br/>
+		/// <br/>
+		/// <c>VPADDW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpaddw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG FD /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG FD /r</c><br/>
+		/// <br/>
+		/// <c>VPADDW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpaddw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.WIG FD /r</summary>
+		/// <summary><c>EVEX.128.66.0F.WIG FD /r</c><br/>
+		/// <br/>
+		/// <c>VPADDW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpaddw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F.WIG FD /r</summary>
+		/// <summary><c>EVEX.256.66.0F.WIG FD /r</c><br/>
+		/// <br/>
+		/// <c>VPADDW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpaddw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F.WIG FD /r</summary>
+		/// <summary><c>EVEX.512.66.0F.WIG FD /r</c><br/>
+		/// <br/>
+		/// <c>VPADDW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpaddw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F FE /r</summary>
+		/// <summary><c>NP 0F FE /r</c><br/>
+		/// <br/>
+		/// <c>PADDD mm, mm/m64</c></summary>
 		Paddd_mm_mmm64,
-		/// <summary>66 0F FE /r</summary>
+		/// <summary><c>66 0F FE /r</c><br/>
+		/// <br/>
+		/// <c>PADDD xmm1, xmm2/m128</c></summary>
 		Paddd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F.WIG FE /r</summary>
+		/// <summary><c>VEX.128.66.0F.WIG FE /r</c><br/>
+		/// <br/>
+		/// <c>VPADDD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpaddd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F.WIG FE /r</summary>
+		/// <summary><c>VEX.256.66.0F.WIG FE /r</c><br/>
+		/// <br/>
+		/// <c>VPADDD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpaddd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F.W0 FE /r</summary>
+		/// <summary><c>EVEX.128.66.0F.W0 FE /r</c><br/>
+		/// <br/>
+		/// <c>VPADDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpaddd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F.W0 FE /r</summary>
+		/// <summary><c>EVEX.256.66.0F.W0 FE /r</c><br/>
+		/// <br/>
+		/// <c>VPADDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpaddd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F.W0 FE /r</summary>
+		/// <summary><c>EVEX.512.66.0F.W0 FE /r</c><br/>
+		/// <br/>
+		/// <c>VPADDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpaddd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>o16 0F FF /r</summary>
+		/// <summary><c>o16 0F FF /r</c><br/>
+		/// <br/>
+		/// <c>UD0 r16, r/m16</c></summary>
 		Ud0_r16_rm16,
-		/// <summary>o32 0F FF /r</summary>
+		/// <summary><c>o32 0F FF /r</c><br/>
+		/// <br/>
+		/// <c>UD0 r32, r/m32</c></summary>
 		Ud0_r32_rm32,
-		/// <summary>REX.W 0F FF /r</summary>
+		/// <summary><c>REX.W 0F FF /r</c><br/>
+		/// <br/>
+		/// <c>UD0 r64, r/m64</c></summary>
 		Ud0_r64_rm64,
-		/// <summary>NP 0F 38 00 /r</summary>
+		/// <summary><c>NP 0F 38 00 /r</c><br/>
+		/// <br/>
+		/// <c>PSHUFB mm1, mm2/m64</c></summary>
 		Pshufb_mm_mmm64,
-		/// <summary>66 0F 38 00 /r</summary>
+		/// <summary><c>66 0F 38 00 /r</c><br/>
+		/// <br/>
+		/// <c>PSHUFB xmm1, xmm2/m128</c></summary>
 		Pshufb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 00 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 00 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHUFB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpshufb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 00 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 00 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHUFB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpshufb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG 00 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 00 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHUFB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpshufb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG 00 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 00 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHUFB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpshufb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG 00 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 00 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHUFB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpshufb_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F 38 01 /r</summary>
+		/// <summary><c>NP 0F 38 01 /r</c><br/>
+		/// <br/>
+		/// <c>PHADDW mm1, mm2/m64</c></summary>
 		Phaddw_mm_mmm64,
-		/// <summary>66 0F 38 01 /r</summary>
+		/// <summary><c>66 0F 38 01 /r</c><br/>
+		/// <br/>
+		/// <c>PHADDW xmm1, xmm2/m128</c></summary>
 		Phaddw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 01 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 01 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vphaddw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 01 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 01 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vphaddw_ymm_ymm_ymmm256,
-		/// <summary>NP 0F 38 02 /r</summary>
+		/// <summary><c>NP 0F 38 02 /r</c><br/>
+		/// <br/>
+		/// <c>PHADDD mm1, mm2/m64</c></summary>
 		Phaddd_mm_mmm64,
-		/// <summary>66 0F 38 02 /r</summary>
+		/// <summary><c>66 0F 38 02 /r</c><br/>
+		/// <br/>
+		/// <c>PHADDD xmm1, xmm2/m128</c></summary>
 		Phaddd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 02 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 02 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vphaddd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 02 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 02 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vphaddd_ymm_ymm_ymmm256,
-		/// <summary>NP 0F 38 03 /r</summary>
+		/// <summary><c>NP 0F 38 03 /r</c><br/>
+		/// <br/>
+		/// <c>PHADDSW mm1, mm2/m64</c></summary>
 		Phaddsw_mm_mmm64,
-		/// <summary>66 0F 38 03 /r</summary>
+		/// <summary><c>66 0F 38 03 /r</c><br/>
+		/// <br/>
+		/// <c>PHADDSW xmm1, xmm2/m128</c></summary>
 		Phaddsw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 03 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 03 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDSW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vphaddsw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 03 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 03 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDSW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vphaddsw_ymm_ymm_ymmm256,
-		/// <summary>NP 0F 38 04 /r</summary>
+		/// <summary><c>NP 0F 38 04 /r</c><br/>
+		/// <br/>
+		/// <c>PMADDUBSW mm1, mm2/m64</c></summary>
 		Pmaddubsw_mm_mmm64,
-		/// <summary>66 0F 38 04 /r</summary>
+		/// <summary><c>66 0F 38 04 /r</c><br/>
+		/// <br/>
+		/// <c>PMADDUBSW xmm1, xmm2/m128</c></summary>
 		Pmaddubsw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 04 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 04 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADDUBSW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmaddubsw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 04 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 04 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADDUBSW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmaddubsw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG 04 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 04 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADDUBSW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpmaddubsw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG 04 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 04 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADDUBSW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpmaddubsw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG 04 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 04 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADDUBSW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpmaddubsw_zmm_k1z_zmm_zmmm512,
-		/// <summary>NP 0F 38 05 /r</summary>
+		/// <summary><c>NP 0F 38 05 /r</c><br/>
+		/// <br/>
+		/// <c>PHSUBW mm1, mm2/m64</c></summary>
 		Phsubw_mm_mmm64,
-		/// <summary>66 0F 38 05 /r</summary>
+		/// <summary><c>66 0F 38 05 /r</c><br/>
+		/// <br/>
+		/// <c>PHSUBW xmm1, xmm2/m128</c></summary>
 		Phsubw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 05 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 05 /r</c><br/>
+		/// <br/>
+		/// <c>VPHSUBW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vphsubw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 05 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 05 /r</c><br/>
+		/// <br/>
+		/// <c>VPHSUBW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vphsubw_ymm_ymm_ymmm256,
-		/// <summary>NP 0F 38 06 /r</summary>
+		/// <summary><c>NP 0F 38 06 /r</c><br/>
+		/// <br/>
+		/// <c>PHSUBD mm1, mm2/m64</c></summary>
 		Phsubd_mm_mmm64,
-		/// <summary>66 0F 38 06 /r</summary>
+		/// <summary><c>66 0F 38 06 /r</c><br/>
+		/// <br/>
+		/// <c>PHSUBD xmm1, xmm2/m128</c></summary>
 		Phsubd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 06 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 06 /r</c><br/>
+		/// <br/>
+		/// <c>VPHSUBD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vphsubd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 06 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 06 /r</c><br/>
+		/// <br/>
+		/// <c>VPHSUBD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vphsubd_ymm_ymm_ymmm256,
-		/// <summary>NP 0F 38 07 /r</summary>
+		/// <summary><c>NP 0F 38 07 /r</c><br/>
+		/// <br/>
+		/// <c>PHSUBSW mm1, mm2/m64</c></summary>
 		Phsubsw_mm_mmm64,
-		/// <summary>66 0F 38 07 /r</summary>
+		/// <summary><c>66 0F 38 07 /r</c><br/>
+		/// <br/>
+		/// <c>PHSUBSW xmm1, xmm2/m128</c></summary>
 		Phsubsw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 07 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 07 /r</c><br/>
+		/// <br/>
+		/// <c>VPHSUBSW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vphsubsw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 07 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 07 /r</c><br/>
+		/// <br/>
+		/// <c>VPHSUBSW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vphsubsw_ymm_ymm_ymmm256,
-		/// <summary>NP 0F 38 08 /r</summary>
+		/// <summary><c>NP 0F 38 08 /r</c><br/>
+		/// <br/>
+		/// <c>PSIGNB mm1, mm2/m64</c></summary>
 		Psignb_mm_mmm64,
-		/// <summary>66 0F 38 08 /r</summary>
+		/// <summary><c>66 0F 38 08 /r</c><br/>
+		/// <br/>
+		/// <c>PSIGNB xmm1, xmm2/m128</c></summary>
 		Psignb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 08 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 08 /r</c><br/>
+		/// <br/>
+		/// <c>VPSIGNB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsignb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 08 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 08 /r</c><br/>
+		/// <br/>
+		/// <c>VPSIGNB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsignb_ymm_ymm_ymmm256,
-		/// <summary>NP 0F 38 09 /r</summary>
+		/// <summary><c>NP 0F 38 09 /r</c><br/>
+		/// <br/>
+		/// <c>PSIGNW mm1, mm2/m64</c></summary>
 		Psignw_mm_mmm64,
-		/// <summary>66 0F 38 09 /r</summary>
+		/// <summary><c>66 0F 38 09 /r</c><br/>
+		/// <br/>
+		/// <c>PSIGNW xmm1, xmm2/m128</c></summary>
 		Psignw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 09 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 09 /r</c><br/>
+		/// <br/>
+		/// <c>VPSIGNW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsignw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 09 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 09 /r</c><br/>
+		/// <br/>
+		/// <c>VPSIGNW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsignw_ymm_ymm_ymmm256,
-		/// <summary>NP 0F 38 0A /r</summary>
+		/// <summary><c>NP 0F 38 0A /r</c><br/>
+		/// <br/>
+		/// <c>PSIGND mm1, mm2/m64</c></summary>
 		Psignd_mm_mmm64,
-		/// <summary>66 0F 38 0A /r</summary>
+		/// <summary><c>66 0F 38 0A /r</c><br/>
+		/// <br/>
+		/// <c>PSIGND xmm1, xmm2/m128</c></summary>
 		Psignd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 0A /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 0A /r</c><br/>
+		/// <br/>
+		/// <c>VPSIGND xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsignd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 0A /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 0A /r</c><br/>
+		/// <br/>
+		/// <c>VPSIGND ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsignd_ymm_ymm_ymmm256,
-		/// <summary>NP 0F 38 0B /r</summary>
+		/// <summary><c>NP 0F 38 0B /r</c><br/>
+		/// <br/>
+		/// <c>PMULHRSW mm1, mm2/m64</c></summary>
 		Pmulhrsw_mm_mmm64,
-		/// <summary>66 0F 38 0B /r</summary>
+		/// <summary><c>66 0F 38 0B /r</c><br/>
+		/// <br/>
+		/// <c>PMULHRSW xmm1, xmm2/m128</c></summary>
 		Pmulhrsw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 0B /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 0B /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHRSW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmulhrsw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 0B /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 0B /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHRSW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmulhrsw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG 0B /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 0B /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHRSW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpmulhrsw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG 0B /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 0B /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHRSW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpmulhrsw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG 0B /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 0B /r</c><br/>
+		/// <br/>
+		/// <c>VPMULHRSW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpmulhrsw_zmm_k1z_zmm_zmmm512,
-		/// <summary>VEX.128.66.0F38.W0 0C /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 0C /r</c><br/>
+		/// <br/>
+		/// <c>VPERMILPS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpermilps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 0C /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 0C /r</c><br/>
+		/// <br/>
+		/// <c>VPERMILPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpermilps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 0C /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 0C /r</c><br/>
+		/// <br/>
+		/// <c>VPERMILPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpermilps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 0C /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 0C /r</c><br/>
+		/// <br/>
+		/// <c>VPERMILPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpermilps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 0C /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 0C /r</c><br/>
+		/// <br/>
+		/// <c>VPERMILPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpermilps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>VEX.128.66.0F38.W0 0D /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 0D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMILPD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpermilpd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 0D /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 0D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMILPD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpermilpd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W1 0D /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 0D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMILPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpermilpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 0D /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 0D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMILPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpermilpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 0D /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 0D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMILPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpermilpd_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>VEX.128.66.0F38.W0 0E /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 0E /r</c><br/>
+		/// <br/>
+		/// <c>VTESTPS xmm1, xmm2/m128</c></summary>
 		VEX_Vtestps_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 0E /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 0E /r</c><br/>
+		/// <br/>
+		/// <c>VTESTPS ymm1, ymm2/m256</c></summary>
 		VEX_Vtestps_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W0 0F /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 0F /r</c><br/>
+		/// <br/>
+		/// <c>VTESTPD xmm1, xmm2/m128</c></summary>
 		VEX_Vtestpd_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 0F /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 0F /r</c><br/>
+		/// <br/>
+		/// <c>VTESTPD ymm1, ymm2/m256</c></summary>
 		VEX_Vtestpd_ymm_ymmm256,
-		/// <summary>66 0F 38 10 /r</summary>
+		/// <summary><c>66 0F 38 10 /r</c><br/>
+		/// <br/>
+		/// <c>PBLENDVB xmm1, xmm2/m128, &lt;XMM0&gt;</c></summary>
 		Pblendvb_xmm_xmmm128,
-		/// <summary>EVEX.128.66.0F38.W1 10 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 10 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsrlvw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 10 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 10 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpsrlvw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 10 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 10 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpsrlvw_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.F3.0F38.W0 10 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 10 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSWB xmm1/m64 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovuswb_xmmm64_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 10 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 10 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSWB xmm1/m128 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovuswb_xmmm128_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 10 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 10 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSWB ymm1/m256 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovuswb_ymmm256_k1z_zmm,
-		/// <summary>EVEX.128.66.0F38.W1 11 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 11 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAVW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsravw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 11 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 11 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAVW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpsravw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 11 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 11 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAVW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpsravw_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.F3.0F38.W0 11 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 11 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSDB xmm1/m32 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovusdb_xmmm32_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 11 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 11 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSDB xmm1/m64 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovusdb_xmmm64_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 11 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 11 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSDB xmm1/m128 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovusdb_xmmm128_k1z_zmm,
-		/// <summary>EVEX.128.66.0F38.W1 12 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 12 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpsllvw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 12 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 12 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpsllvw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 12 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 12 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpsllvw_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.F3.0F38.W0 12 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 12 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSQB xmm1/m16 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovusqb_xmmm16_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 12 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 12 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSQB xmm1/m32 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovusqb_xmmm32_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 12 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 12 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSQB xmm1/m64 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovusqb_xmmm64_k1z_zmm,
-		/// <summary>VEX.128.66.0F38.W0 13 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPH2PS xmm1, xmm2/m64</c></summary>
 		VEX_Vcvtph2ps_xmm_xmmm64,
-		/// <summary>VEX.256.66.0F38.W0 13 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPH2PS ymm1, xmm2/m128</c></summary>
 		VEX_Vcvtph2ps_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F38.W0 13 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPH2PS xmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vcvtph2ps_xmm_k1z_xmmm64,
-		/// <summary>EVEX.256.66.0F38.W0 13 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPH2PS ymm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vcvtph2ps_ymm_k1z_xmmm128,
-		/// <summary>EVEX.512.66.0F38.W0 13 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTPH2PS zmm1 {k1}{z}, ymm2/m256{sae}</c></summary>
 		EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae,
-		/// <summary>EVEX.128.F3.0F38.W0 13 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSDW xmm1/m64 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovusdw_xmmm64_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 13 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSDW xmm1/m128 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovusdw_xmmm128_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 13 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSDW ymm1/m256 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovusdw_ymmm256_k1z_zmm,
-		/// <summary>66 0F 38 14 /r</summary>
+		/// <summary><c>66 0F 38 14 /r</c><br/>
+		/// <br/>
+		/// <c>BLENDVPS xmm1, xmm2/m128, &lt;XMM0&gt;</c></summary>
 		Blendvps_xmm_xmmm128,
-		/// <summary>EVEX.128.66.0F38.W0 14 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 14 /r</c><br/>
+		/// <br/>
+		/// <c>VPRORVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vprorvd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 14 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 14 /r</c><br/>
+		/// <br/>
+		/// <c>VPRORVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vprorvd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 14 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 14 /r</c><br/>
+		/// <br/>
+		/// <c>VPRORVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vprorvd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 14 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 14 /r</c><br/>
+		/// <br/>
+		/// <c>VPRORVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vprorvq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 14 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 14 /r</c><br/>
+		/// <br/>
+		/// <c>VPRORVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vprorvq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 14 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 14 /r</c><br/>
+		/// <br/>
+		/// <c>VPRORVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vprorvq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.F3.0F38.W0 14 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 14 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSQW xmm1/m32 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovusqw_xmmm32_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 14 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 14 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSQW xmm1/m64 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovusqw_xmmm64_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 14 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 14 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSQW xmm1/m128 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovusqw_xmmm128_k1z_zmm,
-		/// <summary>66 0F 38 15 /r</summary>
+		/// <summary><c>66 0F 38 15 /r</c><br/>
+		/// <br/>
+		/// <c>BLENDVPD xmm1, xmm2/m128, &lt;XMM0&gt;</c></summary>
 		Blendvpd_xmm_xmmm128,
-		/// <summary>EVEX.128.66.0F38.W0 15 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 15 /r</c><br/>
+		/// <br/>
+		/// <c>VPROLVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vprolvd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 15 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 15 /r</c><br/>
+		/// <br/>
+		/// <c>VPROLVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vprolvd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 15 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 15 /r</c><br/>
+		/// <br/>
+		/// <c>VPROLVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vprolvd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 15 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 15 /r</c><br/>
+		/// <br/>
+		/// <c>VPROLVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vprolvq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 15 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 15 /r</c><br/>
+		/// <br/>
+		/// <c>VPROLVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vprolvq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 15 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 15 /r</c><br/>
+		/// <br/>
+		/// <c>VPROLVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vprolvq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.F3.0F38.W0 15 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 15 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSQD xmm1/m64 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovusqd_xmmm64_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 15 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 15 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSQD xmm1/m128 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovusqd_xmmm128_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 15 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 15 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVUSQD ymm1/m256 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovusqd_ymmm256_k1z_zmm,
-		/// <summary>VEX.256.66.0F38.W0 16 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 16 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMPS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpermps_ymm_ymm_ymmm256,
-		/// <summary>EVEX.256.66.0F38.W0 16 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 16 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 16 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 16 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpermps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.256.66.0F38.W1 16 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 16 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpermpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 16 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 16 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpermpd_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>66 0F 38 17 /r</summary>
+		/// <summary><c>66 0F 38 17 /r</c><br/>
+		/// <br/>
+		/// <c>PTEST xmm1, xmm2/m128</c></summary>
 		Ptest_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 17 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 17 /r</c><br/>
+		/// <br/>
+		/// <c>VPTEST xmm1, xmm2/m128</c></summary>
 		VEX_Vptest_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 17 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 17 /r</c><br/>
+		/// <br/>
+		/// <c>VPTEST ymm1, ymm2/m256</c></summary>
 		VEX_Vptest_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W0 18 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 18 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTSS xmm1, xmm2/m32</c></summary>
 		VEX_Vbroadcastss_xmm_xmmm32,
-		/// <summary>VEX.256.66.0F38.W0 18 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 18 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTSS ymm1, xmm2/m32</c></summary>
 		VEX_Vbroadcastss_ymm_xmmm32,
-		/// <summary>EVEX.128.66.0F38.W0 18 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 18 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTSS xmm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vbroadcastss_xmm_k1z_xmmm32,
-		/// <summary>EVEX.256.66.0F38.W0 18 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 18 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTSS ymm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vbroadcastss_ymm_k1z_xmmm32,
-		/// <summary>EVEX.512.66.0F38.W0 18 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 18 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTSS zmm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vbroadcastss_zmm_k1z_xmmm32,
-		/// <summary>VEX.256.66.0F38.W0 19 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 19 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTSD ymm1, xmm2/m64</c></summary>
 		VEX_Vbroadcastsd_ymm_xmmm64,
-		/// <summary>EVEX.256.66.0F38.W0 19 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 19 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTF32X2 ymm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64,
-		/// <summary>EVEX.512.66.0F38.W0 19 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 19 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTF32X2 zmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64,
-		/// <summary>EVEX.256.66.0F38.W1 19 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 19 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTSD ymm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vbroadcastsd_ymm_k1z_xmmm64,
-		/// <summary>EVEX.512.66.0F38.W1 19 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 19 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTSD zmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vbroadcastsd_zmm_k1z_xmmm64,
-		/// <summary>VEX.256.66.0F38.W0 1A /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 1A /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTF128 ymm1, m128</c></summary>
 		VEX_Vbroadcastf128_ymm_m128,
-		/// <summary>EVEX.256.66.0F38.W0 1A /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 1A /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTF32X4 ymm1 {k1}{z}, m128</c></summary>
 		EVEX_Vbroadcastf32x4_ymm_k1z_m128,
-		/// <summary>EVEX.512.66.0F38.W0 1A /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 1A /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTF32X4 zmm1 {k1}{z}, m128</c></summary>
 		EVEX_Vbroadcastf32x4_zmm_k1z_m128,
-		/// <summary>EVEX.256.66.0F38.W1 1A /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 1A /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTF64X2 ymm1 {k1}{z}, m128</c></summary>
 		EVEX_Vbroadcastf64x2_ymm_k1z_m128,
-		/// <summary>EVEX.512.66.0F38.W1 1A /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 1A /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTF64X2 zmm1 {k1}{z}, m128</c></summary>
 		EVEX_Vbroadcastf64x2_zmm_k1z_m128,
-		/// <summary>EVEX.512.66.0F38.W0 1B /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 1B /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTF32X8 zmm1 {k1}{z}, m256</c></summary>
 		EVEX_Vbroadcastf32x8_zmm_k1z_m256,
-		/// <summary>EVEX.512.66.0F38.W1 1B /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 1B /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTF64X4 zmm1 {k1}{z}, m256</c></summary>
 		EVEX_Vbroadcastf64x4_zmm_k1z_m256,
-		/// <summary>NP 0F 38 1C /r</summary>
+		/// <summary><c>NP 0F 38 1C /r</c><br/>
+		/// <br/>
+		/// <c>PABSB mm1, mm2/m64</c></summary>
 		Pabsb_mm_mmm64,
-		/// <summary>66 0F 38 1C /r</summary>
+		/// <summary><c>66 0F 38 1C /r</c><br/>
+		/// <br/>
+		/// <c>PABSB xmm1, xmm2/m128</c></summary>
 		Pabsb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 1C /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 1C /r</c><br/>
+		/// <br/>
+		/// <c>VPABSB xmm1, xmm2/m128</c></summary>
 		VEX_Vpabsb_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 1C /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 1C /r</c><br/>
+		/// <br/>
+		/// <c>VPABSB ymm1, ymm2/m256</c></summary>
 		VEX_Vpabsb_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG 1C /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 1C /r</c><br/>
+		/// <br/>
+		/// <c>VPABSB xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpabsb_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG 1C /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 1C /r</c><br/>
+		/// <br/>
+		/// <c>VPABSB ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpabsb_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG 1C /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 1C /r</c><br/>
+		/// <br/>
+		/// <c>VPABSB zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vpabsb_zmm_k1z_zmmm512,
-		/// <summary>NP 0F 38 1D /r</summary>
+		/// <summary><c>NP 0F 38 1D /r</c><br/>
+		/// <br/>
+		/// <c>PABSW mm1, mm2/m64</c></summary>
 		Pabsw_mm_mmm64,
-		/// <summary>66 0F 38 1D /r</summary>
+		/// <summary><c>66 0F 38 1D /r</c><br/>
+		/// <br/>
+		/// <c>PABSW xmm1, xmm2/m128</c></summary>
 		Pabsw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 1D /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 1D /r</c><br/>
+		/// <br/>
+		/// <c>VPABSW xmm1, xmm2/m128</c></summary>
 		VEX_Vpabsw_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 1D /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 1D /r</c><br/>
+		/// <br/>
+		/// <c>VPABSW ymm1, ymm2/m256</c></summary>
 		VEX_Vpabsw_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG 1D /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 1D /r</c><br/>
+		/// <br/>
+		/// <c>VPABSW xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpabsw_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG 1D /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 1D /r</c><br/>
+		/// <br/>
+		/// <c>VPABSW ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpabsw_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG 1D /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 1D /r</c><br/>
+		/// <br/>
+		/// <c>VPABSW zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vpabsw_zmm_k1z_zmmm512,
-		/// <summary>NP 0F 38 1E /r</summary>
+		/// <summary><c>NP 0F 38 1E /r</c><br/>
+		/// <br/>
+		/// <c>PABSD mm1, mm2/m64</c></summary>
 		Pabsd_mm_mmm64,
-		/// <summary>66 0F 38 1E /r</summary>
+		/// <summary><c>66 0F 38 1E /r</c><br/>
+		/// <br/>
+		/// <c>PABSD xmm1, xmm2/m128</c></summary>
 		Pabsd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 1E /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 1E /r</c><br/>
+		/// <br/>
+		/// <c>VPABSD xmm1, xmm2/m128</c></summary>
 		VEX_Vpabsd_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 1E /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 1E /r</c><br/>
+		/// <br/>
+		/// <c>VPABSD ymm1, ymm2/m256</c></summary>
 		VEX_Vpabsd_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 1E /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 1E /r</c><br/>
+		/// <br/>
+		/// <c>VPABSD xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vpabsd_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 1E /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 1E /r</c><br/>
+		/// <br/>
+		/// <c>VPABSD ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vpabsd_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 1E /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 1E /r</c><br/>
+		/// <br/>
+		/// <c>VPABSD zmm1 {k1}{z}, zmm2/m512/m32bcst</c></summary>
 		EVEX_Vpabsd_zmm_k1z_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 1F /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 1F /r</c><br/>
+		/// <br/>
+		/// <c>VPABSQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vpabsq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 1F /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 1F /r</c><br/>
+		/// <br/>
+		/// <c>VPABSQ ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vpabsq_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 1F /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 1F /r</c><br/>
+		/// <br/>
+		/// <c>VPABSQ zmm1 {k1}{z}, zmm2/m512/m64bcst</c></summary>
 		EVEX_Vpabsq_zmm_k1z_zmmm512b64,
-		/// <summary>66 0F 38 20 /r</summary>
+		/// <summary><c>66 0F 38 20 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVSXBW xmm1, xmm2/m64</c></summary>
 		Pmovsxbw_xmm_xmmm64,
-		/// <summary>VEX.128.66.0F38.WIG 20 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 20 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBW xmm1, xmm2/m64</c></summary>
 		VEX_Vpmovsxbw_xmm_xmmm64,
-		/// <summary>VEX.256.66.0F38.WIG 20 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 20 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBW ymm1, xmm2/m128</c></summary>
 		VEX_Vpmovsxbw_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F38.WIG 20 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 20 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBW xmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovsxbw_xmm_k1z_xmmm64,
-		/// <summary>EVEX.256.66.0F38.WIG 20 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 20 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBW ymm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpmovsxbw_ymm_k1z_xmmm128,
-		/// <summary>EVEX.512.66.0F38.WIG 20 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 20 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBW zmm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpmovsxbw_zmm_k1z_ymmm256,
-		/// <summary>EVEX.128.F3.0F38.W0 20 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 20 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSWB xmm1/m64 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovswb_xmmm64_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 20 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 20 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSWB xmm1/m128 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovswb_xmmm128_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 20 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 20 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSWB ymm1/m256 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovswb_ymmm256_k1z_zmm,
-		/// <summary>66 0F 38 21 /r</summary>
+		/// <summary><c>66 0F 38 21 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVSXBD xmm1, xmm2/m32</c></summary>
 		Pmovsxbd_xmm_xmmm32,
-		/// <summary>VEX.128.66.0F38.WIG 21 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 21 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBD xmm1, xmm2/m32</c></summary>
 		VEX_Vpmovsxbd_xmm_xmmm32,
-		/// <summary>VEX.256.66.0F38.WIG 21 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 21 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBD ymm1, xmm2/m64</c></summary>
 		VEX_Vpmovsxbd_ymm_xmmm64,
-		/// <summary>EVEX.128.66.0F38.WIG 21 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 21 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBD xmm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vpmovsxbd_xmm_k1z_xmmm32,
-		/// <summary>EVEX.256.66.0F38.WIG 21 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 21 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBD ymm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovsxbd_ymm_k1z_xmmm64,
-		/// <summary>EVEX.512.66.0F38.WIG 21 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 21 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBD zmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpmovsxbd_zmm_k1z_xmmm128,
-		/// <summary>EVEX.128.F3.0F38.W0 21 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 21 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSDB xmm1/m32 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovsdb_xmmm32_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 21 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 21 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSDB xmm1/m64 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovsdb_xmmm64_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 21 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 21 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSDB xmm1/m128 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovsdb_xmmm128_k1z_zmm,
-		/// <summary>66 0F 38 22 /r</summary>
+		/// <summary><c>66 0F 38 22 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVSXBQ xmm1, xmm2/m16</c></summary>
 		Pmovsxbq_xmm_xmmm16,
-		/// <summary>VEX.128.66.0F38.WIG 22 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 22 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBQ xmm1, xmm2/m16</c></summary>
 		VEX_Vpmovsxbq_xmm_xmmm16,
-		/// <summary>VEX.256.66.0F38.WIG 22 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 22 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBQ ymm1, xmm2/m32</c></summary>
 		VEX_Vpmovsxbq_ymm_xmmm32,
-		/// <summary>EVEX.128.66.0F38.WIG 22 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 22 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBQ xmm1 {k1}{z}, xmm2/m16</c></summary>
 		EVEX_Vpmovsxbq_xmm_k1z_xmmm16,
-		/// <summary>EVEX.256.66.0F38.WIG 22 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 22 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBQ ymm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vpmovsxbq_ymm_k1z_xmmm32,
-		/// <summary>EVEX.512.66.0F38.WIG 22 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 22 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXBQ zmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovsxbq_zmm_k1z_xmmm64,
-		/// <summary>EVEX.128.F3.0F38.W0 22 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 22 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSQB xmm1/m16 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovsqb_xmmm16_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 22 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 22 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSQB xmm1/m32 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovsqb_xmmm32_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 22 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 22 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSQB xmm1/m64 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovsqb_xmmm64_k1z_zmm,
-		/// <summary>66 0F 38 23 /r</summary>
+		/// <summary><c>66 0F 38 23 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVSXWD xmm1, xmm2/m64</c></summary>
 		Pmovsxwd_xmm_xmmm64,
-		/// <summary>VEX.128.66.0F38.WIG 23 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 23 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXWD xmm1, xmm2/m64</c></summary>
 		VEX_Vpmovsxwd_xmm_xmmm64,
-		/// <summary>VEX.256.66.0F38.WIG 23 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 23 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXWD ymm1, xmm2/m128</c></summary>
 		VEX_Vpmovsxwd_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F38.WIG 23 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 23 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXWD xmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovsxwd_xmm_k1z_xmmm64,
-		/// <summary>EVEX.256.66.0F38.WIG 23 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 23 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXWD ymm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpmovsxwd_ymm_k1z_xmmm128,
-		/// <summary>EVEX.512.66.0F38.WIG 23 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 23 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXWD zmm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpmovsxwd_zmm_k1z_ymmm256,
-		/// <summary>EVEX.128.F3.0F38.W0 23 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 23 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSDW xmm1/m64 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovsdw_xmmm64_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 23 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 23 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSDW xmm1/m128 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovsdw_xmmm128_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 23 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 23 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSDW ymm1/m256 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovsdw_ymmm256_k1z_zmm,
-		/// <summary>66 0F 38 24 /r</summary>
+		/// <summary><c>66 0F 38 24 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVSXWQ xmm1, xmm2/m32</c></summary>
 		Pmovsxwq_xmm_xmmm32,
-		/// <summary>VEX.128.66.0F38.WIG 24 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 24 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXWQ xmm1, xmm2/m32</c></summary>
 		VEX_Vpmovsxwq_xmm_xmmm32,
-		/// <summary>VEX.256.66.0F38.WIG 24 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 24 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXWQ ymm1, xmm2/m64</c></summary>
 		VEX_Vpmovsxwq_ymm_xmmm64,
-		/// <summary>EVEX.128.66.0F38.WIG 24 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 24 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXWQ xmm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vpmovsxwq_xmm_k1z_xmmm32,
-		/// <summary>EVEX.256.66.0F38.WIG 24 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 24 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXWQ ymm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovsxwq_ymm_k1z_xmmm64,
-		/// <summary>EVEX.512.66.0F38.WIG 24 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 24 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXWQ zmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpmovsxwq_zmm_k1z_xmmm128,
-		/// <summary>EVEX.128.F3.0F38.W0 24 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 24 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSQW xmm1/m32 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovsqw_xmmm32_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 24 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 24 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSQW xmm1/m64 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovsqw_xmmm64_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 24 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 24 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSQW xmm1/m128 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovsqw_xmmm128_k1z_zmm,
-		/// <summary>66 0F 38 25 /r</summary>
+		/// <summary><c>66 0F 38 25 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVSXDQ xmm1, xmm2/m64</c></summary>
 		Pmovsxdq_xmm_xmmm64,
-		/// <summary>VEX.128.66.0F38.WIG 25 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 25 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXDQ xmm1, xmm2/m64</c></summary>
 		VEX_Vpmovsxdq_xmm_xmmm64,
-		/// <summary>VEX.256.66.0F38.WIG 25 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 25 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXDQ ymm1, xmm2/m128</c></summary>
 		VEX_Vpmovsxdq_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F38.W0 25 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 25 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXDQ xmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovsxdq_xmm_k1z_xmmm64,
-		/// <summary>EVEX.256.66.0F38.W0 25 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 25 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXDQ ymm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpmovsxdq_ymm_k1z_xmmm128,
-		/// <summary>EVEX.512.66.0F38.W0 25 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 25 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSXDQ zmm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpmovsxdq_zmm_k1z_ymmm256,
-		/// <summary>EVEX.128.F3.0F38.W0 25 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 25 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSQD xmm1/m64 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovsqd_xmmm64_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 25 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 25 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSQD xmm1/m128 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovsqd_xmmm128_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 25 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 25 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVSQD ymm1/m256 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovsqd_ymmm256_k1z_zmm,
-		/// <summary>EVEX.128.66.0F38.W0 26 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMB k2 {k1}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vptestmb_k_k1_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W0 26 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMB k2 {k1}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vptestmb_k_k1_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W0 26 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMB k2 {k1}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vptestmb_k_k1_zmm_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W1 26 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMW k2 {k1}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vptestmw_k_k1_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 26 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMW k2 {k1}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vptestmw_k_k1_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 26 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMW k2 {k1}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vptestmw_k_k1_zmm_zmmm512,
-		/// <summary>EVEX.128.F3.0F38.W0 26 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMB k2 {k1}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vptestnmb_k_k1_xmm_xmmm128,
-		/// <summary>EVEX.256.F3.0F38.W0 26 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMB k2 {k1}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vptestnmb_k_k1_ymm_ymmm256,
-		/// <summary>EVEX.512.F3.0F38.W0 26 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMB k2 {k1}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vptestnmb_k_k1_zmm_zmmm512,
-		/// <summary>EVEX.128.F3.0F38.W1 26 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W1 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMW k2 {k1}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vptestnmw_k_k1_xmm_xmmm128,
-		/// <summary>EVEX.256.F3.0F38.W1 26 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W1 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMW k2 {k1}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vptestnmw_k_k1_ymm_ymmm256,
-		/// <summary>EVEX.512.F3.0F38.W1 26 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W1 26 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMW k2 {k1}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vptestnmw_k_k1_zmm_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W0 27 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMD k2 {k1}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vptestmd_k_k1_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 27 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMD k2 {k1}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vptestmd_k_k1_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 27 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMD k2 {k1}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vptestmd_k_k1_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 27 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMQ k2 {k1}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vptestmq_k_k1_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 27 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMQ k2 {k1}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vptestmq_k_k1_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 27 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTMQ k2 {k1}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vptestmq_k_k1_zmm_zmmm512b64,
-		/// <summary>EVEX.128.F3.0F38.W0 27 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMD k2 {k1}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vptestnmd_k_k1_xmm_xmmm128b32,
-		/// <summary>EVEX.256.F3.0F38.W0 27 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMD k2 {k1}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vptestnmd_k_k1_ymm_ymmm256b32,
-		/// <summary>EVEX.512.F3.0F38.W0 27 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMD k2 {k1}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vptestnmd_k_k1_zmm_zmmm512b32,
-		/// <summary>EVEX.128.F3.0F38.W1 27 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W1 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMQ k2 {k1}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vptestnmq_k_k1_xmm_xmmm128b64,
-		/// <summary>EVEX.256.F3.0F38.W1 27 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W1 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMQ k2 {k1}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vptestnmq_k_k1_ymm_ymmm256b64,
-		/// <summary>EVEX.512.F3.0F38.W1 27 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W1 27 /r</c><br/>
+		/// <br/>
+		/// <c>VPTESTNMQ k2 {k1}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vptestnmq_k_k1_zmm_zmmm512b64,
-		/// <summary>66 0F 38 28 /r</summary>
+		/// <summary><c>66 0F 38 28 /r</c><br/>
+		/// <br/>
+		/// <c>PMULDQ xmm1, xmm2/m128</c></summary>
 		Pmuldq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 28 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 28 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULDQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmuldq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 28 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 28 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULDQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmuldq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W1 28 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 28 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 28 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 28 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 28 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 28 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpmuldq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.F3.0F38.W0 28 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 28 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2B xmm1, k1</c></summary>
 		EVEX_Vpmovm2b_xmm_k,
-		/// <summary>EVEX.256.F3.0F38.W0 28 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 28 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2B ymm1, k1</c></summary>
 		EVEX_Vpmovm2b_ymm_k,
-		/// <summary>EVEX.512.F3.0F38.W0 28 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 28 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2B zmm1, k1</c></summary>
 		EVEX_Vpmovm2b_zmm_k,
-		/// <summary>EVEX.128.F3.0F38.W1 28 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W1 28 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2W xmm1, k1</c></summary>
 		EVEX_Vpmovm2w_xmm_k,
-		/// <summary>EVEX.256.F3.0F38.W1 28 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W1 28 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2W ymm1, k1</c></summary>
 		EVEX_Vpmovm2w_ymm_k,
-		/// <summary>EVEX.512.F3.0F38.W1 28 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W1 28 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2W zmm1, k1</c></summary>
 		EVEX_Vpmovm2w_zmm_k,
-		/// <summary>66 0F 38 29 /r</summary>
+		/// <summary><c>66 0F 38 29 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPEQQ xmm1, xmm2/m128</c></summary>
 		Pcmpeqq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 29 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 29 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpcmpeqq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 29 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 29 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpcmpeqq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W1 29 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 29 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQQ k1 {k2}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 29 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 29 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQQ k1 {k2}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 29 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 29 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPEQQ k1 {k2}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64,
-		/// <summary>EVEX.128.F3.0F38.W0 29 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 29 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVB2M k1, xmm1</c></summary>
 		EVEX_Vpmovb2m_k_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 29 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 29 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVB2M k1, ymm1</c></summary>
 		EVEX_Vpmovb2m_k_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 29 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 29 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVB2M k1, zmm1</c></summary>
 		EVEX_Vpmovb2m_k_zmm,
-		/// <summary>EVEX.128.F3.0F38.W1 29 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W1 29 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVW2M k1, xmm1</c></summary>
 		EVEX_Vpmovw2m_k_xmm,
-		/// <summary>EVEX.256.F3.0F38.W1 29 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W1 29 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVW2M k1, ymm1</c></summary>
 		EVEX_Vpmovw2m_k_ymm,
-		/// <summary>EVEX.512.F3.0F38.W1 29 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W1 29 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVW2M k1, zmm1</c></summary>
 		EVEX_Vpmovw2m_k_zmm,
-		/// <summary>66 0F 38 2A /r</summary>
+		/// <summary><c>66 0F 38 2A /r</c><br/>
+		/// <br/>
+		/// <c>MOVNTDQA xmm1, m128</c></summary>
 		Movntdqa_xmm_m128,
-		/// <summary>VEX.128.66.0F38.WIG 2A /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 2A /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTDQA xmm1, m128</c></summary>
 		VEX_Vmovntdqa_xmm_m128,
-		/// <summary>VEX.256.66.0F38.WIG 2A /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 2A /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTDQA ymm1, m256</c></summary>
 		VEX_Vmovntdqa_ymm_m256,
-		/// <summary>EVEX.128.66.0F38.W0 2A /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 2A /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTDQA xmm1, m128</c></summary>
 		EVEX_Vmovntdqa_xmm_m128,
-		/// <summary>EVEX.256.66.0F38.W0 2A /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 2A /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTDQA ymm1, m256</c></summary>
 		EVEX_Vmovntdqa_ymm_m256,
-		/// <summary>EVEX.512.66.0F38.W0 2A /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 2A /r</c><br/>
+		/// <br/>
+		/// <c>VMOVNTDQA zmm1, m512</c></summary>
 		EVEX_Vmovntdqa_zmm_m512,
-		/// <summary>EVEX.128.F3.0F38.W1 2A /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W1 2A /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTMB2Q xmm1, k1</c></summary>
 		EVEX_Vpbroadcastmb2q_xmm_k,
-		/// <summary>EVEX.256.F3.0F38.W1 2A /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W1 2A /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTMB2Q ymm1, k1</c></summary>
 		EVEX_Vpbroadcastmb2q_ymm_k,
-		/// <summary>EVEX.512.F3.0F38.W1 2A /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W1 2A /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTMB2Q zmm1, k1</c></summary>
 		EVEX_Vpbroadcastmb2q_zmm_k,
-		/// <summary>66 0F 38 2B /r</summary>
+		/// <summary><c>66 0F 38 2B /r</c><br/>
+		/// <br/>
+		/// <c>PACKUSDW xmm1, xmm2/m128</c></summary>
 		Packusdw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 2B /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 2B /r</c><br/>
+		/// <br/>
+		/// <c>VPACKUSDW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpackusdw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 2B /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 2B /r</c><br/>
+		/// <br/>
+		/// <c>VPACKUSDW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpackusdw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 2B /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 2B /r</c><br/>
+		/// <br/>
+		/// <c>VPACKUSDW xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpackusdw_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 2B /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 2B /r</c><br/>
+		/// <br/>
+		/// <c>VPACKUSDW ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpackusdw_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 2B /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 2B /r</c><br/>
+		/// <br/>
+		/// <c>VPACKUSDW zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpackusdw_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>VEX.128.66.0F38.W0 2C /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>VMASKMOVPS xmm1, xmm2, m128</c></summary>
 		VEX_Vmaskmovps_xmm_xmm_m128,
-		/// <summary>VEX.256.66.0F38.W0 2C /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>VMASKMOVPS ymm1, ymm2, m256</c></summary>
 		VEX_Vmaskmovps_ymm_ymm_m256,
-		/// <summary>EVEX.128.66.0F38.W0 2C /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>VSCALEFPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vscalefps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 2C /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>VSCALEFPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vscalefps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 2C /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>VSCALEFPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vscalefps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 2C /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 2C /r</c><br/>
+		/// <br/>
+		/// <c>VSCALEFPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vscalefpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 2C /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 2C /r</c><br/>
+		/// <br/>
+		/// <c>VSCALEFPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vscalefpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 2C /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 2C /r</c><br/>
+		/// <br/>
+		/// <c>VSCALEFPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vscalefpd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.128.66.0F38.W0 2D /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 2D /r</c><br/>
+		/// <br/>
+		/// <c>VMASKMOVPD xmm1, xmm2, m128</c></summary>
 		VEX_Vmaskmovpd_xmm_xmm_m128,
-		/// <summary>VEX.256.66.0F38.W0 2D /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 2D /r</c><br/>
+		/// <br/>
+		/// <c>VMASKMOVPD ymm1, ymm2, m256</c></summary>
 		VEX_Vmaskmovpd_ymm_ymm_m256,
-		/// <summary>EVEX.LIG.66.0F38.W0 2D /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 2D /r</c><br/>
+		/// <br/>
+		/// <c>VSCALEFSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 2D /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 2D /r</c><br/>
+		/// <br/>
+		/// <c>VSCALEFSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>VEX.128.66.0F38.W0 2E /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 2E /r</c><br/>
+		/// <br/>
+		/// <c>VMASKMOVPS m128, xmm1, xmm2</c></summary>
 		VEX_Vmaskmovps_m128_xmm_xmm,
-		/// <summary>VEX.256.66.0F38.W0 2E /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 2E /r</c><br/>
+		/// <br/>
+		/// <c>VMASKMOVPS m256, ymm1, ymm2</c></summary>
 		VEX_Vmaskmovps_m256_ymm_ymm,
-		/// <summary>VEX.128.66.0F38.W0 2F /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 2F /r</c><br/>
+		/// <br/>
+		/// <c>VMASKMOVPD m128, xmm1, xmm2</c></summary>
 		VEX_Vmaskmovpd_m128_xmm_xmm,
-		/// <summary>VEX.256.66.0F38.W0 2F /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 2F /r</c><br/>
+		/// <br/>
+		/// <c>VMASKMOVPD m256, ymm1, ymm2</c></summary>
 		VEX_Vmaskmovpd_m256_ymm_ymm,
-		/// <summary>66 0F 38 30 /r</summary>
+		/// <summary><c>66 0F 38 30 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVZXBW xmm1, xmm2/m64</c></summary>
 		Pmovzxbw_xmm_xmmm64,
-		/// <summary>VEX.128.66.0F38.WIG 30 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 30 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBW xmm1, xmm2/m64</c></summary>
 		VEX_Vpmovzxbw_xmm_xmmm64,
-		/// <summary>VEX.256.66.0F38.WIG 30 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 30 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBW ymm1, xmm2/m128</c></summary>
 		VEX_Vpmovzxbw_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F38.WIG 30 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 30 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBW xmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovzxbw_xmm_k1z_xmmm64,
-		/// <summary>EVEX.256.66.0F38.WIG 30 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 30 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBW ymm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpmovzxbw_ymm_k1z_xmmm128,
-		/// <summary>EVEX.512.66.0F38.WIG 30 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 30 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBW zmm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpmovzxbw_zmm_k1z_ymmm256,
-		/// <summary>EVEX.128.F3.0F38.W0 30 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 30 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVWB xmm1/m64 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovwb_xmmm64_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 30 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 30 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVWB xmm1/m128 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovwb_xmmm128_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 30 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 30 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVWB ymm1/m256 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovwb_ymmm256_k1z_zmm,
-		/// <summary>66 0F 38 31 /r</summary>
+		/// <summary><c>66 0F 38 31 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVZXBD xmm1, xmm2/m32</c></summary>
 		Pmovzxbd_xmm_xmmm32,
-		/// <summary>VEX.128.66.0F38.WIG 31 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 31 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBD xmm1, xmm2/m32</c></summary>
 		VEX_Vpmovzxbd_xmm_xmmm32,
-		/// <summary>VEX.256.66.0F38.WIG 31 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 31 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBD ymm1, xmm2/m64</c></summary>
 		VEX_Vpmovzxbd_ymm_xmmm64,
-		/// <summary>EVEX.128.66.0F38.WIG 31 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 31 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBD xmm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vpmovzxbd_xmm_k1z_xmmm32,
-		/// <summary>EVEX.256.66.0F38.WIG 31 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 31 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBD ymm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovzxbd_ymm_k1z_xmmm64,
-		/// <summary>EVEX.512.66.0F38.WIG 31 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 31 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBD zmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpmovzxbd_zmm_k1z_xmmm128,
-		/// <summary>EVEX.128.F3.0F38.W0 31 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 31 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVDB xmm1/m32 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovdb_xmmm32_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 31 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 31 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVDB xmm1/m64 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovdb_xmmm64_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 31 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 31 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVDB xmm1/m128 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovdb_xmmm128_k1z_zmm,
-		/// <summary>66 0F 38 32 /r</summary>
+		/// <summary><c>66 0F 38 32 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVZXBQ xmm1, xmm2/m16</c></summary>
 		Pmovzxbq_xmm_xmmm16,
-		/// <summary>VEX.128.66.0F38.WIG 32 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 32 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBQ xmm1, xmm2/m16</c></summary>
 		VEX_Vpmovzxbq_xmm_xmmm16,
-		/// <summary>VEX.256.66.0F38.WIG 32 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 32 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBQ ymm1, xmm2/m32</c></summary>
 		VEX_Vpmovzxbq_ymm_xmmm32,
-		/// <summary>EVEX.128.66.0F38.WIG 32 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 32 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBQ xmm1 {k1}{z}, xmm2/m16</c></summary>
 		EVEX_Vpmovzxbq_xmm_k1z_xmmm16,
-		/// <summary>EVEX.256.66.0F38.WIG 32 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 32 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBQ ymm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vpmovzxbq_ymm_k1z_xmmm32,
-		/// <summary>EVEX.512.66.0F38.WIG 32 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 32 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXBQ zmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovzxbq_zmm_k1z_xmmm64,
-		/// <summary>EVEX.128.F3.0F38.W0 32 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 32 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQB xmm1/m16 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovqb_xmmm16_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 32 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 32 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQB xmm1/m32 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovqb_xmmm32_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 32 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 32 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQB xmm1/m64 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovqb_xmmm64_k1z_zmm,
-		/// <summary>66 0F 38 33 /r</summary>
+		/// <summary><c>66 0F 38 33 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVZXWD xmm1, xmm2/m64</c></summary>
 		Pmovzxwd_xmm_xmmm64,
-		/// <summary>VEX.128.66.0F38.WIG 33 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 33 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXWD xmm1, xmm2/m64</c></summary>
 		VEX_Vpmovzxwd_xmm_xmmm64,
-		/// <summary>VEX.256.66.0F38.WIG 33 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 33 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXWD ymm1, xmm2/m128</c></summary>
 		VEX_Vpmovzxwd_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F38.WIG 33 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 33 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXWD xmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovzxwd_xmm_k1z_xmmm64,
-		/// <summary>EVEX.256.66.0F38.WIG 33 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 33 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXWD ymm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpmovzxwd_ymm_k1z_xmmm128,
-		/// <summary>EVEX.512.66.0F38.WIG 33 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 33 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXWD zmm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpmovzxwd_zmm_k1z_ymmm256,
-		/// <summary>EVEX.128.F3.0F38.W0 33 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 33 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVDW xmm1/m64 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovdw_xmmm64_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 33 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 33 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVDW xmm1/m128 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovdw_xmmm128_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 33 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 33 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVDW ymm1/m256 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovdw_ymmm256_k1z_zmm,
-		/// <summary>66 0F 38 34 /r</summary>
+		/// <summary><c>66 0F 38 34 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVZXWQ xmm1, xmm2/m32</c></summary>
 		Pmovzxwq_xmm_xmmm32,
-		/// <summary>VEX.128.66.0F38.WIG 34 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 34 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXWQ xmm1, xmm2/m32</c></summary>
 		VEX_Vpmovzxwq_xmm_xmmm32,
-		/// <summary>VEX.256.66.0F38.WIG 34 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 34 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXWQ ymm1, xmm2/m64</c></summary>
 		VEX_Vpmovzxwq_ymm_xmmm64,
-		/// <summary>EVEX.128.66.0F38.WIG 34 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 34 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXWQ xmm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vpmovzxwq_xmm_k1z_xmmm32,
-		/// <summary>EVEX.256.66.0F38.WIG 34 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 34 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXWQ ymm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovzxwq_ymm_k1z_xmmm64,
-		/// <summary>EVEX.512.66.0F38.WIG 34 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 34 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXWQ zmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpmovzxwq_zmm_k1z_xmmm128,
-		/// <summary>EVEX.128.F3.0F38.W0 34 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 34 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQW xmm1/m32 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovqw_xmmm32_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 34 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 34 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQW xmm1/m64 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovqw_xmmm64_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 34 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 34 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQW xmm1/m128 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovqw_xmmm128_k1z_zmm,
-		/// <summary>66 0F 38 35 /r</summary>
+		/// <summary><c>66 0F 38 35 /r</c><br/>
+		/// <br/>
+		/// <c>PMOVZXDQ xmm1, xmm2/m64</c></summary>
 		Pmovzxdq_xmm_xmmm64,
-		/// <summary>VEX.128.66.0F38.WIG 35 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 35 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXDQ xmm1, xmm2/m64</c></summary>
 		VEX_Vpmovzxdq_xmm_xmmm64,
-		/// <summary>VEX.256.66.0F38.WIG 35 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 35 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXDQ ymm1, xmm2/m128</c></summary>
 		VEX_Vpmovzxdq_ymm_xmmm128,
-		/// <summary>EVEX.128.66.0F38.W0 35 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 35 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXDQ xmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpmovzxdq_xmm_k1z_xmmm64,
-		/// <summary>EVEX.256.66.0F38.W0 35 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 35 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXDQ ymm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpmovzxdq_ymm_k1z_xmmm128,
-		/// <summary>EVEX.512.66.0F38.W0 35 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 35 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVZXDQ zmm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpmovzxdq_zmm_k1z_ymmm256,
-		/// <summary>EVEX.128.F3.0F38.W0 35 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 35 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQD xmm1/m64 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpmovqd_xmmm64_k1z_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 35 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 35 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQD xmm1/m128 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpmovqd_xmmm128_k1z_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 35 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 35 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQD ymm1/m256 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpmovqd_ymmm256_k1z_zmm,
-		/// <summary>VEX.256.66.0F38.W0 36 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 36 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpermd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.256.66.0F38.W0 36 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 36 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 36 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 36 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpermd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.256.66.0F38.W1 36 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 36 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpermq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 36 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 36 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpermq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>66 0F 38 37 /r</summary>
+		/// <summary><c>66 0F 38 37 /r</c><br/>
+		/// <br/>
+		/// <c>PCMPGTQ xmm1, xmm2/m128</c></summary>
 		Pcmpgtq_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 37 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 37 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpcmpgtq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 37 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 37 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpcmpgtq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W1 37 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 37 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTQ k1 {k2}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 37 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 37 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTQ k1 {k2}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 37 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 37 /r</c><br/>
+		/// <br/>
+		/// <c>VPCMPGTQ k1 {k2}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64,
-		/// <summary>66 0F 38 38 /r</summary>
+		/// <summary><c>66 0F 38 38 /r</c><br/>
+		/// <br/>
+		/// <c>PMINSB xmm1, xmm2/m128</c></summary>
 		Pminsb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 38 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 38 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpminsb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 38 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 38 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpminsb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG 38 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 38 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpminsb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG 38 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 38 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpminsb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG 38 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 38 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpminsb_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.F3.0F38.W0 38 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 38 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2D xmm1, k1</c></summary>
 		EVEX_Vpmovm2d_xmm_k,
-		/// <summary>EVEX.256.F3.0F38.W0 38 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 38 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2D ymm1, k1</c></summary>
 		EVEX_Vpmovm2d_ymm_k,
-		/// <summary>EVEX.512.F3.0F38.W0 38 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 38 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2D zmm1, k1</c></summary>
 		EVEX_Vpmovm2d_zmm_k,
-		/// <summary>EVEX.128.F3.0F38.W1 38 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W1 38 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2Q xmm1, k1</c></summary>
 		EVEX_Vpmovm2q_xmm_k,
-		/// <summary>EVEX.256.F3.0F38.W1 38 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W1 38 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2Q ymm1, k1</c></summary>
 		EVEX_Vpmovm2q_ymm_k,
-		/// <summary>EVEX.512.F3.0F38.W1 38 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W1 38 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVM2Q zmm1, k1</c></summary>
 		EVEX_Vpmovm2q_zmm_k,
-		/// <summary>66 0F 38 39 /r</summary>
+		/// <summary><c>66 0F 38 39 /r</c><br/>
+		/// <br/>
+		/// <c>PMINSD xmm1, xmm2/m128</c></summary>
 		Pminsd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 39 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpminsd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 39 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpminsd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 39 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpminsd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 39 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpminsd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 39 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpminsd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 39 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpminsq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 39 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpminsq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 39 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMINSQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpminsq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.F3.0F38.W0 39 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVD2M k1, xmm1</c></summary>
 		EVEX_Vpmovd2m_k_xmm,
-		/// <summary>EVEX.256.F3.0F38.W0 39 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVD2M k1, ymm1</c></summary>
 		EVEX_Vpmovd2m_k_ymm,
-		/// <summary>EVEX.512.F3.0F38.W0 39 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVD2M k1, zmm1</c></summary>
 		EVEX_Vpmovd2m_k_zmm,
-		/// <summary>EVEX.128.F3.0F38.W1 39 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W1 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQ2M k1, xmm1</c></summary>
 		EVEX_Vpmovq2m_k_xmm,
-		/// <summary>EVEX.256.F3.0F38.W1 39 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W1 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQ2M k1, ymm1</c></summary>
 		EVEX_Vpmovq2m_k_ymm,
-		/// <summary>EVEX.512.F3.0F38.W1 39 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W1 39 /r</c><br/>
+		/// <br/>
+		/// <c>VPMOVQ2M k1, zmm1</c></summary>
 		EVEX_Vpmovq2m_k_zmm,
-		/// <summary>66 0F 38 3A /r</summary>
+		/// <summary><c>66 0F 38 3A /r</c><br/>
+		/// <br/>
+		/// <c>PMINUW xmm1, xmm2/m128</c></summary>
 		Pminuw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 3A /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 3A /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpminuw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 3A /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 3A /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpminuw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG 3A /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 3A /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpminuw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG 3A /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 3A /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpminuw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG 3A /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 3A /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpminuw_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.F3.0F38.W0 3A /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 3A /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTMW2D xmm1, k1</c></summary>
 		EVEX_Vpbroadcastmw2d_xmm_k,
-		/// <summary>EVEX.256.F3.0F38.W0 3A /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 3A /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTMW2D ymm1, k1</c></summary>
 		EVEX_Vpbroadcastmw2d_ymm_k,
-		/// <summary>EVEX.512.F3.0F38.W0 3A /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 3A /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTMW2D zmm1, k1</c></summary>
 		EVEX_Vpbroadcastmw2d_zmm_k,
-		/// <summary>66 0F 38 3B /r</summary>
+		/// <summary><c>66 0F 38 3B /r</c><br/>
+		/// <br/>
+		/// <c>PMINUD xmm1, xmm2/m128</c></summary>
 		Pminud_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 3B /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 3B /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpminud_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 3B /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 3B /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpminud_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 3B /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 3B /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpminud_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 3B /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 3B /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpminud_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 3B /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 3B /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpminud_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 3B /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 3B /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpminuq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 3B /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 3B /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpminuq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 3B /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 3B /r</c><br/>
+		/// <br/>
+		/// <c>VPMINUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpminuq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>66 0F 38 3C /r</summary>
+		/// <summary><c>66 0F 38 3C /r</c><br/>
+		/// <br/>
+		/// <c>PMAXSB xmm1, xmm2/m128</c></summary>
 		Pmaxsb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 3C /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 3C /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmaxsb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 3C /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 3C /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmaxsb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG 3C /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 3C /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpmaxsb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG 3C /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 3C /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpmaxsb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG 3C /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 3C /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpmaxsb_zmm_k1z_zmm_zmmm512,
-		/// <summary>66 0F 38 3D /r</summary>
+		/// <summary><c>66 0F 38 3D /r</c><br/>
+		/// <br/>
+		/// <c>PMAXSD xmm1, xmm2/m128</c></summary>
 		Pmaxsd_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 3D /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 3D /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmaxsd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 3D /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 3D /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmaxsd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 3D /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 3D /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpmaxsd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 3D /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 3D /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpmaxsd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 3D /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 3D /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpmaxsd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 3D /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 3D /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpmaxsq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 3D /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 3D /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpmaxsq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 3D /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 3D /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXSQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpmaxsq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>66 0F 38 3E /r</summary>
+		/// <summary><c>66 0F 38 3E /r</c><br/>
+		/// <br/>
+		/// <c>PMAXUW xmm1, xmm2/m128</c></summary>
 		Pmaxuw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 3E /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 3E /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUW xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmaxuw_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 3E /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 3E /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUW ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmaxuw_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG 3E /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG 3E /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpmaxuw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG 3E /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG 3E /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpmaxuw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG 3E /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG 3E /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpmaxuw_zmm_k1z_zmm_zmmm512,
-		/// <summary>66 0F 38 3F /r</summary>
+		/// <summary><c>66 0F 38 3F /r</c><br/>
+		/// <br/>
+		/// <c>PMAXUD xmm1, xmm2/m128</c></summary>
 		Pmaxud_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 3F /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 3F /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmaxud_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 3F /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 3F /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmaxud_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 3F /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 3F /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpmaxud_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 3F /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 3F /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpmaxud_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 3F /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 3F /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpmaxud_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 3F /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 3F /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpmaxuq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 3F /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 3F /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpmaxuq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 3F /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 3F /r</c><br/>
+		/// <br/>
+		/// <c>VPMAXUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpmaxuq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>66 0F 38 40 /r</summary>
+		/// <summary><c>66 0F 38 40 /r</c><br/>
+		/// <br/>
+		/// <c>PMULLD xmm1, xmm2/m128</c></summary>
 		Pmulld_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 40 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 40 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpmulld_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG 40 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG 40 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpmulld_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 40 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 40 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpmulld_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 40 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 40 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpmulld_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 40 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 40 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpmulld_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 40 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 40 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpmullq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 40 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 40 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpmullq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 40 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 40 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULLQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpmullq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>66 0F 38 41 /r</summary>
+		/// <summary><c>66 0F 38 41 /r</c><br/>
+		/// <br/>
+		/// <c>PHMINPOSUW xmm1, xmm2/m128</c></summary>
 		Phminposuw_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG 41 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG 41 /r</c><br/>
+		/// <br/>
+		/// <c>VPHMINPOSUW xmm1, xmm2/m128</c></summary>
 		VEX_Vphminposuw_xmm_xmmm128,
-		/// <summary>EVEX.128.66.0F38.W0 42 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 42 /r</c><br/>
+		/// <br/>
+		/// <c>VGETEXPPS xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vgetexpps_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 42 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 42 /r</c><br/>
+		/// <br/>
+		/// <c>VGETEXPPS ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vgetexpps_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 42 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 42 /r</c><br/>
+		/// <br/>
+		/// <c>VGETEXPPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}</c></summary>
 		EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae,
-		/// <summary>EVEX.128.66.0F38.W1 42 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 42 /r</c><br/>
+		/// <br/>
+		/// <c>VGETEXPPD xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vgetexppd_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 42 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 42 /r</c><br/>
+		/// <br/>
+		/// <c>VGETEXPPD ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vgetexppd_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 42 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 42 /r</c><br/>
+		/// <br/>
+		/// <c>VGETEXPPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}</c></summary>
 		EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae,
-		/// <summary>EVEX.LIG.66.0F38.W0 43 /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 43 /r</c><br/>
+		/// <br/>
+		/// <c>VGETEXPSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</c></summary>
 		EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae,
-		/// <summary>EVEX.LIG.66.0F38.W1 43 /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 43 /r</c><br/>
+		/// <br/>
+		/// <c>VGETEXPSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}</c></summary>
 		EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae,
-		/// <summary>EVEX.128.66.0F38.W0 44 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 44 /r</c><br/>
+		/// <br/>
+		/// <c>VPLZCNTD xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vplzcntd_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 44 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 44 /r</c><br/>
+		/// <br/>
+		/// <c>VPLZCNTD ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vplzcntd_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 44 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 44 /r</c><br/>
+		/// <br/>
+		/// <c>VPLZCNTD zmm1 {k1}{z}, zmm2/m512/m32bcst</c></summary>
 		EVEX_Vplzcntd_zmm_k1z_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 44 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 44 /r</c><br/>
+		/// <br/>
+		/// <c>VPLZCNTQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vplzcntq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 44 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 44 /r</c><br/>
+		/// <br/>
+		/// <c>VPLZCNTQ ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vplzcntq_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 44 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 44 /r</c><br/>
+		/// <br/>
+		/// <c>VPLZCNTQ zmm1 {k1}{z}, zmm2/m512/m64bcst</c></summary>
 		EVEX_Vplzcntq_zmm_k1z_zmmm512b64,
-		/// <summary>VEX.128.66.0F38.W0 45 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 45 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsrlvd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 45 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 45 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsrlvd_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 45 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 45 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsrlvq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 45 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 45 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsrlvq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 45 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 45 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 45 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 45 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 45 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 45 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpsrlvd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 45 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 45 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 45 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 45 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 45 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 45 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRLVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpsrlvq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>VEX.128.66.0F38.W0 46 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 46 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAVD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsravd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 46 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 46 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAVD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsravd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 46 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 46 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpsravd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 46 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 46 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpsravd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 46 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 46 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpsravd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 46 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 46 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpsravq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 46 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 46 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpsravq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 46 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 46 /r</c><br/>
+		/// <br/>
+		/// <c>VPSRAVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpsravq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>VEX.128.66.0F38.W0 47 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 47 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsllvd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 47 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 47 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsllvd_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 47 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 47 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVQ xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vpsllvq_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 47 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 47 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVQ ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vpsllvq_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 47 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 47 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 47 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 47 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 47 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 47 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpsllvd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 47 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 47 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 47 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 47 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 47 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 47 /r</c><br/>
+		/// <br/>
+		/// <c>VPSLLVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpsllvq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.66.0F38.W0 4C /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 4C /r</c><br/>
+		/// <br/>
+		/// <c>VRCP14PS xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vrcp14ps_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 4C /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 4C /r</c><br/>
+		/// <br/>
+		/// <c>VRCP14PS ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vrcp14ps_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 4C /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 4C /r</c><br/>
+		/// <br/>
+		/// <c>VRCP14PS zmm1 {k1}{z}, zmm2/m512/m32bcst</c></summary>
 		EVEX_Vrcp14ps_zmm_k1z_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 4C /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 4C /r</c><br/>
+		/// <br/>
+		/// <c>VRCP14PD xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vrcp14pd_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 4C /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 4C /r</c><br/>
+		/// <br/>
+		/// <c>VRCP14PD ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vrcp14pd_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 4C /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 4C /r</c><br/>
+		/// <br/>
+		/// <c>VRCP14PD zmm1 {k1}{z}, zmm2/m512/m64bcst</c></summary>
 		EVEX_Vrcp14pd_zmm_k1z_zmmm512b64,
-		/// <summary>EVEX.LIG.66.0F38.W0 4D /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 4D /r</c><br/>
+		/// <br/>
+		/// <c>VRCP14SS xmm1 {k1}{z}, xmm2, xmm3/m32</c></summary>
 		EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32,
-		/// <summary>EVEX.LIG.66.0F38.W1 4D /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 4D /r</c><br/>
+		/// <br/>
+		/// <c>VRCP14SD xmm1 {k1}{z}, xmm2, xmm3/m64</c></summary>
 		EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64,
-		/// <summary>EVEX.128.66.0F38.W0 4E /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 4E /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT14PS xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vrsqrt14ps_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 4E /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 4E /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT14PS ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vrsqrt14ps_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 4E /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 4E /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT14PS zmm1 {k1}{z}, zmm2/m512/m32bcst</c></summary>
 		EVEX_Vrsqrt14ps_zmm_k1z_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 4E /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 4E /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT14PD xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vrsqrt14pd_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 4E /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 4E /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT14PD ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vrsqrt14pd_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 4E /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 4E /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT14PD zmm1 {k1}{z}, zmm2/m512/m64bcst</c></summary>
 		EVEX_Vrsqrt14pd_zmm_k1z_zmmm512b64,
-		/// <summary>EVEX.LIG.66.0F38.W0 4F /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 4F /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT14SS xmm1 {k1}{z}, xmm2, xmm3/m32</c></summary>
 		EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32,
-		/// <summary>EVEX.LIG.66.0F38.W1 4F /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 4F /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT14SD xmm1 {k1}{z}, xmm2, xmm3/m64</c></summary>
 		EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64,
-		/// <summary>EVEX.128.66.0F38.W0 50 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 50 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 50 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpdpbusd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W0 51 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSDS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 51 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSDS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 51 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSDS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W0 52 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 52 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 52 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.F3.0F38.W0 52 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>VDPBF16PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.F3.0F38.W0 52 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>VDPBF16PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.F3.0F38.W0 52 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>VDPBF16PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.512.F2.0F38.W0 52 /r</summary>
+		/// <summary><c>EVEX.512.F2.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>VP4DPWSSD zmm1 {k1}{z}, zmm2+3, m128</c></summary>
 		EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128,
-		/// <summary>EVEX.128.66.0F38.W0 53 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSDS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 53 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSDS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 53 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSDS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpdpwssds_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.512.F2.0F38.W0 53 /r</summary>
+		/// <summary><c>EVEX.512.F2.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>VP4DPWSSDS zmm1 {k1}{z}, zmm2+3, m128</c></summary>
 		EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128,
-		/// <summary>EVEX.128.66.0F38.W0 54 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 54 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTB xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpopcntb_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W0 54 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 54 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTB ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpopcntb_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W0 54 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 54 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTB zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vpopcntb_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W1 54 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 54 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTW xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpopcntw_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 54 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 54 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTW ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpopcntw_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 54 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 54 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTW zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vpopcntw_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W0 55 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 55 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTD xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vpopcntd_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 55 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 55 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTD ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vpopcntd_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 55 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 55 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTD zmm1 {k1}{z}, zmm2/m512/m32bcst</c></summary>
 		EVEX_Vpopcntd_zmm_k1z_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 55 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 55 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vpopcntq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 55 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 55 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTQ ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vpopcntq_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 55 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 55 /r</c><br/>
+		/// <br/>
+		/// <c>VPOPCNTQ zmm1 {k1}{z}, zmm2/m512/m64bcst</c></summary>
 		EVEX_Vpopcntq_zmm_k1z_zmmm512b64,
-		/// <summary>VEX.128.66.0F38.W0 58 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTD xmm1, xmm2/m32</c></summary>
 		VEX_Vpbroadcastd_xmm_xmmm32,
-		/// <summary>VEX.256.66.0F38.W0 58 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTD ymm1, xmm2/m32</c></summary>
 		VEX_Vpbroadcastd_ymm_xmmm32,
-		/// <summary>EVEX.128.66.0F38.W0 58 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTD xmm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vpbroadcastd_xmm_k1z_xmmm32,
-		/// <summary>EVEX.256.66.0F38.W0 58 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTD ymm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vpbroadcastd_ymm_k1z_xmmm32,
-		/// <summary>EVEX.512.66.0F38.W0 58 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTD zmm1 {k1}{z}, xmm2/m32</c></summary>
 		EVEX_Vpbroadcastd_zmm_k1z_xmmm32,
-		/// <summary>VEX.128.66.0F38.W0 59 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTQ xmm1, xmm2/m64</c></summary>
 		VEX_Vpbroadcastq_xmm_xmmm64,
-		/// <summary>VEX.256.66.0F38.W0 59 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTQ ymm1, xmm2/m64</c></summary>
 		VEX_Vpbroadcastq_ymm_xmmm64,
-		/// <summary>EVEX.128.66.0F38.W0 59 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTI32X2 xmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vbroadcasti32x2_xmm_k1z_xmmm64,
-		/// <summary>EVEX.256.66.0F38.W0 59 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTI32X2 ymm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vbroadcasti32x2_ymm_k1z_xmmm64,
-		/// <summary>EVEX.512.66.0F38.W0 59 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTI32X2 zmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vbroadcasti32x2_zmm_k1z_xmmm64,
-		/// <summary>EVEX.128.66.0F38.W1 59 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 59 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTQ xmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpbroadcastq_xmm_k1z_xmmm64,
-		/// <summary>EVEX.256.66.0F38.W1 59 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 59 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTQ ymm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpbroadcastq_ymm_k1z_xmmm64,
-		/// <summary>EVEX.512.66.0F38.W1 59 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 59 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTQ zmm1 {k1}{z}, xmm2/m64</c></summary>
 		EVEX_Vpbroadcastq_zmm_k1z_xmmm64,
-		/// <summary>VEX.256.66.0F38.W0 5A /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTI128 ymm1, m128</c></summary>
 		VEX_Vbroadcasti128_ymm_m128,
-		/// <summary>EVEX.256.66.0F38.W0 5A /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTI32X4 ymm1 {k1}{z}, m128</c></summary>
 		EVEX_Vbroadcasti32x4_ymm_k1z_m128,
-		/// <summary>EVEX.512.66.0F38.W0 5A /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTI32X4 zmm1 {k1}{z}, m128</c></summary>
 		EVEX_Vbroadcasti32x4_zmm_k1z_m128,
-		/// <summary>EVEX.256.66.0F38.W1 5A /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTI64X2 ymm1 {k1}{z}, m128</c></summary>
 		EVEX_Vbroadcasti64x2_ymm_k1z_m128,
-		/// <summary>EVEX.512.66.0F38.W1 5A /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTI64X2 zmm1 {k1}{z}, m128</c></summary>
 		EVEX_Vbroadcasti64x2_zmm_k1z_m128,
-		/// <summary>EVEX.512.66.0F38.W0 5B /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTI32X8 zmm1 {k1}{z}, m256</c></summary>
 		EVEX_Vbroadcasti32x8_zmm_k1z_m256,
-		/// <summary>EVEX.512.66.0F38.W1 5B /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 5B /r</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTI64X4 zmm1 {k1}{z}, m256</c></summary>
 		EVEX_Vbroadcasti64x4_zmm_k1z_m256,
-		/// <summary>EVEX.128.66.0F38.W0 62 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 62 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDB xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpexpandb_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W0 62 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 62 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDB ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpexpandb_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W0 62 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 62 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDB zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vpexpandb_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W1 62 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 62 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDW xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpexpandw_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 62 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 62 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDW ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpexpandw_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 62 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 62 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDW zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vpexpandw_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W0 63 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 63 /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSB xmm1/m128 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpcompressb_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.66.0F38.W0 63 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 63 /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSB ymm1/m256 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpcompressb_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.66.0F38.W0 63 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 63 /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSB zmm1/m512 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpcompressb_zmmm512_k1z_zmm,
-		/// <summary>EVEX.128.66.0F38.W1 63 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 63 /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSW xmm1/m128 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpcompressw_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.66.0F38.W1 63 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 63 /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSW ymm1/m256 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpcompressw_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.66.0F38.W1 63 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 63 /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSW zmm1/m512 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpcompressw_zmmm512_k1z_zmm,
-		/// <summary>EVEX.128.66.0F38.W0 64 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 64 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpblendmd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 64 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 64 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpblendmd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 64 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 64 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpblendmd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 64 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 64 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpblendmq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 64 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 64 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpblendmq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 64 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 64 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpblendmq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.66.0F38.W0 65 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 65 /r</c><br/>
+		/// <br/>
+		/// <c>VBLENDMPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vblendmps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 65 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 65 /r</c><br/>
+		/// <br/>
+		/// <c>VBLENDMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vblendmps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 65 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 65 /r</c><br/>
+		/// <br/>
+		/// <c>VBLENDMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vblendmps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 65 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 65 /r</c><br/>
+		/// <br/>
+		/// <c>VBLENDMPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vblendmpd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 65 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 65 /r</c><br/>
+		/// <br/>
+		/// <c>VBLENDMPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vblendmpd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 65 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 65 /r</c><br/>
+		/// <br/>
+		/// <c>VBLENDMPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vblendmpd_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.66.0F38.W0 66 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 66 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpblendmb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W0 66 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 66 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpblendmb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W0 66 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 66 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpblendmb_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W1 66 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 66 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 66 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 66 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 66 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 66 /r</c><br/>
+		/// <br/>
+		/// <c>VPBLENDMW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.F2.0F38.W0 68 /r</summary>
+		/// <summary><c>EVEX.128.F2.0F38.W0 68 /r</c><br/>
+		/// <br/>
+		/// <c>VP2INTERSECTD k1+1, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vp2intersectd_kp1_xmm_xmmm128b32,
-		/// <summary>EVEX.256.F2.0F38.W0 68 /r</summary>
+		/// <summary><c>EVEX.256.F2.0F38.W0 68 /r</c><br/>
+		/// <br/>
+		/// <c>VP2INTERSECTD k1+1, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vp2intersectd_kp1_ymm_ymmm256b32,
-		/// <summary>EVEX.512.F2.0F38.W0 68 /r</summary>
+		/// <summary><c>EVEX.512.F2.0F38.W0 68 /r</c><br/>
+		/// <br/>
+		/// <c>VP2INTERSECTD k1+1, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vp2intersectd_kp1_zmm_zmmm512b32,
-		/// <summary>EVEX.128.F2.0F38.W1 68 /r</summary>
+		/// <summary><c>EVEX.128.F2.0F38.W1 68 /r</c><br/>
+		/// <br/>
+		/// <c>VP2INTERSECTQ k1+1, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vp2intersectq_kp1_xmm_xmmm128b64,
-		/// <summary>EVEX.256.F2.0F38.W1 68 /r</summary>
+		/// <summary><c>EVEX.256.F2.0F38.W1 68 /r</c><br/>
+		/// <br/>
+		/// <c>VP2INTERSECTQ k1+1, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vp2intersectq_kp1_ymm_ymmm256b64,
-		/// <summary>EVEX.512.F2.0F38.W1 68 /r</summary>
+		/// <summary><c>EVEX.512.F2.0F38.W1 68 /r</c><br/>
+		/// <br/>
+		/// <c>VP2INTERSECTQ k1+1, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vp2intersectq_kp1_zmm_zmmm512b64,
-		/// <summary>EVEX.128.66.0F38.W1 70 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 70 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLDVW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 70 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 70 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLDVW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 70 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 70 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLDVW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W0 71 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 71 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLDVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpshldvd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 71 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 71 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLDVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpshldvd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 71 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 71 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLDVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpshldvd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 71 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 71 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLDVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpshldvq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 71 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 71 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLDVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpshldvq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 71 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 71 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLDVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpshldvq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.66.0F38.W1 72 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 72 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHRDVW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 72 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 72 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHRDVW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 72 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 72 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHRDVW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.F3.0F38.W0 72 /r</summary>
+		/// <summary><c>EVEX.128.F3.0F38.W0 72 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTNEPS2BF16 xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.F3.0F38.W0 72 /r</summary>
+		/// <summary><c>EVEX.256.F3.0F38.W0 72 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTNEPS2BF16 xmm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.F3.0F38.W0 72 /r</summary>
+		/// <summary><c>EVEX.512.F3.0F38.W0 72 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTNEPS2BF16 ymm1 {k1}{z}, zmm2/m512/m32bcst</c></summary>
 		EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32,
-		/// <summary>EVEX.128.F2.0F38.W0 72 /r</summary>
+		/// <summary><c>EVEX.128.F2.0F38.W0 72 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTNE2PS2BF16 xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.F2.0F38.W0 72 /r</summary>
+		/// <summary><c>EVEX.256.F2.0F38.W0 72 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTNE2PS2BF16 ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.F2.0F38.W0 72 /r</summary>
+		/// <summary><c>EVEX.512.F2.0F38.W0 72 /r</c><br/>
+		/// <br/>
+		/// <c>VCVTNE2PS2BF16 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W0 73 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 73 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHRDVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 73 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 73 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHRDVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 73 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 73 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHRDVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 73 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 73 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHRDVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpshrdvq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 73 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 73 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHRDVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpshrdvq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 73 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 73 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHRDVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpshrdvq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.66.0F38.W0 75 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 75 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2B xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpermi2b_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W0 75 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 75 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2B ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpermi2b_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W0 75 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 75 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2B zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpermi2b_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W1 75 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 75 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2W xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpermi2w_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 75 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 75 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2W ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpermi2w_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 75 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 75 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2W zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpermi2w_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W0 76 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 76 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2D xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpermi2d_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 76 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 76 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2D ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpermi2d_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 76 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 76 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2D zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpermi2d_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 76 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 76 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2Q xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpermi2q_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 76 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 76 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2Q ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpermi2q_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 76 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 76 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2Q zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpermi2q_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.66.0F38.W0 77 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 77 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpermi2ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 77 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 77 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpermi2ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 77 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 77 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpermi2ps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 77 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 77 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpermi2pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 77 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 77 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpermi2pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 77 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 77 /r</c><br/>
+		/// <br/>
+		/// <c>VPERMI2PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpermi2pd_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>VEX.128.66.0F38.W0 78 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTB xmm1, xmm2/m8</c></summary>
 		VEX_Vpbroadcastb_xmm_xmmm8,
-		/// <summary>VEX.256.66.0F38.W0 78 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTB ymm1, xmm2/m8</c></summary>
 		VEX_Vpbroadcastb_ymm_xmmm8,
-		/// <summary>EVEX.128.66.0F38.W0 78 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTB xmm1 {k1}{z}, xmm2/m8</c></summary>
 		EVEX_Vpbroadcastb_xmm_k1z_xmmm8,
-		/// <summary>EVEX.256.66.0F38.W0 78 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTB ymm1 {k1}{z}, xmm2/m8</c></summary>
 		EVEX_Vpbroadcastb_ymm_k1z_xmmm8,
-		/// <summary>EVEX.512.66.0F38.W0 78 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTB zmm1 {k1}{z}, xmm2/m8</c></summary>
 		EVEX_Vpbroadcastb_zmm_k1z_xmmm8,
-		/// <summary>VEX.128.66.0F38.W0 79 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTW xmm1, xmm2/m16</c></summary>
 		VEX_Vpbroadcastw_xmm_xmmm16,
-		/// <summary>VEX.256.66.0F38.W0 79 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTW ymm1, xmm2/m16</c></summary>
 		VEX_Vpbroadcastw_ymm_xmmm16,
-		/// <summary>EVEX.128.66.0F38.W0 79 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTW xmm1 {k1}{z}, xmm2/m16</c></summary>
 		EVEX_Vpbroadcastw_xmm_k1z_xmmm16,
-		/// <summary>EVEX.256.66.0F38.W0 79 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTW ymm1 {k1}{z}, xmm2/m16</c></summary>
 		EVEX_Vpbroadcastw_ymm_k1z_xmmm16,
-		/// <summary>EVEX.512.66.0F38.W0 79 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTW zmm1 {k1}{z}, xmm2/m16</c></summary>
 		EVEX_Vpbroadcastw_zmm_k1z_xmmm16,
-		/// <summary>EVEX.128.66.0F38.W0 7A /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTB xmm1 {k1}{z}, r32</c></summary>
 		EVEX_Vpbroadcastb_xmm_k1z_r32,
-		/// <summary>EVEX.256.66.0F38.W0 7A /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTB ymm1 {k1}{z}, r32</c></summary>
 		EVEX_Vpbroadcastb_ymm_k1z_r32,
-		/// <summary>EVEX.512.66.0F38.W0 7A /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTB zmm1 {k1}{z}, r32</c></summary>
 		EVEX_Vpbroadcastb_zmm_k1z_r32,
-		/// <summary>EVEX.128.66.0F38.W0 7B /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTW xmm1 {k1}{z}, r32</c></summary>
 		EVEX_Vpbroadcastw_xmm_k1z_r32,
-		/// <summary>EVEX.256.66.0F38.W0 7B /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTW ymm1 {k1}{z}, r32</c></summary>
 		EVEX_Vpbroadcastw_ymm_k1z_r32,
-		/// <summary>EVEX.512.66.0F38.W0 7B /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTW zmm1 {k1}{z}, r32</c></summary>
 		EVEX_Vpbroadcastw_zmm_k1z_r32,
-		/// <summary>EVEX.128.66.0F38.W0 7C /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 7C /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTD xmm1 {k1}{z}, r32</c></summary>
 		EVEX_Vpbroadcastd_xmm_k1z_r32,
-		/// <summary>EVEX.256.66.0F38.W0 7C /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 7C /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTD ymm1 {k1}{z}, r32</c></summary>
 		EVEX_Vpbroadcastd_ymm_k1z_r32,
-		/// <summary>EVEX.512.66.0F38.W0 7C /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 7C /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTD zmm1 {k1}{z}, r32</c></summary>
 		EVEX_Vpbroadcastd_zmm_k1z_r32,
-		/// <summary>EVEX.128.66.0F38.W1 7C /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 7C /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTQ xmm1 {k1}{z}, r64</c></summary>
 		EVEX_Vpbroadcastq_xmm_k1z_r64,
-		/// <summary>EVEX.256.66.0F38.W1 7C /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 7C /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTQ ymm1 {k1}{z}, r64</c></summary>
 		EVEX_Vpbroadcastq_ymm_k1z_r64,
-		/// <summary>EVEX.512.66.0F38.W1 7C /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 7C /r</c><br/>
+		/// <br/>
+		/// <c>VPBROADCASTQ zmm1 {k1}{z}, r64</c></summary>
 		EVEX_Vpbroadcastq_zmm_k1z_r64,
-		/// <summary>EVEX.128.66.0F38.W0 7D /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2B xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpermt2b_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W0 7D /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2B ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpermt2b_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W0 7D /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2B zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpermt2b_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W1 7D /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 7D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2W xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpermt2w_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 7D /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 7D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2W ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpermt2w_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 7D /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 7D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2W zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpermt2w_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W0 7E /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 7E /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2D xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpermt2d_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 7E /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 7E /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2D ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpermt2d_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 7E /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 7E /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2D zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpermt2d_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 7E /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 7E /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2Q xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpermt2q_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 7E /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 7E /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2Q ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpermt2q_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 7E /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 7E /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2Q zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpermt2q_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.66.0F38.W0 7F /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vpermt2ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 7F /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vpermt2ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 7F /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</c></summary>
 		EVEX_Vpermt2ps_zmm_k1z_zmm_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 7F /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpermt2pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 7F /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpermt2pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 7F /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>VPERMT2PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpermt2pd_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>66 0F 38 80 /r</summary>
+		/// <summary><c>66 0F 38 80 /r</c><br/>
+		/// <br/>
+		/// <c>INVEPT r32, m128</c></summary>
 		Invept_r32_m128,
-		/// <summary>66 0F 38 80 /r</summary>
+		/// <summary><c>66 0F 38 80 /r</c><br/>
+		/// <br/>
+		/// <c>INVEPT r64, m128</c></summary>
 		Invept_r64_m128,
-		/// <summary>66 0F 38 81 /r</summary>
+		/// <summary><c>66 0F 38 81 /r</c><br/>
+		/// <br/>
+		/// <c>INVVPID r32, m128</c></summary>
 		Invvpid_r32_m128,
-		/// <summary>66 0F 38 81 /r</summary>
+		/// <summary><c>66 0F 38 81 /r</c><br/>
+		/// <br/>
+		/// <c>INVVPID r64, m128</c></summary>
 		Invvpid_r64_m128,
-		/// <summary>66 0F 38 82 /r</summary>
+		/// <summary><c>66 0F 38 82 /r</c><br/>
+		/// <br/>
+		/// <c>INVPCID r32, m128</c></summary>
 		Invpcid_r32_m128,
-		/// <summary>66 0F 38 82 /r</summary>
+		/// <summary><c>66 0F 38 82 /r</c><br/>
+		/// <br/>
+		/// <c>INVPCID r64, m128</c></summary>
 		Invpcid_r64_m128,
-		/// <summary>EVEX.128.66.0F38.W1 83 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 83 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULTISHIFTQB xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpmultishiftqb_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 83 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 83 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULTISHIFTQB ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpmultishiftqb_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 83 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 83 /r</c><br/>
+		/// <br/>
+		/// <c>VPMULTISHIFTQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpmultishiftqb_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.66.0F38.W0 88 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 88 /r</c><br/>
+		/// <br/>
+		/// <c>VEXPANDPS xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vexpandps_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W0 88 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 88 /r</c><br/>
+		/// <br/>
+		/// <c>VEXPANDPS ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vexpandps_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W0 88 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 88 /r</c><br/>
+		/// <br/>
+		/// <c>VEXPANDPS zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vexpandps_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W1 88 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 88 /r</c><br/>
+		/// <br/>
+		/// <c>VEXPANDPD xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vexpandpd_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 88 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 88 /r</c><br/>
+		/// <br/>
+		/// <c>VEXPANDPD ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vexpandpd_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 88 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 88 /r</c><br/>
+		/// <br/>
+		/// <c>VEXPANDPD zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vexpandpd_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W0 89 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 89 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDD xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpexpandd_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W0 89 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 89 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDD ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpexpandd_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W0 89 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 89 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDD zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vpexpandd_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W1 89 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 89 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDQ xmm1 {k1}{z}, xmm2/m128</c></summary>
 		EVEX_Vpexpandq_xmm_k1z_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 89 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 89 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDQ ymm1 {k1}{z}, ymm2/m256</c></summary>
 		EVEX_Vpexpandq_ymm_k1z_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 89 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 89 /r</c><br/>
+		/// <br/>
+		/// <c>VPEXPANDQ zmm1 {k1}{z}, zmm2/m512</c></summary>
 		EVEX_Vpexpandq_zmm_k1z_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W0 8A /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 8A /r</c><br/>
+		/// <br/>
+		/// <c>VCOMPRESSPS xmm1/m128 {k1}{z}, xmm2</c></summary>
 		EVEX_Vcompressps_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.66.0F38.W0 8A /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 8A /r</c><br/>
+		/// <br/>
+		/// <c>VCOMPRESSPS ymm1/m256 {k1}{z}, ymm2</c></summary>
 		EVEX_Vcompressps_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.66.0F38.W0 8A /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 8A /r</c><br/>
+		/// <br/>
+		/// <c>VCOMPRESSPS zmm1/m512 {k1}{z}, zmm2</c></summary>
 		EVEX_Vcompressps_zmmm512_k1z_zmm,
-		/// <summary>EVEX.128.66.0F38.W1 8A /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 8A /r</c><br/>
+		/// <br/>
+		/// <c>VCOMPRESSPD xmm1/m128 {k1}{z}, xmm2</c></summary>
 		EVEX_Vcompresspd_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.66.0F38.W1 8A /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 8A /r</c><br/>
+		/// <br/>
+		/// <c>VCOMPRESSPD ymm1/m256 {k1}{z}, ymm2</c></summary>
 		EVEX_Vcompresspd_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.66.0F38.W1 8A /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 8A /r</c><br/>
+		/// <br/>
+		/// <c>VCOMPRESSPD zmm1/m512 {k1}{z}, zmm2</c></summary>
 		EVEX_Vcompresspd_zmmm512_k1z_zmm,
-		/// <summary>EVEX.128.66.0F38.W0 8B /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 8B /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSD xmm1/m128 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpcompressd_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.66.0F38.W0 8B /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 8B /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSD ymm1/m256 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpcompressd_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.66.0F38.W0 8B /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 8B /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSD zmm1/m512 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpcompressd_zmmm512_k1z_zmm,
-		/// <summary>EVEX.128.66.0F38.W1 8B /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 8B /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSQ xmm1/m128 {k1}{z}, xmm2</c></summary>
 		EVEX_Vpcompressq_xmmm128_k1z_xmm,
-		/// <summary>EVEX.256.66.0F38.W1 8B /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 8B /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSQ ymm1/m256 {k1}{z}, ymm2</c></summary>
 		EVEX_Vpcompressq_ymmm256_k1z_ymm,
-		/// <summary>EVEX.512.66.0F38.W1 8B /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 8B /r</c><br/>
+		/// <br/>
+		/// <c>VPCOMPRESSQ zmm1/m512 {k1}{z}, zmm2</c></summary>
 		EVEX_Vpcompressq_zmmm512_k1z_zmm,
-		/// <summary>VEX.128.66.0F38.W0 8C /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 8C /r</c><br/>
+		/// <br/>
+		/// <c>VPMASKMOVD xmm1, xmm2, m128</c></summary>
 		VEX_Vpmaskmovd_xmm_xmm_m128,
-		/// <summary>VEX.256.66.0F38.W0 8C /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 8C /r</c><br/>
+		/// <br/>
+		/// <c>VPMASKMOVD ymm1, ymm2, m256</c></summary>
 		VEX_Vpmaskmovd_ymm_ymm_m256,
-		/// <summary>VEX.128.66.0F38.W1 8C /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 8C /r</c><br/>
+		/// <br/>
+		/// <c>VPMASKMOVQ xmm1, xmm2, m128</c></summary>
 		VEX_Vpmaskmovq_xmm_xmm_m128,
-		/// <summary>VEX.256.66.0F38.W1 8C /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 8C /r</c><br/>
+		/// <br/>
+		/// <c>VPMASKMOVQ ymm1, ymm2, m256</c></summary>
 		VEX_Vpmaskmovq_ymm_ymm_m256,
-		/// <summary>EVEX.128.66.0F38.W0 8D /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 8D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpermb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W0 8D /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 8D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpermb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W0 8D /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 8D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpermb_zmm_k1z_zmm_zmmm512,
-		/// <summary>EVEX.128.66.0F38.W1 8D /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 8D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMW xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpermw_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W1 8D /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 8D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMW ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpermw_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W1 8D /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 8D /r</c><br/>
+		/// <br/>
+		/// <c>VPERMW zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpermw_zmm_k1z_zmm_zmmm512,
-		/// <summary>VEX.128.66.0F38.W0 8E /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 8E /r</c><br/>
+		/// <br/>
+		/// <c>VPMASKMOVD m128, xmm1, xmm2</c></summary>
 		VEX_Vpmaskmovd_m128_xmm_xmm,
-		/// <summary>VEX.256.66.0F38.W0 8E /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 8E /r</c><br/>
+		/// <br/>
+		/// <c>VPMASKMOVD m256, ymm1, ymm2</c></summary>
 		VEX_Vpmaskmovd_m256_ymm_ymm,
-		/// <summary>VEX.128.66.0F38.W1 8E /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 8E /r</c><br/>
+		/// <br/>
+		/// <c>VPMASKMOVQ m128, xmm1, xmm2</c></summary>
 		VEX_Vpmaskmovq_m128_xmm_xmm,
-		/// <summary>VEX.256.66.0F38.W1 8E /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 8E /r</c><br/>
+		/// <br/>
+		/// <c>VPMASKMOVQ m256, ymm1, ymm2</c></summary>
 		VEX_Vpmaskmovq_m256_ymm_ymm,
-		/// <summary>EVEX.128.66.0F38.W0 8F /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 8F /r</c><br/>
+		/// <br/>
+		/// <c>VPSHUFBITQMB k1 {k2}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W0 8F /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 8F /r</c><br/>
+		/// <br/>
+		/// <c>VPSHUFBITQMB k1 {k2}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W0 8F /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 8F /r</c><br/>
+		/// <br/>
+		/// <c>VPSHUFBITQMB k1 {k2}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512,
-		/// <summary>VEX.128.66.0F38.W0 90 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 90 /r</c><br/>
+		/// <br/>
+		/// <c>VPGATHERDD xmm1, vm32x, xmm2</c></summary>
 		VEX_Vpgatherdd_xmm_vm32x_xmm,
-		/// <summary>VEX.256.66.0F38.W0 90 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 90 /r</c><br/>
+		/// <br/>
+		/// <c>VPGATHERDD ymm1, vm32y, ymm2</c></summary>
 		VEX_Vpgatherdd_ymm_vm32y_ymm,
-		/// <summary>VEX.128.66.0F38.W1 90 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 90 /r</c><br/>
+		/// <br/>
+		/// <c>VPGATHERDQ xmm1, vm32x, xmm2</c></summary>
 		VEX_Vpgatherdq_xmm_vm32x_xmm,
-		/// <summary>VEX.256.66.0F38.W1 90 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 90 /r</c><br/>
+		/// <br/>
+		/// <c>VPGATHERDQ ymm1, vm32x, ymm2</c></summary>
 		VEX_Vpgatherdq_ymm_vm32x_ymm,
-		/// <summary>EVEX.128.66.0F38.W0 90 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 90 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERDD xmm1 {k1}, vm32x</c></summary>
 		EVEX_Vpgatherdd_xmm_k1_vm32x,
-		/// <summary>EVEX.256.66.0F38.W0 90 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 90 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERDD ymm1 {k1}, vm32y</c></summary>
 		EVEX_Vpgatherdd_ymm_k1_vm32y,
-		/// <summary>EVEX.512.66.0F38.W0 90 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 90 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERDD zmm1 {k1}, vm32z</c></summary>
 		EVEX_Vpgatherdd_zmm_k1_vm32z,
-		/// <summary>EVEX.128.66.0F38.W1 90 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 90 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERDQ xmm1 {k1}, vm32x</c></summary>
 		EVEX_Vpgatherdq_xmm_k1_vm32x,
-		/// <summary>EVEX.256.66.0F38.W1 90 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 90 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERDQ ymm1 {k1}, vm32x</c></summary>
 		EVEX_Vpgatherdq_ymm_k1_vm32x,
-		/// <summary>EVEX.512.66.0F38.W1 90 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 90 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERDQ zmm1 {k1}, vm32y</c></summary>
 		EVEX_Vpgatherdq_zmm_k1_vm32y,
-		/// <summary>VEX.128.66.0F38.W0 91 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 91 /r</c><br/>
+		/// <br/>
+		/// <c>VPGATHERQD xmm1, vm64x, xmm2</c></summary>
 		VEX_Vpgatherqd_xmm_vm64x_xmm,
-		/// <summary>VEX.256.66.0F38.W0 91 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 91 /r</c><br/>
+		/// <br/>
+		/// <c>VPGATHERQD xmm1, vm64y, xmm2</c></summary>
 		VEX_Vpgatherqd_xmm_vm64y_xmm,
-		/// <summary>VEX.128.66.0F38.W1 91 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 91 /r</c><br/>
+		/// <br/>
+		/// <c>VPGATHERQQ xmm1, vm64x, xmm2</c></summary>
 		VEX_Vpgatherqq_xmm_vm64x_xmm,
-		/// <summary>VEX.256.66.0F38.W1 91 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 91 /r</c><br/>
+		/// <br/>
+		/// <c>VPGATHERQQ ymm1, vm64y, ymm2</c></summary>
 		VEX_Vpgatherqq_ymm_vm64y_ymm,
-		/// <summary>EVEX.128.66.0F38.W0 91 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 91 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERQD xmm1 {k1}, vm64x</c></summary>
 		EVEX_Vpgatherqd_xmm_k1_vm64x,
-		/// <summary>EVEX.256.66.0F38.W0 91 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 91 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERQD xmm1 {k1}, vm64y</c></summary>
 		EVEX_Vpgatherqd_xmm_k1_vm64y,
-		/// <summary>EVEX.512.66.0F38.W0 91 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 91 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERQD ymm1 {k1}, vm64z</c></summary>
 		EVEX_Vpgatherqd_ymm_k1_vm64z,
-		/// <summary>EVEX.128.66.0F38.W1 91 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 91 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERQQ xmm1 {k1}, vm64x</c></summary>
 		EVEX_Vpgatherqq_xmm_k1_vm64x,
-		/// <summary>EVEX.256.66.0F38.W1 91 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 91 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERQQ ymm1 {k1}, vm64y</c></summary>
 		EVEX_Vpgatherqq_ymm_k1_vm64y,
-		/// <summary>EVEX.512.66.0F38.W1 91 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 91 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPGATHERQQ zmm1 {k1}, vm64z</c></summary>
 		EVEX_Vpgatherqq_zmm_k1_vm64z,
-		/// <summary>VEX.128.66.0F38.W0 92 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 92 /r</c><br/>
+		/// <br/>
+		/// <c>VGATHERDPS xmm1, vm32x, xmm2</c></summary>
 		VEX_Vgatherdps_xmm_vm32x_xmm,
-		/// <summary>VEX.256.66.0F38.W0 92 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 92 /r</c><br/>
+		/// <br/>
+		/// <c>VGATHERDPS ymm1, vm32y, ymm2</c></summary>
 		VEX_Vgatherdps_ymm_vm32y_ymm,
-		/// <summary>VEX.128.66.0F38.W1 92 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 92 /r</c><br/>
+		/// <br/>
+		/// <c>VGATHERDPD xmm1, vm32x, xmm2</c></summary>
 		VEX_Vgatherdpd_xmm_vm32x_xmm,
-		/// <summary>VEX.256.66.0F38.W1 92 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 92 /r</c><br/>
+		/// <br/>
+		/// <c>VGATHERDPD ymm1, vm32x, ymm2</c></summary>
 		VEX_Vgatherdpd_ymm_vm32x_ymm,
-		/// <summary>EVEX.128.66.0F38.W0 92 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 92 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERDPS xmm1 {k1}, vm32x</c></summary>
 		EVEX_Vgatherdps_xmm_k1_vm32x,
-		/// <summary>EVEX.256.66.0F38.W0 92 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 92 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERDPS ymm1 {k1}, vm32y</c></summary>
 		EVEX_Vgatherdps_ymm_k1_vm32y,
-		/// <summary>EVEX.512.66.0F38.W0 92 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 92 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERDPS zmm1 {k1}, vm32z</c></summary>
 		EVEX_Vgatherdps_zmm_k1_vm32z,
-		/// <summary>EVEX.128.66.0F38.W1 92 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 92 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERDPD xmm1 {k1}, vm32x</c></summary>
 		EVEX_Vgatherdpd_xmm_k1_vm32x,
-		/// <summary>EVEX.256.66.0F38.W1 92 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 92 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERDPD ymm1 {k1}, vm32x</c></summary>
 		EVEX_Vgatherdpd_ymm_k1_vm32x,
-		/// <summary>EVEX.512.66.0F38.W1 92 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 92 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERDPD zmm1 {k1}, vm32y</c></summary>
 		EVEX_Vgatherdpd_zmm_k1_vm32y,
-		/// <summary>VEX.128.66.0F38.W0 93 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 93 /r</c><br/>
+		/// <br/>
+		/// <c>VGATHERQPS xmm1, vm64x, xmm2</c></summary>
 		VEX_Vgatherqps_xmm_vm64x_xmm,
-		/// <summary>VEX.256.66.0F38.W0 93 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 93 /r</c><br/>
+		/// <br/>
+		/// <c>VGATHERQPS xmm1, vm64y, xmm2</c></summary>
 		VEX_Vgatherqps_xmm_vm64y_xmm,
-		/// <summary>VEX.128.66.0F38.W1 93 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 93 /r</c><br/>
+		/// <br/>
+		/// <c>VGATHERQPD xmm1, vm64x, xmm2</c></summary>
 		VEX_Vgatherqpd_xmm_vm64x_xmm,
-		/// <summary>VEX.256.66.0F38.W1 93 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 93 /r</c><br/>
+		/// <br/>
+		/// <c>VGATHERQPD ymm1, vm64y, ymm2</c></summary>
 		VEX_Vgatherqpd_ymm_vm64y_ymm,
-		/// <summary>EVEX.128.66.0F38.W0 93 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 93 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERQPS xmm1 {k1}, vm64x</c></summary>
 		EVEX_Vgatherqps_xmm_k1_vm64x,
-		/// <summary>EVEX.256.66.0F38.W0 93 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 93 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERQPS xmm1 {k1}, vm64y</c></summary>
 		EVEX_Vgatherqps_xmm_k1_vm64y,
-		/// <summary>EVEX.512.66.0F38.W0 93 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 93 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERQPS ymm1 {k1}, vm64z</c></summary>
 		EVEX_Vgatherqps_ymm_k1_vm64z,
-		/// <summary>EVEX.128.66.0F38.W1 93 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 93 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERQPD xmm1 {k1}, vm64x</c></summary>
 		EVEX_Vgatherqpd_xmm_k1_vm64x,
-		/// <summary>EVEX.256.66.0F38.W1 93 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 93 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERQPD ymm1 {k1}, vm64y</c></summary>
 		EVEX_Vgatherqpd_ymm_k1_vm64y,
-		/// <summary>EVEX.512.66.0F38.W1 93 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 93 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERQPD zmm1 {k1}, vm64z</c></summary>
 		EVEX_Vgatherqpd_zmm_k1_vm64z,
-		/// <summary>VEX.128.66.0F38.W0 96 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 96 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB132PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmaddsub132ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 96 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 96 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB132PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmaddsub132ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 96 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 96 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB132PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmaddsub132pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 96 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 96 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB132PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmaddsub132pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 96 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 96 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 96 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 96 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 96 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 96 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmaddsub132ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 96 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 96 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 96 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 96 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 96 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 96 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmaddsub132pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.128.66.0F38.W0 97 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 97 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD132PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsubadd132ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 97 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 97 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD132PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsubadd132ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 97 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 97 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD132PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsubadd132pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 97 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 97 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD132PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsubadd132pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 97 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 97 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 97 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 97 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 97 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 97 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmsubadd132ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 97 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 97 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 97 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 97 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 97 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 97 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmsubadd132pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.128.66.0F38.W0 98 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmadd132ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 98 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmadd132ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 98 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 98 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmadd132pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 98 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 98 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmadd132pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 98 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 98 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 98 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmadd132ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 98 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 98 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 98 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 98 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 98 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 98 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmadd132pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.LIG.66.0F38.W0 99 /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 99 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfmadd132ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 99 /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 99 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfmadd132sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 99 /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 99 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 99 /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 99 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>VEX.128.66.0F38.W0 9A /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsub132ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 9A /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsub132ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 9A /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 9A /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsub132pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 9A /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 9A /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsub132pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 9A /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 9A /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 9A /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmsub132ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 9A /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 9A /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 9A /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 9A /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 9A /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 9A /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmsub132pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>EVEX.512.F2.0F38.W0 9A /r</summary>
+		/// <summary><c>EVEX.512.F2.0F38.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>V4FMADDPS zmm1 {k1}{z}, zmm2+3, m128</c></summary>
 		EVEX_V4fmaddps_zmm_k1z_zmmp3_m128,
-		/// <summary>VEX.LIG.66.0F38.W0 9B /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 9B /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfmsub132ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 9B /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 9B /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfmsub132sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 9B /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 9B /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 9B /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 9B /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>EVEX.LIG.F2.0F38.W0 9B /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F38.W0 9B /r</c><br/>
+		/// <br/>
+		/// <c>V4FMADDSS xmm1 {k1}{z}, xmm2+3, m128</c></summary>
 		EVEX_V4fmaddss_xmm_k1z_xmmp3_m128,
-		/// <summary>VEX.128.66.0F38.W0 9C /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 9C /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmadd132ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 9C /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 9C /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmadd132ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 9C /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 9C /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmadd132pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 9C /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 9C /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmadd132pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 9C /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 9C /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 9C /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 9C /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 9C /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 9C /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfnmadd132ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 9C /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 9C /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 9C /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 9C /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 9C /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 9C /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfnmadd132pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.LIG.66.0F38.W0 9D /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 9D /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfnmadd132ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 9D /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 9D /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfnmadd132sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 9D /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 9D /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 9D /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 9D /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>VEX.128.66.0F38.W0 9E /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 9E /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmsub132ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 9E /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 9E /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmsub132ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 9E /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 9E /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmsub132pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 9E /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 9E /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmsub132pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 9E /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 9E /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 9E /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 9E /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 9E /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 9E /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfnmsub132ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 9E /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 9E /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 9E /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 9E /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 9E /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 9E /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfnmsub132pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.LIG.66.0F38.W0 9F /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 9F /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfnmsub132ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 9F /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 9F /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfnmsub132sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 9F /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 9F /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 9F /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 9F /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>EVEX.128.66.0F38.W0 A0 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 A0 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERDD vm32x {k1}, xmm1</c></summary>
 		EVEX_Vpscatterdd_vm32x_k1_xmm,
-		/// <summary>EVEX.256.66.0F38.W0 A0 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 A0 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERDD vm32y {k1}, ymm1</c></summary>
 		EVEX_Vpscatterdd_vm32y_k1_ymm,
-		/// <summary>EVEX.512.66.0F38.W0 A0 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 A0 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERDD vm32z {k1}, zmm1</c></summary>
 		EVEX_Vpscatterdd_vm32z_k1_zmm,
-		/// <summary>EVEX.128.66.0F38.W1 A0 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 A0 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERDQ vm32x {k1}, xmm1</c></summary>
 		EVEX_Vpscatterdq_vm32x_k1_xmm,
-		/// <summary>EVEX.256.66.0F38.W1 A0 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 A0 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERDQ vm32x {k1}, ymm1</c></summary>
 		EVEX_Vpscatterdq_vm32x_k1_ymm,
-		/// <summary>EVEX.512.66.0F38.W1 A0 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 A0 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERDQ vm32y {k1}, zmm1</c></summary>
 		EVEX_Vpscatterdq_vm32y_k1_zmm,
-		/// <summary>EVEX.128.66.0F38.W0 A1 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 A1 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERQD vm64x {k1}, xmm1</c></summary>
 		EVEX_Vpscatterqd_vm64x_k1_xmm,
-		/// <summary>EVEX.256.66.0F38.W0 A1 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 A1 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERQD vm64y {k1}, xmm1</c></summary>
 		EVEX_Vpscatterqd_vm64y_k1_xmm,
-		/// <summary>EVEX.512.66.0F38.W0 A1 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 A1 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERQD vm64z {k1}, ymm1</c></summary>
 		EVEX_Vpscatterqd_vm64z_k1_ymm,
-		/// <summary>EVEX.128.66.0F38.W1 A1 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 A1 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERQQ vm64x {k1}, xmm1</c></summary>
 		EVEX_Vpscatterqq_vm64x_k1_xmm,
-		/// <summary>EVEX.256.66.0F38.W1 A1 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 A1 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERQQ vm64y {k1}, ymm1</c></summary>
 		EVEX_Vpscatterqq_vm64y_k1_ymm,
-		/// <summary>EVEX.512.66.0F38.W1 A1 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 A1 /vsib</c><br/>
+		/// <br/>
+		/// <c>VPSCATTERQQ vm64z {k1}, zmm1</c></summary>
 		EVEX_Vpscatterqq_vm64z_k1_zmm,
-		/// <summary>EVEX.128.66.0F38.W0 A2 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 A2 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERDPS vm32x {k1}, xmm1</c></summary>
 		EVEX_Vscatterdps_vm32x_k1_xmm,
-		/// <summary>EVEX.256.66.0F38.W0 A2 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 A2 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERDPS vm32y {k1}, ymm1</c></summary>
 		EVEX_Vscatterdps_vm32y_k1_ymm,
-		/// <summary>EVEX.512.66.0F38.W0 A2 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 A2 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERDPS vm32z {k1}, zmm1</c></summary>
 		EVEX_Vscatterdps_vm32z_k1_zmm,
-		/// <summary>EVEX.128.66.0F38.W1 A2 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 A2 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERDPD vm32x {k1}, xmm1</c></summary>
 		EVEX_Vscatterdpd_vm32x_k1_xmm,
-		/// <summary>EVEX.256.66.0F38.W1 A2 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 A2 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERDPD vm32x {k1}, ymm1</c></summary>
 		EVEX_Vscatterdpd_vm32x_k1_ymm,
-		/// <summary>EVEX.512.66.0F38.W1 A2 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 A2 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERDPD vm32y {k1}, zmm1</c></summary>
 		EVEX_Vscatterdpd_vm32y_k1_zmm,
-		/// <summary>EVEX.128.66.0F38.W0 A3 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 A3 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERQPS vm64x {k1}, xmm1</c></summary>
 		EVEX_Vscatterqps_vm64x_k1_xmm,
-		/// <summary>EVEX.256.66.0F38.W0 A3 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 A3 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERQPS vm64y {k1}, xmm1</c></summary>
 		EVEX_Vscatterqps_vm64y_k1_xmm,
-		/// <summary>EVEX.512.66.0F38.W0 A3 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 A3 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERQPS vm64z {k1}, ymm1</c></summary>
 		EVEX_Vscatterqps_vm64z_k1_ymm,
-		/// <summary>EVEX.128.66.0F38.W1 A3 /vsib</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 A3 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERQPD vm64x {k1}, xmm1</c></summary>
 		EVEX_Vscatterqpd_vm64x_k1_xmm,
-		/// <summary>EVEX.256.66.0F38.W1 A3 /vsib</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 A3 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERQPD vm64y {k1}, ymm1</c></summary>
 		EVEX_Vscatterqpd_vm64y_k1_ymm,
-		/// <summary>EVEX.512.66.0F38.W1 A3 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 A3 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERQPD vm64z {k1}, zmm1</c></summary>
 		EVEX_Vscatterqpd_vm64z_k1_zmm,
-		/// <summary>VEX.128.66.0F38.W0 A6 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 A6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB213PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmaddsub213ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 A6 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 A6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB213PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmaddsub213ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 A6 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 A6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB213PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmaddsub213pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 A6 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 A6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB213PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmaddsub213pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 A6 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 A6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 A6 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 A6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 A6 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 A6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmaddsub213ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 A6 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 A6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 A6 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 A6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 A6 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 A6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmaddsub213pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.128.66.0F38.W0 A7 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 A7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD213PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsubadd213ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 A7 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 A7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD213PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsubadd213ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 A7 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 A7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD213PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsubadd213pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 A7 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 A7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD213PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsubadd213pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 A7 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 A7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 A7 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 A7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 A7 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 A7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmsubadd213ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 A7 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 A7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 A7 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 A7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 A7 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 A7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmsubadd213pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.128.66.0F38.W0 A8 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 A8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmadd213ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 A8 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 A8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmadd213ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 A8 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 A8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmadd213pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 A8 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 A8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmadd213pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 A8 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 A8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 A8 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 A8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 A8 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 A8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmadd213ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 A8 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 A8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 A8 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 A8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 A8 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 A8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmadd213pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.LIG.66.0F38.W0 A9 /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 A9 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfmadd213ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 A9 /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 A9 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfmadd213sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 A9 /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 A9 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 A9 /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 A9 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>VEX.128.66.0F38.W0 AA /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 AA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsub213ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 AA /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 AA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsub213ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 AA /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 AA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsub213pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 AA /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 AA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsub213pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 AA /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 AA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 AA /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 AA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 AA /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 AA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmsub213ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 AA /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 AA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 AA /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 AA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 AA /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 AA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmsub213pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>EVEX.512.F2.0F38.W0 AA /r</summary>
+		/// <summary><c>EVEX.512.F2.0F38.W0 AA /r</c><br/>
+		/// <br/>
+		/// <c>V4FNMADDPS zmm1 {k1}{z}, zmm2+3, m128</c></summary>
 		EVEX_V4fnmaddps_zmm_k1z_zmmp3_m128,
-		/// <summary>VEX.LIG.66.0F38.W0 AB /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 AB /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfmsub213ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 AB /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 AB /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfmsub213sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 AB /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 AB /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 AB /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 AB /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>EVEX.LIG.F2.0F38.W0 AB /r</summary>
+		/// <summary><c>EVEX.LIG.F2.0F38.W0 AB /r</c><br/>
+		/// <br/>
+		/// <c>V4FNMADDSS xmm1 {k1}{z}, xmm2+3, m128</c></summary>
 		EVEX_V4fnmaddss_xmm_k1z_xmmp3_m128,
-		/// <summary>VEX.128.66.0F38.W0 AC /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 AC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmadd213ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 AC /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 AC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmadd213ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 AC /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 AC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmadd213pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 AC /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 AC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmadd213pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 AC /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 AC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 AC /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 AC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 AC /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 AC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfnmadd213ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 AC /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 AC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 AC /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 AC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 AC /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 AC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfnmadd213pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.LIG.66.0F38.W0 AD /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 AD /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfnmadd213ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 AD /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 AD /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfnmadd213sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 AD /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 AD /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 AD /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 AD /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>VEX.128.66.0F38.W0 AE /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 AE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmsub213ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 AE /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 AE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmsub213ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 AE /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 AE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmsub213pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 AE /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 AE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmsub213pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 AE /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 AE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 AE /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 AE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 AE /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 AE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 AE /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 AE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 AE /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 AE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 AE /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 AE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfnmsub213pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.LIG.66.0F38.W0 AF /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 AF /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfnmsub213ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 AF /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 AF /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfnmsub213sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 AF /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 AF /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 AF /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 AF /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>EVEX.128.66.0F38.W1 B4 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 B4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADD52LUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 B4 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 B4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADD52LUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 B4 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 B4 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADD52LUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpmadd52luq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>EVEX.128.66.0F38.W1 B5 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 B5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADD52HUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 B5 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 B5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADD52HUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 B5 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 B5 /r</c><br/>
+		/// <br/>
+		/// <c>VPMADD52HUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</c></summary>
 		EVEX_Vpmadd52huq_zmm_k1z_zmm_zmmm512b64,
-		/// <summary>VEX.128.66.0F38.W0 B6 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 B6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB231PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmaddsub231ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 B6 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 B6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB231PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmaddsub231ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 B6 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 B6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB231PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmaddsub231pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 B6 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 B6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB231PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmaddsub231pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 B6 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 B6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 B6 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 B6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 B6 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 B6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmaddsub231ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 B6 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 B6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 B6 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 B6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 B6 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 B6 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUB231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmaddsub231pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.128.66.0F38.W0 B7 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 B7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD231PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsubadd231ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 B7 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 B7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD231PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsubadd231ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 B7 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 B7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD231PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsubadd231pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 B7 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 B7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD231PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsubadd231pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 B7 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 B7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 B7 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 B7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 B7 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 B7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmsubadd231ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 B7 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 B7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 B7 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 B7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 B7 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 B7 /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADD231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmsubadd231pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.128.66.0F38.W0 B8 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 B8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmadd231ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 B8 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 B8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmadd231ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 B8 /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 B8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmadd231pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 B8 /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 B8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmadd231pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 B8 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 B8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 B8 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 B8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 B8 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 B8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmadd231ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 B8 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 B8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 B8 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 B8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 B8 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 B8 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmadd231pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.LIG.66.0F38.W0 B9 /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 B9 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfmadd231ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 B9 /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 B9 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfmadd231sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 B9 /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 B9 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 B9 /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 B9 /r</c><br/>
+		/// <br/>
+		/// <c>VFMADD231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>VEX.128.66.0F38.W0 BA /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 BA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsub231ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 BA /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 BA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsub231ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 BA /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 BA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfmsub231pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 BA /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 BA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfmsub231pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 BA /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 BA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 BA /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 BA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 BA /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 BA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfmsub231ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 BA /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 BA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 BA /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 BA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 BA /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 BA /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfmsub231pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.LIG.66.0F38.W0 BB /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 BB /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfmsub231ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 BB /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 BB /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfmsub231sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 BB /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 BB /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 BB /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 BB /r</c><br/>
+		/// <br/>
+		/// <c>VFMSUB231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>VEX.128.66.0F38.W0 BC /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 BC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmadd231ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 BC /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 BC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmadd231ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 BC /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 BC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmadd231pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 BC /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 BC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmadd231pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 BC /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 BC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 BC /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 BC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 BC /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 BC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 BC /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 BC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 BC /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 BC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 BC /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 BC /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfnmadd231pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.LIG.66.0F38.W0 BD /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 BD /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfnmadd231ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 BD /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 BD /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfnmadd231sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 BD /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 BD /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 BD /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 BD /r</c><br/>
+		/// <br/>
+		/// <c>VFNMADD231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>VEX.128.66.0F38.W0 BE /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 BE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231PS xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmsub231ps_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 BE /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 BE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231PS ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmsub231ps_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F38.W1 BE /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W1 BE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231PD xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vfnmsub231pd_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W1 BE /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W1 BE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231PD ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vfnmsub231pd_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 BE /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 BE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c></summary>
 		EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 BE /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 BE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c></summary>
 		EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 BE /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 BE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c></summary>
 		EVEX_Vfnmsub231ps_zmm_k1z_zmm_zmmm512b32_er,
-		/// <summary>EVEX.128.66.0F38.W1 BE /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 BE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</c></summary>
 		EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 BE /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 BE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</c></summary>
 		EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 BE /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 BE /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}</c></summary>
 		EVEX_Vfnmsub231pd_zmm_k1z_zmm_zmmm512b64_er,
-		/// <summary>VEX.LIG.66.0F38.W0 BF /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W0 BF /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231SS xmm1, xmm2, xmm3/m32</c></summary>
 		VEX_Vfnmsub231ss_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F38.W1 BF /r</summary>
+		/// <summary><c>VEX.LIG.66.0F38.W1 BF /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231SD xmm1, xmm2, xmm3/m64</c></summary>
 		VEX_Vfnmsub231sd_xmm_xmm_xmmm64,
-		/// <summary>EVEX.LIG.66.0F38.W0 BF /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 BF /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c></summary>
 		EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er,
-		/// <summary>EVEX.LIG.66.0F38.W1 BF /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 BF /r</c><br/>
+		/// <br/>
+		/// <c>VFNMSUB231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c></summary>
 		EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er,
-		/// <summary>EVEX.128.66.0F38.W0 C4 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 C4 /r</c><br/>
+		/// <br/>
+		/// <c>VPCONFLICTD xmm1 {k1}{z}, xmm2/m128/m32bcst</c></summary>
 		EVEX_Vpconflictd_xmm_k1z_xmmm128b32,
-		/// <summary>EVEX.256.66.0F38.W0 C4 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 C4 /r</c><br/>
+		/// <br/>
+		/// <c>VPCONFLICTD ymm1 {k1}{z}, ymm2/m256/m32bcst</c></summary>
 		EVEX_Vpconflictd_ymm_k1z_ymmm256b32,
-		/// <summary>EVEX.512.66.0F38.W0 C4 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 C4 /r</c><br/>
+		/// <br/>
+		/// <c>VPCONFLICTD zmm1 {k1}{z}, zmm2/m512/m32bcst</c></summary>
 		EVEX_Vpconflictd_zmm_k1z_zmmm512b32,
-		/// <summary>EVEX.128.66.0F38.W1 C4 /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W1 C4 /r</c><br/>
+		/// <br/>
+		/// <c>VPCONFLICTQ xmm1 {k1}{z}, xmm2/m128/m64bcst</c></summary>
 		EVEX_Vpconflictq_xmm_k1z_xmmm128b64,
-		/// <summary>EVEX.256.66.0F38.W1 C4 /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W1 C4 /r</c><br/>
+		/// <br/>
+		/// <c>VPCONFLICTQ ymm1 {k1}{z}, ymm2/m256/m64bcst</c></summary>
 		EVEX_Vpconflictq_ymm_k1z_ymmm256b64,
-		/// <summary>EVEX.512.66.0F38.W1 C4 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 C4 /r</c><br/>
+		/// <br/>
+		/// <c>VPCONFLICTQ zmm1 {k1}{z}, zmm2/m512/m64bcst</c></summary>
 		EVEX_Vpconflictq_zmm_k1z_zmmm512b64,
-		/// <summary>EVEX.512.66.0F38.W0 C6 /1 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 C6 /1 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERPF0DPS vm32z {k1}</c></summary>
 		EVEX_Vgatherpf0dps_vm32z_k1,
-		/// <summary>EVEX.512.66.0F38.W1 C6 /1 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 C6 /1 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERPF0DPD vm32y {k1}</c></summary>
 		EVEX_Vgatherpf0dpd_vm32y_k1,
-		/// <summary>EVEX.512.66.0F38.W0 C6 /2 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 C6 /2 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERPF1DPS vm32z {k1}</c></summary>
 		EVEX_Vgatherpf1dps_vm32z_k1,
-		/// <summary>EVEX.512.66.0F38.W1 C6 /2 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 C6 /2 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERPF1DPD vm32y {k1}</c></summary>
 		EVEX_Vgatherpf1dpd_vm32y_k1,
-		/// <summary>EVEX.512.66.0F38.W0 C6 /5 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 C6 /5 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERPF0DPS vm32z {k1}</c></summary>
 		EVEX_Vscatterpf0dps_vm32z_k1,
-		/// <summary>EVEX.512.66.0F38.W1 C6 /5 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 C6 /5 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERPF0DPD vm32y {k1}</c></summary>
 		EVEX_Vscatterpf0dpd_vm32y_k1,
-		/// <summary>EVEX.512.66.0F38.W0 C6 /6 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 C6 /6 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERPF1DPS vm32z {k1}</c></summary>
 		EVEX_Vscatterpf1dps_vm32z_k1,
-		/// <summary>EVEX.512.66.0F38.W1 C6 /6 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 C6 /6 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERPF1DPD vm32y {k1}</c></summary>
 		EVEX_Vscatterpf1dpd_vm32y_k1,
-		/// <summary>EVEX.512.66.0F38.W0 C7 /1 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 C7 /1 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERPF0QPS vm64z {k1}</c></summary>
 		EVEX_Vgatherpf0qps_vm64z_k1,
-		/// <summary>EVEX.512.66.0F38.W1 C7 /1 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 C7 /1 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERPF0QPD vm64z {k1}</c></summary>
 		EVEX_Vgatherpf0qpd_vm64z_k1,
-		/// <summary>EVEX.512.66.0F38.W0 C7 /2 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 C7 /2 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERPF1QPS vm64z {k1}</c></summary>
 		EVEX_Vgatherpf1qps_vm64z_k1,
-		/// <summary>EVEX.512.66.0F38.W1 C7 /2 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 C7 /2 /vsib</c><br/>
+		/// <br/>
+		/// <c>VGATHERPF1QPD vm64z {k1}</c></summary>
 		EVEX_Vgatherpf1qpd_vm64z_k1,
-		/// <summary>EVEX.512.66.0F38.W0 C7 /5 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 C7 /5 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERPF0QPS vm64z {k1}</c></summary>
 		EVEX_Vscatterpf0qps_vm64z_k1,
-		/// <summary>EVEX.512.66.0F38.W1 C7 /5 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 C7 /5 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERPF0QPD vm64z {k1}</c></summary>
 		EVEX_Vscatterpf0qpd_vm64z_k1,
-		/// <summary>EVEX.512.66.0F38.W0 C7 /6 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 C7 /6 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERPF1QPS vm64z {k1}</c></summary>
 		EVEX_Vscatterpf1qps_vm64z_k1,
-		/// <summary>EVEX.512.66.0F38.W1 C7 /6 /vsib</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 C7 /6 /vsib</c><br/>
+		/// <br/>
+		/// <c>VSCATTERPF1QPD vm64z {k1}</c></summary>
 		EVEX_Vscatterpf1qpd_vm64z_k1,
-		/// <summary>NP 0F 38 C8 /r</summary>
+		/// <summary><c>NP 0F 38 C8 /r</c><br/>
+		/// <br/>
+		/// <c>SHA1NEXTE xmm1, xmm2/m128</c></summary>
 		Sha1nexte_xmm_xmmm128,
-		/// <summary>EVEX.512.66.0F38.W0 C8 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 C8 /r</c><br/>
+		/// <br/>
+		/// <c>VEXP2PS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}</c></summary>
 		EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae,
-		/// <summary>EVEX.512.66.0F38.W1 C8 /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 C8 /r</c><br/>
+		/// <br/>
+		/// <c>VEXP2PD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}</c></summary>
 		EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae,
-		/// <summary>NP 0F 38 C9 /r</summary>
+		/// <summary><c>NP 0F 38 C9 /r</c><br/>
+		/// <br/>
+		/// <c>SHA1MSG1 xmm1, xmm2/m128</c></summary>
 		Sha1msg1_xmm_xmmm128,
-		/// <summary>NP 0F 38 CA /r</summary>
+		/// <summary><c>NP 0F 38 CA /r</c><br/>
+		/// <br/>
+		/// <c>SHA1MSG2 xmm1, xmm2/m128</c></summary>
 		Sha1msg2_xmm_xmmm128,
-		/// <summary>EVEX.512.66.0F38.W0 CA /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 CA /r</c><br/>
+		/// <br/>
+		/// <c>VRCP28PS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}</c></summary>
 		EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae,
-		/// <summary>EVEX.512.66.0F38.W1 CA /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 CA /r</c><br/>
+		/// <br/>
+		/// <c>VRCP28PD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}</c></summary>
 		EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae,
-		/// <summary>NP 0F 38 CB /r</summary>
+		/// <summary><c>NP 0F 38 CB /r</c><br/>
+		/// <br/>
+		/// <c>SHA256RNDS2 xmm1, xmm2/m128, &lt;XMM0&gt;</c></summary>
 		Sha256rnds2_xmm_xmmm128,
-		/// <summary>EVEX.LIG.66.0F38.W0 CB /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 CB /r</c><br/>
+		/// <br/>
+		/// <c>VRCP28SS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</c></summary>
 		EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae,
-		/// <summary>EVEX.LIG.66.0F38.W1 CB /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 CB /r</c><br/>
+		/// <br/>
+		/// <c>VRCP28SD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}</c></summary>
 		EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae,
-		/// <summary>NP 0F 38 CC /r</summary>
+		/// <summary><c>NP 0F 38 CC /r</c><br/>
+		/// <br/>
+		/// <c>SHA256MSG1 xmm1, xmm2/m128</c></summary>
 		Sha256msg1_xmm_xmmm128,
-		/// <summary>EVEX.512.66.0F38.W0 CC /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 CC /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT28PS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}</c></summary>
 		EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae,
-		/// <summary>EVEX.512.66.0F38.W1 CC /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W1 CC /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT28PD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}</c></summary>
 		EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae,
-		/// <summary>NP 0F 38 CD /r</summary>
+		/// <summary><c>NP 0F 38 CD /r</c><br/>
+		/// <br/>
+		/// <c>SHA256MSG2 xmm1, xmm2/m128</c></summary>
 		Sha256msg2_xmm_xmmm128,
-		/// <summary>EVEX.LIG.66.0F38.W0 CD /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W0 CD /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT28SS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</c></summary>
 		EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae,
-		/// <summary>EVEX.LIG.66.0F38.W1 CD /r</summary>
+		/// <summary><c>EVEX.LIG.66.0F38.W1 CD /r</c><br/>
+		/// <br/>
+		/// <c>VRSQRT28SD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}</c></summary>
 		EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae,
-		/// <summary>66 0F 38 CF /r</summary>
+		/// <summary><c>66 0F 38 CF /r</c><br/>
+		/// <br/>
+		/// <c>GF2P8MULB xmm1, xmm2/m128</c></summary>
 		Gf2p8mulb_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.W0 CF /r</summary>
+		/// <summary><c>VEX.128.66.0F38.W0 CF /r</c><br/>
+		/// <br/>
+		/// <c>VGF2P8MULB xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vgf2p8mulb_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.W0 CF /r</summary>
+		/// <summary><c>VEX.256.66.0F38.W0 CF /r</c><br/>
+		/// <br/>
+		/// <c>VGF2P8MULB ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vgf2p8mulb_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.W0 CF /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.W0 CF /r</c><br/>
+		/// <br/>
+		/// <c>VGF2P8MULB xmm1 {k1}{z}, xmm2, xmm3/m128</c></summary>
 		EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.W0 CF /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.W0 CF /r</c><br/>
+		/// <br/>
+		/// <c>VGF2P8MULB ymm1 {k1}{z}, ymm2, ymm3/m256</c></summary>
 		EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.W0 CF /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.W0 CF /r</c><br/>
+		/// <br/>
+		/// <c>VGF2P8MULB zmm1 {k1}{z}, zmm2, zmm3/m512</c></summary>
 		EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512,
-		/// <summary>66 0F 38 DB /r</summary>
+		/// <summary><c>66 0F 38 DB /r</c><br/>
+		/// <br/>
+		/// <c>AESIMC xmm1, xmm2/m128</c></summary>
 		Aesimc_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG DB /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG DB /r</c><br/>
+		/// <br/>
+		/// <c>VAESIMC xmm1, xmm2/m128</c></summary>
 		VEX_Vaesimc_xmm_xmmm128,
-		/// <summary>66 0F 38 DC /r</summary>
+		/// <summary><c>66 0F 38 DC /r</c><br/>
+		/// <br/>
+		/// <c>AESENC xmm1, xmm2/m128</c></summary>
 		Aesenc_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG DC /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG DC /r</c><br/>
+		/// <br/>
+		/// <c>VAESENC xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vaesenc_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG DC /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG DC /r</c><br/>
+		/// <br/>
+		/// <c>VAESENC ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vaesenc_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG DC /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG DC /r</c><br/>
+		/// <br/>
+		/// <c>VAESENC xmm1, xmm2, xmm3/m128</c></summary>
 		EVEX_Vaesenc_xmm_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG DC /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG DC /r</c><br/>
+		/// <br/>
+		/// <c>VAESENC ymm1, ymm2, ymm3/m256</c></summary>
 		EVEX_Vaesenc_ymm_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG DC /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG DC /r</c><br/>
+		/// <br/>
+		/// <c>VAESENC zmm1, zmm2, zmm3/m512</c></summary>
 		EVEX_Vaesenc_zmm_zmm_zmmm512,
-		/// <summary>66 0F 38 DD /r</summary>
+		/// <summary><c>66 0F 38 DD /r</c><br/>
+		/// <br/>
+		/// <c>AESENCLAST xmm1, xmm2/m128</c></summary>
 		Aesenclast_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG DD /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG DD /r</c><br/>
+		/// <br/>
+		/// <c>VAESENCLAST xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vaesenclast_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG DD /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG DD /r</c><br/>
+		/// <br/>
+		/// <c>VAESENCLAST ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vaesenclast_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG DD /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG DD /r</c><br/>
+		/// <br/>
+		/// <c>VAESENCLAST xmm1, xmm2, xmm3/m128</c></summary>
 		EVEX_Vaesenclast_xmm_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG DD /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG DD /r</c><br/>
+		/// <br/>
+		/// <c>VAESENCLAST ymm1, ymm2, ymm3/m256</c></summary>
 		EVEX_Vaesenclast_ymm_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG DD /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG DD /r</c><br/>
+		/// <br/>
+		/// <c>VAESENCLAST zmm1, zmm2, zmm3/m512</c></summary>
 		EVEX_Vaesenclast_zmm_zmm_zmmm512,
-		/// <summary>66 0F 38 DE /r</summary>
+		/// <summary><c>66 0F 38 DE /r</c><br/>
+		/// <br/>
+		/// <c>AESDEC xmm1, xmm2/m128</c></summary>
 		Aesdec_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG DE /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG DE /r</c><br/>
+		/// <br/>
+		/// <c>VAESDEC xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vaesdec_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG DE /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG DE /r</c><br/>
+		/// <br/>
+		/// <c>VAESDEC ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vaesdec_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG DE /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG DE /r</c><br/>
+		/// <br/>
+		/// <c>VAESDEC xmm1, xmm2, xmm3/m128</c></summary>
 		EVEX_Vaesdec_xmm_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG DE /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG DE /r</c><br/>
+		/// <br/>
+		/// <c>VAESDEC ymm1, ymm2, ymm3/m256</c></summary>
 		EVEX_Vaesdec_ymm_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG DE /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG DE /r</c><br/>
+		/// <br/>
+		/// <c>VAESDEC zmm1, zmm2, zmm3/m512</c></summary>
 		EVEX_Vaesdec_zmm_zmm_zmmm512,
-		/// <summary>66 0F 38 DF /r</summary>
+		/// <summary><c>66 0F 38 DF /r</c><br/>
+		/// <br/>
+		/// <c>AESDECLAST xmm1, xmm2/m128</c></summary>
 		Aesdeclast_xmm_xmmm128,
-		/// <summary>VEX.128.66.0F38.WIG DF /r</summary>
+		/// <summary><c>VEX.128.66.0F38.WIG DF /r</c><br/>
+		/// <br/>
+		/// <c>VAESDECLAST xmm1, xmm2, xmm3/m128</c></summary>
 		VEX_Vaesdeclast_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F38.WIG DF /r</summary>
+		/// <summary><c>VEX.256.66.0F38.WIG DF /r</c><br/>
+		/// <br/>
+		/// <c>VAESDECLAST ymm1, ymm2, ymm3/m256</c></summary>
 		VEX_Vaesdeclast_ymm_ymm_ymmm256,
-		/// <summary>EVEX.128.66.0F38.WIG DF /r</summary>
+		/// <summary><c>EVEX.128.66.0F38.WIG DF /r</c><br/>
+		/// <br/>
+		/// <c>VAESDECLAST xmm1, xmm2, xmm3/m128</c></summary>
 		EVEX_Vaesdeclast_xmm_xmm_xmmm128,
-		/// <summary>EVEX.256.66.0F38.WIG DF /r</summary>
+		/// <summary><c>EVEX.256.66.0F38.WIG DF /r</c><br/>
+		/// <br/>
+		/// <c>VAESDECLAST ymm1, ymm2, ymm3/m256</c></summary>
 		EVEX_Vaesdeclast_ymm_ymm_ymmm256,
-		/// <summary>EVEX.512.66.0F38.WIG DF /r</summary>
+		/// <summary><c>EVEX.512.66.0F38.WIG DF /r</c><br/>
+		/// <br/>
+		/// <c>VAESDECLAST zmm1, zmm2, zmm3/m512</c></summary>
 		EVEX_Vaesdeclast_zmm_zmm_zmmm512,
-		/// <summary>o16 0F 38 F0 /r</summary>
+		/// <summary><c>o16 0F 38 F0 /r</c><br/>
+		/// <br/>
+		/// <c>MOVBE r16, m16</c></summary>
 		Movbe_r16_m16,
-		/// <summary>o32 0F 38 F0 /r</summary>
+		/// <summary><c>o32 0F 38 F0 /r</c><br/>
+		/// <br/>
+		/// <c>MOVBE r32, m32</c></summary>
 		Movbe_r32_m32,
-		/// <summary>REX.W 0F 38 F0 /r</summary>
+		/// <summary><c>REX.W 0F 38 F0 /r</c><br/>
+		/// <br/>
+		/// <c>MOVBE r64, m64</c></summary>
 		Movbe_r64_m64,
-		/// <summary>F2 0F 38 F0 /r</summary>
+		/// <summary><c>F2 0F 38 F0 /r</c><br/>
+		/// <br/>
+		/// <c>CRC32 r32, r/m8</c></summary>
 		Crc32_r32_rm8,
-		/// <summary>F2 REX.W 0F 38 F0 /r</summary>
+		/// <summary><c>F2 REX.W 0F 38 F0 /r</c><br/>
+		/// <br/>
+		/// <c>CRC32 r64, r/m8</c></summary>
 		Crc32_r64_rm8,
-		/// <summary>o16 0F 38 F1 /r</summary>
+		/// <summary><c>o16 0F 38 F1 /r</c><br/>
+		/// <br/>
+		/// <c>MOVBE m16, r16</c></summary>
 		Movbe_m16_r16,
-		/// <summary>o32 0F 38 F1 /r</summary>
+		/// <summary><c>o32 0F 38 F1 /r</c><br/>
+		/// <br/>
+		/// <c>MOVBE m32, r32</c></summary>
 		Movbe_m32_r32,
-		/// <summary>REX.W 0F 38 F1 /r</summary>
+		/// <summary><c>REX.W 0F 38 F1 /r</c><br/>
+		/// <br/>
+		/// <c>MOVBE m64, r64</c></summary>
 		Movbe_m64_r64,
-		/// <summary>o16 F2 0F 38 F1 /r</summary>
+		/// <summary><c>o16 F2 0F 38 F1 /r</c><br/>
+		/// <br/>
+		/// <c>CRC32 r32, r/m16</c></summary>
 		Crc32_r32_rm16,
-		/// <summary>o32 F2 0F 38 F1 /r</summary>
+		/// <summary><c>o32 F2 0F 38 F1 /r</c><br/>
+		/// <br/>
+		/// <c>CRC32 r32, r/m32</c></summary>
 		Crc32_r32_rm32,
-		/// <summary>F2 REX.W 0F 38 F1 /r</summary>
+		/// <summary><c>F2 REX.W 0F 38 F1 /r</c><br/>
+		/// <br/>
+		/// <c>CRC32 r64, r/m64</c></summary>
 		Crc32_r64_rm64,
-		/// <summary>VEX.LZ.0F38.W0 F2 /r</summary>
+		/// <summary><c>VEX.LZ.0F38.W0 F2 /r</c><br/>
+		/// <br/>
+		/// <c>ANDN r32a, r32b, r/m32</c></summary>
 		VEX_Andn_r32_r32_rm32,
-		/// <summary>VEX.LZ.0F38.W1 F2 /r</summary>
+		/// <summary><c>VEX.LZ.0F38.W1 F2 /r</c><br/>
+		/// <br/>
+		/// <c>ANDN r64a, r64b, r/m64</c></summary>
 		VEX_Andn_r64_r64_rm64,
-		/// <summary>VEX.LZ.0F38.W0 F3 /1</summary>
+		/// <summary><c>VEX.LZ.0F38.W0 F3 /1</c><br/>
+		/// <br/>
+		/// <c>BLSR r32, r/m32</c></summary>
 		VEX_Blsr_r32_rm32,
-		/// <summary>VEX.LZ.0F38.W1 F3 /1</summary>
+		/// <summary><c>VEX.LZ.0F38.W1 F3 /1</c><br/>
+		/// <br/>
+		/// <c>BLSR r64, r/m64</c></summary>
 		VEX_Blsr_r64_rm64,
-		/// <summary>VEX.LZ.0F38.W0 F3 /2</summary>
+		/// <summary><c>VEX.LZ.0F38.W0 F3 /2</c><br/>
+		/// <br/>
+		/// <c>BLSMSK r32, r/m32</c></summary>
 		VEX_Blsmsk_r32_rm32,
-		/// <summary>VEX.LZ.0F38.W1 F3 /2</summary>
+		/// <summary><c>VEX.LZ.0F38.W1 F3 /2</c><br/>
+		/// <br/>
+		/// <c>BLSMSK r64, r/m64</c></summary>
 		VEX_Blsmsk_r64_rm64,
-		/// <summary>VEX.LZ.0F38.W0 F3 /3</summary>
+		/// <summary><c>VEX.LZ.0F38.W0 F3 /3</c><br/>
+		/// <br/>
+		/// <c>BLSI r32, r/m32</c></summary>
 		VEX_Blsi_r32_rm32,
-		/// <summary>VEX.LZ.0F38.W1 F3 /3</summary>
+		/// <summary><c>VEX.LZ.0F38.W1 F3 /3</c><br/>
+		/// <br/>
+		/// <c>BLSI r64, r/m64</c></summary>
 		VEX_Blsi_r64_rm64,
-		/// <summary>VEX.LZ.0F38.W0 F5 /r</summary>
+		/// <summary><c>VEX.LZ.0F38.W0 F5 /r</c><br/>
+		/// <br/>
+		/// <c>BZHI r32a, r/m32, r32b</c></summary>
 		VEX_Bzhi_r32_rm32_r32,
-		/// <summary>VEX.LZ.0F38.W1 F5 /r</summary>
+		/// <summary><c>VEX.LZ.0F38.W1 F5 /r</c><br/>
+		/// <br/>
+		/// <c>BZHI r64a, r/m64, r64b</c></summary>
 		VEX_Bzhi_r64_rm64_r64,
-		/// <summary>66 0F 38 F5 /r</summary>
+		/// <summary><c>66 0F 38 F5 /r</c><br/>
+		/// <br/>
+		/// <c>WRUSSD m32, r32</c></summary>
 		Wrussd_m32_r32,
-		/// <summary>66 REX.W 0F 38 F5 /r</summary>
+		/// <summary><c>66 REX.W 0F 38 F5 /r</c><br/>
+		/// <br/>
+		/// <c>WRUSSQ m64, r64</c></summary>
 		Wrussq_m64_r64,
-		/// <summary>VEX.LZ.F3.0F38.W0 F5 /r</summary>
+		/// <summary><c>VEX.LZ.F3.0F38.W0 F5 /r</c><br/>
+		/// <br/>
+		/// <c>PEXT r32a, r32b, r/m32</c></summary>
 		VEX_Pext_r32_r32_rm32,
-		/// <summary>VEX.LZ.F3.0F38.W1 F5 /r</summary>
+		/// <summary><c>VEX.LZ.F3.0F38.W1 F5 /r</c><br/>
+		/// <br/>
+		/// <c>PEXT r64a, r64b, r/m64</c></summary>
 		VEX_Pext_r64_r64_rm64,
-		/// <summary>VEX.LZ.F2.0F38.W0 F5 /r</summary>
+		/// <summary><c>VEX.LZ.F2.0F38.W0 F5 /r</c><br/>
+		/// <br/>
+		/// <c>PDEP r32a, r32b, r/m32</c></summary>
 		VEX_Pdep_r32_r32_rm32,
-		/// <summary>VEX.LZ.F2.0F38.W1 F5 /r</summary>
+		/// <summary><c>VEX.LZ.F2.0F38.W1 F5 /r</c><br/>
+		/// <br/>
+		/// <c>PDEP r64a, r64b, r/m64</c></summary>
 		VEX_Pdep_r64_r64_rm64,
-		/// <summary>NP 0F 38 F6 /r</summary>
+		/// <summary><c>NP 0F 38 F6 /r</c><br/>
+		/// <br/>
+		/// <c>WRSSD m32, r32</c></summary>
 		Wrssd_m32_r32,
-		/// <summary>NP REX.W 0F 38 F6 /r</summary>
+		/// <summary><c>NP REX.W 0F 38 F6 /r</c><br/>
+		/// <br/>
+		/// <c>WRSSQ m64, r64</c></summary>
 		Wrssq_m64_r64,
-		/// <summary>66 0F 38 F6 /r</summary>
+		/// <summary><c>66 0F 38 F6 /r</c><br/>
+		/// <br/>
+		/// <c>ADCX r32, r/m32</c></summary>
 		Adcx_r32_rm32,
-		/// <summary>66 REX.W 0F 38 F6 /r</summary>
+		/// <summary><c>66 REX.W 0F 38 F6 /r</c><br/>
+		/// <br/>
+		/// <c>ADCX r64, r/m64</c></summary>
 		Adcx_r64_rm64,
-		/// <summary>F3 0F 38 F6 /r</summary>
+		/// <summary><c>F3 0F 38 F6 /r</c><br/>
+		/// <br/>
+		/// <c>ADOX r32, r/m32</c></summary>
 		Adox_r32_rm32,
-		/// <summary>F3 REX.W 0F 38 F6 /r</summary>
+		/// <summary><c>F3 REX.W 0F 38 F6 /r</c><br/>
+		/// <br/>
+		/// <c>ADOX r64, r/m64</c></summary>
 		Adox_r64_rm64,
-		/// <summary>VEX.LZ.F2.0F38.W0 F6 /r</summary>
+		/// <summary><c>VEX.LZ.F2.0F38.W0 F6 /r</c><br/>
+		/// <br/>
+		/// <c>MULX r32a, r32b, r/m32</c></summary>
 		VEX_Mulx_r32_r32_rm32,
-		/// <summary>VEX.LZ.F2.0F38.W1 F6 /r</summary>
+		/// <summary><c>VEX.LZ.F2.0F38.W1 F6 /r</c><br/>
+		/// <br/>
+		/// <c>MULX r64a, r64b, r/m64</c></summary>
 		VEX_Mulx_r64_r64_rm64,
-		/// <summary>VEX.LZ.0F38.W0 F7 /r</summary>
+		/// <summary><c>VEX.LZ.0F38.W0 F7 /r</c><br/>
+		/// <br/>
+		/// <c>BEXTR r32a, r/m32, r32b</c></summary>
 		VEX_Bextr_r32_rm32_r32,
-		/// <summary>VEX.LZ.0F38.W1 F7 /r</summary>
+		/// <summary><c>VEX.LZ.0F38.W1 F7 /r</c><br/>
+		/// <br/>
+		/// <c>BEXTR r64a, r/m64, r64b</c></summary>
 		VEX_Bextr_r64_rm64_r64,
-		/// <summary>VEX.LZ.66.0F38.W0 F7 /r</summary>
+		/// <summary><c>VEX.LZ.66.0F38.W0 F7 /r</c><br/>
+		/// <br/>
+		/// <c>SHLX r32a, r/m32, r32b</c></summary>
 		VEX_Shlx_r32_rm32_r32,
-		/// <summary>VEX.LZ.66.0F38.W1 F7 /r</summary>
+		/// <summary><c>VEX.LZ.66.0F38.W1 F7 /r</c><br/>
+		/// <br/>
+		/// <c>SHLX r64a, r/m64, r64b</c></summary>
 		VEX_Shlx_r64_rm64_r64,
-		/// <summary>VEX.LZ.F3.0F38.W0 F7 /r</summary>
+		/// <summary><c>VEX.LZ.F3.0F38.W0 F7 /r</c><br/>
+		/// <br/>
+		/// <c>SARX r32a, r/m32, r32b</c></summary>
 		VEX_Sarx_r32_rm32_r32,
-		/// <summary>VEX.LZ.F3.0F38.W1 F7 /r</summary>
+		/// <summary><c>VEX.LZ.F3.0F38.W1 F7 /r</c><br/>
+		/// <br/>
+		/// <c>SARX r64a, r/m64, r64b</c></summary>
 		VEX_Sarx_r64_rm64_r64,
-		/// <summary>VEX.LZ.F2.0F38.W0 F7 /r</summary>
+		/// <summary><c>VEX.LZ.F2.0F38.W0 F7 /r</c><br/>
+		/// <br/>
+		/// <c>SHRX r32a, r/m32, r32b</c></summary>
 		VEX_Shrx_r32_rm32_r32,
-		/// <summary>VEX.LZ.F2.0F38.W1 F7 /r</summary>
+		/// <summary><c>VEX.LZ.F2.0F38.W1 F7 /r</c><br/>
+		/// <br/>
+		/// <c>SHRX r64a, r/m64, r64b</c></summary>
 		VEX_Shrx_r64_rm64_r64,
-		/// <summary>a16 66 0F 38 F8 /r</summary>
+		/// <summary><c>a16 66 0F 38 F8 /r</c><br/>
+		/// <br/>
+		/// <c>MOVDIR64B r16, m512</c></summary>
 		Movdir64b_r16_m512,
-		/// <summary>a32 66 0F 38 F8 /r</summary>
+		/// <summary><c>a32 66 0F 38 F8 /r</c><br/>
+		/// <br/>
+		/// <c>MOVDIR64B r32, m512</c></summary>
 		Movdir64b_r32_m512,
-		/// <summary>66 0F 38 F8 /r</summary>
+		/// <summary><c>66 0F 38 F8 /r</c><br/>
+		/// <br/>
+		/// <c>MOVDIR64B r64, m512</c></summary>
 		Movdir64b_r64_m512,
-		/// <summary>a16 F3 0F 38 F8 /r</summary>
+		/// <summary><c>a16 F3 0F 38 F8 /r</c><br/>
+		/// <br/>
+		/// <c>ENQCMDS r16, m512</c></summary>
 		Enqcmds_r16_m512,
-		/// <summary>a32 F3 0F 38 F8 /r</summary>
+		/// <summary><c>a32 F3 0F 38 F8 /r</c><br/>
+		/// <br/>
+		/// <c>ENQCMDS r32, m512</c></summary>
 		Enqcmds_r32_m512,
-		/// <summary>F3 0F 38 F8 /r</summary>
+		/// <summary><c>F3 0F 38 F8 /r</c><br/>
+		/// <br/>
+		/// <c>ENQCMDS r64, m512</c></summary>
 		Enqcmds_r64_m512,
-		/// <summary>a16 F2 0F 38 F8 /r</summary>
+		/// <summary><c>a16 F2 0F 38 F8 /r</c><br/>
+		/// <br/>
+		/// <c>ENQCMD r16, m512</c></summary>
 		Enqcmd_r16_m512,
-		/// <summary>a32 F2 0F 38 F8 /r</summary>
+		/// <summary><c>a32 F2 0F 38 F8 /r</c><br/>
+		/// <br/>
+		/// <c>ENQCMD r32, m512</c></summary>
 		Enqcmd_r32_m512,
-		/// <summary>F2 0F 38 F8 /r</summary>
+		/// <summary><c>F2 0F 38 F8 /r</c><br/>
+		/// <br/>
+		/// <c>ENQCMD r64, m512</c></summary>
 		Enqcmd_r64_m512,
-		/// <summary>NP 0F 38 F9 /r</summary>
+		/// <summary><c>NP 0F 38 F9 /r</c><br/>
+		/// <br/>
+		/// <c>MOVDIRI m32, r32</c></summary>
 		Movdiri_m32_r32,
-		/// <summary>NP REX.W 0F 38 F9 /r</summary>
+		/// <summary><c>NP REX.W 0F 38 F9 /r</c><br/>
+		/// <br/>
+		/// <c>MOVDIRI m64, r64</c></summary>
 		Movdiri_m64_r64,
-		/// <summary>VEX.256.66.0F3A.W1 00 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 00 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMQ ymm1, ymm2/m256, imm8</c></summary>
 		VEX_Vpermq_ymm_ymmm256_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 00 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 00 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 00 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 00 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c></summary>
 		EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8,
-		/// <summary>VEX.256.66.0F3A.W1 01 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 01 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMPD ymm1, ymm2/m256, imm8</c></summary>
 		VEX_Vpermpd_ymm_ymmm256_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 01 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 01 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 01 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 01 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMPD zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c></summary>
 		EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 02 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 02 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPBLENDD xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vpblendd_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.W0 02 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 02 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPBLENDD ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vpblendd_ymm_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 03 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 03 /r ib</c><br/>
+		/// <br/>
+		/// <c>VALIGND xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c></summary>
 		EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 03 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 03 /r ib</c><br/>
+		/// <br/>
+		/// <c>VALIGND ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 03 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 03 /r ib</c><br/>
+		/// <br/>
+		/// <c>VALIGND zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c></summary>
 		EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 03 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 03 /r ib</c><br/>
+		/// <br/>
+		/// <c>VALIGNQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 03 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 03 /r ib</c><br/>
+		/// <br/>
+		/// <c>VALIGNQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 03 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 03 /r ib</c><br/>
+		/// <br/>
+		/// <c>VALIGNQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c></summary>
 		EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 04 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 04 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMILPS xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vpermilps_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.W0 04 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 04 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMILPS ymm1, ymm2/m256, imm8</c></summary>
 		VEX_Vpermilps_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 04 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 04 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMILPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c></summary>
 		EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 04 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 04 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMILPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c></summary>
 		EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 04 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 04 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMILPS zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c></summary>
 		EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 05 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 05 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMILPD xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vpermilpd_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.W0 05 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 05 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMILPD ymm1, ymm2/m256, imm8</c></summary>
 		VEX_Vpermilpd_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 05 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 05 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMILPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c></summary>
 		EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 05 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 05 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMILPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 05 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 05 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERMILPD zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c></summary>
 		EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8,
-		/// <summary>VEX.256.66.0F3A.W0 06 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 06 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERM2F128 ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vperm2f128_ymm_ymm_ymmm256_imm8,
-		/// <summary>66 0F 3A 08 /r ib</summary>
+		/// <summary><c>66 0F 3A 08 /r ib</c><br/>
+		/// <br/>
+		/// <c>ROUNDPS xmm1, xmm2/m128, imm8</c></summary>
 		Roundps_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 08 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 08 /r ib</c><br/>
+		/// <br/>
+		/// <c>VROUNDPS xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vroundps_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.WIG 08 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.WIG 08 /r ib</c><br/>
+		/// <br/>
+		/// <c>VROUNDPS ymm1, ymm2/m256, imm8</c></summary>
 		VEX_Vroundps_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 08 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 08 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRNDSCALEPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c></summary>
 		EVEX_Vrndscaleps_xmm_k1z_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 08 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 08 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRNDSCALEPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c></summary>
 		EVEX_Vrndscaleps_ymm_k1z_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 08 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 08 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRNDSCALEPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8</c></summary>
 		EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae,
-		/// <summary>66 0F 3A 09 /r ib</summary>
+		/// <summary><c>66 0F 3A 09 /r ib</c><br/>
+		/// <br/>
+		/// <c>ROUNDPD xmm1, xmm2/m128, imm8</c></summary>
 		Roundpd_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 09 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 09 /r ib</c><br/>
+		/// <br/>
+		/// <c>VROUNDPD xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vroundpd_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.WIG 09 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.WIG 09 /r ib</c><br/>
+		/// <br/>
+		/// <c>VROUNDPD ymm1, ymm2/m256, imm8</c></summary>
 		VEX_Vroundpd_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 09 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 09 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRNDSCALEPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c></summary>
 		EVEX_Vrndscalepd_xmm_k1z_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 09 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 09 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRNDSCALEPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vrndscalepd_ymm_k1z_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 09 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 09 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRNDSCALEPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8</c></summary>
 		EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae,
-		/// <summary>66 0F 3A 0A /r ib</summary>
+		/// <summary><c>66 0F 3A 0A /r ib</c><br/>
+		/// <br/>
+		/// <c>ROUNDSS xmm1, xmm2/m32, imm8</c></summary>
 		Roundss_xmm_xmmm32_imm8,
-		/// <summary>VEX.LIG.66.0F3A.WIG 0A /r ib</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.WIG 0A /r ib</c><br/>
+		/// <br/>
+		/// <c>VROUNDSS xmm1, xmm2, xmm3/m32, imm8</c></summary>
 		VEX_Vroundss_xmm_xmm_xmmm32_imm8,
-		/// <summary>EVEX.LIG.66.0F3A.W0 0A /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W0 0A /r ib</c><br/>
+		/// <br/>
+		/// <c>VRNDSCALESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8</c></summary>
 		EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae,
-		/// <summary>66 0F 3A 0B /r ib</summary>
+		/// <summary><c>66 0F 3A 0B /r ib</c><br/>
+		/// <br/>
+		/// <c>ROUNDSD xmm1, xmm2/m64, imm8</c></summary>
 		Roundsd_xmm_xmmm64_imm8,
-		/// <summary>VEX.LIG.66.0F3A.WIG 0B /r ib</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.WIG 0B /r ib</c><br/>
+		/// <br/>
+		/// <c>VROUNDSD xmm1, xmm2, xmm3/m64, imm8</c></summary>
 		VEX_Vroundsd_xmm_xmm_xmmm64_imm8,
-		/// <summary>EVEX.LIG.66.0F3A.W1 0B /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W1 0B /r ib</c><br/>
+		/// <br/>
+		/// <c>VRNDSCALESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</c></summary>
 		EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae,
-		/// <summary>66 0F 3A 0C /r ib</summary>
+		/// <summary><c>66 0F 3A 0C /r ib</c><br/>
+		/// <br/>
+		/// <c>BLENDPS xmm1, xmm2/m128, imm8</c></summary>
 		Blendps_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 0C /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 0C /r ib</c><br/>
+		/// <br/>
+		/// <c>VBLENDPS xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vblendps_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.WIG 0C /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.WIG 0C /r ib</c><br/>
+		/// <br/>
+		/// <c>VBLENDPS ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vblendps_ymm_ymm_ymmm256_imm8,
-		/// <summary>66 0F 3A 0D /r ib</summary>
+		/// <summary><c>66 0F 3A 0D /r ib</c><br/>
+		/// <br/>
+		/// <c>BLENDPD xmm1, xmm2/m128, imm8</c></summary>
 		Blendpd_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 0D /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 0D /r ib</c><br/>
+		/// <br/>
+		/// <c>VBLENDPD xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vblendpd_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.WIG 0D /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.WIG 0D /r ib</c><br/>
+		/// <br/>
+		/// <c>VBLENDPD ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vblendpd_ymm_ymm_ymmm256_imm8,
-		/// <summary>66 0F 3A 0E /r ib</summary>
+		/// <summary><c>66 0F 3A 0E /r ib</c><br/>
+		/// <br/>
+		/// <c>PBLENDW xmm1, xmm2/m128, imm8</c></summary>
 		Pblendw_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 0E /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 0E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPBLENDW xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vpblendw_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.WIG 0E /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.WIG 0E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPBLENDW ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vpblendw_ymm_ymm_ymmm256_imm8,
-		/// <summary>NP 0F 3A 0F /r ib</summary>
+		/// <summary><c>NP 0F 3A 0F /r ib</c><br/>
+		/// <br/>
+		/// <c>PALIGNR mm1, mm2/m64, imm8</c></summary>
 		Palignr_mm_mmm64_imm8,
-		/// <summary>66 0F 3A 0F /r ib</summary>
+		/// <summary><c>66 0F 3A 0F /r ib</c><br/>
+		/// <br/>
+		/// <c>PALIGNR xmm1, xmm2/m128, imm8</c></summary>
 		Palignr_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 0F /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 0F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPALIGNR xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vpalignr_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.WIG 0F /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.WIG 0F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPALIGNR ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vpalignr_ymm_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F3A.WIG 0F /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.WIG 0F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPALIGNR xmm1 {k1}{z}, xmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.WIG 0F /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.WIG 0F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPALIGNR ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.WIG 0F /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.WIG 0F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPALIGNR zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c></summary>
 		EVEX_Vpalignr_zmm_k1z_zmm_zmmm512_imm8,
-		/// <summary>66 0F 3A 14 /r ib</summary>
+		/// <summary><c>66 0F 3A 14 /r ib</c><br/>
+		/// <br/>
+		/// <c>PEXTRB r32/m8, xmm2, imm8</c></summary>
 		Pextrb_r32m8_xmm_imm8,
-		/// <summary>66 REX.W 0F 3A 14 /r ib</summary>
+		/// <summary><c>66 REX.W 0F 3A 14 /r ib</c><br/>
+		/// <br/>
+		/// <c>PEXTRB r64/m8, xmm2, imm8</c></summary>
 		Pextrb_r64m8_xmm_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 14 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 14 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRB r32/m8, xmm2, imm8</c></summary>
 		VEX_Vpextrb_r32m8_xmm_imm8,
-		/// <summary>VEX.128.66.0F3A.W1 14 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 14 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRB r64/m8, xmm2, imm8</c></summary>
 		VEX_Vpextrb_r64m8_xmm_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 14 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 14 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRB r32/m8, xmm2, imm8</c></summary>
 		EVEX_Vpextrb_r32m8_xmm_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 14 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 14 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRB r64/m8, xmm2, imm8</c></summary>
 		EVEX_Vpextrb_r64m8_xmm_imm8,
-		/// <summary>66 0F 3A 15 /r ib</summary>
+		/// <summary><c>66 0F 3A 15 /r ib</c><br/>
+		/// <br/>
+		/// <c>PEXTRW r32/m16, xmm, imm8</c></summary>
 		Pextrw_r32m16_xmm_imm8,
-		/// <summary>66 REX.W 0F 3A 15 /r ib</summary>
+		/// <summary><c>66 REX.W 0F 3A 15 /r ib</c><br/>
+		/// <br/>
+		/// <c>PEXTRW r64/m16, xmm, imm8</c></summary>
 		Pextrw_r64m16_xmm_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 15 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 15 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRW r32/m16, xmm2, imm8</c></summary>
 		VEX_Vpextrw_r32m16_xmm_imm8,
-		/// <summary>VEX.128.66.0F3A.W1 15 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 15 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRW r64/m16, xmm2, imm8</c></summary>
 		VEX_Vpextrw_r64m16_xmm_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 15 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 15 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRW r32/m16, xmm2, imm8</c></summary>
 		EVEX_Vpextrw_r32m16_xmm_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 15 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 15 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRW r64/m16, xmm2, imm8</c></summary>
 		EVEX_Vpextrw_r64m16_xmm_imm8,
-		/// <summary>66 0F 3A 16 /r ib</summary>
+		/// <summary><c>66 0F 3A 16 /r ib</c><br/>
+		/// <br/>
+		/// <c>PEXTRD r/m32, xmm2, imm8</c></summary>
 		Pextrd_rm32_xmm_imm8,
-		/// <summary>66 REX.W 0F 3A 16 /r ib</summary>
+		/// <summary><c>66 REX.W 0F 3A 16 /r ib</c><br/>
+		/// <br/>
+		/// <c>PEXTRQ r/m64, xmm2, imm8</c></summary>
 		Pextrq_rm64_xmm_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 16 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 16 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRD r/m32, xmm2, imm8</c></summary>
 		VEX_Vpextrd_rm32_xmm_imm8,
-		/// <summary>VEX.128.66.0F3A.W1 16 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 16 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRQ r/m64, xmm2, imm8</c></summary>
 		VEX_Vpextrq_rm64_xmm_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 16 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 16 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRD r/m32, xmm2, imm8</c></summary>
 		EVEX_Vpextrd_rm32_xmm_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 16 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 16 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPEXTRQ r/m64, xmm2, imm8</c></summary>
 		EVEX_Vpextrq_rm64_xmm_imm8,
-		/// <summary>66 0F 3A 17 /r ib</summary>
+		/// <summary><c>66 0F 3A 17 /r ib</c><br/>
+		/// <br/>
+		/// <c>EXTRACTPS r/m32, xmm1, imm8</c></summary>
 		Extractps_rm32_xmm_imm8,
-		/// <summary>66 REX.W 0F 3A 17 /r ib</summary>
+		/// <summary><c>66 REX.W 0F 3A 17 /r ib</c><br/>
+		/// <br/>
+		/// <c>EXTRACTPS r64/m32, xmm1, imm8</c></summary>
 		Extractps_r64m32_xmm_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 17 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 17 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTPS r/m32, xmm1, imm8</c></summary>
 		VEX_Vextractps_rm32_xmm_imm8,
-		/// <summary>VEX.128.66.0F3A.W1 17 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 17 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTPS r64/m32, xmm1, imm8</c></summary>
 		VEX_Vextractps_r64m32_xmm_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 17 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 17 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTPS r/m32, xmm1, imm8</c></summary>
 		EVEX_Vextractps_rm32_xmm_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 17 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 17 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTPS r64/m32, xmm1, imm8</c></summary>
 		EVEX_Vextractps_r64m32_xmm_imm8,
-		/// <summary>VEX.256.66.0F3A.W0 18 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 18 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTF128 ymm1, ymm2, xmm3/m128, imm8</c></summary>
 		VEX_Vinsertf128_ymm_ymm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 18 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 18 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTF32X4 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 18 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 18 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTF32X4 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 18 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 18 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTF64X2 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vinsertf64x2_ymm_k1z_ymm_xmmm128_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 18 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 18 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTF64X2 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vinsertf64x2_zmm_k1z_zmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.W0 19 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 19 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTF128 xmm1/m128, ymm2, imm8</c></summary>
 		VEX_Vextractf128_xmmm128_ymm_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 19 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 19 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTF32X4 xmm1/m128 {k1}{z}, ymm2, imm8</c></summary>
 		EVEX_Vextractf32x4_xmmm128_k1z_ymm_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 19 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 19 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTF32X4 xmm1/m128 {k1}{z}, zmm2, imm8</c></summary>
 		EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 19 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 19 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTF64X2 xmm1/m128 {k1}{z}, ymm2, imm8</c></summary>
 		EVEX_Vextractf64x2_xmmm128_k1z_ymm_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 19 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 19 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTF64X2 xmm1/m128 {k1}{z}, zmm2, imm8</c></summary>
 		EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 1A /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 1A /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTF32X8 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 1A /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 1A /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTF64X4 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 1B /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 1B /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTF32X8 ymm1/m256 {k1}{z}, zmm2, imm8</c></summary>
 		EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 1B /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 1B /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTF64X4 ymm1/m256 {k1}{z}, zmm2, imm8</c></summary>
 		EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 1D /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 1D /r ib</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2PH xmm1/m64, xmm2, imm8</c></summary>
 		VEX_Vcvtps2ph_xmmm64_xmm_imm8,
-		/// <summary>VEX.256.66.0F3A.W0 1D /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 1D /r ib</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2PH xmm1/m128, ymm2, imm8</c></summary>
 		VEX_Vcvtps2ph_xmmm128_ymm_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 1D /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 1D /r ib</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2PH xmm1/m64 {k1}{z}, xmm2, imm8</c></summary>
 		EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 1D /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 1D /r ib</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2PH xmm1/m128 {k1}{z}, ymm2, imm8</c></summary>
 		EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 1D /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 1D /r ib</c><br/>
+		/// <br/>
+		/// <c>VCVTPS2PH ymm1/m256 {k1}{z}, zmm2{sae}, imm8</c></summary>
 		EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae,
-		/// <summary>EVEX.128.66.0F3A.W0 1E /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 1E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8</c></summary>
 		EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 1E /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 1E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 1E /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 1E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8</c></summary>
 		EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 1E /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 1E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 1E /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 1E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 1E /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 1E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8</c></summary>
 		EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 1F /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 1F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8</c></summary>
 		EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 1F /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 1F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 1F /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 1F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8</c></summary>
 		EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 1F /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 1F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 1F /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 1F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 1F /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 1F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8</c></summary>
 		EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8,
-		/// <summary>66 0F 3A 20 /r ib</summary>
+		/// <summary><c>66 0F 3A 20 /r ib</c><br/>
+		/// <br/>
+		/// <c>PINSRB xmm1, r32/m8, imm8</c></summary>
 		Pinsrb_xmm_r32m8_imm8,
-		/// <summary>66 REX.W 0F 3A 20 /r ib</summary>
+		/// <summary><c>66 REX.W 0F 3A 20 /r ib</c><br/>
+		/// <br/>
+		/// <c>PINSRB xmm1, r64/m8, imm8</c></summary>
 		Pinsrb_xmm_r64m8_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 20 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 20 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRB xmm1, xmm2, r32/m8, imm8</c></summary>
 		VEX_Vpinsrb_xmm_xmm_r32m8_imm8,
-		/// <summary>VEX.128.66.0F3A.W1 20 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 20 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRB xmm1, xmm2, r64/m8, imm8</c></summary>
 		VEX_Vpinsrb_xmm_xmm_r64m8_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 20 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 20 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRB xmm1, xmm2, r32/m8, imm8</c></summary>
 		EVEX_Vpinsrb_xmm_xmm_r32m8_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 20 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 20 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRB xmm1, xmm2, r64/m8, imm8</c></summary>
 		EVEX_Vpinsrb_xmm_xmm_r64m8_imm8,
-		/// <summary>66 0F 3A 21 /r ib</summary>
+		/// <summary><c>66 0F 3A 21 /r ib</c><br/>
+		/// <br/>
+		/// <c>INSERTPS xmm1, xmm2/m32, imm8</c></summary>
 		Insertps_xmm_xmmm32_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 21 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 21 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTPS xmm1, xmm2, xmm3/m32, imm8</c></summary>
 		VEX_Vinsertps_xmm_xmm_xmmm32_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 21 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 21 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTPS xmm1, xmm2, xmm3/m32, imm8</c></summary>
 		EVEX_Vinsertps_xmm_xmm_xmmm32_imm8,
-		/// <summary>66 0F 3A 22 /r ib</summary>
+		/// <summary><c>66 0F 3A 22 /r ib</c><br/>
+		/// <br/>
+		/// <c>PINSRD xmm1, r/m32, imm8</c></summary>
 		Pinsrd_xmm_rm32_imm8,
-		/// <summary>66 REX.W 0F 3A 22 /r ib</summary>
+		/// <summary><c>66 REX.W 0F 3A 22 /r ib</c><br/>
+		/// <br/>
+		/// <c>PINSRQ xmm1, r/m64, imm8</c></summary>
 		Pinsrq_xmm_rm64_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 22 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 22 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRD xmm1, xmm2, r/m32, imm8</c></summary>
 		VEX_Vpinsrd_xmm_xmm_rm32_imm8,
-		/// <summary>VEX.128.66.0F3A.W1 22 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 22 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRQ xmm1, xmm2, r/m64, imm8</c></summary>
 		VEX_Vpinsrq_xmm_xmm_rm64_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 22 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 22 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRD xmm1, xmm2, r/m32, imm8</c></summary>
 		EVEX_Vpinsrd_xmm_xmm_rm32_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 22 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 22 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPINSRQ xmm1, xmm2, r/m64, imm8</c></summary>
 		EVEX_Vpinsrq_xmm_xmm_rm64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 23 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 23 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFF32X4 ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Vshuff32x4_ymm_k1z_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 23 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 23 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFF32X4 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c></summary>
 		EVEX_Vshuff32x4_zmm_k1z_zmm_zmmm512b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 23 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 23 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFF64X2 ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vshuff64x2_ymm_k1z_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 23 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 23 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFF64X2 zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c></summary>
 		EVEX_Vshuff64x2_zmm_k1z_zmm_zmmm512b64_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 25 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 25 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPTERNLOGD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c></summary>
 		EVEX_Vpternlogd_xmm_k1z_xmm_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 25 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 25 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPTERNLOGD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Vpternlogd_ymm_k1z_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 25 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 25 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPTERNLOGD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c></summary>
 		EVEX_Vpternlogd_zmm_k1z_zmm_zmmm512b32_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 25 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 25 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPTERNLOGQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Vpternlogq_xmm_k1z_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 25 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 25 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPTERNLOGQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vpternlogq_ymm_k1z_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 25 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 25 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPTERNLOGQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c></summary>
 		EVEX_Vpternlogq_zmm_k1z_zmm_zmmm512b64_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 26 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 26 /r ib</c><br/>
+		/// <br/>
+		/// <c>VGETMANTPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c></summary>
 		EVEX_Vgetmantps_xmm_k1z_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 26 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 26 /r ib</c><br/>
+		/// <br/>
+		/// <c>VGETMANTPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c></summary>
 		EVEX_Vgetmantps_ymm_k1z_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 26 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 26 /r ib</c><br/>
+		/// <br/>
+		/// <c>VGETMANTPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8</c></summary>
 		EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae,
-		/// <summary>EVEX.128.66.0F3A.W1 26 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 26 /r ib</c><br/>
+		/// <br/>
+		/// <c>VGETMANTPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c></summary>
 		EVEX_Vgetmantpd_xmm_k1z_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 26 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 26 /r ib</c><br/>
+		/// <br/>
+		/// <c>VGETMANTPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vgetmantpd_ymm_k1z_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 26 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 26 /r ib</c><br/>
+		/// <br/>
+		/// <c>VGETMANTPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8</c></summary>
 		EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae,
-		/// <summary>EVEX.LIG.66.0F3A.W0 27 /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W0 27 /r ib</c><br/>
+		/// <br/>
+		/// <c>VGETMANTSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8</c></summary>
 		EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae,
-		/// <summary>EVEX.LIG.66.0F3A.W1 27 /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W1 27 /r ib</c><br/>
+		/// <br/>
+		/// <c>VGETMANTSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</c></summary>
 		EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae,
-		/// <summary>VEX.L0.66.0F3A.W0 30 /r ib</summary>
+		/// <summary><c>VEX.L0.66.0F3A.W0 30 /r ib</c><br/>
+		/// <br/>
+		/// <c>KSHIFTRB k1, k2, imm8</c></summary>
 		VEX_Kshiftrb_k_k_imm8,
-		/// <summary>VEX.L0.66.0F3A.W1 30 /r ib</summary>
+		/// <summary><c>VEX.L0.66.0F3A.W1 30 /r ib</c><br/>
+		/// <br/>
+		/// <c>KSHIFTRW k1, k2, imm8</c></summary>
 		VEX_Kshiftrw_k_k_imm8,
-		/// <summary>VEX.L0.66.0F3A.W0 31 /r ib</summary>
+		/// <summary><c>VEX.L0.66.0F3A.W0 31 /r ib</c><br/>
+		/// <br/>
+		/// <c>KSHIFTRD k1, k2, imm8</c></summary>
 		VEX_Kshiftrd_k_k_imm8,
-		/// <summary>VEX.L0.66.0F3A.W1 31 /r ib</summary>
+		/// <summary><c>VEX.L0.66.0F3A.W1 31 /r ib</c><br/>
+		/// <br/>
+		/// <c>KSHIFTRQ k1, k2, imm8</c></summary>
 		VEX_Kshiftrq_k_k_imm8,
-		/// <summary>VEX.L0.66.0F3A.W0 32 /r ib</summary>
+		/// <summary><c>VEX.L0.66.0F3A.W0 32 /r ib</c><br/>
+		/// <br/>
+		/// <c>KSHIFTLB k1, k2, imm8</c></summary>
 		VEX_Kshiftlb_k_k_imm8,
-		/// <summary>VEX.L0.66.0F3A.W1 32 /r ib</summary>
+		/// <summary><c>VEX.L0.66.0F3A.W1 32 /r ib</c><br/>
+		/// <br/>
+		/// <c>KSHIFTLW k1, k2, imm8</c></summary>
 		VEX_Kshiftlw_k_k_imm8,
-		/// <summary>VEX.L0.66.0F3A.W0 33 /r ib</summary>
+		/// <summary><c>VEX.L0.66.0F3A.W0 33 /r ib</c><br/>
+		/// <br/>
+		/// <c>KSHIFTLD k1, k2, imm8</c></summary>
 		VEX_Kshiftld_k_k_imm8,
-		/// <summary>VEX.L0.66.0F3A.W1 33 /r ib</summary>
+		/// <summary><c>VEX.L0.66.0F3A.W1 33 /r ib</c><br/>
+		/// <br/>
+		/// <c>KSHIFTLQ k1, k2, imm8</c></summary>
 		VEX_Kshiftlq_k_k_imm8,
-		/// <summary>VEX.256.66.0F3A.W0 38 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 38 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTI128 ymm1, ymm2, xmm3/m128, imm8</c></summary>
 		VEX_Vinserti128_ymm_ymm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 38 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 38 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTI32X4 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 38 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 38 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTI32X4 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 38 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 38 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTI64X2 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vinserti64x2_ymm_k1z_ymm_xmmm128_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 38 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 38 /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTI64X2 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vinserti64x2_zmm_k1z_zmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.W0 39 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 39 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTI128 xmm1/m128, ymm2, imm8</c></summary>
 		VEX_Vextracti128_xmmm128_ymm_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 39 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 39 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTI32X4 xmm1/m128 {k1}{z}, ymm2, imm8</c></summary>
 		EVEX_Vextracti32x4_xmmm128_k1z_ymm_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 39 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 39 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTI32X4 xmm1/m128 {k1}{z}, zmm2, imm8</c></summary>
 		EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 39 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 39 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTI64X2 xmm1/m128 {k1}{z}, ymm2, imm8</c></summary>
 		EVEX_Vextracti64x2_xmmm128_k1z_ymm_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 39 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 39 /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTI64X2 xmm1/m128 {k1}{z}, zmm2, imm8</c></summary>
 		EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 3A /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 3A /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTI32X8 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 3A /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 3A /r ib</c><br/>
+		/// <br/>
+		/// <c>VINSERTI64X4 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 3B /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 3B /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTI32X8 ymm1/m256 {k1}{z}, zmm2, imm8</c></summary>
 		EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 3B /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 3B /r ib</c><br/>
+		/// <br/>
+		/// <c>VEXTRACTI64X4 ymm1/m256 {k1}{z}, zmm2, imm8</c></summary>
 		EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 3E /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 3E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUB k1 {k2}, xmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 3E /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 3E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUB k1 {k2}, ymm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 3E /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 3E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUB k1 {k2}, zmm2, zmm3/m512, imm8</c></summary>
 		EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 3E /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 3E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUW k1 {k2}, xmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 3E /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 3E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUW k1 {k2}, ymm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 3E /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 3E /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPUW k1 {k2}, zmm2, zmm3/m512, imm8</c></summary>
 		EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 3F /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 3F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPB k1 {k2}, xmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 3F /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 3F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPB k1 {k2}, ymm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 3F /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 3F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPB k1 {k2}, zmm2, zmm3/m512, imm8</c></summary>
 		EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 3F /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 3F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPW k1 {k2}, xmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 3F /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 3F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPW k1 {k2}, ymm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 3F /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 3F /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPW k1 {k2}, zmm2, zmm3/m512, imm8</c></summary>
 		EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8,
-		/// <summary>66 0F 3A 40 /r ib</summary>
+		/// <summary><c>66 0F 3A 40 /r ib</c><br/>
+		/// <br/>
+		/// <c>DPPS xmm1, xmm2/m128, imm8</c></summary>
 		Dpps_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 40 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 40 /r ib</c><br/>
+		/// <br/>
+		/// <c>VDPPS xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vdpps_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.WIG 40 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.WIG 40 /r ib</c><br/>
+		/// <br/>
+		/// <c>VDPPS ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vdpps_ymm_ymm_ymmm256_imm8,
-		/// <summary>66 0F 3A 41 /r ib</summary>
+		/// <summary><c>66 0F 3A 41 /r ib</c><br/>
+		/// <br/>
+		/// <c>DPPD xmm1, xmm2/m128, imm8</c></summary>
 		Dppd_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 41 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 41 /r ib</c><br/>
+		/// <br/>
+		/// <c>VDPPD xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vdppd_xmm_xmm_xmmm128_imm8,
-		/// <summary>66 0F 3A 42 /r ib</summary>
+		/// <summary><c>66 0F 3A 42 /r ib</c><br/>
+		/// <br/>
+		/// <c>MPSADBW xmm1, xmm2/m128, imm8</c></summary>
 		Mpsadbw_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 42 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 42 /r ib</c><br/>
+		/// <br/>
+		/// <c>VMPSADBW xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vmpsadbw_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.WIG 42 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.WIG 42 /r ib</c><br/>
+		/// <br/>
+		/// <c>VMPSADBW ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vmpsadbw_ymm_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 42 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 42 /r ib</c><br/>
+		/// <br/>
+		/// <c>VDBPSADBW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vdbpsadbw_xmm_k1z_xmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 42 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 42 /r ib</c><br/>
+		/// <br/>
+		/// <c>VDBPSADBW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vdbpsadbw_ymm_k1z_ymm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 42 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 42 /r ib</c><br/>
+		/// <br/>
+		/// <c>VDBPSADBW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c></summary>
 		EVEX_Vdbpsadbw_zmm_k1z_zmm_zmmm512_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 43 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 43 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFI32X4 ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Vshufi32x4_ymm_k1z_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 43 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 43 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFI32X4 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c></summary>
 		EVEX_Vshufi32x4_zmm_k1z_zmm_zmmm512b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 43 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 43 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFI64X2 ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vshufi64x2_ymm_k1z_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 43 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 43 /r ib</c><br/>
+		/// <br/>
+		/// <c>VSHUFI64X2 zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c></summary>
 		EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8,
-		/// <summary>66 0F 3A 44 /r ib</summary>
+		/// <summary><c>66 0F 3A 44 /r ib</c><br/>
+		/// <br/>
+		/// <c>PCLMULQDQ xmm1, xmm2/m128, imm8</c></summary>
 		Pclmulqdq_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 44 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 44 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCLMULQDQ xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.WIG 44 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.WIG 44 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCLMULQDQ ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F3A.WIG 44 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.WIG 44 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCLMULQDQ xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.WIG 44 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.WIG 44 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCLMULQDQ ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.WIG 44 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.WIG 44 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCLMULQDQ zmm1, zmm2, zmm3/m512, imm8</c></summary>
 		EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8,
-		/// <summary>VEX.256.66.0F3A.W0 46 /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 46 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPERM2I128 ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vperm2i128_ymm_ymm_ymmm256_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 48 /r /is5</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 48 /r /is5</c><br/>
+		/// <br/>
+		/// <c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm2</c></summary>
 		VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2,
-		/// <summary>VEX.256.66.0F3A.W0 48 /r /is5</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 48 /r /is5</c><br/>
+		/// <br/>
+		/// <c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm2</c></summary>
 		VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2,
-		/// <summary>VEX.128.66.0F3A.W1 48 /r /is5</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 48 /r /is5</c><br/>
+		/// <br/>
+		/// <c>VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm2</c></summary>
 		VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2,
-		/// <summary>VEX.256.66.0F3A.W1 48 /r /is5</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 48 /r /is5</c><br/>
+		/// <br/>
+		/// <c>VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm2</c></summary>
 		VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2,
-		/// <summary>VEX.128.66.0F3A.W0 49 /r /is5</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 49 /r /is5</c><br/>
+		/// <br/>
+		/// <c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm2</c></summary>
 		VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2,
-		/// <summary>VEX.256.66.0F3A.W0 49 /r /is5</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 49 /r /is5</c><br/>
+		/// <br/>
+		/// <c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm2</c></summary>
 		VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2,
-		/// <summary>VEX.128.66.0F3A.W1 49 /r /is5</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 49 /r /is5</c><br/>
+		/// <br/>
+		/// <c>VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm2</c></summary>
 		VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2,
-		/// <summary>VEX.256.66.0F3A.W1 49 /r /is5</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 49 /r /is5</c><br/>
+		/// <br/>
+		/// <c>VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm2</c></summary>
 		VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2,
-		/// <summary>VEX.128.66.0F3A.W0 4A /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 4A /r /is4</c><br/>
+		/// <br/>
+		/// <c>VBLENDVPS xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vblendvps_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 4A /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 4A /r /is4</c><br/>
+		/// <br/>
+		/// <c>VBLENDVPS ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vblendvps_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W0 4B /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 4B /r /is4</c><br/>
+		/// <br/>
+		/// <c>VBLENDVPD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vblendvpd_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 4B /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 4B /r /is4</c><br/>
+		/// <br/>
+		/// <c>VBLENDVPD ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vblendvpd_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W0 4C /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 4C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPBLENDVB xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vpblendvb_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 4C /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 4C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPBLENDVB ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vpblendvb_ymm_ymm_ymmm256_ymm,
-		/// <summary>EVEX.128.66.0F3A.W0 50 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 50 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRANGEPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c></summary>
 		EVEX_Vrangeps_xmm_k1z_xmm_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 50 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 50 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRANGEPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Vrangeps_ymm_k1z_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 50 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 50 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRANGEPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}, imm8</c></summary>
 		EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae,
-		/// <summary>EVEX.128.66.0F3A.W1 50 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 50 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRANGEPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Vrangepd_xmm_k1z_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 50 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 50 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRANGEPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vrangepd_ymm_k1z_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 50 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 50 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRANGEPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8</c></summary>
 		EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae,
-		/// <summary>EVEX.LIG.66.0F3A.W0 51 /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W0 51 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRANGESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8</c></summary>
 		EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae,
-		/// <summary>EVEX.LIG.66.0F3A.W1 51 /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W1 51 /r ib</c><br/>
+		/// <br/>
+		/// <c>VRANGESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</c></summary>
 		EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae,
-		/// <summary>EVEX.128.66.0F3A.W0 54 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 54 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFIXUPIMMPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c></summary>
 		EVEX_Vfixupimmps_xmm_k1z_xmm_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 54 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 54 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFIXUPIMMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Vfixupimmps_ymm_k1z_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 54 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 54 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFIXUPIMMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}, imm8</c></summary>
 		EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae,
-		/// <summary>EVEX.128.66.0F3A.W1 54 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 54 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFIXUPIMMPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Vfixupimmpd_xmm_k1z_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 54 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 54 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFIXUPIMMPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vfixupimmpd_ymm_k1z_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 54 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 54 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFIXUPIMMPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8</c></summary>
 		EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae,
-		/// <summary>EVEX.LIG.66.0F3A.W0 55 /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W0 55 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFIXUPIMMSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8</c></summary>
 		EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae,
-		/// <summary>EVEX.LIG.66.0F3A.W1 55 /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W1 55 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFIXUPIMMSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</c></summary>
 		EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae,
-		/// <summary>EVEX.128.66.0F3A.W0 56 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 56 /r ib</c><br/>
+		/// <br/>
+		/// <c>VREDUCEPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c></summary>
 		EVEX_Vreduceps_xmm_k1z_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 56 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 56 /r ib</c><br/>
+		/// <br/>
+		/// <c>VREDUCEPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c></summary>
 		EVEX_Vreduceps_ymm_k1z_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 56 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 56 /r ib</c><br/>
+		/// <br/>
+		/// <c>VREDUCEPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8</c></summary>
 		EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae,
-		/// <summary>EVEX.128.66.0F3A.W1 56 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 56 /r ib</c><br/>
+		/// <br/>
+		/// <c>VREDUCEPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c></summary>
 		EVEX_Vreducepd_xmm_k1z_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 56 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 56 /r ib</c><br/>
+		/// <br/>
+		/// <c>VREDUCEPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vreducepd_ymm_k1z_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 56 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 56 /r ib</c><br/>
+		/// <br/>
+		/// <c>VREDUCEPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8</c></summary>
 		EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae,
-		/// <summary>EVEX.LIG.66.0F3A.W0 57 /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W0 57 /r ib</c><br/>
+		/// <br/>
+		/// <c>VREDUCESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8</c></summary>
 		EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae,
-		/// <summary>EVEX.LIG.66.0F3A.W1 57 /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W1 57 /r ib</c><br/>
+		/// <br/>
+		/// <c>VREDUCESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</c></summary>
 		EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae,
-		/// <summary>VEX.128.66.0F3A.W0 5C /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 5C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUBPS xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 5C /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 5C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUBPS ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfmaddsubps_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 5C /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 5C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUBPS xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 5C /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 5C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUBPS ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfmaddsubps_ymm_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F3A.W0 5D /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 5D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUBPD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfmaddsubpd_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 5D /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 5D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUBPD ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfmaddsubpd_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 5D /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 5D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUBPD xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfmaddsubpd_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 5D /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 5D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSUBPD ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfmaddsubpd_ymm_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F3A.W0 5E /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 5E /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADDPS xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfmsubaddps_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 5E /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 5E /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADDPS ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfmsubaddps_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 5E /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 5E /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADDPS xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfmsubaddps_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 5E /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 5E /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADDPS ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfmsubaddps_ymm_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F3A.W0 5F /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 5F /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADDPD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfmsubaddpd_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 5F /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 5F /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADDPD ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfmsubaddpd_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 5F /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 5F /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADDPD xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfmsubaddpd_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 5F /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 5F /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBADDPD ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfmsubaddpd_ymm_ymm_ymm_ymmm256,
-		/// <summary>66 0F 3A 60 /r ib</summary>
+		/// <summary><c>66 0F 3A 60 /r ib</c><br/>
+		/// <br/>
+		/// <c>PCMPESTRM xmm1, xmm2/m128, imm8</c></summary>
 		Pcmpestrm_xmm_xmmm128_imm8,
-		/// <summary>66 REX.W 0F 3A 60 /r ib</summary>
+		/// <summary><c>66 REX.W 0F 3A 60 /r ib</c><br/>
+		/// <br/>
+		/// <c>PCMPESTRM64 xmm1, xmm2/m128, imm8</c></summary>
 		Pcmpestrm64_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 60 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 60 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPESTRM xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vpcmpestrm_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.W1 60 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 60 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPESTRM64 xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vpcmpestrm64_xmm_xmmm128_imm8,
-		/// <summary>66 0F 3A 61 /r ib</summary>
+		/// <summary><c>66 0F 3A 61 /r ib</c><br/>
+		/// <br/>
+		/// <c>PCMPESTRI xmm1, xmm2/m128, imm8</c></summary>
 		Pcmpestri_xmm_xmmm128_imm8,
-		/// <summary>66 REX.W 0F 3A 61 /r ib</summary>
+		/// <summary><c>66 REX.W 0F 3A 61 /r ib</c><br/>
+		/// <br/>
+		/// <c>PCMPESTRI64 xmm1, xmm2/m128, imm8</c></summary>
 		Pcmpestri64_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 61 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 61 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPESTRI xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vpcmpestri_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.W1 61 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 61 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPESTRI64 xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vpcmpestri64_xmm_xmmm128_imm8,
-		/// <summary>66 0F 3A 62 /r ib</summary>
+		/// <summary><c>66 0F 3A 62 /r ib</c><br/>
+		/// <br/>
+		/// <c>PCMPISTRM xmm1, xmm2/m128, imm8</c></summary>
 		Pcmpistrm_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 62 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 62 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPISTRM xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vpcmpistrm_xmm_xmmm128_imm8,
-		/// <summary>66 0F 3A 63 /r ib</summary>
+		/// <summary><c>66 0F 3A 63 /r ib</c><br/>
+		/// <br/>
+		/// <c>PCMPISTRI xmm1, xmm2/m128, imm8</c></summary>
 		Pcmpistri_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG 63 /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG 63 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCMPISTRI xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vpcmpistri_xmm_xmmm128_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 66 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 66 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFPCLASSPS k2 {k1}, xmm2/m128/m32bcst, imm8</c></summary>
 		EVEX_Vfpclassps_k_k1_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 66 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 66 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFPCLASSPS k2 {k1}, ymm2/m256/m32bcst, imm8</c></summary>
 		EVEX_Vfpclassps_k_k1_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 66 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 66 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFPCLASSPS k2 {k1}, zmm2/m512/m32bcst, imm8</c></summary>
 		EVEX_Vfpclassps_k_k1_zmmm512b32_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 66 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 66 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFPCLASSPD k2 {k1}, xmm2/m128/m64bcst, imm8</c></summary>
 		EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 66 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 66 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFPCLASSPD k2 {k1}, ymm2/m256/m64bcst, imm8</c></summary>
 		EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 66 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 66 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFPCLASSPD k2 {k1}, zmm2/m512/m64bcst, imm8</c></summary>
 		EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8,
-		/// <summary>EVEX.LIG.66.0F3A.W0 67 /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W0 67 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFPCLASSSS k2 {k1}, xmm2/m32, imm8</c></summary>
 		EVEX_Vfpclassss_k_k1_xmmm32_imm8,
-		/// <summary>EVEX.LIG.66.0F3A.W1 67 /r ib</summary>
+		/// <summary><c>EVEX.LIG.66.0F3A.W1 67 /r ib</c><br/>
+		/// <br/>
+		/// <c>VFPCLASSSD k2 {k1}, xmm2/m64, imm8</c></summary>
 		EVEX_Vfpclasssd_k_k1_xmmm64_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 68 /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 68 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDPS xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfmaddps_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 68 /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 68 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDPS ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfmaddps_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 68 /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 68 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDPS xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfmaddps_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 68 /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 68 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDPS ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfmaddps_ymm_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F3A.W0 69 /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 69 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDPD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfmaddpd_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 69 /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 69 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDPD ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfmaddpd_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 69 /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 69 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDPD xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfmaddpd_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 69 /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 69 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDPD ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfmaddpd_ymm_ymm_ymm_ymmm256,
-		/// <summary>VEX.LIG.66.0F3A.W0 6A /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W0 6A /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSS xmm1, xmm2, xmm3/m32, xmm4</c></summary>
 		VEX_Vfmaddss_xmm_xmm_xmmm32_xmm,
-		/// <summary>VEX.LIG.66.0F3A.W1 6A /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W1 6A /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSS xmm1, xmm2, xmm3, xmm4/m32</c></summary>
 		VEX_Vfmaddss_xmm_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F3A.W0 6B /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W0 6B /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSD xmm1, xmm2, xmm3/m64, xmm4</c></summary>
 		VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm,
-		/// <summary>VEX.LIG.66.0F3A.W1 6B /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W1 6B /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMADDSD xmm1, xmm2, xmm3, xmm4/m64</c></summary>
 		VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64,
-		/// <summary>VEX.128.66.0F3A.W0 6C /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 6C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBPS xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfmsubps_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 6C /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 6C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBPS ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfmsubps_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 6C /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 6C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBPS xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfmsubps_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 6C /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 6C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBPS ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfmsubps_ymm_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F3A.W0 6D /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 6D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBPD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfmsubpd_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 6D /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 6D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBPD ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfmsubpd_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 6D /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 6D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBPD xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfmsubpd_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 6D /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 6D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBPD ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfmsubpd_ymm_ymm_ymm_ymmm256,
-		/// <summary>VEX.LIG.66.0F3A.W0 6E /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W0 6E /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBSS xmm1, xmm2, xmm3/m32, xmm4</c></summary>
 		VEX_Vfmsubss_xmm_xmm_xmmm32_xmm,
-		/// <summary>VEX.LIG.66.0F3A.W1 6E /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W1 6E /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBSS xmm1, xmm2, xmm3, xmm4/m32</c></summary>
 		VEX_Vfmsubss_xmm_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F3A.W0 6F /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W0 6F /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBSD xmm1, xmm2, xmm3/m64, xmm4</c></summary>
 		VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm,
-		/// <summary>VEX.LIG.66.0F3A.W1 6F /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W1 6F /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFMSUBSD xmm1, xmm2, xmm3, xmm4/m64</c></summary>
 		VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64,
-		/// <summary>EVEX.128.66.0F3A.W1 70 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHLDW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vpshldw_xmm_k1z_xmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 70 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHLDW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vpshldw_ymm_k1z_ymm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 70 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHLDW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c></summary>
 		EVEX_Vpshldw_zmm_k1z_zmm_zmmm512_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 71 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 71 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHLDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c></summary>
 		EVEX_Vpshldd_xmm_k1z_xmm_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 71 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 71 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHLDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Vpshldd_ymm_k1z_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 71 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 71 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHLDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c></summary>
 		EVEX_Vpshldd_zmm_k1z_zmm_zmmm512b32_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 71 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 71 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHLDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Vpshldq_xmm_k1z_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 71 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 71 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHLDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vpshldq_ymm_k1z_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 71 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 71 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHLDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c></summary>
 		EVEX_Vpshldq_zmm_k1z_zmm_zmmm512b64_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 72 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 72 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHRDW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8</c></summary>
 		EVEX_Vpshrdw_xmm_k1z_xmm_xmmm128_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 72 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 72 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHRDW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</c></summary>
 		EVEX_Vpshrdw_ymm_k1z_ymm_ymmm256_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 72 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 72 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHRDW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c></summary>
 		EVEX_Vpshrdw_zmm_k1z_zmm_zmmm512_imm8,
-		/// <summary>EVEX.128.66.0F3A.W0 73 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W0 73 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHRDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c></summary>
 		EVEX_Vpshrdd_xmm_k1z_xmm_xmmm128b32_imm8,
-		/// <summary>EVEX.256.66.0F3A.W0 73 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W0 73 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHRDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c></summary>
 		EVEX_Vpshrdd_ymm_k1z_ymm_ymmm256b32_imm8,
-		/// <summary>EVEX.512.66.0F3A.W0 73 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W0 73 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHRDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c></summary>
 		EVEX_Vpshrdd_zmm_k1z_zmm_zmmm512b32_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 73 /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 73 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHRDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Vpshrdq_xmm_k1z_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 73 /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 73 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHRDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vpshrdq_ymm_k1z_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 73 /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 73 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPSHRDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c></summary>
 		EVEX_Vpshrdq_zmm_k1z_zmm_zmmm512b64_imm8,
-		/// <summary>VEX.128.66.0F3A.W0 78 /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 78 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDPS xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfnmaddps_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 78 /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 78 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDPS ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfnmaddps_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 78 /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 78 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDPS xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfnmaddps_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 78 /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 78 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDPS ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfnmaddps_ymm_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F3A.W0 79 /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 79 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDPD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfnmaddpd_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 79 /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 79 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDPD ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfnmaddpd_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 79 /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 79 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDPD xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfnmaddpd_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 79 /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 79 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDPD ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfnmaddpd_ymm_ymm_ymm_ymmm256,
-		/// <summary>VEX.LIG.66.0F3A.W0 7A /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W0 7A /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDSS xmm1, xmm2, xmm3/m32, xmm4</c></summary>
 		VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm,
-		/// <summary>VEX.LIG.66.0F3A.W1 7A /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W1 7A /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDSS xmm1, xmm2, xmm3, xmm4/m32</c></summary>
 		VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F3A.W0 7B /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W0 7B /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDSD xmm1, xmm2, xmm3/m64, xmm4</c></summary>
 		VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm,
-		/// <summary>VEX.LIG.66.0F3A.W1 7B /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W1 7B /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMADDSD xmm1, xmm2, xmm3, xmm4/m64</c></summary>
 		VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64,
-		/// <summary>VEX.128.66.0F3A.W0 7C /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 7C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBPS xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfnmsubps_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 7C /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 7C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBPS ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfnmsubps_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 7C /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 7C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBPS xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfnmsubps_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 7C /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 7C /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBPS ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfnmsubps_ymm_ymm_ymm_ymmm256,
-		/// <summary>VEX.128.66.0F3A.W0 7D /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W0 7D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBPD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		VEX_Vfnmsubpd_xmm_xmm_xmmm128_xmm,
-		/// <summary>VEX.256.66.0F3A.W0 7D /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W0 7D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBPD ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		VEX_Vfnmsubpd_ymm_ymm_ymmm256_ymm,
-		/// <summary>VEX.128.66.0F3A.W1 7D /r /is4</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 7D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBPD xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		VEX_Vfnmsubpd_xmm_xmm_xmm_xmmm128,
-		/// <summary>VEX.256.66.0F3A.W1 7D /r /is4</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 7D /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBPD ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		VEX_Vfnmsubpd_ymm_ymm_ymm_ymmm256,
-		/// <summary>VEX.LIG.66.0F3A.W0 7E /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W0 7E /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBSS xmm1, xmm2, xmm3/m32, xmm4</c></summary>
 		VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm,
-		/// <summary>VEX.LIG.66.0F3A.W1 7E /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W1 7E /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBSS xmm1, xmm2, xmm3, xmm4/m32</c></summary>
 		VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32,
-		/// <summary>VEX.LIG.66.0F3A.W0 7F /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W0 7F /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBSD xmm1, xmm2, xmm3/m64, xmm4</c></summary>
 		VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm,
-		/// <summary>VEX.LIG.66.0F3A.W1 7F /r /is4</summary>
+		/// <summary><c>VEX.LIG.66.0F3A.W1 7F /r /is4</c><br/>
+		/// <br/>
+		/// <c>VFNMSUBSD xmm1, xmm2, xmm3, xmm4/m64</c></summary>
 		VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64,
-		/// <summary>NP 0F 3A CC /r ib</summary>
+		/// <summary><c>NP 0F 3A CC /r ib</c><br/>
+		/// <br/>
+		/// <c>SHA1RNDS4 xmm1, xmm2/m128, imm8</c></summary>
 		Sha1rnds4_xmm_xmmm128_imm8,
-		/// <summary>66 0F 3A CE /r ib</summary>
+		/// <summary><c>66 0F 3A CE /r ib</c><br/>
+		/// <br/>
+		/// <c>GF2P8AFFINEQB xmm1, xmm2/m128, imm8</c></summary>
 		Gf2p8affineqb_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.W1 CE /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 CE /r ib</c><br/>
+		/// <br/>
+		/// <c>VGF2P8AFFINEQB xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.W1 CE /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 CE /r ib</c><br/>
+		/// <br/>
+		/// <c>VGF2P8AFFINEQB ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 CE /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 CE /r ib</c><br/>
+		/// <br/>
+		/// <c>VGF2P8AFFINEQB xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 CE /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 CE /r ib</c><br/>
+		/// <br/>
+		/// <c>VGF2P8AFFINEQB ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 CE /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 CE /r ib</c><br/>
+		/// <br/>
+		/// <c>VGF2P8AFFINEQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c></summary>
 		EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8,
-		/// <summary>66 0F 3A CF /r ib</summary>
+		/// <summary><c>66 0F 3A CF /r ib</c><br/>
+		/// <br/>
+		/// <c>GF2P8AFFINEINVQB xmm1, xmm2/m128, imm8</c></summary>
 		Gf2p8affineinvqb_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.W1 CF /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.W1 CF /r ib</c><br/>
+		/// <br/>
+		/// <c>VGF2P8AFFINEINVQB xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8,
-		/// <summary>VEX.256.66.0F3A.W1 CF /r ib</summary>
+		/// <summary><c>VEX.256.66.0F3A.W1 CF /r ib</c><br/>
+		/// <br/>
+		/// <c>VGF2P8AFFINEINVQB ymm1, ymm2, ymm3/m256, imm8</c></summary>
 		VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8,
-		/// <summary>EVEX.128.66.0F3A.W1 CF /r ib</summary>
+		/// <summary><c>EVEX.128.66.0F3A.W1 CF /r ib</c><br/>
+		/// <br/>
+		/// <c>VGF2P8AFFINEINVQB xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c></summary>
 		EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8,
-		/// <summary>EVEX.256.66.0F3A.W1 CF /r ib</summary>
+		/// <summary><c>EVEX.256.66.0F3A.W1 CF /r ib</c><br/>
+		/// <br/>
+		/// <c>VGF2P8AFFINEINVQB ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c></summary>
 		EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8,
-		/// <summary>EVEX.512.66.0F3A.W1 CF /r ib</summary>
+		/// <summary><c>EVEX.512.66.0F3A.W1 CF /r ib</c><br/>
+		/// <br/>
+		/// <c>VGF2P8AFFINEINVQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c></summary>
 		EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8,
-		/// <summary>66 0F 3A DF /r ib</summary>
+		/// <summary><c>66 0F 3A DF /r ib</c><br/>
+		/// <br/>
+		/// <c>AESKEYGENASSIST xmm1, xmm2/m128, imm8</c></summary>
 		Aeskeygenassist_xmm_xmmm128_imm8,
-		/// <summary>VEX.128.66.0F3A.WIG DF /r ib</summary>
+		/// <summary><c>VEX.128.66.0F3A.WIG DF /r ib</c><br/>
+		/// <br/>
+		/// <c>VAESKEYGENASSIST xmm1, xmm2/m128, imm8</c></summary>
 		VEX_Vaeskeygenassist_xmm_xmmm128_imm8,
-		/// <summary>VEX.LZ.F2.0F3A.W0 F0 /r ib</summary>
+		/// <summary><c>VEX.LZ.F2.0F3A.W0 F0 /r ib</c><br/>
+		/// <br/>
+		/// <c>RORX r32, r/m32, imm8</c></summary>
 		VEX_Rorx_r32_rm32_imm8,
-		/// <summary>VEX.LZ.F2.0F3A.W1 F0 /r ib</summary>
+		/// <summary><c>VEX.LZ.F2.0F3A.W1 F0 /r ib</c><br/>
+		/// <br/>
+		/// <c>RORX r64, r/m64, imm8</c></summary>
 		VEX_Rorx_r64_rm64_imm8,
-		/// <summary>XOP.128.X8.W0 85 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 85 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMACSSWW xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmacssww_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 86 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 86 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMACSSWD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 87 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 87 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMACSSDQL xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 8E /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 8E /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMACSSDD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 8F /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 8F /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMACSSDQH xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 95 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 95 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMACSWW xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmacsww_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 96 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 96 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMACSWD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmacswd_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 97 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 97 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMACSDQL xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 9E /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 9E /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMACSDD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 9F /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 9F /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMACSDQH xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 A2 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 A2 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPCMOV xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpcmov_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.256.X8.W0 A2 /r /is4</summary>
+		/// <summary><c>XOP.256.X8.W0 A2 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPCMOV ymm1, ymm2, ymm3/m256, ymm4</c></summary>
 		XOP_Vpcmov_ymm_ymm_ymmm256_ymm,
-		/// <summary>XOP.128.X8.W1 A2 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W1 A2 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPCMOV xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		XOP_Vpcmov_xmm_xmm_xmm_xmmm128,
-		/// <summary>XOP.256.X8.W1 A2 /r /is4</summary>
+		/// <summary><c>XOP.256.X8.W1 A2 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPCMOV ymm1, ymm2, ymm3, ymm4/m256</c></summary>
 		XOP_Vpcmov_ymm_ymm_ymm_ymmm256,
-		/// <summary>XOP.128.X8.W0 A3 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 A3 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPPERM xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpperm_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W1 A3 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W1 A3 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPPERM xmm1, xmm2, xmm3, xmm4/m128</c></summary>
 		XOP_Vpperm_xmm_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X8.W0 A6 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 A6 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMADCSSWD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 B6 /r /is4</summary>
+		/// <summary><c>XOP.128.X8.W0 B6 /r /is4</c><br/>
+		/// <br/>
+		/// <c>VPMADCSWD xmm1, xmm2, xmm3/m128, xmm4</c></summary>
 		XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X8.W0 C0 /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 C0 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPROTB xmm1, xmm2/m128, imm8</c></summary>
 		XOP_Vprotb_xmm_xmmm128_imm8,
-		/// <summary>XOP.128.X8.W0 C1 /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 C1 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPROTW xmm1, xmm2/m128, imm8</c></summary>
 		XOP_Vprotw_xmm_xmmm128_imm8,
-		/// <summary>XOP.128.X8.W0 C2 /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPROTD xmm1, xmm2/m128, imm8</c></summary>
 		XOP_Vprotd_xmm_xmmm128_imm8,
-		/// <summary>XOP.128.X8.W0 C3 /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 C3 /r ib</c><br/>
+		/// <br/>
+		/// <c>VPROTQ xmm1, xmm2/m128, imm8</c></summary>
 		XOP_Vprotq_xmm_xmmm128_imm8,
-		/// <summary>XOP.128.X8.W0 CC /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 CC /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCOMB xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		XOP_Vpcomb_xmm_xmm_xmmm128_imm8,
-		/// <summary>XOP.128.X8.W0 CD /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 CD /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCOMW xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		XOP_Vpcomw_xmm_xmm_xmmm128_imm8,
-		/// <summary>XOP.128.X8.W0 CE /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 CE /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCOMD xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		XOP_Vpcomd_xmm_xmm_xmmm128_imm8,
-		/// <summary>XOP.128.X8.W0 CF /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 CF /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCOMQ xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		XOP_Vpcomq_xmm_xmm_xmmm128_imm8,
-		/// <summary>XOP.128.X8.W0 EC /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 EC /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCOMUB xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		XOP_Vpcomub_xmm_xmm_xmmm128_imm8,
-		/// <summary>XOP.128.X8.W0 ED /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 ED /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCOMUW xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		XOP_Vpcomuw_xmm_xmm_xmmm128_imm8,
-		/// <summary>XOP.128.X8.W0 EE /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 EE /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCOMUD xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		XOP_Vpcomud_xmm_xmm_xmmm128_imm8,
-		/// <summary>XOP.128.X8.W0 EF /r ib</summary>
+		/// <summary><c>XOP.128.X8.W0 EF /r ib</c><br/>
+		/// <br/>
+		/// <c>VPCOMUQ xmm1, xmm2, xmm3/m128, imm8</c></summary>
 		XOP_Vpcomuq_xmm_xmm_xmmm128_imm8,
-		/// <summary>XOP.L0.X9.W0 01 /1</summary>
+		/// <summary><c>XOP.L0.X9.W0 01 /1</c><br/>
+		/// <br/>
+		/// <c>BLCFILL r32, r/m32</c></summary>
 		XOP_Blcfill_r32_rm32,
-		/// <summary>XOP.L0.X9.W1 01 /1</summary>
+		/// <summary><c>XOP.L0.X9.W1 01 /1</c><br/>
+		/// <br/>
+		/// <c>BLCFILL r64, r/m64</c></summary>
 		XOP_Blcfill_r64_rm64,
-		/// <summary>XOP.L0.X9.W0 01 /2</summary>
+		/// <summary><c>XOP.L0.X9.W0 01 /2</c><br/>
+		/// <br/>
+		/// <c>BLSFILL r32, r/m32</c></summary>
 		XOP_Blsfill_r32_rm32,
-		/// <summary>XOP.L0.X9.W1 01 /2</summary>
+		/// <summary><c>XOP.L0.X9.W1 01 /2</c><br/>
+		/// <br/>
+		/// <c>BLSFILL r64, r/m64</c></summary>
 		XOP_Blsfill_r64_rm64,
-		/// <summary>XOP.L0.X9.W0 01 /3</summary>
+		/// <summary><c>XOP.L0.X9.W0 01 /3</c><br/>
+		/// <br/>
+		/// <c>BLCS r32, r/m32</c></summary>
 		XOP_Blcs_r32_rm32,
-		/// <summary>XOP.L0.X9.W1 01 /3</summary>
+		/// <summary><c>XOP.L0.X9.W1 01 /3</c><br/>
+		/// <br/>
+		/// <c>BLCS r64, r/m64</c></summary>
 		XOP_Blcs_r64_rm64,
-		/// <summary>XOP.L0.X9.W0 01 /4</summary>
+		/// <summary><c>XOP.L0.X9.W0 01 /4</c><br/>
+		/// <br/>
+		/// <c>TZMSK r32, r/m32</c></summary>
 		XOP_Tzmsk_r32_rm32,
-		/// <summary>XOP.L0.X9.W1 01 /4</summary>
+		/// <summary><c>XOP.L0.X9.W1 01 /4</c><br/>
+		/// <br/>
+		/// <c>TZMSK r64, r/m64</c></summary>
 		XOP_Tzmsk_r64_rm64,
-		/// <summary>XOP.L0.X9.W0 01 /5</summary>
+		/// <summary><c>XOP.L0.X9.W0 01 /5</c><br/>
+		/// <br/>
+		/// <c>BLCIC r32, r/m32</c></summary>
 		XOP_Blcic_r32_rm32,
-		/// <summary>XOP.L0.X9.W1 01 /5</summary>
+		/// <summary><c>XOP.L0.X9.W1 01 /5</c><br/>
+		/// <br/>
+		/// <c>BLCIC r64, r/m64</c></summary>
 		XOP_Blcic_r64_rm64,
-		/// <summary>XOP.L0.X9.W0 01 /6</summary>
+		/// <summary><c>XOP.L0.X9.W0 01 /6</c><br/>
+		/// <br/>
+		/// <c>BLSIC r32, r/m32</c></summary>
 		XOP_Blsic_r32_rm32,
-		/// <summary>XOP.L0.X9.W1 01 /6</summary>
+		/// <summary><c>XOP.L0.X9.W1 01 /6</c><br/>
+		/// <br/>
+		/// <c>BLSIC r64, r/m64</c></summary>
 		XOP_Blsic_r64_rm64,
-		/// <summary>XOP.L0.X9.W0 01 /7</summary>
+		/// <summary><c>XOP.L0.X9.W0 01 /7</c><br/>
+		/// <br/>
+		/// <c>T1MSKC r32, r/m32</c></summary>
 		XOP_T1mskc_r32_rm32,
-		/// <summary>XOP.L0.X9.W1 01 /7</summary>
+		/// <summary><c>XOP.L0.X9.W1 01 /7</c><br/>
+		/// <br/>
+		/// <c>T1MSKC r64, r/m64</c></summary>
 		XOP_T1mskc_r64_rm64,
-		/// <summary>XOP.L0.X9.W0 02 /1</summary>
+		/// <summary><c>XOP.L0.X9.W0 02 /1</c><br/>
+		/// <br/>
+		/// <c>BLCMSK r32, r/m32</c></summary>
 		XOP_Blcmsk_r32_rm32,
-		/// <summary>XOP.L0.X9.W1 02 /1</summary>
+		/// <summary><c>XOP.L0.X9.W1 02 /1</c><br/>
+		/// <br/>
+		/// <c>BLCMSK r64, r/m64</c></summary>
 		XOP_Blcmsk_r64_rm64,
-		/// <summary>XOP.L0.X9.W0 02 /6</summary>
+		/// <summary><c>XOP.L0.X9.W0 02 /6</c><br/>
+		/// <br/>
+		/// <c>BLCI r32, r/m32</c></summary>
 		XOP_Blci_r32_rm32,
-		/// <summary>XOP.L0.X9.W1 02 /6</summary>
+		/// <summary><c>XOP.L0.X9.W1 02 /6</c><br/>
+		/// <br/>
+		/// <c>BLCI r64, r/m64</c></summary>
 		XOP_Blci_r64_rm64,
-		/// <summary>XOP.L0.X9.W0 12 /0</summary>
+		/// <summary><c>XOP.L0.X9.W0 12 /0</c><br/>
+		/// <br/>
+		/// <c>LLWPCB r32</c></summary>
 		XOP_Llwpcb_r32,
-		/// <summary>XOP.L0.X9.W1 12 /0</summary>
+		/// <summary><c>XOP.L0.X9.W1 12 /0</c><br/>
+		/// <br/>
+		/// <c>LLWPCB r64</c></summary>
 		XOP_Llwpcb_r64,
-		/// <summary>XOP.L0.X9.W0 12 /1</summary>
+		/// <summary><c>XOP.L0.X9.W0 12 /1</c><br/>
+		/// <br/>
+		/// <c>SLWPCB r32</c></summary>
 		XOP_Slwpcb_r32,
-		/// <summary>XOP.L0.X9.W1 12 /1</summary>
+		/// <summary><c>XOP.L0.X9.W1 12 /1</c><br/>
+		/// <br/>
+		/// <c>SLWPCB r64</c></summary>
 		XOP_Slwpcb_r64,
-		/// <summary>XOP.128.X9.W0 80 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 80 /r</c><br/>
+		/// <br/>
+		/// <c>VFRCZPS xmm1, xmm2/m128</c></summary>
 		XOP_Vfrczps_xmm_xmmm128,
-		/// <summary>XOP.256.X9.W0 80 /r</summary>
+		/// <summary><c>XOP.256.X9.W0 80 /r</c><br/>
+		/// <br/>
+		/// <c>VFRCZPS ymm1, ymm2/m256</c></summary>
 		XOP_Vfrczps_ymm_ymmm256,
-		/// <summary>XOP.128.X9.W0 81 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 81 /r</c><br/>
+		/// <br/>
+		/// <c>VFRCZPD xmm1, xmm2/m128</c></summary>
 		XOP_Vfrczpd_xmm_xmmm128,
-		/// <summary>XOP.256.X9.W0 81 /r</summary>
+		/// <summary><c>XOP.256.X9.W0 81 /r</c><br/>
+		/// <br/>
+		/// <c>VFRCZPD ymm1, ymm2/m256</c></summary>
 		XOP_Vfrczpd_ymm_ymmm256,
-		/// <summary>XOP.128.X9.W0 82 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 82 /r</c><br/>
+		/// <br/>
+		/// <c>VFRCZSS xmm1, xmm2/m32</c></summary>
 		XOP_Vfrczss_xmm_xmmm32,
-		/// <summary>XOP.128.X9.W0 83 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 83 /r</c><br/>
+		/// <br/>
+		/// <c>VFRCZSD xmm1, xmm2/m64</c></summary>
 		XOP_Vfrczsd_xmm_xmmm64,
-		/// <summary>XOP.128.X9.W0 90 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 90 /r</c><br/>
+		/// <br/>
+		/// <c>VPROTB xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vprotb_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 90 /r</summary>
+		/// <summary><c>XOP.128.X9.W1 90 /r</c><br/>
+		/// <br/>
+		/// <c>VPROTB xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vprotb_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 91 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 91 /r</c><br/>
+		/// <br/>
+		/// <c>VPROTW xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vprotw_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 91 /r</summary>
+		/// <summary><c>XOP.128.X9.W1 91 /r</c><br/>
+		/// <br/>
+		/// <c>VPROTW xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vprotw_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 92 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 92 /r</c><br/>
+		/// <br/>
+		/// <c>VPROTD xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vprotd_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 92 /r</summary>
+		/// <summary><c>XOP.128.X9.W1 92 /r</c><br/>
+		/// <br/>
+		/// <c>VPROTD xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vprotd_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 93 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 93 /r</c><br/>
+		/// <br/>
+		/// <c>VPROTQ xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vprotq_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 93 /r</summary>
+		/// <summary><c>XOP.128.X9.W1 93 /r</c><br/>
+		/// <br/>
+		/// <c>VPROTQ xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vprotq_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 94 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 94 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLB xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vpshlb_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 94 /r</summary>
+		/// <summary><c>XOP.128.X9.W1 94 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLB xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vpshlb_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 95 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 95 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLW xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vpshlw_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 95 /r</summary>
+		/// <summary><c>XOP.128.X9.W1 95 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLW xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vpshlw_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 96 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 96 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLD xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vpshld_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 96 /r</summary>
+		/// <summary><c>XOP.128.X9.W1 96 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLD xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vpshld_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 97 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 97 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLQ xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vpshlq_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 97 /r</summary>
+		/// <summary><c>XOP.128.X9.W1 97 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHLQ xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vpshlq_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 98 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHAB xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vpshab_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 98 /r</summary>
+		/// <summary><c>XOP.128.X9.W1 98 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHAB xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vpshab_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 99 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 99 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHAW xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vpshaw_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 99 /r</summary>
+		/// <summary><c>XOP.128.X9.W1 99 /r</c><br/>
+		/// <br/>
+		/// <c>VPSHAW xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vpshaw_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 9A /r</summary>
+		/// <summary><c>XOP.128.X9.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>VPSHAD xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vpshad_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 9A /r</summary>
+		/// <summary><c>XOP.128.X9.W1 9A /r</c><br/>
+		/// <br/>
+		/// <c>VPSHAD xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vpshad_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 9B /r</summary>
+		/// <summary><c>XOP.128.X9.W0 9B /r</c><br/>
+		/// <br/>
+		/// <c>VPSHAQ xmm1, xmm2/m128, xmm3</c></summary>
 		XOP_Vpshaq_xmm_xmmm128_xmm,
-		/// <summary>XOP.128.X9.W1 9B /r</summary>
+		/// <summary><c>XOP.128.X9.W1 9B /r</c><br/>
+		/// <br/>
+		/// <c>VPSHAQ xmm1, xmm2, xmm3/m128</c></summary>
 		XOP_Vpshaq_xmm_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 C1 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 C1 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDBW xmm1, xmm2/m128</c></summary>
 		XOP_Vphaddbw_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 C2 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 C2 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDBD xmm1, xmm2/m128</c></summary>
 		XOP_Vphaddbd_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 C3 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 C3 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDBQ xmm1, xmm2/m128</c></summary>
 		XOP_Vphaddbq_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 C6 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 C6 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDWD xmm1, xmm2/m128</c></summary>
 		XOP_Vphaddwd_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 C7 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 C7 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDWQ xmm1, xmm2/m128</c></summary>
 		XOP_Vphaddwq_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 CB /r</summary>
+		/// <summary><c>XOP.128.X9.W0 CB /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDDQ xmm1, xmm2/m128</c></summary>
 		XOP_Vphadddq_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 D1 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 D1 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDUBW xmm1, xmm2/m128</c></summary>
 		XOP_Vphaddubw_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 D2 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 D2 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDUBD xmm1, xmm2/m128</c></summary>
 		XOP_Vphaddubd_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 D3 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 D3 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDUBQ xmm1, xmm2/m128</c></summary>
 		XOP_Vphaddubq_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 D6 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 D6 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDUWD xmm1, xmm2/m128</c></summary>
 		XOP_Vphadduwd_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 D7 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 D7 /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDUWQ xmm1, xmm2/m128</c></summary>
 		XOP_Vphadduwq_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 DB /r</summary>
+		/// <summary><c>XOP.128.X9.W0 DB /r</c><br/>
+		/// <br/>
+		/// <c>VPHADDUDQ xmm1, xmm2/m128</c></summary>
 		XOP_Vphaddudq_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 E1 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 E1 /r</c><br/>
+		/// <br/>
+		/// <c>VPHSUBBW xmm1, xmm2/m128</c></summary>
 		XOP_Vphsubbw_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 E2 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 E2 /r</c><br/>
+		/// <br/>
+		/// <c>VPHSUBWD xmm1, xmm2/m128</c></summary>
 		XOP_Vphsubwd_xmm_xmmm128,
-		/// <summary>XOP.128.X9.W0 E3 /r</summary>
+		/// <summary><c>XOP.128.X9.W0 E3 /r</c><br/>
+		/// <br/>
+		/// <c>VPHSUBDQ xmm1, xmm2/m128</c></summary>
 		XOP_Vphsubdq_xmm_xmmm128,
-		/// <summary>XOP.L0.XA.W0 10 /r id</summary>
+		/// <summary><c>XOP.L0.XA.W0 10 /r id</c><br/>
+		/// <br/>
+		/// <c>BEXTR r32, r/m32, imm32</c></summary>
 		XOP_Bextr_r32_rm32_imm32,
-		/// <summary>XOP.L0.XA.W1 10 /r id</summary>
+		/// <summary><c>XOP.L0.XA.W1 10 /r id</c><br/>
+		/// <br/>
+		/// <c>BEXTR r64, r/m64, imm32</c></summary>
 		XOP_Bextr_r64_rm64_imm32,
-		/// <summary>XOP.L0.XA.W0 12 /0 id</summary>
+		/// <summary><c>XOP.L0.XA.W0 12 /0 id</c><br/>
+		/// <br/>
+		/// <c>LWPINS r32, r/m32, imm32</c></summary>
 		XOP_Lwpins_r32_rm32_imm32,
-		/// <summary>XOP.L0.XA.W1 12 /0 id</summary>
+		/// <summary><c>XOP.L0.XA.W1 12 /0 id</c><br/>
+		/// <br/>
+		/// <c>LWPINS r64, r/m32, imm32</c></summary>
 		XOP_Lwpins_r64_rm32_imm32,
-		/// <summary>XOP.L0.XA.W0 12 /1 id</summary>
+		/// <summary><c>XOP.L0.XA.W0 12 /1 id</c><br/>
+		/// <br/>
+		/// <c>LWPVAL r32, r/m32, imm32</c></summary>
 		XOP_Lwpval_r32_rm32_imm32,
-		/// <summary>XOP.L0.XA.W1 12 /1 id</summary>
+		/// <summary><c>XOP.L0.XA.W1 12 /1 id</c><br/>
+		/// <br/>
+		/// <c>LWPVAL r64, r/m32, imm32</c></summary>
 		XOP_Lwpval_r64_rm32_imm32,
-		/// <summary>0F 0F /r 0C</summary>
+		/// <summary><c>0F 0F /r 0C</c><br/>
+		/// <br/>
+		/// <c>PI2FW mm1, mm2/m64</c></summary>
 		D3NOW_Pi2fw_mm_mmm64,
-		/// <summary>0F 0F /r 0D</summary>
+		/// <summary><c>0F 0F /r 0D</c><br/>
+		/// <br/>
+		/// <c>PI2FD mm1, mm2/m64</c></summary>
 		D3NOW_Pi2fd_mm_mmm64,
-		/// <summary>0F 0F /r 1C</summary>
+		/// <summary><c>0F 0F /r 1C</c><br/>
+		/// <br/>
+		/// <c>PF2IW mm1, mm2/m64</c></summary>
 		D3NOW_Pf2iw_mm_mmm64,
-		/// <summary>0F 0F /r 1D</summary>
+		/// <summary><c>0F 0F /r 1D</c><br/>
+		/// <br/>
+		/// <c>PF2ID mm1, mm2/m64</c></summary>
 		D3NOW_Pf2id_mm_mmm64,
-		/// <summary>0F 0F /r 86</summary>
+		/// <summary><c>0F 0F /r 86</c><br/>
+		/// <br/>
+		/// <c>PFRCPV mm1, mm2/m64</c></summary>
 		D3NOW_Pfrcpv_mm_mmm64,
-		/// <summary>0F 0F /r 87</summary>
+		/// <summary><c>0F 0F /r 87</c><br/>
+		/// <br/>
+		/// <c>PFRSQRTV mm1, mm2/m64</c></summary>
 		D3NOW_Pfrsqrtv_mm_mmm64,
-		/// <summary>0F 0F /r 8A</summary>
+		/// <summary><c>0F 0F /r 8A</c><br/>
+		/// <br/>
+		/// <c>PFNACC mm1, mm2/m64</c></summary>
 		D3NOW_Pfnacc_mm_mmm64,
-		/// <summary>0F 0F /r 8E</summary>
+		/// <summary><c>0F 0F /r 8E</c><br/>
+		/// <br/>
+		/// <c>PFPNACC mm1, mm2/m64</c></summary>
 		D3NOW_Pfpnacc_mm_mmm64,
-		/// <summary>0F 0F /r 90</summary>
+		/// <summary><c>0F 0F /r 90</c><br/>
+		/// <br/>
+		/// <c>PFCMPGE mm1, mm2/m64</c></summary>
 		D3NOW_Pfcmpge_mm_mmm64,
-		/// <summary>0F 0F /r 94</summary>
+		/// <summary><c>0F 0F /r 94</c><br/>
+		/// <br/>
+		/// <c>PFMIN mm1, mm2/m64</c></summary>
 		D3NOW_Pfmin_mm_mmm64,
-		/// <summary>0F 0F /r 96</summary>
+		/// <summary><c>0F 0F /r 96</c><br/>
+		/// <br/>
+		/// <c>PFRCP mm1, mm2/m64</c></summary>
 		D3NOW_Pfrcp_mm_mmm64,
-		/// <summary>0F 0F /r 97</summary>
+		/// <summary><c>0F 0F /r 97</c><br/>
+		/// <br/>
+		/// <c>PFRSQRT mm1, mm2/m64</c></summary>
 		D3NOW_Pfrsqrt_mm_mmm64,
-		/// <summary>0F 0F /r 9A</summary>
+		/// <summary><c>0F 0F /r 9A</c><br/>
+		/// <br/>
+		/// <c>PFSUB mm1, mm2/m64</c></summary>
 		D3NOW_Pfsub_mm_mmm64,
-		/// <summary>0F 0F /r 9E</summary>
+		/// <summary><c>0F 0F /r 9E</c><br/>
+		/// <br/>
+		/// <c>PFADD mm1, mm2/m64</c></summary>
 		D3NOW_Pfadd_mm_mmm64,
-		/// <summary>0F 0F /r A0</summary>
+		/// <summary><c>0F 0F /r A0</c><br/>
+		/// <br/>
+		/// <c>PFCMPGT mm1, mm2/m64</c></summary>
 		D3NOW_Pfcmpgt_mm_mmm64,
-		/// <summary>0F 0F /r A4</summary>
+		/// <summary><c>0F 0F /r A4</c><br/>
+		/// <br/>
+		/// <c>PFMAX mm1, mm2/m64</c></summary>
 		D3NOW_Pfmax_mm_mmm64,
-		/// <summary>0F 0F /r A6</summary>
+		/// <summary><c>0F 0F /r A6</c><br/>
+		/// <br/>
+		/// <c>PFRCPIT1 mm1, mm2/m64</c></summary>
 		D3NOW_Pfrcpit1_mm_mmm64,
-		/// <summary>0F 0F /r A7</summary>
+		/// <summary><c>0F 0F /r A7</c><br/>
+		/// <br/>
+		/// <c>PFRSQIT1 mm1, mm2/m64</c></summary>
 		D3NOW_Pfrsqit1_mm_mmm64,
-		/// <summary>0F 0F /r AA</summary>
+		/// <summary><c>0F 0F /r AA</c><br/>
+		/// <br/>
+		/// <c>PFSUBR mm1, mm2/m64</c></summary>
 		D3NOW_Pfsubr_mm_mmm64,
-		/// <summary>0F 0F /r AE</summary>
+		/// <summary><c>0F 0F /r AE</c><br/>
+		/// <br/>
+		/// <c>PFACC mm1, mm2/m64</c></summary>
 		D3NOW_Pfacc_mm_mmm64,
-		/// <summary>0F 0F /r B0</summary>
+		/// <summary><c>0F 0F /r B0</c><br/>
+		/// <br/>
+		/// <c>PFCMPEQ mm1, mm2/m64</c></summary>
 		D3NOW_Pfcmpeq_mm_mmm64,
-		/// <summary>0F 0F /r B4</summary>
+		/// <summary><c>0F 0F /r B4</c><br/>
+		/// <br/>
+		/// <c>PFMUL mm1, mm2/m64</c></summary>
 		D3NOW_Pfmul_mm_mmm64,
-		/// <summary>0F 0F /r B6</summary>
+		/// <summary><c>0F 0F /r B6</c><br/>
+		/// <br/>
+		/// <c>PFRCPIT2 mm1, mm2/m64</c></summary>
 		D3NOW_Pfrcpit2_mm_mmm64,
-		/// <summary>0F 0F /r B7</summary>
+		/// <summary><c>0F 0F /r B7</c><br/>
+		/// <br/>
+		/// <c>PMULHRW mm1, mm2/m64</c></summary>
 		D3NOW_Pmulhrw_mm_mmm64,
-		/// <summary>0F 0F /r BB</summary>
+		/// <summary><c>0F 0F /r BB</c><br/>
+		/// <br/>
+		/// <c>PSWAPD mm1, mm2/m64</c></summary>
 		D3NOW_Pswapd_mm_mmm64,
-		/// <summary>0F 0F /r BF</summary>
+		/// <summary><c>0F 0F /r BF</c><br/>
+		/// <br/>
+		/// <c>PAVGUSB mm1, mm2/m64</c></summary>
 		D3NOW_Pavgusb_mm_mmm64,
 		/// <summary>A <c>db</c>/<c>.byte</c> asm directive that can store 1-16 bytes</summary>
 		DeclareByte,
