@@ -21,23 +21,25 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using Generator.Enums;
 
-namespace Iced.Intel {
-	/// <summary>
-	/// Extension methods
-	/// </summary>
-	public static partial class MnemonicUtils {
-		/// <summary>
-		/// Gets the mnemonic
-		/// </summary>
-		/// <param name="code">Code value</param>
-		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Mnemonic ToMnemonic(this Code code) {
-			Debug.Assert((uint)code < (uint)toMnemonic.Length);
-			return (Mnemonic)toMnemonic[(int)code];
+namespace Generator.Decoder {
+	interface IMnemonicsTableGenerator {
+		void Generate(ProjectDirs projectDirs, (EnumValue codeEnum, EnumValue mnemonicEnum)[] data);
+	}
+
+	sealed class MnemonicsTableGenerator {
+		readonly ProjectDirs projectDirs;
+
+		public MnemonicsTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+
+		public void Generate() {
+			var generators = new IMnemonicsTableGenerator[] {
+				new CSharp.CSharpMnemonicsTableGenerator(),
+			};
+
+			foreach (var generator in generators)
+				generator.Generate(projectDirs, MnemonicsTable.Table);
 		}
 	}
 }

@@ -46,6 +46,9 @@ namespace Generator {
 				Enums.CodeEnum.AddComments(projectDirs.UnitTestsDir);
 
 				new Decoder.DecoderTableGenerator(projectDirs).Generate();
+				new Decoder.InstructionMemorySizesGenerator(projectDirs).Generate();
+				new Decoder.InstructionOpCountsGenerator(projectDirs).Generate();
+				new Decoder.MnemonicsTableGenerator(projectDirs).Generate();
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 				new Formatters.FormatterTableGenerator(projectDirs).Generate();
 #endif
