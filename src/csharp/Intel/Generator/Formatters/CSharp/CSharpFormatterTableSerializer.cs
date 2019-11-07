@@ -21,24 +21,29 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_NASM_FORMATTER && !NO_FORMATTER
+#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
 using System.IO;
 using Generator.Enums;
 using Generator.IO;
 
-namespace Generator.Formatters.Nasm {
-	sealed class NasmFormatterTableSerializer : FormatterTableSerializer {
+namespace Generator.Formatters.CSharp {
+	abstract class CSharpFormatterTableSerializer : FormatterTableSerializer {
+		protected abstract object[][] Infos { get; }
+		protected abstract string Define { get; }
+		protected abstract string Namespace { get; }
+		protected abstract EnumType CtorKindEnum { get; }
+
 		public override void Initialize(StringsTable stringsTable) =>
-			Initialize(stringsTable, CtorInfos.Infos);
+			Initialize(stringsTable, Infos);
 
 		public override string GetFilename(ProjectDirs projectDirs) =>
-			Path.Combine(projectDirs.CSharpDir, "Intel", "NasmFormatterInternal", "InstrInfos.g.cs");
+			Path.Combine(CSharpConstants.GetDirectory(projectDirs, Namespace), "InstrInfos.g.cs");
 
 		public override void Serialize(FileWriter writer, StringsTable stringsTable) {
 			writer.WriteCSharpHeader();
-			writer.WriteLine("#if !NO_NASM_FORMATTER && !NO_FORMATTER");
-			writer.WriteLine("namespace Iced.Intel.NasmFormatterInternal {");
+			writer.WriteLine($"#if {Define}");
+			writer.WriteLine($"namespace {Namespace} {{");
 			writer.Indent();
 			writer.WriteLine("static partial class InstrInfos {");
 			writer.Indent();
@@ -48,7 +53,7 @@ namespace Generator.Formatters.Nasm {
 			writer.Indent();
 
 			int index = -1;
-			var infos = CtorInfos.Infos;
+			var infos = Infos;
 			for (int i = 0; i < infos.Length; i++) {
 				var info = infos[i];
 				index++;
@@ -63,7 +68,7 @@ namespace Generator.Formatters.Nasm {
 
 				bool isSame = i > 0 && IsSame(infos[i - 1], info);
 				if (isSame)
-					ctorKind = NasmCtorKindEnum.Instance["Previous"];
+					ctorKind = CtorKindEnum["Previous"];
 
 				if ((uint)ctorKind.Value > 0x7F)
 					throw new InvalidOperationException();
@@ -107,8 +112,28 @@ namespace Generator.Formatters.Nasm {
 						writer.WriteCommentLine($"0x{ival:X}");
 						break;
 
+					case bool b:
+						writer.WriteByte((byte)(b ? 1 : 0));
+						writer.WriteCommentLine(b.ToString());
+						break;
+
 					case IEnumValue enumValue:
 						switch (enumValue.DeclaringType.EnumKind) {
+						case EnumKind.GasInstrOpInfoFlags:
+							writer.WriteCompressedUInt32((uint)enumValue.Value);
+							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue}");
+							break;
+
+						case EnumKind.IntelInstrOpInfoFlags:
+							writer.WriteCompressedUInt32((uint)enumValue.Value);
+							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue}");
+							break;
+
+						case EnumKind.MasmInstrOpInfoFlags:
+							writer.WriteCompressedUInt32((uint)enumValue.Value);
+							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue}");
+							break;
+
 						case EnumKind.NasmInstrOpInfoFlags:
 							writer.WriteCompressedUInt32((uint)enumValue.Value);
 							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue}");
@@ -120,38 +145,38 @@ namespace Generator.Formatters.Nasm {
 							writer.WriteByte((byte)enumValue.Value);
 							writer.WriteCommentLine(enumValue.ToStringValue);
 							break;
+
 						case EnumKind.CodeSize:
 							if ((uint)enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
 							writer.WriteCommentLine(enumValue.ToStringValue);
 							break;
+
 						case EnumKind.Register:
 							if ((uint)enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
 							writer.WriteCommentLine(enumValue.ToStringValue);
 							break;
+
 						case EnumKind.MemorySize:
 							if ((uint)enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
 							writer.WriteCommentLine(enumValue.ToStringValue);
 							break;
+
 						case EnumKind.NasmSignExtendInfo:
 							if ((uint)enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
 							writer.WriteCommentLine(enumValue.ToStringValue);
 							break;
+
 						default:
 							throw new InvalidOperationException();
 						}
-						break;
-
-					case bool b:
-						writer.WriteByte((byte)(b ? 1 : 0));
-						writer.WriteCommentLine(b.ToString());
 						break;
 
 					default:

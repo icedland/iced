@@ -21,30 +21,15 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER
-using System.IO;
-using Generator.IO;
+#if !NO_INTEL_FORMATTER && !NO_FORMATTER
+using Generator.Enums;
 
-namespace Generator.Decoder {
-	sealed class DecoderTableGenerator {
-		readonly ProjectDirs projectDirs;
-
-		public DecoderTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
-
-		public void Generate() {
-			var serializers = new DecoderTableSerializer[] {
-				new LegacyDecoderTableSerializer(),
-				new VexDecoderTableSerializer(),
-				new EvexDecoderTableSerializer(),
-				new XopDecoderTableSerializer(),
-			};
-
-			foreach (var serializer in serializers) {
-				var filename = Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.DecoderNamespace), serializer.ClassName + ".g.cs");
-				using (var writer = new FileWriter(FileUtils.OpenWrite(filename)))
-					serializer.Serialize(writer);
-			}
-		}
+namespace Generator.Formatters.CSharp {
+	sealed class IntelCSharpFormatterTableSerializer : CSharpFormatterTableSerializer {
+		protected override object[][] Infos => Intel.CtorInfos.Infos;
+		protected override string Define => CSharpConstants.IntelFormatterDefine;
+		protected override string Namespace => CSharpConstants.IntelFormatterNamespace;
+		protected override EnumType CtorKindEnum => IntelCtorKindEnum.Instance;
 	}
 }
 #endif

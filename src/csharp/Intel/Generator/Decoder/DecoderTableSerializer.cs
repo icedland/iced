@@ -59,8 +59,8 @@ namespace Generator.Decoder {
 
 		public void Serialize(FileWriter writer) {
 			writer.WriteCSharpHeader();
-			writer.WriteLine("#if !NO_DECODER");
-			writer.WriteLine("namespace Iced.Intel.DecoderInternal {");
+			writer.WriteLine($"#if {CSharpConstants.DecoderDefine}");
+			writer.WriteLine($"namespace {CSharpConstants.DecoderNamespace} {{");
 			writer.Indent();
 			writer.WriteLine($"static partial class {ClassName} {{");
 			writer.Indent();

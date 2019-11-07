@@ -34,30 +34,28 @@ namespace Generator.Formatters {
 		public void Generate() {
 			var serializers = new FormatterTableSerializer[] {
 #if !NO_GAS_FORMATTER && !NO_FORMATTER
-				new Gas.GasFormatterTableSerializer(),
+				new CSharp.GasCSharpFormatterTableSerializer(),
 #endif
 #if !NO_INTEL_FORMATTER && !NO_FORMATTER
-				new Intel.IntelFormatterTableSerializer(),
+				new CSharp.IntelCSharpFormatterTableSerializer(),
 #endif
 #if !NO_MASM_FORMATTER && !NO_FORMATTER
-				new Masm.MasmFormatterTableSerializer(),
+				new CSharp.MasmCSharpFormatterTableSerializer(),
 #endif
 #if !NO_NASM_FORMATTER && !NO_FORMATTER
-				new Nasm.NasmFormatterTableSerializer(),
+				new CSharp.NasmCSharpFormatterTableSerializer(),
 #endif
 			};
 
-			const string @namespace = "Iced.Intel.FormatterInternal";
-			const string className = "FormatterStringsTable";
-			const string preprocessorExpr = "(!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER";
-			var stringsTable = new StringsTableImpl(@namespace, className, preprocessorExpr);
+			const string FormatterStringsTableName = "FormatterStringsTable";
+			var stringsTable = new StringsTableImpl(CSharpConstants.FormatterNamespace, FormatterStringsTableName, CSharpConstants.AnyFormatterDefine);
 
 			foreach (var serializer in serializers)
 				serializer.Initialize(stringsTable);
 
 			stringsTable.Freeze();
 
-			using (var writer = new FileWriter(FileUtils.OpenWrite(Path.Combine(projectDirs.CSharpDir, "Intel", "FormatterInternal", className + ".g.cs"))))
+			using (var writer = new FileWriter(FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.FormatterNamespace), FormatterStringsTableName + ".g.cs"))))
 				stringsTable.Serialize(writer);
 
 			foreach (var serializer in serializers) {

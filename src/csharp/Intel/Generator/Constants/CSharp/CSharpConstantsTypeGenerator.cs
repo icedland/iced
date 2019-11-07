@@ -50,11 +50,9 @@ namespace Generator.Constants.CSharp {
 		public CSharpConstantsTypeGenerator(ProjectDirs projectDirs) {
 			docWriter = new CSharpDocCommentWriter();
 
-			const string ns = "Iced.Intel";
-
-			var baseDir = Path.Combine(projectDirs.CSharpDir, "Intel");
+			var baseDir = CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace);
 			toFullFileInfo = new Dictionary<ConstantsTypeKind, FullEnumFileInfo>();
-			toFullFileInfo.Add(ConstantsTypeKind.IcedConstants, new FullEnumFileInfo(Path.Combine(baseDir, nameof(ConstantsTypeKind.IcedConstants) + ".g.cs"), ns));
+			toFullFileInfo.Add(ConstantsTypeKind.IcedConstants, new FullEnumFileInfo(Path.Combine(baseDir, nameof(ConstantsTypeKind.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
 		}
 
 		public override void Generate(ConstantsType constantsType) {

@@ -44,10 +44,10 @@ namespace Generator.InstructionInfo {
 				header[i / 8] |= (byte)((len - 1) << (i % 8));
 			}
 
-			using (var writer = new FileWriter(FileUtils.OpenWrite(Path.Combine(projectDirs.CSharpDir, "Intel", "InstructionInfoInternal", "CpuidFeatureInternalData.g.cs")))) {
+			using (var writer = new FileWriter(FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.InstructionInfoNamespace), "CpuidFeatureInternalData.g.cs")))) {
 				writer.WriteCSharpHeader();
-				writer.WriteLine("#if !NO_INSTR_INFO");
-				writer.WriteLine("namespace Iced.Intel.InstructionInfoInternal {");
+				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
+				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
 				writer.Indent();
 				writer.WriteLine("static partial class CpuidFeatureInternalData {");
 				writer.Indent();
