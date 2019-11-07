@@ -45,15 +45,11 @@ namespace Generator {
 				var projectDirs = GetProjectDirs();
 				Enums.CodeEnum.AddComments(projectDirs.UnitTestsDir);
 
-#if !NO_DECODER
 				new Decoder.DecoderTableGenerator(projectDirs).Generate();
-#endif
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 				new Formatters.FormatterTableGenerator(projectDirs).Generate();
 #endif
-#if !NO_INSTR_INFO
 				new InstructionInfo.CpuidFeatureTableGenerator(projectDirs).Generate();
-#endif
 				new Enums.EnumsGenerator(projectDirs).Generate();
 				new Constants.ConstantsGenerator(projectDirs).Generate();
 
