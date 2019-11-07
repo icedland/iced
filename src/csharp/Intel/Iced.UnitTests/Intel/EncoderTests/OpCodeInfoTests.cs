@@ -97,7 +97,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(tc.Op2Kind, info.GetOpKind(2));
 			Assert.Equal(tc.Op3Kind, info.GetOpKind(3));
 			Assert.Equal(tc.Op4Kind, info.GetOpKind(4));
-			Assert.Equal(5, IcedConstants.MaxOpCount);
+			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 			for (int i = tc.OpCount; i < IcedConstants.MaxOpCount; i++)
 				Assert.Equal(OpCodeOperandKind.None, info.GetOpKind(i));
 		}

@@ -63,15 +63,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 
 		[Fact]
-		void OpKind_Register_is_zero() {
-			// The opcode handlers assume it's zero. They have Static.Assert()s too.
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-		}
-
-		[Fact]
 		void INVALID_Code_value_is_zero() {
 			// A 'default' Instruction should be an invalid instruction
-			Assert.True((int)Code.INVALID == 0);
+			Static.Assert((int)Code.INVALID == 0 ? 0 : -1);
 			Instruction instr1 = default;
 			Assert.Equal(Code.INVALID, instr1.Code);
 			var instr2 = new Instruction();
@@ -326,7 +320,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)(-1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)IcedConstants.NumberOfCodeValues);
 
-			Assert.Equal(5, IcedConstants.MaxOpCount);
+			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 			foreach (var opKind in GetEnumValues<OpKind>()) {
 				instr.Op0Kind = opKind;
 				Assert.Equal(opKind, instr.Op0Kind);

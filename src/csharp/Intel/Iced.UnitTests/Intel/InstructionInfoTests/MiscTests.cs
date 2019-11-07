@@ -526,23 +526,23 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 		[Fact]
 		void Verify_ConditionCode_values_are_in_correct_order() {
-			Assert.Equal(0, (int)ConditionCode.None);
-			Assert.Equal(1, (int)ConditionCode.o);
-			Assert.Equal(2, (int)ConditionCode.no);
-			Assert.Equal(3, (int)ConditionCode.b);
-			Assert.Equal(4, (int)ConditionCode.ae);
-			Assert.Equal(5, (int)ConditionCode.e);
-			Assert.Equal(6, (int)ConditionCode.ne);
-			Assert.Equal(7, (int)ConditionCode.be);
-			Assert.Equal(8, (int)ConditionCode.a);
-			Assert.Equal(9, (int)ConditionCode.s);
-			Assert.Equal(10, (int)ConditionCode.ns);
-			Assert.Equal(11, (int)ConditionCode.p);
-			Assert.Equal(12, (int)ConditionCode.np);
-			Assert.Equal(13, (int)ConditionCode.l);
-			Assert.Equal(14, (int)ConditionCode.ge);
-			Assert.Equal(15, (int)ConditionCode.le);
-			Assert.Equal(16, (int)ConditionCode.g);
+			Static.Assert((int)ConditionCode.None == 0 ? 0 : -1);
+			Static.Assert((int)ConditionCode.o == 1 ? 0 : -1);
+			Static.Assert((int)ConditionCode.no == 2 ? 0 : -1);
+			Static.Assert((int)ConditionCode.b == 3 ? 0 : -1);
+			Static.Assert((int)ConditionCode.ae == 4 ? 0 : -1);
+			Static.Assert((int)ConditionCode.e == 5 ? 0 : -1);
+			Static.Assert((int)ConditionCode.ne == 6 ? 0 : -1);
+			Static.Assert((int)ConditionCode.be == 7 ? 0 : -1);
+			Static.Assert((int)ConditionCode.a == 8 ? 0 : -1);
+			Static.Assert((int)ConditionCode.s == 9 ? 0 : -1);
+			Static.Assert((int)ConditionCode.ns == 10 ? 0 : -1);
+			Static.Assert((int)ConditionCode.p == 11 ? 0 : -1);
+			Static.Assert((int)ConditionCode.np == 12 ? 0 : -1);
+			Static.Assert((int)ConditionCode.l == 13 ? 0 : -1);
+			Static.Assert((int)ConditionCode.ge == 14 ? 0 : -1);
+			Static.Assert((int)ConditionCode.le == 15 ? 0 : -1);
+			Static.Assert((int)ConditionCode.g == 16 ? 0 : -1);
 		}
 
 		[Fact]
