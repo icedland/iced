@@ -47,7 +47,6 @@ namespace Generator.IO {
 				for (int i = 0; i <= start; i++)
 					writer.WriteLine(lines[i]);
 				writer.WritePartialGeneratedComment();
-				writer.WriteLine();
 
 				write(writer);
 
