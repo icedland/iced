@@ -32,7 +32,7 @@ using Generator.IO;
 namespace Generator.Constants.CSharp {
 	sealed class CSharpConstantsGenerator : IConstantsGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly Dictionary<ConstantsTypeKind, FullConstantsFileInfo> toFullFileInfo;
+		readonly Dictionary<TypeId, FullConstantsFileInfo> toFullFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 
 		sealed class FullConstantsFileInfo {
@@ -52,12 +52,12 @@ namespace Generator.Constants.CSharp {
 			docWriter = new CSharpDocCommentWriter(idConverter);
 
 			var baseDir = CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace);
-			toFullFileInfo = new Dictionary<ConstantsTypeKind, FullConstantsFileInfo>();
-			toFullFileInfo.Add(ConstantsTypeKind.IcedConstants, new FullConstantsFileInfo(Path.Combine(baseDir, nameof(ConstantsTypeKind.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
+			toFullFileInfo = new Dictionary<TypeId, FullConstantsFileInfo>();
+			toFullFileInfo.Add(TypeIds.IcedConstants, new FullConstantsFileInfo(Path.Combine(baseDir, nameof(TypeIds.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
 		}
 
 		public void Generate(ConstantsType constantsType) {
-			if (toFullFileInfo.TryGetValue(constantsType.Kind, out var fullFileInfo))
+			if (toFullFileInfo.TryGetValue(constantsType.TypeId, out var fullFileInfo))
 				WriteFile(fullFileInfo, constantsType);
 			else
 				throw new InvalidOperationException();

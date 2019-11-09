@@ -1567,6 +1567,6 @@ namespace Generator.Enums {
 				new EnumValue("Xtest"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.Mnemonic, documentation, GetValues(), EnumTypeFlags.Public);
+		public static readonly EnumType Instance = new EnumType(TypeIds.Mnemonic, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

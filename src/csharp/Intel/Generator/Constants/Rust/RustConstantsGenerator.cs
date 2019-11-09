@@ -29,7 +29,7 @@ using Generator.IO;
 
 namespace Generator.Constants.Rust {
 	sealed class RustConstantsGenerator : IConstantsGenerator {
-		readonly Dictionary<ConstantsTypeKind, PartialConstantsFileInfo> toPartialFileInfo;
+		readonly Dictionary<TypeId, PartialConstantsFileInfo> toPartialFileInfo;
 		readonly RustConstantsWriter constantsWriter;
 
 		sealed class PartialConstantsFileInfo {
@@ -54,12 +54,12 @@ namespace Generator.Constants.Rust {
 			var idConverter = RustIdentifierConverter.Create();
 			constantsWriter = new RustConstantsWriter(idConverter, new RustDocCommentWriter(idConverter));
 
-			toPartialFileInfo = new Dictionary<ConstantsTypeKind, PartialConstantsFileInfo>();
-			toPartialFileInfo.Add(ConstantsTypeKind.IcedConstants, new PartialConstantsFileInfo("IcedConstants", Path.Combine(projectDirs.RustDir, "common", "icedconstants.rs")));
+			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo>();
+			toPartialFileInfo.Add(TypeIds.IcedConstants, new PartialConstantsFileInfo("IcedConstants", Path.Combine(projectDirs.RustDir, "common", "icedconstants.rs")));
 		}
 
 		public void Generate(ConstantsType constantsType) {
-			if (toPartialFileInfo.TryGetValue(constantsType.Kind, out var partialInfo)) {
+			if (toPartialFileInfo.TryGetValue(constantsType.TypeId, out var partialInfo)) {
 				if (!(partialInfo is null))
 					new FileUpdater(TargetLanguage.Rust, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteConstants(writer, partialInfo, constantsType));
 			}

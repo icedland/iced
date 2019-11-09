@@ -67,6 +67,6 @@ namespace Generator.Enums {
 				new EnumValue("YA"),
 			};
 
-		public static readonly EnumType Instance = new EnumType("CtorKind", EnumKind.IntelCtorKind, documentation, GetValues(), EnumTypeFlags.None);
+		public static readonly EnumType Instance = new EnumType("CtorKind", TypeIds.IntelCtorKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

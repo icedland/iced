@@ -166,6 +166,6 @@ namespace Generator.Enums {
 				new EnumValue("Broadcast512_2xBFloat16", "Broadcast 2 x #(t:bf16)# to 512 bits"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.MemorySize, documentation, GetValues(), EnumTypeFlags.Public);
+		public static readonly EnumType Instance = new EnumType(TypeIds.MemorySize, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

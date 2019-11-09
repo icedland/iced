@@ -49,6 +49,6 @@ namespace Generator.Enums {
 				new EnumValue("NoLahfSahf64", "Don't decode #(e:Code.Lahf)# and #(e:Code.Sahf)# in 64-bit mode"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.DecoderOptions, documentation, GetValues(), EnumTypeFlags.Public | EnumTypeFlags.Flags);
+		public static readonly EnumType Instance = new EnumType(TypeIds.DecoderOptions, documentation, GetValues(), EnumTypeFlags.Public | EnumTypeFlags.Flags);
 	}
 }

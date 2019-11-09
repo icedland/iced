@@ -58,8 +58,8 @@ namespace Generator.Formatters {
 				return false;
 			for (int i = 0; i < a.Length; i++) {
 				if (i == 1) {
-					if (!(a[i] is EnumValue eva && eva.DeclaringType.EnumKind == EnumKind.Code) ||
-						!(b[i] is EnumValue evb && evb.DeclaringType.EnumKind == EnumKind.Code)) {
+					if (!(a[i] is EnumValue eva && eva.DeclaringType.TypeId == TypeIds.Code) ||
+						!(b[i] is EnumValue evb && evb.DeclaringType.TypeId == TypeIds.Code)) {
 						throw new InvalidOperationException();
 					}
 					continue;

@@ -49,6 +49,6 @@ namespace Generator.Enums.Instruction {
 		static EnumValue[] GetValues() =>
 			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name)).ToArray();
 
-		public static readonly EnumType Instance = new EnumType("MemoryFlags", EnumKind.Instruction_MemoryFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
+		public static readonly EnumType Instance = new EnumType("MemoryFlags", TypeIds.Instruction_MemoryFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

@@ -228,6 +228,6 @@ namespace Generator.Enums {
 				new EnumValue("Yv_Xv"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.OpCodeHandlerKind, documentation, GetValues(), EnumTypeFlags.None);
+		public static readonly EnumType Instance = new EnumType(TypeIds.OpCodeHandlerKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

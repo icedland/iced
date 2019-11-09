@@ -93,6 +93,6 @@ namespace Generator.Enums {
 				new EnumValue("WVIb"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.VexOpCodeHandlerKind, documentation, GetValues(), EnumTypeFlags.None);
+		public static readonly EnumType Instance = new EnumType(TypeIds.VexOpCodeHandlerKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

@@ -21,22 +21,37 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Enums {
-	static class NasmSignExtendInfoEnum {
-		const string? documentation = null;
+using System;
 
-		static EnumValue[] GetValues() =>
-			new EnumValue[] {
-				new EnumValue("None"),
-				new EnumValue("Sex1to2"),
-				new EnumValue("Sex1to4"),
-				new EnumValue("Sex1to8"),
-				new EnumValue("Sex4to8"),
-				new EnumValue("Sex4to8Qword"),
-				new EnumValue("Sex2"),
-				new EnumValue("Sex4"),
-			};
+namespace Generator {
+	readonly struct TypeId : IEquatable<TypeId> {
+		readonly string id1;
+		readonly string id2;
 
-		public static readonly EnumType Instance = new EnumType("SignExtendInfo", TypeIds.NasmSignExtendInfo, documentation, GetValues(), EnumTypeFlags.None);
+		public TypeId(string id1) {
+			this.id1 = id1;
+			id2 = string.Empty;
+		}
+
+		public TypeId(string id1, string id2) {
+			this.id1 = id1;
+			this.id2 = id2;
+		}
+
+		public static bool operator ==(TypeId left, TypeId right) => left.Equals(right);
+		public static bool operator !=(TypeId left, TypeId right) => !left.Equals(right);
+
+		public bool Equals(TypeId other) =>
+			id1 == other.id1 &&
+			id2 == other.id2;
+
+		public override bool Equals(object? obj) =>
+			obj is TypeId other && Equals(other);
+
+		public override int GetHashCode() =>
+			HashCode.Combine(StringComparer.Ordinal.GetHashCode(id1 ?? string.Empty),
+				StringComparer.Ordinal.GetHashCode(id2 ?? string.Empty));
+
+		public override string ToString() => string.IsNullOrEmpty(id2) ? id1 : $"{id1} {id2}";
 	}
 }

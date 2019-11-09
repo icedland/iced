@@ -4236,7 +4236,7 @@ namespace Generator.Enums {
 				new EnumValue("DeclareQword", "A #(c:dq)#/#(c:.quad)# asm directive that can store 1-2 qwords"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.Code, documentation, GetValues(), EnumTypeFlags.Public);
+		public static readonly EnumType Instance = new EnumType(TypeIds.Code, documentation, GetValues(), EnumTypeFlags.Public);
 
 		internal static void AddComments(string unitTestDir) {
 			var docs = new Dictionary<string, string>(StringComparer.Ordinal);

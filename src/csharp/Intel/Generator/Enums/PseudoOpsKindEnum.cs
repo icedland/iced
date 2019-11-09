@@ -47,6 +47,6 @@ namespace Generator.Enums {
 				new EnumValue("vpcomuq"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.PseudoOpsKind, documentation, GetValues(), EnumTypeFlags.None);
+		public static readonly EnumType Instance = new EnumType(TypeIds.PseudoOpsKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

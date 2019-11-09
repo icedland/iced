@@ -63,6 +63,6 @@ namespace Generator.Enums {
 				new EnumValue("MOVDDUP_512", "N = 64"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.TupleType, documentation, GetValues(), EnumTypeFlags.Public);
+		public static readonly EnumType Instance = new EnumType(TypeIds.TupleType, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

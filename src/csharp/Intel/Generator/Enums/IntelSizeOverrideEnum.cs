@@ -37,6 +37,6 @@ namespace Generator.Enums {
 		static EnumValue[] GetValues() =>
 			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name)).ToArray();
 
-		public static readonly EnumType Instance = new EnumType("SizeOverride", EnumKind.IntelSizeOverride, documentation, GetValues(), EnumTypeFlags.NoInitialize);
+		public static readonly EnumType Instance = new EnumType("SizeOverride", TypeIds.IntelSizeOverride, documentation, GetValues(), EnumTypeFlags.NoInitialize);
 	}
 }

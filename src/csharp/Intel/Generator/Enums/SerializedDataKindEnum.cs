@@ -31,6 +31,6 @@ namespace Generator.Enums {
 				new EnumValue("ArrayReference"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.SerializedDataKind, documentation, GetValues(), EnumTypeFlags.None);
+		public static readonly EnumType Instance = new EnumType(TypeIds.SerializedDataKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

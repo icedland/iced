@@ -32,7 +32,7 @@ using Generator.IO;
 namespace Generator.Enums.Rust {
 	sealed class RustEnumsGenerator : IEnumsGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly Dictionary<EnumKind, PartialEnumFileInfo?> toPartialFileInfo;
+		readonly Dictionary<TypeId, PartialEnumFileInfo?> toPartialFileInfo;
 		readonly RustDocCommentWriter docWriter;
 		readonly RustConstantsWriter constantsWriter;
 
@@ -62,49 +62,46 @@ namespace Generator.Enums.Rust {
 			const string attrCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
 			const string attrCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
 
-			toPartialFileInfo = new Dictionary<EnumKind, PartialEnumFileInfo?>();
-			toPartialFileInfo.Add(EnumKind.Code, new PartialEnumFileInfo("Code", Path.Combine(projectDirs.RustDir, "common", "code.rs"), new[] { attrCopyEqOrdHash, "#[allow(non_camel_case_types)]", "#[repr(u32)]" }));
-			toPartialFileInfo.Add(EnumKind.CodeSize, new PartialEnumFileInfo("CodeSize", Path.Combine(projectDirs.RustDir, "common", "enums.rs"), attrCopyEq));
-			toPartialFileInfo.Add(EnumKind.CpuidFeature, null);
-			toPartialFileInfo.Add(EnumKind.CpuidFeatureInternal, null);
-			toPartialFileInfo.Add(EnumKind.DecoderOptions, null);
-			toPartialFileInfo.Add(EnumKind.EvexOpCodeHandlerKind, null);
-			toPartialFileInfo.Add(EnumKind.HandlerFlags, null);
-			toPartialFileInfo.Add(EnumKind.LegacyHandlerFlags, null);
-			toPartialFileInfo.Add(EnumKind.MemorySize, new PartialEnumFileInfo("MemorySize", Path.Combine(projectDirs.RustDir, "common", "memorysize.rs"), new[] { attrCopyEqOrdHash, "#[allow(non_camel_case_types)]" }));
-			toPartialFileInfo.Add(EnumKind.OpCodeHandlerKind, null);
-			toPartialFileInfo.Add(EnumKind.PseudoOpsKind, null);
-			toPartialFileInfo.Add(EnumKind.Register, new PartialEnumFileInfo("Register", Path.Combine(projectDirs.RustDir, "common", "register.rs"), attrCopyEqOrdHash));
-			toPartialFileInfo.Add(EnumKind.SerializedDataKind, null);
-			toPartialFileInfo.Add(EnumKind.TupleType, null);
-			toPartialFileInfo.Add(EnumKind.VexOpCodeHandlerKind, null);
-			toPartialFileInfo.Add(EnumKind.Mnemonic, new PartialEnumFileInfo("Mnemonic", Path.Combine(projectDirs.RustDir, "common", "mnemonic.rs"), attrCopyEqOrdHash));
-			toPartialFileInfo.Add(EnumKind.GasCtorKind, null);
-			toPartialFileInfo.Add(EnumKind.IntelCtorKind, null);
-			toPartialFileInfo.Add(EnumKind.MasmCtorKind, null);
-			toPartialFileInfo.Add(EnumKind.NasmCtorKind, null);
-			toPartialFileInfo.Add(EnumKind.GasSizeOverride, null);
-			toPartialFileInfo.Add(EnumKind.GasInstrOpInfoFlags, null);
-			toPartialFileInfo.Add(EnumKind.IntelSizeOverride, null);
-			toPartialFileInfo.Add(EnumKind.IntelBranchSizeInfo, null);
-			toPartialFileInfo.Add(EnumKind.IntelInstrOpInfoFlags, null);
-			toPartialFileInfo.Add(EnumKind.MasmInstrOpInfoFlags, null);
-			toPartialFileInfo.Add(EnumKind.NasmSignExtendInfo, null);
-			toPartialFileInfo.Add(EnumKind.NasmSizeOverride, null);
-			toPartialFileInfo.Add(EnumKind.NasmBranchSizeInfo, null);
-			toPartialFileInfo.Add(EnumKind.NasmInstrOpInfoFlags, null);
-			toPartialFileInfo.Add(EnumKind.RoundingControl, new PartialEnumFileInfo("RoundingControl", Path.Combine(projectDirs.RustDir, "common", "enums.rs"), attrCopyEq));
-			toPartialFileInfo.Add(EnumKind.OpKind, new PartialEnumFileInfo("OpKind", Path.Combine(projectDirs.RustDir, "common", "enums.rs"), attrCopyEqOrdHash));
-			toPartialFileInfo.Add(EnumKind.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(projectDirs.RustDir, "common", "instruction.rs"), attrCopyEqOrdHash));
-			toPartialFileInfo.Add(EnumKind.Instruction_OpKindFlags, new PartialEnumFileInfo("OpKindFlags", Path.Combine(projectDirs.RustDir, "common", "instruction.rs"), attrCopyEqOrdHash));
-			toPartialFileInfo.Add(EnumKind.Instruction_CodeFlags, new PartialEnumFileInfo("CodeFlags", Path.Combine(projectDirs.RustDir, "common", "instruction.rs"), attrCopyEqOrdHash));
-
-			if (toPartialFileInfo.Count != Enum.GetValues(typeof(EnumKind)).Length)
-				throw new InvalidOperationException();
+			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo?>();
+			toPartialFileInfo.Add(TypeIds.Code, new PartialEnumFileInfo("Code", Path.Combine(projectDirs.RustDir, "common", "code.rs"), new[] { attrCopyEqOrdHash, "#[allow(non_camel_case_types)]", "#[repr(u32)]" }));
+			toPartialFileInfo.Add(TypeIds.CodeSize, new PartialEnumFileInfo("CodeSize", Path.Combine(projectDirs.RustDir, "common", "enums.rs"), attrCopyEq));
+			toPartialFileInfo.Add(TypeIds.CpuidFeature, null);
+			toPartialFileInfo.Add(TypeIds.CpuidFeatureInternal, null);
+			toPartialFileInfo.Add(TypeIds.DecoderOptions, null);
+			toPartialFileInfo.Add(TypeIds.EvexOpCodeHandlerKind, null);
+			toPartialFileInfo.Add(TypeIds.HandlerFlags, null);
+			toPartialFileInfo.Add(TypeIds.LegacyHandlerFlags, null);
+			toPartialFileInfo.Add(TypeIds.MemorySize, new PartialEnumFileInfo("MemorySize", Path.Combine(projectDirs.RustDir, "common", "memorysize.rs"), new[] { attrCopyEqOrdHash, "#[allow(non_camel_case_types)]" }));
+			toPartialFileInfo.Add(TypeIds.OpCodeHandlerKind, null);
+			toPartialFileInfo.Add(TypeIds.PseudoOpsKind, null);
+			toPartialFileInfo.Add(TypeIds.Register, new PartialEnumFileInfo("Register", Path.Combine(projectDirs.RustDir, "common", "register.rs"), attrCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.SerializedDataKind, null);
+			toPartialFileInfo.Add(TypeIds.TupleType, null);
+			toPartialFileInfo.Add(TypeIds.VexOpCodeHandlerKind, null);
+			toPartialFileInfo.Add(TypeIds.Mnemonic, new PartialEnumFileInfo("Mnemonic", Path.Combine(projectDirs.RustDir, "common", "mnemonic.rs"), attrCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.GasCtorKind, null);
+			toPartialFileInfo.Add(TypeIds.IntelCtorKind, null);
+			toPartialFileInfo.Add(TypeIds.MasmCtorKind, null);
+			toPartialFileInfo.Add(TypeIds.NasmCtorKind, null);
+			toPartialFileInfo.Add(TypeIds.GasSizeOverride, null);
+			toPartialFileInfo.Add(TypeIds.GasInstrOpInfoFlags, null);
+			toPartialFileInfo.Add(TypeIds.IntelSizeOverride, null);
+			toPartialFileInfo.Add(TypeIds.IntelBranchSizeInfo, null);
+			toPartialFileInfo.Add(TypeIds.IntelInstrOpInfoFlags, null);
+			toPartialFileInfo.Add(TypeIds.MasmInstrOpInfoFlags, null);
+			toPartialFileInfo.Add(TypeIds.NasmSignExtendInfo, null);
+			toPartialFileInfo.Add(TypeIds.NasmSizeOverride, null);
+			toPartialFileInfo.Add(TypeIds.NasmBranchSizeInfo, null);
+			toPartialFileInfo.Add(TypeIds.NasmInstrOpInfoFlags, null);
+			toPartialFileInfo.Add(TypeIds.RoundingControl, new PartialEnumFileInfo("RoundingControl", Path.Combine(projectDirs.RustDir, "common", "enums.rs"), attrCopyEq));
+			toPartialFileInfo.Add(TypeIds.OpKind, new PartialEnumFileInfo("OpKind", Path.Combine(projectDirs.RustDir, "common", "enums.rs"), attrCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(projectDirs.RustDir, "common", "instruction.rs"), attrCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.Instruction_OpKindFlags, new PartialEnumFileInfo("OpKindFlags", Path.Combine(projectDirs.RustDir, "common", "instruction.rs"), attrCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.Instruction_CodeFlags, new PartialEnumFileInfo("CodeFlags", Path.Combine(projectDirs.RustDir, "common", "instruction.rs"), attrCopyEqOrdHash));
 		}
 
 		public void Generate(EnumType enumType) {
-			if (toPartialFileInfo.TryGetValue(enumType.EnumKind, out var partialInfo)) {
+			if (toPartialFileInfo.TryGetValue(enumType.TypeId, out var partialInfo)) {
 				if (!(partialInfo is null))
 					new FileUpdater(TargetLanguage.Rust, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));
 			}

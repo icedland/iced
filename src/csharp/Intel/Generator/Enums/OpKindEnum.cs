@@ -55,6 +55,6 @@ namespace Generator.Enums {
 				new EnumValue("Memory", "Memory operand.#(p:)#This operand kind uses #(P:Instruction.MemoryDisplSize)#, #(P:Instruction.MemorySize)#, #(P:Instruction.MemoryIndexScale)#, #(P:Instruction.MemoryDisplacement)#, #(P:Instruction.MemoryBase)#, #(P:Instruction.MemoryIndex)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.OpKind, documentation, GetValues(), EnumTypeFlags.Public);
+		public static readonly EnumType Instance = new EnumType(TypeIds.OpKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

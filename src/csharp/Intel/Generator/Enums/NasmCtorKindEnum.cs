@@ -91,6 +91,6 @@ namespace Generator.Enums {
 				new EnumValue("YX"),
 			};
 
-		public static readonly EnumType Instance = new EnumType("CtorKind", EnumKind.NasmCtorKind, documentation, GetValues(), EnumTypeFlags.None);
+		public static readonly EnumType Instance = new EnumType("CtorKind", TypeIds.NasmCtorKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

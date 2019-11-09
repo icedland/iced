@@ -105,18 +105,18 @@ namespace Generator.Decoder.CSharp {
 		static bool IsHandler(object?[] handlers) {
 			var data = handlers[0];
 			return data is IEnumValue enumValue && (
-				enumValue.DeclaringType.EnumKind == EnumKind.OpCodeHandlerKind ||
-				enumValue.DeclaringType.EnumKind == EnumKind.VexOpCodeHandlerKind ||
-				enumValue.DeclaringType.EnumKind == EnumKind.EvexOpCodeHandlerKind);
+				enumValue.DeclaringType.TypeId == TypeIds.OpCodeHandlerKind ||
+				enumValue.DeclaringType.TypeId == TypeIds.VexOpCodeHandlerKind ||
+				enumValue.DeclaringType.TypeId == TypeIds.EvexOpCodeHandlerKind);
 		}
 
 		static bool IsInvalid(object?[] handler) {
 			var data = handler[0];
 			bool isInvalid =
 				data is IEnumValue enumValue &&
-				((enumValue.DeclaringType.EnumKind == EnumKind.OpCodeHandlerKind && enumValue == OpCodeHandlerKindEnum.Instance["Invalid"]) ||
-				(enumValue.DeclaringType.EnumKind == EnumKind.VexOpCodeHandlerKind && enumValue == VexOpCodeHandlerKindEnum.Instance["Invalid"]) ||
-				(enumValue.DeclaringType.EnumKind == EnumKind.EvexOpCodeHandlerKind && enumValue == EvexOpCodeHandlerKindEnum.Instance["Invalid"]));
+				((enumValue.DeclaringType.TypeId == TypeIds.OpCodeHandlerKind && enumValue == OpCodeHandlerKindEnum.Instance["Invalid"]) ||
+				(enumValue.DeclaringType.TypeId == TypeIds.VexOpCodeHandlerKind && enumValue == VexOpCodeHandlerKindEnum.Instance["Invalid"]) ||
+				(enumValue.DeclaringType.TypeId == TypeIds.EvexOpCodeHandlerKind && enumValue == EvexOpCodeHandlerKindEnum.Instance["Invalid"]));
 			if (isInvalid && handler.Length != 1)
 				throw new InvalidOperationException();
 			return isInvalid;
@@ -411,56 +411,55 @@ namespace Generator.Decoder.CSharp {
 				break;
 
 			case IEnumValue enumValue:
-				switch (enumValue.DeclaringType.EnumKind) {
-				case EnumKind.Code:
+				var typeId = enumValue.DeclaringType.TypeId;
+				if (typeId == TypeIds.Code) {
 					writer.WriteCompressedUInt32(enumValue.Value);
 					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-					break;
-				case EnumKind.Register:
-					if ((uint)enumValue.Value > byte.MaxValue)
-						throw new InvalidOperationException();
-					writer.WriteByte((byte)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-					break;
-				case EnumKind.DecoderOptions:
-					writer.WriteCompressedUInt32((uint)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-					break;
-				case EnumKind.HandlerFlags:
-					writer.WriteCompressedUInt32((uint)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-					break;
-				case EnumKind.TupleType:
-					if ((uint)enumValue.Value > byte.MaxValue)
-						throw new InvalidOperationException();
-					writer.WriteByte((byte)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-					break;
-				case EnumKind.OpCodeHandlerKind:
-					if ((uint)enumValue.Value > byte.MaxValue)
-						throw new InvalidOperationException();
-					writer.WriteByte((byte)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-					break;
-				case EnumKind.VexOpCodeHandlerKind:
-					if ((uint)enumValue.Value > byte.MaxValue)
-						throw new InvalidOperationException();
-					writer.WriteByte((byte)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-					break;
-				case EnumKind.EvexOpCodeHandlerKind:
-					if ((uint)enumValue.Value > byte.MaxValue)
-						throw new InvalidOperationException();
-					writer.WriteByte((byte)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-					break;
-				case EnumKind.LegacyHandlerFlags:
-					writer.WriteCompressedUInt32((uint)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-					break;
-				default:
-					throw new InvalidOperationException();
 				}
+				else if (typeId == TypeIds.Register) {
+					if ((uint)enumValue.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					writer.WriteByte((byte)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+				}
+				else if (typeId == TypeIds.DecoderOptions) {
+					writer.WriteCompressedUInt32((uint)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+				}
+				else if (typeId == TypeIds.HandlerFlags) {
+					writer.WriteCompressedUInt32((uint)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+				}
+				else if (typeId == TypeIds.TupleType) {
+					if ((uint)enumValue.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					writer.WriteByte((byte)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+				}
+				else if (typeId == TypeIds.OpCodeHandlerKind) {
+					if ((uint)enumValue.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					writer.WriteByte((byte)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+				}
+				else if (typeId == TypeIds.VexOpCodeHandlerKind) {
+					if ((uint)enumValue.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					writer.WriteByte((byte)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+				}
+				else if (typeId == TypeIds.EvexOpCodeHandlerKind) {
+					if ((uint)enumValue.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					writer.WriteByte((byte)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+				}
+				else if (typeId == TypeIds.LegacyHandlerFlags) {
+					writer.WriteCompressedUInt32((uint)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+				}
+				else
+					throw new InvalidOperationException();
 				break;
 
 			case string name:

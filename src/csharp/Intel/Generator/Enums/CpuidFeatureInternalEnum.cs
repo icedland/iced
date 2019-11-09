@@ -38,7 +38,7 @@ namespace Generator.Enums {
 				values[i] = new EnumValue(name);
 			}
 
-			Instance = new EnumType(EnumKind.CpuidFeatureInternal, documentation, values, EnumTypeFlags.None);
+			Instance = new EnumType(TypeIds.CpuidFeatureInternal, documentation, values, EnumTypeFlags.None);
 		}
 
 		static EnumValue[][] GetAllCombinations() =>

@@ -123,65 +123,55 @@ namespace Generator.Formatters.CSharp {
 						break;
 
 					case IEnumValue enumValue:
-						switch (enumValue.DeclaringType.EnumKind) {
-						case EnumKind.GasInstrOpInfoFlags:
+						var typeId = enumValue.DeclaringType.TypeId;
+						if (typeId == TypeIds.GasInstrOpInfoFlags) {
 							writer.WriteCompressedUInt32((uint)enumValue.Value);
 							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
-							break;
-
-						case EnumKind.IntelInstrOpInfoFlags:
-							writer.WriteCompressedUInt32((uint)enumValue.Value);
-							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
-							break;
-
-						case EnumKind.MasmInstrOpInfoFlags:
-							writer.WriteCompressedUInt32((uint)enumValue.Value);
-							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
-							break;
-
-						case EnumKind.NasmInstrOpInfoFlags:
-							writer.WriteCompressedUInt32((uint)enumValue.Value);
-							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
-							break;
-
-						case EnumKind.PseudoOpsKind:
-							if ((uint)enumValue.Value > byte.MaxValue)
-								throw new InvalidOperationException();
-							writer.WriteByte((byte)enumValue.Value);
-							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-							break;
-
-						case EnumKind.CodeSize:
-							if ((uint)enumValue.Value > byte.MaxValue)
-								throw new InvalidOperationException();
-							writer.WriteByte((byte)enumValue.Value);
-							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-							break;
-
-						case EnumKind.Register:
-							if ((uint)enumValue.Value > byte.MaxValue)
-								throw new InvalidOperationException();
-							writer.WriteByte((byte)enumValue.Value);
-							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-							break;
-
-						case EnumKind.MemorySize:
-							if ((uint)enumValue.Value > byte.MaxValue)
-								throw new InvalidOperationException();
-							writer.WriteByte((byte)enumValue.Value);
-							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-							break;
-
-						case EnumKind.NasmSignExtendInfo:
-							if ((uint)enumValue.Value > byte.MaxValue)
-								throw new InvalidOperationException();
-							writer.WriteByte((byte)enumValue.Value);
-							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
-							break;
-
-						default:
-							throw new InvalidOperationException();
 						}
+						else if (typeId == TypeIds.IntelInstrOpInfoFlags) {
+							writer.WriteCompressedUInt32((uint)enumValue.Value);
+							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
+						}
+						else if (typeId == TypeIds.MasmInstrOpInfoFlags) {
+							writer.WriteCompressedUInt32((uint)enumValue.Value);
+							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
+						}
+						else if (typeId == TypeIds.NasmInstrOpInfoFlags) {
+							writer.WriteCompressedUInt32((uint)enumValue.Value);
+							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
+						}
+						else if (typeId == TypeIds.PseudoOpsKind) {
+							if ((uint)enumValue.Value > byte.MaxValue)
+								throw new InvalidOperationException();
+							writer.WriteByte((byte)enumValue.Value);
+							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+						}
+						else if (typeId == TypeIds.CodeSize) {
+							if ((uint)enumValue.Value > byte.MaxValue)
+								throw new InvalidOperationException();
+							writer.WriteByte((byte)enumValue.Value);
+							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+						}
+						else if (typeId == TypeIds.Register) {
+							if ((uint)enumValue.Value > byte.MaxValue)
+								throw new InvalidOperationException();
+							writer.WriteByte((byte)enumValue.Value);
+							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+						}
+						else if (typeId == TypeIds.MemorySize) {
+							if ((uint)enumValue.Value > byte.MaxValue)
+								throw new InvalidOperationException();
+							writer.WriteByte((byte)enumValue.Value);
+							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+						}
+						else if (typeId == TypeIds.NasmSignExtendInfo) {
+							if ((uint)enumValue.Value > byte.MaxValue)
+								throw new InvalidOperationException();
+							writer.WriteByte((byte)enumValue.Value);
+							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+						}
+						else
+							throw new InvalidOperationException();
 						break;
 
 					default:

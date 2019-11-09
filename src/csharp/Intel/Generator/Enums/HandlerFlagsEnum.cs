@@ -34,6 +34,6 @@ namespace Generator.Enums {
 				new EnumValue("Lock"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.HandlerFlags, documentation, GetValues(), EnumTypeFlags.Flags);
+		public static readonly EnumType Instance = new EnumType(TypeIds.HandlerFlags, documentation, GetValues(), EnumTypeFlags.Flags);
 	}
 }

@@ -159,6 +159,6 @@ namespace Generator.Enums {
 				new EnumValue("XSAVES", "CPUID.(EAX=0DH, ECX=1H):EAX.XSAVES[bit 3]"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.CpuidFeature, documentation, GetValues(), EnumTypeFlags.Public);
+		public static readonly EnumType Instance = new EnumType(TypeIds.CpuidFeature, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

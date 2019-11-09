@@ -35,6 +35,6 @@ namespace Generator.Enums {
 		static EnumValue[] GetValues() =>
 			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name)).ToArray();
 
-		public static readonly EnumType Instance = new EnumType("BranchSizeInfo", EnumKind.IntelBranchSizeInfo, documentation, GetValues(), EnumTypeFlags.NoInitialize);
+		public static readonly EnumType Instance = new EnumType("BranchSizeInfo", TypeIds.IntelBranchSizeInfo, documentation, GetValues(), EnumTypeFlags.NoInitialize);
 	}
 }

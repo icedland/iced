@@ -34,46 +34,8 @@ namespace Generator.Enums {
 		Flags			= 0x00000004,
 	}
 
-	enum EnumKind {
-		Code,
-		CodeSize,
-		CpuidFeature,
-		CpuidFeatureInternal,
-		DecoderOptions,
-		EvexOpCodeHandlerKind,
-		HandlerFlags,
-		LegacyHandlerFlags,
-		MemorySize,
-		OpCodeHandlerKind,
-		PseudoOpsKind,
-		Register,
-		SerializedDataKind,
-		TupleType,
-		VexOpCodeHandlerKind,
-		Mnemonic,
-		GasCtorKind,
-		IntelCtorKind,
-		MasmCtorKind,
-		NasmCtorKind,
-		GasSizeOverride,
-		GasInstrOpInfoFlags,
-		IntelSizeOverride,
-		IntelBranchSizeInfo,
-		IntelInstrOpInfoFlags,
-		MasmInstrOpInfoFlags,
-		NasmSignExtendInfo,
-		NasmSizeOverride,
-		NasmBranchSizeInfo,
-		NasmInstrOpInfoFlags,
-		RoundingControl,
-		OpKind,
-		Instruction_MemoryFlags,
-		Instruction_OpKindFlags,
-		Instruction_CodeFlags,
-	}
-
 	sealed class EnumType {
-		public EnumKind EnumKind { get; }
+		public TypeId TypeId { get; }
 		public string RawName { get; }
 		public string Name(IdentifierConverter idConverter) => idConverter.Type(RawName);
 		public string? Documentation { get; }
@@ -103,15 +65,15 @@ namespace Generator.Enums {
 			}
 		}
 
-		public EnumType(EnumKind enumKind, string? documentation, EnumValue[] values, EnumTypeFlags flags)
-			: this(enumKind.ToString(), enumKind, documentation, values, flags) {
+		public EnumType(TypeId typeId, string? documentation, EnumValue[] values, EnumTypeFlags flags)
+			: this(typeId.ToString(), typeId, documentation, values, flags) {
 		}
 
-		public EnumType(string name, EnumKind enumKind, string? documentation, EnumValue[] values, EnumTypeFlags flags) {
+		public EnumType(string name, TypeId typeId, string? documentation, EnumValue[] values, EnumTypeFlags flags) {
 			toEnumValue = new Dictionary<string, EnumValue>(values.Length, StringComparer.Ordinal);
 			IsPublic = (flags & EnumTypeFlags.Public) != 0;
 			IsFlags = (flags & EnumTypeFlags.Flags) != 0;
-			EnumKind = enumKind;
+			TypeId = typeId;
 			RawName = name;
 			Documentation = documentation;
 			Values = values;
@@ -157,7 +119,7 @@ namespace Generator.Enums {
 				constants[i] = constant;
 			}
 
-			return new ConstantsType(RawName, ConstantsTypeKind.ConvertedFromEnum, flags, Documentation, constants);
+			return new ConstantsType(RawName, TypeId, flags, Documentation, constants);
 		}
 	}
 

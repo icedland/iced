@@ -73,6 +73,6 @@ namespace Generator.Enums {
 				new EnumValue("xbegin"),
 			};
 
-		public static readonly EnumType Instance = new EnumType("CtorKind", EnumKind.GasCtorKind, documentation, GetValues(), EnumTypeFlags.None);
+		public static readonly EnumType Instance = new EnumType("CtorKind", TypeIds.GasCtorKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

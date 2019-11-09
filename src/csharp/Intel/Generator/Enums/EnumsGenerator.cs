@@ -73,9 +73,6 @@ namespace Generator.Enums {
 		};
 
 		public void Generate() {
-			if (allEnums.Select(a => a.EnumKind).ToHashSet().Count != Enum.GetValues(typeof(EnumKind)).Length)
-				throw new InvalidOperationException($"Missing at least one {nameof(EnumKind)} value");
-
 			var generators = new IEnumsGenerator[(int)TargetLanguage.Last] {
 				new CSharp.CSharpEnumsGenerator(projectDirs),
 				new Rust.RustEnumsGenerator(projectDirs),

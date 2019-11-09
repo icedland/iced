@@ -33,6 +33,6 @@ namespace Generator.Enums {
 				new EnumValue("Code64", "64-bit code"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.CodeSize, documentation, GetValues(), EnumTypeFlags.Public);
+		public static readonly EnumType Instance = new EnumType(TypeIds.CodeSize, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

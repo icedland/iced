@@ -104,6 +104,6 @@ namespace Generator.Enums {
 				new EnumValue("WV"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.EvexOpCodeHandlerKind, documentation, GetValues(), EnumTypeFlags.None);
+		public static readonly EnumType Instance = new EnumType(TypeIds.EvexOpCodeHandlerKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

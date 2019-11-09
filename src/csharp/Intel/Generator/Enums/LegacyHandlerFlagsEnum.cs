@@ -37,6 +37,6 @@ namespace Generator.Enums {
 				new EnumValue("HandlerF2Mem"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.LegacyHandlerFlags, documentation, GetValues(), EnumTypeFlags.Flags);
+		public static readonly EnumType Instance = new EnumType(TypeIds.LegacyHandlerFlags, documentation, GetValues(), EnumTypeFlags.Flags);
 	}
 }

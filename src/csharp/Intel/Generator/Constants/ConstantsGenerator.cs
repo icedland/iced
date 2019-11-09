@@ -39,11 +39,6 @@ namespace Generator.Constants {
 		};
 
 		public void Generate() {
-			// '-1' because of ConvertedFromEnum:
-			_ = ConstantsTypeKind.ConvertedFromEnum;// Make sure we know if it gets removed
-			if (allConstants.Select(a => a.Kind).ToHashSet().Count != Enum.GetValues(typeof(ConstantsTypeKind)).Length - 1)
-				throw new InvalidOperationException($"Missing at least one {nameof(ConstantsTypeKind)} value");
-
 			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
 				new CSharp.CSharpConstantsGenerator(projectDirs),
 				new Rust.RustConstantsGenerator(projectDirs),

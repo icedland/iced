@@ -31,13 +31,8 @@ namespace Generator.Constants {
 		Hex				= 0x00000002,
 	}
 
-	enum ConstantsTypeKind {
-		ConvertedFromEnum,
-		IcedConstants,
-	}
-
 	sealed class ConstantsType {
-		public ConstantsTypeKind Kind { get; }
+		public TypeId TypeId { get; }
 		public string RawName { get; }
 		public string Name(IdentifierConverter idConverter) => idConverter.Type(RawName);
 		public string? Documentation { get; }
@@ -65,13 +60,13 @@ namespace Generator.Constants {
 			}
 		}
 
-		public ConstantsType(ConstantsTypeKind kind, ConstantsTypeFlags flags, string? documentation, Constant[] constants)
-			: this(kind.ToString(), kind, flags, documentation, constants) {
+		public ConstantsType(TypeId typeId, ConstantsTypeFlags flags, string? documentation, Constant[] constants)
+			: this(typeId.ToString(), typeId, flags, documentation, constants) {
 		}
 
-		public ConstantsType(string name, ConstantsTypeKind kind, ConstantsTypeFlags flags, string? documentation, Constant[] constants) {
+		public ConstantsType(string name, TypeId typeId, ConstantsTypeFlags flags, string? documentation, Constant[] constants) {
 			toConstant = new Dictionary<string, Constant>(StringComparer.Ordinal);
-			Kind = kind;
+			TypeId = typeId;
 			RawName = name;
 			Documentation = documentation;
 			IsPublic = (flags & ConstantsTypeFlags.Public) != 0;

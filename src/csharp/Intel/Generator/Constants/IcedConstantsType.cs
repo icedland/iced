@@ -28,7 +28,7 @@ using Generator.Enums;
 namespace Generator.Constants {
 	static class IcedConstantsType {
 		const string? documentation = null;
-		public static readonly ConstantsType Instance = new ConstantsType(ConstantsTypeKind.IcedConstants, ConstantsTypeFlags.None, documentation: documentation, GetConstants());
+		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.IcedConstants, ConstantsTypeFlags.None, documentation: documentation, GetConstants());
 
 		static Constant[] GetConstants() {
 			var regEnum = RegisterEnum.Instance;

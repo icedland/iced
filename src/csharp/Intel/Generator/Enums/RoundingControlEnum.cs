@@ -34,6 +34,6 @@ namespace Generator.Enums {
 				new EnumValue("RoundTowardZero = 4", "Round toward zero (truncate)"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.RoundingControl, documentation, GetValues(), EnumTypeFlags.Public);
+		public static readonly EnumType Instance = new EnumType(TypeIds.RoundingControl, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

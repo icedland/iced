@@ -271,6 +271,6 @@ namespace Generator.Enums {
 				new EnumValue("TR7"),
 			};
 
-		public static readonly EnumType Instance = new EnumType(EnumKind.Register, documentation, GetValues(), EnumTypeFlags.Public);
+		public static readonly EnumType Instance = new EnumType(TypeIds.Register, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }
