@@ -24,9 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Generator.Enums {
 	static class RegisterEnum {
 		const string documentation = "A register";
+		public const int NumValues = 241;
 
 		static EnumValue[] GetValues() =>
-			new EnumValue[] {
+			new EnumValue[NumValues] {
 				new EnumValue("None"),
 				new EnumValue("AL"),
 				new EnumValue("CL"),

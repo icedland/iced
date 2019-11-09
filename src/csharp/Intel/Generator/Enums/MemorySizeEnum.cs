@@ -24,9 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Generator.Enums {
 	static class MemorySizeEnum {
 		const string documentation = "Size of a memory reference";
+		public const int NumValues = 136;
 
 		static EnumValue[] GetValues() =>
-			new EnumValue[] {
+			new EnumValue[NumValues] {
 				new EnumValue("Unknown", "Unknown size or the instruction doesn't reference any memory (eg. #(c:lea)#)"),
 				new EnumValue("UInt8", "Memory location contains a #(t:u8)#"),
 				new EnumValue("UInt16", "Memory location contains a #(t:u16)#"),

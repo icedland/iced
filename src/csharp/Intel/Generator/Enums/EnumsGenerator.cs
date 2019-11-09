@@ -65,6 +65,8 @@ namespace Generator.Enums {
 			NasmSizeOverrideEnum.Instance,
 			NasmBranchSizeInfoEnum.Instance,
 			NasmInstrOpInfoFlagsEnum.Instance,
+			RoundingControlEnum.Instance,
+			OpKindEnum.Instance,
 		};
 
 		public void Generate() {

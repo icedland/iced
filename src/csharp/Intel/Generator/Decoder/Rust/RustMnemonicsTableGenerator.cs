@@ -33,7 +33,7 @@ namespace Generator.Decoder.Rust {
 		readonly ProjectDirs projectDirs;
 
 		public RustMnemonicsTableGenerator(ProjectDirs projectDirs) {
-			idConverter = RustIdentifierConverter.Instance;
+			idConverter = RustIdentifierConverter.Create();
 			this.projectDirs = projectDirs;
 		}
 

@@ -37,7 +37,7 @@ namespace Generator.Formatters.CSharp {
 		protected abstract EnumType CtorKindEnum { get; }
 
 		protected CSharpFormatterTableSerializer() =>
-			idConverter = CSharpIdentifierConverter.Instance;
+			idConverter = CSharpIdentifierConverter.Create();
 
 		public override void Initialize(StringsTable stringsTable) =>
 			Initialize(stringsTable, Infos);

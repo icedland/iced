@@ -89,7 +89,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the base register, eg. AL, AX, EAX, RAX, MM0, XMM0, YMM0, ZMM0, ES
+		/// Gets the base register, eg. <c>AL</c>, <c>AX</c>, <c>EAX</c>, <c>RAX</c>, <c>MM0</c>, <c>XMM0</c>, <c>YMM0</c>, <c>ZMM0</c>, <c>ES</c>
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
@@ -125,84 +125,84 @@ namespace Iced.Intel {
 		public static int GetSize(this Register register) => register.GetInfo().Size;
 
 		/// <summary>
-		/// Checks if it's a segment register (ES, CS, SS, DS, FS, GS)
+		/// Checks if it's a segment register (<c>ES</c>, <c>CS</c>, <c>SS</c>, <c>DS</c>, <c>FS</c>, <c>GS</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
 		public static bool IsSegmentRegister(this Register register) => Register.ES <= register && register <= Register.GS;
 
 		/// <summary>
-		/// Checks if it's a general purpose register (AL-R15L, AX-R15W, EAX-R15D, RAX-R15)
+		/// Checks if it's a general purpose register (<c>AL</c>-<c>R15L</c>, <c>AX</c>-<c>R15W</c>, <c>EAX</c>-<c>R15D</c>, <c>RAX</c>-<c>R15</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
 		public static bool IsGPR(this Register register) => Register.AL <= register && register <= Register.R15;
 
 		/// <summary>
-		/// Checks if it's an 8-bit general purpose register (AL-R15L)
+		/// Checks if it's an 8-bit general purpose register (<c>AL</c>-<c>R15L</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
 		public static bool IsGPR8(this Register register) => Register.AL <= register && register <= Register.R15L;
 
 		/// <summary>
-		/// Checks if it's a 16-bit general purpose register (AX-R15W)
+		/// Checks if it's a 16-bit general purpose register (<c>AX</c>-<c>R15W</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
 		public static bool IsGPR16(this Register register) => Register.AX <= register && register <= Register.R15W;
 
 		/// <summary>
-		/// Checks if it's a 32-bit general purpose register (EAX-R15D)
+		/// Checks if it's a 32-bit general purpose register (<c>EAX</c>-<c>R15D</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
 		public static bool IsGPR32(this Register register) => Register.EAX <= register && register <= Register.R15D;
 
 		/// <summary>
-		/// Checks if it's a 64-bit general purpose register (RAX-R15)
+		/// Checks if it's a 64-bit general purpose register (<c>RAX</c>-<c>R15</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
 		public static bool IsGPR64(this Register register) => Register.RAX <= register && register <= Register.R15;
 
 		/// <summary>
-		/// Checks if it's a 128-bit vector register (XMM0-XMM31)
+		/// Checks if it's a 128-bit vector register (<c>XMM0</c>-<c>XMM31</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static bool IsXMM(this Register register) => Register.XMM0 <= register && register <= Register.XMM0 + IcedConstants.VMM_count - 1;
+		public static bool IsXMM(this Register register) => Register.XMM0 <= register && register <= IcedConstants.XMM_last;
 
 		/// <summary>
-		/// Checks if it's a 256-bit vector register (YMM0-YMM31)
+		/// Checks if it's a 256-bit vector register (<c>YMM0</c>-<c>YMM31</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static bool IsYMM(this Register register) => Register.YMM0 <= register && register <= Register.YMM0 + IcedConstants.VMM_count - 1;
+		public static bool IsYMM(this Register register) => Register.YMM0 <= register && register <= IcedConstants.YMM_last;
 
 		/// <summary>
-		/// Checks if it's a 512-bit vector register (ZMM0-ZMM31)
+		/// Checks if it's a 512-bit vector register (<c>ZMM0</c>-<c>ZMM31</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static bool IsZMM(this Register register) => Register.ZMM0 <= register && register <= Register.ZMM0 + IcedConstants.VMM_count - 1;
+		public static bool IsZMM(this Register register) => Register.ZMM0 <= register && register <= IcedConstants.ZMM_last;
 
 		/// <summary>
-		/// Checks if it's an XMM, YMM or ZMM register
+		/// Checks if it's an <c>XMM</c>, <c>YMM</c> or <c>ZMM</c> register
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static bool IsVectorRegister(this Register register) => Register.XMM0 <= register && register <= Register.ZMM0 + IcedConstants.VMM_count - 1;
+		public static bool IsVectorRegister(this Register register) => Register.XMM0 <= register && register <= IcedConstants.VMM_last;
 	}
 
 	/// <summary>
-	/// Register info
+	/// <see cref="Register"/> information
 	/// </summary>
 	public readonly struct RegisterInfo {
+		readonly byte register;
 		readonly byte baseRegister;
 		readonly byte fullRegister;
 		readonly byte size;
-		readonly byte register;
 
 		/// <summary>
 		/// Gets the register
@@ -210,7 +210,7 @@ namespace Iced.Intel {
 		public Register Register => (Register)register;
 
 		/// <summary>
-		/// Gets the base register, eg. AL, AX, EAX, RAX, MM0, XMM0, YMM0, ZMM0, ES
+		/// Gets the base register, eg. <c>AL</c>, <c>AX</c>, <c>EAX</c>, <c>RAX</c>, <c>MM0</c>, <c>XMM0</c>, <c>YMM0</c>, <c>ZMM0</c>, <c>ES</c>
 		/// </summary>
 		public Register Base => (Register)baseRegister;
 
@@ -220,13 +220,13 @@ namespace Iced.Intel {
 		public int Number => register - baseRegister;
 
 		/// <summary>
-		/// The full register that this one is a part of, eg. CL/CH/CX/ECX/RCX -> RCX, XMM11/YMM11/ZMM11 -> ZMM11
+		/// The full register that this one is a part of, eg. <c>CL</c>/<c>CH</c>/<c>CX</c>/<c>ECX</c>/<c>RCX</c> -> <c>RCX</c>, <c>XMM11</c>/<c>YMM11</c>/<c>ZMM11</c> -> <c>ZMM11</c>
 		/// </summary>
 		public Register FullRegister => (Register)fullRegister;
 
 		/// <summary>
 		/// Gets the full register that this one is a part of, except if it's a GPR in which case the 32-bit register is returned,
-		/// eg. CL/CH/CX/ECX/RCX -> ECX, XMM11/YMM11/ZMM11 -> ZMM11
+		/// eg. <c>CL</c>/<c>CH</c>/<c>CX</c>/<c>ECX</c>/<c>RCX</c> -> <c>ECX</c>, <c>XMM11</c>/<c>YMM11</c>/<c>ZMM11</c> -> <c>ZMM11</c>
 		/// </summary>
 		public Register FullRegister32 {
 			get {

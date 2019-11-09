@@ -64,6 +64,8 @@ namespace Generator.Enums {
 		NasmSizeOverride,
 		NasmBranchSizeInfo,
 		NasmInstrOpInfoFlags,
+		RoundingControl,
+		OpKind,
 	}
 
 	sealed class EnumType {

@@ -30,19 +30,25 @@ namespace Generator.Documentation {
 			NewParagraph,
 			String,
 			Code,
+			PrimitiveType,
 			Type,
 			EnumFieldReference,
+			Property,
+			Method,
 		}
 
-		protected IEnumerable<(TokenKind kind, string value, string value2)> GetTokens(string defaultTypeName, string comment) {
+		protected static IEnumerable<(TokenKind kind, string value, string value2)> GetTokens(string defaultTypeName, string comment) {
 			int index = 0;
 			while (index < comment.Length) {
 				const string pattern = "#(";
 				const string patternEnd = ")#";
 				const char newParagraph = 'p';
 				const char codeChar = 'c';
-				const char typeChar = 't';
+				const char primitiveTypeChar = 't';
+				const char typeChar = 'r';
 				const char enumFieldReferenceChar = 'e';
+				const char propertyChar = 'P';
+				const char methodChar = 'M';
 				// char (eg. 'c') + ':'
 				const int kindLen = 1 + 1;
 
@@ -65,6 +71,7 @@ namespace Generator.Documentation {
 				if (nextIndex < 0)
 					throw new InvalidOperationException($"Invalid comment: {comment}");
 
+				string typeName, memberName;
 				var data = comment.Substring(index + kindLen, nextIndex - (index + kindLen));
 				switch (type) {
 				case newParagraph:
@@ -77,22 +84,27 @@ namespace Generator.Documentation {
 					yield return (TokenKind.Code, data, string.Empty);
 					break;
 
+				case primitiveTypeChar:
+					yield return (TokenKind.PrimitiveType, data, string.Empty);
+					break;
+
 				case typeChar:
 					yield return (TokenKind.Type, data, string.Empty);
 					break;
 
 				case enumFieldReferenceChar:
-					string typeName, memberName;
-					int typeIndex = data.IndexOf('.');
-					if (typeIndex < 0) {
-						typeName = defaultTypeName;
-						memberName = data;
-					}
-					else {
-						typeName = data.Substring(0, typeIndex);
-						memberName = data.Substring(typeIndex + 1);
-					}
+					(typeName, memberName) = SplitMember(data, defaultTypeName);
 					yield return (TokenKind.EnumFieldReference, typeName, memberName);
+					break;
+
+				case propertyChar:
+					(typeName, memberName) = SplitMember(data, defaultTypeName);
+					yield return (TokenKind.Property, typeName, memberName);
+					break;
+
+				case methodChar:
+					(typeName, memberName) = SplitMember(data, defaultTypeName);
+					yield return (TokenKind.Method, typeName, memberName);
 					break;
 
 				default:
@@ -101,6 +113,27 @@ namespace Generator.Documentation {
 
 				index = nextIndex + patternEnd.Length;
 			}
+		}
+
+		static (string type, string name) SplitMember(string s, string defaultTypeName) {
+			string typeName, memberName;
+			int typeIndex = s.IndexOf('.');
+			if (typeIndex < 0) {
+				typeName = defaultTypeName;
+				memberName = s;
+			}
+			else {
+				typeName = s.Substring(0, typeIndex);
+				memberName = s.Substring(typeIndex + 1);
+			}
+			return (typeName, memberName);
+		}
+
+		protected static string RemoveNamespace(string type) {
+			int i = type.LastIndexOf('.');
+			if (i < 0)
+				return type;
+			return type.Substring(i + 1);
 		}
 	}
 }

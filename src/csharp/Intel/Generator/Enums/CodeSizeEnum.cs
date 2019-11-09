@@ -23,7 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Generator.Enums {
 	static class CodeSizeEnum {
-		const string documentation = "Default code size when an instruction was decoded";
+		const string documentation = "The code size (16/32/64) that was used when an instruction was decoded";
 
 		static EnumValue[] GetValues() =>
 			new EnumValue[] {

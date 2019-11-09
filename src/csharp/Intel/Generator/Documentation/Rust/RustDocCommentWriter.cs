@@ -98,11 +98,18 @@ namespace Generator.Documentation.Rust {
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;
-				case TokenKind.Type:
+				case TokenKind.PrimitiveType:
 					if (!toTypeInfo.TryGetValue(info.value, out var typeInfo))
 						throw new InvalidOperationException($"Unknown type '{info.value}, comment: {documentation}");
 					sb.Append("`");
 					sb.Append(idConverter.Type(typeInfo.type));
+					sb.Append("`");
+					if (!string.IsNullOrEmpty(info.value2))
+						throw new InvalidOperationException();
+					break;
+				case TokenKind.Type:
+					sb.Append("`");
+					sb.Append(RemoveNamespace(idConverter.Type(info.value)));
 					sb.Append("`");
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
@@ -116,11 +123,36 @@ namespace Generator.Documentation.Rust {
 					sb.Append(idConverter.EnumField(info.value2));
 					sb.Append("`");
 					break;
+				case TokenKind.Property:
+					sb.Append("`");
+					if (info.value != enumName) {
+						sb.Append(idConverter.Type(info.value));
+						sb.Append("::");
+					}
+					sb.Append(idConverter.Property(info.value2));
+					sb.Append("`");
+					break;
+				case TokenKind.Method:
+					sb.Append("`");
+					if (info.value != enumName) {
+						sb.Append(idConverter.Type(info.value));
+						sb.Append("::");
+					}
+					sb.Append(idConverter.Method(TranslateMethodName(info.value2)));
+					sb.Append("`");
+					break;
 				default:
 					throw new InvalidOperationException();
 				}
 			}
 			writer.WriteLine(GetStringAndReset());
+		}
+
+		string TranslateMethodName(string name) {
+			const string GetPattern = "Get";
+			if (name.StartsWith(GetPattern))
+				return name.Substring(GetPattern.Length);
+			return name;
 		}
 	}
 }

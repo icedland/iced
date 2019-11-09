@@ -32,7 +32,7 @@ namespace Generator.Decoder.Rust {
 		readonly ProjectDirs projectDirs;
 
 		public RustInstructionOpCountsGenerator(ProjectDirs projectDirs) {
-			idConverter = RustIdentifierConverter.Instance;
+			idConverter = RustIdentifierConverter.Create();
 			this.projectDirs = projectDirs;
 		}
 

@@ -366,12 +366,12 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					if (hash.Contains(Register.AX + index))
 						continue;
 				}
-				else if (Register.YMM0 <= reg && reg <= Register.YMM0 + IcedConstants.VMM_count - 1) {
+				else if (Register.YMM0 <= reg && reg <= IcedConstants.YMM_last) {
 					index = reg - Register.YMM0;
 					if (hash.Contains(Register.ZMM0 + index))
 						continue;
 				}
-				else if (Register.XMM0 <= reg && reg <= Register.XMM0 + IcedConstants.VMM_count - 1) {
+				else if (Register.XMM0 <= reg && reg <= IcedConstants.XMM_last) {
 					index = reg - Register.XMM0;
 					if (hash.Contains(Register.ZMM0 + index))
 						continue;
@@ -415,11 +415,11 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			if (Register.AL <= reg && reg <= Register.R15L)
 				return 3;
 
-			if (Register.ZMM0 <= reg && reg <= Register.ZMM0 + IcedConstants.VMM_count - 1)
+			if (Register.ZMM0 <= reg && reg <= IcedConstants.ZMM_last)
 				return 4;
-			if (Register.YMM0 <= reg && reg <= Register.YMM0 + IcedConstants.VMM_count - 1)
+			if (Register.YMM0 <= reg && reg <= IcedConstants.YMM_last)
 				return 5;
-			if (Register.XMM0 <= reg && reg <= Register.XMM0 + IcedConstants.VMM_count - 1)
+			if (Register.XMM0 <= reg && reg <= IcedConstants.XMM_last)
 				return 6;
 
 			return -1;

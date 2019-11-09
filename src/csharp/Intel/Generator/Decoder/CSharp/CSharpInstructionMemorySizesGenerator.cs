@@ -33,7 +33,7 @@ namespace Generator.Decoder.CSharp {
 		readonly ProjectDirs projectDirs;
 
 		public CSharpInstructionMemorySizesGenerator(ProjectDirs projectDirs) {
-			idConverter = CSharpIdentifierConverter.Instance;
+			idConverter = CSharpIdentifierConverter.Create();
 			this.projectDirs = projectDirs;
 		}
 

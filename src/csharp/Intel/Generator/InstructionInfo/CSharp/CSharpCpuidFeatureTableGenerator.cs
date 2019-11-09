@@ -33,7 +33,7 @@ namespace Generator.InstructionInfo.CSharp {
 		readonly ProjectDirs projectDirs;
 
 		public CSharpCpuidFeatureTableGenerator(ProjectDirs projectDirs) {
-			idConverter = CSharpIdentifierConverter.Instance;
+			idConverter = CSharpIdentifierConverter.Create();
 			this.projectDirs = projectDirs;
 		}
 

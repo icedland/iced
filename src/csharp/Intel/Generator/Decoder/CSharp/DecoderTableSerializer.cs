@@ -50,7 +50,7 @@ namespace Generator.Decoder.CSharp {
 		readonly StringBuilder sb;
 
 		protected DecoderTableSerializer() {
-			idConverter = CSharpIdentifierConverter.Instance;
+			idConverter = CSharpIdentifierConverter.Create();
 			infos = new Dictionary<string, Info>(StringComparer.Ordinal);
 			sb = new StringBuilder();
 		}

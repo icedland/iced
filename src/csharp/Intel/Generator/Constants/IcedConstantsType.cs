@@ -31,29 +31,34 @@ namespace Generator.Constants {
 		public static readonly ConstantsType Instance = new ConstantsType(ConstantsTypeKind.IcedConstants, ConstantsTypeFlags.None, documentation: documentation, GetConstants());
 
 		static Constant[] GetConstants() {
-			var vmmFirst = RegisterEnum.Instance[Get_VMM_first()].Value;
-			var vmmLast = RegisterEnum.Instance[Get_VMM_last()].Value;
+			var regEnum = RegisterEnum.Instance;
+			var vmmFirst = regEnum[Get_VMM_first()].Value;
+			var vmmLast = regEnum[Get_VMM_last()].Value;
 			return new Constant[] {
 				new Constant(ConstantKind.Int32, "MaxInstructionLength", 15, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "MaxOpCount", 5, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "NumberOfCodeValues", (uint)CodeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.Int32, "NumberOfRegisters", (uint)RegisterEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Int32, "NumberOfRegisters", (uint)regEnum.Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "NumberOfMemorySizes", (uint)MemorySizeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
 				// This is the largest vector register. If it's VEX/EVEX, the upper bits are always cleared when writing to any sub reg, eg. YMM0
 				new Constant(ConstantKind.Register, "VMM_first", vmmFirst, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Register, "VMM_last", vmmLast, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "VMM_count", vmmLast - vmmFirst + 1, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Register, "XMM_last", regEnum[Get_VEC_last("XMM")].Value, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Register, "YMM_last", regEnum[Get_VEC_last("YMM")].Value, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Register, "ZMM_last", regEnum[Get_VEC_last("ZMM")].Value, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "MaxCpuidFeatureInternalValues", (uint)CpuidFeatureInternalEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.MemorySize, "FirstBroadcastMemorySize", GetFirstBroadcastMemorySize(), ConstantsTypeFlags.None, null),
 			};
 		}
 
 		const string VMM_prefix = "ZMM";
+		const int vmmLastNum = 31;
 		static string Get_VMM_first() => VMM_prefix + "0";
-		static string Get_VMM_last() {
-			const int vmmLastNum = 31;
-			var vmmLastStr = VMM_prefix + vmmLastNum.ToString();
-			var vmmShouldNotExistStr = VMM_prefix + (vmmLastNum + 1).ToString();
+		static string Get_VMM_last() => Get_VEC_last(VMM_prefix);
+		static string Get_VEC_last(string prefix) {
+			var vmmLastStr = prefix + vmmLastNum.ToString();
+			var vmmShouldNotExistStr = prefix + (vmmLastNum + 1).ToString();
 			var vmmLast = RegisterEnum.Instance[vmmLastStr];
 			if (RegisterEnum.Instance.Values.Any(a => a.RawName == vmmShouldNotExistStr))
 				throw new InvalidOperationException($"Register {vmmShouldNotExistStr} exists so {vmmLast.RawName} isn't the last one");

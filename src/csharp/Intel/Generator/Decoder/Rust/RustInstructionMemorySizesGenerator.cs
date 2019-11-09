@@ -33,7 +33,7 @@ namespace Generator.Decoder.Rust {
 		readonly ProjectDirs projectDirs;
 
 		public RustInstructionMemorySizesGenerator(ProjectDirs projectDirs) {
-			idConverter = RustIdentifierConverter.Instance;
+			idConverter = RustIdentifierConverter.Create();
 			this.projectDirs = projectDirs;
 		}
 

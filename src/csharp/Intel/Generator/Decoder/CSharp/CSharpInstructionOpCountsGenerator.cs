@@ -32,7 +32,7 @@ namespace Generator.Decoder.CSharp {
 		readonly ProjectDirs projectDirs;
 
 		public CSharpInstructionOpCountsGenerator(ProjectDirs projectDirs) {
-			idConverter = CSharpIdentifierConverter.Instance;
+			idConverter = CSharpIdentifierConverter.Create();
 			this.projectDirs = projectDirs;
 		}
 

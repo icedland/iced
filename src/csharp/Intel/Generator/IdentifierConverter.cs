@@ -32,6 +32,8 @@ namespace Generator {
 
 		public abstract string Type(string name);
 		public abstract string EnumField(string name);
+		public abstract string Property(string name);
+		public abstract string Method(string name);
 		public abstract string Constant(string name);
 
 		protected string ToSnakeCase(string name) => ToSnakeCase(name, upper: false);
@@ -54,16 +56,22 @@ namespace Generator {
 	}
 
 	sealed class CSharpIdentifierConverter : IdentifierConverter {
-		public static readonly IdentifierConverter Instance = new CSharpIdentifierConverter();
+		public static IdentifierConverter Create() => new CSharpIdentifierConverter();
+		CSharpIdentifierConverter() { }
 		public override string Type(string name) => name;
 		public override string EnumField(string name) => name;
+		public override string Property(string name) => name;
+		public override string Method(string name) => name;
 		public override string Constant(string name) => name;
 	}
 
 	sealed class RustIdentifierConverter : IdentifierConverter {
-		public static readonly RustIdentifierConverter Instance = new RustIdentifierConverter();
+		public static IdentifierConverter Create() => new RustIdentifierConverter();
+		RustIdentifierConverter() { }
 		public override string Type(string name) => name;
 		public override string EnumField(string name) => name;
+		public override string Property(string name) => ToSnakeCase(name) + "()";
+		public override string Method(string name) => ToSnakeCase(name) + "()";
 		public override string Constant(string name) => ToScreamingSnakeCase(name);
 	}
 }

@@ -48,7 +48,7 @@ namespace Generator.Enums.CSharp {
 		}
 
 		public CSharpEnumsGenerator(ProjectDirs projectDirs) {
-			idConverter = CSharpIdentifierConverter.Instance;
+			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
 
 			toFullFileInfo = new Dictionary<EnumKind, FullEnumFileInfo>();
@@ -86,6 +86,9 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(EnumKind.NasmSizeOverride, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.NasmFormatterNamespace), "SizeOverride.g.cs"), CSharpConstants.NasmFormatterNamespace, CSharpConstants.NasmFormatterDefine));
 			toFullFileInfo.Add(EnumKind.NasmBranchSizeInfo, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.NasmFormatterNamespace), "BranchSizeInfo.g.cs"), CSharpConstants.NasmFormatterNamespace, CSharpConstants.NasmFormatterDefine));
 			toFullFileInfo.Add(EnumKind.NasmInstrOpInfoFlags, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.NasmFormatterNamespace), "InstrOpInfoFlags.g.cs"), CSharpConstants.NasmFormatterNamespace, CSharpConstants.NasmFormatterDefine, "uint"));
+
+			toFullFileInfo.Add(EnumKind.RoundingControl, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), nameof(EnumKind.RoundingControl) + ".g.cs"), CSharpConstants.IcedNamespace));
+			toFullFileInfo.Add(EnumKind.OpKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), nameof(EnumKind.OpKind) + ".g.cs"), CSharpConstants.IcedNamespace));
 
 			if (toFullFileInfo.Count != Enum.GetValues(typeof(EnumKind)).Length)
 				throw new InvalidOperationException();

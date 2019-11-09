@@ -55,6 +55,8 @@ namespace Generator {
 				new InstructionInfo.CpuidFeatureTableGenerator(projectDirs).Generate();
 				new Enums.EnumsGenerator(projectDirs).Generate();
 				new Constants.ConstantsGenerator(projectDirs).Generate();
+				new Tables.MemorySizeInfoTableGenerator(projectDirs).Generate();
+				new Tables.RegisterInfoTableGenerator(projectDirs).Generate();
 
 				return 0;
 			}

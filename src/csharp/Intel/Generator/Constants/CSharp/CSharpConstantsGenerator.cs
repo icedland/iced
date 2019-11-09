@@ -48,7 +48,7 @@ namespace Generator.Constants.CSharp {
 		}
 
 		public CSharpConstantsGenerator(ProjectDirs projectDirs) {
-			idConverter = CSharpIdentifierConverter.Instance;
+			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
 
 			var baseDir = CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace);

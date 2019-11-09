@@ -54,7 +54,7 @@ namespace Generator.Constants.Rust {
 		}
 
 		public RustConstantsGenerator(ProjectDirs projectDirs) {
-			idConverter = RustIdentifierConverter.Instance;
+			idConverter = RustIdentifierConverter.Create();
 			docWriter = new RustDocCommentWriter(idConverter);
 
 			toPartialFileInfo = new Dictionary<ConstantsTypeKind, PartialConstantsFileInfo>();

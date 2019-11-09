@@ -99,7 +99,7 @@ namespace Generator.Documentation.CSharp {
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;
-				case TokenKind.Type:
+				case TokenKind.PrimitiveType:
 					if (!toTypeInfo.TryGetValue(info.value, out var typeInfo))
 						throw new InvalidOperationException($"Unknown type '{info.value}, comment: {documentation}");
 					if (typeInfo.isKeyword) {
@@ -115,6 +115,13 @@ namespace Generator.Documentation.CSharp {
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;
+				case TokenKind.Type:
+					sb.Append("<see cref=\"");
+					sb.Append(Escape(idConverter.Type(info.value)));
+					sb.Append("\"/>");
+					if (!string.IsNullOrEmpty(info.value2))
+						throw new InvalidOperationException();
+					break;
 				case TokenKind.EnumFieldReference:
 					sb.Append("<see cref=\"");
 					if (info.value != enumName) {
@@ -122,6 +129,24 @@ namespace Generator.Documentation.CSharp {
 						sb.Append('.');
 					}
 					sb.Append(Escape(idConverter.EnumField(info.value2)));
+					sb.Append("\"/>");
+					break;
+				case TokenKind.Property:
+					sb.Append("<see cref=\"");
+					if (info.value != enumName) {
+						sb.Append(Escape(idConverter.Type(info.value)));
+						sb.Append('.');
+					}
+					sb.Append(Escape(idConverter.Property(info.value2)));
+					sb.Append("\"/>");
+					break;
+				case TokenKind.Method:
+					sb.Append("<see cref=\"");
+					if (info.value != enumName) {
+						sb.Append(Escape(idConverter.Type(info.value)));
+						sb.Append('.');
+					}
+					sb.Append(Escape(idConverter.Method(info.value2)));
 					sb.Append("\"/>");
 					break;
 				default:

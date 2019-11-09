@@ -29,7 +29,7 @@ using Generator.IO;
 
 namespace Generator.Enums.Rust {
 	sealed class RustEnumsGenerator : IEnumsGenerator {
-		readonly RustIdentifierConverter idConverter;
+		readonly IdentifierConverter idConverter;
 		readonly Dictionary<EnumKind, PartialEnumFileInfo?> toPartialFileInfo;
 		readonly RustDocCommentWriter docWriter;
 
@@ -52,7 +52,7 @@ namespace Generator.Enums.Rust {
 		}
 
 		public RustEnumsGenerator(ProjectDirs projectDirs) {
-			idConverter = RustIdentifierConverter.Instance;
+			idConverter = RustIdentifierConverter.Create();
 			docWriter = new RustDocCommentWriter(idConverter);
 
 			const string attrCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
@@ -89,6 +89,8 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(EnumKind.NasmSizeOverride, null);
 			toPartialFileInfo.Add(EnumKind.NasmBranchSizeInfo, null);
 			toPartialFileInfo.Add(EnumKind.NasmInstrOpInfoFlags, null);
+			toPartialFileInfo.Add(EnumKind.RoundingControl, new PartialEnumFileInfo("RoundingControl", Path.Combine(projectDirs.RustDir, "common", "enums.rs"), attrCopyEq));
+			toPartialFileInfo.Add(EnumKind.OpKind, new PartialEnumFileInfo("OpKind", Path.Combine(projectDirs.RustDir, "common", "enums.rs"), attrCopyEqOrdHash));
 
 			if (toPartialFileInfo.Count != Enum.GetValues(typeof(EnumKind)).Length)
 				throw new InvalidOperationException();
