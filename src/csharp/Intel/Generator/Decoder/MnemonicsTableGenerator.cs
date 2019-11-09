@@ -25,7 +25,7 @@ using Generator.Enums;
 
 namespace Generator.Decoder {
 	interface IMnemonicsTableGenerator {
-		void Generate(ProjectDirs projectDirs, (EnumValue codeEnum, EnumValue mnemonicEnum)[] data);
+		void Generate((EnumValue codeEnum, EnumValue mnemonicEnum)[] data);
 	}
 
 	sealed class MnemonicsTableGenerator {
@@ -35,11 +35,12 @@ namespace Generator.Decoder {
 
 		public void Generate() {
 			var generators = new IMnemonicsTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpMnemonicsTableGenerator(),
+				new CSharp.CSharpMnemonicsTableGenerator(projectDirs),
+				new Rust.RustMnemonicsTableGenerator(projectDirs),
 			};
 
 			foreach (var generator in generators)
-				generator.Generate(projectDirs, MnemonicsTable.Table);
+				generator.Generate(MnemonicsTable.Table);
 		}
 	}
 }

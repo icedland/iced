@@ -44,6 +44,7 @@ namespace Generator.Constants {
 
 			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
 				new CSharp.CSharpConstantsGenerator(projectDirs),
+				new Rust.RustConstantsGenerator(projectDirs),
 			};
 
 			foreach (var generator in generators) {

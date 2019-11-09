@@ -25,7 +25,7 @@ using Generator.Enums;
 
 namespace Generator.Decoder {
 	interface IInstructionOpCountsGenerator {
-		void Generate(ProjectDirs projectDirs, (EnumValue codeEnum, int count)[] data);
+		void Generate((EnumValue codeEnum, int count)[] data);
 	}
 
 	sealed class InstructionOpCountsGenerator {
@@ -35,11 +35,12 @@ namespace Generator.Decoder {
 
 		public void Generate() {
 			var generators = new IInstructionOpCountsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpInstructionOpCountsGenerator(),
+				new CSharp.CSharpInstructionOpCountsGenerator(projectDirs),
+				new Rust.RustInstructionOpCountsGenerator(projectDirs),
 			};
 
 			foreach (var generator in generators)
-				generator.Generate(projectDirs, InstructionOpCountsTable.Table);
+				generator.Generate(InstructionOpCountsTable.Table);
 		}
 	}
 }

@@ -29,7 +29,12 @@ using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
 	sealed class CSharpInstructionOpCountsGenerator : IInstructionOpCountsGenerator {
-		public void Generate(ProjectDirs projectDirs, (EnumValue codeEnum, int count)[] data) {
+		readonly ProjectDirs projectDirs;
+
+		public CSharpInstructionOpCountsGenerator(ProjectDirs projectDirs) =>
+			this.projectDirs = projectDirs;
+
+		public void Generate((EnumValue codeEnum, int count)[] data) {
 			if (data.Select(a => a.codeEnum).ToHashSet().Count != CodeEnum.Instance.Values.Length)
 				throw new InvalidOperationException();
 

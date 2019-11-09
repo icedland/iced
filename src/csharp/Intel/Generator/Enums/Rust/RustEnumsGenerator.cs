@@ -21,26 +21,15 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using Generator.Enums;
-
-namespace Generator.InstructionInfo {
-	interface ICpuidFeatureTableGenerator {
-		void Generate(EnumValue[][] cpuidFeatures);
-	}
-
-	sealed class CpuidFeatureTableGenerator {
+namespace Generator.Enums.Rust {
+	sealed class RustEnumsGenerator : IEnumsGenerator {
 		readonly ProjectDirs projectDirs;
 
-		public CpuidFeatureTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public RustEnumsGenerator(ProjectDirs projectDirs) =>
+			this.projectDirs = projectDirs;
 
-		public void Generate() {
-			var generators = new ICpuidFeatureTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpCpuidFeatureTableGenerator(projectDirs),
-				new Rust.RustCpuidFeatureTableGenerator(projectDirs),
-			};
-
-			foreach (var generator in generators)
-				generator.Generate(CpuidFeatureInternalEnum.AllCombinations);
+		public void Generate(EnumType enumType) {
+			//TODO:
 		}
 	}
 }

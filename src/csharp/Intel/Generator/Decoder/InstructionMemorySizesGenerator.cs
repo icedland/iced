@@ -25,7 +25,7 @@ using Generator.Enums;
 
 namespace Generator.Decoder {
 	interface IInstructionMemorySizesGenerator {
-		void Generate(ProjectDirs projectDirs, (EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data);
+		void Generate((EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data);
 	}
 
 	sealed class InstructionMemorySizesGenerator {
@@ -35,11 +35,12 @@ namespace Generator.Decoder {
 
 		public void Generate() {
 			var generators = new IInstructionMemorySizesGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpInstructionMemorySizesGenerator(),
+				new CSharp.CSharpInstructionMemorySizesGenerator(projectDirs),
+				new Rust.RustInstructionMemorySizesGenerator(projectDirs),
 			};
 
 			foreach (var generator in generators)
-				generator.Generate(projectDirs, InstructionMemorySizesTable.Table);
+				generator.Generate(InstructionMemorySizesTable.Table);
 		}
 	}
 }

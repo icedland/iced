@@ -34,6 +34,7 @@ namespace Generator.Decoder {
 		public void Generate() {
 			var generators = new IDecoderTableGenerator[(int)TargetLanguage.Last] {
 				new CSharp.CSharpDecoderTableGenerator(projectDirs),
+				new Rust.RustDecoderTableGenerator(projectDirs),
 			};
 
 			foreach (var generator in generators)

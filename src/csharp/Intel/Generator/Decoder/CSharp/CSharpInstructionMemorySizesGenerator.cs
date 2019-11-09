@@ -29,7 +29,12 @@ using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
 	sealed class CSharpInstructionMemorySizesGenerator : IInstructionMemorySizesGenerator {
-		public void Generate(ProjectDirs projectDirs, (EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data) {
+		readonly ProjectDirs projectDirs;
+
+		public CSharpInstructionMemorySizesGenerator(ProjectDirs projectDirs) =>
+			this.projectDirs = projectDirs;
+
+		public void Generate((EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data) {
 			if (data.Select(a => a.codeEnum).ToHashSet().Count != CodeEnum.Instance.Values.Length)
 				throw new InvalidOperationException();
 

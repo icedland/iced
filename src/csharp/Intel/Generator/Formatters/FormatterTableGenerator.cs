@@ -34,6 +34,7 @@ namespace Generator.Formatters {
 		public void Generate() {
 			var generators = new IFormatterTableGenerator[(int)TargetLanguage.Last] {
 				new CSharp.CSharpFormatterTableGenerator(projectDirs),
+				new Rust.RustFormatterTableGenerator(projectDirs),
 			};
 
 			foreach (var generator in generators)

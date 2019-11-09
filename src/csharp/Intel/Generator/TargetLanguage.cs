@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Generator {
 	enum TargetLanguage {
 		CSharp,
+		Rust,
 
 		Last,
 	}

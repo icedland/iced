@@ -27,11 +27,29 @@ using System.IO;
 namespace Generator {
 	sealed class ProjectDirs {
 		public readonly string UnitTestsDir;
-		public readonly string CSharpDir;
+		public string CSharpDir => langDirs[(int)TargetLanguage.CSharp];
+		public string RustDir => langDirs[(int)TargetLanguage.Rust];
+		readonly string[] langDirs;
 
 		public ProjectDirs(string baseDir) {
 			UnitTestsDir = GetAndVerifyPath(baseDir, "UnitTests", "Intel");
-			CSharpDir = GetAndVerifyPath(baseDir, "csharp", "Intel", "Iced");
+			langDirs = new string[(int)TargetLanguage.Last];
+			for (int i = 0; i < langDirs.Length; i++) {
+				string path;
+				switch ((TargetLanguage)i) {
+				case TargetLanguage.CSharp:
+					path = GetAndVerifyPath(baseDir, "csharp", "Intel", "Iced");
+					break;
+				case TargetLanguage.Rust:
+					path = GetAndVerifyPath(baseDir, "rust", "iced-x86", "src", "x86");
+					break;
+
+				case TargetLanguage.Last:
+				default:
+					throw new InvalidOperationException();
+				}
+				langDirs[i] = path;
+			}
 		}
 
 		static string GetAndVerifyPath(params string[] paths) {

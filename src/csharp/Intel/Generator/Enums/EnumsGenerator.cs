@@ -73,6 +73,7 @@ namespace Generator.Enums {
 
 			var generators = new IEnumsGenerator[(int)TargetLanguage.Last] {
 				new CSharp.CSharpEnumsGenerator(projectDirs),
+				new Rust.RustEnumsGenerator(projectDirs),
 			};
 
 			foreach (var generator in generators) {

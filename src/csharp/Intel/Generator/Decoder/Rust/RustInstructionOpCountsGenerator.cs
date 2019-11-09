@@ -23,24 +23,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using Generator.Enums;
 
-namespace Generator.InstructionInfo {
-	interface ICpuidFeatureTableGenerator {
-		void Generate(EnumValue[][] cpuidFeatures);
-	}
-
-	sealed class CpuidFeatureTableGenerator {
+namespace Generator.Decoder.Rust {
+	sealed class RustInstructionOpCountsGenerator : IInstructionOpCountsGenerator {
 		readonly ProjectDirs projectDirs;
 
-		public CpuidFeatureTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public RustInstructionOpCountsGenerator(ProjectDirs projectDirs) {
+			this.projectDirs = projectDirs;
+		}
 
-		public void Generate() {
-			var generators = new ICpuidFeatureTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpCpuidFeatureTableGenerator(projectDirs),
-				new Rust.RustCpuidFeatureTableGenerator(projectDirs),
-			};
-
-			foreach (var generator in generators)
-				generator.Generate(CpuidFeatureInternalEnum.AllCombinations);
+		public void Generate((EnumValue codeEnum, int count)[] data) {
+			//TODO:
 		}
 	}
 }
