@@ -42,11 +42,9 @@ namespace Generator.Tables.CSharp {
 		}
 
 		void WriteTable(FileWriter writer, MemorySizeInfo[] infos) {
-			writer.Indent(4);
 			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
 			foreach (var info in infos)
 				writer.WriteLine($"(byte){memSizeName}.{info.ElementType.Name(idConverter)}, (byte)((uint)SizeKind.S{info.Size} | ((uint)SizeKind.S{info.ElementSize} << 4)), {(info.IsSigned ? "1" : "0")},");
-			writer.Unindent(4);
 		}
 	}
 }

@@ -43,13 +43,11 @@ namespace Generator.Tables.Rust {
 		}
 
 		void WriteTable(FileWriter writer, RegisterInfo[] infos) {
-			writer.Indent(2);
 			var regName = RegisterEnum.Instance.Name(idConverter);
 			if (RegisterEnum.Instance.Values.Length > 0x100)
 				throw new InvalidOperationException();
 			foreach (var info in infos)
 				writer.WriteLine($"RegisterInfo {{ register: {regName}::{info.Register.Name(idConverter)} as u8, base_register: {regName}::{info.Base.Name(idConverter)} as u8, full_register: {regName}::{info.FullRegister.Name(idConverter)} as u8, size: {info.Size} }},");
-			writer.Unindent(2);
 		}
 	}
 }

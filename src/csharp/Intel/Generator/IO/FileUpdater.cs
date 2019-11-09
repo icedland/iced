@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace Generator.IO {
@@ -42,25 +43,58 @@ namespace Generator.IO {
 
 		public void Generate(Action<FileWriter> write) {
 			var lines = File.ReadAllLines(filename);
-			var (start, end) = FindRegion(lines);
+			var (start, end, indent) = FindRegion(lines);
 			using (var writer = new FileWriter(targetLanguage, FileUtils.OpenWrite(filename))) {
 				for (int i = 0; i <= start; i++)
 					writer.WriteLine(lines[i]);
-				writer.WritePartialGeneratedComment();
 
+				writer.Indent(indent);
+				writer.WritePartialGeneratedComment();
 				write(writer);
+				writer.Unindent(indent);
 
 				for (int i = end; i < lines.Length; i++)
 					writer.WriteLine(lines[i]);
 			}
 		}
 
-		(int start, int end) FindRegion(string[] lines) {
+		(int start, int end, int indent) FindRegion(string[] lines) {
 			var beginStr = prefix + "GENERATOR-BEGIN: " + id;
 			var endStr = prefix + "GENERATOR-END: " + id;
 			int start = FindString(lines, 0, beginStr);
 			int end = FindString(lines, start + 1, endStr);
-			return (start, end);
+			int startIndex = lines[start].IndexOf(beginStr);
+			int endIndex = lines[end].IndexOf(endStr);
+			if (startIndex < 0 || startIndex != endIndex)
+				throw new InvalidOperationException($"The lines should have the same indentation");
+			int indent = GetIndent(startIndex, lines[start]);
+			return (start, end, indent);
+		}
+
+		static int GetIndent(int index, string s) {
+			Debug.Assert((uint)index <= s.Length);
+			if (index == 0)
+				return 0;
+			int indentCount;
+			int i = 0;
+			if (s[i] == '\t') {
+				while (i < s.Length && s[i] == '\t')
+					i++;
+				indentCount = i;
+			}
+			else if (i < s.Length && s[i] == ' ') {
+				while (s[i] == ' ')
+					i++;
+				const int tabSize = 4;
+				if ((i % tabSize) != 0)
+					throw new InvalidOperationException();
+				indentCount = i / 4;
+			}
+			else
+				throw new InvalidOperationException();
+			if (i != index)
+				throw new InvalidOperationException("Use only spaces or only tabs");
+			return indentCount;
 		}
 
 		int FindString(string[] lines, int index, string s) {

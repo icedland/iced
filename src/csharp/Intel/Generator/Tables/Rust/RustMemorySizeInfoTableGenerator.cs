@@ -42,11 +42,9 @@ namespace Generator.Tables.Rust {
 		}
 
 		void WriteTable(FileWriter writer, MemorySizeInfo[] infos) {
-			writer.Indent(2);
 			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
 			foreach (var info in infos)
 				writer.WriteLine($"MemorySizeInfo {{ size: {info.Size}, element_size: {info.ElementSize}, memory_size: {memSizeName}::{info.MemorySize.Name(idConverter)} as u8, element_type: {memSizeName}::{info.ElementType.Name(idConverter)} as u8, is_signed: {(info.IsSigned ? "true" : "false")}, is_broadcast: {(info.IsBroadcast ? "true" : "false")} }},");
-			writer.Unindent(2);
 		}
 	}
 }

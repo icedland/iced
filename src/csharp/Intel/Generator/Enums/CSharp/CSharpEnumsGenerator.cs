@@ -173,10 +173,7 @@ namespace Generator.Enums.CSharp {
 			}
 		}
 
-		void WriteEnum(FileWriter writer, PartialEnumFileInfo partialInfo, EnumType enumType) {
-			writer.Indent(2);
+		void WriteEnum(FileWriter writer, PartialEnumFileInfo partialInfo, EnumType enumType) =>
 			WriteEnum(writer, enumType, partialInfo.BaseType);
-			writer.Unindent(2);
-		}
 	}
 }
