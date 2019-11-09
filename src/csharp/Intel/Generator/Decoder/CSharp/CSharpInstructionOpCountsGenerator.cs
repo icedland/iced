@@ -22,15 +22,19 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System.IO;
+using Generator.Constants;
 using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
 	sealed class CSharpInstructionOpCountsGenerator : IInstructionOpCountsGenerator {
+		readonly IdentifierConverter idConverter;
 		readonly ProjectDirs projectDirs;
 
-		public CSharpInstructionOpCountsGenerator(ProjectDirs projectDirs) =>
+		public CSharpInstructionOpCountsGenerator(ProjectDirs projectDirs) {
+			idConverter = CSharpIdentifierConverter.Instance;
 			this.projectDirs = projectDirs;
+		}
 
 		public void Generate((EnumValue codeEnum, int count)[] data) {
 			const string ClassName = "InstructionOpCounts";
@@ -42,10 +46,10 @@ namespace Generator.Decoder.CSharp {
 				writer.WriteLine($"static class {ClassName} {{");
 				writer.Indent();
 
-				writer.WriteLine("internal static readonly byte[] OpCount = new byte[IcedConstants.NumberOfCodeValues] {");
+				writer.WriteLine($"internal static readonly byte[] OpCount = new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)}] {{");
 				writer.Indent();
 				foreach (var d in data)
-					writer.WriteLine($"{d.count},// {d.codeEnum.Name}");
+					writer.WriteLine($"{d.count},// {d.codeEnum.Name(idConverter)}");
 				writer.Unindent();
 				writer.WriteLine("};");
 				writer.Unindent();

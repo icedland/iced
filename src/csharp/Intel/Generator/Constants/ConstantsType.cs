@@ -36,7 +36,8 @@ namespace Generator.Constants {
 
 	sealed class ConstantsType {
 		public ConstantsTypeKind Kind { get; }
-		public string Name { get; }
+		public string RawName { get; }
+		public string Name(IdentifierConverter idConverter) => idConverter.Type(RawName);
 		public string? Documentation { get; }
 		public bool IsPublic { get; }
 		public Constant[] Constants { get; }
@@ -46,7 +47,7 @@ namespace Generator.Constants {
 			get {
 				if (toConstant.TryGetValue(name, out var value))
 					return value;
-				throw new InvalidOperationException($"Couldn't find constant field {Name}.{value}");
+				throw new InvalidOperationException($"Couldn't find constant field {RawName}.{value}");
 			}
 		}
 
@@ -65,14 +66,14 @@ namespace Generator.Constants {
 		public ConstantsType(ConstantsTypeKind kind, ConstantsTypeFlags flags, string? documentation, Constant[] constants) {
 			toConstant = new Dictionary<string, Constant>(StringComparer.Ordinal);
 			Kind = kind;
-			Name = kind.ToString();
+			RawName = kind.ToString();
 			Documentation = documentation;
 			IsPublic = (flags & ConstantsTypeFlags.Public) != 0;
 			Constants = constants;
 
 			foreach (var constant in constants) {
 				constant.DeclaringType = this;
-				toConstant.Add(constant.Name, constant);
+				toConstant.Add(constant.RawName, constant);
 			}
 		}
 	}
@@ -85,7 +86,8 @@ namespace Generator.Constants {
 
 	sealed class Constant {
 		public ConstantKind Kind { get; }
-		public string Name { get; }
+		public string RawName { get; }
+		public string Name(IdentifierConverter idConverter) => idConverter.Constant(RawName);
 		public string? Documentation { get; }
 		public uint Value { get; }
 		public bool IsPublic { get; }
@@ -94,7 +96,7 @@ namespace Generator.Constants {
 		public Constant(ConstantKind kind, string name, uint value, ConstantsTypeFlags flags, string? documentation) {
 			DeclaringType = null!;
 			Kind = kind;
-			Name = name;
+			RawName = name;
 			Documentation = documentation;
 			Value = value;
 			IsPublic = (flags & ConstantsTypeFlags.Public) != 0;

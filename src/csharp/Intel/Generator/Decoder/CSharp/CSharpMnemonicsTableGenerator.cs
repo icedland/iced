@@ -23,19 +23,23 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.IO;
+using Generator.Constants;
 using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
 	sealed class CSharpMnemonicsTableGenerator : IMnemonicsTableGenerator {
+		readonly IdentifierConverter idConverter;
 		readonly ProjectDirs projectDirs;
 
-		public CSharpMnemonicsTableGenerator(ProjectDirs projectDirs) =>
+		public CSharpMnemonicsTableGenerator(ProjectDirs projectDirs) {
+			idConverter = CSharpIdentifierConverter.Instance;
 			this.projectDirs = projectDirs;
+		}
 
 		public void Generate((EnumValue codeEnum, EnumValue mnemonicEnum)[] data) {
 			const string ClassName = "MnemonicUtils";
-			var mnemonicName = MnemonicEnum.Instance.Name;
+			var mnemonicName = MnemonicEnum.Instance.Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), ClassName + ".Data.g.cs")))) {
 				writer.WriteFileHeader();
 
@@ -44,12 +48,12 @@ namespace Generator.Decoder.CSharp {
 				writer.WriteLine($"static partial class {ClassName} {{");
 				writer.Indent();
 
-				writer.WriteLine("internal static readonly ushort[] toMnemonic = new ushort[IcedConstants.NumberOfCodeValues] {");
+				writer.WriteLine($"internal static readonly ushort[] toMnemonic = new ushort[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)}] {{");
 				writer.Indent();
 				foreach (var d in data) {
 					if (d.mnemonicEnum.Value > ushort.MaxValue)
 						throw new InvalidOperationException();
-					writer.WriteLine($"(ushort){mnemonicName}.{d.mnemonicEnum.Name},// {d.codeEnum.Name}");
+					writer.WriteLine($"(ushort){mnemonicName}.{d.mnemonicEnum.Name(idConverter)},// {d.codeEnum.Name(idConverter)}");
 				}
 				writer.Unindent();
 				writer.WriteLine("};");

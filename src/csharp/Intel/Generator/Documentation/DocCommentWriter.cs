@@ -31,7 +31,7 @@ namespace Generator.Documentation {
 			String,
 			Code,
 			Type,
-			Reference,
+			EnumFieldReference,
 		}
 
 		protected IEnumerable<(TokenKind kind, string value, string value2)> GetTokens(string defaultTypeName, string comment) {
@@ -42,7 +42,7 @@ namespace Generator.Documentation {
 				const char newParagraph = 'p';
 				const char codeChar = 'c';
 				const char typeChar = 't';
-				const char referenceChar = 'r';
+				const char enumFieldReferenceChar = 'e';
 				// char (eg. 'c') + ':'
 				const int kindLen = 1 + 1;
 
@@ -81,7 +81,7 @@ namespace Generator.Documentation {
 					yield return (TokenKind.Type, data, string.Empty);
 					break;
 
-				case referenceChar:
+				case enumFieldReferenceChar:
 					string typeName, memberName;
 					int typeIndex = data.IndexOf('.');
 					if (typeIndex < 0) {
@@ -92,7 +92,7 @@ namespace Generator.Documentation {
 						typeName = data.Substring(0, typeIndex);
 						memberName = data.Substring(typeIndex + 1);
 					}
-					yield return (TokenKind.Reference, typeName, memberName);
+					yield return (TokenKind.EnumFieldReference, typeName, memberName);
 					break;
 
 				default:

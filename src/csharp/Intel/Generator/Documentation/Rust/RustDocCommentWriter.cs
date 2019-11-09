@@ -28,6 +28,7 @@ using Generator.IO;
 
 namespace Generator.Documentation.Rust {
 	sealed class RustDocCommentWriter : DocCommentWriter {
+		readonly IdentifierConverter idConverter;
 		readonly StringBuilder sb;
 
 		static readonly Dictionary<string, (string type, bool isKeyword)> toTypeInfo = new Dictionary<string, (string type, bool isKeyword)>(StringComparer.Ordinal) {
@@ -55,8 +56,10 @@ namespace Generator.Documentation.Rust {
 			{ "u512", ("u512", false) },
 		};
 
-		public RustDocCommentWriter() =>
+		public RustDocCommentWriter(IdentifierConverter idConverter) {
+			this.idConverter = idConverter;
 			sb = new StringBuilder();
+		}
 
 		string GetStringAndReset() {
 			var s = sb.ToString();
@@ -96,18 +99,18 @@ namespace Generator.Documentation.Rust {
 					if (!toTypeInfo.TryGetValue(info.value, out var typeInfo))
 						throw new InvalidOperationException($"Unknown type '{info.value}, comment: {documentation}");
 					sb.Append("`");
-					sb.Append(typeInfo.type);
+					sb.Append(idConverter.Type(typeInfo.type));
 					sb.Append("`");
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;
-				case TokenKind.Reference:
+				case TokenKind.EnumFieldReference:
 					sb.Append("`");
 					if (info.value != enumName) {
-						sb.Append(info.value);
+						sb.Append(idConverter.Type(info.value));
 						sb.Append("::");
 					}
-					sb.Append(info.value2);
+					sb.Append(idConverter.EnumField(info.value2));
 					sb.Append("`");
 					break;
 				default:

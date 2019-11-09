@@ -29,27 +29,30 @@ using Generator.IO;
 
 namespace Generator.Decoder.Rust {
 	sealed class RustMnemonicsTableGenerator : IMnemonicsTableGenerator {
+		readonly IdentifierConverter idConverter;
 		readonly ProjectDirs projectDirs;
 
-		public RustMnemonicsTableGenerator(ProjectDirs projectDirs) =>
+		public RustMnemonicsTableGenerator(ProjectDirs projectDirs) {
+			idConverter = RustIdentifierConverter.Instance;
 			this.projectDirs = projectDirs;
+		}
 
 		public void Generate((EnumValue codeEnum, EnumValue mnemonicEnum)[] data) {
-			var mnemonicName = MnemonicEnum.Instance.Name;
+			var mnemonicName = MnemonicEnum.Instance.Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "common", "mnemonics.rs")))) {
 				writer.WriteFileHeader();
 
-				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name};");
-				writer.WriteLine($"use super::{MnemonicEnum.Instance.Name};");
+				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");
+				writer.WriteLine($"use super::{MnemonicEnum.Instance.Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine("#[rustfmt::skip]");
-				writer.WriteLine($"pub(crate) static TO_MNEMONIC: &[u16; {IcedConstantsType.Instance.Name}::NUMBER_OF_CODE_VALUES as usize] = &[");
+				writer.WriteLine($"pub(crate) static TO_MNEMONIC: &[u16; {IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} as usize] = &[");
 				writer.Indent();
 
 				foreach (var d in data) {
 					if (d.mnemonicEnum.Value > ushort.MaxValue)
 						throw new InvalidOperationException();
-					writer.WriteLine($"{mnemonicName}::{d.mnemonicEnum.Name} as u16,// {d.codeEnum.Name}");
+					writer.WriteLine($"{mnemonicName}::{d.mnemonicEnum.Name(idConverter)} as u16,// {d.codeEnum.Name(idConverter)}");
 				}
 
 				writer.Unindent();

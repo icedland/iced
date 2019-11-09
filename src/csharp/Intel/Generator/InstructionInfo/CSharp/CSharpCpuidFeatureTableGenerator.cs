@@ -29,9 +29,13 @@ using Generator.IO;
 
 namespace Generator.InstructionInfo.CSharp {
 	sealed class CSharpCpuidFeatureTableGenerator : ICpuidFeatureTableGenerator {
+		readonly IdentifierConverter idConverter;
 		readonly ProjectDirs projectDirs;
 
-		public CSharpCpuidFeatureTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public CSharpCpuidFeatureTableGenerator(ProjectDirs projectDirs) {
+			idConverter = CSharpIdentifierConverter.Instance;
+			this.projectDirs = projectDirs;
+		}
 
 		public void Generate(EnumValue[][] cpuidFeatures) {
 			var header = new byte[(cpuidFeatures.Length + 7) / 8];
@@ -66,7 +70,7 @@ namespace Generator.InstructionInfo.CSharp {
 							throw new InvalidOperationException();
 						writer.WriteByte((byte)f.Value);
 					}
-					writer.WriteCommentLine(string.Join(", ", info.Select(a => a.Name).ToArray()));
+					writer.WriteCommentLine(string.Join(", ", info.Select(a => a.Name(idConverter)).ToArray()));
 				}
 
 				writer.Unindent();

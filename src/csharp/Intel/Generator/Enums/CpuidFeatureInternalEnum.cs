@@ -34,7 +34,7 @@ namespace Generator.Enums {
 			AllCombinations = cpuidFeatures;
 			var values = new EnumValue[cpuidFeatures.Length];
 			for (int i = 0; i < values.Length; i++) {
-				var name = string.Join("_and_", cpuidFeatures[i].Select(a => a.Name));
+				var name = string.Join("_and_", cpuidFeatures[i].Select(a => a.RawName));
 				values[i] = new EnumValue(name);
 			}
 

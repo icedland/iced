@@ -28,23 +28,25 @@ using Generator.IO;
 
 namespace Generator.Decoder.Rust {
 	sealed class RustInstructionOpCountsGenerator : IInstructionOpCountsGenerator {
+		readonly IdentifierConverter idConverter;
 		readonly ProjectDirs projectDirs;
 
 		public RustInstructionOpCountsGenerator(ProjectDirs projectDirs) {
+			idConverter = RustIdentifierConverter.Instance;
 			this.projectDirs = projectDirs;
 		}
 
 		public void Generate((EnumValue codeEnum, int count)[] data) {
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "common", "instructionopcounts.rs")))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name};");
+				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine("#[rustfmt::skip]");
-				writer.WriteLine($"pub(crate) static OP_COUNT: &[u8; {IcedConstantsType.Instance.Name}::NUMBER_OF_CODE_VALUES as usize] = &[");
+				writer.WriteLine($"pub(crate) static OP_COUNT: &[u8; {IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} as usize] = &[");
 				writer.Indent();
 
 				foreach (var d in data)
-					writer.WriteLine($"{d.count},// {d.codeEnum.Name}");
+					writer.WriteLine($"{d.count},// {d.codeEnum.Name(idConverter)}");
 
 				writer.Unindent();
 				writer.WriteLine("];");

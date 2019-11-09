@@ -4267,8 +4267,8 @@ namespace Generator.Enums {
 			foreach (var enumValue in Instance.Values) {
 				if (!string.IsNullOrEmpty(enumValue.Documentation))
 					continue;
-				if (!docs.TryGetValue(enumValue.Name, out var doc))
-					throw new InvalidOperationException($"Couldn't find enum {enumValue.Name}");
+				if (!docs.TryGetValue(enumValue.RawName, out var doc))
+					throw new InvalidOperationException($"Couldn't find enum {enumValue.RawName}");
 				enumValue.Documentation = doc;
 			}
 		}

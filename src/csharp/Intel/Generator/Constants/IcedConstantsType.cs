@@ -55,16 +55,16 @@ namespace Generator.Constants {
 			var vmmLastStr = VMM_prefix + vmmLastNum.ToString();
 			var vmmShouldNotExistStr = VMM_prefix + (vmmLastNum + 1).ToString();
 			var vmmLast = RegisterEnum.Instance[vmmLastStr];
-			if (RegisterEnum.Instance.Values.Any(a => a.Name == vmmShouldNotExistStr))
-				throw new InvalidOperationException($"Register {vmmShouldNotExistStr} exists so {vmmLast.Name} isn't the last one");
-			return vmmLast.Name;
+			if (RegisterEnum.Instance.Values.Any(a => a.RawName == vmmShouldNotExistStr))
+				throw new InvalidOperationException($"Register {vmmShouldNotExistStr} exists so {vmmLast.RawName} isn't the last one");
+			return vmmLast.RawName;
 		}
 
 		static uint GetFirstBroadcastMemorySize() {
 			var values = MemorySizeEnum.Instance.Values;
 			uint? firstBroadcastValue = null;
 			for (int i = 0; i < values.Length; i++) {
-				var name = values[i].Name;
+				var name = values[i].RawName;
 				bool isBroadcast = name.StartsWith("Broadcast");
 				if (firstBroadcastValue != null) {
 					if (!isBroadcast)

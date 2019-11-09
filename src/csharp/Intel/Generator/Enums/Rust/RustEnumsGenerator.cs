@@ -29,6 +29,7 @@ using Generator.IO;
 
 namespace Generator.Enums.Rust {
 	sealed class RustEnumsGenerator : IEnumsGenerator {
+		readonly RustIdentifierConverter idConverter;
 		readonly Dictionary<EnumKind, PartialEnumFileInfo?> toPartialFileInfo;
 		readonly RustDocCommentWriter docWriter;
 
@@ -51,7 +52,8 @@ namespace Generator.Enums.Rust {
 		}
 
 		public RustEnumsGenerator(ProjectDirs projectDirs) {
-			docWriter = new RustDocCommentWriter();
+			idConverter = RustIdentifierConverter.Instance;
+			docWriter = new RustDocCommentWriter(idConverter);
 
 			const string attrCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
 			const string attrCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
@@ -102,22 +104,22 @@ namespace Generator.Enums.Rust {
 		}
 
 		void WriteEnum(FileWriter writer, PartialEnumFileInfo partialInfo, EnumType enumType) {
-			docWriter.Write(writer, enumType.Documentation, enumType.Name);
+			docWriter.Write(writer, enumType.Documentation, enumType.RawName);
 			foreach (var attr in partialInfo.Attributes)
 				writer.WriteLine(attr);
 			if (enumType.IsPublic && enumType.IsMissingDocs)
 				writer.WriteLine("#[allow(missing_docs)]");
 			var pub = enumType.IsPublic ? "pub " : "pub(crate) ";
-			writer.WriteLine($"{pub}enum {enumType.Name} {{");
+			writer.WriteLine($"{pub}enum {enumType.Name(idConverter)} {{");
 			writer.Indent();
 
 			uint expectedValue = 0;
 			foreach (var value in enumType.Values) {
-				docWriter.Write(writer, value.Documentation, enumType.Name);
+				docWriter.Write(writer, value.Documentation, enumType.RawName);
 				if (expectedValue != value.Value)
-					writer.WriteLine($"{value.Name} = {value.Value},");
+					writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
 				else
-					writer.WriteLine($"{value.Name},");
+					writer.WriteLine($"{value.Name(idConverter)},");
 				expectedValue = value.Value + 1;
 			}
 

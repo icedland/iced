@@ -29,6 +29,7 @@ using Generator.IO;
 
 namespace Generator.Enums.CSharp {
 	sealed class CSharpEnumsGenerator : IEnumsGenerator {
+		readonly IdentifierConverter idConverter;
 		readonly Dictionary<EnumKind, FullEnumFileInfo> toFullFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 
@@ -47,7 +48,8 @@ namespace Generator.Enums.CSharp {
 		}
 
 		public CSharpEnumsGenerator(ProjectDirs projectDirs) {
-			docWriter = new CSharpDocCommentWriter();
+			idConverter = CSharpIdentifierConverter.Instance;
+			docWriter = new CSharpDocCommentWriter(idConverter);
 
 			toFullFileInfo = new Dictionary<EnumKind, FullEnumFileInfo>();
 			toFullFileInfo.Add(EnumKind.Code, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), nameof(EnumKind.Code) + ".g.cs"), CSharpConstants.IcedNamespace));
@@ -112,23 +114,23 @@ namespace Generator.Enums.CSharp {
 				if (enumType.IsPublic && enumType.IsMissingDocs)
 					writer.WriteLine("#pragma warning disable 1591 // Missing XML comment for publicly visible type or member");
 				writer.Indent();
-				docWriter.Write(writer, enumType.Documentation, enumType.Name);
+				docWriter.Write(writer, enumType.Documentation, enumType.RawName);
 				if (enumType.IsFlags)
 					writer.WriteLine("[Flags]");
 				var pub = enumType.IsPublic ? "public " : string.Empty;
 				var baseType = !(info.BaseType is null) ? $" : {info.BaseType}" : string.Empty;
-				writer.WriteLine($"{pub}enum {enumType.Name}{baseType} {{");
+				writer.WriteLine($"{pub}enum {enumType.Name(idConverter)}{baseType} {{");
 
 				writer.Indent();
 				uint expectedValue = 0;
 				foreach (var value in enumType.Values) {
-					docWriter.Write(writer, value.Documentation, enumType.Name);
+					docWriter.Write(writer, value.Documentation, enumType.RawName);
 					if (enumType.IsFlags)
-						writer.WriteLine($"{value.Name} = 0x{value.Value:X8},");
+						writer.WriteLine($"{value.Name(idConverter)} = 0x{value.Value:X8},");
 					else if (expectedValue != value.Value)
-						writer.WriteLine($"{value.Name} = {value.Value},");
+						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
 					else
-						writer.WriteLine($"{value.Name},");
+						writer.WriteLine($"{value.Name(idConverter)},");
 					expectedValue = value.Value + 1;
 				}
 				writer.Unindent();

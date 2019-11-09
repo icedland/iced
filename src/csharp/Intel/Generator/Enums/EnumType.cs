@@ -68,7 +68,8 @@ namespace Generator.Enums {
 
 	sealed class EnumType {
 		public EnumKind EnumKind { get; }
-		public string Name { get; }
+		public string RawName { get; }
+		public string Name(IdentifierConverter idConverter) => idConverter.Type(RawName);
 		public string? Documentation { get; }
 		public EnumValue[] Values { get; }
 		readonly Dictionary<string, EnumValue> toEnumValue;
@@ -77,7 +78,7 @@ namespace Generator.Enums {
 			get {
 				if (toEnumValue.TryGetValue(name, out var value))
 					return value;
-				throw new InvalidOperationException($"Couldn't find enum field {Name}.{value}");
+				throw new InvalidOperationException($"Couldn't find enum field {RawName}.{value}");
 			}
 		}
 
@@ -105,14 +106,14 @@ namespace Generator.Enums {
 			IsPublic = (flags & EnumTypeFlags.Public) != 0;
 			IsFlags = (flags & EnumTypeFlags.Flags) != 0;
 			EnumKind = enumKind;
-			Name = name;
+			RawName = name;
 			Documentation = documentation;
 			Values = values;
 			if ((flags & EnumTypeFlags.NoInitialize) == 0) {
 				if ((flags & EnumTypeFlags.Flags) != 0) {
 					uint value = 0;
 					for (int i = 0; i < values.Length; i++) {
-						if (values[i].Name == "None")
+						if (values[i].RawName == "None")
 							values[i].Value = 0;
 						else {
 							if (value == 0)
@@ -132,7 +133,7 @@ namespace Generator.Enums {
 			}
 			foreach (var value in values) {
 				value.DeclaringType = this;
-				toEnumValue.Add(value.Name, value);
+				toEnumValue.Add(value.RawName, value);
 			}
 		}
 	}
@@ -140,24 +141,34 @@ namespace Generator.Enums {
 	interface IEnumValue {
 		EnumType DeclaringType { get; }
 		uint Value { get; }
-		string ToStringValue { get; }
+		string ToStringValue(IdentifierConverter idConverter);
 	}
 
 	sealed class OrEnumValue : IEnumValue {
+		readonly EnumValue[] values;
+
 		public EnumType DeclaringType { get; }
 		public uint Value { get; }
-		public string ToStringValue { get; }
-
-		public OrEnumValue(EnumType enumType, params string[] values) {
-			DeclaringType = enumType;
+		public string ToStringValue(IdentifierConverter idConverter) {
 			var sb = new StringBuilder();
 			foreach (var value in values) {
 				if (sb.Length > 0)
 					sb.Append(", ");
-				sb.Append(enumType[value].Name);
-				Value |= enumType[value].Value;
+				sb.Append(value.Name(idConverter));
 			}
-			ToStringValue = sb.ToString();
+			return sb.ToString();
+		}
+
+		public OrEnumValue(EnumType enumType, params string[] values) {
+			DeclaringType = enumType;
+			var newValues = new EnumValue[values.Length];
+			for (int i = 0; i < values.Length; i++) {
+				var value = values[i];
+				var enumValue = enumType[value];
+				newValues[i] = enumValue;
+				Value |= enumValue.Value;
+			}
+			this.values = newValues;
 		}
 
 		// Need to override this since the formatter table generators call Equals()
@@ -175,28 +186,29 @@ namespace Generator.Enums {
 	sealed class EnumValue : IEnumValue {
 		public EnumType DeclaringType { get; set; }
 		public uint Value { get; set; }
-		public string Name { get; }
-		public string ToStringValue => Name;
+		public string RawName { get; }
+		public string Name(IdentifierConverter idConverter) => idConverter.EnumField(RawName);
+		public string ToStringValue(IdentifierConverter idConverter) => idConverter.EnumField(RawName);
 		public string? Documentation { get; internal set; }
 
 		public EnumValue(string name) {
 			DeclaringType = null!;
 			Value = 0;
-			Name = name;
+			RawName = name;
 			Documentation = null;
 		}
 
 		public EnumValue(uint value, string name) {
 			DeclaringType = null!;
 			Value = value;
-			Name = name;
+			RawName = name;
 			Documentation = null;
 		}
 
 		public EnumValue(string name, string? documentation) {
 			DeclaringType = null!;
 			Value = 0;
-			Name = name;
+			RawName = name;
 			Documentation = documentation;
 		}
 	}

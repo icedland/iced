@@ -29,6 +29,7 @@ using Generator.IO;
 
 namespace Generator.Documentation.CSharp {
 	sealed class CSharpDocCommentWriter : DocCommentWriter {
+		readonly IdentifierConverter idConverter;
 		readonly StringBuilder sb;
 
 		static readonly Dictionary<string, (string type, bool isKeyword)> toTypeInfo = new Dictionary<string, (string type, bool isKeyword)>(StringComparer.Ordinal) {
@@ -56,8 +57,10 @@ namespace Generator.Documentation.CSharp {
 			{ "u512", ("uint512", false) },
 		};
 
-		public CSharpDocCommentWriter() =>
+		public CSharpDocCommentWriter(IdentifierConverter idConverter) {
+			this.idConverter = idConverter;
 			sb = new StringBuilder();
+		}
 
 		string GetStringAndReset() {
 			var s = sb.ToString();
@@ -98,24 +101,24 @@ namespace Generator.Documentation.CSharp {
 						throw new InvalidOperationException($"Unknown type '{info.value}, comment: {documentation}");
 					if (typeInfo.isKeyword) {
 						sb.Append("<see cref=\"");
-						sb.Append(Escape(typeInfo.type));
+						sb.Append(Escape(idConverter.Type(typeInfo.type)));
 						sb.Append("\"/>");
 					}
 					else {
 						sb.Append("<c>");
-						sb.Append(Escape(typeInfo.type));
+						sb.Append(Escape(idConverter.Type(typeInfo.type)));
 						sb.Append("</c>");
 					}
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;
-				case TokenKind.Reference:
+				case TokenKind.EnumFieldReference:
 					sb.Append("<see cref=\"");
 					if (info.value != enumName) {
-						sb.Append(Escape(info.value));
+						sb.Append(Escape(idConverter.Type(info.value)));
 						sb.Append('.');
 					}
-					sb.Append(Escape(info.value2));
+					sb.Append(Escape(idConverter.EnumField(info.value2)));
 					sb.Append("\"/>");
 					break;
 				default:

@@ -23,19 +23,23 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.IO;
+using Generator.Constants;
 using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
 	sealed class CSharpInstructionMemorySizesGenerator : IInstructionMemorySizesGenerator {
+		readonly IdentifierConverter idConverter;
 		readonly ProjectDirs projectDirs;
 
-		public CSharpInstructionMemorySizesGenerator(ProjectDirs projectDirs) =>
+		public CSharpInstructionMemorySizesGenerator(ProjectDirs projectDirs) {
+			idConverter = CSharpIdentifierConverter.Instance;
 			this.projectDirs = projectDirs;
+		}
 
 		public void Generate((EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data) {
 			const string ClassName = "InstructionMemorySizes";
-			var memSizeName = MemorySizeEnum.Instance.Name;
+			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
 				writer.WriteFileHeader();
 
@@ -46,7 +50,7 @@ namespace Generator.Decoder.CSharp {
 
 				writer.WriteCommentLine("0 = memory size");
 				writer.WriteCommentLine("1 = broadcast memory size");
-				writer.WriteLine("internal static readonly byte[] Sizes = new byte[IcedConstants.NumberOfCodeValues * 2] {");
+				writer.WriteLine($"internal static readonly byte[] Sizes = new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} * 2] {{");
 				writer.Indent();
 				foreach (var d in data) {
 					if (d.mem.Value > byte.MaxValue)
@@ -55,8 +59,8 @@ namespace Generator.Decoder.CSharp {
 					if (d.mem.Value == 0)
 						value = "0";
 					else
-						value = $"(byte){memSizeName}.{d.mem.Name}";
-					writer.WriteLine($"{value},// {d.codeEnum.Name}");
+						value = $"(byte){memSizeName}.{d.mem.Name(idConverter)}";
+					writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
 				}
 				foreach (var d in data) {
 					if (d.bcst.Value > byte.MaxValue)
@@ -65,8 +69,8 @@ namespace Generator.Decoder.CSharp {
 					if (d.bcst.Value == 0)
 						value = "0";
 					else
-						value = $"(byte){memSizeName}.{d.bcst.Name}";
-					writer.WriteLine($"{value},// {d.codeEnum.Name}");
+						value = $"(byte){memSizeName}.{d.bcst.Name(idConverter)}";
+					writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
 				}
 				writer.Unindent();
 				writer.WriteLine("};");

@@ -29,10 +29,15 @@ using Generator.IO;
 
 namespace Generator.Formatters.CSharp {
 	abstract class CSharpFormatterTableSerializer : FormatterTableSerializer {
+		readonly IdentifierConverter idConverter;
+
 		protected abstract object[][] Infos { get; }
 		protected abstract string Define { get; }
 		protected abstract string Namespace { get; }
 		protected abstract EnumType CtorKindEnum { get; }
+
+		protected CSharpFormatterTableSerializer() =>
+			idConverter = CSharpIdentifierConverter.Instance;
 
 		public override void Initialize(StringsTable stringsTable) =>
 			Initialize(stringsTable, Infos);
@@ -64,7 +69,7 @@ namespace Generator.Formatters.CSharp {
 
 				if (index != 0)
 					writer.WriteLine();
-				writer.WriteCommentLine(code.ToStringValue);
+				writer.WriteCommentLine(code.ToStringValue(idConverter));
 
 				bool isSame = i > 0 && IsSame(infos[i - 1], info);
 				if (isSame)
@@ -75,9 +80,9 @@ namespace Generator.Formatters.CSharp {
 				uint firstStringIndex = GetFirstStringIndex(stringsTable, info, out bool hasVPrefix);
 				writer.WriteByte((byte)((uint)ctorKind.Value | (hasVPrefix ? 0x80U : 0)));
 				if (hasVPrefix)
-					writer.WriteCommentLine($"'v', {ctorKind.ToStringValue}");
+					writer.WriteCommentLine($"'v', {ctorKind.ToStringValue(idConverter)}");
 				else
-					writer.WriteCommentLine($"{ctorKind.ToStringValue}");
+					writer.WriteCommentLine($"{ctorKind.ToStringValue(idConverter)}");
 				if (isSame)
 					continue;
 				uint si;
@@ -121,57 +126,57 @@ namespace Generator.Formatters.CSharp {
 						switch (enumValue.DeclaringType.EnumKind) {
 						case EnumKind.GasInstrOpInfoFlags:
 							writer.WriteCompressedUInt32((uint)enumValue.Value);
-							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue}");
+							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
 							break;
 
 						case EnumKind.IntelInstrOpInfoFlags:
 							writer.WriteCompressedUInt32((uint)enumValue.Value);
-							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue}");
+							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
 							break;
 
 						case EnumKind.MasmInstrOpInfoFlags:
 							writer.WriteCompressedUInt32((uint)enumValue.Value);
-							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue}");
+							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
 							break;
 
 						case EnumKind.NasmInstrOpInfoFlags:
 							writer.WriteCompressedUInt32((uint)enumValue.Value);
-							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue}");
+							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
 							break;
 
 						case EnumKind.PseudoOpsKind:
 							if ((uint)enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
-							writer.WriteCommentLine(enumValue.ToStringValue);
+							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 							break;
 
 						case EnumKind.CodeSize:
 							if ((uint)enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
-							writer.WriteCommentLine(enumValue.ToStringValue);
+							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 							break;
 
 						case EnumKind.Register:
 							if ((uint)enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
-							writer.WriteCommentLine(enumValue.ToStringValue);
+							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 							break;
 
 						case EnumKind.MemorySize:
 							if ((uint)enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
-							writer.WriteCommentLine(enumValue.ToStringValue);
+							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 							break;
 
 						case EnumKind.NasmSignExtendInfo:
 							if ((uint)enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
-							writer.WriteCommentLine(enumValue.ToStringValue);
+							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 							break;
 
 						default:

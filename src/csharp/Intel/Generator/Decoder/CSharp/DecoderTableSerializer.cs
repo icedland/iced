@@ -45,10 +45,12 @@ namespace Generator.Decoder.CSharp {
 			}
 		}
 
+		readonly IdentifierConverter idConverter;
 		readonly Dictionary<string, Info> infos;
 		readonly StringBuilder sb;
 
 		protected DecoderTableSerializer() {
+			idConverter = CSharpIdentifierConverter.Instance;
 			infos = new Dictionary<string, Info>(StringComparer.Ordinal);
 			sb = new StringBuilder();
 		}
@@ -147,11 +149,11 @@ namespace Generator.Decoder.CSharp {
 			}
 		}
 
-		static void Write(FileWriter writer, EnumValue enumValue) {
+		void Write(FileWriter writer, EnumValue enumValue) {
 			if ((uint)enumValue.Value > byte.MaxValue)
 				throw new InvalidOperationException();
 			writer.WriteByte((byte)enumValue.Value);
-			writer.WriteCommentLine(enumValue.ToStringValue);
+			writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 		}
 
 		static void Write(FileWriter writer, uint value) {
@@ -412,49 +414,49 @@ namespace Generator.Decoder.CSharp {
 				switch (enumValue.DeclaringType.EnumKind) {
 				case EnumKind.Code:
 					writer.WriteCompressedUInt32(enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 					break;
 				case EnumKind.Register:
 					if ((uint)enumValue.Value > byte.MaxValue)
 						throw new InvalidOperationException();
 					writer.WriteByte((byte)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 					break;
 				case EnumKind.DecoderOptions:
 					writer.WriteCompressedUInt32((uint)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 					break;
 				case EnumKind.HandlerFlags:
 					writer.WriteCompressedUInt32((uint)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 					break;
 				case EnumKind.TupleType:
 					if ((uint)enumValue.Value > byte.MaxValue)
 						throw new InvalidOperationException();
 					writer.WriteByte((byte)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 					break;
 				case EnumKind.OpCodeHandlerKind:
 					if ((uint)enumValue.Value > byte.MaxValue)
 						throw new InvalidOperationException();
 					writer.WriteByte((byte)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 					break;
 				case EnumKind.VexOpCodeHandlerKind:
 					if ((uint)enumValue.Value > byte.MaxValue)
 						throw new InvalidOperationException();
 					writer.WriteByte((byte)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 					break;
 				case EnumKind.EvexOpCodeHandlerKind:
 					if ((uint)enumValue.Value > byte.MaxValue)
 						throw new InvalidOperationException();
 					writer.WriteByte((byte)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 					break;
 				case EnumKind.LegacyHandlerFlags:
 					writer.WriteCompressedUInt32((uint)enumValue.Value);
-					writer.WriteCommentLine(enumValue.ToStringValue);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 					break;
 				default:
 					throw new InvalidOperationException();

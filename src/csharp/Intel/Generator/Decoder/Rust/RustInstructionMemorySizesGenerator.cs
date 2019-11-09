@@ -29,22 +29,25 @@ using Generator.IO;
 
 namespace Generator.Decoder.Rust {
 	sealed class RustInstructionMemorySizesGenerator : IInstructionMemorySizesGenerator {
+		readonly IdentifierConverter idConverter;
 		readonly ProjectDirs projectDirs;
 
-		public RustInstructionMemorySizesGenerator(ProjectDirs projectDirs) =>
+		public RustInstructionMemorySizesGenerator(ProjectDirs projectDirs) {
+			idConverter = RustIdentifierConverter.Instance;
 			this.projectDirs = projectDirs;
+		}
 
 		public void Generate((EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data) {
-			var memSizeName = MemorySizeEnum.Instance.Name;
+			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "common", "instructionmemorysizes.rs")))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name};");
-				writer.WriteLine($"use super::{MemorySizeEnum.Instance.Name};");
+				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");
+				writer.WriteLine($"use super::{MemorySizeEnum.Instance.Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine("// 0 = memory size");
 				writer.WriteLine("// 1 = broadcast memory size");
 				writer.WriteLine("#[rustfmt::skip]");
-				writer.WriteLine($"pub(crate) static SIZES: &[u8; ({IcedConstantsType.Instance.Name}::NUMBER_OF_CODE_VALUES * 2) as usize] = &[");
+				writer.WriteLine($"pub(crate) static SIZES: &[u8; ({IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} * 2) as usize] = &[");
 				writer.Indent();
 
 				foreach (var d in data) {
@@ -54,8 +57,8 @@ namespace Generator.Decoder.Rust {
 					if (d.mem.Value == 0)
 						value = "0";
 					else
-						value = $"{memSizeName}::{d.mem.Name} as u8";
-					writer.WriteLine($"{value},// {d.codeEnum.Name}");
+						value = $"{memSizeName}::{d.mem.Name(idConverter)} as u8";
+					writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
 				}
 				foreach (var d in data) {
 					if (d.bcst.Value > byte.MaxValue)
@@ -64,8 +67,8 @@ namespace Generator.Decoder.Rust {
 					if (d.bcst.Value == 0)
 						value = "0";
 					else
-						value = $"{memSizeName}::{d.bcst.Name} as u8";
-					writer.WriteLine($"{value},// {d.codeEnum.Name}");
+						value = $"{memSizeName}::{d.bcst.Name(idConverter)} as u8";
+					writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
 				}
 
 				writer.Unindent();

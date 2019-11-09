@@ -32,6 +32,7 @@ using Generator.IO;
 
 namespace Generator.Constants.CSharp {
 	sealed class CSharpConstantsGenerator : IConstantsGenerator {
+		readonly IdentifierConverter idConverter;
 		readonly Dictionary<ConstantsTypeKind, FullEnumFileInfo> toFullFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 
@@ -48,7 +49,8 @@ namespace Generator.Constants.CSharp {
 		}
 
 		public CSharpConstantsGenerator(ProjectDirs projectDirs) {
-			docWriter = new CSharpDocCommentWriter();
+			idConverter = CSharpIdentifierConverter.Instance;
+			docWriter = new CSharpDocCommentWriter(idConverter);
 
 			var baseDir = CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace);
 			toFullFileInfo = new Dictionary<ConstantsTypeKind, FullEnumFileInfo>();
@@ -74,19 +76,19 @@ namespace Generator.Constants.CSharp {
 				if (constantsType.IsPublic && constantsType.IsMissingDocs)
 					writer.WriteLine("#pragma warning disable 1591 // Missing XML comment for publicly visible type or member");
 				writer.Indent();
-				docWriter.Write(writer, constantsType.Documentation, constantsType.Name);
+				docWriter.Write(writer, constantsType.Documentation, constantsType.RawName);
 				var pub = constantsType.IsPublic ? "public " : string.Empty;
-				writer.WriteLine($"{pub}static class {constantsType.Name} {{");
+				writer.WriteLine($"{pub}static class {constantsType.Name(idConverter)} {{");
 
 				writer.Indent();
 				foreach (var constant in constantsType.Constants) {
-					docWriter.Write(writer, constant.Documentation, constantsType.Name);
+					docWriter.Write(writer, constant.Documentation, constantsType.RawName);
 					sb.Clear();
 					sb.Append(constant.IsPublic ? "public " : "internal ");
 					sb.Append("const ");
 					sb.Append(GetType(constant.Kind));
 					sb.Append(' ');
-					sb.Append(constant.Name);
+					sb.Append(constant.Name(idConverter));
 					sb.Append(" = ");
 					sb.Append(GetValue(constant));
 					sb.Append(';');
@@ -114,19 +116,19 @@ namespace Generator.Constants.CSharp {
 			}
 		}
 
-		static string GetType(ConstantKind kind) {
+		string GetType(ConstantKind kind) {
 			switch (kind) {
 			case ConstantKind.Int32:
 				return "int";
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
-				return GetEnumType(kind).Name;
+				return GetEnumType(kind).Name(idConverter);
 			default:
 				throw new InvalidOperationException();
 			}
 		}
 
-		static string GetValue(Constant constant) {
+		string GetValue(Constant constant) {
 			switch (constant.Kind) {
 			case ConstantKind.Int32:
 				return ((int)constant.Value).ToString();
@@ -140,10 +142,10 @@ namespace Generator.Constants.CSharp {
 			}
 		}
 
-		static string GetValueString(Constant constant) {
+		string GetValueString(Constant constant) {
 			var enumType = GetEnumType(constant.Kind);
 			var enumValue = enumType.Values.First(a => a.Value == constant.Value);
-			return $"{enumType.Name}.{enumValue.Name}";
+			return $"{enumType.Name(idConverter)}.{enumValue.Name(idConverter)}";
 		}
 	}
 }
