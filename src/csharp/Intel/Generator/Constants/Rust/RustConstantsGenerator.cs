@@ -24,16 +24,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Generator.Documentation.Rust;
 using Generator.IO;
 
 namespace Generator.Constants.Rust {
 	sealed class RustConstantsGenerator : IConstantsGenerator {
-		readonly IdentifierConverter idConverter;
 		readonly Dictionary<ConstantsTypeKind, PartialConstantsFileInfo> toPartialFileInfo;
-		readonly RustDocCommentWriter docWriter;
+		readonly RustConstantsWriter constantsWriter;
 
 		sealed class PartialConstantsFileInfo {
 			public readonly string Id;
@@ -54,8 +51,8 @@ namespace Generator.Constants.Rust {
 		}
 
 		public RustConstantsGenerator(ProjectDirs projectDirs) {
-			idConverter = RustIdentifierConverter.Create();
-			docWriter = new RustDocCommentWriter(idConverter);
+			var idConverter = RustIdentifierConverter.Create();
+			constantsWriter = new RustConstantsWriter(idConverter, new RustDocCommentWriter(idConverter));
 
 			toPartialFileInfo = new Dictionary<ConstantsTypeKind, PartialConstantsFileInfo>();
 			toPartialFileInfo.Add(ConstantsTypeKind.IcedConstants, new PartialConstantsFileInfo("IcedConstants", Path.Combine(projectDirs.RustDir, "common", "icedconstants.rs")));
@@ -70,66 +67,7 @@ namespace Generator.Constants.Rust {
 				throw new InvalidOperationException();
 		}
 
-		void WriteConstants(FileWriter writer, PartialConstantsFileInfo info, ConstantsType constantsType) {
-			if (constantsType.IsPublic && constantsType.IsMissingDocs)
-				writer.WriteLine("#[allow(missing_docs)]");
-			docWriter.Write(writer, constantsType.Documentation, constantsType.RawName);
-			foreach (var attr in info.Attributes)
-				writer.WriteLine(attr);
-			var pub = constantsType.IsPublic ? "pub " : "pub(crate) ";
-			writer.WriteLine($"{pub}struct {constantsType.Name(idConverter)};");
-			writer.WriteLine($"impl {constantsType.Name(idConverter)} {{");
-
-			var sb = new StringBuilder();
-			writer.Indent();
-			foreach (var constant in constantsType.Constants) {
-				docWriter.Write(writer, constant.Documentation, constantsType.RawName);
-				sb.Clear();
-				sb.Append(constant.IsPublic ? "pub " : "pub(crate) ");
-				sb.Append("const ");
-				sb.Append(constant.Name(idConverter));
-				sb.Append(": ");
-				sb.Append(GetType(constant.Kind));
-				sb.Append(" = ");
-				sb.Append(GetValue(constant));
-				sb.Append(';');
-				writer.WriteLine(sb.ToString());
-			}
-			writer.Unindent();
-
-			writer.WriteLine("}");
-		}
-
-		string GetType(ConstantKind kind) {
-			switch (kind) {
-			case ConstantKind.Int32:
-				return "i32";
-			case ConstantKind.Register:
-			case ConstantKind.MemorySize:
-				return ConstantsUtils.GetEnumType(kind).Name(idConverter);
-			default:
-				throw new InvalidOperationException();
-			}
-		}
-
-		string GetValue(Constant constant) {
-			switch (constant.Kind) {
-			case ConstantKind.Int32:
-				return ((int)constant.Value).ToString();
-
-			case ConstantKind.Register:
-			case ConstantKind.MemorySize:
-				return GetValueString(constant);
-
-			default:
-				throw new InvalidOperationException();
-			}
-		}
-
-		string GetValueString(Constant constant) {
-			var enumType = ConstantsUtils.GetEnumType(constant.Kind);
-			var enumValue = enumType.Values.First(a => a.Value == constant.Value);
-			return $"{enumType.Name(idConverter)}::{enumValue.Name(idConverter)}";
-		}
+		void WriteConstants(FileWriter writer, PartialConstantsFileInfo info, ConstantsType constantsType) =>
+			constantsWriter.Write(writer, constantsType, info.Attributes);
 	}
 }

@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Generator.Constants;
 
 namespace Generator.Enums {
 	enum EnumTypeFlags : uint {
@@ -66,6 +67,9 @@ namespace Generator.Enums {
 		NasmInstrOpInfoFlags,
 		RoundingControl,
 		OpKind,
+		Instruction_MemoryFlags,
+		Instruction_OpKindFlags,
+		Instruction_CodeFlags,
 	}
 
 	sealed class EnumType {
@@ -137,6 +141,23 @@ namespace Generator.Enums {
 				value.DeclaringType = this;
 				toEnumValue.Add(value.RawName, value);
 			}
+		}
+
+		public ConstantsType ToConstantsType(ConstantKind constantKind) {
+			var flags = ConstantsTypeFlags.None;
+			if (IsPublic)
+				flags |= ConstantsTypeFlags.Public;
+			if (IsFlags)
+				flags |= ConstantsTypeFlags.Hex;
+
+			var constants = new Constant[Values.Length];
+			for (int i = 0; i < constants.Length; i++) {
+				var value = Values[i];
+				var constant = new Constant(constantKind, value.RawName, value.Value, flags, value.Documentation);
+				constants[i] = constant;
+			}
+
+			return new ConstantsType(RawName, ConstantsTypeKind.ConvertedFromEnum, flags, Documentation, constants);
 		}
 	}
 

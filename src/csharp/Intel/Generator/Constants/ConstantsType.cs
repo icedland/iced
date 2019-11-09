@@ -28,9 +28,11 @@ namespace Generator.Constants {
 	enum ConstantsTypeFlags {
 		None			= 0,
 		Public			= 0x00000001,
+		Hex				= 0x00000002,
 	}
 
 	enum ConstantsTypeKind {
+		ConvertedFromEnum,
 		IcedConstants,
 	}
 
@@ -63,10 +65,14 @@ namespace Generator.Constants {
 			}
 		}
 
-		public ConstantsType(ConstantsTypeKind kind, ConstantsTypeFlags flags, string? documentation, Constant[] constants) {
+		public ConstantsType(ConstantsTypeKind kind, ConstantsTypeFlags flags, string? documentation, Constant[] constants)
+			: this(kind.ToString(), kind, flags, documentation, constants) {
+		}
+
+		public ConstantsType(string name, ConstantsTypeKind kind, ConstantsTypeFlags flags, string? documentation, Constant[] constants) {
 			toConstant = new Dictionary<string, Constant>(StringComparer.Ordinal);
 			Kind = kind;
-			RawName = kind.ToString();
+			RawName = name;
 			Documentation = documentation;
 			IsPublic = (flags & ConstantsTypeFlags.Public) != 0;
 			Constants = constants;
@@ -80,6 +86,7 @@ namespace Generator.Constants {
 
 	enum ConstantKind {
 		Int32,
+		UInt32,
 		Register,
 		MemorySize,
 	}
@@ -91,6 +98,7 @@ namespace Generator.Constants {
 		public string? Documentation { get; }
 		public uint Value { get; }
 		public bool IsPublic { get; }
+		public bool UseHex { get; }
 		public ConstantsType DeclaringType { get; set; }
 
 		public Constant(ConstantKind kind, string name, uint value, ConstantsTypeFlags flags, string? documentation) {
@@ -100,6 +108,7 @@ namespace Generator.Constants {
 			Documentation = documentation;
 			Value = value;
 			IsPublic = (flags & ConstantsTypeFlags.Public) != 0;
+			UseHex = (flags & ConstantsTypeFlags.Hex) != 0;
 		}
 	}
 }

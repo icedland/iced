@@ -31,6 +31,7 @@ namespace Generator.Enums.CSharp {
 	sealed class CSharpEnumsGenerator : IEnumsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<EnumKind, FullEnumFileInfo> toFullFileInfo;
+		readonly Dictionary<EnumKind, PartialEnumFileInfo> toPartialFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 
 		sealed class FullEnumFileInfo {
@@ -43,6 +44,18 @@ namespace Generator.Enums.CSharp {
 				Filename = filename;
 				Namespace = @namespace;
 				Define = define;
+				BaseType = baseType;
+			}
+		}
+
+		sealed class PartialEnumFileInfo {
+			public readonly string Id;
+			public readonly string Filename;
+			public readonly string? BaseType;
+
+			public PartialEnumFileInfo(string id, string filename, string? baseType) {
+				Id = id;
+				Filename = filename;
 				BaseType = baseType;
 			}
 		}
@@ -90,15 +103,49 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(EnumKind.RoundingControl, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), nameof(EnumKind.RoundingControl) + ".g.cs"), CSharpConstants.IcedNamespace));
 			toFullFileInfo.Add(EnumKind.OpKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), nameof(EnumKind.OpKind) + ".g.cs"), CSharpConstants.IcedNamespace));
 
-			if (toFullFileInfo.Count != Enum.GetValues(typeof(EnumKind)).Length)
+			toPartialFileInfo = new Dictionary<EnumKind, PartialEnumFileInfo>();
+			toPartialFileInfo.Add(EnumKind.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), "Instruction.cs"), "ushort"));
+			toPartialFileInfo.Add(EnumKind.Instruction_OpKindFlags, new PartialEnumFileInfo("OpKindFlags", Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), "Instruction.cs"), "uint"));
+			toPartialFileInfo.Add(EnumKind.Instruction_CodeFlags, new PartialEnumFileInfo("CodeFlags", Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), "Instruction.cs"), "uint"));
+
+			if ((toFullFileInfo.Count + toPartialFileInfo.Count) != Enum.GetValues(typeof(EnumKind)).Length)
 				throw new InvalidOperationException();
 		}
 
 		public void Generate(EnumType enumType) {
 			if (toFullFileInfo.TryGetValue(enumType.EnumKind, out var fullFileInfo))
 				WriteFile(fullFileInfo, enumType);
+			else if (toPartialFileInfo.TryGetValue(enumType.EnumKind, out var partialInfo)) {
+				if (!(partialInfo is null))
+					new FileUpdater(TargetLanguage.CSharp, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));
+			}
 			else
 				throw new InvalidOperationException();
+		}
+
+		void WriteEnum(FileWriter writer, EnumType enumType, string? baseType) {
+			docWriter.Write(writer, enumType.Documentation, enumType.RawName);
+			if (enumType.IsFlags)
+				writer.WriteLine("[Flags]");
+			var pub = enumType.IsPublic ? "public " : string.Empty;
+			var theBaseType = !(baseType is null) ? $" : {baseType}" : string.Empty;
+			writer.WriteLine($"{pub}enum {enumType.Name(idConverter)}{theBaseType} {{");
+
+			writer.Indent();
+			uint expectedValue = 0;
+			foreach (var value in enumType.Values) {
+				docWriter.Write(writer, value.Documentation, enumType.RawName);
+				if (enumType.IsFlags)
+					writer.WriteLine($"{value.Name(idConverter)} = 0x{value.Value:X8},");
+				else if (expectedValue != value.Value)
+					writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
+				else
+					writer.WriteLine($"{value.Name(idConverter)},");
+				expectedValue = value.Value + 1;
+			}
+			writer.Unindent();
+
+			writer.WriteLine("}");
 		}
 
 		void WriteFile(FullEnumFileInfo info, EnumType enumType) {
@@ -117,34 +164,19 @@ namespace Generator.Enums.CSharp {
 				if (enumType.IsPublic && enumType.IsMissingDocs)
 					writer.WriteLine("#pragma warning disable 1591 // Missing XML comment for publicly visible type or member");
 				writer.Indent();
-				docWriter.Write(writer, enumType.Documentation, enumType.RawName);
-				if (enumType.IsFlags)
-					writer.WriteLine("[Flags]");
-				var pub = enumType.IsPublic ? "public " : string.Empty;
-				var baseType = !(info.BaseType is null) ? $" : {info.BaseType}" : string.Empty;
-				writer.WriteLine($"{pub}enum {enumType.Name(idConverter)}{baseType} {{");
-
-				writer.Indent();
-				uint expectedValue = 0;
-				foreach (var value in enumType.Values) {
-					docWriter.Write(writer, value.Documentation, enumType.RawName);
-					if (enumType.IsFlags)
-						writer.WriteLine($"{value.Name(idConverter)} = 0x{value.Value:X8},");
-					else if (expectedValue != value.Value)
-						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
-					else
-						writer.WriteLine($"{value.Name(idConverter)},");
-					expectedValue = value.Value + 1;
-				}
+				WriteEnum(writer, enumType, info.BaseType);
 				writer.Unindent();
 
 				writer.WriteLine("}");
-				writer.Unindent();
-				writer.WriteLine("}");
-
 				if (!(info.Define is null))
 					writer.WriteLine("#endif");
 			}
+		}
+
+		void WriteEnum(FileWriter writer, PartialEnumFileInfo partialInfo, EnumType enumType) {
+			writer.Indent(2);
+			WriteEnum(writer, enumType, partialInfo.BaseType);
+			writer.Unindent(2);
 		}
 	}
 }

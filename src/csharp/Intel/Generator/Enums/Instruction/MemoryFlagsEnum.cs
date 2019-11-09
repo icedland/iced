@@ -24,35 +24,31 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Linq;
 
-namespace Generator.Constants {
-	interface IConstantsGenerator {
-		void Generate(ConstantsType constantsType);
-	}
+namespace Generator.Enums.Instruction {
+	static class MemoryFlagsEnum {
+		const string? documentation = null;
 
-	sealed class ConstantsGenerator {
-		readonly ProjectDirs projectDirs;
-
-		public ConstantsGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
-
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
-		};
-
-		public void Generate() {
-			// '-1' because of ConvertedFromEnum:
-			_ = ConstantsTypeKind.ConvertedFromEnum;// Make sure we know if it gets removed
-			if (allConstants.Select(a => a.Kind).ToHashSet().Count != Enum.GetValues(typeof(ConstantsTypeKind)).Length - 1)
-				throw new InvalidOperationException($"Missing at least one {nameof(ConstantsTypeKind)} value");
-
-			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpConstantsGenerator(projectDirs),
-				new Rust.RustConstantsGenerator(projectDirs),
-			};
-
-			foreach (var generator in generators) {
-				foreach (var constantsType in allConstants)
-					generator.Generate(constantsType);
-			}
+		/// <summary>
+		/// [1:0]	= Scale
+		/// [4:2]	= Size of displacement: 0, 1, 2, 4, 8
+		/// [7:5]	= Segment register prefix: none, es, cs, ss, ds, fs, gs, reserved
+		/// [14:8]	= Not used
+		/// [15]	= Broadcasted memory
+		/// </summary>
+		[Flags]
+		enum Enum : ushort {
+			ScaleMask				= 3,
+			DisplSizeShift			= 2,
+			DisplSizeMask			= 7,
+			SegmentPrefixShift		= 5,
+			SegmentPrefixMask		= 7,
+			// Unused bits here
+			Broadcast				= 0x8000,
 		}
+
+		static EnumValue[] GetValues() =>
+			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name)).ToArray();
+
+		public static readonly EnumType Instance = new EnumType("MemoryFlags", EnumKind.Instruction_MemoryFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

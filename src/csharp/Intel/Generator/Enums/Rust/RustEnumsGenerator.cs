@@ -24,6 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Generator.Constants;
+using Generator.Constants.Rust;
 using Generator.Documentation.Rust;
 using Generator.IO;
 
@@ -32,6 +34,7 @@ namespace Generator.Enums.Rust {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<EnumKind, PartialEnumFileInfo?> toPartialFileInfo;
 		readonly RustDocCommentWriter docWriter;
+		readonly RustConstantsWriter constantsWriter;
 
 		sealed class PartialEnumFileInfo {
 			public readonly string Id;
@@ -54,6 +57,7 @@ namespace Generator.Enums.Rust {
 		public RustEnumsGenerator(ProjectDirs projectDirs) {
 			idConverter = RustIdentifierConverter.Create();
 			docWriter = new RustDocCommentWriter(idConverter);
+			constantsWriter = new RustConstantsWriter(idConverter, docWriter);
 
 			const string attrCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
 			const string attrCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
@@ -91,6 +95,9 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(EnumKind.NasmInstrOpInfoFlags, null);
 			toPartialFileInfo.Add(EnumKind.RoundingControl, new PartialEnumFileInfo("RoundingControl", Path.Combine(projectDirs.RustDir, "common", "enums.rs"), attrCopyEq));
 			toPartialFileInfo.Add(EnumKind.OpKind, new PartialEnumFileInfo("OpKind", Path.Combine(projectDirs.RustDir, "common", "enums.rs"), attrCopyEqOrdHash));
+			toPartialFileInfo.Add(EnumKind.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(projectDirs.RustDir, "common", "instruction.rs"), attrCopyEqOrdHash));
+			toPartialFileInfo.Add(EnumKind.Instruction_OpKindFlags, new PartialEnumFileInfo("OpKindFlags", Path.Combine(projectDirs.RustDir, "common", "instruction.rs"), attrCopyEqOrdHash));
+			toPartialFileInfo.Add(EnumKind.Instruction_CodeFlags, new PartialEnumFileInfo("CodeFlags", Path.Combine(projectDirs.RustDir, "common", "instruction.rs"), attrCopyEqOrdHash));
 
 			if (toPartialFileInfo.Count != Enum.GetValues(typeof(EnumKind)).Length)
 				throw new InvalidOperationException();
@@ -106,6 +113,13 @@ namespace Generator.Enums.Rust {
 		}
 
 		void WriteEnum(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
+			if (enumType.IsFlags)
+				constantsWriter.Write(writer, enumType.ToConstantsType(ConstantKind.UInt32), Array.Empty<string>());
+			else
+				WriteEnumCore(writer, info, enumType);
+		}
+
+		void WriteEnumCore(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
 			docWriter.Write(writer, enumType.Documentation, enumType.RawName);
 			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);

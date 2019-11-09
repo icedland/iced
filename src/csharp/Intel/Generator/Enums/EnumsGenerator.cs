@@ -67,6 +67,9 @@ namespace Generator.Enums {
 			NasmInstrOpInfoFlagsEnum.Instance,
 			RoundingControlEnum.Instance,
 			OpKindEnum.Instance,
+			Instruction.CodeFlagsEnum.Instance,
+			Instruction.MemoryFlagsEnum.Instance,
+			Instruction.OpKindFlagsEnum.Instance,
 		};
 
 		public void Generate() {

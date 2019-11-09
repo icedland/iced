@@ -108,6 +108,8 @@ namespace Generator.Constants.CSharp {
 			switch (kind) {
 			case ConstantKind.Int32:
 				return "int";
+			case ConstantKind.UInt32:
+				return "uint";
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
 				return ConstantsUtils.GetEnumType(kind).Name(idConverter);
