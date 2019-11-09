@@ -24,19 +24,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using Generator.Enums;
 
-namespace Generator.Decoder {
-	sealed class EvexDecoderTableSerializer : DecoderTableSerializer {
-		public override string ClassName => "OpCodeHandlersTables_EVEX";
-		protected override object[] GetTablesToSerialize() => OpCodeHandlersTables_EVEX.GetHandlers();
-		protected override string[] GetTableIndexNames() => new string[] {
-			OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F38XX,
-			OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX,
-			OpCodeHandlersTables_EVEX.TwoByteHandlers_0FXX,
-		};
-		static readonly object handlerReferenceValue = EvexOpCodeHandlerKindEnum.Instance["HandlerReference"];
-		static readonly object arrayReferenceValue = EvexOpCodeHandlerKindEnum.Instance["ArrayReference"];
-		static readonly object invalid2Value = EvexOpCodeHandlerKindEnum.Instance["Invalid2"];
-		static readonly object dupValue = EvexOpCodeHandlerKindEnum.Instance["Dup"];
+namespace Generator.Decoder.CSharp {
+	abstract class VexCommonDecoderTableSerializer : DecoderTableSerializer {
+		static readonly object handlerReferenceValue = VexOpCodeHandlerKindEnum.Instance["HandlerReference"];
+		static readonly object arrayReferenceValue = VexOpCodeHandlerKindEnum.Instance["ArrayReference"];
+		static readonly object invalid2Value = VexOpCodeHandlerKindEnum.Instance["Invalid2"];
+		static readonly object dupValue = VexOpCodeHandlerKindEnum.Instance["Dup"];
 		protected override object GetNullValue() => throw new InvalidOperationException();
 		protected override object GetHandlerReferenceValue() => handlerReferenceValue;
 		protected override object GetArrayReferenceValue() => arrayReferenceValue;

@@ -21,25 +21,28 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using Generator.Enums;
+using System.IO;
+using Generator.IO;
 
-namespace Generator.Decoder {
-	interface IInstructionMemorySizesGenerator {
-		void Generate(ProjectDirs projectDirs, (EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data);
-	}
-
-	sealed class InstructionMemorySizesGenerator {
+namespace Generator.Decoder.CSharp {
+	sealed class CSharpDecoderTableGenerator : IDecoderTableGenerator {
 		readonly ProjectDirs projectDirs;
 
-		public InstructionMemorySizesGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public CSharpDecoderTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
 
 		public void Generate() {
-			var generators = new IInstructionMemorySizesGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpInstructionMemorySizesGenerator(),
+			var serializers = new DecoderTableSerializer[] {
+				new LegacyDecoderTableSerializer(),
+				new VexDecoderTableSerializer(),
+				new EvexDecoderTableSerializer(),
+				new XopDecoderTableSerializer(),
 			};
 
-			foreach (var generator in generators)
-				generator.Generate(projectDirs, InstructionMemorySizesTable.Table);
+			foreach (var serializer in serializers) {
+				var filename = Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.DecoderNamespace), serializer.ClassName + ".g.cs");
+				using (var writer = new FileWriter(FileUtils.OpenWrite(filename)))
+					serializer.Serialize(writer);
+			}
 		}
 	}
 }

@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Decoder {
+namespace Generator.Decoder.CSharp {
 	sealed class VexDecoderTableSerializer : VexCommonDecoderTableSerializer {
 		public override string ClassName => "OpCodeHandlersTables_VEX";
 		protected override object[] GetTablesToSerialize() => OpCodeHandlersTables_VEX.GetHandlers();

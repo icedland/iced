@@ -31,7 +31,7 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Constants.CSharp {
-	sealed class CSharpConstantsTypeGenerator : ConstantsTypeGenerator {
+	sealed class CSharpConstantsGenerator : IConstantsGenerator {
 		readonly Dictionary<ConstantsTypeKind, FullEnumFileInfo> toFullFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 
@@ -47,7 +47,7 @@ namespace Generator.Constants.CSharp {
 			}
 		}
 
-		public CSharpConstantsTypeGenerator(ProjectDirs projectDirs) {
+		public CSharpConstantsGenerator(ProjectDirs projectDirs) {
 			docWriter = new CSharpDocCommentWriter();
 
 			var baseDir = CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace);
@@ -55,7 +55,7 @@ namespace Generator.Constants.CSharp {
 			toFullFileInfo.Add(ConstantsTypeKind.IcedConstants, new FullEnumFileInfo(Path.Combine(baseDir, nameof(ConstantsTypeKind.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
 		}
 
-		public override void Generate(ConstantsType constantsType) {
+		public void Generate(ConstantsType constantsType) {
 			if (toFullFileInfo.TryGetValue(constantsType.Kind, out var fullFileInfo))
 				WriteFile(fullFileInfo, constantsType);
 			else

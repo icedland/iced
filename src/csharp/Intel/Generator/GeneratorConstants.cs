@@ -21,19 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System;
-using Generator.Enums;
-
-namespace Generator.Decoder {
-	abstract class VexCommonDecoderTableSerializer : DecoderTableSerializer {
-		static readonly object handlerReferenceValue = VexOpCodeHandlerKindEnum.Instance["HandlerReference"];
-		static readonly object arrayReferenceValue = VexOpCodeHandlerKindEnum.Instance["ArrayReference"];
-		static readonly object invalid2Value = VexOpCodeHandlerKindEnum.Instance["Invalid2"];
-		static readonly object dupValue = VexOpCodeHandlerKindEnum.Instance["Dup"];
-		protected override object GetNullValue() => throw new InvalidOperationException();
-		protected override object GetHandlerReferenceValue() => handlerReferenceValue;
-		protected override object GetArrayReferenceValue() => arrayReferenceValue;
-		protected override object GetInvalid2Value() => invalid2Value;
-		protected override object GetDupValue() => dupValue;
+namespace Generator {
+	static class GeneratorConstants {
+		public const int NumberOfFormatters = 4;
 	}
 }

@@ -34,7 +34,7 @@ namespace Generator.Decoder {
 		public InstructionOpCountsGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
 
 		public void Generate() {
-			var generators = new IInstructionOpCountsGenerator[] {
+			var generators = new IInstructionOpCountsGenerator[(int)TargetLanguage.Last] {
 				new CSharp.CSharpInstructionOpCountsGenerator(),
 			};
 

@@ -23,7 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using Generator.Enums;
 
-namespace Generator.Decoder {
+namespace Generator.Decoder.CSharp {
 	sealed class LegacyDecoderTableSerializer : DecoderTableSerializer {
 		public override string ClassName => "OpCodeHandlersTables_Legacy";
 		protected override object[] GetTablesToSerialize() => OpCodeHandlersTables_Legacy.GetHandlers();

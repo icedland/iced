@@ -34,7 +34,7 @@ namespace Generator.Decoder {
 		public MnemonicsTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
 
 		public void Generate() {
-			var generators = new IMnemonicsTableGenerator[] {
+			var generators = new IMnemonicsTableGenerator[(int)TargetLanguage.Last] {
 				new CSharp.CSharpMnemonicsTableGenerator(),
 			};
 

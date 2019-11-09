@@ -21,28 +21,23 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.IO;
-using Generator.IO;
-
 namespace Generator.Decoder {
+	interface IDecoderTableGenerator {
+		void Generate();
+	}
+
 	sealed class DecoderTableGenerator {
 		readonly ProjectDirs projectDirs;
 
 		public DecoderTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
 
 		public void Generate() {
-			var serializers = new DecoderTableSerializer[] {
-				new LegacyDecoderTableSerializer(),
-				new VexDecoderTableSerializer(),
-				new EvexDecoderTableSerializer(),
-				new XopDecoderTableSerializer(),
+			var generators = new IDecoderTableGenerator[(int)TargetLanguage.Last] {
+				new CSharp.CSharpDecoderTableGenerator(projectDirs),
 			};
 
-			foreach (var serializer in serializers) {
-				var filename = Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.DecoderNamespace), serializer.ClassName + ".g.cs");
-				using (var writer = new FileWriter(FileUtils.OpenWrite(filename)))
-					serializer.Serialize(writer);
-			}
+			foreach (var generator in generators)
+				generator.Generate();
 		}
 	}
 }

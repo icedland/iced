@@ -25,8 +25,8 @@ using System;
 using System.Linq;
 
 namespace Generator.Constants {
-	abstract class ConstantsTypeGenerator {
-		public abstract void Generate(ConstantsType constantsType);
+	interface IConstantsGenerator {
+		void Generate(ConstantsType constantsType);
 	}
 
 	sealed class ConstantsGenerator {
@@ -42,8 +42,8 @@ namespace Generator.Constants {
 			if (allConstants.Select(a => a.Kind).ToHashSet().Count != Enum.GetValues(typeof(ConstantsTypeKind)).Length)
 				throw new InvalidOperationException($"Missing at least one {nameof(ConstantsTypeKind)} value");
 
-			var generators = new ConstantsTypeGenerator[] {
-				new CSharp.CSharpConstantsTypeGenerator(projectDirs),
+			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
+				new CSharp.CSharpConstantsGenerator(projectDirs),
 			};
 
 			foreach (var generator in generators) {

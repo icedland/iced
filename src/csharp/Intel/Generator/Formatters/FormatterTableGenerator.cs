@@ -21,48 +21,23 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
-using System.IO;
-using Generator.IO;
-
 namespace Generator.Formatters {
+	interface IFormatterTableGenerator {
+		void Generate();
+	}
+
 	sealed class FormatterTableGenerator {
 		readonly ProjectDirs projectDirs;
 
 		public FormatterTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
 
 		public void Generate() {
-			var serializers = new FormatterTableSerializer[] {
-#if !NO_GAS_FORMATTER && !NO_FORMATTER
-				new CSharp.GasCSharpFormatterTableSerializer(),
-#endif
-#if !NO_INTEL_FORMATTER && !NO_FORMATTER
-				new CSharp.IntelCSharpFormatterTableSerializer(),
-#endif
-#if !NO_MASM_FORMATTER && !NO_FORMATTER
-				new CSharp.MasmCSharpFormatterTableSerializer(),
-#endif
-#if !NO_NASM_FORMATTER && !NO_FORMATTER
-				new CSharp.NasmCSharpFormatterTableSerializer(),
-#endif
+			var generators = new IFormatterTableGenerator[(int)TargetLanguage.Last] {
+				new CSharp.CSharpFormatterTableGenerator(projectDirs),
 			};
 
-			const string FormatterStringsTableName = "FormatterStringsTable";
-			var stringsTable = new StringsTableImpl(CSharpConstants.FormatterNamespace, FormatterStringsTableName, CSharpConstants.AnyFormatterDefine);
-
-			foreach (var serializer in serializers)
-				serializer.Initialize(stringsTable);
-
-			stringsTable.Freeze();
-
-			using (var writer = new FileWriter(FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.FormatterNamespace), FormatterStringsTableName + ".g.cs"))))
-				stringsTable.Serialize(writer);
-
-			foreach (var serializer in serializers) {
-				using (var writer = new FileWriter(FileUtils.OpenWrite(serializer.GetFilename(projectDirs))))
-					serializer.Serialize(writer, stringsTable);
-			}
+			foreach (var generator in generators)
+				generator.Generate();
 		}
 	}
 }
-#endif

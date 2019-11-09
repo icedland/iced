@@ -21,25 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using Generator.Enums;
+namespace Generator {
+	enum TargetLanguage {
+		CSharp,
 
-namespace Generator.Decoder {
-	interface IInstructionMemorySizesGenerator {
-		void Generate(ProjectDirs projectDirs, (EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data);
-	}
-
-	sealed class InstructionMemorySizesGenerator {
-		readonly ProjectDirs projectDirs;
-
-		public InstructionMemorySizesGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
-
-		public void Generate() {
-			var generators = new IInstructionMemorySizesGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpInstructionMemorySizesGenerator(),
-			};
-
-			foreach (var generator in generators)
-				generator.Generate(projectDirs, InstructionMemorySizesTable.Table);
-		}
+		Last,
 	}
 }

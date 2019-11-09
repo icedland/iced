@@ -27,7 +27,7 @@ using System.Text;
 using Generator.Enums;
 using Generator.IO;
 
-namespace Generator.Decoder {
+namespace Generator.Decoder.CSharp {
 	abstract class DecoderTableSerializer {
 		public abstract string ClassName { get; }
 

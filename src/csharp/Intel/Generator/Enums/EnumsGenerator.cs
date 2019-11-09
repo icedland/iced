@@ -25,8 +25,8 @@ using System;
 using System.Linq;
 
 namespace Generator.Enums {
-	abstract class EnumGenerator {
-		public abstract void Generate(EnumType enumType);
+	interface IEnumsGenerator {
+		void Generate(EnumType enumType);
 	}
 
 	sealed class EnumsGenerator {
@@ -71,7 +71,7 @@ namespace Generator.Enums {
 			if (allEnums.Select(a => a.EnumKind).ToHashSet().Count != Enum.GetValues(typeof(EnumKind)).Length)
 				throw new InvalidOperationException($"Missing at least one {nameof(EnumKind)} value");
 
-			var generators = new EnumGenerator[] {
+			var generators = new IEnumsGenerator[(int)TargetLanguage.Last] {
 				new CSharp.CSharpEnumsGenerator(projectDirs),
 			};
 

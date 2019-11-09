@@ -21,64 +21,25 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System;
-using System.IO;
-using System.Linq;
 using Generator.Enums;
-using Generator.IO;
 
 namespace Generator.InstructionInfo {
+	interface ICpuidFeatureTableGenerator {
+		void Generate(EnumValue[][] cpuidFeatures);
+	}
+
 	sealed class CpuidFeatureTableGenerator {
 		readonly ProjectDirs projectDirs;
 
 		public CpuidFeatureTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
 
 		public void Generate() {
-			var cpuidFeatures = CpuidFeatureInternalEnum.AllCombinations;
-			var header = new byte[(cpuidFeatures.Length + 7) / 8];
-			for (int i = 0; i < cpuidFeatures.Length; i++) {
-				int len = cpuidFeatures[i].Length;
-				if (len < 1 || len > 2)
-					throw new InvalidOperationException();
-				header[i / 8] |= (byte)((len - 1) << (i % 8));
-			}
+			var generators = new ICpuidFeatureTableGenerator[(int)TargetLanguage.Last] {
+				new CSharp.CSharpCpuidFeatureTableGenerator(projectDirs),
+			};
 
-			using (var writer = new FileWriter(FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.InstructionInfoNamespace), "CpuidFeatureInternalData.g.cs")))) {
-				writer.WriteCSharpHeader();
-				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
-				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
-				writer.Indent();
-				writer.WriteLine("static partial class CpuidFeatureInternalData {");
-				writer.Indent();
-				writer.WriteLine("static byte[] GetGetCpuidFeaturesData() =>");
-				writer.Indent();
-				writer.WriteLine("new byte[] {");
-				writer.Indent();
-
-				writer.WriteCommentLine("Header");
-				foreach (var b in header) {
-					writer.WriteByte(b);
-					writer.WriteLine();
-				}
-				writer.WriteLine();
-				foreach (var info in cpuidFeatures) {
-					foreach (var f in info) {
-						if ((uint)f.Value > byte.MaxValue)
-							throw new InvalidOperationException();
-						writer.WriteByte((byte)f.Value);
-					}
-					writer.WriteCommentLine(string.Join(", ", info.Select(a => a.Name).ToArray()));
-				}
-
-				writer.Unindent();
-				writer.WriteLine("};");
-				writer.Unindent();
-				writer.Unindent();
-				writer.WriteLine("}");
-				writer.Unindent();
-				writer.WriteLine("}");
-				writer.WriteLine("#endif");
-			}
+			foreach (var generator in generators)
+				generator.Generate(CpuidFeatureInternalEnum.AllCombinations);
 		}
 	}
 }

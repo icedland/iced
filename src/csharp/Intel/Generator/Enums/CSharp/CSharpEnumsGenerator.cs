@@ -28,7 +28,7 @@ using Generator.Documentation.CSharp;
 using Generator.IO;
 
 namespace Generator.Enums.CSharp {
-	sealed class CSharpEnumsGenerator : EnumGenerator {
+	sealed class CSharpEnumsGenerator : IEnumsGenerator {
 		readonly Dictionary<EnumKind, FullEnumFileInfo> toFullFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 
@@ -86,7 +86,7 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(EnumKind.NasmInstrOpInfoFlags, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.NasmFormatterNamespace), "InstrOpInfoFlags.g.cs"), CSharpConstants.NasmFormatterNamespace, CSharpConstants.NasmFormatterDefine, "uint"));
 		}
 
-		public override void Generate(EnumType enumType) {
+		public void Generate(EnumType enumType) {
 			if (toFullFileInfo.TryGetValue(enumType.EnumKind, out var fullFileInfo))
 				WriteFile(fullFileInfo, enumType);
 			else
