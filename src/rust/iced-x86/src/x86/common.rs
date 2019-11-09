@@ -33,10 +33,10 @@ mod mnemonic;
 mod mnemonics;
 mod register;
 
-pub use code::*;
-pub use enums::*;
-pub use icedfeatures::*;
-pub use instruction::*;
-pub use memorysize::*;
-pub use mnemonic::*;
-pub use register::*;
+pub use self::code::*;
+pub use self::enums::*;
+pub use self::icedfeatures::*;
+pub use self::instruction::*;
+pub use self::memorysize::*;
+pub use self::mnemonic::*;
+pub use self::register::*;

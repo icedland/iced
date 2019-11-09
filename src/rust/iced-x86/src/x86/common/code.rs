@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::mnemonics;
 use super::Mnemonic;
-use std::hash::Hash;
 use std::mem;
 
 // GENERATOR-BEGIN: Code

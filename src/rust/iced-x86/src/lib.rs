@@ -24,6 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! iced is an x86/x64 disassembler, decoder, encoder written in Rust
 
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
+#![allow(unknown_lints)]
+#![allow(clippy::cast_lossless)]
 #![deny(absolute_paths_not_starting_with_crate)]
 #![deny(deprecated_in_future)]
 #![deny(keyword_idents)]
@@ -35,6 +37,5 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![deny(unused_lifetimes)]
 #![deny(unused_qualifications)]
 #![deny(unused_results)]
-#![allow(clippy::cast_lossless)]
 
 pub mod x86;

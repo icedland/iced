@@ -22,10 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::icedconstants::IcedConstants;
-use std::hash::Hash;
 
 #[cfg(feature = "INSTR_INFO")]
-pub use info::*;
+pub use self::info::*;
 
 #[cfg(feature = "INSTR_INFO")]
 mod info {
