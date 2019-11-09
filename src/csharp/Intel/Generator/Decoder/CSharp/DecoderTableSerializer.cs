@@ -57,7 +57,7 @@ namespace Generator.Decoder.CSharp {
 		protected abstract string[] GetTableIndexNames();
 
 		public void Serialize(FileWriter writer) {
-			writer.WriteCSharpHeader();
+			writer.WriteFileHeader();
 			writer.WriteLine($"#if {CSharpConstants.DecoderDefine}");
 			writer.WriteLine($"namespace {CSharpConstants.DecoderNamespace} {{");
 			writer.Indent();

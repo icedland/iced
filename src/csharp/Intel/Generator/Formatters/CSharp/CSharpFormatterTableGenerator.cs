@@ -55,11 +55,11 @@ namespace Generator.Formatters.CSharp {
 
 			stringsTable.Freeze();
 
-			using (var writer = new FileWriter(FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.FormatterNamespace), FormatterStringsTableName + ".g.cs"))))
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.FormatterNamespace), FormatterStringsTableName + ".g.cs"))))
 				stringsTable.Serialize(writer);
 
 			foreach (var serializer in serializers) {
-				using (var writer = new FileWriter(FileUtils.OpenWrite(serializer.GetFilename(projectDirs))))
+				using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(serializer.GetFilename(projectDirs))))
 					serializer.Serialize(writer, stringsTable);
 			}
 		}

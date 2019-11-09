@@ -110,7 +110,7 @@ namespace Generator.Formatters {
 			foreach (var info in sortedInfos)
 				maxStringLength = Math.Max(maxStringLength, info.String.Length);
 
-			writer.WriteCSharpHeader();
+			writer.WriteFileHeader();
 			if (!(preprocessorExpr is null))
 				writer.WriteLine($"#if {preprocessorExpr}");
 			writer.WriteLine($"namespace {@namespace} {{");

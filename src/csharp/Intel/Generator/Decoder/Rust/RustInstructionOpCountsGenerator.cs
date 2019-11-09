@@ -21,7 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System.IO;
+using Generator.Constants;
 using Generator.Enums;
+using Generator.IO;
 
 namespace Generator.Decoder.Rust {
 	sealed class RustInstructionOpCountsGenerator : IInstructionOpCountsGenerator {
@@ -32,7 +35,20 @@ namespace Generator.Decoder.Rust {
 		}
 
 		public void Generate((EnumValue codeEnum, int count)[] data) {
-			//TODO:
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "common", "instructionopcounts.rs")))) {
+				writer.WriteFileHeader();
+				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name};");
+				writer.WriteLine();
+				writer.WriteLine("#[rustfmt::skip]");
+				writer.WriteLine($"pub(crate) static OP_COUNT: &[u8; {IcedConstantsType.Instance.Name}::NUMBER_OF_CODE_VALUES as usize] = &[");
+				writer.Indent();
+
+				foreach (var d in data)
+					writer.WriteLine($"{d.count},// {d.codeEnum.Name}");
+
+				writer.Unindent();
+				writer.WriteLine("];");
+			}
 		}
 	}
 }

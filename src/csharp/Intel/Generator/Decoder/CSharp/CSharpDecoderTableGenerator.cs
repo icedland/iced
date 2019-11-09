@@ -40,7 +40,7 @@ namespace Generator.Decoder.CSharp {
 
 			foreach (var serializer in serializers) {
 				var filename = Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.DecoderNamespace), serializer.ClassName + ".g.cs");
-				using (var writer = new FileWriter(FileUtils.OpenWrite(filename)))
+				using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename)))
 					serializer.Serialize(writer);
 			}
 		}

@@ -64,8 +64,8 @@ namespace Generator.Constants.CSharp {
 
 		void WriteFile(FullEnumFileInfo info, ConstantsType constantsType) {
 			var sb = new StringBuilder();
-			using (var writer = new FileWriter(FileUtils.OpenWrite(info.Filename))) {
-				writer.WriteCSharpHeader();
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(info.Filename))) {
+				writer.WriteFileHeader();
 				if (!(info.Define is null))
 					writer.WriteLine($"#if {info.Define}");
 

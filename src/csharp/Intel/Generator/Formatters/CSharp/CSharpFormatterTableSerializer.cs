@@ -41,7 +41,7 @@ namespace Generator.Formatters.CSharp {
 			Path.Combine(CSharpConstants.GetDirectory(projectDirs, Namespace), "InstrInfos.g.cs");
 
 		public override void Serialize(FileWriter writer, StringsTable stringsTable) {
-			writer.WriteCSharpHeader();
+			writer.WriteFileHeader();
 			writer.WriteLine($"#if {Define}");
 			writer.WriteLine($"namespace {Namespace} {{");
 			writer.Indent();

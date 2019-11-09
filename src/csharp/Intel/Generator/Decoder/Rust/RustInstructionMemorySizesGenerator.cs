@@ -21,7 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
+using System.IO;
+using Generator.Constants;
 using Generator.Enums;
+using Generator.IO;
 
 namespace Generator.Decoder.Rust {
 	sealed class RustInstructionMemorySizesGenerator : IInstructionMemorySizesGenerator {
@@ -31,7 +35,42 @@ namespace Generator.Decoder.Rust {
 			this.projectDirs = projectDirs;
 
 		public void Generate((EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data) {
-			//TODO:
+			var memSizeName = MemorySizeEnum.Instance.Name;
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "common", "instructionmemorysizes.rs")))) {
+				writer.WriteFileHeader();
+				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name};");
+				writer.WriteLine($"use super::{MemorySizeEnum.Instance.Name};");
+				writer.WriteLine();
+				writer.WriteLine("// 0 = memory size");
+				writer.WriteLine("// 1 = broadcast memory size");
+				writer.WriteLine("#[rustfmt::skip]");
+				writer.WriteLine($"pub(crate) static SIZES: &[u8; ({IcedConstantsType.Instance.Name}::NUMBER_OF_CODE_VALUES * 2) as usize] = &[");
+				writer.Indent();
+
+				foreach (var d in data) {
+					if (d.mem.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					string value;
+					if (d.mem.Value == 0)
+						value = "0";
+					else
+						value = $"{memSizeName}::{d.mem.Name} as u8";
+					writer.WriteLine($"{value},// {d.codeEnum.Name}");
+				}
+				foreach (var d in data) {
+					if (d.bcst.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					string value;
+					if (d.bcst.Value == 0)
+						value = "0";
+					else
+						value = $"{memSizeName}::{d.bcst.Name} as u8";
+					writer.WriteLine($"{value},// {d.codeEnum.Name}");
+				}
+
+				writer.Unindent();
+				writer.WriteLine("];");
+			}
 		}
 	}
 }

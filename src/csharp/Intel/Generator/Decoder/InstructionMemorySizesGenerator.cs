@@ -21,6 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
+using System.Linq;
 using Generator.Enums;
 
 namespace Generator.Decoder {
@@ -39,8 +41,12 @@ namespace Generator.Decoder {
 				new Rust.RustInstructionMemorySizesGenerator(projectDirs),
 			};
 
+			var data = InstructionMemorySizesTable.Table;
+			if (data.Select(a => a.codeEnum).ToHashSet<EnumValue>().Count != CodeEnum.Instance.Values.Length)
+				throw new InvalidOperationException();
+
 			foreach (var generator in generators)
-				generator.Generate(InstructionMemorySizesTable.Table);
+				generator.Generate(data);
 		}
 	}
 }

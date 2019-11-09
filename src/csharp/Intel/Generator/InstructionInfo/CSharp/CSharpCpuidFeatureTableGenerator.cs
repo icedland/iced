@@ -42,8 +42,8 @@ namespace Generator.InstructionInfo.CSharp {
 				header[i / 8] |= (byte)((len - 1) << (i % 8));
 			}
 
-			using (var writer = new FileWriter(FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.InstructionInfoNamespace), "CpuidFeatureInternalData.g.cs")))) {
-				writer.WriteCSharpHeader();
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.InstructionInfoNamespace), "CpuidFeatureInternalData.g.cs")))) {
+				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
 				writer.Indent();

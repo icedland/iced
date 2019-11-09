@@ -1,0 +1,30 @@
+[package]
+name = "iced-x86"
+version = "1.4.0"
+authors = ["0xd4d <de4dot@gmail.com>"]
+edition = "2018"
+license = "MIT"
+description = "iced is an x86/x64 disassembler, decoder, encoder written in Rust"
+homepage = "https://github.com/0xd4d/iced"
+repository = "https://github.com/0xd4d/iced"
+documentation = "https://docs.rs/iced-x86/"
+readme = "README.md"
+# At most 5 keywords can be used
+keywords = ["disassembler", "x86", "amd64", "x86_64", "decoder"]
+categories = ["development-tools::debugging"]
+
+[badges]
+codecov = { repository = "https://github.com/0xd4d/iced", branch = "master", service = "github" }
+maintenance = { status = "actively-developed" }
+
+[features]
+default = ["DECODER", "ENCODER", "INSTR_INFO", "ALL_FORMATTERS", "GAS_FORMATTER",
+			"INTEL_FORMATTER", "MASM_FORMATTER", "NASM_FORMATTER"]
+DECODER = []
+ENCODER = []
+INSTR_INFO = []
+ALL_FORMATTERS = []
+GAS_FORMATTER = []
+INTEL_FORMATTER = []
+MASM_FORMATTER = []
+NASM_FORMATTER = []

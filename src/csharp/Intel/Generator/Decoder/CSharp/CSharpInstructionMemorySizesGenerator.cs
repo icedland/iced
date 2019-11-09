@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.IO;
-using System.Linq;
 using Generator.Enums;
 using Generator.IO;
 
@@ -35,13 +34,10 @@ namespace Generator.Decoder.CSharp {
 			this.projectDirs = projectDirs;
 
 		public void Generate((EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data) {
-			if (data.Select(a => a.codeEnum).ToHashSet().Count != CodeEnum.Instance.Values.Length)
-				throw new InvalidOperationException();
-
 			const string ClassName = "InstructionMemorySizes";
 			var memSizeName = MemorySizeEnum.Instance.Name;
-			using (var writer = new FileWriter(FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
-				writer.WriteCSharpHeader();
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
+				writer.WriteFileHeader();
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				writer.Indent();

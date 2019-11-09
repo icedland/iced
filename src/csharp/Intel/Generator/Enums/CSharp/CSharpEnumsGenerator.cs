@@ -84,6 +84,9 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(EnumKind.NasmSizeOverride, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.NasmFormatterNamespace), "SizeOverride.g.cs"), CSharpConstants.NasmFormatterNamespace, CSharpConstants.NasmFormatterDefine));
 			toFullFileInfo.Add(EnumKind.NasmBranchSizeInfo, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.NasmFormatterNamespace), "BranchSizeInfo.g.cs"), CSharpConstants.NasmFormatterNamespace, CSharpConstants.NasmFormatterDefine));
 			toFullFileInfo.Add(EnumKind.NasmInstrOpInfoFlags, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.NasmFormatterNamespace), "InstrOpInfoFlags.g.cs"), CSharpConstants.NasmFormatterNamespace, CSharpConstants.NasmFormatterDefine, "uint"));
+
+			if (toFullFileInfo.Count != Enum.GetValues(typeof(EnumKind)).Length)
+				throw new InvalidOperationException();
 		}
 
 		public void Generate(EnumType enumType) {
@@ -94,8 +97,8 @@ namespace Generator.Enums.CSharp {
 		}
 
 		void WriteFile(FullEnumFileInfo info, EnumType enumType) {
-			using (var writer = new FileWriter(FileUtils.OpenWrite(info.Filename))) {
-				writer.WriteCSharpHeader();
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(info.Filename))) {
+				writer.WriteFileHeader();
 				if (!(info.Define is null))
 					writer.WriteLine($"#if {info.Define}");
 
