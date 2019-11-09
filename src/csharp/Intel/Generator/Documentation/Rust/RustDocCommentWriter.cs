@@ -62,6 +62,8 @@ namespace Generator.Documentation.Rust {
 		}
 
 		string GetStringAndReset() {
+			while (sb.Length > 0 && char.IsWhiteSpace(sb[sb.Length - 1]))
+				sb.Length--;
 			var s = sb.ToString();
 			sb.Clear();
 			return s;
@@ -80,7 +82,8 @@ namespace Generator.Documentation.Rust {
 					if (!string.IsNullOrEmpty(info.value) && !string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					writer.WriteLine(GetStringAndReset());
-					writer.WriteLine(docComment);
+					sb.Append(docComment);
+					writer.WriteLine(GetStringAndReset());
 					sb.Append(docComment);
 					break;
 				case TokenKind.String:

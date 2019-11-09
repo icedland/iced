@@ -103,9 +103,9 @@ namespace Generator.Enums.Rust {
 				throw new InvalidOperationException();
 		}
 
-		void WriteEnum(FileWriter writer, PartialEnumFileInfo partialInfo, EnumType enumType) {
+		void WriteEnum(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
 			docWriter.Write(writer, enumType.Documentation, enumType.RawName);
-			foreach (var attr in partialInfo.Attributes)
+			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);
 			if (enumType.IsPublic && enumType.IsMissingDocs)
 				writer.WriteLine("#[allow(missing_docs)]");

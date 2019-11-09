@@ -63,6 +63,8 @@ namespace Generator.Documentation.CSharp {
 		}
 
 		string GetStringAndReset() {
+			while (sb.Length > 0 && char.IsWhiteSpace(sb[sb.Length - 1]))
+				sb.Length--;
 			var s = sb.ToString();
 			sb.Clear();
 			return s;
@@ -81,7 +83,8 @@ namespace Generator.Documentation.CSharp {
 						throw new InvalidOperationException();
 					sb.Append("<br/>");
 					writer.WriteLine(GetStringAndReset());
-					writer.WriteLine("/// <br/>");
+					sb.Append("/// <br/>");
+					writer.WriteLine(GetStringAndReset());
 					sb.Append("/// ");
 					break;
 				case TokenKind.String:

@@ -27,21 +27,20 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Generator.Documentation.CSharp;
-using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Constants.CSharp {
 	sealed class CSharpConstantsGenerator : IConstantsGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly Dictionary<ConstantsTypeKind, FullEnumFileInfo> toFullFileInfo;
+		readonly Dictionary<ConstantsTypeKind, FullConstantsFileInfo> toFullFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 
-		sealed class FullEnumFileInfo {
+		sealed class FullConstantsFileInfo {
 			public readonly string Filename;
 			public readonly string Namespace;
 			public readonly string? Define;
 
-			public FullEnumFileInfo(string filename, string @namespace, string? define = null) {
+			public FullConstantsFileInfo(string filename, string @namespace, string? define = null) {
 				Filename = filename;
 				Namespace = @namespace;
 				Define = define;
@@ -53,8 +52,8 @@ namespace Generator.Constants.CSharp {
 			docWriter = new CSharpDocCommentWriter(idConverter);
 
 			var baseDir = CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace);
-			toFullFileInfo = new Dictionary<ConstantsTypeKind, FullEnumFileInfo>();
-			toFullFileInfo.Add(ConstantsTypeKind.IcedConstants, new FullEnumFileInfo(Path.Combine(baseDir, nameof(ConstantsTypeKind.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
+			toFullFileInfo = new Dictionary<ConstantsTypeKind, FullConstantsFileInfo>();
+			toFullFileInfo.Add(ConstantsTypeKind.IcedConstants, new FullConstantsFileInfo(Path.Combine(baseDir, nameof(ConstantsTypeKind.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
 		}
 
 		public void Generate(ConstantsType constantsType) {
@@ -64,7 +63,7 @@ namespace Generator.Constants.CSharp {
 				throw new InvalidOperationException();
 		}
 
-		void WriteFile(FullEnumFileInfo info, ConstantsType constantsType) {
+		void WriteFile(FullConstantsFileInfo info, ConstantsType constantsType) {
 			var sb = new StringBuilder();
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(info.Filename))) {
 				writer.WriteFileHeader();
@@ -105,24 +104,13 @@ namespace Generator.Constants.CSharp {
 			}
 		}
 
-		static EnumType GetEnumType(ConstantKind kind) {
-			switch (kind) {
-			case ConstantKind.Register:
-				return RegisterEnum.Instance;
-			case ConstantKind.MemorySize:
-				return MemorySizeEnum.Instance;
-			default:
-				throw new InvalidOperationException();
-			}
-		}
-
 		string GetType(ConstantKind kind) {
 			switch (kind) {
 			case ConstantKind.Int32:
 				return "int";
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
-				return GetEnumType(kind).Name(idConverter);
+				return ConstantsUtils.GetEnumType(kind).Name(idConverter);
 			default:
 				throw new InvalidOperationException();
 			}
@@ -143,7 +131,7 @@ namespace Generator.Constants.CSharp {
 		}
 
 		string GetValueString(Constant constant) {
-			var enumType = GetEnumType(constant.Kind);
+			var enumType = ConstantsUtils.GetEnumType(constant.Kind);
 			var enumValue = enumType.Values.First(a => a.Value == constant.Value);
 			return $"{enumType.Name(idConverter)}.{enumValue.Name(idConverter)}";
 		}

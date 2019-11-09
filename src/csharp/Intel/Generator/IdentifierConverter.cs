@@ -39,11 +39,14 @@ namespace Generator {
 
 		string ToSnakeCase(string name, bool upper) {
 			sb.Clear();
+			bool prevWasUpper = false;
 			foreach (var c in name) {
-				if (char.IsUpper(c)) {
+				bool isUpper = char.IsUpper(c);
+				if (isUpper && !prevWasUpper) {
 					if (sb.Length > 0)
 						sb.Append('_');
 				}
+				prevWasUpper = isUpper;
 				sb.Append(upper ? char.ToUpperInvariant(c) : char.ToLowerInvariant(c));
 			}
 			return sb.ToString();
