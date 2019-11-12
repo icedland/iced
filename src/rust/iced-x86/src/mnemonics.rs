@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::icedconstants::IcedConstants;
 use super::Mnemonic;
 
-#[rustfmt::skip]
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(crate) static TO_MNEMONIC: &[u16; IcedConstants::NUMBER_OF_CODE_VALUES as usize] = &[
 	Mnemonic::INVALID as u16,// INVALID
 	Mnemonic::Add as u16,// Add_rm8_r8

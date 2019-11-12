@@ -45,7 +45,7 @@ namespace Generator.Decoder.Rust {
 				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");
 				writer.WriteLine($"use super::{MnemonicEnum.Instance.Name(idConverter)};");
 				writer.WriteLine();
-				writer.WriteLine("#[rustfmt::skip]");
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"pub(crate) static TO_MNEMONIC: &[u16; {IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} as usize] = &[");
 				writer.Indent();
 

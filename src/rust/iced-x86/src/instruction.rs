@@ -23,6 +23,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #![allow(dead_code)] //TODO: REMOVE
 
+extern crate std;
+
 use super::icedconstants::IcedConstants;
 use super::{instructionmemorysizes, instructionopcounts, Code, CodeSize, MemorySize, Mnemonic, OpKind, Register, RoundingControl};
 use std::fmt;
@@ -100,7 +102,7 @@ pub struct Instruction {
 	reg3: u8,          // Register
 }
 
-#[allow(clippy::len_without_is_empty)]
+#[cfg_attr(feature = "cargo-clippy", allow(clippy::len_without_is_empty))]
 impl Instruction {
 	/// Creates an empty `Instruction` (all fields are cleared)
 	#[inline]
@@ -2093,7 +2095,7 @@ impl PartialEq<Instruction> for Instruction {
 
 #[cfg(any(feature = "MASM_FORMATTER", feature = "ALL_FORMATTERS"))]
 impl fmt::Display for Instruction {
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		f.write_str("NYI")?; //TODO:
 		Ok(())
 	}
@@ -2103,7 +2105,7 @@ impl fmt::Display for Instruction {
 	any(feature = "NASM_FORMATTER", feature = "ALL_FORMATTERS")
 ))]
 impl fmt::Display for Instruction {
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		f.write_str("NYI")?; //TODO:
 		Ok(())
 	}
@@ -2114,7 +2116,7 @@ impl fmt::Display for Instruction {
 	any(feature = "INTEL_FORMATTER", feature = "ALL_FORMATTERS")
 ))]
 impl fmt::Display for Instruction {
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		f.write_str("NYI")?; //TODO:
 		Ok(())
 	}
@@ -2126,7 +2128,7 @@ impl fmt::Display for Instruction {
 	any(feature = "GAS_FORMATTER", feature = "ALL_FORMATTERS")
 ))]
 impl fmt::Display for Instruction {
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		f.write_str("NYI")?; //TODO:
 		Ok(())
 	}

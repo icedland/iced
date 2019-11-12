@@ -41,7 +41,7 @@ namespace Generator.Decoder.Rust {
 				writer.WriteFileHeader();
 				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");
 				writer.WriteLine();
-				writer.WriteLine("#[rustfmt::skip]");
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"pub(crate) static OP_COUNT: &[u8; {IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} as usize] = &[");
 				writer.Indent();
 

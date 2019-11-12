@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
 #![allow(unknown_lints)]
-#![allow(clippy::cast_lossless)]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
 #![deny(absolute_paths_not_starting_with_crate)]
 #![deny(deprecated_in_future)]
 #![deny(keyword_idents)]
