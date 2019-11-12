@@ -41,7 +41,7 @@ namespace Generator {
 					path = GetAndVerifyPath(baseDir, "csharp", "Intel", "Iced");
 					break;
 				case TargetLanguage.Rust:
-					path = GetAndVerifyPath(baseDir, "rust", "iced-x86", "src", "x86");
+					path = GetAndVerifyPath(baseDir, "rust", "iced-x86", "src");
 					break;
 
 				case TargetLanguage.Last:

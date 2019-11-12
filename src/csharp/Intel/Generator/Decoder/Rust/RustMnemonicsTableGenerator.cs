@@ -39,7 +39,7 @@ namespace Generator.Decoder.Rust {
 
 		public void Generate((EnumValue codeEnum, EnumValue mnemonicEnum)[] data) {
 			var mnemonicName = MnemonicEnum.Instance.Name(idConverter);
-			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "common", "mnemonics.rs")))) {
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "mnemonics.rs")))) {
 				writer.WriteFileHeader();
 
 				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");

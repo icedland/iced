@@ -37,7 +37,7 @@ namespace Generator.Decoder.Rust {
 		}
 
 		public void Generate((EnumValue codeEnum, int count)[] data) {
-			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "common", "instructionopcounts.rs")))) {
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "instructionopcounts.rs")))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");
 				writer.WriteLine();

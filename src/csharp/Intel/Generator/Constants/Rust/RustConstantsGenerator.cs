@@ -55,7 +55,7 @@ namespace Generator.Constants.Rust {
 			constantsWriter = new RustConstantsWriter(idConverter, new RustDocCommentWriter(idConverter));
 
 			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo>();
-			toPartialFileInfo.Add(TypeIds.IcedConstants, new PartialConstantsFileInfo("IcedConstants", Path.Combine(projectDirs.RustDir, "common", "icedconstants.rs")));
+			toPartialFileInfo.Add(TypeIds.IcedConstants, new PartialConstantsFileInfo("IcedConstants", Path.Combine(projectDirs.RustDir, "icedconstants.rs")));
 		}
 
 		public void Generate(ConstantsType constantsType) {

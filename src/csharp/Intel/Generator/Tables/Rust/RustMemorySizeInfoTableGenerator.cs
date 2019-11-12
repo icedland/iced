@@ -36,7 +36,7 @@ namespace Generator.Tables.Rust {
 		}
 
 		public void Generate(MemorySizeInfo[] infos) {
-			var filename = Path.Combine(projectDirs.RustDir, "common", "memorysize.rs");
+			var filename = Path.Combine(projectDirs.RustDir, "memorysize.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "MemorySizeInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

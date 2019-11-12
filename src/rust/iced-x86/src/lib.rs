@@ -38,4 +38,30 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![deny(unused_qualifications)]
 #![deny(unused_results)]
 
-pub mod x86;
+mod code;
+mod decoder;
+mod encoder;
+mod enums;
+mod formatter;
+pub(crate) mod icedconstants;
+mod icedfeatures;
+mod info;
+mod instruction;
+mod instructionmemorysizes;
+mod instructionopcounts;
+mod memorysize;
+mod mnemonic;
+mod mnemonics;
+mod register;
+
+pub use self::code::*;
+pub use self::decoder::*;
+pub use self::encoder::*;
+pub use self::enums::*;
+pub use self::formatter::*;
+pub use self::icedfeatures::*;
+pub use self::info::*;
+pub use self::instruction::*;
+pub use self::memorysize::*;
+pub use self::mnemonic::*;
+pub use self::register::*;
