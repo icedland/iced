@@ -60,7 +60,7 @@ namespace Iced.Intel.DecoderInternal {
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = reg;
 			instruction.InternalOp1Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -77,7 +77,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
 			instruction.InternalOp0Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = reg;
@@ -127,7 +127,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
 			instruction.InternalOp0Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -140,7 +140,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
 			instruction.InternalOp0Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -360,7 +360,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & (HandlerFlags.Xacquire | HandlerFlags.Xrelease)) != 0)
-					decoder.SetXacquireRelease(ref instruction, flags);
+					decoder.SetXacquireXrelease(ref instruction, flags);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
@@ -420,7 +420,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & (HandlerFlags.Xacquire | HandlerFlags.Xrelease)) != 0)
-					decoder.SetXacquireRelease(ref instruction, flags);
+					decoder.SetXacquireXrelease(ref instruction, flags);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
@@ -428,17 +428,17 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.operandSize == OpSize.Size32) {
 				instruction.InternalCode = code32;
 				instruction.InternalOp1Kind = OpKind.Immediate8to32;
-				instruction.InternalImmediate8 = decoder.ReadIb();
+				instruction.InternalImmediate8 = decoder.ReadByte();
 			}
 			else if (state.operandSize == OpSize.Size64) {
 				instruction.InternalCode = code64;
 				instruction.InternalOp1Kind = OpKind.Immediate8to64;
-				instruction.InternalImmediate8 = decoder.ReadIb();
+				instruction.InternalImmediate8 = decoder.ReadByte();
 			}
 			else {
 				instruction.InternalCode = code16;
 				instruction.InternalOp1Kind = OpKind.Immediate8to16;
-				instruction.InternalImmediate8 = decoder.ReadIb();
+				instruction.InternalImmediate8 = decoder.ReadByte();
 			}
 		}
 	}
@@ -486,13 +486,13 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & (HandlerFlags.Xacquire | HandlerFlags.Xrelease)) != 0)
-					decoder.SetXacquireRelease(ref instruction, flags);
+					decoder.SetXacquireXrelease(ref instruction, flags);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 			instruction.InternalOp1Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -621,7 +621,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & (HandlerFlags.Xacquire | HandlerFlags.Xrelease)) != 0)
-					decoder.SetXacquireRelease(ref instruction, flags);
+					decoder.SetXacquireXrelease(ref instruction, flags);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
@@ -1593,7 +1593,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & (HandlerFlags.Xacquire | HandlerFlags.Xrelease)) != 0)
-					decoder.SetXacquireRelease(ref instruction, flags);
+					decoder.SetXacquireXrelease(ref instruction, flags);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
@@ -1703,7 +1703,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp1Register = (int)(state.reg + state.extraRegisterBase) + Register.AX;
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -2335,7 +2335,7 @@ namespace Iced.Intel.DecoderInternal {
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 			instruction.InternalOp1Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -2401,24 +2401,24 @@ namespace Iced.Intel.DecoderInternal {
 				if (state.operandSize != OpSize.Size16) {
 					instruction.InternalCode = code64;
 					instruction.InternalOp0Kind = OpKind.Immediate8to64;
-					instruction.InternalImmediate8 = decoder.ReadIb();
+					instruction.InternalImmediate8 = decoder.ReadByte();
 				}
 				else {
 					instruction.InternalCode = code16;
 					instruction.InternalOp0Kind = OpKind.Immediate8to16;
-					instruction.InternalImmediate8 = decoder.ReadIb();
+					instruction.InternalImmediate8 = decoder.ReadByte();
 				}
 			}
 			else {
 				if (state.operandSize == OpSize.Size32) {
 					instruction.InternalCode = code32;
 					instruction.InternalOp0Kind = OpKind.Immediate8to32;
-					instruction.InternalImmediate8 = decoder.ReadIb();
+					instruction.InternalImmediate8 = decoder.ReadByte();
 				}
 				else {
 					instruction.InternalCode = code16;
 					instruction.InternalOp0Kind = OpKind.Immediate8to16;
-					instruction.InternalImmediate8 = decoder.ReadIb();
+					instruction.InternalImmediate8 = decoder.ReadByte();
 				}
 			}
 		}
@@ -2567,7 +2567,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.EAX;
 				instruction.InternalCode = code32;
 				instruction.InternalOp2Kind = OpKind.Immediate8to32;
-				instruction.InternalImmediate8 = decoder.ReadIb();
+				instruction.InternalImmediate8 = decoder.ReadByte();
 			}
 			else if (state.operandSize == OpSize.Size64) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -2575,7 +2575,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.RAX;
 				instruction.InternalCode = code64;
 				instruction.InternalOp2Kind = OpKind.Immediate8to64;
-				instruction.InternalImmediate8 = decoder.ReadIb();
+				instruction.InternalImmediate8 = decoder.ReadByte();
 			}
 			else {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -2583,7 +2583,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.AX;
 				instruction.InternalCode = code16;
 				instruction.InternalOp2Kind = OpKind.Immediate8to16;
-				instruction.InternalImmediate8 = decoder.ReadIb();
+				instruction.InternalImmediate8 = decoder.ReadByte();
 			}
 		}
 	}
@@ -2619,7 +2619,7 @@ namespace Iced.Intel.DecoderInternal {
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -3142,7 +3142,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.InternalOp1Register = decoder.ReadOpSw();
+			instruction.InternalOp1Register = decoder.ReadOpSegReg();
 		}
 	}
 
@@ -3209,7 +3209,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalCode = code16;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
-			var sreg = decoder.ReadOpSw();
+			var sreg = decoder.ReadOpSegReg();
 			if (decoder.invalidCheckMask != 0 && sreg == Register.CS)
 				decoder.SetInvalidInstruction();
 			instruction.InternalOp0Register = sreg;
@@ -3551,7 +3551,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.InternalOp0Kind = OpKind.Immediate16;
 			instruction.InternalImmediate16 = decoder.ReadUInt16();
 			instruction.InternalOp1Kind = OpKind.Immediate8_2nd;
-			instruction.InternalImmediate8_2nd = decoder.ReadIb();
+			instruction.InternalImmediate8_2nd = decoder.ReadByte();
 		}
 	}
 
@@ -3578,7 +3578,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Register = Register.AX;
 			}
 			instruction.InternalOp1Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -3595,7 +3595,7 @@ namespace Iced.Intel.DecoderInternal {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalOp0Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
 			if (state.operandSize != OpSize.Size16) {
@@ -3696,13 +3696,13 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & (HandlerFlags.Xacquire | HandlerFlags.Xrelease)) != 0)
-					decoder.SetXacquireRelease(ref instruction, flags);
+					decoder.SetXacquireXrelease(ref instruction, flags);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 			instruction.InternalOp1Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -3787,7 +3787,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & (HandlerFlags.Xacquire | HandlerFlags.Xrelease)) != 0)
-					decoder.SetXacquireRelease(ref instruction, flags);
+					decoder.SetXacquireXrelease(ref instruction, flags);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
@@ -3823,7 +3823,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalOp0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & (HandlerFlags.Xacquire | HandlerFlags.Xrelease)) != 0)
-					decoder.SetXacquireRelease(ref instruction, flags);
+					decoder.SetXacquireXrelease(ref instruction, flags);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
@@ -3934,7 +3934,7 @@ namespace Iced.Intel.DecoderInternal {
 					flags = flags32;
 				decoder.ReadOpMem(ref instruction);
 				if ((flags & (HandlerFlags.Xacquire | HandlerFlags.Xrelease)) != 0)
-					decoder.SetXacquireRelease(ref instruction, flags);
+					decoder.SetXacquireXrelease(ref instruction, flags);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
@@ -4776,7 +4776,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -5027,7 +5027,7 @@ namespace Iced.Intel.DecoderInternal {
 			else
 				decoder.SetInvalidInstruction();
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -5315,7 +5315,7 @@ namespace Iced.Intel.DecoderInternal {
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 

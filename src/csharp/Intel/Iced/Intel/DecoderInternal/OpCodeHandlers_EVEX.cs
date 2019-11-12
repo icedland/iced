@@ -424,7 +424,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -609,7 +609,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -646,7 +646,7 @@ namespace Iced.Intel.DecoderInternal {
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = (int)(state.reg + state.extraRegisterBase + state.extraRegisterBaseEVEX) + baseReg2;
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -691,7 +691,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -730,7 +730,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -771,7 +771,7 @@ namespace Iced.Intel.DecoderInternal {
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = (int)(state.reg + state.extraRegisterBase + state.extraRegisterBaseEVEX) + baseReg2;
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -1171,7 +1171,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -1221,7 +1221,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -1353,7 +1353,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 			if ((((uint)(state.flags & StateFlags.z) | state.extraRegisterBase | state.extraRegisterBaseEVEX) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 		}
@@ -1424,7 +1424,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp3Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -1960,7 +1960,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			instruction.InternalOp2Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadIb();
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 }

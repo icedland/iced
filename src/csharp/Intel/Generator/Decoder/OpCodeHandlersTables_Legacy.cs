@@ -1268,7 +1268,7 @@ namespace Generator.Decoder {
 
 				"handlers_Grp_C6_lo",
 				new object[8] {
-					new object[] { legacyEnum["Eb_Ib_2"], codeEnum["Mov_rm8_imm8"], new OrEnumValue(handlerFlagsEnum, "Xrelease", "XacquireReleaseNoLock") },
+					new object[] { legacyEnum["Eb_Ib_2"], codeEnum["Mov_rm8_imm8"], new OrEnumValue(handlerFlagsEnum, "Xrelease", "XacquireXreleaseNoLock") },
 					invalid,
 					invalid,
 					invalid,
@@ -1363,7 +1363,7 @@ namespace Generator.Decoder {
 
 				"handlers_Grp_C7_lo",
 				new object[8] {
-					new object[] { legacyEnum["Ev_Iz_4"], codeEnum["Mov_rm16_imm16"], codeEnum["Mov_rm32_imm32"], codeEnum["Mov_rm64_imm32"], new OrEnumValue(handlerFlagsEnum, "Xrelease", "XacquireReleaseNoLock") },
+					new object[] { legacyEnum["Ev_Iz_4"], codeEnum["Mov_rm16_imm16"], codeEnum["Mov_rm32_imm32"], codeEnum["Mov_rm64_imm32"], new OrEnumValue(handlerFlagsEnum, "Xrelease", "XacquireXreleaseNoLock") },
 					invalid,
 					invalid,
 					invalid,
@@ -4484,12 +4484,12 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Group"], "handlers_Grp_83" },
 					new object[] { legacyEnum["Eb_Gb_1"], codeEnum["Test_rm8_r8"] },
 					new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["Test_rm16_r16"], codeEnum["Test_rm32_r32"], codeEnum["Test_rm64_r64"] },
-					new object[] { legacyEnum["Eb_Gb_2"], codeEnum["Xchg_rm8_r8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "XacquireReleaseNoLock", "Lock") },
-					new object[] { legacyEnum["Ev_Gv_4"], codeEnum["Xchg_rm16_r16"], codeEnum["Xchg_rm32_r32"], codeEnum["Xchg_rm64_r64"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "XacquireReleaseNoLock", "Lock") },
+					new object[] { legacyEnum["Eb_Gb_2"], codeEnum["Xchg_rm8_r8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "XacquireXreleaseNoLock", "Lock") },
+					new object[] { legacyEnum["Ev_Gv_4"], codeEnum["Xchg_rm16_r16"], codeEnum["Xchg_rm32_r32"], codeEnum["Xchg_rm64_r64"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "XacquireXreleaseNoLock", "Lock") },
 
 					// 88
-					new object[] { legacyEnum["Eb_Gb_2"], codeEnum["Mov_rm8_r8"], new OrEnumValue(handlerFlagsEnum, "Xrelease", "XacquireReleaseNoLock") },
-					new object[] { legacyEnum["Ev_Gv_4"], codeEnum["Mov_rm16_r16"], codeEnum["Mov_rm32_r32"], codeEnum["Mov_rm64_r64"], new OrEnumValue(handlerFlagsEnum, "Xrelease", "XacquireReleaseNoLock") },
+					new object[] { legacyEnum["Eb_Gb_2"], codeEnum["Mov_rm8_r8"], new OrEnumValue(handlerFlagsEnum, "Xrelease", "XacquireXreleaseNoLock") },
+					new object[] { legacyEnum["Ev_Gv_4"], codeEnum["Mov_rm16_r16"], codeEnum["Mov_rm32_r32"], codeEnum["Mov_rm64_r64"], new OrEnumValue(handlerFlagsEnum, "Xrelease", "XacquireXreleaseNoLock") },
 					new object[] { legacyEnum["Gb_Eb"], codeEnum["Mov_r8_rm8"] },
 					new object[] { legacyEnum["Gv_Ev_3a"], codeEnum["Mov_r16_rm16"], codeEnum["Mov_r32_rm32"], codeEnum["Mov_r64_rm64"] },
 					new object[] { legacyEnum["Ev_Sw"], codeEnum["Mov_rm16_Sreg"], codeEnum["Mov_r32m16_Sreg"], codeEnum["Mov_r64m16_Sreg"] },

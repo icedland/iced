@@ -324,7 +324,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if the instruction has the XACQUIRE prefix (F2)
+		/// Checks if the instruction has the <c>XACQUIRE</c> prefix (<c>F2</c>)
 		/// </summary>
 		public bool HasXacquirePrefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -340,7 +340,7 @@ namespace Iced.Intel {
 		internal void InternalSetHasXacquirePrefix() => codeFlags |= (uint)CodeFlags.XacquirePrefix;
 
 		/// <summary>
-		/// Checks if the instruction has the XRELEASE prefix (F3)
+		/// Checks if the instruction has the <c>XRELEASE</c> prefix (<c>F3</c>)
 		/// </summary>
 		public bool HasXreleasePrefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -356,7 +356,7 @@ namespace Iced.Intel {
 		internal void InternalSetHasXreleasePrefix() => codeFlags |= (uint)CodeFlags.XreleasePrefix;
 
 		/// <summary>
-		/// Checks if the instruction has the REPE or REP prefix (F3)
+		/// Checks if the instruction has the <c>REPE</c> or <c>REP</c> prefix (<c>F3</c>)
 		/// </summary>
 		public bool HasRepPrefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -370,7 +370,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if the instruction has the REPE or REP prefix (F3)
+		/// Checks if the instruction has the <c>REPE</c> or <c>REP</c> prefix (<c>F3</c>)
 		/// </summary>
 		public bool HasRepePrefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -388,7 +388,7 @@ namespace Iced.Intel {
 		internal void InternalClearHasRepePrefix() => codeFlags &= ~(uint)CodeFlags.RepePrefix;
 
 		/// <summary>
-		/// Checks if the instruction has the REPNE prefix (F2)
+		/// Checks if the instruction has the <c>REPNE</c> prefix (<c>F2</c>)
 		/// </summary>
 		public bool HasRepnePrefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -406,7 +406,7 @@ namespace Iced.Intel {
 		internal void InternalClearHasRepnePrefix() => codeFlags &= ~(uint)CodeFlags.RepnePrefix;
 
 		/// <summary>
-		/// Checks if the instruction has the LOCK prefix (F0)
+		/// Checks if the instruction has the <c>LOCK</c> prefix (<c>F0</c>)
 		/// </summary>
 		public bool HasLockPrefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

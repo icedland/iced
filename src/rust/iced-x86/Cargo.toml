@@ -27,3 +27,6 @@ GAS_FORMATTER = []
 INTEL_FORMATTER = []
 MASM_FORMATTER = []
 NASM_FORMATTER = []
+
+[dependencies]
+static_assertions = "0.3.4"

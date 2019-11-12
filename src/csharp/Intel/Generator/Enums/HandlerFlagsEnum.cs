@@ -30,7 +30,7 @@ namespace Generator.Enums {
 				new EnumValue("None"),
 				new EnumValue("Xacquire"),
 				new EnumValue("Xrelease"),
-				new EnumValue("XacquireReleaseNoLock"),
+				new EnumValue("XacquireXreleaseNoLock"),
 				new EnumValue("Lock"),
 			};
 

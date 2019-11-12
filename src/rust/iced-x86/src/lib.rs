@@ -26,6 +26,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
 #![allow(unknown_lints)]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
+// ptr.add(x) is available in 1.26.0+ so we must use ptr.offset(x as isize)
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
 #![deny(absolute_paths_not_starting_with_crate)]
 #![deny(deprecated_in_future)]
 #![deny(keyword_idents)]
@@ -38,13 +41,28 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![deny(unused_qualifications)]
 #![deny(unused_results)]
 
+#[macro_use]
+extern crate static_assertions;
+
 mod code;
+#[cfg(any(feature = "DECODER", feature = "ENCODER"))]
+mod constantoffsets;
+#[cfg(feature = "DECODER")]
 mod decoder;
+#[cfg(feature = "ENCODER")]
 mod encoder;
 mod enums;
+#[cfg(any(
+	feature = "GAS_FORMATTER",
+	feature = "INTEL_FORMATTER",
+	feature = "MASM_FORMATTER",
+	feature = "NASM_FORMATTER",
+	feature = "ALL_FORMATTERS",
+))]
 mod formatter;
 pub(crate) mod icedconstants;
 mod icedfeatures;
+#[cfg(feature = "INSTR_INFO")]
 mod info;
 mod instruction;
 mod instructionmemorysizes;
@@ -55,11 +73,23 @@ mod mnemonics;
 mod register;
 
 pub use self::code::*;
+#[cfg(any(feature = "DECODER", feature = "ENCODER"))]
+pub use self::constantoffsets::*;
+#[cfg(feature = "DECODER")]
 pub use self::decoder::*;
+#[cfg(feature = "ENCODER")]
 pub use self::encoder::*;
 pub use self::enums::*;
+#[cfg(any(
+	feature = "GAS_FORMATTER",
+	feature = "INTEL_FORMATTER",
+	feature = "MASM_FORMATTER",
+	feature = "NASM_FORMATTER",
+	feature = "ALL_FORMATTERS",
+))]
 pub use self::formatter::*;
 pub use self::icedfeatures::*;
+#[cfg(feature = "INSTR_INFO")]
 pub use self::info::*;
 pub use self::instruction::*;
 pub use self::memorysize::*;

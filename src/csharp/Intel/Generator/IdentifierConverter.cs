@@ -72,6 +72,16 @@ namespace Generator {
 		public override string EnumField(string name) => name;
 		public override string Property(string name) => ToSnakeCase(name) + "()";
 		public override string Method(string name) => ToSnakeCase(name) + "()";
-		public override string Constant(string name) => ToScreamingSnakeCase(name);
+
+		public override string Constant(string name) {
+			switch (name) {
+			case "Cmpxchg486A": return "CMPXCHG486A";
+			case "NoMPFX_0FBC": return "NO_MPFX_0FBC";
+			case "NoMPFX_0FBD": return "NO_MPFX_0FBD";
+			case "NoLahfSahf64": return "NO_LAHF_SAHF_64";
+			default:
+				return ToScreamingSnakeCase(name);
+			}
+		}
 	}
 }

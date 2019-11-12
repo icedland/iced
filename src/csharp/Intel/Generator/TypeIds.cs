@@ -60,5 +60,9 @@ namespace Generator {
 		public static readonly TypeId Instruction_MemoryFlags = new TypeId(nameof(Instruction_MemoryFlags));
 		public static readonly TypeId Instruction_OpKindFlags = new TypeId(nameof(Instruction_OpKindFlags));
 		public static readonly TypeId Instruction_CodeFlags = new TypeId(nameof(Instruction_CodeFlags));
+		public static readonly TypeId VectorLength = new TypeId(nameof(VectorLength));
+		public static readonly TypeId MandatoryPrefixByte = new TypeId(nameof(MandatoryPrefixByte));
+		public static readonly TypeId StateFlags = new TypeId(nameof(StateFlags));
+		public static readonly TypeId EncodingKind = new TypeId(nameof(EncodingKind));
 	}
 }

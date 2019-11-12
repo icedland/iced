@@ -21,15 +21,32 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator {
-	static class RustConstants {
-		// "cargo-fmt" can be anything, rustfmt always sees the attribute
-		public const string AttributeNoRustFmt = "#[cfg_attr(feature = \"cargo-fmt\", rustfmt::skip)]";
-		public const string AttributeCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
-		public const string AttributeCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
-		public const string AttributeReprU8 = "#[repr(u8)]";
-		public const string AttributeAllowNonCamelCaseTypes = "#[allow(non_camel_case_types)]";
-		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\"))]";
-		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\", feature = \"INSTR_INFO\"))]";
+using System;
+using System.Linq;
+
+namespace Generator.Enums {
+	static class StateFlagsEnum {
+		const string? documentation = null;
+
+		[Flags]
+		enum Enum : uint {
+			EncodingMask			= 7,
+			HasRex					= 0x00000008,
+			b						= 0x00000010,
+			z						= 0x00000020,
+			IsInvalid				= 0x00000040,
+			W						= 0x00000080,
+			NoImm					= 0x00000100,
+			Addr64					= 0x00000200,
+			BranchImm8				= 0x00000400,
+			Xbegin					= 0x00000800,
+			Lock					= 0x00001000,
+			AllowLock				= 0x00002000,
+		}
+
+		static EnumValue[] GetValues() =>
+			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name)).ToArray();
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.StateFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

@@ -27,75 +27,75 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_DECODER || !NO_ENCODER
 namespace Iced.Intel {
-	/// <summary>Tuple type (EVEX) which can be used to get the disp8 scale factor N</summary>
+	/// <summary>Tuple type (EVEX) which can be used to get the disp8 scale factor <c>N</c></summary>
 	public enum TupleType {
-		/// <summary>N = 1</summary>
+		/// <summary><c>N = 1</c></summary>
 		None,
-		/// <summary>N = b ? (W ? 8 : 4) : 16</summary>
+		/// <summary><c>N = b ? (W ? 8 : 4) : 16</c></summary>
 		Full_128,
-		/// <summary>N = b ? (W ? 8 : 4) : 32</summary>
+		/// <summary><c>N = b ? (W ? 8 : 4) : 32</c></summary>
 		Full_256,
-		/// <summary>N = b ? (W ? 8 : 4) : 64</summary>
+		/// <summary><c>N = b ? (W ? 8 : 4) : 64</c></summary>
 		Full_512,
-		/// <summary>N = b ? 4 : 8</summary>
+		/// <summary><c>N = b ? 4 : 8</c></summary>
 		Half_128,
-		/// <summary>N = b ? 4 : 16</summary>
+		/// <summary><c>N = b ? 4 : 16</c></summary>
 		Half_256,
-		/// <summary>N = b ? 4 : 32</summary>
+		/// <summary><c>N = b ? 4 : 32</c></summary>
 		Half_512,
-		/// <summary>N = 16</summary>
+		/// <summary><c>N = 16</c></summary>
 		Full_Mem_128,
-		/// <summary>N = 32</summary>
+		/// <summary><c>N = 32</c></summary>
 		Full_Mem_256,
-		/// <summary>N = 64</summary>
+		/// <summary><c>N = 64</c></summary>
 		Full_Mem_512,
-		/// <summary>N = W ? 8 : 4</summary>
+		/// <summary><c>N = W ? 8 : 4</c></summary>
 		Tuple1_Scalar,
-		/// <summary>N = 1</summary>
+		/// <summary><c>N = 1</c></summary>
 		Tuple1_Scalar_1,
-		/// <summary>N = 2</summary>
+		/// <summary><c>N = 2</c></summary>
 		Tuple1_Scalar_2,
-		/// <summary>N = 4</summary>
+		/// <summary><c>N = 4</c></summary>
 		Tuple1_Scalar_4,
-		/// <summary>N = 8</summary>
+		/// <summary><c>N = 8</c></summary>
 		Tuple1_Scalar_8,
-		/// <summary>N = 4</summary>
+		/// <summary><c>N = 4</c></summary>
 		Tuple1_Fixed_4,
-		/// <summary>N = 8</summary>
+		/// <summary><c>N = 8</c></summary>
 		Tuple1_Fixed_8,
-		/// <summary>N = W ? 16 : 8</summary>
+		/// <summary><c>N = W ? 16 : 8</c></summary>
 		Tuple2,
-		/// <summary>N = W ? 32 : 16</summary>
+		/// <summary><c>N = W ? 32 : 16</c></summary>
 		Tuple4,
-		/// <summary>N = W ? error : 32</summary>
+		/// <summary><c>N = W ? error : 32</c></summary>
 		Tuple8,
-		/// <summary>N = 16</summary>
+		/// <summary><c>N = 16</c></summary>
 		Tuple1_4X,
-		/// <summary>N = 8</summary>
+		/// <summary><c>N = 8</c></summary>
 		Half_Mem_128,
-		/// <summary>N = 16</summary>
+		/// <summary><c>N = 16</c></summary>
 		Half_Mem_256,
-		/// <summary>N = 32</summary>
+		/// <summary><c>N = 32</c></summary>
 		Half_Mem_512,
-		/// <summary>N = 4</summary>
+		/// <summary><c>N = 4</c></summary>
 		Quarter_Mem_128,
-		/// <summary>N = 8</summary>
+		/// <summary><c>N = 8</c></summary>
 		Quarter_Mem_256,
-		/// <summary>N = 16</summary>
+		/// <summary><c>N = 16</c></summary>
 		Quarter_Mem_512,
-		/// <summary>N = 2</summary>
+		/// <summary><c>N = 2</c></summary>
 		Eighth_Mem_128,
-		/// <summary>N = 4</summary>
+		/// <summary><c>N = 4</c></summary>
 		Eighth_Mem_256,
-		/// <summary>N = 8</summary>
+		/// <summary><c>N = 8</c></summary>
 		Eighth_Mem_512,
-		/// <summary>N = 16</summary>
+		/// <summary><c>N = 16</c></summary>
 		Mem128,
-		/// <summary>N = 8</summary>
+		/// <summary><c>N = 8</c></summary>
 		MOVDDUP_128,
-		/// <summary>N = 32</summary>
+		/// <summary><c>N = 32</c></summary>
 		MOVDDUP_256,
-		/// <summary>N = 64</summary>
+		/// <summary><c>N = 64</c></summary>
 		MOVDDUP_512,
 	}
 }

@@ -103,10 +103,16 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.RoundingControl, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), nameof(TypeIds.RoundingControl) + ".g.cs"), CSharpConstants.IcedNamespace));
 			toFullFileInfo.Add(TypeIds.OpKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), nameof(TypeIds.OpKind) + ".g.cs"), CSharpConstants.IcedNamespace));
 
+			toFullFileInfo.Add(TypeIds.VectorLength, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), nameof(TypeIds.VectorLength) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderDefine, "byte"));
+			toFullFileInfo.Add(TypeIds.MandatoryPrefixByte, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), nameof(TypeIds.MandatoryPrefixByte) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderDefine, "uint"));// 'uint' not 'byte' since it gets zx to uint when OR'ing values
+
+			toFullFileInfo.Add(TypeIds.EncodingKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), nameof(TypeIds.EncodingKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderOrInstrInfoDefine));
+
 			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo>();
 			toPartialFileInfo.Add(TypeIds.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), "Instruction.cs"), "ushort"));
 			toPartialFileInfo.Add(TypeIds.Instruction_OpKindFlags, new PartialEnumFileInfo("OpKindFlags", Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), "Instruction.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.Instruction_CodeFlags, new PartialEnumFileInfo("CodeFlags", Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), "Instruction.cs"), "uint"));
+			toPartialFileInfo.Add(TypeIds.StateFlags, new PartialEnumFileInfo("StateFlags", Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), "Decoder.cs"), "uint"));
 		}
 
 		public void Generate(EnumType enumType) {

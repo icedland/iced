@@ -455,7 +455,7 @@ namespace Iced.Intel {
 		public EncodingKind Encoding => (EncodingKind)encoding;
 
 		/// <summary>
-		/// true if it's an instruction, false if it's eg. <see cref="Code.INVALID"/>, db, dw, dd, dq
+		/// true if it's an instruction, false if it's eg. <see cref="Code.INVALID"/>, <c>db</c>, <c>dw</c>, <c>dd</c>, <c>dq</c>
 		/// </summary>
 		public bool IsInstruction => (flags & Flags.IsInstruction) != 0;
 
@@ -475,43 +475,43 @@ namespace Iced.Intel {
 		public bool Mode64 => (flags & Flags.Mode64) != 0;
 
 		/// <summary>
-		/// true if an fwait (9B) instruction is added before the instruction
+		/// true if an <c>FWAIT</c> (<c>9B</c>) instruction is added before the instruction
 		/// </summary>
 		public bool Fwait => (flags & Flags.Fwait) != 0;
 
 		/// <summary>
-		/// (Legacy encoding) Gets the required operand size (16,32,64) or 0 if no operand size prefix (66) or REX.W prefix is needed
+		/// (Legacy encoding) Gets the required operand size (16,32,64) or 0 if no operand size prefix (<c>66</c>) or <c>REX.W</c> prefix is needed
 		/// </summary>
 		public int OperandSize => operandSize;
 
 		/// <summary>
-		/// (Legacy encoding) Gets the required address size (16,32,64) or 0 if no address size prefix (67) is needed
+		/// (Legacy encoding) Gets the required address size (16,32,64) or 0 if no address size prefix (<c>67</c>) is needed
 		/// </summary>
 		public int AddressSize => addressSize;
 
 		/// <summary>
-		/// (VEX/XOP/EVEX) L / L'L value or default value if <see cref="IsLIG"/> is true
+		/// (VEX/XOP/EVEX) <c>L</c> / <c>L'L</c> value or default value if <see cref="IsLIG"/> is true
 		/// </summary>
 		public uint L => l;
 
 		/// <summary>
-		/// (VEX/XOP/EVEX) W value or default value if <see cref="IsWIG"/> or <see cref="IsWIG32"/> is true
+		/// (VEX/XOP/EVEX) <c>W</c> value or default value if <see cref="IsWIG"/> or <see cref="IsWIG32"/> is true
 		/// </summary>
 		public uint W => (flags & Flags.W) != 0 ? 1U : 0;
 
 		/// <summary>
-		/// (VEX/XOP/EVEX) true if the L / L'L fields are ignored.
-		/// EVEX: if reg-only ops and {er} (EVEX.b is set), L'L is the rounding control and not ignored.
+		/// (VEX/XOP/EVEX) true if the <c>L</c> / <c>L'L</c> fields are ignored.
+		/// EVEX: if reg-only ops and <c>{er}</c> (<c>EVEX.b</c> is set), <c>L'L</c> is the rounding control and not ignored.
 		/// </summary>
 		public bool IsLIG => (flags & Flags.LIG) != 0;
 
 		/// <summary>
-		/// (VEX/XOP/EVEX) true if the W field is ignored in 16/32/64-bit modes
+		/// (VEX/XOP/EVEX) true if the <c>W</c> field is ignored in 16/32/64-bit modes
 		/// </summary>
 		public bool IsWIG => (flags & Flags.WIG) != 0;
 
 		/// <summary>
-		/// (VEX/XOP/EVEX) true if the W field is ignored in 16/32-bit modes (but not 64-bit mode)
+		/// (VEX/XOP/EVEX) true if the <c>W</c> field is ignored in 16/32-bit modes (but not 64-bit mode)
 		/// </summary>
 		public bool IsWIG32 => (flags & Flags.WIG32) != 0;
 
@@ -521,7 +521,7 @@ namespace Iced.Intel {
 		public TupleType TupleType => (TupleType)tupleType;
 
 		/// <summary>
-		/// (EVEX) true if the instruction supports broadcasting (EVEX.b bit) (if it has a memory operand)
+		/// (EVEX) true if the instruction supports broadcasting (<c>EVEX.b</c> bit) (if it has a memory operand)
 		/// </summary>
 		public bool CanBroadcast => (flags & Flags.Broadcast) != 0;
 
@@ -546,47 +546,47 @@ namespace Iced.Intel {
 		public bool RequireNonZeroOpMaskRegister => (flags & Flags.NonZeroOpMaskRegister) != 0;
 
 		/// <summary>
-		/// (EVEX) true if the instruction supports zeroing masking (if one of the opmask registers k1-k7 is used)
+		/// (EVEX) true if the instruction supports zeroing masking (if one of the opmask registers <c>K1</c>-<c>K7</c> is used)
 		/// </summary>
 		public bool CanUseZeroingMasking => (flags & Flags.ZeroingMasking) != 0;
 
 		/// <summary>
-		/// true if the LOCK (F0) prefix can be used
+		/// true if the <c>LOCK</c> (<c>F0</c>) prefix can be used
 		/// </summary>
 		public bool CanUseLockPrefix => (flags & Flags.LockPrefix) != 0;
 
 		/// <summary>
-		/// true if the XACQUIRE (F2) prefix can be used
+		/// true if the <c>XACQUIRE</c> (<c>F2</c>) prefix can be used
 		/// </summary>
 		public bool CanUseXacquirePrefix => (flags & Flags.XacquirePrefix) != 0;
 
 		/// <summary>
-		/// true if the XRELEASE (F3) prefix can be used
+		/// true if the <c>XRELEASE</c> (<c>F3</c>) prefix can be used
 		/// </summary>
 		public bool CanUseXreleasePrefix => (flags & Flags.XreleasePrefix) != 0;
 
 		/// <summary>
-		/// true if the REP / REPE (F3) prefixes can be used
+		/// true if the <c>REP</c> / <c>REPE</c> (<c>F3</c>) prefixes can be used
 		/// </summary>
 		public bool CanUseRepPrefix => (flags & Flags.RepPrefix) != 0;
 
 		/// <summary>
-		/// true if the REPNE (F2) prefix can be used
+		/// true if the <c>REPNE</c> (<c>F2</c>) prefix can be used
 		/// </summary>
 		public bool CanUseRepnePrefix => (flags & Flags.RepnePrefix) != 0;
 
 		/// <summary>
-		/// true if the BND (F2) prefix can be used
+		/// true if the <c>BND</c> (<c>F2</c>) prefix can be used
 		/// </summary>
 		public bool CanUseBndPrefix => (flags & Flags.BndPrefix) != 0;
 
 		/// <summary>
-		/// true if the HINT-TAKEN (3E) and HINT-NOT-TAKEN (2E) prefixes can be used
+		/// true if the <c>HINT-TAKEN</c> (<c>3E</c>) and <c>HINT-NOT-TAKEN</c> (<c>2E</c>) prefixes can be used
 		/// </summary>
 		public bool CanUseHintTakenPrefix => (flags & Flags.HintTakenPrefix) != 0;
 
 		/// <summary>
-		/// true if the NOTRACK (3E) prefix can be used
+		/// true if the <c>NOTRACK</c> (<c>3E</c>) prefix can be used
 		/// </summary>
 		public bool CanUseNotrackPrefix => (flags & Flags.NotrackPrefix) != 0;
 
@@ -601,9 +601,9 @@ namespace Iced.Intel {
 		public MandatoryPrefix MandatoryPrefix => (MandatoryPrefix)mandatoryPrefix;
 
 		/// <summary>
-		/// Gets the opcode. 00000000xxh if it's 1-byte, 0000yyxxh if it's 2-byte (yy != 00, and yy is the first byte and xx the second byte).
+		/// Gets the opcode. <c>00000000xxh</c> if it's 1-byte, <c>0000yyxxh</c> if it's 2-byte (<c>yy</c> != <c>00</c>, and <c>yy</c> is the first byte and <c>xx</c> the second byte).
 		/// It doesn't include the table value, see <see cref="Table"/>.
-		/// Example values: 0xDFC0 (<see cref="Code.Ffreep_sti"/>), 0x01D8 (<see cref="Code.Vmrunw"/>), 0x2A (<see cref="Code.Sub_r8_rm8"/>, <see cref="Code.Cvtpi2ps_xmm_mmm64"/>, etc).
+		/// Example values: <c>0xDFC0</c> (<see cref="Code.Ffreep_sti"/>), <c>0x01D8</c> (<see cref="Code.Vmrunw"/>), <c>0x2A</c> (<see cref="Code.Sub_r8_rm8"/>, <see cref="Code.Cvtpi2ps_xmm_mmm64"/>, etc).
 		/// </summary>
 		public uint OpCode => opCode;
 
@@ -613,7 +613,7 @@ namespace Iced.Intel {
 		public bool IsGroup => GroupIndex >= 0;
 
 		/// <summary>
-		/// Group index (0-7) or -1. If it's 0-7, it's stored in the 'reg' field of the modrm byte.
+		/// Group index (0-7) or -1. If it's 0-7, it's stored in the <c>reg</c> field of the <c>modrm</c> byte.
 		/// </summary>
 		public int GroupIndex => groupIndex;
 
@@ -677,19 +677,19 @@ namespace Iced.Intel {
 			};
 
 		/// <summary>
-		/// Gets the opcode string, eg. "VEX.128.66.0F38.W0 78 /r", see also <see cref="ToInstructionString()"/>
+		/// Gets the opcode string, eg. <c>VEX.128.66.0F38.W0 78 /r</c>, see also <see cref="ToInstructionString()"/>
 		/// </summary>
 		/// <returns></returns>
 		public string ToOpCodeString() => toOpCodeStringValue;
 
 		/// <summary>
-		/// Gets the instruction string, eg. "VPBROADCASTB xmm1, xmm2/m8", see also <see cref="ToOpCodeString()"/>
+		/// Gets the instruction string, eg. <c>VPBROADCASTB xmm1, xmm2/m8</c>, see also <see cref="ToOpCodeString()"/>
 		/// </summary>
 		/// <returns></returns>
 		public string ToInstructionString() => toInstructionStringValue;
 
 		/// <summary>
-		/// Gets the instruction string, eg. "VPBROADCASTB xmm1, xmm2/m8", see also <see cref="ToOpCodeString()"/>
+		/// Gets the instruction string, eg. <c>VPBROADCASTB xmm1, xmm2/m8</c>, see also <see cref="ToOpCodeString()"/>
 		/// </summary>
 		/// <returns></returns>
 		public override string ToString() => ToInstructionString();

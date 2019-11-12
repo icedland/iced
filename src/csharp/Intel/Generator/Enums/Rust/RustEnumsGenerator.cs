@@ -59,26 +59,23 @@ namespace Generator.Enums.Rust {
 			docWriter = new RustDocCommentWriter(idConverter);
 			constantsWriter = new RustConstantsWriter(idConverter, docWriter);
 
-			const string attrCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
-			const string attrCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
-
 			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo?>();
-			toPartialFileInfo.Add(TypeIds.Code, new PartialEnumFileInfo("Code", Path.Combine(projectDirs.RustDir, "code.rs"), new[] { attrCopyEqOrdHash, "#[allow(non_camel_case_types)]", "#[repr(u32)]" }));
-			toPartialFileInfo.Add(TypeIds.CodeSize, new PartialEnumFileInfo("CodeSize", Path.Combine(projectDirs.RustDir, "enums.rs"), attrCopyEq));
+			toPartialFileInfo.Add(TypeIds.Code, new PartialEnumFileInfo("Code", Path.Combine(projectDirs.RustDir, "code.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes, "#[repr(u32)]" }));
+			toPartialFileInfo.Add(TypeIds.CodeSize, new PartialEnumFileInfo("CodeSize", Path.Combine(projectDirs.RustDir, "enums.rs"), RustConstants.AttributeCopyEq));
 			toPartialFileInfo.Add(TypeIds.CpuidFeature, null);
 			toPartialFileInfo.Add(TypeIds.CpuidFeatureInternal, null);
-			toPartialFileInfo.Add(TypeIds.DecoderOptions, null);
+			toPartialFileInfo.Add(TypeIds.DecoderOptions, new PartialEnumFileInfo("DecoderOptions", Path.Combine(projectDirs.RustDir, "decoder", "mod.rs")));
 			toPartialFileInfo.Add(TypeIds.EvexOpCodeHandlerKind, null);
-			toPartialFileInfo.Add(TypeIds.HandlerFlags, null);
+			toPartialFileInfo.Add(TypeIds.HandlerFlags, new PartialEnumFileInfo("HandlerFlags", Path.Combine(projectDirs.RustDir, "decoder", "mod.rs")));
 			toPartialFileInfo.Add(TypeIds.LegacyHandlerFlags, null);
-			toPartialFileInfo.Add(TypeIds.MemorySize, new PartialEnumFileInfo("MemorySize", Path.Combine(projectDirs.RustDir, "memorysize.rs"), new[] { attrCopyEqOrdHash, "#[allow(non_camel_case_types)]" }));
+			toPartialFileInfo.Add(TypeIds.MemorySize, new PartialEnumFileInfo("MemorySize", Path.Combine(projectDirs.RustDir, "memorysize.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.OpCodeHandlerKind, null);
 			toPartialFileInfo.Add(TypeIds.PseudoOpsKind, null);
-			toPartialFileInfo.Add(TypeIds.Register, new PartialEnumFileInfo("Register", Path.Combine(projectDirs.RustDir, "register.rs"), attrCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.Register, new PartialEnumFileInfo("Register", Path.Combine(projectDirs.RustDir, "register.rs"), RustConstants.AttributeCopyEqOrdHash));
 			toPartialFileInfo.Add(TypeIds.SerializedDataKind, null);
-			toPartialFileInfo.Add(TypeIds.TupleType, null);
+			toPartialFileInfo.Add(TypeIds.TupleType, new PartialEnumFileInfo("TupleType", Path.Combine(projectDirs.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.FeatureDecoderOrEncoder, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.VexOpCodeHandlerKind, null);
-			toPartialFileInfo.Add(TypeIds.Mnemonic, new PartialEnumFileInfo("Mnemonic", Path.Combine(projectDirs.RustDir, "mnemonic.rs"), attrCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.Mnemonic, new PartialEnumFileInfo("Mnemonic", Path.Combine(projectDirs.RustDir, "mnemonic.rs"), RustConstants.AttributeCopyEqOrdHash));
 			toPartialFileInfo.Add(TypeIds.GasCtorKind, null);
 			toPartialFileInfo.Add(TypeIds.IntelCtorKind, null);
 			toPartialFileInfo.Add(TypeIds.MasmCtorKind, null);
@@ -93,11 +90,15 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.NasmSizeOverride, null);
 			toPartialFileInfo.Add(TypeIds.NasmBranchSizeInfo, null);
 			toPartialFileInfo.Add(TypeIds.NasmInstrOpInfoFlags, null);
-			toPartialFileInfo.Add(TypeIds.RoundingControl, new PartialEnumFileInfo("RoundingControl", Path.Combine(projectDirs.RustDir, "enums.rs"), attrCopyEq));
-			toPartialFileInfo.Add(TypeIds.OpKind, new PartialEnumFileInfo("OpKind", Path.Combine(projectDirs.RustDir, "enums.rs"), attrCopyEqOrdHash));
-			toPartialFileInfo.Add(TypeIds.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(projectDirs.RustDir, "instruction.rs"), attrCopyEqOrdHash));
-			toPartialFileInfo.Add(TypeIds.Instruction_OpKindFlags, new PartialEnumFileInfo("OpKindFlags", Path.Combine(projectDirs.RustDir, "instruction.rs"), attrCopyEqOrdHash));
-			toPartialFileInfo.Add(TypeIds.Instruction_CodeFlags, new PartialEnumFileInfo("CodeFlags", Path.Combine(projectDirs.RustDir, "instruction.rs"), attrCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.RoundingControl, new PartialEnumFileInfo("RoundingControl", Path.Combine(projectDirs.RustDir, "enums.rs"), RustConstants.AttributeCopyEq));
+			toPartialFileInfo.Add(TypeIds.OpKind, new PartialEnumFileInfo("OpKind", Path.Combine(projectDirs.RustDir, "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(projectDirs.RustDir, "instruction.rs")));
+			toPartialFileInfo.Add(TypeIds.Instruction_OpKindFlags, new PartialEnumFileInfo("OpKindFlags", Path.Combine(projectDirs.RustDir, "instruction.rs")));
+			toPartialFileInfo.Add(TypeIds.Instruction_CodeFlags, new PartialEnumFileInfo("CodeFlags", Path.Combine(projectDirs.RustDir, "instruction.rs")));
+			toPartialFileInfo.Add(TypeIds.VectorLength, new PartialEnumFileInfo("VectorLength", Path.Combine(projectDirs.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeReprU8, RustConstants.FeatureDecoderOrEncoder }));
+			toPartialFileInfo.Add(TypeIds.MandatoryPrefixByte, new PartialEnumFileInfo("MandatoryPrefixByte", Path.Combine(projectDirs.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureDecoderOrEncoder }));
+			toPartialFileInfo.Add(TypeIds.StateFlags, new PartialEnumFileInfo("StateFlags", Path.Combine(projectDirs.RustDir, "decoder", "mod.rs")));
+			toPartialFileInfo.Add(TypeIds.EncodingKind, new PartialEnumFileInfo("EncodingKind", Path.Combine(projectDirs.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureDecoderOrEncoderOrInstrInfo }));
 		}
 
 		public void Generate(EnumType enumType) {
@@ -110,8 +111,10 @@ namespace Generator.Enums.Rust {
 		}
 
 		void WriteEnum(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
-			if (enumType.IsFlags)
-				constantsWriter.Write(writer, enumType.ToConstantsType(ConstantKind.UInt32), Array.Empty<string>());
+			if (enumType.IsFlags) {
+				var attrs = enumType.IsPublic ? new[] { "#[allow(missing_copy_implementations)]" } : Array.Empty<string>();
+				constantsWriter.Write(writer, enumType.ToConstantsType(ConstantKind.UInt32), attrs);
+			}
 			else
 				WriteEnumCore(writer, info, enumType);
 		}

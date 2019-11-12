@@ -21,15 +21,19 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator {
-	static class RustConstants {
-		// "cargo-fmt" can be anything, rustfmt always sees the attribute
-		public const string AttributeNoRustFmt = "#[cfg_attr(feature = \"cargo-fmt\", rustfmt::skip)]";
-		public const string AttributeCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
-		public const string AttributeCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
-		public const string AttributeReprU8 = "#[repr(u8)]";
-		public const string AttributeAllowNonCamelCaseTypes = "#[allow(non_camel_case_types)]";
-		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\"))]";
-		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\", feature = \"INSTR_INFO\"))]";
+namespace Generator.Enums {
+	static class EncodingKindEnum {
+		const string documentation = "Instruction encoding";
+
+		static EnumValue[] GetValues() =>
+			new EnumValue[] {
+				new EnumValue("Legacy", "Legacy encoding"),
+				new EnumValue("VEX", "VEX encoding"),
+				new EnumValue("EVEX", "EVEX encoding"),
+				new EnumValue("XOP", "XOP encoding"),
+				new EnumValue("D3NOW", "3DNow! encoding"),
+			};
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.EncodingKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

@@ -21,15 +21,20 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator {
-	static class RustConstants {
-		// "cargo-fmt" can be anything, rustfmt always sees the attribute
-		public const string AttributeNoRustFmt = "#[cfg_attr(feature = \"cargo-fmt\", rustfmt::skip)]";
-		public const string AttributeCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
-		public const string AttributeCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
-		public const string AttributeReprU8 = "#[repr(u8)]";
-		public const string AttributeAllowNonCamelCaseTypes = "#[allow(non_camel_case_types)]";
-		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\"))]";
-		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\", feature = \"INSTR_INFO\"))]";
-	}
-}
+#[cfg(any(feature = "GAS_FORMATTER", feature = "ALL_FORMATTERS"))]
+mod gas;
+#[cfg(any(feature = "INTEL_FORMATTER", feature = "ALL_FORMATTERS"))]
+mod intel;
+#[cfg(any(feature = "MASM_FORMATTER", feature = "ALL_FORMATTERS"))]
+mod masm;
+#[cfg(any(feature = "NASM_FORMATTER", feature = "ALL_FORMATTERS"))]
+mod nasm;
+
+#[cfg(any(feature = "GAS_FORMATTER", feature = "ALL_FORMATTERS"))]
+pub use self::gas::*;
+#[cfg(any(feature = "INTEL_FORMATTER", feature = "ALL_FORMATTERS"))]
+pub use self::intel::*;
+#[cfg(any(feature = "MASM_FORMATTER", feature = "ALL_FORMATTERS"))]
+pub use self::masm::*;
+#[cfg(any(feature = "NASM_FORMATTER", feature = "ALL_FORMATTERS"))]
+pub use self::nasm::*;

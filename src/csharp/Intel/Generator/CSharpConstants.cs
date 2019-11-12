@@ -38,6 +38,7 @@ namespace Generator {
 		public const string DecoderDefine = "!NO_DECODER";
 		public const string InstructionInfoDefine = "!NO_INSTR_INFO";
 		public const string DecoderOrEncoderDefine = "!NO_DECODER || !NO_ENCODER";
+		public const string DecoderOrEncoderOrInstrInfoDefine = "!NO_DECODER || !NO_ENCODER || !NO_INSTR_INFO";
 		public const string AnyFormatterDefine = "(!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER";
 		public const string GasFormatterDefine = "!NO_GAS_FORMATTER && !NO_FORMATTER";
 		public const string IntelFormatterDefine = "!NO_INTEL_FORMATTER && !NO_FORMATTER";

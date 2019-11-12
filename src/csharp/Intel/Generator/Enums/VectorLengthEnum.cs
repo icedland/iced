@@ -21,15 +21,22 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator {
-	static class RustConstants {
-		// "cargo-fmt" can be anything, rustfmt always sees the attribute
-		public const string AttributeNoRustFmt = "#[cfg_attr(feature = \"cargo-fmt\", rustfmt::skip)]";
-		public const string AttributeCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
-		public const string AttributeCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
-		public const string AttributeReprU8 = "#[repr(u8)]";
-		public const string AttributeAllowNonCamelCaseTypes = "#[allow(non_camel_case_types)]";
-		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\"))]";
-		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\", feature = \"INSTR_INFO\"))]";
+using System.Linq;
+
+namespace Generator.Enums {
+	static class VectorLengthEnum {
+		const string? documentation = null;
+
+		enum Enum : byte {
+			L128	= 0,
+			L256	= 1,
+			L512	= 2,
+			Unknown	= 3,
+		}
+
+		static EnumValue[] GetValues() =>
+			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name)).ToArray();
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.VectorLength, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

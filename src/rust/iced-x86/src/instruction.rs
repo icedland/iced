@@ -325,13 +325,13 @@ impl Instruction {
 		(self.code_flags & (CodeFlags::REPE_PREFIX | CodeFlags::REPNE_PREFIX)) != 0
 	}
 
-	/// Checks if the instruction has the XACQUIRE prefix (F2)
+	/// Checks if the instruction has the `XACQUIRE` prefix (`F2`)
 	#[inline]
 	pub fn has_xacquire_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::XACQUIRE_PREFIX) != 0
 	}
 
-	/// Sets the has XACQUIRE prefix (F2) flag
+	/// Sets the has `XACQUIRE` prefix (`F2`) flag
 	///
 	/// # Arguments
 	///
@@ -350,13 +350,13 @@ impl Instruction {
 		self.code_flags |= CodeFlags::XACQUIRE_PREFIX
 	}
 
-	/// Checks if the instruction has the XRELEASE prefix (F3)
+	/// Checks if the instruction has the `XRELEASE` prefix (`F3`)
 	#[inline]
 	pub fn has_xrelease_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::XRELEASE_PREFIX) != 0
 	}
 
-	/// Sets the has XRELEASE prefix (F3) flag
+	/// Sets the has `XRELEASE` prefix (`F3`) flag
 	///
 	/// # Arguments
 	///
@@ -375,13 +375,13 @@ impl Instruction {
 		self.code_flags |= CodeFlags::XRELEASE_PREFIX
 	}
 
-	/// Checks if the instruction has the REPE or REP prefix (F3)
+	/// Checks if the instruction has the `REPE` or `REP` prefix (`F3`)
 	#[inline]
 	pub fn has_rep_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPE_PREFIX) != 0
 	}
 
-	/// Sets the has REPE or REP prefix (F3) flag
+	/// Sets the has `REPE` or `REP` prefix (`F3`) flag
 	///
 	/// # Arguments
 	///
@@ -395,13 +395,13 @@ impl Instruction {
 		}
 	}
 
-	/// Checks if the instruction has the REPE or REP prefix (F3)
+	/// Checks if the instruction has the `REPE` or `REP` prefix (`F3`)
 	#[inline]
 	pub fn has_repe_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPE_PREFIX) != 0
 	}
 
-	/// Sets the has REPE or REP prefix (F3) flag
+	/// Sets the has `REPE` or `REP` prefix (`F3`) flag
 	///
 	/// # Arguments
 	///
@@ -425,13 +425,13 @@ impl Instruction {
 		self.code_flags &= !CodeFlags::REPE_PREFIX
 	}
 
-	/// Checks if the instruction has the REPNE prefix (F2)
+	/// Checks if the instruction has the `REPNE` prefix (`F2`)
 	#[inline]
 	pub fn has_repne_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPNE_PREFIX) != 0
 	}
 
-	/// Sets the has REPNE prefix (F2) flag
+	/// Sets the has `REPNE` prefix (`F2`) flag
 	///
 	/// # Arguments
 	///
@@ -455,13 +455,13 @@ impl Instruction {
 		self.code_flags &= !CodeFlags::REPNE_PREFIX
 	}
 
-	/// Checks if the instruction has the LOCK prefix (F0)
+	/// Checks if the instruction has the `LOCK` prefix (`F0`)
 	#[inline]
 	pub fn has_lock_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::LOCK_PREFIX) != 0
 	}
 
-	/// Sets the has LOCK prefix (F0) flag
+	/// Sets the has `LOCK` prefix (`F0`) flag
 	///
 	/// # Arguments
 	///
@@ -719,9 +719,9 @@ impl Instruction {
 	}
 
 	#[inline]
-	pub(crate) fn internal_set_memory_displ_size(&mut self, new_value: u16) {
+	pub(crate) fn internal_set_memory_displ_size(&mut self, new_value: u32) {
 		debug_assert!(new_value <= 4);
-		self.memory_flags |= new_value << MemoryFlags::DISPL_SIZE_SHIFT;
+		self.memory_flags |= (new_value << MemoryFlags::DISPL_SIZE_SHIFT) as u16;
 	}
 
 	/// `true` if the data is broadcasted (EVEX instructions only)
@@ -1232,6 +1232,11 @@ impl Instruction {
 		self.mem_base_reg = new_value as u8;
 	}
 
+	#[inline]
+	pub(crate) fn internal_set_memory_base_u32(&mut self, new_value: u32) {
+		self.mem_base_reg = new_value as u8;
+	}
+
 	/// Gets the memory operand's index register or `Register::None` if none. Use this property if the operand has kind `OpKind::Memory`
 	#[inline]
 	pub fn memory_index(&self) -> Register {
@@ -1251,6 +1256,11 @@ impl Instruction {
 
 	#[inline]
 	pub(crate) fn internal_set_memory_index(&mut self, new_value: Register) {
+		self.mem_index_reg = new_value as u8;
+	}
+
+	#[inline]
+	pub(crate) fn internal_set_memory_index_u32(&mut self, new_value: u32) {
 		self.mem_index_reg = new_value as u8;
 	}
 
@@ -1393,9 +1403,9 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the opmask register (`Register::K1` - `Register::K7`) or `Register::None` if none
+	/// Gets the op mask register (`Register::K1` - `Register::K7`) or `Register::None` if none
 	#[inline]
-	pub fn opmask(&self) -> Register {
+	pub fn op_mask(&self) -> Register {
 		let r = (self.code_flags >> CodeFlags::OP_MASK_SHIFT) & CodeFlags::OP_MASK_MASK;
 		if r == 0 {
 			Register::None
@@ -1405,12 +1415,12 @@ impl Instruction {
 		}
 	}
 
-	/// Sets the opmask register (`Register::K1` - `Register::K7`) or `Register::None` if none
+	/// Sets the op mask register (`Register::K1` - `Register::K7`) or `Register::None` if none
 	///
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	pub fn set_opmask(&mut self, new_value: Register) {
+	pub fn set_op_mask(&mut self, new_value: Register) {
 		let r = if new_value == Register::None {
 			0
 		} else {
@@ -1420,30 +1430,30 @@ impl Instruction {
 	}
 
 	#[inline]
-	pub(crate) fn internal_opmask(&self) -> u32 {
+	pub(crate) fn internal_op_mask(&self) -> u32 {
 		(self.code_flags >> CodeFlags::OP_MASK_SHIFT) & CodeFlags::OP_MASK_MASK
 	}
 
 	#[inline]
-	pub(crate) fn internal_set_opmask(&mut self, new_value: u32) {
+	pub(crate) fn internal_set_op_mask(&mut self, new_value: u32) {
 		self.code_flags |= new_value << CodeFlags::OP_MASK_SHIFT
 	}
 
-	/// Checks if there's an opmask register (`opmask()`)
+	/// Checks if there's an op mask register (`op_mask()`)
 	#[inline]
-	pub fn has_opmask(&self) -> bool {
+	pub fn has_op_mask(&self) -> bool {
 		(self.code_flags & (CodeFlags::OP_MASK_MASK << CodeFlags::OP_MASK_SHIFT)) != 0
 	}
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
-	/// Only used by most EVEX encoded instructions that use opmask registers.
+	/// Only used by most EVEX encoded instructions that use op mask registers.
 	#[inline]
 	pub fn zeroing_masking(&self) -> bool {
 		(self.code_flags & CodeFlags::ZEROING_MASKING) != 0
 	}
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
-	/// Only used by most EVEX encoded instructions that use opmask registers.
+	/// Only used by most EVEX encoded instructions that use op mask registers.
 	///
 	/// # Arguments
 	///
@@ -1463,14 +1473,14 @@ impl Instruction {
 	}
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
-	/// Only used by most EVEX encoded instructions that use opmask registers.
+	/// Only used by most EVEX encoded instructions that use op mask registers.
 	#[inline]
 	pub fn merging_masking(&self) -> bool {
 		(self.code_flags & CodeFlags::ZEROING_MASKING) == 0
 	}
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
-	/// Only used by most EVEX encoded instructions that use opmask registers.
+	/// Only used by most EVEX encoded instructions that use op mask registers.
 	///
 	/// # Arguments
 	///

@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_DECODER || !NO_ENCODER
 namespace Iced.Intel {
 	/// <summary>
-	/// Contains the offsets of the displacement and immediate. Call decoder's GetConstantOffsets() method
+	/// Contains the offsets of the displacement and immediate. Call the decoder's GetConstantOffsets() method
 	/// to get the offsets of the constants after the instruction has been decoded. The encoder has a similar method.
 	/// </summary>
 	public struct ConstantOffsets {
@@ -34,7 +34,7 @@ namespace Iced.Intel {
 		public byte DisplacementOffset;
 
 		/// <summary>
-		/// Size of the displacement in bytes, or 0 if there's no displacement
+		/// Size in bytes of the displacement, or 0 if there's no displacement
 		/// </summary>
 		public byte DisplacementSize;
 
@@ -42,12 +42,12 @@ namespace Iced.Intel {
 		/// The offset of the first immediate, if any.
 		/// 
 		/// This field can be invalid even if the operand has an immediate if it's an immediate that isn't part
-		/// of the instruction stream, eg. 'shl al,1'.
+		/// of the instruction stream, eg. <c>SHL AL,1</c>.
 		/// </summary>
 		public byte ImmediateOffset;
 
 		/// <summary>
-		/// Size of the first immediate in bytes, or 0 if there's no immediate
+		/// Size in bytes of the first immediate, or 0 if there's no immediate
 		/// </summary>
 		public byte ImmediateSize;
 
@@ -57,7 +57,7 @@ namespace Iced.Intel {
 		public byte ImmediateOffset2;
 
 		/// <summary>
-		/// Size of the second immediate in bytes, or 0 if there's no second immediate
+		/// Size in bytes of the second immediate, or 0 if there's no second immediate
 		/// </summary>
 		public byte ImmediateSize2;
 

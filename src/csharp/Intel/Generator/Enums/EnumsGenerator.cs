@@ -70,6 +70,10 @@ namespace Generator.Enums {
 			Instruction.CodeFlagsEnum.Instance,
 			Instruction.MemoryFlagsEnum.Instance,
 			Instruction.OpKindFlagsEnum.Instance,
+			VectorLengthEnum.Instance,
+			MandatoryPrefixByteEnum.Instance,
+			StateFlagsEnum.Instance,
+			EncodingKindEnum.Instance,
 		};
 
 		public void Generate() {
