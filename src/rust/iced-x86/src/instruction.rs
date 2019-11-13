@@ -113,19 +113,15 @@ impl Instruction {
 
 	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `==` ignores some fields.
 	#[must_use]
-	pub fn eq_all_bits(&self, other: Self) -> bool {
-		self.next_rip == other.next_rip
-			&& self.code_flags == other.code_flags
-			&& self.op_kind_flags == other.op_kind_flags
-			&& self.immediate == other.immediate
-			&& self.mem_displ == other.mem_displ
-			&& self.memory_flags == other.memory_flags
-			&& self.mem_base_reg == other.mem_base_reg
-			&& self.mem_index_reg == other.mem_index_reg
-			&& self.reg0 == other.reg0
-			&& self.reg1 == other.reg1
-			&& self.reg2 == other.reg2
-			&& self.reg3 == other.reg3
+	#[allow(trivial_casts)]
+	pub fn eq_all_bits(&self, other: &Self) -> bool {
+		unsafe {
+			let a: *const u8 = self as *const Instruction as *const u8;
+			let b: *const u8 = other as *const Instruction as *const u8;
+			let sa = std::slice::from_raw_parts(a, std::mem::size_of::<Instruction>());
+			let sb = std::slice::from_raw_parts(b, std::mem::size_of::<Instruction>());
+			sa == sb
+		}
 	}
 
 	/// Gets the 16-bit IP of the instruction
