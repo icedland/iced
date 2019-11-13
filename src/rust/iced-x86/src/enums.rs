@@ -136,6 +136,7 @@ pub(crate) enum VectorLength {
 // GENERATOR-END: VectorLength
 
 impl Default for VectorLength {
+	#[must_use]
 	fn default() -> Self {
 		VectorLength::L128
 	}
@@ -154,6 +155,7 @@ pub(crate) enum MandatoryPrefixByte {
 // GENERATOR-END: MandatoryPrefixByte
 
 impl Default for MandatoryPrefixByte {
+	#[must_use]
 	fn default() -> Self {
 		MandatoryPrefixByte::None
 	}

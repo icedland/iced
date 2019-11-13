@@ -105,12 +105,14 @@ pub struct Instruction {
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::len_without_is_empty))]
 impl Instruction {
 	/// Creates an empty `Instruction` (all fields are cleared)
+	#[must_use]
 	#[inline]
 	pub fn new() -> Self {
 		Default::default()
 	}
 
 	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `==` ignores some fields.
+	#[must_use]
 	pub fn eq_all_bits(&self, other: Self) -> bool {
 		self.next_rip == other.next_rip
 			&& self.code_flags == other.code_flags
@@ -127,6 +129,7 @@ impl Instruction {
 	}
 
 	/// Gets the 16-bit IP of the instruction
+	#[must_use]
 	#[inline]
 	pub fn ip16(&self) -> u16 {
 		self.next_rip as u16 - self.len() as u16
@@ -143,6 +146,7 @@ impl Instruction {
 	}
 
 	/// Gets the 32-bit IP of the instruction
+	#[must_use]
 	#[inline]
 	pub fn ip32(&self) -> u32 {
 		self.next_rip as u32 - self.len() as u32
@@ -159,6 +163,7 @@ impl Instruction {
 	}
 
 	/// Gets the 64-bit IP of the instruction
+	#[must_use]
 	#[inline]
 	pub fn ip(&self) -> u64 {
 		self.next_rip - self.len() as u64
@@ -175,6 +180,7 @@ impl Instruction {
 	}
 
 	/// Gets the 16-bit IP of the next instruction
+	#[must_use]
 	#[inline]
 	pub fn next_ip16(&self) -> u16 {
 		self.next_rip as u16
@@ -191,6 +197,7 @@ impl Instruction {
 	}
 
 	/// Gets the 32-bit IP of the next instruction
+	#[must_use]
 	#[inline]
 	pub fn next_ip32(&self) -> u32 {
 		self.next_rip as u32
@@ -207,6 +214,7 @@ impl Instruction {
 	}
 
 	/// Gets the 64-bit IP of the next instruction
+	#[must_use]
 	#[inline]
 	pub fn next_ip(&self) -> u64 {
 		self.next_rip
@@ -224,6 +232,7 @@ impl Instruction {
 
 	/// Gets the code size when the instruction was decoded. This value is informational and can
 	/// be used by a formatter.
+	#[must_use]
 	#[inline]
 	pub fn code_size(&self) -> CodeSize {
 		// safe: the bits are only initialized to valid values by iced and
@@ -244,6 +253,7 @@ impl Instruction {
 	}
 
 	/// Gets the instruction code, see also `mnemonic()`
+	#[must_use]
 	#[inline]
 	pub fn code(&self) -> Code {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -261,12 +271,14 @@ impl Instruction {
 	}
 
 	/// Gets the mnemonic, see also `code()`
+	#[must_use]
 	#[inline]
 	pub fn mnemonic(&self) -> Mnemonic {
 		self.code().to_mnemonic()
 	}
 
 	/// Gets the operand count. An instruction can have 0-5 operands.
+	#[must_use]
 	#[inline]
 	pub fn op_count(&self) -> i32 {
 		instructionopcounts::OP_COUNT[(self.code_flags & CodeFlags::CODE_MASK) as usize] as i32
@@ -274,6 +286,7 @@ impl Instruction {
 
 	/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
 	/// or create a new one, this property could return the wrong value.
+	#[must_use]
 	#[inline]
 	pub fn len(&self) -> i32 {
 		((self.code_flags >> CodeFlags::INSTR_LENGTH_SHIFT) & CodeFlags::INSTR_LENGTH_MASK) as i32
@@ -291,6 +304,7 @@ impl Instruction {
 	}
 
 	/// Checks if the instruction has the `XACQUIRE` prefix (`F2`)
+	#[must_use]
 	#[inline]
 	pub fn has_xacquire_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::XACQUIRE_PREFIX) != 0
@@ -311,6 +325,7 @@ impl Instruction {
 	}
 
 	/// Checks if the instruction has the `XRELEASE` prefix (`F3`)
+	#[must_use]
 	#[inline]
 	pub fn has_xrelease_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::XRELEASE_PREFIX) != 0
@@ -331,6 +346,7 @@ impl Instruction {
 	}
 
 	/// Checks if the instruction has the `REPE` or `REP` prefix (`F3`)
+	#[must_use]
 	#[inline]
 	pub fn has_rep_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPE_PREFIX) != 0
@@ -351,6 +367,7 @@ impl Instruction {
 	}
 
 	/// Checks if the instruction has the `REPE` or `REP` prefix (`F3`)
+	#[must_use]
 	#[inline]
 	pub fn has_repe_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPE_PREFIX) != 0
@@ -371,6 +388,7 @@ impl Instruction {
 	}
 
 	/// Checks if the instruction has the `REPNE` prefix (`F2`)
+	#[must_use]
 	#[inline]
 	pub fn has_repne_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPNE_PREFIX) != 0
@@ -391,6 +409,7 @@ impl Instruction {
 	}
 
 	/// Checks if the instruction has the `LOCK` prefix (`F0`)
+	#[must_use]
 	#[inline]
 	pub fn has_lock_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::LOCK_PREFIX) != 0
@@ -411,6 +430,7 @@ impl Instruction {
 	}
 
 	/// Gets operand #0's kind if the operand exists (see `op_count()`)
+	#[must_use]
 	#[inline]
 	pub fn op0_kind(&self) -> OpKind {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -428,6 +448,7 @@ impl Instruction {
 	}
 
 	/// Gets operand #1's kind if the operand exists (see `op_count()`)
+	#[must_use]
 	#[inline]
 	pub fn op1_kind(&self) -> OpKind {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -446,6 +467,7 @@ impl Instruction {
 	}
 
 	/// Gets operand #2's kind if the operand exists (see `op_count()`)
+	#[must_use]
 	#[inline]
 	pub fn op2_kind(&self) -> OpKind {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -464,6 +486,7 @@ impl Instruction {
 	}
 
 	/// Gets operand #3's kind if the operand exists (see `op_count()`)
+	#[must_use]
 	#[inline]
 	pub fn op3_kind(&self) -> OpKind {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -482,6 +505,7 @@ impl Instruction {
 	}
 
 	/// Gets operand #4's kind if the operand exists (see `op_count()`)
+	#[must_use]
 	#[inline]
 	pub fn op4_kind(&self) -> OpKind {
 		OpKind::Immediate8
@@ -504,6 +528,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
+	#[must_use]
 	pub fn op_kind(&self, operand: i32) -> OpKind {
 		match operand {
 			0 => self.op0_kind(),
@@ -535,6 +560,7 @@ impl Instruction {
 	/// Gets the segment override prefix or `Register::None` if none. See also `memory_segment()`.
 	/// Use this property if the operand has kind `OpKind::Memory`, `OpKind::Memory64`,
 	/// `OpKind::MemorySegSI`, `OpKind::MemorySegESI`, `OpKind::MemorySegRSI`
+	#[must_use]
 	pub fn segment_prefix(&self) -> Register {
 		let index = (((self.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK) - 1;
 		if index < 6 {
@@ -565,6 +591,7 @@ impl Instruction {
 	/// Gets the effective segment register used to reference the memory location.
 	/// Use this property if the operand has kind `OpKind::Memory`, `OpKind::Memory64`,
 	/// `OpKind::MemorySegSI`, `OpKind::MemorySegESI`, `OpKind::MemorySegRSI`
+	#[must_use]
 	pub fn memory_segment(&self) -> Register {
 		let seg_reg = self.segment_prefix();
 		if seg_reg != Register::None {
@@ -580,6 +607,7 @@ impl Instruction {
 	/// Note that the return value can be 1 and `memory_displacement()` may still not fit in
 	/// a signed byte if it's an EVEX encoded instruction.
 	/// Use this property if the operand has kind `OpKind::Memory`
+	#[must_use]
 	pub fn memory_displ_size(&self) -> i32 {
 		let size: u32 = ((self.memory_flags as u32) >> MemoryFlags::DISPL_SIZE_SHIFT) & MemoryFlags::DISPL_SIZE_MASK;
 		if size <= 2 {
@@ -612,6 +640,7 @@ impl Instruction {
 	}
 
 	/// `true` if the data is broadcasted (EVEX instructions only)
+	#[must_use]
 	#[inline]
 	pub fn is_broadcast(&self) -> bool {
 		(self.memory_flags & (MemoryFlags::BROADCAST as u16)) != 0
@@ -635,6 +664,7 @@ impl Instruction {
 	/// Use this property if the operand has kind `OpKind::Memory`, `OpKind::Memory64`,
 	/// `OpKind::MemorySegSI`, `OpKind::MemorySegESI`, `OpKind::MemorySegRSI`,
 	/// `OpKind::MemoryESDI`, `OpKind::MemoryESEDI`, `OpKind::MemoryESRDI`
+	#[must_use]
 	#[inline]
 	pub fn memory_size(&self) -> MemorySize {
 		let mut index = self.code() as usize;
@@ -646,6 +676,7 @@ impl Instruction {
 	}
 
 	/// Gets the index register scale value, valid values are *1, *2, *4, *8. Use this property if the operand has kind `OpKind::Memory`
+	#[must_use]
 	#[inline]
 	pub fn memory_index_scale(&self) -> i32 {
 		1 << (self.memory_flags as u32 & MemoryFlags::SCALE_MASK)
@@ -670,6 +701,7 @@ impl Instruction {
 
 	/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see `memory_displacement64()`).
 	/// Use this property if the operand has kind `OpKind::Memory`
+	#[must_use]
 	#[inline]
 	pub fn memory_displacement(&self) -> u32 {
 		self.mem_displ
@@ -688,6 +720,7 @@ impl Instruction {
 
 	/// Gets the memory operand's displacement sign extended to 64 bits.
 	/// Use this property if the operand has kind `OpKind::Memory`
+	#[must_use]
 	#[inline]
 	pub fn memory_displacement64(&self) -> u64 {
 		self.mem_displ as i32 as u64
@@ -698,6 +731,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
+	#[must_use]
 	pub fn immediate(&self, operand: i32) -> u64 {
 		match self.op_kind(operand) {
 			OpKind::Immediate8 => self.immediate8() as u64,
@@ -764,6 +798,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate8`
+	#[must_use]
 	#[inline]
 	pub fn immediate8(&self) -> u8 {
 		self.immediate as u8
@@ -780,6 +815,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate8_2nd`
+	#[must_use]
 	#[inline]
 	pub fn immediate8_2nd(&self) -> u8 {
 		self.mem_displ as u8
@@ -796,6 +832,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate16`
+	#[must_use]
 	#[inline]
 	pub fn immediate16(&self) -> u16 {
 		self.immediate as u16
@@ -812,6 +849,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate32`
+	#[must_use]
 	#[inline]
 	pub fn immediate32(&self) -> u32 {
 		self.immediate
@@ -828,6 +866,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate64`
+	#[must_use]
 	#[inline]
 	pub fn immediate64(&self) -> u64 {
 		((self.mem_displ as u64) << 32) | (self.immediate as u64)
@@ -845,6 +884,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate8to16`
+	#[must_use]
 	#[inline]
 	pub fn immediate8to16(&self) -> i16 {
 		self.immediate as i8 as i16
@@ -861,6 +901,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate8to32`
+	#[must_use]
 	#[inline]
 	pub fn immediate8to32(&self) -> i32 {
 		self.immediate as i8 as i32
@@ -877,6 +918,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate8to64`
+	#[must_use]
 	#[inline]
 	pub fn immediate8to64(&self) -> i64 {
 		self.immediate as i8 as i64
@@ -893,6 +935,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate32to64`
+	#[must_use]
 	#[inline]
 	pub fn immediate32to64(&self) -> i64 {
 		self.immediate as i32 as i64
@@ -909,6 +952,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's 64-bit address value. Use this property if the operand has kind `OpKind::Memory64`
+	#[must_use]
 	#[inline]
 	pub fn memory_address64(&self) -> u64 {
 		((self.mem_displ as u64) << 32) | self.immediate as u64
@@ -926,6 +970,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's branch target. Use this property if the operand has kind `OpKind::NearBranch16`
+	#[must_use]
 	#[inline]
 	pub fn near_branch16(&self) -> u16 {
 		self.immediate as u16
@@ -942,6 +987,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's branch target. Use this property if the operand has kind `OpKind::NearBranch32`
+	#[must_use]
 	#[inline]
 	pub fn near_branch32(&self) -> u32 {
 		self.immediate
@@ -958,6 +1004,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's branch target. Use this property if the operand has kind `OpKind::NearBranch64`
+	#[must_use]
 	#[inline]
 	pub fn near_branch64(&self) -> u64 {
 		((self.mem_displ as u64) << 32) | self.immediate as u64
@@ -975,6 +1022,7 @@ impl Instruction {
 	}
 
 	/// Gets the near branch target if it's a call/jmp near branch instruction
+	#[must_use]
 	pub fn near_branch_target(&self) -> u64 {
 		match self.op0_kind() {
 			OpKind::NearBranch16 => self.near_branch16() as u64,
@@ -985,6 +1033,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's branch target. Use this property if the operand has kind `OpKind::FarBranch16`
+	#[must_use]
 	#[inline]
 	pub fn far_branch16(&self) -> u16 {
 		self.immediate as u16
@@ -1001,6 +1050,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's branch target. Use this property if the operand has kind `OpKind::FarBranch32`
+	#[must_use]
 	#[inline]
 	pub fn far_branch32(&self) -> u32 {
 		self.immediate
@@ -1017,6 +1067,7 @@ impl Instruction {
 	}
 
 	/// Gets the operand's branch target selector. Use this property if the operand has kind `OpKind::FarBranch16` or `OpKind::FarBranch32`
+	#[must_use]
 	#[inline]
 	pub fn far_branch_selector(&self) -> u16 {
 		self.mem_displ as u16
@@ -1033,6 +1084,7 @@ impl Instruction {
 	}
 
 	/// Gets the memory operand's base register or `Register::None` if none. Use this property if the operand has kind `OpKind::Memory`
+	#[must_use]
 	#[inline]
 	pub fn memory_base(&self) -> Register {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -1050,6 +1102,7 @@ impl Instruction {
 	}
 
 	/// Gets the memory operand's index register or `Register::None` if none. Use this property if the operand has kind `OpKind::Memory`
+	#[must_use]
 	#[inline]
 	pub fn memory_index(&self) -> Register {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -1067,6 +1120,7 @@ impl Instruction {
 	}
 
 	/// Gets operand #0's register value. Use this property if operand #0 (`op0_kind()`) has kind `OpKind::Register`
+	#[must_use]
 	#[inline]
 	pub fn op0_register(&self) -> Register {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -1084,6 +1138,7 @@ impl Instruction {
 	}
 
 	/// Gets operand #1's register value. Use this property if operand #1 (`op1_kind()`) has kind `OpKind::Register`
+	#[must_use]
 	#[inline]
 	pub fn op1_register(&self) -> Register {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -1101,6 +1156,7 @@ impl Instruction {
 	}
 
 	/// Gets operand #2's register value. Use this property if operand #2 (`op2_kind()`) has kind `OpKind::Register`
+	#[must_use]
 	#[inline]
 	pub fn op2_register(&self) -> Register {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -1118,6 +1174,7 @@ impl Instruction {
 	}
 
 	/// Gets operand #3's register value. Use this property if operand #3 (`op3_kind()`) has kind `OpKind::Register`
+	#[must_use]
 	#[inline]
 	pub fn op3_register(&self) -> Register {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -1135,6 +1192,7 @@ impl Instruction {
 	}
 
 	/// Gets operand #4's register value. Use this property if operand #4 (`op4_kind()`) has kind `OpKind::Register`
+	#[must_use]
 	#[inline]
 	pub fn op4_register(&self) -> Register {
 		Register::None
@@ -1157,6 +1215,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
+	#[must_use]
 	pub fn op_register(&self, operand: i32) -> Register {
 		match operand {
 			0 => self.op0_register(),
@@ -1186,6 +1245,7 @@ impl Instruction {
 	}
 
 	/// Gets the op mask register (`Register::K1` - `Register::K7`) or `Register::None` if none
+	#[must_use]
 	#[inline]
 	pub fn op_mask(&self) -> Register {
 		let r = (self.code_flags >> CodeFlags::OP_MASK_SHIFT) & CodeFlags::OP_MASK_MASK;
@@ -1212,6 +1272,7 @@ impl Instruction {
 	}
 
 	/// Checks if there's an op mask register (`op_mask()`)
+	#[must_use]
 	#[inline]
 	pub fn has_op_mask(&self) -> bool {
 		(self.code_flags & (CodeFlags::OP_MASK_MASK << CodeFlags::OP_MASK_SHIFT)) != 0
@@ -1219,6 +1280,7 @@ impl Instruction {
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
 	/// Only used by most EVEX encoded instructions that use op mask registers.
+	#[must_use]
 	#[inline]
 	pub fn zeroing_masking(&self) -> bool {
 		(self.code_flags & CodeFlags::ZEROING_MASKING) != 0
@@ -1241,6 +1303,7 @@ impl Instruction {
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
 	/// Only used by most EVEX encoded instructions that use op mask registers.
+	#[must_use]
 	#[inline]
 	pub fn merging_masking(&self) -> bool {
 		(self.code_flags & CodeFlags::ZEROING_MASKING) == 0
@@ -1263,6 +1326,7 @@ impl Instruction {
 
 	/// Gets the rounding control (`suppress_all_exceptions()` is implied but still returns `false`)
 	/// or `RoundingControl::None` if the instruction doesn't use it.
+	#[must_use]
 	#[inline]
 	pub fn rounding_control(&self) -> RoundingControl {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
@@ -1283,6 +1347,7 @@ impl Instruction {
 
 	/// Gets the number of elements in a `db`/`dw`/`dd`/`dq` directive.
 	/// Can only be called if `code()` is `Code::DeclareByte`, `Code::DeclareWord`, `Code::DeclareDword`, `Code::DeclareQword`
+	#[must_use]
 	#[inline]
 	pub fn declare_data_len(&self) -> i32 {
 		((self.op_kind_flags >> OpKindFlags::DATA_LENGTH_SHIFT) & OpKindFlags::DATA_LENGTH_MASK) as i32 + 1
@@ -1347,6 +1412,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-15)
+	#[must_use]
 	pub fn get_declare_byte_value(&self, index: i32) -> u8 {
 		match index {
 			0 => self.reg0,
@@ -1417,6 +1483,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-7)
+	#[must_use]
 	pub fn get_declare_word_value(&self, index: i32) -> u16 {
 		match index {
 			0 => self.reg0 as u16 | ((self.reg1 as u16) << 8),
@@ -1475,6 +1542,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-3)
+	#[must_use]
 	pub fn get_declare_dword_value(&self, index: i32) -> u32 {
 		match index {
 			0 => self.reg0 as u32 | ((self.reg1 as u32) << 8) | ((self.reg2 as u32) << 16) | ((self.reg3 as u32) << 24),
@@ -1529,6 +1597,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-1)
+	#[must_use]
 	pub fn get_declare_qword_value(&self, index: i32) -> u64 {
 		match index {
 			0 => {
@@ -1546,12 +1615,14 @@ impl Instruction {
 	}
 
 	/// Checks if this is a VSIB instruction, see also `is_vsib32()`, `is_vsib64()`
+	#[must_use]
 	#[inline]
 	pub fn is_vsib(&self) -> bool {
 		self.vsib().is_some()
 	}
 
 	/// VSIB instructions only (`is_vsib()`): `true` if it's using 32-bit indexes, `false` if it's using 64-bit indexes
+	#[must_use]
 	#[inline]
 	pub fn is_vsib32(&self) -> bool {
 		if let Some(is_vsib64) = self.vsib() {
@@ -1562,6 +1633,7 @@ impl Instruction {
 	}
 
 	/// VSIB instructions only (`is_vsib()`): `true` if it's using 64-bit indexes, `false` if it's using 32-bit indexes
+	#[must_use]
 	#[inline]
 	pub fn is_vsib64(&self) -> bool {
 		if let Some(is_vsib64) = self.vsib() {
@@ -1577,6 +1649,7 @@ impl Instruction {
 	/// * `Some(true)` if it's a VSIB instruction with 64-bit indexes
 	/// * `Some(false)` if it's a VSIB instruction with 32-bit indexes
 	/// * `None` if it's not a VSIB instruction.
+	#[must_use]
 	pub fn vsib(&self) -> Option<bool> {
 		match self.code() {
 			Code::VEX_Vpgatherdd_xmm_vm32x_xmm
@@ -1667,6 +1740,7 @@ impl Instruction {
 
 	/// Gets the suppress all exceptions flag (EVEX encoded instructions). Note that if `rounding_control()` is
 	/// not `RoundingControl::None`, SAE is implied but this property will still return `false`.
+	#[must_use]
 	#[inline]
 	pub fn suppress_all_exceptions(&self) -> bool {
 		(self.code_flags & CodeFlags::SUPPRESS_ALL_EXCEPTIONS) != 0
@@ -1688,6 +1762,7 @@ impl Instruction {
 	}
 
 	/// Checks if the memory operand is `RIP`/`EIP` relative
+	#[must_use]
 	#[inline]
 	pub fn is_ip_relative_memory_operand(&self) -> bool {
 		let base_reg = self.memory_base();
@@ -1696,6 +1771,7 @@ impl Instruction {
 
 	/// Gets the `RIP`/`EIP` releative address ((`next_ip()` or `next_ip32()`) + `memory_displacement()`).
 	/// This property is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see `is_ip_relative_memory_operand()`
+	#[must_use]
 	pub fn ip_relative_memory_address(&self) -> u64 {
 		let mut result = self.next_ip() + self.memory_displacement() as i32 as u64;
 		if self.memory_base() == Register::EIP {
@@ -1717,6 +1793,7 @@ impl Instruction {
 	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base value, not the segment register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index in the vector register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
+	#[must_use]
 	pub fn virtual_address<F>(&self, operand: i32, element_index: i32, get_register_value: F) -> u64
 	where
 		F: Fn(Register, i32, i32) -> u64,
@@ -1810,6 +1887,7 @@ impl Instruction {
 impl Eq for Instruction {}
 
 impl PartialEq<Instruction> for Instruction {
+	#[must_use]
 	fn eq(&self, other: &Instruction) -> bool {
 		((self.code_flags ^ other.code_flags) & !CodeFlags::EQUALS_IGNORE_MASK) == 0
 			&& ((self.op_kind_flags ^ other.op_kind_flags) & !OpKindFlags::EQUALS_IGNORE_MASK) == 0

@@ -39,12 +39,14 @@ pub struct ConstantOffsets {
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 impl ConstantOffsets {
 	/// The offset of the displacement, if any
+	#[must_use]
 	#[inline]
 	pub fn displacement_offset(&self) -> u32 {
 		self.displacement_offset as u32
 	}
 
 	/// Size in bytes of the displacement, or 0 if there's no displacement
+	#[must_use]
 	#[inline]
 	pub fn displacement_size(&self) -> u32 {
 		self.displacement_size as u32
@@ -54,42 +56,49 @@ impl ConstantOffsets {
 	///
 	/// This field can be invalid even if the operand has an immediate if it's an immediate that isn't part
 	/// of the instruction stream, eg. `SHL AL,1`.
+	#[must_use]
 	#[inline]
 	pub fn immediate_offset(&self) -> u32 {
 		self.immediate_offset as u32
 	}
 
 	/// Size in bytes of the first immediate, or 0 if there's no immediate
+	#[must_use]
 	#[inline]
 	pub fn immediate_size(&self) -> u32 {
 		self.immediate_size as u32
 	}
 
 	/// The offset of the second immediate, if any.
+	#[must_use]
 	#[inline]
 	pub fn immediate_offset2(&self) -> u32 {
 		self.immediate_offset2 as u32
 	}
 
 	/// Size in bytes of the second immediate, or 0 if there's no second immediate
+	#[must_use]
 	#[inline]
 	pub fn immediate_size2(&self) -> u32 {
 		self.immediate_size2 as u32
 	}
 
 	/// true if `displacement_offset()` is valid
+	#[must_use]
 	#[inline]
 	pub fn has_displacement(&self) -> bool {
 		self.displacement_size != 0
 	}
 
 	/// true if `immediate_offset()` is valid
+	#[must_use]
 	#[inline]
 	pub fn has_immediate(&self) -> bool {
 		self.immediate_size != 0
 	}
 
 	/// true if `immediate_offset2()` is valid
+	#[must_use]
 	#[inline]
 	pub fn has_immediate2(&self) -> bool {
 		self.immediate_size2 != 0

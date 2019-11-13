@@ -295,6 +295,7 @@ mod info {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 	impl RegisterInfo {
 		/// Gets the register
+		#[must_use]
 		#[inline]
 		pub fn register(&self) -> Register {
 			// safe: register is always a valid Register value
@@ -302,6 +303,7 @@ mod info {
 		}
 
 		/// Gets the base register, eg. `AL`, `AX`, `EAX`, `RAX`, `MM0`, `XMM0`, `YMM0`, `ZMM0`, `ES`
+		#[must_use]
 		#[inline]
 		pub fn base(&self) -> Register {
 			// safe: base_register is always a valid Register value
@@ -309,12 +311,14 @@ mod info {
 		}
 
 		/// The register number (index) relative to `base()`, eg. 0-15, or 0-31, or if 8-bit GPR, 0-19
+		#[must_use]
 		#[inline]
 		pub fn number(&self) -> i32 {
 			(self.register - self.base_register) as i32
 		}
 
 		/// The full register that this one is a part of, eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `RCX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
+		#[must_use]
 		#[inline]
 		pub fn full_register(&self) -> Register {
 			// safe: full_register is always a valid Register value
@@ -323,6 +327,7 @@ mod info {
 
 		/// Gets the full register that this one is a part of, except if it's a GPR in which case the 32-bit register is returned,
 		/// eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `ECX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
+		#[must_use]
 		#[inline]
 		pub fn full_register32(&self) -> Register {
 			// safe: full_register is always a valid Register value
@@ -336,6 +341,7 @@ mod info {
 		}
 
 		/// Size of the register in bytes
+		#[must_use]
 		#[inline]
 		pub fn size(&self) -> i32 {
 			self.size as i32
@@ -346,24 +352,28 @@ mod info {
 #[cfg(feature = "INSTR_INFO")]
 impl Register {
 	/// Gets register info
+	#[must_use]
 	#[inline]
 	pub fn info(self) -> &'static RegisterInfo {
 		&REGISTER_INFOS[self as usize]
 	}
 
 	/// Gets the base register, eg. `AL`, `AX`, `EAX`, `RAX`, `MM0`, `XMM0`, `YMM0`, `ZMM0`, `ES`
+	#[must_use]
 	#[inline]
 	pub fn base_register(self) -> Register {
 		self.info().base()
 	}
 
 	/// The register number (index) relative to `base_register()`, eg. 0-15, or 0-31, or if 8-bit GPR, 0-19
+	#[must_use]
 	#[inline]
 	pub fn number(self) -> i32 {
 		self.info().number()
 	}
 
 	/// Gets the full register that this one is a part of, eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `RCX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
+	#[must_use]
 	#[inline]
 	pub fn full_register(self) -> Register {
 		self.info().full_register()
@@ -371,72 +381,84 @@ impl Register {
 
 	/// Gets the full register that this one is a part of, except if it's a GPR in which case the 32-bit register is returned,
 	/// eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `ECX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
+	#[must_use]
 	#[inline]
 	pub fn full_register32(self) -> Register {
 		self.info().full_register32()
 	}
 
 	/// Gets the size of the register in bytes
+	#[must_use]
 	#[inline]
 	pub fn size(self) -> i32 {
 		self.info().size()
 	}
 
 	/// Checks if it's a segment register (`ES`, `CS`, `SS`, `DS`, `FS`, `GS`)
+	#[must_use]
 	#[inline]
 	pub fn is_segment_register(self) -> bool {
 		Register::ES <= self && self <= Register::GS
 	}
 
 	/// Checks if it's a general purpose register (`AL`-`R15L`, `AX`-`R15W`, `EAX`-`R15D`, `RAX`-`R15`)
+	#[must_use]
 	#[inline]
 	pub fn is_gpr(self) -> bool {
 		Register::AL <= self && self <= Register::R15
 	}
 
 	/// Checks if it's an 8-bit general purpose register (`AL`-`R15L`)
+	#[must_use]
 	#[inline]
 	pub fn is_gpr8(self) -> bool {
 		Register::AL <= self && self <= Register::R15L
 	}
 
 	/// Checks if it's a 16-bit general purpose register (`AX`-`R15W`)
+	#[must_use]
 	#[inline]
 	pub fn is_gpr16(self) -> bool {
 		Register::AX <= self && self <= Register::R15W
 	}
 
 	/// Checks if it's a 32-bit general purpose register (`EAX`-`R15D`)
+	#[must_use]
 	#[inline]
 	pub fn is_gpr32(self) -> bool {
 		Register::EAX <= self && self <= Register::R15D
 	}
 
 	/// Checks if it's a 64-bit general purpose register (`RAX`-`R15`)
+	#[must_use]
 	#[inline]
 	pub fn is_gpr64(self) -> bool {
 		Register::RAX <= self && self <= Register::R15
 	}
 
 	/// Checks if it's a 128-bit vector register (`XMM0`-`XMM31`)
+	#[must_use]
 	#[inline]
 	pub fn is_xmm(self) -> bool {
 		Register::XMM0 <= self && self <= IcedConstants::XMM_LAST
 	}
 
 	/// Checks if it's a 256-bit vector register (`YMM0`-`YMM31`)
+	#[must_use]
 	#[inline]
 	pub fn is_ymm(self) -> bool {
 		Register::YMM0 <= self && self <= IcedConstants::YMM_LAST
 	}
 
 	/// Checks if it's a 512-bit vector register (`ZMM0`-`ZMM31`)
+	#[must_use]
 	#[inline]
 	pub fn is_zmm(self) -> bool {
 		Register::ZMM0 <= self && self <= IcedConstants::ZMM_LAST
 	}
 
 	/// Checks if it's an `XMM`, `YMM` or `ZMM` register
+	#[must_use]
 	#[inline]
 	pub fn is_vector_register(self) -> bool {
 		Register::XMM0 <= self && self <= IcedConstants::VMM_LAST
@@ -694,6 +716,7 @@ pub enum Register {
 // GENERATOR-END: Register
 
 impl Register {
+	#[must_use]
 	fn add(self, rhs: u32) -> Register {
 		let result = (self as u32).wrapping_add(rhs);
 		if result < IcedConstants::NUMBER_OF_REGISTERS as u32 {
@@ -703,6 +726,7 @@ impl Register {
 			panic!("NYI") //TODO:
 		}
 	}
+	#[must_use]
 	fn sub(self, rhs: u32) -> Register {
 		let result = (self as u32).wrapping_sub(rhs);
 		if result < IcedConstants::NUMBER_OF_REGISTERS as u32 {

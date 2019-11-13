@@ -38,6 +38,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![deny(trivial_numeric_casts)]
 #![deny(unused_import_braces)]
 #![deny(unused_lifetimes)]
+#![deny(unused_must_use)]
 #![deny(unused_qualifications)]
 #![deny(unused_results)]
 
