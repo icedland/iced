@@ -30,7 +30,6 @@ use std::mem;
 /// x86 instruction code
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[allow(non_camel_case_types)]
-#[repr(u32)]
 pub enum Code {
 	/// It's an invalid instruction, eg. it's a new unknown instruction, garbage or there's not enough bytes to decode the instruction etc.
 	INVALID,

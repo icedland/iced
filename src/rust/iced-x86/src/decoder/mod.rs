@@ -27,24 +27,31 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 extern crate std;
 
+mod handlers_3dnow;
+mod handlers_evex;
+mod handlers_fpu;
+mod handlers_legacy;
+mod handlers_vex;
+
 use super::icedconstants::IcedConstants;
 use super::*;
 use std::ptr;
 
-type OpCodeHandlerDecodeFn = unsafe fn(*const OpCodeHandler, &mut Decoder, &mut Instruction);
+pub(crate) type OpCodeHandlerDecodeFn = fn(*const OpCodeHandler, &mut Decoder, &mut Instruction);
 
 #[repr(C)]
-struct OpCodeHandler {
-	decode: OpCodeHandlerDecodeFn,
-	has_modrm: bool,
+pub(crate) struct OpCodeHandler {
+	pub(crate) decode: OpCodeHandlerDecodeFn,
+	pub(crate) has_modrm: bool,
 }
+#[allow(non_camel_case_types)]
 #[repr(C)]
 struct OpCodeHandler_Invalid {
-	decode: OpCodeHandlerDecodeFn,
-	has_modrm: bool,
+	pub(crate) decode: OpCodeHandlerDecodeFn,
+	pub(crate) has_modrm: bool,
 }
 impl OpCodeHandler_Invalid {
-	unsafe fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		decoder.set_invalid_instruction();
 	}
 }
@@ -212,8 +219,8 @@ struct State {
 	aaa: u32,
 	extra_register_base_evex: u32,
 	extra_base_register_base_evex: u32,
+	vector_length: u32,
 	default_ds_segment: u8,
-	vector_length: VectorLength,
 	operand_size: OpSize,
 	address_size: OpSize,
 }
@@ -473,17 +480,17 @@ impl<'a> Decoder<'a> {
 					rex_prefix = 0;
 				}
 				0xF0 => {
-					instruction.internal_set_has_lock_prefix();
+					super::instruction_internal::internal_set_has_lock_prefix(instruction);
 					self.state.flags |= StateFlags::LOCK;
 					rex_prefix = 0;
 				}
 				0xF2 => {
-					instruction.internal_set_has_repne_prefix();
+					super::instruction_internal::internal_set_has_repne_prefix(instruction);
 					self.state.mandatory_prefix = MandatoryPrefixByte::PF2 as u32;
 					rex_prefix = 0;
 				}
 				0xF3 => {
-					instruction.internal_set_has_repe_prefix();
+					super::instruction_internal::internal_set_has_repe_prefix(instruction);
 					self.state.mandatory_prefix = MandatoryPrefixByte::PF3 as u32;
 					rex_prefix = 0;
 				}
@@ -513,14 +520,14 @@ impl<'a> Decoder<'a> {
 			{
 				*instruction = Default::default();
 				const_assert_eq!(0, Code::INVALID as u32);
-				//instruction.internal_set_code(Code::INVALID);
+				//super::instruction_internal::internal_set_code(instruction, Code::INVALID);
 			}
 		}
-		instruction.internal_set_code_size(self.default_code_size);
+		super::instruction_internal::internal_set_code_size(instruction, self.default_code_size);
 		debug_assert_eq!(self.instr_start_data_ptr, data_ptr);
 		let instr_len = self.data_ptr as usize - data_ptr as usize;
 		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH as usize); // Could be 0 if there were no bytes available
-		instruction.internal_set_len(instr_len as u32);
+		super::instruction_internal::internal_set_len(instruction, instr_len as u32);
 
 		let ip = self.ip + instr_len as u64;
 		self.ip = ip;
@@ -549,8 +556,8 @@ impl<'a> Decoder<'a> {
 		debug_assert!(self.state.encoding() == EncodingKind::Legacy);
 		match self.state.mandatory_prefix {
 			Decoder::P66 => self.state.operand_size = self.default_operand_size,
-			Decoder::PF3 => instruction.internal_clear_has_repe_prefix(),
-			Decoder::PF2 => instruction.internal_clear_has_repne_prefix(),
+			Decoder::PF3 => instruction_internal::internal_clear_has_repe_prefix(instruction),
+			Decoder::PF2 => instruction_internal::internal_clear_has_repne_prefix(instruction),
 			_ => {}
 		}
 	}
@@ -568,13 +575,13 @@ impl<'a> Decoder<'a> {
 			Decoder::PF2 => {
 				if (flags & HandlerFlags::XACQUIRE) != 0 {
 					self.clear_mandatory_prefix_f2(instruction);
-					instruction.internal_set_has_xacquire_prefix();
+					super::instruction_internal::internal_set_has_xacquire_prefix(instruction);
 				}
 			}
 			Decoder::PF3 => {
 				if (flags & HandlerFlags::XRELEASE) != 0 {
 					self.clear_mandatory_prefix_f3(instruction);
-					instruction.internal_set_has_xrelease_prefix();
+					super::instruction_internal::internal_set_has_xrelease_prefix(instruction);
 				}
 			}
 			_ => {}
@@ -585,14 +592,14 @@ impl<'a> Decoder<'a> {
 	fn clear_mandatory_prefix_f3(&self, instruction: &mut Instruction) {
 		debug_assert!(self.state.encoding() == EncodingKind::Legacy);
 		debug_assert!(self.state.mandatory_prefix == MandatoryPrefixByte::PF3 as u32);
-		instruction.internal_clear_has_repe_prefix();
+		super::instruction_internal::internal_clear_has_repe_prefix(instruction);
 	}
 
 	#[inline]
 	fn clear_mandatory_prefix_f2(&self, instruction: &mut Instruction) {
 		debug_assert!(self.state.encoding() == EncodingKind::Legacy);
 		debug_assert!(self.state.mandatory_prefix == MandatoryPrefixByte::PF2 as u32);
-		instruction.internal_clear_has_repne_prefix();
+		super::instruction_internal::internal_clear_has_repne_prefix(instruction);
 	}
 
 	#[inline]
@@ -652,8 +659,7 @@ impl<'a> Decoder<'a> {
 
 		const_assert_eq!(0, VectorLength::L128 as u32);
 		const_assert_eq!(1, VectorLength::L256 as u32);
-		// Always safe, the enum has exactly 2 values
-		self.state.vector_length = unsafe { std::mem::transmute(((b >> 2) & 1) as u8) };
+		self.state.vector_length = (b >> 2) & 1;
 
 		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
 		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
@@ -683,8 +689,7 @@ impl<'a> Decoder<'a> {
 
 		const_assert_eq!(0, VectorLength::L128 as u32);
 		const_assert_eq!(1, VectorLength::L256 as u32);
-		// Always safe, the enum has exactly 2 values
-		self.state.vector_length = unsafe { std::mem::transmute(((b2 >> 2) & 1) as u8) };
+		self.state.vector_length = (b2 >> 2) & 1;
 
 		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
 		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
@@ -733,8 +738,7 @@ impl<'a> Decoder<'a> {
 
 		const_assert_eq!(0, VectorLength::L128 as u32);
 		const_assert_eq!(1, VectorLength::L256 as u32);
-		// Always safe, the enum has exactly 2 values
-		self.state.vector_length = unsafe { std::mem::transmute(((b2 >> 2) & 1) as u8) };
+		self.state.vector_length = (b2 >> 2) & 1;
 
 		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
 		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
@@ -793,14 +797,14 @@ impl<'a> Decoder<'a> {
 
 				let aaa = p2 & 7;
 				self.state.aaa = aaa;
-				instruction.internal_set_op_mask(aaa);
+				super::instruction_internal::internal_set_op_mask(instruction, aaa);
 				if (p2 & 0x80) != 0 {
 					// invalid if aaa == 0 and if we check for invalid instructions (it's all 1s)
 					if (aaa ^ self.invalid_check_mask) == std::u32::MAX {
 						self.set_invalid_instruction();
 					}
 					self.state.flags |= StateFlags::Z;
-					instruction.internal_set_zeroing_masking();
+					super::instruction_internal::internal_set_zeroing_masking(instruction);
 				}
 
 				const_assert_eq!(0x10, StateFlags::B);
@@ -810,8 +814,7 @@ impl<'a> Decoder<'a> {
 				const_assert_eq!(1, VectorLength::L256 as u32);
 				const_assert_eq!(2, VectorLength::L512 as u32);
 				const_assert_eq!(3, VectorLength::Unknown as u32);
-				// Always safe, the enum has exactly 4 values
-				self.state.vector_length = unsafe { std::mem::transmute(((p2 >> 5) & 3) as u8) };
+				self.state.vector_length = (p2 >> 5) & 3;
 
 				if self.is64_mode {
 					self.state.vvvv = (!p1 >> 3) & 0x0F;
@@ -847,14 +850,14 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	pub(crate) fn read_op_seg_reg(&mut self) -> Register {
+	pub(crate) fn read_op_seg_reg(&mut self) -> u32 {
 		let reg = self.state.reg;
 		if reg < 6 {
-			// Safe, always returns ES,CS,SS,DS,FS,GS
-			unsafe { std::mem::transmute((Register::ES as u32 + reg) as u8) }
+			// Safe, ES,CS,SS,DS,FS,GS
+			Register::ES as u32 + reg
 		} else {
 			self.state.flags |= StateFlags::IS_INVALID;
-			Register::None
+			Register::None as u32
 		}
 	}
 
@@ -917,6 +920,9 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
+	// It's small enough that the compiler wants to inline it but almost no-one will
+	// disassemble code with 16-bit addressing.
+	#[inline(never)]
 	fn read_op_mem_16(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
 		debug_assert!(self.state.address_size == OpSize::Size16);
 		debug_assert!(self.state.rm <= 7);
@@ -925,7 +931,7 @@ impl<'a> Decoder<'a> {
 		match self.state.mod_ {
 			0 => {
 				if self.state.rm == 6 {
-					instruction.internal_set_memory_displ_size(2);
+					super::instruction_internal::internal_set_memory_displ_size(instruction, 2);
 					self.displ_index = self.data_ptr as usize;
 					instruction.set_memory_displacement(self.read_u16() as u32);
 					base_reg = Register::None;
@@ -933,7 +939,7 @@ impl<'a> Decoder<'a> {
 				}
 			}
 			1 => {
-				instruction.internal_set_memory_displ_size(1);
+				super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
 				self.displ_index = self.data_ptr as usize;
 				if tuple_type == TupleType::None {
 					instruction.set_memory_displacement(self.read_u8() as i8 as u16 as u32);
@@ -943,13 +949,13 @@ impl<'a> Decoder<'a> {
 			}
 			_ => {
 				debug_assert_eq!(2, self.state.mod_);
-				instruction.internal_set_memory_displ_size(2);
+				super::instruction_internal::internal_set_memory_displ_size(instruction, 2);
 				self.displ_index = self.data_ptr as usize;
 				instruction.set_memory_displacement(self.read_u16() as u32);
 			}
 		}
-		instruction.internal_set_memory_base(base_reg);
-		instruction.internal_set_memory_index(index_reg);
+		super::instruction_internal::internal_set_memory_base(instruction, base_reg);
+		super::instruction_internal::internal_set_memory_index(instruction, index_reg);
 	}
 
 	// Returns true if the SIB byte was read
@@ -969,24 +975,27 @@ impl<'a> Decoder<'a> {
 				}
 				5 => {
 					if self.state.address_size == OpSize::Size64 {
-						instruction.internal_set_memory_displ_size(4);
+						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					} else {
-						instruction.internal_set_memory_displ_size(3);
+						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
 					self.displ_index = self.data_ptr as usize;
 					instruction.set_memory_displacement(self.read_u32() as u32);
 					if self.is64_mode {
 						if self.state.address_size == OpSize::Size64 {
-							instruction.internal_set_memory_base(Register::RIP);
+							super::instruction_internal::internal_set_memory_base(instruction, Register::RIP);
 						} else {
-							instruction.internal_set_memory_base(Register::EIP);
+							super::instruction_internal::internal_set_memory_base(instruction, Register::EIP);
 						}
 					}
 					return false;
 				}
 				_ => {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4 && self.state.rm != 5);
-					instruction.internal_set_memory_base_u32(self.state.extra_base_register_base + self.state.rm + base_reg as u32);
+					super::instruction_internal::internal_set_memory_base_u32(
+						instruction,
+						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
+					);
 					return false;
 				}
 			},
@@ -1002,14 +1011,17 @@ impl<'a> Decoder<'a> {
 					}
 				} else {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
-					instruction.internal_set_memory_displ_size(1);
+					super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
 					self.displ_index = self.data_ptr as usize;
 					if tuple_type == TupleType::None {
 						instruction.set_memory_displacement(self.read_u8() as i8 as u32);
 					} else {
 						instruction.set_memory_displacement(self.disp8n(tuple_type) * self.read_u8() as i8 as u32);
 					}
-					instruction.internal_set_memory_base_u32(self.state.extra_base_register_base + self.state.rm + base_reg as u32);
+					super::instruction_internal::internal_set_memory_base_u32(
+						instruction,
+						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
+					);
 					return false;
 				}
 			}
@@ -1023,13 +1035,16 @@ impl<'a> Decoder<'a> {
 				} else {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
 					if self.state.address_size == OpSize::Size64 {
-						instruction.internal_set_memory_displ_size(4);
+						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					} else {
-						instruction.internal_set_memory_displ_size(3);
+						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
 					self.displ_index = self.data_ptr as usize;
 					instruction.set_memory_displacement(self.read_u32() as u32);
-					instruction.internal_set_memory_base_u32(self.state.extra_base_register_base + self.state.rm + base_reg as u32);
+					super::instruction_internal::internal_set_memory_base_u32(
+						instruction,
+						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
+					);
 					return false;
 				}
 			}
@@ -1038,26 +1053,29 @@ impl<'a> Decoder<'a> {
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
 		let base = sib & 7;
 
-		instruction.internal_set_memory_index_scale((sib >> 6) as i32);
+		super::instruction_internal::internal_set_memory_index_scale(instruction, (sib >> 6) as i32);
 		if !is_vsib {
 			if index != 4 {
-				instruction.internal_set_memory_index_u32(index + index_reg as u32);
+				super::instruction_internal::internal_set_memory_index_u32(instruction, index + index_reg as u32);
 			}
 		} else {
-			instruction.internal_set_memory_index_u32(index + self.state.extra_index_register_base_vsib + index_reg as u32);
+			super::instruction_internal::internal_set_memory_index_u32(
+				instruction,
+				index + self.state.extra_index_register_base_vsib + index_reg as u32,
+			);
 		}
 
 		if base == 5 && self.state.mod_ == 0 {
 			if self.state.address_size == OpSize::Size64 {
-				instruction.internal_set_memory_displ_size(4);
+				super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			} else {
-				instruction.internal_set_memory_displ_size(3);
+				super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			}
 			self.displ_index = self.data_ptr as usize;
 			instruction.set_memory_displacement(self.read_u32() as u32);
 		} else {
-			instruction.internal_set_memory_base_u32(base + self.state.extra_base_register_base + base_reg as u32);
-			instruction.internal_set_memory_displ_size(displ_size_scale);
+			super::instruction_internal::internal_set_memory_base_u32(instruction, base + self.state.extra_base_register_base + base_reg as u32);
+			super::instruction_internal::internal_set_memory_displ_size(instruction, displ_size_scale);
 			instruction.set_memory_displacement(displ);
 		}
 		true

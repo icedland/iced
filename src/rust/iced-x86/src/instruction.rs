@@ -86,20 +86,20 @@ impl CodeFlags {
 /// A 16/32/64-bit x86 instruction
 #[derive(Copy, Clone, Default)]
 pub struct Instruction {
-	next_rip: u64,
-	code_flags: u32,    // CodeFlags
-	op_kind_flags: u32, // OpKindFlags
+	pub(crate) next_rip: u64,
+	pub(crate) code_flags: u32,    // CodeFlags
+	pub(crate) op_kind_flags: u32, // OpKindFlags
 	// If it's a 64-bit immediate/offset/target, the high 32 bits is in mem_displ
-	immediate: u32,
+	pub(crate) immediate: u32,
 	// This is the high 32 bits if it's a 64-bit immediate/offset/target
-	mem_displ: u32,
-	memory_flags: u16, // MemoryFlags
-	mem_base_reg: u8,  // Register
-	mem_index_reg: u8, // Register
-	reg0: u8,          // Register
-	reg1: u8,          // Register
-	reg2: u8,          // Register
-	reg3: u8,          // Register
+	pub(crate) mem_displ: u32,
+	pub(crate) memory_flags: u16, // MemoryFlags
+	pub(crate) mem_base_reg: u8,  // Register
+	pub(crate) mem_index_reg: u8, // Register
+	pub(crate) reg0: u8,          // Register
+	pub(crate) reg1: u8,          // Register
+	pub(crate) reg2: u8,          // Register
+	pub(crate) reg3: u8,          // Register
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::len_without_is_empty))]
@@ -243,16 +243,11 @@ impl Instruction {
 			| (((new_value as u32) & OpKindFlags::CODE_SIZE_MASK) << OpKindFlags::CODE_SIZE_SHIFT);
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_code_size(&mut self, new_value: CodeSize) {
-		self.op_kind_flags |= (new_value as u32) << OpKindFlags::CODE_SIZE_SHIFT;
-	}
-
 	/// Gets the instruction code, see also `mnemonic()`
 	#[inline]
 	pub fn code(&self) -> Code {
 		// safe: iced only initializes the bits to valid values. The user can write garbage if he/she uses unsafe code though.
-		unsafe { mem::transmute(self.code_flags & CodeFlags::CODE_MASK) }
+		unsafe { mem::transmute((self.code_flags & CodeFlags::CODE_MASK) as u16) }
 	}
 
 	/// Sets the instruction code
@@ -263,16 +258,6 @@ impl Instruction {
 	#[inline]
 	pub fn set_code(&mut self, new_value: Code) {
 		self.code_flags = (self.code_flags & !CodeFlags::CODE_MASK) | (new_value as u32);
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_code(&mut self, new_value: Code) {
-		self.code_flags |= new_value as u32;
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_code_no_check(&mut self, new_value: Code) {
-		self.code_flags = (self.code_flags & !CodeFlags::CODE_MASK) | new_value as u32;
 	}
 
 	/// Gets the mnemonic, see also `code()`
@@ -305,26 +290,6 @@ impl Instruction {
 			| (((new_value as u32) & CodeFlags::INSTR_LENGTH_MASK) << CodeFlags::INSTR_LENGTH_SHIFT);
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_len(&mut self, new_value: u32) {
-		self.code_flags |= new_value << CodeFlags::INSTR_LENGTH_SHIFT;
-	}
-
-	#[inline]
-	pub(crate) fn internal_has_repe_prefix_has_xrelease_prefix(&self) -> bool {
-		(self.code_flags & (CodeFlags::REPE_PREFIX | CodeFlags::XRELEASE_PREFIX)) != 0
-	}
-
-	#[inline]
-	pub(crate) fn internal_has_repne_prefix_has_xacquire_prefix(&self) -> bool {
-		(self.code_flags & (CodeFlags::REPNE_PREFIX | CodeFlags::XACQUIRE_PREFIX)) != 0
-	}
-
-	#[inline]
-	pub(crate) fn internal_has_repe_or_repne_prefix(&self) -> bool {
-		(self.code_flags & (CodeFlags::REPE_PREFIX | CodeFlags::REPNE_PREFIX)) != 0
-	}
-
 	/// Checks if the instruction has the `XACQUIRE` prefix (`F2`)
 	#[inline]
 	pub fn has_xacquire_prefix(&self) -> bool {
@@ -345,11 +310,6 @@ impl Instruction {
 		}
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_has_xacquire_prefix(&mut self) {
-		self.code_flags |= CodeFlags::XACQUIRE_PREFIX
-	}
-
 	/// Checks if the instruction has the `XRELEASE` prefix (`F3`)
 	#[inline]
 	pub fn has_xrelease_prefix(&self) -> bool {
@@ -368,11 +328,6 @@ impl Instruction {
 		} else {
 			self.code_flags &= !CodeFlags::XRELEASE_PREFIX;
 		}
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_has_xrelease_prefix(&mut self) {
-		self.code_flags |= CodeFlags::XRELEASE_PREFIX
 	}
 
 	/// Checks if the instruction has the `REPE` or `REP` prefix (`F3`)
@@ -415,16 +370,6 @@ impl Instruction {
 		}
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_has_repe_prefix(&mut self) {
-		self.code_flags |= CodeFlags::REPE_PREFIX
-	}
-
-	#[inline]
-	pub(crate) fn internal_clear_has_repe_prefix(&mut self) {
-		self.code_flags &= !CodeFlags::REPE_PREFIX
-	}
-
 	/// Checks if the instruction has the `REPNE` prefix (`F2`)
 	#[inline]
 	pub fn has_repne_prefix(&self) -> bool {
@@ -443,16 +388,6 @@ impl Instruction {
 		} else {
 			self.code_flags &= !CodeFlags::REPNE_PREFIX;
 		}
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_has_repne_prefix(&mut self) {
-		self.code_flags |= CodeFlags::REPNE_PREFIX
-	}
-
-	#[inline]
-	pub(crate) fn internal_clear_has_repne_prefix(&mut self) {
-		self.code_flags &= !CodeFlags::REPNE_PREFIX
 	}
 
 	/// Checks if the instruction has the `LOCK` prefix (`F0`)
@@ -475,16 +410,6 @@ impl Instruction {
 		}
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_has_lock_prefix(&mut self) {
-		self.code_flags |= CodeFlags::LOCK_PREFIX
-	}
-
-	#[inline]
-	pub(crate) fn internal_clear_has_lock_prefix(&mut self) {
-		self.code_flags &= !CodeFlags::LOCK_PREFIX
-	}
-
 	/// Gets operand #0's kind if the operand exists (see `op_count()`)
 	#[inline]
 	pub fn op0_kind(&self) -> OpKind {
@@ -500,16 +425,6 @@ impl Instruction {
 	#[inline]
 	pub fn set_op0_kind(&mut self, new_value: OpKind) {
 		self.op_kind_flags = (self.op_kind_flags & !OpKindFlags::OP_KIND_MASK) | ((new_value as u32) & OpKindFlags::OP_KIND_MASK);
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_op0_kind(&mut self, new_value: OpKind) {
-		self.op_kind_flags |= new_value as u32;
-	}
-
-	#[inline]
-	pub(crate) fn internal_op0_is_not_reg_or_op0_is_not_reg(&self) -> bool {
-		(self.op_kind_flags & (OpKindFlags::OP_KIND_MASK | (OpKindFlags::OP_KIND_MASK << OpKindFlags::OP1_KIND_SHIFT))) != 0
 	}
 
 	/// Gets operand #1's kind if the operand exists (see `op_count()`)
@@ -530,11 +445,6 @@ impl Instruction {
 			| (((new_value as u32) & OpKindFlags::OP_KIND_MASK) << OpKindFlags::OP1_KIND_SHIFT);
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_op1_kind(&mut self, new_value: OpKind) {
-		self.op_kind_flags |= (new_value as u32) << OpKindFlags::OP1_KIND_SHIFT;
-	}
-
 	/// Gets operand #2's kind if the operand exists (see `op_count()`)
 	#[inline]
 	pub fn op2_kind(&self) -> OpKind {
@@ -551,11 +461,6 @@ impl Instruction {
 	pub fn set_op2_kind(&mut self, new_value: OpKind) {
 		self.op_kind_flags = (self.op_kind_flags & !(OpKindFlags::OP_KIND_MASK << OpKindFlags::OP2_KIND_SHIFT))
 			| (((new_value as u32) & OpKindFlags::OP_KIND_MASK) << OpKindFlags::OP2_KIND_SHIFT);
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_op2_kind(&mut self, new_value: OpKind) {
-		self.op_kind_flags |= (new_value as u32) << OpKindFlags::OP2_KIND_SHIFT;
 	}
 
 	/// Gets operand #3's kind if the operand exists (see `op_count()`)
@@ -576,11 +481,6 @@ impl Instruction {
 			| (((new_value as u32) & OpKindFlags::OP_KIND_MASK) << OpKindFlags::OP3_KIND_SHIFT);
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_op3_kind(&mut self, new_value: OpKind) {
-		self.op_kind_flags |= (new_value as u32) << OpKindFlags::OP3_KIND_SHIFT;
-	}
-
 	/// Gets operand #4's kind if the operand exists (see `op_count()`)
 	#[inline]
 	pub fn op4_kind(&self) -> OpKind {
@@ -594,13 +494,6 @@ impl Instruction {
 	/// * `new_value`: new value
 	#[inline]
 	pub fn set_op4_kind(&mut self, new_value: OpKind) {
-		if new_value != OpKind::Immediate8 {
-			panic!("NYI"); //TODO:
-		}
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_op4_kind(&mut self, new_value: OpKind) {
 		if new_value != OpKind::Immediate8 {
 			panic!("NYI"); //TODO:
 		}
@@ -718,12 +611,6 @@ impl Instruction {
 			| (enc_value << MemoryFlags::DISPL_SIZE_SHIFT)) as u16;
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_memory_displ_size(&mut self, new_value: u32) {
-		debug_assert!(new_value <= 4);
-		self.memory_flags |= (new_value << MemoryFlags::DISPL_SIZE_SHIFT) as u16;
-	}
-
 	/// `true` if the data is broadcasted (EVEX instructions only)
 	#[inline]
 	pub fn is_broadcast(&self) -> bool {
@@ -742,11 +629,6 @@ impl Instruction {
 		} else {
 			self.memory_flags &= !(MemoryFlags::BROADCAST as u16);
 		}
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_is_broadcast(&mut self) {
-		self.memory_flags |= MemoryFlags::BROADCAST as u16;
 	}
 
 	/// Gets the size of the memory location that is referenced by the operand. See also `is_broadcast()`).
@@ -784,16 +666,6 @@ impl Instruction {
 				self.memory_flags |= 3;
 			}
 		}
-	}
-
-	#[inline]
-	pub(crate) fn internal_get_memory_index_scale(&self) -> i32 {
-		(self.memory_flags & (MemoryFlags::SCALE_MASK as u16)) as i32
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_memory_index_scale(&mut self, new_value: i32) {
-		self.memory_flags |= new_value as u16;
 	}
 
 	/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see `memory_displacement64()`).
@@ -907,11 +779,6 @@ impl Instruction {
 		self.immediate = new_value as u32;
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_immediate8(&mut self, new_value: u32) {
-		self.immediate = new_value;
-	}
-
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate8_2nd`
 	#[inline]
 	pub fn immediate8_2nd(&self) -> u8 {
@@ -928,11 +795,6 @@ impl Instruction {
 		self.mem_displ = new_value as u32;
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_immediate8_2nd(&mut self, new_value: u32) {
-		self.mem_displ = new_value;
-	}
-
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate16`
 	#[inline]
 	pub fn immediate16(&self) -> u16 {
@@ -947,11 +809,6 @@ impl Instruction {
 	#[inline]
 	pub fn set_immediate16(&mut self, new_value: u16) {
 		self.immediate = new_value as u32;
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_immediate16(&mut self, new_value: u32) {
-		self.immediate = new_value;
 	}
 
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate32`
@@ -985,16 +842,6 @@ impl Instruction {
 	pub fn set_immediate64(&mut self, new_value: u64) {
 		self.immediate = new_value as u32;
 		self.mem_displ = (new_value >> 32) as u32;
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_immediate64_lo(&mut self, new_value: u32) {
-		self.immediate = new_value;
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_immediate64_hi(&mut self, new_value: u32) {
-		self.mem_displ = new_value;
 	}
 
 	/// Gets the operand's immediate value. Use this property if the operand has kind `OpKind::Immediate8to16`
@@ -1078,16 +925,6 @@ impl Instruction {
 		self.mem_displ = (new_value >> 32) as u32;
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_memory_address64_lo(&mut self, new_value: u32) {
-		self.immediate = new_value;
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_memory_address64_hi(&mut self, new_value: u32) {
-		self.mem_displ = new_value;
-	}
-
 	/// Gets the operand's branch target. Use this property if the operand has kind `OpKind::NearBranch16`
 	#[inline]
 	pub fn near_branch16(&self) -> u16 {
@@ -1102,11 +939,6 @@ impl Instruction {
 	#[inline]
 	pub fn set_near_branch16(&mut self, new_value: u16) {
 		self.immediate = new_value as u32;
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_near_branch16(&mut self, new_value: u32) {
-		self.immediate = new_value;
 	}
 
 	/// Gets the operand's branch target. Use this property if the operand has kind `OpKind::NearBranch32`
@@ -1168,11 +1000,6 @@ impl Instruction {
 		self.immediate = new_value as u32;
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_far_branch16(&mut self, new_value: u32) {
-		self.immediate = new_value;
-	}
-
 	/// Gets the operand's branch target. Use this property if the operand has kind `OpKind::FarBranch32`
 	#[inline]
 	pub fn far_branch32(&self) -> u32 {
@@ -1205,11 +1032,6 @@ impl Instruction {
 		self.mem_displ = new_value as u32;
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_far_branch_selector(&mut self, new_value: u32) {
-		self.mem_displ = new_value;
-	}
-
 	/// Gets the memory operand's base register or `Register::None` if none. Use this property if the operand has kind `OpKind::Memory`
 	#[inline]
 	pub fn memory_base(&self) -> Register {
@@ -1224,16 +1046,6 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_memory_base(&mut self, new_value: Register) {
-		self.mem_base_reg = new_value as u8;
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_memory_base(&mut self, new_value: Register) {
-		self.mem_base_reg = new_value as u8;
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_memory_base_u32(&mut self, new_value: u32) {
 		self.mem_base_reg = new_value as u8;
 	}
 
@@ -1254,16 +1066,6 @@ impl Instruction {
 		self.mem_index_reg = new_value as u8;
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_memory_index(&mut self, new_value: Register) {
-		self.mem_index_reg = new_value as u8;
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_memory_index_u32(&mut self, new_value: u32) {
-		self.mem_index_reg = new_value as u8;
-	}
-
 	/// Gets operand #0's register value. Use this property if operand #0 (`op0_kind()`) has kind `OpKind::Register`
 	#[inline]
 	pub fn op0_register(&self) -> Register {
@@ -1278,11 +1080,6 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_op0_register(&mut self, new_value: Register) {
-		self.reg0 = new_value as u8;
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_op0_register(&mut self, new_value: Register) {
 		self.reg0 = new_value as u8;
 	}
 
@@ -1303,11 +1100,6 @@ impl Instruction {
 		self.reg1 = new_value as u8;
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_op1_register(&mut self, new_value: Register) {
-		self.reg1 = new_value as u8;
-	}
-
 	/// Gets operand #2's register value. Use this property if operand #2 (`op2_kind()`) has kind `OpKind::Register`
 	#[inline]
 	pub fn op2_register(&self) -> Register {
@@ -1325,11 +1117,6 @@ impl Instruction {
 		self.reg2 = new_value as u8;
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_op2_register(&mut self, new_value: Register) {
-		self.reg2 = new_value as u8;
-	}
-
 	/// Gets operand #3's register value. Use this property if operand #3 (`op3_kind()`) has kind `OpKind::Register`
 	#[inline]
 	pub fn op3_register(&self) -> Register {
@@ -1344,11 +1131,6 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_op3_register(&mut self, new_value: Register) {
-		self.reg3 = new_value as u8;
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_op3_register(&mut self, new_value: Register) {
 		self.reg3 = new_value as u8;
 	}
 
@@ -1429,16 +1211,6 @@ impl Instruction {
 		self.code_flags = (self.code_flags & !(CodeFlags::OP_MASK_MASK << CodeFlags::OP_MASK_SHIFT)) | (r << CodeFlags::OP_MASK_SHIFT);
 	}
 
-	#[inline]
-	pub(crate) fn internal_op_mask(&self) -> u32 {
-		(self.code_flags >> CodeFlags::OP_MASK_SHIFT) & CodeFlags::OP_MASK_MASK
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_op_mask(&mut self, new_value: u32) {
-		self.code_flags |= new_value << CodeFlags::OP_MASK_SHIFT
-	}
-
 	/// Checks if there's an op mask register (`op_mask()`)
 	#[inline]
 	pub fn has_op_mask(&self) -> bool {
@@ -1465,11 +1237,6 @@ impl Instruction {
 		} else {
 			self.code_flags &= !CodeFlags::ZEROING_MASKING;
 		}
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_zeroing_masking(&mut self) {
-		self.code_flags |= CodeFlags::ZEROING_MASKING;
 	}
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
@@ -1514,11 +1281,6 @@ impl Instruction {
 			| ((new_value as u32 & CodeFlags::ROUNDING_CONTROL_MASK) << CodeFlags::ROUNDING_CONTROL_SHIFT);
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_rounding_control(&mut self, new_value: u32) {
-		self.code_flags |= new_value << CodeFlags::ROUNDING_CONTROL_SHIFT;
-	}
-
 	/// Gets the number of elements in a `db`/`dw`/`dd`/`dq` directive.
 	/// Can only be called if `code()` is `Code::DeclareByte`, `Code::DeclareWord`, `Code::DeclareDword`, `Code::DeclareQword`
 	#[inline]
@@ -1536,11 +1298,6 @@ impl Instruction {
 	pub fn set_declare_data_len(&mut self, new_value: i32) {
 		self.op_kind_flags = (self.op_kind_flags & !(OpKindFlags::DATA_LENGTH_MASK << OpKindFlags::DATA_LENGTH_SHIFT))
 			| (((new_value - 1) as u32 & OpKindFlags::DATA_LENGTH_MASK) << OpKindFlags::DATA_LENGTH_SHIFT);
-	}
-
-	#[inline]
-	pub(crate) fn internal_set_declare_data_len(&mut self, new_value: u32) {
-		self.op_kind_flags |= (new_value - 1) << OpKindFlags::DATA_LENGTH_SHIFT;
 	}
 
 	/// Sets a new `db` value, see also `declare_data_len()`.
@@ -1930,11 +1687,6 @@ impl Instruction {
 		}
 	}
 
-	#[inline]
-	pub(crate) fn internal_set_suppress_all_exceptions(&mut self) {
-		self.code_flags |= CodeFlags::SUPPRESS_ALL_EXCEPTIONS;
-	}
-
 	/// Checks if the memory operand is `RIP`/`EIP` relative
 	#[inline]
 	pub fn is_ip_relative_memory_operand(&self) -> bool {
@@ -2000,7 +1752,8 @@ impl Instruction {
 			OpKind::Memory => {
 				let base_reg = self.memory_base();
 				let index_reg = self.memory_index();
-				let addr_size = Self::get_address_size_in_bytes(base_reg, index_reg, self.memory_displ_size(), self.code_size());
+				let addr_size =
+					super::instruction_internal::get_address_size_in_bytes(base_reg, index_reg, self.memory_displ_size(), self.code_size());
 				let mut offset = self.memory_displacement() as u64;
 				let offset_mask = match addr_size {
 					8 => {
@@ -2022,51 +1775,20 @@ impl Instruction {
 				if index_reg != Register::None {
 					if let Some(is_vsib64) = self.vsib() {
 						if is_vsib64 {
-							offset += get_register_value(index_reg, element_index, 8) << self.internal_get_memory_index_scale();
+							offset +=
+								get_register_value(index_reg, element_index, 8) << super::instruction_internal::internal_get_memory_index_scale(self);
 						} else {
-							offset += (get_register_value(index_reg, element_index, 4) as u32 as u64) << self.internal_get_memory_index_scale();
+							offset += (get_register_value(index_reg, element_index, 4) as u32 as u64)
+								<< super::instruction_internal::internal_get_memory_index_scale(self);
 						}
 					} else {
-						offset += get_register_value(index_reg, element_index, 0) << self.internal_get_memory_index_scale();
+						offset +=
+							get_register_value(index_reg, element_index, 0) << super::instruction_internal::internal_get_memory_index_scale(self);
 					}
 				}
 				offset &= offset_mask;
 				get_register_value(self.memory_segment(), 0, 0) + offset
 			}
-		}
-	}
-
-	pub(crate) fn get_address_size_in_bytes(base_reg: Register, index_reg: Register, displ_size: i32, code_size: CodeSize) -> i32 {
-		if (Register::RAX <= base_reg && base_reg <= Register::R15)
-			|| (Register::RAX <= index_reg && index_reg <= Register::R15)
-			|| base_reg == Register::RIP
-		{
-			return 8;
-		}
-		if (Register::EAX <= base_reg && base_reg <= Register::R15D)
-			|| (Register::EAX <= index_reg && index_reg <= Register::R15D)
-			|| base_reg == Register::EIP
-		{
-			return 4;
-		}
-		if base_reg == Register::BX
-			|| base_reg == Register::BP
-			|| base_reg == Register::SI
-			|| base_reg == Register::DI
-			|| index_reg == Register::SI
-			|| index_reg == Register::DI
-		{
-			return 2;
-		}
-		if displ_size == 2 || displ_size == 4 || displ_size == 8 {
-			return displ_size;
-		}
-
-		match code_size {
-			CodeSize::Code64 => 8,
-			CodeSize::Code32 => 4,
-			CodeSize::Code16 => 2,
-			_ => 8,
 		}
 	}
 }

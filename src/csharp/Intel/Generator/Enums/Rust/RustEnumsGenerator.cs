@@ -60,7 +60,7 @@ namespace Generator.Enums.Rust {
 			constantsWriter = new RustConstantsWriter(idConverter, docWriter);
 
 			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo?>();
-			toPartialFileInfo.Add(TypeIds.Code, new PartialEnumFileInfo("Code", Path.Combine(projectDirs.RustDir, "code.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes, "#[repr(u32)]" }));
+			toPartialFileInfo.Add(TypeIds.Code, new PartialEnumFileInfo("Code", Path.Combine(projectDirs.RustDir, "code.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.CodeSize, new PartialEnumFileInfo("CodeSize", Path.Combine(projectDirs.RustDir, "enums.rs"), RustConstants.AttributeCopyEq));
 			toPartialFileInfo.Add(TypeIds.CpuidFeature, null);
 			toPartialFileInfo.Add(TypeIds.CpuidFeatureInternal, null);

@@ -65,6 +65,7 @@ mod icedfeatures;
 #[cfg(feature = "INSTR_INFO")]
 mod info;
 mod instruction;
+mod instruction_internal;
 mod instructionmemorysizes;
 mod instructionopcounts;
 mod memorysize;

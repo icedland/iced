@@ -143,7 +143,7 @@ namespace Iced.Intel.DecoderInternal {
 					Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-					instruction.InternalRoundingControl = (uint)state.vectorLength + 1;
+					instruction.InternalRoundingControl = state.vectorLength + 1;
 				}
 			}
 			else {
@@ -295,7 +295,7 @@ namespace Iced.Intel.DecoderInternal {
 						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = (uint)state.vectorLength + 1;
+						instruction.InternalRoundingControl = state.vectorLength + 1;
 					}
 				}
 			}
@@ -370,7 +370,7 @@ namespace Iced.Intel.DecoderInternal {
 						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = (uint)state.vectorLength + 1;
+						instruction.InternalRoundingControl = state.vectorLength + 1;
 					}
 				}
 			}
@@ -1558,7 +1558,7 @@ namespace Iced.Intel.DecoderInternal {
 						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = (uint)state.vectorLength + 1;
+						instruction.InternalRoundingControl = state.vectorLength + 1;
 					}
 				}
 			}

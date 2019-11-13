@@ -96,8 +96,8 @@ namespace Iced.Intel {
 			public uint aaa;
 			public uint extraRegisterBaseEVEX;
 			public uint extraBaseRegisterBaseEVEX;
+			public uint vectorLength;
 			public byte defaultDsSegment;
-			public VectorLength vectorLength;
 			public OpSize operandSize;
 			public OpSize addressSize;
 			public readonly EncodingKind Encoding => (EncodingKind)(flags & StateFlags.EncodingMask);
@@ -487,7 +487,7 @@ namespace Iced.Intel {
 
 			Static.Assert((int)VectorLength.L128 == 0 ? 0 : -1);
 			Static.Assert((int)VectorLength.L256 == 1 ? 0 : -1);
-			state.vectorLength = (VectorLength)((b >> 2) & 1);
+			state.vectorLength = (b >> 2) & 1;
 
 			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
 			Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
@@ -515,7 +515,7 @@ namespace Iced.Intel {
 
 			Static.Assert((int)VectorLength.L128 == 0 ? 0 : -1);
 			Static.Assert((int)VectorLength.L256 == 1 ? 0 : -1);
-			state.vectorLength = (VectorLength)((b2 >> 2) & 1);
+			state.vectorLength = (b2 >> 2) & 1;
 
 			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
 			Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
@@ -561,7 +561,7 @@ namespace Iced.Intel {
 
 			Static.Assert((int)VectorLength.L128 == 0 ? 0 : -1);
 			Static.Assert((int)VectorLength.L256 == 1 ? 0 : -1);
-			state.vectorLength = (VectorLength)((b2 >> 2) & 1);
+			state.vectorLength = (b2 >> 2) & 1;
 
 			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
 			Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
@@ -633,7 +633,7 @@ namespace Iced.Intel {
 					Static.Assert((int)VectorLength.L256 == 1 ? 0 : -1);
 					Static.Assert((int)VectorLength.L512 == 2 ? 0 : -1);
 					Static.Assert((int)VectorLength.Unknown == 3 ? 0 : -1);
-					state.vectorLength = (VectorLength)((p2 >> 5) & 3);
+					state.vectorLength = (p2 >> 5) & 3;
 
 					if (is64Mode) {
 						state.vvvv = (~p1 >> 3) & 0x0F;

@@ -57,6 +57,7 @@ namespace Generator {
 				new Constants.ConstantsGenerator(projectDirs).Generate();
 				new Tables.MemorySizeInfoTableGenerator(projectDirs).Generate();
 				new Tables.RegisterInfoTableGenerator(projectDirs).Generate();
+				new Tables.D3nowCodeValuesTableGenerator(projectDirs).Generate();
 
 				return 0;
 			}
