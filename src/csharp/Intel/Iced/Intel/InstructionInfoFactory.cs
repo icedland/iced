@@ -1172,7 +1172,7 @@ namespace Iced.Intel {
 					}
 					int maxVecRegs;
 					if ((flags & Flags.Is64Bit) != 0)
-						maxVecRegs = IcedConstants.VMM_count;
+						maxVecRegs = 16;// regs 16-31 are not modified
 					else
 						maxVecRegs = 8;
 					for (int i = 0; i < maxVecRegs; i++)

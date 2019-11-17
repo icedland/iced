@@ -6546,9 +6546,9 @@ C5CD 76 10, VEX_Vpcmpeqd_ymm_ymm_ymmm256, VEX, AVX2, pm op0=w op1=r op2=r w=vmm2
 # emms
 0F77, Emms, Legacy, MMX,
 # vzeroupper
-C5F8 77, VEX_Vzeroupper, VEX, AVX, pm rw=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7;vmm8;vmm9;vmm10;vmm11;vmm12;vmm13;vmm14;vmm15;vmm16;vmm17;vmm18;vmm19;vmm20;vmm21;vmm22;vmm23;vmm24;vmm25;vmm26;vmm27;vmm28;vmm29;vmm30;vmm31
+C5F8 77, VEX_Vzeroupper, VEX, AVX, pm rw=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7;vmm8;vmm9;vmm10;vmm11;vmm12;vmm13;vmm14;vmm15
 # vzeroall
-C5FC 77, VEX_Vzeroall, VEX, AVX, pm w=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7;vmm8;vmm9;vmm10;vmm11;vmm12;vmm13;vmm14;vmm15;vmm16;vmm17;vmm18;vmm19;vmm20;vmm21;vmm22;vmm23;vmm24;vmm25;vmm26;vmm27;vmm28;vmm29;vmm30;vmm31
+C5FC 77, VEX_Vzeroall, VEX, AVX, pm w=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7;vmm8;vmm9;vmm10;vmm11;vmm12;vmm13;vmm14;vmm15
 # vmread rsi,rcx
 0F78 CE, Vmread_rm64_r64, Legacy, VMX, fw=cz fc=aops priv pm op0=w op1=r w=rsi r=rcx
 # vmread qword ptr [rax],rbx
