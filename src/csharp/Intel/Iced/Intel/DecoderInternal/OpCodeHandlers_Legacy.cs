@@ -2280,29 +2280,14 @@ namespace Iced.Intel.DecoderInternal {
 
 	sealed class OpCodeHandler_RegIb3 : OpCodeHandler {
 		readonly int index;
-		readonly Register[] noRexPrefix;
 		readonly Register[] withRexPrefix;
 
 		public OpCodeHandler_RegIb3(int index) {
 			Debug.Assert(0 <= index && index <= 7);
 			this.index = index;
-			noRexPrefix = s_noRexPrefix;
 			withRexPrefix = s_withRexPrefix;
 		}
 
-		// Code.Mov_r8_imm8
-		static readonly Register[] s_noRexPrefix = new Register[8] {
-			Register.AL,
-			Register.CL,
-			Register.DL,
-			Register.BL,
-			Register.AH,
-			Register.CH,
-			Register.DH,
-			Register.BH,
-		};
-
-		// Code.Mov_r8_imm8
 		static readonly Register[] s_withRexPrefix = new Register[16] {
 			Register.AL,
 			Register.CL,
@@ -2329,7 +2314,7 @@ namespace Iced.Intel.DecoderInternal {
 			if ((state.flags & StateFlags.HasRex) != 0)
 				register = withRexPrefix[index + (int)state.extraBaseRegisterBase];
 			else
-				register = noRexPrefix[index];
+				register = index + Register.AL;
 			instruction.InternalCode = Code.Mov_r8_imm8;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;

@@ -2389,16 +2389,6 @@ impl OpCodeHandler_Reg_Iz {
 	}
 }
 
-static NO_REX_PREFIX_MOV_REGISTERS: [Register; 8] = [
-	Register::AL,
-	Register::CL,
-	Register::DL,
-	Register::BL,
-	Register::AH,
-	Register::CH,
-	Register::DH,
-	Register::BH,
-];
 static WITH_REX_PREFIX_MOV_REGISTERS: [Register; 16] = [
 	Register::AL,
 	Register::CL,
@@ -2440,7 +2430,7 @@ impl OpCodeHandler_RegIb3 {
 			};
 		} else {
 			// Safe, index = 0..7
-			register = unsafe { *NO_REX_PREFIX_MOV_REGISTERS.as_ptr().offset(this.index as isize) };
+			register = unsafe { std::mem::transmute((this.index + Register::AL as u32) as u8) };
 		}
 		super::instruction_internal::internal_set_code(instruction, Code::Mov_r8_imm8);
 		const_assert_eq!(0, OpKind::Register as u32);
