@@ -29,15 +29,15 @@ using Generator.IO;
 namespace Generator.Tables.Rust {
 	sealed class RustRegisterInfoTableGenerator : IRegisterInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public RustRegisterInfoTableGenerator(ProjectDirs projectDirs) {
+		public RustRegisterInfoTableGenerator(GeneratorOptions generatorOptions) {
 			idConverter = RustIdentifierConverter.Create();
-			this.projectDirs = projectDirs;
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate(RegisterInfo[] infos) {
-			var filename = Path.Combine(projectDirs.RustDir, "register.rs");
+			var filename = Path.Combine(generatorOptions.RustDir, "register.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "RegisterInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

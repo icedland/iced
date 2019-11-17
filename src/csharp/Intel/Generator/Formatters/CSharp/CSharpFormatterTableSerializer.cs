@@ -21,14 +21,13 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
 using System.IO;
 using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Formatters.CSharp {
-	abstract class CSharpFormatterTableSerializer : FormatterTableSerializer {
+	abstract class CSharpFormatterTableSerializer {
 		readonly IdentifierConverter idConverter;
 
 		protected abstract object[][] Infos { get; }
@@ -39,13 +38,25 @@ namespace Generator.Formatters.CSharp {
 		protected CSharpFormatterTableSerializer() =>
 			idConverter = CSharpIdentifierConverter.Create();
 
-		public override void Initialize(StringsTable stringsTable) =>
-			Initialize(stringsTable, Infos);
+		public void Initialize(StringsTable stringsTable) {
+			var expectedLength = Constants.IcedConstantsType.Instance["NumberOfCodeValues"].Value;
+			if ((uint)Infos.Length != expectedLength)
+				throw new InvalidOperationException($"Found {Infos.Length} elements, expected {expectedLength}");
+			foreach (var info in Infos) {
+				bool ignoreVPrefix = true;
+				foreach (var o in info) {
+					if (o is string s) {
+						stringsTable.Add(s, ignoreVPrefix);
+						ignoreVPrefix = false;
+					}
+				}
+			}
+		}
 
-		public override string GetFilename(ProjectDirs projectDirs) =>
-			Path.Combine(CSharpConstants.GetDirectory(projectDirs, Namespace), "InstrInfos.g.cs");
+		public string GetFilename(GeneratorOptions generatorOptions) =>
+			Path.Combine(CSharpConstants.GetDirectory(generatorOptions, Namespace), "InstrInfos.g.cs");
 
-		public override void Serialize(FileWriter writer, StringsTable stringsTable) {
+		public void Serialize(FileWriter writer, StringsTable stringsTable) {
 			writer.WriteFileHeader();
 			writer.WriteLine($"#if {Define}");
 			writer.WriteLine($"namespace {Namespace} {{");
@@ -189,6 +200,33 @@ namespace Generator.Formatters.CSharp {
 			writer.WriteLine("}");
 			writer.WriteLine("#endif");
 		}
+
+		protected uint GetFirstStringIndex(StringsTable stringsTable, object[] info, out bool hasVPrefix) {
+			if (!(info[2] is string s))
+				throw new InvalidOperationException();
+			return stringsTable.GetIndex(s, ignoreVPrefix: true, out hasVPrefix);
+		}
+
+		protected static bool IsSame(object[] a, object[] b) {
+			if (a.Length != b.Length)
+				return false;
+			for (int i = 0; i < a.Length; i++) {
+				if (i == 1) {
+					if (!(a[i] is EnumValue eva && eva.DeclaringType.TypeId == TypeIds.Code) ||
+						!(b[i] is EnumValue evb && evb.DeclaringType.TypeId == TypeIds.Code)) {
+						throw new InvalidOperationException();
+					}
+					continue;
+				}
+				bool same;
+				if (a[i] is string sa && b[i] is string sb)
+					same = StringComparer.Ordinal.Equals(sa, sb);
+				else
+					same = a[i].Equals(b[i]);
+				if (!same)
+					return false;
+			}
+			return true;
+		}
 	}
 }
-#endif

@@ -27,16 +27,16 @@ namespace Generator.Tables {
 	}
 
 	sealed class RegisterInfoTableGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public RegisterInfoTableGenerator(ProjectDirs projectDirs) {
-			this.projectDirs = projectDirs;
+		public RegisterInfoTableGenerator(GeneratorOptions generatorOptions) {
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate() {
 			var generators = new IRegisterInfoTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpRegisterInfoTableGenerator(projectDirs),
-				new Rust.RustRegisterInfoTableGenerator(projectDirs),
+				new CSharp.CSharpRegisterInfoTableGenerator(generatorOptions),
+				new Rust.RustRegisterInfoTableGenerator(generatorOptions),
 			};
 
 			foreach (var generator in generators)

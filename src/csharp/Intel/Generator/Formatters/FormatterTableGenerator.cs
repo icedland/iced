@@ -27,14 +27,14 @@ namespace Generator.Formatters {
 	}
 
 	sealed class FormatterTableGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public FormatterTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public FormatterTableGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		public void Generate() {
 			var generators = new IFormatterTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpFormatterTableGenerator(projectDirs),
-				new Rust.RustFormatterTableGenerator(projectDirs),
+				new CSharp.CSharpFormatterTableGenerator(generatorOptions),
+				new Rust.RustFormatterTableGenerator(generatorOptions),
 			};
 
 			foreach (var generator in generators)

@@ -29,14 +29,14 @@ namespace Generator.InstructionInfo {
 	}
 
 	sealed class CpuidFeatureTableGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public CpuidFeatureTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public CpuidFeatureTableGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		public void Generate() {
 			var generators = new ICpuidFeatureTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpCpuidFeatureTableGenerator(projectDirs),
-				new Rust.RustCpuidFeatureTableGenerator(projectDirs),
+				new CSharp.CSharpCpuidFeatureTableGenerator(generatorOptions),
+				new Rust.RustCpuidFeatureTableGenerator(generatorOptions),
 			};
 
 			foreach (var generator in generators)

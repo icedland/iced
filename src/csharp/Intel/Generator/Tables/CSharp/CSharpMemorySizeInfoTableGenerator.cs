@@ -28,15 +28,15 @@ using Generator.IO;
 namespace Generator.Tables.CSharp {
 	sealed class CSharpMemorySizeInfoTableGenerator : IMemorySizeInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public CSharpMemorySizeInfoTableGenerator(ProjectDirs projectDirs) {
+		public CSharpMemorySizeInfoTableGenerator(GeneratorOptions generatorOptions) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.projectDirs = projectDirs;
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate(MemorySizeInfo[] infos) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), "MemorySizeExtensions.1.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "MemorySizeExtensions.1.cs");
 			var updater = new FileUpdater(TargetLanguage.CSharp, "MemorySizeInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

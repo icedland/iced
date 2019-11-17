@@ -29,15 +29,15 @@ using Generator.IO;
 namespace Generator.Tables.Rust {
 	sealed class RustD3nowCodeValuesTableGenerator : ID3nowCodeValuesTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public RustD3nowCodeValuesTableGenerator(ProjectDirs projectDirs) {
+		public RustD3nowCodeValuesTableGenerator(GeneratorOptions generatorOptions) {
 			idConverter = RustIdentifierConverter.Create();
-			this.projectDirs = projectDirs;
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate((int index, EnumValue enumValue)[] infos) {
-			var filename = Path.Combine(projectDirs.RustDir, "decoder", "handlers_3dnow.rs");
+			var filename = Path.Combine(generatorOptions.RustDir, "decoder", "handlers_3dnow.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "D3nowCodeValues", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

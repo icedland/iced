@@ -28,15 +28,15 @@ using Generator.IO;
 namespace Generator.Tables.Rust {
 	sealed class RustMemorySizeInfoTableGenerator : IMemorySizeInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public RustMemorySizeInfoTableGenerator(ProjectDirs projectDirs) {
+		public RustMemorySizeInfoTableGenerator(GeneratorOptions generatorOptions) {
 			idConverter = RustIdentifierConverter.Create();
-			this.projectDirs = projectDirs;
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate(MemorySizeInfo[] infos) {
-			var filename = Path.Combine(projectDirs.RustDir, "memorysize.rs");
+			var filename = Path.Combine(generatorOptions.RustDir, "memorysize.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "MemorySizeInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

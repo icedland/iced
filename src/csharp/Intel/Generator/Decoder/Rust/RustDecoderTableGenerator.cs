@@ -23,10 +23,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Generator.Decoder.Rust {
 	sealed class RustDecoderTableGenerator : IDecoderTableGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public RustDecoderTableGenerator(ProjectDirs projectDirs) {
-			this.projectDirs = projectDirs;
+		public RustDecoderTableGenerator(GeneratorOptions generatorOptions) {
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate() {

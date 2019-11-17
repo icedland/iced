@@ -23,10 +23,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Generator.Formatters.Rust {
 	sealed class RustFormatterTableGenerator : IFormatterTableGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public RustFormatterTableGenerator(ProjectDirs projectDirs) =>
-			this.projectDirs = projectDirs;
+		public RustFormatterTableGenerator(GeneratorOptions generatorOptions) =>
+			this.generatorOptions = generatorOptions;
 
 		public void Generate() {
 			//TODO:

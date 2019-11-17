@@ -30,16 +30,16 @@ using Generator.IO;
 namespace Generator.Decoder.Rust {
 	sealed class RustInstructionMemorySizesGenerator : IInstructionMemorySizesGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public RustInstructionMemorySizesGenerator(ProjectDirs projectDirs) {
+		public RustInstructionMemorySizesGenerator(GeneratorOptions generatorOptions) {
 			idConverter = RustIdentifierConverter.Create();
-			this.projectDirs = projectDirs;
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate((EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data) {
 			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
-			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "instructionmemorysizes.rs")))) {
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorOptions.RustDir, "instructionmemorysizes.rs")))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");
 				writer.WriteLine($"use super::{MemorySizeEnum.Instance.Name(idConverter)};");

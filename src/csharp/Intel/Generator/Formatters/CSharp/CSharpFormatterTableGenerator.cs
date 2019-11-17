@@ -21,31 +21,28 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
+using System.Collections.Generic;
 using System.IO;
 using Generator.IO;
 
 namespace Generator.Formatters.CSharp {
 	sealed class CSharpFormatterTableGenerator : IFormatterTableGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public CSharpFormatterTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public CSharpFormatterTableGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		public void Generate() {
-			var serializers = new FormatterTableSerializer[GeneratorConstants.NumberOfFormatters] {
-#if !NO_GAS_FORMATTER && !NO_FORMATTER
-				new GasCSharpFormatterTableSerializer(),
-#endif
-#if !NO_INTEL_FORMATTER && !NO_FORMATTER
-				new IntelCSharpFormatterTableSerializer(),
-#endif
-#if !NO_MASM_FORMATTER && !NO_FORMATTER
-				new MasmCSharpFormatterTableSerializer(),
-#endif
-#if !NO_NASM_FORMATTER && !NO_FORMATTER
-				new NasmCSharpFormatterTableSerializer(),
-#endif
-			};
+			var serializers = new List<CSharpFormatterTableSerializer>();
+			if (generatorOptions.HasGasFormatter)
+				serializers.Add(new GasCSharpFormatterTableSerializer());
+			if (generatorOptions.HasIntelFormatter)
+				serializers.Add(new IntelCSharpFormatterTableSerializer());
+			if (generatorOptions.HasMasmFormatter)
+				serializers.Add(new MasmCSharpFormatterTableSerializer());
+			if (generatorOptions.HasNasmFormatter)
+				serializers.Add(new NasmCSharpFormatterTableSerializer());
+			if (serializers.Count == 0)
+				return;
 
 			const string FormatterStringsTableName = "FormatterStringsTable";
 			var stringsTable = new StringsTableImpl(CSharpConstants.FormatterNamespace, FormatterStringsTableName, CSharpConstants.AnyFormatterDefine);
@@ -55,14 +52,13 @@ namespace Generator.Formatters.CSharp {
 
 			stringsTable.Freeze();
 
-			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.FormatterNamespace), FormatterStringsTableName + ".g.cs"))))
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.FormatterNamespace), FormatterStringsTableName + ".g.cs"))))
 				stringsTable.Serialize(writer);
 
 			foreach (var serializer in serializers) {
-				using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(serializer.GetFilename(projectDirs))))
+				using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(serializer.GetFilename(generatorOptions))))
 					serializer.Serialize(writer, stringsTable);
 			}
 		}
 	}
 }
-#endif

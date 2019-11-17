@@ -47,11 +47,11 @@ namespace Generator.Constants.CSharp {
 			}
 		}
 
-		public CSharpConstantsGenerator(ProjectDirs projectDirs) {
+		public CSharpConstantsGenerator(GeneratorOptions generatorOptions) {
 			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
 
-			var baseDir = CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace);
+			var baseDir = CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace);
 			toFullFileInfo = new Dictionary<TypeId, FullConstantsFileInfo>();
 			toFullFileInfo.Add(TypeIds.IcedConstants, new FullConstantsFileInfo(Path.Combine(baseDir, nameof(TypeIds.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
 		}

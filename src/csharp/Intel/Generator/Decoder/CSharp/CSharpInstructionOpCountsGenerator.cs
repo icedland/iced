@@ -29,16 +29,16 @@ using Generator.IO;
 namespace Generator.Decoder.CSharp {
 	sealed class CSharpInstructionOpCountsGenerator : IInstructionOpCountsGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public CSharpInstructionOpCountsGenerator(ProjectDirs projectDirs) {
+		public CSharpInstructionOpCountsGenerator(GeneratorOptions generatorOptions) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.projectDirs = projectDirs;
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate((EnumValue codeEnum, int count)[] data) {
 			const string ClassName = "InstructionOpCounts";
-			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
 				writer.WriteFileHeader();
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");

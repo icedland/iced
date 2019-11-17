@@ -27,16 +27,16 @@ namespace Generator.Tables {
 	}
 
 	sealed class MemorySizeInfoTableGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public MemorySizeInfoTableGenerator(ProjectDirs projectDirs) {
-			this.projectDirs = projectDirs;
+		public MemorySizeInfoTableGenerator(GeneratorOptions generatorOptions) {
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate() {
 			var generators = new IMemorySizeInfoTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpMemorySizeInfoTableGenerator(projectDirs),
-				new Rust.RustMemorySizeInfoTableGenerator(projectDirs),
+				new CSharp.CSharpMemorySizeInfoTableGenerator(generatorOptions),
+				new Rust.RustMemorySizeInfoTableGenerator(generatorOptions),
 			};
 
 			foreach (var generator in generators)

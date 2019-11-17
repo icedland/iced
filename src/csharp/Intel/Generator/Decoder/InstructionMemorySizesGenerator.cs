@@ -31,14 +31,14 @@ namespace Generator.Decoder {
 	}
 
 	sealed class InstructionMemorySizesGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public InstructionMemorySizesGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public InstructionMemorySizesGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		public void Generate() {
 			var generators = new IInstructionMemorySizesGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpInstructionMemorySizesGenerator(projectDirs),
-				new Rust.RustInstructionMemorySizesGenerator(projectDirs),
+				new CSharp.CSharpInstructionMemorySizesGenerator(generatorOptions),
+				new Rust.RustInstructionMemorySizesGenerator(generatorOptions),
 			};
 
 			var data = InstructionMemorySizesTable.Table;

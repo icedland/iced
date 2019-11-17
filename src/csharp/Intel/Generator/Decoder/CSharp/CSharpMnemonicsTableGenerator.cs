@@ -30,17 +30,17 @@ using Generator.IO;
 namespace Generator.Decoder.CSharp {
 	sealed class CSharpMnemonicsTableGenerator : IMnemonicsTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public CSharpMnemonicsTableGenerator(ProjectDirs projectDirs) {
+		public CSharpMnemonicsTableGenerator(GeneratorOptions generatorOptions) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.projectDirs = projectDirs;
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate((EnumValue codeEnum, EnumValue mnemonicEnum)[] data) {
 			const string ClassName = "MnemonicUtils";
 			var mnemonicName = MnemonicEnum.Instance.Name(idConverter);
-			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.IcedNamespace), ClassName + ".Data.g.cs")))) {
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), ClassName + ".Data.g.cs")))) {
 				writer.WriteFileHeader();
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");

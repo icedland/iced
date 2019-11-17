@@ -29,16 +29,16 @@ namespace Generator.Tables {
 	}
 
 	sealed class D3nowCodeValuesTableGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public D3nowCodeValuesTableGenerator(ProjectDirs projectDirs) {
-			this.projectDirs = projectDirs;
+		public D3nowCodeValuesTableGenerator(GeneratorOptions generatorOptions) {
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate() {
 			var generators = new ID3nowCodeValuesTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpD3nowCodeValuesTableGenerator(projectDirs),
-				new Rust.RustD3nowCodeValuesTableGenerator(projectDirs),
+				new CSharp.CSharpD3nowCodeValuesTableGenerator(generatorOptions),
+				new Rust.RustD3nowCodeValuesTableGenerator(generatorOptions),
 			};
 
 			var infos = new (int index, EnumValue enumValue)[] {

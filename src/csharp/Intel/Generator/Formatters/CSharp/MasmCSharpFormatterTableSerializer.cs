@@ -21,7 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_MASM_FORMATTER && !NO_FORMATTER
 using Generator.Enums;
 
 namespace Generator.Formatters.CSharp {
@@ -32,4 +31,3 @@ namespace Generator.Formatters.CSharp {
 		protected override EnumType CtorKindEnum => MasmCtorKindEnum.Instance;
 	}
 }
-#endif

@@ -30,9 +30,9 @@ namespace Generator.Enums {
 	}
 
 	sealed class EnumsGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public EnumsGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public EnumsGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		static readonly EnumType[] allEnums = new EnumType[] {
 			CodeEnum.Instance,
@@ -78,8 +78,8 @@ namespace Generator.Enums {
 
 		public void Generate() {
 			var generators = new IEnumsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpEnumsGenerator(projectDirs),
-				new Rust.RustEnumsGenerator(projectDirs),
+				new CSharp.CSharpEnumsGenerator(generatorOptions),
+				new Rust.RustEnumsGenerator(generatorOptions),
 			};
 
 			foreach (var generator in generators) {

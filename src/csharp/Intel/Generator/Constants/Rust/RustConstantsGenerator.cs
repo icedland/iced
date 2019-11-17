@@ -50,12 +50,12 @@ namespace Generator.Constants.Rust {
 			}
 		}
 
-		public RustConstantsGenerator(ProjectDirs projectDirs) {
+		public RustConstantsGenerator(GeneratorOptions generatorOptions) {
 			var idConverter = RustIdentifierConverter.Create();
 			constantsWriter = new RustConstantsWriter(idConverter, new RustDocCommentWriter(idConverter));
 
 			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo>();
-			toPartialFileInfo.Add(TypeIds.IcedConstants, new PartialConstantsFileInfo("IcedConstants", Path.Combine(projectDirs.RustDir, "icedconstants.rs")));
+			toPartialFileInfo.Add(TypeIds.IcedConstants, new PartialConstantsFileInfo("IcedConstants", Path.Combine(generatorOptions.RustDir, "icedconstants.rs")));
 		}
 
 		public void Generate(ConstantsType constantsType) {

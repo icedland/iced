@@ -25,10 +25,10 @@ using Generator.Enums;
 
 namespace Generator.InstructionInfo.Rust {
 	sealed class RustCpuidFeatureTableGenerator : ICpuidFeatureTableGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public RustCpuidFeatureTableGenerator(ProjectDirs projectDirs) =>
-			this.projectDirs = projectDirs;
+		public RustCpuidFeatureTableGenerator(GeneratorOptions generatorOptions) =>
+			this.generatorOptions = generatorOptions;
 
 		public void Generate(EnumValue[][] cpuidFeatures) {
 			//TODO:

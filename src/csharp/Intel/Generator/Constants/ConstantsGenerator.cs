@@ -30,9 +30,9 @@ namespace Generator.Constants {
 	}
 
 	sealed class ConstantsGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public ConstantsGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public ConstantsGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		static readonly ConstantsType[] allConstants = new ConstantsType[] {
 			IcedConstantsType.Instance,
@@ -40,8 +40,8 @@ namespace Generator.Constants {
 
 		public void Generate() {
 			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpConstantsGenerator(projectDirs),
-				new Rust.RustConstantsGenerator(projectDirs),
+				new CSharp.CSharpConstantsGenerator(generatorOptions),
+				new Rust.RustConstantsGenerator(generatorOptions),
 			};
 
 			foreach (var generator in generators) {

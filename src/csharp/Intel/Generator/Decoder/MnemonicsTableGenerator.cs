@@ -31,14 +31,14 @@ namespace Generator.Decoder {
 	}
 
 	sealed class MnemonicsTableGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public MnemonicsTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public MnemonicsTableGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		public void Generate() {
 			var generators = new IMnemonicsTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpMnemonicsTableGenerator(projectDirs),
-				new Rust.RustMnemonicsTableGenerator(projectDirs),
+				new CSharp.CSharpMnemonicsTableGenerator(generatorOptions),
+				new Rust.RustMnemonicsTableGenerator(generatorOptions),
 			};
 
 			var data = MnemonicsTable.Table;

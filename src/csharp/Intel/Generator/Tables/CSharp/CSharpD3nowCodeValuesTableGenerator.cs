@@ -28,15 +28,15 @@ using Generator.IO;
 namespace Generator.Tables.CSharp {
 	sealed class CSharpD3nowCodeValuesTableGenerator : ID3nowCodeValuesTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public CSharpD3nowCodeValuesTableGenerator(ProjectDirs projectDirs) {
+		public CSharpD3nowCodeValuesTableGenerator(GeneratorOptions generatorOptions) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.projectDirs = projectDirs;
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate((int index, EnumValue enumValue)[] infos) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.DecoderNamespace), "OpCodeHandlers_D3NOW.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.DecoderNamespace), "OpCodeHandlers_D3NOW.cs");
 			var updater = new FileUpdater(TargetLanguage.CSharp, "D3nowCodeValues", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

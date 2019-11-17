@@ -30,11 +30,11 @@ using Generator.IO;
 namespace Generator.InstructionInfo.CSharp {
 	sealed class CSharpCpuidFeatureTableGenerator : ICpuidFeatureTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public CSharpCpuidFeatureTableGenerator(ProjectDirs projectDirs) {
+		public CSharpCpuidFeatureTableGenerator(GeneratorOptions generatorOptions) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.projectDirs = projectDirs;
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate(EnumValue[][] cpuidFeatures) {
@@ -46,7 +46,7 @@ namespace Generator.InstructionInfo.CSharp {
 				header[i / 8] |= (byte)((len - 1) << (i % 8));
 			}
 
-			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(projectDirs, CSharpConstants.InstructionInfoNamespace), "CpuidFeatureInternalData.g.cs")))) {
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "CpuidFeatureInternalData.g.cs")))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");

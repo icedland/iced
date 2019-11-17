@@ -45,7 +45,7 @@ namespace Generator {
 		public const string MasmFormatterDefine = "!NO_MASM_FORMATTER && !NO_FORMATTER";
 		public const string NasmFormatterDefine = "!NO_NASM_FORMATTER && !NO_FORMATTER";
 
-		public static string GetDirectory(ProjectDirs projectDirs, string @namespace) =>
-			Path.Combine(new[] { projectDirs.CSharpDir }.Concat(@namespace.Split('.').Skip(1)).ToArray());
+		public static string GetDirectory(GeneratorOptions generatorOptions, string @namespace) =>
+			Path.Combine(new[] { generatorOptions.CSharpDir }.Concat(@namespace.Split('.').Skip(1)).ToArray());
 	}
 }

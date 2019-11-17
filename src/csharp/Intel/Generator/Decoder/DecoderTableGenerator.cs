@@ -27,14 +27,14 @@ namespace Generator.Decoder {
 	}
 
 	sealed class DecoderTableGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public DecoderTableGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public DecoderTableGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		public void Generate() {
 			var generators = new IDecoderTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpDecoderTableGenerator(projectDirs),
-				new Rust.RustDecoderTableGenerator(projectDirs),
+				new CSharp.CSharpDecoderTableGenerator(generatorOptions),
+				new Rust.RustDecoderTableGenerator(generatorOptions),
 			};
 
 			foreach (var generator in generators)

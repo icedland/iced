@@ -30,16 +30,16 @@ using Generator.IO;
 namespace Generator.Decoder.Rust {
 	sealed class RustMnemonicsTableGenerator : IMnemonicsTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public RustMnemonicsTableGenerator(ProjectDirs projectDirs) {
+		public RustMnemonicsTableGenerator(GeneratorOptions generatorOptions) {
 			idConverter = RustIdentifierConverter.Create();
-			this.projectDirs = projectDirs;
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate((EnumValue codeEnum, EnumValue mnemonicEnum)[] data) {
 			var mnemonicName = MnemonicEnum.Instance.Name(idConverter);
-			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "mnemonics.rs")))) {
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorOptions.RustDir, "mnemonics.rs")))) {
 				writer.WriteFileHeader();
 
 				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");

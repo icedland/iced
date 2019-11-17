@@ -21,14 +21,13 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Generator.IO;
 
-namespace Generator.Formatters {
+namespace Generator.Formatters.CSharp {
 	abstract class StringsTable {
 		public abstract void Add(string s, bool ignoreVPrefix);
 		public abstract uint GetIndex(string s, bool ignoreVPrefix, out bool hasVPrefix);
@@ -149,4 +148,3 @@ namespace Generator.Formatters {
 		}
 	}
 }
-#endif

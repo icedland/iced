@@ -31,14 +31,14 @@ namespace Generator.Decoder {
 	}
 
 	sealed class InstructionOpCountsGenerator {
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public InstructionOpCountsGenerator(ProjectDirs projectDirs) => this.projectDirs = projectDirs;
+		public InstructionOpCountsGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		public void Generate() {
 			var generators = new IInstructionOpCountsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpInstructionOpCountsGenerator(projectDirs),
-				new Rust.RustInstructionOpCountsGenerator(projectDirs),
+				new CSharp.CSharpInstructionOpCountsGenerator(generatorOptions),
+				new Rust.RustInstructionOpCountsGenerator(generatorOptions),
 			};
 
 			var data = InstructionOpCountsTable.Table;

@@ -29,15 +29,15 @@ using Generator.IO;
 namespace Generator.Decoder.Rust {
 	sealed class RustInstructionOpCountsGenerator : IInstructionOpCountsGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly ProjectDirs projectDirs;
+		readonly GeneratorOptions generatorOptions;
 
-		public RustInstructionOpCountsGenerator(ProjectDirs projectDirs) {
+		public RustInstructionOpCountsGenerator(GeneratorOptions generatorOptions) {
 			idConverter = RustIdentifierConverter.Create();
-			this.projectDirs = projectDirs;
+			this.generatorOptions = generatorOptions;
 		}
 
 		public void Generate((EnumValue codeEnum, int count)[] data) {
-			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(projectDirs.RustDir, "instructionopcounts.rs")))) {
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorOptions.RustDir, "instructionopcounts.rs")))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");
 				writer.WriteLine();

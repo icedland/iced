@@ -36,28 +36,26 @@ namespace Generator {
 
 	sealed class CommandLineOptions {
 		public readonly List<Command> Commands = new List<Command>();
-		public ProjectDirs? ProjectDirs = null;
+		public GeneratorOptions? GeneratorOptions = null;
 	}
 
 	static class Program {
 		static int Main(string[] args) {
 			try {
-				var projectDirs = GetProjectDirs();
-				Enums.CodeEnum.AddComments(projectDirs.UnitTestsDir);
+				var generatorOptions = CreateGeneratorOptions(GeneratorFlags.None);
+				Enums.CodeEnum.AddComments(generatorOptions.UnitTestsDir);
 
-				new Decoder.DecoderTableGenerator(projectDirs).Generate();
-				new Decoder.InstructionMemorySizesGenerator(projectDirs).Generate();
-				new Decoder.InstructionOpCountsGenerator(projectDirs).Generate();
-				new Decoder.MnemonicsTableGenerator(projectDirs).Generate();
-#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
-				new Formatters.FormatterTableGenerator(projectDirs).Generate();
-#endif
-				new InstructionInfo.CpuidFeatureTableGenerator(projectDirs).Generate();
-				new Enums.EnumsGenerator(projectDirs).Generate();
-				new Constants.ConstantsGenerator(projectDirs).Generate();
-				new Tables.MemorySizeInfoTableGenerator(projectDirs).Generate();
-				new Tables.RegisterInfoTableGenerator(projectDirs).Generate();
-				new Tables.D3nowCodeValuesTableGenerator(projectDirs).Generate();
+				new Decoder.DecoderTableGenerator(generatorOptions).Generate();
+				new Decoder.InstructionMemorySizesGenerator(generatorOptions).Generate();
+				new Decoder.InstructionOpCountsGenerator(generatorOptions).Generate();
+				new Decoder.MnemonicsTableGenerator(generatorOptions).Generate();
+				new Formatters.FormatterTableGenerator(generatorOptions).Generate();
+				new InstructionInfo.CpuidFeatureTableGenerator(generatorOptions).Generate();
+				new Enums.EnumsGenerator(generatorOptions).Generate();
+				new Constants.ConstantsGenerator(generatorOptions).Generate();
+				new Tables.MemorySizeInfoTableGenerator(generatorOptions).Generate();
+				new Tables.RegisterInfoTableGenerator(generatorOptions).Generate();
+				new Tables.D3nowCodeValuesTableGenerator(generatorOptions).Generate();
 
 				return 0;
 			}
@@ -68,11 +66,11 @@ namespace Generator {
 			}
 		}
 
-		static ProjectDirs GetProjectDirs() {
+		static GeneratorOptions CreateGeneratorOptions(GeneratorFlags flags) {
 			var dir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(typeof(Program).Assembly.Location)))))));
 			if (dir is null || !File.Exists(Path.Combine(dir, "csharp", "Iced.sln")))
 				throw new InvalidOperationException();
-			return new ProjectDirs(dir);
+			return new GeneratorOptions(dir, flags);
 		}
 	}
 }

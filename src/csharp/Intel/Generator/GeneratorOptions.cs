@@ -25,13 +25,31 @@ using System;
 using System.IO;
 
 namespace Generator {
-	sealed class ProjectDirs {
-		public readonly string UnitTestsDir;
+	[Flags]
+	enum GeneratorFlags {
+		None				= 0,
+		NoFormatter			= 0x0000_0001,
+		NoGasFormatter		= 0x0000_0002,
+		NoIntelFormatter	= 0x0000_0004,
+		NoMasmFormatter		= 0x0000_0008,
+		NoNasmFormatter		= 0x0000_0010,
+	}
+
+	sealed class GeneratorOptions {
+		public bool HasGasFormatter { get; }
+		public bool HasIntelFormatter { get; }
+		public bool HasMasmFormatter { get; }
+		public bool HasNasmFormatter { get; }
+		public string UnitTestsDir { get; }
 		public string CSharpDir => langDirs[(int)TargetLanguage.CSharp];
 		public string RustDir => langDirs[(int)TargetLanguage.Rust];
 		readonly string[] langDirs;
 
-		public ProjectDirs(string baseDir) {
+		public GeneratorOptions(string baseDir, GeneratorFlags flags) {
+			HasGasFormatter = (flags & GeneratorFlags.NoGasFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
+			HasIntelFormatter = (flags & GeneratorFlags.NoIntelFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
+			HasMasmFormatter = (flags & GeneratorFlags.NoMasmFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
+			HasNasmFormatter = (flags & GeneratorFlags.NoNasmFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
 			UnitTestsDir = GetAndVerifyPath(baseDir, "UnitTests", "Intel");
 			langDirs = new string[(int)TargetLanguage.Last];
 			for (int i = 0; i < langDirs.Length; i++) {
