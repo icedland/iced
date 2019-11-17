@@ -97,7 +97,6 @@ namespace Iced.Intel {
 			public uint extraRegisterBaseEVEX;
 			public uint extraBaseRegisterBaseEVEX;
 			public uint vectorLength;
-			public byte defaultDsSegment;
 			public OpSize operandSize;
 			public OpSize addressSize;
 			public readonly EncodingKind Encoding => (EncodingKind)(flags & StateFlags.EncodingMask);
@@ -258,9 +257,9 @@ namespace Iced.Intel {
 			state.flags = 0;
 			state.mandatoryPrefix = 0;
 #endif
-			state.defaultDsSegment = (byte)Register.DS;
 			state.operandSize = defaultOperandSize;
 			state.addressSize = defaultAddressSize;
+			var defaultDsSegment = (byte)Register.DS;
 			uint rexPrefix = 0;
 			uint b;
 			for (;;) {
@@ -272,46 +271,46 @@ namespace Iced.Intel {
 				// with JIT32, and about the same speed with 64-bit RyuJIT.
 				switch (b) {
 				case 0x26:
-					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
+					if (!is64Mode || (defaultDsSegment != (byte)Register.FS && defaultDsSegment != (byte)Register.GS)) {
 						instruction.SegmentPrefix = Register.ES;
-						state.defaultDsSegment = (byte)Register.ES;
+						defaultDsSegment = (byte)Register.ES;
 					}
 					rexPrefix = 0;
 					break;
 
 				case 0x2E:
-					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
+					if (!is64Mode || (defaultDsSegment != (byte)Register.FS && defaultDsSegment != (byte)Register.GS)) {
 						instruction.SegmentPrefix = Register.CS;
-						state.defaultDsSegment = (byte)Register.CS;
+						defaultDsSegment = (byte)Register.CS;
 					}
 					rexPrefix = 0;
 					break;
 
 				case 0x36:
-					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
+					if (!is64Mode || (defaultDsSegment != (byte)Register.FS && defaultDsSegment != (byte)Register.GS)) {
 						instruction.SegmentPrefix = Register.SS;
-						state.defaultDsSegment = (byte)Register.SS;
+						defaultDsSegment = (byte)Register.SS;
 					}
 					rexPrefix = 0;
 					break;
 
 				case 0x3E:
-					if (!is64Mode || (state.defaultDsSegment != (byte)Register.FS && state.defaultDsSegment != (byte)Register.GS)) {
+					if (!is64Mode || (defaultDsSegment != (byte)Register.FS && defaultDsSegment != (byte)Register.GS)) {
 						instruction.SegmentPrefix = Register.DS;
-						state.defaultDsSegment = (byte)Register.DS;
+						defaultDsSegment = (byte)Register.DS;
 					}
 					rexPrefix = 0;
 					break;
 
 				case 0x64:
 					instruction.SegmentPrefix = Register.FS;
-					state.defaultDsSegment = (byte)Register.FS;
+					defaultDsSegment = (byte)Register.FS;
 					rexPrefix = 0;
 					break;
 
 				case 0x65:
 					instruction.SegmentPrefix = Register.GS;
-					state.defaultDsSegment = (byte)Register.GS;
+					defaultDsSegment = (byte)Register.GS;
 					rexPrefix = 0;
 					break;
 

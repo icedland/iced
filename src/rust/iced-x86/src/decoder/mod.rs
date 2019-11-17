@@ -221,7 +221,6 @@ struct State {
 	extra_register_base_evex: u32,
 	extra_base_register_base_evex: u32,
 	vector_length: u32,
-	default_ds_segment: u8,
 	operand_size: OpSize,
 	address_size: OpSize,
 }
@@ -416,7 +415,6 @@ impl<'a> Decoder<'a> {
 		self.state.flags = 0;
 		self.state.mandatory_prefix = 0;
 
-		self.state.default_ds_segment = Register::DS as u8;
 		self.state.operand_size = self.default_operand_size;
 		self.state.address_size = self.default_address_size;
 
@@ -424,6 +422,7 @@ impl<'a> Decoder<'a> {
 		self.instr_start_data_ptr = data_ptr;
 		self.max_data_ptr = unsafe { std::cmp::min(data_ptr.offset(IcedConstants::MAX_INSTRUCTION_LENGTH as isize), self.data_ptr_end) };
 
+		let mut default_ds_segment = Register::DS;
 		let mut rex_prefix: usize = 0;
 		let mut b;
 		loop {
@@ -434,45 +433,45 @@ impl<'a> Decoder<'a> {
 
 			match b {
 				0x26 => {
-					if !self.is64_mode || (self.state.default_ds_segment != Register::FS as u8 && self.state.default_ds_segment != Register::GS as u8)
+					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS)
 					{
 						instruction.set_segment_prefix(Register::ES);
-						self.state.default_ds_segment = Register::ES as u8;
+						default_ds_segment = Register::ES;
 					}
 					rex_prefix = 0;
 				}
 				0x2E => {
-					if !self.is64_mode || (self.state.default_ds_segment != Register::FS as u8 && self.state.default_ds_segment != Register::GS as u8)
+					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS)
 					{
 						instruction.set_segment_prefix(Register::CS);
-						self.state.default_ds_segment = Register::CS as u8;
+						default_ds_segment = Register::CS;
 					}
 					rex_prefix = 0;
 				}
 				0x36 => {
-					if !self.is64_mode || (self.state.default_ds_segment != Register::FS as u8 && self.state.default_ds_segment != Register::GS as u8)
+					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS)
 					{
 						instruction.set_segment_prefix(Register::SS);
-						self.state.default_ds_segment = Register::SS as u8;
+						default_ds_segment = Register::SS;
 					}
 					rex_prefix = 0;
 				}
 				0x3E => {
-					if !self.is64_mode || (self.state.default_ds_segment != Register::FS as u8 && self.state.default_ds_segment != Register::GS as u8)
+					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS)
 					{
 						instruction.set_segment_prefix(Register::DS);
-						self.state.default_ds_segment = Register::DS as u8;
+						default_ds_segment = Register::DS;
 					}
 					rex_prefix = 0;
 				}
 				0x64 => {
 					instruction.set_segment_prefix(Register::FS);
-					self.state.default_ds_segment = Register::FS as u8;
+					default_ds_segment = Register::FS;
 					rex_prefix = 0;
 				}
 				0x65 => {
 					instruction.set_segment_prefix(Register::GS);
-					self.state.default_ds_segment = Register::GS as u8;
+					default_ds_segment = Register::GS;
 					rex_prefix = 0;
 				}
 				0x66 => {
