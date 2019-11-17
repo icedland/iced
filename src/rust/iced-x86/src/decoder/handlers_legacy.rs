@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::useless_let_if_seq))]
 
+use super::handlers::*;
 use super::*;
 
 #[allow(non_camel_case_types)]
@@ -174,7 +175,7 @@ impl OpCodeHandler_Ib3 {
 pub(crate) struct OpCodeHandler_MandatoryPrefix {
 	pub(crate) decode: OpCodeHandlerDecodeFn,
 	pub(crate) has_modrm: bool,
-	pub(crate) handlers: &'static [*const OpCodeHandler],
+	pub(crate) handlers: [&'static OpCodeHandler; 4],
 }
 
 impl OpCodeHandler_MandatoryPrefix {
@@ -182,10 +183,9 @@ impl OpCodeHandler_MandatoryPrefix {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::Legacy);
 		decoder.clear_mandatory_prefix(instruction);
-		debug_assert_eq!(4, this.handlers.len());
 		// Safe, array has 4 elements and mandatory_prefix is 0..3
 		let handler = unsafe { *this.handlers.as_ptr().offset(decoder.state.mandatory_prefix as isize) };
-		unsafe { ((*handler).decode)(handler, decoder, instruction) };
+		(handler.decode)(handler, decoder, instruction);
 	}
 }
 
@@ -194,8 +194,8 @@ impl OpCodeHandler_MandatoryPrefix {
 pub(crate) struct OpCodeHandler_MandatoryPrefix3 {
 	pub(crate) decode: OpCodeHandlerDecodeFn,
 	pub(crate) has_modrm: bool,
-	pub(crate) handlers_reg: &'static [(*const OpCodeHandler, bool)],
-	pub(crate) handlers_mem: &'static [(*const OpCodeHandler, bool)],
+	pub(crate) handlers_reg: [(&'static OpCodeHandler, bool); 4],
+	pub(crate) handlers_mem: [(&'static OpCodeHandler, bool); 4],
 }
 
 impl OpCodeHandler_MandatoryPrefix3 {
@@ -203,13 +203,18 @@ impl OpCodeHandler_MandatoryPrefix3 {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::Legacy);
 		let handlers = if decoder.state.mod_ == 3 { this.handlers_reg } else { this.handlers_mem };
-		debug_assert_eq!(4, handlers.len());
 		// Safe, array has 4 elements and mandatory_prefix is 0..3
-		let (handler, mandatory_prefix) = unsafe { *handlers.as_ptr().offset(decoder.state.mandatory_prefix as isize) };
+		let (handler, mandatory_prefix) = unsafe {
+			if decoder.state.mod_ == 3 {
+				*this.handlers_reg.as_ptr().offset(decoder.state.mandatory_prefix as isize)
+			} else {
+				*this.handlers_mem.as_ptr().offset(decoder.state.mandatory_prefix as isize)
+			}
+		};
 		if mandatory_prefix {
 			decoder.clear_mandatory_prefix(instruction);
 		}
-		unsafe { ((*handler).decode)(handler, decoder, instruction) };
+		(handler.decode)(handler, decoder, instruction);
 	}
 }
 
@@ -218,9 +223,9 @@ impl OpCodeHandler_MandatoryPrefix3 {
 pub(crate) struct OpCodeHandler_MandatoryPrefix_F3_F2 {
 	pub(crate) decode: OpCodeHandlerDecodeFn,
 	pub(crate) has_modrm: bool,
-	pub(crate) handler_normal: *const OpCodeHandler,
-	pub(crate) handler_f3: *const OpCodeHandler,
-	pub(crate) handler_f2: *const OpCodeHandler,
+	pub(crate) handler_normal: &'static OpCodeHandler,
+	pub(crate) handler_f3: &'static OpCodeHandler,
+	pub(crate) handler_f2: &'static OpCodeHandler,
 	pub(crate) clear_f3: bool,
 	pub(crate) clear_f2: bool,
 }
@@ -245,30 +250,10 @@ impl OpCodeHandler_MandatoryPrefix_F3_F2 {
 			debug_assert!(prefix == MandatoryPrefixByte::None as u32 || prefix == MandatoryPrefixByte::P66 as u32);
 			handler = this.handler_normal;
 		}
-		if unsafe { (*handler).has_modrm } {
+		if handler.has_modrm {
 			decoder.read_modrm();
 		}
-		unsafe { ((*handler).decode)(handler, decoder, instruction) };
-	}
-}
-
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub(crate) struct OpCodeHandler_MandatoryPrefix_NoModRM {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) handlers: &'static [*const OpCodeHandler],
-}
-
-impl OpCodeHandler_MandatoryPrefix_NoModRM {
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
-		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::Legacy);
-		decoder.clear_mandatory_prefix(instruction);
-		debug_assert_eq!(4, this.handlers.len());
-		// Safe, array has 4 elements and mandatory_prefix is 0..3
-		let handler = unsafe { *this.handlers.as_ptr().offset(decoder.state.mandatory_prefix as isize) };
-		unsafe { ((*handler).decode)(handler, decoder, instruction) };
+		(handler.decode)(handler, decoder, instruction);
 	}
 }
 
@@ -302,8 +287,8 @@ impl OpCodeHandler_NIb {
 pub(crate) struct OpCodeHandler_ReservedNop {
 	pub(crate) decode: OpCodeHandlerDecodeFn,
 	pub(crate) has_modrm: bool,
-	pub(crate) reserved_nop_handler: *const OpCodeHandler,
-	pub(crate) other_handler: *const OpCodeHandler,
+	pub(crate) reserved_nop_handler: &'static OpCodeHandler,
+	pub(crate) other_handler: &'static OpCodeHandler,
 }
 
 impl OpCodeHandler_ReservedNop {
@@ -315,7 +300,7 @@ impl OpCodeHandler_ReservedNop {
 		} else {
 			this.other_handler
 		};
-		unsafe { ((*handler).decode)(handler, decoder, instruction) };
+		(handler.decode)(handler, decoder, instruction);
 	}
 }
 

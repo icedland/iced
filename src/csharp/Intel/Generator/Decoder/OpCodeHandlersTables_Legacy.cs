@@ -27,7 +27,7 @@ namespace Generator.Decoder {
 	static class OpCodeHandlersTables_Legacy {
 		public const string OneByteHandlers = nameof(OneByteHandlers);
 
-		public static object[] GetHandlers() {
+		public static (string name, object?[] handlers)[] GetHandlers() {
 			var legacyEnum = OpCodeHandlerKindEnum.Instance;
 			var codeEnum = CodeEnum.Instance;
 			var decoderOptionsEnum = DecoderOptionsEnum.Instance;
@@ -37,8 +37,8 @@ namespace Generator.Decoder {
 
 			var invalid = new object[] { legacyEnum["Invalid"] };
 			var invalid_NoModRM = new object[] { legacyEnum["Invalid_NoModRM"] };
-			var handlers = new object[] {
-				"handlers_FPU_D8_low",
+			var handlers = new (string name, object?[] handlers)[] {
+				("handlers_FPU_D8_low",
 				new object[8] {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fadd_m32fp"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fmul_m32fp"] },
@@ -48,9 +48,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fsubr_m32fp"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fdiv_m32fp"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fdivr_m32fp"] },
-				},
+				}),
 
-				"handlers_FPU_D8_high",
+				("handlers_FPU_D8_high",
 				new object[8] {
 					new object[] { legacyEnum["ST_STi"], codeEnum["Fadd_st0_sti"] },
 					new object[] { legacyEnum["ST_STi"], codeEnum["Fmul_st0_sti"] },
@@ -60,9 +60,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["ST_STi"], codeEnum["Fsubr_st0_sti"] },
 					new object[] { legacyEnum["ST_STi"], codeEnum["Fdiv_st0_sti"] },
 					new object[] { legacyEnum["ST_STi"], codeEnum["Fdivr_st0_sti"] },
-				},
+				}),
 
-				"handlers_FPU_D9_low",
+				("handlers_FPU_D9_low",
 				new object[8] {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fld_m32fp"] },
 					invalid,
@@ -72,9 +72,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fldcw_m2byte"] },
 					new object[] { legacyEnum["Mf_2b"], codeEnum["Fnstenv_m14byte"], codeEnum["Fnstenv_m28byte"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fnstcw_m2byte"] },
-				},
+				}),
 
-				"handlers_FPU_D9_high",
+				("handlers_FPU_D9_high",
 				new object[0x40] {
 					// C0
 					new object[] { legacyEnum["ST_STi"], codeEnum["Fld_st0_sti"] },
@@ -155,9 +155,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Simple"], codeEnum["Fscale"] },
 					new object[] { legacyEnum["Simple"], codeEnum["Fsin"] },
 					new object[] { legacyEnum["Simple"], codeEnum["Fcos"] },
-				},
+				}),
 
-				"handlers_FPU_DA_low",
+				("handlers_FPU_DA_low",
 				new object[8] {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fiadd_m32int"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fimul_m32int"] },
@@ -167,9 +167,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fisubr_m32int"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fidiv_m32int"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fidivr_m32int"] },
-				},
+				}),
 
-				"handlers_FPU_DA_high",
+				("handlers_FPU_DA_high",
 				new object[0x40] {
 					// C0
 					new object[] { legacyEnum["ST_STi"], codeEnum["Fcmovb_st0_sti"] },
@@ -250,9 +250,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"handlers_FPU_DB_low",
+				("handlers_FPU_DB_low",
 				new object[8] {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fild_m32int"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fisttp_m32int"] },
@@ -262,9 +262,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fld_m80fp"] },
 					invalid,
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fstp_m80fp"] },
-				},
+				}),
 
-				"handlers_FPU_DB_high",
+				("handlers_FPU_DB_high",
 				new object[0x40] {
 					// C0
 					new object[] { legacyEnum["ST_STi"], codeEnum["Fcmovnb_st0_sti"] },
@@ -351,9 +351,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"handlers_FPU_DC_low",
+				("handlers_FPU_DC_low",
 				new object[8] {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fadd_m64fp"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fmul_m64fp"] },
@@ -363,9 +363,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fsubr_m64fp"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fdiv_m64fp"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fdivr_m64fp"] },
-				},
+				}),
 
-				"handlers_FPU_DC_high",
+				("handlers_FPU_DC_high",
 				new object[8] {
 					new object[] { legacyEnum["STi_ST"], codeEnum["Fadd_sti_st0"] },
 					new object[] { legacyEnum["STi_ST"], codeEnum["Fmul_sti_st0"] },
@@ -375,9 +375,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["STi_ST"], codeEnum["Fsub_sti_st0"] },
 					new object[] { legacyEnum["STi_ST"], codeEnum["Fdivr_sti_st0"] },
 					new object[] { legacyEnum["STi_ST"], codeEnum["Fdiv_sti_st0"] },
-				},
+				}),
 
-				"handlers_FPU_DD_low",
+				("handlers_FPU_DD_low",
 				new object[8] {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fld_m64fp"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fisttp_m64int"] },
@@ -387,9 +387,9 @@ namespace Generator.Decoder {
 					invalid,
 					new object[] { legacyEnum["Mf_2b"], codeEnum["Fnsave_m94byte"], codeEnum["Fnsave_m108byte"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fnstsw_m2byte"] },
-				},
+				}),
 
-				"handlers_FPU_DD_high",
+				("handlers_FPU_DD_high",
 				new object[8] {
 					new object[] { legacyEnum["STi"], codeEnum["Ffree_sti"] },
 					new object[] { legacyEnum["ST_STi"], codeEnum["Fxch_st0_sti_DDC8"] },
@@ -399,9 +399,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["ST_STi"], codeEnum["Fucomp_st0_sti"] },
 					invalid,
 					invalid,
-				},
+				}),
 
-				"handlers_FPU_DE_low",
+				("handlers_FPU_DE_low",
 				new object[8] {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fiadd_m16int"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fimul_m16int"] },
@@ -411,9 +411,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fisubr_m16int"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fidiv_m16int"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fidivr_m16int"] },
-				},
+				}),
 
-				"handlers_FPU_DE_high",
+				("handlers_FPU_DE_high",
 				new object[0x40] {
 					// C0
 					new object[] { legacyEnum["STi_ST"], codeEnum["Faddp_sti_st0"] },
@@ -494,9 +494,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["STi_ST"], codeEnum["Fdivp_sti_st0"] },
 					new object[] { legacyEnum["STi_ST"], codeEnum["Fdivp_sti_st0"] },
 					new object[] { legacyEnum["STi_ST"], codeEnum["Fdivp_sti_st0"] },
-				},
+				}),
 
-				"handlers_FPU_DF_low",
+				("handlers_FPU_DF_low",
 				new object[8] {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fild_m16int"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fisttp_m16int"] },
@@ -506,9 +506,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fild_m64int"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fbstp_m80bcd"] },
 					new object[] { legacyEnum["Mf_1"], codeEnum["Fistp_m64int"] },
-				},
+				}),
 
-				"handlers_FPU_DF_high",
+				("handlers_FPU_DF_high",
 				new object[0x40] {
 					// C0
 					new object[] { legacyEnum["STi"], codeEnum["Ffreep_sti"] },
@@ -601,9 +601,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_80",
+				("handlers_Grp_80",
 				new object[8] {
 					new object[] { legacyEnum["Eb_Ib_2"], codeEnum["Add_rm8_imm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Eb_Ib_2"], codeEnum["Or_rm8_imm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
@@ -613,9 +613,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Eb_Ib_2"], codeEnum["Sub_rm8_imm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Eb_Ib_2"], codeEnum["Xor_rm8_imm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Eb_Ib_1"], codeEnum["Cmp_rm8_imm8"] },
-				},
+				}),
 
-				"handlers_Grp_81",
+				("handlers_Grp_81",
 				new object[8] {
 					new object[] { legacyEnum["Ev_Iz_4"], codeEnum["Add_rm16_imm16"], codeEnum["Add_rm32_imm32"], codeEnum["Add_rm64_imm32"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Ev_Iz_4"], codeEnum["Or_rm16_imm16"], codeEnum["Or_rm32_imm32"], codeEnum["Or_rm64_imm32"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
@@ -625,9 +625,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Ev_Iz_4"], codeEnum["Sub_rm16_imm16"], codeEnum["Sub_rm32_imm32"], codeEnum["Sub_rm64_imm32"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Ev_Iz_4"], codeEnum["Xor_rm16_imm16"], codeEnum["Xor_rm32_imm32"], codeEnum["Xor_rm64_imm32"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Ev_Iz_3"], codeEnum["Cmp_rm16_imm16"], codeEnum["Cmp_rm32_imm32"], codeEnum["Cmp_rm64_imm32"] },
-				},
+				}),
 
-				"handlers_Grp_82",
+				("handlers_Grp_82",
 				new object[8] {
 					new object[] { legacyEnum["Eb_Ib_2"], codeEnum["Add_rm8_imm8_82"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Eb_Ib_2"], codeEnum["Or_rm8_imm8_82"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
@@ -637,9 +637,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Eb_Ib_2"], codeEnum["Sub_rm8_imm8_82"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Eb_Ib_2"], codeEnum["Xor_rm8_imm8_82"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Eb_Ib_1"], codeEnum["Cmp_rm8_imm8_82"] },
-				},
+				}),
 
-				"handlers_Grp_83",
+				("handlers_Grp_83",
 				new object[8] {
 					new object[] { legacyEnum["Ev_Ib_4"], codeEnum["Add_rm16_imm8"], codeEnum["Add_rm32_imm8"], codeEnum["Add_rm64_imm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Ev_Ib_4"], codeEnum["Or_rm16_imm8"], codeEnum["Or_rm32_imm8"], codeEnum["Or_rm64_imm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
@@ -649,9 +649,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Ev_Ib_4"], codeEnum["Sub_rm16_imm8"], codeEnum["Sub_rm32_imm8"], codeEnum["Sub_rm64_imm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Ev_Ib_4"], codeEnum["Xor_rm16_imm8"], codeEnum["Xor_rm32_imm8"], codeEnum["Xor_rm64_imm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Ev_Ib_3"], codeEnum["Cmp_rm16_imm8"], codeEnum["Cmp_rm32_imm8"], codeEnum["Cmp_rm64_imm8"] },
-				},
+				}),
 
-				"handlers_Grp_8F",
+				("handlers_Grp_8F",
 				new object[8] {
 					new object[] { legacyEnum["PushEv"], codeEnum["Pop_rm16"], codeEnum["Pop_rm32"], codeEnum["Pop_rm64"] },
 					invalid,
@@ -661,9 +661,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_C0",
+				("handlers_Grp_C0",
 				new object[8] {
 					new object[] { legacyEnum["Eb_Ib_1"], codeEnum["Rol_rm8_imm8"] },
 					new object[] { legacyEnum["Eb_Ib_1"], codeEnum["Ror_rm8_imm8"] },
@@ -673,9 +673,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Eb_Ib_1"], codeEnum["Shr_rm8_imm8"] },
 					new object[] { legacyEnum["Eb_Ib_1"], codeEnum["Sal_rm8_imm8"] },
 					new object[] { legacyEnum["Eb_Ib_1"], codeEnum["Sar_rm8_imm8"] },
-				},
+				}),
 
-				"handlers_Grp_C1",
+				("handlers_Grp_C1",
 				new object[8] {
 					new object[] { legacyEnum["Ev_Ib2_3"], codeEnum["Rol_rm16_imm8"], codeEnum["Rol_rm32_imm8"], codeEnum["Rol_rm64_imm8"] },
 					new object[] { legacyEnum["Ev_Ib2_3"], codeEnum["Ror_rm16_imm8"], codeEnum["Ror_rm32_imm8"], codeEnum["Ror_rm64_imm8"] },
@@ -685,9 +685,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Ev_Ib2_3"], codeEnum["Shr_rm16_imm8"], codeEnum["Shr_rm32_imm8"], codeEnum["Shr_rm64_imm8"] },
 					new object[] { legacyEnum["Ev_Ib2_3"], codeEnum["Sal_rm16_imm8"], codeEnum["Sal_rm32_imm8"], codeEnum["Sal_rm64_imm8"] },
 					new object[] { legacyEnum["Ev_Ib2_3"], codeEnum["Sar_rm16_imm8"], codeEnum["Sar_rm32_imm8"], codeEnum["Sar_rm64_imm8"] },
-				},
+				}),
 
-				"handlers_Grp_D0",
+				("handlers_Grp_D0",
 				new object[8] {
 					new object[] { legacyEnum["Eb1"], codeEnum["Rol_rm8_1"] },
 					new object[] { legacyEnum["Eb1"], codeEnum["Ror_rm8_1"] },
@@ -697,9 +697,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Eb1"], codeEnum["Shr_rm8_1"] },
 					new object[] { legacyEnum["Eb1"], codeEnum["Sal_rm8_1"] },
 					new object[] { legacyEnum["Eb1"], codeEnum["Sar_rm8_1"] },
-				},
+				}),
 
-				"handlers_Grp_D1",
+				("handlers_Grp_D1",
 				new object[8] {
 					new object[] { legacyEnum["Ev1"], codeEnum["Rol_rm16_1"], codeEnum["Rol_rm32_1"], codeEnum["Rol_rm64_1"] },
 					new object[] { legacyEnum["Ev1"], codeEnum["Ror_rm16_1"], codeEnum["Ror_rm32_1"], codeEnum["Ror_rm64_1"] },
@@ -709,9 +709,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Ev1"], codeEnum["Shr_rm16_1"], codeEnum["Shr_rm32_1"], codeEnum["Shr_rm64_1"] },
 					new object[] { legacyEnum["Ev1"], codeEnum["Sal_rm16_1"], codeEnum["Sal_rm32_1"], codeEnum["Sal_rm64_1"] },
 					new object[] { legacyEnum["Ev1"], codeEnum["Sar_rm16_1"], codeEnum["Sar_rm32_1"], codeEnum["Sar_rm64_1"] },
-				},
+				}),
 
-				"handlers_Grp_D2",
+				("handlers_Grp_D2",
 				new object[8] {
 					new object[] { legacyEnum["Eb_CL"], codeEnum["Rol_rm8_CL"] },
 					new object[] { legacyEnum["Eb_CL"], codeEnum["Ror_rm8_CL"] },
@@ -721,9 +721,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Eb_CL"], codeEnum["Shr_rm8_CL"] },
 					new object[] { legacyEnum["Eb_CL"], codeEnum["Sal_rm8_CL"] },
 					new object[] { legacyEnum["Eb_CL"], codeEnum["Sar_rm8_CL"] },
-				},
+				}),
 
-				"handlers_Grp_D3",
+				("handlers_Grp_D3",
 				new object[8] {
 					new object[] { legacyEnum["Ev_CL"], codeEnum["Rol_rm16_CL"], codeEnum["Rol_rm32_CL"], codeEnum["Rol_rm64_CL"] },
 					new object[] { legacyEnum["Ev_CL"], codeEnum["Ror_rm16_CL"], codeEnum["Ror_rm32_CL"], codeEnum["Ror_rm64_CL"] },
@@ -733,9 +733,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Ev_CL"], codeEnum["Shr_rm16_CL"], codeEnum["Shr_rm32_CL"], codeEnum["Shr_rm64_CL"] },
 					new object[] { legacyEnum["Ev_CL"], codeEnum["Sal_rm16_CL"], codeEnum["Sal_rm32_CL"], codeEnum["Sal_rm64_CL"] },
 					new object[] { legacyEnum["Ev_CL"], codeEnum["Sar_rm16_CL"], codeEnum["Sar_rm32_CL"], codeEnum["Sar_rm64_CL"] },
-				},
+				}),
 
-				"handlers_Grp_F6",
+				("handlers_Grp_F6",
 				new object[8] {
 					new object[] { legacyEnum["Eb_Ib_1"], codeEnum["Test_rm8_imm8"] },
 					new object[] { legacyEnum["Eb_Ib_1"], codeEnum["Test_rm8_imm8_F6r1"] },
@@ -745,9 +745,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Eb_1"], codeEnum["Imul_rm8"] },
 					new object[] { legacyEnum["Eb_1"], codeEnum["Div_rm8"] },
 					new object[] { legacyEnum["Eb_1"], codeEnum["Idiv_rm8"] },
-				},
+				}),
 
-				"handlers_Grp_F7",
+				("handlers_Grp_F7",
 				new object[8] {
 					new object[] { legacyEnum["Ev_Iz_3"], codeEnum["Test_rm16_imm16"], codeEnum["Test_rm32_imm32"], codeEnum["Test_rm64_imm32"] },
 					new object[] { legacyEnum["Ev_Iz_3"], codeEnum["Test_rm16_imm16_F7r1"], codeEnum["Test_rm32_imm32_F7r1"], codeEnum["Test_rm64_imm32_F7r1"] },
@@ -757,9 +757,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Ev_3a"], codeEnum["Imul_rm16"], codeEnum["Imul_rm32"], codeEnum["Imul_rm64"] },
 					new object[] { legacyEnum["Ev_3a"], codeEnum["Div_rm16"], codeEnum["Div_rm32"], codeEnum["Div_rm64"] },
 					new object[] { legacyEnum["Ev_3a"], codeEnum["Idiv_rm16"], codeEnum["Idiv_rm32"], codeEnum["Idiv_rm64"] },
-				},
+				}),
 
-				"handlers_Grp_FE",
+				("handlers_Grp_FE",
 				new object[8] {
 					new object[] { legacyEnum["Eb_2"], codeEnum["Inc_rm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Eb_2"], codeEnum["Dec_rm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
@@ -769,9 +769,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_FF",
+				("handlers_Grp_FF",
 				new object[8] {
 					new object[] { legacyEnum["Ev_4"], codeEnum["Inc_rm16"], codeEnum["Inc_rm32"], codeEnum["Inc_rm64"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Ev_4"], codeEnum["Dec_rm16"], codeEnum["Dec_rm32"], codeEnum["Dec_rm64"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
@@ -781,9 +781,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Ep"], codeEnum["Jmp_m1616"], codeEnum["Jmp_m1632"], codeEnum["Jmp_m1664"] },
 					new object[] { legacyEnum["PushEv"], codeEnum["Push_rm16"], codeEnum["Push_rm32"], codeEnum["Push_rm64"] },
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_0F00",
+				("handlers_Grp_0F00",
 				new object[8] {
 					new object[] { legacyEnum["Evw"], codeEnum["Sldt_rm16"], codeEnum["Sldt_r32m16"], codeEnum["Sldt_r64m16"] },
 					new object[] { legacyEnum["Evw"], codeEnum["Str_rm16"], codeEnum["Str_r32m16"], codeEnum["Str_r64m16"] },
@@ -799,9 +799,9 @@ namespace Generator.Decoder {
 						}, decoderOptionsEnum["Jmpe"]
 					},
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_0F01_lo",
+				("handlers_Grp_0F01_lo",
 				new object[8] {
 					new object[] { legacyEnum["Ms"], codeEnum["Sgdt_m1632_16"], codeEnum["Sgdt_m1632"], codeEnum["Sgdt_m1664"] },
 					new object[] { legacyEnum["Ms"], codeEnum["Sidt_m1632_16"], codeEnum["Sidt_m1632"], codeEnum["Sidt_m1664"] },
@@ -816,9 +816,9 @@ namespace Generator.Decoder {
 					},
 					new object[] { legacyEnum["Evw"], codeEnum["Lmsw_rm16"], codeEnum["Lmsw_r32m16"], codeEnum["Lmsw_r64m16"] },
 					new object[] { legacyEnum["M_1"], codeEnum["Invlpg_m"] },
-				},
+				}),
 
-				"handlers_Grp_0F01_hi",
+				("handlers_Grp_0F01_hi",
 				new object?[0x40] {
 					// C0
 					new object[] { legacyEnum["MandatoryPrefix_NoModRM"],
@@ -1012,9 +1012,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Simple"], codeEnum["Rdpru"] },
 					null,
 					null,
-				},
+				}),
 
-				"handlers_Grp_0FA6_lo",
+				("handlers_Grp_0FA6_lo",
 				new object[8] {
 					invalid,
 					invalid,
@@ -1024,9 +1024,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_0FA6_hi",
+				("handlers_Grp_0FA6_hi",
 				new object?[0x40] {
 					// C0
 					new object[] { legacyEnum["Simple5"], codeEnum["Montmul_16"], codeEnum["Montmul_32"], codeEnum["Montmul_64"] },
@@ -1107,9 +1107,9 @@ namespace Generator.Decoder {
 					null,
 					null,
 					null,
-				},
+				}),
 
-				"handlers_Grp_0FA7_lo",
+				("handlers_Grp_0FA7_lo",
 				new object[8] {
 					invalid,
 					invalid,
@@ -1119,9 +1119,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_0FA7_hi",
+				("handlers_Grp_0FA7_hi",
 				new object?[0x40] {
 					// C0
 					new object[] { legacyEnum["Simple5"], codeEnum["Xstore_16"], codeEnum["Xstore_32"], codeEnum["Xstore_64"] },
@@ -1202,9 +1202,9 @@ namespace Generator.Decoder {
 					null,
 					null,
 					null,
-				},
+				}),
 
-				"handlers_Grp_0FBA",
+				("handlers_Grp_0FBA",
 				new object[8] {
 					invalid,
 					invalid,
@@ -1214,9 +1214,9 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Ev_Ib2_4"], codeEnum["Bts_rm16_imm8"], codeEnum["Bts_rm32_imm8"], codeEnum["Bts_rm64_imm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Ev_Ib2_4"], codeEnum["Btr_rm16_imm8"], codeEnum["Btr_rm32_imm8"], codeEnum["Btr_rm64_imm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
 					new object[] { legacyEnum["Ev_Ib2_4"], codeEnum["Btc_rm16_imm8"], codeEnum["Btc_rm32_imm8"], codeEnum["Btc_rm64_imm8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
-				},
+				}),
 
-				"handlers_Grp_0FC7",
+				("handlers_Grp_0FC7",
 				new object[8] {
 					invalid,
 					new object[] { legacyEnum["M_REXW_4"], codeEnum["Cmpxchg8b_m64"], codeEnum["Cmpxchg16b_m128"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock"), handlerFlagsEnum["Lock"] },
@@ -1264,9 +1264,9 @@ namespace Generator.Decoder {
 						invalid,
 						new OrEnumValue(legacyHandlerFlagsEnum, "HandlerReg", "Handler66Reg")
 					},
-				},
+				}),
 
-				"handlers_Grp_C6_lo",
+				("handlers_Grp_C6_lo",
 				new object[8] {
 					new object[] { legacyEnum["Eb_Ib_2"], codeEnum["Mov_rm8_imm8"], new OrEnumValue(handlerFlagsEnum, "Xrelease", "XacquireXreleaseNoLock") },
 					invalid,
@@ -1276,9 +1276,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_C6_hi",
+				("handlers_Grp_C6_hi",
 				new object?[0x40] {
 					// C0
 					null,
@@ -1359,9 +1359,9 @@ namespace Generator.Decoder {
 					null,
 					null,
 					null,
-				},
+				}),
 
-				"handlers_Grp_C7_lo",
+				("handlers_Grp_C7_lo",
 				new object[8] {
 					new object[] { legacyEnum["Ev_Iz_4"], codeEnum["Mov_rm16_imm16"], codeEnum["Mov_rm32_imm32"], codeEnum["Mov_rm64_imm32"], new OrEnumValue(handlerFlagsEnum, "Xrelease", "XacquireXreleaseNoLock") },
 					invalid,
@@ -1371,9 +1371,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_C7_hi",
+				("handlers_Grp_C7_hi",
 				new object?[0x40] {
 					// C0
 					null,
@@ -1454,9 +1454,9 @@ namespace Generator.Decoder {
 					null,
 					null,
 					null,
-				},
+				}),
 
-				"handlers_Grp_0F71",
+				("handlers_Grp_0F71",
 				new object[8] {
 					invalid,
 					invalid,
@@ -1481,9 +1481,9 @@ namespace Generator.Decoder {
 						invalid,
 					},
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_0F72",
+				("handlers_Grp_0F72",
 				new object[8] {
 					invalid,
 					invalid,
@@ -1508,9 +1508,9 @@ namespace Generator.Decoder {
 						invalid,
 					},
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_0F73",
+				("handlers_Grp_0F73",
 				new object[8] {
 					invalid,
 					invalid,
@@ -1540,9 +1540,9 @@ namespace Generator.Decoder {
 						invalid,
 						invalid,
 					},
-				},
+				}),
 
-				"handlers_Grp_0FAE_lo",
+				("handlers_Grp_0FAE_lo",
 				new object[8] {
 					new object[] { legacyEnum["MandatoryPrefix"],
 						new object[] { legacyEnum["M_2"], codeEnum["Fxsave_m512byte"], codeEnum["Fxsave64_m512byte"] },
@@ -1616,9 +1616,9 @@ namespace Generator.Decoder {
 						invalid,
 						invalid,
 					},
-				},
+				}),
 
-				"handlers_Grp_0FAE_hi",
+				("handlers_Grp_0FAE_hi",
 				new object?[0x40] {
 					// C0
 					null,
@@ -1822,19 +1822,19 @@ namespace Generator.Decoder {
 						invalid,
 						invalid,
 					},
-				},
+				}),
 
-				"reservedNop_0F0D", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F0D"], codeEnum["ReservedNop_rm32_r32_0F0D"], codeEnum["ReservedNop_rm64_r64_0F0D"] },
-				"reservedNop_0F18", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F18"], codeEnum["ReservedNop_rm32_r32_0F18"], codeEnum["ReservedNop_rm64_r64_0F18"] },
-				"reservedNop_0F19", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F19"], codeEnum["ReservedNop_rm32_r32_0F19"], codeEnum["ReservedNop_rm64_r64_0F19"] },
-				"reservedNop_0F1A", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1A"], codeEnum["ReservedNop_rm32_r32_0F1A"], codeEnum["ReservedNop_rm64_r64_0F1A"] },
-				"reservedNop_0F1B", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1B"], codeEnum["ReservedNop_rm32_r32_0F1B"], codeEnum["ReservedNop_rm64_r64_0F1B"] },
-				"reservedNop_0F1C", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1C"], codeEnum["ReservedNop_rm32_r32_0F1C"], codeEnum["ReservedNop_rm64_r64_0F1C"] },
-				"reservedNop_0F1D", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1D"], codeEnum["ReservedNop_rm32_r32_0F1D"], codeEnum["ReservedNop_rm64_r64_0F1D"] },
-				"reservedNop_0F1E", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1E"], codeEnum["ReservedNop_rm32_r32_0F1E"], codeEnum["ReservedNop_rm64_r64_0F1E"] },
-				"reservedNop_0F1F", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1F"], codeEnum["ReservedNop_rm32_r32_0F1F"], codeEnum["ReservedNop_rm64_r64_0F1F"] },
+				("reservedNop_0F0D", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F0D"], codeEnum["ReservedNop_rm32_r32_0F0D"], codeEnum["ReservedNop_rm64_r64_0F0D"] }),
+				("reservedNop_0F18", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F18"], codeEnum["ReservedNop_rm32_r32_0F18"], codeEnum["ReservedNop_rm64_r64_0F18"] }),
+				("reservedNop_0F19", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F19"], codeEnum["ReservedNop_rm32_r32_0F19"], codeEnum["ReservedNop_rm64_r64_0F19"] }),
+				("reservedNop_0F1A", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1A"], codeEnum["ReservedNop_rm32_r32_0F1A"], codeEnum["ReservedNop_rm64_r64_0F1A"] }),
+				("reservedNop_0F1B", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1B"], codeEnum["ReservedNop_rm32_r32_0F1B"], codeEnum["ReservedNop_rm64_r64_0F1B"] }),
+				("reservedNop_0F1C", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1C"], codeEnum["ReservedNop_rm32_r32_0F1C"], codeEnum["ReservedNop_rm64_r64_0F1C"] }),
+				("reservedNop_0F1D", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1D"], codeEnum["ReservedNop_rm32_r32_0F1D"], codeEnum["ReservedNop_rm64_r64_0F1D"] }),
+				("reservedNop_0F1E", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1E"], codeEnum["ReservedNop_rm32_r32_0F1E"], codeEnum["ReservedNop_rm64_r64_0F1E"] }),
+				("reservedNop_0F1F", new object[] { legacyEnum["Ev_Gv_3a"], codeEnum["ReservedNop_rm16_r16_0F1F"], codeEnum["ReservedNop_rm32_r32_0F1F"], codeEnum["ReservedNop_rm64_r64_0F1F"] }),
 
-				"handlers_Grp_0F0D_mem",
+				("handlers_Grp_0F0D_mem",
 				new object[8] {
 					new object[] { legacyEnum["M_1"], codeEnum["Prefetch_m8"] },
 					new object[] { legacyEnum["M_1"], codeEnum["Prefetchw_m8"] },
@@ -1844,13 +1844,13 @@ namespace Generator.Decoder {
 					"reservedNop_0F0D",
 					"reservedNop_0F0D",
 					"reservedNop_0F0D",
-				},
-				"grp0F0D", new object[] { legacyEnum["RM"],
+				}),
+				("grp0F0D", new object[] { legacyEnum["RM"],
 					"reservedNop_0F0D",
 					new object[] { legacyEnum["RM"], "reservedNop_0F0D", new object[] { legacyEnum["Group"], "handlers_Grp_0F0D_mem" } }
-				},
+				}),
 
-				"handlers_Grp_0F18_mem",
+				("handlers_Grp_0F18_mem",
 				new object[8] {
 					new object[] { legacyEnum["M_1"], codeEnum["Prefetchnta_m8"] },
 					new object[] { legacyEnum["M_1"], codeEnum["Prefetcht0_m8"] },
@@ -1860,16 +1860,16 @@ namespace Generator.Decoder {
 					"reservedNop_0F18",
 					"reservedNop_0F18",
 					"reservedNop_0F18",
-				},
-				"grp0F18", new object[] { legacyEnum["ReservedNop"],
+				}),
+				("grp0F18", new object[] { legacyEnum["ReservedNop"],
 					"reservedNop_0F18",
 					new object[] { legacyEnum["RM"],
 						"reservedNop_0F18",
 						new object[] { legacyEnum["RM"], "reservedNop_0F18", new object[] { legacyEnum["Group"], "handlers_Grp_0F18_mem" } }
 					}
-				},
+				}),
 
-				"handlers_Grp_0F1C_mem",
+				("handlers_Grp_0F1C_mem",
 				new object[8] {
 					new object[] { legacyEnum["MandatoryPrefix"],
 						new object[] { legacyEnum["M_1"], codeEnum["Cldemote_m8"] },
@@ -1884,16 +1884,16 @@ namespace Generator.Decoder {
 					"reservedNop_0F1C",
 					"reservedNop_0F1C",
 					"reservedNop_0F1C",
-				},
-				"grp0F1C", new object[] { legacyEnum["ReservedNop"],
+				}),
+				("grp0F1C", new object[] { legacyEnum["ReservedNop"],
 					"reservedNop_0F1C",
 					new object[] { legacyEnum["RM"],
 						"reservedNop_0F1C",
 						new object[] { legacyEnum["RM"], "reservedNop_0F1C", new object[] { legacyEnum["Group"], "handlers_Grp_0F1C_mem" } }
 					}
-				},
+				}),
 
-				"handlers_Grp_0F1E_mem",
+				("handlers_Grp_0F1E_reg_lo",
 				new object[8] {
 					"reservedNop_0F1E",
 					"reservedNop_0F1E",
@@ -1903,19 +1903,8 @@ namespace Generator.Decoder {
 					"reservedNop_0F1E",
 					"reservedNop_0F1E",
 					"reservedNop_0F1E",
-				},
-				"handlers_Grp_0F1E_reg_lo",
-				new object[8] {
-					"reservedNop_0F1E",
-					"reservedNop_0F1E",
-					"reservedNop_0F1E",
-					"reservedNop_0F1E",
-					"reservedNop_0F1E",
-					"reservedNop_0F1E",
-					"reservedNop_0F1E",
-					"reservedNop_0F1E",
-				},
-				"grp0F1E_1", new object[] { legacyEnum["MandatoryPrefix"],
+				}),
+				("grp0F1E_1", new object[] { legacyEnum["MandatoryPrefix"],
 					"reservedNop_0F1E",
 					"reservedNop_0F1E",
 					new object[] { legacyEnum["RM"],
@@ -1923,8 +1912,8 @@ namespace Generator.Decoder {
 						"reservedNop_0F1E"
 					},
 					"reservedNop_0F1E"
-				},
-				"handlers_Grp_0F1E_reg_hi",
+				}),
+				("handlers_Grp_0F1E_reg_hi",
 				new object?[0x40] {
 					// C0
 					null,
@@ -2015,16 +2004,16 @@ namespace Generator.Decoder {
 					null,
 					null,
 					null,
-				},
-				"grp0F1E", new object[] { legacyEnum["ReservedNop"],
+				}),
+				("grp0F1E", new object[] { legacyEnum["ReservedNop"],
 					"reservedNop_0F1E",
 					new object[] { legacyEnum["RM"],
 						new object[] { legacyEnum["Group8x64"], "handlers_Grp_0F1E_reg_lo", "handlers_Grp_0F1E_reg_hi" },
 						"reservedNop_0F1E"
 					}
-				},
+				}),
 
-				"handlers_Grp_0F1F",
+				("handlers_Grp_0F1F",
 				new object[8] {
 					new object[] { legacyEnum["Ev_3a"], codeEnum["Nop_rm16"], codeEnum["Nop_rm32"], codeEnum["Nop_rm64"] },
 					"reservedNop_0F1F",
@@ -2034,13 +2023,13 @@ namespace Generator.Decoder {
 					"reservedNop_0F1F",
 					"reservedNop_0F1F",
 					"reservedNop_0F1F",
-				},
-				"grp0F1F", new object[] { legacyEnum["ReservedNop"],
+				}),
+				("grp0F1F", new object[] { legacyEnum["ReservedNop"],
 					"reservedNop_0F1F",
 					new object[] { legacyEnum["Group"], "handlers_Grp_0F1F" }
-				},
+				}),
 
-				"handlers_Grp_660F78",
+				("handlers_Grp_660F78",
 				new object[8] {
 					new object[] { legacyEnum["RIbIb"], registerEnum["XMM0"], codeEnum["Extrq_xmm_imm8_imm8"] },
 					invalid,
@@ -2050,9 +2039,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"ThreeByteHandlers_0F38XX",
+				("ThreeByteHandlers_0F38XX",
 				new object[0x100] {
 					// 00
 					new object[] { legacyEnum["MandatoryPrefix"],
@@ -2724,9 +2713,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"ThreeByteHandlers_0F3AXX",
+				("ThreeByteHandlers_0F3AXX",
 				new object[0x100] {
 					// 00
 					invalid,
@@ -3182,9 +3171,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"TwoByteHandlers_0FXX",
+				("TwoByteHandlers_0FXX",
 				new object[0x100] {
 					// 00
 					new object[] { legacyEnum["Group"], "handlers_Grp_0F00" },
@@ -4220,9 +4209,9 @@ namespace Generator.Decoder {
 						invalid,
 					},
 					new object[] { legacyEnum["Gv_Ev_3a"], codeEnum["Ud0_r16_rm16"], codeEnum["Ud0_r32_rm32"], codeEnum["Ud0_r64_rm64"] },
-				},
+				}),
 
-				"OneByteHandlers",
+				(OneByteHandlers,
 				new object[0x100] {
 					// 00
 					new object[] { legacyEnum["Eb_Gb_2"], codeEnum["Add_rm8_r8"], new OrEnumValue(handlerFlagsEnum, "Xacquire", "Xrelease", "Lock") },
@@ -4666,7 +4655,7 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum["Simple"], codeEnum["Std"] },
 					new object[] { legacyEnum["Group"], "handlers_Grp_FE" },
 					new object[] { legacyEnum["Group"], "handlers_Grp_FF" },
-				},
+				}),
 			};
 			return handlers;
 		}

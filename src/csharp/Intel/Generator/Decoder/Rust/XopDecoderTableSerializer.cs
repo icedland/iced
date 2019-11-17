@@ -21,30 +21,15 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants {
-	interface IConstantsGenerator {
-		void Generate(ConstantsType constantsType);
-	}
-
-	sealed class ConstantsGenerator {
-		readonly GeneratorOptions generatorOptions;
-
-		public ConstantsGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
-
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
+namespace Generator.Decoder.Rust {
+	sealed class XopDecoderTableSerializer : VexCommonDecoderTableSerializer {
+		public override string Name => "xop";
+		public override string HandlersModuleName => "vex";
+		protected override (string name, object?[] handlers)[] Handlers => OpCodeHandlersTables_XOP.GetHandlers();
+		protected override (string origName, string newName)[] RootNames => new[] {
+			(OpCodeHandlersTables_XOP.XOP8, "HANDLERS_XOP8"),
+			(OpCodeHandlersTables_XOP.XOP9, "HANDLERS_XOP9"),
+			(OpCodeHandlersTables_XOP.XOPA, "HANDLERS_XOPA"),
 		};
-
-		public void Generate() {
-			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpConstantsGenerator(generatorOptions),
-				new Rust.RustConstantsGenerator(generatorOptions),
-			};
-
-			foreach (var generator in generators) {
-				foreach (var constantsType in allConstants)
-					generator.Generate(constantsType);
-			}
-		}
 	}
 }

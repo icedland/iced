@@ -29,15 +29,15 @@ namespace Generator.Decoder {
 		public const string ThreeByteHandlers_0F3AXX = nameof(ThreeByteHandlers_0F3AXX);
 		public const string TwoByteHandlers_0FXX = nameof(TwoByteHandlers_0FXX);
 
-		public static object[] GetHandlers() {
+		public static (string name, object?[] handlers)[] GetHandlers() {
 			var evexEnum = EvexOpCodeHandlerKindEnum.Instance;
 			var regEnum = RegisterEnum.Instance;
 			var codeEnum = CodeEnum.Instance;
 			var tupleTypeEnum = TupleTypeEnum.Instance;
 
 			var invalid = new object[] { evexEnum["Invalid"] };
-			var handlers = new object[] {
-				"handlers_Grp_0F71",
+			var handlers = new (string name, object?[] handlers)[] {
+				("handlers_Grp_0F71",
 				new object[8] {
 					invalid,
 					invalid,
@@ -74,9 +74,9 @@ namespace Generator.Decoder {
 						invalid,
 					},
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_0F72",
+				("handlers_Grp_0F72",
 				new object[8] {
 					new object[] { evexEnum["MandatoryPrefix2"],
 						invalid,
@@ -158,9 +158,9 @@ namespace Generator.Decoder {
 						invalid,
 					},
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_0F73",
+				("handlers_Grp_0F73",
 				new object[8] {
 					invalid,
 					invalid,
@@ -212,9 +212,9 @@ namespace Generator.Decoder {
 						invalid,
 						invalid,
 					},
-				},
+				}),
 
-				"handlers_Grp_0F38C6",
+				("handlers_Grp_0F38C6",
 				new object[8] {
 					invalid,
 					new object[] { evexEnum["MandatoryPrefix2"],
@@ -288,9 +288,9 @@ namespace Generator.Decoder {
 						invalid,
 					},
 					invalid,
-				},
+				}),
 
-				"handlers_Grp_0F38C7",
+				("handlers_Grp_0F38C7",
 				new object[8] {
 					invalid,
 					new object[] { evexEnum["MandatoryPrefix2"],
@@ -364,9 +364,9 @@ namespace Generator.Decoder {
 						invalid,
 					},
 					invalid,
-				},
+				}),
 
-				ThreeByteHandlers_0F38XX,
+				(ThreeByteHandlers_0F38XX,
 				new object[0x100] {
 					// 00
 					new object[] { evexEnum["MandatoryPrefix2"],
@@ -2908,9 +2908,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				ThreeByteHandlers_0F3AXX,
+				(ThreeByteHandlers_0F3AXX,
 				new object[0x100] {
 					// 00
 					new object[] { evexEnum["MandatoryPrefix2"],
@@ -3883,9 +3883,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				TwoByteHandlers_0FXX,
+				(TwoByteHandlers_0FXX,
 				new object[0x100] {
 					// 00
 					invalid,
@@ -5764,7 +5764,7 @@ namespace Generator.Decoder {
 						invalid,
 					},
 					invalid,
-				},
+				}),
 			};
 			return handlers;
 		}

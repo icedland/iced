@@ -103,7 +103,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Current IP/EIP/RIP value
+		/// Current <c>IP</c>/<c>EIP</c>/<c>RIP</c> value
 		/// </summary>
 		public ulong IP {
 			get => instructionPointer;

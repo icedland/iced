@@ -81,22 +81,16 @@ namespace Generator.Constants.Rust {
 			}
 		}
 
-		static string AddNumberSeparator(string prefix, string number) {
-			if (number.Length != 8)
-				throw new InvalidOperationException();
-			return prefix + number.Substring(0, 4) + "_" + number.Substring(4);
-		}
-
 		string GetValue(Constant constant) {
 			switch (constant.Kind) {
 			case ConstantKind.Int32:
 				if (constant.UseHex)
-					return AddNumberSeparator("0x", constant.Value.ToString("X8"));
+					return NumberFormatter.FormatHexUInt32WithSep(constant.Value);
 				return ((int)constant.Value).ToString();
 
 			case ConstantKind.UInt32:
 				if (constant.UseHex)
-					return AddNumberSeparator("0x", constant.Value.ToString("X8"));
+					return NumberFormatter.FormatHexUInt32WithSep(constant.Value);
 				return ((uint)constant.Value).ToString();
 
 			case ConstantKind.Register:

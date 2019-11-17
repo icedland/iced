@@ -130,6 +130,7 @@ namespace Generator.Enums {
 	}
 
 	sealed class OrEnumValue : IEnumValue {
+		public EnumValue[] Values => values;
 		readonly EnumValue[] values;
 
 		public EnumType DeclaringType { get; }
@@ -156,7 +157,7 @@ namespace Generator.Enums {
 			this.values = newValues;
 		}
 
-		// Need to override this since the formatter table generators call Equals()
+		// Need to override this since the decoder/formatter table generators call Equals()
 		public override bool Equals(object? obj) {
 			if (!(obj is OrEnumValue other))
 				return false;

@@ -35,6 +35,7 @@ namespace Generator {
 		public abstract string Property(string name);
 		public abstract string Method(string name);
 		public abstract string Constant(string name);
+		public abstract string Static(string name);
 
 		protected string ToSnakeCase(string name) => ToSnakeCase(name, upper: false);
 		protected string ToScreamingSnakeCase(string name) => ToSnakeCase(name, upper: true);
@@ -45,7 +46,7 @@ namespace Generator {
 			foreach (var c in name) {
 				bool isUpper = char.IsUpper(c);
 				if (isUpper && !prevWasUpper) {
-					if (sb.Length > 0)
+					if (sb.Length > 0 && sb[sb.Length - 1] != '_')
 						sb.Append('_');
 				}
 				prevWasUpper = isUpper;
@@ -63,6 +64,7 @@ namespace Generator {
 		public override string Property(string name) => name;
 		public override string Method(string name) => name;
 		public override string Constant(string name) => name;
+		public override string Static(string name) => name;
 	}
 
 	sealed class RustIdentifierConverter : IdentifierConverter {
@@ -83,5 +85,7 @@ namespace Generator {
 				return ToScreamingSnakeCase(name);
 			}
 		}
+
+		public override string Static(string name) => ToScreamingSnakeCase(name);
 	}
 }

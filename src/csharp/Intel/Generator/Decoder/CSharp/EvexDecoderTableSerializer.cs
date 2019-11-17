@@ -27,7 +27,7 @@ using Generator.Enums;
 namespace Generator.Decoder.CSharp {
 	sealed class EvexDecoderTableSerializer : DecoderTableSerializer {
 		public override string ClassName => "OpCodeHandlersTables_EVEX";
-		protected override object[] GetTablesToSerialize() => OpCodeHandlersTables_EVEX.GetHandlers();
+		protected override (string name, object?[] handlers)[] GetTablesToSerialize() => OpCodeHandlersTables_EVEX.GetHandlers();
 		protected override string[] GetTableIndexNames() => new string[] {
 			OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F38XX,
 			OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX,

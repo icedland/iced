@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::useless_let_if_seq))]
 
 use super::super::*;
+use super::handlers::*;
 use super::*;
 
 #[allow(non_camel_case_types)]
@@ -31,17 +32,16 @@ use super::*;
 pub(crate) struct OpCodeHandler_VectorLength_EVEX {
 	pub(crate) decode: OpCodeHandlerDecodeFn,
 	pub(crate) has_modrm: bool,
-	pub(crate) handlers: &'static [*const OpCodeHandler],
+	pub(crate) handlers: [&'static OpCodeHandler; 4],
 }
 
 impl OpCodeHandler_VectorLength_EVEX {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
-		debug_assert_eq!(4, this.handlers.len());
 		// Safe, array has 4 elements and vector_length is 0..3
 		let handler = unsafe { *this.handlers.as_ptr().offset(decoder.state.vector_length as isize) };
-		unsafe { ((*handler).decode)(handler, decoder, instruction) };
+		(handler.decode)(handler, decoder, instruction);
 	}
 }
 
@@ -50,7 +50,7 @@ impl OpCodeHandler_VectorLength_EVEX {
 pub(crate) struct OpCodeHandler_VectorLength_EVEX_er {
 	pub(crate) decode: OpCodeHandlerDecodeFn,
 	pub(crate) has_modrm: bool,
-	pub(crate) handlers: &'static [*const OpCodeHandler],
+	pub(crate) handlers: [&'static OpCodeHandler; 4],
 }
 
 impl OpCodeHandler_VectorLength_EVEX_er {
@@ -61,10 +61,9 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 		if decoder.state.mod_ == 3 && (decoder.state.flags & StateFlags::B) != 0 {
 			index = VectorLength::L512 as isize;
 		}
-		debug_assert_eq!(4, this.handlers.len());
 		// Safe, array has 4 elements and index is 0..3
 		let handler = unsafe { *this.handlers.as_ptr().offset(index) };
-		unsafe { ((*handler).decode)(handler, decoder, instruction) };
+		(handler.decode)(handler, decoder, instruction);
 	}
 }
 
@@ -73,7 +72,7 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 pub(crate) struct OpCodeHandler_EVEX {
 	pub(crate) decode: OpCodeHandlerDecodeFn,
 	pub(crate) has_modrm: bool,
-	pub(crate) handler_mem: *const OpCodeHandler,
+	pub(crate) handler_mem: &'static OpCodeHandler,
 }
 
 impl OpCodeHandler_EVEX {
@@ -83,7 +82,7 @@ impl OpCodeHandler_EVEX {
 			decoder.evex_mvex(instruction);
 		} else {
 			let handler = this.handler_mem;
-			unsafe { ((*handler).decode)(handler, decoder, instruction) };
+			(handler.decode)(handler, decoder, instruction);
 		}
 	}
 }

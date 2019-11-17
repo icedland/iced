@@ -192,7 +192,7 @@ namespace Generator.IO {
 			WriteLine();
 		}
 
-		void Write(string s) {
+		public void Write(string s) {
 			WriteIndent();
 			writer.Write(s);
 		}

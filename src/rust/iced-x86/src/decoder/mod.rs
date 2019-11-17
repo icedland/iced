@@ -25,50 +25,28 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![allow(unused_variables)] //TODO: REMOVE
 #![allow(trivial_casts)] //TODO: REMOVE
 
-extern crate std;
-
+mod handlers;
 mod handlers_3dnow;
 mod handlers_evex;
 mod handlers_fpu;
 mod handlers_legacy;
 mod handlers_vex;
+mod tables_evex;
+mod tables_legacy;
+mod tables_vex;
+mod tables_xop;
 
+use self::handlers::OpCodeHandler;
+use self::tables_legacy::HANDLERS_XX;
 use super::icedconstants::IcedConstants;
 use super::*;
 use std::ptr;
 
-pub(crate) type OpCodeHandlerDecodeFn = fn(*const OpCodeHandler, &mut Decoder, &mut Instruction);
-
-#[repr(C)]
-pub(crate) struct OpCodeHandler {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
+// Ugly hack to convert the 'class' to its 'base class'
+union HandlerTransmuter<F: 'static> {
+	from: &'static F,
+	to: &'static OpCodeHandler,
 }
-#[allow(non_camel_case_types)]
-#[repr(C)]
-struct OpCodeHandler_Invalid {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-}
-impl OpCodeHandler_Invalid {
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
-		decoder.set_invalid_instruction();
-	}
-}
-static mut HANDLERS_XX: [*const OpCodeHandler; 256] = [&OPCODEHANDLER_INVALID as *const OpCodeHandler_Invalid as *const OpCodeHandler; 256];
-static mut HANDLERS_VEX_0FXX: [*const OpCodeHandler; 256] = [&OPCODEHANDLER_INVALID as *const OpCodeHandler_Invalid as *const OpCodeHandler; 256];
-static mut HANDLERS_VEX_0F38XX: [*const OpCodeHandler; 256] = [&OPCODEHANDLER_INVALID as *const OpCodeHandler_Invalid as *const OpCodeHandler; 256];
-static mut HANDLERS_VEX_0F3AXX: [*const OpCodeHandler; 256] = [&OPCODEHANDLER_INVALID as *const OpCodeHandler_Invalid as *const OpCodeHandler; 256];
-static mut HANDLERS_XOP8: [*const OpCodeHandler; 256] = [&OPCODEHANDLER_INVALID as *const OpCodeHandler_Invalid as *const OpCodeHandler; 256];
-static mut HANDLERS_XOP9: [*const OpCodeHandler; 256] = [&OPCODEHANDLER_INVALID as *const OpCodeHandler_Invalid as *const OpCodeHandler; 256];
-static mut HANDLERS_XOPA: [*const OpCodeHandler; 256] = [&OPCODEHANDLER_INVALID as *const OpCodeHandler_Invalid as *const OpCodeHandler; 256];
-static mut HANDLERS_EVEX_0FXX: [*const OpCodeHandler; 256] = [&OPCODEHANDLER_INVALID as *const OpCodeHandler_Invalid as *const OpCodeHandler; 256];
-static mut HANDLERS_EVEX_0F38XX: [*const OpCodeHandler; 256] = [&OPCODEHANDLER_INVALID as *const OpCodeHandler_Invalid as *const OpCodeHandler; 256];
-static mut HANDLERS_EVEX_0F3AXX: [*const OpCodeHandler; 256] = [&OPCODEHANDLER_INVALID as *const OpCodeHandler_Invalid as *const OpCodeHandler; 256];
-static OPCODEHANDLER_INVALID: OpCodeHandler_Invalid = OpCodeHandler_Invalid {
-	decode: OpCodeHandler_Invalid::decode,
-	has_modrm: true,
-};
 
 // 26,2E,36,3E,64,65,66,67,F0,F2,F3
 static PREFIXES1632: [u32; 8] = [
@@ -269,6 +247,25 @@ pub struct Decoder<'a> {
 }
 
 impl<'a> Decoder<'a> {
+	/// Gets the current `IP`/`EIP`/`RIP` value
+	pub fn ip(&self) -> u64 {
+		self.ip
+	}
+
+	/// Sets the current `IP`/`EIP`/`RIP`
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: New IP
+	pub fn set_ip(&mut self, new_value: u64) {
+		self.ip = new_value;
+	}
+
+	/// Gets the bitness (16, 32 or 64)
+	pub fn bitness(&self) -> i32 {
+		self.bitness
+	}
+
 	/// Creates a decoder
 	///
 	/// # Arguments
@@ -433,32 +430,28 @@ impl<'a> Decoder<'a> {
 
 			match b {
 				0x26 => {
-					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS)
-					{
+					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS) {
 						instruction.set_segment_prefix(Register::ES);
 						default_ds_segment = Register::ES;
 					}
 					rex_prefix = 0;
 				}
 				0x2E => {
-					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS)
-					{
+					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS) {
 						instruction.set_segment_prefix(Register::CS);
 						default_ds_segment = Register::CS;
 					}
 					rex_prefix = 0;
 				}
 				0x36 => {
-					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS)
-					{
+					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS) {
 						instruction.set_segment_prefix(Register::SS);
 						default_ds_segment = Register::SS;
 					}
 					rex_prefix = 0;
 				}
 				0x3E => {
-					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS)
-					{
+					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS) {
 						instruction.set_segment_prefix(Register::DS);
 						default_ds_segment = Register::DS;
 					}
@@ -517,8 +510,7 @@ impl<'a> Decoder<'a> {
 			self.state.extra_index_register_base = (rex_prefix as u32 & 2) << 2;
 			self.state.extra_base_register_base = (rex_prefix as u32 & 1) << 3;
 		}
-		let handlers_xx = unsafe { HANDLERS_XX };
-		self.decode_table2(handlers_xx[b], instruction);
+		self.decode_table2(HANDLERS_XX[b], instruction);
 		let flags = self.state.flags;
 		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK)) != 0 {
 			if (flags & StateFlags::IS_INVALID) != 0
@@ -616,24 +608,23 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	fn decode_table(&mut self, table: &[*const OpCodeHandler], instruction: &mut Instruction) {
+	pub(crate) fn decode_table(&mut self, table: &[&'static OpCodeHandler], instruction: &mut Instruction) {
 		debug_assert_eq!(0x100, table.len());
 		let b = self.read_u8();
-		self.decode_table2(table[b], instruction);
+		// Safe, the table has exactly 256 elements and 0 <= b <= 255
+		self.decode_table2(unsafe { *table.as_ptr().offset(b as isize) }, instruction);
 	}
 
 	#[inline(always)]
-	fn decode_table2(&mut self, handler: *const OpCodeHandler, instruction: &mut Instruction) {
-		unsafe {
-			if (*handler).has_modrm {
-				let m = self.read_u8() as u32;
-				self.state.modrm = m;
-				self.state.mod_ = m >> 6;
-				self.state.reg = (m >> 3) & 7;
-				self.state.rm = m & 7;
-			}
-			((*handler).decode)(handler, self, instruction);
+	fn decode_table2(&mut self, handler: &'static OpCodeHandler, instruction: &mut Instruction) {
+		if handler.has_modrm {
+			let m = self.read_u8() as u32;
+			self.state.modrm = m;
+			self.state.mod_ = m >> 6;
+			self.state.reg = (m >> 3) & 7;
+			self.state.rm = m & 7;
 		}
+		(handler.decode)(handler, self, instruction);
 	}
 
 	#[inline(always)]
@@ -675,7 +666,7 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
 		self.state.mandatory_prefix = b & 3;
 
-		self.decode_table(unsafe { &HANDLERS_VEX_0FXX }, instruction);
+		self.decode_table(&tables_vex::HANDLERS_VEX_0FXX, instruction);
 	}
 
 	pub(crate) fn vex3(&mut self, instruction: &mut Instruction) {
@@ -716,9 +707,9 @@ impl<'a> Decoder<'a> {
 		}
 
 		let table = match b1 & 0x1F {
-			1 => unsafe { &HANDLERS_VEX_0FXX },
-			2 => unsafe { &HANDLERS_VEX_0F38XX },
-			3 => unsafe { &HANDLERS_VEX_0F3AXX },
+			1 => &tables_vex::HANDLERS_VEX_0FXX,
+			2 => &tables_vex::HANDLERS_VEX_0F38XX,
+			3 => &tables_vex::HANDLERS_VEX_0F3AXX,
 			_ => {
 				self.set_invalid_instruction();
 				return;
@@ -765,9 +756,9 @@ impl<'a> Decoder<'a> {
 		}
 
 		let table = match b1 & 0x1F {
-			8 => unsafe { &HANDLERS_XOP8 },
-			9 => unsafe { &HANDLERS_XOP9 },
-			10 => unsafe { &HANDLERS_XOPA },
+			8 => &tables_xop::HANDLERS_XOP8,
+			9 => &tables_xop::HANDLERS_XOP9,
+			10 => &tables_xop::HANDLERS_XOPA,
 			_ => {
 				self.set_invalid_instruction();
 				return;
@@ -840,9 +831,9 @@ impl<'a> Decoder<'a> {
 				}
 
 				let table = match p0 & 3 {
-					1 => unsafe { &HANDLERS_EVEX_0FXX },
-					2 => unsafe { &HANDLERS_EVEX_0F38XX },
-					3 => unsafe { &HANDLERS_EVEX_0F3AXX },
+					1 => &tables_evex::HANDLERS_EVEX_0FXX,
+					2 => &tables_evex::HANDLERS_EVEX_0F38XX,
+					3 => &tables_evex::HANDLERS_EVEX_0F3AXX,
 					_ => {
 						self.set_invalid_instruction();
 						return;

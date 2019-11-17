@@ -21,30 +21,36 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants {
-	interface IConstantsGenerator {
-		void Generate(ConstantsType constantsType);
-	}
+using System;
 
-	sealed class ConstantsGenerator {
-		readonly GeneratorOptions generatorOptions;
+namespace Generator.Decoder {
+	sealed class HandlerTraverser {
+		readonly Func<object?, (object? newData, bool stop)> callback;
+		readonly int maxLevels;
+		int currentLevel;
 
-		public ConstantsGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
+		public HandlerTraverser(Func<object?, (object? newData, bool stop)> callback, int maxLevels = int.MaxValue) {
+			this.callback = callback;
+			this.maxLevels = maxLevels;
+			currentLevel = 0;
+		}
 
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
-		};
+		public object? Visit(object? data) {
+			if (currentLevel >= maxLevels)
+				return data;
 
-		public void Generate() {
-			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpConstantsGenerator(generatorOptions),
-				new Rust.RustConstantsGenerator(generatorOptions),
-			};
+			var (newData, stop) = callback(data);
+			if (stop)
+				return newData;
 
-			foreach (var generator in generators) {
-				foreach (var constantsType in allConstants)
-					generator.Generate(constantsType);
+			if (newData is object?[] childData) {
+				currentLevel++;
+				for (int i = 0; i < childData.Length; i++)
+					childData[i] = Visit(childData[i]);
+				currentLevel--;
 			}
+
+			return newData;
 		}
 	}
 }

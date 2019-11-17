@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::handlers::*;
 use super::*;
 
 #[allow(non_camel_case_types)]

@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Generator.Decoder.CSharp {
 	sealed class VexDecoderTableSerializer : VexCommonDecoderTableSerializer {
 		public override string ClassName => "OpCodeHandlersTables_VEX";
-		protected override object[] GetTablesToSerialize() => OpCodeHandlersTables_VEX.GetHandlers();
+		protected override (string name, object?[] handlers)[] GetTablesToSerialize() => OpCodeHandlersTables_VEX.GetHandlers();
 		protected override string[] GetTableIndexNames() => new string[] {
 			OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX,
 			OpCodeHandlersTables_VEX.ThreeByteHandlers_0F3AXX,

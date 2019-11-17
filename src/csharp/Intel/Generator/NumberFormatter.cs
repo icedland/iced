@@ -21,30 +21,16 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants {
-	interface IConstantsGenerator {
-		void Generate(ConstantsType constantsType);
-	}
+using System;
 
-	sealed class ConstantsGenerator {
-		readonly GeneratorOptions generatorOptions;
-
-		public ConstantsGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
-
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
-		};
-
-		public void Generate() {
-			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpConstantsGenerator(generatorOptions),
-				new Rust.RustConstantsGenerator(generatorOptions),
-			};
-
-			foreach (var generator in generators) {
-				foreach (var constantsType in allConstants)
-					generator.Generate(constantsType);
-			}
+namespace Generator {
+	static class NumberFormatter {
+		static string AddNumberSeparator(string prefix, string number) {
+			if (number.Length != 8)
+				throw new InvalidOperationException();
+			return prefix + number.Substring(0, 4) + "_" + number.Substring(4);
 		}
+
+		public static string FormatHexUInt32WithSep(uint value) => AddNumberSeparator("0x", value.ToString("X8"));
 	}
 }

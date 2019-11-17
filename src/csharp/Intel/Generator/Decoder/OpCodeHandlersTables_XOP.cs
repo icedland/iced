@@ -29,14 +29,14 @@ namespace Generator.Decoder {
 		public const string XOP9 = nameof(XOP9);
 		public const string XOPA = nameof(XOPA);
 
-		public static object[] GetHandlers() {
+		public static (string name, object?[] handlers)[] GetHandlers() {
 			var vexEnum = VexOpCodeHandlerKindEnum.Instance;
 			var codeEnum = CodeEnum.Instance;
 			var registerEnum = RegisterEnum.Instance;
 
 			var invalid = new object[] { vexEnum["Invalid"] };
-			var handlers = new object[] {
-				"grp_XOP9_01",
+			var handlers = new (string name, object?[] handlers)[] {
+				("grp_XOP9_01",
 				new object[8] {
 					invalid,
 					new object[] { vexEnum["MandatoryPrefix2_1"],
@@ -81,9 +81,9 @@ namespace Generator.Decoder {
 							invalid,
 						}
 					},
-				},
+				}),
 
-				"grp_XOP9_02",
+				("grp_XOP9_02",
 				new object[8] {
 					invalid,
 					new object[] { vexEnum["MandatoryPrefix2_1"],
@@ -103,9 +103,9 @@ namespace Generator.Decoder {
 						}
 					},
 					invalid,
-				},
+				}),
 
-				"grp_XOP9_12",
+				("grp_XOP9_12",
 				new object[8] {
 					new object[] { vexEnum["MandatoryPrefix2_1"],
 						new object[] { vexEnum["VectorLength"],
@@ -125,9 +125,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				"grp_XOPA_12",
+				("grp_XOPA_12",
 				new object[8] {
 					new object[] { vexEnum["MandatoryPrefix2_1"],
 						new object[] { vexEnum["VectorLength"],
@@ -147,9 +147,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				XOP8,
+				(XOP8,
 				new object[0x100] {
 					// 00
 					invalid,
@@ -684,9 +684,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				XOP9,
+				(XOP9,
 				new object[0x100] {
 					// 00
 					invalid,
@@ -1261,9 +1261,9 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 
-				XOPA,
+				(XOPA,
 				new object[0x100] {
 					// 00
 					invalid,
@@ -1589,7 +1589,7 @@ namespace Generator.Decoder {
 					invalid,
 					invalid,
 					invalid,
-				},
+				}),
 			};
 			return handlers;
 		}

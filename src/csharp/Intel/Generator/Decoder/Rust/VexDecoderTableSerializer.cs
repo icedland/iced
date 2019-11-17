@@ -21,30 +21,14 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants {
-	interface IConstantsGenerator {
-		void Generate(ConstantsType constantsType);
-	}
-
-	sealed class ConstantsGenerator {
-		readonly GeneratorOptions generatorOptions;
-
-		public ConstantsGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
-
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
+namespace Generator.Decoder.Rust {
+	sealed class VexDecoderTableSerializer : VexCommonDecoderTableSerializer {
+		public override string Name => "vex";
+		protected override (string name, object?[] handlers)[] Handlers => OpCodeHandlersTables_VEX.GetHandlers();
+		protected override (string origName, string newName)[] RootNames => new[] {
+			(OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX, "HANDLERS_VEX_0FXX"),
+			(OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX, "HANDLERS_VEX_0F38XX"),
+			(OpCodeHandlersTables_VEX.ThreeByteHandlers_0F3AXX, "HANDLERS_VEX_0F3AXX"),
 		};
-
-		public void Generate() {
-			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpConstantsGenerator(generatorOptions),
-				new Rust.RustConstantsGenerator(generatorOptions),
-			};
-
-			foreach (var generator in generators) {
-				foreach (var constantsType in allConstants)
-					generator.Generate(constantsType);
-			}
-		}
 	}
 }

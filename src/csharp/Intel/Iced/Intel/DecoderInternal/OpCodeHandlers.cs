@@ -197,7 +197,13 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(handlerW1.HasModRM == HasModRM);
 		}
 
-		public override void Decode(Decoder decoder, ref Instruction instruction) => ((decoder.state.flags & StateFlags.W) != 0 ? handlerW1 : handlerW0).Decode(decoder, ref instruction);
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(
+				decoder.state.Encoding == EncodingKind.VEX ||
+				decoder.state.Encoding == EncodingKind.EVEX ||
+				decoder.state.Encoding == EncodingKind.XOP);
+			((decoder.state.flags & StateFlags.W) != 0 ? handlerW1 : handlerW0).Decode(decoder, ref instruction);
+		}
 	}
 
 	sealed class OpCodeHandler_Bitness : OpCodeHandler {

@@ -26,7 +26,7 @@ using Generator.Enums;
 namespace Generator.Decoder.CSharp {
 	sealed class LegacyDecoderTableSerializer : DecoderTableSerializer {
 		public override string ClassName => "OpCodeHandlersTables_Legacy";
-		protected override object[] GetTablesToSerialize() => OpCodeHandlersTables_Legacy.GetHandlers();
+		protected override (string name, object?[] handlers)[] GetTablesToSerialize() => OpCodeHandlersTables_Legacy.GetHandlers();
 		protected override string[] GetTableIndexNames() => new string[] {
 			OpCodeHandlersTables_Legacy.OneByteHandlers,
 		};

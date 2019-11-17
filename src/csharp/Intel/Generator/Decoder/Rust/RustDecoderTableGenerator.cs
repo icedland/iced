@@ -21,16 +21,28 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System.IO;
+using Generator.IO;
+
 namespace Generator.Decoder.Rust {
 	sealed class RustDecoderTableGenerator : IDecoderTableGenerator {
 		readonly GeneratorOptions generatorOptions;
 
-		public RustDecoderTableGenerator(GeneratorOptions generatorOptions) {
-			this.generatorOptions = generatorOptions;
-		}
+		public RustDecoderTableGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		public void Generate() {
-			//TODO:
+			var serializers = new DecoderTableSerializer[] {
+				new LegacyDecoderTableSerializer(),
+				new VexDecoderTableSerializer(),
+				new EvexDecoderTableSerializer(),
+				new XopDecoderTableSerializer(),
+			};
+
+			foreach (var serializer in serializers) {
+				var filename = Path.Combine(generatorOptions.RustDir, "decoder", $"tables_{serializer.Name}.rs");
+				using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename)))
+					serializer.Serialize(writer);
+			}
 		}
 	}
 }

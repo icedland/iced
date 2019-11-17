@@ -55,7 +55,7 @@ namespace Generator.Decoder.CSharp {
 			sb = new StringBuilder();
 		}
 
-		protected abstract object[] GetTablesToSerialize();
+		protected abstract (string name, object?[] handlers)[] GetTablesToSerialize();
 		protected abstract string[] GetTableIndexNames();
 
 		public void Serialize(FileWriter writer) {
@@ -73,13 +73,11 @@ namespace Generator.Decoder.CSharp {
 			var tables = GetTablesToSerialize();
 			if (tables.Length == 0)
 				throw new InvalidOperationException();
-			if ((tables.Length & 1) != 0)
-				throw new InvalidOperationException();
-			for (int i = 0; i < tables.Length; i += 2) {
-				var name = (string)tables[i];
-				var handlers = (object?[])tables[i + 1];
-				bool isHandler = IsHandler(handlers);
-				infos.Add(name, new Info((uint)i / 2, isHandler ? InfoKind.Handler : InfoKind.Handlers));
+			for (int i = 0; i < tables.Length; i++) {
+				var name = tables[i].name;
+				var handlers = tables[i].handlers;
+				bool isHandler = HandlerUtils.IsHandler(handlers);
+				infos.Add(name, new Info((uint)i, isHandler ? InfoKind.Handler : InfoKind.Handlers));
 
 				if (i != 0)
 					writer.WriteLine();
@@ -102,14 +100,6 @@ namespace Generator.Decoder.CSharp {
 			writer.WriteLine("#endif");
 		}
 
-		static bool IsHandler(object?[] handlers) {
-			var data = handlers[0];
-			return data is IEnumValue enumValue && (
-				enumValue.DeclaringType.TypeId == TypeIds.OpCodeHandlerKind ||
-				enumValue.DeclaringType.TypeId == TypeIds.VexOpCodeHandlerKind ||
-				enumValue.DeclaringType.TypeId == TypeIds.EvexOpCodeHandlerKind);
-		}
-
 		static bool IsInvalid(object?[] handler) {
 			var data = handler[0];
 			bool isInvalid =
@@ -123,7 +113,7 @@ namespace Generator.Decoder.CSharp {
 		}
 
 		void SerializeHandlers(FileWriter writer, object?[] handlers, bool writeKind = false) {
-			if (IsHandler(handlers)) {
+			if (HandlerUtils.IsHandler(handlers)) {
 				if (writeKind)
 					Write(writer, SerializedDataKindEnum.Instance["HandlerReference"]);
 				SerializeHandler(writer, handlers);

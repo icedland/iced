@@ -21,30 +21,17 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants {
-	interface IConstantsGenerator {
-		void Generate(ConstantsType constantsType);
-	}
+using System.Diagnostics.CodeAnalysis;
+using Generator.Enums;
 
-	sealed class ConstantsGenerator {
-		readonly GeneratorOptions generatorOptions;
+namespace Generator.Decoder {
+	static class HandlerUtils {
+		public static bool IsHandler(object?[] handlers) =>
+			IsHandler(handlers, out _);
 
-		public ConstantsGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
-
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
-		};
-
-		public void Generate() {
-			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpConstantsGenerator(generatorOptions),
-				new Rust.RustConstantsGenerator(generatorOptions),
-			};
-
-			foreach (var generator in generators) {
-				foreach (var constantsType in allConstants)
-					generator.Generate(constantsType);
-			}
+		public static bool IsHandler(object?[] handlers, [NotNullWhen(true)] out EnumValue? enumValue) {
+			enumValue = handlers[0] as EnumValue;
+			return !(enumValue is null);
 		}
 	}
 }
