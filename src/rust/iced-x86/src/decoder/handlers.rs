@@ -78,6 +78,8 @@ pub(crate) struct OpCodeHandler_Group8x8 {
 impl OpCodeHandler_Group8x8 {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
+		assert_eq!(8, this.table_low.len());
+		assert_eq!(8, this.table_high.len());
 		let handler = if decoder.state.mod_ == 3 {
 			// Safe, table size is 8 and reg is 0..7
 			unsafe { *this.table_high.as_ptr().offset(decoder.state.reg as isize) }
@@ -101,9 +103,11 @@ pub(crate) struct OpCodeHandler_Group8x64 {
 impl OpCodeHandler_Group8x64 {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
+		assert_eq!(8, this.table_low.len());
+		assert_eq!(0x40, this.table_high.len());
 		let mut handler;
 		if decoder.state.mod_ == 3 {
-			// Safe, table size is 64 and reg is 0..7
+			// Safe, table size is 64
 			handler = unsafe { *this.table_high.as_ptr().offset((decoder.state.modrm & 0x3F) as isize) };
 			if handler as *const OpCodeHandler as *const u8 == &GEN_NULL_HANDLER as *const OpCodeHandler_Invalid as *const u8 {
 				// Safe, table size is 8 and reg is 0..7
@@ -128,6 +132,7 @@ pub(crate) struct OpCodeHandler_Group {
 impl OpCodeHandler_Group {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
+		assert_eq!(8, this.group_handlers.len());
 		// Safe, table size is 8 and reg is 0..7
 		let handler = unsafe { *this.group_handlers.as_ptr().offset(decoder.state.reg as isize) };
 		(handler.decode)(handler, decoder, instruction);
@@ -139,13 +144,14 @@ impl OpCodeHandler_Group {
 pub(crate) struct OpCodeHandler_AnotherTable {
 	pub(crate) decode: OpCodeHandlerDecodeFn,
 	pub(crate) has_modrm: bool,
-	pub(crate) group_handlers: &'static [&'static OpCodeHandler],
+	pub(crate) handlers: &'static [&'static OpCodeHandler],
 }
 
 impl OpCodeHandler_AnotherTable {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		decoder.decode_table(this.group_handlers, instruction);
+		assert_eq!(0x100, this.handlers.len());
+		decoder.decode_table(this.handlers, instruction);
 	}
 }
 

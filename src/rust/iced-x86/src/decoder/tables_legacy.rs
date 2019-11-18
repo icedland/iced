@@ -8515,14 +8515,14 @@ static GEN_GV_EV_3_A_CMOVO_R16_RM16: OpCodeHandler_Gv_Ev = OpCodeHandler_Gv_Ev {
 static GEN_ANOTHER_TABLE_2: OpCodeHandler_AnotherTable = OpCodeHandler_AnotherTable {
 	decode: OpCodeHandler_AnotherTable::decode,
 	has_modrm: false,
-	group_handlers: &THREE_BYTE_HANDLERS_0_F3_AXX,
+	handlers: &THREE_BYTE_HANDLERS_0_F3_AXX,
 };
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_ANOTHER_TABLE_1: OpCodeHandler_AnotherTable = OpCodeHandler_AnotherTable {
 	decode: OpCodeHandler_AnotherTable::decode,
 	has_modrm: false,
-	group_handlers: &THREE_BYTE_HANDLERS_0_F38_XX,
+	handlers: &THREE_BYTE_HANDLERS_0_F38_XX,
 };
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -14160,7 +14160,7 @@ static GEN_EB_GB_2_ADC_RM8_R8: OpCodeHandler_Eb_Gb = OpCodeHandler_Eb_Gb {
 static GEN_ANOTHER_TABLE: OpCodeHandler_AnotherTable = OpCodeHandler_AnotherTable {
 	decode: OpCodeHandler_AnotherTable::decode,
 	has_modrm: false,
-	group_handlers: &TWO_BYTE_HANDLERS_0_FXX,
+	handlers: &TWO_BYTE_HANDLERS_0_FXX,
 };
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]

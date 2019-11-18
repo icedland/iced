@@ -304,7 +304,7 @@ namespace Generator.Decoder.Rust {
 			case OpCodeHandlerKindEnum.Enum.AnotherTable:
 				if (handler.Length != 2)
 					throw new InvalidOperationException();
-				WriteField(writer, "group_handlers", VerifyArray(0x100, handler[1]));
+				WriteField(writer, "handlers", VerifyArray(0x100, handler[1]));
 				break;
 			case OpCodeHandlerKindEnum.Enum.Group:
 				if (handler.Length != 2)
