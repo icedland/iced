@@ -128,7 +128,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn ip16(&self) -> u16 {
-		self.next_rip as u16 - self.len() as u16
+		(self.next_rip as u16).wrapping_sub(self.len() as u16)
 	}
 
 	/// Sets the 16-bit IP of the instruction
@@ -138,14 +138,14 @@ impl Instruction {
 	/// * `new_value`: new value
 	#[inline]
 	pub fn set_ip16(&mut self, new_value: u16) {
-		self.next_rip = new_value as u64 + self.len() as u64;
+		self.next_rip = (new_value as u64).wrapping_add(self.len() as u64);
 	}
 
 	/// Gets the 32-bit IP of the instruction
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn ip32(&self) -> u32 {
-		self.next_rip as u32 - self.len() as u32
+		(self.next_rip as u32).wrapping_sub(self.len() as u32)
 	}
 
 	/// Sets the 32-bit IP of the instruction
@@ -155,14 +155,14 @@ impl Instruction {
 	/// * `new_value`: new value
 	#[inline]
 	pub fn set_ip32(&mut self, new_value: u32) {
-		self.next_rip = new_value as u64 + self.len() as u64;
+		self.next_rip = (new_value as u64).wrapping_add(self.len() as u64);
 	}
 
 	/// Gets the 64-bit IP of the instruction
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn ip(&self) -> u64 {
-		self.next_rip - self.len() as u64
+		self.next_rip.wrapping_sub(self.len() as u64)
 	}
 
 	/// Sets the 64-bit IP of the instruction
@@ -172,7 +172,7 @@ impl Instruction {
 	/// * `new_value`: new value
 	#[inline]
 	pub fn set_ip(&mut self, new_value: u64) {
-		self.next_rip = new_value + self.len() as u64;
+		self.next_rip = new_value.wrapping_add(self.len() as u64);
 	}
 
 	/// Gets the 16-bit IP of the next instruction
@@ -558,7 +558,7 @@ impl Instruction {
 	/// `OpKind::MemorySegSI`, `OpKind::MemorySegESI`, `OpKind::MemorySegRSI`
 	#[cfg_attr(has_must_use, must_use)]
 	pub fn segment_prefix(&self) -> Register {
-		let index = (((self.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK) - 1;
+		let index = (((self.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK).wrapping_sub(1);
 		if index < 6 {
 			// safe: it's guaranteed to only return one of ES,CS,SS,DS,FS,GS
 			unsafe { mem::transmute((Register::ES as u32 + index) as u8) }
@@ -1769,7 +1769,7 @@ impl Instruction {
 	/// This property is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see `is_ip_relative_memory_operand()`
 	#[cfg_attr(has_must_use, must_use)]
 	pub fn ip_relative_memory_address(&self) -> u64 {
-		let mut result = self.next_ip() + self.memory_displacement() as i32 as u64;
+		let mut result = self.next_ip().wrapping_add(self.memory_displacement() as i32 as u64);
 		if self.memory_base() == Register::EIP {
 			result = result as u32 as u64;
 		}
@@ -1811,16 +1811,20 @@ impl Instruction {
 			| OpKind::Immediate8to64
 			| OpKind::Immediate32to64 => 0,
 
-			OpKind::MemorySegSI => get_register_value(self.memory_segment(), 0, 0) + get_register_value(Register::SI, 0, 0) as u16 as u64,
-			OpKind::MemorySegESI => get_register_value(self.memory_segment(), 0, 0) + get_register_value(Register::ESI, 0, 0) as u32 as u64,
-			OpKind::MemorySegRSI => get_register_value(self.memory_segment(), 0, 0) + get_register_value(Register::RSI, 0, 0),
-			OpKind::MemorySegDI => get_register_value(self.memory_segment(), 0, 0) + get_register_value(Register::DI, 0, 0) as u16 as u64,
-			OpKind::MemorySegEDI => get_register_value(self.memory_segment(), 0, 0) + get_register_value(Register::EDI, 0, 0) as u32 as u64,
-			OpKind::MemorySegRDI => get_register_value(self.memory_segment(), 0, 0) + get_register_value(Register::RDI, 0, 0),
-			OpKind::MemoryESDI => get_register_value(Register::ES, 0, 0) + get_register_value(Register::DI, 0, 0) as u16 as u64,
-			OpKind::MemoryESEDI => get_register_value(Register::ES, 0, 0) + get_register_value(Register::EDI, 0, 0) as u32 as u64,
-			OpKind::MemoryESRDI => get_register_value(Register::ES, 0, 0) + get_register_value(Register::RDI, 0, 0),
-			OpKind::Memory64 => get_register_value(self.memory_segment(), 0, 0) + self.memory_address64(),
+			OpKind::MemorySegSI => get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::SI, 0, 0) as u16 as u64),
+			OpKind::MemorySegESI => {
+				get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::ESI, 0, 0) as u32 as u64)
+			}
+			OpKind::MemorySegRSI => get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::RSI, 0, 0)),
+			OpKind::MemorySegDI => get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::DI, 0, 0) as u16 as u64),
+			OpKind::MemorySegEDI => {
+				get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::EDI, 0, 0) as u32 as u64)
+			}
+			OpKind::MemorySegRDI => get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::RDI, 0, 0)),
+			OpKind::MemoryESDI => get_register_value(Register::ES, 0, 0).wrapping_add(get_register_value(Register::DI, 0, 0) as u16 as u64),
+			OpKind::MemoryESEDI => get_register_value(Register::ES, 0, 0).wrapping_add(get_register_value(Register::EDI, 0, 0) as u32 as u64),
+			OpKind::MemoryESRDI => get_register_value(Register::ES, 0, 0).wrapping_add(get_register_value(Register::RDI, 0, 0)),
+			OpKind::Memory64 => get_register_value(self.memory_segment(), 0, 0).wrapping_add(self.memory_address64()),
 
 			OpKind::Memory => {
 				let base_reg = self.memory_base();
@@ -1841,26 +1845,30 @@ impl Instruction {
 				};
 				match base_reg {
 					Register::None => {}
-					Register::RIP => offset += self.next_ip(),
-					Register::EIP => offset += self.next_ip32() as u64,
-					_ => offset += get_register_value(base_reg, 0, 0),
+					Register::RIP => offset = offset.wrapping_add(self.next_ip()),
+					Register::EIP => offset = offset.wrapping_add(self.next_ip32() as u64),
+					_ => offset = offset.wrapping_add(get_register_value(base_reg, 0, 0)),
 				}
 				if index_reg != Register::None {
 					if let Some(is_vsib64) = self.vsib() {
 						if is_vsib64 {
-							offset +=
-								get_register_value(index_reg, element_index, 8) << super::instruction_internal::internal_get_memory_index_scale(self);
+							offset = offset.wrapping_add(
+								get_register_value(index_reg, element_index, 8) << super::instruction_internal::internal_get_memory_index_scale(self),
+							);
 						} else {
-							offset += (get_register_value(index_reg, element_index, 4) as u32 as u64)
-								<< super::instruction_internal::internal_get_memory_index_scale(self);
+							offset = offset.wrapping_add(
+								(get_register_value(index_reg, element_index, 4) as u32 as u64)
+									<< super::instruction_internal::internal_get_memory_index_scale(self),
+							);
 						}
 					} else {
-						offset +=
-							get_register_value(index_reg, element_index, 0) << super::instruction_internal::internal_get_memory_index_scale(self);
+						offset = offset.wrapping_add(
+							get_register_value(index_reg, element_index, 0) << super::instruction_internal::internal_get_memory_index_scale(self),
+						);
 					}
 				}
 				offset &= offset_mask;
-				get_register_value(self.memory_segment(), 0, 0) + offset
+				get_register_value(self.memory_segment(), 0, 0).wrapping_add(offset)
 			}
 		}
 	}

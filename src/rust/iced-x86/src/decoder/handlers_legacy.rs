@@ -1303,21 +1303,21 @@ impl OpCodeHandler_Jb {
 			if (decoder.options & DecoderOptions::AMD_BRANCHES) == 0 || decoder.state.operand_size == OpSize::Size32 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code64);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch64);
-				instruction.set_near_branch64(decoder.read_u8() as i8 as u64 + decoder.current_ip64());
+				instruction.set_near_branch64((decoder.read_u8() as i8 as u64).wrapping_add(decoder.current_ip64()));
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, decoder.read_u8() as i8 as u32 + decoder.current_ip32());
+				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()));
 			}
 		} else {
 			if decoder.state.operand_size != OpSize::Size16 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code32);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch32);
-				instruction.set_near_branch32(decoder.read_u8() as i8 as u32 + decoder.current_ip32());
+				instruction.set_near_branch32((decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()));
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, decoder.read_u8() as i8 as u32 + decoder.current_ip32());
+				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()));
 			}
 		}
 	}
@@ -1342,26 +1342,26 @@ impl OpCodeHandler_Jx {
 			if decoder.state.operand_size == OpSize::Size32 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code32);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch64);
-				instruction.set_near_branch64(decoder.read_u32() as i32 as u64 + decoder.current_ip64());
+				instruction.set_near_branch64((decoder.read_u32() as i32 as u64).wrapping_add(decoder.current_ip64()));
 			} else if decoder.state.operand_size == OpSize::Size64 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code64);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch64);
-				instruction.set_near_branch64(decoder.read_u32() as i32 as u64 + decoder.current_ip64());
+				instruction.set_near_branch64((decoder.read_u32() as i32 as u64).wrapping_add(decoder.current_ip64()));
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch64);
-				instruction.set_near_branch64(decoder.read_u16() as i16 as u64 + decoder.current_ip64());
+				instruction.set_near_branch64((decoder.read_u16() as i16 as u64).wrapping_add(decoder.current_ip64()));
 			}
 		} else if decoder.default_code_size == CodeSize::Code32 {
 			if decoder.state.operand_size == OpSize::Size32 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code32);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch32);
-				instruction.set_near_branch32(decoder.read_u32() as u32 + decoder.current_ip32());
+				instruction.set_near_branch32((decoder.read_u32() as u32).wrapping_add(decoder.current_ip32()));
 			} else {
 				debug_assert!(decoder.state.operand_size == OpSize::Size16);
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch32);
-				instruction.set_near_branch32(decoder.read_u16() as i16 as u32 + decoder.current_ip32());
+				instruction.set_near_branch32((decoder.read_u16() as i16 as u32).wrapping_add(decoder.current_ip32()));
 			}
 		} else {
 			debug_assert!(decoder.default_code_size == CodeSize::Code16);
@@ -1397,21 +1397,21 @@ impl OpCodeHandler_Jz {
 			if (decoder.options & DecoderOptions::AMD_BRANCHES) == 0 || decoder.state.operand_size == OpSize::Size32 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code64);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch64);
-				instruction.set_near_branch64(decoder.read_u32() as i32 as u64 + decoder.current_ip64());
+				instruction.set_near_branch64((decoder.read_u32() as i32 as u64).wrapping_add(decoder.current_ip64()));
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, decoder.read_u16() as u32 + decoder.current_ip32());
+				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u16() as u32).wrapping_add(decoder.current_ip32()));
 			}
 		} else {
 			if decoder.state.operand_size != OpSize::Size16 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code32);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch32);
-				instruction.set_near_branch32(decoder.read_u32() as u32 + decoder.current_ip32());
+				instruction.set_near_branch32((decoder.read_u32() as u32).wrapping_add(decoder.current_ip32()));
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, decoder.read_u16() as u32 + decoder.current_ip32());
+				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u16() as u32).wrapping_add(decoder.current_ip32()));
 			}
 		}
 	}
@@ -1444,7 +1444,7 @@ impl OpCodeHandler_Jb2 {
 					super::instruction_internal::internal_set_code_u32(instruction, this.code64_32);
 				}
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch64);
-				instruction.set_near_branch64(decoder.read_u8() as i8 as u64 + decoder.current_ip64());
+				instruction.set_near_branch64((decoder.read_u8() as i8 as u64).wrapping_add(decoder.current_ip64()));
 			} else {
 				if decoder.state.address_size == OpSize::Size64 {
 					super::instruction_internal::internal_set_code_u32(instruction, this.code16_64);
@@ -1452,7 +1452,7 @@ impl OpCodeHandler_Jb2 {
 					super::instruction_internal::internal_set_code_u32(instruction, this.code16_32);
 				}
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, decoder.read_u8() as i8 as u32 + decoder.current_ip32());
+				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()));
 			}
 		} else {
 			if decoder.state.operand_size == OpSize::Size32 {
@@ -1462,7 +1462,7 @@ impl OpCodeHandler_Jb2 {
 					super::instruction_internal::internal_set_code_u32(instruction, this.code32_16);
 				}
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch32);
-				instruction.set_near_branch32(decoder.read_u8() as i8 as u32 + decoder.current_ip32());
+				instruction.set_near_branch32((decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()));
 			} else {
 				if decoder.state.address_size == OpSize::Size32 {
 					super::instruction_internal::internal_set_code_u32(instruction, this.code16_32);
@@ -1470,7 +1470,7 @@ impl OpCodeHandler_Jb2 {
 					super::instruction_internal::internal_set_code_u32(instruction, this.code16_16);
 				}
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, decoder.read_u8() as i8 as u32 + decoder.current_ip32());
+				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()));
 			}
 		}
 	}

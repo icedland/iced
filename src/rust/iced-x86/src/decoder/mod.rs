@@ -553,7 +553,7 @@ impl<'a> Decoder<'a> {
 		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH as usize); // Could be 0 if there were no bytes available
 		super::instruction_internal::internal_set_len(instruction, instr_len as u32);
 
-		let ip = self.ip + instr_len as u64;
+		let ip = self.ip.wrapping_add(instr_len as u64);
 		self.ip = ip;
 		instruction.set_next_ip(ip);
 	}
@@ -563,7 +563,7 @@ impl<'a> Decoder<'a> {
 	pub(crate) fn current_ip32(&self) -> u32 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
 		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH as usize);
-		(self.data_ptr as usize - self.instr_start_data_ptr as usize) as u32 + self.ip as u32
+		((self.data_ptr as usize - self.instr_start_data_ptr as usize) as u32).wrapping_add(self.ip as u32)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
@@ -571,7 +571,7 @@ impl<'a> Decoder<'a> {
 	pub(crate) fn current_ip64(&self) -> u64 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
 		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH as usize);
-		(self.data_ptr as usize - self.instr_start_data_ptr as usize) as u64 + self.ip
+		((self.data_ptr as usize - self.instr_start_data_ptr as usize) as u64).wrapping_add(self.ip)
 	}
 
 	// It's not possible to use 'as u32' on the left side in a match arm
@@ -1229,7 +1229,7 @@ impl<'a> Decoder<'a> {
 
 		let displ_size = instruction.memory_displ_size();
 		if displ_size != 0 {
-			constant_offsets.displacement_offset = (self.displ_index - self.data_ptr as usize) as u8;
+			constant_offsets.displacement_offset = (self.displ_index - self.instr_start_data_ptr as usize) as u8;
 			if displ_size == 8 && (self.state.flags & StateFlags::ADDR64) == 0 {
 				constant_offsets.displacement_size = 4;
 			} else {
