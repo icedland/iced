@@ -82,6 +82,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(prefixSeg, instr.SegmentPrefix);
+			if (instr.SegmentPrefix == Register.None)
+				Assert.False(instr.HasSegmentPrefix);
+			else
+				Assert.True(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -245,6 +249,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(tc.OpMask != Register.None, instr.HasOpMask);
 			Assert.Equal(tc.RoundingControl, instr.RoundingControl);
 			Assert.Equal(tc.SegmentPrefix, instr.SegmentPrefix);
+			if (instr.SegmentPrefix == Register.None)
+				Assert.False(instr.HasSegmentPrefix);
+			else
+				Assert.True(instr.HasSegmentPrefix);
 			for (int i = 0; i < tc.OpCount; i++) {
 				var opKind = tc.GetOpKind(i);
 				Assert.Equal(opKind, instr.GetOpKind(i));

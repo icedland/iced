@@ -1307,7 +1307,10 @@ impl OpCodeHandler_Jb {
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()));
+				super::instruction_internal::internal_set_near_branch16(
+					instruction,
+					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()),
+				);
 			}
 		} else {
 			if decoder.state.operand_size != OpSize::Size16 {
@@ -1317,7 +1320,10 @@ impl OpCodeHandler_Jb {
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()));
+				super::instruction_internal::internal_set_near_branch16(
+					instruction,
+					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()),
+				);
 			}
 		}
 	}
@@ -1401,7 +1407,10 @@ impl OpCodeHandler_Jz {
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u16() as u32).wrapping_add(decoder.current_ip32()));
+				super::instruction_internal::internal_set_near_branch16(
+					instruction,
+					(decoder.read_u16() as u32).wrapping_add(decoder.current_ip32()),
+				);
 			}
 		} else {
 			if decoder.state.operand_size != OpSize::Size16 {
@@ -1411,7 +1420,10 @@ impl OpCodeHandler_Jz {
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u16() as u32).wrapping_add(decoder.current_ip32()));
+				super::instruction_internal::internal_set_near_branch16(
+					instruction,
+					(decoder.read_u16() as u32).wrapping_add(decoder.current_ip32()),
+				);
 			}
 		}
 	}
@@ -1452,7 +1464,10 @@ impl OpCodeHandler_Jb2 {
 					super::instruction_internal::internal_set_code_u32(instruction, this.code16_32);
 				}
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()));
+				super::instruction_internal::internal_set_near_branch16(
+					instruction,
+					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()),
+				);
 			}
 		} else {
 			if decoder.state.operand_size == OpSize::Size32 {
@@ -1470,7 +1485,10 @@ impl OpCodeHandler_Jb2 {
 					super::instruction_internal::internal_set_code_u32(instruction, this.code16_16);
 				}
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, (decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()));
+				super::instruction_internal::internal_set_near_branch16(
+					instruction,
+					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()),
+				);
 			}
 		}
 	}

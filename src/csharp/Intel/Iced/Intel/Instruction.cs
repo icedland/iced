@@ -539,6 +539,11 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Checks if the instruction has a segment override prefix, see <see cref="SegmentPrefix"/>
+		/// </summary>
+		public readonly bool HasSegmentPrefix => ((((uint)memoryFlags >> (int)MemoryFlags.SegmentPrefixShift) & (uint)MemoryFlags.SegmentPrefixMask) - 1) < 6;
+
+		/// <summary>
 		/// Gets the segment override prefix or <see cref="Register.None"/> if none. See also <see cref="MemorySegment"/>.
 		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>, <see cref="OpKind.Memory64"/>,
 		/// <see cref="OpKind.MemorySegSI"/>, <see cref="OpKind.MemorySegESI"/>, <see cref="OpKind.MemorySegRSI"/>

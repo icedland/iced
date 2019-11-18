@@ -42,6 +42,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.ESI, instr.Op0Register);
@@ -64,6 +65,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.SI, instr.Op0Register);
@@ -86,6 +88,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.SI, instr.Op0Register);
@@ -108,6 +111,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.BX, instr.Op0Register);
@@ -137,6 +141,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.EBX, instr.Op0Register);
@@ -166,6 +171,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.EBX, instr.Op0Register);
@@ -235,6 +241,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(segReg, instr.SegmentPrefix);
+			if (instr.SegmentPrefix == Register.None)
+				Assert.False(instr.HasSegmentPrefix);
+			else
+				Assert.True(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -304,6 +314,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(segReg, instr.SegmentPrefix);
+			if (instr.SegmentPrefix == Register.None)
+				Assert.False(instr.HasSegmentPrefix);
+			else
+				Assert.True(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -373,6 +387,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(segReg, instr.SegmentPrefix);
+			if (instr.SegmentPrefix == Register.None)
+				Assert.False(instr.HasSegmentPrefix);
+			else
+				Assert.True(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);
@@ -402,6 +420,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.RSI, instr.Op0Register);
@@ -429,6 +448,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(reg1, instr.Op0Register);
@@ -452,6 +472,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.SI, instr.Op0Register);
@@ -474,6 +495,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -503,6 +525,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.True(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -532,6 +555,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.True(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -561,6 +585,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(Register.DS, instr.MemorySegment);
@@ -595,6 +620,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(segReg, instr.SegmentPrefix);
+			if (instr.SegmentPrefix == Register.None)
+				Assert.False(instr.HasSegmentPrefix);
+			else
+				Assert.True(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instr.Op0Kind);
 			Assert.Equal(segReg, instr.MemorySegment);

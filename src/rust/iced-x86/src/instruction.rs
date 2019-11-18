@@ -553,6 +553,11 @@ impl Instruction {
 		}
 	}
 
+	/// Checks if the instruction has a segment override prefix, see `segment_prefix()`
+	pub fn has_segment_prefix(&self) -> bool {
+		(((self.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK).wrapping_sub(1) < 6
+	}
+
 	/// Gets the segment override prefix or `Register::None` if none. See also `memory_segment()`.
 	/// Use this property if the operand has kind `OpKind::Memory`, `OpKind::Memory64`,
 	/// `OpKind::MemorySegSI`, `OpKind::MemorySegESI`, `OpKind::MemorySegRSI`

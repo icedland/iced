@@ -396,6 +396,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			foreach (var seg in segValues) {
 				instr.SegmentPrefix = seg;
 				Assert.Equal(seg, instr.SegmentPrefix);
+				if (instr.SegmentPrefix == Register.None)
+					Assert.False(instr.HasSegmentPrefix);
+				else
+					Assert.True(instr.HasSegmentPrefix);
 			}
 
 			var displSizes = new int[] { 8, 4, 2, 1, 0 };

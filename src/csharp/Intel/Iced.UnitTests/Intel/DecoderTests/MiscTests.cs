@@ -89,6 +89,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 		}
 
 		[Fact]
@@ -106,6 +107,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.ES, instr.SegmentPrefix);
+			Assert.True(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.ESI, instr.Op0Register);
@@ -132,6 +134,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 		}
 
 		[Fact]
@@ -149,6 +152,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.ES, instr.SegmentPrefix);
+			Assert.True(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.ESI, instr.Op0Register);
@@ -175,6 +179,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 		}
 
 		[Fact]
@@ -192,6 +197,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.ES, instr.SegmentPrefix);
+			Assert.True(instr.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Register, instr.Op0Kind);
 			Assert.Equal(Register.ESI, instr.Op0Register);
@@ -216,6 +222,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 		}
 
 		[Theory]
@@ -234,6 +241,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 		}
 
 		[Theory]
@@ -252,6 +260,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr.HasRepnePrefix);
 			Assert.False(instr.HasLockPrefix);
 			Assert.Equal(Register.None, instr.SegmentPrefix);
+			Assert.False(instr.HasSegmentPrefix);
 		}
 
 		sealed class DecodeMultipleCodeReader : CodeReader {
