@@ -56,19 +56,19 @@ pub(crate) fn internal_set_len(this: &mut Instruction, new_value: u32) {
 	this.code_flags |= new_value << CodeFlags::INSTR_LENGTH_SHIFT;
 }
 
-#[must_use]
+#[cfg_attr(has_must_use, must_use)]
 #[inline]
 pub(crate) fn internal_has_repe_prefix_has_xrelease_prefix(this: &mut Instruction) -> bool {
 	(this.code_flags & (CodeFlags::REPE_PREFIX | CodeFlags::XRELEASE_PREFIX)) != 0
 }
 
-#[must_use]
+#[cfg_attr(has_must_use, must_use)]
 #[inline]
 pub(crate) fn internal_has_repne_prefix_has_xacquire_prefix(this: &mut Instruction) -> bool {
 	(this.code_flags & (CodeFlags::REPNE_PREFIX | CodeFlags::XACQUIRE_PREFIX)) != 0
 }
 
-#[must_use]
+#[cfg_attr(has_must_use, must_use)]
 #[inline]
 pub(crate) fn internal_has_repe_or_repne_prefix(this: &mut Instruction) -> bool {
 	(this.code_flags & (CodeFlags::REPE_PREFIX | CodeFlags::REPNE_PREFIX)) != 0
@@ -119,7 +119,7 @@ pub(crate) fn internal_set_op0_kind(this: &mut Instruction, new_value: OpKind) {
 	this.op_kind_flags |= new_value as u32;
 }
 
-#[must_use]
+#[cfg_attr(has_must_use, must_use)]
 #[inline]
 pub(crate) fn internal_op0_is_not_reg_or_op0_is_not_reg(this: &mut Instruction) -> bool {
 	(this.op_kind_flags & (OpKindFlags::OP_KIND_MASK | (OpKindFlags::OP_KIND_MASK << OpKindFlags::OP1_KIND_SHIFT))) != 0
@@ -151,7 +151,7 @@ pub(crate) fn internal_set_is_broadcast(this: &mut Instruction) {
 	this.memory_flags |= MemoryFlags::BROADCAST as u16;
 }
 
-#[must_use]
+#[cfg_attr(has_must_use, must_use)]
 #[inline]
 pub(crate) fn internal_get_memory_index_scale(this: &Instruction) -> i32 {
 	(this.memory_flags & (MemoryFlags::SCALE_MASK as u16)) as i32
@@ -267,7 +267,7 @@ pub(crate) fn internal_set_op3_register_u32(this: &mut Instruction, new_value: u
 	this.reg3 = new_value as u8;
 }
 
-#[must_use]
+#[cfg_attr(has_must_use, must_use)]
 #[inline]
 pub(crate) fn internal_op_mask(this: &mut Instruction) -> u32 {
 	(this.code_flags >> CodeFlags::OP_MASK_SHIFT) & CodeFlags::OP_MASK_MASK
@@ -298,7 +298,7 @@ pub(crate) fn internal_set_suppress_all_exceptions(this: &mut Instruction) {
 	this.code_flags |= CodeFlags::SUPPRESS_ALL_EXCEPTIONS;
 }
 
-#[must_use]
+#[cfg_attr(has_must_use, must_use)]
 pub(crate) fn get_address_size_in_bytes(base_reg: Register, index_reg: Register, displ_size: i32, code_size: CodeSize) -> i32 {
 	if (Register::RAX <= base_reg && base_reg <= Register::R15)
 		|| (Register::RAX <= index_reg && index_reg <= Register::R15)

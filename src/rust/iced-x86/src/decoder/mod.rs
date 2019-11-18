@@ -92,7 +92,7 @@ enum OpSize {
 }
 
 impl Default for OpSize {
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	fn default() -> Self {
 		OpSize::Size16
 	}
@@ -204,14 +204,14 @@ struct State {
 }
 
 impl State {
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline(always)]
 	#[cfg(debug_assertions)]
 	fn encoding(&self) -> EncodingKind {
 		// safe since we only write valid values to these bits
 		unsafe { std::mem::transmute((self.flags & StateFlags::ENCODING_MASK) as u8) }
 	}
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline(always)]
 	#[cfg(not(debug_assertions))]
 	fn encoding(&self) -> EncodingKind {
@@ -248,6 +248,8 @@ pub struct Decoder<'a> {
 
 impl<'a> Decoder<'a> {
 	/// Gets the current `IP`/`EIP`/`RIP` value
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
 	pub fn ip(&self) -> u64 {
 		self.ip
 	}
@@ -257,11 +259,14 @@ impl<'a> Decoder<'a> {
 	/// # Arguments
 	///
 	/// * `new_value`: New IP
+	#[inline]
 	pub fn set_ip(&mut self, new_value: u64) {
 		self.ip = new_value;
 	}
 
 	/// Gets the bitness (16, 32 or 64)
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
 	pub fn bitness(&self) -> i32 {
 		self.bitness
 	}
@@ -273,7 +278,7 @@ impl<'a> Decoder<'a> {
 	/// * `bitness`: 16, 32 or 64
 	/// * `data`: Data to decode
 	/// * `options`: Decoder options, `0` or eg. `DecoderOptions::NO_INVALID_CHECK | DecoderOptions::AMD_BRANCHES`
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	pub fn new(bitness: i32, data: &'a [u8], options: u32) -> Decoder<'a> {
 		let prefixes;
 		let is64_mode;
@@ -339,7 +344,7 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	pub(crate) fn read_u8(&mut self) -> usize {
 		unsafe {
 			let data_ptr = self.data_ptr;
@@ -354,7 +359,7 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))]
 	pub(crate) fn read_u16(&mut self) -> usize {
 		unsafe {
@@ -370,7 +375,7 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))]
 	pub(crate) fn read_u32(&mut self) -> usize {
 		// What I really wanted to do was: (this saves one instruction)
@@ -398,6 +403,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	/// Decodes and returns the next instruction, see also `decode(&mut Instruction)`
+	#[cfg_attr(has_must_use, must_use)]
 	#[cfg(not(use_std_mem_uninitialized))]
 	pub fn decode_ret(&mut self) -> Instruction {
 		// Safe, decode() initializes the whole thing
@@ -407,6 +413,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	/// Decodes and returns the next instruction, see also `decode(&mut Instruction)`
+	#[cfg_attr(has_must_use, must_use)]
 	#[allow(deprecated_in_future)]
 	#[cfg(use_std_mem_uninitialized)]
 	pub fn decode_ret(&mut self) -> Instruction {
@@ -551,7 +558,7 @@ impl<'a> Decoder<'a> {
 		instruction.set_next_ip(ip);
 	}
 
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub(crate) fn current_ip32(&self) -> u32 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
@@ -559,7 +566,7 @@ impl<'a> Decoder<'a> {
 		(self.data_ptr as usize - self.instr_start_data_ptr as usize) as u32 + self.ip as u32
 	}
 
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub(crate) fn current_ip64(&self) -> u64 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
@@ -867,7 +874,7 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline(always)]
 	pub(crate) fn read_op_seg_reg(&mut self) -> u32 {
 		let reg = self.state.reg;
@@ -978,7 +985,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	// Returns true if the SIB byte was read
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	fn read_op_mem_32_or_64(
 		&mut self, instruction: &mut Instruction, base_reg: Register, index_reg: Register, tuple_type: TupleType, is_vsib: bool,
 	) -> bool {
@@ -1101,7 +1108,7 @@ impl<'a> Decoder<'a> {
 		true
 	}
 
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	fn disp8n(&self, tuple_type: TupleType) -> u32 {
 		match tuple_type {
 			TupleType::None => 1,
@@ -1216,7 +1223,7 @@ impl<'a> Decoder<'a> {
 	/// # Arguments
 	///
 	/// * `instruction`: The latest instruction that was decoded by this decoder
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	pub fn get_constant_offsets(&self, instruction: &Instruction) -> ConstantOffsets {
 		let mut constant_offsets: ConstantOffsets = Default::default();
 

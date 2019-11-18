@@ -16838,7 +16838,7 @@ pub enum Code {
 
 impl Code {
 	/// Gets the mnemonic
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn to_mnemonic(self) -> Mnemonic {
 		// safe if 'self' is valid which it is unless the user used unsafe code to create garbage

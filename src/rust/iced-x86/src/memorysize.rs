@@ -190,7 +190,7 @@ mod info {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 	impl MemorySizeInfo {
 		/// Gets the `MemorySize` value
-		#[must_use]
+		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn memory_size(&self) -> MemorySize {
 			// safe: memory_size is always a valid MemorySize value
@@ -198,21 +198,21 @@ mod info {
 		}
 
 		/// Gets the size in bytes of the memory location or 0 if it's not accessed or unknown
-		#[must_use]
+		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn size(&self) -> i32 {
 			self.size as i32
 		}
 
 		/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to `size()`.
-		#[must_use]
+		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn element_size(&self) -> i32 {
 			self.element_size as i32
 		}
 
 		/// Gets the element type if it's packed data or the type itself if it's not packed data
-		#[must_use]
+		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn element_type(&self) -> MemorySize {
 			// safe: element_type is always a valid MemorySize value
@@ -220,35 +220,35 @@ mod info {
 		}
 
 		/// Gets the element type if it's packed data or the type itself if it's not packed data
-		#[must_use]
+		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn element_type_info(&self) -> &'static MemorySizeInfo {
 			self.element_type().info()
 		}
 
 		/// `true` if it's signed data (signed integer or a floating point value)
-		#[must_use]
+		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn is_signed(&self) -> bool {
 			self.is_signed
 		}
 
 		/// `true` if it's a broadcast memory type
-		#[must_use]
+		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn is_broadcast(&self) -> bool {
 			self.is_broadcast
 		}
 
 		/// `true` if this is a packed data type, eg. `MemorySize::Packed128_Float32`. See also `element_count()`
-		#[must_use]
+		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn is_packed(&self) -> bool {
 			self.element_size < self.size
 		}
 
 		/// Gets the number of elements in the packed data type or `1` if it's not packed data (`is_packed()`)
-		#[must_use]
+		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn element_count(&self) -> i32 {
 			// element_size can be 0 so we don't divide by it if es == s
@@ -545,49 +545,49 @@ pub enum MemorySize {
 #[cfg(feature = "INSTR_INFO")]
 impl MemorySize {
 	/// Gets the memory size info
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn info(self) -> &'static MemorySizeInfo {
 		&MEMORY_SIZE_INFOS[self as usize]
 	}
 
 	/// Gets the size in bytes of the memory location or 0 if it's not accessed by the instruction or unknown or variable sized
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn size(self) -> i32 {
 		self.info().size()
 	}
 
 	/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to `size()`.
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn element_size(self) -> i32 {
 		self.info().element_size()
 	}
 
 	/// Gets the element type if it's packed data or `self` if it's not packed data
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn element_type(self) -> MemorySize {
 		self.info().element_type()
 	}
 
 	/// true if it's signed data (signed integer or a floating point value)
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_signed(self) -> bool {
 		self.info().is_signed()
 	}
 
 	/// true if this is a packed data type, eg. `MemorySize::Packed128_Float32`
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_packed(self) -> bool {
 		self.info().is_packed()
 	}
 
 	/// Gets the number of elements in the packed data type or `1` if it's not packed data (`is_packed()`)
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn element_count(self) -> i32 {
 		self.info().element_count()
@@ -597,7 +597,7 @@ impl MemorySize {
 #[cfg(any(feature = "INSTR_INFO", feature = "ENCODER"))]
 impl MemorySize {
 	/// Checks if it is a broadcast memory type
-	#[must_use]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_broadcast(self) -> bool {
 		self >= IcedConstants::FIRST_BROADCAST_MEMORY_SIZE
