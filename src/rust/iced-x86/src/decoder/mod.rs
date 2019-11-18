@@ -397,6 +397,25 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
+	/// Decodes and returns the next instruction, see also `decode(&mut Instruction)`
+	#[cfg(not(use_std_mem_uninitialized))]
+	pub fn decode_ret(&mut self) -> Instruction {
+		// Safe, decode() initializes the whole thing
+		let mut instruction = unsafe { std::mem::MaybeUninit::uninit().assume_init() };
+		self.decode(&mut instruction);
+		instruction
+	}
+
+	/// Decodes and returns the next instruction, see also `decode(&mut Instruction)`
+	#[allow(deprecated_in_future)]
+	#[cfg(use_std_mem_uninitialized)]
+	pub fn decode_ret(&mut self) -> Instruction {
+		// Safe, decode() initializes the whole thing
+		let mut instruction = unsafe { std::mem::uninitialized() };
+		self.decode(&mut instruction);
+		instruction
+	}
+
 	/// Decodes the next instruction
 	///
 	/// # Arguments

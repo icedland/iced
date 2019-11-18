@@ -30,3 +30,6 @@ NASM_FORMATTER = []
 
 [dependencies]
 static_assertions = "0.3.4"
+
+[build-dependencies]
+rustc_version = "0.2.3"
