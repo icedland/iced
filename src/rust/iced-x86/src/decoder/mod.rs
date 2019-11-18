@@ -684,7 +684,8 @@ impl<'a> Decoder<'a> {
 			self.state.extra_index_register_base = (rex_prefix as u32 & 2) << 2;
 			self.state.extra_base_register_base = (rex_prefix as u32 & 1) << 3;
 		}
-		self.decode_table2(HANDLERS_XX[b], instruction);
+		// Safe, the table has exactly 256 elements and 0 <= b <= 255
+		self.decode_table2(unsafe { *HANDLERS_XX.as_ptr().offset(b as isize) }, instruction);
 		let flags = self.state.flags;
 		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK)) != 0 {
 			if (flags & StateFlags::IS_INVALID) != 0
