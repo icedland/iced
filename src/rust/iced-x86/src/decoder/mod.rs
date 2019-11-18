@@ -278,6 +278,56 @@ impl<'a> Decoder<'a> {
 	/// * `bitness`: 16, 32 or 64
 	/// * `data`: Data to decode
 	/// * `options`: Decoder options, `0` or eg. `DecoderOptions::NO_INVALID_CHECK | DecoderOptions::AMD_BRANCHES`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // xchg [rdx+rsi+16h],ah
+	/// // xacquire lock add dword ptr [rax],5Ah
+	/// // vmovdqu64 zmm18{k3}{z},zmm11
+	/// let bytes = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x12345678);
+	///
+	/// let instr1 = decoder.decode_ret();
+	/// assert!(instr1.code() == Code::Xchg_rm8_r8);
+	/// assert!(instr1.mnemonic() == Mnemonic::Xchg);
+	/// assert_eq!(4, instr1.len());
+	///
+	/// let instr2 = decoder.decode_ret();
+	/// assert!(instr2.code() == Code::Add_rm32_imm8);
+	/// assert!(instr2.mnemonic() == Mnemonic::Add);
+	/// assert_eq!(5, instr2.len());
+	///
+	/// let instr3 = decoder.decode_ret();
+	/// assert!(instr3.code() == Code::EVEX_Vmovdqu64_zmm_k1z_zmmm512);
+	/// assert!(instr3.mnemonic() == Mnemonic::Vmovdqu64);
+	/// assert_eq!(6, instr3.len());
+	/// ```
+	///
+	/// It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
+	/// Pass in `DecoderOptions::NO_INVALID_CHECK` to the constructor and the decoder
+	/// will decode some invalid encodings.
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // lock add esi,ecx   ; lock not allowed
+	/// let bytes = b"\xF0\x01\xCE";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x12345678);
+	/// let instr = decoder.decode_ret();
+	/// assert!(instr.code() == Code::INVALID);
+	///
+	/// // We want to decode some instructions with invalid encodings
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NO_INVALID_CHECK);
+	/// decoder.set_ip(0x12345678);
+	/// let instr = decoder.decode_ret();
+	/// assert!(instr.code() == Code::Add_rm32_r32);
+	/// assert!(instr.has_lock_prefix());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	pub fn new(bitness: i32, data: &'a [u8], options: u32) -> Decoder<'a> {
 		let prefixes;
@@ -403,6 +453,38 @@ impl<'a> Decoder<'a> {
 	}
 
 	/// Decodes and returns the next instruction, see also `decode(&mut Instruction)`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // xrelease lock add [rax],ebx
+	/// let bytes = b"\xF0\xF3\x01\x18";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x12345678);
+	/// let instr = decoder.decode_ret();
+	///
+	/// assert!(instr.code() == Code::Add_rm32_r32);
+	/// assert!(instr.mnemonic() == Mnemonic::Add);
+	/// assert_eq!(4, instr.len());
+	/// assert_eq!(2, instr.op_count());
+	///
+	/// assert!(instr.op0_kind() == OpKind::Memory);
+	/// assert!(instr.memory_base() == Register::RAX);
+	/// assert!(instr.memory_index() == Register::None);
+	/// assert!(instr.memory_index_scale() == 1);
+	/// assert!(instr.memory_displacement() == 0);
+	/// assert!(instr.memory_segment() == Register::DS);
+	/// assert!(instr.segment_prefix() == Register::None);
+	/// assert!(instr.memory_size() == MemorySize::UInt32);
+	///
+	/// assert!(instr.op1_kind() == OpKind::Register);
+	/// assert!(instr.op1_register() == Register::EBX);
+	///
+	/// assert!(instr.has_lock_prefix());
+	/// assert!(instr.has_xrelease_prefix());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg(not(use_std_mem_uninitialized))]
 	pub fn decode_ret(&mut self) -> Instruction {
@@ -413,6 +495,38 @@ impl<'a> Decoder<'a> {
 	}
 
 	/// Decodes and returns the next instruction, see also `decode(&mut Instruction)`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // xrelease lock add [rax],ebx
+	/// let bytes = b"\xF0\xF3\x01\x18";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x12345678);
+	/// let instr = decoder.decode_ret();
+	///
+	/// assert!(instr.code() == Code::Add_rm32_r32);
+	/// assert!(instr.mnemonic() == Mnemonic::Add);
+	/// assert_eq!(4, instr.len());
+	/// assert_eq!(2, instr.op_count());
+	///
+	/// assert!(instr.op0_kind() == OpKind::Memory);
+	/// assert!(instr.memory_base() == Register::RAX);
+	/// assert!(instr.memory_index() == Register::None);
+	/// assert!(instr.memory_index_scale() == 1);
+	/// assert!(instr.memory_displacement() == 0);
+	/// assert!(instr.memory_segment() == Register::DS);
+	/// assert!(instr.segment_prefix() == Register::None);
+	/// assert!(instr.memory_size() == MemorySize::UInt32);
+	///
+	/// assert!(instr.op1_kind() == OpKind::Register);
+	/// assert!(instr.op1_register() == Register::EBX);
+	///
+	/// assert!(instr.has_lock_prefix());
+	/// assert!(instr.has_xrelease_prefix());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[allow(deprecated_in_future)]
 	#[cfg(use_std_mem_uninitialized)]
@@ -428,6 +542,40 @@ impl<'a> Decoder<'a> {
 	/// # Arguments
 	///
 	/// * `instruction`: Updated with the decoded instruction. All fields are initialized (it's an `out` argument)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // xrelease lock add [rax],ebx
+	/// let bytes = b"\xF0\xF3\x01\x18";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x12345678);
+	/// // or use: let mut instr = unsafe { std::mem::MaybeUninit::uninit().assume_init() };
+	/// let mut instr = Default::default();
+	/// decoder.decode(&mut instr);
+	///
+	/// assert!(instr.code() == Code::Add_rm32_r32);
+	/// assert!(instr.mnemonic() == Mnemonic::Add);
+	/// assert_eq!(4, instr.len());
+	/// assert_eq!(2, instr.op_count());
+	///
+	/// assert!(instr.op0_kind() == OpKind::Memory);
+	/// assert!(instr.memory_base() == Register::RAX);
+	/// assert!(instr.memory_index() == Register::None);
+	/// assert!(instr.memory_index_scale() == 1);
+	/// assert!(instr.memory_displacement() == 0);
+	/// assert!(instr.memory_segment() == Register::DS);
+	/// assert!(instr.segment_prefix() == Register::None);
+	/// assert!(instr.memory_size() == MemorySize::UInt32);
+	///
+	/// assert!(instr.op1_kind() == OpKind::Register);
+	/// assert!(instr.op1_register() == Register::EBX);
+	///
+	/// assert!(instr.has_lock_prefix());
+	/// assert!(instr.has_xrelease_prefix());
+	/// ```
 	pub fn decode(&mut self, instruction: &mut Instruction) {
 		*instruction = Default::default();
 
@@ -1223,6 +1371,31 @@ impl<'a> Decoder<'a> {
 	/// # Arguments
 	///
 	/// * `instruction`: The latest instruction that was decoded by this decoder
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // xor dword ptr [rax-5AA5EDCCh],5Ah
+	/// //           <opc><mrm><displacement_><imm>
+	/// let bytes = b"\x83\xB3\x34\x12\x5A\xA5\x5A";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x12345678);
+	/// let instr = decoder.decode_ret();
+	/// let co = decoder.get_constant_offsets(&instr);
+	///
+	/// assert!(co.has_displacement());
+	/// assert_eq!(2, co.displacement_offset());
+	/// assert_eq!(4, co.displacement_size());
+	/// assert!(co.has_immediate());
+	/// assert_eq!(6, co.immediate_offset());
+	/// assert_eq!(1, co.immediate_size());
+	/// // It's not an instruction with two immediates (e.g. enter)
+	/// assert!(!co.has_immediate2());
+	/// assert_eq!(0, co.immediate_offset2());
+	/// assert_eq!(0, co.immediate_size2());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	pub fn get_constant_offsets(&self, instruction: &Instruction) -> ConstantOffsets {
 		let mut constant_offsets: ConstantOffsets = Default::default();
