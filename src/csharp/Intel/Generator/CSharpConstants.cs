@@ -36,6 +36,7 @@ namespace Generator {
 		public const string NasmFormatterNamespace = "Iced.Intel.NasmFormatterInternal";
 
 		public const string DecoderDefine = "!NO_DECODER";
+		public const string EncoderDefine = "!NO_ENCODER";
 		public const string InstructionInfoDefine = "!NO_INSTR_INFO";
 		public const string DecoderOrEncoderDefine = "!NO_DECODER || !NO_ENCODER";
 		public const string DecoderOrEncoderOrInstrInfoDefine = "!NO_DECODER || !NO_ENCODER || !NO_INSTR_INFO";

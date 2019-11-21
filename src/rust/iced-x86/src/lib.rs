@@ -42,12 +42,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![deny(unused_qualifications)]
 #![deny(unused_results)]
 
+#[cfg(test)]
+#[macro_use]
+extern crate lazy_static;
 #[macro_use]
 extern crate static_assertions;
 
 mod code;
 #[cfg(any(feature = "DECODER", feature = "ENCODER"))]
-mod constantoffsets;
+mod constant_offsets;
 #[cfg(feature = "DECODER")]
 mod decoder;
 #[cfg(feature = "ENCODER")]
@@ -61,22 +64,24 @@ mod enums;
 	feature = "ALL_FORMATTERS",
 ))]
 mod formatter;
-pub(crate) mod icedconstants;
-mod icedfeatures;
+pub(crate) mod iced_constants;
+mod iced_features;
 #[cfg(feature = "INSTR_INFO")]
 mod info;
 mod instruction;
 mod instruction_internal;
-mod instructionmemorysizes;
-mod instructionopcounts;
-mod memorysize;
+mod instruction_memory_sizes;
+mod instruction_op_counts;
+mod memory_size;
 mod mnemonic;
 mod mnemonics;
 mod register;
+#[cfg(test)]
+pub(crate) mod test_utils;
 
 pub use self::code::*;
 #[cfg(any(feature = "DECODER", feature = "ENCODER"))]
-pub use self::constantoffsets::*;
+pub use self::constant_offsets::*;
 #[cfg(feature = "DECODER")]
 pub use self::decoder::*;
 #[cfg(feature = "ENCODER")]
@@ -90,10 +95,10 @@ pub use self::enums::*;
 	feature = "ALL_FORMATTERS",
 ))]
 pub use self::formatter::*;
-pub use self::icedfeatures::*;
+pub use self::iced_features::*;
 #[cfg(feature = "INSTR_INFO")]
 pub use self::info::*;
 pub use self::instruction::*;
-pub use self::memorysize::*;
+pub use self::memory_size::*;
 pub use self::mnemonic::*;
 pub use self::register::*;

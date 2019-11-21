@@ -21,14 +21,14 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::icedconstants::IcedConstants;
+use super::iced_constants::IcedConstants;
 
 #[cfg(feature = "INSTR_INFO")]
 pub use self::info::*;
 
 #[cfg(feature = "INSTR_INFO")]
 mod info {
-	use super::super::icedconstants::IcedConstants;
+	use super::super::iced_constants::IcedConstants;
 	use super::MemorySize;
 	use std::mem;
 

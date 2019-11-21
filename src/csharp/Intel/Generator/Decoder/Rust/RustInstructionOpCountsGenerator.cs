@@ -37,9 +37,9 @@ namespace Generator.Decoder.Rust {
 		}
 
 		public void Generate((EnumValue codeEnum, int count)[] data) {
-			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorOptions.RustDir, "instructionopcounts.rs")))) {
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorOptions.RustDir, "instruction_op_counts.rs")))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");
+				writer.WriteLine($"use super::iced_constants::{IcedConstantsType.Instance.Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"pub(crate) static OP_COUNT: &[u8; {IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} as usize] = &[");

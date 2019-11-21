@@ -39,9 +39,9 @@ namespace Generator.Decoder.Rust {
 
 		public void Generate((EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data) {
 			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
-			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorOptions.RustDir, "instructionmemorysizes.rs")))) {
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorOptions.RustDir, "instruction_memory_sizes.rs")))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"use super::icedconstants::{IcedConstantsType.Instance.Name(idConverter)};");
+				writer.WriteLine($"use super::iced_constants::{IcedConstantsType.Instance.Name(idConverter)};");
 				writer.WriteLine($"use super::{MemorySizeEnum.Instance.Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine("// 0 = memory size");

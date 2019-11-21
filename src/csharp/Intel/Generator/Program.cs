@@ -56,6 +56,8 @@ namespace Generator {
 				new Tables.MemorySizeInfoTableGenerator(generatorOptions).Generate();
 				new Tables.RegisterInfoTableGenerator(generatorOptions).Generate();
 				new Tables.D3nowCodeValuesTableGenerator(generatorOptions).Generate();
+				new Decoder.CSharp.EnumHashTableGen(generatorOptions).Generate();
+				new Decoder.Rust.EnumHashTableGen(generatorOptions).Generate();
 
 				return 0;
 			}

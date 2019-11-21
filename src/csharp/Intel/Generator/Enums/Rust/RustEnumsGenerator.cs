@@ -62,13 +62,13 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo?>();
 			toPartialFileInfo.Add(TypeIds.Code, new PartialEnumFileInfo("Code", Path.Combine(generatorOptions.RustDir, "code.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.CodeSize, new PartialEnumFileInfo("CodeSize", Path.Combine(generatorOptions.RustDir, "enums.rs"), RustConstants.AttributeCopyEq));
-			toPartialFileInfo.Add(TypeIds.CpuidFeature, null);
+			toPartialFileInfo.Add(TypeIds.CpuidFeature, new PartialEnumFileInfo("CpuidFeature", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureInstrInfo, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.CpuidFeatureInternal, null);
 			toPartialFileInfo.Add(TypeIds.DecoderOptions, new PartialEnumFileInfo("DecoderOptions", Path.Combine(generatorOptions.RustDir, "decoder", "mod.rs")));
 			toPartialFileInfo.Add(TypeIds.EvexOpCodeHandlerKind, null);
 			toPartialFileInfo.Add(TypeIds.HandlerFlags, new PartialEnumFileInfo("HandlerFlags", Path.Combine(generatorOptions.RustDir, "decoder", "mod.rs")));
 			toPartialFileInfo.Add(TypeIds.LegacyHandlerFlags, null);
-			toPartialFileInfo.Add(TypeIds.MemorySize, new PartialEnumFileInfo("MemorySize", Path.Combine(generatorOptions.RustDir, "memorysize.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.MemorySize, new PartialEnumFileInfo("MemorySize", Path.Combine(generatorOptions.RustDir, "memory_size.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.OpCodeHandlerKind, null);
 			toPartialFileInfo.Add(TypeIds.PseudoOpsKind, null);
 			toPartialFileInfo.Add(TypeIds.Register, new PartialEnumFileInfo("Register", Path.Combine(generatorOptions.RustDir, "register.rs"), RustConstants.AttributeCopyEqOrdHash));
@@ -91,7 +91,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.NasmBranchSizeInfo, null);
 			toPartialFileInfo.Add(TypeIds.NasmInstrOpInfoFlags, null);
 			toPartialFileInfo.Add(TypeIds.RoundingControl, new PartialEnumFileInfo("RoundingControl", Path.Combine(generatorOptions.RustDir, "enums.rs"), RustConstants.AttributeCopyEq));
-			toPartialFileInfo.Add(TypeIds.OpKind, new PartialEnumFileInfo("OpKind", Path.Combine(generatorOptions.RustDir, "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.OpKind, new PartialEnumFileInfo("OpKind", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(generatorOptions.RustDir, "instruction.rs")));
 			toPartialFileInfo.Add(TypeIds.Instruction_OpKindFlags, new PartialEnumFileInfo("OpKindFlags", Path.Combine(generatorOptions.RustDir, "instruction.rs")));
 			toPartialFileInfo.Add(TypeIds.Instruction_CodeFlags, new PartialEnumFileInfo("CodeFlags", Path.Combine(generatorOptions.RustDir, "instruction.rs")));
@@ -99,6 +99,8 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.MandatoryPrefixByte, new PartialEnumFileInfo("MandatoryPrefixByte", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureDecoderOrEncoder }));
 			toPartialFileInfo.Add(TypeIds.StateFlags, new PartialEnumFileInfo("StateFlags", Path.Combine(generatorOptions.RustDir, "decoder", "mod.rs")));
 			toPartialFileInfo.Add(TypeIds.EncodingKind, new PartialEnumFileInfo("EncodingKind", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureDecoderOrEncoderOrInstrInfo }));
+			toPartialFileInfo.Add(TypeIds.FlowControl, new PartialEnumFileInfo("FlowControl", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureInstrInfo }));
+			toPartialFileInfo.Add(TypeIds.OpCodeOperandKind, new PartialEnumFileInfo("OpCodeOperandKind", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureEncoder, RustConstants.AttributeAllowNonCamelCaseTypes }));
 		}
 
 		public void Generate(EnumType enumType) {

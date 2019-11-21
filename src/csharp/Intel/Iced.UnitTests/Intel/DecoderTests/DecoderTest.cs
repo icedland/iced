@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using Iced.Intel;
 using Xunit;
@@ -101,33 +100,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			VerifyConstantOffsets(constantOffsets, decoder.GetConstantOffsets(instr));
 		}
 
-		static readonly Dictionary<string, Code> toCode = CreateToCode();
-		static readonly Dictionary<string, Register> toRegister = CreateToRegister();
 		static readonly char[] colSep = new char[] { ',' };
-
-		static Dictionary<string, Code> CreateToCode() {
-			var dict = new Dictionary<string, Code>(StringComparer.Ordinal);
-			foreach (var f in typeof(Code).GetFields()) {
-				if (!f.IsLiteral)
-					continue;
-				var code = (Code)f.GetValue(null);
-				var name = f.Name;
-				dict.Add(name, code);
-			}
-			return dict;
-		}
-
-		static Dictionary<string, Register> CreateToRegister() {
-			var dict = new Dictionary<string, Register>(StringComparer.Ordinal);
-			foreach (var f in typeof(Register).GetFields()) {
-				if (!f.IsLiteral)
-					continue;
-				var code = (Register)f.GetValue(null);
-				var name = f.Name;
-				dict.Add(name, code);
-			}
-			return dict;
-		}
 
 		protected static IEnumerable<object[]> GetMemOpsData(string className) {
 			var filename = PathUtils.GetTestTextFilename(className + ".txt", "Decoder");
@@ -139,12 +112,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				if (parts.Length != 11 && parts.Length != 12)
 					throw new InvalidOperationException();
 				string hexBytes = parts[0].Trim();
-				var code = toCode[parts[1].Trim()];
-				var register = toRegister[parts[2].Trim()];
-				var prefixSeg = toRegister[parts[3].Trim()];
-				var segReg = toRegister[parts[4].Trim()];
-				var baseReg = toRegister[parts[5].Trim()];
-				var indexReg = toRegister[parts[6].Trim()];
+				var code = ToEnumConverter.GetCode(parts[1].Trim());
+				var register = ToEnumConverter.GetRegister(parts[2].Trim());
+				var prefixSeg = ToEnumConverter.GetRegister(parts[3].Trim());
+				var segReg = ToEnumConverter.GetRegister(parts[4].Trim());
+				var baseReg = ToEnumConverter.GetRegister(parts[5].Trim());
+				var indexReg = ToEnumConverter.GetRegister(parts[6].Trim());
 				int scale = (int)ParseUInt32(parts[7].Trim());
 				uint displ = ParseUInt32(parts[8].Trim());
 				int displSize = (int)ParseUInt32(parts[9].Trim());

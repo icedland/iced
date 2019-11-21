@@ -25,7 +25,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace Iced.UnitTests.Intel.EncoderTests {
 	static class OpCodeInfoTestCases {

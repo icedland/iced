@@ -29,43 +29,6 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.EncoderTests {
 	static class OpCodeInfoTestCasesReader {
-		static readonly Dictionary<string, Code> toCode = CreateToCode();
-		static readonly Dictionary<string, TupleType> toTupleType = CreateToTupleType();
-		static readonly Dictionary<string, OpCodeOperandKind> toOpCodeOperandKind = CreateToOpCodeOperandKind();
-
-		static Dictionary<string, Code> CreateToCode() {
-			var dict = new Dictionary<string, Code>(StringComparer.Ordinal);
-			var names = Enum.GetNames(typeof(Code));
-			var values = (Code[])Enum.GetValues(typeof(Code));
-			if (names.Length != values.Length)
-				throw new InvalidOperationException();
-			for (int i = 0; i < names.Length; i++)
-				dict.Add(names[i], values[i]);
-			return dict;
-		}
-
-		static Dictionary<string, TupleType> CreateToTupleType() {
-			var dict = new Dictionary<string, TupleType>(StringComparer.Ordinal);
-			var names = Enum.GetNames(typeof(TupleType));
-			var values = (TupleType[])Enum.GetValues(typeof(TupleType));
-			if (names.Length != values.Length)
-				throw new InvalidOperationException();
-			for (int i = 0; i < names.Length; i++)
-				dict.Add(names[i], values[i]);
-			return dict;
-		}
-
-		static Dictionary<string, OpCodeOperandKind> CreateToOpCodeOperandKind() {
-			var dict = new Dictionary<string, OpCodeOperandKind>(StringComparer.Ordinal);
-			var names = Enum.GetNames(typeof(OpCodeOperandKind));
-			var values = (OpCodeOperandKind[])Enum.GetValues(typeof(OpCodeOperandKind));
-			if (names.Length != values.Length)
-				throw new InvalidOperationException();
-			for (int i = 0; i < names.Length; i++)
-				dict.Add(names[i], values[i]);
-			return dict;
-		}
-
 		public static IEnumerable<OpCodeInfoTestCase> ReadFile(string filename) {
 			int lineNo = 0;
 			foreach (var line in File.ReadLines(filename)) {
@@ -329,19 +292,19 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		}
 
 		static Code ToCode(string value) {
-			if (!toCode.TryGetValue(value, out var code))
+			if (!ToEnumConverter.TryCode(value, out var code))
 				throw new InvalidOperationException($"Invalid Code value: '{value}'");
 			return code;
 		}
 
 		static TupleType ToTupleType(string value) {
-			if (!toTupleType.TryGetValue(value, out var code))
+			if (!ToEnumConverter.TryTupleType(value, out var code))
 				throw new InvalidOperationException($"Invalid TupleType value: '{value}'");
 			return code;
 		}
 
 		static OpCodeOperandKind ToOpCodeOperandKind(string value) {
-			if (!toOpCodeOperandKind.TryGetValue(value, out var code))
+			if (!ToEnumConverter.TryOpCodeOperandKind(value, out var code))
 				throw new InvalidOperationException($"Invalid OpCodeOperandKind value: '{value}'");
 			return code;
 		}

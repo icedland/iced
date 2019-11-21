@@ -4238,7 +4238,7 @@ namespace Generator.Decoder {
 				(code["DeclareQword"], mnemonic["Dq"]),
 			};
 
-			if ((uint)result.Length != Constants.IcedConstantsType.Instance["NumberOfCodeValues"].Value)
+			if ((uint)result.Length != Constants.IcedConstantsType.Instance["NumberOfCodeValues"].ValueUInt32)
 				throw new InvalidOperationException();
 			Array.Sort(result, (a, b) => a.codeEnum.Value.CompareTo(b.codeEnum.Value));
 			return result;

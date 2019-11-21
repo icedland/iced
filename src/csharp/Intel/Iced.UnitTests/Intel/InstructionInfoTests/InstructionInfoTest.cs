@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using Iced.Intel;
 using Xunit;
 
@@ -450,67 +449,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			return decoder;
 		}
 
-		static Dictionary<string, Code> CreateEnumDictCode() {
-			var names = Enum.GetNames(typeof(Code));
-			var dict = new Dictionary<string, Code>(names.Length, StringComparer.Ordinal);
-			foreach (Code value in Enum.GetValues(typeof(Code))) {
-				Debug.Assert(names[(int)value] == value.ToString());
-				dict[names[(int)value]] = value;
-			}
-			return dict;
-		}
-
-		static Dictionary<string, EncodingKind> CreateEnumDictEncodingKind() {
-			var names = Enum.GetNames(typeof(EncodingKind));
-			var dict = new Dictionary<string, EncodingKind>(names.Length, StringComparer.Ordinal);
-			foreach (EncodingKind value in Enum.GetValues(typeof(EncodingKind))) {
-				Debug.Assert(names[(int)value] == value.ToString());
-				dict[names[(int)value]] = value;
-			}
-			return dict;
-		}
-
-		static Dictionary<string, CpuidFeature> CreateEnumDictCpuidFeature() {
-			var names = Enum.GetNames(typeof(CpuidFeature));
-			var dict = new Dictionary<string, CpuidFeature>(names.Length, StringComparer.Ordinal);
-			foreach (CpuidFeature value in Enum.GetValues(typeof(CpuidFeature))) {
-				Debug.Assert(names[(int)value] == value.ToString());
-				dict[names[(int)value]] = value;
-			}
-			return dict;
-		}
-
-		static Dictionary<string, FlowControl> CreateEnumDictFlowControl() {
-			var names = Enum.GetNames(typeof(FlowControl));
-			var dict = new Dictionary<string, FlowControl>(names.Length, StringComparer.Ordinal);
-			foreach (FlowControl value in Enum.GetValues(typeof(FlowControl))) {
-				Debug.Assert(names[(int)value] == value.ToString());
-				dict[names[(int)value]] = value;
-			}
-			return dict;
-		}
-
-		static Dictionary<string, MemorySize> CreateEnumDictMemorySize() {
-			var names = Enum.GetNames(typeof(MemorySize));
-			var dict = new Dictionary<string, MemorySize>(names.Length, StringComparer.Ordinal);
-			foreach (MemorySize value in Enum.GetValues(typeof(MemorySize))) {
-				Debug.Assert(names[(int)value] == value.ToString());
-				dict[names[(int)value]] = value;
-			}
-			return dict;
-		}
-
-		static Dictionary<string, Register> CreateEnumDictRegister() {
-			var names = Enum.GetNames(typeof(Register));
-			var dict = new Dictionary<string, Register>(names.Length, StringComparer.OrdinalIgnoreCase);
-			foreach (Register value in Enum.GetValues(typeof(Register))) {
-				Debug.Assert(names[(int)value] == value.ToString());
-				dict[names[(int)value]] = value;
-			}
-			return dict;
-		}
-
-		const string VMM_prefix = "VMM";
+		const string VMM_prefix = "vmm";
 		static readonly char[] commaSeparator = new char[] { ',' };
 		static readonly char[] spaceSeparator = new char[] { ' ' };
 		static readonly char[] semicolonSeparator = new char[] { ';' };
@@ -518,12 +457,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		static protected IEnumerable<object[]> GetTestCases(int bitness, string className) =>
 			GetTestCases(bitness, bitness, className);
 		static protected IEnumerable<object[]> GetTestCases(int bitness, int stackAddressSize, string className) {
-			var toCode = CreateEnumDictCode();
-			var toEncoding = CreateEnumDictEncodingKind();
-			var toCpuidFeature = CreateEnumDictCpuidFeature();
-			var toFlowControl = CreateEnumDictFlowControl();
-			var toMemorySize = CreateEnumDictMemorySize();
-			var toRegister = CreateEnumDictRegister();
 			var toAccess = new Dictionary<string, OpAccess>(StringComparer.Ordinal) {
 				{ "n", OpAccess.None },
 				{ "r", OpAccess.Read },
@@ -537,8 +470,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(Enum.GetNames(typeof(OpAccess)).Length, toAccess.Count);
 
 			// XSP = SP/ESP/RSP depending on stack address size, XBP = BP/EBP/RBP depending on stack address size
-			const string XSP = "XSP";
-			const string XBP = "XBP";
+			const string XSP = "xsp";
+			const string XBP = "xbp";
+			var toRegister = ToEnumConverter.CloneCode();
 			switch (stackAddressSize) {
 			case 16:
 				toRegister.Add(XSP, Register.SP);
@@ -579,14 +513,14 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 				var testCase = new InstructionInfoTestCase();
 
-				if (!toCode.TryGetValue(codeString, out var code))
+				if (!ToEnumConverter.TryCode(codeString, out var code))
 					throw new Exception($"Invalid {nameof(Code)} value, line {lineNo}: '{codeString}' ({filename})");
-				if (!toEncoding.TryGetValue(encodingString, out testCase.Encoding))
+				if (!ToEnumConverter.TryEncodingKind(encodingString, out testCase.Encoding))
 					throw new Exception($"Invalid {nameof(EncodingKind)} value, line {lineNo}: '{encodingString}' ({filename})");
 				var cpuidFeatures = new CpuidFeature[cpuidFeatureStrings.Length];
 				testCase.CpuidFeatures = cpuidFeatures;
 				for (int i = 0; i < cpuidFeatures.Length; i++) {
-					if (!toCpuidFeature.TryGetValue(cpuidFeatureStrings[i], out cpuidFeatures[i]))
+					if (!ToEnumConverter.TryCpuidFeature(cpuidFeatureStrings[i], out cpuidFeatures[i]))
 						throw new Exception($"Invalid {nameof(CpuidFeature)} value, line {lineNo}: '{cpuidFeatureStrings}' ({filename})");
 				}
 
@@ -658,7 +592,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 						break;
 
 					case "flow":
-						if (!toFlowControl.TryGetValue(value, out testCase.FlowControl))
+						if (!ToEnumConverter.TryFlowControl(value, out testCase.FlowControl))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 
@@ -718,32 +652,32 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 						break;
 
 					case "rm":
-						if (!AddMemory(bitness, toMemorySize, toRegister, value, OpAccess.Read, testCase))
+						if (!AddMemory(bitness, toRegister, value, OpAccess.Read, testCase))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 
 					case "crm":
-						if (!AddMemory(bitness, toMemorySize, toRegister, value, OpAccess.CondRead, testCase))
+						if (!AddMemory(bitness, toRegister, value, OpAccess.CondRead, testCase))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 
 					case "rwm":
-						if (!AddMemory(bitness, toMemorySize, toRegister, value, OpAccess.ReadWrite, testCase))
+						if (!AddMemory(bitness, toRegister, value, OpAccess.ReadWrite, testCase))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 
 					case "rcwm":
-						if (!AddMemory(bitness, toMemorySize, toRegister, value, OpAccess.ReadCondWrite, testCase))
+						if (!AddMemory(bitness, toRegister, value, OpAccess.ReadCondWrite, testCase))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 
 					case "wm":
-						if (!AddMemory(bitness, toMemorySize, toRegister, value, OpAccess.Write, testCase))
+						if (!AddMemory(bitness, toRegister, value, OpAccess.Write, testCase))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 
 					case "cwm":
-						if (!AddMemory(bitness, toMemorySize, toRegister, value, OpAccess.CondWrite, testCase))
+						if (!AddMemory(bitness, toRegister, value, OpAccess.CondWrite, testCase))
 							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
 						break;
 
@@ -807,12 +741,12 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			return true;
 		}
 
-		static bool AddMemory(int bitness, Dictionary<string, MemorySize> toMemorySize, Dictionary<string, Register> toRegister, string value, OpAccess access, InstructionInfoTestCase testCase) {
+		static bool AddMemory(int bitness, Dictionary<string, Register> toRegister, string value, OpAccess access, InstructionInfoTestCase testCase) {
 			var elems = value.Split(semicolonSeparator);
 			if (elems.Length != 2)
 				return false;
 			var expr = elems[0].Trim();
-			if (!toMemorySize.TryGetValue(elems[1].Trim(), out var memorySize))
+			if (!ToEnumConverter.TryMemorySize(elems[1].Trim(), out var memorySize))
 				return false;
 
 			if (!TryParseMemExpr(toRegister, expr, out var segReg, out var baseReg, out var indexReg, out int scale, out ulong displ))

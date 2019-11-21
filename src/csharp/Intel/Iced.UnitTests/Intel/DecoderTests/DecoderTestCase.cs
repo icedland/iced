@@ -74,6 +74,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			}
 		}
 
+		public void SetOpKind(int operand, OpKind opKind) {
+			switch (operand) {
+			case 0: Op0Kind = opKind; break;
+			case 1: Op1Kind = opKind; break;
+			case 2: Op2Kind = opKind; break;
+			case 3: Op3Kind = opKind; break;
+			case 4: Op4Kind = opKind; break;
+			default: throw new ArgumentOutOfRangeException(nameof(operand));
+			}
+		}
+
 		public Register GetOpRegister(int operand) {
 			switch (operand) {
 			case 0: return Op0Register;
@@ -81,6 +92,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			case 2: return Op2Register;
 			case 3: return Op3Register;
 			case 4: return Op4Register;
+			default: throw new ArgumentOutOfRangeException(nameof(operand));
+			}
+		}
+
+		public void SetOpRegister(int operand, Register register) {
+			switch (operand) {
+			case 0: Op0Register = register; break;
+			case 1: Op1Register = register; break;
+			case 2: Op2Register = register; break;
+			case 3: Op3Register = register; break;
+			case 4: Op4Register = register; break;
 			default: throw new ArgumentOutOfRangeException(nameof(operand));
 			}
 		}

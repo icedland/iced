@@ -42,6 +42,7 @@ namespace Generator {
 		public bool HasNasmFormatter { get; }
 		public string UnitTestsDir { get; }
 		public string CSharpDir => langDirs[(int)TargetLanguage.CSharp];
+		public string CSharpTestsDir { get; }
 		public string RustDir => langDirs[(int)TargetLanguage.Rust];
 		readonly string[] langDirs;
 
@@ -68,6 +69,7 @@ namespace Generator {
 				}
 				langDirs[i] = path;
 			}
+			CSharpTestsDir = GetAndVerifyPath(baseDir, "csharp", "Intel", "Iced.UnitTests");
 		}
 
 		static string GetAndVerifyPath(params string[] paths) {

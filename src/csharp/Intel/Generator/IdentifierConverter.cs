@@ -81,6 +81,13 @@ namespace Generator {
 			case "NoMPFX_0FBC": return "NO_MPFX_0FBC";
 			case "NoMPFX_0FBD": return "NO_MPFX_0FBD";
 			case "NoLahfSahf64": return "NO_LAHF_SAHF_64";
+			case "DecoderOptions_Cmpxchg486A": return "DECODER_OPTIONS_CMPXCHG486A";
+			case "DecoderOptions_NoMPFX_0FBC": return "DECODER_OPTIONS_NO_MPFX_0FBC";
+			case "DecoderOptions_NoMPFX_0FBD": return "DECODER_OPTIONS_NO_MPFX_0FBD";
+			case "DecoderOptions_NoLahfSahf64": return "DECODER_OPTIONS_NO_LAHF_SAHF_64";
+			case "OpKind_MemoryESDI": return "OP_KIND_MEMORY_ES_DI";
+			case "OpKind_MemoryESEDI": return "OP_KIND_MEMORY_ES_EDI";
+			case "OpKind_MemoryESRDI": return "OP_KIND_MEMORY_ES_RDI";
 			default:
 				return ToScreamingSnakeCase(name);
 			}

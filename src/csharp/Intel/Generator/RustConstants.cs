@@ -29,6 +29,9 @@ namespace Generator {
 		public const string AttributeCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
 		public const string AttributeReprU8 = "#[repr(u8)]";
 		public const string AttributeAllowNonCamelCaseTypes = "#[allow(non_camel_case_types)]";
+
+		public const string FeatureInstrInfo = "#[cfg(feature = \"INSTR_INFO\")]";
+		public const string FeatureEncoder = "#[cfg(feature = \"ENCODER\")]";
 		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\"))]";
 		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\", feature = \"INSTR_INFO\"))]";
 	}

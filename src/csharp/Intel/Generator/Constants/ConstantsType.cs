@@ -80,6 +80,7 @@ namespace Generator.Constants {
 	}
 
 	enum ConstantKind {
+		String,
 		Int32,
 		UInt32,
 		Register,
@@ -91,17 +92,32 @@ namespace Generator.Constants {
 		public string RawName { get; }
 		public string Name(IdentifierConverter idConverter) => idConverter.Constant(RawName);
 		public string? Documentation { get; }
-		public uint Value { get; }
+		public uint ValueUInt32 { get; }
+		public object? RefValue { get; }
 		public bool IsPublic { get; }
 		public bool UseHex { get; }
 		public ConstantsType DeclaringType { get; set; }
 
-		public Constant(ConstantKind kind, string name, uint value, ConstantsTypeFlags flags, string? documentation) {
+		public Constant(ConstantKind kind, string name, object value, ConstantsTypeFlags flags, string? documentation = null) {
+			if (!(value is null) && value.GetType().IsValueType)
+				throw new ArgumentException();
 			DeclaringType = null!;
 			Kind = kind;
 			RawName = name;
 			Documentation = documentation;
-			Value = value;
+			ValueUInt32 = 0;
+			RefValue = value;
+			IsPublic = (flags & ConstantsTypeFlags.Public) != 0;
+			UseHex = (flags & ConstantsTypeFlags.Hex) != 0;
+		}
+
+		public Constant(ConstantKind kind, string name, uint value, ConstantsTypeFlags flags, string? documentation = null) {
+			DeclaringType = null!;
+			Kind = kind;
+			RawName = name;
+			Documentation = documentation;
+			ValueUInt32 = value;
+			RefValue = null;
 			IsPublic = (flags & ConstantsTypeFlags.Public) != 0;
 			UseHex = (flags & ConstantsTypeFlags.Hex) != 0;
 		}

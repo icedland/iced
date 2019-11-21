@@ -71,6 +71,8 @@ namespace Generator.Enums {
 			MandatoryPrefixByteEnum.Instance,
 			StateFlagsEnum.Instance,
 			EncodingKindEnum.Instance,
+			FlowControlEnum.Instance,
+			OpCodeOperandKindEnum.Instance,
 		};
 
 		public void Generate() {

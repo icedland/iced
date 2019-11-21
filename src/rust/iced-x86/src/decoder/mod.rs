@@ -35,10 +35,12 @@ mod tables_evex;
 mod tables_legacy;
 mod tables_vex;
 mod tables_xop;
+#[cfg(test)]
+pub(crate) mod tests;
 
 use self::handlers::OpCodeHandler;
 use self::tables_legacy::HANDLERS_XX;
-use super::icedconstants::IcedConstants;
+use super::iced_constants::IcedConstants;
 use super::*;
 use std::ptr;
 

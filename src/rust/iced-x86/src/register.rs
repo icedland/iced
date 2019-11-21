@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-extern crate std;
-
-use super::icedconstants::IcedConstants;
+use super::iced_constants::IcedConstants;
+use std::mem;
 use std::ops::{Add, AddAssign, Sub, SubAssign};
 
 #[cfg(feature = "INSTR_INFO")]
@@ -31,7 +30,7 @@ pub use self::info::*;
 
 #[cfg(feature = "INSTR_INFO")]
 mod info {
-	use super::super::icedconstants::IcedConstants;
+	use super::super::iced_constants::IcedConstants;
 	use super::Register;
 	use std::mem;
 
@@ -721,7 +720,7 @@ impl Register {
 		let result = (self as u32).wrapping_add(rhs);
 		if result < IcedConstants::NUMBER_OF_REGISTERS as u32 {
 			// safe: guaranteed to return a valid enum value
-			unsafe { std::mem::transmute(result as u8) }
+			unsafe { mem::transmute(result as u8) }
 		} else {
 			panic!("NYI") //TODO:
 		}
@@ -731,7 +730,7 @@ impl Register {
 		let result = (self as u32).wrapping_sub(rhs);
 		if result < IcedConstants::NUMBER_OF_REGISTERS as u32 {
 			// safe: guaranteed to return a valid enum value
-			unsafe { std::mem::transmute(result as u8) }
+			unsafe { mem::transmute(result as u8) }
 		} else {
 			panic!("NYI") //TODO:
 		}

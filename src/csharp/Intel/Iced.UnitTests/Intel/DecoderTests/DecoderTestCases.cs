@@ -22,9 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
 	static class DecoderTestCases {

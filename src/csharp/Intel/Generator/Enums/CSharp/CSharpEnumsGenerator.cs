@@ -107,6 +107,8 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.MandatoryPrefixByte, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), nameof(TypeIds.MandatoryPrefixByte) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderDefine, "uint"));// 'uint' not 'byte' since it gets zx to uint when OR'ing values
 
 			toFullFileInfo.Add(TypeIds.EncodingKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), nameof(TypeIds.EncodingKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderOrInstrInfoDefine));
+			toFullFileInfo.Add(TypeIds.FlowControl, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), nameof(TypeIds.FlowControl) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.InstructionInfoDefine));
+			toFullFileInfo.Add(TypeIds.OpCodeOperandKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), nameof(TypeIds.OpCodeOperandKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.EncoderDefine));
 
 			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo>();
 			toPartialFileInfo.Add(TypeIds.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Instruction.cs"), "ushort"));

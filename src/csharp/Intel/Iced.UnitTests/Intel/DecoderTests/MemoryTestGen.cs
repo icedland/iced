@@ -326,7 +326,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 						default:
 							throw new InvalidOperationException();
 						}
-						Console.WriteLine($"{info.HexBytes}, {info.Length}, {info.Code}, {info.Register}, {info.PrefixSeg}, {info.Segment}, {info.BaseReg}, {info.IndexReg}, {info.Scale}, {displString}, {info.DisplSize}");
+						Console.WriteLine($"{info.HexBytes}, {info.Length}, {info.Code}, {ToString(info.Register)}, {ToString(info.PrefixSeg)}, {ToString(info.Segment)}, {ToString(info.BaseReg)}, {ToString(info.IndexReg)}, {info.Scale}, {displString}, {info.DisplSize}");
 						var data = HexUtils.ToByteArray(info.HexBytes);
 						file.Write(data, 0, data.Length);
 					}
@@ -334,6 +334,8 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 				Console.WriteLine();
 			}
 		}
+
+		static string ToString(Register register) => register.ToString().ToLowerInvariant();
 
 		IEnumerable<MemInfo> GetMemInfo(int codeSize, int addrSize, bool isVsib) {
 			var hash = new HashSet<MemInfo>();

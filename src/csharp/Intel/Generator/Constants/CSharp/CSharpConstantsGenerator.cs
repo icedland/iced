@@ -25,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Generator.Documentation.CSharp;
 using Generator.IO;
 
@@ -33,6 +32,7 @@ namespace Generator.Constants.CSharp {
 	sealed class CSharpConstantsGenerator : IConstantsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, FullConstantsFileInfo> toFullFileInfo;
+		readonly Dictionary<TypeId, PartialConstantsFileInfo> toPartialFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 
 		sealed class FullConstantsFileInfo {
@@ -47,6 +47,16 @@ namespace Generator.Constants.CSharp {
 			}
 		}
 
+		sealed class PartialConstantsFileInfo {
+			public readonly string Id;
+			public readonly string Filename;
+
+			public PartialConstantsFileInfo(string id, string filename) {
+				Id = id;
+				Filename = filename;
+			}
+		}
+
 		public CSharpConstantsGenerator(GeneratorOptions generatorOptions) {
 			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
@@ -54,17 +64,23 @@ namespace Generator.Constants.CSharp {
 			var baseDir = CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace);
 			toFullFileInfo = new Dictionary<TypeId, FullConstantsFileInfo>();
 			toFullFileInfo.Add(TypeIds.IcedConstants, new FullConstantsFileInfo(Path.Combine(baseDir, nameof(TypeIds.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
+
+			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo>();
+			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "DecoderTests", "DecoderTestParser.cs")));
 		}
 
 		public void Generate(ConstantsType constantsType) {
 			if (toFullFileInfo.TryGetValue(constantsType.TypeId, out var fullFileInfo))
 				WriteFile(fullFileInfo, constantsType);
+			else if (toPartialFileInfo.TryGetValue(constantsType.TypeId, out var partialInfo)) {
+				if (!(partialInfo is null))
+					new FileUpdater(TargetLanguage.CSharp, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteConstants(writer, constantsType));
+			}
 			else
 				throw new InvalidOperationException();
 		}
 
 		void WriteFile(FullConstantsFileInfo info, ConstantsType constantsType) {
-			var sb = new StringBuilder();
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(info.Filename))) {
 				writer.WriteFileHeader();
 				if (!(info.Define is null))
@@ -75,27 +91,7 @@ namespace Generator.Constants.CSharp {
 				if (constantsType.IsPublic && constantsType.IsMissingDocs)
 					writer.WriteLine("#pragma warning disable 1591 // Missing XML comment for publicly visible type or member");
 				writer.Indent();
-				docWriter.Write(writer, constantsType.Documentation, constantsType.RawName);
-				var pub = constantsType.IsPublic ? "public " : string.Empty;
-				writer.WriteLine($"{pub}static class {constantsType.Name(idConverter)} {{");
-
-				writer.Indent();
-				foreach (var constant in constantsType.Constants) {
-					docWriter.Write(writer, constant.Documentation, constantsType.RawName);
-					sb.Clear();
-					sb.Append(constant.IsPublic ? "public " : "internal ");
-					sb.Append("const ");
-					sb.Append(GetType(constant.Kind));
-					sb.Append(' ');
-					sb.Append(constant.Name(idConverter));
-					sb.Append(" = ");
-					sb.Append(GetValue(constant));
-					sb.Append(';');
-					writer.WriteLine(sb.ToString());
-				}
-				writer.Unindent();
-
-				writer.WriteLine("}");
+				WriteConstants(writer, constantsType);
 				writer.Unindent();
 				writer.WriteLine("}");
 
@@ -104,8 +100,32 @@ namespace Generator.Constants.CSharp {
 			}
 		}
 
+		void WriteConstants(FileWriter writer, ConstantsType constantsType) {
+			docWriter.Write(writer, constantsType.Documentation, constantsType.RawName);
+			var pub = constantsType.IsPublic ? "public " : string.Empty;
+			writer.WriteLine($"{pub}static class {constantsType.Name(idConverter)} {{");
+
+			writer.Indent();
+			foreach (var constant in constantsType.Constants) {
+				docWriter.Write(writer, constant.Documentation, constantsType.RawName);
+				writer.Write(constant.IsPublic ? "public " : "internal ");
+				writer.Write("const ");
+				writer.Write(GetType(constant.Kind));
+				writer.Write(" ");
+				writer.Write(constant.Name(idConverter));
+				writer.Write(" = ");
+				writer.Write(GetValue(constant));
+				writer.WriteLine(";");
+			}
+			writer.Unindent();
+
+			writer.WriteLine("}");
+		}
+
 		string GetType(ConstantKind kind) {
 			switch (kind) {
+			case ConstantKind.String:
+				return "string";
 			case ConstantKind.Int32:
 				return "int";
 			case ConstantKind.UInt32:
@@ -120,8 +140,13 @@ namespace Generator.Constants.CSharp {
 
 		string GetValue(Constant constant) {
 			switch (constant.Kind) {
+			case ConstantKind.String:
+				if (constant.RefValue is string s)
+					return "\"" + EscapeStringValue(s) + "\"";
+				throw new InvalidOperationException();
+
 			case ConstantKind.Int32:
-				return ((int)constant.Value).ToString();
+				return ((int)constant.ValueUInt32).ToString();
 
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
@@ -132,9 +157,11 @@ namespace Generator.Constants.CSharp {
 			}
 		}
 
+		static string EscapeStringValue(string s) => s;
+
 		string GetValueString(Constant constant) {
 			var enumType = ConstantsUtils.GetEnumType(constant.Kind);
-			var enumValue = enumType.Values.First(a => a.Value == constant.Value);
+			var enumValue = enumType.Values.First(a => a.Value == constant.ValueUInt32);
 			return $"{enumType.Name(idConverter)}.{enumValue.Name(idConverter)}";
 		}
 	}

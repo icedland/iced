@@ -33,6 +33,7 @@ namespace Generator.Constants {
 
 		static readonly ConstantsType[] allConstants = new ConstantsType[] {
 			IcedConstantsType.Instance,
+			DecoderTestParserConstantsType.Instance,
 		};
 
 		public void Generate() {

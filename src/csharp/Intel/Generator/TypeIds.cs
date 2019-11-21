@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Generator {
 	static class TypeIds {
 		public static readonly TypeId IcedConstants = new TypeId(nameof(IcedConstants));
+		public static readonly TypeId DecoderTestParserConstants = new TypeId(nameof(DecoderTestParserConstants));
 
 		public static readonly TypeId Code = new TypeId(nameof(Code));
 		public static readonly TypeId CodeSize = new TypeId(nameof(CodeSize));
@@ -64,5 +65,7 @@ namespace Generator {
 		public static readonly TypeId MandatoryPrefixByte = new TypeId(nameof(MandatoryPrefixByte));
 		public static readonly TypeId StateFlags = new TypeId(nameof(StateFlags));
 		public static readonly TypeId EncodingKind = new TypeId(nameof(EncodingKind));
+		public static readonly TypeId FlowControl = new TypeId(nameof(FlowControl));
+		public static readonly TypeId OpCodeOperandKind = new TypeId(nameof(OpCodeOperandKind));
 	}
 }

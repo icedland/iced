@@ -85,33 +85,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			return instrInfos;
 		}
 
-		static Dictionary<string, Code> CreateToCode() {
-			var dict = new Dictionary<string, Code>(StringComparer.Ordinal);
-			foreach (var f in typeof(Code).GetFields()) {
-				if (!f.IsLiteral)
-					continue;
-				var code = (Code)f.GetValue(null);
-				var name = f.Name;
-				dict.Add(name, code);
-			}
-			return dict;
-		}
-
-		static Dictionary<string, DecoderOptions> CreateToDecoderOptions() {
-			var dict = new Dictionary<string, DecoderOptions>(StringComparer.Ordinal);
-			foreach (var f in typeof(DecoderOptions).GetFields()) {
-				if (!f.IsLiteral)
-					continue;
-				var value = (DecoderOptions)f.GetValue(null);
-				var name = f.Name;
-				dict.Add(name, value);
-			}
-			return dict;
-		}
-
 		static readonly char[] sep = new[] { ',' };
-		static readonly Dictionary<string, Code> toCode = CreateToCode();
-		static readonly Dictionary<string, DecoderOptions> toDecoderOptions = CreateToDecoderOptions();
 		static IEnumerable<InstructionInfo> GetInstructionInfos(string filename, int bitness) {
 			int lineNo = 0;
 			filename = FileUtils.GetFormatterFilename(filename);
@@ -124,13 +98,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				if (parts.Length == 2)
 					options = default;
 				else if (parts.Length == 3) {
-					if (!toDecoderOptions.TryGetValue(parts[2].Trim(), out options))
+					if (!ToEnumConverter.TryDecoderOptions(parts[2].Trim(), out options))
 						throw new InvalidOperationException($"Invalid line #{lineNo} in file {filename}");
 				}
 				else
 					throw new InvalidOperationException($"Invalid line #{lineNo} in file {filename}");
 				var hexBytes = parts[0].Trim();
-				if (!toCode.TryGetValue(parts[1].Trim(), out var code))
+				if (!ToEnumConverter.TryCode(parts[1].Trim(), out var code))
 					throw new InvalidOperationException($"Invalid line #{lineNo} in file {filename}");
 				yield return new InstructionInfo(bitness, hexBytes, code, options);
 			}
