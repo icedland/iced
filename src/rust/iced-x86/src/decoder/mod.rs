@@ -186,7 +186,7 @@ struct State {
 	rm: u32,
 
 	// ***************************
-	// These fields are cleared in decode() and should be close so the compiler can optimize clearing them.
+	// These fields are cleared in decode_out() and should be close so the compiler can optimize clearing them.
 	extra_register_base: u32,       // R << 3
 	extra_index_register_base: u32, // X << 3
 	extra_base_register_base: u32,  // B << 3
@@ -247,30 +247,6 @@ pub struct Decoder<'a> {
 }
 
 impl<'a> Decoder<'a> {
-	/// Gets the current `IP`/`EIP`/`RIP` value
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn ip(&self) -> u64 {
-		self.ip
-	}
-
-	/// Sets the current `IP`/`EIP`/`RIP`
-	///
-	/// # Arguments
-	///
-	/// * `new_value`: New IP
-	#[inline]
-	pub fn set_ip(&mut self, new_value: u64) {
-		self.ip = new_value;
-	}
-
-	/// Gets the bitness (16, 32 or 64)
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn bitness(&self) -> i32 {
-		self.bitness
-	}
-
 	/// Creates a decoder
 	///
 	/// # Arguments
@@ -289,19 +265,19 @@ impl<'a> Decoder<'a> {
 	/// // vmovdqu64 zmm18{k3}{z},zmm11
 	/// let bytes = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3";
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x12345678);
+	/// decoder.set_ip(0x1234_5678);
 	///
-	/// let instr1 = decoder.decode_ret();
+	/// let instr1 = decoder.decode();
 	/// assert!(instr1.code() == Code::Xchg_rm8_r8);
 	/// assert!(instr1.mnemonic() == Mnemonic::Xchg);
 	/// assert_eq!(4, instr1.len());
 	///
-	/// let instr2 = decoder.decode_ret();
+	/// let instr2 = decoder.decode();
 	/// assert!(instr2.code() == Code::Add_rm32_imm8);
 	/// assert!(instr2.mnemonic() == Mnemonic::Add);
 	/// assert_eq!(5, instr2.len());
 	///
-	/// let instr3 = decoder.decode_ret();
+	/// let instr3 = decoder.decode();
 	/// assert!(instr3.code() == Code::EVEX_Vmovdqu64_zmm_k1z_zmmm512);
 	/// assert!(instr3.mnemonic() == Mnemonic::Vmovdqu64);
 	/// assert_eq!(6, instr3.len());
@@ -317,14 +293,14 @@ impl<'a> Decoder<'a> {
 	/// // lock add esi,ecx   ; lock not allowed
 	/// let bytes = b"\xF0\x01\xCE";
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x12345678);
-	/// let instr = decoder.decode_ret();
+	/// decoder.set_ip(0x1234_5678);
+	/// let instr = decoder.decode();
 	/// assert!(instr.code() == Code::INVALID);
 	///
 	/// // We want to decode some instructions with invalid encodings
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NO_INVALID_CHECK);
-	/// decoder.set_ip(0x12345678);
-	/// let instr = decoder.decode_ret();
+	/// decoder.set_ip(0x1234_5678);
+	/// let instr = decoder.decode();
 	/// assert!(instr.code() == Code::Add_rm32_r32);
 	/// assert!(instr.has_lock_prefix());
 	/// ```
@@ -394,6 +370,160 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
+	/// Gets the current `IP`/`EIP`/`RIP` value, see also `data_index()`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn ip(&self) -> u64 {
+		self.ip
+	}
+
+	/// Sets the current `IP`/`EIP`/`RIP`, see also `set_data_index()`
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: New IP
+	#[inline]
+	pub fn set_ip(&mut self, new_value: u64) {
+		self.ip = new_value;
+	}
+
+	/// Gets the bitness (16, 32 or 64)
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn bitness(&self) -> i32 {
+		self.bitness
+	}
+
+	/// Gets the max index that can be passed to `set_data_index()`. This is the size of the data that gets
+	/// decoded to instructions and it's the length of the slice that was passed to the constructor.
+	pub fn max_data_index(&self) -> usize {
+		self.data.len()
+	}
+
+	/// Gets the current data index. This value is always <= `max_data_index()`.
+	/// When `data_index()` == `max_data_index()`, it's not possible to decode more
+	/// instructions and `can_decode()` returns `false`.
+	pub fn data_index(&self) -> usize {
+		self.data_ptr as usize - self.data.as_ptr() as usize
+	}
+
+	/// Sets the current data index, which is the index into the data passed to the constructor.
+	/// This value is always <= `max_data_index()`
+	///
+	/// # Panics
+	///
+	/// Panics if the new position is invalid.
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: New index and must be <= `max_data_index()`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // nop and pause
+	/// let bytes = b"\x90\xF3\x90";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x1234_5678);
+	///
+	/// assert_eq!(0, decoder.data_index());
+	/// assert_eq!(3, decoder.max_data_index());
+	/// let instr = decoder.decode();
+	/// assert_eq!(1, decoder.data_index());
+	/// assert!(instr.code() == Code::Nopd);
+	///
+	/// let instr = decoder.decode();
+	/// assert_eq!(3, decoder.data_index());
+	/// assert!(instr.code() == Code::Pause);
+	///
+	/// // Start all over again
+	/// decoder.set_data_index(0);
+	/// assert_eq!(0, decoder.data_index());
+	/// assert!(decoder.decode().code() == Code::Nopd);
+	/// assert!(decoder.decode().code() == Code::Pause);
+	/// assert_eq!(3, decoder.data_index());
+	/// ```
+	pub fn set_data_index(&mut self, new_pos: usize) {
+		if new_pos <= self.data.len() {
+			self.data_ptr = unsafe { self.data.as_ptr().offset(new_pos as isize) };
+		} else {
+			panic!();
+		}
+	}
+
+	/// Returns true if there's at least one more byte to decode. It doesn't verify that the
+	/// next instruction is valid, it only checks if there's at least one more byte to read.
+	/// See also `data_index()` and `max_data_index()`
+	///
+	/// It's not required to call this method. If this method returns `false`, then `decode_out()`
+	/// and `decode()` will return an instruction whose `code()` == `Code::INVALID`.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // nop and an incomplete instruction
+	/// let bytes = b"\x90\xF3\x0F";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x1234_5678);
+	///
+	/// // 3 bytes left to read
+	/// assert_eq!(true, decoder.can_decode());
+	/// let instr = decoder.decode();
+	/// assert!(instr.code() == Code::Nopd);
+	///
+	/// // 2 bytes left to read
+	/// assert_eq!(true, decoder.can_decode());
+	/// let instr = decoder.decode();
+	/// // Not enough bytes left to decode a full instruction
+	/// assert!(instr.code() == Code::INVALID);
+	///
+	/// // 0 bytes left to read
+	/// assert_eq!(false, decoder.can_decode());
+	/// ```
+	pub fn can_decode(&self) -> bool {
+		self.data_ptr < self.data_ptr_end
+	}
+
+	/// Returns an iterator that borrows this instance to decode instructions until there's
+	/// no more data to decode, i.e., until `can_decode()` returns `false`.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // nop and pause
+	/// let bytes = b"\x90\xF3\x90";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x1234_5678);
+	///
+	/// let mut iter = decoder.iter();
+	/// assert!(iter.next().unwrap().code() == Code::Nopd);
+	/// assert!(iter.next().unwrap().code() == Code::Pause);
+	/// assert!(iter.next().is_none());
+	/// ```
+	///
+	/// For loop
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// let bytes = b"\x90\xF3\x90";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x1234_5678);
+	///
+	/// for instr in &mut decoder { // or decoder.iter()
+	///     println!("code: {}", instr.code() as u32);
+	/// }
+	/// ```
+	pub fn iter<'b>(&'b mut self) -> DecoderIter<'a, 'b> {
+		DecoderIter { decoder: self }
+	}
+
 	#[cfg_attr(has_must_use, must_use)]
 	pub(crate) fn read_u8(&mut self) -> usize {
 		unsafe {
@@ -452,7 +582,8 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	/// Decodes and returns the next instruction, see also `decode(&mut Instruction)`
+	/// Decodes and returns the next instruction, see also `decode_out(&mut Instruction)`
+	/// which avoids copying the decoded instruction to the caller's return variable.
 	///
 	/// # Examples
 	///
@@ -462,8 +593,8 @@ impl<'a> Decoder<'a> {
 	/// // xrelease lock add [rax],ebx
 	/// let bytes = b"\xF0\xF3\x01\x18";
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x12345678);
-	/// let instr = decoder.decode_ret();
+	/// decoder.set_ip(0x1234_5678);
+	/// let instr = decoder.decode();
 	///
 	/// assert!(instr.code() == Code::Add_rm32_r32);
 	/// assert!(instr.mnemonic() == Mnemonic::Add);
@@ -487,14 +618,15 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg(not(use_std_mem_uninitialized))]
-	pub fn decode_ret(&mut self) -> Instruction {
-		// Safe, decode() initializes the whole thing
+	pub fn decode(&mut self) -> Instruction {
+		// Safe, decode_out() initializes the whole thing
 		let mut instruction = unsafe { std::mem::MaybeUninit::uninit().assume_init() };
-		self.decode(&mut instruction);
+		self.decode_out(&mut instruction);
 		instruction
 	}
 
-	/// Decodes and returns the next instruction, see also `decode(&mut Instruction)`
+	/// Decodes and returns the next instruction, see also `decode_out(&mut Instruction)`
+	/// which avoids copying the decoded instruction to the caller's return variable.
 	///
 	/// # Examples
 	///
@@ -504,8 +636,8 @@ impl<'a> Decoder<'a> {
 	/// // xrelease lock add [rax],ebx
 	/// let bytes = b"\xF0\xF3\x01\x18";
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x12345678);
-	/// let instr = decoder.decode_ret();
+	/// decoder.set_ip(0x1234_5678);
+	/// let instr = decoder.decode();
 	///
 	/// assert!(instr.code() == Code::Add_rm32_r32);
 	/// assert!(instr.mnemonic() == Mnemonic::Add);
@@ -530,14 +662,15 @@ impl<'a> Decoder<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[allow(deprecated_in_future)]
 	#[cfg(use_std_mem_uninitialized)]
-	pub fn decode_ret(&mut self) -> Instruction {
-		// Safe, decode() initializes the whole thing
+	pub fn decode(&mut self) -> Instruction {
+		// Safe, decode_out() initializes the whole thing
 		let mut instruction = unsafe { std::mem::uninitialized() };
-		self.decode(&mut instruction);
+		self.decode_out(&mut instruction);
 		instruction
 	}
 
-	/// Decodes the next instruction
+	/// Decodes the next instruction. The difference between this method and `decode()` is that this
+	/// method doesn't need to copy the result to the caller's return variable (saves 32-bytes of copying).
 	///
 	/// # Arguments
 	///
@@ -551,10 +684,12 @@ impl<'a> Decoder<'a> {
 	/// // xrelease lock add [rax],ebx
 	/// let bytes = b"\xF0\xF3\x01\x18";
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x12345678);
-	/// // or use: let mut instr = unsafe { std::mem::MaybeUninit::uninit().assume_init() };
+	/// decoder.set_ip(0x1234_5678);
+	/// // or use std::mem::MaybeUninit:
+	/// //    let mut instr = unsafe { std::mem::MaybeUninit::uninit().assume_init() };
+	/// // to not clear `instr` more than once (`decode_out()` initializes all its fields).
 	/// let mut instr = Default::default();
-	/// decoder.decode(&mut instr);
+	/// decoder.decode_out(&mut instr);
 	///
 	/// assert!(instr.code() == Code::Add_rm32_r32);
 	/// assert!(instr.mnemonic() == Mnemonic::Add);
@@ -576,7 +711,7 @@ impl<'a> Decoder<'a> {
 	/// assert!(instr.has_lock_prefix());
 	/// assert!(instr.has_xrelease_prefix());
 	/// ```
-	pub fn decode(&mut self, instruction: &mut Instruction) {
+	pub fn decode_out(&mut self, instruction: &mut Instruction) {
 		*instruction = Default::default();
 
 		self.state.extra_register_base = 0;
@@ -815,7 +950,7 @@ impl<'a> Decoder<'a> {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
-		// Undo what decode() did if it got a REX prefix
+		// Undo what decode_out() did if it got a REX prefix
 		self.state.flags &= !StateFlags::W;
 		self.state.extra_index_register_base = 0;
 		self.state.extra_base_register_base = 0;
@@ -848,7 +983,7 @@ impl<'a> Decoder<'a> {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
-		// Undo what decode() did if it got a REX prefix
+		// Undo what decode_out() did if it got a REX prefix
 		self.state.flags &= !StateFlags::W;
 
 		if cfg!(debug_assertions) {
@@ -897,7 +1032,7 @@ impl<'a> Decoder<'a> {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
-		// Undo what decode() did if it got a REX prefix
+		// Undo what decode_out() did if it got a REX prefix
 		self.state.flags &= !StateFlags::W;
 
 		if cfg!(debug_assertions) {
@@ -946,7 +1081,7 @@ impl<'a> Decoder<'a> {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
-		// Undo what decode() did if it got a REX prefix
+		// Undo what decode_out() did if it got a REX prefix
 		self.state.flags &= !StateFlags::W;
 
 		let p0 = self.state.modrm;
@@ -1382,8 +1517,8 @@ impl<'a> Decoder<'a> {
 	/// //           <opc><mrm><displacement_><imm>
 	/// let bytes = b"\x83\xB3\x34\x12\x5A\xA5\x5A";
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x12345678);
-	/// let instr = decoder.decode_ret();
+	/// decoder.set_ip(0x1234_5678);
+	/// let instr = decoder.decode();
 	/// let co = decoder.get_constant_offsets(&instr);
 	///
 	/// assert!(co.has_displacement());
@@ -1503,5 +1638,65 @@ impl<'a> Decoder<'a> {
 		}
 
 		constant_offsets
+	}
+}
+
+/// An iterator that borrows a `Decoder` and decodes instructions until there's
+/// no more data available. See `Decoder::iter()`.
+pub struct DecoderIter<'a: 'b, 'b> {
+	decoder: &'b mut Decoder<'a>,
+}
+
+impl<'a, 'b> Iterator for DecoderIter<'a, 'b> {
+	type Item = Instruction;
+
+	fn next(&mut self) -> Option<Self::Item> {
+		if self.decoder.can_decode() {
+			Some(self.decoder.decode())
+		} else {
+			None
+		}
+	}
+}
+
+#[cfg(has_fused_iterator)]
+impl<'a, 'b> std::iter::FusedIterator for DecoderIter<'a, 'b> {}
+
+/// An iterator that consumes a `Decoder` and decodes instructions until there's
+/// no more data available.
+pub struct DecoderIntoIter<'a> {
+	decoder: Decoder<'a>,
+}
+
+impl<'a> Iterator for DecoderIntoIter<'a> {
+	type Item = Instruction;
+
+	fn next(&mut self) -> Option<Self::Item> {
+		if self.decoder.can_decode() {
+			Some(self.decoder.decode())
+		} else {
+			None
+		}
+	}
+}
+
+#[cfg(has_fused_iterator)]
+impl<'a> std::iter::FusedIterator for DecoderIntoIter<'a> {}
+
+impl<'a> IntoIterator for Decoder<'a> {
+	type Item = Instruction;
+	type IntoIter = DecoderIntoIter<'a>;
+
+	fn into_iter(self) -> Self::IntoIter {
+		DecoderIntoIter { decoder: self }
+	}
+}
+
+impl<'a: 'b, 'b> IntoIterator for &'b mut Decoder<'a> {
+	type Item = Instruction;
+	type IntoIter = DecoderIter<'a, 'b>;
+
+	fn into_iter(self) -> Self::IntoIter {
+		DecoderIter { decoder: self }
 	}
 }
