@@ -333,8 +333,8 @@ namespace Generator.Decoder.Rust {
 				if (handler.Length != 10)
 					throw new InvalidOperationException();
 				var flags = (LegacyHandlerFlagsEnum.Enum)((IEnumValue)handler[9]!).Value;
-				WriteField(writer, "handlers_reg", new object[] { (handler[1], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerReg) == 0)), (handler[2], (object)((flags & LegacyHandlerFlagsEnum.Enum.Handler66Reg) == 0)), (handler[3], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerF3Reg) == 0)), (handler[4], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerF2Reg) == 0)) });
-				WriteField(writer, "handlers_mem", new object[] { (handler[5], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerMem) == 0)), (handler[6], (object)((flags & LegacyHandlerFlagsEnum.Enum.Handler66Mem) == 0)), (handler[7], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerF3Mem) == 0)), (handler[8], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerF2Mem) == 0)) });
+				WriteField(writer, "handlers_reg", new object[] { (handler[1], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerReg) == 0)), (handler[3], (object)((flags & LegacyHandlerFlagsEnum.Enum.Handler66Reg) == 0)), (handler[5], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerF3Reg) == 0)), (handler[7], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerF2Reg) == 0)) });
+				WriteField(writer, "handlers_mem", new object[] { (handler[2], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerMem) == 0)), (handler[4], (object)((flags & LegacyHandlerFlagsEnum.Enum.Handler66Mem) == 0)), (handler[6], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerF3Mem) == 0)), (handler[8], (object)((flags & LegacyHandlerFlagsEnum.Enum.HandlerF2Mem) == 0)) });
 				break;
 			case OpCodeHandlerKindEnum.Enum.D3NOW:
 				if (handler.Length != 1)

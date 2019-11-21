@@ -358,13 +358,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			VerifyConstantOffsets(tc.ConstantOffsets, decoder.GetConstantOffsets(instr));
 		}
 
-		protected static void VerifyConstantOffsets(in ConstantOffsets expectedConstantOffsets, in ConstantOffsets actualConstantOffsets) {
-			Assert.Equal(expectedConstantOffsets.ImmediateOffset, actualConstantOffsets.ImmediateOffset);
-			Assert.Equal(expectedConstantOffsets.ImmediateSize, actualConstantOffsets.ImmediateSize);
-			Assert.Equal(expectedConstantOffsets.ImmediateOffset2, actualConstantOffsets.ImmediateOffset2);
-			Assert.Equal(expectedConstantOffsets.ImmediateSize2, actualConstantOffsets.ImmediateSize2);
-			Assert.Equal(expectedConstantOffsets.DisplacementOffset, actualConstantOffsets.DisplacementOffset);
-			Assert.Equal(expectedConstantOffsets.DisplacementSize, actualConstantOffsets.DisplacementSize);
+		protected static void VerifyConstantOffsets(in ConstantOffsets expected, in ConstantOffsets actual) {
+			Assert.Equal(expected.ImmediateOffset, actual.ImmediateOffset);
+			Assert.Equal(expected.ImmediateSize, actual.ImmediateSize);
+			Assert.Equal(expected.ImmediateOffset2, actual.ImmediateOffset2);
+			Assert.Equal(expected.ImmediateSize2, actual.ImmediateSize2);
+			Assert.Equal(expected.DisplacementOffset, actual.DisplacementOffset);
+			Assert.Equal(expected.DisplacementSize, actual.DisplacementSize);
 		}
 	}
 }

@@ -75,6 +75,8 @@ namespace Generator.Constants.Rust {
 				return "i32";
 			case ConstantKind.UInt32:
 				return "u32";
+			case ConstantKind.UInt64:
+				return "u64";
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
 				return ConstantsUtils.GetEnumType(kind).Name(idConverter);
@@ -92,13 +94,18 @@ namespace Generator.Constants.Rust {
 
 			case ConstantKind.Int32:
 				if (constant.UseHex)
-					return NumberFormatter.FormatHexUInt32WithSep(constant.ValueUInt32);
-				return ((int)constant.ValueUInt32).ToString();
+					return NumberFormatter.FormatHexUInt32WithSep((uint)constant.ValueUInt64);
+				return ((int)constant.ValueUInt64).ToString();
 
 			case ConstantKind.UInt32:
 				if (constant.UseHex)
-					return NumberFormatter.FormatHexUInt32WithSep(constant.ValueUInt32);
-				return ((uint)constant.ValueUInt32).ToString();
+					return NumberFormatter.FormatHexUInt32WithSep((uint)constant.ValueUInt64);
+				return ((uint)constant.ValueUInt64).ToString();
+
+			case ConstantKind.UInt64:
+				if (constant.UseHex)
+					return NumberFormatter.FormatHexUInt64WithSep(constant.ValueUInt64);
+				return constant.ValueUInt64.ToString();
 
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
@@ -113,7 +120,7 @@ namespace Generator.Constants.Rust {
 
 		string GetValueString(Constant constant) {
 			var enumType = ConstantsUtils.GetEnumType(constant.Kind);
-			var enumValue = enumType.Values.First(a => a.Value == constant.ValueUInt32);
+			var enumValue = enumType.Values.First(a => a.Value == constant.ValueUInt64);
 			return $"{enumType.Name(idConverter)}::{enumValue.Name(idConverter)}";
 		}
 	}

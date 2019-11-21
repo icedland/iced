@@ -22,31 +22,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants {
-	interface IConstantsGenerator {
-		void Generate(ConstantsType constantsType);
-	}
+	static class DecoderConstantsType {
+		const string? documentation = null;
+		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.DecoderConstants, ConstantsTypeFlags.None, documentation: documentation, GetConstants());
 
-	sealed class ConstantsGenerator {
-		readonly GeneratorOptions generatorOptions;
-
-		public ConstantsGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
-
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
-			DecoderTestParserConstantsType.Instance,
-			DecoderConstantsType.Instance,
-		};
-
-		public void Generate() {
-			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpConstantsGenerator(generatorOptions),
-				new Rust.RustConstantsGenerator(generatorOptions),
+		static Constant[] GetConstants() =>
+			new Constant[] {
+				new Constant(ConstantKind.UInt64, "DEFAULT_IP16", 0x7FF0, ConstantsTypeFlags.Hex),
+				new Constant(ConstantKind.UInt64, "DEFAULT_IP32", 0x7FFF_FFF0, ConstantsTypeFlags.Hex),
+				new Constant(ConstantKind.UInt64, "DEFAULT_IP64", 0x7FFF_FFFF_FFFF_FFF0, ConstantsTypeFlags.Hex),
 			};
-
-			foreach (var generator in generators) {
-				foreach (var constantsType in allConstants)
-					generator.Generate(constantsType);
-			}
-		}
 	}
 }

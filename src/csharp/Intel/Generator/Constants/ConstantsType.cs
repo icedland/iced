@@ -83,6 +83,7 @@ namespace Generator.Constants {
 		String,
 		Int32,
 		UInt32,
+		UInt64,
 		Register,
 		MemorySize,
 	}
@@ -92,7 +93,7 @@ namespace Generator.Constants {
 		public string RawName { get; }
 		public string Name(IdentifierConverter idConverter) => idConverter.Constant(RawName);
 		public string? Documentation { get; }
-		public uint ValueUInt32 { get; }
+		public ulong ValueUInt64 { get; }
 		public object? RefValue { get; }
 		public bool IsPublic { get; }
 		public bool UseHex { get; }
@@ -105,18 +106,18 @@ namespace Generator.Constants {
 			Kind = kind;
 			RawName = name;
 			Documentation = documentation;
-			ValueUInt32 = 0;
+			ValueUInt64 = 0;
 			RefValue = value;
 			IsPublic = (flags & ConstantsTypeFlags.Public) != 0;
 			UseHex = (flags & ConstantsTypeFlags.Hex) != 0;
 		}
 
-		public Constant(ConstantKind kind, string name, uint value, ConstantsTypeFlags flags, string? documentation = null) {
+		public Constant(ConstantKind kind, string name, ulong value, ConstantsTypeFlags flags, string? documentation = null) {
 			DeclaringType = null!;
 			Kind = kind;
 			RawName = name;
 			Documentation = documentation;
-			ValueUInt32 = value;
+			ValueUInt64 = value;
 			RefValue = null;
 			IsPublic = (flags & ConstantsTypeFlags.Public) != 0;
 			UseHex = (flags & ConstantsTypeFlags.Hex) != 0;

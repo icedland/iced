@@ -21,8 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+mod decoder_constants;
 pub(crate) mod from_str_conv;
 
+use self::decoder_constants::*;
 use std::env;
 use std::path::PathBuf;
 
@@ -39,4 +41,13 @@ pub(crate) fn get_decoder_unit_tests_dir() -> PathBuf {
 	let mut path = get_unit_tests_base_dir();
 	path.push("Decoder");
 	path
+}
+
+pub(crate) fn get_default_ip(bitness: i32) -> u64 {
+	match bitness {
+		16 => DecoderConstants::DEFAULT_IP16,
+		32 => DecoderConstants::DEFAULT_IP32,
+		64 => DecoderConstants::DEFAULT_IP64,
+		_ => panic!(),
+	}
 }

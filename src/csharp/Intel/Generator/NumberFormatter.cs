@@ -25,12 +25,19 @@ using System;
 
 namespace Generator {
 	static class NumberFormatter {
-		static string AddNumberSeparator(string prefix, string number) {
+		static string AddNumberSeparator32(string prefix, string number) {
 			if (number.Length != 8)
 				throw new InvalidOperationException();
 			return prefix + number.Substring(0, 4) + "_" + number.Substring(4);
 		}
 
-		public static string FormatHexUInt32WithSep(uint value) => AddNumberSeparator("0x", value.ToString("X8"));
+		static string AddNumberSeparator64(string prefix, string number) {
+			if (number.Length != 16)
+				throw new InvalidOperationException();
+			return prefix + number.Substring(0, 4) + "_" + number.Substring(4, 4) + "_" + number.Substring(8, 4) + "_" + number.Substring(12, 4);
+		}
+
+		public static string FormatHexUInt32WithSep(uint value) => AddNumberSeparator32("0x", value.ToString("X8"));
+		public static string FormatHexUInt64WithSep(ulong value) => AddNumberSeparator64("0x", value.ToString("X16"));
 	}
 }

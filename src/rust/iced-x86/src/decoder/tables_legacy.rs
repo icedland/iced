@@ -4369,11 +4369,11 @@ static GEN_MANDATORY_PREFIX3_1: OpCodeHandler_MandatoryPrefix3 = OpCodeHandler_M
 			false,
 		),
 		(
-			unsafe { HandlerTransmuter { from: &GEN_M_1_VMPTRST_M64 }.to },
+			unsafe { HandlerTransmuter { from: &GEN_RV_RDSEED_R16 }.to },
 			false,
 		),
 		(
-			unsafe { HandlerTransmuter { from: &GEN_RV_RDSEED_R16 }.to },
+			unsafe { HandlerTransmuter { from: &GEN_RV_32_64_RDPID_R32 }.to },
 			true,
 		),
 		(
@@ -4383,7 +4383,7 @@ static GEN_MANDATORY_PREFIX3_1: OpCodeHandler_MandatoryPrefix3 = OpCodeHandler_M
 	],
 	handlers_mem: [
 		(
-			unsafe { HandlerTransmuter { from: &GEN_RV_32_64_RDPID_R32 }.to },
+			unsafe { HandlerTransmuter { from: &GEN_M_1_VMPTRST_M64 }.to },
 			true,
 		),
 		(
@@ -4444,29 +4444,29 @@ static GEN_MANDATORY_PREFIX3: OpCodeHandler_MandatoryPrefix3 = OpCodeHandler_Man
 			false,
 		),
 		(
-			unsafe { HandlerTransmuter { from: &GEN_M_1_VMPTRLD_M64 }.to },
+			unsafe { HandlerTransmuter { from: &GEN_RV_RDRAND_R16 }.to },
 			false,
 		),
 		(
-			unsafe { HandlerTransmuter { from: &GEN_RV_RDRAND_R16 }.to },
+			unsafe { HandlerTransmuter { from: &GEN_INVALID }.to },
+			true,
+		),
+		(
+			unsafe { HandlerTransmuter { from: &GEN_INVALID }.to },
+			true,
+		),
+	],
+	handlers_mem: [
+		(
+			unsafe { HandlerTransmuter { from: &GEN_M_1_VMPTRLD_M64 }.to },
 			true,
 		),
 		(
 			unsafe { HandlerTransmuter { from: &GEN_M_1_VMCLEAR_M64 }.to },
 			true,
 		),
-	],
-	handlers_mem: [
-		(
-			unsafe { HandlerTransmuter { from: &GEN_INVALID }.to },
-			true,
-		),
 		(
 			unsafe { HandlerTransmuter { from: &GEN_M_1_VMXON_M64 }.to },
-			true,
-		),
-		(
-			unsafe { HandlerTransmuter { from: &GEN_INVALID }.to },
 			true,
 		),
 		(

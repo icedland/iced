@@ -52,6 +52,7 @@ namespace Generator.Constants.Rust {
 			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo>();
 			toPartialFileInfo.Add(TypeIds.IcedConstants, new PartialConstantsFileInfo("IcedConstants", Path.Combine(generatorOptions.RustDir, "iced_constants.rs")));
 			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorOptions.RustDir, "decoder", "tests", "test_parser.rs"), true));
+			toPartialFileInfo.Add(TypeIds.DecoderConstants, new PartialConstantsFileInfo("DecoderConstants", Path.Combine(generatorOptions.RustDir, "test_utils", "decoder_constants.rs")));
 		}
 
 		public void Generate(ConstantsType constantsType) {

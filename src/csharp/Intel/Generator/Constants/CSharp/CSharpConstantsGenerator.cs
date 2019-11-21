@@ -64,6 +64,7 @@ namespace Generator.Constants.CSharp {
 			var baseDir = CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace);
 			toFullFileInfo = new Dictionary<TypeId, FullConstantsFileInfo>();
 			toFullFileInfo.Add(TypeIds.IcedConstants, new FullConstantsFileInfo(Path.Combine(baseDir, nameof(TypeIds.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
+			toFullFileInfo.Add(TypeIds.DecoderConstants, new FullConstantsFileInfo(Path.Combine(generatorOptions.CSharpTestsDir, "Intel", nameof(TypeIds.DecoderConstants) + ".g.cs"), CSharpConstants.IcedUnitTestsNamespace));
 
 			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo>();
 			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "DecoderTests", "DecoderTestParser.cs")));
@@ -130,6 +131,8 @@ namespace Generator.Constants.CSharp {
 				return "int";
 			case ConstantKind.UInt32:
 				return "uint";
+			case ConstantKind.UInt64:
+				return "ulong";
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
 				return ConstantsUtils.GetEnumType(kind).Name(idConverter);
@@ -146,7 +149,19 @@ namespace Generator.Constants.CSharp {
 				throw new InvalidOperationException();
 
 			case ConstantKind.Int32:
-				return ((int)constant.ValueUInt32).ToString();
+				if (constant.UseHex)
+					return NumberFormatter.FormatHexUInt32WithSep((uint)constant.ValueUInt64);
+				return ((int)constant.ValueUInt64).ToString();
+
+			case ConstantKind.UInt32:
+				if (constant.UseHex)
+					return NumberFormatter.FormatHexUInt32WithSep((uint)constant.ValueUInt64);
+				return ((uint)constant.ValueUInt64).ToString();
+
+			case ConstantKind.UInt64:
+				if (constant.UseHex)
+					return NumberFormatter.FormatHexUInt64WithSep(constant.ValueUInt64);
+				return constant.ValueUInt64.ToString();
 
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
@@ -161,7 +176,7 @@ namespace Generator.Constants.CSharp {
 
 		string GetValueString(Constant constant) {
 			var enumType = ConstantsUtils.GetEnumType(constant.Kind);
-			var enumValue = enumType.Values.First(a => a.Value == constant.ValueUInt32);
+			var enumValue = enumType.Values.First(a => a.Value == constant.ValueUInt64);
 			return $"{enumType.Name(idConverter)}.{enumValue.Name(idConverter)}";
 		}
 	}

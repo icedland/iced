@@ -25,6 +25,7 @@ namespace Generator {
 	static class TypeIds {
 		public static readonly TypeId IcedConstants = new TypeId(nameof(IcedConstants));
 		public static readonly TypeId DecoderTestParserConstants = new TypeId(nameof(DecoderTestParserConstants));
+		public static readonly TypeId DecoderConstants = new TypeId(nameof(DecoderConstants));
 
 		public static readonly TypeId Code = new TypeId(nameof(Code));
 		public static readonly TypeId CodeSize = new TypeId(nameof(CodeSize));
