@@ -24,22 +24,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 
 namespace Generator {
-	enum Command {
-		Decoder,
-		Formatter,
-		CpuidFeature,
-		Constants,
-	}
-
-	sealed class CommandLineOptions {
-		public readonly List<Command> Commands = new List<Command>();
-		public GeneratorOptions? GeneratorOptions = null;
-	}
-
 	sealed class GeneratorInfoComparer : IComparer<GeneratorInfo> {
 		public int Compare(GeneratorInfo x, GeneratorInfo y) {
 			int c = GetOrder(x.Language).CompareTo(GetOrder(y.Language));
@@ -80,14 +69,27 @@ namespace Generator {
 		}
 	}
 
+	sealed class CommandLineOptions {
+		public readonly HashSet<TargetLanguage> Languages = new HashSet<TargetLanguage>();
+	}
+
 	static class Program {
 		static int Main(string[] args) {
 			try {
+				if (!TryParseCommandLine(args, out var options, out var error)) {
+					Help();
+					if (error != string.Empty) {
+						Console.WriteLine();
+						Console.WriteLine(error);
+					}
+					return 1;
+				}
+
 				var generatorOptions = CreateGeneratorOptions(GeneratorFlags.None);
 				Enums.CodeEnum.AddComments(generatorOptions.UnitTestsDir);
 
 				var genInfos = GetGenerators();
-				foreach (var genInfo in genInfos)
+				foreach (var genInfo in Filter(genInfos, options))
 					genInfo.Invoke(generatorOptions);
 
 				return 0;
@@ -97,6 +99,85 @@ namespace Generator {
 				Debug.Fail("Excetion:\n\n" + ex.ToString());
 				return 1;
 			}
+		}
+
+		static IEnumerable<GeneratorInfo> Filter(List<GeneratorInfo> genInfos, CommandLineOptions options) {
+			var okLang = new bool[Enum.GetValues(typeof(TargetLanguage)).Length];
+			if (options.Languages.Count == 0) {
+				for (int i = 0; i < okLang.Length; i++)
+					okLang[i] = true;
+			}
+			else {
+				foreach (var lang in options.Languages)
+					okLang[(int)lang] = true;
+			}
+
+			foreach (var genInfo in genInfos) {
+				if (!okLang[(int)genInfo.Language])
+					continue;
+
+				yield return genInfo;
+			}
+		}
+
+		static void Help() {
+			Console.WriteLine(@"
+Generates code and data
+
+Options:
+
+-h, --help
+    Show this message
+-l, --language <language>
+    Select only this language. Multiple language options are allowed.
+    Valid languages (case insensitive):
+        C#
+        CSharp
+        Rust
+");
+		}
+
+		static bool TryParseCommandLine(string[] args, [NotNullWhen(true)] out CommandLineOptions? options, [NotNullWhen(false)] out string? error) {
+			if (Enum.GetValues(typeof(TargetLanguage)).Length != 2)
+				throw new InvalidOperationException("Enum updated, update help message and this method");
+			options = new CommandLineOptions();
+			for (int i = 0; i < args.Length; i++) {
+				var arg = args[i];
+				var value = i + 1 < args.Length ? args[i + 1] : null;
+				switch (arg) {
+				case "-l":
+				case "--language":
+					if (value is null) {
+						error = "Missing language";
+						return false;
+					}
+					i++;
+					switch (value.ToLowerInvariant()) {
+					case "c#":
+					case "csharp":
+						options.Languages.Add(TargetLanguage.CSharp);
+						break;
+					case "rust":
+						options.Languages.Add(TargetLanguage.Rust);
+						break;
+					default:
+						error = $"Unknown language: {value}";
+						return false;
+					}
+					break;
+
+				case "-h":
+				case "--help":
+					error = string.Empty;
+					return false;
+
+				default:
+					error = $"Unknown option: {value}";
+					return false;
+				}
+			}
+			error = null;
+			return true;
 		}
 
 		static GeneratorOptions CreateGeneratorOptions(GeneratorFlags flags) {
