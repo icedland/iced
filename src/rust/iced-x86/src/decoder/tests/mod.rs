@@ -21,10 +21,13 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+mod decoder_mem_test_case;
 mod decoder_test_case;
+mod mem_test_parser;
 mod test_cases;
 mod test_parser;
 
+use self::decoder_mem_test_case::*;
 use self::decoder_test_case::*;
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
@@ -205,4 +208,62 @@ fn verify_constant_offsets(expected: &ConstantOffsets, actual: &ConstantOffsets)
 	assert_eq!(expected.immediate_size2(), actual.immediate_size2());
 	assert_eq!(expected.displacement_offset(), actual.displacement_offset());
 	assert_eq!(expected.displacement_size(), actual.displacement_size());
+}
+
+#[test]
+fn decode_mem_16() {
+	decode_mem(16);
+}
+
+#[test]
+fn decode_mem_32() {
+	decode_mem(32);
+}
+
+#[test]
+fn decode_mem_64() {
+	decode_mem(64);
+}
+
+fn decode_mem(bitness: i32) {
+	for info in test_cases::get_mem_test_cases(bitness).iter() {
+		decode_mem_test(bitness, &info);
+	}
+}
+
+fn decode_mem_test(bitness: i32, tc: &DecoderMemoryTestCase) {
+	let bytes = to_vec_u8(&tc.hex_bytes).expect("Couldn't parse hex bytes");
+	let mut decoder = create_decoder(bitness, &bytes, tc.decoder_options);
+	assert_eq!(0, decoder.data_index());
+	assert_eq!(bytes.len(), decoder.max_data_index());
+	let instr = decoder.decode();
+	assert_eq!(bytes.len(), decoder.data_index());
+	assert_eq!(false, decoder.can_decode());
+
+	assert_eq!(tc.code as u32, instr.code() as u32);
+	assert_eq!(2, instr.op_count());
+	assert_eq!(bytes.len(), instr.len() as usize);
+	assert_eq!(false, instr.has_rep_prefix());
+	assert_eq!(false, instr.has_repe_prefix());
+	assert_eq!(false, instr.has_repne_prefix());
+	assert_eq!(false, instr.has_lock_prefix());
+	assert!(tc.prefix_segment == instr.segment_prefix());
+	if instr.segment_prefix() == Register::None {
+		assert_eq!(false, instr.has_segment_prefix());
+	} else {
+		assert_eq!(true, instr.has_segment_prefix());
+	}
+
+	assert!(OpKind::Memory == instr.op0_kind());
+	assert!(tc.segment == instr.memory_segment());
+	assert!(tc.base_register == instr.memory_base());
+	assert!(tc.index_register == instr.memory_index());
+	assert_eq!(tc.displacement, instr.memory_displacement());
+	assert_eq!(tc.displacement as i32 as u64, instr.memory_displacement64());
+	assert_eq!(1 << tc.scale, instr.memory_index_scale());
+	assert_eq!(tc.displ_size, instr.memory_displ_size());
+
+	assert!(OpKind::Register == instr.op1_kind());
+	assert!(tc.register == instr.op1_register());
+	verify_constant_offsets(&tc.constant_offsets, &decoder.get_constant_offsets(&instr));
 }

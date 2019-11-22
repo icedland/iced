@@ -1254,7 +1254,7 @@ impl<'a> Decoder<'a> {
 				if tuple_type == TupleType::None {
 					instruction.set_memory_displacement(self.read_u8() as i8 as u16 as u32);
 				} else {
-					instruction.set_memory_displacement((self.disp8n(tuple_type) * self.read_u8() as i8 as u32) as u16 as u32);
+					instruction.set_memory_displacement(self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32) as u16 as u32);
 				}
 			}
 			_ => {
@@ -1318,7 +1318,7 @@ impl<'a> Decoder<'a> {
 					if tuple_type == TupleType::None {
 						displ = self.read_u8() as i8 as u32;
 					} else {
-						displ = self.disp8n(tuple_type) * self.read_u8() as i8 as u32;
+						displ = self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32);
 					}
 				} else {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
@@ -1327,7 +1327,7 @@ impl<'a> Decoder<'a> {
 					if tuple_type == TupleType::None {
 						instruction.set_memory_displacement(self.read_u8() as i8 as u32);
 					} else {
-						instruction.set_memory_displacement(self.disp8n(tuple_type) * self.read_u8() as i8 as u32);
+						instruction.set_memory_displacement(self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32));
 					}
 					super::instruction_internal::internal_set_memory_base_u32(
 						instruction,

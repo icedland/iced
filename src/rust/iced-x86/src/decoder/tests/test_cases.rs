@@ -22,13 +22,24 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::super::test_utils::*;
+use super::decoder_mem_test_case::*;
 use super::decoder_test_case::*;
+use super::mem_test_parser::*;
 use super::test_parser::*;
 
 fn read_decoder_test_cases(bitness: i32) -> Vec<DecoderTestCase> {
 	let mut filename = get_decoder_unit_tests_dir();
 	filename.push(format!("DecoderTest{}.txt", bitness));
 	let parser = DecoderTestParser::new(bitness, filename.as_path());
+	let mut v = Vec::new();
+	v.extend(parser);
+	v
+}
+
+fn read_decoder_mem_test_cases(bitness: i32) -> Vec<DecoderMemoryTestCase> {
+	let mut filename = get_decoder_unit_tests_dir();
+	filename.push(format!("MemoryTest{}.txt", bitness));
+	let parser = DecoderMemoryTestParser::new(bitness, filename.as_path());
 	let mut v = Vec::new();
 	v.extend(parser);
 	v
@@ -43,6 +54,15 @@ pub(crate) fn get_test_cases(bitness: i32) -> &'static Vec<DecoderTestCase> {
 	}
 }
 
+pub(crate) fn get_mem_test_cases(bitness: i32) -> &'static Vec<DecoderMemoryTestCase> {
+	match bitness {
+		16 => &*TEST_CASES_MEM_16,
+		32 => &*TEST_CASES_MEM_32,
+		64 => &*TEST_CASES_MEM_64,
+		_ => panic!(),
+	}
+}
+
 lazy_static! {
 	static ref TEST_CASES_16: Vec<DecoderTestCase> = { read_decoder_test_cases(16) };
 }
@@ -51,4 +71,14 @@ lazy_static! {
 }
 lazy_static! {
 	static ref TEST_CASES_64: Vec<DecoderTestCase> = { read_decoder_test_cases(64) };
+}
+
+lazy_static! {
+	static ref TEST_CASES_MEM_16: Vec<DecoderMemoryTestCase> = { read_decoder_mem_test_cases(16) };
+}
+lazy_static! {
+	static ref TEST_CASES_MEM_32: Vec<DecoderMemoryTestCase> = { read_decoder_mem_test_cases(32) };
+}
+lazy_static! {
+	static ref TEST_CASES_MEM_64: Vec<DecoderMemoryTestCase> = { read_decoder_mem_test_cases(64) };
 }

@@ -397,27 +397,12 @@ impl IntoIter {
 				DecoderTestParserConstants::OP_MASK_K5 => tc.op_mask = Register::K5,
 				DecoderTestParserConstants::OP_MASK_K6 => tc.op_mask = Register::K6,
 				DecoderTestParserConstants::OP_MASK_K7 => tc.op_mask = Register::K7,
-				DecoderTestParserConstants::CONSTANT_OFFSETS => tc.constant_offsets = self.parse_constant_offsets(value)?,
+				DecoderTestParserConstants::CONSTANT_OFFSETS => tc.constant_offsets = parse_constant_offsets(value)?,
 				_ => return Err(format!("Invalid key '{}'", key)),
 			}
 		}
 
 		Ok(tc)
-	}
-
-	fn parse_constant_offsets(&self, value: &str) -> Result<ConstantOffsets, String> {
-		let parts: Vec<&str> = value.split(";").collect();
-		if parts.len() != 6 {
-			return Err(format!("Invalid ConstantOffsets: '{}'", value));
-		}
-		let mut constant_offsets: ConstantOffsets = Default::default();
-		constant_offsets.immediate_offset = to_u8(parts[0])?;
-		constant_offsets.immediate_size = to_u8(parts[1])?;
-		constant_offsets.immediate_offset2 = to_u8(parts[2])?;
-		constant_offsets.immediate_size2 = to_u8(parts[3])?;
-		constant_offsets.displacement_offset = to_u8(parts[4])?;
-		constant_offsets.displacement_size = to_u8(parts[5])?;
-		Ok(constant_offsets)
 	}
 
 	fn read_op_kind(&self, tc: &mut DecoderTestCase, operand: i32, value: &str) -> Result<(), String> {
@@ -651,4 +636,19 @@ impl IntoIter {
 		}
 		Ok(())
 	}
+}
+
+pub(crate) fn parse_constant_offsets(value: &str) -> Result<ConstantOffsets, String> {
+	let parts: Vec<&str> = value.split(";").collect();
+	if parts.len() != 6 {
+		return Err(format!("Invalid ConstantOffsets: '{}'", value));
+	}
+	let mut constant_offsets: ConstantOffsets = Default::default();
+	constant_offsets.immediate_offset = to_u8(parts[0])?;
+	constant_offsets.immediate_size = to_u8(parts[1])?;
+	constant_offsets.immediate_offset2 = to_u8(parts[2])?;
+	constant_offsets.immediate_size2 = to_u8(parts[3])?;
+	constant_offsets.displacement_offset = to_u8(parts[4])?;
+	constant_offsets.displacement_size = to_u8(parts[5])?;
+	Ok(constant_offsets)
 }
