@@ -49,7 +49,7 @@ namespace Generator.Decoder.Rust {
 				writer.WriteLine("// 0 = memory size");
 				writer.WriteLine("// 1 = broadcast memory size");
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(crate) static SIZES: &[u8; ({IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} * 2) as usize] = &[");
+				writer.WriteLine($"pub(crate) static SIZES: [u8; ({IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} * 2) as usize] = [");
 				writer.Indent();
 
 				foreach (var d in data) {

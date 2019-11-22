@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::iced_constants::IcedConstants;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static OP_COUNT: &[u8; IcedConstants::NUMBER_OF_CODE_VALUES as usize] = &[
+pub(crate) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES as usize] = [
 	0,// INVALID
 	2,// Add_rm8_r8
 	2,// Add_rm16_r16
