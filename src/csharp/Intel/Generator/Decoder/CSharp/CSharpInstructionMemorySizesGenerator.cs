@@ -28,7 +28,8 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
-	sealed class CSharpInstructionMemorySizesGenerator : IInstructionMemorySizesGenerator {
+	[Generator(TargetLanguage.CSharp, GeneratorNames.Code_MemorySize)]
+	sealed class CSharpInstructionMemorySizesGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -37,7 +38,8 @@ namespace Generator.Decoder.CSharp {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate((EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data) {
+		public void Generate() {
+			var data = InstructionMemorySizesTable.Table;
 			const string ClassName = "InstructionMemorySizes";
 			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {

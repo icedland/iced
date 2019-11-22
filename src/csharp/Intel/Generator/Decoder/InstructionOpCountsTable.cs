@@ -22,16 +22,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Linq;
 using Generator.Enums;
 
 namespace Generator.Decoder {
 	static class InstructionOpCountsTable {
-		public static readonly (EnumValue codeEnum, int value)[] Table = CreateTable();
+		public static readonly (EnumValue codeEnum, int count)[] Table = CreateTable();
 
 		static (EnumValue codeEnum, int value)[] CreateTable() {
 			var code = CodeEnum.Instance;
 
-			var result = new (EnumValue codeEnum, int value)[] {
+			var result = new (EnumValue codeEnum, int count)[] {
 				(code["INVALID"], 0),
 				(code["Add_rm8_r8"], 2),
 				(code["Add_rm16_r16"], 2),
@@ -4238,6 +4239,8 @@ namespace Generator.Decoder {
 			};
 
 			if ((uint)result.Length != Constants.IcedConstantsType.Instance["NumberOfCodeValues"].ValueUInt64)
+				throw new InvalidOperationException();
+			if (result.Select(a => a.codeEnum).ToHashSet<EnumValue>().Count != code.Values.Length)
 				throw new InvalidOperationException();
 			Array.Sort(result, (a, b) => a.codeEnum.Value.CompareTo(b.codeEnum.Value));
 			return result;

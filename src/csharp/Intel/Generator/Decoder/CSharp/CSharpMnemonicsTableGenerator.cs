@@ -28,7 +28,8 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
-	sealed class CSharpMnemonicsTableGenerator : IMnemonicsTableGenerator {
+	[Generator(TargetLanguage.CSharp, GeneratorNames.Code_Mnemonic)]
+	sealed class CSharpMnemonicsTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -37,7 +38,8 @@ namespace Generator.Decoder.CSharp {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate((EnumValue codeEnum, EnumValue mnemonicEnum)[] data) {
+		public void Generate() {
+			var data = MnemonicsTable.Table;
 			const string ClassName = "MnemonicUtils";
 			var mnemonicName = MnemonicEnum.Instance.Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), ClassName + ".Data.g.cs")))) {

@@ -22,31 +22,18 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants {
-	interface IConstantsGenerator {
-		void Generate(ConstantsType constantsType);
-	}
-
-	sealed class ConstantsGenerator {
-		readonly GeneratorOptions generatorOptions;
-
-		public ConstantsGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
-
+	abstract class ConstantsGenerator {
 		static readonly ConstantsType[] allConstants = new ConstantsType[] {
 			IcedConstantsType.Instance,
 			DecoderTestParserConstantsType.Instance,
 			DecoderConstantsType.Instance,
 		};
 
-		public void Generate() {
-			var generators = new IConstantsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpConstantsGenerator(generatorOptions),
-				new Rust.RustConstantsGenerator(generatorOptions),
-			};
+		protected abstract void Generate(ConstantsType constantsType);
 
-			foreach (var generator in generators) {
-				foreach (var constantsType in allConstants)
-					generator.Generate(constantsType);
-			}
+		public void Generate() {
+			foreach (var constantsType in allConstants)
+				Generate(constantsType);
 		}
 	}
 }

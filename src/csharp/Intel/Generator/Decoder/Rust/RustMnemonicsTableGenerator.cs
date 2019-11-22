@@ -28,7 +28,8 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.Rust {
-	sealed class RustMnemonicsTableGenerator : IMnemonicsTableGenerator {
+	[Generator(TargetLanguage.Rust, GeneratorNames.Code_Mnemonic)]
+	sealed class RustMnemonicsTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -37,7 +38,8 @@ namespace Generator.Decoder.Rust {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate((EnumValue codeEnum, EnumValue mnemonicEnum)[] data) {
+		public void Generate() {
+			var data = MnemonicsTable.Table;
 			var mnemonicName = MnemonicEnum.Instance.Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorOptions.RustDir, "mnemonics.rs")))) {
 				writer.WriteFileHeader();

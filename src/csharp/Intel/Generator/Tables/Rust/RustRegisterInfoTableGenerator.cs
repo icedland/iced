@@ -27,7 +27,8 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
-	sealed class RustRegisterInfoTableGenerator : IRegisterInfoTableGenerator {
+	[Generator(TargetLanguage.Rust, GeneratorNames.RegisterInfo_Table)]
+	sealed class RustRegisterInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -36,7 +37,8 @@ namespace Generator.Tables.Rust {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate(RegisterInfo[] infos) {
+		public void Generate() {
+			var infos = RegisterInfoTable.Data;
 			var filename = Path.Combine(generatorOptions.RustDir, "register.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "RegisterInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));

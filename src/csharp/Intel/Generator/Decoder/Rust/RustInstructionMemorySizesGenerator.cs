@@ -28,7 +28,8 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.Rust {
-	sealed class RustInstructionMemorySizesGenerator : IInstructionMemorySizesGenerator {
+	[Generator(TargetLanguage.Rust, GeneratorNames.Code_MemorySize)]
+	sealed class RustInstructionMemorySizesGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -37,7 +38,8 @@ namespace Generator.Decoder.Rust {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate((EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] data) {
+		public void Generate() {
+			var data = InstructionMemorySizesTable.Table;
 			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorOptions.RustDir, "instruction_memory_sizes.rs")))) {
 				writer.WriteFileHeader();

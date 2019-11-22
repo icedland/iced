@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 
 namespace Generator {
 	enum Command {
@@ -39,25 +40,55 @@ namespace Generator {
 		public GeneratorOptions? GeneratorOptions = null;
 	}
 
+	sealed class GeneratorInfoComparer : IComparer<GeneratorInfo> {
+		public int Compare(GeneratorInfo x, GeneratorInfo y) {
+			int c = GetOrder(x.Language).CompareTo(GetOrder(y.Language));
+			if (c != 0)
+				return c;
+			return StringComparer.OrdinalIgnoreCase.Compare(x.Name, y.Name);
+		}
+
+		static int GetOrder(TargetLanguage language) => (int)language;
+	}
+
+	sealed class GeneratorInfo {
+		const string InvokeMethodName = "Generate";
+		readonly ConstructorInfo ctor;
+		readonly MethodInfo method;
+
+		public TargetLanguage Language { get; }
+		public string Name { get; }
+
+		public GeneratorInfo(TargetLanguage language, string name, Type type) {
+			Language = language;
+			Name = name;
+
+			var ctor = type.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, CallingConventions.Standard, new[] { typeof(GeneratorOptions) }, null);
+			if (ctor is null)
+				throw new InvalidOperationException($"Generator {type.FullName} doesn't have a constructor that takes a {nameof(GeneratorOptions)} argument");
+			this.ctor = ctor;
+
+			var method = type.GetMethod(InvokeMethodName, 0, BindingFlags.Public | BindingFlags.Instance, null, CallingConventions.Standard, Array.Empty<Type>(), null);
+			if (method is null || method.ReturnType != typeof(void))
+				throw new InvalidOperationException($"Generator {type.FullName} doesn't have a public void {InvokeMethodName}() method");
+			this.method = method;
+		}
+
+		public void Invoke(GeneratorOptions generatorOptions) {
+			var instance = ctor.Invoke(new[] { generatorOptions }) ?? throw new InvalidOperationException();
+			method.Invoke(instance, null);
+		}
+	}
+
 	static class Program {
 		static int Main(string[] args) {
 			try {
 				var generatorOptions = CreateGeneratorOptions(GeneratorFlags.None);
 				Enums.CodeEnum.AddComments(generatorOptions.UnitTestsDir);
 
-				new Decoder.DecoderTableGenerator(generatorOptions).Generate();
-				new Decoder.InstructionMemorySizesGenerator(generatorOptions).Generate();
-				new Decoder.InstructionOpCountsGenerator(generatorOptions).Generate();
-				new Decoder.MnemonicsTableGenerator(generatorOptions).Generate();
-				new Formatters.FormatterTableGenerator(generatorOptions).Generate();
-				new InstructionInfo.CpuidFeatureTableGenerator(generatorOptions).Generate();
-				new Enums.EnumsGenerator(generatorOptions).Generate();
-				new Constants.ConstantsGenerator(generatorOptions).Generate();
-				new Tables.MemorySizeInfoTableGenerator(generatorOptions).Generate();
-				new Tables.RegisterInfoTableGenerator(generatorOptions).Generate();
-				new Tables.D3nowCodeValuesTableGenerator(generatorOptions).Generate();
-				new Decoder.CSharp.EnumHashTableGen(generatorOptions).Generate();
-				new Decoder.Rust.EnumHashTableGen(generatorOptions).Generate();
+				var genInfos = GetGenerators();
+				foreach (var genInfo in genInfos)
+					genInfo.Invoke(generatorOptions);
 
 				return 0;
 			}
@@ -73,6 +104,18 @@ namespace Generator {
 			if (dir is null || !File.Exists(Path.Combine(dir, "csharp", "Iced.sln")))
 				throw new InvalidOperationException();
 			return new GeneratorOptions(dir, flags);
+		}
+
+		static List<GeneratorInfo> GetGenerators() {
+			var result = new List<GeneratorInfo>();
+			foreach (var type in typeof(Program).Assembly.GetTypes()) {
+				var attr = (GeneratorAttribute?)type.GetCustomAttribute(typeof(GeneratorAttribute));
+				if (attr is null)
+					continue;
+				result.Add(new GeneratorInfo(attr.Language, attr.Name, type));
+			}
+			result.Sort(new GeneratorInfoComparer());
+			return result;
 		}
 	}
 }

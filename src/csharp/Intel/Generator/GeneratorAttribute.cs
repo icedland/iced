@@ -21,26 +21,17 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Tables {
-	interface IMemorySizeInfoTableGenerator {
-		void Generate(MemorySizeInfo[] infos);
-	}
+using System;
 
-	sealed class MemorySizeInfoTableGenerator {
-		readonly GeneratorOptions generatorOptions;
+namespace Generator {
+	[AttributeUsage(AttributeTargets.Class)]
+	sealed class GeneratorAttribute : Attribute {
+		public TargetLanguage Language { get; }
+		public string Name { get; }
 
-		public MemorySizeInfoTableGenerator(GeneratorOptions generatorOptions) {
-			this.generatorOptions = generatorOptions;
-		}
-
-		public void Generate() {
-			var generators = new IMemorySizeInfoTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpMemorySizeInfoTableGenerator(generatorOptions),
-				new Rust.RustMemorySizeInfoTableGenerator(generatorOptions),
-			};
-
-			foreach (var generator in generators)
-				generator.Generate(MemorySizeInfoTable.Data);
+		public GeneratorAttribute(TargetLanguage language, string name) {
+			Language = language;
+			Name = name;
 		}
 	}
 }

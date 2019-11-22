@@ -26,7 +26,8 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.CSharp {
-	sealed class CSharpMemorySizeInfoTableGenerator : IMemorySizeInfoTableGenerator {
+	[Generator(TargetLanguage.CSharp, GeneratorNames.MemorySizeInfo_Table)]
+	sealed class CSharpMemorySizeInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -35,7 +36,8 @@ namespace Generator.Tables.CSharp {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate(MemorySizeInfo[] infos) {
+		public void Generate() {
+			var infos = MemorySizeInfoTable.Data;
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "MemorySizeExtensions.1.cs");
 			var updater = new FileUpdater(TargetLanguage.CSharp, "MemorySizeInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));

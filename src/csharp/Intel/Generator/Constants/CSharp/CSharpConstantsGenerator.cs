@@ -29,7 +29,8 @@ using Generator.Documentation.CSharp;
 using Generator.IO;
 
 namespace Generator.Constants.CSharp {
-	sealed class CSharpConstantsGenerator : IConstantsGenerator {
+	[Generator(TargetLanguage.CSharp, GeneratorNames.Constants)]
+	sealed class CSharpConstantsGenerator : ConstantsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, FullConstantsFileInfo> toFullFileInfo;
 		readonly Dictionary<TypeId, PartialConstantsFileInfo> toPartialFileInfo;
@@ -70,7 +71,7 @@ namespace Generator.Constants.CSharp {
 			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "DecoderTests", "DecoderTestParser.cs")));
 		}
 
-		public void Generate(ConstantsType constantsType) {
+		protected override void Generate(ConstantsType constantsType) {
 			if (toFullFileInfo.TryGetValue(constantsType.TypeId, out var fullFileInfo))
 				WriteFile(fullFileInfo, constantsType);
 			else if (toPartialFileInfo.TryGetValue(constantsType.TypeId, out var partialInfo)) {

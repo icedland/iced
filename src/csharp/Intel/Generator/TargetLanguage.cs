@@ -25,7 +25,5 @@ namespace Generator {
 	enum TargetLanguage {
 		CSharp,
 		Rust,
-
-		Last,
 	}
 }

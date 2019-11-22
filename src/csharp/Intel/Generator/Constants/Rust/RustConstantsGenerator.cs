@@ -28,7 +28,8 @@ using Generator.Documentation.Rust;
 using Generator.IO;
 
 namespace Generator.Constants.Rust {
-	sealed class RustConstantsGenerator : IConstantsGenerator {
+	[Generator(TargetLanguage.Rust, GeneratorNames.Constants)]
+	sealed class RustConstantsGenerator : ConstantsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, PartialConstantsFileInfo> toPartialFileInfo;
 		readonly RustConstantsWriter constantsWriter;
@@ -55,7 +56,7 @@ namespace Generator.Constants.Rust {
 			toPartialFileInfo.Add(TypeIds.DecoderConstants, new PartialConstantsFileInfo("DecoderConstants", Path.Combine(generatorOptions.RustDir, "test_utils", "decoder_constants.rs")));
 		}
 
-		public void Generate(ConstantsType constantsType) {
+		protected override void Generate(ConstantsType constantsType) {
 			if (toPartialFileInfo.TryGetValue(constantsType.TypeId, out var partialInfo)) {
 				if (!(partialInfo is null))
 					new FileUpdater(TargetLanguage.Rust, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteConstants(writer, partialInfo, constantsType));

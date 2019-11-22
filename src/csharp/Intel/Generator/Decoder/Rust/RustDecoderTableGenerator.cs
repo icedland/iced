@@ -25,7 +25,8 @@ using System.IO;
 using Generator.IO;
 
 namespace Generator.Decoder.Rust {
-	sealed class RustDecoderTableGenerator : IDecoderTableGenerator {
+	[Generator(TargetLanguage.Rust, GeneratorNames.Decoder_Table)]
+	sealed class RustDecoderTableGenerator {
 		readonly GeneratorOptions generatorOptions;
 
 		public RustDecoderTableGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;

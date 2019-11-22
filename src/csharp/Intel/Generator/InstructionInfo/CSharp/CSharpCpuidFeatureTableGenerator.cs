@@ -28,7 +28,8 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.InstructionInfo.CSharp {
-	sealed class CSharpCpuidFeatureTableGenerator : ICpuidFeatureTableGenerator {
+	[Generator(TargetLanguage.CSharp, GeneratorNames.CpuidFeature_Table)]
+	sealed class CSharpCpuidFeatureTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -37,7 +38,8 @@ namespace Generator.InstructionInfo.CSharp {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate(EnumValue[][] cpuidFeatures) {
+		public void Generate() {
+			var cpuidFeatures = CpuidFeatureInternalEnum.AllCombinations;
 			var header = new byte[(cpuidFeatures.Length + 7) / 8];
 			for (int i = 0; i < cpuidFeatures.Length; i++) {
 				int len = cpuidFeatures[i].Length;

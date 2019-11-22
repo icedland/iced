@@ -23,11 +23,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System.IO;
 using Generator.Constants;
-using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
-	sealed class CSharpInstructionOpCountsGenerator : IInstructionOpCountsGenerator {
+	[Generator(TargetLanguage.CSharp, GeneratorNames.Code_OpCount)]
+	sealed class CSharpInstructionOpCountsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -36,7 +36,8 @@ namespace Generator.Decoder.CSharp {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate((EnumValue codeEnum, int count)[] data) {
+		public void Generate() {
+			var data = InstructionOpCountsTable.Table;
 			const string ClassName = "InstructionOpCounts";
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
 				writer.WriteFileHeader();

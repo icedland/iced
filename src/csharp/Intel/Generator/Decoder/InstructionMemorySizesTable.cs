@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Linq;
 using Generator.Enums;
 
 namespace Generator.Decoder {
@@ -4237,6 +4238,8 @@ namespace Generator.Decoder {
 				(code["DeclareQword"], memSize["Unknown"], memSize["Unknown"]),
 			};
 			if ((uint)result.Length != Constants.IcedConstantsType.Instance["NumberOfCodeValues"].ValueUInt64)
+				throw new InvalidOperationException();
+			if (result.Select(a => a.codeEnum).ToHashSet<EnumValue>().Count != code.Values.Length)
 				throw new InvalidOperationException();
 			Array.Sort(result, (a, b) => a.codeEnum.Value.CompareTo(b.codeEnum.Value));
 			return result;

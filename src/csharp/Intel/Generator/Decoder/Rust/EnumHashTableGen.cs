@@ -26,6 +26,7 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.Rust {
+	[Generator(TargetLanguage.Rust, GeneratorNames.Enums_Table)]
 	sealed class EnumHashTableGen {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;

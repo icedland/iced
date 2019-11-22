@@ -22,7 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Formatters.Rust {
-	sealed class RustFormatterTableGenerator : IFormatterTableGenerator {
+	[Generator(TargetLanguage.Rust, GeneratorNames.Formatter_Table)]
+	sealed class RustFormatterTableGenerator {
 		readonly GeneratorOptions generatorOptions;
 
 		public RustFormatterTableGenerator(GeneratorOptions generatorOptions) =>

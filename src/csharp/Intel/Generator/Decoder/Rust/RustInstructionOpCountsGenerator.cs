@@ -23,11 +23,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System.IO;
 using Generator.Constants;
-using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.Rust {
-	sealed class RustInstructionOpCountsGenerator : IInstructionOpCountsGenerator {
+	[Generator(TargetLanguage.Rust, GeneratorNames.Code_OpCount)]
+	sealed class RustInstructionOpCountsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -36,7 +36,8 @@ namespace Generator.Decoder.Rust {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate((EnumValue codeEnum, int count)[] data) {
+		public void Generate() {
+			var data = InstructionOpCountsTable.Table;
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorOptions.RustDir, "instruction_op_counts.rs")))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"use super::iced_constants::{IcedConstantsType.Instance.Name(idConverter)};");

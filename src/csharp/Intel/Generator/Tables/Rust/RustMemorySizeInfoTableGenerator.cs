@@ -26,7 +26,8 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
-	sealed class RustMemorySizeInfoTableGenerator : IMemorySizeInfoTableGenerator {
+	[Generator(TargetLanguage.Rust, GeneratorNames.MemorySizeInfo_Table)]
+	sealed class RustMemorySizeInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -35,7 +36,8 @@ namespace Generator.Tables.Rust {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate(MemorySizeInfo[] infos) {
+		public void Generate() {
+			var infos = MemorySizeInfoTable.Data;
 			var filename = Path.Combine(generatorOptions.RustDir, "memory_size.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "MemorySizeInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));

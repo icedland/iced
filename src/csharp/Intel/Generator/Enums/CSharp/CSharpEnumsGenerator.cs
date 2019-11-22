@@ -28,7 +28,8 @@ using Generator.Documentation.CSharp;
 using Generator.IO;
 
 namespace Generator.Enums.CSharp {
-	sealed class CSharpEnumsGenerator : IEnumsGenerator {
+	[Generator(TargetLanguage.CSharp, GeneratorNames.Enums)]
+	sealed class CSharpEnumsGenerator : EnumsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, FullEnumFileInfo> toFullFileInfo;
 		readonly Dictionary<TypeId, PartialEnumFileInfo> toPartialFileInfo;
@@ -117,7 +118,7 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.StateFlags, new PartialEnumFileInfo("StateFlags", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Decoder.cs"), "uint"));
 		}
 
-		public void Generate(EnumType enumType) {
+		protected override void Generate(EnumType enumType) {
 			if (toFullFileInfo.TryGetValue(enumType.TypeId, out var fullFileInfo))
 				WriteFile(fullFileInfo, enumType);
 			else if (toPartialFileInfo.TryGetValue(enumType.TypeId, out var partialInfo)) {

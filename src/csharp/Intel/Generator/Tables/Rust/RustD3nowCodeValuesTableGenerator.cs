@@ -27,7 +27,8 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
-	sealed class RustD3nowCodeValuesTableGenerator : ID3nowCodeValuesTableGenerator {
+	[Generator(TargetLanguage.Rust, GeneratorNames.D3now_Table)]
+	sealed class RustD3nowCodeValuesTableGenerator : D3nowCodeValuesTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -36,7 +37,7 @@ namespace Generator.Tables.Rust {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate((int index, EnumValue enumValue)[] infos) {
+		protected override void Generate((int index, EnumValue enumValue)[] infos) {
 			var filename = Path.Combine(generatorOptions.RustDir, "decoder", "handlers_3dnow.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "D3nowCodeValues", filename);
 			updater.Generate(writer => WriteTable(writer, infos));

@@ -22,15 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Enums {
-	interface IEnumsGenerator {
-		void Generate(EnumType enumType);
-	}
-
-	sealed class EnumsGenerator {
-		readonly GeneratorOptions generatorOptions;
-
-		public EnumsGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
-
+	abstract class EnumsGenerator {
 		static readonly EnumType[] allEnums = new EnumType[] {
 			CodeEnum.Instance,
 			CodeSizeEnum.Instance,
@@ -75,16 +67,11 @@ namespace Generator.Enums {
 			OpCodeOperandKindEnum.Instance,
 		};
 
-		public void Generate() {
-			var generators = new IEnumsGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpEnumsGenerator(generatorOptions),
-				new Rust.RustEnumsGenerator(generatorOptions),
-			};
+		protected abstract void Generate(EnumType enumType);
 
-			foreach (var generator in generators) {
-				foreach (var enumType in allEnums)
-					generator.Generate(enumType);
-			}
+		public void Generate() {
+			foreach (var enumType in allEnums)
+				Generate(enumType);
 		}
 	}
 }

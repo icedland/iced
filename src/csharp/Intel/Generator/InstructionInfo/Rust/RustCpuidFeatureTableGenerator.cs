@@ -24,13 +24,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using Generator.Enums;
 
 namespace Generator.InstructionInfo.Rust {
-	sealed class RustCpuidFeatureTableGenerator : ICpuidFeatureTableGenerator {
+	[Generator(TargetLanguage.Rust, GeneratorNames.CpuidFeature_Table)]
+	sealed class RustCpuidFeatureTableGenerator {
 		readonly GeneratorOptions generatorOptions;
 
 		public RustCpuidFeatureTableGenerator(GeneratorOptions generatorOptions) =>
 			this.generatorOptions = generatorOptions;
 
-		public void Generate(EnumValue[][] cpuidFeatures) {
+		public void Generate() {
+			var cpuidFeatures = CpuidFeatureInternalEnum.AllCombinations;
 			//TODO:
 		}
 	}

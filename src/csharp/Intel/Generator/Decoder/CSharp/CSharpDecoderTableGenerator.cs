@@ -25,7 +25,8 @@ using System.IO;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
-	sealed class CSharpDecoderTableGenerator : IDecoderTableGenerator {
+	[Generator(TargetLanguage.CSharp, GeneratorNames.Decoder_Table)]
+	sealed class CSharpDecoderTableGenerator {
 		readonly GeneratorOptions generatorOptions;
 
 		public CSharpDecoderTableGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;

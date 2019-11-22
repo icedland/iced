@@ -30,7 +30,8 @@ using Generator.Documentation.Rust;
 using Generator.IO;
 
 namespace Generator.Enums.Rust {
-	sealed class RustEnumsGenerator : IEnumsGenerator {
+	[Generator(TargetLanguage.Rust, GeneratorNames.Enums)]
+	sealed class RustEnumsGenerator : EnumsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, PartialEnumFileInfo?> toPartialFileInfo;
 		readonly RustDocCommentWriter docWriter;
@@ -103,7 +104,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.OpCodeOperandKind, new PartialEnumFileInfo("OpCodeOperandKind", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureEncoder, RustConstants.AttributeAllowNonCamelCaseTypes }));
 		}
 
-		public void Generate(EnumType enumType) {
+		protected override void Generate(EnumType enumType) {
 			if (toPartialFileInfo.TryGetValue(enumType.TypeId, out var partialInfo)) {
 				if (!(partialInfo is null))
 					new FileUpdater(TargetLanguage.Rust, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));

@@ -26,7 +26,8 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.CSharp {
-	sealed class CSharpD3nowCodeValuesTableGenerator : ID3nowCodeValuesTableGenerator {
+	[Generator(TargetLanguage.CSharp, GeneratorNames.D3now_Table)]
+	sealed class CSharpD3nowCodeValuesTableGenerator : D3nowCodeValuesTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
@@ -35,7 +36,7 @@ namespace Generator.Tables.CSharp {
 			this.generatorOptions = generatorOptions;
 		}
 
-		public void Generate((int index, EnumValue enumValue)[] infos) {
+		protected override void Generate((int index, EnumValue enumValue)[] infos) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.DecoderNamespace), "OpCodeHandlers_D3NOW.cs");
 			var updater = new FileUpdater(TargetLanguage.CSharp, "D3nowCodeValues", filename);
 			updater.Generate(writer => WriteTable(writer, infos));

@@ -52,7 +52,7 @@ namespace Generator {
 			HasMasmFormatter = (flags & GeneratorFlags.NoMasmFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
 			HasNasmFormatter = (flags & GeneratorFlags.NoNasmFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
 			UnitTestsDir = GetAndVerifyPath(baseDir, "UnitTests", "Intel");
-			langDirs = new string[(int)TargetLanguage.Last];
+			langDirs = new string[Enum.GetValues(typeof(TargetLanguage)).Length];
 			for (int i = 0; i < langDirs.Length; i++) {
 				string path;
 				switch ((TargetLanguage)i) {
@@ -62,8 +62,6 @@ namespace Generator {
 				case TargetLanguage.Rust:
 					path = GetAndVerifyPath(baseDir, "rust", "iced-x86", "src");
 					break;
-
-				case TargetLanguage.Last:
 				default:
 					throw new InvalidOperationException();
 				}

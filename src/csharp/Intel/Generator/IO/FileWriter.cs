@@ -50,7 +50,6 @@ namespace Generator.IO {
 				multiLineComment = ("/*", "*/");
 				break;
 
-			case TargetLanguage.Last:
 			default:
 				throw new InvalidOperationException();
 			}

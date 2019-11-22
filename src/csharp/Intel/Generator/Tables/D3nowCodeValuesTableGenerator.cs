@@ -24,23 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using Generator.Enums;
 
 namespace Generator.Tables {
-	interface ID3nowCodeValuesTableGenerator {
-		void Generate((int index, EnumValue enumValue)[] infos);
-	}
-
-	sealed class D3nowCodeValuesTableGenerator {
-		readonly GeneratorOptions generatorOptions;
-
-		public D3nowCodeValuesTableGenerator(GeneratorOptions generatorOptions) {
-			this.generatorOptions = generatorOptions;
-		}
+	abstract class D3nowCodeValuesTableGenerator {
+		protected abstract void Generate((int index, EnumValue enumValue)[] infos);
 
 		public void Generate() {
-			var generators = new ID3nowCodeValuesTableGenerator[(int)TargetLanguage.Last] {
-				new CSharp.CSharpD3nowCodeValuesTableGenerator(generatorOptions),
-				new Rust.RustD3nowCodeValuesTableGenerator(generatorOptions),
-			};
-
 			var infos = new (int index, EnumValue enumValue)[] {
 				( 0x0C, CodeEnum.Instance["D3NOW_Pi2fw_mm_mmm64"] ),
 				( 0x0D, CodeEnum.Instance["D3NOW_Pi2fd_mm_mmm64"] ),
@@ -70,8 +57,7 @@ namespace Generator.Tables {
 				( 0xBF, CodeEnum.Instance["D3NOW_Pavgusb_mm_mmm64"] ),
 			};
 
-			foreach (var generator in generators)
-				generator.Generate(infos);
+			Generate(infos);
 		}
 	}
 }
