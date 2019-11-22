@@ -29,14 +29,14 @@ namespace Iced.Intel {
 	/// <summary>Rounding control</summary>
 	public enum RoundingControl {
 		/// <summary>No rounding mode</summary>
-		None = 0,
+		None,
 		/// <summary>Round to nearest (even)</summary>
-		RoundToNearest = 1,
+		RoundToNearest,
 		/// <summary>Round down (toward -inf)</summary>
-		RoundDown = 2,
+		RoundDown,
 		/// <summary>Round up (toward +inf)</summary>
-		RoundUp = 3,
+		RoundUp,
 		/// <summary>Round toward zero (truncate)</summary>
-		RoundTowardZero = 4,
+		RoundTowardZero,
 	}
 }

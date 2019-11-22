@@ -3117,4 +3117,11 @@ impl fmt::Debug for Mnemonic {
 		Ok(())
 	}
 }
+impl Default for Mnemonic {
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	fn default() -> Self {
+		Mnemonic::INVALID
+	}
+}
 // GENERATOR-END: Mnemonic

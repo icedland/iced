@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::super::*;
 
+#[derive(Default)]
 pub(crate) struct DecoderTestCase {
 	pub(crate) line_number: i32,
 	pub(crate) decoder_options: u32,
@@ -68,57 +69,6 @@ pub(crate) struct DecoderTestCase {
 	pub(crate) op3_register: Register,
 	pub(crate) op4_register: Register,
 	pub(crate) constant_offsets: ConstantOffsets,
-}
-
-impl Default for DecoderTestCase {
-	fn default() -> Self {
-		DecoderTestCase {
-			line_number: 0,
-			decoder_options: 0,
-			bitness: 0,
-			hex_bytes: Default::default(),
-			encoded_hex_bytes: Default::default(),
-			code: Code::INVALID,
-			mnemonic: Mnemonic::INVALID,
-			op_count: 0,
-			zeroing_masking: false,
-			suppress_all_exceptions: false,
-			is_broadcast: false,
-			has_xacquire_prefix: false,
-			has_xrelease_prefix: false,
-			has_repe_prefix: false,
-			has_repne_prefix: false,
-			has_lock_prefix: false,
-			vsib_bitness: 0,
-			op_mask: Register::None,
-			rounding_control: RoundingControl::None,
-			op0_kind: OpKind::Register,
-			op1_kind: OpKind::Register,
-			op2_kind: OpKind::Register,
-			op3_kind: OpKind::Register,
-			op4_kind: OpKind::Register,
-			segment_prefix: Register::None,
-			memory_segment: Register::None,
-			memory_base: Register::None,
-			memory_index: Register::None,
-			memory_displ_size: 0,
-			memory_size: MemorySize::Unknown,
-			memory_index_scale: 0,
-			memory_displacement: 0,
-			immediate: 0,
-			immediate_2nd: 0,
-			memory_address64: 0,
-			near_branch: 0,
-			far_branch: 0,
-			far_branch_selector: 0,
-			op0_register: Register::None,
-			op1_register: Register::None,
-			op2_register: Register::None,
-			op3_register: Register::None,
-			op4_register: Register::None,
-			constant_offsets: Default::default(),
-		}
-	}
 }
 
 impl DecoderTestCase {

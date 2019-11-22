@@ -21049,6 +21049,13 @@ impl fmt::Debug for Code {
 		Ok(())
 	}
 }
+impl Default for Code {
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	fn default() -> Self {
+		Code::INVALID
+	}
+}
 // GENERATOR-END: Code
 
 impl Code {

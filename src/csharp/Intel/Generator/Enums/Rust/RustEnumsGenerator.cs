@@ -169,6 +169,21 @@ namespace Generator.Enums.Rust {
 			writer.WriteLine("}");
 			writer.Unindent();
 			writer.WriteLine("}");
+
+			writer.WriteLine($"impl Default for {enumTypeName} {{");
+			writer.Indent();
+			writer.WriteLine(RustConstants.AttributeMustUse);
+			writer.WriteLine(RustConstants.AttributeInline);
+			writer.WriteLine("fn default() -> Self {");
+			writer.Indent();
+			var defaultValue = enumType.Values[0];
+			if (defaultValue.Value != 0)
+				throw new InvalidOperationException();
+			writer.WriteLine($"{enumTypeName}::{defaultValue.Name(idConverter)}");
+			writer.Unindent();
+			writer.WriteLine("}");
+			writer.Unindent();
+			writer.WriteLine("}");
 		}
 	}
 }

@@ -27,11 +27,11 @@ namespace Generator.Enums {
 
 		static EnumValue[] GetValues() =>
 			new EnumValue[] {
-				new EnumValue("None = 0", "No rounding mode"),
-				new EnumValue("RoundToNearest = 1", "Round to nearest (even)"),
-				new EnumValue("RoundDown = 2", "Round down (toward -inf)"),
-				new EnumValue("RoundUp = 3", "Round up (toward +inf)"),
-				new EnumValue("RoundTowardZero = 4", "Round toward zero (truncate)"),
+				new EnumValue("None", "No rounding mode"),
+				new EnumValue("RoundToNearest", "Round to nearest (even)"),
+				new EnumValue("RoundDown", "Round down (toward -inf)"),
+				new EnumValue("RoundUp", "Round up (toward +inf)"),
+				new EnumValue("RoundTowardZero", "Round toward zero (truncate)"),
 			};
 
 		public static readonly EnumType Instance = new EnumType(TypeIds.RoundingControl, documentation, GetValues(), EnumTypeFlags.Public);

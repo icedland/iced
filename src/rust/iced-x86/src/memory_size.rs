@@ -688,6 +688,13 @@ impl fmt::Debug for MemorySize {
 		Ok(())
 	}
 }
+impl Default for MemorySize {
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	fn default() -> Self {
+		MemorySize::Unknown
+	}
+}
 // GENERATOR-END: MemorySize
 
 #[cfg(feature = "INSTR_INFO")]

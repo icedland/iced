@@ -965,6 +965,13 @@ impl fmt::Debug for Register {
 		Ok(())
 	}
 }
+impl Default for Register {
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	fn default() -> Self {
+		Register::None
+	}
+}
 // GENERATOR-END: Register
 
 impl Register {
