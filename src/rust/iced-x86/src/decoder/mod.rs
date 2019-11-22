@@ -22,8 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #![allow(dead_code)] //TODO: REMOVE
-#![allow(unused_variables)] //TODO: REMOVE
-#![allow(trivial_casts)] //TODO: REMOVE
 
 mod handlers;
 mod handlers_3dnow;

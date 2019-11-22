@@ -512,7 +512,7 @@ impl Instruction {
 	#[inline]
 	pub fn set_op4_kind(&mut self, new_value: OpKind) {
 		if new_value != OpKind::Immediate8 {
-			panic!("NYI"); //TODO:
+			panic!();
 		}
 	}
 
@@ -529,7 +529,7 @@ impl Instruction {
 			2 => self.op2_kind(),
 			3 => self.op3_kind(),
 			4 => self.op4_kind(),
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -546,7 +546,7 @@ impl Instruction {
 			2 => self.set_op2_kind(op_kind),
 			3 => self.set_op3_kind(op_kind),
 			4 => self.set_op4_kind(op_kind),
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -741,7 +741,7 @@ impl Instruction {
 			OpKind::Immediate8to32 => self.immediate8to32() as u64,
 			OpKind::Immediate8to64 => self.immediate8to64() as u64,
 			OpKind::Immediate32to64 => self.immediate32to64() as u64,
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -791,7 +791,7 @@ impl Instruction {
 			OpKind::Immediate16 => self.immediate = new_value as u16 as u32,
 			OpKind::Immediate32to64 | OpKind::Immediate32 => self.immediate = new_value as u32,
 			OpKind::Immediate64 => self.set_immediate64(new_value),
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -1204,7 +1204,7 @@ impl Instruction {
 	#[inline]
 	pub fn set_op4_register(&mut self, new_value: Register) {
 		if new_value != Register::None {
-			panic!("NYI"); //TODO:
+			panic!();
 		}
 	}
 
@@ -1221,7 +1221,7 @@ impl Instruction {
 			2 => self.op2_register(),
 			3 => self.op3_register(),
 			4 => self.op4_register(),
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -1238,7 +1238,7 @@ impl Instruction {
 			2 => self.set_op2_register(new_value),
 			3 => self.set_op3_register(new_value),
 			4 => self.set_op4_register(new_value),
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -1400,7 +1400,7 @@ impl Instruction {
 			13 => self.mem_index_reg = new_value,
 			14 => self.op_kind_flags = (self.op_kind_flags & 0xFFFF_FF00) | new_value as u32,
 			15 => self.op_kind_flags = (self.op_kind_flags & 0xFFFF_00FF) | ((new_value as u32) << 8),
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -1429,7 +1429,7 @@ impl Instruction {
 			13 => self.mem_index_reg,
 			14 => self.op_kind_flags as u8,
 			15 => (self.op_kind_flags >> 8) as u8,
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -1471,7 +1471,7 @@ impl Instruction {
 				self.mem_index_reg = (new_value >> 8) as u8;
 			}
 			7 => self.op_kind_flags = (self.op_kind_flags & 0xFFFF_0000) | new_value as u32,
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -1492,7 +1492,7 @@ impl Instruction {
 			5 => (self.mem_displ >> 16) as u16,
 			6 => self.mem_base_reg as u16 | ((self.mem_index_reg as u16) << 8),
 			7 => self.op_kind_flags as u16,
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -1530,7 +1530,7 @@ impl Instruction {
 				self.mem_index_reg = (new_value >> 8) as u8;
 				self.op_kind_flags = (self.op_kind_flags & 0xFFFF_0000) | (new_value >> 16);
 			}
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -1547,7 +1547,7 @@ impl Instruction {
 			1 => self.immediate,
 			2 => self.mem_displ,
 			3 => self.mem_base_reg as u32 | ((self.mem_index_reg as u32) << 8) | (self.op_kind_flags << 16),
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -1585,7 +1585,7 @@ impl Instruction {
 				self.mem_index_reg = (new_value >> 40) as u8;
 				self.op_kind_flags = (self.op_kind_flags & 0xFFFF_0000) | (new_value >> 48) as u32;
 			}
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 
@@ -1608,7 +1608,7 @@ impl Instruction {
 			1 => {
 				self.mem_displ as u64 | ((self.mem_base_reg as u64) << 32) | ((self.mem_index_reg as u64) << 40) | ((self.op_kind_flags as u64) << 48)
 			}
-			_ => panic!("NYI"), //TODO:
+			_ => panic!(),
 		}
 	}
 

@@ -21,8 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#![allow(dead_code)] //TODO:
-
 use super::super::super::*;
 
 pub(crate) struct DecoderTestCase {

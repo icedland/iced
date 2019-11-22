@@ -97,7 +97,7 @@ namespace Generator.Decoder {
 			var baseName = enumValue.RawName;
 			if (handlers.Length >= 2 && handlers[1] is EnumValue codeValue && codeValue.DeclaringType.TypeId == TypeIds.Code)
 				baseName = baseName + "_" + codeValue.RawName;
-			baseName = "GEN_" + baseName;
+			baseName = "Gen" + baseName;
 			baseName = idConverter.Static(baseName);
 			if (!referencedHandlers.ContainsKey(baseName))
 				return baseName;

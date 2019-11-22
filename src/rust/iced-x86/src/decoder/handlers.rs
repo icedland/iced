@@ -46,7 +46,7 @@ pub(crate) struct OpCodeHandler_Invalid {
 }
 
 impl OpCodeHandler_Invalid {
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	pub(crate) fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, _instruction: &mut Instruction) {
 		decoder.set_invalid_instruction();
 	}
 }
@@ -60,7 +60,7 @@ pub(crate) struct OpCodeHandler_Simple {
 }
 
 impl OpCodeHandler_Simple {
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	pub(crate) fn decode(self_ptr: *const OpCodeHandler, _decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 	}
@@ -101,6 +101,7 @@ pub(crate) struct OpCodeHandler_Group8x64 {
 }
 
 impl OpCodeHandler_Group8x64 {
+	#[allow(trivial_casts)]
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		assert_eq!(8, this.table_low.len());

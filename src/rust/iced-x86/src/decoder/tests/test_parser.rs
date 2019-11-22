@@ -21,8 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, &mut OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#![allow(dead_code)] //TODO:
-
 use super::super::super::test_utils::from_str_conv::*;
 use super::super::super::*;
 use super::decoder_test_case::*;
@@ -253,10 +251,10 @@ impl Iterator for IntoIter {
 
 	fn next(&mut self) -> Option<Self::Item> {
 		loop {
-			self.line_number += 1;
 			match self.lines.next() {
 				None => return None,
 				Some(info) => {
+					self.line_number += 1;
 					let result = match info {
 						Ok(line) => {
 							if line.is_empty() || line.starts_with("#") {

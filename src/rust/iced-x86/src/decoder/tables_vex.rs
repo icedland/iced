@@ -812,7 +812,7 @@ static GEN_MANDATORY_PREFIX2_4_296: OpCodeHandler_MandatoryPrefix2 = OpCodeHandl
 };
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_R_DI_VX_RX: OpCodeHandler_VEX_rDI_VX_RX = OpCodeHandler_VEX_rDI_VX_RX {
+static GENR_DI_VX_RX: OpCodeHandler_VEX_rDI_VX_RX = OpCodeHandler_VEX_rDI_VX_RX {
 	decode: OpCodeHandler_VEX_rDI_VX_RX::decode,
 	has_modrm: true,
 	base_reg: Register::XMM0,
@@ -824,7 +824,7 @@ static GEN_VECTOR_LENGTH_370: OpCodeHandler_VectorLength_VEX = OpCodeHandler_Vec
 	decode: OpCodeHandler_VectorLength_VEX::decode,
 	has_modrm: true,
 	handlers: [
-		unsafe { HandlerTransmuter { from: &GEN_R_DI_VX_RX }.to },
+		unsafe { HandlerTransmuter { from: &GENR_DI_VX_RX }.to },
 		unsafe { HandlerTransmuter { from: &GEN_INVALID }.to },
 		unsafe { HandlerTransmuter { from: &GEN_INVALID }.to },
 		unsafe { HandlerTransmuter { from: &GEN_INVALID }.to },

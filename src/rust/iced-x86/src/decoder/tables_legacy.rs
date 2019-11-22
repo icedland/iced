@@ -4766,7 +4766,7 @@ static GEN_MANDATORY_PREFIX_105: OpCodeHandler_MandatoryPrefix = OpCodeHandler_M
 };
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_R_DI_VX_RX: OpCodeHandler_rDI_VX_RX = OpCodeHandler_rDI_VX_RX {
+static GENR_DI_VX_RX: OpCodeHandler_rDI_VX_RX = OpCodeHandler_rDI_VX_RX {
 	decode: OpCodeHandler_rDI_VX_RX::decode,
 	has_modrm: true,
 	base_reg: Register::XMM0,
@@ -4774,7 +4774,7 @@ static GEN_R_DI_VX_RX: OpCodeHandler_rDI_VX_RX = OpCodeHandler_rDI_VX_RX {
 };
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_R_DI_P_N_MASKMOVQ_R_DI_MM_MM: OpCodeHandler_rDI_P_N = OpCodeHandler_rDI_P_N {
+static GENR_DI_P_N_MASKMOVQ_R_DI_MM_MM: OpCodeHandler_rDI_P_N = OpCodeHandler_rDI_P_N {
 	decode: OpCodeHandler_rDI_P_N::decode,
 	has_modrm: true,
 	code: Code::Maskmovq_rDI_mm_mm as u32,
@@ -4785,8 +4785,8 @@ static GEN_MANDATORY_PREFIX_104: OpCodeHandler_MandatoryPrefix = OpCodeHandler_M
 	decode: OpCodeHandler_MandatoryPrefix::decode,
 	has_modrm: true,
 	handlers: [
-		unsafe { HandlerTransmuter { from: &GEN_R_DI_P_N_MASKMOVQ_R_DI_MM_MM }.to },
-		unsafe { HandlerTransmuter { from: &GEN_R_DI_VX_RX }.to },
+		unsafe { HandlerTransmuter { from: &GENR_DI_P_N_MASKMOVQ_R_DI_MM_MM }.to },
+		unsafe { HandlerTransmuter { from: &GENR_DI_VX_RX }.to },
 		unsafe { HandlerTransmuter { from: &GEN_INVALID }.to },
 		unsafe { HandlerTransmuter { from: &GEN_INVALID }.to },
 	],
@@ -12005,7 +12005,7 @@ static GEN_DX_AL_OUT_DX_AL: OpCodeHandler_DX_AL = OpCodeHandler_DX_AL {
 };
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_E_AX_DX_IN_AX_DX: OpCodeHandler_eAX_DX = OpCodeHandler_eAX_DX {
+static GENE_AX_DX_IN_AX_DX: OpCodeHandler_eAX_DX = OpCodeHandler_eAX_DX {
 	decode: OpCodeHandler_eAX_DX::decode,
 	has_modrm: false,
 	code16: Code::In_AX_DX as u32,
@@ -16830,7 +16830,7 @@ pub(crate) static HANDLERS_XX: [&OpCodeHandler; 0x100] = [
 	/*EA*/unsafe { HandlerTransmuter { from: &GEN_BITNESS_38 }.to },
 	/*EB*/unsafe { HandlerTransmuter { from: &GEN_JB_JMP_REL8_16 }.to },
 	/*EC*/unsafe { HandlerTransmuter { from: &GEN_AL_DX_IN_AL_DX }.to },
-	/*ED*/unsafe { HandlerTransmuter { from: &GEN_E_AX_DX_IN_AX_DX }.to },
+	/*ED*/unsafe { HandlerTransmuter { from: &GENE_AX_DX_IN_AX_DX }.to },
 	/*EE*/unsafe { HandlerTransmuter { from: &GEN_DX_AL_OUT_DX_AL }.to },
 	/*EF*/unsafe { HandlerTransmuter { from: &GEN_DX_E_AX_OUT_DX_AX }.to },
 	/*F0*/unsafe { HandlerTransmuter { from: &GEN_INVALID }.to },

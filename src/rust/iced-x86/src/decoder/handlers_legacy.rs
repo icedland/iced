@@ -202,7 +202,6 @@ impl OpCodeHandler_MandatoryPrefix3 {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::Legacy);
-		let handlers = if decoder.state.mod_ == 3 { this.handlers_reg } else { this.handlers_mem };
 		// Safe, array has 4 elements and mandatory_prefix is 0..3
 		let (handler, mandatory_prefix) = unsafe {
 			if decoder.state.mod_ == 3 {
@@ -5699,7 +5698,7 @@ pub(crate) struct OpCodeHandler_Wbinvd {
 }
 
 impl OpCodeHandler_Wbinvd {
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	pub(crate) fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		debug_assert!(decoder.state.encoding() == EncodingKind::Legacy);
 		if (decoder.options & DecoderOptions::NO_WBNOINVD) != 0 || decoder.state.mandatory_prefix != MandatoryPrefixByte::PF3 as u32 {
 			super::instruction_internal::internal_set_code(instruction, Code::Wbinvd);
