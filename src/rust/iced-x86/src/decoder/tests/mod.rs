@@ -69,9 +69,9 @@ fn decode_test(bitness: i32, tc: &DecoderTestCase) {
 	let instr = decoder.decode();
 	assert_eq!(bytes.len(), decoder.data_index());
 	assert_eq!(false, decoder.can_decode());
-	assert_eq!(tc.code as u32, instr.code() as u32);
-	assert_eq!(tc.mnemonic as u32, instr.mnemonic() as u32);
-	assert_eq!(instr.mnemonic() as u32, instr.code().to_mnemonic() as u32);
+	assert_eq!(tc.code, instr.code());
+	assert_eq!(tc.mnemonic, instr.mnemonic());
+	assert_eq!(instr.mnemonic(), instr.code().to_mnemonic());
 	assert_eq!(bytes.len(), instr.len() as usize);
 	assert_eq!(rip, instr.ip());
 	assert_eq!(decoder.ip(), instr.next_ip());
@@ -107,10 +107,10 @@ fn decode_test(bitness: i32, tc: &DecoderTestCase) {
 		}
 		_ => panic!(),
 	}
-	assert!(tc.op_mask == instr.op_mask());
+	assert_eq!(tc.op_mask, instr.op_mask());
 	assert_eq!(tc.op_mask != Register::None, instr.has_op_mask());
-	assert!(tc.rounding_control == instr.rounding_control());
-	assert!(tc.segment_prefix == instr.segment_prefix());
+	assert_eq!(tc.rounding_control, instr.rounding_control());
+	assert_eq!(tc.segment_prefix, instr.segment_prefix());
 	if instr.segment_prefix() == Register::None {
 		assert_eq!(false, instr.has_segment_prefix());
 	} else {
@@ -118,81 +118,81 @@ fn decode_test(bitness: i32, tc: &DecoderTestCase) {
 	}
 	for i in 0..tc.op_count {
 		let op_kind = tc.op_kind(i);
-		assert!(op_kind == instr.op_kind(i));
+		assert_eq!(op_kind, instr.op_kind(i));
 		match op_kind {
-			OpKind::Register => assert!(tc.op_register(i) == instr.op_register(i)),
-			OpKind::NearBranch16 => assert!(tc.near_branch == instr.near_branch16() as u64),
-			OpKind::NearBranch32 => assert!(tc.near_branch == instr.near_branch32() as u64),
-			OpKind::NearBranch64 => assert!(tc.near_branch == instr.near_branch64()),
+			OpKind::Register => assert_eq!(tc.op_register(i), instr.op_register(i)),
+			OpKind::NearBranch16 => assert_eq!(tc.near_branch, instr.near_branch16() as u64),
+			OpKind::NearBranch32 => assert_eq!(tc.near_branch, instr.near_branch32() as u64),
+			OpKind::NearBranch64 => assert_eq!(tc.near_branch, instr.near_branch64()),
 			OpKind::FarBranch16 => {
-				assert!(tc.far_branch == instr.far_branch16() as u32);
-				assert!(tc.far_branch_selector == instr.far_branch_selector());
+				assert_eq!(tc.far_branch, instr.far_branch16() as u32);
+				assert_eq!(tc.far_branch_selector, instr.far_branch_selector());
 			}
 
 			OpKind::FarBranch32 => {
-				assert!(tc.far_branch == instr.far_branch32());
-				assert!(tc.far_branch_selector == instr.far_branch_selector());
+				assert_eq!(tc.far_branch, instr.far_branch32());
+				assert_eq!(tc.far_branch_selector, instr.far_branch_selector());
 			}
 
-			OpKind::Immediate8 => assert!(tc.immediate as u8 == instr.immediate8()),
-			OpKind::Immediate8_2nd => assert!(tc.immediate_2nd == instr.immediate8_2nd()),
-			OpKind::Immediate16 => assert!(tc.immediate as u16 == instr.immediate16()),
-			OpKind::Immediate32 => assert!(tc.immediate as u32 == instr.immediate32()),
-			OpKind::Immediate64 => assert!(tc.immediate == instr.immediate64()),
-			OpKind::Immediate8to16 => assert!(tc.immediate as i16 == instr.immediate8to16()),
-			OpKind::Immediate8to32 => assert!(tc.immediate as i32 == instr.immediate8to32()),
-			OpKind::Immediate8to64 => assert!(tc.immediate as i64 == instr.immediate8to64()),
-			OpKind::Immediate32to64 => assert!(tc.immediate as i64 == instr.immediate32to64()),
+			OpKind::Immediate8 => assert_eq!(tc.immediate as u8, instr.immediate8()),
+			OpKind::Immediate8_2nd => assert_eq!(tc.immediate_2nd, instr.immediate8_2nd()),
+			OpKind::Immediate16 => assert_eq!(tc.immediate as u16, instr.immediate16()),
+			OpKind::Immediate32 => assert_eq!(tc.immediate as u32, instr.immediate32()),
+			OpKind::Immediate64 => assert_eq!(tc.immediate, instr.immediate64()),
+			OpKind::Immediate8to16 => assert_eq!(tc.immediate as i16, instr.immediate8to16()),
+			OpKind::Immediate8to32 => assert_eq!(tc.immediate as i32, instr.immediate8to32()),
+			OpKind::Immediate8to64 => assert_eq!(tc.immediate as i64, instr.immediate8to64()),
+			OpKind::Immediate32to64 => assert_eq!(tc.immediate as i64, instr.immediate32to64()),
 			OpKind::MemorySegSI | OpKind::MemorySegESI | OpKind::MemorySegRSI | OpKind::MemorySegDI | OpKind::MemorySegEDI | OpKind::MemorySegRDI => {
-				assert!(tc.memory_segment == instr.memory_segment());
-				assert!(tc.memory_size == instr.memory_size());
+				assert_eq!(tc.memory_segment, instr.memory_segment());
+				assert_eq!(tc.memory_size, instr.memory_size());
 			}
 
-			OpKind::MemoryESDI | OpKind::MemoryESEDI | OpKind::MemoryESRDI => assert!(tc.memory_size == instr.memory_size()),
+			OpKind::MemoryESDI | OpKind::MemoryESEDI | OpKind::MemoryESRDI => assert_eq!(tc.memory_size, instr.memory_size()),
 			OpKind::Memory64 => {
-				assert!(tc.memory_segment == instr.memory_segment());
-				assert!(tc.memory_address64 == instr.memory_address64());
-				assert!(tc.memory_size == instr.memory_size());
+				assert_eq!(tc.memory_segment, instr.memory_segment());
+				assert_eq!(tc.memory_address64, instr.memory_address64());
+				assert_eq!(tc.memory_size, instr.memory_size());
 			}
 
 			OpKind::Memory => {
-				assert!(tc.memory_segment == instr.memory_segment());
-				assert!(tc.memory_base == instr.memory_base());
-				assert!(tc.memory_index == instr.memory_index());
-				assert!(tc.memory_index_scale == instr.memory_index_scale());
-				assert!(tc.memory_displacement == instr.memory_displacement());
-				assert!(tc.memory_displacement as i32 as u64 == instr.memory_displacement64());
-				assert!(tc.memory_displ_size == instr.memory_displ_size());
-				assert!(tc.memory_size == instr.memory_size());
+				assert_eq!(tc.memory_segment, instr.memory_segment());
+				assert_eq!(tc.memory_base, instr.memory_base());
+				assert_eq!(tc.memory_index, instr.memory_index());
+				assert_eq!(tc.memory_index_scale, instr.memory_index_scale());
+				assert_eq!(tc.memory_displacement, instr.memory_displacement());
+				assert_eq!(tc.memory_displacement as i32 as u64, instr.memory_displacement64());
+				assert_eq!(tc.memory_displ_size, instr.memory_displ_size());
+				assert_eq!(tc.memory_size, instr.memory_size());
 			}
 		}
 	}
 	if tc.op_count >= 1 {
-		assert!(tc.op0_kind == instr.op0_kind());
+		assert_eq!(tc.op0_kind, instr.op0_kind());
 		if tc.op0_kind == OpKind::Register {
-			assert!(tc.op0_register == instr.op0_register());
+			assert_eq!(tc.op0_register, instr.op0_register());
 		}
 		if tc.op_count >= 2 {
-			assert!(tc.op1_kind == instr.op1_kind());
+			assert_eq!(tc.op1_kind, instr.op1_kind());
 			if tc.op1_kind == OpKind::Register {
-				assert!(tc.op1_register == instr.op1_register());
+				assert_eq!(tc.op1_register, instr.op1_register());
 			}
 			if tc.op_count >= 3 {
-				assert!(tc.op2_kind == instr.op2_kind());
+				assert_eq!(tc.op2_kind, instr.op2_kind());
 				if tc.op2_kind == OpKind::Register {
-					assert!(tc.op2_register == instr.op2_register());
+					assert_eq!(tc.op2_register, instr.op2_register());
 				}
 				if tc.op_count >= 4 {
-					assert!(tc.op3_kind == instr.op3_kind());
+					assert_eq!(tc.op3_kind, instr.op3_kind());
 					if tc.op3_kind == OpKind::Register {
-						assert!(tc.op3_register == instr.op3_register());
+						assert_eq!(tc.op3_register, instr.op3_register());
 					}
 					if tc.op_count >= 5 {
-						assert!(tc.op4_kind == instr.op4_kind());
+						assert_eq!(tc.op4_kind, instr.op4_kind());
 						if tc.op4_kind == OpKind::Register {
-							assert!(tc.op4_register == instr.op4_register());
+							assert_eq!(tc.op4_register, instr.op4_register());
 						}
-						assert!(5 == tc.op_count);
+						assert_eq!(5, tc.op_count);
 					}
 				}
 			}
@@ -240,30 +240,30 @@ fn decode_mem_test(bitness: i32, tc: &DecoderMemoryTestCase) {
 	assert_eq!(bytes.len(), decoder.data_index());
 	assert_eq!(false, decoder.can_decode());
 
-	assert_eq!(tc.code as u32, instr.code() as u32);
+	assert_eq!(tc.code, instr.code());
 	assert_eq!(2, instr.op_count());
 	assert_eq!(bytes.len(), instr.len() as usize);
 	assert_eq!(false, instr.has_rep_prefix());
 	assert_eq!(false, instr.has_repe_prefix());
 	assert_eq!(false, instr.has_repne_prefix());
 	assert_eq!(false, instr.has_lock_prefix());
-	assert!(tc.prefix_segment == instr.segment_prefix());
+	assert_eq!(tc.prefix_segment, instr.segment_prefix());
 	if instr.segment_prefix() == Register::None {
 		assert_eq!(false, instr.has_segment_prefix());
 	} else {
 		assert_eq!(true, instr.has_segment_prefix());
 	}
 
-	assert!(OpKind::Memory == instr.op0_kind());
-	assert!(tc.segment == instr.memory_segment());
-	assert!(tc.base_register == instr.memory_base());
-	assert!(tc.index_register == instr.memory_index());
+	assert_eq!(OpKind::Memory, instr.op0_kind());
+	assert_eq!(tc.segment, instr.memory_segment());
+	assert_eq!(tc.base_register, instr.memory_base());
+	assert_eq!(tc.index_register, instr.memory_index());
 	assert_eq!(tc.displacement, instr.memory_displacement());
 	assert_eq!(tc.displacement as i32 as u64, instr.memory_displacement64());
 	assert_eq!(1 << tc.scale, instr.memory_index_scale());
 	assert_eq!(tc.displ_size, instr.memory_displ_size());
 
-	assert!(OpKind::Register == instr.op1_kind());
-	assert!(tc.register == instr.op1_register());
+	assert_eq!(OpKind::Register, instr.op1_kind());
+	assert_eq!(tc.register, instr.op1_register());
 	verify_constant_offsets(&tc.constant_offsets, &decoder.get_constant_offsets(&instr));
 }

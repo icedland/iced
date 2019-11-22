@@ -124,12 +124,13 @@ namespace Generator.Enums.Rust {
 
 		void WriteEnumCore(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
 			docWriter.Write(writer, enumType.Documentation, enumType.RawName);
+			var enumTypeName = enumType.Name(idConverter);
 			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);
 			if (enumType.IsPublic && enumType.IsMissingDocs)
 				writer.WriteLine("#[allow(missing_docs)]");
 			var pub = enumType.IsPublic ? "pub " : "pub(crate) ";
-			writer.WriteLine($"{pub}enum {enumType.Name(idConverter)} {{");
+			writer.WriteLine($"{pub}enum {enumTypeName} {{");
 			writer.Indent();
 
 			uint expectedValue = 0;
@@ -142,6 +143,30 @@ namespace Generator.Enums.Rust {
 				expectedValue = value.Value + 1;
 			}
 
+			writer.Unindent();
+			writer.WriteLine("}");
+
+			var arrayName = idConverter.Constant("GenDebug" + enumType.RawName);
+			writer.WriteLine("lazy_static! {");
+			writer.Indent();
+			writer.WriteLine($"static ref {arrayName}: [&'static str; {enumType.Values.Length}] = [");
+			writer.Indent();
+			writer.WriteLine("// This comment is here to prevent rustfmt from formatting this array");
+			for (int i = 0; i < enumType.Values.Length; i++)
+				writer.WriteLine($"\"{enumType.Values[i].Name(idConverter)}\",");
+			writer.Unindent();
+			writer.WriteLine("];");
+			writer.Unindent();
+			writer.WriteLine("}");
+
+			writer.WriteLine($"impl fmt::Debug for {enumTypeName} {{");
+			writer.Indent();
+			writer.WriteLine($"fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {{");
+			writer.Indent();
+			writer.WriteLine($"write!(f, \"{{}}\", {arrayName}[*self as usize])?;");
+			writer.WriteLine("Ok(())");
+			writer.Unindent();
+			writer.WriteLine("}");
 			writer.Unindent();
 			writer.WriteLine("}");
 		}
