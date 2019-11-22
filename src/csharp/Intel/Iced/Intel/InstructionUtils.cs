@@ -28,7 +28,7 @@ namespace Iced.Intel {
 				return 8;
 			if ((Register.EAX <= baseReg && baseReg <= Register.R15D) || (Register.EAX <= indexReg && indexReg <= Register.R15D) || baseReg == Register.EIP)
 				return 4;
-			if (baseReg == Register.BX || baseReg == Register.BP || baseReg == Register.SI || baseReg == Register.DI || indexReg == Register.SI || indexReg == Register.DI)
+			if ((Register.AX <= baseReg && baseReg <= Register.DI) || (Register.AX <= indexReg && indexReg <= Register.DI))
 				return 2;
 			if (displSize == 2 || displSize == 4 || displSize == 8)
 				return displSize;

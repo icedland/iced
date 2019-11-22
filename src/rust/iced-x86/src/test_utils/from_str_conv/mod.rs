@@ -120,6 +120,7 @@ pub(crate) fn to_i64(value: &str) -> Result<i64, String> {
 }
 
 pub(crate) fn to_u32(value: &str) -> Result<u32, String> {
+	let value = value.trim();
 	if let Ok(v64) = to_u64(value) {
 		if v64 <= u32::MAX as u64 {
 			return Ok(v64 as u32);
@@ -129,6 +130,7 @@ pub(crate) fn to_u32(value: &str) -> Result<u32, String> {
 }
 
 pub(crate) fn to_i32(value: &str) -> Result<i32, String> {
+	let value = value.trim();
 	if let Ok(v64) = to_i64(value) {
 		if i32::MIN as i64 <= v64 && v64 <= i32::MAX as i64 {
 			return Ok(v64 as i32);
@@ -138,6 +140,7 @@ pub(crate) fn to_i32(value: &str) -> Result<i32, String> {
 }
 
 pub(crate) fn to_u16(value: &str) -> Result<u16, String> {
+	let value = value.trim();
 	if let Ok(v64) = to_u64(value) {
 		if v64 <= u16::MAX as u64 {
 			return Ok(v64 as u16);
@@ -147,6 +150,7 @@ pub(crate) fn to_u16(value: &str) -> Result<u16, String> {
 }
 
 pub(crate) fn to_u8(value: &str) -> Result<u8, String> {
+	let value = value.trim();
 	if let Ok(v64) = to_u64(value) {
 		if v64 <= u8::MAX as u64 {
 			return Ok(v64 as u8);

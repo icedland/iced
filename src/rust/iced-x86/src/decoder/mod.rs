@@ -93,6 +93,7 @@ enum OpSize {
 
 impl Default for OpSize {
 	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
 	fn default() -> Self {
 		OpSize::Size16
 	}
@@ -396,6 +397,7 @@ impl<'a> Decoder<'a> {
 
 	/// Gets the max index that can be passed to `set_data_index()`. This is the size of the data that gets
 	/// decoded to instructions and it's the length of the slice that was passed to the constructor.
+	#[inline]
 	pub fn max_data_index(&self) -> usize {
 		self.data.len()
 	}
@@ -403,6 +405,7 @@ impl<'a> Decoder<'a> {
 	/// Gets the current data index. This value is always <= `max_data_index()`.
 	/// When `data_index()` == `max_data_index()`, it's not possible to decode more
 	/// instructions and `can_decode()` returns `false`.
+	#[inline]
 	pub fn data_index(&self) -> usize {
 		self.data_ptr as usize - self.data.as_ptr() as usize
 	}
@@ -445,6 +448,7 @@ impl<'a> Decoder<'a> {
 	/// assert!(decoder.decode().code() == Code::Pause);
 	/// assert_eq!(3, decoder.data_index());
 	/// ```
+	#[inline]
 	pub fn set_data_index(&mut self, new_pos: usize) {
 		if new_pos <= self.data.len() {
 			self.data_ptr = unsafe { self.data.as_ptr().offset(new_pos as isize) };
@@ -484,6 +488,7 @@ impl<'a> Decoder<'a> {
 	/// // 0 bytes left to read
 	/// assert_eq!(false, decoder.can_decode());
 	/// ```
+	#[inline]
 	pub fn can_decode(&self) -> bool {
 		self.data_ptr < self.data_ptr_end
 	}
@@ -520,6 +525,7 @@ impl<'a> Decoder<'a> {
 	///     println!("code: {}", instr.code() as u32);
 	/// }
 	/// ```
+	#[inline]
 	pub fn iter<'b>(&'b mut self) -> DecoderIter<'a, 'b> {
 		DecoderIter { decoder: self }
 	}
@@ -618,6 +624,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg(not(use_std_mem_uninitialized))]
+	#[inline]
 	pub fn decode(&mut self) -> Instruction {
 		// Safe, decode_out() initializes the whole thing
 		let mut instruction = unsafe { std::mem::MaybeUninit::uninit().assume_init() };
@@ -662,6 +669,7 @@ impl<'a> Decoder<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[allow(deprecated_in_future)]
 	#[cfg(use_std_mem_uninitialized)]
+	#[inline]
 	pub fn decode(&mut self) -> Instruction {
 		// Safe, decode_out() initializes the whole thing
 		let mut instruction = unsafe { std::mem::uninitialized() };
@@ -1650,6 +1658,7 @@ pub struct DecoderIter<'a: 'b, 'b> {
 impl<'a, 'b> Iterator for DecoderIter<'a, 'b> {
 	type Item = Instruction;
 
+	#[inline]
 	fn next(&mut self) -> Option<Self::Item> {
 		if self.decoder.can_decode() {
 			Some(self.decoder.decode())
@@ -1671,6 +1680,7 @@ pub struct DecoderIntoIter<'a> {
 impl<'a> Iterator for DecoderIntoIter<'a> {
 	type Item = Instruction;
 
+	#[inline]
 	fn next(&mut self) -> Option<Self::Item> {
 		if self.decoder.can_decode() {
 			Some(self.decoder.decode())
@@ -1687,6 +1697,7 @@ impl<'a> IntoIterator for Decoder<'a> {
 	type Item = Instruction;
 	type IntoIter = DecoderIntoIter<'a>;
 
+	#[inline]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIntoIter { decoder: self }
 	}
@@ -1696,6 +1707,7 @@ impl<'a: 'b, 'b> IntoIterator for &'b mut Decoder<'a> {
 	type Item = Instruction;
 	type IntoIter = DecoderIter<'a, 'b>;
 
+	#[inline]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIter { decoder: self }
 	}
