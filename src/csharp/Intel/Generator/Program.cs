@@ -71,6 +71,7 @@ namespace Generator {
 
 	sealed class CommandLineOptions {
 		public readonly HashSet<TargetLanguage> Languages = new HashSet<TargetLanguage>();
+		public GeneratorFlags GeneratorFlags = GeneratorFlags.None;
 	}
 
 	static class Program {
@@ -85,7 +86,7 @@ namespace Generator {
 					return 1;
 				}
 
-				var generatorOptions = CreateGeneratorOptions(GeneratorFlags.None);
+				var generatorOptions = CreateGeneratorOptions(options.GeneratorFlags);
 				Enums.CodeEnum.AddComments(generatorOptions.UnitTestsDir);
 
 				var genInfos = GetGenerators();
@@ -134,6 +135,16 @@ Options:
         C#
         CSharp
         Rust
+--no-formatter
+    Don't include any formatter
+--no-gas-formatter
+    Don't include the gas (AT&T) formatter
+--no-intel-formatter
+    Don't include the Intel (XED) formatter
+--no-masm-formatter
+    Don't include the masm formatter
+--no-nasm-formatter
+    Don't include the nasm formatter
 ");
 		}
 
@@ -145,6 +156,11 @@ Options:
 				var arg = args[i];
 				var value = i + 1 < args.Length ? args[i + 1] : null;
 				switch (arg) {
+				case "-h":
+				case "--help":
+					error = string.Empty;
+					return false;
+
 				case "-l":
 				case "--language":
 					if (value is null) {
@@ -166,10 +182,25 @@ Options:
 					}
 					break;
 
-				case "-h":
-				case "--help":
-					error = string.Empty;
-					return false;
+				case "--no-formatter":
+					options.GeneratorFlags |= GeneratorFlags.NoFormatter;
+					break;
+
+				case "--no-gas-formatter":
+					options.GeneratorFlags |= GeneratorFlags.NoGasFormatter;
+					break;
+
+				case "--no-intel-formatter":
+					options.GeneratorFlags |= GeneratorFlags.NoIntelFormatter;
+					break;
+
+				case "--no-masm-formatter":
+					options.GeneratorFlags |= GeneratorFlags.NoMasmFormatter;
+					break;
+
+				case "--no-nasm-formatter":
+					options.GeneratorFlags |= GeneratorFlags.NoNasmFormatter;
+					break;
 
 				default:
 					error = $"Unknown option: {value}";
