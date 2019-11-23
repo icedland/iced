@@ -2,8 +2,8 @@ name: GitHub CI
 on: push
 
 jobs:
-  build-windows:
-    name: Build (Windows)
+  build-csharp-windows:
+    name: C# (Windows)
     runs-on: windows-latest
 
     steps:
@@ -47,8 +47,8 @@ jobs:
           Get-ChildItem src\csharp\Intel\Iced\bin\Release\Iced.*.nupkg | ForEach-Object { .\nuget.exe push $_.FullName -ApiKey ${{secrets.NUGET_APIKEY}} -NonInteractive -Source https://api.nuget.org/v3/index.json }
 
   # Make sure it builds on Linux too
-  build-ubuntu:
-    name: Build (Ubuntu)
+  build-csharp-ubuntu:
+    name: C# (Ubuntu)
     runs-on: ubuntu-latest
 
     steps:
@@ -57,3 +57,61 @@ jobs:
       - name: Build, test
         shell: pwsh
         run: ./build.ps1
+
+  build-rust:
+    name: Rust (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install rustup and rustc latest (macOS)
+        shell: bash
+        if: startsWith(matrix.os, 'macos-')
+        run: |
+          curl https://sh.rustup.rs -sSf | bash -s -- -y
+          export PATH="$HOME/.cargo/bin:$PATH"
+          rustup install stable
+
+      - name: Install rustc
+        shell: bash
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          rustup toolchain install 1.20.0
+          rustup update
+
+      - name: Build, test (default)
+        shell: bash
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          cd src/rust/iced-x86
+          cargo -V
+          echo ==== FORMAT ====
+          cargo fmt -- --color always --check
+          echo ==== CLIPPY ====
+          cargo clippy --color always
+          echo ==== BUILD DEBUG ====
+          cargo build --color always
+          echo ==== TEST DEBUG ====
+          cargo test --color always
+          echo ==== BUILD RELEASE ====
+          cargo build --color always --release
+          echo ==== TEST RELEASE ====
+          cargo test --color always --release
+
+      - name: Build, test (1.20.0)
+        shell: bash
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          cd src/rust/iced-x86
+          echo ==== BUILD DEBUG ====
+          cargo +1.20.0 build --color always
+          echo ==== TEST DEBUG ====
+          cargo +1.20.0 test --color always
+          echo ==== BUILD RELEASE ====
+          cargo +1.20.0 build --color always --release
+          echo ==== TEST RELEASE ====
+          cargo +1.20.0 test --color always --release
