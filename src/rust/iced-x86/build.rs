@@ -25,6 +25,8 @@ extern crate rustc_version;
 use rustc_version::{version, Version};
 
 fn main() {
+	println!("cargo:rerun-if-changed=build.rs");
+
 	let version = version().unwrap();
 	if version >= Version::new(1, 26, 0) {
 		println!("cargo:rustc-cfg=has_fused_iterator");

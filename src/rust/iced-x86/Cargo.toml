@@ -6,7 +6,6 @@ license = "MIT"
 description = "iced is an x86/x64 disassembler, decoder, encoder written in Rust"
 homepage = "https://github.com/0xd4d/iced"
 repository = "https://github.com/0xd4d/iced"
-documentation = "https://docs.rs/iced-x86/"
 readme = "README.md"
 # At most 5 keywords can be used
 keywords = ["disassembler", "x86", "amd64", "x86_64", "decoder"]
