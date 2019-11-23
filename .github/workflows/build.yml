@@ -89,10 +89,10 @@ jobs:
           export PATH="$HOME/.cargo/bin:$PATH"
           cd src/rust/iced-x86
           cargo -V
-          echo ==== FORMAT ====
-          cargo fmt -- --color always --check
           echo ==== CLIPPY ====
           cargo clippy --color always
+          echo ==== FORMAT ====
+          cargo fmt -- --color always --check
           echo ==== BUILD DEBUG ====
           cargo build --color always
           echo ==== TEST DEBUG ====
