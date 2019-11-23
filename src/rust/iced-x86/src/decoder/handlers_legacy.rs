@@ -1373,12 +1373,18 @@ impl OpCodeHandler_Jx {
 			if decoder.state.operand_size == OpSize::Size16 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, decoder.read_u16() as u32 + decoder.current_ip32());
+				super::instruction_internal::internal_set_near_branch16(
+					instruction,
+					(decoder.read_u16() as u32).wrapping_add(decoder.current_ip32()),
+				);
 			} else {
 				debug_assert!(decoder.state.operand_size == OpSize::Size32);
 				super::instruction_internal::internal_set_code_u32(instruction, this.code32);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(instruction, decoder.read_u32() as u32 + decoder.current_ip32());
+				super::instruction_internal::internal_set_near_branch16(
+					instruction,
+					(decoder.read_u32() as u32).wrapping_add(decoder.current_ip32()),
+				);
 			}
 		}
 	}
