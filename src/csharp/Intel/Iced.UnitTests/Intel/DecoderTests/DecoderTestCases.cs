@@ -29,6 +29,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static readonly DecoderTestCase[] TestCases16 = ReadTestCases(16);
 		public static readonly DecoderTestCase[] TestCases32 = ReadTestCases(32);
 		public static readonly DecoderTestCase[] TestCases64 = ReadTestCases(64);
+		public static readonly DecoderTestCase[] TestCasesMisc16 = ReadMiscTestCases(16);
+		public static readonly DecoderTestCase[] TestCasesMisc32 = ReadMiscTestCases(32);
+		public static readonly DecoderTestCase[] TestCasesMisc64 = ReadMiscTestCases(64);
+		public static readonly DecoderMemoryTestCase[] TestCasesMemory16 = ReadMemoryTestCases(16);
+		public static readonly DecoderMemoryTestCase[] TestCasesMemory32 = ReadMemoryTestCases(32);
+		public static readonly DecoderMemoryTestCase[] TestCasesMemory64 = ReadMemoryTestCases(64);
 
 		public static DecoderTestCase[] GetTestCases(int bitness) {
 			switch (bitness) {
@@ -39,9 +45,37 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			}
 		}
 
+		public static DecoderTestCase[] GetMiscTestCases(int bitness) {
+			switch (bitness) {
+			case 16: return TestCasesMisc16;
+			case 32: return TestCasesMisc32;
+			case 64: return TestCasesMisc64;
+			default: throw new ArgumentOutOfRangeException(nameof(bitness));
+			}
+		}
+
+		public static DecoderMemoryTestCase[] GetMemoryTestCases(int bitness) {
+			switch (bitness) {
+			case 16: return TestCasesMemory16;
+			case 32: return TestCasesMemory32;
+			case 64: return TestCasesMemory64;
+			default: throw new ArgumentOutOfRangeException(nameof(bitness));
+			}
+		}
+
 		static DecoderTestCase[] ReadTestCases(int bitness) {
 			var filename = PathUtils.GetTestTextFilename($"DecoderTest{bitness}.txt", "Decoder");
 			return DecoderTestParser.ReadFile(bitness, filename).ToArray();
+		}
+
+		static DecoderTestCase[] ReadMiscTestCases(int bitness) {
+			var filename = PathUtils.GetTestTextFilename($"DecoderTestMisc{bitness}.txt", "Decoder");
+			return DecoderTestParser.ReadFile(bitness, filename).ToArray();
+		}
+
+		static DecoderMemoryTestCase[] ReadMemoryTestCases(int bitness) {
+			var filename = PathUtils.GetTestTextFilename($"MemoryTest{bitness}.txt", "Decoder");
+			return MemoryDecoderTestParser.ReadFile(bitness, filename).ToArray();
 		}
 	}
 }

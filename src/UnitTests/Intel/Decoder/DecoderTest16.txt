@@ -42,7 +42,7 @@ F0 F2 00 38, Add_rm8_r8, Add, 2, op0=m;ds;bx;si;1;0;0;UInt8 op1=r;bh lock xacqui
 
 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx
 F0 01 CE, INVALID, INVALID, 0,
-01  18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
+01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx
 F0 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx lock
 F0 F3 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx lock xrelease
 F0 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx lock xacquire

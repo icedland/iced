@@ -32,6 +32,7 @@ use self::decoder_test_case::*;
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
+use std::cmp;
 
 #[test]
 fn decode_16() {
@@ -54,25 +55,47 @@ fn decode(bitness: i32) {
 	}
 }
 
-fn create_decoder<'a>(bitness: i32, bytes: &'a [u8], options: u32) -> Decoder<'a> {
+#[test]
+fn decode_misc_16() {
+	decode_misc(16);
+}
+
+#[test]
+fn decode_misc_32() {
+	decode_misc(32);
+}
+
+#[test]
+fn decode_misc_64() {
+	decode_misc(64);
+}
+
+fn decode_misc(bitness: i32) {
+	for info in test_cases::get_misc_test_cases(bitness).iter() {
+		decode_test(bitness, &info);
+	}
+}
+
+fn create_decoder<'a>(bitness: i32, bytes: &'a [u8], options: u32) -> (Decoder<'a>, usize, bool) {
 	let mut decoder = Decoder::new(bitness, bytes, options);
 	decoder.set_ip(get_default_ip(bitness));
-	decoder
+	let len = cmp::min(IcedConstants::MAX_INSTRUCTION_LENGTH as usize, bytes.len());
+	(decoder, len, len < bytes.len())
 }
 
 fn decode_test(bitness: i32, tc: &DecoderTestCase) {
 	let bytes = to_vec_u8(&tc.hex_bytes).expect("Couldn't parse hex bytes");
-	let mut decoder = create_decoder(bitness, &bytes, tc.decoder_options);
+	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.decoder_options);
 	assert_eq!(0, decoder.data_index());
 	assert_eq!(bytes.len(), decoder.max_data_index());
 	let rip = decoder.ip();
 	let instr = decoder.decode();
-	assert_eq!(bytes.len(), decoder.data_index());
-	assert_eq!(false, decoder.can_decode());
+	assert_eq!(len, decoder.data_index());
+	assert_eq!(can_read, decoder.can_decode());
 	assert_eq!(tc.code, instr.code());
 	assert_eq!(tc.mnemonic, instr.mnemonic());
 	assert_eq!(instr.mnemonic(), instr.code().to_mnemonic());
-	assert_eq!(bytes.len(), instr.len() as usize);
+	assert_eq!(len, instr.len() as usize);
 	assert_eq!(rip, instr.ip());
 	assert_eq!(decoder.ip(), instr.next_ip());
 	assert_eq!(tc.op_count, instr.op_count());
@@ -233,16 +256,16 @@ fn decode_mem(bitness: i32) {
 
 fn decode_mem_test(bitness: i32, tc: &DecoderMemoryTestCase) {
 	let bytes = to_vec_u8(&tc.hex_bytes).expect("Couldn't parse hex bytes");
-	let mut decoder = create_decoder(bitness, &bytes, tc.decoder_options);
+	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.decoder_options);
 	assert_eq!(0, decoder.data_index());
 	assert_eq!(bytes.len(), decoder.max_data_index());
 	let instr = decoder.decode();
-	assert_eq!(bytes.len(), decoder.data_index());
-	assert_eq!(false, decoder.can_decode());
+	assert_eq!(len, decoder.data_index());
+	assert_eq!(can_read, decoder.can_decode());
 
 	assert_eq!(tc.code, instr.code());
 	assert_eq!(2, instr.op_count());
-	assert_eq!(bytes.len(), instr.len() as usize);
+	assert_eq!(len, instr.len() as usize);
 	assert_eq!(false, instr.has_rep_prefix());
 	assert_eq!(false, instr.has_repe_prefix());
 	assert_eq!(false, instr.has_repne_prefix());

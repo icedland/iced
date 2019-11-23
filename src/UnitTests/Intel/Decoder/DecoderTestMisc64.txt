@@ -1,0 +1,201 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+# one byte too long
+26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, INVALID, INVALID, 0,
+
+# max length
+26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx es: enc=2601CE
+
+# not enough bytes
+, INVALID, INVALID, 0,
+66, INVALID, INVALID, 0,
+01, INVALID, INVALID, 0,
+
+# test extra mandatory prefixes
+0F10 08, Movups_xmm_xmmm128, Movups, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Packed128_Float32
+66 0F10 08, Movupd_xmm_xmmm128, Movupd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Packed128_Float64
+F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32
+F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64
+66 66 0F10 08, Movupd_xmm_xmmm128, Movupd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Packed128_Float64 enc=660F1008
+66 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F30F1008
+66 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F20F1008
+F3 66 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F30F1008
+F3 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F30F1008
+F3 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F3F20F1008 rep
+F2 66 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F20F1008
+F2 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F2F30F1008 repne
+F2 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F20F1008
+66 66 66 0F10 08, Movupd_xmm_xmmm128, Movupd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Packed128_Float64 enc=660F1008
+66 66 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F30F1008
+66 66 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F20F1008
+66 F3 66 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F30F1008
+66 F3 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F30F1008
+66 F3 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F3F20F1008 rep
+66 F2 66 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F20F1008
+66 F2 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F2F30F1008 repne
+66 F2 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F20F1008
+F3 66 66 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F30F1008
+F3 66 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F30F1008
+F3 66 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F3F20F1008 rep
+F3 F3 66 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F30F1008
+F3 F3 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F30F1008
+F3 F3 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F3F20F1008 rep
+F3 F2 66 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F3F20F1008 rep
+F3 F2 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F2F30F1008 repne
+F3 F2 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F3F20F1008 rep
+F2 66 66 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F20F1008
+F2 66 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F2F30F1008 repne
+F2 66 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F20F1008
+F2 F3 66 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F2F30F1008 repne
+F2 F3 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F2F30F1008 repne
+F2 F3 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F3F20F1008 rep
+F2 F2 66 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F20F1008
+F2 F2 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32 enc=F2F30F1008 repne
+F2 F2 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64 enc=F20F1008
+
+# test extra mandatory prefixes with segment overrides
+64 0F10 08, Movups_xmm_xmmm128, Movups, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Packed128_Float32 fs: enc=640F1008
+66 64 0F10 08, Movupd_xmm_xmmm128, Movupd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Packed128_Float64 fs: enc=64660F1008
+F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F30F1008
+F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F20F1008
+66 66 64 0F10 08, Movupd_xmm_xmmm128, Movupd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Packed128_Float64 fs: enc=64660F1008
+66 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F30F1008
+66 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F20F1008
+F3 66 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F30F1008
+F3 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F30F1008
+F3 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F3F20F1008 rep
+F2 66 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F20F1008
+F2 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F2F30F1008 repne
+F2 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F20F1008
+66 66 66 64 0F10 08, Movupd_xmm_xmmm128, Movupd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Packed128_Float64 fs: enc=64660F1008
+66 66 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F30F1008
+66 66 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F20F1008
+66 F3 66 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F30F1008
+66 F3 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F30F1008
+66 F3 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F3F20F1008 rep
+66 F2 66 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F20F1008
+66 F2 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F2F30F1008 repne
+66 F2 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F20F1008
+F3 66 66 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F30F1008
+F3 66 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F30F1008
+F3 66 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F3F20F1008 rep
+F3 F3 66 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F30F1008
+F3 F3 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F30F1008
+F3 F3 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F3F20F1008 rep
+F3 F2 66 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F3F20F1008 rep
+F3 F2 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F2F30F1008 repne
+F3 F2 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F3F20F1008 rep
+F2 66 66 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F20F1008
+F2 66 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F2F30F1008 repne
+F2 66 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F20F1008
+F2 F3 66 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F2F30F1008 repne
+F2 F3 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F2F30F1008 repne
+F2 F3 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F3F20F1008 rep
+F2 F2 66 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F20F1008
+F2 F2 F3 64 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float32 fs: enc=64F2F30F1008 repne
+F2 F2 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;Float64 fs: enc=64F20F1008
+
+# prefix: double 66
+66 66 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx enc=6601CE
+
+# prefix: double 67
+67 67 8D 18, Lea_r32_m, Lea, 2, op0=r;ebx op1=m;ds;eax;;1;0;0;Unknown enc=678D18
+
+# prefix: extra segment prefixes
+26 26 01 18, Add_rm32_r32, Add, 2, op0=m;es;rax;;1;0;0;UInt32 op1=r;ebx es: enc=260118
+26 2E 01 18, Add_rm32_r32, Add, 2, op0=m;cs;rax;;1;0;0;UInt32 op1=r;ebx cs: enc=2E0118
+26 36 01 18, Add_rm32_r32, Add, 2, op0=m;ss;rax;;1;0;0;UInt32 op1=r;ebx ss: enc=360118
+26 3E 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx ds: enc=3E0118
+26 64 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
+26 65 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
+
+2E 26 01 18, Add_rm32_r32, Add, 2, op0=m;es;rax;;1;0;0;UInt32 op1=r;ebx es: enc=260118
+2E 2E 01 18, Add_rm32_r32, Add, 2, op0=m;cs;rax;;1;0;0;UInt32 op1=r;ebx cs: enc=2E0118
+2E 36 01 18, Add_rm32_r32, Add, 2, op0=m;ss;rax;;1;0;0;UInt32 op1=r;ebx ss: enc=360118
+2E 3E 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx ds: enc=3E0118
+2E 64 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
+2E 65 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
+
+36 26 01 18, Add_rm32_r32, Add, 2, op0=m;es;rax;;1;0;0;UInt32 op1=r;ebx es: enc=260118
+36 2E 01 18, Add_rm32_r32, Add, 2, op0=m;cs;rax;;1;0;0;UInt32 op1=r;ebx cs: enc=2E0118
+36 36 01 18, Add_rm32_r32, Add, 2, op0=m;ss;rax;;1;0;0;UInt32 op1=r;ebx ss: enc=360118
+36 3E 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx ds: enc=3E0118
+36 64 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
+36 65 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
+
+3E 26 01 18, Add_rm32_r32, Add, 2, op0=m;es;rax;;1;0;0;UInt32 op1=r;ebx es: enc=260118
+3E 2E 01 18, Add_rm32_r32, Add, 2, op0=m;cs;rax;;1;0;0;UInt32 op1=r;ebx cs: enc=2E0118
+3E 36 01 18, Add_rm32_r32, Add, 2, op0=m;ss;rax;;1;0;0;UInt32 op1=r;ebx ss: enc=360118
+3E 3E 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx ds: enc=3E0118
+3E 64 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
+3E 65 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
+
+64 26 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
+64 2E 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
+64 36 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
+64 3E 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
+64 64 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
+64 65 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
+
+65 26 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
+65 2E 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
+65 36 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
+65 3E 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
+65 64 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
+65 65 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
+
+# prefix: REX.W overrides 66
+66 48 01 CE, Add_rm64_r64, Add, 2, op0=r;rsi op1=r;rcx enc=4801CE
+
+# prefix: double REX prefixes
+4F 48 01 CE, Add_rm64_r64, Add, 2, op0=r;rsi op1=r;rcx enc=4801CE
+4F 4C 01 C5, Add_rm64_r64, Add, 2, op0=r;rbp op1=r;r8 enc=4C01C5
+4F 49 01 D6, Add_rm64_r64, Add, 2, op0=r;r14 op1=r;rdx enc=4901D6
+4F 4D 01 D0, Add_rm64_r64, Add, 2, op0=r;r8 op1=r;r10 enc=4D01D0
+4F 49 01 D9, Add_rm64_r64, Add, 2, op0=r;r9 op1=r;rbx enc=4901D9
+4F 4C 01 EC, Add_rm64_r64, Add, 2, op0=r;rsp op1=r;r13 enc=4C01EC
+
+# prefix: REX prefix before 66
+48 66 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx enc=6601CE
+4F 66 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx enc=6601CE
+
+# prefix: REX prefix before 67
+48 67 01 18, Add_rm32_r32, Add, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx enc=670118
+
+# prefix: REX prefix before F0
+49 F0 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock enc=F00118
+
+# prefix: REX prefix before F2
+4D F2 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx repne enc=F20118
+
+# prefix: REX prefix before F3
+4F F3 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx rep enc=F30118
+
+# prefix: REX prefix before segment override
+48 26 01 18, Add_rm32_r32, Add, 2, op0=m;es;rax;;1;0;0;UInt32 op1=r;ebx es: enc=260118
+49 2E 01 18, Add_rm32_r32, Add, 2, op0=m;cs;rax;;1;0;0;UInt32 op1=r;ebx cs: enc=2E0118
+4A 36 01 18, Add_rm32_r32, Add, 2, op0=m;ss;rax;;1;0;0;UInt32 op1=r;ebx ss: enc=360118
+4B 3E 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx ds: enc=3E0118
+4C 64 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
+4F 65 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118

@@ -29,18 +29,22 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public readonly struct DecoderTestInfo {
+		public readonly uint Id;
 		public readonly int Bitness;
 		public readonly Code Code;
 		public readonly string HexBytes;
 		public readonly string EncodedHexBytes;
 		public readonly DecoderOptions Options;
+		public readonly bool CanEncode;
 
-		public DecoderTestInfo(int bitness, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) {
+		public DecoderTestInfo(uint id, int bitness, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options, bool canEncode) {
+			Id = id;
 			Bitness = bitness;
 			Code = code;
 			HexBytes = hexBytes;
 			EncodedHexBytes = encodedHexBytes;
 			Options = options;
+			CanEncode = canEncode;
 		}
 	}
 
@@ -688,6 +692,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			yield return Code.Enqcmd_r64_m512;
 		}
 
+		public static IEnumerable<DecoderTestInfo> GetEncoderTests(bool includeOtherTests, bool includeInvalid) {
+			foreach (var info in GetDecoderTests(includeOtherTests, includeInvalid)) {
+				if (info.CanEncode)
+					yield return info;
+			}
+		}
+
 		public static IEnumerable<DecoderTestInfo> GetDecoderTests(bool includeOtherTests, bool includeInvalid) {
 			foreach (var info in GetDecoderTests(includeOtherTests)) {
 				if (includeInvalid || info.Code != Code.INVALID)
@@ -696,80 +707,29 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		static IEnumerable<DecoderTestInfo> GetDecoderTests(bool includeOtherTests) {
+			uint id = 0;
 			foreach (var tc in DecoderTestCases.TestCases16)
-				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.CanEncode);
 			foreach (var tc in DecoderTestCases.TestCases32)
-				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.CanEncode);
 			foreach (var tc in DecoderTestCases.TestCases64)
-				yield return new DecoderTestInfo(tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.CanEncode);
 
 			if (!includeOtherTests)
 				yield break;
-			var otherTests = new HashSet<string>(StringComparer.Ordinal);
-			otherTests.Add(nameof(PrefixTests));
-			var thisType = typeof(DecoderTestUtils);
-			foreach (var type in thisType.Assembly.GetTypes()) {
-				if (!type.IsPublic || type.Namespace != "Iced.UnitTests.Intel.DecoderTests")
-					continue;
-				if (!type.Name.StartsWith("MemoryTest") && !otherTests.Contains(type.Name))
-					continue;
+			foreach (var tc in DecoderTestCases.TestCasesMisc16)
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.CanEncode);
+			foreach (var tc in DecoderTestCases.TestCasesMisc32)
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.CanEncode);
+			foreach (var tc in DecoderTestCases.TestCasesMisc64)
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.CanEncode);
 
-				foreach (var method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)) {
-					DecoderOptions options;
-					var name = method.Name;
-					if (!name.StartsWith("Test", StringComparison.Ordinal))
-						continue;
-					int bitness;
-					if (name.StartsWith("Test16_"))
-						bitness = 16;
-					else if (name.StartsWith("Test32_"))
-						bitness = 32;
-					else if (name.StartsWith("Test64_"))
-						bitness = 64;
-					else
-						continue;
-					Assert.True(method.IsDefined(typeof(FactAttribute), inherit: false));
-
-					foreach (var ca in method.GetCustomAttributesData()) {
-						if (ca.AttributeType == typeof(InlineDataAttribute)) {
-							Assert.Equal(1, ca.ConstructorArguments.Count);
-							var values = (IList<CustomAttributeTypedArgument>)ca.ConstructorArguments[0].Value;
-							Assert.True(values.Count >= 3);
-							Assert.True(values[0].ArgumentType == typeof(string));
-							Assert.True(values[1].ArgumentType == typeof(int));
-							Assert.True(values[2].ArgumentType == typeof(Code));
-							int last = values.Count - 1;
-							if (values[last].ArgumentType == typeof(DecoderOptions)) {
-								options = (DecoderOptions)(uint)values[last].Value;
-								last--;
-							}
-							else
-								options = DecoderOptions.None;
-							Assert.True(values[last].ArgumentType == typeof(string));
-							yield return new DecoderTestInfo(bitness, (Code)(int)values[2].Value, (string)values[0].Value, (string)values[last].Value, options);
-						}
-						else if (ca.AttributeType == typeof(MemberDataAttribute)) {
-							Assert.Equal(2, ca.ConstructorArguments.Count);
-							var propertyName = (string)ca.ConstructorArguments[0].Value;
-							var testCaseValues = (IEnumerable<object[]>)type.GetProperty(propertyName).GetGetMethod().Invoke(null, Array.Empty<object>());
-							foreach (var tc in testCaseValues) {
-								Assert.True(tc.Length >= 2);
-								Assert.True(tc[0] is string);
-								Assert.IsType<Code>(tc[1]);
-								int last = tc.Length - 1;
-								if (tc[last] is DecoderOptions optionsTemp) {
-									options = optionsTemp;
-									last--;
-								}
-								else
-									options = DecoderOptions.None;
-								Assert.True(tc[last] is string);
-								yield return new DecoderTestInfo(bitness, (Code)tc[1], (string)tc[0], (string)tc[last], options);
-							}
-						}
-					}
-				}
-			}
+			foreach (var tc in DecoderTestCases.TestCasesMemory16)
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, true);
+			foreach (var tc in DecoderTestCases.TestCasesMemory32)
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, true);
+			foreach (var tc in DecoderTestCases.TestCasesMemory64)
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, true);
 		}
 	}
 }

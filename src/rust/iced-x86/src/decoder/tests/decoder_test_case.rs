@@ -26,6 +26,7 @@ use super::super::super::*;
 #[derive(Default)]
 pub(crate) struct DecoderTestCase {
 	pub(crate) line_number: i32,
+	pub(crate) can_encode: bool,
 	pub(crate) decoder_options: u32,
 	pub(crate) bitness: i32,
 	pub(crate) hex_bytes: String,

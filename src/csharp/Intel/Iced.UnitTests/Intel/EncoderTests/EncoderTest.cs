@@ -52,7 +52,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			return true;
 		}
 
-		protected void EncodeBase(int codeSize, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) {
+		protected void EncodeBase(uint id, int codeSize, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
 			var decoder = CreateDecoder(codeSize, origBytes, options);
 			var origRip = decoder.IP;
@@ -143,7 +143,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			}
 		}
 
-		protected void EncodeInvalidBase(int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidCodeSize) {
+		protected void EncodeInvalidBase(uint id, int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidCodeSize) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
 			var decoder = CreateDecoder(codeSize, origBytes, options);
 			var origRip = decoder.IP;
@@ -199,10 +199,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		}
 
 		protected static IEnumerable<object[]> GetEncodeData(int codeSize) {
-			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: false)) {
+			foreach (var info in DecoderTestUtils.GetEncoderTests(includeOtherTests: true, includeInvalid: false)) {
 				if (codeSize != info.Bitness)
 					continue;
-				yield return new object[] { info.Bitness, info.Code, info.HexBytes, info.EncodedHexBytes, info.Options };
+				yield return new object[] { info.Id, info.Bitness, info.Code, info.HexBytes, info.EncodedHexBytes, info.Options };
 			}
 		}
 

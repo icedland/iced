@@ -27,6 +27,7 @@ using Iced.Intel;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	sealed class DecoderTestCase {
 		public int LineNumber;
+		public bool CanEncode;
 		public DecoderOptions DecoderOptions;
 		public int Bitness;
 		public string HexBytes;
@@ -106,5 +107,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			default: throw new ArgumentOutOfRangeException(nameof(operand));
 			}
 		}
+	}
+
+	sealed class DecoderMemoryTestCase {
+		public int LineNumber;
+		public DecoderOptions DecoderOptions;
+		public int Bitness;
+		public string HexBytes;
+		public string EncodedHexBytes;
+		public Code Code;
+		public Register Register;
+		public Register SegmentPrefix;
+		public Register SegmentRegister;
+		public Register BaseRegister;
+		public Register IndexRegister;
+		public int Scale;
+		public uint Displacement;
+		public int DisplacementSize;
+		public ConstantOffsets ConstantOffsets;
 	}
 }

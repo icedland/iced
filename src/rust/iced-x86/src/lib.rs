@@ -94,6 +94,8 @@ pub use self::enums::*;
 	feature = "ALL_FORMATTERS",
 ))]
 pub use self::formatter::*;
+#[cfg(test)]
+pub(crate) use self::iced_constants::*;
 pub use self::iced_features::*;
 #[cfg(feature = "INSTR_INFO")]
 pub use self::info::*;

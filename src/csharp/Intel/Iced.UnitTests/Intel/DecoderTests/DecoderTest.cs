@@ -24,8 +24,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
-using System.IO;
 using System.Runtime.CompilerServices;
 using Iced.Intel;
 using Xunit;
@@ -39,12 +37,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		protected Decoder CreateDecoder64(string hexBytes, [CallerMemberName] string callerName = null) =>
 			CreateDecoder(64, callerName, hexBytes, DecoderOptions.None);
 
-		Decoder CreateDecoder(int codeSize, string callerName, string hexBytes, DecoderOptions options) {
-			Assert.StartsWith("Test" + codeSize.ToString(), callerName);
-			return CreateDecoder(codeSize, hexBytes, options).decoder;
+		Decoder CreateDecoder(int bitness, string callerName, string hexBytes, DecoderOptions options) {
+			Assert.StartsWith("Test" + bitness.ToString(), callerName);
+			return CreateDecoder(bitness, hexBytes, options).decoder;
 		}
 
-		(Decoder decoder, int length, ByteArrayCodeReader codeReader) CreateDecoder(int codeSize, string hexBytes, DecoderOptions options) {
+		(Decoder decoder, int length, bool canRead, ByteArrayCodeReader codeReader) CreateDecoder(int codeSize, string hexBytes, DecoderOptions options) {
 			var codeReader = new ByteArrayCodeReader(hexBytes);
 			var decoder = Decoder.Create(codeSize, codeReader, options);
 			switch (codeSize) {
@@ -65,13 +63,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			}
 
 			Assert.Equal(codeSize, decoder.Bitness);
-			return (decoder, codeReader.Count, codeReader);
+			int length = Math.Min(IcedConstants.MaxInstructionLength, codeReader.Count);
+			bool canRead = length < codeReader.Count;
+			return (decoder, length, canRead, codeReader);
 		}
 
 		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, in ConstantOffsets constantOffsets, string encodedHexBytes, DecoderOptions options) {
-			var (decoder, length, codeReader) = CreateDecoder(bitness, hexBytes, options);
+			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, options);
 			var instr = decoder.Decode();
-			Assert.False(codeReader.CanReadByte);
+			Assert.Equal(canRead, codeReader.CanReadByte);
 
 			Assert.Equal(code, instr.Code);
 			Assert.Equal(2, instr.OpCount);
@@ -100,60 +100,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			VerifyConstantOffsets(constantOffsets, decoder.GetConstantOffsets(instr));
 		}
 
-		static readonly char[] colSep = new char[] { ',' };
-
-		protected static IEnumerable<object[]> GetMemOpsData(string className) {
-			var filename = PathUtils.GetTestTextFilename(className + ".txt", "Decoder");
-			Debug.Assert(File.Exists(filename));
-			foreach (var line in File.ReadLines(filename)) {
-				if (line.Length == 0 || line[0] == '#')
-					continue;
-				var parts = line.Split(colSep, StringSplitOptions.None);
-				if (parts.Length != 11 && parts.Length != 12)
-					throw new InvalidOperationException();
-				string hexBytes = parts[0].Trim();
-				var code = ToEnumConverter.GetCode(parts[1].Trim());
-				var register = ToEnumConverter.GetRegister(parts[2].Trim());
-				var prefixSeg = ToEnumConverter.GetRegister(parts[3].Trim());
-				var segReg = ToEnumConverter.GetRegister(parts[4].Trim());
-				var baseReg = ToEnumConverter.GetRegister(parts[5].Trim());
-				var indexReg = ToEnumConverter.GetRegister(parts[6].Trim());
-				int scale = (int)ParseUInt32(parts[7].Trim());
-				uint displ = ParseUInt32(parts[8].Trim());
-				int displSize = (int)ParseUInt32(parts[9].Trim());
-				var constantOffsets = ParseConstantOffsets(parts[10].Trim());
-				string encodedHexBytes = parts.Length > 11 ? parts[11].Trim() : hexBytes;
-				var options = DecoderOptions.None;
-				yield return new object[13] { hexBytes, code, register, prefixSeg, segReg, baseReg, indexReg, scale, displ, displSize, constantOffsets, encodedHexBytes, options };
-			}
-
-			static uint ParseUInt32(string s) {
-				if (uint.TryParse(s, out uint value))
-					return value;
-				if (s.StartsWith("0x")) {
-					s = s.Substring(2);
-					if (uint.TryParse(s, NumberStyles.HexNumber, null, out value))
-						return value;
-				}
-
-				throw new InvalidOperationException();
-			}
-
-			static ConstantOffsets ParseConstantOffsets(string s) {
-				var vs = s.Split(coSeps);
-				if (vs.Length != 6)
-					throw new InvalidOperationException();
-				ConstantOffsets co = default;
-				co.ImmediateOffset = byte.Parse(vs[0]);
-				co.ImmediateSize = byte.Parse(vs[1]);
-				co.ImmediateOffset2 = byte.Parse(vs[2]);
-				co.ImmediateSize2 = byte.Parse(vs[3]);
-				co.DisplacementOffset = byte.Parse(vs[4]);
-				co.DisplacementSize = byte.Parse(vs[5]);
-				return co;
+		protected static IEnumerable<object[]> GetMemOpsData(int bitness) {
+			var allTestCases = DecoderTestCases.GetMemoryTestCases(bitness);
+			foreach (var tc in allTestCases) {
+				yield return new object[13] { tc.HexBytes, tc.Code, tc.Register, tc.SegmentPrefix, tc.SegmentRegister, tc.BaseRegister, tc.IndexRegister, tc.Scale, tc.Displacement, tc.DisplacementSize, tc.ConstantOffsets, tc.EncodedHexBytes, tc.DecoderOptions };
 			}
 		}
-		static readonly char[] coSeps = new char[] { ';' };
 
 		protected static IEnumerable<object[]> GetDecoderTestData(int bitness, int classIndex) {
 			var allTestCases = DecoderTestCases.GetTestCases(bitness);
@@ -171,11 +123,20 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			}
 		}
 
+		protected static IEnumerable<object[]> GetMiscDecoderTestData(int bitness) {
+			var allTestCases = DecoderTestCases.GetMiscTestCases(bitness);
+			object boxedBitness = bitness;
+			foreach (var tc in allTestCases) {
+				Debug.Assert(bitness == tc.Bitness);
+				yield return new object[4] { boxedBitness, tc.LineNumber, tc.HexBytes, tc };
+			}
+		}
+
 		internal void DecoderTestBase(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) {
-			var (decoder, length, codeReader) = CreateDecoder(bitness, hexBytes, tc.DecoderOptions);
+			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, tc.DecoderOptions);
 			ulong rip = decoder.IP;
 			decoder.Decode(out var instr);
-			Assert.False(codeReader.CanReadByte);
+			Assert.Equal(canRead, codeReader.CanReadByte);
 			Assert.Equal(tc.Code, instr.Code);
 			Assert.Equal(tc.Mnemonic, instr.Mnemonic);
 			Assert.Equal(instr.Mnemonic, instr.Code.ToMnemonic());

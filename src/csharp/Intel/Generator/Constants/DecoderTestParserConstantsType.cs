@@ -28,6 +28,7 @@ namespace Generator.Constants {
 
 		static Constant[] GetConstants() =>
 			new Constant[] {
+				new Constant(ConstantKind.String, "NoEncode", "noencode", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "Broadcast", "bcst", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "Xacquire", "xacquire", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "Xrelease", "xrelease", ConstantsTypeFlags.None),

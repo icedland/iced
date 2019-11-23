@@ -88,4 +88,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			DecoderTestBase(bitness, lineNo, hexBytes, tc);
 		public static IEnumerable<object[]> Data => GetDecoderTestData(16, 7);
 	}
+
+	public sealed class DecoderTestMisc16 : DecoderTest {
+		[Theory]
+		[MemberData(nameof(Data))]
+		void DecoderTestMisc(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) =>
+			DecoderTestBase(bitness, lineNo, hexBytes, tc);
+		public static IEnumerable<object[]> Data => GetMiscDecoderTestData(16);
+	}
 }
