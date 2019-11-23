@@ -36,6 +36,7 @@ namespace Generator {
 		public abstract string Method(string name);
 		public abstract string Constant(string name);
 		public abstract string Static(string name);
+		public abstract string Namespace(string name);
 
 		protected string ToSnakeCase(string name) => ToSnakeCase(name, upper: false);
 		protected string ToScreamingSnakeCase(string name) => ToSnakeCase(name, upper: true);
@@ -65,6 +66,7 @@ namespace Generator {
 		public override string Method(string name) => name;
 		public override string Constant(string name) => name;
 		public override string Static(string name) => name;
+		public override string Namespace(string name) => name;
 	}
 
 	sealed class RustIdentifierConverter : IdentifierConverter {
@@ -94,5 +96,6 @@ namespace Generator {
 		}
 
 		public override string Static(string name) => ToScreamingSnakeCase(name);
+		public override string Namespace(string name) => ToSnakeCase(name);
 	}
 }

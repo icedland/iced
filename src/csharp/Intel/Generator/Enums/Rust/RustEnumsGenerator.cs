@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Generator.Constants;
 using Generator.Constants.Rust;
 using Generator.Documentation.Rust;
@@ -146,10 +147,16 @@ namespace Generator.Enums.Rust {
 			writer.Unindent();
 			writer.WriteLine("}");
 
-			var arrayName = idConverter.Constant("GenDebug" + enumType.RawName);
+			var arrayName = idConverter.Constant(enumType.RawName);
+			var modName = idConverter.Namespace("GenDebug" + enumType.RawName);
+			var feature = info.Attributes.FirstOrDefault(a => a.StartsWith("#[cfg(") && a.Contains("(feature"));
+			if (!(feature is null))
+				writer.WriteLine(feature);
+			writer.WriteLine($"mod {modName} {{");
+			writer.Indent();
 			writer.WriteLine("lazy_static! {");
 			writer.Indent();
-			writer.WriteLine($"static ref {arrayName}: [&'static str; {enumType.Values.Length}] = [");
+			writer.WriteLine($"pub(super) static ref {arrayName}: [&'static str; {enumType.Values.Length}] = [");
 			writer.Indent();
 			writer.WriteLine("// This comment is here to prevent rustfmt from formatting this array");
 			for (int i = 0; i < enumType.Values.Length; i++)
@@ -158,18 +165,27 @@ namespace Generator.Enums.Rust {
 			writer.WriteLine("];");
 			writer.Unindent();
 			writer.WriteLine("}");
+			writer.Unindent();
+			writer.WriteLine("}");
 
+			// #[derive(Debug)] isn't used since it generates a big switch statement. This code
+			// uses a simple array lookup which has very little code. For small enums the default
+			// implementation might be better though.
+			if (!(feature is null))
+				writer.WriteLine(feature);
 			writer.WriteLine($"impl fmt::Debug for {enumTypeName} {{");
 			writer.Indent();
 			writer.WriteLine($"fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {{");
 			writer.Indent();
-			writer.WriteLine($"write!(f, \"{{}}\", {arrayName}[*self as usize])?;");
+			writer.WriteLine($"write!(f, \"{{}}\", self::{modName}::{arrayName}[*self as usize])?;");
 			writer.WriteLine("Ok(())");
 			writer.Unindent();
 			writer.WriteLine("}");
 			writer.Unindent();
 			writer.WriteLine("}");
 
+			if (!(feature is null))
+				writer.WriteLine(feature);
 			writer.WriteLine($"impl Default for {enumTypeName} {{");
 			writer.Indent();
 			writer.WriteLine(RustConstants.AttributeMustUse);
