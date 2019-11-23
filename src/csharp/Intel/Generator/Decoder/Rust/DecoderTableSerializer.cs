@@ -64,6 +64,9 @@ namespace Generator.Decoder.Rust {
 
 		public void Serialize(FileWriter writer) {
 			writer.WriteFileHeader();
+			writer.WriteLine(RustConstants.AttributeNoRustFmtInner);
+			writer.WriteLine();
+
 			var uses = new List<string>(ExtraUseStatements) {
 				"use super::handlers::*;",
 				$"use super::handlers_{HandlersModuleName}::*;",
@@ -106,7 +109,6 @@ namespace Generator.Decoder.Rust {
 				}
 
 				writer.WriteLine();
-				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 
 				if (HandlerUtils.IsHandler(info.handlers, out var handlerType)) {
 					var typeName = GetHandlerTypeName(handlerType);
