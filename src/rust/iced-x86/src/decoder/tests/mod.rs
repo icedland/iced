@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 mod decoder_mem_test_case;
 mod decoder_test_case;
 mod mem_test_parser;
+mod misc_tests;
 mod test_cases;
 mod test_parser;
 mod test_utils;
