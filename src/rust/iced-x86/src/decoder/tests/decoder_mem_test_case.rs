@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::*;
 
 pub(crate) struct DecoderMemoryTestCase {
+	pub(crate) bitness: i32,
 	pub(crate) hex_bytes: String,
 	pub(crate) code: Code,
 	pub(crate) register: Register,
@@ -38,4 +39,5 @@ pub(crate) struct DecoderMemoryTestCase {
 	pub(crate) encoded_hex_bytes: String,
 	pub(crate) decoder_options: u32,
 	pub(crate) line_number: i32,
+	pub(crate) can_encode: bool,
 }

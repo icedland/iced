@@ -24,26 +24,24 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::test_utils::from_str_conv::to_code;
 use super::super::super::test_utils::*;
 use super::super::super::*;
+use super::decoder_mem_test_case::*;
+use super::decoder_test_case::*;
+use super::test_cases::*;
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
-use std::u32;
 
 pub(crate) struct DecoderTestInfo {
-	id: u32,
 	bitness: i32,
 	code: Code,
 	hex_bytes: String,
 	encoded_hex_bytes: String,
-	options: u32,
+	decoder_options: u32,
 	can_encode: bool,
 }
 
 impl DecoderTestInfo {
-	pub(crate) fn id(&self) -> u32 {
-		self.id
-	}
 	pub(crate) fn bitness(&self) -> i32 {
 		self.bitness
 	}
@@ -56,8 +54,8 @@ impl DecoderTestInfo {
 	pub(crate) fn encoded_hex_bytes(&self) -> &String {
 		&self.encoded_hex_bytes
 	}
-	pub(crate) fn options(&self) -> u32 {
-		self.options
+	pub(crate) fn decoder_options(&self) -> u32 {
+		self.decoder_options
 	}
 	pub(crate) fn can_encode(&self) -> bool {
 		self.can_encode
@@ -130,4 +128,71 @@ pub(crate) fn code32_only() -> &'static HashSet<Code> {
 
 pub(crate) fn code64_only() -> &'static HashSet<Code> {
 	&*CODE64_ONLY
+}
+
+pub(crate) fn encoder_tests(include_other_tests: bool, include_invalid: bool) -> Vec<DecoderTestInfo> {
+	get_tests(include_other_tests, include_invalid, Some(true))
+}
+
+pub(crate) fn decoder_tests(include_other_tests: bool, include_invalid: bool) -> Vec<DecoderTestInfo> {
+	get_tests(include_other_tests, include_invalid, None)
+}
+
+fn get_tests(include_other_tests: bool, include_invalid: bool, can_encode: Option<bool>) -> Vec<DecoderTestInfo> {
+	let mut v: Vec<DecoderTestInfo> = Vec::new();
+	let bitness_array = [16, 32, 64];
+	for bitness in &bitness_array {
+		add_tests(&mut v, get_test_cases(*bitness), include_invalid, can_encode);
+	}
+	if include_other_tests {
+		for bitness in &bitness_array {
+			add_tests(&mut v, get_misc_test_cases(*bitness), include_invalid, can_encode);
+		}
+		for bitness in &bitness_array {
+			add_tests_mem(&mut v, get_mem_test_cases(*bitness), include_invalid, can_encode);
+		}
+	}
+	v
+}
+
+fn add_tests(v: &mut Vec<DecoderTestInfo>, tests: &'static Vec<DecoderTestCase>, include_invalid: bool, can_encode: Option<bool>) {
+	for tc in tests {
+		if !include_invalid && tc.code == Code::INVALID {
+			continue;
+		}
+		if let Some(can_encode) = can_encode {
+			if tc.can_encode != can_encode {
+				continue;
+			}
+		}
+		v.push(DecoderTestInfo {
+			bitness: tc.bitness,
+			code: tc.code,
+			hex_bytes: tc.hex_bytes.clone(),
+			encoded_hex_bytes: tc.encoded_hex_bytes.clone(),
+			decoder_options: tc.decoder_options,
+			can_encode: tc.can_encode,
+		});
+	}
+}
+
+fn add_tests_mem(v: &mut Vec<DecoderTestInfo>, tests: &'static Vec<DecoderMemoryTestCase>, include_invalid: bool, can_encode: Option<bool>) {
+	for tc in tests {
+		if !include_invalid && tc.code == Code::INVALID {
+			continue;
+		}
+		if let Some(can_encode) = can_encode {
+			if tc.can_encode != can_encode {
+				continue;
+			}
+		}
+		v.push(DecoderTestInfo {
+			bitness: tc.bitness,
+			code: tc.code,
+			hex_bytes: tc.hex_bytes.clone(),
+			encoded_hex_bytes: tc.encoded_hex_bytes.clone(),
+			decoder_options: tc.decoder_options,
+			can_encode: tc.can_encode,
+		});
+	}
 }

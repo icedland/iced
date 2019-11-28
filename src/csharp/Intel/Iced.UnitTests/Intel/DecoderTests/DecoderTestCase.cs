@@ -124,6 +124,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public int Scale;
 		public uint Displacement;
 		public int DisplacementSize;
+		public bool CanEncode;
 		public ConstantOffsets ConstantOffsets;
 	}
 }

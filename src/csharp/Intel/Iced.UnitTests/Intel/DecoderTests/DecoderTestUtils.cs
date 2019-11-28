@@ -91,11 +91,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.CanEncode);
 
 			foreach (var tc in DecoderTestCases.TestCasesMemory16)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, true);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.CanEncode);
 			foreach (var tc in DecoderTestCases.TestCasesMemory32)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, true);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.CanEncode);
 			foreach (var tc in DecoderTestCases.TestCasesMemory64)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, true);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.CanEncode);
 		}
 	}
 }

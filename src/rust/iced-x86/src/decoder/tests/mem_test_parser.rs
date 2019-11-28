@@ -123,8 +123,10 @@ impl IntoIter {
 		let encoded_hex_bytes = if parts.len() == 11 { hex_bytes } else { parts[11].trim() };
 		let _ = to_vec_u8(encoded_hex_bytes)?;
 		let decoder_options = DecoderOptions::NONE;
+		let can_encode = true;
 
 		Ok(DecoderMemoryTestCase {
+			bitness: self.bitness,
 			hex_bytes: hex_bytes.to_string(),
 			code,
 			register,
@@ -139,6 +141,7 @@ impl IntoIter {
 			encoded_hex_bytes: encoded_hex_bytes.to_string(),
 			decoder_options,
 			line_number,
+			can_encode,
 		})
 	}
 }
