@@ -4237,7 +4237,7 @@ namespace Generator.Decoder {
 				(code["DeclareDword"], memSize["Unknown"], memSize["Unknown"]),
 				(code["DeclareQword"], memSize["Unknown"], memSize["Unknown"]),
 			};
-			if ((uint)result.Length != Constants.IcedConstantsType.Instance["NumberOfCodeValues"].ValueUInt64)
+			if (result.Length != code.Values.Length)
 				throw new InvalidOperationException();
 			if (result.Select(a => a.codeEnum).ToHashSet<EnumValue>().Count != code.Values.Length)
 				throw new InvalidOperationException();

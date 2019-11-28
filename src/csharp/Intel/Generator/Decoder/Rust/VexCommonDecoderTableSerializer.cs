@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using Generator.Enums;
+using Generator.Enums.Decoder;
 using Generator.IO;
 
 namespace Generator.Decoder.Rust {

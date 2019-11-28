@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using Generator.Enums;
+using Generator.Enums.Decoder;
 
 namespace Generator.Decoder.CSharp {
 	abstract class VexCommonDecoderTableSerializer : DecoderTableSerializer {

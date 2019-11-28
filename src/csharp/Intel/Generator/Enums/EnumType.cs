@@ -177,23 +177,9 @@ namespace Generator.Enums {
 		public string ToStringValue(IdentifierConverter idConverter) => idConverter.EnumField(RawName);
 		public string? Documentation { get; internal set; }
 
-		public EnumValue(string name) {
-			DeclaringType = null!;
-			Value = 0;
-			RawName = name;
-			Documentation = null;
-		}
-
-		public EnumValue(uint value, string name) {
+		public EnumValue(uint value, string name, string? documentation) {
 			DeclaringType = null!;
 			Value = value;
-			RawName = name;
-			Documentation = null;
-		}
-
-		public EnumValue(string name, string? documentation) {
-			DeclaringType = null!;
-			Value = 0;
 			RawName = name;
 			Documentation = documentation;
 		}

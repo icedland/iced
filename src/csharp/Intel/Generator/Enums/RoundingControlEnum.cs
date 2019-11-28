@@ -21,18 +21,27 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System.Linq;
+
 namespace Generator.Enums {
+	enum RoundingControl {
+		[Comment("No rounding mode")]
+		None,
+		[Comment("Round to nearest (even)")]
+		RoundToNearest,
+		[Comment("Round down (toward -inf)")]
+		RoundDown,
+		[Comment("Round up (toward +inf)")]
+		RoundUp,
+		[Comment("Round toward zero (truncate)")]
+		RoundTowardZero,
+	}
+
 	static class RoundingControlEnum {
 		const string documentation = "Rounding control";
 
 		static EnumValue[] GetValues() =>
-			new EnumValue[] {
-				new EnumValue("None", "No rounding mode"),
-				new EnumValue("RoundToNearest", "Round to nearest (even)"),
-				new EnumValue("RoundDown", "Round down (toward -inf)"),
-				new EnumValue("RoundUp", "Round up (toward +inf)"),
-				new EnumValue("RoundTowardZero", "Round toward zero (truncate)"),
-			};
+			typeof(RoundingControl).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(RoundingControl)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 
 		public static readonly EnumType Instance = new EnumType(TypeIds.RoundingControl, documentation, GetValues(), EnumTypeFlags.Public);
 	}

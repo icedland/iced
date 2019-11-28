@@ -28,6 +28,6 @@ namespace Generator.Formatters.CSharp {
 		protected override object[][] Infos => Gas.CtorInfos.Infos;
 		protected override string Define => CSharpConstants.GasFormatterDefine;
 		protected override string Namespace => CSharpConstants.GasFormatterNamespace;
-		protected override EnumType CtorKindEnum => GasCtorKindEnum.Instance;
+		protected override EnumType CtorKindEnum => Enums.Formatter.Gas.CtorKindEnum.Instance;
 	}
 }

@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Linq;
 using Generator.Enums;
+using Generator.Enums.InstructionInfo;
 
 namespace Generator.Constants {
 	static class IcedConstantsType {

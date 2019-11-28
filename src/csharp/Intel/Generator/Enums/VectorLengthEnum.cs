@@ -35,7 +35,7 @@ namespace Generator.Enums {
 		}
 
 		static EnumValue[] GetValues() =>
-			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name)).ToArray();
+			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 
 		public static readonly EnumType Instance = new EnumType(TypeIds.VectorLength, documentation, GetValues(), EnumTypeFlags.None);
 	}

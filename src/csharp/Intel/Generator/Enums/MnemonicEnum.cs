@@ -1570,7 +1570,7 @@ namespace Generator.Enums {
 		}
 
 		static EnumValue[] GetValues() {
-			var result = typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue(0, a.Name)).ToArray();
+			var result = typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue(0, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 
 			Array.Sort(result, (a, b) => {
 				if (a == b)

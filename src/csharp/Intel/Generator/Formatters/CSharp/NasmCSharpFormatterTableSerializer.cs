@@ -28,6 +28,6 @@ namespace Generator.Formatters.CSharp {
 		protected override object[][] Infos => Nasm.CtorInfos.Infos;
 		protected override string Define => CSharpConstants.NasmFormatterDefine;
 		protected override string Namespace => CSharpConstants.NasmFormatterNamespace;
-		protected override EnumType CtorKindEnum => NasmCtorKindEnum.Instance;
+		protected override EnumType CtorKindEnum => Enums.Formatter.Nasm.CtorKindEnum.Instance;
 	}
 }

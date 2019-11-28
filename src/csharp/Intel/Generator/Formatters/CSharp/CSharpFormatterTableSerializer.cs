@@ -39,8 +39,8 @@ namespace Generator.Formatters.CSharp {
 			idConverter = CSharpIdentifierConverter.Create();
 
 		public void Initialize(StringsTable stringsTable) {
-			var expectedLength = Constants.IcedConstantsType.Instance["NumberOfCodeValues"].ValueUInt64;
-			if ((uint)Infos.Length != expectedLength)
+			var expectedLength = CodeEnum.Instance.Values.Length;
+			if (Infos.Length != expectedLength)
 				throw new InvalidOperationException($"Found {Infos.Length} elements, expected {expectedLength}");
 			foreach (var info in Infos) {
 				bool ignoreVPrefix = true;

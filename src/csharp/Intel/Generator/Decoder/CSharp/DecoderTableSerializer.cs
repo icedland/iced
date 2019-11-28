@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Generator.Enums;
+using Generator.Enums.Decoder;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {

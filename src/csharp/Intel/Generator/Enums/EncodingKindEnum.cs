@@ -21,18 +21,27 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System.Linq;
+
 namespace Generator.Enums {
+	enum EncodingKind {
+		[Comment("Legacy encoding")]
+		Legacy,
+		[Comment("VEX encoding")]
+		VEX,
+		[Comment("EVEX encoding")]
+		EVEX,
+		[Comment("XOP encoding")]
+		XOP,
+		[Comment("3DNow! encoding")]
+		D3NOW,
+	}
+
 	static class EncodingKindEnum {
 		const string documentation = "Instruction encoding";
 
 		static EnumValue[] GetValues() =>
-			new EnumValue[] {
-				new EnumValue("Legacy", "Legacy encoding"),
-				new EnumValue("VEX", "VEX encoding"),
-				new EnumValue("EVEX", "EVEX encoding"),
-				new EnumValue("XOP", "XOP encoding"),
-				new EnumValue("D3NOW", "3DNow! encoding"),
-			};
+			typeof(EncodingKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(EncodingKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 
 		public static readonly EnumType Instance = new EnumType(TypeIds.EncodingKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}

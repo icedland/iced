@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using Generator.Enums;
+using Generator.Enums.Decoder;
 
 namespace Generator.Decoder {
 	static class OpCodeHandlersTables_EVEX {
