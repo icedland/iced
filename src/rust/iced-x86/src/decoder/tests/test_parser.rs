@@ -35,11 +35,11 @@ use std::u32;
 pub(crate) struct DecoderTestParser {
 	filename: String,
 	lines: Lines<BufReader<File>>,
-	bitness: i32,
+	bitness: u32,
 }
 
 impl DecoderTestParser {
-	pub fn new(bitness: i32, filename: &Path) -> Self {
+	pub fn new(bitness: u32, filename: &Path) -> Self {
 		let display_filename = filename.display().to_string();
 		let file = File::open(filename).expect(format!("Couldn't open file {}", display_filename).as_str());
 		let lines = BufReader::new(file).lines();
@@ -68,8 +68,8 @@ impl IntoIterator for DecoderTestParser {
 pub(crate) struct IntoIter {
 	filename: String,
 	lines: Lines<BufReader<File>>,
-	bitness: i32,
-	line_number: i32,
+	bitness: u32,
+	line_number: u32,
 }
 
 // GENERATOR-BEGIN: DecoderTestText
@@ -280,7 +280,7 @@ impl Iterator for IntoIter {
 }
 
 impl IntoIter {
-	fn read_next_test_case(&self, line: String, line_number: i32) -> Result<DecoderTestCase, String> {
+	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<DecoderTestCase, String> {
 		let parts: Vec<&str> = line.split(",").collect();
 		if parts.len() != 5 {
 			return Err(format!("Invalid number of commas ({} commas)", parts.len() - 1));
@@ -295,7 +295,7 @@ impl IntoIter {
 		tc.encoded_hex_bytes = tc.hex_bytes.clone();
 		tc.code = to_code(parts[1])?;
 		tc.mnemonic = to_mnemonic(parts[2])?;
-		tc.op_count = to_i32(parts[3])?;
+		tc.op_count = to_u32(parts[3])?;
 
 		for key in parts[4].split(" ") {
 			let mut key = key;
@@ -409,7 +409,7 @@ impl IntoIter {
 		Ok(tc)
 	}
 
-	fn read_op_kind(&self, tc: &mut DecoderTestCase, operand: i32, value: &str) -> Result<(), String> {
+	fn read_op_kind(&self, tc: &mut DecoderTestCase, operand: u32, value: &str) -> Result<(), String> {
 		let parts: Vec<&str> = value.split(";").collect();
 		match *(*TO_DECODER_TEST_PARSER_CONSTANTS).get(parts[0]).unwrap_or(&u32::MAX) {
 			DecoderTestParserConstants::OP_KIND_REGISTER => {
@@ -630,9 +630,9 @@ impl IntoIter {
 				tc.memory_segment = to_register(parts[1])?;
 				tc.memory_base = to_register(parts[2])?;
 				tc.memory_index = to_register(parts[3])?;
-				tc.memory_index_scale = to_i32(parts[4])?;
+				tc.memory_index_scale = to_u32(parts[4])?;
 				tc.memory_displacement = to_u32(parts[5])?;
-				tc.memory_displ_size = to_i32(parts[6])?;
+				tc.memory_displ_size = to_u32(parts[6])?;
 				tc.memory_size = to_memory_size(parts[7])?;
 			}
 

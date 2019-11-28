@@ -201,15 +201,15 @@ mod info {
 		/// Gets the size in bytes of the memory location or 0 if it's not accessed or unknown
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
-		pub fn size(&self) -> i32 {
-			self.size as i32
+		pub fn size(&self) -> u32 {
+			self.size as u32
 		}
 
 		/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to `size()`.
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
-		pub fn element_size(&self) -> i32 {
-			self.element_size as i32
+		pub fn element_size(&self) -> u32 {
+			self.element_size as u32
 		}
 
 		/// Gets the element type if it's packed data or the type itself if it's not packed data
@@ -251,12 +251,12 @@ mod info {
 		/// Gets the number of elements in the packed data type or `1` if it's not packed data (`is_packed()`)
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
-		pub fn element_count(&self) -> i32 {
+		pub fn element_count(&self) -> u32 {
 			// element_size can be 0 so we don't divide by it if es == s
 			if self.element_size == self.size {
 				1
 			} else {
-				self.size as i32 / self.element_size as i32
+				self.size as u32 / self.element_size as u32
 			}
 		}
 	}
@@ -707,14 +707,14 @@ impl MemorySize {
 	/// Gets the size in bytes of the memory location or 0 if it's not accessed by the instruction or unknown or variable sized
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn size(self) -> i32 {
+	pub fn size(self) -> u32 {
 		self.info().size()
 	}
 
 	/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to `size()`.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn element_size(self) -> i32 {
+	pub fn element_size(self) -> u32 {
 		self.info().element_size()
 	}
 
@@ -742,7 +742,7 @@ impl MemorySize {
 	/// Gets the number of elements in the packed data type or `1` if it's not packed data (`is_packed()`)
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn element_count(self) -> i32 {
+	pub fn element_count(self) -> u32 {
 		self.info().element_count()
 	}
 }

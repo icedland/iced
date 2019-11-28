@@ -33,7 +33,7 @@ use std::io::prelude::*;
 use std::io::BufReader;
 
 pub(crate) struct DecoderTestInfo {
-	bitness: i32,
+	bitness: u32,
 	code: Code,
 	hex_bytes: String,
 	encoded_hex_bytes: String,
@@ -42,7 +42,7 @@ pub(crate) struct DecoderTestInfo {
 }
 
 impl DecoderTestInfo {
-	pub(crate) fn bitness(&self) -> i32 {
+	pub(crate) fn bitness(&self) -> u32 {
 		self.bitness
 	}
 	pub(crate) fn code(&self) -> Code {

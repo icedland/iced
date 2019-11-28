@@ -27,7 +27,7 @@ use super::super::super::*;
 use super::test_utils::decoder_tests;
 use std::collections::HashMap;
 
-fn decoder_new_panics(bitness: i32) {
+fn decoder_new_panics(bitness: u32) {
 	let _ = Decoder::new(bitness, b"\x90", DecoderOptions::NONE);
 }
 
@@ -47,13 +47,13 @@ fn decoder_new_panics_128() {
 fn decode_multiple_instrs_with_one_instance() {
 	let tests = decoder_tests(false, true);
 
-	let mut bytes_map16: HashMap<(i32, u32), Vec<u8>> = HashMap::new();
-	let mut bytes_map32: HashMap<(i32, u32), Vec<u8>> = HashMap::new();
-	let mut bytes_map64: HashMap<(i32, u32), Vec<u8>> = HashMap::new();
+	let mut bytes_map16: HashMap<(u32, u32), Vec<u8>> = HashMap::new();
+	let mut bytes_map32: HashMap<(u32, u32), Vec<u8>> = HashMap::new();
+	let mut bytes_map64: HashMap<(u32, u32), Vec<u8>> = HashMap::new();
 
-	let mut map16: HashMap<(i32, u32), Decoder> = HashMap::new();
-	let mut map32: HashMap<(i32, u32), Decoder> = HashMap::new();
-	let mut map64: HashMap<(i32, u32), Decoder> = HashMap::new();
+	let mut map16: HashMap<(u32, u32), Decoder> = HashMap::new();
+	let mut map32: HashMap<(u32, u32), Decoder> = HashMap::new();
+	let mut map64: HashMap<(u32, u32), Decoder> = HashMap::new();
 
 	for tc in &tests {
 		let bytes_map = match tc.bitness() {
@@ -103,7 +103,7 @@ fn decode_multiple_instrs_with_one_instance() {
 		if instr1.code() == Code::INVALID {
 			// decoder_all has a bigger buffer and can decode more bytes
 			decoder_all.set_position(position + bytes.len());
-			instr2.set_len(bytes.len() as i32);
+			instr2.set_len(bytes.len() as u32);
 			instr2.set_next_ip(ip + bytes.len() as u64);
 		}
 		assert!(instr1.eq_all_bits(&instr2));
@@ -114,7 +114,7 @@ fn decode_multiple_instrs_with_one_instance() {
 
 #[test]
 fn position() {
-	const BITNESS: i32 = 64;
+	const BITNESS: u32 = 64;
 	let bytes = b"\x23\x18\x62\x31\x7C\x8B\x11\xD3";
 	let mut decoder = Decoder::new(BITNESS, bytes, DecoderOptions::NONE);
 	decoder.set_ip(get_default_ip(BITNESS));

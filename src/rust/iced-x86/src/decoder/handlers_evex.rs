@@ -1911,7 +1911,7 @@ impl OpCodeHandler_EVEX_Vk_VSIB {
 			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem_vsib(instruction, this.vsib_base, this.tuple_type);
 			if decoder.invalid_check_mask != 0 {
-				if reg_num == ((instruction.memory_index() as u32).wrapping_sub(Register::XMM0 as u32) % IcedConstants::VMM_COUNT as u32) {
+				if reg_num == ((instruction.memory_index() as u32).wrapping_sub(Register::XMM0 as u32) % IcedConstants::VMM_COUNT) {
 					decoder.set_invalid_instruction();
 				}
 			}

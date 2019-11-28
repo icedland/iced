@@ -51,7 +51,7 @@ fn decode_64() {
 	decode(64);
 }
 
-fn decode(bitness: i32) {
+fn decode(bitness: u32) {
 	for info in test_cases::get_test_cases(bitness).iter() {
 		decode_test(bitness, &info);
 	}
@@ -72,20 +72,20 @@ fn decode_misc_64() {
 	decode_misc(64);
 }
 
-fn decode_misc(bitness: i32) {
+fn decode_misc(bitness: u32) {
 	for info in test_cases::get_misc_test_cases(bitness).iter() {
 		decode_test(bitness, &info);
 	}
 }
 
-fn create_decoder<'a>(bitness: i32, bytes: &'a [u8], options: u32) -> (Decoder<'a>, usize, bool) {
+fn create_decoder<'a>(bitness: u32, bytes: &'a [u8], options: u32) -> (Decoder<'a>, usize, bool) {
 	let mut decoder = Decoder::new(bitness, bytes, options);
 	decoder.set_ip(get_default_ip(bitness));
 	let len = cmp::min(IcedConstants::MAX_INSTRUCTION_LENGTH as usize, bytes.len());
 	(decoder, len, len < bytes.len())
 }
 
-fn decode_test(bitness: i32, tc: &DecoderTestCase) {
+fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	let bytes = to_vec_u8(&tc.hex_bytes).expect("Couldn't parse hex bytes");
 	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.decoder_options);
 	assert_eq!(0, decoder.position());
@@ -250,13 +250,13 @@ fn decode_mem_64() {
 	decode_mem(64);
 }
 
-fn decode_mem(bitness: i32) {
+fn decode_mem(bitness: u32) {
 	for info in test_cases::get_mem_test_cases(bitness).iter() {
 		decode_mem_test(bitness, &info);
 	}
 }
 
-fn decode_mem_test(bitness: i32, tc: &DecoderMemoryTestCase) {
+fn decode_mem_test(bitness: u32, tc: &DecoderMemoryTestCase) {
 	let bytes = to_vec_u8(&tc.hex_bytes).expect("Couldn't parse hex bytes");
 	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.decoder_options);
 	assert_eq!(0, decoder.position());

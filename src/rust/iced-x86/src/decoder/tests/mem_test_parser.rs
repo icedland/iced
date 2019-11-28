@@ -33,11 +33,11 @@ use std::path::Path;
 pub(crate) struct DecoderMemoryTestParser {
 	filename: String,
 	lines: Lines<BufReader<File>>,
-	bitness: i32,
+	bitness: u32,
 }
 
 impl DecoderMemoryTestParser {
-	pub fn new(bitness: i32, filename: &Path) -> Self {
+	pub fn new(bitness: u32, filename: &Path) -> Self {
 		let display_filename = filename.display().to_string();
 		let file = File::open(filename).expect(format!("Couldn't open file {}", display_filename).as_str());
 		let lines = BufReader::new(file).lines();
@@ -66,8 +66,8 @@ impl IntoIterator for DecoderMemoryTestParser {
 pub(crate) struct IntoIter {
 	filename: String,
 	lines: Lines<BufReader<File>>,
-	bitness: i32,
-	line_number: i32,
+	bitness: u32,
+	line_number: u32,
 }
 
 impl Iterator for IntoIter {
@@ -102,7 +102,7 @@ impl Iterator for IntoIter {
 }
 
 impl IntoIter {
-	fn read_next_test_case(&self, line: String, line_number: i32) -> Result<DecoderMemoryTestCase, String> {
+	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<DecoderMemoryTestCase, String> {
 		let parts: Vec<&str> = line.split(",").collect();
 		if parts.len() != 11 && parts.len() != 12 {
 			return Err(format!("Invalid number of commas ({} commas)", parts.len() - 1));
@@ -116,9 +116,9 @@ impl IntoIter {
 		let segment = to_register(parts[4].trim())?;
 		let base_register = to_register(parts[5].trim())?;
 		let index_register = to_register(parts[6].trim())?;
-		let scale = to_i32(parts[7].trim())?;
+		let scale = to_u32(parts[7].trim())?;
 		let displacement = to_u32(parts[8].trim())?;
-		let displ_size = to_i32(parts[9].trim())?;
+		let displ_size = to_u32(parts[9].trim())?;
 		let constant_offsets = super::test_parser::parse_constant_offsets(parts[10].trim())?;
 		let encoded_hex_bytes = if parts.len() == 11 { hex_bytes } else { parts[11].trim() };
 		let _ = to_vec_u8(encoded_hex_bytes)?;

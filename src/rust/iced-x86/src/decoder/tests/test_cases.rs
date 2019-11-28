@@ -27,7 +27,7 @@ use super::decoder_test_case::*;
 use super::mem_test_parser::*;
 use super::test_parser::*;
 
-fn read_decoder_test_cases_core(bitness: i32, filename: String) -> Vec<DecoderTestCase> {
+fn read_decoder_test_cases_core(bitness: u32, filename: String) -> Vec<DecoderTestCase> {
 	let mut path = get_decoder_unit_tests_dir();
 	path.push(filename);
 	let parser = DecoderTestParser::new(bitness, path.as_path());
@@ -36,15 +36,15 @@ fn read_decoder_test_cases_core(bitness: i32, filename: String) -> Vec<DecoderTe
 	v
 }
 
-fn read_decoder_test_cases(bitness: i32) -> Vec<DecoderTestCase> {
+fn read_decoder_test_cases(bitness: u32) -> Vec<DecoderTestCase> {
 	read_decoder_test_cases_core(bitness, format!("DecoderTest{}.txt", bitness))
 }
 
-fn read_decoder_misc_test_cases(bitness: i32) -> Vec<DecoderTestCase> {
+fn read_decoder_misc_test_cases(bitness: u32) -> Vec<DecoderTestCase> {
 	read_decoder_test_cases_core(bitness, format!("DecoderTestMisc{}.txt", bitness))
 }
 
-fn read_decoder_mem_test_cases(bitness: i32) -> Vec<DecoderMemoryTestCase> {
+fn read_decoder_mem_test_cases(bitness: u32) -> Vec<DecoderMemoryTestCase> {
 	let mut filename = get_decoder_unit_tests_dir();
 	filename.push(format!("MemoryTest{}.txt", bitness));
 	let parser = DecoderMemoryTestParser::new(bitness, filename.as_path());
@@ -53,7 +53,7 @@ fn read_decoder_mem_test_cases(bitness: i32) -> Vec<DecoderMemoryTestCase> {
 	v
 }
 
-pub(crate) fn get_test_cases(bitness: i32) -> &'static Vec<DecoderTestCase> {
+pub(crate) fn get_test_cases(bitness: u32) -> &'static Vec<DecoderTestCase> {
 	match bitness {
 		16 => &*TEST_CASES_16,
 		32 => &*TEST_CASES_32,
@@ -62,7 +62,7 @@ pub(crate) fn get_test_cases(bitness: i32) -> &'static Vec<DecoderTestCase> {
 	}
 }
 
-pub(crate) fn get_misc_test_cases(bitness: i32) -> &'static Vec<DecoderTestCase> {
+pub(crate) fn get_misc_test_cases(bitness: u32) -> &'static Vec<DecoderTestCase> {
 	match bitness {
 		16 => &*MISC_TEST_CASES_16,
 		32 => &*MISC_TEST_CASES_32,
@@ -71,7 +71,7 @@ pub(crate) fn get_misc_test_cases(bitness: i32) -> &'static Vec<DecoderTestCase>
 	}
 }
 
-pub(crate) fn get_mem_test_cases(bitness: i32) -> &'static Vec<DecoderMemoryTestCase> {
+pub(crate) fn get_mem_test_cases(bitness: u32) -> &'static Vec<DecoderMemoryTestCase> {
 	match bitness {
 		16 => &*TEST_CASES_MEM_16,
 		32 => &*TEST_CASES_MEM_32,

@@ -142,7 +142,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn ip32(&self) -> u32 {
-		(self.next_rip as u32).wrapping_sub(self.len() as u32)
+		(self.next_rip as u32).wrapping_sub(self.len())
 	}
 
 	/// Sets the 32-bit IP of the instruction
@@ -273,16 +273,16 @@ impl Instruction {
 	/// Gets the operand count. An instruction can have 0-5 operands.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn op_count(&self) -> i32 {
-		instruction_op_counts::OP_COUNT[(self.code_flags & CodeFlags::CODE_MASK) as usize] as i32
+	pub fn op_count(&self) -> u32 {
+		instruction_op_counts::OP_COUNT[(self.code_flags & CodeFlags::CODE_MASK) as usize] as u32
 	}
 
 	/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
 	/// or create a new one, this property could return the wrong value.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn len(&self) -> i32 {
-		((self.code_flags >> CodeFlags::INSTR_LENGTH_SHIFT) & CodeFlags::INSTR_LENGTH_MASK) as i32
+	pub fn len(&self) -> u32 {
+		((self.code_flags >> CodeFlags::INSTR_LENGTH_SHIFT) & CodeFlags::INSTR_LENGTH_MASK)
 	}
 
 	/// Sets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
@@ -291,9 +291,9 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	pub fn set_len(&mut self, new_value: i32) {
+	pub fn set_len(&mut self, new_value: u32) {
 		self.code_flags = (self.code_flags & !(CodeFlags::INSTR_LENGTH_MASK << CodeFlags::INSTR_LENGTH_SHIFT))
-			| (((new_value as u32) & CodeFlags::INSTR_LENGTH_MASK) << CodeFlags::INSTR_LENGTH_SHIFT);
+			| ((new_value & CodeFlags::INSTR_LENGTH_MASK) << CodeFlags::INSTR_LENGTH_SHIFT);
 	}
 
 	/// Checks if the instruction has the `XACQUIRE` prefix (`F2`)
@@ -522,7 +522,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg_attr(has_must_use, must_use)]
-	pub fn op_kind(&self, operand: i32) -> OpKind {
+	pub fn op_kind(&self, operand: u32) -> OpKind {
 		match operand {
 			0 => self.op0_kind(),
 			1 => self.op1_kind(),
@@ -539,7 +539,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `op_kind`: Operand kind
-	pub fn set_op_kind(&mut self, operand: i32, op_kind: OpKind) {
+	pub fn set_op_kind(&mut self, operand: u32, op_kind: OpKind) {
 		match operand {
 			0 => self.set_op0_kind(op_kind),
 			1 => self.set_op1_kind(op_kind),
@@ -607,10 +607,10 @@ impl Instruction {
 	/// a signed byte if it's an EVEX encoded instruction.
 	/// Use this property if the operand has kind `OpKind::Memory`
 	#[cfg_attr(has_must_use, must_use)]
-	pub fn memory_displ_size(&self) -> i32 {
-		let size: u32 = ((self.memory_flags as u32) >> MemoryFlags::DISPL_SIZE_SHIFT) & MemoryFlags::DISPL_SIZE_MASK;
+	pub fn memory_displ_size(&self) -> u32 {
+		let size = ((self.memory_flags as u32) >> MemoryFlags::DISPL_SIZE_SHIFT) & MemoryFlags::DISPL_SIZE_MASK;
 		if size <= 2 {
-			size as i32
+			size
 		} else if size == 3 {
 			4
 		} else {
@@ -626,7 +626,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: Displacement size
-	pub fn set_memory_displ_size(&mut self, new_value: i32) {
+	pub fn set_memory_displ_size(&mut self, new_value: u32) {
 		let enc_value = match new_value {
 			0 => 0,
 			1 => 1,
@@ -677,7 +677,7 @@ impl Instruction {
 	/// Gets the index register scale value, valid values are *1, *2, *4, *8. Use this property if the operand has kind `OpKind::Memory`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn memory_index_scale(&self) -> i32 {
+	pub fn memory_index_scale(&self) -> u32 {
 		1 << (self.memory_flags as u32 & MemoryFlags::SCALE_MASK)
 	}
 
@@ -686,7 +686,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value (1, 2, 4 or 8)
-	pub fn set_memory_index_scale(&mut self, new_value: i32) {
+	pub fn set_memory_index_scale(&mut self, new_value: u32) {
 		match new_value {
 			1 => self.memory_flags &= !3,
 			2 => self.memory_flags = (self.memory_flags & !(MemoryFlags::SCALE_MASK as u16)) | 1,
@@ -731,7 +731,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg_attr(has_must_use, must_use)]
-	pub fn immediate(&self, operand: i32) -> u64 {
+	pub fn immediate(&self, operand: u32) -> u64 {
 		match self.op_kind(operand) {
 			OpKind::Immediate8 => self.immediate8() as u64,
 			OpKind::Immediate8_2nd => self.immediate8_2nd() as u64,
@@ -753,7 +753,7 @@ impl Instruction {
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
 	#[inline]
-	pub fn set_immediate_i32(&mut self, operand: i32, new_value: i32) {
+	pub fn set_immediate_i32(&mut self, operand: u32, new_value: i32) {
 		self.set_immediate_u64(operand, new_value as u64);
 	}
 
@@ -764,7 +764,7 @@ impl Instruction {
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
 	#[inline]
-	pub fn set_immediate_u32(&mut self, operand: i32, new_value: u32) {
+	pub fn set_immediate_u32(&mut self, operand: u32, new_value: u32) {
 		self.set_immediate_u64(operand, new_value as u64);
 	}
 
@@ -775,7 +775,7 @@ impl Instruction {
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
 	#[inline]
-	pub fn set_immediate_i64(&mut self, operand: i32, new_value: i64) {
+	pub fn set_immediate_i64(&mut self, operand: u32, new_value: i64) {
 		self.set_immediate_u64(operand, new_value as u64);
 	}
 
@@ -785,7 +785,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
-	pub fn set_immediate_u64(&mut self, operand: i32, new_value: u64) {
+	pub fn set_immediate_u64(&mut self, operand: u32, new_value: u64) {
 		match self.op_kind(operand) {
 			OpKind::Immediate8 | OpKind::Immediate8to16 | OpKind::Immediate8to32 | OpKind::Immediate8to64 => self.immediate = new_value as u8 as u32,
 			OpKind::Immediate8_2nd => self.mem_displ = new_value as u8 as u32,
@@ -1215,7 +1215,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg_attr(has_must_use, must_use)]
-	pub fn op_register(&self, operand: i32) -> Register {
+	pub fn op_register(&self, operand: u32) -> Register {
 		match operand {
 			0 => self.op0_register(),
 			1 => self.op1_register(),
@@ -1232,7 +1232,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: New value
-	pub fn set_op_register(&mut self, operand: i32, new_value: Register) {
+	pub fn set_op_register(&mut self, operand: u32, new_value: Register) {
 		match operand {
 			0 => self.set_op0_register(new_value),
 			1 => self.set_op1_register(new_value),
@@ -1348,8 +1348,8 @@ impl Instruction {
 	/// Can only be called if `code()` is `Code::DeclareByte`, `Code::DeclareWord`, `Code::DeclareDword`, `Code::DeclareQword`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn declare_data_len(&self) -> i32 {
-		((self.op_kind_flags >> OpKindFlags::DATA_LENGTH_SHIFT) & OpKindFlags::DATA_LENGTH_MASK) as i32 + 1
+	pub fn declare_data_len(&self) -> u32 {
+		((self.op_kind_flags >> OpKindFlags::DATA_LENGTH_SHIFT) & OpKindFlags::DATA_LENGTH_MASK) + 1
 	}
 
 	/// Sets the number of elements in a `db`/`dw`/`dd`/`dq` directive.
@@ -1359,9 +1359,9 @@ impl Instruction {
 	///
 	/// * `new_value`: New value: `db`: 1-16; `dw`: 1-8; `dd`: 1-4; `dq`: 1-2
 	#[inline]
-	pub fn set_declare_data_len(&mut self, new_value: i32) {
+	pub fn set_declare_data_len(&mut self, new_value: u32) {
 		self.op_kind_flags = (self.op_kind_flags & !(OpKindFlags::DATA_LENGTH_MASK << OpKindFlags::DATA_LENGTH_SHIFT))
-			| (((new_value - 1) as u32 & OpKindFlags::DATA_LENGTH_MASK) << OpKindFlags::DATA_LENGTH_SHIFT);
+			| (((new_value - 1) & OpKindFlags::DATA_LENGTH_MASK) << OpKindFlags::DATA_LENGTH_SHIFT);
 	}
 
 	/// Sets a new `db` value, see also `declare_data_len()`.
@@ -1372,7 +1372,7 @@ impl Instruction {
 	/// * `index`: Index (0-15)
 	/// * `new_value`: New value
 	#[inline]
-	pub fn set_declare_byte_value_i8(&mut self, index: i32, new_value: i8) {
+	pub fn set_declare_byte_value_i8(&mut self, index: u32, new_value: i8) {
 		self.set_declare_byte_value(index, new_value as u8)
 	}
 
@@ -1383,7 +1383,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-15)
 	/// * `new_value`: New value
-	pub fn set_declare_byte_value(&mut self, index: i32, new_value: u8) {
+	pub fn set_declare_byte_value(&mut self, index: u32, new_value: u8) {
 		match index {
 			0 => self.reg0 = new_value,
 			1 => self.reg1 = new_value,
@@ -1412,7 +1412,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-15)
 	#[cfg_attr(has_must_use, must_use)]
-	pub fn get_declare_byte_value(&self, index: i32) -> u8 {
+	pub fn get_declare_byte_value(&self, index: u32) -> u8 {
 		match index {
 			0 => self.reg0,
 			1 => self.reg1,
@@ -1442,7 +1442,7 @@ impl Instruction {
 	/// * `index`: Index (0-7)
 	/// * `new_value`: New value
 	#[inline]
-	pub fn set_declare_word_value_i16(&mut self, index: i32, new_value: i16) {
+	pub fn set_declare_word_value_i16(&mut self, index: u32, new_value: i16) {
 		self.set_declare_word_value(index, new_value as u16);
 	}
 
@@ -1453,7 +1453,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-7)
 	/// * `new_value`: New value
-	pub fn set_declare_word_value(&mut self, index: i32, new_value: u16) {
+	pub fn set_declare_word_value(&mut self, index: u32, new_value: u16) {
 		match index {
 			0 => {
 				self.reg0 = new_value as u8;
@@ -1483,7 +1483,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-7)
 	#[cfg_attr(has_must_use, must_use)]
-	pub fn get_declare_word_value(&self, index: i32) -> u16 {
+	pub fn get_declare_word_value(&self, index: u32) -> u16 {
 		match index {
 			0 => self.reg0 as u16 | ((self.reg1 as u16) << 8),
 			1 => self.reg2 as u16 | ((self.reg3 as u16) << 8),
@@ -1505,7 +1505,7 @@ impl Instruction {
 	/// * `index`: Index (0-3)
 	/// * `new_value`: New value
 	#[inline]
-	pub fn set_declare_dword_value_i32(&mut self, index: i32, new_value: i32) {
+	pub fn set_declare_dword_value_i32(&mut self, index: u32, new_value: i32) {
 		self.set_declare_dword_value(index, new_value as u32);
 	}
 
@@ -1516,7 +1516,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-3)
 	/// * `new_value`: New value
-	pub fn set_declare_dword_value(&mut self, index: i32, new_value: u32) {
+	pub fn set_declare_dword_value(&mut self, index: u32, new_value: u32) {
 		match index {
 			0 => {
 				self.reg0 = new_value as u8;
@@ -1542,7 +1542,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-3)
 	#[cfg_attr(has_must_use, must_use)]
-	pub fn get_declare_dword_value(&self, index: i32) -> u32 {
+	pub fn get_declare_dword_value(&self, index: u32) -> u32 {
 		match index {
 			0 => self.reg0 as u32 | ((self.reg1 as u32) << 8) | ((self.reg2 as u32) << 16) | ((self.reg3 as u32) << 24),
 			1 => self.immediate,
@@ -1560,7 +1560,7 @@ impl Instruction {
 	/// * `index`: Index (0-1)
 	/// * `new_value`: New value
 	#[inline]
-	pub fn set_declare_qword_value_i64(&mut self, index: i32, new_value: i64) {
+	pub fn set_declare_qword_value_i64(&mut self, index: u32, new_value: i64) {
 		self.set_declare_qword_value(index, new_value as u64);
 	}
 
@@ -1571,7 +1571,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-1)
 	/// * `new_value`: New value
-	pub fn set_declare_qword_value(&mut self, index: i32, new_value: u64) {
+	pub fn set_declare_qword_value(&mut self, index: u32, new_value: u64) {
 		match index {
 			0 => {
 				self.reg0 = new_value as u8;
@@ -1597,7 +1597,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-1)
 	#[cfg_attr(has_must_use, must_use)]
-	pub fn get_declare_qword_value(&self, index: i32) -> u64 {
+	pub fn get_declare_qword_value(&self, index: u32) -> u64 {
 		match index {
 			0 => {
 				self.reg0 as u64
@@ -1793,9 +1793,9 @@ impl Instruction {
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index in the vector register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	#[cfg_attr(has_must_use, must_use)]
-	pub fn virtual_address<F>(&self, operand: i32, element_index: i32, get_register_value: F) -> u64
+	pub fn virtual_address<F>(&self, operand: u32, element_index: u32, get_register_value: F) -> u64
 	where
-		F: Fn(Register, i32, i32) -> u64,
+		F: Fn(Register, u32, u32) -> u64,
 	{
 		match self.op_kind(operand) {
 			OpKind::Register

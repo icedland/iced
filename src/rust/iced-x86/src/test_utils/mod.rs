@@ -43,7 +43,7 @@ pub(crate) fn get_decoder_unit_tests_dir() -> PathBuf {
 	path
 }
 
-pub(crate) fn get_default_ip(bitness: i32) -> u64 {
+pub(crate) fn get_default_ip(bitness: u32) -> u64 {
 	match bitness {
 		16 => DecoderConstants::DEFAULT_IP16,
 		32 => DecoderConstants::DEFAULT_IP32,

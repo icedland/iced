@@ -153,12 +153,12 @@ pub(crate) fn internal_set_is_broadcast(this: &mut Instruction) {
 
 #[cfg_attr(has_must_use, must_use)]
 #[inline]
-pub(crate) fn internal_get_memory_index_scale(this: &Instruction) -> i32 {
-	(this.memory_flags & (MemoryFlags::SCALE_MASK as u16)) as i32
+pub(crate) fn internal_get_memory_index_scale(this: &Instruction) -> u32 {
+	(this.memory_flags & (MemoryFlags::SCALE_MASK as u16)) as u32
 }
 
 #[inline]
-pub(crate) fn internal_set_memory_index_scale(this: &mut Instruction, new_value: i32) {
+pub(crate) fn internal_set_memory_index_scale(this: &mut Instruction, new_value: u32) {
 	this.memory_flags |= new_value as u16;
 }
 
@@ -299,7 +299,7 @@ pub(crate) fn internal_set_suppress_all_exceptions(this: &mut Instruction) {
 }
 
 #[cfg_attr(has_must_use, must_use)]
-pub(crate) fn get_address_size_in_bytes(base_reg: Register, index_reg: Register, displ_size: i32, code_size: CodeSize) -> i32 {
+pub(crate) fn get_address_size_in_bytes(base_reg: Register, index_reg: Register, displ_size: u32, code_size: CodeSize) -> u32 {
 	if (Register::RAX <= base_reg && base_reg <= Register::R15)
 		|| (Register::RAX <= index_reg && index_reg <= Register::R15)
 		|| base_reg == Register::RIP

@@ -25,15 +25,15 @@ use super::super::super::*;
 
 #[derive(Default)]
 pub(crate) struct DecoderTestCase {
-	pub(crate) line_number: i32,
+	pub(crate) line_number: u32,
 	pub(crate) can_encode: bool,
 	pub(crate) decoder_options: u32,
-	pub(crate) bitness: i32,
+	pub(crate) bitness: u32,
 	pub(crate) hex_bytes: String,
 	pub(crate) encoded_hex_bytes: String,
 	pub(crate) code: Code,
 	pub(crate) mnemonic: Mnemonic,
-	pub(crate) op_count: i32,
+	pub(crate) op_count: u32,
 	pub(crate) zeroing_masking: bool,
 	pub(crate) suppress_all_exceptions: bool,
 	pub(crate) is_broadcast: bool,
@@ -42,7 +42,7 @@ pub(crate) struct DecoderTestCase {
 	pub(crate) has_repe_prefix: bool,
 	pub(crate) has_repne_prefix: bool,
 	pub(crate) has_lock_prefix: bool,
-	pub(crate) vsib_bitness: i32,
+	pub(crate) vsib_bitness: u32,
 	pub(crate) op_mask: Register,
 	pub(crate) rounding_control: RoundingControl,
 	pub(crate) op0_kind: OpKind,
@@ -54,9 +54,9 @@ pub(crate) struct DecoderTestCase {
 	pub(crate) memory_segment: Register,
 	pub(crate) memory_base: Register,
 	pub(crate) memory_index: Register,
-	pub(crate) memory_displ_size: i32,
+	pub(crate) memory_displ_size: u32,
 	pub(crate) memory_size: MemorySize,
-	pub(crate) memory_index_scale: i32,
+	pub(crate) memory_index_scale: u32,
 	pub(crate) memory_displacement: u32,
 	pub(crate) immediate: u64,
 	pub(crate) immediate_2nd: u8,
@@ -73,7 +73,7 @@ pub(crate) struct DecoderTestCase {
 }
 
 impl DecoderTestCase {
-	pub fn op_kind(&self, operand: i32) -> OpKind {
+	pub fn op_kind(&self, operand: u32) -> OpKind {
 		match operand {
 			0 => self.op0_kind,
 			1 => self.op1_kind,
@@ -84,7 +84,7 @@ impl DecoderTestCase {
 		}
 	}
 
-	pub fn set_op_kind(&mut self, operand: i32, op_kind: OpKind) {
+	pub fn set_op_kind(&mut self, operand: u32, op_kind: OpKind) {
 		match operand {
 			0 => self.op0_kind = op_kind,
 			1 => self.op1_kind = op_kind,
@@ -95,7 +95,7 @@ impl DecoderTestCase {
 		}
 	}
 
-	pub fn op_register(&self, operand: i32) -> Register {
+	pub fn op_register(&self, operand: u32) -> Register {
 		match operand {
 			0 => self.op0_register,
 			1 => self.op1_register,
@@ -106,7 +106,7 @@ impl DecoderTestCase {
 		}
 	}
 
-	pub fn set_op_register(&mut self, operand: i32, register: Register) {
+	pub fn set_op_register(&mut self, operand: u32, register: Register) {
 		match operand {
 			0 => self.op0_register = register,
 			1 => self.op1_register = register,

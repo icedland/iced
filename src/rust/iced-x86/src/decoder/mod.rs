@@ -244,11 +244,15 @@ pub struct Decoder<'a> {
 	default_inverted_operand_size: OpSize,
 	default_inverted_address_size: OpSize,
 	is64_mode: bool,
-	bitness: i32,
+	bitness: u32,
 }
 
 impl<'a> Decoder<'a> {
 	/// Creates a decoder
+	///
+	/// # Panics
+	///
+	/// Panics if `bitness` is not one of 16, 32, 64.
 	///
 	/// # Arguments
 	///
@@ -306,7 +310,7 @@ impl<'a> Decoder<'a> {
 	/// assert!(instr.has_lock_prefix());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	pub fn new(bitness: i32, data: &'a [u8], options: u32) -> Decoder<'a> {
+	pub fn new(bitness: u32, data: &'a [u8], options: u32) -> Decoder<'a> {
 		let prefixes;
 		let is64_mode;
 		let default_code_size;
@@ -342,7 +346,7 @@ impl<'a> Decoder<'a> {
 				default_inverted_address_size = OpSize::Size32;
 				prefixes = &PREFIXES1632;
 			}
-			_ => panic!("NYI"),
+			_ => panic!(),
 		}
 		Decoder {
 			ip: 0,
@@ -391,7 +395,7 @@ impl<'a> Decoder<'a> {
 	/// Gets the bitness (16, 32 or 64)
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn bitness(&self) -> i32 {
+	pub fn bitness(&self) -> u32 {
 		self.bitness
 	}
 
@@ -1372,7 +1376,7 @@ impl<'a> Decoder<'a> {
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
 		let base = sib & 7;
 
-		super::instruction_internal::internal_set_memory_index_scale(instruction, (sib >> 6) as i32);
+		super::instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
 		if !is_vsib {
 			if index != 4 {
 				super::instruction_internal::internal_set_memory_index_u32(instruction, index + index_reg as u32);

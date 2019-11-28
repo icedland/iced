@@ -72,7 +72,6 @@ namespace Generator.Constants.Rust {
 			case ConstantKind.String:
 				return "&'static str";
 			case ConstantKind.Int32:
-				return "i32";
 			case ConstantKind.UInt32:
 				return "u32";
 			case ConstantKind.UInt64:
@@ -93,10 +92,6 @@ namespace Generator.Constants.Rust {
 				throw new InvalidOperationException();
 
 			case ConstantKind.Int32:
-				if (constant.UseHex)
-					return NumberFormatter.FormatHexUInt32WithSep((uint)constant.ValueUInt64);
-				return ((int)constant.ValueUInt64).ToString();
-
 			case ConstantKind.UInt32:
 				if (constant.UseHex)
 					return NumberFormatter.FormatHexUInt32WithSep((uint)constant.ValueUInt64);

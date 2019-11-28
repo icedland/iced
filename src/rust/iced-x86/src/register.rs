@@ -976,21 +976,21 @@ impl Register {
 	#[cfg_attr(has_must_use, must_use)]
 	fn add(self, rhs: u32) -> Register {
 		let result = (self as u32).wrapping_add(rhs);
-		if result < IcedConstants::NUMBER_OF_REGISTERS as u32 {
+		if result < IcedConstants::NUMBER_OF_REGISTERS {
 			// safe: guaranteed to return a valid enum value
 			unsafe { mem::transmute(result as u8) }
 		} else {
-			panic!("NYI") //TODO:
+			panic!()
 		}
 	}
 	#[cfg_attr(has_must_use, must_use)]
 	fn sub(self, rhs: u32) -> Register {
 		let result = (self as u32).wrapping_sub(rhs);
-		if result < IcedConstants::NUMBER_OF_REGISTERS as u32 {
+		if result < IcedConstants::NUMBER_OF_REGISTERS {
 			// safe: guaranteed to return a valid enum value
 			unsafe { mem::transmute(result as u8) }
 		} else {
-			panic!("NYI") //TODO:
+			panic!()
 		}
 	}
 }
