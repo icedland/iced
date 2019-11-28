@@ -1521,11 +1521,14 @@ impl<'a> Decoder<'a> {
 	/// ```
 	/// use iced_x86::*;
 	///
+	/// // nop
 	/// // xor dword ptr [rax-5AA5EDCCh],5Ah
-	/// //           <opc><mrm><displacement_><imm>
-	/// let bytes = b"\x83\xB3\x34\x12\x5A\xA5\x5A";
+	/// //                  00  01  02  03  04  05  06
+	/// //                \opc\mrm\displacement___\imm
+	/// let bytes = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A";
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// decoder.set_ip(0x1234_5678);
+	/// assert!(decoder.decode().code() == Code::Nopd);
 	/// let instr = decoder.decode();
 	/// let co = decoder.get_constant_offsets(&instr);
 	///

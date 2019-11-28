@@ -102,9 +102,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		protected static IEnumerable<object[]> GetMemOpsData(int bitness) {
 			var allTestCases = DecoderTestCases.GetMemoryTestCases(bitness);
-			foreach (var tc in allTestCases) {
+			foreach (var tc in allTestCases)
 				yield return new object[13] { tc.HexBytes, tc.Code, tc.Register, tc.SegmentPrefix, tc.SegmentRegister, tc.BaseRegister, tc.IndexRegister, tc.Scale, tc.Displacement, tc.DisplacementSize, tc.ConstantOffsets, tc.EncodedHexBytes, tc.DecoderOptions };
-			}
 		}
 
 		protected static IEnumerable<object[]> GetDecoderTestData(int bitness, int classIndex) {
