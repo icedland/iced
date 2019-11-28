@@ -479,18 +479,18 @@ impl<'a> Decoder<'a> {
 	/// decoder.set_ip(0x1234_5678);
 	///
 	/// // 3 bytes left to read
-	/// assert_eq!(true, decoder.can_decode());
+	/// assert!(decoder.can_decode());
 	/// let instr = decoder.decode();
 	/// assert!(instr.code() == Code::Nopd);
 	///
 	/// // 2 bytes left to read
-	/// assert_eq!(true, decoder.can_decode());
+	/// assert!(decoder.can_decode());
 	/// let instr = decoder.decode();
 	/// // Not enough bytes left to decode a full instruction
 	/// assert!(instr.code() == Code::INVALID);
 	///
 	/// // 0 bytes left to read
-	/// assert_eq!(false, decoder.can_decode());
+	/// assert!(!decoder.can_decode());
 	/// ```
 	#[inline]
 	pub fn can_decode(&self) -> bool {

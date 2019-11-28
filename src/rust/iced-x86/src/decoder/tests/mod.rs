@@ -113,21 +113,21 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	assert_eq!(tc.has_lock_prefix, instr.has_lock_prefix());
 	match tc.vsib_bitness {
 		0 => {
-			assert_eq!(false, instr.is_vsib());
-			assert_eq!(false, instr.is_vsib32());
-			assert_eq!(false, instr.is_vsib64());
+			assert!(!instr.is_vsib());
+			assert!(!instr.is_vsib32());
+			assert!(!instr.is_vsib64());
 			assert_eq!(None, instr.vsib());
 		}
 		32 => {
-			assert_eq!(true, instr.is_vsib());
-			assert_eq!(true, instr.is_vsib32());
-			assert_eq!(false, instr.is_vsib64());
+			assert!(instr.is_vsib());
+			assert!(instr.is_vsib32());
+			assert!(!instr.is_vsib64());
 			assert_eq!(Some(false), instr.vsib());
 		}
 		64 => {
-			assert_eq!(true, instr.is_vsib());
-			assert_eq!(false, instr.is_vsib32());
-			assert_eq!(true, instr.is_vsib64());
+			assert!(instr.is_vsib());
+			assert!(!instr.is_vsib32());
+			assert!(instr.is_vsib64());
 			assert_eq!(Some(true), instr.vsib());
 		}
 		_ => panic!(),
@@ -137,9 +137,9 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	assert_eq!(tc.rounding_control, instr.rounding_control());
 	assert_eq!(tc.segment_prefix, instr.segment_prefix());
 	if instr.segment_prefix() == Register::None {
-		assert_eq!(false, instr.has_segment_prefix());
+		assert!(!instr.has_segment_prefix());
 	} else {
-		assert_eq!(true, instr.has_segment_prefix());
+		assert!(instr.has_segment_prefix());
 	}
 	for i in 0..tc.op_count {
 		let op_kind = tc.op_kind(i);
@@ -268,15 +268,15 @@ fn decode_mem_test(bitness: u32, tc: &DecoderMemoryTestCase) {
 	assert_eq!(tc.code, instr.code());
 	assert_eq!(2, instr.op_count());
 	assert_eq!(len, instr.len() as usize);
-	assert_eq!(false, instr.has_rep_prefix());
-	assert_eq!(false, instr.has_repe_prefix());
-	assert_eq!(false, instr.has_repne_prefix());
-	assert_eq!(false, instr.has_lock_prefix());
+	assert!(!instr.has_rep_prefix());
+	assert!(!instr.has_repe_prefix());
+	assert!(!instr.has_repne_prefix());
+	assert!(!instr.has_lock_prefix());
 	assert_eq!(tc.prefix_segment, instr.segment_prefix());
 	if instr.segment_prefix() == Register::None {
-		assert_eq!(false, instr.has_segment_prefix());
+		assert!(!instr.has_segment_prefix());
 	} else {
-		assert_eq!(true, instr.has_segment_prefix());
+		assert!(instr.has_segment_prefix());
 	}
 
 	assert_eq!(OpKind::Memory, instr.op0_kind());
