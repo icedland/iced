@@ -3,8 +3,11 @@ on: push
 
 jobs:
   build-csharp-windows:
-    name: C# (Windows)
-    runs-on: windows-latest
+    name: C# (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
 
     steps:
       - uses: actions/checkout@v1
@@ -47,9 +50,12 @@ jobs:
           Get-ChildItem src\csharp\Intel\Iced\bin\Release\Iced.*.nupkg | ForEach-Object { .\nuget.exe push $_.FullName -ApiKey ${{secrets.NUGET_APIKEY}} -NonInteractive -Source https://api.nuget.org/v3/index.json }
 
   # Make sure it builds on Linux too
-  build-csharp-ubuntu:
-    name: C# (Ubuntu)
-    runs-on: ubuntu-latest
+  build-csharp:
+    name: C# (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v1
@@ -87,11 +93,11 @@ jobs:
         shell: bash
         run: |
           export PATH="$HOME/.cargo/bin:$PATH"
-          cd src/rust/iced-x86
           cargo -V
+          cd src/rust/iced-x86
           echo ==== CLIPPY ====
           cargo clippy --color always
-          echo ==== FORMAT ====
+          echo ==== FORMAT CHECK ====
           cargo fmt -- --color always --check
           echo ==== BUILD DEBUG ====
           cargo build --color always

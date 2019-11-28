@@ -1,8 +1,7 @@
-param([switch]$NoTest, [switch]$NoCoverage)
+param([switch]$NoTest, [switch]$NoCoverage, [string]$Configuration = 'Release', [switch]$NoPack)
 
 $ErrorActionPreference = 'Stop'
 
-$configuration = 'Release'
 $netcore_tfm = 'netcoreapp3.0'
 $net_tfm = 'net48'
 $xunitVersion = '2.4.1'
@@ -30,11 +29,13 @@ if (!$NoTest) {
 	if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
 
-# Don't include the IVT in the final binary
-$env:MoreDefineConstants = 'IcedNoIVT'
-dotnet clean -v:m -c $configuration src/csharp/Iced.sln
-if ($LASTEXITCODE) { exit $LASTEXITCODE }
-dotnet pack -v:m -c $configuration src/csharp/Intel/Iced/Iced.csproj
-if ($LASTEXITCODE) { exit $LASTEXITCODE }
+if (!$NoPack) {
+	# Don't include the IVT in the final binary
+	$env:MoreDefineConstants = 'IcedNoIVT'
+	dotnet clean -v:m -c $configuration src/csharp/Iced.sln
+	if ($LASTEXITCODE) { exit $LASTEXITCODE }
+	dotnet pack -v:m -c $configuration src/csharp/Intel/Iced/Iced.csproj
+	if ($LASTEXITCODE) { exit $LASTEXITCODE }
+}
 
 $env:MoreDefineConstants = ''
