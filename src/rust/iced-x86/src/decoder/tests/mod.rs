@@ -88,11 +88,11 @@ fn create_decoder<'a>(bitness: i32, bytes: &'a [u8], options: u32) -> (Decoder<'
 fn decode_test(bitness: i32, tc: &DecoderTestCase) {
 	let bytes = to_vec_u8(&tc.hex_bytes).expect("Couldn't parse hex bytes");
 	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.decoder_options);
-	assert_eq!(0, decoder.data_index());
-	assert_eq!(bytes.len(), decoder.max_data_index());
+	assert_eq!(0, decoder.position());
+	assert_eq!(bytes.len(), decoder.max_position());
 	let rip = decoder.ip();
 	let instr = decoder.decode();
-	assert_eq!(len, decoder.data_index());
+	assert_eq!(len, decoder.position());
 	assert_eq!(can_read, decoder.can_decode());
 	assert_eq!(tc.code, instr.code());
 	assert_eq!(tc.mnemonic, instr.mnemonic());
@@ -259,10 +259,10 @@ fn decode_mem(bitness: i32) {
 fn decode_mem_test(bitness: i32, tc: &DecoderMemoryTestCase) {
 	let bytes = to_vec_u8(&tc.hex_bytes).expect("Couldn't parse hex bytes");
 	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.decoder_options);
-	assert_eq!(0, decoder.data_index());
-	assert_eq!(bytes.len(), decoder.max_data_index());
+	assert_eq!(0, decoder.position());
+	assert_eq!(bytes.len(), decoder.max_position());
 	let instr = decoder.decode();
-	assert_eq!(len, decoder.data_index());
+	assert_eq!(len, decoder.position());
 	assert_eq!(can_read, decoder.can_decode());
 
 	assert_eq!(tc.code, instr.code());

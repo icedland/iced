@@ -80,6 +80,7 @@ fn decode_multiple_instrs_with_one_instance() {
 		let _ = map.entry(key).or_insert(Decoder::new(tc.bitness(), vec, tc.decoder_options()));
 	}
 
+	let mut instr2: Instruction = Default::default();
 	for tc in &tests {
 		let bytes = to_vec_u8(tc.hex_bytes()).unwrap();
 		let mut decoder = super::create_decoder(tc.bitness(), &bytes, tc.decoder_options()).0;
@@ -93,15 +94,15 @@ fn decode_multiple_instrs_with_one_instance() {
 		let ip = decoder.ip();
 		decoder_all.set_ip(ip);
 
-		let index = decoder_all.data_index();
+		let position = decoder_all.position();
 		let instr1 = decoder.decode();
-		let mut instr2 = decoder_all.decode();
+		decoder_all.decode_out(&mut instr2);
 		let co1 = decoder.get_constant_offsets(&instr1);
 		let co2 = decoder_all.get_constant_offsets(&instr2);
 		assert_eq!(instr1.code(), instr2.code());
-		decoder_all.set_data_index(index + bytes.len());
 		if instr1.code() == Code::INVALID {
 			// decoder_all has a bigger buffer and can decode more bytes
+			decoder_all.set_position(position + bytes.len());
 			instr2.set_len(bytes.len() as i32);
 			instr2.set_next_ip(ip + bytes.len() as u64);
 		}
@@ -112,44 +113,46 @@ fn decode_multiple_instrs_with_one_instance() {
 }
 
 #[test]
-fn data_index() {
+fn position() {
 	const BITNESS: i32 = 64;
 	let bytes = b"\x23\x18\x62\x31\x7C\x8B\x11\xD3";
 	let mut decoder = Decoder::new(BITNESS, bytes, DecoderOptions::NONE);
 	decoder.set_ip(get_default_ip(BITNESS));
 
 	assert!(decoder.can_decode());
-	assert_eq!(0, decoder.data_index());
-	assert_eq!(bytes.len(), decoder.max_data_index());
+	assert_eq!(0, decoder.position());
+	assert_eq!(bytes.len(), decoder.max_position());
 
 	let instr_a1 = decoder.decode();
 	assert_eq!(Code::And_r32_rm32, instr_a1.code());
 
 	assert!(decoder.can_decode());
-	assert_eq!(2, decoder.data_index());
-	assert_eq!(bytes.len(), decoder.max_data_index());
+	assert_eq!(2, decoder.position());
+	assert_eq!(bytes.len(), decoder.max_position());
 
 	let instr_b1 = decoder.decode();
 	assert_eq!(Code::EVEX_Vmovups_xmmm128_k1z_xmm, instr_b1.code());
 
 	assert!(!decoder.can_decode());
-	assert_eq!(8, decoder.data_index());
-	assert_eq!(bytes.len(), decoder.max_data_index());
+	assert_eq!(8, decoder.position());
+	assert_eq!(bytes.len(), decoder.max_position());
 
 	decoder.set_ip(get_default_ip(BITNESS) + 2);
-	decoder.set_data_index(2);
+	assert_eq!(8, decoder.position());
+	decoder.set_position(2);
 	assert!(decoder.can_decode());
-	assert_eq!(2, decoder.data_index());
-	assert_eq!(bytes.len(), decoder.max_data_index());
+	assert_eq!(2, decoder.position());
+	assert_eq!(bytes.len(), decoder.max_position());
 
 	let instr_b2 = decoder.decode();
 	assert_eq!(Code::EVEX_Vmovups_xmmm128_k1z_xmm, instr_b2.code());
 
 	decoder.set_ip(get_default_ip(BITNESS) + 0);
-	decoder.set_data_index(0);
+	assert_eq!(8, decoder.position());
+	decoder.set_position(0);
 	assert!(decoder.can_decode());
-	assert_eq!(0, decoder.data_index());
-	assert_eq!(bytes.len(), decoder.max_data_index());
+	assert_eq!(0, decoder.position());
+	assert_eq!(bytes.len(), decoder.max_position());
 
 	let instr_a2 = decoder.decode();
 	assert_eq!(Code::And_r32_rm32, instr_a2.code());
@@ -159,12 +162,16 @@ fn data_index() {
 }
 
 #[test]
-fn set_data_index_valid_index() {
+fn set_position_valid_position() {
 	let bytes = b"\x23\x18\x62\x31\x7C\x8B\x11\xD3";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	for i in 0..(bytes.len() + 1) {
-		decoder.set_data_index(i);
-		assert_eq!(i, decoder.data_index());
+		decoder.set_position(i);
+		assert_eq!(i, decoder.position());
+	}
+	for i in (0..(bytes.len() + 1)).rev() {
+		decoder.set_position(i);
+		assert_eq!(i, decoder.position());
 	}
 	let mut decoder = Decoder::new(64, b"", DecoderOptions::NONE);
 	decoder.set_position(0);
@@ -173,10 +180,10 @@ fn set_data_index_valid_index() {
 
 #[test]
 #[should_panic]
-fn set_data_index_panics_if_invalid() {
+fn set_position_panics_if_invalid() {
 	let bytes = b"\x23\x18\x62\x31\x7C\x8B\x11\xD3";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	decoder.set_data_index(bytes.len() + 1);
+	decoder.set_position(bytes.len() + 1);
 }
 
 #[test]
@@ -202,6 +209,8 @@ fn decoder_for_loop_ref_mut_decoder() {
 		instrs.push(instr);
 	}
 	assert_eq!(0x1234_5678_9ABC_DEF8, decoder.ip());
+	assert!(!decoder.can_decode());
+	assert_eq!(8, decoder.position());
 	assert_eq!(2, instrs.len());
 	assert_eq!(Code::And_r32_rm32, instrs[0].code());
 	assert_eq!(Code::EVEX_Vmovups_xmmm128_k1z_xmm, instrs[1].code());
@@ -217,6 +226,8 @@ fn decoder_for_loop_decoder_iter() {
 		instrs.push(instr);
 	}
 	assert_eq!(0x1234_5678_9ABC_DEF8, decoder.ip());
+	assert!(!decoder.can_decode());
+	assert_eq!(8, decoder.position());
 	assert_eq!(2, instrs.len());
 	assert_eq!(Code::And_r32_rm32, instrs[0].code());
 	assert_eq!(Code::EVEX_Vmovups_xmmm128_k1z_xmm, instrs[1].code());

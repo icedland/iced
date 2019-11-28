@@ -371,14 +371,14 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	/// Gets the current `IP`/`EIP`/`RIP` value, see also `data_index()`
+	/// Gets the current `IP`/`EIP`/`RIP` value, see also `position()`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn ip(&self) -> u64 {
 		self.ip
 	}
 
-	/// Sets the current `IP`/`EIP`/`RIP`, see also `set_data_index()`
+	/// Sets the current `IP`/`EIP`/`RIP`, see also `set_position()`
 	///
 	/// # Arguments
 	///
@@ -395,23 +395,23 @@ impl<'a> Decoder<'a> {
 		self.bitness
 	}
 
-	/// Gets the max index that can be passed to `set_data_index()`. This is the size of the data that gets
+	/// Gets the max index that can be passed to `set_position()`. This is the size of the data that gets
 	/// decoded to instructions and it's the length of the slice that was passed to the constructor.
 	#[inline]
-	pub fn max_data_index(&self) -> usize {
+	pub fn max_position(&self) -> usize {
 		self.data.len()
 	}
 
-	/// Gets the current data index. This value is always <= `max_data_index()`.
-	/// When `data_index()` == `max_data_index()`, it's not possible to decode more
+	/// Gets the current data position. This value is always <= `max_position()`.
+	/// When `position()` == `max_position()`, it's not possible to decode more
 	/// instructions and `can_decode()` returns `false`.
 	#[inline]
-	pub fn data_index(&self) -> usize {
+	pub fn position(&self) -> usize {
 		self.data_ptr as usize - self.data.as_ptr() as usize
 	}
 
-	/// Sets the current data index, which is the index into the data passed to the constructor.
-	/// This value is always <= `max_data_index()`
+	/// Sets the current data position, which is the index into the data passed to the constructor.
+	/// This value is always <= `max_position()`
 	///
 	/// # Panics
 	///
@@ -419,7 +419,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// # Arguments
 	///
-	/// * `new_value`: New index and must be <= `max_data_index()`
+	/// * `new_value`: New index and must be <= `max_position()`
 	///
 	/// # Examples
 	///
@@ -431,25 +431,25 @@ impl<'a> Decoder<'a> {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// decoder.set_ip(0x1234_5678);
 	///
-	/// assert_eq!(0, decoder.data_index());
-	/// assert_eq!(3, decoder.max_data_index());
+	/// assert_eq!(0, decoder.position());
+	/// assert_eq!(3, decoder.max_position());
 	/// let instr = decoder.decode();
-	/// assert_eq!(1, decoder.data_index());
+	/// assert_eq!(1, decoder.position());
 	/// assert!(instr.code() == Code::Nopd);
 	///
 	/// let instr = decoder.decode();
-	/// assert_eq!(3, decoder.data_index());
+	/// assert_eq!(3, decoder.position());
 	/// assert!(instr.code() == Code::Pause);
 	///
 	/// // Start all over again
-	/// decoder.set_data_index(0);
-	/// assert_eq!(0, decoder.data_index());
+	/// decoder.set_position(0);
+	/// assert_eq!(0, decoder.position());
 	/// assert!(decoder.decode().code() == Code::Nopd);
 	/// assert!(decoder.decode().code() == Code::Pause);
-	/// assert_eq!(3, decoder.data_index());
+	/// assert_eq!(3, decoder.position());
 	/// ```
 	#[inline]
-	pub fn set_data_index(&mut self, new_pos: usize) {
+	pub fn set_position(&mut self, new_pos: usize) {
 		if new_pos <= self.data.len() {
 			self.data_ptr = unsafe { self.data.as_ptr().offset(new_pos as isize) };
 		} else {
@@ -459,7 +459,7 @@ impl<'a> Decoder<'a> {
 
 	/// Returns true if there's at least one more byte to decode. It doesn't verify that the
 	/// next instruction is valid, it only checks if there's at least one more byte to read.
-	/// See also `data_index()` and `max_data_index()`
+	/// See also `position()` and `max_position()`
 	///
 	/// It's not required to call this method. If this method returns `false`, then `decode_out()`
 	/// and `decode()` will return an instruction whose `code()` == `Code::INVALID`.
