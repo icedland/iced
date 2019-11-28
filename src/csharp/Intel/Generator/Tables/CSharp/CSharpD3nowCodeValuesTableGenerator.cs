@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System.IO;
+using System.Linq;
 using Generator.Enums;
 using Generator.IO;
 
@@ -44,7 +45,7 @@ namespace Generator.Tables.CSharp {
 
 		void WriteTable(FileWriter writer, (int index, EnumValue enumValue)[] infos) {
 			var codeName = CodeEnum.Instance.Name(idConverter);
-			foreach (var info in infos)
+			foreach (var info in infos.OrderByDescending(a => a.index))
 				writer.WriteLine($"result[0x{info.index:X2}] = {codeName}.{info.enumValue.Name(idConverter)};");
 		}
 	}
