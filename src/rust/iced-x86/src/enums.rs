@@ -37,20 +37,16 @@ pub enum CodeSize {
 	/// 64-bit code
 	Code64,
 }
-mod gen_debug_code_size {
-	lazy_static! {
-		pub(super) static ref CODE_SIZE: [&'static str; 4] = [
-			// This comment is here to prevent rustfmt from formatting this array
-			"Unknown",
-			"Code16",
-			"Code32",
-			"Code64",
-		];
-	}
-}
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static GEN_DEBUG_CODE_SIZE: [&str; 4] = [
+	"Unknown",
+	"Code16",
+	"Code32",
+	"Code64",
+];
 impl fmt::Debug for CodeSize {
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		write!(f, "{}", self::gen_debug_code_size::CODE_SIZE[*self as usize])?;
+		write!(f, "{}", GEN_DEBUG_CODE_SIZE[*self as usize])?;
 		Ok(())
 	}
 }
@@ -79,21 +75,17 @@ pub enum RoundingControl {
 	/// Round toward zero (truncate)
 	RoundTowardZero,
 }
-mod gen_debug_rounding_control {
-	lazy_static! {
-		pub(super) static ref ROUNDING_CONTROL: [&'static str; 5] = [
-			// This comment is here to prevent rustfmt from formatting this array
-			"None",
-			"RoundToNearest",
-			"RoundDown",
-			"RoundUp",
-			"RoundTowardZero",
-		];
-	}
-}
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static GEN_DEBUG_ROUNDING_CONTROL: [&str; 5] = [
+	"None",
+	"RoundToNearest",
+	"RoundDown",
+	"RoundUp",
+	"RoundTowardZero",
+];
 impl fmt::Debug for RoundingControl {
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		write!(f, "{}", self::gen_debug_rounding_control::ROUNDING_CONTROL[*self as usize])?;
+		write!(f, "{}", GEN_DEBUG_ROUNDING_CONTROL[*self as usize])?;
 		Ok(())
 	}
 }
@@ -169,42 +161,38 @@ pub enum OpKind {
 	/// This operand kind uses `Instruction::memory_displ_size()`, `Instruction::memory_size()`, `Instruction::memory_index_scale()`, `Instruction::memory_displacement()`, `Instruction::memory_base()`, `Instruction::memory_index()`, `Instruction::memory_segment()`, `Instruction::segment_prefix()`
 	Memory,
 }
-mod gen_debug_op_kind {
-	lazy_static! {
-		pub(super) static ref OP_KIND: [&'static str; 26] = [
-			// This comment is here to prevent rustfmt from formatting this array
-			"Register",
-			"NearBranch16",
-			"NearBranch32",
-			"NearBranch64",
-			"FarBranch16",
-			"FarBranch32",
-			"Immediate8",
-			"Immediate8_2nd",
-			"Immediate16",
-			"Immediate32",
-			"Immediate64",
-			"Immediate8to16",
-			"Immediate8to32",
-			"Immediate8to64",
-			"Immediate32to64",
-			"MemorySegSI",
-			"MemorySegESI",
-			"MemorySegRSI",
-			"MemorySegDI",
-			"MemorySegEDI",
-			"MemorySegRDI",
-			"MemoryESDI",
-			"MemoryESEDI",
-			"MemoryESRDI",
-			"Memory64",
-			"Memory",
-		];
-	}
-}
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static GEN_DEBUG_OP_KIND: [&str; 26] = [
+	"Register",
+	"NearBranch16",
+	"NearBranch32",
+	"NearBranch64",
+	"FarBranch16",
+	"FarBranch32",
+	"Immediate8",
+	"Immediate8_2nd",
+	"Immediate16",
+	"Immediate32",
+	"Immediate64",
+	"Immediate8to16",
+	"Immediate8to32",
+	"Immediate8to64",
+	"Immediate32to64",
+	"MemorySegSI",
+	"MemorySegESI",
+	"MemorySegRSI",
+	"MemorySegDI",
+	"MemorySegEDI",
+	"MemorySegRDI",
+	"MemoryESDI",
+	"MemoryESEDI",
+	"MemoryESRDI",
+	"Memory64",
+	"Memory",
+];
 impl fmt::Debug for OpKind {
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		write!(f, "{}", self::gen_debug_op_kind::OP_KIND[*self as usize])?;
+		write!(f, "{}", GEN_DEBUG_OP_KIND[*self as usize])?;
 		Ok(())
 	}
 }
@@ -229,21 +217,17 @@ pub(crate) enum VectorLength {
 	Unknown,
 }
 #[cfg(any(feature = "DECODER", feature = "ENCODER"))]
-mod gen_debug_vector_length {
-	lazy_static! {
-		pub(super) static ref VECTOR_LENGTH: [&'static str; 4] = [
-			// This comment is here to prevent rustfmt from formatting this array
-			"L128",
-			"L256",
-			"L512",
-			"Unknown",
-		];
-	}
-}
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static GEN_DEBUG_VECTOR_LENGTH: [&str; 4] = [
+	"L128",
+	"L256",
+	"L512",
+	"Unknown",
+];
 #[cfg(any(feature = "DECODER", feature = "ENCODER"))]
 impl fmt::Debug for VectorLength {
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		write!(f, "{}", self::gen_debug_vector_length::VECTOR_LENGTH[*self as usize])?;
+		write!(f, "{}", GEN_DEBUG_VECTOR_LENGTH[*self as usize])?;
 		Ok(())
 	}
 }
@@ -268,21 +252,17 @@ pub(crate) enum MandatoryPrefixByte {
 	PF2,
 }
 #[cfg(any(feature = "DECODER", feature = "ENCODER"))]
-mod gen_debug_mandatory_prefix_byte {
-	lazy_static! {
-		pub(super) static ref MANDATORY_PREFIX_BYTE: [&'static str; 4] = [
-			// This comment is here to prevent rustfmt from formatting this array
-			"None",
-			"P66",
-			"PF3",
-			"PF2",
-		];
-	}
-}
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static GEN_DEBUG_MANDATORY_PREFIX_BYTE: [&str; 4] = [
+	"None",
+	"P66",
+	"PF3",
+	"PF2",
+];
 #[cfg(any(feature = "DECODER", feature = "ENCODER"))]
 impl fmt::Debug for MandatoryPrefixByte {
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		write!(f, "{}", self::gen_debug_mandatory_prefix_byte::MANDATORY_PREFIX_BYTE[*self as usize])?;
+		write!(f, "{}", GEN_DEBUG_MANDATORY_PREFIX_BYTE[*self as usize])?;
 		Ok(())
 	}
 }
@@ -314,22 +294,18 @@ pub enum EncodingKind {
 	D3NOW,
 }
 #[cfg(any(feature = "DECODER", feature = "ENCODER", feature = "INSTR_INFO"))]
-mod gen_debug_encoding_kind {
-	lazy_static! {
-		pub(super) static ref ENCODING_KIND: [&'static str; 5] = [
-			// This comment is here to prevent rustfmt from formatting this array
-			"Legacy",
-			"VEX",
-			"EVEX",
-			"XOP",
-			"D3NOW",
-		];
-	}
-}
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static GEN_DEBUG_ENCODING_KIND: [&str; 5] = [
+	"Legacy",
+	"VEX",
+	"EVEX",
+	"XOP",
+	"D3NOW",
+];
 #[cfg(any(feature = "DECODER", feature = "ENCODER", feature = "INSTR_INFO"))]
 impl fmt::Debug for EncodingKind {
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		write!(f, "{}", self::gen_debug_encoding_kind::ENCODING_KIND[*self as usize])?;
+		write!(f, "{}", GEN_DEBUG_ENCODING_KIND[*self as usize])?;
 		Ok(())
 	}
 }
@@ -420,51 +396,47 @@ pub enum TupleType {
 	MOVDDUP_512,
 }
 #[cfg(any(feature = "DECODER", feature = "ENCODER"))]
-mod gen_debug_tuple_type {
-	lazy_static! {
-		pub(super) static ref TUPLE_TYPE: [&'static str; 34] = [
-			// This comment is here to prevent rustfmt from formatting this array
-			"None",
-			"Full_128",
-			"Full_256",
-			"Full_512",
-			"Half_128",
-			"Half_256",
-			"Half_512",
-			"Full_Mem_128",
-			"Full_Mem_256",
-			"Full_Mem_512",
-			"Tuple1_Scalar",
-			"Tuple1_Scalar_1",
-			"Tuple1_Scalar_2",
-			"Tuple1_Scalar_4",
-			"Tuple1_Scalar_8",
-			"Tuple1_Fixed_4",
-			"Tuple1_Fixed_8",
-			"Tuple2",
-			"Tuple4",
-			"Tuple8",
-			"Tuple1_4X",
-			"Half_Mem_128",
-			"Half_Mem_256",
-			"Half_Mem_512",
-			"Quarter_Mem_128",
-			"Quarter_Mem_256",
-			"Quarter_Mem_512",
-			"Eighth_Mem_128",
-			"Eighth_Mem_256",
-			"Eighth_Mem_512",
-			"Mem128",
-			"MOVDDUP_128",
-			"MOVDDUP_256",
-			"MOVDDUP_512",
-		];
-	}
-}
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static GEN_DEBUG_TUPLE_TYPE: [&str; 34] = [
+	"None",
+	"Full_128",
+	"Full_256",
+	"Full_512",
+	"Half_128",
+	"Half_256",
+	"Half_512",
+	"Full_Mem_128",
+	"Full_Mem_256",
+	"Full_Mem_512",
+	"Tuple1_Scalar",
+	"Tuple1_Scalar_1",
+	"Tuple1_Scalar_2",
+	"Tuple1_Scalar_4",
+	"Tuple1_Scalar_8",
+	"Tuple1_Fixed_4",
+	"Tuple1_Fixed_8",
+	"Tuple2",
+	"Tuple4",
+	"Tuple8",
+	"Tuple1_4X",
+	"Half_Mem_128",
+	"Half_Mem_256",
+	"Half_Mem_512",
+	"Quarter_Mem_128",
+	"Quarter_Mem_256",
+	"Quarter_Mem_512",
+	"Eighth_Mem_128",
+	"Eighth_Mem_256",
+	"Eighth_Mem_512",
+	"Mem128",
+	"MOVDDUP_128",
+	"MOVDDUP_256",
+	"MOVDDUP_512",
+];
 #[cfg(any(feature = "DECODER", feature = "ENCODER"))]
 impl fmt::Debug for TupleType {
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		write!(f, "{}", self::gen_debug_tuple_type::TUPLE_TYPE[*self as usize])?;
+		write!(f, "{}", GEN_DEBUG_TUPLE_TYPE[*self as usize])?;
 		Ok(())
 	}
 }
@@ -506,27 +478,23 @@ pub enum FlowControl {
 	Exception,
 }
 #[cfg(feature = "INSTR_INFO")]
-mod gen_debug_flow_control {
-	lazy_static! {
-		pub(super) static ref FLOW_CONTROL: [&'static str; 10] = [
-			// This comment is here to prevent rustfmt from formatting this array
-			"Next",
-			"UnconditionalBranch",
-			"IndirectBranch",
-			"ConditionalBranch",
-			"Return",
-			"Call",
-			"IndirectCall",
-			"Interrupt",
-			"XbeginXabortXend",
-			"Exception",
-		];
-	}
-}
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static GEN_DEBUG_FLOW_CONTROL: [&str; 10] = [
+	"Next",
+	"UnconditionalBranch",
+	"IndirectBranch",
+	"ConditionalBranch",
+	"Return",
+	"Call",
+	"IndirectCall",
+	"Interrupt",
+	"XbeginXabortXend",
+	"Exception",
+];
 #[cfg(feature = "INSTR_INFO")]
 impl fmt::Debug for FlowControl {
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		write!(f, "{}", self::gen_debug_flow_control::FLOW_CONTROL[*self as usize])?;
+		write!(f, "{}", GEN_DEBUG_FLOW_CONTROL[*self as usize])?;
 		Ok(())
 	}
 }
@@ -761,119 +729,115 @@ pub enum OpCodeOperandKind {
 	brdisp_4,
 }
 #[cfg(feature = "ENCODER")]
-mod gen_debug_op_code_operand_kind {
-	lazy_static! {
-		pub(super) static ref OP_CODE_OPERAND_KIND: [&'static str; 102] = [
-			// This comment is here to prevent rustfmt from formatting this array
-			"None",
-			"farbr2_2",
-			"farbr4_2",
-			"mem_offs",
-			"mem",
-			"mem_mpx",
-			"mem_mib",
-			"mem_vsib32x",
-			"mem_vsib64x",
-			"mem_vsib32y",
-			"mem_vsib64y",
-			"mem_vsib32z",
-			"mem_vsib64z",
-			"r8_or_mem",
-			"r16_or_mem",
-			"r32_or_mem",
-			"r32_or_mem_mpx",
-			"r64_or_mem",
-			"r64_or_mem_mpx",
-			"mm_or_mem",
-			"xmm_or_mem",
-			"ymm_or_mem",
-			"zmm_or_mem",
-			"bnd_or_mem_mpx",
-			"k_or_mem",
-			"r8_reg",
-			"r8_opcode",
-			"r16_reg",
-			"r16_rm",
-			"r16_opcode",
-			"r32_reg",
-			"r32_rm",
-			"r32_opcode",
-			"r32_vvvv",
-			"r64_reg",
-			"r64_rm",
-			"r64_opcode",
-			"r64_vvvv",
-			"seg_reg",
-			"k_reg",
-			"kp1_reg",
-			"k_rm",
-			"k_vvvv",
-			"mm_reg",
-			"mm_rm",
-			"xmm_reg",
-			"xmm_rm",
-			"xmm_vvvv",
-			"xmmp3_vvvv",
-			"xmm_is4",
-			"xmm_is5",
-			"ymm_reg",
-			"ymm_rm",
-			"ymm_vvvv",
-			"ymm_is4",
-			"ymm_is5",
-			"zmm_reg",
-			"zmm_rm",
-			"zmm_vvvv",
-			"zmmp3_vvvv",
-			"cr_reg",
-			"dr_reg",
-			"tr_reg",
-			"bnd_reg",
-			"es",
-			"cs",
-			"ss",
-			"ds",
-			"fs",
-			"gs",
-			"al",
-			"cl",
-			"ax",
-			"dx",
-			"eax",
-			"rax",
-			"st0",
-			"sti_opcode",
-			"imm2_m2z",
-			"imm8",
-			"imm8_const_1",
-			"imm8sex16",
-			"imm8sex32",
-			"imm8sex64",
-			"imm16",
-			"imm32",
-			"imm32sex64",
-			"imm64",
-			"seg_rSI",
-			"es_rDI",
-			"seg_rDI",
-			"seg_rBX_al",
-			"br16_1",
-			"br32_1",
-			"br64_1",
-			"br16_2",
-			"br32_4",
-			"br64_4",
-			"xbegin_2",
-			"xbegin_4",
-			"brdisp_2",
-			"brdisp_4",
-		];
-	}
-}
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static GEN_DEBUG_OP_CODE_OPERAND_KIND: [&str; 102] = [
+	"None",
+	"farbr2_2",
+	"farbr4_2",
+	"mem_offs",
+	"mem",
+	"mem_mpx",
+	"mem_mib",
+	"mem_vsib32x",
+	"mem_vsib64x",
+	"mem_vsib32y",
+	"mem_vsib64y",
+	"mem_vsib32z",
+	"mem_vsib64z",
+	"r8_or_mem",
+	"r16_or_mem",
+	"r32_or_mem",
+	"r32_or_mem_mpx",
+	"r64_or_mem",
+	"r64_or_mem_mpx",
+	"mm_or_mem",
+	"xmm_or_mem",
+	"ymm_or_mem",
+	"zmm_or_mem",
+	"bnd_or_mem_mpx",
+	"k_or_mem",
+	"r8_reg",
+	"r8_opcode",
+	"r16_reg",
+	"r16_rm",
+	"r16_opcode",
+	"r32_reg",
+	"r32_rm",
+	"r32_opcode",
+	"r32_vvvv",
+	"r64_reg",
+	"r64_rm",
+	"r64_opcode",
+	"r64_vvvv",
+	"seg_reg",
+	"k_reg",
+	"kp1_reg",
+	"k_rm",
+	"k_vvvv",
+	"mm_reg",
+	"mm_rm",
+	"xmm_reg",
+	"xmm_rm",
+	"xmm_vvvv",
+	"xmmp3_vvvv",
+	"xmm_is4",
+	"xmm_is5",
+	"ymm_reg",
+	"ymm_rm",
+	"ymm_vvvv",
+	"ymm_is4",
+	"ymm_is5",
+	"zmm_reg",
+	"zmm_rm",
+	"zmm_vvvv",
+	"zmmp3_vvvv",
+	"cr_reg",
+	"dr_reg",
+	"tr_reg",
+	"bnd_reg",
+	"es",
+	"cs",
+	"ss",
+	"ds",
+	"fs",
+	"gs",
+	"al",
+	"cl",
+	"ax",
+	"dx",
+	"eax",
+	"rax",
+	"st0",
+	"sti_opcode",
+	"imm2_m2z",
+	"imm8",
+	"imm8_const_1",
+	"imm8sex16",
+	"imm8sex32",
+	"imm8sex64",
+	"imm16",
+	"imm32",
+	"imm32sex64",
+	"imm64",
+	"seg_rSI",
+	"es_rDI",
+	"seg_rDI",
+	"seg_rBX_al",
+	"br16_1",
+	"br32_1",
+	"br64_1",
+	"br16_2",
+	"br32_4",
+	"br64_4",
+	"xbegin_2",
+	"xbegin_4",
+	"brdisp_2",
+	"brdisp_4",
+];
 #[cfg(feature = "ENCODER")]
 impl fmt::Debug for OpCodeOperandKind {
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		write!(f, "{}", self::gen_debug_op_code_operand_kind::OP_CODE_OPERAND_KIND[*self as usize])?;
+		write!(f, "{}", GEN_DEBUG_OP_CODE_OPERAND_KIND[*self as usize])?;
 		Ok(())
 	}
 }
@@ -1156,147 +1120,143 @@ pub enum CpuidFeature {
 	XSAVES,
 }
 #[cfg(feature = "INSTR_INFO")]
-mod gen_debug_cpuid_feature {
-	lazy_static! {
-		pub(super) static ref CPUID_FEATURE: [&'static str; 130] = [
-			// This comment is here to prevent rustfmt from formatting this array
-			"INTEL8086",
-			"INTEL8086_ONLY",
-			"INTEL186",
-			"INTEL286",
-			"INTEL286_ONLY",
-			"INTEL386",
-			"INTEL386_ONLY",
-			"INTEL386_A0_ONLY",
-			"INTEL486",
-			"INTEL486_A_ONLY",
-			"INTEL386_486_ONLY",
-			"IA64",
-			"X64",
-			"ADX",
-			"AES",
-			"AVX",
-			"AVX2",
-			"AVX512_4FMAPS",
-			"AVX512_4VNNIW",
-			"AVX512_BF16",
-			"AVX512_BITALG",
-			"AVX512_IFMA",
-			"AVX512_VBMI",
-			"AVX512_VBMI2",
-			"AVX512_VNNI",
-			"AVX512_VP2INTERSECT",
-			"AVX512_VPOPCNTDQ",
-			"AVX512BW",
-			"AVX512CD",
-			"AVX512DQ",
-			"AVX512ER",
-			"AVX512F",
-			"AVX512PF",
-			"AVX512VL",
-			"BMI1",
-			"BMI2",
-			"CET_IBT",
-			"CET_SS",
-			"CL1INVMB",
-			"CLDEMOTE",
-			"CLFLUSHOPT",
-			"CLFSH",
-			"CLWB",
-			"CLZERO",
-			"CMOV",
-			"CMPXCHG16B",
-			"CPUID",
-			"CX8",
-			"D3NOW",
-			"D3NOWEXT",
-			"ENCLV",
-			"ENQCMD",
-			"F16C",
-			"FMA",
-			"FMA4",
-			"FPU",
-			"FPU287",
-			"FPU287XL_ONLY",
-			"FPU387",
-			"FPU387SL_ONLY",
-			"FSGSBASE",
-			"FXSR",
-			"GEODE",
-			"GFNI",
-			"HLE",
-			"HLE_or_RTM",
-			"INVEPT",
-			"INVPCID",
-			"INVVPID",
-			"LWP",
-			"LZCNT",
-			"MCOMMIT",
-			"MMX",
-			"MONITOR",
-			"MONITORX",
-			"MOVBE",
-			"MOVDIR64B",
-			"MOVDIRI",
-			"MPX",
-			"MSR",
-			"MULTIBYTENOP",
-			"PADLOCK_ACE",
-			"PADLOCK_PHE",
-			"PADLOCK_PMM",
-			"PADLOCK_RNG",
-			"PAUSE",
-			"PCLMULQDQ",
-			"PCOMMIT",
-			"PCONFIG",
-			"PKU",
-			"POPCNT",
-			"PREFETCHW",
-			"PREFETCHWT1",
-			"PTWRITE",
-			"RDPID",
-			"RDPMC",
-			"RDPRU",
-			"RDRAND",
-			"RDSEED",
-			"RDTSCP",
-			"RTM",
-			"SEP",
-			"SGX1",
-			"SHA",
-			"SKINIT",
-			"SKINIT_or_SVML",
-			"SMAP",
-			"SMX",
-			"SSE",
-			"SSE2",
-			"SSE3",
-			"SSE4_1",
-			"SSE4_2",
-			"SSE4A",
-			"SSSE3",
-			"SVM",
-			"SVML",
-			"SYSCALL",
-			"TBM",
-			"TSC",
-			"VAES",
-			"VMX",
-			"VPCLMULQDQ",
-			"WAITPKG",
-			"WBNOINVD",
-			"XOP",
-			"XSAVE",
-			"XSAVEC",
-			"XSAVEOPT",
-			"XSAVES",
-		];
-	}
-}
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static GEN_DEBUG_CPUID_FEATURE: [&str; 130] = [
+	"INTEL8086",
+	"INTEL8086_ONLY",
+	"INTEL186",
+	"INTEL286",
+	"INTEL286_ONLY",
+	"INTEL386",
+	"INTEL386_ONLY",
+	"INTEL386_A0_ONLY",
+	"INTEL486",
+	"INTEL486_A_ONLY",
+	"INTEL386_486_ONLY",
+	"IA64",
+	"X64",
+	"ADX",
+	"AES",
+	"AVX",
+	"AVX2",
+	"AVX512_4FMAPS",
+	"AVX512_4VNNIW",
+	"AVX512_BF16",
+	"AVX512_BITALG",
+	"AVX512_IFMA",
+	"AVX512_VBMI",
+	"AVX512_VBMI2",
+	"AVX512_VNNI",
+	"AVX512_VP2INTERSECT",
+	"AVX512_VPOPCNTDQ",
+	"AVX512BW",
+	"AVX512CD",
+	"AVX512DQ",
+	"AVX512ER",
+	"AVX512F",
+	"AVX512PF",
+	"AVX512VL",
+	"BMI1",
+	"BMI2",
+	"CET_IBT",
+	"CET_SS",
+	"CL1INVMB",
+	"CLDEMOTE",
+	"CLFLUSHOPT",
+	"CLFSH",
+	"CLWB",
+	"CLZERO",
+	"CMOV",
+	"CMPXCHG16B",
+	"CPUID",
+	"CX8",
+	"D3NOW",
+	"D3NOWEXT",
+	"ENCLV",
+	"ENQCMD",
+	"F16C",
+	"FMA",
+	"FMA4",
+	"FPU",
+	"FPU287",
+	"FPU287XL_ONLY",
+	"FPU387",
+	"FPU387SL_ONLY",
+	"FSGSBASE",
+	"FXSR",
+	"GEODE",
+	"GFNI",
+	"HLE",
+	"HLE_or_RTM",
+	"INVEPT",
+	"INVPCID",
+	"INVVPID",
+	"LWP",
+	"LZCNT",
+	"MCOMMIT",
+	"MMX",
+	"MONITOR",
+	"MONITORX",
+	"MOVBE",
+	"MOVDIR64B",
+	"MOVDIRI",
+	"MPX",
+	"MSR",
+	"MULTIBYTENOP",
+	"PADLOCK_ACE",
+	"PADLOCK_PHE",
+	"PADLOCK_PMM",
+	"PADLOCK_RNG",
+	"PAUSE",
+	"PCLMULQDQ",
+	"PCOMMIT",
+	"PCONFIG",
+	"PKU",
+	"POPCNT",
+	"PREFETCHW",
+	"PREFETCHWT1",
+	"PTWRITE",
+	"RDPID",
+	"RDPMC",
+	"RDPRU",
+	"RDRAND",
+	"RDSEED",
+	"RDTSCP",
+	"RTM",
+	"SEP",
+	"SGX1",
+	"SHA",
+	"SKINIT",
+	"SKINIT_or_SVML",
+	"SMAP",
+	"SMX",
+	"SSE",
+	"SSE2",
+	"SSE3",
+	"SSE4_1",
+	"SSE4_2",
+	"SSE4A",
+	"SSSE3",
+	"SVM",
+	"SVML",
+	"SYSCALL",
+	"TBM",
+	"TSC",
+	"VAES",
+	"VMX",
+	"VPCLMULQDQ",
+	"WAITPKG",
+	"WBNOINVD",
+	"XOP",
+	"XSAVE",
+	"XSAVEC",
+	"XSAVEOPT",
+	"XSAVES",
+];
 #[cfg(feature = "INSTR_INFO")]
 impl fmt::Debug for CpuidFeature {
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		write!(f, "{}", self::gen_debug_cpuid_feature::CPUID_FEATURE[*self as usize])?;
+		write!(f, "{}", GEN_DEBUG_CPUID_FEATURE[*self as usize])?;
 		Ok(())
 	}
 }

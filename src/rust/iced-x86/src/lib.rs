@@ -42,6 +42,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![deny(unused_qualifications)]
 #![deny(unused_results)]
 
+#[cfg(test)]
 #[macro_use]
 extern crate lazy_static;
 #[macro_use]

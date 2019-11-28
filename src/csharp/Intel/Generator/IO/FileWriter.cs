@@ -88,6 +88,8 @@ namespace Generator.IO {
 			if (indent < 0)
 				throw new ArgumentOutOfRangeException(nameof(indent));
 			indentCount -= indent;
+			if (indentCount < 0)
+				throw new InvalidOperationException();
 			InitializeIndent();
 		}
 
