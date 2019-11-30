@@ -31,7 +31,7 @@ NASM_FORMATTER = []
 static_assertions = "0.3.4"
 
 [dev-dependencies]
-lazy_static = "1.1.*"
+lazy_static = "1.1.0"
 
 [build-dependencies]
 rustc_version = "0.2.3"
