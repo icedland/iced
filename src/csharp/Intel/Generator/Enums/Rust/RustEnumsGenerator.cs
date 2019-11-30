@@ -166,6 +166,7 @@ namespace Generator.Enums.Rust {
 				writer.WriteLine(feature);
 			writer.WriteLine($"impl fmt::Debug for {enumTypeName} {{");
 			writer.Indent();
+			writer.WriteLine(RustConstants.AttributeAllowMissingInlineInPublicItems);
 			writer.WriteLine($"fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {{");
 			writer.Indent();
 			writer.WriteLine($"write!(f, \"{{}}\", {arrayName}[*self as usize])?;");

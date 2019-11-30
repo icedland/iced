@@ -29,6 +29,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ptr.add(x) is available in 1.26.0+ so we must use ptr.offset(x as isize)
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
+//TODO: enable this when https://github.com/rust-lang/rust-clippy/issues/4861 has been fixed
+//#![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_inline_in_public_items))]
 #![deny(absolute_paths_not_starting_with_crate)]
 #![deny(deprecated_in_future)]
 #![deny(keyword_idents)]
@@ -41,6 +43,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![deny(unused_must_use)]
 #![deny(unused_qualifications)]
 #![deny(unused_results)]
+#![deny(warnings)]
 
 #[cfg(test)]
 #[macro_use]

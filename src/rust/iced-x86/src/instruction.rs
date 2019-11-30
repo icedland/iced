@@ -111,6 +111,7 @@ impl Instruction {
 	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `==` ignores some fields.
 	#[cfg_attr(has_must_use, must_use)]
 	#[allow(trivial_casts)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn eq_all_bits(&self, other: &Self) -> bool {
 		unsafe {
 			let a: *const u8 = self as *const Instruction as *const u8;
@@ -291,6 +292,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
+	#[inline]
 	pub fn set_len(&mut self, new_value: u32) {
 		self.code_flags = (self.code_flags & !(CodeFlags::INSTR_LENGTH_MASK << CodeFlags::INSTR_LENGTH_SHIFT))
 			| ((new_value & CodeFlags::INSTR_LENGTH_MASK) << CodeFlags::INSTR_LENGTH_SHIFT);
@@ -522,6 +524,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn op_kind(&self, operand: u32) -> OpKind {
 		match operand {
 			0 => self.op0_kind(),
@@ -539,6 +542,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `op_kind`: Operand kind
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_op_kind(&mut self, operand: u32, op_kind: OpKind) {
 		match operand {
 			0 => self.set_op0_kind(op_kind),
@@ -560,6 +564,7 @@ impl Instruction {
 	/// Use this property if the operand has kind `OpKind::Memory`, `OpKind::Memory64`,
 	/// `OpKind::MemorySegSI`, `OpKind::MemorySegESI`, `OpKind::MemorySegRSI`
 	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
 	pub fn segment_prefix(&self) -> Register {
 		let index = (((self.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK).wrapping_sub(1);
 		if index < 6 {
@@ -577,6 +582,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: Segment register prefix
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_segment_prefix(&mut self, new_value: Register) {
 		let enc_value = if new_value == Register::None {
 			0
@@ -591,6 +597,7 @@ impl Instruction {
 	/// Use this property if the operand has kind `OpKind::Memory`, `OpKind::Memory64`,
 	/// `OpKind::MemorySegSI`, `OpKind::MemorySegESI`, `OpKind::MemorySegRSI`
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn memory_segment(&self) -> Register {
 		let seg_reg = self.segment_prefix();
 		if seg_reg != Register::None {
@@ -607,6 +614,7 @@ impl Instruction {
 	/// a signed byte if it's an EVEX encoded instruction.
 	/// Use this property if the operand has kind `OpKind::Memory`
 	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
 	pub fn memory_displ_size(&self) -> u32 {
 		let size = ((self.memory_flags as u32) >> MemoryFlags::DISPL_SIZE_SHIFT) & MemoryFlags::DISPL_SIZE_MASK;
 		if size <= 2 {
@@ -626,6 +634,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: Displacement size
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_memory_displ_size(&mut self, new_value: u32) {
 		let enc_value = match new_value {
 			0 => 0,
@@ -686,6 +695,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value (1, 2, 4 or 8)
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_memory_index_scale(&mut self, new_value: u32) {
 		match new_value {
 			1 => self.memory_flags &= !3,
@@ -731,6 +741,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn immediate(&self, operand: u32) -> u64 {
 		match self.op_kind(operand) {
 			OpKind::Immediate8 => self.immediate8() as u64,
@@ -785,6 +796,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_immediate_u64(&mut self, operand: u32, new_value: u64) {
 		match self.op_kind(operand) {
 			OpKind::Immediate8 | OpKind::Immediate8to16 | OpKind::Immediate8to32 | OpKind::Immediate8to64 => self.immediate = new_value as u8 as u32,
@@ -1022,6 +1034,7 @@ impl Instruction {
 
 	/// Gets the near branch target if it's a call/jmp near branch instruction
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn near_branch_target(&self) -> u64 {
 		match self.op0_kind() {
 			OpKind::NearBranch16 => self.near_branch16() as u64,
@@ -1215,6 +1228,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn op_register(&self, operand: u32) -> Register {
 		match operand {
 			0 => self.op0_register(),
@@ -1232,6 +1246,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: New value
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_op_register(&mut self, operand: u32, new_value: Register) {
 		match operand {
 			0 => self.set_op0_register(new_value),
@@ -1261,6 +1276,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_op_mask(&mut self, new_value: Register) {
 		let r = if new_value == Register::None {
 			0
@@ -1383,6 +1399,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-15)
 	/// * `new_value`: New value
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_declare_byte_value(&mut self, index: u32, new_value: u8) {
 		match index {
 			0 => self.reg0 = new_value,
@@ -1412,6 +1429,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-15)
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn get_declare_byte_value(&self, index: u32) -> u8 {
 		match index {
 			0 => self.reg0,
@@ -1453,6 +1471,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-7)
 	/// * `new_value`: New value
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_declare_word_value(&mut self, index: u32, new_value: u16) {
 		match index {
 			0 => {
@@ -1483,6 +1502,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-7)
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn get_declare_word_value(&self, index: u32) -> u16 {
 		match index {
 			0 => self.reg0 as u16 | ((self.reg1 as u16) << 8),
@@ -1516,6 +1536,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-3)
 	/// * `new_value`: New value
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_declare_dword_value(&mut self, index: u32, new_value: u32) {
 		match index {
 			0 => {
@@ -1542,6 +1563,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-3)
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn get_declare_dword_value(&self, index: u32) -> u32 {
 		match index {
 			0 => self.reg0 as u32 | ((self.reg1 as u32) << 8) | ((self.reg2 as u32) << 16) | ((self.reg3 as u32) << 24),
@@ -1571,6 +1593,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-1)
 	/// * `new_value`: New value
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_declare_qword_value(&mut self, index: u32, new_value: u64) {
 		match index {
 			0 => {
@@ -1597,6 +1620,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-1)
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn get_declare_qword_value(&self, index: u32) -> u64 {
 		match index {
 			0 => {
@@ -1649,6 +1673,7 @@ impl Instruction {
 	/// * `Some(false)` if it's a VSIB instruction with 32-bit indexes
 	/// * `None` if it's not a VSIB instruction.
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn vsib(&self) -> Option<bool> {
 		match self.code() {
 			Code::VEX_Vpgatherdd_xmm_vm32x_xmm
@@ -1771,6 +1796,7 @@ impl Instruction {
 	/// Gets the `RIP`/`EIP` releative address ((`next_ip()` or `next_ip32()`) + `memory_displacement()`).
 	/// This property is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see `is_ip_relative_memory_operand()`
 	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
 	pub fn ip_relative_memory_address(&self) -> u64 {
 		let mut result = self.next_ip().wrapping_add(self.memory_displacement() as i32 as u64);
 		if self.memory_base() == Register::EIP {
@@ -1793,6 +1819,7 @@ impl Instruction {
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index in the vector register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn virtual_address<F>(&self, operand: u32, element_index: u32, get_register_value: F) -> u64
 	where
 		F: Fn(Register, u32, u32) -> u64,
@@ -1895,6 +1922,7 @@ impl Eq for Instruction {}
 
 impl PartialEq<Instruction> for Instruction {
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn eq(&self, other: &Instruction) -> bool {
 		((self.code_flags ^ other.code_flags) & !CodeFlags::EQUALS_IGNORE_MASK) == 0
 			&& ((self.op_kind_flags ^ other.op_kind_flags) & !OpKindFlags::EQUALS_IGNORE_MASK) == 0
@@ -1912,6 +1940,7 @@ impl PartialEq<Instruction> for Instruction {
 
 #[cfg(any(feature = "MASM_FORMATTER", feature = "ALL_FORMATTERS"))]
 impl fmt::Display for Instruction {
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		f.write_str("NYI")?; //TODO:
 		Ok(())
@@ -1922,6 +1951,7 @@ impl fmt::Display for Instruction {
 	any(feature = "NASM_FORMATTER", feature = "ALL_FORMATTERS")
 ))]
 impl fmt::Display for Instruction {
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		f.write_str("NYI")?; //TODO:
 		Ok(())
@@ -1933,6 +1963,7 @@ impl fmt::Display for Instruction {
 	any(feature = "INTEL_FORMATTER", feature = "ALL_FORMATTERS")
 ))]
 impl fmt::Display for Instruction {
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		f.write_str("NYI")?; //TODO:
 		Ok(())
@@ -1945,6 +1976,7 @@ impl fmt::Display for Instruction {
 	any(feature = "GAS_FORMATTER", feature = "ALL_FORMATTERS")
 ))]
 impl fmt::Display for Instruction {
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		f.write_str("NYI")?; //TODO:
 		Ok(())

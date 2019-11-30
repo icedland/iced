@@ -310,6 +310,7 @@ impl<'a> Decoder<'a> {
 	/// assert!(instr.has_lock_prefix());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn new(bitness: u32, data: &'a [u8], options: u32) -> Decoder<'a> {
 		let prefixes;
 		let is64_mode;
@@ -723,6 +724,7 @@ impl<'a> Decoder<'a> {
 	/// assert!(instr.has_lock_prefix());
 	/// assert!(instr.has_xrelease_prefix());
 	/// ```
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn decode_out(&mut self, instruction: &mut Instruction) {
 		*instruction = Default::default();
 
@@ -1548,6 +1550,7 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(0, co.immediate_size2());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn get_constant_offsets(&self, instruction: &Instruction) -> ConstantOffsets {
 		let mut constant_offsets: ConstantOffsets = Default::default();
 
