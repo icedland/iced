@@ -49,7 +49,7 @@ namespace Generator.InstructionInfo.Rust {
 			//TODO:
 		}
 
-		protected override void Generate(RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified) {
+		protected override void Generate(EnumValue[] enumValues, RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified) {
 			//TODO:
 		}
 

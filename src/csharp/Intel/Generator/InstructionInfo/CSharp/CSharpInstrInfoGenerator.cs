@@ -77,14 +77,11 @@ namespace Generator.InstructionInfo.CSharp {
 			}
 		}
 
-		protected override void Generate(RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified) {
+		protected override void Generate(EnumValue[] enumValues, RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "RflagsInfoConstants.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
-
-				writer.WriteLine("using System;");
-				writer.WriteLine();
 
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
 
@@ -104,14 +101,15 @@ namespace Generator.InstructionInfo.CSharp {
 					var rflags = info.rflags;
 					if (rflags.Length != infos[0].rflags.Length)
 						throw new InvalidOperationException();
-					var name = "flags" + info.name.Substring(0, 1).ToUpperInvariant() + info.name.Substring(1);
+					var name = idConverter.Field("flags" + info.name.Substring(0, 1).ToUpperInvariant() + info.name.Substring(1));
 					writer.WriteLine($"public static readonly ushort[] {name} = new ushort[{rflags.Length}] {{");
 					writer.Indent();
-					foreach (var rfl in rflags) {
+					for (int i = 0; i < rflags.Length; i++) {
+						var rfl = rflags[i];
 						uint value = (uint)rfl;
 						if (value > ushort.MaxValue)
 							throw new InvalidOperationException();
-						writer.WriteLine($"0x{value:X4},");
+						writer.WriteLine($"0x{value:X4},// {enumValues[i].Name(idConverter)}");
 					}
 					writer.Unindent();
 					writer.WriteLine("};");
@@ -182,6 +180,7 @@ namespace Generator.InstructionInfo.CSharp {
 
 		void GenerateOpAccesses(FileWriter writer) {
 			var opInfos = InstrInfoTypes.EnumOpInfos;
+			// We assume max op count is 5, update the code if not
 			if (opInfos.Length != 5)
 				throw new InvalidOperationException();
 			// InstructionInfoFactory assumes it's 2

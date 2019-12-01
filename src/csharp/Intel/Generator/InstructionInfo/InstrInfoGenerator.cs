@@ -32,7 +32,7 @@ namespace Generator.InstructionInfo {
 		protected abstract void Generate(EnumType enumType);
 		protected abstract void Generate(ConstantsType constantsType);
 		protected abstract void Generate((InstrInfo info, uint dword1, uint dword2)[] infos);
-		protected abstract void Generate(RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified);
+		protected abstract void Generate(EnumValue[] enumValues, RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified);
 		protected abstract void Generate((EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[] cpuidFeatures);
 		protected abstract void GenerateCore();
 
@@ -94,6 +94,7 @@ namespace Generator.InstructionInfo {
 
 			{
 				var rflagsInfos = InstrInfoTypes.RflagsInfos;
+				var enumValues = new EnumValue[rflagsInfos.Length];
 				var read = new RflagsBits[rflagsInfos.Length];
 				var undefined = new RflagsBits[rflagsInfos.Length];
 				var written = new RflagsBits[rflagsInfos.Length];
@@ -102,6 +103,7 @@ namespace Generator.InstructionInfo {
 				var modified = new RflagsBits[rflagsInfos.Length];
 				for (int i = 0; i < rflagsInfos.Length; i++) {
 					var rflags = rflagsInfos[i].rflags;
+					enumValues[i] = rflagsInfos[i].value;
 					read[i] = rflags.read;
 					undefined[i] = rflags.undefined;
 					written[i] = rflags.written;
@@ -109,7 +111,7 @@ namespace Generator.InstructionInfo {
 					set[i] = rflags.set;
 					modified[i] = rflags.undefined | rflags.written | rflags.cleared | rflags.set;
 				}
-				Generate(read, undefined, written, cleared, set, modified);
+				Generate(enumValues, read, undefined, written, cleared, set, modified);
 			}
 
 			Generate(InstrInfoTypes.CpuidFeatures);

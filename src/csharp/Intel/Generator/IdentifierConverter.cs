@@ -31,6 +31,7 @@ namespace Generator {
 		readonly StringBuilder sb = new StringBuilder();
 
 		public abstract string Type(string name);
+		public abstract string Field(string name);
 		public abstract string EnumField(string name);
 		public abstract string Property(string name);
 		public abstract string Method(string name);
@@ -61,6 +62,7 @@ namespace Generator {
 		public static IdentifierConverter Create() => new CSharpIdentifierConverter();
 		CSharpIdentifierConverter() { }
 		public override string Type(string name) => name;
+		public override string Field(string name) => name;
 		public override string EnumField(string name) => name;
 		public override string Property(string name) => name;
 		public override string Method(string name) => name;
@@ -73,6 +75,7 @@ namespace Generator {
 		public static IdentifierConverter Create() => new RustIdentifierConverter();
 		RustIdentifierConverter() { }
 		public override string Type(string name) => name;
+		public override string Field(string name) => ToSnakeCase(name);
 		public override string EnumField(string name) => name;
 		public override string Property(string name) => ToSnakeCase(name) + "()";
 		public override string Method(string name) => ToSnakeCase(name) + "()";
