@@ -29,7 +29,7 @@ namespace Generator.Constants {
 			DecoderConstantsType.Instance,
 		};
 
-		protected abstract void Generate(ConstantsType constantsType);
+		public abstract void Generate(ConstantsType constantsType);
 
 		public void Generate() {
 			foreach (var constantsType in allConstants)

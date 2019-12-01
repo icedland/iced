@@ -38,9 +38,6 @@ namespace Generator {
 		/// <summary>Generates the formatter tables</summary>
 		public const string Formatter_Table = "formatter/table";
 
-		/// <summary>Generates the CpuidFeature table</summary>
-		public const string CpuidFeature_Table = "cpuid/table";
-
 		/// <summary>Generates enums</summary>
 		public const string Enums = "enum";
 
@@ -58,5 +55,8 @@ namespace Generator {
 
 		/// <summary>Generates the 3DNow! table</summary>
 		public const string D3now_Table = "3dnow";
+
+		/// <summary>Generates instr info enums, constants and tables</summary>
+		public const string InstrInfo = "info";
 	}
 }

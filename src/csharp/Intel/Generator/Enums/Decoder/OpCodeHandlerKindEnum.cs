@@ -27,7 +27,7 @@ namespace Generator.Enums.Decoder {
 	static class OpCodeHandlerKindEnum {
 		const string? documentation = null;
 
-		public enum Enum : byte {
+		internal enum Enum : byte {
 			Bitness,
 			Bitness_DontReadModRM,
 			Invalid,

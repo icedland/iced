@@ -367,6 +367,7 @@ impl IntoIter {
 						return Err(format!("Invalid encoded hex bytes: '{}'", value));
 					}
 					tc.encoded_hex_bytes = value.to_string();
+					let _ = to_vec_u8(&tc.encoded_hex_bytes)?;
 				}
 
 				DecoderTestParserConstants::DECODER_OPTIONS_AMD_BRANCHES => tc.decoder_options |= DecoderOptions::AMD_BRANCHES,

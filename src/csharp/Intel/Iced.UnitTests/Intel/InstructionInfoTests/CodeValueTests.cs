@@ -68,15 +68,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			foreach (var info in InstructionInfoTest_64.Test64_InstructionInfo_Data)
 				yield return info;
 		}
-
-		[Fact]
-		void Verify_Code_values_in_InfoHandlers_table() {
-			Assert.Equal(InfoHandlers.Data.Length, 2 * IcedConstants.NumberOfCodeValues);
-			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
-				var code = (Code)(InfoHandlers.Data[i * 2] & (uint)InfoFlags1.CodeMask);
-				Assert.Equal((Code)i, code);
-			}
-		}
 	}
 }
 #endif

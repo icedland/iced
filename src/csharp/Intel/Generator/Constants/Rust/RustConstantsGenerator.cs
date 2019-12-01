@@ -31,7 +31,7 @@ namespace Generator.Constants.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.Constants)]
 	sealed class RustConstantsGenerator : ConstantsGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly Dictionary<TypeId, PartialConstantsFileInfo> toPartialFileInfo;
+		readonly Dictionary<TypeId, PartialConstantsFileInfo?> toPartialFileInfo;
 		readonly RustConstantsWriter constantsWriter;
 
 		sealed class PartialConstantsFileInfo {
@@ -50,13 +50,14 @@ namespace Generator.Constants.Rust {
 			this.idConverter = RustIdentifierConverter.Create();
 			constantsWriter = new RustConstantsWriter(idConverter, new RustDocCommentWriter(idConverter));
 
-			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo>();
+			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo?>();
 			toPartialFileInfo.Add(TypeIds.IcedConstants, new PartialConstantsFileInfo("IcedConstants", Path.Combine(generatorOptions.RustDir, "iced_constants.rs")));
 			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorOptions.RustDir, "decoder", "tests", "test_parser.rs"), true));
 			toPartialFileInfo.Add(TypeIds.DecoderConstants, new PartialConstantsFileInfo("DecoderConstants", Path.Combine(generatorOptions.RustDir, "test_utils", "decoder_constants.rs")));
+			toPartialFileInfo.Add(TypeIds.InstrInfoConstants, null);
 		}
 
-		protected override void Generate(ConstantsType constantsType) {
+		public override void Generate(ConstantsType constantsType) {
 			if (toPartialFileInfo.TryGetValue(constantsType.TypeId, out var partialInfo)) {
 				if (!(partialInfo is null))
 					new FileUpdater(TargetLanguage.Rust, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteConstants(writer, partialInfo, constantsType));

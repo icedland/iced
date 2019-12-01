@@ -27,7 +27,7 @@ namespace Generator.Enums.Decoder {
 	static class VexOpCodeHandlerKindEnum {
 		const string? documentation = null;
 
-		public enum Enum : byte {
+		internal enum Enum : byte {
 			Invalid,
 			Invalid2,
 			Dup,

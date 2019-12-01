@@ -104,8 +104,8 @@ namespace Iced.Intel {
 			var flags2 = data[(int)index + 1];
 
 			if ((flags2 & (uint)InfoFlags2.AVX2_Check) != 0 && instruction.Op1Kind == OpKind.Register) {
-				flags2 = (flags2 & ~((uint)InfoFlags2.CpuidFeatureMask << (int)InfoFlags2.CpuidFeatureShift)) |
-					((uint)CpuidFeatureInternal.AVX2 << (int)InfoFlags2.CpuidFeatureShift);
+				flags2 = (flags2 & ~((uint)InfoFlags2.CpuidFeatureInternalMask << (int)InfoFlags2.CpuidFeatureInternalShift)) |
+					((uint)CpuidFeatureInternal.AVX2 << (int)InfoFlags2.CpuidFeatureInternalShift);
 			}
 
 			var codeSize = instruction.CodeSize;
@@ -118,7 +118,8 @@ namespace Iced.Intel {
 				flags |= Flags.ZeroExtVecRegs;
 
 			OpAccess op0Access;
-			switch ((OpInfo0)(flags2 & (uint)InfoFlags2.OpInfo0Mask)) {
+			Static.Assert((int)InstrInfoConstants.OpInfo0_Count == 10 ? 0 : -1);
+			switch ((OpInfo0)(flags1 & (uint)InfoFlags1.OpInfo0Mask)) {
 			default:
 			case OpInfo0.None:
 				op0Access = OpAccess.None;
@@ -173,13 +174,17 @@ namespace Iced.Intel {
 			Debug.Assert(instruction.OpCount <= IcedConstants.MaxOpCount);
 			var accesses = stackalloc OpAccess[IcedConstants.MaxOpCount];
 			accesses[0] = op0Access;
-			var op1info = (OpInfo1)((flags2 >> (int)InfoFlags2.OpInfo1Shift) & (uint)InfoFlags2.OpInfo1Mask);
-			accesses[1] = InfoHandlers.Op1Accesses[(int)op1info];
-			accesses[2] = InfoHandlers.Op2Accesses[(int)((flags2 >> (int)InfoFlags2.OpInfo2Shift) & (uint)InfoFlags2.OpInfo2Mask)];
-			if ((flags2 & (((uint)InfoFlags2.OpInfo3Mask) << (int)InfoFlags2.OpInfo3Shift)) != 0)
+			var op1info = (OpInfo1)((flags1 >> (int)InfoFlags1.OpInfo1Shift) & (uint)InfoFlags1.OpInfo1Mask);
+			accesses[1] = OpAccesses.Op1[(int)op1info];
+			accesses[2] = OpAccesses.Op2[(int)((flags1 >> (int)InfoFlags1.OpInfo2Shift) & (uint)InfoFlags1.OpInfo2Mask)];
+			if ((flags1 & (((uint)InfoFlags1.OpInfo3Mask) << (int)InfoFlags1.OpInfo3Shift)) != 0) {
+				Static.Assert((int)InstrInfoConstants.OpInfo3_Count == 2 ? 0 : -1);
 				accesses[3] = OpAccess.Read;
-			if ((flags2 & (((uint)InfoFlags2.OpInfo4Mask) << (int)InfoFlags2.OpInfo4Shift)) != 0)
+			}
+			if ((flags1 & (((uint)InfoFlags1.OpInfo4Mask) << (int)InfoFlags1.OpInfo4Shift)) != 0) {
+				Static.Assert((int)InstrInfoConstants.OpInfo4_Count == 2 ? 0 : -1);
 				accesses[4] = OpAccess.Read;
+			}
 			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 
 			int opCount = instruction.OpCount;
@@ -277,14 +282,14 @@ namespace Iced.Intel {
 				((uint)accesses[2] << (int)InstructionInfo.OpMaskFlags.Op2AccessShift) |
 				((uint)accesses[3] << (int)InstructionInfo.OpMaskFlags.Op3AccessShift) |
 				((uint)accesses[4] << (int)InstructionInfo.OpMaskFlags.Op4AccessShift));
-			Debug.Assert(((flags2 >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask) <= byte.MaxValue);
-			result.cpuidFeature = (byte)((flags2 >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask);
+			Debug.Assert(((flags2 >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask) <= byte.MaxValue);
+			result.cpuidFeature = (byte)((flags2 >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask);
 			Debug.Assert(((flags2 >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask) <= byte.MaxValue);
 			result.flowControl = (byte)((flags2 >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask);
 			Debug.Assert(((flags2 >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask) <= byte.MaxValue);
 			result.encoding = (byte)((flags2 >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask);
 			Debug.Assert((uint)rflagsInfo <= byte.MaxValue);
-			Debug.Assert((uint)rflagsInfo < (uint)RflagsInfo.Last);
+			Debug.Assert((uint)rflagsInfo < (uint)InstrInfoConstants.RflagsInfo_Count);
 			result.rflagsInfo = (byte)rflagsInfo;
 
 			Static.Assert((uint)InfoFlags1.SaveRestore == 0x08000000 ? 0 : -1);

@@ -55,7 +55,7 @@ namespace Iced.Intel {
 			int index = (int)code * 2 + 1;
 			if ((uint)index >= (uint)data.Length)
 				ThrowHelper.ThrowArgumentOutOfRangeException_code();
-			var cpuidFeature = (CpuidFeatureInternal)((data[index] >> (int)InfoFlags2.CpuidFeatureShift) & (uint)InfoFlags2.CpuidFeatureMask);
+			var cpuidFeature = (CpuidFeatureInternal)((data[index] >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask);
 			return CpuidFeatureInternalData.ToCpuidFeatures[(int)cpuidFeature];
 		}
 

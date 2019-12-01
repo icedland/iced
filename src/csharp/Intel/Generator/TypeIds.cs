@@ -68,5 +68,17 @@ namespace Generator {
 		public static readonly TypeId EncodingKind = new TypeId(nameof(EncodingKind));
 		public static readonly TypeId FlowControl = new TypeId(nameof(FlowControl));
 		public static readonly TypeId OpCodeOperandKind = new TypeId(nameof(OpCodeOperandKind));
+		public static readonly TypeId RflagsBits = new TypeId(nameof(RflagsBits));
+		public static readonly TypeId CodeInfo = new TypeId(nameof(CodeInfo));
+		public static readonly TypeId RflagsInfo = new TypeId(nameof(RflagsInfo));
+		public static readonly TypeId OpInfo0 = new TypeId(nameof(OpInfo0));
+		public static readonly TypeId OpInfo1 = new TypeId(nameof(OpInfo1));
+		public static readonly TypeId OpInfo2 = new TypeId(nameof(OpInfo2));
+		public static readonly TypeId OpInfo3 = new TypeId(nameof(OpInfo3));
+		public static readonly TypeId OpInfo4 = new TypeId(nameof(OpInfo4));
+		public static readonly TypeId InfoFlags1 = new TypeId(nameof(InfoFlags1));
+		public static readonly TypeId InfoFlags2 = new TypeId(nameof(InfoFlags2));
+		public static readonly TypeId InstrInfoConstants = new TypeId(nameof(InstrInfoConstants));
+		public static readonly TypeId OpAccess = new TypeId(nameof(OpAccess));
 	}
 }

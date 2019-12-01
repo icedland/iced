@@ -33,7 +33,7 @@ namespace Generator.Constants.CSharp {
 	sealed class CSharpConstantsGenerator : ConstantsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, FullConstantsFileInfo> toFullFileInfo;
-		readonly Dictionary<TypeId, PartialConstantsFileInfo> toPartialFileInfo;
+		readonly Dictionary<TypeId, PartialConstantsFileInfo?> toPartialFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 
 		sealed class FullConstantsFileInfo {
@@ -67,11 +67,12 @@ namespace Generator.Constants.CSharp {
 			toFullFileInfo.Add(TypeIds.IcedConstants, new FullConstantsFileInfo(Path.Combine(baseDir, nameof(TypeIds.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
 			toFullFileInfo.Add(TypeIds.DecoderConstants, new FullConstantsFileInfo(Path.Combine(generatorOptions.CSharpTestsDir, "Intel", nameof(TypeIds.DecoderConstants) + ".g.cs"), CSharpConstants.IcedUnitTestsNamespace));
 
-			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo>();
+			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo?>();
 			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "DecoderTests", "DecoderTestParser.cs")));
+			toPartialFileInfo.Add(TypeIds.InstrInfoConstants, new PartialConstantsFileInfo("InstrInfoConstants", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs")));
 		}
 
-		protected override void Generate(ConstantsType constantsType) {
+		public override void Generate(ConstantsType constantsType) {
 			if (toFullFileInfo.TryGetValue(constantsType.TypeId, out var fullFileInfo))
 				WriteFile(fullFileInfo, constantsType);
 			else if (toPartialFileInfo.TryGetValue(constantsType.TypeId, out var partialInfo)) {

@@ -27,7 +27,6 @@ namespace Generator.Enums {
 			CodeEnum.Instance,
 			CodeSizeEnum.Instance,
 			InstructionInfo.CpuidFeatureEnum.Instance,
-			InstructionInfo.CpuidFeatureInternalEnum.Instance,
 			Decoder.DecoderOptionsEnum.Instance,
 			Decoder.EvexOpCodeHandlerKindEnum.Instance,
 			Decoder.HandlerFlagsEnum.Instance,
@@ -65,9 +64,11 @@ namespace Generator.Enums {
 			EncodingKindEnum.Instance,
 			InstructionInfo.FlowControlEnum.Instance,
 			Encoder.OpCodeOperandKindEnum.Instance,
+			InstructionInfo.RflagsBitsEnum.Instance,
+			InstructionInfo.OpAccessEnum.Instance,
 		};
 
-		protected abstract void Generate(EnumType enumType);
+		public abstract void Generate(EnumType enumType);
 
 		public void Generate() {
 			foreach (var enumType in allEnums)

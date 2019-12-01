@@ -24,9 +24,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Linq;
 using Generator.Enums;
-using Generator.Enums.InstructionInfo;
+using Generator.InstructionInfo;
 
 namespace Generator.Constants {
+	static class IcedConstants {
+		public const int MaxOpCount = 5;
+	}
+
 	static class IcedConstantsType {
 		const string? documentation = null;
 		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.IcedConstants, ConstantsTypeFlags.None, documentation: documentation, GetConstants());
@@ -37,7 +41,7 @@ namespace Generator.Constants {
 			var vmmLast = regEnum[Get_VMM_last()].Value;
 			return new Constant[] {
 				new Constant(ConstantKind.Int32, "MaxInstructionLength", 15, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.Int32, "MaxOpCount", 5, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Int32, nameof(IcedConstants.MaxOpCount), IcedConstants.MaxOpCount, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "NumberOfCodeValues", (uint)CodeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "NumberOfRegisters", (uint)regEnum.Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "NumberOfMemorySizes", (uint)MemorySizeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
@@ -48,7 +52,7 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.Register, "XMM_last", regEnum[Get_VEC_last("XMM")].Value, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Register, "YMM_last", regEnum[Get_VEC_last("YMM")].Value, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Register, "ZMM_last", regEnum[Get_VEC_last("ZMM")].Value, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.Int32, "MaxCpuidFeatureInternalValues", (uint)CpuidFeatureInternalEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Int32, "MaxCpuidFeatureInternalValues", (uint)InstrInfoTypes.EnumCpuidFeatureInternal.Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.MemorySize, "FirstBroadcastMemorySize", GetFirstBroadcastMemorySize(), ConstantsTypeFlags.None, null),
 			};
 		}

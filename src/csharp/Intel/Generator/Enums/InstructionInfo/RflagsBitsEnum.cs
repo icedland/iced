@@ -21,19 +21,30 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using Generator.Enums.InstructionInfo;
+using System;
+using System.Linq;
 
-namespace Generator.InstructionInfo.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.CpuidFeature_Table)]
-	sealed class RustCpuidFeatureTableGenerator {
-		readonly GeneratorOptions generatorOptions;
+namespace Generator.Enums.InstructionInfo {
+	[Flags]
+	enum RflagsBits {
+		None	= 0,
+		OF		= 0x00000001,
+		SF		= 0x00000002,
+		ZF		= 0x00000004,
+		AF		= 0x00000008,
+		CF		= 0x00000010,
+		PF		= 0x00000020,
+		DF		= 0x00000040,
+		IF		= 0x00000080,
+		AC		= 0x00000100,
+	}
 
-		public RustCpuidFeatureTableGenerator(GeneratorOptions generatorOptions) =>
-			this.generatorOptions = generatorOptions;
+	static class RflagsBitsEnum {
+		const string documentation = "#(c:RFLAGS)# bits supported by the instruction info code";
 
-		public void Generate() {
-			var cpuidFeatures = CpuidFeatureInternalEnum.AllCombinations;
-			//TODO:
-		}
+		static EnumValue[] GetValues() =>
+			typeof(RflagsBits).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(RflagsBits)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.RflagsBits, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize | EnumTypeFlags.Public);
 	}
 }

@@ -103,9 +103,20 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.EncodingKind, new PartialEnumFileInfo("EncodingKind", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureDecoderOrEncoderOrInstrInfo }));
 			toPartialFileInfo.Add(TypeIds.FlowControl, new PartialEnumFileInfo("FlowControl", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureInstrInfo }));
 			toPartialFileInfo.Add(TypeIds.OpCodeOperandKind, new PartialEnumFileInfo("OpCodeOperandKind", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureEncoder, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.RflagsBits, null);
+			toPartialFileInfo.Add(TypeIds.CodeInfo, null);
+			toPartialFileInfo.Add(TypeIds.RflagsInfo, null);
+			toPartialFileInfo.Add(TypeIds.OpInfo0, null);
+			toPartialFileInfo.Add(TypeIds.OpInfo1, null);
+			toPartialFileInfo.Add(TypeIds.OpInfo2, null);
+			toPartialFileInfo.Add(TypeIds.OpInfo3, null);
+			toPartialFileInfo.Add(TypeIds.OpInfo4, null);
+			toPartialFileInfo.Add(TypeIds.InfoFlags1, null);
+			toPartialFileInfo.Add(TypeIds.InfoFlags2, null);
+			toPartialFileInfo.Add(TypeIds.OpAccess, null);
 		}
 
-		protected override void Generate(EnumType enumType) {
+		public override void Generate(EnumType enumType) {
 			if (toPartialFileInfo.TryGetValue(enumType.TypeId, out var partialInfo)) {
 				if (!(partialInfo is null))
 					new FileUpdater(TargetLanguage.Rust, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));

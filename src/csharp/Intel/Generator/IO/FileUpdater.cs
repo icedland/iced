@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Diagnostics;
 using System.IO;
 
 namespace Generator.IO {
@@ -72,7 +71,8 @@ namespace Generator.IO {
 		}
 
 		static int GetIndent(int index, string s) {
-			Debug.Assert((uint)index <= s.Length);
+			if ((uint)index > s.Length)
+				throw new InvalidOperationException();
 			if (index == 0)
 				return 0;
 			int indentCount;
