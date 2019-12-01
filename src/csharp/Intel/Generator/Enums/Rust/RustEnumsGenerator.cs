@@ -143,19 +143,17 @@ namespace Generator.Enums.Rust {
 				writer.WriteLine("#[allow(missing_docs)]");
 			var pub = enumType.IsPublic ? "pub " : "pub(crate) ";
 			writer.WriteLine($"{pub}enum {enumTypeName} {{");
-			writer.Indent();
-
-			uint expectedValue = 0;
-			foreach (var value in enumType.Values) {
-				docWriter.Write(writer, value.Documentation, enumType.RawName);
-				if (expectedValue != value.Value)
-					writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
-				else
-					writer.WriteLine($"{value.Name(idConverter)},");
-				expectedValue = value.Value + 1;
+			using (writer.Indent()) {
+				uint expectedValue = 0;
+				foreach (var value in enumType.Values) {
+					docWriter.Write(writer, value.Documentation, enumType.RawName);
+					if (expectedValue != value.Value)
+						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
+					else
+						writer.WriteLine($"{value.Name(idConverter)},");
+					expectedValue = value.Value + 1;
+				}
 			}
-
-			writer.Unindent();
 			writer.WriteLine("}");
 
 			var arrayName = idConverter.Constant("GenDebug" + enumType.RawName);
@@ -164,10 +162,10 @@ namespace Generator.Enums.Rust {
 				writer.WriteLine(feature);
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
 			writer.WriteLine($"static {arrayName}: [&str; {enumType.Values.Length}] = [");
-			writer.Indent();
-			for (int i = 0; i < enumType.Values.Length; i++)
-				writer.WriteLine($"\"{enumType.Values[i].Name(idConverter)}\",");
-			writer.Unindent();
+			using (writer.Indent()) {
+				for (int i = 0; i < enumType.Values.Length; i++)
+					writer.WriteLine($"\"{enumType.Values[i].Name(idConverter)}\",");
+			}
 			writer.WriteLine("];");
 
 			// #[derive(Debug)] isn't used since it generates a big switch statement. This code
@@ -176,32 +174,32 @@ namespace Generator.Enums.Rust {
 			if (!(feature is null))
 				writer.WriteLine(feature);
 			writer.WriteLine($"impl fmt::Debug for {enumTypeName} {{");
-			writer.Indent();
-			writer.WriteLine(RustConstants.AttributeAllowMissingInlineInPublicItems);
-			writer.WriteLine($"fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {{");
-			writer.Indent();
-			writer.WriteLine($"write!(f, \"{{}}\", {arrayName}[*self as usize])?;");
-			writer.WriteLine("Ok(())");
-			writer.Unindent();
-			writer.WriteLine("}");
-			writer.Unindent();
+			using (writer.Indent()) {
+				writer.WriteLine(RustConstants.AttributeAllowMissingInlineInPublicItems);
+				writer.WriteLine($"fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {{");
+				using (writer.Indent()) {
+					writer.WriteLine($"write!(f, \"{{}}\", {arrayName}[*self as usize])?;");
+					writer.WriteLine("Ok(())");
+				}
+				writer.WriteLine("}");
+			}
 			writer.WriteLine("}");
 
 			if (!(feature is null))
 				writer.WriteLine(feature);
 			writer.WriteLine($"impl Default for {enumTypeName} {{");
-			writer.Indent();
-			writer.WriteLine(RustConstants.AttributeMustUse);
-			writer.WriteLine(RustConstants.AttributeInline);
-			writer.WriteLine("fn default() -> Self {");
-			writer.Indent();
-			var defaultValue = enumType.Values[0];
-			if (defaultValue.Value != 0)
-				throw new InvalidOperationException();
-			writer.WriteLine($"{enumTypeName}::{defaultValue.Name(idConverter)}");
-			writer.Unindent();
-			writer.WriteLine("}");
-			writer.Unindent();
+			using (writer.Indent()) {
+				writer.WriteLine(RustConstants.AttributeMustUse);
+				writer.WriteLine(RustConstants.AttributeInline);
+				writer.WriteLine("fn default() -> Self {");
+				using (writer.Indent()) {
+					var defaultValue = enumType.Values[0];
+					if (defaultValue.Value != 0)
+						throw new InvalidOperationException();
+					writer.WriteLine($"{enumTypeName}::{defaultValue.Name(idConverter)}");
+				}
+				writer.WriteLine("}");
+			}
 			writer.WriteLine("}");
 		}
 	}

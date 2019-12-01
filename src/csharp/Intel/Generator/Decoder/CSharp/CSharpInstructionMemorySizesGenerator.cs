@@ -46,39 +46,38 @@ namespace Generator.Decoder.CSharp {
 				writer.WriteFileHeader();
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
-				writer.Indent();
-				writer.WriteLine($"static class {ClassName} {{");
-				writer.Indent();
-
-				writer.WriteCommentLine("0 = memory size");
-				writer.WriteCommentLine("1 = broadcast memory size");
-				writer.WriteLine($"internal static readonly byte[] Sizes = new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} * 2] {{");
-				writer.Indent();
-				foreach (var d in data) {
-					if (d.mem.Value > byte.MaxValue)
-						throw new InvalidOperationException();
-					string value;
-					if (d.mem.Value == 0)
-						value = "0";
-					else
-						value = $"(byte){memSizeName}.{d.mem.Name(idConverter)}";
-					writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
+				using (writer.Indent()) {
+					writer.WriteLine($"static class {ClassName} {{");
+					using (writer.Indent()) {
+						writer.WriteCommentLine("0 = memory size");
+						writer.WriteCommentLine("1 = broadcast memory size");
+						writer.WriteLine($"internal static readonly byte[] Sizes = new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} * 2] {{");
+						using (writer.Indent()) {
+							foreach (var d in data) {
+								if (d.mem.Value > byte.MaxValue)
+									throw new InvalidOperationException();
+								string value;
+								if (d.mem.Value == 0)
+									value = "0";
+								else
+									value = $"(byte){memSizeName}.{d.mem.Name(idConverter)}";
+								writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
+							}
+							foreach (var d in data) {
+								if (d.bcst.Value > byte.MaxValue)
+									throw new InvalidOperationException();
+								string value;
+								if (d.bcst.Value == 0)
+									value = "0";
+								else
+									value = $"(byte){memSizeName}.{d.bcst.Name(idConverter)}";
+								writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
+							}
+						}
+						writer.WriteLine("};");
+					}
+					writer.WriteLine("}");
 				}
-				foreach (var d in data) {
-					if (d.bcst.Value > byte.MaxValue)
-						throw new InvalidOperationException();
-					string value;
-					if (d.bcst.Value == 0)
-						value = "0";
-					else
-						value = $"(byte){memSizeName}.{d.bcst.Name(idConverter)}";
-					writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
-				}
-				writer.Unindent();
-				writer.WriteLine("};");
-				writer.Unindent();
-				writer.WriteLine("}");
-				writer.Unindent();
 				writer.WriteLine("}");
 			}
 		}

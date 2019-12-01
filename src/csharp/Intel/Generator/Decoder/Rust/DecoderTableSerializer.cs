@@ -114,22 +114,19 @@ namespace Generator.Decoder.Rust {
 				if (HandlerUtils.IsHandler(info.handlers, out var handlerType)) {
 					var typeName = GetHandlerTypeName(handlerType);
 					writer.WriteLine($"static {idConverter.Constant(info.name)}: {typeName} = {typeName} {{");
-					writer.Indent();
-					WriteFields(writer, info.handlers);
-					writer.Unindent();
+					using (writer.Indent())
+						WriteFields(writer, info.handlers);
 					writer.WriteLine("};");
 				}
 				else {
 					var pubStr = isPublic ? "pub(crate) " : string.Empty;
 					writer.WriteLine($"{pubStr}static {name}: [&OpCodeHandler; {(info.handlers.Length >= 10 ? "0x" + info.handlers.Length.ToString("X") : info.handlers.Length.ToString())}] = [");
-
-					writer.Indent();
-					for (int i = 0; i < info.handlers.Length; i++) {
-						writer.Write($"/*{i:X2}*/");
-						Write(writer, info.handlers[i]);
+					using (writer.Indent()) {
+						for (int i = 0; i < info.handlers.Length; i++) {
+							writer.Write($"/*{i:X2}*/");
+							Write(writer, info.handlers[i]);
+						}
 					}
-					writer.Unindent();
-
 					writer.WriteLine("];");
 				}
 			}
@@ -174,17 +171,16 @@ namespace Generator.Decoder.Rust {
 				if (HandlerUtils.IsHandler(handler, out var handlerEnumValue)) {
 					typeName = GetHandlerTypeName(handlerEnumValue);
 					writer.WriteLine($"{BeginUnsafe()}HandlerTransmuter {{ from: &{typeName} {{");
-					writer.Indent();
-					WriteFields(writer, handler);
-					writer.Unindent();
+					using (writer.Indent())
+						WriteFields(writer, handler);
 					writer.WriteLine($"}} }}.to{CloseUnsafe()},");
 				}
 				else {
 					writer.WriteLine("[");
-					writer.Indent();
-					foreach (var d in handler)
-						Write(writer, d);
-					writer.Unindent();
+					using (writer.Indent()) {
+						foreach (var d in handler)
+							Write(writer, d);
+					}
 					writer.WriteLine("],");
 				}
 				break;
@@ -233,10 +229,10 @@ namespace Generator.Decoder.Rust {
 
 			case ValueTuple<object, object> t:
 				writer.WriteLine("(");
-				writer.Indent();
-				Write(writer, t.Item1);
-				Write(writer, t.Item2);
-				writer.Unindent();
+				using (writer.Indent()) {
+					Write(writer, t.Item1);
+					Write(writer, t.Item2);
+				}
 				writer.WriteLine("),");
 				break;
 

@@ -93,9 +93,8 @@ namespace Generator.Constants.CSharp {
 
 				if (constantsType.IsPublic && constantsType.IsMissingDocs)
 					writer.WriteLine("#pragma warning disable 1591 // Missing XML comment for publicly visible type or member");
-				writer.Indent();
-				WriteConstants(writer, constantsType);
-				writer.Unindent();
+				using (writer.Indent())
+					WriteConstants(writer, constantsType);
 				writer.WriteLine("}");
 
 				if (!(info.Define is null))
@@ -108,19 +107,19 @@ namespace Generator.Constants.CSharp {
 			var pub = constantsType.IsPublic ? "public " : string.Empty;
 			writer.WriteLine($"{pub}static class {constantsType.Name(idConverter)} {{");
 
-			writer.Indent();
-			foreach (var constant in constantsType.Constants) {
-				docWriter.Write(writer, constant.Documentation, constantsType.RawName);
-				writer.Write(constant.IsPublic ? "public " : "internal ");
-				writer.Write("const ");
-				writer.Write(GetType(constant.Kind));
-				writer.Write(" ");
-				writer.Write(constant.Name(idConverter));
-				writer.Write(" = ");
-				writer.Write(GetValue(constant));
-				writer.WriteLine(";");
+			using (writer.Indent()) {
+				foreach (var constant in constantsType.Constants) {
+					docWriter.Write(writer, constant.Documentation, constantsType.RawName);
+					writer.Write(constant.IsPublic ? "public " : "internal ");
+					writer.Write("const ");
+					writer.Write(GetType(constant.Kind));
+					writer.Write(" ");
+					writer.Write(constant.Name(idConverter));
+					writer.Write(" = ");
+					writer.Write(GetValue(constant));
+					writer.WriteLine(";");
+				}
 			}
-			writer.Unindent();
 
 			writer.WriteLine("}");
 		}

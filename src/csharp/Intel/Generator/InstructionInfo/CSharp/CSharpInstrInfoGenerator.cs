@@ -54,24 +54,19 @@ namespace Generator.InstructionInfo.CSharp {
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
-
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
-
-				writer.Indent();
-				writer.WriteLine("static class InfoHandlers {");
-				writer.Indent();
-
-				writer.WriteLine($"internal static readonly uint[] Data = new uint[{infos.Length * 2}] {{");
-				writer.Indent();
-				foreach (var info in infos)
-					writer.WriteLine($"0x{info.dword1:X8}, 0x{info.dword2:X8},// {info.info.Code.Name(idConverter)}");
-				writer.Unindent();
-				writer.WriteLine("};");
-
-				writer.Unindent();
-				writer.WriteLine("}");
-				writer.Unindent();
-
+				using (writer.Indent()) {
+					writer.WriteLine("static class InfoHandlers {");
+					using (writer.Indent()) {
+						writer.WriteLine($"internal static readonly uint[] Data = new uint[{infos.Length * 2}] {{");
+						using (writer.Indent()) {
+							foreach (var info in infos)
+								writer.WriteLine($"0x{info.dword1:X8}, 0x{info.dword2:X8},// {info.info.Code.Name(idConverter)}");
+						}
+						writer.WriteLine("};");
+					}
+					writer.WriteLine("}");
+				}
 				writer.WriteLine("}");
 				writer.WriteLine("#endif");
 			}
@@ -82,14 +77,11 @@ namespace Generator.InstructionInfo.CSharp {
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
-
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
-
-				writer.Indent();
-				writer.WriteLine("static class RflagsInfoConstants {");
-				writer.Indent();
-
-				var infos = new (RflagsBits[] rflags, string name)[] {
+				using (writer.Indent()) {
+					writer.WriteLine("static class RflagsInfoConstants {");
+					using (writer.Indent()) {
+						var infos = new (RflagsBits[] rflags, string name)[] {
 					(read, "read"),
 					(undefined, "undefined"),
 					(written, "written"),
@@ -97,28 +89,26 @@ namespace Generator.InstructionInfo.CSharp {
 					(set, "set"),
 					(modified, "modified"),
 				};
-				foreach (var info in infos) {
-					var rflags = info.rflags;
-					if (rflags.Length != infos[0].rflags.Length)
-						throw new InvalidOperationException();
-					var name = idConverter.Field("flags" + info.name.Substring(0, 1).ToUpperInvariant() + info.name.Substring(1));
-					writer.WriteLine($"public static readonly ushort[] {name} = new ushort[{rflags.Length}] {{");
-					writer.Indent();
-					for (int i = 0; i < rflags.Length; i++) {
-						var rfl = rflags[i];
-						uint value = (uint)rfl;
-						if (value > ushort.MaxValue)
-							throw new InvalidOperationException();
-						writer.WriteLine($"0x{value:X4},// {enumValues[i].Name(idConverter)}");
+						foreach (var info in infos) {
+							var rflags = info.rflags;
+							if (rflags.Length != infos[0].rflags.Length)
+								throw new InvalidOperationException();
+							var name = idConverter.Field("flags" + info.name.Substring(0, 1).ToUpperInvariant() + info.name.Substring(1));
+							writer.WriteLine($"public static readonly ushort[] {name} = new ushort[{rflags.Length}] {{");
+							using (writer.Indent()) {
+								for (int i = 0; i < rflags.Length; i++) {
+									var rfl = rflags[i];
+									uint value = (uint)rfl;
+									if (value > ushort.MaxValue)
+										throw new InvalidOperationException();
+									writer.WriteLine($"0x{value:X4},// {enumValues[i].Name(idConverter)}");
+								}
+							}
+							writer.WriteLine("};");
+						}
 					}
-					writer.Unindent();
-					writer.WriteLine("};");
+					writer.WriteLine("}");
 				}
-
-				writer.Unindent();
-				writer.WriteLine("}");
-				writer.Unindent();
-
 				writer.WriteLine("}");
 				writer.WriteLine("#endif");
 			}
@@ -137,35 +127,33 @@ namespace Generator.InstructionInfo.CSharp {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
-				writer.Indent();
-				writer.WriteLine("static partial class CpuidFeatureInternalData {");
-				writer.Indent();
-				writer.WriteLine("static byte[] GetGetCpuidFeaturesData() =>");
-				writer.Indent();
-				writer.WriteLine("new byte[] {");
-				writer.Indent();
-
-				writer.WriteCommentLine("Header");
-				foreach (var b in header) {
-					writer.WriteByte(b);
-					writer.WriteLine();
-				}
-				writer.WriteLine();
-				foreach (var info in cpuidFeatures) {
-					foreach (var f in info.cpuidFeatures) {
-						if ((uint)f.Value > byte.MaxValue)
-							throw new InvalidOperationException();
-						writer.WriteByte((byte)f.Value);
+				using (writer.Indent()) {
+					writer.WriteLine("static partial class CpuidFeatureInternalData {");
+					using (writer.Indent()) {
+						writer.WriteLine("static byte[] GetGetCpuidFeaturesData() =>");
+						using (writer.Indent()) {
+							writer.WriteLine("new byte[] {");
+							using (writer.Indent()) {
+								writer.WriteCommentLine("Header");
+								foreach (var b in header) {
+									writer.WriteByte(b);
+									writer.WriteLine();
+								}
+								writer.WriteLine();
+								foreach (var info in cpuidFeatures) {
+									foreach (var f in info.cpuidFeatures) {
+										if ((uint)f.Value > byte.MaxValue)
+											throw new InvalidOperationException();
+										writer.WriteByte((byte)f.Value);
+									}
+									writer.WriteCommentLine(string.Join(", ", info.cpuidFeatures.Select(a => a.Name(idConverter)).ToArray()));
+								}
+							}
+							writer.WriteLine("};");
+						}
 					}
-					writer.WriteCommentLine(string.Join(", ", info.cpuidFeatures.Select(a => a.Name(idConverter)).ToArray()));
+					writer.WriteLine("}");
 				}
-
-				writer.Unindent();
-				writer.WriteLine("};");
-				writer.Unindent();
-				writer.Unindent();
-				writer.WriteLine("}");
-				writer.Unindent();
 				writer.WriteLine("}");
 				writer.WriteLine("#endif");
 			}
@@ -195,14 +183,14 @@ namespace Generator.InstructionInfo.CSharp {
 			foreach (var index in indexes) {
 				var opInfo = opInfos[index];
 				writer.WriteLine($"public static readonly {opAccessTypeStr}[] Op{index} = new {opAccessTypeStr}[{opInfo.Values.Length}] {{");
-				writer.Indent();
-				foreach (var value in opInfo.Values) {
-					var v = value;
-					if (v.RawName == nameof(OpInfo.ReadP3))
-						v = OpAccessEnum.Instance[nameof(OpAccess.Read)];
-					writer.WriteLine($"{opAccessTypeStr}.{v.Name(idConverter)},");
+				using (writer.Indent()) {
+					foreach (var value in opInfo.Values) {
+						var v = value;
+						if (v.RawName == nameof(OpInfo.ReadP3))
+							v = OpAccessEnum.Instance[nameof(OpAccess.Read)];
+						writer.WriteLine($"{opAccessTypeStr}.{v.Name(idConverter)},");
+					}
 				}
-				writer.Unindent();
 				writer.WriteLine("};");
 			}
 		}

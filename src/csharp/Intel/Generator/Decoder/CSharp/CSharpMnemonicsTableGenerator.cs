@@ -46,22 +46,21 @@ namespace Generator.Decoder.CSharp {
 				writer.WriteFileHeader();
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
-				writer.Indent();
-				writer.WriteLine($"static partial class {ClassName} {{");
-				writer.Indent();
-
-				writer.WriteLine($"internal static readonly ushort[] toMnemonic = new ushort[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)}] {{");
-				writer.Indent();
-				foreach (var d in data) {
-					if (d.mnemonicEnum.Value > ushort.MaxValue)
-						throw new InvalidOperationException();
-					writer.WriteLine($"(ushort){mnemonicName}.{d.mnemonicEnum.Name(idConverter)},// {d.codeEnum.Name(idConverter)}");
+				using (writer.Indent()) {
+					writer.WriteLine($"static partial class {ClassName} {{");
+					using (writer.Indent()) {
+						writer.WriteLine($"internal static readonly ushort[] toMnemonic = new ushort[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)}] {{");
+						using (writer.Indent()) {
+							foreach (var d in data) {
+								if (d.mnemonicEnum.Value > ushort.MaxValue)
+									throw new InvalidOperationException();
+								writer.WriteLine($"(ushort){mnemonicName}.{d.mnemonicEnum.Name(idConverter)},// {d.codeEnum.Name(idConverter)}");
+							}
+						}
+						writer.WriteLine("};");
+					}
+					writer.WriteLine("}");
 				}
-				writer.Unindent();
-				writer.WriteLine("};");
-				writer.Unindent();
-				writer.WriteLine("}");
-				writer.Unindent();
 				writer.WriteLine("}");
 			}
 		}

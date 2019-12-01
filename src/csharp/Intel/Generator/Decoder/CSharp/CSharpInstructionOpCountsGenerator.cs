@@ -43,19 +43,18 @@ namespace Generator.Decoder.CSharp {
 				writer.WriteFileHeader();
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
-				writer.Indent();
-				writer.WriteLine($"static class {ClassName} {{");
-				writer.Indent();
-
-				writer.WriteLine($"internal static readonly byte[] OpCount = new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)}] {{");
-				writer.Indent();
-				foreach (var d in data)
-					writer.WriteLine($"{d.count},// {d.codeEnum.Name(idConverter)}");
-				writer.Unindent();
-				writer.WriteLine("};");
-				writer.Unindent();
-				writer.WriteLine("}");
-				writer.Unindent();
+				using (writer.Indent()) {
+					writer.WriteLine($"static class {ClassName} {{");
+					using (writer.Indent()) {
+						writer.WriteLine($"internal static readonly byte[] OpCount = new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)}] {{");
+						using (writer.Indent()) {
+							foreach (var d in data)
+								writer.WriteLine($"{d.count},// {d.codeEnum.Name(idConverter)}");
+						}
+						writer.WriteLine("};");
+					}
+					writer.WriteLine("}");
+				}
 				writer.WriteLine("}");
 			}
 		}

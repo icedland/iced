@@ -63,40 +63,38 @@ namespace Generator.Decoder.CSharp {
 			writer.WriteFileHeader();
 			writer.WriteLine($"#if {CSharpConstants.DecoderDefine}");
 			writer.WriteLine($"namespace {CSharpConstants.DecoderNamespace} {{");
-			writer.Indent();
-			writer.WriteLine($"static partial class {ClassName} {{");
-			writer.Indent();
-			writer.WriteLine("static byte[] GetSerializedTables() =>");
-			writer.Indent();
-			writer.WriteLine("new byte[] {");
-			writer.Indent();
+			using (writer.Indent()) {
+				writer.WriteLine($"static partial class {ClassName} {{");
+				using (writer.Indent()) {
+					writer.WriteLine("static byte[] GetSerializedTables() =>");
+					using (writer.Indent()) {
+						writer.WriteLine("new byte[] {");
+						using (writer.Indent()) {
+							var tables = GetTablesToSerialize();
+							if (tables.Length == 0)
+								throw new InvalidOperationException();
+							for (int i = 0; i < tables.Length; i++) {
+								var name = tables[i].name;
+								var handlers = tables[i].handlers;
+								bool isHandler = HandlerUtils.IsHandler(handlers);
+								infos.Add(name, new Info((uint)i, isHandler ? InfoKind.Handler : InfoKind.Handlers));
 
-			var tables = GetTablesToSerialize();
-			if (tables.Length == 0)
-				throw new InvalidOperationException();
-			for (int i = 0; i < tables.Length; i++) {
-				var name = tables[i].name;
-				var handlers = tables[i].handlers;
-				bool isHandler = HandlerUtils.IsHandler(handlers);
-				infos.Add(name, new Info((uint)i, isHandler ? InfoKind.Handler : InfoKind.Handlers));
+								if (i != 0)
+									writer.WriteLine();
+								writer.WriteCommentLine(name);
 
-				if (i != 0)
-					writer.WriteLine();
-				writer.WriteCommentLine(name);
+								SerializeHandlers(writer, handlers, writeKind: true);
+							}
+						}
+						writer.WriteLine("};");
+					}
 
-				SerializeHandlers(writer, handlers, writeKind: true);
+					foreach (var name in GetTableIndexNames())
+						writer.WriteLine($"const uint {name}Index = {GetInfo(name).Index};");
+
+				}
+				writer.WriteLine("}");
 			}
-
-			writer.Unindent();
-			writer.WriteLine("};");
-			writer.Unindent();
-
-			foreach (var name in GetTableIndexNames())
-				writer.WriteLine($"const uint {name}Index = {GetInfo(name).Index};");
-
-			writer.Unindent();
-			writer.WriteLine("}");
-			writer.Unindent();
 			writer.WriteLine("}");
 			writer.WriteLine("#endif");
 		}
@@ -361,18 +359,18 @@ namespace Generator.Decoder.CSharp {
 				(codeIndex, codeLen) = info;
 
 			SerializeData(writer, handler[0]);
-			writer.Indent();
-			for (int i = 1; i < handler.Length; i++) {
-				if (codeIndex >= 0 && (codeIndex < i && i < codeIndex + codeLen)) {
-					var code1 = (EnumValue)handler[codeIndex]!;
-					var code2 = (EnumValue)handler[i]!;
-					if (code1.Value + (uint)(i - codeIndex) != code2.Value)
-						throw new InvalidOperationException();
-					continue;
+			using (writer.Indent()) {
+				for (int i = 1; i < handler.Length; i++) {
+					if (codeIndex >= 0 && (codeIndex < i && i < codeIndex + codeLen)) {
+						var code1 = (EnumValue)handler[codeIndex]!;
+						var code2 = (EnumValue)handler[i]!;
+						if (code1.Value + (uint)(i - codeIndex) != code2.Value)
+							throw new InvalidOperationException();
+						continue;
+					}
+					SerializeData(writer, handler[i]);
 				}
-				SerializeData(writer, handler[i]);
 			}
-			writer.Unindent();
 		}
 
 		sealed class InfoIndex {

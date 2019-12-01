@@ -47,10 +47,10 @@ namespace Generator.IO {
 				for (int i = 0; i <= start; i++)
 					writer.WriteLine(lines[i]);
 
-				writer.Indent(indent);
-				writer.WritePartialGeneratedComment();
-				write(writer);
-				writer.Unindent(indent);
+				using (writer.Indent(indent)) {
+					writer.WritePartialGeneratedComment();
+					write(writer);
+				}
 
 				for (int i = end; i < lines.Length; i++)
 					writer.WriteLine(lines[i]);

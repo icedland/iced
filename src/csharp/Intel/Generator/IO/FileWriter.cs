@@ -75,16 +75,30 @@ namespace Generator.IO {
 			}
 		}
 
-		public void Indent() => Indent(1);
-		public void Indent(int indent) {
+		public readonly struct Indenter : IDisposable {
+			readonly FileWriter writer;
+			readonly int indent;
+
+			public Indenter(FileWriter writer, int indent) {
+				this.writer = writer;
+				this.indent = indent;
+				writer.IndentPrivate(indent);
+			}
+
+			public void Dispose() => writer.UnindentPrivate(indent);
+		}
+
+		public Indenter Indent() => new Indenter(this, 1);
+		public Indenter Indent(int indent) => new Indenter(this, indent);
+
+		void IndentPrivate(int indent) {
 			if (indent < 0)
 				throw new ArgumentOutOfRangeException(nameof(indent));
 			indentCount += indent;
 			InitializeIndent();
 		}
 
-		public void Unindent() => Unindent(1);
-		public void Unindent(int indent) {
+		void UnindentPrivate(int indent) {
 			if (indent < 0)
 				throw new ArgumentOutOfRangeException(nameof(indent));
 			indentCount -= indent;

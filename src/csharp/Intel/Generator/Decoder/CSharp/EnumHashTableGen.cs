@@ -61,15 +61,15 @@ namespace Generator.Decoder.CSharp {
 		void WriteHash(FileWriter writer, bool lowerCase, EnumType enumType) {
 			var enumStr = enumType.Name(idConverter);
 			writer.WriteLine($"new Dictionary<string, {enumStr}>({enumType.Values.Length}, StringComparer.Ordinal) {{");
-			writer.Indent();
-			foreach (var value in enumType.Values) {
-				var name = value.Name(idConverter);
-				var key = value.RawName;
-				if (lowerCase)
-					key = key.ToLowerInvariant();
-				writer.WriteLine($"{{ \"{key}\", {enumStr}.{name} }},");
+			using (writer.Indent()) {
+				foreach (var value in enumType.Values) {
+					var name = value.Name(idConverter);
+					var key = value.RawName;
+					if (lowerCase)
+						key = key.ToLowerInvariant();
+					writer.WriteLine($"{{ \"{key}\", {enumStr}.{name} }},");
+				}
 			}
-			writer.Unindent();
 			writer.WriteLine("};");
 		}
 	}

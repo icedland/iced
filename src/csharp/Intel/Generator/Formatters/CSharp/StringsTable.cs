@@ -113,35 +113,33 @@ namespace Generator.Formatters.CSharp {
 			if (!(preprocessorExpr is null))
 				writer.WriteLine($"#if {preprocessorExpr}");
 			writer.WriteLine($"namespace {@namespace} {{");
-			writer.Indent();
-			writer.WriteLine($"static partial class {className} {{");
-			writer.Indent();
-			writer.WriteLine($"const int MaxStringLength = {maxStringLength};");
-			writer.WriteLine($"const int StringsCount = {sortedInfos.Length};");
-			writer.WriteLine("static byte[] GetSerializedStrings() =>");
-			writer.Indent();
-			writer.WriteLine("new byte[] {");
-			writer.Indent();
-
-			foreach (var info in sortedInfos) {
-				var s = info.String;
-				if (s.Length > byte.MaxValue)
-					throw new InvalidOperationException();
-				writer.WriteByte((byte)s.Length);
-				foreach (var c in s) {
-					if ((ushort)c > byte.MaxValue)
-						throw new InvalidOperationException();
-					writer.WriteByte((byte)c);
+			using (writer.Indent()) {
+				writer.WriteLine($"static partial class {className} {{");
+				using (writer.Indent()) {
+					writer.WriteLine($"const int MaxStringLength = {maxStringLength};");
+					writer.WriteLine($"const int StringsCount = {sortedInfos.Length};");
+					writer.WriteLine("static byte[] GetSerializedStrings() =>");
+					using (writer.Indent()) {
+						writer.WriteLine("new byte[] {");
+						using (writer.Indent()) {
+							foreach (var info in sortedInfos) {
+								var s = info.String;
+								if (s.Length > byte.MaxValue)
+									throw new InvalidOperationException();
+								writer.WriteByte((byte)s.Length);
+								foreach (var c in s) {
+									if ((ushort)c > byte.MaxValue)
+										throw new InvalidOperationException();
+									writer.WriteByte((byte)c);
+								}
+								writer.WriteCommentLine(s);
+							}
+						}
+						writer.WriteLine("};");
+					}
 				}
-				writer.WriteCommentLine(s);
+				writer.WriteLine("}");
 			}
-
-			writer.Unindent();
-			writer.WriteLine("};");
-			writer.Unindent();
-			writer.Unindent();
-			writer.WriteLine("}");
-			writer.Unindent();
 			writer.WriteLine("}");
 			if (!(preprocessorExpr is null))
 				writer.WriteLine("#endif");

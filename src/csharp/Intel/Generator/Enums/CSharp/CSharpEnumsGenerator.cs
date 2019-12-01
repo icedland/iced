@@ -147,21 +147,19 @@ namespace Generator.Enums.CSharp {
 			var pub = enumType.IsPublic ? "public " : string.Empty;
 			var theBaseType = !(baseType is null) ? $" : {baseType}" : string.Empty;
 			writer.WriteLine($"{pub}enum {enumType.Name(idConverter)}{theBaseType} {{");
-
-			writer.Indent();
-			uint expectedValue = 0;
-			foreach (var value in enumType.Values) {
-				docWriter.Write(writer, value.Documentation, enumType.RawName);
-				if (enumType.IsFlags)
-					writer.WriteLine($"{value.Name(idConverter)} = 0x{value.Value:X8},");
-				else if (expectedValue != value.Value)
-					writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
-				else
-					writer.WriteLine($"{value.Name(idConverter)},");
-				expectedValue = value.Value + 1;
+			using (writer.Indent()) {
+				uint expectedValue = 0;
+				foreach (var value in enumType.Values) {
+					docWriter.Write(writer, value.Documentation, enumType.RawName);
+					if (enumType.IsFlags)
+						writer.WriteLine($"{value.Name(idConverter)} = 0x{value.Value:X8},");
+					else if (expectedValue != value.Value)
+						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
+					else
+						writer.WriteLine($"{value.Name(idConverter)},");
+					expectedValue = value.Value + 1;
+				}
 			}
-			writer.Unindent();
-
 			writer.WriteLine("}");
 		}
 
@@ -180,9 +178,8 @@ namespace Generator.Enums.CSharp {
 
 				if (enumType.IsPublic && enumType.IsMissingDocs)
 					writer.WriteLine("#pragma warning disable 1591 // Missing XML comment for publicly visible type or member");
-				writer.Indent();
-				WriteEnum(writer, enumType, info.BaseType);
-				writer.Unindent();
+				using (writer.Indent())
+					WriteEnum(writer, enumType, info.BaseType);
 
 				writer.WriteLine("}");
 				if (!(info.Define is null))

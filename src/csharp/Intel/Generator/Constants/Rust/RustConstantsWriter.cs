@@ -48,21 +48,21 @@ namespace Generator.Constants.Rust {
 			writer.WriteLine($"impl {constantsType.Name(idConverter)} {{");
 
 			var sb = new StringBuilder();
-			writer.Indent();
-			foreach (var constant in constantsType.Constants) {
-				docWriter.Write(writer, constant.Documentation, constantsType.RawName);
-				sb.Clear();
-				sb.Append(constant.IsPublic ? "pub " : "pub(crate) ");
-				sb.Append("const ");
-				sb.Append(constant.Name(idConverter));
-				sb.Append(": ");
-				sb.Append(GetType(constant.Kind));
-				sb.Append(" = ");
-				sb.Append(GetValue(constant));
-				sb.Append(';');
-				writer.WriteLine(sb.ToString());
+			using (writer.Indent()) {
+				foreach (var constant in constantsType.Constants) {
+					docWriter.Write(writer, constant.Documentation, constantsType.RawName);
+					sb.Clear();
+					sb.Append(constant.IsPublic ? "pub " : "pub(crate) ");
+					sb.Append("const ");
+					sb.Append(constant.Name(idConverter));
+					sb.Append(": ");
+					sb.Append(GetType(constant.Kind));
+					sb.Append(" = ");
+					sb.Append(GetValue(constant));
+					sb.Append(';');
+					writer.WriteLine(sb.ToString());
+				}
 			}
-			writer.Unindent();
 
 			writer.WriteLine("}");
 		}

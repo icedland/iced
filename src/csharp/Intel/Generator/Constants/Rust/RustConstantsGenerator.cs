@@ -91,27 +91,27 @@ namespace Generator.Constants.Rust {
 
 		void WriteMacro(FileWriter writer, ConstantsType newType, ConstantsType origType) {
 			writer.WriteLine("lazy_static! {");
-			writer.Indent();
-			writer.WriteLine($"pub(super) static ref {idConverter.Constant("To" + newType.RawName)}: HashMap<&'static str, u32> = {{");
-			writer.Indent();
-			writer.WriteLine($"let mut h = HashMap::with_capacity({newType.Constants.Length});");
-			var origConstants = origType.Constants;
-			var newConstants = newType.Constants;
-			if (origConstants.Length != newConstants.Length)
-				throw new InvalidOperationException();
-			for (int i = 0; i < origConstants.Length; i++) {
-				var origConstant = origConstants[i];
-				if (origConstant.Kind != ConstantKind.String)
-					throw new InvalidOperationException();
-				var newConstant = newConstants[i];
-				if (newConstant.Kind != ConstantKind.UInt32)
-					throw new InvalidOperationException();
-				writer.WriteLine($"let _ = h.insert(\"{(string)origConstant.RefValue!}\", {newType.Name(idConverter)}::{newConstant.Name(idConverter)});");
+			using (writer.Indent()) {
+				writer.WriteLine($"pub(super) static ref {idConverter.Constant("To" + newType.RawName)}: HashMap<&'static str, u32> = {{");
+				using (writer.Indent()) {
+					writer.WriteLine($"let mut h = HashMap::with_capacity({newType.Constants.Length});");
+					var origConstants = origType.Constants;
+					var newConstants = newType.Constants;
+					if (origConstants.Length != newConstants.Length)
+						throw new InvalidOperationException();
+					for (int i = 0; i < origConstants.Length; i++) {
+						var origConstant = origConstants[i];
+						if (origConstant.Kind != ConstantKind.String)
+							throw new InvalidOperationException();
+						var newConstant = newConstants[i];
+						if (newConstant.Kind != ConstantKind.UInt32)
+							throw new InvalidOperationException();
+						writer.WriteLine($"let _ = h.insert(\"{(string)origConstant.RefValue!}\", {newType.Name(idConverter)}::{newConstant.Name(idConverter)});");
+					}
+					writer.WriteLine("h");
+				}
+				writer.WriteLine("};");
 			}
-			writer.WriteLine("h");
-			writer.Unindent();
-			writer.WriteLine("};");
-			writer.Unindent();
 			writer.WriteLine("}");
 		}
 	}
