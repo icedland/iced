@@ -44,6 +44,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![deny(unused_qualifications)]
 #![deny(unused_results)]
 #![deny(warnings)]
+#![allow(dead_code)] //TODO: REMOVE
 
 #[cfg(test)]
 #[macro_use]

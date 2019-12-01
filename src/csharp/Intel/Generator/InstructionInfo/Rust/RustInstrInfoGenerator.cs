@@ -21,11 +21,15 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
+using System.IO;
+using System.Linq;
 using Generator.Constants;
 using Generator.Constants.Rust;
 using Generator.Enums;
 using Generator.Enums.InstructionInfo;
 using Generator.Enums.Rust;
+using Generator.IO;
 
 namespace Generator.InstructionInfo.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.InstrInfo)]
@@ -46,19 +50,103 @@ namespace Generator.InstructionInfo.Rust {
 		protected override void Generate(ConstantsType constantsType) => constantsGenerator.Generate(constantsType);
 
 		protected override void Generate((InstrInfo info, uint dword1, uint dword2)[] infos) {
-			//TODO:
+			var filename = Path.Combine(generatorOptions.RustDir, "info", "info_table.rs");
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
+				writer.WriteFileHeader();
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				writer.WriteLine($"pub(crate) static TABLE: [u32; {infos.Length * 2}] = [");
+				using (writer.Indent()) {
+					foreach (var info in infos)
+						writer.WriteLine($"{NumberFormatter.FormatHexUInt32WithSep(info.dword1)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword2)},// {info.info.Code.Name(idConverter)}");
+				}
+				writer.WriteLine("];");
+			}
 		}
 
 		protected override void Generate(EnumValue[] enumValues, RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified) {
-			//TODO:
+			var filename = Path.Combine(generatorOptions.RustDir, "info", "rflags_table.rs");
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
+				writer.WriteFileHeader();
+				var infos = new (RflagsBits[] rflags, string name)[] {
+					(read, "read"),
+					(undefined, "undefined"),
+					(written, "written"),
+					(cleared, "cleared"),
+					(set, "set"),
+					(modified, "modified"),
+				};
+				foreach (var info in infos) {
+					var rflags = info.rflags;
+					if (rflags.Length != infos[0].rflags.Length)
+						throw new InvalidOperationException();
+					var name = idConverter.Static("flags" + info.name.Substring(0, 1).ToUpperInvariant() + info.name.Substring(1));
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
+					writer.WriteLine($"pub(crate) static {name}: [u16; {rflags.Length}] = [");
+					using (writer.Indent()) {
+						for (int i = 0; i < rflags.Length; i++) {
+							var rfl = rflags[i];
+							uint value = (uint)rfl;
+							if (value > ushort.MaxValue)
+								throw new InvalidOperationException();
+							writer.WriteLine($"{NumberFormatter.FormatHexUInt32WithSep(value)},// {enumValues[i].Name(idConverter)}");
+						}
+					}
+					writer.WriteLine("];");
+				}
+			}
 		}
 
 		protected override void Generate((EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[] cpuidFeatures) {
-			//TODO:
+			var filename = Path.Combine(generatorOptions.RustDir, "info", "cpuid_table.rs");
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
+				writer.WriteFileHeader();
+				var cpuidFeatureTypeStr = CpuidFeatureEnum.Instance.Name(idConverter);
+				writer.WriteLine($"use super::super::{cpuidFeatureTypeStr};");
+				writer.WriteLine();
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				writer.WriteLine($"pub(crate) static CPUID: [&[{cpuidFeatureTypeStr}]; {cpuidFeatures.Length}] = [");
+				using (writer.Indent()) {
+					foreach (var info in cpuidFeatures)
+						writer.WriteLine($"&[{string.Join(", ", info.cpuidFeatures.Select(a => $"{cpuidFeatureTypeStr}::{a.Name(idConverter)}"))}],// {info.cpuidInternal.Name(idConverter)}");
+				}
+				writer.WriteLine("];");
+			}
 		}
 
-		protected override void GenerateCore() {
-			//TODO:
+		protected override void GenerateCore() => GenerateOpAccesses();
+
+		void GenerateOpAccesses() {
+			var filename = Path.Combine(generatorOptions.RustDir, "info", "enums.rs");
+			new FileUpdater(TargetLanguage.Rust, "OpAccesses", filename).Generate(writer => GenerateOpAccesses(writer));
+		}
+
+		void GenerateOpAccesses(FileWriter writer) {
+			var opInfos = InstrInfoTypes.EnumOpInfos;
+			// We assume max op count is 5, update the code if not
+			if (opInfos.Length != 5)
+				throw new InvalidOperationException();
+			// InstructionInfoFactory assumes it's 2
+			if (opInfos[3].Values.Length != 2)
+				throw new InvalidOperationException();
+			// InstructionInfoFactory assumes it's 2
+			if (opInfos[4].Values.Length != 2)
+				throw new InvalidOperationException();
+
+			var indexes = new int[] { 1, 2 };
+			var opAccessTypeStr = OpAccessEnum.Instance.Name(idConverter);
+			foreach (var index in indexes) {
+				var opInfo = opInfos[index];
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				var name = idConverter.Constant($"OpAccess_{index}");
+				writer.WriteLine($"static {name}: [{opAccessTypeStr}; {opInfo.Values.Length}] = [");
+				using (writer.Indent()) {
+					foreach (var value in opInfo.Values) {
+						var v = ToOpAccess(value);
+						writer.WriteLine($"{opAccessTypeStr}::{v.Name(idConverter)},");
+					}
+				}
+				writer.WriteLine("];");
+			}
 		}
 	}
 }

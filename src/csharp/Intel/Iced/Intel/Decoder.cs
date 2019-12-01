@@ -137,7 +137,7 @@ namespace Iced.Intel {
 #if !NO_INSTR_INFO
 			_ = RegisterExtensions.RegisterInfos;
 			_ = MemorySizeExtensions.MemorySizeInfos;
-			_ = InstructionInfoInternal.InfoHandlers.Data;
+			_ = InstructionInfoInternal.InstrInfoTable.Data;
 			_ = InstructionInfoInternal.RflagsInfoConstants.flagsCleared;
 			_ = InstructionInfoInternal.CpuidFeatureInternalData.ToCpuidFeatures;
 			_ = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;

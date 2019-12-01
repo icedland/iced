@@ -54,7 +54,7 @@ namespace Generator.Constants.Rust {
 			toPartialFileInfo.Add(TypeIds.IcedConstants, new PartialConstantsFileInfo("IcedConstants", Path.Combine(generatorOptions.RustDir, "iced_constants.rs")));
 			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorOptions.RustDir, "decoder", "tests", "test_parser.rs"), true));
 			toPartialFileInfo.Add(TypeIds.DecoderConstants, new PartialConstantsFileInfo("DecoderConstants", Path.Combine(generatorOptions.RustDir, "test_utils", "decoder_constants.rs")));
-			toPartialFileInfo.Add(TypeIds.InstrInfoConstants, null);
+			toPartialFileInfo.Add(TypeIds.InstrInfoConstants, new PartialConstantsFileInfo("InstrInfoConstants", Path.Combine(generatorOptions.RustDir, "info", "enums.rs")));
 		}
 
 		public override void Generate(ConstantsType constantsType) {

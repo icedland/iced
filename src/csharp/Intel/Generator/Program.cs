@@ -26,7 +26,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Generator {
 	sealed class GeneratorInfoComparer : IComparer<GeneratorInfo> {
@@ -89,15 +91,18 @@ namespace Generator {
 				var generatorOptions = CreateGeneratorOptions(options.GeneratorFlags);
 				Enums.CodeEnum.AddComments(generatorOptions.UnitTestsDir);
 
-				var genInfos = GetGenerators();
-				foreach (var genInfo in Filter(genInfos, options))
-					genInfo.Invoke(generatorOptions);
+				// It's not much of an improvement in speed at the moment.
+				// Group by lang since different lang gens don't write to the same files.
+				Parallel.ForEach(Filter(GetGenerators(), options).GroupBy(a => a.Language).Select(a => a.ToArray()), genInfos => {
+					foreach (var genInfo in genInfos)
+						genInfo.Invoke(generatorOptions);
+				});
 
 				return 0;
 			}
 			catch (Exception ex) {
 				Console.WriteLine(ex.ToString());
-				Debug.Fail("Excetion:\n\n" + ex.ToString());
+				Debug.Fail("Exception:\n\n" + ex.ToString());
 				return 1;
 			}
 		}

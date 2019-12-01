@@ -38,13 +38,13 @@ namespace Generator.Constants.Rust {
 		}
 
 		public void Write(FileWriter writer, ConstantsType constantsType, string[] attributes) {
-			if (constantsType.IsPublic && constantsType.IsMissingDocs)
-				writer.WriteLine("#[allow(missing_docs)]");
 			docWriter.Write(writer, constantsType.Documentation, constantsType.RawName);
 			foreach (var attr in attributes)
 				writer.WriteLine(attr);
 			var pub = constantsType.IsPublic ? "pub " : "pub(crate) ";
 			writer.WriteLine($"{pub}struct {constantsType.Name(idConverter)};");
+			if (constantsType.IsPublic && constantsType.IsMissingDocs)
+				writer.WriteLine(RustConstants.AttributeAllowMissingDocs);
 			writer.WriteLine($"impl {constantsType.Name(idConverter)} {{");
 
 			var sb = new StringBuilder();

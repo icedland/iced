@@ -269,7 +269,7 @@ namespace Iced.Intel {
 		public readonly CpuidFeature[] CpuidFeatures {
 			get {
 				var code = Code;
-				uint flags2 = InstructionInfoInternal.InfoHandlers.Data[(int)code * 2 + 1];
+				uint flags2 = InstructionInfoInternal.InstrInfoTable.Data[(int)code * 2 + 1];
 				var cpuidFeature = (InstructionInfoInternal.CpuidFeatureInternal)(flags2 >> (int)InstructionInfoInternal.InfoFlags2.CpuidFeatureInternalShift & (uint)InstructionInfoInternal.InfoFlags2.CpuidFeatureInternalMask);
 				if ((flags2 & (uint)InstructionInfoInternal.InfoFlags2.AVX2_Check) != 0 && Op1Kind == OpKind.Register)
 					cpuidFeature = InstructionInfoInternal.CpuidFeatureInternal.AVX2;
@@ -319,7 +319,7 @@ namespace Iced.Intel {
 		}
 
 		readonly InstructionInfoInternal.RflagsInfo GetRflagsInfo() {
-			var flags1 = InstructionInfoInternal.InfoHandlers.Data[(int)Code << 1];
+			var flags1 = InstructionInfoInternal.InstrInfoTable.Data[(int)Code << 1];
 			var codeInfo = (InstructionInfoInternal.CodeInfo)((flags1 >> (int)InstructionInfoInternal.InfoFlags1.CodeInfoShift) & (uint)InstructionInfoInternal.InfoFlags1.CodeInfoMask);
 			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 1 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD11 ? 0 : -1);
 			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 2 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F ? 0 : -1);

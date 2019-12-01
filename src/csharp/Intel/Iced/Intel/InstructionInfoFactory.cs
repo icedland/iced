@@ -98,7 +98,7 @@ namespace Iced.Intel {
 			usedRegisters.ValidLength = 0;
 			usedMemoryLocations.ValidLength = 0;
 
-			var data = InfoHandlers.Data;
+			var data = InstrInfoTable.Data;
 			var index = (uint)instruction.Code << 1;
 			var flags1 = data[(int)index];
 			var flags2 = data[(int)index + 1];

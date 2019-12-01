@@ -27,7 +27,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
-	static class InfoHandlers {
+	static class InstrInfoTable {
 		internal static readonly uint[] Data = new uint[8406] {
 			0x00000000, 0x52900000,// INVALID
 			0x00078036, 0x52000000,// Add_rm8_r8

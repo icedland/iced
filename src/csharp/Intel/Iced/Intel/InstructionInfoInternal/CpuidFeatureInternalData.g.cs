@@ -53,7 +53,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 
 				0x0D,// ADX
 				0x0E,// AES
-				0x0E, 0x0F,// AES, AVX
+				0x0E, 0x0F,// AES_and_AVX
 				0x0F,// AVX
 				0x10,// AVX2
 				0x1B,// AVX512BW
@@ -61,26 +61,26 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x1D,// AVX512DQ
 				0x1E,// AVX512ER
 				0x1F,// AVX512F
-				0x1F, 0x19,// AVX512F, AVX512_VP2INTERSECT
-				0x1F, 0x3F,// AVX512F, GFNI
-				0x1F, 0x78,// AVX512F, VAES
-				0x1F, 0x7A,// AVX512F, VPCLMULQDQ
+				0x1F, 0x19,// AVX512F_and_AVX512_VP2INTERSECT
+				0x1F, 0x3F,// AVX512F_and_GFNI
+				0x1F, 0x78,// AVX512F_and_VAES
+				0x1F, 0x7A,// AVX512F_and_VPCLMULQDQ
 				0x20,// AVX512PF
-				0x21, 0x1B,// AVX512VL, AVX512BW
-				0x21, 0x1C,// AVX512VL, AVX512CD
-				0x21, 0x1D,// AVX512VL, AVX512DQ
-				0x21, 0x1F,// AVX512VL, AVX512F
-				0x21, 0x13,// AVX512VL, AVX512_BF16
-				0x21, 0x14,// AVX512VL, AVX512_BITALG
-				0x21, 0x15,// AVX512VL, AVX512_IFMA
-				0x21, 0x16,// AVX512VL, AVX512_VBMI
-				0x21, 0x17,// AVX512VL, AVX512_VBMI2
-				0x21, 0x18,// AVX512VL, AVX512_VNNI
-				0x21, 0x19,// AVX512VL, AVX512_VP2INTERSECT
-				0x21, 0x1A,// AVX512VL, AVX512_VPOPCNTDQ
-				0x21, 0x3F,// AVX512VL, GFNI
-				0x21, 0x78,// AVX512VL, VAES
-				0x21, 0x7A,// AVX512VL, VPCLMULQDQ
+				0x21, 0x1B,// AVX512VL_and_AVX512BW
+				0x21, 0x1C,// AVX512VL_and_AVX512CD
+				0x21, 0x1D,// AVX512VL_and_AVX512DQ
+				0x21, 0x1F,// AVX512VL_and_AVX512F
+				0x21, 0x13,// AVX512VL_and_AVX512_BF16
+				0x21, 0x14,// AVX512VL_and_AVX512_BITALG
+				0x21, 0x15,// AVX512VL_and_AVX512_IFMA
+				0x21, 0x16,// AVX512VL_and_AVX512_VBMI
+				0x21, 0x17,// AVX512VL_and_AVX512_VBMI2
+				0x21, 0x18,// AVX512VL_and_AVX512_VNNI
+				0x21, 0x19,// AVX512VL_and_AVX512_VP2INTERSECT
+				0x21, 0x1A,// AVX512VL_and_AVX512_VPOPCNTDQ
+				0x21, 0x3F,// AVX512VL_and_GFNI
+				0x21, 0x78,// AVX512VL_and_VAES
+				0x21, 0x7A,// AVX512VL_and_VPCLMULQDQ
 				0x11,// AVX512_4FMAPS
 				0x12,// AVX512_4VNNIW
 				0x14,// AVX512_BITALG
@@ -89,7 +89,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x17,// AVX512_VBMI2
 				0x18,// AVX512_VNNI
 				0x1A,// AVX512_VPOPCNTDQ
-				0x0F, 0x3F,// AVX, GFNI
+				0x0F, 0x3F,// AVX_and_GFNI
 				0x22,// BMI1
 				0x23,// BMI2
 				0x24,// CET_IBT
@@ -116,8 +116,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x39,// FPU287XL_ONLY
 				0x3A,// FPU387
 				0x3B,// FPU387SL_ONLY
-				0x37, 0x2C,// FPU, CMOV
-				0x37, 0x6E,// FPU, SSE3
+				0x37, 0x2C,// FPU_and_CMOV
+				0x37, 0x6E,// FPU_and_SSE3
 				0x3C,// FSGSBASE
 				0x3D,// FXSR
 				0x3E,// GEODE
@@ -156,7 +156,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x54,// PADLOCK_RNG
 				0x55,// PAUSE
 				0x56,// PCLMULQDQ
-				0x56, 0x0F,// PCLMULQDQ, AVX
+				0x56, 0x0F,// PCLMULQDQ_and_AVX
 				0x57,// PCOMMIT
 				0x58,// PCONFIG
 				0x59,// PKU

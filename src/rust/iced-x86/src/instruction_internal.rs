@@ -27,8 +27,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // If this 5 year old issue is ever fixed, move these funcs back and remove
 // pub(crate) from Instruction's fields.
 
-#![allow(dead_code)] //TODO: REMOVE
-
 use super::*;
 
 #[inline]

@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.IO;
-using System.Linq;
 using Generator.Constants;
 using Generator.Constants.CSharp;
 using Generator.Enums;
@@ -50,13 +49,13 @@ namespace Generator.InstructionInfo.CSharp {
 		protected override void Generate(ConstantsType constantsType) => constantsGenerator.Generate(constantsType);
 
 		protected override void Generate((InstrInfo info, uint dword1, uint dword2)[] infos) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "InfoHandlers.g.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "InstrInfoTable.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
 				using (writer.Indent()) {
-					writer.WriteLine("static class InfoHandlers {");
+					writer.WriteLine("static class InstrInfoTable {");
 					using (writer.Indent()) {
 						writer.WriteLine($"internal static readonly uint[] Data = new uint[{infos.Length * 2}] {{");
 						using (writer.Indent()) {
@@ -82,13 +81,13 @@ namespace Generator.InstructionInfo.CSharp {
 					writer.WriteLine("static class RflagsInfoConstants {");
 					using (writer.Indent()) {
 						var infos = new (RflagsBits[] rflags, string name)[] {
-					(read, "read"),
-					(undefined, "undefined"),
-					(written, "written"),
-					(cleared, "cleared"),
-					(set, "set"),
-					(modified, "modified"),
-				};
+							(read, "read"),
+							(undefined, "undefined"),
+							(written, "written"),
+							(cleared, "cleared"),
+							(set, "set"),
+							(modified, "modified"),
+						};
 						foreach (var info in infos) {
 							var rflags = info.rflags;
 							if (rflags.Length != infos[0].rflags.Length)
@@ -146,7 +145,7 @@ namespace Generator.InstructionInfo.CSharp {
 											throw new InvalidOperationException();
 										writer.WriteByte((byte)f.Value);
 									}
-									writer.WriteCommentLine(string.Join(", ", info.cpuidFeatures.Select(a => a.Name(idConverter)).ToArray()));
+									writer.WriteCommentLine(info.cpuidInternal.Name(idConverter));
 								}
 							}
 							writer.WriteLine("};");
@@ -185,9 +184,7 @@ namespace Generator.InstructionInfo.CSharp {
 				writer.WriteLine($"public static readonly {opAccessTypeStr}[] Op{index} = new {opAccessTypeStr}[{opInfo.Values.Length}] {{");
 				using (writer.Indent()) {
 					foreach (var value in opInfo.Values) {
-						var v = value;
-						if (v.RawName == nameof(OpInfo.ReadP3))
-							v = OpAccessEnum.Instance[nameof(OpAccess.Read)];
+						var v = ToOpAccess(value);
 						writer.WriteLine($"{opAccessTypeStr}.{v.Name(idConverter)},");
 					}
 				}

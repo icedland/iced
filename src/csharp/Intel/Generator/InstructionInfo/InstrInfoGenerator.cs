@@ -118,5 +118,11 @@ namespace Generator.InstructionInfo {
 
 			GenerateCore();
 		}
+
+		protected static EnumValue ToOpAccess(EnumValue opInfo) {
+			if (opInfo.RawName == nameof(OpInfo.ReadP3))
+				return OpAccessEnum.Instance[nameof(OpAccess.Read)];
+			return OpAccessEnum.Instance[opInfo.RawName];
+		}
 	}
 }

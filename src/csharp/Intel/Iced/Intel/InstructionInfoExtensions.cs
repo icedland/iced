@@ -37,7 +37,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static EncodingKind Encoding(this Code code) {
-			var data = InfoHandlers.Data;
+			var data = InstrInfoTable.Data;
 			int index = (int)code * 2 + 1;
 			if ((uint)index >= (uint)data.Length)
 				ThrowHelper.ThrowArgumentOutOfRangeException_code();
@@ -51,7 +51,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static CpuidFeature[] CpuidFeatures(this Code code) {
-			var data = InfoHandlers.Data;
+			var data = InstrInfoTable.Data;
 			int index = (int)code * 2 + 1;
 			if ((uint)index >= (uint)data.Length)
 				ThrowHelper.ThrowArgumentOutOfRangeException_code();
@@ -66,7 +66,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static FlowControl FlowControl(this Code code) {
-			var data = InfoHandlers.Data;
+			var data = InstrInfoTable.Data;
 			int index = (int)code * 2 + 1;
 			if ((uint)index >= (uint)data.Length)
 				ThrowHelper.ThrowArgumentOutOfRangeException_code();
@@ -80,7 +80,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsProtectedMode(this Code code) {
-			var data = InfoHandlers.Data;
+			var data = InstrInfoTable.Data;
 			int index = (int)code * 2;
 			if ((uint)index >= (uint)data.Length)
 				ThrowHelper.ThrowArgumentOutOfRangeException_code();
@@ -94,7 +94,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsPrivileged(this Code code) {
-			var data = InfoHandlers.Data;
+			var data = InstrInfoTable.Data;
 			int index = (int)code * 2;
 			if ((uint)index >= (uint)data.Length)
 				ThrowHelper.ThrowArgumentOutOfRangeException_code();
@@ -109,7 +109,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsStackInstruction(this Code code) {
-			var data = InfoHandlers.Data;
+			var data = InstrInfoTable.Data;
 			int index = (int)code * 2;
 			if ((uint)index >= (uint)data.Length)
 				ThrowHelper.ThrowArgumentOutOfRangeException_code();
@@ -123,7 +123,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsSaveRestoreInstruction(this Code code) {
-			var data = InfoHandlers.Data;
+			var data = InstrInfoTable.Data;
 			int index = (int)code * 2;
 			if ((uint)index >= (uint)data.Length)
 				ThrowHelper.ThrowArgumentOutOfRangeException_code();

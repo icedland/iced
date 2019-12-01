@@ -21,8 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#![allow(dead_code)] //TODO: REMOVE
-
 use super::iced_constants::IcedConstants;
 use super::{instruction_memory_sizes, instruction_op_counts, Code, CodeSize, MemorySize, Mnemonic, OpKind, Register, RoundingControl};
 use std::{fmt, mem, slice, u16, u32, u64};
