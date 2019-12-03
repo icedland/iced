@@ -85,7 +85,7 @@ pub(crate) fn to_vec_u8(hex_data: &str) -> Result<Vec<u8>, String> {
 		if 'A' <= c && c <= 'F' {
 			return c as i32 - 'A' as i32 + 10;
 		}
-		return -1;
+		-1
 	}
 
 	Ok(bytes)
@@ -100,7 +100,7 @@ pub(crate) fn to_u64(value: &str) -> Result<u64, String> {
 	};
 	match result {
 		Ok(value) => Ok(value),
-		Err(_) => return Err(format!("Invalid number: {}", value)),
+		Err(_) => Err(format!("Invalid number: {}", value)),
 	}
 }
 
@@ -113,7 +113,7 @@ pub(crate) fn to_i64(value: &str) -> Result<i64, String> {
 	};
 	match result {
 		Ok(value) => Ok(value),
-		Err(_) => return Err(format!("Invalid number: {}", value)),
+		Err(_) => Err(format!("Invalid number: {}", value)),
 	}
 }
 

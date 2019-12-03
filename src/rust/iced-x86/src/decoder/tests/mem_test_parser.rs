@@ -39,9 +39,9 @@ pub(crate) struct DecoderMemoryTestParser {
 impl DecoderMemoryTestParser {
 	pub fn new(bitness: u32, filename: &Path) -> Self {
 		let display_filename = filename.display().to_string();
-		let file = File::open(filename).expect(format!("Couldn't open file {}", display_filename).as_str());
+		let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
 		let lines = BufReader::new(file).lines();
-		DecoderMemoryTestParser {
+		Self {
 			filename: display_filename,
 			lines,
 			bitness,
@@ -81,7 +81,7 @@ impl Iterator for IntoIter {
 					self.line_number += 1;
 					let result = match info {
 						Ok(line) => {
-							if line.is_empty() || line.starts_with("#") {
+							if line.is_empty() || line.starts_with('#') {
 								continue;
 							}
 							self.read_next_test_case(line, self.line_number)
@@ -103,7 +103,7 @@ impl Iterator for IntoIter {
 
 impl IntoIter {
 	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<DecoderMemoryTestCase, String> {
-		let parts: Vec<&str> = line.split(",").collect();
+		let parts: Vec<&str> = line.split(',').collect();
 		if parts.len() != 11 && parts.len() != 12 {
 			return Err(format!("Invalid number of commas ({} commas)", parts.len() - 1));
 		}

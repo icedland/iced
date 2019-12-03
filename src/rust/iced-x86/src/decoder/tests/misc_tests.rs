@@ -63,7 +63,7 @@ fn decode_multiple_instrs_with_one_instance() {
 			_ => unreachable!(),
 		};
 		let key = (tc.bitness(), tc.decoder_options());
-		let vec = bytes_map.entry(key).or_insert(Default::default());
+		let vec = bytes_map.entry(key).or_insert_with(Vec::<u8>::default);
 		let bytes = to_vec_u8(tc.hex_bytes()).unwrap();
 		vec.extend(bytes);
 	}
@@ -77,10 +77,10 @@ fn decode_multiple_instrs_with_one_instance() {
 		};
 		let key = (tc.bitness(), tc.decoder_options());
 		let vec = bytes_map.get(&key).unwrap();
-		let _ = map.entry(key).or_insert(Decoder::new(tc.bitness(), vec, tc.decoder_options()));
+		let _ = map.entry(key).or_insert_with(|| Decoder::new(tc.bitness(), vec, tc.decoder_options()));
 	}
 
-	let mut instr2: Instruction = Default::default();
+	let mut instr2 = Instruction::default();
 	for tc in &tests {
 		let bytes = to_vec_u8(tc.hex_bytes()).unwrap();
 		let mut decoder = super::create_decoder(tc.bitness(), &bytes, tc.decoder_options()).0;
@@ -147,7 +147,7 @@ fn position() {
 	let instr_b2 = decoder.decode();
 	assert_eq!(Code::EVEX_Vmovups_xmmm128_k1z_xmm, instr_b2.code());
 
-	decoder.set_ip(get_default_ip(BITNESS) + 0);
+	decoder.set_ip(get_default_ip(BITNESS));
 	assert_eq!(8, decoder.position());
 	decoder.set_position(0);
 	assert!(decoder.can_decode());

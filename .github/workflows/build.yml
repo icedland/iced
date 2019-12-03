@@ -97,6 +97,8 @@ jobs:
           cd src/rust/iced-x86
           echo ==== CLIPPY ====
           cargo clippy --color always
+          echo ==== CLIPPY --tests ====
+          cargo clippy --color always --tests
           echo ==== FORMAT CHECK ====
           cargo fmt -- --color always --check
           echo ==== BUILD DEBUG ====

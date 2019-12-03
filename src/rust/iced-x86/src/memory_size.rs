@@ -279,7 +279,7 @@ mod info {
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
-		pub fn element_type_info(&self) -> &'static MemorySizeInfo {
+		pub fn element_type_info(&self) -> &'static Self {
 			self.element_type().info()
 		}
 
@@ -861,7 +861,7 @@ impl MemorySize {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn element_type(self) -> MemorySize {
+	pub fn element_type(self) -> Self {
 		self.info().element_type()
 	}
 

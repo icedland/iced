@@ -356,7 +356,7 @@ impl<'a> Decoder<'a> {
 			data_ptr_end: unsafe { data.as_ptr().offset(data.len() as isize) },
 			max_data_ptr: data.as_ptr(),
 			instr_start_data_ptr: data.as_ptr(),
-			state: Default::default(),
+			state: State::default(),
 			options,
 			invalid_check_mask: if (options & DecoderOptions::NO_INVALID_CHECK) == 0 {
 				std::u32::MAX
@@ -699,7 +699,7 @@ impl<'a> Decoder<'a> {
 	/// // or use std::mem::MaybeUninit:
 	/// //    let mut instr = unsafe { std::mem::MaybeUninit::uninit().assume_init() };
 	/// // to not clear `instr` more than once (`decode_out()` initializes all its fields).
-	/// let mut instr = Default::default();
+	/// let mut instr = Instruction::default();
 	/// decoder.decode_out(&mut instr);
 	///
 	/// assert_eq!(Code::Add_rm32_r32, instr.code());
@@ -724,7 +724,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn decode_out(&mut self, instruction: &mut Instruction) {
-		*instruction = Default::default();
+		*instruction = Instruction::default();
 
 		self.state.extra_register_base = 0;
 		self.state.extra_index_register_base = 0;
@@ -838,7 +838,7 @@ impl<'a> Decoder<'a> {
 			if (flags & StateFlags::IS_INVALID) != 0
 				|| (((flags & (StateFlags::LOCK | StateFlags::ALLOW_LOCK)) & self.invalid_check_mask) == StateFlags::LOCK)
 			{
-				*instruction = Default::default();
+				*instruction = Instruction::default();
 				const_assert_eq!(0, Code::INVALID as u32);
 				//super::instruction_internal::internal_set_code(instruction, Code::INVALID);
 			}
@@ -1550,7 +1550,7 @@ impl<'a> Decoder<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn get_constant_offsets(&self, instruction: &Instruction) -> ConstantOffsets {
-		let mut constant_offsets: ConstantOffsets = Default::default();
+		let mut constant_offsets = ConstantOffsets::default();
 
 		let displ_size = instruction.memory_displ_size();
 		if displ_size != 0 {

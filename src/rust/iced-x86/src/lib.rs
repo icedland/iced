@@ -28,9 +28,22 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
 // ptr.add(x) is available in 1.26.0+ so we must use ptr.offset(x as isize)
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))]
+// Requires rustc >= 1.26.0
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::range_plus_one))]
+// '_ requires rustc >= 1.31.0
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::useless_let_if_seq))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::verbose_bit_mask))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::cognitive_complexity))]
+#![cfg_attr(feature = "cargo-clippy", deny(clippy::dbg_macro))]
+#![cfg_attr(feature = "cargo-clippy", deny(clippy::default_trait_access))]
+#![cfg_attr(feature = "cargo-clippy", deny(clippy::doc_markdown))]
+#![cfg_attr(feature = "cargo-clippy", deny(clippy::fallible_impl_from))]
+#![cfg_attr(feature = "cargo-clippy", deny(clippy::large_digit_groups))]
+#![cfg_attr(feature = "cargo-clippy", deny(clippy::unimplemented))]
+#![cfg_attr(feature = "cargo-clippy", deny(clippy::use_debug))]
+#![cfg_attr(feature = "cargo-clippy", deny(clippy::used_underscore_binding))]
 //TODO: enable this when https://github.com/rust-lang/rust-clippy/issues/4861 has been fixed
 //#![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_inline_in_public_items))]
 #![deny(absolute_paths_not_starting_with_crate)]

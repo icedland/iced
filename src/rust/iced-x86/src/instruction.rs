@@ -105,7 +105,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn new() -> Self {
-		Default::default()
+		Instruction::default()
 	}
 
 	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `==` ignores some fields.
@@ -114,10 +114,10 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn eq_all_bits(&self, other: &Self) -> bool {
 		unsafe {
-			let a: *const u8 = self as *const Instruction as *const u8;
-			let b: *const u8 = other as *const Instruction as *const u8;
-			let sa = slice::from_raw_parts(a, mem::size_of::<Instruction>());
-			let sb = slice::from_raw_parts(b, mem::size_of::<Instruction>());
+			let a: *const u8 = self as *const Self as *const u8;
+			let b: *const u8 = other as *const Self as *const u8;
+			let sa = slice::from_raw_parts(a, mem::size_of::<Self>());
+			let sb = slice::from_raw_parts(b, mem::size_of::<Self>());
 			sa == sb
 		}
 	}
@@ -2693,7 +2693,7 @@ impl Eq for Instruction {}
 impl PartialEq<Instruction> for Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn eq(&self, other: &Instruction) -> bool {
+	fn eq(&self, other: &Self) -> bool {
 		((self.code_flags ^ other.code_flags) & !CodeFlags::EQUALS_IGNORE_MASK) == 0
 			&& ((self.op_kind_flags ^ other.op_kind_flags) & !OpKindFlags::EQUALS_IGNORE_MASK) == 0
 			&& self.immediate == other.immediate

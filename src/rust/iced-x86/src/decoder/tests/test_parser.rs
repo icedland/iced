@@ -41,9 +41,9 @@ pub(crate) struct DecoderTestParser {
 impl DecoderTestParser {
 	pub fn new(bitness: u32, filename: &Path) -> Self {
 		let display_filename = filename.display().to_string();
-		let file = File::open(filename).expect(format!("Couldn't open file {}", display_filename).as_str());
+		let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
 		let lines = BufReader::new(file).lines();
-		DecoderTestParser {
+		Self {
 			filename: display_filename,
 			lines,
 			bitness,
@@ -259,7 +259,7 @@ impl Iterator for IntoIter {
 					self.line_number += 1;
 					let result = match info {
 						Ok(line) => {
-							if line.is_empty() || line.starts_with("#") {
+							if line.is_empty() || line.starts_with('#') {
 								continue;
 							}
 							self.read_next_test_case(line, self.line_number)
@@ -281,12 +281,12 @@ impl Iterator for IntoIter {
 
 impl IntoIter {
 	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<DecoderTestCase, String> {
-		let parts: Vec<&str> = line.split(",").collect();
+		let parts: Vec<&str> = line.split(',').collect();
 		if parts.len() != 5 {
 			return Err(format!("Invalid number of commas ({} commas)", parts.len() - 1));
 		}
 
-		let mut tc: DecoderTestCase = Default::default();
+		let mut tc = DecoderTestCase::default();
 		tc.line_number = line_number;
 		tc.can_encode = true;
 		tc.bitness = self.bitness;
@@ -297,12 +297,12 @@ impl IntoIter {
 		tc.mnemonic = to_mnemonic(parts[2])?;
 		tc.op_count = to_u32(parts[3])?;
 
-		for key in parts[4].split(" ") {
+		for key in parts[4].split(' ') {
 			let mut key = key;
 			if key.is_empty() {
 				continue;
 			}
-			let kv_parts: Vec<&str> = key.splitn(2, "=").collect();
+			let kv_parts: Vec<&str> = key.splitn(2, '=').collect();
 			let value = if kv_parts.len() == 1 {
 				""
 			} else {
@@ -411,7 +411,7 @@ impl IntoIter {
 	}
 
 	fn read_op_kind(&self, tc: &mut DecoderTestCase, operand: u32, value: &str) -> Result<(), String> {
-		let parts: Vec<&str> = value.split(";").collect();
+		let parts: Vec<&str> = value.split(';').collect();
 		match *(*TO_DECODER_TEST_PARSER_CONSTANTS).get(parts[0]).unwrap_or(&u32::MAX) {
 			DecoderTestParserConstants::OP_KIND_REGISTER => {
 				if parts.len() != 2 {
@@ -644,11 +644,11 @@ impl IntoIter {
 }
 
 pub(crate) fn parse_constant_offsets(value: &str) -> Result<ConstantOffsets, String> {
-	let parts: Vec<&str> = value.split(";").collect();
+	let parts: Vec<&str> = value.split(';').collect();
 	if parts.len() != 6 {
 		return Err(format!("Invalid ConstantOffsets: '{}'", value));
 	}
-	let mut constant_offsets: ConstantOffsets = Default::default();
+	let mut constant_offsets = ConstantOffsets::default();
 	constant_offsets.immediate_offset = to_u8(parts[0])?;
 	constant_offsets.immediate_size = to_u8(parts[1])?;
 	constant_offsets.immediate_offset2 = to_u8(parts[2])?;

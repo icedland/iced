@@ -491,7 +491,7 @@ impl Register {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn base_register(self) -> Register {
+	pub fn base_register(self) -> Self {
 		self.info().base()
 	}
 
@@ -549,7 +549,7 @@ impl Register {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn full_register(self) -> Register {
+	pub fn full_register(self) -> Self {
 		self.info().full_register()
 	}
 
@@ -579,7 +579,7 @@ impl Register {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn full_register32(self) -> Register {
+	pub fn full_register32(self) -> Self {
 		self.info().full_register32()
 	}
 
@@ -1305,7 +1305,7 @@ impl Default for Register {
 
 impl Register {
 	#[cfg_attr(has_must_use, must_use)]
-	fn add(self, rhs: u32) -> Register {
+	fn add(self, rhs: u32) -> Self {
 		let result = (self as u32).wrapping_add(rhs);
 		if result < IcedConstants::NUMBER_OF_REGISTERS {
 			// safe: guaranteed to return a valid enum value
@@ -1315,7 +1315,7 @@ impl Register {
 		}
 	}
 	#[cfg_attr(has_must_use, must_use)]
-	fn sub(self, rhs: u32) -> Register {
+	fn sub(self, rhs: u32) -> Self {
 		let result = (self as u32).wrapping_sub(rhs);
 		if result < IcedConstants::NUMBER_OF_REGISTERS {
 			// safe: guaranteed to return a valid enum value

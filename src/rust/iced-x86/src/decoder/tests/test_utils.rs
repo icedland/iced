@@ -82,14 +82,12 @@ fn read_code_values(name: &str) -> HashSet<Code> {
 	let mut filename = get_decoder_unit_tests_dir();
 	filename.push(name);
 	let display_filename = filename.display();
-	let file = File::open(filename.as_path()).expect(format!("Couldn't open file {}", display_filename).as_str());
+	let file = File::open(filename.as_path()).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
 	let mut h = HashSet::new();
-	let mut line_number = 0;
-	for info in BufReader::new(file).lines() {
-		line_number += 1;
+	for (info, line_number) in BufReader::new(file).lines().zip(1..) {
 		let err = match info {
 			Ok(line) => {
-				if line.is_empty() || line.starts_with("#") {
+				if line.is_empty() || line.starts_with('#') {
 					None
 				} else {
 					match to_code(&line) {
@@ -155,7 +153,7 @@ fn get_tests(include_other_tests: bool, include_invalid: bool, can_encode: Optio
 	v
 }
 
-fn add_tests(v: &mut Vec<DecoderTestInfo>, tests: &'static Vec<DecoderTestCase>, include_invalid: bool, can_encode: Option<bool>) {
+fn add_tests(v: &mut Vec<DecoderTestInfo>, tests: &[DecoderTestCase], include_invalid: bool, can_encode: Option<bool>) {
 	for tc in tests {
 		if !include_invalid && tc.code == Code::INVALID {
 			continue;
@@ -176,7 +174,7 @@ fn add_tests(v: &mut Vec<DecoderTestInfo>, tests: &'static Vec<DecoderTestCase>,
 	}
 }
 
-fn add_tests_mem(v: &mut Vec<DecoderTestInfo>, tests: &'static Vec<DecoderMemoryTestCase>, include_invalid: bool, can_encode: Option<bool>) {
+fn add_tests_mem(v: &mut Vec<DecoderTestInfo>, tests: &[DecoderMemoryTestCase], include_invalid: bool, can_encode: Option<bool>) {
 	for tc in tests {
 		if !include_invalid && tc.code == Code::INVALID {
 			continue;
