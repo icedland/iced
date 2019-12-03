@@ -102,7 +102,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
+		/// Checks if this is an instruction that implicitly uses the stack pointer (<c>SP</c>/<c>ESP</c>/<c>RSP</c>), eg. <c>CALL</c>, <c>PUSH</c>, <c>POP</c>, <c>RET</c>, etc.
 		/// See also <see cref="Instruction.StackPointerIncrement"/>
 		/// </summary>
 		/// <param name="code">Code value</param>
@@ -117,7 +117,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
+		/// Checks if it's an instruction that saves or restores too many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -131,7 +131,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a jcc short or jcc near instruction
+		/// Checks if it's a <c>Jcc SHORT</c> or <c>Jcc NEAR</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -141,7 +141,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Jo_rel16) <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16);
 
 		/// <summary>
-		/// Checks if it's a jcc near instruction
+		/// Checks if it's a <c>Jcc NEAR</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -150,7 +150,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Jo_rel16) <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16);
 
 		/// <summary>
-		/// Checks if it's a jcc short instruction
+		/// Checks if it's a <c>Jcc SHORT</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -159,7 +159,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Jo_rel8_16) <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16);
 
 		/// <summary>
-		/// Checks if it's a jmp short instruction
+		/// Checks if it's a <c>JMP SHORT</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -168,7 +168,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Jmp_rel8_16) <= (uint)(Code.Jmp_rel8_64 - Code.Jmp_rel8_16);
 
 		/// <summary>
-		/// Checks if it's a jmp near instruction
+		/// Checks if it's a <c>JMP NEAR</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -177,7 +177,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Jmp_rel16) <= (uint)(Code.Jmp_rel32_64 - Code.Jmp_rel16);
 
 		/// <summary>
-		/// Checks if it's a jmp short or a jmp near instruction
+		/// Checks if it's a <c>JMP SHORT</c> or a <c>JMP NEAR</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -187,7 +187,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Jmp_rel16) <= (uint)(Code.Jmp_rel32_64 - Code.Jmp_rel16);
 
 		/// <summary>
-		/// Checks if it's a jmp far instruction
+		/// Checks if it's a <c>JMP FAR</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -196,7 +196,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Jmp_ptr1616) <= (uint)(Code.Jmp_ptr1632 - Code.Jmp_ptr1616);
 
 		/// <summary>
-		/// Checks if it's a call near instruction
+		/// Checks if it's a <c>CALL NEAR</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -205,7 +205,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Call_rel16) <= (uint)(Code.Call_rel32_64 - Code.Call_rel16);
 
 		/// <summary>
-		/// Checks if it's a call far instruction
+		/// Checks if it's a <c>CALL FAR</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -214,7 +214,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Call_ptr1616) <= (uint)(Code.Call_ptr1632 - Code.Call_ptr1616);
 
 		/// <summary>
-		/// Checks if it's a jmp near reg/[mem] instruction
+		/// Checks if it's a <c>JMP NEAR reg/[mem]</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -223,7 +223,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Jmp_rm16) <= (uint)(Code.Jmp_rm64 - Code.Jmp_rm16);
 
 		/// <summary>
-		/// Checks if it's a jmp far [mem] instruction
+		/// Checks if it's a <c>JMP FAR [mem]</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -232,7 +232,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Jmp_m1616) <= (uint)(Code.Jmp_m1664 - Code.Jmp_m1616);
 
 		/// <summary>
-		/// Checks if it's a call near reg/[mem] instruction
+		/// Checks if it's a <c>CALL NEAR reg/[mem]</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -241,7 +241,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Call_rm16) <= (uint)(Code.Call_rm64 - Code.Call_rm16);
 
 		/// <summary>
-		/// Checks if it's a call far [mem] instruction
+		/// Checks if it's a <c>CALL FAR [mem]</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -250,7 +250,7 @@ namespace Iced.Intel {
 			(uint)(code - Code.Call_m1616) <= (uint)(Code.Call_m1664 - Code.Call_m1616);
 
 		/// <summary>
-		/// Negates the condition code, eg. je -> jne. Can be used if it's jcc, setcc, cmovcc and returns
+		/// Negates the condition code, eg. <c>JE</c> -> <c>JNE</c>. Can be used if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c> and returns
 		/// the original value if it's none of those instructions.
 		/// </summary>
 		/// <param name="code">Code value</param>
@@ -277,7 +277,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Converts jcc/jmp near to jcc/jmp short. Returns the input if it's not a jcc/jmp near instruction.
+		/// Converts <c>Jcc/JMP NEAR</c> to <c>Jcc/JMP SHORT</c>. Returns the input if it's not a <c>Jcc/JMP NEAR</c> instruction.
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -296,7 +296,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Converts jcc/jmp short to jcc/jmp near. Returns the input if it's not a jcc/jmp short instruction.
+		/// Converts <c>Jcc/JMP SHORT</c> to <c>Jcc/JMP NEAR</c>. Returns the input if it's not a <c>Jcc/JMP SHORT</c> instruction.
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -315,7 +315,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the condition code if it's jcc, setcc, cmovcc else <see cref="ConditionCode.None"/> is returned
+		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c> else <see cref="ConditionCode.None"/> is returned
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>

@@ -22,14 +22,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_INSTR_INFO
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
 	partial struct Instruction {
 		/// <summary>
-		/// Gets the number of bytes added to SP/ESP/RSP or 0 if it's not an instruction that pushes or pops data. This method
-		/// assumes the instruction doesn't change privilege (eg. iret/d/q). If it's the leave instruction, this method returns 0.
+		/// Gets the number of bytes added to <c>SP</c>/<c>ESP</c>/<c>RSP</c> or 0 if it's not an instruction that pushes or pops data. This method assumes
+		/// the instruction doesn't change the privilege level (eg. <c>IRET/D/Q</c>). If it's the <c>LEAVE</c> instruction, this method returns 0.
 		/// </summary>
 		/// <returns></returns>
 		public readonly int StackPointerIncrement {
@@ -302,7 +301,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
+		/// true if this is an instruction that implicitly uses the stack pointer (<c>SP</c>/<c>ESP</c>/<c>RSP</c>), eg. <c>CALL</c>, <c>PUSH</c>, <c>POP</c>, <c>RET</c>, etc.
 		/// See also <see cref="StackPointerIncrement"/>
 		/// </summary>
 		public readonly bool IsStackInstruction {
@@ -311,7 +310,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
+		/// true if it's an instruction that saves or restores too many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
 		/// </summary>
 		public readonly bool IsSaveRestoreInstruction {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -325,41 +324,33 @@ namespace Iced.Intel {
 			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 2 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F ? 0 : -1);
 			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 3 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK3F ? 0 : -1);
 			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 4 == InstructionInfoInternal.CodeInfo.Clear_rflags ? 0 : -1);
-			if ((uint)(codeInfo - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9) <= 4) {
-				switch (codeInfo) {
-				case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
-					if ((Immediate8 & 0x1F) % 9 == 0)
-						return InstructionInfoInternal.RflagsInfo.None;
-					break;
+			switch ((uint)(codeInfo - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9)) {
+			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
+				if ((Immediate8 & 0x1F) % 9 == 0)
+					return InstructionInfoInternal.RflagsInfo.None;
+				break;
 
-				case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD11:
-					if ((Immediate8 & 0x1F) % 17 == 0)
-						return InstructionInfoInternal.RflagsInfo.None;
-					break;
+			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD11 - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
+				if ((Immediate8 & 0x1F) % 17 == 0)
+					return InstructionInfoInternal.RflagsInfo.None;
+				break;
 
-				case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F:
-					if ((Immediate8 & 0x1F) == 0)
-						return InstructionInfoInternal.RflagsInfo.None;
-					break;
+			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
+				if ((Immediate8 & 0x1F) == 0)
+					return InstructionInfoInternal.RflagsInfo.None;
+				break;
 
-				case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK3F:
-					if ((Immediate8 & 0x3F) == 0)
-						return InstructionInfoInternal.RflagsInfo.None;
-					break;
+			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK3F - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
+				if ((Immediate8 & 0x3F) == 0)
+					return InstructionInfoInternal.RflagsInfo.None;
+				break;
 
-				case InstructionInfoInternal.CodeInfo.Clear_rflags:
-					if (Op0Register != Op1Register)
-						break;
-					if (Op0Kind != OpKind.Register || Op1Kind != OpKind.Register)
-						break;
-					return InstructionInfoInternal.RflagsInfo.C_cos_S_pz_U_a;
-
-#if DEBUG
-				default:
-					Debug.Fail($"Invalid codeInfo: {codeInfo}");
+			case InstructionInfoInternal.CodeInfo.Clear_rflags - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
+				if (Op0Register != Op1Register)
 					break;
-#endif
-				}
+				if (Op0Kind != OpKind.Register || Op1Kind != OpKind.Register)
+					break;
+				return InstructionInfoInternal.RflagsInfo.C_cos_S_pz_U_a;
 			}
 			return (InstructionInfoInternal.RflagsInfo)((flags1 >> (int)InstructionInfoInternal.InfoFlags1.RflagsInfoShift) & (uint)InstructionInfoInternal.InfoFlags1.RflagsInfoMask);
 		}
@@ -439,7 +430,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a jcc short or jcc near instruction
+		/// Checks if it's a <c>Jcc SHORT</c> or <c>Jcc NEAR</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJccShortOrNear {
@@ -448,7 +439,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a jcc near instruction
+		/// Checks if it's a <c>Jcc NEAR</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJccNear {
@@ -457,7 +448,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a jcc short instruction
+		/// Checks if it's a <c>Jcc SHORT</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJccShort {
@@ -466,7 +457,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a jmp short instruction
+		/// Checks if it's a <c>JMP SHORT</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpShort {
@@ -475,7 +466,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a jmp near instruction
+		/// Checks if it's a <c>JMP NEAR</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpNear {
@@ -484,7 +475,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a jmp short or a jmp near instruction
+		/// Checks if it's a <c>JMP SHORT</c> or a <c>JMP NEAR</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpShortOrNear {
@@ -493,7 +484,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a jmp far instruction
+		/// Checks if it's a <c>JMP FAR</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpFar {
@@ -502,7 +493,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a call near instruction
+		/// Checks if it's a <c>CALL NEAR</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsCallNear {
@@ -511,7 +502,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a call far instruction
+		/// Checks if it's a <c>CALL FAR</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsCallFar {
@@ -520,7 +511,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a jmp near reg/[mem] instruction
+		/// Checks if it's a <c>JMP NEAR reg/[mem]</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpNearIndirect {
@@ -529,7 +520,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a jmp far [mem] instruction
+		/// Checks if it's a <c>JMP FAR [mem]</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsJmpFarIndirect {
@@ -538,7 +529,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a call near reg/[mem] instruction
+		/// Checks if it's a <c>CALL NEAR reg/[mem]</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsCallNearIndirect {
@@ -547,7 +538,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a call far [mem] instruction
+		/// Checks if it's a <c>CALL FAR [mem]</c> instruction
 		/// </summary>
 		/// <returns></returns>
 		public readonly bool IsCallFarIndirect {
@@ -556,26 +547,26 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Negates the condition code, eg. je -> jne. Can be used if it's jcc, setcc, cmovcc and does
+		/// Negates the condition code, eg. <c>JE</c> -> <c>JNE</c>. Can be used if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c> and does
 		/// nothing if the instruction doesn't have a condition code.
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void NegateConditionCode() => Code = Code.NegateConditionCode();
 
 		/// <summary>
-		/// Converts jcc near to jcc short and does nothing if it's not a jcc near instruction
+		/// Converts <c>Jcc/JMP NEAR</c> to <c>Jcc/JMP SHORT</c> and does nothing if it's not a <c>Jcc/JMP NEAR</c> instruction
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void ToShortBranch() => Code = Code.ToShortBranch();
 
 		/// <summary>
-		/// Converts jcc short to jcc near and does nothing if it's not a jcc short instruction
+		/// Converts <c>Jcc/JMP SHORT</c> to <c>Jcc/JMP NEAR</c> and does nothing if it's not a <c>Jcc/JMP SHORT</c> instruction
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void ToNearBranch() => Code = Code.ToNearBranch();
 
 		/// <summary>
-		/// Gets the condition code if it's jcc, setcc, cmovcc else <see cref="ConditionCode.None"/> is returned
+		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c> else <see cref="ConditionCode.None"/> is returned
 		/// </summary>
 		public readonly ConditionCode ConditionCode {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -26,6 +26,7 @@ namespace Generator.Enums {
 		static readonly EnumType[] allEnums = new EnumType[] {
 			CodeEnum.Instance,
 			CodeSizeEnum.Instance,
+			InstructionInfo.ConditionCodeEnum.Instance,
 			InstructionInfo.CpuidFeatureEnum.Instance,
 			Decoder.DecoderOptionsEnum.Instance,
 			Decoder.EvexOpCodeHandlerKindEnum.Instance,

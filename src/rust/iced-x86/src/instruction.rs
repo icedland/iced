@@ -22,7 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::iced_constants::IcedConstants;
-use super::{instruction_memory_sizes, instruction_op_counts, Code, CodeSize, MemorySize, Mnemonic, OpKind, Register, RoundingControl};
+#[cfg(feature = "INSTR_INFO")]
+use super::info::enums::*;
+use super::*;
 use std::{fmt, mem, slice, u16, u32, u64};
 
 // GENERATOR-BEGIN: MemoryFlags
@@ -273,7 +275,11 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op_count(&self) -> u32 {
-		instruction_op_counts::OP_COUNT[(self.code_flags & CodeFlags::CODE_MASK) as usize] as u32
+		unsafe {
+			*instruction_op_counts::OP_COUNT
+				.as_ptr()
+				.offset((self.code_flags & CodeFlags::CODE_MASK) as isize) as u32
+		}
 	}
 
 	/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
@@ -677,8 +683,7 @@ impl Instruction {
 		if self.is_broadcast() {
 			index += IcedConstants::NUMBER_OF_CODE_VALUES as usize;
 		}
-		// safe if code() is safe, which it is unless the user used unsafe code to write garbage values to it
-		unsafe { mem::transmute(instruction_memory_sizes::SIZES[index]) }
+		unsafe { mem::transmute(*instruction_memory_sizes::SIZES.as_ptr().offset(index as isize)) }
 	}
 
 	/// Gets the index register scale value, valid values are *1, *2, *4, *8. Use this property if the operand has kind `OpKind::Memory`
@@ -1913,7 +1918,362 @@ impl Instruction {
 
 #[cfg(feature = "INSTR_INFO")]
 impl Instruction {
-	//TODO: Instruction.Info.cs
+	/// Gets the number of bytes added to `SP`/`ESP`/`RSP` or 0 if it's not an instruction that pushes or pops data. This method assumes
+	/// the instruction doesn't change the privilege level (eg. `IRET/D/Q`). If it's the `LEAVE` instruction, this method returns 0.
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn stack_pointer_increment(&self) -> i32 {
+		match self.code() {
+			Code::Pushw_ES
+			| Code::Pushw_CS
+			| Code::Pushw_SS
+			| Code::Pushw_DS
+			| Code::Push_r16
+			| Code::Push_imm16
+			| Code::Pushw_imm8
+			| Code::Pushfw
+			| Code::Push_rm16
+			| Code::Pushw_FS
+			| Code::Pushw_GS => -2,
+			Code::Pushd_ES
+			| Code::Pushd_CS
+			| Code::Pushd_SS
+			| Code::Pushd_DS
+			| Code::Push_r32
+			| Code::Pushd_imm32
+			| Code::Pushd_imm8
+			| Code::Pushfd
+			| Code::Push_rm32
+			| Code::Pushd_FS
+			| Code::Pushd_GS => -4,
+			Code::Push_r64 | Code::Pushq_imm32 | Code::Pushq_imm8 | Code::Pushfq | Code::Push_rm64 | Code::Pushq_FS | Code::Pushq_GS => -8,
+			Code::Pushaw => -2 * 8,
+			Code::Pushad => -4 * 8,
+			Code::Popw_ES
+			| Code::Popw_CS
+			| Code::Popw_SS
+			| Code::Popw_DS
+			| Code::Pop_r16
+			| Code::Pop_rm16
+			| Code::Popfw
+			| Code::Popw_FS
+			| Code::Popw_GS => 2,
+			Code::Popd_ES | Code::Popd_SS | Code::Popd_DS | Code::Pop_r32 | Code::Pop_rm32 | Code::Popfd | Code::Popd_FS | Code::Popd_GS => 4,
+			Code::Pop_r64 | Code::Pop_rm64 | Code::Popfq | Code::Popq_FS | Code::Popq_GS => 8,
+			Code::Popaw => 2 * 8,
+			Code::Popad => 4 * 8,
+			Code::Call_ptr1616 | Code::Call_m1616 => -(2 + 2),
+			Code::Call_ptr1632 | Code::Call_m1632 => -(4 + 4),
+			Code::Call_m1664 => -(8 + 8),
+			Code::Call_rel16 | Code::Call_rm16 => -2,
+			Code::Call_rel32_32 | Code::Call_rm32 => -4,
+			Code::Call_rel32_64 | Code::Call_rm64 => -8,
+			Code::Retnw_imm16 => 2 + self.immediate16() as i32,
+			Code::Retnd_imm16 => 4 + self.immediate16() as i32,
+			Code::Retnq_imm16 => 8 + self.immediate16() as i32,
+			Code::Retnw => 2,
+			Code::Retnd => 4,
+			Code::Retnq => 8,
+			Code::Retfw_imm16 => 2 + 2 + self.immediate16() as i32,
+			Code::Retfd_imm16 => 4 + 4 + self.immediate16() as i32,
+			Code::Retfq_imm16 => 8 + 8 + self.immediate16() as i32,
+			Code::Retfw => 2 + 2,
+			Code::Retfd => 4 + 4,
+			Code::Retfq => 8 + 8,
+			Code::Iretw => {
+				if self.code_size() == CodeSize::Code64 {
+					2 * 5
+				} else {
+					2 * 3
+				}
+			}
+			Code::Iretd => {
+				if self.code_size() == CodeSize::Code64 {
+					4 * 5
+				} else {
+					4 * 3
+				}
+			}
+			Code::Iretq => 8 * 5,
+			Code::Enterw_imm16_imm8 => -(2 + (self.immediate8_2nd() as i32 & 0x1F) * 2 + self.immediate16() as i32),
+			Code::Enterd_imm16_imm8 => -(4 + (self.immediate8_2nd() as i32 & 0x1F) * 4 + self.immediate16() as i32),
+			Code::Enterq_imm16_imm8 => -(8 + (self.immediate8_2nd() as i32 & 0x1F) * 8 + self.immediate16() as i32),
+			Code::Leavew | Code::Leaved | Code::Leaveq => 0,
+			_ => 0,
+		}
+	}
+
+	//TODO: public readonly InstructionInfo GetInfo() {
+	//TODO: public readonly InstructionInfo GetInfo(InstructionInfoOptions options) {
+	//TODO: public readonly InstructionInfo.UsedRegisterIterator GetUsedRegisters() {
+	//TODO: public readonly InstructionInfo.UsedMemoryIterator GetUsedMemory() {
+
+	/// Instruction encoding, eg. legacy, VEX, EVEX, ...
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn encoding(&self) -> EncodingKind {
+		self.code().encoding()
+	}
+
+	/// Gets the CPU or CPUID feature flags
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
+		let flags2 = unsafe { *super::info::info_table::TABLE.as_ptr().offset(((self.code() as usize) * 2 + 1) as isize) };
+		let mut index = ((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize;
+		if (flags2 & InfoFlags2::AVX2_CHECK) != 0 && self.op1_kind() == OpKind::Register {
+			index = CpuidFeatureInternal::AVX2 as usize;
+		}
+		unsafe { *super::info::cpuid_table::CPUID.as_ptr().offset(index as isize) }
+	}
+
+	/// Flow control info
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn flow_control(&self) -> FlowControl {
+		self.code().flow_control()
+	}
+
+	/// true if the instruction isn't available in real mode or virtual 8086 mode
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_protected_mode(&self) -> bool {
+		self.code().is_protected_mode()
+	}
+
+	/// true if this is a privileged instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_privileged(&self) -> bool {
+		self.code().is_privileged()
+	}
+
+	/// true if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
+	/// See also `stack_pointer_increment()`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_stack_instruction(&self) -> bool {
+		self.code().is_stack_instruction()
+	}
+
+	/// true if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_save_restore_instruction(&self) -> bool {
+		self.code().is_save_restore_instruction()
+	}
+
+	#[cfg_attr(has_must_use, must_use)]
+	fn rflags_info(&self) -> usize {
+		let flags1 = unsafe { *super::info::info_table::TABLE.as_ptr().offset(((self.code() as usize) * 2) as isize) };
+		let code_info = (flags1 >> InfoFlags1::CODE_INFO_SHIFT) & InfoFlags1::CODE_INFO_MASK;
+		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 1 == CodeInfo::Shift_Ib_MASK1FMOD11 as u32);
+		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 2 == CodeInfo::Shift_Ib_MASK1F as u32);
+		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 3 == CodeInfo::Shift_Ib_MASK3F as u32);
+		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 4 == CodeInfo::Clear_rflags as u32);
+		match code_info.wrapping_sub(CodeInfo::Shift_Ib_MASK1FMOD9 as u32) {
+			0 => {
+				const_assert_eq!(0, CodeInfo::Shift_Ib_MASK1FMOD9 as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
+				if (self.immediate8() & 0x1F) % 9 == 0 {
+					return RflagsInfo::None as usize;
+				}
+			}
+			1 => {
+				const_assert_eq!(1, CodeInfo::Shift_Ib_MASK1FMOD11 as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
+				if (self.immediate8() & 0x1F) % 17 == 0 {
+					return RflagsInfo::None as usize;
+				}
+			}
+			2 => {
+				const_assert_eq!(2, CodeInfo::Shift_Ib_MASK1F as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
+				if (self.immediate8() & 0x1F) == 0 {
+					return RflagsInfo::None as usize;
+				}
+			}
+			3 => {
+				const_assert_eq!(3, CodeInfo::Shift_Ib_MASK3F as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
+				if (self.immediate8() & 0x3F) == 0 {
+					return RflagsInfo::None as usize;
+				}
+			}
+			4 => {
+				const_assert_eq!(4, CodeInfo::Clear_rflags as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
+				if self.op0_register() == self.op1_register() && self.op0_kind() == OpKind::Register && self.op1_kind() == OpKind::Register {
+					return RflagsInfo::C_cos_S_pz_U_a as usize;
+				}
+			}
+			_ => {}
+		}
+		((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as usize
+	}
+
+	/// All flags that are read by the CPU when executing the instruction, see `RflagsBits` flags.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn rflags_read(&self) -> u32 {
+		unsafe { *super::info::rflags_table::FLAGS_READ.as_ptr().offset(self.rflags_info() as isize) as u32 }
+	}
+
+	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared,
+	/// see `RflagsBits` flags. See also `rflags_modified()`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn rflags_written(&self) -> u32 {
+		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.as_ptr().offset(self.rflags_info() as isize) as u32 }
+	}
+
+	/// All flags that are always cleared by the CPU, see `RflagsBits` flags.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn rflags_cleared(&self) -> u32 {
+		unsafe { *super::info::rflags_table::FLAGS_CLEARED.as_ptr().offset(self.rflags_info() as isize) as u32 }
+	}
+
+	/// All flags that are always set by the CPU, see `RflagsBits` flags.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn rflags_set(&self) -> u32 {
+		unsafe { *super::info::rflags_table::FLAGS_SET.as_ptr().offset(self.rflags_info() as isize) as u32 }
+	}
+
+	/// All flags that are undefined after executing the instruction, see `RflagsBits` flags.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn rflags_undefined(&self) -> u32 {
+		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.as_ptr().offset(self.rflags_info() as isize) as u32 }
+	}
+
+	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`, see `RflagsBits` flags.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn rflags_modified(&self) -> u32 {
+		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.as_ptr().offset(self.rflags_info() as isize) as u32 }
+	}
+
+	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jcc_short_or_near(&self) -> bool {
+		self.code().is_jcc_short_or_near()
+	}
+
+	/// Checks if it's a `Jcc NEAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jcc_near(&self) -> bool {
+		self.code().is_jcc_near()
+	}
+
+	/// Checks if it's a `Jcc SHORT` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jcc_short(&self) -> bool {
+		self.code().is_jcc_short()
+	}
+
+	/// Checks if it's a `JMP SHORT` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_short(&self) -> bool {
+		self.code().is_jmp_short()
+	}
+
+	/// Checks if it's a `JMP NEAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_near(&self) -> bool {
+		self.code().is_jmp_near()
+	}
+
+	/// Checks if it's a `JMP SHORT` or a `JMP NEAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_short_or_near(&self) -> bool {
+		self.code().is_jmp_short_or_near()
+	}
+
+	/// Checks if it's a `JMP FAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_far(&self) -> bool {
+		self.code().is_jmp_far()
+	}
+
+	/// Checks if it's a `CALL NEAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_call_near(&self) -> bool {
+		self.code().is_call_near()
+	}
+
+	/// Checks if it's a `CALL FAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_call_far(&self) -> bool {
+		self.code().is_call_far()
+	}
+
+	/// Checks if it's a `JMP NEAR reg/[mem]` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_near_indirect(&self) -> bool {
+		self.code().is_jmp_near_indirect()
+	}
+
+	/// Checks if it's a `JMP FAR [mem]` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_far_indirect(&self) -> bool {
+		self.code().is_jmp_far_indirect()
+	}
+
+	/// Checks if it's a `CALL NEAR reg/[mem]` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_call_near_indirect(&self) -> bool {
+		self.code().is_call_near_indirect()
+	}
+
+	/// Checks if it's a `CALL FAR [mem]` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_call_far_indirect(&self) -> bool {
+		self.code().is_call_far_indirect()
+	}
+
+	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc` and does
+	/// nothing if the instruction doesn't have a condition code.
+	#[inline]
+	pub fn negate_condition_code(&mut self) {
+		// Temp needed if rustc <= 1.35.0 (2015 edition)
+		let t = self.code().negate_condition_code();
+		self.set_code(t)
+	}
+
+	/// Converts `Jcc/JMP NEAR` to `Jcc/JMP SHORT` and does nothing if it's not a `Jcc/JMP NEAR` instruction
+	#[inline]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
+	pub fn to_short_branch(&mut self) {
+		// Temp needed if rustc <= 1.35.0 (2015 edition)
+		let t = self.code().to_short_branch();
+		self.set_code(t)
+	}
+
+	/// Converts `Jcc/JMP SHORT` to `Jcc/JMP NEAR` and does nothing if it's not a `Jcc/JMP SHORT` instruction
+	#[inline]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
+	pub fn to_near_branch(&mut self) {
+		// Temp needed if rustc <= 1.35.0 (2015 edition)
+		let t = self.code().to_near_branch();
+		self.set_code(t)
+	}
+
+	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else `ConditionCode::None` is returned
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn condition_code(&self) -> ConditionCode {
+		self.code().condition_code()
+	}
 }
 
 impl Eq for Instruction {}

@@ -21,8 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#[cfg(feature = "INSTR_INFO")]
+use super::info::enums::*;
 use super::mnemonics;
-use super::Mnemonic;
+use super::*;
 use std::fmt;
 use std::mem;
 
@@ -21062,8 +21064,7 @@ impl Code {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn to_mnemonic(self) -> Mnemonic {
-		// safe if 'self' is valid which it is unless the user used unsafe code to create garbage
-		unsafe { mem::transmute(mnemonics::TO_MNEMONIC[self as usize]) }
+		unsafe { mem::transmute(*mnemonics::TO_MNEMONIC.as_ptr().offset(self as isize)) }
 	}
 }
 
@@ -21074,5 +21075,271 @@ impl Code {
 
 #[cfg(feature = "INSTR_INFO")]
 impl Code {
-	//TODO: InstructionInfoExtensions.cs
+	/// Gets the encoding, eg. legacy, VEX, EVEX, ...
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn encoding(self) -> EncodingKind {
+		// Safe, the table only has valid enum values
+		unsafe {
+			mem::transmute(
+				((*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2 + 1) as isize) >> InfoFlags2::ENCODING_SHIFT)
+					& InfoFlags2::ENCODING_MASK) as u8,
+			)
+		}
+	}
+
+	/// Gets the CPU or CPUID feature flags
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cpuid_features(self) -> &'static [CpuidFeature] {
+		let index = unsafe {
+			(*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2 + 1) as isize) >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT)
+				& InfoFlags2::CPUID_FEATURE_INTERNAL_MASK
+		};
+		unsafe { *super::info::cpuid_table::CPUID.as_ptr().offset(index as isize) }
+	}
+
+	/// Gets flow control info
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn flow_control(self) -> FlowControl {
+		// Safe, the table only has valid enum values
+		unsafe {
+			mem::transmute(
+				((*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2 + 1) as isize) >> InfoFlags2::FLOW_CONTROL_SHIFT)
+					& InfoFlags2::FLOW_CONTROL_MASK) as u8,
+			)
+		}
+	}
+
+	/// Checks if the instruction isn't available in real mode or virtual 8086 mode
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_protected_mode(self) -> bool {
+		unsafe { (*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2) as isize) & InfoFlags1::PROTECTED_MODE) != 0 }
+	}
+
+	/// Checks if this is a privileged instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_privileged(self) -> bool {
+		unsafe { (*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2) as isize) & InfoFlags1::PRIVILEGED) != 0 }
+	}
+
+	/// Checks if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
+	/// See also `Instruction::stack_pointer_increment()`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_stack_instruction(self) -> bool {
+		unsafe { (*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2) as isize) & InfoFlags1::STACK_INSTRUCTION) != 0 }
+	}
+
+	/// Checks if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_save_restore_instruction(self) -> bool {
+		unsafe { (*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2) as isize) & InfoFlags1::SAVE_RESTORE) != 0 }
+	}
+
+	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jcc_short_or_near(self) -> bool {
+		(self as u32).wrapping_sub(Code::Jo_rel8_16 as u32) <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32)
+			|| (self as u32).wrapping_sub(Code::Jo_rel16 as u32) <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32)
+	}
+
+	/// Checks if it's a `Jcc NEAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jcc_near(self) -> bool {
+		(self as u32).wrapping_sub(Code::Jo_rel16 as u32) <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32)
+	}
+
+	/// Checks if it's a `Jcc SHORT` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jcc_short(self) -> bool {
+		(self as u32).wrapping_sub(Code::Jo_rel8_16 as u32) <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32)
+	}
+
+	/// Checks if it's a `JMP SHORT` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_short(self) -> bool {
+		(self as u32).wrapping_sub(Code::Jmp_rel8_16 as u32) <= (Code::Jmp_rel8_64 as u32 - Code::Jmp_rel8_16 as u32)
+	}
+
+	/// Checks if it's a `JMP NEAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_near(self) -> bool {
+		(self as u32).wrapping_sub(Code::Jmp_rel16 as u32) <= (Code::Jmp_rel32_64 as u32 - Code::Jmp_rel16 as u32)
+	}
+
+	/// Checks if it's a `JMP SHORT` or a `JMP NEAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_short_or_near(self) -> bool {
+		(self as u32).wrapping_sub(Code::Jmp_rel8_16 as u32) <= (Code::Jmp_rel8_64 as u32 - Code::Jmp_rel8_16 as u32)
+			|| (self as u32).wrapping_sub(Code::Jmp_rel16 as u32) <= (Code::Jmp_rel32_64 as u32 - Code::Jmp_rel16 as u32)
+	}
+
+	/// Checks if it's a `JMP FAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_far(self) -> bool {
+		(self as u32).wrapping_sub(Code::Jmp_ptr1616 as u32) <= (Code::Jmp_ptr1632 as u32 - Code::Jmp_ptr1616 as u32)
+	}
+
+	/// Checks if it's a `CALL NEAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_call_near(self) -> bool {
+		(self as u32).wrapping_sub(Code::Call_rel16 as u32) <= (Code::Call_rel32_64 as u32 - Code::Call_rel16 as u32)
+	}
+
+	/// Checks if it's a `CALL FAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_call_far(self) -> bool {
+		(self as u32).wrapping_sub(Code::Call_ptr1616 as u32) <= (Code::Call_ptr1632 as u32 - Code::Call_ptr1616 as u32)
+	}
+
+	/// Checks if it's a `JMP NEAR reg/[mem]` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_near_indirect(self) -> bool {
+		(self as u32).wrapping_sub(Code::Jmp_rm16 as u32) <= (Code::Jmp_rm64 as u32 - Code::Jmp_rm16 as u32)
+	}
+
+	/// Checks if it's a `JMP FAR [mem]` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jmp_far_indirect(self) -> bool {
+		(self as u32).wrapping_sub(Code::Jmp_m1616 as u32) <= (Code::Jmp_m1664 as u32 - Code::Jmp_m1616 as u32)
+	}
+
+	/// Checks if it's a `CALL NEAR reg/[mem]` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_call_near_indirect(self) -> bool {
+		(self as u32).wrapping_sub(Code::Call_rm16 as u32) <= (Code::Call_rm64 as u32 - Code::Call_rm16 as u32)
+	}
+
+	/// Checks if it's a `CALL FAR [mem]` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_call_far_indirect(self) -> bool {
+		(self as u32).wrapping_sub(Code::Call_m1616 as u32) <= (Code::Call_m1664 as u32 - Code::Call_m1616 as u32)
+	}
+
+	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc` and returns
+	/// the original value if it's none of those instructions.
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn negate_condition_code(self) -> Self {
+		let mut t;
+
+		t = (self as u32).wrapping_sub(Code::Jo_rel16 as u32);
+		if t <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32) {
+			// They're ordered, eg. je_16, je_32, je_64, jne_16, jne_32, jne_64
+			// if low 3, add 3, else if high 3, subtract 3.
+			//return (((int)((t / 3) << 31) >> 31) | 1) * 3 + code;
+			if ((t / 3) & 1) != 0 {
+				return unsafe { mem::transmute(self as u16 - 3) };
+			}
+			return unsafe { mem::transmute(self as u16 + 3) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::Jo_rel8_16 as u32);
+		if t <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32) {
+			if ((t / 3) & 1) != 0 {
+				return unsafe { mem::transmute(self as u16 - 3) };
+			}
+			return unsafe { mem::transmute(self as u16 + 3) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::Cmovo_r16_rm16 as u32);
+		if t <= (Code::Cmovg_r64_rm64 as u32 - Code::Cmovo_r16_rm16 as u32) {
+			if ((t / 3) & 1) != 0 {
+				return unsafe { mem::transmute(self as u16 - 3) };
+			}
+			return unsafe { mem::transmute(self as u16 + 3) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::Seto_rm8 as u32);
+		if t <= (Code::Setg_rm8 as u32 - Code::Seto_rm8 as u32) {
+			return unsafe { mem::transmute(((t ^ 1) + Code::Seto_rm8 as u32) as u16) };
+		}
+
+		self
+	}
+
+	/// Converts `Jcc/JMP NEAR` to `Jcc/JMP SHORT`. Returns the input if it's not a `Jcc/JMP NEAR` instruction.
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn to_short_branch(self) -> Self {
+		let mut t;
+
+		t = (self as u32).wrapping_sub(Code::Jo_rel16 as u32);
+		if t <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32) {
+			return unsafe { mem::transmute((t + Code::Jo_rel8_16 as u32) as u16) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::Jmp_rel16 as u32);
+		if t <= (Code::Jmp_rel32_64 as u32 - Code::Jmp_rel16 as u32) {
+			return unsafe { mem::transmute((t + Code::Jmp_rel8_16 as u32) as u16) };
+		}
+
+		self
+	}
+
+	/// Converts `Jcc/JMP SHORT` to `Jcc/JMP NEAR`. Returns the input if it's not a `Jcc/JMP SHORT` instruction.
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn to_near_branch(self) -> Self {
+		let mut t;
+
+		t = (self as u32).wrapping_sub(Code::Jo_rel8_16 as u32);
+		if t <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32) {
+			return unsafe { mem::transmute((t + Code::Jo_rel16 as u32) as u16) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::Jmp_rel8_16 as u32);
+		if t <= (Code::Jmp_rel8_64 as u32 - Code::Jmp_rel8_16 as u32) {
+			return unsafe { mem::transmute((t + Code::Jmp_rel16 as u32) as u16) };
+		}
+
+		self
+	}
+
+	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else `ConditionCode::None` is returned
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn condition_code(self) -> ConditionCode {
+		let mut t;
+
+		t = (self as u32).wrapping_sub(Code::Jo_rel16 as u32);
+		if t <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32) {
+			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::Jo_rel8_16 as u32);
+		if t <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32) {
+			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::Cmovo_r16_rm16 as u32);
+		if t <= (Code::Cmovg_r64_rm64 as u32 - Code::Cmovo_r16_rm16 as u32) {
+			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::Seto_rm8 as u32);
+		if t <= (Code::Setg_rm8 as u32 - Code::Seto_rm8 as u32) {
+			return unsafe { mem::transmute((t + ConditionCode::o as u32) as u8) };
+		}
+
+		ConditionCode::None
+	}
 }

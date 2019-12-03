@@ -702,7 +702,7 @@ impl MemorySize {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn info(self) -> &'static MemorySizeInfo {
-		&MEMORY_SIZE_INFOS[self as usize]
+		unsafe { &*MEMORY_SIZE_INFOS.as_ptr().offset(self as isize) }
 	}
 
 	/// Gets the size in bytes of the memory location or 0 if it's not accessed by the instruction or unknown or variable sized

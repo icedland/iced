@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-mod cpuid_table;
-mod enums;
-mod info_table;
-mod rflags_table;
+pub(crate) mod cpuid_table;
+pub(crate) mod enums;
+pub(crate) mod info_table;
+pub(crate) mod rflags_table;

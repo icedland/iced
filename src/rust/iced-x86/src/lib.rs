@@ -28,7 +28,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
 // ptr.add(x) is available in 1.26.0+ so we must use ptr.offset(x as isize)
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::useless_let_if_seq))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::verbose_bit_mask))]
 //TODO: enable this when https://github.com/rust-lang/rust-clippy/issues/4861 has been fixed
 //#![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_inline_in_public_items))]
 #![deny(absolute_paths_not_starting_with_crate)]
@@ -102,8 +104,8 @@ pub use self::formatter::*;
 #[cfg(test)]
 pub(crate) use self::iced_constants::*;
 pub use self::iced_features::*;
-#[cfg(feature = "INSTR_INFO")]
-pub use self::info::*;
+//TODO:#[cfg(feature = "INSTR_INFO")]
+//TODO:pub use self::info::*;
 pub use self::instruction::*;
 pub use self::memory_size::*;
 pub use self::mnemonic::*;

@@ -80,5 +80,6 @@ namespace Generator {
 		public static readonly TypeId InfoFlags2 = new TypeId(nameof(InfoFlags2));
 		public static readonly TypeId InstrInfoConstants = new TypeId(nameof(InstrInfoConstants));
 		public static readonly TypeId OpAccess = new TypeId(nameof(OpAccess));
+		public static readonly TypeId ConditionCode = new TypeId(nameof(ConditionCode));
 	}
 }
