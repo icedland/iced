@@ -21061,6 +21061,13 @@ impl Default for Code {
 
 impl Code {
 	/// Gets the mnemonic
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(Mnemonic::Add, Code::Add_rm32_r32.to_mnemonic());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn to_mnemonic(self) -> Mnemonic {
@@ -21076,6 +21083,17 @@ impl Code {
 #[cfg(feature = "INSTR_INFO")]
 impl Code {
 	/// Gets the encoding, eg. legacy, VEX, EVEX, ...
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(EncodingKind::Legacy, Code::Add_rm32_r32.encoding());
+	/// assert_eq!(EncodingKind::VEX, Code::VEX_Vmovups_xmm_xmmm128.encoding());
+	/// assert_eq!(EncodingKind::EVEX, Code::EVEX_Vmovups_xmm_k1z_xmmm128.encoding());
+	/// assert_eq!(EncodingKind::XOP, Code::XOP_Vpmacssww_xmm_xmm_xmmm128_xmm.encoding());
+	/// assert_eq!(EncodingKind::D3NOW, Code::D3NOW_Pi2fw_mm_mmm64.encoding());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn encoding(self) -> EncodingKind {
@@ -21089,6 +21107,21 @@ impl Code {
 	}
 
 	/// Gets the CPU or CPUID feature flags
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// let cpuid = Code::VEX_Vmovups_xmm_xmmm128.cpuid_features();
+	/// assert_eq!(1, cpuid.len());
+	/// assert_eq!(CpuidFeature::AVX, cpuid[0]);
+	///
+	/// let cpuid = Code::EVEX_Vmovaps_xmm_k1z_xmmm128.cpuid_features();
+	/// assert_eq!(2, cpuid.len());
+	/// assert_eq!(CpuidFeature::AVX512VL, cpuid[0]);
+	/// assert_eq!(CpuidFeature::AVX512F, cpuid[1]);
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn cpuid_features(self) -> &'static [CpuidFeature] {
@@ -21100,6 +21133,15 @@ impl Code {
 	}
 
 	/// Gets flow control info
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(FlowControl::Next, Code::Or_r32_rm32.flow_control());
+	/// assert_eq!(FlowControl::Exception, Code::Ud0_r64_rm64.flow_control());
+	/// assert_eq!(FlowControl::IndirectCall, Code::Call_rm64.flow_control());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn flow_control(self) -> FlowControl {
@@ -21128,6 +21170,15 @@ impl Code {
 
 	/// Checks if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
 	/// See also `Instruction::stack_pointer_increment()`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Code::Or_r32_rm32.is_stack_instruction());
+	/// assert!(Code::Push_r64.is_stack_instruction());
+	/// assert!(Code::Call_rm64.is_stack_instruction());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_stack_instruction(self) -> bool {
@@ -21236,6 +21287,14 @@ impl Code {
 
 	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc` and returns
 	/// the original value if it's none of those instructions.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(Code::Seta_rm8, Code::Setbe_rm8.negate_condition_code());
+	/// assert_eq!(Code::Setbe_rm8, Code::Seta_rm8.negate_condition_code());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn negate_condition_code(self) -> Self {
@@ -21277,6 +21336,15 @@ impl Code {
 	}
 
 	/// Converts `Jcc/JMP NEAR` to `Jcc/JMP SHORT`. Returns the input if it's not a `Jcc/JMP NEAR` instruction.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(Code::Jbe_rel8_64, Code::Jbe_rel32_64.to_short_branch());
+	/// assert_eq!(Code::Jbe_rel8_64, Code::Jbe_rel8_64.to_short_branch());
+	/// assert_eq!(Code::Pause, Code::Pause.to_short_branch());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn to_short_branch(self) -> Self {
@@ -21296,6 +21364,15 @@ impl Code {
 	}
 
 	/// Converts `Jcc/JMP SHORT` to `Jcc/JMP NEAR`. Returns the input if it's not a `Jcc/JMP SHORT` instruction.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(Code::Jbe_rel32_64, Code::Jbe_rel8_64.to_near_branch());
+	/// assert_eq!(Code::Jbe_rel32_64, Code::Jbe_rel32_64.to_near_branch());
+	/// assert_eq!(Code::Pause, Code::Pause.to_near_branch());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn to_near_branch(self) -> Self {
@@ -21315,6 +21392,16 @@ impl Code {
 	}
 
 	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else `ConditionCode::None` is returned
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(ConditionCode::be, Code::Jbe_rel8_64.condition_code());
+	/// assert_eq!(ConditionCode::o, Code::Cmovo_r64_rm64.condition_code());
+	/// assert_eq!(ConditionCode::ne, Code::Setne_rm8.condition_code());
+	/// assert_eq!(ConditionCode::None, Code::Pause.condition_code());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn condition_code(self) -> ConditionCode {

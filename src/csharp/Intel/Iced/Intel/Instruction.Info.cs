@@ -356,7 +356,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// All flags that are read by the CPU when executing the instruction
+		/// All flags that are read by the CPU when executing the instruction. See also <see cref="RflagsModified"/>
 		/// </summary>
 		public readonly RflagsBits RflagsRead {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -382,7 +382,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// All flags that are always cleared by the CPU
+		/// All flags that are always cleared by the CPU. See also <see cref="RflagsModified"/>
 		/// </summary>
 		public readonly RflagsBits RflagsCleared {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -394,7 +394,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// All flags that are always set by the CPU
+		/// All flags that are always set by the CPU. See also <see cref="RflagsModified"/>
 		/// </summary>
 		public readonly RflagsBits RflagsSet {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -406,7 +406,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// All flags that are undefined after executing the instruction
+		/// All flags that are undefined after executing the instruction. See also <see cref="RflagsModified"/>
 		/// </summary>
 		public readonly RflagsBits RflagsUndefined {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

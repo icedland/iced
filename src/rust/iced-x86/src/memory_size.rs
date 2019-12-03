@@ -191,6 +191,14 @@ mod info {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 	impl MemorySizeInfo {
 		/// Gets the `MemorySize` value
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = MemorySize::Packed256_UInt16.info();
+		/// assert_eq!(MemorySize::Packed256_UInt16, info.memory_size());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn memory_size(&self) -> MemorySize {
@@ -199,6 +207,18 @@ mod info {
 		}
 
 		/// Gets the size in bytes of the memory location or 0 if it's not accessed or unknown
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = MemorySize::UInt32.info();
+		/// assert_eq!(4, info.size());
+		/// let info = MemorySize::Packed256_UInt16.info();
+		/// assert_eq!(32, info.size());
+		/// let info = MemorySize::Broadcast512_UInt64.info();
+		/// assert_eq!(8, info.size());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn size(&self) -> u32 {
@@ -206,6 +226,18 @@ mod info {
 		}
 
 		/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to `size()`.
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = MemorySize::UInt32.info();
+		/// assert_eq!(4, info.element_size());
+		/// let info = MemorySize::Packed256_UInt16.info();
+		/// assert_eq!(2, info.element_size());
+		/// let info = MemorySize::Broadcast512_UInt64.info();
+		/// assert_eq!(8, info.element_size());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn element_size(&self) -> u32 {
@@ -213,6 +245,18 @@ mod info {
 		}
 
 		/// Gets the element type if it's packed data or the type itself if it's not packed data
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = MemorySize::UInt32.info();
+		/// assert_eq!(MemorySize::UInt32, info.element_type());
+		/// let info = MemorySize::Packed256_UInt16.info();
+		/// assert_eq!(MemorySize::UInt16, info.element_type());
+		/// let info = MemorySize::Broadcast512_UInt64.info();
+		/// assert_eq!(MemorySize::UInt64, info.element_type());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn element_type(&self) -> MemorySize {
@@ -221,6 +265,18 @@ mod info {
 		}
 
 		/// Gets the element type if it's packed data or the type itself if it's not packed data
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = MemorySize::UInt32.info().element_type_info();
+		/// assert_eq!(MemorySize::UInt32, info.memory_size());
+		/// let info = MemorySize::Packed256_UInt16.info().element_type_info();
+		/// assert_eq!(MemorySize::UInt16, info.memory_size());
+		/// let info = MemorySize::Broadcast512_UInt64.info().element_type_info();
+		/// assert_eq!(MemorySize::UInt64, info.memory_size());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn element_type_info(&self) -> &'static MemorySizeInfo {
@@ -228,6 +284,18 @@ mod info {
 		}
 
 		/// `true` if it's signed data (signed integer or a floating point value)
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = MemorySize::UInt32.info();
+		/// assert!(!info.is_signed());
+		/// let info = MemorySize::Int32.info();
+		/// assert!(info.is_signed());
+		/// let info = MemorySize::Float64.info();
+		/// assert!(info.is_signed());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn is_signed(&self) -> bool {
@@ -235,6 +303,18 @@ mod info {
 		}
 
 		/// `true` if it's a broadcast memory type
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = MemorySize::UInt32.info();
+		/// assert!(!info.is_broadcast());
+		/// let info = MemorySize::Packed256_UInt16.info();
+		/// assert!(!info.is_broadcast());
+		/// let info = MemorySize::Broadcast512_UInt64.info();
+		/// assert!(info.is_broadcast());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn is_broadcast(&self) -> bool {
@@ -242,6 +322,18 @@ mod info {
 		}
 
 		/// `true` if this is a packed data type, eg. `MemorySize::Packed128_Float32`. See also `element_count()`
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = MemorySize::UInt32.info();
+		/// assert!(!info.is_packed());
+		/// let info = MemorySize::Packed256_UInt16.info();
+		/// assert!(info.is_packed());
+		/// let info = MemorySize::Broadcast512_UInt64.info();
+		/// assert!(!info.is_packed());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn is_packed(&self) -> bool {
@@ -249,6 +341,18 @@ mod info {
 		}
 
 		/// Gets the number of elements in the packed data type or `1` if it's not packed data (`is_packed()`)
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = MemorySize::UInt32.info();
+		/// assert_eq!(1, info.element_count());
+		/// let info = MemorySize::Packed256_UInt16.info();
+		/// assert_eq!(16, info.element_count());
+		/// let info = MemorySize::Broadcast512_UInt64.info();
+		/// assert_eq!(1, info.element_count());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn element_count(&self) -> u32 {
@@ -268,7 +372,7 @@ mod info {
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[allow(non_camel_case_types)]
 pub enum MemorySize {
-	/// Unknown size or the instruction doesn't reference any memory (eg. `lea`)
+	/// Unknown size or the instruction doesn't reference any memory (eg. `LEA`)
 	Unknown,
 	/// Memory location contains a `u8`
 	UInt8,
@@ -306,23 +410,23 @@ pub enum MemorySize {
 	SegPtr32,
 	/// Memory location contains a seg:ptr pair, `u64` (offset) + `u16` (segment/selector)
 	SegPtr64,
-	/// Memory location contains a 16-bit offset (`jmp/call word ptr [mem]`)
+	/// Memory location contains a 16-bit offset (`JMP/CALL WORD PTR [mem]`)
 	WordOffset,
-	/// Memory location contains a 32-bit offset (`jmp/call dword ptr [mem]`)
+	/// Memory location contains a 32-bit offset (`JMP/CALL DWORD PTR [mem]`)
 	DwordOffset,
-	/// Memory location contains a 64-bit offset (`jmp/call qword ptr [mem]`)
+	/// Memory location contains a 64-bit offset (`JMP/CALL QWORD PTR [mem]`)
 	QwordOffset,
-	/// Memory location contains two `u16`s (16-bit `bound`)
+	/// Memory location contains two `u16`s (16-bit `BOUND`)
 	Bound16_WordWord,
-	/// Memory location contains two `u32`s (32-bit `bound`)
+	/// Memory location contains two `u32`s (32-bit `BOUND`)
 	Bound32_DwordDword,
-	/// 32-bit `bndmov`, 2 x `u32`
+	/// 32-bit `BNDMOV`, 2 x `u32`
 	Bnd32,
-	/// 64-bit `bndmov`, 2 x `u64`
+	/// 64-bit `BNDMOV`, 2 x `u64`
 	Bnd64,
-	/// Memory location contains a 16-bit limit and a 32-bit address (eg. `lgdtw`, `lgdtd`)
+	/// Memory location contains a 16-bit limit and a 32-bit address (eg. `LGDTW`, `LGDTD`)
 	Fword6,
-	/// Memory location contains a 16-bit limit and a 64-bit address (eg. `lgdtq`)
+	/// Memory location contains a 16-bit limit and a 64-bit address (eg. `LGDTQ`)
 	Fword10,
 	/// Memory location contains a `f16`
 	Float16,
@@ -336,23 +440,23 @@ pub enum MemorySize {
 	Float128,
 	/// Memory location contains a `bfloat16`
 	BFloat16,
-	/// Memory location contains a 14-byte FPU environment (16-bit `fldenv`/`fstenv`)
+	/// Memory location contains a 14-byte FPU environment (16-bit `FLDENV`/`FSTENV`)
 	FpuEnv14,
-	/// Memory location contains a 28-byte FPU environment (32/64-bit `fldenv`/`fstenv`)
+	/// Memory location contains a 28-byte FPU environment (32/64-bit `FLDENV`/`FSTENV`)
 	FpuEnv28,
-	/// Memory location contains a 94-byte FPU environment (16-bit `fsave`/`frstor`)
+	/// Memory location contains a 94-byte FPU environment (16-bit `FSAVE`/`FRSTOR`)
 	FpuState94,
-	/// Memory location contains a 108-byte FPU environment (32/64-bit `fsave`/`frstor`)
+	/// Memory location contains a 108-byte FPU environment (32/64-bit `FSAVE`/`FRSTOR`)
 	FpuState108,
-	/// Memory location contains 512-bytes of `fxsave`/`fxrstor` data
+	/// Memory location contains 512-bytes of `FXSAVE`/`FXRSTOR` data
 	Fxsave_512Byte,
-	/// Memory location contains 512-bytes of `fxsave64`/`fxrstor64` data
+	/// Memory location contains 512-bytes of `FXSAVE64`/`FXRSTOR64` data
 	Fxsave64_512Byte,
 	/// 32-bit `XSAVE` area
 	Xsave,
 	/// 64-bit `XSAVE` area
 	Xsave64,
-	/// Memory location contains a 10-byte `bcd` value (`fbld`/`fbstp`)
+	/// Memory location contains a 10-byte `bcd` value (`FBLD`/`FBSTP`)
 	Bcd,
 	/// 16 bit location: 2 x `u8`
 	Packed16_UInt8,
@@ -699,6 +803,14 @@ impl Default for MemorySize {
 #[cfg(feature = "INSTR_INFO")]
 impl MemorySize {
 	/// Gets the memory size info
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// let info = MemorySize::Packed256_UInt16.info();
+	/// assert_eq!(32, info.size());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn info(self) -> &'static MemorySizeInfo {
@@ -706,6 +818,15 @@ impl MemorySize {
 	}
 
 	/// Gets the size in bytes of the memory location or 0 if it's not accessed by the instruction or unknown or variable sized
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(4, MemorySize::UInt32.size());
+	/// assert_eq!(32, MemorySize::Packed256_UInt16.size());
+	/// assert_eq!(8, MemorySize::Broadcast512_UInt64.size());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn size(self) -> u32 {
@@ -713,6 +834,15 @@ impl MemorySize {
 	}
 
 	/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to `size()`.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(4, MemorySize::UInt32.element_size());
+	/// assert_eq!(2, MemorySize::Packed256_UInt16.element_size());
+	/// assert_eq!(8, MemorySize::Broadcast512_UInt64.element_size());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn element_size(self) -> u32 {
@@ -720,6 +850,15 @@ impl MemorySize {
 	}
 
 	/// Gets the element type if it's packed data or `self` if it's not packed data
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(MemorySize::UInt32, MemorySize::UInt32.element_type());
+	/// assert_eq!(MemorySize::UInt16, MemorySize::Packed256_UInt16.element_type());
+	/// assert_eq!(MemorySize::UInt64, MemorySize::Broadcast512_UInt64.element_type());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn element_type(self) -> MemorySize {
@@ -727,6 +866,15 @@ impl MemorySize {
 	}
 
 	/// true if it's signed data (signed integer or a floating point value)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!MemorySize::UInt32.is_signed());
+	/// assert!(MemorySize::Int32.is_signed());
+	/// assert!(MemorySize::Float64.is_signed());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_signed(self) -> bool {
@@ -734,6 +882,15 @@ impl MemorySize {
 	}
 
 	/// true if this is a packed data type, eg. `MemorySize::Packed128_Float32`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!MemorySize::UInt32.is_packed());
+	/// assert!(MemorySize::Packed256_UInt16.is_packed());
+	/// assert!(!MemorySize::Broadcast512_UInt64.is_packed());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_packed(self) -> bool {
@@ -741,6 +898,15 @@ impl MemorySize {
 	}
 
 	/// Gets the number of elements in the packed data type or `1` if it's not packed data (`is_packed()`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(1, MemorySize::UInt32.element_count());
+	/// assert_eq!(16, MemorySize::Packed256_UInt16.element_count());
+	/// assert_eq!(1, MemorySize::Broadcast512_UInt64.element_count());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn element_count(self) -> u32 {
@@ -751,6 +917,14 @@ impl MemorySize {
 #[cfg(any(feature = "INSTR_INFO", feature = "ENCODER"))]
 impl MemorySize {
 	/// Checks if it is a broadcast memory type
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!MemorySize::Packed64_Float16.is_broadcast());
+	/// assert!(MemorySize::Broadcast512_UInt64.is_broadcast());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_broadcast(self) -> bool {

@@ -272,6 +272,19 @@ impl Instruction {
 	}
 
 	/// Gets the operand count. An instruction can have 0-5 operands.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // add [rax],ebx
+	/// let bytes = b"\x01\x18";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// let instr = decoder.decode();
+	///
+	/// assert_eq!(2, instr.op_count());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op_count(&self) -> u32 {
@@ -527,6 +540,21 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // add [rax],ebx
+	/// let bytes = b"\x01\x18";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// let instr = decoder.decode();
+	///
+	/// assert_eq!(2, instr.op_count());
+	/// assert_eq!(OpKind::Memory, instr.op_kind(0));
+	/// assert_eq!(OpKind::Register, instr.op_kind(1));
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn op_kind(&self, operand: u32) -> OpKind {
@@ -1230,6 +1258,22 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // add [rax],ebx
+	/// let bytes = b"\x01\x18";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// let instr = decoder.decode();
+	///
+	/// assert_eq!(2, instr.op_count());
+	/// assert_eq!(OpKind::Memory, instr.op_kind(0));
+	/// assert_eq!(OpKind::Register, instr.op_kind(1));
+	/// assert_eq!(Register::EBX, instr.op_register(1));
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn op_register(&self, operand: u32) -> Register {
@@ -1821,12 +1865,31 @@ impl Instruction {
 	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base value, not the segment register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index in the vector register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // add [rdi+r12*8-5AA5EDCCh],esi
+	/// let bytes = b"\x42\x01\xB4\xE7\x34\x12\x5A\xA5";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// let instr = decoder.decode();
+	///
+	/// let va = instr.virtual_address(0, 0, |register, element_index, element_size| {
+	///     match register {
+	///         // The base address of ES, CS, SS and DS is always 0 in 64-bit mode
+	///         Register::DS => 0x0000_0000_0000_0000,
+	///         Register::RDI => 0x0000_0000_1000_0000,
+	///         Register::R12 => 0x0000_0004_0000_0000,
+	///         _ => unimplemented!(),
+	///     }
+	/// });
+	/// assert_eq!(0x0000_001F_B55A_1234, va);
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn virtual_address<F>(&self, operand: u32, element_index: u32, get_register_value: F) -> u64
-	where
-		F: Fn(Register, u32, u32) -> u64,
-	{
+	pub fn virtual_address(&self, operand: u32, element_index: u32, get_register_value: fn(Register, u32, u32) -> u64) -> u64 {
 		match self.op_kind(operand) {
 			OpKind::Register
 			| OpKind::NearBranch16
@@ -1920,6 +1983,20 @@ impl Instruction {
 impl Instruction {
 	/// Gets the number of bytes added to `SP`/`ESP`/`RSP` or 0 if it's not an instruction that pushes or pops data. This method assumes
 	/// the instruction doesn't change the privilege level (eg. `IRET/D/Q`). If it's the `LEAVE` instruction, this method returns 0.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // pushfq
+	/// let bytes = b"\x9C";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// let instr = decoder.decode();
+	///
+	/// assert!(instr.is_stack_instruction());
+	/// assert_eq!(-8, instr.stack_pointer_increment());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn stack_pointer_increment(&self) -> i32 {
@@ -2009,6 +2086,19 @@ impl Instruction {
 	//TODO: public readonly InstructionInfo.UsedMemoryIterator GetUsedMemory() {
 
 	/// Instruction encoding, eg. legacy, VEX, EVEX, ...
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // vmovaps xmm1,xmm5
+	/// let bytes = b"\xC5\xF8\x28\xCD";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// let instr = decoder.decode();
+	///
+	/// assert_eq!(EncodingKind::VEX, instr.encoding());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn encoding(&self) -> EncodingKind {
@@ -2016,6 +2106,30 @@ impl Instruction {
 	}
 
 	/// Gets the CPU or CPUID feature flags
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // vmovaps xmm1,xmm5
+	/// // vmovaps xmm10{k3}{z},xmm19
+	/// let bytes = b"\xC5\xF8\x28\xCD\x62\x31\x7C\x8B\x28\xD3";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// // vmovaps xmm1,xmm5
+	/// let instr = decoder.decode();
+	/// let cpuid = instr.cpuid_features();
+	/// assert_eq!(1, cpuid.len());
+	/// assert_eq!(CpuidFeature::AVX, cpuid[0]);
+	///
+	/// // vmovaps xmm10{k3}{z},xmm19
+	/// let instr = decoder.decode();
+	/// let cpuid = instr.cpuid_features();
+	/// assert_eq!(2, cpuid.len());
+	/// assert_eq!(CpuidFeature::AVX512VL, cpuid[0]);
+	/// assert_eq!(CpuidFeature::AVX512F, cpuid[1]);
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
@@ -2028,6 +2142,30 @@ impl Instruction {
 	}
 
 	/// Flow control info
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // or ecx,esi
+	/// // ud0 rcx,rsi
+	/// // call rcx
+	/// let bytes = b"\x0B\xCE\x48\x0F\xFF\xCE\xFF\xD1";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// // or ecx,esi
+	/// let instr = decoder.decode();
+	/// assert_eq!(FlowControl::Next, instr.flow_control());
+	///
+	/// // ud0 rcx,rsi
+	/// let instr = decoder.decode();
+	/// assert_eq!(FlowControl::Exception, instr.flow_control());
+	///
+	/// // call rcx
+	/// let instr = decoder.decode();
+	/// assert_eq!(FlowControl::IndirectCall, instr.flow_control());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn flow_control(&self) -> FlowControl {
@@ -2050,6 +2188,26 @@ impl Instruction {
 
 	/// true if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
 	/// See also `stack_pointer_increment()`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // or ecx,esi
+	/// // push rax
+	/// let bytes = b"\x0B\xCE\x50";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// // or ecx,esi
+	/// let instr = decoder.decode();
+	/// assert!(!instr.is_stack_instruction());
+	///
+	/// // push rax
+	/// let instr = decoder.decode();
+	/// assert!(instr.is_stack_instruction());
+	/// assert_eq!(-8, instr.stack_pointer_increment());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_stack_instruction(&self) -> bool {
@@ -2107,43 +2265,217 @@ impl Instruction {
 		((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as usize
 	}
 
-	/// All flags that are read by the CPU when executing the instruction, see `RflagsBits` flags.
+	/// All flags that are read by the CPU when executing the instruction. This method returns a `RflagsBits` value. See also `rflags_modified()`.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // adc rsi,rcx
+	/// // xor rdi,5Ah
+	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// // adc rsi,rcx
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	///
+	/// // xor rdi,5Ah
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
+	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_read(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_READ.as_ptr().offset(self.rflags_info() as isize) as u32 }
 	}
 
-	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared,
-	/// see `RflagsBits` flags. See also `rflags_modified()`
+	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
+	/// This method returns a `RflagsBits` value. See also `rflags_modified()`.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // adc rsi,rcx
+	/// // xor rdi,5Ah
+	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// // adc rsi,rcx
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	///
+	/// // xor rdi,5Ah
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
+	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_written(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.as_ptr().offset(self.rflags_info() as isize) as u32 }
 	}
 
-	/// All flags that are always cleared by the CPU, see `RflagsBits` flags.
+	/// All flags that are always cleared by the CPU. This method returns a `RflagsBits` value. See also `rflags_modified()`.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // adc rsi,rcx
+	/// // xor rdi,5Ah
+	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// // adc rsi,rcx
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	///
+	/// // xor rdi,5Ah
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
+	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_cleared(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_CLEARED.as_ptr().offset(self.rflags_info() as isize) as u32 }
 	}
 
-	/// All flags that are always set by the CPU, see `RflagsBits` flags.
+	/// All flags that are always set by the CPU. This method returns a `RflagsBits` value. See also `rflags_modified()`.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // adc rsi,rcx
+	/// // xor rdi,5Ah
+	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// // adc rsi,rcx
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	///
+	/// // xor rdi,5Ah
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
+	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_set(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_SET.as_ptr().offset(self.rflags_info() as isize) as u32 }
 	}
 
-	/// All flags that are undefined after executing the instruction, see `RflagsBits` flags.
+	/// All flags that are undefined after executing the instruction. This method returns a `RflagsBits` value. See also `rflags_modified()`.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // adc rsi,rcx
+	/// // xor rdi,5Ah
+	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// // adc rsi,rcx
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	///
+	/// // xor rdi,5Ah
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
+	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_undefined(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.as_ptr().offset(self.rflags_info() as isize) as u32 }
 	}
 
-	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`, see `RflagsBits` flags.
+	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a `RflagsBits` value.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // adc rsi,rcx
+	/// // xor rdi,5Ah
+	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// // adc rsi,rcx
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	///
+	/// // xor rdi,5Ah
+	/// let instr = decoder.decode();
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
+	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
+	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
+	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
+	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_modified(&self) -> u32 {
@@ -2243,6 +2575,23 @@ impl Instruction {
 
 	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc` and does
 	/// nothing if the instruction doesn't have a condition code.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // setbe al
+	/// let bytes = b"\x0F\x96\xC0";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// let mut instr = decoder.decode();
+	/// assert_eq!(Code::Setbe_rm8, instr.code());
+	/// assert_eq!(ConditionCode::be, instr.condition_code());
+	/// instr.negate_condition_code();
+	/// assert_eq!(Code::Seta_rm8, instr.code());
+	/// assert_eq!(ConditionCode::a, instr.condition_code());
+	/// ```
 	#[inline]
 	pub fn negate_condition_code(&mut self) {
 		// Temp needed if rustc <= 1.35.0 (2015 edition)
@@ -2251,6 +2600,23 @@ impl Instruction {
 	}
 
 	/// Converts `Jcc/JMP NEAR` to `Jcc/JMP SHORT` and does nothing if it's not a `Jcc/JMP NEAR` instruction
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // jbe near ptr label
+	/// let bytes = b"\x0F\x86\x5A\xA5\x12\x34";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// let mut instr = decoder.decode();
+	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
+	/// instr.to_short_branch();
+	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
+	/// instr.to_short_branch();
+	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
+	/// ```
 	#[inline]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	pub fn to_short_branch(&mut self) {
@@ -2260,6 +2626,23 @@ impl Instruction {
 	}
 
 	/// Converts `Jcc/JMP SHORT` to `Jcc/JMP NEAR` and does nothing if it's not a `Jcc/JMP SHORT` instruction
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // jbe short label
+	/// let bytes = b"\x76\x5A";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// let mut instr = decoder.decode();
+	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
+	/// instr.to_near_branch();
+	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
+	/// instr.to_near_branch();
+	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
+	/// ```
 	#[inline]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	pub fn to_near_branch(&mut self) {
@@ -2269,6 +2652,35 @@ impl Instruction {
 	}
 
 	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else `ConditionCode::None` is returned
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // setbe al
+	/// // jl short label
+	/// // cmovne ecx,esi
+	/// // nop
+	/// let bytes = b"\x0F\x96\xC0\x7C\x5A\x0F\x45\xCE\x90";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// // setbe al
+	/// let instr = decoder.decode();
+	/// assert_eq!(ConditionCode::be, instr.condition_code());
+	///
+	/// // jl short label
+	/// let instr = decoder.decode();
+	/// assert_eq!(ConditionCode::l, instr.condition_code());
+	///
+	/// // cmovne ecx,esi
+	/// let instr = decoder.decode();
+	/// assert_eq!(ConditionCode::ne, instr.condition_code());
+	///
+	/// // nop
+	/// let instr = decoder.decode();
+	/// assert_eq!(ConditionCode::None, instr.condition_code());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn condition_code(&self) -> ConditionCode {

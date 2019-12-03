@@ -465,23 +465,23 @@ impl Default for TupleType {
 pub enum FlowControl {
 	/// The next instruction that will be executed is the next instruction in the instruction stream
 	Next,
-	/// It's an unconditional branch instruction: `jmp near`, `jmp far`
+	/// It's an unconditional branch instruction: `JMP NEAR`, `JMP FAR`
 	UnconditionalBranch,
-	/// It's an unconditional indirect branch: `jmp near reg`, `jmp near [mem]`, `jmp far [mem]`
+	/// It's an unconditional indirect branch: `JMP NEAR reg`, `JMP NEAR [mem]`, `JMP FAR [mem]`
 	IndirectBranch,
-	/// It's a conditional branch instruction: `jcc short`, `jcc near`, `loop`, `loopcc`, `jrcxz`
+	/// It's a conditional branch instruction: `Jcc SHORT`, `Jcc NEAR`, `LOOP`, `LOOPcc`, `JRCXZ`
 	ConditionalBranch,
-	/// It's a return instruction: `ret near`, `ret far`, `iret`, `sysret`, `sysexit`, `rsm`, `vmlaunch`, `vmresume`, `vmrun`, `skinit`
+	/// It's a return instruction: `RET NEAR`, `RET FAR`, `IRET`, `SYSRET`, `SYSEXIT`, `RSM`, `VMLAUNCH`, `VMRESUME`, `VMRUN`, `SKINIT`
 	Return,
-	/// It's a call instruction: `call near`, `call far`, `syscall`, `sysenter`, `vmcall`, `vmmcall`
+	/// It's a call instruction: `CALL NEAR`, `CALL FAR`, `SYSCALL`, `SYSENTER`, `VMCALL`, `VMMCALL`
 	Call,
-	/// It's an indirect call instruction: `call near reg`, `call near [mem]`, `call far [mem]`
+	/// It's an indirect call instruction: `CALL NEAR reg`, `CALL NEAR [mem]`, `CALL FAR [mem]`
 	IndirectCall,
-	/// It's an interrupt instruction: `int n`, `int3`, `int1`, `into`
+	/// It's an interrupt instruction: `INT n`, `INT3`, `INT1`, `INTO`
 	Interrupt,
-	/// It's `xbegin`, `xabort` or `xend`
+	/// It's `XBEGIN`, `XABORT` or `XEND`
 	XbeginXabortXend,
-	/// It's an invalid instruction, eg. `Code::INVALID`, `ud0`, `ud1`, `ud2`
+	/// It's an invalid instruction, eg. `Code::INVALID`, `UD0`, `UD1`, `UD2`
 	Exception,
 }
 #[cfg(feature = "INSTR_INFO")]
@@ -529,7 +529,7 @@ pub enum OpCodeOperandKind {
 	farbr2_2,
 	/// Far branch 32-bit offset, 16-bit segment/selector
 	farbr4_2,
-	/// Memory offset without a modrm byte (eg. `mov al,[offset]`)
+	/// Memory offset without a modrm byte (eg. `MOV AL,[offset]`)
 	mem_offs,
 	/// Memory (modrm)
 	mem,
@@ -687,7 +687,7 @@ pub enum OpCodeOperandKind {
 	st0,
 	/// ST(i) register encoded in the low 3 bits of the opcode
 	sti_opcode,
-	/// 2-bit immediate (m2z field, low 2 bits of the /is5 immediate, eg. `vpermil2ps`)
+	/// 2-bit immediate (m2z field, low 2 bits of the /is5 immediate, eg. `VPERMIL2PS`)
 	imm2_m2z,
 	/// 8-bit immediate
 	imm8,
@@ -711,9 +711,9 @@ pub enum OpCodeOperandKind {
 	seg_rSI,
 	/// `es:[rDI]` memory operand (string instructions)
 	es_rDI,
-	/// `seg:[rDI]` memory operand (`(v)maskmovq` instructions)
+	/// `seg:[rDI]` memory operand (`(V)MASKMOVQ` instructions)
 	seg_rDI,
-	/// `seg:[rBX+al]` memory operand (`xlatb` instruction)
+	/// `seg:[rBX+al]` memory operand (`XLATB` instruction)
 	seg_rBX_al,
 	/// 16-bit branch, 1-byte signed relative offset
 	br16_1,
@@ -727,13 +727,13 @@ pub enum OpCodeOperandKind {
 	br32_4,
 	/// 64-bit branch, 4-byte signed relative offset
 	br64_4,
-	/// `xbegin`, 2-byte signed relative offset
+	/// `XBEGIN`, 2-byte signed relative offset
 	xbegin_2,
-	/// `xbegin`, 4-byte signed relative offset
+	/// `XBEGIN`, 4-byte signed relative offset
 	xbegin_4,
-	/// 2-byte branch offset (`jmpe` instruction)
+	/// 2-byte branch offset (`JMPE` instruction)
 	brdisp_2,
-	/// 4-byte branch offset (`jmpe` instruction)
+	/// 4-byte branch offset (`JMPE` instruction)
 	brdisp_4,
 }
 #[cfg(feature = "ENCODER")]

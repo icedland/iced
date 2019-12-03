@@ -295,6 +295,14 @@ mod info {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 	impl RegisterInfo {
 		/// Gets the register
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = Register::EAX.info();
+		/// assert_eq!(Register::EAX, info.register());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn register(&self) -> Register {
@@ -303,6 +311,22 @@ mod info {
 		}
 
 		/// Gets the base register, eg. `AL`, `AX`, `EAX`, `RAX`, `MM0`, `XMM0`, `YMM0`, `ZMM0`, `ES`
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = Register::GS.info();
+		/// assert_eq!(Register::ES, info.base());
+		/// let info = Register::RDX.info();
+		/// assert_eq!(Register::RAX, info.base());
+		/// let info = Register::XMM13.info();
+		/// assert_eq!(Register::XMM0, info.base());
+		/// let info = Register::YMM13.info();
+		/// assert_eq!(Register::YMM0, info.base());
+		/// let info = Register::ZMM13.info();
+		/// assert_eq!(Register::ZMM0, info.base());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn base(&self) -> Register {
@@ -311,6 +335,22 @@ mod info {
 		}
 
 		/// The register number (index) relative to `base()`, eg. 0-15, or 0-31, or if 8-bit GPR, 0-19
+		///
+		/// # Examples
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = Register::GS.info();
+		/// assert_eq!(5, info.number());
+		/// let info = Register::RDX.info();
+		/// assert_eq!(2, info.number());
+		/// let info = Register::XMM13.info();
+		/// assert_eq!(13, info.number());
+		/// let info = Register::YMM13.info();
+		/// assert_eq!(13, info.number());
+		/// let info = Register::ZMM13.info();
+		/// assert_eq!(13, info.number());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn number(&self) -> i32 {
@@ -318,6 +358,26 @@ mod info {
 		}
 
 		/// The full register that this one is a part of, eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `RCX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = Register::GS.info();
+		/// assert_eq!(Register::GS, info.full_register());
+		/// let info = Register::BH.info();
+		/// assert_eq!(Register::RBX, info.full_register());
+		/// let info = Register::DX.info();
+		/// assert_eq!(Register::RDX, info.full_register());
+		/// let info = Register::ESP.info();
+		/// assert_eq!(Register::RSP, info.full_register());
+		/// let info = Register::RCX.info();
+		/// assert_eq!(Register::RCX, info.full_register());
+		/// let info = Register::XMM3.info();
+		/// assert_eq!(Register::ZMM3, info.full_register());
+		/// let info = Register::YMM3.info();
+		/// assert_eq!(Register::ZMM3, info.full_register());
+		/// let info = Register::ZMM3.info();
+		/// assert_eq!(Register::ZMM3, info.full_register());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn full_register(&self) -> Register {
@@ -327,6 +387,26 @@ mod info {
 
 		/// Gets the full register that this one is a part of, except if it's a GPR in which case the 32-bit register is returned,
 		/// eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `ECX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = Register::GS.info();
+		/// assert_eq!(Register::GS, info.full_register32());
+		/// let info = Register::BH.info();
+		/// assert_eq!(Register::EBX, info.full_register32());
+		/// let info = Register::DX.info();
+		/// assert_eq!(Register::EDX, info.full_register32());
+		/// let info = Register::ESP.info();
+		/// assert_eq!(Register::ESP, info.full_register32());
+		/// let info = Register::RCX.info();
+		/// assert_eq!(Register::ECX, info.full_register32());
+		/// let info = Register::XMM3.info();
+		/// assert_eq!(Register::ZMM3, info.full_register32());
+		/// let info = Register::YMM3.info();
+		/// assert_eq!(Register::ZMM3, info.full_register32());
+		/// let info = Register::ZMM3.info();
+		/// assert_eq!(Register::ZMM3, info.full_register32());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn full_register32(&self) -> Register {
@@ -341,6 +421,26 @@ mod info {
 		}
 
 		/// Size of the register in bytes
+		///
+		/// ```
+		/// use iced_x86::*;
+		/// let info = Register::GS.info();
+		/// assert_eq!(2, info.size());
+		/// let info = Register::BH.info();
+		/// assert_eq!(1, info.size());
+		/// let info = Register::DX.info();
+		/// assert_eq!(2, info.size());
+		/// let info = Register::ESP.info();
+		/// assert_eq!(4, info.size());
+		/// let info = Register::RCX.info();
+		/// assert_eq!(8, info.size());
+		/// let info = Register::XMM3.info();
+		/// assert_eq!(16, info.size());
+		/// let info = Register::YMM3.info();
+		/// assert_eq!(32, info.size());
+		/// let info = Register::ZMM3.info();
+		/// assert_eq!(64, info.size());
+		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn size(&self) -> i32 {
@@ -352,6 +452,14 @@ mod info {
 #[cfg(feature = "INSTR_INFO")]
 impl Register {
 	/// Gets register info
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// let info = Register::EAX.info();
+	/// assert_eq!(4, info.size());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn info(self) -> &'static RegisterInfo {
@@ -359,6 +467,28 @@ impl Register {
 	}
 
 	/// Gets the base register, eg. `AL`, `AX`, `EAX`, `RAX`, `MM0`, `XMM0`, `YMM0`, `ZMM0`, `ES`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(Register::ES, Register::GS.base_register());
+	/// assert_eq!(Register::AL, Register::SIL.base_register());
+	/// assert_eq!(Register::AX, Register::SP.base_register());
+	/// assert_eq!(Register::EAX, Register::R13D.base_register());
+	/// assert_eq!(Register::RAX, Register::RBP.base_register());
+	/// assert_eq!(Register::MM0, Register::MM6.base_register());
+	/// assert_eq!(Register::XMM0, Register::XMM28.base_register());
+	/// assert_eq!(Register::YMM0, Register::YMM12.base_register());
+	/// assert_eq!(Register::ZMM0, Register::ZMM31.base_register());
+	/// assert_eq!(Register::K0, Register::K3.base_register());
+	/// assert_eq!(Register::BND0, Register::BND1.base_register());
+	/// assert_eq!(Register::ST0, Register::ST7.base_register());
+	/// assert_eq!(Register::CR0, Register::CR8.base_register());
+	/// assert_eq!(Register::DR0, Register::DR6.base_register());
+	/// assert_eq!(Register::TR0, Register::TR3.base_register());
+	/// assert_eq!(Register::EIP, Register::RIP.base_register());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn base_register(self) -> Register {
@@ -366,6 +496,28 @@ impl Register {
 	}
 
 	/// The register number (index) relative to `base_register()`, eg. 0-15, or 0-31, or if 8-bit GPR, 0-19
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(5, Register::GS.number());
+	/// assert_eq!(10, Register::SIL.number());
+	/// assert_eq!(4, Register::SP.number());
+	/// assert_eq!(13, Register::R13D.number());
+	/// assert_eq!(5, Register::RBP.number());
+	/// assert_eq!(6, Register::MM6.number());
+	/// assert_eq!(28, Register::XMM28.number());
+	/// assert_eq!(12, Register::YMM12.number());
+	/// assert_eq!(31, Register::ZMM31.number());
+	/// assert_eq!(3, Register::K3.number());
+	/// assert_eq!(1, Register::BND1.number());
+	/// assert_eq!(7, Register::ST7.number());
+	/// assert_eq!(8, Register::CR8.number());
+	/// assert_eq!(6, Register::DR6.number());
+	/// assert_eq!(3, Register::TR3.number());
+	/// assert_eq!(1, Register::RIP.number());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn number(self) -> i32 {
@@ -373,6 +525,28 @@ impl Register {
 	}
 
 	/// Gets the full register that this one is a part of, eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `RCX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(Register::GS, Register::GS.full_register());
+	/// assert_eq!(Register::RSI, Register::SIL.full_register());
+	/// assert_eq!(Register::RSP, Register::SP.full_register());
+	/// assert_eq!(Register::R13, Register::R13D.full_register());
+	/// assert_eq!(Register::RBP, Register::RBP.full_register());
+	/// assert_eq!(Register::MM6, Register::MM6.full_register());
+	/// assert_eq!(Register::ZMM10, Register::XMM10.full_register());
+	/// assert_eq!(Register::ZMM10, Register::YMM10.full_register());
+	/// assert_eq!(Register::ZMM10, Register::ZMM10.full_register());
+	/// assert_eq!(Register::K3, Register::K3.full_register());
+	/// assert_eq!(Register::BND1, Register::BND1.full_register());
+	/// assert_eq!(Register::ST7, Register::ST7.full_register());
+	/// assert_eq!(Register::CR8, Register::CR8.full_register());
+	/// assert_eq!(Register::DR6, Register::DR6.full_register());
+	/// assert_eq!(Register::TR3, Register::TR3.full_register());
+	/// assert_eq!(Register::RIP, Register::RIP.full_register());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn full_register(self) -> Register {
@@ -381,6 +555,28 @@ impl Register {
 
 	/// Gets the full register that this one is a part of, except if it's a GPR in which case the 32-bit register is returned,
 	/// eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `ECX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(Register::GS, Register::GS.full_register32());
+	/// assert_eq!(Register::ESI, Register::SIL.full_register32());
+	/// assert_eq!(Register::ESP, Register::SP.full_register32());
+	/// assert_eq!(Register::R13D, Register::R13D.full_register32());
+	/// assert_eq!(Register::EBP, Register::RBP.full_register32());
+	/// assert_eq!(Register::MM6, Register::MM6.full_register32());
+	/// assert_eq!(Register::ZMM10, Register::XMM10.full_register32());
+	/// assert_eq!(Register::ZMM10, Register::YMM10.full_register32());
+	/// assert_eq!(Register::ZMM10, Register::ZMM10.full_register32());
+	/// assert_eq!(Register::K3, Register::K3.full_register32());
+	/// assert_eq!(Register::BND1, Register::BND1.full_register32());
+	/// assert_eq!(Register::ST7, Register::ST7.full_register32());
+	/// assert_eq!(Register::CR8, Register::CR8.full_register32());
+	/// assert_eq!(Register::DR6, Register::DR6.full_register32());
+	/// assert_eq!(Register::TR3, Register::TR3.full_register32());
+	/// assert_eq!(Register::RIP, Register::RIP.full_register32());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn full_register32(self) -> Register {
@@ -388,6 +584,28 @@ impl Register {
 	}
 
 	/// Gets the size of the register in bytes
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(2, Register::GS.size());
+	/// assert_eq!(1, Register::SIL.size());
+	/// assert_eq!(2, Register::SP.size());
+	/// assert_eq!(4, Register::R13D.size());
+	/// assert_eq!(8, Register::RBP.size());
+	/// assert_eq!(8, Register::MM6.size());
+	/// assert_eq!(16, Register::XMM10.size());
+	/// assert_eq!(32, Register::YMM10.size());
+	/// assert_eq!(64, Register::ZMM10.size());
+	/// assert_eq!(8, Register::K3.size());
+	/// assert_eq!(16, Register::BND1.size());
+	/// assert_eq!(10, Register::ST7.size());
+	/// assert_eq!(8, Register::CR8.size());
+	/// assert_eq!(8, Register::DR6.size());
+	/// assert_eq!(4, Register::TR3.size());
+	/// assert_eq!(8, Register::RIP.size());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn size(self) -> i32 {
@@ -395,6 +613,14 @@ impl Register {
 	}
 
 	/// Checks if it's a segment register (`ES`, `CS`, `SS`, `DS`, `FS`, `GS`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(Register::GS.is_segment_register());
+	/// assert!(!Register::RCX.is_segment_register());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_segment_register(self) -> bool {
@@ -402,6 +628,18 @@ impl Register {
 	}
 
 	/// Checks if it's a general purpose register (`AL`-`R15L`, `AX`-`R15W`, `EAX`-`R15D`, `RAX`-`R15`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::GS.is_gpr());
+	/// assert!(Register::CH.is_gpr());
+	/// assert!(Register::DX.is_gpr());
+	/// assert!(Register::R13D.is_gpr());
+	/// assert!(Register::RSP.is_gpr());
+	/// assert!(!Register::XMM0.is_gpr());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_gpr(self) -> bool {
@@ -409,6 +647,18 @@ impl Register {
 	}
 
 	/// Checks if it's an 8-bit general purpose register (`AL`-`R15L`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::GS.is_gpr8());
+	/// assert!(Register::CH.is_gpr8());
+	/// assert!(!Register::DX.is_gpr8());
+	/// assert!(!Register::R13D.is_gpr8());
+	/// assert!(!Register::RSP.is_gpr8());
+	/// assert!(!Register::XMM0.is_gpr8());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_gpr8(self) -> bool {
@@ -416,6 +666,18 @@ impl Register {
 	}
 
 	/// Checks if it's a 16-bit general purpose register (`AX`-`R15W`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::GS.is_gpr16());
+	/// assert!(!Register::CH.is_gpr16());
+	/// assert!(Register::DX.is_gpr16());
+	/// assert!(!Register::R13D.is_gpr16());
+	/// assert!(!Register::RSP.is_gpr16());
+	/// assert!(!Register::XMM0.is_gpr16());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_gpr16(self) -> bool {
@@ -423,6 +685,18 @@ impl Register {
 	}
 
 	/// Checks if it's a 32-bit general purpose register (`EAX`-`R15D`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::GS.is_gpr32());
+	/// assert!(!Register::CH.is_gpr32());
+	/// assert!(!Register::DX.is_gpr32());
+	/// assert!(Register::R13D.is_gpr32());
+	/// assert!(!Register::RSP.is_gpr32());
+	/// assert!(!Register::XMM0.is_gpr32());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_gpr32(self) -> bool {
@@ -430,6 +704,18 @@ impl Register {
 	}
 
 	/// Checks if it's a 64-bit general purpose register (`RAX`-`R15`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::GS.is_gpr64());
+	/// assert!(!Register::CH.is_gpr64());
+	/// assert!(!Register::DX.is_gpr64());
+	/// assert!(!Register::R13D.is_gpr64());
+	/// assert!(Register::RSP.is_gpr64());
+	/// assert!(!Register::XMM0.is_gpr64());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_gpr64(self) -> bool {
@@ -437,6 +723,17 @@ impl Register {
 	}
 
 	/// Checks if it's a 128-bit vector register (`XMM0`-`XMM31`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_xmm());
+	/// assert!(!Register::RSP.is_xmm());
+	/// assert!(Register::XMM0.is_xmm());
+	/// assert!(!Register::YMM0.is_xmm());
+	/// assert!(!Register::ZMM0.is_xmm());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_xmm(self) -> bool {
@@ -444,6 +741,17 @@ impl Register {
 	}
 
 	/// Checks if it's a 256-bit vector register (`YMM0`-`YMM31`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_ymm());
+	/// assert!(!Register::RSP.is_ymm());
+	/// assert!(!Register::XMM0.is_ymm());
+	/// assert!(Register::YMM0.is_ymm());
+	/// assert!(!Register::ZMM0.is_ymm());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_ymm(self) -> bool {
@@ -451,6 +759,17 @@ impl Register {
 	}
 
 	/// Checks if it's a 512-bit vector register (`ZMM0`-`ZMM31`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_zmm());
+	/// assert!(!Register::RSP.is_zmm());
+	/// assert!(!Register::XMM0.is_zmm());
+	/// assert!(!Register::YMM0.is_zmm());
+	/// assert!(Register::ZMM0.is_zmm());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_zmm(self) -> bool {
@@ -458,6 +777,17 @@ impl Register {
 	}
 
 	/// Checks if it's an `XMM`, `YMM` or `ZMM` register
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_vector_register());
+	/// assert!(!Register::RSP.is_vector_register());
+	/// assert!(Register::XMM0.is_vector_register());
+	/// assert!(Register::YMM0.is_vector_register());
+	/// assert!(Register::ZMM0.is_vector_register());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_vector_register(self) -> bool {

@@ -28,7 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Iced.Intel {
 	/// <summary>Size of a memory reference</summary>
 	public enum MemorySize {
-		/// <summary>Unknown size or the instruction doesn&apos;t reference any memory (eg. <c>lea</c>)</summary>
+		/// <summary>Unknown size or the instruction doesn&apos;t reference any memory (eg. <c>LEA</c>)</summary>
 		Unknown,
 		/// <summary>Memory location contains a <see cref="byte"/></summary>
 		UInt8,
@@ -66,23 +66,23 @@ namespace Iced.Intel {
 		SegPtr32,
 		/// <summary>Memory location contains a seg:ptr pair, <see cref="ulong"/> (offset) + <see cref="ushort"/> (segment/selector)</summary>
 		SegPtr64,
-		/// <summary>Memory location contains a 16-bit offset (<c>jmp/call word ptr [mem]</c>)</summary>
+		/// <summary>Memory location contains a 16-bit offset (<c>JMP/CALL WORD PTR [mem]</c>)</summary>
 		WordOffset,
-		/// <summary>Memory location contains a 32-bit offset (<c>jmp/call dword ptr [mem]</c>)</summary>
+		/// <summary>Memory location contains a 32-bit offset (<c>JMP/CALL DWORD PTR [mem]</c>)</summary>
 		DwordOffset,
-		/// <summary>Memory location contains a 64-bit offset (<c>jmp/call qword ptr [mem]</c>)</summary>
+		/// <summary>Memory location contains a 64-bit offset (<c>JMP/CALL QWORD PTR [mem]</c>)</summary>
 		QwordOffset,
-		/// <summary>Memory location contains two <see cref="ushort"/>s (16-bit <c>bound</c>)</summary>
+		/// <summary>Memory location contains two <see cref="ushort"/>s (16-bit <c>BOUND</c>)</summary>
 		Bound16_WordWord,
-		/// <summary>Memory location contains two <see cref="uint"/>s (32-bit <c>bound</c>)</summary>
+		/// <summary>Memory location contains two <see cref="uint"/>s (32-bit <c>BOUND</c>)</summary>
 		Bound32_DwordDword,
-		/// <summary>32-bit <c>bndmov</c>, 2 x <see cref="uint"/></summary>
+		/// <summary>32-bit <c>BNDMOV</c>, 2 x <see cref="uint"/></summary>
 		Bnd32,
-		/// <summary>64-bit <c>bndmov</c>, 2 x <see cref="ulong"/></summary>
+		/// <summary>64-bit <c>BNDMOV</c>, 2 x <see cref="ulong"/></summary>
 		Bnd64,
-		/// <summary>Memory location contains a 16-bit limit and a 32-bit address (eg. <c>lgdtw</c>, <c>lgdtd</c>)</summary>
+		/// <summary>Memory location contains a 16-bit limit and a 32-bit address (eg. <c>LGDTW</c>, <c>LGDTD</c>)</summary>
 		Fword6,
-		/// <summary>Memory location contains a 16-bit limit and a 64-bit address (eg. <c>lgdtq</c>)</summary>
+		/// <summary>Memory location contains a 16-bit limit and a 64-bit address (eg. <c>LGDTQ</c>)</summary>
 		Fword10,
 		/// <summary>Memory location contains a <c>float16</c></summary>
 		Float16,
@@ -96,23 +96,23 @@ namespace Iced.Intel {
 		Float128,
 		/// <summary>Memory location contains a <c>bfloat16</c></summary>
 		BFloat16,
-		/// <summary>Memory location contains a 14-byte FPU environment (16-bit <c>fldenv</c>/<c>fstenv</c>)</summary>
+		/// <summary>Memory location contains a 14-byte FPU environment (16-bit <c>FLDENV</c>/<c>FSTENV</c>)</summary>
 		FpuEnv14,
-		/// <summary>Memory location contains a 28-byte FPU environment (32/64-bit <c>fldenv</c>/<c>fstenv</c>)</summary>
+		/// <summary>Memory location contains a 28-byte FPU environment (32/64-bit <c>FLDENV</c>/<c>FSTENV</c>)</summary>
 		FpuEnv28,
-		/// <summary>Memory location contains a 94-byte FPU environment (16-bit <c>fsave</c>/<c>frstor</c>)</summary>
+		/// <summary>Memory location contains a 94-byte FPU environment (16-bit <c>FSAVE</c>/<c>FRSTOR</c>)</summary>
 		FpuState94,
-		/// <summary>Memory location contains a 108-byte FPU environment (32/64-bit <c>fsave</c>/<c>frstor</c>)</summary>
+		/// <summary>Memory location contains a 108-byte FPU environment (32/64-bit <c>FSAVE</c>/<c>FRSTOR</c>)</summary>
 		FpuState108,
-		/// <summary>Memory location contains 512-bytes of <c>fxsave</c>/<c>fxrstor</c> data</summary>
+		/// <summary>Memory location contains 512-bytes of <c>FXSAVE</c>/<c>FXRSTOR</c> data</summary>
 		Fxsave_512Byte,
-		/// <summary>Memory location contains 512-bytes of <c>fxsave64</c>/<c>fxrstor64</c> data</summary>
+		/// <summary>Memory location contains 512-bytes of <c>FXSAVE64</c>/<c>FXRSTOR64</c> data</summary>
 		Fxsave64_512Byte,
 		/// <summary>32-bit <c>XSAVE</c> area</summary>
 		Xsave,
 		/// <summary>64-bit <c>XSAVE</c> area</summary>
 		Xsave64,
-		/// <summary>Memory location contains a 10-byte <c>bcd</c> value (<c>fbld</c>/<c>fbstp</c>)</summary>
+		/// <summary>Memory location contains a 10-byte <c>bcd</c> value (<c>FBLD</c>/<c>FBSTP</c>)</summary>
 		Bcd,
 		/// <summary>16 bit location: 2 x <see cref="byte"/></summary>
 		Packed16_UInt8,

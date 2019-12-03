@@ -27,23 +27,23 @@ namespace Generator.Enums.InstructionInfo {
 	enum FlowControl {
 		[Comment("The next instruction that will be executed is the next instruction in the instruction stream")]
 		Next,
-		[Comment("It's an unconditional branch instruction: #(c:jmp near)#, #(c:jmp far)#")]
+		[Comment("It's an unconditional branch instruction: #(c:JMP NEAR)#, #(c:JMP FAR)#")]
 		UnconditionalBranch,
-		[Comment("It's an unconditional indirect branch: #(c:jmp near reg)#, #(c:jmp near [mem])#, #(c:jmp far [mem])#")]
+		[Comment("It's an unconditional indirect branch: #(c:JMP NEAR reg)#, #(c:JMP NEAR [mem])#, #(c:JMP FAR [mem])#")]
 		IndirectBranch,
-		[Comment("It's a conditional branch instruction: #(c:jcc short)#, #(c:jcc near)#, #(c:loop)#, #(c:loopcc)#, #(c:jrcxz)#")]
+		[Comment("It's a conditional branch instruction: #(c:Jcc SHORT)#, #(c:Jcc NEAR)#, #(c:LOOP)#, #(c:LOOPcc)#, #(c:JRCXZ)#")]
 		ConditionalBranch,
-		[Comment("It's a return instruction: #(c:ret near)#, #(c:ret far)#, #(c:iret)#, #(c:sysret)#, #(c:sysexit)#, #(c:rsm)#, #(c:vmlaunch)#, #(c:vmresume)#, #(c:vmrun)#, #(c:skinit)#")]
+		[Comment("It's a return instruction: #(c:RET NEAR)#, #(c:RET FAR)#, #(c:IRET)#, #(c:SYSRET)#, #(c:SYSEXIT)#, #(c:RSM)#, #(c:VMLAUNCH)#, #(c:VMRESUME)#, #(c:VMRUN)#, #(c:SKINIT)#")]
 		Return,
-		[Comment("It's a call instruction: #(c:call near)#, #(c:call far)#, #(c:syscall)#, #(c:sysenter)#, #(c:vmcall)#, #(c:vmmcall)#")]
+		[Comment("It's a call instruction: #(c:CALL NEAR)#, #(c:CALL FAR)#, #(c:SYSCALL)#, #(c:SYSENTER)#, #(c:VMCALL)#, #(c:VMMCALL)#")]
 		Call,
-		[Comment("It's an indirect call instruction: #(c:call near reg)#, #(c:call near [mem])#, #(c:call far [mem])#")]
+		[Comment("It's an indirect call instruction: #(c:CALL NEAR reg)#, #(c:CALL NEAR [mem])#, #(c:CALL FAR [mem])#")]
 		IndirectCall,
-		[Comment("It's an interrupt instruction: #(c:int n)#, #(c:int3)#, #(c:int1)#, #(c:into)#")]
+		[Comment("It's an interrupt instruction: #(c:INT n)#, #(c:INT3)#, #(c:INT1)#, #(c:INTO)#")]
 		Interrupt,
-		[Comment("It's #(c:xbegin)#, #(c:xabort)# or #(c:xend)#")]
+		[Comment("It's #(c:XBEGIN)#, #(c:XABORT)# or #(c:XEND)#")]
 		XbeginXabortXend,
-		[Comment("It's an invalid instruction, eg. #(e:Code.INVALID)#, #(c:ud0)#, #(c:ud1)#, #(c:ud2)#")]
+		[Comment("It's an invalid instruction, eg. #(e:Code.INVALID)#, #(c:UD0)#, #(c:UD1)#, #(c:UD2)#")]
 		Exception,
 	}
 

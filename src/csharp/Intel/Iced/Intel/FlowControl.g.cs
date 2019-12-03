@@ -31,23 +31,23 @@ namespace Iced.Intel {
 	public enum FlowControl {
 		/// <summary>The next instruction that will be executed is the next instruction in the instruction stream</summary>
 		Next,
-		/// <summary>It&apos;s an unconditional branch instruction: <c>jmp near</c>, <c>jmp far</c></summary>
+		/// <summary>It&apos;s an unconditional branch instruction: <c>JMP NEAR</c>, <c>JMP FAR</c></summary>
 		UnconditionalBranch,
-		/// <summary>It&apos;s an unconditional indirect branch: <c>jmp near reg</c>, <c>jmp near [mem]</c>, <c>jmp far [mem]</c></summary>
+		/// <summary>It&apos;s an unconditional indirect branch: <c>JMP NEAR reg</c>, <c>JMP NEAR [mem]</c>, <c>JMP FAR [mem]</c></summary>
 		IndirectBranch,
-		/// <summary>It&apos;s a conditional branch instruction: <c>jcc short</c>, <c>jcc near</c>, <c>loop</c>, <c>loopcc</c>, <c>jrcxz</c></summary>
+		/// <summary>It&apos;s a conditional branch instruction: <c>Jcc SHORT</c>, <c>Jcc NEAR</c>, <c>LOOP</c>, <c>LOOPcc</c>, <c>JRCXZ</c></summary>
 		ConditionalBranch,
-		/// <summary>It&apos;s a return instruction: <c>ret near</c>, <c>ret far</c>, <c>iret</c>, <c>sysret</c>, <c>sysexit</c>, <c>rsm</c>, <c>vmlaunch</c>, <c>vmresume</c>, <c>vmrun</c>, <c>skinit</c></summary>
+		/// <summary>It&apos;s a return instruction: <c>RET NEAR</c>, <c>RET FAR</c>, <c>IRET</c>, <c>SYSRET</c>, <c>SYSEXIT</c>, <c>RSM</c>, <c>VMLAUNCH</c>, <c>VMRESUME</c>, <c>VMRUN</c>, <c>SKINIT</c></summary>
 		Return,
-		/// <summary>It&apos;s a call instruction: <c>call near</c>, <c>call far</c>, <c>syscall</c>, <c>sysenter</c>, <c>vmcall</c>, <c>vmmcall</c></summary>
+		/// <summary>It&apos;s a call instruction: <c>CALL NEAR</c>, <c>CALL FAR</c>, <c>SYSCALL</c>, <c>SYSENTER</c>, <c>VMCALL</c>, <c>VMMCALL</c></summary>
 		Call,
-		/// <summary>It&apos;s an indirect call instruction: <c>call near reg</c>, <c>call near [mem]</c>, <c>call far [mem]</c></summary>
+		/// <summary>It&apos;s an indirect call instruction: <c>CALL NEAR reg</c>, <c>CALL NEAR [mem]</c>, <c>CALL FAR [mem]</c></summary>
 		IndirectCall,
-		/// <summary>It&apos;s an interrupt instruction: <c>int n</c>, <c>int3</c>, <c>int1</c>, <c>into</c></summary>
+		/// <summary>It&apos;s an interrupt instruction: <c>INT n</c>, <c>INT3</c>, <c>INT1</c>, <c>INTO</c></summary>
 		Interrupt,
-		/// <summary>It&apos;s <c>xbegin</c>, <c>xabort</c> or <c>xend</c></summary>
+		/// <summary>It&apos;s <c>XBEGIN</c>, <c>XABORT</c> or <c>XEND</c></summary>
 		XbeginXabortXend,
-		/// <summary>It&apos;s an invalid instruction, eg. <see cref="Code.INVALID"/>, <c>ud0</c>, <c>ud1</c>, <c>ud2</c></summary>
+		/// <summary>It&apos;s an invalid instruction, eg. <see cref="Code.INVALID"/>, <c>UD0</c>, <c>UD1</c>, <c>UD2</c></summary>
 		Exception,
 	}
 }

@@ -31,7 +31,7 @@ namespace Generator.Enums.Encoder {
 		farbr2_2,
 		[Comment("Far branch 32-bit offset, 16-bit segment/selector")]
 		farbr4_2,
-		[Comment("Memory offset without a modrm byte (eg. #(c:mov al,[offset])#)")]
+		[Comment("Memory offset without a modrm byte (eg. #(c:MOV AL,[offset])#)")]
 		mem_offs,
 		[Comment("Memory (modrm)")]
 		mem,
@@ -181,7 +181,7 @@ namespace Generator.Enums.Encoder {
 		st0,
 		[Comment("ST(i) register encoded in the low 3 bits of the opcode")]
 		sti_opcode,
-		[Comment("2-bit immediate (m2z field, low 2 bits of the /is5 immediate, eg. #(c:vpermil2ps)#)")]
+		[Comment("2-bit immediate (m2z field, low 2 bits of the /is5 immediate, eg. #(c:VPERMIL2PS)#)")]
 		imm2_m2z,
 		[Comment("8-bit immediate")]
 		imm8,
@@ -205,9 +205,9 @@ namespace Generator.Enums.Encoder {
 		seg_rSI,
 		[Comment("#(c:es:[rDI])# memory operand (string instructions)")]
 		es_rDI,
-		[Comment("#(c:seg:[rDI])# memory operand (#(c:(v)maskmovq)# instructions)")]
+		[Comment("#(c:seg:[rDI])# memory operand (#(c:(V)MASKMOVQ)# instructions)")]
 		seg_rDI,
-		[Comment("#(c:seg:[rBX+al])# memory operand (#(c:xlatb)# instruction)")]
+		[Comment("#(c:seg:[rBX+al])# memory operand (#(c:XLATB)# instruction)")]
 		seg_rBX_al,
 		[Comment("16-bit branch, 1-byte signed relative offset")]
 		br16_1,
@@ -221,13 +221,13 @@ namespace Generator.Enums.Encoder {
 		br32_4,
 		[Comment("64-bit branch, 4-byte signed relative offset")]
 		br64_4,
-		[Comment("#(c:xbegin)#, 2-byte signed relative offset")]
+		[Comment("#(c:XBEGIN)#, 2-byte signed relative offset")]
 		xbegin_2,
-		[Comment("#(c:xbegin)#, 4-byte signed relative offset")]
+		[Comment("#(c:XBEGIN)#, 4-byte signed relative offset")]
 		xbegin_4,
-		[Comment("2-byte branch offset (#(c:jmpe)# instruction)")]
+		[Comment("2-byte branch offset (#(c:JMPE)# instruction)")]
 		brdisp_2,
-		[Comment("4-byte branch offset (#(c:jmpe)# instruction)")]
+		[Comment("4-byte branch offset (#(c:JMPE)# instruction)")]
 		brdisp_4,
 	}
 

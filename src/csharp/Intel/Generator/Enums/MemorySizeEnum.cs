@@ -25,7 +25,7 @@ using System.Linq;
 
 namespace Generator.Enums {
 	enum MemorySize {
-		[Comment("Unknown size or the instruction doesn't reference any memory (eg. #(c:lea)#)")]
+		[Comment("Unknown size or the instruction doesn't reference any memory (eg. #(c:LEA)#)")]
 		Unknown,
 		[Comment("Memory location contains a #(t:u8)#")]
 		UInt8,
@@ -63,23 +63,23 @@ namespace Generator.Enums {
 		SegPtr32,
 		[Comment("Memory location contains a seg:ptr pair, #(t:u64)# (offset) + #(t:u16)# (segment/selector)")]
 		SegPtr64,
-		[Comment("Memory location contains a 16-bit offset (#(c:jmp/call word ptr [mem])#)")]
+		[Comment("Memory location contains a 16-bit offset (#(c:JMP/CALL WORD PTR [mem])#)")]
 		WordOffset,
-		[Comment("Memory location contains a 32-bit offset (#(c:jmp/call dword ptr [mem])#)")]
+		[Comment("Memory location contains a 32-bit offset (#(c:JMP/CALL DWORD PTR [mem])#)")]
 		DwordOffset,
-		[Comment("Memory location contains a 64-bit offset (#(c:jmp/call qword ptr [mem])#)")]
+		[Comment("Memory location contains a 64-bit offset (#(c:JMP/CALL QWORD PTR [mem])#)")]
 		QwordOffset,
-		[Comment("Memory location contains two #(t:u16)#s (16-bit #(c:bound)#)")]
+		[Comment("Memory location contains two #(t:u16)#s (16-bit #(c:BOUND)#)")]
 		Bound16_WordWord,
-		[Comment("Memory location contains two #(t:u32)#s (32-bit #(c:bound)#)")]
+		[Comment("Memory location contains two #(t:u32)#s (32-bit #(c:BOUND)#)")]
 		Bound32_DwordDword,
-		[Comment("32-bit #(c:bndmov)#, 2 x #(t:u32)#")]
+		[Comment("32-bit #(c:BNDMOV)#, 2 x #(t:u32)#")]
 		Bnd32,
-		[Comment("64-bit #(c:bndmov)#, 2 x #(t:u64)#")]
+		[Comment("64-bit #(c:BNDMOV)#, 2 x #(t:u64)#")]
 		Bnd64,
-		[Comment("Memory location contains a 16-bit limit and a 32-bit address (eg. #(c:lgdtw)#, #(c:lgdtd)#)")]
+		[Comment("Memory location contains a 16-bit limit and a 32-bit address (eg. #(c:LGDTW)#, #(c:LGDTD)#)")]
 		Fword6,
-		[Comment("Memory location contains a 16-bit limit and a 64-bit address (eg. #(c:lgdtq)#)")]
+		[Comment("Memory location contains a 16-bit limit and a 64-bit address (eg. #(c:LGDTQ)#)")]
 		Fword10,
 		[Comment("Memory location contains a #(t:f16)#")]
 		Float16,
@@ -93,23 +93,23 @@ namespace Generator.Enums {
 		Float128,
 		[Comment("Memory location contains a #(t:bf16)#")]
 		BFloat16,
-		[Comment("Memory location contains a 14-byte FPU environment (16-bit #(c:fldenv)#/#(c:fstenv)#)")]
+		[Comment("Memory location contains a 14-byte FPU environment (16-bit #(c:FLDENV)#/#(c:FSTENV)#)")]
 		FpuEnv14,
-		[Comment("Memory location contains a 28-byte FPU environment (32/64-bit #(c:fldenv)#/#(c:fstenv)#)")]
+		[Comment("Memory location contains a 28-byte FPU environment (32/64-bit #(c:FLDENV)#/#(c:FSTENV)#)")]
 		FpuEnv28,
-		[Comment("Memory location contains a 94-byte FPU environment (16-bit #(c:fsave)#/#(c:frstor)#)")]
+		[Comment("Memory location contains a 94-byte FPU environment (16-bit #(c:FSAVE)#/#(c:FRSTOR)#)")]
 		FpuState94,
-		[Comment("Memory location contains a 108-byte FPU environment (32/64-bit #(c:fsave)#/#(c:frstor)#)")]
+		[Comment("Memory location contains a 108-byte FPU environment (32/64-bit #(c:FSAVE)#/#(c:FRSTOR)#)")]
 		FpuState108,
-		[Comment("Memory location contains 512-bytes of #(c:fxsave)#/#(c:fxrstor)# data")]
+		[Comment("Memory location contains 512-bytes of #(c:FXSAVE)#/#(c:FXRSTOR)# data")]
 		Fxsave_512Byte,
-		[Comment("Memory location contains 512-bytes of #(c:fxsave64)#/#(c:fxrstor64)# data")]
+		[Comment("Memory location contains 512-bytes of #(c:FXSAVE64)#/#(c:FXRSTOR64)# data")]
 		Fxsave64_512Byte,
 		[Comment("32-bit #(c:XSAVE)# area")]
 		Xsave,
 		[Comment("64-bit #(c:XSAVE)# area")]
 		Xsave64,
-		[Comment("Memory location contains a 10-byte #(t:bcd)# value (#(c:fbld)#/#(c:fbstp)#)")]
+		[Comment("Memory location contains a 10-byte #(t:bcd)# value (#(c:FBLD)#/#(c:FBSTP)#)")]
 		Bcd,
 		[Comment("16 bit location: 2 x #(t:u8)#")]
 		Packed16_UInt8,

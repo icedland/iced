@@ -35,7 +35,7 @@ namespace Iced.Intel {
 		farbr2_2,
 		/// <summary>Far branch 32-bit offset, 16-bit segment/selector</summary>
 		farbr4_2,
-		/// <summary>Memory offset without a modrm byte (eg. <c>mov al,[offset]</c>)</summary>
+		/// <summary>Memory offset without a modrm byte (eg. <c>MOV AL,[offset]</c>)</summary>
 		mem_offs,
 		/// <summary>Memory (modrm)</summary>
 		mem,
@@ -193,7 +193,7 @@ namespace Iced.Intel {
 		st0,
 		/// <summary>ST(i) register encoded in the low 3 bits of the opcode</summary>
 		sti_opcode,
-		/// <summary>2-bit immediate (m2z field, low 2 bits of the /is5 immediate, eg. <c>vpermil2ps</c>)</summary>
+		/// <summary>2-bit immediate (m2z field, low 2 bits of the /is5 immediate, eg. <c>VPERMIL2PS</c>)</summary>
 		imm2_m2z,
 		/// <summary>8-bit immediate</summary>
 		imm8,
@@ -217,9 +217,9 @@ namespace Iced.Intel {
 		seg_rSI,
 		/// <summary><c>es:[rDI]</c> memory operand (string instructions)</summary>
 		es_rDI,
-		/// <summary><c>seg:[rDI]</c> memory operand (<c>(v)maskmovq</c> instructions)</summary>
+		/// <summary><c>seg:[rDI]</c> memory operand (<c>(V)MASKMOVQ</c> instructions)</summary>
 		seg_rDI,
-		/// <summary><c>seg:[rBX+al]</c> memory operand (<c>xlatb</c> instruction)</summary>
+		/// <summary><c>seg:[rBX+al]</c> memory operand (<c>XLATB</c> instruction)</summary>
 		seg_rBX_al,
 		/// <summary>16-bit branch, 1-byte signed relative offset</summary>
 		br16_1,
@@ -233,13 +233,13 @@ namespace Iced.Intel {
 		br32_4,
 		/// <summary>64-bit branch, 4-byte signed relative offset</summary>
 		br64_4,
-		/// <summary><c>xbegin</c>, 2-byte signed relative offset</summary>
+		/// <summary><c>XBEGIN</c>, 2-byte signed relative offset</summary>
 		xbegin_2,
-		/// <summary><c>xbegin</c>, 4-byte signed relative offset</summary>
+		/// <summary><c>XBEGIN</c>, 4-byte signed relative offset</summary>
 		xbegin_4,
-		/// <summary>2-byte branch offset (<c>jmpe</c> instruction)</summary>
+		/// <summary>2-byte branch offset (<c>JMPE</c> instruction)</summary>
 		brdisp_2,
-		/// <summary>4-byte branch offset (<c>jmpe</c> instruction)</summary>
+		/// <summary>4-byte branch offset (<c>JMPE</c> instruction)</summary>
 		brdisp_4,
 	}
 }
