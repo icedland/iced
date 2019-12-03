@@ -705,7 +705,7 @@ impl Instruction {
 			2 => self.memory_flags = (self.memory_flags & !(MemoryFlags::SCALE_MASK as u16)) | 1,
 			4 => self.memory_flags = (self.memory_flags & !(MemoryFlags::SCALE_MASK as u16)) | 2,
 			_ => {
-				debug_assert!(new_value == 8);
+				debug_assert_eq!(8, new_value);
 				self.memory_flags |= 3;
 			}
 		}
@@ -1872,7 +1872,7 @@ impl Instruction {
 					}
 					4 => u32::MAX as u64,
 					_ => {
-						debug_assert!(addr_size == 2);
+						debug_assert_eq!(2, addr_size);
 						u16::MAX as u64
 					}
 				};

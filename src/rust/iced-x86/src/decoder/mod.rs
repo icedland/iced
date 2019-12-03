@@ -271,18 +271,18 @@ impl<'a> Decoder<'a> {
 	/// decoder.set_ip(0x1234_5678);
 	///
 	/// let instr1 = decoder.decode();
-	/// assert!(instr1.code() == Code::Xchg_rm8_r8);
-	/// assert!(instr1.mnemonic() == Mnemonic::Xchg);
+	/// assert_eq!(Code::Xchg_rm8_r8, instr1.code());
+	/// assert_eq!(Mnemonic::Xchg, instr1.mnemonic());
 	/// assert_eq!(4, instr1.len());
 	///
 	/// let instr2 = decoder.decode();
-	/// assert!(instr2.code() == Code::Add_rm32_imm8);
-	/// assert!(instr2.mnemonic() == Mnemonic::Add);
+	/// assert_eq!(Code::Add_rm32_imm8, instr2.code());
+	/// assert_eq!(Mnemonic::Add, instr2.mnemonic());
 	/// assert_eq!(5, instr2.len());
 	///
 	/// let instr3 = decoder.decode();
-	/// assert!(instr3.code() == Code::EVEX_Vmovdqu64_zmm_k1z_zmmm512);
-	/// assert!(instr3.mnemonic() == Mnemonic::Vmovdqu64);
+	/// assert_eq!(Code::EVEX_Vmovdqu64_zmm_k1z_zmmm512, instr3.code());
+	/// assert_eq!(Mnemonic::Vmovdqu64, instr3.mnemonic());
 	/// assert_eq!(6, instr3.len());
 	/// ```
 	///
@@ -298,13 +298,13 @@ impl<'a> Decoder<'a> {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// decoder.set_ip(0x1234_5678);
 	/// let instr = decoder.decode();
-	/// assert!(instr.code() == Code::INVALID);
+	/// assert_eq!(Code::INVALID, instr.code());
 	///
 	/// // We want to decode some instructions with invalid encodings
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NO_INVALID_CHECK);
 	/// decoder.set_ip(0x1234_5678);
 	/// let instr = decoder.decode();
-	/// assert!(instr.code() == Code::Add_rm32_r32);
+	/// assert_eq!(Code::Add_rm32_r32, instr.code());
 	/// assert!(instr.has_lock_prefix());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
@@ -398,7 +398,7 @@ impl<'a> Decoder<'a> {
 		self.bitness
 	}
 
-	/// Gets the max index that can be passed to `set_position()`. This is the size of the data that gets
+	/// Gets the max value that can be passed to `set_position()`. This is the size of the data that gets
 	/// decoded to instructions and it's the length of the slice that was passed to the constructor.
 	#[inline]
 	pub fn max_position(&self) -> usize {
@@ -422,7 +422,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// # Arguments
 	///
-	/// * `new_value`: New index and must be <= `max_position()`
+	/// * `new_value`: New position and must be <= `max_position()`
 	///
 	/// # Examples
 	///
@@ -438,17 +438,17 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(3, decoder.max_position());
 	/// let instr = decoder.decode();
 	/// assert_eq!(1, decoder.position());
-	/// assert!(instr.code() == Code::Nopd);
+	/// assert_eq!(Code::Nopd, instr.code());
 	///
 	/// let instr = decoder.decode();
 	/// assert_eq!(3, decoder.position());
-	/// assert!(instr.code() == Code::Pause);
+	/// assert_eq!(Code::Pause, instr.code());
 	///
 	/// // Start all over again
 	/// decoder.set_position(0);
 	/// assert_eq!(0, decoder.position());
-	/// assert!(decoder.decode().code() == Code::Nopd);
-	/// assert!(decoder.decode().code() == Code::Pause);
+	/// assert_eq!(Code::Nopd, decoder.decode().code());
+	/// assert_eq!(Code::Pause, decoder.decode().code());
 	/// assert_eq!(3, decoder.position());
 	/// ```
 	#[inline]
@@ -480,13 +480,13 @@ impl<'a> Decoder<'a> {
 	/// // 3 bytes left to read
 	/// assert!(decoder.can_decode());
 	/// let instr = decoder.decode();
-	/// assert!(instr.code() == Code::Nopd);
+	/// assert_eq!(Code::Nopd, instr.code());
 	///
 	/// // 2 bytes left to read
 	/// assert!(decoder.can_decode());
 	/// let instr = decoder.decode();
 	/// // Not enough bytes left to decode a full instruction
-	/// assert!(instr.code() == Code::INVALID);
+	/// assert_eq!(Code::INVALID, instr.code());
 	///
 	/// // 0 bytes left to read
 	/// assert!(!decoder.can_decode());
@@ -510,8 +510,8 @@ impl<'a> Decoder<'a> {
 	/// decoder.set_ip(0x1234_5678);
 	///
 	/// let mut iter = decoder.iter();
-	/// assert!(iter.next().unwrap().code() == Code::Nopd);
-	/// assert!(iter.next().unwrap().code() == Code::Pause);
+	/// assert_eq!(Code::Nopd, iter.next().unwrap().code());
+	/// assert_eq!(Code::Pause, iter.next().unwrap().code());
 	/// assert!(iter.next().is_none());
 	/// ```
 	///
@@ -605,22 +605,22 @@ impl<'a> Decoder<'a> {
 	/// decoder.set_ip(0x1234_5678);
 	/// let instr = decoder.decode();
 	///
-	/// assert!(instr.code() == Code::Add_rm32_r32);
-	/// assert!(instr.mnemonic() == Mnemonic::Add);
+	/// assert_eq!(Code::Add_rm32_r32, instr.code());
+	/// assert_eq!(Mnemonic::Add, instr.mnemonic());
 	/// assert_eq!(4, instr.len());
 	/// assert_eq!(2, instr.op_count());
 	///
-	/// assert!(instr.op0_kind() == OpKind::Memory);
-	/// assert!(instr.memory_base() == Register::RAX);
-	/// assert!(instr.memory_index() == Register::None);
-	/// assert!(instr.memory_index_scale() == 1);
-	/// assert!(instr.memory_displacement() == 0);
-	/// assert!(instr.memory_segment() == Register::DS);
-	/// assert!(instr.segment_prefix() == Register::None);
-	/// assert!(instr.memory_size() == MemorySize::UInt32);
+	/// assert_eq!(OpKind::Memory, instr.op0_kind());
+	/// assert_eq!(Register::RAX, instr.memory_base());
+	/// assert_eq!(Register::None, instr.memory_index());
+	/// assert_eq!(1, instr.memory_index_scale());
+	/// assert_eq!(0, instr.memory_displacement());
+	/// assert_eq!(Register::DS, instr.memory_segment());
+	/// assert_eq!(Register::None, instr.segment_prefix());
+	/// assert_eq!(MemorySize::UInt32, instr.memory_size());
 	///
-	/// assert!(instr.op1_kind() == OpKind::Register);
-	/// assert!(instr.op1_register() == Register::EBX);
+	/// assert_eq!(OpKind::Register, instr.op1_kind());
+	/// assert_eq!(Register::EBX, instr.op1_register());
 	///
 	/// assert!(instr.has_lock_prefix());
 	/// assert!(instr.has_xrelease_prefix());
@@ -649,22 +649,22 @@ impl<'a> Decoder<'a> {
 	/// decoder.set_ip(0x1234_5678);
 	/// let instr = decoder.decode();
 	///
-	/// assert!(instr.code() == Code::Add_rm32_r32);
-	/// assert!(instr.mnemonic() == Mnemonic::Add);
+	/// assert_eq!(Code::Add_rm32_r32, instr.code());
+	/// assert_eq!(Mnemonic::Add, instr.mnemonic());
 	/// assert_eq!(4, instr.len());
 	/// assert_eq!(2, instr.op_count());
 	///
-	/// assert!(instr.op0_kind() == OpKind::Memory);
-	/// assert!(instr.memory_base() == Register::RAX);
-	/// assert!(instr.memory_index() == Register::None);
-	/// assert!(instr.memory_index_scale() == 1);
-	/// assert!(instr.memory_displacement() == 0);
-	/// assert!(instr.memory_segment() == Register::DS);
-	/// assert!(instr.segment_prefix() == Register::None);
-	/// assert!(instr.memory_size() == MemorySize::UInt32);
+	/// assert_eq!(OpKind::Memory, instr.op0_kind());
+	/// assert_eq!(Register::RAX, instr.memory_base());
+	/// assert_eq!(Register::None, instr.memory_index());
+	/// assert_eq!(1, instr.memory_index_scale());
+	/// assert_eq!(0, instr.memory_displacement());
+	/// assert_eq!(Register::DS, instr.memory_segment());
+	/// assert_eq!(Register::None, instr.segment_prefix());
+	/// assert_eq!(MemorySize::UInt32, instr.memory_size());
 	///
-	/// assert!(instr.op1_kind() == OpKind::Register);
-	/// assert!(instr.op1_register() == Register::EBX);
+	/// assert_eq!(OpKind::Register, instr.op1_kind());
+	/// assert_eq!(Register::EBX, instr.op1_register());
 	///
 	/// assert!(instr.has_lock_prefix());
 	/// assert!(instr.has_xrelease_prefix());
@@ -702,22 +702,22 @@ impl<'a> Decoder<'a> {
 	/// let mut instr = Default::default();
 	/// decoder.decode_out(&mut instr);
 	///
-	/// assert!(instr.code() == Code::Add_rm32_r32);
-	/// assert!(instr.mnemonic() == Mnemonic::Add);
+	/// assert_eq!(Code::Add_rm32_r32, instr.code());
+	/// assert_eq!(Mnemonic::Add, instr.mnemonic());
 	/// assert_eq!(4, instr.len());
 	/// assert_eq!(2, instr.op_count());
 	///
-	/// assert!(instr.op0_kind() == OpKind::Memory);
-	/// assert!(instr.memory_base() == Register::RAX);
-	/// assert!(instr.memory_index() == Register::None);
-	/// assert!(instr.memory_index_scale() == 1);
-	/// assert!(instr.memory_displacement() == 0);
-	/// assert!(instr.memory_segment() == Register::DS);
-	/// assert!(instr.segment_prefix() == Register::None);
-	/// assert!(instr.memory_size() == MemorySize::UInt32);
+	/// assert_eq!(OpKind::Memory, instr.op0_kind());
+	/// assert_eq!(Register::RAX, instr.memory_base());
+	/// assert_eq!(Register::None, instr.memory_index());
+	/// assert_eq!(1, instr.memory_index_scale());
+	/// assert_eq!(0, instr.memory_displacement());
+	/// assert_eq!(Register::DS, instr.memory_segment());
+	/// assert_eq!(Register::None, instr.segment_prefix());
+	/// assert_eq!(MemorySize::UInt32, instr.memory_size());
 	///
-	/// assert!(instr.op1_kind() == OpKind::Register);
-	/// assert!(instr.op1_register() == Register::EBX);
+	/// assert_eq!(OpKind::Register, instr.op1_kind());
+	/// assert_eq!(Register::EBX, instr.op1_register());
 	///
 	/// assert!(instr.has_lock_prefix());
 	/// assert!(instr.has_xrelease_prefix());
@@ -875,7 +875,7 @@ impl<'a> Decoder<'a> {
 	const PF3: u32 = MandatoryPrefixByte::PF3 as u32;
 	const PF2: u32 = MandatoryPrefixByte::PF2 as u32;
 	pub(crate) fn clear_mandatory_prefix(&mut self, instruction: &mut Instruction) {
-		debug_assert!(self.state.encoding() == EncodingKind::Legacy);
+		debug_assert_eq!(EncodingKind::Legacy, self.state.encoding());
 		match self.state.mandatory_prefix {
 			Decoder::P66 => self.state.operand_size = self.default_operand_size,
 			Decoder::PF3 => instruction_internal::internal_clear_has_repe_prefix(instruction),
@@ -912,15 +912,15 @@ impl<'a> Decoder<'a> {
 
 	#[inline]
 	fn clear_mandatory_prefix_f3(&self, instruction: &mut Instruction) {
-		debug_assert!(self.state.encoding() == EncodingKind::Legacy);
-		debug_assert!(self.state.mandatory_prefix == MandatoryPrefixByte::PF3 as u32);
+		debug_assert_eq!(EncodingKind::Legacy, self.state.encoding());
+		debug_assert_eq!(MandatoryPrefixByte::PF3 as u32, self.state.mandatory_prefix);
 		super::instruction_internal::internal_clear_has_repe_prefix(instruction);
 	}
 
 	#[inline]
 	fn clear_mandatory_prefix_f2(&self, instruction: &mut Instruction) {
-		debug_assert!(self.state.encoding() == EncodingKind::Legacy);
-		debug_assert!(self.state.mandatory_prefix == MandatoryPrefixByte::PF2 as u32);
+		debug_assert_eq!(EncodingKind::Legacy, self.state.encoding());
+		debug_assert_eq!(MandatoryPrefixByte::PF2 as u32, self.state.mandatory_prefix);
 		super::instruction_internal::internal_clear_has_repne_prefix(instruction);
 	}
 
@@ -1185,7 +1185,7 @@ impl<'a> Decoder<'a> {
 
 	#[inline(always)]
 	pub(crate) fn read_op_mem(&mut self, instruction: &mut Instruction) {
-		debug_assert!(self.state.encoding() != EncodingKind::EVEX);
+		debug_assert_ne!(EncodingKind::EVEX, self.state.encoding());
 		if self.state.address_size == OpSize::Size64 {
 			let _ = self.read_op_mem_32_or_64(instruction, Register::RAX, Register::RAX, TupleType::None, false);
 		} else if self.state.address_size == OpSize::Size32 {
@@ -1200,7 +1200,7 @@ impl<'a> Decoder<'a> {
 	// (see SDM Vol 1, 17.5.1 Intel MPX and Operating Modes)
 	#[inline(always)]
 	pub(crate) fn read_op_mem_mpx(&mut self, instruction: &mut Instruction) {
-		debug_assert!(self.state.encoding() != EncodingKind::EVEX);
+		debug_assert_ne!(EncodingKind::EVEX, self.state.encoding());
 		if self.is64_mode {
 			self.state.address_size = OpSize::Size64;
 			let _ = self.read_op_mem_32_or_64(instruction, Register::RAX, Register::RAX, TupleType::None, false);
@@ -1216,7 +1216,7 @@ impl<'a> Decoder<'a> {
 
 	#[inline(always)]
 	pub(crate) fn read_op_mem_tupletype(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
-		debug_assert!(self.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, self.state.encoding());
 		if self.state.address_size == OpSize::Size64 {
 			let _ = self.read_op_mem_32_or_64(instruction, Register::RAX, Register::RAX, tuple_type, false);
 		} else if self.state.address_size == OpSize::Size32 {
@@ -1257,7 +1257,7 @@ impl<'a> Decoder<'a> {
 					self.displ_index = self.data_ptr as usize;
 					instruction.set_memory_displacement(self.read_u16() as u32);
 					base_reg = Register::None;
-					debug_assert!(index_reg == Register::None);
+					debug_assert_eq!(Register::None, index_reg);
 				}
 			}
 			1 => {
@@ -1532,7 +1532,7 @@ impl<'a> Decoder<'a> {
 	/// let bytes = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A";
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// decoder.set_ip(0x1234_5678);
-	/// assert!(decoder.decode().code() == Code::Nopd);
+	/// assert_eq!(Code::Nopd, decoder.decode().code());
 	/// let instr = decoder.decode();
 	/// let co = decoder.get_constant_offsets(&instr);
 	///

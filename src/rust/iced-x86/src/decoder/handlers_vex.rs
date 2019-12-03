@@ -758,7 +758,7 @@ impl OpCodeHandler_VEX_WHV {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
-		debug_assert!(decoder.state.mod_ == 3);
+		debug_assert_eq!(3, decoder.state.mod_);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code_r);
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
@@ -1033,7 +1033,7 @@ impl OpCodeHandler_VEX_VHWIs5 {
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op3_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register_u32(instruction, (ib >> 4) + this.base_reg as u32);
-		debug_assert!(instruction.op4_kind() == OpKind::Immediate8); // It's hard coded
+		debug_assert_eq!(OpKind::Immediate8, instruction.op4_kind()); // It's hard coded
 		super::instruction_internal::internal_set_immediate8(instruction, ib & 3);
 	}
 }
@@ -1076,7 +1076,7 @@ impl OpCodeHandler_VEX_VHIs5W {
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register_u32(instruction, (ib >> 4) + this.base_reg as u32);
-		debug_assert!(instruction.op4_kind() == OpKind::Immediate8); // It's hard coded
+		debug_assert_eq!(OpKind::Immediate8, instruction.op4_kind()); // It's hard coded
 		super::instruction_internal::internal_set_immediate8(instruction, ib & 3);
 	}
 }

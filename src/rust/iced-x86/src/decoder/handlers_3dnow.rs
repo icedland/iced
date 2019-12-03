@@ -296,7 +296,7 @@ pub(crate) struct OpCodeHandler_D3NOW {
 
 impl OpCodeHandler_D3NOW {
 	pub(crate) fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
-		debug_assert!(decoder.state.encoding() == EncodingKind::Legacy);
+		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::MM0 as u32);

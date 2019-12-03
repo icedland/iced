@@ -36,7 +36,7 @@ pub(crate) struct OpCodeHandler_VectorLength_EVEX {
 impl OpCodeHandler_VectorLength_EVEX {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		// Safe, array has 4 elements and vector_length is 0..3
 		let handler = unsafe { *this.handlers.as_ptr().offset(decoder.state.vector_length as isize) };
 		(handler.decode)(handler, decoder, instruction);
@@ -54,7 +54,7 @@ pub(crate) struct OpCodeHandler_VectorLength_EVEX_er {
 impl OpCodeHandler_VectorLength_EVEX_er {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		let mut index = decoder.state.vector_length as isize;
 		if decoder.state.mod_ == 3 && (decoder.state.flags & StateFlags::B) != 0 {
 			index = VectorLength::L512 as isize;
@@ -100,7 +100,7 @@ pub(crate) struct OpCodeHandler_EVEX_V_H_Ev_er {
 impl OpCodeHandler_EVEX_V_H_Ev_er {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -161,7 +161,7 @@ pub(crate) struct OpCodeHandler_EVEX_V_H_Ev_Ib {
 impl OpCodeHandler_EVEX_V_H_Ev_Ib {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -214,7 +214,7 @@ pub(crate) struct OpCodeHandler_EVEX_Ed_V_Ib {
 impl OpCodeHandler_EVEX_Ed_V_Ib {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -264,7 +264,7 @@ pub(crate) struct OpCodeHandler_EVEX_VkHW_er {
 impl OpCodeHandler_EVEX_VkHW_er {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -325,7 +325,7 @@ pub(crate) struct OpCodeHandler_EVEX_VkW_er {
 impl OpCodeHandler_EVEX_VkW_er {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -384,7 +384,7 @@ pub(crate) struct OpCodeHandler_EVEX_VkWIb_er {
 impl OpCodeHandler_EVEX_VkWIb_er {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -433,7 +433,7 @@ pub(crate) struct OpCodeHandler_EVEX_VkW {
 impl OpCodeHandler_EVEX_VkW {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -484,7 +484,7 @@ pub(crate) struct OpCodeHandler_EVEX_WkV {
 impl OpCodeHandler_EVEX_WkV {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -526,7 +526,7 @@ pub(crate) struct OpCodeHandler_EVEX_VkM {
 impl OpCodeHandler_EVEX_VkM {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -562,7 +562,7 @@ pub(crate) struct OpCodeHandler_EVEX_VkWIb {
 impl OpCodeHandler_EVEX_VkWIb {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -614,7 +614,7 @@ pub(crate) struct OpCodeHandler_EVEX_WkVIb {
 impl OpCodeHandler_EVEX_WkVIb {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -657,7 +657,7 @@ pub(crate) struct OpCodeHandler_EVEX_HkWIb {
 impl OpCodeHandler_EVEX_HkWIb {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -703,7 +703,7 @@ pub(crate) struct OpCodeHandler_EVEX_HWIb {
 impl OpCodeHandler_EVEX_HWIb {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
@@ -745,7 +745,7 @@ pub(crate) struct OpCodeHandler_EVEX_WkVIb_er {
 impl OpCodeHandler_EVEX_WkVIb_er {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -793,7 +793,7 @@ pub(crate) struct OpCodeHandler_EVEX_VW_er {
 impl OpCodeHandler_EVEX_VW_er {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -839,7 +839,7 @@ pub(crate) struct OpCodeHandler_EVEX_VW {
 impl OpCodeHandler_EVEX_VW {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -882,7 +882,7 @@ pub(crate) struct OpCodeHandler_EVEX_WV {
 impl OpCodeHandler_EVEX_WV {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -924,7 +924,7 @@ pub(crate) struct OpCodeHandler_EVEX_VM {
 impl OpCodeHandler_EVEX_VM {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -957,7 +957,7 @@ pub(crate) struct OpCodeHandler_EVEX_VK {
 impl OpCodeHandler_EVEX_VK {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -991,7 +991,7 @@ pub(crate) struct OpCodeHandler_EVEX_KR {
 impl OpCodeHandler_EVEX_KR {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z))
 			| decoder.state.vvvv
 			| decoder.state.aaa
@@ -1034,7 +1034,7 @@ pub(crate) struct OpCodeHandler_EVEX_KkHWIb_sae {
 impl OpCodeHandler_EVEX_KkHWIb_sae {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -1091,7 +1091,7 @@ pub(crate) struct OpCodeHandler_EVEX_VkHW {
 impl OpCodeHandler_EVEX_VkHW {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -1141,7 +1141,7 @@ pub(crate) struct OpCodeHandler_EVEX_VkHM {
 impl OpCodeHandler_EVEX_VkHM {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -1181,7 +1181,7 @@ pub(crate) struct OpCodeHandler_EVEX_VkHWIb {
 impl OpCodeHandler_EVEX_VkHWIb {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -1235,7 +1235,7 @@ pub(crate) struct OpCodeHandler_EVEX_VkHWIb_er {
 impl OpCodeHandler_EVEX_VkHWIb_er {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -1287,7 +1287,7 @@ pub(crate) struct OpCodeHandler_EVEX_KkHW {
 impl OpCodeHandler_EVEX_KkHW {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -1339,7 +1339,7 @@ pub(crate) struct OpCodeHandler_EVEX_KP1HW {
 impl OpCodeHandler_EVEX_KP1HW {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -1388,7 +1388,7 @@ pub(crate) struct OpCodeHandler_EVEX_KkHWIb {
 impl OpCodeHandler_EVEX_KkHWIb {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -1442,10 +1442,10 @@ pub(crate) struct OpCodeHandler_EVEX_WkHV {
 impl OpCodeHandler_EVEX_WkHV {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		debug_assert!(decoder.state.mod_ == 3);
+		debug_assert_eq!(3, decoder.state.mod_);
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
@@ -1480,7 +1480,7 @@ pub(crate) struct OpCodeHandler_EVEX_VHWIb {
 impl OpCodeHandler_EVEX_VHWIb {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -1527,7 +1527,7 @@ pub(crate) struct OpCodeHandler_EVEX_VHW {
 impl OpCodeHandler_EVEX_VHW {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -1570,7 +1570,7 @@ pub(crate) struct OpCodeHandler_EVEX_VHM {
 impl OpCodeHandler_EVEX_VHM {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -1609,7 +1609,7 @@ pub(crate) struct OpCodeHandler_EVEX_Gv_W_er {
 impl OpCodeHandler_EVEX_Gv_W_er {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv | decoder.state.aaa | decoder.state.extra_register_base_evex)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -1676,7 +1676,7 @@ pub(crate) struct OpCodeHandler_EVEX_VX_Ev {
 impl OpCodeHandler_EVEX_VX_Ev {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -1722,7 +1722,7 @@ pub(crate) struct OpCodeHandler_EVEX_Ev_VX {
 impl OpCodeHandler_EVEX_Ev_VX {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -1767,7 +1767,7 @@ pub(crate) struct OpCodeHandler_EVEX_Ev_VX_Ib {
 impl OpCodeHandler_EVEX_Ev_VX_Ib {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z))
 			| decoder.state.vvvv
 			| decoder.state.aaa
@@ -1788,7 +1788,7 @@ impl OpCodeHandler_EVEX_Ev_VX_Ib {
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + decoder.state.extra_register_base + gpr);
-		debug_assert!(decoder.state.mod_ == 3);
+		debug_assert_eq!(3, decoder.state.mod_);
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
@@ -1813,7 +1813,7 @@ pub(crate) struct OpCodeHandler_EVEX_MV {
 impl OpCodeHandler_EVEX_MV {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -1847,13 +1847,13 @@ pub(crate) struct OpCodeHandler_EVEX_VkEv_REXW {
 impl OpCodeHandler_EVEX_VkEv_REXW {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
 		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
-			debug_assert!(this.code64 != Code::INVALID as u32);
+			debug_assert_ne!(Code::INVALID as u32, this.code64);
 			super::instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -1891,7 +1891,7 @@ pub(crate) struct OpCodeHandler_EVEX_Vk_VSIB {
 impl OpCodeHandler_EVEX_Vk_VSIB {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if decoder.invalid_check_mask != 0
 			&& (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | (decoder.state.vvvv & 0xF)) != 0 || decoder.state.aaa == 0)
 		{
@@ -1931,7 +1931,7 @@ pub(crate) struct OpCodeHandler_EVEX_VSIB_k1_VX {
 impl OpCodeHandler_EVEX_VSIB_k1_VX {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if decoder.invalid_check_mask != 0
 			&& (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | (decoder.state.vvvv & 0xF)) != 0 || decoder.state.aaa == 0)
 		{
@@ -1967,7 +1967,7 @@ pub(crate) struct OpCodeHandler_EVEX_VSIB_k1 {
 impl OpCodeHandler_EVEX_VSIB_k1 {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if decoder.invalid_check_mask != 0
 			&& (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | (decoder.state.vvvv & 0xF)) != 0 || decoder.state.aaa == 0)
 		{
@@ -1999,7 +1999,7 @@ pub(crate) struct OpCodeHandler_EVEX_GvM_VX_Ib {
 impl OpCodeHandler_EVEX_GvM_VX_Ib {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -2048,7 +2048,7 @@ pub(crate) struct OpCodeHandler_EVEX_KkWIb {
 impl OpCodeHandler_EVEX_KkWIb {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert!(decoder.state.encoding() == EncodingKind::EVEX);
+		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
 			& decoder.invalid_check_mask)
 			!= 0
