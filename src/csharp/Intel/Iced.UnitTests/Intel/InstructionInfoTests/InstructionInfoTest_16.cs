@@ -32,7 +32,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		[MemberData(nameof(Test16_InstructionInfo_Data))]
 		void Test16_InstructionInfo(string hexBytes, Code code, DecoderOptions options, int lineNo, InstructionInfoTestCase testCase) =>
 			TestInstructionInfo(16, hexBytes, code, options, lineNo, testCase);
-		public static IEnumerable<object[]> Test16_InstructionInfo_Data => GetTestCases(16, nameof(InstructionInfoTest_16));
+		public static IEnumerable<object[]> Test16_InstructionInfo_Data => GetTestCases(16);
 	}
 }
 #endif

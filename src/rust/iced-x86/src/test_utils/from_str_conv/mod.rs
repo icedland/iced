@@ -55,6 +55,7 @@ use self::register_table::*;
 #[cfg(any(feature = "DECODER", feature = "ENCODER"))]
 use self::tuple_type_table::*;
 use super::super::*;
+use std::collections::HashMap;
 use std::{i32, u16, u32, u8};
 
 pub(crate) fn to_vec_u8(hex_data: &str) -> Result<Vec<u8>, String> {
@@ -182,6 +183,10 @@ pub(crate) fn to_register(value: &str) -> Result<Register, String> {
 		Some(register) => Ok(*register),
 		None => Err(format!("Invalid Register value: {}", value)),
 	}
+}
+
+pub(crate) fn clone_register_hashmap() -> HashMap<String, Register> {
+	TO_REGISTER_HASH.iter().map(|kv| (kv.0.to_string(), *kv.1)).collect()
 }
 
 pub(crate) fn to_memory_size(value: &str) -> Result<MemorySize, String> {

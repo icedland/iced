@@ -21,6 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System.IO;
+using Generator.Enums;
+using Generator.Enums.InstructionInfo;
+using Generator.IO;
+
 namespace Generator.InstructionInfo.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.InstrInfoDicts)]
 	sealed class RustDictGenerator {
@@ -33,7 +38,15 @@ namespace Generator.InstructionInfo.Rust {
 		}
 
 		public void Generate() {
-			//TODO:
+			var filename = Path.Combine(generatorOptions.RustDir, "info", "tests", "test_parser.rs");
+			new FileUpdater(TargetLanguage.Rust, "OpAccessDict", filename).Generate(writer => WriteDict(writer, DictConstants.OpAccessConstants));
+		}
+
+		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants) {
+			var opAccessTypeStr = OpAccessEnum.Instance.Name(idConverter);
+			writer.WriteLine($"let mut to_access: HashMap<&'static str, {opAccessTypeStr}> = HashMap::new();");
+			foreach (var constant in constants)
+				writer.WriteLine($"let _ = to_access.insert(\"{constant.name}\", {opAccessTypeStr}::{constant.value.Name(idConverter)});");
 		}
 	}
 }

@@ -78,9 +78,9 @@ impl Iterator for IntoIter {
 			match self.lines.next() {
 				None => return None,
 				Some(info) => {
-					self.line_number += 1;
 					let result = match info {
 						Ok(line) => {
+							self.line_number += 1;
 							if line.is_empty() || line.starts_with('#') {
 								continue;
 							}
@@ -103,7 +103,7 @@ impl Iterator for IntoIter {
 
 impl IntoIter {
 	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<DecoderMemoryTestCase, String> {
-		let parts: Vec<&str> = line.split(',').collect();
+		let parts: Vec<_> = line.split(',').collect();
 		if parts.len() != 11 && parts.len() != 12 {
 			return Err(format!("Invalid number of commas ({} commas)", parts.len() - 1));
 		}

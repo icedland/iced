@@ -31,6 +31,7 @@ namespace Generator.Constants.InstructionInfo {
 				// XSP = SP/ESP/RSP depending on stack address size, XBP = BP/EBP/RBP depending on stack address size
 				new Constant(ConstantKind.String, "XSP", "xsp"),
 				new Constant(ConstantKind.String, "XBP", "xbp"),
+				new Constant(ConstantKind.Int32, "ElemsPerLine", 5),
 			};
 		}
 	}

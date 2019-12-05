@@ -42,7 +42,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", deny(clippy::fallible_impl_from))]
 #![cfg_attr(feature = "cargo-clippy", deny(clippy::large_digit_groups))]
 #![cfg_attr(feature = "cargo-clippy", deny(clippy::unimplemented))]
-#![cfg_attr(feature = "cargo-clippy", deny(clippy::use_debug))]
 #![cfg_attr(feature = "cargo-clippy", deny(clippy::used_underscore_binding))]
 //TODO: enable this when https://github.com/rust-lang/rust-clippy/issues/4861 has been fixed
 //#![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_inline_in_public_items))]
@@ -117,8 +116,8 @@ pub use self::formatter::*;
 #[cfg(test)]
 pub(crate) use self::iced_constants::*;
 pub use self::iced_features::*;
-//TODO:#[cfg(feature = "INSTR_INFO")]
-//TODO:pub use self::info::*;
+#[cfg(feature = "INSTR_INFO")]
+pub use self::info::*;
 pub use self::instruction::*;
 pub use self::memory_size::*;
 pub use self::mnemonic::*;

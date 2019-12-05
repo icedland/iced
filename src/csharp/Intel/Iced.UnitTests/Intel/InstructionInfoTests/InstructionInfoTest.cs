@@ -25,8 +25,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
-using System.IO;
 using Iced.Intel;
 using Xunit;
 
@@ -449,8 +447,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			return decoder;
 		}
 
-		static protected IEnumerable<object[]> GetTestCases(int bitness, string className) =>
-			InstructionInfoTestReader.GetTestCases(bitness, bitness, className);
+		static protected IEnumerable<object[]> GetTestCases(int bitness) =>
+			InstructionInfoTestReader.GetTestCases(bitness, bitness);
 	}
 }
 #endif

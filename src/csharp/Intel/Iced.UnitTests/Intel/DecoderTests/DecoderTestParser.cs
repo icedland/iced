@@ -257,7 +257,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				case DecoderTestParserConstants.EncodedHexBytes:
 					if (string.IsNullOrWhiteSpace(value))
 						throw new InvalidOperationException($"Invalid encoded hex bytes: '{value}'");
-					tc.EncodedHexBytes = value;
+					tc.EncodedHexBytes = ToHexBytes(value);
 					break;
 
 				case DecoderTestParserConstants.DecoderOptions_AmdBranches:

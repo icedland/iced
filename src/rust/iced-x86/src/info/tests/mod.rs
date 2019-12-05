@@ -21,22 +21,31 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants.InstructionInfo {
-	static class RflagsBitsConstantsType {
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.RflagsBitsConstants, ConstantsTypeFlags.None, null, GetConstants());
+mod info_test_case;
+mod test_parser;
 
-		static Constant[] GetConstants() {
-			return new Constant[] {
-				new Constant(ConstantKind.Char, "AF", 'a'),
-				new Constant(ConstantKind.Char, "CF", 'c'),
-				new Constant(ConstantKind.Char, "OF", 'o'),
-				new Constant(ConstantKind.Char, "PF", 'p'),
-				new Constant(ConstantKind.Char, "SF", 's'),
-				new Constant(ConstantKind.Char, "ZF", 'z'),
-				new Constant(ConstantKind.Char, "IF", 'i'),
-				new Constant(ConstantKind.Char, "DF", 'd'),
-				new Constant(ConstantKind.Char, "AC", 'A'),
-			};
-		}
+use self::test_parser::*;
+use super::super::test_utils::*;
+
+#[test]
+fn info_16() {
+	test_info(16);
+}
+
+#[test]
+fn info_32() {
+	test_info(32);
+}
+
+#[test]
+fn info_64() {
+	test_info(64);
+}
+
+fn test_info(bitness: u32) {
+	let mut path = get_instr_info_unit_tests_dir();
+	path.push(format!("InstructionInfoTest_{}.txt", bitness));
+	for _info in InstrInfoTestParser::new(bitness, &path) {
+		//TODO:
 	}
 }

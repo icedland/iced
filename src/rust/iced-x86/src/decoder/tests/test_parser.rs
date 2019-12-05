@@ -256,9 +256,9 @@ impl Iterator for IntoIter {
 			match self.lines.next() {
 				None => return None,
 				Some(info) => {
-					self.line_number += 1;
 					let result = match info {
 						Ok(line) => {
+							self.line_number += 1;
 							if line.is_empty() || line.starts_with('#') {
 								continue;
 							}
@@ -281,7 +281,7 @@ impl Iterator for IntoIter {
 
 impl IntoIter {
 	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<DecoderTestCase, String> {
-		let parts: Vec<&str> = line.split(',').collect();
+		let parts: Vec<_> = line.split(',').collect();
 		if parts.len() != 5 {
 			return Err(format!("Invalid number of commas ({} commas)", parts.len() - 1));
 		}
@@ -302,7 +302,7 @@ impl IntoIter {
 			if key.is_empty() {
 				continue;
 			}
-			let kv_parts: Vec<&str> = key.splitn(2, '=').collect();
+			let kv_parts: Vec<_> = key.splitn(2, '=').collect();
 			let value = if kv_parts.len() == 1 {
 				""
 			} else {
@@ -411,7 +411,7 @@ impl IntoIter {
 	}
 
 	fn read_op_kind(&self, tc: &mut DecoderTestCase, operand: u32, value: &str) -> Result<(), String> {
-		let parts: Vec<&str> = value.split(';').collect();
+		let parts: Vec<_> = value.split(';').collect();
 		match *(*TO_DECODER_TEST_PARSER_CONSTANTS).get(parts[0]).unwrap_or(&u32::MAX) {
 			DecoderTestParserConstants::OP_KIND_REGISTER => {
 				if parts.len() != 2 {
@@ -644,7 +644,7 @@ impl IntoIter {
 }
 
 pub(crate) fn parse_constant_offsets(value: &str) -> Result<ConstantOffsets, String> {
-	let parts: Vec<&str> = value.split(';').collect();
+	let parts: Vec<_> = value.split(';').collect();
 	if parts.len() != 6 {
 		return Err(format!("Invalid ConstantOffsets: '{}'", value));
 	}

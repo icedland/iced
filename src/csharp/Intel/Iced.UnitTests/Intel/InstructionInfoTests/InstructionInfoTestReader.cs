@@ -37,10 +37,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		static readonly char[] semicolonSeparator = new char[] { ';' };
 		static readonly char[] plusSeparator = new char[] { '+' };
 
-		public static IEnumerable<object[]> GetTestCases(int bitness, int stackAddressSize, string className) {
+		public static IEnumerable<object[]> GetTestCases(int bitness, int stackAddressSize) {
 			Assert.Equal(Enum.GetNames(typeof(OpAccess)).Length, InstructionInfoDicts.ToAccess.Count);
 
-			var toRegister = ToEnumConverter.CloneCode();
+			var toRegister = ToEnumConverter.CloneRegisterDict();
 			switch (stackAddressSize) {
 			case 16:
 				toRegister.Add(MiscInstrInfoTestConstants.XSP, Register.SP);
@@ -61,7 +61,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			for (int i = 0; i < IcedConstants.VMM_count; i++)
 				toRegister.Add(MiscInstrInfoTestConstants.VMM_prefix + i.ToString(), IcedConstants.VMM_first + i);
 
-			var filename = PathUtils.GetTestTextFilename(className + ".txt", "InstructionInfo");
+			var filename = PathUtils.GetTestTextFilename($"InstructionInfoTest_{bitness}.txt", "InstructionInfo");
 			Debug.Assert(File.Exists(filename));
 			int lineNo = 0;
 			foreach (var line in File.ReadLines(filename)) {
@@ -69,198 +69,215 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				if (line.Length == 0 || line.StartsWith("#"))
 					continue;
 
-				const int ELEMS = 5;
-				var elems = line.Split(commaSeparator, ELEMS);
-				if (elems.Length != ELEMS)
-					throw new Exception($"Invalid line, line {lineNo}: '{line}' ({filename})");
-
-				var hexBytes = elems[0].Trim();
-				var codeString = elems[1].Trim();
-				var encodingString = elems[2].Trim();
-				var cpuidFeatureStrings = elems[3].Trim().Split(new[] { ';' });
-
-				var testCase = new InstructionInfoTestCase();
-
-				if (!ToEnumConverter.TryCode(codeString, out var code))
-					throw new Exception($"Invalid {nameof(Code)} value, line {lineNo}: '{codeString}' ({filename})");
-				if (!ToEnumConverter.TryEncodingKind(encodingString, out testCase.Encoding))
-					throw new Exception($"Invalid {nameof(EncodingKind)} value, line {lineNo}: '{encodingString}' ({filename})");
-				var cpuidFeatures = new CpuidFeature[cpuidFeatureStrings.Length];
-				testCase.CpuidFeatures = cpuidFeatures;
-				for (int i = 0; i < cpuidFeatures.Length; i++) {
-					if (!ToEnumConverter.TryCpuidFeature(cpuidFeatureStrings[i], out cpuidFeatures[i]))
-						throw new Exception($"Invalid {nameof(CpuidFeature)} value, line {lineNo}: '{cpuidFeatureStrings}' ({filename})");
+				(string hexBytes, Code code, DecoderOptions options, InstructionInfoTestCase testCase) info;
+				try {
+					info = ParseLine(line, bitness, toRegister);
 				}
-
-				var options = DecoderOptions.None;
-				foreach (var keyValue in elems[4].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
-					string key, value;
-					int index = keyValue.IndexOf('=');
-					if (index >= 0) {
-						key = keyValue.Substring(0, index);
-						value = keyValue.Substring(index + 1);
-					}
-					else {
-						key = keyValue;
-						value = string.Empty;
-					}
-
-					switch (key) {
-					case InstructionInfoKeys.IsProtectedMode:
-						if (value != string.Empty)
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						testCase.IsProtectedMode = true;
-						break;
-
-					case InstructionInfoKeys.IsPrivileged:
-						if (value != string.Empty)
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						testCase.IsPrivileged = true;
-						break;
-
-					case InstructionInfoKeys.IsSaveRestoreInstruction:
-						if (value != string.Empty)
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						testCase.IsSaveRestoreInstruction = true;
-						break;
-
-					case InstructionInfoKeys.IsStackInstruction:
-						if (!int.TryParse(value, out testCase.StackPointerIncrement))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						testCase.IsStackInstruction = true;
-						break;
-
-					case InstructionInfoKeys.IsSpecial:
-						testCase.IsSpecial = true;
-						break;
-
-					case InstructionInfoKeys.RflagsRead:
-						if (!ParseRflags(value, ref testCase.RflagsRead))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.RflagsUndefined:
-						if (!ParseRflags(value, ref testCase.RflagsUndefined))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.RflagsWritten:
-						if (!ParseRflags(value, ref testCase.RflagsWritten))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.RflagsCleared:
-						if (!ParseRflags(value, ref testCase.RflagsCleared))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.RflagsSet:
-						if (!ParseRflags(value, ref testCase.RflagsSet))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.FlowControl:
-						if (!ToEnumConverter.TryFlowControl(value, out testCase.FlowControl))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.Op0Access:
-						if (!InstructionInfoDicts.ToAccess.TryGetValue(value, out testCase.Op0Access))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.Op1Access:
-						if (!InstructionInfoDicts.ToAccess.TryGetValue(value, out testCase.Op1Access))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.Op2Access:
-						if (!InstructionInfoDicts.ToAccess.TryGetValue(value, out testCase.Op2Access))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.Op3Access:
-						if (!InstructionInfoDicts.ToAccess.TryGetValue(value, out testCase.Op3Access))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.Op4Access:
-						if (!InstructionInfoDicts.ToAccess.TryGetValue(value, out testCase.Op4Access))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.ReadRegister:
-						if (!AddRegisters(toRegister, value, OpAccess.Read, testCase, lineNo, filename))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.CondReadRegister:
-						if (!AddRegisters(toRegister, value, OpAccess.CondRead, testCase, lineNo, filename))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.WriteRegister:
-						if (!AddRegisters(toRegister, value, OpAccess.Write, testCase, lineNo, filename))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.CondWriteRegister:
-						if (!AddRegisters(toRegister, value, OpAccess.CondWrite, testCase, lineNo, filename))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.ReadWriteRegister:
-						if (!AddRegisters(toRegister, value, OpAccess.ReadWrite, testCase, lineNo, filename))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.ReadCondWriteRegister:
-						if (!AddRegisters(toRegister, value, OpAccess.ReadCondWrite, testCase, lineNo, filename))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.ReadMemory:
-						if (!AddMemory(bitness, toRegister, value, OpAccess.Read, testCase))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.CondReadMemory:
-						if (!AddMemory(bitness, toRegister, value, OpAccess.CondRead, testCase))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.ReadWriteMemory:
-						if (!AddMemory(bitness, toRegister, value, OpAccess.ReadWrite, testCase))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.ReadCondWriteMemory:
-						if (!AddMemory(bitness, toRegister, value, OpAccess.ReadCondWrite, testCase))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.WriteMemory:
-						if (!AddMemory(bitness, toRegister, value, OpAccess.Write, testCase))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.CondWriteMemory:
-						if (!AddMemory(bitness, toRegister, value, OpAccess.CondWrite, testCase))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					case InstructionInfoKeys.DecoderOptions:
-						if (!TryParseDecoderOptions(value.Split(semicolonSeparator), ref options))
-							throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-						break;
-
-					default:
-						throw new Exception($"Invalid key-value value, line {lineNo}: '{keyValue}' ({filename})");
-					}
+				catch (Exception ex) {
+					throw new Exception($"Invalid line {lineNo} ({filename}): {ex.Message}");
 				}
-
-				yield return new object[5] { hexBytes, code, options, lineNo, testCase };
+				yield return new object[5] { info.hexBytes, info.code, info.options, lineNo, info.testCase };
 			}
+		}
+
+		static (string hexBytes, Code code, DecoderOptions options, InstructionInfoTestCase testCase) ParseLine(string line, int bitness, Dictionary<string, Register> toRegister) {
+			Static.Assert(MiscInstrInfoTestConstants.ElemsPerLine == 5 ? 0 : -1);
+			var elems = line.Split(commaSeparator, MiscInstrInfoTestConstants.ElemsPerLine);
+			if (elems.Length != MiscInstrInfoTestConstants.ElemsPerLine)
+				throw new Exception($"Expected {MiscInstrInfoTestConstants.ElemsPerLine - 1} commas");
+
+			var testCase = new InstructionInfoTestCase();
+
+			var hexBytes = ToHexBytes(elems[0].Trim());
+			var code = ToEnumConverter.GetCode(elems[1].Trim());
+			testCase.Encoding = ToEnumConverter.GetEncodingKind(elems[2].Trim());
+			var cpuidFeatureStrings = elems[3].Trim().Split(new[] { ';' });
+
+			var cpuidFeatures = new CpuidFeature[cpuidFeatureStrings.Length];
+			testCase.CpuidFeatures = cpuidFeatures;
+			for (int i = 0; i < cpuidFeatures.Length; i++)
+				cpuidFeatures[i] = ToEnumConverter.GetCpuidFeature(cpuidFeatureStrings[i]);
+
+			var options = DecoderOptions.None;
+			foreach (var keyValue in elems[4].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
+				string key, value;
+				int index = keyValue.IndexOf('=');
+				if (index >= 0) {
+					key = keyValue.Substring(0, index);
+					value = keyValue.Substring(index + 1);
+				}
+				else {
+					key = keyValue;
+					value = string.Empty;
+				}
+
+				switch (key) {
+				case InstructionInfoKeys.IsProtectedMode:
+					if (value != string.Empty)
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					testCase.IsProtectedMode = true;
+					break;
+
+				case InstructionInfoKeys.IsPrivileged:
+					if (value != string.Empty)
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					testCase.IsPrivileged = true;
+					break;
+
+				case InstructionInfoKeys.IsSaveRestoreInstruction:
+					if (value != string.Empty)
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					testCase.IsSaveRestoreInstruction = true;
+					break;
+
+				case InstructionInfoKeys.IsStackInstruction:
+					if (!int.TryParse(value, out testCase.StackPointerIncrement))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					testCase.IsStackInstruction = true;
+					break;
+
+				case InstructionInfoKeys.IsSpecial:
+					if (value != string.Empty)
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					testCase.IsSpecial = true;
+					break;
+
+				case InstructionInfoKeys.RflagsRead:
+					if (!ParseRflags(value, ref testCase.RflagsRead))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.RflagsUndefined:
+					if (!ParseRflags(value, ref testCase.RflagsUndefined))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.RflagsWritten:
+					if (!ParseRflags(value, ref testCase.RflagsWritten))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.RflagsCleared:
+					if (!ParseRflags(value, ref testCase.RflagsCleared))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.RflagsSet:
+					if (!ParseRflags(value, ref testCase.RflagsSet))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.FlowControl:
+					if (!ToEnumConverter.TryFlowControl(value, out testCase.FlowControl))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.Op0Access:
+					if (!InstructionInfoDicts.ToAccess.TryGetValue(value, out testCase.Op0Access))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.Op1Access:
+					if (!InstructionInfoDicts.ToAccess.TryGetValue(value, out testCase.Op1Access))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.Op2Access:
+					if (!InstructionInfoDicts.ToAccess.TryGetValue(value, out testCase.Op2Access))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.Op3Access:
+					if (!InstructionInfoDicts.ToAccess.TryGetValue(value, out testCase.Op3Access))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.Op4Access:
+					if (!InstructionInfoDicts.ToAccess.TryGetValue(value, out testCase.Op4Access))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.ReadRegister:
+					if (!AddRegisters(toRegister, value, OpAccess.Read, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.CondReadRegister:
+					if (!AddRegisters(toRegister, value, OpAccess.CondRead, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.WriteRegister:
+					if (!AddRegisters(toRegister, value, OpAccess.Write, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.CondWriteRegister:
+					if (!AddRegisters(toRegister, value, OpAccess.CondWrite, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.ReadWriteRegister:
+					if (!AddRegisters(toRegister, value, OpAccess.ReadWrite, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.ReadCondWriteRegister:
+					if (!AddRegisters(toRegister, value, OpAccess.ReadCondWrite, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.ReadMemory:
+					if (!AddMemory(bitness, toRegister, value, OpAccess.Read, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.CondReadMemory:
+					if (!AddMemory(bitness, toRegister, value, OpAccess.CondRead, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.ReadWriteMemory:
+					if (!AddMemory(bitness, toRegister, value, OpAccess.ReadWrite, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.ReadCondWriteMemory:
+					if (!AddMemory(bitness, toRegister, value, OpAccess.ReadCondWrite, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.WriteMemory:
+					if (!AddMemory(bitness, toRegister, value, OpAccess.Write, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.CondWriteMemory:
+					if (!AddMemory(bitness, toRegister, value, OpAccess.CondWrite, testCase))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				case InstructionInfoKeys.DecoderOptions:
+					if (!TryParseDecoderOptions(value.Split(semicolonSeparator), ref options))
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					break;
+
+				default:
+					throw new Exception($"Invalid key-value value, '{keyValue}'");
+				}
+			}
+
+			return (hexBytes, code, options, testCase);
+		}
+
+		static string ToHexBytes(string value) {
+			try {
+				HexUtils.ToByteArray(value);
+			}
+			catch {
+				throw new InvalidOperationException($"Invalid hex bytes: '{value}'");
+			}
+			return value;
 		}
 
 		static bool TryParseDecoderOptions(string[] stringOptions, ref DecoderOptions options) {
@@ -405,7 +422,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			return segReg != Register.None;
 		}
 
-		static bool AddRegisters(Dictionary<string, Register> toRegister, string value, OpAccess access, InstructionInfoTestCase testCase, int lineNo, string filename) {
+		static bool AddRegisters(Dictionary<string, Register> toRegister, string value, OpAccess access, InstructionInfoTestCase testCase) {
 			foreach (var tmp in value.Split(semicolonSeparator, StringSplitOptions.RemoveEmptyEntries)) {
 				var regString = tmp.Trim();
 				if (!toRegister.TryGetValue(regString, out var reg))
@@ -416,6 +433,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					case OpAccess.None:
 					case OpAccess.Read:
 					case OpAccess.NoMemAccess:
+					case OpAccess.CondRead:
 						break;
 
 					case OpAccess.Write:
@@ -423,7 +441,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					case OpAccess.ReadWrite:
 					case OpAccess.ReadCondWrite:
 						if (Register.XMM0 <= reg && reg <= IcedConstants.VMM_last && !regString.StartsWith(MiscInstrInfoTestConstants.VMM_prefix, StringComparison.OrdinalIgnoreCase))
-							throw new Exception($"Register {regString} is written ({access}) but {MiscInstrInfoTestConstants.VMM_prefix} pseudo register should be used instead, line {lineNo} ({filename})");
+							throw new Exception($"Register {regString} is written ({access}) but {MiscInstrInfoTestConstants.VMM_prefix} pseudo register should be used instead");
 						break;
 
 					default:
@@ -438,39 +456,39 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		static bool ParseRflags(string value, ref RflagsBits rflags) {
 			foreach (var c in value) {
 				switch (c) {
-				case RflagsBitsConstants.RflagsBits_AF:
+				case RflagsBitsConstants.AF:
 					rflags |= RflagsBits.AF;
 					break;
 
-				case RflagsBitsConstants.RflagsBits_CF:
+				case RflagsBitsConstants.CF:
 					rflags |= RflagsBits.CF;
 					break;
 
-				case RflagsBitsConstants.RflagsBits_OF:
+				case RflagsBitsConstants.OF:
 					rflags |= RflagsBits.OF;
 					break;
 
-				case RflagsBitsConstants.RflagsBits_PF:
+				case RflagsBitsConstants.PF:
 					rflags |= RflagsBits.PF;
 					break;
 
-				case RflagsBitsConstants.RflagsBits_SF:
+				case RflagsBitsConstants.SF:
 					rflags |= RflagsBits.SF;
 					break;
 
-				case RflagsBitsConstants.RflagsBits_ZF:
+				case RflagsBitsConstants.ZF:
 					rflags |= RflagsBits.ZF;
 					break;
 
-				case RflagsBitsConstants.RflagsBits_IF:
+				case RflagsBitsConstants.IF:
 					rflags |= RflagsBits.IF;
 					break;
 
-				case RflagsBitsConstants.RflagsBits_DF:
+				case RflagsBitsConstants.DF:
 					rflags |= RflagsBits.DF;
 					break;
 
-				case RflagsBitsConstants.RflagsBits_AC:
+				case RflagsBitsConstants.AC:
 					rflags |= RflagsBits.AC;
 					break;
 

@@ -29,7 +29,7 @@ namespace Iced.UnitTests.Intel {
 	static partial class ToEnumConverter {
 		public static bool TryRegister(string value, out Register register) => registerDict.TryGetValue(value, out register);
 		public static Register GetRegister(string value) => TryRegister(value, out var register) ? register : throw new InvalidOperationException($"Invalid Register value: {value}");
-		public static Dictionary<string, Register> CloneCode() => new Dictionary<string, Register>(registerDict, StringComparer.Ordinal);
+		public static Dictionary<string, Register> CloneRegisterDict() => new Dictionary<string, Register>(registerDict, StringComparer.Ordinal);
 
 		static readonly Dictionary<string, Register> registerDict =
 			// GENERATOR-BEGIN: RegisterHash
