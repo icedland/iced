@@ -38,6 +38,7 @@ namespace Generator {
 		public const string AttributeAllowMissingDocs = "#[allow(missing_docs)]";
 		public const string AttributeAllowMissingCopyImplementations = "#[allow(missing_copy_implementations)]";
 
+		public const string FeaturePrefix = "#[cfg(";
 		public const string FeatureInstrInfo = "#[cfg(feature = \"INSTR_INFO\")]";
 		public const string FeatureEncoder = "#[cfg(feature = \"ENCODER\")]";
 		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\"))]";

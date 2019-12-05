@@ -45,6 +45,8 @@ namespace Generator.Constants.Rust {
 			writer.WriteLine($"{pub}struct {constantsType.Name(idConverter)};");
 			if (constantsType.IsPublic && constantsType.IsMissingDocs)
 				writer.WriteLine(RustConstants.AttributeAllowMissingDocs);
+			foreach (var attr in attributes.Where(a => a.StartsWith(RustConstants.FeaturePrefix)))
+				writer.WriteLine(attr);
 			writer.WriteLine($"impl {constantsType.Name(idConverter)} {{");
 
 			var sb = new StringBuilder();
