@@ -525,6 +525,10 @@ impl Instruction {
 
 	/// Sets operand #4's kind if the operand exists (see `op_count()`)
 	///
+	/// # Panics
+	///
+	/// Panics if `new_value` is invalid.
+	///
 	/// # Arguments
 	///
 	/// * `new_value`: new value
@@ -536,6 +540,10 @@ impl Instruction {
 	}
 
 	/// Gets an operand's kind if it exists (see `op_count()`)
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -569,6 +577,10 @@ impl Instruction {
 	}
 
 	/// Sets an operand's kind
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -768,6 +780,10 @@ impl Instruction {
 
 	/// Gets an operand's immediate value
 	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid or if it's not an immediate operand
+	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
@@ -790,6 +806,10 @@ impl Instruction {
 
 	/// Sets an operand's immediate value
 	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid or if it's not an immediate operand
+	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
@@ -800,6 +820,10 @@ impl Instruction {
 	}
 
 	/// Sets an operand's immediate value
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
@@ -812,6 +836,10 @@ impl Instruction {
 
 	/// Sets an operand's immediate value
 	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid or if it's not an immediate operand
+	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
@@ -822,6 +850,10 @@ impl Instruction {
 	}
 
 	/// Sets an operand's immediate value
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
@@ -1243,6 +1275,10 @@ impl Instruction {
 
 	/// Sets operand #4's register value. Use this property if operand #4 (`op4_kind()`) has kind `OpKind::Register`
 	///
+	/// # Panics
+	///
+	/// Panics if `new_value` is invalid
+	///
 	/// # Arguments
 	///
 	/// * `new_value`: New value
@@ -1254,6 +1290,10 @@ impl Instruction {
 	}
 
 	/// Gets the operand's register value. Use this property if the operand has kind `OpKind::Register`
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -1288,6 +1328,10 @@ impl Instruction {
 	}
 
 	/// Sets the operand's register value. Use this property if the operand has kind `OpKind::Register`
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -1430,6 +1474,10 @@ impl Instruction {
 	/// Sets a new `db` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareByte`
 	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
+	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-15)
@@ -1441,6 +1489,10 @@ impl Instruction {
 
 	/// Sets a new `db` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareByte`
+	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
 	///
 	/// # Arguments
 	///
@@ -1472,6 +1524,10 @@ impl Instruction {
 	/// Gets a `db` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareByte`
 	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
+	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-15)
@@ -1502,6 +1558,10 @@ impl Instruction {
 	/// Sets a new `dw` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareWord`
 	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
+	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-7)
@@ -1513,6 +1573,10 @@ impl Instruction {
 
 	/// Sets a new `dw` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareWord`
+	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
 	///
 	/// # Arguments
 	///
@@ -1545,6 +1609,10 @@ impl Instruction {
 	/// Gets a `dw` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareWord`
 	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
+	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-7)
@@ -1567,6 +1635,10 @@ impl Instruction {
 	/// Sets a new `dd` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareDword`
 	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
+	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-3)
@@ -1578,6 +1650,10 @@ impl Instruction {
 
 	/// Sets a new `dd` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareDword`
+	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
 	///
 	/// # Arguments
 	///
@@ -1606,6 +1682,10 @@ impl Instruction {
 	/// Gets a `dd` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareDword`
 	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
+	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-3)
@@ -1624,6 +1704,10 @@ impl Instruction {
 	/// Sets a new `dq` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareQword`
 	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
+	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-1)
@@ -1635,6 +1719,10 @@ impl Instruction {
 
 	/// Sets a new `dq` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareQword`
+	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
 	///
 	/// # Arguments
 	///
@@ -1662,6 +1750,10 @@ impl Instruction {
 
 	/// Gets a `dq` value, see also `declare_data_len()`.
 	/// Can only be called if `code()` is `Code::DeclareQword`
+	///
+	/// # Panics
+	///
+	/// Panics if `index` is invalid
 	///
 	/// # Arguments
 	///
@@ -1853,6 +1945,10 @@ impl Instruction {
 	}
 
 	/// Gets the virtual address of a memory operand
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -2594,7 +2690,7 @@ impl Instruction {
 	/// ```
 	#[inline]
 	pub fn negate_condition_code(&mut self) {
-		// Temp needed if rustc <= 1.35.0 (2015 edition)
+		// Temp needed if rustc < 1.36.0 (2015 edition) or < 1.31.0 (2018 edition)
 		let t = self.code().negate_condition_code();
 		self.set_code(t)
 	}
@@ -2620,7 +2716,7 @@ impl Instruction {
 	#[inline]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	pub fn to_short_branch(&mut self) {
-		// Temp needed if rustc <= 1.35.0 (2015 edition)
+		// Temp needed if rustc < 1.36.0 (2015 edition) or < 1.31.0 (2018 edition)
 		let t = self.code().to_short_branch();
 		self.set_code(t)
 	}
@@ -2646,7 +2742,7 @@ impl Instruction {
 	#[inline]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	pub fn to_near_branch(&mut self) {
-		// Temp needed if rustc <= 1.35.0 (2015 edition)
+		// Temp needed if rustc < 1.36.0 (2015 edition) or < 1.31.0 (2018 edition)
 		let t = self.code().to_near_branch();
 		self.set_code(t)
 	}
