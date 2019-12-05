@@ -21,23 +21,19 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants {
-	abstract class ConstantsGenerator {
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
-			DecoderTestParserConstantsType.Instance,
-			DecoderConstantsType.Instance,
-			InstructionInfo.InstructionInfoDecoderOptionsType.Instance,
-			InstructionInfo.InstructionInfoKeysType.Instance,
-			InstructionInfo.MiscInstrInfoTestConstantsType.Instance,
-			InstructionInfo.RflagsBitsConstantsType.Instance,
-		};
+namespace Generator.InstructionInfo.Rust {
+	[Generator(TargetLanguage.Rust, GeneratorNames.InstrInfoDicts)]
+	sealed class RustDictGenerator {
+		readonly IdentifierConverter idConverter;
+		readonly GeneratorOptions generatorOptions;
 
-		public abstract void Generate(ConstantsType constantsType);
+		public RustDictGenerator(GeneratorOptions generatorOptions) {
+			idConverter = RustIdentifierConverter.Create();
+			this.generatorOptions = generatorOptions;
+		}
 
 		public void Generate() {
-			foreach (var constantsType in allConstants)
-				Generate(constantsType);
+			//TODO:
 		}
 	}
 }

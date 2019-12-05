@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Iced.Intel;
-using Iced.Intel.InstructionInfoInternal;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.InstructionInfoTests {

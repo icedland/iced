@@ -70,6 +70,10 @@ namespace Generator.Constants.CSharp {
 			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo?>();
 			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "DecoderTests", "DecoderTestParser.cs")));
 			toPartialFileInfo.Add(TypeIds.InstrInfoConstants, new PartialConstantsFileInfo("InstrInfoConstants", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs")));
+			toPartialFileInfo.Add(TypeIds.MiscInstrInfoTestConstants, new PartialConstantsFileInfo("MiscConstants", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.InstructionInfoKeys, new PartialConstantsFileInfo("KeysConstants", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.InstructionInfoDecoderOptions, new PartialConstantsFileInfo("DecoderOptionsConstants", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.RflagsBitsConstants, new PartialConstantsFileInfo("RflagsBitsConstants", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
 		}
 
 		public override void Generate(ConstantsType constantsType) {
@@ -126,6 +130,8 @@ namespace Generator.Constants.CSharp {
 
 		string GetType(ConstantKind kind) {
 			switch (kind) {
+			case ConstantKind.Char:
+				return "char";
 			case ConstantKind.String:
 				return "string";
 			case ConstantKind.Int32:
@@ -144,6 +150,10 @@ namespace Generator.Constants.CSharp {
 
 		string GetValue(Constant constant) {
 			switch (constant.Kind) {
+			case ConstantKind.Char:
+				var c = (char)constant.ValueUInt64;
+				return "'" + c.ToString() + "'";
+
 			case ConstantKind.String:
 				if (constant.RefValue is string s)
 					return "\"" + EscapeStringValue(s) + "\"";

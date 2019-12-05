@@ -21,23 +21,17 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants {
-	abstract class ConstantsGenerator {
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
-			DecoderTestParserConstantsType.Instance,
-			DecoderConstantsType.Instance,
-			InstructionInfo.InstructionInfoDecoderOptionsType.Instance,
-			InstructionInfo.InstructionInfoKeysType.Instance,
-			InstructionInfo.MiscInstrInfoTestConstantsType.Instance,
-			InstructionInfo.RflagsBitsConstantsType.Instance,
-		};
+namespace Generator.Constants.InstructionInfo {
+	static class MiscInstrInfoTestConstantsType {
+		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.MiscInstrInfoTestConstants, ConstantsTypeFlags.None, null, GetConstants());
 
-		public abstract void Generate(ConstantsType constantsType);
-
-		public void Generate() {
-			foreach (var constantsType in allConstants)
-				Generate(constantsType);
+		static Constant[] GetConstants() {
+			return new Constant[] {
+				new Constant(ConstantKind.String, "VMM_prefix", "vmm"),
+				// XSP = SP/ESP/RSP depending on stack address size, XBP = BP/EBP/RBP depending on stack address size
+				new Constant(ConstantKind.String, "XSP", "xsp"),
+				new Constant(ConstantKind.String, "XBP", "xbp"),
+			};
 		}
 	}
 }

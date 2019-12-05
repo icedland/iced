@@ -221,6 +221,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					new object[] { MemorySize.Broadcast256_2xBFloat16, 4, 2, MemorySize.BFloat16, 2, MemorySizeFlags.Packed | MemorySizeFlags.Signed | MemorySizeFlags.Broadcast },
 					new object[] { MemorySize.Broadcast512_2xBFloat16, 4, 2, MemorySize.BFloat16, 2, MemorySizeFlags.Packed | MemorySizeFlags.Signed | MemorySizeFlags.Broadcast },
 				};
+				Assert.Equal(IcedConstants.NumberOfMemorySizes, res.Length);
 				for (int i = 0; i < res.Length; i++)
 					Assert.Equal((MemorySize)i, (MemorySize)res[i][0]);
 				return res;

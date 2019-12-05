@@ -71,6 +71,8 @@ namespace Generator.Constants.Rust {
 
 		string GetType(ConstantKind kind) {
 			switch (kind) {
+			case ConstantKind.Char:
+				return "char";
 			case ConstantKind.String:
 				return "&'static str";
 			case ConstantKind.Int32:
@@ -88,6 +90,10 @@ namespace Generator.Constants.Rust {
 
 		string GetValue(Constant constant) {
 			switch (constant.Kind) {
+			case ConstantKind.Char:
+				var c = (char)constant.ValueUInt64;
+				return "'" + c.ToString() + "'";
+
 			case ConstantKind.String:
 				if (constant.RefValue is string s)
 					return "\"" + EscapeStringValue(s) + "\"";

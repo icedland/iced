@@ -21,23 +21,20 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants {
-	abstract class ConstantsGenerator {
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
-			DecoderTestParserConstantsType.Instance,
-			DecoderConstantsType.Instance,
-			InstructionInfo.InstructionInfoDecoderOptionsType.Instance,
-			InstructionInfo.InstructionInfoKeysType.Instance,
-			InstructionInfo.MiscInstrInfoTestConstantsType.Instance,
-			InstructionInfo.RflagsBitsConstantsType.Instance,
+using Generator.Enums;
+using Generator.Enums.InstructionInfo;
+
+namespace Generator.InstructionInfo {
+	sealed class DictConstants {
+		public static readonly (string name, EnumValue value)[] OpAccessConstants = new (string name, EnumValue value)[] {
+			("n", OpAccessEnum.Instance["None"]),
+			("r", OpAccessEnum.Instance["Read"]),
+			("cr", OpAccessEnum.Instance["CondRead"]),
+			("w", OpAccessEnum.Instance["Write"]),
+			("cw", OpAccessEnum.Instance["CondWrite"]),
+			("rw", OpAccessEnum.Instance["ReadWrite"]),
+			("rcw", OpAccessEnum.Instance["ReadCondWrite"]),
+			("nma", OpAccessEnum.Instance["NoMemAccess"]),
 		};
-
-		public abstract void Generate(ConstantsType constantsType);
-
-		public void Generate() {
-			foreach (var constantsType in allConstants)
-				Generate(constantsType);
-		}
 	}
 }

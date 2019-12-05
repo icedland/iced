@@ -80,6 +80,7 @@ namespace Generator.Constants {
 	}
 
 	enum ConstantKind {
+		Char,
 		String,
 		Int32,
 		UInt32,
@@ -99,7 +100,7 @@ namespace Generator.Constants {
 		public bool UseHex { get; }
 		public ConstantsType DeclaringType { get; set; }
 
-		public Constant(ConstantKind kind, string name, object value, ConstantsTypeFlags flags, string? documentation = null) {
+		public Constant(ConstantKind kind, string name, object value, ConstantsTypeFlags flags = ConstantsTypeFlags.None, string? documentation = null) {
 			if (!(value is null) && value.GetType().IsValueType)
 				throw new ArgumentException();
 			DeclaringType = null!;
@@ -112,7 +113,7 @@ namespace Generator.Constants {
 			UseHex = (flags & ConstantsTypeFlags.Hex) != 0;
 		}
 
-		public Constant(ConstantKind kind, string name, ulong value, ConstantsTypeFlags flags, string? documentation = null) {
+		public Constant(ConstantKind kind, string name, ulong value, ConstantsTypeFlags flags = ConstantsTypeFlags.None, string? documentation = null) {
 			DeclaringType = null!;
 			Kind = kind;
 			RawName = name;

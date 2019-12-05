@@ -352,6 +352,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					new object[] { Register.TR6, 6, Register.TR0, Register.TR6, Register.TR6, 4, RegisterFlags.None },
 					new object[] { Register.TR7, 7, Register.TR0, Register.TR7, Register.TR7, 4, RegisterFlags.None },
 				};
+				Assert.Equal(IcedConstants.NumberOfRegisters, res.Length);
 				for (int i = 0; i < res.Length; i++)
 					Assert.Equal((Register)i, (Register)res[i][0]);
 				return res;
