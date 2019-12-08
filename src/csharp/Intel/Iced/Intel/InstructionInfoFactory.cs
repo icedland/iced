@@ -51,7 +51,8 @@ namespace Iced.Intel {
 	}
 
 	/// <summary>
-	/// Creates <see cref="InstructionInfo"/>s but minimizes allocations
+	/// Creates <see cref="InstructionInfo"/>s but minimizes allocations. If you don't need memory and register usage,
+	/// it's faster to call <see cref="Instruction"/> methods/properties, eg. <see cref="Instruction.FlowControl"/>, etc.
 	/// </summary>
 	public sealed class InstructionInfoFactory {
 		const int defaultRegisterArrayCount = 2;
@@ -73,8 +74,8 @@ namespace Iced.Intel {
 		/// Constructor
 		/// </summary>
 		public InstructionInfoFactory() {
-			usedRegisters = new SimpleList<UsedRegister>(new UsedRegister[10]);
-			usedMemoryLocations = new SimpleList<UsedMemory>(new UsedMemory[8]);
+			usedRegisters = new SimpleList<UsedRegister>(new UsedRegister[InstrInfoConstants.DefaultUsedRegisterCollCapacity]);
+			usedMemoryLocations = new SimpleList<UsedMemory>(new UsedMemory[InstrInfoConstants.DefaultUsedMemoryCollCapacity]);
 		}
 
 		/// <summary>
@@ -119,7 +120,7 @@ namespace Iced.Intel {
 
 			OpAccess op0Access;
 			Static.Assert((int)InstrInfoConstants.OpInfo0_Count == 10 ? 0 : -1);
-			switch ((OpInfo0)(flags1 & (uint)InfoFlags1.OpInfo0Mask)) {
+			switch ((OpInfo0)((flags1 >> (int)InfoFlags1.OpInfo0Shift) & (uint)InfoFlags1.OpInfo0Mask)) {
 			default:
 			case OpInfo0.None:
 				op0Access = OpAccess.None;
@@ -174,8 +175,8 @@ namespace Iced.Intel {
 			Debug.Assert(instruction.OpCount <= IcedConstants.MaxOpCount);
 			var accesses = stackalloc OpAccess[IcedConstants.MaxOpCount];
 			accesses[0] = op0Access;
-			var op1info = (OpInfo1)((flags1 >> (int)InfoFlags1.OpInfo1Shift) & (uint)InfoFlags1.OpInfo1Mask);
-			accesses[1] = OpAccesses.Op1[(int)op1info];
+			var op1Info = (OpInfo1)((flags1 >> (int)InfoFlags1.OpInfo1Shift) & (uint)InfoFlags1.OpInfo1Mask);
+			accesses[1] = OpAccesses.Op1[(int)op1Info];
 			accesses[2] = OpAccesses.Op2[(int)((flags1 >> (int)InfoFlags1.OpInfo2Shift) & (uint)InfoFlags1.OpInfo2Mask)];
 			if ((flags1 & (((uint)InfoFlags1.OpInfo3Mask) << (int)InfoFlags1.OpInfo3Shift)) != 0) {
 				Static.Assert((int)InstrInfoConstants.OpInfo3_Count == 2 ? 0 : -1);
@@ -200,7 +201,7 @@ namespace Iced.Intel {
 						accesses[i] = OpAccess.Read;
 					}
 					if ((flags & Flags.NoRegisterUsage) == 0) {
-						if (i == 1 && op1info == OpInfo1.ReadP3) {
+						if (i == 1 && op1Info == OpInfo1.ReadP3) {
 							var reg = instruction.Op1Register;
 							Debug.Assert(Register.XMM0 <= reg && reg <= IcedConstants.VMM_last);
 							reg = IcedConstants.VMM_first + ((reg - IcedConstants.VMM_first) & ~3);
@@ -283,7 +284,7 @@ namespace Iced.Intel {
 				((uint)accesses[3] << (int)InstructionInfo.OpMaskFlags.Op3AccessShift) |
 				((uint)accesses[4] << (int)InstructionInfo.OpMaskFlags.Op4AccessShift));
 			Debug.Assert(((flags2 >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask) <= byte.MaxValue);
-			result.cpuidFeature = (byte)((flags2 >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask);
+			result.cpuidFeatureInternal = (byte)((flags2 >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask);
 			Debug.Assert(((flags2 >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask) <= byte.MaxValue);
 			result.flowControl = (byte)((flags2 >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask);
 			Debug.Assert(((flags2 >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask) <= byte.MaxValue);
@@ -1721,9 +1722,9 @@ namespace Iced.Intel {
 			case CodeInfo.Xsha:
 				Static.Assert(Code.Xsha1_16 + 1 == Code.Xsha1_32 ? 0 : -1);
 				Static.Assert(Code.Xsha1_16 + 2 == Code.Xsha1_64 ? 0 : -1);
-				Static.Assert(Code.Xsha1_16 + 3 == Code.Xsha256_16 ? 0 : -1);
-				Static.Assert(Code.Xsha1_16 + 4 == Code.Xsha256_32 ? 0 : -1);
-				Static.Assert(Code.Xsha1_16 + 5 == Code.Xsha256_64 ? 0 : -1);
+				Static.Assert(Code.Xsha256_16 + 1 == Code.Xsha256_32 ? 0 : -1);
+				Static.Assert(Code.Xsha256_16 + 2 == Code.Xsha256_64 ? 0 : -1);
+				Static.Assert((Code.Xsha256_16 - Code.Xsha1_16) % 3 == 0 ? 0 : -1);
 				Static.Assert(Register.AX + 16 == Register.EAX ? 0 : -1);
 				Static.Assert(Register.AX + 32 == Register.RAX ? 0 : -1);
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
@@ -1764,18 +1765,18 @@ namespace Iced.Intel {
 			case CodeInfo.Xcrypt:
 				Static.Assert(Code.XcryptEcb_16 + 1 == Code.XcryptEcb_32 ? 0 : -1);
 				Static.Assert(Code.XcryptEcb_16 + 2 == Code.XcryptEcb_64 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 3 == Code.XcryptCbc_16 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 4 == Code.XcryptCbc_32 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 5 == Code.XcryptCbc_64 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 6 == Code.XcryptCtr_16 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 7 == Code.XcryptCtr_32 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 8 == Code.XcryptCtr_64 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 9 == Code.XcryptCfb_16 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 10 == Code.XcryptCfb_32 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 11 == Code.XcryptCfb_64 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 12 == Code.XcryptOfb_16 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 13 == Code.XcryptOfb_32 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 14 == Code.XcryptOfb_64 ? 0 : -1);
+				Static.Assert(Code.XcryptCbc_16 + 1 == Code.XcryptCbc_32 ? 0 : -1);
+				Static.Assert(Code.XcryptCbc_16 + 2 == Code.XcryptCbc_64 ? 0 : -1);
+				Static.Assert(Code.XcryptCtr_16 + 1 == Code.XcryptCtr_32 ? 0 : -1);
+				Static.Assert(Code.XcryptCtr_16 + 2 == Code.XcryptCtr_64 ? 0 : -1);
+				Static.Assert(Code.XcryptCfb_16 + 1 == Code.XcryptCfb_32 ? 0 : -1);
+				Static.Assert(Code.XcryptCfb_16 + 2 == Code.XcryptCfb_64 ? 0 : -1);
+				Static.Assert(Code.XcryptOfb_16 + 1 == Code.XcryptOfb_32 ? 0 : -1);
+				Static.Assert(Code.XcryptOfb_16 + 2 == Code.XcryptOfb_64 ? 0 : -1);
+				Static.Assert((Code.XcryptCbc_16 - Code.XcryptEcb_16) % 3 == 0 ? 0 : -1);
+				Static.Assert((Code.XcryptCtr_16 - Code.XcryptEcb_16) % 3 == 0 ? 0 : -1);
+				Static.Assert((Code.XcryptCfb_16 - Code.XcryptEcb_16) % 3 == 0 ? 0 : -1);
+				Static.Assert((Code.XcryptOfb_16 - Code.XcryptEcb_16) % 3 == 0 ? 0 : -1);
 				Static.Assert(Register.AX + 16 == Register.EAX ? 0 : -1);
 				Static.Assert(Register.AX + 32 == Register.RAX ? 0 : -1);
 				if (instruction.Internal_HasRepeOrRepnePrefix) {

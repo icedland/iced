@@ -27,18 +27,18 @@ namespace Generator.Constants.InstructionInfo {
 
 		static Constant[] GetConstants() {
 			return new Constant[] {
-				new Constant(ConstantKind.String, "DecoderOptions_AmdBranches", "amdbr"),
-				new Constant(ConstantKind.String, "DecoderOptions_ForceReservedNop", "forcereservednop"),
-				new Constant(ConstantKind.String, "DecoderOptions_Umov", "umov"),
-				new Constant(ConstantKind.String, "DecoderOptions_Xbts", "xbts"),
-				new Constant(ConstantKind.String, "DecoderOptions_Cmpxchg486A", "cmpxchg486a"),
-				new Constant(ConstantKind.String, "DecoderOptions_OldFpu", "oldfpu"),
-				new Constant(ConstantKind.String, "DecoderOptions_Pcommit", "pcommit"),
-				new Constant(ConstantKind.String, "DecoderOptions_Loadall286", "loadall286"),
-				new Constant(ConstantKind.String, "DecoderOptions_Loadall386", "loadall386"),
-				new Constant(ConstantKind.String, "DecoderOptions_Cl1invmb", "cl1invmb"),
-				new Constant(ConstantKind.String, "DecoderOptions_MovTr", "movtr"),
-				new Constant(ConstantKind.String, "DecoderOptions_Jmpe", "jmpe"),
+				new Constant(ConstantKind.String, "AmdBranches", "amdbr"),
+				new Constant(ConstantKind.String, "ForceReservedNop", "forcereservednop"),
+				new Constant(ConstantKind.String, "Umov", "umov"),
+				new Constant(ConstantKind.String, "Xbts", "xbts"),
+				new Constant(ConstantKind.String, "Cmpxchg486A", "cmpxchg486a"),
+				new Constant(ConstantKind.String, "OldFpu", "oldfpu"),
+				new Constant(ConstantKind.String, "Pcommit", "pcommit"),
+				new Constant(ConstantKind.String, "Loadall286", "loadall286"),
+				new Constant(ConstantKind.String, "Loadall386", "loadall386"),
+				new Constant(ConstantKind.String, "Cl1invmb", "cl1invmb"),
+				new Constant(ConstantKind.String, "MovTr", "movtr"),
+				new Constant(ConstantKind.String, "Jmpe", "jmpe"),
 			};
 		}
 	}

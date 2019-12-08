@@ -111,17 +111,17 @@ impl DecoderOptions {
 	pub const AMD_BRANCHES: u32 = 0x0000_0002;
 	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. `Code::ReservedNop_rm32_r32_0F1D`)
 	pub const FORCE_RESERVED_NOP: u32 = 0x0000_0004;
-	/// Decode `umov` instructions (eg. `Code::Umov_r32_rm32`)
+	/// Decode `UMOV` instructions (eg. `Code::Umov_r32_rm32`)
 	pub const UMOV: u32 = 0x0000_0008;
-	/// Decode `xbts`/`ibts`
+	/// Decode `XBTS`/`IBTS`
 	pub const XBTS: u32 = 0x0000_0010;
-	/// Decode `0FA6`/`0FA7` as `cmpxchg`
+	/// Decode `0FA6`/`0FA7` as `CMPXCHG`
 	pub const CMPXCHG486A: u32 = 0x0000_0020;
-	/// Decode some old removed FPU instructions (eg. `frstpm`)
+	/// Decode some old removed FPU instructions (eg. `FRSTPM`)
 	pub const OLD_FPU: u32 = 0x0000_0040;
 	/// Decode `Code::Pcommit`
 	pub const PCOMMIT: u32 = 0x0000_0080;
-	/// Decode 286 `loadall` (`0F04` and `0F05`)
+	/// Decode 286 `LOADALL` (`0F04` and `0F05`)
 	pub const LOADALL286: u32 = 0x0000_0100;
 	/// Decode `Code::Loadall386`
 	pub const LOADALL386: u32 = 0x0000_0200;
@@ -129,7 +129,7 @@ impl DecoderOptions {
 	pub const CL1INVMB: u32 = 0x0000_0400;
 	/// Decode `Code::Mov_r32_tr` and `Code::Mov_tr_r32`
 	pub const MOV_TR: u32 = 0x0000_0800;
-	/// Decode `jmpe` instructions
+	/// Decode `JMPE` instructions
 	pub const JMPE: u32 = 0x0000_1000;
 	/// Don't decode `Code::Pause`, decode `Code::Nopd`/etc instead
 	pub const NO_PAUSE: u32 = 0x0000_2000;

@@ -83,7 +83,7 @@ fn decode_multiple_instrs_with_one_instance() {
 	let mut instr2 = Instruction::default();
 	for tc in &tests {
 		let bytes = to_vec_u8(tc.hex_bytes()).unwrap();
-		let mut decoder = super::create_decoder(tc.bitness(), &bytes, tc.decoder_options()).0;
+		let mut decoder = create_decoder(tc.bitness(), &bytes, tc.decoder_options()).0;
 		let key = (tc.bitness(), tc.decoder_options());
 		let decoder_all = match tc.bitness() {
 			16 => map16.get_mut(&key).unwrap(),

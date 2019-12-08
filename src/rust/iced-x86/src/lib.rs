@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-//! iced is an x86/x64 disassembler, decoder, encoder written in Rust
+//! iced-x86 is an x86/x64 disassembler, decoder, encoder written in Rust
 
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
 #![allow(unknown_lints)]
@@ -43,7 +43,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", deny(clippy::large_digit_groups))]
 #![cfg_attr(feature = "cargo-clippy", deny(clippy::unimplemented))]
 #![cfg_attr(feature = "cargo-clippy", deny(clippy::used_underscore_binding))]
-//TODO: enable this when https://github.com/rust-lang/rust-clippy/issues/4861 has been fixed
+//TODO: enable this when rustc 1.41.0 has been released
 //#![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_inline_in_public_items))]
 #![deny(absolute_paths_not_starting_with_crate)]
 #![deny(deprecated_in_future)]
@@ -113,8 +113,6 @@ pub use self::enums::*;
 	feature = "ALL_FORMATTERS",
 ))]
 pub use self::formatter::*;
-#[cfg(test)]
-pub(crate) use self::iced_constants::*;
 pub use self::iced_features::*;
 #[cfg(feature = "INSTR_INFO")]
 pub use self::info::*;

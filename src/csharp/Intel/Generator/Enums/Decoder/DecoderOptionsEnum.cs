@@ -36,17 +36,17 @@ namespace Generator.Enums.Decoder {
 			AmdBranches,
 			[Comment("Decode opcodes #(c:0F0D)# and #(c:0F18-0F1F)# as reserved-nop instructions (eg. #(e:Code.ReservedNop_rm32_r32_0F1D)#)")]
 			ForceReservedNop,
-			[Comment("Decode #(c:umov)# instructions (eg. #(e:Code.Umov_r32_rm32)#)")]
+			[Comment("Decode #(c:UMOV)# instructions (eg. #(e:Code.Umov_r32_rm32)#)")]
 			Umov,
-			[Comment("Decode #(c:xbts)#/#(c:ibts)#")]
+			[Comment("Decode #(c:XBTS)#/#(c:IBTS)#")]
 			Xbts,
-			[Comment("Decode #(c:0FA6)#/#(c:0FA7)# as #(c:cmpxchg)#")]
+			[Comment("Decode #(c:0FA6)#/#(c:0FA7)# as #(c:CMPXCHG)#")]
 			Cmpxchg486A,
-			[Comment("Decode some old removed FPU instructions (eg. #(c:frstpm)#)")]
+			[Comment("Decode some old removed FPU instructions (eg. #(c:FRSTPM)#)")]
 			OldFpu,
 			[Comment("Decode #(e:Code.Pcommit)#")]
 			Pcommit,
-			[Comment("Decode 286 #(c:loadall)# (#(c:0F04)# and #(c:0F05)#)")]
+			[Comment("Decode 286 #(c:LOADALL)# (#(c:0F04)# and #(c:0F05)#)")]
 			Loadall286,
 			[Comment("Decode #(e:Code.Loadall386)#")]
 			Loadall386,
@@ -54,7 +54,7 @@ namespace Generator.Enums.Decoder {
 			Cl1invmb,
 			[Comment("Decode #(e:Code.Mov_r32_tr)# and #(e:Code.Mov_tr_r32)#")]
 			MovTr,
-			[Comment("Decode #(c:jmpe)# instructions")]
+			[Comment("Decode #(c:JMPE)# instructions")]
 			Jmpe,
 			[Comment("Don't decode #(e:Code.Pause)#, decode #(e:Code.Nopd)#/etc instead")]
 			NoPause,

@@ -202,36 +202,36 @@ impl InstructionInfoKeys {
 lazy_static! {
 	pub(super) static ref TO_INSTRUCTION_INFO_DECODER_OPTIONS: HashMap<&'static str, u32> = {
 		let mut h = HashMap::with_capacity(12);
-		let _ = h.insert("amdbr", InstructionInfoDecoderOptions::DECODER_OPTIONS_AMD_BRANCHES);
-		let _ = h.insert("forcereservednop", InstructionInfoDecoderOptions::DECODER_OPTIONS_FORCE_RESERVED_NOP);
-		let _ = h.insert("umov", InstructionInfoDecoderOptions::DECODER_OPTIONS_UMOV);
-		let _ = h.insert("xbts", InstructionInfoDecoderOptions::DECODER_OPTIONS_XBTS);
-		let _ = h.insert("cmpxchg486a", InstructionInfoDecoderOptions::DECODER_OPTIONS_CMPXCHG486A);
-		let _ = h.insert("oldfpu", InstructionInfoDecoderOptions::DECODER_OPTIONS_OLD_FPU);
-		let _ = h.insert("pcommit", InstructionInfoDecoderOptions::DECODER_OPTIONS_PCOMMIT);
-		let _ = h.insert("loadall286", InstructionInfoDecoderOptions::DECODER_OPTIONS_LOADALL286);
-		let _ = h.insert("loadall386", InstructionInfoDecoderOptions::DECODER_OPTIONS_LOADALL386);
-		let _ = h.insert("cl1invmb", InstructionInfoDecoderOptions::DECODER_OPTIONS_CL1INVMB);
-		let _ = h.insert("movtr", InstructionInfoDecoderOptions::DECODER_OPTIONS_MOV_TR);
-		let _ = h.insert("jmpe", InstructionInfoDecoderOptions::DECODER_OPTIONS_JMPE);
+		let _ = h.insert("amdbr", InstructionInfoDecoderOptions::AMD_BRANCHES);
+		let _ = h.insert("forcereservednop", InstructionInfoDecoderOptions::FORCE_RESERVED_NOP);
+		let _ = h.insert("umov", InstructionInfoDecoderOptions::UMOV);
+		let _ = h.insert("xbts", InstructionInfoDecoderOptions::XBTS);
+		let _ = h.insert("cmpxchg486a", InstructionInfoDecoderOptions::CMPXCHG486A);
+		let _ = h.insert("oldfpu", InstructionInfoDecoderOptions::OLD_FPU);
+		let _ = h.insert("pcommit", InstructionInfoDecoderOptions::PCOMMIT);
+		let _ = h.insert("loadall286", InstructionInfoDecoderOptions::LOADALL286);
+		let _ = h.insert("loadall386", InstructionInfoDecoderOptions::LOADALL386);
+		let _ = h.insert("cl1invmb", InstructionInfoDecoderOptions::CL1INVMB);
+		let _ = h.insert("movtr", InstructionInfoDecoderOptions::MOV_TR);
+		let _ = h.insert("jmpe", InstructionInfoDecoderOptions::JMPE);
 		h
 	};
 }
 
 pub(crate) struct InstructionInfoDecoderOptions;
 impl InstructionInfoDecoderOptions {
-	pub(crate) const DECODER_OPTIONS_AMD_BRANCHES: u32 = 0;
-	pub(crate) const DECODER_OPTIONS_FORCE_RESERVED_NOP: u32 = 1;
-	pub(crate) const DECODER_OPTIONS_UMOV: u32 = 2;
-	pub(crate) const DECODER_OPTIONS_XBTS: u32 = 3;
-	pub(crate) const DECODER_OPTIONS_CMPXCHG486A: u32 = 4;
-	pub(crate) const DECODER_OPTIONS_OLD_FPU: u32 = 5;
-	pub(crate) const DECODER_OPTIONS_PCOMMIT: u32 = 6;
-	pub(crate) const DECODER_OPTIONS_LOADALL286: u32 = 7;
-	pub(crate) const DECODER_OPTIONS_LOADALL386: u32 = 8;
-	pub(crate) const DECODER_OPTIONS_CL1INVMB: u32 = 9;
-	pub(crate) const DECODER_OPTIONS_MOV_TR: u32 = 10;
-	pub(crate) const DECODER_OPTIONS_JMPE: u32 = 11;
+	pub(crate) const AMD_BRANCHES: u32 = 0;
+	pub(crate) const FORCE_RESERVED_NOP: u32 = 1;
+	pub(crate) const UMOV: u32 = 2;
+	pub(crate) const XBTS: u32 = 3;
+	pub(crate) const CMPXCHG486A: u32 = 4;
+	pub(crate) const OLD_FPU: u32 = 5;
+	pub(crate) const PCOMMIT: u32 = 6;
+	pub(crate) const LOADALL286: u32 = 7;
+	pub(crate) const LOADALL386: u32 = 8;
+	pub(crate) const CL1INVMB: u32 = 9;
+	pub(crate) const MOV_TR: u32 = 10;
+	pub(crate) const JMPE: u32 = 11;
 }
 // GENERATOR-END: DecoderOptionsConstants
 
@@ -292,6 +292,7 @@ impl IntoIter {
 
 		let mut tc: InstrInfoTestCase = InstrInfoTestCase::default();
 		tc.line_number = line_number;
+		tc.bitness = self.bitness;
 
 		tc.hex_bytes = elems[0].trim().to_string();
 		let _ = to_vec_u8(&tc.hex_bytes)?;
@@ -301,7 +302,7 @@ impl IntoIter {
 
 		tc.cpuid_features = Vec::with_capacity(cpuid_feature_coll.len());
 		for s in cpuid_feature_coll {
-			tc.cpuid_features.push(to_cpuid_feature(s)?);
+			tc.cpuid_features.push(to_cpuid_features(s)?);
 		}
 
 		for kv in elems[4].split(' ') {
@@ -541,18 +542,18 @@ impl IntoIter {
 		let mut decoder_options = 0;
 		for option_str in value.split(';') {
 			match *(*TO_INSTRUCTION_INFO_DECODER_OPTIONS).get(option_str).unwrap_or(&u32::MAX) {
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_AMD_BRANCHES => decoder_options |= DecoderOptions::AMD_BRANCHES,
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_FORCE_RESERVED_NOP => decoder_options |= DecoderOptions::FORCE_RESERVED_NOP,
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_UMOV => decoder_options |= DecoderOptions::UMOV,
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_XBTS => decoder_options |= DecoderOptions::XBTS,
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_CMPXCHG486A => decoder_options |= DecoderOptions::CMPXCHG486A,
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_OLD_FPU => decoder_options |= DecoderOptions::OLD_FPU,
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_PCOMMIT => decoder_options |= DecoderOptions::PCOMMIT,
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_LOADALL286 => decoder_options |= DecoderOptions::LOADALL286,
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_LOADALL386 => decoder_options |= DecoderOptions::LOADALL386,
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_CL1INVMB => decoder_options |= DecoderOptions::CL1INVMB,
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_MOV_TR => decoder_options |= DecoderOptions::MOV_TR,
-				InstructionInfoDecoderOptions::DECODER_OPTIONS_JMPE => decoder_options |= DecoderOptions::JMPE,
+				InstructionInfoDecoderOptions::AMD_BRANCHES => decoder_options |= DecoderOptions::AMD_BRANCHES,
+				InstructionInfoDecoderOptions::FORCE_RESERVED_NOP => decoder_options |= DecoderOptions::FORCE_RESERVED_NOP,
+				InstructionInfoDecoderOptions::UMOV => decoder_options |= DecoderOptions::UMOV,
+				InstructionInfoDecoderOptions::XBTS => decoder_options |= DecoderOptions::XBTS,
+				InstructionInfoDecoderOptions::CMPXCHG486A => decoder_options |= DecoderOptions::CMPXCHG486A,
+				InstructionInfoDecoderOptions::OLD_FPU => decoder_options |= DecoderOptions::OLD_FPU,
+				InstructionInfoDecoderOptions::PCOMMIT => decoder_options |= DecoderOptions::PCOMMIT,
+				InstructionInfoDecoderOptions::LOADALL286 => decoder_options |= DecoderOptions::LOADALL286,
+				InstructionInfoDecoderOptions::LOADALL386 => decoder_options |= DecoderOptions::LOADALL386,
+				InstructionInfoDecoderOptions::CL1INVMB => decoder_options |= DecoderOptions::CL1INVMB,
+				InstructionInfoDecoderOptions::MOV_TR => decoder_options |= DecoderOptions::MOV_TR,
+				InstructionInfoDecoderOptions::JMPE => decoder_options |= DecoderOptions::JMPE,
 				_ => return Err(format!("Invalid decoder options: {}", option_str)),
 			}
 		}

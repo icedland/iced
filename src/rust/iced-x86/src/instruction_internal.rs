@@ -56,19 +56,19 @@ pub(crate) fn internal_set_len(this: &mut Instruction, new_value: u32) {
 
 #[cfg_attr(has_must_use, must_use)]
 #[inline]
-pub(crate) fn internal_has_repe_prefix_has_xrelease_prefix(this: &mut Instruction) -> bool {
+pub(crate) fn internal_has_repe_prefix_has_xrelease_prefix(this: &Instruction) -> bool {
 	(this.code_flags & (CodeFlags::REPE_PREFIX | CodeFlags::XRELEASE_PREFIX)) != 0
 }
 
 #[cfg_attr(has_must_use, must_use)]
 #[inline]
-pub(crate) fn internal_has_repne_prefix_has_xacquire_prefix(this: &mut Instruction) -> bool {
+pub(crate) fn internal_has_repne_prefix_has_xacquire_prefix(this: &Instruction) -> bool {
 	(this.code_flags & (CodeFlags::REPNE_PREFIX | CodeFlags::XACQUIRE_PREFIX)) != 0
 }
 
 #[cfg_attr(has_must_use, must_use)]
 #[inline]
-pub(crate) fn internal_has_repe_or_repne_prefix(this: &mut Instruction) -> bool {
+pub(crate) fn internal_has_repe_or_repne_prefix(this: &Instruction) -> bool {
 	(this.code_flags & (CodeFlags::REPE_PREFIX | CodeFlags::REPNE_PREFIX)) != 0
 }
 
@@ -119,7 +119,7 @@ pub(crate) fn internal_set_op0_kind(this: &mut Instruction, new_value: OpKind) {
 
 #[cfg_attr(has_must_use, must_use)]
 #[inline]
-pub(crate) fn internal_op0_is_not_reg_or_op0_is_not_reg(this: &mut Instruction) -> bool {
+pub(crate) fn internal_op0_is_not_reg_or_op0_is_not_reg(this: &Instruction) -> bool {
 	(this.op_kind_flags & (OpKindFlags::OP_KIND_MASK | (OpKindFlags::OP_KIND_MASK << OpKindFlags::OP1_KIND_SHIFT))) != 0
 }
 
@@ -267,7 +267,7 @@ pub(crate) fn internal_set_op3_register_u32(this: &mut Instruction, new_value: u
 
 #[cfg_attr(has_must_use, must_use)]
 #[inline]
-pub(crate) fn internal_op_mask(this: &mut Instruction) -> u32 {
+pub(crate) fn internal_op_mask(this: &Instruction) -> u32 {
 	(this.code_flags >> CodeFlags::OP_MASK_SHIFT) & CodeFlags::OP_MASK_MASK
 }
 

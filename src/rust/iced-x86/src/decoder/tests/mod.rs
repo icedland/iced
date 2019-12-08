@@ -34,7 +34,6 @@ use self::decoder_test_case::*;
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
-use std::cmp;
 
 #[test]
 fn decode_16() {
@@ -76,13 +75,6 @@ fn decode_misc(bitness: u32) {
 	for info in test_cases::get_misc_test_cases(bitness).iter() {
 		decode_test(bitness, info);
 	}
-}
-
-fn create_decoder<'a>(bitness: u32, bytes: &'a [u8], options: u32) -> (Decoder<'a>, usize, bool) {
-	let mut decoder = Decoder::new(bitness, bytes, options);
-	decoder.set_ip(get_default_ip(bitness));
-	let len = cmp::min(IcedConstants::MAX_INSTRUCTION_LENGTH as usize, bytes.len());
-	(decoder, len, len < bytes.len())
 }
 
 fn decode_test(bitness: u32, tc: &DecoderTestCase) {

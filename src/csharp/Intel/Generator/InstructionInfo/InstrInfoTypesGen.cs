@@ -328,6 +328,9 @@ namespace Generator.InstructionInfo {
 			var enumRflagsInfo = this.enumRflagsInfo ?? throw new InvalidOperationException();
 			constants.Add(new Constant(ConstantKind.Int32, enumRflagsInfo.RawName + "_Count", (uint)enumRflagsInfo.Values.Length, ConstantsTypeFlags.None));
 
+			constants.Add(new Constant(ConstantKind.Int32, "DefaultUsedRegisterCollCapacity", 10, ConstantsTypeFlags.None));
+			constants.Add(new Constant(ConstantKind.Int32, "DefaultUsedMemoryCollCapacity", 8, ConstantsTypeFlags.None));
+
 			instrInfoConstants = new ConstantsType(TypeIds.InstrInfoConstants, ConstantsTypeFlags.None, null, constants.ToArray());
 		}
 	}

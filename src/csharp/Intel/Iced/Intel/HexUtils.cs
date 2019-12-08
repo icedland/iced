@@ -31,7 +31,12 @@ namespace Iced.Intel {
 				throw new ArgumentNullException(nameof(hexData));
 			if (hexData.Length == 0)
 				return Array2.Empty<byte>();
-			var data = new byte[hexData.Length / 2];
+			int len = 0;
+			for (int i = 0; i < hexData.Length; i++) {
+				if (hexData[i] != ' ')
+					len++;
+			}
+			var data = new byte[len / 2];
 			int w = 0;
 			for (int i = 0; ;) {
 				while (i < hexData.Length && char.IsWhiteSpace(hexData[i]))
@@ -52,17 +57,17 @@ namespace Iced.Intel {
 				data[w++] = (byte)((hi << 4) | lo);
 			}
 			if (w != data.Length)
-				Array.Resize(ref data, w);
+				throw new InvalidOperationException();
 			return data;
 		}
 
 		static int TryParseHexChar(char c) {
 			if ('0' <= c && c <= '9')
 				return c - '0';
-			if ('a' <= c && c <= 'f')
-				return c - 'a' + 10;
 			if ('A' <= c && c <= 'F')
 				return c - 'A' + 10;
+			if ('a' <= c && c <= 'f')
+				return c - 'a' + 10;
 			return -1;
 		}
 	}

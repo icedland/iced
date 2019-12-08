@@ -26,6 +26,7 @@ use super::super::super::*;
 #[derive(Default)]
 pub(crate) struct InstrInfoTestCase {
 	pub(crate) line_number: u32,
+	pub(crate) bitness: u32,
 	pub(crate) hex_bytes: String,
 	pub(crate) code: Code,
 	pub(crate) decoder_options: u32,

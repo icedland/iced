@@ -283,40 +283,40 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		static bool TryParseDecoderOptions(string[] stringOptions, ref DecoderOptions options) {
 			foreach (var opt in stringOptions) {
 				switch (opt.Trim().ToLowerInvariant()) {
-				case InstructionInfoDecoderOptions.DecoderOptions_AmdBranches:
+				case InstructionInfoDecoderOptions.AmdBranches:
 					options |= DecoderOptions.AmdBranches;
 					break;
-				case InstructionInfoDecoderOptions.DecoderOptions_ForceReservedNop:
+				case InstructionInfoDecoderOptions.ForceReservedNop:
 					options |= DecoderOptions.ForceReservedNop;
 					break;
-				case InstructionInfoDecoderOptions.DecoderOptions_Umov:
+				case InstructionInfoDecoderOptions.Umov:
 					options |= DecoderOptions.Umov;
 					break;
-				case InstructionInfoDecoderOptions.DecoderOptions_Xbts:
+				case InstructionInfoDecoderOptions.Xbts:
 					options |= DecoderOptions.Xbts;
 					break;
-				case InstructionInfoDecoderOptions.DecoderOptions_Cmpxchg486A:
+				case InstructionInfoDecoderOptions.Cmpxchg486A:
 					options |= DecoderOptions.Cmpxchg486A;
 					break;
-				case InstructionInfoDecoderOptions.DecoderOptions_OldFpu:
+				case InstructionInfoDecoderOptions.OldFpu:
 					options |= DecoderOptions.OldFpu;
 					break;
-				case InstructionInfoDecoderOptions.DecoderOptions_Pcommit:
+				case InstructionInfoDecoderOptions.Pcommit:
 					options |= DecoderOptions.Pcommit;
 					break;
-				case InstructionInfoDecoderOptions.DecoderOptions_Loadall286:
+				case InstructionInfoDecoderOptions.Loadall286:
 					options |= DecoderOptions.Loadall286;
 					break;
-				case InstructionInfoDecoderOptions.DecoderOptions_Loadall386:
+				case InstructionInfoDecoderOptions.Loadall386:
 					options |= DecoderOptions.Loadall386;
 					break;
-				case InstructionInfoDecoderOptions.DecoderOptions_Cl1invmb:
+				case InstructionInfoDecoderOptions.Cl1invmb:
 					options |= DecoderOptions.Cl1invmb;
 					break;
-				case InstructionInfoDecoderOptions.DecoderOptions_MovTr:
+				case InstructionInfoDecoderOptions.MovTr:
 					options |= DecoderOptions.MovTr;
 					break;
-				case InstructionInfoDecoderOptions.DecoderOptions_Jmpe:
+				case InstructionInfoDecoderOptions.Jmpe:
 					options |= DecoderOptions.Jmpe;
 					break;
 				default:

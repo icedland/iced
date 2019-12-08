@@ -424,7 +424,7 @@ namespace Iced.Intel {
 		internal void InternalClearHasLockPrefix() => codeFlags &= ~(uint)CodeFlags.LockPrefix;
 
 		/// <summary>
-		/// Gets operand #0's kind if the operand exists (see <see cref="OpCount"/>)
+		/// Gets operand #0's kind if the operand exists (see <see cref="OpCount"/> and <see cref="GetOpKind(int)"/>)
 		/// </summary>
 		public OpKind Op0Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -442,7 +442,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #1's kind if the operand exists (see <see cref="OpCount"/>)
+		/// Gets operand #1's kind if the operand exists (see <see cref="OpCount"/> and <see cref="GetOpKind(int)"/>)
 		/// </summary>
 		public OpKind Op1Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -457,7 +457,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #2's kind if the operand exists (see <see cref="OpCount"/>)
+		/// Gets operand #2's kind if the operand exists (see <see cref="OpCount"/> and <see cref="GetOpKind(int)"/>)
 		/// </summary>
 		public OpKind Op2Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -472,7 +472,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #3's kind if the operand exists (see <see cref="OpCount"/>)
+		/// Gets operand #3's kind if the operand exists (see <see cref="OpCount"/> and <see cref="GetOpKind(int)"/>)
 		/// </summary>
 		public OpKind Op3Kind {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -487,7 +487,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #4's kind if the operand exists (see <see cref="OpCount"/>)
+		/// Gets operand #4's kind if the operand exists (see <see cref="OpCount"/> and <see cref="GetOpKind(int)"/>)
 		/// </summary>
 		public OpKind Op4Kind {
 			readonly get => OpKind.Immediate8;
@@ -980,7 +980,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #0's register value. Use this property if operand #0 (<see cref="Op0Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #0's register value. Use this property if operand #0 (<see cref="Op0Kind"/>) has kind <see cref="OpKind.Register"/>, see <see cref="OpCount"/> and <see cref="GetOpRegister(int)"/>
 		/// </summary>
 		public Register Op0Register {
 			readonly get => (Register)reg0;
@@ -991,7 +991,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #1's register value. Use this property if operand #1 (<see cref="Op1Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #1's register value. Use this property if operand #1 (<see cref="Op1Kind"/>) has kind <see cref="OpKind.Register"/>, see <see cref="OpCount"/> and <see cref="GetOpRegister(int)"/>
 		/// </summary>
 		public Register Op1Register {
 			readonly get => (Register)reg1;
@@ -1002,7 +1002,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #2's register value. Use this property if operand #2 (<see cref="Op2Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #2's register value. Use this property if operand #2 (<see cref="Op2Kind"/>) has kind <see cref="OpKind.Register"/>, see <see cref="OpCount"/> and <see cref="GetOpRegister(int)"/>
 		/// </summary>
 		public Register Op2Register {
 			readonly get => (Register)reg2;
@@ -1013,7 +1013,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #3's register value. Use this property if operand #3 (<see cref="Op3Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #3's register value. Use this property if operand #3 (<see cref="Op3Kind"/>) has kind <see cref="OpKind.Register"/>, see <see cref="OpCount"/> and <see cref="GetOpRegister(int)"/>
 		/// </summary>
 		public Register Op3Register {
 			readonly get => (Register)reg3;
@@ -1024,7 +1024,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets operand #4's register value. Use this property if operand #4 (<see cref="Op4Kind"/>) has kind <see cref="OpKind.Register"/>
+		/// Gets operand #4's register value. Use this property if operand #4 (<see cref="Op4Kind"/>) has kind <see cref="OpKind.Register"/>, see <see cref="OpCount"/> and <see cref="GetOpRegister(int)"/>
 		/// </summary>
 		public Register Op4Register {
 			readonly get => Register.None;

@@ -441,7 +441,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets operand #0's kind if the operand exists (see `op_count()`)
+	/// Gets operand #0's kind if the operand exists (see `op_count()` and `op_kind()`)
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op0_kind(&self) -> OpKind {
@@ -449,7 +449,7 @@ impl Instruction {
 		unsafe { mem::transmute((self.op_kind_flags & OpKindFlags::OP_KIND_MASK) as u8) }
 	}
 
-	/// Sets operand #0's kind if the operand exists (see `op_count()`)
+	/// Sets operand #0's kind if the operand exists (see `op_count()` and `set_op_kind()`)
 	///
 	/// # Arguments
 	///
@@ -459,7 +459,7 @@ impl Instruction {
 		self.op_kind_flags = (self.op_kind_flags & !OpKindFlags::OP_KIND_MASK) | ((new_value as u32) & OpKindFlags::OP_KIND_MASK);
 	}
 
-	/// Gets operand #1's kind if the operand exists (see `op_count()`)
+	/// Gets operand #1's kind if the operand exists (see `op_count()` and `op_kind()`)
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op1_kind(&self) -> OpKind {
@@ -467,7 +467,7 @@ impl Instruction {
 		unsafe { mem::transmute(((self.op_kind_flags >> OpKindFlags::OP1_KIND_SHIFT) & OpKindFlags::OP_KIND_MASK) as u8) }
 	}
 
-	/// Sets operand #1's kind if the operand exists (see `op_count()`)
+	/// Sets operand #1's kind if the operand exists (see `op_count()` and `set_op_kind()`)
 	///
 	/// # Arguments
 	///
@@ -478,7 +478,7 @@ impl Instruction {
 			| (((new_value as u32) & OpKindFlags::OP_KIND_MASK) << OpKindFlags::OP1_KIND_SHIFT);
 	}
 
-	/// Gets operand #2's kind if the operand exists (see `op_count()`)
+	/// Gets operand #2's kind if the operand exists (see `op_count()` and `op_kind()`)
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op2_kind(&self) -> OpKind {
@@ -486,7 +486,7 @@ impl Instruction {
 		unsafe { mem::transmute(((self.op_kind_flags >> OpKindFlags::OP2_KIND_SHIFT) & OpKindFlags::OP_KIND_MASK) as u8) }
 	}
 
-	/// Sets operand #2's kind if the operand exists (see `op_count()`)
+	/// Sets operand #2's kind if the operand exists (see `op_count()` and `set_op_kind()`)
 	///
 	/// # Arguments
 	///
@@ -497,7 +497,7 @@ impl Instruction {
 			| (((new_value as u32) & OpKindFlags::OP_KIND_MASK) << OpKindFlags::OP2_KIND_SHIFT);
 	}
 
-	/// Gets operand #3's kind if the operand exists (see `op_count()`)
+	/// Gets operand #3's kind if the operand exists (see `op_count()` and `op_kind()`)
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op3_kind(&self) -> OpKind {
@@ -505,7 +505,7 @@ impl Instruction {
 		unsafe { mem::transmute(((self.op_kind_flags >> OpKindFlags::OP3_KIND_SHIFT) & OpKindFlags::OP_KIND_MASK) as u8) }
 	}
 
-	/// Sets operand #3's kind if the operand exists (see `op_count()`)
+	/// Sets operand #3's kind if the operand exists (see `op_count()` and `set_op_kind()`)
 	///
 	/// # Arguments
 	///
@@ -516,14 +516,14 @@ impl Instruction {
 			| (((new_value as u32) & OpKindFlags::OP_KIND_MASK) << OpKindFlags::OP3_KIND_SHIFT);
 	}
 
-	/// Gets operand #4's kind if the operand exists (see `op_count()`)
+	/// Gets operand #4's kind if the operand exists (see `op_count()` and `op_kind()`)
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op4_kind(&self) -> OpKind {
 		OpKind::Immediate8
 	}
 
-	/// Sets operand #4's kind if the operand exists (see `op_count()`)
+	/// Sets operand #4's kind if the operand exists (see `op_count()` and `set_op_kind()`)
 	///
 	/// # Panics
 	///
@@ -1194,7 +1194,7 @@ impl Instruction {
 		self.mem_index_reg = new_value as u8;
 	}
 
-	/// Gets operand #0's register value. Use this property if operand #0 (`op0_kind()`) has kind `OpKind::Register`
+	/// Gets operand #0's register value. Use this property if operand #0 (`op0_kind()`) has kind `OpKind::Register`, see `op_count()` and `op_register()`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op0_register(&self) -> Register {
@@ -1202,7 +1202,7 @@ impl Instruction {
 		unsafe { mem::transmute(self.reg0) }
 	}
 
-	/// Sets operand #0's register value. Use this property if operand #0 (`op0_kind()`) has kind `OpKind::Register`
+	/// Sets operand #0's register value. Use this property if operand #0 (`op0_kind()`) has kind `OpKind::Register`, see `op_count()` and `set_op_register()`
 	///
 	/// # Arguments
 	///
@@ -1212,7 +1212,7 @@ impl Instruction {
 		self.reg0 = new_value as u8;
 	}
 
-	/// Gets operand #1's register value. Use this property if operand #1 (`op1_kind()`) has kind `OpKind::Register`
+	/// Gets operand #1's register value. Use this property if operand #1 (`op1_kind()`) has kind `OpKind::Register`, see `op_count()` and `op_register()`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op1_register(&self) -> Register {
@@ -1220,7 +1220,7 @@ impl Instruction {
 		unsafe { mem::transmute(self.reg1) }
 	}
 
-	/// Sets operand #1's register value. Use this property if operand #1 (`op1_kind()`) has kind `OpKind::Register`
+	/// Sets operand #1's register value. Use this property if operand #1 (`op1_kind()`) has kind `OpKind::Register`, see `op_count()` and `set_op_register()`
 	///
 	/// # Arguments
 	///
@@ -1230,7 +1230,7 @@ impl Instruction {
 		self.reg1 = new_value as u8;
 	}
 
-	/// Gets operand #2's register value. Use this property if operand #2 (`op2_kind()`) has kind `OpKind::Register`
+	/// Gets operand #2's register value. Use this property if operand #2 (`op2_kind()`) has kind `OpKind::Register`, see `op_count()` and `op_register()`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op2_register(&self) -> Register {
@@ -1238,7 +1238,7 @@ impl Instruction {
 		unsafe { mem::transmute(self.reg2) }
 	}
 
-	/// Sets operand #2's register value. Use this property if operand #2 (`op2_kind()`) has kind `OpKind::Register`
+	/// Sets operand #2's register value. Use this property if operand #2 (`op2_kind()`) has kind `OpKind::Register`, see `op_count()` and `set_op_register()`
 	///
 	/// # Arguments
 	///
@@ -1248,7 +1248,7 @@ impl Instruction {
 		self.reg2 = new_value as u8;
 	}
 
-	/// Gets operand #3's register value. Use this property if operand #3 (`op3_kind()`) has kind `OpKind::Register`
+	/// Gets operand #3's register value. Use this property if operand #3 (`op3_kind()`) has kind `OpKind::Register`, see `op_count()` and `op_register()`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op3_register(&self) -> Register {
@@ -1256,7 +1256,7 @@ impl Instruction {
 		unsafe { mem::transmute(self.reg3) }
 	}
 
-	/// Sets operand #3's register value. Use this property if operand #3 (`op3_kind()`) has kind `OpKind::Register`
+	/// Sets operand #3's register value. Use this property if operand #3 (`op3_kind()`) has kind `OpKind::Register`, see `op_count()` and `set_op_register()`
 	///
 	/// # Arguments
 	///
@@ -1266,14 +1266,14 @@ impl Instruction {
 		self.reg3 = new_value as u8;
 	}
 
-	/// Gets operand #4's register value. Use this property if operand #4 (`op4_kind()`) has kind `OpKind::Register`
+	/// Gets operand #4's register value. Use this property if operand #4 (`op4_kind()`) has kind `OpKind::Register`, see `op_count()` and `op_register()`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op4_register(&self) -> Register {
 		Register::None
 	}
 
-	/// Sets operand #4's register value. Use this property if operand #4 (`op4_kind()`) has kind `OpKind::Register`
+	/// Sets operand #4's register value. Use this property if operand #4 (`op4_kind()`) has kind `OpKind::Register`, see `op_count()` and `set_op_register()`
 	///
 	/// # Panics
 	///
@@ -1985,7 +1985,10 @@ impl Instruction {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn virtual_address(&self, operand: u32, element_index: u32, get_register_value: fn(Register, u32, u32) -> u64) -> u64 {
+	pub fn virtual_address<F>(&self, operand: u32, element_index: u32, get_register_value: F) -> u64
+	where
+		F: Fn(Register, u32, u32) -> u64,
+	{
 		match self.op_kind(operand) {
 			OpKind::Register
 			| OpKind::NearBranch16
@@ -2176,10 +2179,38 @@ impl Instruction {
 		}
 	}
 
-	//TODO: public readonly InstructionInfo GetInfo() {
-	//TODO: public readonly InstructionInfo GetInfo(InstructionInfoOptions options) {
-	//TODO: public readonly InstructionInfo.UsedRegisterIterator GetUsedRegisters() {
-	//TODO: public readonly InstructionInfo.UsedMemoryIterator GetUsedMemory() {
+	// InstructionInfoFactory should be used, these are slower so they're only enabled for the tests
+	#[cfg(test)]
+	#[inline]
+	pub(crate) fn info(&self) -> InstructionInfo {
+		self.info_options(0)
+	}
+
+	#[cfg(test)]
+	#[inline]
+	pub(crate) fn info_options(&self, options: u32) -> InstructionInfo {
+		let mut info = InstructionInfo::create(options);
+		self::info::InstructionInfoFactory::create(&mut info, self, options);
+		info
+	}
+
+	#[cfg(test)]
+	#[inline]
+	pub(crate) fn used_registers(&self) -> Vec<UsedRegister> {
+		const OPTIONS: u32 = 0;
+		let mut info = InstructionInfo::create(OPTIONS);
+		self::info::InstructionInfoFactory::create(&mut info, self, OPTIONS);
+		info.used_registers
+	}
+
+	#[cfg(test)]
+	#[inline]
+	pub(crate) fn used_memory(&self) -> Vec<UsedMemory> {
+		const OPTIONS: u32 = 0;
+		let mut info = InstructionInfo::create(OPTIONS);
+		self::info::InstructionInfoFactory::create(&mut info, self, OPTIONS);
+		info.used_memory_locations
+	}
 
 	/// Instruction encoding, eg. legacy, VEX, EVEX, ...
 	///

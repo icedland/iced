@@ -29,7 +29,7 @@ using Iced.Intel.InstructionInfoInternal;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// Contains information about an instruction, eg. read/written registers, read/written RFLAGS bits, CPUID feature bit, etc
+	/// Contains information about an instruction, eg. read/written registers, read/written <c>RFLAGS</c> bits, <c>CPUID</c> feature bit, etc
 	/// </summary>
 	public struct InstructionInfo {
 		internal UsedRegister[] usedRegisters;
@@ -37,7 +37,7 @@ namespace Iced.Intel {
 		internal ushort usedRegistersLength;
 		internal ushort usedMemoryLocationsLength;
 		internal ushort opMaskFlags;
-		internal byte cpuidFeature;
+		internal byte cpuidFeatureInternal;
 		internal byte flowControl;
 		internal byte encoding;
 		internal byte rflagsInfo;
@@ -61,17 +61,17 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets a struct iterator that returns all read and written registers. There are some exceptions, this method doesn't return all used registers:
+		/// Gets a struct iterator that returns all accessed registers. There are some exceptions, this method doesn't return all used registers:
 		/// 
 		/// 1) If <see cref="IsSaveRestoreInstruction"/> is true, or
 		/// 
-		/// 2) If it's a <see cref="FlowControl.Call"/> or <see cref="FlowControl.Interrupt"/> instruction (call, sysenter, int n etc), it can read and write any register (including RFLAGS).
+		/// 2) If it's a <see cref="FlowControl.Call"/> or <see cref="FlowControl.Interrupt"/> instruction (<c>CALL</c>, <c>SYSENTER</c>, <c>INT n</c> etc), since the called method can read and write any register (including <c>RFLAGS</c>).
 		/// </summary>
 		/// <returns></returns>
 		public readonly UsedRegisterIterator GetUsedRegisters() => new UsedRegisterIterator(usedRegisters, usedRegistersLength);
 
 		/// <summary>
-		/// Gets a struct iterator that returns all read and written memory locations
+		/// Gets a struct iterator that returns all accessed memory locations
 		/// </summary>
 		/// <returns></returns>
 		public readonly UsedMemoryIterator GetUsedMemory() => new UsedMemoryIterator(usedMemoryLocations, usedMemoryLocationsLength);
@@ -145,13 +145,13 @@ namespace Iced.Intel {
 		public readonly bool IsPrivileged => (flags & (uint)Flags.Privileged) != 0;
 
 		/// <summary>
-		/// true if this is an instruction that implicitly uses the stack pointer (SP/ESP/RSP), eg. call, push, pop, ret, etc.
+		/// true if this is an instruction that implicitly uses the stack pointer (<c>SP</c>/<c>ESP</c>/<c>RSP</c>), eg. <c>CALL</c>, <c>PUSH</c>, <c>POP</c>, <c>RET</c>, etc.
 		/// See also <see cref="Instruction.StackPointerIncrement"/>
 		/// </summary>
 		public readonly bool IsStackInstruction => (flags & (uint)Flags.StackInstruction) != 0;
 
 		/// <summary>
-		/// true if it's an instruction that saves or restores too many registers (eg. fxrstor, xsave, etc).
+		/// true if it's an instruction that saves or restores too many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
 		/// <see cref="GetUsedRegisters"/> won't return all read/written registers.
 		/// </summary>
 		public readonly bool IsSaveRestoreInstruction => (flags & (uint)Flags.SaveRestore) != 0;
@@ -164,7 +164,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the CPU or CPUID feature flags
 		/// </summary>
-		public readonly CpuidFeature[] CpuidFeatures => CpuidFeatureInternalData.ToCpuidFeatures[cpuidFeature];
+		public readonly CpuidFeature[] CpuidFeatures => CpuidFeatureInternalData.ToCpuidFeatures[cpuidFeatureInternal];
 
 		/// <summary>
 		/// Flow control info
@@ -215,7 +215,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// All flags that are read by the CPU when executing the instruction
+		/// All flags that are read by the CPU when executing the instruction. See also <see cref="RflagsModified"/>
 		/// </summary>
 		public readonly RflagsBits RflagsRead => (RflagsBits)RflagsInfoConstants.flagsRead[rflagsInfo];
 
@@ -225,17 +225,17 @@ namespace Iced.Intel {
 		public readonly RflagsBits RflagsWritten => (RflagsBits)RflagsInfoConstants.flagsWritten[rflagsInfo];
 
 		/// <summary>
-		/// All flags that are always cleared by the CPU
+		/// All flags that are always cleared by the CPU. See also <see cref="RflagsModified"/>
 		/// </summary>
 		public readonly RflagsBits RflagsCleared => (RflagsBits)RflagsInfoConstants.flagsCleared[rflagsInfo];
 
 		/// <summary>
-		/// All flags that are always set by the CPU
+		/// All flags that are always set by the CPU. See also <see cref="RflagsModified"/>
 		/// </summary>
 		public readonly RflagsBits RflagsSet => (RflagsBits)RflagsInfoConstants.flagsSet[rflagsInfo];
 
 		/// <summary>
-		/// All flags that are undefined after executing the instruction
+		/// All flags that are undefined after executing the instruction. See also <see cref="RflagsModified"/>
 		/// </summary>
 		public readonly RflagsBits RflagsUndefined => (RflagsBits)RflagsInfoConstants.flagsUndefined[rflagsInfo];
 

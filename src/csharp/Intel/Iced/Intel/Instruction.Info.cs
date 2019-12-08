@@ -204,7 +204,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
 		/// 
-		/// Gets instruction info such as which register is read and written etc.
+		/// Gets instruction info such as which register is accessed etc.
 		/// </summary>
 		/// <returns></returns>
 		public readonly InstructionInfo GetInfo() {
@@ -216,7 +216,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
 		/// 
-		/// Gets instruction info such as which register is read and written etc.
+		/// Gets instruction info such as which register is accessed etc.
 		/// </summary>
 		/// <param name="options">Options</param>
 		/// <returns></returns>
@@ -229,7 +229,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
 		/// 
-		/// Gets a struct iterator that returns all read and written registers. There are some exceptions, this method doesn't return all used registers:
+		/// Gets a struct iterator that returns all accessed registers. There are some exceptions, this method doesn't return all used registers:
 		/// 
 		/// 1) If <see cref="IsSaveRestoreInstruction"/> is true, or
 		/// 
@@ -245,7 +245,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
 		/// 
-		/// Gets a struct iterator that returns all read and written memory locations
+		/// Gets a struct iterator that returns all accessed memory locations
 		/// </summary>
 		/// <returns></returns>
 		public readonly InstructionInfo.UsedMemoryIterator GetUsedMemory() {

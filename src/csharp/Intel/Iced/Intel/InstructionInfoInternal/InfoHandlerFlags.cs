@@ -54,6 +54,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 		internal const int OpInfo3_Count = 2;
 		internal const int OpInfo4_Count = 2;
 		internal const int RflagsInfo_Count = 54;
+		internal const int DefaultUsedRegisterCollCapacity = 10;
+		internal const int DefaultUsedMemoryCollCapacity = 8;
 	}
 	// GENERATOR-END: InstrInfoConstants
 

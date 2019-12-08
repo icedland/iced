@@ -59,7 +59,7 @@ use std::collections::HashMap;
 use std::{i32, u16, u32, u8};
 
 pub(crate) fn to_vec_u8(hex_data: &str) -> Result<Vec<u8>, String> {
-	let mut bytes = Vec::new();
+	let mut bytes = Vec::with_capacity(hex_data.len() / 2);
 	let mut iter = hex_data.chars().filter(|c| !c.is_whitespace());
 	loop {
 		let hi = try_parse_hex_char(match iter.next() {
@@ -80,11 +80,11 @@ pub(crate) fn to_vec_u8(hex_data: &str) -> Result<Vec<u8>, String> {
 		if '0' <= c && c <= '9' {
 			return c as i32 - '0' as i32;
 		}
-		if 'a' <= c && c <= 'f' {
-			return c as i32 - 'a' as i32 + 10;
-		}
 		if 'A' <= c && c <= 'F' {
 			return c as i32 - 'A' as i32 + 10;
+		}
+		if 'a' <= c && c <= 'f' {
+			return c as i32 - 'a' as i32 + 10;
 		}
 		-1
 	}
@@ -186,7 +186,7 @@ pub(crate) fn to_register(value: &str) -> Result<Register, String> {
 }
 
 pub(crate) fn clone_register_hashmap() -> HashMap<String, Register> {
-	TO_REGISTER_HASH.iter().map(|kv| (kv.0.to_string(), *kv.1)).collect()
+	TO_REGISTER_HASH.iter().map(|kv| ((*kv.0).to_string(), *kv.1)).collect()
 }
 
 pub(crate) fn to_memory_size(value: &str) -> Result<MemorySize, String> {
@@ -225,10 +225,10 @@ pub(crate) fn to_tuple_type(value: &str) -> Result<TupleType, String> {
 }
 
 #[cfg(feature = "INSTR_INFO")]
-pub(crate) fn to_cpuid_feature(value: &str) -> Result<CpuidFeature, String> {
+pub(crate) fn to_cpuid_features(value: &str) -> Result<CpuidFeature, String> {
 	let value = value.trim();
 	match TO_CPUID_FEATURE_HASH.get(value) {
-		Some(cpuid_feature) => Ok(*cpuid_feature),
+		Some(cpuid_features) => Ok(*cpuid_features),
 		None => Err(format!("Invalid CpuidFeature value: {}", value)),
 	}
 }

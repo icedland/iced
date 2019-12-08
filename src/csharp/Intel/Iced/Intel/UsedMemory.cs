@@ -79,7 +79,7 @@ namespace Iced.Intel {
 		/// <param name="segReg">Effective segment register</param>
 		/// <param name="baseReg">Base register</param>
 		/// <param name="indexReg">Index register</param>
-		/// <param name="scale">Scale: 1, 2, 4 or 8</param>
+		/// <param name="scale">1, 2, 4 or 8</param>
 		/// <param name="displ">Displacement</param>
 		/// <param name="memorySize">Memory size</param>
 		/// <param name="access">Access</param>
@@ -105,7 +105,7 @@ namespace Iced.Intel {
 		/// <param name="segReg">Effective segment register</param>
 		/// <param name="baseReg">Base register</param>
 		/// <param name="indexReg">Index register</param>
-		/// <param name="scale">Scale: 1, 2, 4 or 8</param>
+		/// <param name="scale">1, 2, 4 or 8</param>
 		/// <param name="displ">Displacement</param>
 		/// <param name="memorySize">Memory size</param>
 		/// <param name="access">Access</param>

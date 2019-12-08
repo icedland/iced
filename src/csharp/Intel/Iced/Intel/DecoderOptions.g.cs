@@ -40,17 +40,17 @@ namespace Iced.Intel {
 		AmdBranches = 0x00000002,
 		/// <summary>Decode opcodes <c>0F0D</c> and <c>0F18-0F1F</c> as reserved-nop instructions (eg. <see cref="Code.ReservedNop_rm32_r32_0F1D"/>)</summary>
 		ForceReservedNop = 0x00000004,
-		/// <summary>Decode <c>umov</c> instructions (eg. <see cref="Code.Umov_r32_rm32"/>)</summary>
+		/// <summary>Decode <c>UMOV</c> instructions (eg. <see cref="Code.Umov_r32_rm32"/>)</summary>
 		Umov = 0x00000008,
-		/// <summary>Decode <c>xbts</c>/<c>ibts</c></summary>
+		/// <summary>Decode <c>XBTS</c>/<c>IBTS</c></summary>
 		Xbts = 0x00000010,
-		/// <summary>Decode <c>0FA6</c>/<c>0FA7</c> as <c>cmpxchg</c></summary>
+		/// <summary>Decode <c>0FA6</c>/<c>0FA7</c> as <c>CMPXCHG</c></summary>
 		Cmpxchg486A = 0x00000020,
-		/// <summary>Decode some old removed FPU instructions (eg. <c>frstpm</c>)</summary>
+		/// <summary>Decode some old removed FPU instructions (eg. <c>FRSTPM</c>)</summary>
 		OldFpu = 0x00000040,
 		/// <summary>Decode <see cref="Code.Pcommit"/></summary>
 		Pcommit = 0x00000080,
-		/// <summary>Decode 286 <c>loadall</c> (<c>0F04</c> and <c>0F05</c>)</summary>
+		/// <summary>Decode 286 <c>LOADALL</c> (<c>0F04</c> and <c>0F05</c>)</summary>
 		Loadall286 = 0x00000100,
 		/// <summary>Decode <see cref="Code.Loadall386"/></summary>
 		Loadall386 = 0x00000200,
@@ -58,7 +58,7 @@ namespace Iced.Intel {
 		Cl1invmb = 0x00000400,
 		/// <summary>Decode <see cref="Code.Mov_r32_tr"/> and <see cref="Code.Mov_tr_r32"/></summary>
 		MovTr = 0x00000800,
-		/// <summary>Decode <c>jmpe</c> instructions</summary>
+		/// <summary>Decode <c>JMPE</c> instructions</summary>
 		Jmpe = 0x00001000,
 		/// <summary>Don&apos;t decode <see cref="Code.Pause"/>, decode <see cref="Code.Nopd"/>/etc instead</summary>
 		NoPause = 0x00002000,

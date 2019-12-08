@@ -25,8 +25,10 @@ mod decoder_constants;
 pub(crate) mod from_str_conv;
 
 use self::decoder_constants::*;
-use std::env;
+use super::iced_constants::IcedConstants;
+use super::Decoder;
 use std::path::PathBuf;
+use std::{cmp, env};
 
 fn get_unit_tests_base_dir() -> PathBuf {
 	let mut path = env::current_exe().expect("Couldn't get the path of the current executable");
@@ -56,4 +58,11 @@ pub(crate) fn get_default_ip(bitness: u32) -> u64 {
 		64 => DecoderConstants::DEFAULT_IP64,
 		_ => panic!(),
 	}
+}
+
+pub(crate) fn create_decoder<'a>(bitness: u32, bytes: &'a [u8], options: u32) -> (Decoder<'a>, usize, bool) {
+	let mut decoder = Decoder::new(bitness, bytes, options);
+	decoder.set_ip(get_default_ip(bitness));
+	let len = cmp::min(IcedConstants::MAX_INSTRUCTION_LENGTH as usize, bytes.len());
+	(decoder, len, len < bytes.len())
 }
