@@ -51,8 +51,10 @@ namespace Iced.Intel {
 	}
 
 	/// <summary>
-	/// Creates <see cref="InstructionInfo"/>s but minimizes allocations. If you don't need memory and register usage,
-	/// it's faster to call <see cref="Instruction"/> methods/properties, eg. <see cref="Instruction.FlowControl"/>, etc.
+	/// Creates <see cref="InstructionInfo"/>s.
+	/// <br/>
+	/// If you don't need memory and register usage, it's faster to call <see cref="Instruction"/> and <see cref="Code"/>
+	/// methods/properties, eg. <see cref="Instruction.FlowControl"/>, etc instead of getting that info from this class.
 	/// </summary>
 	public sealed class InstructionInfoFactory {
 		const int defaultRegisterArrayCount = 2;
@@ -165,7 +167,7 @@ namespace Iced.Intel {
 				break;
 
 			case OpInfo0.WriteMem_ReadWriteReg:
-				if (instruction.Internal_Op0IsNotReg_or_Op0IsNotReg)
+				if (instruction.Internal_Op0IsNotReg_or_Op1IsNotReg)
 					op0Access = OpAccess.Write;
 				else
 					op0Access = OpAccess.ReadWrite;
@@ -238,14 +240,15 @@ namespace Iced.Intel {
 							AddMemorySegmentRegister(flags, ref usedRegisters, segReg, OpAccess.Read);
 					}
 					else {
-						ulong displ;
 						var indexReg = instruction.MemoryIndex;
-						if (InstructionUtils.GetAddressSizeInBytes(baseReg, indexReg, instruction.MemoryDisplSize, codeSize) == 8)
-							displ = instruction.MemoryDisplacement64;
-						else
-							displ = instruction.MemoryDisplacement;
-						if ((flags & Flags.NoMemoryUsage) == 0)
+						if ((flags & Flags.NoMemoryUsage) == 0) {
+							ulong displ;
+							if (InstructionUtils.GetAddressSizeInBytes(baseReg, indexReg, instruction.MemoryDisplSize, codeSize) == 8)
+								displ = instruction.MemoryDisplacement64;
+							else
+								displ = instruction.MemoryDisplacement;
 							AddMemory(ref usedMemoryLocations, segReg, baseReg, indexReg, instruction.MemoryIndexScale, displ, instruction.MemorySize, access);
+						}
 						if ((flags & Flags.NoRegisterUsage) == 0) {
 							if (segReg != Register.None)
 								AddMemorySegmentRegister(flags, ref usedRegisters, segReg, OpAccess.Read);

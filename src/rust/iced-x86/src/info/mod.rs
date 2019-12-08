@@ -33,7 +33,6 @@ pub use self::factory::*;
 use super::iced_constants::IcedConstants;
 use super::*;
 use std::fmt;
-use std::marker::PhantomData;
 
 /// A register used by an instruction
 #[derive(Copy, Clone, Eq, PartialEq, Default, Hash)]
@@ -225,9 +224,9 @@ pub struct InstructionInfo {
 }
 
 impl InstructionInfo {
-	#[cfg(test)]
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline(always)]
-	pub(crate) fn create(options: u32) -> Self {
+	pub(crate) fn new(options: u32) -> Self {
 		use self::enums::InstrInfoConstants;
 		Self {
 			used_registers: if (options & InstructionInfoOptions::NO_REGISTER_USAGE) == 0 {
@@ -249,28 +248,18 @@ impl InstructionInfo {
 		}
 	}
 
-	/// Gets an iterator that returns all accessed registers. There are some exceptions, this method doesn't return all used registers:
-	///
-	/// 1) If `is_save_restore_instruction()` is `true`, or
-	///
-	/// 2) If it's a `FlowControl::Call` or `FlowControl::Interrupt` instruction (`CALL`, `SYSENTER`, `INT n` etc), since the called method can read and write any register (including `RFLAGS`).
+	/// Gets all accessed registers. This method doesn't return all used registers if `is_save_restore_instruction()` is `true`.
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn used_registers_iter<'a>(&'a self) -> UsedIter<'a, UsedRegister> {
-		UsedIter {
-			ptr: self.used_registers.as_ptr(),
-			ptr_end: unsafe { self.used_registers.as_ptr().offset(self.used_registers.len() as isize) },
-			pd: PhantomData,
-		}
+	pub fn used_registers(&self) -> &Vec<UsedRegister> {
+		&self.used_registers
 	}
 
-	/// Gets a struct iterator that returns all accessed memory locations
+	/// Gets all accessed memory locations
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn used_memory_iter<'a>(&'a self) -> UsedIter<'a, UsedMemory> {
-		UsedIter {
-			ptr: self.used_memory_locations.as_ptr(),
-			ptr_end: unsafe { self.used_memory_locations.as_ptr().offset(self.used_memory_locations.len() as isize) },
-			pd: PhantomData,
-		}
+	pub fn used_memory(&self) -> &Vec<UsedMemory> {
+		&self.used_memory_locations
 	}
 
 	/// true if the instruction isn't available in real mode or virtual 8086 mode
@@ -296,7 +285,7 @@ impl InstructionInfo {
 	}
 
 	/// true if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
-	/// `used_registers_iter()` won't return all read/written registers.
+	/// `used_registers()` won't return all accessed registers.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_save_restore_instruction(&self) -> bool {
@@ -417,29 +406,3 @@ impl InstructionInfo {
 		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.as_ptr().offset(self.rflags_info as isize) as u32 }
 	}
 }
-
-/// `UsedRegister`/`UsedMemory` iterator, see `InstructionInfo::used_registers_iter()` and `InstructionInfo::used_memory_iter()`
-pub struct UsedIter<'a, T: 'a> {
-	ptr: *const T,
-	ptr_end: *const T,
-	pd: PhantomData<&'a T>,
-}
-
-impl<'a, T: 'a> Iterator for UsedIter<'a, T> {
-	type Item = &'a T;
-
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let ptr = self.ptr;
-		if ptr != self.ptr_end {
-			self.ptr = unsafe { ptr.offset(1) };
-			Some(unsafe { &*ptr })
-		} else {
-			None
-		}
-	}
-}
-
-#[cfg(has_fused_iterator)]
-impl<'a, T: 'a> std::iter::FusedIterator for UsedIter<'a, T> {}

@@ -119,7 +119,7 @@ pub(crate) fn internal_set_op0_kind(this: &mut Instruction, new_value: OpKind) {
 
 #[cfg_attr(has_must_use, must_use)]
 #[inline]
-pub(crate) fn internal_op0_is_not_reg_or_op0_is_not_reg(this: &Instruction) -> bool {
+pub(crate) fn internal_op0_is_not_reg_or_op1_is_not_reg(this: &Instruction) -> bool {
 	(this.op_kind_flags & (OpKindFlags::OP_KIND_MASK | (OpKindFlags::OP_KIND_MASK << OpKindFlags::OP1_KIND_SHIFT))) != 0
 }
 

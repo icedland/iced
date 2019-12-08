@@ -55,12 +55,13 @@ fn test_info(bitness: u32) {
 	debug_assert_eq!(16, mem::size_of::<UsedMemory>());
 	let mut path = get_instr_info_unit_tests_dir();
 	path.push(format!("InstructionInfoTest_{}.txt", bitness));
+	let mut factory = InstructionInfoFactory::new();
 	for tc in InstrInfoTestParser::new(bitness, &path) {
-		test_info_core(&tc);
+		test_info_core(&tc, &mut factory);
 	}
 }
 
-fn test_info_core(tc: &InstrInfoTestCase) {
+fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) {
 	let code_bytes = to_vec_u8(&tc.hex_bytes).unwrap();
 	let mut instr;
 	if tc.is_special {
@@ -146,19 +147,13 @@ fn test_info_core(tc: &InstrInfoTestCase) {
 	assert_eq!(tc.op2_access, info.op2_access());
 	assert_eq!(tc.op3_access, info.op3_access());
 	assert_eq!(tc.op4_access, info.op4_access());
-	assert!(tc.used_memory.iter().collect::<HashSet<_>>() == info.used_memory_iter().collect::<HashSet<_>>());
+	assert!(tc.used_memory.iter().collect::<HashSet<_>>() == info.used_memory().iter().collect::<HashSet<_>>());
 	assert_eq!(
 		get_used_registers(tc.used_registers.iter()),
-		get_used_registers(info.used_registers_iter())
+		get_used_registers(info.used_registers().iter())
 	);
-	assert_eq!(
-		info.used_memory_iter().collect::<Vec<_>>(),
-		instr.used_memory().iter().collect::<Vec<_>>()
-	);
-	assert_eq!(
-		info.used_registers_iter().collect::<Vec<_>>(),
-		instr.used_registers().iter().collect::<Vec<_>>()
-	);
+	assert_eq!(info.used_memory(), &instr.used_memory());
+	assert_eq!(info.used_registers(), &instr.used_registers());
 
 	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 	debug_assert!(instr.op_count() <= IcedConstants::MAX_OP_COUNT);
@@ -197,24 +192,48 @@ fn test_info_core(tc: &InstrInfoTestCase) {
 		info.rflags_modified()
 	);
 
-	let mut factory = InstructionInfoFactory::new();
-	let info2 = factory.info(&instr);
+	let mut factory2 = InstructionInfoFactory::new();
+	let info2 = factory2.info(&instr);
 	check_equal(&info, &info2, true, true);
-	let mut factory = InstructionInfoFactory::new();
-	let info2 = factory.info_options(&instr, InstructionInfoOptions::NONE);
+	let mut factory2 = InstructionInfoFactory::new();
+	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NONE);
 	check_equal(&info, &info2, true, true);
-	let mut factory = InstructionInfoFactory::new();
-	let info2 = factory.info_options(&instr, InstructionInfoOptions::NO_MEMORY_USAGE);
+	let mut factory2 = InstructionInfoFactory::new();
+	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NO_MEMORY_USAGE);
 	check_equal(&info, &info2, true, false);
-	let mut factory = InstructionInfoFactory::new();
-	let info2 = factory.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE);
+	let mut factory2 = InstructionInfoFactory::new();
+	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE);
 	check_equal(&info, &info2, false, true);
-	let mut factory = InstructionInfoFactory::new();
-	let info2 = factory.info_options(
+	let mut factory2 = InstructionInfoFactory::new();
+	let info2 = factory2.info_options(
 		&instr,
 		InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE,
 	);
 	check_equal(&info, &info2, false, false);
+
+	{
+		let info2 = factory.info(&instr);
+		check_equal(&info, &info2, true, true);
+	}
+	{
+		let info2 = factory.info_options(&instr, InstructionInfoOptions::NONE);
+		check_equal(&info, &info2, true, true);
+	}
+	{
+		let info2 = factory.info_options(&instr, InstructionInfoOptions::NO_MEMORY_USAGE);
+		check_equal(&info, &info2, true, false);
+	}
+	{
+		let info2 = factory.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE);
+		check_equal(&info, &info2, false, true);
+	}
+	{
+		let info2 = factory.info_options(
+			&instr,
+			InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE,
+		);
+		check_equal(&info, &info2, false, false);
+	}
 
 	let info2 = instr.info_options(InstructionInfoOptions::NONE);
 	check_equal(&info, &info2, true, true);
@@ -266,17 +285,14 @@ static CPUID_FEATURE_AVX2: [CpuidFeature; 1] = [CpuidFeature::AVX2];
 
 fn check_equal(info1: &InstructionInfo, info2: &InstructionInfo, has_regs2: bool, has_mem2: bool) {
 	if has_regs2 {
-		assert_eq!(
-			info1.used_registers_iter().collect::<Vec<_>>(),
-			info2.used_registers_iter().collect::<Vec<_>>()
-		);
+		assert_eq!(info1.used_registers(), info2.used_registers());
 	} else {
-		assert!(info2.used_registers_iter().next().is_none());
+		assert!(info2.used_registers().is_empty());
 	}
 	if has_mem2 {
-		assert_eq!(info1.used_memory_iter().collect::<Vec<_>>(), info2.used_memory_iter().collect::<Vec<_>>());
+		assert_eq!(info1.used_memory(), info2.used_memory());
 	} else {
-		assert!(info2.used_memory_iter().next().is_none());
+		assert!(info2.used_memory().is_empty());
 	}
 	assert_eq!(info1.is_protected_mode(), info2.is_protected_mode());
 	assert_eq!(info1.is_privileged(), info2.is_privileged());
@@ -298,6 +314,7 @@ fn check_equal(info1: &InstructionInfo, info2: &InstructionInfo, has_regs2: bool
 	assert_eq!(info1.rflags_modified(), info2.rflags_modified());
 }
 
+#[cfg_attr(has_must_use, must_use)]
 fn get_used_registers<'a, T: Iterator<Item = &'a UsedRegister>>(iter: T) -> Vec<UsedRegister> {
 	let mut read: Vec<Register> = Vec::new();
 	let mut write: Vec<Register> = Vec::new();
@@ -323,55 +340,55 @@ fn get_used_registers<'a, T: Iterator<Item = &'a UsedRegister>>(iter: T) -> Vec<
 	}
 
 	let mut h: HashSet<UsedRegister> = HashSet::new();
-	for reg in get_registers(read) {
-		let _ = h.insert(UsedRegister {
-			register: reg,
-			access: OpAccess::Read,
-		});
-	}
-	for reg in get_registers(write) {
-		let _ = h.insert(UsedRegister {
-			register: reg,
-			access: OpAccess::Write,
-		});
-	}
-	for reg in get_registers(cond_read) {
-		let _ = h.insert(UsedRegister {
-			register: reg,
-			access: OpAccess::CondRead,
-		});
-	}
-	for reg in get_registers(cond_write) {
-		let _ = h.insert(UsedRegister {
-			register: reg,
-			access: OpAccess::CondWrite,
-		});
-	}
+	h.extend(get_registers(read).into_iter().map(|reg| UsedRegister {
+		register: reg,
+		access: OpAccess::Read,
+	}));
+	h.extend(get_registers(write).into_iter().map(|reg| UsedRegister {
+		register: reg,
+		access: OpAccess::Write,
+	}));
+	h.extend(get_registers(cond_read).into_iter().map(|reg| UsedRegister {
+		register: reg,
+		access: OpAccess::CondRead,
+	}));
+	h.extend(get_registers(cond_write).into_iter().map(|reg| UsedRegister {
+		register: reg,
+		access: OpAccess::CondWrite,
+	}));
 	let mut vec: Vec<_> = h.into_iter().collect();
 	vec.sort_by(|x, y| {
-		let c = <Register as Ord>::cmp(&(*x).register, &(*y).register);
+		let c = (*x).register.cmp(&(*y).register);
 		if c != Ordering::Equal {
 			c
 		} else {
-			<OpAccess as Ord>::cmp(&(*x).access, &(*y).access)
+			(*x).access.cmp(&(*y).access)
 		}
 	});
 	vec
 }
 
+#[cfg_attr(has_must_use, must_use)]
 fn get_registers(mut regs: Vec<Register>) -> Vec<Register> {
 	if regs.len() <= 1 {
 		return regs;
 	}
 
 	regs.sort_by(|x, y| {
-		let c = get_register_group_order(*x) - get_register_group_order(*y);
+		let mut c = get_register_group_order(*x) - get_register_group_order(*y);
 		if c < 0 {
 			Ordering::Less
 		} else if c > 0 {
 			Ordering::Greater
 		} else {
-			Ordering::Equal
+			c = *x as i32 - *y as i32;
+			if c < 0 {
+				Ordering::Less
+			} else if c > 0 {
+				Ordering::Greater
+			} else {
+				Ordering::Equal
+			}
 		}
 	});
 
@@ -440,6 +457,7 @@ static LOW_REGS: [(Register, Register, Register); 4] = [
 	(Register::BL, Register::BH, Register::BX),
 ];
 
+#[cfg_attr(has_must_use, must_use)]
 fn get_register_group_order(reg: Register) -> i32 {
 	if Register::RAX <= reg && reg <= Register::R15 {
 		0

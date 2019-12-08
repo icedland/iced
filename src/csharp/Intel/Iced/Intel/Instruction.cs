@@ -436,7 +436,7 @@ namespace Iced.Intel {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => opKindFlags |= (uint)value;
 		}
-		internal readonly bool Internal_Op0IsNotReg_or_Op0IsNotReg {
+		internal readonly bool Internal_Op0IsNotReg_or_Op1IsNotReg {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (opKindFlags & ((uint)OpKindFlags.OpKindMask | ((uint)OpKindFlags.OpKindMask << (int)OpKindFlags.Op1KindShift))) != 0;
 		}

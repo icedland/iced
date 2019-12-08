@@ -61,11 +61,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets a struct iterator that returns all accessed registers. There are some exceptions, this method doesn't return all used registers:
-		/// 
-		/// 1) If <see cref="IsSaveRestoreInstruction"/> is true, or
-		/// 
-		/// 2) If it's a <see cref="FlowControl.Call"/> or <see cref="FlowControl.Interrupt"/> instruction (<c>CALL</c>, <c>SYSENTER</c>, <c>INT n</c> etc), since the called method can read and write any register (including <c>RFLAGS</c>).
+		/// Gets a struct iterator that returns all accessed registers. This method doesn't return all used registers if <see cref="IsSaveRestoreInstruction"/> is true.
 		/// </summary>
 		/// <returns></returns>
 		public readonly UsedRegisterIterator GetUsedRegisters() => new UsedRegisterIterator(usedRegisters, usedRegistersLength);
@@ -152,7 +148,7 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// true if it's an instruction that saves or restores too many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
-		/// <see cref="GetUsedRegisters"/> won't return all read/written registers.
+		/// <see cref="GetUsedRegisters"/> won't return all accessed registers.
 		/// </summary>
 		public readonly bool IsSaveRestoreInstruction => (flags & (uint)Flags.SaveRestore) != 0;
 
