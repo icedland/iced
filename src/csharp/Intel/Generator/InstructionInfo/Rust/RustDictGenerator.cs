@@ -21,9 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
 using System.IO;
 using Generator.Enums;
-using Generator.Enums.InstructionInfo;
 using Generator.IO;
 
 namespace Generator.InstructionInfo.Rust {
@@ -38,15 +38,36 @@ namespace Generator.InstructionInfo.Rust {
 		}
 
 		public void Generate() {
-			var filename = Path.Combine(generatorOptions.RustDir, "info", "tests", "test_parser.rs");
-			new FileUpdater(TargetLanguage.Rust, "OpAccessDict", filename).Generate(writer => WriteDict(writer, DictConstants.OpAccessConstants));
+			var infos = new (string filename, string id, Action<FileWriter> func)[] {
+				(
+					Path.Combine(generatorOptions.RustDir, "info", "tests", "test_parser.rs"),
+					"OpAccessDict",
+					writer => WriteDict(writer, DictConstants.OpAccessConstants, "to_access")
+				),
+				(
+					Path.Combine(generatorOptions.RustDir, "info", "tests", "mem_size_test_parser.rs"),
+					"FlagsDict",
+					writer => WriteDict(writer, DictConstants.MemorySizeFlagsTable, "to_flags")
+				),
+				(
+					Path.Combine(generatorOptions.RustDir, "info", "tests", "reg_test_parser.rs"),
+					"FlagsDict",
+					writer => WriteDict(writer, DictConstants.RegisterFlagsTable, "to_flags")
+				),
+			};
+			foreach (var info in infos) {
+				new FileUpdater(TargetLanguage.Rust, info.id, info.filename).Generate(writer => info.func(writer));
+			}
 		}
 
-		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants) {
-			var opAccessTypeStr = OpAccessEnum.Instance.Name(idConverter);
-			writer.WriteLine($"let mut to_access: HashMap<&'static str, {opAccessTypeStr}> = HashMap::new();");
-			foreach (var constant in constants)
-				writer.WriteLine($"let _ = to_access.insert(\"{constant.name}\", {opAccessTypeStr}::{constant.value.Name(idConverter)});");
+		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants, string hashName) {
+			var declType = constants[0].value.DeclaringType;
+			var declTypeStr = declType.Name(idConverter);
+			writer.WriteLine($"let mut {hashName}: HashMap<&'static str, {(declType.IsFlags ? "u32" : declTypeStr)}> = HashMap::new();");
+			foreach (var constant in constants) {
+				var name = declType.IsFlags ? idConverter.Constant(constant.value.RawName) : constant.value.Name(idConverter);
+				writer.WriteLine($"let _ = {hashName}.insert(\"{constant.name}\", {declTypeStr}::{name});");
+			}
 		}
 	}
 }

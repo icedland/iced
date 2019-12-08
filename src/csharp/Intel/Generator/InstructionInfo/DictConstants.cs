@@ -36,5 +36,24 @@ namespace Generator.InstructionInfo {
 			("rcw", OpAccessEnum.Instance["ReadCondWrite"]),
 			("nma", OpAccessEnum.Instance["NoMemAccess"]),
 		};
+
+		public static readonly (string value, EnumValue flags)[] MemorySizeFlagsTable = new (string value, EnumValue flags)[] {
+			("signed", MemorySizeFlagsEnum.Instance["Signed"]),
+			("bcst", MemorySizeFlagsEnum.Instance["Broadcast"]),
+			("packed", MemorySizeFlagsEnum.Instance["Packed"]),
+		};
+
+		public static readonly (string value, EnumValue flags)[] RegisterFlagsTable = new (string value, EnumValue flags)[] {
+			("seg", RegisterFlagsEnum.Instance["SegmentRegister"]),
+			("gpr", RegisterFlagsEnum.Instance["GPR"]),
+			("gpr8", RegisterFlagsEnum.Instance["GPR8"]),
+			("gpr16", RegisterFlagsEnum.Instance["GPR16"]),
+			("gpr32", RegisterFlagsEnum.Instance["GPR32"]),
+			("gpr64", RegisterFlagsEnum.Instance["GPR64"]),
+			("xmm", RegisterFlagsEnum.Instance["XMM"]),
+			("ymm", RegisterFlagsEnum.Instance["YMM"]),
+			("zmm", RegisterFlagsEnum.Instance["ZMM"]),
+			("vec", RegisterFlagsEnum.Instance["VectorRegister"]),
+		};
 	}
 }

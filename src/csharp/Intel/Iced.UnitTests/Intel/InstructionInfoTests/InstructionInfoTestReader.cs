@@ -81,10 +81,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		}
 
 		static (string hexBytes, Code code, DecoderOptions options, InstructionInfoTestCase testCase) ParseLine(string line, int bitness, Dictionary<string, Register> toRegister) {
-			Static.Assert(MiscInstrInfoTestConstants.ElemsPerLine == 5 ? 0 : -1);
-			var elems = line.Split(commaSeparator, MiscInstrInfoTestConstants.ElemsPerLine);
-			if (elems.Length != MiscInstrInfoTestConstants.ElemsPerLine)
-				throw new Exception($"Expected {MiscInstrInfoTestConstants.ElemsPerLine - 1} commas");
+			Static.Assert(MiscInstrInfoTestConstants.InstrInfoElemsPerLine == 5 ? 0 : -1);
+			var elems = line.Split(commaSeparator, MiscInstrInfoTestConstants.InstrInfoElemsPerLine);
+			if (elems.Length != MiscInstrInfoTestConstants.InstrInfoElemsPerLine)
+				throw new Exception($"Expected {MiscInstrInfoTestConstants.InstrInfoElemsPerLine - 1} commas");
 
 			var testCase = new InstructionInfoTestCase();
 

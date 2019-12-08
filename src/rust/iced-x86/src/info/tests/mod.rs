@@ -21,10 +21,18 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+mod constants;
 mod info_test_case;
+mod mem_size_test_case;
+mod mem_size_test_parser;
+mod reg_info_test_case;
+mod reg_test_parser;
 mod test_parser;
 
+use self::constants::*;
 use self::info_test_case::*;
+use self::mem_size_test_parser::*;
+use self::reg_test_parser::*;
 use self::test_parser::*;
 use super::super::iced_constants::IcedConstants;
 use super::super::test_utils::from_str_conv::to_vec_u8;
@@ -475,5 +483,75 @@ fn get_register_group_order(reg: Register) -> i32 {
 		6
 	} else {
 		-1
+	}
+}
+
+#[test]
+fn memory_size_info() {
+	let mut path = get_instr_info_unit_tests_dir();
+	path.push("MemorySizeInfo.txt");
+	let test_cases: Vec<_> = MemorySizeInfoTestParser::new(&path).into_iter().collect();
+	let h: HashSet<MemorySize> = test_cases.iter().map(|a| a.memory_size).collect();
+	// Make sure every value is tested
+	assert_eq!(IcedConstants::NUMBER_OF_MEMORY_SIZES as usize, h.len());
+	// Make sure there are no dupes
+	assert_eq!(IcedConstants::NUMBER_OF_MEMORY_SIZES as usize, test_cases.len());
+	for tc in &test_cases {
+		let info = tc.memory_size.info();
+		assert_eq!(tc.memory_size, info.memory_size());
+		assert_eq!(tc.size, info.size());
+		assert_eq!(tc.element_size, info.element_size());
+		assert_eq!(tc.element_type, info.element_type());
+		assert_eq!((tc.flags & MemorySizeFlags::SIGNED) != 0, info.is_signed());
+		assert_eq!((tc.flags & MemorySizeFlags::BROADCAST) != 0, info.is_broadcast());
+		assert_eq!((tc.flags & MemorySizeFlags::PACKED) != 0, info.is_packed());
+		assert_eq!(tc.element_count, info.element_count());
+
+		assert_eq!(tc.size, tc.memory_size.size());
+		assert_eq!(tc.element_size, tc.memory_size.element_size());
+		assert_eq!(tc.element_type, tc.memory_size.element_type());
+		assert_eq!(tc.element_type, tc.memory_size.element_type_info().memory_size());
+		assert_eq!((tc.flags & MemorySizeFlags::SIGNED) != 0, tc.memory_size.is_signed());
+		assert_eq!((tc.flags & MemorySizeFlags::PACKED) != 0, tc.memory_size.is_packed());
+		assert_eq!((tc.flags & MemorySizeFlags::BROADCAST) != 0, tc.memory_size.is_broadcast());
+		assert_eq!(tc.element_count, tc.memory_size.element_count());
+	}
+}
+
+#[test]
+fn register_info() {
+	let mut path = get_instr_info_unit_tests_dir();
+	path.push("RegisterInfo.txt");
+	let test_cases: Vec<_> = RegisterInfoTestParser::new(&path).into_iter().collect();
+	let h: HashSet<Register> = test_cases.iter().map(|a| a.register).collect();
+	// Make sure every value is tested
+	assert_eq!(IcedConstants::NUMBER_OF_REGISTERS as usize, h.len());
+	// Make sure there are no dupes
+	assert_eq!(IcedConstants::NUMBER_OF_REGISTERS as usize, test_cases.len());
+	for tc in &test_cases {
+		let info = tc.register.info();
+		assert_eq!(tc.register, info.register());
+		assert_eq!(tc.base, info.base());
+		assert_eq!(tc.number, info.number());
+		assert_eq!(tc.full_register, info.full_register());
+		assert_eq!(tc.full_register32, info.full_register32());
+		assert_eq!(tc.size, info.size());
+
+		assert_eq!(tc.base, tc.register.base());
+		assert_eq!(tc.number, tc.register.number());
+		assert_eq!(tc.full_register, tc.register.full_register());
+		assert_eq!(tc.full_register32, tc.register.full_register32());
+		assert_eq!(tc.size, tc.register.size());
+
+		assert_eq!((tc.flags & RegisterFlags::SEGMENT_REGISTER) != 0, tc.register.is_segment_register());
+		assert_eq!((tc.flags & RegisterFlags::GPR) != 0, tc.register.is_gpr());
+		assert_eq!((tc.flags & RegisterFlags::GPR8) != 0, tc.register.is_gpr8());
+		assert_eq!((tc.flags & RegisterFlags::GPR16) != 0, tc.register.is_gpr16());
+		assert_eq!((tc.flags & RegisterFlags::GPR32) != 0, tc.register.is_gpr32());
+		assert_eq!((tc.flags & RegisterFlags::GPR64) != 0, tc.register.is_gpr64());
+		assert_eq!((tc.flags & RegisterFlags::XMM) != 0, tc.register.is_xmm());
+		assert_eq!((tc.flags & RegisterFlags::YMM) != 0, tc.register.is_ymm());
+		assert_eq!((tc.flags & RegisterFlags::ZMM) != 0, tc.register.is_zmm());
+		assert_eq!((tc.flags & RegisterFlags::VECTOR_REGISTER) != 0, tc.register.is_vector_register());
 	}
 }

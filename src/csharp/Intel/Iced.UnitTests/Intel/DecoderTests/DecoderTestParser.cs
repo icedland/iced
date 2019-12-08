@@ -25,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Iced.Intel;
-using SG = System.Globalization;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
 	// GENERATOR-BEGIN: DecoderTestText
@@ -148,7 +147,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			tc.EncodedHexBytes = tc.HexBytes;
 			tc.Code = ToCode(parts[1].Trim());
 			tc.Mnemonic = ToMnemonic(parts[2].Trim());
-			tc.OpCount = ToInt32(parts[3].Trim());
+			tc.OpCount = NumberConverter.ToInt32(parts[3].Trim());
 
 			foreach (var tmp in parts[4].Split(extraSeps)) {
 				if (tmp == string.Empty)
@@ -410,12 +409,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var parts = value.Split(coSeps);
 			if (parts.Length != 6)
 				return false;
-			constantOffsets.ImmediateOffset = ToUInt8(parts[0]);
-			constantOffsets.ImmediateSize = ToUInt8(parts[1]);
-			constantOffsets.ImmediateOffset2 = ToUInt8(parts[2]);
-			constantOffsets.ImmediateSize2 = ToUInt8(parts[3]);
-			constantOffsets.DisplacementOffset = ToUInt8(parts[4]);
-			constantOffsets.DisplacementSize = ToUInt8(parts[5]);
+			constantOffsets.ImmediateOffset = NumberConverter.ToUInt8(parts[0]);
+			constantOffsets.ImmediateSize = NumberConverter.ToUInt8(parts[1]);
+			constantOffsets.ImmediateOffset2 = NumberConverter.ToUInt8(parts[2]);
+			constantOffsets.ImmediateSize2 = NumberConverter.ToUInt8(parts[3]);
+			constantOffsets.DisplacementOffset = NumberConverter.ToUInt8(parts[4]);
+			constantOffsets.DisplacementSize = NumberConverter.ToUInt8(parts[5]);
 			return true;
 		}
 
@@ -434,100 +433,100 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.NearBranch16);
-				tc.NearBranch = ToUInt16(parts[1]);
+				tc.NearBranch = NumberConverter.ToUInt16(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_NearBranch32:
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.NearBranch32);
-				tc.NearBranch = ToUInt32(parts[1]);
+				tc.NearBranch = NumberConverter.ToUInt32(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_NearBranch64:
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.NearBranch64);
-				tc.NearBranch = ToUInt64(parts[1]);
+				tc.NearBranch = NumberConverter.ToUInt64(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_FarBranch16:
 				if (parts.Length != 3)
 					throw new InvalidOperationException($"Operand {operand}: expected 3 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.FarBranch16);
-				tc.FarBranchSelector = ToUInt16(parts[1]);
-				tc.FarBranch = ToUInt16(parts[2]);
+				tc.FarBranchSelector = NumberConverter.ToUInt16(parts[1]);
+				tc.FarBranch = NumberConverter.ToUInt16(parts[2]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_FarBranch32:
 				if (parts.Length != 3)
 					throw new InvalidOperationException($"Operand {operand}: expected 3 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.FarBranch32);
-				tc.FarBranchSelector = ToUInt16(parts[1]);
-				tc.FarBranch = ToUInt32(parts[2]);
+				tc.FarBranchSelector = NumberConverter.ToUInt16(parts[1]);
+				tc.FarBranch = NumberConverter.ToUInt32(parts[2]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_Immediate8:
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.Immediate8);
-				tc.Immediate = ToUInt8(parts[1]);
+				tc.Immediate = NumberConverter.ToUInt8(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_Immediate16:
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.Immediate16);
-				tc.Immediate = ToUInt16(parts[1]);
+				tc.Immediate = NumberConverter.ToUInt16(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_Immediate32:
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.Immediate32);
-				tc.Immediate = ToUInt32(parts[1]);
+				tc.Immediate = NumberConverter.ToUInt32(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_Immediate64:
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.Immediate64);
-				tc.Immediate = ToUInt64(parts[1]);
+				tc.Immediate = NumberConverter.ToUInt64(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_Immediate8to16:
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.Immediate8to16);
-				tc.Immediate = ToUInt16(parts[1]);
+				tc.Immediate = NumberConverter.ToUInt16(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_Immediate8to32:
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.Immediate8to32);
-				tc.Immediate = ToUInt32(parts[1]);
+				tc.Immediate = NumberConverter.ToUInt32(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_Immediate8to64:
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.Immediate8to64);
-				tc.Immediate = ToUInt64(parts[1]);
+				tc.Immediate = NumberConverter.ToUInt64(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_Immediate32to64:
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.Immediate32to64);
-				tc.Immediate = ToUInt64(parts[1]);
+				tc.Immediate = NumberConverter.ToUInt64(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_Immediate8_2nd:
 				if (parts.Length != 2)
 					throw new InvalidOperationException($"Operand {operand}: expected 2 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.Immediate8_2nd);
-				tc.Immediate_2nd = ToUInt8(parts[1]);
+				tc.Immediate_2nd = NumberConverter.ToUInt8(parts[1]);
 				break;
 
 			case DecoderTestParserConstants.OpKind_MemorySegSI:
@@ -604,7 +603,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					throw new InvalidOperationException($"Operand {operand}: expected 4 values, actual = {parts.Length}");
 				tc.SetOpKind(operand, OpKind.Memory64);
 				tc.MemorySegment = ToRegister(parts[1]);
-				tc.MemoryAddress64 = ToUInt64(parts[2]);
+				tc.MemoryAddress64 = NumberConverter.ToUInt64(parts[2]);
 				tc.MemorySize = ToMemorySize(parts[3]);
 				break;
 
@@ -615,9 +614,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				tc.MemorySegment = ToRegister(parts[1]);
 				tc.MemoryBase = ToRegister(parts[2]);
 				tc.MemoryIndex = ToRegister(parts[3]);
-				tc.MemoryIndexScale = ToInt32(parts[4]);
-				tc.MemoryDisplacement = ToUInt32(parts[5]);
-				tc.MemoryDisplSize = ToInt32(parts[6]);
+				tc.MemoryIndexScale = NumberConverter.ToInt32(parts[4]);
+				tc.MemoryDisplacement = NumberConverter.ToUInt32(parts[5]);
+				tc.MemoryDisplSize = NumberConverter.ToInt32(parts[6]);
 				tc.MemorySize = ToMemorySize(parts[7]);
 				break;
 
@@ -634,56 +633,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				throw new InvalidOperationException($"Invalid hex bytes: '{value}'");
 			}
 			return value;
-		}
-
-		static ulong ToUInt64(string value) {
-			if (value.StartsWith("0x")) {
-				value = value.Substring(2);
-				if (ulong.TryParse(value, SG.NumberStyles.HexNumber, null, out var number))
-					return number;
-			}
-			else if (ulong.TryParse(value, out var number))
-				return number;
-			throw new InvalidOperationException($"Invalid number: '{value}'");
-		}
-
-		static long ToInt64(string value) {
-			if (value.StartsWith("0x")) {
-				value = value.Substring(2);
-				if (long.TryParse(value, SG.NumberStyles.HexNumber, null, out var number))
-					return number;
-			}
-			else if (long.TryParse(value, out var number))
-				return number;
-			throw new InvalidOperationException($"Invalid number: '{value}'");
-		}
-
-		static uint ToUInt32(string value) {
-			ulong v = ToUInt64(value);
-			if (v <= uint.MaxValue)
-				return (uint)v;
-			throw new InvalidOperationException($"Invalid number: '{value}'");
-		}
-
-		static int ToInt32(string value) {
-			long v = ToInt64(value);
-			if (int.MinValue <= v && v <= int.MaxValue)
-				return (int)v;
-			throw new InvalidOperationException($"Invalid number: '{value}'");
-		}
-
-		static ushort ToUInt16(string value) {
-			ulong v = ToUInt64(value);
-			if (v <= ushort.MaxValue)
-				return (ushort)v;
-			throw new InvalidOperationException($"Invalid number: '{value}'");
-		}
-
-		static byte ToUInt8(string value) {
-			ulong v = ToUInt64(value);
-			if (v <= byte.MaxValue)
-				return (byte)v;
-			throw new InvalidOperationException($"Invalid number: '{value}'");
 		}
 
 		static Code ToCode(string value) {

@@ -865,6 +865,22 @@ impl MemorySize {
 		self.info().element_type()
 	}
 
+	/// Gets the element type info if it's packed data or `self` if it's not packed data
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(MemorySize::UInt32, MemorySize::UInt32.element_type_info().memory_size());
+	/// assert_eq!(MemorySize::UInt16, MemorySize::Packed256_UInt16.element_type_info().memory_size());
+	/// assert_eq!(MemorySize::UInt64, MemorySize::Broadcast512_UInt64.element_type_info().memory_size());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn element_type_info(self) -> &'static MemorySizeInfo {
+		self.info().element_type().info()
+	}
+
 	/// true if it's signed data (signed integer or a floating point value)
 	///
 	/// # Examples

@@ -21,20 +21,16 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants.InstructionInfo {
-	static class MiscInstrInfoTestConstantsType {
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.MiscInstrInfoTestConstants, ConstantsTypeFlags.None, null, GetConstants());
+use super::super::super::*;
 
-		static Constant[] GetConstants() {
-			return new Constant[] {
-				new Constant(ConstantKind.String, "VMM_prefix", "vmm"),
-				// XSP = SP/ESP/RSP depending on stack address size, XBP = BP/EBP/RBP depending on stack address size
-				new Constant(ConstantKind.String, "XSP", "xsp"),
-				new Constant(ConstantKind.String, "XBP", "xbp"),
-				new Constant(ConstantKind.Int32, "InstrInfoElemsPerLine", 5),
-				new Constant(ConstantKind.Int32, "MemorySizeElemsPerLine", 6),
-				new Constant(ConstantKind.Int32, "RegisterElemsPerLine", 7),
-			};
-		}
-	}
+#[derive(Default)]
+pub(crate) struct RegisterInfoTestCase {
+	pub line_number: u32,
+	pub register: Register,
+	pub number: u32,
+	pub base: Register,
+	pub full_register: Register,
+	pub full_register32: Register,
+	pub size: u32,
+	pub flags: u32, // RegisterFlags
 }

@@ -67,6 +67,8 @@ namespace Generator.Enums {
 			Encoder.OpCodeOperandKindEnum.Instance,
 			InstructionInfo.RflagsBitsEnum.Instance,
 			InstructionInfo.OpAccessEnum.Instance,
+			InstructionInfo.MemorySizeFlagsEnum.Instance,
+			InstructionInfo.RegisterFlagsEnum.Instance,
 		};
 
 		public abstract void Generate(EnumType enumType);

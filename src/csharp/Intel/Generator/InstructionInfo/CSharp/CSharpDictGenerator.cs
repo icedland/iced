@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System.IO;
 using Generator.Enums;
-using Generator.Enums.InstructionInfo;
 using Generator.IO;
 
 namespace Generator.InstructionInfo.CSharp {
@@ -42,15 +41,18 @@ namespace Generator.InstructionInfo.CSharp {
 			new FileUpdater(TargetLanguage.CSharp, "Dicts", filename).Generate(writer => WriteDicts(writer));
 		}
 
-		void WriteDicts(FileWriter writer) =>
-			WriteDict(writer, DictConstants.OpAccessConstants);
+		void WriteDicts(FileWriter writer) {
+			WriteDict(writer, DictConstants.OpAccessConstants, "ToAccess");
+			WriteDict(writer, DictConstants.MemorySizeFlagsTable, "MemorySizeFlagsTable");
+			WriteDict(writer, DictConstants.RegisterFlagsTable, "RegisterFlagsTable");
+		}
 
-		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants) {
-			var opAccessTypeStr = OpAccessEnum.Instance.Name(idConverter);
-			writer.WriteLine($"internal static readonly Dictionary<string, {opAccessTypeStr}> ToAccess = new Dictionary<string, {opAccessTypeStr}>(StringComparer.Ordinal) {{");
+		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants, string fieldName) {
+			var declTypeStr = constants[0].value.DeclaringType.Name(idConverter);
+			writer.WriteLine($"internal static readonly Dictionary<string, {declTypeStr}> {fieldName} = new Dictionary<string, {declTypeStr}>(StringComparer.Ordinal) {{");
 			using (writer.Indent()) {
 				foreach (var constant in constants)
-					writer.WriteLine($"{{ \"{constant.name}\", {opAccessTypeStr}.{constant.value.Name(idConverter)} }},");
+					writer.WriteLine($"{{ \"{constant.name}\", {declTypeStr}.{constant.value.Name(idConverter)} }},");
 			}
 			writer.WriteLine("};");
 		}

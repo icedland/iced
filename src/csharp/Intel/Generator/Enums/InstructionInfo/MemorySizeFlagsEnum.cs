@@ -21,20 +21,24 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants.InstructionInfo {
-	static class MiscInstrInfoTestConstantsType {
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.MiscInstrInfoTestConstants, ConstantsTypeFlags.None, null, GetConstants());
+using System;
+using System.Linq;
 
-		static Constant[] GetConstants() {
-			return new Constant[] {
-				new Constant(ConstantKind.String, "VMM_prefix", "vmm"),
-				// XSP = SP/ESP/RSP depending on stack address size, XBP = BP/EBP/RBP depending on stack address size
-				new Constant(ConstantKind.String, "XSP", "xsp"),
-				new Constant(ConstantKind.String, "XBP", "xbp"),
-				new Constant(ConstantKind.Int32, "InstrInfoElemsPerLine", 5),
-				new Constant(ConstantKind.Int32, "MemorySizeElemsPerLine", 6),
-				new Constant(ConstantKind.Int32, "RegisterElemsPerLine", 7),
-			};
-		}
+namespace Generator.Enums.InstructionInfo {
+	[Flags]
+	enum MemorySizeFlags {
+		None				= 0,
+		Signed				= 1,
+		Broadcast			= 2,
+		Packed				= 4,
+	}
+
+	static class MemorySizeFlagsEnum {
+		const string? documentation = null;
+
+		static EnumValue[] GetValues() =>
+			typeof(MemorySizeFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(MemorySizeFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.MemorySizeFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }
