@@ -782,7 +782,7 @@ fn make_sure_all_code_values_are_tested() {
 	let mut missing = 0;
 	let names: Vec<_> = to_code_names().collect();
 	assert_eq!(tested.len(), names.len());
-	for i in (&tested).iter().enumerate() {
+	for i in tested.iter().enumerate() {
 		if !*i.1 {
 			s.push_str(names[i.0]);
 			s.push(' ');

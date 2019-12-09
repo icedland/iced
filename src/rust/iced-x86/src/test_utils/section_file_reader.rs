@@ -49,10 +49,10 @@ impl<'a> SectionFileReader<'a> {
 			let err_str = match info.0 {
 				Err(err) => Some(err.to_string()),
 				Ok(line) => {
-					if line.len() == 0 || line.starts_with("#") {
+					if line.is_empty() || line.starts_with('#') {
 						None
-					} else if line.starts_with("[") {
-						if !line.ends_with("]") {
+					} else if line.starts_with('[') {
+						if !line.ends_with(']') {
 							Some("Missing ']'".to_string())
 						} else {
 							let section_name = &line[1..(line.len() - 1)];
