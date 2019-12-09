@@ -87,5 +87,6 @@ namespace Generator {
 		public static readonly TypeId RflagsBitsConstants = new TypeId(nameof(RflagsBitsConstants));
 		public static readonly TypeId MemorySizeFlags = new TypeId(nameof(MemorySizeFlags));
 		public static readonly TypeId RegisterFlags = new TypeId(nameof(RegisterFlags));
+		public static readonly TypeId MiscSectionNames = new TypeId(nameof(MiscSectionNames));
 	}
 }

@@ -32,6 +32,10 @@ impl IcedConstants {
 	pub(crate) const NUMBER_OF_CODE_VALUES: u32 = 4203;
 	pub(crate) const NUMBER_OF_REGISTERS: u32 = 241;
 	pub(crate) const NUMBER_OF_MEMORY_SIZES: u32 = 136;
+	pub(crate) const NUMBER_OF_ENCODING_KINDS: u32 = 5;
+	pub(crate) const NUMBER_OF_OP_KINDS: u32 = 26;
+	pub(crate) const NUMBER_OF_CODE_SIZES: u32 = 4;
+	pub(crate) const NUMBER_OF_ROUNDING_CONTROL_VALUES: u32 = 5;
 	pub(crate) const VMM_FIRST: Register = Register::ZMM0;
 	pub(crate) const VMM_LAST: Register = Register::ZMM31;
 	pub(crate) const VMM_COUNT: u32 = 32;

@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 mod decoder_constants;
 pub(crate) mod from_str_conv;
+pub(crate) mod section_file_reader;
 
 use self::decoder_constants::*;
 use super::iced_constants::IcedConstants;

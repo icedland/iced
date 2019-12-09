@@ -51,6 +51,7 @@ namespace Generator.Decoder.Rust {
 				("OpCodeOperandKindHash", OpCodeOperandKindEnum.Instance, false, "test_utils/from_str_conv/op_code_operand_kind_table.rs"),
 				("RegisterHash", RegisterEnum.Instance, true, "test_utils/from_str_conv/register_table.rs"),
 				("TupleTypeHash", TupleTypeEnum.Instance, false, "test_utils/from_str_conv/tuple_type_table.rs"),
+				("ConditionCodeHash", ConditionCodeEnum.Instance, false, "test_utils/from_str_conv/condition_code_table.rs"),
 			};
 			foreach (var info in infos) {
 				var filename = Path.Combine(generatorOptions.RustDir, Path.Combine(info.filename.Split('/')));

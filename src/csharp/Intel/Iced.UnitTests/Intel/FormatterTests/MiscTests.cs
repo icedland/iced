@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Iced.Intel;
 using Iced.UnitTests.Intel.DecoderTests;
@@ -33,16 +34,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	public sealed class MiscTests {
 		[Fact]
 		void Make_sure_all_Code_values_are_formatted() {
-			int numCodeValues = -1;
-			foreach (var f in typeof(Code).GetFields()) {
-				if (f.IsLiteral) {
-					int value = (int)f.GetValue(null);
-					Assert.Equal(numCodeValues + 1, value);
-					numCodeValues = value;
-				}
-			}
-			numCodeValues++;
-			var tested = new byte[numCodeValues];
+			var tested = new byte[IcedConstants.NumberOfCodeValues];
 
 			var allArgs = new (int bitness, bool isMisc)[] {
 				(16, false),
@@ -64,7 +56,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 			var sb = new StringBuilder();
 			int missing = 0;
-			var codeNames = Enum.GetNames(typeof(Code));
+			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			for (int i = 0; i < tested.Length; i++) {
 				if (tested[i] != 1) {
 					sb.Append(codeNames[i] + " ");

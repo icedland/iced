@@ -74,6 +74,7 @@ namespace Generator.Constants.CSharp {
 			toPartialFileInfo.Add(TypeIds.InstructionInfoKeys, new PartialConstantsFileInfo("KeysConstants", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
 			toPartialFileInfo.Add(TypeIds.InstructionInfoDecoderOptions, new PartialConstantsFileInfo("DecoderOptionsConstants", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
 			toPartialFileInfo.Add(TypeIds.RflagsBitsConstants, new PartialConstantsFileInfo("RflagsBitsConstants", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.MiscSectionNames, new PartialConstantsFileInfo("MiscSectionNames", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "MiscTestsData.cs")));
 		}
 
 		public override void Generate(ConstantsType constantsType) {

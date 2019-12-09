@@ -25,6 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
+#if !NO_INSTR_INFO
 namespace Iced.Intel {
 	/// <summary>Instruction condition code (used by <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>)</summary>
 	public enum ConditionCode {
@@ -64,3 +65,4 @@ namespace Iced.Intel {
 		g,
 	}
 }
+#endif

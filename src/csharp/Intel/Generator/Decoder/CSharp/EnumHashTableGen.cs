@@ -51,6 +51,7 @@ namespace Generator.Decoder.CSharp {
 				("OpCodeOperandKindHash", OpCodeOperandKindEnum.Instance, false, "Intel/ToEnumConverter.OpCodeOperandKind.cs"),
 				("RegisterHash", RegisterEnum.Instance, true, "Intel/ToEnumConverter.Register.cs"),
 				("TupleTypeHash", TupleTypeEnum.Instance, false, "Intel/ToEnumConverter.TupleType.cs"),
+				("ConditionCodeHash", ConditionCodeEnum.Instance, false, "Intel/ToEnumConverter.ConditionCode.cs"),
 			};
 			foreach (var info in infos) {
 				var filename = Path.Combine(generatorOptions.CSharpTestsDir, Path.Combine(info.filename.Split('/')));

@@ -28,7 +28,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using Iced.Intel;
-using Xunit;
 
 namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	sealed class InstructionInfoTestReader {
@@ -38,8 +37,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		static readonly char[] plusSeparator = new char[] { '+' };
 
 		public static IEnumerable<object[]> GetTestCases(int bitness, int stackAddressSize) {
-			Assert.Equal(Enum.GetNames(typeof(OpAccess)).Length, InstructionInfoDicts.ToAccess.Count);
-
 			var toRegister = ToEnumConverter.CloneRegisterDict();
 			switch (stackAddressSize) {
 			case 16:

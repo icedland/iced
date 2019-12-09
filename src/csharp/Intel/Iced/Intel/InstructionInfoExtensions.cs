@@ -319,20 +319,29 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
-		public static ConditionCode GetConditionCode(this Code code) {
+		[System.Obsolete("Use " + nameof(ConditionCode) + " instead of this method", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public static ConditionCode GetConditionCode(this Code code) => code.ConditionCode();
+
+		/// <summary>
+		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c> else <see cref="ConditionCode.None"/> is returned
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		public static ConditionCode ConditionCode(this Code code) {
 			uint t;
 
 			if ((t = (uint)(code - Code.Jo_rel16)) <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16) ||
 				(t = (uint)(code - Code.Jo_rel8_16)) <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16) ||
 				(t = (uint)(code - Code.Cmovo_r16_rm16)) <= (uint)(Code.Cmovg_r64_rm64 - Code.Cmovo_r16_rm16)) {
-				return (int)(t / 3) + ConditionCode.o;
+				return (int)(t / 3) + Intel.ConditionCode.o;
 			}
 
 			t = (uint)(code - Code.Seto_rm8);
 			if (t <= (uint)(Code.Setg_rm8 - Code.Seto_rm8))
-				return (int)t + ConditionCode.o;
+				return (int)t + Intel.ConditionCode.o;
 
-			return ConditionCode.None;
+			return Intel.ConditionCode.None;
 		}
 	}
 }

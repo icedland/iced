@@ -31,6 +31,7 @@ namespace Generator.Constants {
 			InstructionInfo.InstructionInfoKeysType.Instance,
 			InstructionInfo.MiscInstrInfoTestConstantsType.Instance,
 			InstructionInfo.RflagsBitsConstantsType.Instance,
+			InstructionInfo.MiscSectionNamesType.Instance,
 		};
 
 		public abstract void Generate(ConstantsType constantsType);

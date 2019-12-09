@@ -111,19 +111,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				yield return new object[] { 64, "0F0F 8E 78563412 0C", rip, Instruction.Create(Code.D3NOW_Pi2fw_mm_mmm64, Register.MM1, memory64) };
 
 				// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
-				Assert.Equal(5, GetNumEncodings());
-
-				static int GetNumEncodings() {
-					int count = 0;
-					foreach (var field in typeof(EncodingKind).GetFields()) {
-						if (!field.IsStatic || !field.IsLiteral)
-							continue;
-						var encoding = (EncodingKind)field.GetValue(null);
-						Assert.Equal((EncodingKind)count, encoding);
-						count++;
-					}
-					return count;
-				}
+				Assert.Equal(5, IcedConstants.NumberOfEncodingKinds);
 			}
 		}
 

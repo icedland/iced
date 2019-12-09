@@ -27,7 +27,7 @@ mod mem_test_parser;
 mod misc_tests;
 mod test_cases;
 mod test_parser;
-mod test_utils;
+pub(crate) mod test_utils;
 
 use self::decoder_mem_test_case::*;
 use self::decoder_test_case::*;

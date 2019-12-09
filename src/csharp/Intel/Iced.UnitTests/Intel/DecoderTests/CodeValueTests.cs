@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System;
+using System.Linq;
 using System.Text;
 using Iced.Intel;
 using Xunit;
@@ -30,19 +30,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class CodeValueTests {
 		[Fact]
 		void Make_sure_all_Code_values_are_tested_in_16_32_64_bit_modes() {
-			int numCodeValues = -1;
-			foreach (var f in typeof(Code).GetFields()) {
-				if (f.IsLiteral) {
-					int value = (int)f.GetValue(null);
-					Assert.Equal(numCodeValues + 1, value);
-					numCodeValues = value;
-				}
-			}
-			numCodeValues++;
 			const byte T16 = 0x01;
 			const byte T32 = 0x02;
 			const byte T64 = 0x04;
-			var tested = new byte[numCodeValues];
+			var tested = new byte[IcedConstants.NumberOfCodeValues];
 			tested[(int)Code.INVALID] = T16 | T32 | T64;
 
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
@@ -101,7 +92,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var sb32 = new StringBuilder();
 			var sb64 = new StringBuilder();
 			int missing16 = 0, missing32 = 0, missing64 = 0;
-			var codeNames = Enum.GetNames(typeof(Code));
+			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			Assert.Equal(tested.Length, codeNames.Length);
 			for (int i = 0; i < tested.Length; i++) {
 				if (tested[i] != (T16 | T32 | T64)) {

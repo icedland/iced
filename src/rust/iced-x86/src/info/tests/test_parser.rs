@@ -295,7 +295,7 @@ impl IntoIter {
 			tc.cpuid_features.push(to_cpuid_features(s)?);
 		}
 
-		for kv in elems[4].split(' ') {
+		for kv in elems[4].split_whitespace() {
 			if kv.trim().is_empty() {
 				continue;
 			}

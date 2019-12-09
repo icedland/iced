@@ -25,6 +25,7 @@ mod constants;
 mod info_test_case;
 mod mem_size_test_case;
 mod mem_size_test_parser;
+mod misc_test_data;
 mod reg_info_test_case;
 mod reg_test_parser;
 mod test_parser;
@@ -32,16 +33,42 @@ mod test_parser;
 use self::constants::*;
 use self::info_test_case::*;
 use self::mem_size_test_parser::*;
+use self::misc_test_data::*;
 use self::reg_test_parser::*;
 use self::test_parser::*;
 use super::super::iced_constants::IcedConstants;
-use super::super::test_utils::from_str_conv::to_vec_u8;
+use super::super::test_utils::from_str_conv::*;
 use super::super::test_utils::*;
 use super::super::*;
 use super::factory::*;
 use std::cmp::Ordering;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::mem;
+
+lazy_static! {
+	pub(super) static ref INSTR_INFO_16: Vec<InstrInfoTestCase> = { read_instr_info_test_cases(16) };
+}
+lazy_static! {
+	pub(super) static ref INSTR_INFO_32: Vec<InstrInfoTestCase> = { read_instr_info_test_cases(32) };
+}
+lazy_static! {
+	pub(super) static ref INSTR_INFO_64: Vec<InstrInfoTestCase> = { read_instr_info_test_cases(64) };
+}
+
+fn read_instr_info_test_cases(bitness: u32) -> Vec<InstrInfoTestCase> {
+	let mut path = get_instr_info_unit_tests_dir();
+	path.push(format!("InstructionInfoTest_{}.txt", bitness));
+	InstrInfoTestParser::new(bitness, &path).into_iter().collect()
+}
+
+fn get_instr_info_test_cases(bitness: u32) -> &'static Vec<InstrInfoTestCase> {
+	match bitness {
+		16 => &*INSTR_INFO_16,
+		32 => &*INSTR_INFO_32,
+		64 => &*INSTR_INFO_64,
+		_ => panic!(),
+	}
+}
 
 #[test]
 fn info_16() {
@@ -58,14 +85,15 @@ fn info_64() {
 	test_info(64);
 }
 
-fn test_info(bitness: u32) {
+fn verify_used_memory_size() {
 	// std::mem::size_of() is a const func since rustc 1.24.0
 	debug_assert_eq!(16, mem::size_of::<UsedMemory>());
-	let mut path = get_instr_info_unit_tests_dir();
-	path.push(format!("InstructionInfoTest_{}.txt", bitness));
+}
+
+fn test_info(bitness: u32) {
 	let mut factory = InstructionInfoFactory::new();
-	for tc in InstrInfoTestParser::new(bitness, &path) {
-		test_info_core(&tc, &mut factory);
+	for tc in get_instr_info_test_cases(bitness) {
+		test_info_core(tc, &mut factory);
 	}
 }
 
@@ -554,4 +582,212 @@ fn register_info() {
 		assert_eq!((tc.flags & RegisterFlags::ZMM) != 0, tc.register.is_zmm());
 		assert_eq!((tc.flags & RegisterFlags::VECTOR_REGISTER) != 0, tc.register.is_vector_register());
 	}
+}
+
+#[test]
+fn is_branch_call() {
+	let data = &*MISC_TESTS_DATA;
+	let jcc_short = &data.jcc_short;
+	let jmp_near = &data.jmp_near;
+	let jmp_far = &data.jmp_far;
+	let jmp_short = &data.jmp_short;
+	let jmp_near_indirect = &data.jmp_near_indirect;
+	let jmp_far_indirect = &data.jmp_far_indirect;
+	let jcc_near = &data.jcc_near;
+	let call_far = &data.call_far;
+	let call_near = &data.call_near;
+	let call_near_indirect = &data.call_near_indirect;
+	let call_far_indirect = &data.call_far_indirect;
+
+	for i in 0..(IcedConstants::NUMBER_OF_CODE_VALUES) {
+		let code: Code = unsafe { mem::transmute(i as u16) };
+		let mut instr = Instruction::default();
+		instr.set_code(code);
+
+		assert_eq!(jcc_short.contains(&code) || jcc_near.contains(&code), code.is_jcc_short_or_near());
+		assert_eq!(code.is_jcc_short_or_near(), instr.is_jcc_short_or_near());
+
+		assert_eq!(jcc_near.contains(&code), code.is_jcc_near());
+		assert_eq!(code.is_jcc_near(), instr.is_jcc_near());
+
+		assert_eq!(jcc_short.contains(&code), code.is_jcc_short());
+		assert_eq!(code.is_jcc_short(), instr.is_jcc_short());
+
+		assert_eq!(jmp_short.contains(&code), code.is_jmp_short());
+		assert_eq!(code.is_jmp_short(), instr.is_jmp_short());
+
+		assert_eq!(jmp_near.contains(&code), code.is_jmp_near());
+		assert_eq!(code.is_jmp_near(), instr.is_jmp_near());
+
+		assert_eq!(jmp_short.contains(&code) || jmp_near.contains(&code), code.is_jmp_short_or_near());
+		assert_eq!(code.is_jmp_short_or_near(), instr.is_jmp_short_or_near());
+
+		assert_eq!(jmp_far.contains(&code), code.is_jmp_far());
+		assert_eq!(code.is_jmp_far(), instr.is_jmp_far());
+
+		assert_eq!(call_near.contains(&code), code.is_call_near());
+		assert_eq!(code.is_call_near(), instr.is_call_near());
+
+		assert_eq!(call_far.contains(&code), code.is_call_far());
+		assert_eq!(code.is_call_far(), instr.is_call_far());
+
+		assert_eq!(jmp_near_indirect.contains(&code), code.is_jmp_near_indirect());
+		assert_eq!(code.is_jmp_near_indirect(), instr.is_jmp_near_indirect());
+
+		assert_eq!(jmp_far_indirect.contains(&code), code.is_jmp_far_indirect());
+		assert_eq!(code.is_jmp_far_indirect(), instr.is_jmp_far_indirect());
+
+		assert_eq!(call_near_indirect.contains(&code), code.is_call_near_indirect());
+		assert_eq!(code.is_call_near_indirect(), instr.is_call_near_indirect());
+
+		assert_eq!(call_far_indirect.contains(&code), code.is_call_far_indirect());
+		assert_eq!(code.is_call_far_indirect(), instr.is_call_far_indirect());
+	}
+}
+
+#[test]
+fn verify_protected_mode_is_true_if_vex_xop_evex() {
+	for tc in super::super::decoder::tests::test_utils::decoder_tests(false, false) {
+		let bytes = to_vec_u8(tc.hex_bytes()).unwrap();
+		let mut decoder = create_decoder(tc.bitness(), &bytes, tc.decoder_options()).0;
+		let instr = decoder.decode();
+		match instr.encoding() {
+			EncodingKind::Legacy | EncodingKind::D3NOW => {}
+			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {
+				assert!(instr.is_protected_mode());
+				assert!(tc.code().is_protected_mode());
+			}
+		}
+	}
+}
+
+#[test]
+fn verify_negate_condition_code() {
+	let data = &*MISC_TESTS_DATA;
+
+	let mut to_negated_code_value: HashMap<Code, Code> = HashMap::new();
+	to_negated_code_value.extend(data.jcc_short_infos.iter().map(|a| ((*a).0, (*a).1)));
+	to_negated_code_value.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).1)));
+	to_negated_code_value.extend(data.setcc_infos.iter().map(|a| ((*a).0, (*a).1)));
+	to_negated_code_value.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).1)));
+
+	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+		let code: Code = unsafe { mem::transmute(i as u16) };
+		let mut instr = Instruction::default();
+		instr.set_code(code);
+
+		let negated = *to_negated_code_value.get(&code).unwrap_or(&code);
+
+		assert_eq!(negated, code.negate_condition_code());
+		instr.negate_condition_code();
+		assert_eq!(negated, instr.code());
+	}
+}
+
+#[test]
+fn verify_to_short_branch() {
+	let data = &*MISC_TESTS_DATA;
+
+	let mut to_short_branch: HashMap<Code, Code> = HashMap::new();
+	to_short_branch.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).2)));
+	to_short_branch.extend(data.jmp_infos.iter().map(|a| ((*a).1, (*a).0)));
+
+	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+		let code: Code = unsafe { mem::transmute(i as u16) };
+		let mut instr = Instruction::default();
+		instr.set_code(code);
+
+		let short = *to_short_branch.get(&code).unwrap_or(&code);
+
+		assert_eq!(short, code.to_short_branch());
+		instr.to_short_branch();
+		assert_eq!(short, instr.code());
+	}
+}
+
+#[test]
+fn verify_to_near_branch() {
+	let data = &*MISC_TESTS_DATA;
+
+	let mut to_near_branch: HashMap<Code, Code> = HashMap::new();
+	to_near_branch.extend(data.jcc_short_infos.iter().map(|a| ((*a).0, (*a).2)));
+	to_near_branch.extend(data.jmp_infos.iter().map(|a| ((*a).0, (*a).1)));
+
+	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+		let code: Code = unsafe { mem::transmute(i as u16) };
+		let mut instr = Instruction::default();
+		instr.set_code(code);
+
+		let short = *to_near_branch.get(&code).unwrap_or(&code);
+
+		assert_eq!(short, code.to_near_branch());
+		instr.to_near_branch();
+		assert_eq!(short, instr.code());
+	}
+}
+
+#[test]
+fn verify_condition_code() {
+	let data = &*MISC_TESTS_DATA;
+
+	let mut to_condition_code: HashMap<Code, ConditionCode> = HashMap::new();
+	to_condition_code.extend(data.jcc_short_infos.iter().map(|a| ((*a).0, (*a).3)));
+	to_condition_code.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).3)));
+	to_condition_code.extend(data.setcc_infos.iter().map(|a| ((*a).0, (*a).2)));
+	to_condition_code.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).2)));
+
+	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+		let code: Code = unsafe { mem::transmute(i as u16) };
+		let mut instr = Instruction::default();
+		instr.set_code(code);
+
+		let cc = *to_condition_code.get(&code).unwrap_or(&ConditionCode::None);
+
+		assert_eq!(cc, code.condition_code());
+		assert_eq!(cc, instr.condition_code());
+	}
+}
+
+#[test]
+fn verify_condition_code_values_are_in_correct_order() {
+	const_assert_eq!(0, ConditionCode::None as u32);
+	const_assert_eq!(1, ConditionCode::o as u32);
+	const_assert_eq!(2, ConditionCode::no as u32);
+	const_assert_eq!(3, ConditionCode::b as u32);
+	const_assert_eq!(4, ConditionCode::ae as u32);
+	const_assert_eq!(5, ConditionCode::e as u32);
+	const_assert_eq!(6, ConditionCode::ne as u32);
+	const_assert_eq!(7, ConditionCode::be as u32);
+	const_assert_eq!(8, ConditionCode::a as u32);
+	const_assert_eq!(9, ConditionCode::s as u32);
+	const_assert_eq!(10, ConditionCode::ns as u32);
+	const_assert_eq!(11, ConditionCode::p as u32);
+	const_assert_eq!(12, ConditionCode::np as u32);
+	const_assert_eq!(13, ConditionCode::l as u32);
+	const_assert_eq!(14, ConditionCode::ge as u32);
+	const_assert_eq!(15, ConditionCode::le as u32);
+	const_assert_eq!(16, ConditionCode::g as u32);
+}
+
+#[test]
+fn make_sure_all_code_values_are_tested() {
+	let mut tested = [false; IcedConstants::NUMBER_OF_CODE_VALUES as usize];
+	for bitness in &[16u32, 32, 64] {
+		for tc in get_instr_info_test_cases(*bitness) {
+			tested[tc.code as usize] = true;
+		}
+	}
+
+	let mut s = String::new();
+	let mut missing = 0;
+	let names: Vec<_> = to_code_names().collect();
+	assert_eq!(tested.len(), names.len());
+	for i in (&tested).iter().enumerate() {
+		if !*i.1 {
+			s.push_str(names[i.0]);
+			s.push(' ');
+			missing += 1;
+		}
+	}
+	assert_eq!("0 ins ".to_string(), format!("{} ins ", missing) + &s);
 }

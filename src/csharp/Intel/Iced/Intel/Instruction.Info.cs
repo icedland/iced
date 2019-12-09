@@ -570,7 +570,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public readonly ConditionCode ConditionCode {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Code.GetConditionCode();
+			get => Code.ConditionCode();
 		}
 	}
 }

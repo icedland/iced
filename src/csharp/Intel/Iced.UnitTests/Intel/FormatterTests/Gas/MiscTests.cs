@@ -22,29 +22,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_GAS_FORMATTER && !NO_FORMATTER
-using System;
 using Iced.Intel;
 using Iced.Intel.GasFormatterInternal;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 	public sealed class MiscTests {
-		static int GetEnumSize(Type enumType) {
-			Assert.True(enumType.IsEnum);
-			int maxValue = -1;
-			foreach (var f in enumType.GetFields()) {
-				if (f.IsLiteral) {
-					int value = (int)f.GetValue(null);
-					Assert.Equal(maxValue + 1, value);
-					maxValue = value;
-				}
-			}
-			return maxValue + 1;
-		}
-
 		[Fact]
 		void Register_is_not_too_big() {
-			int maxValue = GetEnumSize(typeof(Register)) - 1;
+			int maxValue = IcedConstants.NumberOfRegisters - 1;
 			maxValue += Registers.ExtraRegisters;
 			Assert.True(maxValue < (1 << InstrOpInfo.TEST_RegisterBits));
 			Assert.True(maxValue >= (1 << (InstrOpInfo.TEST_RegisterBits - 1)));

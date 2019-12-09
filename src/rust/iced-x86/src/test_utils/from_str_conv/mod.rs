@@ -23,6 +23,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 mod code_table;
 #[cfg(feature = "INSTR_INFO")]
+mod condition_code_table;
+#[cfg(feature = "INSTR_INFO")]
 mod cpuid_feature_table;
 #[cfg(feature = "DECODER")]
 mod decoder_options_table;
@@ -40,6 +42,8 @@ mod tuple_type_table;
 
 use self::code_table::*;
 #[cfg(feature = "INSTR_INFO")]
+use self::condition_code_table::*;
+#[cfg(feature = "INSTR_INFO")]
 use self::cpuid_feature_table::*;
 #[cfg(feature = "DECODER")]
 use self::decoder_options_table::*;
@@ -55,6 +59,7 @@ use self::register_table::*;
 #[cfg(any(feature = "DECODER", feature = "ENCODER"))]
 use self::tuple_type_table::*;
 use super::super::*;
+use std::collections::hash_map::Keys;
 use std::collections::HashMap;
 use std::{i32, u16, u32, u8};
 
@@ -166,6 +171,10 @@ pub(crate) fn to_code(value: &str) -> Result<Code, String> {
 	}
 }
 
+pub(crate) fn to_code_names() -> Keys<'static, &'static str, Code> {
+	TO_CODE_HASH.keys()
+}
+
 pub(crate) fn to_mnemonic(value: &str) -> Result<Mnemonic, String> {
 	let value = value.trim();
 	match TO_MNEMONIC_HASH.get(value) {
@@ -248,5 +257,14 @@ pub(crate) fn to_op_code_operand_kind(value: &str) -> Result<OpCodeOperandKind, 
 	match TO_OP_CODE_OPERAND_KIND_HASH.get(value) {
 		Some(op_code_operand_kind) => Ok(*op_code_operand_kind),
 		None => Err(format!("Invalid OpCodeOperandKind value: {}", value)),
+	}
+}
+
+#[cfg(feature = "INSTR_INFO")]
+pub(crate) fn to_condition_code(value: &str) -> Result<ConditionCode, String> {
+	let value = value.trim();
+	match TO_CONDITION_CODE_HASH.get(value) {
+		Some(condition_code) => Ok(*condition_code),
+		None => Err(format!("Invalid ConditionCode value: {}", value)),
 	}
 }

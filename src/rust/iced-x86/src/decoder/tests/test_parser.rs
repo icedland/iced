@@ -297,7 +297,7 @@ impl IntoIter {
 		tc.mnemonic = to_mnemonic(parts[2])?;
 		tc.op_count = to_u32(parts[3])?;
 
-		for key in parts[4].split(' ') {
+		for key in parts[4].split_whitespace() {
 			let mut key = key;
 			if key.is_empty() {
 				continue;

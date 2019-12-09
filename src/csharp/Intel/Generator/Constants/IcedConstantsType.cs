@@ -45,6 +45,10 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.Int32, "NumberOfCodeValues", (uint)CodeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "NumberOfRegisters", (uint)regEnum.Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "NumberOfMemorySizes", (uint)MemorySizeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Int32, "NumberOfEncodingKinds", (uint)EncodingKindEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Int32, "NumberOfOpKinds", (uint)OpKindEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Int32, "NumberOfCodeSizes", (uint)CodeSizeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Int32, "NumberOfRoundingControlValues", (uint)RoundingControlEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
 				// This is the largest vector register. If it's VEX/EVEX, the upper bits are always cleared when writing to any sub reg, eg. YMM0
 				new Constant(ConstantKind.Register, "VMM_first", vmmFirst, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Register, "VMM_last", vmmLast, ConstantsTypeFlags.None, null),

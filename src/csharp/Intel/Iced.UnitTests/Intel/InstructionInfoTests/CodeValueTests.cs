@@ -22,8 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_INSTR_INFO
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Iced.Intel;
 using Xunit;
@@ -32,23 +32,14 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	public sealed class CodeValueTests {
 		[Fact]
 		void Make_sure_all_Code_values_are_tested() {
-			int numCodeValues = -1;
-			foreach (var f in typeof(Code).GetFields()) {
-				if (f.IsLiteral) {
-					int value = (int)f.GetValue(null);
-					Assert.Equal(numCodeValues + 1, value);
-					numCodeValues = value;
-				}
-			}
-			numCodeValues++;
-			var tested = new bool[numCodeValues];
+			var tested = new bool[IcedConstants.NumberOfCodeValues];
 
 			foreach (var info in GetTests())
 				tested[(int)(Code)info[1]] = true;
 
 			var sb = new StringBuilder();
 			int missing = 0;
-			var codeNames = Enum.GetNames(typeof(Code));
+			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			Assert.Equal(tested.Length, codeNames.Length);
 			for (int i = 0; i < tested.Length; i++) {
 				if (!tested[i]) {

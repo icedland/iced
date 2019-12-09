@@ -1,0 +1,343 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+[jcc-short]
+Jo_rel8_16
+Jo_rel8_32
+Jo_rel8_64
+Jno_rel8_16
+Jno_rel8_32
+Jno_rel8_64
+Jb_rel8_16
+Jb_rel8_32
+Jb_rel8_64
+Jae_rel8_16
+Jae_rel8_32
+Jae_rel8_64
+Je_rel8_16
+Je_rel8_32
+Je_rel8_64
+Jne_rel8_16
+Jne_rel8_32
+Jne_rel8_64
+Jbe_rel8_16
+Jbe_rel8_32
+Jbe_rel8_64
+Ja_rel8_16
+Ja_rel8_32
+Ja_rel8_64
+Js_rel8_16
+Js_rel8_32
+Js_rel8_64
+Jns_rel8_16
+Jns_rel8_32
+Jns_rel8_64
+Jp_rel8_16
+Jp_rel8_32
+Jp_rel8_64
+Jnp_rel8_16
+Jnp_rel8_32
+Jnp_rel8_64
+Jl_rel8_16
+Jl_rel8_32
+Jl_rel8_64
+Jge_rel8_16
+Jge_rel8_32
+Jge_rel8_64
+Jle_rel8_16
+Jle_rel8_32
+Jle_rel8_64
+Jg_rel8_16
+Jg_rel8_32
+Jg_rel8_64
+
+[jcc-near]
+Jo_rel16
+Jo_rel32_32
+Jo_rel32_64
+Jno_rel16
+Jno_rel32_32
+Jno_rel32_64
+Jb_rel16
+Jb_rel32_32
+Jb_rel32_64
+Jae_rel16
+Jae_rel32_32
+Jae_rel32_64
+Je_rel16
+Je_rel32_32
+Je_rel32_64
+Jne_rel16
+Jne_rel32_32
+Jne_rel32_64
+Jbe_rel16
+Jbe_rel32_32
+Jbe_rel32_64
+Ja_rel16
+Ja_rel32_32
+Ja_rel32_64
+Js_rel16
+Js_rel32_32
+Js_rel32_64
+Jns_rel16
+Jns_rel32_32
+Jns_rel32_64
+Jp_rel16
+Jp_rel32_32
+Jp_rel32_64
+Jnp_rel16
+Jnp_rel32_32
+Jnp_rel32_64
+Jl_rel16
+Jl_rel32_32
+Jl_rel32_64
+Jge_rel16
+Jge_rel32_32
+Jge_rel32_64
+Jle_rel16
+Jle_rel32_32
+Jle_rel32_64
+Jg_rel16
+Jg_rel32_32
+Jg_rel32_64
+
+[jmp-short]
+Jmp_rel8_16
+Jmp_rel8_32
+Jmp_rel8_64
+
+[jmp-near]
+Jmp_rel16
+Jmp_rel32_32
+Jmp_rel32_64
+
+[jmp-far]
+Jmp_ptr1616
+Jmp_ptr1632
+
+[jmp-near-indirect]
+Jmp_rm16
+Jmp_rm32
+Jmp_rm64
+
+[jmp-far-indirect]
+Jmp_m1616
+Jmp_m1632
+Jmp_m1664
+
+[call-near]
+Call_rel16
+Call_rel32_32
+Call_rel32_64
+
+[call-far]
+Call_ptr1616
+Call_ptr1632
+
+[call-near-indirect]
+Call_rm16
+Call_rm32
+Call_rm64
+
+[call-far-indirect]
+Call_m1616
+Call_m1632
+Call_m1664
+
+[jmp-info]
+# short, near
+Jmp_rel8_16, Jmp_rel16
+Jmp_rel8_32, Jmp_rel32_32
+Jmp_rel8_64, Jmp_rel32_64
+
+[jcc-short-info]
+# jcc, negated, jcc-near, cc
+Jo_rel8_16, Jno_rel8_16, Jo_rel16, o
+Jo_rel8_32, Jno_rel8_32, Jo_rel32_32, o
+Jo_rel8_64, Jno_rel8_64, Jo_rel32_64, o
+Jno_rel8_16, Jo_rel8_16, Jno_rel16, no
+Jno_rel8_32, Jo_rel8_32, Jno_rel32_32, no
+Jno_rel8_64, Jo_rel8_64, Jno_rel32_64, no
+Jb_rel8_16, Jae_rel8_16, Jb_rel16, b
+Jb_rel8_32, Jae_rel8_32, Jb_rel32_32, b
+Jb_rel8_64, Jae_rel8_64, Jb_rel32_64, b
+Jae_rel8_16, Jb_rel8_16, Jae_rel16, ae
+Jae_rel8_32, Jb_rel8_32, Jae_rel32_32, ae
+Jae_rel8_64, Jb_rel8_64, Jae_rel32_64, ae
+Je_rel8_16, Jne_rel8_16, Je_rel16, e
+Je_rel8_32, Jne_rel8_32, Je_rel32_32, e
+Je_rel8_64, Jne_rel8_64, Je_rel32_64, e
+Jne_rel8_16, Je_rel8_16, Jne_rel16, ne
+Jne_rel8_32, Je_rel8_32, Jne_rel32_32, ne
+Jne_rel8_64, Je_rel8_64, Jne_rel32_64, ne
+Jbe_rel8_16, Ja_rel8_16, Jbe_rel16, be
+Jbe_rel8_32, Ja_rel8_32, Jbe_rel32_32, be
+Jbe_rel8_64, Ja_rel8_64, Jbe_rel32_64, be
+Ja_rel8_16, Jbe_rel8_16, Ja_rel16, a
+Ja_rel8_32, Jbe_rel8_32, Ja_rel32_32, a
+Ja_rel8_64, Jbe_rel8_64, Ja_rel32_64, a
+Js_rel8_16, Jns_rel8_16, Js_rel16, s
+Js_rel8_32, Jns_rel8_32, Js_rel32_32, s
+Js_rel8_64, Jns_rel8_64, Js_rel32_64, s
+Jns_rel8_16, Js_rel8_16, Jns_rel16, ns
+Jns_rel8_32, Js_rel8_32, Jns_rel32_32, ns
+Jns_rel8_64, Js_rel8_64, Jns_rel32_64, ns
+Jp_rel8_16, Jnp_rel8_16, Jp_rel16, p
+Jp_rel8_32, Jnp_rel8_32, Jp_rel32_32, p
+Jp_rel8_64, Jnp_rel8_64, Jp_rel32_64, p
+Jnp_rel8_16, Jp_rel8_16, Jnp_rel16, np
+Jnp_rel8_32, Jp_rel8_32, Jnp_rel32_32, np
+Jnp_rel8_64, Jp_rel8_64, Jnp_rel32_64, np
+Jl_rel8_16, Jge_rel8_16, Jl_rel16, l
+Jl_rel8_32, Jge_rel8_32, Jl_rel32_32, l
+Jl_rel8_64, Jge_rel8_64, Jl_rel32_64, l
+Jge_rel8_16, Jl_rel8_16, Jge_rel16, ge
+Jge_rel8_32, Jl_rel8_32, Jge_rel32_32, ge
+Jge_rel8_64, Jl_rel8_64, Jge_rel32_64, ge
+Jle_rel8_16, Jg_rel8_16, Jle_rel16, le
+Jle_rel8_32, Jg_rel8_32, Jle_rel32_32, le
+Jle_rel8_64, Jg_rel8_64, Jle_rel32_64, le
+Jg_rel8_16, Jle_rel8_16, Jg_rel16, g
+Jg_rel8_32, Jle_rel8_32, Jg_rel32_32, g
+Jg_rel8_64, Jle_rel8_64, Jg_rel32_64, g
+
+[jcc-near-info]
+# jcc, negated, jcc-short, cc
+Jo_rel16, Jno_rel16, Jo_rel8_16, o
+Jo_rel32_32, Jno_rel32_32, Jo_rel8_32, o
+Jo_rel32_64, Jno_rel32_64, Jo_rel8_64, o
+Jno_rel16, Jo_rel16, Jno_rel8_16, no
+Jno_rel32_32, Jo_rel32_32, Jno_rel8_32, no
+Jno_rel32_64, Jo_rel32_64, Jno_rel8_64, no
+Jb_rel16, Jae_rel16, Jb_rel8_16, b
+Jb_rel32_32, Jae_rel32_32, Jb_rel8_32, b
+Jb_rel32_64, Jae_rel32_64, Jb_rel8_64, b
+Jae_rel16, Jb_rel16, Jae_rel8_16, ae
+Jae_rel32_32, Jb_rel32_32, Jae_rel8_32, ae
+Jae_rel32_64, Jb_rel32_64, Jae_rel8_64, ae
+Je_rel16, Jne_rel16, Je_rel8_16, e
+Je_rel32_32, Jne_rel32_32, Je_rel8_32, e
+Je_rel32_64, Jne_rel32_64, Je_rel8_64, e
+Jne_rel16, Je_rel16, Jne_rel8_16, ne
+Jne_rel32_32, Je_rel32_32, Jne_rel8_32, ne
+Jne_rel32_64, Je_rel32_64, Jne_rel8_64, ne
+Jbe_rel16, Ja_rel16, Jbe_rel8_16, be
+Jbe_rel32_32, Ja_rel32_32, Jbe_rel8_32, be
+Jbe_rel32_64, Ja_rel32_64, Jbe_rel8_64, be
+Ja_rel16, Jbe_rel16, Ja_rel8_16, a
+Ja_rel32_32, Jbe_rel32_32, Ja_rel8_32, a
+Ja_rel32_64, Jbe_rel32_64, Ja_rel8_64, a
+Js_rel16, Jns_rel16, Js_rel8_16, s
+Js_rel32_32, Jns_rel32_32, Js_rel8_32, s
+Js_rel32_64, Jns_rel32_64, Js_rel8_64, s
+Jns_rel16, Js_rel16, Jns_rel8_16, ns
+Jns_rel32_32, Js_rel32_32, Jns_rel8_32, ns
+Jns_rel32_64, Js_rel32_64, Jns_rel8_64, ns
+Jp_rel16, Jnp_rel16, Jp_rel8_16, p
+Jp_rel32_32, Jnp_rel32_32, Jp_rel8_32, p
+Jp_rel32_64, Jnp_rel32_64, Jp_rel8_64, p
+Jnp_rel16, Jp_rel16, Jnp_rel8_16, np
+Jnp_rel32_32, Jp_rel32_32, Jnp_rel8_32, np
+Jnp_rel32_64, Jp_rel32_64, Jnp_rel8_64, np
+Jl_rel16, Jge_rel16, Jl_rel8_16, l
+Jl_rel32_32, Jge_rel32_32, Jl_rel8_32, l
+Jl_rel32_64, Jge_rel32_64, Jl_rel8_64, l
+Jge_rel16, Jl_rel16, Jge_rel8_16, ge
+Jge_rel32_32, Jl_rel32_32, Jge_rel8_32, ge
+Jge_rel32_64, Jl_rel32_64, Jge_rel8_64, ge
+Jle_rel16, Jg_rel16, Jle_rel8_16, le
+Jle_rel32_32, Jg_rel32_32, Jle_rel8_32, le
+Jle_rel32_64, Jg_rel32_64, Jle_rel8_64, le
+Jg_rel16, Jle_rel16, Jg_rel8_16, g
+Jg_rel32_32, Jle_rel32_32, Jg_rel8_32, g
+Jg_rel32_64, Jle_rel32_64, Jg_rel8_64, g
+
+[setcc-info]
+# setcc, negated, cc
+Seto_rm8, Setno_rm8, o
+Setno_rm8, Seto_rm8, no
+Setb_rm8, Setae_rm8, b
+Setae_rm8, Setb_rm8, ae
+Sete_rm8, Setne_rm8, e
+Setne_rm8, Sete_rm8, ne
+Setbe_rm8, Seta_rm8, be
+Seta_rm8, Setbe_rm8, a
+Sets_rm8, Setns_rm8, s
+Setns_rm8, Sets_rm8, ns
+Setp_rm8, Setnp_rm8, p
+Setnp_rm8, Setp_rm8, np
+Setl_rm8, Setge_rm8, l
+Setge_rm8, Setl_rm8, ge
+Setle_rm8, Setg_rm8, le
+Setg_rm8, Setle_rm8, g
+
+[cmovcc-info]
+# cmovcc, negated, cc
+Cmovo_r16_rm16, Cmovno_r16_rm16, o
+Cmovno_r16_rm16, Cmovo_r16_rm16, no
+Cmovo_r32_rm32, Cmovno_r32_rm32, o
+Cmovno_r32_rm32, Cmovo_r32_rm32, no
+Cmovo_r64_rm64, Cmovno_r64_rm64, o
+Cmovno_r64_rm64, Cmovo_r64_rm64, no
+Cmovb_r16_rm16, Cmovae_r16_rm16, b
+Cmovae_r16_rm16, Cmovb_r16_rm16, ae
+Cmovb_r32_rm32, Cmovae_r32_rm32, b
+Cmovae_r32_rm32, Cmovb_r32_rm32, ae
+Cmovb_r64_rm64, Cmovae_r64_rm64, b
+Cmovae_r64_rm64, Cmovb_r64_rm64, ae
+Cmove_r16_rm16, Cmovne_r16_rm16, e
+Cmovne_r16_rm16, Cmove_r16_rm16, ne
+Cmove_r32_rm32, Cmovne_r32_rm32, e
+Cmovne_r32_rm32, Cmove_r32_rm32, ne
+Cmove_r64_rm64, Cmovne_r64_rm64, e
+Cmovne_r64_rm64, Cmove_r64_rm64, ne
+Cmovbe_r16_rm16, Cmova_r16_rm16, be
+Cmova_r16_rm16, Cmovbe_r16_rm16, a
+Cmovbe_r32_rm32, Cmova_r32_rm32, be
+Cmova_r32_rm32, Cmovbe_r32_rm32, a
+Cmovbe_r64_rm64, Cmova_r64_rm64, be
+Cmova_r64_rm64, Cmovbe_r64_rm64, a
+Cmovs_r16_rm16, Cmovns_r16_rm16, s
+Cmovns_r16_rm16, Cmovs_r16_rm16, ns
+Cmovs_r32_rm32, Cmovns_r32_rm32, s
+Cmovns_r32_rm32, Cmovs_r32_rm32, ns
+Cmovs_r64_rm64, Cmovns_r64_rm64, s
+Cmovns_r64_rm64, Cmovs_r64_rm64, ns
+Cmovp_r16_rm16, Cmovnp_r16_rm16, p
+Cmovnp_r16_rm16, Cmovp_r16_rm16, np
+Cmovp_r32_rm32, Cmovnp_r32_rm32, p
+Cmovnp_r32_rm32, Cmovp_r32_rm32, np
+Cmovp_r64_rm64, Cmovnp_r64_rm64, p
+Cmovnp_r64_rm64, Cmovp_r64_rm64, np
+Cmovl_r16_rm16, Cmovge_r16_rm16, l
+Cmovge_r16_rm16, Cmovl_r16_rm16, ge
+Cmovl_r32_rm32, Cmovge_r32_rm32, l
+Cmovge_r32_rm32, Cmovl_r32_rm32, ge
+Cmovl_r64_rm64, Cmovge_r64_rm64, l
+Cmovge_r64_rm64, Cmovl_r64_rm64, ge
+Cmovle_r16_rm16, Cmovg_r16_rm16, le
+Cmovg_r16_rm16, Cmovle_r16_rm16, g
+Cmovle_r32_rm32, Cmovg_r32_rm32, le
+Cmovg_r32_rm32, Cmovle_r32_rm32, g
+Cmovle_r64_rm64, Cmovg_r64_rm64, le
+Cmovg_r64_rm64, Cmovle_r64_rm64, g

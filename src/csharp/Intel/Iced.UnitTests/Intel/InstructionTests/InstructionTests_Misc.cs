@@ -22,42 +22,30 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Iced.Intel;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.InstructionTests {
 	public sealed class InstructionTests_Misc {
-		static int GetEnumSize(Type enumType) {
-			Assert.True(enumType.IsEnum);
-			int maxValue = -1;
-			foreach (var f in enumType.GetFields()) {
-				if (f.IsLiteral) {
-					int value = (int)f.GetValue(null);
-					Assert.Equal(maxValue + 1, value);
-					maxValue = value;
-				}
-			}
-			return maxValue + 1;
-		}
-
 		[Fact]
 		void OpKind_is_not_too_big() {
-			int maxValue = GetEnumSize(typeof(OpKind)) - 1;
+			int maxValue = IcedConstants.NumberOfOpKinds - 1;
 			Assert.True(maxValue < (1 << Instruction.TEST_OpKindBits));
 			Assert.True(maxValue >= (1 << (Instruction.TEST_OpKindBits - 1)));
 		}
 
 		[Fact]
 		void Code_is_not_too_big() {
-			int maxValue = GetEnumSize(typeof(Code)) - 1;
+			int maxValue = IcedConstants.NumberOfCodeValues - 1;
 			Assert.True(maxValue < (1 << Instruction.TEST_CodeBits));
 			Assert.True(maxValue >= (1 << (Instruction.TEST_CodeBits - 1)));
 		}
 
 		[Fact]
 		void Register_is_not_too_big() {
-			int maxValue = GetEnumSize(typeof(Register)) - 1;
+			int maxValue = IcedConstants.NumberOfRegisters - 1;
 			Assert.True(maxValue < (1 << Instruction.TEST_RegisterBits));
 			Assert.True(maxValue >= (1 << (Instruction.TEST_RegisterBits - 1)));
 		}
@@ -304,16 +292,16 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				Assert.Equal(i, instr.Length);
 			}
 
-			foreach (var codeSize in GetEnumValues<CodeSize>()) {
+			foreach (var codeSize in GetCodeSizeValues()) {
 				instr.CodeSize = codeSize;
 				Assert.Equal(codeSize, instr.CodeSize);
 			}
 
-			foreach (var code in GetEnumValues<Code>()) {
+			foreach (var code in GetCodeValues()) {
 				instr.Code = code;
 				Assert.Equal(code, instr.Code);
 			}
-			foreach (var code in GetEnumValues<Code>()) {
+			foreach (var code in GetCodeValues()) {
 				instr.InternalSetCodeNoCheck(code);
 				Assert.Equal(code, instr.Code);
 			}
@@ -321,27 +309,27 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => instr.Code = (Code)IcedConstants.NumberOfCodeValues);
 
 			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
-			foreach (var opKind in GetEnumValues<OpKind>()) {
+			foreach (var opKind in GetOpKindValues()) {
 				instr.Op0Kind = opKind;
 				Assert.Equal(opKind, instr.Op0Kind);
 			}
 
-			foreach (var opKind in GetEnumValues<OpKind>()) {
+			foreach (var opKind in GetOpKindValues()) {
 				instr.Op1Kind = opKind;
 				Assert.Equal(opKind, instr.Op1Kind);
 			}
 
-			foreach (var opKind in GetEnumValues<OpKind>()) {
+			foreach (var opKind in GetOpKindValues()) {
 				instr.Op2Kind = opKind;
 				Assert.Equal(opKind, instr.Op2Kind);
 			}
 
-			foreach (var opKind in GetEnumValues<OpKind>()) {
+			foreach (var opKind in GetOpKindValues()) {
 				instr.Op3Kind = opKind;
 				Assert.Equal(opKind, instr.Op3Kind);
 			}
 
-			foreach (var opKind in GetEnumValues<OpKind>()) {
+			foreach (var opKind in GetOpKindValues()) {
 				if (opKind == OpKind.Immediate8) {
 					instr.Op4Kind = opKind;
 					Assert.Equal(opKind, instr.Op4Kind);
@@ -350,31 +338,31 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 					Assert.Throws<ArgumentOutOfRangeException>(() => instr.Op4Kind = opKind);
 			}
 
-			foreach (var opKind in GetEnumValues<OpKind>()) {
+			foreach (var opKind in GetOpKindValues()) {
 				instr.SetOpKind(0, opKind);
 				Assert.Equal(opKind, instr.Op0Kind);
 				Assert.Equal(opKind, instr.GetOpKind(0));
 			}
 
-			foreach (var opKind in GetEnumValues<OpKind>()) {
+			foreach (var opKind in GetOpKindValues()) {
 				instr.SetOpKind(1, opKind);
 				Assert.Equal(opKind, instr.Op1Kind);
 				Assert.Equal(opKind, instr.GetOpKind(1));
 			}
 
-			foreach (var opKind in GetEnumValues<OpKind>()) {
+			foreach (var opKind in GetOpKindValues()) {
 				instr.SetOpKind(2, opKind);
 				Assert.Equal(opKind, instr.Op2Kind);
 				Assert.Equal(opKind, instr.GetOpKind(2));
 			}
 
-			foreach (var opKind in GetEnumValues<OpKind>()) {
+			foreach (var opKind in GetOpKindValues()) {
 				instr.SetOpKind(3, opKind);
 				Assert.Equal(opKind, instr.Op3Kind);
 				Assert.Equal(opKind, instr.GetOpKind(3));
 			}
 
-			foreach (var opKind in GetEnumValues<OpKind>()) {
+			foreach (var opKind in GetOpKindValues()) {
 				if (opKind == OpKind.Immediate8) {
 					instr.SetOpKind(4, opKind);
 					Assert.Equal(opKind, instr.Op4Kind);
@@ -414,37 +402,37 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				Assert.Equal(scaleValue, instr.MemoryIndexScale);
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				instr.MemoryBase = reg;
 				Assert.Equal(reg, instr.MemoryBase);
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				instr.MemoryIndex = reg;
 				Assert.Equal(reg, instr.MemoryIndex);
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				instr.Op0Register = reg;
 				Assert.Equal(reg, instr.Op0Register);
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				instr.Op1Register = reg;
 				Assert.Equal(reg, instr.Op1Register);
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				instr.Op2Register = reg;
 				Assert.Equal(reg, instr.Op2Register);
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				instr.Op3Register = reg;
 				Assert.Equal(reg, instr.Op3Register);
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				if (reg == Register.None) {
 					instr.Op4Register = reg;
 					Assert.Equal(reg, instr.Op4Register);
@@ -453,31 +441,31 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 					Assert.Throws<ArgumentOutOfRangeException>(() => instr.Op4Register = reg);
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				instr.SetOpRegister(0, reg);
 				Assert.Equal(reg, instr.Op0Register);
 				Assert.Equal(reg, instr.GetOpRegister(0));
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				instr.SetOpRegister(1, reg);
 				Assert.Equal(reg, instr.Op1Register);
 				Assert.Equal(reg, instr.GetOpRegister(1));
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				instr.SetOpRegister(2, reg);
 				Assert.Equal(reg, instr.Op2Register);
 				Assert.Equal(reg, instr.GetOpRegister(2));
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				instr.SetOpRegister(3, reg);
 				Assert.Equal(reg, instr.Op3Register);
 				Assert.Equal(reg, instr.GetOpRegister(3));
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				if (reg == Register.None) {
 					instr.SetOpRegister(4, reg);
 					Assert.Equal(reg, instr.Op4Register);
@@ -516,12 +504,12 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.True(instr.MergingMasking);
 			Assert.False(instr.ZeroingMasking);
 
-			foreach (var rc in GetEnumValues<RoundingControl>()) {
+			foreach (var rc in GetRoundingControlValues()) {
 				instr.RoundingControl = rc;
 				Assert.Equal(rc, instr.RoundingControl);
 			}
 
-			foreach (var reg in GetEnumValues<Register>()) {
+			foreach (var reg in GetRegisterValues()) {
 				instr.MemoryBase = reg;
 				Assert.Equal(reg == Register.RIP || reg == Register.EIP, instr.IsIPRelativeMemoryOperand);
 			}
@@ -546,7 +534,31 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Equal(16, instr.DeclareDataCount);
 		}
 
-		static T[] GetEnumValues<T>() => (T[])Enum.GetValues(typeof(T));
+		static IEnumerable<CodeSize> GetCodeSizeValues() {
+			for (int i = 0; i < IcedConstants.NumberOfCodeSizes; i++) {
+				yield return (CodeSize)i;
+			}
+		}
+		static IEnumerable<Code> GetCodeValues() {
+			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
+				yield return (Code)i;
+			}
+		}
+		static IEnumerable<OpKind> GetOpKindValues() {
+			for (int i = 0; i < IcedConstants.NumberOfOpKinds; i++) {
+				yield return (OpKind)i;
+			}
+		}
+		static IEnumerable<Register> GetRegisterValues() {
+			for (int i = 0; i < IcedConstants.NumberOfRegisters; i++) {
+				yield return (Register)i;
+			}
+		}
+		static IEnumerable<RoundingControl> GetRoundingControlValues() {
+			for (int i = 0; i < IcedConstants.NumberOfRoundingControlValues; i++) {
+				yield return (RoundingControl)i;
+			}
+		}
 
 		[Fact]
 		void Verify_GetSetImmediate() {

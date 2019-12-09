@@ -29,6 +29,7 @@ namespace Iced.UnitTests.Intel {
 	static partial class ToEnumConverter {
 		public static bool TryCode(string value, out Code code) => codeDict.TryGetValue(value, out code);
 		public static Code GetCode(string value) => TryCode(value, out var code) ? code : throw new InvalidOperationException($"Invalid Code value: {value}");
+		public static IEnumerable<string> GetCodeNames() => codeDict.Keys;
 
 		static readonly Dictionary<string, Code> codeDict =
 			// GENERATOR-BEGIN: CodeHash
