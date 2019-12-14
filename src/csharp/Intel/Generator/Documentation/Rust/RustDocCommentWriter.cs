@@ -69,6 +69,13 @@ namespace Generator.Documentation.Rust {
 			return s;
 		}
 
+		static string Escape(string s) {
+			s = s.Replace(@"\", @"\\");
+			s = s.Replace("[", @"\[");
+			s = s.Replace("]", @"\]");
+			return s;
+		}
+
 		public void Write(FileWriter writer, string? documentation, string enumName) {
 			if (string.IsNullOrEmpty(documentation))
 				return;
@@ -87,7 +94,7 @@ namespace Generator.Documentation.Rust {
 					sb.Append(docComment);
 					break;
 				case TokenKind.String:
-					sb.Append(info.value);
+					sb.Append(Escape(info.value));
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;
