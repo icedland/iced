@@ -43,7 +43,7 @@ impl<'a> SectionFileReader<'a> {
 	pub(crate) fn read<T: SectionFileLineHandler>(&mut self, filename: &Path, handler: &mut T) {
 		let display_filename = filename.display().to_string();
 		let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
-		let mut current_section_info: (&'a str, u32) = ("", u32::MAX);
+		let mut current_section_info: (&str, u32) = ("", u32::MAX);
 		for info in BufReader::new(file).lines().zip(1..) {
 			let line_number = info.1;
 			let err_str = match info.0 {
@@ -55,7 +55,7 @@ impl<'a> SectionFileReader<'a> {
 						if !line.ends_with(']') {
 							Some("Missing ']'".to_string())
 						} else {
-							let section_name = &line[1..(line.len() - 1)];
+							let section_name = &line[1..line.len() - 1];
 							if let Some(new_info) = self.get_section(section_name) {
 								current_section_info = *new_info;
 								None

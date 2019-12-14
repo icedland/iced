@@ -26,16 +26,16 @@ use super::enums::*;
 use super::*;
 use std::{mem, u16, u32, u64};
 
-/// Instruction info options
+/// Instruction info options used by `InstructionInfoFactory`
 #[allow(missing_copy_implementations)]
 pub struct InstructionInfoOptions;
 impl InstructionInfoOptions {
 	/// No option is enabled
 	pub const NONE: u32 = 0;
-	/// Don't include memory usage, eg. `InstructionInfo::used_memory()` will return an empty vector. All
+	/// Don't include memory usage, i.e., `InstructionInfo::used_memory()` will return an empty vector. All
 	/// registers that are used by memory operands are still returned by `InstructionInfo::used_registers()`.
 	pub const NO_MEMORY_USAGE: u32 = 0x0000_0001;
-	/// Don't include register usage, eg. `InstructionInfo::used_registers()` will return an empty vector
+	/// Don't include register usage, i.e., `InstructionInfo::used_registers()` will return an empty vector
 	pub const NO_REGISTER_USAGE: u32 = 0x0000_0002;
 }
 
@@ -140,8 +140,7 @@ impl InstructionInfoFactory {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn info<'a, 'b>(&'a mut self, instruction: &'b Instruction) -> &'a InstructionInfo {
-		Self::create(&mut self.info, instruction, InstructionInfoOptions::NONE);
-		&self.info
+		Self::create(&mut self.info, instruction, InstructionInfoOptions::NONE)
 	}
 
 	/// Creates a new `InstructionInfo`, see also `info()`.
@@ -156,11 +155,10 @@ impl InstructionInfoFactory {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn info_options<'a, 'b>(&'a mut self, instruction: &'b Instruction, options: u32) -> &'a InstructionInfo {
-		Self::create(&mut self.info, instruction, options);
-		&self.info
+		Self::create(&mut self.info, instruction, options)
 	}
 
-	pub(crate) fn create(info: &mut InstructionInfo, instruction: &Instruction, options: u32) {
+	pub(crate) fn create<'a>(info: &'a mut InstructionInfo, instruction: &Instruction, options: u32) -> &'a InstructionInfo {
 		info.used_registers.clear();
 		info.used_memory_locations.clear();
 
@@ -176,6 +174,7 @@ impl InstructionInfoFactory {
 		info.cpuid_feature_internal = ((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize;
 		info.flow_control = unsafe { mem::transmute(((flags2 >> InfoFlags2::FLOW_CONTROL_SHIFT) & InfoFlags2::FLOW_CONTROL_MASK) as u8) };
 		info.encoding = unsafe { mem::transmute(((flags2 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK) as u8) };
+		info.rflags_info = ((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as usize;
 
 		const_assert_eq!(0x0800_0000, InfoFlags1::SAVE_RESTORE);
 		const_assert_eq!(0x1000_0000, InfoFlags1::STACK_INSTRUCTION);
@@ -307,7 +306,7 @@ impl InstructionInfoFactory {
 				}
 
 				OpKind::Memory => {
-					const_assert_eq!((1 << 31), InfoFlags1::NO_SEGMENT_READ);
+					const_assert_eq!(1 << 31, InfoFlags1::NO_SEGMENT_READ);
 					const_assert_eq!(0, Register::None as u32);
 					let segment_register = unsafe { mem::transmute((instruction.memory_segment() as u32 & !((flags1 as i32 >> 31) as u32)) as u8) };
 					let base_register = instruction.memory_base();
@@ -386,12 +385,10 @@ impl InstructionInfoFactory {
 			}
 		}
 
-		let mut rflags_info = ((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as usize;
 		let code_info = unsafe { mem::transmute(((flags1 >> InfoFlags1::CODE_INFO_SHIFT) & InfoFlags1::CODE_INFO_MASK) as u8) };
 		if code_info != CodeInfo::None {
-			Self::code_info_handler(code_info, instruction, info, &mut rflags_info, flags);
+			Self::code_info_handler(code_info, instruction, info, flags);
 		}
-		info.rflags_info = rflags_info;
 
 		if instruction.has_op_mask() && (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			Self::add_register(
@@ -405,6 +402,7 @@ impl InstructionInfoFactory {
 				},
 			);
 		}
+		info
 	}
 
 	fn get_xsp(code_size: CodeSize, xsp_mask: &mut u64) -> Register {
@@ -427,7 +425,7 @@ impl InstructionInfoFactory {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::erasing_op))]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::identity_op))]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::len_zero))]
-	fn code_info_handler(code_info: CodeInfo, instruction: &Instruction, info: &mut InstructionInfo, rflags_info: &mut usize, flags: u32) {
+	fn code_info_handler(code_info: CodeInfo, instruction: &Instruction, info: &mut InstructionInfo, flags: u32) {
 		debug_assert_ne!(CodeInfo::None, code_info);
 		let mut index;
 		let reg_index;
@@ -2067,25 +2065,25 @@ impl InstructionInfoFactory {
 
 			CodeInfo::Shift_Ib_MASK1FMOD9 => {
 				if (instruction.immediate8() & 0x1F) % 9 == 0 {
-					*rflags_info = RflagsInfo::None as usize;
+					info.rflags_info = RflagsInfo::None as usize;
 				}
 			}
 
 			CodeInfo::Shift_Ib_MASK1FMOD11 => {
 				if (instruction.immediate8() & 0x1F) % 17 == 0 {
-					*rflags_info = RflagsInfo::None as usize;
+					info.rflags_info = RflagsInfo::None as usize;
 				}
 			}
 
 			CodeInfo::Shift_Ib_MASK1F => {
 				if (instruction.immediate8() & 0x1F) == 0 {
-					*rflags_info = RflagsInfo::None as usize;
+					info.rflags_info = RflagsInfo::None as usize;
 				}
 			}
 
 			CodeInfo::Shift_Ib_MASK3F => {
 				if (instruction.immediate8() & 0x3F) == 0 {
-					*rflags_info = RflagsInfo::None as usize;
+					info.rflags_info = RflagsInfo::None as usize;
 				}
 			}
 
@@ -2453,7 +2451,7 @@ impl InstructionInfoFactory {
 				{
 					info.op_accesses[0] = OpAccess::Write;
 					info.op_accesses[1] = OpAccess::None;
-					*rflags_info = RflagsInfo::C_cos_S_pz_U_a as usize;
+					info.rflags_info = RflagsInfo::C_cos_S_pz_U_a as usize;
 					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 						debug_assert!(info.used_registers.len() == 2 || info.used_registers.len() == 3);
 						info.used_registers.clear();

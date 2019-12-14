@@ -1019,7 +1019,7 @@ namespace Iced.Intel.EncoderInternal {
 
 		string GetMnemonic() {
 			var code = opCode.Code;
-			var mnemonic = code.ToMnemonic();
+			var mnemonic = code.Mnemonic();
 			switch (code) {
 			case Code.Retfw:
 			case Code.Retfw_imm16:

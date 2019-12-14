@@ -88,7 +88,7 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	assert_eq!(can_read, decoder.can_decode());
 	assert_eq!(tc.code, instr.code());
 	assert_eq!(tc.mnemonic, instr.mnemonic());
-	assert_eq!(instr.mnemonic(), instr.code().to_mnemonic());
+	assert_eq!(instr.mnemonic(), instr.code().mnemonic());
 	assert_eq!(len, instr.len() as usize);
 	assert_eq!(rip, instr.ip());
 	assert_eq!(decoder.ip(), instr.next_ip());

@@ -50,7 +50,7 @@ impl MiscSectionNames {
 }
 // GENERATOR-END: MiscSectionNames
 
-struct MiscSectionNameIds {}
+struct MiscSectionNameIds;
 impl MiscSectionNameIds {
 	const JCC_SHORT: u32 = 0;
 	const JCC_NEAR: u32 = 1;

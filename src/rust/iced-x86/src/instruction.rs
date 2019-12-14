@@ -268,7 +268,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn mnemonic(&self) -> Mnemonic {
-		self.code().to_mnemonic()
+		self.code().mnemonic()
 	}
 
 	/// Gets the operand count. An instruction can have 0-5 operands.
@@ -2190,7 +2190,7 @@ impl Instruction {
 	#[inline]
 	pub(crate) fn info_options(&self, options: u32) -> InstructionInfo {
 		let mut info = InstructionInfo::new(options);
-		self::info::InstructionInfoFactory::create(&mut info, self, options);
+		let _ = self::info::InstructionInfoFactory::create(&mut info, self, options);
 		info
 	}
 
@@ -2199,7 +2199,7 @@ impl Instruction {
 	pub(crate) fn used_registers(&self) -> Vec<UsedRegister> {
 		const OPTIONS: u32 = 0;
 		let mut info = InstructionInfo::new(OPTIONS);
-		self::info::InstructionInfoFactory::create(&mut info, self, OPTIONS);
+		let _ = self::info::InstructionInfoFactory::create(&mut info, self, OPTIONS);
 		info.used_registers
 	}
 
@@ -2208,7 +2208,7 @@ impl Instruction {
 	pub(crate) fn used_memory(&self) -> Vec<UsedMemory> {
 		const OPTIONS: u32 = 0;
 		let mut info = InstructionInfo::new(OPTIONS);
-		self::info::InstructionInfoFactory::create(&mut info, self, OPTIONS);
+		let _ = self::info::InstructionInfoFactory::create(&mut info, self, OPTIONS);
 		info.used_memory_locations
 	}
 

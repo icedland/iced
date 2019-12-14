@@ -138,7 +138,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(canRead, codeReader.CanReadByte);
 			Assert.Equal(tc.Code, instr.Code);
 			Assert.Equal(tc.Mnemonic, instr.Mnemonic);
-			Assert.Equal(instr.Mnemonic, instr.Code.ToMnemonic());
+			Assert.Equal(instr.Mnemonic, instr.Code.Mnemonic());
 			Assert.Equal(length, instr.Length);
 			Assert.Equal(rip, instr.IP);
 			Assert.Equal(decoder.IP, instr.NextIP);

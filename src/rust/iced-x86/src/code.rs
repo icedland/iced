@@ -21066,11 +21066,11 @@ impl Code {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(Mnemonic::Add, Code::Add_rm32_r32.to_mnemonic());
+	/// assert_eq!(Mnemonic::Add, Code::Add_rm32_r32.mnemonic());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn to_mnemonic(self) -> Mnemonic {
+	pub fn mnemonic(self) -> Mnemonic {
 		unsafe { mem::transmute(*mnemonics::TO_MNEMONIC.as_ptr().offset(self as isize)) }
 	}
 }

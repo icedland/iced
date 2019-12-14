@@ -40,14 +40,14 @@ namespace Generator.Decoder.CSharp {
 
 		public void Generate() {
 			var data = MnemonicsTable.Table;
-			const string ClassName = "MnemonicUtils";
+			const string ClassName = "MnemonicUtilsData";
 			var mnemonicName = MnemonicEnum.Instance.Name(idConverter);
-			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), ClassName + ".Data.g.cs")))) {
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
 				writer.WriteFileHeader();
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				using (writer.Indent()) {
-					writer.WriteLine($"static partial class {ClassName} {{");
+					writer.WriteLine($"static class {ClassName} {{");
 					using (writer.Indent()) {
 						writer.WriteLine($"internal static readonly ushort[] toMnemonic = new ushort[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)}] {{");
 						using (writer.Indent()) {

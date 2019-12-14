@@ -85,11 +85,6 @@ fn info_64() {
 	test_info(64);
 }
 
-fn verify_used_memory_size() {
-	// std::mem::size_of() is a const func since rustc 1.24.0
-	debug_assert_eq!(16, mem::size_of::<UsedMemory>());
-}
-
 fn test_info(bitness: u32) {
 	let mut factory = InstructionInfoFactory::new();
 	for tc in get_instr_info_test_cases(bitness) {
@@ -230,45 +225,45 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info(&instr);
-	check_equal(&info, &info2, true, true);
+	check_equal(&info, info2, true, true);
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NONE);
-	check_equal(&info, &info2, true, true);
+	check_equal(&info, info2, true, true);
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NO_MEMORY_USAGE);
-	check_equal(&info, &info2, true, false);
+	check_equal(&info, info2, true, false);
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE);
-	check_equal(&info, &info2, false, true);
+	check_equal(&info, info2, false, true);
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info_options(
 		&instr,
 		InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE,
 	);
-	check_equal(&info, &info2, false, false);
+	check_equal(&info, info2, false, false);
 
 	{
 		let info2 = factory.info(&instr);
-		check_equal(&info, &info2, true, true);
+		check_equal(&info, info2, true, true);
 	}
 	{
 		let info2 = factory.info_options(&instr, InstructionInfoOptions::NONE);
-		check_equal(&info, &info2, true, true);
+		check_equal(&info, info2, true, true);
 	}
 	{
 		let info2 = factory.info_options(&instr, InstructionInfoOptions::NO_MEMORY_USAGE);
-		check_equal(&info, &info2, true, false);
+		check_equal(&info, info2, true, false);
 	}
 	{
 		let info2 = factory.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE);
-		check_equal(&info, &info2, false, true);
+		check_equal(&info, info2, false, true);
 	}
 	{
 		let info2 = factory.info_options(
 			&instr,
 			InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE,
 		);
-		check_equal(&info, &info2, false, false);
+		check_equal(&info, info2, false, false);
 	}
 
 	let info2 = instr.info_options(InstructionInfoOptions::NONE);
@@ -411,20 +406,11 @@ fn get_registers(mut regs: Vec<Register>) -> Vec<Register> {
 	}
 
 	regs.sort_by(|x, y| {
-		let mut c = get_register_group_order(*x) - get_register_group_order(*y);
-		if c < 0 {
-			Ordering::Less
-		} else if c > 0 {
-			Ordering::Greater
+		let ord = get_register_group_order(*x).cmp(&get_register_group_order(*y));
+		if ord != Ordering::Equal {
+			ord
 		} else {
-			c = *x as i32 - *y as i32;
-			if c < 0 {
-				Ordering::Less
-			} else if c > 0 {
-				Ordering::Greater
-			} else {
-				Ordering::Equal
-			}
+			(*x as i32).cmp(&(*y as i32))
 		}
 	});
 
@@ -599,7 +585,7 @@ fn is_branch_call() {
 	let call_near_indirect = &data.call_near_indirect;
 	let call_far_indirect = &data.call_far_indirect;
 
-	for i in 0..(IcedConstants::NUMBER_OF_CODE_VALUES) {
+	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let mut instr = Instruction::default();
 		instr.set_code(code);
@@ -718,11 +704,11 @@ fn verify_to_near_branch() {
 		let mut instr = Instruction::default();
 		instr.set_code(code);
 
-		let short = *to_near_branch.get(&code).unwrap_or(&code);
+		let near = *to_near_branch.get(&code).unwrap_or(&code);
 
-		assert_eq!(short, code.to_near_branch());
+		assert_eq!(near, code.to_near_branch());
 		instr.to_near_branch();
-		assert_eq!(short, instr.code());
+		assert_eq!(near, instr.code());
 	}
 }
 
@@ -790,4 +776,10 @@ fn make_sure_all_code_values_are_tested() {
 		}
 	}
 	assert_eq!("0 ins ".to_string(), format!("{} ins ", missing) + &s);
+}
+
+#[test]
+fn verify_used_memory_size() {
+	// std::mem::size_of() is a const func since rustc 1.24.0
+	debug_assert_eq!(16, mem::size_of::<UsedMemory>());
 }

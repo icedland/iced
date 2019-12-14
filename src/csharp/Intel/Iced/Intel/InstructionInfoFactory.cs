@@ -29,7 +29,7 @@ using Iced.Intel.InstructionInfoInternal;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// Instruction info options
+	/// Instruction info options used by <see cref="InstructionInfoFactory"/>
 	/// </summary>
 	[Flags]
 	public enum InstructionInfoOptions : uint {
@@ -39,13 +39,13 @@ namespace Iced.Intel {
 		None						= 0,
 
 		/// <summary>
-		/// Don't include memory usage, eg. <see cref="InstructionInfo.GetUsedMemory"/> will return an empty iterator. All
+		/// Don't include memory usage, i.e., <see cref="InstructionInfo.GetUsedMemory"/> will return an empty iterator. All
 		/// registers that are used by memory operands are still returned by <see cref="InstructionInfo.GetUsedRegisters"/>.
 		/// </summary>
 		NoMemoryUsage				= 0x00000001,
 
 		/// <summary>
-		/// Don't include register usage, eg. <see cref="InstructionInfo.GetUsedRegisters"/> will return an empty iterator
+		/// Don't include register usage, i.e., <see cref="InstructionInfo.GetUsedRegisters"/> will return an empty iterator
 		/// </summary>
 		NoRegisterUsage				= 0x00000002,
 	}

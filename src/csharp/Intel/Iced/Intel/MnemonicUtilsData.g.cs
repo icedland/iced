@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #nullable enable
 
 namespace Iced.Intel {
-	static partial class MnemonicUtils {
+	static class MnemonicUtilsData {
 		internal static readonly ushort[] toMnemonic = new ushort[IcedConstants.NumberOfCodeValues] {
 			(ushort)Mnemonic.INVALID,// INVALID
 			(ushort)Mnemonic.Add,// Add_rm8_r8
