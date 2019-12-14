@@ -30,17 +30,16 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 	public sealed class MiscTests {
 		[Fact]
 		void Register_is_not_too_big() {
-			int maxValue = IcedConstants.NumberOfRegisters - 1;
-			maxValue += Registers.ExtraRegisters;
-			Assert.True(maxValue < (1 << InstrOpInfo.TEST_RegisterBits));
-			Assert.True(maxValue >= (1 << (InstrOpInfo.TEST_RegisterBits - 1)));
+			const int maxValue = IcedConstants.NumberOfRegisters - 1 + Registers.ExtraRegisters;
+			Static.Assert(maxValue < (1 << InstrOpInfo.TEST_RegisterBits) ? 0 : -1);
+			Static.Assert(maxValue >= (1 << (InstrOpInfo.TEST_RegisterBits - 1)) ? 0 : -1);
 		}
 
 		[Fact]
 		void MemorySize_is_not_too_big() {
-			int maxValue = IcedConstants.NumberOfMemorySizes - 1;
-			Assert.True(maxValue < (1 << InstrOpInfo.TEST_MemorySizeBits));
-			Assert.True(maxValue >= (1 << (InstrOpInfo.TEST_MemorySizeBits - 1)));
+			const int maxValue = IcedConstants.NumberOfMemorySizes - 1;
+			Static.Assert(maxValue < (1 << InstrOpInfo.TEST_MemorySizeBits) ? 0 : -1);
+			Static.Assert(maxValue >= (1 << (InstrOpInfo.TEST_MemorySizeBits - 1)) ? 0 : -1);
 		}
 
 		[Fact]
