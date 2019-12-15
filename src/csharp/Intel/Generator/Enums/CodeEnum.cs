@@ -25,6 +25,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using Generator.Encoder;
+using Generator.Enums.InstructionInfo;
+using Generator.InstructionInfo;
 
 namespace Generator.Enums {
 	enum Code {
@@ -4250,6 +4254,9 @@ namespace Generator.Enums {
 			var docs = new Dictionary<string, string>(StringComparer.Ordinal);
 			bool checkedIt = false;
 			const char sepChar = '|';
+			var toInstrInfo = InstrInfoTable.Data.ToDictionary(a => a.Code.RawName, a => a, StringComparer.Ordinal);
+			var toOpCodeInfo = OpCodeInfoTable.Data.ToDictionary(a => a.Code.RawName, a => a, StringComparer.Ordinal);
+			var sb = new StringBuilder();
 			foreach (var line in File.ReadLines(Path.Combine(unitTestDir, "Encoder", "OpCodeInfos.txt"))) {
 				if (line.Length == 0 || line[0] == '#')
 					continue;
@@ -4266,7 +4273,7 @@ namespace Generator.Enums {
 					checkedIt = true;
 				}
 				instructionStr = instructionStr.Replace(sepChar, ',');
-				var docStr = $"#(c:{opCodeStr})##(p:)##(c:{instructionStr})#";
+				var docStr = $"#(c:{instructionStr})##(p:)##(c:{opCodeStr})##(p:)##(c:{GetCpuid(toInstrInfo[name])})##(p:)##(c:{GetMode(sb, toOpCodeInfo[name])})#";
 				docs.Add(name, docStr);
 			}
 			if (!checkedIt)
@@ -4278,6 +4285,70 @@ namespace Generator.Enums {
 				if (!docs.TryGetValue(enumValue.RawName, out var doc))
 					throw new InvalidOperationException($"Couldn't find enum {enumValue.RawName}");
 				enumValue.Documentation = doc;
+			}
+		}
+
+		static string GetMode(StringBuilder sb, OpCodeInfo opCode) {
+			sb.Clear();
+			if ((opCode.Flags & OpCodeFlags.Mode16) != 0)
+				sb.Append("16");
+			if ((opCode.Flags & OpCodeFlags.Mode32) != 0) {
+				if (sb.Length > 0)
+					sb.Append('/');
+				sb.Append("32");
+			}
+			if ((opCode.Flags & OpCodeFlags.Mode64) != 0) {
+				if (sb.Length > 0)
+					sb.Append('/');
+				sb.Append("64");
+			}
+			if (sb.Length == 0)
+				throw new InvalidOperationException();
+			sb.Append("-bit");
+			return sb.ToString();
+		}
+
+		static string GetCpuid(InstrInfo info) {
+			if ((info.Flags & InstrInfoFlags.AVX2_Check) != 0)
+				return "AVX (reg,mem) or AVX2 (reg,reg)";
+			return string.Join(" and ", info.Cpuid.Select(a => GetCpuid(a)));
+		}
+
+		static string GetCpuid(EnumValue c) {
+			switch ((CpuidFeature)c.Value) {
+			case CpuidFeature.INTEL8086:		return "8086+";
+			case CpuidFeature.INTEL8086_ONLY:	return "8086";
+			case CpuidFeature.INTEL186:			return "186+";
+			case CpuidFeature.INTEL286:			return "286+";
+			case CpuidFeature.INTEL286_ONLY:	return "286";
+			case CpuidFeature.INTEL386:			return "386+";
+			case CpuidFeature.INTEL386_ONLY:	return "386";
+			case CpuidFeature.INTEL386_A0_ONLY:	return "386 A0";
+			case CpuidFeature.INTEL486:			return "486+";
+			case CpuidFeature.INTEL486_A_ONLY:	return "486 A";
+			case CpuidFeature.INTEL386_486_ONLY:return "386/486";
+			case CpuidFeature.IA64:				return "IA-64";
+			case CpuidFeature.FPU:				return "8087+";
+			case CpuidFeature.FPU287:			return "287+";
+			case CpuidFeature.FPU287XL_ONLY:	return "287 XL";
+			case CpuidFeature.FPU387:			return "387+";
+			case CpuidFeature.FPU387SL_ONLY:	return "387 SL";
+			case CpuidFeature.GEODE:			return "AMD Geode LX/GX";
+			case CpuidFeature.HLE_or_RTM:		return "HLE or RTM";
+			case CpuidFeature.SKINIT_or_SVML:	return "SKINIT or SVML";
+			case CpuidFeature.INVEPT:			return "VMX and IA32_VMX_EPT_VPID_CAP[bit 20]";
+			case CpuidFeature.INVVPID:			return "VMX and IA32_VMX_EPT_VPID_CAP[bit 32]";
+			case CpuidFeature.MULTIBYTENOP:		return "CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B";
+			case CpuidFeature.PAUSE:			return "Pentium 4 or later";
+			case CpuidFeature.RDPMC:			return "Pentium MMX or later, or Pentium Pro or later";
+			case CpuidFeature.D3NOW:			return "3DNOW";
+			case CpuidFeature.D3NOWEXT:			return "3DNOWEXT";
+			case CpuidFeature.SSE4_1:			return "SSE4.1";
+			case CpuidFeature.SSE4_2:			return "SSE4.2";
+
+			case CpuidFeature.CPUID:
+			default:
+				return c.RawName;
 			}
 		}
 	}
