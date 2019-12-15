@@ -27,8 +27,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Iced.Intel {
 	static class IcedConstants {
-		internal const int MaxInstructionLength = 15;
 		internal const int MaxOpCount = 5;
+		internal const int MaxInstructionLength = 15;
+		internal const int RegisterBits = 8;
 		internal const int NumberOfCodeValues = 4203;
 		internal const int NumberOfRegisters = 241;
 		internal const int NumberOfMemorySizes = 136;

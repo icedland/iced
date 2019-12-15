@@ -54,8 +54,11 @@ namespace Generator.Enums.Instruction {
 			EqualsIgnoreMask		= CodeSizeMask << (int)CodeSizeShift,
 		}
 
-		static EnumValue[] GetValues() =>
-			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		static EnumValue[] GetValues() {
+			ConstantUtils.VerifyMask<OpKind>((uint)Enum.OpKindMask);
+			ConstantUtils.VerifyMask<CodeSize>((uint)Enum.CodeSizeMask);
+			return typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		}
 
 		public static readonly EnumType Instance = new EnumType("OpKindFlags", TypeIds.Instruction_OpKindFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}

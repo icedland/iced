@@ -63,8 +63,11 @@ namespace Generator.Enums.Formatter.Intel {
 			MnemonicIsDirective			= 0x00008000,
 		}
 
-		static EnumValue[] GetValues() =>
-			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		static EnumValue[] GetValues() {
+			ConstantUtils.VerifyMask<BranchSizeInfo>((uint)Enum.BranchSizeInfoMask);
+			ConstantUtils.VerifyMask<SizeOverride>((uint)Enum.SizeOverrideMask);
+			return typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		}
 
 		public static readonly EnumType Instance = new EnumType("InstrOpInfoFlags", TypeIds.IntelInstrOpInfoFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}

@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Linq;
+using Generator.Constants;
 
 namespace Generator.Enums.Instruction {
 	static class CodeFlagsEnum {
@@ -65,8 +66,12 @@ namespace Generator.Enums.Instruction {
 			EqualsIgnoreMask		= InstrLengthMask << (int)InstrLengthShift,
 		}
 
-		static EnumValue[] GetValues() =>
-			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		static EnumValue[] GetValues() {
+			ConstantUtils.VerifyMask<Code>((uint)Enum.CodeMask);
+			ConstantUtils.VerifyMask<RoundingControl>((uint)Enum.RoundingControlMask);
+			ConstantUtils.VerifyMask((uint)Enum.InstrLengthMask, IcedConstants.MaxInstructionLength);
+			return typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		}
 
 		public static readonly EnumType Instance = new EnumType("CodeFlags", TypeIds.Instruction_CodeFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}

@@ -1,0 +1,196 @@
+/*
+Copyright (C) 2018-2019 de4dot@gmail.com
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+using System;
+using System.IO;
+using Generator.Enums;
+using Generator.Enums.CSharp;
+using Generator.Enums.Encoder;
+using Generator.IO;
+
+namespace Generator.Encoder.CSharp {
+	[Generator(TargetLanguage.CSharp, GeneratorNames.Encoder)]
+	sealed class CSharpEncoderGenerator : EncoderGenerator {
+		readonly IdentifierConverter idConverter;
+		readonly GeneratorOptions generatorOptions;
+		readonly CSharpEnumsGenerator enumGenerator;
+
+		public CSharpEncoderGenerator(GeneratorOptions generatorOptions) {
+			idConverter = CSharpIdentifierConverter.Create();
+			this.generatorOptions = generatorOptions;
+			enumGenerator = new CSharpEnumsGenerator(generatorOptions);
+		}
+
+		protected override void Generate(EnumType enumType) => enumGenerator.Generate(enumType);
+
+		protected override void Generate((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+			GenerateOpCodeOperandKindTables(legacy, vex, xop, evex);
+			GenerateOpTables(legacy, vex, xop, evex);
+		}
+
+		void GenerateOpCodeOperandKindTables((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "OpCodeOperandKinds.g.cs");
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
+				writer.WriteFileHeader();
+				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
+
+				writer.WriteLine($"namespace {CSharpConstants.EncoderNamespace} {{");
+				using (writer.Indent()) {
+					writer.WriteLine("static class OpCodeOperandKinds {");
+					using (writer.Indent()) {
+						Generate(writer, "LegacyOpKinds", legacy);
+						Generate(writer, "VexOpKinds", vex);
+						Generate(writer, "XopOpKinds", xop);
+						Generate(writer, "EvexOpKinds", evex);
+					}
+					writer.WriteLine("}");
+				}
+				writer.WriteLine("}");
+				writer.WriteLine("#endif");
+			}
+
+			void Generate(FileWriter writer, string name, (EnumValue opCodeOperandKind, EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
+				var declTypeStr = OpCodeOperandKindEnum.Instance.Name(idConverter);
+				writer.WriteLine($"public static readonly byte[] {name} = new byte[{table.Length}] {{");
+				using (writer.Indent()) {
+					foreach (var info in table) {
+						writer.WriteLine($"(byte){declTypeStr}.{info.opCodeOperandKind.Name(idConverter)},");
+					}
+				}
+				writer.WriteLine("};");
+			}
+		}
+
+		void GenerateOpTables((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "OpTables.g.cs");
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
+				writer.WriteFileHeader();
+				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
+
+				writer.WriteLine($"namespace {CSharpConstants.EncoderNamespace} {{");
+				using (writer.Indent()) {
+					writer.WriteLine("static class OpHandlerData {");
+					using (writer.Indent()) {
+						Generate(writer, "LegacyOps", legacy);
+						Generate(writer, "VexOps", vex);
+						Generate(writer, "XopOps", xop);
+						Generate(writer, "EvexOps", evex);
+					}
+					writer.WriteLine("}");
+				}
+				writer.WriteLine("}");
+				writer.WriteLine("#endif");
+			}
+
+			void Generate(FileWriter writer, string name, (EnumValue opCodeOperandKind, EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
+				var declTypeStr = OpCodeOperandKindEnum.Instance.Name(idConverter);
+				if (table[0].opHandlerKind != OpHandlerKind.None)
+					throw new InvalidOperationException();
+				writer.WriteLine($"public static readonly Op[] {name} = new Op[{table.Length - 1}] {{");
+				using (writer.Indent()) {
+					for (int i = 1; i < table.Length; i++) {
+						var info = table[i];
+						writer.Write("new ");
+						writer.Write(info.opHandlerKind.ToString());
+						writer.Write("(");
+						var ctorArgs = info.args;
+						for (int j = 0; j < ctorArgs.Length; j++) {
+							if (j > 0)
+								writer.Write(", ");
+							switch (ctorArgs[j]) {
+							case EnumValue value:
+								writer.Write($"{value.DeclaringType.Name(idConverter)}.{value.Name(idConverter)}");
+								break;
+							case int value:
+								writer.Write(value.ToString());
+								break;
+							default:
+								throw new InvalidOperationException();
+							}
+						}
+						writer.WriteLine("),");
+					}
+				}
+				writer.WriteLine("};");
+			}
+		}
+
+		protected override void Generate(OpCodeInfo[] opCodes) {
+			GenerateTable(opCodes);
+			GenerateNonZeroOpMaskRegisterCode(opCodes);
+		}
+
+		void GenerateTable(OpCodeInfo[] opCodes) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "OpCodeHandlers.Data.g.cs");
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
+				writer.WriteFileHeader();
+				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
+				writer.WriteLine($"namespace {CSharpConstants.EncoderNamespace} {{");
+				using (writer.Indent()) {
+					writer.WriteLine("static partial class OpCodeHandlers {");
+					using (writer.Indent()) {
+						writer.WriteLine("public static uint[] GetData() =>");
+						using (writer.Indent()) {
+							writer.WriteLine($"new uint[{opCodes.Length} * 3] {{");
+							using (writer.Indent()) {
+								foreach (var info in GetData(opCodes))
+									writer.WriteLine($"0x{info.dword1:X8}, 0x{info.dword2:X8}, 0x{info.dword3:X8},// {info.opCode.Code.Name(idConverter)}");
+							}
+							writer.WriteLine("};");
+						}
+					}
+					writer.WriteLine("}");
+				}
+				writer.WriteLine("}");
+				writer.WriteLine("#endif");
+			}
+		}
+
+		void GenerateNonZeroOpMaskRegisterCode(OpCodeInfo[] opCodes) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "OpCodeInfo.cs");
+			new FileUpdater(TargetLanguage.CSharp, "NonZeroOpMaskRegister", filename).Generate(writer => {
+				var codeStr = CodeEnum.Instance.Name(idConverter);
+				foreach (var opCode in opCodes) {
+					if ((opCode.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0)
+						writer.WriteLine($"case {codeStr}.{opCode.Code.Name(idConverter)}:");
+				}
+			});
+		}
+
+		protected override void Generate((EnumValue value, uint size)[] immSizes) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Encoder.cs");
+			new FileUpdater(TargetLanguage.CSharp, "ImmSizes", filename).Generate(writer => {
+				var codeStr = CodeEnum.Instance.Name(idConverter);
+				writer.WriteLine($"static readonly uint[] s_immSizes = new uint[{immSizes.Length}] {{");
+				using (writer.Indent()) {
+					foreach (var info in immSizes)
+						writer.WriteLine($"{info.size},// {info.value.Name(idConverter)}");
+				}
+				writer.WriteLine("};");
+			});
+		}
+
+		protected override void GenerateCore() {
+		}
+	}
+}

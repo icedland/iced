@@ -21,36 +21,20 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_ENCODER
-namespace Iced.Intel {
-	/// <summary>
-	/// Mandatory prefix
-	/// </summary>
-	public enum MandatoryPrefix {
-		/// <summary>
-		/// No mandatory prefix (legacy and 3DNow! tables only)
-		/// </summary>
-		None,
+using System;
+using Generator.Enums;
 
-		/// <summary>
-		/// Empty mandatory prefix (no 66, F3 or F2 prefix)
-		/// </summary>
-		PNP,
-
-		/// <summary>
-		/// 66 prefix
-		/// </summary>
-		P66,
-
-		/// <summary>
-		/// F3 prefix
-		/// </summary>
-		PF3,
-
-		/// <summary>
-		/// F2 prefix
-		/// </summary>
-		PF2,
+namespace Generator.Constants {
+	static class EnumUtils {
+		public static EnumType GetEnumType(ConstantKind kind) {
+			switch (kind) {
+			case ConstantKind.Register:
+				return RegisterEnum.Instance;
+			case ConstantKind.MemorySize:
+				return MemorySizeEnum.Instance;
+			default:
+				throw new InvalidOperationException();
+			}
+		}
 	}
 }
-#endif

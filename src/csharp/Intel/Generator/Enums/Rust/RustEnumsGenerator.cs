@@ -117,6 +117,40 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.OpAccess, new PartialEnumFileInfo("OpAccess", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.FeatureInstrInfo }));
 			toPartialFileInfo.Add(TypeIds.MemorySizeFlags, new PartialEnumFileInfo("MemorySizeFlags", Path.Combine(generatorOptions.RustDir, "info", "tests", "constants.rs"), new[] { RustConstants.AttributeCopyEqOrdHash }));
 			toPartialFileInfo.Add(TypeIds.RegisterFlags, new PartialEnumFileInfo("RegisterFlags", Path.Combine(generatorOptions.RustDir, "info", "tests", "constants.rs"), new[] { RustConstants.AttributeCopyEqOrdHash }));
+			toPartialFileInfo.Add(TypeIds.LegacyOpCodeTable, new PartialEnumFileInfo("LegacyOpCodeTable", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.VexOpCodeTable, new PartialEnumFileInfo("VexOpCodeTable", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.XopOpCodeTable, new PartialEnumFileInfo("XopOpCodeTable", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.EvexOpCodeTable, new PartialEnumFileInfo("EvexOpCodeTable", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.Encodable, new PartialEnumFileInfo("Encodable", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.OpCodeHandlerFlags, new PartialEnumFileInfo("OpCodeHandlerFlags", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), new[] { RustConstants.FeatureEncoder }));
+			toPartialFileInfo.Add(TypeIds.LegacyOpKind, new PartialEnumFileInfo("LegacyOpKind", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.VexOpKind, new PartialEnumFileInfo("VexOpKind", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.XopOpKind, new PartialEnumFileInfo("XopOpKind", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.EvexOpKind, new PartialEnumFileInfo("EvexOpKind", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.NasmMemorySizeInfo, null);
+			toPartialFileInfo.Add(TypeIds.NasmFarMemorySizeInfo, null);
+			toPartialFileInfo.Add(TypeIds.MandatoryPrefix, null);
+			toPartialFileInfo.Add(TypeIds.OpCodeTableKind, null);
+			toPartialFileInfo.Add(TypeIds.OperandSize, null);
+			toPartialFileInfo.Add(TypeIds.AddressSize, null);
+			toPartialFileInfo.Add(TypeIds.VexVectorLength, null);
+			toPartialFileInfo.Add(TypeIds.XopVectorLength, null);
+			toPartialFileInfo.Add(TypeIds.EvexVectorLength, null);
+			toPartialFileInfo.Add(TypeIds.DisplSize, null);
+			toPartialFileInfo.Add(TypeIds.ImmSize, null);
+			toPartialFileInfo.Add(TypeIds.EncoderFlags, null);
+			toPartialFileInfo.Add(TypeIds.EncFlags1, null);
+			toPartialFileInfo.Add(TypeIds.LegacyFlags3, null);
+			toPartialFileInfo.Add(TypeIds.VexFlags3, null);
+			toPartialFileInfo.Add(TypeIds.XopFlags3, null);
+			toPartialFileInfo.Add(TypeIds.EvexFlags3, null);
+			toPartialFileInfo.Add(TypeIds.AllowedPrefixes, null);
+			toPartialFileInfo.Add(TypeIds.LegacyFlags, null);
+			toPartialFileInfo.Add(TypeIds.VexFlags, null);
+			toPartialFileInfo.Add(TypeIds.XopFlags, null);
+			toPartialFileInfo.Add(TypeIds.EvexFlags, null);
+			toPartialFileInfo.Add(TypeIds.D3nowFlags, null);
+			toPartialFileInfo.Add(TypeIds.WBit, null);
 		}
 
 		public override void Generate(EnumType enumType) {
@@ -200,7 +234,9 @@ namespace Generator.Enums.Rust {
 				writer.WriteLine("fn default() -> Self {");
 				using (writer.Indent()) {
 					var defaultValue = enumType.Values[0];
-					if (defaultValue.Value != 0)
+					// The first one should always have value 0 (eg. "None" field), and if the first one doesn't
+					// have value 0, there must be no other enum fields == 0.
+					if (defaultValue.Value != 0 && enumType.Values.Any(a => a.Value == 0))
 						throw new InvalidOperationException();
 					writer.WriteLine($"{enumTypeName}::{defaultValue.Name(idConverter)}");
 				}

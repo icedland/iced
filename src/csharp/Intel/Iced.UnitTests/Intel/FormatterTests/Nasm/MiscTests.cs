@@ -36,13 +36,6 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		}
 
 		[Fact]
-		void MemorySize_is_not_too_big() {
-			const int maxValue = IcedConstants.NumberOfMemorySizes - 1;
-			Static.Assert(maxValue < (1 << InstrOpInfo.TEST_MemorySizeBits) ? 0 : -1);
-			Static.Assert(maxValue >= (1 << (InstrOpInfo.TEST_MemorySizeBits - 1)) ? 0 : -1);
-		}
-
-		[Fact]
 		void Verify_MemorySizes_have_valid_MemorySize_values() {
 			var infos = MemorySizes.AllMemorySizes;
 			for (int i = 0; i < infos.Length; i++) {

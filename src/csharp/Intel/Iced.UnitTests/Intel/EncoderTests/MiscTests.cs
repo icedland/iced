@@ -31,14 +31,6 @@ using Xunit;
 namespace Iced.UnitTests.Intel.EncoderTests {
 	public sealed class MiscTests : EncoderTest {
 		[Fact]
-		void Verify_Handlers_table_Code_values() {
-			var handlers = OpCodeHandlers.Handlers;
-			for (int i = 0; i < handlers.Length; i++)
-				Assert.Equal((Code)i, handlers[i].TEST_Code);
-			Assert.Equal(IcedConstants.NumberOfCodeValues, handlers.Length);
-		}
-
-		[Fact]
 		void Encode_INVALID_Code_value_is_an_error() {
 			Encoder encoder;
 			var instr = new Instruction { Code = Code.INVALID };

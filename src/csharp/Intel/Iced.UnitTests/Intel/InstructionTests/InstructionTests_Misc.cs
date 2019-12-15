@@ -30,24 +30,10 @@ using Xunit;
 namespace Iced.UnitTests.Intel.InstructionTests {
 	public sealed class InstructionTests_Misc {
 		[Fact]
-		void OpKind_is_not_too_big() {
-			const int maxValue = IcedConstants.NumberOfOpKinds - 1;
-			Static.Assert(maxValue < (1 << Instruction.TEST_OpKindBits) ? 0 : -1);
-			Static.Assert(maxValue >= (1 << (Instruction.TEST_OpKindBits - 1)) ? 0 : -1);
-		}
-
-		[Fact]
-		void Code_is_not_too_big() {
-			const int maxValue = IcedConstants.NumberOfCodeValues - 1;
-			Static.Assert(maxValue < (1 << Instruction.TEST_CodeBits) ? 0 : -1);
-			Static.Assert(maxValue >= (1 << (Instruction.TEST_CodeBits - 1)) ? 0 : -1);
-		}
-
-		[Fact]
 		void Register_is_not_too_big() {
 			const int maxValue = IcedConstants.NumberOfRegisters - 1;
-			Static.Assert(maxValue < (1 << Instruction.TEST_RegisterBits) ? 0 : -1);
-			Static.Assert(maxValue >= (1 << (Instruction.TEST_RegisterBits - 1)) ? 0 : -1);
+			Static.Assert(maxValue < (1 << IcedConstants.RegisterBits) ? 0 : -1);
+			Static.Assert(maxValue >= (1 << (IcedConstants.RegisterBits - 1)) ? 0 : -1);
 		}
 
 		[Fact]

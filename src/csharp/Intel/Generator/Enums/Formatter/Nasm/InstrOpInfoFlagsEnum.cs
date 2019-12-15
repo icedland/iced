@@ -65,8 +65,15 @@ namespace Generator.Enums.Formatter.Nasm {
 			MemorySizeMask				= (1 << (int)MemorySizeBits) - 1,
 		}
 
-		static EnumValue[] GetValues() =>
-			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		static EnumValue[] GetValues() {
+			ConstantUtils.VerifyMask<SizeOverride>((uint)Enum.SizeOverrideMask);
+			ConstantUtils.VerifyMask<BranchSizeInfo>((uint)Enum.BranchSizeInfoMask);
+			ConstantUtils.VerifyMask<SignExtendInfo>((uint)Enum.SignExtendInfoMask);
+			ConstantUtils.VerifyMask<MemorySizeInfo>((uint)Enum.MemorySizeInfoMask);
+			ConstantUtils.VerifyMask<FarMemorySizeInfo>((uint)Enum.FarMemorySizeInfoMask);
+			ConstantUtils.VerifyMask<MemorySize>((uint)Enum.MemorySizeMask);
+			return typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		}
 
 		public static readonly EnumType Instance = new EnumType("InstrOpInfoFlags", TypeIds.NasmInstrOpInfoFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}

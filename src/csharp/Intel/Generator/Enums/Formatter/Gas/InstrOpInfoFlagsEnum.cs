@@ -51,8 +51,10 @@ namespace Generator.Enums.Formatter.Gas {
 			MnemonicIsDirective			= 0x1000,
 		}
 
-		static EnumValue[] GetValues() =>
-			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		static EnumValue[] GetValues() {
+			ConstantUtils.VerifyMask<SizeOverride>((uint)Enum.SizeOverrideMask);
+			return typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		}
 
 		public static readonly EnumType Instance = new EnumType("InstrOpInfoFlags", TypeIds.GasInstrOpInfoFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}

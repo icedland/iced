@@ -56,7 +56,7 @@ namespace Iced.Intel {
 			BndPrefix				= 0x00040000,
 			HintTakenPrefix			= 0x00080000,
 			NotrackPrefix			= 0x00100000,
-			IsInstruction			= 0x00200000,
+			NoInstruction			= 0x00200000,
 			NonZeroOpMaskRegister	= 0x00400000,
 		}
 
@@ -80,13 +80,12 @@ namespace Iced.Intel {
 		readonly byte op4Kind;
 		readonly LKind lkind;
 
-		internal OpCodeInfo(uint dword3, uint dword2, uint dword1, StringBuilder sb) {
-			var code = (Code)(dword1 & (uint)EncFlags1.CodeMask);
+		internal OpCodeInfo(Code code, uint dword3, uint dword2, uint dword1, StringBuilder sb) {
 			Debug.Assert((uint)code < (uint)IcedConstants.NumberOfCodeValues);
 			Debug.Assert((uint)code <= ushort.MaxValue);
 			this.code = (ushort)code;
-			if (!(code == Code.INVALID || code >= Code.DeclareByte))
-				flags |= Flags.IsInstruction;
+			if (code == Code.INVALID || code >= Code.DeclareByte)
+				flags |= Flags.NoInstruction;
 			opCode = (ushort)(dword1 >> (int)EncFlags1.OpCodeShift);
 
 			byte[] opKinds;
@@ -94,12 +93,12 @@ namespace Iced.Intel {
 			switch ((EncodingKind)encoding) {
 			case EncodingKind.Legacy:
 				opKinds = OpCodeOperandKinds.LegacyOpKinds;
-				op0Kind = opKinds[(int)(dword3 & (uint)LegacyFlags3.OpMask)];
+				op0Kind = opKinds[(int)((dword3 >> (int)LegacyFlags3.Op0Shift) & (uint)LegacyFlags3.OpMask)];
 				op1Kind = opKinds[(int)((dword3 >> (int)LegacyFlags3.Op1Shift) & (uint)LegacyFlags3.OpMask)];
 				op2Kind = opKinds[(int)((dword3 >> (int)LegacyFlags3.Op2Shift) & (uint)LegacyFlags3.OpMask)];
 				op3Kind = opKinds[(int)((dword3 >> (int)LegacyFlags3.Op3Shift) & (uint)LegacyFlags3.OpMask)];
 
-				mandatoryPrefix = (MandatoryPrefixByte)((dword2 >> (int)LegacyFlags.MandatoryPrefixShift) & (uint)LegacyFlags.MandatoryPrefixMask) switch {
+				mandatoryPrefix = (MandatoryPrefixByte)((dword2 >> (int)LegacyFlags.MandatoryPrefixByteShift) & (uint)LegacyFlags.MandatoryPrefixByteMask) switch {
 					MandatoryPrefixByte.None => (byte)((dword2 & (uint)LegacyFlags.HasMandatoryPrefix) != 0 ? MandatoryPrefix.PNP : MandatoryPrefix.None),
 					MandatoryPrefixByte.P66 => (byte)MandatoryPrefix.P66,
 					MandatoryPrefixByte.PF3 => (byte)MandatoryPrefix.PF3,
@@ -107,7 +106,7 @@ namespace Iced.Intel {
 					_ => throw new InvalidOperationException(),
 				};
 
-				table = (LegacyOpCodeTable)((dword2 >> (int)LegacyFlags.OpCodeTableShift) & (uint)LegacyFlags.OpCodeTableMask) switch {
+				table = (LegacyOpCodeTable)((dword2 >> (int)LegacyFlags.LegacyOpCodeTableShift) & (uint)LegacyFlags.LegacyOpCodeTableMask) switch {
 					LegacyOpCodeTable.Normal => (byte)OpCodeTableKind.Normal,
 					LegacyOpCodeTable.Table0F => (byte)OpCodeTableKind.T0F,
 					LegacyOpCodeTable.Table0F38 => (byte)OpCodeTableKind.T0F38,
@@ -136,7 +135,7 @@ namespace Iced.Intel {
 					AllowedPrefixes.HintTakenBnd => Flags.HintTakenPrefix | Flags.BndPrefix,
 					AllowedPrefixes.Lock => Flags.LockPrefix,
 					AllowedPrefixes.Rep => Flags.RepPrefix,
-					AllowedPrefixes.RepeRepne => Flags.RepPrefix | Flags.RepnePrefix,
+					AllowedPrefixes.RepRepne => Flags.RepPrefix | Flags.RepnePrefix,
 					AllowedPrefixes.XacquireXreleaseLock => Flags.XacquirePrefix | Flags.XreleasePrefix | Flags.LockPrefix,
 					AllowedPrefixes.Xrelease => Flags.XreleasePrefix,
 					_ => throw new InvalidOperationException(),
@@ -144,35 +143,21 @@ namespace Iced.Intel {
 				if ((dword2 & (uint)LegacyFlags.Fwait) != 0)
 					flags |= Flags.Fwait;
 
-				switch ((OperandSize)((dword2 >> (int)LegacyFlags.Legacy_OpSizeShift) & (uint)LegacyFlags.Legacy_OperandSizeMask)) {
-				case EncoderInternal.OperandSize.None:
-					operandSize = 0;
-					break;
-				case EncoderInternal.OperandSize.Size16:
-					operandSize = 16;
-					break;
-				case EncoderInternal.OperandSize.Size32:
-					operandSize = 32;
-					break;
-				case EncoderInternal.OperandSize.Size64:
-					operandSize = 64;
-					break;
-				}
+				operandSize = ((OperandSize)((dword2 >> (int)LegacyFlags.OperandSizeShift) & (uint)LegacyFlags.OperandSizeMask)) switch {
+					EncoderInternal.OperandSize.None => 0,
+					EncoderInternal.OperandSize.Size16 => 16,
+					EncoderInternal.OperandSize.Size32 => 32,
+					EncoderInternal.OperandSize.Size64 => 64,
+					_ => throw new InvalidOperationException(),
+				};
 
-				switch ((AddressSize)((dword2 >> (int)LegacyFlags.Legacy_AddrSizeShift) & (uint)LegacyFlags.Legacy_AddressSizeMask)) {
-				case EncoderInternal.AddressSize.None:
-					addressSize = 0;
-					break;
-				case EncoderInternal.AddressSize.Size16:
-					addressSize = 16;
-					break;
-				case EncoderInternal.AddressSize.Size32:
-					addressSize = 32;
-					break;
-				case EncoderInternal.AddressSize.Size64:
-					addressSize = 64;
-					break;
-				}
+				addressSize = ((AddressSize)((dword2 >> (int)LegacyFlags.AddressSizeShift) & (uint)LegacyFlags.AddressSizeMask)) switch {
+					EncoderInternal.AddressSize.None => 0,
+					EncoderInternal.AddressSize.Size16 => 16,
+					EncoderInternal.AddressSize.Size32 => 32,
+					EncoderInternal.AddressSize.Size64 => 64,
+					_ => throw new InvalidOperationException(),
+				};
 
 				l = 0;
 				lkind = LKind.None;
@@ -180,13 +165,13 @@ namespace Iced.Intel {
 
 			case EncodingKind.VEX:
 				opKinds = OpCodeOperandKinds.VexOpKinds;
-				op0Kind = opKinds[(int)(dword3 & (uint)VexFlags3.OpMask)];
+				op0Kind = opKinds[(int)((dword3 >> (int)VexFlags3.Op0Shift) & (uint)VexFlags3.OpMask)];
 				op1Kind = opKinds[(int)((dword3 >> (int)VexFlags3.Op1Shift) & (uint)VexFlags3.OpMask)];
 				op2Kind = opKinds[(int)((dword3 >> (int)VexFlags3.Op2Shift) & (uint)VexFlags3.OpMask)];
 				op3Kind = opKinds[(int)((dword3 >> (int)VexFlags3.Op3Shift) & (uint)VexFlags3.OpMask)];
 				op4Kind = opKinds[(int)((dword3 >> (int)VexFlags3.Op4Shift) & (uint)VexFlags3.OpMask)];
 
-				mandatoryPrefix = (MandatoryPrefixByte)((dword2 >> (int)VexFlags.MandatoryPrefixShift) & (uint)VexFlags.MandatoryPrefixMask) switch {
+				mandatoryPrefix = (MandatoryPrefixByte)((dword2 >> (int)VexFlags.MandatoryPrefixByteShift) & (uint)VexFlags.MandatoryPrefixByteMask) switch {
 					MandatoryPrefixByte.None => (byte)MandatoryPrefix.PNP,
 					MandatoryPrefixByte.P66 => (byte)MandatoryPrefix.P66,
 					MandatoryPrefixByte.PF3 => (byte)MandatoryPrefix.PF3,
@@ -194,7 +179,7 @@ namespace Iced.Intel {
 					_ => throw new InvalidOperationException(),
 				};
 
-				table = (VexOpCodeTable)((dword2 >> (int)VexFlags.OpCodeTableShift) & (uint)VexFlags.OpCodeTableMask) switch {
+				table = (VexOpCodeTable)((dword2 >> (int)VexFlags.VexOpCodeTableShift) & (uint)VexFlags.VexOpCodeTableMask) switch {
 					VexOpCodeTable.Table0F => (byte)OpCodeTableKind.T0F,
 					VexOpCodeTable.Table0F38 => (byte)OpCodeTableKind.T0F38,
 					VexOpCodeTable.Table0F3A => (byte)OpCodeTableKind.T0F3A,
@@ -212,28 +197,28 @@ namespace Iced.Intel {
 				};
 				operandSize = 0;
 				addressSize = 0;
-				switch ((VexFlags)((dword2 >> (int)VexFlags.VEX_LShift) & (int)VexFlags.VEX_LMask)) {
-				case VexFlags.LZ:
+				switch ((VexVectorLength)((dword2 >> (int)VexFlags.VexVectorLengthShift) & (int)VexFlags.VexVectorLengthMask)) {
+				case VexVectorLength.LZ:
 					lkind = LKind.LZ;
 					l = 0;
 					break;
-				case VexFlags.L0:
+				case VexVectorLength.L0:
 					lkind = LKind.L0;
 					l = 0;
 					break;
-				case VexFlags.L1:
+				case VexVectorLength.L1:
 					lkind = LKind.L0;
 					l = 1;
 					break;
-				case VexFlags.L128:
+				case VexVectorLength.L128:
 					lkind = LKind.L128;
 					l = 0;
 					break;
-				case VexFlags.L256:
+				case VexVectorLength.L256:
 					lkind = LKind.L128;
 					l = 1;
 					break;
-				case VexFlags.LIG:
+				case VexVectorLength.LIG:
 					lkind = LKind.None;
 					l = 0;
 					flags |= Flags.LIG;
@@ -242,22 +227,28 @@ namespace Iced.Intel {
 					throw new InvalidOperationException();
 				}
 
-				if ((dword2 & (uint)VexFlags.VEX_W1) != 0)
+				var wbit = (WBit)((dword2 >> (int)VexFlags.WBitShift) & (uint)VexFlags.WBitMask);
+				switch ((WBit)((dword2 >> (int)VexFlags.WBitShift) & (uint)VexFlags.WBitMask)) {
+				case WBit.W1:
 					flags |= Flags.W;
-				if ((dword2 & (uint)VexFlags.VEX_WIG) != 0)
+					break;
+				case WBit.WIG:
 					flags |= Flags.WIG;
-				if ((dword2 & (uint)VexFlags.VEX_WIG32) != 0)
+					break;
+				case WBit.WIG32:
 					flags |= Flags.WIG32;
+					break;
+				}
 				break;
 
 			case EncodingKind.EVEX:
 				opKinds = OpCodeOperandKinds.EvexOpKinds;
-				op0Kind = opKinds[(int)(dword3 & (uint)EvexFlags3.OpMask)];
+				op0Kind = opKinds[(int)((dword3 >> (int)EvexFlags3.Op0Shift) & (uint)EvexFlags3.OpMask)];
 				op1Kind = opKinds[(int)((dword3 >> (int)EvexFlags3.Op1Shift) & (uint)EvexFlags3.OpMask)];
 				op2Kind = opKinds[(int)((dword3 >> (int)EvexFlags3.Op2Shift) & (uint)EvexFlags3.OpMask)];
 				op3Kind = opKinds[(int)((dword3 >> (int)EvexFlags3.Op3Shift) & (uint)EvexFlags3.OpMask)];
 
-				mandatoryPrefix = (MandatoryPrefixByte)((dword2 >> (int)EvexFlags.MandatoryPrefixShift) & (uint)EvexFlags.MandatoryPrefixMask) switch {
+				mandatoryPrefix = (MandatoryPrefixByte)((dword2 >> (int)EvexFlags.MandatoryPrefixByteShift) & (uint)EvexFlags.MandatoryPrefixByteMask) switch {
 					MandatoryPrefixByte.None => (byte)MandatoryPrefix.PNP,
 					MandatoryPrefixByte.P66 => (byte)MandatoryPrefix.P66,
 					MandatoryPrefixByte.PF3 => (byte)MandatoryPrefix.PF3,
@@ -265,7 +256,7 @@ namespace Iced.Intel {
 					_ => throw new InvalidOperationException(),
 				};
 
-				table = (EvexOpCodeTable)((dword2 >> (int)EvexFlags.OpCodeTableShift) & (uint)EvexFlags.OpCodeTableMask) switch {
+				table = (EvexOpCodeTable)((dword2 >> (int)EvexFlags.EvexOpCodeTableShift) & (uint)EvexFlags.EvexOpCodeTableMask) switch {
 					EvexOpCodeTable.Table0F => (byte)OpCodeTableKind.T0F,
 					EvexOpCodeTable.Table0F38 => (byte)OpCodeTableKind.T0F38,
 					EvexOpCodeTable.Table0F3A => (byte)OpCodeTableKind.T0F3A,
@@ -283,28 +274,35 @@ namespace Iced.Intel {
 				};
 				operandSize = 0;
 				addressSize = 0;
-				l = (byte)((dword2 >> (int)EvexFlags.EVEX_LShift) & 3);
+				l = (byte)((dword2 >> (int)EvexFlags.EvexVectorLengthShift) & (uint)EvexFlags.EvexVectorLengthMask);
 
-				if ((dword2 & (uint)EvexFlags.EVEX_W1) != 0)
+				switch ((WBit)((dword2 >> (int)EvexFlags.WBitShift) & (uint)EvexFlags.WBitMask)) {
+				case WBit.W1:
 					flags |= Flags.W;
-				if ((dword2 & (uint)EvexFlags.EVEX_LIG) != 0)
-					flags |= Flags.LIG;
-				if ((dword2 & (uint)EvexFlags.EVEX_WIG) != 0)
+					break;
+				case WBit.WIG:
 					flags |= Flags.WIG;
-				if ((dword2 & (uint)EvexFlags.EVEX_WIG32) != 0)
+					break;
+				case WBit.WIG32:
 					flags |= Flags.WIG32;
-				if ((dword2 & (uint)EvexFlags.EVEX_b) != 0)
+					break;
+				}
+				if ((dword2 & (uint)EvexFlags.LIG) != 0)
+					flags |= Flags.LIG;
+				if ((dword2 & (uint)EvexFlags.b) != 0)
 					flags |= Flags.Broadcast;
-				if ((dword2 & (uint)EvexFlags.EVEX_er) != 0)
+				if ((dword2 & (uint)EvexFlags.er) != 0)
 					flags |= Flags.RoundingControl;
-				if ((dword2 & (uint)EvexFlags.EVEX_sae) != 0)
+				if ((dword2 & (uint)EvexFlags.sae) != 0)
 					flags |= Flags.SuppressAllExceptions;
-				if ((dword2 & (uint)EvexFlags.EVEX_k1) != 0)
+				if ((dword2 & (uint)EvexFlags.k1) != 0)
 					flags |= Flags.OpMaskRegister;
-				if ((dword2 & (uint)EvexFlags.EVEX_z) != 0)
+				if ((dword2 & (uint)EvexFlags.z) != 0)
 					flags |= Flags.ZeroingMasking;
 				lkind = LKind.L128;
 				switch (code) {
+				// GENERATOR-BEGIN: NonZeroOpMaskRegister
+				// ⚠️This was generated by GENERATOR!🦹‍♂️
 				case Code.EVEX_Vpgatherdd_xmm_k1_vm32x:
 				case Code.EVEX_Vpgatherdd_ymm_k1_vm32y:
 				case Code.EVEX_Vpgatherdd_zmm_k1_vm32z:
@@ -369,6 +367,7 @@ namespace Iced.Intel {
 				case Code.EVEX_Vscatterpf0qpd_vm64z_k1:
 				case Code.EVEX_Vscatterpf1qps_vm64z_k1:
 				case Code.EVEX_Vscatterpf1qpd_vm64z_k1:
+				// GENERATOR-END: NonZeroOpMaskRegister
 					flags |= Flags.NonZeroOpMaskRegister;
 					break;
 				}
@@ -376,12 +375,12 @@ namespace Iced.Intel {
 
 			case EncodingKind.XOP:
 				opKinds = OpCodeOperandKinds.XopOpKinds;
-				op0Kind = opKinds[(int)(dword3 & (uint)XopFlags3.OpMask)];
+				op0Kind = opKinds[(int)((dword3 >> (int)XopFlags3.Op0Shift) & (uint)XopFlags3.OpMask)];
 				op1Kind = opKinds[(int)((dword3 >> (int)XopFlags3.Op1Shift) & (uint)XopFlags3.OpMask)];
 				op2Kind = opKinds[(int)((dword3 >> (int)XopFlags3.Op2Shift) & (uint)XopFlags3.OpMask)];
 				op3Kind = opKinds[(int)((dword3 >> (int)XopFlags3.Op3Shift) & (uint)XopFlags3.OpMask)];
 
-				mandatoryPrefix = (MandatoryPrefixByte)((dword2 >> (int)XopFlags.MandatoryPrefixShift) & (uint)XopFlags.MandatoryPrefixMask) switch {
+				mandatoryPrefix = (MandatoryPrefixByte)((dword2 >> (int)XopFlags.MandatoryPrefixByteShift) & (uint)XopFlags.MandatoryPrefixByteMask) switch {
 					MandatoryPrefixByte.None => (byte)MandatoryPrefix.PNP,
 					MandatoryPrefixByte.P66 => (byte)MandatoryPrefix.P66,
 					MandatoryPrefixByte.PF3 => (byte)MandatoryPrefix.PF3,
@@ -389,7 +388,7 @@ namespace Iced.Intel {
 					_ => throw new InvalidOperationException(),
 				};
 
-				table = (XopOpCodeTable)((dword2 >> (int)XopFlags.OpCodeTableShift) & (uint)XopFlags.OpCodeTableMask) switch {
+				table = (XopOpCodeTable)((dword2 >> (int)XopFlags.XopOpCodeTableShift) & (uint)XopFlags.XopOpCodeTableMask) switch {
 					XopOpCodeTable.XOP8 => (byte)OpCodeTableKind.XOP8,
 					XopOpCodeTable.XOP9 => (byte)OpCodeTableKind.XOP9,
 					XopOpCodeTable.XOPA => (byte)OpCodeTableKind.XOPA,
@@ -407,13 +406,38 @@ namespace Iced.Intel {
 				};
 				operandSize = 0;
 				addressSize = 0;
-				l = (byte)((dword2 >> (int)XopFlags.XOP_LShift) & 1);
 
-				if ((dword2 & (uint)XopFlags.XOP_W1) != 0)
+				switch ((WBit)((dword2 >> (int)XopFlags.WBitShift) & (uint)XopFlags.WBitMask)) {
+				case WBit.W1:
 					flags |= Flags.W;
-				if ((dword2 & (uint)XopFlags.XOP_WIG32) != 0)
+					break;
+				case WBit.WIG:
+					flags |= Flags.WIG;
+					break;
+				case WBit.WIG32:
 					flags |= Flags.WIG32;
-				lkind = (dword2 & (uint)XopFlags.XOP_L0_L1) != 0 ? LKind.L0 : LKind.L128;
+					break;
+				}
+				switch ((XopVectorLength)((dword2 >> (int)XopFlags.XopVectorLengthShift) & (uint)XopFlags.XopVectorLengthMask)) {
+				case XopVectorLength.L128:
+					l = 0;
+					lkind = LKind.L128;
+					break;
+				case XopVectorLength.L256:
+					l = 1;
+					lkind = LKind.L128;
+					break;
+				case XopVectorLength.L0:
+					l = 0;
+					lkind = LKind.L0;
+					break;
+				case XopVectorLength.L1:
+					l = 1;
+					lkind = LKind.L0;
+					break;
+				default:
+					throw new InvalidOperationException();
+				}
 				break;
 
 			case EncodingKind.D3NOW:
@@ -457,7 +481,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// true if it's an instruction, false if it's eg. <see cref="Code.INVALID"/>, <c>db</c>, <c>dw</c>, <c>dd</c>, <c>dq</c>
 		/// </summary>
-		public bool IsInstruction => (flags & Flags.IsInstruction) != 0;
+		public bool IsInstruction => (flags & Flags.NoInstruction) == 0;
 
 		/// <summary>
 		/// true if it's an instruction available in 16-bit mode

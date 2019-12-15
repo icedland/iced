@@ -57,6 +57,8 @@ namespace Generator {
 		public static readonly TypeId NasmSizeOverride = new TypeId(nameof(NasmSizeOverride));
 		public static readonly TypeId NasmBranchSizeInfo = new TypeId(nameof(NasmBranchSizeInfo));
 		public static readonly TypeId NasmInstrOpInfoFlags = new TypeId(nameof(NasmInstrOpInfoFlags));
+		public static readonly TypeId NasmMemorySizeInfo = new TypeId(nameof(NasmMemorySizeInfo));
+		public static readonly TypeId NasmFarMemorySizeInfo = new TypeId(nameof(NasmFarMemorySizeInfo));
 		public static readonly TypeId RoundingControl = new TypeId(nameof(RoundingControl));
 		public static readonly TypeId OpKind = new TypeId(nameof(OpKind));
 		public static readonly TypeId Instruction_MemoryFlags = new TypeId(nameof(Instruction_MemoryFlags));
@@ -88,5 +90,37 @@ namespace Generator {
 		public static readonly TypeId MemorySizeFlags = new TypeId(nameof(MemorySizeFlags));
 		public static readonly TypeId RegisterFlags = new TypeId(nameof(RegisterFlags));
 		public static readonly TypeId MiscSectionNames = new TypeId(nameof(MiscSectionNames));
+		public static readonly TypeId LegacyOpCodeTable = new TypeId(nameof(LegacyOpCodeTable));
+		public static readonly TypeId VexOpCodeTable = new TypeId(nameof(VexOpCodeTable));
+		public static readonly TypeId XopOpCodeTable = new TypeId(nameof(XopOpCodeTable));
+		public static readonly TypeId EvexOpCodeTable = new TypeId(nameof(EvexOpCodeTable));
+		public static readonly TypeId Encodable = new TypeId(nameof(Encodable));
+		public static readonly TypeId OpCodeHandlerFlags = new TypeId(nameof(OpCodeHandlerFlags));
+		public static readonly TypeId LegacyOpKind = new TypeId(nameof(LegacyOpKind));
+		public static readonly TypeId VexOpKind = new TypeId(nameof(VexOpKind));
+		public static readonly TypeId XopOpKind = new TypeId(nameof(XopOpKind));
+		public static readonly TypeId EvexOpKind = new TypeId(nameof(EvexOpKind));
+		public static readonly TypeId MandatoryPrefix = new TypeId(nameof(MandatoryPrefix));
+		public static readonly TypeId OpCodeTableKind = new TypeId(nameof(OpCodeTableKind));
+		public static readonly TypeId OperandSize = new TypeId(nameof(OperandSize));
+		public static readonly TypeId AddressSize = new TypeId(nameof(AddressSize));
+		public static readonly TypeId VexVectorLength = new TypeId(nameof(VexVectorLength));
+		public static readonly TypeId XopVectorLength = new TypeId(nameof(XopVectorLength));
+		public static readonly TypeId EvexVectorLength = new TypeId(nameof(EvexVectorLength));
+		public static readonly TypeId DisplSize = new TypeId(nameof(DisplSize));
+		public static readonly TypeId ImmSize = new TypeId(nameof(ImmSize));
+		public static readonly TypeId EncoderFlags = new TypeId(nameof(EncoderFlags));
+		public static readonly TypeId EncFlags1 = new TypeId(nameof(EncFlags1));
+		public static readonly TypeId LegacyFlags3 = new TypeId(nameof(LegacyFlags3));
+		public static readonly TypeId VexFlags3 = new TypeId(nameof(VexFlags3));
+		public static readonly TypeId XopFlags3 = new TypeId(nameof(XopFlags3));
+		public static readonly TypeId EvexFlags3 = new TypeId(nameof(EvexFlags3));
+		public static readonly TypeId AllowedPrefixes = new TypeId(nameof(AllowedPrefixes));
+		public static readonly TypeId LegacyFlags = new TypeId(nameof(LegacyFlags));
+		public static readonly TypeId VexFlags = new TypeId(nameof(VexFlags));
+		public static readonly TypeId XopFlags = new TypeId(nameof(XopFlags));
+		public static readonly TypeId EvexFlags = new TypeId(nameof(EvexFlags));
+		public static readonly TypeId D3nowFlags = new TypeId(nameof(D3nowFlags));
+		public static readonly TypeId WBit = new TypeId(nameof(WBit));
 	}
 }

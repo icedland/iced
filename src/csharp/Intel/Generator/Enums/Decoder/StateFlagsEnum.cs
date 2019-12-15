@@ -30,6 +30,7 @@ namespace Generator.Enums.Decoder {
 
 		[Flags]
 		enum Enum : uint {
+			// Only used by Debug.Assert()
 			EncodingMask			= 7,
 			HasRex					= 0x00000008,
 			b						= 0x00000010,
@@ -44,8 +45,10 @@ namespace Generator.Enums.Decoder {
 			AllowLock				= 0x00002000,
 		}
 
-		static EnumValue[] GetValues() =>
-			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		static EnumValue[] GetValues() {
+			ConstantUtils.VerifyMask<EncodingKind>((uint)Enum.EncodingMask);
+			return typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+		}
 
 		public static readonly EnumType Instance = new EnumType(TypeIds.StateFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}

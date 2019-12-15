@@ -35,7 +35,7 @@ namespace Iced.Intel.EncoderInternal {
 			Debug.Assert(data.Length == infos.Length * 3);
 			var sb = new StringBuilder();
 			for (int i = 0; i < infos.Length; i++)
-				infos[i] = new OpCodeInfo(data[i * 3 + 2], data[i * 3 + 1], data[i * 3], sb);
+				infos[i] = new OpCodeInfo((Code)i, data[i * 3 + 2], data[i * 3 + 1], data[i * 3], sb);
 			return infos;
 		}
 	}

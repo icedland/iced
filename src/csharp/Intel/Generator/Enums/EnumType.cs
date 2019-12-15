@@ -46,7 +46,7 @@ namespace Generator.Enums {
 			get {
 				if (toEnumValue.TryGetValue(name, out var value))
 					return value;
-				throw new InvalidOperationException($"Couldn't find enum field {RawName}.{value}");
+				throw new InvalidOperationException($"Couldn't find enum field {RawName}.{name}");
 			}
 		}
 

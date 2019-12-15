@@ -143,7 +143,7 @@ namespace Generator.Constants.CSharp {
 				return "ulong";
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
-				return ConstantsUtils.GetEnumType(kind).Name(idConverter);
+				return EnumUtils.GetEnumType(kind).Name(idConverter);
 			default:
 				throw new InvalidOperationException();
 			}
@@ -187,7 +187,7 @@ namespace Generator.Constants.CSharp {
 		static string EscapeStringValue(string s) => s;
 
 		string GetValueString(Constant constant) {
-			var enumType = ConstantsUtils.GetEnumType(constant.Kind);
+			var enumType = EnumUtils.GetEnumType(constant.Kind);
 			var enumValue = enumType.Values.First(a => a.Value == constant.ValueUInt64);
 			return $"{enumType.Name(idConverter)}.{enumValue.Name(idConverter)}";
 		}

@@ -63,7 +63,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 	}
 
 	struct InstrOpInfo {
-		internal const int TEST_RegisterBits = 8;
+		internal const int TEST_RegisterBits = IcedConstants.RegisterBits;
 
 		public string Mnemonic;
 		public InstrOpInfoFlags Flags;

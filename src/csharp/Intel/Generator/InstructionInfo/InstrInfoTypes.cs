@@ -42,16 +42,16 @@ namespace Generator.InstructionInfo {
 		static InstrInfoTypes() {
 			var gen = new InstrInfoTypesGen();
 			gen.Generate();
-			EnumCodeInfo = gen.enumCodeInfo ?? throw new InvalidOperationException();
-			EnumRflagsInfo = gen.enumRflagsInfo ?? throw new InvalidOperationException();
-			EnumOpInfos = gen.enumOpInfos ?? throw new InvalidOperationException();
-			EnumInfoFlags1 = gen.enumInfoFlags1 ?? throw new InvalidOperationException();
-			EnumInfoFlags2 = gen.enumInfoFlags2 ?? throw new InvalidOperationException();
-			EnumCpuidFeatureInternal = gen.enumCpuidFeatureInternal ?? throw new InvalidOperationException();
-			InstrInfoConstants = gen.instrInfoConstants ?? throw new InvalidOperationException();
-			CpuidFeatures = gen.cpuidFeatures ?? throw new InvalidOperationException();
-			RflagsInfos = gen.rflagsInfos ?? throw new InvalidOperationException();
-			InstrInfos = gen.instrInfos;
+			EnumCodeInfo = gen.EnumCodeInfo ?? throw new InvalidOperationException();
+			EnumRflagsInfo = gen.EnumRflagsInfo ?? throw new InvalidOperationException();
+			EnumOpInfos = gen.EnumOpInfos ?? throw new InvalidOperationException();
+			EnumInfoFlags1 = gen.EnumInfoFlags1 ?? throw new InvalidOperationException();
+			EnumInfoFlags2 = gen.EnumInfoFlags2 ?? throw new InvalidOperationException();
+			EnumCpuidFeatureInternal = gen.EnumCpuidFeatureInternal ?? throw new InvalidOperationException();
+			InstrInfoConstants = gen.InstrInfoConstants ?? throw new InvalidOperationException();
+			CpuidFeatures = gen.CpuidFeatures ?? throw new InvalidOperationException();
+			RflagsInfos = gen.RflagsInfos ?? throw new InvalidOperationException();
+			InstrInfos = gen.InstrInfos;
 		}
 	}
 }

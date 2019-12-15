@@ -61,5 +61,8 @@ namespace Generator {
 
 		/// <summary>Generates instr info dicts</summary>
 		public const string InstrInfoDicts = "info/dicts";
+
+		/// <summary>Generates encoder enums, constants and tables</summary>
+		public const string Encoder = "Encoder";
 	}
 }

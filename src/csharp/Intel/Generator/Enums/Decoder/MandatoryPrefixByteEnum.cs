@@ -24,18 +24,18 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System.Linq;
 
 namespace Generator.Enums.Decoder {
+	enum MandatoryPrefixByte : byte {
+		None,
+		P66,
+		PF3,
+		PF2,
+	}
+
 	static class MandatoryPrefixByteEnum {
 		const string? documentation = null;
 
-		enum Enum : byte {
-			None	= 0,
-			P66		= 1,
-			PF3		= 2,
-			PF2		= 3,
-		}
-
 		static EnumValue[] GetValues() =>
-			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+			typeof(MandatoryPrefixByte).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(MandatoryPrefixByte)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 
 		public static readonly EnumType Instance = new EnumType(TypeIds.MandatoryPrefixByte, documentation, GetValues(), EnumTypeFlags.None);
 	}

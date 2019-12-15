@@ -21,46 +21,21 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_ENCODER
-namespace Iced.Intel {
-	/// <summary>
-	/// Opcode table
-	/// </summary>
-	public enum OpCodeTableKind {
-		/// <summary>
-		/// Legacy encoding table
-		/// </summary>
-		Normal,
+using System.Linq;
 
-		/// <summary>
-		/// 0Fxx table (legacy, VEX, EVEX)
-		/// </summary>
-		T0F,
+namespace Generator.Enums.Encoder {
+	enum EvexOpCodeTable {
+		Table0F					= 1,
+		Table0F38				= 2,
+		Table0F3A				= 3,
+	}
 
-		/// <summary>
-		/// 0F38xx table (legacy, VEX, EVEX)
-		/// </summary>
-		T0F38,
+	static class EvexOpCodeTableEnum {
+		const string? documentation = null;
 
-		/// <summary>
-		/// 0F3Axx table (legacy, VEX, EVEX)
-		/// </summary>
-		T0F3A,
+		static EnumValue[] GetValues() =>
+			typeof(EvexOpCodeTable).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(EvexOpCodeTable)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 
-		/// <summary>
-		/// XOP8 table (XOP)
-		/// </summary>
-		XOP8,
-
-		/// <summary>
-		/// XOP9 table (XOP)
-		/// </summary>
-		XOP9,
-
-		/// <summary>
-		/// XOPA table (XOP)
-		/// </summary>
-		XOPA,
+		public static readonly EnumType Instance = new EnumType(TypeIds.EvexOpCodeTable, documentation, GetValues(), EnumTypeFlags.NoInitialize);
 	}
 }
-#endif

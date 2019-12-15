@@ -22,19 +22,43 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using Generator.Enums;
+using System.Linq;
 
-namespace Generator.Constants {
-	static class ConstantsUtils {
-		public static EnumType GetEnumType(ConstantKind kind) {
-			switch (kind) {
-			case ConstantKind.Register:
-				return RegisterEnum.Instance;
-			case ConstantKind.MemorySize:
-				return MemorySizeEnum.Instance;
-			default:
+namespace Generator.Enums.Encoder {
+	[Flags]
+	enum EncoderFlags : uint {
+		None				= 0,
+		B					= 0x00000001,
+		X					= 0x00000002,
+		R					= 0x00000004,
+		W					= 0x00000008,
+
+		ModRM				= 0x00000010,
+		Sib					= 0x00000020,
+		REX					= 0x00000040,
+		P66					= 0x00000080,
+		P67					= 0x00000100,
+
+		[Comment("EVEX.R'")]
+		R2					= 0x00000200,
+		b					= 0x00000400,
+		HighLegacy8BitRegs	= 0x00000800,
+		Displ				= 0x00001000,
+		PF0					= 0x00002000,
+
+		VvvvvShift			= 27,// 5 bits
+		VvvvvMask			= 0x1F,
+	}
+
+	static class EncoderFlagsEnum {
+		const string? documentation = null;
+
+		static EnumValue[] GetValues() {
+			if ((uint)EncoderFlags.VvvvvShift + 5 > 32)
 				throw new InvalidOperationException();
-			}
+			return typeof(EncoderFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(EncoderFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 		}
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.EncoderFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

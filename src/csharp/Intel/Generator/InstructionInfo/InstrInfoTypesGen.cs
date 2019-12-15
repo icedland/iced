@@ -64,18 +64,18 @@ namespace Generator.InstructionInfo {
 	}
 
 	sealed class InstrInfoTypesGen {
-		public EnumType? enumCodeInfo;
-		public EnumType? enumRflagsInfo;
-		public EnumType[]? enumOpInfos;
-		public EnumType? enumInfoFlags1;
-		public EnumType? enumInfoFlags2;
-		public EnumType? enumCpuidFeatureInternal;
-		public ConstantsType? instrInfoConstants;
-		public (EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[]? cpuidFeatures;
-		public (EnumValue value, (RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set) rflags)[]? rflagsInfos;
-		public readonly InstrInfo[] instrInfos;
+		public EnumType? EnumCodeInfo;
+		public EnumType? EnumRflagsInfo;
+		public EnumType[]? EnumOpInfos;
+		public EnumType? EnumInfoFlags1;
+		public EnumType? EnumInfoFlags2;
+		public EnumType? EnumCpuidFeatureInternal;
+		public ConstantsType? InstrInfoConstants;
+		public (EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[]? CpuidFeatures;
+		public (EnumValue value, (RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set) rflags)[]? RflagsInfos;
+		public readonly InstrInfo[] InstrInfos;
 
-		public InstrInfoTypesGen() => instrInfos = InstrInfoTable.Data;
+		public InstrInfoTypesGen() => InstrInfos = InstrInfoTable.Data;
 
 		public void Generate() {
 			GenerateCodeInfo();
@@ -88,7 +88,7 @@ namespace Generator.InstructionInfo {
 
 		void GenerateCodeInfo() {
 			var values = typeof(CodeInfo).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CodeInfo)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-			enumCodeInfo = new EnumType(TypeIds.CodeInfo, null, values, EnumTypeFlags.NoInitialize);
+			EnumCodeInfo = new EnumType(TypeIds.CodeInfo, null, values, EnumTypeFlags.NoInitialize);
 		}
 
 		sealed class EnumValueArrayComparer : IEqualityComparer<EnumValue[]> {
@@ -119,7 +119,7 @@ namespace Generator.InstructionInfo {
 		void GenerateCpuidFeatureInternal() {
 			var cpuidToInternalDict = new Dictionary<EnumValue[], EnumValue>(new EnumValueArrayComparer());
 			var cpuidFeatures = new List<(EnumValue cpuidInternal, EnumValue[] cpuidFeatures)>();
-			foreach (var info in instrInfos) {
+			foreach (var info in InstrInfos) {
 				if (!cpuidToInternalDict.ContainsKey(info.Cpuid)) {
 					var name = string.Join("_and_", info.Cpuid.Select(a => a.RawName));
 					var internalEnumValue = new EnumValue(0, name, null);
@@ -129,9 +129,9 @@ namespace Generator.InstructionInfo {
 			}
 			cpuidFeatures.Sort((a, b) => StringComparer.Ordinal.Compare(a.cpuidInternal.RawName, b.cpuidInternal.RawName));
 
-			enumCpuidFeatureInternal = new EnumType(TypeIds.CpuidFeatureInternal, null, cpuidFeatures.Select(a => a.cpuidInternal).ToArray(), EnumTypeFlags.None);
-			this.cpuidFeatures = cpuidFeatures.ToArray();
-			foreach (var info in instrInfos)
+			EnumCpuidFeatureInternal = new EnumType(TypeIds.CpuidFeatureInternal, null, cpuidFeatures.Select(a => a.cpuidInternal).ToArray(), EnumTypeFlags.None);
+			this.CpuidFeatures = cpuidFeatures.ToArray();
+			foreach (var info in InstrInfos)
 				info.CpuidInternal = cpuidToInternalDict[info.Cpuid];
 		}
 
@@ -143,7 +143,7 @@ namespace Generator.InstructionInfo {
 				// Needed by CodeInfo.Clear_rflags
 				(RflagsBits.None, RflagsBits.AF, RflagsBits.None, RflagsBits.CF | RflagsBits.OF | RflagsBits.SF, RflagsBits.PF | RflagsBits.ZF),
 			};
-			foreach (var info in instrInfos)
+			foreach (var info in InstrInfos)
 				rflagsHashSet.Add((info.RflagsRead, info.RflagsUndefined, info.RflagsWritten, info.RflagsCleared, info.RflagsSet));
 			var rflags = new List<(RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set)>(rflagsHashSet);
 			rflags.Sort((a, b) => Compare(a, b));
@@ -151,26 +151,26 @@ namespace Generator.InstructionInfo {
 			if (rflags[0] != default)
 				throw new InvalidOperationException();
 			var sb = new StringBuilder();
-			rflagsInfos = new (EnumValue value, (RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set) rflags)[rflags.Count];
+			RflagsInfos = new (EnumValue value, (RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set) rflags)[rflags.Count];
 			var toRflagsInfo = new Dictionary<(RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set), EnumValue>();
-			for (int i = 0; i < rflagsInfos.Length; i++) {
+			for (int i = 0; i < RflagsInfos.Length; i++) {
 				var info = rflags[i];
 				var value = new EnumValue(0, GetName(sb, info), null);
-				rflagsInfos[i] = (value, info);
+				RflagsInfos[i] = (value, info);
 				toRflagsInfo[info] = value;
 			}
-			Array.Sort(rflagsInfos, (a, b) => Compare(a.value, b.value));
+			Array.Sort(RflagsInfos, (a, b) => Compare(a.value, b.value));
 			// None must be first
-			if (rflagsInfos[0].rflags != default)
+			if (RflagsInfos[0].rflags != default)
 				throw new InvalidOperationException();
 			var values = new EnumValue[rflags.Count];
 			for (int i = 0; i < values.Length; i++)
-				values[i] = rflagsInfos[i].value;
+				values[i] = RflagsInfos[i].value;
 			if (values.Select(a => a.RawName).Distinct(StringComparer.Ordinal).Count() != values.Length)
 				throw new InvalidOperationException("Dupe names");
-			foreach (var info in instrInfos)
+			foreach (var info in InstrInfos)
 				info.RflagsInfo = toRflagsInfo[(info.RflagsRead, info.RflagsUndefined, info.RflagsWritten, info.RflagsCleared, info.RflagsSet)];
-			enumRflagsInfo = new EnumType(TypeIds.RflagsInfo, null, values, EnumTypeFlags.None);
+			EnumRflagsInfo = new EnumType(TypeIds.RflagsInfo, null, values, EnumTypeFlags.None);
 		}
 
 		static int Compare(EnumValue a, EnumValue b) {
@@ -235,7 +235,7 @@ namespace Generator.InstructionInfo {
 			var opInfoHashes = new HashSet<OpInfo>[IcedConstants.MaxOpCount];
 			for (int i = 0; i < opInfoHashes.Length; i++)
 				opInfoHashes[i] = new HashSet<OpInfo>();
-			foreach (var info in instrInfos) {
+			foreach (var info in InstrInfos) {
 				bool foundNone = false;
 				for (int i = 0; i < info.OpInfo.Length; i++) {
 					var opInfo = info.OpInfo[i];
@@ -252,7 +252,7 @@ namespace Generator.InstructionInfo {
 				opInfos[i] = array;
 				Array.Sort(array, (a, b) => ((uint)a).CompareTo((uint)b));
 			}
-			enumOpInfos = new EnumType[opInfos.Length];
+			EnumOpInfos = new EnumType[opInfos.Length];
 			var typeIds = new TypeId[IcedConstants.MaxOpCount] {
 				TypeIds.OpInfo0,
 				TypeIds.OpInfo1,
@@ -264,16 +264,16 @@ namespace Generator.InstructionInfo {
 				if (opInfos[i].Length == 0 || opInfos[i][0] != OpInfo.None)
 					throw new InvalidOperationException();
 				var values = opInfos[i].Select(a => new EnumValue((uint)a, a.ToString(), null)).ToArray();
-				enumOpInfos[i] = new EnumType(typeIds[i], null, values, EnumTypeFlags.None);
+				EnumOpInfos[i] = new EnumType(typeIds[i], null, values, EnumTypeFlags.None);
 			}
-			foreach (var info in instrInfos) {
+			foreach (var info in InstrInfos) {
 				for (int i = 0; i < info.OpInfo.Length; i++)
-					info.OpInfoEnum[i] = enumOpInfos[i][info.OpInfo[i].ToString()];
+					info.OpInfoEnum[i] = EnumOpInfos[i][info.OpInfo[i].ToString()];
 			}
 		}
 
 		void GenerateInfoFlags() {
-			var enumOpInfos = this.enumOpInfos ?? throw new InvalidOperationException();
+			var enumOpInfos = this.EnumOpInfos ?? throw new InvalidOperationException();
 			var values1 = typeof(InfoFlags1).GetFields().Where(a => a.IsLiteral && a.Name != nameof(InfoFlags1.FirstUsedBit)).Select(a => new EnumValue((uint)(InfoFlags1)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToList();
 			var values2 = typeof(InfoFlags2).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(InfoFlags2)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 
@@ -291,22 +291,22 @@ namespace Generator.InstructionInfo {
 			if (shift > (uint)InfoFlags1.FirstUsedBit)
 				throw new InvalidOperationException($"OpInfoX use too many bits, move some bits to {nameof(InfoFlags2)}");
 
-			var rflagsInfos = this.rflagsInfos ?? throw new InvalidOperationException();
+			var rflagsInfos = this.RflagsInfos ?? throw new InvalidOperationException();
 			if ((uint)rflagsInfos.Length - 1 > (uint)InfoFlags1.RflagsInfoMask)
 				throw new InvalidOperationException();
-			var enumCodeInfo = this.enumCodeInfo ?? throw new InvalidOperationException();
+			var enumCodeInfo = this.EnumCodeInfo ?? throw new InvalidOperationException();
 			if ((uint)enumCodeInfo.Values.Length - 1 > (uint)InfoFlags1.CodeInfoMask)
 				throw new InvalidOperationException();
 			if ((uint)EncodingKindEnum.Instance.Values.Length - 1 > (uint)InfoFlags2.EncodingMask)
 				throw new InvalidOperationException();
 			if ((uint)FlowControlEnum.Instance.Values.Length - 1 > (uint)InfoFlags2.FlowControlMask)
 				throw new InvalidOperationException();
-			var enumCpuidFeatureInternal = this.enumCpuidFeatureInternal ?? throw new InvalidOperationException();
+			var enumCpuidFeatureInternal = this.EnumCpuidFeatureInternal ?? throw new InvalidOperationException();
 			if ((uint)enumCpuidFeatureInternal.Values.Length - 1 > (uint)InfoFlags2.CpuidFeatureInternalMask)
 				throw new InvalidOperationException();
 
-			enumInfoFlags1 = new EnumType(TypeIds.InfoFlags1, null, values1.ToArray(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
-			enumInfoFlags2 = new EnumType(TypeIds.InfoFlags2, null, values2, EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
+			EnumInfoFlags1 = new EnumType(TypeIds.InfoFlags1, null, values1.ToArray(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
+			EnumInfoFlags2 = new EnumType(TypeIds.InfoFlags2, null, values2, EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 		}
 
 		static (uint mask, uint bits) GetMaskAndBits(uint maxValue) {
@@ -321,17 +321,17 @@ namespace Generator.InstructionInfo {
 		void GenerateInstrInfoConstants() {
 			var constants = new List<Constant>();
 
-			var enumOpInfos = this.enumOpInfos ?? throw new InvalidOperationException();
+			var enumOpInfos = this.EnumOpInfos ?? throw new InvalidOperationException();
 			for (int i = 0; i < enumOpInfos.Length; i++)
 				constants.Add(new Constant(ConstantKind.Int32, $"OpInfo{i}_Count", (uint)enumOpInfos[i].Values.Length, ConstantsTypeFlags.None));
 
-			var enumRflagsInfo = this.enumRflagsInfo ?? throw new InvalidOperationException();
+			var enumRflagsInfo = this.EnumRflagsInfo ?? throw new InvalidOperationException();
 			constants.Add(new Constant(ConstantKind.Int32, enumRflagsInfo.RawName + "_Count", (uint)enumRflagsInfo.Values.Length, ConstantsTypeFlags.None));
 
 			constants.Add(new Constant(ConstantKind.Int32, "DefaultUsedRegisterCollCapacity", 10, ConstantsTypeFlags.None));
 			constants.Add(new Constant(ConstantKind.Int32, "DefaultUsedMemoryCollCapacity", 8, ConstantsTypeFlags.None));
 
-			instrInfoConstants = new ConstantsType(TypeIds.InstrInfoConstants, ConstantsTypeFlags.None, null, constants.ToArray());
+			InstrInfoConstants = new ConstantsType(TypeIds.InstrInfoConstants, ConstantsTypeFlags.None, null, constants.ToArray());
 		}
 	}
 }
