@@ -42,15 +42,15 @@ impl ConstantOffsets {
 	/// The offset of the displacement, if any
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn displacement_offset(&self) -> u32 {
-		self.displacement_offset as u32
+	pub fn displacement_offset(&self) -> usize {
+		self.displacement_offset as usize
 	}
 
 	/// Size in bytes of the displacement, or 0 if there's no displacement
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn displacement_size(&self) -> u32 {
-		self.displacement_size as u32
+	pub fn displacement_size(&self) -> usize {
+		self.displacement_size as usize
 	}
 
 	/// The offset of the first immediate, if any.
@@ -59,29 +59,29 @@ impl ConstantOffsets {
 	/// of the instruction stream, eg. `SHL AL,1`.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn immediate_offset(&self) -> u32 {
-		self.immediate_offset as u32
+	pub fn immediate_offset(&self) -> usize {
+		self.immediate_offset as usize
 	}
 
 	/// Size in bytes of the first immediate, or 0 if there's no immediate
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn immediate_size(&self) -> u32 {
-		self.immediate_size as u32
+	pub fn immediate_size(&self) -> usize {
+		self.immediate_size as usize
 	}
 
 	/// The offset of the second immediate, if any.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn immediate_offset2(&self) -> u32 {
-		self.immediate_offset2 as u32
+	pub fn immediate_offset2(&self) -> usize {
+		self.immediate_offset2 as usize
 	}
 
 	/// Size in bytes of the second immediate, or 0 if there's no second immediate
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn immediate_size2(&self) -> u32 {
-		self.immediate_size2 as u32
+	pub fn immediate_size2(&self) -> usize {
+		self.immediate_size2 as usize
 	}
 
 	/// true if `displacement_offset()` is valid
