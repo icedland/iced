@@ -38,7 +38,7 @@ impl OpCodeHandler_VectorLength_EVEX {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		// Safe, array has 4 elements and vector_length is 0..3
-		let handler = unsafe { *this.handlers.as_ptr().offset(decoder.state.vector_length as isize) };
+		let handler = unsafe { *this.handlers.get_unchecked(decoder.state.vector_length as usize) };
 		(handler.decode)(handler, decoder, instruction);
 	}
 }
@@ -55,12 +55,12 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		let mut index = decoder.state.vector_length as isize;
+		let mut index = decoder.state.vector_length as usize;
 		if decoder.state.mod_ == 3 && (decoder.state.flags & StateFlags::B) != 0 {
-			index = VectorLength::L512 as isize;
+			index = VectorLength::L512 as usize;
 		}
 		// Safe, array has 4 elements and index is 0..3
-		let handler = unsafe { *this.handlers.as_ptr().offset(index) };
+		let handler = unsafe { *this.handlers.get_unchecked(index) };
 		(handler.decode)(handler, decoder, instruction);
 	}
 }

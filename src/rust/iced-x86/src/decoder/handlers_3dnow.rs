@@ -300,20 +300,19 @@ impl OpCodeHandler_D3NOW {
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::MM0 as u32);
-		let ib;
-		if decoder.state.mod_ == 3 {
+		let ib = if decoder.state.mod_ == 3 {
 			const_assert_eq!(0, OpKind::Register as u32);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.rm + Register::MM0 as u32);
-			ib = decoder.read_u8();
+			decoder.read_u8()
 		} else {
 			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
-			ib = decoder.read_u8();
-		}
+			decoder.read_u8()
+		};
 		debug_assert_eq!(0x100, CODE_VALUES.len());
 		// Safe, the index is always 00-FFh, and we only store valid Code values in the array
-		let code = unsafe { std::mem::transmute(*CODE_VALUES.as_ptr().offset(ib as isize)) };
+		let code = unsafe { std::mem::transmute(*CODE_VALUES.get_unchecked(ib)) };
 		super::instruction_internal::internal_set_code(instruction, code);
 		if code == Code::INVALID {
 			decoder.set_invalid_instruction();

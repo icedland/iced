@@ -288,11 +288,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op_count(&self) -> u32 {
-		unsafe {
-			*instruction_op_counts::OP_COUNT
-				.as_ptr()
-				.offset((self.code_flags & CodeFlags::CODE_MASK) as isize) as u32
-		}
+		unsafe { *instruction_op_counts::OP_COUNT.get_unchecked((self.code_flags & CodeFlags::CODE_MASK) as usize) as u32 }
 	}
 
 	/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
@@ -723,7 +719,7 @@ impl Instruction {
 		if self.is_broadcast() {
 			index += IcedConstants::NUMBER_OF_CODE_VALUES as usize;
 		}
-		unsafe { mem::transmute(*instruction_memory_sizes::SIZES.as_ptr().offset(index as isize)) }
+		unsafe { mem::transmute(*instruction_memory_sizes::SIZES.get_unchecked(index)) }
 	}
 
 	/// Gets the index register scale value, valid values are *1, *2, *4, *8. Use this property if the operand has kind `OpKind::Memory`
@@ -2260,12 +2256,12 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
-		let flags2 = unsafe { *super::info::info_table::TABLE.as_ptr().offset(((self.code() as usize) * 2 + 1) as isize) };
+		let flags2 = unsafe { *super::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2 + 1) };
 		let mut index = ((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize;
 		if (flags2 & InfoFlags2::AVX2_CHECK) != 0 && self.op1_kind() == OpKind::Register {
 			index = CpuidFeatureInternal::AVX2 as usize;
 		}
-		unsafe { *super::info::cpuid_table::CPUID.as_ptr().offset(index as isize) }
+		unsafe { *super::info::cpuid_table::CPUID.get_unchecked(index) }
 	}
 
 	/// Flow control info
@@ -2350,7 +2346,7 @@ impl Instruction {
 
 	#[cfg_attr(has_must_use, must_use)]
 	fn rflags_info(&self) -> usize {
-		let flags1 = unsafe { *super::info::info_table::TABLE.as_ptr().offset(((self.code() as usize) * 2) as isize) };
+		let flags1 = unsafe { *super::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2) };
 		let code_info = (flags1 >> InfoFlags1::CODE_INFO_SHIFT) & InfoFlags1::CODE_INFO_MASK;
 		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 1 == CodeInfo::Shift_Ib_MASK1FMOD11 as u32);
 		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 2 == CodeInfo::Shift_Ib_MASK1F as u32);
@@ -2425,7 +2421,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_read(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_READ.as_ptr().offset(self.rflags_info() as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
@@ -2462,7 +2458,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_written(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.as_ptr().offset(self.rflags_info() as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// All flags that are always cleared by the CPU. This method returns a `RflagsBits` value. See also `rflags_modified()`.
@@ -2498,7 +2494,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_cleared(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_CLEARED.as_ptr().offset(self.rflags_info() as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// All flags that are always set by the CPU. This method returns a `RflagsBits` value. See also `rflags_modified()`.
@@ -2534,7 +2530,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_set(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_SET.as_ptr().offset(self.rflags_info() as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// All flags that are undefined after executing the instruction. This method returns a `RflagsBits` value. See also `rflags_modified()`.
@@ -2570,7 +2566,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_undefined(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.as_ptr().offset(self.rflags_info() as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a `RflagsBits` value.
@@ -2606,7 +2602,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_modified(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.as_ptr().offset(self.rflags_info() as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction

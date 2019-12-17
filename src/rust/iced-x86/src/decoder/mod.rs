@@ -353,7 +353,7 @@ impl<'a> Decoder<'a> {
 			prefixes,
 			data,
 			data_ptr: data.as_ptr(),
-			data_ptr_end: unsafe { data.as_ptr().offset(data.len() as isize) },
+			data_ptr_end: unsafe { data.get_unchecked(data.len()) },
 			max_data_ptr: data.as_ptr(),
 			instr_start_data_ptr: data.as_ptr(),
 			state: State::default(),
@@ -454,7 +454,7 @@ impl<'a> Decoder<'a> {
 	#[inline]
 	pub fn set_position(&mut self, new_pos: usize) {
 		if new_pos <= self.data.len() {
-			self.data_ptr = unsafe { self.data.as_ptr().offset(new_pos as isize) };
+			self.data_ptr = unsafe { self.data.get_unchecked(new_pos) };
 		} else {
 			panic!();
 		}
@@ -745,7 +745,7 @@ impl<'a> Decoder<'a> {
 		let mut b;
 		loop {
 			b = self.read_u8();
-			if unsafe { (((*self.prefixes.as_ptr().offset((b / 32) as isize)) >> (b & 31)) & 1) == 0 } {
+			if unsafe { (((*self.prefixes.get_unchecked(b / 32)) >> (b & 31)) & 1) == 0 } {
 				break;
 			}
 
@@ -832,7 +832,7 @@ impl<'a> Decoder<'a> {
 			self.state.extra_base_register_base = (rex_prefix as u32 & 1) << 3;
 		}
 		// Safe, the table has exactly 256 elements and 0 <= b <= 255
-		self.decode_table2(unsafe { *HANDLERS_XX.as_ptr().offset(b as isize) }, instruction);
+		self.decode_table2(unsafe { *HANDLERS_XX.get_unchecked(b) }, instruction);
 		let flags = self.state.flags;
 		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK)) != 0 {
 			if (flags & StateFlags::IS_INVALID) != 0
@@ -934,7 +934,7 @@ impl<'a> Decoder<'a> {
 		debug_assert_eq!(0x100, table.len());
 		let b = self.read_u8();
 		// Safe, the table has exactly 256 elements and 0 <= b <= 255
-		self.decode_table2(unsafe { *table.as_ptr().offset(b as isize) }, instruction);
+		self.decode_table2(unsafe { *table.get_unchecked(b) }, instruction);
 	}
 
 	#[inline(always)]
@@ -1249,7 +1249,7 @@ impl<'a> Decoder<'a> {
 		debug_assert!(self.state.address_size == OpSize::Size16);
 		debug_assert!(self.state.rm <= 7);
 		// Safe, rm is always 0..7
-		let (mut base_reg, index_reg) = unsafe { *MEM_REGS_16.as_ptr().offset(self.state.rm as isize) };
+		let (mut base_reg, index_reg) = unsafe { *MEM_REGS_16.get_unchecked(self.state.rm as usize) };
 		match self.state.mod_ {
 			0 => {
 				if self.state.rm == 6 {

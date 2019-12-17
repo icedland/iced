@@ -37863,7 +37863,7 @@ impl Code {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn mnemonic(self) -> Mnemonic {
-		unsafe { mem::transmute(*mnemonics::TO_MNEMONIC.as_ptr().offset(self as isize)) }
+		unsafe { mem::transmute(*mnemonics::TO_MNEMONIC.get_unchecked(self as usize)) }
 	}
 }
 
@@ -37892,8 +37892,8 @@ impl Code {
 		// Safe, the table only has valid enum values
 		unsafe {
 			mem::transmute(
-				((*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2 + 1) as isize) >> InfoFlags2::ENCODING_SHIFT)
-					& InfoFlags2::ENCODING_MASK) as u8,
+				((*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK)
+					as u8,
 			)
 		}
 	}
@@ -37918,10 +37918,10 @@ impl Code {
 	#[inline]
 	pub fn cpuid_features(self) -> &'static [CpuidFeature] {
 		let index = unsafe {
-			(*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2 + 1) as isize) >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT)
-				& InfoFlags2::CPUID_FEATURE_INTERNAL_MASK
+			((*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT)
+				& InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize
 		};
-		unsafe { *super::info::cpuid_table::CPUID.as_ptr().offset(index as isize) }
+		unsafe { *super::info::cpuid_table::CPUID.get_unchecked(index) }
 	}
 
 	/// Gets flow control info
@@ -37940,7 +37940,7 @@ impl Code {
 		// Safe, the table only has valid enum values
 		unsafe {
 			mem::transmute(
-				((*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2 + 1) as isize) >> InfoFlags2::FLOW_CONTROL_SHIFT)
+				((*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::FLOW_CONTROL_SHIFT)
 					& InfoFlags2::FLOW_CONTROL_MASK) as u8,
 			)
 		}
@@ -37950,14 +37950,14 @@ impl Code {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_protected_mode(self) -> bool {
-		unsafe { (*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2) as isize) & InfoFlags1::PROTECTED_MODE) != 0 }
+		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2) & InfoFlags1::PROTECTED_MODE) != 0 }
 	}
 
 	/// Checks if this is a privileged instruction
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_privileged(self) -> bool {
-		unsafe { (*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2) as isize) & InfoFlags1::PRIVILEGED) != 0 }
+		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2) & InfoFlags1::PRIVILEGED) != 0 }
 	}
 
 	/// Checks if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
@@ -37974,14 +37974,14 @@ impl Code {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_stack_instruction(self) -> bool {
-		unsafe { (*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2) as isize) & InfoFlags1::STACK_INSTRUCTION) != 0 }
+		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2) & InfoFlags1::STACK_INSTRUCTION) != 0 }
 	}
 
 	/// Checks if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_save_restore_instruction(self) -> bool {
-		unsafe { (*super::info::info_table::TABLE.as_ptr().offset(((self as usize) * 2) as isize) & InfoFlags1::SAVE_RESTORE) != 0 }
+		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2) & InfoFlags1::SAVE_RESTORE) != 0 }
 	}
 
 	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction

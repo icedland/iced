@@ -26,8 +26,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
 #![allow(unknown_lints)]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
-// ptr.add(x) is available in 1.26.0+ so we must use ptr.offset(x as isize)
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))]
 // Requires rustc >= 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::range_plus_one))]
 // '_ requires rustc >= 1.31.0

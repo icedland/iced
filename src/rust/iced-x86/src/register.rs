@@ -463,7 +463,7 @@ impl Register {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn info(self) -> &'static RegisterInfo {
-		unsafe { &*REGISTER_INFOS.as_ptr().offset(self as isize) }
+		unsafe { &*REGISTER_INFOS.get_unchecked(self as usize) }
 	}
 
 	/// Gets the base register, eg. `AL`, `AX`, `EAX`, `RAX`, `MM0`, `XMM0`, `YMM0`, `ZMM0`, `ES`

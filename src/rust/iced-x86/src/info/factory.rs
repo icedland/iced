@@ -163,8 +163,8 @@ impl InstructionInfoFactory {
 		info.used_memory_locations.clear();
 
 		let index = (instruction.code() as usize) << 1;
-		let flags1 = unsafe { *super::info_table::TABLE.as_ptr().offset(index as isize) };
-		let mut flags2 = unsafe { *super::info_table::TABLE.as_ptr().offset((index + 1) as isize) };
+		let flags1 = unsafe { *super::info_table::TABLE.get_unchecked(index) };
+		let mut flags2 = unsafe { *super::info_table::TABLE.get_unchecked(index + 1) };
 
 		if (flags2 & InfoFlags2::AVX2_CHECK) != 0 && instruction.op1_kind() == OpKind::Register {
 			flags2 = (flags2 & !(InfoFlags2::CPUID_FEATURE_INTERNAL_MASK << InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT))
@@ -236,12 +236,8 @@ impl InstructionInfoFactory {
 		debug_assert!(instruction.op_count() <= IcedConstants::MAX_OP_COUNT);
 		info.op_accesses[0] = op0_access;
 		let op1_info = ((flags1 >> InfoFlags1::OP_INFO1_SHIFT) & InfoFlags1::OP_INFO1_MASK) as usize;
-		info.op_accesses[1] = unsafe { *OP_ACCESS_1.as_ptr().offset(op1_info as isize) };
-		info.op_accesses[2] = unsafe {
-			*OP_ACCESS_2
-				.as_ptr()
-				.offset(((flags1 >> InfoFlags1::OP_INFO2_SHIFT) & InfoFlags1::OP_INFO2_MASK) as isize)
-		};
+		info.op_accesses[1] = unsafe { *OP_ACCESS_1.get_unchecked(op1_info) };
+		info.op_accesses[2] = unsafe { *OP_ACCESS_2.get_unchecked(((flags1 >> InfoFlags1::OP_INFO2_SHIFT) & InfoFlags1::OP_INFO2_MASK) as usize) };
 		info.op_accesses[3] = if (flags1 & ((InfoFlags1::OP_INFO3_MASK) << InfoFlags1::OP_INFO3_SHIFT)) != 0 {
 			const_assert_eq!(2, InstrInfoConstants::OP_INFO3_COUNT);
 			OpAccess::Read
@@ -257,7 +253,7 @@ impl InstructionInfoFactory {
 		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 
 		for i in 0..(instruction.op_count() as usize) {
-			let mut access = unsafe { *info.op_accesses.as_ptr().offset(i as isize) };
+			let mut access = unsafe { *info.op_accesses.get_unchecked(i) };
 			if access == OpAccess::None {
 				continue;
 			}
@@ -266,7 +262,7 @@ impl InstructionInfoFactory {
 				OpKind::Register => {
 					if access == OpAccess::NoMemAccess {
 						access = OpAccess::Read;
-						unsafe { *info.op_accesses.as_mut_ptr().offset(i as isize) = OpAccess::Read };
+						unsafe { *info.op_accesses.get_unchecked_mut(i) = OpAccess::Read };
 					}
 					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 						if i == 1 && op1_info == OpInfo1::ReadP3 as usize {

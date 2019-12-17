@@ -303,7 +303,7 @@ impl InstructionInfo {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
-		unsafe { *self::cpuid_table::CPUID.as_ptr().offset(self.cpuid_feature_internal as isize) }
+		unsafe { *self::cpuid_table::CPUID.get_unchecked(self.cpuid_feature_internal) }
 	}
 
 	/// Flow control info
@@ -367,7 +367,7 @@ impl InstructionInfo {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_read(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_READ.as_ptr().offset(self.rflags_info as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info) as u32 }
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
@@ -375,34 +375,34 @@ impl InstructionInfo {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_written(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.as_ptr().offset(self.rflags_info as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info) as u32 }
 	}
 
 	/// All flags that are always cleared by the CPU. This method returns a `RflagsBits` value. See also `rflags_modified()`.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_cleared(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_CLEARED.as_ptr().offset(self.rflags_info as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info) as u32 }
 	}
 
 	/// All flags that are always set by the CPU. This method returns a `RflagsBits` value. See also `rflags_modified()`.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_set(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_SET.as_ptr().offset(self.rflags_info as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info) as u32 }
 	}
 
 	/// All flags that are undefined after executing the instruction. This method returns a `RflagsBits` value. See also `rflags_modified()`.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_undefined(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.as_ptr().offset(self.rflags_info as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info) as u32 }
 	}
 
 	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a `RflagsBits` value.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_modified(&self) -> u32 {
-		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.as_ptr().offset(self.rflags_info as isize) as u32 }
+		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info) as u32 }
 	}
 }
