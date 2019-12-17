@@ -93,6 +93,7 @@ jobs:
         shell: bash
         run: |
           export PATH="$HOME/.cargo/bin:$PATH"
+          export RUSTFLAGS="-D warnings"
           cargo -V
           cd src/rust/iced-x86
           echo ==== CLIPPY ====
@@ -114,6 +115,7 @@ jobs:
         shell: bash
         run: |
           export PATH="$HOME/.cargo/bin:$PATH"
+          export RUSTFLAGS="-D warnings"
           cd src/rust/iced-x86
           echo ==== UPDATE Cargo.lock ====
           cargo +1.20.0 generate-lockfile

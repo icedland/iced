@@ -26,7 +26,7 @@ using System.Diagnostics;
 
 namespace Iced.Intel.EncoderInternal {
 	abstract class Op {
-		public abstract void Encode(Encoder encoder, in Instruction instr, int operand);
+		public abstract void Encode(Encoder encoder, in Instruction instruction, int operand);
 
 		/// <summary>
 		/// If this is an immediate operand, it returns the <see cref="OpKind"/> value, else it returns -1
@@ -48,8 +48,8 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpModRM_rm_mem_only : Op {
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
-			encoder.AddRegOrMem(instr, operand, Register.None, Register.None, allowMemOp: true, allowRegOp: false);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+			encoder.AddRegOrMem(instruction, operand, Register.None, Register.None, allowMemOp: true, allowRegOp: false);
 	}
 
 	sealed class OpModRM_rm : Op {
@@ -61,8 +61,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
-			encoder.AddRegOrMem(instr, operand, regLo, regHi, allowMemOp: true, allowRegOp: true);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+			encoder.AddRegOrMem(instruction, operand, regLo, regHi, allowMemOp: true, allowRegOp: true);
 	}
 
 	sealed class OpRegEmbed8: Op {
@@ -74,8 +74,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
-			encoder.AddReg(instr, operand, regLo, regHi);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+			encoder.AddReg(instruction, operand, regLo, regHi);
 	}
 
 	sealed class OpModRM_rm_reg_only : Op {
@@ -87,8 +87,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
-			encoder.AddRegOrMem(instr, operand, regLo, regHi, allowMemOp: false, allowRegOp: true);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+			encoder.AddRegOrMem(instruction, operand, regLo, regHi, allowMemOp: false, allowRegOp: true);
 	}
 
 	sealed class OpModRM_reg : Op {
@@ -100,8 +100,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
-			encoder.AddModRMRegister(instr, operand, regLo, regHi);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+			encoder.AddModRMRegister(instruction, operand, regLo, regHi);
 	}
 
 	sealed class OpModRM_regF0 : Op {
@@ -113,13 +113,13 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			if (encoder.Bitness != 64 && instr.GetOpKind(operand) == OpKind.Register && instr.GetOpRegister(operand) == regLo + 8) {
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			if (encoder.Bitness != 64 && instruction.GetOpKind(operand) == OpKind.Register && instruction.GetOpRegister(operand) == regLo + 8) {
 				encoder.EncoderFlags |= EncoderFlags.PF0;
-				encoder.AddModRMRegister(instr, operand, regLo + 8, regLo + 8);
+				encoder.AddModRMRegister(instruction, operand, regLo + 8, regLo + 8);
 			}
 			else
-				encoder.AddModRMRegister(instr, operand, regLo, regHi);
+				encoder.AddModRMRegister(instruction, operand, regLo, regHi);
 		}
 	}
 
@@ -128,17 +128,17 @@ namespace Iced.Intel.EncoderInternal {
 
 		public OpReg(Register register) => this.register = register;
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			encoder.Verify(operand, OpKind.Register, instr.GetOpKind(operand));
-			encoder.Verify(operand, register, instr.GetOpRegister(operand));
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			encoder.Verify(operand, OpKind.Register, instruction.GetOpKind(operand));
+			encoder.Verify(operand, register, instruction.GetOpRegister(operand));
 		}
 	}
 
 	sealed class OpRegSTi : Op {
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			if (!encoder.Verify(operand, OpKind.Register, instr.GetOpKind(operand)))
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			if (!encoder.Verify(operand, OpKind.Register, instruction.GetOpKind(operand)))
 				return;
-			var reg = instr.GetOpRegister(operand);
+			var reg = instruction.GetOpRegister(operand);
 			if (!encoder.Verify(operand, reg, Register.ST0, Register.ST7))
 				return;
 			Debug.Assert((encoder.OpCode & 7) == 0);
@@ -157,8 +157,8 @@ namespace Iced.Intel.EncoderInternal {
 			return 0;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			var regSize = GetRegSize(instr.GetOpKind(operand));
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			var regSize = GetRegSize(instruction.GetOpKind(operand));
 			if (regSize == 0) {
 				encoder.ErrorMessage = $"Operand {operand}: expected OpKind = {nameof(OpKind.MemorySegDI)}, {nameof(OpKind.MemorySegEDI)} or {nameof(OpKind.MemorySegRDI)}";
 				return;
@@ -172,23 +172,23 @@ namespace Iced.Intel.EncoderInternal {
 
 		public OpIb(OpKind opKind) => this.opKind = opKind;
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			var opImmKind = instr.GetOpKind(operand);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			var opImmKind = instruction.GetOpKind(operand);
 			if (!encoder.Verify(operand, opKind, opImmKind))
 				return;
 			encoder.ImmSize = ImmSize.Size1;
-			encoder.Immediate = instr.Immediate8;
+			encoder.Immediate = instruction.Immediate8;
 		}
 
 		public override OpKind GetImmediateOpKind() => opKind;
 	}
 
 	sealed class OpIw : Op {
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			if (!encoder.Verify(operand, OpKind.Immediate16, instr.GetOpKind(operand)))
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			if (!encoder.Verify(operand, OpKind.Immediate16, instruction.GetOpKind(operand)))
 				return;
 			encoder.ImmSize = ImmSize.Size2;
-			encoder.Immediate = instr.Immediate16;
+			encoder.Immediate = instruction.Immediate16;
 		}
 
 		public override OpKind GetImmediateOpKind() => OpKind.Immediate16;
@@ -199,23 +199,23 @@ namespace Iced.Intel.EncoderInternal {
 
 		public OpId(OpKind opKind) => this.opKind = opKind;
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			var opImmKind = instr.GetOpKind(operand);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			var opImmKind = instruction.GetOpKind(operand);
 			if (!encoder.Verify(operand, opKind, opImmKind))
 				return;
 			encoder.ImmSize = ImmSize.Size4;
-			encoder.Immediate = instr.Immediate32;
+			encoder.Immediate = instruction.Immediate32;
 		}
 
 		public override OpKind GetImmediateOpKind() => opKind;
 	}
 
 	sealed class OpIq : Op {
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			if (!encoder.Verify(operand, OpKind.Immediate64, instr.GetOpKind(operand)))
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			if (!encoder.Verify(operand, OpKind.Immediate64, instruction.GetOpKind(operand)))
 				return;
 			encoder.ImmSize = ImmSize.Size8;
-			ulong imm = instr.Immediate64;
+			ulong imm = instruction.Immediate64;
 			encoder.Immediate = (uint)imm;
 			encoder.ImmediateHi = (uint)(imm >> 32);
 		}
@@ -224,42 +224,42 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpIb21 : Op {
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			if (!encoder.Verify(operand, OpKind.Immediate8_2nd, instr.GetOpKind(operand)))
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			if (!encoder.Verify(operand, OpKind.Immediate8_2nd, instruction.GetOpKind(operand)))
 				return;
 			Debug.Assert(encoder.ImmSize == ImmSize.Size2);
 			encoder.ImmSize = ImmSize.Size2_1;
-			encoder.ImmediateHi = instr.Immediate8_2nd;
+			encoder.ImmediateHi = instruction.Immediate8_2nd;
 		}
 
 		public override OpKind GetImmediateOpKind() => OpKind.Immediate8_2nd;
 	}
 
 	sealed class OpIb11 : Op {
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			if (!encoder.Verify(operand, OpKind.Immediate8_2nd, instr.GetOpKind(operand)))
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			if (!encoder.Verify(operand, OpKind.Immediate8_2nd, instruction.GetOpKind(operand)))
 				return;
 			Debug.Assert(encoder.ImmSize == ImmSize.Size1);
 			encoder.ImmSize = ImmSize.Size1_1;
-			encoder.ImmediateHi = instr.Immediate8_2nd;
+			encoder.ImmediateHi = instruction.Immediate8_2nd;
 		}
 
 		public override OpKind GetImmediateOpKind() => OpKind.Immediate8_2nd;
 	}
 
 	sealed class OpI2 : Op {
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			var opImmKind = instr.GetOpKind(operand);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			var opImmKind = instruction.GetOpKind(operand);
 			if (!encoder.Verify(operand, OpKind.Immediate8, opImmKind))
 				return;
 			Debug.Assert(encoder.ImmSize == ImmSize.SizeIbReg);
 			Debug.Assert((encoder.Immediate & 3) == 0);
-			if (instr.Immediate8 > 3) {
-				encoder.ErrorMessage = $"Operand {operand}: Immediate value must be 0-3, but value is 0x{instr.Immediate8:X2}";
+			if (instruction.Immediate8 > 3) {
+				encoder.ErrorMessage = $"Operand {operand}: Immediate value must be 0-3, but value is 0x{instruction.Immediate8:X2}";
 				return;
 			}
 			encoder.ImmSize = ImmSize.Size1;
-			encoder.Immediate |= instr.Immediate8;
+			encoder.Immediate |= instruction.Immediate8;
 		}
 
 		public override OpKind GetImmediateOpKind() => OpKind.Immediate8;
@@ -286,18 +286,18 @@ namespace Iced.Intel.EncoderInternal {
 			return 0;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			var regXSize = GetXRegSize(instr.GetOpKind(operand));
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			var regXSize = GetXRegSize(instruction.GetOpKind(operand));
 			if (regXSize == 0) {
 				encoder.ErrorMessage = $"Operand {operand}: expected OpKind = {nameof(OpKind.MemorySegSI)}, {nameof(OpKind.MemorySegESI)} or {nameof(OpKind.MemorySegRSI)}";
 				return;
 			}
-			switch (instr.Code) {
+			switch (instruction.Code) {
 			case Code.Movsb_m8_m8:
 			case Code.Movsw_m16_m16:
 			case Code.Movsd_m32_m32:
 			case Code.Movsq_m64_m64:
-				var regYSize = GetYRegSize(instr.Op0Kind);
+				var regYSize = GetYRegSize(instruction.Op0Kind);
 				if (regXSize != regYSize) {
 					encoder.ErrorMessage = $"Same sized register must be used: reg #1 size = {regYSize * 8}, reg #2 size = {regXSize * 8}";
 					return;
@@ -309,18 +309,18 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpY : Op {
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			var regYSize = OpX.GetYRegSize(instr.GetOpKind(operand));
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			var regYSize = OpX.GetYRegSize(instruction.GetOpKind(operand));
 			if (regYSize == 0) {
 				encoder.ErrorMessage = $"Operand {operand}: expected OpKind = {nameof(OpKind.MemoryESDI)}, {nameof(OpKind.MemoryESEDI)} or {nameof(OpKind.MemoryESRDI)}";
 				return;
 			}
-			switch (instr.Code) {
+			switch (instruction.Code) {
 			case Code.Cmpsb_m8_m8:
 			case Code.Cmpsw_m16_m16:
 			case Code.Cmpsd_m32_m32:
 			case Code.Cmpsq_m64_m64:
-				var regXSize = OpX.GetXRegSize(instr.Op0Kind);
+				var regXSize = OpX.GetXRegSize(instruction.Op0Kind);
 				if (regXSize != regYSize) {
 					encoder.ErrorMessage = $"Same sized register must be used: reg #1 size = {regXSize * 8}, reg #2 size = {regYSize * 8}";
 					return;
@@ -332,11 +332,11 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpMRBX : Op {
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			if (!encoder.Verify(operand, OpKind.Memory, instr.GetOpKind(operand)))
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			if (!encoder.Verify(operand, OpKind.Memory, instruction.GetOpKind(operand)))
 				return;
-			var baseReg = instr.MemoryBase;
-			if (instr.MemoryDisplSize != 0 || instr.MemoryIndex != Register.AL || (baseReg != Register.BX && baseReg != Register.EBX && baseReg != Register.RBX)) {
+			var baseReg = instruction.MemoryBase;
+			if (instruction.MemoryDisplSize != 0 || instruction.MemoryIndex != Register.AL || (baseReg != Register.BX && baseReg != Register.EBX && baseReg != Register.RBX)) {
 				encoder.ErrorMessage = $"Operand {operand}: Operand must be [bx+al], [ebx+al], or [rbx+al]";
 				return;
 			}
@@ -362,8 +362,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.immSize = immSize;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
-			encoder.AddBranch(opKind, immSize, instr, operand);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+			encoder.AddBranch(opKind, immSize, instruction, operand);
 
 		public override OpKind GetNearBranchOpKind() => opKind;
 	}
@@ -373,8 +373,8 @@ namespace Iced.Intel.EncoderInternal {
 
 		public OpJx(int immSize) => this.immSize = immSize;
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
-			encoder.AddBranchX(immSize, instr, operand);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+			encoder.AddBranchX(immSize, instruction, operand);
 
 		public override OpKind GetNearBranchOpKind() {
 			// xbegin is special and doesn't mask the target IP. We need to know the code size to return the correct value
@@ -387,8 +387,8 @@ namespace Iced.Intel.EncoderInternal {
 
 		public OpJdisp(int displSize) => this.displSize = displSize;
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
-			encoder.AddBranchDisp(displSize, instr, operand);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+			encoder.AddBranchDisp(displSize, instruction, operand);
 
 		public override OpKind GetNearBranchOpKind() => displSize == 2 ? OpKind.NearBranch16 : OpKind.NearBranch32;
 	}
@@ -401,8 +401,8 @@ namespace Iced.Intel.EncoderInternal {
 			this.size = size;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
-			encoder.AddFarBranch(instr, operand, size);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+			encoder.AddFarBranch(instruction, operand, size);
 
 		public override OpKind GetFarBranchOpKind() {
 			Debug.Assert(size == 2 || size == 4);
@@ -411,20 +411,20 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpO : Op {
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
-			encoder.AddAbsMem(instr, operand);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+			encoder.AddAbsMem(instruction, operand);
 	}
 
 	sealed class OpImm : Op {
-		public byte value;
+		readonly byte value;
 
 		public OpImm(byte value) => this.value = value;
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			if (!encoder.Verify(operand, OpKind.Immediate8, instr.GetOpKind(operand)))
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			if (!encoder.Verify(operand, OpKind.Immediate8, instruction.GetOpKind(operand)))
 				return;
-			if (instr.Immediate8 != value) {
-				encoder.ErrorMessage = $"Operand {operand}: Expected 0x{value:X2}, actual: 0x{instr.Immediate8:X2}";
+			if (instruction.Immediate8 != value) {
+				encoder.ErrorMessage = $"Operand {operand}: Expected 0x{value:X2}, actual: 0x{instruction.Immediate8:X2}";
 				return;
 			}
 		}
@@ -441,10 +441,10 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			if (!encoder.Verify(operand, OpKind.Register, instr.GetOpKind(operand)))
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			if (!encoder.Verify(operand, OpKind.Register, instruction.GetOpKind(operand)))
 				return;
-			var reg = instr.GetOpRegister(operand);
+			var reg = instruction.GetOpRegister(operand);
 			if (!encoder.Verify(operand, reg, regLo, regHi))
 				return;
 			encoder.EncoderFlags |= (EncoderFlags)((uint)(reg - regLo) << (int)EncoderFlags.VvvvvShift);
@@ -460,8 +460,8 @@ namespace Iced.Intel.EncoderInternal {
 			vsibIndexRegHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) =>
-			encoder.AddRegOrMem(instr, operand, Register.None, Register.None, vsibIndexRegLo, vsibIndexRegHi, allowMemOp: true, allowRegOp: false);
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+			encoder.AddRegOrMem(instruction, operand, Register.None, Register.None, vsibIndexRegLo, vsibIndexRegHi, allowMemOp: true, allowRegOp: false);
 	}
 
 	sealed class OpIs4x : Op {
@@ -473,10 +473,10 @@ namespace Iced.Intel.EncoderInternal {
 			this.regHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instr, int operand) {
-			if (!encoder.Verify(operand, OpKind.Register, instr.GetOpKind(operand)))
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			if (!encoder.Verify(operand, OpKind.Register, instruction.GetOpKind(operand)))
 				return;
-			var reg = instr.GetOpRegister(operand);
+			var reg = instruction.GetOpRegister(operand);
 			if (!encoder.Verify(operand, reg, regLo, regHi))
 				return;
 			encoder.ImmSize = ImmSize.SizeIbReg;

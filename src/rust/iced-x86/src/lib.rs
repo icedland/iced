@@ -57,10 +57,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![deny(unused_must_use)]
 #![deny(unused_qualifications)]
 #![deny(unused_results)]
-#![deny(warnings)]
+#![allow(bare_trait_objects)] // dyn syntax supported by rustc >= 1.27.0
 #![allow(dead_code)] //TODO: REMOVE
 
-#[cfg(test)]
 #[macro_use]
 extern crate lazy_static;
 #[macro_use]

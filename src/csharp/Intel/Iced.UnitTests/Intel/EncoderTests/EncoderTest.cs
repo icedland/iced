@@ -30,14 +30,14 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.EncoderTests {
 	public abstract class EncoderTest {
-		static string ToString(byte[] hexData) {
-			if (hexData.Length == 0)
+		static string ToString(byte[] bytes) {
+			if (bytes.Length == 0)
 				return string.Empty;
-			var builder = new System.Text.StringBuilder(hexData.Length * 3 - 1);
-			for (int i = 0; i < hexData.Length; i++) {
-				if (i > 0)
+			var builder = new System.Text.StringBuilder(bytes.Length * 3 - 1);
+			for (int i = 0; i < bytes.Length; i++) {
+				if (builder.Length > 0)
 					builder.Append(' ');
-				builder.Append(hexData[i].ToString("X2"));
+				builder.Append(bytes[i].ToString("X2"));
 			}
 			return builder.ToString();
 		}
@@ -52,9 +52,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			return true;
 		}
 
-		protected void EncodeBase(uint id, int codeSize, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) {
+		protected void EncodeBase(uint id, int bitness, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
-			var decoder = CreateDecoder(codeSize, origBytes, options);
+			var decoder = CreateDecoder(bitness, origBytes, options);
 			var origRip = decoder.IP;
 			var origInstr = decoder.Decode();
 			var origConstantOffsets = decoder.GetConstantOffsets(origInstr);
@@ -71,10 +71,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(decoder.Bitness, writer);
-			Assert.Equal(codeSize, encoder.Bitness);
+			Assert.Equal(bitness, encoder.Bitness);
 			var origInstrCopy = origInstr;
 			bool result = encoder.TryEncode(origInstr, origRip, out uint encodedInstrLen, out string errorMessage);
-			Assert.True(errorMessage is null, "Unexpected ErrorMessage: " + errorMessage);
+			Assert.True(errorMessage is null, "Unexpected error message: " + errorMessage);
 			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
 			var encodedConstantOffsets = encoder.GetConstantOffsets();
 			FixConstantOffsets(ref encodedConstantOffsets, origInstr.Length, (int)encodedInstrLen);
@@ -92,7 +92,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 			}
 
-			var newInstr = CreateDecoder(codeSize, encodedBytes, options).Decode();
+			var newInstr = CreateDecoder(bitness, encodedBytes, options).Decode();
 			Assert.Equal(code, newInstr.Code);
 			Assert.Equal(encodedBytes.Length, newInstr.Length);
 			newInstr.Length = origInstr.Length;
@@ -104,14 +104,14 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(encodedBytes.Length <= origBytes.Length, "Unexpected encoded prefixes: " + ToString(encodedBytes));
 		}
 
-		static void FixConstantOffsets(ref ConstantOffsets ca, int origInstrLen, int newInstrLen) {
+		static void FixConstantOffsets(ref ConstantOffsets co, int origInstrLen, int newInstrLen) {
 			byte diff = (byte)(origInstrLen - newInstrLen);
-			if (ca.HasDisplacement)
-				ca.DisplacementOffset += diff;
-			if (ca.HasImmediate)
-				ca.ImmediateOffset += diff;
-			if (ca.HasImmediate2)
-				ca.ImmediateOffset2 += diff;
+			if (co.HasDisplacement)
+				co.DisplacementOffset += diff;
+			if (co.HasImmediate)
+				co.ImmediateOffset += diff;
+			if (co.HasImmediate2)
+				co.ImmediateOffset2 += diff;
 		}
 
 		static bool Equals(ref ConstantOffsets a, ref ConstantOffsets b) =>
@@ -122,14 +122,14 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			a.ImmediateSize == b.ImmediateSize &&
 			a.ImmediateSize2 == b.ImmediateSize2;
 
-		protected void NonDecodeEncodeBase(int codeSize, ref Instruction instr, string hexBytes, ulong rip) {
+		protected void NonDecodeEncodeBase(int bitness, ref Instruction instr, string hexBytes, ulong rip) {
 			var expectedBytes = HexUtils.ToByteArray(hexBytes);
 			var writer = new CodeWriterImpl();
-			var encoder = Encoder.Create(codeSize, writer);
-			Assert.Equal(codeSize, encoder.Bitness);
+			var encoder = Encoder.Create(bitness, writer);
+			Assert.Equal(bitness, encoder.Bitness);
 			var origInstrCopy = instr;
 			bool result = encoder.TryEncode(instr, rip, out uint encodedInstrLen, out string errorMessage);
-			Assert.True(errorMessage is null, "Unexpected ErrorMessage: " + errorMessage);
+			Assert.True(errorMessage is null, "Unexpected error message: " + errorMessage);
 			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
 			var encodedBytes = writer.ToArray();
 			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);

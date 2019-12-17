@@ -525,7 +525,7 @@ impl<'a> Decoder<'a> {
 	/// decoder.set_ip(0x1234_5678);
 	///
 	/// for instr in &mut decoder { // or decoder.iter()
-	///     println!("code: {}", instr.code() as u32);
+	///     println!("code: {:?}", instr.code());
 	/// }
 	/// ```
 	#[inline]

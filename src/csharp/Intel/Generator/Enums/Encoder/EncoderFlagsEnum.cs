@@ -39,9 +39,9 @@ namespace Generator.Enums.Encoder {
 		P66					= 0x00000080,
 		P67					= 0x00000100,
 
-		[Comment("EVEX.R'")]
+		[Comment("#(c:EVEX.R')#")]
 		R2					= 0x00000200,
-		b					= 0x00000400,
+		Broadcast			= 0x00000400,
 		HighLegacy8BitRegs	= 0x00000800,
 		Displ				= 0x00001000,
 		PF0					= 0x00002000,

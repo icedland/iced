@@ -21,8 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-/// Contains the offsets of the displacement and immediate. Call `Decoder::get_constant_offsets()` to get
-/// the offsets of the constants after the instruction has been decoded. The encoder has a similar method.
+/// Contains the offsets of the displacement and immediate. Call `Decoder::get_constant_offsets()` or
+/// `Encoder::get_constant_offsets()` to get the offsets of the constants after the instruction has been
+/// decoded/encoded.
 #[derive(Copy, Clone, Default)]
 #[allow(dead_code)]
 pub struct ConstantOffsets {

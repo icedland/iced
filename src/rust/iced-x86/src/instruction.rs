@@ -2721,7 +2721,7 @@ impl Instruction {
 	/// ```
 	#[inline]
 	pub fn negate_condition_code(&mut self) {
-		// Temp needed if rustc < 1.36.0 (2015 edition) or < 1.31.0 (2018 edition)
+		// Temp needed if rustc < 1.36.0 (2015 edition)
 		let t = self.code().negate_condition_code();
 		self.set_code(t)
 	}
@@ -2747,7 +2747,7 @@ impl Instruction {
 	#[inline]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	pub fn to_short_branch(&mut self) {
-		// Temp needed if rustc < 1.36.0 (2015 edition) or < 1.31.0 (2018 edition)
+		// Temp needed if rustc < 1.36.0 (2015 edition)
 		let t = self.code().to_short_branch();
 		self.set_code(t)
 	}
@@ -2773,7 +2773,7 @@ impl Instruction {
 	#[inline]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	pub fn to_near_branch(&mut self) {
-		// Temp needed if rustc < 1.36.0 (2015 edition) or < 1.31.0 (2018 edition)
+		// Temp needed if rustc < 1.36.0 (2015 edition)
 		let t = self.code().to_near_branch();
 		self.set_code(t)
 	}

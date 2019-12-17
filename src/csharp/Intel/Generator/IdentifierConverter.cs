@@ -93,6 +93,7 @@ namespace Generator {
 			case "OpKind_MemoryESDI": return "OP_KIND_MEMORY_ES_DI";
 			case "OpKind_MemoryESEDI": return "OP_KIND_MEMORY_ES_EDI";
 			case "OpKind_MemoryESRDI": return "OP_KIND_MEMORY_ES_RDI";
+			case "HighLegacy8BitRegs": return "HIGH_LEGACY_8_BIT_REGS";
 			default:
 				return ToScreamingSnakeCase(name);
 			}

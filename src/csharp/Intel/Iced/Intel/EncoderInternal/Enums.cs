@@ -81,9 +81,9 @@ namespace Iced.Intel.EncoderInternal {
 		REX = 0x00000040,
 		P66 = 0x00000080,
 		P67 = 0x00000100,
-		/// <summary>EVEX.R&apos;</summary>
+		/// <summary><c>EVEX.R&apos;</c></summary>
 		R2 = 0x00000200,
-		b = 0x00000400,
+		Broadcast = 0x00000400,
 		HighLegacy8BitRegs = 0x00000800,
 		Displ = 0x00001000,
 		PF0 = 0x00002000,
