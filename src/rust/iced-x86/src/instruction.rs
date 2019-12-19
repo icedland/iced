@@ -143,7 +143,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn ip32(&self) -> u32 {
-		(self.next_rip as u32).wrapping_sub(self.len())
+		(self.next_rip as u32).wrapping_sub(self.len() as u32)
 	}
 
 	/// Sets the 32-bit IP of the instruction
@@ -295,8 +295,8 @@ impl Instruction {
 	/// or create a new one, this property could return the wrong value.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn len(&self) -> u32 {
-		((self.code_flags >> CodeFlags::INSTR_LENGTH_SHIFT) & CodeFlags::INSTR_LENGTH_MASK)
+	pub fn len(&self) -> usize {
+		((self.code_flags >> CodeFlags::INSTR_LENGTH_SHIFT) & CodeFlags::INSTR_LENGTH_MASK) as usize
 	}
 
 	/// Sets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
@@ -306,9 +306,9 @@ impl Instruction {
 	///
 	/// * `new_value`: new value
 	#[inline]
-	pub fn set_len(&mut self, new_value: u32) {
+	pub fn set_len(&mut self, new_value: usize) {
 		self.code_flags = (self.code_flags & !(CodeFlags::INSTR_LENGTH_MASK << CodeFlags::INSTR_LENGTH_SHIFT))
-			| ((new_value & CodeFlags::INSTR_LENGTH_MASK) << CodeFlags::INSTR_LENGTH_SHIFT);
+			| (((new_value as u32) & CodeFlags::INSTR_LENGTH_MASK) << CodeFlags::INSTR_LENGTH_SHIFT);
 	}
 
 	/// Checks if the instruction has the `XACQUIRE` prefix (`F2`)

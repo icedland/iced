@@ -483,20 +483,21 @@ impl Encoder {
 			reg_hi = unsafe { mem::transmute((reg_lo as u8).wrapping_add(7)) };
 		}
 		if reg_lo <= register && register <= reg_hi {
-			return true;
-		}
-		if cfg!(debug_assertions) {
-			self.set_error_message(format!(
-				"Operand {}: Register {:?} is not between {:?} and {:?} (inclusive)",
-				operand, register, reg_lo, reg_hi
-			));
+			true
 		} else {
-			self.set_error_message(format!(
-				"Operand {}: Register {} is not between {} and {} (inclusive)",
-				operand, register as u32, reg_lo as u32, reg_hi as u32
-			));
+			if cfg!(debug_assertions) {
+				self.set_error_message(format!(
+					"Operand {}: Register {:?} is not between {:?} and {:?} (inclusive)",
+					operand, register, reg_lo, reg_hi
+				));
+			} else {
+				self.set_error_message(format!(
+					"Operand {}: Register {} is not between {} and {} (inclusive)",
+					operand, register as u32, reg_lo as u32, reg_hi as u32
+				));
+			}
+			false
 		}
-		false
 	}
 
 	pub(crate) fn add_branch(&mut self, op_kind: OpKind, imm_size: u32, instruction: &Instruction, operand: u32) {
@@ -1462,7 +1463,7 @@ impl Encoder {
 	#[inline]
 	pub(crate) fn write_byte(&mut self, value: u32) {
 		self.buffer.push(value as u8);
-		self.current_rip += 1;
+		self.current_rip = self.current_rip.wrapping_add(1);
 	}
 
 	/// Returns the buffer and initializes the internal buffer to an empty vector. Should be called when

@@ -772,7 +772,7 @@ pub(crate) struct D3nowHandler {
 impl D3nowHandler {
 	pub(crate) fn new(dword1: u32, dword2: u32, _dword3: u32) -> Self {
 		let mut operands = Vec::with_capacity(2);
-		static LEGACY_TABLE: [&(Op + Sync); 2] = [
+		static D3NOW_TABLE: [&(Op + Sync); 2] = [
 			&OpModRM_reg {
 				reg_lo: Register::MM0,
 				reg_hi: Register::MM7,
@@ -782,8 +782,8 @@ impl D3nowHandler {
 				reg_hi: Register::MM7,
 			},
 		];
-		operands.push(LEGACY_TABLE[0]);
-		operands.push(LEGACY_TABLE[1]);
+		operands.push(D3NOW_TABLE[0]);
+		operands.push(D3NOW_TABLE[1]);
 
 		Self {
 			base: OpCodeHandler {

@@ -89,7 +89,7 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	assert_eq!(tc.code, instr.code());
 	assert_eq!(tc.mnemonic, instr.mnemonic());
 	assert_eq!(instr.mnemonic(), instr.code().mnemonic());
-	assert_eq!(len, instr.len() as usize);
+	assert_eq!(len, instr.len());
 	assert_eq!(rip, instr.ip());
 	assert_eq!(decoder.ip(), instr.next_ip());
 	assert_eq!(tc.op_count, instr.op_count());
@@ -260,7 +260,7 @@ fn decode_mem_test(bitness: u32, tc: &DecoderMemoryTestCase) {
 
 	assert_eq!(tc.code, instr.code());
 	assert_eq!(2, instr.op_count());
-	assert_eq!(len, instr.len() as usize);
+	assert_eq!(len, instr.len());
 	assert!(!instr.has_rep_prefix());
 	assert!(!instr.has_repe_prefix());
 	assert!(!instr.has_repne_prefix());

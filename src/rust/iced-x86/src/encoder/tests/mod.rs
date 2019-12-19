@@ -57,8 +57,8 @@ fn encode_test(info: &DecoderTestInfo) {
 	let orig_instr = decoder.decode();
 	let orig_co = decoder.get_constant_offsets(&orig_instr);
 	assert_eq!(info.code(), orig_instr.code());
-	assert_eq!(orig_bytes.len(), orig_instr.len() as usize);
-	assert!(orig_instr.len() <= IcedConstants::MAX_INSTRUCTION_LENGTH);
+	assert_eq!(orig_bytes.len(), orig_instr.len());
+	assert!(orig_instr.len() <= IcedConstants::MAX_INSTRUCTION_LENGTH as usize);
 	assert_eq!(orig_rip as u16, orig_instr.ip16());
 	assert_eq!(orig_rip as u32, orig_instr.ip32());
 	assert_eq!(orig_rip, orig_instr.ip());
@@ -71,15 +71,12 @@ fn encode_test(info: &DecoderTestInfo) {
 	assert_eq!(info.bitness(), encoder.bitness());
 	let orig_instr_copy = orig_instr;
 	let encoded_instr_len;
-	{
-		let result = encoder.encode(&orig_instr, orig_rip);
-		match result {
-			Ok(len) => encoded_instr_len = len,
-			Err(err) => panic!("Unexpected error message: {}", err),
-		}
+	match encoder.encode(&orig_instr, orig_rip) {
+		Ok(len) => encoded_instr_len = len,
+		Err(err) => panic!("Unexpected error message: {}", err),
 	}
 	let mut encoded_co = encoder.get_constant_offsets();
-	fix_constant_offsets(&mut encoded_co, orig_instr.len() as usize, encoded_instr_len);
+	fix_constant_offsets(&mut encoded_co, orig_instr.len(), encoded_instr_len);
 	verify_constant_offsets(&orig_co, &encoded_co);
 	let encoded_bytes = encoder.take_buffer();
 	assert_eq!(encoded_bytes.len(), encoded_instr_len);
@@ -98,7 +95,7 @@ fn encode_test(info: &DecoderTestInfo) {
 		.0
 		.decode();
 	assert_eq!(info.code(), new_instr.code());
-	assert_eq!(encoded_bytes.len(), new_instr.len() as usize);
+	assert_eq!(encoded_bytes.len(), new_instr.len());
 	new_instr.set_len(orig_instr.len());
 	new_instr.set_next_ip(orig_instr.next_ip());
 	if orig_bytes.len() != expected_bytes.len() && (orig_instr.memory_base() == Register::EIP || orig_instr.memory_base() == Register::RIP) {
@@ -119,13 +116,13 @@ fn encode_test(info: &DecoderTestInfo) {
 fn fix_constant_offsets(co: &mut ConstantOffsets, orig_len: usize, new_len: usize) {
 	let diff = orig_len.wrapping_sub(new_len) as u8;
 	if co.has_displacement() {
-		co.displacement_offset += diff;
+		co.displacement_offset = co.displacement_offset.wrapping_add(diff);
 	}
 	if co.has_immediate() {
-		co.immediate_offset += diff;
+		co.immediate_offset = co.immediate_offset.wrapping_add(diff);
 	}
 	if co.has_immediate2() {
-		co.immediate_offset2 += diff;
+		co.immediate_offset2 = co.immediate_offset2.wrapping_add(diff);
 	}
 }
 
@@ -162,11 +159,11 @@ fn encode_with_error() {
 	let mut instr = decoder.decode();
 
 	let mut encoder = Encoder::new(decoder.bitness());
-	assert!(!encoder.encode(&instr, instr.ip()).is_err());
+	assert!(encoder.encode(&instr, instr.ip()).is_ok());
 	instr.set_op1_register(Register::CR0);
 	assert!(encoder.encode(&instr, instr.ip()).is_err());
 	instr.set_op1_register(Register::AL);
-	assert!(!encoder.encode(&instr, instr.ip()).is_err());
+	assert!(encoder.encode(&instr, instr.ip()).is_ok());
 }
 
 #[test]
@@ -197,6 +194,7 @@ fn with_capacity_if_bitness_128() {
 fn with_capacity_works() {
 	let mut encoder = Encoder::with_capacity(64, 211);
 	let buffer = encoder.take_buffer();
+	assert!(buffer.is_empty());
 	assert_eq!(211, buffer.capacity());
 }
 

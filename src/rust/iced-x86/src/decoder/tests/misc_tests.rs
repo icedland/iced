@@ -103,7 +103,7 @@ fn decode_multiple_instrs_with_one_instance() {
 		if instr1.code() == Code::INVALID {
 			// decoder_all has a bigger buffer and can decode more bytes
 			decoder_all.set_position(position + bytes.len());
-			instr2.set_len(bytes.len() as u32);
+			instr2.set_len(bytes.len());
 			instr2.set_next_ip(ip + bytes.len() as u64);
 		}
 		assert!(instr1.eq_all_bits(&instr2));
@@ -165,11 +165,11 @@ fn position() {
 fn set_position_valid_position() {
 	let bytes = b"\x23\x18\x62\x31\x7C\x8B\x11\xD3";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	for i in 0..(bytes.len() + 1) {
+	for i in 0..bytes.len() + 1 {
 		decoder.set_position(i);
 		assert_eq!(i, decoder.position());
 	}
-	for i in (0..(bytes.len() + 1)).rev() {
+	for i in (0..bytes.len() + 1).rev() {
 		decoder.set_position(i);
 		assert_eq!(i, decoder.position());
 	}
