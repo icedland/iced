@@ -125,14 +125,18 @@ impl UsedMemory {
 		self.segment
 	}
 
-	/// Base register or `Register::None` if none
+	/// Base register or [`Register::None`] if none
+	///
+	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn base(&self) -> Register {
 		self.base
 	}
 
-	/// Index register or `Register::None` if none
+	/// Index register or [`Register::None`] if none
+	///
+	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn index(&self) -> Register {
@@ -211,7 +215,9 @@ impl IIFlags {
 }
 
 /// Contains information about an instruction, eg. read/written registers, read/written `RFLAGS` bits, `CPUID` feature bit, etc.
-/// Created by an `InstructionInfoFactory`.
+/// Created by an [`InstructionInfoFactory`].
+///
+/// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
 pub struct InstructionInfo {
 	pub(crate) used_registers: Vec<UsedRegister>,
 	pub(crate) used_memory_locations: Vec<UsedMemory>,
@@ -248,7 +254,9 @@ impl InstructionInfo {
 		}
 	}
 
-	/// Gets all accessed registers. This method doesn't return all used registers if `is_save_restore_instruction()` is `true`.
+	/// Gets all accessed registers. This method doesn't return all accessed registers if [`is_save_restore_instruction()`] is `true`.
+	///
+	/// [`is_save_restore_instruction()`]: #method.is_save_restore_instruction
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn used_registers(&self) -> &Vec<UsedRegister> {
@@ -277,7 +285,9 @@ impl InstructionInfo {
 	}
 
 	/// true if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
-	/// See also `Instruction::stack_pointer_increment()`
+	/// See also [`Instruction::stack_pointer_increment()`]
+	///
+	/// [`Instruction::stack_pointer_increment()`]: struct.Instruction.html#method.stack_pointer_increment
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_stack_instruction(&self) -> bool {
@@ -285,7 +295,9 @@ impl InstructionInfo {
 	}
 
 	/// true if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
-	/// `used_registers()` won't return all accessed registers.
+	/// [`used_registers()`] won't return all accessed registers.
+	///
+	/// [`used_registers()`]: #method.used_registers
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_save_restore_instruction(&self) -> bool {
@@ -363,7 +375,11 @@ impl InstructionInfo {
 		self.op_accesses[operand as usize]
 	}
 
-	/// All flags that are read by the CPU when executing the instruction. This method returns a `RflagsBits` value. See also `rflags_modified()`.
+	/// All flags that are read by the CPU when executing the instruction.
+	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	///
+	/// [`RflagsBits`]: struct.RflagsBits.html
+	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_read(&self) -> u32 {
@@ -371,35 +387,52 @@ impl InstructionInfo {
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
-	/// This method returns a `RflagsBits` value. See also `rflags_modified()`.
+	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	///
+	/// [`RflagsBits`]: struct.RflagsBits.html
+	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_written(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info) as u32 }
 	}
 
-	/// All flags that are always cleared by the CPU. This method returns a `RflagsBits` value. See also `rflags_modified()`.
+	/// All flags that are always cleared by the CPU.
+	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	///
+	/// [`RflagsBits`]: struct.RflagsBits.html
+	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_cleared(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info) as u32 }
 	}
 
-	/// All flags that are always set by the CPU. This method returns a `RflagsBits` value. See also `rflags_modified()`.
+	/// All flags that are always set by the CPU.
+	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	///
+	/// [`RflagsBits`]: struct.RflagsBits.html
+	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_set(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info) as u32 }
 	}
 
-	/// All flags that are undefined after executing the instruction. This method returns a `RflagsBits` value. See also `rflags_modified()`.
+	/// All flags that are undefined after executing the instruction.
+	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	///
+	/// [`RflagsBits`]: struct.RflagsBits.html
+	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_undefined(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info) as u32 }
 	}
 
-	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a `RflagsBits` value.
+	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a [`RflagsBits`] value.
+	///
+	/// [`RflagsBits`]: struct.RflagsBits.html
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rflags_modified(&self) -> u32 {

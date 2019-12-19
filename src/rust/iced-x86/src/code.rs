@@ -37961,7 +37961,9 @@ impl Code {
 	}
 
 	/// Checks if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
-	/// See also `Instruction::stack_pointer_increment()`
+	/// See also [`Instruction::stack_pointer_increment()`]
+	///
+	/// [`Instruction::stack_pointer_increment()`]: struct.Instruction.html#method.stack_pointer_increment
 	///
 	/// # Examples
 	///
@@ -38183,7 +38185,9 @@ impl Code {
 		self
 	}
 
-	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else `ConditionCode::None` is returned
+	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else [`ConditionCode::None`] is returned
+	///
+	/// [`ConditionCode::None`]: enum.ConditionCode.html#variant.None
 	///
 	/// # Examples
 	///

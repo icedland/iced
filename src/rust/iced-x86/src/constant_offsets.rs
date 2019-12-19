@@ -21,9 +21,12 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-/// Contains the offsets of the displacement and immediate. Call `Decoder::get_constant_offsets()` or
-/// `Encoder::get_constant_offsets()` to get the offsets of the constants after the instruction has been
+/// Contains the offsets of the displacement and immediate. Call [`Decoder::get_constant_offsets()`] or
+/// [`Encoder::get_constant_offsets()`] to get the offsets of the constants after the instruction has been
 /// decoded/encoded.
+///
+/// [`Decoder::get_constant_offsets()`]: struct.Decoder.html#method.get_constant_offsets
+/// [`Encoder::get_constant_offsets()`]: struct.Encoder.html#method.get_constant_offsets
 #[derive(Copy, Clone, Default)]
 #[allow(dead_code)]
 pub struct ConstantOffsets {
@@ -84,21 +87,30 @@ impl ConstantOffsets {
 		self.immediate_size2 as usize
 	}
 
-	/// true if `displacement_offset()` is valid
+	/// true if [`displacement_offset()`] and [`displacement_size()`] are valid
+	///
+	/// [`displacement_offset()`]: #method.displacement_offset
+	/// [`displacement_size()`]: #method.displacement_size
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn has_displacement(&self) -> bool {
 		self.displacement_size != 0
 	}
 
-	/// true if `immediate_offset()` is valid
+	/// true if [`immediate_offset()`] and [`immediate_size()`] are valid
+	///
+	/// [`immediate_offset()`]: #method.immediate_offset
+	/// [`immediate_size()`]: #method.immediate_size
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn has_immediate(&self) -> bool {
 		self.immediate_size != 0
 	}
 
-	/// true if `immediate_offset2()` is valid
+	/// true if [`immediate_offset2()`] and [`immediate_size2()`] are valid
+	///
+	/// [`immediate_offset2()`]: #method.immediate_offset2
+	/// [`immediate_size2()`]: #method.immediate_size2
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn has_immediate2(&self) -> bool {

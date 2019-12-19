@@ -61,7 +61,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets a struct iterator that returns all accessed registers. This method doesn't return all used registers if <see cref="IsSaveRestoreInstruction"/> is true.
+		/// Gets a struct iterator that returns all accessed registers. This method doesn't return all accessed registers if <see cref="IsSaveRestoreInstruction"/> is true.
 		/// </summary>
 		/// <returns></returns>
 		public readonly UsedRegisterIterator GetUsedRegisters() => new UsedRegisterIterator(usedRegisters, usedRegistersLength);

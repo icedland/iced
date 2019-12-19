@@ -106,61 +106,143 @@ impl Default for RoundingControl {
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[allow(non_camel_case_types)]
 pub enum OpKind {
-	/// A register (`Register`).
+	/// A register ([`Register`]).
 	///
-	/// This operand kind uses `Instruction::op0_register()`, `Instruction::op1_register()`, `Instruction::op2_register()`, `Instruction::op3_register()` or `Instruction::op4_register()` depending on operand number. See also `Instruction::op_register()`.
+	/// This operand kind uses [`Instruction::op0_register()`], [`Instruction::op1_register()`], [`Instruction::op2_register()`], [`Instruction::op3_register()`] or [`Instruction::op4_register()`] depending on operand number. See also [`Instruction::op_register()`].
+	///
+	/// [`Register`]: enum.Register.html
+	/// [`Instruction::op0_register()`]: struct.Instruction.html#method.op0_register
+	/// [`Instruction::op1_register()`]: struct.Instruction.html#method.op1_register
+	/// [`Instruction::op2_register()`]: struct.Instruction.html#method.op2_register
+	/// [`Instruction::op3_register()`]: struct.Instruction.html#method.op3_register
+	/// [`Instruction::op4_register()`]: struct.Instruction.html#method.op4_register
+	/// [`Instruction::op_register()`]: struct.Instruction.html#method.op_register
 	Register,
-	/// Near 16-bit branch. This operand kind uses `Instruction::near_branch16()`
+	/// Near 16-bit branch. This operand kind uses [`Instruction::near_branch16()`]
+	///
+	/// [`Instruction::near_branch16()`]: struct.Instruction.html#method.near_branch16
 	NearBranch16,
-	/// Near 32-bit branch. This operand kind uses `Instruction::near_branch32()`
+	/// Near 32-bit branch. This operand kind uses [`Instruction::near_branch32()`]
+	///
+	/// [`Instruction::near_branch32()`]: struct.Instruction.html#method.near_branch32
 	NearBranch32,
-	/// Near 64-bit branch. This operand kind uses `Instruction::near_branch64()`
+	/// Near 64-bit branch. This operand kind uses [`Instruction::near_branch64()`]
+	///
+	/// [`Instruction::near_branch64()`]: struct.Instruction.html#method.near_branch64
 	NearBranch64,
-	/// Far 16-bit branch. This operand kind uses `Instruction::far_branch16()` and `Instruction::far_branch_selector()`
+	/// Far 16-bit branch. This operand kind uses [`Instruction::far_branch16()`] and [`Instruction::far_branch_selector()`]
+	///
+	/// [`Instruction::far_branch16()`]: struct.Instruction.html#method.far_branch16
+	/// [`Instruction::far_branch_selector()`]: struct.Instruction.html#method.far_branch_selector
 	FarBranch16,
-	/// Far 32-bit branch. This operand kind uses `Instruction::far_branch32()` and `Instruction::far_branch_selector()`
+	/// Far 32-bit branch. This operand kind uses [`Instruction::far_branch32()`] and [`Instruction::far_branch_selector()`]
+	///
+	/// [`Instruction::far_branch32()`]: struct.Instruction.html#method.far_branch32
+	/// [`Instruction::far_branch_selector()`]: struct.Instruction.html#method.far_branch_selector
 	FarBranch32,
-	/// 8-bit constant. This operand kind uses `Instruction::immediate8()`
+	/// 8-bit constant. This operand kind uses [`Instruction::immediate8()`]
+	///
+	/// [`Instruction::immediate8()`]: struct.Instruction.html#method.immediate8
 	Immediate8,
-	/// 8-bit constant used by the `enter`, `extrq`, `insertq` instructions. This operand kind uses `Instruction::immediate8_2nd()`
+	/// 8-bit constant used by the `enter`, `extrq`, `insertq` instructions. This operand kind uses [`Instruction::immediate8_2nd()`]
+	///
+	/// [`Instruction::immediate8_2nd()`]: struct.Instruction.html#method.immediate8_2nd
 	Immediate8_2nd,
-	/// 16-bit constant. This operand kind uses `Instruction::immediate16()`
+	/// 16-bit constant. This operand kind uses [`Instruction::immediate16()`]
+	///
+	/// [`Instruction::immediate16()`]: struct.Instruction.html#method.immediate16
 	Immediate16,
-	/// 32-bit constant. This operand kind uses `Instruction::immediate32()`
+	/// 32-bit constant. This operand kind uses [`Instruction::immediate32()`]
+	///
+	/// [`Instruction::immediate32()`]: struct.Instruction.html#method.immediate32
 	Immediate32,
-	/// 64-bit constant. This operand kind uses `Instruction::immediate64()`
+	/// 64-bit constant. This operand kind uses [`Instruction::immediate64()`]
+	///
+	/// [`Instruction::immediate64()`]: struct.Instruction.html#method.immediate64
 	Immediate64,
-	/// An 8-bit value sign extended to 16 bits. This operand kind uses `Instruction::immediate8to16()`
+	/// An 8-bit value sign extended to 16 bits. This operand kind uses [`Instruction::immediate8to16()`]
+	///
+	/// [`Instruction::immediate8to16()`]: struct.Instruction.html#method.immediate8to16
 	Immediate8to16,
-	/// An 8-bit value sign extended to 32 bits. This operand kind uses `Instruction::immediate8to32()`
+	/// An 8-bit value sign extended to 32 bits. This operand kind uses [`Instruction::immediate8to32()`]
+	///
+	/// [`Instruction::immediate8to32()`]: struct.Instruction.html#method.immediate8to32
 	Immediate8to32,
-	/// An 8-bit value sign extended to 64 bits. This operand kind uses `Instruction::immediate8to64()`
+	/// An 8-bit value sign extended to 64 bits. This operand kind uses [`Instruction::immediate8to64()`]
+	///
+	/// [`Instruction::immediate8to64()`]: struct.Instruction.html#method.immediate8to64
 	Immediate8to64,
-	/// A 32-bit value sign extended to 64 bits. This operand kind uses `Instruction::immediate32to64()`
+	/// A 32-bit value sign extended to 64 bits. This operand kind uses [`Instruction::immediate32to64()`]
+	///
+	/// [`Instruction::immediate32to64()`]: struct.Instruction.html#method.immediate32to64
 	Immediate32to64,
-	/// `seg:[si]`. This operand kind uses `Instruction::memory_size()`, `Instruction::memory_segment()`, `Instruction::segment_prefix()`
+	/// `seg:[si]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	///
+	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
+	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
+	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegSI,
-	/// `seg:[esi]`. This operand kind uses `Instruction::memory_size()`, `Instruction::memory_segment()`, `Instruction::segment_prefix()`
+	/// `seg:[esi]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	///
+	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
+	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
+	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegESI,
-	/// `seg:[rsi]`. This operand kind uses `Instruction::memory_size()`, `Instruction::memory_segment()`, `Instruction::segment_prefix()`
+	/// `seg:[rsi]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	///
+	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
+	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
+	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegRSI,
-	/// `seg:[di]`. This operand kind uses `Instruction::memory_size()`, `Instruction::memory_segment()`, `Instruction::segment_prefix()`
+	/// `seg:[di]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	///
+	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
+	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
+	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegDI,
-	/// `seg:[edi]`. This operand kind uses `Instruction::memory_size()`, `Instruction::memory_segment()`, `Instruction::segment_prefix()`
+	/// `seg:[edi]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	///
+	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
+	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
+	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegEDI,
-	/// `seg:[rdi]`. This operand kind uses `Instruction::memory_size()`, `Instruction::memory_segment()`, `Instruction::segment_prefix()`
+	/// `seg:[rdi]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	///
+	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
+	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
+	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegRDI,
-	/// `es:[di]`. This operand kind uses `Instruction::memory_size()`
+	/// `es:[di]`. This operand kind uses [`Instruction::memory_size()`]
+	///
+	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	MemoryESDI,
-	/// `es:[edi]`. This operand kind uses `Instruction::memory_size()`
+	/// `es:[edi]`. This operand kind uses [`Instruction::memory_size()`]
+	///
+	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	MemoryESEDI,
-	/// `es:[rdi]`. This operand kind uses `Instruction::memory_size()`
+	/// `es:[rdi]`. This operand kind uses [`Instruction::memory_size()`]
+	///
+	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	MemoryESRDI,
-	/// 64-bit offset `[xxxxxxxxxxxxxxxx]`. This operand kind uses `Instruction::memory_address64()`, `Instruction::memory_segment()`, `Instruction::segment_prefix()`, `Instruction::memory_size()`
+	/// 64-bit offset `[xxxxxxxxxxxxxxxx]`. This operand kind uses [`Instruction::memory_address64()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`], [`Instruction::memory_size()`]
+	///
+	/// [`Instruction::memory_address64()`]: struct.Instruction.html#method.memory_address64
+	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
+	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
+	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	Memory64,
 	/// Memory operand.
 	///
-	/// This operand kind uses `Instruction::memory_displ_size()`, `Instruction::memory_size()`, `Instruction::memory_index_scale()`, `Instruction::memory_displacement()`, `Instruction::memory_base()`, `Instruction::memory_index()`, `Instruction::memory_segment()`, `Instruction::segment_prefix()`
+	/// This operand kind uses [`Instruction::memory_displ_size()`], [`Instruction::memory_size()`], [`Instruction::memory_index_scale()`], [`Instruction::memory_displacement()`], [`Instruction::memory_base()`], [`Instruction::memory_index()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	///
+	/// [`Instruction::memory_displ_size()`]: struct.Instruction.html#method.memory_displ_size
+	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
+	/// [`Instruction::memory_index_scale()`]: struct.Instruction.html#method.memory_index_scale
+	/// [`Instruction::memory_displacement()`]: struct.Instruction.html#method.memory_displacement
+	/// [`Instruction::memory_base()`]: struct.Instruction.html#method.memory_base
+	/// [`Instruction::memory_index()`]: struct.Instruction.html#method.memory_index
+	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
+	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	Memory,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -481,7 +563,9 @@ pub enum FlowControl {
 	Interrupt,
 	/// It's `XBEGIN`, `XABORT` or `XEND`
 	XbeginXabortXend,
-	/// It's an invalid instruction, eg. `Code::INVALID`, `UD0`, `UD1`, `UD2`
+	/// It's an invalid instruction, eg. [`Code::INVALID`], `UD0`, `UD1`, `UD2`
+	///
+	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
 	Exception,
 }
 #[cfg(feature = "INSTR_INFO")]
@@ -997,13 +1081,20 @@ pub enum CpuidFeature {
 	GFNI,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.HLE\[bit 4\]
 	HLE,
-	/// `HLE` or `RTM`
+	/// [`HLE`] or [`RTM`]
+	///
+	/// [`HLE`]: enum.CpuidFeature.html#variant.HLE
+	/// [`RTM`]: enum.CpuidFeature.html#variant.RTM
 	HLE_or_RTM,
-	/// `VMX` and IA32_VMX_EPT_VPID_CAP\[bit 20\]
+	/// [`VMX`] and IA32_VMX_EPT_VPID_CAP\[bit 20\]
+	///
+	/// [`VMX`]: enum.CpuidFeature.html#variant.VMX
 	INVEPT,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.INVPCID\[bit 10\]
 	INVPCID,
-	/// `VMX` and IA32_VMX_EPT_VPID_CAP\[bit 32\]
+	/// [`VMX`] and IA32_VMX_EPT_VPID_CAP\[bit 32\]
+	///
+	/// [`VMX`]: enum.CpuidFeature.html#variant.VMX
 	INVVPID,
 	/// CPUID.80000001H:ECX.LWP\[bit 15\]
 	LWP,
@@ -1077,7 +1168,10 @@ pub enum CpuidFeature {
 	SHA,
 	/// CPUID.80000001H:ECX.SKINIT\[bit 12\]
 	SKINIT,
-	/// `SKINIT` or `SVML`
+	/// [`SKINIT`] or [`SVML`]
+	///
+	/// [`SKINIT`]: enum.CpuidFeature.html#variant.SKINIT
+	/// [`SVML`]: enum.CpuidFeature.html#variant.SVML
 	SKINIT_or_SVML,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.SMAP\[bit 20\]
 	SMAP,

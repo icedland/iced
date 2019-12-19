@@ -26,16 +26,23 @@ use super::enums::*;
 use super::*;
 use std::{mem, u16, u32, u64};
 
-/// Instruction info options used by `InstructionInfoFactory`
+/// Instruction info options used by [`InstructionInfoFactory`]
+///
+/// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
 #[allow(missing_copy_implementations)]
 pub struct InstructionInfoOptions;
 impl InstructionInfoOptions {
 	/// No option is enabled
 	pub const NONE: u32 = 0;
-	/// Don't include memory usage, i.e., `InstructionInfo::used_memory()` will return an empty vector. All
-	/// registers that are used by memory operands are still returned by `InstructionInfo::used_registers()`.
+	/// Don't include memory usage, i.e., [`InstructionInfo::used_memory()`] will return an empty vector. All
+	/// registers that are used by memory operands are still returned by [`InstructionInfo::used_registers()`].
+	///
+	/// [`InstructionInfo::used_memory()`]: struct.InstructionInfo.html#method.used_memory
+	/// [`InstructionInfo::used_registers()`]: struct.InstructionInfo.html#method.used_registers
 	pub const NO_MEMORY_USAGE: u32 = 0x0000_0001;
-	/// Don't include register usage, i.e., `InstructionInfo::used_registers()` will return an empty vector
+	/// Don't include register usage, i.e., [`InstructionInfo::used_registers()`] will return an empty vector
+	///
+	/// [`InstructionInfo::used_registers()`]: struct.InstructionInfo.html#method.used_registers
 	pub const NO_REGISTER_USAGE: u32 = 0x0000_0002;
 }
 
@@ -48,10 +55,15 @@ impl Flags {
 	pub const ZERO_EXT_VEC_REGS: u32 = 0x0000_0008;
 }
 
-/// Creates `InstructionInfo`s.
+/// Creates [`InstructionInfo`]s.
 ///
-/// If you don't need to know register and memory usage, it's faster to call `Instruction` and
-/// `Code` methods such as `Instruction::flow_control()` instead of getting that info from this struct.
+/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
+/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
+///
+/// [`InstructionInfo`]: struct.InstructionInfo.html
+/// [`Instruction`]: struct.Instruction.html
+/// [`Code`]: enum.Code.html
+/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
 pub struct InstructionInfoFactory {
 	info: InstructionInfo,
 }
@@ -60,8 +72,12 @@ pub struct InstructionInfoFactory {
 impl InstructionInfoFactory {
 	/// Creates a new instance.
 	///
-	/// If you don't need to know register and memory usage, it's faster to call `Instruction` and
-	/// `Code` methods such as `Instruction::flow_control()` instead of getting that info from this method.
+	/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
+	/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
+	///
+	/// [`Instruction`]: struct.Instruction.html
+	/// [`Code`]: enum.Code.html
+	/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
 	///
 	/// # Examples
 	///
@@ -95,11 +111,17 @@ impl InstructionInfoFactory {
 		}
 	}
 
-	/// Creates a new `InstructionInfo`, see also `info_options()` if you only need register usage
+	/// Creates a new [`InstructionInfo`], see also [`info_options()`] if you only need register usage
 	/// but not memory usage or vice versa.
 	///
-	/// If you don't need to know register and memory usage, it's faster to call `Instruction` and
-	/// `Code` methods such as `Instruction::flow_control()` instead of getting that info from this method.
+	/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
+	/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
+	///
+	/// [`InstructionInfo`]: struct.InstructionInfo.html
+	/// [`info_options()`]: #method.info_options
+	/// [`Instruction`]: struct.Instruction.html
+	/// [`Code`]: enum.Code.html
+	/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
 	///
 	/// # Arguments
 	///
@@ -143,10 +165,16 @@ impl InstructionInfoFactory {
 		Self::create(&mut self.info, instruction, InstructionInfoOptions::NONE)
 	}
 
-	/// Creates a new `InstructionInfo`, see also `info()`.
+	/// Creates a new [`InstructionInfo`], see also [`info()`].
 	///
-	/// If you don't need to know register and memory usage, it's faster to call `Instruction` and
-	/// `Code` methods such as `Instruction::flow_control()` instead of getting that info from this method.
+	/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
+	/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
+	///
+	/// [`InstructionInfo`]: struct.InstructionInfo.html
+	/// [`info()`]: #method.info
+	/// [`Instruction`]: struct.Instruction.html
+	/// [`Code`]: enum.Code.html
+	/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
 	///
 	/// # Arguments
 	///

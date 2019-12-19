@@ -1467,12 +1467,16 @@ impl Encoder {
 	}
 
 	/// Returns the buffer and initializes the internal buffer to an empty vector. Should be called when
-	/// you've encoded all instructions and need the encoded code. See also `set_buffer()`.
+	/// you've encoded all instructions and need the encoded code. See also [`set_buffer()`].
+	///
+	/// [`set_buffer()`]: #method.set_buffer
 	pub fn take_buffer(&mut self) -> Vec<u8> {
 		mem::replace(&mut self.buffer, Vec::new())
 	}
 
-	/// Overwrites the buffer with a new vector. The old buffer is dropped. See also `take_buffer()`.
+	/// Overwrites the buffer with a new vector. The old buffer is dropped. See also [`take_buffer()`].
+	///
+	/// [`take_buffer()`]: #method.take_buffer
 	pub fn set_buffer(&mut self, buffer: Vec<u8>) {
 		self.buffer = buffer;
 	}

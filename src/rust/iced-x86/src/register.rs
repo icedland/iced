@@ -283,7 +283,9 @@ mod info {
 		// GENERATOR-END: RegisterInfoTable
 	];
 
-	/// `Register` information
+	/// [`Register`] information
+	///
+	/// [`Register`]: enum.Register.html
 	#[derive(Copy, Clone)]
 	pub struct RegisterInfo {
 		register: u8,
@@ -334,7 +336,9 @@ mod info {
 			unsafe { mem::transmute(self.base) }
 		}
 
-		/// The register number (index) relative to `base()`, eg. 0-15, or 0-31, or if 8-bit GPR, 0-19
+		/// The register number (index) relative to [`base()`], eg. 0-15, or 0-31, or if 8-bit GPR, 0-19
+		///
+		/// [`base()`]: #method.base
 		///
 		/// # Examples
 		///
@@ -495,7 +499,9 @@ impl Register {
 		self.info().base()
 	}
 
-	/// The register number (index) relative to `base()`, eg. 0-15, or 0-31, or if 8-bit GPR, 0-19
+	/// The register number (index) relative to [`base()`], eg. 0-15, or 0-31, or if 8-bit GPR, 0-19
+	///
+	/// [`base()`]: #method.base
 	///
 	/// # Examples
 	///

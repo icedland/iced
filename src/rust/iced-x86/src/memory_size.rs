@@ -176,7 +176,9 @@ mod info {
 		// GENERATOR-END: MemorySizeInfoTable
 	];
 
-	/// `MemorySize` information
+	/// [`MemorySize`] information
+	///
+	/// [`MemorySize`]: enum.MemorySize.html
 	#[derive(Copy, Clone)]
 	pub struct MemorySizeInfo {
 		size: u16,
@@ -190,7 +192,9 @@ mod info {
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 	impl MemorySizeInfo {
-		/// Gets the `MemorySize` value
+		/// Gets the [`MemorySize`] value
+		///
+		/// [`MemorySize`]: enum.MemorySize.html
 		///
 		/// # Examples
 		///
@@ -225,7 +229,9 @@ mod info {
 			self.size as u32
 		}
 
-		/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to `size()`.
+		/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to [`size()`].
+		///
+		/// [`size()`]: #method.size
 		///
 		/// # Examples
 		///
@@ -321,7 +327,10 @@ mod info {
 			self.is_broadcast
 		}
 
-		/// `true` if this is a packed data type, eg. `MemorySize::Packed128_Float32`. See also `element_count()`
+		/// `true` if this is a packed data type, eg. [`MemorySize::Packed128_Float32`]. See also [`element_count()`]
+		///
+		/// [`MemorySize::Packed128_Float32`]: #variant.Packed128_Float32
+		/// [`element_count()`]: #method.element_count
 		///
 		/// # Examples
 		///
@@ -340,7 +349,9 @@ mod info {
 			self.element_size < self.size
 		}
 
-		/// Gets the number of elements in the packed data type or `1` if it's not packed data (`is_packed()`)
+		/// Gets the number of elements in the packed data type or `1` if it's not packed data ([`is_packed()`])
+		///
+		/// [`is_packed()`]: #method.is_packed
 		///
 		/// # Examples
 		///
@@ -833,7 +844,9 @@ impl MemorySize {
 		self.info().size()
 	}
 
-	/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to `size()`.
+	/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to [`size()`].
+	///
+	/// [`size()`]: #method.size
 	///
 	/// # Examples
 	///
@@ -897,7 +910,9 @@ impl MemorySize {
 		self.info().is_signed()
 	}
 
-	/// true if this is a packed data type, eg. `MemorySize::Packed128_Float32`
+	/// true if this is a packed data type, eg. [`MemorySize::Packed128_Float32`]
+	///
+	/// [`MemorySize::Packed128_Float32`]: #variant.Packed128_Float32
 	///
 	/// # Examples
 	///
@@ -913,7 +928,9 @@ impl MemorySize {
 		self.info().is_packed()
 	}
 
-	/// Gets the number of elements in the packed data type or `1` if it's not packed data (`is_packed()`)
+	/// Gets the number of elements in the packed data type or `1` if it's not packed data ([`is_packed()`])
+	///
+	/// [`is_packed()`]: #method.is_packed
 	///
 	/// # Examples
 	///

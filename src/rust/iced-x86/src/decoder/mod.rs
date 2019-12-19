@@ -105,13 +105,19 @@ pub struct DecoderOptions;
 impl DecoderOptions {
 	/// No option is enabled
 	pub const NONE: u32 = 0x0000_0000;
-	/// Disable some checks for invalid encodings of instructions, eg. most instructions can't use a `LOCK` prefix so if one is found, they're decoded as `Code::INVALID` unless this option is enabled.
+	/// Disable some checks for invalid encodings of instructions, eg. most instructions can't use a `LOCK` prefix so if one is found, they're decoded as [`Code::INVALID`] unless this option is enabled.
+	///
+	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
 	pub const NO_INVALID_CHECK: u32 = 0x0000_0001;
 	/// AMD branch decoder: allow 16-bit branch/ret instructions in 64-bit mode
 	pub const AMD_BRANCHES: u32 = 0x0000_0002;
-	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. `Code::ReservedNop_rm32_r32_0F1D`)
+	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code::ReservedNop_rm32_r32_0F1D`])
+	///
+	/// [`Code::ReservedNop_rm32_r32_0F1D`]: enum.Code.html#variant.ReservedNop_rm32_r32_0F1D
 	pub const FORCE_RESERVED_NOP: u32 = 0x0000_0004;
-	/// Decode `UMOV` instructions (eg. `Code::Umov_r32_rm32`)
+	/// Decode `UMOV` instructions (eg. [`Code::Umov_r32_rm32`])
+	///
+	/// [`Code::Umov_r32_rm32`]: enum.Code.html#variant.Umov_r32_rm32
 	pub const UMOV: u32 = 0x0000_0008;
 	/// Decode `XBTS`/`IBTS`
 	pub const XBTS: u32 = 0x0000_0010;
@@ -119,29 +125,53 @@ impl DecoderOptions {
 	pub const CMPXCHG486A: u32 = 0x0000_0020;
 	/// Decode some old removed FPU instructions (eg. `FRSTPM`)
 	pub const OLD_FPU: u32 = 0x0000_0040;
-	/// Decode `Code::Pcommit`
+	/// Decode [`Code::Pcommit`]
+	///
+	/// [`Code::Pcommit`]: enum.Code.html#variant.Pcommit
 	pub const PCOMMIT: u32 = 0x0000_0080;
 	/// Decode 286 `LOADALL` (`0F04` and `0F05`)
 	pub const LOADALL286: u32 = 0x0000_0100;
-	/// Decode `Code::Loadall386`
+	/// Decode [`Code::Loadall386`]
+	///
+	/// [`Code::Loadall386`]: enum.Code.html#variant.Loadall386
 	pub const LOADALL386: u32 = 0x0000_0200;
-	/// Decode `Code::Cl1invmb`
+	/// Decode [`Code::Cl1invmb`]
+	///
+	/// [`Code::Cl1invmb`]: enum.Code.html#variant.Cl1invmb
 	pub const CL1INVMB: u32 = 0x0000_0400;
-	/// Decode `Code::Mov_r32_tr` and `Code::Mov_tr_r32`
+	/// Decode [`Code::Mov_r32_tr`] and [`Code::Mov_tr_r32`]
+	///
+	/// [`Code::Mov_r32_tr`]: enum.Code.html#variant.Mov_r32_tr
+	/// [`Code::Mov_tr_r32`]: enum.Code.html#variant.Mov_tr_r32
 	pub const MOV_TR: u32 = 0x0000_0800;
 	/// Decode `JMPE` instructions
 	pub const JMPE: u32 = 0x0000_1000;
-	/// Don't decode `Code::Pause`, decode `Code::Nopd`/etc instead
+	/// Don't decode [`Code::Pause`], decode [`Code::Nopd`]/etc instead
+	///
+	/// [`Code::Pause`]: enum.Code.html#variant.Pause
+	/// [`Code::Nopd`]: enum.Code.html#variant.Nopd
 	pub const NO_PAUSE: u32 = 0x0000_2000;
-	/// Don't decode `Code::Wbnoinvd`, decode `Code::Wbinvd` instead
+	/// Don't decode [`Code::Wbnoinvd`], decode [`Code::Wbinvd`] instead
+	///
+	/// [`Code::Wbnoinvd`]: enum.Code.html#variant.Wbnoinvd
+	/// [`Code::Wbinvd`]: enum.Code.html#variant.Wbinvd
 	pub const NO_WBNOINVD: u32 = 0x0000_4000;
 	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
 	pub const NO_LOCK_MOV_CR0: u32 = 0x0000_8000;
-	/// Don't decode `Code::Tzcnt_r32_rm32`/etc, decode `Code::Bsf_r32_rm32`/etc instead
+	/// Don't decode [`Code::Tzcnt_r32_rm32`]/etc, decode [`Code::Bsf_r32_rm32`]/etc instead
+	///
+	/// [`Code::Tzcnt_r32_rm32`]: enum.Code.html#variant.Tzcnt_r32_rm32
+	/// [`Code::Bsf_r32_rm32`]: enum.Code.html#variant.Bsf_r32_rm32
 	pub const NO_MPFX_0FBC: u32 = 0x0001_0000;
-	/// Don't decode `Code::Lzcnt_r32_rm32`/etc, decode `Code::Bsr_r32_rm32`/etc instead
+	/// Don't decode [`Code::Lzcnt_r32_rm32`]/etc, decode [`Code::Bsr_r32_rm32`]/etc instead
+	///
+	/// [`Code::Lzcnt_r32_rm32`]: enum.Code.html#variant.Lzcnt_r32_rm32
+	/// [`Code::Bsr_r32_rm32`]: enum.Code.html#variant.Bsr_r32_rm32
 	pub const NO_MPFX_0FBD: u32 = 0x0002_0000;
-	/// Don't decode `Code::Lahf` and `Code::Sahf` in 64-bit mode
+	/// Don't decode [`Code::Lahf`] and [`Code::Sahf`] in 64-bit mode
+	///
+	/// [`Code::Lahf`]: enum.Code.html#variant.Lahf
+	/// [`Code::Sahf`]: enum.Code.html#variant.Sahf
 	pub const NO_LAHF_SAHF_64: u32 = 0x0004_0000;
 }
 // GENERATOR-END: DecoderOptions
@@ -287,8 +317,10 @@ impl<'a> Decoder<'a> {
 	/// ```
 	///
 	/// It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
-	/// Pass in `DecoderOptions::NO_INVALID_CHECK` to the constructor and the decoder
+	/// Pass in [`DecoderOptions::NO_INVALID_CHECK`] to the constructor and the decoder
 	/// will decode some invalid encodings.
+	///
+	/// [`DecoderOptions::NO_INVALID_CHECK`]: struct.DecoderOptions.html#associatedconstant.NO_INVALID_CHECK
 	///
 	/// ```
 	/// use iced_x86::*;
@@ -374,14 +406,18 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	/// Gets the current `IP`/`EIP`/`RIP` value, see also `position()`
+	/// Gets the current `IP`/`EIP`/`RIP` value, see also [`position()`]
+	///
+	/// [`position()`]: #method.position
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn ip(&self) -> u64 {
 		self.ip
 	}
 
-	/// Sets the current `IP`/`EIP`/`RIP`, see also `set_position()`
+	/// Sets the current `IP`/`EIP`/`RIP`, see also [`set_position()`]
+	///
+	/// [`set_position()`]: #method.set_position
 	///
 	/// # Arguments
 	///
@@ -398,23 +434,31 @@ impl<'a> Decoder<'a> {
 		self.bitness
 	}
 
-	/// Gets the max value that can be passed to `set_position()`. This is the size of the data that gets
+	/// Gets the max value that can be passed to [`set_position()`]. This is the size of the data that gets
 	/// decoded to instructions and it's the length of the slice that was passed to the constructor.
+	///
+	/// [`set_position()`]: #method.set_position
 	#[inline]
 	pub fn max_position(&self) -> usize {
 		self.data.len()
 	}
 
-	/// Gets the current data position. This value is always <= `max_position()`.
-	/// When `position()` == `max_position()`, it's not possible to decode more
-	/// instructions and `can_decode()` returns `false`.
+	/// Gets the current data position. This value is always <= [`max_position()`].
+	/// When [`position()`] == `max_position()`, it's not possible to decode more
+	/// instructions and [`can_decode()`] returns `false`.
+	///
+	/// [`max_position()`]: #method.max_position
+	/// [`position()`]: #method.position
+	/// [`can_decode()`]: #method.can_decode
 	#[inline]
 	pub fn position(&self) -> usize {
 		self.data_ptr as usize - self.data.as_ptr() as usize
 	}
 
 	/// Sets the current data position, which is the index into the data passed to the constructor.
-	/// This value is always <= `max_position()`
+	/// This value is always <= [`max_position()`]
+	///
+	/// [`max_position()`]: #method.max_position
 	///
 	/// # Panics
 	///
@@ -462,10 +506,17 @@ impl<'a> Decoder<'a> {
 
 	/// Returns true if there's at least one more byte to decode. It doesn't verify that the
 	/// next instruction is valid, it only checks if there's at least one more byte to read.
-	/// See also `position()` and `max_position()`
+	/// See also [`position()`] and [`max_position()`]
 	///
-	/// It's not required to call this method. If this method returns `false`, then `decode_out()`
-	/// and `decode()` will return an instruction whose `code()` == `Code::INVALID`.
+	/// It's not required to call this method. If this method returns `false`, then [`decode_out()`]
+	/// and [`decode()`] will return an instruction whose [`code()`] == [`Code::INVALID`].
+	///
+	/// [`position()`]: #method.position
+	/// [`max_position()`]: #method.max_position
+	/// [`decode_out()`]: #method.decode_out
+	/// [`decode()`]: #method.decode
+	/// [`code()`]: struct.Instruction.html#method.code
+	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
 	///
 	/// # Examples
 	///
@@ -497,7 +548,9 @@ impl<'a> Decoder<'a> {
 	}
 
 	/// Returns an iterator that borrows this instance to decode instructions until there's
-	/// no more data to decode, i.e., until `can_decode()` returns `false`.
+	/// no more data to decode, i.e., until [`can_decode()`] returns `false`.
+	///
+	/// [`can_decode()`]: #method.can_decode
 	///
 	/// # Examples
 	///
@@ -591,8 +644,10 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	/// Decodes and returns the next instruction, see also `decode_out(&mut Instruction)`
+	/// Decodes and returns the next instruction, see also [`decode_out(&mut Instruction)`]
 	/// which avoids copying the decoded instruction to the caller's return variable.
+	///
+	/// [`decode_out(&mut Instruction)`]: #method.decode_out
 	///
 	/// # Examples
 	///
@@ -635,8 +690,10 @@ impl<'a> Decoder<'a> {
 		instruction
 	}
 
-	/// Decodes and returns the next instruction, see also `decode_out(&mut Instruction)`
+	/// Decodes and returns the next instruction, see also [`decode_out(&mut Instruction)`]
 	/// which avoids copying the decoded instruction to the caller's return variable.
+	///
+	/// [`decode_out(&mut Instruction)`]: #method.decode_out
 	///
 	/// # Examples
 	///
@@ -680,8 +737,10 @@ impl<'a> Decoder<'a> {
 		instruction
 	}
 
-	/// Decodes the next instruction. The difference between this method and `decode()` is that this
+	/// Decodes the next instruction. The difference between this method and [`decode()`] is that this
 	/// method doesn't need to copy the result to the caller's return variable (saves 32-bytes of copying).
+	///
+	/// [`decode()`]: #method.decode
 	///
 	/// # Arguments
 	///
@@ -1657,8 +1716,11 @@ impl<'a> Decoder<'a> {
 	}
 }
 
-/// An iterator that borrows a `Decoder` and decodes instructions until there's
-/// no more data available. See `Decoder::iter()`.
+/// An iterator that borrows a [`Decoder`] and decodes instructions until there's
+/// no more data available. See [`Decoder::iter()`].
+///
+/// [`Decoder`]: struct.Decoder.html
+/// [`Decoder::iter()`]: struct.Decoder.html#method.iter
 pub struct DecoderIter<'a: 'b, 'b> {
 	decoder: &'b mut Decoder<'a>,
 }
@@ -1679,8 +1741,10 @@ impl<'a, 'b> Iterator for DecoderIter<'a, 'b> {
 #[cfg(has_fused_iterator)]
 impl<'a, 'b> std::iter::FusedIterator for DecoderIter<'a, 'b> {}
 
-/// An iterator that consumes a `Decoder` and decodes instructions until there's
+/// An iterator that consumes a [`Decoder`] and decodes instructions until there's
 /// no more data available.
+///
+/// [`Decoder`]: struct.Decoder.html
 pub struct DecoderIntoIter<'a> {
 	decoder: Decoder<'a>,
 }

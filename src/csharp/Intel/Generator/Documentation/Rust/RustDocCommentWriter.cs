@@ -30,6 +30,8 @@ namespace Generator.Documentation.Rust {
 	sealed class RustDocCommentWriter : DocCommentWriter {
 		readonly IdentifierConverter idConverter;
 		readonly StringBuilder sb;
+		readonly StringBuilder sb2;
+		readonly List<(string @ref, string url)> refUrls;
 
 		static readonly Dictionary<string, (string type, bool isKeyword)> toTypeInfo = new Dictionary<string, (string type, bool isKeyword)>(StringComparer.Ordinal) {
 			{ "bcd", ("bcd", false) },
@@ -59,6 +61,8 @@ namespace Generator.Documentation.Rust {
 		public RustDocCommentWriter(IdentifierConverter idConverter) {
 			this.idConverter = idConverter;
 			sb = new StringBuilder();
+			sb2 = new StringBuilder();
+			refUrls = new List<(string @ref, string url)>();
 		}
 
 		string GetStringAndReset() {
@@ -76,14 +80,17 @@ namespace Generator.Documentation.Rust {
 			return s;
 		}
 
-		public void Write(FileWriter writer, string? documentation, string enumName) {
+		public void Write(FileWriter writer, string? documentation, string typeName) {
 			if (string.IsNullOrEmpty(documentation))
 				return;
 			if (sb.Length != 0)
 				throw new InvalidOperationException();
 			const string docComment = "/// ";
+			refUrls.Clear();
 			sb.Append(docComment);
-			foreach (var info in GetTokens(enumName, documentation)) {
+			foreach (var info in GetTokens(typeName, documentation)) {
+				sb2.Clear();
+				string t, m;
 				switch (info.kind) {
 				case TokenKind.NewParagraph:
 					if (!string.IsNullOrEmpty(info.value) && !string.IsNullOrEmpty(info.value2))
@@ -115,44 +122,85 @@ namespace Generator.Documentation.Rust {
 						throw new InvalidOperationException();
 					break;
 				case TokenKind.Type:
-					sb.Append("`");
-					sb.Append(RemoveNamespace(idConverter.Type(info.value)));
-					sb.Append("`");
+					sb2.Append("[`");
+					t = RemoveNamespace(idConverter.Type(info.value));
+					sb2.Append(t);
+					sb2.Append("`]");
+					sb.Append(sb2);
+					refUrls.Add((sb2.ToString(), $"{GetTypeKind(t)}.{t}.html"));
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;
 				case TokenKind.EnumFieldReference:
-					sb.Append("`");
-					if (info.value != enumName) {
-						sb.Append(idConverter.Type(info.value));
-						sb.Append("::");
+					sb2.Append("[`");
+					t = idConverter.Type(info.value);
+					if (info.value != typeName) {
+						sb2.Append(t);
+						sb2.Append("::");
 					}
-					sb.Append(idConverter.EnumField(info.value2));
-					sb.Append("`");
+					m = idConverter.EnumField(info.value2);
+					sb2.Append(m);
+					sb2.Append("`]");
+					sb.Append(sb2);
+					refUrls.Add((sb2.ToString(), $"{GetTypeKind(t)}.{t}.html#variant.{m}"));
 					break;
 				case TokenKind.Property:
-					sb.Append("`");
-					if (info.value != enumName) {
-						sb.Append(idConverter.Type(info.value));
-						sb.Append("::");
+					sb2.Append("[`");
+					t = idConverter.Type(info.value);
+					if (info.value != typeName) {
+						sb2.Append(t);
+						sb2.Append("::");
 					}
-					sb.Append(idConverter.Property(info.value2));
-					sb.Append("`");
+					m = idConverter.Property(info.value2);
+					sb2.Append(m);
+					sb2.Append("`]");
+					sb.Append(sb2);
+					refUrls.Add((sb2.ToString(), $"{GetTypeKind(t)}.{t}.html#method.{GetMethodNameOnly(m)}"));
 					break;
 				case TokenKind.Method:
-					sb.Append("`");
-					if (info.value != enumName) {
-						sb.Append(idConverter.Type(info.value));
-						sb.Append("::");
+					sb2.Append("[`");
+					t = idConverter.Type(info.value);
+					if (info.value != typeName) {
+						sb2.Append(t);
+						sb2.Append("::");
 					}
-					sb.Append(idConverter.Method(TranslateMethodName(info.value2)));
-					sb.Append("`");
+					m = idConverter.Method(TranslateMethodName(info.value2));
+					sb2.Append(m);
+					sb2.Append("`]");
+					sb.Append(sb2);
+					refUrls.Add((sb2.ToString(), $"{GetTypeKind(t)}.{t}.html#method.{GetMethodNameOnly(m)}"));
 					break;
 				default:
 					throw new InvalidOperationException();
 				}
 			}
 			writer.WriteLine(GetStringAndReset());
+			if (refUrls.Count > 0) {
+				writer.WriteLine(docComment.Trim());
+				foreach (var info in refUrls)
+					writer.WriteLine($"{docComment}{info.@ref}: {info.url}");
+			}
+		}
+
+		static string GetTypeKind(string name) {
+			switch (name) {
+			case "Code":
+			case "Register":
+			case "OpKind":
+			case "CpuidFeature":
+				return "enum";
+			case "Instruction":
+				return "struct";
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+
+		static string GetMethodNameOnly(string name) {
+			int index = name.IndexOf('(');
+			if (index < 0)
+				return name;
+			return name.Substring(0, index);
 		}
 
 		string TranslateMethodName(string name) {
