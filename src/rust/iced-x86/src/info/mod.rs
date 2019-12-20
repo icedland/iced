@@ -259,15 +259,15 @@ impl InstructionInfo {
 	/// [`is_save_restore_instruction()`]: #method.is_save_restore_instruction
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn used_registers(&self) -> &Vec<UsedRegister> {
-		&self.used_registers
+	pub fn used_registers(&self) -> &[UsedRegister] {
+		self.used_registers.as_slice()
 	}
 
 	/// Gets all accessed memory locations
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn used_memory(&self) -> &Vec<UsedMemory> {
-		&self.used_memory_locations
+	pub fn used_memory(&self) -> &[UsedMemory] {
+		self.used_memory_locations.as_slice()
 	}
 
 	/// true if the instruction isn't available in real mode or virtual 8086 mode

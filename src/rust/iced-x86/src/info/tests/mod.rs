@@ -183,8 +183,8 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 		get_used_registers(tc.used_registers.iter()),
 		get_used_registers(info.used_registers().iter())
 	);
-	assert_eq!(info.used_memory(), &instr.used_memory());
-	assert_eq!(info.used_registers(), &instr.used_registers());
+	assert_eq!(info.used_memory(), instr.used_memory().as_slice());
+	assert_eq!(info.used_registers(), instr.used_registers().as_slice());
 
 	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 	debug_assert!(instr.op_count() <= IcedConstants::MAX_OP_COUNT);
