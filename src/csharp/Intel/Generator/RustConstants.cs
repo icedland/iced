@@ -33,6 +33,7 @@ namespace Generator {
 		public const string AttributeReprU8 = "#[repr(u8)]";
 		public const string AttributeAllowNonCamelCaseTypes = "#[allow(non_camel_case_types)]";
 		public const string AttributeMustUse = "#[cfg_attr(has_must_use, must_use)]";
+		public const string AttributeNonExhaustive = "#[cfg_attr(has_non_exhaustive, non_exhaustive)]";
 		public const string AttributeInline = "#[inline]";
 		public const string AttributeAllowMissingInlineInPublicItems = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::missing_inline_in_public_items))]";
 		public const string AttributeAllowMissingDocs = "#[allow(missing_docs)]";

@@ -37,4 +37,7 @@ fn main() {
 	if version < Version::new(1, 36, 0) {
 		println!("cargo:rustc-cfg=use_std_mem_uninitialized");
 	}
+	if version >= Version::new(1, 40, 0) {
+		println!("cargo:rustc-cfg=has_non_exhaustive");
+	}
 }
