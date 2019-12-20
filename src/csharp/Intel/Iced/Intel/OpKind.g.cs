@@ -44,7 +44,7 @@ namespace Iced.Intel {
 		FarBranch32,
 		/// <summary>8-bit constant. This operand kind uses <see cref="Instruction.Immediate8"/></summary>
 		Immediate8,
-		/// <summary>8-bit constant used by the <c>enter</c>, <c>extrq</c>, <c>insertq</c> instructions. This operand kind uses <see cref="Instruction.Immediate8_2nd"/></summary>
+		/// <summary>8-bit constant used by the <c>ENTER</c>, <c>EXTRQ</c>, <c>INSERTQ</c> instructions. This operand kind uses <see cref="Instruction.Immediate8_2nd"/></summary>
 		Immediate8_2nd,
 		/// <summary>16-bit constant. This operand kind uses <see cref="Instruction.Immediate16"/></summary>
 		Immediate16,
@@ -60,23 +60,23 @@ namespace Iced.Intel {
 		Immediate8to64,
 		/// <summary>A 32-bit value sign extended to 64 bits. This operand kind uses <see cref="Instruction.Immediate32to64"/></summary>
 		Immediate32to64,
-		/// <summary><c>seg:[si]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
+		/// <summary><c>seg:[SI]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
 		MemorySegSI,
-		/// <summary><c>seg:[esi]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
+		/// <summary><c>seg:[ESI]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
 		MemorySegESI,
-		/// <summary><c>seg:[rsi]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
+		/// <summary><c>seg:[RSI]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
 		MemorySegRSI,
-		/// <summary><c>seg:[di]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
+		/// <summary><c>seg:[DI]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
 		MemorySegDI,
-		/// <summary><c>seg:[edi]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
+		/// <summary><c>seg:[EDI]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
 		MemorySegEDI,
-		/// <summary><c>seg:[rdi]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
+		/// <summary><c>seg:[RDI]</c>. This operand kind uses <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
 		MemorySegRDI,
-		/// <summary><c>es:[di]</c>. This operand kind uses <see cref="Instruction.MemorySize"/></summary>
+		/// <summary><c>ES:[DI]</c>. This operand kind uses <see cref="Instruction.MemorySize"/></summary>
 		MemoryESDI,
-		/// <summary><c>es:[edi]</c>. This operand kind uses <see cref="Instruction.MemorySize"/></summary>
+		/// <summary><c>ES:[EDI]</c>. This operand kind uses <see cref="Instruction.MemorySize"/></summary>
 		MemoryESEDI,
-		/// <summary><c>es:[rdi]</c>. This operand kind uses <see cref="Instruction.MemorySize"/></summary>
+		/// <summary><c>ES:[RDI]</c>. This operand kind uses <see cref="Instruction.MemorySize"/></summary>
 		MemoryESRDI,
 		/// <summary>64-bit offset <c>[xxxxxxxxxxxxxxxx]</c>. This operand kind uses <see cref="Instruction.MemoryAddress64"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/>, <see cref="Instruction.MemorySize"/></summary>
 		Memory64,

@@ -581,7 +581,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the size of the memory displacement in bytes. Valid values are 0, 1 (16/32/64-bit), 2 (16-bit), 4 (32-bit), 8 (64-bit).
+		/// Gets the size of the memory displacement in bytes. Valid values are <c>0</c>, <c>1</c> (16/32/64-bit), <c>2</c> (16-bit), <c>4</c> (32-bit), <c>8</c> (64-bit).
 		/// Note that the return value can be 1 and <see cref="MemoryDisplacement"/> may still not fit in
 		/// a signed byte if it's an EVEX encoded instruction.
 		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>
@@ -649,7 +649,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the index register scale value, valid values are *1, *2, *4, *8. Use this property if the operand has kind <see cref="OpKind.Memory"/>
+		/// Gets the index register scale value, valid values are <c>*1</c>, <c>*2</c>, <c>*4</c>, <c>*8</c>. Use this property if the operand has kind <see cref="OpKind.Memory"/>
 		/// </summary>
 		public int MemoryIndexScale {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -144,7 +144,7 @@ pub enum OpKind {
 	///
 	/// [`Instruction::immediate8()`]: struct.Instruction.html#method.immediate8
 	Immediate8,
-	/// 8-bit constant used by the `enter`, `extrq`, `insertq` instructions. This operand kind uses [`Instruction::immediate8_2nd()`]
+	/// 8-bit constant used by the `ENTER`, `EXTRQ`, `INSERTQ` instructions. This operand kind uses [`Instruction::immediate8_2nd()`]
 	///
 	/// [`Instruction::immediate8_2nd()`]: struct.Instruction.html#method.immediate8_2nd
 	Immediate8_2nd,
@@ -176,51 +176,51 @@ pub enum OpKind {
 	///
 	/// [`Instruction::immediate32to64()`]: struct.Instruction.html#method.immediate32to64
 	Immediate32to64,
-	/// `seg:[si]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	/// `seg:[SI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegSI,
-	/// `seg:[esi]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	/// `seg:[ESI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegESI,
-	/// `seg:[rsi]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	/// `seg:[RSI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegRSI,
-	/// `seg:[di]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	/// `seg:[DI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegDI,
-	/// `seg:[edi]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	/// `seg:[EDI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegEDI,
-	/// `seg:[rdi]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	/// `seg:[RDI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	MemorySegRDI,
-	/// `es:[di]`. This operand kind uses [`Instruction::memory_size()`]
+	/// `ES:[DI]`. This operand kind uses [`Instruction::memory_size()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	MemoryESDI,
-	/// `es:[edi]`. This operand kind uses [`Instruction::memory_size()`]
+	/// `ES:[EDI]`. This operand kind uses [`Instruction::memory_size()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	MemoryESEDI,
-	/// `es:[rdi]`. This operand kind uses [`Instruction::memory_size()`]
+	/// `ES:[RDI]`. This operand kind uses [`Instruction::memory_size()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	MemoryESRDI,
@@ -968,11 +968,11 @@ pub enum CpuidFeature {
 	INTEL386,
 	/// 80386 only
 	INTEL386_ONLY,
-	/// 80386 A0-B0 stepping only (xbts, ibts instructions)
+	/// 80386 A0-B0 stepping only (`XBTS`, `IBTS` instructions)
 	INTEL386_A0_ONLY,
 	/// Intel486 or later
 	INTEL486,
-	/// Intel486 A stepping only (cmpxchg)
+	/// Intel486 A stepping only (`CMPXCHG`)
 	INTEL486_A_ONLY,
 	/// 80386 and Intel486 only
 	INTEL386_486_ONLY,
@@ -1030,7 +1030,7 @@ pub enum CpuidFeature {
 	CET_IBT,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.CET_SS\[bit 7\]
 	CET_SS,
-	/// CL1INVMB instruction (Intel SCC = Single-Chip Computer)
+	/// `CL1INVMB` instruction (Intel SCC = Single-Chip Computer)
 	CL1INVMB,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.CLDEMOTE\[bit 25\]
 	CLDEMOTE,
@@ -1046,7 +1046,7 @@ pub enum CpuidFeature {
 	CMOV,
 	/// CPUID.01H:ECX.CMPXCHG16B\[bit 13\]
 	CMPXCHG16B,
-	/// RFLAGS.ID can be toggled
+	/// `RFLAGS.ID` can be toggled
 	CPUID,
 	/// CPUID.01H:EDX.CX8\[bit 8\]
 	CX8,
@@ -1121,7 +1121,7 @@ pub enum CpuidFeature {
 	MPX,
 	/// CPUID.01H:EDX.MSR\[bit 5\]
 	MSR,
-	/// Multi-byte nops (0F1F /0): CPUID.01H.EAX\[Bits 11:8\] = 0110B or 1111B
+	/// Multi-byte nops (`0F1F /0`): CPUID.01H.EAX\[Bits 11:8\] = 0110B or 1111B
 	MULTIBYTENOP,
 	/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.ACE\[Bits 7:6\] = 11B (\[6\] = exists, \[7\] = enabled)
 	PADLOCK_ACE,
@@ -1131,7 +1131,7 @@ pub enum CpuidFeature {
 	PADLOCK_PMM,
 	/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.RNG\[Bits 3:2\] = 11B (\[2\] = exists, \[3\] = enabled)
 	PADLOCK_RNG,
-	/// PAUSE instruction (Pentium 4 or later)
+	/// `PAUSE` instruction (Pentium 4 or later)
 	PAUSE,
 	/// CPUID.01H:ECX.PCLMULQDQ\[bit 1\]
 	PCLMULQDQ,
@@ -1151,7 +1151,7 @@ pub enum CpuidFeature {
 	PTWRITE,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.RDPID\[bit 22\]
 	RDPID,
-	/// RDPMC instruction (Pentium MMX or later, or Pentium Pro or later)
+	/// `RDPMC` instruction (Pentium MMX or later, or Pentium Pro or later)
 	RDPMC,
 	/// CPUID.80000008H:EBX.RDPRU\[bit 4\]
 	RDPRU,

@@ -39,7 +39,7 @@ namespace Generator.Enums {
 		FarBranch32,
 		[Comment("8-bit constant. This operand kind uses #(P:Instruction.Immediate8)#")]
 		Immediate8,
-		[Comment("8-bit constant used by the #(c:enter)#, #(c:extrq)#, #(c:insertq)# instructions. This operand kind uses #(P:Instruction.Immediate8_2nd)#")]
+		[Comment("8-bit constant used by the #(c:ENTER)#, #(c:EXTRQ)#, #(c:INSERTQ)# instructions. This operand kind uses #(P:Instruction.Immediate8_2nd)#")]
 		Immediate8_2nd,
 		[Comment("16-bit constant. This operand kind uses #(P:Instruction.Immediate16)#")]
 		Immediate16,
@@ -55,23 +55,23 @@ namespace Generator.Enums {
 		Immediate8to64,
 		[Comment("A 32-bit value sign extended to 64 bits. This operand kind uses #(P:Instruction.Immediate32to64)#")]
 		Immediate32to64,
-		[Comment("#(c:seg:[si])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
+		[Comment("#(c:seg:[SI])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
 		MemorySegSI,
-		[Comment("#(c:seg:[esi])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
+		[Comment("#(c:seg:[ESI])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
 		MemorySegESI,
-		[Comment("#(c:seg:[rsi])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
+		[Comment("#(c:seg:[RSI])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
 		MemorySegRSI,
-		[Comment("#(c:seg:[di])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
+		[Comment("#(c:seg:[DI])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
 		MemorySegDI,
-		[Comment("#(c:seg:[edi])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
+		[Comment("#(c:seg:[EDI])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
 		MemorySegEDI,
-		[Comment("#(c:seg:[rdi])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
+		[Comment("#(c:seg:[RDI])#. This operand kind uses #(P:Instruction.MemorySize)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
 		MemorySegRDI,
-		[Comment("#(c:es:[di])#. This operand kind uses #(P:Instruction.MemorySize)#")]
+		[Comment("#(c:ES:[DI])#. This operand kind uses #(P:Instruction.MemorySize)#")]
 		MemoryESDI,
-		[Comment("#(c:es:[edi])#. This operand kind uses #(P:Instruction.MemorySize)#")]
+		[Comment("#(c:ES:[EDI])#. This operand kind uses #(P:Instruction.MemorySize)#")]
 		MemoryESEDI,
-		[Comment("#(c:es:[rdi])#. This operand kind uses #(P:Instruction.MemorySize)#")]
+		[Comment("#(c:ES:[RDI])#. This operand kind uses #(P:Instruction.MemorySize)#")]
 		MemoryESRDI,
 		[Comment("64-bit offset #(c:[xxxxxxxxxxxxxxxx])#. This operand kind uses #(P:Instruction.MemoryAddress64)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#, #(P:Instruction.MemorySize)#")]
 		Memory64,

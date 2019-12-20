@@ -39,11 +39,11 @@ namespace Generator.Enums.InstructionInfo {
 		INTEL386,
 		[Comment("80386 only")]
 		INTEL386_ONLY,
-		[Comment("80386 A0-B0 stepping only (xbts, ibts instructions)")]
+		[Comment("80386 A0-B0 stepping only (#(c:XBTS)#, #(c:IBTS)# instructions)")]
 		INTEL386_A0_ONLY,
 		[Comment("Intel486 or later")]
 		INTEL486,
-		[Comment("Intel486 A stepping only (cmpxchg)")]
+		[Comment("Intel486 A stepping only (#(c:CMPXCHG)#)")]
 		INTEL486_A_ONLY,
 		[Comment("80386 and Intel486 only")]
 		INTEL386_486_ONLY,
@@ -101,7 +101,7 @@ namespace Generator.Enums.InstructionInfo {
 		CET_IBT,
 		[Comment("CPUID.(EAX=07H, ECX=0H):ECX.CET_SS[bit 7]")]
 		CET_SS,
-		[Comment("CL1INVMB instruction (Intel SCC = Single-Chip Computer)")]
+		[Comment("#(c:CL1INVMB)# instruction (Intel SCC = Single-Chip Computer)")]
 		CL1INVMB,
 		[Comment("CPUID.(EAX=07H, ECX=0H):ECX.CLDEMOTE[bit 25]")]
 		CLDEMOTE,
@@ -117,7 +117,7 @@ namespace Generator.Enums.InstructionInfo {
 		CMOV,
 		[Comment("CPUID.01H:ECX.CMPXCHG16B[bit 13]")]
 		CMPXCHG16B,
-		[Comment("RFLAGS.ID can be toggled")]
+		[Comment("#(c:RFLAGS.ID)# can be toggled")]
 		CPUID,
 		[Comment("CPUID.01H:EDX.CX8[bit 8]")]
 		CX8,
@@ -185,7 +185,7 @@ namespace Generator.Enums.InstructionInfo {
 		MPX,
 		[Comment("CPUID.01H:EDX.MSR[bit 5]")]
 		MSR,
-		[Comment("Multi-byte nops (0F1F /0): CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B")]
+		[Comment("Multi-byte nops (#(c:0F1F /0)#): CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B")]
 		MULTIBYTENOP,
 		[Comment("CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.ACE[Bits 7:6] = 11B ([6] = exists, [7] = enabled)")]
 		PADLOCK_ACE,
@@ -195,7 +195,7 @@ namespace Generator.Enums.InstructionInfo {
 		PADLOCK_PMM,
 		[Comment("CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.RNG[Bits 3:2] = 11B ([2] = exists, [3] = enabled)")]
 		PADLOCK_RNG,
-		[Comment("PAUSE instruction (Pentium 4 or later)")]
+		[Comment("#(c:PAUSE)# instruction (Pentium 4 or later)")]
 		PAUSE,
 		[Comment("CPUID.01H:ECX.PCLMULQDQ[bit 1]")]
 		PCLMULQDQ,
@@ -215,7 +215,7 @@ namespace Generator.Enums.InstructionInfo {
 		PTWRITE,
 		[Comment("CPUID.(EAX=07H, ECX=0H):ECX.RDPID[bit 22]")]
 		RDPID,
-		[Comment("RDPMC instruction (Pentium MMX or later, or Pentium Pro or later)")]
+		[Comment("#(c:RDPMC)# instruction (Pentium MMX or later, or Pentium Pro or later)")]
 		RDPMC,
 		[Comment("CPUID.80000008H:EBX.RDPRU[bit 4]")]
 		RDPRU,

@@ -296,7 +296,7 @@ impl Instruction {
 	}
 
 	/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
-	/// or create a new one, this property could return the wrong value.
+	/// or create a new one, this method could return the wrong value.
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn len(&self) -> usize {
@@ -304,7 +304,7 @@ impl Instruction {
 	}
 
 	/// Sets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
-	/// or create a new one, this property could return the wrong value.
+	/// or create a new one, this method could return the wrong value.
 	///
 	/// # Arguments
 	///
@@ -593,7 +593,10 @@ impl Instruction {
 	///
 	/// assert_eq!(2, instr.op_count());
 	/// assert_eq!(OpKind::Memory, instr.op_kind(0));
+	/// assert_eq!(Register::RAX, instr.memory_base());
+	/// assert_eq!(Register::None, instr.memory_index());
 	/// assert_eq!(OpKind::Register, instr.op_kind(1));
+	/// assert_eq!(Register::EBX, instr.op_register(1));
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
@@ -639,7 +642,7 @@ impl Instruction {
 	}
 
 	/// Gets the segment override prefix or [`Register::None`] if none. See also [`memory_segment()`].
-	/// Use this property if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
+	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
 	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
@@ -663,7 +666,7 @@ impl Instruction {
 	}
 
 	/// Sets the segment override prefix or [`Register::None`] if none. See also [`memory_segment()`].
-	/// Use this property if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
+	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
 	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
@@ -690,7 +693,7 @@ impl Instruction {
 	}
 
 	/// Gets the effective segment register used to reference the memory location.
-	/// Use this property if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
+	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
 	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`]
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
@@ -711,10 +714,10 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the size of the memory displacement in bytes. Valid values are 0, 1 (16/32/64-bit), 2 (16-bit), 4 (32-bit), 8 (64-bit).
+	/// Gets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
 	/// Note that the return value can be 1 and [`memory_displacement()`] may still not fit in
 	/// a signed byte if it's an EVEX encoded instruction.
-	/// Use this property if the operand has kind [`OpKind::Memory`]
+	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`memory_displacement()`]: #method.memory_displacement
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
@@ -731,10 +734,10 @@ impl Instruction {
 		}
 	}
 
-	/// Sets the size of the memory displacement in bytes. Valid values are 0, 1 (16/32/64-bit), 2 (16-bit), 4 (32-bit), 8 (64-bit).
+	/// Sets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
 	/// Note that the return value can be 1 and [`memory_displacement()`] may still not fit in
 	/// a signed byte if it's an EVEX encoded instruction.
-	/// Use this property if the operand has kind [`OpKind::Memory`]
+	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`memory_displacement()`]: #method.memory_displacement
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
@@ -777,7 +780,7 @@ impl Instruction {
 	}
 
 	/// Gets the size of the memory location that is referenced by the operand. See also [`is_broadcast()`].
-	/// Use this property if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
+	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
 	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`],
 	/// [`OpKind::MemoryESDI`], [`OpKind::MemoryESEDI`], [`OpKind::MemoryESRDI`]
 	///
@@ -800,7 +803,7 @@ impl Instruction {
 		unsafe { mem::transmute(*instruction_memory_sizes::SIZES.get_unchecked(index)) }
 	}
 
-	/// Gets the index register scale value, valid values are *1, *2, *4, *8. Use this property if the operand has kind [`OpKind::Memory`]
+	/// Gets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`. Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[cfg_attr(has_must_use, must_use)]
@@ -809,7 +812,7 @@ impl Instruction {
 		1 << (self.memory_flags as u32 & MemoryFlags::SCALE_MASK)
 	}
 
-	/// Sets the index register scale value, valid values are *1, *2, *4, *8. Use this property if the operand has kind [`OpKind::Memory`]
+	/// Sets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`. Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	///
@@ -830,7 +833,7 @@ impl Instruction {
 	}
 
 	/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see [`memory_displacement64()`]).
-	/// Use this property if the operand has kind [`OpKind::Memory`]
+	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`memory_displacement64()`]: #method.memory_displacement64
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
@@ -841,7 +844,7 @@ impl Instruction {
 	}
 
 	/// Sets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing.
-	/// Use this property if the operand has kind [`OpKind::Memory`]
+	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`memory_displacement64()`]: #method.memory_displacement64
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
@@ -855,7 +858,7 @@ impl Instruction {
 	}
 
 	/// Gets the memory operand's displacement sign extended to 64 bits.
-	/// Use this property if the operand has kind [`OpKind::Memory`]
+	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[cfg_attr(has_must_use, must_use)]
@@ -957,7 +960,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate8`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8`]
 	///
 	/// [`OpKind::Immediate8`]: enum.OpKind.html#variant.Immediate8
 	#[cfg_attr(has_must_use, must_use)]
@@ -966,7 +969,7 @@ impl Instruction {
 		self.immediate as u8
 	}
 
-	/// Sets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate8`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8`]
 	///
 	/// [`OpKind::Immediate8`]: enum.OpKind.html#variant.Immediate8
 	///
@@ -978,7 +981,7 @@ impl Instruction {
 		self.immediate = new_value as u32;
 	}
 
-	/// Gets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate8_2nd`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8_2nd`]
 	///
 	/// [`OpKind::Immediate8_2nd`]: enum.OpKind.html#variant.Immediate8_2nd
 	#[cfg_attr(has_must_use, must_use)]
@@ -987,7 +990,7 @@ impl Instruction {
 		self.mem_displ as u8
 	}
 
-	/// Sets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate8_2nd`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8_2nd`]
 	///
 	/// [`OpKind::Immediate8_2nd`]: enum.OpKind.html#variant.Immediate8_2nd
 	///
@@ -999,7 +1002,7 @@ impl Instruction {
 		self.mem_displ = new_value as u32;
 	}
 
-	/// Gets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate16`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate16`]
 	///
 	/// [`OpKind::Immediate16`]: enum.OpKind.html#variant.Immediate16
 	#[cfg_attr(has_must_use, must_use)]
@@ -1008,7 +1011,7 @@ impl Instruction {
 		self.immediate as u16
 	}
 
-	/// Sets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate16`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate16`]
 	///
 	/// [`OpKind::Immediate16`]: enum.OpKind.html#variant.Immediate16
 	///
@@ -1020,7 +1023,7 @@ impl Instruction {
 		self.immediate = new_value as u32;
 	}
 
-	/// Gets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate32`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate32`]
 	///
 	/// [`OpKind::Immediate32`]: enum.OpKind.html#variant.Immediate32
 	#[cfg_attr(has_must_use, must_use)]
@@ -1029,7 +1032,7 @@ impl Instruction {
 		self.immediate
 	}
 
-	/// Sets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate32`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate32`]
 	///
 	/// [`OpKind::Immediate32`]: enum.OpKind.html#variant.Immediate32
 	///
@@ -1041,7 +1044,7 @@ impl Instruction {
 		self.immediate = new_value;
 	}
 
-	/// Gets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate64`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate64`]
 	///
 	/// [`OpKind::Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[cfg_attr(has_must_use, must_use)]
@@ -1050,7 +1053,7 @@ impl Instruction {
 		((self.mem_displ as u64) << 32) | (self.immediate as u64)
 	}
 
-	/// Sets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate64`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate64`]
 	///
 	/// [`OpKind::Immediate64`]: enum.OpKind.html#variant.Immediate64
 	///
@@ -1063,7 +1066,7 @@ impl Instruction {
 		self.mem_displ = (new_value >> 32) as u32;
 	}
 
-	/// Gets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate8to16`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to16`]
 	///
 	/// [`OpKind::Immediate8to16`]: enum.OpKind.html#variant.Immediate8to16
 	#[cfg_attr(has_must_use, must_use)]
@@ -1072,7 +1075,7 @@ impl Instruction {
 		self.immediate as i8 as i16
 	}
 
-	/// Sets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate8to16`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to16`]
 	///
 	/// [`OpKind::Immediate8to16`]: enum.OpKind.html#variant.Immediate8to16
 	///
@@ -1084,7 +1087,7 @@ impl Instruction {
 		self.immediate = new_value as i8 as u32;
 	}
 
-	/// Gets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate8to32`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to32`]
 	///
 	/// [`OpKind::Immediate8to32`]: enum.OpKind.html#variant.Immediate8to32
 	#[cfg_attr(has_must_use, must_use)]
@@ -1093,7 +1096,7 @@ impl Instruction {
 		self.immediate as i8 as i32
 	}
 
-	/// Sets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate8to32`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to32`]
 	///
 	/// [`OpKind::Immediate8to32`]: enum.OpKind.html#variant.Immediate8to32
 	///
@@ -1105,7 +1108,7 @@ impl Instruction {
 		self.immediate = new_value as i8 as u32;
 	}
 
-	/// Gets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate8to64`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to64`]
 	///
 	/// [`OpKind::Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
 	#[cfg_attr(has_must_use, must_use)]
@@ -1114,7 +1117,7 @@ impl Instruction {
 		self.immediate as i8 as i64
 	}
 
-	/// Sets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate8to64`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to64`]
 	///
 	/// [`OpKind::Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
 	///
@@ -1126,7 +1129,7 @@ impl Instruction {
 		self.immediate = new_value as i8 as u32;
 	}
 
-	/// Gets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate32to64`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate32to64`]
 	///
 	/// [`OpKind::Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
 	#[cfg_attr(has_must_use, must_use)]
@@ -1135,7 +1138,7 @@ impl Instruction {
 		self.immediate as i32 as i64
 	}
 
-	/// Sets the operand's immediate value. Use this property if the operand has kind [`OpKind::Immediate32to64`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate32to64`]
 	///
 	/// [`OpKind::Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
 	///
@@ -1147,7 +1150,7 @@ impl Instruction {
 		self.immediate = new_value as u32;
 	}
 
-	/// Gets the operand's 64-bit address value. Use this property if the operand has kind [`OpKind::Memory64`]
+	/// Gets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind::Memory64`]
 	///
 	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
 	#[cfg_attr(has_must_use, must_use)]
@@ -1156,7 +1159,7 @@ impl Instruction {
 		((self.mem_displ as u64) << 32) | self.immediate as u64
 	}
 
-	/// Sets the operand's 64-bit address value. Use this property if the operand has kind [`OpKind::Memory64`]
+	/// Sets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind::Memory64`]
 	///
 	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
 	///
@@ -1169,7 +1172,7 @@ impl Instruction {
 		self.mem_displ = (new_value >> 32) as u32;
 	}
 
-	/// Gets the operand's branch target. Use this property if the operand has kind [`OpKind::NearBranch16`]
+	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch16`]
 	///
 	/// [`OpKind::NearBranch16`]: enum.OpKind.html#variant.NearBranch16
 	#[cfg_attr(has_must_use, must_use)]
@@ -1178,7 +1181,7 @@ impl Instruction {
 		self.immediate as u16
 	}
 
-	/// Sets the operand's branch target. Use this property if the operand has kind [`OpKind::NearBranch16`]
+	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch16`]
 	///
 	/// [`OpKind::NearBranch16`]: enum.OpKind.html#variant.NearBranch16
 	///
@@ -1190,7 +1193,7 @@ impl Instruction {
 		self.immediate = new_value as u32;
 	}
 
-	/// Gets the operand's branch target. Use this property if the operand has kind [`OpKind::NearBranch32`]
+	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch32`]
 	///
 	/// [`OpKind::NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	#[cfg_attr(has_must_use, must_use)]
@@ -1199,7 +1202,7 @@ impl Instruction {
 		self.immediate
 	}
 
-	/// Sets the operand's branch target. Use this property if the operand has kind [`OpKind::NearBranch32`]
+	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch32`]
 	///
 	/// [`OpKind::NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	///
@@ -1211,7 +1214,7 @@ impl Instruction {
 		self.immediate = new_value;
 	}
 
-	/// Gets the operand's branch target. Use this property if the operand has kind [`OpKind::NearBranch64`]
+	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch64`]
 	///
 	/// [`OpKind::NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[cfg_attr(has_must_use, must_use)]
@@ -1220,7 +1223,7 @@ impl Instruction {
 		((self.mem_displ as u64) << 32) | self.immediate as u64
 	}
 
-	/// Sets the operand's branch target. Use this property if the operand has kind [`OpKind::NearBranch64`]
+	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch64`]
 	///
 	/// [`OpKind::NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	///
@@ -1245,7 +1248,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the operand's branch target. Use this property if the operand has kind [`OpKind::FarBranch16`]
+	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::FarBranch16`]
 	///
 	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	#[cfg_attr(has_must_use, must_use)]
@@ -1254,7 +1257,7 @@ impl Instruction {
 		self.immediate as u16
 	}
 
-	/// Sets the operand's branch target. Use this property if the operand has kind [`OpKind::FarBranch16`]
+	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::FarBranch16`]
 	///
 	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	///
@@ -1266,7 +1269,7 @@ impl Instruction {
 		self.immediate = new_value as u32;
 	}
 
-	/// Gets the operand's branch target. Use this property if the operand has kind [`OpKind::FarBranch32`]
+	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::FarBranch32`]
 	///
 	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	#[cfg_attr(has_must_use, must_use)]
@@ -1275,7 +1278,7 @@ impl Instruction {
 		self.immediate
 	}
 
-	/// Sets the operand's branch target. Use this property if the operand has kind [`OpKind::FarBranch32`]
+	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::FarBranch32`]
 	///
 	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	///
@@ -1287,7 +1290,7 @@ impl Instruction {
 		self.immediate = new_value;
 	}
 
-	/// Gets the operand's branch target selector. Use this property if the operand has kind [`OpKind::FarBranch16`] or [`OpKind::FarBranch32`]
+	/// Gets the operand's branch target selector. Use this method if the operand has kind [`OpKind::FarBranch16`] or [`OpKind::FarBranch32`]
 	///
 	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
@@ -1297,7 +1300,7 @@ impl Instruction {
 		self.mem_displ as u16
 	}
 
-	/// Sets the operand's branch target selector. Use this property if the operand has kind [`OpKind::FarBranch16`] or [`OpKind::FarBranch32`]
+	/// Sets the operand's branch target selector. Use this method if the operand has kind [`OpKind::FarBranch16`] or [`OpKind::FarBranch32`]
 	///
 	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
@@ -1310,7 +1313,7 @@ impl Instruction {
 		self.mem_displ = new_value as u32;
 	}
 
-	/// Gets the memory operand's base register or [`Register::None`] if none. Use this property if the operand has kind [`OpKind::Memory`]
+	/// Gets the memory operand's base register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
@@ -1321,7 +1324,7 @@ impl Instruction {
 		unsafe { mem::transmute(self.mem_base_reg) }
 	}
 
-	/// Sets the memory operand's base register or [`Register::None`] if none. Use this property if the operand has kind [`OpKind::Memory`]
+	/// Sets the memory operand's base register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
@@ -1334,7 +1337,7 @@ impl Instruction {
 		self.mem_base_reg = new_value as u8;
 	}
 
-	/// Gets the memory operand's index register or [`Register::None`] if none. Use this property if the operand has kind [`OpKind::Memory`]
+	/// Gets the memory operand's index register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
@@ -1345,7 +1348,7 @@ impl Instruction {
 		unsafe { mem::transmute(self.mem_index_reg) }
 	}
 
-	/// Sets the memory operand's index register or [`Register::None`] if none. Use this property if the operand has kind [`OpKind::Memory`]
+	/// Sets the memory operand's index register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
@@ -1358,7 +1361,7 @@ impl Instruction {
 		self.mem_index_reg = new_value as u8;
 	}
 
-	/// Gets operand #0's register value. Use this property if operand #0 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Gets operand #0's register value. Use this method if operand #0 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
 	///
 	/// [`op0_kind()`]: #method.op0_kind
 	/// [`op_count()`]: #method.op_count
@@ -1372,7 +1375,7 @@ impl Instruction {
 		unsafe { mem::transmute(self.reg0) }
 	}
 
-	/// Sets operand #0's register value. Use this property if operand #0 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Sets operand #0's register value. Use this method if operand #0 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
 	///
 	/// [`op0_kind()`]: #method.op0_kind
 	/// [`op_count()`]: #method.op_count
@@ -1388,7 +1391,7 @@ impl Instruction {
 		self.reg0 = new_value as u8;
 	}
 
-	/// Gets operand #1's register value. Use this property if operand #1 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Gets operand #1's register value. Use this method if operand #1 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
 	///
 	/// [`op0_kind()`]: #method.op0_kind
 	/// [`op_count()`]: #method.op_count
@@ -1402,7 +1405,7 @@ impl Instruction {
 		unsafe { mem::transmute(self.reg1) }
 	}
 
-	/// Sets operand #1's register value. Use this property if operand #1 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Sets operand #1's register value. Use this method if operand #1 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
 	///
 	/// [`op0_kind()`]: #method.op0_kind
 	/// [`op_count()`]: #method.op_count
@@ -1418,7 +1421,7 @@ impl Instruction {
 		self.reg1 = new_value as u8;
 	}
 
-	/// Gets operand #2's register value. Use this property if operand #2 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Gets operand #2's register value. Use this method if operand #2 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
 	///
 	/// [`op0_kind()`]: #method.op0_kind
 	/// [`op_count()`]: #method.op_count
@@ -1432,7 +1435,7 @@ impl Instruction {
 		unsafe { mem::transmute(self.reg2) }
 	}
 
-	/// Sets operand #2's register value. Use this property if operand #2 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Sets operand #2's register value. Use this method if operand #2 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
 	///
 	/// [`op0_kind()`]: #method.op0_kind
 	/// [`op_count()`]: #method.op_count
@@ -1448,7 +1451,7 @@ impl Instruction {
 		self.reg2 = new_value as u8;
 	}
 
-	/// Gets operand #3's register value. Use this property if operand #3 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Gets operand #3's register value. Use this method if operand #3 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
 	///
 	/// [`op0_kind()`]: #method.op0_kind
 	/// [`op_count()`]: #method.op_count
@@ -1462,7 +1465,7 @@ impl Instruction {
 		unsafe { mem::transmute(self.reg3) }
 	}
 
-	/// Sets operand #3's register value. Use this property if operand #3 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Sets operand #3's register value. Use this method if operand #3 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
 	///
 	/// [`op0_kind()`]: #method.op0_kind
 	/// [`op_count()`]: #method.op_count
@@ -1478,7 +1481,7 @@ impl Instruction {
 		self.reg3 = new_value as u8;
 	}
 
-	/// Gets operand #4's register value. Use this property if operand #4 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Gets operand #4's register value. Use this method if operand #4 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
 	///
 	/// [`op0_kind()`]: #method.op0_kind
 	/// [`op_count()`]: #method.op_count
@@ -1491,7 +1494,7 @@ impl Instruction {
 		Register::None
 	}
 
-	/// Sets operand #4's register value. Use this property if operand #4 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Sets operand #4's register value. Use this method if operand #4 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
 	///
 	/// [`op0_kind()`]: #method.op0_kind
 	/// [`op_count()`]: #method.op_count
@@ -1513,7 +1516,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the operand's register value. Use this property if the operand has kind [`OpKind::Register`]
+	/// Gets the operand's register value. Use this method if the operand has kind [`OpKind::Register`]
 	///
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	///
@@ -1553,7 +1556,7 @@ impl Instruction {
 		}
 	}
 
-	/// Sets the operand's register value. Use this property if the operand has kind [`OpKind::Register`]
+	/// Sets the operand's register value. Use this method if the operand has kind [`OpKind::Register`]
 	///
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	///
@@ -1577,7 +1580,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the op mask register (`Register::K1` - `Register::K7`) or `Register::None` if none
+	/// Gets the op mask register ([`Register::K1`] - [`Register::K7`]) or [`Register::None`] if none
 	///
 	/// [`Register::K1`]: enum.Register.html#variant.K1
 	/// [`Register::K7`]: enum.Register.html#variant.K7
@@ -1594,7 +1597,7 @@ impl Instruction {
 		}
 	}
 
-	/// Sets the op mask register (`Register::K1` - `Register::K7`) or `Register::None` if none
+	/// Sets the op mask register ([`Register::K1`] - [`Register::K7`]) or [`Register::None`] if none
 	///
 	/// [`Register::K1`]: enum.Register.html#variant.K1
 	/// [`Register::K7`]: enum.Register.html#variant.K7
@@ -2213,7 +2216,7 @@ impl Instruction {
 	}
 
 	/// Gets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`rounding_control()`] is
-	/// not [`RoundingControl::None`], SAE is implied but this property will still return `false`.
+	/// not [`RoundingControl::None`], SAE is implied but this method will still return `false`.
 	///
 	/// [`rounding_control()`]: #method.rounding_control
 	/// [`RoundingControl::None`]: enum.RoundingControl.html#variant.None
@@ -2224,7 +2227,7 @@ impl Instruction {
 	}
 
 	/// Sets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`rounding_control()`] is
-	/// not [`RoundingControl::None`], SAE is implied but this property will still return `false`.
+	/// not [`RoundingControl::None`], SAE is implied but this method will still return `false`.
 	///
 	/// [`rounding_control()`]: #method.rounding_control
 	/// [`RoundingControl::None`]: enum.RoundingControl.html#variant.None
@@ -2250,7 +2253,7 @@ impl Instruction {
 	}
 
 	/// Gets the `RIP`/`EIP` releative address (([`next_ip()`] or [`next_ip32()`]) + [`memory_displacement()`]).
-	/// This property is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`is_ip_relative_memory_operand()`]
+	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`is_ip_relative_memory_operand()`]
 	///
 	/// [`next_ip()`]: #method.next_ip
 	/// [`next_ip32()`]: #method.next_ip32
@@ -2621,21 +2624,21 @@ impl Instruction {
 		self.code().flow_control()
 	}
 
-	/// true if the instruction isn't available in real mode or virtual 8086 mode
+	/// `true` if the instruction isn't available in real mode or virtual 8086 mode
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_protected_mode(&self) -> bool {
 		self.code().is_protected_mode()
 	}
 
-	/// true if this is a privileged instruction
+	/// `true` if this is a privileged instruction
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_privileged(&self) -> bool {
 		self.code().is_privileged()
 	}
 
-	/// true if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
+	/// `true` if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
 	/// See also [`stack_pointer_increment()`]
 	///
 	/// [`stack_pointer_increment()`]: #method.stack_pointer_increment
@@ -2665,7 +2668,7 @@ impl Instruction {
 		self.code().is_stack_instruction()
 	}
 
-	/// true if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
+	/// `true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_save_restore_instruction(&self) -> bool {

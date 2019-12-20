@@ -43,11 +43,11 @@ namespace Iced.Intel {
 		INTEL386,
 		/// <summary>80386 only</summary>
 		INTEL386_ONLY,
-		/// <summary>80386 A0-B0 stepping only (xbts, ibts instructions)</summary>
+		/// <summary>80386 A0-B0 stepping only (<c>XBTS</c>, <c>IBTS</c> instructions)</summary>
 		INTEL386_A0_ONLY,
 		/// <summary>Intel486 or later</summary>
 		INTEL486,
-		/// <summary>Intel486 A stepping only (cmpxchg)</summary>
+		/// <summary>Intel486 A stepping only (<c>CMPXCHG</c>)</summary>
 		INTEL486_A_ONLY,
 		/// <summary>80386 and Intel486 only</summary>
 		INTEL386_486_ONLY,
@@ -105,7 +105,7 @@ namespace Iced.Intel {
 		CET_IBT,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):ECX.CET_SS[bit 7]</summary>
 		CET_SS,
-		/// <summary>CL1INVMB instruction (Intel SCC = Single-Chip Computer)</summary>
+		/// <summary><c>CL1INVMB</c> instruction (Intel SCC = Single-Chip Computer)</summary>
 		CL1INVMB,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):ECX.CLDEMOTE[bit 25]</summary>
 		CLDEMOTE,
@@ -121,7 +121,7 @@ namespace Iced.Intel {
 		CMOV,
 		/// <summary>CPUID.01H:ECX.CMPXCHG16B[bit 13]</summary>
 		CMPXCHG16B,
-		/// <summary>RFLAGS.ID can be toggled</summary>
+		/// <summary><c>RFLAGS.ID</c> can be toggled</summary>
 		CPUID,
 		/// <summary>CPUID.01H:EDX.CX8[bit 8]</summary>
 		CX8,
@@ -189,7 +189,7 @@ namespace Iced.Intel {
 		MPX,
 		/// <summary>CPUID.01H:EDX.MSR[bit 5]</summary>
 		MSR,
-		/// <summary>Multi-byte nops (0F1F /0): CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</summary>
+		/// <summary>Multi-byte nops (<c>0F1F /0</c>): CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</summary>
 		MULTIBYTENOP,
 		/// <summary>CPUID.0C0000000H:EAX &gt;= 0C0000001H AND CPUID.0C0000001H:EDX.ACE[Bits 7:6] = 11B ([6] = exists, [7] = enabled)</summary>
 		PADLOCK_ACE,
@@ -199,7 +199,7 @@ namespace Iced.Intel {
 		PADLOCK_PMM,
 		/// <summary>CPUID.0C0000000H:EAX &gt;= 0C0000001H AND CPUID.0C0000001H:EDX.RNG[Bits 3:2] = 11B ([2] = exists, [3] = enabled)</summary>
 		PADLOCK_RNG,
-		/// <summary>PAUSE instruction (Pentium 4 or later)</summary>
+		/// <summary><c>PAUSE</c> instruction (Pentium 4 or later)</summary>
 		PAUSE,
 		/// <summary>CPUID.01H:ECX.PCLMULQDQ[bit 1]</summary>
 		PCLMULQDQ,
@@ -219,7 +219,7 @@ namespace Iced.Intel {
 		PTWRITE,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):ECX.RDPID[bit 22]</summary>
 		RDPID,
-		/// <summary>RDPMC instruction (Pentium MMX or later, or Pentium Pro or later)</summary>
+		/// <summary><c>RDPMC</c> instruction (Pentium MMX or later, or Pentium Pro or later)</summary>
 		RDPMC,
 		/// <summary>CPUID.80000008H:EBX.RDPRU[bit 4]</summary>
 		RDPRU,
