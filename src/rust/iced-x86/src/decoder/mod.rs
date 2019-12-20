@@ -1274,7 +1274,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	pub(crate) fn read_op_mem_tupletype(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
+	pub(crate) fn read_op_mem_tuple_type(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
 		debug_assert_eq!(EncodingKind::EVEX, self.state.encoding());
 		if self.state.address_size == OpSize::Size64 {
 			let _ = self.read_op_mem_32_or_64(instruction, Register::RAX, Register::RAX, tuple_type, false);

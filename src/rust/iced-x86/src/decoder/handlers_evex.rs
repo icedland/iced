@@ -138,7 +138,7 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 			}
 		} else {
 			super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, tuple_type);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
 			}
@@ -189,9 +189,9 @@ impl OpCodeHandler_EVEX_V_H_Ev_Ib {
 		} else {
 			super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Memory);
 			if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
-				decoder.read_op_mem_tupletype(instruction, this.tuple_type_w1);
+				decoder.read_op_mem_tuple_type(instruction, this.tuple_type_w1);
 			} else {
-				decoder.read_op_mem_tupletype(instruction, this.tuple_type_w0);
+				decoder.read_op_mem_tuple_type(instruction, this.tuple_type_w0);
 			}
 		}
 		super::instruction_internal::internal_set_op3_kind(instruction, OpKind::Immediate8);
@@ -233,9 +233,9 @@ impl OpCodeHandler_EVEX_Ed_V_Ib {
 		} else {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
-				decoder.read_op_mem_tupletype(instruction, this.tuple_type64);
+				decoder.read_op_mem_tuple_type(instruction, this.tuple_type64);
 			} else {
-				decoder.read_op_mem_tupletype(instruction, this.tuple_type32);
+				decoder.read_op_mem_tuple_type(instruction, this.tuple_type32);
 			}
 		}
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -304,7 +304,7 @@ impl OpCodeHandler_EVEX_VkHW_er {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 	}
 }
@@ -365,7 +365,7 @@ impl OpCodeHandler_EVEX_VkW_er {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 	}
 }
@@ -411,7 +411,7 @@ impl OpCodeHandler_EVEX_VkWIb_er {
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				super::instruction_internal::internal_set_is_broadcast(instruction);
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Immediate8);
 		super::instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
@@ -464,7 +464,7 @@ impl OpCodeHandler_EVEX_VkW {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 	}
 }
@@ -499,7 +499,7 @@ impl OpCodeHandler_EVEX_WkV {
 			);
 		} else {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
@@ -542,7 +542,7 @@ impl OpCodeHandler_EVEX_VkM {
 			decoder.set_invalid_instruction();
 		} else {
 			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 	}
 }
@@ -593,7 +593,7 @@ impl OpCodeHandler_EVEX_VkWIb {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Immediate8);
 		super::instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
@@ -629,7 +629,7 @@ impl OpCodeHandler_EVEX_WkVIb {
 			);
 		} else {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
@@ -682,7 +682,7 @@ impl OpCodeHandler_EVEX_HkWIb {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Immediate8);
 		super::instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
@@ -724,7 +724,7 @@ impl OpCodeHandler_EVEX_HWIb {
 			}
 		} else {
 			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Immediate8);
 		super::instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
@@ -766,7 +766,7 @@ impl OpCodeHandler_EVEX_WkVIb_er {
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
@@ -817,7 +817,7 @@ impl OpCodeHandler_EVEX_VW_er {
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
@@ -863,7 +863,7 @@ impl OpCodeHandler_EVEX_VW {
 			}
 		} else {
 			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 	}
 }
@@ -900,7 +900,7 @@ impl OpCodeHandler_EVEX_WV {
 			}
 		} else {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
@@ -940,7 +940,7 @@ impl OpCodeHandler_EVEX_VM {
 			decoder.set_invalid_instruction();
 		} else {
 			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 	}
 }
@@ -1068,7 +1068,7 @@ impl OpCodeHandler_EVEX_KkHWIb_sae {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		super::instruction_internal::internal_set_op3_kind(instruction, OpKind::Immediate8);
 		super::instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
@@ -1122,7 +1122,7 @@ impl OpCodeHandler_EVEX_VkHW {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 	}
 }
@@ -1160,7 +1160,7 @@ impl OpCodeHandler_EVEX_VkHM {
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 	}
 }
@@ -1212,7 +1212,7 @@ impl OpCodeHandler_EVEX_VkHWIb {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		super::instruction_internal::internal_set_op3_kind(instruction, OpKind::Immediate8);
 		super::instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
@@ -1266,7 +1266,7 @@ impl OpCodeHandler_EVEX_VkHWIb_er {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		super::instruction_internal::internal_set_op3_kind(instruction, OpKind::Immediate8);
 		super::instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
@@ -1315,7 +1315,7 @@ impl OpCodeHandler_EVEX_KkHW {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
 			& decoder.invalid_check_mask)
@@ -1363,7 +1363,7 @@ impl OpCodeHandler_EVEX_KP1HW {
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				super::instruction_internal::internal_set_is_broadcast(instruction);
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.aaa | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
 			& decoder.invalid_check_mask)
@@ -1416,7 +1416,7 @@ impl OpCodeHandler_EVEX_KkHWIb {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		super::instruction_internal::internal_set_op3_kind(instruction, OpKind::Immediate8);
 		super::instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
@@ -1504,7 +1504,7 @@ impl OpCodeHandler_EVEX_VHWIb {
 			);
 		} else {
 			super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		super::instruction_internal::internal_set_op3_kind(instruction, OpKind::Immediate8);
 		super::instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
@@ -1552,7 +1552,7 @@ impl OpCodeHandler_EVEX_VHW {
 		} else {
 			super::instruction_internal::internal_set_code_u32(instruction, this.code_m);
 			super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 	}
 }
@@ -1589,7 +1589,7 @@ impl OpCodeHandler_EVEX_VHM {
 			decoder.set_invalid_instruction();
 		} else {
 			super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 	}
 }
@@ -1654,7 +1654,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 			}
 		} else {
 			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
 			}
@@ -1703,7 +1703,7 @@ impl OpCodeHandler_EVEX_VX_Ev {
 			super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
 			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, tuple_type);
 		}
 	}
 }
@@ -1743,7 +1743,7 @@ impl OpCodeHandler_EVEX_Ev_VX {
 			super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, tuple_type);
 		}
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
@@ -1823,7 +1823,7 @@ impl OpCodeHandler_EVEX_MV {
 			decoder.set_invalid_instruction();
 		} else {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
@@ -2018,9 +2018,9 @@ impl OpCodeHandler_EVEX_GvM_VX_Ib {
 		} else {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
-				decoder.read_op_mem_tupletype(instruction, this.tuple_type64);
+				decoder.read_op_mem_tuple_type(instruction, this.tuple_type64);
 			} else {
-				decoder.read_op_mem_tupletype(instruction, this.tuple_type32);
+				decoder.read_op_mem_tuple_type(instruction, this.tuple_type32);
 			}
 		}
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -2079,7 +2079,7 @@ impl OpCodeHandler_EVEX_KkWIb {
 					decoder.set_invalid_instruction();
 				}
 			}
-			decoder.read_op_mem_tupletype(instruction, this.tuple_type);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 		super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Immediate8);
 		super::instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
