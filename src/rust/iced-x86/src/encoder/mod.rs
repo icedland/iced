@@ -305,7 +305,6 @@ impl Encoder {
 	/// let buffer = encoder.take_buffer();
 	/// assert_eq!(vec![0x75, 0xF2], buffer);
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn encode(&mut self, instruction: &Instruction, rip: u64) -> Result<usize, String> {
 		self.current_rip = rip;
