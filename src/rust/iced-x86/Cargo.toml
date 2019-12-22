@@ -16,16 +16,16 @@ codecov = { repository = "https://github.com/0xd4d/iced", branch = "master", ser
 maintenance = { status = "actively-developed" }
 
 [features]
-default = ["DECODER", "ENCODER", "INSTR_INFO", "ALL_FORMATTERS", "GAS_FORMATTER",
-			"INTEL_FORMATTER", "MASM_FORMATTER", "NASM_FORMATTER"]
-DECODER = []
-ENCODER = []
-INSTR_INFO = []
-ALL_FORMATTERS = []
-GAS_FORMATTER = []
-INTEL_FORMATTER = []
-MASM_FORMATTER = []
-NASM_FORMATTER = []
+default = ["decoder", "encoder", "instr_info", "all_formatters", "gas_formatter",
+			"intel_formatter", "masm_formatter", "nasm_formatter"]
+decoder = []
+encoder = []
+instr_info = []
+all_formatters = []
+gas_formatter = []
+intel_formatter = []
+masm_formatter = []
+nasm_formatter = []
 
 [dependencies]
 static_assertions = "0.3.4"

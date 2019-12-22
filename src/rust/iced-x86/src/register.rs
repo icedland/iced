@@ -26,10 +26,10 @@ use std::fmt;
 use std::mem;
 use std::ops::{Add, AddAssign, Sub, SubAssign};
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 pub use self::info::*;
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 mod info {
 	use super::super::iced_constants::IcedConstants;
 	use super::Register;
@@ -453,7 +453,7 @@ mod info {
 	}
 }
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 impl Register {
 	/// Gets register info
 	///

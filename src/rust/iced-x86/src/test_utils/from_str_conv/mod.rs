@@ -22,41 +22,41 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 mod code_table;
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 mod condition_code_table;
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 mod cpuid_feature_table;
-#[cfg(feature = "DECODER")]
+#[cfg(feature = "decoder")]
 mod decoder_options_table;
-#[cfg(any(feature = "DECODER", feature = "ENCODER", feature = "INSTR_INFO"))]
+#[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 mod encoding_kind_table;
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 mod flow_control_table;
 mod memory_size_table;
 mod mnemonic_table;
-#[cfg(feature = "ENCODER")]
+#[cfg(feature = "encoder")]
 mod op_code_operand_kind_table;
 mod register_table;
-#[cfg(any(feature = "DECODER", feature = "ENCODER"))]
+#[cfg(any(feature = "decoder", feature = "encoder"))]
 mod tuple_type_table;
 
 use self::code_table::*;
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 use self::condition_code_table::*;
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 use self::cpuid_feature_table::*;
-#[cfg(feature = "DECODER")]
+#[cfg(feature = "decoder")]
 use self::decoder_options_table::*;
-#[cfg(any(feature = "DECODER", feature = "ENCODER", feature = "INSTR_INFO"))]
+#[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 use self::encoding_kind_table::*;
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 use self::flow_control_table::*;
 use self::memory_size_table::*;
 use self::mnemonic_table::*;
-#[cfg(feature = "ENCODER")]
+#[cfg(feature = "encoder")]
 use self::op_code_operand_kind_table::*;
 use self::register_table::*;
-#[cfg(any(feature = "DECODER", feature = "ENCODER"))]
+#[cfg(any(feature = "decoder", feature = "encoder"))]
 use self::tuple_type_table::*;
 use super::super::*;
 use std::collections::hash_map::Keys;
@@ -206,7 +206,7 @@ pub(crate) fn to_memory_size(value: &str) -> Result<MemorySize, String> {
 	}
 }
 
-#[cfg(feature = "DECODER")]
+#[cfg(feature = "decoder")]
 pub(crate) fn to_decoder_options(value: &str) -> Result<u32, String> {
 	let value = value.trim();
 	match TO_DECODER_OPTIONS_HASH.get(value) {
@@ -215,7 +215,7 @@ pub(crate) fn to_decoder_options(value: &str) -> Result<u32, String> {
 	}
 }
 
-#[cfg(any(feature = "DECODER", feature = "ENCODER", feature = "INSTR_INFO"))]
+#[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 pub(crate) fn to_encoding_kind(value: &str) -> Result<EncodingKind, String> {
 	let value = value.trim();
 	match TO_ENCODING_KIND_HASH.get(value) {
@@ -224,7 +224,7 @@ pub(crate) fn to_encoding_kind(value: &str) -> Result<EncodingKind, String> {
 	}
 }
 
-#[cfg(any(feature = "DECODER", feature = "ENCODER"))]
+#[cfg(any(feature = "decoder", feature = "encoder"))]
 pub(crate) fn to_tuple_type(value: &str) -> Result<TupleType, String> {
 	let value = value.trim();
 	match TO_TUPLE_TYPE_HASH.get(value) {
@@ -233,7 +233,7 @@ pub(crate) fn to_tuple_type(value: &str) -> Result<TupleType, String> {
 	}
 }
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 pub(crate) fn to_cpuid_features(value: &str) -> Result<CpuidFeature, String> {
 	let value = value.trim();
 	match TO_CPUID_FEATURE_HASH.get(value) {
@@ -242,7 +242,7 @@ pub(crate) fn to_cpuid_features(value: &str) -> Result<CpuidFeature, String> {
 	}
 }
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 pub(crate) fn to_flow_control(value: &str) -> Result<FlowControl, String> {
 	let value = value.trim();
 	match TO_FLOW_CONTROL_HASH.get(value) {
@@ -251,7 +251,7 @@ pub(crate) fn to_flow_control(value: &str) -> Result<FlowControl, String> {
 	}
 }
 
-#[cfg(feature = "ENCODER")]
+#[cfg(feature = "encoder")]
 pub(crate) fn to_op_code_operand_kind(value: &str) -> Result<OpCodeOperandKind, String> {
 	let value = value.trim();
 	match TO_OP_CODE_OPERAND_KIND_HASH.get(value) {
@@ -260,7 +260,7 @@ pub(crate) fn to_op_code_operand_kind(value: &str) -> Result<OpCodeOperandKind, 
 	}
 }
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 pub(crate) fn to_condition_code(value: &str) -> Result<ConditionCode, String> {
 	let value = value.trim();
 	match TO_CONDITION_CODE_HASH.get(value) {

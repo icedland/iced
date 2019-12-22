@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 use super::info::enums::*;
 use super::mnemonics;
 use super::*;
@@ -37868,12 +37868,12 @@ impl Code {
 	}
 }
 
-#[cfg(feature = "ENCODER")]
+#[cfg(feature = "encoder")]
 impl Code {
 	//TODO: EncoderCodeExtensions.cs
 }
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 impl Code {
 	/// Gets the encoding, eg. legacy, VEX, EVEX, ...
 	///

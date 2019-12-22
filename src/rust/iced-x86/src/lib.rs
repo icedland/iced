@@ -65,24 +65,24 @@ extern crate lazy_static;
 extern crate static_assertions;
 
 mod code;
-#[cfg(any(feature = "DECODER", feature = "ENCODER"))]
+#[cfg(any(feature = "decoder", feature = "encoder"))]
 mod constant_offsets;
-#[cfg(feature = "DECODER")]
+#[cfg(feature = "decoder")]
 mod decoder;
-#[cfg(feature = "ENCODER")]
+#[cfg(feature = "encoder")]
 mod encoder;
 mod enums;
 #[cfg(any(
-	feature = "GAS_FORMATTER",
-	feature = "INTEL_FORMATTER",
-	feature = "MASM_FORMATTER",
-	feature = "NASM_FORMATTER",
-	feature = "ALL_FORMATTERS",
+	feature = "gas_formatter",
+	feature = "intel_formatter",
+	feature = "masm_formatter",
+	feature = "nasm_formatter",
+	feature = "all_formatters",
 ))]
 mod formatter;
 pub(crate) mod iced_constants;
 mod iced_features;
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 mod info;
 mod instruction;
 mod instruction_internal;
@@ -96,23 +96,23 @@ mod register;
 pub(crate) mod test_utils;
 
 pub use self::code::*;
-#[cfg(any(feature = "DECODER", feature = "ENCODER"))]
+#[cfg(any(feature = "decoder", feature = "encoder"))]
 pub use self::constant_offsets::*;
-#[cfg(feature = "DECODER")]
+#[cfg(feature = "decoder")]
 pub use self::decoder::*;
-#[cfg(feature = "ENCODER")]
+#[cfg(feature = "encoder")]
 pub use self::encoder::*;
 pub use self::enums::*;
 #[cfg(any(
-	feature = "GAS_FORMATTER",
-	feature = "INTEL_FORMATTER",
-	feature = "MASM_FORMATTER",
-	feature = "NASM_FORMATTER",
-	feature = "ALL_FORMATTERS",
+	feature = "gas_formatter",
+	feature = "intel_formatter",
+	feature = "masm_formatter",
+	feature = "nasm_formatter",
+	feature = "all_formatters",
 ))]
 pub use self::formatter::*;
 pub use self::iced_features::*;
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 pub use self::info::*;
 pub use self::instruction::*;
 pub use self::memory_size::*;

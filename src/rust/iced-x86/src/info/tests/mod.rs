@@ -276,7 +276,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	check_equal(&info, &info2, false, false);
 
 	assert_eq!(info.encoding(), instr.code().encoding());
-	#[cfg(feature = "ENCODER")]
+	#[cfg(feature = "encoder")]
 	{
 		//TODO: enable this when the OpCodeInfo struct exists
 		//assert_eq!(tc.code.to_op_code().encoding(), instr.code().encoding());

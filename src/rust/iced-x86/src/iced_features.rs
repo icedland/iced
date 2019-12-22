@@ -31,9 +31,9 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_gas_formatter() -> bool {
-		#[cfg(any(feature = "GAS_FORMATTER", feature = "ALL_FORMATTERS"))]
+		#[cfg(any(feature = "gas_formatter", feature = "all_formatters"))]
 		{ true }
-		#[cfg(not(any(feature = "GAS_FORMATTER", feature = "ALL_FORMATTERS")))]
+		#[cfg(not(any(feature = "gas_formatter", feature = "all_formatters")))]
 		{ false }
 	}
 
@@ -42,9 +42,9 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_intel_formatter() -> bool {
-		#[cfg(any(feature = "INTEL_FORMATTER", feature = "ALL_FORMATTERS"))]
+		#[cfg(any(feature = "intel_formatter", feature = "all_formatters"))]
 		{ true }
-		#[cfg(not(any(feature = "INTEL_FORMATTER", feature = "ALL_FORMATTERS")))]
+		#[cfg(not(any(feature = "intel_formatter", feature = "all_formatters")))]
 		{ false }
 	}
 
@@ -53,9 +53,9 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_masm_formatter() -> bool {
-		#[cfg(any(feature = "MASM_FORMATTER", feature = "ALL_FORMATTERS"))]
+		#[cfg(any(feature = "masm_formatter", feature = "all_formatters"))]
 		{ true }
-		#[cfg(not(any(feature = "MASM_FORMATTER", feature = "ALL_FORMATTERS")))]
+		#[cfg(not(any(feature = "masm_formatter", feature = "all_formatters")))]
 		{ false }
 	}
 
@@ -64,9 +64,9 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_nasm_formatter() -> bool {
-		#[cfg(any(feature = "NASM_FORMATTER", feature = "ALL_FORMATTERS"))]
+		#[cfg(any(feature = "nasm_formatter", feature = "all_formatters"))]
 		{ true }
-		#[cfg(not(any(feature = "NASM_FORMATTER", feature = "ALL_FORMATTERS")))]
+		#[cfg(not(any(feature = "nasm_formatter", feature = "all_formatters")))]
 		{ false }
 	}
 
@@ -75,9 +75,9 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_decoder() -> bool {
-		#[cfg(feature = "DECODER")]
+		#[cfg(feature = "decoder")]
 		{ true }
-		#[cfg(not(feature = "DECODER"))]
+		#[cfg(not(feature = "decoder"))]
 		{ false }
 	}
 
@@ -86,9 +86,9 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_encoder() -> bool {
-		#[cfg(feature = "ENCODER")]
+		#[cfg(feature = "encoder")]
 		{ true }
-		#[cfg(not(feature = "ENCODER"))]
+		#[cfg(not(feature = "encoder"))]
 		{ false }
 	}
 
@@ -97,9 +97,9 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_instruction_info() -> bool {
-		#[cfg(feature = "INSTR_INFO")]
+		#[cfg(feature = "instr_info")]
 		{ true }
-		#[cfg(not(feature = "INSTR_INFO"))]
+		#[cfg(not(feature = "instr_info"))]
 		{ false }
 	}
 }

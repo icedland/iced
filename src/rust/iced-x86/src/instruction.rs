@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::iced_constants::IcedConstants;
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 use super::info::enums::*;
 use super::*;
 use std::{fmt, mem, slice, u16, u32, u64};
@@ -2399,12 +2399,12 @@ impl Instruction {
 	//TODO: OpCode prop
 }
 
-#[cfg(feature = "ENCODER")]
+#[cfg(feature = "encoder")]
 impl Instruction {
 	//TODO: Instruction.Create.cs
 }
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 impl Instruction {
 	/// Gets the number of bytes added to `SP`/`ESP`/`RSP` or 0 if it's not an instruction that pushes or pops data. This method assumes
 	/// the instruction doesn't change the privilege level (eg. `IRET/D/Q`). If it's the `LEAVE` instruction, this method returns 0.
@@ -3186,7 +3186,7 @@ impl PartialEq<Instruction> for Instruction {
 	}
 }
 
-#[cfg(any(feature = "MASM_FORMATTER", feature = "ALL_FORMATTERS"))]
+#[cfg(any(feature = "masm_formatter", feature = "all_formatters"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
@@ -3195,8 +3195,8 @@ impl fmt::Display for Instruction {
 	}
 }
 #[cfg(all(
-	not(any(feature = "MASM_FORMATTER", feature = "ALL_FORMATTERS")),
-	any(feature = "NASM_FORMATTER", feature = "ALL_FORMATTERS")
+	not(any(feature = "masm_formatter", feature = "all_formatters")),
+	any(feature = "nasm_formatter", feature = "all_formatters")
 ))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
@@ -3206,9 +3206,9 @@ impl fmt::Display for Instruction {
 	}
 }
 #[cfg(all(
-	not(any(feature = "MASM_FORMATTER", feature = "ALL_FORMATTERS")),
-	not(any(feature = "NASM_FORMATTER", feature = "ALL_FORMATTERS")),
-	any(feature = "INTEL_FORMATTER", feature = "ALL_FORMATTERS")
+	not(any(feature = "masm_formatter", feature = "all_formatters")),
+	not(any(feature = "nasm_formatter", feature = "all_formatters")),
+	any(feature = "intel_formatter", feature = "all_formatters")
 ))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
@@ -3218,10 +3218,10 @@ impl fmt::Display for Instruction {
 	}
 }
 #[cfg(all(
-	not(any(feature = "MASM_FORMATTER", feature = "ALL_FORMATTERS")),
-	not(any(feature = "NASM_FORMATTER", feature = "ALL_FORMATTERS")),
-	not(any(feature = "INTEL_FORMATTER", feature = "ALL_FORMATTERS")),
-	any(feature = "GAS_FORMATTER", feature = "ALL_FORMATTERS")
+	not(any(feature = "masm_formatter", feature = "all_formatters")),
+	not(any(feature = "nasm_formatter", feature = "all_formatters")),
+	not(any(feature = "intel_formatter", feature = "all_formatters")),
+	any(feature = "gas_formatter", feature = "all_formatters")
 ))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]

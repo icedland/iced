@@ -24,10 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::iced_constants::IcedConstants;
 use std::fmt;
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 pub use self::info::*;
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 mod info {
 	use super::super::iced_constants::IcedConstants;
 	use super::MemorySize;
@@ -812,7 +812,7 @@ impl Default for MemorySize {
 }
 // GENERATOR-END: MemorySize
 
-#[cfg(feature = "INSTR_INFO")]
+#[cfg(feature = "instr_info")]
 impl MemorySize {
 	/// Gets the memory size info
 	///
@@ -948,7 +948,7 @@ impl MemorySize {
 	}
 }
 
-#[cfg(any(feature = "INSTR_INFO", feature = "ENCODER"))]
+#[cfg(any(feature = "instr_info", feature = "encoder"))]
 impl MemorySize {
 	/// Checks if it is a broadcast memory type
 	///

@@ -40,9 +40,9 @@ namespace Generator {
 		public const string AttributeAllowMissingCopyImplementations = "#[allow(missing_copy_implementations)]";
 
 		public const string FeaturePrefix = "#[cfg(";
-		public const string FeatureInstrInfo = "#[cfg(feature = \"INSTR_INFO\")]";
-		public const string FeatureEncoder = "#[cfg(feature = \"ENCODER\")]";
-		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\"))]";
-		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"DECODER\", feature = \"ENCODER\", feature = \"INSTR_INFO\"))]";
+		public const string FeatureInstrInfo = "#[cfg(feature = \"instr_info\")]";
+		public const string FeatureEncoder = "#[cfg(feature = \"encoder\")]";
+		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"decoder\", feature = \"encoder\"))]";
+		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"instr_info\"))]";
 	}
 }
