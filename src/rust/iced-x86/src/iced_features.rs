@@ -31,10 +31,7 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_gas_formatter() -> bool {
-		#[cfg(any(feature = "gas_formatter", feature = "all_formatters"))]
-		{ true }
-		#[cfg(not(any(feature = "gas_formatter", feature = "all_formatters")))]
-		{ false }
+		cfg!(any(feature = "gas_formatter", feature = "all_formatters"))
 	}
 
 	/// true if the Intel (xed) formatter is available
@@ -42,10 +39,7 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_intel_formatter() -> bool {
-		#[cfg(any(feature = "intel_formatter", feature = "all_formatters"))]
-		{ true }
-		#[cfg(not(any(feature = "intel_formatter", feature = "all_formatters")))]
-		{ false }
+		cfg!(any(feature = "intel_formatter", feature = "all_formatters"))
 	}
 
 	/// true if the masm formatter is available
@@ -53,10 +47,7 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_masm_formatter() -> bool {
-		#[cfg(any(feature = "masm_formatter", feature = "all_formatters"))]
-		{ true }
-		#[cfg(not(any(feature = "masm_formatter", feature = "all_formatters")))]
-		{ false }
+		cfg!(any(feature = "masm_formatter", feature = "all_formatters"))
 	}
 
 	/// true if the nasm formatter is available
@@ -64,10 +55,7 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_nasm_formatter() -> bool {
-		#[cfg(any(feature = "nasm_formatter", feature = "all_formatters"))]
-		{ true }
-		#[cfg(not(any(feature = "nasm_formatter", feature = "all_formatters")))]
-		{ false }
+		cfg!(any(feature = "nasm_formatter", feature = "all_formatters"))
 	}
 
 	/// true if the decoder is available
@@ -75,10 +63,7 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_decoder() -> bool {
-		#[cfg(feature = "decoder")]
-		{ true }
-		#[cfg(not(feature = "decoder"))]
-		{ false }
+		cfg!(feature = "decoder")
 	}
 
 	/// true if the encoder is available
@@ -86,10 +71,7 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_encoder() -> bool {
-		#[cfg(feature = "encoder")]
-		{ true }
-		#[cfg(not(feature = "encoder"))]
-		{ false }
+		cfg!(feature = "encoder")
 	}
 
 	/// true if the instruction info code is available
@@ -97,9 +79,6 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_instruction_info() -> bool {
-		#[cfg(feature = "instr_info")]
-		{ true }
-		#[cfg(not(feature = "instr_info"))]
-		{ false }
+		cfg!(feature = "instr_info")
 	}
 }
