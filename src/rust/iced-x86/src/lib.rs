@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! iced-x86 is an x86/x64 disassembler, decoder, encoder written in Rust
 
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
+#![doc(html_root_url = "https://docs.rs/iced-x86/0.0.0")]
 #![allow(unknown_lints)]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
 // Requires rustc >= 1.26.0
