@@ -38136,13 +38136,13 @@ impl Code {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(Code::Jbe_rel8_64, Code::Jbe_rel32_64.to_short_branch());
-	/// assert_eq!(Code::Jbe_rel8_64, Code::Jbe_rel8_64.to_short_branch());
-	/// assert_eq!(Code::Pause, Code::Pause.to_short_branch());
+	/// assert_eq!(Code::Jbe_rel8_64, Code::Jbe_rel32_64.as_short_branch());
+	/// assert_eq!(Code::Jbe_rel8_64, Code::Jbe_rel8_64.as_short_branch());
+	/// assert_eq!(Code::Pause, Code::Pause.as_short_branch());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn to_short_branch(self) -> Self {
+	pub fn as_short_branch(self) -> Self {
 		let mut t;
 
 		t = (self as u32).wrapping_sub(Code::Jo_rel16 as u32);
@@ -38164,13 +38164,13 @@ impl Code {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(Code::Jbe_rel32_64, Code::Jbe_rel8_64.to_near_branch());
-	/// assert_eq!(Code::Jbe_rel32_64, Code::Jbe_rel32_64.to_near_branch());
-	/// assert_eq!(Code::Pause, Code::Pause.to_near_branch());
+	/// assert_eq!(Code::Jbe_rel32_64, Code::Jbe_rel8_64.as_near_branch());
+	/// assert_eq!(Code::Jbe_rel32_64, Code::Jbe_rel32_64.as_near_branch());
+	/// assert_eq!(Code::Pause, Code::Pause.as_near_branch());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn to_near_branch(self) -> Self {
+	pub fn as_near_branch(self) -> Self {
 		let mut t;
 
 		t = (self as u32).wrapping_sub(Code::Jo_rel8_16 as u32);

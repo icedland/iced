@@ -674,19 +674,19 @@ fn verify_negate_condition_code() {
 fn verify_to_short_branch() {
 	let data = &*MISC_TESTS_DATA;
 
-	let mut to_short_branch: HashMap<Code, Code> = HashMap::new();
-	to_short_branch.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).2)));
-	to_short_branch.extend(data.jmp_infos.iter().map(|a| ((*a).1, (*a).0)));
+	let mut as_short_branch: HashMap<Code, Code> = HashMap::new();
+	as_short_branch.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).2)));
+	as_short_branch.extend(data.jmp_infos.iter().map(|a| ((*a).1, (*a).0)));
 
 	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let mut instr = Instruction::default();
 		instr.set_code(code);
 
-		let short = *to_short_branch.get(&code).unwrap_or(&code);
+		let short = *as_short_branch.get(&code).unwrap_or(&code);
 
-		assert_eq!(short, code.to_short_branch());
-		instr.to_short_branch();
+		assert_eq!(short, code.as_short_branch());
+		instr.as_short_branch();
 		assert_eq!(short, instr.code());
 	}
 }
@@ -695,19 +695,19 @@ fn verify_to_short_branch() {
 fn verify_to_near_branch() {
 	let data = &*MISC_TESTS_DATA;
 
-	let mut to_near_branch: HashMap<Code, Code> = HashMap::new();
-	to_near_branch.extend(data.jcc_short_infos.iter().map(|a| ((*a).0, (*a).2)));
-	to_near_branch.extend(data.jmp_infos.iter().map(|a| ((*a).0, (*a).1)));
+	let mut as_near_branch: HashMap<Code, Code> = HashMap::new();
+	as_near_branch.extend(data.jcc_short_infos.iter().map(|a| ((*a).0, (*a).2)));
+	as_near_branch.extend(data.jmp_infos.iter().map(|a| ((*a).0, (*a).1)));
 
 	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let mut instr = Instruction::default();
 		instr.set_code(code);
 
-		let near = *to_near_branch.get(&code).unwrap_or(&code);
+		let near = *as_near_branch.get(&code).unwrap_or(&code);
 
-		assert_eq!(near, code.to_near_branch());
-		instr.to_near_branch();
+		assert_eq!(near, code.as_near_branch());
+		instr.as_near_branch();
 		assert_eq!(near, instr.code());
 	}
 }

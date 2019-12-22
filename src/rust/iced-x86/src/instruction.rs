@@ -3088,16 +3088,15 @@ impl Instruction {
 	///
 	/// let mut instr = decoder.decode();
 	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
-	/// instr.to_short_branch();
+	/// instr.as_short_branch();
 	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
-	/// instr.to_short_branch();
+	/// instr.as_short_branch();
 	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
 	/// ```
 	#[inline]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
-	pub fn to_short_branch(&mut self) {
+	pub fn as_short_branch(&mut self) {
 		// Temp needed if rustc < 1.36.0 (2015 edition)
-		let t = self.code().to_short_branch();
+		let t = self.code().as_short_branch();
 		self.set_code(t)
 	}
 
@@ -3114,16 +3113,15 @@ impl Instruction {
 	///
 	/// let mut instr = decoder.decode();
 	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
-	/// instr.to_near_branch();
+	/// instr.as_near_branch();
 	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
-	/// instr.to_near_branch();
+	/// instr.as_near_branch();
 	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
 	/// ```
 	#[inline]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
-	pub fn to_near_branch(&mut self) {
+	pub fn as_near_branch(&mut self) {
 		// Temp needed if rustc < 1.36.0 (2015 edition)
-		let t = self.code().to_near_branch();
+		let t = self.code().as_near_branch();
 		self.set_code(t)
 	}
 
