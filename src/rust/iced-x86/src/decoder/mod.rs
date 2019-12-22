@@ -438,6 +438,7 @@ impl<'a> Decoder<'a> {
 	/// decoded to instructions and it's the length of the slice that was passed to the constructor.
 	///
 	/// [`set_position()`]: #method.set_position
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn max_position(&self) -> usize {
 		self.data.len()
@@ -450,6 +451,7 @@ impl<'a> Decoder<'a> {
 	/// [`max_position()`]: #method.max_position
 	/// [`position()`]: #method.position
 	/// [`can_decode()`]: #method.can_decode
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn position(&self) -> usize {
 		self.data_ptr as usize - self.data.as_ptr() as usize
@@ -542,6 +544,7 @@ impl<'a> Decoder<'a> {
 	/// // 0 bytes left to read
 	/// assert!(!decoder.can_decode());
 	/// ```
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn can_decode(&self) -> bool {
 		self.data_ptr < self.data_ptr_end
@@ -1769,6 +1772,7 @@ impl<'a> IntoIterator for Decoder<'a> {
 	type Item = Instruction;
 	type IntoIter = DecoderIntoIter<'a>;
 
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIntoIter { decoder: self }

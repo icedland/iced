@@ -41,6 +41,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", deny(clippy::large_digit_groups))]
 #![cfg_attr(feature = "cargo-clippy", deny(clippy::unimplemented))]
 #![cfg_attr(feature = "cargo-clippy", deny(clippy::used_underscore_binding))]
+#![cfg_attr(feature = "cargo-clippy", deny(clippy::must_use_candidate))]
 //TODO: enable this when rustc 1.41.0 has been released
 //#![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_inline_in_public_items))]
 #![deny(absolute_paths_not_starting_with_crate)]

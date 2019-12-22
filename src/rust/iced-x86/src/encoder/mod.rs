@@ -148,6 +148,8 @@ impl Encoder {
 	///
 	/// * `bitness`: 16, 32 or 64
 	/// * `capacity`: Initial capacity of the `u8` buffer
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn with_capacity(bitness: u32, capacity: usize) -> Self {
 		if bitness != 16 && bitness != 32 && bitness != 64 {
 			panic!();
@@ -1469,6 +1471,8 @@ impl Encoder {
 	/// you've encoded all instructions and need the encoded code. See also [`set_buffer()`].
 	///
 	/// [`set_buffer()`]: #method.set_buffer
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
 	pub fn take_buffer(&mut self) -> Vec<u8> {
 		mem::replace(&mut self.buffer, Vec::new())
 	}
@@ -1476,6 +1480,7 @@ impl Encoder {
 	/// Overwrites the buffer with a new vector. The old buffer is dropped. See also [`take_buffer()`].
 	///
 	/// [`take_buffer()`]: #method.take_buffer
+	#[inline]
 	pub fn set_buffer(&mut self, buffer: Vec<u8>) {
 		self.buffer = buffer;
 	}

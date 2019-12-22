@@ -636,6 +636,7 @@ impl Instruction {
 	/// Checks if the instruction has a segment override prefix, see [`segment_prefix()`]
 	///
 	/// [`segment_prefix()`]: #method.segment_prefix
+	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn has_segment_prefix(&self) -> bool {
 		(((self.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK).wrapping_sub(1) < 6
