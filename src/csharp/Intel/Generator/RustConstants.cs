@@ -30,7 +30,6 @@ namespace Generator {
 		public const string AttributeNoRustFmtInner = "#!" + attrNoRustFmt;
 		public const string AttributeCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
 		public const string AttributeCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
-		public const string AttributeReprU8 = "#[repr(u8)]";
 		public const string AttributeAllowNonCamelCaseTypes = "#[allow(non_camel_case_types)]";
 		public const string AttributeMustUse = "#[cfg_attr(has_must_use, must_use)]";
 		public const string AttributeNonExhaustive = "#[cfg_attr(has_non_exhaustive, non_exhaustive)]";

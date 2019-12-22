@@ -27,7 +27,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_DECODER || !NO_ENCODER
 namespace Iced.Intel {
-	enum VectorLength : byte {
+	enum VectorLength {
 		L128,
 		L256,
 		L512,

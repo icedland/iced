@@ -102,7 +102,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(generatorOptions.RustDir, "instruction.rs")));
 			toPartialFileInfo.Add(TypeIds.Instruction_OpKindFlags, new PartialEnumFileInfo("OpKindFlags", Path.Combine(generatorOptions.RustDir, "instruction.rs")));
 			toPartialFileInfo.Add(TypeIds.Instruction_CodeFlags, new PartialEnumFileInfo("CodeFlags", Path.Combine(generatorOptions.RustDir, "instruction.rs")));
-			toPartialFileInfo.Add(TypeIds.VectorLength, new PartialEnumFileInfo("VectorLength", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeReprU8, RustConstants.FeatureDecoderOrEncoder }));
+			toPartialFileInfo.Add(TypeIds.VectorLength, new PartialEnumFileInfo("VectorLength", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureDecoderOrEncoder }));
 			toPartialFileInfo.Add(TypeIds.MandatoryPrefixByte, new PartialEnumFileInfo("MandatoryPrefixByte", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureDecoderOrEncoder }));
 			toPartialFileInfo.Add(TypeIds.StateFlags, new PartialEnumFileInfo("StateFlags", Path.Combine(generatorOptions.RustDir, "decoder", "mod.rs")));
 			toPartialFileInfo.Add(TypeIds.EncodingKind, new PartialEnumFileInfo("EncodingKind", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.FeatureDecoderOrEncoderOrInstrInfo }));
