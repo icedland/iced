@@ -25,6 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
+#if !NO_ENCODER
 namespace Iced.Intel {
 	/// <summary>Opcode table</summary>
 	public enum OpCodeTableKind {
@@ -44,3 +45,4 @@ namespace Iced.Intel {
 		XOPA,
 	}
 }
+#endif

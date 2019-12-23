@@ -21,6 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+mod op_code_test_case;
+mod op_code_test_case_parser;
+
+use self::op_code_test_case::*;
+use self::op_code_test_case_parser::OpCodeInfoTestParser;
 use super::super::decoder::tests::test_utils::*;
 use super::super::iced_constants::IcedConstants;
 use super::super::test_utils::from_str_conv::to_vec_u8;
@@ -459,5 +464,20 @@ fn test_evex_wig_lig() {
 		let encoded_bytes = encoder.take_buffer();
 		let expected_bytes = to_vec_u8(expected_bytes).unwrap();
 		assert_eq!(expected_bytes, encoded_bytes);
+	}
+}
+
+lazy_static! {
+	static ref OP_CODE_INFO_TEST_CASES: Vec<OpCodeInfoTestCase> = {
+		let mut filename = get_encoder_unit_tests_dir();
+		filename.push("OpCodeInfos.txt");
+		OpCodeInfoTestParser::new(filename.as_path()).into_iter().collect()
+	};
+}
+
+#[test]
+fn test_all_opcodeinfos() {
+	for _tc in &*OP_CODE_INFO_TEST_CASES {
+		//TODO:
 	}
 }

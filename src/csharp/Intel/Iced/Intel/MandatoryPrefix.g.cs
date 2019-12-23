@@ -25,18 +25,20 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
+#if !NO_ENCODER
 namespace Iced.Intel {
 	/// <summary>Mandatory prefix</summary>
 	public enum MandatoryPrefix {
 		/// <summary>No mandatory prefix (legacy and 3DNow! tables only)</summary>
 		None,
-		/// <summary>Empty mandatory prefix (no 66, F3 or F2 prefix)</summary>
+		/// <summary>Empty mandatory prefix (no <c>66</c>, <c>F3</c> or <c>F2</c> prefix)</summary>
 		PNP,
-		/// <summary>66 prefix</summary>
+		/// <summary><c>66</c> prefix</summary>
 		P66,
-		/// <summary>F3 prefix</summary>
+		/// <summary><c>F3</c> prefix</summary>
 		PF3,
-		/// <summary>F2 prefix</summary>
+		/// <summary><c>F2</c> prefix</summary>
 		PF2,
 	}
 }
+#endif

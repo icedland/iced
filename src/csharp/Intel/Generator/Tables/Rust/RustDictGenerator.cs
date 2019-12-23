@@ -54,7 +54,21 @@ namespace Generator.Tables.Rust {
 					"FlagsDict",
 					writer => WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable, "to_flags")
 				),
-				//TODO: EncoderConstants.EncodingKindTable, etc
+				(
+					Path.Combine(generatorOptions.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
+					"EncodingKindDict",
+					writer => WriteDict(writer, EncoderConstants.EncodingKindTable, "to_encoding_kind")
+				),
+				(
+					Path.Combine(generatorOptions.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
+					"MandatoryPrefixDict",
+					writer => WriteDict(writer, EncoderConstants.MandatoryPrefixTable, "to_mandatory_prefix")
+				),
+				(
+					Path.Combine(generatorOptions.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
+					"OpCodeTableKindDict",
+					writer => WriteDict(writer, EncoderConstants.OpCodeTableKindTable, "to_op_code_table_kind")
+				),
 			};
 			foreach (var info in infos) {
 				new FileUpdater(TargetLanguage.Rust, info.id, info.filename).Generate(writer => info.func(writer));

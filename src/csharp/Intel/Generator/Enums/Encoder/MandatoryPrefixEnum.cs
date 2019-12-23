@@ -27,13 +27,13 @@ namespace Generator.Enums.Encoder {
 	enum MandatoryPrefix {
 		[Comment("No mandatory prefix (legacy and 3DNow! tables only)")]
 		None,
-		[Comment("Empty mandatory prefix (no 66, F3 or F2 prefix)")]
+		[Comment("Empty mandatory prefix (no #(c:66)#, #(c:F3)# or #(c:F2)# prefix)")]
 		PNP,
-		[Comment("66 prefix")]
+		[Comment("#(c:66)# prefix")]
 		P66,
-		[Comment("F3 prefix")]
+		[Comment("#(c:F3)# prefix")]
 		PF3,
-		[Comment("F2 prefix")]
+		[Comment("#(c:F2)# prefix")]
 		PF2,
 	}
 

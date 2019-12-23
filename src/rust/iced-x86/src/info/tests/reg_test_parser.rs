@@ -110,7 +110,7 @@ impl IntoIter {
 		const_assert_eq!(7, MiscInstrInfoTestConstants::REGISTER_ELEMS_PER_LINE);
 		let elems: Vec<_> = line.splitn(MiscInstrInfoTestConstants::REGISTER_ELEMS_PER_LINE as usize, ',').collect();
 		if elems.len() != MiscInstrInfoTestConstants::REGISTER_ELEMS_PER_LINE as usize {
-			return Err(format!("Invalid number of commas: {}", elems.len()));
+			return Err(format!("Invalid number of commas: {}", elems.len() - 1));
 		}
 
 		let mut tc = RegisterInfoTestCase::default();

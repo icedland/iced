@@ -30,10 +30,7 @@ use super::test_parser::*;
 fn read_decoder_test_cases_core(bitness: u32, filename: String) -> Vec<DecoderTestCase> {
 	let mut path = get_decoder_unit_tests_dir();
 	path.push(filename);
-	let parser = DecoderTestParser::new(bitness, path.as_path());
-	let mut v = Vec::new();
-	v.extend(parser);
-	v
+	DecoderTestParser::new(bitness, path.as_path()).into_iter().collect()
 }
 
 fn read_decoder_test_cases(bitness: u32) -> Vec<DecoderTestCase> {
@@ -47,10 +44,7 @@ fn read_decoder_misc_test_cases(bitness: u32) -> Vec<DecoderTestCase> {
 fn read_decoder_mem_test_cases(bitness: u32) -> Vec<DecoderMemoryTestCase> {
 	let mut filename = get_decoder_unit_tests_dir();
 	filename.push(format!("MemoryTest{}.txt", bitness));
-	let parser = DecoderMemoryTestParser::new(bitness, filename.as_path());
-	let mut v = Vec::new();
-	v.extend(parser);
-	v
+	DecoderMemoryTestParser::new(bitness, filename.as_path()).into_iter().collect()
 }
 
 pub(crate) fn get_test_cases(bitness: u32) -> &'static Vec<DecoderTestCase> {

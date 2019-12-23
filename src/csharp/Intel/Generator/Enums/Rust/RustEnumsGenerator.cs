@@ -95,8 +95,8 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.NasmInstrOpInfoFlags, null);
 			toPartialFileInfo.Add(TypeIds.NasmMemorySizeInfo, null);
 			toPartialFileInfo.Add(TypeIds.NasmFarMemorySizeInfo, null);
-			toPartialFileInfo.Add(TypeIds.MandatoryPrefix, null);
-			toPartialFileInfo.Add(TypeIds.OpCodeTableKind, null);
+			toPartialFileInfo.Add(TypeIds.MandatoryPrefix, new PartialEnumFileInfo("MandatoryPrefix", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.FeatureEncoder }));
+			toPartialFileInfo.Add(TypeIds.OpCodeTableKind, new PartialEnumFileInfo("OpCodeTableKind", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.FeatureEncoder }));
 			toPartialFileInfo.Add(TypeIds.RoundingControl, new PartialEnumFileInfo("RoundingControl", Path.Combine(generatorOptions.RustDir, "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
 			toPartialFileInfo.Add(TypeIds.OpKind, new PartialEnumFileInfo("OpKind", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(generatorOptions.RustDir, "instruction.rs")));
