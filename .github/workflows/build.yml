@@ -86,8 +86,9 @@ jobs:
         shell: bash
         run: |
           export PATH="$HOME/.cargo/bin:$PATH"
-          rustup toolchain install 1.20.0
-          rustup update
+          # It fails on Windows, disable auto self update
+          rustup toolchain install 1.20.0 --no-self-update
+          rustup update --no-self-update
 
       - name: Build, test (default)
         shell: bash
