@@ -6608,9 +6608,11 @@ F3 4F 0F1E FB, Endbr32, Endbr32, 0, enc=F30F1EFB
 66 4F 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr11 enc=450F20DE
 66 4F 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr14 enc=450F20F1
 66 4F 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr11 enc=450F20DE
+# Some AMD CPUs support LOCK MOV CR0 = MOV CR8. Make sure we never encode MOV CR8 in 64-bit mode with a LOCK prefix
 F0 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr8 enc=440F20C1
 F0 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr0 lock nolockmovcr0 noinvalidcheck
 F0 0F20 C1, INVALID, INVALID, 0, nolockmovcr0
+44 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr8
 
 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr3
 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr6 enc=0F21F1
@@ -6709,9 +6711,11 @@ F0 0F20 C1, INVALID, INVALID, 0, nolockmovcr0
 66 4F 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;r14 enc=450F22DE
 66 4F 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;r9 enc=450F22F1
 66 4F 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;r14 enc=450F22DE
+# Some AMD CPUs support LOCK MOV CR0 = MOV CR8. Make sure we never encode MOV CR8 in 64-bit mode with a LOCK prefix
 F0 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr8 op1=r;rcx enc=440F22C1
 F0 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr0 op1=r;rcx lock nolockmovcr0 noinvalidcheck
 F0 0F22 C1, INVALID, INVALID, 0, nolockmovcr0
+44 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr8 op1=r;rcx
 
 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;rsi
 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;rcx enc=0F23F1

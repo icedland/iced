@@ -26,6 +26,8 @@ use super::super::iced_constants::IcedConstants;
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
+use super::op_code_handler::InvalidHandler;
+use std::rc::Rc;
 
 #[test]
 fn encode_16() {
@@ -151,6 +153,58 @@ fn slice_u8_to_string(bytes: &[u8]) -> String {
 	s
 }
 
+fn get_invalid_test_cases() -> Vec<(u32, Rc<DecoderTestInfo>)> {
+	let mut result: Vec<(u32, Rc<DecoderTestInfo>)> = Vec::new();
+	for tc in encoder_tests(false, false) {
+		let tc = Rc::new(tc);
+		if code32_only().contains(&tc.code()) {
+			result.push((64, tc.clone()));
+		}
+		if code64_only().contains(&tc.code()) {
+			result.push((16, tc.clone()));
+			result.push((32, tc.clone()));
+		}
+	}
+	result
+}
+
+#[test]
+fn encode_invalid() {
+	for i in get_invalid_test_cases() {
+		encode_invalid_test(i.0, i.1);
+	}
+}
+
+fn encode_invalid_test(invalid_bitness: u32, tc: Rc<DecoderTestInfo>) {
+	let orig_bytes = to_vec_u8(tc.hex_bytes()).unwrap();
+	let mut decoder = create_decoder(tc.bitness(), orig_bytes.as_slice(), tc.decoder_options()).0;
+	let orig_rip = decoder.ip();
+	let orig_instr = decoder.decode();
+	assert_eq!(tc.code(), orig_instr.code());
+	assert_eq!(orig_bytes.len(), orig_instr.len());
+	assert!(orig_instr.len() <= IcedConstants::MAX_INSTRUCTION_LENGTH as usize);
+	assert_eq!(orig_rip as u16, orig_instr.ip16());
+	assert_eq!(orig_rip as u32, orig_instr.ip32());
+	assert_eq!(orig_rip, orig_instr.ip());
+	let after_rip = decoder.ip();
+	assert_eq!(after_rip as u16, orig_instr.next_ip16());
+	assert_eq!(after_rip as u32, orig_instr.next_ip32());
+	assert_eq!(after_rip, orig_instr.next_ip());
+
+	let mut encoder = Encoder::new(invalid_bitness);
+	match encoder.encode(&orig_instr, orig_rip) {
+		Ok(_) => unreachable!(),
+		Err(err) => {
+			let expected_err = if invalid_bitness == 64 {
+				Encoder::ERROR_ONLY_1632_BIT_MODE
+			} else {
+				Encoder::ERROR_ONLY_64_BIT_MODE
+			};
+			assert_eq!(expected_err, err);
+		}
+	}
+}
+
 #[test]
 fn encode_with_error() {
 	// xchg [rdx+rsi+16h],ah
@@ -203,4 +257,221 @@ fn set_buffer_works() {
 	let mut encoder = Encoder::new(64);
 	encoder.set_buffer(vec![10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
 	assert_eq!(vec![10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0], encoder.take_buffer());
+}
+
+#[test]
+fn encode_invalid_code_value_is_an_error() {
+	let mut instr = Instruction::default();
+	instr.set_code(Code::INVALID);
+	let instr = instr;
+
+	for bitness in [16, 32, 64].iter() {
+		let mut encoder = Encoder::new(*bitness);
+		match encoder.encode(&instr, 0) {
+			Ok(_) => unreachable!(),
+			Err(err) => assert_eq!(InvalidHandler::ERROR_MESSAGE, err),
+		}
+	}
+}
+
+#[test]
+fn verify_encoder_options() {
+	for bitness in [16, 32, 64].iter() {
+		let encoder = Encoder::new(*bitness);
+		assert!(!encoder.prevent_vex2());
+		assert_eq!(0, encoder.vex_wig());
+		assert_eq!(0, encoder.vex_lig());
+		assert_eq!(0, encoder.evex_wig());
+		assert_eq!(0, encoder.evex_lig());
+	}
+}
+
+#[test]
+fn get_set_wig_lig_options() {
+	for bitness in [16, 32, 64].iter() {
+		let mut encoder = Encoder::new(*bitness);
+
+		encoder.set_vex_lig(1);
+		encoder.set_vex_wig(0);
+		assert_eq!(0, encoder.vex_wig());
+		assert_eq!(1, encoder.vex_lig());
+		encoder.set_vex_wig(1);
+		assert_eq!(1, encoder.vex_wig());
+		assert_eq!(1, encoder.vex_lig());
+
+		encoder.set_vex_wig(0xFFFF_FFFE);
+		assert_eq!(0, encoder.vex_wig());
+		assert_eq!(1, encoder.vex_lig());
+		encoder.set_vex_wig(0xFFFF_FFFF);
+		assert_eq!(1, encoder.vex_wig());
+		assert_eq!(1, encoder.vex_lig());
+
+		encoder.set_vex_wig(1);
+		encoder.set_vex_lig(0);
+		assert_eq!(0, encoder.vex_lig());
+		assert_eq!(1, encoder.vex_wig());
+		encoder.set_vex_lig(1);
+		assert_eq!(1, encoder.vex_lig());
+		assert_eq!(1, encoder.vex_wig());
+
+		encoder.set_vex_lig(0xFFFF_FFFE);
+		assert_eq!(0, encoder.vex_lig());
+		assert_eq!(1, encoder.vex_wig());
+		encoder.set_vex_lig(0xFFFF_FFFF);
+		assert_eq!(1, encoder.vex_lig());
+		assert_eq!(1, encoder.vex_wig());
+
+		encoder.set_evex_lig(3);
+		encoder.set_evex_wig(0);
+		assert_eq!(0, encoder.evex_wig());
+		assert_eq!(3, encoder.evex_lig());
+		encoder.set_evex_wig(1);
+		assert_eq!(1, encoder.evex_wig());
+		assert_eq!(3, encoder.evex_lig());
+
+		encoder.set_evex_wig(0xFFFF_FFFE);
+		assert_eq!(0, encoder.evex_wig());
+		assert_eq!(3, encoder.evex_lig());
+		encoder.set_evex_wig(0xFFFF_FFFF);
+		assert_eq!(1, encoder.evex_wig());
+		assert_eq!(3, encoder.evex_lig());
+
+		encoder.set_evex_wig(1);
+		encoder.set_evex_lig(0);
+		assert_eq!(0, encoder.evex_lig());
+		assert_eq!(1, encoder.evex_wig());
+		encoder.set_evex_lig(1);
+		assert_eq!(1, encoder.evex_lig());
+		assert_eq!(1, encoder.evex_wig());
+		encoder.set_evex_lig(2);
+		assert_eq!(2, encoder.evex_lig());
+		assert_eq!(1, encoder.evex_wig());
+		encoder.set_evex_lig(3);
+		assert_eq!(3, encoder.evex_lig());
+		assert_eq!(1, encoder.evex_wig());
+
+		encoder.set_evex_lig(0xFFFF_FFFC);
+		assert_eq!(0, encoder.evex_lig());
+		assert_eq!(1, encoder.evex_wig());
+		encoder.set_evex_lig(0xFFFF_FFFD);
+		assert_eq!(1, encoder.evex_lig());
+		assert_eq!(1, encoder.evex_wig());
+		encoder.set_evex_lig(0xFFFF_FFFE);
+		assert_eq!(2, encoder.evex_lig());
+		assert_eq!(1, encoder.evex_wig());
+		encoder.set_evex_lig(0xFFFF_FFFF);
+		assert_eq!(3, encoder.evex_lig());
+		assert_eq!(1, encoder.evex_wig());
+	}
+}
+
+#[test]
+fn prevent_vex2_encoding() {
+	let tests = [
+		("C5FC 10 10", "C4E17C 10 10", Code::VEX_Vmovups_ymm_ymmm256, true),
+		("C5FC 10 10", "C5FC 10 10", Code::VEX_Vmovups_ymm_ymmm256, false),
+	];
+	for tc in tests.iter() {
+		let (hex_bytes, expected_bytes, code, prevent_vex2) = *tc;
+		let hex_bytes = to_vec_u8(hex_bytes).unwrap();
+		let mut decoder = create_decoder(64, &hex_bytes, 0).0;
+		let instr = decoder.decode();
+		assert_eq!(code, instr.code());
+		let mut encoder = Encoder::new(decoder.bitness());
+		encoder.set_prevent_vex2(prevent_vex2);
+		let _ = encoder.encode(&instr, instr.ip()).unwrap();
+		let encoded_bytes = encoder.take_buffer();
+		let expected_bytes = to_vec_u8(expected_bytes).unwrap();
+		assert_eq!(expected_bytes, encoded_bytes);
+	}
+}
+
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[test]
+fn test_vex_wig_lig() {
+	let tests = [
+		("C5CA 10 CD", "C5CA 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 0, 0),
+		("C5CA 10 CD", "C5CE 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 0, 1),
+		("C5CA 10 CD", "C5CA 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 1, 0),
+		("C5CA 10 CD", "C5CE 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 1, 1),
+
+		("C4414A 10 CD", "C4414A 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 0, 0),
+		("C4414A 10 CD", "C4414E 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 0, 1),
+		("C4414A 10 CD", "C441CA 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 1, 0),
+		("C4414A 10 CD", "C441CE 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 1, 1),
+
+		("C5F9 50 D3", "C5F9 50 D3", Code::VEX_Vmovmskpd_r32_xmm, 0, 0),
+		("C5F9 50 D3", "C5F9 50 D3", Code::VEX_Vmovmskpd_r32_xmm, 0, 1),
+		("C5F9 50 D3", "C5F9 50 D3", Code::VEX_Vmovmskpd_r32_xmm, 1, 0),
+		("C5F9 50 D3", "C5F9 50 D3", Code::VEX_Vmovmskpd_r32_xmm, 1, 1),
+
+		("C4C179 50 D3", "C4C179 50 D3", Code::VEX_Vmovmskpd_r32_xmm, 0, 0),
+		("C4C179 50 D3", "C4C179 50 D3", Code::VEX_Vmovmskpd_r32_xmm, 0, 1),
+		("C4C179 50 D3", "C4C179 50 D3", Code::VEX_Vmovmskpd_r32_xmm, 1, 0),
+		("C4C179 50 D3", "C4C179 50 D3", Code::VEX_Vmovmskpd_r32_xmm, 1, 1),
+	];
+	for tc in tests.iter() {
+		let (hex_bytes, expected_bytes, code, wig, lig) = *tc;
+		let hex_bytes = to_vec_u8(hex_bytes).unwrap();
+		let mut decoder = create_decoder(64, &hex_bytes, 0).0;
+		let instr = decoder.decode();
+		assert_eq!(code, instr.code());
+		let mut encoder = Encoder::new(decoder.bitness());
+		encoder.set_vex_wig(wig);
+		encoder.set_vex_lig(lig);
+		let _ = encoder.encode(&instr, instr.ip()).unwrap();
+		let encoded_bytes = encoder.take_buffer();
+		let expected_bytes = to_vec_u8(expected_bytes).unwrap();
+		assert_eq!(expected_bytes, encoded_bytes);
+	}
+}
+
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[test]
+fn test_evex_wig_lig() {
+	let tests = [
+		("62 F14E08 10 D3", "62 F14E08 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 0),
+		("62 F14E08 10 D3", "62 F14E28 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 1),
+		("62 F14E08 10 D3", "62 F14E48 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 2),
+		("62 F14E08 10 D3", "62 F14E68 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 3),
+
+		("62 F14E08 10 D3", "62 F14E08 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 1, 0),
+		("62 F14E08 10 D3", "62 F14E28 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 1, 1),
+		("62 F14E08 10 D3", "62 F14E48 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 1, 2),
+		("62 F14E08 10 D3", "62 F14E68 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 1, 3),
+
+		("62 F14D0B 60 50 01", "62 F14D0B 60 50 01", Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 0, 0),
+		("62 F14D0B 60 50 01", "62 F14D0B 60 50 01", Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 0, 1),
+		("62 F14D0B 60 50 01", "62 F14D0B 60 50 01", Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 0, 2),
+		("62 F14D0B 60 50 01", "62 F14D0B 60 50 01", Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 0, 3),
+
+		("62 F14D0B 60 50 01", "62 F1CD0B 60 50 01", Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 1, 0),
+		("62 F14D0B 60 50 01", "62 F1CD0B 60 50 01", Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 1, 1),
+		("62 F14D0B 60 50 01", "62 F1CD0B 60 50 01", Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 1, 2),
+		("62 F14D0B 60 50 01", "62 F1CD0B 60 50 01", Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128, 1, 3),
+
+		("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 0, 0),
+		("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 0, 1),
+		("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 0, 2),
+		("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 0, 3),
+
+		("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 1, 0),
+		("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 1, 1),
+		("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 1, 2),
+		("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 1, 3),
+	];
+	for tc in tests.iter() {
+		let (hex_bytes, expected_bytes, code, wig, lig) = *tc;
+		let hex_bytes = to_vec_u8(hex_bytes).unwrap();
+		let mut decoder = create_decoder(64, &hex_bytes, 0).0;
+		let instr = decoder.decode();
+		assert_eq!(code, instr.code());
+		let mut encoder = Encoder::new(decoder.bitness());
+		encoder.set_evex_wig(wig);
+		encoder.set_evex_lig(lig);
+		let _ = encoder.encode(&instr, instr.ip()).unwrap();
+		let encoded_bytes = encoder.take_buffer();
+		let expected_bytes = to_vec_u8(expected_bytes).unwrap();
+		assert_eq!(expected_bytes, encoded_bytes);
+	}
 }

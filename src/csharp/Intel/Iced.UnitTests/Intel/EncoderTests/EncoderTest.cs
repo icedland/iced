@@ -143,7 +143,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			}
 		}
 
-		protected void EncodeInvalidBase(uint id, int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidCodeSize) {
+		protected void EncodeInvalidBase(uint id, int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidBitness) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
 			var decoder = CreateDecoder(codeSize, origBytes, options);
 			var origRip = decoder.IP;
@@ -160,12 +160,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(afterRip, origInstr.NextIP);
 
 			var writer = new CodeWriterImpl();
-			var encoder = CreateEncoder(invalidCodeSize, writer);
-			var origInstrCopy = origInstr;
+			var encoder = CreateEncoder(invalidBitness, writer);
 			bool result = encoder.TryEncode(origInstr, origRip, out uint encodedInstrLen, out string errorMessage);
-			Assert.Equal(invalidCodeSize == 64 ? Encoder.ERROR_ONLY_1632_BIT_MODE : Encoder.ERROR_ONLY_64_BIT_MODE, errorMessage);
+			Assert.Equal(invalidBitness == 64 ? Encoder.ERROR_ONLY_1632_BIT_MODE : Encoder.ERROR_ONLY_64_BIT_MODE, errorMessage);
 			Assert.False(result);
-			Assert.True(Instruction.EqualsAllBits(origInstr, origInstrCopy));
 		}
 
 		Encoder CreateEncoder(int codeSize, CodeWriter writer) {

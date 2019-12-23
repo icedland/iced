@@ -167,29 +167,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(expected, actual);
 		}
 
-		// Some AMD CPUs support LOCK MOV CR0 = MOV CR8. Make sure we never encode MOV CR8 in 64-bit mode with a LOCK prefix
-		[Theory]
-		[InlineData("44 0F20 C1", Code.Mov_r64_cr, "44 0F20 C1")]
-		[InlineData("44 0F22 C1", Code.Mov_cr_r64, "44 0F22 C1")]
-		[InlineData("F0 0F20 C1", Code.Mov_r64_cr, "44 0F20 C1")]
-		[InlineData("F0 0F22 C1", Code.Mov_cr_r64, "44 0F22 C1")]
-		void Encode_MOV_CR8_in_64bit_mode_does_not_add_LOCK(string hexBytes, Code code, string encodedBytes) {
-			var decoder = Decoder.Create(64, new ByteArrayCodeReader(hexBytes));
-			decoder.Decode(out var instr);
-			Assert.Equal(code, instr.Code);
-			Assert.False(instr.HasLockPrefix);
-			if (code == Code.Mov_cr_r64)
-				Assert.Equal(Register.CR8, instr.Op0Register);
-			else
-				Assert.Equal(Register.CR8, instr.Op1Register);
-			var writer = new CodeWriterImpl();
-			var encoder = Encoder.Create(decoder.Bitness, writer);
-			encoder.Encode(instr, 0);
-			var expectedBytes = HexUtils.ToByteArray(encodedBytes);
-			var actualBytes = writer.ToArray();
-			Assert.Equal(expectedBytes, actualBytes);
-		}
-
 		[Theory]
 		[InlineData(16)]
 		[InlineData(32)]
@@ -213,54 +190,74 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			encoder.VEX_LIG = 1;
 			encoder.VEX_WIG = 0;
 			Assert.Equal(0U, encoder.VEX_WIG);
+			Assert.Equal(1U, encoder.VEX_LIG);
 			encoder.VEX_WIG = 1;
 			Assert.Equal(1U, encoder.VEX_WIG);
+			Assert.Equal(1U, encoder.VEX_LIG);
 
 			encoder.VEX_WIG = 0xFFFFFFFE;
 			Assert.Equal(0U, encoder.VEX_WIG);
+			Assert.Equal(1U, encoder.VEX_LIG);
 			encoder.VEX_WIG = 0xFFFFFFFF;
 			Assert.Equal(1U, encoder.VEX_WIG);
+			Assert.Equal(1U, encoder.VEX_LIG);
 
 			encoder.VEX_WIG = 1;
 			encoder.VEX_LIG = 0;
 			Assert.Equal(0U, encoder.VEX_LIG);
+			Assert.Equal(1U, encoder.VEX_WIG);
 			encoder.VEX_LIG = 1;
 			Assert.Equal(1U, encoder.VEX_LIG);
+			Assert.Equal(1U, encoder.VEX_WIG);
 
 			encoder.VEX_LIG = 0xFFFFFFFE;
 			Assert.Equal(0U, encoder.VEX_LIG);
+			Assert.Equal(1U, encoder.VEX_WIG);
 			encoder.VEX_LIG = 0xFFFFFFFF;
 			Assert.Equal(1U, encoder.VEX_LIG);
+			Assert.Equal(1U, encoder.VEX_WIG);
 
 			encoder.EVEX_LIG = 3;
 			encoder.EVEX_WIG = 0;
 			Assert.Equal(0U, encoder.EVEX_WIG);
+			Assert.Equal(3U, encoder.EVEX_LIG);
 			encoder.EVEX_WIG = 1;
 			Assert.Equal(1U, encoder.EVEX_WIG);
+			Assert.Equal(3U, encoder.EVEX_LIG);
 
 			encoder.EVEX_WIG = 0xFFFFFFFE;
 			Assert.Equal(0U, encoder.EVEX_WIG);
+			Assert.Equal(3U, encoder.EVEX_LIG);
 			encoder.EVEX_WIG = 0xFFFFFFFF;
 			Assert.Equal(1U, encoder.EVEX_WIG);
+			Assert.Equal(3U, encoder.EVEX_LIG);
 
 			encoder.EVEX_WIG = 1;
 			encoder.EVEX_LIG = 0;
 			Assert.Equal(0U, encoder.EVEX_LIG);
+			Assert.Equal(1U, encoder.EVEX_WIG);
 			encoder.EVEX_LIG = 1;
 			Assert.Equal(1U, encoder.EVEX_LIG);
+			Assert.Equal(1U, encoder.EVEX_WIG);
 			encoder.EVEX_LIG = 2;
 			Assert.Equal(2U, encoder.EVEX_LIG);
+			Assert.Equal(1U, encoder.EVEX_WIG);
 			encoder.EVEX_LIG = 3;
 			Assert.Equal(3U, encoder.EVEX_LIG);
+			Assert.Equal(1U, encoder.EVEX_WIG);
 
 			encoder.EVEX_LIG = 0xFFFFFFFC;
 			Assert.Equal(0U, encoder.EVEX_LIG);
+			Assert.Equal(1U, encoder.EVEX_WIG);
 			encoder.EVEX_LIG = 0xFFFFFFFD;
 			Assert.Equal(1U, encoder.EVEX_LIG);
+			Assert.Equal(1U, encoder.EVEX_WIG);
 			encoder.EVEX_LIG = 0xFFFFFFFE;
 			Assert.Equal(2U, encoder.EVEX_LIG);
+			Assert.Equal(1U, encoder.EVEX_WIG);
 			encoder.EVEX_LIG = 0xFFFFFFFF;
 			Assert.Equal(3U, encoder.EVEX_LIG);
+			Assert.Equal(1U, encoder.EVEX_WIG);
 		}
 
 		[Theory]
