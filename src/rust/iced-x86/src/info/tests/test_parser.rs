@@ -46,11 +46,7 @@ impl InstrInfoTestParser {
 		let display_filename = filename.display().to_string();
 		let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
 		let lines = BufReader::new(file).lines();
-		Self {
-			filename: display_filename,
-			lines,
-			bitness,
-		}
+		Self { filename: display_filename, lines, bitness }
 	}
 }
 
@@ -95,14 +91,7 @@ impl IntoIterator for InstrInfoTestParser {
 			let _ = to_register.insert(format!("{}{}", MiscInstrInfoTestConstants::VMM_PREFIX, i), register);
 		}
 
-		IntoIter {
-			filename: self.filename,
-			lines: self.lines,
-			bitness: self.bitness,
-			line_number: 0,
-			to_register,
-			to_access,
-		}
+		IntoIter { filename: self.filename, lines: self.lines, bitness: self.bitness, line_number: 0, to_register, to_access }
 	}
 }
 
@@ -261,10 +250,7 @@ impl Iterator for IntoIter {
 					};
 					match result {
 						Ok(tc) => return Some(tc),
-						Err(err) => panic!(
-							"Error parsing instruction info test case file '{}', line {}: {}",
-							self.filename, self.line_number, err
-						),
+						Err(err) => panic!("Error parsing instruction info test case file '{}', line {}: {}", self.filename, self.line_number, err),
 					}
 				}
 			}
@@ -459,8 +445,7 @@ impl IntoIter {
 					_ => unreachable!(),
 				}
 				if access != OpAccess::NoMemAccess {
-					tc.used_memory
-						.push(UsedMemory::new(segment, base, index, scale, displ, memory_size, access));
+					tc.used_memory.push(UsedMemory::new(segment, base, index, scale, displ, memory_size, access));
 				}
 				Ok(true)
 			}

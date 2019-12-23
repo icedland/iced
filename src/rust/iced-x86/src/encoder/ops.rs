@@ -294,11 +294,7 @@ impl Op for OpI2 {
 		debug_assert_eq!(ImmSize::SizeIbReg, encoder.imm_size);
 		debug_assert_eq!(0, (encoder.immediate & 3));
 		if instruction.immediate8() > 3 {
-			encoder.set_error_message(format!(
-				"Operand {}: Immediate value must be 0-3, but value is 0x{:02X}",
-				operand,
-				instruction.immediate8()
-			));
+			encoder.set_error_message(format!("Operand {}: Immediate value must be 0-3, but value is 0x{:02X}", operand, instruction.immediate8()));
 			return;
 		}
 		encoder.imm_size = ImmSize::Size1;
@@ -365,10 +361,8 @@ impl Op for OpY {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		let regy_size = OpX::get_yreg_size(instruction.op_kind(operand));
 		if regy_size == 0 {
-			encoder.set_error_message(format!(
-				"Operand {}: expected OpKind = OpKind::MemoryESDI, OpKind::MemoryESEDI or OpKind::MemoryESRDI",
-				operand
-			));
+			encoder
+				.set_error_message(format!("Operand {}: expected OpKind = OpKind::MemoryESDI, OpKind::MemoryESEDI or OpKind::MemoryESRDI", operand));
 			return;
 		}
 		match instruction.code() {
@@ -456,11 +450,7 @@ impl Op for OpJdisp {
 	}
 
 	fn near_branch_op_kind(&self) -> Option<OpKind> {
-		Some(if self.displ_size == 2 {
-			OpKind::NearBranch16
-		} else {
-			OpKind::NearBranch32
-		})
+		Some(if self.displ_size == 2 { OpKind::NearBranch16 } else { OpKind::NearBranch32 })
 	}
 }
 
@@ -496,12 +486,7 @@ impl Op for OpImm {
 			return;
 		}
 		if instruction.immediate8() != self.value {
-			encoder.set_error_message(format!(
-				"Operand {}: Expected 0x{:02X}, actual: 0x{:02X}",
-				operand,
-				self.value,
-				instruction.immediate8()
-			));
+			encoder.set_error_message(format!("Operand {}: Expected 0x{:02X}, actual: 0x{:02X}", operand, self.value, instruction.immediate8()));
 			return;
 		}
 	}

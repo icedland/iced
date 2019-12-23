@@ -86,33 +86,22 @@ fn encode_test(info: &DecoderTestInfo) {
 
 	let expected_bytes = to_vec_u8(info.encoded_hex_bytes()).unwrap();
 	if expected_bytes != encoded_bytes {
-		assert_eq!(
-			slice_u8_to_string(expected_bytes.as_slice()),
-			slice_u8_to_string(encoded_bytes.as_slice())
-		);
+		assert_eq!(slice_u8_to_string(expected_bytes.as_slice()), slice_u8_to_string(encoded_bytes.as_slice()));
 		panic!();
 	}
 
-	let mut new_instr = create_decoder(info.bitness(), encoded_bytes.as_slice(), info.decoder_options())
-		.0
-		.decode();
+	let mut new_instr = create_decoder(info.bitness(), encoded_bytes.as_slice(), info.decoder_options()).0.decode();
 	assert_eq!(info.code(), new_instr.code());
 	assert_eq!(encoded_bytes.len(), new_instr.len());
 	new_instr.set_len(orig_instr.len());
 	new_instr.set_next_ip(orig_instr.next_ip());
 	if orig_bytes.len() != expected_bytes.len() && (orig_instr.memory_base() == Register::EIP || orig_instr.memory_base() == Register::RIP) {
-		let displ = new_instr
-			.memory_displacement()
-			.wrapping_add((expected_bytes.len().wrapping_sub(orig_bytes.len())) as u32);
+		let displ = new_instr.memory_displacement().wrapping_add((expected_bytes.len().wrapping_sub(orig_bytes.len())) as u32);
 		new_instr.set_memory_displacement(displ);
 	}
 	assert!(orig_instr.eq_all_bits(&new_instr));
 	// Some tests use useless or extra prefixes, so we can't verify the exact length
-	assert!(
-		encoded_bytes.len() <= orig_bytes.len(),
-		"Unexpected encoded prefixes: {}",
-		slice_u8_to_string(encoded_bytes.as_slice())
-	);
+	assert!(encoded_bytes.len() <= orig_bytes.len(), "Unexpected encoded prefixes: {}", slice_u8_to_string(encoded_bytes.as_slice()));
 }
 
 fn fix_constant_offsets(co: &mut ConstantOffsets, orig_len: usize, new_len: usize) {
@@ -195,11 +184,7 @@ fn encode_invalid_test(invalid_bitness: u32, tc: Rc<DecoderTestInfo>) {
 	match encoder.encode(&orig_instr, orig_rip) {
 		Ok(_) => unreachable!(),
 		Err(err) => {
-			let expected_err = if invalid_bitness == 64 {
-				Encoder::ERROR_ONLY_1632_BIT_MODE
-			} else {
-				Encoder::ERROR_ONLY_64_BIT_MODE
-			};
+			let expected_err = if invalid_bitness == 64 { Encoder::ERROR_ONLY_1632_BIT_MODE } else { Encoder::ERROR_ONLY_64_BIT_MODE };
 			assert_eq!(expected_err, err);
 		}
 	}
@@ -365,6 +350,7 @@ fn get_set_wig_lig_options() {
 	}
 }
 
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 #[test]
 fn prevent_vex2_encoding() {
 	let tests = [

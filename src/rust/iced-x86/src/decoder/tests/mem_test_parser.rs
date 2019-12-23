@@ -41,11 +41,7 @@ impl DecoderMemoryTestParser {
 		let display_filename = filename.display().to_string();
 		let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
 		let lines = BufReader::new(file).lines();
-		Self {
-			filename: display_filename,
-			lines,
-			bitness,
-		}
+		Self { filename: display_filename, lines, bitness }
 	}
 }
 
@@ -54,12 +50,7 @@ impl IntoIterator for DecoderMemoryTestParser {
 	type IntoIter = IntoIter;
 
 	fn into_iter(self) -> Self::IntoIter {
-		IntoIter {
-			filename: self.filename,
-			lines: self.lines,
-			bitness: self.bitness,
-			line_number: 0,
-		}
+		IntoIter { filename: self.filename, lines: self.lines, bitness: self.bitness, line_number: 0 }
 	}
 }
 
@@ -90,10 +81,7 @@ impl Iterator for IntoIter {
 					};
 					match result {
 						Ok(tc) => return Some(tc),
-						Err(err) => panic!(
-							"Error parsing decoder memory test case file '{}', line {}: {}",
-							self.filename, self.line_number, err
-						),
+						Err(err) => panic!("Error parsing decoder memory test case file '{}', line {}: {}", self.filename, self.line_number, err),
 					}
 				}
 			}

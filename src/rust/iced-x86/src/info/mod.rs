@@ -106,16 +106,7 @@ impl UsedMemory {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn new(segment: Register, base: Register, index: Register, scale: u32, displacement: u64, memory_size: MemorySize, access: OpAccess) -> Self {
-		Self {
-			segment,
-			base,
-			index,
-			scale: scale as u8,
-			displacement,
-			memory_size,
-			access,
-			_pad: 0,
-		}
+		Self { segment, base, index, scale: scale as u8, displacement, memory_size, access, _pad: 0 }
 	}
 
 	/// Effective segment register

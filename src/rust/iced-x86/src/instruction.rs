@@ -684,11 +684,8 @@ impl Instruction {
 	/// * `new_value`: Segment register prefix
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_segment_prefix(&mut self, new_value: Register) {
-		let enc_value = if new_value == Register::None {
-			0
-		} else {
-			(((new_value as u32) - (Register::ES as u32)) + 1) & MemoryFlags::SEGMENT_PREFIX_MASK
-		};
+		let enc_value =
+			if new_value == Register::None { 0 } else { (((new_value as u32) - (Register::ES as u32)) + 1) & MemoryFlags::SEGMENT_PREFIX_MASK };
 		self.memory_flags = (((self.memory_flags as u32) & !(MemoryFlags::SEGMENT_PREFIX_MASK << MemoryFlags::SEGMENT_PREFIX_SHIFT))
 			| (enc_value << MemoryFlags::SEGMENT_PREFIX_SHIFT)) as u16;
 	}
@@ -1609,11 +1606,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_op_mask(&mut self, new_value: Register) {
-		let r = if new_value == Register::None {
-			0
-		} else {
-			(new_value as u32 - Register::K0 as u32) & CodeFlags::OP_MASK_MASK
-		};
+		let r = if new_value == Register::None { 0 } else { (new_value as u32 - Register::K0 as u32) & CodeFlags::OP_MASK_MASK };
 		self.code_flags = (self.code_flags & !(CodeFlags::OP_MASK_MASK << CodeFlags::OP_MASK_SHIFT)) | (r << CodeFlags::OP_MASK_SHIFT);
 	}
 
@@ -3192,10 +3185,7 @@ impl fmt::Display for Instruction {
 		Ok(())
 	}
 }
-#[cfg(all(
-	not(any(feature = "masm_formatter", feature = "all_formatters")),
-	any(feature = "nasm_formatter", feature = "all_formatters")
-))]
+#[cfg(all(not(any(feature = "masm_formatter", feature = "all_formatters")), any(feature = "nasm_formatter", feature = "all_formatters")))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {

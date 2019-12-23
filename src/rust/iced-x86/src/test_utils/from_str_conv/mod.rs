@@ -99,11 +99,7 @@ pub(crate) fn to_vec_u8(hex_data: &str) -> Result<Vec<u8>, String> {
 
 pub(crate) fn to_u64(value: &str) -> Result<u64, String> {
 	let value = value.trim();
-	let result = if value.starts_with("0x") {
-		u64::from_str_radix(&value[2..], 16)
-	} else {
-		value.trim().parse()
-	};
+	let result = if value.starts_with("0x") { u64::from_str_radix(&value[2..], 16) } else { value.trim().parse() };
 	match result {
 		Ok(value) => Ok(value),
 		Err(_) => Err(format!("Invalid number: {}", value)),
@@ -112,11 +108,7 @@ pub(crate) fn to_u64(value: &str) -> Result<u64, String> {
 
 pub(crate) fn to_i64(value: &str) -> Result<i64, String> {
 	let value = value.trim();
-	let result = if value.starts_with("0x") {
-		i64::from_str_radix(&value[2..], 16)
-	} else {
-		value.trim().parse()
-	};
+	let result = if value.starts_with("0x") { i64::from_str_radix(&value[2..], 16) } else { value.trim().parse() };
 	match result {
 		Ok(value) => Ok(value),
 		Err(_) => Err(format!("Invalid number: {}", value)),

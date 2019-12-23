@@ -42,10 +42,7 @@ impl RegisterInfoTestParser {
 		let display_filename = filename.display().to_string();
 		let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
 		let lines = BufReader::new(file).lines();
-		Self {
-			filename: display_filename,
-			lines,
-		}
+		Self { filename: display_filename, lines }
 	}
 }
 
@@ -69,12 +66,7 @@ impl IntoIterator for RegisterInfoTestParser {
 		let _ = to_flags.insert("vec", RegisterFlags::VECTOR_REGISTER);
 		// GENERATOR-END: FlagsDict
 
-		IntoIter {
-			filename: self.filename,
-			lines: self.lines,
-			line_number: 0,
-			to_flags,
-		}
+		IntoIter { filename: self.filename, lines: self.lines, line_number: 0, to_flags }
 	}
 }
 
@@ -105,10 +97,7 @@ impl Iterator for IntoIter {
 					};
 					match result {
 						Ok(tc) => return Some(tc),
-						Err(err) => panic!(
-							"Error parsing register info test case file '{}', line {}: {}",
-							self.filename, self.line_number, err
-						),
+						Err(err) => panic!("Error parsing register info test case file '{}', line {}: {}", self.filename, self.line_number, err),
 					}
 				}
 			}

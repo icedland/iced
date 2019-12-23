@@ -47,27 +47,9 @@ union HandlerTransmuter<F: 'static> {
 }
 
 // 26,2E,36,3E,64,65,66,67,F0,F2,F3
-static PREFIXES1632: [u32; 8] = [
-	0x0000_0000,
-	0x4040_4040,
-	0x0000_0000,
-	0x0000_00F0,
-	0x0000_0000,
-	0x0000_0000,
-	0x0000_0000,
-	0x000D_0000,
-];
+static PREFIXES1632: [u32; 8] = [0x0000_0000, 0x4040_4040, 0x0000_0000, 0x0000_00F0, 0x0000_0000, 0x0000_0000, 0x0000_0000, 0x000D_0000];
 // 26,2E,36,3E,64,65,66,67,F0,F2,F3 and 40-4F
-static PREFIXES64: [u32; 8] = [
-	0x0000_0000,
-	0x4040_4040,
-	0x0000_FFFF,
-	0x0000_00F0,
-	0x0000_0000,
-	0x0000_0000,
-	0x0000_0000,
-	0x000D_0000,
-];
+static PREFIXES64: [u32; 8] = [0x0000_0000, 0x4040_4040, 0x0000_FFFF, 0x0000_00F0, 0x0000_0000, 0x0000_0000, 0x0000_0000, 0x000D_0000];
 
 static MEM_REGS_16: [(Register, Register); 8] = [
 	(Register::BX, Register::SI),
@@ -390,11 +372,7 @@ impl<'a> Decoder<'a> {
 			instr_start_data_ptr: data.as_ptr(),
 			state: State::default(),
 			options,
-			invalid_check_mask: if (options & DecoderOptions::NO_INVALID_CHECK) == 0 {
-				std::u32::MAX
-			} else {
-				0
-			},
+			invalid_check_mask: if (options & DecoderOptions::NO_INVALID_CHECK) == 0 { std::u32::MAX } else { 0 },
 			is64_mode_and_w: if is64_mode { StateFlags::W } else { 0 },
 			default_code_size,
 			default_operand_size,

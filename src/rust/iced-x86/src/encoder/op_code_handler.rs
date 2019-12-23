@@ -125,16 +125,8 @@ pub(crate) struct LegacyHandler {
 
 impl LegacyHandler {
 	pub(crate) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
-		let group_index = if (dword2 & LegacyFlags::HAS_GROUP_INDEX) == 0 {
-			-1
-		} else {
-			((dword2 >> LegacyFlags::GROUP_SHIFT) & 7) as i32
-		};
-		let flags = if (dword2 & LegacyFlags::FWAIT) != 0 {
-			OpCodeHandlerFlags::FWAIT
-		} else {
-			OpCodeHandlerFlags::NONE
-		};
+		let group_index = if (dword2 & LegacyFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> LegacyFlags::GROUP_SHIFT) & 7) as i32 };
+		let flags = if (dword2 & LegacyFlags::FWAIT) != 0 { OpCodeHandlerFlags::FWAIT } else { OpCodeHandlerFlags::NONE };
 		let table: LegacyOpCodeTable =
 			unsafe { mem::transmute(((dword2 >> LegacyFlags::LEGACY_OP_CODE_TABLE_SHIFT) & LegacyFlags::LEGACY_OP_CODE_TABLE_MASK) as u8) };
 		let (table_byte1, table_byte2) = match table {
@@ -254,20 +246,12 @@ pub(crate) struct VexHandler {
 
 impl VexHandler {
 	pub(crate) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
-		let group_index = if (dword2 & VexFlags::HAS_GROUP_INDEX) == 0 {
-			-1
-		} else {
-			((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i32
-		};
+		let group_index = if (dword2 & VexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i32 };
 		let wbit: WBit = unsafe { mem::transmute(((dword2 >> VexFlags::WBIT_SHIFT) & VexFlags::WBIT_MASK) as u8) };
 		let w1 = wbit == WBit::W1;
 		let vex_flags: VexVectorLength =
 			unsafe { mem::transmute(((dword2 >> VexFlags::VEX_VECTOR_LENGTH_SHIFT) & VexFlags::VEX_VECTOR_LENGTH_MASK) as u8) };
-		let mut last_byte = if vex_flags == VexVectorLength::L1 || vex_flags == VexVectorLength::L256 {
-			4
-		} else {
-			0
-		};
+		let mut last_byte = if vex_flags == VexVectorLength::L1 || vex_flags == VexVectorLength::L256 { 4 } else { 0 };
 		if w1 {
 			last_byte |= 0x80;
 		}
@@ -399,11 +383,7 @@ impl XopHandler {
 		const_assert_eq!(0, XopOpCodeTable::XOP8 as u32);
 		const_assert_eq!(1, XopOpCodeTable::XOP9 as u32);
 		const_assert_eq!(2, XopOpCodeTable::XOPA as u32);
-		let group_index = if (dword2 & XopFlags::HAS_GROUP_INDEX) == 0 {
-			-1
-		} else {
-			((dword2 >> XopFlags::GROUP_SHIFT) & 7) as i32
-		};
+		let group_index = if (dword2 & XopFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> XopFlags::GROUP_SHIFT) & 7) as i32 };
 		let mut last_byte = (dword2 >> (XopFlags::XOP_VECTOR_LENGTH_SHIFT - 2)) & 4;
 		let wbit: WBit = unsafe { mem::transmute(((dword2 >> XopFlags::WBIT_SHIFT) & XopFlags::WBIT_MASK) as u8) };
 		if wbit == WBit::W1 {
@@ -502,11 +482,7 @@ pub(crate) struct EvexHandler {
 
 impl EvexHandler {
 	pub(crate) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
-		let group_index = if (dword2 & EvexFlags::HAS_GROUP_INDEX) == 0 {
-			-1
-		} else {
-			((dword2 >> EvexFlags::GROUP_SHIFT) & 7) as i32
-		};
+		let group_index = if (dword2 & EvexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> EvexFlags::GROUP_SHIFT) & 7) as i32 };
 		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
 		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
 		const_assert_eq!(2, MandatoryPrefixByte::PF3 as u32);
@@ -772,16 +748,8 @@ pub(crate) struct D3nowHandler {
 impl D3nowHandler {
 	pub(crate) fn new(dword1: u32, dword2: u32, _dword3: u32) -> Self {
 		let mut operands = Vec::with_capacity(2);
-		static D3NOW_TABLE: [&(Op + Sync); 2] = [
-			&OpModRM_reg {
-				reg_lo: Register::MM0,
-				reg_hi: Register::MM7,
-			},
-			&OpModRM_rm {
-				reg_lo: Register::MM0,
-				reg_hi: Register::MM7,
-			},
-		];
+		static D3NOW_TABLE: [&(Op + Sync); 2] =
+			[&OpModRM_reg { reg_lo: Register::MM0, reg_hi: Register::MM7 }, &OpModRM_rm { reg_lo: Register::MM0, reg_hi: Register::MM7 }];
 		operands.push(D3NOW_TABLE[0]);
 		operands.push(D3NOW_TABLE[1]);
 

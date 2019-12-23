@@ -292,11 +292,7 @@ impl OpCodeHandler_ReservedNop {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
-		let handler = if (decoder.options & DecoderOptions::FORCE_RESERVED_NOP) != 0 {
-			this.reserved_nop_handler
-		} else {
-			this.other_handler
-		};
+		let handler = if (decoder.options & DecoderOptions::FORCE_RESERVED_NOP) != 0 { this.reserved_nop_handler } else { this.other_handler };
 		(handler.decode)(handler, decoder, instruction);
 	}
 }

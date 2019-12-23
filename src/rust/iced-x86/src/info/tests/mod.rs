@@ -179,10 +179,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(tc.op3_access, info.op3_access());
 	assert_eq!(tc.op4_access, info.op4_access());
 	assert!(tc.used_memory.iter().collect::<HashSet<_>>() == info.used_memory().iter().collect::<HashSet<_>>());
-	assert_eq!(
-		get_used_registers(tc.used_registers.iter()),
-		get_used_registers(info.used_registers().iter())
-	);
+	assert_eq!(get_used_registers(tc.used_registers.iter()), get_used_registers(info.used_registers().iter()));
 	assert_eq!(info.used_memory(), instr.used_memory().as_slice());
 	assert_eq!(info.used_registers(), instr.used_registers().as_slice());
 
@@ -202,26 +199,11 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 		assert_eq!(OpAccess::None, info.op_access(i));
 	}
 
-	assert_eq!(
-		RflagsBits::NONE,
-		info.rflags_written() & (info.rflags_cleared() | info.rflags_set() | info.rflags_undefined())
-	);
-	assert_eq!(
-		RflagsBits::NONE,
-		info.rflags_cleared() & (info.rflags_written() | info.rflags_set() | info.rflags_undefined())
-	);
-	assert_eq!(
-		RflagsBits::NONE,
-		info.rflags_set() & (info.rflags_written() | info.rflags_cleared() | info.rflags_undefined())
-	);
-	assert_eq!(
-		RflagsBits::NONE,
-		info.rflags_undefined() & (info.rflags_written() | info.rflags_cleared() | info.rflags_set())
-	);
-	assert_eq!(
-		info.rflags_written() | info.rflags_cleared() | info.rflags_set() | info.rflags_undefined(),
-		info.rflags_modified()
-	);
+	assert_eq!(RflagsBits::NONE, info.rflags_written() & (info.rflags_cleared() | info.rflags_set() | info.rflags_undefined()));
+	assert_eq!(RflagsBits::NONE, info.rflags_cleared() & (info.rflags_written() | info.rflags_set() | info.rflags_undefined()));
+	assert_eq!(RflagsBits::NONE, info.rflags_set() & (info.rflags_written() | info.rflags_cleared() | info.rflags_undefined()));
+	assert_eq!(RflagsBits::NONE, info.rflags_undefined() & (info.rflags_written() | info.rflags_cleared() | info.rflags_set()));
+	assert_eq!(info.rflags_written() | info.rflags_cleared() | info.rflags_set() | info.rflags_undefined(), info.rflags_modified());
 
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info(&instr);
@@ -236,10 +218,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE);
 	check_equal(&info, info2, false, true);
 	let mut factory2 = InstructionInfoFactory::new();
-	let info2 = factory2.info_options(
-		&instr,
-		InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE,
-	);
+	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE);
 	check_equal(&info, info2, false, false);
 
 	{
@@ -259,10 +238,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 		check_equal(&info, info2, false, true);
 	}
 	{
-		let info2 = factory.info_options(
-			&instr,
-			InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE,
-		);
+		let info2 = factory.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE);
 		check_equal(&info, info2, false, false);
 	}
 
@@ -371,22 +347,10 @@ fn get_used_registers<'a, T: Iterator<Item = &'a UsedRegister>>(iter: T) -> Vec<
 	}
 
 	let mut h: HashSet<UsedRegister> = HashSet::new();
-	h.extend(get_registers(read).into_iter().map(|reg| UsedRegister {
-		register: reg,
-		access: OpAccess::Read,
-	}));
-	h.extend(get_registers(write).into_iter().map(|reg| UsedRegister {
-		register: reg,
-		access: OpAccess::Write,
-	}));
-	h.extend(get_registers(cond_read).into_iter().map(|reg| UsedRegister {
-		register: reg,
-		access: OpAccess::CondRead,
-	}));
-	h.extend(get_registers(cond_write).into_iter().map(|reg| UsedRegister {
-		register: reg,
-		access: OpAccess::CondWrite,
-	}));
+	h.extend(get_registers(read).into_iter().map(|reg| UsedRegister { register: reg, access: OpAccess::Read }));
+	h.extend(get_registers(write).into_iter().map(|reg| UsedRegister { register: reg, access: OpAccess::Write }));
+	h.extend(get_registers(cond_read).into_iter().map(|reg| UsedRegister { register: reg, access: OpAccess::CondRead }));
+	h.extend(get_registers(cond_write).into_iter().map(|reg| UsedRegister { register: reg, access: OpAccess::CondWrite }));
 	let mut vec: Vec<_> = h.into_iter().collect();
 	vec.sort_by(|x, y| {
 		let c = (*x).register.cmp(&(*y).register);

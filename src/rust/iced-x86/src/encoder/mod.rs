@@ -383,11 +383,7 @@ impl Encoder {
 		if (handler.flags & OpCodeHandlerFlags::DECLARE_DATA) == 0 {
 			let ops = &*handler.operands;
 			if instruction.op_count() as usize != ops.len() {
-				self.set_error_message(format!(
-					"Expected {} operand(s) but the instruction has {} operand(s)",
-					ops.len(),
-					instruction.op_count()
-				));
+				self.set_error_message(format!("Expected {} operand(s) but the instruction has {} operand(s)", ops.len(), instruction.op_count()));
 			}
 			for i in 0..ops.len() {
 				let op = unsafe { *ops.get_unchecked(i) };
@@ -744,15 +740,9 @@ impl Encoder {
 			}
 		} else {
 			if cfg!(debug_assertions) {
-				self.set_error_message(format!(
-					"Operand {}: Expected OpKind::Memory or OpKind::Memory64, actual: {:?}",
-					operand, op_kind
-				));
+				self.set_error_message(format!("Operand {}: Expected OpKind::Memory or OpKind::Memory64, actual: {:?}", operand, op_kind));
 			} else {
-				self.set_error_message(format!(
-					"Operand {}: Expected OpKind::Memory or OpKind::Memory64, actual: {}",
-					operand, op_kind as u32
-				));
+				self.set_error_message(format!("Operand {}: Expected OpKind::Memory or OpKind::Memory64, actual: {}", operand, op_kind as u32));
 			}
 		}
 	}
@@ -812,16 +802,7 @@ impl Encoder {
 	pub(crate) fn add_reg_or_mem(
 		&mut self, instruction: &Instruction, operand: u32, reg_lo: Register, reg_hi: Register, allow_mem_op: bool, allow_reg_op: bool,
 	) {
-		self.add_reg_or_mem_full(
-			instruction,
-			operand,
-			reg_lo,
-			reg_hi,
-			Register::None,
-			Register::None,
-			allow_mem_op,
-			allow_reg_op,
-		);
+		self.add_reg_or_mem_full(instruction, operand, reg_lo, reg_hi, Register::None, Register::None, allow_mem_op, allow_reg_op);
 	}
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
@@ -901,15 +882,9 @@ impl Encoder {
 			}
 		} else {
 			if cfg!(debug_assertions) {
-				self.set_error_message(format!(
-					"Operand {}: Expected a register or memory operand, but op_kind is {:?}",
-					operand, op_kind
-				));
+				self.set_error_message(format!("Operand {}: Expected a register or memory operand, but op_kind is {:?}", operand, op_kind));
 			} else {
-				self.set_error_message(format!(
-					"Operand {}: Expected a register or memory operand, but op_kind is {}",
-					operand, op_kind as u32
-				));
+				self.set_error_message(format!("Operand {}: Expected a register or memory operand, but op_kind is {}", operand, op_kind as u32));
 			}
 		}
 	}
@@ -955,10 +930,7 @@ impl Encoder {
 			self.displ = instruction.memory_displacement();
 		} else {
 			if cfg!(debug_assertions) {
-				self.set_error_message(format!(
-					"Operand {}: Invalid 16-bit base + index registers: base={:?}, index={:?}",
-					operand, base, index
-				));
+				self.set_error_message(format!("Operand {}: Invalid 16-bit base + index registers: base={:?}, index={:?}", operand, base, index));
 			} else {
 				self.set_error_message(format!(
 					"Operand {}: Invalid 16-bit base + index registers: base={}, index={}",
@@ -993,10 +965,7 @@ impl Encoder {
 				self.mod_rm |= 0x80;
 				self.displ_size = DisplSize::Size2;
 			} else {
-				self.set_error_message(format!(
-					"Operand {}: Invalid displacement size: {}, must be 0, 1, or 2",
-					operand, displ_size
-				));
+				self.set_error_message(format!("Operand {}: Invalid displacement size: {}, must be 0, 1, or 2", operand, displ_size));
 				return;
 			}
 		}
@@ -1050,10 +1019,7 @@ impl Encoder {
 				return;
 			}
 			if self.bitness != 64 {
-				self.set_error_message(format!(
-					"Operand {}: RIP/EIP relative addressing is only available in 64-bit mode",
-					operand
-				));
+				self.set_error_message(format!("Operand {}: RIP/EIP relative addressing is only available in 64-bit mode", operand));
 				return;
 			}
 			self.mod_rm |= 5;
@@ -1087,16 +1053,8 @@ impl Encoder {
 			}
 		}
 
-		let base_num = if base == Register::None {
-			-1
-		} else {
-			(base as i32).wrapping_sub(base_lo as i32)
-		};
-		let index_num = if index == Register::None {
-			-1
-		} else {
-			(index as i32).wrapping_sub(index_lo as i32)
-		};
+		let base_num = if base == Register::None { -1 } else { (base as i32).wrapping_sub(base_lo as i32) };
+		let index_num = if index == Register::None { -1 } else { (index as i32).wrapping_sub(index_lo as i32) };
 
 		// [ebp] => [ebp+00]
 		if displ_size == 0 && index == Register::None && (base_num & 7) == 5 {
@@ -1242,9 +1200,7 @@ impl Encoder {
 			}
 
 			DisplSize::RipRelSize4_Target32 => {
-				let eip = (self.current_rip as u32)
-					.wrapping_add(4)
-					.wrapping_add(unsafe { *IMM_SIZES.get_unchecked(self.imm_size as usize) });
+				let eip = (self.current_rip as u32).wrapping_add(4).wrapping_add(unsafe { *IMM_SIZES.get_unchecked(self.imm_size as usize) });
 				diff4 = self.displ.wrapping_sub(eip);
 				self.write_byte(diff4);
 				self.write_byte(diff4 >> 8);
@@ -1253,10 +1209,7 @@ impl Encoder {
 			}
 
 			DisplSize::RipRelSize4_Target64 => {
-				let rip = self
-					.current_rip
-					.wrapping_add(4)
-					.wrapping_add(unsafe { *IMM_SIZES.get_unchecked(self.imm_size as usize) } as u64);
+				let rip = self.current_rip.wrapping_add(4).wrapping_add(unsafe { *IMM_SIZES.get_unchecked(self.imm_size as usize) } as u64);
 				let diff8 = ((((self.displ_hi as u64) << 32) | self.displ as u64).wrapping_sub(rip)) as i64;
 				if diff8 < i32::MIN as i64 || diff8 > i32::MAX as i64 {
 					tmp2 = ((self.displ_hi as u64) << 32) | self.displ as u64;
