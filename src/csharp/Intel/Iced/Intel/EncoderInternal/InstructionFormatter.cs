@@ -472,7 +472,7 @@ namespace Iced.Intel.EncoderInternal {
 			if (startOpIndex < opCount) {
 				sb.Append(' ');
 				int saeErIndex = opCount - 1;
-				if (opCode.GetOpKind(saeErIndex) == OpCodeOperandKind.imm8)
+				if (opCode.Encoding != EncodingKind.Legacy && opCode.GetOpKind(saeErIndex) == OpCodeOperandKind.imm8)
 					saeErIndex--;
 				bool addComma = false;
 				for (int i = startOpIndex; i < opCount; i++) {

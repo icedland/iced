@@ -32,6 +32,8 @@ use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
 use super::op_code_handler::InvalidHandler;
+use std::fmt::Write;
+use std::mem;
 use std::rc::Rc;
 
 #[test]
@@ -133,7 +135,6 @@ fn verify_constant_offsets(expected: &ConstantOffsets, actual: &ConstantOffsets)
 }
 
 fn slice_u8_to_string(bytes: &[u8]) -> String {
-	use std::fmt::Write;
 	if bytes.is_empty() {
 		return String::new();
 	}
@@ -476,8 +477,118 @@ lazy_static! {
 }
 
 #[test]
-fn test_all_opcodeinfos() {
-	for _tc in &*OP_CODE_INFO_TEST_CASES {
-		//TODO:
+fn test_all_op_code_infos() {
+	for tc in &*OP_CODE_INFO_TEST_CASES {
+		test_op_code_info(tc);
 	}
+}
+
+fn test_op_code_info(tc: &OpCodeInfoTestCase) {
+	let info = tc.code.op_code();
+	assert_eq!(tc.code, info.code());
+	assert_eq!(tc.op_code_string, info.op_code_string());
+	assert_eq!(tc.instruction_string, info.instruction_string());
+	{
+		let mut display = String::new();
+		write!(display, "{}", info).unwrap();
+		assert_eq!(tc.instruction_string, display);
+	}
+	assert_eq!(tc.encoding, info.encoding());
+	assert_eq!(tc.is_instruction, info.is_instruction());
+	assert_eq!(tc.mode16, info.mode16());
+	assert_eq!(tc.mode16, info.is_available_in_mode(16));
+	assert_eq!(tc.mode32, info.mode32());
+	assert_eq!(tc.mode32, info.is_available_in_mode(32));
+	assert_eq!(tc.mode64, info.mode64());
+	assert_eq!(tc.mode64, info.is_available_in_mode(64));
+	assert_eq!(tc.fwait, info.fwait());
+	assert_eq!(tc.operand_size, info.operand_size());
+	assert_eq!(tc.address_size, info.address_size());
+	assert_eq!(tc.l, info.l());
+	assert_eq!(tc.w, info.w());
+	assert_eq!(tc.is_lig, info.is_lig());
+	assert_eq!(tc.is_wig, info.is_wig());
+	assert_eq!(tc.is_wig32, info.is_wig32());
+	assert_eq!(tc.tuple_type, info.tuple_type());
+	assert_eq!(tc.can_broadcast, info.can_broadcast());
+	assert_eq!(tc.can_use_rounding_control, info.can_use_rounding_control());
+	assert_eq!(tc.can_suppress_all_exceptions, info.can_suppress_all_exceptions());
+	assert_eq!(tc.can_use_op_mask_register, info.can_use_op_mask_register());
+	assert_eq!(tc.require_non_zero_op_mask_register, info.require_non_zero_op_mask_register());
+	if tc.require_non_zero_op_mask_register {
+		assert!(info.can_use_op_mask_register());
+		assert!(!info.can_use_zeroing_masking());
+	}
+	assert_eq!(tc.can_use_zeroing_masking, info.can_use_zeroing_masking());
+	assert_eq!(tc.can_use_lock_prefix, info.can_use_lock_prefix());
+	assert_eq!(tc.can_use_xacquire_prefix, info.can_use_xacquire_prefix());
+	assert_eq!(tc.can_use_xrelease_prefix, info.can_use_xrelease_prefix());
+	assert_eq!(tc.can_use_rep_prefix, info.can_use_rep_prefix());
+	assert_eq!(tc.can_use_repne_prefix, info.can_use_repne_prefix());
+	assert_eq!(tc.can_use_bnd_prefix, info.can_use_bnd_prefix());
+	assert_eq!(tc.can_use_hint_taken_prefix, info.can_use_hint_taken_prefix());
+	assert_eq!(tc.can_use_notrack_prefix, info.can_use_notrack_prefix());
+	assert_eq!(tc.table, info.table());
+	assert_eq!(tc.mandatory_prefix, info.mandatory_prefix());
+	assert_eq!(tc.op_code, info.op_code());
+	assert_eq!(tc.is_group, info.is_group());
+	assert_eq!(tc.group_index, info.group_index());
+	assert_eq!(tc.op_count, info.op_count());
+	assert_eq!(tc.op0_kind, info.op0_kind());
+	assert_eq!(tc.op1_kind, info.op1_kind());
+	assert_eq!(tc.op2_kind, info.op2_kind());
+	assert_eq!(tc.op3_kind, info.op3_kind());
+	assert_eq!(tc.op4_kind, info.op4_kind());
+	assert_eq!(tc.op0_kind, info.op_kind(0));
+	assert_eq!(tc.op1_kind, info.op_kind(1));
+	assert_eq!(tc.op2_kind, info.op_kind(2));
+	assert_eq!(tc.op3_kind, info.op_kind(3));
+	assert_eq!(tc.op4_kind, info.op_kind(4));
+	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+	for i in tc.op_count..IcedConstants::MAX_OP_COUNT {
+		assert_eq!(OpCodeOperandKind::None, info.op_kind(i));
+	}
+}
+
+#[allow(trivial_casts)]
+#[test]
+fn verify_instruction_op_code_info() {
+	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES as usize {
+		let code: Code = unsafe { mem::transmute(i as u16) };
+		let mut instr = Instruction::default();
+		instr.set_code(code);
+		assert_eq!(instr.op_code() as *const _ as usize, code.op_code() as *const _ as usize);
+	}
+}
+
+#[test]
+fn make_sure_all_code_values_are_tested_exactly_once() {
+	let mut tested = [false; IcedConstants::NUMBER_OF_CODE_VALUES as usize];
+	for tc in &*OP_CODE_INFO_TEST_CASES {
+		assert!(!tested[tc.code as usize]);
+		tested[tc.code as usize] = true;
+	}
+	let mut s = String::new();
+	for i in tested.iter().enumerate() {
+		let code: Code = unsafe { mem::transmute(i.0 as u16) };
+		if !*i.1 {
+			if !s.is_empty() {
+				s.push(',');
+			}
+			write!(s, "{:?}", code).unwrap();
+		}
+	}
+	assert_eq!("", s);
+}
+
+#[test]
+#[should_panic]
+fn op_code_info_is_available_in_mode_panics_if_invalid_bitness_0() {
+	let _ = Code::Nopd.op_code().is_available_in_mode(0);
+}
+
+#[test]
+#[should_panic]
+fn op_code_info_is_available_in_mode_panics_if_invalid_bitness_128() {
+	let _ = Code::Nopd.op_code().is_available_in_mode(128);
 }

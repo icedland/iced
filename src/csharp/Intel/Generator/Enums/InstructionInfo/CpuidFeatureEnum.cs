@@ -288,7 +288,7 @@ namespace Generator.Enums.InstructionInfo {
 	}
 
 	static class CpuidFeatureEnum {
-		const string documentation = "CPUID feature flags";
+		const string documentation = "#(c:CPUID)# feature flags";
 
 		static EnumValue[] GetValues() =>
 			typeof(CpuidFeature).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CpuidFeature)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();

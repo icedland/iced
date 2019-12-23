@@ -37870,7 +37870,14 @@ impl Code {
 
 #[cfg(feature = "encoder")]
 impl Code {
-	//TODO: EncoderCodeExtensions.cs
+	/// Gets a [`OpCodeInfo`]
+	///
+	/// [`OpCodeInfo`]: struct.OpCodeInfo.html
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn op_code(self) -> &'static OpCodeInfo {
+		unsafe { &*(&*self::encoder::op_code_tbl::OP_CODE_INFO_TBL).get_unchecked(self as usize) }
+	}
 }
 
 #[cfg(feature = "instr_info")]

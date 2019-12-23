@@ -2388,12 +2388,17 @@ impl Instruction {
 	}
 }
 
-impl Instruction {
-	//TODO: OpCode prop
-}
-
 #[cfg(feature = "encoder")]
 impl Instruction {
+	/// Gets the [`OpCodeInfo`]
+	///
+	/// [`OpCodeInfo`]: struct.OpCodeInfo.html
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn op_code(&self) -> &'static OpCodeInfo {
+		self.code().op_code()
+	}
+
 	//TODO: Instruction.Create.cs
 }
 

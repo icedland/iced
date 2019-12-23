@@ -92,6 +92,8 @@ namespace Generator.Enums {
 			Encoder.ImmSizeEnum.Instance,
 			Encoder.EncoderFlagsEnum.Instance,
 			Encoder.WBitEnum.Instance,
+			Encoder.LKindEnum.Instance,
+			Encoder.OpCodeFlagsEnum.Instance,
 		};
 
 		public abstract void Generate(EnumType enumType);

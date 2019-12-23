@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Generator.Enums;
 using Generator.Enums.CSharp;
@@ -73,9 +74,8 @@ namespace Generator.Encoder.CSharp {
 				var declTypeStr = OpCodeOperandKindEnum.Instance.Name(idConverter);
 				writer.WriteLine($"public static readonly byte[] {name} = new byte[{table.Length}] {{");
 				using (writer.Indent()) {
-					foreach (var info in table) {
-						writer.WriteLine($"(byte){declTypeStr}.{info.opCodeOperandKind.Name(idConverter)},");
-					}
+					foreach (var info in table)
+						writer.WriteLine($"(byte){declTypeStr}.{info.opCodeOperandKind.Name(idConverter)},// {info.opKind.Name(idConverter)}");
 				}
 				writer.WriteLine("};");
 			}
@@ -180,13 +180,23 @@ namespace Generator.Encoder.CSharp {
 		protected override void Generate((EnumValue value, uint size)[] immSizes) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Encoder.cs");
 			new FileUpdater(TargetLanguage.CSharp, "ImmSizes", filename).Generate(writer => {
-				var codeStr = CodeEnum.Instance.Name(idConverter);
 				writer.WriteLine($"static readonly uint[] s_immSizes = new uint[{immSizes.Length}] {{");
 				using (writer.Indent()) {
 					foreach (var info in immSizes)
 						writer.WriteLine($"{info.size},// {info.value.Name(idConverter)}");
 				}
 				writer.WriteLine("};");
+			});
+		}
+
+		protected override void Generate((EnumValue allowedPrefixes, OpCodeFlags prefixes)[] infos, (EnumValue value, OpCodeFlags flag)[] flagsInfos) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "OpCodeInfo.cs");
+			new FileUpdater(TargetLanguage.CSharp, "AllowedPrefixes", filename).Generate(writer => {
+				foreach (var info in infos) {
+					writer.Write($"{info.allowedPrefixes.DeclaringType.Name(idConverter)}.{info.allowedPrefixes.Name(idConverter)} => ");
+					WriteFlags(writer, idConverter, info.prefixes, flagsInfos, " | ", ".", false);
+					writer.WriteLine(",");
+				}
 			});
 		}
 

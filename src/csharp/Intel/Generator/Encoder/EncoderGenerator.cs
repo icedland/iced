@@ -23,9 +23,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Generator.Enums;
 using Generator.Enums.Decoder;
 using Generator.Enums.Encoder;
+using Generator.IO;
 
 namespace Generator.Encoder {
 	abstract class EncoderGenerator {
@@ -33,6 +35,7 @@ namespace Generator.Encoder {
 		protected abstract void Generate((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex);
 		protected abstract void Generate(OpCodeInfo[] opCodes);
 		protected abstract void Generate((EnumValue value, uint size)[] immSizes);
+		protected abstract void Generate((EnumValue allowedPrefixes, OpCodeFlags prefixes)[] infos, (EnumValue value, OpCodeFlags flag)[] flagsInfos);
 		protected abstract void GenerateCore();
 
 		public void Generate() {
@@ -55,6 +58,18 @@ namespace Generator.Encoder {
 			Generate(EncoderTypes.LegacyOpHandlers, EncoderTypes.VexOpHandlers, EncoderTypes.XopOpHandlers, EncoderTypes.EvexOpHandlers);
 			Generate(OpCodeInfoTable.Data);
 			Generate(EncoderTypes.ImmSizes);
+			var type = OpCodeFlagsEnum.Instance;
+			var flagsInfos = new (EnumValue value, OpCodeFlags flag)[] {
+				(type["LockPrefix"], OpCodeFlags.LockPrefix),
+				(type["XacquirePrefix"], OpCodeFlags.XacquirePrefix),
+				(type["XreleasePrefix"], OpCodeFlags.XreleasePrefix),
+				(type["RepPrefix"], OpCodeFlags.RepPrefix),
+				(type["RepnePrefix"], OpCodeFlags.RepnePrefix),
+				(type["BndPrefix"], OpCodeFlags.BndPrefix),
+				(type["HintTakenPrefix"], OpCodeFlags.HintTakenPrefix),
+				(type["NotrackPrefix"], OpCodeFlags.NotrackPrefix),
+			};
+			Generate(EncoderTypes.AllowedPrefixesMap.Select(a => (a.Value, a.Key)).OrderBy(a => a.Value.Value).ToArray(), flagsInfos);
 			GenerateCore();
 		}
 
@@ -323,6 +338,30 @@ namespace Generator.Encoder {
 			if ((opCode.Flags & OpCodeFlags.W) != 0)
 				return WBit.W1;
 			return WBit.W0;
+		}
+
+		protected static void WriteFlags(FileWriter writer, IdentifierConverter idConverter, OpCodeFlags prefixes, (EnumValue value, OpCodeFlags flag)[] flagsInfos, string orSep, string enumItemSep, bool forceConstant) {
+			bool printed = false;
+			foreach (var info in flagsInfos) {
+				if ((prefixes & info.flag) != 0) {
+					prefixes &= ~info.flag;
+					if (printed)
+						writer.Write(orSep);
+					printed = true;
+					WriteEnum(writer, idConverter, info.value, enumItemSep, forceConstant);
+				}
+			}
+			if (!printed) {
+				var value = OpCodeFlagsEnum.Instance["None"];
+				WriteEnum(writer, idConverter, value, enumItemSep, forceConstant);
+			}
+			if (prefixes != 0)
+				throw new InvalidOperationException();
+
+			static void WriteEnum(FileWriter writer, IdentifierConverter idConverter, EnumValue value, string enumItemSep, bool forceConstant) {
+				var name = forceConstant ? idConverter.Constant(value.RawName) : value.Name(idConverter);
+				writer.Write($"{value.DeclaringType.Name(idConverter)}{enumItemSep}{name}");
+			}
 		}
 	}
 }

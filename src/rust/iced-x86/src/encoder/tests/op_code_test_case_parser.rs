@@ -274,7 +274,7 @@ impl IntoIter {
 
 					OpCodeInfoKeys::OP_CODE_OPERAND_KIND => {
 						let op_parts: Vec<_> = value.split(';').collect();
-						tc.op_count = op_parts.len();
+						tc.op_count = op_parts.len() as u32;
 						if op_parts.len() >= 1 {
 							tc.op0_kind = to_op_code_operand_kind(op_parts[0])?;
 						}

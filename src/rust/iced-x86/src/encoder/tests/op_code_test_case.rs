@@ -62,7 +62,7 @@ pub(crate) struct OpCodeInfoTestCase {
 	pub(crate) op_code: u32,
 	pub(crate) is_group: bool,
 	pub(crate) group_index: i32,
-	pub(crate) op_count: usize,
+	pub(crate) op_count: u32,
 	pub(crate) op0_kind: OpCodeOperandKind,
 	pub(crate) op1_kind: OpCodeOperandKind,
 	pub(crate) op2_kind: OpCodeOperandKind,

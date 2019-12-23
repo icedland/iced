@@ -27,6 +27,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Generator.Enums;
+using Generator.Enums.Encoder;
 using Generator.Enums.Rust;
 using Generator.IO;
 
@@ -81,6 +82,36 @@ namespace Generator.Encoder.Rust {
 		}
 
 		protected override void Generate((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+			GenerateOpCodeOperandKindTables(legacy, vex, xop, evex);
+			GenerateOpTables(legacy, vex, xop, evex);
+		}
+
+		void GenerateOpCodeOperandKindTables((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+			var filename = Path.Combine(generatorOptions.RustDir, "encoder", "op_kind_tables.rs");
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
+				writer.WriteFileHeader();
+
+				writer.WriteLine("use super::super::OpCodeOperandKind;");
+				Generate(writer, "LEGACY_OP_KINDS", legacy);
+				Generate(writer, "VEX_OP_KINDS", vex);
+				Generate(writer, "XOP_OP_KINDS", xop);
+				Generate(writer, "EVEX_OP_KINDS", evex);
+			}
+
+			void Generate(FileWriter writer, string name, (EnumValue opCodeOperandKind, EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
+				var declTypeStr = OpCodeOperandKindEnum.Instance.Name(idConverter);
+				writer.WriteLine();
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				writer.WriteLine($"pub(crate) static {name}: [{declTypeStr}; {table.Length}] = [");
+				using (writer.Indent()) {
+					foreach (var info in table)
+						writer.WriteLine($"{declTypeStr}::{info.opCodeOperandKind.Name(idConverter)},// {info.opKind.Name(idConverter)}");
+				}
+				writer.WriteLine("];");
+			}
+		}
+
+		void GenerateOpTables((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
 			var sb = new StringBuilder();
 			var dict = new Dictionary<(OpHandlerKind opHandlerKind, object[] args), OpInfo>(new OpKeyComparer());
 			Add(sb, dict, legacy.Select(a => (a.opHandlerKind, a.args)));
@@ -300,7 +331,17 @@ namespace Generator.Encoder.Rust {
 		}
 
 		void GenerateNonZeroOpMaskRegisterCode(OpCodeInfo[] opCodes) {
-			//TODO:
+			var filename = Path.Combine(generatorOptions.RustDir, "encoder", "op_code.rs");
+			new FileUpdater(TargetLanguage.Rust, "NonZeroOpMaskRegister", filename).Generate(writer => {
+				var codeStr = CodeEnum.Instance.Name(idConverter);
+				var bar = string.Empty;
+				foreach (var opCode in opCodes) {
+					if ((opCode.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0) {
+						writer.WriteLine($"{bar}{codeStr}::{opCode.Code.Name(idConverter)}");
+						bar = "| ";
+					}
+				}
+			});
 		}
 
 		protected override void Generate((EnumValue value, uint size)[] immSizes) {
@@ -316,7 +357,33 @@ namespace Generator.Encoder.Rust {
 			});
 		}
 
-		protected override void GenerateCore() {
+		protected override void Generate((EnumValue allowedPrefixes, OpCodeFlags prefixes)[] infos, (EnumValue value, OpCodeFlags flag)[] flagsInfos) {
+			var filename = Path.Combine(generatorOptions.RustDir, "encoder", "op_code.rs");
+			new FileUpdater(TargetLanguage.Rust, "AllowedPrefixes", filename).Generate(writer => {
+				foreach (var info in infos) {
+					writer.Write($"{info.allowedPrefixes.DeclaringType.Name(idConverter)}::{info.allowedPrefixes.Name(idConverter)} => ");
+					WriteFlags(writer, idConverter, info.prefixes, flagsInfos, " | ", "::", true);
+					writer.WriteLine(",");
+				}
+			});
+		}
+
+		protected override void GenerateCore() =>
+			GenerateMnemonicStringTable();
+
+		void GenerateMnemonicStringTable() {
+			var values = MnemonicEnum.Instance.Values;
+			var filename = Path.Combine(generatorOptions.RustDir, "encoder", "mnemonic_str_tbl.rs");
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
+				writer.WriteFileHeader();
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				writer.WriteLine($"pub(crate) static TO_MNEMONIC_STR: [&str; {values.Length}] = [");
+				using (writer.Indent()) {
+					foreach (var value in values)
+						writer.WriteLine($"\"{value.RawName.ToLowerInvariant()}\",");
+				}
+				writer.WriteLine("];");
+			}
 		}
 	}
 }

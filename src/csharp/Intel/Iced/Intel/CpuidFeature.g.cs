@@ -27,7 +27,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_INSTR_INFO
 namespace Iced.Intel {
-	/// <summary>CPUID feature flags</summary>
+	/// <summary><c>CPUID</c> feature flags</summary>
 	public enum CpuidFeature {
 		/// <summary>8086 or later</summary>
 		INTEL8086,

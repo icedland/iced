@@ -124,5 +124,7 @@ namespace Generator {
 		public static readonly TypeId WBit = new TypeId(nameof(WBit));
 		public static readonly TypeId OpCodeInfoKeys = new TypeId(nameof(OpCodeInfoKeys));
 		public static readonly TypeId OpCodeInfoFlags = new TypeId(nameof(OpCodeInfoFlags));
+		public static readonly TypeId LKind = new TypeId(nameof(LKind));
+		public static readonly TypeId OpCodeFlags = new TypeId(nameof(OpCodeFlags));
 	}
 }
