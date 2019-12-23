@@ -21,6 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::useless_let_if_seq))]
+
 use super::super::*;
 use super::handlers::*;
 use super::*;

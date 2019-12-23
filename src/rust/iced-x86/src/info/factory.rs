@@ -367,18 +367,17 @@ impl InstructionInfoFactory {
 					} else {
 						let index_register = instruction.memory_index();
 						if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-							let displ;
-							if super::super::instruction_internal::get_address_size_in_bytes(
+							let displ = if super::super::instruction_internal::get_address_size_in_bytes(
 								base_register,
 								index_register,
 								instruction.memory_displ_size(),
 								code_size,
 							) == 8
 							{
-								displ = instruction.memory_displacement64();
+								instruction.memory_displacement64()
 							} else {
-								displ = instruction.memory_displacement() as u64;
-							}
+								instruction.memory_displacement() as u64
+							};
 							Self::add_memory(
 								info,
 								segment_register,

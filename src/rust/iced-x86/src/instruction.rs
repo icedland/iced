@@ -2583,6 +2583,7 @@ impl Instruction {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::useless_let_if_seq))]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
 		let flags2 = unsafe { *super::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2 + 1) };
 		let mut index = ((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize;

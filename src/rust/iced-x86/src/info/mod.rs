@@ -167,11 +167,12 @@ impl fmt::Debug for UsedMemory {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "[{:?}:", self.segment())?;
-		let mut need_plus = false;
-		if self.base() != Register::None {
+		let mut need_plus = if self.base() != Register::None {
 			write!(f, "{:?}", self.base())?;
-			need_plus = true;
-		}
+			true
+		} else {
+			false
+		};
 		if self.index() != Register::None {
 			if need_plus {
 				write!(f, "+")?;

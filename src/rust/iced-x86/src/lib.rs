@@ -31,7 +31,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::range_plus_one))]
 // '_ requires rustc >= 1.31.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))]
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::useless_let_if_seq))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::verbose_bit_mask))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cognitive_complexity))]
