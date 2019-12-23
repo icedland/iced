@@ -25,8 +25,8 @@ using System.IO;
 using Generator.Enums;
 using Generator.IO;
 
-namespace Generator.InstructionInfo.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.InstrInfoDicts)]
+namespace Generator.Tables.CSharp {
+	[Generator(TargetLanguage.CSharp, GeneratorNames.Dictionaries)]
 	sealed class CSharpDictGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
@@ -37,14 +37,16 @@ namespace Generator.InstructionInfo.CSharp {
 		}
 
 		public void Generate() {
-			var filename = Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs");
-			new FileUpdater(TargetLanguage.CSharp, "Dicts", filename).Generate(writer => WriteDicts(writer));
-		}
-
-		void WriteDicts(FileWriter writer) {
-			WriteDict(writer, DictConstants.OpAccessConstants, "ToAccess");
-			WriteDict(writer, DictConstants.MemorySizeFlagsTable, "MemorySizeFlagsTable");
-			WriteDict(writer, DictConstants.RegisterFlagsTable, "RegisterFlagsTable");
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")).Generate(writer => {
+				WriteDict(writer, InstrInfoDictConstants.OpAccessConstants, "ToAccess");
+				WriteDict(writer, InstrInfoDictConstants.MemorySizeFlagsTable, "MemorySizeFlagsTable");
+				WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable, "RegisterFlagsTable");
+			});
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")).Generate(writer => {
+				WriteDict(writer, EncoderConstants.EncodingKindTable, "ToEncodingKind");
+				WriteDict(writer, EncoderConstants.MandatoryPrefixTable, "ToMandatoryPrefix");
+				WriteDict(writer, EncoderConstants.OpCodeTableKindTable, "ToOpCodeTableKind");
+			});
 		}
 
 		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants, string fieldName) {

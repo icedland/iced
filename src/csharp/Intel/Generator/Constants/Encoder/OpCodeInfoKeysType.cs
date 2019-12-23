@@ -21,26 +21,16 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Constants {
-	abstract class ConstantsGenerator {
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
-			DecoderTestParserConstantsType.Instance,
-			DecoderConstantsType.Instance,
-			InstructionInfo.InstructionInfoDecoderOptionsType.Instance,
-			InstructionInfo.InstructionInfoKeysType.Instance,
-			InstructionInfo.MiscInstrInfoTestConstantsType.Instance,
-			InstructionInfo.RflagsBitsConstantsType.Instance,
-			InstructionInfo.MiscSectionNamesType.Instance,
-			Encoder.OpCodeInfoKeysType.Instance,
-			Encoder.OpCodeInfoFlagsType.Instance,
-		};
+namespace Generator.Constants.Encoder {
+	static class OpCodeInfoKeysType {
+		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.OpCodeInfoKeys, ConstantsTypeFlags.None, null, GetConstants());
 
-		public abstract void Generate(ConstantsType constantsType);
-
-		public void Generate() {
-			foreach (var constantsType in allConstants)
-				Generate(constantsType);
+		static Constant[] GetConstants() {
+			return new Constant[] {
+				new Constant(ConstantKind.String, "GroupIndex", "g"),
+				new Constant(ConstantKind.String, "OpCodeOperandKind", "op"),
+				new Constant(ConstantKind.String, "TupleType", "tt"),
+			};
 		}
 	}
 }

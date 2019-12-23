@@ -26,8 +26,8 @@ using System.IO;
 using Generator.Enums;
 using Generator.IO;
 
-namespace Generator.InstructionInfo.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.InstrInfoDicts)]
+namespace Generator.Tables.Rust {
+	[Generator(TargetLanguage.Rust, GeneratorNames.Dictionaries)]
 	sealed class RustDictGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
@@ -42,18 +42,19 @@ namespace Generator.InstructionInfo.Rust {
 				(
 					Path.Combine(generatorOptions.RustDir, "info", "tests", "test_parser.rs"),
 					"OpAccessDict",
-					writer => WriteDict(writer, DictConstants.OpAccessConstants, "to_access")
+					writer => WriteDict(writer, InstrInfoDictConstants.OpAccessConstants, "to_access")
 				),
 				(
 					Path.Combine(generatorOptions.RustDir, "info", "tests", "mem_size_test_parser.rs"),
 					"FlagsDict",
-					writer => WriteDict(writer, DictConstants.MemorySizeFlagsTable, "to_flags")
+					writer => WriteDict(writer, InstrInfoDictConstants.MemorySizeFlagsTable, "to_flags")
 				),
 				(
 					Path.Combine(generatorOptions.RustDir, "info", "tests", "reg_test_parser.rs"),
 					"FlagsDict",
-					writer => WriteDict(writer, DictConstants.RegisterFlagsTable, "to_flags")
+					writer => WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable, "to_flags")
 				),
+				//TODO: EncoderConstants.EncodingKindTable, etc
 			};
 			foreach (var info in infos) {
 				new FileUpdater(TargetLanguage.Rust, info.id, info.filename).Generate(writer => info.func(writer));

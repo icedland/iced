@@ -122,5 +122,7 @@ namespace Generator {
 		public static readonly TypeId EvexFlags = new TypeId(nameof(EvexFlags));
 		public static readonly TypeId D3nowFlags = new TypeId(nameof(D3nowFlags));
 		public static readonly TypeId WBit = new TypeId(nameof(WBit));
+		public static readonly TypeId OpCodeInfoKeys = new TypeId(nameof(OpCodeInfoKeys));
+		public static readonly TypeId OpCodeInfoFlags = new TypeId(nameof(OpCodeInfoFlags));
 	}
 }

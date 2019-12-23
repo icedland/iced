@@ -78,14 +78,14 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					var value = key.Substring(index + 1);
 					key = key.Substring(0, index);
 					switch (key) {
-					case "g":
+					case OpCodeInfoKeys.GroupIndex:
 						if (!uint.TryParse(value, out uint groupIndex) || groupIndex > 7)
 							throw new InvalidOperationException($"Invalid group index: {value}");
 						tc.GroupIndex = (int)groupIndex;
 						tc.IsGroup = true;
 						break;
 
-					case "op":
+					case OpCodeInfoKeys.OpCodeOperandKind:
 						var opParts = value.Split(opseps);
 						tc.OpCount = opParts.Length;
 						if (opParts.Length >= 1)
@@ -104,7 +104,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							throw new InvalidOperationException($"Invalid number of operands: '{value}'");
 						break;
 
-					case "tt":
+					case OpCodeInfoKeys.TupleType:
 						tc.TupleType = ToTupleType(value.Trim());
 						break;
 
@@ -114,156 +114,156 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				}
 				else {
 					switch (key) {
-					case "notinstr":
+					case OpCodeInfoFlags.NotInstruction:
 						tc.IsInstruction = false;
 						break;
 
-					case "16b":
+					case OpCodeInfoFlags.Bit16:
 						tc.Mode16 = true;
 						break;
 
-					case "32b":
+					case OpCodeInfoFlags.Bit32:
 						tc.Mode32 = true;
 						break;
 
-					case "64b":
+					case OpCodeInfoFlags.Bit64:
 						tc.Mode64 = true;
 						break;
 
-					case "fwait":
+					case OpCodeInfoFlags.Fwait:
 						tc.Fwait = true;
 						break;
 
-					case "o16":
+					case OpCodeInfoFlags.OperandSize16:
 						tc.OperandSize = 16;
 						break;
 
-					case "o32":
+					case OpCodeInfoFlags.OperandSize32:
 						tc.OperandSize = 32;
 						break;
 
-					case "o64":
+					case OpCodeInfoFlags.OperandSize64:
 						tc.OperandSize = 64;
 						break;
 
-					case "a16":
+					case OpCodeInfoFlags.AddressSize16:
 						tc.AddressSize = 16;
 						break;
 
-					case "a32":
+					case OpCodeInfoFlags.AddressSize32:
 						tc.AddressSize = 32;
 						break;
 
-					case "a64":
+					case OpCodeInfoFlags.AddressSize64:
 						tc.AddressSize = 64;
 						break;
 
-					case "LIG":
+					case OpCodeInfoFlags.LIG:
 						tc.IsLIG = true;
 						gotVectorLength = true;
 						break;
 
-					case "L0":
+					case OpCodeInfoFlags.L0:
 						tc.L = 0;
 						gotVectorLength = true;
 						break;
 
-					case "L1":
+					case OpCodeInfoFlags.L1:
 						tc.L = 1;
 						gotVectorLength = true;
 						break;
 
-					case "L128":
+					case OpCodeInfoFlags.L128:
 						tc.L = 0;
 						gotVectorLength = true;
 						break;
 
-					case "L256":
+					case OpCodeInfoFlags.L256:
 						tc.L = 1;
 						gotVectorLength = true;
 						break;
 
-					case "L512":
+					case OpCodeInfoFlags.L512:
 						tc.L = 2;
 						gotVectorLength = true;
 						break;
 
-					case "WIG":
+					case OpCodeInfoFlags.WIG:
 						tc.IsWIG = true;
 						gotW = true;
 						break;
 
-					case "WIG32":
+					case OpCodeInfoFlags.WIG32:
 						tc.W = 0;
 						tc.IsWIG32 = true;
 						gotW = true;
 						break;
 
-					case "W0":
+					case OpCodeInfoFlags.W0:
 						tc.W = 0;
 						gotW = true;
 						break;
 
-					case "W1":
+					case OpCodeInfoFlags.W1:
 						tc.W = 1;
 						gotW = true;
 						break;
 
-					case "b":
+					case OpCodeInfoFlags.Broadcast:
 						tc.CanBroadcast = true;
 						break;
 
-					case "er":
+					case OpCodeInfoFlags.RoundingControl:
 						tc.CanUseRoundingControl = true;
 						break;
 
-					case "sae":
+					case OpCodeInfoFlags.SuppressAllExceptions:
 						tc.CanSuppressAllExceptions = true;
 						break;
 
-					case "k":
+					case OpCodeInfoFlags.OpMaskRegister:
 						tc.CanUseOpMaskRegister = true;
 						break;
 
-					case "knz":
+					case OpCodeInfoFlags.RequireNonZeroOpMaskRegister:
 						tc.CanUseOpMaskRegister = true;
 						tc.RequireNonZeroOpMaskRegister = true;
 						break;
 
-					case "z":
+					case OpCodeInfoFlags.ZeroingMasking:
 						tc.CanUseZeroingMasking = true;
 						break;
 
-					case "lock":
+					case OpCodeInfoFlags.LockPrefix:
 						tc.CanUseLockPrefix = true;
 						break;
 
-					case "xacquire":
+					case OpCodeInfoFlags.XacquirePrefix:
 						tc.CanUseXacquirePrefix = true;
 						break;
 
-					case "xrelease":
+					case OpCodeInfoFlags.XreleasePrefix:
 						tc.CanUseXreleasePrefix = true;
 						break;
 
-					case "rep":
-					case "repe":
+					case OpCodeInfoFlags.RepPrefix:
+					case OpCodeInfoFlags.RepePrefix:
 						tc.CanUseRepPrefix = true;
 						break;
 
-					case "repne":
+					case OpCodeInfoFlags.RepnePrefix:
 						tc.CanUseRepnePrefix = true;
 						break;
 
-					case "bnd":
+					case OpCodeInfoFlags.BndPrefix:
 						tc.CanUseBndPrefix = true;
 						break;
 
-					case "ht":
+					case OpCodeInfoFlags.HintTakenPrefix:
 						tc.CanUseHintTakenPrefix = true;
 						break;
 
-					case "notrack":
+					case OpCodeInfoFlags.NotrackPrefix:
 						tc.CanUseNotrackPrefix = true;
 						break;
 
@@ -310,38 +310,21 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		}
 
 		static EncodingKind ToEncoding(string value) {
-			switch (value) {
-			case "legacy":	return EncodingKind.Legacy;
-			case "VEX":		return EncodingKind.VEX;
-			case "EVEX":	return EncodingKind.EVEX;
-			case "XOP":		return EncodingKind.XOP;
-			case "3DNow!":	return EncodingKind.D3NOW;
-			default: throw new InvalidOperationException($"Invalid encoding value: '{value}'");
-			}
+			if (OpCodeInfoDicts.ToEncodingKind.TryGetValue(value, out var kind))
+				return kind;
+			throw new InvalidOperationException($"Invalid encoding value: '{value}'");
 		}
 
 		static MandatoryPrefix ToMandatoryPrefix(string value) {
-			switch (value) {
-			case "":		return MandatoryPrefix.None;
-			case "NP":		return MandatoryPrefix.PNP;
-			case "66":		return MandatoryPrefix.P66;
-			case "F3":		return MandatoryPrefix.PF3;
-			case "F2":		return MandatoryPrefix.PF2;
-			default: throw new InvalidOperationException($"Invalid mandatory prefix value: '{value}'");
-			}
+			if (OpCodeInfoDicts.ToMandatoryPrefix.TryGetValue(value, out var prefix))
+				return prefix;
+			throw new InvalidOperationException($"Invalid mandatory prefix value: '{value}'");
 		}
 
 		static OpCodeTableKind ToTable(string value) {
-			switch (value) {
-			case "legacy":	return OpCodeTableKind.Normal;
-			case "0F":		return OpCodeTableKind.T0F;
-			case "0F38":	return OpCodeTableKind.T0F38;
-			case "0F3A":	return OpCodeTableKind.T0F3A;
-			case "X8":		return OpCodeTableKind.XOP8;
-			case "X9":		return OpCodeTableKind.XOP9;
-			case "XA":		return OpCodeTableKind.XOPA;
-			default: throw new InvalidOperationException($"Invalid opcode table value: '{value}'");
-			}
+			if (OpCodeInfoDicts.ToOpCodeTableKind.TryGetValue(value, out var kind))
+				return kind;
+			throw new InvalidOperationException($"Invalid opcode table value: '{value}'");
 		}
 
 		static uint ToOpCode(string value) {

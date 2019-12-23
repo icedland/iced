@@ -22,10 +22,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using Generator.Enums;
+using Generator.Enums.Encoder;
 using Generator.Enums.InstructionInfo;
 
-namespace Generator.InstructionInfo {
-	sealed class DictConstants {
+namespace Generator.Tables {
+	static class InstrInfoDictConstants {
 		public static readonly (string name, EnumValue value)[] OpAccessConstants = new (string name, EnumValue value)[] {
 			("n", OpAccessEnum.Instance["None"]),
 			("r", OpAccessEnum.Instance["Read"]),
@@ -54,6 +55,32 @@ namespace Generator.InstructionInfo {
 			("ymm", RegisterFlagsEnum.Instance["YMM"]),
 			("zmm", RegisterFlagsEnum.Instance["ZMM"]),
 			("vec", RegisterFlagsEnum.Instance["VectorRegister"]),
+		};
+	}
+
+	static class EncoderConstants {
+		public static readonly (string value, EnumValue flags)[] EncodingKindTable = new (string value, EnumValue flags)[] {
+			("legacy", EncodingKindEnum.Instance["Legacy"]),
+			("VEX", EncodingKindEnum.Instance["VEX"]),
+			("EVEX", EncodingKindEnum.Instance["EVEX"]),
+			("XOP", EncodingKindEnum.Instance["XOP"]),
+			("3DNow!", EncodingKindEnum.Instance["D3NOW"]),
+		};
+		public static readonly (string value, EnumValue flags)[] MandatoryPrefixTable = new (string value, EnumValue flags)[] {
+			("", MandatoryPrefixEnum.Instance["None"]),
+			("NP", MandatoryPrefixEnum.Instance["PNP"]),
+			("66", MandatoryPrefixEnum.Instance["P66"]),
+			("F3", MandatoryPrefixEnum.Instance["PF3"]),
+			("F2", MandatoryPrefixEnum.Instance["PF2"]),
+		};
+		public static readonly (string value, EnumValue flags)[] OpCodeTableKindTable = new (string value, EnumValue flags)[] {
+			("legacy", OpCodeTableKindEnum.Instance["Normal"]),
+			("0F", OpCodeTableKindEnum.Instance["T0F"]),
+			("0F38", OpCodeTableKindEnum.Instance["T0F38"]),
+			("0F3A", OpCodeTableKindEnum.Instance["T0F3A"]),
+			("X8", OpCodeTableKindEnum.Instance["XOP8"]),
+			("X9", OpCodeTableKindEnum.Instance["XOP9"]),
+			("XA", OpCodeTableKindEnum.Instance["XOPA"]),
 		};
 	}
 }
