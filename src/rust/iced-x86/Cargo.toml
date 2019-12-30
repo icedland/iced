@@ -26,6 +26,7 @@ gas_formatter = []
 intel_formatter = []
 masm_formatter = []
 nasm_formatter = []
+exhaustive_enums = []
 
 [dependencies]
 static_assertions = "0.3.4"
