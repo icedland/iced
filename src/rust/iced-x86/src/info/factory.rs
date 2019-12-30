@@ -159,7 +159,7 @@ impl InstructionInfoFactory {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn info<'a, 'b>(&'a mut self, instruction: &'b Instruction) -> &'a InstructionInfo {
+	pub fn info(&mut self, instruction: &Instruction) -> &InstructionInfo {
 		Self::create(&mut self.info, instruction, InstructionInfoOptions::NONE)
 	}
 
@@ -180,7 +180,7 @@ impl InstructionInfoFactory {
 	/// * `options`: Options, see `InstructionInfoOptions`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn info_options<'a, 'b>(&'a mut self, instruction: &'b Instruction, options: u32) -> &'a InstructionInfo {
+	pub fn info_options(&mut self, instruction: &Instruction, options: u32) -> &InstructionInfo {
 		Self::create(&mut self.info, instruction, options)
 	}
 

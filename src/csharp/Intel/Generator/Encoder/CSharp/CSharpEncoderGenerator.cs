@@ -200,6 +200,38 @@ namespace Generator.Encoder.CSharp {
 			});
 		}
 
+		void GenerateCases(string filename, string id, EnumValue[] codeValues) {
+			new FileUpdater(TargetLanguage.CSharp, id, filename).Generate(writer => {
+				foreach (var value in codeValues)
+					writer.WriteLine($"case {value.DeclaringType.Name(idConverter)}.{value.Name(idConverter)}:");
+			});
+		}
+
+		void GenerateNotInstrCases(string filename, string id, (EnumValue code, string result)[] notInstrStrings) {
+			new FileUpdater(TargetLanguage.CSharp, id, filename).Generate(writer => {
+				foreach (var info in notInstrStrings)
+					writer.WriteLine($"case {info.code.DeclaringType.Name(idConverter)}.{info.code.Name(idConverter)}: return \"{info.result}\";");
+			});
+		}
+
+		protected override void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] opMaskIsK1, EnumValue[] incVecIndex, EnumValue[] noVecIndex, EnumValue[] swapVecIndex12, EnumValue[] fpuStartOpIndex1) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "InstructionFormatter.cs");
+			GenerateNotInstrCases(filename, "InstrFmtNotInstructionString", notInstrStrings);
+			GenerateCases(filename, "OpMaskIsK1", opMaskIsK1);
+			GenerateCases(filename, "IncVecIndex", incVecIndex);
+			GenerateCases(filename, "NoVecIndex", noVecIndex);
+			GenerateCases(filename, "SwapVecIndex12", swapVecIndex12);
+			GenerateCases(filename, "FpuStartOpIndex1", fpuStartOpIndex1);
+			GenerateCases(filename, "OpMaskIsK1", opMaskIsK1);
+		}
+
+		protected override void GenerateOpCodeFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] hasModRM, EnumValue[] hasVsib) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "OpCodeFormatter.cs");
+			GenerateNotInstrCases(filename, "OpCodeFmtNotInstructionString", notInstrStrings);
+			GenerateCases(filename, "HasModRM", hasModRM);
+			GenerateCases(filename, "HasVsib", hasVsib);
+		}
+
 		protected override void GenerateCore() {
 		}
 	}

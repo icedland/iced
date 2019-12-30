@@ -67,7 +67,7 @@ impl Flags {
 pub struct OpCodeInfo {
 	op_code_string: String,
 	instruction_string: String,
-	flags: u32, //Flags
+	flags: u32, // Flags
 	code: Code,
 	op_code: u16,
 	encoding: EncodingKind,

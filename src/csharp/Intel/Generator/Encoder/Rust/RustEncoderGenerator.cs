@@ -368,6 +368,42 @@ namespace Generator.Encoder.Rust {
 			});
 		}
 
+		void GenerateCases(string filename, string id, EnumValue[] codeValues) {
+			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
+				var bar = string.Empty;
+				foreach (var value in codeValues) {
+					writer.WriteLine($"{bar}{value.DeclaringType.Name(idConverter)}::{value.Name(idConverter)}");
+						bar = "| ";
+				}
+			});
+		}
+
+		void GenerateNotInstrCases(string filename, string id, (EnumValue code, string result)[] notInstrStrings, bool useReturn) {
+			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
+				string @return = useReturn ? "return " : string.Empty;
+				foreach (var info in notInstrStrings)
+					writer.WriteLine($"{info.code.DeclaringType.Name(idConverter)}::{info.code.Name(idConverter)} => {@return}\"{info.result}\".to_owned(),");
+			});
+		}
+
+		protected override void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] opMaskIsK1, EnumValue[] incVecIndex, EnumValue[] noVecIndex, EnumValue[] swapVecIndex12, EnumValue[] fpuStartOpIndex1) {
+			var filename = Path.Combine(generatorOptions.RustDir, "encoder", "instruction_fmt.rs");
+			GenerateNotInstrCases(filename, "InstrFmtNotInstructionString", notInstrStrings, true);
+			GenerateCases(filename, "OpMaskIsK1", opMaskIsK1);
+			GenerateCases(filename, "IncVecIndex", incVecIndex);
+			GenerateCases(filename, "NoVecIndex", noVecIndex);
+			GenerateCases(filename, "SwapVecIndex12", swapVecIndex12);
+			GenerateCases(filename, "FpuStartOpIndex1", fpuStartOpIndex1);
+			GenerateCases(filename, "OpMaskIsK1", opMaskIsK1);
+		}
+
+		protected override void GenerateOpCodeFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] hasModRM, EnumValue[] hasVsib) {
+			var filename = Path.Combine(generatorOptions.RustDir, "encoder", "op_code_fmt.rs");
+			GenerateNotInstrCases(filename, "OpCodeFmtNotInstructionString", notInstrStrings, false);
+			GenerateCases(filename, "HasModRM", hasModRM);
+			GenerateCases(filename, "HasVsib", hasVsib);
+		}
+
 		protected override void GenerateCore() =>
 			GenerateMnemonicStringTable();
 

@@ -489,10 +489,11 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	assert_eq!(tc.op_code_string, info.op_code_string());
 	assert_eq!(tc.instruction_string, info.instruction_string());
 	{
-		let mut display = String::new();
+		let mut display = String::with_capacity(tc.instruction_string.len());
 		write!(display, "{}", info).unwrap();
 		assert_eq!(tc.instruction_string, display);
 	}
+	assert_eq!(tc.instruction_string, info.to_string());
 	assert_eq!(tc.encoding, info.encoding());
 	assert_eq!(tc.is_instruction, info.is_instruction());
 	assert_eq!(tc.mode16, info.mode16());

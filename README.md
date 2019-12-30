@@ -22,7 +22,7 @@ See below for some examples. All classes are in the `Iced.Intel` namespace.
 Decoder:
 
 - `Decoder`
-- `Instruction`
+- `Instruction` (and `Instruction.Create()` methods)
 - `CodeReader`
 	- `ByteArrayCodeReader`
 - `InstructionList`
