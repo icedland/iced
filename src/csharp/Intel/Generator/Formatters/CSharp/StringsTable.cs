@@ -118,7 +118,11 @@ namespace Generator.Formatters.CSharp {
 				using (writer.Indent()) {
 					writer.WriteLine($"const int MaxStringLength = {maxStringLength};");
 					writer.WriteLine($"const int StringsCount = {sortedInfos.Length};");
+					writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
+					writer.WriteLine("static System.ReadOnlySpan<byte> GetSerializedStrings() =>");
+					writer.WriteLineNoIndent("#else");
 					writer.WriteLine("static byte[] GetSerializedStrings() =>");
+					writer.WriteLineNoIndent("#endif");
 					using (writer.Indent()) {
 						writer.WriteLine("new byte[] {");
 						using (writer.Indent()) {

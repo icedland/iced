@@ -28,7 +28,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_ENCODER
 namespace Iced.Intel.EncoderInternal {
 	static class OpCodeOperandKinds {
+#if HAS_SPAN
+		public static System.ReadOnlySpan<byte> LegacyOpKinds => new byte[118] {
+#else
 		public static readonly byte[] LegacyOpKinds = new byte[118] {
+#endif
 			(byte)OpCodeOperandKind.None,// None
 			(byte)OpCodeOperandKind.farbr2_2,// Aww
 			(byte)OpCodeOperandKind.farbr4_2,// Adw
@@ -148,7 +152,11 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.r32_opcode,// r32_rd
 			(byte)OpCodeOperandKind.r64_opcode,// r64_ro
 		};
+#if HAS_SPAN
+		public static System.ReadOnlySpan<byte> VexOpKinds => new byte[39] {
+#else
 		public static readonly byte[] VexOpKinds = new byte[39] {
+#endif
 			(byte)OpCodeOperandKind.None,// None
 			(byte)OpCodeOperandKind.r32_or_mem,// Ed
 			(byte)OpCodeOperandKind.r64_or_mem,// Eq
@@ -189,7 +197,11 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.xmm_or_mem,// WX
 			(byte)OpCodeOperandKind.ymm_or_mem,// WY
 		};
+#if HAS_SPAN
+		public static System.ReadOnlySpan<byte> XopOpKinds => new byte[19] {
+#else
 		public static readonly byte[] XopOpKinds = new byte[19] {
+#endif
 			(byte)OpCodeOperandKind.None,// None
 			(byte)OpCodeOperandKind.r32_or_mem,// Ed
 			(byte)OpCodeOperandKind.r64_or_mem,// Eq
@@ -210,7 +222,11 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.xmm_or_mem,// WX
 			(byte)OpCodeOperandKind.ymm_or_mem,// WY
 		};
+#if HAS_SPAN
+		public static System.ReadOnlySpan<byte> EvexOpKinds => new byte[36] {
+#else
 		public static readonly byte[] EvexOpKinds = new byte[36] {
+#endif
 			(byte)OpCodeOperandKind.None,// None
 			(byte)OpCodeOperandKind.r32_or_mem,// Ed
 			(byte)OpCodeOperandKind.r64_or_mem,// Eq

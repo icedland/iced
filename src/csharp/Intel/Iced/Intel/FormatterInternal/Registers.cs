@@ -27,7 +27,11 @@ using Iced.Intel.Internal;
 
 namespace Iced.Intel.FormatterInternal {
 	static class Registers {
+#if HAS_SPAN
+		static ReadOnlySpan<byte> GetRegistersData() =>
+#else
 		static byte[] GetRegistersData() =>
+#endif
 			new byte[] {
 				0x03, 0x3F, 0x3F, 0x3F,// ???
 				0x02, 0x61, 0x6C,// al

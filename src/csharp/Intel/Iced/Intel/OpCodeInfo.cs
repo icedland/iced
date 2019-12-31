@@ -91,7 +91,11 @@ namespace Iced.Intel {
 				flags |= Flags.NoInstruction;
 			opCode = (ushort)(dword1 >> (int)EncFlags1.OpCodeShift);
 
+#if HAS_SPAN
+			ReadOnlySpan<byte> opKinds;
+#else
 			byte[] opKinds;
+#endif
 			encoding = (byte)((dword1 >> (int)EncFlags1.EncodingShift) & (uint)EncFlags1.EncodingMask);
 			switch ((EncodingKind)encoding) {
 			case EncodingKind.Legacy:

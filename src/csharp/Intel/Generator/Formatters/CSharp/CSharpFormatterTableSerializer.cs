@@ -63,7 +63,11 @@ namespace Generator.Formatters.CSharp {
 			using (writer.Indent()) {
 				writer.WriteLine("static partial class InstrInfos {");
 				using (writer.Indent()) {
+					writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
+					writer.WriteLine("static System.ReadOnlySpan<byte> GetSerializedInstrInfos() =>");
+					writer.WriteLineNoIndent("#else");
 					writer.WriteLine("static byte[] GetSerializedInstrInfos() =>");
+					writer.WriteLineNoIndent("#endif");
 					using (writer.Indent()) {
 						writer.WriteLine("new byte[] {");
 						using (writer.Indent()) {

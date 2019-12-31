@@ -28,7 +28,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_DECODER
 namespace Iced.Intel.DecoderInternal {
 	static partial class OpCodeHandlersTables_Legacy {
+#if HAS_SPAN
+		static System.ReadOnlySpan<byte> GetSerializedTables() =>
+#else
 		static byte[] GetSerializedTables() =>
+#endif
 			new byte[] {
 				// handlers_FPU_D8_low
 				0x01,// ArrayReference

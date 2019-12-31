@@ -28,7 +28,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_MASM_FORMATTER && !NO_FORMATTER
 namespace Iced.Intel.MasmFormatterInternal {
 	static partial class InstrInfos {
+#if HAS_SPAN
+		static System.ReadOnlySpan<byte> GetSerializedInstrInfos() =>
+#else
 		static byte[] GetSerializedInstrInfos() =>
+#endif
 			new byte[] {
 				// INVALID
 				0x01,// Normal_1
