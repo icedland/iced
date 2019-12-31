@@ -12,6 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Run generator, verify no diff
+        shell: pwsh
+        run: |
+          cd src/csharp/Intel/Generator
+          dotnet run -c Release
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          git diff --exit-code
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+
       - name: Build, test
         shell: pwsh
         run: |
