@@ -55,11 +55,11 @@ namespace Generator.Decoder.Rust {
 		protected string GetInvalid() => invalidNameRef ?? throw new InvalidOperationException();
 		static bool IsInvalid(EnumValue enumValue) {
 			if (enumValue.DeclaringType.TypeId == TypeIds.OpCodeHandlerKind)
-				return enumValue.Value == (uint)OpCodeHandlerKindEnum.Enum.Invalid;
+				return enumValue.Value == (uint)OpCodeHandlerKind.Invalid;
 			if (enumValue.DeclaringType.TypeId == TypeIds.VexOpCodeHandlerKind)
-				return enumValue.Value == (uint)VexOpCodeHandlerKindEnum.Enum.Invalid;
+				return enumValue.Value == (uint)VexOpCodeHandlerKind.Invalid;
 			if (enumValue.DeclaringType.TypeId == TypeIds.EvexOpCodeHandlerKind)
-				return enumValue.Value == (uint)EvexOpCodeHandlerKindEnum.Enum.Invalid;
+				return enumValue.Value == (uint)EvexOpCodeHandlerKind.Invalid;
 			return false;
 		}
 

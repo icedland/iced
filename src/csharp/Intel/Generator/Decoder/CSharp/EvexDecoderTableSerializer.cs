@@ -33,10 +33,10 @@ namespace Generator.Decoder.CSharp {
 			OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX,
 			OpCodeHandlersTables_EVEX.TwoByteHandlers_0FXX,
 		};
-		static readonly object handlerReferenceValue = EvexOpCodeHandlerKindEnum.Instance["HandlerReference"];
-		static readonly object arrayReferenceValue = EvexOpCodeHandlerKindEnum.Instance["ArrayReference"];
-		static readonly object invalid2Value = EvexOpCodeHandlerKindEnum.Instance["Invalid2"];
-		static readonly object dupValue = EvexOpCodeHandlerKindEnum.Instance["Dup"];
+		static readonly object handlerReferenceValue = EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.HandlerReference)];
+		static readonly object arrayReferenceValue = EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.ArrayReference)];
+		static readonly object invalid2Value = EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.Invalid2)];
+		static readonly object dupValue = EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.Dup)];
 		protected override object GetNullValue() => throw new InvalidOperationException();
 		protected override object GetHandlerReferenceValue() => handlerReferenceValue;
 		protected override object GetArrayReferenceValue() => arrayReferenceValue;

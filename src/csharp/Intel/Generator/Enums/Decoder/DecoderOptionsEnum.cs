@@ -27,7 +27,7 @@ namespace Generator.Enums.Decoder {
 	static class DecoderOptionsEnum {
 		const string documentation = "Decoder options";
 
-		enum DecoderOptions {
+		internal enum DecoderOptions {
 			[Comment("No option is enabled")]
 			None,
 			[Comment("Disable some checks for invalid encodings of instructions, eg. most instructions can't use a #(c:LOCK)# prefix so if one is found, they're decoded as #(e:Code.INVALID)# unless this option is enabled.")]

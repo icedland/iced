@@ -26,10 +26,10 @@ using Generator.Enums.Decoder;
 
 namespace Generator.Decoder.CSharp {
 	abstract class VexCommonDecoderTableSerializer : DecoderTableSerializer {
-		static readonly object handlerReferenceValue = VexOpCodeHandlerKindEnum.Instance["HandlerReference"];
-		static readonly object arrayReferenceValue = VexOpCodeHandlerKindEnum.Instance["ArrayReference"];
-		static readonly object invalid2Value = VexOpCodeHandlerKindEnum.Instance["Invalid2"];
-		static readonly object dupValue = VexOpCodeHandlerKindEnum.Instance["Dup"];
+		static readonly object handlerReferenceValue = VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.HandlerReference)];
+		static readonly object arrayReferenceValue = VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.ArrayReference)];
+		static readonly object invalid2Value = VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Invalid2)];
+		static readonly object dupValue = VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Dup)];
 		protected override object GetNullValue() => throw new InvalidOperationException();
 		protected override object GetHandlerReferenceValue() => handlerReferenceValue;
 		protected override object GetArrayReferenceValue() => arrayReferenceValue;

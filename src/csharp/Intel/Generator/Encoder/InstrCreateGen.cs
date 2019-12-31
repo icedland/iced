@@ -89,7 +89,7 @@ namespace Generator.Encoder {
 
 		public void Generate() {
 			// The code assumes it has value 0 so the field doesn't have to be initialized if we know that it's already 0
-			if (OpKindEnum.Instance["Register"].Value != 0)
+			if (OpKindEnum.Instance[nameof(OpKind.Register)].Value != 0)
 				throw new InvalidOperationException();
 			var info = GetFileInfo();
 			new FileUpdater(info.language, info.id, info.filename).Generate(writer => {

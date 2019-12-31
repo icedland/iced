@@ -28,59 +28,59 @@ using Generator.Enums.InstructionInfo;
 namespace Generator.Tables {
 	static class InstrInfoDictConstants {
 		public static readonly (string name, EnumValue value)[] OpAccessConstants = new (string name, EnumValue value)[] {
-			("n", OpAccessEnum.Instance["None"]),
-			("r", OpAccessEnum.Instance["Read"]),
-			("cr", OpAccessEnum.Instance["CondRead"]),
-			("w", OpAccessEnum.Instance["Write"]),
-			("cw", OpAccessEnum.Instance["CondWrite"]),
-			("rw", OpAccessEnum.Instance["ReadWrite"]),
-			("rcw", OpAccessEnum.Instance["ReadCondWrite"]),
-			("nma", OpAccessEnum.Instance["NoMemAccess"]),
+			("n", OpAccessEnum.Instance[nameof(OpAccess.None)]),
+			("r", OpAccessEnum.Instance[nameof(OpAccess.Read)]),
+			("cr", OpAccessEnum.Instance[nameof(OpAccess.CondRead)]),
+			("w", OpAccessEnum.Instance[nameof(OpAccess.Write)]),
+			("cw", OpAccessEnum.Instance[nameof(OpAccess.CondWrite)]),
+			("rw", OpAccessEnum.Instance[nameof(OpAccess.ReadWrite)]),
+			("rcw", OpAccessEnum.Instance[nameof(OpAccess.ReadCondWrite)]),
+			("nma", OpAccessEnum.Instance[nameof(OpAccess.NoMemAccess)]),
 		};
 
 		public static readonly (string value, EnumValue flags)[] MemorySizeFlagsTable = new (string value, EnumValue flags)[] {
-			("signed", MemorySizeFlagsEnum.Instance["Signed"]),
-			("bcst", MemorySizeFlagsEnum.Instance["Broadcast"]),
-			("packed", MemorySizeFlagsEnum.Instance["Packed"]),
+			("signed", MemorySizeFlagsEnum.Instance[nameof(MemorySizeFlags.Signed)]),
+			("bcst", MemorySizeFlagsEnum.Instance[nameof(MemorySizeFlags.Broadcast)]),
+			("packed", MemorySizeFlagsEnum.Instance[nameof(MemorySizeFlags.Packed)]),
 		};
 
 		public static readonly (string value, EnumValue flags)[] RegisterFlagsTable = new (string value, EnumValue flags)[] {
-			("seg", RegisterFlagsEnum.Instance["SegmentRegister"]),
-			("gpr", RegisterFlagsEnum.Instance["GPR"]),
-			("gpr8", RegisterFlagsEnum.Instance["GPR8"]),
-			("gpr16", RegisterFlagsEnum.Instance["GPR16"]),
-			("gpr32", RegisterFlagsEnum.Instance["GPR32"]),
-			("gpr64", RegisterFlagsEnum.Instance["GPR64"]),
-			("xmm", RegisterFlagsEnum.Instance["XMM"]),
-			("ymm", RegisterFlagsEnum.Instance["YMM"]),
-			("zmm", RegisterFlagsEnum.Instance["ZMM"]),
-			("vec", RegisterFlagsEnum.Instance["VectorRegister"]),
+			("seg", RegisterFlagsEnum.Instance[nameof(RegisterFlags.SegmentRegister)]),
+			("gpr", RegisterFlagsEnum.Instance[nameof(RegisterFlags.GPR)]),
+			("gpr8", RegisterFlagsEnum.Instance[nameof(RegisterFlags.GPR8)]),
+			("gpr16", RegisterFlagsEnum.Instance[nameof(RegisterFlags.GPR16)]),
+			("gpr32", RegisterFlagsEnum.Instance[nameof(RegisterFlags.GPR32)]),
+			("gpr64", RegisterFlagsEnum.Instance[nameof(RegisterFlags.GPR64)]),
+			("xmm", RegisterFlagsEnum.Instance[nameof(RegisterFlags.XMM)]),
+			("ymm", RegisterFlagsEnum.Instance[nameof(RegisterFlags.YMM)]),
+			("zmm", RegisterFlagsEnum.Instance[nameof(RegisterFlags.ZMM)]),
+			("vec", RegisterFlagsEnum.Instance[nameof(RegisterFlags.VectorRegister)]),
 		};
 	}
 
 	static class EncoderConstants {
 		public static readonly (string value, EnumValue flags)[] EncodingKindTable = new (string value, EnumValue flags)[] {
-			("legacy", EncodingKindEnum.Instance["Legacy"]),
-			("VEX", EncodingKindEnum.Instance["VEX"]),
-			("EVEX", EncodingKindEnum.Instance["EVEX"]),
-			("XOP", EncodingKindEnum.Instance["XOP"]),
-			("3DNow!", EncodingKindEnum.Instance["D3NOW"]),
+			("legacy", EncodingKindEnum.Instance[nameof(EncodingKind.Legacy)]),
+			("VEX", EncodingKindEnum.Instance[nameof(EncodingKind.VEX)]),
+			("EVEX", EncodingKindEnum.Instance[nameof(EncodingKind.EVEX)]),
+			("XOP", EncodingKindEnum.Instance[nameof(EncodingKind.XOP)]),
+			("3DNow!", EncodingKindEnum.Instance[nameof(EncodingKind.D3NOW)]),
 		};
 		public static readonly (string value, EnumValue flags)[] MandatoryPrefixTable = new (string value, EnumValue flags)[] {
-			("", MandatoryPrefixEnum.Instance["None"]),
-			("NP", MandatoryPrefixEnum.Instance["PNP"]),
-			("66", MandatoryPrefixEnum.Instance["P66"]),
-			("F3", MandatoryPrefixEnum.Instance["PF3"]),
-			("F2", MandatoryPrefixEnum.Instance["PF2"]),
+			("", MandatoryPrefixEnum.Instance[nameof(MandatoryPrefix.None)]),
+			("NP", MandatoryPrefixEnum.Instance[nameof(MandatoryPrefix.PNP)]),
+			("66", MandatoryPrefixEnum.Instance[nameof(MandatoryPrefix.P66)]),
+			("F3", MandatoryPrefixEnum.Instance[nameof(MandatoryPrefix.PF3)]),
+			("F2", MandatoryPrefixEnum.Instance[nameof(MandatoryPrefix.PF2)]),
 		};
 		public static readonly (string value, EnumValue flags)[] OpCodeTableKindTable = new (string value, EnumValue flags)[] {
-			("legacy", OpCodeTableKindEnum.Instance["Normal"]),
-			("0F", OpCodeTableKindEnum.Instance["T0F"]),
-			("0F38", OpCodeTableKindEnum.Instance["T0F38"]),
-			("0F3A", OpCodeTableKindEnum.Instance["T0F3A"]),
-			("X8", OpCodeTableKindEnum.Instance["XOP8"]),
-			("X9", OpCodeTableKindEnum.Instance["XOP9"]),
-			("XA", OpCodeTableKindEnum.Instance["XOPA"]),
+			("legacy", OpCodeTableKindEnum.Instance[nameof(OpCodeTableKind.Normal)]),
+			("0F", OpCodeTableKindEnum.Instance[nameof(OpCodeTableKind.T0F)]),
+			("0F38", OpCodeTableKindEnum.Instance[nameof(OpCodeTableKind.T0F38)]),
+			("0F3A", OpCodeTableKindEnum.Instance[nameof(OpCodeTableKind.T0F3A)]),
+			("X8", OpCodeTableKindEnum.Instance[nameof(OpCodeTableKind.XOP8)]),
+			("X9", OpCodeTableKindEnum.Instance[nameof(OpCodeTableKind.XOP9)]),
+			("XA", OpCodeTableKindEnum.Instance[nameof(OpCodeTableKind.XOPA)]),
 		};
 	}
 }

@@ -30,11 +30,11 @@ namespace Generator.Decoder.CSharp {
 		protected override string[] GetTableIndexNames() => new string[] {
 			OpCodeHandlersTables_Legacy.OneByteHandlers,
 		};
-		static readonly object nullValue = OpCodeHandlerKindEnum.Instance["Null"];
-		static readonly object handlerReferenceValue = OpCodeHandlerKindEnum.Instance["HandlerReference"];
-		static readonly object arrayReferenceValue = OpCodeHandlerKindEnum.Instance["ArrayReference"];
-		static readonly object invalid2Value = OpCodeHandlerKindEnum.Instance["Invalid2"];
-		static readonly object dupValue = OpCodeHandlerKindEnum.Instance["Dup"];
+		static readonly object nullValue = OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Null)];
+		static readonly object handlerReferenceValue = OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.HandlerReference)];
+		static readonly object arrayReferenceValue = OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.ArrayReference)];
+		static readonly object invalid2Value = OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Invalid2)];
+		static readonly object dupValue = OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Dup)];
 		protected override object GetNullValue() => nullValue;
 		protected override object GetHandlerReferenceValue() => handlerReferenceValue;
 		protected override object GetArrayReferenceValue() => arrayReferenceValue;

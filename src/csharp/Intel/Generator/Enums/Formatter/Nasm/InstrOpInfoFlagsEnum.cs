@@ -29,7 +29,7 @@ namespace Generator.Enums.Formatter.Nasm {
 		const string? documentation = null;
 
 		[Flags]
-		enum Enum : uint {
+		internal enum Enum : uint {
 			None						= 0,
 
 			// show no mem size

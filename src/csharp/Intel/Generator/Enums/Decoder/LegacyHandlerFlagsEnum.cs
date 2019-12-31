@@ -25,24 +25,24 @@ using System;
 using System.Linq;
 
 namespace Generator.Enums.Decoder {
+	[Flags]
+	enum LegacyHandlerFlags : uint {
+		HandlerReg = 0x00000001,
+		HandlerMem = 0x00000002,
+		Handler66Reg = 0x00000004,
+		Handler66Mem = 0x00000008,
+		HandlerF3Reg = 0x00000010,
+		HandlerF3Mem = 0x00000020,
+		HandlerF2Reg = 0x00000040,
+		HandlerF2Mem = 0x00000080,
+	}
+
 	static class LegacyHandlerFlagsEnum {
 		const string? documentation = null;
 
-		[Flags]
-		internal enum Enum : uint {
-			HandlerReg = 0x00000001,
-			HandlerMem = 0x00000002,
-			Handler66Reg = 0x00000004,
-			Handler66Mem = 0x00000008,
-			HandlerF3Reg = 0x00000010,
-			HandlerF3Mem = 0x00000020,
-			HandlerF2Reg = 0x00000040,
-			HandlerF2Mem = 0x00000080,
-		}
-
 		static EnumValue[] GetValues() =>
-			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+			typeof(LegacyHandlerFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(LegacyHandlerFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 
-		public static readonly EnumType Instance = new EnumType(TypeIds.LegacyHandlerFlags, documentation, GetValues(), EnumTypeFlags.Flags);
+		public static readonly EnumType Instance = new EnumType(TypeIds.LegacyHandlerFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

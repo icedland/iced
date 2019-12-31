@@ -29,7 +29,7 @@ namespace Generator.Enums.Formatter.Masm {
 		const string? documentation = null;
 
 		[Flags]
-		enum Enum : ushort {
+		internal enum Enum : ushort {
 			None						= 0,
 
 			MemSize_Mask				= 7,

@@ -27,7 +27,7 @@ namespace Generator.Enums.Decoder {
 	static class HandlerFlagsEnum {
 		const string? documentation = null;
 
-		enum HandlerFlags {
+		internal enum HandlerFlags {
 			None,
 			Xacquire,
 			Xrelease,

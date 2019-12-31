@@ -29,7 +29,7 @@ namespace Generator.Enums.Formatter.Gas {
 		const string? documentation = null;
 
 		[Flags]
-		enum Enum : ushort {
+		internal enum Enum : ushort {
 			None						= 0,
 			MnemonicSuffixIfMem			= 1,
 			SizeOverrideMask			= 3,
