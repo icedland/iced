@@ -3111,7 +3111,7 @@ static GEN_DEBUG_MNEMONIC: [&str; 1538] = [
 	"Xtest",
 ];
 impl fmt::Debug for Mnemonic {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_MNEMONIC[*self as usize])?;
 		Ok(())

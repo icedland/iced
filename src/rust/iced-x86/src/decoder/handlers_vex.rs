@@ -39,7 +39,6 @@ impl OpCodeHandler_VectorLength_VEX {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
-		// Safe, array has 4 elements and vector_length is 0..3
 		let handler = unsafe { *this.handlers.get_unchecked(decoder.state.vector_length as usize) };
 		(handler.decode)(handler, decoder, instruction);
 	}

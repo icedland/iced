@@ -209,13 +209,20 @@ namespace Generator.IO {
 
 		public void Write(string s) {
 			WriteIndent();
-			writer.Write(s);
+			WriteNoIndent(s);
 		}
 
 		public void WriteLine() {
 			writer.WriteLine();
 			needSpace = false;
 			needIndent = true;
+		}
+
+		public void WriteNoIndent(string s) => writer.Write(s);
+
+		public void WriteLineNoIndent(string s) {
+			WriteNoIndent(s);
+			WriteLine();
 		}
 
 		public void Dispose() => writer.Dispose();

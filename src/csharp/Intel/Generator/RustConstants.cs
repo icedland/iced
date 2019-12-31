@@ -34,9 +34,12 @@ namespace Generator {
 		public const string AttributeMustUse = "#[cfg_attr(has_must_use, must_use)]";
 		public const string AttributeNonExhaustive = "#[cfg_attr(all(not(feature = \"exhaustive_enums\"), has_non_exhaustive), non_exhaustive)]";
 		public const string AttributeInline = "#[inline]";
-		public const string AttributeAllowMissingInlineInPublicItems = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::missing_inline_in_public_items))]";
 		public const string AttributeAllowMissingDocs = "#[allow(missing_docs)]";
 		public const string AttributeAllowMissingCopyImplementations = "#[allow(missing_copy_implementations)]";
+		public const string AttributeAllowMissingInlineInPublicItems = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::missing_inline_in_public_items))]";
+		public const string AttributeAllowTooManyArguments = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::too_many_arguments))]";
+		public const string AttributeAllowTrivialCasts = "#[allow(trivial_casts)]";
+		public const string AttributeAllowCastPtrAlignment = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::cast_ptr_alignment))]";
 
 		public const string FeaturePrefix = "#[cfg(";
 		public const string FeatureInstrInfo = "#[cfg(feature = \"instr_info\")]";

@@ -70,22 +70,54 @@ namespace Generator.Documentation.CSharp {
 			return s;
 		}
 
-		public void Write(FileWriter writer, string? documentation, string enumName) {
-			if (string.IsNullOrEmpty(documentation))
+		void RawWriteWithComment(FileWriter writer, bool writeEmpty = true) {
+			var s = GetStringAndReset();
+			if (s.Length == 0 && !writeEmpty)
 				return;
+			writer.WriteLine(s.Length == 0 ? "///" : "/// " + s);
+		}
+
+		public void BeginWrite(FileWriter writer) {
 			if (sb.Length != 0)
 				throw new InvalidOperationException();
-			sb.Append("/// <summary>");
-			foreach (var info in GetTokens(enumName, documentation)) {
+		}
+
+		public void EndWrite(FileWriter writer) =>
+			RawWriteWithComment(writer, false);
+
+		public void WriteSummary(FileWriter writer, string? documentation, string typeName) {
+			if (string.IsNullOrEmpty(documentation))
+				return;
+			BeginWrite(writer);
+			sb.Append("<summary>");
+			WriteDoc(writer, documentation, typeName);
+			sb.Append("</summary>");
+			EndWrite(writer);
+		}
+
+		public void Write(string text) =>
+			sb.Append(text);
+
+		public void WriteLine(FileWriter writer, string text) {
+			Write(text);
+			RawWriteWithComment(writer);
+		}
+
+		public void WriteDocLine(FileWriter writer, string text, string typeName) {
+			WriteDoc(writer, text, typeName);
+			RawWriteWithComment(writer);
+		}
+
+		public void WriteDoc(FileWriter writer, string documentation, string typeName) {
+			foreach (var info in GetTokens(typeName, documentation)) {
 				switch (info.kind) {
 				case TokenKind.NewParagraph:
 					if (!string.IsNullOrEmpty(info.value) && !string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					sb.Append("<br/>");
-					writer.WriteLine(GetStringAndReset());
-					sb.Append("/// <br/>");
-					writer.WriteLine(GetStringAndReset());
-					sb.Append("/// ");
+					RawWriteWithComment(writer);
+					sb.Append("<br/>");
+					RawWriteWithComment(writer);
 					break;
 				case TokenKind.String:
 					sb.Append(Escape(info.value));
@@ -124,7 +156,7 @@ namespace Generator.Documentation.CSharp {
 					break;
 				case TokenKind.EnumFieldReference:
 					sb.Append("<see cref=\"");
-					if (info.value != enumName) {
+					if (info.value != typeName) {
 						sb.Append(Escape(idConverter.Type(info.value)));
 						sb.Append('.');
 					}
@@ -133,28 +165,26 @@ namespace Generator.Documentation.CSharp {
 					break;
 				case TokenKind.Property:
 					sb.Append("<see cref=\"");
-					if (info.value != enumName) {
+					if (info.value != typeName) {
 						sb.Append(Escape(idConverter.Type(info.value)));
 						sb.Append('.');
 					}
-					sb.Append(Escape(idConverter.Property(info.value2)));
+					sb.Append(Escape(idConverter.PropertyDoc(info.value2)));
 					sb.Append("\"/>");
 					break;
 				case TokenKind.Method:
 					sb.Append("<see cref=\"");
-					if (info.value != enumName) {
+					if (info.value != typeName) {
 						sb.Append(Escape(idConverter.Type(info.value)));
 						sb.Append('.');
 					}
-					sb.Append(Escape(idConverter.Method(info.value2)));
+					sb.Append(Escape(idConverter.MethodDoc(info.value2)));
 					sb.Append("\"/>");
 					break;
 				default:
 					throw new InvalidOperationException();
 				}
 			}
-			sb.Append("</summary>");
-			writer.WriteLine(GetStringAndReset());
 		}
 
 		static string Escape(string value) => SecurityElement.Escape(value) ?? throw new InvalidOperationException();

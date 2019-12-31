@@ -30,7 +30,7 @@ use super::op_code_handler::*;
 use std::mem;
 
 lazy_static! {
-	pub(super) static ref HANDLERS_TABLE: Vec<&'static OpCodeHandler> = {
+	pub(crate) static ref HANDLERS_TABLE: Vec<&'static OpCodeHandler> = {
 		let mut v = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES as usize);
 		debug_assert_eq!(IcedConstants::NUMBER_OF_CODE_VALUES as usize * 3, OP_CODE_DATA.len());
 		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES as usize {

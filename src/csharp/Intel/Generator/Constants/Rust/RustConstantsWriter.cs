@@ -38,7 +38,7 @@ namespace Generator.Constants.Rust {
 		}
 
 		public void Write(FileWriter writer, ConstantsType constantsType, string[] attributes) {
-			docWriter.Write(writer, constantsType.Documentation, constantsType.RawName);
+			docWriter.WriteSummary(writer, constantsType.Documentation, constantsType.RawName);
 			foreach (var attr in attributes)
 				writer.WriteLine(attr);
 			var pub = constantsType.IsPublic ? "pub " : "pub(crate) ";
@@ -52,7 +52,7 @@ namespace Generator.Constants.Rust {
 			var sb = new StringBuilder();
 			using (writer.Indent()) {
 				foreach (var constant in constantsType.Constants) {
-					docWriter.Write(writer, constant.Documentation, constantsType.RawName);
+					docWriter.WriteSummary(writer, constant.Documentation, constantsType.RawName);
 					sb.Clear();
 					sb.Append(constant.IsPublic ? "pub " : "pub(crate) ");
 					sb.Append("const ");

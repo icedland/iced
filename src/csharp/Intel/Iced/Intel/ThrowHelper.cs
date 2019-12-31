@@ -55,5 +55,6 @@ namespace Iced.Intel {
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_elementSize() => throw new ArgumentOutOfRangeException("elementSize");
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_register() => throw new ArgumentOutOfRangeException("register");
 		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_code() => throw new ArgumentOutOfRangeException("code");
+		[DoesNotReturn] internal static void ThrowArgumentOutOfRangeException_data() => throw new ArgumentOutOfRangeException("data");
 	}
 }

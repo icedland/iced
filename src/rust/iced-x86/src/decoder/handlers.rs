@@ -81,10 +81,8 @@ impl OpCodeHandler_Group8x8 {
 		assert_eq!(8, this.table_low.len());
 		assert_eq!(8, this.table_high.len());
 		let handler = if decoder.state.mod_ == 3 {
-			// Safe, table size is 8 and reg is 0..7
 			unsafe { *this.table_high.get_unchecked(decoder.state.reg as usize) }
 		} else {
-			// Safe, table size is 8 and reg is 0..7
 			unsafe { *this.table_low.get_unchecked(decoder.state.reg as usize) }
 		};
 		(handler.decode)(handler, decoder, instruction);
@@ -108,14 +106,11 @@ impl OpCodeHandler_Group8x64 {
 		assert_eq!(0x40, this.table_high.len());
 		let mut handler;
 		if decoder.state.mod_ == 3 {
-			// Safe, table size is 64
 			handler = unsafe { *this.table_high.get_unchecked((decoder.state.modrm & 0x3F) as usize) };
 			if handler as *const OpCodeHandler as *const u8 == &GEN_NULL_HANDLER as *const OpCodeHandler_Invalid as *const u8 {
-				// Safe, table size is 8 and reg is 0..7
 				handler = unsafe { *this.table_low.get_unchecked(decoder.state.reg as usize) };
 			}
 		} else {
-			// Safe, table size is 8 and reg is 0..7
 			handler = unsafe { *this.table_low.get_unchecked(decoder.state.reg as usize) };
 		}
 		(handler.decode)(handler, decoder, instruction);
@@ -134,7 +129,6 @@ impl OpCodeHandler_Group {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		assert_eq!(8, this.group_handlers.len());
-		// Safe, table size is 8 and reg is 0..7
 		let handler = unsafe { *this.group_handlers.get_unchecked(decoder.state.reg as usize) };
 		(handler.decode)(handler, decoder, instruction);
 	}
@@ -172,7 +166,6 @@ impl OpCodeHandler_MandatoryPrefix2 {
 				|| decoder.state.encoding() == EncodingKind::EVEX
 				|| decoder.state.encoding() == EncodingKind::XOP
 		);
-		// Safe, table size is 4 and mandatory_prefix is 0..3
 		let handler = unsafe { *this.handlers.get_unchecked(decoder.state.mandatory_prefix as usize) };
 		(handler.decode)(handler, decoder, instruction);
 	}
@@ -196,7 +189,6 @@ impl OpCodeHandler_W {
 		);
 		const_assert_eq!(0x80, StateFlags::W);
 		let index = (decoder.state.flags >> 7) & 1;
-		// Safe, table size is 2 and index is 0..1
 		let handler = unsafe { *this.handlers.get_unchecked(index as usize) };
 		(handler.decode)(handler, decoder, instruction);
 	}

@@ -183,7 +183,6 @@ impl OpCodeHandler_MandatoryPrefix {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		decoder.clear_mandatory_prefix(instruction);
-		// Safe, array has 4 elements and mandatory_prefix is 0..3
 		let handler = unsafe { *this.handlers.get_unchecked(decoder.state.mandatory_prefix as usize) };
 		(handler.decode)(handler, decoder, instruction);
 	}
@@ -202,7 +201,6 @@ impl OpCodeHandler_MandatoryPrefix3 {
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
-		// Safe, array has 4 elements and mandatory_prefix is 0..3
 		let (handler, mandatory_prefix) = unsafe {
 			if decoder.state.mod_ == 3 {
 				*this.handlers_reg.get_unchecked(decoder.state.mandatory_prefix as usize)
@@ -2335,7 +2333,6 @@ impl OpCodeHandler_Xchg_Reg_rAX {
 			let size_index = decoder.state.operand_size as u32;
 			let code_index = this.index + decoder.state.extra_base_register_base;
 
-			// Safe, size_index is 0-2 (a valid OpSize value) and code_index is 0-15
 			super::instruction_internal::internal_set_code_u32(instruction, unsafe {
 				*XCHG_REG_RAX_CODES.get_unchecked((size_index * 16 + code_index) as usize) as u32
 			});
@@ -2426,10 +2423,8 @@ impl OpCodeHandler_RegIb3 {
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		let register;
 		if (decoder.state.flags & StateFlags::HAS_REX) != 0 {
-			// Safe, index = 0..7 and extra_base_register_base is 0 or 8
 			register = unsafe { *WITH_REX_PREFIX_MOV_REGISTERS.get_unchecked((this.index + decoder.state.extra_base_register_base) as usize) };
 		} else {
-			// Safe, index = 0..7
 			register = unsafe { std::mem::transmute((this.index + Register::AL as u32) as u8) };
 		}
 		super::instruction_internal::internal_set_code(instruction, Code::Mov_r8_imm8);

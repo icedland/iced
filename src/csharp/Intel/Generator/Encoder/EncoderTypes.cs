@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Generator.Enums;
 using Generator.Enums.Encoder;
 
@@ -282,13 +283,13 @@ namespace Generator.Encoder {
 			Sort(VexOpHandlers);
 			Sort(XopOpHandlers);
 			Sort(EvexOpHandlers);
-			if (LegacyOpHandlers.Length != LegacyOpKindEnum.Instance.Values.Length)
+			if (new HashSet<EnumValue>(LegacyOpHandlers.Select(a => a.legacyOpKind)).Count != LegacyOpKindEnum.Instance.Values.Length)
 				throw new InvalidOperationException();
-			if (VexOpHandlers.Length != VexOpKindEnum.Instance.Values.Length)
+			if (new HashSet<EnumValue>(VexOpHandlers.Select(a => a.vexOpKind)).Count != VexOpKindEnum.Instance.Values.Length)
 				throw new InvalidOperationException();
-			if (XopOpHandlers.Length != XopOpKindEnum.Instance.Values.Length)
+			if (new HashSet<EnumValue>(XopOpHandlers.Select(a => a.xopOpKind)).Count != XopOpKindEnum.Instance.Values.Length)
 				throw new InvalidOperationException();
-			if (EvexOpHandlers.Length != EvexOpKindEnum.Instance.Values.Length)
+			if (new HashSet<EnumValue>(EvexOpHandlers.Select(a => a.evexOpKind)).Count != EvexOpKindEnum.Instance.Values.Length)
 				throw new InvalidOperationException();
 
 			static void Sort((EnumValue opCodeOperandKind, EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)[] handlers) =>

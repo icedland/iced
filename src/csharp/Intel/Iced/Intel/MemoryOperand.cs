@@ -71,9 +71,9 @@ namespace Iced.Intel {
 		/// <param name="displacement">Memory displacement</param>
 		/// <param name="displSize">0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <see cref="sbyte"/>), 2 (16-bit), 4 (32-bit) or 8 (64-bit)</param>
 		/// <param name="isBroadcast">true if it's broadcasted memory (EVEX instructions)</param>
-		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		public MemoryOperand(Register @base, Register index, int scale, int displacement, int displSize, bool isBroadcast, Register prefixSegment) {
-			SegmentPrefix = prefixSegment;
+		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
+		public MemoryOperand(Register @base, Register index, int scale, int displacement, int displSize, bool isBroadcast, Register segmentPrefix) {
+			SegmentPrefix = segmentPrefix;
 			Base = @base;
 			Index = index;
 			Scale = scale;
@@ -89,9 +89,9 @@ namespace Iced.Intel {
 		/// <param name="index">Index register or <see cref="Register.None"/></param>
 		/// <param name="scale">Index register scale (1, 2, 4, or 8)</param>
 		/// <param name="isBroadcast">true if it's broadcasted memory (EVEX instructions)</param>
-		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		public MemoryOperand(Register @base, Register index, int scale, bool isBroadcast, Register prefixSegment) {
-			SegmentPrefix = prefixSegment;
+		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
+		public MemoryOperand(Register @base, Register index, int scale, bool isBroadcast, Register segmentPrefix) {
+			SegmentPrefix = segmentPrefix;
 			Base = @base;
 			Index = index;
 			Scale = scale;
@@ -107,9 +107,9 @@ namespace Iced.Intel {
 		/// <param name="displacement">Memory displacement</param>
 		/// <param name="displSize">0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <see cref="sbyte"/>), 2 (16-bit), 4 (32-bit) or 8 (64-bit)</param>
 		/// <param name="isBroadcast">true if it's broadcasted memory (EVEX instructions)</param>
-		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		public MemoryOperand(Register @base, int displacement, int displSize, bool isBroadcast, Register prefixSegment) {
-			SegmentPrefix = prefixSegment;
+		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
+		public MemoryOperand(Register @base, int displacement, int displSize, bool isBroadcast, Register segmentPrefix) {
+			SegmentPrefix = segmentPrefix;
 			Base = @base;
 			Index = Register.None;
 			Scale = 1;
@@ -126,9 +126,9 @@ namespace Iced.Intel {
 		/// <param name="displacement">Memory displacement</param>
 		/// <param name="displSize">0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <see cref="sbyte"/>), 2 (16-bit), 4 (32-bit) or 8 (64-bit)</param>
 		/// <param name="isBroadcast">true if it's broadcasted memory (EVEX instructions)</param>
-		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		public MemoryOperand(Register index, int scale, int displacement, int displSize, bool isBroadcast, Register prefixSegment) {
-			SegmentPrefix = prefixSegment;
+		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
+		public MemoryOperand(Register index, int scale, int displacement, int displSize, bool isBroadcast, Register segmentPrefix) {
+			SegmentPrefix = segmentPrefix;
 			Base = Register.None;
 			Index = index;
 			Scale = scale;
@@ -143,9 +143,9 @@ namespace Iced.Intel {
 		/// <param name="base">Base register or <see cref="Register.None"/></param>
 		/// <param name="displacement">Memory displacement</param>
 		/// <param name="isBroadcast">true if it's broadcasted memory (EVEX instructions)</param>
-		/// <param name="prefixSegment">Segment override or <see cref="Register.None"/></param>
-		public MemoryOperand(Register @base, int displacement, bool isBroadcast, Register prefixSegment) {
-			SegmentPrefix = prefixSegment;
+		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
+		public MemoryOperand(Register @base, int displacement, bool isBroadcast, Register segmentPrefix) {
+			SegmentPrefix = segmentPrefix;
 			Base = @base;
 			Index = Register.None;
 			Scale = 1;

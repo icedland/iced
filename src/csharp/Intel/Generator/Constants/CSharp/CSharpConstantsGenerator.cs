@@ -110,13 +110,13 @@ namespace Generator.Constants.CSharp {
 		}
 
 		void WriteConstants(FileWriter writer, ConstantsType constantsType) {
-			docWriter.Write(writer, constantsType.Documentation, constantsType.RawName);
+			docWriter.WriteSummary(writer, constantsType.Documentation, constantsType.RawName);
 			var pub = constantsType.IsPublic ? "public " : string.Empty;
 			writer.WriteLine($"{pub}static class {constantsType.Name(idConverter)} {{");
 
 			using (writer.Indent()) {
 				foreach (var constant in constantsType.Constants) {
-					docWriter.Write(writer, constant.Documentation, constantsType.RawName);
+					docWriter.WriteSummary(writer, constant.Documentation, constantsType.RawName);
 					writer.Write(constant.IsPublic ? "public " : "internal ");
 					writer.Write("const ");
 					writer.Write(GetType(constant.Kind));

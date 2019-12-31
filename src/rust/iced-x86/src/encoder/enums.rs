@@ -47,7 +47,7 @@ static GEN_DEBUG_DISPL_SIZE: [&str; 7] = [
 	"RipRelSize4_Target64",
 ];
 impl fmt::Debug for DisplSize {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_DISPL_SIZE[*self as usize])?;
 		Ok(())
@@ -114,7 +114,7 @@ static GEN_DEBUG_IMM_SIZE: [&str; 19] = [
 	"Size1OpCode",
 ];
 impl fmt::Debug for ImmSize {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_IMM_SIZE[*self as usize])?;
 		Ok(())
@@ -172,7 +172,7 @@ static GEN_DEBUG_OPERAND_SIZE: [&str; 4] = [
 	"Size64",
 ];
 impl fmt::Debug for OperandSize {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OPERAND_SIZE[*self as usize])?;
 		Ok(())
@@ -205,7 +205,7 @@ static GEN_DEBUG_ADDRESS_SIZE: [&str; 4] = [
 	"Size64",
 ];
 impl fmt::Debug for AddressSize {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_ADDRESS_SIZE[*self as usize])?;
 		Ok(())
@@ -238,7 +238,7 @@ static GEN_DEBUG_LEGACY_OP_CODE_TABLE: [&str; 4] = [
 	"Table0F3A",
 ];
 impl fmt::Debug for LegacyOpCodeTable {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_LEGACY_OP_CODE_TABLE[*self as usize])?;
 		Ok(())
@@ -269,7 +269,7 @@ static GEN_DEBUG_VEX_OP_CODE_TABLE: [&str; 3] = [
 	"Table0F3A",
 ];
 impl fmt::Debug for VexOpCodeTable {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_VEX_OP_CODE_TABLE[*self as usize])?;
 		Ok(())
@@ -300,7 +300,7 @@ static GEN_DEBUG_XOP_OP_CODE_TABLE: [&str; 3] = [
 	"XOPA",
 ];
 impl fmt::Debug for XopOpCodeTable {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_XOP_OP_CODE_TABLE[*self as usize])?;
 		Ok(())
@@ -331,7 +331,7 @@ static GEN_DEBUG_EVEX_OP_CODE_TABLE: [&str; 3] = [
 	"Table0F3A",
 ];
 impl fmt::Debug for EvexOpCodeTable {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_EVEX_OP_CODE_TABLE[*self as usize])?;
 		Ok(())
@@ -362,7 +362,7 @@ static GEN_DEBUG_ENCODABLE: [&str; 3] = [
 	"Only64",
 ];
 impl fmt::Debug for Encodable {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_ENCODABLE[*self as usize])?;
 		Ok(())
@@ -399,7 +399,7 @@ static GEN_DEBUG_VEX_VECTOR_LENGTH: [&str; 6] = [
 	"LIG",
 ];
 impl fmt::Debug for VexVectorLength {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_VEX_VECTOR_LENGTH[*self as usize])?;
 		Ok(())
@@ -432,7 +432,7 @@ static GEN_DEBUG_XOP_VECTOR_LENGTH: [&str; 4] = [
 	"L1",
 ];
 impl fmt::Debug for XopVectorLength {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_XOP_VECTOR_LENGTH[*self as usize])?;
 		Ok(())
@@ -463,7 +463,7 @@ static GEN_DEBUG_EVEX_VECTOR_LENGTH: [&str; 3] = [
 	"L512",
 ];
 impl fmt::Debug for EvexVectorLength {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_EVEX_VECTOR_LENGTH[*self as usize])?;
 		Ok(())
@@ -565,7 +565,7 @@ static GEN_DEBUG_ALLOWED_PREFIXES: [&str; 9] = [
 	"Xrelease",
 ];
 impl fmt::Debug for AllowedPrefixes {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_ALLOWED_PREFIXES[*self as usize])?;
 		Ok(())
@@ -598,7 +598,7 @@ static GEN_DEBUG_WBIT: [&str; 4] = [
 	"WIG32",
 ];
 impl fmt::Debug for WBit {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_WBIT[*self as usize])?;
 		Ok(())
@@ -968,7 +968,7 @@ static GEN_DEBUG_LEGACY_OP_KIND: [&str; 118] = [
 	"r64_ro",
 ];
 impl fmt::Debug for LegacyOpKind {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_LEGACY_OP_KIND[*self as usize])?;
 		Ok(())
@@ -1071,7 +1071,7 @@ static GEN_DEBUG_VEX_OP_KIND: [&str; 39] = [
 	"WY",
 ];
 impl fmt::Debug for VexOpKind {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_VEX_OP_KIND[*self as usize])?;
 		Ok(())
@@ -1134,7 +1134,7 @@ static GEN_DEBUG_XOP_OP_KIND: [&str; 19] = [
 	"WY",
 ];
 impl fmt::Debug for XopOpKind {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_XOP_OP_KIND[*self as usize])?;
 		Ok(())
@@ -1231,7 +1231,7 @@ static GEN_DEBUG_EVEX_OP_KIND: [&str; 36] = [
 	"WZ",
 ];
 impl fmt::Debug for EvexOpKind {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_EVEX_OP_KIND[*self as usize])?;
 		Ok(())
@@ -1245,3 +1245,37 @@ impl Default for EvexOpKind {
 	}
 }
 // GENERATOR-END: EvexOpKind
+
+// GENERATOR-BEGIN: RepPrefixKind
+// ⚠️This was generated by GENERATOR!🦹‍♂️
+/// `REP`/`REPE`/`REPNE` prefix
+#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+pub enum RepPrefixKind {
+	/// No `REP`/`REPE`/`REPNE` prefix
+	None,
+	/// `REP`/`REPE` prefix
+	Repe,
+	/// `REPNE` prefix
+	Repne,
+}
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static GEN_DEBUG_REP_PREFIX_KIND: [&str; 3] = [
+	"None",
+	"Repe",
+	"Repne",
+];
+impl fmt::Debug for RepPrefixKind {
+	#[inline]
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+		write!(f, "{}", GEN_DEBUG_REP_PREFIX_KIND[*self as usize])?;
+		Ok(())
+	}
+}
+impl Default for RepPrefixKind {
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	fn default() -> Self {
+		RepPrefixKind::None
+	}
+}
+// GENERATOR-END: RepPrefixKind

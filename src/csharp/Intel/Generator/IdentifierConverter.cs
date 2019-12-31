@@ -33,11 +33,13 @@ namespace Generator {
 		public abstract string Type(string name);
 		public abstract string Field(string name);
 		public abstract string EnumField(string name);
-		public abstract string Property(string name);
+		public abstract string PropertyDoc(string name);
+		public abstract string MethodDoc(string name);
 		public abstract string Method(string name);
 		public abstract string Constant(string name);
 		public abstract string Static(string name);
 		public abstract string Namespace(string name);
+		public abstract string Argument(string name);
 
 		protected string ToSnakeCase(string name) => ToSnakeCase(name, upper: false);
 		protected string ToScreamingSnakeCase(string name) => ToSnakeCase(name, upper: true);
@@ -64,11 +66,13 @@ namespace Generator {
 		public override string Type(string name) => name;
 		public override string Field(string name) => name;
 		public override string EnumField(string name) => name;
-		public override string Property(string name) => name;
+		public override string PropertyDoc(string name) => name;
+		public override string MethodDoc(string name) => name;
 		public override string Method(string name) => name;
 		public override string Constant(string name) => name;
 		public override string Static(string name) => name;
 		public override string Namespace(string name) => name;
+		public override string Argument(string name) => name;
 	}
 
 	sealed class RustIdentifierConverter : IdentifierConverter {
@@ -77,8 +81,9 @@ namespace Generator {
 		public override string Type(string name) => name;
 		public override string Field(string name) => ToSnakeCase(name);
 		public override string EnumField(string name) => name;
-		public override string Property(string name) => ToSnakeCase(name) + "()";
-		public override string Method(string name) => ToSnakeCase(name) + "()";
+		public override string PropertyDoc(string name) => ToSnakeCase(name) + "()";
+		public override string MethodDoc(string name) => ToSnakeCase(name) + "()";
+		public override string Method(string name) => ToSnakeCase(name);
 
 		public override string Constant(string name) {
 			switch (name) {
@@ -101,5 +106,6 @@ namespace Generator {
 
 		public override string Static(string name) => ToScreamingSnakeCase(name);
 		public override string Namespace(string name) => ToSnakeCase(name);
+		public override string Argument(string name) => ToSnakeCase(name);
 	}
 }

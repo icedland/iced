@@ -137,7 +137,7 @@ static GEN_DEBUG_OP_INFO0: [&str; 10] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpInfo0 {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_INFO0[*self as usize])?;
 		Ok(())
@@ -180,7 +180,7 @@ static GEN_DEBUG_OP_INFO1: [&str; 7] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpInfo1 {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_INFO1[*self as usize])?;
 		Ok(())
@@ -215,7 +215,7 @@ static GEN_DEBUG_OP_INFO2: [&str; 3] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpInfo2 {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_INFO2[*self as usize])?;
 		Ok(())
@@ -248,7 +248,7 @@ static GEN_DEBUG_OP_INFO3: [&str; 2] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpInfo3 {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_INFO3[*self as usize])?;
 		Ok(())
@@ -281,7 +281,7 @@ static GEN_DEBUG_OP_INFO4: [&str; 2] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpInfo4 {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_INFO4[*self as usize])?;
 		Ok(())
@@ -504,7 +504,7 @@ static GEN_DEBUG_CODE_INFO: [&str; 97] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CODE_INFO[*self as usize])?;
 		Ok(())
@@ -641,7 +641,7 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 54] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for RflagsInfo {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_RFLAGS_INFO[*self as usize])?;
 		Ok(())
@@ -966,7 +966,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 148] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CPUID_FEATURE_INTERNAL[*self as usize])?;
 		Ok(())

@@ -139,6 +139,13 @@ pub(crate) fn internal_set_op3_kind(this: &mut Instruction, new_value: OpKind) {
 }
 
 #[inline]
+pub(crate) fn internal_set_op4_kind(_this: &mut Instruction, new_value: OpKind) {
+	if new_value != OpKind::Immediate8 {
+		panic!();
+	}
+}
+
+#[inline]
 pub(crate) fn internal_set_memory_displ_size(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value <= 4);
 	this.memory_flags |= (new_value << MemoryFlags::DISPL_SIZE_SHIFT) as u16;
@@ -261,6 +268,11 @@ pub(crate) fn internal_set_op2_register_u32(this: &mut Instruction, new_value: u
 }
 
 #[inline]
+pub(crate) fn internal_set_op3_register(this: &mut Instruction, new_value: Register) {
+	this.reg3 = new_value as u8;
+}
+
+#[inline]
 pub(crate) fn internal_set_op3_register_u32(this: &mut Instruction, new_value: u32) {
 	this.reg3 = new_value as u8;
 }
@@ -323,4 +335,247 @@ pub(crate) fn get_address_size_in_bytes(base_reg: Register, index_reg: Register,
 		CodeSize::Code16 => 2,
 		_ => 8,
 	}
+}
+
+#[cfg(feature = "encoder")]
+pub(crate) fn get_immediate_op_kind(code: Code, operand: usize) -> OpKind {
+	let handlers = &*super::encoder::handlers_table::HANDLERS_TABLE;
+	let operands = &unsafe { *handlers.get_unchecked(code as usize) }.operands;
+	if operand >= operands.len() {
+		if cfg!(debug_assertions) {
+			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
+		} else {
+			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
+		}
+	}
+	match unsafe { *operands.get_unchecked(operand) }.immediate_op_kind() {
+		Some(op_kind) => op_kind,
+		None => {
+			if cfg!(debug_assertions) {
+				panic!("{:?}'s op{} isn't an immediate operand", code, operand);
+			} else {
+				panic!("{}'s op{} isn't an immediate operand", code as u32, operand);
+			}
+		}
+	}
+}
+
+#[cfg(feature = "encoder")]
+pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> OpKind {
+	let handlers = &*super::encoder::handlers_table::HANDLERS_TABLE;
+	let operands = &unsafe { *handlers.get_unchecked(code as usize) }.operands;
+	if operand >= operands.len() {
+		if cfg!(debug_assertions) {
+			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
+		} else {
+			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
+		}
+	}
+	match unsafe { *operands.get_unchecked(operand) }.near_branch_op_kind() {
+		Some(op_kind) => op_kind,
+		None => {
+			if cfg!(debug_assertions) {
+				panic!("{:?}'s op{} isn't a near branch operand", code, operand);
+			} else {
+				panic!("{}'s op{} isn't a near branch operand", code as u32, operand);
+			}
+		}
+	}
+}
+
+#[cfg(feature = "encoder")]
+pub(crate) fn get_far_branch_op_kind(code: Code, operand: usize) -> OpKind {
+	let handlers = &*super::encoder::handlers_table::HANDLERS_TABLE;
+	let operands = &unsafe { *handlers.get_unchecked(code as usize) }.operands;
+	if operand >= operands.len() {
+		if cfg!(debug_assertions) {
+			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
+		} else {
+			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
+		}
+	}
+	match unsafe { *operands.get_unchecked(operand) }.far_branch_op_kind() {
+		Some(op_kind) => op_kind,
+		None => {
+			if cfg!(debug_assertions) {
+				panic!("{:?}'s op{} isn't a far branch operand", code, operand);
+			} else {
+				panic!("{}'s op{} isn't a far branch operand", code as u32, operand);
+			}
+		}
+	}
+}
+
+#[cfg(feature = "encoder")]
+pub(crate) fn with_string_reg_segrsi(
+	code: Code, address_size: u32, register: Register, segment_prefix: Register, rep_prefix: RepPrefixKind,
+) -> Instruction {
+	let mut instruction = Instruction::default();
+	internal_set_code(&mut instruction, code);
+
+	match rep_prefix {
+		RepPrefixKind::None => {}
+		RepPrefixKind::Repe => internal_set_has_repe_prefix(&mut instruction),
+		RepPrefixKind::Repne => internal_set_has_repne_prefix(&mut instruction),
+	}
+
+	const_assert_eq!(0, OpKind::Register as u32);
+	//internal_set_op0_kind(&mut instruction, OpKind::Register);
+	internal_set_op0_register(&mut instruction, register);
+
+	match address_size {
+		64 => internal_set_op1_kind(&mut instruction, OpKind::MemorySegRSI),
+		32 => internal_set_op1_kind(&mut instruction, OpKind::MemorySegESI),
+		16 => internal_set_op1_kind(&mut instruction, OpKind::MemorySegSI),
+		_ => panic!(),
+	}
+
+	instruction.set_segment_prefix(segment_prefix);
+
+	debug_assert_eq!(2, instruction.op_count());
+	instruction
+}
+
+#[cfg(feature = "encoder")]
+pub(crate) fn with_string_reg_esrdi(code: Code, address_size: u32, register: Register, rep_prefix: RepPrefixKind) -> Instruction {
+	let mut instruction = Instruction::default();
+	internal_set_code(&mut instruction, code);
+
+	match rep_prefix {
+		RepPrefixKind::None => {}
+		RepPrefixKind::Repe => internal_set_has_repe_prefix(&mut instruction),
+		RepPrefixKind::Repne => internal_set_has_repne_prefix(&mut instruction),
+	}
+
+	const_assert_eq!(0, OpKind::Register as u32);
+	//internal_set_op0_kind(&mut instruction, OpKind::Register);
+	internal_set_op0_register(&mut instruction, register);
+
+	match address_size {
+		64 => internal_set_op1_kind(&mut instruction, OpKind::MemoryESRDI),
+		32 => internal_set_op1_kind(&mut instruction, OpKind::MemoryESEDI),
+		16 => internal_set_op1_kind(&mut instruction, OpKind::MemoryESDI),
+		_ => panic!(),
+	}
+
+	debug_assert_eq!(2, instruction.op_count());
+	instruction
+}
+
+#[cfg(feature = "encoder")]
+pub(crate) fn with_string_esrdi_reg(code: Code, address_size: u32, register: Register, rep_prefix: RepPrefixKind) -> Instruction {
+	let mut instruction = Instruction::default();
+	internal_set_code(&mut instruction, code);
+
+	match rep_prefix {
+		RepPrefixKind::None => {}
+		RepPrefixKind::Repe => internal_set_has_repe_prefix(&mut instruction),
+		RepPrefixKind::Repne => internal_set_has_repne_prefix(&mut instruction),
+	}
+
+	match address_size {
+		64 => internal_set_op0_kind(&mut instruction, OpKind::MemoryESRDI),
+		32 => internal_set_op0_kind(&mut instruction, OpKind::MemoryESEDI),
+		16 => internal_set_op0_kind(&mut instruction, OpKind::MemoryESDI),
+		_ => panic!(),
+	}
+
+	const_assert_eq!(0, OpKind::Register as u32);
+	//internal_set_op1_kind(&mut instruction, OpKind::Register);
+	internal_set_op1_register(&mut instruction, register);
+
+	debug_assert_eq!(2, instruction.op_count());
+	instruction
+}
+
+#[cfg(feature = "encoder")]
+pub(crate) fn with_string_segrsi_esrdi(code: Code, address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Instruction {
+	let mut instruction = Instruction::default();
+	internal_set_code(&mut instruction, code);
+
+	match rep_prefix {
+		RepPrefixKind::None => {}
+		RepPrefixKind::Repe => internal_set_has_repe_prefix(&mut instruction),
+		RepPrefixKind::Repne => internal_set_has_repne_prefix(&mut instruction),
+	}
+
+	match address_size {
+		64 => {
+			internal_set_op0_kind(&mut instruction, OpKind::MemorySegRSI);
+			internal_set_op1_kind(&mut instruction, OpKind::MemoryESRDI);
+		}
+		32 => {
+			internal_set_op0_kind(&mut instruction, OpKind::MemorySegESI);
+			internal_set_op1_kind(&mut instruction, OpKind::MemoryESEDI);
+		}
+		16 => {
+			internal_set_op0_kind(&mut instruction, OpKind::MemorySegSI);
+			internal_set_op1_kind(&mut instruction, OpKind::MemoryESDI);
+		}
+		_ => panic!(),
+	}
+
+	instruction.set_segment_prefix(segment_prefix);
+
+	debug_assert_eq!(2, instruction.op_count());
+	instruction
+}
+
+#[cfg(feature = "encoder")]
+pub(crate) fn with_string_esrdi_segrsi(code: Code, address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Instruction {
+	let mut instruction = Instruction::default();
+	internal_set_code(&mut instruction, code);
+
+	match rep_prefix {
+		RepPrefixKind::None => {}
+		RepPrefixKind::Repe => internal_set_has_repe_prefix(&mut instruction),
+		RepPrefixKind::Repne => internal_set_has_repne_prefix(&mut instruction),
+	}
+
+	match address_size {
+		64 => {
+			internal_set_op0_kind(&mut instruction, OpKind::MemoryESRDI);
+			internal_set_op1_kind(&mut instruction, OpKind::MemorySegRSI);
+		}
+		32 => {
+			internal_set_op0_kind(&mut instruction, OpKind::MemoryESEDI);
+			internal_set_op1_kind(&mut instruction, OpKind::MemorySegESI);
+		}
+		16 => {
+			internal_set_op0_kind(&mut instruction, OpKind::MemoryESDI);
+			internal_set_op1_kind(&mut instruction, OpKind::MemorySegSI);
+		}
+		_ => panic!(),
+	}
+
+	instruction.set_segment_prefix(segment_prefix);
+
+	debug_assert_eq!(2, instruction.op_count());
+	instruction
+}
+
+#[cfg(feature = "encoder")]
+pub(crate) fn with_maskmov(code: Code, address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Instruction {
+	let mut instruction = Instruction::default();
+	internal_set_code(&mut instruction, code);
+
+	match address_size {
+		64 => internal_set_op0_kind(&mut instruction, OpKind::MemorySegRDI),
+		32 => internal_set_op0_kind(&mut instruction, OpKind::MemorySegEDI),
+		16 => internal_set_op0_kind(&mut instruction, OpKind::MemorySegDI),
+		_ => panic!(),
+	}
+
+	const_assert_eq!(0, OpKind::Register as u32);
+	//internal_set_op1_kind(&mut instruction, OpKind::Register);
+	internal_set_op1_register(&mut instruction, register1);
+
+	const_assert_eq!(0, OpKind::Register as u32);
+	//internal_set_op2_kind(&mut instruction, OpKind::Register);
+	internal_set_op2_register(&mut instruction, register2);
+
+	instruction.set_segment_prefix(segment_prefix);
+
+	debug_assert_eq!(3, instruction.op_count());
+	instruction
 }

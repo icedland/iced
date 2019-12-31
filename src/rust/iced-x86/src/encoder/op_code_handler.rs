@@ -105,7 +105,7 @@ impl DeclareDataHandler {
 	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let length = instruction.declare_data_len() * this.elem_size;
-		for i in 0..length {
+		for i in 0..length as usize {
 			encoder.write_byte(instruction.get_declare_byte_value(i) as u32);
 		}
 	}

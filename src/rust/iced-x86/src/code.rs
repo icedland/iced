@@ -37837,7 +37837,7 @@ static GEN_DEBUG_CODE: [&str; 4203] = [
 	"DeclareQword",
 ];
 impl fmt::Debug for Code {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CODE[*self as usize])?;
 		Ok(())
@@ -37897,7 +37897,6 @@ impl Code {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn encoding(self) -> EncodingKind {
-		// Safe, the table only has valid enum values
 		unsafe {
 			mem::transmute(
 				((*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK)
@@ -37945,7 +37944,6 @@ impl Code {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn flow_control(self) -> FlowControl {
-		// Safe, the table only has valid enum values
 		unsafe {
 			mem::transmute(
 				((*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::FLOW_CONTROL_SHIFT)

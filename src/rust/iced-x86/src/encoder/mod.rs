@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 mod enums;
-mod handlers_table;
+pub(crate) mod handlers_table;
 mod instruction_fmt;
 mod mnemonic_str_tbl;
 mod op_code;
@@ -33,11 +33,13 @@ pub(crate) mod op_code_tbl;
 mod op_kind_tables;
 mod ops;
 mod ops_tables;
+mod mem_op;
 #[cfg(test)]
 mod tests;
 
-use self::enums::*;
+pub use self::enums::*;
 use self::handlers_table::*;
+pub use self::mem_op::*;
 pub use self::op_code::*;
 use self::op_code_handler::OpCodeHandler;
 use super::iced_constants::IcedConstants;
@@ -1428,7 +1430,7 @@ impl Encoder {
 	}
 
 	/// Returns the buffer and initializes the internal buffer to an empty vector. Should be called when
-	/// you've encoded all instructions and need the encoded code. See also [`set_buffer()`].
+	/// you've encoded all instructions and need the raw instruction bytes. See also [`set_buffer()`].
 	///
 	/// [`set_buffer()`]: #method.set_buffer
 	#[cfg_attr(has_must_use, must_use)]

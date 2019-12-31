@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Iced\Iced.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <DefineConstants Condition=" $(TargetFramework.StartsWith(netcoreapp)) ">$(DefineConstants);HAS_SPAN</DefineConstants>
+  </PropertyGroup>
+
 </Project>

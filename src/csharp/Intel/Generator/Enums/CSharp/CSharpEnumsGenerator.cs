@@ -162,6 +162,7 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.WBit, new PartialEnumFileInfo("WBit", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "Enums.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.LKind, new PartialEnumFileInfo("LKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "OpCodeFormatter.cs"), "byte"));
 			toPartialFileInfo.Add(TypeIds.OpCodeFlags, new PartialEnumFileInfo("Flags", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "OpCodeInfo.cs"), "uint"));
+			toPartialFileInfo.Add(TypeIds.RepPrefixKind, new PartialEnumFileInfo("RepPrefixKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Instruction.Create.cs"), null));
 		}
 
 		public override void Generate(EnumType enumType) {
@@ -176,7 +177,7 @@ namespace Generator.Enums.CSharp {
 		}
 
 		void WriteEnum(FileWriter writer, EnumType enumType, string? baseType) {
-			docWriter.Write(writer, enumType.Documentation, enumType.RawName);
+			docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
 			if (enumType.IsFlags)
 				writer.WriteLine("[Flags]");
 			var pub = enumType.IsPublic ? "public " : string.Empty;
@@ -185,7 +186,7 @@ namespace Generator.Enums.CSharp {
 			using (writer.Indent()) {
 				uint expectedValue = 0;
 				foreach (var value in enumType.Values) {
-					docWriter.Write(writer, value.Documentation, enumType.RawName);
+					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
 					if (enumType.IsFlags)
 						writer.WriteLine($"{value.Name(idConverter)} = 0x{value.Value:X8},");
 					else if (expectedValue != value.Value)

@@ -311,7 +311,6 @@ impl OpCodeHandler_D3NOW {
 			decoder.read_u8()
 		};
 		debug_assert_eq!(0x100, CODE_VALUES.len());
-		// Safe, the index is always 00-FFh, and we only store valid Code values in the array
 		let code = unsafe { std::mem::transmute(*CODE_VALUES.get_unchecked(ib)) };
 		super::instruction_internal::internal_set_code(instruction, code);
 		if code == Code::INVALID {

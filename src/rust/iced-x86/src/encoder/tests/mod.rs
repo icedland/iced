@@ -231,7 +231,7 @@ fn with_capacity_panics_if_bitness_0() {
 
 #[test]
 #[should_panic]
-fn with_capacity_if_bitness_128() {
+fn with_capacity_panics_if_bitness_128() {
 	let _ = Encoder::with_capacity(128, 1);
 }
 
@@ -256,8 +256,8 @@ fn encode_invalid_code_value_is_an_error() {
 	instr.set_code(Code::INVALID);
 	let instr = instr;
 
-	for bitness in [16, 32, 64].iter() {
-		let mut encoder = Encoder::new(*bitness);
+	for &bitness in [16, 32, 64].iter() {
+		let mut encoder = Encoder::new(bitness);
 		match encoder.encode(&instr, 0) {
 			Ok(_) => unreachable!(),
 			Err(err) => assert_eq!(InvalidHandler::ERROR_MESSAGE, err),
@@ -267,8 +267,8 @@ fn encode_invalid_code_value_is_an_error() {
 
 #[test]
 fn verify_encoder_options() {
-	for bitness in [16, 32, 64].iter() {
-		let encoder = Encoder::new(*bitness);
+	for &bitness in [16, 32, 64].iter() {
+		let encoder = Encoder::new(bitness);
 		assert!(!encoder.prevent_vex2());
 		assert_eq!(0, encoder.vex_wig());
 		assert_eq!(0, encoder.vex_lig());
@@ -279,8 +279,8 @@ fn verify_encoder_options() {
 
 #[test]
 fn get_set_wig_lig_options() {
-	for bitness in [16, 32, 64].iter() {
-		let mut encoder = Encoder::new(*bitness);
+	for &bitness in [16, 32, 64].iter() {
+		let mut encoder = Encoder::new(bitness);
 
 		encoder.set_vex_lig(1);
 		encoder.set_vex_wig(0);

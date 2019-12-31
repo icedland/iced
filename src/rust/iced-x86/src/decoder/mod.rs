@@ -219,7 +219,6 @@ impl State {
 	#[inline(always)]
 	#[cfg(debug_assertions)]
 	fn encoding(&self) -> EncodingKind {
-		// safe since we only write valid values to these bits
 		unsafe { std::mem::transmute((self.flags & StateFlags::ENCODING_MASK) as u8) }
 	}
 	#[cfg_attr(has_must_use, must_use)]
@@ -871,7 +870,6 @@ impl<'a> Decoder<'a> {
 			self.state.extra_index_register_base = (rex_prefix as u32 & 2) << 2;
 			self.state.extra_base_register_base = (rex_prefix as u32 & 1) << 3;
 		}
-		// Safe, the table has exactly 256 elements and 0 <= b <= 255
 		self.decode_table2(unsafe { *HANDLERS_XX.get_unchecked(b) }, instruction);
 		let flags = self.state.flags;
 		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK)) != 0 {
@@ -973,7 +971,6 @@ impl<'a> Decoder<'a> {
 	pub(crate) fn decode_table(&mut self, table: &[&'static OpCodeHandler], instruction: &mut Instruction) {
 		debug_assert_eq!(0x100, table.len());
 		let b = self.read_u8();
-		// Safe, the table has exactly 256 elements and 0 <= b <= 255
 		self.decode_table2(unsafe { *table.get_unchecked(b) }, instruction);
 	}
 
@@ -1215,7 +1212,6 @@ impl<'a> Decoder<'a> {
 	pub(crate) fn read_op_seg_reg(&mut self) -> u32 {
 		let reg = self.state.reg;
 		if reg < 6 {
-			// Safe, ES,CS,SS,DS,FS,GS
 			Register::ES as u32 + reg
 		} else {
 			self.state.flags |= StateFlags::IS_INVALID;
@@ -1288,7 +1284,6 @@ impl<'a> Decoder<'a> {
 	fn read_op_mem_16(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
 		debug_assert!(self.state.address_size == OpSize::Size16);
 		debug_assert!(self.state.rm <= 7);
-		// Safe, rm is always 0..7
 		let (mut base_reg, index_reg) = unsafe { *MEM_REGS_16.get_unchecked(self.state.rm as usize) };
 		match self.state.mod_ {
 			0 => {

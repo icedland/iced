@@ -126,5 +126,6 @@ namespace Generator {
 		public static readonly TypeId OpCodeInfoFlags = new TypeId(nameof(OpCodeInfoFlags));
 		public static readonly TypeId LKind = new TypeId(nameof(LKind));
 		public static readonly TypeId OpCodeFlags = new TypeId(nameof(OpCodeFlags));
+		public static readonly TypeId RepPrefixKind = new TypeId(nameof(RepPrefixKind));
 	}
 }

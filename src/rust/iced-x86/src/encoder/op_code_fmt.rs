@@ -47,7 +47,7 @@ static GEN_DEBUG_LKIND: [&str; 4] = [
 	"LZ",
 ];
 impl fmt::Debug for LKind {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_LKIND[*self as usize])?;
 		Ok(())

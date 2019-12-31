@@ -45,7 +45,7 @@ static GEN_DEBUG_CODE_SIZE: [&str; 4] = [
 	"Code64",
 ];
 impl fmt::Debug for CodeSize {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CODE_SIZE[*self as usize])?;
 		Ok(())
@@ -85,7 +85,7 @@ static GEN_DEBUG_ROUNDING_CONTROL: [&str; 5] = [
 	"RoundTowardZero",
 ];
 impl fmt::Debug for RoundingControl {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_ROUNDING_CONTROL[*self as usize])?;
 		Ok(())
@@ -275,7 +275,7 @@ static GEN_DEBUG_OP_KIND: [&str; 26] = [
 	"Memory",
 ];
 impl fmt::Debug for OpKind {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_KIND[*self as usize])?;
 		Ok(())
@@ -310,7 +310,7 @@ static GEN_DEBUG_VECTOR_LENGTH: [&str; 4] = [
 ];
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 impl fmt::Debug for VectorLength {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_VECTOR_LENGTH[*self as usize])?;
 		Ok(())
@@ -346,7 +346,7 @@ static GEN_DEBUG_MANDATORY_PREFIX_BYTE: [&str; 4] = [
 ];
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 impl fmt::Debug for MandatoryPrefixByte {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_MANDATORY_PREFIX_BYTE[*self as usize])?;
 		Ok(())
@@ -391,7 +391,7 @@ static GEN_DEBUG_ENCODING_KIND: [&str; 5] = [
 ];
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 impl fmt::Debug for EncodingKind {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_ENCODING_KIND[*self as usize])?;
 		Ok(())
@@ -524,7 +524,7 @@ static GEN_DEBUG_TUPLE_TYPE: [&str; 34] = [
 ];
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 impl fmt::Debug for TupleType {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_TUPLE_TYPE[*self as usize])?;
 		Ok(())
@@ -585,7 +585,7 @@ static GEN_DEBUG_FLOW_CONTROL: [&str; 10] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for FlowControl {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_FLOW_CONTROL[*self as usize])?;
 		Ok(())
@@ -930,7 +930,7 @@ static GEN_DEBUG_OP_CODE_OPERAND_KIND: [&str; 102] = [
 ];
 #[cfg(feature = "encoder")]
 impl fmt::Debug for OpCodeOperandKind {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_CODE_OPERAND_KIND[*self as usize])?;
 		Ok(())
@@ -1361,7 +1361,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 130] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CPUID_FEATURE[*self as usize])?;
 		Ok(())
@@ -1436,7 +1436,7 @@ static GEN_DEBUG_OP_ACCESS: [&str; 8] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpAccess {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_ACCESS[*self as usize])?;
 		Ok(())
@@ -1517,7 +1517,7 @@ static GEN_DEBUG_CONDITION_CODE: [&str; 17] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for ConditionCode {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CONDITION_CODE[*self as usize])?;
 		Ok(())
@@ -1561,7 +1561,7 @@ static GEN_DEBUG_MANDATORY_PREFIX: [&str; 5] = [
 ];
 #[cfg(feature = "encoder")]
 impl fmt::Debug for MandatoryPrefix {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_MANDATORY_PREFIX[*self as usize])?;
 		Ok(())
@@ -1611,7 +1611,7 @@ static GEN_DEBUG_OP_CODE_TABLE_KIND: [&str; 7] = [
 ];
 #[cfg(feature = "encoder")]
 impl fmt::Debug for OpCodeTableKind {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_CODE_TABLE_KIND[*self as usize])?;
 		Ok(())

@@ -206,7 +206,6 @@ mod info {
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn memory_size(&self) -> MemorySize {
-			// safe: memory_size is always a valid MemorySize value
 			unsafe { mem::transmute(self.memory_size) }
 		}
 
@@ -266,7 +265,6 @@ mod info {
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn element_type(&self) -> MemorySize {
-			// safe: element_type is always a valid MemorySize value
 			unsafe { mem::transmute(self.element_type) }
 		}
 
@@ -797,7 +795,7 @@ static GEN_DEBUG_MEMORY_SIZE: [&str; 136] = [
 	"Broadcast512_2xBFloat16",
 ];
 impl fmt::Debug for MemorySize {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_MEMORY_SIZE[*self as usize])?;
 		Ok(())

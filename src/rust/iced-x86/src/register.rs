@@ -308,7 +308,6 @@ mod info {
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn register(&self) -> Register {
-			// safe: register is always a valid Register value
 			unsafe { mem::transmute(self.register) }
 		}
 
@@ -332,7 +331,6 @@ mod info {
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn base(&self) -> Register {
-			// safe: base is always a valid Register value
 			unsafe { mem::transmute(self.base) }
 		}
 
@@ -385,7 +383,6 @@ mod info {
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn full_register(&self) -> Register {
-			// safe: full_register is always a valid Register value
 			unsafe { mem::transmute(self.full_register) }
 		}
 
@@ -414,7 +411,6 @@ mod info {
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
 		pub fn full_register32(&self) -> Register {
-			// safe: full_register is always a valid Register value
 			let full_register: Register = unsafe { mem::transmute(self.full_register) };
 			if full_register.is_gpr() {
 				debug_assert!(Register::RAX <= full_register && full_register <= Register::R15);
@@ -1295,7 +1291,7 @@ static GEN_DEBUG_REGISTER: [&str; 241] = [
 	"TR7",
 ];
 impl fmt::Debug for Register {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_REGISTER[*self as usize])?;
 		Ok(())
@@ -1315,7 +1311,6 @@ impl Register {
 	fn add(self, rhs: u32) -> Self {
 		let result = (self as u32).wrapping_add(rhs);
 		if result < IcedConstants::NUMBER_OF_REGISTERS {
-			// safe: guaranteed to return a valid enum value
 			unsafe { mem::transmute(result as u8) }
 		} else {
 			panic!()
@@ -1325,7 +1320,6 @@ impl Register {
 	fn sub(self, rhs: u32) -> Self {
 		let result = (self as u32).wrapping_sub(rhs);
 		if result < IcedConstants::NUMBER_OF_REGISTERS {
-			// safe: guaranteed to return a valid enum value
 			unsafe { mem::transmute(result as u8) }
 		} else {
 			panic!()

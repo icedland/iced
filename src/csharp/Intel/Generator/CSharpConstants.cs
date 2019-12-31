@@ -38,6 +38,7 @@ namespace Generator {
 
 		public const string IcedUnitTestsNamespace = "Iced.UnitTests.Intel";
 
+		public const string HasSpanDefine = "HAS_SPAN";
 		public const string DecoderDefine = "!NO_DECODER";
 		public const string EncoderDefine = "!NO_ENCODER";
 		public const string InstructionInfoDefine = "!NO_INSTR_INFO";

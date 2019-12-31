@@ -53,7 +53,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 
 		void EncoderIgnoresPrefixesIfDeclareData2(ref Instruction instr) {
-			var origData = GetData(ref instr);
+			var origData = GetData(instr);
 			instr.HasLockPrefix = true;
 			instr.HasRepePrefix = true;
 			instr.HasRepnePrefix = true;
@@ -72,7 +72,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			}
 		}
 
-		static byte[] GetData(ref Instruction instr) {
+		static byte[] GetData(in Instruction instr) {
 			int length = instr.DeclareDataCount;
 			switch (instr.Code) {
 			case Code.DeclareByte:
@@ -102,10 +102,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			var dw = Instruction.CreateDeclareWord(0xA977, 0x9DCE, 0x0555, 0x6C42, 0x3286, 0x4FFE, 0x2734, 0x08AA);
 			var dd = Instruction.CreateDeclareDword(0x9DCEA977, 0x6C420555, 0x4FFE3286, 0x08AA2734);
 			var dq = Instruction.CreateDeclareQword(0x6C4205559DCEA977, 0x08AA27344FFE3286);
-			var data1 = GetData(ref db);
-			var data2 = GetData(ref dw);
-			var data4 = GetData(ref dd);
-			var data8 = GetData(ref dq);
+			var data1 = GetData(db);
+			var data2 = GetData(dw);
+			var data4 = GetData(dd);
+			var data8 = GetData(dq);
 			Assert.Equal(data, data1);
 			Assert.Equal(data, data2);
 			Assert.Equal(data, data4);
@@ -201,33 +201,33 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				data[i] = 0xFF;
 
 			instr = Instruction.CreateDeclareByte(data);
-			DeclareDataDoesNotUseOtherProperties2(ref instr);
+			Verify(instr);
 
 			instr = Instruction.CreateDeclareWord(data);
-			DeclareDataDoesNotUseOtherProperties2(ref instr);
+			Verify(instr);
 
 			instr = Instruction.CreateDeclareDword(data);
-			DeclareDataDoesNotUseOtherProperties2(ref instr);
+			Verify(instr);
 
 			instr = Instruction.CreateDeclareQword(data);
-			DeclareDataDoesNotUseOtherProperties2(ref instr);
-		}
+			Verify(instr);
 
-		void DeclareDataDoesNotUseOtherProperties2(ref Instruction instr) {
-			Assert.Equal(Register.None, instr.SegmentPrefix);
-			Assert.Equal(CodeSize.Unknown, instr.CodeSize);
-			Assert.Equal(RoundingControl.None, instr.RoundingControl);
-			Assert.Equal(0UL, instr.IP);
-			Assert.False(instr.IsBroadcast);
-			Assert.False(instr.HasOpMask);
-			Assert.False(instr.SuppressAllExceptions);
-			Assert.False(instr.ZeroingMasking);
-			Assert.False(instr.HasXacquirePrefix);
-			Assert.False(instr.HasXreleasePrefix);
-			Assert.False(instr.HasRepPrefix);
-			Assert.False(instr.HasRepePrefix);
-			Assert.False(instr.HasRepnePrefix);
-			Assert.False(instr.HasLockPrefix);
+			static void Verify(in Instruction instr) {
+				Assert.Equal(Register.None, instr.SegmentPrefix);
+				Assert.Equal(CodeSize.Unknown, instr.CodeSize);
+				Assert.Equal(RoundingControl.None, instr.RoundingControl);
+				Assert.Equal(0UL, instr.IP);
+				Assert.False(instr.IsBroadcast);
+				Assert.False(instr.HasOpMask);
+				Assert.False(instr.SuppressAllExceptions);
+				Assert.False(instr.ZeroingMasking);
+				Assert.False(instr.HasXacquirePrefix);
+				Assert.False(instr.HasXreleasePrefix);
+				Assert.False(instr.HasRepPrefix);
+				Assert.False(instr.HasRepePrefix);
+				Assert.False(instr.HasRepnePrefix);
+				Assert.False(instr.HasLockPrefix);
+			}
 		}
 
 		[Fact]
@@ -237,82 +237,82 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr = Instruction.CreateDeclareByte(0x77);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(1, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(2, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(3, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(4, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(5, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(6, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(7, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(8, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(9, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(10, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(11, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(12, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(13, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(14, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(15, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA }, GetData(instr));
 
 			instr = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
 			Assert.Equal(Code.DeclareByte, instr.Code);
 			Assert.Equal(16, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08 }, GetData(instr));
 		}
 
 		[Fact]
@@ -322,42 +322,42 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr = Instruction.CreateDeclareWord(0x77A9);
 			Assert.Equal(Code.DeclareWord, instr.Code);
 			Assert.Equal(1, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0xA9, 0x77 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0xA9, 0x77 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareWord(0x77A9, 0xCE9D);
 			Assert.Equal(Code.DeclareWord, instr.Code);
 			Assert.Equal(2, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE }, GetData(instr));
 
 			instr = Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505);
 			Assert.Equal(Code.DeclareWord, instr.Code);
 			Assert.Equal(3, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C);
 			Assert.Equal(Code.DeclareWord, instr.Code);
 			Assert.Equal(4, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632);
 			Assert.Equal(Code.DeclareWord, instr.Code);
 			Assert.Equal(5, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F);
 			Assert.Equal(Code.DeclareWord, instr.Code);
 			Assert.Equal(6, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE }, GetData(instr));
 
 			instr = Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427);
 			Assert.Equal(Code.DeclareWord, instr.Code);
 			Assert.Equal(7, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08);
 			Assert.Equal(Code.DeclareWord, instr.Code);
 			Assert.Equal(8, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34, 0x08, 0xAA }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34, 0x08, 0xAA }, GetData(instr));
 		}
 
 		[Fact]
@@ -367,22 +367,22 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr = Instruction.CreateDeclareDword(0x77A9CE9D);
 			Assert.Equal(Code.DeclareDword, instr.Code);
 			Assert.Equal(1, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x9D, 0xCE, 0xA9, 0x77 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x9D, 0xCE, 0xA9, 0x77 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C);
 			Assert.Equal(Code.DeclareDword, instr.Code);
 			Assert.Equal(2, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C, 0x8632FE4F);
 			Assert.Equal(Code.DeclareDword, instr.Code);
 			Assert.Equal(3, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C, 0x8632FE4F, 0x3427AA08);
 			Assert.Equal(Code.DeclareDword, instr.Code);
 			Assert.Equal(4, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86, 0x08, 0xAA, 0x27, 0x34 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86, 0x08, 0xAA, 0x27, 0x34 }, GetData(instr));
 		}
 
 		[Fact]
@@ -392,12 +392,12 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instr = Instruction.CreateDeclareQword(0x77A9CE9D5505426C);
 			Assert.Equal(Code.DeclareQword, instr.Code);
 			Assert.Equal(1, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77 }, GetData(instr));
 
 			instr = Instruction.CreateDeclareQword(0x77A9CE9D5505426C, 0x8632FE4F3427AA08);
 			Assert.Equal(Code.DeclareQword, instr.Code);
 			Assert.Equal(2, instr.DeclareDataCount);
-			Assert.Equal(new byte[] { 0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77, 0x08, 0xAA, 0x27, 0x34, 0x4F, 0xFE, 0x32, 0x86 }, GetData(ref instr));
+			Assert.Equal(new byte[] { 0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77, 0x08, 0xAA, 0x27, 0x34, 0x4F, 0xFE, 0x32, 0x86 }, GetData(instr));
 		}
 
 		[Fact]
@@ -424,6 +424,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareByte(info.data);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareByte(info.data.AsSpan());
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -443,6 +447,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareWord(info.data);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareWord(info.data.AsSpan());
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -458,6 +466,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareDword(info.data);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareDword(info.data.AsSpan());
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -471,6 +483,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareQword(info.data);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareQword(info.data.AsSpan());
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -498,6 +514,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareByte(info.data, 1, info.data.Length - 2);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareByte(info.data.AsSpan(1, info.data.Length - 2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -517,6 +537,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareWord(info.data, 1, info.data.Length - 2);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareWord(info.data.AsSpan(1, info.data.Length - 2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -532,6 +556,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareDword(info.data, 1, info.data.Length - 2);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareDword(info.data.AsSpan(1, info.data.Length - 2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -545,6 +573,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareQword(info.data, 1, info.data.Length - 2);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareQword(info.data.AsSpan(1, info.data.Length - 2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -564,6 +596,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareWord(info.data);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareWord(info.data.AsSpan());
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -579,6 +615,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareDword(info.data);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareDword(info.data.AsSpan());
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -592,6 +632,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareQword(info.data);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareQword(info.data.AsSpan());
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -611,6 +655,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareWord(info.data, 1, info.data.Length - 2);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareWord(info.data.AsSpan(1, info.data.Length - 2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -626,6 +674,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareDword(info.data, 1, info.data.Length - 2);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareDword(info.data.AsSpan(1, info.data.Length - 2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -639,6 +691,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				var instr1 = info.instr;
 				var instr2 = Instruction.CreateDeclareQword(info.data, 1, info.data.Length - 2);
 				Assert.True(Instruction.EqualsAllBits(instr1, instr2));
+#if HAS_SPAN
+				var instr3 = Instruction.CreateDeclareQword(info.data.AsSpan(1, info.data.Length - 2));
+				Assert.True(Instruction.EqualsAllBits(instr1, instr3));
+#endif
 			}
 		}
 
@@ -972,6 +1028,102 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "64F2A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateMovsd(64, Register.FS, RepPrefixKind.Repne )) };
 				yield return new object[] { 64, "6467F248A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateMovsq(32, Register.FS, RepPrefixKind.Repne )) };
 				yield return new object[] { 64, "64F248A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateMovsq(64, Register.FS, RepPrefixKind.Repne )) };
+
+				yield return new object[] { 32, "67F36E", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepOutsb(16)) };
+				yield return new object[] { 64, "67F36E", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepOutsb(32)) };
+				yield return new object[] { 64, "F36E", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepOutsb(64)) };
+				yield return new object[] { 32, "6667F36F", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepOutsw(16)) };
+				yield return new object[] { 64, "6667F36F", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepOutsw(32)) };
+				yield return new object[] { 64, "66F36F", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepOutsw(64)) };
+				yield return new object[] { 32, "67F36F", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepOutsd(16)) };
+				yield return new object[] { 64, "67F36F", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepOutsd(32)) };
+				yield return new object[] { 64, "F36F", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepOutsd(64)) };
+				yield return new object[] { 32, "67F3AE", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeScasb(16)) };
+				yield return new object[] { 64, "67F3AE", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeScasb(32)) };
+				yield return new object[] { 64, "F3AE", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeScasb(64)) };
+				yield return new object[] { 32, "6667F3AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeScasw(16)) };
+				yield return new object[] { 64, "6667F3AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeScasw(32)) };
+				yield return new object[] { 64, "66F3AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeScasw(64)) };
+				yield return new object[] { 32, "67F3AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeScasd(16)) };
+				yield return new object[] { 64, "67F3AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeScasd(32)) };
+				yield return new object[] { 64, "F3AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeScasd(64)) };
+				yield return new object[] { 64, "67F348AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeScasq(32)) };
+				yield return new object[] { 64, "F348AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeScasq(64)) };
+				yield return new object[] { 32, "67F2AE", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneScasb(16)) };
+				yield return new object[] { 64, "67F2AE", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneScasb(32)) };
+				yield return new object[] { 64, "F2AE", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneScasb(64)) };
+				yield return new object[] { 32, "6667F2AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneScasw(16)) };
+				yield return new object[] { 64, "6667F2AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneScasw(32)) };
+				yield return new object[] { 64, "66F2AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneScasw(64)) };
+				yield return new object[] { 32, "67F2AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneScasd(16)) };
+				yield return new object[] { 64, "67F2AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneScasd(32)) };
+				yield return new object[] { 64, "F2AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneScasd(64)) };
+				yield return new object[] { 64, "67F248AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneScasq(32)) };
+				yield return new object[] { 64, "F248AF", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneScasq(64)) };
+				yield return new object[] { 32, "67F3AC", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepLodsb(16)) };
+				yield return new object[] { 64, "67F3AC", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepLodsb(32)) };
+				yield return new object[] { 64, "F3AC", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepLodsb(64)) };
+				yield return new object[] { 32, "6667F3AD", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepLodsw(16)) };
+				yield return new object[] { 64, "6667F3AD", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepLodsw(32)) };
+				yield return new object[] { 64, "66F3AD", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepLodsw(64)) };
+				yield return new object[] { 32, "67F3AD", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepLodsd(16)) };
+				yield return new object[] { 64, "67F3AD", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepLodsd(32)) };
+				yield return new object[] { 64, "F3AD", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepLodsd(64)) };
+				yield return new object[] { 64, "67F348AD", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepLodsq(32)) };
+				yield return new object[] { 64, "F348AD", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepLodsq(64)) };
+				yield return new object[] { 32, "67F36C", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepInsb(16)) };
+				yield return new object[] { 64, "67F36C", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepInsb(32)) };
+				yield return new object[] { 64, "F36C", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepInsb(64)) };
+				yield return new object[] { 32, "6667F36D", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepInsw(16)) };
+				yield return new object[] { 64, "6667F36D", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepInsw(32)) };
+				yield return new object[] { 64, "66F36D", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepInsw(64)) };
+				yield return new object[] { 32, "67F36D", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepInsd(16)) };
+				yield return new object[] { 64, "67F36D", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepInsd(32)) };
+				yield return new object[] { 64, "F36D", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepInsd(64)) };
+				yield return new object[] { 32, "67F3AA", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepStosb(16)) };
+				yield return new object[] { 64, "67F3AA", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepStosb(32)) };
+				yield return new object[] { 64, "F3AA", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepStosb(64)) };
+				yield return new object[] { 32, "6667F3AB", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepStosw(16)) };
+				yield return new object[] { 64, "6667F3AB", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepStosw(32)) };
+				yield return new object[] { 64, "66F3AB", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepStosw(64)) };
+				yield return new object[] { 32, "67F3AB", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepStosd(16)) };
+				yield return new object[] { 64, "67F3AB", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepStosd(32)) };
+				yield return new object[] { 64, "F3AB", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepStosd(64)) };
+				yield return new object[] { 64, "67F348AB", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepStosq(32)) };
+				yield return new object[] { 64, "F348AB", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepStosq(64)) };
+				yield return new object[] { 32, "67F3A6", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeCmpsb(16)) };
+				yield return new object[] { 64, "67F3A6", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeCmpsb(32)) };
+				yield return new object[] { 64, "F3A6", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeCmpsb(64)) };
+				yield return new object[] { 32, "6667F3A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeCmpsw(16)) };
+				yield return new object[] { 64, "6667F3A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeCmpsw(32)) };
+				yield return new object[] { 64, "66F3A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeCmpsw(64)) };
+				yield return new object[] { 32, "67F3A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeCmpsd(16)) };
+				yield return new object[] { 64, "67F3A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeCmpsd(32)) };
+				yield return new object[] { 64, "F3A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeCmpsd(64)) };
+				yield return new object[] { 64, "67F348A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeCmpsq(32)) };
+				yield return new object[] { 64, "F348A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepeCmpsq(64)) };
+				yield return new object[] { 32, "67F2A6", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneCmpsb(16)) };
+				yield return new object[] { 64, "67F2A6", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneCmpsb(32)) };
+				yield return new object[] { 64, "F2A6", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneCmpsb(64)) };
+				yield return new object[] { 32, "6667F2A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneCmpsw(16)) };
+				yield return new object[] { 64, "6667F2A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneCmpsw(32)) };
+				yield return new object[] { 64, "66F2A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneCmpsw(64)) };
+				yield return new object[] { 32, "67F2A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneCmpsd(16)) };
+				yield return new object[] { 64, "67F2A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneCmpsd(32)) };
+				yield return new object[] { 64, "F2A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneCmpsd(64)) };
+				yield return new object[] { 64, "67F248A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneCmpsq(32)) };
+				yield return new object[] { 64, "F248A7", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepneCmpsq(64)) };
+				yield return new object[] { 32, "67F3A4", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepMovsb(16)) };
+				yield return new object[] { 64, "67F3A4", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepMovsb(32)) };
+				yield return new object[] { 64, "F3A4", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepMovsb(64)) };
+				yield return new object[] { 32, "6667F3A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepMovsw(16)) };
+				yield return new object[] { 64, "6667F3A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepMovsw(32)) };
+				yield return new object[] { 64, "66F3A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepMovsw(64)) };
+				yield return new object[] { 32, "67F3A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepMovsd(16)) };
+				yield return new object[] { 64, "67F3A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepMovsd(32)) };
+				yield return new object[] { 64, "F3A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepMovsd(64)) };
+				yield return new object[] { 64, "67F348A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepMovsq(32)) };
+				yield return new object[] { 64, "F348A5", DecoderOptions.None, new Func<Instruction>(() => Instruction.CreateRepMovsq(64)) };
 			}
 		}
 
@@ -998,6 +1150,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Fact]
 		void CreateDeclareXXX_throws_if_invalid_index_length() {
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[0]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[4], -1, 0));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[4], -1, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[4], int.MinValue, 1));
@@ -1006,7 +1159,13 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Instruction.CreateDeclareByte(new byte[16]);
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[17]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[17], 0, 17));
+#if HAS_SPAN
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[0].AsSpan()));
+			Instruction.CreateDeclareByte(new byte[16].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareByte(new byte[17].AsSpan()));
+#endif
 
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[0]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[1]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[3]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[4], -1, 0));
@@ -1018,6 +1177,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[64], 32, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[64]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[64], 0, 64));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[0]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[4], -1, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[4], int.MinValue, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[4], 0, 5));
@@ -1029,7 +1189,19 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Instruction.CreateDeclareWord(new byte[16]);
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[17]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[17], 0, 17));
+#if HAS_SPAN
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[0].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[1].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[3].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[64].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[0].AsSpan()));
+			Instruction.CreateDeclareWord(new ushort[8].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[9].AsSpan()));
+			Instruction.CreateDeclareWord(new byte[16].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[17].AsSpan()));
+#endif
 
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[0]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[5]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[6]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[7]));
@@ -1044,6 +1216,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[64], 63, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[64], 62, 2));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[64], 61, 3));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[0]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[4], -1, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[4], int.MinValue, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[4], 0, 5));
@@ -1055,7 +1228,22 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Instruction.CreateDeclareDword(new byte[16]);
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[17]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[17], 0, 17));
+#if HAS_SPAN
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[0].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[1].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[2].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[3].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[5].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[6].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[7].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[0].AsSpan()));
+			Instruction.CreateDeclareDword(new uint[4].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[5].AsSpan()));
+			Instruction.CreateDeclareDword(new byte[16].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[17].AsSpan()));
+#endif
 
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[0]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[1]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[2]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[3]));
@@ -1082,6 +1270,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 59, 5));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 58, 6));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[64], 57, 7));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[0]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[2], -1, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[2], int.MinValue, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[2], 0, 3));
@@ -1093,6 +1282,28 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Instruction.CreateDeclareQword(new byte[16]);
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[17]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[17], 0, 17));
+#if HAS_SPAN
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[0].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[1].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[2].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[3].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[4].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[5].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[6].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[7].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[9].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[10].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[11].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[12].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[13].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[14].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[15].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[0].AsSpan()));
+			Instruction.CreateDeclareQword(new ulong[2].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[3].AsSpan()));
+			Instruction.CreateDeclareQword(new byte[16].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[17].AsSpan()));
+#endif
 		}
 
 		[Fact]

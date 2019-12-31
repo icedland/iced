@@ -94,6 +94,7 @@ namespace Generator.Enums {
 			Encoder.WBitEnum.Instance,
 			Encoder.LKindEnum.Instance,
 			Encoder.OpCodeFlagsEnum.Instance,
+			Encoder.RepPrefixKindEnum.Instance,
 		};
 
 		public abstract void Generate(EnumType enumType);

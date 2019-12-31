@@ -153,6 +153,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.WBit, new PartialEnumFileInfo("WBit", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.LKind, new PartialEnumFileInfo("LKind", Path.Combine(generatorOptions.RustDir, "encoder", "op_code_fmt.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.OpCodeFlags, new PartialEnumFileInfo("Flags", Path.Combine(generatorOptions.RustDir, "encoder", "op_code.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.RepPrefixKind, new PartialEnumFileInfo("RepPrefixKind", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
 		}
 
 		public override void Generate(EnumType enumType) {
@@ -177,7 +178,7 @@ namespace Generator.Enums.Rust {
 		}
 
 		void WriteEnumCore(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
-			docWriter.Write(writer, enumType.Documentation, enumType.RawName);
+			docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
 			var enumTypeName = enumType.Name(idConverter);
 			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);
@@ -188,7 +189,7 @@ namespace Generator.Enums.Rust {
 			using (writer.Indent()) {
 				uint expectedValue = 0;
 				foreach (var value in enumType.Values) {
-					docWriter.Write(writer, value.Documentation, enumType.RawName);
+					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
 					if (expectedValue != value.Value)
 						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
 					else
@@ -217,7 +218,7 @@ namespace Generator.Enums.Rust {
 				writer.WriteLine(feature);
 			writer.WriteLine($"impl fmt::Debug for {enumTypeName} {{");
 			using (writer.Indent()) {
-				writer.WriteLine(RustConstants.AttributeAllowMissingInlineInPublicItems);
+				writer.WriteLine(RustConstants.AttributeInline);
 				writer.WriteLine($"fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {{");
 				using (writer.Indent()) {
 					writer.WriteLine($"write!(f, \"{{}}\", {arrayName}[*self as usize])?;");

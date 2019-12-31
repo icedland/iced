@@ -80,14 +80,52 @@ namespace Generator.Documentation.Rust {
 			return s;
 		}
 
-		public void Write(FileWriter writer, string? documentation, string typeName) {
-			if (string.IsNullOrEmpty(documentation))
+		void RawWriteWithComment(FileWriter writer, bool writeEmpty = true) {
+			var s = GetStringAndReset();
+			if (s.Length == 0 && !writeEmpty)
 				return;
+			writer.WriteLine(s.Length == 0 ? "///" : "/// " + s);
+		}
+
+		public void BeginWrite(FileWriter writer) {
 			if (sb.Length != 0)
 				throw new InvalidOperationException();
-			const string docComment = "/// ";
 			refUrls.Clear();
-			sb.Append(docComment);
+		}
+
+		public void EndWrite(FileWriter writer) {
+			RawWriteWithComment(writer, false);
+			if (refUrls.Count > 0) {
+				RawWriteWithComment(writer);
+				foreach (var info in refUrls) {
+					sb.Append($"{info.@ref}: {info.url}");
+					RawWriteWithComment(writer);
+				}
+			}
+		}
+
+		public void WriteSummary(FileWriter writer, string? documentation, string typeName) {
+			if (string.IsNullOrEmpty(documentation))
+				return;
+			BeginWrite(writer);
+			WriteDoc(writer, documentation, typeName);
+			EndWrite(writer);
+		}
+
+		public void Write(string text) =>
+			sb.Append(text);
+
+		public void WriteLine(FileWriter writer, string text) {
+			Write(text);
+			RawWriteWithComment(writer);
+		}
+
+		public void WriteDocLine(FileWriter writer, string text, string typeName) {
+			WriteDoc(writer, text, typeName);
+			RawWriteWithComment(writer);
+		}
+
+		public void WriteDoc(FileWriter writer, string documentation, string typeName) {
 			foreach (var info in GetTokens(typeName, documentation)) {
 				sb2.Clear();
 				string t, m;
@@ -95,10 +133,8 @@ namespace Generator.Documentation.Rust {
 				case TokenKind.NewParagraph:
 					if (!string.IsNullOrEmpty(info.value) && !string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
-					writer.WriteLine(GetStringAndReset());
-					sb.Append(docComment);
-					writer.WriteLine(GetStringAndReset());
-					sb.Append(docComment);
+					RawWriteWithComment(writer);
+					RawWriteWithComment(writer);
 					break;
 				case TokenKind.String:
 					sb.Append(Escape(info.value));
@@ -151,7 +187,7 @@ namespace Generator.Documentation.Rust {
 						sb2.Append(t);
 						sb2.Append("::");
 					}
-					m = idConverter.Property(info.value2);
+					m = idConverter.PropertyDoc(info.value2);
 					sb2.Append(m);
 					sb2.Append("`]");
 					sb.Append(sb2);
@@ -164,7 +200,7 @@ namespace Generator.Documentation.Rust {
 						sb2.Append(t);
 						sb2.Append("::");
 					}
-					m = idConverter.Method(TranslateMethodName(info.value2));
+					m = idConverter.MethodDoc(TranslateMethodName(info.value2));
 					sb2.Append(m);
 					sb2.Append("`]");
 					sb.Append(sb2);
@@ -174,12 +210,6 @@ namespace Generator.Documentation.Rust {
 					throw new InvalidOperationException();
 				}
 			}
-			writer.WriteLine(GetStringAndReset());
-			if (refUrls.Count > 0) {
-				writer.WriteLine(docComment.Trim());
-				foreach (var info in refUrls)
-					writer.WriteLine($"{docComment}{info.@ref}: {info.url}");
-			}
 		}
 
 		static string GetTypeKind(string name) {
@@ -188,6 +218,7 @@ namespace Generator.Documentation.Rust {
 			case "Register":
 			case "OpKind":
 			case "CpuidFeature":
+			case "RepPrefixKind":
 				return "enum";
 			case "Instruction":
 				return "struct";
