@@ -150,7 +150,7 @@ namespace Iced.Intel {
 	/// not the segment register value.
 	/// </summary>
 	/// <param name="register">Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg)</param>
-	/// <param name="elementIndex">Only used if it's a vsib memory operand. This is the element index in the vector register.</param>
+	/// <param name="elementIndex">Only used if it's a vsib memory operand. This is the element index of the vector index register.</param>
 	/// <param name="elementSize">Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).</param>
 	/// <returns></returns>
 	public delegate ulong VAGetRegisterValue(Register register, int elementIndex, int elementSize);
@@ -164,7 +164,7 @@ namespace Iced.Intel {
 		/// not the segment register value.
 		/// </summary>
 		/// <param name="register">Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg)</param>
-		/// <param name="elementIndex">Only used if it's a vsib memory operand. This is the element index in the vector register.</param>
+		/// <param name="elementIndex">Only used if it's a vsib memory operand. This is the element index of the vector index register.</param>
 		/// <param name="elementSize">Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).</param>
 		/// <returns></returns>
 		ulong GetRegisterValue(Register register, int elementIndex, int elementSize);

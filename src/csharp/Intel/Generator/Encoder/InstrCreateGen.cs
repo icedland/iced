@@ -50,6 +50,10 @@ namespace Generator.Encoder {
 		WordSlice,
 		DwordSlice,
 		QwordSlice,
+		BytePtr,
+		WordPtr,
+		DwordPtr,
+		QwordPtr,
 	}
 
 	sealed class MethodArg {
@@ -444,6 +448,11 @@ namespace Generator.Encoder {
 			WordSlice,
 			DwordSlice,
 			QwordSlice,
+
+			BytePtr,
+			WordPtr,
+			DwordPtr,
+			QwordPtr,
 		}
 
 		void GenCreateDeclareXxx(FileWriter writer) {
@@ -476,6 +485,12 @@ namespace Generator.Encoder {
 			}
 			{
 				var method = new CreateMethod(DeclareConsts.dbDoc);
+				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
+				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Byte, ArrayType.BytePtr);
+			}
+			{
+				var method = new CreateMethod(DeclareConsts.dbDoc);
 				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
 				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Byte, ArrayType.ByteSlice);
 			}
@@ -502,6 +517,12 @@ namespace Generator.Encoder {
 			}
 			{
 				var method = new CreateMethod(DeclareConsts.dwDoc);
+				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
+				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.BytePtr);
+			}
+			{
+				var method = new CreateMethod(DeclareConsts.dwDoc);
 				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
 				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.ByteSlice);
 			}
@@ -516,6 +537,12 @@ namespace Generator.Encoder {
 				method.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
 				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
 				GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Word, ArrayType.ByteArray);
+			}
+			{
+				var method = new CreateMethod(DeclareConsts.dwDoc);
+				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.WordPtr, DeclareConsts.dataArgName));
+				method.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.WordPtr);
 			}
 			{
 				var method = new CreateMethod(DeclareConsts.dwDoc);
@@ -545,6 +572,12 @@ namespace Generator.Encoder {
 			}
 			{
 				var method = new CreateMethod(DeclareConsts.ddDoc);
+				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
+				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.BytePtr);
+			}
+			{
+				var method = new CreateMethod(DeclareConsts.ddDoc);
 				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
 				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.ByteSlice);
 			}
@@ -559,6 +592,12 @@ namespace Generator.Encoder {
 				method.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
 				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
 				GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Dword, ArrayType.ByteArray);
+			}
+			{
+				var method = new CreateMethod(DeclareConsts.ddDoc);
+				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.DwordPtr, DeclareConsts.dataArgName));
+				method.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.DwordPtr);
 			}
 			{
 				var method = new CreateMethod(DeclareConsts.ddDoc);
@@ -588,6 +627,12 @@ namespace Generator.Encoder {
 			}
 			{
 				var method = new CreateMethod(DeclareConsts.dqDoc);
+				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
+				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.BytePtr);
+			}
+			{
+				var method = new CreateMethod(DeclareConsts.dqDoc);
 				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
 				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.ByteSlice);
 			}
@@ -602,6 +647,12 @@ namespace Generator.Encoder {
 				method.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
 				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
 				GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Qword, ArrayType.ByteArray);
+			}
+			{
+				var method = new CreateMethod(DeclareConsts.dqDoc);
+				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.QwordPtr, DeclareConsts.dataArgName));
+				method.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.QwordPtr);
 			}
 			{
 				var method = new CreateMethod(DeclareConsts.dqDoc);

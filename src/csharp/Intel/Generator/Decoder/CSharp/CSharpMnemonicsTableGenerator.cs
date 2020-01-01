@@ -49,7 +49,7 @@ namespace Generator.Decoder.CSharp {
 				using (writer.Indent()) {
 					writer.WriteLine($"static class {ClassName} {{");
 					using (writer.Indent()) {
-						writer.WriteLine($"internal static readonly ushort[] toMnemonic = new ushort[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)}] {{");
+						writer.WriteLine($"internal static readonly ushort[] toMnemonic = new ushort[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)}] {{");
 						using (writer.Indent()) {
 							foreach (var d in data) {
 								if (d.mnemonicEnum.Value > ushort.MaxValue)

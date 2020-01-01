@@ -184,7 +184,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(info.used_registers(), instr.used_registers().as_slice());
 
 	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
-	debug_assert!(instr.op_count() <= IcedConstants::MAX_OP_COUNT);
+	assert!(instr.op_count() <= IcedConstants::MAX_OP_COUNT);
 	for i in 0..instr.op_count() {
 		match i {
 			0 => assert_eq!(tc.op0_access, info.op_access(i)),
@@ -254,8 +254,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(info.encoding(), instr.code().encoding());
 	#[cfg(feature = "encoder")]
 	{
-		//TODO: enable this when the OpCodeInfo struct exists
-		//assert_eq!(tc.code.to_op_code().encoding(), instr.code().encoding());
+		assert_eq!(tc.code.op_code().encoding(), instr.code().encoding());
 	}
 	let mut cf = instr.code().cpuid_features();
 	if cf.len() == 1
@@ -265,6 +264,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 			|| tc.code == Code::VEX_Vbroadcastss_ymm_xmmm32
 			|| tc.code == Code::VEX_Vbroadcastsd_ymm_xmmm64)
 	{
+		static CPUID_FEATURE_AVX2: [CpuidFeature; 1] = [CpuidFeature::AVX2];
 		cf = &CPUID_FEATURE_AVX2;
 	}
 	assert_eq!(info.cpuid_features(), cf);
@@ -288,7 +288,6 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(info.rflags_undefined(), instr.rflags_undefined());
 	assert_eq!(info.rflags_modified(), instr.rflags_modified());
 }
-static CPUID_FEATURE_AVX2: [CpuidFeature; 1] = [CpuidFeature::AVX2];
 
 fn check_equal(info1: &InstructionInfo, info2: &InstructionInfo, has_regs2: bool, has_mem2: bool) {
 	if has_regs2 {
@@ -745,5 +744,5 @@ fn make_sure_all_code_values_are_tested() {
 #[test]
 fn verify_used_memory_size() {
 	// std::mem::size_of() is a const func since rustc 1.24.0
-	debug_assert_eq!(16, mem::size_of::<UsedMemory>());
+	assert_eq!(16, mem::size_of::<UsedMemory>());
 }

@@ -52,9 +52,9 @@ namespace Generator.Decoder.CSharp {
 						writer.WriteCommentLine("0 = memory size");
 						writer.WriteCommentLine("1 = broadcast memory size");
 						writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
-						writer.WriteLine($"internal static System.ReadOnlySpan<byte> Sizes => new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} * 2] {{");
+						writer.WriteLine($"internal static System.ReadOnlySpan<byte> Sizes => new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2] {{");
 						writer.WriteLineNoIndent("#else");
-						writer.WriteLine($"internal static readonly byte[] Sizes = new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} * 2] {{");
+						writer.WriteLine($"internal static readonly byte[] Sizes = new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2] {{");
 						writer.WriteLineNoIndent("#endif");
 						using (writer.Indent()) {
 							foreach (var d in data) {

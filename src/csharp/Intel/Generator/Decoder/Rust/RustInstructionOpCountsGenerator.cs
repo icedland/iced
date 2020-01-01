@@ -43,7 +43,7 @@ namespace Generator.Decoder.Rust {
 				writer.WriteLine($"use super::iced_constants::{IcedConstantsType.Instance.Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(crate) static OP_COUNT: [u8; {IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance["NumberOfCodeValues"].Name(idConverter)} as usize] = [");
+				writer.WriteLine($"pub(crate) static OP_COUNT: [u8; {IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} as usize] = [");
 				using (writer.Indent()) {
 					foreach (var d in data)
 						writer.WriteLine($"{d.count},// {d.codeEnum.Name(idConverter)}");

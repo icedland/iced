@@ -24,6 +24,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Generator.Enums;
+using Generator.Enums.Encoder;
+using Generator.Enums.InstructionInfo;
 using Generator.IO;
 
 namespace Generator.Documentation.Rust {
@@ -214,11 +217,11 @@ namespace Generator.Documentation.Rust {
 
 		static string GetTypeKind(string name) {
 			switch (name) {
-			case "Code":
-			case "Register":
-			case "OpKind":
-			case "CpuidFeature":
-			case "RepPrefixKind":
+			case nameof(Code):
+			case nameof(Register):
+			case nameof(OpKind):
+			case nameof(CpuidFeature):
+			case nameof(RepPrefixKind):
 				return "enum";
 			case "Instruction":
 				return "struct";

@@ -65,7 +65,7 @@ namespace Generator {
 		/// <summary>Generates encoder enums, constants and tables</summary>
 		public const string Encoder = "Encoder";
 
-		/// <summary>Generates instruction create methods</summary>
+		/// <summary>Generates instruction.Create*() methods</summary>
 		public const string InstrCreateGen = "instr/create";
 	}
 }

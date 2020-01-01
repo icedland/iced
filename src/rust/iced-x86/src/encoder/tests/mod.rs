@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+mod create;
 mod op_code_test_case;
 mod op_code_test_case_parser;
 
@@ -266,6 +267,101 @@ fn encode_invalid_code_value_is_an_error() {
 }
 
 #[test]
+fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
+	const RIP: u64 = 0;
+
+	let memory16 = MemoryOperand::with_base_displ_size(Register::SI, 0x1234, 1);
+	let memory32 = MemoryOperand::with_base_displ_size(Register::ESI, 0x1234_5678, 1);
+	let memory64 = MemoryOperand::with_base_displ_size(Register::R14, 0x1234_5678, 1);
+
+	let tests = [
+		(16, "0F10 8C 3412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, &memory16)),
+		(16, "C5F8 10 8C 3412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, &memory16)),
+		(16, "62 F17C08 10 8C 3412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, &memory16)),
+		(16, "8F E878C0 8C 3412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, &memory16, 0xA5)),
+		(16, "0F0F 8C 3412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, &memory16)),
+		//
+		(32, "0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, &memory32)),
+		(32, "C5F8 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, &memory32)),
+		(32, "62 F17C08 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, &memory32)),
+		(32, "8F E878C0 8E 78563412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, &memory32, 0xA5)),
+		(32, "0F0F 8E 78563412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, &memory32)),
+		//
+		(64, "41 0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, &memory64)),
+		(64, "C4C178 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, &memory64)),
+		(64, "62 D17C08 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, &memory64)),
+		(64, "8F C878C0 8E 78563412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, &memory64, 0xA5)),
+		(64, "0F0F 8E 78563412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, &memory64)),
+	];
+
+	// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
+	const_assert_eq!(5, IcedConstants::NUMBER_OF_ENCODING_KINDS);
+
+	for &(bitness, hex_bytes, rip, instruction) in tests.iter() {
+		let expected_bytes = to_vec_u8(hex_bytes).unwrap();
+		let mut encoder = Encoder::new(bitness);
+		let encoded_length = encoder.encode(&instruction, rip).unwrap();
+		assert_eq!(encoder.take_buffer(), expected_bytes);
+		assert_eq!(encoded_length, expected_bytes.len());
+	}
+}
+
+#[test]
+fn encode_bp_with_no_displ() {
+	let mut encoder = Encoder::new(16);
+	let instr = Instruction::with_reg_mem(Code::Mov_r16_rm16, Register::AX, &MemoryOperand::with_base(Register::BP));
+	let len = encoder.encode(&instr, 0).unwrap();
+	let expected = vec![0x8B, 0x46, 0x00];
+	let actual = encoder.take_buffer();
+	assert_eq!(actual.len(), len);
+	assert_eq!(expected, actual);
+}
+
+#[test]
+fn encode_ebp_with_no_displ() {
+	let mut encoder = Encoder::new(32);
+	let instr = Instruction::with_reg_mem(Code::Mov_r32_rm32, Register::EAX, &MemoryOperand::with_base(Register::EBP));
+	let len = encoder.encode(&instr, 0).unwrap();
+	let expected = vec![0x8B, 0x45, 0x00];
+	let actual = encoder.take_buffer();
+	assert_eq!(actual.len(), len);
+	assert_eq!(expected, actual);
+}
+
+#[test]
+fn encode_r13d_with_no_displ() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with_reg_mem(Code::Mov_r32_rm32, Register::EAX, &MemoryOperand::with_base(Register::R13D));
+	let len = encoder.encode(&instr, 0).unwrap();
+	let expected = vec![0x67, 0x41, 0x8B, 0x45, 0x00];
+	let actual = encoder.take_buffer();
+	assert_eq!(actual.len(), len);
+	assert_eq!(expected, actual);
+}
+
+#[test]
+fn encode_rbp_with_no_displ() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with_reg_mem(Code::Mov_r64_rm64, Register::RAX, &MemoryOperand::with_base(Register::RBP));
+	let len = encoder.encode(&instr, 0).unwrap();
+	let expected = vec![0x48, 0x8B, 0x45, 0x00];
+	let actual = encoder.take_buffer();
+	assert_eq!(actual.len(), len);
+	assert_eq!(expected, actual);
+}
+
+#[test]
+fn encode_r13_with_no_displ() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with_reg_mem(Code::Mov_r64_rm64, Register::RAX, &MemoryOperand::with_base(Register::R13));
+	let len = encoder.encode(&instr, 0).unwrap();
+	let expected = vec![0x49, 0x8B, 0x45, 0x00];
+	let actual = encoder.take_buffer();
+	assert_eq!(actual.len(), len);
+	assert_eq!(expected, actual);
+}
+
+#[test]
 fn verify_encoder_options() {
 	for &bitness in [16, 32, 64].iter() {
 		let encoder = Encoder::new(bitness);
@@ -356,9 +452,9 @@ fn get_set_wig_lig_options() {
 	}
 }
 
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 #[test]
 fn prevent_vex2_encoding() {
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = [
 		("C5FC 10 10", "C4E17C 10 10", Code::VEX_Vmovups_ymm_ymmm256, true),
 		("C5FC 10 10", "C5FC 10 10", Code::VEX_Vmovups_ymm_ymmm256, false),
@@ -378,9 +474,9 @@ fn prevent_vex2_encoding() {
 	}
 }
 
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 #[test]
 fn test_vex_wig_lig() {
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = [
 		("C5CA 10 CD", "C5CA 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 0, 0),
 		("C5CA 10 CD", "C5CE 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 0, 1),
@@ -418,9 +514,9 @@ fn test_vex_wig_lig() {
 	}
 }
 
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 #[test]
 fn test_evex_wig_lig() {
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = [
 		("62 F14E08 10 D3", "62 F14E08 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 0),
 		("62 F14E08 10 D3", "62 F14E28 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 1),
@@ -465,6 +561,120 @@ fn test_evex_wig_lig() {
 		let encoded_bytes = encoder.take_buffer();
 		let expected_bytes = to_vec_u8(expected_bytes).unwrap();
 		assert_eq!(expected_bytes, encoded_bytes);
+	}
+}
+
+#[test]
+fn verify_memory_operand_ctors() {
+	{
+		let op = MemoryOperand::new(Register::RCX, Register::RSI, 4, 0x1234_5678, 8, true, Register::FS);
+		assert_eq!(Register::RCX, op.base);
+		assert_eq!(Register::RSI, op.index);
+		assert_eq!(4, op.scale);
+		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(8, op.displ_size);
+		assert!(op.is_broadcast);
+		assert_eq!(Register::FS, op.segment_prefix);
+	}
+	{
+		let op = MemoryOperand::with_base_index_scale_bcst_seg(Register::RCX, Register::RSI, 4, true, Register::FS);
+		assert_eq!(Register::RCX, op.base);
+		assert_eq!(Register::RSI, op.index);
+		assert_eq!(4, op.scale);
+		assert_eq!(0, op.displacement);
+		assert_eq!(0, op.displ_size);
+		assert!(op.is_broadcast);
+		assert_eq!(Register::FS, op.segment_prefix);
+	}
+	{
+		let op = MemoryOperand::with_base_displ_size_bcst_seg(Register::RCX, 0x1234_5678, 8, true, Register::FS);
+		assert_eq!(Register::RCX, op.base);
+		assert_eq!(Register::None, op.index);
+		assert_eq!(1, op.scale);
+		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(8, op.displ_size);
+		assert!(op.is_broadcast);
+		assert_eq!(Register::FS, op.segment_prefix);
+	}
+	{
+		let op = MemoryOperand::with_index_scale_displ_size_bcst_seg(Register::RSI, 4, 0x1234_5678, 8, true, Register::FS);
+		assert_eq!(Register::None, op.base);
+		assert_eq!(Register::RSI, op.index);
+		assert_eq!(4, op.scale);
+		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(8, op.displ_size);
+		assert!(op.is_broadcast);
+		assert_eq!(Register::FS, op.segment_prefix);
+	}
+	{
+		let op = MemoryOperand::with_base_displ_bcst_seg(Register::RCX, 0x1234_5678, true, Register::FS);
+		assert_eq!(Register::RCX, op.base);
+		assert_eq!(Register::None, op.index);
+		assert_eq!(1, op.scale);
+		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(1, op.displ_size);
+		assert!(op.is_broadcast);
+		assert_eq!(Register::FS, op.segment_prefix);
+	}
+	{
+		let op = MemoryOperand::with_base_index_scale_displ_size(Register::RCX, Register::RSI, 4, 0x1234_5678, 8);
+		assert_eq!(Register::RCX, op.base);
+		assert_eq!(Register::RSI, op.index);
+		assert_eq!(4, op.scale);
+		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(8, op.displ_size);
+		assert!(!op.is_broadcast);
+		assert_eq!(Register::None, op.segment_prefix);
+	}
+	{
+		let op = MemoryOperand::with_base_index_scale(Register::RCX, Register::RSI, 4);
+		assert_eq!(Register::RCX, op.base);
+		assert_eq!(Register::RSI, op.index);
+		assert_eq!(4, op.scale);
+		assert_eq!(0, op.displacement);
+		assert_eq!(0, op.displ_size);
+		assert!(!op.is_broadcast);
+		assert_eq!(Register::None, op.segment_prefix);
+	}
+	{
+		let op = MemoryOperand::with_base_displ_size(Register::RCX, 0x1234_5678, 8);
+		assert_eq!(Register::RCX, op.base);
+		assert_eq!(Register::None, op.index);
+		assert_eq!(1, op.scale);
+		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(8, op.displ_size);
+		assert!(!op.is_broadcast);
+		assert_eq!(Register::None, op.segment_prefix);
+	}
+	{
+		let op = MemoryOperand::with_index_scale_displ_size(Register::RSI, 4, 0x1234_5678, 8);
+		assert_eq!(Register::None, op.base);
+		assert_eq!(Register::RSI, op.index);
+		assert_eq!(4, op.scale);
+		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(8, op.displ_size);
+		assert!(!op.is_broadcast);
+		assert_eq!(Register::None, op.segment_prefix);
+	}
+	{
+		let op = MemoryOperand::with_base_displ(Register::RCX, 0x1234_5678);
+		assert_eq!(Register::RCX, op.base);
+		assert_eq!(Register::None, op.index);
+		assert_eq!(1, op.scale);
+		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(1, op.displ_size);
+		assert!(!op.is_broadcast);
+		assert_eq!(Register::None, op.segment_prefix);
+	}
+	{
+		let op = MemoryOperand::with_base(Register::RCX);
+		assert_eq!(Register::RCX, op.base);
+		assert_eq!(Register::None, op.index);
+		assert_eq!(1, op.scale);
+		assert_eq!(0, op.displacement);
+		assert_eq!(0, op.displ_size);
+		assert!(!op.is_broadcast);
+		assert_eq!(Register::None, op.segment_prefix);
 	}
 }
 

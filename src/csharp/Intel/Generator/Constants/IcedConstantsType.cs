@@ -31,6 +31,8 @@ namespace Generator.Constants {
 		public const int MaxOpCount = 5;
 		public const int MaxInstructionLength = 15;
 		public const int RegisterBits = 8;
+
+		public const string NumberOfCodeValuesName = "NumberOfCodeValues";
 	}
 
 	static class IcedConstantsType {
@@ -46,7 +48,7 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.Int32, nameof(IcedConstants.MaxOpCount), IcedConstants.MaxOpCount, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, nameof(IcedConstants.MaxInstructionLength), IcedConstants.MaxInstructionLength, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, nameof(IcedConstants.RegisterBits), IcedConstants.RegisterBits, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.Int32, "NumberOfCodeValues", (uint)CodeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Int32, IcedConstants.NumberOfCodeValuesName, (uint)CodeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "NumberOfRegisters", (uint)regEnum.Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "NumberOfMemorySizes", (uint)MemorySizeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, "NumberOfEncodingKinds", (uint)EncodingKindEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),

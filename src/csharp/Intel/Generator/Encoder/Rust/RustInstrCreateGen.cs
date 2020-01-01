@@ -129,6 +129,10 @@ namespace Generator.Encoder.Rust {
 				case MethodArgType.WordArray:
 				case MethodArgType.DwordArray:
 				case MethodArgType.QwordArray:
+				case MethodArgType.BytePtr:
+				case MethodArgType.WordPtr:
+				case MethodArgType.DwordPtr:
+				case MethodArgType.QwordPtr:
 				default:
 					throw new InvalidOperationException();
 				}
@@ -179,6 +183,10 @@ namespace Generator.Encoder.Rust {
 				case MethodArgType.WordSlice:
 				case MethodArgType.DwordSlice:
 				case MethodArgType.QwordSlice:
+				case MethodArgType.BytePtr:
+				case MethodArgType.WordPtr:
+				case MethodArgType.DwordPtr:
+				case MethodArgType.QwordPtr:
 				default:
 					throw new InvalidOperationException();
 				}
@@ -311,6 +319,10 @@ namespace Generator.Encoder.Rust {
 					case MethodArgType.WordSlice:
 					case MethodArgType.DwordSlice:
 					case MethodArgType.QwordSlice:
+					case MethodArgType.BytePtr:
+					case MethodArgType.WordPtr:
+					case MethodArgType.DwordPtr:
+					case MethodArgType.QwordPtr:
 					default:
 						throw new InvalidOperationException();
 					}
@@ -726,6 +738,7 @@ namespace Generator.Encoder.Rust {
 			switch (kind) {
 			case DeclareDataKind.Byte:
 				switch (arrayType) {
+				case ArrayType.BytePtr:
 				case ArrayType.ByteArray:
 					break;
 
@@ -740,6 +753,8 @@ namespace Generator.Encoder.Rust {
 
 			case DeclareDataKind.Word:
 				switch (arrayType) {
+				case ArrayType.BytePtr:
+				case ArrayType.WordPtr:
 				case ArrayType.ByteArray:
 				case ArrayType.WordArray:
 					break;
@@ -785,6 +800,8 @@ namespace Generator.Encoder.Rust {
 
 			case DeclareDataKind.Dword:
 				switch (arrayType) {
+				case ArrayType.BytePtr:
+				case ArrayType.DwordPtr:
 				case ArrayType.ByteArray:
 				case ArrayType.DwordArray:
 					break;
@@ -830,6 +847,8 @@ namespace Generator.Encoder.Rust {
 
 			case DeclareDataKind.Qword:
 				switch (arrayType) {
+				case ArrayType.BytePtr:
+				case ArrayType.QwordPtr:
 				case ArrayType.ByteArray:
 				case ArrayType.QwordArray:
 					break;

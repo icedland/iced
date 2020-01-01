@@ -1302,7 +1302,7 @@ impl OpCodeHandler_Jb {
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
 				super::instruction_internal::internal_set_near_branch16(
 					instruction,
-					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()),
+					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()) as u16 as u32,
 				);
 			}
 		} else {
@@ -1315,7 +1315,7 @@ impl OpCodeHandler_Jb {
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
 				super::instruction_internal::internal_set_near_branch16(
 					instruction,
-					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()),
+					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()) as u16 as u32,
 				);
 			}
 		}
@@ -1408,7 +1408,7 @@ impl OpCodeHandler_Jz {
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
 				super::instruction_internal::internal_set_near_branch16(
 					instruction,
-					(decoder.read_u16() as u32).wrapping_add(decoder.current_ip32()),
+					(decoder.read_u16() as u32).wrapping_add(decoder.current_ip32()) as u16 as u32,
 				);
 			}
 		} else {
@@ -1421,7 +1421,7 @@ impl OpCodeHandler_Jz {
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
 				super::instruction_internal::internal_set_near_branch16(
 					instruction,
-					(decoder.read_u16() as u32).wrapping_add(decoder.current_ip32()),
+					(decoder.read_u16() as u32).wrapping_add(decoder.current_ip32()) as u16 as u32,
 				);
 			}
 		}
@@ -1465,7 +1465,7 @@ impl OpCodeHandler_Jb2 {
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
 				super::instruction_internal::internal_set_near_branch16(
 					instruction,
-					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()),
+					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()) as u16 as u32,
 				);
 			}
 		} else {
@@ -1486,7 +1486,7 @@ impl OpCodeHandler_Jb2 {
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch16);
 				super::instruction_internal::internal_set_near_branch16(
 					instruction,
-					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()),
+					(decoder.read_u8() as i8 as u32).wrapping_add(decoder.current_ip32()) as u16 as u32,
 				);
 			}
 		}

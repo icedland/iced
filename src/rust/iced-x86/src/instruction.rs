@@ -1686,8 +1686,8 @@ impl Instruction {
 	/// [`Code::DeclareQword`]: enum.Code.html#variant.DeclareQword
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn declare_data_len(&self) -> u32 {
-		((self.op_kind_flags >> OpKindFlags::DATA_LENGTH_SHIFT) & OpKindFlags::DATA_LENGTH_MASK) + 1
+	pub fn declare_data_len(&self) -> usize {
+		(((self.op_kind_flags >> OpKindFlags::DATA_LENGTH_SHIFT) & OpKindFlags::DATA_LENGTH_MASK) + 1) as usize
 	}
 
 	/// Sets the number of elements in a `db`/`dw`/`dd`/`dq` directive.
@@ -1703,9 +1703,9 @@ impl Instruction {
 	///
 	/// * `new_value`: New value: `db`: 1-16; `dw`: 1-8; `dd`: 1-4; `dq`: 1-2
 	#[inline]
-	pub fn set_declare_data_len(&mut self, new_value: u32) {
+	pub fn set_declare_data_len(&mut self, new_value: usize) {
 		self.op_kind_flags = (self.op_kind_flags & !(OpKindFlags::DATA_LENGTH_MASK << OpKindFlags::DATA_LENGTH_SHIFT))
-			| (((new_value - 1) & OpKindFlags::DATA_LENGTH_MASK) << OpKindFlags::DATA_LENGTH_SHIFT);
+			| ((((new_value as u32) - 1) & OpKindFlags::DATA_LENGTH_MASK) << OpKindFlags::DATA_LENGTH_SHIFT);
 	}
 
 	/// Sets a new `db` value, see also [`declare_data_len()`].
@@ -2262,7 +2262,7 @@ impl Instruction {
 	/// # Call-back function args
 	///
 	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base value, not the segment register value.
-	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index in the vector register.
+	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	///
 	/// # Examples
@@ -2288,9 +2288,9 @@ impl Instruction {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn virtual_address<F>(&self, operand: u32, element_index: u32, get_register_value: F) -> u64
+	pub fn virtual_address<F>(&self, operand: u32, element_index: usize, get_register_value: F) -> u64
 	where
-		F: Fn(Register, u32, u32) -> u64,
+		F: Fn(Register, usize, usize) -> u64,
 	{
 		match self.op_kind(operand) {
 			OpKind::Register

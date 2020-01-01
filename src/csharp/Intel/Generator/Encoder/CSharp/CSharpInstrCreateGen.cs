@@ -124,6 +124,18 @@ namespace Generator.Encoder.CSharp {
 				case MethodArgType.QwordSlice:
 					writer.Write("ReadOnlySpan<ulong>");
 					break;
+				case MethodArgType.BytePtr:
+					writer.Write("byte*");
+					break;
+				case MethodArgType.WordPtr:
+					writer.Write("ushort*");
+					break;
+				case MethodArgType.DwordPtr:
+					writer.Write("uint*");
+					break;
+				case MethodArgType.QwordPtr:
+					writer.Write("ulong*");
+					break;
 				default:
 					throw new InvalidOperationException();
 				}
@@ -252,6 +264,10 @@ namespace Generator.Encoder.CSharp {
 					case MethodArgType.WordSlice:
 					case MethodArgType.DwordSlice:
 					case MethodArgType.QwordSlice:
+					case MethodArgType.BytePtr:
+					case MethodArgType.WordPtr:
+					case MethodArgType.DwordPtr:
+					case MethodArgType.QwordPtr:
 					default:
 						throw new InvalidOperationException();
 					}
@@ -661,6 +677,9 @@ namespace Generator.Encoder.CSharp {
 			switch (kind) {
 			case DeclareDataKind.Byte:
 				switch (arrayType) {
+				case ArrayType.BytePtr:
+					break;
+
 				case ArrayType.ByteArray:
 					GenCreateDeclareDataArray(writer, method, "CreateDeclareByte", "CreateDeclareByte");
 					break;
@@ -676,6 +695,10 @@ namespace Generator.Encoder.CSharp {
 
 			case DeclareDataKind.Word:
 				switch (arrayType) {
+				case ArrayType.BytePtr:
+				case ArrayType.WordPtr:
+					break;
+
 				case ArrayType.ByteArray:
 				case ArrayType.WordArray:
 					GenCreateDeclareDataArray(writer, method, "CreateDeclareWord", "CreateDeclareWord");
@@ -720,6 +743,10 @@ namespace Generator.Encoder.CSharp {
 
 			case DeclareDataKind.Dword:
 				switch (arrayType) {
+				case ArrayType.BytePtr:
+				case ArrayType.DwordPtr:
+					break;
+
 				case ArrayType.ByteArray:
 				case ArrayType.DwordArray:
 					GenCreateDeclareDataArray(writer, method, "CreateDeclareDword", "CreateDeclareDword");
@@ -764,6 +791,10 @@ namespace Generator.Encoder.CSharp {
 
 			case DeclareDataKind.Qword:
 				switch (arrayType) {
+				case ArrayType.BytePtr:
+				case ArrayType.QwordPtr:
+					break;
+
 				case ArrayType.ByteArray:
 				case ArrayType.QwordArray:
 					GenCreateDeclareDataArray(writer, method, "CreateDeclareQword", "CreateDeclareQword");
