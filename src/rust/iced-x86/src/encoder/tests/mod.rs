@@ -69,7 +69,7 @@ fn encode_test(info: &DecoderTestInfo) {
 	let orig_co = decoder.get_constant_offsets(&orig_instr);
 	assert_eq!(info.code(), orig_instr.code());
 	assert_eq!(orig_bytes.len(), orig_instr.len());
-	assert!(orig_instr.len() <= IcedConstants::MAX_INSTRUCTION_LENGTH as usize);
+	assert!(orig_instr.len() <= IcedConstants::MAX_INSTRUCTION_LENGTH);
 	assert_eq!(orig_rip as u16, orig_instr.ip16());
 	assert_eq!(orig_rip as u32, orig_instr.ip32());
 	assert_eq!(orig_rip, orig_instr.ip());
@@ -210,7 +210,7 @@ fn encode_invalid_test(invalid_bitness: u32, tc: Rc<DecoderTestInfo>) {
 	let orig_instr = decoder.decode();
 	assert_eq!(tc.code(), orig_instr.code());
 	assert_eq!(orig_bytes.len(), orig_instr.len());
-	assert!(orig_instr.len() <= IcedConstants::MAX_INSTRUCTION_LENGTH as usize);
+	assert!(orig_instr.len() <= IcedConstants::MAX_INSTRUCTION_LENGTH);
 	assert_eq!(orig_rip as u16, orig_instr.ip16());
 	assert_eq!(orig_rip as u32, orig_instr.ip32());
 	assert_eq!(orig_rip, orig_instr.ip());
@@ -788,7 +788,7 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	assert_eq!(tc.op3_kind, info.op_kind(3));
 	assert_eq!(tc.op4_kind, info.op_kind(4));
 	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
-	for i in tc.op_count..IcedConstants::MAX_OP_COUNT {
+	for i in tc.op_count..IcedConstants::MAX_OP_COUNT as u32 {
 		assert_eq!(OpCodeOperandKind::None, info.op_kind(i));
 	}
 }
@@ -796,7 +796,7 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 #[allow(trivial_casts)]
 #[test]
 fn verify_instruction_op_code_info() {
-	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES as usize {
+	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let mut instr = Instruction::default();
 		instr.set_code(code);
@@ -806,7 +806,7 @@ fn verify_instruction_op_code_info() {
 
 #[test]
 fn make_sure_all_code_values_are_tested_exactly_once() {
-	let mut tested = [false; IcedConstants::NUMBER_OF_CODE_VALUES as usize];
+	let mut tested = [false; IcedConstants::NUMBER_OF_CODE_VALUES];
 	for tc in &*OP_CODE_INFO_TEST_CASES {
 		assert!(!tested[tc.code as usize]);
 		tested[tc.code as usize] = true;

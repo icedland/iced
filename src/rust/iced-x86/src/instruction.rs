@@ -788,7 +788,7 @@ impl Instruction {
 	pub fn memory_size(&self) -> MemorySize {
 		let mut index = self.code() as usize;
 		if self.is_broadcast() {
-			index += IcedConstants::NUMBER_OF_CODE_VALUES as usize;
+			index += IcedConstants::NUMBER_OF_CODE_VALUES;
 		}
 		unsafe { mem::transmute(*instruction_memory_sizes::SIZES.get_unchecked(index)) }
 	}

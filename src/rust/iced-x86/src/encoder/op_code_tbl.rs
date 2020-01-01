@@ -28,9 +28,9 @@ use std::mem;
 
 lazy_static! {
 	pub(crate) static ref OP_CODE_INFO_TBL: Vec<OpCodeInfo> = {
-		let mut result = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES as usize);
+		let mut result = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
 		let mut sb = String::new();
-		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES as usize {
+		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 			let code: Code = unsafe { mem::transmute(i as u16) };
 			let j = i * 3;
 			let dword1 = unsafe { *OP_CODE_DATA.get_unchecked(j) };

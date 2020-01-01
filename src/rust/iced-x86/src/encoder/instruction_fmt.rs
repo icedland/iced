@@ -480,7 +480,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 	fn get_memory_size(&self, is_broadcast: bool) -> MemorySize {
 		let mut index = self.op_code.code() as usize;
 		if is_broadcast {
-			index += IcedConstants::NUMBER_OF_CODE_VALUES as usize;
+			index += IcedConstants::NUMBER_OF_CODE_VALUES;
 		}
 		unsafe { mem::transmute(*instruction_memory_sizes::SIZES.get_unchecked(index)) }
 	}

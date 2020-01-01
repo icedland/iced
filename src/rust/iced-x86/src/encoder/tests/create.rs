@@ -990,17 +990,17 @@ fn get_set_op_kind_panics_if_invalid_input() {
 
 	let _ = instr.op_kind(0);
 	let _ = instr.op_kind(1);
-	for i in 2..IcedConstants::MAX_OP_COUNT {
+	for i in 2..IcedConstants::MAX_OP_COUNT as u32 {
 		let _ = instr.op_kind(i);
 	}
-	assert!(panic::catch_unwind(|| { instr.op_kind(IcedConstants::MAX_OP_COUNT) }).is_err());
+	assert!(panic::catch_unwind(|| { instr.op_kind(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
 
 	instr.set_op_kind(0, OpKind::Register);
 	instr.set_op_kind(1, OpKind::Immediate32);
-	for i in 2..IcedConstants::MAX_OP_COUNT {
+	for i in 2..IcedConstants::MAX_OP_COUNT as u32 {
 		instr.set_op_kind(i, OpKind::Immediate8);
 	}
-	assert!(panic::catch_unwind(move || { instr.set_op_kind(IcedConstants::MAX_OP_COUNT, OpKind::Register) }).is_err());
+	assert!(panic::catch_unwind(move || { instr.set_op_kind(IcedConstants::MAX_OP_COUNT as u32, OpKind::Register) }).is_err());
 }
 
 #[test]
@@ -1009,13 +1009,13 @@ fn get_set_immediate_panics_if_invalid_input() {
 
 	assert!(panic::catch_unwind(|| { instr.immediate(0) }).is_err());
 	let _ = instr.immediate(1);
-	for i in 2..IcedConstants::MAX_OP_COUNT {
+	for i in 2..IcedConstants::MAX_OP_COUNT as u32 {
 		if i == 4 && instr.op4_kind() == OpKind::Immediate8 {
 			continue;
 		}
 		assert!(panic::catch_unwind(|| { instr.immediate(i) }).is_err());
 	}
-	assert!(panic::catch_unwind(|| { instr.immediate(IcedConstants::MAX_OP_COUNT) }).is_err());
+	assert!(panic::catch_unwind(|| { instr.immediate(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
 
 	{
 		let mut instr = instr;
@@ -1039,7 +1039,7 @@ fn get_set_immediate_panics_if_invalid_input() {
 	instr.set_immediate_u32(1, 0);
 	instr.set_immediate_u64(1, 0);
 
-	for i in 2..IcedConstants::MAX_OP_COUNT {
+	for i in 2..IcedConstants::MAX_OP_COUNT as u32 {
 		if i == 4 && instr.op4_kind() == OpKind::Immediate8 {
 			continue;
 		}
@@ -1062,19 +1062,19 @@ fn get_set_immediate_panics_if_invalid_input() {
 	}
 	{
 		let mut instr = instr;
-		assert!(panic::catch_unwind(move || { instr.set_immediate_i32(IcedConstants::MAX_OP_COUNT, 0) }).is_err());
+		assert!(panic::catch_unwind(move || { instr.set_immediate_i32(IcedConstants::MAX_OP_COUNT as u32, 0) }).is_err());
 	}
 	{
 		let mut instr = instr;
-		assert!(panic::catch_unwind(move || { instr.set_immediate_i64(IcedConstants::MAX_OP_COUNT, 0) }).is_err());
+		assert!(panic::catch_unwind(move || { instr.set_immediate_i64(IcedConstants::MAX_OP_COUNT as u32, 0) }).is_err());
 	}
 	{
 		let mut instr = instr;
-		assert!(panic::catch_unwind(move || { instr.set_immediate_u32(IcedConstants::MAX_OP_COUNT, 0) }).is_err());
+		assert!(panic::catch_unwind(move || { instr.set_immediate_u32(IcedConstants::MAX_OP_COUNT as u32, 0) }).is_err());
 	}
 	{
 		let mut instr = instr;
-		assert!(panic::catch_unwind(move || { instr.set_immediate_u64(IcedConstants::MAX_OP_COUNT, 0) }).is_err());
+		assert!(panic::catch_unwind(move || { instr.set_immediate_u64(IcedConstants::MAX_OP_COUNT as u32, 0) }).is_err());
 	}
 }
 
@@ -1082,12 +1082,12 @@ fn get_set_immediate_panics_if_invalid_input() {
 fn get_set_register_panics_if_invalid_input() {
 	let mut instr = Instruction::with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX);
 
-	for i in 0..IcedConstants::MAX_OP_COUNT {
+	for i in 0..IcedConstants::MAX_OP_COUNT as u32 {
 		let _ = instr.op_register(i);
 	}
-	assert!(panic::catch_unwind(|| { instr.op_register(IcedConstants::MAX_OP_COUNT) }).is_err());
+	assert!(panic::catch_unwind(|| { instr.op_register(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
 
-	for i in 0..IcedConstants::MAX_OP_COUNT {
+	for i in 0..IcedConstants::MAX_OP_COUNT as u32 {
 		if i == 4 && instr.op4_kind() == OpKind::Immediate8 {
 			continue;
 		}
@@ -1095,7 +1095,7 @@ fn get_set_register_panics_if_invalid_input() {
 	}
 	{
 		let mut instr = instr;
-		assert!(panic::catch_unwind(move || { instr.set_op_register(IcedConstants::MAX_OP_COUNT, Register::EAX) }).is_err());
+		assert!(panic::catch_unwind(move || { instr.set_op_register(IcedConstants::MAX_OP_COUNT as u32, Register::EAX) }).is_err());
 	}
 }
 

@@ -138,6 +138,7 @@ namespace Generator.Constants.CSharp {
 			case ConstantKind.String:
 				return "string";
 			case ConstantKind.Int32:
+			case ConstantKind.Index:
 				return "int";
 			case ConstantKind.UInt32:
 				return "uint";
@@ -163,6 +164,7 @@ namespace Generator.Constants.CSharp {
 				throw new InvalidOperationException();
 
 			case ConstantKind.Int32:
+			case ConstantKind.Index:
 				if (constant.UseHex)
 					return NumberFormatter.FormatHexUInt32WithSep((uint)constant.ValueUInt64);
 				return ((int)constant.ValueUInt64).ToString();

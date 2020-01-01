@@ -87,6 +87,7 @@ namespace Generator.Constants {
 		UInt64,
 		Register,
 		MemorySize,
+		Index,
 	}
 
 	sealed class Constant {

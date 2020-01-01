@@ -27,7 +27,7 @@ use super::iced_constants::IcedConstants;
 use super::Mnemonic;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static TO_MNEMONIC: [u16; IcedConstants::NUMBER_OF_CODE_VALUES as usize] = [
+pub(crate) static TO_MNEMONIC: [u16; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	Mnemonic::INVALID as u16,// INVALID
 	Mnemonic::Add as u16,// Add_rm8_r8
 	Mnemonic::Add as u16,// Add_rm16_r16

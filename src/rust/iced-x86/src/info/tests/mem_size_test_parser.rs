@@ -101,8 +101,8 @@ impl Iterator for IntoIter {
 impl IntoIter {
 	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<MemorySizeInfoTestCase, String> {
 		const_assert_eq!(6, MiscInstrInfoTestConstants::MEMORY_SIZE_ELEMS_PER_LINE);
-		let elems: Vec<_> = line.splitn(MiscInstrInfoTestConstants::MEMORY_SIZE_ELEMS_PER_LINE as usize, ',').collect();
-		if elems.len() != MiscInstrInfoTestConstants::MEMORY_SIZE_ELEMS_PER_LINE as usize {
+		let elems: Vec<_> = line.splitn(MiscInstrInfoTestConstants::MEMORY_SIZE_ELEMS_PER_LINE, ',').collect();
+		if elems.len() != MiscInstrInfoTestConstants::MEMORY_SIZE_ELEMS_PER_LINE {
 			return Err(format!("Invalid number of commas: {}", elems.len() - 1));
 		}
 

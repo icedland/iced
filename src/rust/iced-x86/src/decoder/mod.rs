@@ -762,6 +762,7 @@ impl<'a> Decoder<'a> {
 	/// assert!(instr.has_xrelease_prefix());
 	/// ```
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))]
 	pub fn decode_out(&mut self, instruction: &mut Instruction) {
 		*instruction = Instruction::default();
 
@@ -884,7 +885,7 @@ impl<'a> Decoder<'a> {
 		super::instruction_internal::internal_set_code_size(instruction, self.default_code_size);
 		debug_assert_eq!(self.instr_start_data_ptr, data_ptr);
 		let instr_len = self.data_ptr as usize - data_ptr as usize;
-		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH as usize); // Could be 0 if there were no bytes available
+		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH); // Could be 0 if there were no bytes available
 		super::instruction_internal::internal_set_len(instruction, instr_len as u32);
 
 		let ip = self.ip.wrapping_add(instr_len as u64);
@@ -896,7 +897,7 @@ impl<'a> Decoder<'a> {
 	#[inline]
 	pub(crate) fn current_ip32(&self) -> u32 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
-		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH as usize);
+		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH);
 		((self.data_ptr as usize - self.instr_start_data_ptr as usize) as u32).wrapping_add(self.ip as u32)
 	}
 
@@ -904,7 +905,7 @@ impl<'a> Decoder<'a> {
 	#[inline]
 	pub(crate) fn current_ip64(&self) -> u64 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
-		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH as usize);
+		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH);
 		((self.data_ptr as usize - self.instr_start_data_ptr as usize) as u64).wrapping_add(self.ip)
 	}
 

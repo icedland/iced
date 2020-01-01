@@ -259,7 +259,7 @@ impl InstructionInfoFactory {
 			}
 		};
 
-		debug_assert!(instruction.op_count() <= IcedConstants::MAX_OP_COUNT);
+		debug_assert!(instruction.op_count() as usize <= IcedConstants::MAX_OP_COUNT);
 		info.op_accesses[0] = op0_access;
 		let op1_info = ((flags1 >> InfoFlags1::OP_INFO1_SHIFT) & InfoFlags1::OP_INFO1_MASK) as usize;
 		info.op_accesses[1] = unsafe { *OP_ACCESS_1.get_unchecked(op1_info) };

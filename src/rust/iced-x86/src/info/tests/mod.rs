@@ -184,7 +184,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(info.used_registers(), instr.used_registers().as_slice());
 
 	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
-	assert!(instr.op_count() <= IcedConstants::MAX_OP_COUNT);
+	assert!(instr.op_count() <= IcedConstants::MAX_OP_COUNT as u32);
 	for i in 0..instr.op_count() {
 		match i {
 			0 => assert_eq!(tc.op0_access, info.op_access(i)),
@@ -195,7 +195,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 			_ => panic!(),
 		}
 	}
-	for i in instr.op_count()..IcedConstants::MAX_OP_COUNT {
+	for i in instr.op_count()..IcedConstants::MAX_OP_COUNT as u32 {
 		assert_eq!(OpAccess::None, info.op_access(i));
 	}
 
@@ -470,9 +470,9 @@ fn memory_size_info() {
 	let test_cases: Vec<_> = MemorySizeInfoTestParser::new(&path).into_iter().collect();
 	let h: HashSet<MemorySize> = test_cases.iter().map(|a| a.memory_size).collect();
 	// Make sure every value is tested
-	assert_eq!(IcedConstants::NUMBER_OF_MEMORY_SIZES as usize, h.len());
+	assert_eq!(IcedConstants::NUMBER_OF_MEMORY_SIZES, h.len());
 	// Make sure there are no dupes
-	assert_eq!(IcedConstants::NUMBER_OF_MEMORY_SIZES as usize, test_cases.len());
+	assert_eq!(IcedConstants::NUMBER_OF_MEMORY_SIZES, test_cases.len());
 	for tc in &test_cases {
 		let info = tc.memory_size.info();
 		assert_eq!(tc.memory_size, info.memory_size());
@@ -502,9 +502,9 @@ fn register_info() {
 	let test_cases: Vec<_> = RegisterInfoTestParser::new(&path).into_iter().collect();
 	let h: HashSet<Register> = test_cases.iter().map(|a| a.register).collect();
 	// Make sure every value is tested
-	assert_eq!(IcedConstants::NUMBER_OF_REGISTERS as usize, h.len());
+	assert_eq!(IcedConstants::NUMBER_OF_REGISTERS, h.len());
 	// Make sure there are no dupes
-	assert_eq!(IcedConstants::NUMBER_OF_REGISTERS as usize, test_cases.len());
+	assert_eq!(IcedConstants::NUMBER_OF_REGISTERS, test_cases.len());
 	for tc in &test_cases {
 		let info = tc.register.info();
 		assert_eq!(tc.register, info.register());
@@ -720,7 +720,7 @@ fn verify_condition_code_values_are_in_correct_order() {
 
 #[test]
 fn make_sure_all_code_values_are_tested() {
-	let mut tested = [false; IcedConstants::NUMBER_OF_CODE_VALUES as usize];
+	let mut tested = [false; IcedConstants::NUMBER_OF_CODE_VALUES];
 	for bitness in &[16u32, 32, 64] {
 		for tc in get_instr_info_test_cases(*bitness) {
 			tested[tc.code as usize] = true;

@@ -31,9 +31,9 @@ use std::mem;
 
 lazy_static! {
 	pub(crate) static ref HANDLERS_TABLE: Vec<&'static OpCodeHandler> = {
-		let mut v = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES as usize);
-		debug_assert_eq!(IcedConstants::NUMBER_OF_CODE_VALUES as usize * 3, OP_CODE_DATA.len());
-		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES as usize {
+		let mut v = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
+		debug_assert_eq!(IcedConstants::NUMBER_OF_CODE_VALUES * 3, OP_CODE_DATA.len());
+		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 			let j = i * 3;
 			let dword1 = unsafe { *OP_CODE_DATA.get_unchecked(j) };
 			let dword2 = unsafe { *OP_CODE_DATA.get_unchecked(j + 1) };

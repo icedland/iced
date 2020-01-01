@@ -28,9 +28,9 @@ impl MiscInstrInfoTestConstants {
 	pub(crate) const VMM_PREFIX: &'static str = "vmm";
 	pub(crate) const XSP: &'static str = "xsp";
 	pub(crate) const XBP: &'static str = "xbp";
-	pub(crate) const INSTR_INFO_ELEMS_PER_LINE: u32 = 5;
-	pub(crate) const MEMORY_SIZE_ELEMS_PER_LINE: u32 = 6;
-	pub(crate) const REGISTER_ELEMS_PER_LINE: u32 = 7;
+	pub(crate) const INSTR_INFO_ELEMS_PER_LINE: usize = 5;
+	pub(crate) const MEMORY_SIZE_ELEMS_PER_LINE: usize = 6;
+	pub(crate) const REGISTER_ELEMS_PER_LINE: usize = 7;
 }
 // GENERATOR-END: MiscConstants
 

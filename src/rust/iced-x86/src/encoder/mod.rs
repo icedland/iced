@@ -428,7 +428,7 @@ impl Encoder {
 		}
 
 		let instr_len = (self.current_rip as usize).wrapping_sub(rip as usize);
-		if instr_len > IcedConstants::MAX_INSTRUCTION_LENGTH as usize && (handler.flags & OpCodeHandlerFlags::DECLARE_DATA) == 0 {
+		if instr_len > IcedConstants::MAX_INSTRUCTION_LENGTH && (handler.flags & OpCodeHandlerFlags::DECLARE_DATA) == 0 {
 			self.set_error_message(format!("Instruction length > {} bytes", IcedConstants::MAX_INSTRUCTION_LENGTH));
 		}
 		if !self.error_message.is_empty() {

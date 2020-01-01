@@ -80,6 +80,8 @@ namespace Generator.Constants.Rust {
 				return "u32";
 			case ConstantKind.UInt64:
 				return "u64";
+			case ConstantKind.Index:
+				return "usize";
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
 				return EnumUtils.GetEnumType(kind).Name(idConverter);
@@ -101,6 +103,7 @@ namespace Generator.Constants.Rust {
 
 			case ConstantKind.Int32:
 			case ConstantKind.UInt32:
+			case ConstantKind.Index:
 				if (constant.UseHex)
 					return NumberFormatter.FormatHexUInt32WithSep((uint)constant.ValueUInt64);
 				return ((uint)constant.ValueUInt64).ToString();

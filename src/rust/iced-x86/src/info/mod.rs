@@ -216,7 +216,7 @@ pub struct InstructionInfo {
 	cpuid_feature_internal: usize,
 	rflags_info: usize,
 	flow_control: FlowControl,
-	op_accesses: [OpAccess; IcedConstants::MAX_OP_COUNT as usize],
+	op_accesses: [OpAccess; IcedConstants::MAX_OP_COUNT],
 	encoding: EncodingKind,
 	flags: u8,
 }
@@ -228,19 +228,19 @@ impl InstructionInfo {
 		use self::enums::InstrInfoConstants;
 		Self {
 			used_registers: if (options & InstructionInfoOptions::NO_REGISTER_USAGE) == 0 {
-				Vec::with_capacity(InstrInfoConstants::DEFAULT_USED_REGISTER_COLL_CAPACITY as usize)
+				Vec::with_capacity(InstrInfoConstants::DEFAULT_USED_REGISTER_COLL_CAPACITY)
 			} else {
 				Vec::new()
 			},
 			used_memory_locations: if (options & InstructionInfoOptions::NO_MEMORY_USAGE) == 0 {
-				Vec::with_capacity(InstrInfoConstants::DEFAULT_USED_MEMORY_COLL_CAPACITY as usize)
+				Vec::with_capacity(InstrInfoConstants::DEFAULT_USED_MEMORY_COLL_CAPACITY)
 			} else {
 				Vec::new()
 			},
 			cpuid_feature_internal: 0,
 			rflags_info: 0,
 			flow_control: FlowControl::default(),
-			op_accesses: [OpAccess::default(); IcedConstants::MAX_OP_COUNT as usize],
+			op_accesses: [OpAccess::default(); IcedConstants::MAX_OP_COUNT],
 			encoding: EncodingKind::default(),
 			flags: 0,
 		}

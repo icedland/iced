@@ -323,13 +323,13 @@ namespace Generator.InstructionInfo {
 
 			var enumOpInfos = this.EnumOpInfos ?? throw new InvalidOperationException();
 			for (int i = 0; i < enumOpInfos.Length; i++)
-				constants.Add(new Constant(ConstantKind.Int32, $"OpInfo{i}_Count", (uint)enumOpInfos[i].Values.Length, ConstantsTypeFlags.None));
+				constants.Add(new Constant(ConstantKind.Index, $"OpInfo{i}_Count", (uint)enumOpInfos[i].Values.Length, ConstantsTypeFlags.None));
 
 			var enumRflagsInfo = this.EnumRflagsInfo ?? throw new InvalidOperationException();
-			constants.Add(new Constant(ConstantKind.Int32, enumRflagsInfo.RawName + "_Count", (uint)enumRflagsInfo.Values.Length, ConstantsTypeFlags.None));
+			constants.Add(new Constant(ConstantKind.Index, enumRflagsInfo.RawName + "_Count", (uint)enumRflagsInfo.Values.Length, ConstantsTypeFlags.None));
 
-			constants.Add(new Constant(ConstantKind.Int32, "DefaultUsedRegisterCollCapacity", 10, ConstantsTypeFlags.None));
-			constants.Add(new Constant(ConstantKind.Int32, "DefaultUsedMemoryCollCapacity", 8, ConstantsTypeFlags.None));
+			constants.Add(new Constant(ConstantKind.Index, "DefaultUsedRegisterCollCapacity", 10, ConstantsTypeFlags.None));
+			constants.Add(new Constant(ConstantKind.Index, "DefaultUsedMemoryCollCapacity", 8, ConstantsTypeFlags.None));
 
 			InstrInfoConstants = new ConstantsType(TypeIds.InstrInfoConstants, ConstantsTypeFlags.None, null, constants.ToArray());
 		}
