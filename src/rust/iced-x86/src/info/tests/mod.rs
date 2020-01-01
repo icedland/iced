@@ -729,7 +729,7 @@ fn make_sure_all_code_values_are_tested() {
 
 	let mut s = String::new();
 	let mut missing = 0;
-	let names: Vec<_> = to_code_names().collect();
+	let names: Vec<_> = to_code_names();
 	assert_eq!(tested.len(), names.len());
 	for i in tested.iter().enumerate() {
 		if !*i.1 {

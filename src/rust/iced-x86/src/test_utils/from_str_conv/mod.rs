@@ -59,7 +59,6 @@ use self::register_table::*;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 use self::tuple_type_table::*;
 use super::super::*;
-use std::collections::hash_map::Keys;
 use std::collections::HashMap;
 use std::{i32, u16, u32, u8};
 
@@ -163,8 +162,10 @@ pub(crate) fn to_code(value: &str) -> Result<Code, String> {
 	}
 }
 
-pub(crate) fn to_code_names() -> Keys<'static, &'static str, Code> {
-	TO_CODE_HASH.keys()
+pub(crate) fn to_code_names() -> Vec<&'static str> {
+	let mut keys: Vec<(&'static str, Code)> = (&*TO_CODE_HASH).iter().map(|kv| (*kv.0, *kv.1)).collect();
+	keys.sort_unstable_by_key(|&kv| kv.0);
+	keys.iter().map(|&kv| kv.0).collect()
 }
 
 pub(crate) fn to_mnemonic(value: &str) -> Result<Mnemonic, String> {

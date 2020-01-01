@@ -241,3 +241,15 @@ fn decode_ip_xxxxxxxxffffffff() {
 	let _ = decoder.decode();
 	assert_eq!(0x1234_5679_0000_0000, decoder.ip());
 }
+
+#[test]
+#[cfg(feature = "encoder")]
+fn instruction_operator_eq_neq() {
+	let instr1a = Instruction::with_reg_reg(Code::Mov_r64_rm64, Register::RAX, Register::RCX);
+	let instr1b = instr1a;
+	let instr2 = Instruction::with_reg_reg(Code::Mov_r64_rm64, Register::RAX, Register::RDX);
+	assert_eq!(true, instr1a == instr1b);
+	assert_eq!(false, instr1a == instr2);
+	assert_eq!(true, instr1a != instr2);
+	assert_eq!(false, instr1a != instr1b);
+}

@@ -27,6 +27,7 @@ mod op_code_test_case_parser;
 
 use self::op_code_test_case::*;
 use self::op_code_test_case_parser::OpCodeInfoTestParser;
+use super::super::decoder::tests::non_decoded_tests;
 use super::super::decoder::tests::test_utils::*;
 use super::super::iced_constants::IcedConstants;
 use super::super::test_utils::from_str_conv::to_vec_u8;
@@ -147,6 +148,37 @@ fn slice_u8_to_string(bytes: &[u8]) -> String {
 		write!(s, "{:02X}", b).unwrap();
 	}
 	s
+}
+
+#[test]
+fn non_decode_encode_16() {
+	non_decode_encode(16);
+}
+
+#[test]
+fn non_decode_encode_32() {
+	non_decode_encode(32);
+}
+
+#[test]
+fn non_decode_encode_64() {
+	non_decode_encode(64);
+}
+
+fn non_decode_encode(bitness: u32) {
+	const RIP: u64 = 0;
+	for tc in non_decoded_tests::get_tests() {
+		if tc.0 != bitness {
+			continue;
+		}
+		let expected_bytes = to_vec_u8(tc.1).unwrap();
+		let mut encoder = Encoder::new(bitness);
+		assert_eq!(bitness, encoder.bitness());
+		let encoded_instr_len = encoder.encode(&tc.2, RIP).unwrap();
+		let encoded_bytes = encoder.take_buffer();
+		assert_eq!(expected_bytes, encoded_bytes);
+		assert_eq!(encoded_bytes.len(), encoded_instr_len);
+	}
 }
 
 fn get_invalid_test_cases() -> Vec<(u32, Rc<DecoderTestInfo>)> {

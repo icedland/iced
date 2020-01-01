@@ -25,12 +25,17 @@ mod decoder_mem_test_case;
 mod decoder_test_case;
 mod mem_test_parser;
 mod misc_tests;
+pub(crate) mod non_decoded_tests;
 mod test_cases;
 mod test_parser;
 pub(crate) mod test_utils;
 
 use self::decoder_mem_test_case::*;
 use self::decoder_test_case::*;
+use self::non_decoded_tests::*;
+use self::test_utils::*;
+use super::super::iced_constants::IcedConstants;
+use super::super::test_utils::from_str_conv::to_code_names;
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
@@ -284,4 +289,87 @@ fn decode_mem_test(bitness: u32, tc: &DecoderMemoryTestCase) {
 	assert_eq!(OpKind::Register, instr.op1_kind());
 	assert_eq!(tc.register, instr.op1_register());
 	verify_constant_offsets(&tc.constant_offsets, &decoder.get_constant_offsets(&instr));
+}
+
+#[test]
+fn make_sure_all_code_values_are_tested_in_16_32_64_bit_modes() {
+	const T16: u8 = 0x01;
+	const T32: u8 = 0x02;
+	const T64: u8 = 0x04;
+	let mut tested = [0u8; IcedConstants::NUMBER_OF_CODE_VALUES as usize];
+	tested[Code::INVALID as usize] = T16 | T32 | T64;
+
+	for info in decoder_tests(false, false) {
+		assert!(!not_decoded().contains(&info.code()));
+
+		tested[info.code() as usize] |= match info.bitness() {
+			16 => T16,
+			32 => T32,
+			64 => T64,
+			_ => unreachable!(),
+		}
+	}
+
+	#[cfg(feature = "encoder")]
+	for info in get_tests() {
+		tested[info.2.code() as usize] |= match info.0 {
+			16 => T16,
+			32 => T32,
+			64 => T64,
+			_ => unreachable!(),
+		}
+	}
+
+	for c in not_decoded() {
+		assert!(!code32_only().contains(c));
+		assert!(!code64_only().contains(c));
+	}
+
+	for &c in not_decoded32_only() {
+		tested[c as usize] ^= T64;
+	}
+	for &c in not_decoded64_only() {
+		tested[c as usize] ^= T16 | T32;
+	}
+
+	for c in code32_only() {
+		assert!(!code64_only().contains(c));
+		tested[*c as usize] ^= T64;
+	}
+
+	for c in code64_only() {
+		assert!(!code32_only().contains(c));
+		tested[*c as usize] ^= T16 | T32;
+	}
+
+	let mut sb16 = String::new();
+	let mut sb32 = String::new();
+	let mut sb64 = String::new();
+	let mut missing16 = 0;
+	let mut missing32 = 0;
+	let mut missing64 = 0;
+	let code_names: Vec<_> = to_code_names();
+	assert_eq!(tested.len(), code_names.len());
+	for i in 0..tested.len() {
+		if tested[i] != (T16 | T32 | T64) {
+			if (tested[i] & T16) == 0 {
+				sb16.push_str(code_names[i]);
+				sb16.push_str(" ");
+				missing16 += 1;
+			}
+			if (tested[i] & T32) == 0 {
+				sb32.push_str(code_names[i]);
+				sb32.push_str(" ");
+				missing32 += 1;
+			}
+			if (tested[i] & T64) == 0 {
+				sb64.push_str(code_names[i]);
+				sb64.push_str(" ");
+				missing64 += 1;
+			}
+		}
+	}
+	assert_eq!("16: 0 ins ", format!("16: {} ins {}", missing16, sb16));
+	assert_eq!("32: 0 ins ", format!("32: {} ins {}", missing32, sb32));
+	assert_eq!("64: 0 ins ", format!("64: {} ins {}", missing64, sb64));
 }

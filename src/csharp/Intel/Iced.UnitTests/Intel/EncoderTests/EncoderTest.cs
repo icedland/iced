@@ -127,13 +127,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(bitness, writer);
 			Assert.Equal(bitness, encoder.Bitness);
-			var origInstrCopy = instr;
 			bool result = encoder.TryEncode(instr, rip, out uint encodedInstrLen, out string errorMessage);
 			Assert.True(errorMessage is null, "Unexpected error message: " + errorMessage);
 			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
 			var encodedBytes = writer.ToArray();
-			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);
-			Assert.True(Instruction.EqualsAllBits(instr, origInstrCopy));
 			if (!ArrayEquals(expectedBytes, encodedBytes)) {
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 				// Show the full string without ellipses by using Equal<string>() instead of Equal()
@@ -141,6 +138,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				throw new InvalidOperationException();
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 			}
+			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);
 		}
 
 		protected void EncodeInvalidBase(uint id, int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidBitness) {

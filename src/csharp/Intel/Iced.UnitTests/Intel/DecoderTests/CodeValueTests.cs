@@ -39,32 +39,22 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 				Assert.False(DecoderTestUtils.NotDecoded.Contains(info.Code), $"{info.Code} has a decoder test but it shouldn't be decoded");
 
-				byte testedFlags;
-				if (info.Bitness == 16)
-					testedFlags = T16;
-				else if (info.Bitness == 32)
-					testedFlags = T32;
-				else if (info.Bitness == 64)
-					testedFlags = T64;
-				else
-					continue;
-
-				tested[(int)info.Code] |= testedFlags;
+				tested[(int)info.Code] |= info.Bitness switch {
+					16 => T16,
+					32 => T32,
+					64 => T64,
+					_ => throw new System.InvalidOperationException(),
+				};
 			}
 
 #if !NO_ENCODER
 			foreach (var info in NonDecodedInstructions.GetTests()) {
-				byte testedFlags;
-				if (info.bitness == 16)
-					testedFlags = T16;
-				else if (info.bitness == 32)
-					testedFlags = T32;
-				else if (info.bitness == 64)
-					testedFlags = T64;
-				else
-					continue;
-
-				tested[(int)info.instruction.Code] |= testedFlags;
+				tested[(int)info.instruction.Code] |= info.bitness switch {
+					16 => T16,
+					32 => T32,
+					64 => T64,
+					_ => throw new System.InvalidOperationException(),
+				};
 			}
 #endif
 
