@@ -373,7 +373,7 @@ namespace Generator.Encoder.Rust {
 				var bar = string.Empty;
 				foreach (var value in codeValues) {
 					writer.WriteLine($"{bar}{value.DeclaringType.Name(idConverter)}::{value.Name(idConverter)}");
-						bar = "| ";
+					bar = "| ";
 				}
 			});
 		}
@@ -420,6 +420,15 @@ namespace Generator.Encoder.Rust {
 				}
 				writer.WriteLine("];");
 			}
+		}
+
+		protected override void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr) {
+			var filename = Path.Combine(generatorOptions.RustDir, "block_enc", "instr", "mod.rs");
+			GenerateCases(filename, "JccInstr", jccInstr);
+			GenerateCases(filename, "SimpleBranchInstr", simpleBranchInstr);
+			GenerateCases(filename, "CallInstr", callInstr);
+			GenerateCases(filename, "JmpInstr", jmpInstr);
+			GenerateCases(filename, "XbeginInstr", xbeginInstr);
 		}
 	}
 }

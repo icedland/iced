@@ -463,10 +463,10 @@ namespace Generator.Encoder {
 		}
 
 		static class DeclareConsts {
-			public const string dbDoc = "Create a #(c:db)#/#(c:.byte)# asm directive";
-			public const string dwDoc = "Create a #(c:dw)#/#(c:.word)# asm directive";
-			public const string ddDoc = "Create a #(c:dd)#/#(c:.int)# asm directive";
-			public const string dqDoc = "Create a #(c:dq)#/#(c:.quad)# asm directive";
+			public const string dbDoc = "Creates a #(c:db)#/#(c:.byte)# asm directive";
+			public const string dwDoc = "Creates a #(c:dw)#/#(c:.word)# asm directive";
+			public const string ddDoc = "Creates a #(c:dd)#/#(c:.int)# asm directive";
+			public const string dqDoc = "Creates a #(c:dq)#/#(c:.quad)# asm directive";
 			public const string dataArgName = "data";
 			public const string dataArgDoc = "Data";
 			public const string indexArgName = "index";

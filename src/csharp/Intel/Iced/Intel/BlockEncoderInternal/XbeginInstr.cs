@@ -34,17 +34,11 @@ namespace Iced.Intel.BlockEncoderInternal {
 		Instruction instruction;
 		TargetInstr targetInstr;
 
-		public XbeginInstr(BlockEncoder blockEncoder, in Instruction instruction)
-			: base(blockEncoder, instruction.IP) {
+		public XbeginInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
+			: base(block, instruction.IP) {
 			this.instruction = instruction;
 
-			switch (blockEncoder.Bitness) {
-			case 16: targetAddr = instruction.NearBranch16; break;
-			case 32: targetAddr = instruction.NearBranch32; break;
-			case 64: targetAddr = instruction.NearBranch64; break;
-			default: throw new InvalidOperationException();
-			}
-
+			targetAddr = instruction.NearBranchTarget;
 			if (blockEncoder.FixBranches) {
 				if (blockEncoder.Bitness == 16)
 					this.instruction.InternalSetCodeNoCheck(Code.Xbegin_rel16);
@@ -55,11 +49,10 @@ namespace Iced.Intel.BlockEncoderInternal {
 			}
 			var instrCopy = this.instruction;
 			instrCopy.NearBranch64 = 0;
-			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out Size, out var errorMessage))
-				Size = IcedConstants.MaxInstructionLength;
+			Size = blockEncoder.GetInstructionSize(instrCopy, 0);
 		}
 
-		public override void Initialize() => targetInstr = blockEncoder.GetTarget(targetAddr);
+		public override void Initialize(BlockEncoder blockEncoder) => targetInstr = blockEncoder.GetTarget(targetAddr);
 
 		public override bool Optimize() => false;
 

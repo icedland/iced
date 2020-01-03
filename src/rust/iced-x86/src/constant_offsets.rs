@@ -87,7 +87,7 @@ impl ConstantOffsets {
 		self.immediate_size2 as usize
 	}
 
-	/// true if [`displacement_offset()`] and [`displacement_size()`] are valid
+	/// `true` if [`displacement_offset()`] and [`displacement_size()`] are valid
 	///
 	/// [`displacement_offset()`]: #method.displacement_offset
 	/// [`displacement_size()`]: #method.displacement_size
@@ -97,7 +97,7 @@ impl ConstantOffsets {
 		self.displacement_size != 0
 	}
 
-	/// true if [`immediate_offset()`] and [`immediate_size()`] are valid
+	/// `true` if [`immediate_offset()`] and [`immediate_size()`] are valid
 	///
 	/// [`immediate_offset()`]: #method.immediate_offset
 	/// [`immediate_size()`]: #method.immediate_size
@@ -107,7 +107,7 @@ impl ConstantOffsets {
 		self.immediate_size != 0
 	}
 
-	/// true if [`immediate_offset2()`] and [`immediate_size2()`] are valid
+	/// `true` if [`immediate_offset2()`] and [`immediate_size2()`] are valid
 	///
 	/// [`immediate_offset2()`]: #method.immediate_offset2
 	/// [`immediate_size2()`]: #method.immediate_size2

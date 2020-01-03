@@ -45,11 +45,6 @@ pub(crate) fn internal_set_code_u32(this: &mut Instruction, new_value: u32) {
 }
 
 #[inline]
-pub(crate) fn internal_set_code_no_check(this: &mut Instruction, new_value: Code) {
-	this.code_flags = (this.code_flags & !CodeFlags::CODE_MASK) | new_value as u32;
-}
-
-#[inline]
 pub(crate) fn internal_set_len(this: &mut Instruction, new_value: u32) {
 	this.code_flags |= new_value << CodeFlags::INSTR_LENGTH_SHIFT;
 }

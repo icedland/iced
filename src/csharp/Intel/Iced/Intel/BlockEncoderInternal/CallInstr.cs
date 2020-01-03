@@ -38,14 +38,13 @@ namespace Iced.Intel.BlockEncoderInternal {
 		bool useOrigInstruction;
 		bool done;
 
-		public CallInstr(BlockEncoder blockEncoder, in Instruction instruction)
-			: base(blockEncoder, instruction.IP) {
+		public CallInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
+			: base(block, instruction.IP) {
 			bitness = blockEncoder.Bitness;
 			this.instruction = instruction;
 			var instrCopy = instruction;
 			instrCopy.NearBranch64 = 0;
-			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out origInstructionSize, out var errorMessage))
-				origInstructionSize = IcedConstants.MaxInstructionLength;
+			origInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
 			if (!blockEncoder.FixBranches) {
 				Size = origInstructionSize;
 				useOrigInstruction = true;
@@ -59,7 +58,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				Size = origInstructionSize;
 		}
 
-		public override void Initialize() {
+		public override void Initialize(BlockEncoder blockEncoder) {
 			targetInstr = blockEncoder.GetTarget(instruction.NearBranchTarget);
 			TryOptimize();
 		}
@@ -109,7 +108,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				isOriginalInstruction = false;
 				constantOffsets = default;
 				pointerData.Data = targetInstr.GetAddress();
-				var errorMessage = EncodeBranchToPointerData(encoder, isCall: true, IP, pointerData, out var size, Size);
+				var errorMessage = EncodeBranchToPointerData(encoder, isCall: true, IP, pointerData, out _, Size);
 				if (!(errorMessage is null))
 					return CreateErrorMessage(errorMessage, instruction);
 				return null;

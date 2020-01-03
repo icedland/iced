@@ -43,6 +43,7 @@ use super::super::*;
 use super::factory::*;
 use std::cmp::Ordering;
 use std::collections::{HashMap, HashSet};
+use std::fmt::Write;
 use std::mem;
 
 lazy_static! {
@@ -729,12 +730,10 @@ fn make_sure_all_code_values_are_tested() {
 
 	let mut s = String::new();
 	let mut missing = 0;
-	let names: Vec<_> = to_code_names();
-	assert_eq!(tested.len(), names.len());
 	for i in tested.iter().enumerate() {
+		let code: Code = unsafe { mem::transmute(i.0 as u16) };
 		if !*i.1 {
-			s.push_str(names[i.0]);
-			s.push(' ');
+			write!(s, "{:?} ", code).unwrap();
 			missing += 1;
 		}
 	}

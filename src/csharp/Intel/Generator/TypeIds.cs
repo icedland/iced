@@ -128,5 +128,7 @@ namespace Generator {
 		public static readonly TypeId OpCodeFlags = new TypeId(nameof(OpCodeFlags));
 		public static readonly TypeId RepPrefixKind = new TypeId(nameof(RepPrefixKind));
 		public static readonly TypeId OpSize = new TypeId(nameof(OpSize));
+		public static readonly TypeId RelocKind = new TypeId(nameof(RelocKind));
+		public static readonly TypeId BlockEncoderOptions = new TypeId(nameof(BlockEncoderOptions));
 	}
 }

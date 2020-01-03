@@ -44,28 +44,24 @@ namespace Iced.Intel.BlockEncoderInternal {
 			Uninitialized,
 		}
 
-		public IpRelMemOpInstr(BlockEncoder blockEncoder, in Instruction instruction)
-			: base(blockEncoder, instruction.IP) {
+		public IpRelMemOpInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
+			: base(block, instruction.IP) {
 			Debug.Assert(instruction.IsIPRelativeMemoryOperand);
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 
-			string? errorMessage;
-
 			var instrCopy = instruction;
 			instrCopy.MemoryBase = Register.RIP;
-			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, instrCopy.IP, out ripInstructionSize, out errorMessage))
-				ripInstructionSize = IcedConstants.MaxInstructionLength;
+			ripInstructionSize = blockEncoder.GetInstructionSize(instrCopy, instrCopy.IP);
 
 			instrCopy.MemoryBase = Register.EIP;
-			if (!blockEncoder.NullEncoder.TryEncode(instrCopy, instrCopy.IP, out eipInstructionSize, out errorMessage))
-				eipInstructionSize = IcedConstants.MaxInstructionLength;
+			eipInstructionSize = blockEncoder.GetInstructionSize(instrCopy, instrCopy.IP);
 
 			Debug.Assert(eipInstructionSize >= ripInstructionSize);
 			Size = eipInstructionSize;
 		}
 
-		public override void Initialize() {
+		public override void Initialize(BlockEncoder blockEncoder) {
 			targetInstr = blockEncoder.GetTarget(instruction.IPRelativeMemoryAddress);
 			TryOptimize();
 		}

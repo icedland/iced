@@ -164,6 +164,8 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.LKind, new PartialEnumFileInfo("LKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "OpCodeFormatter.cs"), "byte"));
 			toPartialFileInfo.Add(TypeIds.OpCodeFlags, new PartialEnumFileInfo("Flags", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "OpCodeInfo.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.RepPrefixKind, new PartialEnumFileInfo("RepPrefixKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Instruction.Create.cs"), null));
+			toPartialFileInfo.Add(TypeIds.RelocKind, new PartialEnumFileInfo("RelocKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "BlockEncoder.cs"), null));
+			toPartialFileInfo.Add(TypeIds.BlockEncoderOptions, new PartialEnumFileInfo("BlockEncoderOptions", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "BlockEncoder.cs"), null));
 		}
 
 		public override void Generate(EnumType enumType) {

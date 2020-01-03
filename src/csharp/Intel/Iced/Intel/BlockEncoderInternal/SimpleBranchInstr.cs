@@ -49,27 +49,24 @@ namespace Iced.Intel.BlockEncoderInternal {
 			Uninitialized,
 		}
 
-		public SimpleBranchInstr(BlockEncoder blockEncoder, in Instruction instruction)
-			: base(blockEncoder, instruction.IP) {
+		public SimpleBranchInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
+			: base(block, instruction.IP) {
 			bitness = blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 
-			string? errorMessage;
 			Instruction instrCopy;
 
 			if (!blockEncoder.FixBranches) {
 				instrKind = InstrKind.Unchanged;
 				instrCopy = instruction;
 				instrCopy.NearBranch64 = 0;
-				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out Size, out errorMessage))
-					Size = IcedConstants.MaxInstructionLength;
+				Size = blockEncoder.GetInstructionSize(instrCopy, 0);
 			}
 			else {
 				instrCopy = instruction;
 				instrCopy.NearBranch64 = 0;
-				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out shortInstructionSize, out errorMessage))
-					shortInstructionSize = IcedConstants.MaxInstructionLength;
+				shortInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				nativeCode = ToNativeBranchCode(instruction.Code, blockEncoder.Bitness);
 				if (nativeCode == instruction.Code)
@@ -78,8 +75,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 					instrCopy = instruction;
 					instrCopy.InternalSetCodeNoCheck(nativeCode);
 					instrCopy.NearBranch64 = 0;
-					if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out nativeInstructionSize, out errorMessage))
-						nativeInstructionSize = IcedConstants.MaxInstructionLength;
+					nativeInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
 				}
 
 				switch (blockEncoder.Bitness) {
@@ -200,15 +196,16 @@ namespace Iced.Intel.BlockEncoderInternal {
 				throw new ArgumentOutOfRangeException(nameof(code));
 			}
 
-			switch (bitness) {
-			case 16: return c16;
-			case 32: return c32;
-			case 64: return c64;
-			default: throw new ArgumentOutOfRangeException(nameof(bitness));
-			}
+			return bitness switch
+			{
+				16 => c16,
+				32 => c32,
+				64 => c64,
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+			};
 		}
 
-		public override void Initialize() {
+		public override void Initialize(BlockEncoder blockEncoder) {
 			targetInstr = blockEncoder.GetTarget(instruction.NearBranchTarget);
 			TryOptimize();
 		}
@@ -262,7 +259,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case InstrKind.Short:
 				isOriginalInstruction = true;
 				instruction.NearBranch64 = targetInstr.GetAddress();
-				if (!encoder.TryEncode(instruction, IP, out instrLen, out errorMessage)) {
+				if (!encoder.TryEncode(instruction, IP, out _, out errorMessage)) {
 					constantOffsets = default;
 					return CreateErrorMessage(errorMessage, instruction);
 				}
@@ -341,7 +338,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				instr.NearBranch64 = IP + nativeInstructionSize + 2;
 				if (!encoder.TryEncode(instr, IP, out instrLen, out errorMessage))
 					return CreateErrorMessage(errorMessage, instruction);
-				size = (uint)instrLen;
+				size = instrLen;
 
 				instr = new Instruction();
 				instr.NearBranch64 = IP + longInstructionSize;
@@ -366,7 +363,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				}
 				if (!encoder.TryEncode(instr, IP + size, out instrLen, out errorMessage))
 					return CreateErrorMessage(errorMessage, instruction);
-				size += (uint)instrLen;
+				size += instrLen;
 
 				errorMessage = EncodeBranchToPointerData(encoder, isCall: false, IP + size, pointerData, out _, Size - size);
 				if (!(errorMessage is null))

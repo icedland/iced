@@ -106,7 +106,7 @@ impl DeclareDataHandler {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let length = instruction.declare_data_len() * this.elem_size as usize;
 		for i in 0..length {
-			encoder.write_byte(instruction.get_declare_byte_value(i) as u32);
+			encoder.write_byte_internal(instruction.get_declare_byte_value(i) as u32);
 		}
 	}
 }
@@ -203,7 +203,7 @@ impl LegacyHandler {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let mut b = this.mandatory_prefix;
 		if b != 0 {
-			encoder.write_byte(b);
+			encoder.write_byte_internal(b);
 		}
 
 		const_assert_eq!(0x01, EncoderFlags::B);
@@ -220,15 +220,15 @@ impl LegacyHandler {
 				);
 			}
 			b |= 0x40;
-			encoder.write_byte(b);
+			encoder.write_byte_internal(b);
 		}
 
 		b = this.table_byte1;
 		if b != 0 {
-			encoder.write_byte(b);
+			encoder.write_byte_internal(b);
 			b = this.table_byte2;
 			if b != 0 {
-				encoder.write_byte(b);
+				encoder.write_byte_internal(b);
 			}
 		}
 	}
@@ -349,7 +349,7 @@ impl VexHandler {
 			|| this.w1 || this.table != VexOpCodeTable::Table0F as u32
 			|| (encoder_flags & (EncoderFlags::X | EncoderFlags::B | EncoderFlags::W)) != 0
 		{
-			encoder.write_byte(0xC4);
+			encoder.write_byte_internal(0xC4);
 			const_assert_eq!(1, VexOpCodeTable::Table0F as u32);
 			const_assert_eq!(2, VexOpCodeTable::Table0F38 as u32);
 			const_assert_eq!(3, VexOpCodeTable::Table0F3A as u32);
@@ -358,15 +358,15 @@ impl VexHandler {
 			const_assert_eq!(2, EncoderFlags::X);
 			const_assert_eq!(4, EncoderFlags::R);
 			b2 |= (!encoder_flags & 7) << 5;
-			encoder.write_byte(b2);
+			encoder.write_byte_internal(b2);
 			b |= this.mask_w_l & encoder.internal_vex_wig_lig;
-			encoder.write_byte(b);
+			encoder.write_byte_internal(b);
 		} else {
-			encoder.write_byte(0xC5);
+			encoder.write_byte_internal(0xC5);
 			const_assert_eq!(4, EncoderFlags::R);
 			b |= (!encoder_flags & 4) << 5;
 			b |= this.mask_l & encoder.internal_vex_lig;
-			encoder.write_byte(b);
+			encoder.write_byte_internal(b);
 		}
 	}
 }
@@ -447,7 +447,7 @@ impl XopHandler {
 
 	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, _instruction: &Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		encoder.write_byte(0x8F);
+		encoder.write_byte_internal(0x8F);
 
 		let encoder_flags = encoder.encoder_flags;
 		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
@@ -460,10 +460,10 @@ impl XopHandler {
 		const_assert_eq!(2, EncoderFlags::X);
 		const_assert_eq!(4, EncoderFlags::R);
 		b |= (!encoder_flags & 7) << 5;
-		encoder.write_byte(b);
+		encoder.write_byte_internal(b);
 		b = this.last_byte;
 		b |= (!encoder_flags >> (EncoderFlags::VVVVV_SHIFT - 3)) & 0x78;
-		encoder.write_byte(b);
+		encoder.write_byte_internal(b);
 	}
 }
 
@@ -676,7 +676,7 @@ impl EvexHandler {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let encoder_flags = encoder.encoder_flags;
 
-		encoder.write_byte(0x62);
+		encoder.write_byte_internal(0x62);
 
 		const_assert_eq!(1, EvexOpCodeTable::Table0F as u32);
 		const_assert_eq!(2, EvexOpCodeTable::Table0F38 as u32);
@@ -689,12 +689,12 @@ impl EvexHandler {
 		const_assert_eq!(0x0000_0200, EncoderFlags::R2);
 		b |= (encoder_flags >> (9 - 4)) & 0x10;
 		b ^= !0xF;
-		encoder.write_byte(b);
+		encoder.write_byte_internal(b);
 
 		b = this.p1_bits;
 		b |= (!encoder_flags >> (EncoderFlags::VVVVV_SHIFT - 3)) & 0x78;
 		b |= this.mask_w & encoder.internal_evex_wig;
-		encoder.write_byte(b);
+		encoder.write_byte_internal(b);
 
 		b = super::super::instruction_internal::internal_op_mask(instruction);
 		if b != 0 && (this.flags & EvexFlags::K1) == 0 {
@@ -735,7 +735,7 @@ impl EvexHandler {
 		}
 		b ^= 8;
 		b |= this.mask_ll & encoder.internal_evex_lig;
-		encoder.write_byte(b);
+		encoder.write_byte_internal(b);
 	}
 }
 
@@ -771,7 +771,7 @@ impl D3nowHandler {
 
 	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, _instruction: &Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		encoder.write_byte(0x0F);
+		encoder.write_byte_internal(0x0F);
 		encoder.imm_size = ImmSize::Size1OpCode;
 		encoder.immediate = this.immediate;
 	}

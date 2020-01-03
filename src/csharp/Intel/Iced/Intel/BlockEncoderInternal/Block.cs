@@ -29,29 +29,26 @@ namespace Iced.Intel.BlockEncoderInternal {
 	sealed class Block {
 		public readonly CodeWriterImpl CodeWriter;
 		public readonly ulong RIP;
-		readonly IList<RelocInfo>? relocInfos;
-		public readonly uint[]? NewInstructionOffsets;
-		public readonly ConstantOffsets[]? ConstantOffsets;
-		public readonly Instr[] Instructions;
+		public readonly List<RelocInfo>? relocInfos;
+		public Instr[] Instructions => instructions;
+		Instr[] instructions;
 		readonly List<BlockData> dataList;
 		readonly ulong alignment;
 		readonly List<BlockData> validData;
 		ulong validDataAddress;
 		ulong validDataAddressAligned;
 
-		public Block(BlockEncoder blockEncoder, CodeWriter codeWriter, ulong rip, IList<RelocInfo>? relocInfos, uint[]? newInstructionOffsets, ConstantOffsets[]? constantOffsets, Instr[] instructions) {
+		public Block(BlockEncoder blockEncoder, CodeWriter codeWriter, ulong rip, List<RelocInfo>? relocInfos) {
 			CodeWriter = new CodeWriterImpl(codeWriter);
 			RIP = rip;
 			this.relocInfos = relocInfos;
-			NewInstructionOffsets = newInstructionOffsets;
-			ConstantOffsets = constantOffsets;
-			Instructions = instructions ?? throw new ArgumentNullException(nameof(instructions));
+			instructions = Array2.Empty<Instr>();
 			dataList = new List<BlockData>();
 			alignment = (uint)blockEncoder.Bitness / 8;
 			validData = new List<BlockData>();
-			foreach (var instr in instructions)
-				instr.Block = this;
 		}
+
+		internal void SetInstructions(Instr[] instructions) => this.instructions = instructions;
 
 		public BlockData AllocPointerLocation() {
 			var data = new BlockData { IsValid = true };

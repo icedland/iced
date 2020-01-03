@@ -218,12 +218,15 @@ namespace Generator.Documentation.Rust {
 		static string GetTypeKind(string name) {
 			switch (name) {
 			case nameof(Code):
-			case nameof(Register):
-			case nameof(OpKind):
 			case nameof(CpuidFeature):
+			case nameof(OpKind):
+			case nameof(Register):
 			case nameof(RepPrefixKind):
 				return "enum";
+			case "BlockEncoder":
+			case "ConstantOffsets":
 			case "Instruction":
+			case "RelocInfo":
 				return "struct";
 			default:
 				throw new InvalidOperationException();

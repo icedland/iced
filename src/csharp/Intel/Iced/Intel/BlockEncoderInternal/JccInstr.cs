@@ -51,34 +51,30 @@ namespace Iced.Intel.BlockEncoderInternal {
 			Uninitialized,
 		}
 
-		public JccInstr(BlockEncoder blockEncoder, in Instruction instruction)
-			: base(blockEncoder, instruction.IP) {
+		public JccInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
+			: base(block, instruction.IP) {
 			bitness = blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 
-			string? errorMessage;
 			Instruction instrCopy;
 
 			if (!blockEncoder.FixBranches) {
 				instrKind = InstrKind.Unchanged;
 				instrCopy = instruction;
 				instrCopy.NearBranch64 = 0;
-				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out Size, out errorMessage))
-					Size = IcedConstants.MaxInstructionLength;
+				Size = blockEncoder.GetInstructionSize(instrCopy, 0);
 			}
 			else {
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToShortBranch());
 				instrCopy.NearBranch64 = 0;
-				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out shortInstructionSize, out errorMessage))
-					shortInstructionSize = IcedConstants.MaxInstructionLength;
+				shortInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToNearBranch());
 				instrCopy.NearBranch64 = 0;
-				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out nearInstructionSize, out errorMessage))
-					nearInstructionSize = IcedConstants.MaxInstructionLength;
+				nearInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				if (blockEncoder.Bitness == 64) {
 					// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
@@ -89,7 +85,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			}
 		}
 
-		public override void Initialize() {
+		public override void Initialize(BlockEncoder blockEncoder) {
 			targetInstr = blockEncoder.GetTarget(instruction.NearBranchTarget);
 			TryOptimize();
 		}
@@ -163,7 +159,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				constantOffsets = default;
 				pointerData.Data = targetInstr.GetAddress();
 				var instr = new Instruction();
-				instr.InternalSetCodeNoCheck(instruction.Code.NegateConditionCode().ToShortBranch().ShortJccToNativeJcc(encoder.Bitness));
+				instr.InternalSetCodeNoCheck(ShortJccToNativeJcc(instruction.Code.NegateConditionCode().ToShortBranch(), encoder.Bitness));
 				instr.Op0Kind = OpKind.NearBranch64;
 				Debug.Assert(encoder.Bitness == 64);
 				Debug.Assert(longInstructionSize64 <= sbyte.MaxValue);
@@ -179,6 +175,151 @@ namespace Iced.Intel.BlockEncoderInternal {
 			default:
 				throw new InvalidOperationException();
 			}
+		}
+
+		static Code ShortJccToNativeJcc(Code code, int bitness) {
+			Code c16, c32, c64;
+			switch (code) {
+			case Code.Jo_rel8_16:
+			case Code.Jo_rel8_32:
+			case Code.Jo_rel8_64:
+				c16 = Code.Jo_rel8_16;
+				c32 = Code.Jo_rel8_32;
+				c64 = Code.Jo_rel8_64;
+				break;
+
+			case Code.Jno_rel8_16:
+			case Code.Jno_rel8_32:
+			case Code.Jno_rel8_64:
+				c16 = Code.Jno_rel8_16;
+				c32 = Code.Jno_rel8_32;
+				c64 = Code.Jno_rel8_64;
+				break;
+
+			case Code.Jb_rel8_16:
+			case Code.Jb_rel8_32:
+			case Code.Jb_rel8_64:
+				c16 = Code.Jb_rel8_16;
+				c32 = Code.Jb_rel8_32;
+				c64 = Code.Jb_rel8_64;
+				break;
+
+			case Code.Jae_rel8_16:
+			case Code.Jae_rel8_32:
+			case Code.Jae_rel8_64:
+				c16 = Code.Jae_rel8_16;
+				c32 = Code.Jae_rel8_32;
+				c64 = Code.Jae_rel8_64;
+				break;
+
+			case Code.Je_rel8_16:
+			case Code.Je_rel8_32:
+			case Code.Je_rel8_64:
+				c16 = Code.Je_rel8_16;
+				c32 = Code.Je_rel8_32;
+				c64 = Code.Je_rel8_64;
+				break;
+
+			case Code.Jne_rel8_16:
+			case Code.Jne_rel8_32:
+			case Code.Jne_rel8_64:
+				c16 = Code.Jne_rel8_16;
+				c32 = Code.Jne_rel8_32;
+				c64 = Code.Jne_rel8_64;
+				break;
+
+			case Code.Jbe_rel8_16:
+			case Code.Jbe_rel8_32:
+			case Code.Jbe_rel8_64:
+				c16 = Code.Jbe_rel8_16;
+				c32 = Code.Jbe_rel8_32;
+				c64 = Code.Jbe_rel8_64;
+				break;
+
+			case Code.Ja_rel8_16:
+			case Code.Ja_rel8_32:
+			case Code.Ja_rel8_64:
+				c16 = Code.Ja_rel8_16;
+				c32 = Code.Ja_rel8_32;
+				c64 = Code.Ja_rel8_64;
+				break;
+
+			case Code.Js_rel8_16:
+			case Code.Js_rel8_32:
+			case Code.Js_rel8_64:
+				c16 = Code.Js_rel8_16;
+				c32 = Code.Js_rel8_32;
+				c64 = Code.Js_rel8_64;
+				break;
+
+			case Code.Jns_rel8_16:
+			case Code.Jns_rel8_32:
+			case Code.Jns_rel8_64:
+				c16 = Code.Jns_rel8_16;
+				c32 = Code.Jns_rel8_32;
+				c64 = Code.Jns_rel8_64;
+				break;
+
+			case Code.Jp_rel8_16:
+			case Code.Jp_rel8_32:
+			case Code.Jp_rel8_64:
+				c16 = Code.Jp_rel8_16;
+				c32 = Code.Jp_rel8_32;
+				c64 = Code.Jp_rel8_64;
+				break;
+
+			case Code.Jnp_rel8_16:
+			case Code.Jnp_rel8_32:
+			case Code.Jnp_rel8_64:
+				c16 = Code.Jnp_rel8_16;
+				c32 = Code.Jnp_rel8_32;
+				c64 = Code.Jnp_rel8_64;
+				break;
+
+			case Code.Jl_rel8_16:
+			case Code.Jl_rel8_32:
+			case Code.Jl_rel8_64:
+				c16 = Code.Jl_rel8_16;
+				c32 = Code.Jl_rel8_32;
+				c64 = Code.Jl_rel8_64;
+				break;
+
+			case Code.Jge_rel8_16:
+			case Code.Jge_rel8_32:
+			case Code.Jge_rel8_64:
+				c16 = Code.Jge_rel8_16;
+				c32 = Code.Jge_rel8_32;
+				c64 = Code.Jge_rel8_64;
+				break;
+
+			case Code.Jle_rel8_16:
+			case Code.Jle_rel8_32:
+			case Code.Jle_rel8_64:
+				c16 = Code.Jle_rel8_16;
+				c32 = Code.Jle_rel8_32;
+				c64 = Code.Jle_rel8_64;
+				break;
+
+			case Code.Jg_rel8_16:
+			case Code.Jg_rel8_32:
+			case Code.Jg_rel8_64:
+				c16 = Code.Jg_rel8_16;
+				c32 = Code.Jg_rel8_32;
+				c64 = Code.Jg_rel8_64;
+				break;
+
+
+			default:
+				throw new ArgumentOutOfRangeException(nameof(code));
+			}
+
+			return bitness switch
+			{
+				16 => c16,
+				32 => c32,
+				64 => c64,
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+			};
 		}
 	}
 }

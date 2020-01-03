@@ -46,34 +46,30 @@ namespace Iced.Intel.BlockEncoderInternal {
 			Uninitialized,
 		}
 
-		public JmpInstr(BlockEncoder blockEncoder, in Instruction instruction)
-			: base(blockEncoder, instruction.IP) {
+		public JmpInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
+			: base(block, instruction.IP) {
 			bitness = blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 
-			string? errorMessage;
 			Instruction instrCopy;
 
 			if (!blockEncoder.FixBranches) {
 				instrKind = InstrKind.Unchanged;
 				instrCopy = instruction;
 				instrCopy.NearBranch64 = 0;
-				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out Size, out errorMessage))
-					Size = IcedConstants.MaxInstructionLength;
+				Size = blockEncoder.GetInstructionSize(instrCopy, 0);
 			}
 			else {
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToShortBranch());
 				instrCopy.NearBranch64 = 0;
-				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out shortInstructionSize, out errorMessage))
-					shortInstructionSize = IcedConstants.MaxInstructionLength;
+				shortInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToNearBranch());
 				instrCopy.NearBranch64 = 0;
-				if (!blockEncoder.NullEncoder.TryEncode(instrCopy, 0, out nearInstructionSize, out errorMessage))
-					nearInstructionSize = IcedConstants.MaxInstructionLength;
+				nearInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				if (blockEncoder.Bitness == 64) {
 					// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
@@ -84,7 +80,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			}
 		}
 
-		public override void Initialize() {
+		public override void Initialize(BlockEncoder blockEncoder) {
 			targetInstr = blockEncoder.GetTarget(instruction.NearBranchTarget);
 			TryOptimize();
 		}

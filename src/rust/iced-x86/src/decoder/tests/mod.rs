@@ -35,10 +35,11 @@ use self::decoder_test_case::*;
 use self::non_decoded_tests::*;
 use self::test_utils::*;
 use super::super::iced_constants::IcedConstants;
-use super::super::test_utils::from_str_conv::to_code_names;
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
+use std::fmt::Write;
+use std::mem;
 
 #[test]
 fn decode_16() {
@@ -348,23 +349,20 @@ fn make_sure_all_code_values_are_tested_in_16_32_64_bit_modes() {
 	let mut missing16 = 0;
 	let mut missing32 = 0;
 	let mut missing64 = 0;
-	let code_names: Vec<_> = to_code_names();
-	assert_eq!(tested.len(), code_names.len());
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
 	for i in 0..tested.len() {
+		let code: Code = unsafe { mem::transmute(i as u16) };
 		if tested[i] != (T16 | T32 | T64) {
 			if (tested[i] & T16) == 0 {
-				sb16.push_str(code_names[i]);
-				sb16.push_str(" ");
+				write!(sb16, "{:?} ", code).unwrap();
 				missing16 += 1;
 			}
 			if (tested[i] & T32) == 0 {
-				sb32.push_str(code_names[i]);
-				sb32.push_str(" ");
+				write!(sb32, "{:?} ", code).unwrap();
 				missing32 += 1;
 			}
 			if (tested[i] & T64) == 0 {
-				sb64.push_str(code_names[i]);
-				sb64.push_str(" ");
+				write!(sb64, "{:?} ", code).unwrap();
 				missing64 += 1;
 			}
 		}

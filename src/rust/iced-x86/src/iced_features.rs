@@ -27,7 +27,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 pub struct IcedFeatures;
 
 impl IcedFeatures {
-	/// true if the gas (AT&amp;T) formatter is available
+	/// `true` if the gas (AT&amp;T) formatter is available
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -35,7 +35,7 @@ impl IcedFeatures {
 		cfg!(any(feature = "gas_formatter", feature = "all_formatters"))
 	}
 
-	/// true if the Intel (xed) formatter is available
+	/// `true` if the Intel (xed) formatter is available
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -43,7 +43,7 @@ impl IcedFeatures {
 		cfg!(any(feature = "intel_formatter", feature = "all_formatters"))
 	}
 
-	/// true if the masm formatter is available
+	/// `true` if the masm formatter is available
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -51,7 +51,7 @@ impl IcedFeatures {
 		cfg!(any(feature = "masm_formatter", feature = "all_formatters"))
 	}
 
-	/// true if the nasm formatter is available
+	/// `true` if the nasm formatter is available
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -59,7 +59,7 @@ impl IcedFeatures {
 		cfg!(any(feature = "nasm_formatter", feature = "all_formatters"))
 	}
 
-	/// true if the decoder is available
+	/// `true` if the decoder is available
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -67,7 +67,7 @@ impl IcedFeatures {
 		cfg!(feature = "decoder")
 	}
 
-	/// true if the encoder is available
+	/// `true` if the encoder is available
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -75,7 +75,7 @@ impl IcedFeatures {
 		cfg!(feature = "encoder")
 	}
 
-	/// true if the instruction info code is available
+	/// `true` if the instruction info code is available
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]

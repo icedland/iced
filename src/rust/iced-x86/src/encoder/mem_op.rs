@@ -66,7 +66,7 @@ impl MemoryOperand {
 	/// * `scale`: Index register scale (1, 2, 4, or 8)
 	/// * `displacement`: Memory displacement
 	/// * `displ_size`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	/// * `is_broadcast`: true if it's broadcasted memory (EVEX instructions)
+	/// * `is_broadcast`: `true` if it's broadcasted memory (EVEX instructions)
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
@@ -85,7 +85,7 @@ impl MemoryOperand {
 	/// * `base`: Base register or [`Register::None`]
 	/// * `index`: Index register or [`Register::None`]
 	/// * `scale`: Index register scale (1, 2, 4, or 8)
-	/// * `is_broadcast`: true if it's broadcasted memory (EVEX instructions)
+	/// * `is_broadcast`: `true` if it's broadcasted memory (EVEX instructions)
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
@@ -102,7 +102,7 @@ impl MemoryOperand {
 	/// * `base`: Base register or [`Register::None`]
 	/// * `displacement`: Memory displacement
 	/// * `displ_size`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	/// * `is_broadcast`: true if it's broadcasted memory (EVEX instructions)
+	/// * `is_broadcast`: `true` if it's broadcasted memory (EVEX instructions)
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
@@ -120,7 +120,7 @@ impl MemoryOperand {
 	/// * `scale`: Index register scale (1, 2, 4, or 8)
 	/// * `displacement`: Memory displacement
 	/// * `displ_size`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	/// * `is_broadcast`: true if it's broadcasted memory (EVEX instructions)
+	/// * `is_broadcast`: `true` if it's broadcasted memory (EVEX instructions)
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
@@ -138,7 +138,7 @@ impl MemoryOperand {
 	///
 	/// * `base`: Base register or [`Register::None`]
 	/// * `displacement`: Memory displacement
-	/// * `is_broadcast`: true if it's broadcasted memory (EVEX instructions)
+	/// * `is_broadcast`: `true` if it's broadcasted memory (EVEX instructions)
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None

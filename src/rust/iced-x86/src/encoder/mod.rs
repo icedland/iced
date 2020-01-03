@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 mod enums;
 pub(crate) mod handlers_table;
 mod instruction_fmt;
+mod mem_op;
 mod mnemonic_str_tbl;
 mod op_code;
 mod op_code_data;
@@ -33,7 +34,6 @@ pub(crate) mod op_code_tbl;
 mod op_kind_tables;
 mod ops;
 mod ops_tables;
-mod mem_op;
 #[cfg(test)]
 mod tests;
 
@@ -73,7 +73,9 @@ static IMM_SIZES: [u32; 19] = [
 // GENERATOR-END: ImmSizes
 
 /// Encodes instructions decoded by the decoder or instructions created by other code.
-/// See also `BlockEncoder` which can encode any number of instructions.
+/// See also [`BlockEncoder`] which can encode any number of instructions.
+///
+/// [`BlockEncoder`]: struct.BlockEncoder.html
 ///
 /// ```
 /// use iced_x86::*;
@@ -401,7 +403,7 @@ impl Encoder {
 			}
 
 			if (handler.flags & OpCodeHandlerFlags::FWAIT) != 0 {
-				self.write_byte(0x9B);
+				self.write_byte_internal(0x9B);
 			}
 
 			self.write_prefixes(instruction);
@@ -410,11 +412,11 @@ impl Encoder {
 
 			let op_code = self.op_code;
 			if op_code <= 0x0000_00FF {
-				self.write_byte(op_code);
+				self.write_byte_internal(op_code);
 			} else {
 				debug_assert!(op_code <= 0x0000_FFFF);
-				self.write_byte(op_code >> 8);
-				self.write_byte(op_code);
+				self.write_byte_internal(op_code >> 8);
+				self.write_byte_internal(op_code);
 			}
 
 			if (self.encoder_flags & (EncoderFlags::MOD_RM | EncoderFlags::DISPL)) != 0 {
@@ -1139,22 +1141,22 @@ impl Encoder {
 		if seg != Register::None {
 			static SEGMENT_OVERRIDES: [u8; 6] = [0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65];
 			debug_assert!((seg as usize).wrapping_sub(Register::ES as usize) < SEGMENT_OVERRIDES.len());
-			self.write_byte(unsafe { *SEGMENT_OVERRIDES.get_unchecked((seg as usize).wrapping_sub(Register::ES as usize)) } as u32);
+			self.write_byte_internal(unsafe { *SEGMENT_OVERRIDES.get_unchecked((seg as usize).wrapping_sub(Register::ES as usize)) } as u32);
 		}
 		if (self.encoder_flags & EncoderFlags::PF0) != 0 || instruction.has_lock_prefix() {
-			self.write_byte(0xF0);
+			self.write_byte_internal(0xF0);
 		}
 		if (self.encoder_flags & EncoderFlags::P66) != 0 {
-			self.write_byte(0x66);
+			self.write_byte_internal(0x66);
 		}
 		if (self.encoder_flags & EncoderFlags::P67) != 0 {
-			self.write_byte(0x67);
+			self.write_byte_internal(0x67);
 		}
 		if super::instruction_internal::internal_has_repe_prefix_has_xrelease_prefix(instruction) {
-			self.write_byte(0xF3);
+			self.write_byte_internal(0xF3);
 		}
 		if super::instruction_internal::internal_has_repne_prefix_has_xacquire_prefix(instruction) {
-			self.write_byte(0xF2);
+			self.write_byte_internal(0xF2);
 		}
 	}
 
@@ -1166,10 +1168,10 @@ impl Encoder {
 		let tmp2;
 		if (self.encoder_flags & EncoderFlags::MOD_RM) != 0 {
 			tmp = self.mod_rm as u32;
-			self.write_byte(tmp);
+			self.write_byte_internal(tmp);
 			if (self.encoder_flags & EncoderFlags::SIB) != 0 {
 				tmp = self.sib as u32;
-				self.write_byte(tmp);
+				self.write_byte_internal(tmp);
 			}
 		}
 
@@ -1179,43 +1181,43 @@ impl Encoder {
 			DisplSize::None => {}
 			DisplSize::Size1 => {
 				tmp = self.displ;
-				self.write_byte(tmp)
+				self.write_byte_internal(tmp)
 			}
 
 			DisplSize::Size2 => {
 				diff4 = self.displ;
-				self.write_byte(diff4);
-				self.write_byte(diff4 >> 8);
+				self.write_byte_internal(diff4);
+				self.write_byte_internal(diff4 >> 8);
 			}
 
 			DisplSize::Size4 => {
 				diff4 = self.displ;
-				self.write_byte(diff4);
-				self.write_byte(diff4 >> 8);
-				self.write_byte(diff4 >> 16);
-				self.write_byte(diff4 >> 24);
+				self.write_byte_internal(diff4);
+				self.write_byte_internal(diff4 >> 8);
+				self.write_byte_internal(diff4 >> 16);
+				self.write_byte_internal(diff4 >> 24);
 			}
 
 			DisplSize::Size8 => {
 				diff4 = self.displ;
-				self.write_byte(diff4);
-				self.write_byte(diff4 >> 8);
-				self.write_byte(diff4 >> 16);
-				self.write_byte(diff4 >> 24);
+				self.write_byte_internal(diff4);
+				self.write_byte_internal(diff4 >> 8);
+				self.write_byte_internal(diff4 >> 16);
+				self.write_byte_internal(diff4 >> 24);
 				diff4 = self.displ_hi;
-				self.write_byte(diff4);
-				self.write_byte(diff4 >> 8);
-				self.write_byte(diff4 >> 16);
-				self.write_byte(diff4 >> 24);
+				self.write_byte_internal(diff4);
+				self.write_byte_internal(diff4 >> 8);
+				self.write_byte_internal(diff4 >> 16);
+				self.write_byte_internal(diff4 >> 24);
 			}
 
 			DisplSize::RipRelSize4_Target32 => {
 				let eip = (self.current_rip as u32).wrapping_add(4).wrapping_add(unsafe { *IMM_SIZES.get_unchecked(self.imm_size as usize) });
 				diff4 = self.displ.wrapping_sub(eip);
-				self.write_byte(diff4);
-				self.write_byte(diff4 >> 8);
-				self.write_byte(diff4 >> 16);
-				self.write_byte(diff4 >> 24);
+				self.write_byte_internal(diff4);
+				self.write_byte_internal(diff4 >> 8);
+				self.write_byte_internal(diff4 >> 16);
+				self.write_byte_internal(diff4 >> 24);
 			}
 
 			DisplSize::RipRelSize4_Target64 => {
@@ -1229,10 +1231,10 @@ impl Encoder {
 					));
 				}
 				diff4 = diff8 as u32;
-				self.write_byte(diff4);
-				self.write_byte(diff4 >> 8);
-				self.write_byte(diff4 >> 16);
-				self.write_byte(diff4 >> 24);
+				self.write_byte_internal(diff4);
+				self.write_byte_internal(diff4 >> 8);
+				self.write_byte_internal(diff4 >> 16);
+				self.write_byte_internal(diff4 >> 24);
 			}
 		}
 	}
@@ -1255,69 +1257,69 @@ impl Encoder {
 
 			ImmSize::Size1 | ImmSize::SizeIbReg | ImmSize::Size1OpCode => {
 				tmp = self.immediate;
-				self.write_byte(tmp);
+				self.write_byte_internal(tmp);
 			}
 
 			ImmSize::Size2 => {
 				value = self.immediate;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
 			}
 
 			ImmSize::Size4 => {
 				value = self.immediate;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
-				self.write_byte(value >> 16);
-				self.write_byte(value >> 24);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
+				self.write_byte_internal(value >> 16);
+				self.write_byte_internal(value >> 24);
 			}
 
 			ImmSize::Size8 => {
 				value = self.immediate;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
-				self.write_byte(value >> 16);
-				self.write_byte(value >> 24);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
+				self.write_byte_internal(value >> 16);
+				self.write_byte_internal(value >> 24);
 				value = self.immediate_hi;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
-				self.write_byte(value >> 16);
-				self.write_byte(value >> 24);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
+				self.write_byte_internal(value >> 16);
+				self.write_byte_internal(value >> 24);
 			}
 
 			ImmSize::Size2_1 => {
 				value = self.immediate;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
 				tmp = self.immediate_hi;
-				self.write_byte(tmp);
+				self.write_byte_internal(tmp);
 			}
 
 			ImmSize::Size1_1 => {
 				tmp = self.immediate;
-				self.write_byte(tmp);
+				self.write_byte_internal(tmp);
 				tmp = self.immediate_hi;
-				self.write_byte(tmp);
+				self.write_byte_internal(tmp);
 			}
 
 			ImmSize::Size2_2 => {
 				value = self.immediate;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
 				value = self.immediate_hi;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
 			}
 
 			ImmSize::Size4_2 => {
 				value = self.immediate;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
-				self.write_byte(value >> 16);
-				self.write_byte(value >> 24);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
+				self.write_byte_internal(value >> 16);
+				self.write_byte_internal(value >> 24);
 				value = self.immediate_hi;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
 			}
 
 			ImmSize::RipRelSize1_Target16 => {
@@ -1330,7 +1332,7 @@ impl Encoder {
 						ip, tmp as u16, diff2
 					));
 				}
-				self.write_byte(diff2 as u32);
+				self.write_byte_internal(diff2 as u32);
 			}
 
 			ImmSize::RipRelSize1_Target32 => {
@@ -1343,7 +1345,7 @@ impl Encoder {
 						eip, tmp, diff4
 					));
 				}
-				self.write_byte(diff4 as u32);
+				self.write_byte_internal(diff4 as u32);
 			}
 
 			ImmSize::RipRelSize1_Target64 => {
@@ -1356,14 +1358,14 @@ impl Encoder {
 						rip, tmp2, diff8
 					));
 				}
-				self.write_byte(diff8 as u32);
+				self.write_byte_internal(diff8 as u32);
 			}
 
 			ImmSize::RipRelSize2_Target16 => {
 				eip = (self.current_rip as u32).wrapping_add(2);
 				value = self.immediate.wrapping_sub(eip);
-				self.write_byte(value);
-				self.write_byte(value >> 8);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
 			}
 
 			ImmSize::RipRelSize2_Target32 => {
@@ -1377,8 +1379,8 @@ impl Encoder {
 					));
 				}
 				value = diff4 as u32;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
 			}
 
 			ImmSize::RipRelSize2_Target64 => {
@@ -1392,17 +1394,17 @@ impl Encoder {
 					));
 				}
 				value = diff8 as u32;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
 			}
 
 			ImmSize::RipRelSize4_Target32 => {
 				eip = (self.current_rip as u32).wrapping_add(4);
 				value = self.immediate.wrapping_sub(eip);
-				self.write_byte(value);
-				self.write_byte(value >> 8);
-				self.write_byte(value >> 16);
-				self.write_byte(value >> 24);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
+				self.write_byte_internal(value >> 16);
+				self.write_byte_internal(value >> 24);
 			}
 
 			ImmSize::RipRelSize4_Target64 => {
@@ -1416,18 +1418,23 @@ impl Encoder {
 					));
 				}
 				value = diff8 as u32;
-				self.write_byte(value);
-				self.write_byte(value >> 8);
-				self.write_byte(value >> 16);
-				self.write_byte(value >> 24);
+				self.write_byte_internal(value);
+				self.write_byte_internal(value >> 8);
+				self.write_byte_internal(value >> 16);
+				self.write_byte_internal(value >> 24);
 			}
 		}
 	}
 
 	#[inline]
-	pub(crate) fn write_byte(&mut self, value: u32) {
+	pub(crate) fn write_byte_internal(&mut self, value: u32) {
 		self.buffer.push(value as u8);
 		self.current_rip = self.current_rip.wrapping_add(1);
+	}
+
+	#[inline]
+	pub(crate) fn position(&self) -> usize {
+		self.buffer.len()
 	}
 
 	/// Returns the buffer and initializes the internal buffer to an empty vector. Should be called when
@@ -1446,6 +1453,11 @@ impl Encoder {
 	#[inline]
 	pub fn set_buffer(&mut self, buffer: Vec<u8>) {
 		self.buffer = buffer;
+	}
+
+	#[inline]
+	pub(crate) fn clear_buffer(&mut self) {
+		self.buffer.clear()
 	}
 
 	/// Gets the offsets of the constants (memory displacement and immediate) in the encoded instruction.

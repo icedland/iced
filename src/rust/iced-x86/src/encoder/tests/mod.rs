@@ -793,6 +793,13 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	}
 }
 
+#[test]
+#[should_panic]
+fn op_kind_panics_if_invalid_input() {
+	let op_code = Code::Aaa.op_code();
+	let _ = op_code.op_kind(IcedConstants::MAX_OP_COUNT as u32);
+}
+
 #[allow(trivial_casts)]
 #[test]
 fn verify_instruction_op_code_info() {

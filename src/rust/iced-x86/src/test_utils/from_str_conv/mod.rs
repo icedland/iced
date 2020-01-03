@@ -162,12 +162,6 @@ pub(crate) fn to_code(value: &str) -> Result<Code, String> {
 	}
 }
 
-pub(crate) fn to_code_names() -> Vec<&'static str> {
-	let mut keys: Vec<(&'static str, Code)> = (&*TO_CODE_HASH).iter().map(|kv| (*kv.0, *kv.1)).collect();
-	keys.sort_unstable_by_key(|&kv| kv.0);
-	keys.iter().map(|&kv| kv.0).collect()
-}
-
 pub(crate) fn to_mnemonic(value: &str) -> Result<Mnemonic, String> {
 	let value = value.trim();
 	match TO_MNEMONIC_HASH.get(value) {

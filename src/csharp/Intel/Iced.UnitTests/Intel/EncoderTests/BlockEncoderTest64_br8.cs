@@ -408,6 +408,28 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			const ulong origRip = 0x123456789ABCDE00;
 			EncodeBase(bitness, origRip, originalData, newRip, newData, options, decoderOptions, expectedInstructionOffsets, expectedRelocInfos);
 		}
+
+		[Fact]
+		void Br8_same_br() {
+			var originalData = new byte[] {
+				/*0000*/ 0xE2, 0xFE,// loop 8000h
+				/*0002*/ 0xE2, 0xFC,// loop 8000h
+				/*0004*/ 0xE2, 0xFA,// loop 8000h
+			};
+			var newData = new byte[] {
+				/*0000*/ 0xE2, 0xFE,// loop 8000h
+				/*0002*/ 0xE2, 0xFC,// loop 8000h
+				/*0004*/ 0xE2, 0xFA,// loop 8000h
+			};
+			var expectedInstructionOffsets = new uint[] {
+				0x0000,
+				0x0002,
+				0x0004,
+			};
+			var expectedRelocInfos = Array.Empty<RelocInfo>();
+			const BlockEncoderOptions options = BlockEncoderOptions.None;
+			EncodeBase(bitness, origRip, originalData, origRip, newData, options, decoderOptions, expectedInstructionOffsets, expectedRelocInfos);
+		}
 	}
 }
 #endif

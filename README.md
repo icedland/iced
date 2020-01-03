@@ -200,7 +200,7 @@ Disassembled code:
             ulong relocatedBaseAddress = exampleCodeRIP + 0x200000;
             var block = new InstructionBlock(codeWriter, instructions, relocatedBaseAddress);
             // This method can also encode more than one block but that's rarely needed, see above comment.
-            bool success = BlockEncoder.TryEncode(decoder.Bitness, block, out var errorMessage);
+            bool success = BlockEncoder.TryEncode(decoder.Bitness, block, out var errorMessage, out _);
             if (!success) {
                 Console.WriteLine($"ERROR: {errorMessage}");
                 return;
@@ -284,7 +284,7 @@ Disassembled code:
             // xor     eax,eax
             instructions.Add(Instruction.Create(Code.Xor_r32_rm32, Register.EAX, Register.EAX));
             // rep stosd
-            instructions.Add(Instruction.CreateStosd(bitness, RepPrefixKind.Rep));
+            instructions.Add(Instruction.CreateStosd(bitness, RepPrefixKind.Repe));
             // mov     rcx,rsi
             instructions.Add(Instruction.Create(Code.Mov_r64_rm64, Register.RCX, Register.RSI));
             // mov     [rbp+10h],rcx
@@ -295,7 +295,7 @@ Disassembled code:
             var codeWriter = new CodeWriterImpl();
             ulong relocatedBaseAddress = exampleCodeRIP + 0x200000;
             var block = new InstructionBlock(codeWriter, instructions, relocatedBaseAddress);
-            bool success = BlockEncoder.TryEncode(bitness, block, out var errorMessage);
+            bool success = BlockEncoder.TryEncode(bitness, block, out var errorMessage, out _);
             if (!success) {
                 Console.WriteLine($"ERROR: {errorMessage}");
                 return;

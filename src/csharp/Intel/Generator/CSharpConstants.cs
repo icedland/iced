@@ -27,6 +27,7 @@ using System.Linq;
 namespace Generator {
 	static class CSharpConstants {
 		public const string IcedNamespace = "Iced.Intel";
+		public const string BlockEncoderNamespace = "Iced.Intel.BlockEncoderInternal";
 		public const string DecoderNamespace = "Iced.Intel.DecoderInternal";
 		public const string EncoderNamespace = "Iced.Intel.EncoderInternal";
 		public const string InstructionInfoNamespace = "Iced.Intel.InstructionInfoInternal";

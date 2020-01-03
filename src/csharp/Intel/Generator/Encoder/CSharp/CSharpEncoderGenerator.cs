@@ -237,5 +237,14 @@ namespace Generator.Encoder.CSharp {
 
 		protected override void GenerateCore() {
 		}
+
+		protected override void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.BlockEncoderNamespace), "Instr.cs");
+			GenerateCases(filename, "JccInstr", jccInstr);
+			GenerateCases(filename, "SimpleBranchInstr", simpleBranchInstr);
+			GenerateCases(filename, "CallInstr", callInstr);
+			GenerateCases(filename, "JmpInstr", jmpInstr);
+			GenerateCases(filename, "XbeginInstr", xbeginInstr);
+		}
 	}
 }

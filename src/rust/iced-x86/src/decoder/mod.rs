@@ -498,7 +498,7 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	/// Returns true if there's at least one more byte to decode. It doesn't verify that the
+	/// Returns `true` if there's at least one more byte to decode. It doesn't verify that the
 	/// next instruction is valid, it only checks if there's at least one more byte to read.
 	/// See also [`position()`] and [`max_position()`]
 	///
@@ -1331,7 +1331,7 @@ impl<'a> Decoder<'a> {
 		super::instruction_internal::internal_set_memory_index(instruction, index_reg);
 	}
 
-	// Returns true if the SIB byte was read
+	// Returns `true` if the SIB byte was read
 	#[cfg_attr(has_must_use, must_use)]
 	fn read_op_mem_32_or_64(
 		&mut self, instruction: &mut Instruction, base_reg: Register, index_reg: Register, tuple_type: TupleType, is_vsib: bool,

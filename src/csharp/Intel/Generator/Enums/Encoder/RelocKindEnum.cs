@@ -21,32 +21,20 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_ENCODER
-namespace Iced.Intel.BlockEncoderInternal {
-	/// <summary>
-	/// Simple instruction that doesn't need fixing, i.e., it's not IP relative (no branch instruction, no IP relative memory operand)
-	/// </summary>
-	sealed class SimpleInstr : Instr {
-		Instruction instruction;
+using System.Linq;
 
-		public SimpleInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
-			: base(block, instruction.IP) {
-			this.instruction = instruction;
-			Size = blockEncoder.GetInstructionSize(instruction, instruction.IP);
-		}
+namespace Generator.Enums.Encoder {
+	enum RelocKind {
+		[Comment("64-bit offset. Only used if it's 64-bit code.")]
+		Offset64,
+	}
 
-		public override void Initialize(BlockEncoder blockEncoder) { }
-		public override bool Optimize() => false;
+	static class RelocKindEnum {
+		const string documentation = "Relocation kind";
 
-		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
-			isOriginalInstruction = true;
-			if (!encoder.TryEncode(instruction, IP, out _, out var errorMessage)) {
-				constantOffsets = default;
-				return CreateErrorMessage(errorMessage, instruction);
-			}
-			constantOffsets = encoder.GetConstantOffsets();
-			return null;
-		}
+		static EnumValue[] GetValues() =>
+			typeof(RelocKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(RelocKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.RelocKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }
-#endif

@@ -910,7 +910,8 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the near branch target if it's a call/jmp near branch instruction
+		/// Gets the near branch target if it's a <c>CALL</c>/<c>JMP</c>/<c>Jcc</c> near branch instruction
+		/// (i.e., if <see cref="Op0Kind"/> is <see cref="OpKind.NearBranch16"/>, <see cref="OpKind.NearBranch32"/> or <see cref="OpKind.NearBranch64"/>)
 		/// </summary>
 		public readonly ulong NearBranchTarget {
 			get {

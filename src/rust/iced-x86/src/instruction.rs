@@ -261,7 +261,7 @@ impl Instruction {
 	/// * `new_value`: new value
 	#[inline]
 	pub fn set_code(&mut self, new_value: Code) {
-		self.code_flags = (self.code_flags & !CodeFlags::CODE_MASK) | (new_value as u32);
+		self.code_flags = (self.code_flags & !CodeFlags::CODE_MASK) | new_value as u32;
 	}
 
 	/// Gets the mnemonic, see also [`code()`]
@@ -1227,7 +1227,13 @@ impl Instruction {
 		self.mem_displ = (new_value >> 32) as u32;
 	}
 
-	/// Gets the near branch target if it's a call/jmp near branch instruction
+	/// Gets the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
+	/// (i.e., if [`op0_kind()`] is [`OpKind::NearBranch16`], [`OpKind::NearBranch32`] or [`OpKind::NearBranch64`])
+	///
+	/// [`op0_kind()`]: #method.op0_kind
+	/// [`OpKind::NearBranch16`]: enum.OpKind.html#variant.NearBranch16
+	/// [`OpKind::NearBranch32`]: enum.OpKind.html#variant.NearBranch32
+	/// [`OpKind::NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn near_branch_target(&self) -> u64 {
@@ -5942,7 +5948,7 @@ impl Instruction {
 		super::instruction_internal::with_maskmov(Code::VEX_Vmaskmovdqu_rDI_xmm_xmm, address_size, register1, register2, segment_prefix)
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -5961,7 +5967,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -5982,7 +5988,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6005,7 +6011,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6030,7 +6036,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6057,7 +6063,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6086,7 +6092,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6117,7 +6123,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6151,7 +6157,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6187,7 +6193,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6225,7 +6231,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6265,7 +6271,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6307,7 +6313,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6351,7 +6357,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6397,7 +6403,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6445,7 +6451,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Arguments
 	///
@@ -6495,7 +6501,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `db`/`.byte` asm directive
+	/// Creates a `db`/`.byte` asm directive
 	///
 	/// # Panics
 	///
@@ -6524,7 +6530,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dw`/`.word` asm directive
+	/// Creates a `dw`/`.word` asm directive
 	///
 	/// # Arguments
 	///
@@ -6543,7 +6549,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dw`/`.word` asm directive
+	/// Creates a `dw`/`.word` asm directive
 	///
 	/// # Arguments
 	///
@@ -6564,7 +6570,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dw`/`.word` asm directive
+	/// Creates a `dw`/`.word` asm directive
 	///
 	/// # Arguments
 	///
@@ -6587,7 +6593,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dw`/`.word` asm directive
+	/// Creates a `dw`/`.word` asm directive
 	///
 	/// # Arguments
 	///
@@ -6612,7 +6618,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dw`/`.word` asm directive
+	/// Creates a `dw`/`.word` asm directive
 	///
 	/// # Arguments
 	///
@@ -6639,7 +6645,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dw`/`.word` asm directive
+	/// Creates a `dw`/`.word` asm directive
 	///
 	/// # Arguments
 	///
@@ -6668,7 +6674,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dw`/`.word` asm directive
+	/// Creates a `dw`/`.word` asm directive
 	///
 	/// # Arguments
 	///
@@ -6699,7 +6705,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dw`/`.word` asm directive
+	/// Creates a `dw`/`.word` asm directive
 	///
 	/// # Arguments
 	///
@@ -6733,7 +6739,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dw`/`.word` asm directive
+	/// Creates a `dw`/`.word` asm directive
 	///
 	/// # Panics
 	///
@@ -6765,7 +6771,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dw`/`.word` asm directive
+	/// Creates a `dw`/`.word` asm directive
 	///
 	/// # Panics
 	///
@@ -6794,7 +6800,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dd`/`.int` asm directive
+	/// Creates a `dd`/`.int` asm directive
 	///
 	/// # Arguments
 	///
@@ -6813,7 +6819,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dd`/`.int` asm directive
+	/// Creates a `dd`/`.int` asm directive
 	///
 	/// # Arguments
 	///
@@ -6834,7 +6840,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dd`/`.int` asm directive
+	/// Creates a `dd`/`.int` asm directive
 	///
 	/// # Arguments
 	///
@@ -6857,7 +6863,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dd`/`.int` asm directive
+	/// Creates a `dd`/`.int` asm directive
 	///
 	/// # Arguments
 	///
@@ -6882,7 +6888,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dd`/`.int` asm directive
+	/// Creates a `dd`/`.int` asm directive
 	///
 	/// # Panics
 	///
@@ -6914,7 +6920,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dd`/`.int` asm directive
+	/// Creates a `dd`/`.int` asm directive
 	///
 	/// # Panics
 	///
@@ -6943,7 +6949,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dq`/`.quad` asm directive
+	/// Creates a `dq`/`.quad` asm directive
 	///
 	/// # Arguments
 	///
@@ -6962,7 +6968,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dq`/`.quad` asm directive
+	/// Creates a `dq`/`.quad` asm directive
 	///
 	/// # Arguments
 	///
@@ -6983,7 +6989,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dq`/`.quad` asm directive
+	/// Creates a `dq`/`.quad` asm directive
 	///
 	/// # Panics
 	///
@@ -7015,7 +7021,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Create a `dq`/`.quad` asm directive
+	/// Creates a `dq`/`.quad` asm directive
 	///
 	/// # Panics
 	///

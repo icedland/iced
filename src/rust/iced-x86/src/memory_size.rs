@@ -893,7 +893,7 @@ impl MemorySize {
 		self.info().element_type().info()
 	}
 
-	/// true if it's signed data (signed integer or a floating point value)
+	/// `true` if it's signed data (signed integer or a floating point value)
 	///
 	/// # Examples
 	///
@@ -909,7 +909,7 @@ impl MemorySize {
 		self.info().is_signed()
 	}
 
-	/// true if this is a packed data type, eg. [`MemorySize::Packed128_Float32`]
+	/// `true` if this is a packed data type, eg. [`MemorySize::Packed128_Float32`]
 	///
 	/// [`MemorySize::Packed128_Float32`]: #variant.Packed128_Float32
 	///

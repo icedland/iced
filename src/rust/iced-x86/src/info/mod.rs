@@ -263,21 +263,21 @@ impl InstructionInfo {
 		self.used_memory_locations.as_slice()
 	}
 
-	/// true if the instruction isn't available in real mode or virtual 8086 mode
+	/// `true` if the instruction isn't available in real mode or virtual 8086 mode
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_protected_mode(&self) -> bool {
 		(self.flags & IIFlags::PROTECTED_MODE) != 0
 	}
 
-	/// true if this is a privileged instruction
+	/// `true` if this is a privileged instruction
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_privileged(&self) -> bool {
 		(self.flags & IIFlags::PRIVILEGED) != 0
 	}
 
-	/// true if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
+	/// `true` if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
 	/// See also [`Instruction::stack_pointer_increment()`]
 	///
 	/// [`Instruction::stack_pointer_increment()`]: struct.Instruction.html#method.stack_pointer_increment
@@ -287,7 +287,7 @@ impl InstructionInfo {
 		(self.flags & IIFlags::STACK_INSTRUCTION) != 0
 	}
 
-	/// true if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
+	/// `true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 	/// [`used_registers()`] won't return all accessed registers.
 	///
 	/// [`used_registers()`]: #method.used_registers

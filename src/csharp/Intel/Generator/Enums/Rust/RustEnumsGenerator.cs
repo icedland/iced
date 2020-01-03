@@ -155,6 +155,8 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.LKind, new PartialEnumFileInfo("LKind", Path.Combine(generatorOptions.RustDir, "encoder", "op_code_fmt.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.OpCodeFlags, new PartialEnumFileInfo("Flags", Path.Combine(generatorOptions.RustDir, "encoder", "op_code.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.RepPrefixKind, new PartialEnumFileInfo("RepPrefixKind", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.RelocKind, new PartialEnumFileInfo("RelocKind", Path.Combine(generatorOptions.RustDir, "block_enc", "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive }));
+			toPartialFileInfo.Add(TypeIds.BlockEncoderOptions, new PartialEnumFileInfo("BlockEncoderOptions", Path.Combine(generatorOptions.RustDir, "block_enc", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
 		}
 
 		public override void Generate(EnumType enumType) {

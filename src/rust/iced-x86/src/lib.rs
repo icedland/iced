@@ -68,6 +68,8 @@ extern crate lazy_static;
 #[macro_use]
 extern crate static_assertions;
 
+#[cfg(feature = "encoder")]
+mod block_enc;
 mod code;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 mod constant_offsets;
@@ -99,6 +101,8 @@ mod register;
 #[cfg(test)]
 pub(crate) mod test_utils;
 
+#[cfg(feature = "encoder")]
+pub use self::block_enc::*;
 pub use self::code::*;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 pub use self::constant_offsets::*;

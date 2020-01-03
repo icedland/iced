@@ -20,33 +20,3 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-
-#if !NO_ENCODER
-namespace Iced.Intel.BlockEncoderInternal {
-	/// <summary>
-	/// Simple instruction that doesn't need fixing, i.e., it's not IP relative (no branch instruction, no IP relative memory operand)
-	/// </summary>
-	sealed class SimpleInstr : Instr {
-		Instruction instruction;
-
-		public SimpleInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
-			: base(block, instruction.IP) {
-			this.instruction = instruction;
-			Size = blockEncoder.GetInstructionSize(instruction, instruction.IP);
-		}
-
-		public override void Initialize(BlockEncoder blockEncoder) { }
-		public override bool Optimize() => false;
-
-		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
-			isOriginalInstruction = true;
-			if (!encoder.TryEncode(instruction, IP, out _, out var errorMessage)) {
-				constantOffsets = default;
-				return CreateErrorMessage(errorMessage, instruction);
-			}
-			constantOffsets = encoder.GetConstantOffsets();
-			return null;
-		}
-	}
-}
-#endif

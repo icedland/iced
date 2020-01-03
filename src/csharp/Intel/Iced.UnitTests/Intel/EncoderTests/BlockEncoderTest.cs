@@ -68,28 +68,25 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		protected void EncodeBase(int bitness, ulong origRip, byte[] originalData, ulong newRip, byte[] newData, BlockEncoderOptions options, DecoderOptions decoderOptions, uint[] expectedInstructionOffsets, RelocInfo[] expectedRelocInfos) {
 			var origInstrs = Decode(bitness, origRip, originalData, decoderOptions);
 			var codeWriter = new CodeWriterImpl();
-			var relocInfos = new List<RelocInfo>();
-			var newInstructionOffsets = new uint[origInstrs.Length];
-			var constantOffsets = new ConstantOffsets[origInstrs.Length];
-			for (int i = 0; i < constantOffsets.Length; i++) {
-				// Make sure each element gets initialized by Encode()
-				constantOffsets[i] = new ConstantOffsets {
-					DisplacementOffset = byte.MaxValue,
-					ImmediateOffset = byte.MaxValue,
-					ImmediateOffset2 = byte.MaxValue,
-					DisplacementSize = byte.MaxValue,
-					ImmediateSize = byte.MaxValue,
-					ImmediateSize2 = byte.MaxValue,
-				};
-			}
-			bool b = BlockEncoder.TryEncode(bitness, new InstructionBlock(codeWriter, origInstrs, newRip, relocInfos, newInstructionOffsets, constantOffsets), out var errorMessage, options);
+			options |= BlockEncoderOptions.ReturnRelocInfos | BlockEncoderOptions.ReturnNewInstructionOffsets | BlockEncoderOptions.ReturnConstantOffsets;
+			bool b = BlockEncoder.TryEncode(bitness, new InstructionBlock(codeWriter, origInstrs, newRip), out var errorMessage, out var result, options);
 			Assert.True(b);
 			Assert.Null(errorMessage);
+			var encodedBytes = codeWriter.ToArray();
+			Assert.Equal(newData, encodedBytes);
+			var relocInfos = result.RelocInfos;
+			var newInstructionOffsets = result.NewInstructionOffsets;
+			var constantOffsets = result.ConstantOffsets;
+			Assert.NotNull(relocInfos);
+			Assert.NotNull(newInstructionOffsets);
+			Assert.Equal(origInstrs.Length, newInstructionOffsets.Length);
+			Assert.NotNull(constantOffsets);
+			Assert.Equal(origInstrs.Length, constantOffsets.Length);
 			Assert.Equal(Sort(new List<RelocInfo>(expectedRelocInfos)), Sort(relocInfos));
 			Assert.Equal(expectedInstructionOffsets, newInstructionOffsets);
 
 			var expectedConstantOffsets = new ConstantOffsets[constantOffsets.Length];
-			var reader = new CodeReaderImpl(codeWriter.ToArray());
+			var reader = new CodeReaderImpl(encodedBytes);
 			var decoder = Decoder.Create(bitness, reader, decoderOptions);
 			for (int i = 0; i < newInstructionOffsets.Length; i++) {
 				if (newInstructionOffsets[i] == uint.MaxValue)
