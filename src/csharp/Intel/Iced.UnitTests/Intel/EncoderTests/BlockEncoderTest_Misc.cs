@@ -38,19 +38,19 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.NotNull(result);
-			Assert.Equal(result.Length == 0);
+			Assert.True(result.Length == 0);
 
 			b = BlockEncoder.TryEncode(32, new InstructionBlock[0], out errorMessage, out result, BlockEncoderOptions.None);
 			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.NotNull(result);
-			Assert.Equal(result.Length == 0);
+			Assert.True(result.Length == 0);
 
 			b = BlockEncoder.TryEncode(64, new InstructionBlock[0], out errorMessage, out result, BlockEncoderOptions.None);
 			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.NotNull(result);
-			Assert.Equal(result.Length == 0);
+			Assert.True(result.Length == 0);
 		}
 
 		[Fact]
