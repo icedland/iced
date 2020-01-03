@@ -64,6 +64,7 @@ namespace Generator.Enums {
 			VectorLengthEnum.Instance,
 			Decoder.MandatoryPrefixByteEnum.Instance,
 			Decoder.StateFlagsEnum.Instance,
+			Decoder.OpSizeEnum.Instance,
 			EncodingKindEnum.Instance,
 			InstructionInfo.FlowControlEnum.Instance,
 			Encoder.OpCodeOperandKindEnum.Instance,

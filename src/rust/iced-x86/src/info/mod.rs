@@ -35,7 +35,7 @@ use super::*;
 use std::fmt;
 
 /// A register used by an instruction
-#[derive(Copy, Clone, Eq, PartialEq, Default, Hash)]
+#[derive(Default, Copy, Clone, Eq, PartialEq, Hash)]
 pub struct UsedRegister {
 	register: Register,
 	access: OpAccess,
@@ -79,7 +79,7 @@ impl fmt::Debug for UsedRegister {
 }
 
 /// A memory location used by an instruction
-#[derive(Copy, Clone, Eq, PartialEq, Default, Hash)]
+#[derive(Default, Copy, Clone, Eq, PartialEq, Hash)]
 pub struct UsedMemory {
 	displacement: u64,
 	segment: Register,
@@ -210,6 +210,7 @@ impl IIFlags {
 /// Created by an [`InstructionInfoFactory`].
 ///
 /// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
+#[derive(Debug)]
 pub struct InstructionInfo {
 	pub(crate) used_registers: Vec<UsedRegister>,
 	pub(crate) used_memory_locations: Vec<UsedMemory>,

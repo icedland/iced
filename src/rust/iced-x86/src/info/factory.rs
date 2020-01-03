@@ -30,6 +30,7 @@ use std::{mem, u16, u32, u64};
 ///
 /// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
 #[allow(missing_copy_implementations)]
+#[allow(missing_debug_implementations)]
 pub struct InstructionInfoOptions;
 impl InstructionInfoOptions {
 	/// No option is enabled
@@ -64,6 +65,7 @@ impl Flags {
 /// [`Instruction`]: struct.Instruction.html
 /// [`Code`]: enum.Code.html
 /// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
+#[derive(Debug)]
 pub struct InstructionInfoFactory {
 	info: InstructionInfo,
 }

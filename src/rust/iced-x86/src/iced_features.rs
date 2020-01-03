@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /// Gets the available features
 #[allow(missing_copy_implementations)]
+#[allow(missing_debug_implementations)]
 pub struct IcedFeatures;
 
 impl IcedFeatures {

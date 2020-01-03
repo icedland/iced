@@ -286,7 +286,7 @@ mod info {
 	/// [`Register`] information
 	///
 	/// [`Register`]: enum.Register.html
-	#[derive(Copy, Clone)]
+	#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
 	pub struct RegisterInfo {
 		register: u8,
 		base: u8,

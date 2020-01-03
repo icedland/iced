@@ -26,7 +26,7 @@ use super::super::*;
 /// Memory operand passed to one of [`Instruction`]'s `with_*()` constructor methods
 ///
 /// [`Instruction`]: struct.Instruction.html
-#[derive(Copy, Clone, Eq, PartialEq, Default, Hash)]
+#[derive(Debug, Default, Copy, Clone, Eq, PartialEq, Hash)]
 pub struct MemoryOperand {
 	/// Segment override or [`Register::None`]
 	///

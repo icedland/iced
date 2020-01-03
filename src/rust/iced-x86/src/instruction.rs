@@ -25,6 +25,7 @@ use super::iced_constants::IcedConstants;
 #[cfg(feature = "instr_info")]
 use super::info::enums::*;
 use super::*;
+use std::hash::{Hash, Hasher};
 use std::{fmt, mem, ptr, slice, u16, u32, u64};
 
 // GENERATOR-BEGIN: MemoryFlags
@@ -81,7 +82,7 @@ impl CodeFlags {
 // GENERATOR-END: CodeFlags
 
 /// A 16/32/64-bit x86 instruction
-#[derive(Copy, Clone, Default)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct Instruction {
 	pub(crate) next_rip: u64,
 	pub(crate) code_flags: u32,    // CodeFlags
@@ -7062,6 +7063,23 @@ impl PartialEq<Instruction> for Instruction {
 			&& self.reg1 == other.reg1
 			&& self.reg2 == other.reg2
 			&& self.reg3 == other.reg3
+	}
+}
+
+impl Hash for Instruction {
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	fn hash<'a, H: Hasher>(&self, state: &'a mut H) {
+		state.write_u32(self.code_flags & !CodeFlags::EQUALS_IGNORE_MASK);
+		state.write_u32(self.op_kind_flags & !OpKindFlags::EQUALS_IGNORE_MASK);
+		state.write_u32(self.immediate);
+		state.write_u32(self.mem_displ);
+		state.write_u16(self.memory_flags);
+		state.write_u8(self.mem_base_reg);
+		state.write_u8(self.mem_index_reg);
+		state.write_u8(self.reg0);
+		state.write_u8(self.reg1);
+		state.write_u8(self.reg2);
+		state.write_u8(self.reg3);
 	}
 }
 

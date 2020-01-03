@@ -93,6 +93,7 @@ static IMM_SIZES: [u32; 19] = [
 /// let buffer = encoder.take_buffer();
 /// assert_eq!(vec![0x86, 0x64, 0x32, 0x16], buffer);
 /// ```
+#[allow(missing_debug_implementations)]
 pub struct Encoder {
 	current_rip: u64,
 	buffer: Vec<u8>,

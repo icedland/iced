@@ -113,6 +113,7 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Instruction.cs"), "ushort"));
 			toPartialFileInfo.Add(TypeIds.Instruction_OpKindFlags, new PartialEnumFileInfo("OpKindFlags", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Instruction.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.Instruction_CodeFlags, new PartialEnumFileInfo("CodeFlags", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Instruction.cs"), "uint"));
+			toPartialFileInfo.Add(TypeIds.OpSize, new PartialEnumFileInfo("OpSize", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Decoder.cs"), "byte"));
 			toPartialFileInfo.Add(TypeIds.StateFlags, new PartialEnumFileInfo("StateFlags", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Decoder.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.CodeInfo, new PartialEnumFileInfo("CodeInfo", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs"), null));
 			toPartialFileInfo.Add(TypeIds.RflagsInfo, new PartialEnumFileInfo("RflagsInfo", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs"), null));

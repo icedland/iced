@@ -27,7 +27,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ///
 /// [`Decoder::get_constant_offsets()`]: struct.Decoder.html#method.get_constant_offsets
 /// [`Encoder::get_constant_offsets()`]: struct.Encoder.html#method.get_constant_offsets
-#[derive(Copy, Clone, Default)]
+#[derive(Debug, Default, Copy, Clone, Eq, PartialEq, Hash)]
 #[allow(dead_code)]
 pub struct ConstantOffsets {
 	pub(crate) displacement_offset: u8,

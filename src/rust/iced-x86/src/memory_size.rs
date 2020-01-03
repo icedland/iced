@@ -179,7 +179,7 @@ mod info {
 	/// [`MemorySize`] information
 	///
 	/// [`MemorySize`]: enum.MemorySize.html
-	#[derive(Copy, Clone)]
+	#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
 	pub struct MemorySizeInfo {
 		size: u16,
 		element_size: u16,
