@@ -2,7 +2,7 @@ param([switch]$NoTest, [switch]$NoCoverage, [string]$Configuration = 'Release', 
 
 $ErrorActionPreference = 'Stop'
 
-$netcore_tfm = 'netcoreapp3.0'
+$netcore_tfm = 'netcoreapp3.1'
 $net_tfm = 'net48'
 $xunitVersion = '2.4.1'
 $xunitNetTfmVersion = 'net472'
