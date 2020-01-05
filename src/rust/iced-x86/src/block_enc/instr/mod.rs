@@ -281,7 +281,7 @@ impl InstrUtils {
 		if block_encoder.bitness() == 64 {
 			for i in 0..instruction.op_count() {
 				if instruction.op_kind(i) == OpKind::Memory {
-					if instruction.is_ip_relative_memory_operand() {
+					if instruction.is_ip_rel_memory_operand() {
 						return Rc::new(RefCell::new(IpRelMemOpInstr::new(block_encoder, block, instruction)));
 					}
 					break;

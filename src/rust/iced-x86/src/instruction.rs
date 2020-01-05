@@ -2236,21 +2236,21 @@ impl Instruction {
 	/// Checks if the memory operand is `RIP`/`EIP` relative
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn is_ip_relative_memory_operand(&self) -> bool {
+	pub fn is_ip_rel_memory_operand(&self) -> bool {
 		let base_reg = self.memory_base();
 		base_reg == Register::RIP || base_reg == Register::EIP
 	}
 
 	/// Gets the `RIP`/`EIP` releative address (([`next_ip()`] or [`next_ip32()`]) + [`memory_displacement()`]).
-	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`is_ip_relative_memory_operand()`]
+	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`is_ip_rel_memory_operand()`]
 	///
 	/// [`next_ip()`]: #method.next_ip
 	/// [`next_ip32()`]: #method.next_ip32
 	/// [`memory_displacement()`]: #method.memory_displacement
-	/// [`is_ip_relative_memory_operand()`]: #method.is_ip_relative_memory_operand
+	/// [`is_ip_rel_memory_operand()`]: #method.is_ip_rel_memory_operand
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn ip_relative_memory_address(&self) -> u64 {
+	pub fn ip_rel_memory_address(&self) -> u64 {
 		let mut result = self.next_ip().wrapping_add(self.memory_displacement() as i32 as u64);
 		if self.memory_base() == Register::EIP {
 			result = result as u32 as u64;

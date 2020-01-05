@@ -480,20 +480,20 @@ fn write_all_properties() {
 
 	for &reg in register_values.iter() {
 		instr.set_memory_base(reg);
-		assert_eq!(reg == Register::RIP || reg == Register::EIP, instr.is_ip_relative_memory_operand());
+		assert_eq!(reg == Register::RIP || reg == Register::EIP, instr.is_ip_rel_memory_operand());
 	}
 
 	instr.set_memory_base(Register::EIP);
 	instr.set_next_ip(0x1234_5670_9EDC_BA98);
 	instr.set_memory_displacement(0x8765_4321);
-	assert!(instr.is_ip_relative_memory_operand());
-	assert_eq!(0x2641_FDB9, instr.ip_relative_memory_address());
+	assert!(instr.is_ip_rel_memory_operand());
+	assert_eq!(0x2641_FDB9, instr.ip_rel_memory_address());
 
 	instr.set_memory_base(Register::RIP);
 	instr.set_next_ip(0x1234_5670_9EDC_BA98);
 	instr.set_memory_displacement(0x8765_4321);
-	assert!(instr.is_ip_relative_memory_operand());
-	assert_eq!(0x1234_5670_2641_FDB9, instr.ip_relative_memory_address());
+	assert!(instr.is_ip_rel_memory_operand());
+	assert_eq!(0x1234_5670_2641_FDB9, instr.ip_rel_memory_address());
 
 	instr.set_declare_data_len(1);
 	assert_eq!(1, instr.declare_data_len());

@@ -49,7 +49,7 @@ pub(super) struct IpRelMemOpInstr {
 
 impl IpRelMemOpInstr {
 	pub fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
-		debug_assert!(instruction.is_ip_relative_memory_operand());
+		debug_assert!(instruction.is_ip_rel_memory_operand());
 
 		let mut instr_copy = *instruction;
 		instr_copy.set_memory_base(Register::RIP);
@@ -126,7 +126,7 @@ impl Instr for IpRelMemOpInstr {
 	}
 
 	fn initialize(&mut self, block_encoder: &BlockEncoder) {
-		self.target_instr = block_encoder.get_target(self, self.instruction.ip_relative_memory_address());
+		self.target_instr = block_encoder.get_target(self, self.instruction.ip_rel_memory_address());
 		let _ = self.try_optimize();
 	}
 
@@ -160,7 +160,7 @@ impl Instr for IpRelMemOpInstr {
 					Ok(_) => {
 						let expected_rip =
 							if self.instruction.memory_base() == Register::EIP { target_address as u32 as u64 } else { target_address };
-						if self.instruction.ip_relative_memory_address() != expected_rip {
+						if self.instruction.ip_rel_memory_address() != expected_rip {
 							Err(InstrUtils::create_error_message("Invalid IP relative address", &self.instruction))
 						} else {
 							Ok((block.encoder.get_constant_offsets(), true))
