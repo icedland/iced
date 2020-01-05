@@ -530,10 +530,9 @@ Disassembled code:
             decoder.IP = exampleCodeRIP;
             ulong endRip = decoder.IP + (uint)exampleCode.Length;
 
-            // For PERF, use a factory to create the instruction info if you need register
-            // and memory usage. If it's something else, eg. encoding, flags, etc, there
-            // are properties on Instruction that can be used instead that don't allocate.
-            // The factory only allocates once and reuses the internal arrays
+            // Use a factory to create the instruction info if you need register and
+            // memory usage. If it's something else, eg. encoding, flags, etc, there
+            // are properties on Instruction that can be used instead.
             var instrInfoFactory = new InstructionInfoFactory();
             while (decoder.IP < endRip) {
                 decoder.Decode(out var instr);
