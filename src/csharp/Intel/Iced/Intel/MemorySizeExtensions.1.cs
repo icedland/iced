@@ -260,14 +260,14 @@ namespace Iced.Intel {
 		public static MemorySizeInfo GetElementTypeInfo(this MemorySize memorySize) => memorySize.GetInfo().ElementType.GetInfo();
 
 		/// <summary>
-		/// true if it's signed data (signed integer or a floating point value)
+		/// <see langword="true"/> if it's signed data (signed integer or a floating point value)
 		/// </summary>
 		/// <param name="memorySize">Memory size</param>
 		/// <returns></returns>
 		public static bool IsSigned(this MemorySize memorySize) => memorySize.GetInfo().IsSigned;
 
 		/// <summary>
-		/// true if this is a packed data type, eg. <see cref="MemorySize.Packed128_Float32"/>
+		/// <see langword="true"/> if this is a packed data type, eg. <see cref="MemorySize.Packed128_Float32"/>
 		/// </summary>
 		/// <param name="memorySize">Memory size</param>
 		/// <returns></returns>
@@ -315,17 +315,17 @@ namespace Iced.Intel {
 		public MemorySize ElementType => (MemorySize)elementType;
 
 		/// <summary>
-		/// true if it's signed data (signed integer or a floating point value)
+		/// <see langword="true"/> if it's signed data (signed integer or a floating point value)
 		/// </summary>
 		public bool IsSigned => isSigned;
 
 		/// <summary>
-		/// true if it's a broadcast memory type
+		/// <see langword="true"/> if it's a broadcast memory type
 		/// </summary>
 		public bool IsBroadcast => isBroadcast;
 
 		/// <summary>
-		/// true if this is a packed data type, eg. <see cref="MemorySize.Packed128_Float32"/>. See also <see cref="ElementCount"/>
+		/// <see langword="true"/> if this is a packed data type, eg. <see cref="MemorySize.Packed128_Float32"/>. See also <see cref="ElementCount"/>
 		/// </summary>
 		public bool IsPacked => elementSize < size;
 
@@ -341,8 +341,8 @@ namespace Iced.Intel {
 		/// <param name="size">Size of location</param>
 		/// <param name="elementSize">Size of the packed element, or <paramref name="size"/> if it's not packed data</param>
 		/// <param name="elementType">Element type if it's packed data or <paramref name="memorySize"/> if it's not packed data</param>
-		/// <param name="isSigned">true if signed data</param>
-		/// <param name="isBroadcast">true if broadcast</param>
+		/// <param name="isSigned"><see langword="true"/> if signed data</param>
+		/// <param name="isBroadcast"><see langword="true"/> if broadcast</param>
 		public MemorySizeInfo(MemorySize memorySize, int size, int elementSize, MemorySize elementType, bool isSigned, bool isBroadcast) {
 			if (size < 0)
 				ThrowHelper.ThrowArgumentOutOfRangeException_size();

@@ -216,12 +216,12 @@ namespace Generator.Encoder.Rust {
 			if (args.Count == 0 || args[0].Type != MethodArgType.Code)
 				throw new InvalidOperationException();
 			var codeName = idConverter.Argument(args[0].Name);
-			writer.WriteLine($"instruction_internal::internal_set_code(&mut instruction, {codeName});");
+			writer.WriteLine($"super::instruction_internal::internal_set_code(&mut instruction, {codeName});");
 		}
 
 		void WriteInitializeInstruction(FileWriter writer, EnumValue code) {
 			writer.WriteLine("let mut instruction = Self::default();");
-			writer.WriteLine($"instruction_internal::internal_set_code(&mut instruction, {code.DeclaringType.Name(idConverter)}::{code.Name(idConverter)});");
+			writer.WriteLine($"super::instruction_internal::internal_set_code(&mut instruction, {code.DeclaringType.Name(idConverter)}::{code.Name(idConverter)});");
 		}
 
 		void WriteMethodFooter(FileWriter writer, int count) {
@@ -252,14 +252,14 @@ namespace Generator.Encoder.Rust {
 					switch (arg.Type) {
 					case MethodArgType.Register:
 						writer.WriteLine($"const_assert_eq!(0, {opKindStr}::{registerStr} as u32);");
-						writer.WriteLine($"//instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{registerStr});");
-						writer.WriteLine($"instruction_internal::internal_set_op{op}_register(&mut instruction, {idConverter.Argument(arg.Name)});");
+						writer.WriteLine($"//super::instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{registerStr});");
+						writer.WriteLine($"super::instruction_internal::internal_set_op{op}_register(&mut instruction, {idConverter.Argument(arg.Name)});");
 						break;
 
 					case MethodArgType.Memory:
-						writer.WriteLine($"instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{memoryStr});");
-						writer.WriteLine($"instruction_internal::internal_set_memory_base(&mut instruction, {idConverter.Argument(arg.Name)}.base);");
-						writer.WriteLine($"instruction_internal::internal_set_memory_index(&mut instruction, {idConverter.Argument(arg.Name)}.index);");
+						writer.WriteLine($"super::instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{memoryStr});");
+						writer.WriteLine($"super::instruction_internal::internal_set_memory_base(&mut instruction, {idConverter.Argument(arg.Name)}.base);");
+						writer.WriteLine($"super::instruction_internal::internal_set_memory_index(&mut instruction, {idConverter.Argument(arg.Name)}.index);");
 						writer.WriteLine($"instruction.set_memory_index_scale({idConverter.Argument(arg.Name)}.scale);");
 						writer.WriteLine($"instruction.set_memory_displ_size({idConverter.Argument(arg.Name)}.displ_size);");
 						writer.WriteLine($"instruction.set_memory_displacement({idConverter.Argument(arg.Name)}.displacement as u32);");
@@ -273,11 +273,11 @@ namespace Generator.Encoder.Rust {
 						if (multipleInts) {
 							switch (intCount++) {
 							case 0:
-								writer.WriteLine($"instruction_internal::internal_set_op{op}_kind(&mut instruction, instruction_internal::get_immediate_op_kind({codeName}, {op}));");
+								writer.WriteLine($"super::instruction_internal::internal_set_op{op}_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind({codeName}, {op}));");
 								writer.WriteLine($"instruction.set_immediate32({idConverter.Argument(arg.Name)}{castType});");
 								break;
 							case 1:
-								writer.WriteLine($"instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{immediate8_2ndStr});");
+								writer.WriteLine($"super::instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{immediate8_2ndStr});");
 								writer.WriteLine($"instruction.set_immediate8_2nd({idConverter.Argument(arg.Name)} as u8);");
 								break;
 							default:
@@ -285,8 +285,8 @@ namespace Generator.Encoder.Rust {
 							}
 						}
 						else {
-							writer.WriteLine($"let op_kind = instruction_internal::get_immediate_op_kind({codeName}, {op});");
-							writer.WriteLine($"instruction_internal::internal_set_op{op}_kind(&mut instruction, op_kind);");
+							writer.WriteLine($"let op_kind = super::instruction_internal::get_immediate_op_kind({codeName}, {op});");
+							writer.WriteLine($"super::instruction_internal::internal_set_op{op}_kind(&mut instruction, op_kind);");
 							writer.WriteLine($"if op_kind == {opKindStr}::{immediate64Str} {{");
 							using (writer.Indent())
 								writer.WriteLine($"instruction.set_immediate64({idConverter.Argument(arg.Name)} as u64);");
@@ -300,7 +300,7 @@ namespace Generator.Encoder.Rust {
 					case MethodArgType.Int64:
 					case MethodArgType.UInt64:
 						castType = arg.Type == MethodArgType.Int64 ? " as u64" : string.Empty;
-						writer.WriteLine($"instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{immediate64Str});");
+						writer.WriteLine($"super::instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{immediate64Str});");
 						writer.WriteLine($"instruction.set_immediate64({idConverter.Argument(arg.Name)}{castType});");
 						break;
 
@@ -340,7 +340,7 @@ namespace Generator.Encoder.Rust {
 			using (writer.Indent()) {
 				WriteInitializeInstruction(writer, method);
 				writer.WriteLine();
-				writer.WriteLine($"instruction_internal::internal_set_op0_kind(&mut instruction, instruction_internal::get_near_branch_op_kind({idConverter.Argument(method.Args[0].Name)}, 0));");
+				writer.WriteLine($"super::instruction_internal::internal_set_op0_kind(&mut instruction, super::instruction_internal::get_near_branch_op_kind({idConverter.Argument(method.Args[0].Name)}, 0));");
 				writer.WriteLine($"instruction.set_near_branch64({idConverter.Argument(method.Args[1].Name)});");
 				WriteMethodFooter(writer, 1);
 			}
@@ -355,7 +355,7 @@ namespace Generator.Encoder.Rust {
 			using (writer.Indent()) {
 				WriteInitializeInstruction(writer, method);
 				writer.WriteLine();
-				writer.WriteLine($"instruction_internal::internal_set_op0_kind(&mut instruction, instruction_internal::get_far_branch_op_kind({idConverter.Argument(method.Args[0].Name)}, 0));");
+				writer.WriteLine($"super::instruction_internal::internal_set_op0_kind(&mut instruction, super::instruction_internal::get_far_branch_op_kind({idConverter.Argument(method.Args[0].Name)}, 0));");
 				writer.WriteLine($"instruction.set_far_branch_selector({idConverter.Argument(method.Args[1].Name)});");
 				writer.WriteLine($"instruction.set_far_branch32({idConverter.Argument(method.Args[2].Name)});");
 				WriteMethodFooter(writer, 1);
@@ -387,17 +387,17 @@ namespace Generator.Encoder.Rust {
 				writer.WriteLine();
 
 				var mem64Str = OpKindEnum.Instance[nameof(OpKind.Memory64)].Name(idConverter);
-				writer.WriteLine($"instruction_internal::internal_set_op{memOp}_kind(&mut instruction, {OpKindEnum.Instance.Name(idConverter)}::{mem64Str});");
+				writer.WriteLine($"super::instruction_internal::internal_set_op{memOp}_kind(&mut instruction, {OpKindEnum.Instance.Name(idConverter)}::{mem64Str});");
 				writer.WriteLine($"instruction.set_memory_address64({idConverter.Argument(method.Args[1 + memOp].Name)});");
-				writer.WriteLine("instruction_internal::internal_set_memory_displ_size(&mut instruction, 4);");
+				writer.WriteLine("super::instruction_internal::internal_set_memory_displ_size(&mut instruction, 4);");
 				writer.WriteLine($"instruction.set_segment_prefix({idConverter.Argument(method.Args[3].Name)});");
 
 				writer.WriteLine();
 				var opKindStr = OpKindEnum.Instance.Name(idConverter);
 				var registerStr = OpKindEnum.Instance[nameof(OpKind.Register)].Name(idConverter);
 				writer.WriteLine($"const_assert_eq!(0, {opKindStr}::{registerStr} as u32);");
-				writer.WriteLine($"//instruction_internal::internal_set_op{regOp}_kind(&mut instruction, {opKindStr}::{registerStr});");
-				writer.WriteLine($"instruction_internal::internal_set_op{regOp}_register(&mut instruction, {idConverter.Argument(method.Args[1 + regOp].Name)});");
+				writer.WriteLine($"//super::instruction_internal::internal_set_op{regOp}_kind(&mut instruction, {opKindStr}::{registerStr});");
+				writer.WriteLine($"super::instruction_internal::internal_set_op{regOp}_register(&mut instruction, {idConverter.Argument(method.Args[1 + regOp].Name)});");
 
 				WriteMethodFooter(writer, 2);
 			}

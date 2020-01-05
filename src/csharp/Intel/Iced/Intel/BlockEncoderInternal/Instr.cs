@@ -45,7 +45,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public abstract void Initialize(BlockEncoder blockEncoder);
 
 		/// <summary>
-		/// Returns true if the instruction was updated to a shorter instruction, false if nothing changed
+		/// Returns <see langword="true"/> if the instruction was updated to a shorter instruction, <see langword="false"/> if nothing changed
 		/// </summary>
 		/// <returns></returns>
 		public abstract bool Optimize();

@@ -102,7 +102,7 @@ pub struct BlockEncoderResult {
 
 	/// If [`BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS`] option was enabled:
 	///
-	/// Offsets of the new instructions relative to the base IP. If the instruction was rewritten to a new instruction
+	/// Offsets of the instructions relative to the base IP. If the instruction was rewritten to a new instruction
 	/// (eg. `JE SHORT` -> `JE NEAR`), the value `u32::MAX` is stored in that element.
 	///
 	/// [`BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS`]: struct.BlockEncoderOptions.html#associatedconstant.RETURN_NEW_INSTRUCTION_OFFSETS

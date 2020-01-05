@@ -27,7 +27,7 @@ using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// A 16/32/64-bit instruction
+	/// A 16/32/64-bit instruction. Created by Decoder or by Instruction.Create() methods.
 	/// </summary>
 	public partial struct Instruction : IEquatable<Instruction> {
 		// GENERATOR-BEGIN: MemoryFlags
@@ -618,7 +618,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if the data is broadcasted (EVEX instructions only)
+		/// <see langword="true"/> if the data is broadcasted (EVEX instructions only)
 		/// </summary>
 		public bool IsBroadcast {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1091,7 +1091,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if there's an opmask register (<see cref="OpMask"/>)
+		/// <see langword="true"/> if there's an opmask register (<see cref="OpMask"/>)
 		/// </summary>
 		public readonly bool HasOpMask {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1099,7 +1099,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if zeroing-masking, false if merging-masking.
+		/// <see langword="true"/> if zeroing-masking, <see langword="false"/> if merging-masking.
 		/// Only used by most EVEX encoded instructions that use opmask registers.
 		/// </summary>
 		public bool ZeroingMasking {
@@ -1116,7 +1116,7 @@ namespace Iced.Intel {
 		internal void InternalSetZeroingMasking() => codeFlags |= (uint)CodeFlags.ZeroingMasking;
 
 		/// <summary>
-		/// true if merging-masking, false if zeroing-masking.
+		/// <see langword="true"/> if merging-masking, <see langword="false"/> if zeroing-masking.
 		/// Only used by most EVEX encoded instructions that use opmask registers.
 		/// </summary>
 		public bool MergingMasking {
@@ -1131,7 +1131,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Rounding control (<see cref="SuppressAllExceptions"/> is implied but still returns false)
+		/// Rounding control (<see cref="SuppressAllExceptions"/> is implied but still returns <see langword="false"/>)
 		/// or <see cref="RoundingControl.None"/> if the instruction doesn't use it.
 		/// </summary>
 		public RoundingControl RoundingControl {
@@ -1448,20 +1448,20 @@ namespace Iced.Intel {
 		public readonly bool IsVsib => TryGetVsib64(out _);
 
 		/// <summary>
-		/// VSIB instructions only (<see cref="IsVsib"/>): true if it's using 32-bit indexes, false if it's using 64-bit indexes
+		/// VSIB instructions only (<see cref="IsVsib"/>): <see langword="true"/> if it's using 32-bit indexes, <see langword="false"/> if it's using 64-bit indexes
 		/// </summary>
 		public readonly bool IsVsib32 => TryGetVsib64(out bool vsib64) && !vsib64;
 
 		/// <summary>
-		/// VSIB instructions only (<see cref="IsVsib"/>): true if it's using 64-bit indexes, false if it's using 32-bit indexes
+		/// VSIB instructions only (<see cref="IsVsib"/>): <see langword="true"/> if it's using 64-bit indexes, <see langword="false"/> if it's using 32-bit indexes
 		/// </summary>
 		public readonly bool IsVsib64 => TryGetVsib64(out bool vsib64) && vsib64;
 
 		/// <summary>
-		/// Checks if it's a VSIB instruction. If it's a VSIB instruction, it sets <paramref name="vsib64"/> to true if it's
+		/// Checks if it's a VSIB instruction. If it's a VSIB instruction, it sets <paramref name="vsib64"/> to <see langword="true"/> if it's
 		/// a VSIB instruction with 64-bit indexes, and clears it if it's using 32-bit indexes.
 		/// </summary>
-		/// <param name="vsib64">If it's a VSIB instruction, set to true if it's using 64-bit indexes, set to false if it's using 32-bit indexes</param>
+		/// <param name="vsib64">If it's a VSIB instruction, set to <see langword="true"/> if it's using 64-bit indexes, set to <see langword="false"/> if it's using 32-bit indexes</param>
 		/// <returns></returns>
 		public readonly bool TryGetVsib64(out bool vsib64) {
 			switch (Code) {
@@ -1567,7 +1567,7 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// Suppress all exceptions (EVEX encoded instructions). Note that if <see cref="RoundingControl"/> is
-		/// not <see cref="RoundingControl.None"/>, SAE is implied but this property will still return false.
+		/// not <see cref="RoundingControl.None"/>, SAE is implied but this property will still return <see langword="false"/>.
 		/// </summary>
 		public bool SuppressAllExceptions {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -109,7 +109,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// If <see cref="BlockEncoderOptions.ReturnNewInstructionOffsets"/> option was enabled:
 		/// <br/>
-		/// Offsets of the new instructions relative to the base IP. If the instruction was rewritten to a new instruction
+		/// Offsets of the instructions relative to the base IP. If the instruction was rewritten to a new instruction
 		/// (eg. <c>JE SHORT</c> -> <c>JE NEAR</c>), the value <see cref="uint.MaxValue"/> is stored in that array element.
 		/// </summary>
 		public readonly uint[] NewInstructionOffsets;
@@ -246,7 +246,7 @@ namespace Iced.Intel {
 		/// <param name="bitness">16, 32 or 64</param>
 		/// <param name="block">All instructions</param>
 		/// <param name="errorMessage">Updated with an error message if the method failed</param>
-		/// <param name="result">Result if this method returns true</param>
+		/// <param name="result">Result if this method returns <see langword="true"/></param>
 		/// <param name="options">Encoder options</param>
 		/// <returns></returns>
 		public static bool TryEncode(int bitness, InstructionBlock block, [NotNullWhen(false)] out string? errorMessage, out BlockEncoderResult result, BlockEncoderOptions options = BlockEncoderOptions.None) {
@@ -273,7 +273,7 @@ namespace Iced.Intel {
 		/// <param name="bitness">16, 32 or 64</param>
 		/// <param name="blocks">All instructions</param>
 		/// <param name="errorMessage">Updated with an error message if the method failed</param>
-		/// <param name="result">Result if this method returns true</param>
+		/// <param name="result">Result if this method returns <see langword="true"/></param>
 		/// <param name="options">Encoder options</param>
 		/// <returns></returns>
 		public static bool TryEncode(int bitness, InstructionBlock[] blocks, [NotNullWhen(false)] out string? errorMessage, [NotNullWhen(true)] out BlockEncoderResult[]? result, BlockEncoderOptions options = BlockEncoderOptions.None) =>

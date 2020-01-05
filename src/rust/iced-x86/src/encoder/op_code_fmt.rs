@@ -84,7 +84,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 				Code::DeclareDword => "<dd>".to_owned(),
 				Code::DeclareQword => "<dq>".to_owned(),
 				// GENERATOR-END: OpCodeFmtNotInstructionString
-				_ => panic!(),
+				_ => unreachable!(),
 			}
 		} else {
 			match self.op_code.encoding() {
@@ -111,7 +111,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 			}
 			self.append_hex_byte(value as u8);
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 
@@ -328,7 +328,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 			OpCodeOperandKind::r32_opcode => self.sb.push_str("+rd"),
 			OpCodeOperandKind::r64_opcode => self.sb.push_str("+ro"),
 			OpCodeOperandKind::None => {}
-			_ => panic!(),
+			_ => unreachable!(),
 		}
 		for i in 0..self.op_code.op_count() {
 			if self.op_code.op_kind(i) == OpCodeOperandKind::sti_opcode {
@@ -369,11 +369,11 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 				}
 				LKind::LZ => {
 					if self.op_code.l() != 0 {
-						panic!();
+						unreachable!();
 					}
 					self.sb.push_str("LZ");
 				}
-				LKind::None => panic!(),
+				LKind::None => unreachable!(),
 			}
 		}
 		match self.op_code.mandatory_prefix() {

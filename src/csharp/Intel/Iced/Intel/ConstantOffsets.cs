@@ -68,17 +68,17 @@ namespace Iced.Intel {
 #pragma warning restore CS0169
 
 		/// <summary>
-		/// true if <see cref="DisplacementOffset"/> and <see cref="DisplacementSize"/> are valid
+		/// <see langword="true"/> if <see cref="DisplacementOffset"/> and <see cref="DisplacementSize"/> are valid
 		/// </summary>
 		public readonly bool HasDisplacement => DisplacementSize != 0;
 
 		/// <summary>
-		/// true if <see cref="ImmediateOffset"/> and <see cref="ImmediateSize"/> are valid
+		/// <see langword="true"/> if <see cref="ImmediateOffset"/> and <see cref="ImmediateSize"/> are valid
 		/// </summary>
 		public readonly bool HasImmediate => ImmediateSize != 0;
 
 		/// <summary>
-		/// true if <see cref="ImmediateOffset2"/> and <see cref="ImmediateSize2"/> are valid
+		/// <see langword="true"/> if <see cref="ImmediateOffset2"/> and <see cref="ImmediateSize2"/> are valid
 		/// </summary>
 		public readonly bool HasImmediate2 => ImmediateSize2 != 0;
 	}

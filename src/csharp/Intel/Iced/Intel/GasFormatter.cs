@@ -33,7 +33,7 @@ namespace Iced.Intel {
 	/// </summary>
 	public sealed class GasFormatterOptions : FormatterOptions {
 		/// <summary>
-		/// If true, the formatter doesn't add '%' to registers, eg. %eax vs eax
+		/// If <see langword="true"/>, the formatter doesn't add '%' to registers, eg. %eax vs eax
 		/// </summary>
 		public bool NakedRegisters { get; set; }
 

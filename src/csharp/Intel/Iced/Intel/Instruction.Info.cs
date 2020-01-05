@@ -231,7 +231,7 @@ namespace Iced.Intel {
 		/// 
 		/// Gets a struct iterator that returns all accessed registers. There are some exceptions, this method doesn't return all used registers:
 		/// 
-		/// 1) If <see cref="IsSaveRestoreInstruction"/> is true, or
+		/// 1) If <see cref="IsSaveRestoreInstruction"/> is <see langword="true"/>, or
 		/// 
 		/// 2) If it's a <see cref="FlowControl.Call"/> or <see cref="FlowControl.Interrupt"/> instruction (call, sysenter, int n etc), it can read and write any register (including RFLAGS).
 		/// </summary>
@@ -285,7 +285,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if the instruction isn't available in real mode or virtual 8086 mode
+		/// <see langword="true"/> if the instruction isn't available in real mode or virtual 8086 mode
 		/// </summary>
 		public readonly bool IsProtectedMode {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -293,7 +293,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if this is a privileged instruction
+		/// <see langword="true"/> if this is a privileged instruction
 		/// </summary>
 		public readonly bool IsPrivileged {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -301,7 +301,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if this is an instruction that implicitly uses the stack pointer (<c>SP</c>/<c>ESP</c>/<c>RSP</c>), eg. <c>CALL</c>, <c>PUSH</c>, <c>POP</c>, <c>RET</c>, etc.
+		/// <see langword="true"/> if this is an instruction that implicitly uses the stack pointer (<c>SP</c>/<c>ESP</c>/<c>RSP</c>), eg. <c>CALL</c>, <c>PUSH</c>, <c>POP</c>, <c>RET</c>, etc.
 		/// See also <see cref="StackPointerIncrement"/>
 		/// </summary>
 		public readonly bool IsStackInstruction {
@@ -310,7 +310,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if it's an instruction that saves or restores too many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
+		/// <see langword="true"/> if it's an instruction that saves or restores too many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
 		/// </summary>
 		public readonly bool IsSaveRestoreInstruction {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

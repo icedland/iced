@@ -170,7 +170,10 @@ impl Instr for IpRelMemOpInstr {
 				}
 			}
 
-			InstrKind::Long => Err("IP relative memory operand is too far away and isn't currently supported".to_owned()),
+			InstrKind::Long => Err("IP relative memory operand is too far away and isn't currently supported. \
+			                        Try to allocate memory close to the original instruction (+/-2GB)."
+				.to_owned()),
+
 			InstrKind::Uninitialized => unreachable!(),
 		}
 	}

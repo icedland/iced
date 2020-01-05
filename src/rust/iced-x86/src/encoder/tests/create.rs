@@ -66,7 +66,7 @@ fn get_data(instr: &Instruction) -> Vec<u8> {
 			Code::DeclareWord => 2,
 			Code::DeclareDword => 4,
 			Code::DeclareQword => 8,
-			_ => panic!(),
+			_ => unreachable!(),
 		};
 	let mut v = Vec::with_capacity(length);
 	for i in 0..length {

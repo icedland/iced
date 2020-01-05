@@ -469,7 +469,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Removes the first copy of <paramref name="instruction"/> and returns true if it was removed
+		/// Removes the first copy of <paramref name="instruction"/> and returns <see langword="true"/> if it was removed
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <returns></returns>

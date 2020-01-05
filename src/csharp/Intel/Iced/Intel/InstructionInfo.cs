@@ -61,7 +61,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets a struct iterator that returns all accessed registers. This method doesn't return all accessed registers if <see cref="IsSaveRestoreInstruction"/> is true.
+		/// Gets a struct iterator that returns all accessed registers. This method doesn't return all accessed registers if <see cref="IsSaveRestoreInstruction"/> is <see langword="true"/>.
 		/// </summary>
 		/// <returns></returns>
 		public readonly UsedRegisterIterator GetUsedRegisters() => new UsedRegisterIterator(usedRegisters, usedRegistersLength);
@@ -131,23 +131,23 @@ namespace Iced.Intel {
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		/// <summary>
-		/// true if the instruction isn't available in real mode or virtual 8086 mode
+		/// <see langword="true"/> if the instruction isn't available in real mode or virtual 8086 mode
 		/// </summary>
 		public readonly bool IsProtectedMode => (flags & (uint)Flags.ProtectedMode) != 0;
 
 		/// <summary>
-		/// true if this is a privileged instruction
+		/// <see langword="true"/> if this is a privileged instruction
 		/// </summary>
 		public readonly bool IsPrivileged => (flags & (uint)Flags.Privileged) != 0;
 
 		/// <summary>
-		/// true if this is an instruction that implicitly uses the stack pointer (<c>SP</c>/<c>ESP</c>/<c>RSP</c>), eg. <c>CALL</c>, <c>PUSH</c>, <c>POP</c>, <c>RET</c>, etc.
+		/// <see langword="true"/> if this is an instruction that implicitly uses the stack pointer (<c>SP</c>/<c>ESP</c>/<c>RSP</c>), eg. <c>CALL</c>, <c>PUSH</c>, <c>POP</c>, <c>RET</c>, etc.
 		/// See also <see cref="Instruction.StackPointerIncrement"/>
 		/// </summary>
 		public readonly bool IsStackInstruction => (flags & (uint)Flags.StackInstruction) != 0;
 
 		/// <summary>
-		/// true if it's an instruction that saves or restores too many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
+		/// <see langword="true"/> if it's an instruction that saves or restores too many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
 		/// <see cref="GetUsedRegisters"/> won't return all accessed registers.
 		/// </summary>
 		public readonly bool IsSaveRestoreInstruction => (flags & (uint)Flags.SaveRestore) != 0;

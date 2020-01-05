@@ -496,7 +496,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 				Code::DeclareDword => return "<dd>".to_owned(),
 				Code::DeclareQword => return "<dq>".to_owned(),
 				// GENERATOR-END: InstrFmtNotInstructionString
-				_ => panic!(),
+				_ => unreachable!(),
 			}
 		}
 
@@ -706,7 +706,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					OpCodeOperandKind::br32_4 | OpCodeOperandKind::br64_4 | OpCodeOperandKind::xbegin_4 => self.sb.push_str("rel32"),
 					OpCodeOperandKind::brdisp_2 => self.sb.push_str("disp16"),
 					OpCodeOperandKind::brdisp_4 => self.sb.push_str("disp32"),
-					OpCodeOperandKind::None => panic!(),
+					OpCodeOperandKind::None => unreachable!(),
 				}
 
 				if i == 0 {

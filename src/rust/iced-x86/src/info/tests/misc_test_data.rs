@@ -205,7 +205,7 @@ impl SectionFileLineHandler for MiscTestsDataReader {
 			MiscSectionNameIds::JCC_NEAR_INFO => Self::add_jcc_info(&mut self.data.jcc_near_infos, line),
 			MiscSectionNameIds::SETCC_INFO => Self::add_instr_cc_info(&mut self.data.setcc_infos, line),
 			MiscSectionNameIds::CMOVCC_INFO => Self::add_instr_cc_info(&mut self.data.cmovcc_infos, line),
-			_ => panic!(),
+			_ => unreachable!(),
 		}
 	}
 }

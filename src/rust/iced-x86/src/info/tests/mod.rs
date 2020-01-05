@@ -127,7 +127,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 					assert_eq!("664422EE12345678", tc.hex_bytes);
 					instr.set_declare_qword_value(0, 0x7856_3412_EE22_4466);
 				}
-				_ => panic!(),
+				_ => unreachable!(),
 			}
 		} else {
 			let mut decoder = create_decoder(tc.bitness, &code_bytes, tc.decoder_options).0;
@@ -147,10 +147,10 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 					Code::Fnsave_m108byte => instr.set_code(Code::Fsave_m108byte),
 					Code::Fnstsw_m2byte => instr.set_code(Code::Fstsw_m2byte),
 					Code::Fnstsw_AX => instr.set_code(Code::Fstsw_AX),
-					_ => panic!(),
+					_ => unreachable!(),
 				}
 			} else {
-				panic!();
+				unreachable!();
 			}
 		}
 	} else {
@@ -193,7 +193,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 			2 => assert_eq!(tc.op2_access, info.op_access(i)),
 			3 => assert_eq!(tc.op3_access, info.op_access(i)),
 			4 => assert_eq!(tc.op4_access, info.op_access(i)),
-			_ => panic!(),
+			_ => unreachable!(),
 		}
 	}
 	for i in instr.op_count()..IcedConstants::MAX_OP_COUNT as u32 {
@@ -342,7 +342,7 @@ fn get_used_registers<'a, T: Iterator<Item = &'a UsedRegister>>(iter: T) -> Vec<
 				read.push(info.register());
 				cond_write.push(info.register());
 			}
-			OpAccess::None | OpAccess::NoMemAccess => panic!(),
+			OpAccess::None | OpAccess::NoMemAccess => unreachable!(),
 		}
 	}
 

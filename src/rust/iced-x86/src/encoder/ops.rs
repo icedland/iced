@@ -48,7 +48,7 @@ pub(crate) trait Op {
 pub(crate) struct InvalidOpHandler;
 impl Op for InvalidOpHandler {
 	fn encode(&self, _encoder: &mut Encoder, _instruction: &Instruction, _operand: u32) {
-		panic!()
+		unreachable!()
 	}
 }
 

@@ -81,7 +81,9 @@ impl CodeFlags {
 }
 // GENERATOR-END: CodeFlags
 
-/// A 16/32/64-bit x86 instruction
+/// A 16/32/64-bit x86 instruction. Created by [`Decoder`] or by `Instruction::with*()` methods.
+///
+/// [`Decoder`]: struct.Decoder.html
 #[derive(Debug, Default, Copy, Clone)]
 pub struct Instruction {
 	pub(crate) next_rip: u64,
@@ -3163,7 +3165,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with(code: Code) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		debug_assert_eq!(0, instruction.op_count());
 		instruction
@@ -3180,11 +3182,11 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg(code: Code, register: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
 		debug_assert_eq!(1, instruction.op_count());
 		instruction
@@ -3201,10 +3203,10 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_i32(code: Code, immediate: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 0);
-		instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3226,10 +3228,10 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_u32(code: Code, immediate: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 0);
-		instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3251,11 +3253,11 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_mem(code: Code, memory: &MemoryOperand) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -3278,15 +3280,15 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg(code: Code, register1: Register, register2: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3304,14 +3306,14 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_i32(code: Code, register: Register, immediate: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 1);
-		instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3334,14 +3336,14 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_u32(code: Code, register: Register, immediate: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 1);
-		instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3364,13 +3366,13 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_i64(code: Code, register: Register, immediate: i64) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate64);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate64);
 		instruction.set_immediate64(immediate as u64);
 
 		debug_assert_eq!(2, instruction.op_count());
@@ -3389,13 +3391,13 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_u64(code: Code, register: Register, immediate: u64) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate64);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate64);
 		instruction.set_immediate64(immediate);
 
 		debug_assert_eq!(2, instruction.op_count());
@@ -3414,15 +3416,15 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_mem(code: Code, register: Register, memory: &MemoryOperand) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -3445,10 +3447,10 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_i32_reg(code: Code, immediate: i32, register: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 0);
-		instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3456,8 +3458,8 @@ impl Instruction {
 		}
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3475,10 +3477,10 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_u32_reg(code: Code, immediate: u32, register: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 0);
-		instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3486,8 +3488,8 @@ impl Instruction {
 		}
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3505,12 +3507,12 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_i32_i32(code: Code, immediate1: i32, immediate2: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, instruction_internal::get_immediate_op_kind(code, 0));
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 0));
 		instruction.set_immediate32(immediate1 as u32);
 
-		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate8_2nd);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
 
 		debug_assert_eq!(2, instruction.op_count());
@@ -3529,12 +3531,12 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_u32_u32(code: Code, immediate1: u32, immediate2: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, instruction_internal::get_immediate_op_kind(code, 0));
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 0));
 		instruction.set_immediate32(immediate1);
 
-		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate8_2nd);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
 
 		debug_assert_eq!(2, instruction.op_count());
@@ -3553,11 +3555,11 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_mem_reg(code: Code, memory: &MemoryOperand, register: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -3565,8 +3567,8 @@ impl Instruction {
 		instruction.set_segment_prefix(memory.segment_prefix);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3584,19 +3586,19 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_mem_i32(code: Code, memory: &MemoryOperand, immediate: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 1);
-		instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3619,19 +3621,19 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_mem_u32(code: Code, memory: &MemoryOperand, immediate: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 1);
-		instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3655,19 +3657,19 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -3686,18 +3688,18 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_i32(code: Code, register1: Register, register2: Register, immediate: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 2);
-		instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3721,18 +3723,18 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_u32(code: Code, register1: Register, register2: Register, immediate: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 2);
-		instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3756,19 +3758,19 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_mem(code: Code, register1: Register, register2: Register, memory: &MemoryOperand) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -3792,16 +3794,16 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_i32_i32(code: Code, register: Register, immediate1: i32, immediate2: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		instruction_internal::internal_set_op1_kind(&mut instruction, instruction_internal::get_immediate_op_kind(code, 1));
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 1));
 		instruction.set_immediate32(immediate1 as u32);
 
-		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Immediate8_2nd);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
 
 		debug_assert_eq!(3, instruction.op_count());
@@ -3821,16 +3823,16 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_u32_u32(code: Code, register: Register, immediate1: u32, immediate2: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		instruction_internal::internal_set_op1_kind(&mut instruction, instruction_internal::get_immediate_op_kind(code, 1));
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 1));
 		instruction.set_immediate32(immediate1);
 
-		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Immediate8_2nd);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
 
 		debug_assert_eq!(3, instruction.op_count());
@@ -3850,15 +3852,15 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_mem_reg(code: Code, register1: Register, memory: &MemoryOperand, register2: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -3866,8 +3868,8 @@ impl Instruction {
 		instruction.set_segment_prefix(memory.segment_prefix);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op2_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op2_register(&mut instruction, register2);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -3886,23 +3888,23 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_mem_i32(code: Code, register: Register, memory: &MemoryOperand, immediate: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 2);
-		instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3926,23 +3928,23 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_mem_u32(code: Code, register: Register, memory: &MemoryOperand, immediate: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 2);
-		instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -3966,11 +3968,11 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_mem_reg_reg(code: Code, memory: &MemoryOperand, register1: Register, register2: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -3978,12 +3980,12 @@ impl Instruction {
 		instruction.set_segment_prefix(memory.segment_prefix);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op2_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op2_register(&mut instruction, register2);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -4002,11 +4004,11 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_mem_reg_i32(code: Code, memory: &MemoryOperand, register: Register, immediate: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -4014,11 +4016,11 @@ impl Instruction {
 		instruction.set_segment_prefix(memory.segment_prefix);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 2);
-		instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4042,11 +4044,11 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_mem_reg_u32(code: Code, memory: &MemoryOperand, register: Register, immediate: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -4054,11 +4056,11 @@ impl Instruction {
 		instruction.set_segment_prefix(memory.segment_prefix);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 2);
-		instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4083,23 +4085,23 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register, register4: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op3_register(&mut instruction, register4);
+		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
@@ -4119,22 +4121,22 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, immediate: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 3);
-		instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 3);
+		super::instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4159,22 +4161,22 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, immediate: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 3);
-		instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 3);
+		super::instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4199,23 +4201,23 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_reg_mem(code: Code, register1: Register, register2: Register, register3: Register, memory: &MemoryOperand) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -4240,20 +4242,20 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_i32_i32(code: Code, register1: Register, register2: Register, immediate1: i32, immediate2: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		instruction_internal::internal_set_op2_kind(&mut instruction, instruction_internal::get_immediate_op_kind(code, 2));
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 2));
 		instruction.set_immediate32(immediate1 as u32);
 
-		instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Immediate8_2nd);
+		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
 
 		debug_assert_eq!(4, instruction.op_count());
@@ -4274,20 +4276,20 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_u32_u32(code: Code, register1: Register, register2: Register, immediate1: u32, immediate2: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		instruction_internal::internal_set_op2_kind(&mut instruction, instruction_internal::get_immediate_op_kind(code, 2));
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 2));
 		instruction.set_immediate32(immediate1);
 
-		instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Immediate8_2nd);
+		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
 
 		debug_assert_eq!(4, instruction.op_count());
@@ -4308,19 +4310,19 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_mem_reg(code: Code, register1: Register, register2: Register, memory: &MemoryOperand, register3: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -4328,8 +4330,8 @@ impl Instruction {
 		instruction.set_segment_prefix(memory.segment_prefix);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op3_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
@@ -4349,27 +4351,27 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, memory: &MemoryOperand, immediate: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 3);
-		instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 3);
+		super::instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4394,27 +4396,27 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, memory: &MemoryOperand, immediate: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 3);
-		instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 3);
+		super::instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4440,26 +4442,26 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op3_register(&mut instruction, register4);
+		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 4);
-		instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
+		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4485,26 +4487,26 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op3_register(&mut instruction, register4);
+		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 4);
-		instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
+		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4530,31 +4532,31 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, register3: Register, memory: &MemoryOperand, immediate: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 4);
-		instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
+		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4580,31 +4582,31 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, register3: Register, memory: &MemoryOperand, immediate: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 4);
-		instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
+		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4630,19 +4632,19 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_mem_reg_i32(code: Code, register1: Register, register2: Register, memory: &MemoryOperand, register3: Register, immediate: i32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -4650,11 +4652,11 @@ impl Instruction {
 		instruction.set_segment_prefix(memory.segment_prefix);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op3_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 4);
-		instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
+		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4680,19 +4682,19 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_reg_mem_reg_u32(code: Code, register1: Register, register2: Register, memory: &MemoryOperand, register3: Register, immediate: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		instruction.set_memory_displacement(memory.displacement as u32);
@@ -4700,11 +4702,11 @@ impl Instruction {
 		instruction.set_segment_prefix(memory.segment_prefix);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op3_register(&mut instruction, register3);
+		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
-		let op_kind = instruction_internal::get_immediate_op_kind(code, 4);
-		instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
+		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
@@ -4726,9 +4728,9 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_branch(code: Code, target: u64) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, instruction_internal::get_near_branch_op_kind(code, 0));
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, super::instruction_internal::get_near_branch_op_kind(code, 0));
 		instruction.set_near_branch64(target);
 
 		debug_assert_eq!(1, instruction.op_count());
@@ -4747,9 +4749,9 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_far_branch(code: Code, selector: u16, offset: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, instruction_internal::get_far_branch_op_kind(code, 0));
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, super::instruction_internal::get_far_branch_op_kind(code, 0));
 		instruction.set_far_branch_selector(selector);
 		instruction.set_far_branch32(offset);
 
@@ -4772,16 +4774,16 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_mem64(code: Code, register: Register, address: u64, segment_prefix: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory64);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory64);
 		instruction.set_memory_address64(address);
-		instruction_internal::internal_set_memory_displ_size(&mut instruction, 4);
+		super::instruction_internal::internal_set_memory_displ_size(&mut instruction, 4);
 		instruction.set_segment_prefix(segment_prefix);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -4802,16 +4804,16 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_mem64_reg(code: Code, address: u64, register: Register, segment_prefix: Register) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, code);
+		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory64);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory64);
 		instruction.set_memory_address64(address);
-		instruction_internal::internal_set_memory_displ_size(&mut instruction, 4);
+		super::instruction_internal::internal_set_memory_displ_size(&mut instruction, 4);
 		instruction.set_segment_prefix(segment_prefix);
 
 		const_assert_eq!(0, OpKind::Register as u32);
-		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		instruction_internal::internal_set_op1_register(&mut instruction, register);
+		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -5958,7 +5960,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_byte_1(b0: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -5978,7 +5980,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_byte_2(b0: u8, b1: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6000,7 +6002,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_byte_3(b0: u8, b1: u8, b2: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 3);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6024,7 +6026,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_byte_4(b0: u8, b1: u8, b2: u8, b3: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 4);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6050,7 +6052,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_byte_5(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 5);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6078,7 +6080,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_byte_6(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 6);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6108,7 +6110,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_byte_7(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 7);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6141,7 +6143,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_8(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 8);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6176,7 +6178,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_9(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 9);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6213,7 +6215,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_10(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 10);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6252,7 +6254,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_11(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 11);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6293,7 +6295,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_12(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 12);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6336,7 +6338,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_13(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 13);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6381,7 +6383,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_14(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 14);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6428,7 +6430,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_15(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 15);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6477,7 +6479,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_16(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8, b15: u8) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 16);
 
 		instruction.set_declare_byte_value(0, b0);
@@ -6519,7 +6521,7 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
 
 		for i in data.iter().enumerate() {
@@ -6540,7 +6542,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_word_1(w0: u16) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
 
 		instruction.set_declare_word_value(0, w0);
@@ -6560,7 +6562,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_word_2(w0: u16, w1: u16) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
 
 		instruction.set_declare_word_value(0, w0);
@@ -6582,7 +6584,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_word_3(w0: u16, w1: u16, w2: u16) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 3);
 
 		instruction.set_declare_word_value(0, w0);
@@ -6606,7 +6608,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_word_4(w0: u16, w1: u16, w2: u16, w3: u16) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 4);
 
 		instruction.set_declare_word_value(0, w0);
@@ -6632,7 +6634,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_word_5(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 5);
 
 		instruction.set_declare_word_value(0, w0);
@@ -6660,7 +6662,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_word_6(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 6);
 
 		instruction.set_declare_word_value(0, w0);
@@ -6690,7 +6692,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_word_7(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 7);
 
 		instruction.set_declare_word_value(0, w0);
@@ -6723,7 +6725,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_word_8(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16, w7: u16) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 8);
 
 		instruction.set_declare_word_value(0, w0);
@@ -6759,7 +6761,7 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 2);
 
 		for i in 0..data.len() / 2 {
@@ -6789,7 +6791,7 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
 
 		for i in data.iter().enumerate() {
@@ -6810,7 +6812,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_dword_1(d0: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
 
 		instruction.set_declare_dword_value(0, d0);
@@ -6830,7 +6832,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_dword_2(d0: u32, d1: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
 
 		instruction.set_declare_dword_value(0, d0);
@@ -6852,7 +6854,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_dword_3(d0: u32, d1: u32, d2: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 3);
 
 		instruction.set_declare_dword_value(0, d0);
@@ -6876,7 +6878,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_dword_4(d0: u32, d1: u32, d2: u32, d3: u32) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 4);
 
 		instruction.set_declare_dword_value(0, d0);
@@ -6908,7 +6910,7 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 4);
 
 		for i in 0..data.len() / 4 {
@@ -6938,7 +6940,7 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
 
 		for i in data.iter().enumerate() {
@@ -6959,7 +6961,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_qword_1(q0: u64) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
 
 		instruction.set_declare_qword_value(0, q0);
@@ -6979,7 +6981,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_declare_qword_2(q0: u64, q1: u64) -> Self {
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
 
 		instruction.set_declare_qword_value(0, q0);
@@ -7009,7 +7011,7 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 8);
 
 		for i in 0..data.len() / 8 {
@@ -7039,7 +7041,7 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
+		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
 		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
 
 		for i in data.iter().enumerate() {

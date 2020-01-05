@@ -35,6 +35,7 @@ namespace Generator.Documentation.Rust {
 		readonly StringBuilder sb;
 		readonly StringBuilder sb2;
 		readonly List<(string @ref, string url)> refUrls;
+		readonly HashSet<string> usedRefs;
 
 		static readonly Dictionary<string, (string type, bool isKeyword)> toTypeInfo = new Dictionary<string, (string type, bool isKeyword)>(StringComparer.Ordinal) {
 			{ "bcd", ("bcd", false) },
@@ -66,6 +67,7 @@ namespace Generator.Documentation.Rust {
 			sb = new StringBuilder();
 			sb2 = new StringBuilder();
 			refUrls = new List<(string @ref, string url)>();
+			usedRefs = new HashSet<string>(StringComparer.Ordinal);
 		}
 
 		string GetStringAndReset() {
@@ -100,7 +102,10 @@ namespace Generator.Documentation.Rust {
 			RawWriteWithComment(writer, false);
 			if (refUrls.Count > 0) {
 				RawWriteWithComment(writer);
+				usedRefs.Clear();
 				foreach (var info in refUrls) {
+					if (!usedRefs.Add(info.@ref))
+						continue;
 					sb.Append($"{info.@ref}: {info.url}");
 					RawWriteWithComment(writer);
 				}

@@ -138,7 +138,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case InstrKind.Long:
 				isOriginalInstruction = false;
 				constantOffsets = default;
-				return "IP relative memory operand is too far away and isn't currently supported";
+				return "IP relative memory operand is too far away and isn't currently supported. " +
+					"Try to allocate memory close to the original instruction (+/-2GB).";
 
 			case InstrKind.Uninitialized:
 			default:

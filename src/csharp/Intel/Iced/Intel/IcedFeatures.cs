@@ -29,7 +29,7 @@ namespace Iced.Intel {
 	/// </summary>
 	public static class IcedFeatures {
 		/// <summary>
-		/// true if the gas (AT&amp;T) formatter is available
+		/// <see langword="true"/> if the gas (AT&amp;T) formatter is available
 		/// </summary>
 		public static bool HasGasFormatter {
 			get {
@@ -42,7 +42,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if the Intel (xed) formatter is available
+		/// <see langword="true"/> if the Intel (xed) formatter is available
 		/// </summary>
 		public static bool HasIntelFormatter {
 			get {
@@ -55,7 +55,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if the masm formatter is available
+		/// <see langword="true"/> if the masm formatter is available
 		/// </summary>
 		public static bool HasMasmFormatter {
 			get {
@@ -68,7 +68,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if the nasm formatter is available
+		/// <see langword="true"/> if the nasm formatter is available
 		/// </summary>
 		public static bool HasNasmFormatter {
 			get {
@@ -81,7 +81,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if the decoder is available
+		/// <see langword="true"/> if the decoder is available
 		/// </summary>
 		public static bool HasDecoder {
 			get {
@@ -94,7 +94,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if the encoder is available
+		/// <see langword="true"/> if the encoder is available
 		/// </summary>
 		public static bool HasEncoder {
 			get {
@@ -107,7 +107,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// true if the instruction info code is available
+		/// <see langword="true"/> if the instruction info code is available
 		/// </summary>
 		public static bool HasInstructionInfo {
 			get {

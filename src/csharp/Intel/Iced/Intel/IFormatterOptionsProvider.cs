@@ -155,12 +155,12 @@ namespace Iced.Intel {
 		public bool AddLeadingZeroToHexNumbers;
 
 		/// <summary>
-		/// If true, add leading zeroes to numbers, eg. '1h' vs '00000001h'
+		/// If <see langword="true"/>, add leading zeroes to numbers, eg. '1h' vs '00000001h'
 		/// </summary>
 		public bool LeadingZeroes;
 
 		/// <summary>
-		/// If true, the number is signed, and if false it's an unsigned number
+		/// If <see langword="true"/>, the number is signed, and if <see langword="false"/> it's an unsigned number
 		/// </summary>
 		public bool SignedNumber;
 
@@ -222,7 +222,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="options">Options</param>
 		/// <param name="leadingZeroes">Add leading zeroes to numbers, eg. '1h' vs '00000001h'</param>
-		/// <param name="signedNumber">Signed numbers if true, and unsigned numbers if false</param>
+		/// <param name="signedNumber">Signed numbers if <see langword="true"/>, and unsigned numbers if <see langword="false"/></param>
 		/// <param name="signExtendImmediate">Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. 'mov al,[eax+12h]' vs 'mov al,[eax+00000012h]'</param>
 		public NumberFormattingOptions(FormatterOptions options, bool leadingZeroes, bool signedNumber, bool signExtendImmediate) {
 			if (options is null)

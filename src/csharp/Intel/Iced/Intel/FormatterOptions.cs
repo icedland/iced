@@ -99,7 +99,7 @@ namespace Iced.Intel {
 		public bool AlwaysShowScale { get; set; }
 
 		/// <summary>
-		/// Always show the effective segment register. If the option is false, only show the segment register if
+		/// Always show the effective segment register. If the option is <see langword="false"/>, only show the segment register if
 		/// there's a segment override prefix. Eg. "ds:[rax]" vs "[rax]"
 		/// </summary>
 		public bool AlwaysShowSegmentRegister { get; set; }
@@ -243,7 +243,7 @@ namespace Iced.Intel {
 		MemorySizeOptions memorySizeOptions = MemorySizeOptions.Default;
 
 		/// <summary>
-		/// true to show RIP relative addresses as '[rip+12345678h]', false to show RIP relative addresses as '[1029384756AFBECDh]'
+		/// <see langword="true"/> to show RIP relative addresses as '[rip+12345678h]', <see langword="false"/> to show RIP relative addresses as '[1029384756AFBECDh]'
 		/// </summary>
 		public bool RipRelativeAddresses { get; set; }
 

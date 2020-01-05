@@ -1178,6 +1178,13 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[0]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[1]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[3]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[5]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[7]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[9]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[11]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[13]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[15]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[17]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[4], -1, 0));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[4], -1, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[4], int.MinValue, 1));
@@ -1193,28 +1200,42 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[4], 0, 5));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[4], 0, int.MaxValue));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[4], 3, 2));
-			Instruction.CreateDeclareWord(new ushort[8]);
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[9]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[9], 0, 9));
+			Instruction.CreateDeclareWord(new ushort[8]);
 			Instruction.CreateDeclareWord(new byte[16]);
-			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[17]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[17], 0, 17));
 #if HAS_SPAN
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[0].AsSpan()));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[1].AsSpan()));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[3].AsSpan()));
-			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[64].AsSpan()));
-			Instruction.CreateDeclareWord(new byte[16].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[5].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[7].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[9].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[11].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[13].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[15].AsSpan()));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new byte[17].AsSpan()));
-			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[0].AsSpan()));
+			Instruction.CreateDeclareWord(new byte[16].AsSpan());
 			Instruction.CreateDeclareWord(new ushort[8].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[0].AsSpan()));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareWord(new ushort[9].AsSpan()));
 #endif
 
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[0]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[1]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[2]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[3]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[5]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[6]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[7]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[9]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[10]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[11]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[13]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[14]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[15]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[17]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[16], -1, 0));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[16], -1, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[16], int.MinValue, 1));
@@ -1232,11 +1253,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[4], 0, 5));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[4], 0, int.MaxValue));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[4], 3, 2));
-			Instruction.CreateDeclareDword(new uint[4]);
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[5]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[5], 0, 5));
+			Instruction.CreateDeclareDword(new uint[4]);
 			Instruction.CreateDeclareDword(new byte[16]);
-			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[17]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[17], 0, 17));
 #if HAS_SPAN
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[0].AsSpan()));
@@ -1246,10 +1266,16 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[5].AsSpan()));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[6].AsSpan()));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[7].AsSpan()));
-			Instruction.CreateDeclareDword(new byte[16].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[9].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[10].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[11].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[13].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[14].AsSpan()));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[15].AsSpan()));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new byte[17].AsSpan()));
-			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[0].AsSpan()));
+			Instruction.CreateDeclareDword(new byte[16].AsSpan());
 			Instruction.CreateDeclareDword(new uint[4].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[0].AsSpan()));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareDword(new uint[5].AsSpan()));
 #endif
 
@@ -1261,6 +1287,14 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[5]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[6]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[7]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[9]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[10]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[11]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[12]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[13]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[14]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[15]));
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[17]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[16], -1, 0));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[16], -1, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[16], int.MinValue, 1));
@@ -1286,11 +1320,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[2], 0, 3));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[2], 0, int.MaxValue));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[2], 1, 2));
-			Instruction.CreateDeclareQword(new ulong[2]);
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[3]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[3], 0, 3));
+			Instruction.CreateDeclareQword(new ulong[2]);
 			Instruction.CreateDeclareQword(new byte[16]);
-			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[17]));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[17], 0, 17));
 #if HAS_SPAN
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[0].AsSpan()));
@@ -1308,10 +1341,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[13].AsSpan()));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[14].AsSpan()));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[15].AsSpan()));
-			Instruction.CreateDeclareQword(new byte[16].AsSpan());
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new byte[17].AsSpan()));
-			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[0].AsSpan()));
+			Instruction.CreateDeclareQword(new byte[16].AsSpan());
 			Instruction.CreateDeclareQword(new ulong[2].AsSpan());
+			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[0].AsSpan()));
 			Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.CreateDeclareQword(new ulong[3].AsSpan()));
 #endif
 		}
