@@ -676,7 +676,7 @@ impl<'a> Decoder<'a> {
 	/// assert!(instr.has_xrelease_prefix());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg(not(use_std_mem_uninitialized))]
+	#[cfg(has_maybe_uninit)]
 	#[inline]
 	pub fn decode(&mut self) -> Instruction {
 		// Safe, decode_out() initializes the whole thing
@@ -723,7 +723,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[allow(deprecated_in_future)]
-	#[cfg(use_std_mem_uninitialized)]
+	#[cfg(not(has_maybe_uninit))]
 	#[inline]
 	pub fn decode(&mut self) -> Instruction {
 		// Safe, decode_out() initializes the whole thing
