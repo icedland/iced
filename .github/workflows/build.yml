@@ -129,6 +129,10 @@ jobs:
           echo ==== TEST RELEASE ====
           cargo test --color always --release
           echo ==== PUBLISH DRY-RUN ====
+          # It fails on Windows without this, claiming that some random number of rust files are dirty.
+          # This is the 2nd GitHub CI for Windows hack I've added to this file.
+          git status
+          git diff
           cargo publish --color always --dry-run
 
       - name: Build, test (1.20.0)
