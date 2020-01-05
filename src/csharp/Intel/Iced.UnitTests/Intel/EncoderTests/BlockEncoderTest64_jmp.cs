@@ -95,6 +95,62 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		}
 
 		[Fact]
+		void Jmp_other_short_os() {
+			var originalData = new byte[] {
+				/*0000*/ 0xB0, 0x00,// mov al,0
+				/*0002*/ 0x66, 0xEB, 0x08,// jmp short 800Dh
+				/*0005*/ 0xB0, 0x01,// mov al,1
+				/*0007*/ 0x66, 0xE9, 0x02, 0x00,// jmp near ptr 800Dh
+				/*000B*/ 0xB0, 0x02,// mov al,2
+			};
+			var newData = new byte[] {
+				/*0000*/ 0xB0, 0x00,// mov al,0
+				/*0002*/ 0x66, 0xEB, 0x09,// jmp short 800Dh
+				/*0005*/ 0xB0, 0x01,// mov al,1
+				/*0007*/ 0x66, 0xEB, 0x04,// jmp short 800Dh
+				/*000A*/ 0xB0, 0x02,// mov al,2
+			};
+			var expectedInstructionOffsets = new uint[] {
+				0x0000,
+				0x0002,
+				0x0005,
+				0x0007,
+				0x000A,
+			};
+			var expectedRelocInfos = Array.Empty<RelocInfo>();
+			const BlockEncoderOptions options = BlockEncoderOptions.None;
+			EncodeBase(bitness, origRip, originalData, origRip - 1, newData, options, decoderOptions | DecoderOptions.AmdBranches, expectedInstructionOffsets, expectedRelocInfos);
+		}
+
+		[Fact]
+		void Jmp_other_near_os() {
+			var originalData = new byte[] {
+				/*0000*/ 0xB0, 0x00,// mov al,0
+				/*0002*/ 0x66, 0xEB, 0x08,// jmp short 800Dh
+				/*0005*/ 0xB0, 0x01,// mov al,1
+				/*0007*/ 0x66, 0xE9, 0x02, 0x00,// jmp near ptr 800Dh
+				/*000B*/ 0xB0, 0x02,// mov al,2
+			};
+			var newData = new byte[] {
+				/*0000*/ 0xB0, 0x00,// mov al,0
+				/*0002*/ 0x66, 0xE9, 0x07, 0xF0,// jmp near ptr 800Dh
+				/*0006*/ 0xB0, 0x01,// mov al,1
+				/*0008*/ 0x66, 0xE9, 0x01, 0xF0,// jmp near ptr 800Dh
+				/*000C*/ 0xB0, 0x02,// mov al,2
+			};
+			var expectedInstructionOffsets = new uint[] {
+				0x0000,
+				0x0002,
+				0x0006,
+				0x0008,
+				0x000C,
+			};
+			var expectedRelocInfos = Array.Empty<RelocInfo>();
+			const BlockEncoderOptions options = BlockEncoderOptions.None;
+			EncodeBase(bitness, origRip, originalData, origRip + 0x1000, newData, options, decoderOptions | DecoderOptions.AmdBranches, expectedInstructionOffsets, expectedRelocInfos);
+		}
+
+		[Fact]
 		void Jmp_other_short() {
 			var originalData = new byte[] {
 				/*0000*/ 0xB0, 0x00,// mov al,0

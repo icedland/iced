@@ -140,6 +140,41 @@ fn call_near_other_near() {
 }
 
 #[test]
+fn call_near_other_near_os() {
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let original_data = [
+		/*0000*/ 0x66, 0xE8, 0x07, 0x00,// call 800Bh
+		/*0004*/ 0xB0, 0x00,// mov al,0
+		/*0006*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
+	];
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let new_data = [
+		/*0000*/ 0x66, 0xE8, 0x08, 0x00,// call 800Bh
+		/*0004*/ 0xB0, 0x00,// mov al,0
+		/*0006*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
+	];
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let expected_instruction_offsets = [
+		0x0000,
+		0x0004,
+		0x0006,
+	];
+	let expected_reloc_infos = [];
+	const OPTIONS: u32 = BlockEncoderOptions::NONE;
+	encode_test(
+		BITNESS,
+		ORIG_RIP,
+		&original_data,
+		ORIG_RIP - 1,
+		&new_data,
+		OPTIONS,
+		DECODER_OPTIONS | DecoderOptions::AMD_BRANCHES,
+		&expected_instruction_offsets,
+		&expected_reloc_infos,
+	);
+}
+
+#[test]
 fn call_near_other_long() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let original_data = [

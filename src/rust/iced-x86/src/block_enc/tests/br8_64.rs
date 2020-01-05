@@ -189,6 +189,86 @@ fn br8_bwd() {
 }
 
 #[test]
+fn br8_fwd_os() {
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let original_data = [
+		/*0000*/ 0xB0, 0x00,// mov al,0
+		/*0002*/ 0x66, 0xE2, 0x29,// loopw 802Eh
+		/*0005*/ 0xB0, 0x01,// mov al,1
+		/*0007*/ 0x66, 0x67, 0xE2, 0x23,// loopw 802Eh
+		/*000B*/ 0xB0, 0x02,// mov al,2
+		/*000D*/ 0x66, 0xE1, 0x1E,// loopew 802Eh
+		/*0010*/ 0xB0, 0x03,// mov al,3
+		/*0012*/ 0x66, 0x67, 0xE1, 0x18,// loopew 802Eh
+		/*0016*/ 0xB0, 0x04,// mov al,4
+		/*0018*/ 0x66, 0xE0, 0x13,// loopnew 802Eh
+		/*001B*/ 0xB0, 0x05,// mov al,5
+		/*001D*/ 0x66, 0x67, 0xE0, 0x0D,// loopnew 802Eh
+		/*0021*/ 0xB0, 0x06,// mov al,6
+		/*0023*/ 0x66, 0x67, 0xE3, 0x07,// jcxz 802Eh
+		/*0027*/ 0xB0, 0x07,// mov al,7
+		/*0029*/ 0x66, 0xE3, 0x02,// jecxz 802Eh
+		/*002C*/ 0xB0, 0x08,// mov al,8
+		/*002E*/ 0x90,// nop
+	];
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let new_data = [
+		/*0000*/ 0xB0, 0x00,// mov al,0
+		/*0002*/ 0x66, 0xE2, 0x29,// loopw 802Dh
+		/*0005*/ 0xB0, 0x01,// mov al,1
+		/*0007*/ 0x66, 0x67, 0xE2, 0x23,// loopw 802Dh
+		/*000B*/ 0xB0, 0x02,// mov al,2
+		/*000D*/ 0x66, 0xE1, 0x1E,// loopew 802Dh
+		/*0010*/ 0xB0, 0x03,// mov al,3
+		/*0012*/ 0x66, 0x67, 0xE1, 0x18,// loopew 802Dh
+		/*0016*/ 0xB0, 0x04,// mov al,4
+		/*0018*/ 0x66, 0xE0, 0x13,// loopnew 802Dh
+		/*001B*/ 0xB0, 0x05,// mov al,5
+		/*001D*/ 0x66, 0x67, 0xE0, 0x0D,// loopnew 802Dh
+		/*0021*/ 0xB0, 0x06,// mov al,6
+		/*0023*/ 0x66, 0x67, 0xE3, 0x07,// jcxz 802Dh
+		/*0027*/ 0xB0, 0x07,// mov al,7
+		/*0029*/ 0x66, 0xE3, 0x02,// jecxz 802Dh
+		/*002C*/ 0xB0, 0x08,// mov al,8
+		/*002E*/ 0x90,// nop
+	];
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let expected_instruction_offsets = [
+		0x0000,
+		0x0002,
+		0x0005,
+		0x0007,
+		0x000B,
+		0x000D,
+		0x0010,
+		0x0012,
+		0x0016,
+		0x0018,
+		0x001B,
+		0x001D,
+		0x0021,
+		0x0023,
+		0x0027,
+		0x0029,
+		0x002C,
+		0x002E,
+	];
+	let expected_reloc_infos = [];
+	const OPTIONS: u32 = BlockEncoderOptions::NONE;
+	encode_test(
+		BITNESS,
+		ORIG_RIP,
+		&original_data,
+		ORIG_RIP - 1,
+		&new_data,
+		OPTIONS,
+		DECODER_OPTIONS | DecoderOptions::AMD_BRANCHES,
+		&expected_instruction_offsets,
+		&expected_reloc_infos,
+	);
+}
+
+#[test]
 fn br8_short_other_short() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let original_data = [

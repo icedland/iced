@@ -117,6 +117,88 @@ fn jmp_bwd() {
 }
 
 #[test]
+fn jmp_other_short_os() {
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let original_data = [
+		/*0000*/ 0xB0, 0x00,// mov al,0
+		/*0002*/ 0x66, 0xEB, 0x08,// jmp short 800Dh
+		/*0005*/ 0xB0, 0x01,// mov al,1
+		/*0007*/ 0x66, 0xE9, 0x02, 0x00,// jmp near ptr 800Dh
+		/*000B*/ 0xB0, 0x02,// mov al,2
+	];
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let new_data = [
+		/*0000*/ 0xB0, 0x00,// mov al,0
+		/*0002*/ 0x66, 0xEB, 0x09,// jmp short 800Dh
+		/*0005*/ 0xB0, 0x01,// mov al,1
+		/*0007*/ 0x66, 0xEB, 0x04,// jmp short 800Dh
+		/*000A*/ 0xB0, 0x02,// mov al,2
+	];
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let expected_instruction_offsets = [
+		0x0000,
+		0x0002,
+		0x0005,
+		0x0007,
+		0x000A,
+	];
+	let expected_reloc_infos = [];
+	const OPTIONS: u32 = BlockEncoderOptions::NONE;
+	encode_test(
+		BITNESS,
+		ORIG_RIP,
+		&original_data,
+		ORIG_RIP - 1,
+		&new_data,
+		OPTIONS,
+		DECODER_OPTIONS | DecoderOptions::AMD_BRANCHES,
+		&expected_instruction_offsets,
+		&expected_reloc_infos,
+	);
+}
+
+#[test]
+fn jmp_other_near_os() {
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let original_data = [
+		/*0000*/ 0xB0, 0x00,// mov al,0
+		/*0002*/ 0x66, 0xEB, 0x08,// jmp short 800Dh
+		/*0005*/ 0xB0, 0x01,// mov al,1
+		/*0007*/ 0x66, 0xE9, 0x02, 0x00,// jmp near ptr 800Dh
+		/*000B*/ 0xB0, 0x02,// mov al,2
+	];
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let new_data = [
+		/*0000*/ 0xB0, 0x00,// mov al,0
+		/*0002*/ 0x66, 0xE9, 0x07, 0xF0,// jmp near ptr 800Dh
+		/*0006*/ 0xB0, 0x01,// mov al,1
+		/*0008*/ 0x66, 0xE9, 0x01, 0xF0,// jmp near ptr 800Dh
+		/*000C*/ 0xB0, 0x02,// mov al,2
+	];
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let expected_instruction_offsets = [
+		0x0000,
+		0x0002,
+		0x0006,
+		0x0008,
+		0x000C,
+	];
+	let expected_reloc_infos = [];
+	const OPTIONS: u32 = BlockEncoderOptions::NONE;
+	encode_test(
+		BITNESS,
+		ORIG_RIP,
+		&original_data,
+		ORIG_RIP + 0x1000,
+		&new_data,
+		OPTIONS,
+		DECODER_OPTIONS | DecoderOptions::AMD_BRANCHES,
+		&expected_instruction_offsets,
+		&expected_reloc_infos,
+	);
+}
+
+#[test]
 fn jmp_other_short() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let original_data = [

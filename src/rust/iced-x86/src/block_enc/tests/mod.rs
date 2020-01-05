@@ -44,7 +44,7 @@ mod xbegin_16;
 mod xbegin_32;
 mod xbegin_64;
 
-const DECODER_OPTIONS: u32 = 0; // BlockEncoderOptions
+const DECODER_OPTIONS: u32 = 0; // DecoderOptions
 
 fn decode(bitness: u32, rip: u64, data: &[u8], options: u32) -> Vec<Instruction> {
 	let mut decoder = create_decoder(bitness, data, options).0;

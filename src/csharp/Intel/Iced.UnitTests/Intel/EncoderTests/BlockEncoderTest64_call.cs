@@ -130,6 +130,28 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			const ulong origRip = 0x123456789ABCDE00;
 			EncodeBase(bitness, origRip, originalData, newRip, newData, options, decoderOptions, expectedInstructionOffsets, expectedRelocInfos);
 		}
+
+		[Fact]
+		void Call_near_other_near_os() {
+			var originalData = new byte[] {
+				/*0000*/ 0x66, 0xE8, 0x07, 0x00,// call 800Bh
+				/*0004*/ 0xB0, 0x00,// mov al,0
+				/*0006*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
+			};
+			var newData = new byte[] {
+				/*0000*/ 0x66, 0xE8, 0x08, 0x00,// call 800Bh
+				/*0004*/ 0xB0, 0x00,// mov al,0
+				/*0006*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
+			};
+			var expectedInstructionOffsets = new uint[] {
+				0x0000,
+				0x0004,
+				0x0006,
+			};
+			var expectedRelocInfos = Array.Empty<RelocInfo>();
+			const BlockEncoderOptions options = BlockEncoderOptions.None;
+			EncodeBase(bitness, origRip, originalData, origRip - 1, newData, options, decoderOptions | DecoderOptions.AmdBranches, expectedInstructionOffsets, expectedRelocInfos);
+		}
 	}
 }
 #endif
