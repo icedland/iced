@@ -6,9 +6,21 @@ iced-x86
 
 TODO:
 
+## Crate features
+
+- `decoder`: (Enabled by default) Enables the decoder
+- `encoder`: (Enabled by default) Enables the encoder
+- `instr_info`: (Enabled by default) Enables the instruction info code
+- `all_formatters`: (Enabled by default) Enables all formatters
+- `gas_formatter`: (Enabled by default) Enables the gas (AT&T) formatter
+- `intel_formatter`: (Enabled by default) Enables the Intel (XED) formatter
+- `masm_formatter`: (Enabled by default) Enables the masm formatter
+- `nasm_formatter`: (Enabled by default) Enables the nasm formatter
+- `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
+
 ## Minimum supported `rustc` version
 
-iced-x86 supports `rustc` 1.20.0 or later.
+iced-x86 supports `rustc` `1.20.0` or later.
 This is checked in CI builds where the minimum supported version and the latest stable version are used to build the source code and run tests.
 
 If you use an older version of `rustc`, you may need to update the versions of some iced-x86 dependencies because `cargo` prefers to use the latest version which may not support your `rustc`.
@@ -25,8 +37,6 @@ cargo update --package lazy_static --precise 1.1.0
 The following are considered minor breaking changes. At least the minor version of iced-x86 will be incremented.
 
 - Bumping the minimum supported version of `rustc`
-- Adding a new enum item (eg. support new instructions)
-- Sorting enum items
-- Adding new APIs (can cause problems with `use iced_x86::*;`)
+- Adding new public APIs (can cause problems with `use iced_x86::*;`)
 
 TODO:
