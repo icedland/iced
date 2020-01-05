@@ -275,7 +275,7 @@ namespace Iced.Intel {
 					ops[i].Encode(this, instruction, i);
 
 				if ((handler.Flags & OpCodeHandlerFlags.Fwait) != 0)
-					WriteByte(0x9B);
+					WriteByteInternal(0x9B);
 
 				WritePrefixes(instruction);
 
@@ -283,11 +283,11 @@ namespace Iced.Intel {
 
 				var opCode = OpCode;
 				if (opCode <= 0x000000FF)
-					WriteByte(opCode);
+					WriteByteInternal(opCode);
 				else {
 					Debug.Assert(opCode <= 0x0000FFFF);
-					WriteByte(opCode >> 8);
-					WriteByte(opCode);
+					WriteByteInternal(opCode >> 8);
+					WriteByteInternal(opCode);
 				}
 
 				if ((EncoderFlags & (EncoderFlags.ModRM | EncoderFlags.Displ)) != 0)
@@ -947,27 +947,27 @@ namespace Iced.Intel {
 			var seg = instruction.SegmentPrefix;
 			if (seg != Register.None) {
 				Debug.Assert((uint)(seg - Register.ES) < (uint)segmentOverrides.Length);
-				WriteByte(segmentOverrides[seg - Register.ES]);
+				WriteByteInternal(segmentOverrides[seg - Register.ES]);
 			}
 			if ((EncoderFlags & EncoderFlags.PF0) != 0 || instruction.HasLockPrefix)
-				WriteByte(0xF0);
+				WriteByteInternal(0xF0);
 			if ((EncoderFlags & EncoderFlags.P66) != 0)
-				WriteByte(0x66);
+				WriteByteInternal(0x66);
 			if ((EncoderFlags & EncoderFlags.P67) != 0)
-				WriteByte(0x67);
+				WriteByteInternal(0x67);
 			if (instruction.Internal_HasRepePrefix_HasXreleasePrefix)
-				WriteByte(0xF3);
+				WriteByteInternal(0xF3);
 			if (instruction.Internal_HasRepnePrefix_HasXacquirePrefix)
-				WriteByte(0xF2);
+				WriteByteInternal(0xF2);
 		}
 
 		void WriteModRM() {
 			Debug.Assert((handler.Flags & OpCodeHandlerFlags.DeclareData) == 0);
 			Debug.Assert((EncoderFlags & (EncoderFlags.ModRM | EncoderFlags.Displ)) != 0);
 			if ((EncoderFlags & EncoderFlags.ModRM) != 0) {
-				WriteByte(ModRM);
+				WriteByteInternal(ModRM);
 				if ((EncoderFlags & EncoderFlags.Sib) != 0)
-					WriteByte(Sib);
+					WriteByteInternal(Sib);
 			}
 
 			uint diff4;
@@ -977,43 +977,43 @@ namespace Iced.Intel {
 				break;
 
 			case DisplSize.Size1:
-				WriteByte(Displ);
+				WriteByteInternal(Displ);
 				break;
 
 			case DisplSize.Size2:
 				diff4 = Displ;
-				WriteByte(diff4);
-				WriteByte(diff4 >> 8);
+				WriteByteInternal(diff4);
+				WriteByteInternal(diff4 >> 8);
 				break;
 
 			case DisplSize.Size4:
 				diff4 = Displ;
-				WriteByte(diff4);
-				WriteByte(diff4 >> 8);
-				WriteByte(diff4 >> 16);
-				WriteByte(diff4 >> 24);
+				WriteByteInternal(diff4);
+				WriteByteInternal(diff4 >> 8);
+				WriteByteInternal(diff4 >> 16);
+				WriteByteInternal(diff4 >> 24);
 				break;
 
 			case DisplSize.Size8:
 				diff4 = Displ;
-				WriteByte(diff4);
-				WriteByte(diff4 >> 8);
-				WriteByte(diff4 >> 16);
-				WriteByte(diff4 >> 24);
+				WriteByteInternal(diff4);
+				WriteByteInternal(diff4 >> 8);
+				WriteByteInternal(diff4 >> 16);
+				WriteByteInternal(diff4 >> 24);
 				diff4 = DisplHi;
-				WriteByte(diff4);
-				WriteByte(diff4 >> 8);
-				WriteByte(diff4 >> 16);
-				WriteByte(diff4 >> 24);
+				WriteByteInternal(diff4);
+				WriteByteInternal(diff4 >> 8);
+				WriteByteInternal(diff4 >> 16);
+				WriteByteInternal(diff4 >> 24);
 				break;
 
 			case DisplSize.RipRelSize4_Target32:
 				uint eip = (uint)currentRip + 4 + immSizes[(int)ImmSize];
 				diff4 = Displ - eip;
-				WriteByte(diff4);
-				WriteByte(diff4 >> 8);
-				WriteByte(diff4 >> 16);
-				WriteByte(diff4 >> 24);
+				WriteByteInternal(diff4);
+				WriteByteInternal(diff4 >> 8);
+				WriteByteInternal(diff4 >> 16);
+				WriteByteInternal(diff4 >> 24);
 				break;
 
 			case DisplSize.RipRelSize4_Target64:
@@ -1022,10 +1022,10 @@ namespace Iced.Intel {
 				if (diff8 < int.MinValue || diff8 > int.MaxValue)
 					ErrorMessage = $"RIP relative distance is too far away: NextIP: 0x{rip:X16} target: 0x{DisplHi:X8}{Displ:X8}, diff = {diff8}, diff must fit in an Int32";
 				diff4 = (uint)diff8;
-				WriteByte(diff4);
-				WriteByte(diff4 >> 8);
-				WriteByte(diff4 >> 16);
-				WriteByte(diff4 >> 24);
+				WriteByteInternal(diff4);
+				WriteByteInternal(diff4 >> 8);
+				WriteByteInternal(diff4 >> 16);
+				WriteByteInternal(diff4 >> 24);
 				break;
 
 			default:
@@ -1050,66 +1050,66 @@ namespace Iced.Intel {
 			case ImmSize.Size1:
 			case ImmSize.SizeIbReg:
 			case ImmSize.Size1OpCode:
-				WriteByte(Immediate);
+				WriteByteInternal(Immediate);
 				break;
 
 			case ImmSize.Size2:
 				value = Immediate;
-				WriteByte(value);
-				WriteByte(value >> 8);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
 				break;
 
 			case ImmSize.Size4:
 				value = Immediate;
-				WriteByte(value);
-				WriteByte(value >> 8);
-				WriteByte(value >> 16);
-				WriteByte(value >> 24);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
+				WriteByteInternal(value >> 16);
+				WriteByteInternal(value >> 24);
 				break;
 
 			case ImmSize.Size8:
 				value = Immediate;
-				WriteByte(value);
-				WriteByte(value >> 8);
-				WriteByte(value >> 16);
-				WriteByte(value >> 24);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
+				WriteByteInternal(value >> 16);
+				WriteByteInternal(value >> 24);
 				value = ImmediateHi;
-				WriteByte(value);
-				WriteByte(value >> 8);
-				WriteByte(value >> 16);
-				WriteByte(value >> 24);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
+				WriteByteInternal(value >> 16);
+				WriteByteInternal(value >> 24);
 				break;
 
 			case ImmSize.Size2_1:
 				value = Immediate;
-				WriteByte(value);
-				WriteByte(value >> 8);
-				WriteByte(ImmediateHi);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
+				WriteByteInternal(ImmediateHi);
 				break;
 
 			case ImmSize.Size1_1:
-				WriteByte(Immediate);
-				WriteByte(ImmediateHi);
+				WriteByteInternal(Immediate);
+				WriteByteInternal(ImmediateHi);
 				break;
 
 			case ImmSize.Size2_2:
 				value = Immediate;
-				WriteByte(value);
-				WriteByte(value >> 8);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
 				value = ImmediateHi;
-				WriteByte(value);
-				WriteByte(value >> 8);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
 				break;
 
 			case ImmSize.Size4_2:
 				value = Immediate;
-				WriteByte(value);
-				WriteByte(value >> 8);
-				WriteByte(value >> 16);
-				WriteByte(value >> 24);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
+				WriteByteInternal(value >> 16);
+				WriteByteInternal(value >> 24);
 				value = ImmediateHi;
-				WriteByte(value);
-				WriteByte(value >> 8);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
 				break;
 
 			case ImmSize.RipRelSize1_Target16:
@@ -1117,7 +1117,7 @@ namespace Iced.Intel {
 				diff2 = (short)((short)Immediate - (short)ip);
 				if (diff2 < sbyte.MinValue || diff2 > sbyte.MaxValue)
 					ErrorMessage = $"Branch distance is too far away: NextIP: 0x{ip:X4} target: 0x{(ushort)Immediate:X4}, diff = {diff2}, diff must fit in an Int8";
-				WriteByte((uint)diff2);
+				WriteByteInternal((uint)diff2);
 				break;
 
 			case ImmSize.RipRelSize1_Target32:
@@ -1125,7 +1125,7 @@ namespace Iced.Intel {
 				diff4 = (int)Immediate - (int)eip;
 				if (diff4 < sbyte.MinValue || diff4 > sbyte.MaxValue)
 					ErrorMessage = $"Branch distance is too far away: NextIP: 0x{eip:X8} target: 0x{Immediate:X8}, diff = {diff4}, diff must fit in an Int8";
-				WriteByte((uint)diff4);
+				WriteByteInternal((uint)diff4);
 				break;
 
 			case ImmSize.RipRelSize1_Target64:
@@ -1133,14 +1133,14 @@ namespace Iced.Intel {
 				diff8 = (long)(((ulong)ImmediateHi << 32) | (ulong)Immediate) - (long)rip;
 				if (diff8 < sbyte.MinValue || diff8 > sbyte.MaxValue)
 					ErrorMessage = $"Branch distance is too far away: NextIP: 0x{rip:X16} target: 0x{ImmediateHi:X8}{Immediate:X8}, diff = {diff8}, diff must fit in an Int8";
-				WriteByte((uint)diff8);
+				WriteByteInternal((uint)diff8);
 				break;
 
 			case ImmSize.RipRelSize2_Target16:
 				eip = (uint)currentRip + 2;
 				value = Immediate - eip;
-				WriteByte(value);
-				WriteByte(value >> 8);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
 				break;
 
 			case ImmSize.RipRelSize2_Target32:
@@ -1149,8 +1149,8 @@ namespace Iced.Intel {
 				if (diff4 < short.MinValue || diff4 > short.MaxValue)
 					ErrorMessage = $"Branch distance is too far away: NextIP: 0x{eip:X8} target: 0x{Immediate:X8}, diff = {diff4}, diff must fit in an Int16";
 				value = (uint)diff4;
-				WriteByte(value);
-				WriteByte(value >> 8);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
 				break;
 
 			case ImmSize.RipRelSize2_Target64:
@@ -1159,17 +1159,17 @@ namespace Iced.Intel {
 				if (diff8 < short.MinValue || diff8 > short.MaxValue)
 					ErrorMessage = $"Branch distance is too far away: NextIP: 0x{rip:X16} target: 0x{ImmediateHi:X8}{Immediate:X8}, diff = {diff8}, diff must fit in an Int16";
 				value = (uint)diff8;
-				WriteByte(value);
-				WriteByte(value >> 8);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
 				break;
 
 			case ImmSize.RipRelSize4_Target32:
 				eip = (uint)currentRip + 4;
 				value = Immediate - eip;
-				WriteByte(value);
-				WriteByte(value >> 8);
-				WriteByte(value >> 16);
-				WriteByte(value >> 24);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
+				WriteByteInternal(value >> 16);
+				WriteByteInternal(value >> 24);
 				break;
 
 			case ImmSize.RipRelSize4_Target64:
@@ -1178,10 +1178,10 @@ namespace Iced.Intel {
 				if (diff8 < int.MinValue || diff8 > int.MaxValue)
 					ErrorMessage = $"Branch distance is too far away: NextIP: 0x{rip:X16} target: 0x{ImmediateHi:X8}{Immediate:X8}, diff = {diff8}, diff must fit in an Int32";
 				value = (uint)diff8;
-				WriteByte(value);
-				WriteByte(value >> 8);
-				WriteByte(value >> 16);
-				WriteByte(value >> 24);
+				WriteByteInternal(value);
+				WriteByteInternal(value >> 8);
+				WriteByteInternal(value >> 16);
+				WriteByteInternal(value >> 24);
 				break;
 
 			default:
@@ -1189,8 +1189,15 @@ namespace Iced.Intel {
 			}
 		}
 
+		/// <summary>
+		/// Writes a byte to the output buffer
+		/// </summary>
+		/// <param name="value">Value to write</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal void WriteByte(uint value) {
+		public void WriteByte(byte value) => WriteByteInternal(value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal void WriteByteInternal(uint value) {
 			writer.WriteByte((byte)value);
 			currentRip++;
 		}

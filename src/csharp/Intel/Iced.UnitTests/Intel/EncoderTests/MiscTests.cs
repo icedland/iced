@@ -493,6 +493,17 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues())
 				Assert.Throws<ArgumentOutOfRangeException>(() => Code.Nopd.ToOpCode().IsAvailableInMode(bitness));
 		}
+
+		[Fact]
+		void WriteByte_works() {
+			var codeWriter = new CodeWriterImpl();
+			var encoder = Encoder.Create(64, codeWriter);
+			var instr = Instruction.Create(Code.Add_r64_rm64, Register.R8, Register.RBP);
+			encoder.WriteByte(0x90);
+			encoder.Encode(instr, 0x55555555);
+			encoder.WriteByte(0xCC);
+			Assert.Equal(new byte[] { 0x90, 0x4C, 0x03, 0xC5, 0xCC }, codeWriter.ToArray());
+		}
 	}
 }
 #endif

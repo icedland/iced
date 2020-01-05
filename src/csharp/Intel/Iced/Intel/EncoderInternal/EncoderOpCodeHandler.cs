@@ -87,7 +87,7 @@ namespace Iced.Intel.EncoderInternal {
 		public override void Encode(Encoder encoder, in Instruction instruction) {
 			int length = instruction.DeclareDataCount * elemLength;
 			for (int i = 0; i < length; i++)
-				encoder.WriteByte(instruction.GetDeclareByteValue(i));
+				encoder.WriteByteInternal(instruction.GetDeclareByteValue(i));
 		}
 	}
 
@@ -169,7 +169,7 @@ namespace Iced.Intel.EncoderInternal {
 		public override void Encode(Encoder encoder, in Instruction instruction) {
 			uint b;
 			if ((b = mandatoryPrefix) != 0)
-				encoder.WriteByte(b);
+				encoder.WriteByteInternal(b);
 
 			Static.Assert((int)EncoderFlags.B == 0x01 ? 0 : -1);
 			Static.Assert((int)EncoderFlags.X == 0x02 ? 0 : -1);
@@ -182,13 +182,13 @@ namespace Iced.Intel.EncoderInternal {
 				if ((encoder.EncoderFlags & EncoderFlags.HighLegacy8BitRegs) != 0)
 					encoder.ErrorMessage = "Registers AH, CH, DH, BH can't be used if there's a REX prefix. Use AL, CL, DL, BL, SPL, BPL, SIL, DIL, R8L-R15L instead.";
 				b |= 0x40;
-				encoder.WriteByte(b);
+				encoder.WriteByteInternal(b);
 			}
 
 			if ((b = tableByte1) != 0) {
-				encoder.WriteByte(b);
+				encoder.WriteByteInternal(b);
 				if ((b = tableByte2) != 0)
-					encoder.WriteByte(b);
+					encoder.WriteByteInternal(b);
 			}
 		}
 	}
@@ -274,7 +274,7 @@ namespace Iced.Intel.EncoderInternal {
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
 
 			if (encoder.PreventVEX2 || W1 || table != (uint)VexOpCodeTable.Table0F || (encoderFlags & (uint)(EncoderFlags.X | EncoderFlags.B | EncoderFlags.W)) != 0) {
-				encoder.WriteByte(0xC4);
+				encoder.WriteByteInternal(0xC4);
 				Static.Assert((int)VexOpCodeTable.Table0F == 1 ? 0 : -1);
 				Static.Assert((int)VexOpCodeTable.Table0F38 == 2 ? 0 : -1);
 				Static.Assert((int)VexOpCodeTable.Table0F3A == 3 ? 0 : -1);
@@ -283,16 +283,16 @@ namespace Iced.Intel.EncoderInternal {
 				Static.Assert((int)EncoderFlags.X == 2 ? 0 : -1);
 				Static.Assert((int)EncoderFlags.R == 4 ? 0 : -1);
 				b2 |= (~encoderFlags & 7) << 5;
-				encoder.WriteByte(b2);
+				encoder.WriteByteInternal(b2);
 				b |= mask_W_L & encoder.Internal_VEX_WIG_LIG;
-				encoder.WriteByte(b);
+				encoder.WriteByteInternal(b);
 			}
 			else {
-				encoder.WriteByte(0xC5);
+				encoder.WriteByteInternal(0xC5);
 				Static.Assert((int)EncoderFlags.R == 4 ? 0 : -1);
 				b |= (~encoderFlags & 4) << 5;
 				b |= mask_L & encoder.Internal_VEX_LIG;
-				encoder.WriteByte(b);
+				encoder.WriteByteInternal(b);
 			}
 		}
 	}
@@ -344,7 +344,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instruction) {
-			encoder.WriteByte(0x8F);
+			encoder.WriteByteInternal(0x8F);
 
 			uint encoderFlags = (uint)encoder.EncoderFlags;
 			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
@@ -357,10 +357,10 @@ namespace Iced.Intel.EncoderInternal {
 			Static.Assert((int)EncoderFlags.X == 2 ? 0 : -1);
 			Static.Assert((int)EncoderFlags.R == 4 ? 0 : -1);
 			b |= (~encoderFlags & 7) << 5;
-			encoder.WriteByte(b);
+			encoder.WriteByteInternal(b);
 			b = lastByte;
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
-			encoder.WriteByte(b);
+			encoder.WriteByteInternal(b);
 		}
 	}
 
@@ -594,7 +594,7 @@ namespace Iced.Intel.EncoderInternal {
 		public override void Encode(Encoder encoder, in Instruction instruction) {
 			uint encoderFlags = (uint)encoder.EncoderFlags;
 
-			encoder.WriteByte(0x62);
+			encoder.WriteByteInternal(0x62);
 
 			Static.Assert((int)EvexOpCodeTable.Table0F == 1 ? 0 : -1);
 			Static.Assert((int)EvexOpCodeTable.Table0F38 == 2 ? 0 : -1);
@@ -607,12 +607,12 @@ namespace Iced.Intel.EncoderInternal {
 			Static.Assert((int)EncoderFlags.R2 == 0x00000200 ? 0 : -1);
 			b |= (encoderFlags >> (9 - 4)) & 0x10;
 			b ^= ~0xFU;
-			encoder.WriteByte(b);
+			encoder.WriteByteInternal(b);
 
 			b = p1Bits;
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
 			b |= mask_W & encoder.Internal_EVEX_WIG;
-			encoder.WriteByte(b);
+			encoder.WriteByteInternal(b);
 
 			b = instruction.InternalOpMask;
 			if (b != 0 && (flags & EvexFlags.k1) == 0)
@@ -648,7 +648,7 @@ namespace Iced.Intel.EncoderInternal {
 			}
 			b ^= 8;
 			b |= mask_LL & encoder.Internal_EVEX_LIG;
-			encoder.WriteByte(b);
+			encoder.WriteByteInternal(b);
 		}
 	}
 
@@ -666,7 +666,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instruction) {
-			encoder.WriteByte(0x0F);
+			encoder.WriteByteInternal(0x0F);
 			encoder.ImmSize = ImmSize.Size1OpCode;
 			encoder.Immediate = immediate;
 		}

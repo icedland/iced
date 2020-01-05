@@ -1426,6 +1426,34 @@ impl Encoder {
 		}
 	}
 
+	/// Writes a byte to the output buffer
+	///
+	/// # Arguments
+	///
+	/// `value`: Value to write
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// let mut encoder = Encoder::new(64);
+	/// let instr = Instruction::with_reg_reg(Code::Add_r64_rm64, Register::R8, Register::RBP);
+	/// encoder.write_u8(0x90);
+	/// match encoder.encode(&instr, 0x5555_5555) {
+	///     Ok(len) => assert_eq!(3, len),
+	///     Err(err) => panic!("{}", err),
+	/// }
+	/// encoder.write_u8(0xCC);
+	/// // We're done, take ownership of the buffer
+	/// let buffer = encoder.take_buffer();
+	/// assert_eq!(vec![0x90, 0x4C, 0x03, 0xC5, 0xCC], buffer);
+	/// ```
+	#[inline]
+	pub fn write_u8(&mut self, value: u8) {
+		self.write_byte_internal(value as u32);
+	}
+
 	#[inline]
 	pub(crate) fn write_byte_internal(&mut self, value: u32) {
 		self.buffer.push(value as u8);

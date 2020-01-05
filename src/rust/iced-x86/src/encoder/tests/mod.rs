@@ -842,3 +842,13 @@ fn op_code_info_is_available_in_mode_panics_if_invalid_bitness_0() {
 fn op_code_info_is_available_in_mode_panics_if_invalid_bitness_128() {
 	let _ = Code::Nopd.op_code().is_available_in_mode(128);
 }
+
+#[test]
+fn write_byte_works() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with_reg_reg(Code::Add_r64_rm64, Register::R8, Register::RBP);
+	encoder.write_u8(0x90);
+	assert_eq!(3, encoder.encode(&instr, 0x5555_5555).unwrap());
+	encoder.write_u8(0xCC);
+	assert_eq!(vec![0x90, 0x4C, 0x03, 0xC5, 0xCC], encoder.take_buffer());
+}
