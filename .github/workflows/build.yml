@@ -101,6 +101,7 @@ jobs:
           export PATH="$HOME/.cargo/bin:$PATH"
           # It fails on Windows, disable auto self update
           rustup toolchain install 1.20.0 --no-self-update
+          rustup toolchain install nightly --no-self-update
           rustup update --no-self-update
 
       - name: Build, test (default)
@@ -116,6 +117,9 @@ jobs:
           cargo clippy --color always --tests
           echo ==== FORMAT CHECK ====
           cargo fmt -- --color always --check
+          echo ==== DOC ====
+          # Use nightly since that's what docs.rs uses
+          cargo +nightly doc
           echo ==== BUILD DEBUG ====
           cargo build --color always
           echo ==== TEST DEBUG ====
@@ -124,6 +128,8 @@ jobs:
           cargo build --color always --release
           echo ==== TEST RELEASE ====
           cargo test --color always --release
+          echo ==== PUBLISH DRY-RUN ====
+          cargo publish --color always --dry-run
 
       - name: Build, test (1.20.0)
         shell: bash
