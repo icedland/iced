@@ -867,7 +867,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		}
 	}
 
-	fn write_gpr_mem(&mut self, reg_size: u32) {
+	fn write_gpr_mem(&mut self, reg_size: usize) {
 		debug_assert!(!self.op_code.can_broadcast());
 		self.sb.push('r');
 		let mem_size = self.get_memory_size(false).size() * 8;

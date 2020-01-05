@@ -116,11 +116,11 @@ impl IntoIter {
 		let mut tc = RegisterInfoTestCase::default();
 		tc.line_number = line_number;
 		tc.register = to_register(elems[0])?;
-		tc.number = to_u32(elems[1])?;
+		tc.number = to_u32(elems[1])? as usize;
 		tc.base = to_register(elems[2])?;
 		tc.full_register = to_register(elems[3])?;
 		tc.full_register32 = to_register(elems[4])?;
-		tc.size = to_u32(elems[5])?;
+		tc.size = to_u32(elems[5])? as usize;
 		for value in elems[6].split_whitespace() {
 			if value.is_empty() {
 				continue;

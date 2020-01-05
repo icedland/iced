@@ -355,8 +355,8 @@ mod info {
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
-		pub fn number(&self) -> u32 {
-			(self.register - self.base) as u32
+		pub fn number(&self) -> usize {
+			(self.register - self.base) as usize
 		}
 
 		/// The full register that this one is a part of, eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `RCX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
@@ -443,8 +443,8 @@ mod info {
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
-		pub fn size(&self) -> u32 {
-			self.size as u32
+		pub fn size(&self) -> usize {
+			self.size as usize
 		}
 	}
 }
@@ -522,7 +522,7 @@ impl Register {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn number(self) -> u32 {
+	pub fn number(self) -> usize {
 		self.info().number()
 	}
 
@@ -610,7 +610,7 @@ impl Register {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn size(self) -> u32 {
+	pub fn size(self) -> usize {
 		self.info().size()
 	}
 

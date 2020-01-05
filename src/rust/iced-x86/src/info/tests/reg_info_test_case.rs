@@ -27,10 +27,10 @@ use super::super::super::*;
 pub(crate) struct RegisterInfoTestCase {
 	pub line_number: u32,
 	pub register: Register,
-	pub number: u32,
+	pub number: usize,
 	pub base: Register,
 	pub full_register: Register,
 	pub full_register32: Register,
-	pub size: u32,
+	pub size: usize,
 	pub flags: u32, // RegisterFlags
 }

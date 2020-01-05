@@ -224,8 +224,8 @@ mod info {
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
-		pub fn size(&self) -> u32 {
-			self.size as u32
+		pub fn size(&self) -> usize {
+			self.size as usize
 		}
 
 		/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to [`size()`].
@@ -245,8 +245,8 @@ mod info {
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
-		pub fn element_size(&self) -> u32 {
-			self.element_size as u32
+		pub fn element_size(&self) -> usize {
+			self.element_size as usize
 		}
 
 		/// Gets the element type if it's packed data or the type itself if it's not packed data
@@ -364,12 +364,12 @@ mod info {
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
 		#[inline]
-		pub fn element_count(&self) -> u32 {
+		pub fn element_count(&self) -> usize {
 			// element_size can be 0 so we don't divide by it if es == s
 			if self.element_size == self.size {
 				1
 			} else {
-				self.size as u32 / self.element_size as u32
+				self.size as usize / self.element_size as usize
 			}
 		}
 	}
@@ -839,7 +839,7 @@ impl MemorySize {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn size(self) -> u32 {
+	pub fn size(self) -> usize {
 		self.info().size()
 	}
 
@@ -857,7 +857,7 @@ impl MemorySize {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn element_size(self) -> u32 {
+	pub fn element_size(self) -> usize {
 		self.info().element_size()
 	}
 
@@ -941,7 +941,7 @@ impl MemorySize {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn element_count(self) -> u32 {
+	pub fn element_count(self) -> usize {
 		self.info().element_count()
 	}
 }

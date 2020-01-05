@@ -109,10 +109,10 @@ impl IntoIter {
 		let mut tc = MemorySizeInfoTestCase::default();
 		tc.line_number = line_number;
 		tc.memory_size = to_memory_size(elems[0])?;
-		tc.size = to_u32(elems[1])?;
-		tc.element_size = to_u32(elems[2])?;
+		tc.size = to_u32(elems[1])? as usize;
+		tc.element_size = to_u32(elems[2])? as usize;
 		tc.element_type = to_memory_size(elems[3])?;
-		tc.element_count = to_u32(elems[4])?;
+		tc.element_count = to_u32(elems[4])? as usize;
 		for value in elems[5].split_whitespace() {
 			if value.is_empty() {
 				continue;

@@ -27,9 +27,9 @@ use super::super::super::*;
 pub(crate) struct MemorySizeInfoTestCase {
 	pub line_number: u32,
 	pub memory_size: MemorySize,
-	pub size: u32,
-	pub element_size: u32,
+	pub size: usize,
+	pub element_size: usize,
 	pub element_type: MemorySize,
-	pub element_count: u32,
+	pub element_count: usize,
 	pub flags: u32, // MemorySizeFlags
 }
