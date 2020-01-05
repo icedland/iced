@@ -197,99 +197,6 @@ impl Encoder {
 		}
 	}
 
-	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn prevent_vex2(&self) -> bool {
-		self.prevent_vex2
-	}
-
-	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
-	///
-	/// # Arguments
-	///
-	/// * `new_value`: new value
-	#[inline]
-	pub fn set_prevent_vex2(&mut self, new_value: bool) {
-		self.prevent_vex2 = new_value;
-	}
-
-	/// Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn vex_wig(&self) -> u32 {
-		(self.internal_vex_wig_lig >> 7) & 1
-	}
-
-	/// Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
-	///
-	/// # Arguments
-	///
-	/// * `new_value`: new value (0 or 1)
-	#[inline]
-	pub fn set_vex_wig(&mut self, new_value: u32) {
-		self.internal_vex_wig_lig = (self.internal_vex_wig_lig & !0x80) | ((new_value & 1) << 7);
-	}
-
-	/// Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0.
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn vex_lig(&self) -> u32 {
-		(self.internal_vex_wig_lig >> 2) & 1
-	}
-
-	/// Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0.
-	///
-	/// # Arguments
-	///
-	/// * `new_value`: new value (0 or 1)
-	#[inline]
-	pub fn set_vex_lig(&mut self, new_value: u32) {
-		self.internal_vex_wig_lig = (self.internal_vex_wig_lig & !4) | ((new_value & 1) << 2);
-		self.internal_vex_lig = (new_value & 1) << 2;
-	}
-
-	/// Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn evex_wig(&self) -> u32 {
-		self.internal_evex_wig >> 7
-	}
-
-	/// Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
-	///
-	/// # Arguments
-	///
-	/// * `new_value`: new value (0 or 1)
-	#[inline]
-	pub fn set_evex_wig(&mut self, new_value: u32) {
-		self.internal_evex_wig = (new_value & 1) << 7;
-	}
-
-	/// Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0.
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn evex_lig(&self) -> u32 {
-		self.internal_evex_lig >> 5
-	}
-
-	/// Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0.
-	///
-	/// # Arguments
-	///
-	/// * `new_value`: new value (0 or 3)
-	#[inline]
-	pub fn set_evex_lig(&mut self, new_value: u32) {
-		self.internal_evex_lig = (new_value & 3) << 5
-	}
-
-	/// Gets the bitness (16, 32 or 64)
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn bitness(&self) -> u32 {
-		self.bitness
-	}
-
 	/// Encodes an instruction and returns the size of the encoded instruction or an error
 	/// if it failed to encode it.
 	///
@@ -1572,5 +1479,98 @@ impl Encoder {
 		}
 
 		co
+	}
+
+	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn prevent_vex2(&self) -> bool {
+		self.prevent_vex2
+	}
+
+	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: new value
+	#[inline]
+	pub fn set_prevent_vex2(&mut self, new_value: bool) {
+		self.prevent_vex2 = new_value;
+	}
+
+	/// Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn vex_wig(&self) -> u32 {
+		(self.internal_vex_wig_lig >> 7) & 1
+	}
+
+	/// Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: new value (0 or 1)
+	#[inline]
+	pub fn set_vex_wig(&mut self, new_value: u32) {
+		self.internal_vex_wig_lig = (self.internal_vex_wig_lig & !0x80) | ((new_value & 1) << 7);
+	}
+
+	/// Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn vex_lig(&self) -> u32 {
+		(self.internal_vex_wig_lig >> 2) & 1
+	}
+
+	/// Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0.
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: new value (0 or 1)
+	#[inline]
+	pub fn set_vex_lig(&mut self, new_value: u32) {
+		self.internal_vex_wig_lig = (self.internal_vex_wig_lig & !4) | ((new_value & 1) << 2);
+		self.internal_vex_lig = (new_value & 1) << 2;
+	}
+
+	/// Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn evex_wig(&self) -> u32 {
+		self.internal_evex_wig >> 7
+	}
+
+	/// Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: new value (0 or 1)
+	#[inline]
+	pub fn set_evex_wig(&mut self, new_value: u32) {
+		self.internal_evex_wig = (new_value & 1) << 7;
+	}
+
+	/// Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn evex_lig(&self) -> u32 {
+		self.internal_evex_lig >> 5
+	}
+
+	/// Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0.
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: new value (0 or 3)
+	#[inline]
+	pub fn set_evex_lig(&mut self, new_value: u32) {
+		self.internal_evex_lig = (new_value & 3) << 5
+	}
+
+	/// Gets the bitness (16, 32 or 64)
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn bitness(&self) -> u32 {
+		self.bitness
 	}
 }
