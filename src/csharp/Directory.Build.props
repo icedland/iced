@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <Copyright>Copyright (C) 2018-2019 de4dot@gmail.com</Copyright>
+    <Copyright>Copyright (C) 2018-2020 de4dot@gmail.com</Copyright>
     <Version>1.4.0</Version>
     <Authors>0xd4d</Authors>
     <InformationalVersion>$(Version)</InformationalVersion>
