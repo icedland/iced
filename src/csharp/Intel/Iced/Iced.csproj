@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0;net45</TargetFrameworks>
 
-    <Description>x86/x64 disassembler, decoder, encoder</Description>
+    <Description>x86/x64 disassembler, assembler, instruction decoder</Description>
     <Title>$(Description)</Title>
     <AssemblyTitle>Iced</AssemblyTitle>
     <AssemblyName>Iced</AssemblyName>
@@ -21,7 +21,7 @@
 
     <!-- From the README -->
     <PackageDescription>
-High performance x86 (16/32/64-bit) instruction decoder, encoder and disassembler.
+High performance x86 (16/32/64-bit) instruction decoder, disassembler and assembler.
 It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
 
 - Supports all Intel and AMD instructions

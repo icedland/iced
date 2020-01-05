@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-//! iced-x86 is an x86/x64 disassembler, decoder, encoder written in Rust
+//! iced-x86 is an x86/x64 disassembler, assembler and instruction decoder written in Rust
 
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
 #![doc(html_root_url = "https://docs.rs/iced-x86/0.0.0")]
