@@ -138,7 +138,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			Assert.Equal(testCase.StackPointerIncrement, instr.StackPointerIncrement);
 
-			var info = instr.GetInfo();
+			var info = new InstructionInfoFactory().GetInfo(instr);
 			Assert.Equal(testCase.Encoding, info.Encoding);
 			Assert.Equal(testCase.CpuidFeatures, info.CpuidFeatures);
 			Assert.Equal(testCase.RflagsRead, info.RflagsRead);
@@ -162,8 +162,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(
 				new HashSet<UsedRegister>(GetUsedRegisters(testCase.UsedRegisters), UsedRegisterEqualityComparer.Instance),
 				new HashSet<UsedRegister>(GetUsedRegisters(info.GetUsedRegisters()), UsedRegisterEqualityComparer.Instance));
-			Assert.Equal(info.GetUsedMemory(), instr.GetUsedMemory(), UsedMemoryEqualityComparer.Instance);
-			Assert.Equal(info.GetUsedRegisters(), instr.GetUsedRegisters(), UsedRegisterEqualityComparer.Instance);
 
 			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 			Debug.Assert(instr.OpCount <= IcedConstants.MaxOpCount);
@@ -202,24 +200,13 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(RflagsBits.None, info.RflagsUndefined & (info.RflagsWritten | info.RflagsCleared | info.RflagsSet));
 			Assert.Equal(info.RflagsWritten | info.RflagsCleared | info.RflagsSet | info.RflagsUndefined, info.RflagsModified);
 
-			var info2 = new InstructionInfoFactory().GetInfo(instr);
-			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: true);
-			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.None);
+			var info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.None);
 			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: true);
 			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoMemoryUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: false);
 			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoRegisterUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: true);
 			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoRegisterUsage | InstructionInfoOptions.NoMemoryUsage);
-			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: false);
-
-			info2 = instr.GetInfo(InstructionInfoOptions.None);
-			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: true);
-			info2 = instr.GetInfo(InstructionInfoOptions.NoMemoryUsage);
-			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: false);
-			info2 = instr.GetInfo(InstructionInfoOptions.NoRegisterUsage);
-			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: true);
-			info2 = instr.GetInfo(InstructionInfoOptions.NoRegisterUsage | InstructionInfoOptions.NoMemoryUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: false);
 
 			Assert.Equal(info.Encoding, instr.Code.Encoding());

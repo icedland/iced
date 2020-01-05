@@ -161,7 +161,8 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 
 	assert_eq!(tc.stack_pointer_increment, instr.stack_pointer_increment());
 
-	let info = instr.info();
+	let mut factory1 = InstructionInfoFactory::new();
+	let info = factory1.info(&instr);
 	assert_eq!(tc.encoding, info.encoding());
 	assert_eq!(tc.cpuid_features, info.cpuid_features());
 	assert_eq!(tc.rflags_read, info.rflags_read());
@@ -181,8 +182,6 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(tc.op4_access, info.op4_access());
 	assert!(tc.used_memory.iter().collect::<HashSet<_>>() == info.used_memory().iter().collect::<HashSet<_>>());
 	assert_eq!(get_used_registers(tc.used_registers.iter()), get_used_registers(info.used_registers().iter()));
-	assert_eq!(info.used_memory(), instr.used_memory().as_slice());
-	assert_eq!(info.used_registers(), instr.used_registers().as_slice());
 
 	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 	assert!(instr.op_count() <= IcedConstants::MAX_OP_COUNT as u32);
@@ -206,9 +205,6 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(RflagsBits::NONE, info.rflags_undefined() & (info.rflags_written() | info.rflags_cleared() | info.rflags_set()));
 	assert_eq!(info.rflags_written() | info.rflags_cleared() | info.rflags_set() | info.rflags_undefined(), info.rflags_modified());
 
-	let mut factory2 = InstructionInfoFactory::new();
-	let info2 = factory2.info(&instr);
-	check_equal(&info, info2, true, true);
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NONE);
 	check_equal(&info, info2, true, true);
@@ -242,15 +238,6 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 		let info2 = factory.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE);
 		check_equal(&info, info2, false, false);
 	}
-
-	let info2 = instr.info_options(InstructionInfoOptions::NONE);
-	check_equal(&info, &info2, true, true);
-	let info2 = instr.info_options(InstructionInfoOptions::NO_MEMORY_USAGE);
-	check_equal(&info, &info2, true, false);
-	let info2 = instr.info_options(InstructionInfoOptions::NO_REGISTER_USAGE);
-	check_equal(&info, &info2, false, true);
-	let info2 = instr.info_options(InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE);
-	check_equal(&info, &info2, false, false);
 
 	assert_eq!(info.encoding(), instr.code().encoding());
 	#[cfg(feature = "encoder")]

@@ -133,8 +133,7 @@ namespace Iced.Intel {
 #if !NO_INSTR_INFO
 		/// <summary>
 		/// Returns the operand access but only if it's an operand added by the formatter. If it's an
-		/// operand that is part of <see cref="Instruction"/>, you should call eg.
-		/// <see cref="Instruction.GetInfo()"/> or <see cref="InstructionInfoFactory.GetInfo(in Instruction)"/>.
+		/// operand that is part of <see cref="Instruction"/>, you should call eg. <see cref="InstructionInfoFactory.GetInfo(in Instruction)"/>.
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="operand">Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.

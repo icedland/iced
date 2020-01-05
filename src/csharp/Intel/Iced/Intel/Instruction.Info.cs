@@ -202,59 +202,6 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
-		/// 
-		/// Gets instruction info such as which register is accessed etc.
-		/// </summary>
-		/// <returns></returns>
-		public readonly InstructionInfo GetInfo() {
-			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
-			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
-			return InstructionInfoFactory.Create(this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.None);
-		}
-
-		/// <summary>
-		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
-		/// 
-		/// Gets instruction info such as which register is accessed etc.
-		/// </summary>
-		/// <param name="options">Options</param>
-		/// <returns></returns>
-		public readonly InstructionInfo GetInfo(InstructionInfoOptions options) {
-			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
-			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
-			return InstructionInfoFactory.Create(this, ref usedRegisters, ref usedMemoryLocations, options);
-		}
-
-		/// <summary>
-		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
-		/// 
-		/// Gets a struct iterator that returns all accessed registers. There are some exceptions, this method doesn't return all used registers:
-		/// 
-		/// 1) If <see cref="IsSaveRestoreInstruction"/> is <see langword="true"/>, or
-		/// 
-		/// 2) If it's a <see cref="FlowControl.Call"/> or <see cref="FlowControl.Interrupt"/> instruction (call, sysenter, int n etc), it can read and write any register (including RFLAGS).
-		/// </summary>
-		/// <returns></returns>
-		public readonly InstructionInfo.UsedRegisterIterator GetUsedRegisters() {
-			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
-			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
-			return InstructionInfoFactory.Create(this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.NoMemoryUsage).GetUsedRegisters();
-		}
-
-		/// <summary>
-		/// (This method allocates and is slower than using an <see cref="InstructionInfoFactory"/>.)
-		/// 
-		/// Gets a struct iterator that returns all accessed memory locations
-		/// </summary>
-		/// <returns></returns>
-		public readonly InstructionInfo.UsedMemoryIterator GetUsedMemory() {
-			var usedRegisters = InstructionInfoInternal.SimpleList<UsedRegister>.Empty;
-			var usedMemoryLocations = InstructionInfoInternal.SimpleList<UsedMemory>.Empty;
-			return InstructionInfoFactory.Create(this, ref usedRegisters, ref usedMemoryLocations, InstructionInfoOptions.NoRegisterUsage).GetUsedMemory();
-		}
-
-		/// <summary>
 		/// Instruction encoding, eg. legacy, VEX, EVEX, ...
 		/// </summary>
 		public readonly EncodingKind Encoding {

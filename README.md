@@ -56,7 +56,6 @@ Encoder:
 
 Instruction info:
 
-- `Instruction.GetInfo()`
 - `InstructionInfo`
 - `InstructionInfoFactory`
 - `InstructionInfoExtensions`
@@ -534,8 +533,7 @@ Disassembled code:
             // For PERF, use a factory to create the instruction info if you need register
             // and memory usage. If it's something else, eg. encoding, flags, etc, there
             // are properties on Instruction that can be used instead that don't allocate.
-            // The factory only allocates once and reuses the internal arrays; calling
-            // Instruction.GetInfo() allocates every single call.
+            // The factory only allocates once and reuses the internal arrays
             var instrInfoFactory = new InstructionInfoFactory();
             while (decoder.IP < endRip) {
                 decoder.Decode(out var instr);

@@ -2482,39 +2482,6 @@ impl Instruction {
 		}
 	}
 
-	// InstructionInfoFactory should be used, these are slower so they're only enabled for the tests
-	#[cfg(test)]
-	#[inline]
-	pub(crate) fn info(&self) -> InstructionInfo {
-		self.info_options(0)
-	}
-
-	#[cfg(test)]
-	#[inline]
-	pub(crate) fn info_options(&self, options: u32) -> InstructionInfo {
-		let mut info = InstructionInfo::new(options);
-		let _ = super::info::InstructionInfoFactory::create(&mut info, self, options);
-		info
-	}
-
-	#[cfg(test)]
-	#[inline]
-	pub(crate) fn used_registers(&self) -> Vec<UsedRegister> {
-		const OPTIONS: u32 = 0;
-		let mut info = InstructionInfo::new(OPTIONS);
-		let _ = super::info::InstructionInfoFactory::create(&mut info, self, OPTIONS);
-		info.used_registers
-	}
-
-	#[cfg(test)]
-	#[inline]
-	pub(crate) fn used_memory(&self) -> Vec<UsedMemory> {
-		const OPTIONS: u32 = 0;
-		let mut info = InstructionInfo::new(OPTIONS);
-		let _ = super::info::InstructionInfoFactory::create(&mut info, self, OPTIONS);
-		info.used_memory_locations
-	}
-
 	/// Instruction encoding, eg. legacy, VEX, EVEX, ...
 	///
 	/// # Examples
