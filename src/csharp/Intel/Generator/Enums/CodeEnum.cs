@@ -4251,6 +4251,10 @@ namespace Generator.Enums {
 		public static readonly EnumType Instance = new EnumType(TypeIds.Code, documentation, GetValues(), EnumTypeFlags.Public);
 
 		internal static void AddComments(string unitTestDir) {
+			// It must have value 0
+			if (Instance[nameof(Code.INVALID)].Value != 0)
+				throw new InvalidOperationException();
+
 			var docs = new Dictionary<string, string>(StringComparer.Ordinal);
 			bool checkedIt = false;
 			const char sepChar = '|';

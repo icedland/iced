@@ -30,13 +30,6 @@ using Xunit;
 namespace Iced.UnitTests.Intel.InstructionTests {
 	public sealed class InstructionTests_Misc {
 		[Fact]
-		void Register_is_not_too_big() {
-			const int maxValue = IcedConstants.NumberOfRegisters - 1;
-			Static.Assert(maxValue < (1 << IcedConstants.RegisterBits) ? 0 : -1);
-			Static.Assert(maxValue >= (1 << (IcedConstants.RegisterBits - 1)) ? 0 : -1);
-		}
-
-		[Fact]
 		void INVALID_Code_value_is_zero() {
 			// A 'default' Instruction should be an invalid instruction
 			Static.Assert((int)Code.INVALID == 0 ? 0 : -1);
@@ -58,6 +51,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.False(Instruction.EqualsAllBits(instr1, instr2));
 			instr1.Length = 10;
 			instr2.Length = 5;
+			instr1.IP = 0x97333795FA7CEAAB;
+			instr2.IP = 0x9BE5A3A07A66FC05;
+			Assert.True(instr1 == instr2);
 			Assert.True(instr1.Equals(instr2));
 			Assert.True(instr1.Equals(ToObject(instr2)));
 			Assert.Equal(instr1, instr2);
@@ -501,16 +497,16 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			}
 
 			instr.MemoryBase = Register.EIP;
-			instr.NextIP = 0x123456701EDCBA98;
+			instr.NextIP = 0x123456709EDCBA98;
 			instr.MemoryDisplacement = 0x87654321;
 			Assert.True(instr.IsIPRelativeMemoryOperand);
-			Assert.Equal(0xA641FDB9UL, instr.IPRelativeMemoryAddress);
+			Assert.Equal(0x2641FDB9UL, instr.IPRelativeMemoryAddress);
 
 			instr.MemoryBase = Register.RIP;
-			instr.NextIP = 0x123456701EDCBA98;
+			instr.NextIP = 0x123456709EDCBA98;
 			instr.MemoryDisplacement = 0x87654321;
 			Assert.True(instr.IsIPRelativeMemoryOperand);
-			Assert.Equal(0x1234566FA641FDB9UL, instr.IPRelativeMemoryAddress);
+			Assert.Equal(0x123456702641FDB9UL, instr.IPRelativeMemoryAddress);
 
 			instr.DeclareDataCount = 1;
 			Assert.Equal(1, instr.DeclareDataCount);

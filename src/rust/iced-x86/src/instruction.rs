@@ -101,6 +101,8 @@ pub struct Instruction {
 	pub(crate) reg2: u8,          // Register
 	pub(crate) reg3: u8,          // Register
 }
+// All fields, size: 32 bytes with bits to spare
+pub(crate) const INSTRUCTION_TOTAL_SIZE: usize = 32;
 
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::len_without_is_empty))]
 impl Instruction {

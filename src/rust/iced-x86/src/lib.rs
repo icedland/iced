@@ -99,6 +99,8 @@ mod mnemonic;
 mod mnemonics;
 mod register;
 #[cfg(test)]
+mod test;
+#[cfg(test)]
 pub(crate) mod test_utils;
 
 #[cfg(feature = "encoder")]
