@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using Generator.Encoder;
 using Generator.Enums;
@@ -59,6 +60,7 @@ namespace Generator.Extended.CSharp {
 							renderArgs.Clear();
 
 							int argDispatchIndex = -1;
+							int rmArgIndex = -1;
 
 							var signature = group.Signature;
 							for (int i = 0; i < signature.ArgCount; i++) {
@@ -74,15 +76,15 @@ namespace Generator.Extended.CSharp {
 									if (argDispatchIndex < 0) {
 										argDispatchIndex = i;
 									}
+
+									if (rmArgIndex < 0) {
+										rmArgIndex = i;
+									}
 									argType = "ExtendedMemoryOperand";
 									break;
 								case ArgKind.Immediate:
 									argName = $"im{i}";
-									argType = "long";
-									break;
-								case ArgKind.Immediate8:
-									argName = $"im{i}";
-									argType = "byte";
+									argType = group.MaxImmediateSize < 8 ? group.MaxImmediateSize == 1 ? "byte" : "int" : "long";
 									break;
 								default:
 									throw new ArgumentOutOfRangeException();
@@ -91,7 +93,8 @@ namespace Generator.Extended.CSharp {
 								renderArgs.Add(new RenderArg(argName, argType, argKind));
 							}
 
-							writer.Write($"public void {group.Name}(");
+							var methodName = Converter.Method(group.Name);
+							writer.Write($"public void {methodName}(");
 							for (var i = 0; i < renderArgs.Count; i++) {
 								var renderArg = renderArgs[i];
 								if (i > 0) writer.Write(", ");
@@ -103,10 +106,38 @@ namespace Generator.Extended.CSharp {
 								writer.WriteLine("Code op;");
 
 								if (argDispatchIndex >= 0) {
-									GenerateOpCodeSelectorFromRegisterOrMemory(writer, group, renderArgs[argDispatchIndex], argDispatchIndex);
+									GenerateOpCodeSelectorFromRegisterOrMemory(writer, group, renderArgs[argDispatchIndex], argDispatchIndex, methodName, rmArgIndex >= 0 ? renderArgs[rmArgIndex] : default, rmArgIndex);
 								}
 								else {
-									writer.WriteLine($"op = Code.{group.Items[0].Code.Name(Converter)};");
+									if (group.Items.Count == 1) {
+										writer.WriteLine($"op = Code.{group.Items[0].Code.Name(Converter)};");
+									}
+									else {
+										bool isFirst = true;
+										bool has64 = false;
+										for (int i = group.Items.Count - 1; i >=0; i--) {
+											var opcode = group.Items[i];
+											if (opcode is LegacyOpCodeInfo legacy) {
+												if (!isFirst) writer.Write(" else ");
+												isFirst = false;
+												if (i == 0) {
+													writer.WriteLine("{");
+												}
+												else {
+													var bitness = legacy.OperandSize == OperandSize.Size16 ||
+													              legacy.AddressSize == AddressSize.Size16 ? 16 : legacy.OperandSize == OperandSize.Size32  || 
+													                                                              legacy.AddressSize == AddressSize.Size32 ? 32 : 64;
+													if (bitness == 64) has64 = true;
+													writer.WriteLine($"if (Bitness {(has64 ? "==" : ">=")} {bitness}) {{");
+												}
+												using (writer.Indent()) {
+													writer.WriteLine($"op = Code.{opcode.Code.Name(Converter)};");
+												}
+												writer.Write("}");
+											}
+										}
+										writer.WriteLine();
+									}
 								}
 
 								writer.Write("AddInstruction(Instruction.Create(op");
@@ -143,7 +174,7 @@ namespace Generator.Extended.CSharp {
 			public ArgKind Kind;
 		}
 
-		void GenerateOpCodeSelectorFromRegisterOrMemory(FileWriter writer, OpCodeInfoGroup group, RenderArg arg, int argIndex) {
+		void GenerateOpCodeSelectorFromRegisterOrMemory(FileWriter writer, OpCodeInfoGroup group, RenderArg arg, int argIndex, string methodName, RenderArg rmArg, int rmIndex) {
 			bool isFirst = true;
 
 			var regName = arg.Name;
@@ -153,15 +184,46 @@ namespace Generator.Extended.CSharp {
 			// Order by priority
 			group.Items.Sort(OrderByOpCodePriorityOp1);
 
-			foreach (var item in group.Items) {
+			for (var i = 0; i < @group.Items.Count; i++) {
+				var item = @group.Items[i];
 				if (item is LegacyOpCodeInfo legacy) {
 					var opKind = legacy.OpKinds[argIndex];
 					if (!isFirst) {
 						writer.Write(" else ");
 					}
-					isFirst = false;
-					switch (legacy.OpKinds[0]) {
 
+					// Check if we need a disambiguation from another parameter (handling only rm for now)
+					bool requiresRmToDisambiguate = false;
+					string legacyRmSize = null;
+					if (legacy.OperandSize != OperandSize.None && rmIndex >= 0) {
+						for (int j = 0; j < group.Items.Count; j++) {
+							if (i == j) continue;
+							var nearItem = group.Items[j];
+							if (nearItem is LegacyOpCodeInfo nearLegacy && nearLegacy.OpKinds[argIndex] == legacy.OpKinds[argIndex]) {
+								requiresRmToDisambiguate = nearLegacy.OpKinds[rmIndex] != legacy.OpKinds[rmIndex] ;
+								if (requiresRmToDisambiguate) {
+									switch (GetSizeFromKind(legacy.OpKinds[rmIndex])) {
+									case 1:
+										legacyRmSize = "BytePtr";
+										break;
+									case 2:
+										legacyRmSize = "WordPtr";
+										break;
+									case 4:
+										legacyRmSize = "DwordPtr";
+										break;
+									default:
+										legacyRmSize = "QwordPtr";
+										break;
+									}
+									break;
+								}
+							}
+						}
+					}
+
+					isFirst = false;
+					switch (legacy.OpKinds[argIndex]) {
 					case LegacyOpKind.AL:
 					case LegacyOpKind.AX:
 					case LegacyOpKind.EAX:
@@ -170,6 +232,7 @@ namespace Generator.Extended.CSharp {
 						using (writer.Indent()) {
 							writer.WriteLine($"op = Code.{legacy.Code.Name(Converter)};");
 						}
+
 						writer.WriteLine("}");
 						break;
 					case LegacyOpKind.r8_rb:
@@ -185,6 +248,7 @@ namespace Generator.Extended.CSharp {
 						using (writer.Indent()) {
 							writer.WriteLine($"op = Code.{legacy.Code.Name(Converter)};");
 						}
+
 						writer.Write("}");
 						break;
 					case LegacyOpKind.r16_rw:
@@ -194,12 +258,18 @@ namespace Generator.Extended.CSharp {
 							writer.WriteLine($"if ({regName}.Size == MemoryOperandSize.WordPtr) {{");
 						}
 						else {
-							writer.WriteLine($"if ({regName}.IsGPR16()) {{");
+							if (requiresRmToDisambiguate) {
+								writer.WriteLine($"if ({regName}.IsGPR16() && {rmArg.Name}.Size == MemoryOperandSize.{legacyRmSize}) {{");
+							}
+							else {
+								writer.WriteLine($"if ({regName}.IsGPR16()) {{");
+							}
 						}
 
 						using (writer.Indent()) {
 							writer.WriteLine($"op = Code.{legacy.Code.Name(Converter)};");
 						}
+
 						writer.Write("}");
 						break;
 					case LegacyOpKind.r32_rd:
@@ -209,12 +279,18 @@ namespace Generator.Extended.CSharp {
 							writer.WriteLine($"if ({regName}.Size == MemoryOperandSize.DwordPtr) {{");
 						}
 						else {
-							writer.WriteLine($"if ({regName}.IsGPR32()) {{");
+							if (requiresRmToDisambiguate) {
+								writer.WriteLine($"if ({regName}.IsGPR32() && {rmArg.Name}.Size == MemoryOperandSize.{legacyRmSize}) {{");
+							}
+							else {
+								writer.WriteLine($"if ({regName}.IsGPR32()) {{");
+							}
 						}
 
 						using (writer.Indent()) {
 							writer.WriteLine($"op = Code.{legacy.Code.Name(Converter)};");
 						}
+
 						writer.Write("}");
 						break;
 					case LegacyOpKind.r64_ro:
@@ -224,12 +300,18 @@ namespace Generator.Extended.CSharp {
 							writer.WriteLine($"if ({regName}.Size == MemoryOperandSize.QwordPtr) {{");
 						}
 						else {
-							writer.WriteLine($"if ({regName}.IsGPR64()) {{");
+							if (requiresRmToDisambiguate) {
+								writer.WriteLine($"if ({regName}.IsGPR64() && {rmArg.Name}.Size == MemoryOperandSize.{legacyRmSize}) {{");
+							}
+							else {
+								writer.WriteLine($"if ({regName}.IsGPR64()) {{");
+							}
 						}
 
 						using (writer.Indent()) {
 							writer.WriteLine($"op = Code.{legacy.Code.Name(Converter)};");
 						}
+
 						writer.Write("}");
 						break;
 					}
@@ -238,7 +320,7 @@ namespace Generator.Extended.CSharp {
 
 			writer.WriteLine(" else {");
 			using (writer.Indent()) {
-				writer.WriteLine($"throw new ArgumentException($\"Invalid register `{{{regName}}}` for `{{nameof({group.Name})}}` instruction. Expecting 16/32/64\");");
+				writer.WriteLine($"throw new ArgumentException($\"Invalid register `{{{regName}}}` for `{{nameof({methodName})}}` instruction. Expecting 16/32/64\");");
 			}
 			writer.WriteLine("}");
 		}
@@ -279,6 +361,37 @@ namespace Generator.Extended.CSharp {
 				return 3;
 			default:
 				return int.MaxValue;
+			}
+		}
+		
+		private static int GetSizeFromKind(LegacyOpKind kind) {
+			switch (kind) {
+
+			case LegacyOpKind.RAX:
+			case LegacyOpKind.r64_ro:
+			case LegacyOpKind.Gq:
+			case LegacyOpKind.Eq:
+				return 8;
+
+			case LegacyOpKind.EAX:
+			case LegacyOpKind.r32_rd:
+			case LegacyOpKind.Gd:
+			case LegacyOpKind.Ed:
+				return 4;
+
+			case LegacyOpKind.AX:
+			case LegacyOpKind.r16_rw:
+			case LegacyOpKind.Gw:
+			case LegacyOpKind.Ew:
+				return 2;
+
+			case LegacyOpKind.AL:
+			case LegacyOpKind.r8_rb:
+			case LegacyOpKind.Gb:
+			case LegacyOpKind.Eb:
+				return 1;
+			default:
+				return 0;
 			}
 		}
 	}

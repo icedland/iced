@@ -12,7 +12,7 @@ namespace Iced.Intel
 
 			c.push(rax);
 			c.syscall();
-			c.retnq();
+			c.ret();
 
 			c.Encode();
 		}
