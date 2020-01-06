@@ -4,7 +4,7 @@ version = "0.0.0"# Update html_root_url in lib.rs
 authors = ["0xd4d <de4dot@gmail.com>"]
 license = "MIT"
 description = "iced-x86 is an x86/x64 disassembler, assembler and instruction decoder written in Rust"
-homepage = "https://github.com/0xd4d/iced"
+#homepage = "https://github.com/0xd4d/iced"
 repository = "https://github.com/0xd4d/iced"
 readme = "README.md"
 # At most 5 keywords can be used
@@ -16,8 +16,8 @@ codecov = { repository = "https://github.com/0xd4d/iced", branch = "master", ser
 maintenance = { status = "actively-developed" }
 
 [features]
-default = ["decoder", "encoder", "instr_info", "all_formatters", "gas_formatter",
-			"intel_formatter", "masm_formatter", "nasm_formatter"]
+default = ["std", "decoder", "encoder", "instr_info",
+			"all_formatters", "gas_formatter", "intel_formatter", "masm_formatter", "nasm_formatter"]
 decoder = []
 encoder = []
 instr_info = []
@@ -26,6 +26,7 @@ gas_formatter = []
 intel_formatter = []
 masm_formatter = []
 nasm_formatter = []
+std = []
 exhaustive_enums = []
 
 [dependencies]
