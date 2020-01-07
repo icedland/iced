@@ -183,6 +183,9 @@ namespace Generator.Extended {
 						}
 					}
 				}
+				else {
+					Console.WriteLine($"TODO: {code.GetType().Name} {name} => {code.Code.RawName} not supported yet");
+				}
 			}
 
 			var orderedGroups = _groups.OrderBy(x => x.Key).Select(x => x.Value).ToArray();
