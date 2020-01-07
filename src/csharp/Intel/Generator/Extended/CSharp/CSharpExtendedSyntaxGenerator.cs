@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection.Metadata.Ecma335;
@@ -68,6 +69,7 @@ namespace Generator.Extended.CSharp {
 								string argName = i == 0 ? "dst" : i == 1 ? "src" : $"arg{i}";
 								string argType = $"arg{i}";
 								var argKind = signature.GetArgKind(i);
+								
 								switch (argKind) {
 								case ArgKind.Register:
 									argType = "Register";
@@ -86,8 +88,12 @@ namespace Generator.Extended.CSharp {
 									argType = "ExtendedMemoryOperand";
 									break;
 								case ArgKind.Immediate:
-									argName = $"im{i}";
-									argType = group.MaxImmediateSize < 8 ? group.MaxImmediateSize == 1 ? "byte" : "int" : "long";
+									argName = $"imm";
+									argType = group.MaxImmediateSize < 8 ? "int" : "long";
+									break;
+								case ArgKind.HiddenMemory:
+									argName = "<none>";
+									argType = "<none>";
 									break;
 								default:
 									throw new ArgumentOutOfRangeException();
@@ -98,10 +104,13 @@ namespace Generator.Extended.CSharp {
 
 							var methodName = Converter.Method(group.Name);
 							writer.Write($"public void {methodName}(");
+							int realArgCount = 0;
 							for (var i = 0; i < renderArgs.Count; i++) {
 								var renderArg = renderArgs[i];
-								if (i > 0) writer.Write(", ");
+								if (renderArg.Kind == ArgKind.HiddenMemory) continue;
+								if (realArgCount > 0) writer.Write(", ");
 								writer.Write($"{renderArg.Type} {renderArg.Name}");
+								realArgCount++;
 							}
 							writer.WriteLine(") {");
 							using (writer.Indent()) {
@@ -112,14 +121,27 @@ namespace Generator.Extended.CSharp {
 									GenerateOpCodeSelectorFromRegisterOrMemory(writer, group, renderArgs, regArgIndex, methodName);
 								}
 								else {
-									if (group.Items.Count == 1) {
-										writer.WriteLine($"op = Code.{group.Items[0].Code.Name(Converter)};");
+									Debug.Assert(group.ItemsWithImmediateByte1 == null);
+									
+									List<OpCodeInfo> items = null;
+									if (group.Items.Count > 0) {
+										items = group.Items;
+									}
+									else if (group.ItemsWithImmediateByte != null) {
+										items = group.ItemsWithImmediateByte;
+									}
+									else {
+										Debug.Assert(false, "Unexpected case");
+									}
+									
+									if (items.Count == 1) {
+										writer.WriteLine($"op = Code.{items[0].Code.Name(Converter)};");
 									}
 									else {
 										bool isFirst = true;
 										bool has64 = false;
-										for (int i = group.Items.Count - 1; i >=0; i--) {
-											var opcode = group.Items[i];
+										for (int i = items.Count - 1; i >=0; i--) {
+											var opcode = items[i];
 											if (opcode is LegacyOpCodeInfo legacy) {
 												if (!isFirst) writer.Write(" else ");
 												isFirst = false;
@@ -149,6 +171,7 @@ namespace Generator.Extended.CSharp {
 
 								for (var i = 0; i < renderArgs.Count; i++) {
 									var renderArg = renderArgs[i];
+									if (renderArg.Kind == ArgKind.HiddenMemory) continue;
 									writer.Write(", ");
 									writer.Write(renderArg.Name);
 								}
@@ -180,52 +203,108 @@ namespace Generator.Extended.CSharp {
 		}
 
 		void GenerateOpCodeSelectorFromRegisterOrMemory(FileWriter writer, OpCodeInfoGroup group, List<RenderArg> args, int argIndex, string methodName) {
+			bool hasIf = false;
+			FileWriter.Indenter indenter = default;
+			if (group.ItemsWithImmediateByte1 != null) {
+				var immReg = args[group.ImmediateArgIndex];
+				writer.WriteLine($"if ({immReg.Name} == 1) {{");
+				hasIf = true;
+				using (writer.Indent()) {
+					GenerateOpCodeSelectorFromRegisterOrMemory(writer, group, group.ItemsWithImmediateByte1, args, argIndex, methodName);
+				}
+
+				writer.WriteLine("}");
+			}
+
+			if (group.ItemsWithImmediateByte != null) {
+				if (hasIf) {
+					writer.Write("else ");
+				}
+
+				if (group.Items.Count > 0) {
+					var immReg = args[group.ImmediateArgIndex];
+					writer.WriteLine($"if ((uint){immReg.Name} <= byte.MaxValue) {{");
+					indenter = writer.Indent();
+					hasIf = true;
+				}
+				else {
+					hasIf = false;
+				}
+				
+				GenerateOpCodeSelectorFromRegisterOrMemory(writer, group, group.ItemsWithImmediateByte, args, argIndex, methodName);
+
+				if (hasIf) {
+					indenter.Dispose();
+					writer.WriteLine("}");
+				}
+			}
+
+			if (group.Items.Count > 0) {
+				if (hasIf) {
+					writer.Write("else ");
+				}
+
+				GenerateOpCodeSelectorFromRegisterOrMemory(writer, group, group.Items, args, argIndex, methodName);
+			}
+		}
+
+		void GenerateOpCodeSelectorFromRegisterOrMemory(FileWriter writer, OpCodeInfoGroup group, List<OpCodeInfo> opcodes,  List<RenderArg> args, int argIndex, string methodName) {
 			bool isFirst = true;
 
 			var arg = args[argIndex];
-			
 			var regName = arg.Name;
-
 			var isMemory = arg.Kind == ArgKind.RegisterMemory;
 
 			// Order by priority
-			group.Items.Sort(OrderByOpCodePriorityOp1);
+			opcodes.Sort(OrderOpCodesPerOpKindPriority);
 
-			for (var i = 0; i < @group.Items.Count; i++) {
-				var item = @group.Items[i];
+			for (var i = 0; i < @opcodes.Count; i++) {
+				var item = @opcodes[i];
 				if (item is LegacyOpCodeInfo legacy) {
 					var opKind = legacy.OpKinds[argIndex];
 					if (!isFirst) {
 						writer.Write(" else ");
 					}
 
-					int otherRegIndex = GetOtherRegLikeIndex(legacy, argIndex);
+					int otherArgIndex = GetOtherArgIndex(legacy, argIndex);
 					RenderArg otherArg = default;
-					if (otherRegIndex >= 0) {
-						otherArg = args[otherRegIndex];
+					if (otherArgIndex >= 0) {
+						otherArg = args[otherArgIndex];
 					}
 					
 					// Check if we need a disambiguation from another parameter (handling only rm for now)
 					string refineCheck = string.Empty;
-					for (int j = 0; j < group.Items.Count; j++) {
+					for (int j = 0; j < opcodes.Count; j++) {
 						if (i == j) continue;
-						var againstItem = group.Items[j];
-						if (againstItem is LegacyOpCodeInfo nearLegacy && nearLegacy.OpKinds[argIndex] == legacy.OpKinds[argIndex]) {
-							var againstRegIndex = GetOtherRegLikeIndex(nearLegacy, argIndex);
-							if (otherRegIndex == againstRegIndex && otherRegIndex >= 0 && nearLegacy.OpKinds[otherRegIndex] != legacy.OpKinds[otherRegIndex]) {
-								refineCheck = $" && {GetLegacyArgCondition(otherArg, legacy.OpKinds[otherRegIndex])}";
+						var againstItem = opcodes[j];
+						if (againstItem is LegacyOpCodeInfo nearLegacy && GetContextualLegacyOpKind(nearLegacy.OpKinds[argIndex], !isMemory) == GetContextualLegacyOpKind(legacy.OpKinds[argIndex], !isMemory)) {
+							var againstRegIndex = GetOtherArgIndex(nearLegacy, argIndex);
+							if (otherArgIndex == againstRegIndex && otherArgIndex >= 0 && nearLegacy.OpKinds[otherArgIndex] != legacy.OpKinds[otherArgIndex]) {
+								refineCheck = $" && {GetLegacyArgCondition(otherArg, legacy.OpKinds[otherArgIndex])}";
 							}
 							else {
 								refineCheck = $" && conflicting_opcode_{legacy.Code.RawName}_with_{againstItem.Code.RawName}";
 								Console.WriteLine($"Conflicting OpCode `{legacy.Code.RawName}` with `{againstItem.Code.RawName}`");
 							}
+							break;
 						}
 					}
 
 					isFirst = false;
 					writer.WriteLine($"if ({GetLegacyArgCondition(arg, opKind)}{refineCheck}) {{");
 					using (writer.Indent()) {
-						writer.WriteLine($"op = Code.{legacy.Code.Name(Converter)};");
+						if (IsSegmentRegister(opKind)) {
+							if (methodName == "push" || methodName == "pop") {
+								writer.WriteLine($"op = Bitness >= 32 ? Code.{Converter.Field(legacy.Code.RawName.Replace('w', 'd').Replace("Popd_CS", "Popw_CS"))} : Code.{Converter.Field(legacy.Code.RawName.Replace('d', 'w'))};");
+							}
+							else {
+								writer.WriteLine($"op = Unexpected_Segment_Register_used_Code.{legacy.Code.RawName};");
+								Console.WriteLine($"Unsupported Segment register used {legacy.Code.RawName}");
+							}
+						}
+						else {
+							writer.WriteLine($"op = Code.{legacy.Code.Name(Converter)};");
+						}
 					}
 					writer.Write("}");
 				}
@@ -233,7 +312,7 @@ namespace Generator.Extended.CSharp {
 
 			writer.WriteLine(" else {");
 			using (writer.Indent()) {
-				writer.WriteLine($"throw new ArgumentException($\"Invalid register `{{{regName}}}` for `{{nameof({methodName})}}` instruction. Expecting 16/32/64\");");
+				writer.WriteLine($"throw new ArgumentException($\"Invalid register for `{{nameof({methodName})}}` instruction. Expecting 16/32/64\");");
 			}
 			writer.WriteLine("}");
 		}
@@ -242,10 +321,18 @@ namespace Generator.Extended.CSharp {
 			var regName = arg.Name;
 			var isMemory = arg.Kind == ArgKind.RegisterMemory;
 			switch (opKind) {
+			case LegacyOpKind.CL:
 			case LegacyOpKind.AL:
 			case LegacyOpKind.AX:
 			case LegacyOpKind.EAX:
 			case LegacyOpKind.RAX:
+			case LegacyOpKind.ES:
+			case LegacyOpKind.CS:
+			case LegacyOpKind.SS:
+			case LegacyOpKind.DS:
+			case LegacyOpKind.FS:
+			case LegacyOpKind.GS:
+			case LegacyOpKind.DX:
 				return $"{regName} == Register.{opKind}";
 			case LegacyOpKind.r8_rb:
 			case LegacyOpKind.Gb:
@@ -263,25 +350,38 @@ namespace Generator.Extended.CSharp {
 			case LegacyOpKind.Gq:
 			case LegacyOpKind.Eq:
 				return isMemory ? $"{regName}.Size == MemoryOperandSize.QwordPtr" : $"{regName}.IsGPR64()";
+			case LegacyOpKind.Imm1:
+				return $"{regName} == 1";			
+			case LegacyOpKind.Ib:
+			case LegacyOpKind.Ib16:
+			case LegacyOpKind.Ib32:
+			case LegacyOpKind.Ib64:
+				return $"(uint){regName} <= byte.MaxValue";			
+			default:
+				return "true";
 			}
-			throw new InvalidOperationException($"Invalid {opKind} for argument {arg.Kind}");			
 		}
 
-		static int GetOtherRegLikeIndex(LegacyOpCodeInfo legacy, int regIndex) {
+		static int GetOtherArgIndex(LegacyOpCodeInfo legacy, int regIndex) {
+			int index = -1;
 			for (int j = 0; j < legacy.OpKinds.Length; j++) {
 				if (j == regIndex) continue;
+				index = j;
 				var otherKind = legacy.OpKinds[j];
 				if (IsKindRegLike(otherKind)) {
-					return j;
+					break;
 				}
 			}
-			return -1;
+			return index;
 		}
 
-		static int OrderByOpCodePriorityOp1(OpCodeInfo x, OpCodeInfo y) {
+		static int OrderOpCodesPerOpKindPriority(OpCodeInfo x, OpCodeInfo y) {
 			if (x is LegacyOpCodeInfo x1 && y is LegacyOpCodeInfo y1) {
-
-				return GetPriorityFromKind(x1.OpKinds[0]).CompareTo(GetPriorityFromKind(y1.OpKinds[0]));
+				Debug.Assert(x1.OpKinds.Length == y1.OpKinds.Length);
+				for (int i = 0; i < x1.OpKinds.Length; i++) {
+					var result = GetPriorityFromKind(x1.OpKinds[i]).CompareTo(GetPriorityFromKind(y1.OpKinds[i]));
+					if (result != 0) return result;
+				}
 			}
 			return 0;
 		}
@@ -293,25 +393,37 @@ namespace Generator.Extended.CSharp {
 			case LegacyOpKind.r64_ro:
 			case LegacyOpKind.Gq:
 			case LegacyOpKind.Eq:
+			case LegacyOpKind.Id64:							
+			case LegacyOpKind.Iq:
 				return 0;
 
 			case LegacyOpKind.EAX:
 			case LegacyOpKind.r32_rd:
 			case LegacyOpKind.Gd:
 			case LegacyOpKind.Ed:
+			case LegacyOpKind.Id:
 				return 1;
 
 			case LegacyOpKind.AX:
 			case LegacyOpKind.r16_rw:
 			case LegacyOpKind.Gw:
 			case LegacyOpKind.Ew:
+			case LegacyOpKind.Iw: 
 				return 2;
+
+			case LegacyOpKind.Imm1:
+				return 3;
 
 			case LegacyOpKind.AL:
 			case LegacyOpKind.r8_rb:
 			case LegacyOpKind.Gb:
 			case LegacyOpKind.Eb:
-				return 3;
+			case LegacyOpKind.Ib:
+			case LegacyOpKind.Ib16:
+			case LegacyOpKind.Ib32:
+			case LegacyOpKind.Ib64:
+				return 4;
+			
 			default:
 				return int.MaxValue;
 			}
@@ -328,7 +440,13 @@ namespace Generator.Extended.CSharp {
 			case LegacyOpKind.r32_rd:
 			case LegacyOpKind.Gd:
 			case LegacyOpKind.Ed:
+			case LegacyOpKind.CL:
 			case LegacyOpKind.AX:
+			case LegacyOpKind.ES:
+			case LegacyOpKind.CS:
+			case LegacyOpKind.SS:
+			case LegacyOpKind.DS:
+			case LegacyOpKind.DX:
 			case LegacyOpKind.r16_rw:
 			case LegacyOpKind.Gw:
 			case LegacyOpKind.Ew:
@@ -339,37 +457,6 @@ namespace Generator.Extended.CSharp {
 				return true;
 			default:
 				return false;
-			}
-		}
-
-		private static int GetSizeFromKind(LegacyOpKind kind) {
-			switch (kind) {
-
-			case LegacyOpKind.RAX:
-			case LegacyOpKind.r64_ro:
-			case LegacyOpKind.Gq:
-			case LegacyOpKind.Eq:
-				return 8;
-
-			case LegacyOpKind.EAX:
-			case LegacyOpKind.r32_rd:
-			case LegacyOpKind.Gd:
-			case LegacyOpKind.Ed:
-				return 4;
-
-			case LegacyOpKind.AX:
-			case LegacyOpKind.r16_rw:
-			case LegacyOpKind.Gw:
-			case LegacyOpKind.Ew:
-				return 2;
-
-			case LegacyOpKind.AL:
-			case LegacyOpKind.r8_rb:
-			case LegacyOpKind.Gb:
-			case LegacyOpKind.Eb:
-				return 1;
-			default:
-				return 0;
 			}
 		}
 	}

@@ -109,12 +109,18 @@ namespace Generator.Extended {
 				var signature = new Signature();
 				var regOnlySignature = new Signature();
 
+				var immKind = ImmediateKind.None;
+				int immediateArgIndex = -1;
+				
 				int maxImmediateSize = 0;
 				if (code is LegacyOpCodeInfo legacy) {
 					for(int i = 0; i < legacy.OpKinds.Length; i++) {
 						var opKind = legacy.OpKinds[i];
 						var argKind = ArgKind.Unknown;
+						bool skipArg = false;
 						switch (opKind) {
+						case LegacyOpKind.DX:
+						case LegacyOpKind.CL:
 						case LegacyOpKind.AL:
 						case LegacyOpKind.AX:
 						case LegacyOpKind.EAX:
@@ -127,9 +133,26 @@ namespace Generator.Extended {
 						case LegacyOpKind.Gw:
 						case LegacyOpKind.Gd:
 						case LegacyOpKind.Gq:
+						case LegacyOpKind.ES:
+						case LegacyOpKind.CS:
+						case LegacyOpKind.SS:
+						case LegacyOpKind.DS:
+						case LegacyOpKind.FS:
+						case LegacyOpKind.GS:
 							argKind = ArgKind.Register;
 							break;
 
+						case LegacyOpKind.Xb:
+						case LegacyOpKind.Xd:
+						case LegacyOpKind.Xw:
+						case LegacyOpKind.Xq:
+						case LegacyOpKind.Yb:
+						case LegacyOpKind.Yd:
+						case LegacyOpKind.Yw:
+						case LegacyOpKind.Yq:
+							argKind = ArgKind.HiddenMemory;
+							break;
+						
 						case LegacyOpKind.Eb:
 						case LegacyOpKind.Ew:
 						case LegacyOpKind.Ed:
@@ -137,24 +160,45 @@ namespace Generator.Extended {
 							argKind = ArgKind.RegisterMemory;
 							break;
 						
-						case LegacyOpKind.Ib:
+						case LegacyOpKind.Imm1:
+							immediateArgIndex = i;
+							immKind = ImmediateKind.Byte1;
 							Debug.Assert(maxImmediateSize == 0);
 							maxImmediateSize = 1;
 							argKind = ArgKind.Immediate;
 							break;
+							
+						case LegacyOpKind.Ib:			
+						case LegacyOpKind.Ib16:
+						case LegacyOpKind.Ib32:
+						case LegacyOpKind.Ib64:
+							Debug.Assert(maxImmediateSize == 0);
+							immediateArgIndex = i;
+							immKind = ImmediateKind.Byte;
+							maxImmediateSize = 1;
+							argKind = ArgKind.Immediate;
+							break;
+						
 						case LegacyOpKind.Iw:
 							Debug.Assert(maxImmediateSize == 0);
+							immediateArgIndex = i;
+							immKind = ImmediateKind.Standard;
 							maxImmediateSize = 2;
 							argKind = ArgKind.Immediate;
 							break;
-						case LegacyOpKind.Id:
+						case LegacyOpKind.Id: 
+						case LegacyOpKind.Id64:							
 							Debug.Assert(maxImmediateSize == 0);
 							maxImmediateSize = 4;
+							immediateArgIndex = i;
+							immKind = ImmediateKind.Standard;
 							argKind = ArgKind.Immediate;
 							break;
 						case LegacyOpKind.Iq:
 							Debug.Assert(maxImmediateSize == 0);
 							maxImmediateSize = 8;
+							immediateArgIndex = i;
+							immKind = ImmediateKind.Standard;
 							argKind = ArgKind.Immediate;
 							break;
 						}
@@ -171,12 +215,12 @@ namespace Generator.Extended {
 				}
 
 				if (toAdd) {
-					var group = AddOpCodeToGroup(name, signature, code);
+					var group = AddOpCodeToGroup(name, signature, code, immKind, immediateArgIndex);
 					if (maxImmediateSize > group.MaxImmediateSize) {
 						group.MaxImmediateSize = maxImmediateSize;
 					}
 					if (signature != regOnlySignature) {
-						var regOnlyGroup = AddOpCodeToGroup(name, regOnlySignature, code);
+						var regOnlyGroup = AddOpCodeToGroup(name, regOnlySignature, code, immKind, immediateArgIndex);
 						regOnlyGroup.HasRegisterMemoryMappedToRegister = true;
 						if (maxImmediateSize > regOnlyGroup.MaxImmediateSize) {
 							regOnlyGroup.MaxImmediateSize = maxImmediateSize;
@@ -194,25 +238,44 @@ namespace Generator.Extended {
 			foreach (var group in orderedGroups) {
 				if (!group.HasRegisterMemoryMappedToRegister) continue;
 
-				opcodes.Clear();
-				signatures.Clear();
+				void ProcessOpCodes(List<OpCodeInfo> inputOpCodes)
+				{
+					opcodes.Clear();
+					signatures.Clear();
+					// First-pass to select only register versions
+					FilterOpCodesRegister(@group, inputOpCodes, opcodes, signatures, false);
 
-				// First-pass to select only register versions
-				FilterOpCodesRegister(@group, opcodes, signatures, false);
+					// Second-pass to populate with RM versions
+					FilterOpCodesRegister(@group, inputOpCodes, opcodes, signatures, true);
 
-				// Second-pass to populate with RM versions
-				FilterOpCodesRegister(@group, opcodes, signatures, true);
+					inputOpCodes.Clear();
+					inputOpCodes.AddRange(opcodes);
+				}
 
-				group.Items.Clear();
-				group.Items.AddRange(opcodes);
+				ProcessOpCodes(group.Items);
+				
+				if (group.ItemsWithImmediateByte1 != null) {
+					ProcessOpCodes(group.ItemsWithImmediateByte1);
+				}
+				
+				if (group.ItemsWithImmediateByte != null) {
+					ProcessOpCodes(group.ItemsWithImmediateByte);
+				}
 			}
 			
 			Generate(_groups, orderedGroups);
 		}
 
-		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory)
+		private enum ImmediateKind {
+			None,
+			Standard,
+			Byte1,
+			Byte,
+		}
+
+		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory)
 		{
-			foreach (var code in @group.Items)
+			foreach (var code in inputOpCodes)
 			{
 				var registerSignature = new Signature();
 				if (code is LegacyOpCodeInfo legacy)
@@ -220,7 +283,7 @@ namespace Generator.Extended {
 					bool isValid = true;
 					for (int i = 0; i < legacy.OpKinds.Length; i++)
 					{
-						var argKind = GetRegisterKind(legacy.OpKinds[i], allowMemory);
+						var argKind = GetFilterRegisterKindFromOpKind(legacy.OpKinds[i], allowMemory);
 						if (argKind == ArgKind.Unknown)
 						{
 							isValid = false;
@@ -238,56 +301,134 @@ namespace Generator.Extended {
 			}
 		}
 
-
-		private ArgKind GetRegisterKind(LegacyOpKind opKind, bool allowMemory) {
+		private ArgKind GetFilterRegisterKindFromOpKind(LegacyOpKind opKind, bool allowMemory) {
 			switch (opKind) {
-			case LegacyOpKind.AL:
 			case LegacyOpKind.r8_rb:
 			case LegacyOpKind.Gb:
-				return ArgKind.Register8;
-			case LegacyOpKind.AX:
+				return ArgKind.FilterRegister8;
 			case LegacyOpKind.r16_rw:
 			case LegacyOpKind.Gw:
-				return ArgKind.Register16;
-			case LegacyOpKind.EAX:
+				return ArgKind.FilterRegister16;
 			case LegacyOpKind.r32_rd:
 			case LegacyOpKind.Gd:
-				return ArgKind.Register32;
-			case LegacyOpKind.RAX:
+				return ArgKind.FilterRegister32;
 			case LegacyOpKind.r64_ro:
 			case LegacyOpKind.Gq:
-				return ArgKind.Register64;
+				return ArgKind.FilterRegister64;
+
+			case LegacyOpKind.Imm1:
+				return ArgKind.FilterImmediate1;
+
 			case LegacyOpKind.Ib:
-			case LegacyOpKind.Iw:
+			case LegacyOpKind.Ib16:
+			case LegacyOpKind.Ib32:
+			case LegacyOpKind.Ib64:
+				return ArgKind.FilterImmediate8;
+			
+			case LegacyOpKind.Iw: 
 			case LegacyOpKind.Id:
+			case LegacyOpKind.Id64:							
 			case LegacyOpKind.Iq:
 				return ArgKind.Immediate;
-				break;			
+
+			case LegacyOpKind.DX:
+				return ArgKind.FilterRegisterDX;
+			case LegacyOpKind.CL:
+				return ArgKind.FilterRegisterCL;
+			case LegacyOpKind.AL:
+				return ArgKind.FilterRegisterAL;
+			case LegacyOpKind.AX:
+				return ArgKind.FilterRegisterAX;
+			case LegacyOpKind.EAX:
+				return ArgKind.FilterRegisterEAX;
+			case LegacyOpKind.RAX:
+				return ArgKind.FilterRegisterRAX;
+
+			case LegacyOpKind.ES:
+				return ArgKind.FilterRegisterES;
+			case LegacyOpKind.CS:
+				return ArgKind.FilterRegisterCS;
+			case LegacyOpKind.SS:
+				return ArgKind.FilterRegisterSS;
+			case LegacyOpKind.DS:
+				return ArgKind.FilterRegisterDS;
+			case LegacyOpKind.FS:
+				return ArgKind.FilterRegisterFS;
+			case LegacyOpKind.GS:
+				return ArgKind.FilterRegisterGS;
 			}
 
 			if (allowMemory) {
 				switch (opKind) {
 				case LegacyOpKind.Eb:
-					return ArgKind.Register8;
+					return ArgKind.FilterRegister8;
 				case LegacyOpKind.Ew:
-					return ArgKind.Register16;
+					return ArgKind.FilterRegister16;
 				case LegacyOpKind.Ed:
-					return ArgKind.Register32;
+					return ArgKind.FilterRegister32;
 				case LegacyOpKind.Eq:
-					return ArgKind.Register64;
+					return ArgKind.FilterRegister64;
 				}
 			}
 			
 			return ArgKind.Unknown;
 		}
 
-		OpCodeInfoGroup AddOpCodeToGroup(string name, Signature signature, OpCodeInfo code) {
+		protected static bool IsSegmentRegister(LegacyOpKind kind) {
+			switch (kind) {
+			case LegacyOpKind.ES:
+			case LegacyOpKind.CS:
+			case LegacyOpKind.FS:
+			case LegacyOpKind.GS:
+			case LegacyOpKind.SS:
+			case LegacyOpKind.DS:
+				return true;
+			}
+
+			return false;
+		}
+		
+		protected static LegacyOpKind GetContextualLegacyOpKind(LegacyOpKind opKind, bool returnMemoryAsRegister) {
+			switch (opKind) {
+			case LegacyOpKind.Eb:
+			case LegacyOpKind.r8_rb:
+				return LegacyOpKind.Gb; 
+			case LegacyOpKind.Ew:
+			case LegacyOpKind.r16_rw:
+				return LegacyOpKind.Gw;
+			case LegacyOpKind.Ed:
+			case LegacyOpKind.r32_rd:
+				return LegacyOpKind.Gd;
+			case LegacyOpKind.Eq:
+			case LegacyOpKind.r64_ro:
+				return LegacyOpKind.Gq;
+			}
+			return opKind;
+		}
+
+		OpCodeInfoGroup AddOpCodeToGroup(string name, Signature signature, OpCodeInfo code, ImmediateKind immKind, int immediateArgIndex) {
 			var key = new GroupKey(name, signature);
 			if (!_groups.TryGetValue(key, out var group)) {
 				group = new OpCodeInfoGroup(name, signature);
 				_groups.Add(key, group);
 			}
-			group.Items.Add(code);
+
+			group.ImmediateArgIndex = immediateArgIndex;
+
+			switch (immKind) {
+			case ImmediateKind.Byte1:
+				if (group.ItemsWithImmediateByte1 == null) group.ItemsWithImmediateByte1 = new List<OpCodeInfo>();
+				group.ItemsWithImmediateByte1.Add(code);
+				break;
+			case ImmediateKind.Byte:
+				if (group.ItemsWithImmediateByte == null) group.ItemsWithImmediateByte = new List<OpCodeInfo>();
+				group.ItemsWithImmediateByte.Add(code);
+				break;
+			default:
+				group.Items.Add(code);
+				break;
+			}
+
 			return group;
 		}
 
@@ -362,18 +503,34 @@ namespace Generator.Extended {
 				return _argKinds.CompareTo(other._argKinds);
 			}
 		}
-		
+
 		protected enum ArgKind : byte {
 			Unknown,
 			Register,
-
-			Register8,
-			Register16,
-			Register32,
-			Register64,
-
 			RegisterMemory,
+			HiddenMemory,
 			Immediate,
+
+			FilterRegister8,
+			FilterRegister16,
+			FilterRegister32,
+			FilterRegister64,
+		
+			FilterRegisterDX,
+			FilterRegisterCL,
+			FilterRegisterAL,
+			FilterRegisterAX,
+			FilterRegisterEAX,
+			FilterRegisterRAX,
+			FilterRegisterES,
+			FilterRegisterCS,
+			FilterRegisterDS,
+			FilterRegisterSS,
+			FilterRegisterFS,
+			FilterRegisterGS,
+
+			FilterImmediate1,
+			FilterImmediate8,
 		}
 
 		protected class OpCodeInfoGroup {
@@ -381,6 +538,7 @@ namespace Generator.Extended {
 				Name = name;
 				Signature = signature;
 				Items = new List<OpCodeInfo>();
+				ImmediateArgIndex = -1;
 			}
 			
 			public string Name { get; }
@@ -389,7 +547,13 @@ namespace Generator.Extended {
 
 			public List<OpCodeInfo> Items { get; }
 
+			public List<OpCodeInfo> ItemsWithImmediateByte1 { get; set; }
+
+			public List<OpCodeInfo> ItemsWithImmediateByte { get; set; }
+
 			public bool HasRegisterMemoryMappedToRegister { get; set; }
+			
+			public int ImmediateArgIndex { get; set; }
 			
 			public int MaxImmediateSize { get; set; }
 		}
