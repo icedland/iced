@@ -51,31 +51,31 @@ namespace Iced.Intel {
 		}
 		public void adc(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Adc_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Adc_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Adc_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Adc_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(adc)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(adc)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void adc(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Adc_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Adc_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Adc_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Adc_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(adc)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(adc)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -98,14 +98,11 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.EAX) {
 				op = Code.Adc_EAX_imm32;
-			}
-			 else if (dst == Register.AX) {
+			} else if (dst == Register.AX) {
 				op = Code.Adc_AX_imm16;
-			}
-			 else if (dst == Register.AL) {
+			} else if (dst == Register.AL) {
 				op = Code.Adc_AL_imm8;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(adc)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, im1));
@@ -118,8 +115,6 @@ namespace Iced.Intel {
 				op = Code.Adc_rm16_imm16;
 			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Adc_rm8_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Adc_rm8_imm8_82;
 			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(adc)}` instruction. Expecting 16/32/64");
 			}
@@ -127,12 +122,12 @@ namespace Iced.Intel {
 		}
 		public void adcx(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Adcx_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Adcx_r32_rm32;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(adcx)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(adcx)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -149,31 +144,31 @@ namespace Iced.Intel {
 		}
 		public void add(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Add_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Add_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Add_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Add_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(add)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(add)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void add(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Add_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Add_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Add_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Add_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(add)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(add)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -196,14 +191,11 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.EAX) {
 				op = Code.Add_EAX_imm32;
-			}
-			 else if (dst == Register.AX) {
+			} else if (dst == Register.AX) {
 				op = Code.Add_AX_imm16;
-			}
-			 else if (dst == Register.AL) {
+			} else if (dst == Register.AL) {
 				op = Code.Add_AL_imm8;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(add)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, im1));
@@ -216,8 +208,6 @@ namespace Iced.Intel {
 				op = Code.Add_rm16_imm16;
 			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Add_rm8_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Add_rm8_imm8_82;
 			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(add)}` instruction. Expecting 16/32/64");
 			}
@@ -225,12 +215,12 @@ namespace Iced.Intel {
 		}
 		public void adox(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Adox_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Adox_r32_rm32;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(adox)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(adox)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -247,31 +237,31 @@ namespace Iced.Intel {
 		}
 		public void and(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.And_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.And_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.And_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.And_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(and)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(and)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void and(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.And_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.And_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.And_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.And_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(and)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(and)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -294,14 +284,11 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.EAX) {
 				op = Code.And_EAX_imm32;
-			}
-			 else if (dst == Register.AX) {
+			} else if (dst == Register.AX) {
 				op = Code.And_AX_imm16;
-			}
-			 else if (dst == Register.AL) {
+			} else if (dst == Register.AL) {
 				op = Code.And_AL_imm8;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(and)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, im1));
@@ -314,8 +301,6 @@ namespace Iced.Intel {
 				op = Code.And_rm16_imm16;
 			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.And_rm8_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.And_rm8_imm8_82;
 			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(and)}` instruction. Expecting 16/32/64");
 			}
@@ -323,32 +308,32 @@ namespace Iced.Intel {
 		}
 		public void arpl(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR16()) {
+			if (dst.IsGPR16()) {
 				op = Code.Arpl_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(arpl)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(arpl)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void arpl(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR16()) {
+			if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Arpl_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(arpl)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(arpl)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void bsf(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Bsf_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Bsf_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Bsf_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(bsf)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(bsf)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -367,14 +352,14 @@ namespace Iced.Intel {
 		}
 		public void bsr(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Bsr_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Bsr_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Bsr_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(bsr)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(bsr)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -406,27 +391,27 @@ namespace Iced.Intel {
 		}
 		public void bt(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Bt_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Bt_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Bt_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(bt)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(bt)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void bt(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Bt_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Bt_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Bt_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(bt)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(bt)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -458,27 +443,27 @@ namespace Iced.Intel {
 		}
 		public void btc(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Btc_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Btc_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Btc_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(btc)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(btc)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void btc(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Btc_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Btc_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Btc_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(btc)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(btc)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -510,27 +495,27 @@ namespace Iced.Intel {
 		}
 		public void btr(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Btr_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Btr_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Btr_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(btr)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(btr)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void btr(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Btr_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Btr_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Btr_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(btr)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(btr)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -562,27 +547,27 @@ namespace Iced.Intel {
 		}
 		public void bts(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Bts_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Bts_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Bts_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(bts)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(bts)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void bts(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Bts_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Bts_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Bts_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(bts)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(bts)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -706,14 +691,14 @@ namespace Iced.Intel {
 		}
 		public void cmova(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmova_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmova_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmova_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmova)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmova)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -732,14 +717,14 @@ namespace Iced.Intel {
 		}
 		public void cmovae(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovae_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovae_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovae_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovae)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovae)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -758,14 +743,14 @@ namespace Iced.Intel {
 		}
 		public void cmovb(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovb_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovb_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovb_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovb)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovb)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -784,14 +769,14 @@ namespace Iced.Intel {
 		}
 		public void cmovbe(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovbe_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovbe_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovbe_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovbe)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovbe)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -810,14 +795,14 @@ namespace Iced.Intel {
 		}
 		public void cmove(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmove_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmove_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmove_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmove)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmove)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -836,14 +821,14 @@ namespace Iced.Intel {
 		}
 		public void cmovg(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovg_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovg_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovg_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovg)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovg)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -862,14 +847,14 @@ namespace Iced.Intel {
 		}
 		public void cmovge(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovge_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovge_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovge_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovge)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovge)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -888,14 +873,14 @@ namespace Iced.Intel {
 		}
 		public void cmovl(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovl_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovl_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovl_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovl)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovl)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -914,14 +899,14 @@ namespace Iced.Intel {
 		}
 		public void cmovle(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovle_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovle_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovle_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovle)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovle)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -940,14 +925,14 @@ namespace Iced.Intel {
 		}
 		public void cmovne(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovne_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovne_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovne_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovne)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovne)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -966,14 +951,14 @@ namespace Iced.Intel {
 		}
 		public void cmovno(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovno_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovno_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovno_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovno)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovno)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -992,14 +977,14 @@ namespace Iced.Intel {
 		}
 		public void cmovnp(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovnp_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovnp_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovnp_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovnp)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovnp)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -1018,14 +1003,14 @@ namespace Iced.Intel {
 		}
 		public void cmovns(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovns_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovns_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovns_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovns)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovns)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -1044,14 +1029,14 @@ namespace Iced.Intel {
 		}
 		public void cmovo(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovo_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovo_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovo_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovo)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovo)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -1070,14 +1055,14 @@ namespace Iced.Intel {
 		}
 		public void cmovp(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovp_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovp_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovp_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovp)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovp)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -1096,14 +1081,14 @@ namespace Iced.Intel {
 		}
 		public void cmovs(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmovs_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmovs_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmovs_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmovs)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmovs)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -1122,31 +1107,31 @@ namespace Iced.Intel {
 		}
 		public void cmp(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmp_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmp_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmp_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Cmp_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmp)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmp)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void cmp(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Cmp_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Cmp_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Cmp_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Cmp_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmp)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmp)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -1169,14 +1154,11 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.EAX) {
 				op = Code.Cmp_EAX_imm32;
-			}
-			 else if (dst == Register.AX) {
+			} else if (dst == Register.AX) {
 				op = Code.Cmp_AX_imm16;
-			}
-			 else if (dst == Register.AL) {
+			} else if (dst == Register.AL) {
 				op = Code.Cmp_AL_imm8;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmp)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, im1));
@@ -1189,8 +1171,6 @@ namespace Iced.Intel {
 				op = Code.Cmp_rm16_imm16;
 			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Cmp_rm8_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Cmp_rm8_imm8_82;
 			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmp)}` instruction. Expecting 16/32/64");
 			}
@@ -1198,37 +1178,37 @@ namespace Iced.Intel {
 		}
 		public void cmpxchg(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Cmpxchg_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Cmpxchg486_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Cmpxchg486_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Cmpxchg486_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmpxchg)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmpxchg)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void cmpxchg(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Cmpxchg_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Cmpxchg486_rm32_r32;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Cmpxchg_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Cmpxchg486_rm16_r16;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Cmpxchg_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Cmpxchg486_rm8_r8;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Cmpxchg_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(cmpxchg)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmpxchg)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -1244,18 +1224,18 @@ namespace Iced.Intel {
 		}
 		public void crc32(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR8()) {
+			if (dst.IsGPR64() && src.IsGPR8()) {
 				op = Code.Crc32_r64_rm8;
-			} else if (src.IsGPR64()) {
+			} else if (dst.IsGPR64() && src.IsGPR64()) {
 				op = Code.Crc32_r64_rm64;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR32() && src.IsGPR8()) {
 				op = Code.Crc32_r32_rm8;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR32() && src.IsGPR16()) {
 				op = Code.Crc32_r32_rm16;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32() && src.IsGPR32()) {
 				op = Code.Crc32_r32_rm32;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(crc32)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(crc32)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -1265,7 +1245,7 @@ namespace Iced.Intel {
 				op = Code.Crc32_r64_rm8;
 			} else if (dst.IsGPR64() && src.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Crc32_r64_rm64;
-			} else if (dst.IsGPR32()) {
+			} else if (dst.IsGPR32() && src.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Crc32_r32_rm8;
 			} else if (dst.IsGPR32() && src.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Crc32_r32_rm16;
@@ -1535,8 +1515,7 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.AX) {
 				op = Code.Fnstsw_AX;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(fnstsw)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst));
@@ -1600,8 +1579,7 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.AX) {
 				op = Code.Fstdw_AX;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(fstdw)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst));
@@ -1610,8 +1588,7 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.AX) {
 				op = Code.Fstsg_AX;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(fstsg)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst));
@@ -1620,8 +1597,7 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.AX) {
 				op = Code.Fstsw_AX;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(fstsw)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst));
@@ -1668,23 +1644,23 @@ namespace Iced.Intel {
 		}
 		public void ibts(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR32()) {
+			if (dst.IsGPR32()) {
 				op = Code.Ibts_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Ibts_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(ibts)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(ibts)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void ibts(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR32()) {
+			if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Ibts_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Ibts_rm16_r16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(ibts)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(ibts)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -1750,14 +1726,14 @@ namespace Iced.Intel {
 		}
 		public void imul(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Imul_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Imul_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Imul_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(imul)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(imul)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -1776,12 +1752,12 @@ namespace Iced.Intel {
 		}
 		public void imul(Register dst, Register src, int im2) {
 			Code op;
-			if (src.IsGPR32()) {
+			if (dst.IsGPR32()) {
 				op = Code.Imul_r32_rm32_imm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Imul_r16_rm16_imm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(imul)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(imul)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src, im2));
 		}
@@ -1800,14 +1776,11 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.EAX) {
 				op = Code.In_EAX_imm8;
-			}
-			 else if (dst == Register.AX) {
+			} else if (dst == Register.AX) {
 				op = Code.In_AX_imm8;
-			}
-			 else if (dst == Register.AL) {
+			} else if (dst == Register.AL) {
 				op = Code.In_AL_imm8;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(@in)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, im1));
@@ -1949,14 +1922,14 @@ namespace Iced.Intel {
 		}
 		public void lar(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Lar_r64_r64m16;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Lar_r32_r32m16;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Lar_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(lar)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(lar)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -1986,23 +1959,7 @@ namespace Iced.Intel {
 		}
 		public void lfence() {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Lfence_EF;
-			} else if (Bitness == 64) {
-				op = Code.Lfence_EE;
-			} else if (Bitness == 64) {
-				op = Code.Lfence_ED;
-			} else if (Bitness == 64) {
-				op = Code.Lfence_EC;
-			} else if (Bitness == 64) {
-				op = Code.Lfence_EB;
-			} else if (Bitness == 64) {
-				op = Code.Lfence_EA;
-			} else if (Bitness == 64) {
-				op = Code.Lfence_E9;
-			} else {
-				op = Code.Lfence;
-			}
+			op = Code.Lfence;
 			AddInstruction(Instruction.Create(op));
 		}
 		public void lldt(Register dst) {
@@ -2054,14 +2011,14 @@ namespace Iced.Intel {
 		}
 		public void lsl(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Lsl_r64_r64m16;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Lsl_r32_r32m16;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Lsl_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(lsl)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(lsl)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -2098,14 +2055,14 @@ namespace Iced.Intel {
 		}
 		public void lzcnt(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Lzcnt_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Lzcnt_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Lzcnt_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(lzcnt)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(lzcnt)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -2129,23 +2086,7 @@ namespace Iced.Intel {
 		}
 		public void mfence() {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Mfence_F7;
-			} else if (Bitness == 64) {
-				op = Code.Mfence_F6;
-			} else if (Bitness == 64) {
-				op = Code.Mfence_F5;
-			} else if (Bitness == 64) {
-				op = Code.Mfence_F4;
-			} else if (Bitness == 64) {
-				op = Code.Mfence_F3;
-			} else if (Bitness == 64) {
-				op = Code.Mfence_F2;
-			} else if (Bitness == 64) {
-				op = Code.Mfence_F1;
-			} else {
-				op = Code.Mfence;
-			}
+			op = Code.Mfence;
 			AddInstruction(Instruction.Create(op));
 		}
 		public void monitor() {
@@ -2183,31 +2124,31 @@ namespace Iced.Intel {
 		}
 		public void mov(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Mov_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Mov_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Mov_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Mov_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(mov)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(mov)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void mov(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Mov_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Mov_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Mov_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Mov_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(mov)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(mov)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -2256,20 +2197,20 @@ namespace Iced.Intel {
 		}
 		public void movsx(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR8()) {
+			if (dst.IsGPR64() && src.IsGPR8()) {
 				op = Code.Movsx_r64_rm8;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR64() && src.IsGPR16()) {
 				op = Code.Movsx_r64_rm16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR32() && src.IsGPR8()) {
 				op = Code.Movsx_r32_rm8;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR32() && src.IsGPR16()) {
 				op = Code.Movsx_r32_rm16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR16() && src.IsGPR8()) {
 				op = Code.Movsx_r16_rm8;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16() && src.IsGPR16()) {
 				op = Code.Movsx_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(movsx)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(movsx)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -2294,14 +2235,14 @@ namespace Iced.Intel {
 		}
 		public void movsxd(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR32()) {
+			if (dst.IsGPR64()) {
 				op = Code.Movsxd_r64_rm32;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Movsxd_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Movsxd_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(movsxd)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(movsxd)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -2320,20 +2261,20 @@ namespace Iced.Intel {
 		}
 		public void movzx(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR8()) {
+			if (dst.IsGPR64() && src.IsGPR8()) {
 				op = Code.Movzx_r64_rm8;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR64() && src.IsGPR16()) {
 				op = Code.Movzx_r64_rm16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR32() && src.IsGPR8()) {
 				op = Code.Movzx_r32_rm8;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR32() && src.IsGPR16()) {
 				op = Code.Movzx_r32_rm16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR16() && src.IsGPR8()) {
 				op = Code.Movzx_r16_rm8;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16() && src.IsGPR16()) {
 				op = Code.Movzx_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(movzx)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(movzx)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -2495,31 +2436,31 @@ namespace Iced.Intel {
 		}
 		public void or(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Or_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Or_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Or_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Or_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(or)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(or)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void or(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Or_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Or_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Or_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Or_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(or)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(or)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -2542,14 +2483,11 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.EAX) {
 				op = Code.Or_EAX_imm32;
-			}
-			 else if (dst == Register.AX) {
+			} else if (dst == Register.AX) {
 				op = Code.Or_AX_imm16;
-			}
-			 else if (dst == Register.AL) {
+			} else if (dst == Register.AL) {
 				op = Code.Or_AL_imm8;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(or)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, im1));
@@ -2562,8 +2500,6 @@ namespace Iced.Intel {
 				op = Code.Or_rm16_imm16;
 			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Or_rm8_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Or_rm8_imm8_82;
 			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(or)}` instruction. Expecting 16/32/64");
 			}
@@ -2573,14 +2509,11 @@ namespace Iced.Intel {
 			Code op;
 			if (src == Register.AL) {
 				op = Code.Out_imm8_AL;
-			}
-			 else if (src == Register.AX) {
+			} else if (src == Register.AX) {
 				op = Code.Out_imm8_AX;
-			}
-			 else if (src == Register.EAX) {
+			} else if (src == Register.EAX) {
 				op = Code.Out_imm8_EAX;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{src}` for `{nameof(@out)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, im0, src));
@@ -2637,14 +2570,14 @@ namespace Iced.Intel {
 		}
 		public void popcnt(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Popcnt_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Popcnt_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Popcnt_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(popcnt)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(popcnt)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -2841,75 +2774,75 @@ namespace Iced.Intel {
 		}
 		public void reservednop(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.ReservedNop_rm64_r64_0F0D;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.ReservedNop_rm32_r32_0F0D;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.ReservedNop_rm16_r16_0F0D;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(reservednop)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(reservednop)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void reservednop(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.ReservedNop_rm64_r64_0F1F;
-			} else if (src.IsGPR64()) {
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.ReservedNop_rm64_r64_0F1E;
-			} else if (src.IsGPR64()) {
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.ReservedNop_rm64_r64_0F0D;
-			} else if (src.IsGPR64()) {
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.ReservedNop_rm64_r64_0F1D;
-			} else if (src.IsGPR64()) {
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.ReservedNop_rm64_r64_0F18;
-			} else if (src.IsGPR64()) {
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.ReservedNop_rm64_r64_0F1C;
-			} else if (src.IsGPR64()) {
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.ReservedNop_rm64_r64_0F19;
-			} else if (src.IsGPR64()) {
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.ReservedNop_rm64_r64_0F1B;
-			} else if (src.IsGPR64()) {
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.ReservedNop_rm64_r64_0F1A;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.ReservedNop_rm32_r32_0F1E;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.ReservedNop_rm32_r32_0F1D;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.ReservedNop_rm32_r32_0F1C;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.ReservedNop_rm32_r32_0F1F;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.ReservedNop_rm32_r32_0F1B;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.ReservedNop_rm32_r32_0F1A;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.ReservedNop_rm32_r32_0F19;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.ReservedNop_rm32_r32_0F18;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.ReservedNop_rm32_r32_0F0D;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.ReservedNop_rm16_r16_0F1C;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.ReservedNop_rm16_r16_0F1A;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.ReservedNop_rm16_r16_0F1D;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.ReservedNop_rm16_r16_0F19;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.ReservedNop_rm16_r16_0F1E;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.ReservedNop_rm16_r16_0F18;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.ReservedNop_rm16_r16_0F1F;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.ReservedNop_rm16_r16_0F1B;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.ReservedNop_rm16_r16_0F0D;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(reservednop)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(reservednop)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -3099,31 +3032,31 @@ namespace Iced.Intel {
 		}
 		public void sbb(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Sbb_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Sbb_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Sbb_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Sbb_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(sbb)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(sbb)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void sbb(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Sbb_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Sbb_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Sbb_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Sbb_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(sbb)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(sbb)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -3146,14 +3079,11 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.EAX) {
 				op = Code.Sbb_EAX_imm32;
-			}
-			 else if (dst == Register.AX) {
+			} else if (dst == Register.AX) {
 				op = Code.Sbb_AX_imm16;
-			}
-			 else if (dst == Register.AL) {
+			} else if (dst == Register.AL) {
 				op = Code.Sbb_AL_imm8;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(sbb)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, im1));
@@ -3166,8 +3096,6 @@ namespace Iced.Intel {
 				op = Code.Sbb_rm16_imm16;
 			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Sbb_rm8_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Sbb_rm8_imm8_82;
 			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(sbb)}` instruction. Expecting 16/32/64");
 			}
@@ -3468,23 +3396,7 @@ namespace Iced.Intel {
 		}
 		public void sfence() {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Sfence_FF;
-			} else if (Bitness == 64) {
-				op = Code.Sfence_FE;
-			} else if (Bitness == 64) {
-				op = Code.Sfence_FD;
-			} else if (Bitness == 64) {
-				op = Code.Sfence_FC;
-			} else if (Bitness == 64) {
-				op = Code.Sfence_FB;
-			} else if (Bitness == 64) {
-				op = Code.Sfence_FA;
-			} else if (Bitness == 64) {
-				op = Code.Sfence_F9;
-			} else {
-				op = Code.Sfence;
-			}
+			op = Code.Sfence;
 			AddInstruction(Instruction.Create(op));
 		}
 		public void shl(Register dst, byte im1) {
@@ -3519,27 +3431,27 @@ namespace Iced.Intel {
 		}
 		public void shld(Register dst, Register src, byte im2) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Shld_rm64_r64_imm8;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Shld_rm32_r32_imm8;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Shld_rm16_r16_imm8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(shld)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(shld)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src, im2));
 		}
 		public void shld(ExtendedMemoryOperand dst, Register src, byte im2) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Shld_rm64_r64_imm8;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Shld_rm32_r32_imm8;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Shld_rm16_r16_imm8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(shld)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(shld)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src, im2));
 		}
@@ -3575,27 +3487,27 @@ namespace Iced.Intel {
 		}
 		public void shrd(Register dst, Register src, byte im2) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Shrd_rm64_r64_imm8;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Shrd_rm32_r32_imm8;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Shrd_rm16_r16_imm8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(shrd)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(shrd)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src, im2));
 		}
 		public void shrd(ExtendedMemoryOperand dst, Register src, byte im2) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Shrd_rm64_r64_imm8;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Shrd_rm32_r32_imm8;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Shrd_rm16_r16_imm8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(shrd)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(shrd)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src, im2));
 		}
@@ -3685,31 +3597,31 @@ namespace Iced.Intel {
 		}
 		public void sub(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Sub_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Sub_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Sub_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Sub_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(sub)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(sub)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void sub(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Sub_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Sub_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Sub_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Sub_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(sub)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(sub)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -3732,14 +3644,11 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.EAX) {
 				op = Code.Sub_EAX_imm32;
-			}
-			 else if (dst == Register.AX) {
+			} else if (dst == Register.AX) {
 				op = Code.Sub_AX_imm16;
-			}
-			 else if (dst == Register.AL) {
+			} else if (dst == Register.AL) {
 				op = Code.Sub_AL_imm8;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(sub)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, im1));
@@ -3752,8 +3661,6 @@ namespace Iced.Intel {
 				op = Code.Sub_rm16_imm16;
 			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Sub_rm8_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Sub_rm8_imm8_82;
 			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(sub)}` instruction. Expecting 16/32/64");
 			}
@@ -3794,31 +3701,31 @@ namespace Iced.Intel {
 		}
 		public void test(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Test_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Test_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Test_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Test_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(test)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(test)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void test(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Test_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Test_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Test_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Test_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(test)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(test)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -3826,14 +3733,11 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.EAX) {
 				op = Code.Test_EAX_imm32;
-			}
-			 else if (dst == Register.AX) {
+			} else if (dst == Register.AX) {
 				op = Code.Test_AX_imm16;
-			}
-			 else if (dst == Register.AL) {
+			} else if (dst == Register.AL) {
 				op = Code.Test_AL_imm8;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(test)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, im1));
@@ -3842,16 +3746,10 @@ namespace Iced.Intel {
 			Code op;
 			if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Test_rm32_imm32;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Test_rm32_imm32_F7r1;
 			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Test_rm16_imm16;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Test_rm16_imm16_F7r1;
 			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Test_rm8_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Test_rm8_imm8_F6r1;
 			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(test)}` instruction. Expecting 16/32/64");
 			}
@@ -3859,14 +3757,14 @@ namespace Iced.Intel {
 		}
 		public void tzcnt(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Tzcnt_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Tzcnt_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Tzcnt_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(tzcnt)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(tzcnt)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -3885,14 +3783,14 @@ namespace Iced.Intel {
 		}
 		public void ud0(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Ud0_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Ud0_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Ud0_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(ud0)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(ud0)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -3911,14 +3809,14 @@ namespace Iced.Intel {
 		}
 		public void ud1(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Ud1_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Ud1_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Ud1_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(ud1)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(ud1)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -3942,27 +3840,27 @@ namespace Iced.Intel {
 		}
 		public void umov(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR32()) {
+			if (dst.IsGPR32()) {
 				op = Code.Umov_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Umov_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Umov_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(umov)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(umov)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void umov(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR32()) {
+			if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Umov_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Umov_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Umov_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(umov)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(umov)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -4048,23 +3946,23 @@ namespace Iced.Intel {
 		}
 		public void vmread(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Vmread_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Vmread_rm32_r32;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(vmread)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(vmread)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void vmread(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Vmread_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Vmread_rm32_r32;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(vmread)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(vmread)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -4097,12 +3995,12 @@ namespace Iced.Intel {
 		}
 		public void vmwrite(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Vmwrite_r64_rm64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Vmwrite_r32_rm32;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(vmwrite)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(vmwrite)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -4154,42 +4052,42 @@ namespace Iced.Intel {
 		}
 		public void xadd(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Xadd_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Xadd_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Xadd_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Xadd_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(xadd)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(xadd)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void xadd(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Xadd_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Xadd_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Xadd_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Xadd_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(xadd)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(xadd)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void xbts(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR32()) {
+			if (dst.IsGPR32()) {
 				op = Code.Xbts_r32_rm32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Xbts_r16_rm16;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(xbts)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(xbts)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -4206,34 +4104,31 @@ namespace Iced.Intel {
 		}
 		public void xchg(Register dst, Register src) {
 			Code op;
-			if (src == Register.RAX) {
+			if (dst.IsGPR64()) {
 				op = Code.Xchg_r64_RAX;
-			}
-			 else if (src == Register.EAX) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Xchg_r32_EAX;
-			}
-			 else if (src == Register.AX) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Xchg_r16_AX;
-			}
-			 else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Xchg_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(xchg)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(xchg)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void xchg(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Xchg_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Xchg_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Xchg_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Xchg_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(xchg)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(xchg)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -4304,31 +4199,31 @@ namespace Iced.Intel {
 		}
 		public void xor(Register dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Xor_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.IsGPR32()) {
 				op = Code.Xor_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.IsGPR16()) {
 				op = Code.Xor_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.IsGPR8()) {
 				op = Code.Xor_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(xor)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(xor)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void xor(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Xor_rm64_r64;
-			} else if (src.IsGPR32()) {
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Xor_rm32_r32;
-			} else if (src.IsGPR16()) {
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Xor_rm16_r16;
-			} else if (src.IsGPR8()) {
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Xor_rm8_r8;
 			} else {
-				throw new ArgumentException($"Invalid register `{src}` for `{nameof(xor)}` instruction. Expecting 16/32/64");
+				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(xor)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
@@ -4351,14 +4246,11 @@ namespace Iced.Intel {
 			Code op;
 			if (dst == Register.EAX) {
 				op = Code.Xor_EAX_imm32;
-			}
-			 else if (dst == Register.AX) {
+			} else if (dst == Register.AX) {
 				op = Code.Xor_AX_imm16;
-			}
-			 else if (dst == Register.AL) {
+			} else if (dst == Register.AL) {
 				op = Code.Xor_AL_imm8;
-			}
-			 else {
+			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(xor)}` instruction. Expecting 16/32/64");
 			}
 			AddInstruction(Instruction.Create(op, dst, im1));
@@ -4371,8 +4263,6 @@ namespace Iced.Intel {
 				op = Code.Xor_rm16_imm16;
 			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Xor_rm8_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Xor_rm8_imm8_82;
 			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(xor)}` instruction. Expecting 16/32/64");
 			}

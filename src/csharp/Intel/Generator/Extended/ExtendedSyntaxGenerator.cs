@@ -13,6 +13,43 @@ using Generator.IO;
 namespace Generator.Extended {
 	abstract class ExtendedSyntaxGenerator {
 		Dictionary<GroupKey, OpCodeInfoGroup> _groups;
+
+		static readonly HashSet<Code> DiscardOpCodes = new HashSet<Code>() {
+			Code.Add_rm8_imm8_82,
+			Code.Or_rm8_imm8_82,
+			Code.Adc_rm8_imm8_82,
+			Code.Sbb_rm8_imm8_82,
+			Code.And_rm8_imm8_82,
+			Code.Sub_rm8_imm8_82,
+			Code.Xor_rm8_imm8_82,
+			Code.Cmp_rm8_imm8_82,
+			Code.Test_rm16_imm16_F7r1,
+			Code.Test_rm32_imm32_F7r1,
+			Code.Test_rm64_imm32_F7r1,
+			Code.Test_rm8_imm8_F6r1,
+			Code.Lfence_E9,
+			Code.Lfence_EA,
+			Code.Lfence_EB,
+			Code.Lfence_EC,
+			Code.Lfence_ED,
+			Code.Lfence_EE,
+			Code.Lfence_EF,
+			Code.Mfence_F1,
+			Code.Mfence_F2,
+			Code.Mfence_F3,
+			Code.Mfence_F4,
+			Code.Mfence_F5,
+			Code.Mfence_F6,
+			Code.Mfence_F7,
+			Code.Sfence_F9,
+			Code.Sfence_FA,
+			Code.Sfence_FB,
+			Code.Sfence_FC,
+			Code.Sfence_FD,
+			Code.Sfence_FE,
+			Code.Sfence_FF
+		};
+		
 		protected abstract void GenerateRegisters(EnumType registers);
 
 		protected abstract void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] opCodes);
@@ -28,6 +65,8 @@ namespace Generator.Extended {
 			_groups = new Dictionary<GroupKey, OpCodeInfoGroup>();
 
 			foreach(var code in opCodes) {
+				if (DiscardOpCodes.Contains((Code)code.Code.Value)) continue;
+				
 				var name = MnemonicsTable.Table[(int)code.Code.Value].mnemonicEnum.RawName.ToLowerInvariant();
 				bool toAdd = true;
 				var signature = new Signature();
@@ -62,19 +101,23 @@ namespace Generator.Extended {
 							break;
 						
 						case LegacyOpKind.Ib:
-							if (maxImmediateSize < 1) maxImmediateSize = 1;
+							Debug.Assert(maxImmediateSize == 0);
+							maxImmediateSize = 1;
 							argKind = ArgKind.Immediate;
 							break;
 						case LegacyOpKind.Iw:
-							if (maxImmediateSize < 2) maxImmediateSize = 2;
+							Debug.Assert(maxImmediateSize == 0);
+							maxImmediateSize = 2;
 							argKind = ArgKind.Immediate;
 							break;
 						case LegacyOpKind.Id:
-							if (maxImmediateSize < 4) maxImmediateSize = 4;
+							Debug.Assert(maxImmediateSize == 0);
+							maxImmediateSize = 4;
 							argKind = ArgKind.Immediate;
 							break;
 						case LegacyOpKind.Iq:
-							if (maxImmediateSize < 8) maxImmediateSize = 8;
+							Debug.Assert(maxImmediateSize == 0);
+							maxImmediateSize = 8;
 							argKind = ArgKind.Immediate;
 							break;
 						}

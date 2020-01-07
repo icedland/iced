@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Diagnostics;
 using Generator.Enums;
 using Generator.Enums.Encoder;
 
@@ -63,6 +64,8 @@ namespace Generator.Encoder {
 		public uint OpCode { get; protected set; }
 		public int GroupIndex { get; protected set; }
 		public OpCodeFlags Flags { get; protected set; }
+
+		public override string ToString() => $"{this.GetType().Name}: {Code.RawName}";
 	}
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 

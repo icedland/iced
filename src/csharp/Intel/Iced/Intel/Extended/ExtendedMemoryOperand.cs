@@ -4,7 +4,7 @@ namespace Iced.Intel
 {
 	[DebuggerDisplay("{Base} + {Index} * {Scale} + {Displacement}")]
 	public readonly struct ExtendedMemoryOperand {
-		public ExtendedMemoryOperand(MemoryOperandSize size, ExtendedRegister prefix, ExtendedRegister @base, ExtendedRegister index, int scale, int displacement) {
+		public ExtendedMemoryOperand(MemoryOperandSize size, Register prefix, Register @base, Register index, int scale, int displacement) {
 			Size = size;
 			Prefix = prefix;
 			Base = @base;
@@ -15,11 +15,11 @@ namespace Iced.Intel
 
 		public readonly MemoryOperandSize Size;
 
-		public readonly ExtendedRegister Prefix;
+		public readonly Register Prefix;
 
-		public readonly ExtendedRegister Base;
+		public readonly Register Base;
 
-		public readonly ExtendedRegister Index;
+		public readonly Register Index;
 
 		public readonly int Scale;
 
@@ -50,14 +50,5 @@ namespace Iced.Intel
 		public static implicit operator MemoryOperand(ExtendedMemoryOperand v) {
 			return new MemoryOperand(v.Base, v.Index, v.Scale, v.Displacement, v.DisplacementSize);
 		}
-	}
-
-
-	public enum MemoryOperandSize {
-		None,
-		BytePtr,
-		WordPtr,
-		DwordPtr,
-		QwordPtr,
 	}
 }
