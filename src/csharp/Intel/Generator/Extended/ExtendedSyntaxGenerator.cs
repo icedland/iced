@@ -15,6 +15,8 @@ namespace Generator.Extended {
 		Dictionary<GroupKey, OpCodeInfoGroup> _groups;
 
 		static readonly HashSet<Code> DiscardOpCodes = new HashSet<Code>() {
+			Code.INVALID,
+			
 			Code.Add_rm8_imm8_82,
 			Code.Or_rm8_imm8_82,
 			Code.Adc_rm8_imm8_82,
@@ -47,7 +49,42 @@ namespace Generator.Extended {
 			Code.Sfence_FC,
 			Code.Sfence_FD,
 			Code.Sfence_FE,
-			Code.Sfence_FF
+			Code.Sfence_FF,
+			
+			Code.ReservedNop_rm16_r16_0F0D,
+			Code.ReservedNop_rm32_r32_0F0D,
+			Code.ReservedNop_rm64_r64_0F0D,
+			Code.ReservedNop_rm16_r16_0F18,
+			Code.ReservedNop_rm32_r32_0F18,
+			Code.ReservedNop_rm64_r64_0F18,
+			Code.ReservedNop_rm16_r16_0F19,
+			Code.ReservedNop_rm32_r32_0F19,
+			Code.ReservedNop_rm64_r64_0F19,
+			Code.ReservedNop_rm16_r16_0F1A,
+			Code.ReservedNop_rm32_r32_0F1A,
+			Code.ReservedNop_rm64_r64_0F1A,
+			Code.ReservedNop_rm16_r16_0F1B,
+			Code.ReservedNop_rm32_r32_0F1B,
+			Code.ReservedNop_rm64_r64_0F1B,
+			Code.ReservedNop_rm16_r16_0F1C,
+			Code.ReservedNop_rm32_r32_0F1C,
+			Code.ReservedNop_rm64_r64_0F1C,
+			Code.ReservedNop_rm16_r16_0F1D,
+			Code.ReservedNop_rm32_r32_0F1D,
+			Code.ReservedNop_rm64_r64_0F1D,
+			Code.ReservedNop_rm16_r16_0F1E,
+			Code.ReservedNop_rm32_r32_0F1E,
+			Code.ReservedNop_rm64_r64_0F1E,
+			Code.ReservedNop_rm16_r16_0F1F,
+			Code.ReservedNop_rm32_r32_0F1F,
+			Code.ReservedNop_rm64_r64_0F1F,
+			
+			Code.Cmpxchg486_rm8_r8,
+			Code.Cmpxchg486_rm16_r16,
+			Code.Cmpxchg486_rm32_r32,
+			
+			Code.Loadall286,
+			Code.Loadallreset286
 		};
 		
 		protected abstract void GenerateRegisters(EnumType registers);

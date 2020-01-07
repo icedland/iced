@@ -1181,11 +1181,11 @@ namespace Iced.Intel {
 			if (dst.IsGPR64()) {
 				op = Code.Cmpxchg_rm64_r64;
 			} else if (dst.IsGPR32()) {
-				op = Code.Cmpxchg486_rm32_r32;
+				op = Code.Cmpxchg_rm32_r32;
 			} else if (dst.IsGPR16()) {
-				op = Code.Cmpxchg486_rm16_r16;
+				op = Code.Cmpxchg_rm16_r16;
 			} else if (dst.IsGPR8()) {
-				op = Code.Cmpxchg486_rm8_r8;
+				op = Code.Cmpxchg_rm8_r8;
 			} else {
 				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(cmpxchg)}` instruction. Expecting 16/32/64");
 			}
@@ -1196,15 +1196,9 @@ namespace Iced.Intel {
 			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Cmpxchg_rm64_r64;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Cmpxchg486_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Cmpxchg_rm32_r32;
 			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Cmpxchg486_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Cmpxchg_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Cmpxchg486_rm8_r8;
 			} else if (dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Cmpxchg_rm8_r8;
 			} else {
@@ -1835,11 +1829,6 @@ namespace Iced.Intel {
 			op = Code.Into;
 			AddInstruction(Instruction.Create(op));
 		}
-		public void invalid() {
-			Code op;
-			op = Code.INVALID;
-			AddInstruction(Instruction.Create(op));
-		}
 		public void invd() {
 			Code op;
 			op = Code.Invd;
@@ -2000,13 +1989,7 @@ namespace Iced.Intel {
 		}
 		public void loadall() {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Loadall386;
-			} else if (Bitness == 64) {
-				op = Code.Loadall286;
-			} else {
-				op = Code.Loadallreset286;
-			}
+			op = Code.Loadall386;
 			AddInstruction(Instruction.Create(op));
 		}
 		public void lsl(Register dst, Register src) {
@@ -2771,80 +2754,6 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Rdtscp;
 			AddInstruction(Instruction.Create(op));
-		}
-		public void reservednop(Register dst, Register src) {
-			Code op;
-			if (dst.IsGPR64()) {
-				op = Code.ReservedNop_rm64_r64_0F0D;
-			} else if (dst.IsGPR32()) {
-				op = Code.ReservedNop_rm32_r32_0F0D;
-			} else if (dst.IsGPR16()) {
-				op = Code.ReservedNop_rm16_r16_0F0D;
-			} else {
-				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(reservednop)}` instruction. Expecting 16/32/64");
-			}
-			AddInstruction(Instruction.Create(op, dst, src));
-		}
-		public void reservednop(ExtendedMemoryOperand dst, Register src) {
-			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.ReservedNop_rm64_r64_0F1F;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.ReservedNop_rm64_r64_0F1E;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.ReservedNop_rm64_r64_0F0D;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.ReservedNop_rm64_r64_0F1D;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.ReservedNop_rm64_r64_0F18;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.ReservedNop_rm64_r64_0F1C;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.ReservedNop_rm64_r64_0F19;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.ReservedNop_rm64_r64_0F1B;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.ReservedNop_rm64_r64_0F1A;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.ReservedNop_rm32_r32_0F1E;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.ReservedNop_rm32_r32_0F1D;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.ReservedNop_rm32_r32_0F1C;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.ReservedNop_rm32_r32_0F1F;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.ReservedNop_rm32_r32_0F1B;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.ReservedNop_rm32_r32_0F1A;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.ReservedNop_rm32_r32_0F19;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.ReservedNop_rm32_r32_0F18;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.ReservedNop_rm32_r32_0F0D;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.ReservedNop_rm16_r16_0F1C;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.ReservedNop_rm16_r16_0F1A;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.ReservedNop_rm16_r16_0F1D;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.ReservedNop_rm16_r16_0F19;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.ReservedNop_rm16_r16_0F1E;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.ReservedNop_rm16_r16_0F18;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.ReservedNop_rm16_r16_0F1F;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.ReservedNop_rm16_r16_0F1B;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.ReservedNop_rm16_r16_0F0D;
-			} else {
-				throw new ArgumentException($"Invalid register `{dst}` for `{nameof(reservednop)}` instruction. Expecting 16/32/64");
-			}
-			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void ret() {
 			Code op;

@@ -128,8 +128,10 @@ namespace Generator.Extended.CSharp {
 												}
 												else {
 													var bitness = legacy.OperandSize == OperandSize.Size16 ||
-													              legacy.AddressSize == AddressSize.Size16 ? 16 : legacy.OperandSize == OperandSize.Size32  || 
-													                                                              legacy.AddressSize == AddressSize.Size32 ? 32 : 64;
+													              legacy.AddressSize == AddressSize.Size16 ||
+														          legacy.Flags == OpCodeFlags.Mode16 ? 16 : legacy.OperandSize == OperandSize.Size32  || 
+														                                                       legacy.AddressSize == AddressSize.Size32  || 
+														                                                       legacy.Flags == (OpCodeFlags.Mode16 | OpCodeFlags.Mode32) ? 32 : 64;
 													if (bitness == 64) has64 = true;
 													writer.WriteLine($"if (Bitness {(has64 ? "==" : ">=")} {bitness}) {{");
 												}
@@ -210,12 +212,11 @@ namespace Generator.Extended.CSharp {
 						var againstItem = group.Items[j];
 						if (againstItem is LegacyOpCodeInfo nearLegacy && nearLegacy.OpKinds[argIndex] == legacy.OpKinds[argIndex]) {
 							var againstRegIndex = GetOtherRegLikeIndex(nearLegacy, argIndex);
-							if (otherRegIndex == againstRegIndex && otherRegIndex >= 0) {
-								if (nearLegacy.OpKinds[otherRegIndex] != legacy.OpKinds[otherRegIndex]) {
-									refineCheck = $" && {GetLegacyArgCondition(otherArg, legacy.OpKinds[otherRegIndex])}";
-								}
+							if (otherRegIndex == againstRegIndex && otherRegIndex >= 0 && nearLegacy.OpKinds[otherRegIndex] != legacy.OpKinds[otherRegIndex]) {
+								refineCheck = $" && {GetLegacyArgCondition(otherArg, legacy.OpKinds[otherRegIndex])}";
 							}
 							else {
+								refineCheck = $" && conflicting_opcode_{legacy.Code.RawName}_with_{againstItem.Code.RawName}";
 								Console.WriteLine($"Conflicting OpCode `{legacy.Code.RawName}` with `{againstItem.Code.RawName}`");
 							}
 						}
