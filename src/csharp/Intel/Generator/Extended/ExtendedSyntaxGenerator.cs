@@ -138,7 +138,9 @@ namespace Generator.Extended {
 						case LegacyOpKind.SS:
 						case LegacyOpKind.DS:
 						case LegacyOpKind.FS:
-						case LegacyOpKind.GS:
+						case LegacyOpKind.GS: 
+						case LegacyOpKind.VX:
+						case LegacyOpKind.WX:
 							argKind = ArgKind.Register;
 							break;
 
@@ -356,6 +358,9 @@ namespace Generator.Extended {
 				return ArgKind.FilterRegisterFS;
 			case LegacyOpKind.GS:
 				return ArgKind.FilterRegisterGS;
+			case LegacyOpKind.VX:
+			case LegacyOpKind.WX:
+				return ArgKind.FilterRegisterXmm;
 			}
 
 			if (allowMemory) {
@@ -528,6 +533,8 @@ namespace Generator.Extended {
 			FilterRegisterSS,
 			FilterRegisterFS,
 			FilterRegisterGS,
+			
+			FilterRegisterXmm,
 
 			FilterImmediate1,
 			FilterImmediate8,

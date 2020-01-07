@@ -117,7 +117,7 @@ namespace Generator.Extended.CSharp {
 
 								writer.WriteLine("Code op;");
 
-								if (regArgIndex >= 0) {
+								if (regArgIndex >= 0 && (group.Items.Count > 1 || group.ItemsWithImmediateByte != null && group.ItemsWithImmediateByte.Count > 1 || group.ItemsWithImmediateByte1 != null && group.ItemsWithImmediateByte1.Count > 1)) {
 									GenerateOpCodeSelectorFromRegisterOrMemory(writer, group, renderArgs, regArgIndex, methodName);
 								}
 								else {
@@ -389,6 +389,10 @@ namespace Generator.Extended.CSharp {
 		static int GetPriorityFromKind(LegacyOpKind kind) {
 			switch (kind) {
 
+			case LegacyOpKind.VX:
+			case LegacyOpKind.WX:
+				return -1;
+		
 			case LegacyOpKind.RAX:
 			case LegacyOpKind.r64_ro:
 			case LegacyOpKind.Gq:
@@ -454,6 +458,8 @@ namespace Generator.Extended.CSharp {
 			case LegacyOpKind.r8_rb:
 			case LegacyOpKind.Gb:
 			case LegacyOpKind.Eb:
+			case LegacyOpKind.VX:
+			case LegacyOpKind.WX:
 				return true;
 			default:
 				return false;
