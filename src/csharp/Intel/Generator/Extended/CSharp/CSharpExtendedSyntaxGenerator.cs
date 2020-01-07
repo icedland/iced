@@ -357,6 +357,10 @@ namespace Generator.Extended.CSharp {
 			case LegacyOpKind.Ib32:
 			case LegacyOpKind.Ib64:
 				return $"(uint){regName} <= byte.MaxValue";			
+			case LegacyOpKind.VX:
+				return $"{regName}.IsXMM()";
+			case LegacyOpKind.WX:
+				return isMemory ? $"{regName}.Size == MemoryOperandSize.DQwordPtr" : $"{regName}.IsXMM()";
 			default:
 				return "true";
 			}

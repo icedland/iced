@@ -286,7 +286,17 @@ namespace Iced.Intel {
 			op = Code.Addpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void addpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Addpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void addps(Register dst, Register src) {
+			Code op;
+			op = Code.Addps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void addps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Addps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -296,7 +306,17 @@ namespace Iced.Intel {
 			op = Code.Addsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void addsd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Addsd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void addss(Register dst, Register src) {
+			Code op;
+			op = Code.Addss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void addss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Addss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -306,7 +326,17 @@ namespace Iced.Intel {
 			op = Code.Addsubpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void addsubpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Addsubpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void addsubps(Register dst, Register src) {
+			Code op;
+			op = Code.Addsubps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void addsubps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Addsubps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -338,7 +368,17 @@ namespace Iced.Intel {
 			op = Code.Aesdec_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void aesdec(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Aesdec_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void aesdeclast(Register dst, Register src) {
+			Code op;
+			op = Code.Aesdeclast_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void aesdeclast(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Aesdeclast_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -348,7 +388,17 @@ namespace Iced.Intel {
 			op = Code.Aesenc_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void aesenc(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Aesenc_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void aesenclast(Register dst, Register src) {
+			Code op;
+			op = Code.Aesenclast_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void aesenclast(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Aesenclast_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -358,7 +408,17 @@ namespace Iced.Intel {
 			op = Code.Aesimc_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void aesimc(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Aesimc_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void aeskeygenassist(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Aeskeygenassist_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void aeskeygenassist(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Aeskeygenassist_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -473,7 +533,17 @@ namespace Iced.Intel {
 			op = Code.Andnpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void andnpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Andnpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void andnps(Register dst, Register src) {
+			Code op;
+			op = Code.Andnps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void andnps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Andnps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -483,7 +553,17 @@ namespace Iced.Intel {
 			op = Code.Andpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void andpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Andpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void andps(Register dst, Register src) {
+			Code op;
+			op = Code.Andps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void andps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Andps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -503,7 +583,17 @@ namespace Iced.Intel {
 			op = Code.Blendpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void blendpd(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Blendpd_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void blendps(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Blendps_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void blendps(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Blendps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -513,7 +603,17 @@ namespace Iced.Intel {
 			op = Code.Blendvpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void blendvpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Blendvpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void blendvps(Register dst, Register src) {
+			Code op;
+			op = Code.Blendvps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void blendvps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Blendvps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -1409,7 +1509,17 @@ namespace Iced.Intel {
 			op = Code.Cmppd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void cmppd(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Cmppd_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void cmpps(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Cmpps_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void cmpps(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Cmpps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -1429,12 +1539,22 @@ namespace Iced.Intel {
 			op = Code.Cmpsd_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void cmpsd(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Cmpsd_xmm_xmmm64_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void cmpsq() {
 			Code op;
 			op = Code.Cmpsq_m64_m64;
 			AddInstruction(Instruction.Create(op));
 		}
 		public void cmpss(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Cmpss_xmm_xmmm32_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void cmpss(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Cmpss_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -1479,7 +1599,17 @@ namespace Iced.Intel {
 			op = Code.Comisd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void comisd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Comisd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void comiss(Register dst, Register src) {
+			Code op;
+			op = Code.Comiss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void comiss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Comiss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -1533,7 +1663,17 @@ namespace Iced.Intel {
 			op = Code.Cvtdq2pd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void cvtdq2pd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Cvtdq2pd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void cvtdq2ps(Register dst, Register src) {
+			Code op;
+			op = Code.Cvtdq2ps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void cvtdq2ps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Cvtdq2ps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -1543,7 +1683,17 @@ namespace Iced.Intel {
 			op = Code.Cvtpd2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void cvtpd2dq(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Cvtpd2dq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void cvtpd2ps(Register dst, Register src) {
+			Code op;
+			op = Code.Cvtpd2ps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void cvtpd2ps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Cvtpd2ps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -1553,7 +1703,17 @@ namespace Iced.Intel {
 			op = Code.Cvtps2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void cvtps2dq(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Cvtps2dq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void cvtps2pd(Register dst, Register src) {
+			Code op;
+			op = Code.Cvtps2pd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void cvtps2pd(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Cvtps2pd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -1569,16 +1729,32 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void cvtsd2si(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			if (dst.IsGPR64()) {
+				op = Code.Cvtsd2si_r64_xmmm64;
+			} else if (dst.IsGPR32()) {
+				op = Code.Cvtsd2si_r32_xmmm64;
+			} else {
+				throw new ArgumentException($"Invalid register for `{nameof(cvtsd2si)}` instruction. Expecting 16/32/64");
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void cvtsd2ss(Register dst, Register src) {
+			Code op;
+			op = Code.Cvtsd2ss_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void cvtsd2ss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Cvtsd2ss_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void cvtsi2sd(Register dst, Register src) {
 			Code op;
-			if (true && src.IsGPR64()) {
+			if (dst.IsXMM() && src.IsGPR64()) {
 				op = Code.Cvtsi2sd_xmm_rm64;
-			} else if (true && src.IsGPR32()) {
+			} else if (dst.IsXMM() && src.IsGPR32()) {
 				op = Code.Cvtsi2sd_xmm_rm32;
 			} else {
 				throw new ArgumentException($"Invalid register for `{nameof(cvtsi2sd)}` instruction. Expecting 16/32/64");
@@ -1587,9 +1763,9 @@ namespace Iced.Intel {
 		}
 		public void cvtsi2sd(Register dst, ExtendedMemoryOperand src) {
 			Code op;
-			if (true && src.Size == MemoryOperandSize.QwordPtr) {
+			if (dst.IsXMM() && src.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Cvtsi2sd_xmm_rm64;
-			} else if (true && src.Size == MemoryOperandSize.DwordPtr) {
+			} else if (dst.IsXMM() && src.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Cvtsi2sd_xmm_rm32;
 			} else {
 				throw new ArgumentException($"Invalid register for `{nameof(cvtsi2sd)}` instruction. Expecting 16/32/64");
@@ -1598,9 +1774,9 @@ namespace Iced.Intel {
 		}
 		public void cvtsi2ss(Register dst, Register src) {
 			Code op;
-			if (true && src.IsGPR64()) {
+			if (dst.IsXMM() && src.IsGPR64()) {
 				op = Code.Cvtsi2ss_xmm_rm64;
-			} else if (true && src.IsGPR32()) {
+			} else if (dst.IsXMM() && src.IsGPR32()) {
 				op = Code.Cvtsi2ss_xmm_rm32;
 			} else {
 				throw new ArgumentException($"Invalid register for `{nameof(cvtsi2ss)}` instruction. Expecting 16/32/64");
@@ -1609,9 +1785,9 @@ namespace Iced.Intel {
 		}
 		public void cvtsi2ss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
-			if (true && src.Size == MemoryOperandSize.QwordPtr) {
+			if (dst.IsXMM() && src.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Cvtsi2ss_xmm_rm64;
-			} else if (true && src.Size == MemoryOperandSize.DwordPtr) {
+			} else if (dst.IsXMM() && src.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Cvtsi2ss_xmm_rm32;
 			} else {
 				throw new ArgumentException($"Invalid register for `{nameof(cvtsi2ss)}` instruction. Expecting 16/32/64");
@@ -1619,6 +1795,11 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void cvtss2sd(Register dst, Register src) {
+			Code op;
+			op = Code.Cvtss2sd_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void cvtss2sd(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Cvtss2sd_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -1634,12 +1815,33 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void cvtss2si(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			if (dst.IsGPR64()) {
+				op = Code.Cvtss2si_r64_xmmm32;
+			} else if (dst.IsGPR32()) {
+				op = Code.Cvtss2si_r32_xmmm32;
+			} else {
+				throw new ArgumentException($"Invalid register for `{nameof(cvtss2si)}` instruction. Expecting 16/32/64");
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void cvttpd2dq(Register dst, Register src) {
 			Code op;
 			op = Code.Cvttpd2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void cvttpd2dq(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Cvttpd2dq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void cvttps2dq(Register dst, Register src) {
+			Code op;
+			op = Code.Cvttps2dq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void cvttps2dq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Cvttps2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -1655,7 +1857,29 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void cvttsd2si(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			if (dst.IsGPR64()) {
+				op = Code.Cvttsd2si_r64_xmmm64;
+			} else if (dst.IsGPR32()) {
+				op = Code.Cvttsd2si_r32_xmmm64;
+			} else {
+				throw new ArgumentException($"Invalid register for `{nameof(cvttsd2si)}` instruction. Expecting 16/32/64");
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void cvttss2si(Register dst, Register src) {
+			Code op;
+			if (dst.IsGPR64()) {
+				op = Code.Cvttss2si_r64_xmmm32;
+			} else if (dst.IsGPR32()) {
+				op = Code.Cvttss2si_r32_xmmm32;
+			} else {
+				throw new ArgumentException($"Invalid register for `{nameof(cvttss2si)}` instruction. Expecting 16/32/64");
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void cvttss2si(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.Cvttss2si_r64_xmmm32;
@@ -1761,7 +1985,17 @@ namespace Iced.Intel {
 			op = Code.Divpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void divpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Divpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void divps(Register dst, Register src) {
+			Code op;
+			op = Code.Divps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void divps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Divps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -1771,7 +2005,17 @@ namespace Iced.Intel {
 			op = Code.Divsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void divsd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Divsd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void divss(Register dst, Register src) {
+			Code op;
+			op = Code.Divss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void divss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Divss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -1781,7 +2025,17 @@ namespace Iced.Intel {
 			op = Code.Dppd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void dppd(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Dppd_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void dpps(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Dpps_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void dpps(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Dpps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -2088,7 +2342,17 @@ namespace Iced.Intel {
 			op = Code.Gf2p8affineinvqb_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void gf2p8affineinvqb(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Gf2p8affineinvqb_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void gf2p8affineqb(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Gf2p8affineqb_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void gf2p8affineqb(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Gf2p8affineqb_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -2098,12 +2362,27 @@ namespace Iced.Intel {
 			op = Code.Gf2p8mulb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void gf2p8mulb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Gf2p8mulb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void haddpd(Register dst, Register src) {
 			Code op;
 			op = Code.Haddpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void haddpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Haddpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void haddps(Register dst, Register src) {
+			Code op;
+			op = Code.Haddps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void haddps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Haddps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -2118,7 +2397,17 @@ namespace Iced.Intel {
 			op = Code.Hsubpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void hsubpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Hsubpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void hsubps(Register dst, Register src) {
+			Code op;
+			op = Code.Hsubps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void hsubps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Hsubps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -2346,6 +2635,11 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, src));
 		}
 		public void insertps(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Insertps_xmm_xmmm32_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void insertps(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Insertps_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -2609,7 +2903,17 @@ namespace Iced.Intel {
 			op = Code.Maxpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void maxpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Maxpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void maxps(Register dst, Register src) {
+			Code op;
+			op = Code.Maxps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void maxps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Maxps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -2619,7 +2923,17 @@ namespace Iced.Intel {
 			op = Code.Maxsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void maxsd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Maxsd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void maxss(Register dst, Register src) {
+			Code op;
+			op = Code.Maxss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void maxss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Maxss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -2639,7 +2953,17 @@ namespace Iced.Intel {
 			op = Code.Minpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void minpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Minpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void minps(Register dst, Register src) {
+			Code op;
+			op = Code.Minps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void minps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Minps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -2649,7 +2973,17 @@ namespace Iced.Intel {
 			op = Code.Minsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void minsd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Minsd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void minss(Register dst, Register src) {
+			Code op;
+			op = Code.Minss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void minss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Minss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -2774,29 +3108,37 @@ namespace Iced.Intel {
 		}
 		public void movapd(Register dst, Register src) {
 			Code op;
-			if (true) {
-				op = Code.Movapd_xmm_xmmm128;
-			} else if (true) {
-				op = Code.Movapd_xmmm128_xmm;
-			} else {
-				throw new ArgumentException($"Invalid register for `{nameof(movapd)}` instruction. Expecting 16/32/64");
-			}
+			op = Code.Movapd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movapd(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			op = Code.Movapd_xmmm128_xmm;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movapd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Movapd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void movaps(Register dst, Register src) {
 			Code op;
-			if (true) {
-				op = Code.Movaps_xmm_xmmm128;
-			} else if (true) {
-				op = Code.Movaps_xmmm128_xmm;
-			} else {
-				throw new ArgumentException($"Invalid register for `{nameof(movaps)}` instruction. Expecting 16/32/64");
-			}
+			op = Code.Movaps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movaps(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			op = Code.Movaps_xmmm128_xmm;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movaps(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Movaps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void movd(Register dst, Register src) {
 			Code op;
-			if (true) {
+			if (dst.IsXMM()) {
 				op = Code.Movd_xmm_rm32;
 			} else if (dst.IsGPR32()) {
 				op = Code.Movd_rm32_xmm;
@@ -2820,33 +3162,46 @@ namespace Iced.Intel {
 			op = Code.Movddup_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void movddup(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Movddup_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void movdqa(Register dst, Register src) {
 			Code op;
-			if (true) {
-				op = Code.Movdqa_xmm_xmmm128;
-			} else if (true) {
-				op = Code.Movdqa_xmmm128_xmm;
-			} else {
-				throw new ArgumentException($"Invalid register for `{nameof(movdqa)}` instruction. Expecting 16/32/64");
-			}
+			op = Code.Movdqa_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movdqa(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			op = Code.Movdqa_xmmm128_xmm;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movdqa(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Movdqa_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void movdqu(Register dst, Register src) {
 			Code op;
-			if (true) {
-				op = Code.Movdqu_xmm_xmmm128;
-			} else if (true) {
-				op = Code.Movdqu_xmmm128_xmm;
-			} else {
-				throw new ArgumentException($"Invalid register for `{nameof(movdqu)}` instruction. Expecting 16/32/64");
-			}
+			op = Code.Movdqu_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movdqu(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			op = Code.Movdqu_xmmm128_xmm;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movdqu(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Movdqu_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void movq(Register dst, Register src) {
 			Code op;
-			if (true && true) {
+			if (dst.IsXMM() && src.IsXMM()) {
 				op = Code.Movq_xmm_xmmm64;
-			} else if (true && src.IsGPR64()) {
+			} else if (dst.IsXMM() && src.IsGPR64()) {
 				op = Code.Movq_xmm_rm64;
 			} else if (dst.IsGPR64()) {
 				op = Code.Movq_rm64_xmm;
@@ -2857,12 +3212,24 @@ namespace Iced.Intel {
 		}
 		public void movq(ExtendedMemoryOperand dst, Register src) {
 			Code op;
-			op = Code.Movq_rm64_xmm;
+			if (dst.Size == MemoryOperandSize.DQwordPtr) {
+				op = Code.Movq_xmmm64_xmm;
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
+				op = Code.Movq_rm64_xmm;
+			} else {
+				throw new ArgumentException($"Invalid register for `{nameof(movq)}` instruction. Expecting 16/32/64");
+			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void movq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
-			op = Code.Movq_xmm_rm64;
+			if (dst.IsXMM() && src.Size == MemoryOperandSize.DQwordPtr) {
+				op = Code.Movq_xmm_xmmm64;
+			} else if (dst.IsXMM() && src.Size == MemoryOperandSize.QwordPtr) {
+				op = Code.Movq_xmm_rm64;
+			} else {
+				throw new ArgumentException($"Invalid register for `{nameof(movq)}` instruction. Expecting 16/32/64");
+			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void movsb() {
@@ -2872,13 +3239,17 @@ namespace Iced.Intel {
 		}
 		public void movsd(Register dst, Register src) {
 			Code op;
-			if (true) {
-				op = Code.Movsd_xmm_xmmm64;
-			} else if (true) {
-				op = Code.Movsd_xmmm64_xmm;
-			} else {
-				throw new ArgumentException($"Invalid register for `{nameof(movsd)}` instruction. Expecting 16/32/64");
-			}
+			op = Code.Movsd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movsd(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			op = Code.Movsd_xmmm64_xmm;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movsd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Movsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void movsd() {
@@ -2891,7 +3262,17 @@ namespace Iced.Intel {
 			op = Code.Movshdup_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void movshdup(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Movshdup_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void movsldup(Register dst, Register src) {
+			Code op;
+			op = Code.Movsldup_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movsldup(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Movsldup_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -2903,13 +3284,17 @@ namespace Iced.Intel {
 		}
 		public void movss(Register dst, Register src) {
 			Code op;
-			if (true) {
-				op = Code.Movss_xmm_xmmm32;
-			} else if (true) {
-				op = Code.Movss_xmmm32_xmm;
-			} else {
-				throw new ArgumentException($"Invalid register for `{nameof(movss)}` instruction. Expecting 16/32/64");
-			}
+			op = Code.Movss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movss(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			op = Code.Movss_xmmm32_xmm;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movss(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Movss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void movsw() {
@@ -2983,24 +3368,32 @@ namespace Iced.Intel {
 		}
 		public void movupd(Register dst, Register src) {
 			Code op;
-			if (true) {
-				op = Code.Movupd_xmm_xmmm128;
-			} else if (true) {
-				op = Code.Movupd_xmmm128_xmm;
-			} else {
-				throw new ArgumentException($"Invalid register for `{nameof(movupd)}` instruction. Expecting 16/32/64");
-			}
+			op = Code.Movupd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movupd(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			op = Code.Movupd_xmmm128_xmm;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movupd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Movupd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void movups(Register dst, Register src) {
 			Code op;
-			if (true) {
-				op = Code.Movups_xmm_xmmm128;
-			} else if (true) {
-				op = Code.Movups_xmmm128_xmm;
-			} else {
-				throw new ArgumentException($"Invalid register for `{nameof(movups)}` instruction. Expecting 16/32/64");
-			}
+			op = Code.Movups_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movups(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			op = Code.Movups_xmmm128_xmm;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void movups(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Movups_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		public void movzx(Register dst, Register src) {
@@ -3046,6 +3439,11 @@ namespace Iced.Intel {
 			op = Code.Mpsadbw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void mpsadbw(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Mpsadbw_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void mul(Register dst) {
 			Code op;
 			if (dst.IsGPR64()) {
@@ -3081,7 +3479,17 @@ namespace Iced.Intel {
 			op = Code.Mulpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void mulpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Mulpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void mulps(Register dst, Register src) {
+			Code op;
+			op = Code.Mulps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void mulps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Mulps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3091,7 +3499,17 @@ namespace Iced.Intel {
 			op = Code.Mulsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void mulsd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Mulsd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void mulss(Register dst, Register src) {
+			Code op;
+			op = Code.Mulss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void mulss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Mulss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3313,7 +3731,17 @@ namespace Iced.Intel {
 			op = Code.Orpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void orpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Orpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void orps(Register dst, Register src) {
+			Code op;
+			op = Code.Orps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void orps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Orps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3364,7 +3792,17 @@ namespace Iced.Intel {
 			op = Code.Pabsb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pabsb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pabsb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pabsd(Register dst, Register src) {
+			Code op;
+			op = Code.Pabsd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pabsd(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pabsd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3374,7 +3812,17 @@ namespace Iced.Intel {
 			op = Code.Pabsw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pabsw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pabsw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void packssdw(Register dst, Register src) {
+			Code op;
+			op = Code.Packssdw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void packssdw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Packssdw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3384,7 +3832,17 @@ namespace Iced.Intel {
 			op = Code.Packsswb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void packsswb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Packsswb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void packusdw(Register dst, Register src) {
+			Code op;
+			op = Code.Packusdw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void packusdw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Packusdw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3394,7 +3852,17 @@ namespace Iced.Intel {
 			op = Code.Packuswb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void packuswb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Packuswb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void paddb(Register dst, Register src) {
+			Code op;
+			op = Code.Paddb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void paddb(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Paddb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3404,7 +3872,17 @@ namespace Iced.Intel {
 			op = Code.Paddd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void paddd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Paddd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void paddq(Register dst, Register src) {
+			Code op;
+			op = Code.Paddq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void paddq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Paddq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3414,7 +3892,17 @@ namespace Iced.Intel {
 			op = Code.Paddsb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void paddsb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Paddsb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void paddsw(Register dst, Register src) {
+			Code op;
+			op = Code.Paddsw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void paddsw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Paddsw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3424,7 +3912,17 @@ namespace Iced.Intel {
 			op = Code.Paddusb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void paddusb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Paddusb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void paddusw(Register dst, Register src) {
+			Code op;
+			op = Code.Paddusw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void paddusw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Paddusw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3434,7 +3932,17 @@ namespace Iced.Intel {
 			op = Code.Paddw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void paddw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Paddw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void palignr(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Palignr_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void palignr(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Palignr_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -3444,7 +3952,17 @@ namespace Iced.Intel {
 			op = Code.Pand_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pand(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pand_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pandn(Register dst, Register src) {
+			Code op;
+			op = Code.Pandn_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pandn(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pandn_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3459,7 +3977,17 @@ namespace Iced.Intel {
 			op = Code.Pavgb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pavgb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pavgb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pavgw(Register dst, Register src) {
+			Code op;
+			op = Code.Pavgw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pavgw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pavgw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3469,7 +3997,17 @@ namespace Iced.Intel {
 			op = Code.Pblendvb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pblendvb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pblendvb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pblendw(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Pblendw_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void pblendw(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Pblendw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -3479,7 +4017,17 @@ namespace Iced.Intel {
 			op = Code.Pclmulqdq_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void pclmulqdq(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Pclmulqdq_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void pcmpeqb(Register dst, Register src) {
+			Code op;
+			op = Code.Pcmpeqb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pcmpeqb(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pcmpeqb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3489,7 +4037,17 @@ namespace Iced.Intel {
 			op = Code.Pcmpeqd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pcmpeqd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pcmpeqd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pcmpeqq(Register dst, Register src) {
+			Code op;
+			op = Code.Pcmpeqq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pcmpeqq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pcmpeqq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3499,7 +4057,17 @@ namespace Iced.Intel {
 			op = Code.Pcmpeqw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pcmpeqw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pcmpeqw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pcmpestri(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Pcmpestri_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void pcmpestri(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Pcmpestri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -3509,7 +4077,17 @@ namespace Iced.Intel {
 			op = Code.Pcmpestri64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void pcmpestri64(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Pcmpestri64_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void pcmpestrm(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Pcmpestrm_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void pcmpestrm(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Pcmpestrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -3519,7 +4097,17 @@ namespace Iced.Intel {
 			op = Code.Pcmpestrm64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void pcmpestrm64(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Pcmpestrm64_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void pcmpgtb(Register dst, Register src) {
+			Code op;
+			op = Code.Pcmpgtb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pcmpgtb(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pcmpgtb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3529,7 +4117,17 @@ namespace Iced.Intel {
 			op = Code.Pcmpgtd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pcmpgtd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pcmpgtd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pcmpgtq(Register dst, Register src) {
+			Code op;
+			op = Code.Pcmpgtq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pcmpgtq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pcmpgtq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3539,12 +4137,27 @@ namespace Iced.Intel {
 			op = Code.Pcmpgtw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pcmpgtw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pcmpgtw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pcmpistri(Register dst, Register src, int imm) {
 			Code op;
 			op = Code.Pcmpistri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void pcmpistri(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Pcmpistri_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void pcmpistrm(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Pcmpistrm_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void pcmpistrm(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Pcmpistrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -3584,7 +4197,17 @@ namespace Iced.Intel {
 			op = Code.Phaddd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void phaddd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Phaddd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void phaddsw(Register dst, Register src) {
+			Code op;
+			op = Code.Phaddsw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void phaddsw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Phaddsw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3594,7 +4217,17 @@ namespace Iced.Intel {
 			op = Code.Phaddw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void phaddw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Phaddw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void phminposuw(Register dst, Register src) {
+			Code op;
+			op = Code.Phminposuw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void phminposuw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Phminposuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3604,12 +4237,27 @@ namespace Iced.Intel {
 			op = Code.Phsubd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void phsubd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Phsubd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void phsubsw(Register dst, Register src) {
 			Code op;
 			op = Code.Phsubsw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void phsubsw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Phsubsw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void phsubw(Register dst, Register src) {
+			Code op;
+			op = Code.Phsubw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void phsubw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Phsubw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3639,7 +4287,17 @@ namespace Iced.Intel {
 			op = Code.Pmaddubsw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmaddubsw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmaddubsw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmaddwd(Register dst, Register src) {
+			Code op;
+			op = Code.Pmaddwd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmaddwd(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmaddwd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3649,7 +4307,17 @@ namespace Iced.Intel {
 			op = Code.Pmaxsb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmaxsb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmaxsb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmaxsd(Register dst, Register src) {
+			Code op;
+			op = Code.Pmaxsd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmaxsd(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmaxsd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3659,7 +4327,17 @@ namespace Iced.Intel {
 			op = Code.Pmaxsw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmaxsw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmaxsw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmaxub(Register dst, Register src) {
+			Code op;
+			op = Code.Pmaxub_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmaxub(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmaxub_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3669,7 +4347,17 @@ namespace Iced.Intel {
 			op = Code.Pmaxud_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmaxud(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmaxud_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmaxuw(Register dst, Register src) {
+			Code op;
+			op = Code.Pmaxuw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmaxuw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmaxuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3679,7 +4367,17 @@ namespace Iced.Intel {
 			op = Code.Pminsb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pminsb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pminsb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pminsd(Register dst, Register src) {
+			Code op;
+			op = Code.Pminsd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pminsd(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pminsd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3689,7 +4387,17 @@ namespace Iced.Intel {
 			op = Code.Pminsw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pminsw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pminsw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pminub(Register dst, Register src) {
+			Code op;
+			op = Code.Pminub_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pminub(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pminub_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3699,7 +4407,17 @@ namespace Iced.Intel {
 			op = Code.Pminud_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pminud(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pminud_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pminuw(Register dst, Register src) {
+			Code op;
+			op = Code.Pminuw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pminuw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pminuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3709,7 +4427,17 @@ namespace Iced.Intel {
 			op = Code.Pmovsxbd_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmovsxbd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmovsxbd_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmovsxbq(Register dst, Register src) {
+			Code op;
+			op = Code.Pmovsxbq_xmm_xmmm16;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmovsxbq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmovsxbq_xmm_xmmm16;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3719,7 +4447,17 @@ namespace Iced.Intel {
 			op = Code.Pmovsxbw_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmovsxbw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmovsxbw_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmovsxdq(Register dst, Register src) {
+			Code op;
+			op = Code.Pmovsxdq_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmovsxdq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmovsxdq_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3729,7 +4467,17 @@ namespace Iced.Intel {
 			op = Code.Pmovsxwd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmovsxwd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmovsxwd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmovsxwq(Register dst, Register src) {
+			Code op;
+			op = Code.Pmovsxwq_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmovsxwq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmovsxwq_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3739,7 +4487,17 @@ namespace Iced.Intel {
 			op = Code.Pmovzxbd_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmovzxbd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmovzxbd_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmovzxbq(Register dst, Register src) {
+			Code op;
+			op = Code.Pmovzxbq_xmm_xmmm16;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmovzxbq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmovzxbq_xmm_xmmm16;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3749,7 +4507,17 @@ namespace Iced.Intel {
 			op = Code.Pmovzxbw_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmovzxbw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmovzxbw_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmovzxdq(Register dst, Register src) {
+			Code op;
+			op = Code.Pmovzxdq_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmovzxdq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmovzxdq_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3759,7 +4527,17 @@ namespace Iced.Intel {
 			op = Code.Pmovzxwd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmovzxwd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmovzxwd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmovzxwq(Register dst, Register src) {
+			Code op;
+			op = Code.Pmovzxwq_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmovzxwq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmovzxwq_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3769,7 +4547,17 @@ namespace Iced.Intel {
 			op = Code.Pmuldq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmuldq(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmuldq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmulhrsw(Register dst, Register src) {
+			Code op;
+			op = Code.Pmulhrsw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmulhrsw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmulhrsw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3779,7 +4567,17 @@ namespace Iced.Intel {
 			op = Code.Pmulhuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmulhuw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmulhuw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmulhw(Register dst, Register src) {
+			Code op;
+			op = Code.Pmulhw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmulhw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmulhw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3789,12 +4587,27 @@ namespace Iced.Intel {
 			op = Code.Pmulld_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmulld(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmulld_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmullw(Register dst, Register src) {
 			Code op;
 			op = Code.Pmullw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pmullw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pmullw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pmuludq(Register dst, Register src) {
+			Code op;
+			op = Code.Pmuludq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pmuludq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pmuludq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3888,7 +4701,17 @@ namespace Iced.Intel {
 			op = Code.Por_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void por(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Por_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void psadbw(Register dst, Register src) {
+			Code op;
+			op = Code.Psadbw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void psadbw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Psadbw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3898,7 +4721,17 @@ namespace Iced.Intel {
 			op = Code.Pshufb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void pshufb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Pshufb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pshufd(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Pshufd_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void pshufd(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Pshufd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -3908,7 +4741,17 @@ namespace Iced.Intel {
 			op = Code.Pshufhw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void pshufhw(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Pshufhw_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void pshuflw(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Pshuflw_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void pshuflw(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Pshuflw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -3918,7 +4761,17 @@ namespace Iced.Intel {
 			op = Code.Psignb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void psignb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Psignb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void psignd(Register dst, Register src) {
+			Code op;
+			op = Code.Psignd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void psignd(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Psignd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3928,7 +4781,17 @@ namespace Iced.Intel {
 			op = Code.Psignw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void psignw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Psignw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void pslld(Register dst, Register src) {
+			Code op;
+			op = Code.Pslld_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pslld(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pslld_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3938,7 +4801,17 @@ namespace Iced.Intel {
 			op = Code.Psllq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void psllq(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Psllq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void psllw(Register dst, Register src) {
+			Code op;
+			op = Code.Psllw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void psllw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Psllw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3948,7 +4821,17 @@ namespace Iced.Intel {
 			op = Code.Psrad_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void psrad(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Psrad_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void psraw(Register dst, Register src) {
+			Code op;
+			op = Code.Psraw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void psraw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Psraw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3958,7 +4841,17 @@ namespace Iced.Intel {
 			op = Code.Psrld_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void psrld(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Psrld_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void psrlq(Register dst, Register src) {
+			Code op;
+			op = Code.Psrlq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void psrlq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Psrlq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3968,7 +4861,17 @@ namespace Iced.Intel {
 			op = Code.Psrlw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void psrlw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Psrlw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void psubb(Register dst, Register src) {
+			Code op;
+			op = Code.Psubb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void psubb(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Psubb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3978,7 +4881,17 @@ namespace Iced.Intel {
 			op = Code.Psubd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void psubd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Psubd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void psubq(Register dst, Register src) {
+			Code op;
+			op = Code.Psubq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void psubq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Psubq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3988,7 +4901,17 @@ namespace Iced.Intel {
 			op = Code.Psubsb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void psubsb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Psubsb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void psubsw(Register dst, Register src) {
+			Code op;
+			op = Code.Psubsw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void psubsw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Psubsw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -3998,7 +4921,17 @@ namespace Iced.Intel {
 			op = Code.Psubusb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void psubusb(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Psubusb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void psubusw(Register dst, Register src) {
+			Code op;
+			op = Code.Psubusw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void psubusw(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Psubusw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -4008,7 +4941,17 @@ namespace Iced.Intel {
 			op = Code.Psubw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void psubw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Psubw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void ptest(Register dst, Register src) {
+			Code op;
+			op = Code.Ptest_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void ptest(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Ptest_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -4040,7 +4983,17 @@ namespace Iced.Intel {
 			op = Code.Punpckhbw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void punpckhbw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Punpckhbw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void punpckhdq(Register dst, Register src) {
+			Code op;
+			op = Code.Punpckhdq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void punpckhdq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Punpckhdq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -4050,7 +5003,17 @@ namespace Iced.Intel {
 			op = Code.Punpckhqdq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void punpckhqdq(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Punpckhqdq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void punpckhwd(Register dst, Register src) {
+			Code op;
+			op = Code.Punpckhwd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void punpckhwd(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Punpckhwd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -4060,7 +5023,17 @@ namespace Iced.Intel {
 			op = Code.Punpcklbw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void punpcklbw(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Punpcklbw_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void punpckldq(Register dst, Register src) {
+			Code op;
+			op = Code.Punpckldq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void punpckldq(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Punpckldq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -4070,7 +5043,17 @@ namespace Iced.Intel {
 			op = Code.Punpcklqdq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void punpcklqdq(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Punpcklqdq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void punpcklwd(Register dst, Register src) {
+			Code op;
+			op = Code.Punpcklwd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void punpcklwd(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Punpcklwd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -4145,6 +5128,11 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op));
 		}
 		public void pxor(Register dst, Register src) {
+			Code op;
+			op = Code.Pxor_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void pxor(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Pxor_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -4240,7 +5228,17 @@ namespace Iced.Intel {
 			op = Code.Rcpps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void rcpps(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Rcpps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void rcpss(Register dst, Register src) {
+			Code op;
+			op = Code.Rcpss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void rcpss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Rcpss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -4582,7 +5580,17 @@ namespace Iced.Intel {
 			op = Code.Roundpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void roundpd(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Roundpd_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void roundps(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Roundps_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void roundps(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Roundps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -4592,7 +5600,17 @@ namespace Iced.Intel {
 			op = Code.Roundsd_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void roundsd(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Roundsd_xmm_xmmm64_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void roundss(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Roundss_xmm_xmmm32_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void roundss(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Roundss_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -4607,7 +5625,17 @@ namespace Iced.Intel {
 			op = Code.Rsqrtps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void rsqrtps(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Rsqrtps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void rsqrtss(Register dst, Register src) {
+			Code op;
+			op = Code.Rsqrtss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void rsqrtss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Rsqrtss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -5099,7 +6127,17 @@ namespace Iced.Intel {
 			op = Code.Sha1msg1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void sha1msg1(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Sha1msg1_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void sha1msg2(Register dst, Register src) {
+			Code op;
+			op = Code.Sha1msg2_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void sha1msg2(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Sha1msg2_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -5109,7 +6147,17 @@ namespace Iced.Intel {
 			op = Code.Sha1nexte_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void sha1nexte(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Sha1nexte_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void sha1rnds4(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Sha1rnds4_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void sha1rnds4(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Sha1rnds4_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -5119,12 +6167,27 @@ namespace Iced.Intel {
 			op = Code.Sha256msg1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void sha256msg1(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Sha256msg1_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void sha256msg2(Register dst, Register src) {
 			Code op;
 			op = Code.Sha256msg2_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void sha256msg2(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Sha256msg2_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void sha256rnds2(Register dst, Register src) {
+			Code op;
+			op = Code.Sha256rnds2_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void sha256rnds2(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Sha256rnds2_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -5410,7 +6473,17 @@ namespace Iced.Intel {
 			op = Code.Shufpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
+		public void shufpd(Register dst, ExtendedMemoryOperand src, int imm) {
+			Code op;
+			op = Code.Shufpd_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
 		public void shufps(Register dst, Register src, int imm) {
+			Code op;
+			op = Code.Shufps_xmm_xmmm128_imm8;
+			AddInstruction(Instruction.Create(op, dst, src, imm));
+		}
+		public void shufps(Register dst, ExtendedMemoryOperand src, int imm) {
 			Code op;
 			op = Code.Shufps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
@@ -5445,7 +6518,17 @@ namespace Iced.Intel {
 			op = Code.Sqrtpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void sqrtpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Sqrtpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void sqrtps(Register dst, Register src) {
+			Code op;
+			op = Code.Sqrtps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void sqrtps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Sqrtps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -5455,7 +6538,17 @@ namespace Iced.Intel {
 			op = Code.Sqrtsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void sqrtsd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Sqrtsd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void sqrtss(Register dst, Register src) {
+			Code op;
+			op = Code.Sqrtss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void sqrtss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Sqrtss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -5625,7 +6718,17 @@ namespace Iced.Intel {
 			op = Code.Subpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void subpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Subpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void subps(Register dst, Register src) {
+			Code op;
+			op = Code.Subps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void subps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Subps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -5635,7 +6738,17 @@ namespace Iced.Intel {
 			op = Code.Subsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void subsd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Subsd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void subss(Register dst, Register src) {
+			Code op;
+			op = Code.Subss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void subss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Subss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -5782,7 +6895,17 @@ namespace Iced.Intel {
 			op = Code.Ucomisd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void ucomisd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Ucomisd_xmm_xmmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void ucomiss(Register dst, Register src) {
+			Code op;
+			op = Code.Ucomiss_xmm_xmmm32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void ucomiss(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Ucomiss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -5888,7 +7011,17 @@ namespace Iced.Intel {
 			op = Code.Unpckhpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void unpckhpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Unpckhpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void unpckhps(Register dst, Register src) {
+			Code op;
+			op = Code.Unpckhps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void unpckhps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Unpckhps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -5898,7 +7031,17 @@ namespace Iced.Intel {
 			op = Code.Unpcklpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void unpcklpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Unpcklpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void unpcklps(Register dst, Register src) {
+			Code op;
+			op = Code.Unpcklps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void unpcklps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Unpcklps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
@@ -6323,7 +7466,17 @@ namespace Iced.Intel {
 			op = Code.Xorpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
+		public void xorpd(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			op = Code.Xorpd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		public void xorps(Register dst, Register src) {
+			Code op;
+			op = Code.Xorps_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		public void xorps(Register dst, ExtendedMemoryOperand src) {
 			Code op;
 			op = Code.Xorps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));

@@ -140,8 +140,11 @@ namespace Generator.Extended {
 						case LegacyOpKind.FS:
 						case LegacyOpKind.GS: 
 						case LegacyOpKind.VX:
-						case LegacyOpKind.WX:
 							argKind = ArgKind.Register;
+							break;
+
+						case LegacyOpKind.WX:
+							argKind = ArgKind.RegisterMemory;
 							break;
 
 						case LegacyOpKind.Xb:
@@ -359,7 +362,6 @@ namespace Generator.Extended {
 			case LegacyOpKind.GS:
 				return ArgKind.FilterRegisterGS;
 			case LegacyOpKind.VX:
-			case LegacyOpKind.WX:
 				return ArgKind.FilterRegisterXmm;
 			}
 
@@ -373,6 +375,8 @@ namespace Generator.Extended {
 					return ArgKind.FilterRegister32;
 				case LegacyOpKind.Eq:
 					return ArgKind.FilterRegister64;
+				case LegacyOpKind.WX:
+					return ArgKind.FilterRegisterXmm;
 				}
 			}
 			
@@ -407,6 +411,8 @@ namespace Generator.Extended {
 			case LegacyOpKind.Eq:
 			case LegacyOpKind.r64_ro:
 				return LegacyOpKind.Gq;
+			case LegacyOpKind.WX:
+				return LegacyOpKind.VX;
 			}
 			return opKind;
 		}
