@@ -66,8 +66,8 @@ namespace Generator {
 		public override string Type(string name) => Escape(name);
 		public override string Field(string name) => Escape(name);
 		public override string EnumField(string name) => Escape(name);
-		public override string PropertyDoc(string name) => Escape(name);
-		public override string MethodDoc(string name) => Escape(name);
+		public override string PropertyDoc(string name) => name;
+		public override string MethodDoc(string name) => name;
 		public override string Method(string name) => Escape(name);
 		public override string Constant(string name) => Escape(name);
 		public override string Static(string name) => Escape(name);
