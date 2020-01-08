@@ -83,6 +83,10 @@ namespace Generator.Extended.CSharp {
 									}
 									break;
 								
+								case ArgKind.Branch:
+									argType = "Label";
+									break;
+
 								case ArgKind.RegisterMemory:
 									if (regArgIndex < 0) {
 										regArgIndex = i;
@@ -140,13 +144,21 @@ namespace Generator.Extended.CSharp {
 								writer.WriteLine("Code op;");
 								GenerateOpCodeSelectorFromRegisterOrMemory(writer, group, renderArgs, regArgIndex, methodName);
 
-								writer.Write("AddInstruction(Instruction.Create(op");
+								if (group.IsBranch) {
+									writer.Write("AddInstruction(Instruction.CreateBranch(op");
+								}
+								else {
+									writer.Write("AddInstruction(Instruction.Create(op");
+								}
 
 								for (var i = 0; i < renderArgs.Count; i++) {
 									var renderArg = renderArgs[i];
 									if (renderArg.Kind == ArgKind.HiddenMemory) continue;
 									writer.Write(", ");
 									writer.Write(renderArg.Name);
+									if (renderArg.Kind == ArgKind.Branch) {
+										writer.Write(".RIP");
+									}
 								}
 
 								writer.WriteLine("));");
@@ -189,7 +201,7 @@ namespace Generator.Extended.CSharp {
 				}				
 				
 				switch (groupedItems.Key) {
-				case ImmediateKind.Bit1: {
+				case GroupKind.ImmediateBit1: {
 					var immReg = args[@group.ImmediateArgIndex];
 					writer.WriteLine($"if ({immReg.Name} == 1) {{");
 					hasIf = true;
@@ -200,7 +212,7 @@ namespace Generator.Extended.CSharp {
 					writer.WriteLine("}");
 				}
 					break;
-				case ImmediateKind.Bits2: {
+				case GroupKind.ImmediateBits2: {
 					if (i + 1 < listGroupedItems.Count) {
 						var immReg = args[@group.ImmediateArgIndex];
 						writer.WriteLine($"if ({immReg.Name} >= 0 && {immReg.Name} < 4) {{");
@@ -219,7 +231,7 @@ namespace Generator.Extended.CSharp {
 					}					
 				}
 					break;
-				case ImmediateKind.Byte: {
+				case GroupKind.ImmediateByte: {
 					if (i + 1 < listGroupedItems.Count) {
 						var immReg = args[@group.ImmediateArgIndex];
 						writer.WriteLine($"if ({immReg.Name} >= sbyte.MinValue && {immReg.Name} <= byte.MaxValue) {{");
@@ -238,8 +250,27 @@ namespace Generator.Extended.CSharp {
 					}
 				}
 					break;
-				case ImmediateKind.None:
-				case ImmediateKind.Standard: {
+				case GroupKind.BranchNear: 
+				case GroupKind.BranchFar: {
+					if (GroupKind.BranchNear == groupedItems.Key && i + 1 < listGroupedItems.Count) {
+						writer.WriteLine($"if (PreferBranchNear) {{");
+						indenter = writer.Indent();
+						hasIf = true;
+					}
+					else {
+						hasIf = false;
+					}
+
+					GenerateOpCodeSelectorFromRegisterOrMemory(writer, @group, groupedItems.Value, args, argIndex, methodName);
+
+					if (hasIf) {
+						indenter.Dispose();
+						writer.WriteLine("}");
+					}
+				}
+					break;
+				case GroupKind.None:
+				case GroupKind.Standard: {
 					GenerateOpCodeSelectorFromRegisterOrMemory(writer, @group, groupedItems.Value, args, argIndex, methodName);
 				}
 					break;

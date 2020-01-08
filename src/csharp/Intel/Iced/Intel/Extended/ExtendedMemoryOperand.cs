@@ -36,11 +36,13 @@ namespace Iced.Intel
 		}
 
 		public static ExtendedMemoryOperand operator +(ExtendedMemoryOperand left, ExtendedRegister right) {
-			return new ExtendedMemoryOperand(left.Size, Register.None, left.Base, right, left.Scale, left.Displacement);
+			var hasBase = left.Base != Register.None;
+			return new ExtendedMemoryOperand(left.Size, Register.None, hasBase ? left.Base : right.Value, hasBase ? right.Value : left.Index, left.Scale, left.Displacement);
 		}
 
 		public static ExtendedMemoryOperand operator +(ExtendedRegister left, ExtendedMemoryOperand right) {
-			return new ExtendedMemoryOperand(right.Size, Register.None, left, right.Index, right.Scale, right.Displacement);
+			var hasBase = right.Base != Register.None;
+			return new ExtendedMemoryOperand(right.Size, Register.None, hasBase ? right.Base : left.Value, hasBase ? left.Value : right.Index, right.Scale, right.Displacement);
 		}
 
 		public static ExtendedMemoryOperand operator +(ExtendedMemoryOperand left, int displacement) {

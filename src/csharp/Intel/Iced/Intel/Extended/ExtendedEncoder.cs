@@ -11,6 +11,7 @@ namespace Iced.Intel {
 		ulong _internalRip;
 		Label _label;
 		readonly List<Label> _labels;
+		readonly List<Instruction> _instructions;
 
 		private ExtendedEncoder(CodeWriter writer, int bitness) {
 			Debug.Assert(bitness == 16 || bitness == 32 || bitness == 64);
@@ -19,13 +20,19 @@ namespace Iced.Intel {
 			Bitness = bitness;
 			_writer = writer;
 			_labels = new List<Label>();
+			_instructions = new List<Instruction>();
 			_label = CreateLabel();
 			PreferVex = true;
+			PreferBranchNear = true;
 		}
+		
+		public ulong BaseRip { get; set; }
 
 		public int Bitness { get; }
 		
 		public bool PreferVex { get; set; }
+		
+		public bool PreferBranchNear { get; set; }
 
 		public static ExtendedEncoder Create(int bitness, CodeWriter writer) {
 			if (writer == null) throw new ArgumentNullException(nameof(writer));
@@ -40,8 +47,8 @@ namespace Iced.Intel {
 		}
 
 		public Label CreateLabel(string name = null) {
-			var label = new Label(name, new InstructionBlock(_writer, new List<Instruction>(), _internalRip));
 			_internalRip++;
+			var label = new Label(name, _internalRip);
 			_labels.Add(label);
 			return label;
 		}
@@ -54,23 +61,30 @@ namespace Iced.Intel {
 		}
 
 		public void AddInstruction(Instruction instruction) {
-			_label.Block.Instructions.Add(instruction);
+			instruction.IP = _label.RIP;
+			_instructions.Add(instruction);
+			_label = default;
 		}
 
-		public BlockEncoderResult[] Encode(BlockEncoderOptions options = BlockEncoderOptions.None) {
-			if (!TryEncode(out var errorMessage, out var blockResults, options)) {
+		public BlockEncoderResult Encode(BlockEncoderOptions options = BlockEncoderOptions.None) {
+			if (!TryEncode(out var errorMessage, out var blockResult, options)) {
 				throw new InvalidOperationException(errorMessage);
 			}
-
-			return blockResults;
+			return blockResult;
 		}
 
-		public bool TryEncode(out string? errorMessage, out BlockEncoderResult[]? blockResults, BlockEncoderOptions options = BlockEncoderOptions.None) {
-			var blocks = new InstructionBlock[_labels.Count];
-			for(int i = 0; i < _labels.Count; i++) {
-				blocks[i] = _labels[i].Block;
+		public bool TryEncode(out string? errorMessage, out BlockEncoderResult blockResult, BlockEncoderOptions options = BlockEncoderOptions.None) {
+			var blocks = new InstructionBlock[1];
+			var block = new InstructionBlock(this._writer, _instructions, BaseRip);
+			blocks[0] = block;
+
+			blockResult = default;
+			var result = BlockEncoder.TryEncode(Bitness, blocks, out errorMessage, out var blockResults, options);
+			if (result) {
+				blockResult = blockResults[0];
 			}
-			return BlockEncoder.TryEncode(Bitness, blocks, out errorMessage, out blockResults, options);
+
+			return result;
 		}
 
 		InvalidOperationException NoOpCodeFoundFor(Mnemonic mnemonic, params object[] argNames) {

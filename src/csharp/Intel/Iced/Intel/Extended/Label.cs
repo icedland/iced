@@ -1,15 +1,15 @@
 namespace Iced.Intel
 {
 	public struct Label {
-		public Label(string name, InstructionBlock block) {
+		public Label(string name, ulong rip) {
 			Name = name;
-			Block = block;
+			RIP = rip;
 		}
 		
 		public readonly string Name;
 
-		public readonly InstructionBlock Block;
+		public readonly ulong RIP;
 
-		public bool IsEmpty => Block.Instructions == null;
+		public bool IsEmpty => RIP == 0;
 	}
 }

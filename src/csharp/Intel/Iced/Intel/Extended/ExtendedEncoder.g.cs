@@ -3017,6 +3017,22 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
+		/// <summary>call instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void call(Label dst) {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Call_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Call_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Call_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Call, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
 		/// <summary>cbw instruction.<br/>
 		/// <br/>
 		/// <c>CBW</c><br/>
@@ -9437,6 +9453,279 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op));
 		}
+		/// <summary>ja instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void ja(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Ja_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Ja_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Ja_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Ja, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Ja_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Ja_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Ja_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Ja, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jae instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jae(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jae_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jae_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jae_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jae, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jae_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jae_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jae_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jae, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jb instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jb(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jb_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jb_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jb_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jb, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jb_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jb_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jb_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jb, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jbe instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jbe(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jbe_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jbe_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jbe_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jbe, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jbe_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jbe_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jbe_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jbe, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jcxz instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jcxz(Label dst) {
+			Code op;
+			if (Bitness >= 16) {
+				op = Code.Jcxz_rel8_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jcxz_rel8_16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jcxz, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>je instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void je(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Je_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Je_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Je_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Je, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Je_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Je_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Je_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Je, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jecxz instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jecxz(Label dst) {
+			Code op;
+			if (Bitness >= 32) {
+				op = Code.Jecxz_rel8_64;
+			} else if (Bitness >= 32) {
+				op = Code.Jecxz_rel8_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jecxz_rel8_16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jecxz, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jg instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jg(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jg_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jg_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jg_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jg, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jg_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jg_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jg_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jg, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jge instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jge(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jge_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jge_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jge_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jge, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jge_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jge_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jge_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jge, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jl instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jl(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jl_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jl_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jl_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jl, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jl_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jl_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jl_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jl, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jle instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jle(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jle_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jle_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jle_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jle, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jle_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jle_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jle_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jle, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
 		/// <summary>jmp instruction.<br/>
 		/// <br/>
 		/// <c>JMP r/m16</c><br/>
@@ -9505,6 +9794,33 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
+		/// <summary>jmp instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jmp(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jmp_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jmp_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jmp_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jmp, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jmp_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jmp_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jmp_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jmp, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
 		/// <summary>jmpe instruction.<br/>
 		/// <br/>
 		/// <c>JMPE r/m16</c><br/>
@@ -9556,6 +9872,209 @@ namespace Iced.Intel {
 				throw NoOpCodeFoundFor(Mnemonic.Jmpe, dst);
 			}
 			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>jne instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jne(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jne_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jne_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jne_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jne, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jne_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jne_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jne_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jne, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jno instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jno(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jno_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jno_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jno_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jno, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jno_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jno_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jno_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jno, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jnp instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jnp(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jnp_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jnp_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jnp_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jnp, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jnp_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jnp_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jnp_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jnp, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jns instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jns(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jns_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jns_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jns_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jns, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jns_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jns_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jns_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jns, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jo instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jo(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jo_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jo_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jo_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jo, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jo_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jo_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jo_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jo, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jp instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jp(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Jp_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Jp_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Jp_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Jp, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Jp_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Jp_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Jp_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jp, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>jrcxz instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void jrcxz(Label dst) {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Jrcxz_rel8_64;
+			} else if (Bitness == 16) {
+				op = Code.Jrcxz_rel8_16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jrcxz, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>js instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void js(Label dst) {
+			Code op;
+			if (PreferBranchNear) {
+				if (Bitness == 64) {
+					op = Code.Js_rel8_64;
+				} else if (Bitness == 32) {
+					op = Code.Js_rel8_32;
+				} else if (Bitness == 16) {
+					op = Code.Js_rel8_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Js, dst);
+				}
+			}
+			else if (Bitness == 64) {
+				op = Code.Js_rel32_64;
+			} else if (Bitness == 32) {
+				op = Code.Js_rel32_32;
+			} else if (Bitness == 16) {
+				op = Code.Js_rel16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Js, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
 		}
 		/// <summary>kaddb instruction.<br/>
 		/// <br/>
@@ -11186,6 +11705,78 @@ namespace Iced.Intel {
 				throw NoOpCodeFoundFor(Mnemonic.Lodsw, dst);
 			}
 			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>loop instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void loop(Label dst) {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Loop_rel8_64_RCX;
+			} else if (Bitness == 16) {
+				op = Code.Loop_rel8_16_RCX;
+			} else if (Bitness == 32) {
+				op = Code.Loop_rel8_64_ECX;
+			} else if (Bitness == 32) {
+				op = Code.Loop_rel8_32_ECX;
+			} else if (Bitness == 16) {
+				op = Code.Loop_rel8_16_ECX;
+			} else if (Bitness == 16) {
+				op = Code.Loop_rel8_32_CX;
+			} else if (Bitness == 16) {
+				op = Code.Loop_rel8_16_CX;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Loop, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>loope instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void loope(Label dst) {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Loope_rel8_64_RCX;
+			} else if (Bitness == 16) {
+				op = Code.Loope_rel8_16_RCX;
+			} else if (Bitness == 32) {
+				op = Code.Loope_rel8_64_ECX;
+			} else if (Bitness == 32) {
+				op = Code.Loope_rel8_32_ECX;
+			} else if (Bitness == 16) {
+				op = Code.Loope_rel8_16_ECX;
+			} else if (Bitness == 16) {
+				op = Code.Loope_rel8_32_CX;
+			} else if (Bitness == 16) {
+				op = Code.Loope_rel8_16_CX;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Loope, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
+		}
+		/// <summary>loopne instruction.<br/>
+		/// <br/>
+		/// </summary>
+		public void loopne(Label dst) {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Loopne_rel8_64_RCX;
+			} else if (Bitness == 16) {
+				op = Code.Loopne_rel8_16_RCX;
+			} else if (Bitness == 32) {
+				op = Code.Loopne_rel8_64_ECX;
+			} else if (Bitness == 32) {
+				op = Code.Loopne_rel8_32_ECX;
+			} else if (Bitness == 16) {
+				op = Code.Loopne_rel8_16_ECX;
+			} else if (Bitness == 16) {
+				op = Code.Loopne_rel8_32_CX;
+			} else if (Bitness == 16) {
+				op = Code.Loopne_rel8_16_CX;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Loopne, dst);
+			}
+			AddInstruction(Instruction.CreateBranch(op, dst.RIP));
 		}
 		/// <summary>lsl instruction.<br/>
 		/// <br/>

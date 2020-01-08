@@ -118,7 +118,7 @@ namespace Generator.Extended {
 				var signature = new Signature();
 				var regOnlySignature = new Signature();
 
-				var immKind = ImmediateKind.None;
+				var groupKind = GroupKind.None;
 				int immediateArgIndex = -1;
 				
 				int maxImmediateSize = 0;
@@ -218,11 +218,26 @@ namespace Generator.Extended {
 					case CommonOpKind.VM64Y:
 					case CommonOpKind.VM64Z:
 						argKind = ArgKind.Memory;
-						break;					
+						break;
+					
+					case CommonOpKind.Jw:
+					case CommonOpKind.wJd:
+					case CommonOpKind.dJd:
+					case CommonOpKind.qJd:
+						argKind = ArgKind.Branch;
+						groupKind = GroupKind.BranchFar;
+						break;
+						
+					case CommonOpKind.wJb:
+					case CommonOpKind.dJb:
+					case CommonOpKind.qJb:
+						argKind = ArgKind.Branch;
+						groupKind = GroupKind.BranchNear;
+						break;
 					
 					case CommonOpKind.Imm1:
 						immediateArgIndex = i;
-						immKind = ImmediateKind.Bit1;
+						groupKind = GroupKind.ImmediateBit1;
 						Debug.Assert(maxImmediateSize == 0);
 						maxImmediateSize = 1;
 						argKind = ArgKind.Immediate;
@@ -230,7 +245,7 @@ namespace Generator.Extended {
 						
 					case CommonOpKind.I2:
 						immediateArgIndex = i;
-						immKind = ImmediateKind.Bits2;
+						groupKind = GroupKind.ImmediateBits2;
 						Debug.Assert(maxImmediateSize == 0);
 						maxImmediateSize = 1;
 						argKind = ArgKind.Immediate;
@@ -242,7 +257,7 @@ namespace Generator.Extended {
 					case CommonOpKind.Ib64:
 						Debug.Assert(maxImmediateSize == 0);
 						immediateArgIndex = i;
-						immKind = ImmediateKind.Byte;
+						groupKind = GroupKind.ImmediateByte;
 						maxImmediateSize = 1;
 						argKind = ArgKind.Immediate;
 						break;
@@ -250,7 +265,7 @@ namespace Generator.Extended {
 					case CommonOpKind.Iw:
 						Debug.Assert(maxImmediateSize == 0);
 						immediateArgIndex = i;
-						immKind = ImmediateKind.Standard;
+						groupKind = GroupKind.Standard;
 						maxImmediateSize = 2;
 						argKind = ArgKind.Immediate;
 						break;
@@ -259,14 +274,14 @@ namespace Generator.Extended {
 						Debug.Assert(maxImmediateSize == 0);
 						maxImmediateSize = 4;
 						immediateArgIndex = i;
-						immKind = ImmediateKind.Standard;
+						groupKind = GroupKind.Standard;
 						argKind = ArgKind.Immediate;
 						break;
 					case CommonOpKind.Iq:
 						Debug.Assert(maxImmediateSize == 0);
 						maxImmediateSize = 8;
 						immediateArgIndex = i;
-						immKind = ImmediateKind.Standard;
+						groupKind = GroupKind.Standard;
 						argKind = ArgKind.Immediate;
 						break;
 					}
@@ -279,12 +294,12 @@ namespace Generator.Extended {
 				}
 
 				if (toAdd) {
-					var group = AddOpCodeToGroup(memoName, signature, code, immKind, immediateArgIndex);
+					var group = AddOpCodeToGroup(memoName, signature, code, groupKind, immediateArgIndex);
 					if (maxImmediateSize > group.MaxImmediateSize) {
 						group.MaxImmediateSize = maxImmediateSize;
 					}
 					if (signature != regOnlySignature) {
-						var regOnlyGroup = AddOpCodeToGroup(memoName, regOnlySignature, code, immKind, immediateArgIndex);
+						var regOnlyGroup = AddOpCodeToGroup(memoName, regOnlySignature, code, groupKind, immediateArgIndex);
 						regOnlyGroup.HasRegisterMemoryMappedToRegister = true;
 						if (maxImmediateSize > regOnlyGroup.MaxImmediateSize) {
 							regOnlyGroup.MaxImmediateSize = maxImmediateSize;
@@ -334,12 +349,14 @@ namespace Generator.Extended {
 			Generate(_groups, orderedGroups);
 		}
 
-		protected enum ImmediateKind {
+		protected enum GroupKind {
 			None,
 			Standard,
-			Bit1,
-			Bits2,
-			Byte,
+			ImmediateBit1,
+			ImmediateBits2,
+			ImmediateByte,
+			BranchNear,
+			BranchFar,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory)
@@ -548,7 +565,7 @@ namespace Generator.Extended {
 			return opKind;
 		}
 
-		OpCodeInfoGroup AddOpCodeToGroup(string name, Signature signature, OpCodeInfo code, ImmediateKind immKind, int immediateArgIndex) {
+		OpCodeInfoGroup AddOpCodeToGroup(string name, Signature signature, OpCodeInfo code, GroupKind immKind, int immediateArgIndex) {
 			var key = new GroupKey(name, signature);
 			if (!_groups.TryGetValue(key, out var group)) {
 				group = new OpCodeInfoGroup(name, signature);
@@ -558,17 +575,27 @@ namespace Generator.Extended {
 			group.ImmediateArgIndex = immediateArgIndex;
 
 			switch (immKind) {
-			case ImmediateKind.Bit1:
+			case GroupKind.ImmediateBit1:
 				if (group.ItemsWithImmediateBit1 == null) group.ItemsWithImmediateBit1 = new List<OpCodeInfo>();
 				group.ItemsWithImmediateBit1.Add(code);
 				break;
-			case ImmediateKind.Bits2:
+			case GroupKind.ImmediateBits2:
 				if (group.ItemsWithImmediateBits2 == null) group.ItemsWithImmediateBits2 = new List<OpCodeInfo>();
 				group.ItemsWithImmediateBits2.Add(code);
 				break;
-			case ImmediateKind.Byte:
+			case GroupKind.ImmediateByte:
 				if (group.ItemsWithImmediateByte == null) group.ItemsWithImmediateByte = new List<OpCodeInfo>();
 				group.ItemsWithImmediateByte.Add(code);
+				break;
+			case GroupKind.BranchNear:
+				group.IsBranch = true;
+				if (group.ItemsWithBranchNear == null) group.ItemsWithBranchNear = new List<OpCodeInfo>();
+				group.ItemsWithBranchNear.Add(code);
+				break;
+			case GroupKind.BranchFar:
+				group.IsBranch = true;
+				if (group.ItemsWithBranchFar == null) group.ItemsWithBranchFar = new List<OpCodeInfo>();
+				group.ItemsWithBranchFar.Add(code);
 				break;
 			default:
 				group.Items.Add(code);
@@ -657,6 +684,7 @@ namespace Generator.Extended {
 			Memory,
 			HiddenMemory,
 			Immediate,
+			Branch,
 			
 			FilterRegisterCDTR,
 			
@@ -705,6 +733,8 @@ namespace Generator.Extended {
 			public string MemoName { get; }
 			
 			public string Name { get; }
+			
+			public bool IsBranch {get; set;}
 
 			public Signature Signature { get; }
 
@@ -716,25 +746,35 @@ namespace Generator.Extended {
 
 			public List<OpCodeInfo> ItemsWithImmediateByte { get; set; }
 
+			public List<OpCodeInfo> ItemsWithBranchNear { get; set; }
+
+			public List<OpCodeInfo> ItemsWithBranchFar { get; set; }
+			
 			public bool HasRegisterMemoryMappedToRegister { get; set; }
 			
 			public int ImmediateArgIndex { get; set; }
 			
 			public int MaxImmediateSize { get; set; }
 
-			public IEnumerable<KeyValuePair<ImmediateKind, List<OpCodeInfo>>> GroupedItems {
+			public IEnumerable<KeyValuePair<GroupKind, List<OpCodeInfo>>> GroupedItems {
 				get {
 					if (ItemsWithImmediateBit1 != null) {
-						yield return new KeyValuePair<ImmediateKind, List<OpCodeInfo>>(ImmediateKind.Bit1, ItemsWithImmediateBit1);
+						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.ImmediateBit1, ItemsWithImmediateBit1);
 					}
 					if (ItemsWithImmediateBits2 != null) {
-						yield return new KeyValuePair<ImmediateKind, List<OpCodeInfo>>(ImmediateKind.Bits2, ItemsWithImmediateBits2);
+						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.ImmediateBits2, ItemsWithImmediateBits2);
 					}
 					if (ItemsWithImmediateByte != null) {
-						yield return new KeyValuePair<ImmediateKind, List<OpCodeInfo>>(ImmediateKind.Byte, ItemsWithImmediateByte);
+						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.ImmediateByte, ItemsWithImmediateByte);
+					}
+					if (ItemsWithBranchNear != null) {
+						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.BranchNear, ItemsWithBranchNear);
+					}
+					if (ItemsWithBranchFar != null) {
+						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.BranchFar, ItemsWithBranchFar);
 					}
 					if (Items.Count > 0) {
-						yield return new KeyValuePair<ImmediateKind, List<OpCodeInfo>>(ImmediateKind.None, Items);
+						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.None, Items);
 					}
 				}
 			}
