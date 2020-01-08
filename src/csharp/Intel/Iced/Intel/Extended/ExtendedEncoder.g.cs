@@ -9809,6 +9809,24 @@ namespace Iced.Intel {
 		}
 		/// <summary>kmovb instruction.<br/>
 		/// <br/>
+		/// <c>KMOVB m8, k1</c><br/>
+		/// <br/>
+		/// <c>VEX.L0.66.0F.W0 91 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512DQ</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void kmovb(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			if (src.IsK()) {
+				op = Code.VEX_Kmovb_m8_k;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Kmovb, dst, src);
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>kmovb instruction.<br/>
+		/// <br/>
 		/// <c>KMOVB k1, k2/m8</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W0 90 /r</c><br/>
@@ -9854,6 +9872,24 @@ namespace Iced.Intel {
 				op = Code.VEX_Kmovd_k_r32;
 			} else if (dst.IsK() && src.IsK()) {
 				op = Code.VEX_Kmovd_k_km32;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Kmovd, dst, src);
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>kmovd instruction.<br/>
+		/// <br/>
+		/// <c>KMOVD m32, k1</c><br/>
+		/// <br/>
+		/// <c>VEX.L0.66.0F.W1 91 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512BW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void kmovd(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			if (src.IsK()) {
+				op = Code.VEX_Kmovd_m32_k;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Kmovd, dst, src);
 			}
@@ -9913,6 +9949,24 @@ namespace Iced.Intel {
 		}
 		/// <summary>kmovq instruction.<br/>
 		/// <br/>
+		/// <c>KMOVQ m64, k1</c><br/>
+		/// <br/>
+		/// <c>VEX.L0.0F.W1 91 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512BW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void kmovq(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			if (src.IsK()) {
+				op = Code.VEX_Kmovq_m64_k;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Kmovq, dst, src);
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>kmovq instruction.<br/>
+		/// <br/>
 		/// <c>KMOVQ k1, k2/m64</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W1 90 /r</c><br/>
@@ -9958,6 +10012,24 @@ namespace Iced.Intel {
 				op = Code.VEX_Kmovw_k_r32;
 			} else if (dst.IsK() && src.IsK()) {
 				op = Code.VEX_Kmovw_k_km16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Kmovw, dst, src);
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>kmovw instruction.<br/>
+		/// <br/>
+		/// <c>KMOVW m16, k1</c><br/>
+		/// <br/>
+		/// <c>VEX.L0.0F.W0 91 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void kmovw(ExtendedMemoryOperand dst, Register src) {
+			Code op;
+			if (src.IsK()) {
+				op = Code.VEX_Kmovw_m16_k;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Kmovw, dst, src);
 			}
@@ -10695,6 +10767,32 @@ namespace Iced.Intel {
 			op = Code.Ldmxcsr_m32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
+		/// <summary>lds instruction.<br/>
+		/// <br/>
+		/// <c>LDS r16, m16:16</c><br/>
+		/// <br/>
+		/// <c>o16 C5 /r</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><c>LDS r32, m16:32</c><br/>
+		/// <br/>
+		/// <c>o32 C5 /r</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void lds(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			if (dst.IsGPR32()) {
+				op = Code.Lds_r32_m1632;
+			} else if (dst.IsGPR16()) {
+				op = Code.Lds_r16_m1616;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Lds, dst, src);
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		/// <summary>lea instruction.<br/>
 		/// <br/>
 		/// <c>LEA r16, m</c><br/>
@@ -10797,6 +10895,32 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op));
 		}
+		/// <summary>les instruction.<br/>
+		/// <br/>
+		/// <c>LES r16, m16:16</c><br/>
+		/// <br/>
+		/// <c>o16 C4 /r</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><c>LES r32, m16:32</c><br/>
+		/// <br/>
+		/// <c>o32 C4 /r</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void les(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			if (dst.IsGPR32()) {
+				op = Code.Les_r32_m1632;
+			} else if (dst.IsGPR16()) {
+				op = Code.Les_r16_m1616;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Les, dst, src);
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
 		/// <summary>lfence instruction.<br/>
 		/// <br/>
 		/// <c>LFENCE</c><br/>
@@ -10810,6 +10934,74 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Lfence;
 			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>lfs instruction.<br/>
+		/// <br/>
+		/// <c>LFS r16, m16:16</c><br/>
+		/// <br/>
+		/// <c>o16 0F B4 /r</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><c>LFS r32, m16:32</c><br/>
+		/// <br/>
+		/// <c>o32 0F B4 /r</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><c>LFS r64, m16:64</c><br/>
+		/// <br/>
+		/// <c>REX.W 0F B4 /r</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void lfs(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			if (dst.IsGPR64()) {
+				op = Code.Lfs_r64_m1664;
+			} else if (dst.IsGPR32()) {
+				op = Code.Lfs_r32_m1632;
+			} else if (dst.IsGPR16()) {
+				op = Code.Lfs_r16_m1616;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Lfs, dst, src);
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>lgs instruction.<br/>
+		/// <br/>
+		/// <c>LGS r16, m16:16</c><br/>
+		/// <br/>
+		/// <c>o16 0F B5 /r</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><c>LGS r32, m16:32</c><br/>
+		/// <br/>
+		/// <c>o32 0F B5 /r</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><c>LGS r64, m16:64</c><br/>
+		/// <br/>
+		/// <c>REX.W 0F B5 /r</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void lgs(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			if (dst.IsGPR64()) {
+				op = Code.Lgs_r64_m1664;
+			} else if (dst.IsGPR32()) {
+				op = Code.Lgs_r32_m1632;
+			} else if (dst.IsGPR16()) {
+				op = Code.Lgs_r16_m1616;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Lgs, dst, src);
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>lldt instruction.<br/>
 		/// <br/>
@@ -11060,6 +11252,40 @@ namespace Iced.Intel {
 				op = Code.Lsl_r16_rm16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Lsl, dst, src);
+			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>lss instruction.<br/>
+		/// <br/>
+		/// <c>LSS r16, m16:16</c><br/>
+		/// <br/>
+		/// <c>o16 0F B2 /r</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><c>LSS r32, m16:32</c><br/>
+		/// <br/>
+		/// <c>o32 0F B2 /r</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><c>LSS r64, m16:64</c><br/>
+		/// <br/>
+		/// <c>REX.W 0F B2 /r</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void lss(Register dst, ExtendedMemoryOperand src) {
+			Code op;
+			if (dst.IsGPR64()) {
+				op = Code.Lss_r64_m1664;
+			} else if (dst.IsGPR32()) {
+				op = Code.Lss_r32_m1632;
+			} else if (dst.IsGPR16()) {
+				op = Code.Lss_r16_m1616;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Lss, dst, src);
 			}
 			AddInstruction(Instruction.Create(op, dst, src));
 		}

@@ -205,6 +205,8 @@ namespace Generator.Extended {
 						argKind = ArgKind.RegisterMemory;
 						break;
 					
+					case CommonOpKind.MK:
+					case CommonOpKind.Mp:
 					case CommonOpKind.Mb:
 					case CommonOpKind.Mw:
 					case CommonOpKind.Md:
