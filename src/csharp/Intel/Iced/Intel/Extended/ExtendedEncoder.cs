@@ -73,9 +73,9 @@ namespace Iced.Intel {
 			return BlockEncoder.TryEncode(Bitness, blocks, out errorMessage, out blockResults, options);
 		}
 
-		InvalidOperationException NoOpCodeFoundFor(string name, params object[] argNames) {
+		InvalidOperationException NoOpCodeFoundFor(Mnemonic mnemonic, params object[] argNames) {
 			var builder = new StringBuilder();
-			builder.Append($"Unable to calculate an OpCode for `{name}");
+			builder.Append($"Unable to calculate an OpCode for `{mnemonic.ToString().ToLowerInvariant()}");
 			for (int i = 0; i < argNames.Length; i++) {
 				builder.Append(i == 0 ? " " : ", ");
 				builder.Append(argNames[i]); // TODO: add pretty print for arguments (registers, memory...)

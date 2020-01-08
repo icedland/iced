@@ -112,7 +112,8 @@ namespace Generator.Extended {
 			foreach(var code in opCodes) {
 				if (DiscardOpCodes.Contains((Code)code.Code.Value)) continue;
 				
-				var name = MnemonicsTable.Table[(int)code.Code.Value].mnemonicEnum.RawName.ToLowerInvariant();
+				var memoName = MnemonicsTable.Table[(int)code.Code.Value].mnemonicEnum.RawName;
+				//var name = memoName.ToLowerInvariant();
 				bool toAdd = true;
 				var signature = new Signature();
 				var regOnlySignature = new Signature();
@@ -276,12 +277,12 @@ namespace Generator.Extended {
 				}
 
 				if (toAdd) {
-					var group = AddOpCodeToGroup(name, signature, code, immKind, immediateArgIndex);
+					var group = AddOpCodeToGroup(memoName, signature, code, immKind, immediateArgIndex);
 					if (maxImmediateSize > group.MaxImmediateSize) {
 						group.MaxImmediateSize = maxImmediateSize;
 					}
 					if (signature != regOnlySignature) {
-						var regOnlyGroup = AddOpCodeToGroup(name, regOnlySignature, code, immKind, immediateArgIndex);
+						var regOnlyGroup = AddOpCodeToGroup(memoName, regOnlySignature, code, immKind, immediateArgIndex);
 						regOnlyGroup.HasRegisterMemoryMappedToRegister = true;
 						if (maxImmediateSize > regOnlyGroup.MaxImmediateSize) {
 							regOnlyGroup.MaxImmediateSize = maxImmediateSize;
@@ -289,7 +290,7 @@ namespace Generator.Extended {
 					}
 				}
 				else {
-					Console.WriteLine($"TODO: {code.GetType().Name} {name} => {code.Code.RawName} not supported yet");
+					Console.WriteLine($"TODO: {code.GetType().Name} {memoName.ToLowerInvariant()} => {code.Code.RawName} not supported yet");
 				}
 			}
 
@@ -692,11 +693,14 @@ namespace Generator.Extended {
 
 		protected class OpCodeInfoGroup {
 			public OpCodeInfoGroup(string name, Signature signature) {
-				Name = name;
+				MemoName = name;
+				Name = name.ToLowerInvariant();
 				Signature = signature;
 				Items = new List<OpCodeInfo>();
 				ImmediateArgIndex = -1;
 			}
+			
+			public string MemoName { get; }
 			
 			public string Name { get; }
 

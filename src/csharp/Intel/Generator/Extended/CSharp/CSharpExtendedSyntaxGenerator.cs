@@ -344,7 +344,7 @@ namespace Generator.Extended.CSharp {
 			if (needToThrowIfNotFound) {
 				writer.WriteLine(" else {");
 				using (writer.Indent()) {
-					writer.Write($"throw NoOpCodeFoundFor(nameof({methodName})");
+					writer.Write($"throw NoOpCodeFoundFor(Mnemonic.{group.MemoName}");
 					for (var i = 0; i < args.Count; i++) {
 						var renderArg = args[i];
 						if (renderArg.Kind == ArgKind.HiddenMemory) continue;
