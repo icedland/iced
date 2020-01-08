@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using Iced.Intel.BlockEncoderInternal;
 
 namespace Iced.Intel {
@@ -19,9 +20,12 @@ namespace Iced.Intel {
 			_writer = writer;
 			_labels = new List<Label>();
 			_label = CreateLabel();
+			PreferVex = true;
 		}
 
 		public int Bitness { get; }
+		
+		public bool PreferVex { get; set; }
 
 		public static ExtendedEncoder Create(int bitness, CodeWriter writer) {
 			if (writer == null) throw new ArgumentNullException(nameof(writer));
@@ -67,6 +71,18 @@ namespace Iced.Intel {
 				blocks[i] = _labels[i].Block;
 			}
 			return BlockEncoder.TryEncode(Bitness, blocks, out errorMessage, out blockResults, options);
+		}
+
+		InvalidOperationException NoOpCodeFoundFor(string name, params object[] argNames) {
+			var builder = new StringBuilder();
+			builder.Append($"Unable to calculate an OpCode for `{name}");
+			for (int i = 0; i < argNames.Length; i++) {
+				builder.Append(i == 0 ? " " : ", ");
+				builder.Append(argNames[i]); // TODO: add pretty print for arguments (registers, memory...)
+			}
+
+			builder.Append($"`. Combination of arguments and/or current bitness {Bitness} is not compatible with any existing OpCode encoding.");
+			return new InvalidOperationException(builder.ToString());
 		}
 	}
 }
