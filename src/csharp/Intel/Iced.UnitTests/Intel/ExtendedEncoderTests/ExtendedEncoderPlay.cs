@@ -1,5 +1,5 @@
 using System;
-using static Iced.Intel.ExtendedRegisters;
+using static Iced.Intel.AssemblerRegisters;
 
 namespace Iced.Intel
 {
@@ -9,7 +9,7 @@ namespace Iced.Intel
 	public static class ExtendedEncoderPlay {
 		public static void Play() {
 
-			var c = ExtendedEncoder.Create(64, new MyCodeWriter());
+			var c = Assembler.Create(64, new MyCodeWriter());
 
 			var label1 = c.CreateLabel();
 						
@@ -21,7 +21,7 @@ namespace Iced.Intel
 			c.mov(rax, rdx);
 			c.syscall();
 			
-			c.label(label1);
+			c.Label(label1);
 			c.ret();
 
 			var result = c.Encode();

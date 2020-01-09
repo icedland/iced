@@ -5,15 +5,15 @@ using System.Text;
 using Iced.Intel.BlockEncoderInternal;
 
 namespace Iced.Intel {
-	public sealed partial class ExtendedEncoder {
+	public sealed partial class Assembler {
 
 		readonly CodeWriter _writer;
-		ulong _internalRip;
+		ulong _currentLabelId;
 		Label _label;
 		readonly List<Label> _labels;
 		readonly List<Instruction> _instructions;
 
-		private ExtendedEncoder(CodeWriter writer, int bitness) {
+		private Assembler(CodeWriter writer, int bitness) {
 			Debug.Assert(bitness == 16 || bitness == 32 || bitness == 64);
 			if (writer is null)
 				ThrowHelper.ThrowArgumentNullException_writer();
@@ -23,7 +23,7 @@ namespace Iced.Intel {
 			_instructions = new List<Instruction>();
 			_label = CreateLabel();
 			PreferVex = true;
-			PreferBranchNear = true;
+			PreferBranchShort = true;
 		}
 		
 		public ulong BaseRip { get; set; }
@@ -32,36 +32,36 @@ namespace Iced.Intel {
 		
 		public bool PreferVex { get; set; }
 		
-		public bool PreferBranchNear { get; set; }
+		public bool PreferBranchShort { get; set; }
 
-		public static ExtendedEncoder Create(int bitness, CodeWriter writer) {
+		public static Assembler Create(int bitness, CodeWriter writer) {
 			if (writer == null) throw new ArgumentNullException(nameof(writer));
 			switch (bitness) {
 			case 16:
 			case 32:
 			case 64:
-				return new ExtendedEncoder(writer, bitness);
+				return new Assembler(writer, bitness);
 			default:
 				throw new ArgumentOutOfRangeException(nameof(bitness));
 			}
 		}
 
 		public Label CreateLabel(string name = null) {
-			_internalRip++;
-			var label = new Label(name, _internalRip);
+			_currentLabelId++;
+			var label = new Label(name, _currentLabelId);
 			_labels.Add(label);
 			return label;
 		}
 
 		public Label CurrentLabel => _label;
 
-		public void label(Label label) {
+		public void Label(Label label) {
 			if (label.IsEmpty) throw new ArgumentException($"Invalid label. Must be created via {nameof(CreateLabel)}");
 			_label = label;
 		}
 
 		public void AddInstruction(Instruction instruction) {
-			instruction.IP = _label.RIP;
+			instruction.IP = _label.Id;
 			_instructions.Add(instruction);
 			_label = default;
 		}

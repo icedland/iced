@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using Generator.Documentation.CSharp;
 using Generator.Encoder;
@@ -12,34 +10,34 @@ using Generator.Enums;
 using Generator.Enums.Encoder;
 using Generator.IO;
 
-namespace Generator.Extended.CSharp {
+namespace Generator.Assembler.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.Encoder)]
-	sealed class CSharpExtendedSyntaxGenerator : ExtendedSyntaxGenerator {
+	sealed class CSharpAssemblerSyntaxGenerator : AssemblerSyntaxGenerator {
 		readonly GeneratorOptions _generatorOptions;
 		readonly CSharpDocCommentWriter docWriter;
 
-		public CSharpExtendedSyntaxGenerator(GeneratorOptions generatorOptions) {
+		public CSharpAssemblerSyntaxGenerator(GeneratorOptions generatorOptions) {
 			Converter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(Converter);
 			_generatorOptions = generatorOptions;
 		}
 
 		protected override void GenerateRegisters(EnumType registers) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(_generatorOptions, CSharpConstants.IcedNamespace), "Extended", "ExtendedRegisters.g.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(_generatorOptions, CSharpConstants.IcedNamespace), "Assembler", "AssemblerRegisters.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				using (writer.Indent()) {
-					writer.WriteLine("public static partial class ExtendedRegisters {");
+					writer.WriteLine("public static partial class AssemblerRegisters {");
 					using (writer.Indent()) {
 						foreach (var register in registers.Values) {
 							if (register.Value == 0) {
 								continue;
 							}
 							var name = register.Name(Converter);
-							writer.WriteLine($"public static readonly ExtendedRegister {name.ToLowerInvariant()} = Register.{name};");
+							writer.WriteLine($"public static readonly AssemblerRegister {name.ToLowerInvariant()} = Register.{name};");
 						}
 					}
 					writer.WriteLine("}");
@@ -51,14 +49,14 @@ namespace Generator.Extended.CSharp {
 
 		protected override void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
 
-			var filename = Path.Combine(CSharpConstants.GetDirectory(_generatorOptions, CSharpConstants.IcedNamespace), "Extended", "ExtendedEncoder.g.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(_generatorOptions, CSharpConstants.IcedNamespace), "Assembler", "Assembler.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				using (writer.Indent()) {
 					writer.WriteLine("using System;");
-					writer.WriteLine("public sealed partial class ExtendedEncoder {");
+					writer.WriteLine("public sealed partial class Assembler {");
 					using (writer.Indent()) {
 
 						var renderArgs = new List<RenderArg>();
@@ -95,13 +93,13 @@ namespace Generator.Extended.CSharp {
 									if (rmArgIndex < 0) {
 										rmArgIndex = i;
 									}
-									argType = "ExtendedMemoryOperand";
+									argType = "AssemblerMemoryOperand";
 									break;
 								case ArgKind.Memory:
 									if (rmArgIndex < 0) {
 										rmArgIndex = i;
 									}
-									argType = "ExtendedMemoryOperand";
+									argType = "AssemblerMemoryOperand";
 									break;
 								case ArgKind.Immediate:
 									argName = $"imm";
@@ -122,10 +120,13 @@ namespace Generator.Extended.CSharp {
 
 							// Write documentation
 							var methodDoc = new StringBuilder();
-							methodDoc.Append($"{group.Name} instruction.#(p:)#");
-							foreach (var code in group.Items) {
-								if (!string.IsNullOrEmpty(code.Code.Documentation)) {
-									methodDoc.Append(code.Code.Documentation);	
+							methodDoc.Append($"{group.Name} instruction.");
+							foreach (var groupedItems in group.GroupedItems) {
+								foreach (var code in groupedItems.Value) {
+									if (!string.IsNullOrEmpty(code.Code.Documentation)) {
+										methodDoc.Append("#(p:)##(p:)#");
+										methodDoc.Append(code.Code.Documentation);	
+									}
 								}
 							}
 							docWriter.WriteSummary(writer, methodDoc.ToString(), "");
@@ -157,7 +158,7 @@ namespace Generator.Extended.CSharp {
 									writer.Write(", ");
 									writer.Write(renderArg.Name);
 									if (renderArg.Kind == ArgKind.Branch) {
-										writer.Write(".RIP");
+										writer.Write(".Id");
 									}
 								}
 
@@ -250,10 +251,10 @@ namespace Generator.Extended.CSharp {
 					}
 				}
 					break;
-				case GroupKind.BranchNear: 
+				case GroupKind.BranchShort: 
 				case GroupKind.BranchFar: {
-					if (GroupKind.BranchNear == groupedItems.Key && i + 1 < listGroupedItems.Count) {
-						writer.WriteLine($"if (PreferBranchNear) {{");
+					if (GroupKind.BranchShort == groupedItems.Key && i + 1 < listGroupedItems.Count) {
+						writer.WriteLine($"if (PreferBranchShort) {{");
 						indenter = writer.Indent();
 						hasIf = true;
 					}
@@ -449,17 +450,17 @@ namespace Generator.Extended.CSharp {
 			case CommonOpKind.Ib16:
 			case CommonOpKind.Ib32:
 			case CommonOpKind.Ib64:
-				return $"(uint){regName} <= byte.MaxValue";			
+				return $"{regName} >= sbyte.MinValue && {regName} <= byte.MaxValue";			
 			case CommonOpKind.VK:
 			case CommonOpKind.HK:
 			case CommonOpKind.RK:
 				return $"{regName}.IsK()";
 			case CommonOpKind.Cd:
-				return $"{regName}.IsCr()";
+				return $"{regName}.IsCR()";
 			case CommonOpKind.Dd:
-				return $"{regName}.IsDr()";
+				return $"{regName}.IsDR()";
 			case CommonOpKind.Td:
-				return $"{regName}.IsTr()";
+				return $"{regName}.IsTR()";
 			case CommonOpKind.Is4X:
 			case CommonOpKind.Is5X:
 			case CommonOpKind.VX:
@@ -487,7 +488,7 @@ namespace Generator.Extended.CSharp {
 			case CommonOpKind.M:
 			case CommonOpKind.VM32X:
 			case CommonOpKind.VM64X:
-				return isMemory ? $"{regName}.Size == MemoryOperandSize.DQwordPtr" : $"{regName}.IsXMM()";
+				return isMemory ? $"{regName}.Size == MemoryOperandSize.OwordPtr" : $"{regName}.IsXMM()";
 			case CommonOpKind.WY:
 			case CommonOpKind.VM32Y:
 			case CommonOpKind.VM64Y:

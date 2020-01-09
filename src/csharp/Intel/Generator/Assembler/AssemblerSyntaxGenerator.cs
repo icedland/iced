@@ -10,8 +10,8 @@ using Generator.Enums;
 using Generator.Enums.Encoder;
 using Generator.IO;
 
-namespace Generator.Extended {
-	abstract class ExtendedSyntaxGenerator {
+namespace Generator.Assembler {
+	abstract class AssemblerSyntaxGenerator {
 		Dictionary<GroupKey, OpCodeInfoGroup> _groups;
 
 		static readonly HashSet<Code> DiscardOpCodes = new HashSet<Code>() {
@@ -232,7 +232,7 @@ namespace Generator.Extended {
 					case CommonOpKind.dJb:
 					case CommonOpKind.qJb:
 						argKind = ArgKind.Branch;
-						groupKind = GroupKind.BranchNear;
+						groupKind = GroupKind.BranchShort;
 						break;
 					
 					case CommonOpKind.Imm1:
@@ -355,7 +355,7 @@ namespace Generator.Extended {
 			ImmediateBit1,
 			ImmediateBits2,
 			ImmediateByte,
-			BranchNear,
+			BranchShort,
 			BranchFar,
 		}
 
@@ -587,7 +587,7 @@ namespace Generator.Extended {
 				if (group.ItemsWithImmediateByte == null) group.ItemsWithImmediateByte = new List<OpCodeInfo>();
 				group.ItemsWithImmediateByte.Add(code);
 				break;
-			case GroupKind.BranchNear:
+			case GroupKind.BranchShort:
 				group.IsBranch = true;
 				if (group.ItemsWithBranchNear == null) group.ItemsWithBranchNear = new List<OpCodeInfo>();
 				group.ItemsWithBranchNear.Add(code);
@@ -768,7 +768,7 @@ namespace Generator.Extended {
 						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.ImmediateByte, ItemsWithImmediateByte);
 					}
 					if (ItemsWithBranchNear != null) {
-						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.BranchNear, ItemsWithBranchNear);
+						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.BranchShort, ItemsWithBranchNear);
 					}
 					if (ItemsWithBranchFar != null) {
 						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.BranchFar, ItemsWithBranchFar);

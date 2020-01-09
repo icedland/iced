@@ -206,25 +206,25 @@ namespace Iced.Intel {
 		public static bool IsK(this Register register) => Register.K0 <= register && register <= Register.K7;
 
 		/// <summary>
-		/// Check if it is a CR0-CR7 register.
+		/// Check if it is a CR0-CR15 register.
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static bool IsCr(this Register register) => (Register.CR0 <= register && register <= Register.CR7);
+		public static bool IsCR(this Register register) => (Register.CR0 <= register && register <= Register.CR15);
 		
 		/// <summary>
 		/// Check if it is a DR0-DR15 register.
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static bool IsDr(this Register register) => (Register.DR0 <= register && register <= Register.DR15);
+		public static bool IsDR(this Register register) => (Register.DR0 <= register && register <= Register.DR15);
 
 		/// <summary>
 		/// Check if it is a TR0-TR7 register.
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public static bool IsTr(this Register register) => (Register.TR0 <= register && register <= Register.TR7);
+		public static bool IsTR(this Register register) => (Register.TR0 <= register && register <= Register.TR7);
 		
 		/// <summary>
 		/// Check if it is a ST0-ST7 register.
